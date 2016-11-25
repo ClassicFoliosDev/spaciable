@@ -1,10 +1,4 @@
 GIT
-  remote: https://github.com/Alliants/healthcheck.git
-  revision: 2e39a9e42cd30987ce4aedd0202797e15707ded9
-  specs:
-    healthcheck (2.0.0)
-
-GIT
   remote: https://github.com/Alliants/livingstyleguide.git
   revision: 2abb140ac3a9e6e69266847d30912513663f08f0
   branch: rails_5
@@ -371,7 +365,6 @@ DEPENDENCIES
   guard
   guard-rake
   guard-sass
-  healthcheck!
   jquery-rails
   launchy
   listen (~> 3.0.5)

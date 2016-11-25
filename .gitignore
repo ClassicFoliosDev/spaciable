@@ -32,3 +32,8 @@ spec/examples.txt
 
 # Test coverage
 /coverage
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
