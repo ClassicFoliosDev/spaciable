@@ -1,0 +1,15 @@
+#!/bin/bash
+
+branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
+
+echo "Pushing your local '$branch' branch to the remote 'qa' branch"
+
+echo
+git push origin $branch:qa
+echo
+
+echo "Once codeship has successfully run the tests for this branch it will be deployed to the qa_check environment"
+
+echo "Go to https://app.codeship.com/projects/187332 to check the status."
+
+echo "Visit to http://hoozzi-qa.alliants.net to see your changes once deployed."
