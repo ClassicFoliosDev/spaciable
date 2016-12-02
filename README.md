@@ -56,17 +56,13 @@ To stop guard type `exit`.
 
 Make sure the QA environment is clear for you to use first, ask in slack.
 
-Then push your branch up to the `qa` branch:
-
-```
-$ git push origin your-branch-name:qa
-```
+Run `bin/qa_check` and your branch will be pushed up to the `qa` branch (`$ git push origin your-branch-name:qa` essentially).
 
 Codeship will run the tests on this branch and then deploy your branch to the qa environment for you. You can access the QA environment at: [hoozzi-qa.alliants.net](http://hoozzi-qa.alliants.net).
 
 ### Deploy to Staging
 
-Before deploying to production, the changes should be approved by the product owner first. The staging environment is where changes awaiting approval can be demo'ed to the product owner.
+Before deploying to production, the changes should be approved by the product owner first. The staging environment is where changes awaiting approval can be demoed to the product owner.
 
 Any commits merged into the `master` branch will be deployed to the staging environment by codeship, once the automated tests have passed.
 
@@ -75,21 +71,31 @@ The staging environment can be accessed at: [hoozzi.alliants.net](hoozzi.alliant
 
 ### Deploy to Production Environment
 
-To deploy to **production** you need to tag a commit with a release:
+To deploy to **production** you need to tag a commit with a release.
+
+Firstget a list of existing tags:
 
 ```
-$ git fetch
-$ git checkout master
-$ git tag 'release-0.1'
-$ git push --tags
-```
-
-To get a list of existing tags:
-
-```
+$ git fetch --tags
 $ git tag --list
 ```
 
+Set your git working tree to the commit you want to be deployed:
+
+```
+$ git checkout master
+$ git reset -hard origin/master
+```
+
+Then add a tag for the next incremented release:
+
+```
+$ git checkout master
+$ git tag 'release-0.2'
+$ git push --tags
+```
+
+Codeship will run the tests for this commit and deploy this code to the production environment if successful.
 The alternative url for hoozzi production is: [hoozzi-prod.alliants.net](http://hoozzi-prod.alliants.net).
 
 ## Manual Deployment
