@@ -1,7 +1,7 @@
 @include media($tablet-landscape-down) {
 
-  html,
-  body {
+  html.hoozzi,
+  html.hoozzi body {
     height: 100%;
     position: relative;
     overflow: hidden;
@@ -10,8 +10,8 @@
 }
 
 
-html,
-body {
+html.hoozzi,
+html.hoozzi body {
   background-color: $ui-light-grey;
   
   @include media($tablet-landscape-up) {
@@ -117,6 +117,13 @@ body {
 
 .row-item {
   @include span-columns(12 of 12);
+
+  @include media($tablet-landscape-down) {
+    @include clearfix();
+    @include omega();
+    margin-bottom: $spacing-small;
+    clear: both;
+  }
 }
 
 .row-item.half {
@@ -126,5 +133,15 @@ body {
 
   @include media($tablet-landscape-up) {
     @include span-columns(6 of 12);
+  }
+}
+
+.row-item.third {
+  @include media($tablet-landscape-down) {
+    @include span-columns(12 of 12);
+  }
+
+  @include media($tablet-landscape-up) {
+    @include span-columns(4 of 12);
   }
 }

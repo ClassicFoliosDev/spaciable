@@ -1,0 +1,196 @@
+$input-padding: $spacing-small;
+$input-margin: $spacing-small;
+$input-border-color: $ui-grey;
+$input-border-color-active: $ui-dark-grey;
+$input-font-size: $base-font-size;
+$input-line-height: $base-font-line-height;
+$input-inline-error-font-color: $primary-red;
+$input-small-font-size: 10px;
+
+$field-invalid-border-color: $primary-red;
+$field-invalid-font-color: $primary-red;
+
+$label-margin: $spacing-small;
+$label-font-size: 14px;
+$label-font-weight: bold;
+
+$fieldset-padding: $spacing-medium;
+$fieldset-bg-color: $ui-white;
+
+$form-action-footer-bg-color: $ui-white;
+
+$submission-error-font-color: $ui-white;
+$submission-error-bg-color: $primary-red;
+
+
+// INPUTS
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"] {
+  display: block;
+  padding: $input-padding;
+  margin-bottom: $input-margin;
+  border-radius: $border-radius;
+  border: $border-size solid $input-border-color;
+  font-family: $base-font-family;
+  font-size: $input-font-size;
+  width: 100%;
+
+  &:active,
+  &:focus {
+    outline: none;
+    border: $border-size solid $input-border-color-active;
+  }
+}
+
+label {
+  display: block;
+  font-size: $label-font-size;
+  font-weight: $label-font-weight;
+  margin-bottom: $label-margin;
+}
+
+
+// SELECTS
+
+.ui-selectmenu-button {
+  width: 100% !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  border: $border-size solid $input-border-color !important;
+  border-radius: $border-radius !important;
+
+  &:active,
+  &:focus {
+    outline: none;
+    border: $border-size solid $input-border-color-active !important;
+  }
+
+  &.ui-corner-top {
+    border-radius: $border-radius $border-radius 0 0 !important;
+  }
+
+  .ui-selectmenu-text {
+    padding: $spacing-small !important;
+  }
+}
+
+.ui-selectmenu-menu {
+
+  .ui-menu {
+    border-width: 0px $border-size $border-size $border-size !important;
+    border-style: solid !important;
+    border-color: $input-border-color-active !important;
+    border-radius: 0 0 $border-radius $border-radius !important;
+  }
+
+  .ui-menu-item {
+    border: none !important;
+    padding: ($spacing-small / 2) $spacing-small !important;
+    border: none !important;
+
+    &.ui-state-focus {
+      background: $input-border-color !important;
+      margin: 0 !important;
+    }
+  }
+}
+
+// MAIN FORM STYLING
+
+form {
+  clear: both;
+}
+
+fieldset {
+  background-color: $fieldset-bg-color;
+  border-radius: $border-radius;
+  padding: $fieldset-padding;
+  border: none;
+}
+
+.form-actions-footer-container {
+  @include media($tablet-landscape-up) {
+    @include span-columns(13 of 16, block-collapse);
+    @include clearfix();
+    clear: both;
+    position: fixed;
+    bottom: 0px;
+    margin-left: -$spacing-large;
+    border-top: $border-size solid $ui-grey;
+  }
+}
+
+.form-actions-footer {
+  @include clearfix();
+  background-color: $form-action-footer-bg-color;
+  padding: $spacing-small $spacing-large;
+
+  button {
+    display: inline;
+  }
+
+  .btn-form-submit {
+    float: right;
+  }
+}
+
+// VALIDATION
+
+.input {
+  position: relative;
+
+  &.field_with_errors {
+    input {
+      height: 41px;
+      border: 2px solid $field-invalid-border-color;
+      color: $field-invalid-font-color;
+    }
+
+    label {
+      .required {
+        color: $field-invalid-font-color;
+      }
+    }
+  }
+
+  label {
+    .required {
+      font-size: $input-small-font-size;
+      font-weight: normal;
+      color: $ui-dark-grey;
+      position: absolute;
+      right: 13px;
+      top: 42px;
+    }
+  }
+
+  .error {
+    font-size: $input-small-font-size;
+    color: $input-inline-error-font-color;
+    text-transform: capitalize;
+    margin-top: -5px;
+    display: block;
+  }
+}
+
+.submission-errors {
+
+  .fa {
+    margin-right: $spacing-small;
+  }
+
+  ul {
+    background-color: $submission-error-bg-color;
+    border-radius: $border-radius;
+
+  }
+
+  li {
+    list-style-type: none;
+    color: $submission-error-font-color;
+    padding: $spacing-small;
+  }
+}

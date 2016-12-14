@@ -1,0 +1,58 @@
+# Forms
+
+## Inputs
+
+Inputs should be generated using the Rails simple_form gem. Using the `form.input` method gives the following markup.
+
+All form inputs within the main area should be grouped in a fieldset.
+
+```
+<fieldset>
+  <div class="input string developer_company_name">
+    <label class="string required" for="developer_company_name">
+      Example field
+    </label>
+    <input class="string required" type="text" value="Brilliant Homes" name="developer[company_name]" id="developer_company_name">
+  </div>
+
+  <div class="input string required developer_company_name">
+    <label class="string required" for="developer_company_name">
+      <span class="required" title="required">Required</span> 
+      Example required field
+    </label>
+    <input class="string required" type="text" value="Brilliant Homes" name="developer[company_name]" id="developer_company_name">
+  </div>
+</fieldset>
+```
+
+Validation is handled via rails and simple forms.
+
+```
+<div class="input string required field_with_errors developer_company_name">
+  <label class="string required" for="developer_company_name">
+    <span class="required" title="required">Required</span> 
+    Example invalid field
+  </label>
+  <input class="string required" type="text" name="developer[company_name]" id="developer_company_name">
+</div>
+```
+
+## Selects
+
+Selects are created using jQuery UI's `selectMenu`. While this isn't currently working in the styleguide, using a standard HTML select will style the select menu appropriately.
+
+```
+<select>
+  <option>Example Option 1</option>
+  <option>Example Option 2</option>
+  <option>Example Option 3</option>
+  <option>Example Option 4</option>
+  <option>Example Option 5</option>
+</select>
+
+@javascript {
+  $(document).ready(function() {
+    $("select").selectmenu();
+  });
+}
+```

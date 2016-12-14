@@ -24,7 +24,7 @@
         <td><a href="<%= document.file.url %>" target="_blank"><%= document.to_s.truncate(50) %></a></td>
         <td><%= link_to t("views.show"), document %></td>
         <td><%= link_to t("views.edit"), edit_document_path(document) %></td>
-        <td><%= link_to t("views.destroy"), document, method: :delete, data: { confirm: t("views.sure") } %></td>
+        <td><%= link_to t("views.destroy"), document, method: :delete, data: { confirm: t("views.confirm_text") } %></td>
       </tr>
     <% end %>
   </tbody>

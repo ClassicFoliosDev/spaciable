@@ -81,7 +81,6 @@ en:
     confirm_title: "Confirm delete"
     confirm_text: "Are you sure you wish to delete %{type}"
 
-
   pagination:
     per_page_10: "10"
     per_page_25: "25"
@@ -100,6 +99,9 @@ en:
           home: "Home"
     navigation:
       log_out: "Log out"
+
+  forms:
+    required: "Required"
 
   dashboard:
     header: "Dashboard title for Hoozzi"

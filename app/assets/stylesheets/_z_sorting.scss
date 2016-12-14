@@ -1,5 +1,12 @@
-.header-container {
-  z-index: 1;
+
+.breadcrumb-container,
+.header-container,
+.form-actions-footer-container {
+  z-index: 5;
+}
+
+.field {
+  z-index: 2;
 }
 
 .navbar-trigger-label {

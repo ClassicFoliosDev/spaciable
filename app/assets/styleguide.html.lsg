@@ -8,6 +8,8 @@
 @import stylesheets/_grid.lsg
 @import stylesheets/_typography.lsg
 @import stylesheets/_buttons.lsg
+@import stylesheets/_forms.lsg
+
 @import stylesheets/components/_section.lsg
 @import stylesheets/components/_record_list.lsg
 
@@ -26,9 +28,6 @@
   <div class="my-header" style="margin-top: 150px; background-color: #eee; text-align: center; padding: 20px">
     <p style="font-size: 10px; color: #ccc">Built and maintained by Alliants Ltd.</p>
     <style>
-    body {
-      overflow: scroll !important
-    }
     .lsg-logo,
     #grid-breakpoints-1 .lsg-code-block,
     #grid-breakpoints-2 .lsg-code-block,
@@ -59,4 +58,6 @@
     </style>
   </div>
   <script src="https://use.fontawesome.com/4b512ba9f1.js"></script>
+  <script src="https://code.jquery.com/jquery-git.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 }
