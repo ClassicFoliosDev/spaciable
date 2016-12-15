@@ -4,6 +4,18 @@ $login-title-right-color: $primary-red;
 
 .admin-login-view {
   @include grad-orange-pink(180deg);
+
+  @include media($tablet-landscape-down) {
+    main {
+      padding: 0;
+      height: 100%;
+    }
+
+    .main-container {
+      padding-top: 0;
+      height: 100%;
+    }
+  }
 }
 
 .admin-login-panel {
@@ -16,8 +28,19 @@ $login-title-right-color: $primary-red;
 }
 
 .admin-login-form {
-  background-color: $login-form-bg-color;
-  border-radius: $border-radius;
-  overflow: hidden;
-  padding: $spacing-medium;
+
+  .logo {
+    display: block;
+    width: 70%;
+    max-width: $maximum-logo-size;
+    margin: $spacing-large auto $spacing-small;
+  }
+
+  form {
+    margin-top: $spacing-large;
+    background-color: $login-form-bg-color;
+    border-radius: $border-radius;
+    overflow: hidden;
+    padding: $spacing-medium;   
+  }
 }

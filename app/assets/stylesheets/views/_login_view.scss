@@ -2,17 +2,51 @@ $login-form-bg-color: rgba($ui-white, 0.9);
 $login-title-left-color: $primary-green;
 $login-title-right-color: $primary-red;
 
+$maximum-logo-size: 400px;
+
 .login-view {
   // background image property is set with an inline style on the element
   background-size: cover;
-  width: 65%;
-  margin: 0 auto;
+
+  @include media($tablet-landscape-down) {
+    main {
+      padding: 0;
+      height: 100%;
+    }
+
+    .main-container {
+      padding-top: 0;
+      height: 100%;
+    }
+
+    form {
+      margin-top: $spacing-large;
+      padding: $spacing-medium;
+      background-color: $ui-white;
+      border-radius: $border-radius;
+    }
+  }
+
+
+  @include media($tablet-landscape-up) {
+    width: 65%;
+    margin: 0 auto;
+  }
 }
 
 .login-panel {
   @include display(flex);
-  border-radius: $border-radius;
   overflow: hidden;
+
+  @include media($tablet-landscape-down) {
+    @include flex-direction(column);
+    height: 100%;
+  }
+
+  @include media($tablet-landscape-up) {
+    @include flex-direction(row);
+    border-radius: $border-radius;
+  }
 
   background-color: $login-form-bg-color;
 }
@@ -20,16 +54,23 @@ $login-title-right-color: $primary-red;
 .login-form {
   @include grad-orange-pink();
   @include flex(1);
+
   flex-basis: 1;
   padding: $spacing-medium;
 
-  img.logo {
+  .logo {
+    display: block;
     width: 70%;
-    margin: $spacing-large 15% $spacing-small;
+    max-width: $maximum-logo-size;
+    margin: $spacing-large auto $spacing-small;
   }
 }
 
 .login-blurb {
+  @include media($tablet-landscape-down) {
+    display: none;
+  }
+
   @include flex(2);
   flex-basis: 2;
   padding: ($spacing-large * 2);
