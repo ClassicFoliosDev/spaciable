@@ -34,6 +34,10 @@
 # ===========================================================
 
 en:
+  date:
+    formats:
+      digits: "%d.%m.%Y"
+
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
   client_admin: "Developer Admin"
@@ -99,6 +103,10 @@ en:
           home: "Home"
     navigation:
       log_out: "Log out"
+      developers: "Developers"
+      documents: "Documents"
+      users: "Users"
+      profile: "Profile"
 
   forms:
     required: "Required"
@@ -120,7 +128,7 @@ en:
 
   home:
     show:
-      home: "Home"
+     home: "Home"
 
   homeowner:
     dashboard:
@@ -131,8 +139,27 @@ en:
     add: "Add development for"
 
   developers:
+    archive:
+      success: "%{developer_name} was deleted successfully"
+    create:
+      success: "%{developer_name} was created successfully"
+    edit:
+      title: "Edit %{developer_name}"
+      show: "Show"
+      back: "Back"
+    form:
+      submit: "Submit"
     index:
       add: "Add Developer"
+      actions: "Actions"
+      destroy: "Delete"
+      show: "Show"
+      title: "Developers"
+    new:
+      title: "New Developer"
+      back: "Back"
+    update:
+      success: "%{developer_name} was updated successfully"
 
   devise:
     admin:

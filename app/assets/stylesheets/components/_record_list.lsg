@@ -67,7 +67,7 @@ Elements within `.record-list-item-content` are layed out using Flexbox.
 
 ``` 
 
-Specific layouts for elements within `.record-list-item-content` should be set by adding a class to the `<ul>` element. These should be defined in _record_list.scss, similar to the notifications list layout:
+Specific layouts for elements within `.record-list-item-content` should be set by adding a class to the `<ul>` element. These should be defined in `_record_list.scss`, similar to the notifications list layout:
 
 ``` html
 .notifications {

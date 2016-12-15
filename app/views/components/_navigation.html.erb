@@ -6,14 +6,14 @@
   <nav class="navbar-menu">
     <% if current_user %>
       <%= navigation_link(admin_dashboard_path, "tachometer", t("dashboard.title"), "navbar-link") %>
-      <%= navigation_link(developers_path, "vcard", Developer.model_name.human.pluralize, "navbar-link") %>
-      <%= navigation_link(documents_path, "file", Document.model_name.human.pluralize, "navbar-link") %>
+      <%= navigation_link(developers_path, "vcard", t(".developers"), "navbar-link") %>
+      <%= navigation_link(documents_path, "file", t(".documents"), "navbar-link") %>
 
       <% unless current_user.owner? %>
-        <%= navigation_link(users_path, "users", User.model_name.human.pluralize, "navbar-link") %>
+        <%= navigation_link(users_path, "users", t(".users"), "navbar-link") %>
       <% end %>
 
-      <%= navigation_link(user_path(current_user), "user", t("profiles.title"), "navbar-link") %>
+      <%= navigation_link(user_path(current_user), "user", t(".profile"), "navbar-link") %>
 
       <div class="navbar-item">
         <%= link_to destroy_user_session_path, method: :delete, class: "navbar-link" do %>

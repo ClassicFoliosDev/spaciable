@@ -60,7 +60,7 @@ button {
 @include media($tablet-landscape-down) {
   i + .btn-label {
     display: none;
-  }  
+  }
 }
 
 .btn-primary {
@@ -72,5 +72,4 @@ button {
     background-color: $primary-button-bg-color-hover !important;
     border: 1px solid $primary-button-border-color-hover !important;
   }
-
 }

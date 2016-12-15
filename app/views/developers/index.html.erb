@@ -1,43 +1,36 @@
 <% breadcrumb :developers %>
 
-<h1><%= Developer.model_name.human.pluralize %></h1>
-
-<table>
-  <thead>
-    <tr>
-      <th><%= Developer.human_attribute_name("company_name") %></th>
-      <th><%= Developer.human_attribute_name("head_office_address") %></th>
-      <th><%= Developer.human_attribute_name("city") %></th>
-      <th><%= Developer.human_attribute_name("county") %></th>
-      <th><%= Developer.human_attribute_name("postcode") %></th>
-      <th><%= Developer.human_attribute_name("email") %></th>
-      <th><%= Developer.human_attribute_name("contact_number") %></th>
-      <th colspan="4"><%= t("views.actions") %></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @developers.each do |developer| %>
-      <%= content_tag(:tr, data_to_delete(developer)) do %>
-
-        <td><%= developer.company_name %></td>
-        <td><%= developer.head_office_address %></td>
-        <td><%= developer.city %></td>
-        <td><%= developer.county %></td>
-        <td><%= developer.postcode %></td>
-        <td><%= developer.email %></td>
-        <td><%= developer.contact_number %></td>
-        <td><%= link_to Division.model_name.human.pluralize, developer_divisions_path(developer) %></td>
-        <td><%= link_to Development.model_name.human.pluralize, developer_developments_path(developer) %></td>
-        <td><%= link_to t("views.show"), developer %></td>
-        <td><%= link_to t("views.edit"), edit_developer_path(developer) %></td>
-        <td><%= button_tag "", name: "delete", 'aria-label': t("views.destroy"), class: "archive-btn fa fa-trash"%></td>
-      <% end %>
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= t(".title") %>
+  </h3>
+  <div class="section-actions">
+    <%= link_to new_developer_path, class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
-<%= link_to t(".add"), new_developer_path %>
+<div class="record-list">
+  <ul class="developers">
+    <% @developers.each do |developer| %>
+      <li class="record-list-item">
+        <div class="record-list-item-actions">
+          <%= edit_btn edit_developer_path(developer) %>
+          <%= delete_btn developer %>
+        </div>
+        <div class="record-list-item-content">
+           <%= link_to developer.company_name, edit_developer_path(developer), class: "developer-name" %>
+           <span class="developer-updated-timestamp">
+             <%= l developer.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
 <div class="paging">
   <%= render 'components/page_size' %>

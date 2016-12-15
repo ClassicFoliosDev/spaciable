@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class Developer < ApplicationRecord
+  acts_as_paranoid
+
   has_many :divisions, dependent: :destroy
   has_many :developments, dependent: :destroy
 

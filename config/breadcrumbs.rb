@@ -9,13 +9,15 @@ crumb :developers do
 end
 
 crumb :developer do |developer|
+  # Replace this with a tabbed view of divisions / developments for the developer,
+  # as there is no show developer page to visit.
   link developer.company_name, developer_path(developer)
   parent :developers
 end
 
 crumb :developer_edit do |developer|
   link t("views.edit"), developers_path(developer)
-  parent :developer, developer
+  parent :developers
 end
 
 crumb :developer_new do

@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     resources :plots
   end
 
-  resources :developers do
+  resources :developers, except: :show do
     resources :divisions
     resources :developments, controller: 'developers/developments'
   end

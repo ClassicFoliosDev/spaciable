@@ -19,11 +19,17 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :company_name %>
+        <%= f.input :about %>
       </fieldset>
     </div>
     <div class="row-item third">
       <fieldset>
-        <%= f.input :head_office_address %>
+        <div class="input string optional">
+          <label class="string optional">Head Office Address</label>
+          <%= f.input :postal_name, label: false, placeholder: "Postal Numnber / Name" %>
+          <%= f.input :building_name, label: false, placeholder: "Building Name" %>
+          <%= f.input :road_name, label: false, placeholder: "Road Name" %>
+        </div>
         <%= f.input :city %>
         <%= f.input :county %>
         <%= f.input :postcode %>
@@ -33,23 +39,14 @@
       <fieldset>
         <%= f.input :email %>
         <%= f.input :contact_number %>
-
-        <div class="field">
-          <label>Example Select</label>
-          <select>
-            <option>Option 1</option>
-            <option>Option 2</option>
-            <option>Option 3</option>
-            <option>Option 4</option>
-          </select>
-        </div>
       </fieldset>
     </div>
   </div>
+
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t("views.back"), developers_path, class: "btn" %>
-      <%= f.submit class: "btn-form-submit btn-primary" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>
 <% end %>

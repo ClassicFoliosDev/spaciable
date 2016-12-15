@@ -4,7 +4,7 @@ class DevelopersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @developers = paginate(@developers)
+    @developers = paginate(@developers).order(:company_name)
   end
 
   def new
@@ -13,12 +13,9 @@ class DevelopersController < ApplicationController
   def edit
   end
 
-  def show
-  end
-
   def create
     if @developer.save
-      redirect_to @developer, notice: t("controller.success.create", name: @developer.company_name)
+      redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
       render :new
     end
@@ -26,7 +23,7 @@ class DevelopersController < ApplicationController
 
   def update
     if @developer.update(developer_params)
-      redirect_to @developer, notice: t("controller.success.update", name: @developer.company_name)
+      redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
       render :edit
     end
@@ -34,10 +31,8 @@ class DevelopersController < ApplicationController
 
   def destroy
     @developer.destroy
-    notice = t(
-      "controller.success.destroy",
-      name: @developer.company_name
-    )
+
+    notice = t(".archive.success", developer_name: @developer.company_name)
     redirect_to developers_url, notice: notice
   end
 
@@ -47,12 +42,15 @@ class DevelopersController < ApplicationController
   def developer_params
     params.require(:developer).permit(
       :company_name,
-      :head_office_address,
+      :postal_name,
+      :road_name,
+      :building_name,
       :city,
       :county,
       :postcode,
       :email,
-      :contact_number
+      :contact_number,
+      :about
     )
   end
 end

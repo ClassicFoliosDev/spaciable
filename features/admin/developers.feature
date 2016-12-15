@@ -1,5 +1,7 @@
 Feature: Developers
-  As a....
+  As a CF Admin
+  I want to add developers
+  So that we can invite our clients to use our application
 
   @javascript
   Scenario: Create and delete developer

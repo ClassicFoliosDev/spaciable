@@ -8,8 +8,7 @@ RSpec.describe "Pagination", type: :feature do
     FactoryGirl.create_list(:developer, 11)
     visit "/developers"
 
-    # 11 created, plus one for the header row
-    expect(page.all("tr").count).to eq(12)
+    expect(page.all(".record-list-item").count).to eq(11)
 
     within ".page-sizes" do
       expect(page).to have_link(I18n.t("pagination.per_page_10"), href: "/developers?per=10")
@@ -20,7 +19,7 @@ RSpec.describe "Pagination", type: :feature do
 
     click_on(I18n.t("pagination.per_page_10"))
 
-    expect(page.all("tr").count).to eq(11)
+    expect(page.all(".record-list-item").count).to eq(10)
 
     within ".pagination" do
       expect(page).to have_link("2", href: "/developers?page=2&per=10")

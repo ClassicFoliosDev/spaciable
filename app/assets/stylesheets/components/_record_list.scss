@@ -2,6 +2,9 @@ $list-item-bg-color: $ui-white;
 $list-item-border-color: $ui-grey;
 $list-item-text-color: $font-copy-color;
 $list-item-text-color-secondary: $ui-dark-grey;
+$record-list-title-color: $primary-green;
+$secondary-record-list-item-font-size: 12px;
+$primary-record-list-item-color: $type-grey;
 
 .record-list-item {
   @include clearfix;
@@ -11,6 +14,7 @@ $list-item-text-color-secondary: $ui-dark-grey;
   padding: $spacing-small $spacing-small $spacing-small $spacing-medium ;
   list-style-type: none;
   margin: 0 0 ($spacing-small / 2) 0;
+  clear: both;
 }
 
 .record-list-item-content {
@@ -23,6 +27,12 @@ $list-item-text-color-secondary: $ui-dark-grey;
 
   @include media($tablet-landscape-up) {
     height: 33px;
+  }
+
+  a {
+    font-weight: bold;
+    text-decoration: none;
+    color: $primary-record-list-item-color;
   }
 }
 
@@ -56,8 +66,10 @@ $list-item-text-color-secondary: $ui-dark-grey;
 }
 
 @include media($tablet-landscape-up) {
-  .record-list-item-content > a {
+  .record-list-item-content > a,
+  .record-list-item-content .primary-column a {
     cursor: pointer;
+    line-height: 33px;
 
     &:hover {
       text-decoration: underline;
@@ -68,7 +80,6 @@ $list-item-text-color-secondary: $ui-dark-grey;
 .record-list-item-actions {
   float: right;
 }
-
 
 // Notifications List
 .notifications {

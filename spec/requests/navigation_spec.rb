@@ -19,12 +19,11 @@ RSpec.describe "Navigation", type: :feature do
     developer = create(:developer)
 
     login_as create(:cf_admin)
-    visit "/developers/#{developer.id}"
+    visit "/developers/#{developer.id}/edit"
 
     within ".breadcrumb-container" do
       expect(page).to have_link("Dashboard", href: "/")
       expect(page).to have_link("Developers", href: "/developers")
-      expect(page).to have_text(developer.company_name)
     end
   end
 end

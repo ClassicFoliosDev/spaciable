@@ -25,6 +25,7 @@ $submission-error-bg-color: $primary-red;
 
 // INPUTS
 
+textarea,
 input[type="text"],
 input[type="email"],
 input[type="number"],
@@ -43,6 +44,10 @@ input[type="password"] {
     outline: none;
     border: $border-size solid $input-border-color-active;
   }
+}
+
+textarea {
+  resize: vertical;
 }
 
 label {

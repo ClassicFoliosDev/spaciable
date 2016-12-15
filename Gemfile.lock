@@ -10,6 +10,14 @@ GIT
       thor
       tilt
 
+GIT
+  remote: https://github.com/rubysherpas/paranoia.git
+  revision: d70c4c5a7098d4c8416332489e3f63b0a959ab97
+  branch: rails5
+  specs:
+    paranoia (2.2.0.pre)
+      activerecord (>= 4.0, < 5.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -397,6 +405,7 @@ DEPENDENCIES
   mini_magick
   neat
   newrelic_rpm
+  paranoia!
   pg (~> 0.18)
   poltergeist
   pry-rails

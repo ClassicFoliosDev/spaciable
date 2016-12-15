@@ -55,6 +55,21 @@ debug. For example:
   * save_and_open_page and/or
   * save_and_open_screenshot
 
+Several convenience methods have been added which encapsulate these:
+
+- `html_debug`: this will `sleep` and then run `save_and_open_page`
+- `screenshot`: this will `sleep` and then run `save_and_open_screenshot`
+
+#### Inspector Mode
+
+To use the built in debugging driver for poltergeist invoke cucumber with the environment variable `DEBUG=true`. This will open up a web inspector in your browser where you can browse the current DOM, but I am yet to find this better than `html_debug`, as it is slower and continuing the process after debugging often doesn't work.
+
+If you get unique validation errors when you try and run the tests again it means that the process did not run the after hooks and reset the test database. You can do this manually using this rake task:
+
+```
+$ rails db:test:prepare
+```
+
 #### Debug on command line
 
 It's possible to print output to the command line, but generally doesn't provide useful content. You can try this:
