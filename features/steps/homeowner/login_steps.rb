@@ -33,3 +33,7 @@ end
 Then(/^I should be on the "Hoozzi Home" page$/) do
   expect(current_path).to eq("/")
 end
+
+Then(/^I should be on the "User Login" page$/) do
+  expect(current_path).to eq("/users/sign_in")
+end

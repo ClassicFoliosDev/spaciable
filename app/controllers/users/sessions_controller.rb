@@ -26,9 +26,10 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  def destroy
+    @admin = current_user.cf_admin?
+    super
+  end
 
   # protected
 
@@ -41,5 +42,20 @@ class Users::SessionsController < Devise::SessionsController
 
   def admin_route?
     request.path == "/admin"
+  end
+
+  def respond_to_on_destroy
+    # We actually need to hardcode this as Rails default responder doesn't
+    # support returning empty response on GET request
+    respond_to do |format|
+      format.all { head :no_content }
+      format.any(*navigational_formats) do
+        if @admin
+          redirect_to new_admin_session_path
+        else
+          redirect_to new_user_session_path
+        end
+      end
+    end
   end
 end

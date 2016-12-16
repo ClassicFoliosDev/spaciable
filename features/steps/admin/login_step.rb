@@ -26,3 +26,7 @@ end
 Then(/^I should be on the admin dashboard$/) do
   expect(page).to have_link("Dashboard")
 end
+
+Then(/^I should be on the "Admin Login" page$/) do
+  expect(current_path).to eq("/admin")
+end

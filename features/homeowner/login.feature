@@ -11,4 +11,4 @@ Feature: Homeowner Login
   Scenario: Log out
     Given I am logged in as a homeowner
     When I log out as a homeowner
-    Then I should be on the "Hoozzi Home" page
+    Then I should be on the "User Login" page

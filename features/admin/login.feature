@@ -11,4 +11,4 @@ Feature: Admin Login
   Scenario: Log out
     Given I am logged in as an admin
     When I log out as a an admin
-    Then I should be on the "Hoozzi Home" page
+    Then I should be on the "Admin Login" page

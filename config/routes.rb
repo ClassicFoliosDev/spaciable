@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   devise_scope :user do
-    get '/admin', to: "users/sessions#new"
+    get '/admin', to: "users/sessions#new", as: :new_admin_session
   end
   devise_for :users,
              controllers: {
