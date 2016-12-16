@@ -13,7 +13,7 @@ class Developer < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
 
-  validates :company_name, presence: true
+  validates :company_name, presence: true, uniqueness: true
 
   delegate :to_s, to: :company_name
 

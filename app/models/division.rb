@@ -11,7 +11,7 @@ class Division < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
 
-  validates :division_name, presence: true
+  validates :division_name, presence: true, uniqueness: true
 
   def to_s
     division_name
