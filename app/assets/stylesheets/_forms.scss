@@ -126,6 +126,10 @@ fieldset {
     margin-left: -$spacing-large;
     border-top: $border-size solid $ui-grey;
   }
+
+  @include media($tablet-landscape-up) {
+    @include span-columns(14 of 16, block-collapse);
+  }
 }
 
 .form-actions-footer {
