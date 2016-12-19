@@ -5,7 +5,9 @@ $list-item-text-color-secondary: $ui-dark-grey;
 $record-list-title-color: $primary-green;
 $secondary-record-list-item-font-size: 12px;
 $primary-record-list-item-color: $type-grey;
+$record-line-height: 33px;
 $two-actions-width: 70px;
+$two-actions-one-tab-width: 190px;
 
 .record-list-item {
   @include clearfix;
@@ -29,7 +31,7 @@ $two-actions-width: 70px;
   }
 
   @include media($tablet-landscape-up) {
-    height: 33px;
+    height: $record-line-height;
   }
 
   a {
@@ -52,7 +54,7 @@ $two-actions-width: 70px;
   }
 
   @include media($tablet-landscape-up) {
-    height: 33px;
+    height: $record-line-height;
   }
 
   a {
@@ -83,7 +85,7 @@ $two-actions-width: 70px;
   }
 
   @include media($tablet-landscape-up) {
-    line-height: 33px;
+    line-height: $record-line-height;
 
     .fa {
       line-height: 35px;
@@ -95,7 +97,7 @@ $two-actions-width: 70px;
   .record-list-item-content > a,
   .record-list-item-content .primary-column a {
     cursor: pointer;
-    line-height: 33px;
+    line-height: $record-line-height;
 
     &:hover {
       text-decoration: underline;
