@@ -1,8 +1,14 @@
-<% breadcrumb :development_edit, @development, @developer %>
+<% breadcrumb :developer_development_edit, @development, @developer %>
 
-<h1><%= t("views.edit_name", name: @development.development_name) %></h1>
+<div class="row">
+  <div class="row-item">
+    <div class="section-header">
+      <h3 class="section-title">
+        <%= fa_icon "vcard" %>
+        <%= t(".title", development_name: @development.name) %>
+      </h3>
+    </div>
+  </div>
+</div>
 
-<%= render 'developments/form', parent: @developer, development: @development %>
-
-<%= link_to t("views.show"), developer_development_path(@developer, @development) %> |
-<%= link_to t("views.back"), developer_developments_path(@developer) %>
+<%= render partial: 'developments/form', locals: { parent: @developer, development: @development } %>

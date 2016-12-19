@@ -42,7 +42,7 @@ module Divisions
     # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
-        :development_name,
+        :name,
         :developer_id,
         :division_id,
         :office_address,

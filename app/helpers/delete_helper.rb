@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 module DeleteHelper
-  def data_to_delete(resource)
+  def data_to_delete(resource, path: nil)
     {
       id: resource.id,
-      url: url_for(resource),
+      url: path || url_for(resource),
       name: resource.to_s,
       cancel: t("views.cancel"),
       title: t("views.confirm_title"),

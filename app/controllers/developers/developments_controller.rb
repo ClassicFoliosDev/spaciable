@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 module Developers
   class DevelopmentsController < ApplicationController
+    include PaginationConcern
     load_and_authorize_resource :developer
     load_and_authorize_resource :development, through: [:developer]
 
     def index
+      @developments = paginate(@developments)
     end
 
     def show
@@ -18,7 +20,8 @@ module Developers
 
     def create
       if @development.save
-        redirect_to [@developer, @development], notice: "Development was successfully created."
+        notice = t(".success", development_name: @development.name)
+        redirect_to [@developer, :developments], notice: notice
       else
         render :new
       end
@@ -26,15 +29,18 @@ module Developers
 
     def update
       if @development.update(development_params)
-        redirect_to [@developer, @development], notice: "Development was successfully updated."
+        notice = t(".success", development_name: @development.name)
+        redirect_to [@developer, :developments], notice: notice
       else
         render :edit
       end
     end
 
     def destroy
+      notice = t(".archive.success", development_name: @development.name)
+
       @development.destroy
-      redirect_to [@developer, @developments], notice: "Development was successfully destroyed."
+      redirect_to [@developer, :developments], notice: notice
     end
 
     private
@@ -42,10 +48,12 @@ module Developers
     # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
-        :development_name,
+        :name,
         :developer_id,
         :division_id,
-        :office_address,
+        :postal_name,
+        :building_name,
+        :road_name,
         :city,
         :county,
         :postcode,

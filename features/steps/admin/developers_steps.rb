@@ -19,16 +19,10 @@ end
 When(/^I update the developer$/) do
   find("[data-action='edit']").click
 
-  fill_in "developer_company_name", with: DeveloperFixture.updated_company_name
-  fill_in "developer_postal_name", with: DeveloperFixture.postal_name
-  fill_in "developer_building_name", with: DeveloperFixture.building_name
-  fill_in "developer_road_name", with: DeveloperFixture.road_name
-  fill_in "developer_city", with: DeveloperFixture.city
-  fill_in "developer_county", with: DeveloperFixture.county
-  fill_in "developer_postcode", with: DeveloperFixture.postcode
-  fill_in "developer_email", with: DeveloperFixture.email
-  fill_in "developer_contact_number", with: DeveloperFixture.contact_number
-  fill_in "developer_about", with: DeveloperFixture.about
+  DeveloperFixture.update_attrs.each do |attr, value|
+    fill_in "developer_#{attr}", with: value
+  end
+
   click_on t("developers.form.submit")
 end
 
@@ -41,33 +35,16 @@ Then(/^I should see the updated developer$/) do
   # and on the edit page
   click_on DeveloperFixture.updated_company_name
 
-  [
-    :postal_name,
-    :building_name,
-    :road_name,
-    :city,
-    :county,
-    :postcode,
-    :email,
-    :contact_number,
-    :about
-  ].each do |attr|
-    value = find("[name='developer[#{attr}]']").value
-    expect(value).to eq(DeveloperFixture.send(attr))
+  DeveloperFixture.update_attrs.each do |attr, value|
+    screen_value = find("[name='developer[#{attr}]']").value
+    expect(screen_value).to eq(value)
   end
 end
 
 When(/^I delete the developer$/) do
   click_on t("developers.edit.back")
 
-  # Launches the confirmation dialog
-  btn = find(".archive-btn")
-  # HACK! Can't get around needing this sleep :(
-  sleep 0.5
-  btn.click
-
-  # Click the "real" delete in the confirmation dialog
-  find(".btn-delete").trigger("click")
+  delete_and_confirm!
 end
 
 Then(/^I should see the delete complete successfully$/) do
@@ -78,6 +55,6 @@ Then(/^I should see the delete complete successfully$/) do
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
-    expect(page).to have_no_content DeveloperFixture.company_name
+    expect(page).to have_no_content DeveloperFixture.updated_company_name
   end
 end

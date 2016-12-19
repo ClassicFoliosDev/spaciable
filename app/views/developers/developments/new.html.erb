@@ -3,5 +3,3 @@
 <h1><%= t("views.add_type", type: Development.model_name.human) %></h1>
 
 <%= render 'developments/form', parent: @developer, development: @development %>
-
-<%= link_to t("views.back") , developer_developments_path %>

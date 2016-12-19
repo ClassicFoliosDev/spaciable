@@ -1,52 +1,52 @@
-<%= form_for([parent, development]) do |f| %>
+<%= simple_form_for([parent, development]) do |f| %>
   <% if development.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t("views.need_fix") %><%= pluralize(development.errors.count, "error") %></h2>
-
-      <ul>
-      <% development.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% development.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label Development.human_attribute_name("name") %>
-    <%= f.text_field :development_name %>
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :name %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <div class="input string optional">
+          <label class="string optional">Development Address</label>
+          <%= f.input :postal_name, label: false, placeholder: "Postal Number / Name" %>
+          <%= f.input :building_name, label: false, placeholder: "Building Name" %>
+          <%= f.input :road_name, label: false, placeholder: "Road Name" %>
+        </div>
+        <%= f.input :city %>
+        <%= f.input :county %>
+        <%= f.input :postcode %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :email %>
+        <%= f.input :contact_number %>
+      </fieldset>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label Development.human_attribute_name("office_address") %>
-    <%= f.text_field :office_address %>
-  </div>
-
-  <div class="field">
-    <%= f.label Development.human_attribute_name("city") %>
-    <%= f.text_field :city %>
-  </div>
-
-  <div class="field">
-    <%= f.label Development.human_attribute_name("county") %>
-    <%= f.text_field :county %>
-  </div>
-
-  <div class="field">
-    <%= f.label Development.human_attribute_name("postcode") %>
-    <%= f.text_field :postcode %>
-  </div>
-
-  <div class="field">
-    <%= f.label Development.human_attribute_name("email") %>
-    <%= f.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label Development.human_attribute_name("contact_number") %>
-    <%= f.text_field :contact_number %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t("views.back"), [parent, :developments], class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
   </div>
 <% end %>

@@ -1,5 +1,21 @@
+# frozen_string_literal: true
 module DeveloperFixture
   module_function
+
+  def update_attrs
+    {
+      company_name: updated_company_name,
+      postal_name: "Langosh Fort",
+      building_name: "Mega Building",
+      road_name: "Swampy Road",
+      city: "Wadeland",
+      county: "Gibsonton",
+      postcode: "RG13 5HY",
+      email: "hamble.developers@example.com",
+      contact_number: "07713538572",
+      about: about
+    }
+  end
 
   def company_name
     "Hamble Developments LTD"
@@ -14,37 +30,5 @@ module DeveloperFixture
 
   def updated_company_name
     "Hamble View LTD"
-  end
-
-  def postal_name
-    "Langosh Fort"
-  end
-
-  def building_name
-    "Mega Building"
-  end
-
-  def road_name
-    "Swampy Road"
-  end
-
-  def city
-    "Wadeland"
-  end
-
-  def county
-    "Gibsonton"
-  end
-
-  def postcode
-    "RG13 5HY"
-  end
-
-  def email
-    "hamble.developers@example.com"
-  end
-
-  def contact_number
-    "07713538572"
   end
 end

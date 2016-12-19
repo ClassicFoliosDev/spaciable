@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215125354) do
+ActiveRecord::Schema.define(version: 20161216140309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,17 +33,21 @@ ActiveRecord::Schema.define(version: 20161215125354) do
   end
 
   create_table "developments", force: :cascade do |t|
-    t.string   "development_name"
+    t.string   "name"
     t.integer  "developer_id"
-    t.string   "office_address"
+    t.string   "postal_name"
     t.string   "city"
     t.string   "county"
     t.string   "postcode"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "division_id"
+    t.string   "building_name"
+    t.string   "road_name"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
   end

@@ -1,0 +1,12 @@
+<div class="tabs">
+  <ul>
+    <% tabs.each do |title, icon, link, active| %>
+    <li class="tab">
+      <%= link_to link, class: ("active" if active) do %>
+        <i class="fa fa-<%= icon %>"></i>
+        <%= title %>
+      <% end %>
+    </li>
+    <% end %>
+  </ul>
+</div>

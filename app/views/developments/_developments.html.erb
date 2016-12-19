@@ -1,37 +1,23 @@
-<table>
-  <thead>
-    <tr>
-      <th><%= Developer.human_attribute_name("company_name") %></th>
-      <th><%= Developer.model_name.human %></th>
-      <th><%= Developer.human_attribute_name("head_office_address") %></th>
-      <th><%= Developer.human_attribute_name("city") %></th>
-      <th><%= Developer.human_attribute_name("county") %></th>
-      <th><%= Developer.human_attribute_name("postcode") %></th>
-      <th><%= Developer.human_attribute_name("email") %></th>
-      <th><%= Developer.human_attribute_name("contact_number") %></th>
-      <th colspan="7"><%= t("views.actions") %></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="record-list">
+  <ul class="developments">
     <% developments.each do |development| %>
-      <tr>
-        <td><%= development.development_name %></td>
-        <td><%= development.developer %></td>
-        <td><%= development.office_address %></td>
-        <td><%= development.city %></td>
-        <td><%= development.county %></td>
-        <td><%= development.postcode %></td>
-        <td><%= development.email %></td>
-        <td><%= development.contact_number %></td>
-        <td><%= link_to_unless cannot?(:read, Phase), Phase.model_name.human.pluralize, development_phases_path(development) %></td>
-        <td><%= link_to_unless cannot?(:read, UnitType), UnitType.model_name.human.pluralize, development_unit_types_path(development) %></td>
-        <td><%= link_to_unless cannot?(:read, Room), Room.model_name.human.pluralize, development_rooms_path(development) %></td>
-        <td><%= link_to_unless cannot?(:read, Plot), Plot.model_name.human.pluralize, development_plots_path(development) %></td>
-        <td><%= link_to_unless cannot?(:read, development), t("views.show"), polymorphic_url([parent, development]) %></td>
-        <td><%= link_to_unless cannot?(:edit, development), t("views.edit"), edit_polymorphic_url([parent, development]) %></td>
-        <td><%= link_to_unless cannot?(:destroy, development), t("views.destroy"), polymorphic_url([parent, development]), method: :delete, data: { confirm: t("views.sure") } %></td>
-      </tr>
+      <li class="record-list-item" data-development="<%= development.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn [:edit, parent, development] %>
+          <%= delete_btn development, path: url_for([parent, development]) %>
+        </div>
+        <div class="record-list-item-content">
+           <%= link_to development.name, [:edit, parent, development], class: "development-name" %>
+           <span class="development-updated-timestamp">
+             <%= l development.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+      </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate developments %>
+</div>

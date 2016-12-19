@@ -1,6 +1,6 @@
 <% breadcrumb :division_development_edit, @division, @division.developer, @development %>
 
-<h1><%= t("views.edit_name", name: @development.development_name) %></h1>
+<h1><%= t("views.edit_name", name: @development.name) %></h1>
 
 <%= render 'developments/form', parent: @division, development: @development %>
 

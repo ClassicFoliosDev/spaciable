@@ -66,6 +66,10 @@ en:
       update: "%{name} was updated successfully"
       destroy: "%{name} was deleted successfully"
 
+  breadcrumbs:
+    developer_edit: "Edit %{developer_name}"
+    development_edit: "Edit %{development_name}"
+
   views:
     add: "Add"
     add_type: "Add %{type}"
@@ -135,14 +139,36 @@ en:
       show:
         my_home: "My Home"
 
-  development:
-    add: "Add development for"
+  developments:
+    edit:
+      back: "Back"
+    form:
+      submit: "Submit"
+    index:
+      add: "Add Development"
 
   developers:
     archive:
       success: "%{developer_name} was deleted successfully"
     create:
       success: "%{developer_name} was created successfully"
+    developments:
+      edit:
+        title: "Edit %{development_name}"
+      index:
+        add: "Add Development"
+        title: "%{developer_name} Developments"
+      tabs:
+        developments: "Developments"
+        divisions: "Divisions"
+      create:
+        success: "%{development_name} was created successfully"
+      update:
+        success: "%{development_name} was updated successfully"
+      destroy:
+        archive:
+          success: "%{development_name} was deleted successfully"
+
     edit:
       title: "Edit %{developer_name}"
       show: "Show"
@@ -153,6 +179,7 @@ en:
       add: "Add Developer"
       actions: "Actions"
       destroy: "Delete"
+      developments: "Developments"
       show: "Show"
       title: "Developers"
     new:
@@ -249,7 +276,7 @@ en:
         email: "Email address"
         contact_number: "Contact number"
       development:
-        development_name: "Development name"
+        name: "Development name"
         office_address: "Marketing suite address"
         city: "Town / city"
         county: "County"

@@ -11,12 +11,12 @@ end
 crumb :developer do |developer|
   # Replace this with a tabbed view of divisions / developments for the developer,
   # as there is no show developer page to visit.
-  link developer.company_name, developer_path(developer)
+  link developer.company_name, edit_developer_path(developer)
   parent :developers
 end
 
 crumb :developer_edit do |developer|
-  link t("views.edit"), developers_path(developer)
+  link t("breadcrumbs.developer_edit", developer_name: developer.company_name), developers_path(developer)
   parent :developers
 end
 
@@ -56,12 +56,24 @@ crumb :developments do |developer|
   parent :developer, developer
 end
 
+crumb :developer_developments do |developer|
+  link Development.model_name.human.pluralize, developer_developments_path(developer)
+  parent :developer, developer
+end
+
 crumb :development do |development, developer|
-  link development.development_name, [developer, development]
+  link development.name, [developer, development]
   parent :developments, developer
 end
 
-crumb :development_edit do |development, developer|
+crumb :developer_development_edit do |development, developer|
+  title = t("breadcrumbs.development_edit", development_name: development.name)
+
+  link title, edit_developer_development_path(developer, development)
+  parent :developer_developments, developer
+end
+
+crumb :division_development_edit do |development, developer|
   link t("views.edit"), development_path(development)
   parent :development, development, developer
 end
@@ -80,7 +92,7 @@ crumb :division_developments do |division, developer|
 end
 
 crumb :division_development do |division, developer, development|
-  link development.development_name, development_path
+  link development.name, development_path
   parent :division_developments, division, developer
 end
 
@@ -98,7 +110,7 @@ end
 # DEVELOPMENT PHASES
 
 crumb :phases do |development, developer|
-  link Phase.model_name.human.pluralize,  development_phases_path
+  link Phase.model_name.human.pluralize, development_phases_path
   parent :development, development, developer
 end
 

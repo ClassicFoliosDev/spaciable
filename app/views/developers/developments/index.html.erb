@@ -1,7 +1,19 @@
-<% breadcrumb :developments, @developer %>
+<% breadcrumb :developer_developments, @developer %>
 
-<h1><%= @developer %> <%= Development.model_name.human.pluralize %></h1>
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= t(".title", developer_name: @developer.company_name) %>
+  </h3>
+  <div class="section-actions">
+    <%= link_to new_developer_development_path(@developer), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
+  </div>
+</div>
 
-<%= render 'developments/developments', developments: @developments, parent: @developer %>
+<%# commenting out the tabs until we have a finishes divisions crud in plase %>
+<%#= render 'components/tabs', tabs: developer_development_tabs(@developer, :developments) %>
 
-<%= link_to_unless cannot?(:create, Development), t("views.add_type", type: Development.model_name.human), new_developer_development_path(@developer) %>
+<%= render partial: 'developments/developments', locals: { developments: @developments, parent: @developer } %>
