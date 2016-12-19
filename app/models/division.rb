@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class Division < ApplicationRecord
+  acts_as_paranoid
   belongs_to :developer
 
   has_many :developments, through: :developer
@@ -10,10 +11,14 @@ class Division < ApplicationRecord
   has_many :phases, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
+  has_one :address, dependent: :destroy
 
+  accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: true
 
   def to_s
     division_name
   end
+
+  paginates_per 25
 end

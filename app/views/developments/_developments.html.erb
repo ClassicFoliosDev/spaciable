@@ -1,7 +1,7 @@
 <div class="record-list">
-  <ul class="developments">
+  <dl class="developments">
     <% developments.each do |development| %>
-      <li class="record-list-item" data-development="<%= development.id %>">
+      <dt class="record-list-item" data-development="<%= development.id %>">
         <div class="record-list-item-actions">
           <%= edit_btn [:edit, parent, development] %>
           <%= delete_btn development, path: url_for([parent, development]) %>
@@ -12,9 +12,9 @@
              <%= l development.updated_at.to_date, format: :digits %>
            </span>
         </div>
-      </li>
+      </dt>
     <% end %>
-  </ul>
+  </dl>
 </div>
 
 <div class="paging">

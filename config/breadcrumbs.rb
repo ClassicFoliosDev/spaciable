@@ -28,6 +28,11 @@ end
 
 # DIVISIONS
 
+crumb :developer_divisions do |developer|
+  link Division.model_name.human.pluralize, developer_divisions_path(developer)
+  parent :developer, developer
+end
+
 crumb :divisions do |developer|
   link Division.model_name.human.pluralize, developer_divisions_path(developer.id)
   parent :developer, developer
@@ -38,9 +43,11 @@ crumb :division do |division, developer|
   parent :divisions, developer
 end
 
-crumb :division_edit do |division, developer|
-  link t("views.edit"), division_path(division)
-  parent :division, division, developer
+crumb :developer_division_edit do |division, developer|
+  title = t("breadcrumbs.division_edit", division_name: division.division_name)
+
+  link title, edit_developer_division_path(developer, division)
+  parent :developer_divisions, developer
 end
 
 crumb :division_new do |developer|

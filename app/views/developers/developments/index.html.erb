@@ -13,7 +13,6 @@
   </div>
 </div>
 
-<%# commenting out the tabs until we have a finishes divisions crud in plase %>
-<%#= render 'components/tabs', tabs: developer_development_tabs(@developer, :developments) %>
+<%= render 'components/tabs', tabs: developer_tabs(@developer, :developments) %>
 
 <%= render partial: 'developments/developments', locals: { developments: @developments, parent: @developer } %>

@@ -24,11 +24,11 @@ Rails.application.routes.draw do
   end
 
   resources :developers, except: :show do
-    resources :divisions
+    resources :divisions, except: :show
     resources :developments, controller: 'developers/developments'
   end
 
-  resources :divisions do
+  resources :divisions, except: :show do
     resources :developments, controller: 'divisions/developments'
   end
 

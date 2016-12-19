@@ -6,30 +6,6 @@
   <%= @division.division_name %>
 </h1>
 
-<ul>
-<li><%= link_to Division.model_name.human.pluralize, division_developments_path(@division) %></li>
-</ul>
-
-<p>
-  <strong><%=Division.human_attribute_name("address") %></strong>
-  <%= @division.address %>
-</p>
-
-<p>
-  <strong><%= Division.human_attribute_name("city") %></strong>
-  <%= @division.city %>
-</p>
-
-<p>
-  <strong><%= Division.human_attribute_name("county") %></strong>
-  <%= @division.county %>
-</p>
-
-<p>
-  <strong><%= Division.human_attribute_name("postcode") %></strong>
-  <%= @division.postcode %>
-</p>
-
 <p>
   <strong><%= Division.human_attribute_name("email") %></strong>
   <%= @division.email %>
@@ -39,6 +15,9 @@
   <strong><%= Division.human_attribute_name("contact_number") %></strong>
   <%= @division.contact_number %>
 </p>
+
+<h3> Address details </h3>
+<%= render 'addresses/show', address: @division.address %>
 
 <%= link_to t("views.edit"), edit_developer_division_path(@developer, @division) %> |
 <%= link_to t("views.back"), developer_divisions_path %>

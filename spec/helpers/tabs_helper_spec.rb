@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe TabsHelper do
-  describe "#developer_development_tabs" do
+  describe "#developer_tabs" do
     let(:developments_title) { I18n.t("developers.developments.tabs.developments") }
     let(:divisions_title) { I18n.t("developers.developments.tabs.divisions") }
 
@@ -11,7 +11,7 @@ RSpec.describe TabsHelper do
       developments_path = developer_developments_path(developer)
       divisions_path = developer_divisions_path(developer)
 
-      result = developer_development_tabs(developer, "")
+      result = developer_tabs(developer, "")
       developments = result.first
       divisions = result.last
 
@@ -26,7 +26,7 @@ RSpec.describe TabsHelper do
       it "should mark divisions as active" do
         developer = create(:developer)
 
-        result = developer_development_tabs(developer, :divisions)
+        result = developer_tabs(developer, :divisions)
         developments = result.first
         divisions = result.last
 
@@ -39,7 +39,7 @@ RSpec.describe TabsHelper do
       it "should mark developments as active" do
         developer = create(:developer)
 
-        result = developer_development_tabs(developer, :developments)
+        result = developer_tabs(developer, :developments)
         developments = result.first
         divisions = result.last
 

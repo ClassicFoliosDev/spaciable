@@ -2,6 +2,4 @@
 
 <h1><%= t("views.add_type", type: Division.model_name.human) %></h1>
 
-<%= render 'form', division: @division %>
-
-<%= link_to t("views.back"), developer_divisions_path(@developer) %>
+<%= render 'form', developer: @developer, division: @division %>

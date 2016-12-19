@@ -69,6 +69,7 @@ en:
   breadcrumbs:
     developer_edit: "Edit %{developer_name}"
     development_edit: "Edit %{development_name}"
+    division_edit: "Edit %{division_name}"
 
   views:
     add: "Add"
@@ -80,7 +81,6 @@ en:
     show: "Show"
     name: "Name"
     back: "Back"
-    need_fix: "This can not be created because you need to fix the error(s) shown"
     destroy: "Delete"
     cancel: "Cancel"
     actions: "Actions"
@@ -88,6 +88,7 @@ en:
     thumbnail: "Thumbnail"
     confirm_title: "Confirm delete"
     confirm_text: "Are you sure you wish to delete %{type}"
+    need_fix: "This can not be created because you need to fix the error(s) shown"
 
   pagination:
     per_page_10: "10"
@@ -180,6 +181,7 @@ en:
       actions: "Actions"
       destroy: "Delete"
       developments: "Developments"
+      divisions: "Divisions"
       show: "Show"
       title: "Developers"
     new:
@@ -187,6 +189,57 @@ en:
       back: "Back"
     update:
       success: "%{developer_name} was updated successfully"
+
+  divisions:
+    archive:
+      success: "%{division_name} was deleted successfully"
+    create:
+      success: "%{division_name} was created successfully"
+    edit:
+      title: "Edit %{division_name}"
+      show: "Show"
+      back: "Back"
+    form:
+      submit: "Submit"
+      address: "Postal Address"
+    index:
+      add: "Add Division"
+      actions: "Actions"
+      destroy: "Delete"
+      show: "Show"
+      title: "Divisions"
+    new:
+      title: "New Division"
+      back: "Back"
+    update:
+      success: "%{division_name} was updated successfully"
+
+  addresses:
+    archive:
+      success: "%{address_title} was deleted successfully"
+    create:
+      success: "%{address_title} was created successfully"
+    edit:
+      title: "Edit %{address_title}"
+      show: "Show"
+      back: "Back"
+    form:
+      submit: "Submit"
+    index:
+      add: "Add Address"
+      actions: "Actions"
+      destroy: "Delete"
+      show: "Show"
+      title: "Address"
+    new:
+      title: "New Address"
+      back: "Back"
+    update:
+      success: "%{address_title} was updated successfully"
+    placeholders:
+      postal: "Postal number / name"
+      building: "Building name"
+      road: "Road name"
 
   devise:
     admin:
@@ -257,6 +310,7 @@ en:
       Finish: "Finish"
       Document: "Document"
       User: "User"
+      Address: "Address"
 
     attributes:
       developer:
@@ -312,4 +366,11 @@ en:
         role: "Role"
         first_name: "First name"
         last_name: "Last name"
+      address:
+        postal_name: "Postal number / name"
+        building_name: "Building name"
+        road_name: "Road"
+        city: "Town / city"
+        county: "County"
+        postcode: "Postcode"
 

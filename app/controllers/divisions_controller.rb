@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 class DivisionsController < ApplicationController
+  include PaginationConcern
   load_and_authorize_resource :developer
   load_and_authorize_resource :division, through: :developer
 
   def index
+    @divisions = paginate(@divisions)
   end
 
   def new
+    @division.build_address unless @division.address
   end
 
   def edit
-  end
-
-  def show
+    @division.build_address unless @division.address
   end
 
   def create
@@ -21,8 +22,9 @@ class DivisionsController < ApplicationController
         "controller.success.create",
         name: @division.division_name
       )
-      redirect_to [@developer, @division], notice: notice
+      redirect_to [@developer, :divisions], notice: notice
     else
+      @division.build_address unless @division.address
       render :new
     end
   end
@@ -33,7 +35,7 @@ class DivisionsController < ApplicationController
         "controller.success.update",
         name: @division.division_name
       )
-      redirect_to [@developer, @division], notice: notice
+      redirect_to [@developer, :divisions], notice: notice
     else
       render :edit
     end
@@ -45,7 +47,7 @@ class DivisionsController < ApplicationController
       "controller.success.destroy",
       name: @division.division_name
     )
-    redirect_to developer_divisions_url, notice: notice
+    redirect_to [@developer, :divisions], notice: notice
   end
 
   private
@@ -55,11 +57,9 @@ class DivisionsController < ApplicationController
     params.require(:division).permit(
       :division_name,
       :address,
-      :city,
-      :county,
-      :postcode,
       :email,
-      :contact_number
+      :contact_number,
+      address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
     )
   end
 end

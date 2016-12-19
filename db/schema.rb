@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161216140309) do
+ActiveRecord::Schema.define(version: 20161216172410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "postal_name"
+    t.string   "city"
+    t.string   "county"
+    t.string   "postcode"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "building_name"
+    t.string   "road_name"
+    t.integer  "developer_id"
+    t.integer  "division_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
+    t.index ["developer_id"], name: "index_addresses_on_developer_id", using: :btree
+    t.index ["division_id"], name: "index_addresses_on_division_id", using: :btree
+  end
 
   create_table "developers", force: :cascade do |t|
     t.string   "company_name"
@@ -53,15 +70,17 @@ ActiveRecord::Schema.define(version: 20161216140309) do
   end
 
   create_table "divisions", force: :cascade do |t|
-    t.string  "division_name"
-    t.string  "address"
-    t.string  "city"
-    t.string  "county"
-    t.string  "postcode"
-    t.string  "email"
-    t.string  "contact_number"
-    t.integer "developer_id"
+    t.string   "division_name"
+    t.string   "email"
+    t.string   "contact_number"
+    t.integer  "developer_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["created_at"], name: "index_divisions_on_created_at", using: :btree
+    t.index ["deleted_at"], name: "index_divisions_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_divisions_on_developer_id", using: :btree
+    t.index ["updated_at"], name: "index_divisions_on_updated_at", using: :btree
   end
 
   create_table "documents", force: :cascade do |t|
@@ -213,6 +232,8 @@ ActiveRecord::Schema.define(version: 20161216140309) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "addresses", "developers"
+  add_foreign_key "addresses", "divisions"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"

@@ -24,6 +24,7 @@
     <% @developers.each do |developer| %>
       <dt class="record-list-item" data-developer="<%= developer.id %>">
         <div class="record-list-item-actions">
+          <%= link_to t(".divisions"), developer_divisions_path(developer), class: "btn" %>
           <%= link_to t(".developments"), developer_developments_path(developer), class: "btn" %>
           <%= edit_btn edit_developer_path(developer) %>
           <%= delete_btn developer %>

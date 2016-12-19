@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module TabsHelper
-  def developer_development_tabs(developer, current_tab)
+  def developer_tabs(developer, current_tab)
     developments_tab = Tab.new(
       title: t("developers.developments.tabs.developments"),
       icon: :building,
