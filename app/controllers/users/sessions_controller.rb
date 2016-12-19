@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Users::SessionsController < Devise::SessionsController
   layout -> { admin_route? ? "admin_login" : "login" }
-  skip_authorization_check
+
   skip_before_action :redirect_homeowners
 
   # before_action :configure_sign_in_params, only: [:create]

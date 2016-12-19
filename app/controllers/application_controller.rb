@@ -2,7 +2,7 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :redirect_homeowners, if: -> { current_user }
-  check_authorization
+  check_authorization unless: :devise_controller?
 
   protect_from_forgery with: :exception
 
