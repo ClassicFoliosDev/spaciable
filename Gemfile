@@ -62,13 +62,17 @@ gem "kaminari"
 # Soft Delete
 gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"
 
+group :development, :test, :qa, :staging do
+  # populate the environments with data from factories
+  gem "factory_girl_rails"
+  gem "faker"
+end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platform: :mri
   gem "pry-rails"
   gem "rubocop"
-  gem "factory_girl_rails"
-  gem "faker"
   gem "rails_best_practices", require: false
   gem "brakeman", require: false
 end
