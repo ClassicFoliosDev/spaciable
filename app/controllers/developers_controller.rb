@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 class DevelopersController < ApplicationController
   include PaginationConcern
+  include SortingConcern
   load_and_authorize_resource
 
   def index
-    @developers = paginate(@developers).order(:company_name)
+    @developers = paginate(sort(@developers, default: :company_name))
   end
 
   def new

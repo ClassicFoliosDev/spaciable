@@ -14,23 +14,29 @@
 </div>
 
 <div class="record-list">
-  <ul class="developers">
+  <dl class="developers">
+    <dd class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Developer, :company_name) %></span>
+        <span><%= sortable(Developer, :updated_at) %></span>
+      </div>
+    </dd>
     <% @developers.each do |developer| %>
-      <li class="record-list-item" data-developer="<%= developer.id %>">
+      <dt class="record-list-item" data-developer="<%= developer.id %>">
         <div class="record-list-item-actions">
           <%= link_to t(".developments"), developer_developments_path(developer), class: "btn" %>
           <%= edit_btn edit_developer_path(developer) %>
           <%= delete_btn developer %>
         </div>
         <div class="record-list-item-content">
-           <%= link_to developer.company_name, edit_developer_path(developer), class: "developer-name" %>
-           <span class="developer-updated-timestamp">
+           <%= link_to developer.company_name, edit_developer_path(developer) %>
+           <span>
              <%= l developer.updated_at.to_date, format: :digits %>
            </span>
         </div>
-      </li>
+      </dt>
     <% end %>
-  </ul>
+  </dl>
 </div>
 
 <div class="paging">

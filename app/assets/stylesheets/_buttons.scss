@@ -56,7 +56,6 @@ button {
   font-size: $base-font-size;
 }
 
-
 @include media($tablet-landscape-down) {
   i + .btn-label {
     display: none;

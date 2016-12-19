@@ -19,7 +19,7 @@
         <td><%= link_to Finish.model_name.human.pluralize, room_finishes_path(room) %></td>
         <td><%= link_to t("views.show"), [room.development, room] %></td>
         <td><%= link_to t("views.edit"), edit_development_room_path(room.development, room) %></td>
-        <td><%= link_to t("views.destroy"), [room.development, room], method: :delete, data: { confirm: t("views.sure") } %></td>
+        <td><%= link_to t("views.destroy"), [room.development, room], method: :delete, data: { confirm: t("views.confirm_text") } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,0 +1,22 @@
+.desc, .asc, .both {
+  text-decoration: none;
+  color: $primary-black;
+}
+
+.desc:after {
+  font-family: FontAwesome;
+  content: "\f0dd";
+  padding-left: $spacing-small;
+}
+
+.asc:after {
+  font-family: FontAwesome;
+  content: "\f0de";
+  padding-left: $spacing-small;
+}
+
+.both:after {
+  font-family: FontAwesome;
+  content: "\f0dc";
+  padding-left: $spacing-small;
+}

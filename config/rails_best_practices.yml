@@ -24,7 +24,7 @@ RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
 RemoveUnusedMethodsInControllersCheck: { except_methods: ["Users::SessionsController#respond_to_on_destroy"] }
-RemoveUnusedMethodsInHelpersCheck: { except_methods: ["TabsHelper#initialize", "TabsHelper#active?", "TabsHelper#to_a", "TabsHelper#developer_development_tabs"] }
+RemoveUnusedMethodsInHelpersCheck: { except_methods: ["TabsHelper#initialize", "TabsHelper#active?", "TabsHelper#to_a", "TabsHelper#developer_development_tabs", "ApplicationHelper#sortable"] }
 RemoveUnusedMethodsInModelsCheck: { except_methods: [] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }
 ReplaceInstanceVariableWithLocalVariableCheck: { }

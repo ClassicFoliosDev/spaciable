@@ -24,7 +24,7 @@
         </td>
         <td><%= link_to t("views.show"), [@development, unit_type] %></td>
         <td><%= link_to t("views.edit"), edit_development_unit_type_path(@development, unit_type) %></td>
-        <td><%= link_to t("views.destroy"), [@development, unit_type], method: :delete, data: { confirm: t("views.sure") } %></td>
+        <td><%= link_to t("views.destroy"), [@development, unit_type], method: :delete, data: { confirm: t("views.confirm_text") } %></td>
       </tr>
     <% end %>
   </tbody>
