@@ -7,7 +7,6 @@
     <% if current_user %>
       <%= navigation_link(admin_dashboard_path, "tachometer", t("dashboard.title"), "navbar-link") %>
       <%= navigation_link(developers_path, "vcard", t(".developers"), "navbar-link") %>
-      <%= navigation_link(documents_path, "file", t(".documents"), "navbar-link") %>
 
       <% unless current_user.owner? %>
         <%= navigation_link(users_path, "users", t(".users"), "navbar-link") %>
