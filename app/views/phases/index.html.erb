@@ -1,29 +1,45 @@
 <% breadcrumb :phases, @development, @development.developer %>
 
-<h1><%= Phase.model_name.human.pluralize %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= Phase.human_attribute_name("name") %></th>
-      <th><%= Phase.model_name.human %></th>
-      <th colspan="3"><%= t("views.actions") %></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @phases.each do |phase| %>
-      <tr>
-        <td><%= phase.name %></td>
-        <td><%= phase.development %></td>
-        <td><%= link_to t("views.show"), [@development, phase] %></td>
-        <td><%= link_to t("views.edit"), edit_development_phase_path(@development, phase) %></td>
-        <td><%= link_to t("views.destroy"), [@development, phase], method: :delete, data: { confirm: t("views.confirm_text") } %></td>
-      </tr>
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= t(".title", development_name: @development.name) %>
+  </h3>
+  <div class="section-actions">
+    <%= link_to new_development_phase_path(@development), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
-<br>
+<div class="record-list">
+  <dl class="phases">
+    <dd class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Phase, :name) %></span>
+        <span><%= sortable(Phase, :updated_at) %></span>
+      </div>
+    </dd>
+    <% @phases.each do |phase| %>
+      <dt class="record-list-item" data-phase="<%= phase.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn edit_development_phase_path(@development, phase) %>
+          <%= delete_btn phase, path: url_for([@development, phase]) %>
+        </div>
+        <div class="record-list-item-content">
+           <%= link_to phase.name, edit_development_phase_path(@development, phase), class: "phase-name" %>
+           <span class="phase-updated-timestamp">
+             <%= l phase.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+      </dt>
+    <% end %>
+  </dl>
+</div>
 
-<%= link_to t("views.add_type", type: Phase.model_name.human), new_development_phase_path(@development) %>
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate @phases %>
+</div>

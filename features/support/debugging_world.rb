@@ -2,10 +2,12 @@
 module DebuggingWorld
   def screenshot
     sleep 0.5
+    save_and_open_screenshot
   end
 
   def debug_html
     sleep 0.5
+    save_and_open_page
   end
 
   def debug_dom

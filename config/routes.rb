@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
 
   resources :developments do
-    resources :phases
+    resources :phases, except: :show
     resources :unit_types
     resources :rooms
     resources :plots

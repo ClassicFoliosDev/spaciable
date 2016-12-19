@@ -141,6 +141,8 @@ en:
         my_home: "My Home"
 
   developments:
+    developments:
+      phases: "Phases"
     edit:
       back: "Back"
     form:
@@ -267,6 +269,18 @@ en:
     img_name: "Picture name"
     not_yet: "You can add pictures after this resource has been saved"
 
+  phases:
+    destroy:
+      archive:
+        success: "%{phase_name} was deleted successfully"
+    edit:
+      back: "Back"
+    form:
+      submit: "Submit"
+    index:
+      add: "Add Phase"
+      title: "%{development_name} Phases"
+
   profiles:
     title: "Profile"
     prefix: "Title"
@@ -374,3 +388,9 @@ en:
         county: "County"
         postcode: "Postcode"
 
+    errors:
+      models:
+        phase:
+          attributes:
+            base:
+              missing_permissable_id: "be associated with a Developer or Division"

@@ -1,22 +1,46 @@
-<%= form_for([phase.development, phase]) do |f| %>
+<%= simple_form_for([phase.development, phase]) do |f| %>
   <% if phase.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t("views.need_fix") %><%= pluralize(phase.errors.count, "error") %></h2>
-
-      <ul>
-      <% phase.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% phase.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label Phase.human_attribute_name("name") %>
-    <%= f.text_field :name %>
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :name %>
+        <%= f.input :number, as: :integer %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <div class="input string optional">
+          <label class="string optional">Phase Address</label>
+          <%= f.input :postal_name, label: false, placeholder: "Postal Number / Name" %>
+          <%= f.input :building_name, label: false, placeholder: "Building Name" %>
+          <%= f.input :road_name, label: false, placeholder: "Road Name" %>
+        </div>
+        <%= f.input :city %>
+        <%= f.input :county %>
+        <%= f.input :postcode %>
+      </fieldset>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t("views.back"), development_phases_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
   </div>
 <% end %>

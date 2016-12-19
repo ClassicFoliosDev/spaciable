@@ -118,17 +118,12 @@ end
 
 crumb :phases do |development, developer|
   link Phase.model_name.human.pluralize, development_phases_path
-  parent :development, development, developer
+  parent :developer_development_edit, development, developer
 end
 
-crumb :phase do |phase, development, developer|
-  link phase.name, [development, phase]
-  parent :phases, development, developer
-end
-
-crumb :phase_edit do |phase, development, developer|
+crumb :phase_edit do |development, developer|
   link t("views.edit"), development_phase_path
-  parent :phase, phase, development, developer
+  parent :phases, development, developer
 end
 
 crumb :phase_new do |development, developer|

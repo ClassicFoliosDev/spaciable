@@ -1,0 +1,15 @@
+Feature: Phases
+  As a CF Admin
+  I want to add the development phases
+  So that the I can match the development approach of the client
+
+  @javascript
+  Scenario:
+    Given I am logged in as an admin
+    And I have a developer with a development
+    When I create a phase for the development
+    Then I should see the created phase
+    When I update the phase
+    Then I should see the updated phase
+    When I delete the phase
+    Then I should see that the deletion completed successfully

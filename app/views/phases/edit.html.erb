@@ -1,8 +1,5 @@
-<% breadcrumb :phase_edit, @phase, @development, @development.developer %>
+<% breadcrumb :phase_edit, @development, @development.developer %>
 
 <h1><%= t("views.edit_name", name: @phase.name) %></h1>
 
 <%= render 'form', phase: @phase %>
-
-<%= link_to t("views.show"), [@development, @phase] %> |
-<%= link_to t("views.back"), development_phases_path(@development) %>
