@@ -2,11 +2,12 @@
 module Developers
   class DevelopmentsController < ApplicationController
     include PaginationConcern
+    include SortingConcern
     load_and_authorize_resource :developer
     load_and_authorize_resource :development, through: [:developer]
 
     def index
-      @developments = paginate(@developments)
+      @developments = paginate(sort(@developments, default: :name))
     end
 
     def show
