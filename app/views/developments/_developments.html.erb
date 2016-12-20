@@ -1,5 +1,11 @@
 <div class="record-list">
   <dl class="developments">
+    <dt class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Development, :name) %></span>
+        <span><%= sortable(Development, :updated_at) %></span>
+      </div>
+    </dt>
     <% developments.each do |development| %>
       <dt class="record-list-item" data-development="<%= development.id %>">
         <div class="record-list-item-actions">

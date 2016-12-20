@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 class DivisionsController < ApplicationController
   include PaginationConcern
+  include SortingConcern
   load_and_authorize_resource :developer
   load_and_authorize_resource :division, through: :developer
 
   def index
-    @divisions = paginate(@divisions)
+    @divisions = paginate(sort(@divisions, default: :division_name))
   end
 
   def new
