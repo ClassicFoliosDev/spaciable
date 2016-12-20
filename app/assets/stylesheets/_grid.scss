@@ -67,8 +67,9 @@ html.hoozzi body {
   }
   
   main {
-    @include pad($spacing-small $spacing-large $spacing-small $spacing-large);
+    @include pad($spacing-small $spacing-large $spacing-medium $spacing-large);
     @include clearfix();
+    margin-bottom: $spacing-large;
 
     //IE 11 fix
     float: left;
