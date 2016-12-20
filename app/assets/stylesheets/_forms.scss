@@ -127,7 +127,7 @@ fieldset {
     border-top: $border-size solid $ui-grey;
   }
 
-  @include media($tablet-landscape-up) {
+  @include media($desktop-large-up) {
     @include span-columns(14 of 16, block-collapse);
   }
 }
