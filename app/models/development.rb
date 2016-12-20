@@ -12,6 +12,9 @@ class Development < ApplicationRecord
   has_many :phases, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
+  has_one :address, as: :addressable
+
+  accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
   validate :division_is_under_developer,

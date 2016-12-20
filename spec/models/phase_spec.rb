@@ -94,6 +94,32 @@ RSpec.describe Phase do
     end
   end
 
+  describe "#build_address_with_defaults" do
+    it "uses the developments address if blank" do
+      development = create(:development)
+      development_address = development.address
+      phase = development.phases.new
+
+      phase.build_address_with_defaults
+
+      expect(phase.address.postal_name).to eq(development_address.postal_name)
+      expect(phase.address.building_name).to eq(development_address.building_name)
+      expect(phase.address.road_name).to eq(development_address.road_name)
+      expect(phase.address.city).to eq(development_address.city)
+      expect(phase.address.county).to eq(development_address.county)
+      expect(phase.address.postcode).to eq(development_address.postcode)
+    end
+
+    it "builds an empty address if development does not have an address" do
+      development = create(:development, address: nil)
+      phase = development.phases.new
+
+      phase.build_address_with_defaults
+
+      expect(phase.address).not_to be_nil
+    end
+  end
+
   describe "#destroy" do
     it "should be archived" do
       phase = create(:phase)

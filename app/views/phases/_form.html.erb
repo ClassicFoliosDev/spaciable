@@ -24,15 +24,10 @@
     </div>
     <div class="row-item third">
       <fieldset>
-        <div class="input string optional">
-          <label class="string optional">Phase Address</label>
-          <%= f.input :postal_name, label: false, placeholder: "Postal Number / Name" %>
-          <%= f.input :building_name, label: false, placeholder: "Building Name" %>
-          <%= f.input :road_name, label: false, placeholder: "Road Name" %>
-        </div>
-        <%= f.input :city %>
-        <%= f.input :county %>
-        <%= f.input :postcode %>
+        <%= f.simple_fields_for :address do |fields| %>
+          <label class="string optional"><%= t(".address") %></label>
+          <%= render "address/fields", fields: fields %>
+        <% end %>
       </fieldset>
     </div>
   </div>

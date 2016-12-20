@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161219155608) do
+ActiveRecord::Schema.define(version: 20161220074321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,16 +20,15 @@ ActiveRecord::Schema.define(version: 20161219155608) do
     t.string   "city"
     t.string   "county"
     t.string   "postcode"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "building_name"
     t.string   "road_name"
-    t.integer  "developer_id"
-    t.integer  "division_id"
     t.datetime "deleted_at"
+    t.string   "addressable_type"
+    t.integer  "addressable_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
-    t.index ["developer_id"], name: "index_addresses_on_developer_id", using: :btree
-    t.index ["division_id"], name: "index_addresses_on_division_id", using: :btree
   end
 
   create_table "developers", force: :cascade do |t|
@@ -52,18 +51,13 @@ ActiveRecord::Schema.define(version: 20161219155608) do
   create_table "developments", force: :cascade do |t|
     t.string   "name"
     t.integer  "developer_id"
-    t.string   "postal_name"
-    t.string   "city"
-    t.string   "county"
-    t.string   "postcode"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "division_id"
-    t.string   "building_name"
-    t.string   "road_name"
     t.datetime "deleted_at"
+    t.integer  "phases_count",   default: 0
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -147,12 +141,6 @@ ActiveRecord::Schema.define(version: 20161219155608) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "number"
-    t.string   "postal_name"
-    t.string   "building_name"
-    t.string   "road_name"
-    t.string   "city"
-    t.string   "county"
-    t.string   "postcode"
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
@@ -241,8 +229,6 @@ ActiveRecord::Schema.define(version: 20161219155608) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_foreign_key "addresses", "developers"
-  add_foreign_key "addresses", "divisions"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"

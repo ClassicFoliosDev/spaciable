@@ -14,9 +14,11 @@ module Developers
     end
 
     def new
+      @development.build_address unless @development.address
     end
 
     def edit
+      @development.build_address unless @development.address
     end
 
     def create
@@ -24,6 +26,7 @@ module Developers
         notice = t(".success", development_name: @development.name)
         redirect_to [@developer, :developments], notice: notice
       else
+        @development.build_address unless @development.address
         render :new
       end
     end
@@ -33,6 +36,7 @@ module Developers
         notice = t(".success", development_name: @development.name)
         redirect_to [@developer, :developments], notice: notice
       else
+        @development.build_address unless @development.address
         render :edit
       end
     end
@@ -52,14 +56,9 @@ module Developers
         :name,
         :developer_id,
         :division_id,
-        :postal_name,
-        :building_name,
-        :road_name,
-        :city,
-        :county,
-        :postcode,
         :email,
-        :contact_number
+        :contact_number,
+        address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
       )
     end
   end

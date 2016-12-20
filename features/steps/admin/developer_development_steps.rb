@@ -33,6 +33,10 @@ When(/^I update the developers development$/) do
     fill_in "development_#{attr}", with: value
   end
 
+  DeveloperDevelopmentFixture.address_update_attrs.each do |attr, value|
+    fill_in "development_address_attributes_#{attr}", with: value
+  end
+
   click_on t("developers.form.submit")
 end
 
@@ -47,6 +51,11 @@ Then(/^I should see the updated developer development$/) do
 
   DeveloperDevelopmentFixture.update_attrs.each do |attr, value|
     screen_value = find("[name='development[#{attr}]']").value
+    expect(screen_value).to eq(value)
+  end
+
+  DeveloperDevelopmentFixture.address_update_attrs.each do |attr, value|
+    screen_value = find_by_id("development_address_attributes_#{attr}").value
     expect(screen_value).to eq(value)
   end
 end

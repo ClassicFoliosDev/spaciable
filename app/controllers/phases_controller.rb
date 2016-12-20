@@ -10,9 +10,11 @@ class PhasesController < ApplicationController
   end
 
   def new
+    @phase.build_address_with_defaults
   end
 
   def edit
+    @phase.build_address_with_defaults
   end
 
   def show
@@ -23,6 +25,7 @@ class PhasesController < ApplicationController
       notice = t("controller.success.create", name: @phase.name)
       redirect_to [@development, :phases], notice: notice
     else
+      @phase.build_address_with_defaults
       render :new
     end
   end
@@ -32,6 +35,7 @@ class PhasesController < ApplicationController
       notice = t("controller.success.update", name: @phase.name)
       redirect_to [@development, :phases], notice: notice
     else
+      @phase.build_address_with_defaults
       render :edit
     end
   end
@@ -51,13 +55,8 @@ class PhasesController < ApplicationController
   def phase_params
     params.require(:phase).permit(
       :name,
-      :development_id,
-      :postal_name,
-      :building_name,
-      :road_name,
-      :city,
-      :county,
-      :postcode
+      :number,
+      address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
     )
   end
 end

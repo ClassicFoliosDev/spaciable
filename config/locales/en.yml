@@ -147,6 +147,7 @@ en:
       back: "Back"
     form:
       submit: "Submit"
+      address: "Development Address"
     index:
       add: "Add Development"
 
@@ -276,6 +277,7 @@ en:
     edit:
       back: "Back"
     form:
+      address: "Phase Address"
       submit: "Submit"
     index:
       add: "Add Phase"

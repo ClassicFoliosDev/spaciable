@@ -27,12 +27,7 @@
         <fieldset>
           <%= f.simple_fields_for :address do |fields| %>
             <label class="string optional"><%= t(".address") %></label>
-            <%= fields.input :postal_name, label: false, placeholder: t("addresses.placeholders.postal") %>
-            <%= fields.input :building_name, label: false, placeholder: t("addresses.placeholders.building") %>
-            <%= fields.input :road_name, label: false, placeholder: t("addresses.placeholders.road") %>
-            <%= fields.input :city %>
-            <%= fields.input :county %>
-            <%= fields.input :postcode %>
+            <%= render "address/fields", fields: fields %>
           <% end %>
         </fieldset>
       </div>

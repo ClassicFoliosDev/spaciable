@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence :name do |n|
       "Phase #{n}"
     end
+    address
     development
   end
 end
