@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class Users::SessionsController < Devise::SessionsController
-  layout -> { admin_route? ? "admin_login" : "login" }
+  layout -> { use_admin_layout? ? "admin_login" : "login" }
 
   skip_before_action :redirect_homeowners
 
@@ -12,7 +12,7 @@ class Users::SessionsController < Devise::SessionsController
     clean_up_passwords(resource)
     yield resource if block_given?
 
-    if admin_route?
+    if use_admin_layout?
       render "devise/admin/sessions/new"
     else
       @content = HomeownerLoginContentService.call
@@ -40,8 +40,18 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def admin_route?
-    request.path == "/admin"
+  def use_admin_layout?
+    admin_pattern = /admin\Z/
+    admin_session = cookies[:use_admin_layout].present?
+    from_admin_path = request.path =~ admin_pattern || request.referer =~ admin_pattern
+
+    if admin_session || from_admin_path
+      cookies[:use_admin_layout] = "true"
+      true
+    else
+      cookies.delete(:use_admin_layout)
+      false
+    end
   end
 
   def respond_to_on_destroy

@@ -1,5 +1,9 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to t("devise.login"), new_session_path(resource_name) %><br />
+  <% if session[:use_admin_layout] %>
+    <%= link_to t("devise.login"), new_admin_session_path %><br />
+  <% else %>
+    <%= link_to t("devise.login"), new_user_session_path %><br />
+  <% end %>
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>

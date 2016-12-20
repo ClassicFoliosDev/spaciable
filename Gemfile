@@ -110,6 +110,7 @@ group :test do
   gem "launchy"
   # Headless browser, see https://github.com/teampoltergeist/poltergeist
   gem "poltergeist"
+  gem "rails-controller-testing"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

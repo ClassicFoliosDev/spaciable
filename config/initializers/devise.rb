@@ -272,9 +272,10 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  Devise::SessionsController.layout proc { request.path == "/admin" ? "admin_login" : "login" }
-  Devise::RegistrationsController.layout proc { request.path == "/admin" ? "admin_login" : "login" }
-  Devise::ConfirmationsController.layout proc { request.path == "/admin" ? "admin_login" : "login" }
-  Devise::UnlocksController.layout proc { request.path == "/admin" ? "admin_login" : "login" }
-  Devise::PasswordsController.layout proc { request.path == "/admin" ? "admin_login" : "login" }
+  layout_decider = proc { session[:use_admin_layout] ? "admin_login" : "login" }
+  Devise::SessionsController.layout(layout_decider)
+  Devise::RegistrationsController.layout(layout_decider)
+  Devise::ConfirmationsController.layout(layout_decider)
+  Devise::UnlocksController.layout(layout_decider)
+  Devise::PasswordsController.layout(layout_decider)
 end
