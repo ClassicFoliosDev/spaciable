@@ -9,6 +9,7 @@
     <% developments.each do |development| %>
       <dt class="record-list-item" data-development="<%= development.id %>">
         <div class="record-list-item-actions">
+          <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
           <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
           <%= edit_btn [:edit, parent, development] %>
           <%= delete_btn development, path: url_for([parent, development]) %>

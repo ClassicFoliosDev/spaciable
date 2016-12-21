@@ -45,6 +45,7 @@ en:
   client_user: "Development Admin"
   owner: "Home Owner"
 
+
   # LAYOUTS
   layouts:
     application:
@@ -144,6 +145,7 @@ en:
   developments:
     developments:
       phases: "Phases"
+      unit_types: "Unit Types"
     edit:
       back: "Back"
     form:
@@ -302,6 +304,27 @@ en:
       add: "Add Phase"
       title: "%{development_name} Phases"
 
+  unit_types:
+    destroy:
+      archive:
+        success: "%{unit_type_name} was deleted successfully"
+    edit:
+      title: "Edit %{unit_type_name}"
+      back: "Back"
+    form:
+      picture: "Unit type picture"
+      upload: "Upload"
+      submit: "Submit"
+      back: "Back"
+    new:
+      add: "Add %{development_name} Unit Type"
+    index:
+      title: "%{unit_type_name} "
+      add: "Add Unit Type"
+    require_phase: " must be from %{development_name}"
+
+
+
   profiles:
     title: "Profile"
     prefix: "Title"
@@ -376,6 +399,16 @@ en:
         name: "Name"
       unit_type:
         name: "Unit type name"
+        picture: "Unit type picture"
+        build_types:
+          # Build type enums for unit type
+          house_semi: "Semi-detached house"
+          house_detached: "Detached house"
+          house_terraced: "Terraced house"
+          apartment: "Apartment"
+          maisonette: "Maisonette"
+          coach_house: "Coach house"
+          penthouse: "Penthouse"
       plot:
         title: "Plots"
         one: "Plot"

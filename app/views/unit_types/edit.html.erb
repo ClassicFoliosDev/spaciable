@@ -1,7 +1,14 @@
 <% breadcrumb :unit_type_edit, @unit_type, @development, @development.developer %>
 
-<h1><%= t("views.edit_name", name: @unit_type.name) %></h1>
+<div class="row">
+  <div class="row-item">
+    <div class="section-header">
+      <h3 class="section-title">
+        <%= fa_icon "vcard" %>
+        <%= t(".title", unit_type_name: @unit_type.name) %>
+      </h3>
+    </div>
+  </div>
+</div>
 
 <%= render 'form', unit_type: @unit_type %>
-
-<%= link_to 'Show', [@development, @unit_type] %>

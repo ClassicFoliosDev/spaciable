@@ -1,35 +1,44 @@
 <% breadcrumb :unit_types, @development, @development.developer %>
 
-<h1><%= @development %>: <%= UnitType.model_name.human.pluralize %></h1>
-
-<table>
-  <thead>
-    <tr>
-      <th> <%= UnitType.model_name.human.pluralize %></th>
-      <th><%= Phase.model_name.human.pluralize %></th>
-      <th><%= t("images.title") %></th>
-      <th colspan="3"><%= t("views.actions") %></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @unit_types.each do |unit_type| %>
-      <tr>
-        <td><%= unit_type.name %></td>
-        <td><%= unit_type.phases.pluck(:name).to_sentence %></td>
-        <td>
-          <% unit_type.images.each do |image| %>
-            <%= render 'image', image: image %>
-          <% end %>
-        </td>
-        <td><%= link_to t("views.show"), [@development, unit_type] %></td>
-        <td><%= link_to t("views.edit"), edit_development_unit_type_path(@development, unit_type) %></td>
-        <td><%= link_to t("views.destroy"), [@development, unit_type], method: :delete, data: { confirm: t("views.confirm_text") } %></td>
-      </tr>
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= t(".title", unit_type_name: @unit_types.name.pluralize) %>
+  </h3>
+  <div class="section-actions">
+    <%= link_to new_development_unit_type_path(@development), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
-<br>
+<div class="record-list">
+  <dl class="unit_types">
+    <dd class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(@unit_types, :name) %></span>
+        <span><%= sortable(@unit_types, :updated_at) %></span>
+      </div>
+    </dd>
+    <% @unit_types.each do |unit_type| %>
+        <dt class="record-list-item" data-unit_type="<%= unit_type.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn edit_development_unit_type_path(@development, unit_type) %>
+          <%= delete_btn unit_type, path: url_for([@development, unit_type]) %>
+        </div>
+        <div class="record-list-item-content">
+          <%= link_to unit_type.name, edit_development_unit_type_path(@development, unit_type), class: "unit_type-name" %>
+          <span class="unit_type-updated-timestamp">
+             <%= l unit_type.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+        </dt>
+    <% end %>
+  </dl>
+</div>
 
-<%= link_to t("views.add_type", type: UnitType.model_name.human), new_development_unit_type_path(@development) %>
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate @unit_types %>
+</div>

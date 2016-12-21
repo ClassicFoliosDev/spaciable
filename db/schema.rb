@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220074321) do
+ActiveRecord::Schema.define(version: 20161221133751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,11 +195,13 @@ ActiveRecord::Schema.define(version: 20161220074321) do
 
   create_table "unit_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.integer  "build_type",     default: 0
+    t.string   "picture"
     t.index ["developer_id"], name: "index_unit_types_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_unit_types_on_development_id", using: :btree
     t.index ["division_id"], name: "index_unit_types_on_division_id", using: :btree

@@ -128,7 +128,7 @@ end
 
 crumb :unit_types do |development, developer|
   link UnitType.model_name.human.pluralize, development_unit_types_path
-  parent :development, development, developer
+  parent :development_edit, development, developer
 end
 
 crumb :unit_type do |unit_type, development, developer|

@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 class UnitTypesController < ApplicationController
+  include PaginationConcern
+  include SortingConcern
   load_and_authorize_resource :development
   load_and_authorize_resource :unit_type, through: :development
 
   def index
+    @unit_types = paginate(sort(@unit_types, default: :name))
   end
 
   def new
@@ -21,7 +24,7 @@ class UnitTypesController < ApplicationController
         "controller.success.create",
         name: @unit_type.name
       )
-      redirect_to [@development, @unit_type], notice: notice
+      redirect_to [@development, :unit_types], notice: notice
     else
       render :new
     end
@@ -33,7 +36,7 @@ class UnitTypesController < ApplicationController
         "controller.success.update",
         name: @unit_type.name
       )
-      redirect_to [@development, @unit_type], notice: notice
+      redirect_to [@development, :unit_types], notice: notice
     else
       render :edit
     end
@@ -41,17 +44,14 @@ class UnitTypesController < ApplicationController
 
   def destroy
     @unit_type.destroy
-    redirect_to unit_types_url, notice: t("controller.success.destroy", name: @unit_type.name)
+    notice = t("controller.success.destroy", name: @unit_type.name)
+    redirect_to development_unit_types_url(@development), notice: notice
   end
 
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def unit_type_params
-    params.require(:unit_type).permit(
-      :name, phase_ids: [],
-             documents_attributes: [:id, :title, :file, :_destroy],
-             images_attributes: [:id, :title, :file, :_destroy]
-    )
+    params.require(:unit_type).permit(:name, :picture, phase_ids: [])
   end
 end

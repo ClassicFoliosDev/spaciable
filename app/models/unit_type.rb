@@ -3,6 +3,7 @@ class UnitType < ApplicationRecord
   belongs_to :development, optional: false
   alias parent development
   include InheritParentPermissionIds
+  mount_uploader :picture, PictureUploader
 
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
@@ -15,6 +16,16 @@ class UnitType < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
   has_many :images, as: :imageable
   accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
+
+  enum build_type: [
+    :house_semi,
+    :house_detached,
+    :house_terraced,
+    :apartment,
+    :maisonette,
+    :coach_house,
+    :penthouse
+  ]
 
   validates :name, presence: true
 
