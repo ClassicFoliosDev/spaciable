@@ -8,12 +8,12 @@ When(/^I create a developer$/) do
 
   click_on t("developers.index.add")
 
-  fill_in "developer_company_name", with: DeveloperFixture.company_name
+  fill_in "developer_company_name", with: CreateFixture.developer_name
   click_on t("developers.form.submit")
 end
 
 Then(/^I should see the created developer$/) do
-  expect(page).to have_content(DeveloperFixture.company_name)
+  expect(page).to have_content(CreateFixture.developer_name)
 end
 
 When(/^I update the developer$/) do

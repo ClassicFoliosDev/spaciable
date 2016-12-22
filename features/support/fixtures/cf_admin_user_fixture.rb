@@ -7,7 +7,7 @@ module CFAdminUserFixture
   end
 
   def email
-    "admin@hoozzi.com"
+    "test_admin@hoozzi.com"
   end
 
   def password

@@ -52,7 +52,10 @@ class FinishesController < ApplicationController
     params.require(:finish).permit(
       :room_id,
       :name,
+      :description,
       :category,
+      :type,
+      :manufacturer,
       :picture,
       documents_attributes: [:id, :title, :file, :_destroy]
     )

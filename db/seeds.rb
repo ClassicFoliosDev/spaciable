@@ -56,3 +56,181 @@ if HomeownerLoginContent.none?
   content.blurb_para_2 = I18n.t('devise.sessions.new.intro_para_2')
   content.save!
 end
+
+{
+  "Wallcovering": {
+     "Paint": [
+       "Crown",
+       "Dulux",
+       "Farrow & Ball"
+     ],
+     "Wallpaper": [],
+     "Ceramic Tiles": [
+       "HR Johnson",
+       "Porcelanosa",
+       "Saloni"
+     ],
+     "Exposed Brickwork": [],
+     "Wood Walls": []
+  },
+  "Woodwork": {
+    "Paint": [
+      "Crown",
+      "Dulux",
+      "Farrow & Ball"
+    ],
+    "Varnish": [
+      "Crown" ,
+      "Dulux",
+      "Farrow & Ball"
+    ]
+  },
+  "Flooring": {
+    "Carpet": [
+      "Corma Carpets"
+    ],
+    "Ceramic Tiles": [
+      "HR Johnson",
+      "Porcelanosa",
+      "Saloni"
+    ],
+    "Concrete": [],
+    "Laminate": [],
+    "Stone": [],
+    "Vinyl": [],
+    "Wood":[]
+  },
+  "Sanitaryware": {
+    "Basin": [
+      "Ideal Standard",
+      "Roca",
+      "Kohler"
+    ],
+    "Basin Tap": [
+      "Bristan",
+      "Franke",
+      "Grohe"
+    ],
+    "Bath": [],
+    "Bath Screen": [],
+    "Bath Tap/Mixer": [],
+    "Shower Head": [],
+    "Shower Tray": [],
+    "Shower Unit": [
+      "Mira",
+      "Aqualisa",
+      "Triton"
+    ],
+    "Shower Screen/Door": [],
+    "Vanity Cabinet": [],
+    "WC": []
+  },
+  "Worktop": {
+    "Composite Stone": [
+      "Symphony",
+      "Moores",
+      "Wren"
+    ],
+    "Corian": [],
+    "Glass": [],
+    "Granite": [],
+    "Laminate": [],
+    "Quartz": [],
+    "Silestone": [],
+    "Stainless Steel": [],
+    "Wood": []
+  },
+  "Cabinet": {
+     "Corner": [
+       "Symphony",
+       "Moores",
+       "Wren"
+     ],
+     "Island": [],
+     "Floor": [],
+     "Tall": [],
+     "Wall": []
+  },
+  "Handles": {
+    "Stainless Steel": [
+      "Symphony",
+      "Moores"
+    ],
+    "Brushed Steel": [],
+    "Plastic": [],
+    "Polished Chrome": [],
+    "Pewter": [],
+    "Aluminium": [],
+    "Brushed Nickel": []
+  },
+  "Tap": {
+    "Dual": [
+      "Bristan",
+      "Franke",
+      "Blanco",
+      "CDA",
+      "Astracast",
+      "Grohe"
+    ],
+    "Mixer": [],
+    "Monobloc": []
+  },
+  "Sink": {
+    "Stainless Steel": [
+      "Blanco",
+      "Franke",
+      "Reginox",
+      "Astracast"
+    ],
+    "Ceramic": [],
+    "Quartz": [],
+    "Glass": [],
+    "Resin": []
+  },
+  "Exterior": {
+    "Bricks": [
+      "Hanson",
+      "Ibstock",
+      "Wienerberger"
+    ],
+    "Feature Bricks": [
+      "Hanson",
+      "Ibstock",
+      "Wienerberger"
+    ],
+    "Roof Tiles": [
+      "Hanson",
+      "Ibstock",
+      "Wienerberger"
+    ],
+    "Rainwater Goods": [
+      "Wavin"
+    ],
+    "Windows": [
+        "Wavin"
+    ],
+    "Door (Front)": [
+        "Wavin"
+    ],
+    "Door (Garage)": [
+        "Wavin"
+    ],
+    "Door (Patio)": [
+        "Wavin"
+    ],
+    "Door (Rear)": [
+        "Wavin"
+    ]
+  }
+
+}.each_pair do |category_name, types|
+  finish_category = FinishCategory.find_or_create_by(name: category_name)
+
+  types.each_pair do |type_name, manufacturers|
+    finish_type = finish_category.finish_types.find_or_create_by(name: type_name)
+
+    manufacturers.each do |manufacturer_name|
+      finish_type.manufacturers.find_or_create_by(name: manufacturer_name)
+    end
+  end
+end

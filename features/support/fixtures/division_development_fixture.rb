@@ -2,31 +2,6 @@
 module DivisionDevelopmentFixture
   module_function
 
-  def create_developer_with_division
-    developer = FactoryGirl.create(:developer, company_name: developer_name)
-    FactoryGirl.create(:division, developer: developer, division_name: division_name)
-  end
-
-  def developer_name
-    "Development Developer Ltd"
-  end
-
-  def division_name
-    "Division A Ltd"
-  end
-
-  def developer_id
-    Developer.find_by(company_name: developer_name).id
-  end
-
-  def division_id
-    Division.find_by(division_name: division_name).id
-  end
-
-  def development_name
-    "Riverside Development"
-  end
-
   def updated_development_name
     "Harbourside Development"
   end
@@ -39,7 +14,7 @@ module DivisionDevelopmentFixture
     }
   end
 
-  def address_update_attrs
+  def development_address_update_attrs
     {
       postal_name: "Langosh Fort",
       building_name: "Mega Building",

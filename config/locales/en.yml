@@ -350,18 +350,32 @@ en:
     new:
       add: "Add %{development_name} Unit Type"
     index:
-      title: "%{unit_type_name} "
+      title: "%{development_name} Unit Types"
       add: "Add Unit Type"
+      rooms: "Rooms"
     require_phase: " must be from %{development_name}"
-
-
 
   profiles:
     title: "Profile"
     prefix: "Title"
 
   rooms:
-    no_rooms: "No rooms found"
+    index:
+      title: "%{development_name} rooms"
+      add: "Add Room"
+    edit:
+      title: "Edit %{room_name}"
+    finish_fields:
+      picture: "Picture"
+      upload: "Upload"
+      remove_finish: "Remove finish"
+    form:
+      back: "Back"
+      submit: "Submit"
+      add: "Add"
+      add_finish: "Add finish"
+    new:
+      add: "Add %{development_name} Room"
 
   users:
     sign_out: "Sign out"
@@ -433,13 +447,14 @@ en:
         picture: "Unit type picture"
         build_types:
           # Build type enums for unit type
-          house_semi: "Semi-detached house"
-          house_detached: "Detached house"
-          house_terraced: "Terraced house"
+          house_semi: "House (semi-detached)"
+          house_detached: "House (detached)"
+          house_terraced: "House (terraced)"
           apartment: "Apartment"
           maisonette: "Maisonette"
           coach_house: "Coach house"
           penthouse: "Penthouse"
+          studio: "Studio"
       plot:
         title: "Plots"
         one: "Plot"
@@ -454,6 +469,17 @@ en:
         descr: "Description"
         image: "Picture"
         provider: "Provider"
+        categories:
+          wallcovering: "Wall covering"
+          woodwork: "Woodwork"
+          flooring: "Flooring"
+          sanitary_ware: "Sanitary ware"
+          worktop: "Worktop"
+          cabinet: "Cabinet"
+          handles: "Handles"
+          tap: "Tap"
+          sink: "Sink"
+          exterior: "Exterior"
       document:
         title: "Document name"
         file: "File"

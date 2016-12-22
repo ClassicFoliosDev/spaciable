@@ -1,8 +1,14 @@
-<% breadcrumb :room_edit, @room, @development, @development.developer %>
+<% breadcrumb :room_edit, @room %>
 
-<h1><%= t("views.edit_name", name: @room.name) %></h1>
+<div class="row">
+  <div class="row-item">
+    <div class="section-header">
+      <h3 class="section-title">
+        <%= fa_icon "vcard" %>
+        <%= t(".title", room_name: @room.name) %>
+      </h3>
+    </div>
+  </div>
+</div>
 
-<%= render 'form', room: @room %>
-
-<%= link_to 'Show', [@development, @room] %> |
-<%= link_to 'Back', development_rooms_path(@development) %>
+<%= render 'form', room: @room, development: @development, unit_type: @unit_type %>

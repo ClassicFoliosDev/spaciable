@@ -1,8 +1,44 @@
-<% breadcrumb :rooms, @development, @development.developer %>
+<% breadcrumb :unit_type_rooms, @unit_type, @development %>
 
-<h1><%= @development %>  <%= Room.model_name.human.pluralize %></h1>
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= t(".title", development_name: @development.name) %>
+  </h3>
+  <div class="section-actions">
+    <%= link_to new_development_unit_type_room_path(@development, @unit_type), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
+  </div>
+</div>
 
-<%= render 'rooms', rooms: @rooms %>
-<br>
+<div class="record-list">
+  <dl class="rooms">
+    <dd class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Room, :name) %></span>
+        <span><%= sortable(Room, :updated_at) %></span>
+      </div>
+    </dd>
+    <% @rooms.each do |room| %>
+        <dt class="record-list-item" data-room="<%= room.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn edit_room_path(room) %>
+          <%= delete_btn room, path: room_path(room) %>
+        </div>
+        <div class="record-list-item-content">
+          <%= link_to room.name, edit_room_path(room), class: "room-name" %>
+          <span class="room-updated-timestamp">
+             <%= l room.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+        </dt>
+    <% end %>
+  </dl>
+</div>
 
-<%= link_to t("views.add_type", type: Room.model_name.human), new_development_room_path(@development) %>
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate @rooms %>
+</div>

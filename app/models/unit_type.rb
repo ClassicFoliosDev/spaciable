@@ -18,13 +18,14 @@ class UnitType < ApplicationRecord
   accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
 
   enum build_type: [
-    :house_semi,
-    :house_detached,
-    :house_terraced,
     :apartment,
-    :maisonette,
     :coach_house,
-    :penthouse
+    :house_detached,
+    :house_semi,
+    :house_terraced,
+    :maisonette,
+    :penthouse,
+    :studio
   ]
 
   validates :name, presence: true
