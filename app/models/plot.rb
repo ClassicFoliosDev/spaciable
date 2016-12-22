@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 class Plot < ApplicationRecord
-  ownable_by :developer, :division, from: :development
+  belongs_to :development, optional: false
+  alias parent development
+  include InheritParentPermissionIds
 
   belongs_to :unit_type
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
-  belongs_to :development, optional: false
 
   has_many :plot_residents
   has_many :residents, through: :plot_residents

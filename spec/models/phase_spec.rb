@@ -2,48 +2,9 @@
 require "rails_helper"
 
 RSpec.describe Phase do
-  it "must have a developer_id or division_id" do
-    phase = described_class.new(developer_id: nil, division_id: nil)
-
-    phase.validate
-
-    expect(phase.errors[:base]).to include("be associated with a Developer or Division")
-  end
-
-  describe "#developer_id" do
-    it "sets it based on the development developer_id" do
-      developer = create(:developer)
-      development = create(:development, developer: developer, division: nil)
-      phase = development.phases.new
-
-      phase.validate
-
-      expect(phase.developer_id).to eq(developer.id)
-    end
-  end
-
-  describe "#division_id" do
-    it "sets it based on the development division_id" do
-      division = create(:division)
-      development = create(:development, division: division, developer: division.developer)
-      phase = development.phases.new
-
-      phase.validate
-
-      expect(phase.division_id).to eq(division.id)
-    end
-
-    it "does not set the developer_id if the development has a division id" do
-      division = create(:division)
-      developer = division.developer
-      development = create(:development, developer: developer, division: division)
-      phase = development.phases.new
-
-      phase.validate
-
-      expect(phase.division_id).to eq(division.id)
-      expect(phase.developer_id).to be_nil
-    end
+  include_examples "it inherits permissable ids from the parent" do
+    let(:parent) { create(:development) }
+    let(:association_with_parent) { :phases }
   end
 
   describe "#number" do

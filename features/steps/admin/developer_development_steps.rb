@@ -21,7 +21,7 @@ When(/^I create a development for the developer$/) do
 end
 
 Then(/^I should see the created developer development$/) do
-  expect(page).to have_content(DeveloperDevelopmentFixture.developer_name)
+  expect(page).to have_content(DeveloperDevelopmentFixture.development_name)
 end
 
 When(/^I update the developers development$/) do
@@ -37,7 +37,7 @@ When(/^I update the developers development$/) do
     fill_in "development_address_attributes_#{attr}", with: value
   end
 
-  click_on t("developers.form.submit")
+  click_on t("developments.form.submit")
 end
 
 Then(/^I should see the updated developer development$/) do

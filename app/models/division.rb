@@ -3,7 +3,7 @@ class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
 
-  has_many :developments, through: :developer
+  has_many :developments, dependent: :destroy
   has_many :documents, dependent: :destroy
   has_many :finishes, dependent: :destroy
   has_many :images, dependent: :destroy

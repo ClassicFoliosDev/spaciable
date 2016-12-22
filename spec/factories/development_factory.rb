@@ -7,5 +7,11 @@ FactoryGirl.define do
 
     address
     developer
+    division { nil }
+
+    factory :division_development do
+      developer { nil }
+      division
+    end
   end
 end

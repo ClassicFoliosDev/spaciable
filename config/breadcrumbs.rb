@@ -11,7 +11,7 @@ end
 crumb :developer do |developer|
   # Replace this with a tabbed view of divisions / developments for the developer,
   # as there is no show developer page to visit.
-  link developer.company_name, edit_developer_path(developer)
+  link developer, edit_developer_path(developer)
   parent :developers
 end
 
@@ -38,16 +38,16 @@ crumb :divisions do |developer|
   parent :developer, developer
 end
 
-crumb :division do |division, developer|
-  link division.division_name, [developer, division]
-  parent :divisions, developer
+crumb :division do |division|
+  link division, [:edit, division.developer, division]
+  parent :divisions, division.developer
 end
 
-crumb :developer_division_edit do |division, developer|
+crumb :developer_division_edit do |division|
   title = t("breadcrumbs.division_edit", division_name: division.division_name)
 
-  link title, edit_developer_division_path(developer, division)
-  parent :developer_divisions, developer
+  link title, edit_developer_division_path(division.developer, division)
+  parent :developer_divisions, division.developer
 end
 
 crumb :division_new do |developer|
@@ -57,6 +57,21 @@ crumb :division_new do |developer|
 end
 
 # DEVELOPMENTS
+
+crumb :development_edit do |development|
+  title = t("breadcrumbs.development_edit", development_name: development.name)
+
+  if development.parent.is_a?(Developer)
+
+    link title, edit_developer_development_path(development.parent, development)
+    parent :developer_developments, development.parent
+
+  elsif development.parent.is_a?(Division)
+
+    link title, edit_division_development_path(development.parent, development)
+    parent :division_developments, development.parent
+  end
+end
 
 crumb :developments do |developer|
   link Development.model_name.human.pluralize, developer_developments_path(developer)
@@ -73,63 +88,40 @@ crumb :development do |development, developer|
   parent :developments, developer
 end
 
-crumb :developer_development_edit do |development, developer|
-  title = t("breadcrumbs.development_edit", development_name: development.name)
-
-  link title, edit_developer_development_path(developer, development)
-  parent :developer_developments, developer
-end
-
-crumb :division_development_edit do |development, developer|
-  link t("views.edit"), development_path(development)
-  parent :development, development, developer
-end
-
 crumb :development_new do |developer|
-  link t("views.add_type",
-         type: Development.model_name.human)
+  link t("breadcrumbs.development_new")
   parent :developments, developer
 end
 
 # DIVISION DEVELOPMENTS
 
-crumb :division_developments do |division, developer|
-  link Development.model_name.human.pluralize, developments_path
-  parent :division, division, developer
+crumb :division_developments do |division|
+  link Development.model_name.human.pluralize, division_developments_path(division)
+  parent :division, division
 end
 
-crumb :division_development do |division, developer, development|
-  link development.name, development_path
-  parent :division_developments, division, developer
-end
-
-crumb :division_development_edit do |division, developer, development|
-  link t("views.edit"), development_path
-  parent :division_development, division, developer, development
-end
-
-crumb :division_development_new do |division, developer|
+crumb :division_development_new do |division|
   link t("views.add_type",
          type: Development.model_name.human)
-  parent :division_developments, division, developer
+  parent :division_developments, division
 end
 
 # DEVELOPMENT PHASES
 
-crumb :phases do |development, developer|
-  link Phase.model_name.human.pluralize, development_phases_path
-  parent :developer_development_edit, development, developer
+crumb :phases do |development|
+  link Phase.model_name.human.pluralize, development_phases_path(development)
+  parent :development_edit, development
 end
 
-crumb :phase_edit do |development, developer|
-  link t("views.edit"), development_phase_path
-  parent :phases, development, developer
+crumb :phase_edit do |phase|
+  link t("views.edit"), edit_development_phase_path(phase.development, phase)
+  parent :phases, phase.development
 end
 
-crumb :phase_new do |development, developer|
+crumb :phase_new do |development|
   link t("views.add_type",
          type: Phase.model_name.human)
-  parent :phases, development, developer
+  parent :phases, development
 end
 
 # UNIT TYPES

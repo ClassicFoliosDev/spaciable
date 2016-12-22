@@ -24,8 +24,9 @@
       </div>
     </dt>
     <% @divisions.each do |division| %>
-      <dd class="record-list-item">
+      <dd class="record-list-item" data-division="<%= division.id %>">
         <div class="record-list-item-actions">
+          <%= link_to t(".developments"), division_developments_path(division), class: "btn" %>
           <%= edit_btn edit_developer_division_path(@developer, division) %>
           <%= delete_btn division, path: url_for([@developer, division]) %>
         </div>

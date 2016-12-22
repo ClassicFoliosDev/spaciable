@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 class UnitType < ApplicationRecord
-  ownable_by :developer, :division, from: :development
+  belongs_to :development, optional: false
+  alias parent development
+  include InheritParentPermissionIds
 
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
-  belongs_to :development, optional: false
 
   has_many :rooms, dependent: :destroy
   has_many :plots, dependent: :destroy
@@ -16,13 +17,6 @@ class UnitType < ApplicationRecord
   accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
-  validates :phases, presence: true
-  validate :phases_are_under_development
-
-  def phases_are_under_development
-    return if phases.map(&:development_id).uniq == [development.id]
-    errors.add(:phases, "must be from the development the unit type is for")
-  end
 
   def to_s
     name

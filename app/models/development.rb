@@ -2,8 +2,12 @@
 class Development < ApplicationRecord
   acts_as_paranoid
 
-  belongs_to :developer, optional: false
+  belongs_to :developer, optional: true
   belongs_to :division, optional: true
+
+  def parent
+    division || developer
+  end
 
   has_many :documents, dependent: :destroy
   has_many :finishes, dependent: :destroy
@@ -17,13 +21,12 @@ class Development < ApplicationRecord
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
-  validate :division_is_under_developer,
-           if: -> { division.present? && developer.present? }
+  validate :permissable_id_presence
 
   delegate :to_s, to: :name
 
-  def division_is_under_developer
-    return if division.developer_id == developer.id
-    errors.add(:division, "must be under the chosen Developer")
+  def permissable_id_presence
+    return unless developer_id.blank? && division_id.blank?
+    errors.add(:base, :missing_permissable_id)
   end
 end

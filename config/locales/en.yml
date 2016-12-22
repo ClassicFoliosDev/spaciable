@@ -69,6 +69,7 @@ en:
   breadcrumbs:
     developer_edit: "Edit %{developer_name}"
     development_edit: "Edit %{development_name}"
+    development_new: "New Development"
     division_edit: "Edit %{division_name}"
 
   views:
@@ -198,6 +199,22 @@ en:
       success: "%{division_name} was deleted successfully"
     create:
       success: "%{division_name} was created successfully"
+    developments:
+      destroy:
+        archive:
+          success: "%{development_name} was deleted successfully"
+      create:
+        success: "%{development_name} was created successfully"
+      new:
+        add: "Add Development"
+      update:
+        success: "%{development_name} was updated successfully"
+      edit:
+        title: "Edit %{development_name}"
+        edit: "Edit %{development_name}"
+      index:
+        add: "Add Development"
+        title: "%{division_name} Developments"
     edit:
       title: "Edit %{division_name}"
       show: "Show"
@@ -211,6 +228,7 @@ en:
       destroy: "Delete"
       show: "Show"
       title: "Divisions"
+      developments: "Developments"
     new:
       title: "New Division"
       back: "Back"
@@ -279,6 +297,7 @@ en:
     form:
       address: "Phase Address"
       submit: "Submit"
+      back: "Back"
     index:
       add: "Add Phase"
       title: "%{development_name} Phases"
@@ -391,8 +410,6 @@ en:
         postcode: "Postcode"
 
     errors:
-      models:
-        phase:
-          attributes:
-            base:
-              missing_permissable_id: "be associated with a Developer or Division"
+      messages:
+        missing_permissable_id: "be associated with a Developer or Division"
+        only_one_parent_allowed: "cannot be associated with a Developer and a Division"

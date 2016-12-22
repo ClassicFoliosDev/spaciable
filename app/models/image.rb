@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class Image < ApplicationRecord
-  ownable_by :developer, :division, :development, from: :imageable
   mount_uploader :file, PictureUploader
 
   belongs_to :imageable, polymorphic: true

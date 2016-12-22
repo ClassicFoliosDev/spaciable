@@ -1,5 +1,5 @@
-<% breadcrumb :phase_new, @development, @development.developer %>
+<% breadcrumb :phase_new, @development %>
 
 <h1><%= t("views.add_type", type: Phase.model_name.human) %></h1>
 
-<%= render 'form', phase: @phase %>
+<%= render 'form', phase: @phase, development: @development %>

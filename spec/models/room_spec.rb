@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe UnitType do
+RSpec.describe Room do
   include_examples "it inherits permissable ids from the parent" do
-    let(:parent) { create(:development) }
-    let(:association_with_parent) { :unit_types }
+    let(:parent) { create(:unit_type) }
+    let(:association_with_parent) { :rooms }
   end
 end

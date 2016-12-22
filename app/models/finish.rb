@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 class Finish < ApplicationRecord
-  ownable_by :developer, :division, :development, from: :room
   mount_uploader :picture, PictureUploader
 
   belongs_to :room
+  alias parent room
+  include InheritParentPermissionIds
+
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
   belongs_to :development, optional: false

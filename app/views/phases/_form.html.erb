@@ -1,4 +1,4 @@
-<%= simple_form_for([phase.development, phase]) do |f| %>
+<%= simple_form_for([development, phase]) do |f| %>
   <% if phase.errors.any? %>
     <div class="row">
       <div class="row-item">
@@ -34,7 +34,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t("views.back"), development_phases_path, class: "btn" %>
+      <%= link_to t(".back"), development_phases_path(development), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

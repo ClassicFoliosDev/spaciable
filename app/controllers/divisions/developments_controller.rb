@@ -1,40 +1,48 @@
 # frozen_string_literal: true
 module Divisions
   class DevelopmentsController < ApplicationController
+    include PaginationConcern
+    include SortingConcern
     load_and_authorize_resource :division
-    load_and_authorize_resource :development, through: [:division]
+    load_and_authorize_resource :development, through: :division
 
     def index
-    end
-
-    def show
+      @developments = paginate(sort(@developments, default: :name))
     end
 
     def new
+      @development.build_address unless @development.address
     end
 
     def edit
+      @development.build_address unless @development.address
     end
 
     def create
       if @development.save
-        redirect_to [@division, @development], notice: "Development was successfully created."
+        notice = t(".success", development_name: @development.name)
+        redirect_to [@division, :developments], notice: notice
       else
+        @development.build_address unless @development.address
         render :new
       end
     end
 
     def update
       if @development.update(development_params)
-        redirect_to [@division, @development], notice: "Development was successfully updated."
+        notice = t(".success", development_name: @development.name)
+        redirect_to [@division, :developments], notice: notice
       else
+        @development.build_address unless @development.address
         render :edit
       end
     end
 
     def destroy
+      notice = t(".archive.success", development_name: @development.name)
+
       @development.destroy
-      redirect_to division_developments_path, notice: "Development was successfully destroyed."
+      redirect_to division_developments_path, notice: notice
     end
 
     private
@@ -43,14 +51,10 @@ module Divisions
     def development_params
       params.require(:development).permit(
         :name,
-        :developer_id,
         :division_id,
-        :office_address,
-        :city,
-        :county,
-        :postcode,
         :email,
-        :contact_number
+        :contact_number,
+        address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
       )
     end
   end

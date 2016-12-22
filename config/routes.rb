@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :finishes
   end
 
-  resources :developments do
+  resources :developments, except: :show do
     resources :phases, except: :show
     resources :unit_types
     resources :rooms
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   end
 
   resources :divisions, except: :show do
-    resources :developments, controller: 'divisions/developments'
+    resources :developments, except: :show, controller: 'divisions/developments'
   end
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
