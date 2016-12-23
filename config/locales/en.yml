@@ -72,6 +72,8 @@ en:
     development_edit: "Edit %{development_name}"
     development_new: "New Development"
     division_edit: "Edit %{division_name}"
+    plot_new: "New Plot"
+    plot_edit: "Edit %{plot_name}"
 
   views:
     add: "Add"
@@ -146,6 +148,7 @@ en:
     developments:
       phases: "Phases"
       unit_types: "Unit Types"
+      plots: "Plots"
     edit:
       back: "Back"
     form:
@@ -291,11 +294,14 @@ en:
     not_yet: "You can add pictures after this resource has been saved"
 
   phases:
+    create:
+      success: "%{phase_name} was created successfully"
     destroy:
       archive:
         success: "%{phase_name} was deleted successfully"
     edit:
       back: "Back"
+      title: "Edit %{phase_name}"
     form:
       address: "Phase Address"
       submit: "Submit"
@@ -303,6 +309,31 @@ en:
     index:
       add: "Add Phase"
       title: "%{development_name} Phases"
+    new:
+      add: "Add Phase"
+    update:
+      success: "%{phase_name} was updated successfully"
+
+  plots:
+    create:
+      success: "%{plot_name} was created successfully"
+    destroy:
+      archive:
+        success: "%{plot_name} was deleted successfully"
+    edit:
+      back: "Back"
+      title: "Edit %{plot_name}"
+    form:
+      address: "Plot Address"
+      submit: "Submit"
+      back: "Back"
+    index:
+      add: "Add Plot"
+      title: "%{development_name} Plots"
+    new:
+      add: "Add Plot"
+    update:
+      success: "%{plot_name} was updated successfully"
 
   unit_types:
     destroy:

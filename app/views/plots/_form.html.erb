@@ -1,38 +1,39 @@
-<%= simple_form_for([plot.development, plot]) do |f| %>
+<%= simple_form_for([development, plot]) do |f| %>
   <% if plot.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t("views.need_fix") %><%= pluralize(plot.errors.count, "error") %></h2>
-
-      <ul>
-      <% plot.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% plot.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :prefix %>
+        <%= f.input :number, as: :integer %>
+      </fieldset>
+    </div>
 
-  <div class="field">
-    <%= f.label Plot.human_attribute_name("prefix") %>
-    <%= f.text_field :prefix %>
+    <div class="row-item third">
+      <fieldset>
+        <%= f.association :unit_type, as: :select, collection: development.unit_types.pluck(:name, :id) %>
+      </fieldset>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label Plot.human_attribute_name("number")  %>
-    <%= f.number_field :number %>
-  </div>
-
-  <div class="field">
-    <%= f.label UnitType.model_name.human  %>
-    <%= f.select :unit_type_id, plot.development.unit_types.pluck(:name, :id) %>
-  </div>
-
-  <br>
-
-  <%= render 'documents_form', f: f %>
-
-  <br>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), development_plots_path(development), class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
   </div>
 <% end %>

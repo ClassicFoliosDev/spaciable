@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class Plot < ApplicationRecord
+  acts_as_paranoid
+
   belongs_to :development, optional: false
   alias parent development
   include InheritParentPermissionIds
@@ -16,13 +18,13 @@ class Plot < ApplicationRecord
   has_many :documents, as: :documentable
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
-  validates :number, :unit_type, presence: true
+  validates :number, presence: true
 
   def to_s
     if prefix.blank?
       number
     else
-      "#{prefix}  #{number}"
+      "#{prefix} #{number}"
     end
   end
 end

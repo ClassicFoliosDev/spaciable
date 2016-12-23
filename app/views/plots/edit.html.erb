@@ -1,9 +1,5 @@
-<% breadcrumb :plot_edit, @plot, @development, @development.developer %>
+<% breadcrumb :plot_edit, @plot %>
 
+<h1><%= t(".title", plot_name: @plot.to_s) %></h1>
 
-<h1><%= t("views.edit_name", name: @plot.id) %></h1>
-
-<%= render 'form', plot: @plot %>
-
-<%= link_to 'Show', [@development, @plot] %> |
-<%= link_to 'Back', development_plots_path(@development) %>
+<%= render 'form', plot: @plot, development: @development %>

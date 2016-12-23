@@ -73,24 +73,20 @@ crumb :development_edit do |development|
   end
 end
 
-crumb :developments do |developer|
-  link Development.model_name.human.pluralize, developer_developments_path(developer)
-  parent :developer, developer
-end
-
 crumb :developer_developments do |developer|
   link Development.model_name.human.pluralize, developer_developments_path(developer)
   parent :developer, developer
 end
 
-crumb :development do |development, developer|
-  link development.name, [developer, development]
-  parent :developments, developer
-end
-
-crumb :development_new do |developer|
+crumb :development_new do |development_parent|
   link t("breadcrumbs.development_new")
-  parent :developments, developer
+
+  case development_parent
+  when Developer
+    parent :developer_developments, development_parent
+  when Division
+    parent :division_developments, development_parent
+  end
 end
 
 # DIVISION DEVELOPMENTS
@@ -98,12 +94,6 @@ end
 crumb :division_developments do |division|
   link Development.model_name.human.pluralize, division_developments_path(division)
   parent :division, division
-end
-
-crumb :division_development_new do |division|
-  link t("views.add_type",
-         type: Development.model_name.human)
-  parent :division_developments, division
 end
 
 # DEVELOPMENT PHASES
@@ -219,27 +209,18 @@ end
 
 # PLOTS
 
-crumb :plots do |development, developer|
+crumb :plots do |development|
   link Plot.model_name.human.pluralize, development_plots_path
-  parent :development, development, developer
+  parent :development_edit, development
 end
 
-crumb :plot do |plot, development, developer|
-  link "%{prefix} %{number}" % {
-    prefix: plot.prefix,
-    number: plot.number
-  }, development_plot_path(plot)
-  parent :plots, development, developer
-end
-
-crumb :plot_edit do |plot, development, developer|
-  link t("views.edit")
-  parent :plot, plot, development, developer
+crumb :plot_edit do |plot|
+  link t("breadcrumbs.plot_edit", plot_name: plot)
+  parent :plots, plot.development
 end
 
 crumb :plot_new do |plot, development, developer|
-  link t("views.add_type",
-         type: Plot.model_name.human)
+  link t("breadcrumbs.plot_new")
   parent :plots, plot, development, developer
 end
 

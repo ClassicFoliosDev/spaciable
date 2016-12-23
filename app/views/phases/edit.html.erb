@@ -1,5 +1,5 @@
 <% breadcrumb :phase_edit, @phase %>
 
-<h1><%= t("views.edit_name", name: @phase.name) %></h1>
+<h1><%= t(".title", phase_name: @phase.name) %></h1>
 
 <%= render 'form', phase: @phase, development: @development %>

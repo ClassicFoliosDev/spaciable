@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 class PlotsController < ApplicationController
+  include PaginationConcern
+  include SortingConcern
   load_and_authorize_resource :development
   load_and_authorize_resource :plot, through: :development
 
   def index
+    @plots = paginate(sort(@plots, default: :number))
   end
 
   def new
@@ -13,17 +16,12 @@ class PlotsController < ApplicationController
   end
 
   def show
-    @all_documents = []
-    @all_documents << @plot.unit_type.documents
-    @all_documents << @plot.rooms.map(&:documents)
-    @all_documents << @plot.finishes.map(&:documents)
-    @all_documents << @plot.documents
-    @all_documents.flatten!
   end
 
   def create
     if @plot.save
-      redirect_to [@development, @plot], notice: t("controller.success.create", name: @plot.id)
+      notice = t(".success", plot_name: @plot.to_s)
+      redirect_to [@development, :plots], notice: notice
     else
       render :new
     end
@@ -31,15 +29,17 @@ class PlotsController < ApplicationController
 
   def update
     if @plot.update(plot_params)
-      redirect_to [@development, @plot], notice: t("controller.success.update", name: @plot.id)
+      notice = t(".update.success", plot_name: @plot.to_s)
+      redirect_to [@development, :plots], notice: notice
     else
-      frender :edit
+      render :edit
     end
   end
 
   def destroy
     @plot.destroy
-    redirect_to development_plots_url, notice: t("controller.success.destroy", name: @plot.id)
+    notice = t(".archive.success", plot_name: @plot.to_s)
+    redirect_to development_plots_url(@development), notice: notice
   end
 
   private
@@ -49,8 +49,8 @@ class PlotsController < ApplicationController
     params.require(:plot).permit(
       :prefix,
       :number,
-      :unit_type_id,
-      documents_attributes: [:id, :title, :file, :_destroy]
+      :apartment_prefix,
+      :unit_type_id
     )
   end
 end

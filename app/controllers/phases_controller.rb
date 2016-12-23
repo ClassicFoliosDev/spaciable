@@ -22,7 +22,7 @@ class PhasesController < ApplicationController
 
   def create
     if @phase.save
-      notice = t("controller.success.create", name: @phase.name)
+      notice = t(".success", phase_name: @phase.name)
       redirect_to [@development, :phases], notice: notice
     else
       @phase.build_address_with_defaults
@@ -32,7 +32,7 @@ class PhasesController < ApplicationController
 
   def update
     if @phase.update(phase_params)
-      notice = t("controller.success.update", name: @phase.name)
+      notice = t(".success", phase_name: @phase.name)
       redirect_to [@development, :phases], notice: notice
     else
       @phase.build_address_with_defaults

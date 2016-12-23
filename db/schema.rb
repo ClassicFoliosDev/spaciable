@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221133751) do
+ActiveRecord::Schema.define(version: 20161222151120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +164,8 @@ ActiveRecord::Schema.define(version: 20161221133751) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
     t.index ["division_id"], name: "index_plots_on_division_id", using: :btree
