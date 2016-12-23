@@ -20,9 +20,16 @@ class Plot < ApplicationRecord
 
   validates :number, presence: true
 
+  # `1.0` becomes `1`
+  # `1.1` stays as `1.1`
+  def number
+    return self[:number] unless self[:number].to_i == self[:number]
+    self[:number].to_i
+  end
+
   def to_s
     if prefix.blank?
-      number
+      number.to_s
     else
       "#{prefix} #{number}"
     end
