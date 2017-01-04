@@ -9,6 +9,10 @@
 - `cd` into the project directory: `cd hoozzi`
 - Setup the project: `bin/setup`
 
+## Generate admin and homeowner accounts
+
+`$ rake db:seed`
+
 ## Running the application
 
 `$ rails s`
