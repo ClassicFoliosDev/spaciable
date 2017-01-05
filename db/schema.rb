@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105142623) do
+ActiveRecord::Schema.define(version: 20170106161610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,25 +31,44 @@ ActiveRecord::Schema.define(version: 20170105142623) do
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
   end
 
+  create_table "appliance_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "appliance_categories_manufacturers", id: false, force: :cascade do |t|
+    t.integer  "appliance_category_id", null: false
+    t.integer  "manufacturer_id",       null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["appliance_category_id", "manufacturer_id"], name: "appliance_category_manufacturers_index", using: :btree
+    t.index ["manufacturer_id", "appliance_category_id"], name: "manufacturer_appliance_category_index", using: :btree
+  end
+
   create_table "appliances", force: :cascade do |t|
     t.string   "name"
     t.string   "primary_image"
-    t.string   "images"
     t.string   "manual"
-    t.integer  "manufacturer"
     t.string   "serial"
-    t.integer  "category"
     t.string   "source"
     t.string   "service_log"
     t.string   "warranty_num"
-    t.datetime "wwarranty_exp_date"
     t.integer  "warranty_length"
     t.string   "model_num"
     t.integer  "e_rating"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.datetime "deleted_at"
+    t.string   "description"
+    t.string   "secondary_image"
+    t.string   "document"
+    t.integer  "appliance_category_id"
+    t.integer  "manufacturer_id"
+    t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
+    t.index ["manufacturer_id"], name: "index_appliances_on_manufacturer_id", using: :btree
   end
 
   create_table "developers", force: :cascade do |t|
@@ -161,7 +180,6 @@ ActiveRecord::Schema.define(version: 20170105142623) do
     t.integer  "finish_category_id"
     t.integer  "finish_type_id"
     t.integer  "manufacturer_id"
-    t.integer  "cat_list"
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_finishes_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_finishes_on_development_id", using: :btree
@@ -234,6 +252,8 @@ ActiveRecord::Schema.define(version: 20170105142623) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
     t.index ["division_id"], name: "index_plots_on_division_id", using: :btree
@@ -303,6 +323,8 @@ ActiveRecord::Schema.define(version: 20170105142623) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "appliances", "appliance_categories"
+  add_foreign_key "appliances", "manufacturers"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"

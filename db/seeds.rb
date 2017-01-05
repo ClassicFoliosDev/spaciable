@@ -234,3 +234,133 @@ end
     end
   end
 end
+
+{
+  "Washing Machine": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zannussi",
+    "Siemens"
+  ],
+  "Washer Dryer": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Tumble Dryer": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Fridge": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Freezer": [
+  "AEG",
+  "Bosch",
+  "Miele",
+  "Samsung",
+  "Zanussi",
+  "Siemens"
+  ],
+  "Fridge Freezer": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Dishwasher": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Oven": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Hob": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Extractor": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Wine Cooler": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Coffee Machine": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Warming Drawer": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Microwave": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ],
+  "Combi Microwave": [
+    "AEG",
+    "Bosch",
+    "Miele",
+    "Samsung",
+    "Zanussi",
+    "Siemens"
+  ]
+}.each_pair do |category_name, manufacturers|
+  appliance_category = ApplianceCategory.find_or_create_by!(name: category_name)
+
+  manufacturers.each do |manufacturer_name|
+    appliance_category.manufacturers.find_or_create_by!(name: manufacturer_name)
+  end
+
+end

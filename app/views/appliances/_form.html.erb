@@ -1,0 +1,78 @@
+<%= simple_form_for(appliance) do |f| %>
+    <% if appliance.errors.any? %>
+        <div class="row">
+          <div class="row-item">
+            <div class="submission-errors">
+              <ul>
+                <% appliance.errors.full_messages.each do |message| %>
+                    <li>
+                      <%= fa_icon "exclamation-circle" %>
+                      <%= message %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+    <% end %>
+    <div class="row appliances">
+      <div class="row-item third">
+        <fieldset>
+          <%= f.label t(".primary_image") %>
+          <%= image_tag(appliance.primary_image.thumbnail.url) if appliance.primary_image? %>
+          <br>
+          <%= label_tag('appliance_primary_image', t(".upload"), class: "btn") %>
+          <%= f.input :primary_image, as: :file, label: false , input_html: { class: 'hidden' } %>
+          <%= f.input :name %>
+          <%= f.input :model_num %>
+          <%= f.input :serial %>
+        </fieldset>
+      </div>
+      <div class="row-item third">
+        <fieldset>
+          <div class="appliance-category ui-front select-container">
+            <%= f.association :appliance_category %>
+          </div>
+          <div class="manufacturer ui-front select-container">
+            <%= f.association :manufacturer %>
+          </div>
+          <div class="ui-front">
+          <%= f.label t(".warranty_length") %>
+          <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
+          </div>
+          <div class="ui-front">
+          <%= f.label t(".e_rating") %>
+          <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
+          </div>
+          <%= f.label t(".description") %>
+          <%= f.text_area :description %>
+          <%= f.input :source %>
+        </fieldset>
+      </div>
+      <div class="row-item third">
+        <fieldset>
+          <%= f.label t(".manual") %>
+          <%= label_tag('appliance_manual', t(".upload"), class: "btn") %>
+          <%= f.input :manual, as: :file, label: false, input_html: { class: 'hidden' } %>
+          <% if appliance.manual? %>
+            <%= f.label t(".manual_name") %>
+            <%= text_field_tag "", appliance.manual.file.original_filename, readonly: true %>
+          <% end %>
+
+          <%= f.label t(".secondary_image") %>
+          <%= image_tag(appliance.secondary_image.thumbnail.url) if appliance.secondary_image? %>
+          <br>
+          <%= label_tag('appliance_secondary_image', t(".upload"), class: "btn") %>
+          <%= f.input :secondary_image, as: :file, label: false , input_html: { class: 'hidden' } %>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t(".back"), appliances_path, class: "btn" %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+<% end %>
+

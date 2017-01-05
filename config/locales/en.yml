@@ -74,7 +74,10 @@ en:
     division_edit: "Edit %{division_name}"
     plot_new: "New Plot"
     plot_edit: "Edit %{plot_name}"
-
+    appliance_edit: "Edit %{name}"
+    appliance_new: "New appliance"
+    appliance_new: "New appliance"
+    appliance_add: "Add appliance"
   views:
     add: "Add"
     add_type: "Add %{type}"
@@ -115,6 +118,7 @@ en:
       developers: "Developers"
       documents: "Documents"
       users: "Users"
+      appliances: "Appliances"
       profile: "Profile"
 
   forms:
@@ -124,14 +128,14 @@ en:
     header: "Dashboard title for Hoozzi"
     title: "Dashboard"
     section:
-      notifications: 
+      notifications:
         title: "Recent Notifications"
         sent_to: "Sent to "
         new: "New Notification"
-      documents: 
+      documents:
         title: "Recent Documents"
         new: "New Document"
-      faqs: 
+      faqs:
         title: "Recent FAQs"
         new: "New FAQ"
 
@@ -284,7 +288,7 @@ en:
           login_cta: "Login"
     sessions:
       new:
-        title: 
+        title:
           left: "Hoozzi isn't just a map,"
           right: "it's a tour guide"
         login_cta: "Login"
@@ -364,6 +368,34 @@ en:
       add: "Add Unit Type"
       rooms: "Rooms"
     require_phase: " must be from %{development_name}"
+
+  appliances:
+   destroy:
+     success: "%{name} was deleted successfully"
+   create:
+     success: "%{name} was created successfully"
+   update:
+     success: "%{name} was updated successfully"
+   index:
+     title: "Appliances"
+     add: "Add appliance"
+   new:
+     title: "New appliance"
+   form:
+     submit: "Submit"
+     back: "Back"
+     description: "Description"
+     primary_image: "Appliance picture"
+     secondary_image: "Additional picture"
+     upload: "Upload"
+     warranty_length: "Warranty length"
+     e_rating: "Energy rating"
+     manual: "Appliance manual"
+     manual_name: "Appliance manual file name"
+     remove_manual: "Remove appliance manual"
+   edit:
+     title: "Edit %{name}"
+     back: "Back"
 
   profiles:
     title: "Profile"
@@ -479,17 +511,45 @@ en:
         descr: "Description"
         image: "Picture"
         provider: "Provider"
-        categories:
-          wallcovering: "Wall covering"
-          woodwork: "Woodwork"
-          flooring: "Flooring"
-          sanitary_ware: "Sanitary ware"
-          worktop: "Worktop"
-          cabinet: "Cabinet"
-          handles: "Handles"
-          tap: "Tap"
-          sink: "Sink"
-          exterior: "Exterior"
+      appliance:
+        primary_image: "Appliance picture"
+        name: "Appliance name"
+        model_num: "Appliance model number"
+        serial: "Appliance serial number"
+        category: "Appliance category"
+        manufacturer: "Appliance manufacturer"
+        warranty_length: "Appliance warranty period"
+        wwarranty_exp_date: "Appliance warranty expiry date"
+        e_rating: "Appliance energy rating"
+        source: "Appliance source"
+        warranty_num: "Appliance warranty number"
+        manual: "Appliance manual"
+        images: "Additional images"
+        warranty_length:
+          # Warranty length enums for appliances
+          no_warranty: "No warranty"
+          one: "1 year"
+          two: "2 years"
+          three: "3 years"
+          four: "4 years"
+          five: "5 years"
+          six: "6 years"
+          seven: "7 years"
+          eight: "8 years"
+          nine: "9 years"
+          ten: "10 years"
+        e_rating:
+          # Energy rating enums for appliances
+          a3: "A+++"
+          a2: "A++"
+          a1: "A+"
+          a: "A"
+          b: "B"
+          c: "C"
+          d: "D"
+          e: "E"
+          f: "F"
+          g: "G"
       document:
         title: "Document name"
         file: "File"
@@ -508,7 +568,6 @@ en:
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
-
     errors:
       messages:
         missing_permissable_id: "be associated with a Developer or Division"
