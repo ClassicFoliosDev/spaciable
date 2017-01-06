@@ -1,8 +1,0 @@
-<% breadcrumb :finish_edit, @finish, @development, @development.developer %>
-
-<h1><%= t("views.edit_name", name: @finish.name) %></h1>
-
-<%= render 'form', finish: @finish %>
-
-<%= link_to t("views.show"), [@room, @finish] %> |
-<%= link_to t("views.back"), room_finishes_path(@room) %>

@@ -1,33 +1,53 @@
-<%= simple_form_for([room.development, room]) do |f| %>
+<%= simple_form_for([development, unit_type, room]) do |f| %>
   <% if room.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= t("views.need_fix") %><%= pluralize(room.errors.count, "error") %></h2>
-
-      <ul>
-      <% room.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% room.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label Room.human_attribute_name("name") %>
-    <%= f.text_field :name %>
+
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :name %>
+      </fieldset>
+    </div>
+
+    <div class="row-item third">
+      <fieldset>
+        <%= link_to_add_association t(".add_finish"), f, :finishes, data: {
+            "association-insertion-method": "append",
+            "association-insertion-node": ".finish-fields"
+        }, class: "btn" %>
+      </fieldset>
+    </div>
+
+    <div class="row-item third finish-fields">
+      <%= f.simple_fields_for :finishes do |finish| %>
+        <%= render 'finish_fields', f: finish %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label UnitType.model_name.human %>
-    <%= f.select :unit_type_id, room.development.unit_types.pluck(:name, :id) %>
-  </div>
-
-  <br>
-
-  <%= render 'documents_form', f: f %>
-
-  <br>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% if room.development_id.present? %>
+        <%= link_to t(".back"), development_unit_type_rooms_path(room.development_id, room.unit_type_id), class: "btn" %>
+      <% else %>
+        <%= link_to t(".back"), development_unit_type_rooms_path(development, unit_type), class: "btn" %>
+      <% end %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
   </div>
 <% end %>

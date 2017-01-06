@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 Given(/^there is a developer$/) do
-  DeveloperDevelopmentFixture.create_developer
+  CreateFixture.create_developer
 end
 
 When(/^I create a development for the developer$/) do
@@ -10,18 +10,18 @@ When(/^I create a development for the developer$/) do
     click_on t("components.navigation.developers")
   end
 
-  within "[data-developer='#{DeveloperDevelopmentFixture.developer_id}']" do
+  within "[data-developer='#{CreateFixture.developer_id}']" do
     click_on t(".developers.index.developments")
   end
 
   click_on t("developments.index.add")
 
-  fill_in "development_name", with: DeveloperDevelopmentFixture.development_name
+  fill_in "development_name", with: CreateFixture.development_name
   click_on t("developments.form.submit")
 end
 
 Then(/^I should see the created developer development$/) do
-  expect(page).to have_content(DeveloperDevelopmentFixture.development_name)
+  expect(page).to have_content(CreateFixture.development_name)
 end
 
 When(/^I update the developers development$/) do
@@ -33,7 +33,7 @@ When(/^I update the developers development$/) do
     fill_in "development_#{attr}", with: value
   end
 
-  DeveloperDevelopmentFixture.address_update_attrs.each do |attr, value|
+  DeveloperDevelopmentFixture.development_address_update_attrs.each do |attr, value|
     fill_in "development_address_attributes_#{attr}", with: value
   end
 
@@ -54,7 +54,7 @@ Then(/^I should see the updated developer development$/) do
     expect(screen_value).to eq(value)
   end
 
-  DeveloperDevelopmentFixture.address_update_attrs.each do |attr, value|
+  DeveloperDevelopmentFixture.development_address_update_attrs.each do |attr, value|
     screen_value = find_by_id("development_address_attributes_#{attr}").value
     expect(screen_value).to eq(value)
   end
@@ -74,7 +74,7 @@ Then(/^I should see that the deletion was successful for the developer developme
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do
-    expect(page).to have_content(DeveloperDevelopmentFixture.developer_name)
+    expect(page).to have_content(CreateFixture.developer_name)
   end
 
   within ".record-list" do

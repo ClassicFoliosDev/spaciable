@@ -1,4 +1,8 @@
 # frozen_string_literal: true
+Given(/^I have a I have a developer with a development and a unit type$/) do
+  CreateFixture.create_developer_with_development_and_unit_type
+end
+
 When(/^I create a unit type for the development$/) do
   visit "/"
 
@@ -6,24 +10,24 @@ When(/^I create a unit type for the development$/) do
     click_on t("components.navigation.developers")
   end
 
-  within "[data-developer='#{UnitTypeFixture.developer_id}']" do
+  within "[data-developer='#{CreateFixture.developer_id}']" do
     click_on t(".developers.index.developments")
   end
 
-  within "[data-development='#{UnitTypeFixture.development_id}']" do
+  within "[data-development='#{CreateFixture.development_id}']" do
     click_on t(".developments.developments.unit_types")
   end
 
   click_on t("unit_types.index.add")
 
-  fill_in "unit_type_name", with: UnitTypeFixture.unit_type_name
+  fill_in "unit_type_name", with: CreateFixture.unit_type_name
   click_on t("unit_types.form.submit")
 end
 
 Then(/^I should see the created unit type$/) do
-  expect(page).to have_content(UnitTypeFixture.developer_name)
+  expect(page).to have_content(CreateFixture.developer_name)
 
-  click_on UnitTypeFixture.unit_type_name
+  click_on CreateFixture.unit_type_name
 
   click_on t("unit_types.edit.back")
 end
@@ -52,18 +56,19 @@ Then(/^I should see the updated unit type$/) do
   UnitTypeFixture.update_attrs.each do |attr, value|
     screen_value = find("[name='unit_type[#{attr}]']").value
     expect(screen_value).to eq(value)
-    expect(page).to have_content(
-      t("activerecord.attributes.unit_type.build_types.house_detached")
-    )
   end
+
+  expect(page).to have_content(
+    t("activerecord.attributes.unit_type.build_types.house_detached")
+  )
 end
 
 And(/^I have created a unit type$/) do
-  UnitTypeFixture.create_unit_type
+  CreateFixture.create_unit_type
 end
 
 When(/^I delete the unit type$/) do
-  unit_type_path = "/developments/#{UnitTypeFixture.development_id}/unit_types"
+  unit_type_path = "/developments/#{CreateFixture.development_id}/unit_types"
   visit unit_type_path
 
   delete_and_confirm!
@@ -72,15 +77,15 @@ end
 Then(/^I should see the deletion complete successfully$/) do
   success_flash = t(
     "unit_types.destroy.archive.success",
-    unit_type_name: UnitTypeFixture.unit_type_name
+    unit_type_name: CreateFixture.unit_type_name
   )
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do
-    expect(page).to have_content(UnitTypeFixture.development_name)
+    expect(page).to have_content(CreateFixture.development_name)
   end
 
   within ".record-list" do
-    expect(page).to have_no_content UnitTypeFixture.unit_type_name
+    expect(page).to have_no_content CreateFixture.unit_type_name
   end
 end

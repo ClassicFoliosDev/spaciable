@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223121247) do
+ActiveRecord::Schema.define(version: 20170105142623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,27 @@ ActiveRecord::Schema.define(version: 20161223121247) do
     t.integer  "addressable_id"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
+  end
+
+  create_table "appliances", force: :cascade do |t|
+    t.string   "name"
+    t.string   "primary_image"
+    t.string   "images"
+    t.string   "manual"
+    t.integer  "manufacturer"
+    t.string   "serial"
+    t.integer  "category"
+    t.string   "source"
+    t.string   "service_log"
+    t.string   "warranty_num"
+    t.datetime "wwarranty_exp_date"
+    t.integer  "warranty_length"
+    t.string   "model_num"
+    t.integer  "e_rating"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
   end
 
   create_table "developers", force: :cascade do |t|
@@ -93,19 +114,61 @@ ActiveRecord::Schema.define(version: 20161223121247) do
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
   end
 
+  create_table "finish_categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "finish_categories_types", id: false, force: :cascade do |t|
+    t.integer  "finish_category_id", null: false
+    t.integer  "finish_type_id",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["finish_category_id", "finish_type_id"], name: "finish_category_finish_type_index", using: :btree
+    t.index ["finish_type_id", "finish_category_id"], name: "finish_type_finish_category_index", using: :btree
+  end
+
+  create_table "finish_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
+    t.integer  "finish_type_id",  null: false
+    t.integer  "manufacturer_id", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["finish_type_id", "manufacturer_id"], name: "finish_type_manufacturers_index", using: :btree
+    t.index ["manufacturer_id", "finish_type_id"], name: "manufacturer_finish_type_index", using: :btree
+  end
+
   create_table "finishes", force: :cascade do |t|
     t.integer  "room_id"
     t.string   "name"
-    t.string   "category"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.string   "picture"
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.datetime "deleted_at"
+    t.integer  "type"
+    t.string   "description"
+    t.integer  "finish_category_id"
+    t.integer  "finish_type_id"
+    t.integer  "manufacturer_id"
+    t.integer  "cat_list"
+    t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_finishes_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_finishes_on_development_id", using: :btree
     t.index ["division_id"], name: "index_finishes_on_division_id", using: :btree
+    t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree
+    t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
+    t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
     t.index ["room_id"], name: "index_finishes_on_room_id", using: :btree
   end
 
@@ -131,6 +194,13 @@ ActiveRecord::Schema.define(version: 20161223121247) do
     t.index ["development_id"], name: "index_images_on_development_id", using: :btree
     t.index ["division_id"], name: "index_images_on_division_id", using: :btree
     t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
+  end
+
+  create_table "manufacturers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "phases", force: :cascade do |t|
@@ -164,8 +234,6 @@ ActiveRecord::Schema.define(version: 20161223121247) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
     t.index ["division_id"], name: "index_plots_on_division_id", using: :btree
@@ -189,6 +257,8 @@ ActiveRecord::Schema.define(version: 20161223121247) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_rooms_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_rooms_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_rooms_on_development_id", using: :btree
     t.index ["division_id"], name: "index_rooms_on_division_id", using: :btree
@@ -242,6 +312,9 @@ ActiveRecord::Schema.define(version: 20161223121247) do
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "developments"
   add_foreign_key "finishes", "divisions"
+  add_foreign_key "finishes", "finish_categories"
+  add_foreign_key "finishes", "finish_types"
+  add_foreign_key "finishes", "manufacturers"
   add_foreign_key "finishes", "rooms"
   add_foreign_key "images", "developers"
   add_foreign_key "images", "developments"

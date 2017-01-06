@@ -117,18 +117,13 @@ end
 # UNIT TYPES
 
 crumb :unit_types do |development, developer|
-  link UnitType.model_name.human.pluralize, development_unit_types_path
+  link UnitType.model_name.human.pluralize, development_unit_types_path(development)
   parent :development_edit, development, developer
 end
 
-crumb :unit_type do |unit_type, development, developer|
-  link unit_type.name, development_unit_type_path
-  parent :unit_types, development, developer
-end
-
 crumb :unit_type_edit do |unit_type, development, developer|
-  link t("views.edit")
-  parent :unit_type, unit_type, development, developer
+  link t("views.edit"), edit_development_unit_type_path(development, unit_type)
+  parent :unit_types, development, developer
 end
 
 crumb :unit_type_new do |development, developer|
@@ -186,25 +181,23 @@ end
 
 # ROOMS
 
-crumb :rooms do |development, developer|
-  link Room.model_name.human.pluralize, development_rooms_path(development)
-  parent :development, development, developer
+crumb :unit_type_rooms do |unit_type, development|
+  link Room.model_name.human.pluralize, development_unit_type_rooms_path(development, unit_type)
+  parent :unit_type_edit, unit_type, development, development.developer
 end
 
-crumb :room do |room, development, developer|
-  link room.name, development_rooms_path(room)
-  parent :rooms, development, developer
+crumb :room_edit do |room|
+  link t("views.edit"), edit_room_path(room)
+  # TODO Ask Joe Different Edit path also has this side effect
+  unit_type = UnitType.find(room.unit_type_id)
+  development = Development.find(room.development_id)
+  parent :unit_type_rooms, unit_type, development
 end
 
-crumb :room_edit do |room, development, developer|
-  link t("views.edit")
-  parent :room, room, development, developer
-end
-
-crumb :room_new do |development, developer|
+crumb :room_new do |unit_type, development|
   link t("views.add_type",
          type: Room.model_name.human)
-  parent :rooms, development, developer
+  parent :unit_type_rooms, unit_type, development
 end
 
 # PLOTS

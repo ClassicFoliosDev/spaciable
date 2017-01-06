@@ -1,7 +1,0 @@
-<% breadcrumb :finish_new, @development, @development.developer %>
-
-<h1><%= t("views.add_type", type: Finish.model_name.human) %></h1>
-
-<%= render 'form', finish: @finish %>
-
-<%= link_to t("views.back"), room_finishes_path(@room) %>

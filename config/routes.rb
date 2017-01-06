@@ -18,8 +18,10 @@ Rails.application.routes.draw do
 
   resources :developments, except: :show do
     resources :phases, except: :show
-    resources :unit_types
-    resources :rooms
+
+    resources :unit_types do
+      resources :rooms, shallow: true
+    end
     resources :plots
   end
 
@@ -34,5 +36,7 @@ Rails.application.routes.draw do
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard
+  get "/update_finish_types", to: 'rooms#update_finish_types'
+  get "/update_manufacturers", to: 'rooms#update_manufacturers'
   root 'home#show'
 end

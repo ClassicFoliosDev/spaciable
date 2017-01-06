@@ -1,19 +1,20 @@
 # frozen_string_literal: true
 class Finish < ApplicationRecord
-  mount_uploader :picture, PictureUploader
-
+  # acts_as_paranoid oes not work for nested fields
   belongs_to :room
   alias parent room
-  include InheritParentPermissionIds
+  mount_uploader :picture, PictureUploader
 
-  belongs_to :developer, optional: false
+  belongs_to :developer, optional: true
   belongs_to :division, optional: true
-  belongs_to :development, optional: false
+  belongs_to :development, optional: true
 
-  has_many :documents, as: :documentable
-  accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
+  belongs_to :finish_category
+  belongs_to :finish_type
+  belongs_to :manufacturer
 
-  validates :name, presence: true
+  # has_many :documents, as: :documentable
+  # accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   def to_s
     name

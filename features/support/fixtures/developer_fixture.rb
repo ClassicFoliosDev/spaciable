@@ -17,10 +17,6 @@ module DeveloperFixture
     }
   end
 
-  def company_name
-    "Hamble Developments LTD"
-  end
-
   def about
     <<~ABOUT
       Established in 1977. Hamble Developments have been serving the local area
