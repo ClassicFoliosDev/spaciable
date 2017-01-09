@@ -29,6 +29,7 @@
       </div>
       <div class="row-item third">
         <fieldset>
+          <%= f.association :phases, collection: unit_type.development.phases, as: :check_boxes %>
           <%= f.input :build_type, as: :select, collection: build_types_collection, include_blank: false %>
         </fieldset>
       </div>
