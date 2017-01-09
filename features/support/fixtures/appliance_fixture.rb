@@ -41,7 +41,7 @@ module ApplianceFixture
   def dropdown_attrs
     {
       category: "Freezer",
-      manufaturer: "AEG"
+      manufaturer: "Samsung"
     }
   end
 

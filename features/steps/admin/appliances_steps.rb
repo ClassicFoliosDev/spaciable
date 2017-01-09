@@ -81,6 +81,8 @@ When(/^I update the dropdown$/) do
     category_ul = page.find ".ui-menu"
 
     category_list = category_ul.all("li")
+    # Select of item 5 should always give the same result,
+    # because the DB contents are populated by seeds.rb
     category_list[5].click
   end
 
@@ -93,6 +95,8 @@ When(/^I update the dropdown$/) do
     manuf_ul = page.find ".ui-menu"
 
     manuf_list = manuf_ul.all("li")
+    # Select of item 3 should always give the same result,
+    # because the DB contents are populated by seeds.rb
     manuf_list[3].click
   end
 
