@@ -2,11 +2,6 @@ en:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
-
-    inputs:
-      image_preview:
-        upload: "Upload"
-
     required:
       text: 'required'
       mark: 'Required'
