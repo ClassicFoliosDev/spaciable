@@ -12,11 +12,8 @@
   <%= f.input :name %>
   <%= f.input :description %>
 
-  <%= f.label t(".picture") %>
-  <%= image_tag(f.object.picture.thumbnail.url) if f.object.picture? %>
   <br>
-  <%= label_tag('uploader', t(".upload"), class: "btn") %>
-  <%= f.file_field :picture, id: "uploader", class: "hidden" %>
+  <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
   <br>
 
   <%= link_to_remove_association t(".remove_finish"), f, class: "btn" %>
