@@ -1,5 +1,38 @@
 <header>
-  <%= image_tag 'logo.png' %>
-  <%= t('.hi', first_name: current_user.first_name) %>
-  <%= link_to t('.logout'), destroy_user_session_path, method: :delete %>
+  <div class="session-container">
+
+    <%= render "components/homeowner/navigation" %>
+
+    <p class="greeting">
+      <%= t('.hi', first_name: current_user.first_name) %>
+    </p>
+    <div class="avatar">
+      <label class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
+        <img src="https://api.adorable.io/avatars/285/<%= current_user.email %>">
+      </label>
+      <input id="avatar-menu-toggle" type="checkbox">
+      <nav class="avatar-menu">
+        <ul>
+          <li><%= link_to t('.logout'), destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <div class="navigation-container">
+    <div class="logo">
+      <%= image_tag 'logo.png'%>
+    </div>
+
+    <%= render "components/homeowner/navigation" %>
+
+    <form class="search-form">
+      <label>
+        <%= fa_icon "search" %>
+      </label>
+      <input type="text">
+      <button class="btn-primary">Search</button>
+    </form>
+  </div>
+  <div class="hero-container" style="background-image: url('http://lorempixel.com/1920/400/city/8')">
+  </div>
 </header>

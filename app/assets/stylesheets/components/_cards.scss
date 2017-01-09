@@ -1,0 +1,253 @@
+.card-container {
+  & > *:nth-child(4),
+  & > *:nth-child(4n+7) {
+    @include omega();
+  }
+}
+
+.card {
+  background-color: $ui-white;
+  border-radius: $border-radius;
+  overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  margin-bottom: $spacing-medium;
+  height: 221px;
+
+  .btn-primary {
+    border: 1px solid $primary-red;
+  }
+
+  .card-title {
+    @include display(flex);
+    @include pad($spacing-small);
+    border-bottom: 1px solid $ui-grey;
+
+    .title {
+      font-size: $title-font-size-4;
+      margin: 0;
+      color: $primary-black;
+    }
+
+    .btn {
+      font-size: 11px;
+      margin-left: auto;
+      background-color: lighten($primary-red, 30%) !important;
+      color: $primary-red !important;
+
+      &:hover {
+        background-color: $primary-red !important;
+        color: #fff !important;
+      }
+    }
+  }
+
+  .card-content {
+    @include pad($spacing-small);
+  }
+
+  &.bordered {
+    border: 1px solid $ui-grey;
+  }
+
+  li {
+    list-style-type: none;
+  }
+}
+
+.card {
+  &.my-home {
+    color: $ui-white;
+    height: 230px;
+    position: relative;
+
+    &:before {
+      @include trans-to-black(90deg);
+      background-color: transparent;
+      content: '';
+      display: block;
+      width: 50%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      border-radius: $border-radius;
+    }
+
+    .card-title {
+      border-bottom: none;
+      padding-bottom: 0px;
+    }
+
+    .title {
+      color: $ui-white;
+    }
+
+    .my-home-address {
+      margin: 0 0 $spacing-small;
+      font-size: $base-font-size;
+    }
+  }
+
+  &.my-library {
+    @include grad-yellow-orange();
+    height: 230px;
+
+    .card-title {
+      border-bottom: none;
+      padding-bottom: 0px;
+    }
+
+    .title {
+      color: $ui-white;
+    }
+  }
+
+  &.my-contacts {
+    height: 464px;
+
+    .contact-list {
+      margin-bottom: 0;
+    }
+
+    .card-content {
+      padding: 0;
+    }
+
+    .contact-name {
+      display: inline-block;
+      font-weight: bold;
+      margin: 0 0 0 $spacing-small;
+    }
+
+    .contact-actions {
+      a {
+        text-decoration: none;
+        font-size: $title-font-size-3;
+
+
+        &:first-child {
+          margin-left: $spacing-small;
+        }
+      }
+    }
+
+    .avatar {
+      float: left;
+    }
+
+    li {
+      @include display(flex);
+      @include pad($spacing-small $spacing-medium);
+      border-bottom: 1px solid $ui-grey;
+
+
+      &:last-child {
+        border-bottom: 0px;
+      }
+    }
+  }
+
+  &.faqs {
+
+    .card-content {
+      padding: 0;
+    }
+
+    .faq-list {
+      margin-bottom: 0;
+    }
+
+    .faq-item {
+      margin-bottom: 0px;
+      border-bottom: $border-size solid $ui-grey;
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    .faq-link {
+      @include display(flex);
+      align-items: center;
+      font-size: 11px;
+      color: $primary-black;
+      padding: ($spacing-small / 2) $spacing-large ($spacing-small / 2) $spacing-small;
+      text-decoration: none;
+      position: relative;
+      height: 42px;
+      line-height: 16px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:after {
+        content: "\f105";
+        font-family: 'FontAwesome';
+        color: $primary-red;
+        font-size: $title-font-size-3;
+        position: absolute;
+        right: $spacing-small;
+        top: 0px;
+        line-height: 42px;
+      }
+    }
+  }
+
+  &.how-to {
+    position: relative;
+
+    .card-title {
+      border-bottom: 0px;
+    }
+
+    .how-to-logo {
+      font-style: italic;
+      color: $primary-red;
+      font-size: 10px;
+      position: relative;
+      top: 4px;
+    }
+
+    .favourite-article {
+      float: right;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .view-article {
+      float: right;
+    }
+
+    .hoozzi-logo {
+      position: relative;
+      top: 7px;
+    }
+
+    .how-to-title {
+      color: $ui-white;
+      margin-bottom: $spacing-small;
+    }
+
+    &:before {
+      @include trans-to-black(360deg);
+      background-color: transparent;
+      content: '';
+      display: block;
+      width: 100%;
+      height: 60%;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      border-radius: $border-radius;
+    }
+
+    .card-content {
+      position: absolute;
+      bottom: 0px;
+      width: 100%;
+    }
+  }
+}

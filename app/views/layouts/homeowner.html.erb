@@ -1,21 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html class="hoozzi">
   <%= render partial: 'layouts/head', locals: { title: t(".title") } %>
-  <body>
+  <body class="homeowner-view">
     <div class="outer-container">
       <div class="content-container">
         <div class="header-container">
           <%= render 'components/homeowner/header' %>
-        </div>
-
-        <div class="navigation-container">
-          <%= render partial: 'components/navbar_item', locals: {
-                     path: root_path,
-                     link_class: 'active',
-                     icon: 'home',
-                     label: t(".nav.my_home")
-                   } %>
-          </div>
         </div>
 
         <div class="main-container">

@@ -1,7 +1,8 @@
 
 .breadcrumb-container,
 .header-container,
-.form-actions-footer-container {
+.form-actions-footer-container,
+.avatar-menu {
   z-index: 5;
 }
 
@@ -11,4 +12,25 @@
 
 .navbar-trigger-label {
   z-index: 11;
+}
+
+.how-to .favourite-article {
+  z-index: 12;
+}
+
+.card-content,
+.card-title {
+  position: relative;
+  z-index: 15;
+}
+
+@include media($tablet-landscape-down) {
+
+  .session-container {
+    z-index: 19;
+  }
+  
+  .navbar {
+    z-index: 20;
+  }
 }

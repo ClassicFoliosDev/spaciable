@@ -141,8 +141,18 @@ en:
 
   homeowner:
     dashboard:
-      show:
-        my_home: "My Home"
+      cards:
+        contacts:
+          title: "Contacts"
+          view_more: "View Contacts"
+        faqs:
+          title: "FAQs"
+          view_more: "View FAQs"
+        my_home:
+          title: "My Home"
+          view_more: "View My Home"
+        library:
+          title: "Library"
 
   developments:
     developments:

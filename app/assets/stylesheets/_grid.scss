@@ -25,42 +25,44 @@ html.hoozzi body {
   min-height: 100%;
 }
 
-.sidebar-container {
-  @include span-columns(16 of 16);
+.admin-view {
 
-  @include media($tablet-landscape-up) {
-    @include span-columns(3 of 16, block-collapse);
-    @include omega();
+  .sidebar-container {
+    @include span-columns(16 of 16);
+
+    @include media($tablet-landscape-up) {
+      @include span-columns(3 of 16, block-collapse);
+      @include omega();
+    }
+
+    @include media($desktop-large-up) {
+      @include span-columns(2 of 16, block-collapse);
+      @include omega();
+    }
   }
 
-  @include media($desktop-large-up) {
-    @include span-columns(2 of 16, block-collapse);
-    @include omega();
+  .content-container {
+    @include span-columns(16 of 16);
+    overflow: scroll;
+    height: 100%;
+
+    @include media($tablet-landscape-up) {
+      @include span-columns(13 of 16, block-collapse);
+    }
+
+    @include media($desktop-large-up) {
+      @include span-columns(14 of 16, block-collapse);
+      @include omega();
+    }
   }
-}
 
-.content-container {
-  @include span-columns(16 of 16);
-  overflow: scroll;
-  height: 100%;
+  .main-container {
+    @include span-columns(16 of 16);
+    padding-top: 120px;
 
-  @include media($tablet-landscape-up) {
-    @include span-columns(13 of 16, block-collapse);
-  }
-
-  @include media($desktop-large-up) {
-    @include span-columns(14 of 16, block-collapse);
-    @include omega();
-  }
-}
-
-.main-container {
-  @include span-columns(16 of 16);
-  padding-top: 120px;
-
-  @include media($tablet-landscape-up) {
-    @include span-columns(13 of 13);
-  }
+    @include media($tablet-landscape-up) {
+      @include span-columns(13 of 13);
+    }
 
   @include media($desktop-large-up) {
     @include span-columns(14 of 14);
@@ -71,49 +73,71 @@ html.hoozzi body {
     @include clearfix();
     margin-bottom: $spacing-large;
 
-    //IE 11 fix
-    float: left;
-    width: 100%;
-    box-sizing: border-box;
-    //
+      //IE 11 fix
+      float: left;
+      width: 100%;
+      box-sizing: border-box;
+      //
+    }
+  }
+
+  .header-container {
+    @include span-columns(16 of 16);
+    border-bottom: 1px solid $ui-grey;
+    position: fixed;
+
+    @include media($tablet-landscape-up) {
+      @include span-columns(13 of 13);
+    }
+
+    @include media($desktop-large-up) {
+      @include span-columns(14 of 14);
+    }
+  }
+
+  .breadcrumb-container {
+    @include span-columns(16 of 16);
+    border-bottom: 1px solid $ui-grey;
+    position: fixed;
+    top: 66px;
+
+    //For tablet portrait and up
+    @include media($tablet-landscape-up) {
+      @include span-columns(13 of 13);
+    }
+
+    //For large desktop up
+    @include media($desktop-large-up) {
+      @include span-columns(14 of 14);
+    }
+
   }
 }
 
-.header-container {
-  @include span-columns(16 of 16);
-  border-bottom: 1px solid $ui-grey;
-  position: fixed;
-
-  @include media($tablet-landscape-up) {
-    @include span-columns(13 of 13);
+.homeowner-view {
+  .content-container {
+    @include span-columns(16 of 16);
+    overflow-y: scroll;
+    height: 100%;
   }
 
-  @include media($desktop-large-up) {
-    @include span-columns(14 of 14);
-  }
-}
-
-.breadcrumb-container {
-  @include span-columns(16 of 16);
-  border-bottom: 1px solid $ui-grey;
-  position: fixed;
-  top: 66px;
-
-  //For tablet portrait and up
-  @include media($tablet-landscape-up) {
-    @include span-columns(13 of 13);
+  .header-container {
+    @include span-columns(16 of 16);
   }
 
-  //For large desktop up
-  @include media($desktop-large-up) {
-    @include span-columns(14 of 14);
+  .main-container {
+    @include span-columns(14 of 16);
+    @include shift(1);
   }
-
 }
 
 .row {
   @include span-columns(12 of 12);
   @include omega();
+
+  .row-end {
+    @include omega();
+  }
 }
 
 .row-item {
@@ -144,5 +168,15 @@ html.hoozzi body {
 
   @include media($tablet-landscape-up) {
     @include span-columns(4 of 12);
+  }
+}
+
+.row-item.quarter {
+  @include media($tablet-landscape-down) {
+    @include span-columns(12 of 12);
+  }
+
+  @include media($tablet-landscape-up) {
+    @include span-columns(3 of 12);
   }
 }

@@ -15,99 +15,199 @@ $navbar-link-font-size-mobile: $title-font-size-3;
 //Nav Variables
 $navbar-bg-color-mobile: $ui-white;
 
+.admin-view {
+  .sidebar-container {
 
-.sidebar-container {
-
-  //For tablet portrait and up
-  @include media($tablet-landscape-up) {
-    @include grad-blue-black();
-    height: 100%;
+    //For tablet portrait and up
+    @include media($tablet-landscape-up) {
+      @include grad-blue-black();
+      height: 100%;
+    }
   }
-}
 
-.navbar-trigger-label {
-  color: $navbar-trigger-color;
-  display: block;
-  position: fixed;
-  font-size: $title-font-size-1;
-  height: $title-font-size-1;
-  line-height: $title-font-size-1;
-  right: $navbar-trigger-offset;
-  top: $navbar-trigger-offset;
+  .navbar-trigger-label {
+    color: $navbar-trigger-color;
+    display: block;
+    position: fixed;
+    font-size: $title-font-size-1;
+    height: $title-font-size-1;
+    line-height: $title-font-size-1;
+    right: $navbar-trigger-offset;
+    top: $navbar-trigger-offset;
 
-  @include media($tablet-landscape-up) {
+    @include media($tablet-landscape-up) {
+      display: none;
+    }
+  }
+
+  .navbar-menu {
+
+    @include media($tablet-landscape-down) { 
+      max-height: 0;
+      overflow: hidden; 
+      @include transition(max-height 0.2s ease-in-out);
+
+    }
+
+    @include media($tablet-landscape-up) {
+      max-height: 100%;
+    }
+
+  }
+
+  // Navbar trigger uses +checked selector
+  // in combination with the checkbox label
+  // to hide/show nav on smaller devices
+
+  #navbar-trigger {
     display: none;
   }
-}
 
-.navbar-menu {
-
-  @include media($tablet-landscape-down) { 
-    max-height: 0;
-    overflow: hidden; 
-    @include transition(max-height 0.2s ease-in-out);
-
-  }
-
-  @include media($tablet-landscape-up) {
+  #navbar-trigger:checked + .navbar-menu {
     max-height: 100%;
   }
 
-}
-
-// Navbar trigger uses +checked selector
-// in combination with the checkbox label
-// to hide/show nav on smaller devices
-
-#navbar-trigger {
-  display: none;
-}
-
-#navbar-trigger:checked + .navbar-menu {
-  max-height: 100%;
-}
-
-.navbar-menu {
-  @include media($tablet-landscape-down) {
-    position: absolute;
-    top: 109px;
-    background-color: $navbar-bg-color-mobile;
-    width: 100%;
+  .navbar-menu {
+    @include media($tablet-landscape-down) {
+      position: absolute;
+      top: 109px;
+      background-color: $navbar-bg-color-mobile;
+      width: 100%;
+    }
   }
-}
 
-.navbar-item {
-  .fa {
-    margin: $navbar-link-icon-margin;
-    width: $base-font-size;
+  .navbar-item {
+    .fa {
+      margin: $navbar-link-icon-margin;
+      width: $base-font-size;
+
+      @include media($tablet-landscape-down) {
+        display: inline-block;
+        text-align: center;
+        width: $navbar-link-font-size-mobile;
+      }
+    }
+  }
+
+  .navbar-link {
+    text-decoration: none;
+    display: block;
 
     @include media($tablet-landscape-down) {
-      display: inline-block;
-      text-align: center;
-      width: $navbar-link-font-size-mobile;
+      padding: $navbar-link-padding-mobile;
+      font-size: $navbar-link-font-size-mobile;
+    }
+
+    @include media($tablet-landscape-up) {
+      padding: $navbar-link-padding-desktop;
+      color: $navbar-link-color;
+      opacity: 0.6;
+
+      &:hover,
+      &.active {
+        background-color: $navbar-link-bg-hover-color;
+        opacity: 1;
+      }
+
     }
   }
 }
 
-.navbar-link {
-  text-decoration: none;
-  display: block;
-
+.homeowner-view {
+  
   @include media($tablet-landscape-down) {
-    padding: $navbar-link-padding-mobile;
-    font-size: $navbar-link-font-size-mobile;
-  }
 
-  @include media($tablet-landscape-up) {
-    padding: $navbar-link-padding-desktop;
-    color: $navbar-link-color;
-    opacity: 0.6;
+    .navigation-container {
+      padding: 0px;
 
-    &:hover,
-    &.active {
-      background-color: $navbar-link-bg-hover-color;
-      opacity: 1;
+      .navbar {
+        display: none;
+      }
     }
 
+    .navbar {
+      background-color: #fff;
+      width: 100%;
+      position: absolute;
+      left: 0px;
+      top: 42px;
+    }
+  }
+  
+  @include media($tablet-landscape-up) {
+    .session-container {
+      .navbar {
+        display: none;
+      }
+    }
+  }
+
+  // Navbar trigger uses +checked selector
+  // in combination with the checkbox label
+  // to hide/show nav on smaller devices
+
+  .navbar-trigger-label {
+    color: #fff;
+    display: block;
+    position: fixed;
+    font-size: 25px;
+    height: 22px;
+    line-height: 25px;
+    left: $navbar-trigger-offset;
+    top: $navbar-trigger-offset;
+
+    @include media($tablet-landscape-up) {
+      display: none;
+    }
+  }
+
+  #navbar-trigger {
+    display: none;
+  }
+
+  #navbar-trigger:checked + .navbar-menu {
+    max-height: 100%;
+  }
+
+  .navbar-menu {
+    ul {
+      margin-bottom: 0px;
+    }
+
+    @include media($tablet-landscape-down) { 
+      max-height: 0;
+      overflow: hidden; 
+      @include transition(max-height 0.2s ease-in-out);
+    }
+  }
+
+  .navbar-item {
+    display: inline;
+    list-style-type: none;
+    line-height: 44px;
+    margin-bottom: 0px;
+
+    a {
+      @include media($tablet-landscape-down) { 
+        display: block;
+        line-height: 36px;
+        text-align: center;
+      }
+    }
+  }
+
+  .navbar-link {
+    @include media($tablet-landscape-up) {
+      color: $primary-black;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      padding: $spacing-small $spacing-medium;
+      border-radius: $border-radius;
+
+      &:hover {
+        background-color: $ui-grey;
+      }
+    }
   }
 }

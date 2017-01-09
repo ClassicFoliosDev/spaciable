@@ -1,0 +1,54 @@
+$base-avatar-size: 53px;
+
+.avatar {
+  position: relative;
+  height: $base-avatar-size;
+
+
+  .avatar-mask {
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0;
+    height: 100%;
+    cursor: pointer;
+    float: left;  
+
+    img {
+      display: block;
+      height: 100%;
+      width: auto;
+    }
+  }
+  .avatar-menu {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    width: 150px;
+    background-color: $ui-white;
+    border: 1px solid $ui-grey;
+
+    ul {
+      margin-bottom: 0px;
+    }
+
+    li {
+      list-style-type: none;
+      margin-bottom: 0px;
+
+      a {
+        display: block;
+        padding: $spacing-small;
+      }
+    }
+  }
+
+  input#avatar-menu-toggle {
+    display: none;
+  }
+
+  #avatar-menu-toggle:checked + .avatar-menu {
+    display: block;
+  }
+}

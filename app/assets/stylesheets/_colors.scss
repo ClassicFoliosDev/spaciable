@@ -32,8 +32,8 @@ $base-opacity: 0.9;
   @include linear-gradient($deg, $secondary-orange, $primary-red, $secondary-pink);
 }
 
-@mixin grad-blue-black() {
-  @include linear-gradient(135deg, $secondary-blue, $primary-black);
+@mixin grad-blue-black($deg:135deg) {
+  @include linear-gradient($deg, $secondary-blue, $primary-black);
 }
 
 @mixin grad-green-green() {
@@ -42,4 +42,8 @@ $base-opacity: 0.9;
 
 @mixin grad-yellow-orange() {
   @include linear-gradient(135deg, $primary-yellow, $secondary-orange);
+}
+
+@mixin trans-to-black($deg:135deg) {
+  @include linear-gradient($deg, $primary-black, transparent);
 }

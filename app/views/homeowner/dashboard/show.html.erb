@@ -1,1 +1,230 @@
-<h1><%= link_to t('.my_home'), homeowner_dashboard_path %></h1>
+<div class="row card-container">
+  <!--MY HOME-->
+  <div class="card row-item half my-home" style="background-image: url('http://lorempixel.com/450/230/city/7');">
+    <div class="card-title">
+      <h3 class="title">
+        <%= t('homeowner.dashboard.cards.my_home.title') %>
+      </h3>
+    </div>
+    <div class="card-content">
+      <address class="my-home-address">
+        <span>Address Line 1</span><br/>
+        <span>Address Line 2</span><br/>
+        <span>Address Line 3</span><br/>
+        <span>City</span><br/>
+        <span>County</span><br/>
+        <span>Country</span><br/>
+        <span>Postcode</span>
+      </address>
+      <a class="btn btn-primary" href=""><%= t('homeowner.dashboard.cards.my_home.view_more') %></a>
+    </div>
+  </div>
+  <!--LIBRARY-->
+  <div class="card row-item half my-library">
+    <div class="card-title">
+      <h2 class="title">Library</h2>
+    </div>
+  </div>
+</div>
+<div class="row card-container">
+  <!--CONTACTS-->
+  <div class="card row-item quarter my-contacts bordered">
+    <div class="card-title">
+      <h2 class="title"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
+      <a href="" class="btn btn-primary"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
+    </div>
+    <div class="card-content">
+      <ul class="contact-list">
+        <li>
+          <div class="avatar">
+            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
+              <img src="https://api.adorable.io/avatars/285/avatar1@example.com">
+            </div>
+          </div>
+          <div class="contact-details">
+            <p class="contact-name">Contact Name</p>
+            <div class="contact-actions">
+              <a href="">
+                <%= fa_icon "phone" %>
+              </a>
+              <a href="">
+                <%= fa_icon "envelope" %>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="avatar">
+            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
+              <img src="https://api.adorable.io/avatars/285/avatar2@example.com">
+            </div>
+          </div>
+          <div class="contact-details">
+            <p class="contact-name">Contact Name</p>
+            <div class="contact-actions">
+              <a href="">
+                <%= fa_icon "phone" %>
+              </a>
+              <a href="">
+                <%= fa_icon "envelope" %>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="avatar">
+            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
+              <img src="https://api.adorable.io/avatars/285/avatar3@example.com">
+            </div>
+          </div>
+          <div class="contact-details">
+            <p class="contact-name">Contact Name</p>
+            <div class="contact-actions">
+              <a href="">
+                <%= fa_icon "phone" %>
+              </a>
+              <a href="">
+                <%= fa_icon "envelope" %>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="avatar">
+            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
+              <img src="https://api.adorable.io/avatars/285/avatar4@example.com">
+            </div>
+          </div>
+          <div class="contact-details">
+            <p class="contact-name">Contact Name</p>
+            <div class="contact-actions">
+              <a href="">
+                <%= fa_icon "phone" %>
+              </a>
+              <a href="">
+                <%= fa_icon "envelope" %>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="avatar">
+            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
+              <img src="https://api.adorable.io/avatars/285/avatar5@example.com">
+            </div>
+          </div>
+          <div class="contact-details">
+            <p class="contact-name">Contact Name</p>
+            <div class="contact-actions">
+              <a href="">
+                <%= fa_icon "phone" %>
+              </a>
+              <a href="">
+                <%= fa_icon "envelope" %>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--FAQs-->
+  <div class="card row-item quarter faqs bordered">
+    <div class="card-title">
+      <h3 class="title">
+        <%= t('homeowner.dashboard.cards.faqs.title') %>
+      </h3>
+      <a href="" class="btn btn-primary"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
+    </div>
+    <div class="card-content">
+      <ul class="faq-list">
+        <li class="faq-item">
+          <a class="faq-link" href="">
+            <span>Where can I find information on how to look after my home's finishes?</span>
+          </a>
+        </li>
+        <li class="faq-item">
+          <a class="faq-link" href="">
+            <span>Are there any restrictions to attaching wall or floor fixings?</span>
+          </a>
+        </li>
+        <li class="faq-item">
+          <a class="faq-link" href="">
+            <span>What should I do if I have no heating or hot water?</span>
+          </a>
+        </li>
+        <li class="faq-item">
+          <a class="faq-link" href="">
+            <span>How can I protect my new carpet?</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- ARTICLES -->
+  <div class="card row-item quarter how-to" style="background-image: url('http://lorempixel.com/250/220/city/4')">
+    <div class="card-title">
+      <a href="" class="favourite-article">
+        <%= image_tag "favourite-icon.png" %>
+      </a>
+    </div>
+    <div class="card-content">
+      <h3 class="how-to-title">Sipping Summer Specials</h3>
+      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+      <span class="how-to-logo">How To</span>
+      <a href="" class="btn btn-primary view-article">View Article</a>
+    </div>
+  </div>
+  <div class="card row-item quarter how-to" style="background-image: url('http://lorempixel.com/250/220/city/5')">
+    <div class="card-title">
+      <a href="" class="favourite-article">
+        <%= image_tag "favourite-icon.png" %>
+      </a>
+    </div>
+    <div class="card-content">
+      <h3 class="how-to-title">Picking the perfect puppy</h3>
+      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+      <span class="how-to-logo">How To</span>
+      <a href="" class="btn btn-primary view-article">View Article</a>
+    </div>
+  </div>
+  <div class="card row-item quarter how-to" style="background-image: url('http://lorempixel.com/250/220/nature/5')">
+    <div class="card-title">
+      <a href="" class="favourite-article">
+        <%= image_tag "favourite-icon.png" %>
+      </a>
+    </div>
+    <div class="card-content">
+      <h3 class="how-to-title">Top notch tulips</h3>
+      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+      <span class="how-to-logo">How To</span>
+      <a href="" class="btn btn-primary view-article">View Article</a>
+    </div>
+  </div>
+  <div class="card row-item quarter how-to" style="background-image: url('http://lorempixel.com/250/220/city/6')">
+    <div class="card-title">
+      <a href="" class="favourite-article">
+        <%= image_tag "favourite-icon.png" %>
+      </a>
+    </div>
+    <div class="card-content">
+      <h3 class="how-to-title">Everyday essentials for the toolbox</h3>
+      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+      <span class="how-to-logo">How To</span>
+      <a href="" class="btn btn-primary view-article">View Article</a>
+    </div>
+  </div>
+  <div class="card row-item quarter how-to" style="background-image: url('http://lorempixel.com/250/220/city/9')">
+    <div class="card-title">
+      <a href="" class="favourite-article">
+        <%= image_tag "favourite-icon.png" %>
+      </a>
+    </div>
+    <div class="card-content">
+      <h3 class="how-to-title">Stir-fry chicken</h3>
+      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+      <span class="how-to-logo">How To</span>
+      <a href="" class="btn btn-primary view-article">View Article</a>
+    </div>
+  </div>
+</div>
