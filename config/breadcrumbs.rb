@@ -239,3 +239,24 @@ crumb :finish_new do |development, developer|
          type: Finish.model_name.human)
   parent :finishes, development, developer
 end
+
+# APPLIANCES
+
+crumb :appliances do
+  link Appliance.model_name.human.pluralize, appliances_path
+end
+
+crumb :appliance do |appliance|
+  link appliance, edit_appliance_path(appliance)
+  parent :appliances
+end
+
+crumb :appliance_edit do |appliance|
+  link t("breadcrumbs.appliance_edit", name: appliance.name), appliances_path(appliance)
+  parent :appliances
+end
+
+crumb :appliance_new do
+  link t("breadcrumbs.appliance_add")
+  parent :appliances
+end

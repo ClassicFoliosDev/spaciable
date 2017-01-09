@@ -50,6 +50,7 @@ $ bundle exec bin/test cucumber
 ### Testing javascript
 
 Phantom js and poltergeist have been integrated, but they do have some quirks, and debugging is tricky.
+You need to install Phantom js to run tests locally: http://phantomjs.org
 
 #### Open a debug view:
 

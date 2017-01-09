@@ -35,6 +35,13 @@ module CreateFixture
     )
   end
 
+  def create_appliance
+    FactoryGirl.create(
+      :appliance,
+      name: appliance_name
+    )
+  end
+
   def developer_name
     "Development Developer Ltd"
   end
@@ -69,5 +76,9 @@ module CreateFixture
 
   def room_name
     "Living Room"
+  end
+
+  def appliance_name
+    "Bosch WAB28161GB Washing Machine"
   end
 end

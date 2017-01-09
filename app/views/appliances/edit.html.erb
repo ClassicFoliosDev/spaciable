@@ -1,0 +1,14 @@
+<% breadcrumb :appliance_edit, @appliance %>
+
+<div class="row">
+  <div class="row-item">
+    <div class="section-header">
+      <h3 class="section-title">
+        <%= fa_icon "shower" %>
+        <%= t(".title", name: @appliance.name) %>
+      </h3>
+    </div>
+  </div>
+</div>
+
+<%= render 'form', appliance: @appliance %>
