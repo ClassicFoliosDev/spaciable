@@ -1,4 +1,4 @@
-<% breadcrumb :unit_type_rooms, @unit_type, @development %>
+<% breadcrumb :rooms, @unit_type %>
 
 <div class="section-header">
   <h3 class="section-title">
@@ -6,7 +6,7 @@
     <%= t(".title", development_name: @development.name) %>
   </h3>
   <div class="section-actions">
-    <%= link_to new_development_unit_type_room_path(@development, @unit_type), class: "btn btn-primary" do %>
+    <%= link_to new_unit_type_room_path(@unit_type), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
     <% end %>

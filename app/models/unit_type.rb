@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class UnitType < ApplicationRecord
+  acts_as_paranoid
   belongs_to :development, optional: false
   alias parent development
   include InheritParentPermissionIds

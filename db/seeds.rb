@@ -57,6 +57,9 @@ if HomeownerLoginContent.none?
   content.save!
 end
 
+####################################################
+# Finish Categories, Types and their Manufacturers #
+####################################################
 {
   "Wallcovering": {
      "Paint": [
@@ -222,19 +225,40 @@ end
         "Wavin"
     ]
   }
-
 }.each_pair do |category_name, types|
-  finish_category = FinishCategory.find_or_create_by(name: category_name)
+  finish_category = FinishCategory.find_or_initialize_by(name: category_name)
+
+  if finish_category.new_record?
+    puts "Finish Category: #{finish_category.name}" if Features.seed_output
+    finish_category.save!
+  end
 
   types.each_pair do |type_name, manufacturers|
-    finish_type = finish_category.finish_types.find_or_create_by(name: type_name)
+    finish_type = FinishType.find_or_initialize_by(name: type_name)
+
+    if finish_type.new_record?
+      puts "Finish Type: #{finish_type.name}" if Features.seed_output
+      finish_type.save!
+    end
+
+    finish_category.finish_types << finish_type
 
     manufacturers.each do |manufacturer_name|
-      finish_type.manufacturers.find_or_create_by(name: manufacturer_name)
+      manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name)
+
+      if manufacturer.new_record?
+        puts "Manufacturer: #{manufacturer.name}" if Features.seed_output
+        manufacturer.save!
+      end
+
+      finish_type.manufacturers << manufacturer
     end
   end
 end
 
+######################################
+# Appliances and their Manufacturers #
+######################################
 {
   "Washing Machine": [
     "AEG",
@@ -357,10 +381,21 @@ end
     "Siemens"
   ]
 }.each_pair do |category_name, manufacturers|
-  appliance_category = ApplianceCategory.find_or_create_by!(name: category_name)
+  appliance_category = ApplianceCategory.find_or_initialize_by(name: category_name)
 
-  manufacturers.each do |manufacturer_name|
-    appliance_category.manufacturers.find_or_create_by!(name: manufacturer_name)
+  if appliance_category.new_record?
+    puts "Appliance: #{appliance_category.name}" if Features.seed_output
+    appliance_category.save!
   end
 
+  manufacturers.each do |manufacturer_name|
+    manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name)
+
+    if manufacturer.new_record?
+      puts "Manufacturer: #{manufacturer.name}" if Features.seed_output
+      manufacturer.save!
+    end
+
+    appliance_category.manufacturers << manufacturer
+  end
 end

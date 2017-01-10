@@ -5,4 +5,6 @@ class FinishCategory < ApplicationRecord
   has_many :manufacturers, through: :finish_types
 
   belongs_to :finish, optional: true
+
+  validates :name, uniqueness: true
 end

@@ -5,10 +5,15 @@ class Appliance < ApplicationRecord
   mount_uploader :secondary_image, PictureUploader
   mount_uploader :manual, DocumentUploader
 
+  attr_accessor :primary_image_cache
+  attr_accessor :secondary_image_cache
+
   belongs_to :appliance_category
   belongs_to :manufacturer
 
   paginates_per 10
+
+  validates :name, presence: true, uniqueness: true
 
   enum warranty_length: [
     :no_warranty,

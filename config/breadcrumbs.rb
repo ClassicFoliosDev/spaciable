@@ -116,20 +116,19 @@ end
 
 # UNIT TYPES
 
-crumb :unit_types do |development, developer|
+crumb :unit_types do |development|
   link UnitType.model_name.human.pluralize, development_unit_types_path(development)
-  parent :development_edit, development, developer
+  parent :development_edit, development
 end
 
-crumb :unit_type_edit do |unit_type, development, developer|
-  link t("views.edit"), edit_development_unit_type_path(development, unit_type)
-  parent :unit_types, development, developer
+crumb :unit_type_edit do |unit_type|
+  link t("breadcrumbs.unit_type_edit", unit_type_name: unit_type.name), edit_development_unit_type_path(unit_type.development, unit_type)
+  parent :unit_types, unit_type.development
 end
 
-crumb :unit_type_new do |development, developer|
-  link t("views.add_type",
-         type: UnitType.model_name.human)
-  parent :unit_types, development, developer
+crumb :unit_type_new do |development|
+  link t("breadcrumbs.unit_type_new")
+  parent :unit_types, development
 end
 
 # DOCUMENTS
@@ -181,23 +180,20 @@ end
 
 # ROOMS
 
-crumb :unit_type_rooms do |unit_type, development|
-  link Room.model_name.human.pluralize, development_unit_type_rooms_path(development, unit_type)
-  parent :unit_type_edit, unit_type, development, development.developer
+crumb :rooms do |unit_type|
+  link Room.model_name.human.pluralize, unit_type_rooms_path(unit_type)
+  parent :unit_type_edit, unit_type
 end
 
 crumb :room_edit do |room|
-  link t("views.edit"), edit_room_path(room)
-  # TODO Ask Joe Different Edit path also has this side effect
-  unit_type = UnitType.find(room.unit_type_id)
-  development = Development.find(room.development_id)
-  parent :unit_type_rooms, unit_type, development
+  link t("breadcrumbs.room_edit", room_name: room.name), edit_room_path(room)
+  parent :rooms, room.unit_type
 end
 
-crumb :room_new do |unit_type, development|
+crumb :room_new do |unit_type|
   link t("views.add_type",
          type: Room.model_name.human)
-  parent :unit_type_rooms, unit_type, development
+  parent :rooms, unit_type
 end
 
 # PLOTS

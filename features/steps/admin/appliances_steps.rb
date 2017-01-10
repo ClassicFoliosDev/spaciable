@@ -81,9 +81,8 @@ When(/^I update the dropdown$/) do
     category_ul = page.find ".ui-menu"
 
     category_list = category_ul.all("li")
-    # Select of item 5 should always give the same result,
-    # because the DB contents are populated by seeds.rb
-    category_list[5].click
+    category_list.find { |node| node.text == "Freezer" }.click
+    sleep 0.3
   end
 
   manufacturer = page.find(".manufacturer")
@@ -95,9 +94,7 @@ When(/^I update the dropdown$/) do
     manuf_ul = page.find ".ui-menu"
 
     manuf_list = manuf_ul.all("li")
-    # Select of item 3 should always give the same result,
-    # because the DB contents are populated by seeds.rb
-    manuf_list[3].click
+    manuf_list.find { |node| node.text == "Samsung" }.click
   end
 
   click_on t("unit_types.form.submit")

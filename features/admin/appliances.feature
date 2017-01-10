@@ -1,4 +1,4 @@
-Feature: UnitTypes
+Feature: Appliances
   As a CF Admin
   I want to add appliances
   So that I can add them to rooms and the home owner knows what they are getting

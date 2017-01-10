@@ -18,6 +18,10 @@ class Room < ApplicationRecord
 
   validates :name, presence: true
 
+  def build_finishes
+    finishes.build if finishes.none?
+  end
+
   def to_s
     name
   end

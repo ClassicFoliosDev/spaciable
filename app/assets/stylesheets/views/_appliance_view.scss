@@ -1,0 +1,14 @@
+$manual-filename-type: $type-grey;
+
+.appliance-manual {
+    @include display(flex);
+    @include flex-direction(row);
+}
+
+.manual-filename {
+  color: $manual-filename-type;
+}
+.manual-download {
+  line-height: 35px;
+  height: 41px;
+}

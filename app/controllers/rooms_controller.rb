@@ -3,20 +3,21 @@ class RoomsController < ApplicationController
   include PaginationConcern
   include SortingConcern
 
-  load_and_authorize_resource :development
-  load_and_authorize_resource :unit_type, through: :development
+  load_and_authorize_resource :unit_type
   load_and_authorize_resource :room, through: :unit_type, shallow: true
+
+  before_action :set_development, only: [:index, :new, :create]
 
   def index
     @rooms = paginate(sort(@rooms, default: :name))
   end
 
   def new
-    @room.finishes.build
+    @room.build_finishes
   end
 
   def edit
-    @room.finishes.build if @room.finishes.none?
+    @room.build_finishes
   end
 
   def show
@@ -28,8 +29,9 @@ class RoomsController < ApplicationController
         "controller.success.create",
         name: @room.name
       )
-      redirect_to development_unit_type_rooms_url(@development, @unit_type), notice: notice
+      redirect_to unit_type_rooms_url(@unit_type), notice: notice
     else
+      @room.build_finishes
       render :new
     end
   end
@@ -40,29 +42,36 @@ class RoomsController < ApplicationController
         "controller.success.update",
         name: @room.name
       )
-      redirect_to development_unit_type_rooms_url(@room.development_id, @room.unit_type_id),
+      redirect_to unit_type_rooms_url(@room.unit_type_id),
                   notice: notice
     else
+      @room.build_finishes
       render :edit
     end
   end
 
-  def update_finish_types
-    @category = FinishCategory.find_by_name(params[:option_name])
+  def finish_types
+    collection = FinishType
+                 .joins(:finish_categories)
+                 .where(finish_categories: { name: params[:option_name] })
+                 .distinct
 
-    render json: @category.finish_types
+    render json: collection
   end
 
-  def update_manufacturers
-    @finish_type = FinishType.find_by_name(params[:option_name])
+  def manufacturers
+    collection = Manufacturer
+                 .joins(:finish_types)
+                 .where(finish_types: { name: params[:option_name] })
+                 .distinct
 
-    render json: @finish_type.manufacturers
+    render json: collection
   end
 
   def destroy
     @room.destroy
     notice = t("controller.success.destroy", name: @room.name)
-    redirect_to development_unit_type_rooms_url(@room.development_id, @room.unit_type_id),
+    redirect_to unit_type_rooms_url(@room.unit_type_id),
                 notice: notice
   end
 
@@ -79,5 +88,9 @@ class RoomsController < ApplicationController
         :manufacturer_id, :picture, :_destroy
       ]
     )
+  end
+
+  def set_development
+    @development = @unit_type.development
   end
 end

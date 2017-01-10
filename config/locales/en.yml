@@ -75,9 +75,11 @@ en:
     plot_new: "New Plot"
     plot_edit: "Edit %{plot_name}"
     appliance_edit: "Edit %{name}"
-    appliance_new: "New appliance"
-    appliance_new: "New appliance"
     appliance_add: "Add appliance"
+    room_edit: "Edit %{room_name}"
+    unit_type_edit: "Edit %{unit_type_name}"
+    unit_type_new: "New Unit Type"
+
   views:
     add: "Add"
     add_type: "Add %{type}"
@@ -409,8 +411,8 @@ en:
       title: "Edit %{room_name}"
     finish_fields:
       picture: "Picture"
-      upload: "Upload"
       remove_finish: "Remove finish"
+      choose: "Choose..."
     form:
       back: "Back"
       submit: "Submit"

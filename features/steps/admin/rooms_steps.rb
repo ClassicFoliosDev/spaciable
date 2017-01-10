@@ -78,9 +78,7 @@ Then(/^I should see the updated room$/) do
 end
 
 When(/^I add a second finish$/) do
-  pending "flacky test fix is in other branch"
-
-  room_path = "/developments/#{CreateFixture.development_id}/unit_types/1/rooms"
+  room_path = "/unit_types/1/rooms"
   visit room_path
   find("[data-action='edit']").click
 
@@ -107,7 +105,8 @@ When(/^I add a second finish$/) do
     category_ul = page.find ".ui-menu"
 
     category_list = category_ul.all("li")
-    category_list[4].click
+    category_list.find { |node| node.text == "Sanitaryware" }.click
+    sleep 0.3
   end
 
   finish_types = page.all(".finish-type")
@@ -120,7 +119,7 @@ When(/^I add a second finish$/) do
     type_ul = page.find ".ui-menu"
 
     type_list = type_ul.all("li")
-    type_list[7].click
+    type_list.find { |node| node.text == "Shower Unit" }.click
   end
 
   manufacturers = page.all(".manufacturer")
@@ -129,11 +128,10 @@ When(/^I add a second finish$/) do
   within manufacturer do
     finish_arrow = page.find ".ui-icon"
     finish_arrow.click
-
     manuf_ul = page.find ".ui-menu"
 
     manuf_list = manuf_ul.all("li")
-    manuf_list[1].click
+    manuf_list.find { |node| node.text == "Aqualisa" }.click
   end
 
   click_on t("unit_types.form.submit")
@@ -158,7 +156,7 @@ And(/^I have created a room$/) do
 end
 
 When(/^I delete the room$/) do
-  room_path = "/developments/#{CreateFixture.development_id}/unit_types/1/rooms"
+  room_path = "/unit_types/1/rooms"
   visit room_path
 
   delete_and_confirm!

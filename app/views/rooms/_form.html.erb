@@ -1,4 +1,4 @@
-<%= simple_form_for([development, unit_type, room]) do |f| %>
+<%= simple_form_for([unit_type, room]) do |f| %>
   <% if room.errors.any? %>
     <div class="row">
       <div class="row-item">
@@ -43,9 +43,9 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <% if room.development_id.present? %>
-        <%= link_to t(".back"), development_unit_type_rooms_path(room.development_id, room.unit_type_id), class: "btn" %>
+        <%= link_to t(".back"), unit_type_rooms_path(room.unit_type_id), class: "btn" %>
       <% else %>
-        <%= link_to t(".back"), development_unit_type_rooms_path(development, unit_type), class: "btn" %>
+        <%= link_to t(".back"), unit_type_rooms_path(unit_type), class: "btn" %>
       <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>

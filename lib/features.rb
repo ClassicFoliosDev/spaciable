@@ -2,6 +2,10 @@
 module Features
   module_function
 
+  def seed_output
+    !Rails.env.test?
+  end
+
   def s3_storage?
     hosted_env
   end

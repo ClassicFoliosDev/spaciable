@@ -1,7 +1,23 @@
 <fieldset class="nested-fields">
+  <% if f.object.errors.any? %>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% f.object.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <div class="finish-category ui-front select-container">
-    <%= f.association :finish_category %>
+    <%= f.association :finish_category, required: true %>
   </div>
   <div class="finish-type ui-front select-container">
     <%= f.association :finish_type %>
@@ -12,11 +28,8 @@
   <%= f.input :name %>
   <%= f.input :description %>
 
-  <%= f.label t(".picture") %>
-  <%= image_tag(f.object.picture.thumbnail.url) if f.object.picture? %>
   <br>
-  <%= label_tag('uploader', t(".upload"), class: "btn") %>
-  <%= f.file_field :picture, id: "uploader", class: "hidden" %>
+  <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
   <br>
 
   <%= link_to_remove_association t(".remove_finish"), f, class: "btn" %>

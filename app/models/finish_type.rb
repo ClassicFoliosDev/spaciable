@@ -5,4 +5,6 @@ class FinishType < ApplicationRecord
 
   has_many :finish_types_manufacturer
   has_many :manufacturers, through: :finish_types_manufacturer
+
+  validates :name, uniqueness: true
 end

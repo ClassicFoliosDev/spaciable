@@ -12,7 +12,7 @@ $(document).on('click', '.appliances .ui-menu-item', function (event) {
       var $manufacturer_div = $parent_fieldset.find(".manufacturer");
       var $manufacturer_select = clearFields($manufacturer_div);
 
-      var url = "/app_manufacturers";
+      var url = "/appliance_manufacturers";
       setFields($manufacturer_select, url, option_name);
     }
   }

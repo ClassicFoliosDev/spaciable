@@ -4,12 +4,13 @@ class Finish < ApplicationRecord
   belongs_to :room
   alias parent room
   mount_uploader :picture, PictureUploader
+  attr_accessor :picture_cache
 
   belongs_to :developer, optional: true
   belongs_to :division, optional: true
   belongs_to :development, optional: true
 
-  belongs_to :finish_category
+  belongs_to :finish_category, optional: false
   belongs_to :finish_type
   belongs_to :manufacturer
 

@@ -1,4 +1,4 @@
-<% breadcrumb :unit_types, @development, @development.developer %>
+<% breadcrumb :unit_types, @development %>
 
 <div class="section-header">
   <h3 class="section-title">
@@ -24,7 +24,7 @@
     <% @unit_types.each do |unit_type| %>
       <dt class="record-list-item" data-unit_type="<%= unit_type.id %>">
         <div class="record-list-item-actions">
-          <%= link_to t(".rooms"), development_unit_type_rooms_path(@development, unit_type), class: "btn" %>
+          <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
           <%= edit_btn edit_development_unit_type_path(@development, unit_type) %>
           <%= delete_btn unit_type, path: url_for([@development, unit_type]) %>
         </div>

@@ -41,10 +41,11 @@ class AppliancesController < ApplicationController
     redirect_to appliances_url, notice: notice
   end
 
-  def app_manufacturers
+  def appliance_manufacturers
     manufacturers = Manufacturer.joins(:appliance_categories)
                                 .where(appliance_categories: { name: params[:option_name] })
-                                .distinct.sort
+                                .distinct
+                                .order(:name)
 
     render json: manufacturers
   end
