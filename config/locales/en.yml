@@ -69,41 +69,33 @@ en:
 
   breadcrumbs:
     developer_edit: "Edit %{developer_name}"
+    developer_add: "Add developer"
     development_edit: "Edit %{development_name}"
-    development_new: "New Development"
+    development_new: "New development"
+    development_add: "Add development"
     division_edit: "Edit %{division_name}"
-    plot_new: "New Plot"
+    division_add: "Add division"
+    phase_add: "Add phase"
+    phase_edit: "Edit %{name}"
+    plot_new: "New plot"
     plot_edit: "Edit %{plot_name}"
+    plot_add: "Add plot"
     appliance_edit: "Edit %{name}"
     appliance_add: "Add appliance"
     room_edit: "Edit %{room_name}"
+    room_add: "Add room"
     unit_type_edit: "Edit %{unit_type_name}"
-    unit_type_new: "New Unit Type"
-
-  views:
-    add: "Add"
-    add_type: "Add %{type}"
-    remove: "Remove"
-    edit: "Edit"
-    edit_name: "Edit %{name}"
-    download: "Download"
-    show: "Show"
-    name: "Name"
-    back: "Back"
-    destroy: "Delete"
-    cancel: "Cancel"
-    actions: "Actions"
-    links: "Links"
-    thumbnail: "Thumbnail"
-    confirm_title: "Confirm delete"
-    confirm_text: "Are you sure you wish to delete %{type}"
-    need_fix: "This can not be created because you need to fix the error(s) shown"
+    unit_type_new: "New unit type"
+    unit_type_add: "Add unit type"
 
   pagination:
     per_page_10: "10"
     per_page_25: "25"
     per_page_50: "50"
     per_page_100: "100"
+    first: "First"
+    last: "Last"
+    truncate: "More..."
 
   components:
     homeowner:
@@ -122,6 +114,12 @@ en:
       users: "Users"
       appliances: "Appliances"
       profile: "Profile"
+
+  destroy:
+    cancel: "Cancel"
+    confirm_title: "Confirm delete"
+    confirm_text: "Are you sure you wish to delete %{type}"
+    destroy: "Delete"
 
   forms:
     required: "Required"
@@ -170,6 +168,7 @@ en:
     form:
       submit: "Submit"
       address: "Development Address"
+      back: "Back"
     index:
       add: "Add Development"
 
@@ -183,7 +182,9 @@ en:
         title: "Edit %{development_name}"
       index:
         add: "Add Development"
-        title: "%{developer_name} Developments"
+        title: "%{developer_name} developments"
+      new:
+        title: "New development"
       tabs:
         developments: "Developments"
         divisions: "Divisions"
@@ -201,6 +202,7 @@ en:
       back: "Back"
     form:
       submit: "Submit"
+      back: "Back"
     index:
       add: "Add Developer"
       actions: "Actions"
@@ -243,6 +245,7 @@ en:
     form:
       submit: "Submit"
       address: "Postal Address"
+      back: "Back"
     index:
       add: "Add Division"
       actions: "Actions"
@@ -306,6 +309,8 @@ en:
 
   images:
     title: "Pictures"
+    add: "Add picture"
+    remove: "Remove picture"
     img_name: "Picture name"
     not_yet: "You can add pictures after this resource has been saved"
 
@@ -319,14 +324,15 @@ en:
       back: "Back"
       title: "Edit %{phase_name}"
     form:
-      address: "Phase Address"
+      address: "Phase address"
       submit: "Submit"
       back: "Back"
     index:
-      add: "Add Phase"
-      title: "%{development_name} Phases"
+      add: "Add phase"
+      title: "%{development_name} phases"
     new:
-      add: "Add Phase"
+      add: "Add phase"
+      title: "New phase"
     update:
       success: "%{phase_name} was updated successfully"
 
@@ -348,6 +354,7 @@ en:
       title: "%{development_name} Plots"
     new:
       add: "Add Plot"
+      title: "New Plot"
     update:
       success: "%{plot_name} was updated successfully"
 

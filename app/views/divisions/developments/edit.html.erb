@@ -1,5 +1,14 @@
 <% breadcrumb :development_edit, @development %>
 
-<h1><%= t(".edit", development_name: @development.name) %></h1>
+<div class="row">
+  <div class="row-item">
+    <div class="section-header">
+      <h3 class="section-title">
+        <%= fa_icon "vcard" %>
+        <%= t(".title", development_name: @development.name) %>
+      </h3>
+    </div>
+  </div>
+</div>
 
 <%= render 'developments/form', parent: @division, development: @development %>

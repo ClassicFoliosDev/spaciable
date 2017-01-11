@@ -1,7 +1,0 @@
-<% breadcrumb :user_new, @user %>
-
-<h1><%= t("views.add_type", type: User.model_name.human) %></h1>
-
-<%= render 'form', user: @user %>
-
-<%= link_to t("views.back"), users_path %>

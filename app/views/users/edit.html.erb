@@ -1,8 +1,0 @@
-<% breadcrumb :user_edit, @user %>
-
-<h1><%= t("views.edit_name", name: @user.email) %></h1>
-
-<%= render 'form', user: @user %>
-
-<%= link_to t("views.show"), @user %> |
-<%= link_to t("views.back"), users_path %>

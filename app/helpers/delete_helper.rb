@@ -5,10 +5,10 @@ module DeleteHelper
       id: resource.id,
       url: path || url_for(resource),
       name: resource.to_s,
-      cancel: t("views.cancel"),
-      title: t("views.confirm_title"),
-      text: t("views.confirm_text", type: resource.class.model_name.human),
-      cta: t("views.destroy"),
+      cancel: t("destroy.cancel"),
+      title: t("destroy.confirm_title"),
+      text: t("destroy.confirm_text", type: resource.class.model_name.human),
+      cta: t("destroy.destroy"),
       action: :delete
     }
   end

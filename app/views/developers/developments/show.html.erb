@@ -1,6 +1,0 @@
-<% breadcrumb :development, @development, @developer %>
-
-<%= render 'developments/development', development: @development %>
-
-<%= link_to_unless cannot?(:edit, Development), t("views.edit"), edit_developer_development_path(@developer) %>
-<%= link_to t("views.back"), developer_developments_path(@developer) %>

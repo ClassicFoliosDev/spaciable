@@ -21,8 +21,7 @@ crumb :developer_edit do |developer|
 end
 
 crumb :developer_new do
-  link t("views.add_type",
-         type: Developer.model_name.human)
+  link t("breadcrumbs.developer_add")
   parent :developers
 end
 
@@ -51,8 +50,7 @@ crumb :developer_division_edit do |division|
 end
 
 crumb :division_new do |developer|
-  link t("views.add_type",
-         type: Division.model_name.human)
+  link t("breadcrumbs.division_add")
   parent :divisions, developer
 end
 
@@ -104,13 +102,12 @@ crumb :phases do |development|
 end
 
 crumb :phase_edit do |phase|
-  link t("views.edit"), edit_development_phase_path(phase.development, phase)
+  link t("breadcrumbs.phase_edit", name: phase.name), edit_development_phase_path(phase.development, phase)
   parent :phases, phase.development
 end
 
 crumb :phase_new do |development|
-  link t("views.add_type",
-         type: Phase.model_name.human)
+  link t("breadcrumbs.phase_add")
   parent :phases, development
 end
 
@@ -143,13 +140,12 @@ crumb :document do |document|
 end
 
 crumb :document_edit do |document|
-  link t("views.edit")
+  link t(".edit")
   parent :document, document
 end
 
 crumb :document_new do
-  link t("views.add_type",
-         type: Document.model_name.human)
+  link t("breadcrumbs.document_add")
   parent :documents
 end
 
@@ -168,13 +164,12 @@ crumb :user do |user|
 end
 
 crumb :user_edit do |user|
-  link t("views.edit")
+  link t(".edit")
   parent :user, user
 end
 
 crumb :user_new do
-  link t("views.add_type",
-         type: User.model_name.human)
+  link t("breadcrumbs.user_add")
   parent :users
 end
 
@@ -191,8 +186,7 @@ crumb :room_edit do |room|
 end
 
 crumb :room_new do |unit_type|
-  link t("views.add_type",
-         type: Room.model_name.human)
+  link t("breadcrumbs.room_add")
   parent :rooms, unit_type
 end
 
@@ -226,13 +220,12 @@ crumb :finish do |finish, development, developer|
 end
 
 crumb :finish_edit do |finish, development, developer|
-  link t("views.edit")
+  link t(".edit")
   parent :finish, finish, development, developer
 end
 
 crumb :finish_new do |development, developer|
-  link t("views.add_type",
-         type: Finish.model_name.human)
+  link t("breadcrumbs.finish_add")
   parent :finishes, development, developer
 end
 

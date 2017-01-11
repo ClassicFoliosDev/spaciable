@@ -5,11 +5,15 @@ RSpec.describe "Pagination", type: :feature do
   it "provides page links" do
     login_as create(:cf_admin)
 
-    FactoryGirl.create_list(:developer, 11)
+    77.times do |n|
+      FactoryGirl.create(:developer, company_name: "Developer #{n}")
+    end
     visit "/developers"
 
-    # an addtional for sorting
-    expect(page.all(".record-list-item").count).to eq(12)
+    within(".record-list") do
+      # Use dd. to make sure we don't pick up the header (which is dt)
+      expect(page.all("dd.record-list-item").count).to eq(25)
+    end
 
     within ".page-sizes" do
       expect(page).to have_link(I18n.t("pagination.per_page_10"), href: "/developers?per=10")
@@ -20,8 +24,10 @@ RSpec.describe "Pagination", type: :feature do
 
     click_on(I18n.t("pagination.per_page_10"))
 
-    # an addition for sorting
-    expect(page.all(".record-list-item").count).to eq(11)
+    within(".record-list") do
+      # Use dd. to make sure we don't pick up the header (which is dt)
+      expect(page.all("dd.record-list-item").count).to eq(10)
+    end
 
     within ".pagination" do
       expect(page).to have_link("2", href: "/developers?page=2&per=10")

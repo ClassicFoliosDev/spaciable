@@ -1,14 +1,13 @@
 <h3><%= t("images.title") %></h3>
 <table>
   <thead>
-    <th><%= t("views.name") %></th>
     <th><%= t("images.img_name") %></th>
   </thead>
   <tbody>
     <% if imageable.images.count < 1 %>
       <tr>
         <td colspan="2">
-          <%= link_to t("views.add") %>, edit_path %>
+          <%= link_to t("images.add") %>, edit_path %>
         </td>
       </tr>
     <% end %>
