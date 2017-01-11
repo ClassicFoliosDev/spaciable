@@ -54,7 +54,7 @@
             <div class="appliance-manual">
             <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename" %>
             <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
-              <%= icon "eye" %>
+              <%= icon "cloud-download" %>
             <% end %>
             </div>
           <% end %>
