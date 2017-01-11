@@ -82,22 +82,13 @@ RSpec.describe Phase do
   end
 
   describe "#destroy" do
-    it "should be archived" do
-      phase = create(:phase)
+    subject { FactoryGirl.create(:phase) }
 
-      phase.destroy!
-
-      expect(described_class.all).not_to include(phase)
-      expect(described_class.with_deleted).to include(phase)
+    include_examples "archive when destroyed"
+    it_behaves_like "archiving is dependent on parent association", :developer
+    it_behaves_like "archiving is dependent on parent association", :division do
+      subject { FactoryGirl.create(:phase, development: create(:division_development)) }
     end
-
-    it "should be archived when the development is destroyed" do
-      phase = create(:phase)
-
-      phase.development.destroy!
-
-      expect(described_class.all).not_to include(phase)
-      expect(described_class.with_deleted).to include(phase)
-    end
+    it_behaves_like "archiving is dependent on parent association", :development
   end
 end

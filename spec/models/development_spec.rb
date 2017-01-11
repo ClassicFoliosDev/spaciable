@@ -32,30 +32,12 @@ RSpec.describe Development do
   end
 
   describe "#destroy" do
-    it "should be archived" do
-      development = create(:development)
+    subject { FactoryGirl.create(:development) }
 
-      development.destroy!
-
-      expect(described_class.all).not_to include(development)
-      expect(described_class.with_deleted).to include(development)
-    end
-
-    it "should be archived when the parent developer is destroyed" do
-      development = create(:development)
-
-      development.developer.destroy!
-
-      expect(described_class.all).not_to include(development)
-      expect(described_class.with_deleted).to include(development)
-    end
-    it "should be archived when the parent division is destroyed" do
-      development = create(:division_development)
-
-      development.division.destroy!
-
-      expect(described_class.all).not_to include(development)
-      expect(described_class.with_deleted).to include(development)
+    include_examples "archive when destroyed"
+    it_behaves_like "archiving is dependent on parent association", :developer
+    it_behaves_like "archiving is dependent on parent association", :division do
+      subject { FactoryGirl.create(:division_development) }
     end
   end
 end

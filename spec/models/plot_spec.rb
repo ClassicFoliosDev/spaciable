@@ -24,4 +24,16 @@ RSpec.describe Plot do
       end
     end
   end
+
+  describe "#destroy" do
+    subject { FactoryGirl.create(:plot) }
+
+    include_examples "archive when destroyed"
+    it_behaves_like "archiving is dependent on parent association", :developer
+    it_behaves_like "archiving is dependent on parent association", :division do
+      subject { FactoryGirl.create(:plot, development: create(:division_development)) }
+    end
+    it_behaves_like "archiving is dependent on parent association", :development
+    it_behaves_like "archiving is dependent on parent association", :unit_type
+  end
 end
