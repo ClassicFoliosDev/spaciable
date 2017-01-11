@@ -120,6 +120,7 @@ When(/^I add a second finish$/) do
 
     type_list = type_ul.all("li")
     type_list.find { |node| node.text == "Shower Unit" }.click
+    sleep 0.3
   end
 
   manufacturers = page.all(".manufacturer")
