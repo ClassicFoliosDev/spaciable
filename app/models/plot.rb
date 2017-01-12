@@ -2,11 +2,14 @@
 class Plot < ApplicationRecord
   acts_as_paranoid
 
+  belongs_to :phase, optional: true
   belongs_to :development, optional: false
-  alias parent development
+  def parent
+    phase || development
+  end
   include InheritParentPermissionIds
 
-  belongs_to :unit_type
+  belongs_to :unit_type, optional: true
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 

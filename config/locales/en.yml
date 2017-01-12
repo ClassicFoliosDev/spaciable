@@ -68,6 +68,8 @@ en:
       destroy: "%{name} was deleted successfully"
 
   breadcrumbs:
+    appliance_edit: "Edit %{name}"
+    appliance_add: "Add appliance"
     developer_edit: "Edit %{developer_name}"
     developer_add: "Add developer"
     development_edit: "Edit %{development_name}"
@@ -76,12 +78,9 @@ en:
     division_edit: "Edit %{division_name}"
     division_add: "Add division"
     phase_add: "Add phase"
-    phase_edit: "Edit %{name}"
-    plot_new: "New plot"
-    plot_edit: "Edit %{plot_name}"
+    phase_edit: "Edit %{phase_name}"
     plot_add: "Add plot"
-    appliance_edit: "Edit %{name}"
-    appliance_add: "Add appliance"
+    plot_edit: "Edit %{plot_name}"
     room_edit: "Edit %{room_name}"
     room_add: "Add room"
     unit_type_edit: "Edit %{unit_type_name}"
@@ -328,11 +327,30 @@ en:
       submit: "Submit"
       back: "Back"
     index:
-      add: "Add phase"
-      title: "%{development_name} phases"
+      add: "Add Phase"
+      plots: "Plots"
+      title: "%{development_name} Phases"
     new:
-      add: "Add phase"
-      title: "New phase"
+      title: "New Phase"
+    plots:
+      new:
+        title: "Add Plot"
+      create:
+        success: "%{plot_name} was created successfully"
+      destroy:
+        archive:
+          success: "%{plot_name} was deleted successfully"
+      edit:
+        back: "Back"
+        title: "Edit %{plot_name}"
+      form:
+        back: "Back"
+        submit: "Submit"
+      index:
+        add: "Add Plot"
+        title: "%{phase_name} Plots"
+      update:
+        success: "%{plot_name} was updated successfully"
     update:
       success: "%{phase_name} was updated successfully"
 
@@ -353,7 +371,6 @@ en:
       add: "Add Plot"
       title: "%{development_name} Plots"
     new:
-      add: "Add Plot"
       title: "New Plot"
     update:
       success: "%{plot_name} was updated successfully"

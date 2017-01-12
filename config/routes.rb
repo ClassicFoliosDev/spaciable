@@ -20,10 +20,14 @@ Rails.application.routes.draw do
     resources :rooms, shallow: true
   end
 
+  resources :phases, only: [] do
+    resources :plots, controller: 'phases/plots', except: [:show]
+  end
+
   resources :developments, except: :show do
     resources :phases, except: :show
     resources :unit_types
-    resources :plots
+    resources :plots, except: [:show]
   end
 
   resources :developers, except: :show do

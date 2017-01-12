@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109161354) do
+ActiveRecord::Schema.define(version: 20170111120935) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,13 +236,6 @@ ActiveRecord::Schema.define(version: 20170109161354) do
     t.index ["division_id"], name: "index_phases_on_division_id", using: :btree
   end
 
-  create_table "phases_unit_types", id: false, force: :cascade do |t|
-    t.integer "phase_id",     null: false
-    t.integer "unit_type_id", null: false
-    t.index ["phase_id", "unit_type_id"], name: "index_phases_unit_types_on_phase_id_and_unit_type_id", using: :btree
-    t.index ["unit_type_id", "phase_id"], name: "index_phases_unit_types_on_unit_type_id_and_phase_id", using: :btree
-  end
-
   create_table "plots", force: :cascade do |t|
     t.string   "prefix"
     t.decimal  "number"
@@ -253,10 +246,12 @@ ActiveRecord::Schema.define(version: 20170109161354) do
     t.integer  "division_id"
     t.integer  "development_id"
     t.datetime "deleted_at"
+    t.integer  "phase_id"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
     t.index ["division_id"], name: "index_plots_on_division_id", using: :btree
+    t.index ["phase_id"], name: "index_plots_on_phase_id", using: :btree
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id", using: :btree
   end
 
@@ -348,6 +343,7 @@ ActiveRecord::Schema.define(version: 20170109161354) do
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"
+  add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
   add_foreign_key "plots_users", "plots"
   add_foreign_key "plots_users", "users"

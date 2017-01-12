@@ -1,0 +1,29 @@
+<div class="record-list">
+  <dl class="plots">
+    <dt class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Plot, :number) %></span>
+        <span><%= sortable(Plot, :updated_at) %></span>
+      </div>
+    </dt>
+    <% plots.each do |plot| %>
+      <dd class="record-list-item" data-plot="<%= plot.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn [:edit, parent, plot] %>
+          <%= delete_btn plot, path: url_for([parent, plot]) %>
+        </div>
+        <div class="record-list-item-content">
+           <%= link_to plot, [:edit, parent, plot], class: "plot-name" %>
+           <span class="plot-updated-timestamp">
+             <%= l plot.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate plots %>
+</div>

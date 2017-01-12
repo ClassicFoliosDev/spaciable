@@ -102,7 +102,7 @@ crumb :phases do |development|
 end
 
 crumb :phase_edit do |phase|
-  link t("breadcrumbs.phase_edit", name: phase.name), edit_development_phase_path(phase.development, phase)
+  link t("breadcrumbs.phase_edit", phase_name: phase.name), edit_development_phase_path(phase.development, phase)
   parent :phases, phase.development
 end
 
@@ -192,9 +192,14 @@ end
 
 # PLOTS
 
-crumb :plots do |development|
-  link Plot.model_name.human.pluralize, development_plots_path
-  parent :development_edit, development
+crumb :plots do |plot_parent|
+  if plot_parent.is_a? Development
+    link Plot.model_name.human.pluralize, development_plots_path(plot_parent)
+    parent :development_edit, plot_parent
+  elsif plot_parent.is_a? Phase
+    link Plot.model_name.human.pluralize, phase_plots_path(plot_parent)
+    parent :phase_edit, plot_parent
+  end
 end
 
 crumb :plot_edit do |plot|
@@ -203,7 +208,7 @@ crumb :plot_edit do |plot|
 end
 
 crumb :plot_new do |plot, development, developer|
-  link t("breadcrumbs.plot_new")
+  link t("breadcrumbs.plot_add")
   parent :plots, plot, development, developer
 end
 

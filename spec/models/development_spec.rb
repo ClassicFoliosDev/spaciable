@@ -31,6 +31,18 @@ RSpec.describe Development do
     end
   end
 
+  describe "plots" do
+    it "does not include phase plots" do
+      development = create(:development)
+      phase = create(:phase, development: development)
+      development_plot = create(:plot, development: development)
+      phase_plot = create(:plot, development: development, phase: phase)
+
+      expect(development.plots).to include(development_plot)
+      expect(development.plots).not_to include(phase_plot)
+    end
+  end
+
   describe "#destroy" do
     subject { FactoryGirl.create(:development) }
 

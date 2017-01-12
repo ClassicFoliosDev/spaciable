@@ -15,9 +15,6 @@ class PlotsController < ApplicationController
   def edit
   end
 
-  def show
-  end
-
   def create
     if @plot.save
       notice = t(".success", plot_name: @plot.to_s)

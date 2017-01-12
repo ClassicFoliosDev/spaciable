@@ -15,15 +15,16 @@
 
 <div class="record-list">
   <dl class="phases">
-    <dd class="record-list-item record-header">
+    <dt class="record-list-item record-header">
       <div class="record-list-header-content">
         <span><%= sortable(Phase, :name) %></span>
         <span><%= sortable(Phase, :updated_at) %></span>
       </div>
-    </dd>
+    </dt>
     <% @phases.each do |phase| %>
-      <dt class="record-list-item" data-phase="<%= phase.id %>">
+      <dd class="record-list-item" data-phase="<%= phase.id %>">
         <div class="record-list-item-actions">
+          <%= link_to t(".plots"), phase_plots_path(phase), class: "btn" %>
           <%= edit_btn edit_development_phase_path(@development, phase) %>
           <%= delete_btn phase, path: url_for([@development, phase]) %>
         </div>
@@ -33,7 +34,7 @@
              <%= l phase.updated_at.to_date, format: :digits %>
            </span>
         </div>
-      </dt>
+      </dd>
     <% end %>
   </dl>
 </div>

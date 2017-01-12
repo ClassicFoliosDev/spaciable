@@ -1,4 +1,4 @@
-<%= simple_form_for([development, plot]) do |f| %>
+<%= simple_form_for([parent, plot]) do |f| %>
   <% if plot.errors.any? %>
     <div class="row">
       <div class="row-item">
@@ -25,14 +25,14 @@
 
     <div class="row-item third">
       <fieldset>
-        <%= f.association :unit_type, as: :select, collection: development.unit_types.pluck(:name, :id) %>
+        <%= f.association :unit_type, as: :select, collection: parent.unit_types.pluck(:name, :id) %>
       </fieldset>
     </div>
   </div>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), development_plots_path(development), class: "btn" %>
+      <%= link_to t(".back"), [parent, :plots], class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

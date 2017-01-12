@@ -1,16 +1,16 @@
-<% breadcrumb :plots, @development %>
+<% breadcrumb :plots, @phase %>
 
 <div class="section-header">
   <h3 class="section-title">
     <i class="fa fa-building"></i>
-    <%= t(".title", development_name: @development.name) %>
+    <%= t(".title", phase_name: @phase.name) %>
   </h3>
   <div class="section-actions">
-    <%= link_to new_development_plot_path(@development), class: "btn btn-primary" do %>
+    <%= link_to new_phase_plot_path(@phase), class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
       <span class="btn-label"><%= t(".add") %></span>
     <% end %>
   </div>
 </div>
 
-<%= render 'plots', plots: @plots, parent: @development %>
+<%= render 'plots/plots', plots: @plots, parent: @phase %>

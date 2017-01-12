@@ -6,6 +6,10 @@ RSpec.describe Plot do
     let(:parent) { create(:development) }
     let(:association_with_parent) { :plots }
   end
+  include_examples "it inherits permissable ids from the parent" do
+    let(:parent) { create(:phase) }
+    let(:association_with_parent) { :plots }
+  end
 
   describe "#number" do
     context "is a decimal" do

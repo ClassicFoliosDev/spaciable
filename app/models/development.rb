@@ -12,7 +12,7 @@ class Development < ApplicationRecord
   has_many :documents, dependent: :destroy
   has_many :finishes, dependent: :destroy
   has_many :images, dependent: :destroy
-  has_many :plots, dependent: :destroy
+  has_many :plots, -> { where(phase_id: nil) }, dependent: :destroy
   has_many :phases, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy

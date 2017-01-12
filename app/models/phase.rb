@@ -11,8 +11,8 @@ class Phase < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
-  has_many :phases_unit_types
-  has_many :unit_types, through: :phases_unit_types
+  has_many :plots
+  has_many :unit_types, through: :development
   has_many :document, as: :documentable
   has_one :address, as: :addressable
 

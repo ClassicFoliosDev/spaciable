@@ -13,3 +13,14 @@ Feature: Plots
     Then I should see the updated plot
     When I delete the plot
     Then I should see that the plot deletion completed successfully
+
+  @javascript
+  Scenario: Phase Plots
+    Given I am logged in as an admin
+    And I have a developer with a development with unit types and a phase
+    When I create a plot for the phase
+    Then I should see the created phase plot
+    When I update the phase plot
+    Then I should see the updated phase plot
+    When I delete the phase plot
+    Then I should see that the phase plot deletion completed successfully
