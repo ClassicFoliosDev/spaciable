@@ -1,3 +1,5 @@
+$card-height: 230px;
+
 .card-container {
   & > *:nth-child(4),
   & > *:nth-child(4n+7) {
@@ -13,7 +15,7 @@
   background-repeat: no-repeat;
   box-sizing: border-box;
   margin-bottom: $spacing-medium;
-  height: 221px;
+  height: $card-height;
 
   .btn-primary {
     border: 1px solid $primary-red;
@@ -59,8 +61,9 @@
 .card {
   &.my-home {
     color: $ui-white;
-    height: 230px;
     position: relative;
+    background-size: cover;
+    background-position: center;
 
     &:before {
       @include trans-to-black(90deg);
@@ -92,7 +95,6 @@
 
   &.my-library {
     @include grad-yellow-orange();
-    height: 230px;
 
     .card-title {
       border-bottom: none;
@@ -105,7 +107,7 @@
   }
 
   &.my-contacts {
-    height: 464px;
+    height: 484px;
 
     .contact-list {
       margin-bottom: 0;
@@ -141,6 +143,7 @@
       @include display(flex);
       @include pad($spacing-small $spacing-medium);
       border-bottom: 1px solid $ui-grey;
+      height: 76px;
 
 
       &:last-child {
@@ -171,13 +174,18 @@
     .faq-link {
       @include display(flex);
       align-items: center;
-      font-size: 11px;
+      font-size: 12px;
       color: $primary-black;
-      padding: ($spacing-small / 2) $spacing-large ($spacing-small / 2) $spacing-small;
+      margin: ($spacing-small / 2) 0 ($spacing-small / 2) $spacing-small;
+      padding-right: 30px;
       text-decoration: none;
       position: relative;
       height: 42px;
       line-height: 16px;
+
+      @include media($desktop-large-down) {
+        margin: 8px 0 8px 8px;
+      }
 
       &:hover {
         text-decoration: underline;
