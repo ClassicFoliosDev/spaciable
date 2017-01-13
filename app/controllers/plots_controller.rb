@@ -15,6 +15,9 @@ class PlotsController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   def create
     if @plot.save
       notice = t(".success", plot_name: @plot.to_s)
@@ -26,7 +29,7 @@ class PlotsController < ApplicationController
 
   def update
     if @plot.update(plot_params)
-      notice = t(".update.success", plot_name: @plot.to_s)
+      notice = t(".success", plot_name: @plot.to_s)
       redirect_to [@development, :plots], notice: notice
     else
       render :edit
@@ -35,7 +38,7 @@ class PlotsController < ApplicationController
 
   def destroy
     @plot.destroy
-    notice = t(".archive.success", plot_name: @plot.to_s)
+    notice = t(".success", plot_name: @plot.to_s)
     redirect_to development_plots_url(@development), notice: notice
   end
 

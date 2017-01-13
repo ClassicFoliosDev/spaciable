@@ -1,3 +1,10 @@
+<div class="section-actions">
+  <% link_to new_developer_development_path(parent), class: "btn btn-primary" do %>
+    <i class="fa fa-plus"></i>
+    <span class="btn-label"><%= t(".add") %></span>
+  <% end %>
+</div>
+
 <div class="record-list">
   <dl class="developments">
     <dt class="record-list-item record-header">
@@ -6,7 +13,7 @@
         <span><%= sortable(Development, :updated_at) %></span>
       </div>
     </dt>
-    <% developments.each do |development| %>
+    <% collection.each do |development| %>
       <dt class="record-list-item" data-development="<%= development.id %>">
         <div class="record-list-item-actions">
           <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
@@ -28,5 +35,5 @@
 
 <div class="paging">
   <%= render 'components/page_size' %>
-  <%= paginate developments %>
+  <%= paginate collection %>
 </div>

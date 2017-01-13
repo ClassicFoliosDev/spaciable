@@ -5,14 +5,12 @@
     <i class="fa fa-building"></i>
     <%= t(".title", developer_name: @developer.company_name) %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_developer_development_path(@developer), class: "btn btn-primary" do %>
+</div>
+<div class="section-actions">
+  <%= link_to new_developer_development_path(@developer), class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
       <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
+  <% end %>
 </div>
 
-<%= render 'components/tabs', tabs: developer_tabs(@developer, :developments) %>
-
-<%= render partial: 'developments/developments', locals: { developments: @developments, parent: @developer } %>
+<%= render_collection @collection, parent: @developer %>

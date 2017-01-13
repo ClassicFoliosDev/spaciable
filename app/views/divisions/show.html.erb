@@ -1,0 +1,14 @@
+<% breadcrumb :division, @division %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= @division.division_name %><br>
+  </h3>
+
+  <%= render 'address/address', parent: @division %>
+</div>
+
+<%= render_collection @collection, parent: @division %>
+
+<%= link_to t(".back"), developer_divisions_path, class: "btn" %>

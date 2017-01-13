@@ -8,12 +8,12 @@ RSpec.describe TabsHelper do
 
     it "should return an array of tabs" do
       developer = create(:developer)
-      developments_path = developer_developments_path(developer)
-      divisions_path = developer_divisions_path(developer)
+      developments_path = developer_path(developer) + "?active_tab=developments"
+      divisions_path = developer_path(developer) + "?active_tab=divisions"
 
       result = developer_tabs(developer, "")
-      developments = result.first
-      divisions = result.last
+      divisions = result.first
+      developments = result.last
 
       expect(developments[0]).to eq(developments_title)
       expect(developments[2]).to eq(developments_path)
@@ -26,9 +26,9 @@ RSpec.describe TabsHelper do
       it "should mark divisions as active" do
         developer = create(:developer)
 
-        result = developer_tabs(developer, :divisions)
-        developments = result.first
-        divisions = result.last
+        result = developer_tabs(developer, "divisions")
+        divisions = result.first
+        developments = result.last
 
         expect(developments[3]).to eq(false)
         expect(divisions[3]).to eq(true)
@@ -39,9 +39,9 @@ RSpec.describe TabsHelper do
       it "should mark developments as active" do
         developer = create(:developer)
 
-        result = developer_tabs(developer, :developments)
-        developments = result.first
-        divisions = result.last
+        result = developer_tabs(developer, "developments")
+        divisions = result.first
+        developments = result.last
 
         expect(developments[3]).to eq(true)
         expect(divisions[3]).to eq(false)

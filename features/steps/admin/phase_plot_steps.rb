@@ -11,15 +11,15 @@ When(/^I create a plot for the phase$/) do
   end
 
   within "[data-developer='#{PhasePlotFixture.developer_id}']" do
-    click_on t(".developers.index.developments")
+    click_on t("developers.index.developments")
   end
 
   within "[data-development='#{PhasePlotFixture.development_id}']" do
-    click_on t(".developments.developments.phases")
+    click_on t("developments.collection.phases")
   end
 
   within "[data-phase='#{PhasePlotFixture.phase_id}']" do
-    click_on t(".phases.index.plots")
+    click_on t("phases.index.plots")
   end
 
   click_on t("phases.plots.index.add")

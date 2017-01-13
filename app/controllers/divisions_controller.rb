@@ -6,7 +6,7 @@ class DivisionsController < ApplicationController
   load_and_authorize_resource :division, through: :developer
 
   def index
-    @divisions = paginate(sort(@divisions, default: :division_name))
+    @collection = paginate(sort(@divisions, default: :division_name))
   end
 
   def new
@@ -15,6 +15,10 @@ class DivisionsController < ApplicationController
 
   def edit
     @division.build_address unless @division.address
+  end
+
+  def show
+    @collection = paginate(sort(@division.developments, default: :name))
   end
 
   def create
@@ -36,7 +40,7 @@ class DivisionsController < ApplicationController
         "controller.success.update",
         name: @division.division_name
       )
-      redirect_to [@developer, :divisions], notice: notice
+      redirect_to [@developer, @division], notice: notice
     else
       render :edit
     end

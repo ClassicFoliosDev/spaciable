@@ -43,7 +43,7 @@ class PhasesController < ApplicationController
   def destroy
     @phase.destroy
     notice = t(
-      ".archive.success",
+      ".success",
       phase_name: @phase.name
     )
     redirect_to development_phases_url(@development), notice: notice

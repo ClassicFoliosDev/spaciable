@@ -11,11 +11,11 @@ When(/^I create a unit type for the development$/) do
   end
 
   within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t(".developers.index.developments")
+    click_on t("developers.index.developments")
   end
 
   within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t(".developments.developments.unit_types")
+    click_on t("developments.collection.unit_types")
   end
 
   click_on t("unit_types.index.add")
@@ -75,10 +75,7 @@ When(/^I delete the unit type$/) do
 end
 
 Then(/^I should see the deletion complete successfully$/) do
-  success_flash = t(
-    "unit_types.destroy.archive.success",
-    unit_type_name: CreateFixture.unit_type_name
-  )
+  success_flash = t("controller.success.destroy", name: CreateFixture.unit_type_name)
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do

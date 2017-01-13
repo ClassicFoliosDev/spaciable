@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 module TabsHelper
   def developer_tabs(developer, current_tab)
-    developments_tab = Tab.new(
-      title: t("developers.developments.tabs.developments"),
-      icon: :building,
-      link: developer_developments_path(developer),
-      active: (current_tab == :developments)
-    )
     divisions_tab = Tab.new(
-      title: t("developers.developments.tabs.divisions"),
+      title: t("developers.tabs.divisions"),
       icon: :building,
-      link: developer_divisions_path(developer),
-      active: (current_tab == :divisions)
+      link: developer_path(developer, active_tab: :divisions),
+      active: (current_tab == "divisions")
     )
 
-    [developments_tab, divisions_tab].map(&:to_a)
+    developments_tab = Tab.new(
+      title: t("developers.tabs.developments"),
+      icon: :building,
+      link: developer_path(developer, active_tab: :developments),
+      active: (current_tab == "developments")
+    )
+
+    [divisions_tab, developments_tab].map(&:to_a)
   end
 
   class Tab

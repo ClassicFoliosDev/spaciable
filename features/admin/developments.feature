@@ -1,7 +1,7 @@
 @javascript
 Feature: Developments
   As a CF Admin
-  I want to add our clients develeopments
+  I want to add our clients developments
   So that we can record the building work that the client is doing
 
   Scenario: Developers

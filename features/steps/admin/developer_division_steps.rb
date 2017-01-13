@@ -14,7 +14,7 @@ When(/^I create a division for the developer$/) do
     click_on t("developers.index.divisions")
   end
 
-  click_on t("divisions.index.add")
+  click_on t("divisions.collection.add")
 
   fill_in "division_division_name", with: CreateFixture.division_name
   click_on t("divisions.form.submit")
@@ -41,23 +41,29 @@ When(/^I update the developer's division$/) do
 end
 
 Then(/^I should see the updated developer division$/) do
-  # On the index page
-  within ".record-list" do
+  success_flash = t(
+    "divisions.update.success",
+    division_name: DeveloperDivisionFixture.updated_division_name
+  )
+  expect(page).to have_content(success_flash)
+
+  # On the show page
+  within ".section-header" do
     expect(page).to have_content(DeveloperDivisionFixture.updated_division_name)
   end
 
-  # and on the edit page
-  click_on DeveloperDivisionFixture.updated_division_name
+  within ".section-data" do
+    DeveloperDivisionFixture.update_attrs.each do |_attr, value|
+      expect(page).to have_content(value)
+    end
 
-  DeveloperDivisionFixture.update_attrs.each do |attr, value|
-    screen_value = find("[name='division[#{attr}]']").value
-    expect(screen_value).to eq(value)
+    DeveloperDivisionFixture.division_address_attrs.each do |_attr, value|
+      expect(page).to have_content(value)
+    end
   end
 
-  DeveloperDivisionFixture.division_address_attrs.each do |attr, value|
-    screen_value = find_by_id("division_address_attributes_#{attr}").value
-    expect(screen_value).to eq(value)
-  end
+  expect(page).to have_content DeveloperDivisionFixture.updated_division_name
+  expect(page).not_to have_content(CreateFixture.division_name)
 end
 
 When(/^I delete the division$/) do
@@ -68,7 +74,7 @@ end
 
 Then(/^I should see that the deletion was successful for the division$/) do
   success_flash = t(
-    "divisions.archive.success",
+    "divisions.destroy.success",
     division_name: DeveloperDivisionFixture.updated_division_name
   )
   expect(page).to have_content(success_flash)

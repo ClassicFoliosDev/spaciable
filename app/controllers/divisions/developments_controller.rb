@@ -7,7 +7,7 @@ module Divisions
     load_and_authorize_resource :development, through: :division
 
     def index
-      @developments = paginate(sort(@developments, default: :name))
+      @collection = paginate(sort(@developments, default: :name))
     end
 
     def new
@@ -16,6 +16,9 @@ module Divisions
 
     def edit
       @development.build_address unless @development.address
+    end
+
+    def show
     end
 
     def create
@@ -39,7 +42,7 @@ module Divisions
     end
 
     def destroy
-      notice = t(".archive.success", development_name: @development.name)
+      notice = t(".success", development_name: @development.name)
 
       @development.destroy
       redirect_to division_developments_path, notice: notice

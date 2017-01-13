@@ -11,11 +11,11 @@ When(/^I create a plot for the development$/) do
   end
 
   within "[data-developer='#{PlotFixture.developer_id}']" do
-    click_on t(".developers.index.developments")
+    click_on t("developers.index.developments")
   end
 
   within "[data-development='#{PlotFixture.development_id}']" do
-    click_on t(".developments.developments.plots")
+    click_on t("developments.collection.plots")
   end
 
   click_on t("plots.index.add")
@@ -78,7 +78,7 @@ end
 
 Then(/^I should see that the plot deletion completed successfully$/) do
   success_flash = t(
-    "plots.destroy.archive.success",
+    "plots.destroy.success",
     plot_name: PlotFixture.updated_plot_name
   )
   expect(page).to have_content(success_flash)

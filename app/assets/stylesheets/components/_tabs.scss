@@ -1,6 +1,7 @@
 .tabs {
   @include clearfix();
   clear: both;
+  float: left;
 
   ul {
     font-size: 0;

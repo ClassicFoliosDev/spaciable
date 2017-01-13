@@ -158,21 +158,22 @@ en:
           title: "Library"
 
   developments:
-    developments:
+    collection:
       phases: "Phases"
       unit_types: "Unit Types"
       plots: "Plots"
+      add: "Add development"
     edit:
       back: "Back"
     form:
       submit: "Submit"
-      address: "Development Address"
+      address: "Development address"
       back: "Back"
     index:
-      add: "Add Development"
+      add: "Add development"
 
   developers:
-    archive:
+    destroy:
       success: "%{developer_name} was deleted successfully"
     create:
       success: "%{developer_name} was created successfully"
@@ -180,7 +181,7 @@ en:
       edit:
         title: "Edit %{development_name}"
       index:
-        add: "Add Development"
+        add: "Add development"
         title: "%{developer_name} developments"
       new:
         title: "New development"
@@ -192,9 +193,7 @@ en:
       update:
         success: "%{development_name} was updated successfully"
       destroy:
-        archive:
-          success: "%{development_name} was deleted successfully"
-
+        success: "%{development_name} was deleted successfully"
     edit:
       title: "Edit %{developer_name}"
       show: "Show"
@@ -202,6 +201,7 @@ en:
     form:
       submit: "Submit"
       back: "Back"
+      address: "Postal Address"
     index:
       add: "Add Developer"
       actions: "Actions"
@@ -213,53 +213,60 @@ en:
     new:
       title: "New Developer"
       back: "Back"
+    show:
+      back: "Back"
     update:
       success: "%{developer_name} was updated successfully"
+    tabs:
+      developments: "Developments"
+      divisions: "Divisions"
 
   divisions:
-    archive:
+    destroy:
       success: "%{division_name} was deleted successfully"
     create:
       success: "%{division_name} was created successfully"
     developments:
       destroy:
-        archive:
-          success: "%{development_name} was deleted successfully"
+        success: "%{development_name} was deleted successfully"
       create:
         success: "%{development_name} was created successfully"
       new:
-        add: "Add Development"
+        add: "Add development"
       update:
         success: "%{development_name} was updated successfully"
       edit:
         title: "Edit %{development_name}"
         edit: "Edit %{development_name}"
       index:
-        add: "Add Development"
-        title: "%{division_name} Developments"
+        add: "Add development"
+        title: "%{division_name} developments"
     edit:
       title: "Edit %{division_name}"
       show: "Show"
       back: "Back"
     form:
       submit: "Submit"
-      address: "Postal Address"
+      address: "Postal address"
       back: "Back"
     index:
-      add: "Add Division"
       actions: "Actions"
       destroy: "Delete"
       show: "Show"
       title: "Divisions"
+    show:
+      back: "Back"
+    collection:
       developments: "Developments"
+      add: "Add division"
     new:
-      title: "New Division"
+      title: "New division"
       back: "Back"
     update:
       success: "%{division_name} was updated successfully"
 
   addresses:
-    archive:
+    destroy:
       success: "%{address_title} was deleted successfully"
     create:
       success: "%{address_title} was created successfully"
@@ -317,8 +324,7 @@ en:
     create:
       success: "%{phase_name} was created successfully"
     destroy:
-      archive:
-        success: "%{phase_name} was deleted successfully"
+      success: "%{phase_name} was deleted successfully"
     edit:
       back: "Back"
       title: "Edit %{phase_name}"
@@ -358,8 +364,7 @@ en:
     create:
       success: "%{plot_name} was created successfully"
     destroy:
-      archive:
-        success: "%{plot_name} was deleted successfully"
+      success: "%{plot_name} was deleted successfully"
     edit:
       back: "Back"
       title: "Edit %{plot_name}"
@@ -377,8 +382,7 @@ en:
 
   unit_types:
     destroy:
-      archive:
-        success: "%{unit_type_name} was deleted successfully"
+      success: "%{unit_type_name} was deleted successfully"
     edit:
       title: "Edit %{unit_type_name}"
       back: "Back"

@@ -4,16 +4,8 @@ module DeveloperFixture
 
   def update_attrs
     {
-      company_name: updated_company_name,
-      postal_name: "Langosh Fort",
-      building_name: "Mega Building",
-      road_name: "Swampy Road",
-      city: "Wadeland",
-      county: "Gibsonton",
-      postcode: "RG13 5HY",
       email: "hamble.developers@example.com",
-      contact_number: "07713538572",
-      about: about
+      contact_number: "07713538572"
     }
   end
 
@@ -22,6 +14,17 @@ module DeveloperFixture
       Established in 1977. Hamble Developments have been serving the local area
       with exceptional housing that combines the maritime location with comfortable living.
     ABOUT
+  end
+
+  def developer_address_attrs
+    {
+      postal_name: "Langosh Fort",
+      building_name: "Mega Building",
+      road_name: "Swampy Road",
+      city: "Wadeland",
+      county: "Gibsonton",
+      postcode: "RG13 5HY"
+    }
   end
 
   def updated_company_name

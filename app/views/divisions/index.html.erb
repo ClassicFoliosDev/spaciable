@@ -5,43 +5,6 @@
     <i class="fa fa-building"></i>
     <%= t(".title") %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_developer_division_path, class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
 </div>
 
-<%= render 'components/tabs', tabs: developer_tabs(@developer, :divisions) %>
-
-<div class="record-list">
-  <dl class="divisions">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(Division, :division_name) %></span>
-        <span><%= sortable(Division, :updated_at) %></span>
-      </div>
-    </dt>
-    <% @divisions.each do |division| %>
-      <dd class="record-list-item" data-division="<%= division.id %>">
-        <div class="record-list-item-actions">
-          <%= link_to t(".developments"), division_developments_path(division), class: "btn" %>
-          <%= edit_btn edit_developer_division_path(@developer, division) %>
-          <%= delete_btn division, path: url_for([@developer, division]) %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to division.division_name, edit_developer_division_path(@developer, division) %>
-          <span class="division-updated-timestamp">
-           <%= l division.updated_at.to_date, format: :digits %>
-         </span>
-        </div>
-      </dd>
-    <% end %>
-  </dl>
-</div>
-
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate @divisions %>
-</div>
+<%= render_collection @collection, parent: @developer %>

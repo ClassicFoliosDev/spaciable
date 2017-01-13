@@ -12,7 +12,9 @@ class Developer < ApplicationRecord
   has_many :phases, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
+  has_one :address, as: :addressable, dependent: :destroy
 
+  accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
 
   delegate :to_s, to: :company_name

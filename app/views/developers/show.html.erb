@@ -1,0 +1,19 @@
+<% breadcrumb :developer, @developer %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= @developer.company_name %><br>
+    <span class="about">
+        <%= simple_format @developer.about %>
+    </span>
+  </h3>
+
+  <%= render 'address/address', parent: @developer %>
+</div>
+
+<%= render 'components/tabs', tabs: developer_tabs(@developer, @active_tab), parent: @developer %>
+
+<%= render_collection @collection, parent: @developer %>
+
+<%= link_to t(".back"), developers_path, class: "btn" %>

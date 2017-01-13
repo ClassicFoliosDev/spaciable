@@ -30,7 +30,7 @@ $list-title-padding: 0;
 $list-title-margin: 0 0 $spacing-small;
 $list-title-color: $primary-red;
 $list-item-padding: 0;
-$list-item-margin: 0 0 $spacing-small;
+$list-item-margin: 0;
 
 
 body {
@@ -84,6 +84,8 @@ dl {
   margin: $list-margin;
   list-style-position: inside;
   font-family: $base-font-family;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
 }
 
 li {

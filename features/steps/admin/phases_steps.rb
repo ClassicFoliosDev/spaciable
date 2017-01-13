@@ -11,11 +11,11 @@ When(/^I create a phase for the development$/) do
   end
 
   within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t(".developers.index.developments")
+    click_on t("developers.index.developments")
   end
 
   within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t(".developments.developments.phases")
+    click_on t("developments.collection.phases")
   end
 
   click_on t("phases.index.add")
@@ -70,7 +70,7 @@ end
 
 Then(/^I should see that the deletion completed successfully$/) do
   success_flash = t(
-    "phases.destroy.archive.success",
+    "phases.destroy.success",
     phase_name: PhaseFixture.updated_phase_name
   )
   expect(page).to have_content(success_flash)

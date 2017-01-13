@@ -5,10 +5,12 @@ $list-item-text-color-secondary: $ui-dark-grey;
 $record-list-title-color: $primary-green;
 $secondary-record-list-item-font-size: 12px;
 $primary-record-list-item-color: $type-grey;
+$primary-record-list-header-color: $primary-red;
 $record-line-height: 33px;
 $two-actions-width: 70px;
-$two-actions-one-tab-width: 150px;
+$two-actions-one-tab-width: 200px;
 $two-actions-two-tabs-width: 275px;
+$two-actions-three-tabs-width: 310px;
 
 .record-list-item {
   @include clearfix;
@@ -17,15 +19,13 @@ $two-actions-two-tabs-width: 275px;
   border-radius: $border-radius;
   padding: $spacing-small $spacing-small $spacing-small $spacing-medium ;
   list-style-type: none;
-  margin: 0 0 ($spacing-small / 2) 0;
+  margin: 0 0 ($spacing-small / 3) 0;
   clear: both;
-}
-.record-header {
-  background-color: $ui-light-grey;
 }
 
 .record-list-header-content {
   @include display(flex);
+  padding-top: ($spacing-small / 2);
 
   @include media($tablet-landscape-down) {
     @include flex-direction(column);
@@ -38,7 +38,7 @@ $two-actions-two-tabs-width: 275px;
   a {
     font-weight: bold;
     text-decoration: none;
-    color: $primary-record-list-item-color;
+    color: $primary-record-list-header-color;
   }
 
   span {

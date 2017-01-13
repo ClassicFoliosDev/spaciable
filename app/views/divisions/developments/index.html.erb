@@ -5,12 +5,12 @@
     <i class="fa fa-building"></i>
     <%= t(".title", division_name: @division) %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_division_development_path(@division), class: "btn btn-primary" do %>
+</div>
+<div class="section-actions">
+  <%= link_to new_division_development_path(@division), class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
       <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
+  <% end %>
 </div>
 
-<%= render partial: 'developments/developments', locals: { developments: @developments, parent: @division } %>
+<%= render_collection @collection, parent: @division %>

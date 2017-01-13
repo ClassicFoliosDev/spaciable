@@ -21,22 +21,22 @@ Rails.application.routes.draw do
   end
 
   resources :phases, only: [] do
-    resources :plots, controller: 'phases/plots', except: [:show]
+    resources :plots, controller: 'phases/plots'
   end
 
-  resources :developments, except: :show do
-    resources :phases, except: :show
+  resources :developments do
+    resources :phases
     resources :unit_types
-    resources :plots, except: [:show]
+    resources :plots
   end
 
-  resources :developers, except: :show do
-    resources :divisions, except: :show
+  resources :developers do
+    resources :divisions
     resources :developments, controller: 'developers/developments'
   end
 
-  resources :divisions, except: :show do
-    resources :developments, except: :show, controller: 'divisions/developments'
+  resources :divisions do
+    resources :developments, controller: 'divisions/developments'
   end
 
   resources :appliances, except: :show

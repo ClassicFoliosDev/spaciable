@@ -1,0 +1,15 @@
+<div class="section-data">
+  <% if parent.address %>
+    <%= parent.address.postal_name %>
+    <%= parent.address.building_name %>
+    <%= parent.address.road_name %>
+    <%= parent.address.city %>
+    <%= parent.address.county %>
+    <%= parent.address.postcode %>
+  <% end %>
+  <i class="fa fa-phone"></i>
+  <%= parent.contact_number %>
+  <i class="fa fa-envelope"></i>
+  <%= parent.email %>
+  <%= edit_btn (request.path + "/edit") %>
+</div>

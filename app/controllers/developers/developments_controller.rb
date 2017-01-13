@@ -7,7 +7,7 @@ module Developers
     load_and_authorize_resource :development, through: [:developer]
 
     def index
-      @developments = paginate(sort(@developments, default: :name))
+      @collection = paginate(sort(@developments, default: :name))
     end
 
     def show
@@ -42,7 +42,7 @@ module Developers
     end
 
     def destroy
-      notice = t(".archive.success", development_name: @development.name)
+      notice = t(".success", development_name: @development.name)
 
       @development.destroy
       redirect_to [@developer, :developments], notice: notice

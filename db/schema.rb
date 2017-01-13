@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111120935) do
+ActiveRecord::Schema.define(version: 20170112121813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,18 +73,12 @@ ActiveRecord::Schema.define(version: 20170111120935) do
 
   create_table "developers", force: :cascade do |t|
     t.string   "company_name"
-    t.string   "postal_name"
-    t.string   "city"
-    t.string   "county"
-    t.string   "postcode"
     t.string   "email"
     t.string   "contact_number"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.datetime "deleted_at"
     t.text     "about"
-    t.string   "building_name"
-    t.string   "road_name"
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
 

@@ -8,13 +8,6 @@ crumb :developers do
   link Developer.model_name.human.pluralize, developers_path
 end
 
-crumb :developer do |developer|
-  # Replace this with a tabbed view of divisions / developments for the developer,
-  # as there is no show developer page to visit.
-  link developer, edit_developer_path(developer)
-  parent :developers
-end
-
 crumb :developer_edit do |developer|
   link t("breadcrumbs.developer_edit", developer_name: developer.company_name), developers_path(developer)
   parent :developers
@@ -25,6 +18,11 @@ crumb :developer_new do
   parent :developers
 end
 
+crumb :developer do |developer|
+  link developer.company_name, developer_path(developer)
+  parent :developers
+end
+
 # DIVISIONS
 
 crumb :developer_divisions do |developer|
@@ -32,26 +30,23 @@ crumb :developer_divisions do |developer|
   parent :developer, developer
 end
 
-crumb :divisions do |developer|
-  link Division.model_name.human.pluralize, developer_divisions_path(developer.id)
-  parent :developer, developer
-end
-
 crumb :division do |division|
-  link division, [:edit, division.developer, division]
-  parent :divisions, division.developer
+  title = division.division_name
+
+  link title, developer_division_path(division.developer, division)
+  parent :developer, division.developer
 end
 
-crumb :developer_division_edit do |division|
+crumb :division_edit do |division|
   title = t("breadcrumbs.division_edit", division_name: division.division_name)
 
   link title, edit_developer_division_path(division.developer, division)
-  parent :developer_divisions, division.developer
+  parent :developer, division.developer
 end
 
 crumb :division_new do |developer|
   link t("breadcrumbs.division_add")
-  parent :divisions, developer
+  parent :developer, developer
 end
 
 # DEVELOPMENTS

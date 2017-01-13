@@ -8,7 +8,6 @@ module DeveloperDivisionFixture
 
   def update_attrs
     {
-      division_name: updated_division_name,
       email: "alpha.division@example.com",
       contact_number: "07713538572"
     }

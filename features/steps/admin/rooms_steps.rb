@@ -15,14 +15,14 @@ When(/^I create a room for the development$/) do
   end
 
   within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t(".developers.index.developments")
+    click_on t("developers.index.developments")
   end
 
   within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t(".developments.developments.unit_types")
+    click_on t("developments.collection.unit_types")
   end
 
-  click_on t(".unit_types.index.rooms")
+  click_on t("unit_types.index.rooms")
 
   click_on t("rooms.index.add")
 
@@ -82,7 +82,7 @@ When(/^I add a second finish$/) do
   visit room_path
   find("[data-action='edit']").click
 
-  click_on t(".rooms.form.add_finish")
+  click_on t("rooms.form.add_finish")
 
   categories = page.all(".finish-category")
 

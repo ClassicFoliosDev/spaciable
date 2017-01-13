@@ -9,9 +9,21 @@ class DevelopersController < ApplicationController
   end
 
   def new
+    @developer.build_address unless @developer.address
   end
 
   def edit
+    @developer.build_address unless @developer.address
+  end
+
+  def show
+    @active_tab = params[:active_tab] || "divisions"
+
+    @collection = if @active_tab == "divisions"
+                    paginate(sort(@developer.divisions, default: :division_name))
+                  elsif @active_tab == "developments"
+                    paginate(sort(@developer.developments, default: :name))
+                  end
   end
 
   def create
@@ -24,7 +36,8 @@ class DevelopersController < ApplicationController
 
   def update
     if @developer.update(developer_params)
-      redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
+      notice = t(".success", developer_name: @developer.company_name)
+      redirect_to developer_path(@developer), notice: notice
     else
       render :edit
     end
@@ -33,7 +46,7 @@ class DevelopersController < ApplicationController
   def destroy
     @developer.destroy
 
-    notice = t(".archive.success", developer_name: @developer.company_name)
+    notice = t(".success", developer_name: @developer.company_name)
     redirect_to developers_url, notice: notice
   end
 
@@ -43,15 +56,10 @@ class DevelopersController < ApplicationController
   def developer_params
     params.require(:developer).permit(
       :company_name,
-      :postal_name,
-      :road_name,
-      :building_name,
-      :city,
-      :county,
-      :postcode,
       :email,
       :contact_number,
-      :about
+      :about,
+      address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
     )
   end
 end

@@ -11,7 +11,7 @@ When(/^I create a development for the developer$/) do
   end
 
   within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t(".developers.index.developments")
+    click_on t("developers.index.developments")
   end
 
   click_on t("developments.index.add")
@@ -68,7 +68,7 @@ end
 
 Then(/^I should see that the deletion was successful for the developer development$/) do
   success_flash = t(
-    "developers.developments.destroy.archive.success",
+    "developers.developments.destroy.success",
     development_name: DeveloperDevelopmentFixture.updated_development_name
   )
   expect(page).to have_content(success_flash)

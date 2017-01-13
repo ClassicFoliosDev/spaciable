@@ -1,7 +1,9 @@
 $font-section-title-color: $primary-green;
+$data-section-color: $type-grey;
 
 .section-header {
   @include display(flex);
+  margin-bottom: $spacing-large;
 
   & > * {
     @include flex(1);
@@ -11,8 +13,29 @@ $font-section-title-color: $primary-green;
 .section-title {
   @include flex(2);
   color: $font-section-title-color;
+
+  .about {
+    p {
+      font-size: $secondary-record-list-item-font-size;
+      color: $data-section-color;
+    }
+  }
 }
 
 .section-actions {
   text-align: right;
+
+  a {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+.section-data {
+  font-size: $secondary-record-list-item-font-size;
+  color: $data-section-color;
+
+  a {
+    float: right;
+  }
 }
