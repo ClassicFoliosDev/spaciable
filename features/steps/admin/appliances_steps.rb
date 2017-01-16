@@ -137,6 +137,6 @@ Then(/^I should see the appliance deletion complete successfully$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_no_content CreateFixture.appliance_name
+    expect(page).not_to have_content CreateFixture.appliance_name
   end
 end

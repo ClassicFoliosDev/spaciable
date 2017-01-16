@@ -5,41 +5,6 @@
     <i class="fa fa-building"></i>
     <%= t(".title", development_name: @development.name) %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_development_unit_type_path(@development), class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
 </div>
 
-<div class="record-list">
-  <dl class="unit_types">
-    <dd class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(@unit_types, :name) %></span>
-        <span><%= sortable(@unit_types, :updated_at) %></span>
-      </div>
-    </dd>
-    <% @unit_types.each do |unit_type| %>
-      <dt class="record-list-item" data-unit_type="<%= unit_type.id %>">
-        <div class="record-list-item-actions">
-          <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
-          <%= edit_btn edit_development_unit_type_path(@development, unit_type) %>
-          <%= delete_btn unit_type, path: url_for([@development, unit_type]) %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to unit_type.name, edit_development_unit_type_path(@development, unit_type), class: "unit_type-name" %>
-          <span class="unit_type-updated-timestamp">
-             <%= l unit_type.updated_at.to_date, format: :digits %>
-           </span>
-        </div>
-      </dt>
-    <% end %>
-  </dl>
-</div>
-
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate @unit_types %>
-</div>
+<%= render_collection @unit_types, parent: @development %>

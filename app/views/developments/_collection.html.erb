@@ -1,5 +1,5 @@
 <div class="section-actions">
-  <% link_to new_developer_development_path(parent), class: "btn btn-primary" do %>
+  <%= link_to new_polymorphic_url([parent, Development]), class: "btn btn-primary" do %>
     <i class="fa fa-plus"></i>
     <span class="btn-label"><%= t(".add") %></span>
   <% end %>
@@ -23,7 +23,7 @@
           <%= delete_btn development, path: url_for([parent, development]) %>
         </div>
         <div class="record-list-item-content">
-           <%= link_to development.name, [:edit, parent, development], class: "development-name" %>
+           <%= link_to development.name, polymorphic_url([parent, development]) %>
            <span class="development-updated-timestamp">
              <%= l development.updated_at.to_date, format: :digits %>
            </span>

@@ -6,6 +6,10 @@ module DeveloperDivisionFixture
     "Beta Division"
   end
 
+  def second_division_name
+    "Gamma Division"
+  end
+
   def update_attrs
     {
       email: "alpha.division@example.com",

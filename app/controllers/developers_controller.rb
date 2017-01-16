@@ -30,6 +30,7 @@ class DevelopersController < ApplicationController
     if @developer.save
       redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
+      @developer.build_address unless @developer.address
       render :new
     end
   end

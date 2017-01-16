@@ -5,12 +5,6 @@
     <i class="fa fa-building"></i>
     <%= t(".title", development_name: @development.name) %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_development_plot_path(@development), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
 </div>
 
-<%= render 'plots', plots: @plots, parent: @development %>
+<%= render_collection @plots, parent: @development %>

@@ -3,8 +3,8 @@ require "rails_helper"
 
 RSpec.describe TabsHelper do
   describe "#developer_tabs" do
-    let(:developments_title) { I18n.t("developers.developments.tabs.developments") }
-    let(:divisions_title) { I18n.t("developers.developments.tabs.divisions") }
+    let(:developments_title) { I18n.t("developers.collection.developments") }
+    let(:divisions_title) { I18n.t("developers.collection.divisions") }
 
     it "should return an array of tabs" do
       developer = create(:developer)

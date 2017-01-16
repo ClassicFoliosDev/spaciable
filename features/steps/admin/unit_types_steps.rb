@@ -18,7 +18,7 @@ When(/^I create a unit type for the development$/) do
     click_on t("developments.collection.unit_types")
   end
 
-  click_on t("unit_types.index.add")
+  click_on t("unit_types.collection.add")
 
   fill_in "unit_type_name", with: CreateFixture.unit_type_name
   click_on t("unit_types.form.submit")
@@ -83,6 +83,6 @@ Then(/^I should see the deletion complete successfully$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_no_content CreateFixture.unit_type_name
+    expect(page).not_to have_content CreateFixture.unit_type_name
   end
 end

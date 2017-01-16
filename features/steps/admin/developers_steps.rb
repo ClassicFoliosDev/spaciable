@@ -75,6 +75,6 @@ Then(/^I should see the delete complete successfully$/) do
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
-    expect(page).to have_no_content DeveloperFixture.updated_company_name
+    expect(page).not_to have_content DeveloperFixture.updated_company_name
   end
 end

@@ -18,7 +18,7 @@ When(/^I create a plot for the development$/) do
     click_on t("developments.collection.plots")
   end
 
-  click_on t("plots.index.add")
+  click_on t("plots.collection.add")
 
   fill_in "plot_number", with: PlotFixture.plot_number
   click_on t("plots.form.submit")
@@ -73,6 +73,8 @@ end
 When(/^I delete the plot$/) do
   click_on t("plots.edit.back")
 
+  # Flaky test, make sure there's enough time
+  sleep 0.1
   delete_and_confirm!
 end
 
@@ -88,6 +90,6 @@ Then(/^I should see that the plot deletion completed successfully$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_no_content PlotFixture.updated_plot_name
+    expect(page).not_to have_content PlotFixture.updated_plot_name
   end
 end

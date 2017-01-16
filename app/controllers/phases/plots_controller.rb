@@ -30,7 +30,7 @@ module Phases
 
     def update
       if @plot.update(plot_params)
-        notice = t(".update.success", plot_name: @plot.to_s)
+        notice = t(".success", plot_name: @plot.to_s)
         redirect_to [@phase, :plots], notice: notice
       else
         render :edit
@@ -39,7 +39,7 @@ module Phases
 
     def destroy
       @plot.destroy
-      notice = t(".archive.success", plot_name: @plot.to_s)
+      notice = t(".success", plot_name: @plot.to_s)
       redirect_to phase_plots_url(@phase), notice: notice
     end
 

@@ -160,7 +160,7 @@ en:
   developments:
     collection:
       phases: "Phases"
-      unit_types: "Unit Types"
+      unit_types: "Unit types"
       plots: "Plots"
       add: "Add development"
     edit:
@@ -185,9 +185,8 @@ en:
         title: "%{developer_name} developments"
       new:
         title: "New development"
-      tabs:
-        developments: "Developments"
-        divisions: "Divisions"
+      show:
+        back: "Back"
       create:
         success: "%{development_name} was created successfully"
       update:
@@ -217,7 +216,7 @@ en:
       back: "Back"
     update:
       success: "%{developer_name} was updated successfully"
-    tabs:
+    collection:
       developments: "Developments"
       divisions: "Divisions"
 
@@ -233,6 +232,7 @@ en:
         success: "%{development_name} was created successfully"
       new:
         add: "Add development"
+        title: "New development"
       update:
         success: "%{development_name} was updated successfully"
       edit:
@@ -241,6 +241,8 @@ en:
       index:
         add: "Add development"
         title: "%{division_name} developments"
+      show:
+        back: "Back"
     edit:
       title: "Edit %{division_name}"
       show: "Show"
@@ -264,6 +266,7 @@ en:
       back: "Back"
     update:
       success: "%{division_name} was updated successfully"
+
 
   addresses:
     destroy:
@@ -333,9 +336,10 @@ en:
       submit: "Submit"
       back: "Back"
     index:
+      title: "%{development_name} Phases"
+    collection:
       add: "Add Phase"
       plots: "Plots"
-      title: "%{development_name} Phases"
     new:
       title: "New Phase"
     plots:
@@ -344,8 +348,7 @@ en:
       create:
         success: "%{plot_name} was created successfully"
       destroy:
-        archive:
-          success: "%{plot_name} was deleted successfully"
+        success: "%{plot_name} was deleted successfully"
       edit:
         back: "Back"
         title: "Edit %{plot_name}"
@@ -373,8 +376,9 @@ en:
       submit: "Submit"
       back: "Back"
     index:
-      add: "Add Plot"
       title: "%{development_name} Plots"
+    collection:
+      add: "Add Plot"
     new:
       title: "New Plot"
     update:
@@ -395,6 +399,7 @@ en:
       add: "Add %{development_name} Unit Type"
     index:
       title: "%{development_name} Unit Types"
+    collection:
       add: "Add Unit Type"
       rooms: "Rooms"
     require_phase: " must be from %{development_name}"
@@ -496,6 +501,7 @@ en:
         postcode: "Postcode"
         email: "Email address"
         contact_number: "Contact number"
+        updated_at: "Last edited"
       division:
         division_name: "Division name"
         address: "Division address"
@@ -504,6 +510,7 @@ en:
         postcode: "Postcode"
         email: "Email address"
         contact_number: "Contact number"
+        updated_at: "Last edited"
       development:
         name: "Development name"
         office_address: "Marketing suite address"
@@ -512,11 +519,14 @@ en:
         postcode: "Postcode"
         email: "Email address"
         contact_number: "Contact number"
+        updated_at: "Last edited"
       phase:
         name: "Name"
+        updated_at: "Last edited"
       unit_type:
         name: "Unit type name"
         picture: "Unit type picture"
+        updated_at: "Last edited"
         build_types:
           # Build type enums for unit type
           house_semi: "House (semi-detached)"
@@ -532,8 +542,10 @@ en:
         one: "Plot"
         prefix: "Prefix"
         number: "Number"
+        updated_at: "Last edited"
       room:
         name: "Room Name"
+        updated_at: "Last edited"
       finish:
         name: "Name"
         type: "Type"
@@ -541,6 +553,7 @@ en:
         descr: "Description"
         image: "Picture"
         provider: "Provider"
+        updated_at: "Last edited"
       appliance:
         primary_image: "Appliance picture"
         name: "Appliance name"
@@ -555,6 +568,7 @@ en:
         warranty_num: "Appliance warranty number"
         manual: "Appliance manual"
         images: "Additional images"
+        updated_at: "Last edited"
         warranty_length:
           # Warranty length enums for appliances
           no_warranty: "No warranty"
@@ -583,6 +597,7 @@ en:
       document:
         title: "Document name"
         file: "File"
+        updated_at: "Last edited"
       user:
         email: "Email Address"
         password: "Password"

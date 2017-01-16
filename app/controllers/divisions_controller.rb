@@ -6,7 +6,7 @@ class DivisionsController < ApplicationController
   load_and_authorize_resource :division, through: :developer
 
   def index
-    @collection = paginate(sort(@divisions, default: :division_name))
+    @divisions = paginate(sort(@divisions, default: :division_name))
   end
 
   def new

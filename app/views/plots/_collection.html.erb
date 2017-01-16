@@ -1,3 +1,10 @@
+<div class="section-actions">
+  <%= link_to new_development_plot_path(parent), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+  <% end %>
+</div>
+
 <div class="record-list">
   <dl class="plots">
     <dt class="record-list-item record-header">
@@ -6,14 +13,14 @@
         <span><%= sortable(Plot, :updated_at) %></span>
       </div>
     </dt>
-    <% plots.each do |plot| %>
+    <% collection.each do |plot| %>
       <dd class="record-list-item" data-plot="<%= plot.id %>">
         <div class="record-list-item-actions">
-          <%= edit_btn [:edit, parent, plot] %>
+          <%= edit_btn edit_development_plot_path(parent, plot) %>
           <%= delete_btn plot, path: url_for([parent, plot]) %>
         </div>
         <div class="record-list-item-content">
-           <%= link_to plot, [:edit, parent, plot], class: "plot-name" %>
+          <%= link_to plot, edit_development_plot_path(parent, plot) %>
            <span class="plot-updated-timestamp">
              <%= l plot.updated_at.to_date, format: :digits %>
            </span>
@@ -25,5 +32,5 @@
 
 <div class="paging">
   <%= render 'components/page_size' %>
-  <%= paginate plots %>
+  <%= paginate collection %>
 </div>

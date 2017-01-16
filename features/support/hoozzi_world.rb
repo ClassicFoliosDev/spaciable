@@ -4,14 +4,18 @@ module HoozziWorld
     I18n.t(*args)
   end
 
-  def delete_and_confirm!
-    # Launches the confirmation dialog
-    btn = find(".archive-btn")
-    # HACK! Can't get around needing this sleep :(
-    sleep 0.5
-    btn.click
+  def delete_and_confirm!(finder_options: {})
+    # Find the first delete button
+    within ".record-list" do
+      btn = find(".archive-btn", finder_options).click
+      # Launch the confirmation dialog
+      btn.trigger("click")
+    end
 
+    sleep 0.5
     # Click the "real" delete in the confirmation dialog
-    find(".btn-delete").trigger("click")
+    within ".ui-dialog" do
+      find(".btn-delete").trigger("click")
+    end
   end
 end

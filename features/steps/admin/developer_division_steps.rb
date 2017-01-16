@@ -63,13 +63,34 @@ Then(/^I should see the updated developer division$/) do
   end
 
   expect(page).to have_content DeveloperDivisionFixture.updated_division_name
-  expect(page).not_to have_content(CreateFixture.division_name)
+  expect(page).not_to have_content CreateFixture.division_name
+end
+
+When(/^I create another division/) do
+  visit "/developers"
+  click_on CreateFixture.developer_name
+  click_on t("developers.collection.divisions")
+  click_on t("divisions.collection.add")
+
+  fill_in "division_division_name", with: DeveloperDivisionFixture.second_division_name
+
+  click_on t("developments.form.submit")
+end
+
+Then(/^I should see the divisions list$/) do
+  within ".record-list" do
+    expect(page).to have_content DeveloperDivisionFixture.updated_division_name
+    expect(page).to have_content DeveloperDivisionFixture.second_division_name
+  end
 end
 
 When(/^I delete the division$/) do
-  visit "/developers/1/divisions"
+  visit "/developers"
+  click_on CreateFixture.developer_name
+  click_on t("developers.collection.divisions")
 
-  delete_and_confirm!
+  sleep 0.2
+  delete_and_confirm!(finder_options: { match: :first })
 end
 
 Then(/^I should see that the deletion was successful for the division$/) do
@@ -84,6 +105,7 @@ Then(/^I should see that the deletion was successful for the division$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_no_content DeveloperDivisionFixture.updated_division_name
+    expect(page).not_to have_content DeveloperDivisionFixture.updated_division_name
+    expect(page).to have_content(DeveloperDivisionFixture.second_division_name)
   end
 end

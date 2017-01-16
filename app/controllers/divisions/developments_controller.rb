@@ -7,7 +7,7 @@ module Divisions
     load_and_authorize_resource :development, through: :division
 
     def index
-      @collection = paginate(sort(@developments, default: :name))
+      @developments = paginate(sort(@developments, default: :name))
     end
 
     def new
@@ -19,6 +19,15 @@ module Divisions
     end
 
     def show
+      @active_tab = params[:active_tab] || "unit_types"
+
+      @collection = if @active_tab == "unit_types"
+                      paginate(sort(@development.unit_types, default: :name))
+                    elsif @active_tab == "phases"
+                      paginate(sort(@development.phases, default: :number))
+                    elsif @active_tab == "plots"
+                      paginate(sort(@development.plots, default: :number))
+                    end
     end
 
     def create
@@ -34,7 +43,7 @@ module Divisions
     def update
       if @development.update(development_params)
         notice = t(".success", development_name: @development.name)
-        redirect_to [@division, :developments], notice: notice
+        redirect_to [@division, @development], notice: notice
       else
         @development.build_address unless @development.address
         render :edit

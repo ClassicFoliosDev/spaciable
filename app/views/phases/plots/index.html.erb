@@ -5,12 +5,6 @@
     <i class="fa fa-building"></i>
     <%= t(".title", phase_name: @phase.name) %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_phase_plot_path(@phase), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
 </div>
 
-<%= render 'plots/plots', plots: @plots, parent: @phase %>
+<%= render_collection @plots, parent: @phase %>

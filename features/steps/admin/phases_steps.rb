@@ -18,7 +18,7 @@ When(/^I create a phase for the development$/) do
     click_on t("developments.collection.phases")
   end
 
-  click_on t("phases.index.add")
+  click_on t("phases.collection.add")
 
   fill_in "phase_name", with: CreateFixture.phase_name
   click_on t("phases.form.submit")
@@ -65,6 +65,7 @@ end
 When(/^I delete the phase$/) do
   click_on t("phases.edit.back")
 
+  sleep 0.2
   delete_and_confirm!
 end
 
@@ -80,6 +81,6 @@ Then(/^I should see that the deletion completed successfully$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_no_content PhaseFixture.updated_phase_name
+    expect(page).not_to have_content PhaseFixture.updated_phase_name
   end
 end

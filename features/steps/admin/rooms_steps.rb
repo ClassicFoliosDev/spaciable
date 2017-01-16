@@ -22,7 +22,7 @@ When(/^I create a room for the development$/) do
     click_on t("developments.collection.unit_types")
   end
 
-  click_on t("unit_types.index.rooms")
+  click_on t("unit_types.collection.rooms")
 
   click_on t("rooms.index.add")
 
@@ -175,6 +175,6 @@ Then(/^I should see the room deletion complete successfully$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_no_content CreateFixture.room_name
+    expect(page).not_to have_content CreateFixture.room_name
   end
 end

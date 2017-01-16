@@ -11,6 +11,8 @@ Feature: Developments
     Then I should see the created developer development
     When I update the developers development
     Then I should see the updated developer development
+    When I create another development
+    Then I should see the developments list
     When I delete the developers development
     Then I should see that the deletion was successful for the developer development
 
@@ -21,7 +23,8 @@ Feature: Developments
     Then I should see the created division development
     When I update the divisions development
     Then I should see the updated divisions development
-    When I view the division development phases
-    Then I should be able to return to the division development
+    And I should be able to return to the division
+    When I create a second division development
+    Then I should see the division developments list
     And I delete the divisions development
     Then I should see that the deletion was successful for the divisions development

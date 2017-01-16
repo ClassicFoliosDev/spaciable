@@ -1,4 +1,4 @@
-<% breadcrumb :developer_developments, @developer %>
+<% breadcrumb :developments, @developer %>
 
 <div class="section-header">
   <h3 class="section-title">
@@ -6,11 +6,5 @@
     <%= t(".title", developer_name: @developer.company_name) %>
   </h3>
 </div>
-<div class="section-actions">
-  <%= link_to new_developer_development_path(@developer), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-  <% end %>
-</div>
 
-<%= render_collection @collection, parent: @developer %>
+<%= render_collection @developments, parent: @developer %>

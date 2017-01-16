@@ -41,29 +41,42 @@ When(/^I update the developers development$/) do
 end
 
 Then(/^I should see the updated developer development$/) do
-  # On the index page
+  success_flash = t(
+    "developers.developments.update.success",
+    development_name: DeveloperDevelopmentFixture.updated_development_name
+  )
+  expect(page).to have_content(success_flash)
+
+  # On the show page
+  DeveloperDevelopmentFixture.update_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
+  end
+
+  DeveloperDevelopmentFixture.development_address_update_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
+  end
+end
+
+When(/^I create another development$/) do
+  visit "/developers"
+  click_on CreateFixture.developer_name
+  click_on t("developers.collection.developments")
+  click_on t("developments.collection.add")
+
+  fill_in "development_name", with: DeveloperDevelopmentFixture.second_development_name
+
+  click_on t("developments.form.submit")
+end
+
+Then(/^I should see the developments list$/) do
   within ".record-list" do
-    expect(page).to have_content(DeveloperDevelopmentFixture.updated_development_name)
-  end
-
-  # and on the edit page
-  click_on DeveloperDevelopmentFixture.updated_development_name
-
-  DeveloperDevelopmentFixture.update_attrs.each do |attr, value|
-    screen_value = find("[name='development[#{attr}]']").value
-    expect(screen_value).to eq(value)
-  end
-
-  DeveloperDevelopmentFixture.development_address_update_attrs.each do |attr, value|
-    screen_value = find_by_id("development_address_attributes_#{attr}").value
-    expect(screen_value).to eq(value)
+    expect(page).to have_content DeveloperDevelopmentFixture.updated_development_name
+    expect(page).to have_content DeveloperDevelopmentFixture.second_development_name
   end
 end
 
 When(/^I delete the developers development$/) do
-  click_on t("developments.edit.back")
-
-  delete_and_confirm!
+  delete_and_confirm!(finder_options: { match: :first })
 end
 
 Then(/^I should see that the deletion was successful for the developer development$/) do
@@ -71,13 +84,16 @@ Then(/^I should see that the deletion was successful for the developer developme
     "developers.developments.destroy.success",
     development_name: DeveloperDevelopmentFixture.updated_development_name
   )
+
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do
     expect(page).to have_content(CreateFixture.developer_name)
   end
 
+  # One should be deleted, but the other should be present
   within ".record-list" do
-    expect(page).to have_no_content DeveloperDevelopmentFixture.updated_development_name
+    expect(page).not_to have_content DeveloperDevelopmentFixture.updated_development_name
+    expect(page).to have_content DeveloperDevelopmentFixture.second_development_name
   end
 end

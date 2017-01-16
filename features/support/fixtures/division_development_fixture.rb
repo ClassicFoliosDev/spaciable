@@ -6,9 +6,12 @@ module DivisionDevelopmentFixture
     "Harbourside Development"
   end
 
+  def second_development_name
+    "Forest View"
+  end
+
   def update_attrs
     {
-      name: updated_development_name,
       email: "hamble.developers@example.com",
       contact_number: "07713538572"
     }

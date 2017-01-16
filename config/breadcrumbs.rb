@@ -54,32 +54,40 @@ end
 crumb :development_edit do |development|
   title = t("breadcrumbs.development_edit", development_name: development.name)
 
+  parent :developments, development.parent
+
   if development.parent.is_a?(Developer)
-
     link title, edit_developer_development_path(development.parent, development)
-    parent :developer_developments, development.parent
-
   elsif development.parent.is_a?(Division)
-
     link title, edit_division_development_path(development.parent, development)
-    parent :division_developments, development.parent
   end
 end
 
-crumb :developer_developments do |developer|
-  link Development.model_name.human.pluralize, developer_developments_path(developer)
-  parent :developer, developer
+crumb :development do |development|
+  title = development.name
+  parent :developments, development.parent
+
+  if development.parent.is_a?(Developer)
+    link title, edit_developer_development_path(development.parent, development)
+  elsif development.parent.is_a?(Division)
+    link title, edit_division_development_path(development.parent, development)
+  end
+end
+
+crumb :developments do |developments_parent|
+  case developments_parent
+  when Developer
+    link Development.model_name.human.pluralize, developer_developments_path(developments_parent)
+    parent :developer, developments_parent
+  when Division
+    link Development.model_name.human.pluralize, division_developments_path(developments_parent)
+    parent :division, developments_parent
+  end
 end
 
 crumb :development_new do |development_parent|
   link t("breadcrumbs.development_new")
-
-  case development_parent
-  when Developer
-    parent :developer_developments, development_parent
-  when Division
-    parent :division_developments, development_parent
-  end
+  parent :developments, development_parent
 end
 
 # DIVISION DEVELOPMENTS
