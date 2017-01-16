@@ -35,6 +35,7 @@ This user is added when you run `bin/setup`.
 
 ## Running the tests
 
+`$ brew install phantomjs`
 `$ bundle exec bin/test`
 
 The CI runs `bin/test` which does use the standard test frameworks CLI runners.
