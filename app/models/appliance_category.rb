@@ -6,4 +6,8 @@ class ApplianceCategory < ApplicationRecord
   belongs_to :appliance, optional: true
 
   validates :name, uniqueness: true
+
+  def to_s
+    name
+  end
 end

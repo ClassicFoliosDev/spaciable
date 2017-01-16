@@ -1,5 +1,9 @@
 $manual-filename-type: $type-grey;
 
+.appliances .record-header {
+  margin-right: $two-actions-width;
+}
+
 .appliance-manual {
     @include display(flex);
     @include flex-direction(row);
