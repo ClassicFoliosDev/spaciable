@@ -145,6 +145,9 @@ en:
   homeowner:
     dashboard:
       cards:
+        library:
+          title: "Library"
+          view_more: "View Library"
         contacts:
           title: "Contacts"
           view_more: "View Contacts"
@@ -154,8 +157,6 @@ en:
         my_home:
           title: "My Home"
           view_more: "View My Home"
-        library:
-          title: "Library"
 
   developments:
     collection:

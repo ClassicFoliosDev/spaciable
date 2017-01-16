@@ -1,3 +1,4 @@
+$library-interface-height: 164px;
 $card-height: 230px;
 
 .card-container {
@@ -33,14 +34,14 @@ $card-height: 230px;
     }
 
     .btn {
-      font-size: 11px;
+      font-size: $base-small-font-size;
       margin-left: auto;
-      background-color: lighten($primary-red, 30%) !important;
-      color: $primary-red !important;
+      background-color: lighten($primary-red, 30%);
+      color: $primary-red;
 
       &:hover {
-        background-color: $primary-red !important;
-        color: #fff !important;
+        background-color: $primary-red;
+        color: $ui-white;
       }
     }
   }
@@ -95,14 +96,68 @@ $card-height: 230px;
 
   &.my-library {
     @include grad-yellow-orange();
+    height: 230px;
+    color: $ui-white;
+
+    .btn-primary {
+      border-color: $ui-white;
+      background-color: transparent;
+      color: $ui-white;
+
+      &:hover {
+        border-color: $ui-white;
+        background-color: $ui-white;
+        color: #fb9e59;
+      }
+    }
 
     .card-title {
       border-bottom: none;
-      padding-bottom: 0px;
+      padding-bottom: 0;
     }
 
     .title {
       color: $ui-white;
+    }
+
+    .action {
+      cursor: pointer;
+      display: inline-block;
+      padding-top: 64px;
+      height: $library-interface-height;
+      width: 5%;
+    }
+
+    .action-left {
+      float: left;
+    }
+
+    .action-right {
+      float: right;
+    }
+
+    .documents {
+      display: inline-block;
+      height: $library-interface-height;
+      width: 88%;
+      overflow: hidden;
+
+      .document {
+        display: inline-table;
+        margin: 0 10px;
+        width: 100px;
+
+        img {
+          border: 1px solid $ui-white;
+          height: 128px;
+        }
+
+        p {
+          font-size: $base-font-size;
+          line-height: 14px;
+          color: $ui-white;
+        }
+      }
     }
   }
 
@@ -174,7 +229,7 @@ $card-height: 230px;
     .faq-link {
       @include display(flex);
       align-items: center;
-      font-size: 12px;
+      font-size: $base-font-size;
       color: $primary-black;
       margin: ($spacing-small / 2) 0 ($spacing-small / 2) $spacing-small;
       padding-right: 30px;

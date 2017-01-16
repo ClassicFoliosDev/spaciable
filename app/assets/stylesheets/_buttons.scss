@@ -63,12 +63,12 @@ button {
 }
 
 .btn-primary {
-  color: $primary-button-font-color !important;
-  background-color: $primary-button-bg-color !important;
+  color: $primary-button-font-color;
+  background-color: $primary-button-bg-color;
 
   &:hover {
-    color: $primary-button-font-color-hover !important;
-    background-color: $primary-button-bg-color-hover !important;
-    border: 1px solid $primary-button-border-color-hover !important;
+    color: $primary-button-font-color-hover;
+    background-color: $primary-button-bg-color-hover;
+    border: 1px solid $primary-button-border-color-hover;
   }
 }
