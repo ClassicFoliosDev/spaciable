@@ -94,4 +94,5 @@ Rails.application.configure do
     port: Rails.application.secrets.smtp_port,
     authentication: Rails.application.secrets.smtp_auth
   }
+  config.action_mailer.asset_host = ENV['ASSET_HOST']
 end
