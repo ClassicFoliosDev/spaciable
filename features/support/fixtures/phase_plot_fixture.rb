@@ -30,8 +30,8 @@ module PhasePlotFixture
     "Alpine"
   end
 
-  def phase_id
-    Phase.find_by(name: phase_name).id
+  def phase
+    Phase.find_by(name: phase_name)
   end
 
   def unit_type_name
@@ -72,6 +72,10 @@ module PhasePlotFixture
 
   def updated_plot_number
     "42"
+  end
+
+  def plot
+    phase.plots.find_by(prefix: update_attrs[:prefix], number: update_attrs[:number])
   end
 
   def update_attrs

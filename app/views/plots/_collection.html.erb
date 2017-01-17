@@ -1,5 +1,5 @@
 <div class="section-actions">
-  <%= link_to new_development_plot_path(parent), class: "btn btn-primary" do %>
+  <%= link_to [:new, parent, :plot], class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
       <span class="btn-label"><%= t(".add") %></span>
   <% end %>
@@ -16,11 +16,11 @@
     <% collection.each do |plot| %>
       <dd class="record-list-item" data-plot="<%= plot.id %>">
         <div class="record-list-item-actions">
-          <%= edit_btn edit_development_plot_path(parent, plot) %>
+          <%= edit_btn [:edit, parent, plot] %>
           <%= delete_btn plot, path: url_for([parent, plot]) %>
         </div>
         <div class="record-list-item-content">
-          <%= link_to plot, edit_development_plot_path(parent, plot) %>
+          <%= link_to plot, [:edit, parent, plot] %>
            <span class="plot-updated-timestamp">
              <%= l plot.updated_at.to_date, format: :digits %>
            </span>

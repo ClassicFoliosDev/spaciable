@@ -18,7 +18,7 @@ When(/^I create a plot for the phase$/) do
     click_on t("developments.collection.phases")
   end
 
-  within "[data-phase='#{PhasePlotFixture.phase_id}']" do
+  within "[data-phase='#{PhasePlotFixture.phase.id}']" do
     click_on t("phases.collection.plots")
   end
 
@@ -81,8 +81,7 @@ Then(/^I should see that the phase plot deletion completed successfully$/) do
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do
-    # TODO: Fix in HOOZ-159
-    # expect(page).to have_content(CreateFixture.phase_name)
+    expect(page).to have_content(PhasePlotFixture.phase_name)
   end
 
   within ".record-list" do
