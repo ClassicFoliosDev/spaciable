@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   skip_authorization_check
 
   def show
-    redirect_to(homeowner_dashboard_path) && return if current_user&.owner?
+    redirect_to(homeowner_dashboard_path) && return if current_user&.homeowner?
     redirect_to(admin_dashboard_path) && return if current_user
   end
 end

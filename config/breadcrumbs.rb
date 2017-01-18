@@ -2,6 +2,26 @@ crumb :root do
   link "Dashboard", root_path
 end
 
+# Admin Users
+crumb :admin_users do
+  link t("breadcrumbs.admin_users"), admin_users_path
+end
+
+crumb :admin_user_new do
+  link t("breadcrumbs.admin_users_add"), new_admin_user_path
+  parent :admin_users
+end
+
+crumb :admin_user_edit do |user|
+  link t("breadcrumbs.admin_user_edit", user_email: user.email), edit_admin_user_path(user)
+  parent :admin_users
+end
+
+crumb :admin_user do |user|
+  link user.to_s, admin_user_path(user)
+  parent :admin_users
+end
+
 # DEVELOPERS
 
 crumb :developers do
@@ -161,30 +181,6 @@ end
 crumb :document_new do
   link t("breadcrumbs.document_add")
   parent :documents
-end
-
-# USERS
-
-crumb :users do
-  link User.model_name.human.pluralize, users_path
-end
-
-crumb :user do |user|
-  link "%{first_name} %{last_name}" % {
-    first_name: user.first_name,
-    last_name: user.last_name
-  }, user_path
-  parent :users
-end
-
-crumb :user_edit do |user|
-  link t("breadcrumbs.user_edit")
-  parent :user, user
-end
-
-crumb :user_new do
-  link t("breadcrumbs.user_add")
-  parent :users
 end
 
 # ROOMS

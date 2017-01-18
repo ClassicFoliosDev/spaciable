@@ -1,0 +1,186 @@
+# frozen_string_literal: true
+Given(/^I am logged in as a CF Admin$/) do
+  login_as AdminUsersFixture.create_cf_admin
+  visit "/"
+end
+
+Given(/^I am logged in as a Developer Admin$/) do
+  login_as AdminUsersFixture.create_developer_admin
+  visit "/"
+end
+
+Given(/^I am logged in as a Division Admin$/) do
+  login_as AdminUsersFixture.create_division_admin
+  visit "/"
+end
+
+Given(/^I am logged in as a Development Admin$/) do
+  login_as AdminUsersFixture.create_development_admin
+  visit "/"
+end
+
+Given(/^I am logged in as a Development Admin for a Division$/) do
+  login_as AdminUsersFixture.create_division_development_admin
+  visit "/"
+end
+
+Given(/^I am on the Admin Users page$/) do
+  within ".navbar" do
+    click_on "Users"
+  end
+end
+
+When(/^I add a new CF Admin$/) do
+  click_on t("admin.users.index.add")
+
+  fill_in :user_email, with: AdminUsersFixture.second_cf_admin_attrs[:email_address]
+  select "CF Admin", visible: false
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the new CF Admin$/) do
+  attrs = AdminUsersFixture.second_cf_admin_attrs
+
+  click_on attrs[:email_address]
+
+  expect(page).to have_content(attrs[:email_address])
+  expect(page).to have_content(attrs[:role])
+
+  click_on t("admin.users.show.back")
+end
+
+When(/^I update the CF Admin$/) do
+  within "[data-user=\"#{AdminUsersFixture.second_cf_admin_id}\"]" do
+    sleep 0.2
+    find("[data-action='edit']").click
+  end
+
+  sleep 0.3
+  within ".user_email" do
+    fill_in "user[email]", with: AdminUsersFixture.second_cf_admin_update_attrs[:email_address]
+  end
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the updated CF Admin$/) do
+  email_address = AdminUsersFixture.second_cf_admin_update_attrs[:email_address]
+
+  expect(page).to have_content(email_address)
+end
+
+When(/^I delete the updated CF Admin$/) do
+  delete_and_confirm!(scope: "[data-user=\"#{AdminUsersFixture.second_cf_admin_id}\"]")
+end
+
+Then(/^I should not see the deleted CF Admin$/) do
+  email_address = AdminUsersFixture.second_cf_admin_update_attrs[:email_address]
+
+  within ".record-list" do
+    expect(page).not_to have_content(email_address)
+  end
+end
+
+When(/^I add a new Developer Admin$/) do
+  click_on t("admin.users.index.add")
+
+  attrs = AdminUsersFixture.developer_admin_attrs
+
+  sleep 0.3
+  within ".user_email" do
+    fill_in "user[email]", with: attrs[:email_address]
+  end
+
+  select attrs[:role], visible: false
+  select attrs[:developer], visible: false
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the new Developer Admin$/) do
+  attrs = AdminUsersFixture.developer_admin_attrs
+
+  within ".record-list" do
+    expect(page).to have_content(attrs[:role])
+    expect(page).to have_content(attrs[:developer])
+  end
+
+  click_on attrs[:email_address]
+
+  expect(page).to have_content(attrs[:email_address])
+  expect(page).to have_content(attrs[:role])
+  expect(page).to have_content(attrs[:developer])
+
+  click_on t("admin.users.show.back")
+end
+
+When(/^I add a new Division Admin$/) do
+  click_on t("admin.users.index.add")
+
+  attrs = AdminUsersFixture.division_admin_attrs
+
+  sleep 0.3
+  within ".user_email" do
+    fill_in "user[email]", with: attrs[:email_address]
+  end
+
+  select attrs[:role], visible: false
+  select attrs[:division], visible: false
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the new Division Admin$/) do
+  attrs = AdminUsersFixture.division_admin_attrs
+
+  within ".record-list" do
+    expect(page).to have_content(attrs[:role])
+    expect(page).to have_content(attrs[:division])
+  end
+
+  click_on attrs[:email_address]
+
+  expect(page).to have_content(attrs[:email_address])
+  expect(page).to have_content(attrs[:role])
+  expect(page).to have_content(attrs[:division])
+
+  click_on t("admin.users.show.back")
+end
+
+When(/^I add a Development Admin$/) do
+  click_on t("admin.users.index.add")
+
+  attrs = AdminUsersFixture.development_admin_attrs
+
+  within ".user_email" do
+    fill_in :user_email, with: attrs[:email_address]
+  end
+
+  within ".user_role" do
+    select attrs[:role], visible: false
+  end
+
+  within ".user_development_id", visible: false do
+    select attrs[:development], visible: false
+  end
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the new Development Admin$/) do
+  attrs = AdminUsersFixture.development_admin_attrs
+
+  within ".record-list" do
+    expect(page).to have_content(attrs[:role])
+    expect(page).to have_content(attrs[:development])
+  end
+
+  click_on attrs[:email_address]
+
+  expect(page).to have_content(attrs[:email_address])
+  expect(page).to have_content(attrs[:role])
+  expect(page).to have_content(attrs[:development])
+
+  click_on t("admin.users.show.back")
+end

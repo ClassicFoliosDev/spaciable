@@ -5,22 +5,28 @@ FactoryGirl.define do
     password { Faker::Internet.password(8) }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    role { :owner }
 
     factory :cf_admin do
       role { :cf_admin }
     end
 
-    factory :client_admin do
-      role { :client_admin }
+    factory :developer_admin do
+      role { :developer_admin }
+      permission_level { |user| user.association(:developer) }
     end
 
-    factory :client_user do
-      role { :client_user }
+    factory :division_admin do
+      role { :division_admin }
+      permission_level { |user| user.association(:division) }
+    end
+
+    factory :development_admin do
+      role { :development_admin }
+      permission_level { |user| user.association(:development) }
     end
 
     factory :homeowner do
-      role { :owner }
+      role { :homeowner }
     end
   end
 end

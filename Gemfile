@@ -40,8 +40,11 @@ gem "fog-aws"
 gem "simple_form"
 gem "cocoon"
 gem "cancancan", "~> 1"
-gem "devise"
 gem "gretel" # breadcrumbs
+
+# Authentication
+gem "devise", "~> 4.2"
+gem "devise_invitable", "~> 1.7.0"
 
 # Rollbar for exception monitoring, see https://rollbar.com/alliants/Hoozzi/#rails
 gem "rollbar"

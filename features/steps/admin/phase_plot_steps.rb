@@ -70,7 +70,8 @@ end
 When(/^I delete the phase plot$/) do
   click_on t("phases.plots.edit.back")
 
-  delete_and_confirm!
+  delete_scope = "[data-plot='#{PhasePlotFixture.plot.id}']"
+  delete_and_confirm!(scope: delete_scope)
 end
 
 Then(/^I should see that the phase plot deletion completed successfully$/) do

@@ -1,0 +1,56 @@
+<%= simple_form_for([:admin, user]) do |f| %>
+    <% if user.errors.any? %>
+        <div class="row">
+          <div class="row-item">
+            <div class="submission-errors">
+              <ul>
+                <% user.errors.full_messages.each do |message| %>
+                    <li>
+                      <%= fa_icon "exclamation-circle" %>
+                      <%= message %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="row-item third">
+        <fieldset>
+          <%= f.input :email %>
+        </fieldset>
+      </div>
+      <div class="row-item third">
+          <fieldset>
+          <%= f.input :role, as: :select, collection: User::accessible_admin_roles(current_user), label_method: ->(role) { t(role.first) }, value_method: :first, include_blank: "Choose..." %>
+        </fieldset>
+      </div>
+      <div class="row-item third">
+          <fieldset>
+            <%= f.input :developer_id, wrapper_html: { class: "select-with-filter cascade-filter", data: { filter: "developer" } } do %>
+              <%= f.select :developer_id, admin_users_developer_select_options, include_blank: true %>
+            <% end %>
+
+            <%= f.input :division_id, wrapper_html: { class: "select-with-filter filterable cascade-filter", data: { filter: "division" } } do %>
+              <%= f.select :division_id, admin_users_division_select_options, include_blank: true %>
+            <% end %>
+
+            <%= f.input :development_id, wrapper_html: { class: "select-with-filter filterable" } do %>
+              <%= f.select :development_id, admin_users_development_select_options, include_blank: true %>
+            <% end %>
+
+          <%= f.input :permission_level_id, as: :hidden %>
+          <%= f.input :permission_level_type, as: :hidden %>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t(".back"), admin_users_path, class: "btn" %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+<% end %>

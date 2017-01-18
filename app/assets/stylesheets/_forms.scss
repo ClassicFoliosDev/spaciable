@@ -90,6 +90,7 @@ label {
     border-style: solid !important;
     border-color: $input-border-color-active !important;
     border-radius: 0 0 $border-radius $border-radius !important;
+    max-height: 300px;
   }
 
   .ui-menu-item {

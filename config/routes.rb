@@ -8,7 +8,9 @@ Rails.application.routes.draw do
                sessions: 'users/sessions'
              }
 
-  resources :users
+  namespace :admin do
+    resources :users
+  end
 
   resources :documents, except: :new
 

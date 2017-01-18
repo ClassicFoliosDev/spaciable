@@ -13,8 +13,6 @@ if User.cf_admin.none?
   admin_password = "12345678"
 
   User.create!(
-    first_name: "admin",
-    last_name: "admin",
     role: :cf_admin,
     email: admin_email,
     password: admin_password
@@ -31,7 +29,7 @@ if User.cf_admin.none?
   INFO
 end
 
-if Rails.env.development? && User.owner.none?
+if Rails.env.development? && User.homeowner.none?
   homeowner_email = "homeowner@alliants.com"
   homeowner_password = "12345678"
 

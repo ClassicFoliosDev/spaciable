@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 class Ability
   include CanCan::Ability
+  include Abilities::UserPermissions
+  include Abilities::DeveloperAbilities
+  include Abilities::DivisionAbilities
+  include Abilities::DevelopmentAbilities
+  include Abilities::HomeownerAbilities
 
   def initialize(user)
     return unless user
 
     alias_action :create, :read, :update, :destroy, to: :crud
+
     role_abilities(user.role, user)
   end
 
@@ -15,101 +21,46 @@ class Ability
     case role.to_sym
     when :cf_admin
       can :manage, :all
-
-    when :client_admin
-      client_admin_abilities
-
-    when :client_user
-      client_user_abilities(user)
-
-    when :owner
-      owner_abilities(user)
+    when :developer_admin
+      developer_admin_abilities(user)
+    when :division_admin
+      division_admin_abilities(user)
+    when :development_admin
+      development_admin_abilities(user)
+    when :homeowner
+      homeowner_abilities(user)
     end
   end
 
-  def client_user_abilities(user)
-    if user.division.present?
-      division = user.division
+  def developer_admin_abilities(user)
+    developer_id = user.permission_level_id
 
-      client_user_division_abilities(division.id, division.developer_id)
-    elsif user.developer.present?
-      developer_id = user.developer.id
-      division_ids = Division.where(developer_id: developer_id).pluck(:id)
+    developer_abilities(developer_id)
 
-      client_user_developer_abilities(developer_id)
-      client_user_division_abilities(division_ids, developer_id)
-    end
+    division_ids = Division.where(developer_id: developer_id).pluck(:id)
+    division_abilities(division_ids, nil)
+
+    development_ids = Development
+                      .where(developer_id: developer_id)
+                      .or(Development.where(division_id: division_ids))
+                      .pluck(:id)
+    development_abilities(development_ids, nil, nil)
   end
 
-  # rubocop:disable MethodLength
-  # Method is long, but not complex for a user to read
-  def client_admin_abilities
-    can :manage,
-        [
-          Document,
-          Finish,
-          Image,
-          Plot,
-          User
-        ]
+  def division_admin_abilities(user)
+    division = user.permission_level
 
-    can :read,
-        [
-          Developer,
-          Development,
-          Division,
-          Phase,
-          Room,
-          UnitType
-        ]
-  end
-  # rubocop:enable MethodLength
+    division_abilities(division.id, division.developer_id)
 
-  def client_user_developer_abilities(developer)
-    can :crud, Document, developer_id: developer
-    can :crud, Finish, developer_id: developer
-    can :crud, Image, developer_id: developer
-    can :crud, Plot, developer_id: developer
-    can :crud, User, developer_id: developer
-
-    can :read, Developer, id: developer
-    can :read, Development, developer_id: developer
-    can :read, Development, developer_id: developer
-    can :read, Division, developer_id: developer
-    can :read, Phase, developer_id: developer
-    can :read, Room, developer_id: developer
-    can :read, UnitType, developer_id: developer
+    development_ids = Development.where(division_id: division).pluck(:id)
+    development_abilities(development_ids, nil, nil)
   end
 
-  def client_user_division_abilities(division, developer_id)
-    can :crud, Document, division_id: division
-    can :crud, Finish, division_id: division
-    can :crud, Image, division_id: division
-    can :crud, Plot, division_id: division
-    can :crud, User, division_id: division
+  def development_admin_abilities(user)
+    development = user.permission_level
+    division = development.division
+    developer_id = development.developer_id || division&.developer_id
 
-    can :read, Developer, id: developer_id
-    can :read, Development, division_id: division
-    can :read, Division, id: division
-    can :read, Phase, division_id: division
-    can :read, Room, division_id: division
-    can :read, UnitType, division_id: division
-  end
-
-  def owner_abilities(user)
-    development_ids = user.plots.pluck(:development_id)
-
-    can :read, Developer, developments: { id: development_ids }
-    can :read, Development, id: development_ids
-    can :read, Division, developer: { developments: { id: development_ids } }
-    can :read, Document, development_id: development_ids
-    can :read, Finish, development_id: development_ids
-    can :read, Image, development_id: development_ids
-    can :read, Phase, development_id: development_ids
-    can :read, Plot, development_id: development_ids
-    can :read, Room, development_id: development_ids
-    can :read, UnitType, development_id: development_ids
-
-    can :manage, User, id: user.id
+    development_abilities(development.id, development.division_id, developer_id)
   end
 end

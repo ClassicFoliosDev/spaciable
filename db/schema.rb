@@ -314,11 +314,23 @@ ActiveRecord::Schema.define(version: 20170116164521) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.integer  "developer_id"
-    t.integer  "division_id"
-    t.index ["developer_id"], name: "index_users_on_developer_id", using: :btree
-    t.index ["division_id"], name: "index_users_on_division_id", using: :btree
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.string   "invited_by_type"
+    t.integer  "invited_by_id"
+    t.integer  "invitations_count",      default: 0
+    t.datetime "deleted_at"
+    t.string   "permission_level_type"
+    t.integer  "permission_level_id"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+    t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+    t.index ["invited_by_type"], name: "index_users_on_invited_by_type", using: :btree
+    t.index ["permission_level_type", "permission_level_id"], name: "index_users_on_permission_level_type_and_permission_level_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
@@ -357,6 +369,4 @@ ActiveRecord::Schema.define(version: 20170116164521) do
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"
-  add_foreign_key "users", "developers"
-  add_foreign_key "users", "divisions"
 end

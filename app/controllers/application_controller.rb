@@ -21,6 +21,6 @@ class ApplicationController < ActionController::Base
   private
 
   def redirect_homeowners
-    redirect_to(homeowner_dashboard_path) && return if current_user.owner?
+    redirect_to(homeowner_dashboard_path) && return if current_user.homeowner?
   end
 end

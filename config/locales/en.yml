@@ -40,11 +40,10 @@ en:
 
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
-  client_admin: "Developer Admin"
+  developer_admin: "Developer Admin"
   division_admin: "Division Admin"
-  client_user: "Development Admin"
-  owner: "Home Owner"
-
+  development_admin: "Development Admin"
+  homeowner: "Home Owner"
 
   # LAYOUTS
   layouts:
@@ -68,6 +67,9 @@ en:
       destroy: "%{name} was deleted successfully"
 
   breadcrumbs:
+    admin_users: "Admin Users"
+    admin_users_add: "Add Admin User"
+    admin_user_edit: "Edit %{user_email}"
     appliance_edit: "Edit %{name}"
     appliance_add: "Add appliance"
     developer_edit: "Edit %{developer_name}"
@@ -109,6 +111,7 @@ en:
           login: "Login"
           home: "Home"
     navigation:
+      dashboard: "Dashboard"
       log_out: "Log out"
       developers: "Developers"
       documents: "Documents"
@@ -126,6 +129,32 @@ en:
   forms:
     required: "Required"
 
+  admin:
+    users:
+      create:
+        success: "%{user_email} was created successfully"
+      destroy:
+        archive:
+          success: "%{user_email} was deleted successfully"
+      edit:
+        title: "Edit user %{user_email}"
+        back: "Back"
+      form:
+        back: "Back"
+        submit: "Submit"
+      index:
+        title: "Admin Users"
+        add: "Add User"
+        headings:
+          permission_level: "Permission Level"
+      new:
+        add: "Add User"
+      show:
+        back: "Back"
+        role_at: "%{role} at %{permission_level_name}"
+      update:
+        success: "%{user_email} was updated successfully"
+  
   dashboard:
     header: "Dashboard title for Hoozzi"
     title: "Dashboard"
@@ -681,5 +710,13 @@ en:
         blank: " is required, and must not be blank"
         required: " is required, and must be configured"
         missing_permissable_id: "be associated with a Developer or Division"
-        only_one_parent_allowed: "must only be associated with either a Developer or a Division, not both"
-
+        only_one_parent_allowed: "cannot be associated with a Developer and a Division"
+      models:
+        user:
+          attributes:
+            developer_id:
+              blank: "must be selected"
+            division_id:
+              blank: "must be selected"
+            development_id:
+              blank: "must be selected"

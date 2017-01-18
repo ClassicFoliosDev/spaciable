@@ -1,0 +1,19 @@
+<% breadcrumb :admin_user, @user %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-user"></i>
+    <%= @user %><br>
+
+    <div class="section-data">
+      <i class="fa fa-envelope"></i>
+      <%= @user.email %>
+      <%= edit_btn [:edit, :admin, @user] %>
+
+      <i class="fa fa-lock"></i>
+      <%= t(".role_at", role: t(@user.role), permission_level_name: @user.permission_level) %>
+    </div>
+  </h3>
+</div>
+
+<%= link_to t(".back"), admin_users_path, class: "btn" %>
