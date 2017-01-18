@@ -1,0 +1,56 @@
+<% breadcrumb :appliance, @appliance %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-coffee"></i>
+    <%= @appliance.name %><br>
+  </h3>
+</div>
+
+<div class="row">
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag(t(".name")) %>
+      <%= @appliance.name %>
+      <br>
+      <%= label_tag(t(".description")) %>
+      <%= @appliance.description %>
+      <br>
+      <%= label_tag(t(".category")) %>
+      <%= @appliance.appliance_category %>
+      <br>
+      <%= label_tag(t(".manufacturer")) %>
+      <%= @appliance.manufacturer if @appliance.manufacturer_id? %>
+      <%= label_tag(t(".source")) %>
+      <%= @appliance.source %>
+      <%= label_tag(t(".model_num")) %>
+      <%= @appliance.model_num %>
+      <%= label_tag(t(".serial")) %>
+      <%= @appliance.serial %>
+      <%= label_tag(t(".warranty_length")) %>
+      <%= t("activerecord.attributes.appliance.warranty_length.#{@appliance.warranty_length}") %>
+      <%= label_tag(t(".e_rating")) %>
+      <%= t("activerecord.attributes.appliance.e_rating.#{@appliance.e_rating}") %>
+    </fieldset>
+  </div>
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag(:appliance_primary_image) %>
+      <%= image_tag(@appliance.primary_image.thumbnail.url) if @appliance.primary_image? %>
+      <%= label_tag t(".manual") %>
+      <%= @appliance.manual.file.filename if @appliance.manual? %>
+    </fieldset>
+  </div>
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag(:appliance_secondary_image) %>
+      <%= image_tag(@appliance.secondary_image.thumbnail.url) if @appliance.secondary_image? %>
+    </fieldset>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), appliances_path, class: "btn" %>
+  </div>
+</div>

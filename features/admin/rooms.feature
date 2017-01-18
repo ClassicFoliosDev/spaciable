@@ -7,6 +7,10 @@ Feature: Rooms
     Given I am logged in as an admin
     And I have seeded the database
     And I have a developer with a development and a unit type
+    When I create a room with no room name
+    Then I should see the room failure message
+    When I create a room with no finish category
+    Then I should see the category failure message
     When I create a room for the development
     Then I should see the created room
     When I update the room and finish

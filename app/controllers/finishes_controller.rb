@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 class FinishesController < ApplicationController
+  include PaginationConcern
+  include SortingConcern
   load_and_authorize_resource :room
-  load_and_authorize_resource :finish, through: :room
-  before_action :set_development
+  load_and_authorize_resource :finish, through: :room, except: ["index"]
+  load_and_authorize_resource :finish, only: ["index"]
 
   def index
+    @finishes = paginate(sort(@finishes, default: :name))
   end
 
   def new
@@ -38,14 +41,10 @@ class FinishesController < ApplicationController
       "controller.success.destroy",
       name: @finish.name
     )
-    redirect_to room_finishes_url(@room), notice: notice
+    redirect_to finishes_url, notice: notice
   end
 
   private
-
-  def set_development
-    @development = @room.development
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def finish_params
@@ -53,9 +52,9 @@ class FinishesController < ApplicationController
       :room_id,
       :name,
       :description,
-      :category,
-      :type,
-      :manufacturer,
+      :finish_category_id,
+      :finish_type_id,
+      :manufacturer_id,
       :picture,
       documents_attributes: [:id, :title, :file, :_destroy]
     )

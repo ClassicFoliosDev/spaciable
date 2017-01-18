@@ -1,0 +1,40 @@
+<div class="section-actions">
+  <%= link_to new_appliance_path, class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+  <% end %>
+</div>
+
+<div class="record-list">
+  <dl class="appliances">
+    <dt class="record-list-item record-header">
+    <div class="record-list-header-content">
+      <span><%= sortable(Appliance, :name) %></span>
+      <span><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></span>
+      <span><%= sortable(Appliance, :model_num) %></span>
+      <span><%= sortable({ Appliance => Manufacturer }, :name) %></span>
+      <span><%= sortable(Appliance, :updated_at) %></span>
+    </div>
+    </dt>
+    <% collection.each do |appliance| %>
+        <dd class="record-list-item" data-appliances="<%= appliance.id %>">
+          <div class="record-list-item-actions">
+            <%= edit_btn edit_appliance_path(appliance) %>
+            <%= delete_btn appliance %>
+          </div>
+          <div class="record-list-item-content">
+            <%= link_to appliance.name, appliance_path(appliance)%>
+            <span><%= appliance.appliance_category %></span>
+            <span><%= appliance.model_num %></span>
+            <span><%= appliance.manufacturer %></span>
+            <span><%= l appliance.updated_at.to_date, format: :digits %></span>
+          </div>
+        </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

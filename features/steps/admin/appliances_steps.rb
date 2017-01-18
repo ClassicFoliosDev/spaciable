@@ -6,7 +6,7 @@ When(/^I create an appliance$/) do
     click_on t("components.navigation.appliances")
   end
 
-  click_on t("appliances.index.add")
+  click_on t("appliances.collection.add")
 
   fill_in "appliance_name", with: ApplianceFixture.name
   click_on t("appliances.form.submit")
@@ -44,26 +44,16 @@ Then(/^I should see the updated appliance$/) do
     expect(page).to have_content(ApplianceFixture.updated_name)
   end
 
-  # and on the edit page
+  # and on the show page
   click_on ApplianceFixture.updated_name
 
-  ApplianceFixture.update_attrs.each do |attr, value|
-    screen_value = find("[name='appliance[#{attr}]']").value
-    expect(screen_value).to eq(value)
+  ApplianceFixture.update_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
   end
 
-  descr_display = ApplianceFixture.description_display
-  descr_value = page.find("[name='appliance[description]']").value
-  expect(descr_value).to eq(descr_display)
-
-  within ".appliance_warranty_length" do
-    expect(page).to have_select("appliance_warranty_length",
-                                selected: ApplianceFixture.warranty_len)
-  end
-
-  within ".appliance_e_rating" do
-    expect(page).to have_select("appliance_e_rating", selected: ApplianceFixture.e_rating)
-  end
+  expect(page).to have_content(ApplianceFixture.description_display)
+  expect(page).to have_content(ApplianceFixture.warranty_len)
+  expect(page).to have_content(ApplianceFixture.e_rating)
 end
 
 When(/^I update the dropdown$/) do

@@ -19,9 +19,7 @@ module TabsHelper
   end
 
   # rubocop:disable MethodLength
-  def developer_development_tabs(development, current_tab)
-    developer = development.developer
-
+  def developer_development_tabs(developer, current_tab)
     unit_types_tab = Tab.new(
       title: t("developments.collection.unit_types"),
       icon: :building,
@@ -71,6 +69,24 @@ module TabsHelper
     [unit_types_tab, phases_tab, plots_tab].map(&:to_a)
   end
   # rubocop:enable MethodLength
+
+  def room_tabs(room, current_tab)
+    finishes_tab = Tab.new(
+      title: t("rooms.collection.finishes"),
+      icon: :building,
+      link: room_path(room, active_tab: :finishes),
+      active: (current_tab == "finishes")
+    )
+
+    appliances_tab = Tab.new(
+      title: t("rooms.collection.appliances"),
+      icon: :building,
+      link: room_path(room, active_tab: :appliances),
+      active: (current_tab == "appliances")
+    )
+
+    [finishes_tab, appliances_tab].map(&:to_a)
+  end
 
   class Tab
     attr_reader :title, :icon, :link, :active

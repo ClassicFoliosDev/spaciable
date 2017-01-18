@@ -5,10 +5,10 @@
     <div class="section-header">
       <h3 class="section-title">
         <%= fa_icon "vcard" %>
-        <%= t(".add", development_name: @development.name) %>
+        <% t(".add", unit_type_name: @unit_type) %>
       </h3>
     </div>
   </div>
 </div>
 
-<%= render 'form', room: @room, development: @development, unit_type: @unit_type %>
+<%= render 'form', room: @room, parent: @unit_type %>

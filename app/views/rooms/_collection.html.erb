@@ -1,0 +1,36 @@
+<div class="section-actions">
+  <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+  <% end %>
+</div>
+
+<div class="record-list">
+  <dl class="rooms">
+    <dd class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Room, :name) %></span>
+        <span><%= sortable(Room, :updated_at) %></span>
+      </div>
+    </dd>
+    <% collection.each do |room| %>
+        <dt class="record-list-item" data-room="<%= room.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn edit_room_path(room) %>
+          <%= delete_btn room, path: room_path(room) %>
+        </div>
+        <div class="record-list-item-content">
+          <%= link_to room.name, room_path(room), class: "room-name" %>
+          <span class="room-updated-timestamp">
+             <%= l room.updated_at.to_date, format: :digits %>
+           </span>
+        </div>
+        </dt>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

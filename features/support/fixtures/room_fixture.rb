@@ -6,6 +6,10 @@ module RoomFixture
     "Kitchen"
   end
 
+  def second_finish_name
+    "Power shower"
+  end
+
   def finish_attrs
     {
       finish_category_id: "Flooring",

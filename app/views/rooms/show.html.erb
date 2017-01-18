@@ -1,0 +1,18 @@
+<% breadcrumb :room, @room %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= @room.name %><br>
+  </h3>
+
+  <div class="section-data">
+    <%= edit_btn [:edit, @room] %>
+  </div>
+</div>
+
+<%= render 'components/tabs', tabs: room_tabs(@room, @active_tab), parent: @room.unit_type %>
+
+<%= render_collection @collection, room: @room %>
+
+<%= link_to t(".back"), unit_type_rooms_path(@room.unit_type), class: "btn" %>

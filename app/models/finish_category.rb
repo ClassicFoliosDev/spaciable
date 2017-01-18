@@ -7,4 +7,6 @@ class FinishCategory < ApplicationRecord
   belongs_to :finish, optional: true
 
   validates :name, uniqueness: true
+
+  delegate :to_s, to: :name
 end

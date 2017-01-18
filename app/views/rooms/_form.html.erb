@@ -1,4 +1,4 @@
-<%= simple_form_for([unit_type, room]) do |f| %>
+<%= simple_form_for([room.unit_type, room]) do |f| %>
   <% if room.errors.any? %>
     <div class="row">
       <div class="row-item">
@@ -28,12 +28,12 @@
       <fieldset>
         <%= link_to_add_association t(".add_finish"), f, :finishes, data: {
             "association-insertion-method": "append",
-            "association-insertion-node": ".finish-fields"
+            "association-insertion-node": ".finishes"
         }, class: "btn" %>
       </fieldset>
     </div>
 
-    <div class="row-item third finish-fields">
+    <div class="row-item third finishes">
       <%= f.simple_fields_for :finishes do |finish| %>
         <%= render 'finish_fields', f: finish %>
       <% end %>
@@ -42,11 +42,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <% if room.development_id.present? %>
-        <%= link_to t(".back"), unit_type_rooms_path(room.unit_type_id), class: "btn" %>
-      <% else %>
-        <%= link_to t(".back"), unit_type_rooms_path(unit_type), class: "btn" %>
-      <% end %>
+      <%= link_to t(".back"), rooms_path, class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

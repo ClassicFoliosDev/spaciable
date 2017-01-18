@@ -4,7 +4,7 @@ $(document).on('cocoon:after-insert', function(event, item) {
   $('select').selectmenu();
 });
 
-$(document).on('click', '.finish-fields .ui-menu-item', function (event) {
+$(document).on('click', '.finishes .ui-menu-item', function (event) {
 
   var option_name = this.innerText;
   var $select_container = $(this).closest(".select-container");

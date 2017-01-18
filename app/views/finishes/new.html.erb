@@ -1,14 +1,14 @@
-<% breadcrumb :room_edit, @room %>
+<% breadcrumb :finish_new, @room %>
 
 <div class="row">
   <div class="row-item">
     <div class="section-header">
       <h3 class="section-title">
-        <%= fa_icon "vcard" %>
-        <%= t(".title", room_name: @room.name) %>
+        <%= fa_icon "shower" %>
+        <%= t(".title") %>
       </h3>
     </div>
   </div>
 </div>
 
-<%= render 'form', room: @room %>
+<%= render 'form', room: @room, finish: @finish %>

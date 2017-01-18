@@ -12,15 +12,16 @@ Rails.application.routes.draw do
 
   resources :documents, except: :new
 
-  resources :rooms, only: [] do
-    resources :finishes
+  resources :rooms do
+    resources :finishes, except: :index
+  end
+  resources :finishes, only: :index
+
+  resources :unit_types do
+    resources :rooms
   end
 
-  resources :unit_types, only: [] do
-    resources :rooms, shallow: true
-  end
-
-  resources :phases, only: [] do
+  resources :phases do
     resources :plots, controller: 'phases/plots'
   end
 
@@ -39,7 +40,7 @@ Rails.application.routes.draw do
     resources :developments, controller: 'divisions/developments'
   end
 
-  resources :appliances, except: :show
+  resources :appliances
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard

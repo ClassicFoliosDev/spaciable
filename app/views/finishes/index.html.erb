@@ -1,0 +1,11 @@
+<% breadcrumb :finishes %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "shower" %>
+    <%= t(".title") %>
+  </h3>
+  <span><b>Note:</b> To add finishes, go to the room you want to add them to</span>
+</div>
+
+<%= render_collection @finishes, room: @room %>

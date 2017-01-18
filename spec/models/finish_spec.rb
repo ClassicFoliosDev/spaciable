@@ -5,9 +5,10 @@ RSpec.describe Finish do
   describe "#destroy" do
     context "when room is destroyed" do
       it "should destroy the finish" do
-        finish = create(:finish)
+        testfinish = create(:finish)
 
-        expect { finish.room.destroy! }.to change(Finish, :count).by(-1)
+        testfinish.room.destroy
+        expect(Finish.where(id: testfinish.id).count).to eq(0)
       end
     end
   end

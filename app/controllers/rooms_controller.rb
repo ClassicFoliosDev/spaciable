@@ -6,29 +6,32 @@ class RoomsController < ApplicationController
   load_and_authorize_resource :unit_type
   load_and_authorize_resource :room, through: :unit_type, shallow: true
 
-  before_action :set_development, only: [:index, :new, :create]
-
   def index
     @rooms = paginate(sort(@rooms, default: :name))
   end
 
   def new
     @room.build_finishes
+    @room.build_appliances
   end
 
   def edit
     @room.build_finishes
+    @room.build_appliances
   end
 
   def show
+    @active_tab = params[:active_tab] || "finishes"
+
+    @collection = if @active_tab == "finishes"
+                    paginate(sort(@room.finishes, default: :name))
+                  elsif @active_tab == "appliances"
+                    paginate(sort(@room.appliances, default: :name))
+                  end
   end
 
   def create
     if @room.save
-      notice = t(
-        "controller.success.create",
-        name: @room.name
-      )
       redirect_to unit_type_rooms_url(@unit_type), notice: notice
     else
       @room.build_finishes
@@ -42,8 +45,7 @@ class RoomsController < ApplicationController
         "controller.success.update",
         name: @room.name
       )
-      redirect_to unit_type_rooms_url(@room.unit_type_id),
-                  notice: notice
+      redirect_to unit_type_rooms_url(@room.unit_type_id), notice: notice
     else
       @room.build_finishes
       render :edit
@@ -83,14 +85,10 @@ class RoomsController < ApplicationController
       :name,
       :unit_type_id,
       finishes_attributes: [
-        :id, :room_id, :name, :description,
-        :finish_category_id, :finish_type_id,
-        :manufacturer_id, :picture, :_destroy
+        :id, :room_id, :name, :description, :picture_cache,
+        :finish_category_id, :finish_type_id, :manufacturer_id,
+        :picture, :_destroy
       ]
     )
-  end
-
-  def set_development
-    @development = @unit_type.development
   end
 end

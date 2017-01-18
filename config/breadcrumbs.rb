@@ -65,12 +65,13 @@ end
 
 crumb :development do |development|
   title = development.name
-  parent :developments, development.parent
 
   if development.parent.is_a?(Developer)
-    link title, edit_developer_development_path(development.parent, development)
+    link title, developer_development_path(development.parent, development)
+    parent :developer, development.parent
   elsif development.parent.is_a?(Division)
-    link title, edit_division_development_path(development.parent, development)
+    link title, division_development_path(development.parent, development)
+    parent :division, development.parent
   end
 end
 
@@ -101,11 +102,16 @@ end
 
 crumb :phases do |development|
   link Phase.model_name.human.pluralize, development_phases_path(development)
-  parent :development_edit, development
+  parent :development, development
 end
 
 crumb :phase_edit do |phase|
   link t("breadcrumbs.phase_edit", phase_name: phase.name), edit_development_phase_path(phase.development, phase)
+  parent :phases, phase.development
+end
+
+crumb :phase do |phase|
+  link phase.name, development_phase_path(phase.development, phase)
   parent :phases, phase.development
 end
 
@@ -118,17 +124,22 @@ end
 
 crumb :unit_types do |development|
   link UnitType.model_name.human.pluralize, development_unit_types_path(development)
-  parent :development_edit, development
+  parent :development, development
+end
+
+crumb :unit_type do |unit_type|
+  link unit_type.name, development_unit_type_path(unit_type.development, unit_type)
+  parent :development, unit_type.development
 end
 
 crumb :unit_type_edit do |unit_type|
   link t("breadcrumbs.unit_type_edit", unit_type_name: unit_type.name), edit_development_unit_type_path(unit_type.development, unit_type)
-  parent :unit_types, unit_type.development
+  parent :development, unit_type.development
 end
 
 crumb :unit_type_new do |development|
   link t("breadcrumbs.unit_type_new")
-  parent :unit_types, development
+  parent :development, development
 end
 
 # DOCUMENTS
@@ -167,7 +178,7 @@ crumb :user do |user|
 end
 
 crumb :user_edit do |user|
-  link t(".edit")
+  link t("breadcrumbs.user_edit")
   parent :user, user
 end
 
@@ -177,20 +188,24 @@ crumb :user_new do
 end
 
 # ROOMS
-
 crumb :rooms do |unit_type|
   link Room.model_name.human.pluralize, unit_type_rooms_path(unit_type)
-  parent :unit_type_edit, unit_type
+  parent :unit_type, unit_type
 end
 
 crumb :room_edit do |room|
   link t("breadcrumbs.room_edit", room_name: room.name), edit_room_path(room)
-  parent :rooms, room.unit_type
+  parent :unit_type, room.unit_type
+end
+
+crumb :room do |room|
+  link room.name, room_path(room)
+  parent :unit_type, room.unit_type
 end
 
 crumb :room_new do |unit_type|
   link t("breadcrumbs.room_add")
-  parent :rooms, unit_type
+  parent :unit_type, unit_type
 end
 
 # PLOTS
@@ -198,10 +213,10 @@ end
 crumb :plots do |plot_parent|
   if plot_parent.is_a? Development
     link Plot.model_name.human.pluralize, development_plots_path(plot_parent)
-    parent :development_edit, plot_parent
+    parent :development, plot_parent
   elsif plot_parent.is_a? Phase
     link Plot.model_name.human.pluralize, phase_plots_path(plot_parent)
-    parent :phase_edit, plot_parent
+    parent :phase, plot_parent
   end
 end
 
@@ -217,24 +232,23 @@ end
 
 # FINISHES
 
-crumb :finishes do |development, developer|
-  link Finish.model_name.human.pluralize, room_finishes_path
-  parent :rooms, development, developer
+crumb :finishes do
+  link Finish.model_name.human.pluralize, finishes_path
 end
 
-crumb :finish do |finish, development, developer|
-  link finish.name, room_finish_path
-  parent :finishes, development, developer
+crumb :finish do | finish |
+  link finish.name, room_finish_path(finish.room, finish)
+  parent :room, finish.room
 end
 
-crumb :finish_edit do |finish, development, developer|
-  link t(".edit")
-  parent :finish, finish, development, developer
+crumb :finish_edit do | finish |
+  link t("breadcrumbs.finish_edit", name: finish.name)
+  parent :room, finish.room
 end
 
-crumb :finish_new do |development, developer|
+crumb :finish_new do | room |
   link t("breadcrumbs.finish_add")
-  parent :finishes, development, developer
+  parent :room, room
 end
 
 # APPLIANCES

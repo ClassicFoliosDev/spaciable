@@ -1,0 +1,17 @@
+<% breadcrumb :unit_type, @unit_type %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= @unit_type.name %><br>
+  </h3>
+
+  <div class="section-data">
+    <%= t("activerecord.attributes.unit_type.build_types.#{@unit_type.build_type}") %>
+    <%= edit_btn [:edit, @unit_type.development, @unit_type] %>
+  </div>
+</div>
+
+<%= render_collection @collection, parent: @unit_type %>
+
+<%= link_to t(".back"), development_unit_types_path, class: "btn" %>

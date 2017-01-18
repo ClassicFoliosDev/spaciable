@@ -7,4 +7,6 @@ class Manufacturer < ApplicationRecord
   has_many :appliance_categories, through: :appliance_categories_manufacturer
 
   validates :name, uniqueness: true
+
+  delegate :to_s, to: :name
 end

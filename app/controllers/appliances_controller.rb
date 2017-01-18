@@ -14,6 +14,9 @@ class AppliancesController < ApplicationController
   def edit
   end
 
+  def show
+  end
+
   def create
     if @appliance.save
       notice = t(".success", name: @appliance.name)

@@ -78,6 +78,10 @@ module CreateFixture
     "Living Room"
   end
 
+  def finish_name
+    "Fluffy carpet"
+  end
+
   def appliance_name
     "Bosch WAB28161GB Washing Machine"
   end

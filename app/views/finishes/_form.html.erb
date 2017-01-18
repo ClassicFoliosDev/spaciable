@@ -1,0 +1,51 @@
+<%= simple_form_for([room, finish]) do |f| %>
+    <% if finish.errors.any? %>
+        <div class="row">
+          <div class="row-item">
+            <div class="submission-errors">
+              <ul>
+                <% finish.errors.full_messages.each do |message| %>
+                    <li>
+                      <%= fa_icon "exclamation-circle" %>
+                      <%= message %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="row finishes">
+      <div class="row-item third">
+        <fieldset>
+          <div class="finish-category ui-front select-container">
+            <%= f.association :finish_category, required: true %>
+          </div>
+          <div class="finish-type ui-front select-container">
+            <%= f.association :finish_type %>
+          </div>
+          <div class="manufacturer ui-front select-container">
+            <%= f.association :manufacturer %>
+          </div>
+          <%= f.input :name %>
+          <%= f.input :description %>
+        </fieldset>
+      </div>
+      <div class="row-item third">
+        <fieldset>
+          <br>
+          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          <br>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t(".back"), finishes_path, class: "btn" %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+<% end %>
+

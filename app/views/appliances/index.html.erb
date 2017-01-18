@@ -2,45 +2,9 @@
 
 <div class="section-header">
   <h3 class="section-title">
-    <i class="fa fa-shower"></i>
+    <%= fa_icon "coffee" %>
     <%= t(".title") %>
   </h3>
-  <div class="section-actions">
-    <%= link_to new_appliance_path, class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
 </div>
 
-<div class="record-list">
-  <dl class="appliances">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable(Appliance, :name) %></span>
-      <span><%= sortable(Appliance, :updated_at) %></span>
-      <span><%= sortable({ Appliance => ApplianceCategory }, :name) %></span>
-    </div>
-    </dt>
-    <% @appliances.each do |appliance| %>
-        <dd class="record-list-item" data-appliances="<%= appliance.id %>">
-          <div class="record-list-item-actions">
-            <%= edit_btn edit_appliance_path(appliance) %>
-            <%= delete_btn appliance %>
-          </div>
-          <div class="record-list-item-content">
-            <%= link_to appliance.name, edit_appliance_path(appliance)%>
-            <span>
-             <%= l appliance.updated_at.to_date, format: :digits %>
-           </span>
-           <span><%= appliance.appliance_category %></span>
-          </div>
-        </dd>
-    <% end %>
-  </dl>
-</div>
-
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate @appliances %>
-</div>
+<%= render_collection @appliances %>

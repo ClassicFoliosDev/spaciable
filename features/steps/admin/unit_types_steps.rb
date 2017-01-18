@@ -50,12 +50,11 @@ Then(/^I should see the updated unit type$/) do
     expect(page).to have_content(UnitTypeFixture.updated_unit_type_name)
   end
 
-  # and on the edit page
+  # and on the show page
   click_on UnitTypeFixture.updated_unit_type_name
 
-  UnitTypeFixture.update_attrs.each do |attr, value|
-    screen_value = find("[name='unit_type[#{attr}]']").value
-    expect(screen_value).to eq(value)
+  UnitTypeFixture.update_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
   end
 
   expect(page).to have_content(

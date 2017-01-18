@@ -16,6 +16,7 @@ class UnitTypesController < ApplicationController
   end
 
   def show
+    @collection = paginate(sort(@unit_type.rooms, default: :name))
   end
 
   def create

@@ -9,7 +9,7 @@
   <%= render 'address/address', parent: @development %>
 </div>
 
-<%= render 'components/tabs', tabs: developer_development_tabs(@development, @active_tab), parent: @developer %>
+<%= render 'components/tabs', tabs: developer_development_tabs(@developer, @active_tab), parent: @developer %>
 
 <%= render_collection @collection, parent: @development %>
 

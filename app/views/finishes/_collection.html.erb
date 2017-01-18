@@ -1,0 +1,50 @@
+<div class="section-actions">
+  <% if room %>
+    <%= link_to new_room_finish_path(room), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add_finish") %></span>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="record-list">
+  <dl class="appliances">
+    <dt class="record-list-item record-header">
+    <div class="record-list-header-content">
+      <span><%= sortable(Finish, :name) %></span>
+      <span><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></span>
+      <span><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></span>
+      <span><%= sortable({ Appliance => Manufacturer }, :name, t(".manufacturer")) %></span>
+      <span><%= sortable(Finish, :updated_at) %></span>
+    </div>
+    </dt>
+    <% collection.each do |finish| %>
+        <dd class="record-list-item" data-finishes="<%= finish.id %>">
+          <div class="record-list-item-actions">
+            <%= edit_btn [:edit, finish.room, finish] %>
+            <%= delete_btn finish, path: url_for([finish.room, finish]) %>
+          </div>
+          <div class="record-list-item-content">
+            <%= link_to finish.name, room_finish_path(finish.room, finish)%>
+            <span>
+              <%= finish.finish_category %>
+            </span>
+            <span>
+              <%= finish.finish_type %>
+            </span>
+            <span>
+              <%= finish.manufacturer %>
+            </span>
+            <span>
+              <%= l finish.updated_at.to_date, format: :digits %>
+            </span>
+          </div>
+        </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

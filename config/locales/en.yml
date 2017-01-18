@@ -77,6 +77,8 @@ en:
     development_add: "Add development"
     division_edit: "Edit %{division_name}"
     division_add: "Add division"
+    finish_edit: "Edit %{name}"
+    finish_add: "Add finish"
     phase_add: "Add phase"
     phase_edit: "Edit %{phase_name}"
     plot_add: "Add plot"
@@ -112,6 +114,7 @@ en:
       documents: "Documents"
       users: "Users"
       appliances: "Appliances"
+      finishes: "Finishes"
       profile: "Profile"
 
   destroy:
@@ -398,6 +401,8 @@ en:
       back: "Back"
     new:
       add: "Add %{development_name} Unit Type"
+    show:
+      back: "Back"
     index:
       title: "%{development_name} Unit Types"
     collection:
@@ -414,23 +419,73 @@ en:
      success: "%{name} was updated successfully"
    index:
      title: "Appliances"
+   collection:
      add: "Add appliance"
+     appliance_category: "Category"
    new:
      title: "New appliance"
-   form:
-     submit: "Submit"
+   show:
      back: "Back"
+     name: "Name"
      description: "Description"
      primary_image: "Appliance picture"
      secondary_image: "Additional picture"
+     category: "Category"
+     manufacturer: "Manufacturer"
+     model_num: "Model id"
+     serial: "Serial number"
      upload: "Upload"
+     source: "Supplied by"
+     warranty_length: "Warranty length"
+     e_rating: "Energy rating"
+     manual: "Appliance manual"
+     manual_name: "Appliance manual file name"
+   edit:
+     title: "Edit %{name}"
+     back: "Back"
+   form:
+     submit: "Submit"
+     back: "Back"
+     name: "Name"
+     description: "Description"
+     primary_image: "Appliance picture"
+     secondary_image: "Additional picture"
+     category: "Category"
+     manufacturer: "Manufacturer"
+     model_num: "Model id"
+     serial: "Serial number"
+     upload: "Upload"
+     source: "Supplied by"
      warranty_length: "Warranty length"
      e_rating: "Energy rating"
      manual: "Appliance manual"
      manual_name: "Appliance manual file name"
      remove_manual: "Remove appliance manual"
+
+  finishes:
+   destroy:
+     success: "%{name} was deleted successfully"
+   create:
+     success: "%{name} was created successfully"
+   update:
+     success: "%{name} was updated successfully"
+   index:
+     title: "Finishes"
+   collection:
+     add_finish: "Add finish"
+     finish_category: "Category"
+     finish_type: "Type"
+     manufacturer: "Manufacturer"
+   new:
+     title: "New finish"
+   form:
+     name: "Name"
+     submit: "Submit"
+     back: "Back"
    edit:
      title: "Edit %{name}"
+     back: "Back"
+   show:
      back: "Back"
 
   profiles:
@@ -439,8 +494,11 @@ en:
 
   rooms:
     index:
-      title: "%{development_name} rooms"
+      title: "%{unit_type_name} rooms"
+    collection:
       add: "Add Room"
+      finishes: "Finishes"
+      appliances: "Appliances"
     edit:
       title: "Edit %{room_name}"
     finish_fields:
@@ -452,8 +510,11 @@ en:
       submit: "Submit"
       add: "Add"
       add_finish: "Add finish"
+    show:
+      back: "Back"
     new:
-      add: "Add %{development_name} Room"
+      # add: "Add %{unit_type_name} room"
+      add: "Add new room to TODO"
 
   users:
     sign_out: "Sign out"
@@ -557,17 +618,17 @@ en:
         updated_at: "Last edited"
       appliance:
         primary_image: "Appliance picture"
-        name: "Appliance name"
-        model_num: "Appliance model number"
-        serial: "Appliance serial number"
-        category: "Appliance category"
-        manufacturer: "Appliance manufacturer"
-        warranty_length: "Appliance warranty period"
-        wwarranty_exp_date: "Appliance warranty expiry date"
-        e_rating: "Appliance energy rating"
-        source: "Appliance source"
-        warranty_num: "Appliance warranty number"
-        manual: "Appliance manual"
+        name: "Name"
+        model_num: "Model"
+        serial: "Serial number"
+        category: "Category"
+        manufacturer: "Manufacturer"
+        warranty_length: "Warranty period"
+        wwarranty_exp_date: "Warranty expiry date"
+        e_rating: "Energy rating"
+        source: "Supplier"
+        warranty_num: "Warranty number"
+        manual: "Manual"
         images: "Additional images"
         updated_at: "Last edited"
         warranty_length:
@@ -614,7 +675,11 @@ en:
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
+
     errors:
       messages:
+        blank: " is required, and must not be blank"
+        required: " is required, and must be configured"
         missing_permissable_id: "be associated with a Developer or Division"
-        only_one_parent_allowed: "cannot be associated with a Developer and a Division"
+        only_one_parent_allowed: "must only be associated with either a Developer or a Division, not both"
+

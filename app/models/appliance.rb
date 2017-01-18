@@ -11,6 +11,9 @@ class Appliance < ApplicationRecord
   belongs_to :appliance_category
   belongs_to :manufacturer
 
+  has_many :appliance_rooms
+  has_many :rooms, through: :appliance_rooms
+
   paginates_per 10
 
   validates :name, presence: true, uniqueness: true

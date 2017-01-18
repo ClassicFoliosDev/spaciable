@@ -1,0 +1,42 @@
+<% breadcrumb :finish, @finish %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "shower" %>
+    <%= @finish.name %><br>
+  </h3>
+</div>
+
+<div class="row">
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag(:name) %>
+      <%= @finish.name %>
+      <br>
+      <%= label_tag(:description) %>
+      <%= @finish.description %>
+      <br>
+      <%= label_tag(:finish_category) %>
+      <%= @finish.finish_category %>
+      <br>
+      <%= label_tag(:finish_type) %>
+      <%= @finish.finish_type %>
+      <br>
+      <%= label_tag(:manufacturer) %>
+      <%= @finish.manufacturer %>
+    </fieldset>
+  </div>
+  <div class="row-item third">
+    <fieldset>
+      <br>
+      <%= image_tag(@finish.picture.thumbnail.url) if @finish.picture? %>
+      <br>
+    </fieldset>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), finishes_path, class: "btn" %>
+  </div>
+</div>

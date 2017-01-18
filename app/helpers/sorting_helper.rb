@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module SortingHelper
   def sortable(klass, column, title = nil, sort_params: {}, html_options: { class: "both" })
-    return sort_on_association(klass, column) if klass.is_a? Hash
+    return sort_on_association(klass, column, title) if klass.is_a? Hash
 
     title ||= klass.human_attribute_name(column)
 
@@ -18,9 +18,9 @@ module SortingHelper
     link_to title, sort_params, html_options
   end
 
-  def sort_on_association(hash, column)
+  def sort_on_association(hash, column, title)
     klass = hash.to_a.last.last
-    title = klass.model_name.human.to_s
+    title ||= klass.model_name.human.to_s
     sort_params = { sort_on: klass.model_name.param_key }
 
     sortable(klass, column, title, sort_params: sort_params)
