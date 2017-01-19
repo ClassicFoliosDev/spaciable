@@ -48,17 +48,15 @@ Then(/^I should see the updated phase$/) do
     expect(page).to have_content(PhaseFixture.updated_phase_name)
   end
 
-  # and on the edit page
+  # and on the show page
   click_on PhaseFixture.updated_phase_name
 
-  PhaseFixture.update_attrs.each do |attr, value|
-    screen_value = find("[name='phase[#{attr}]']").value
-    expect(screen_value).to eq(value)
+  PhaseFixture.update_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
   end
 
-  PhaseFixture.address_update_attrs.each do |attr, value|
-    screen_value = find_by_id("phase_address_attributes_#{attr}").value
-    expect(screen_value).to eq(value)
+  PhaseFixture.address_update_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
   end
 end
 

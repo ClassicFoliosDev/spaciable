@@ -127,17 +127,17 @@ end
 
 crumb :phase_edit do |phase|
   link t("breadcrumbs.phase_edit", phase_name: phase.name), edit_development_phase_path(phase.development, phase)
-  parent :phases, phase.development
+  parent :development, phase.development
 end
 
 crumb :phase do |phase|
   link phase.name, development_phase_path(phase.development, phase)
-  parent :phases, phase.development
+  parent :development, phase.development
 end
 
 crumb :phase_new do |development|
   link t("breadcrumbs.phase_add")
-  parent :phases, development
+  parent :development, development
 end
 
 # UNIT TYPES
@@ -214,6 +214,16 @@ crumb :plots do |plot_parent|
     link Plot.model_name.human.pluralize, phase_plots_path(plot_parent)
     parent :phase, plot_parent
   end
+end
+
+crumb :phase_plot do |plot|
+  link plot
+  parent :phase, plot.phase
+end
+
+crumb :plot do |plot|
+  link plot
+  parent :development, plot.development
 end
 
 crumb :plot_edit do |plot|

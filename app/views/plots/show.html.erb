@@ -1,0 +1,22 @@
+<% breadcrumb :plot, @plot %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-home"></i>
+    <%= @plot %>
+  </h3>
+
+  <div class="section-data">
+    <!-- No house number yet -->
+    <%= render 'address/address', address: @plot.development.address %>
+    <span class="strong"><%= @plot.unit_type %></span>
+    <%= edit_btn [:edit, @development, @plot] %>
+    <!-- span class="strong"><%= t(".completion") %></span -->
+  </div>
+</div>
+
+<%= render 'components/tabs', tabs: development_plot_tabs(@development, @active_tab), parent: @plot.unit_type %>
+
+<%= render_collection @collection, parent: @plot.unit_type %>
+
+<%= link_to t(".back"), development_plots_path, class: "btn" %>

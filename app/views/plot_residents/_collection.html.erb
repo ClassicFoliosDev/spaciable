@@ -1,0 +1,28 @@
+
+<div class="record-list">
+  <dl class="users">
+    <dt class="record-list-item record-header">
+    <div class="record-list-header-content">
+      <span><%= sortable(User, :email) %></span>
+      <span><%= sortable(User, :updated_at) %></span>
+    </div>
+    </dt>
+    <% collection.each do |user| %>
+        <dd class="record-list-item" data-user="<%= user.id %>">
+          <div class="record-list-item-actions">
+          </div>
+          <div class="record-list-item-content">
+            <%= link_to user, admin_user_path(user) %>
+            <span class="user-updated-timestamp">
+              <%= l user.updated_at.to_date, format: :digits %>
+            </span>
+          </div>
+        </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

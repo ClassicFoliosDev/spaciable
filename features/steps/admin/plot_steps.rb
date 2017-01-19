@@ -29,8 +29,7 @@ Then(/^I should see the created plot$/) do
 
   click_on PlotFixture.plot_name
 
-  screen_value = find("[name='plot[number]']").value
-  expect(screen_value).to eq(PlotFixture.plot_number)
+  expect(page).to have_content(PlotFixture.plot_number)
 
   click_on t("plots.edit.back")
 end
@@ -55,16 +54,15 @@ Then(/^I should see the updated plot$/) do
     expect(page).to have_content(PlotFixture.updated_plot_name)
   end
 
-  # and on the edit page
+  # and on the show page
   click_on PlotFixture.updated_plot_name
 
-  prefix_value = find("[name='plot[prefix]']").value
-  expect(prefix_value).to eq(PlotFixture.update_attrs[:prefix])
+  within ".section-title" do
+    expect(page).to have_content(PlotFixture.update_attrs[:prefix])
+    expect(page).to have_content(PlotFixture.update_attrs[:number])
+  end
 
-  number_value = find("[name='plot[number]']").value
-  expect(number_value).to eq(PlotFixture.update_attrs[:number])
-
-  within ".plot_unit_type" do
+  within ".section-data" do
     expect(page).to have_content(PlotFixture.updated_unit_type_name)
     expect(page).not_to have_content(PlotFixture.unit_type_name)
   end

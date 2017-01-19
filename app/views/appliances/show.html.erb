@@ -20,7 +20,7 @@
       <%= @appliance.appliance_category %>
       <br>
       <%= label_tag(t(".manufacturer")) %>
-      <%= @appliance.manufacturer if @appliance.manufacturer_id? %>
+      <%= @appliance&.manufacturer %>
       <%= label_tag(t(".source")) %>
       <%= @appliance.source %>
       <%= label_tag(t(".model_num")) %>

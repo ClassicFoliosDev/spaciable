@@ -16,6 +16,13 @@ class PlotsController < ApplicationController
   end
 
   def show
+    @active_tab = params[:active_tab] || "rooms"
+
+    @collection = if @active_tab == "rooms"
+                    paginate(sort(@plot.rooms, default: :name))
+                  elsif @active_tab == "residents"
+                    paginate(sort(@plot.plot_residents, default: :id))
+                  end
   end
 
   def create

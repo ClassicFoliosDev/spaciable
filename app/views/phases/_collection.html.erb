@@ -9,7 +9,7 @@
   <dl class="phases">
     <dt class="record-list-item record-header">
     <div class="record-list-header-content">
-      <span><%= sortable(Phase, :name) %></span>
+      <span><%= sortable(Phase, :name, t(".name")) %></span>
       <span><%= sortable(Phase, :updated_at) %></span>
     </div>
     </dt>
@@ -21,7 +21,7 @@
             <%= delete_btn phase, path: url_for([parent, phase]) %>
           </div>
           <div class="record-list-item-content">
-            <%= link_to phase.name, edit_development_phase_path(parent, phase), title: phase.name %>
+            <%= link_to phase.name, development_phase_path(parent, phase), title: phase.name %>
             <span class="phase-updated-timestamp">
              <%= l phase.updated_at.to_date, format: :digits %>
            </span>

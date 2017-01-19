@@ -18,6 +18,7 @@ class PhasesController < ApplicationController
   end
 
   def show
+    @collection = paginate(sort(@phase.plots, default: :number))
   end
 
   def create

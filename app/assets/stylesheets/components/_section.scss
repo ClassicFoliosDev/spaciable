@@ -37,5 +37,15 @@ $data-section-color: $type-grey;
 
   a {
     float: right;
+    margin-left: $spacing-small;
+  }
+
+  .strong {
+    font-weight: bold;
+    line-height: $icon-font-line-height;
+  }
+
+  .right {
+    float: right;
   }
 }

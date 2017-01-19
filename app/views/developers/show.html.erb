@@ -9,7 +9,11 @@
     </span>
   </h3>
 
-  <%= render 'address/address', parent: @developer %>
+  <div class="section-data">
+    <%= render 'address/address', address: @developer.address %>
+    <%= render 'components/contacts', contact: @developer %>
+    <%= edit_btn [:edit, @developer] %>
+  </div>
 </div>
 
 <%= render 'components/tabs', tabs: developer_tabs(@developer, @active_tab), parent: @developer %>

@@ -6,7 +6,11 @@
     <%= @division.division_name %><br>
   </h3>
 
-  <%= render 'address/address', parent: @division %>
+  <div class="section-data">
+    <%= render 'address/address', address: @division.address %>
+    <%= render 'components/contacts', contact: @division %>
+    <%= edit_btn [:edit, @developer, @division] %>
+  </div>
 </div>
 
 <%= render_collection @collection, parent: @division %>

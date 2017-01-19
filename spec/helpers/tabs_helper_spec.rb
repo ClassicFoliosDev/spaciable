@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe TabsHelper do
+RSpec.describe DeveloperTabsHelper do
   describe "#developer_tabs" do
     let(:developments_title) { I18n.t("developers.collection.developments") }
     let(:divisions_title) { I18n.t("developers.collection.divisions") }

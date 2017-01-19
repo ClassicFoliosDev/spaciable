@@ -22,7 +22,7 @@ When(/^I create a plot for the phase$/) do
     click_on t("phases.collection.plots")
   end
 
-  click_on t("phases.plots.index.add")
+  click_on t("plots.collection.add")
 
   fill_in "plot_number", with: PhasePlotFixture.plot_number
   click_on t("phases.plots.form.submit")
@@ -52,16 +52,15 @@ Then(/^I should see the updated phase plot$/) do
     expect(page).to have_content(PhasePlotFixture.updated_plot_name)
   end
 
-  # and on the edit page
+  # and on the show page
   click_on PhasePlotFixture.updated_plot_name
 
-  prefix_value = find("[name='plot[prefix]']").value
-  expect(prefix_value).to eq(PhasePlotFixture.update_attrs[:prefix])
+  within ".section-title" do
+    expect(page).to have_content(PhasePlotFixture.update_attrs[:prefix])
+    expect(page).to have_content(PhasePlotFixture.update_attrs[:number])
+  end
 
-  number_value = find("[name='plot[number]']").value
-  expect(number_value).to eq(PhasePlotFixture.update_attrs[:number])
-
-  within ".plot_unit_type" do
+  within ".section-data" do
     expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
     expect(page).not_to have_content(PhasePlotFixture.unit_type_name)
   end

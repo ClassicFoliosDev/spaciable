@@ -1,0 +1,22 @@
+<% breadcrumb :phase_plot, @plot %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-home"></i>
+    <%= @plot %>
+  </h3>
+
+  <div class="section-data">
+    <!-- No house number yet -->
+    <%= render 'address/address', address: @plot.phase.address %>
+    <span class="strong"><%= @plot.unit_type %></span>
+    <%= edit_btn [:edit, @phase, @plot] %>
+    <!-- span class="strong"><%= t(".completion") %></span -->
+  </div>
+</div>
+
+<%= render 'components/tabs', tabs: phase_plot_tabs(@phase, @active_tab), parent: @phase %>
+
+<%= render_collection @collection, parent: @plot.unit_type %>
+
+<%= link_to t(".back"), phase_plots_path, class: "btn" %>

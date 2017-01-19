@@ -9,8 +9,9 @@
   <dl class="plots">
     <dt class="record-list-item record-header">
       <div class="record-list-header-content">
-        <span><%= sortable(Plot, :number) %></span>
+        <span><%= sortable(Plot, :number, t(".name")) %></span>
         <span><%= sortable(Plot, :updated_at) %></span>
+        <span><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></span>
       </div>
     </dt>
     <% collection.each do |plot| %>
@@ -20,9 +21,12 @@
           <%= delete_btn plot, path: url_for([parent, plot]) %>
         </div>
         <div class="record-list-item-content">
-          <%= link_to plot, [:edit, parent, plot], title: plot %>
+          <%= link_to plot, [parent, plot], title: plot %>
            <span class="plot-updated-timestamp">
              <%= l plot.updated_at.to_date, format: :digits %>
+           </span>
+           <span>
+             <%= plot.unit_type %>
            </span>
         </div>
       </dd>
