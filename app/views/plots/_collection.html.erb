@@ -20,7 +20,7 @@
           <%= delete_btn plot, path: url_for([parent, plot]) %>
         </div>
         <div class="record-list-item-content">
-          <%= link_to plot, [:edit, parent, plot] %>
+          <%= link_to plot, [:edit, parent, plot], title: plot %>
            <span class="plot-updated-timestamp">
              <%= l plot.updated_at.to_date, format: :digits %>
            </span>

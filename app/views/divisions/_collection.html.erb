@@ -20,7 +20,7 @@
             <%= delete_btn division, path: url_for([parent, division]) %>
           </div>
           <div class="record-list-item-content">
-            <%= link_to division.division_name, developer_division_path(parent, division) %>
+            <%= link_to division.division_name, developer_division_path(parent, division), title: division.division_name %>
             <span class="division-updated-timestamp">
               <%= l division.updated_at.to_date, format: :digits %>
             </span>

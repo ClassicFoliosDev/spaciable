@@ -62,6 +62,10 @@ $two-actions-three-tabs-width: 310px;
     font-weight: bold;
     text-decoration: none;
     color: $primary-record-list-item-color;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

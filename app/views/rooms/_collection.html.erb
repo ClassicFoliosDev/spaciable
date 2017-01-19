@@ -20,7 +20,7 @@
           <%= delete_btn room, path: room_path(room) %>
         </div>
         <div class="record-list-item-content">
-          <%= link_to room.name, room_path(room), class: "room-name" %>
+          <%= link_to room.name, room_path(room), title: room.name, class: "room-name" %>
           <span class="room-updated-timestamp">
              <%= l room.updated_at.to_date, format: :digits %>
            </span>

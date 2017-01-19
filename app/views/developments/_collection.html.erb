@@ -23,7 +23,7 @@
           <%= delete_btn development, path: url_for([parent, development]) %>
         </div>
         <div class="record-list-item-content">
-           <%= link_to development.name, polymorphic_url([parent, development]) %>
+           <%= link_to development.name, polymorphic_url([parent, development]), title: development.name %>
            <span class="development-updated-timestamp">
              <%= l development.updated_at.to_date, format: :digits %>
            </span>

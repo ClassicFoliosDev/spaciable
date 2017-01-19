@@ -21,7 +21,8 @@
           <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]) %>
         </div>
         <div class="record-list-item-content">
-          <%= link_to unit_type.name, development_unit_type_path(unit_type.development, unit_type), class: "unit_type-name" %>
+          <%= link_to unit_type.name, development_unit_type_path(unit_type.development, unit_type), title: unit_type.name, class: "unit_type-name" %>
+
           <span class="unit_type-updated-timestamp">
              <%= l unit_type.updated_at.to_date, format: :digits %>
            </span>

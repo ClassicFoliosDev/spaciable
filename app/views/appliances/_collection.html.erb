@@ -23,7 +23,7 @@
             <%= delete_btn appliance %>
           </div>
           <div class="record-list-item-content">
-            <%= link_to appliance.name, appliance_path(appliance)%>
+            <%= link_to appliance.name, appliance_path(appliance), title: appliance.name %>
             <span><%= appliance.appliance_category %></span>
             <span><%= appliance.model_num %></span>
             <span><%= appliance.manufacturer %></span>
