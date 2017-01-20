@@ -13,7 +13,7 @@ $(document).on('click', '.appliances .ui-menu-item', function (event) {
       var $manufacturer_select = clearFields($manufacturer_div);
 
       var url = "/appliance_manufacturers";
-      setFields($manufacturer_select, url, option_name);
+      setFields($manufacturer_select, url, { option_name: option_name });
     }
   }
 });

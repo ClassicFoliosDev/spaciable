@@ -1,3 +1,3 @@
 document.addEventListener("turbolinks:load", function() {
-  $('select').selectmenu();
+  $('select').not('.skip-global-selectmenu select').selectmenu();
 })

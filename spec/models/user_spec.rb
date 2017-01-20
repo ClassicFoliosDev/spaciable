@@ -189,13 +189,13 @@ RSpec.describe User do
         expect(user.development_id).to eq(development.id)
       end
 
-      it "should populate the division_id, and development_id for a division development" do
+      it "should populate the developer, division_id, and development_id" do
         development = create(:division_development)
         user = create(:development_admin, permission_level: development)
 
         user.populate_permission_ids
 
-        expect(user.developer_id).to be_nil
+        expect(user.developer_id).to eq(development.division.developer_id)
         expect(user.division_id).to eq(development.division_id)
         expect(user.development_id).to eq(development.id)
       end

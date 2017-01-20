@@ -29,16 +29,16 @@
       </div>
       <div class="row-item third">
           <fieldset>
-            <%= f.input :developer_id, wrapper_html: { class: "select-with-filter cascade-filter", data: { filter: "developer" } } do %>
-              <%= f.select :developer_id, admin_users_developer_select_options, include_blank: true %>
+            <%= f.input :developer_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+              <%= f.select :developer_id, admin_users_developer_select_options(f.object), include_blank: "Choose..." %>
             <% end %>
 
-            <%= f.input :division_id, wrapper_html: { class: "select-with-filter filterable cascade-filter", data: { filter: "division" } } do %>
-              <%= f.select :division_id, admin_users_division_select_options, include_blank: true %>
+            <%= f.input :division_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+              <%= f.select :division_id, admin_users_division_select_options(f.object), include_blank: "Choose..." %>
             <% end %>
 
-            <%= f.input :development_id, wrapper_html: { class: "select-with-filter filterable" } do %>
-              <%= f.select :development_id, admin_users_development_select_options, include_blank: true %>
+            <%= f.input :development_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+              <%= f.select :development_id, admin_users_development_select_options(f.object), include_blank: "Choose..." %>
             <% end %>
 
           <%= f.input :permission_level_id, as: :hidden %>

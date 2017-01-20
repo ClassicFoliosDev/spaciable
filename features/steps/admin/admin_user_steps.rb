@@ -92,8 +92,8 @@ When(/^I add a new Developer Admin$/) do
     fill_in "user[email]", with: attrs[:email_address]
   end
 
-  select attrs[:role], visible: false
-  select attrs[:developer], visible: false
+  select_from_selectmenu :user_role, with: attrs[:role]
+  select_from_selectmenu :user_developer_id, with: attrs[:developer]
 
   click_on t("admin.users.form.submit")
 end
@@ -125,8 +125,9 @@ When(/^I add a new Division Admin$/) do
     fill_in "user[email]", with: attrs[:email_address]
   end
 
-  select attrs[:role], visible: false
-  select attrs[:division], visible: false
+  select_from_selectmenu :user_role, with: attrs[:role]
+  select_from_selectmenu :user_developer_id, with: attrs[:developer]
+  select_from_selectmenu :user_division_id, with: attrs[:division]
 
   click_on t("admin.users.form.submit")
 end
@@ -157,19 +158,49 @@ When(/^I add a Development Admin$/) do
     fill_in :user_email, with: attrs[:email_address]
   end
 
-  within ".user_role" do
-    select attrs[:role], visible: false
-  end
-
-  within ".user_development_id", visible: false do
-    select attrs[:development], visible: false
-  end
+  select_from_selectmenu :user_role, with: attrs[:role]
+  select_from_selectmenu :user_developer_id, with: attrs[:developer]
+  select_from_selectmenu :user_development_id, with: attrs[:development]
 
   click_on t("admin.users.form.submit")
 end
 
 Then(/^I should see the new Development Admin$/) do
   attrs = AdminUsersFixture.development_admin_attrs
+
+  within ".record-list" do
+    expect(page).to have_content(attrs[:role])
+    expect(page).to have_content(attrs[:development])
+  end
+
+  click_on attrs[:email_address]
+
+  expect(page).to have_content(attrs[:email_address])
+  expect(page).to have_content(attrs[:role])
+  expect(page).to have_content(attrs[:development])
+
+  click_on t("admin.users.show.back")
+end
+
+When(/^I add a \(division\) Development Admin$/) do
+  click_on t("admin.users.index.add")
+
+  attrs = AdminUsersFixture.division_development_admin_attrs
+
+  within ".user_email" do
+    fill_in :user_email, with: attrs[:email_address]
+  end
+
+  select_from_selectmenu :user_role, with: attrs[:role]
+  select_from_selectmenu :user_developer_id, with: attrs[:developer]
+  select_from_selectmenu :user_division_id, with: attrs[:division]
+  select_from_selectmenu :user_development_id, with: attrs[:development]
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the new \(division\) Development Admin$/) do
+  attrs = AdminUsersFixture.division_development_admin_attrs
 
   within ".record-list" do
     expect(page).to have_content(attrs[:role])

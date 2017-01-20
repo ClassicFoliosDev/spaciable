@@ -20,6 +20,12 @@ class Development < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
+  scope :by_developer_and_developer_divisions, lambda { |developer_id|
+    division_ids = Division.where(developer_id: developer_id).pluck(:id)
+
+    where(developer_id: developer_id).or(where(division_id: division_ids))
+  }
+
   validates :name, presence: true
   validate :permissable_id_presence
 

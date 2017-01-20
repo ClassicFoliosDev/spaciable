@@ -19,7 +19,7 @@ $(document).on('click', '.finishes .ui-menu-item', function (event) {
       clearFields(manufacturer_div);
 
       var url = "/finish_types";
-      setFields(finish_type_select, url, option_name);
+      setFields(finish_type_select, url, { option_name: option_name });
 
   } else if (list_name.contains("finish-type")) {
       var manufacturer_div = parent_fieldset.find(".manufacturer");
@@ -28,7 +28,7 @@ $(document).on('click', '.finishes .ui-menu-item', function (event) {
       clearFields(manufacturer_div);
 
       var url = "/manufacturers";
-      setFields(manufacturer_select, url, option_name);
+      setFields(manufacturer_select, url, { option_name: option_name });
   }
 });
 
@@ -57,12 +57,10 @@ function enable_select(select_element) {
   $(select_element).selectmenu("refresh");
 }
 
-function setFields(select_list, url, option_name) {
+function setFields(select_list, url, data) {
   $.getJSON({
     url: url,
-    data: {
-      option_name: option_name
-    }
+    data: data
   }).done(function (results) {
 
     var prompt_option = document.createElement("option");
@@ -75,6 +73,7 @@ function setFields(select_list, url, option_name) {
       var option = document.createElement("option");
       option.value = value.id;
       option.name = value.name;
+      option.selected = value.selected;
       option.textContent = value.name;
 
       select_list.appendChild(option);

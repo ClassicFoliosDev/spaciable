@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
+    get 'developers', to: 'developers#index', format: :json
+    get 'divisions', to: 'divisions#index', format: :json
+    get 'developments', to: 'developments#index', format: :json
   end
 
   resources :documents, except: :new

@@ -78,7 +78,8 @@ class User < ApplicationRecord
     when Development
       self.development_id = permission_level.id
       self.division_id = permission_level.division_id
-      self.developer_id = permission_level.developer_id
+      self.developer_id = permission_level.developer_id ||
+                          permission_level.division&.developer_id
     end
   end
 
