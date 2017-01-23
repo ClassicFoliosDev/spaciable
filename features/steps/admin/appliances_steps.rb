@@ -6,7 +6,7 @@ When(/^I create an appliance$/) do
     click_on t("components.navigation.appliances")
   end
 
-  click_on t("appliances.collection.add")
+  click_on t("appliances.collection.create")
 
   fill_in "appliance_name", with: ApplianceFixture.name
   click_on t("appliances.form.submit")
@@ -32,8 +32,26 @@ When(/^I update the appliance$/) do
 
   fill_in "appliance[description]", with: ApplianceFixture.description
 
-  select ApplianceFixture.warranty_len, from: "appliance_warranty_length"
-  select ApplianceFixture.e_rating, from: "appliance_e_rating"
+  within ".warranty" do
+    warranty_arrow = page.find ".ui-icon"
+    warranty_arrow.click
+
+    warranty_ul = page.find ".ui-menu"
+
+    warranty_list = warranty_ul.all("li")
+    warranty_list.find { |node| node.text == ApplianceFixture.warranty_len }.click
+    # sleep 0.3
+  end
+
+  within ".e-rating" do
+    e_rating_arrow = page.find ".ui-icon"
+    e_rating_arrow.click
+
+    e_rating_ul = page.find ".ui-menu"
+
+    e_rating_list = e_rating_ul.all("li")
+    e_rating_list.find { |node| node.text == ApplianceFixture.e_rating }.click
+  end
 
   click_on t("appliances.form.submit")
 end
@@ -71,11 +89,11 @@ When(/^I update the dropdown$/) do
     category_ul = page.find ".ui-menu"
 
     category_list = category_ul.all("li")
-    category_list.find { |node| node.text == "Freezer" }.click
+    category_list.find { |node| node.text == ApplianceFixture.category }.click
     sleep 0.3
   end
 
-  manufacturer = page.find(".manufacturer")
+  manufacturer = page.find(".appliance-manufacturer")
 
   within manufacturer do
     finish_arrow = page.find ".ui-icon"
@@ -84,7 +102,7 @@ When(/^I update the dropdown$/) do
     manuf_ul = page.find ".ui-menu"
 
     manuf_list = manuf_ul.all("li")
-    manuf_list.find { |node| node.text == "Samsung" }.click
+    manuf_list.find { |node| node.text == ApplianceFixture.manufacturer }.click
   end
 
   click_on t("unit_types.form.submit")

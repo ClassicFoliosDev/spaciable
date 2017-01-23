@@ -191,7 +191,7 @@ end
 
 crumb :room_edit do |room|
   link t("breadcrumbs.room_edit", room_name: room.name), edit_room_path(room)
-  parent :unit_type, room.unit_type
+  parent :room, room
 end
 
 crumb :room do |room|
@@ -259,21 +259,21 @@ end
 
 # APPLIANCES
 
-crumb :appliances do
+crumb :appliance_rooms do
   link Appliance.model_name.human.pluralize, appliances_path
 end
 
 crumb :appliance do |appliance|
   link appliance, edit_appliance_path(appliance)
-  parent :appliances
+  parent :appliance_rooms
 end
 
 crumb :appliance_edit do |appliance|
   link t("breadcrumbs.appliance_edit", name: appliance.name), appliances_path(appliance)
-  parent :appliances
+  parent :appliance_rooms
 end
 
 crumb :appliance_new do
   link t("breadcrumbs.appliance_add")
-  parent :appliances
+  parent :appliance_rooms
 end

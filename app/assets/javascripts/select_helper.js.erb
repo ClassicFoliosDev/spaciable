@@ -1,0 +1,56 @@
+function clearFields(selectDiv) {
+
+  // Make the options list empty
+  var selectList = selectDiv.find("select")[0];
+    selectList.options.length = 0;
+  // Remove the previously-selected option name
+  var prevOption = selectDiv.find(".ui-selectmenu-text")[0];
+    prevOption.innerHTML = "&nbsp";
+
+  disableSelect($(selectDiv).find("select"));
+
+  return selectList;
+}
+
+function disableSelect(selectElement) {
+  $(selectElement).attr("disabled", "disabled").addClass("disabled");
+  $(selectElement).selectmenu("disable");
+}
+
+function enableSelect(selectElement) {
+  $(selectElement).removeAttr("disabled").removeClass("disabled");
+  $(selectElement).selectmenu("enable");
+  $(selectElement).selectmenu("refresh");
+}
+
+function setFields(selectList, url, data) {
+  $.getJSON({
+    url: url,
+      data: data
+  }).done(function (results) {
+
+    var promptOption = document.createElement("option");
+      promptOption.value = "";
+      promptOption.name = "";
+      promptOption.textContent = "<%= I18n.t(".rooms.finish_fields.choose") %>";
+      selectList.appendChild(promptOption);
+
+    $.each(results, function (key, value) {
+      var option = document.createElement("option");
+      option.value = value.id;
+      option.name = value.name;
+      option.textContent = value.name;
+
+      selectList.appendChild(option);
+    });
+
+    if (results.length > 0) {
+      enableSelect("#" + selectList.id);
+    } else {
+      disableSelect("#" + selectList.id);
+    };
+
+  }).fail(function (response) {
+    console.error("Call to " + url + " failed");
+  });
+}

@@ -1,19 +1,34 @@
 $(document).on('click', '.appliances .ui-menu-item', function (event) {
 
-  var option_name = this.innerText;
-  var $select_container = $(this).closest(".select-container");
+  var optionName = this.innerText;
+  var $selectContainer = $(this).closest(".select-container");
 
-    if ($select_container.length > 0) {
-    var list_name = $select_container[0].classList;
-    var $parent_fieldset = $select_container.closest("fieldset");
+    if ($selectContainer.length > 0) {
+    var listClasses = $selectContainer[0].classList;
+    var $parentFieldset = $selectContainer.closest(".appliances");
 
-    if (list_name.contains("appliance-category")) {
+    var add_appliance = $(document).find(".add_appliance");
 
-      var $manufacturer_div = $parent_fieldset.find(".manufacturer");
-      var $manufacturer_select = clearFields($manufacturer_div);
+    if (listClasses.contains("appliance-category")) {
+
+      var $manufacturerDiv = $parentFieldset.find(".appliance-manufacturer");
+      var $manufacturerSelect = clearFields($manufacturerDiv);
 
       var url = "/appliance_manufacturers";
-      setFields($manufacturer_select, url, { option_name: option_name });
+      setFields($manufacturerSelect, url, { option_name: optionName });
+    }
+    // Only run through this code if adding an appliance to a room
+    // Not when creating a new appliance
+    else if (listClasses.contains("appliance-manufacturer") && (add_appliance.length > 0)) {
+      var $applianceDiv = $parentFieldset.find(".appliance");
+
+      var $applianceSelect = clearFields($applianceDiv);
+
+      var $categoryDiv = $(".appliance-category");
+      var $categoryValue = $categoryDiv.find(".ui-selectmenu-text")[0].innerHTML;
+
+      var url = "/appliance_list";
+      setFields($applianceSelect, url, { option_name: optionName, category_name: $categoryValue});
     }
   }
 });

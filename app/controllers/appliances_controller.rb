@@ -20,7 +20,11 @@ class AppliancesController < ApplicationController
   def create
     if @appliance.save
       notice = t(".success", name: @appliance.name)
-      redirect_to [:appliances], notice: notice
+      if @room
+        redirect_to [:appliance_rooms], notice: notice
+      else
+        redirect_to appliances_path, notice: notice
+      end
     else
       render :new
     end
@@ -29,7 +33,7 @@ class AppliancesController < ApplicationController
   def update
     if @appliance.update(appliance_params)
       notice = t(".success", name: @appliance.name)
-      redirect_to [:appliances], notice: notice
+      redirect_to appliances_path, notice: notice
     else
       render :edit
     end
@@ -37,11 +41,8 @@ class AppliancesController < ApplicationController
 
   def destroy
     @appliance.destroy
-    notice = t(
-      ".success",
-      name: @appliance.name
-    )
-    redirect_to appliances_url, notice: notice
+    notice = t(".success", name: @appliance.name)
+    redirect_to appliances_path, notice: notice
   end
 
   def appliance_manufacturers
@@ -51,6 +52,15 @@ class AppliancesController < ApplicationController
                                 .order(:name)
 
     render json: manufacturers
+  end
+
+  def appliance_list
+    appliances = Appliance.joins(:appliance_category, :manufacturer)
+                          .where(appliance_categories: { name: params[:category_name] },
+                                 manufacturers: { name: params[:option_name] })
+                          .distinct
+
+    render json: appliances
   end
 
   private

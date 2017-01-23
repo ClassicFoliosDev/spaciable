@@ -25,6 +25,22 @@ Feature: Rooms
     Then I should see the room with two finishes
 
   @javascript
+  Scenario: Appliances
+    Given I am logged in as an admin
+    And I have seeded the database
+    And I have created a room
+    And I create an appliance
+    Then I should see the created appliance
+    And I update the appliance
+    And I update the dropdown
+    When I add an appliance
+    Then I should see the room with an appliance
+    When I add an appliance
+    Then I should not see any duplicates
+    When I remove an appliance
+    Then I should see the room with no appliance
+
+  @javascript
   Scenario: Delete
     Given I am logged in as an admin
     And I have created a room

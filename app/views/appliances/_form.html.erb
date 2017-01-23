@@ -29,14 +29,14 @@
           <div class="appliance-category ui-front select-container">
             <%= f.association :appliance_category %>
           </div>
-          <div class="manufacturer ui-front select-container">
+          <div class="appliance-manufacturer ui-front select-container">
             <%= f.association :manufacturer %>
           </div>
-          <div class="ui-front">
+          <div class="warranty ui-front">
           <%= f.label t(".warranty_length") %>
           <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
           </div>
-          <div class="ui-front">
+          <div class="e-rating ui-front">
           <%= f.label t(".e_rating") %>
           <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
           </div>

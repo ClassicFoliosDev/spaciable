@@ -38,10 +38,18 @@ module ApplianceFixture
     "A++"
   end
 
+  def category
+    "Freezer"
+  end
+
+  def manufacturer
+    "Samsung"
+  end
+
   def dropdown_attrs
     {
-      category: "Freezer",
-      manufaturer: "Samsung"
+      category: category,
+      manufaturer: manufacturer
     }
   end
 

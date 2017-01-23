@@ -463,8 +463,10 @@ en:
    index:
      title: "Appliances"
    collection:
-     add: "Add appliance"
+     create: "Add appliance"
+     add_appliance_room: "Add existing appliance to room"
      appliance_category: "Category"
+     remove: "Remove"
    new:
      title: "New appliance"
    show:
@@ -558,6 +560,15 @@ en:
     new:
       # add: "Add %{unit_type_name} room"
       add: "Add new room to TODO"
+    appliance_rooms:
+      new:
+        title: "Add appliance to %{room_name}"
+        submit: "Submit"
+        back: "Back"
+      create:
+        duplicate: "This appliance has already been added to %{room_name}"
+    remove_appliance:
+      success: "Successfully removed %{appliance_name} from %{room_name}"
 
   users:
     sign_out: "Sign out"
@@ -668,7 +679,7 @@ en:
         category: "Category"
         manufacturer: "Manufacturer"
         warranty_length: "Warranty period"
-        wwarranty_exp_date: "Warranty expiry date"
+        warranty_exp_date: "Warranty expiry date"
         e_rating: "Energy rating"
         source: "Supplier"
         warranty_num: "Warranty number"

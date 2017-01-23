@@ -1,7 +1,15 @@
 <div class="section-actions">
-  <%= link_to new_appliance_path, class: "btn btn-primary" do %>
+  <% if room %>
+    <%= link_to new_room_appliance_room_path(room), class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
+      <span class="btn-label"><%= t(".add_appliance_room") %></span>
+    <% end %>
+    <br>
+  <% else %>
+    <%= link_to new_appliance_path, class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".create") %></span>
+    <% end %>
   <% end %>
 </div>
 
@@ -20,7 +28,13 @@
         <dd class="record-list-item" data-appliances="<%= appliance.id %>">
           <div class="record-list-item-actions">
             <%= edit_btn edit_appliance_path(appliance) %>
-            <%= delete_btn appliance %>
+            <% if room %>
+              <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
+                <%= fa_icon "times" %>
+              <% end %>
+            <% else %>
+               <%= delete_btn appliance %>
+            <% end %>
           </div>
           <div class="record-list-item-content">
             <%= link_to appliance.name, appliance_path(appliance), title: appliance.name %>

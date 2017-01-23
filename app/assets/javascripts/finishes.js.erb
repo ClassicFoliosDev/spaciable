@@ -6,86 +6,28 @@ $(document).on('cocoon:after-insert', function(event, item) {
 
 $(document).on('click', '.finishes .ui-menu-item', function (event) {
 
-  var option_name = this.innerText;
-  var $select_container = $(this).closest(".select-container");
-  var list_name = $select_container[0].classList;
-  var parent_fieldset = $select_container.closest("fieldset");
+  var optionName = this.innerText;
+  var $selectContainer = $(this).closest(".select-container");
+  var listName = $selectContainer[0].classList;
+  var parentFieldset = $selectContainer.closest("fieldset");
 
-  if (list_name.contains("finish-category")) {
-      var finish_type_div = parent_fieldset.find(".finish-type");
-      var finish_type_select = clearFields(finish_type_div);
+  if (listName.contains("finish-category")) {
+    var finishTypeDiv = parentFieldset.find(".finish-type");
+    var finishTypeSelect = clearFields(finishTypeDiv);
 
-      var manufacturer_div = parent_fieldset.find(".manufacturer");
-      clearFields(manufacturer_div);
+    var manufacturerDiv = parentFieldset.find(".manufacturer");
+    clearFields(manufacturerDiv);
 
-      var url = "/finish_types";
-      setFields(finish_type_select, url, { option_name: option_name });
+    var url = "/finish_types";
+    setFields(finishTypeSelect, url, { option_name: optionName });
 
-  } else if (list_name.contains("finish-type")) {
-      var manufacturer_div = parent_fieldset.find(".manufacturer");
-      var manufacturer_select = clearFields(manufacturer_div);
+  } else if (listName.contains("finish-type")) {
+    var manufacturerDiv = parentFieldset.find(".manufacturer");
+    var manufacturerSelect = clearFields(manufacturerDiv);
 
-      clearFields(manufacturer_div);
+    clearFields(manufacturerDiv);
 
-      var url = "/manufacturers";
-      setFields(manufacturer_select, url, { option_name: option_name });
+    var url = "/manufacturers";
+    setFields(manufacturerSelect, url, { option_name: optionName });
   }
 });
-
-function clearFields(select_div) {
-
-  // Make the options list empty
-  var select_list = select_div.find("select")[0];
-  select_list.options.length = 0;
-  // Remove the previously-selected option name
-  var prev_option = select_div.find(".ui-selectmenu-text")[0];
-  prev_option.innerHTML = "&nbsp";
-
-  disable_select($(select_div).find("select"));
-
-  return select_list;
-}
-
-function disable_select(select_element) {
-  $(select_element).attr("disabled", "disabled").addClass("disabled");
-  $(select_element).selectmenu("disable");
-}
-
-function enable_select(select_element) {
-  $(select_element).removeAttr("disabled").removeClass("disabled");
-  $(select_element).selectmenu("enable");
-  $(select_element).selectmenu("refresh");
-}
-
-function setFields(select_list, url, data) {
-  $.getJSON({
-    url: url,
-    data: data
-  }).done(function (results) {
-
-    var prompt_option = document.createElement("option");
-    prompt_option.value = "";
-    prompt_option.name = "";
-    prompt_option.textContent = "<%= I18n.t(".rooms.finish_fields.choose") %>";
-    select_list.appendChild(prompt_option);
-
-    $.each(results, function (key, value) {
-      var option = document.createElement("option");
-      option.value = value.id;
-      option.name = value.name;
-      option.selected = value.selected;
-      option.textContent = value.name;
-
-      select_list.appendChild(option);
-    });
-
-    if (results.length > 0) {
-      enable_select("#" + select_list.id);
-    } else {
-      disable_select("#" + select_list.id);
-    };
-
-  }).fail(function (response) {
-    console.error("Call to " + url + " failed");
-  });
-}
