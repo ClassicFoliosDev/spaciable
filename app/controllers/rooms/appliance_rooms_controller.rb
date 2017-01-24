@@ -12,11 +12,16 @@ module Rooms
     end
 
     def create
-      if ApplianceRoom.create(appliance_id: params[:appliances], room_id: @room.id)
-        notice = t("controller.success.update", name: @room.name)
-      end
+      appliance_id = params[:appliances]
+      @appliance_room = ApplianceRoom.create(appliance_id: appliance_id, room_id: @room.id)
 
-      redirect_to room_url(@room, active_tab: "appliances"), notice: notice
+      if @appliance_room.errors.any?
+        @appliance_categories = ApplianceCategory.all
+        render :new
+      else
+        notice = t("controller.success.update", name: @room.name)
+        redirect_to room_url(@room, active_tab: "appliances"), notice: notice
+      end
     end
   end
 end

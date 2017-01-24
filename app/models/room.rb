@@ -21,6 +21,8 @@ class Room < ApplicationRecord
 
   validates :name, presence: true
   validates_associated :finishes
+  validates_associated :appliance_rooms
+  validates_associated :appliances
 
   after_destroy -> { finishes.delete_all }
 

@@ -1,12 +1,19 @@
 <% breadcrumb :room_edit, @room %>
 
+<div class="section-header add_appliance">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= t(".title", room_name: @room.name) %><br>
+  </h3>
+</div>
+
 <%= simple_form_for([@room, @appliance_room]) do |f| %>
-  <% if @room.errors.any? %>
+  <% if @appliance_room.errors.any? %>
     <div class="row">
       <div class="row-item">
         <div class="submission-errors">
           <ul>
-            <% room.errors.full_messages.each do |message| %>
+            <% @appliance_room.errors.full_messages.each do |message| %>
                 <li>
                   <%= fa_icon "exclamation-circle" %>
                   <%= message %>
@@ -17,13 +24,6 @@
       </div>
     </div>
   <% end %>
-
-  <div class="section-header add_appliance">
-    <h3 class="section-title">
-      <i class="fa fa-building"></i>
-      <%= t(".title", room_name: @room.name) %><br>
-    </h3>
-  </div>
 
   <div class="row appliances">
     <div class="row-item third">
@@ -45,7 +45,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="appliance ui-front select-container">
-          <%= select_tag "appliances" %>
+          <%= select_tag "appliances", required: true %>
         </div>
       </fieldset>
     </div>
@@ -53,7 +53,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), rooms_path, class: "btn" %>
+      <%= link_to t(".back"), room_path(@room, active_tab: "appliances"), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

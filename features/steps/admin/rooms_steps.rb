@@ -287,13 +287,19 @@ Then(/^I should see the room with an appliance$/) do
   end
 end
 
-Then(/^I should not see any duplicates$/) do
-  within ".record-list" do
-    expect(page).to have_content(ApplianceFixture.updated_name, count: 1)
-  end
+Then(/^I should see a duplicate error$/) do
+  duplicate_flash = t(
+    "activerecord.errors.messages.taken",
+    name: ApplianceFixture.updated_name
+  )
+  expect(page).to have_content(duplicate_flash)
 end
 
 When(/^I remove an appliance$/) do
+  click_on t("rooms.form.back")
+
+  sleep 0.2
+
   within ".appliances" do
     find(".remove").click
   end

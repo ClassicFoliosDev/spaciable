@@ -5,5 +5,6 @@ class ApplianceRoom < ApplicationRecord
   belongs_to :appliance
   belongs_to :room
 
-  validates :room, uniqueness: { scope: :appliance }
+  validates :appliance, uniqueness: { scope: :room }
+  validates :appliance, presence: true
 end

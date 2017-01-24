@@ -36,7 +36,7 @@ Feature: Rooms
     When I add an appliance
     Then I should see the room with an appliance
     When I add an appliance
-    Then I should not see any duplicates
+    Then I should see a duplicate error
     When I remove an appliance
     Then I should see the room with no appliance
 

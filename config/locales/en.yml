@@ -790,6 +790,7 @@ en:
         required: " is required, and must be configured"
         missing_permissable_id: "be associated with a Developer or Division"
         only_one_parent_allowed: "cannot be associated with a Developer and a Division"
+        taken: " has already been added"
       models:
         notification:
           attributes:
