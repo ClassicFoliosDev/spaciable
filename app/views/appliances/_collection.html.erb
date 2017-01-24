@@ -17,6 +17,7 @@
   <dl class="appliances">
     <dt class="record-list-item record-header">
     <div class="record-list-header-content">
+      <span class="icon">&nbsp;</span>
       <span><%= sortable(Appliance, :name) %></span>
       <span><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></span>
       <span><%= sortable(Appliance, :model_num) %></span>
@@ -37,6 +38,7 @@
             <% end %>
           </div>
           <div class="record-list-item-content">
+            <span class="icon"><%= image_tag appliance.primary_image if appliance.primary_image? %></span>
             <%= link_to appliance.name, appliance_path(appliance), title: appliance.name %>
             <span><%= appliance.appliance_category %></span>
             <span><%= appliance.model_num %></span>

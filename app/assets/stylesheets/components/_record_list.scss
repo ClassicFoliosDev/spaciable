@@ -46,6 +46,10 @@ $two-actions-three-tabs-width: 310px;
     @include display(flex);
     @include flex(1);
   }
+
+  .icon {
+    @include flex(0.5);
+  }
 }
 
 .record-list-item-content {
@@ -67,6 +71,13 @@ $two-actions-three-tabs-width: 310px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  .icon {
+    @include flex(0.5);
+    img {
+      max-width: 40px;
+    }
   }
 }
 

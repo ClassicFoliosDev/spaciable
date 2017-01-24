@@ -11,6 +11,7 @@
   <dl class="appliances">
     <dt class="record-list-item record-header">
     <div class="record-list-header-content">
+      <span class="icon">&nbsp;</span>
       <span><%= sortable(Finish, :name) %></span>
       <span><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></span>
       <span><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></span>
@@ -25,6 +26,7 @@
             <%= delete_btn finish, path: url_for([finish.room, finish]) %>
           </div>
           <div class="record-list-item-content">
+            <span class="icon"><%= image_tag finish.picture if finish.picture? %></span>
             <%= link_to finish.name, room_finish_path(finish.room, finish)%>
             <span>
               <%= finish.finish_category %>
