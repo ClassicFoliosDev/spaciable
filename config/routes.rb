@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     get 'developments', to: 'developments#index', format: :json
   end
 
-  resources :documents, except: :new
+  resources :documents, except: [:new, :create]
 
   resources :rooms do
     resources :finishes, except: :index
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :developers do
     resources :divisions
     resources :developments, controller: 'developers/developments'
+    resources :documents, only: [:new, :create]
   end
 
   resources :divisions do

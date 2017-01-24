@@ -1,0 +1,49 @@
+<%= simple_form_for ([parent, document]) do |f| %>
+  <% if document.errors.any? %>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% document.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row documents">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.label t(".load") %>
+        <%= label_tag('document_file', t(".upload"), class: "btn") %>
+        <%= f.input :file, as: :file, label: false, input_html: { class: 'hidden' } %>
+        <%= f.input :title, required: true %>
+      </fieldset>
+    </div>
+
+    <% if document.file? %>
+      <div class="row-item third">
+        <fieldset>
+          <%= f.label t(".original_name") %>
+          <span><%= document.original_filename %></span>
+          <%= f.label t(".size") %>
+          <span><%= document.file.size %></span>
+          <%= f.label t(".updated") %>
+          <span><%= document.updated_at %></span>
+        </fieldset>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>
+

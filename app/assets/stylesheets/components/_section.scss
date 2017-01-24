@@ -1,5 +1,6 @@
 $font-section-title-color: $primary-green;
 $data-section-color: $type-grey;
+$icon-color: $primary-red;
 
 .section-header {
   @include display(flex);
@@ -18,6 +19,13 @@ $data-section-color: $type-grey;
     p {
       font-size: $secondary-record-list-item-font-size;
       color: $data-section-color;
+    }
+  }
+
+  .icons {
+    .btn-primary {
+      background-color: $ui-white;
+      color: $icon-color;
     }
   }
 }

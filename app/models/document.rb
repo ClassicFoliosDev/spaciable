@@ -11,7 +11,13 @@ class Document < ApplicationRecord
   belongs_to :division, optional: true
   belongs_to :development, optional: true
 
+  validates :title, presence: true, uniqueness: false
+
   def to_s
-    file&.file&.filename || "Untitled"
+    title
+  end
+
+  def set_original_filename
+    self.original_filename = file.filename
   end
 end

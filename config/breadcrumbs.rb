@@ -174,13 +174,13 @@ crumb :document do |document|
 end
 
 crumb :document_edit do |document|
-  link t(".edit")
-  parent :document, document
+  link t("breadcrumbs.document_edit", document_name: document.title), edit_document_path(document)
+  parent :documents
 end
 
-crumb :document_new do
+crumb :document_new do |developer|
   link t("breadcrumbs.document_add")
-  parent :documents
+  parent :developer, developer
 end
 
 # ROOMS

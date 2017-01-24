@@ -2,6 +2,8 @@
 module DeveloperTabsHelper
   include TabsHelper
 
+  # rubocop:disable MethodLength
+  # Method is long but readable, refactoring shorter is likely to obfuscate
   def developer_tabs(developer, current_tab)
     divisions_tab = Tab.new(
       title: t("developers.collection.divisions"),
@@ -17,6 +19,14 @@ module DeveloperTabsHelper
       active: (current_tab == "developments")
     )
 
-    [divisions_tab, developments_tab].map(&:to_a)
+    documents_tab = Tab.new(
+      title: t("developers.collection.documents"),
+      icon: :building,
+      link: developer_path(developer, active_tab: :documents),
+      active: (current_tab == "documents")
+    )
+
+    [divisions_tab, developments_tab, documents_tab].map(&:to_a)
   end
+  # rubocop:enable MethodLength
 end

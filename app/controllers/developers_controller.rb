@@ -18,11 +18,12 @@ class DevelopersController < ApplicationController
 
   def show
     @active_tab = params[:active_tab] || "divisions"
-
     @collection = if @active_tab == "divisions"
                     paginate(sort(@developer.divisions, default: :division_name))
                   elsif @active_tab == "developments"
                     paginate(sort(@developer.developments, default: :name))
+                  elsif @active_tab == "documents"
+                    paginate(sort(@developer.documents, default: :title))
                   end
   end
 

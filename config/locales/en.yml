@@ -90,6 +90,8 @@ en:
     unit_type_edit: "Edit %{unit_type_name}"
     unit_type_new: "New unit type"
     unit_type_add: "Add unit type"
+    document_add: "Add document"
+    document_edit: "Edit %{document_name}"
 
   pagination:
     per_page_10: "10"
@@ -252,6 +254,7 @@ en:
     collection:
       developments: "Developments"
       divisions: "Divisions"
+      documents: "Documents"
 
   divisions:
     destroy:
@@ -585,6 +588,28 @@ en:
     not_yet: "You can add documents after this resource has been saved"
     loaded_scope: "Upload scope"
     loaded_name: "Upload parent"
+    index:
+      title: "Documents"
+    new:
+      title: "New document for %{name}"
+    show:
+      title: "Document name"
+      original_name: "Original file name"
+      size: "File size"
+      updated: "Upload date"
+      back: "Back"
+    form:
+      load: "File"
+      upload: "Upload"
+      back: "Back"
+      submit: "Submit"
+      original_name: "Original file name"
+      size: "File size"
+      updated: "Upload date"
+    collection:
+      add: "Add document"
+    edit:
+      title: "Edit %{name}"
 
   services:
     homeowner_login_content_service:

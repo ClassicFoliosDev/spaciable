@@ -8,15 +8,17 @@
       <%= navigation_link(admin_dashboard_path, "tachometer", t(".dashboard"), "navbar-link") %>
       <%= navigation_link(developers_path, "vcard", t(".developers"), "navbar-link") %>
 
-      <% unless current_user.homeowner? %>
-        <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
-      <% end %>
-
+      <%= navigation_link(documents_path, "file-pdf-o", t(".documents"), "navbar-link") %>
       <%= navigation_link(finishes_path, "shower", t(".finishes"), "navbar-link") %>
       <%= navigation_link(appliances_path, "coffee", t(".appliances"), "navbar-link") %>
       <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
 
-      <div class="navbar-item">
+      <% unless current_user.homeowner? %>
+        <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
+      <% end %>
+
+
+        <div class="navbar-item">
         <%= link_to destroy_user_session_path, method: :delete, class: "navbar-link" do %>
           <%= fa_icon "sign-out" %>
           <%= t(".log_out") %>

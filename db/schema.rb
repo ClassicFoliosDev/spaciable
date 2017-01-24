@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116164521) do
+ActiveRecord::Schema.define(version: 20170123165720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,7 @@ ActiveRecord::Schema.define(version: 20170116164521) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.string   "original_filename"
     t.index ["developer_id"], name: "index_documents_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_documents_on_development_id", using: :btree
     t.index ["division_id"], name: "index_documents_on_division_id", using: :btree

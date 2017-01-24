@@ -1,0 +1,14 @@
+<% breadcrumb :document_new, @parent %>
+
+<div class="row">
+  <div class="row-item">
+    <div class="section-header">
+      <h3 class="section-title">
+        <%= fa_icon "file-pdf-o" %>
+        <%= t(".title", name: @parent) %>
+      </h3>
+    </div>
+  </div>
+</div>
+
+<%= render 'form', parent: @parent, document: @document %>

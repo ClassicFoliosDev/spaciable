@@ -1,0 +1,36 @@
+<% breadcrumb :document, @document %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-building"></i>
+    <%= @document.title %><br>
+  </h3>
+
+  <div class="section-data">
+    <%= edit_btn [:edit, @document] %>
+  </div>
+</div>
+
+<div class="row documents">
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag t(".title") %>
+      <span><%= @document.title %></span>
+    </fieldset>
+  </div>
+
+  <% if @document.file? %>
+    <div class="row-item third">
+      <fieldset>
+        <%= label_tag t(".original_name") %>
+        <span><%= @document.original_filename %></span>
+        <%= label_tag t(".size") %>
+        <span><%= @document.file.size %></span>
+        <%= label_tag t(".updated") %>
+        <span><%= @document.updated_at %></span>
+      </fieldset>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to t(".back"), developer_path(@document.developer, active_tab: "documents"), class: "btn" %>
