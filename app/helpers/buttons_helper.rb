@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 module ButtonsHelper
+  def view_btn(view_path, label = "")
+    link_to view_path, class: "btn", data: { action: "view" } do
+      icon "eye", label
+    end
+  end
+
   def edit_btn(edit_path, label = "")
     link_to edit_path, class: "btn", data: { action: "edit" } do
       icon "pencil", label

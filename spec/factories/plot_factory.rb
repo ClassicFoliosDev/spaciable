@@ -6,5 +6,10 @@ FactoryGirl.define do
     end
     unit_type
     development
+
+    factory :phase_plot do
+      development { nil }
+      phase
+    end
   end
 end

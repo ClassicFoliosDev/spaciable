@@ -171,6 +171,16 @@ html.hoozzi body {
   }
 }
 
+.row-item.two-thirds {
+  @include media($tablet-landscape-down) {
+    @include span-columns(12 of 12);
+  }
+
+  @include media($tablet-landscape-up) {
+    @include span-columns(8 of 12);
+  }
+}
+
 .row-item.quarter {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);

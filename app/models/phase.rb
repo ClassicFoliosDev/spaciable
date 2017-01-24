@@ -12,11 +12,18 @@ class Phase < ApplicationRecord
   belongs_to :division, optional: true
 
   has_many :plots
+  has_many :residents, through: :plots
   has_many :unit_types, through: :development
   has_many :document, as: :documentable
   has_one :address, as: :addressable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
+
+  scope :by_developer_and_developer_divisions, lambda { |developer_id|
+    division_ids = Division.where(developer_id: developer_id).pluck(:id)
+
+    where(developer_id: developer_id).or(where(division_id: division_ids))
+  }
 
   before_validation :set_number
 

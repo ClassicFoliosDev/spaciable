@@ -9,10 +9,13 @@ Rails.application.routes.draw do
              }
 
   namespace :admin do
+    resources :notifications, except: [:edit, :update, :destroy]
     resources :users
+
     get 'developers', to: 'developers#index', format: :json
     get 'divisions', to: 'divisions#index', format: :json
     get 'developments', to: 'developments#index', format: :json
+    get 'phases', to: 'phases#index', format: :json
   end
 
   resources :documents, except: [:new, :create]

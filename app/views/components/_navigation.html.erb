@@ -11,12 +11,13 @@
       <%= navigation_link(documents_path, "file-pdf-o", t(".documents"), "navbar-link") %>
       <%= navigation_link(finishes_path, "shower", t(".finishes"), "navbar-link") %>
       <%= navigation_link(appliances_path, "coffee", t(".appliances"), "navbar-link") %>
-      <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
 
-      <% unless current_user.homeowner? %>
-        <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
+      <% unless current_user.cf_admin? %>
+        <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
       <% end %>
 
+      <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
+      <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
 
         <div class="navbar-item">
         <%= link_to destroy_user_session_path, method: :delete, class: "navbar-link" do %>

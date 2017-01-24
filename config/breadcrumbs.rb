@@ -22,6 +22,21 @@ crumb :admin_user do |user|
   parent :admin_users
 end
 
+# Admin Notifications
+crumb :admin_notifications do
+  link t("breadcrumbs.admin_notifications"), admin_notifications_path
+end
+
+crumb :admin_notification_new do
+  link t("breadcrumbs.admin_notifications_new"), new_admin_notification_path
+  parent :admin_notifications
+end
+
+crumb :admin_notification do |notification|
+  link notification.to_s, admin_notification_path(notification)
+  parent :admin_notifications
+end
+
 # DEVELOPERS
 
 crumb :developers do

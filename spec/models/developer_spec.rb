@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "rails_helper"
+
 RSpec.describe Developer do
   describe "#destroy" do
     it "should be archived" do

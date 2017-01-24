@@ -1,0 +1,55 @@
+<%= simple_form_for([:admin, notification]) do |f| %>
+  <% if notification.errors.any? %>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% notification.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.label :send_to %>
+
+        <%= f.input :developer_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+          <%= f.select :developer_id, admin_developer_select_options(f.object, developer_id: current_user.developer_id), include_blank: false %>
+        <% end %>
+
+        <%= f.input :division_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+          <%= f.select :division_id, admin_division_select_options(f.object), include_blank: Division.model_name.human %>
+        <% end %>
+
+        <%= f.input :development_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+          <%= f.select :development_id, admin_development_select_options(f.object), include_blank: Development.model_name.human %>
+        <% end %>
+
+        <%= f.input :phase_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+          <%= f.select :phase_id, admin_phase_select_options(f.object), include_blank: Phase.model_name.human %>
+        <% end %>
+      </fieldset>
+    </div>
+
+    <div class="row-item two-thirds">
+      <fieldset>
+        <%= f.input :subject %>
+        <%= f.input :message %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), [:admin, :notifications], class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

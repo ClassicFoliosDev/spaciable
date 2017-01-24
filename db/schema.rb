@@ -225,6 +225,21 @@ ActiveRecord::Schema.define(version: 20170123165720) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.string   "subject"
+    t.text     "message"
+    t.datetime "sent_at"
+    t.integer  "author_id"
+    t.integer  "sender_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "send_to_type"
+    t.integer  "send_to_id"
+    t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
+    t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
+    t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree
+  end
+
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
@@ -266,6 +281,15 @@ ActiveRecord::Schema.define(version: 20170123165720) do
     t.datetime "updated_at", null: false
     t.index ["plot_id"], name: "index_plots_users_on_plot_id", using: :btree
     t.index ["user_id"], name: "index_plots_users_on_user_id", using: :btree
+  end
+
+  create_table "resident_notifications", force: :cascade do |t|
+    t.integer  "resident_id"
+    t.integer  "notification_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["notification_id"], name: "index_resident_notifications_on_notification_id", using: :btree
+    t.index ["resident_id"], name: "index_resident_notifications_on_resident_id", using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -363,6 +387,7 @@ ActiveRecord::Schema.define(version: 20170123165720) do
   add_foreign_key "plots", "unit_types"
   add_foreign_key "plots_users", "plots"
   add_foreign_key "plots_users", "users"
+  add_foreign_key "resident_notifications", "notifications"
   add_foreign_key "rooms", "developers"
   add_foreign_key "rooms", "developments"
   add_foreign_key "rooms", "divisions"

@@ -17,6 +17,7 @@ class Development < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
   has_one :address, as: :addressable
+  has_many :residents, through: :plots
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 

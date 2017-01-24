@@ -67,6 +67,8 @@ en:
       destroy: "%{name} was deleted successfully"
 
   breadcrumbs:
+    admin_notifications: "Notifications"
+    admin_notifications_new: "Send Notification"
     admin_users: "Admin Users"
     admin_users_add: "Add Admin User"
     admin_user_edit: "Edit %{user_email}"
@@ -121,6 +123,7 @@ en:
       appliances: "Appliances"
       finishes: "Finishes"
       profile: "Profile"
+      notifications: "Notifications"
 
   destroy:
     cancel: "Cancel"
@@ -132,6 +135,26 @@ en:
     required: "Required"
 
   admin:
+    notifications:
+      collection:
+        add: "Send Notification"
+        headers:
+          subject: "Notification"
+          sent_at: "Date Sent"
+          recipient: "Recipient"
+      create:
+        success: "Sending notification to %{recipient_count} residents: \"%{notification_name}\""
+      form:
+        submit: "Send"
+        back: "Back"
+      index:
+        title: "Notifications"
+      new:
+        title: "Send Notification"
+      show:
+        sent_to: "Sent to"
+        back: "Back"
+
     users:
       create:
         success: "%{user_email} was created successfully"
@@ -611,6 +634,11 @@ en:
     edit:
       title: "Edit %{name}"
 
+  resident_notification_mailer:
+    notify:
+      new_notification: "You have a new notification form Hoozzi."
+      login: "Login to Hoozzi."
+
   services:
     homeowner_login_content_service:
       defaults:
@@ -763,6 +791,12 @@ en:
         missing_permissable_id: "be associated with a Developer or Division"
         only_one_parent_allowed: "cannot be associated with a Developer and a Division"
       models:
+        notification:
+          attributes:
+            send_to:
+              selection: "must be a Developer, Division, Developer or a Phase"
+            developer_id:
+              blank: "must be selected"
         user:
           attributes:
             developer_id:

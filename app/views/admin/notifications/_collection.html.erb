@@ -1,0 +1,40 @@
+<div class="section-actions">
+  <%= link_to [:new, :admin, :notification], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+  <% end %>
+</div>
+
+<div class="record-list">
+  <dl class="notifications">
+    <dt class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span><%= sortable(Notification, :subject, t(".headers.subject")) %></span>
+        <span><%= sortable(Notification, :sent_at, t(".headers.sent_at")) %></span>
+        <span><%= t(".headers.recipient") %></span>
+      </div>
+    </dt>
+    <% collection.each do |notification| %>
+      <dd class="record-list-item" data-notification="<%= notification.id %>">
+        <div class="record-list-item-actions">
+          <%= view_btn admin_notification_path(notification) %>
+        </div>
+
+        <div class="record-list-item-content">
+            <%= link_to notification, [:admin, notification], title: notification %>
+           <span class="notification-sent-at-timestamp">
+             <%= l notification.sent_at.to_date, format: :digits %>
+           </span>
+           <span class="notification-recipient-level">
+             <strong>Sent to:</strong> <%= notification.send_to %>
+           </span>
+        </div>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

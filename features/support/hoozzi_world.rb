@@ -4,20 +4,20 @@ module HoozziWorld
     I18n.t(*args)
   end
 
-  def select_from_selectmenu(field, with:, debug: false)
-    stdout "Select from: #{field} with: #{with}", show: debug
+  def select_from_selectmenu(field, with:)
+    stdout "Select from: #{field} with: #{with}"
 
     expand_selectmenu(field)
 
     list, list_text = selectmenu_list_items
-    stdout "Options: #{list_text}", show: debug
+    stdout "Options: #{list_text}"
 
-    item = click_on_item_from_list(list, text: with)
-    stdout "Item selected: #{item&.text}", show: debug
+    item = click_on_item_from_list(list, text: with.to_s)
+    stdout "Item selected: #{item&.text}"
 
     sleep 0.3
   rescue => e
-    screenshot if debug
+    screenshot if ENV.fetch("DEBUG", false)
     raise e
   end
 
@@ -41,7 +41,7 @@ module HoozziWorld
     item
   end
 
-  def stdout(text, show: true)
+  def stdout(text, show: ENV.fetch("DEBUG", false))
     STDOUT.puts "DEBUG:   #{text}" if show
   end
 

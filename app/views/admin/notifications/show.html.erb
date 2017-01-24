@@ -1,0 +1,33 @@
+<% breadcrumb :admin_notification, @notification %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-envelope"></i>
+    <%= @notification.subject %><br>
+  </h3>
+</div>
+
+<div class="row">
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag(t(".sent_to")) %>
+      <%= @notification.send_to %>
+    </fieldset>
+  </div>
+  <div class="row-item two-thirds">
+    <fieldset>
+      <%= label_tag(Notification.human_attribute_name(:subject)) %>
+      <%= @notification.subject %>
+      <br>
+      <br>
+      <%= label_tag(Notification.human_attribute_name(:message)) %>
+      <%= simple_format @notification.message %>
+    </fieldset>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), admin_notifications_path, class: "btn" %>
+  </div>
+</div>

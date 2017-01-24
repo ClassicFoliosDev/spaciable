@@ -8,6 +8,8 @@ class User < ApplicationRecord
   # as home owner, maybe move these out?
   has_many :plot_residents
   has_many :plots, through: :plot_residents
+  has_many :resident_notifications, foreign_key: :resident_id
+  has_many :homeowner_notifications, through: :resident_notifications, source: :notification
 
   scope :admin, -> { where.not(role: :homeowner) }
 

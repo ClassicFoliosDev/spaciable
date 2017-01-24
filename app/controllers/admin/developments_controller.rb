@@ -17,21 +17,29 @@ module Admin
 
     private
 
+    def development_params
+      params.permit(
+        :developmentId,
+        :divisionId,
+        :developerId
+      )
+    end
+
     def scoped_by_params(developments)
       if params[:divisionId].present?
-        developments.where(division_id: params[:divisionId])
+        developments.where(division_id: development_params[:divisionId])
 
       elsif params[:developerId].present?
-        developments.by_developer_and_developer_divisions(params[:developerId])
+        developments.by_developer_and_developer_divisions(development_params[:developerId])
       else
         []
       end
     end
 
     def selected?(development)
-      return false unless params[:developmentId].present?
+      return false unless development_params[:developmentId].present?
 
-      development.id.to_s == params[:developmentId]
+      development.id.to_s == development_params[:developmentId]
     end
   end
 end

@@ -65,6 +65,9 @@ gem "kaminari"
 # Soft Delete
 gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"
 
+# Background Jobs
+gem "sucker_punch", "~> 2.0"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "factory_girl_rails"
