@@ -17,22 +17,22 @@
   <% end %>
   <div class="row">
     <div class="row-item third">
-      <fieldset>
+      <fieldset class="skip-global-selectmenu">
         <%= f.label :send_to %>
 
-        <%= f.input :developer_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+        <%= f.input :developer_id do %>
           <%= f.select :developer_id, admin_developer_select_options(f.object, developer_id: current_user.developer_id), include_blank: false %>
         <% end %>
 
-        <%= f.input :division_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+        <%= f.input :division_id do %>
           <%= f.select :division_id, admin_division_select_options(f.object), include_blank: Division.model_name.human %>
         <% end %>
 
-        <%= f.input :development_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+        <%= f.input :development_id do %>
           <%= f.select :development_id, admin_development_select_options(f.object), include_blank: Development.model_name.human %>
         <% end %>
 
-        <%= f.input :phase_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
+        <%= f.input :phase_id do %>
           <%= f.select :phase_id, admin_phase_select_options(f.object), include_blank: Phase.model_name.human %>
         <% end %>
       </fieldset>

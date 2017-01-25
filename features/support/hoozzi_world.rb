@@ -15,7 +15,7 @@ module HoozziWorld
     item = click_on_item_from_list(list, text: with.to_s)
     stdout "Item selected: #{item&.text}"
 
-    sleep 0.3
+    sleep 0.4
   rescue => e
     screenshot if ENV.fetch("DEBUG", false)
     raise e

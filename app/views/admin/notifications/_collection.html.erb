@@ -26,7 +26,8 @@
              <%= l notification.sent_at.to_date, format: :digits %>
            </span>
            <span class="notification-recipient-level">
-             <strong>Sent to:</strong> <%= notification.send_to %>
+             <strong><%= Notification.human_attribute_name(:send_to) %>:</strong>
+             <%= notification.send_to %>
            </span>
         </div>
       </dd>

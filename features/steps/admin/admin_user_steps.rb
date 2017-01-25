@@ -1,26 +1,41 @@
 # frozen_string_literal: true
 Given(/^I am logged in as a CF Admin$/) do
-  login_as AdminUsersFixture.create_cf_admin
+  AdminUsersFixture.create_permission_resources
+  admin = CreateFixture.create_cf_admin
+
+  login_as admin
   visit "/"
 end
 
 Given(/^I am logged in as a Developer Admin$/) do
-  login_as AdminUsersFixture.create_developer_admin
+  AdminUsersFixture.create_permission_resources
+  admin = CreateFixture.create_developer_admin
+
+  login_as admin
   visit "/"
 end
 
 Given(/^I am logged in as a Division Admin$/) do
-  login_as AdminUsersFixture.create_division_admin
+  AdminUsersFixture.create_permission_resources
+  admin = CreateFixture.create_division_admin
+
+  login_as admin
   visit "/"
 end
 
 Given(/^I am logged in as a Development Admin$/) do
-  login_as AdminUsersFixture.create_development_admin
+  AdminUsersFixture.create_permission_resources
+  admin = CreateFixture.create_development_admin
+
+  login_as admin
   visit "/"
 end
 
 Given(/^I am logged in as a Development Admin for a Division$/) do
-  login_as AdminUsersFixture.create_division_development_admin
+  AdminUsersFixture.create_permission_resources
+  admin = CreateFixture.create_division_development_admin
+
+  login_as admin
   visit "/"
 end
 

@@ -5,14 +5,13 @@ $LOAD_PATH.unshift("features/support")
 
 ActionController::Base.allow_rescue = false
 
+require "module_importer.rb"
 require "feature_application_actions"
 require "webmock/cucumber"
 require "database_cleaner_setup"
 require "drivers_setup"
 require "debugging_world"
 require "hoozzi_world"
-
-Dir[Rails.root.join("features/support/fixtures/*.rb")].each { |f| require f }
 
 World(
   HoozziWorld,

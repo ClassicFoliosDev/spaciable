@@ -1,11 +1,18 @@
 # frozen_string_literal: true
-require_relative "create_user_fixtures"
+require_relative "create_fixture"
 
 module AdminUsersFixture
-  include CreateUserFixtures
-  CreateUserFixtures.singleton_methods.map(&method(:module_function))
+  extend ModuleImporter
+  import_module CreateFixture
 
   module_function
+
+  def create_permission_resources
+    create_developer
+    create_division
+    create_development
+    create_division_development
+  end
 
   def second_cf_admin_attrs
     { email_address: "second@cf.com", role: "CF Admin" }

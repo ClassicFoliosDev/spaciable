@@ -2,87 +2,139 @@
 module CreateFixture
   module_function
 
+  RESOURCES ||= {
+    appliance: "Bosch WAB28161GB Washing Machine",
+    developer: "Hamble View Developer",
+    development: "Riverside Development",
+    division: "Hamble Riverside",
+    division_development: "Hamble East Riverside (Division) Development",
+    division_phase: "Beta (Division) Phase",
+    finish: "Fluffy carpet",
+    phase: "Alpha Phase",
+    room: "Living Room",
+    unit_type: "8 Bedrooms"
+  }.freeze
+
+  # Generate methods for each resource, e.g. for 'phase: "Alpha Phase"':
+  # ```
+  # def phase_name
+  #  "Alpha Phase"
+  # end
+  #
+  # delegate :id, to: :phase, prefix: true
+  # module_function :phase_id
+  # ```
+  RESOURCES.each_pair do |resource, name|
+    define_method "#{resource}_name" do
+      name
+    end
+
+    delegate :id, to: resource, prefix: true
+    module_function :"#{resource}_id"
+  end
+
+  # FACTORIES
+
+  def create_cf_admin
+    FactoryGirl.create(:cf_admin)
+  end
+
+  def create_developer_admin
+    FactoryGirl.create(:developer_admin, permission_level: CreateFixture.developer)
+  end
+
+  def create_division_admin
+    FactoryGirl.create(:division_admin, permission_level: CreateFixture.division)
+  end
+
+  def create_development_admin
+    FactoryGirl.create(:development_admin, permission_level: CreateFixture.development)
+  end
+
+  def create_division_development_admin
+    FactoryGirl.create(:development_admin, permission_level: CreateFixture.division_development)
+  end
+
+  def create_developer_with_division
+    create_developer
+    create_division
+  end
+
+  def create_developer_with_development
+    create_developer
+    create_development
+  end
+
   def create_developer
     FactoryGirl.create(:developer, company_name: developer_name)
   end
 
-  def create_developer_with_division
-    developer = FactoryGirl.create(:developer, company_name: developer_name)
-    FactoryGirl.create(:division, developer: developer, division_name: division_name)
+  def create_division
+    FactoryGirl.create(:division, division_name: division_name, developer: developer)
   end
 
-  def create_developer_with_development
-    FactoryGirl.create(
-      :development,
-      developer: create_developer,
-      name: development_name
-    )
+  def create_development
+    FactoryGirl.create(:development, name: development_name, developer: developer)
+  end
+
+  def create_division_development
+    FactoryGirl.create(:division_development, name: division_development_name, division: division)
   end
 
   def create_unit_type
-    FactoryGirl.create(
-      :unit_type,
-      name: unit_type_name,
-      development: create_developer_with_development
-    )
+    FactoryGirl.create(:unit_type, name: unit_type_name, development: create_developer_with_development)
   end
 
   def create_room
-    FactoryGirl.create(
-      :room,
-      name: room_name,
-      unit_type: create_unit_type
-    )
+    FactoryGirl.create(:room, name: room_name, unit_type: create_unit_type)
   end
 
   def create_appliance
-    FactoryGirl.create(
-      :appliance,
-      name: appliance_name
-    )
+    FactoryGirl.create(:appliance, name: appliance_name)
   end
 
-  def developer_name
-    "Development Developer Ltd"
+  def create_phases
+    FactoryGirl.create(:phase, name: phase_name, development: development)
+    FactoryGirl.create(:phase, name: division_phase_name, development: division_development)
   end
 
-  def developer_id
-    Developer.find_by(company_name: developer_name).id
+  def create_plots
+    FactoryGirl.create(:plot, development: development)
+    FactoryGirl.create(:plot, development: division_development)
+    FactoryGirl.create(:phase_plot, phase: phase)
   end
 
-  def division_name
-    "Alpha Division"
+  def create_residents
+    Plot.all.each do |plot|
+      attrs = { first_name: "Resident of", last_name: "plot #{plot}" }
+      resident = FactoryGirl.create(:homeowner, attrs)
+      resident.plots << plot
+    end
   end
 
-  def division_id
-    Division.find_by(division_name: division_name).id
+  # INSTANCES
+
+  def developer
+    Developer.find_by(company_name: developer_name)
   end
 
-  def development_name
-    "Riverside Development"
+  def division
+    Division.find_by(division_name: division_name)
   end
 
-  def development_id
-    Development.find_by(name: development_name).id
+  def development
+    Development.find_by(name: development_name)
   end
 
-  def phase_name
-    "Phase Alpha"
+  def division_development
+    Development.find_by(name: division_development_name)
   end
 
-  def unit_type_name
-    "Alpha"
+  def phase
+    Phase.find_by(name: phase_name)
   end
 
-  def room_name
-    "Living Room"
-  end
-
-  def finish_name
-    "Fluffy carpet"
-  end
-
-  def appliance_name
-    "Bosch WAB28161GB Washing Machine"
+  def division_phase
+    Phase.find_by(name: division_phase_name)
   end
 end

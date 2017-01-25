@@ -33,6 +33,9 @@ Style/StringLiterals:
 Metrics/LineLength:
   Max: 99
   Enabled: true
+  Exclude:
+    - features/steps/**/*
+    - features/support/fixtures/**/*
 Documentation:
   Enabled: false
 Metrics/MethodLength:
