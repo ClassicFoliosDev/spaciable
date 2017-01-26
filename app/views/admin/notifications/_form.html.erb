@@ -21,19 +21,19 @@
         <%= f.label :send_to %>
 
         <%= f.input :developer_id do %>
-          <%= f.select :developer_id, admin_developer_select_options(f.object, developer_id: current_user.developer_id), include_blank: false %>
+          <%= f.select :developer_id, admin_developer_select_options(f.object, developer_id: current_user.developer_id), include_blank: false, selected: (f.object.developer_id || current_user.developer_id) %>
         <% end %>
 
         <%= f.input :division_id do %>
-          <%= f.select :division_id, admin_division_select_options(f.object), include_blank: Division.model_name.human %>
+          <%= f.select :division_id, admin_division_select_options(f.object), include_blank: Division.model_name.human, selected: (f.object.division_id || current_user.division_id) %>
         <% end %>
 
         <%= f.input :development_id do %>
-          <%= f.select :development_id, admin_development_select_options(f.object), include_blank: Development.model_name.human %>
+          <%= f.select :development_id, admin_development_select_options(f.object), include_blank: Development.model_name.human, selected: (f.object.development_id || current_user.development_id) %>
         <% end %>
 
         <%= f.input :phase_id do %>
-          <%= f.select :phase_id, admin_phase_select_options(f.object), include_blank: Phase.model_name.human %>
+          <%= f.select :phase_id, admin_phase_select_options(f.object), include_blank: Phase.model_name.human, selected: (f.object.phase_id || current_user.phase_id) %>
         <% end %>
       </fieldset>
     </div>

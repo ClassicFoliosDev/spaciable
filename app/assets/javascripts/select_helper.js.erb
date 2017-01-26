@@ -26,7 +26,7 @@ function enableSelect(selectElement) {
 function setFields(selectList, url, data) {
   $.getJSON({
     url: url,
-      data: data
+    data: data
   }).done(function (results) {
 
     var promptOption = document.createElement("option");
@@ -39,6 +39,7 @@ function setFields(selectList, url, data) {
       var option = document.createElement("option");
       option.value = value.id;
       option.name = value.name;
+      option.selected = value.selected;
       option.textContent = value.name;
 
       selectList.appendChild(option);

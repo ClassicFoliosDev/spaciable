@@ -8,6 +8,7 @@ module HoozziWorld
     stdout "Select from: #{field} with: #{with}"
 
     expand_selectmenu(field)
+    sleep 0.3
 
     list, list_text = selectmenu_list_items
     stdout "Options: #{list_text}"
@@ -15,7 +16,7 @@ module HoozziWorld
     item = click_on_item_from_list(list, text: with.to_s)
     stdout "Item selected: #{item&.text}"
 
-    sleep 0.4
+    sleep 0.3
   rescue => e
     screenshot if ENV.fetch("DEBUG", false)
     raise e

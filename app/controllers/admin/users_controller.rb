@@ -28,7 +28,7 @@ module Admin
     end
 
     def edit
-      @user.populate_permission_ids
+      @user.assign_permissionable_ids
     end
 
     def update

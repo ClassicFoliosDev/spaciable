@@ -87,7 +87,7 @@ RSpec.describe User do
 
         user.validate
 
-        error = I18n.t("activerecord.errors.models.user.attributes.developer_id.blank")
+        error = I18n.t("activerecord.errors.messages.select")
         expect(user.errors[:developer_id]).to include(error)
       end
     end
@@ -105,7 +105,7 @@ RSpec.describe User do
 
         user.validate
 
-        error = I18n.t("activerecord.errors.models.user.attributes.division_id.blank")
+        error = I18n.t("activerecord.errors.messages.select")
         expect(user.errors[:division_id]).to include(error)
       end
     end
@@ -123,17 +123,17 @@ RSpec.describe User do
 
         user.validate
 
-        error = I18n.t("activerecord.errors.models.user.attributes.development_id.blank")
+        error = I18n.t("activerecord.errors.messages.select")
         expect(user.errors[:development_id]).to include(error)
       end
     end
   end
 
-  describe "#populate_permission_ids" do
+  describe "#assign_permissionable_ids" do
     context "for a CF Admin" do
       it "should not populate the developer_id, division_id or development_id" do
         user = create(:cf_admin)
-        user.populate_permission_ids
+        user.assign_permissionable_ids
 
         expect(user.developer_id).to be_nil
         expect(user.division_id).to be_nil
@@ -144,7 +144,7 @@ RSpec.describe User do
     context "for a Homeowner" do
       it "should not populate the developer_id, division_id or development_id" do
         user = create(:homeowner)
-        user.populate_permission_ids
+        user.assign_permissionable_ids
 
         expect(user.developer_id).to be_nil
         expect(user.division_id).to be_nil
@@ -157,7 +157,7 @@ RSpec.describe User do
         developer = create(:developer)
         user = create(:developer_admin, permission_level: developer)
 
-        user.populate_permission_ids
+        user.assign_permissionable_ids
         expect(user.developer_id).to eq(developer.id)
         expect(user.division_id).to be_nil
         expect(user.development_id).to be_nil
@@ -169,7 +169,7 @@ RSpec.describe User do
         division = create(:division)
         user = create(:division_admin, permission_level: division)
 
-        user.populate_permission_ids
+        user.assign_permissionable_ids
 
         expect(user.developer_id).to eq(division.developer_id)
         expect(user.division_id).to eq(division.id)
@@ -182,7 +182,7 @@ RSpec.describe User do
         development = create(:development)
         user = create(:development_admin, permission_level: development)
 
-        user.populate_permission_ids
+        user.assign_permissionable_ids
 
         expect(user.developer_id).to eq(development.developer_id)
         expect(user.division_id).to be_nil
@@ -193,7 +193,7 @@ RSpec.describe User do
         development = create(:division_development)
         user = create(:development_admin, permission_level: development)
 
-        user.populate_permission_ids
+        user.assign_permissionable_ids
 
         expect(user.developer_id).to eq(development.division.developer_id)
         expect(user.division_id).to eq(development.division_id)

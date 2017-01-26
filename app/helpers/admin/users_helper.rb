@@ -2,7 +2,7 @@
 module Admin
   module UsersHelper
     def admin_users_developer_select_options(user)
-      user.populate_permission_ids
+      user.assign_permissionable_ids
       return [] unless user.developer_id
 
       developer = Developer
@@ -13,7 +13,7 @@ module Admin
     end
 
     def admin_users_division_select_options(user)
-      user.populate_permission_ids
+      user.assign_permissionable_ids
       return [] unless user.division_id
 
       division = Division
@@ -24,7 +24,7 @@ module Admin
     end
 
     def admin_users_development_select_options(user)
-      user.populate_permission_ids
+      user.assign_permissionable_ids
       return [] unless user.development_id
 
       development = Development

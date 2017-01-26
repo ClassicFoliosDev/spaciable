@@ -11,7 +11,7 @@ module Admin
     end
 
     def new
-      current_user.populate_permission_ids
+      current_user.assign_permissionable_ids
     end
 
     def show

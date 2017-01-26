@@ -793,18 +793,9 @@ en:
         missing_permissable_id: "be associated with a Developer or Division"
         only_one_parent_allowed: "cannot be associated with a Developer and a Division"
         taken: " has already been added"
+        select: "must be selected"
       models:
         notification:
           attributes:
             send_to:
-              selection: "must be a Developer, Division, Developer or a Phase"
-            developer_id:
-              blank: "must be selected"
-        user:
-          attributes:
-            developer_id:
-              blank: "must be selected"
-            division_id:
-              blank: "must be selected"
-            development_id:
               blank: "must be selected"
