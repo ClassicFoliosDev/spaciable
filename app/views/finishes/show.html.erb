@@ -10,11 +10,17 @@
 <div class="row">
   <div class="row-item third">
     <fieldset>
+      <br>
+      <%= image_tag(@finish.picture.thumbnail.url) if @finish.picture? %>
+      <br>
       <%= label_tag(:name) %>
       <%= @finish.name %>
-      <br>
-      <%= label_tag(:description) %>
-      <%= @finish.description %>
+    </fieldset>
+  </div>
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag(:name) %>
+      <%= @finish.name %>
       <br>
       <%= label_tag(:finish_category) %>
       <%= @finish.finish_category %>
@@ -28,9 +34,8 @@
   </div>
   <div class="row-item third">
     <fieldset>
-      <br>
-      <%= image_tag(@finish.picture.thumbnail.url) if @finish.picture? %>
-      <br>
+      <%= label_tag(:description) %>
+      <%= @finish.description %>
     </fieldset>
   </div>
 </div>

@@ -86,6 +86,12 @@ When(/^I update the room and finish$/) do
   select RoomFixture.finish_attrs[:manufacturer_id],
          from: "room_finishes_attributes_0_manufacturer_id"
 
+  within ".room_finishes_picture" do
+    attach_file("room_finishes_attributes_0_picture",
+                File.absolute_path("./features/support/files/roca_basin.jpg"),
+                visible: false)
+  end
+
   click_on t("unit_types.form.submit")
 end
 

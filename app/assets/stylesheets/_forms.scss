@@ -130,7 +130,7 @@ fieldset {
     @include clearfix();
     clear: both;
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     margin-left: -$spacing-large;
     border-top: $border-size solid $ui-grey;
   }
@@ -152,6 +152,27 @@ fieldset {
   .btn-form-submit {
     float: right;
   }
+}
+
+.finish_picture, .appliance_primary_image, .appliance_secondary_image {
+  border-color: $ui-light-grey;
+  border-width: 1px;
+  border-style: solid;
+
+  .remove-btn {
+    float: right;
+    margin-right: $spacing-small;
+  }
+
+  label {
+    margin-left: $spacing-small;
+  }
+}
+
+.image-preview {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 // VALIDATION

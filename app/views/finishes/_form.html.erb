@@ -19,6 +19,13 @@
     <div class="row finishes">
       <div class="row-item third">
         <fieldset>
+          <br>
+          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          <%= f.input :name %>
+        </fieldset>
+      </div>
+      <div class="row-item third">
+        <fieldset>
           <div class="finish-category ui-front select-container">
             <%= f.association :finish_category, required: true %>
           </div>
@@ -28,15 +35,11 @@
           <div class="manufacturer ui-front select-container">
             <%= f.association :manufacturer %>
           </div>
-          <%= f.input :name %>
-          <%= f.input :description %>
         </fieldset>
       </div>
       <div class="row-item third">
         <fieldset>
-          <br>
-          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-          <br>
+          <%= f.input :description %>
         </fieldset>
       </div>
     </div>

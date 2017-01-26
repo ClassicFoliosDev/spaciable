@@ -11,6 +11,8 @@ Feature: Appliances
     And I update the appliance
     When I update the dropdown
     Then I should see the updated appliance with selects
+    When I remove an image
+    Then I should see the updated appliance without the image
 
   @javascript
   Scenario: Delete

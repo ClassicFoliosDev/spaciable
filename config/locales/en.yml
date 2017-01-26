@@ -95,6 +95,9 @@ en:
     document_add: "Add document"
     document_edit: "Edit %{document_name}"
 
+  image_preview:
+    replace: "Replace"
+
   pagination:
     per_page_10: "10"
     per_page_25: "25"
@@ -519,8 +522,6 @@ en:
      back: "Back"
      name: "Name"
      description: "Description"
-     primary_image: "Appliance picture"
-     secondary_image: "Additional picture"
      category: "Category"
      manufacturer: "Manufacturer"
      model_num: "Model id"
@@ -721,11 +722,12 @@ en:
         type: "Type"
         manuf: "Manufacturer"
         descr: "Description"
-        image: "Picture"
+        picture: "Finish picture"
         provider: "Provider"
         updated_at: "Last edited"
       appliance:
         primary_image: "Appliance picture"
+        secondary_image: "Additional picture"
         name: "Name"
         model_num: "Model"
         serial: "Serial number"

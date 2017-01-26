@@ -7,4 +7,5 @@ class ApplianceRoom < ApplicationRecord
 
   validates :appliance, uniqueness: { scope: :room }
   validates :appliance, presence: true
+  validates :room, presence: true
 end

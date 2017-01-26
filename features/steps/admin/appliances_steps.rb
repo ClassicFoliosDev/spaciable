@@ -53,25 +53,19 @@ When(/^I update the appliance$/) do
     e_rating_list.find { |node| node.text == ApplianceFixture.e_rating }.click
   end
 
+  within ".appliance_primary_image" do
+    attach_file("appliance_primary_image",
+                File.absolute_path("./features/support/files/bosch_wab.jpg"),
+                visible: false)
+  end
+
+  within ".appliance_secondary_image" do
+    attach_file("appliance_secondary_image",
+                File.absolute_path("./features/support/files/fridgefreezers160x160-aeg.png"),
+                visible: false)
+  end
+
   click_on t("appliances.form.submit")
-end
-
-Then(/^I should see the updated appliance$/) do
-  # On the index page
-  within ".record-list" do
-    expect(page).to have_content(ApplianceFixture.updated_name)
-  end
-
-  # and on the show page
-  click_on ApplianceFixture.updated_name
-
-  ApplianceFixture.update_attrs.each do |_attr, value|
-    expect(page).to have_content(value)
-  end
-
-  expect(page).to have_content(ApplianceFixture.description_display)
-  expect(page).to have_content(ApplianceFixture.warranty_len)
-  expect(page).to have_content(ApplianceFixture.e_rating)
 end
 
 When(/^I update the dropdown$/) do
@@ -120,6 +114,29 @@ Then(/^I should see the updated appliance with selects$/) do
       expect(page).to have_content(value)
     end
   end
+end
+
+When(/^I remove an image$/) do
+  within ".appliance_secondary_image" do
+    remove_btn = find(".remove-btn", visible: false)
+    remove_btn.click
+  end
+
+  click_on t("unit_types.form.submit")
+end
+
+Then(/^I should see the updated appliance without the image$/) do
+  success_flash = t(
+    "appliances.update.success",
+    name: ApplianceFixture.updated_name
+  )
+
+  expect(page).to have_content(success_flash)
+
+  click_on ApplianceFixture.updated_name
+  # TODO: after show pages updated in HOOZ-171
+  # expect(page).to have_content("fridgefreezers160x160-aeg.png")
+  expect(page).not_to have_content("bosch_wab.jpg")
 end
 
 And(/^I have created an appliance$/) do

@@ -56,6 +56,7 @@ class FinishesController < ApplicationController
       :finish_type_id,
       :manufacturer_id,
       :picture,
+      :remove_picture,
       documents_attributes: [:id, :title, :file, :_destroy]
     )
   end
