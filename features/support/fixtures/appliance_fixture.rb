@@ -14,20 +14,12 @@ module ApplianceFixture
     "WAB28161G"
   end
 
-  def serial_num
-    "067896436789"
-  end
-
   def description
     "Some text\nSome more text"
   end
 
   def description_display
     "Some text\r\nSome more text"
-  end
-
-  def source
-    "Provided by Currys"
   end
 
   def warranty_len
@@ -56,9 +48,7 @@ module ApplianceFixture
   def update_attrs
     {
       name: updated_name,
-      model_num: model_num,
-      serial: serial_num,
-      source: source
+      model_num: model_num
     }
   end
 end

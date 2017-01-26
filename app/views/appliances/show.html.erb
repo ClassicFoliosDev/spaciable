@@ -21,12 +21,8 @@
       <br>
       <%= label_tag(t(".manufacturer")) %>
       <%= @appliance&.manufacturer %>
-      <%= label_tag(t(".source")) %>
-      <%= @appliance.source %>
       <%= label_tag(t(".model_num")) %>
       <%= @appliance.model_num %>
-      <%= label_tag(t(".serial")) %>
-      <%= @appliance.serial %>
       <%= label_tag(t(".warranty_length")) %>
       <%= t("activerecord.attributes.appliance.warranty_length.#{@appliance.warranty_length}") %>
       <%= label_tag(t(".e_rating")) %>
