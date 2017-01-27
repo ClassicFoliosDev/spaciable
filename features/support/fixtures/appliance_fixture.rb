@@ -7,11 +7,7 @@ module ApplianceFixture
   end
 
   def updated_name
-    "Zanussi washing machine"
-  end
-
-  def model_num
-    "WAB28161G"
+    "AEG washing machine"
   end
 
   def description
@@ -34,21 +30,25 @@ module ApplianceFixture
     "Freezer"
   end
 
+  def updated_category
+    "Washing Machine"
+  end
+
   def manufacturer
     "Samsung"
   end
 
-  def dropdown_attrs
-    {
-      category: category,
-      manufaturer: manufacturer
-    }
+  def updated_manufacturer
+    "AEG"
   end
 
-  def update_attrs
+  def updated_attrs
     {
-      name: updated_name,
-      model_num: model_num
+      category: updated_category,
+      manufaturer: updated_manufacturer,
+      warranty_len: warranty_len,
+      e_rating: e_rating,
+      name: updated_name
     }
   end
 end

@@ -11,7 +11,7 @@ class Finish < ApplicationRecord
   belongs_to :development, optional: true
 
   belongs_to :finish_category, optional: false
-  belongs_to :finish_type
+  belongs_to :finish_type, optional: false
   belongs_to :manufacturer
 
   validates :name, presence: true

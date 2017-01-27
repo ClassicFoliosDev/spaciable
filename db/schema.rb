@@ -129,6 +129,7 @@ ActiveRecord::Schema.define(version: 20170126132518) do
     t.integer  "division_id"
     t.integer  "development_id"
     t.string   "original_filename"
+    t.integer  "category"
     t.index ["developer_id"], name: "index_documents_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_documents_on_development_id", using: :btree
     t.index ["division_id"], name: "index_documents_on_division_id", using: :btree

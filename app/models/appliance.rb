@@ -8,8 +8,8 @@ class Appliance < ApplicationRecord
   attr_accessor :primary_image_cache
   attr_accessor :secondary_image_cache
 
-  belongs_to :appliance_category
-  belongs_to :manufacturer
+  belongs_to :appliance_category, required: true
+  belongs_to :manufacturer, required: true
 
   has_many :appliance_rooms
   has_many :rooms, through: :appliance_rooms

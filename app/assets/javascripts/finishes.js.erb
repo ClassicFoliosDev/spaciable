@@ -4,30 +4,66 @@ $(document).on('cocoon:after-insert', function(event, item) {
   $('select').selectmenu();
 });
 
-$(document).on('click', '.finishes .ui-menu-item', function (event) {
+$(document).on('click', '.finish .ui-menu-item', function (event) {
 
   var optionName = this.innerText;
   var $selectContainer = $(this).closest(".select-container");
-  var listName = $selectContainer[0].classList;
-  var parentFieldset = $selectContainer.closest("fieldset");
+  var listClasses = $selectContainer[0].classList;
+  var $parentFieldset = $selectContainer.closest(".finish");
 
-  if (listName.contains("finish-category")) {
-    var finishTypeDiv = parentFieldset.find(".finish-type");
+  var add_finish = $(document).find(".add_finish");
+
+  if (listClasses.contains("finish_category")) {
+    var finishTypeDiv = $parentFieldset.find(".finish_type");
     var finishTypeSelect = clearFields(finishTypeDiv);
 
-    var manufacturerDiv = parentFieldset.find(".manufacturer");
+    var manufacturerDiv = $parentFieldset.find(".manufacturer");
     clearFields(manufacturerDiv);
 
     var url = "/finish_types";
     setFields(finishTypeSelect, url, { option_name: optionName });
 
-  } else if (listName.contains("finish-type")) {
-    var manufacturerDiv = parentFieldset.find(".manufacturer");
+  } else if (listClasses.contains("finish_type")) {
+    var manufacturerDiv = $parentFieldset.find(".manufacturer");
     var manufacturerSelect = clearFields(manufacturerDiv);
 
     clearFields(manufacturerDiv);
 
-    var url = "/manufacturers";
-    setFields(manufacturerSelect, url, { option_name: optionName });
+    var url = "/finish_manufacturers";
+    var resultCount = setFields(manufacturerSelect, url, { option_name: optionName });
+
+    // Only run through this code if adding an appliance to a room
+    // Not when creating a new appliance
+  } else if (listClasses.contains("manufacturer") && (add_finish.length > 0)) {
+      var finishesDiv = $parentFieldset.find(".finishes");
+      var finishesSelect = clearFields(finishesDiv);
+
+      var $typeDiv = $(".finish_type");
+      var $typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
+
+      var url = "/finish_list";
+      setFields(finishesSelect, url, { type_name: $typeValue , manufacturer_name: optionName});
   }
 });
+
+function no_manufacturers() {
+  //console.log("Found no manufacturers, loading finishes directly from category and type");
+  var $parentFieldset = $(document).find(".finish");
+
+  var finishesDiv = $parentFieldset.find(".finishes");
+  var finishesSelect = clearFields(finishesDiv);
+
+  var $typeDiv = $(".finish_type");
+  var $typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
+
+  var url = "/finish_list";
+  setFields(finishesSelect, url, { type_name: $typeValue , manufacturer_name: ""});
+}
+
+function no_finish_matches() {
+  var $parentFieldset = $(document).find(".finishes.select-container");
+
+  var noMatches =  document.createElement("span");
+  noMatches.innerHTML = "<%= I18n.t(".finishes.no_match") %>";
+  $parentFieldset.append(noMatches);
+}

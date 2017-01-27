@@ -1,4 +1,4 @@
-<%= simple_form_for([room, finish]) do |f| %>
+<%= simple_form_for(finish) do |f| %>
     <% if finish.errors.any? %>
         <div class="row">
           <div class="row-item">
@@ -27,7 +27,7 @@
       <div class="row-item third">
         <fieldset>
           <div class="finish-category ui-front select-container">
-            <%= f.association :finish_category, required: true %>
+            <%= f.association :finish_category %>
           </div>
           <div class="finish-type ui-front select-container">
             <%= f.association :finish_type %>

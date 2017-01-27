@@ -36,33 +36,8 @@ Then(/^I should see the room failure message$/) do
   end
 end
 
-When(/^I create a room with no finish category/) do
+When(/^I create a room$/) do
   fill_in "room_name", with: CreateFixture.room_name
-  fill_in "room_finishes_attributes_0_name", with: CreateFixture.finish_name
-  click_on t("rooms.form.submit")
-end
-
-Then(/^I should see the category failure message$/) do
-  failure_flash_finishes_category = Finish.model_name.human.pluralize + " " +
-                                    Finish.human_attribute_name(:finish_category).downcase +
-                                    t("activerecord.errors.messages.required")
-  failure_flash_finish_category = Finish.human_attribute_name(:finish_category) +
-                                  t("activerecord.errors.messages.required")
-
-  expect(page).to have_content(failure_flash_finishes_category)
-  expect(page).to have_content(failure_flash_finish_category)
-
-  expect(page).not_to have_content CreateFixture.room_name
-end
-
-When(/^I create a room for the development$/) do
-  fill_in "room_name", with: CreateFixture.room_name
-  within ".nested-fields" do
-    fill_in t("finishes.form.name"), with: CreateFixture.finish_name
-  end
-
-  select RoomFixture.finish_attrs[:finish_category_id],
-         from: "room_finishes_attributes_0_finish_category_id"
 
   click_on t("rooms.form.submit")
 end
@@ -75,22 +50,10 @@ Then(/^I should see the created room$/) do
   click_on t("unit_types.edit.back")
 end
 
-When(/^I update the room and finish$/) do
+When(/^I update the room$/) do
   find("[data-action='edit']").click
 
   fill_in "room[name]", with: RoomFixture.updated_room_name
-
-  select RoomFixture.finish_attrs[:finish_type_id],
-         from: "room_finishes_attributes_0_finish_type_id"
-
-  select RoomFixture.finish_attrs[:manufacturer_id],
-         from: "room_finishes_attributes_0_manufacturer_id"
-
-  within ".room_finishes_picture" do
-    attach_file("room_finishes_attributes_0_picture",
-                File.absolute_path("./features/support/files/roca_basin.jpg"),
-                visible: false)
-  end
 
   click_on t("unit_types.form.submit")
 end
@@ -105,15 +68,9 @@ Then(/^I should see the updated room$/) do
   within ".section-title" do
     expect(page).to have_content(RoomFixture.updated_room_name)
   end
-
-  click_on CreateFixture.finish_name
-
-  expect(page).to have_content RoomFixture.finish_attrs[:finish_category_id]
-  expect(page).to have_content RoomFixture.finish_attrs[:finish_type_id]
-  expect(page).to have_content RoomFixture.finish_attrs[:manufacturer_id]
 end
 
-When(/^I add a second finish$/) do
+When(/^I add a finish$/) do
   visit "/"
 
   within ".navbar" do
@@ -128,94 +85,63 @@ When(/^I add a second finish$/) do
     click_on t("developments.collection.unit_types")
   end
 
-  click_on Room.model_name.human
+  click_on t("unit_types.collection.rooms")
 
   click_on CreateFixture.room_name
 
-  find("[data-action='edit']").click
-
-  click_on t("rooms.form.add_finish")
-
-  finish_names = page.all(".room_finishes_name")
-  first_finish = finish_names[0]
-  second_finish = finish_names[1]
-
-  within first_finish do
-    fill_in t("finishes.form.name"), with: CreateFixture.finish_name
+  within ".tabs" do
+    click_on t("rooms.collection.finishes")
   end
 
-  within second_finish do
-    fill_in t("finishes.form.name"), with: RoomFixture.second_finish_name
-  end
+  click_on t("finishes.collection.add_finish")
 
-  categories = page.all(".finish-category")
-  category = categories[0]
+  select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
+  select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
 
-  within category do
-    finish_arrow = page.find ".ui-icon"
-    finish_arrow.click
-
-    category_ul = page.find ".ui-menu"
-
-    category_list = category_ul.all("li")
-    category_list[1].click
-  end
-
-  category = categories[1]
-  within category do
-    finish_arrow = page.find ".ui-icon"
-    finish_arrow.click
-
-    category_ul = page.find ".ui-menu"
-
-    category_list = category_ul.all("li")
-    category_list.find { |node| node.text == "Sanitaryware" }.click
-    sleep 0.3
-  end
-
-  finish_types = page.all(".finish-type")
-  finish_type = finish_types[1]
-
-  within finish_type do
-    finish_arrow = page.find ".ui-icon"
-    finish_arrow.click
-
-    type_ul = page.find ".ui-menu"
-
-    type_list = type_ul.all("li")
-    type_list.find { |node| node.text == "Shower Unit" }.click
-    sleep 0.3
-  end
-
-  manufacturers = page.all(".manufacturer")
-  manufacturer = manufacturers[1]
-
-  within manufacturer do
-    finish_arrow = page.find ".ui-icon"
-    finish_arrow.click
-    manuf_ul = page.find ".ui-menu"
-
-    manuf_list = manuf_ul.all("li")
-    manuf_list.find { |node| node.text == "Aqualisa" }.click
-  end
+  select_from_selectmenu :finishes, with: CreateFixture.finish_name
 
   click_on t("rooms.form.submit")
 end
 
-Then(/^I should see the room with two finishes$/) do
+Then(/^I should see the room with a finish$/) do
   success_flash = t(
     "controller.success.update",
     name: CreateFixture.room_name
   )
   expect(page).to have_content(success_flash)
 
-  expect(page).to have_content CreateFixture.finish_name
-  expect(page).to have_content RoomFixture.second_finish_name
+  within ".record-list" do
+    expect(page).to have_content CreateFixture.finish_name
+  end
+end
 
-  click_on RoomFixture.second_finish_name
+Then(/^I should see a duplicate finish error$/) do
+  duplicate_flash = t(
+    "activerecord.errors.messages.taken",
+    name: CreateFixture.finish_name
+  )
+  expect(page).to have_content(duplicate_flash)
+end
 
-  RoomFixture.second_finish_attrs.each do |_attr, value|
-    expect(page).to have_content(value)
+When(/^I remove a finish$/) do
+  click_on t("rooms.form.back")
+
+  within ".finishes" do
+    find(".remove").click
+  end
+end
+
+Then(/^I should see the room with no finish$/) do
+  success_flash = t(
+    "rooms.remove_finish.success",
+    finish_name: CreateFixture.finish_name,
+    room_name: CreateFixture.room_name
+  )
+
+  expect(page).to have_content(success_flash)
+
+  within ".record-list" do
+    expect(page).not_to have_content CreateFixture.finish_name
   end
 end
 
@@ -248,35 +174,9 @@ When(/^I add an appliance$/) do
 
   click_on t("appliances.collection.add_appliance_room")
 
-  within ".appliance-category" do
-    category_arrow = page.find ".ui-icon"
-    category_arrow.click
-
-    category_ul = page.find ".ui-menu"
-
-    category_list = category_ul.all("li")
-    category_list.find { |node| node.text == ApplianceFixture.category }.click
-  end
-
-  within ".appliance-manufacturer" do
-    manufacturer_arrow = page.find ".ui-icon"
-    manufacturer_arrow.click
-
-    manufacturer_ul = page.find ".ui-menu"
-
-    manufacturer_list = manufacturer_ul.all("li")
-    manufacturer_list.find { |node| node.text == ApplianceFixture.manufacturer }.click
-  end
-
-  within ".appliance" do
-    appliance_arrow = page.find ".ui-icon"
-    appliance_arrow.click
-
-    appliance_ul = page.find ".ui-menu"
-
-    appliance_list = appliance_ul.all("li")
-    appliance_list.find { |node| node.text == ApplianceFixture.updated_name }.click
-  end
+  select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
+  select_from_selectmenu :manufacturer, with: CreateFixture.appliance_manufacturer_name
+  select_from_selectmenu :appliances, with: CreateFixture.appliance_name
 
   click_on t("rooms.form.submit")
 end
@@ -289,7 +189,7 @@ Then(/^I should see the room with an appliance$/) do
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
-    expect(page).to have_content ApplianceFixture.updated_name
+    expect(page).to have_content CreateFixture.appliance_name
   end
 end
 
@@ -304,8 +204,6 @@ end
 When(/^I remove an appliance$/) do
   click_on t("rooms.form.back")
 
-  sleep 0.2
-
   within ".appliances" do
     find(".remove").click
   end
@@ -314,14 +212,14 @@ end
 Then(/^I should see the room with no appliance$/) do
   success_flash = t(
     "rooms.remove_appliance.success",
-    appliance_name: ApplianceFixture.updated_name,
+    appliance_name: CreateFixture.appliance_name,
     room_name: CreateFixture.room_name
   )
 
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
-    expect(page).not_to have_content ApplianceFixture.updated_name
+    expect(page).not_to have_content CreateFixture.appliance_name
   end
 end
 

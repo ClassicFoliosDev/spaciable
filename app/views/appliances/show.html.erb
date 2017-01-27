@@ -7,7 +7,7 @@
   </h3>
 </div>
 
-<div class="row">
+<div class="row appliance">
   <div class="row-item third">
     <fieldset>
       <%= label_tag(t(".name")) %>
@@ -29,7 +29,7 @@
       <%= t("activerecord.attributes.appliance.e_rating.#{@appliance.e_rating}") %>
     </fieldset>
   </div>
-  <div class="row-item third">
+  <div class="row-item third appliance_primary_image">
     <fieldset>
       <%= label_tag(:appliance_primary_image) %>
       <%= image_tag(@appliance.primary_image.thumbnail.url) if @appliance.primary_image? %>
@@ -37,7 +37,7 @@
       <%= @appliance.manual.file.filename if @appliance.manual? %>
     </fieldset>
   </div>
-  <div class="row-item third">
+  <div class="row-item third appliance_secondary_image">
     <fieldset>
       <%= label_tag(:appliance_secondary_image) %>
       <%= image_tag(@appliance.secondary_image.thumbnail.url) if @appliance.secondary_image? %>

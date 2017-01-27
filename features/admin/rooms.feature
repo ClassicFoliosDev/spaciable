@@ -9,11 +9,9 @@ Feature: Rooms
     And I have a developer with a development and a unit type
     When I create a room with no room name
     Then I should see the room failure message
-    When I create a room with no finish category
-    Then I should see the category failure message
-    When I create a room for the development
+    When I create a room
     Then I should see the created room
-    When I update the room and finish
+    When I update the room
     Then I should see the updated room
 
   @javascript
@@ -21,18 +19,20 @@ Feature: Rooms
   Given I am logged in as an admin
     And I have seeded the database
     And I have created a room
-    When I add a second finish
-    Then I should see the room with two finishes
+    And I have created a finish
+    When I add a finish
+    Then I should see the room with a finish
+    When I add a finish
+    Then I should see a duplicate finish error
+    When I remove a finish
+    Then I should see the room with no finish
 
   @javascript
   Scenario: Appliances
     Given I am logged in as an admin
     And I have seeded the database
     And I have created a room
-    And I create an appliance
-    Then I should see the created appliance
-    And I update the appliance
-    And I update the dropdown
+    And I have created an appliance
     When I add an appliance
     Then I should see the room with an appliance
     When I add an appliance

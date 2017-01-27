@@ -491,8 +491,8 @@ en:
    index:
      title: "Appliances"
    collection:
-     create: "Add appliance"
-     add_appliance_room: "Add existing appliance to room"
+     create: "Create appliance"
+     add_appliance_room: "Add existing appliance"
      appliance_category: "Category"
      remove: "Remove"
    new:
@@ -532,6 +532,7 @@ en:
      manual: "Appliance manual"
      manual_name: "Appliance manual file name"
      remove_manual: "Remove appliance manual"
+   no_match: "No matching appliances found"
 
   finishes:
    destroy:
@@ -543,10 +544,11 @@ en:
    index:
      title: "Finishes"
    collection:
-     add_finish: "Add finish"
+     add_finish: "Add existing finish"
      finish_category: "Category"
      finish_type: "Type"
      manufacturer: "Manufacturer"
+     create: "Create finish"
    new:
      title: "New finish"
    form:
@@ -558,6 +560,7 @@ en:
      back: "Back"
    show:
      back: "Back"
+   no_match: "No matching finishes found"
 
   profiles:
     title: "Profile"
@@ -572,10 +575,6 @@ en:
       appliances: "Appliances"
     edit:
       title: "Edit %{room_name}"
-    finish_fields:
-      picture: "Picture"
-      remove_finish: "Remove finish"
-      choose: "Choose..."
     form:
       back: "Back"
       submit: "Submit"
@@ -591,10 +590,16 @@ en:
         title: "Add appliance to %{room_name}"
         submit: "Submit"
         back: "Back"
-      create:
-        duplicate: "This appliance has already been added to %{room_name}"
+    finish_rooms:
+      new:
+        title: "Add finish to %{room_name}"
+        submit: "Submit"
+        back: "Back"
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}"
+    remove_finish:
+      success: "Successfully removed %{finish_name} from %{room_name}"
+    choose: "Choose..."
 
   users:
     sign_out: "Sign out"
@@ -730,13 +735,11 @@ en:
         secondary_image: "Additional picture"
         name: "Name"
         model_num: "Model"
-        serial: "Serial number"
         category: "Category"
         manufacturer: "Manufacturer"
         warranty_length: "Warranty period"
         warranty_exp_date: "Warranty expiry date"
         e_rating: "Energy rating"
-        source: "Supplier"
         warranty_num: "Warranty number"
         manual: "Manual"
         images: "Additional images"

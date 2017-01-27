@@ -56,24 +56,6 @@ class RoomsController < ApplicationController
     end
   end
 
-  def finish_types
-    collection = FinishType
-                 .joins(:finish_categories)
-                 .where(finish_categories: { name: params[:option_name] })
-                 .distinct
-
-    render json: collection
-  end
-
-  def manufacturers
-    collection = Manufacturer
-                 .joins(:finish_types)
-                 .where(finish_types: { name: params[:option_name] })
-                 .distinct
-
-    render json: collection
-  end
-
   def destroy
     @room.destroy
     notice = t("controller.success.destroy", name: @room.name)
@@ -95,6 +77,22 @@ class RoomsController < ApplicationController
     end
 
     redirect_to room_url(@room, active_tab: "appliances"), notice: notice
+  end
+
+  def remove_finish
+    finish_id = params[:finish]
+    room_id = params[:room]
+
+    @finish = Finish.find(finish_id)
+    @room = Room.find(room_id)
+
+    # This will delete all joins between @room and @appliance
+    # if there is more than one
+    if @room.finishes.delete(@finish)
+      notice = t(".success", room_name: @room.name, finish_name: @finish.name)
+    end
+
+    redirect_to room_url(@room, active_tab: "finishes"), notice: notice
   end
 
   private

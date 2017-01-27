@@ -258,37 +258,37 @@ crumb :finishes do
 end
 
 crumb :finish do | finish |
-  link finish.name, room_finish_path(finish.room, finish)
-  parent :room, finish.room
+  link finish.name, finish_path(finish)
+  parent :finishes
 end
 
 crumb :finish_edit do | finish |
   link t("breadcrumbs.finish_edit", name: finish.name)
-  parent :room, finish.room
+  parent :finishes
 end
 
-crumb :finish_new do | room |
+crumb :finish_new do
   link t("breadcrumbs.finish_add")
-  parent :room, room
+  parent :finishes
 end
 
 # APPLIANCES
 
-crumb :appliance_rooms do
+crumb :appliances do
   link Appliance.model_name.human.pluralize, appliances_path
 end
 
 crumb :appliance do |appliance|
   link appliance, edit_appliance_path(appliance)
-  parent :appliance_rooms
+  parent :appliances
 end
 
 crumb :appliance_edit do |appliance|
   link t("breadcrumbs.appliance_edit", name: appliance.name), appliances_path(appliance)
-  parent :appliance_rooms
+  parent :appliances
 end
 
 crumb :appliance_new do
   link t("breadcrumbs.appliance_add")
-  parent :appliance_rooms
+  parent :appliances
 end

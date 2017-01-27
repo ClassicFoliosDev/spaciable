@@ -1,17 +1,17 @@
-$(document).on('click', '.appliances .ui-menu-item', function (event) {
+$(document).on('click', '.appliance .ui-menu-item', function (event) {
 
   var optionName = this.innerText;
   var $selectContainer = $(this).closest(".select-container");
 
     if ($selectContainer.length > 0) {
     var listClasses = $selectContainer[0].classList;
-    var $parentFieldset = $selectContainer.closest(".appliances");
+    var $parentFieldset = $selectContainer.closest(".appliance");
 
     var add_appliance = $(document).find(".add_appliance");
 
-    if (listClasses.contains("appliance-category")) {
+    if (listClasses.contains("appliance_category")) {
 
-      var $manufacturerDiv = $parentFieldset.find(".appliance-manufacturer");
+      var $manufacturerDiv = $parentFieldset.find(".manufacturer");
       var $manufacturerSelect = clearFields($manufacturerDiv);
 
       var url = "/appliance_manufacturers";
@@ -19,12 +19,12 @@ $(document).on('click', '.appliances .ui-menu-item', function (event) {
     }
     // Only run through this code if adding an appliance to a room
     // Not when creating a new appliance
-    else if (listClasses.contains("appliance-manufacturer") && (add_appliance.length > 0)) {
-      var $applianceDiv = $parentFieldset.find(".appliance");
+    else if (listClasses.contains("manufacturer") && (add_appliance.length > 0)) {
+      var $applianceDiv = $parentFieldset.find(".appliances");
 
       var $applianceSelect = clearFields($applianceDiv);
 
-      var $categoryDiv = $(".appliance-category");
+      var $categoryDiv = $(".appliance_category");
       var $categoryValue = $categoryDiv.find(".ui-selectmenu-text")[0].innerHTML;
 
       var url = "/appliance_list";
@@ -32,3 +32,11 @@ $(document).on('click', '.appliances .ui-menu-item', function (event) {
     }
   }
 });
+
+function no_appliance_matches() {
+  var $parentFieldset = $(document).find(".appliances.select-container");
+
+  var noMatches =  document.createElement("span");
+  noMatches.innerHTML = "<%= I18n.t(".appliances.no_match") %>";
+  $parentFieldset.append(noMatches);
+}

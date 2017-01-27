@@ -16,27 +16,11 @@
     </div>
   <% end %>
 
-
   <div class="row">
     <div class="row-item third">
       <fieldset>
         <%= f.input :name %>
       </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
-        <%= link_to_add_association t(".add_finish"), f, :finishes, data: {
-            "association-insertion-method": "append",
-            "association-insertion-node": ".finishes"
-        }, class: "btn" %>
-      </fieldset>
-    </div>
-
-    <div class="row-item third finishes">
-      <%= f.simple_fields_for :finishes do |finish| %>
-        <%= render 'finish_fields', f: finish %>
-      <% end %>
     </div>
   </div>
 

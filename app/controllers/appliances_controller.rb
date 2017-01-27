@@ -20,11 +20,7 @@ class AppliancesController < ApplicationController
   def create
     if @appliance.save
       notice = t(".success", name: @appliance.name)
-      if @room
-        redirect_to [:appliance_rooms], notice: notice
-      else
-        redirect_to appliances_path, notice: notice
-      end
+      redirect_to appliances_path, notice: notice
     else
       render :new
     end

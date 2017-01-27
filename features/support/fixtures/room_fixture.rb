@@ -6,7 +6,7 @@ module RoomFixture
     "Kitchen"
   end
 
-  def second_finish_name
+  def updated_finish_name
     "Power shower"
   end
 

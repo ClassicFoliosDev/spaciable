@@ -1,19 +1,19 @@
 <% breadcrumb :room_edit, @room %>
 
-<div class="section-header add_appliance">
+<div class="section-header add_finish">
   <h3 class="section-title">
     <i class="fa fa-building"></i>
     <%= t(".title", room_name: @room.name) %><br>
   </h3>
 </div>
 
-<%= simple_form_for([@room, @appliance_room]) do |f| %>
-  <% if @appliance_room.errors.any? %>
+<%= simple_form_for([@room, @finish_room]) do |f| %>
+  <% if @finish_room.errors.any? %>
     <div class="row">
       <div class="row-item">
         <div class="submission-errors">
           <ul>
-            <% @appliance_room.errors.full_messages.each do |message| %>
+            <% @finish_room.errors.full_messages.each do |message| %>
                 <li>
                   <%= fa_icon "exclamation-circle" %>
                   <%= message %>
@@ -25,11 +25,14 @@
     </div>
   <% end %>
 
-  <div class="row appliance">
+  <div class="row finish">
     <div class="row-item third">
       <fieldset>
-        <div class="appliance_category ui-front select-container">
-          <%= select_tag "appliance_category", options_from_collection_for_select(@appliance_categories, "id", "name") %>
+        <div class="finish_category ui-front select-container">
+          <%= select_tag "finish_category", options_from_collection_for_select(@finish_categories, "id", "name") %>
+        </div>
+        <div class="finish_type ui-front select-container">
+          <%= select_tag "finish_type" %>
         </div>
       </fieldset>
     </div>
@@ -44,8 +47,8 @@
 
     <div class="row-item third">
       <fieldset>
-        <div class="appliances ui-front select-container">
-          <%= select_tag "appliances", required: true %>
+        <div class="finishes ui-front select-container">
+          <%= select_tag "finishes", required: true %>
         </div>
       </fieldset>
     </div>
@@ -53,7 +56,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), room_path(@room, active_tab: "appliances"), class: "btn" %>
+      <%= link_to t(".back"), room_path(@room, active_tab: "finishes"), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

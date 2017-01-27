@@ -20,13 +20,11 @@ Rails.application.routes.draw do
 
   resources :documents, except: [:new, :create]
 
-  resources :rooms do
-    resources :finishes, except: :index
-  end
-  resources :finishes, only: :index
+  resources :rooms
 
   resources :rooms do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]
+    resources :finish_rooms, controller: 'rooms/finish_rooms', only: [:new, :create, :edit]
   end
 
   resources :unit_types do
@@ -54,13 +52,16 @@ Rails.application.routes.draw do
   end
 
   resources :appliances
+  resources :finishes
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"
-  get "/finish_types", to: 'rooms#finish_types', format: :json
-  get "/manufacturers", to: 'rooms#manufacturers', format: :json
+  get "/remove_finish", to: "rooms#remove_finish"
+  get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
+  get "/finish_list", to: 'finishes#finish_list', format: :json
+  get "/finish_types", to: 'finishes#finish_types', format: :json
   root 'home#show'
 end

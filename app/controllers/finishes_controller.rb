@@ -2,9 +2,7 @@
 class FinishesController < ApplicationController
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource :room
-  load_and_authorize_resource :finish, through: :room, except: ["index"]
-  load_and_authorize_resource :finish, only: ["index"]
+  load_and_authorize_resource :finish
 
   def index
     @finishes = paginate(sort(@finishes, default: :name))
@@ -21,7 +19,7 @@ class FinishesController < ApplicationController
 
   def create
     if @finish.save
-      redirect_to [@room, @finish], notice: t("controller.success.create", name: @finish.name)
+      redirect_to finishes_path, notice: t("controller.success.create", name: @finish.name)
     else
       render :new
     end
@@ -29,7 +27,7 @@ class FinishesController < ApplicationController
 
   def update
     if @finish.update(finish_params)
-      redirect_to [@room, @finish], notice: t("controller.success.update", name: @finish.name)
+      redirect_to finish_path, notice: t("controller.success.update", name: @finish.name)
     else
       render :edit
     end
@@ -42,6 +40,39 @@ class FinishesController < ApplicationController
       name: @finish.name
     )
     redirect_to finishes_url, notice: notice
+  end
+
+  def finish_types
+    finish_types = FinishType.joins(:finish_categories)
+                             .where(finish_categories: { name: params[:option_name] })
+                             .distinct
+                             .order(:name)
+
+    render json: finish_types
+  end
+
+  def manufacturers
+    manufacturers = Manufacturer
+                    .joins(:finish_types)
+                    .where(finish_types: { name: params[:option_name] })
+                    .distinct
+
+    render json: manufacturers
+  end
+
+  def finish_list
+    if params[:manufacturer_name].present?
+      finishes = Finish.joins(:finish_type, :manufacturer)
+                       .where(finish_types: { name: params[:type_name] },
+                              manufacturers: { name: params[:manufacturer_name] })
+                       .distinct
+    else
+      finishes = Finish.joins(:finish_type)
+                       .where(finish_types: { name: params[:type_name] })
+                       .distinct
+    end
+
+    render json: finishes
   end
 
   private

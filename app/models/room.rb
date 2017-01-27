@@ -10,8 +10,8 @@ class Room < ApplicationRecord
   alias parent unit_type
   include InheritParentPermissionIds
 
-  has_many :finishes, dependent: :destroy
-  accepts_nested_attributes_for :finishes, reject_if: :all_blank, allow_destroy: true
+  has_many :finish_rooms
+  has_many :finishes, through: :finish_rooms
 
   has_many :appliance_rooms
   has_many :appliances, through: :appliance_rooms
@@ -20,6 +20,7 @@ class Room < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
+  validates_associated :finish_rooms
   validates_associated :finishes
   validates_associated :appliance_rooms
   validates_associated :appliances

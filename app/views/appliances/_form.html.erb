@@ -15,7 +15,7 @@
           </div>
         </div>
     <% end %>
-    <div class="row appliances">
+    <div class="row appliance">
       <div class="row-item third">
         <fieldset>
           <%= f.input :primary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
@@ -35,7 +35,7 @@
           <%= f.label t(".warranty_length") %>
           <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
           </div>
-          <div class="e-rating ui-front">
+          <div class="e_rating ui-front">
           <%= f.label t(".e_rating") %>
           <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
           </div>

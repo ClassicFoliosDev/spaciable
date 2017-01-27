@@ -32,7 +32,7 @@ function setFields(selectList, url, data) {
     var promptOption = document.createElement("option");
       promptOption.value = "";
       promptOption.name = "";
-      promptOption.textContent = "<%= I18n.t(".rooms.finish_fields.choose") %>";
+      promptOption.textContent = "<%= I18n.t(".rooms.choose") %>";
       selectList.appendChild(promptOption);
 
     $.each(results, function (key, value) {
@@ -49,8 +49,16 @@ function setFields(selectList, url, data) {
       enableSelect("#" + selectList.id);
     } else {
       disableSelect("#" + selectList.id);
+      if (url == "/finish_manufacturers") {
+        no_manufacturers();
+      }
+      else if (url == "/finish_list") {
+        no_finish_matches();
+      }
+      else if (url == "/appliance_list") {
+        no_appliance_matches();
+      }
     };
-
   }).fail(function (response) {
     console.error("Call to " + url + " failed");
   });

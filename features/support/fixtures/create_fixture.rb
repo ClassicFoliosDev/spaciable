@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+# rubocop:disable ModuleLength
+# Method needs refactoring see HOOZ-232
 module CreateFixture
   module_function
 
@@ -31,6 +33,23 @@ module CreateFixture
 
     delegate :id, to: resource, prefix: true
     module_function :"#{resource}_id"
+  end
+
+  # Category and type selects for appliances and finishes
+  def appliance_category_name
+    "Washing Machine"
+  end
+
+  def appliance_manufacturer_name
+    "Bosch"
+  end
+
+  def finish_category_name
+    "Flooring"
+  end
+
+  def finish_type_name
+    "Stone"
   end
 
   # FACTORIES
@@ -90,7 +109,15 @@ module CreateFixture
   end
 
   def create_appliance
-    FactoryGirl.create(:appliance, name: appliance_name)
+    appliance_category = ApplianceCategory.find_by_name(appliance_category_name)
+    manufacturer = Manufacturer.find_by_name(appliance_manufacturer_name)
+    FactoryGirl.create(:appliance, name: appliance_name, appliance_category: appliance_category, manufacturer: manufacturer)
+  end
+
+  def create_finish
+    finish_category = FinishCategory.find_by_name(finish_category_name)
+    finish_type = FinishType.find_by_name(finish_type_name)
+    FactoryGirl.create(:finish, name: finish_name, finish_category: finish_category, finish_type: finish_type)
   end
 
   def create_phases
@@ -138,3 +165,4 @@ module CreateFixture
     Phase.find_by(name: division_phase_name)
   end
 end
+# rubocop:enable ModuleLength
