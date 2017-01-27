@@ -4,22 +4,34 @@ module HoozziWorld
     I18n.t(*args)
   end
 
-  def select_from_selectmenu(field, with:)
+  def select_from_selectmenu(field, with:, skip_if: :already_selected)
     stdout "Select from: #{field} with: #{with}"
+    return (stdout "Skipping: #{skip_if}") if really_skip_select?(skip_if, with, field)
 
     expand_selectmenu(field)
-    sleep 0.3
+    sleep 0.5
 
     list, list_text = selectmenu_list_items
     stdout "Options: #{list_text}"
 
-    item = click_on_item_from_list(list, text: with.to_s)
-    stdout "Item selected: #{item&.text}"
+    click_on_item_from_list(list, text: with.to_s)
 
-    sleep 0.3
+    sleep 0.5
   rescue => e
     screenshot if ENV.fetch("DEBUG", false)
     raise e
+  end
+
+  def really_skip_select?(check, value, field)
+    skip = false
+
+    if check == :already_selected
+      within(".#{field}") do
+        skip = text.include?(value)
+      end
+    end
+
+    skip
   end
 
   def expand_selectmenu(field)
@@ -37,8 +49,23 @@ module HoozziWorld
   end
 
   def click_on_item_from_list(list, text:)
-    item = list.find { |node| node.text.strip == text.to_s.strip }
+    item = list.detect(-> { :not_found }) { |node| node.text.strip == text.to_s.strip }
+
+    item = try_clicking_on_selectmenu_item_again(text) if item == :not_found
+
     item.click
+  end
+
+  def try_clicking_on_selectmenu_item_again(text)
+    stdout "Couldn't find item #{text}, trying again..."
+    sleep 0.3
+
+    retry_list, list_text = selectmenu_list_items
+    stdout "Retried list options: #{list_text}"
+
+    item = retry_list.find(-> { :not_found }) { |node| node.text.strip == text.to_s.strip }
+    raise "Cannot find item '#{text}' in options: #{list_text}" if item == :not_found
+
     item
   end
 

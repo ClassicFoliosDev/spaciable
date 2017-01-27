@@ -15,8 +15,122 @@ RSpec.describe Notification do
     end
   end
 
+  describe "send_to_all?" do
+    context "as a CF Admin" do
+      context "with send_to_all set to true" do
+        it "should be true" do
+          cf_admin = create(:cf_admin)
+          notification = build(:notification, sender: cf_admin, send_to: nil)
+
+          expect(notification.send_to_all?).to eq(false)
+
+          notification.send_to_all = true
+          expect(notification.send_to_all?).to eq(true)
+        end
+      end
+    end
+
+    context "as a Developer Admin" do
+      context "with send_to_all set to true" do
+        it "should be false" do
+          developer_admin = create(:developer_admin)
+          notification = build(:notification, sender: developer_admin, send_to: nil)
+
+          expect(notification.send_to_all?).to eq(false)
+          notification.send_to_all = true
+          expect(notification.send_to_all?).to eq(false)
+        end
+      end
+    end
+
+    context "as a Division Admin" do
+      context "with send_to_all set to true" do
+        it "should be false" do
+          division_admin = create(:division_admin)
+          notification = build(:notification, sender: division_admin, send_to: nil)
+
+          expect(notification.send_to_all?).to eq(false)
+          notification.send_to_all = true
+          expect(notification.send_to_all?).to eq(false)
+        end
+      end
+    end
+
+    context "as a Development Admin" do
+      context "with send_to_all set to true" do
+        it "should be false" do
+          development_admin = create(:development_admin)
+          notification = build(:notification, sender: development_admin, send_to: nil)
+
+          expect(notification.send_to_all?).to eq(false)
+          notification.send_to_all = true
+          expect(notification.send_to_all?).to eq(false)
+        end
+      end
+    end
+  end
+
   describe "send_to" do
     describe "must be equal or below the senders role permissions" do
+      context "as a cf_admin" do
+        it "should not be valid if send_to is present and sent_to_all is true" do
+          cf_admin = create(:cf_admin)
+          notification = build(:notification, sender: cf_admin, send_to_all: true)
+
+          notification.validate
+
+          expect(notification.errors[:send_to_all]).not_to be_empty
+        end
+
+        it "should not be valid if send_to is blank and sent_to_all is false" do
+          cf_admin = create(:cf_admin)
+          notification = build(:notification, sender: cf_admin, send_to: nil, send_to_all: false)
+
+          notification.validate
+
+          expect(notification.errors[:send_to]).not_to be_empty
+        end
+
+        it "should be valid if send_to is blank but sent_to_all is true" do
+          cf_admin = create(:cf_admin)
+          notification = build(:notification, sender: cf_admin, send_to: nil, send_to_all: true)
+
+          notification.validate
+
+          expect(notification).to be_valid
+        end
+
+        it "should be valid if send_to is a division" do
+          cf_admin = create(:cf_admin)
+          division = create(:division)
+          notification = build(:notification, sender: cf_admin, send_to: division)
+
+          notification.validate
+
+          expect(notification).to be_valid
+        end
+
+        it "should be valid if send_to is a development" do
+          cf_admin = create(:cf_admin)
+          development = create(:development)
+          notification = build(:notification, sender: cf_admin, send_to: development)
+
+          notification.validate
+
+          expect(notification).to be_valid
+        end
+
+        it "should be valid if send_to is a phase" do
+          cf_admin = create(:cf_admin)
+          phase = create(:phase)
+          notification = build(:notification, sender: cf_admin, send_to: phase)
+
+          notification.validate
+
+          expect(notification).to be_valid
+        end
+      end
+
       context "as a development_admin" do
         it "should be valid if send_to is a development" do
           development = create(:development)

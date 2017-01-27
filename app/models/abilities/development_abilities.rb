@@ -31,14 +31,17 @@ module Abilities
       manage_polymorphic_association(
         Notification, :send_to,
         id: development, model_type: "Development",
-        actions: [:create, :read]
+        actions: [:manage]
       )
 
       manage_polymorphic_association(
         Notification, :send_to,
         id: Phase.where(development_id: development).pluck(:id), model_type: "Phase",
-        actions: [:create, :read]
+        actions: [:manage]
       )
+
+      cannot :manage, Notification, send_to_all: true
+      cannot :send_to_all, Notification
     end
   end
 end

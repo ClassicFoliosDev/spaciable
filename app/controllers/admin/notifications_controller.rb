@@ -6,7 +6,7 @@ module Admin
     load_and_authorize_resource :notification
 
     def index
-      @notifications = @notifications.includes(:send_to)
+      @notifications = @notifications.includes(:send_to, :sender)
       @notifications = paginate(sort(@notifications, default: { sent_at: :desc }))
     end
 
@@ -43,6 +43,7 @@ module Admin
         :sent_at,
         :send_to_id,
         :send_to_type,
+        :send_to_all,
         :developer_id,
         :division_id,
         :development_id,

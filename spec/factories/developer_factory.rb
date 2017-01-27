@@ -20,9 +20,7 @@ FactoryGirl.define do
       after(:create) do |developer|
         development = create(:development, developer: developer)
         phase = create(:phase, development: development)
-        create_list(:phase_plot, 3, phase: phase).each do |plot|
-          create(:homeowner, plots: [plot])
-        end
+        create_list(:phase_plot, 3, :with_resident, phase: phase)
       end
     end
   end

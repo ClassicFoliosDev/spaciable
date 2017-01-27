@@ -4,21 +4,23 @@ module Abilities
     include PolymorphicAssociationAbilities
 
     def developer_abilities(developer)
-      model = "Developer"
+      crud_user_permissions(role: :developer_admin, id: developer, model: "Developer")
 
-      crud_user_permissions(role: :developer_admin, id: developer, model: model)
-
-      manage_polymorphic_association(
-        Notification, :send_to,
-        id: developer, model_type: model,
-        actions: [:create, :read]
-      )
-
+      developer_notification_permissions(developer)
       crud_developer_permissions(developer)
       read_developer_permissions(developer)
     end
 
     private
+
+    def developer_notification_permissions(developer_id)
+      manage_polymorphic_association(
+        Notification, :send_to,
+        id: developer_id, model_type: "Developer",
+        actions: [:manage]
+      )
+      cannot :manage, Notification, send_to_all: true
+    end
 
     def crud_developer_permissions(developer_id)
       can :crud, Document, developer_id: developer_id

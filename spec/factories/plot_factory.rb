@@ -11,5 +11,11 @@ FactoryGirl.define do
       development { nil }
       phase
     end
+
+    trait :with_resident do
+      after(:create) do |plot|
+        create(:homeowner, plots: [plot])
+      end
+    end
   end
 end

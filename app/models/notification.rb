@@ -12,6 +12,30 @@ class Notification < ApplicationRecord
   has_many :homeowners, through: :resident_notifications, source: :resident
 
   validates :subject, :message, :sender, presence: true
+  validate :recipients_selected
+  validate :send_to_conflicts
+
+  def send_to_conflicts
+    return unless send_to_all? && send_to_id.present?
+
+    errors.add(:send_to_all, :conflicts)
+  end
+
+  def recipients_selected
+    return if send_to_all? || send_to.present?
+
+    errors.add(:send_to, :select)
+  end
+
+  def send_to
+    return SendToAll.new(notification: self) if send_to_all?
+    super
+  end
+
+  def send_to_all?
+    return false if sender && !sender.cf_admin?
+    super
+  end
 
   def with_sender(user)
     self.sender = user

@@ -17,9 +17,7 @@ class Division < ApplicationRecord
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: true
 
-  def to_s
-    division_name
-  end
+  delegate :to_s, to: :division_name
 
   paginates_per 25
 end

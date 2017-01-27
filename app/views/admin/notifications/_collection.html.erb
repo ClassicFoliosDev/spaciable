@@ -23,7 +23,7 @@
         <div class="record-list-item-content">
             <%= link_to notification, [:admin, notification], title: notification %>
            <span class="notification-sent-at-timestamp">
-             <%= l notification.sent_at.to_date, format: :digits %>
+             <%= l(notification.sent_at.to_date, format: :digits) %>
            </span>
            <span class="notification-recipient-level">
              <strong><%= Notification.human_attribute_name(:send_to) %>:</strong>

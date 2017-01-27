@@ -8,6 +8,10 @@ module ResidentNotificationsFixture
   module_function
 
   MESSAGES = {
+    all: {
+      subject: "New Features released!",
+      message: "Homeowners can now build a 3D model of their home..."
+    },
     developer: {
       subject: "Happy new year",
       message: "Reminder of annual checks to do..."

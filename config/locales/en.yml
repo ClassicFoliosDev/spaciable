@@ -147,6 +147,7 @@ en:
       create:
         success: "Sending notification to %{recipient_count} residents: \"%{notification_name}\""
       form:
+        choose: "Choose..."
         submit: "Send"
         back: "Back"
       index:
@@ -587,6 +588,7 @@ en:
       add: "Add new room to TODO"
     appliance_rooms:
       new:
+        choose: "Choose..."
         title: "Add appliance to %{room_name}"
         submit: "Submit"
         back: "Back"
@@ -793,6 +795,8 @@ en:
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
+      send_to_all:
+        all: "All"
 
     errors:
       messages:
@@ -805,5 +809,7 @@ en:
       models:
         notification:
           attributes:
+            send_to_all:
+              conflicts: "is conflicting with sending to a subset of homeowners as well."
             send_to:
-              blank: "must be selected"
+              select: "all homeowners or choose a subset."

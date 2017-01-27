@@ -12,9 +12,7 @@
       <%= navigation_link(finishes_path, "shower", t(".finishes"), "navbar-link") %>
       <%= navigation_link(appliances_path, "coffee", t(".appliances"), "navbar-link") %>
 
-      <% unless current_user.cf_admin? %>
-        <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
-      <% end %>
+      <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
 
       <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
       <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>

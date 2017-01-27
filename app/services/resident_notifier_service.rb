@@ -17,6 +17,10 @@ class ResidentNotifierService
   private
 
   def residents
-    notification.send_to.residents
+    if notification.send_to_all?
+      User.homeowner
+    else
+      notification.send_to.residents
+    end
   end
 end

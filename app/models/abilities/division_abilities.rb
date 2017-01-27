@@ -31,8 +31,9 @@ module Abilities
       manage_polymorphic_association(
         Notification, :send_to,
         id: division, model_type: "Division",
-        actions: [:create, :read]
+        actions: [:manage]
       )
+      cannot :manage, Notification, send_to_all: true
     end
   end
 end

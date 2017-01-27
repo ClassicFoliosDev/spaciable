@@ -1,49 +1,37 @@
 # frozen_string_literal: true
 module Admin
   module SelectOptionsHelper
-    def admin_developer_select_options(resource, developer_id: nil)
-      resource.assign_permissionable_ids
-      return [] if !developer_id && !resource.developer_id
-
-      developer = Developer
-                  .accessible_by(current_ability)
-                  .find_by(id: resource.developer_id || developer_id)
-
-      developer ? [[developer.to_s, developer.id]] : []
+    def admin_developer_select_options
+      Developer
+        .accessible_by(current_ability)
+        .order(:company_name)
+        .map { |developer| [developer.to_s, developer.id] }
     end
 
-    def admin_division_select_options(resource)
-      resource.assign_permissionable_ids
-      return [] unless resource.division_id
+    def admin_division_select_options(division_id)
+      return [] if !division_id && current_user.cf_admin?
 
-      division = Division
-                 .accessible_by(current_ability)
-                 .find_by(id: resource.division_id)
-
-      division ? [[division.to_s, division.id]] : []
+      Division
+        .accessible_by(current_ability)
+        .order(:division_name)
+        .map { |division| [division.to_s, division.id] }
     end
 
-    def admin_development_select_options(resource)
-      resource.assign_permissionable_ids
-      return [] if !resource.developer_id || !resource.division_id
+    def admin_development_select_options(development_id)
+      return [] if !development_id && current_user.cf_admin?
 
-      developments = Development.includes(:division).accessible_by(current_ability)
-
-      if resource.division_id
-        developments.where(division_id: resource.division_id)
-      elsif resource.developer_id
-        developments.by_developer_and_developer_divisions(resource.developer_id)
-      end.map { |development| [development.to_s, development.id] }
+      Development
+        .accessible_by(current_ability)
+        .order(:name)
+        .map { |development| [development.to_s, development.id] }
     end
 
-    def admin_phase_select_options(resource)
-      resource.assign_permissionable_ids
-      return [] unless resource.development_id
+    def admin_phase_select_options(phase_id)
+      return [] if !phase_id && current_user.cf_admin?
 
       Phase
-        .includes(:development)
         .accessible_by(current_ability)
-        .where(development_id: resource.development_id)
+        .order(:name)
         .map { |phase| [phase.to_s, phase.id] }
     end
   end

@@ -71,6 +71,21 @@ RSpec.describe ResidentNotifierService do
       end
     end
 
+    context "send_to_all" do
+      it "should create notifications for ALL residents" do
+        create_list(:plot, 1, :with_resident)
+        create_list(:plot, 2, :with_resident, development: create(:division_development))
+
+        all_residents = User.homeowner
+        cf_admin = create(:cf_admin)
+        notification = create(:notification, sender: cf_admin, send_to: nil, send_to_all: true)
+
+        notified_residents = described_class.new(notification).notify_residents
+
+        expect(notified_residents).to match_array(all_residents)
+      end
+    end
+
     context "send_to Developer" do
       it "should create notifications for all developer residents" do
         developer_residents = developer_with_residents.residents

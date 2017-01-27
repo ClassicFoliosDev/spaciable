@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126132518) do
+ActiveRecord::Schema.define(version: 20170126170346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,10 +239,11 @@ ActiveRecord::Schema.define(version: 20170126132518) do
     t.datetime "sent_at"
     t.integer  "author_id"
     t.integer  "sender_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "send_to_type"
     t.integer  "send_to_id"
+    t.boolean  "send_to_all",  default: false
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree

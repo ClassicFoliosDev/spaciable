@@ -95,21 +95,21 @@ document.addEventListener("turbolinks:load", function () {
 
   function fetchDeveloperResources(developerId) {
     var developer_select = clearFields($('.user_developer_id'));
-    var url = '/admin/developers.json';
+    var url = '/admin/developers';
 
     setFields(developer_select, url, { developerId: developerId});
   };
 
   function fetchDivisionResources(data) {
     var division_select = clearFields($('.user_division_id'));
-    var url = '/admin/divisions.json';
+    var url = '/admin/divisions';
 
     setFields(division_select, url, data);
   };
 
   function fetchDevelopmentResources(data) {
     var development_select = clearFields($('.user_development_id'));
-    var url = '/admin/developments.json';
+    var url = '/admin/developments';
 
     setFields(development_select, url, data);
   };

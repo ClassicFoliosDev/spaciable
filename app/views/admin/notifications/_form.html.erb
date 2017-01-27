@@ -18,22 +18,40 @@
   <div class="row">
     <div class="row-item third">
       <fieldset class="skip-global-selectmenu">
-        <%= f.label :send_to %>
+        <% if can?(:send_to_all, Notification) %>
+          <%= f.input :send_to_all, label: "Send to all #{User.homeowner.count} homeowners" %>
+          <hr>
+          <br>
+        <% end %>
+
+        <%= f.label :send_to, label: "Send to all homeowners under:" %>
 
         <%= f.input :developer_id do %>
-          <%= f.select :developer_id, admin_developer_select_options(f.object, developer_id: current_user.developer_id), include_blank: false, selected: (f.object.developer_id || current_user.developer_id) %>
+            <%= f.select :developer_id,
+            admin_developer_select_options,
+            selected: (f.object.developer_id || current_user.developer_id),
+            include_blank: (current_user.cf_admin? ? t(".choose") : false) %>
         <% end %>
 
         <%= f.input :division_id do %>
-          <%= f.select :division_id, admin_division_select_options(f.object), include_blank: Division.model_name.human, selected: (f.object.division_id || current_user.division_id) %>
+            <%= f.select :division_id,
+            admin_division_select_options(f.object&.division_id || current_user.division_id),
+            selected: (f.object.division_id || current_user.division_id),
+            include_blank: true %>
         <% end %>
 
         <%= f.input :development_id do %>
-          <%= f.select :development_id, admin_development_select_options(f.object), include_blank: Development.model_name.human, selected: (f.object.development_id || current_user.development_id) %>
+            <%= f.select :development_id,
+            admin_development_select_options(f.object&.development_id || current_user.development_id),
+            selected: (f.object.development_id || current_user.development_id),
+            include_blank: true %>
         <% end %>
 
         <%= f.input :phase_id do %>
-          <%= f.select :phase_id, admin_phase_select_options(f.object), include_blank: Phase.model_name.human, selected: (f.object.phase_id || current_user.phase_id) %>
+            <%= f.select :phase_id,
+            admin_phase_select_options(f.object&.phase_id || current_user.phase_id),
+            selected: (f.object.phase_id || current_user.phase_id),
+            include_blank: true %>
         <% end %>
       </fieldset>
     </div>

@@ -54,7 +54,5 @@ class Phase < ApplicationRecord
     self[:number] || set_number
   end
 
-  def to_s
-    name
-  end
+  delegate :to_s, to: :name
 end

@@ -29,7 +29,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="appliance_category ui-front select-container">
-          <%= select_tag "appliance_category", options_from_collection_for_select(@appliance_categories, "id", "name") %>
+          <%= select_tag "appliance_category", options_from_collection_for_select(@appliance_categories, "id", "name"), prompt: t(".choose") %>
         </div>
       </fieldset>
     </div>
