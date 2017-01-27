@@ -23,17 +23,19 @@ $card-height: 230px;
   }
 
   .card-title {
-    @include display(flex);
     @include pad($spacing-small);
     border-bottom: 1px solid $ui-grey;
+    height: 52px;
 
     .title {
+      @include span-columns(6 of 12);
       font-size: $title-font-size-4;
       margin: 0;
-      color: $primary-black;
+      color: $default-text-color;
     }
 
     .btn {
+      float: right;
       font-size: $base-small-font-size;
       margin-left: auto;
       background-color: lighten($primary-red, 30%);
@@ -48,6 +50,7 @@ $card-height: 230px;
 
   .card-content {
     @include pad($spacing-small);
+    @include span-columns(12 of 12);
   }
 
   &.bordered {
@@ -61,6 +64,7 @@ $card-height: 230px;
 
 .card {
   &.my-home {
+    background-image: url(http://www.claudehooper.co.uk/wp-content/uploads/2013/08/Gerrards-Cross-Lounge.jpg);
     color: $ui-white;
     position: relative;
     background-size: cover;
@@ -81,7 +85,6 @@ $card-height: 230px;
 
     .card-title {
       border-bottom: none;
-      padding-bottom: 0px;
     }
 
     .title {
@@ -113,7 +116,6 @@ $card-height: 230px;
 
     .card-title {
       border-bottom: none;
-      padding-bottom: 0;
     }
 
     .title {
@@ -121,11 +123,11 @@ $card-height: 230px;
     }
 
     .action {
+      @include span-columns(1 of 12);
       cursor: pointer;
       display: inline-block;
       padding-top: 64px;
       height: $library-interface-height;
-      width: 5%;
     }
 
     .action-left {
@@ -134,12 +136,16 @@ $card-height: 230px;
 
     .action-right {
       float: right;
+
+      i {
+        float: right;
+      }
     }
 
     .documents {
+      @include span-columns(10 of 12);
       display: inline-block;
       height: $library-interface-height;
-      width: 88%;
       overflow: hidden;
 
       .document {
@@ -147,15 +153,17 @@ $card-height: 230px;
         margin: 0 10px;
         width: 100px;
 
+
         img {
           border: 1px solid $ui-white;
-          height: 128px;
+          height: 118px;
         }
 
-        p {
-          font-size: $base-font-size;
+        p { 
+          font-size: $base-small-font-size;
           line-height: 14px;
           color: $ui-white;
+          margin-top: 4px;
         }
       }
     }
@@ -195,10 +203,9 @@ $card-height: 230px;
     }
 
     li {
-      @include display(flex);
       @include pad($spacing-small $spacing-medium);
       border-bottom: 1px solid $ui-grey;
-      height: 76px;
+      height: 86px;
 
 
       &:last-child {
@@ -213,49 +220,28 @@ $card-height: 230px;
       padding: 0;
     }
 
-    .faq-list {
-      margin-bottom: 0;
-    }
-
-    .faq-item {
-      margin-bottom: 0px;
-      border-bottom: $border-size solid $ui-grey;
+    li {
+      border-bottom: 1px solid $ui-grey;
+      height: 44px;
 
       &:last-child {
         border-bottom: none;
       }
     }
 
-    .faq-link {
-      @include display(flex);
-      align-items: center;
-      font-size: $base-font-size;
-      color: $primary-black;
-      margin: ($spacing-small / 2) 0 ($spacing-small / 2) $spacing-small;
-      padding-right: 30px;
-      text-decoration: none;
-      position: relative;
-      height: 42px;
-      line-height: 16px;
+    .text {
+      @include span-columns(11 of 12);
+      @include ellipsis;
+      height: 44px;
+      padding: 8px;
+      line-height: 28px;
+      color: $default-text-color;
+    }
 
-      @include media($desktop-large-down) {
-        margin: 8px 0 8px 8px;
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-
-      &:after {
-        content: "\f105";
-        font-family: 'FontAwesome';
-        color: $primary-red;
-        font-size: $title-font-size-3;
-        position: absolute;
-        right: $spacing-small;
-        top: 0px;
-        line-height: 42px;
-      }
+    i {
+      @include span-columns(1 of 12);
+      height: 44px;
+      padding-top: 14px;
     }
   }
 

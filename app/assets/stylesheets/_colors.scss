@@ -1,7 +1,7 @@
 
 //Primary Colour Palette
 $primary-red: #F7525E;
-$primary-black: #252C31;
+$default-text-color: #252C31;
 $primary-green: #18A895;
 $primary-yellow: #FFC85D;
 
@@ -33,7 +33,7 @@ $base-opacity: 0.9;
 }
 
 @mixin grad-blue-black($deg:135deg) {
-  @include linear-gradient($deg, $secondary-blue, $primary-black);
+  @include linear-gradient($deg, $secondary-blue, $default-text-color);
 }
 
 @mixin grad-green-green() {
@@ -45,5 +45,5 @@ $base-opacity: 0.9;
 }
 
 @mixin trans-to-black($deg:135deg) {
-  @include linear-gradient($deg, $primary-black, transparent);
+  @include linear-gradient($deg, $default-text-color, transparent);
 }

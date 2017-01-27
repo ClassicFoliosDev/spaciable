@@ -1,6 +1,5 @@
 <div class="row card-container">
-  <!--MY HOME-->
-  <div class="card row-item half my-home" style="background-image: url('http://www.claudehooper.co.uk/wp-content/uploads/2013/08/Gerrards-Cross-Lounge.jpg')">
+  <div class="card half my-home">
     <div class="card-title">
       <h3 class="title">
         <%= t('homeowner.dashboard.cards.my_home.title') %>
@@ -18,8 +17,8 @@
       <a class="btn btn-primary" href=""><%= t('homeowner.dashboard.cards.my_home.view_more') %></a>
     </div>
   </div>
-  <!--LIBRARY-->
-  <div class="card row-item half my-library">
+
+  <div class="card half my-library">
     <div class="card-title">
       <h2 class="title"><%= t('homeowner.dashboard.cards.library.title') %></h2>
       <a href="" class="btn btn-primary"><%= t('homeowner.dashboard.cards.library.view_more') %></a>
@@ -68,9 +67,7 @@
       <ul class="contact-list">
         <li>
           <div class="avatar">
-            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
-              <img src="https://s-media-cache-ak0.pinimg.com/236x/c3/75/8a/c3758a4f3974b2d2216eccbaf3305c92.jpg">
-            </div>
+            <img src="https://s-media-cache-ak0.pinimg.com/236x/c3/75/8a/c3758a4f3974b2d2216eccbaf3305c92.jpg">
           </div>
           <div class="contact-details">
             <p class="contact-name">Lee Kemp</p>
@@ -86,9 +83,7 @@
         </li>
         <li>
           <div class="avatar">
-            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
-              <img src="http://grsf.org/wp-content/uploads/2016/05/Taylor-Harvey-headshot-square.jpg">
-            </div>
+            <img src="http://grsf.org/wp-content/uploads/2016/05/Taylor-Harvey-headshot-square.jpg">
           </div>
           <div class="contact-details">
             <p class="contact-name">Shana Milton</p>
@@ -104,9 +99,7 @@
         </li>
         <li>
           <div class="avatar">
-            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
-              <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e4eee4b0ec881d797cd5/1440016010806/Ariel+Tharpe+Headshot+Square.png?format=300w">
-            </div>
+            <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e4eee4b0ec881d797cd5/1440016010806/Ariel+Tharpe+Headshot+Square.png?format=300w">
           </div>
           <div class="contact-details">
             <p class="contact-name">Anne Simmons</p>
@@ -122,9 +115,7 @@
         </li>
         <li>
           <div class="avatar">
-            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
-              <img src="http://www.quindry.com/wp-content/gallery/people/corporate-headshot-Philadelphia-36-Square.jpg">
-            </div>
+            <img src="http://www.quindry.com/wp-content/gallery/people/corporate-headshot-Philadelphia-36-Square.jpg">
           </div>
           <div class="contact-details">
             <p class="contact-name">Clive Dodson</p>
@@ -140,9 +131,7 @@
         </li>
         <li>
           <div class="avatar">
-            <div class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
-              <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e527e4b00f3b16d060d6/1440016045882/Daley+Browning+Headshot+Square.jpg?format=300w">
-            </div>
+            <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e527e4b00f3b16d060d6/1440016045882/Daley+Browning+Headshot+Square.jpg?format=300w">
           </div>
           <div class="contact-details">
             <p class="contact-name">Jennifer Abraham</p>
@@ -168,25 +157,30 @@
       <a href="" class="btn btn-primary"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
     </div>
     <div class="card-content">
-      <ul class="faq-list">
-        <li class="faq-item">
-          <a class="faq-link" href="">
-            <span>Where can I find information on how to look after my home's finishes?</span>
+
+      <ul>
+        <li>
+          <a href="">
+            <span class="text">Where can I find information on how to look after my home's finishes?</span>
+            <%= fa_icon "chevron-right" %>
           </a>
         </li>
-        <li class="faq-item">
-          <a class="faq-link" href="">
-            <span>Are there any restrictions to attaching wall or floor fixings?</span>
+        <li>
+          <a href="">
+            <span class="text">Are there any restrictions to attaching wall or floor fixings?</span>
+            <%= fa_icon "chevron-right" %>
           </a>
         </li>
-        <li class="faq-item">
-          <a class="faq-link" href="">
-            <span>What should I do if I have no heating or hot water?</span>
+        <li>
+          <a href="">
+            <span class="text">What should I do if I have no heating or hot water?</span>
+            <%= fa_icon "chevron-right" %>
           </a>
         </li>
-        <li class="faq-item">
-          <a class="faq-link" href="">
-            <span>How can I protect my new carpet?</span>
+        <li>
+          <a href="">
+            <span class="text">How can I protect my new carpet?</span>
+            <%= fa_icon "chevron-right" %>
           </a>
         </li>
       </ul>

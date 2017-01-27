@@ -1,0 +1,48 @@
+.homeowner-view {
+  .session {
+    @include grad-blue-black(90);
+    
+    .session-inner {
+      @include outer-container(90%);
+
+      .user {
+        @include span-columns(0);
+        @include pad(10px default);
+        float: right;
+      }
+
+      span {
+        color: white;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      i {
+        color: white;
+        padding: 3px;
+        font-size: 20px;
+        vertical-align: middle;
+        cursor: pointer;
+        padding: 6px;
+      }
+
+      img {
+        vertical-align:middle;
+        border-radius: 50%;
+        height: 40px;
+      }
+    }
+  }
+
+  @include media($tablet-landscape-down) {
+    .session {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+    }
+  }
+}

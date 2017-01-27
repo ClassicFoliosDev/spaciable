@@ -1,0 +1,16 @@
+$contact_thumb_diameter: 54px;
+
+.homeowner-view {
+  .contact-list {
+    .avatar {
+      overflow: hidden;
+      border-radius: 50%;
+
+      img {
+        display: block;
+        height: $contact_thumb_diameter;
+        width: $contact_thumb_diameter;
+      }
+    }
+  }   
+}

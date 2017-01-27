@@ -111,7 +111,6 @@ en:
     homeowner:
       header:
         hi: "Hi %{first_name}"
-        logout: "Log out"
     home:
       header:
         nav:

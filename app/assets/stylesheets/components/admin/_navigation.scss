@@ -1,7 +1,7 @@
 //Trigger Variables
 $navbar-trigger-color: $primary-red;
 $navbar-trigger-size: $title-font-size-1;
-$navbar-trigger-offset: 10px;
+$navbar-trigger-offset: 16px;
 
 //Link Variables
 $navbar-link-padding-mobile: $spacing-medium;
@@ -109,105 +109,6 @@ $navbar-bg-color-mobile: $ui-white;
         opacity: 1;
       }
 
-    }
-  }
-}
-
-.homeowner-view {
-  
-  @include media($tablet-landscape-down) {
-
-    .navigation-container {
-      padding: 0px;
-
-      .navbar {
-        display: none;
-      }
-    }
-
-    .navbar {
-      background-color: #fff;
-      width: 100%;
-      position: absolute;
-      left: 0px;
-      top: 42px;
-    }
-  }
-  
-  @include media($tablet-landscape-up) {
-    .session-container {
-      .navbar {
-        display: none;
-      }
-    }
-  }
-
-  // Navbar trigger uses +checked selector
-  // in combination with the checkbox label
-  // to hide/show nav on smaller devices
-
-  .navbar-trigger-label {
-    color: #fff;
-    display: block;
-    position: fixed;
-    font-size: 25px;
-    height: 22px;
-    line-height: 25px;
-    left: $navbar-trigger-offset;
-    top: $navbar-trigger-offset;
-
-    @include media($tablet-landscape-up) {
-      display: none;
-    }
-  }
-
-  #navbar-trigger {
-    display: none;
-  }
-
-  #navbar-trigger:checked + .navbar-menu {
-    max-height: 100%;
-  }
-
-  .navbar-menu {
-    ul {
-      margin-bottom: 0px;
-    }
-
-    @include media($tablet-landscape-down) { 
-      max-height: 0;
-      overflow: hidden; 
-      @include transition(max-height 0.2s ease-in-out);
-    }
-  }
-
-  .navbar-item {
-    display: inline;
-    list-style-type: none;
-    line-height: 44px;
-    margin-bottom: 0px;
-
-    a {
-      @include media($tablet-landscape-down) { 
-        display: block;
-        line-height: 36px;
-        text-align: center;
-      }
-    }
-  }
-
-  .navbar-link {
-    @include media($tablet-landscape-up) {
-      color: $primary-black;
-      font-weight: bold;
-      text-decoration: none;
-      cursor: pointer;
-      padding: $spacing-small $spacing-medium;
-      border-radius: $border-radius;
-
-      &:hover {
-        background-color: $ui-grey;
-      }
     }
   }
 }

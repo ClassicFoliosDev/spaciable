@@ -3,7 +3,7 @@
 ## Primary Colors
 
 @colors {
-  $primary-red $primary-black $primary-green  $primary-yellow 
+  $primary-red $default-text-color $primary-green  $primary-yellow 
 }
 
 ## Secondary Colors

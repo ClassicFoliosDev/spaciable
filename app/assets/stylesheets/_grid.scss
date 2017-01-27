@@ -1,24 +1,3 @@
-@include media($tablet-landscape-down) {
-
-  html.hoozzi,
-  html.hoozzi body {
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-  }
-
-}
-
-
-html.hoozzi,
-html.hoozzi body {
-  background-color: $ui-light-grey;
-  
-  @include media($tablet-landscape-up) {
-    overflow: hidden;
-  }
-}
-
 .outer-container {
   @include outer-container(100%);
   height: 100%;
@@ -128,6 +107,8 @@ html.hoozzi body {
   .main-container {
     @include span-columns(14 of 16);
     @include shift(1);
+    position: relative;
+    z-index: 0;
   }
 }
 
@@ -151,7 +132,7 @@ html.hoozzi body {
   }
 }
 
-.row-item.half {
+.half {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);
   }
@@ -161,7 +142,7 @@ html.hoozzi body {
   }
 }
 
-.row-item.third {
+.third {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);
   }
@@ -171,7 +152,7 @@ html.hoozzi body {
   }
 }
 
-.row-item.two-thirds {
+.two-thirds {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);
   }
@@ -181,7 +162,7 @@ html.hoozzi body {
   }
 }
 
-.row-item.quarter {
+.quarter {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);
   }

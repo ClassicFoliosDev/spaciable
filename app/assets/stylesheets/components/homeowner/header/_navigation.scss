@@ -1,0 +1,148 @@
+.homeowner-view {
+  nav {
+    background-color: white;
+
+    .nav-inner {
+      @include outer-container(90%);
+    }
+
+    .logo {
+      height: 80px;
+      width: 160px;
+      padding: 20px;
+      @include span-columns(2 of 12);
+    }
+
+    .navigation {
+      height: 80px;
+      @include span-columns(6 of 12);
+      padding: $spacing-medium;
+    }
+
+    .navbar-item {
+      display: inline;
+      list-style-type: none;
+      line-height: 44px;
+      margin-bottom: 0;
+    }
+
+    .navbar-item {
+      padding: $spacing-small $spacing-medium;
+
+      &:hover {
+        background-color: $ui-grey;
+        border-radius: $border-radius;
+      }
+
+      a {
+        color: $default-text-color;
+        font-weight: bold;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
+
+    .search {
+      @include span-columns(4 0f 12);
+      height: 80px;
+      padding: 20px;
+
+      input {
+        @include span-columns(10);
+        @include omega();
+        height: 40px;
+        border-radius: 3px 0 0 3px;
+      }
+      button {
+        @include span-columns(6);
+        height: 40px;
+        border-radius: 0 3px 3px 0;
+        border-color: $primary-red;
+      }
+    }
+  }
+
+  #navbar-trigger,
+  .navbar-trigger-label {
+    display: none;
+  }
+
+  @include media($tablet-landscape-down) {
+    .nav-inner {
+      margin-top: 60px;
+    }
+
+    .navbar-trigger-label {
+      color: $ui-white;
+      display: block;
+      position: fixed;
+      font-size: 25px;
+      height: 22px;
+      line-height: 25px;
+      left: $navbar-trigger-offset;
+      top: $navbar-trigger-offset;
+    }
+
+    .navbar-menu {
+      max-height: 0;
+      overflow: hidden;
+
+      ul {
+        margin-bottom: 0;
+      }
+    }
+
+    #navbar-trigger:checked + .navbar-menu {
+      max-height: 100%;
+    }
+
+    nav {
+      .navigation {
+        width: 0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .navbar-item {
+        display: block;
+        text-align: center;
+        width: 100%;
+
+        a {
+          line-height: 36px;
+          
+        }
+      }
+
+      .logo {
+        @include span-columns(4 of 12);
+      }
+
+      .search { 
+        @include span-columns(8 of 12);
+      }
+    }
+
+    .navbar {
+      background-color: $ui-white;
+      width: 100%;
+      position: absolute;
+      left: 0px;
+      top: 60px;
+    }
+  }
+
+  @include media($mobile-down) {
+    nav {
+      .logo,
+      .search {
+        @include span-columns(12 of 12);
+      }
+      
+      img {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}

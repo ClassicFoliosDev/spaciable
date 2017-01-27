@@ -29,30 +29,30 @@
 @import 'buttons';
 @import 'z_sorting';
 
-@import 'components/navigation';
-@import 'components/header';
-@import 'components/record_list';
+@import 'components/admin/base';
+@import 'components/admin/header';
+@import 'components/admin/navigation';
+@import 'components/admin/breadcrumbs';
+@import 'components/admin/tabs';
+@import 'components/admin/sorting';
+@import 'components/admin/record_list';
+@import 'components/admin/paging';
+
+@import 'components/homeowner/header/session';
+@import 'components/homeowner/header/navigation';
+@import 'components/homeowner/header/hero';
+@import 'components/homeowner/dashboard/components';
+
 @import 'components/section';
 @import 'components/flashes';
 @import 'components/dialogs';
-@import 'components/paging';
-@import 'components/breadcrumbs';
-@import 'components/tabs';
-@import 'components/sorting';
 @import 'components/images';
-@import 'components/search_input';
-@import 'components/avatar';
 @import 'components/cards';
 
 @import 'views/login_view';
 @import 'views/admin_login_view';
-@import 'views/developers_view';
-@import 'views/divisions_view';
-@import 'views/developments_view';
 @import 'views/unit_types_view';
-@import 'views/phases_view';
-@import 'views/plots_view';
-@import 'views/rooms_view';
+@import 'views/record_list';
 @import 'views/appliance_view';
 @import 'views/documents_view';
 @import 'views/notifications_view';

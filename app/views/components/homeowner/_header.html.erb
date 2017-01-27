@@ -1,38 +1,34 @@
 <header>
-  <div class="session-container">
+  <div class="session">
+    <div class="session-inner">
+      <div class="user">
+        <span><%= t('.hi', first_name: current_user.first_name) %></span>
+        <%= fa_icon "bell" %>
+        <%= fa_icon "heart" %>
+        <%= link_to destroy_user_session_path, class: 'sign-out', method: :delete do %>
+          <%= fa_icon "sign-out" %>
+        <% end %>
 
-    <%= render "components/homeowner/navigation" %>
-
-    <p class="greeting">
-      <%= t('.hi', first_name: current_user.first_name) %>
-    </p>
-    <div class="avatar">
-      <label class="avatar-mask avatar-menu-trigger" for="avatar-menu-toggle">
-        <img class="homeowner" src="https://shortcut-test2.s3.amazonaws.com/uploads/user_image/attachment/11681/default_headshot-square.jpg">
-      </label>
-      <input id="avatar-menu-toggle" type="checkbox">
-      <nav class="avatar-menu">
-        <ul>
-          <li><%= link_to t('.logout'), destroy_user_session_path, method: :delete %></li>
-        </ul>
-      </nav>
+        <img src="https://tinyurl.com/zvl8hxo">
+      </div>
     </div>
   </div>
-  <div class="navigation-container">
-    <div class="logo">
-      <%= image_tag 'logo.png'%>
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">
+        <%= image_tag 'logo.png'%>
+      </div>
+      <div class="navigation">
+        <%= render "components/homeowner/navigation" %>
+      </div>
+      <div class="search">
+        <form>
+          <input type="text">
+          <button class="btn-primary">Search</button>
+        </form>
+      </div>
     </div>
+  </nav>
 
-    <%= render "components/homeowner/navigation" %>
-
-    <form class="search-form">
-      <label>
-        <%= fa_icon "search" %>
-      </label>
-      <input type="text">
-      <button class="btn-primary">Search</button>
-    </form>
-  </div>
-  <div class="hero-container" style="background-image: url('https://www.keepmoat.com/sites/default/files/development/gallery/Bardon%20View_%20Coallville_%20Show%20Home_%20Exterior_24413.jpg')">
-  </div>
+  <div class="hero"></div>
 </header>

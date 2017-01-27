@@ -9,7 +9,7 @@ $(document).on('click', '.archive-btn', function (event) {
   $('body').append(dialog_container);
 
   $( "#dialog" ).dialog({
-      show : "slide",
+      show : "show",
       modal: true,
       dialogClass: "archive-dialog",
       title: dataIn.title,
