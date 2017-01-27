@@ -1,6 +1,6 @@
 .homeowner-view {
   .session {
-    @include grad-blue-black(90);
+    background-color: $secondary-blue;
     
     .session-inner {
       @include outer-container(90%);
