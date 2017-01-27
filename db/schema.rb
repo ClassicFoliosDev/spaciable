@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126125059) do
+ActiveRecord::Schema.define(version: 20170126132518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,15 @@ ActiveRecord::Schema.define(version: 20170126125059) do
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
     t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
     t.index ["room_id"], name: "index_finishes_on_room_id", using: :btree
+  end
+
+  create_table "finishes_rooms", id: false, force: :cascade do |t|
+    t.integer  "finish_id",  null: false
+    t.integer  "room_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
+    t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
 
   create_table "homeowner_login_contents", force: :cascade do |t|

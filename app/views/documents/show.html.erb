@@ -19,6 +19,13 @@
     </fieldset>
   </div>
 
+  <div class="row-item third">
+    <fieldset>
+      <%= label_tag t(".category") %>
+      <span><%= t("activerecord.attributes.document.categories.#{@document.category}") %></span>
+    </fieldset>
+  </div>
+
   <% if @document.file? %>
     <div class="row-item third">
       <fieldset>

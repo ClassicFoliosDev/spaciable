@@ -13,6 +13,12 @@ class Document < ApplicationRecord
 
   validates :title, presence: true, uniqueness: false
 
+  enum category: [
+    :homeowner_manual,
+    :appliance_manuals,
+    :insurance_warranty
+  ]
+
   def to_s
     title
   end

@@ -46,6 +46,8 @@ And(/^I should see the original filename$/) do
   within ".documents" do
     expect(page).to have_content("dummy_pdf.pdf")
     expect(page).to have_content(DocumentFixture.document_name)
+    # Wasn't set explicitly, but current behaviour will default it
+    expect(page).to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
   end
 end
 
@@ -57,6 +59,8 @@ When(/^I update the developer's document$/) do
   end
 
   fill_in "document_title", with: DocumentFixture.updated_document_name
+
+  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.insurance_warranty")
 
   click_on t("developers.form.submit")
 end
@@ -83,6 +87,8 @@ Then(/^I should see the updated document$/) do
     expect(page).to have_content("dummy_pdf.pdf")
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
+    expect(page).to have_content(t("activerecord.attributes.document.categories.insurance_warranty"))
+    expect(page).not_to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
   end
 end
 

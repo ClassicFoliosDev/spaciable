@@ -622,6 +622,7 @@ en:
       size: "File size"
       updated: "Upload date"
       back: "Back"
+      category: "Folder"
     form:
       load: "File"
       upload: "Upload"
@@ -770,6 +771,11 @@ en:
         title: "Document name"
         file: "File"
         updated_at: "Last edited"
+        categories:
+          # Category enum values for documents
+          homeowner_manual: "Homeowner's manual"
+          appliance_manuals: "Appliance manuals"
+          insurance_warranty: "Insurance & warranty"
       user:
         email: "Email Address"
         password: "Password"

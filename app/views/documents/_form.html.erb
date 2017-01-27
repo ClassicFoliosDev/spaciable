@@ -26,6 +26,14 @@
       </fieldset>
     </div>
 
+    <div class="row-item third">
+      <fieldset>
+        <div class="ui-front">
+          <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
+        </div>
+      </fieldset>
+    </div>
+
     <% if document.file? %>
       <div class="row-item third">
         <fieldset>
@@ -42,6 +50,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
+      <%= link_to t(".back"), documents_path, class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>
