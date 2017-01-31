@@ -5,38 +5,36 @@
     <%= fa_icon "shower" %>
     <%= @finish.name %><br>
   </h3>
+  <div class="section-data">
+    <%= edit_btn [:edit, @finish] %>
+  </div>
 </div>
 
 <div class="row finish">
   <div class="row-item third">
-    <fieldset>
-      <br>
+    <div class="finish-picture">
       <%= image_tag(@finish.picture.thumbnail.url) if @finish.picture? %>
-      <br>
-      <%= label_tag(:name) %>
-      <%= @finish.name %>
-    </fieldset>
+    </div>
   </div>
   <div class="row-item third">
-    <fieldset>
-      <%= label_tag(:name) %>
-      <%= @finish.name %>
-      <br>
+    <div class="category">
       <%= label_tag(:finish_category) %>
-      <%= @finish.finish_category %>
-      <br>
+      <span><%= @finish.finish_category %></span>
+    </div>
+    <div class="type">
       <%= label_tag(:finish_type) %>
-      <%= @finish.finish_type %>
-      <br>
-      <%= label_tag(:manufacturer) %>
-      <%= @finish.manufacturer %>
-    </fieldset>
+      <span><%= @finish.finish_type %></span>
+    </div>
   </div>
   <div class="row-item third">
-    <fieldset>
+    <div class="manufacturer">
+      <%= label_tag(:manufacturer) %>
+      <span><%= @finish.manufacturer %></span>
+    </div>
+    <div class="description">
       <%= label_tag(:description) %>
-      <%= @finish.description %>
-    </fieldset>
+      <span><%= @finish.description %></span>
+    </div>
   </div>
 </div>
 

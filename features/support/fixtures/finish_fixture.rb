@@ -42,8 +42,7 @@ module FinishFixture
     {
       category: updated_category,
       type: updated_type,
-      manufacturer: manufacturer,
-      name: updated_name
+      manufacturer: manufacturer
     }
   end
 end

@@ -71,6 +71,10 @@ Then(/^I should see the updated finish$/) do
 
   expect(page).to have_content(success_flash)
 
+  within ".section-header" do
+    expect(page).to have_content(FinishFixture.updated_name)
+  end
+
   within ".finish" do
     FinishFixture.updated_attrs.each do |_attr, value|
       expect(page).to have_content(value)

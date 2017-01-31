@@ -14,9 +14,6 @@ $label-margin: $spacing-small;
 $label-font-size: 14px;
 $label-font-weight: bold;
 
-$fieldset-padding: $spacing-medium;
-$fieldset-bg-color: $ui-white;
-
 $form-action-footer-bg-color: $ui-white;
 
 $submission-error-font-color: $ui-white;
@@ -54,7 +51,8 @@ label {
   display: block;
   font-size: $label-font-size;
   font-weight: $label-font-weight;
-  margin-bottom: $label-margin;
+  margin-top: $label-margin;
+  margin-bottom: $label-margin/2;
 }
 
 
@@ -112,16 +110,7 @@ form {
 }
 
 fieldset {
-  background-color: $fieldset-bg-color;
-  border-radius: $border-radius;
-  padding: $fieldset-padding;
-  padding-bottom: $spacing-small;
   border: none;
-
-  span {
-    font-size: $base-font-size;
-    color: $type-grey;
-  }
 }
 
 .form-actions-footer-container {

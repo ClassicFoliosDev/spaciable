@@ -23,8 +23,8 @@
 
 @import 'colors';
 @import 'reset';
-@import 'grid';
 @import 'typography';
+@import 'grid';
 @import 'forms';
 @import 'buttons';
 @import 'z_sorting';
@@ -54,5 +54,6 @@
 @import 'views/unit_types_view';
 @import 'views/record_list';
 @import 'views/appliance_view';
+@import 'views/finish_view';
 @import 'views/documents_view';
 @import 'views/notifications_view';

@@ -47,8 +47,7 @@ module ApplianceFixture
       category: updated_category,
       manufaturer: updated_manufacturer,
       warranty_len: warranty_len,
-      e_rating: e_rating,
-      name: updated_name
+      e_rating: e_rating
     }
   end
 end

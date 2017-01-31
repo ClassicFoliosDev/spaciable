@@ -98,6 +98,10 @@ Then(/^I should see the updated appliance$/) do
 
   click_on ApplianceFixture.updated_name
 
+  within ".section-title" do
+    expect(page).to have_content(ApplianceFixture.updated_name)
+  end
+
   within ".appliance" do
     ApplianceFixture.updated_attrs.each do |_attr, value|
       expect(page).to have_content(value)
@@ -107,13 +111,13 @@ Then(/^I should see the updated appliance$/) do
   within ".appliance_primary_image" do
     image = page.find("img")
     expect(image["src"]).to have_content("bosch_wab.jpg")
-    expect(image["alt"]).to have_content("bosch wab")
+    expect(image["alt"]).to have_content("Bosch wab")
   end
 
-  within ".appliance_secondary_image" do
+  within ".secondary_image" do
     image = page.find("img")
     expect(image["src"]).to have_content("fridgefreezers160x160-aeg.png")
-    expect(image["alt"]).to have_content("fridgefreezers")
+    expect(image["alt"]).to have_content("Fridgefreezers")
   end
 end
 
@@ -144,10 +148,10 @@ Then(/^I should see the updated appliance without the image$/) do
   within ".appliance_primary_image" do
     image = page.find("img")
     expect(image["src"]).to have_content("bosch_wab.jpg")
-    expect(image["alt"]).to have_content("bosch wab")
+    expect(image["alt"]).to have_content("Bosch wab")
   end
 
-  within ".appliance_secondary_image" do
+  within ".secondary_image" do
     expect(page).not_to have_content("img")
   end
 end

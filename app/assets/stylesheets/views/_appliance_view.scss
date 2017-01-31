@@ -5,8 +5,13 @@ $manual-filename-type: $type-grey;
 }
 
 .appliance-manual {
-    @include display(flex);
-    @include flex-direction(row);
+  @include display(flex);
+  @include flex-direction(row);
+
+  span {
+    width: 80%;
+    display: inline-block;
+  }
 }
 
 .manual-filename {

@@ -50,8 +50,8 @@
           <%= label_tag('appliance_manual', t(".upload"), class: "btn") %>
           <% if appliance.manual? %>
             <div class="appliance-manual">
-            <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename" %>
-            <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
+              <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename" %>
+              <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
               <%= icon "cloud-download" %>
             <% end %>
             </div>
