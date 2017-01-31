@@ -1,14 +1,10 @@
 <% breadcrumb :plot_new, @phase %>
 
-<div class="row">
-  <div class="row-item">
-    <div class="section-header">
-      <h3 class="section-title">
-        <%= fa_icon "vcard" %>
-        <%= t(".title") %>
-      </h3>
-    </div>
-  </div>
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= t(".title") %>
+  </h3>
 </div>
 
 <%= render 'plots/form', plot: @plot, parent: @phase %>

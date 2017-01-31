@@ -1,0 +1,49 @@
+<% breadcrumb :contact, @contact %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= @contact %><br>
+  </h3>
+  <div class="section-data">
+    <%= edit_btn [:edit, @contact] %>
+  </div>
+</div>
+
+<div class="row contact">
+  <div class="row-item third">
+    <div class="contact-picture">
+      <%= image_tag(@contact.picture.url) if @contact.picture? %>
+    </div>
+    <%= label_tag(:title) %>
+    <span><%= t("activerecord.attributes.contact.titles.#{@contact.title}") if @contact.title %></span>
+  </div>
+  <div class="row-item third">
+    <div class="position">
+      <%= label_tag(:position) %>
+      <span><%= @contact.position %></span>
+    </div>
+    <%= label_tag(:category) %>
+    <span><%= t("activerecord.attributes.contact.categories.#{@contact.category}") if @contact.category %></span>
+  </div>
+  <div class="row-item third">
+    <div class="email">
+      <%= label_tag(:email) %>
+      <span><%= @contact.email %></span>
+    </div>
+    <div class="phone">
+      <%= label_tag(:phone) %>
+      <span><%= @contact.phone %></span>
+    </div>
+    <div class="mobile">
+      <%= label_tag(:mobile) %>
+      <span><%= @contact.mobile %></span>
+    </div>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), contacts_path, class: "btn" %>
+  </div>
+</div>

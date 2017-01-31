@@ -72,15 +72,17 @@ When(/^I update the appliance$/) do
     select_from_selectmenu :warranty, with: ApplianceFixture.warranty_len
     select_from_selectmenu :e_rating, with: ApplianceFixture.e_rating
 
+    primary_picture_full_path = FileFixture.file_path + FileFixture.appliance_primary_picture_name
     within ".appliance_primary_image" do
       attach_file("appliance_primary_image",
-                  File.absolute_path("./features/support/files/bosch_wab.jpg"),
+                  File.absolute_path(primary_picture_full_path),
                   visible: false)
     end
 
+    secondary_picture_full_path = FileFixture.file_path + FileFixture.appliance_secondary_picture_name
     within ".appliance_secondary_image" do
       attach_file("appliance_secondary_image",
-                  File.absolute_path("./features/support/files/fridgefreezers160x160-aeg.png"),
+                  File.absolute_path(secondary_picture_full_path),
                   visible: false)
     end
   end
@@ -110,14 +112,14 @@ Then(/^I should see the updated appliance$/) do
 
   within ".appliance_primary_image" do
     image = page.find("img")
-    expect(image["src"]).to have_content("bosch_wab.jpg")
-    expect(image["alt"]).to have_content("Bosch wab")
+    expect(image["src"]).to have_content(FileFixture.appliance_primary_picture_name)
+    expect(image["alt"]).to have_content(FileFixture.appliance_primary_picture_alt)
   end
 
   within ".secondary_image" do
     image = page.find("img")
-    expect(image["src"]).to have_content("fridgefreezers160x160-aeg.png")
-    expect(image["alt"]).to have_content("Fridgefreezers")
+    expect(image["src"]).to have_content(FileFixture.appliance_secondary_picture_name)
+    expect(image["alt"]).to have_content(FileFixture.appliance_secondary_picture_alt)
   end
 end
 
@@ -147,8 +149,8 @@ Then(/^I should see the updated appliance without the image$/) do
   # Make sure primary image has not been affected, we only deleted the second one
   within ".appliance_primary_image" do
     image = page.find("img")
-    expect(image["src"]).to have_content("bosch_wab.jpg")
-    expect(image["alt"]).to have_content("Bosch wab")
+    expect(image["src"]).to have_content(FileFixture.appliance_primary_picture_name)
+    expect(image["alt"]).to have_content(FileFixture.appliance_primary_picture_alt)
   end
 
   within ".secondary_image" do

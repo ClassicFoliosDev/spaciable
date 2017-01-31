@@ -1,14 +1,10 @@
 <% breadcrumb :development_edit, @development %>
 
-<div class="row">
-  <div class="row-item">
-    <div class="section-header">
-      <h3 class="section-title">
-        <%= fa_icon "vcard" %>
-        <%= t(".title", development_name: @development.name) %>
-      </h3>
-    </div>
-  </div>
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= t(".title", development_name: @development.name) %>
+  </h3>
 </div>
 
 <%= render partial: 'developments/form', locals: { parent: @developer, development: @development } %>

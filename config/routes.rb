@@ -53,6 +53,7 @@ Rails.application.routes.draw do
 
   resources :appliances
   resources :finishes
+  resources :contacts
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"
   get "/remove_finish", to: "rooms#remove_finish"
+  get "/remove_contact", to: "contacts#remove_contact"
   get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types", to: 'finishes#finish_types', format: :json

@@ -54,9 +54,10 @@ When(/^I update the finish$/) do
 
   select_from_selectmenu :finish_manufacturer, with: FinishFixture.manufacturer
 
+  picture_full_path = FileFixture.file_path + FileFixture.finish_picture_name
   within ".finish_picture" do
     attach_file("finish_picture",
-                File.absolute_path("./features/support/files/roca_basin.jpg"),
+                File.absolute_path(picture_full_path),
                 visible: false)
   end
 
@@ -82,8 +83,8 @@ Then(/^I should see the updated finish$/) do
 
     image = page.find("img")
 
-    expect(image["src"]).to have_content("roca_basin.jpg")
-    expect(image["alt"]).to have_content("roca basin")
+    expect(image["src"]).to have_content(FileFixture.finish_picture_name)
+    expect(image["alt"]).to have_content(FileFixture.finish_picture_alt)
   end
 end
 

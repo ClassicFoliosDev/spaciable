@@ -1,0 +1,50 @@
+<div class="section-actions">
+  <%= link_to new_contact_path, class: "btn btn-primary" do %>
+    <i class="fa fa-plus"></i>
+    <span class="btn-label"><%= t(".create") %></span>
+  <% end %>
+</div>
+
+<div class="record-list">
+  <dl class="contacts">
+    <dt class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span class="icon">&nbsp;</span>
+        <span><%= sortable(Contact, :last_name, Contact.model_name.human) %></span>
+        <span><%= sortable(Contact, :position) %></span>
+        <span><%= sortable(Contact, :updated_at) %></span>
+        <span><%= sortable(Contact, :category) %></span>
+      </div>
+    </dt>
+    <% collection.each do |contact| %>
+        <dd class="record-list-item" data-contacts="<%= contact.id %>">
+          <div class="record-list-item-actions">
+            <%= edit_btn edit_contact_path(contact) %>
+            <%= delete_btn contact %>
+          </div>
+          <div class="record-list-item-content">
+            <span class="icon">
+              <%= image_tag contact.picture, class: "circle" if contact.picture? %>
+            </span>
+            <span>
+              <%= link_to contact, contact_path(contact) %>
+            </span>
+            <span>
+              <%= contact.position %>
+            </span>
+            <span>
+              <%= l contact.updated_at.to_date, format: :digits %>
+            </span>
+            <span>
+              <%= t("activerecord.attributes.contact.categories.#{contact.category}") if contact.category %>
+            </span>
+          </div>
+        </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

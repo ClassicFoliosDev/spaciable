@@ -48,7 +48,10 @@ end
 When(/^I add a new CF Admin$/) do
   click_on t("admin.users.index.add")
 
-  fill_in :user_email, with: AdminUsersFixture.second_cf_admin_attrs[:email_address]
+  within ".user_email" do
+    fill_in :user_email, with: AdminUsersFixture.second_cf_admin_attrs[:email_address]
+  end
+
   select "CF Admin", visible: false
 
   click_on t("admin.users.form.submit")

@@ -94,6 +94,8 @@ en:
     unit_type_add: "Add unit type"
     document_add: "Add document"
     document_edit: "Edit %{document_name}"
+    contact_add: "New contact"
+    contact_edit: "Edit %{contact_name}"
 
   image_preview:
     replace: "Replace"
@@ -126,6 +128,7 @@ en:
       finishes: "Finishes"
       profile: "Profile"
       notifications: "Notifications"
+      contacts: "Contacts"
 
   destroy:
     cancel: "Cancel"
@@ -627,6 +630,21 @@ en:
     edit:
       title: "Edit %{name}"
 
+  contacts:
+    index:
+      title: "Contacts"
+    collection:
+      create: "Create contact"
+    new:
+      title: "New contact"
+    form:
+      back: "Back"
+      submit: "Submit"
+    edit:
+      title: "Edit %{name}"
+    show:
+      back: "Back"
+
   resident_notification_mailer:
     notify:
       new_notification: "You have a new notification form Hoozzi."
@@ -654,6 +672,7 @@ en:
       User: "User"
       Address: "Address"
       Plot_Resident: "Resident"
+      Contact: "Contact"
 
     attributes:
       developer:
@@ -726,7 +745,6 @@ en:
         manufacturer: "Manufacturer"
         manual: "Manual"
         updated_at: "Last edited"
-
         warranty_length:
           # Warranty length enums for appliances
           no_warranty: "No warranty"
@@ -776,6 +794,31 @@ en:
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
+      contact:
+        fname: "First name"
+        lname: "Last name"
+        title: "Title"
+        position: "Position"
+        category: "Folder"
+        email: "Email"
+        phone: "Contact number"
+        mobile: "Mobile number"
+        updated_at: "Last edited"
+        titles:
+          mr: "Mr"
+          ms: "Ms"
+          mrs: "Mrs"
+          miss: "Miss"
+          dr: "Dr"
+          prof: "Professor"
+          other: "Other"
+        categories:
+          customer_care: "Customer Care"
+          sales: "Sales"
+          warranty_provider: "Warranty Provider"
+          local_authority: "Local Authority"
+          emergency: "Emergency"
+          concierge: "Concierge"
       send_to_all:
         all: "All"
 
@@ -787,6 +830,8 @@ en:
         only_one_parent_allowed: "cannot be associated with a Developer and a Division"
         taken: " has already been added"
         select: "must be selected"
+
+
       models:
         notification:
           attributes:
@@ -794,3 +839,7 @@ en:
               conflicts: "is conflicting with sending to a subset of homeowners as well."
             send_to:
               select: "all homeowners or choose a subset."
+        contact:
+          attributes:
+            base:
+              email_or_phone_required: "You must provide either an email address or a contact number"

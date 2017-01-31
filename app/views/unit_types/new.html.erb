@@ -1,14 +1,10 @@
 <% breadcrumb :unit_type_new, @development %>
 
-<div class="row">
-  <div class="row-item">
-    <div class="section-header">
-      <h3 class="section-title">
-        <%= fa_icon "vcard" %>
-        <%= t(".add", development_name: @development.name) %>
-      </h3>
-    </div>
-  </div>
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= t(".add", development_name: @development.name) %>
+  </h3>
 </div>
 
 <%= render 'form', unit_type: @unit_type %>

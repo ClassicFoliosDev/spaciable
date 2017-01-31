@@ -36,8 +36,10 @@
 
 .tab {
   float: left;
+  height: 30px;
 
   a.active {
     color: $ui-dark-grey;
+    line-height: $button-line-height;
   }
 }

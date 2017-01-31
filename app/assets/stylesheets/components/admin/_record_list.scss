@@ -75,9 +75,18 @@ $two-actions-three-tabs-width: 310px;
 
   .icon {
     @include flex(0.5);
+    margin-right: 12px;
     img {
       max-width: 40px;
     }
+  }
+}
+
+.record-list-item-content {
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

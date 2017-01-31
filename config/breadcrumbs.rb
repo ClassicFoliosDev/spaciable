@@ -292,3 +292,24 @@ crumb :appliance_new do
   link t("breadcrumbs.appliance_add")
   parent :appliances
 end
+
+# CONTACTS
+
+crumb :contacts do
+  link Contact.model_name.human.pluralize, contacts_path
+end
+
+crumb :contact do |contact|
+  link contact, edit_contact_path(contact)
+  parent :contacts
+end
+
+crumb :contact_edit do |contact|
+  link t("breadcrumbs.contact_edit", contact_name: contact), contacts_path(contact)
+  parent :contacts
+end
+
+crumb :contact_new do
+  link t("breadcrumbs.contact_add")
+  parent :contacts
+end

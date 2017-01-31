@@ -18,9 +18,10 @@ When(/^I upload a document for the developer$/) do
     click_on t("documents.collection.add")
   end
 
+  document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".documents" do
     attach_file("document_file",
-                File.absolute_path("./features/support/files/dummy_pdf.pdf"),
+                File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
   end
@@ -44,7 +45,7 @@ And(/^I should see the original filename$/) do
   end
 
   within ".documents" do
-    expect(page).to have_content("dummy_pdf.pdf")
+    expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.document_name)
     # Wasn't set explicitly, but current behaviour will default it
     expect(page).to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
@@ -84,7 +85,7 @@ Then(/^I should see the updated document$/) do
 
   # On the show page
   within ".documents" do
-    expect(page).to have_content("dummy_pdf.pdf")
+    expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
     expect(page).to have_content(t("activerecord.attributes.document.categories.insurance_warranty"))
@@ -104,10 +105,12 @@ When(/^I create another document$/) do
 
   click_on t("documents.collection.add")
 
+  document_full_path = FileFixture.file_path + FileFixture.document_name
+
   within ".documents" do
     fill_in "document_title", with: DocumentFixture.second_document_name
     attach_file("document_file",
-                File.absolute_path("./features/support/files/dummy_pdf.pdf"),
+                File.absolute_path(document_full_path),
                 visible: false)
   end
 

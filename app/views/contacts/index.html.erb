@@ -1,4 +1,4 @@
-<% breadcrumb :plot_new, @development %>
+<% breadcrumb :contacts %>
 
 <div class="section-header">
   <h3 class="section-title">
@@ -7,4 +7,4 @@
   </h3>
 </div>
 
-<%= render 'form', plot: @plot, parent: @development %>
+<%= render_collection @contacts, parent: nil %>
