@@ -18,33 +18,54 @@ $card-height: 230px;
   margin-bottom: $spacing-medium;
   height: $card-height;
 
-  .btn-primary {
-    border: 1px solid $primary-red;
+  .btn {
+    float: right;
+    font-size: $base-small-font-size;
+    margin-left: auto;
+    background-color: transparent;
+    border-color: $secondary-cta-color;
+    color: $secondary-cta-color;
+
+    &:hover {
+      background-color: $secondary-cta-color;
+      border-color: $secondary-cta-color;
+      color: $ui-white;
+    }
   }
 
-  .card-title {
+  .btn-alt {
+    background-color: $secondary-cta-color;
+    border-color: $ui-white;
+    color: $ui-white;
+
+    &:hover {
+      background-color: $ui-white;
+      border-color: $ui-white;
+      color: $secondary-cta-color;
+    }
+  }
+
+  .card-header {
     @include pad($spacing-small);
     border-bottom: 1px solid $ui-grey;
     height: 52px;
 
-    .title {
+    .card-title {
       @include span-columns(6 of 12);
       font-size: $title-font-size-4;
       margin: 0;
       color: $default-text-color;
     }
 
-    .btn {
-      float: right;
-      font-size: $base-small-font-size;
-      margin-left: auto;
-      background-color: lighten($primary-red, 30%);
-      color: $primary-red;
+    .card-title-alt {
+      @include span-columns(6 of 12);
+      font-size: $title-font-size-4;
+      margin: 0;
+      color: $ui-white;
+    }
 
-      &:hover {
-        background-color: $primary-red;
-        color: $ui-white;
-      }
+    .card-action {
+      @include span-columns(6 of 12);
     }
   }
 
@@ -83,7 +104,7 @@ $card-height: 230px;
       border-radius: $border-radius;
     }
 
-    .card-title {
+    .card-header {
       border-bottom: none;
     }
 
@@ -95,10 +116,14 @@ $card-height: 230px;
       margin: 0 0 $spacing-small;
       font-size: $base-font-size;
     }
+
+    .btn {
+      float: left;
+    }
   }
 
   &.my-library {
-    @include grad-yellow-orange();
+    border: 1px $ui-grey solid;
     height: 230px;
     color: $ui-white;
 
@@ -114,16 +139,17 @@ $card-height: 230px;
       }
     }
 
-    .card-title {
+    .card-header {
       border-bottom: none;
     }
 
     .title {
-      color: $ui-white;
+      color: $default-text-color;
     }
 
     .action {
       @include span-columns(1 of 12);
+      color: $primary-cta-color;
       cursor: pointer;
       display: inline-block;
       padding-top: 64px;
@@ -152,7 +178,7 @@ $card-height: 230px;
         display: inline-table;
         margin: 0 10px;
         width: 100px;
-
+        cursor: pointer;
 
         img {
           border: 1px solid $ui-white;
@@ -162,7 +188,6 @@ $card-height: 230px;
         p { 
           font-size: $base-small-font-size;
           line-height: 14px;
-          color: $ui-white;
           margin-top: 4px;
         }
       }
@@ -181,19 +206,36 @@ $card-height: 230px;
     }
 
     .contact-name {
-      display: inline-block;
       font-weight: bold;
       margin: 0 0 0 $spacing-small;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .contact-details {
+      overflow: hidden;
     }
 
     .contact-actions {
+
+      i {
+        color: $primary-cta-color;
+      }
+
       a {
         text-decoration: none;
-        font-size: $title-font-size-3;
+        font-size: $title-font-size-4;
+        color: $default-text-color;
+        display: block;
+        margin-left: 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
-
-        &:first-child {
-          margin-left: $spacing-small;
+        span {
+          font-size: $base-font-size;
+          color: $default-text-color;
         }
       }
     }
@@ -242,13 +284,14 @@ $card-height: 230px;
       @include span-columns(1 of 12);
       height: 44px;
       padding-top: 14px;
+      color: $primary-cta-color;
     }
   }
 
   &.how-to {
     position: relative;
 
-    .card-title {
+    .card-header {
       border-bottom: 0px;
     }
 

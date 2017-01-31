@@ -30,6 +30,7 @@
     a {
       text-decoration: none;
       padding: $spacing-small;
+      color: $ui-dark-grey;
     }
   }
 }
@@ -38,7 +39,8 @@
   float: right;
 
   .active a {
-    color: $ui-dark-grey;
+    font-weight: bold;
+    color: $type-grey;
   }
 }
 

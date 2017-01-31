@@ -1,10 +1,9 @@
-$font-section-title-color: $primary-green;
+$font-section-title-color: $ui-black;
 $data-section-color: $type-grey;
-$icon-color: $primary-red;
 
 .section-header {
   @include display(flex);
-  margin-bottom: $spacing-large;
+  margin-top: $spacing-large;
 
   & > * {
     @include flex(1);
@@ -25,7 +24,6 @@ $icon-color: $primary-red;
   .icons {
     .btn-primary {
       background-color: $ui-white;
-      color: $icon-color;
     }
   }
 }
@@ -36,6 +34,7 @@ $icon-color: $primary-red;
   a {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border-color: $primary-cta-color;
   }
 }
 

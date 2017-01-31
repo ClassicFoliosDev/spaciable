@@ -5,7 +5,7 @@ $list-item-text-color-secondary: $ui-dark-grey;
 $record-list-title-color: $primary-green;
 $secondary-record-list-item-font-size: 12px;
 $primary-record-list-item-color: $type-grey;
-$primary-record-list-header-color: $primary-red;
+$primary-record-list-header-color: $type-grey;
 $record-line-height: 33px;
 $one-actions-width: 45px;
 $two-actions-width: 85px;
@@ -37,9 +37,9 @@ $two-actions-three-tabs-width: 310px;
   }
 
   a {
-    font-weight: bold;
     text-decoration: none;
     color: $primary-record-list-header-color;
+    font-weight: bold;
   }
 
   span {
@@ -64,7 +64,6 @@ $two-actions-three-tabs-width: 310px;
   }
 
   a {
-    font-weight: bold;
     text-decoration: none;
     color: $primary-record-list-item-color;
     display: inline-block;
@@ -133,10 +132,6 @@ $two-actions-three-tabs-width: 310px;
 
 .record-list-item-actions {
   float: right;
-
-  .fa-pencil {
-    margin: 7px 0;
-  }
 }
 
 // Notifications List

@@ -10,7 +10,7 @@ $input-small-font-size: 10px;
 $field-invalid-border-color: $primary-red;
 $field-invalid-font-color: $primary-red;
 
-$label-margin: $spacing-small;
+$label-margin: 4px;
 $label-font-size: 14px;
 $label-font-weight: bold;
 
@@ -78,7 +78,6 @@ label {
 
   .ui-selectmenu-text {
     padding: $spacing-small !important;
-    color: $primary-red;
   }
 }
 
@@ -141,6 +140,9 @@ fieldset {
 
   .btn-form-submit {
     float: right;
+    background-color: $primary-cta-color;
+    color: $ui-white;
+    border-color: $primary-cta-color;
   }
 }
 
@@ -169,6 +171,7 @@ fieldset {
 
 .input {
   position: relative;
+  margin-bottom: 10px;
 
   &.field_with_errors {
     input {
@@ -203,6 +206,10 @@ fieldset {
     display: block;
   }
 
+  &.select .error { 
+    margin-top: 2px;
+  }
+
   input[type="checkbox"] {
     margin-right: $spacing-small;
   }
@@ -217,12 +224,12 @@ fieldset {
   ul {
     background-color: $submission-error-bg-color;
     border-radius: $border-radius;
-
+    margin-bottom: $spacing-small;
   }
 
   li {
     list-style-type: none;
     color: $submission-error-font-color;
-    padding: $spacing-small;
+    padding: 4px $spacing-small;
   }
 }

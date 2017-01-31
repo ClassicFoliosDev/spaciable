@@ -1,11 +1,11 @@
 
-//Primary Colour Palette
+//Primary color Palette
 $primary-red: #F7525E;
 $default-text-color: #252C31;
 $primary-green: #18A895;
 $primary-yellow: #FFC85D;
 
-//Secondary Colour Palette
+//Secondary color Palette
 $secondary-blue: #394F5F;
 $secondary-orange: #F79461;
 $secondary-pink: #C53D72;
@@ -20,11 +20,14 @@ $type-white: #FFFFFF;
 $ui-white: #FFFFFF;
 $ui-light-grey: #F4F4F4;
 $ui-grey: #EAEAEA;
-$ui-dark-grey: rgb(179,181,183);
+$ui-dark-grey: #B3B5B7;
 $ui-black: #252C31;
 
 //Opacity Levels
 $base-opacity: 0.9;
+
+$primary-cta-color: $primary-green;
+$secondary-cta-color: $type-grey;
 
 //Gradients
 
