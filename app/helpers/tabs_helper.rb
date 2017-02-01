@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 module TabsHelper
+  def tabs_for(parent, active_tab)
+    method_name = "#{parent.model_name.element}_tabs"
+    send(method_name, parent, active_tab)
+  end
+
   def room_tabs(room, current_tab)
     finishes_tab = Tab.new(
       title: t("rooms.collection.finishes"),

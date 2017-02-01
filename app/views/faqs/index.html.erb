@@ -7,4 +7,5 @@
   </h3>
 </div>
 
+<%= render 'components/tabs', tabs: tabs_for(@parent, "faqs"), parent: @parent %>
 <%= render_collection @faqs, parent: @parent %>

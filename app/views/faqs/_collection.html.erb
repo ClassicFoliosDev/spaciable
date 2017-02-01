@@ -24,7 +24,7 @@
             <span class="faq-updated-timestamp">
               <%= l faq.updated_at.to_date, format: :digits %>
             </span>
-            <%= t_enum(Faq, :category, faq.category) %>
+            <%= content_tag(:span, t_enum(Faq, :category, faq.category)) %>
           </div>
         </dd>
     <% end %>

@@ -1,14 +1,10 @@
 <% breadcrumb :faq_edit, @faq %>
 
-<div class="row">
-  <div class="row-item">
-    <div class="section-header">
-      <h3 class="section-title">
-        <%= fa_icon "vcard" %>
-        <%= t(".title", parent: @faq) %>
-      </h3>
-    </div>
-  </div>
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= t(".title", parent: @faq) %>
+  </h3>
 </div>
 
 <%= render 'form', faq: @faq, parent: nil %>
