@@ -313,3 +313,33 @@ crumb :contact_new do
   link t("breadcrumbs.contact_add")
   parent :contacts
 end
+
+# FAQs
+
+crumb :faqs do |faq_parent|
+  link t("breadcrumbs.faqs"), url_for([faq_parent, :faqs])
+
+  case faq_parent.model_name.element.to_sym
+  when :developer
+    parent :developer, faq_parent
+  when :division
+    parent :division, faq_parent
+  when :development
+    parent :development, faq_parent
+  end
+end
+
+crumb :faq_add do |faq_parent|
+  link t("breadcrumbs.faqs_add"), [:new, faq_parent, :faq]
+  parent :faqs, faq_parent
+end
+
+crumb :faq do |faq|
+  link faq, faq_path(faq)
+  parent :faqs, faq.faqable
+end
+
+crumb :faq_edit do |faq|
+  link t("breadcrumbs.faqs_edit"), [:edit, faq]
+  parent :faqs, faq.faqable
+end

@@ -36,7 +36,12 @@ module HoozziWorld
 
   def expand_selectmenu(field)
     within ".#{field}" do
-      arrow = page.find ".ui-icon"
+      begin
+        arrow = page.find ".ui-icon"
+      rescue Capybara::ElementNotFound
+        screenshot if debug_mode?
+        raise Capybara::ElementNotFound, "Selectmenu is missing for #{field}"
+      end
       arrow.click
     end
   end
@@ -69,7 +74,7 @@ module HoozziWorld
     item
   end
 
-  def stdout(text, show: ENV.fetch("DEBUG", false))
+  def stdout(text, show: debug_mode?)
     STDOUT.puts "DEBUG:   #{text}" if show
   end
 
@@ -88,6 +93,10 @@ module HoozziWorld
     within ".ui-dialog" do
       find(".btn-delete").trigger("click")
     end
+  end
+
+  def debug_mode?
+    ENV.fetch("DEBUG", false)
   end
 
   private

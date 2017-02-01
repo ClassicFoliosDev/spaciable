@@ -1,0 +1,37 @@
+<div class="section-actions">
+  <%= link_to new_developer_faq_path(parent), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+  <% end %>
+</div>
+<div class="record-list">
+  <dl class="faqs">
+    <dt class="record-list-item record-header">
+    <div class="record-list-header-content">
+      <span><%= sortable(Faq, :question) %></span>
+      <span><%= sortable(Faq, :updated_at) %></span>
+      <span><%= sortable(Faq, :category) %></span>
+    </div>
+    </dt>
+    <% collection.each do |faq| %>
+        <dd class="record-list-item" data-faq="<%= faq.id %>">
+          <div class="record-list-item-actions">
+            <%= edit_btn edit_faq_path(faq) %>
+            <%= delete_btn faq, path: faq_path(faq) %>
+          </div>
+          <div class="record-list-item-content">
+            <%= link_to faq, faq_path(faq), title: faq %>
+            <span class="faq-updated-timestamp">
+              <%= l faq.updated_at.to_date, format: :digits %>
+            </span>
+            <%= t_enum(Faq, :category, faq.category) %>
+          </div>
+        </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

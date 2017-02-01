@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130143435) do
+ActiveRecord::Schema.define(version: 20170130115913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,17 @@ ActiveRecord::Schema.define(version: 20170130143435) do
     t.index ["development_id"], name: "index_documents_on_development_id", using: :btree
     t.index ["division_id"], name: "index_documents_on_division_id", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
+  end
+
+  create_table "faqs", force: :cascade do |t|
+    t.text     "question"
+    t.text     "answer"
+    t.integer  "category"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "faqable_type"
+    t.integer  "faqable_id"
+    t.index ["faqable_type", "faqable_id"], name: "index_faqs_on_faqable_type_and_faqable_id", using: :btree
   end
 
   create_table "finish_categories", force: :cascade do |t|

@@ -2,23 +2,24 @@
 module Abilities
   module DevelopmentAbilities
     def development_abilities(development, division_id, developer_id)
-      crud_user_permissions(role: :development_admin, id: development, model: "Development")
+      crud_users(role: :development_admin, id: development, model: "Development")
 
-      development_notification_permissions(development)
-      crud_development_permissions(development)
-      read_development_permissions(developer_id, division_id, development)
+      development_notifications(development, division_id, developer_id)
+      development_faqs(development, division_id, developer_id)
+      crud_developments(development)
+      read_developments(developer_id, division_id, development)
     end
 
     private
 
-    def crud_development_permissions(development)
+    def crud_developments(development)
       can :crud, Document, development_id: development
       can :crud, Finish, development_id: development
       can :crud, Image, development_id: development
       can :crud, Plot, development_id: development
     end
 
-    def read_development_permissions(developer_id, division_id, development)
+    def read_developments(developer_id, division_id, development)
       can :read, Developer, id: developer_id
       can :read, Division, id: division_id
       can :read, Development, id: development
@@ -27,21 +28,26 @@ module Abilities
       can :read, UnitType, development_id: development
     end
 
-    def development_notification_permissions(development)
-      manage_polymorphic_association(
-        Notification, :send_to,
-        id: development, model_type: "Development",
-        actions: [:manage]
-      )
+    def development_notifications(development, division, developer)
+      phase_ids = Phase.where(development_id: development).pluck(:id)
 
-      manage_polymorphic_association(
-        Notification, :send_to,
-        id: Phase.where(development_id: development).pluck(:id), model_type: "Phase",
-        actions: [:manage]
-      )
+      polymorphic_abilities Notification, :send_to do
+        type "Developer", id: developer, actions: :read
+        type "Division", id: division, actions: :read
+        type "Development", id: development, actions: :manage
+        type "Phase", id: phase_ids, actions: :manage
+      end
 
       cannot :manage, Notification, send_to_all: true
       cannot :send_to_all, Notification
+    end
+
+    def development_faqs(development, division, developer)
+      polymorphic_abilities Faq, :faqable do
+        type "Development", id: development, actions: :manage
+        type "Division", id: division, actions: :read if division
+        type "Developer", id: developer, actions: :read
+      end
     end
   end
 end

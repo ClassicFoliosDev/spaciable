@@ -81,6 +81,9 @@ en:
     development_add: "Add development"
     division_edit: "Edit %{division_name}"
     division_add: "Add division"
+    faqs: "FAQs"
+    faqs_add: "Add FAQ"
+    faqs_edit: "Edit FAQ"
     finish_edit: "Edit %{name}"
     finish_add: "Add finish"
     phase_add: "Add phase"
@@ -201,6 +204,29 @@ en:
         title: "Recent FAQs"
         new: "New FAQ"
 
+  faqs:
+    collection:
+      add: "Add FAQ"
+    create:
+      success: "Successfully created FAQ: %{title}"
+    destroy:
+      success: "Successfully destroyed FAQ %{title}"
+    edit:
+      title: "%{parent} FAQ"
+      back: "Back"
+    form:
+      submit: "Submit"
+      back: "Back"
+    index:
+      title: "FAQs"
+    new:
+      title: "Add %{parent} FAQ"
+    show:
+      title: "%{parent} FAQ"
+      back: "Back"
+    update:
+      success: "Successfully updated FAQ: %{title}"
+
   home:
     show:
      home: "Home"
@@ -284,6 +310,7 @@ en:
       developments: "Developments"
       divisions: "Divisions"
       documents: "Documents"
+      faqs: "FAQs"
 
   divisions:
     destroy:
@@ -821,6 +848,13 @@ en:
           concierge: "Concierge"
       send_to_all:
         all: "All"
+      faq:
+        categories:
+          general: "General Queries"
+          settling: "Settling-in"
+          troubleshooting: "Troubleshooting"
+          urgent: "Urgent issues"
+          your_home: "Caring for your home"
 
     errors:
       messages:

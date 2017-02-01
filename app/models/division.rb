@@ -5,6 +5,7 @@ class Division < ApplicationRecord
 
   has_many :developments, dependent: :destroy
   has_many :documents, dependent: :destroy
+  has_many :faqs, as: :faqable
   has_many :finishes, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :plots, dependent: :destroy

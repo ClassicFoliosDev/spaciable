@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :divisions
     resources :developments, controller: 'developers/developments'
     resources :documents, only: [:new, :create]
+    resources :faqs, shallow: true
   end
 
   resources :divisions do

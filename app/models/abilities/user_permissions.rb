@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Abilities
   module UserPermissions
-    def crud_user_permissions(role:, id:, model:)
+    def crud_users(role:, id:, model:)
       user_role = User.roles[role]
 
       can :create, User, role: user_role

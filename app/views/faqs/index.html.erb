@@ -1,0 +1,10 @@
+<% breadcrumb :faqs, @parent %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-pdf-o"></i>
+    <%= t(".title") %>
+  </h3>
+</div>
+
+<%= render_collection @faqs, parent: @parent %>

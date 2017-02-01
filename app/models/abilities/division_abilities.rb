@@ -2,23 +2,24 @@
 module Abilities
   module DivisionAbilities
     def division_abilities(division, developer_id)
-      crud_user_permissions(role: :division_admin, id: division, model: "Division")
+      crud_users(role: :division_admin, id: division, model: "Division")
 
-      division_notification_permissions(division)
-      crud_division_permissions(division)
-      read_division_permissions(developer_id, division)
+      division_notifications(division, developer_id)
+      division_faqs(division, developer_id)
+      crud_divisions(division)
+      read_divisions(developer_id, division)
     end
 
     private
 
-    def crud_division_permissions(division)
+    def crud_divisions(division)
       can :crud, Document, division_id: division
       can :crud, Finish, division_id: division
       can :crud, Image, division_id: division
       can :crud, Plot, division_id: division
     end
 
-    def read_division_permissions(developer_id, division)
+    def read_divisions(developer_id, division)
       can :read, Developer, id: developer_id
       can :read, Development, division_id: division
       can :read, Division, id: division
@@ -27,13 +28,20 @@ module Abilities
       can :read, UnitType, division_id: division
     end
 
-    def division_notification_permissions(division)
-      manage_polymorphic_association(
-        Notification, :send_to,
-        id: division, model_type: "Division",
-        actions: [:manage]
-      )
+    def division_notifications(division, developer)
+      polymorphic_abilities Notification, :send_to do
+        type "Division", id: division, actions: :manage
+        type "Developer", id: developer, actions: :read
+      end
+
       cannot :manage, Notification, send_to_all: true
+    end
+
+    def division_faqs(division, developer)
+      polymorphic_abilities Faq, :faqable do
+        type "Division", id: division, actions: :manage
+        type "Developer", id: developer, actions: :read
+      end
     end
   end
 end

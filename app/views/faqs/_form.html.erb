@@ -1,0 +1,49 @@
+<%= simple_form_for([parent, faq]) do |f| %>
+    <% if faq.errors.any? %>
+        <div class="row">
+          <div class="row-item">
+            <div class="submission-errors">
+              <ul>
+                <% faq.errors.full_messages.each do |message| %>
+                    <li>
+                      <%= fa_icon "exclamation-circle" %>
+                      <%= message %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="row-item two-thirds">
+        <fieldset>
+          <%= f.input :question %>
+          <%= f.input :answer, as: :text %>
+        </fieldset>
+      </div>
+
+      <div class="row-item third">
+        <fieldset>
+            <%= f.input :category,
+                as: :select,
+                collection: Faq.categories,
+                label_method: ->((key, _)) { t_enum(Faq, :category, key) },
+                value_method: ->((key, _)) { key } %>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <% if parent %>
+          <%= link_to t(".back"), [parent, :faqs], class: "btn" %>
+        <% else %>
+          <%= link_to t(".back"), faq, class: "btn" %>
+        <% end %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+<% end %>
+

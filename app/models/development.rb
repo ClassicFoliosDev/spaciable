@@ -10,6 +10,7 @@ class Development < ApplicationRecord
   end
 
   has_many :documents, dependent: :destroy
+  has_many :faqs, as: :faqable
   has_many :finishes, dependent: :destroy
   has_many :images, dependent: :destroy
   has_many :plots, -> { where(phase_id: nil) }, dependent: :destroy

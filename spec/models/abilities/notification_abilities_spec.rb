@@ -5,6 +5,12 @@ require "cancan/matchers"
 RSpec.describe "Notification Abiltities" do
   subject { Ability.new(current_user) }
 
+  it_behaves_like "it has cascading polymorphic abilities", Notification do
+    let(:unsafe_actions) { [:create, :send] }
+    let(:safe_actions) { [:read] }
+    let(:belongs_to_association) { :send_to }
+  end
+
   context "as a CF Admin" do
     let(:current_user) { create(:cf_admin) }
 
@@ -28,24 +34,6 @@ RSpec.describe "Notification Abiltities" do
 
       expect(subject).not_to be_able_to(:send_to_all, Notification)
     end
-
-    it "can manage notifications under the users developer" do
-      developer = current_user.permission_level
-      notification = Notification.new(send_to: developer)
-
-      expect(subject).to be_able_to(:read, notification)
-      expect(subject).to be_able_to(:create, notification)
-      expect(subject).to be_able_to(:send, notification)
-    end
-
-    it "cannot manage notifications under others developers" do
-      developer = create(:developer)
-      notification = Notification.new(send_to: developer)
-
-      expect(subject).not_to be_able_to(:read, notification)
-      expect(subject).not_to be_able_to(:create, notification)
-      expect(subject).not_to be_able_to(:send, notification)
-    end
   end
 
   context "as a Division Admin" do
@@ -61,24 +49,6 @@ RSpec.describe "Notification Abiltities" do
 
       expect(subject).not_to be_able_to(:send_to_all, Notification)
     end
-
-    it "can manage notifications under the users division" do
-      division = current_user.permission_level
-      notification = Notification.new(send_to: division)
-
-      expect(subject).to be_able_to(:read, notification)
-      expect(subject).to be_able_to(:create, notification)
-      expect(subject).to be_able_to(:send, notification)
-    end
-
-    it "cannot manage notifications under others divisions" do
-      division = create(:division)
-      notification = Notification.new(send_to: division)
-
-      expect(subject).not_to be_able_to(:read, notification)
-      expect(subject).not_to be_able_to(:create, notification)
-      expect(subject).not_to be_able_to(:send, notification)
-    end
   end
 
   context "as a Development Admin" do
@@ -93,24 +63,6 @@ RSpec.describe "Notification Abiltities" do
       expect(subject).not_to be_able_to(:read, notification)
 
       expect(subject).not_to be_able_to(:send_to_all, Notification)
-    end
-
-    it "can manage notifications under the users development" do
-      development = current_user.permission_level
-      notification = Notification.new(send_to: development)
-
-      expect(subject).to be_able_to(:read, notification)
-      expect(subject).to be_able_to(:create, notification)
-      expect(subject).to be_able_to(:send, notification)
-    end
-
-    it "cannot manage notifications under others developments" do
-      development = create(:development)
-      notification = Notification.new(send_to: development)
-
-      expect(subject).not_to be_able_to(:read, notification)
-      expect(subject).not_to be_able_to(:create, notification)
-      expect(subject).not_to be_able_to(:send, notification)
     end
   end
 end

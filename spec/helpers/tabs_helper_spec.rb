@@ -5,6 +5,7 @@ RSpec.describe DeveloperTabsHelper do
   describe "#developer_tabs" do
     let(:divisions_title) { I18n.t("developers.collection.divisions") }
     let(:documents_title) { I18n.t("developers.collection.documents") }
+    let(:faqs_title) { I18n.t("developers.collection.faqs") }
 
     it "should return an array of tabs" do
       developer = create(:developer)
@@ -13,7 +14,7 @@ RSpec.describe DeveloperTabsHelper do
 
       result = developer_tabs(developer, "")
       divisions = result.first
-      documents = result.last
+      documents = result.third
 
       expect(divisions[0]).to eq(divisions_title)
       expect(divisions[2]).to eq(divisions_path)
