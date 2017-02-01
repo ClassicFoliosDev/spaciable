@@ -12,6 +12,7 @@ class FaqsController < ApplicationController
 
   def index
     @faqs = paginate(sort(@faqs, default: :question))
+    @faq = @parent.faqs.build
   end
 
   def new

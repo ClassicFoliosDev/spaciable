@@ -17,7 +17,9 @@ When(/^I create a FAQ for a Developer$/) do
 
   fill_in :faq_question, with: attrs[:question]
   fill_in :faq_answer, with: attrs[:answer]
-  select_from_selectmenu :faq_category, with: attrs[:category]
+
+  category = FaqsFixture.t_category(attrs[:category])
+  select_from_selectmenu :faq_category, with: category
 
   click_on t("faqs.form.submit")
 end
@@ -29,7 +31,8 @@ Then(/^I should see the (created|updated) Developer FAQ$/) do |action|
   expect(page).to have_content(notice)
 
   expect(page).to have_content(attrs[:question])
-  expect(page).to have_content(attrs[:category])
+  category = FaqsFixture.t_category(attrs[:category])
+  expect(page).to have_content(category)
 
   within ".breadcrumbs" do
     expect(page).to have_content(FaqsFixture.developer)
@@ -38,7 +41,8 @@ Then(/^I should see the (created|updated) Developer FAQ$/) do |action|
   click_on attrs[:question]
   expect(page).to have_content(attrs[:question])
   expect(page).to have_content(attrs[:answer])
-  expect(page).to have_content(attrs[:category])
+  category = FaqsFixture.t_category(attrs[:category])
+  expect(page).to have_content(category)
 
   click_on t("faqs.show.back")
 end
@@ -54,7 +58,9 @@ When(/^I update the Developer FAQ$/) do
 
   fill_in :faq_question, with: attrs[:question]
   fill_in :faq_answer, with: attrs[:answer]
-  select_from_selectmenu :faq_category, with: attrs[:category]
+
+  category = FaqsFixture.t_category(attrs[:category])
+  select_from_selectmenu :faq_category, with: category
 
   click_on t("faqs.form.submit")
 end
@@ -81,13 +87,10 @@ Then(/^I should no longer see the Developer FAQ$/) do
 end
 
 Given(/^my Divisions Developer has FAQs$/) do
-  pending "Setting up faq data for divisions"
   FaqsFixture.create_faqs
 end
 
 Then(/^I should only be able to see the Developers FAQs for my Division$/) do
-  pending "Permissions implemented for Division Admins on FAQs"
-
   click_on t("components.navigation.developers")
   click_on FaqsFixture.developer
   click_on t("developers.collection.faqs")
@@ -102,7 +105,8 @@ Then(/^I should only be able to see the Developers FAQs for my Division$/) do
 
   expect(page).to have_content(attrs[:question])
   expect(page).to have_content(attrs[:answer])
-  expect(page).to have_content(attrs[:category])
+  category = FaqsFixture.t_category(attrs[:category])
+  expect(page).to have_content(category)
 end
 
 Given(/^my Developments Developer has FAQs$/) do

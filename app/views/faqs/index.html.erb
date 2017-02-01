@@ -1,11 +1,8 @@
 <% breadcrumb :faqs, @parent %>
 
 <div class="section-header">
-  <h3 class="section-title">
-    <i class="fa fa-pdf-o"></i>
-    <%= t(".title") %>
-  </h3>
+  <%= render @parent %>
 </div>
 
 <%= render 'components/tabs', tabs: tabs_for(@parent, "faqs"), parent: @parent %>
-<%= render_collection @faqs, parent: @parent %>
+<%= render_collection @faqs, parent: @parent, can_create: (can? :create, @faq) %>

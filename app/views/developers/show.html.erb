@@ -1,18 +1,7 @@
 <% breadcrumb :developer, @developer %>
 
 <div class="section-header">
-  <h3 class="section-title">
-    <%= @developer.company_name %><br>
-    <span class="about">
-      <%= simple_format @developer.about %>
-    </span>
-  </h3>
-
-  <div class="section-data">
-    <%= render 'address/address', address: @developer.address %>
-    <%= render 'components/contacts', contact: @developer %>
-    <%= edit_btn [:edit, @developer] %>
-  </div>
+  <%= render @developer %>
 </div>
 
 <%= render 'components/tabs', tabs: developer_tabs(@developer, @active_tab), parent: @developer %>

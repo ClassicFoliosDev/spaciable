@@ -5,7 +5,7 @@ module FaqsFixture
 
   module_function
 
-  def category(key)
+  def t_category(key)
     I18n.t("activerecord.attributes.faq.categories.#{key}")
   end
 
@@ -14,12 +14,12 @@ module FaqsFixture
       created: {
         question: "How fast does a swallow fly?",
         answer: "Roughly 11 meters per second.",
-        category: category(:general)
+        category: :general
       },
       updated: {
         question: "What does this second turtle stand on?",
         answer: "It's turtles all the way down.",
-        category: category(:urgent)
+        category: :urgent
       }
     }
   }.freeze

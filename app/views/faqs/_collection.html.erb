@@ -1,7 +1,9 @@
 <div class="section-actions">
-  <%= link_to new_developer_faq_path(parent), class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".add") %></span>
+  <% if can_create %>
+    <%= link_to [:new, parent, :faq], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
   <% end %>
 </div>
 <div class="record-list">
