@@ -39,22 +39,24 @@ Rails.application.routes.draw do
     resources :phases
     resources :unit_types
     resources :plots
+    resources :contacts, shallow: true
   end
 
   resources :developers do
     resources :divisions
     resources :developments, controller: 'developers/developments'
     resources :documents, only: [:new, :create]
+    resources :contacts, shallow: true
     resources :faqs, shallow: true
   end
 
   resources :divisions do
     resources :developments, controller: 'divisions/developments'
+    resources :contacts, shallow: true
   end
 
   resources :appliances
   resources :finishes
-  resources :contacts
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard

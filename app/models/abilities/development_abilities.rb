@@ -6,6 +6,7 @@ module Abilities
 
       development_notifications(development, division_id, developer_id)
       development_faqs(development, division_id, developer_id)
+      development_contacts(development, division_id, developer_id)
       crud_developments(development)
       read_developments(developer_id, division_id, development)
     end
@@ -44,6 +45,14 @@ module Abilities
 
     def development_faqs(development, division, developer)
       polymorphic_abilities Faq, :faqable do
+        type "Development", id: development, actions: :manage
+        type "Division", id: division, actions: :read if division
+        type "Developer", id: developer, actions: :read
+      end
+    end
+
+    def development_contacts(development, division, developer)
+      polymorphic_abilities Contact, :contactable do
         type "Development", id: development, actions: :manage
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read

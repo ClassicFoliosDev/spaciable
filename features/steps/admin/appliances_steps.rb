@@ -116,7 +116,7 @@ Then(/^I should see the updated appliance$/) do
     expect(image["alt"]).to have_content(FileFixture.appliance_primary_picture_alt)
   end
 
-  within ".secondary_image" do
+  within ".appliance_secondary_image" do
     image = page.find("img")
     expect(image["src"]).to have_content(FileFixture.appliance_secondary_picture_name)
     expect(image["alt"]).to have_content(FileFixture.appliance_secondary_picture_alt)
@@ -153,7 +153,7 @@ Then(/^I should see the updated appliance without the image$/) do
     expect(image["alt"]).to have_content(FileFixture.appliance_primary_picture_alt)
   end
 
-  within ".secondary_image" do
+  within ".appliance_secondary_image" do
     expect(page).not_to have_content("img")
   end
 end

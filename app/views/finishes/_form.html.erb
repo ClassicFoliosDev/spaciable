@@ -1,20 +1,16 @@
 <%= simple_form_for(finish) do |f| %>
-    <% if finish.errors.any? %>
-        <div class="row">
-          <div class="row-item">
-            <div class="submission-errors">
-              <ul>
-                <% finish.errors.full_messages.each do |message| %>
-                    <li>
-                      <%= fa_icon "exclamation-circle" %>
-                      <%= message %>
-                    </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
-        </div>
-    <% end %>
+  <% if finish.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% finish.errors.full_messages.each do |message| %>
+            <li>
+              <%= fa_icon "exclamation-circle" %>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
     <div class="row finishes">
       <div class="row-item third">

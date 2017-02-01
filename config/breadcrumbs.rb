@@ -295,23 +295,19 @@ end
 
 # CONTACTS
 
-crumb :contacts do
-  link Contact.model_name.human.pluralize, contacts_path
-end
-
 crumb :contact do |contact|
-  link contact, edit_contact_path(contact)
-  parent :contacts
+  link contact, contact_path(contact)
+  parent contact.contactable_type.downcase.to_sym, contact.contactable
 end
 
 crumb :contact_edit do |contact|
-  link t("breadcrumbs.contact_edit", contact_name: contact), contacts_path(contact)
-  parent :contacts
+  link t("breadcrumbs.contact_edit", contact_name: contact), edit_contact_path(contact)
+  parent contact.contactable_type.downcase.to_sym, contact.contactable
 end
 
-crumb :contact_new do
+crumb :contact_new do |contact_parent|
   link t("breadcrumbs.contact_add")
-  parent :contacts
+  parent contact_parent
 end
 
 # FAQs

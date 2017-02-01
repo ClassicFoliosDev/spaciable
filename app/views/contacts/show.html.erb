@@ -18,12 +18,18 @@
     <span><%= t("activerecord.attributes.contact.titles.#{@contact.title}") if @contact.title %></span>
   </div>
   <div class="row-item third">
+    <div class="organisation">
+      <%= label_tag(:organisation) %>
+      <span><%= @contact.organisation %></span>
+    </div>
     <div class="position">
       <%= label_tag(:position) %>
       <span><%= @contact.position %></span>
     </div>
-    <%= label_tag(:category) %>
-    <span><%= t("activerecord.attributes.contact.categories.#{@contact.category}") if @contact.category %></span>
+    <div class="category">
+      <%= label_tag(:category) %>
+      <span><%= t("activerecord.attributes.contact.categories.#{@contact.category}") if @contact.category %></span>
+    </div>
   </div>
   <div class="row-item third">
     <div class="email">
@@ -43,6 +49,6 @@
 
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">
-    <%= link_to t(".back"), contacts_path, class: "btn" %>
+    <%= link_to t(".back"), @contact.target, class: "btn" %>
   </div>
 </div>

@@ -14,7 +14,7 @@
   <div class="row-item third">
     <% if @appliance.primary_image? %>
       <div class="appliance_primary_image">
-         <%= image_tag(@appliance.primary_image.url) %>
+        <%= image_tag(@appliance.primary_image.url) if @appliance.primary_image? %>
       </div>
     <% end %>
     <div class="category">
@@ -30,7 +30,6 @@
       <span><%= @appliance.model_num %></span>
     </div>
   </div>
-
   <div class="row-item third">
     <div class="warranty">
       <%= label_tag(t("appliances.form.warranty_length")) %>
@@ -46,22 +45,17 @@
       <br>
     </div>
   </div>
-
   <div class="row-item third">
     <div class="manual">
-      <%= label_tag(t("appliances.form.manual")) %>
-      <% if @appliance.manual? %>
-        <div class="appliance-manual">
-          <span><%= @appliance.manual.file.filename %></span>
-          <%= link_to @appliance.manual.url, class: "btn",  target: "_blank" do %>
-            <%= icon "cloud-download" %>
-          <% end %>
-        </div>
+      <%= label_tag :manual %>
+      <%= @appliance.manual.file.filename if @appliance.manual? %>
+      <%= link_to @appliance.manual.url, class: "btn",  target: "_blank" do %>
+        <%= icon "cloud-download" %>
       <% end %>
     </div>
-    <div class="secondary_image">
-      <%= label_tag(:secondary_image) %>
-      <%= image_tag(@appliance.secondary_image.url) if @appliance.secondary_image? %>
+    <div class="appliance_secondary_image">
+      <%= label_tag :appliance_secondary_image %>
+      <span><%= image_tag(@appliance.secondary_image.url) if @appliance.secondary_image? %></span>
     </div>
   </div>
 </div>

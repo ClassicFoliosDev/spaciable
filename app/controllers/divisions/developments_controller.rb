@@ -27,6 +27,8 @@ module Divisions
                       paginate(sort(@development.phases, default: :number))
                     elsif @active_tab == "plots"
                       paginate(sort(@development.plots, default: :number))
+                    elsif @active_tab == "contacts"
+                      paginate(sort(@development.contacts, default: :last_name))
                     end
     end
 

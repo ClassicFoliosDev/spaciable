@@ -6,6 +6,7 @@ module Abilities
 
       division_notifications(division, developer_id)
       division_faqs(division, developer_id)
+      division_contacts(division, developer_id)
       crud_divisions(division)
       read_divisions(developer_id, division)
     end
@@ -39,6 +40,13 @@ module Abilities
 
     def division_faqs(division, developer)
       polymorphic_abilities Faq, :faqable do
+        type "Division", id: division, actions: :manage
+        type "Developer", id: developer, actions: :read
+      end
+    end
+
+    def division_contacts(division, developer)
+      polymorphic_abilities Contact, :contactable do
         type "Division", id: division, actions: :manage
         type "Developer", id: developer, actions: :read
       end

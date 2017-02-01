@@ -52,10 +52,6 @@ module CreateFixture
     "Stone"
   end
 
-  def contact_email
-    "foo@foo.com"
-  end
-
   # FACTORIES
 
   def create_cf_admin
@@ -122,10 +118,6 @@ module CreateFixture
     finish_category = FinishCategory.find_by_name(finish_category_name)
     finish_type = FinishType.find_by_name(finish_type_name)
     FactoryGirl.create(:finish, name: finish_name, finish_category: finish_category, finish_type: finish_type)
-  end
-
-  def create_contact
-    FactoryGirl.create(:contact, email: contact_email)
   end
 
   def create_phases

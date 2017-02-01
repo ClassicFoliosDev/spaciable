@@ -8,19 +8,15 @@
 
 <%= simple_form_for([@room, @appliance_room]) do |f| %>
   <% if @appliance_room.errors.any? %>
-    <div class="row">
-      <div class="row-item">
-        <div class="submission-errors">
-          <ul>
-            <% @appliance_room.errors.full_messages.each do |message| %>
-                <li>
-                  <%= fa_icon "exclamation-circle" %>
-                  <%= message %>
-                </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+    <div class="submission-errors">
+      <ul>
+        <% @appliance_room.errors.full_messages.each do |message| %>
+            <li>
+              <%= fa_icon "exclamation-circle" %>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 

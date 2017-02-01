@@ -1,19 +1,15 @@
-<%= simple_form_for(contact) do |f| %>
+<%= simple_form_for([parent, contact]) do |f| %>
   <% if contact.errors.any? %>
-      <div class="row">
-        <div class="row-item">
-          <div class="submission-errors">
-            <ul>
-              <% contact.errors.full_messages.each do |message| %>
-                  <li>
-                    <%= fa_icon "exclamation-circle" %>
-                    <%= message %>
-                  </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-      </div>
+    <div class="submission-errors">
+      <ul>
+        <% contact.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
   <div class="row contacts">
@@ -29,6 +25,7 @@
     </div>
     <div class="row-item third">
       <fieldset>
+        <%= f.input :organisation %>
         <%= f.input :position %>
         <div class="ui-front select-container">
           <%= f.input :category, as: :select, collection: contact_categories_collection, include_blank: false %>
@@ -46,7 +43,11 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), contacts_path, class: "btn" %>
+      <% if parent %>
+        <%= link_to t(".back"), [parent, active_tab="contacts"], class: "btn" %>
+      <% else %>
+        <%= link_to t(".back"), contact, class: "btn" %>
+      <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

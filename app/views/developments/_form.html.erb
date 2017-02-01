@@ -1,18 +1,14 @@
 <%= simple_form_for([parent, development]) do |f| %>
   <% if development.errors.any? %>
-    <div class="row">
-      <div class="row-item">
-        <div class="submission-errors">
-          <ul>
-            <% development.errors.full_messages.each do |message| %>
-              <li>
-                <%= fa_icon "exclamation-circle" %>
-                <%= message %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+    <div class="submission-errors">
+      <ul>
+        <% development.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
 

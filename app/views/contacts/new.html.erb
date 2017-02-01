@@ -1,9 +1,10 @@
-<% breadcrumb :contact_new, @contact %>
+<% breadcrumb :contact_new, @parent %>
 
 <div class="section-header">
   <h3 class="section-title">
-    <%= t(".title") %>
+    <%= fa_icon "vcard" %>
+    <%= t(".title", name: @parent) %>
   </h3>
 </div>
 
-<%= render 'form', contact: @contact %>
+<%= render 'form', contact: @contact, parent: @parent %>

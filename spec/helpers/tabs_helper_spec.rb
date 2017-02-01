@@ -29,7 +29,7 @@ RSpec.describe DeveloperTabsHelper do
 
         result = developer_tabs(developer, "divisions")
         divisions = result.first
-        documents = result.last
+        documents = result[2]
 
         expect(documents[3]).to eq(false)
         expect(divisions[3]).to eq(true)

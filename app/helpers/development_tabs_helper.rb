@@ -26,7 +26,14 @@ module DevelopmentTabsHelper
       active: (current_tab == "plots")
     )
 
-    [unit_types_tab, phases_tab, plots_tab].map(&:to_a)
+    contacts_tab = Tab.new(
+      title: t("developers.collection.contacts"),
+      icon: :vcard,
+      link: developer_development_path(developer, active_tab: :contacts),
+      active: (current_tab == "contacts")
+    )
+
+    [unit_types_tab, phases_tab, plots_tab, contacts_tab].map(&:to_a)
   end
 
   def division_development_tabs(division, current_tab)
@@ -51,7 +58,14 @@ module DevelopmentTabsHelper
       active: (current_tab == "plots")
     )
 
-    [unit_types_tab, phases_tab, plots_tab].map(&:to_a)
+    contacts_tab = Tab.new(
+      title: t("developers.collection.contacts"),
+      icon: :vcard,
+      link: division_development_path(division, active_tab: :contacts),
+      active: (current_tab == "contacts")
+    )
+
+    [unit_types_tab, phases_tab, plots_tab, contacts_tab].map(&:to_a)
   end
   # rubocop:enable MethodLength
 end

@@ -1,72 +1,69 @@
 <%= simple_form_for(appliance) do |f| %>
-    <% if appliance.errors.any? %>
-        <div class="row">
-          <div class="row-item">
-            <div class="submission-errors">
-              <ul>
-                <% appliance.errors.full_messages.each do |message| %>
-                    <li>
-                      <%= fa_icon "exclamation-circle" %>
-                      <%= message %>
-                    </li>
-                <% end %>
-              </ul>
-            </div>
-          </div>
+  <% if appliance.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% appliance.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row appliance">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :primary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        <%= f.input :name %>
+        <%= f.input :model_num %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <div class="appliance_category ui-front select-container">
+          <%= f.association :appliance_category %>
         </div>
-    <% end %>
-    <div class="row appliance">
-      <div class="row-item third">
-        <fieldset>
-          <%= f.input :primary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-          <%= f.input :name %>
-          <%= f.input :model_num %>
-        </fieldset>
-      </div>
-      <div class="row-item third">
-        <fieldset>
-          <div class="appliance_category ui-front select-container">
-            <%= f.association :appliance_category %>
-          </div>
-          <div class="manufacturer ui-front select-container">
-            <%= f.association :manufacturer %>
-          </div>
-          <div class="warranty ui-front">
-          <%= f.label t(".warranty_length") %>
-          <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
-          </div>
-          <div class="e_rating ui-front">
-          <%= f.label t(".e_rating") %>
-          <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
-          </div>
-          <%= f.label t(".description") %>
-          <%= f.text_area :description %>
-        </fieldset>
-      </div>
-      <div class="row-item third">
-        <fieldset>
-          <%= f.label t(".manual") %>
+        <div class="manufacturer ui-front select-container">
+          <%= f.association :manufacturer %>
+        </div>
+        <div class="warranty ui-front">
+        <%= f.label t(".warranty_length") %>
+        <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
+        </div>
+        <div class="e_rating ui-front">
+        <%= f.label t(".e_rating") %>
+        <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
+        </div>
+        <%= f.label t(".description") %>
+        <%= f.text_area :description %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <%= f.label t(".manual") %>
 
-          <%= label_tag('appliance_manual', t(".upload"), class: "btn") %>
-          <% if appliance.manual? %>
-            <div class="appliance-manual">
-              <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename" %>
-              <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
-              <%= icon "cloud-download" %>
-            <% end %>
-            </div>
+        <%= label_tag('appliance_manual', t(".upload"), class: "btn") %>
+        <% if appliance.manual? %>
+          <div class="appliance-manual">
+            <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename" %>
+            <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
+            <%= icon "cloud-download" %>
           <% end %>
-          <%= f.input :manual, as: :file, label: false, input_html: { class: 'hidden' } %>
-          <%= f.input :secondary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-        </fieldset>
-      </div>
+          </div>
+        <% end %>
+        <%= f.input :manual, as: :file, label: false, input_html: { class: 'hidden' } %>
+        <%= f.input :secondary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+      </fieldset>
     </div>
+  </div>
 
-    <div class="form-actions-footer-container">
-      <div class="form-actions-footer">
-        <%= link_to t(".back"), appliances_path, class: "btn" %>
-        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      </div>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), appliances_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
+  </div>
 <% end %>
 

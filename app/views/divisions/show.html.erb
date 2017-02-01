@@ -12,6 +12,8 @@
   </div>
 </div>
 
+<%= render 'components/tabs', tabs: division_tabs(@developer, @active_tab), parent: @division %>
+
 <%= render_collection @collection, parent: @division %>
 
 <%= link_to t(".back"), developer_divisions_path, class: "btn" %>

@@ -8,6 +8,7 @@ module Abilities
 
       developer_notifications(developer)
       developer_faqs(developer)
+      developer_contacts(developer)
       crud_developers(developer)
       read_developers(developer)
     end
@@ -26,6 +27,12 @@ module Abilities
       end
 
       cannot :manage, Notification, send_to_all: true
+    end
+
+    def developer_contacts(developer_id)
+      polymorphic_abilities Contact, :contactable do
+        type "Developer", id: developer_id, actions: :manage
+      end
     end
 
     def crud_developers(developer_id)

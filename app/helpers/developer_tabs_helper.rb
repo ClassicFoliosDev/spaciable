@@ -7,6 +7,7 @@ module DeveloperTabsHelper
       divisions_tab(developer, current_tab),
       developments_tab(developer, current_tab),
       documents_tab(developer, current_tab),
+      contacts_tab(developer, current_tab),
       faqs_tab(developer, current_tab)
     ].map(&:to_a)
   end
@@ -37,6 +38,15 @@ module DeveloperTabsHelper
       icon: :building,
       link: developer_path(developer, active_tab: :documents),
       active: (current_tab == "documents")
+    )
+  end
+
+  def contacts_tab(developer, current_tab)
+    Tab.new(
+      title: t("developers.collection.contacts"),
+      icon: :vcard,
+      link: developer_path(developer, active_tab: :contacts),
+      active: (current_tab == "contacts")
     )
   end
 
