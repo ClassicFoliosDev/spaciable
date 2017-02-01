@@ -36,14 +36,14 @@
   }
 
   h3 {
-    color: $primary-green;
+    font-weight: bold;
   }
 }
 
 .ui-button-text {
   font-size: $base-font-size;
   background-color: $ui-white;
-  color: $primary-red;
+  color: $type-grey;
   border-style: none;
   border: none;
   border-radius: $border-radius;
@@ -51,7 +51,7 @@
 
 .btn-delete {
   .ui-button-text {
-    background-color: $primary-red;
+    background-color: $primary-green;
     color: white;
   }
 
