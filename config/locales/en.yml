@@ -97,6 +97,7 @@ en:
     unit_type_add: "Add unit type"
     document_add: "Add document"
     document_edit: "Edit %{document_name}"
+    contacts: "Contacts"
     contact_add: "Add contact"
     contact_edit: "Edit %{contact_name}"
 

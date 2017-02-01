@@ -39,17 +39,6 @@ class Contact < ApplicationRecord
     errors.add(:base, :name_or_organisation_required)
   end
 
-  def target
-    case contactable_type
-    when "Developer"
-      self.target = [contactable, active_tab: "contacts"]
-    when "Division"
-      self.target = [contactable.developer, contactable, active_tab: "contacts"]
-    when "Development"
-      self.target = [contactable.parent, contactable, active_tab: "contacts"]
-    end
-  end
-
   def to_s
     full_name = "#{first_name} #{last_name}"
 

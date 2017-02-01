@@ -1,18 +1,8 @@
 <% breadcrumb :development, @development %>
 
-<div class="section-header">
-  <h3 class="section-title">
-    <%= @development.name %><br>
-  </h3>
+<%= render '/developments/development', development: @development %>
 
-  <div class="section-data">
-    <%= render 'address/address', address: @development.address %>
-    <%= render 'components/contacts', contact: @development %>
-    <%= edit_btn [:edit, @division, @development] %>
-  </div>
-</div>
-
-<%= render 'components/tabs', tabs: division_development_tabs(@division, @active_tab), parent: @division %>
+<%= render 'components/tabs', tabs: development_tabs(@development, @active_tab), parent: @division %>
 
 <%= render_collection @collection, parent: @development %>
 

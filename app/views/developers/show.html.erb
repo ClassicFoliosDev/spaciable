@@ -1,8 +1,6 @@
 <% breadcrumb :developer, @developer %>
 
-<div class="section-header">
-  <%= render @developer %>
-</div>
+<%= render @developer %>
 
 <%= render 'components/tabs', tabs: developer_tabs(@developer, @active_tab), parent: @developer %>
 

@@ -295,25 +295,38 @@ end
 
 # CONTACTS
 
+crumb :contacts do |contact_parent|
+  link t("breadcrumbs.contacts"), ([contact_parent, :contacts])
+
+  case contact_parent.model_name.element.to_sym
+    when :developer
+      parent :developer, contact_parent
+    when :division
+      parent :division, contact_parent
+    when :development
+      parent :development, contact_parent
+  end
+end
+
 crumb :contact do |contact|
   link contact, contact_path(contact)
-  parent contact.contactable_type.downcase.to_sym, contact.contactable
+  parent :contacts, contact.contactable
 end
 
 crumb :contact_edit do |contact|
   link t("breadcrumbs.contact_edit", contact_name: contact), edit_contact_path(contact)
-  parent contact.contactable_type.downcase.to_sym, contact.contactable
+  parent :contacts, contact.contactable
 end
 
 crumb :contact_new do |contact_parent|
   link t("breadcrumbs.contact_add")
-  parent contact_parent
+  parent :contacts, contact_parent
 end
 
 # FAQs
 
 crumb :faqs do |faq_parent|
-  link t("breadcrumbs.faqs"), url_for([faq_parent, :faqs])
+  link t("breadcrumbs.faqs"), ([faq_parent, :faqs])
 
   case faq_parent.model_name.element.to_sym
   when :developer

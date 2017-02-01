@@ -1,0 +1,11 @@
+<div class="section-header">
+  <h3 class="section-title">
+    <%= division.division_name %><br>
+  </h3>
+
+  <div class="section-data">
+    <%= render 'address/address', address: division.address %>
+    <%= render 'components/contacts', contact: division %>
+    <%= edit_btn [:edit, division.parent, division] %>
+  </div>
+</div>

@@ -21,8 +21,6 @@ class DivisionsController < ApplicationController
     @active_tab = params[:active_tab] || "developments"
     @collection = if @active_tab == "developments"
                     paginate(sort(@division.developments, default: :name))
-                  elsif @active_tab == "contacts"
-                    paginate(sort(@division.contacts, default: :last_name))
                   end
   end
 

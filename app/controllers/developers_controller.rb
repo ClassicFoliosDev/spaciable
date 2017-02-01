@@ -24,8 +24,6 @@ class DevelopersController < ApplicationController
                     paginate(sort(@developer.developments, default: :name))
                   elsif @active_tab == "documents"
                     paginate(sort(@developer.documents, default: :title))
-                  elsif @active_tab == "contacts"
-                    paginate(sort(@developer.contacts, default: :last_name))
                   end
   end
 

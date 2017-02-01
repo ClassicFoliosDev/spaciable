@@ -3,6 +3,8 @@ class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
 
+  alias parent developer
+
   has_many :developments, dependent: :destroy
   has_many :documents, dependent: :destroy
   has_many :faqs, as: :faqable

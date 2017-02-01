@@ -27,7 +27,7 @@ class ContactsController < ApplicationController
   def create
     if @contact.save
       notice = t("controller.success.create", name: @contact)
-      redirect_to @contact.target, notice: notice
+      redirect_to [@parent, :contacts], notice: notice
     else
       render :new
     end
@@ -35,7 +35,8 @@ class ContactsController < ApplicationController
 
   def update
     if @contact.update(contact_params)
-      redirect_to @contact.target, notice: t("controller.success.update", name: @contact)
+      notice = t("controller.success.update", name: @contact)
+      redirect_to [@parent, :contacts], notice: notice
     else
       render :edit
     end
@@ -47,7 +48,7 @@ class ContactsController < ApplicationController
       "controller.success.destroy",
       name: @contact
     )
-    redirect_to @contact.target, notice: notice
+    redirect_to [@parent, :contacts], notice: notice
   end
 
   private

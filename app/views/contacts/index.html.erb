@@ -1,9 +1,7 @@
-<% breadcrumb :contacts %>
+<% breadcrumb :contacts, @parent %>
 
-<div class="section-header">
-  <h3 class="section-title">
-    <%= t(".title") %>
-  </h3>
-</div>
+<%= render @parent %>
 
-<%= render_collection @contacts, parent: nil %>
+<%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
+
+<%= render_collection @contacts, parent: @parent, can_create: (can? :create, @contact) %>

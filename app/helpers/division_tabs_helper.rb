@@ -2,18 +2,18 @@
 module DivisionTabsHelper
   include TabsHelper
 
-  def division_tabs(developer, current_tab)
+  def division_tabs(division, current_tab)
     developments_tab = Tab.new(
       title: t("developers.collection.developments"),
       icon: :building,
-      link: developer_division_path(developer, active_tab: :developments),
+      link: developer_division_path(division.parent, division, active_tab: :developments),
       active: (current_tab == "developments")
     )
 
     contacts_tab = Tab.new(
       title: t("developers.collection.contacts"),
       icon: :vcard,
-      link: developer_division_path(developer, active_tab: :contacts),
+      link: division_contacts_path(division),
       active: (current_tab == "contacts")
     )
 

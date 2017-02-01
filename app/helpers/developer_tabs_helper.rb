@@ -45,7 +45,7 @@ module DeveloperTabsHelper
     Tab.new(
       title: t("developers.collection.contacts"),
       icon: :vcard,
-      link: developer_path(developer, active_tab: :contacts),
+      link: developer_contacts_path(developer),
       active: (current_tab == "contacts")
     )
   end

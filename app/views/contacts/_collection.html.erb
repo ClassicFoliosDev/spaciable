@@ -1,9 +1,9 @@
 <div class="section-actions">
-  <!-- link_to new_contact_path(contactable_type: parent.class.name, contactable_id: parent.id), class: "btn btn-primary" do -->
-  <%= link_to [:new, parent, :contact], class: "btn btn-primary" do %>
-  <!-- link_to new_developer_contact_path(parent), class: "btn btn-primary" do -->
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".create") %></span>
+  <% if can_create %>
+    <%= link_to [:new, parent, :contact], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".create") %></span>
+    <% end %>
   <% end %>
 </div>
 
