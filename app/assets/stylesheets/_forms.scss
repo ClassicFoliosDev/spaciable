@@ -194,8 +194,12 @@ fieldset {
       color: $ui-dark-grey;
       position: absolute;
       right: 13px;
-      top: 42px;
+      top: 38px;
     }
+  }
+
+  &.select .required {
+    margin-right: 14px;
   }
 
   .error {
