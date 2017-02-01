@@ -77,7 +77,11 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
   fill_in :notification_subject, with: attrs[:subject]
   fill_in :notification_message, with: attrs[:message]
 
-  select_from_selectmenu(:notification_developer_id, with: instance.developer.to_s) unless instance.is_a?(Developer)
+  unless instance.is_a?(Developer)
+    select_from_selectmenu(:notification_developer_id, with: instance.developer.to_s)
+    sleep 0.5
+  end
+
   select_from_selectmenu(:"notification_#{resource_class}_id", with: instance.to_s)
 
   click_on t("admin.notifications.form.submit")

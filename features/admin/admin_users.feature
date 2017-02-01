@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Admin Users
   As an admin user
   I want to invite other admin users

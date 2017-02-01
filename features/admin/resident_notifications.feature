@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Resident Notifications
   As an Admin
   I want to be able to notify residents in bulk
