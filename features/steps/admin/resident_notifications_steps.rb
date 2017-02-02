@@ -77,14 +77,17 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
   fill_in :notification_subject, with: attrs[:subject]
   fill_in :notification_message, with: attrs[:message]
 
-  unless instance.is_a?(Developer)
+  sleep 0.3 # wait for dropdown to be populated
+  if instance.is_a?(Developer)
+    select_from_selectmenu(:notification_developer_id, with: instance.to_s)
+  else
     select_from_selectmenu(:notification_developer_id, with: instance.developer.to_s)
-    sleep 0.5
+    sleep 0.3 # wait for dropdown to be populated
+    select_from_selectmenu(:"notification_#{resource_class}_id", with: instance.to_s)
   end
 
-  select_from_selectmenu(:"notification_#{resource_class}_id", with: instance.to_s)
-
   click_on t("admin.notifications.form.submit")
+  sleep 0.5 # wait for emails to be processed
 end
 
 Then(/^I can see the (\(\w+\) )?(\w+) notification I sent$/) do |parent, resource_class|
