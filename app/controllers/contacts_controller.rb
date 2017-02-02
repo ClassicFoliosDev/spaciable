@@ -13,6 +13,7 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = paginate(sort(@contacts, default: :last_name))
+    @contact = @parent.contacts.build
   end
 
   def new
