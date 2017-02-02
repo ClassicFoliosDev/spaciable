@@ -16,8 +16,10 @@ document.addEventListener("turbolinks:load", function () {
           var developerId = $selectInput.val();
 
           if (developerId) {
+            fetchDeveloperResources({ developerId: developerId });
             $divisionSelect.selectmenu(divisionSelectmenuCallbacks(developerId));
           } else {
+            fetchDeveloperResources();
             $divisionSelect.selectmenu(divisionSelectmenuCallbacks());
           };
          },
@@ -28,6 +30,10 @@ document.addEventListener("turbolinks:load", function () {
             fetchDivisionResources({ developerId: developerId });
             fetchDevelopmentResources({ developerId: developerId });
             fetchPhaseResources({ developerId: developerId });
+          } else {
+            fetchDivisionResources();
+            fetchDevelopmentResources();
+            fetchPhaseResources();
           }
         }
       }
@@ -127,11 +133,11 @@ document.addEventListener("turbolinks:load", function () {
       };
     };
 
-    function fetchDeveloperResources(developerId) {
+    function fetchDeveloperResources(data) {
       var developer_select = clearFields($('.notification_developer_id'));
       var url = '/admin/developers';
 
-      setFields(developer_select, url, { developerId: developerId});
+      setFields(developer_select, url, data);
     };
 
     function fetchDivisionResources(data) {

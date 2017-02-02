@@ -20,25 +20,19 @@
     </div>
     <div class="row-item third">
         <fieldset>
-        <%= f.input :role, as: :select, collection: User::accessible_admin_roles(current_user), label_method: ->(role) { t(role.first) }, value_method: :first, include_blank: "Choose..." %>
+          <%= f.input :role,
+            as: :select,
+            collection: User::accessible_admin_roles(current_user),
+            label_method: ->(role) { t(role.first) },
+            value_method: :first,
+            include_blank: "Choose..." %>
       </fieldset>
     </div>
     <div class="row-item third">
-        <fieldset>
-          <%= f.input :developer_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
-            <%= f.select :developer_id, admin_users_developer_select_options(f.object), include_blank: "Choose..." %>
-          <% end %>
-
-          <%= f.input :division_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
-            <%= f.select :division_id, admin_users_division_select_options(f.object), include_blank: "Choose..." %>
-          <% end %>
-
-          <%= f.input :development_id, wrapper_html: { class: "skip-global-selectmenu" } do %>
-            <%= f.select :development_id, admin_users_development_select_options(f.object), include_blank: "Choose..." %>
-          <% end %>
-
-        <%= f.input :permission_level_id, as: :hidden %>
-        <%= f.input :permission_level_type, as: :hidden %>
+      <fieldset class="skip-global-selectmenu">
+        <%= cascade_select_input f, :developer_id, Developer %>
+        <%= cascade_select_input f, :division_id, Division %>
+        <%= cascade_select_input f, :development_id, Development %>
       </fieldset>
     </div>
   </div>

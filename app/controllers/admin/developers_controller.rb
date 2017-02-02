@@ -4,8 +4,16 @@ module Admin
     skip_authorization_check
 
     def index
-      developers = Developer.accessible_by(current_ability).order(:company_name).map do |developer|
-        { name: developer.to_s, id: developer.id, selected: selected?(developer) }
+      selected_id = developer_params[:developerId].to_i
+      developers = Developer
+                   .accessible_by(current_ability)
+                   .select(:company_name, :id)
+                   .order(:company_name).map do |developer|
+        {
+          name: developer.company_name,
+          id: developer.id,
+          selected: selected_id == developer.id
+        }
       end
 
       render json: developers.to_json
@@ -13,10 +21,8 @@ module Admin
 
     private
 
-    def selected?(developer)
-      return false unless params[:developerId].present?
-
-      developer.id.to_s == params[:developerId]
+    def developer_params
+      params.permit(:developerId)
     end
   end
 end

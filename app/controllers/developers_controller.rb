@@ -2,7 +2,7 @@
 class DevelopersController < ApplicationController
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource
+  load_and_authorize_resource :developer
 
   def index
     @developers = paginate(sort(@developers, default: :company_name))

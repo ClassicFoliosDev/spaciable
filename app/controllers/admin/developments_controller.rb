@@ -6,10 +6,16 @@ module Admin
     def index
       developments = Development
                      .accessible_by(current_ability)
+                     .select(:id, :name)
                      .order(:name)
 
+      selected_id = development_params[:developmentId].to_i
       json = scoped_by_params(developments).map do |development|
-        { name: development.to_s, id: development.id, selected: selected?(development) }
+        {
+          name: development.to_s,
+          id: development.id,
+          selected: selected_id == development.id
+        }
       end.to_json
 
       render json: json
@@ -34,12 +40,6 @@ module Admin
       else
         []
       end
-    end
-
-    def selected?(development)
-      return false unless development_params[:developmentId].present?
-
-      development.id.to_s == development_params[:developmentId]
     end
   end
 end

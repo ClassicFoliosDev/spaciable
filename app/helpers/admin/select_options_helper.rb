@@ -1,38 +1,27 @@
 # frozen_string_literal: true
 module Admin
   module SelectOptionsHelper
-    def admin_developer_select_options
-      Developer
-        .accessible_by(current_ability)
-        .order(:company_name)
-        .map { |developer| [developer.to_s, developer.id] }
+    def cascade_select_input(form, attribute, source_model = Developer, blank: -> { true })
+      selected_id = form.object.send(attribute) || current_user.send(attribute)
+
+      form.input attribute do
+        form.select(
+          attribute,
+          selected_option(selected_id, source_model),
+          selected: selected_id,
+          include_blank: blank.call
+        )
+      end
     end
 
-    def admin_division_select_options(division_id)
-      return [] if !division_id && current_user.cf_admin?
+    private
 
-      Division
-        .accessible_by(current_ability)
-        .order(:division_name)
-        .map { |division| [division.to_s, division.id] }
-    end
+    def selected_option(selected_id, klass = Developer)
+      return [] unless selected_id
 
-    def admin_development_select_options(development_id)
-      return [] if !development_id && current_user.cf_admin?
+      record = klass.accessible_by(current_ability).find_by(id: selected_id)
 
-      Development
-        .accessible_by(current_ability)
-        .order(:name)
-        .map { |development| [development.to_s, development.id] }
-    end
-
-    def admin_phase_select_options(phase_id)
-      return [] if !phase_id && current_user.cf_admin?
-
-      Phase
-        .accessible_by(current_ability)
-        .order(:name)
-        .map { |phase| [phase.to_s, phase.id] }
+      record ? [[record.to_s, record.id]] : []
     end
   end
 end

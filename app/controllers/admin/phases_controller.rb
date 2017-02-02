@@ -4,12 +4,18 @@ module Admin
     skip_authorization_check
 
     def index
+      selected_id = phase_params[:phaseId].to_i
       phases = Phase
                .accessible_by(current_ability)
+               .select(:name, :id)
                .order(:name)
 
       json = scoped_by_params(phases).map do |phase|
-        { name: phase.to_s, id: phase.id, selected: selected?(phase) }
+        {
+          name: phase.name,
+          id: phase.id,
+          selected: selected_id == phase.id
+        }
       end.to_json
 
       render json: json
@@ -38,12 +44,6 @@ module Admin
       else
         []
       end
-    end
-
-    def selected?(phase)
-      return false unless phase_params[:phaseId].present?
-
-      phase.id.to_s == phase_params[:phaseId]
     end
   end
 end
