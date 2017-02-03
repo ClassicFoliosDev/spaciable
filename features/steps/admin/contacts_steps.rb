@@ -243,3 +243,113 @@ When(/^I delete the development contact$/) do
 
   delete_and_confirm!
 end
+
+Then(/^I should not be able to create a developer contact$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  click_on CreateFixture.developer_name
+
+  click_on t("developers.collection.contacts")
+
+  expect(page).not_to have_content(t("contacts.collection.create"))
+end
+
+When(/^I create a developer contact$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  click_on CreateFixture.developer_name
+  click_on t("developers.collection.contacts")
+  click_on t("contacts.collection.create")
+
+  within ".contacts" do
+    fill_in "contact_first_name", with: ContactFixture.first_name
+  end
+
+  within ".contacts" do
+    fill_in "contact_email", with: ContactFixture.email
+  end
+
+  click_on t("contacts.form.submit")
+end
+
+When(/^I create a division contact$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  click_on t("developers.collection.divisions")
+  within ".divisions" do
+    click_on CreateFixture.division_name
+  end
+
+  click_on t("developers.collection.contacts")
+  click_on t("contacts.collection.create")
+
+  within ".contacts" do
+    fill_in "contact_first_name", with: ContactFixture.first_name
+  end
+
+  within ".contacts" do
+    fill_in "contact_email", with: ContactFixture.email
+  end
+
+  click_on t("contacts.form.submit")
+end
+
+Then(/^I should not be able to create a division contact$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  within ".developers" do
+    click_on t("developers.collection.divisions")
+  end
+
+  click_on CreateFixture.division_name
+  click_on t("developers.collection.contacts")
+
+  expect(page).not_to have_content(t("contacts.collection.create"))
+end
+
+When(/^I create a development contact$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  click_on t("developers.collection.divisions")
+  within ".divisions" do
+    click_on CreateFixture.division_name
+  end
+
+  click_on t("developers.collection.developments")
+  within ".developments" do
+    click_on CreateFixture.division_development_name
+  end
+
+  click_on t("developers.collection.contacts")
+  click_on t("contacts.collection.create")
+
+  within ".contacts" do
+    fill_in "contact_first_name", with: ContactFixture.first_name
+  end
+
+  within ".contacts" do
+    fill_in "contact_email", with: ContactFixture.email
+  end
+
+  click_on t("contacts.form.submit")
+end

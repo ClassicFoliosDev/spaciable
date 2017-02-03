@@ -2,6 +2,8 @@
 module DivisionTabsHelper
   include TabsHelper
 
+  # rubocop:disable MethodLength
+  # Method is long but readable, refactoring shorter is likely to obfuscate
   def division_tabs(division, current_tab)
     developments_tab = Tab.new(
       title: t("developers.collection.developments"),
@@ -17,6 +19,16 @@ module DivisionTabsHelper
       active: (current_tab == "contacts")
     )
 
-    [developments_tab, contacts_tab].map(&:to_a)
+    division_brands_tab = Tab.new(
+      title: t("developers.collection.brands"),
+      icon: "css3",
+      link: division_brands_path(division),
+      active: (current_tab == "brands")
+    )
+
+    division_tabs = [developments_tab, contacts_tab].map(&:to_a)
+    division_tabs.push(division_brands_tab.to_a) if can? :read, Brand
+    division_tabs
   end
+  # rubocop:enable MethodLength
 end

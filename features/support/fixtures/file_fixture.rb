@@ -41,4 +41,20 @@ module FileFixture
   def document_name
     "dummy_pdf.pdf"
   end
+
+  def logo_name
+    "bovis_logo.png"
+  end
+
+  def logo_alt
+    "Bovis logo"
+  end
+
+  def banner_name
+    "cala_banner.jpg"
+  end
+
+  def banner_alt
+    "Cala banner"
+  end
 end

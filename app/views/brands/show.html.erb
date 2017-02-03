@@ -1,0 +1,66 @@
+<% breadcrumb :brand, @brand %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= @brand %><br>
+  </h3>
+  <div class="section-data">
+    <%= edit_btn [:edit, @brand] %>
+  </div>
+</div>
+
+<div class="row brand">
+  <div class="row-item third">
+    <%= label_tag :logo %>
+    <span><%= t(".image_constraints") %></span>
+    <div class="brand_logo">
+      <%= image_tag(@brand.logo.url) if @brand.logo? %>
+    </div>
+  </div>
+  <div class="row-item third">
+    <%= label_tag :banner %>
+    <span><%= t(".image_constraints") %></span>
+    <div class="brand_banner">
+      <%= image_tag(@brand.banner.url) if @brand.banner? %>
+    </div>
+  </div>
+  <div class="row-item third">
+    <%= label_tag :styling %>
+    <table class="colors">
+      <tr class="bg_color">
+        <td><%= branded_color_preview(@brand.bg_color) %></td>
+        <td><%= label_tag(:bg_color) %></td>
+      </tr>
+      <tr class="text_color">
+        <td><%= branded_color_preview(@brand.text_color) %></td>
+
+        <td><%= label_tag(:text_color) %></td>
+      </tr>
+      <tr class="content_bg_color">
+        <td><%= branded_color_preview(@brand.content_bg_color) %></td>
+
+        <td><%= label_tag(:content_bg_color) %></td>
+      </tr>
+      <tr class="content_text_color">
+        <td><%= branded_color_preview(@brand.content_text_color) %></td>
+
+        <td><%= label_tag(:content_text_color) %></td>
+      </tr>
+      <tr class="button_color">
+        <td><%= branded_color_preview(@brand.button_color) %></td>
+
+        <td><%= label_tag(:button_color) %></td>
+      </tr>
+      <tr class="button_text_color">
+        <td><%= branded_color_preview(@brand.button_text_color) %></td>
+        <td><%= label_tag(:button_text_color) %></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), [@parent, :brands], class: "btn" %>
+  </div>
+</div>

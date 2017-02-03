@@ -1,0 +1,42 @@
+<div class="section-actions">
+  <%= link_to [:new, parent, :brand], class: "btn btn-primary" do %>
+    <i class="fa fa-plus"></i>
+    <span class="btn-label"><%= t(".create") %></span>
+  <% end %>
+</div>
+
+<div class="record-list">
+  <dl class="brands">
+    <dt class="record-list-item record-header">
+      <div class="record-list-header-content">
+        <span class="icon">&nbsp;</span>
+        <span><%= sortable(Brand, :brandable, t(".name")) %></span>
+        <span><%= sortable(Brand, :updated_at) %></span>
+      </div>
+    </dt>
+    <% collection.each do |brand| %>
+      <dd class="record-list-item" data-brands="<%= brand.id %>">
+        <div class="record-list-item-actions">
+          <%= edit_btn edit_brand_path(brand) %>
+          <%= delete_btn brand %>
+        </div>
+        <div class="record-list-item-content">
+          <span class="icon">
+            <%= image_tag brand.logo, class: "circle" if brand.logo? %>
+          </span>
+          <span>
+            <%= link_to brand, brand_path(brand) %>
+          </span>
+          <span>
+            <%= l brand.updated_at.to_date, format: :digits %>
+          </span>
+        </div>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <!-- paginate collection -->
+</div>

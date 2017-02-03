@@ -1,0 +1,7 @@
+<% breadcrumb :brands, @parent %>
+
+<%= render @parent %>
+
+<%= render 'components/tabs', tabs: tabs_for(@parent, "brands"), parent: @parent %>
+
+<%= render_collection @brands, parent: @parent %>

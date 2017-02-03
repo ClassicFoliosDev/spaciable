@@ -352,3 +352,33 @@ crumb :faq_edit do |faq|
   link t("breadcrumbs.faqs_edit"), [:edit, faq]
   parent :faqs, faq.faqable
 end
+
+# Brands
+
+crumb :brands do |brand_parent|
+  link t("breadcrumbs.brands"), [brand_parent, :brands]
+
+  case brand_parent.model_name.element.to_sym
+    when :developer
+      parent :developer, brand_parent
+    when :division
+      parent :division, brand_parent
+    when :development
+      parent :development, brand_parent
+  end
+end
+
+crumb :brand_new do |brand_parent|
+  link t("breadcrumbs.brand_add"), [:new, brand_parent, :brand]
+  parent :brands, brand_parent
+end
+
+crumb :brand do |brand|
+  link brand, faq_path(brand)
+  parent :brands, brand.brandable
+end
+
+crumb :brand_edit do |brand|
+  link t("breadcrumbs.brand_edit"), [:edit, brand]
+  parent :brands, brand.brandable
+end

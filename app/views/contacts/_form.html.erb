@@ -44,7 +44,7 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <% if parent %>
-        <%= link_to t(".back"), [parent, active_tab="contacts"], class: "btn" %>
+        <%= link_to t(".back"), [parent, :contacts], class: "btn" %>
       <% else %>
         <%= link_to t(".back"), contact, class: "btn" %>
       <% end %>
@@ -52,4 +52,3 @@
     </div>
   </div>
 <% end %>
-

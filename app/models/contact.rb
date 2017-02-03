@@ -2,7 +2,6 @@
 class Contact < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
-  attr_accessor :target
 
   belongs_to :contactable, polymorphic: true
 
@@ -35,7 +34,7 @@ class Contact < ApplicationRecord
   end
 
   def name_or_organisation
-    return unless organisation.blank? && first_name.blank? && last_name.blank?
+    return if organisation.present? || first_name.present? || last_name.present?
     errors.add(:base, :name_or_organisation_required)
   end
 

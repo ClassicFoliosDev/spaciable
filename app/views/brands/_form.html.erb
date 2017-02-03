@@ -1,0 +1,49 @@
+<%= simple_form_for([parent, brand]) do |f| %>
+  <% if brand.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% brand.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row brands">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :logo, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :bg_color %>
+        <%= f.input :text_color %>
+        <%= f.input :content_bg_color %>
+        <%= f.input :content_text_color %>
+        <%= f.input :button_color %>
+        <%= f.input :button_text_color %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% if parent %>
+        <%= link_to t(".back"), [parent, :brands], class: "btn" %>
+      <% else %>
+        <%= link_to t(".back"), brand, class: "btn" %>
+      <% end %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>
+

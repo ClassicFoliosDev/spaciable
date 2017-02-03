@@ -1,5 +1,5 @@
 <div class="section-actions">
-  <% if can_create %>
+  <% if can_manage %>
     <%= link_to [:new, parent, :contact], class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
       <span class="btn-label"><%= t(".create") %></span>
@@ -21,8 +21,10 @@
     <% collection.each do |contact| %>
       <dd class="record-list-item" data-contacts="<%= contact.id %>">
         <div class="record-list-item-actions">
-          <%= edit_btn edit_contact_path(contact) %>
-          <%= delete_btn contact %>
+          <% if can_manage %>
+            <%= edit_btn edit_contact_path(contact) %>
+            <%= delete_btn contact %>
+          <% end %>
         </div>
         <div class="record-list-item-content">
           <span class="icon">

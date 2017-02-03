@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201100822) do
+ActiveRecord::Schema.define(version: 20170201135310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,23 @@ ActiveRecord::Schema.define(version: 20170201100822) do
     t.datetime "updated_at",   null: false
     t.index ["appliance_id", "room_id"], name: "appliance_room_index", using: :btree
     t.index ["room_id", "appliance_id"], name: "room_appliance_index", using: :btree
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string   "logo"
+    t.string   "banner"
+    t.string   "bg_color"
+    t.string   "text_color"
+    t.string   "content_bg_color"
+    t.string   "content_text_color"
+    t.string   "button_color"
+    t.string   "button_text_color"
+    t.datetime "deleted_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "brandable_type"
+    t.integer  "brandable_id"
+    t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 
   create_table "contacts", force: :cascade do |t|

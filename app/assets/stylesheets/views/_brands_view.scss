@@ -1,0 +1,78 @@
+$circle-radius: 16px;
+$darker-grey: #7a8585;
+
+.color-circle {
+  /* Draw an outline circle around the colour:
+     If we don't have this it's very difficult to
+     tell when you set white or pale colours
+     Make it slightly wider than the main colour
+     (but not too much, or you get ugly gapping)
+   */
+  &:before {
+    content:'';
+    width: (2 * $circle-radius) +1;
+    height: (2 * $circle-radius) +1;
+    border-color: $darker-grey;
+    border-width: 2px;
+    border-radius: 50%;
+    border-style: solid;
+    display: inline-block;
+    transform: (translateX(-$circle-radius) translateY(-$circle-radius));
+  }
+
+  /*
+   If user has selected a colour, it will over-ride the border-color here
+   Otherwise, default the background colour to show nothing selected
+   */
+  width: $circle-radius * 2;
+  height: $circle-radius * 2;
+  border-style: solid;
+  border-radius: 50%;
+  display: inline-block;
+  border-width: $circle-radius;
+  float: left;
+  margin-right: $spacing-medium;
+  border-color: $ui-light-grey;
+}
+
+.brand {
+  span {
+    font-size: 12px;
+    color: $type-grey;
+  }
+
+  img {
+    margin-top: $spacing-small;
+  }
+}
+
+.color-stripe {
+  /*
+    If user has not selected a colour, draw a no-entry stripe
+    The numbers here are very sensitive, once you've rotated 45 deg
+    the effect of translation can be tricky (translating before
+    rotation is even worse)
+   */
+  &:after {
+    content: '';
+    position: absolute;
+    // Actually the length of the stripe, basically the full circle width
+    width: $circle-radius * 2;
+    // Width of the stripe
+    border-width: 8px 0 0 0;
+    border-color: $darker-grey;
+    border-radius: 0;
+    border-style: solid;
+    transform: (rotate(45deg) translateX(-37px) translateY(-15px));
+  }
+}
+
+.colors {
+  label {
+    display: inline-block;
+    font-weight: normal;
+  }
+
+  border-collapse: separate;
+  border-spacing: 8px;
+}

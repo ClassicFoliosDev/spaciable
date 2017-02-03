@@ -30,7 +30,7 @@ class FaqsController < ApplicationController
     if @faq.update(faq_params)
       redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
     else
-      render :new
+      render :edit
     end
   end
 

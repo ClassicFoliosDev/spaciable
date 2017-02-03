@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :unit_types
     resources :plots
     resources :contacts, shallow: true
+    resources :brands, shallow: true
   end
 
   resources :developers do
@@ -48,11 +49,13 @@ Rails.application.routes.draw do
     resources :documents, only: [:new, :create]
     resources :contacts, shallow: true
     resources :faqs, shallow: true
+    resources :brands, shallow: true
   end
 
   resources :divisions do
     resources :developments, controller: 'divisions/developments'
     resources :contacts, shallow: true
+    resources :brands, shallow: true
   end
 
   resources :appliances

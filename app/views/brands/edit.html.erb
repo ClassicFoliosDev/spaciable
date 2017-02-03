@@ -1,0 +1,9 @@
+<% breadcrumb :brand_edit, @brand %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= t(".title", name: @brand) %>
+  </h3>
+</div>
+
+<%= render 'form', brand: @brand, parent: nil %>

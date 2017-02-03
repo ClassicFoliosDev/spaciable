@@ -100,6 +100,9 @@ en:
     contacts: "Contacts"
     contact_add: "Add contact"
     contact_edit: "Edit %{contact_name}"
+    brands: "Styling"
+    brand_add: "Add styling for {name}"
+    brand_edit: "Edit styling for %{name}"
 
   image_preview:
     replace: "Replace"
@@ -313,6 +316,7 @@ en:
       documents: "Documents"
       contacts: "Contacts"
       faqs: "FAQs"
+      brands: "Styling"
 
   divisions:
     destroy:
@@ -675,6 +679,23 @@ en:
     show:
       back: "Back"
 
+  brands:
+    index:
+      title: "Styling for %{name}"
+    new:
+      title: "Custom styling for %{name}"
+    collection:
+      create: "Create custom style"
+      name: "Name"
+    form:
+      back: "Back"
+      submit: "Submit"
+    show:
+      back: "Back"
+      image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB"
+    edit:
+      title: "Edit styling for %{name}"
+
   resident_notification_mailer:
     notify:
       new_notification: "You have a new notification form Hoozzi."
@@ -859,6 +880,11 @@ en:
           troubleshooting: "Troubleshooting"
           urgent: "Urgent issues"
           your_home: "Caring for your home"
+      brand:
+        logo: "Logo"
+        banner: "Banner"
+        styling: "Styling"
+        for: "%{name} styling"
 
     errors:
       messages:
@@ -868,6 +894,7 @@ en:
         only_one_parent_allowed: "cannot be associated with a Developer and a Division"
         taken: " has already been added"
         select: "must be selected"
+        not_valid_hex: " must have a valid hex colour, for example #445544"
 
       models:
         notification:

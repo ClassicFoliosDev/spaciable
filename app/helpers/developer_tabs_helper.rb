@@ -3,13 +3,16 @@ module DeveloperTabsHelper
   include TabsHelper
 
   def developer_tabs(developer, current_tab)
-    [
+    tabs = [
       divisions_tab(developer, current_tab),
       developments_tab(developer, current_tab),
       documents_tab(developer, current_tab),
       contacts_tab(developer, current_tab),
       faqs_tab(developer, current_tab)
     ].map(&:to_a)
+
+    tabs.push(developer_brands_tab(developer, current_tab).to_a) if can? :read, Brand
+    tabs
   end
 
   private
@@ -35,7 +38,7 @@ module DeveloperTabsHelper
   def documents_tab(developer, current_tab)
     Tab.new(
       title: t("developers.collection.documents"),
-      icon: :building,
+      icon: "file-pdf-o",
       link: developer_path(developer, active_tab: :documents),
       active: (current_tab == "documents")
     )
@@ -56,6 +59,15 @@ module DeveloperTabsHelper
       icon: "question-circle",
       link: developer_faqs_path(developer),
       active: (current_tab == "faqs")
+    )
+  end
+
+  def developer_brands_tab(developer, current_tab)
+    Tab.new(
+      title: t("developers.collection.brands"),
+      icon: "css3",
+      link: developer_brands_path(developer),
+      active: (current_tab == "brands")
     )
   end
 end
