@@ -44,7 +44,7 @@ $secondary-cta-color: $type-grey;
 }
 
 @mixin grad-yellow-orange() {
-  @include linear-gradient(135deg, $primary-yellow, $secondary-orange);
+  @include linear-gradient(135deg, rgba(255, 200, 93, 0.8), rgba(247, 148, 97, 0.8));
 }
 
 @mixin trans-to-black($deg:135deg) {

@@ -23,3 +23,8 @@ $tablet-portrait-down: new-breakpoint(max-width $small 16);
 $tablet-landscape-down: new-breakpoint(max-width $medium 16);
 $desktop-down: new-breakpoint(max-width $large 16);
 $desktop-large-down: new-breakpoint(max-width $x-large 16);
+
+@mixin omega-reset($nth) {
+  &:nth-child(#{$nth}) { margin-right: flex-gutter(); }
+  &:nth-child(#{$nth}+1) { clear: none }
+}

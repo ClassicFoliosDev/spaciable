@@ -63,6 +63,7 @@ Rails.application.routes.draw do
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard
+  get "/library", to: 'homeowner/library#show', as: :homeowner_library
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"

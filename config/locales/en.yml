@@ -55,6 +55,14 @@ en:
       title: "My Home"
       nav:
         my_home: "My Home"
+
+      sub_nav: 
+        rooms: "Rooms"
+        appliances: "Appliances"
+        library: "Library"
+        faqs: "FAQs"
+      library:
+        title: "Welcome to your digital home library"
     admin_login:
       title: "Admin Login to Hoozzi"
     login:
@@ -827,6 +835,7 @@ en:
         updated_at: "Last edited"
         categories:
           # Category enum values for documents
+          all: "All"
           homeowner_manual: "Homeowner's manual"
           appliance_manuals: "Appliance manuals"
           insurance_warranty: "Insurance & warranty"

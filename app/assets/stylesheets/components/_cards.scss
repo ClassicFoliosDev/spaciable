@@ -169,7 +169,7 @@ $card-height: 230px;
     }
 
     .documents {
-      @include span-columns(10 of 12);
+      // @include span-columns(10 of 12); TODO re-enable when the document slider functionality is implemented
       display: inline-block;
       height: $library-interface-height;
       overflow: hidden;
@@ -314,8 +314,10 @@ $card-height: 230px;
     }
 
     .hoozzi-logo {
-      position: relative;
-      top: 7px;
+      width: 48px;
+      float: left;
+      margin-top: -7px;
+      margin-right: 2px;
     }
 
     .how-to-title {

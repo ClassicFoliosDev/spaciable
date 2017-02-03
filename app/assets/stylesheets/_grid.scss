@@ -96,21 +96,9 @@ $row-bg-color: $ui-white;
 }
 
 .homeowner-view {
-  .content-container {
-    @include span-columns(16 of 16);
-    overflow-y: scroll;
-    height: 100%;
-  }
-
-  .header-container {
-    @include span-columns(16 of 16);
-  }
-
   .main-container {
-    @include span-columns(14 of 16);
-    @include shift(1);
-    position: relative;
-    z-index: 0;
+    @include outer-container;
+    padding: 0 20px;
   }
 }
 
@@ -185,5 +173,34 @@ $row-bg-color: $ui-white;
 
   @include media($tablet-landscape-up) {
     @include span-columns(3 of 12);
+  }
+}
+
+.sixth {
+  @include span-columns(2 of 12);
+  @include omega(6n);
+  
+  @include media($desktop-down) {
+    @include span-columns(3 of 12);
+    @include omega-reset(6n);
+    @include omega(4n);
+  }
+
+  @include media($tablet-landscape-down) {
+    @include span-columns(4 of 12);
+    @include omega-reset(4n);
+    @include omega(3n);
+  }
+
+  @include media($tablet-portrait-down) {
+    @include span-columns(6 of 12);
+    @include omega-reset(3n);
+    @include omega(2n);
+  }
+
+  @include media($mobile-down) {
+    @include span-columns(12 of 12);
+    @include omega-reset(2n);
+    @include omega(1);
   }
 }

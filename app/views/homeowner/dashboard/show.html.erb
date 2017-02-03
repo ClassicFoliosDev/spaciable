@@ -1,270 +1,283 @@
-<div class="row card-container">
-  <div class="card half my-home">
-    <div class="card-header">
-      <h3 class="card-title-alt">
-        <%= t('homeowner.dashboard.cards.my_home.title') %>
-      </h3>
-    </div>
-    <div class="card-content">
-      <address class="my-home-address">
-        <span>34 Baird Street</span><br/>
-        <span>Upper Caldecote</span><br/>
-        <span>Biggleswade</span><br/>
-        <span>Surrey</span><br/>
-        <span>United Kingdom</span><br/>
-        <span>GU15 1AF</span>
-      </address>
-      <a class="btn btn-alt" href=""><%= t('homeowner.dashboard.cards.my_home.view_more') %></a>
-    </div>
-  </div>
-
-  <div class="card half my-library">
-    <div class="card-header">
-      <h2 class="card-title"><%= t('homeowner.dashboard.cards.library.title') %></h2>
-      <span class="card-action">
-        <a href="" class="btn"><%= t('homeowner.dashboard.cards.library.view_more') %></a>
-      </span>
-    </div>
-
-    <div class="card-content">
-      <div class="action action-left">
-        <i class="fa fa-chevron-left"></i>
+<div class="hero"></div>
+<div class="main-container">
+  <div class="row card-container">
+    <div class="card half my-home">
+      <div class="card-header">
+        <h3 class="card-title-alt">
+          <%= t('homeowner.dashboard.cards.my_home.title') %>
+        </h3>
       </div>
-      <ul class="documents">
-        <li class="document">
-          <img src="https://images-na.ssl-images-amazon.com/images/I/51KR3Gx1ASL._SX258_BO1,204,203,200_.jpg">
-          <p>Dishwasher Manual</p>
-        </li>
-        <li class="document">
-          <img src="https://s-media-cache-ak0.pinimg.com/564x/61/d8/0a/61d80a2a68e08673154798f4515b7a62.jpg">
-          <p>First Aid Checklist</p>
-        </li>
-        <li class="document">
-          <img src="https://www.cdc.gov/niosh/docs/2009-113/images/cover1.jpg">
-          <p>Electricity Safety</p>
-        </li>
-        <li class="document">
-          <img src="http://library.plumbase.co.uk/flipbooks/RE/ravlitls80tn_25921_t/ravlitls80tn_25921_t.jpg">
-          <p>Boiler Manual</p>
-        </li>
-        <li class="document">
-          <img src="https://data2.manualslib.com/big_thumbs/38/3800/379980_ffh17f7hw__166_cu_ft_frost_free_upright_freezer_product.png">
-          <p>Freezer Manual</p>
-        </li>
-      </ul>
-      <div class="action action-right">
-        <i class="fa fa-chevron-right"></i>
+      <div class="card-content">
+        <address class="my-home-address">
+          <span>34 Baird Street</span><br/>
+          <span>Upper Caldecote</span><br/>
+          <span>Biggleswade</span><br/>
+          <span>Surrey</span><br/>
+          <span>United Kingdom</span><br/>
+          <span>GU15 1AF</span>
+        </address>
+        <a class="btn btn-alt" href=""><%= t('homeowner.dashboard.cards.my_home.view_more') %></a>
       </div>
     </div>
-  </div>
-</div>
-<div class="row card-container">
-  <!--CONTACTS-->
-  <div class="card row-item quarter my-contacts bordered">
-    <div class="card-header">
-      <h2 class="card-title"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
-      <span class="card-action">
-        <a href="" class="btn"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
-      </span>
+
+    <div class="card half my-library">
+      <div class="card-header">
+        <h2 class="card-title"><%= t('homeowner.dashboard.cards.library.title') %></h2>
+        <span class="card-action">
+          <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'btn' %>
+        </span>
+      </div>
+
+      <div class="card-content">
+        <!-- TODO re-enable when the document slider functionality is implemented -->
+        <!-- <div class="action action-left">
+          <i class="fa fa-chevron-left"></i>
+        </div> -->
+        <ul class="documents">
+          <li class="document">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51KR3Gx1ASL._SX258_BO1,204,203,200_.jpg">
+            <p>Dishwasher Manual</p>
+          </li>
+          <li class="document">
+            <img src="https://s-media-cache-ak0.pinimg.com/564x/61/d8/0a/61d80a2a68e08673154798f4515b7a62.jpg">
+            <p>First Aid Checklist</p>
+          </li>
+          <li class="document">
+            <img src="https://www.cdc.gov/niosh/docs/2009-113/images/cover1.jpg">
+            <p>Electricity Safety</p>
+          </li>
+          <li class="document">
+            <img src="http://library.plumbase.co.uk/flipbooks/RE/ravlitls80tn_25921_t/ravlitls80tn_25921_t.jpg">
+            <p>Boiler Manual</p>
+          </li>
+          <li class="document">
+            <img src="https://data2.manualslib.com/big_thumbs/38/3800/379980_ffh17f7hw__166_cu_ft_frost_free_upright_freezer_product.png">
+            <p>Freezer Manual</p>
+          </li>
+          <li class="document">
+            <img src="https://data2.manualslib.com/big_thumbs/38/3800/379980_ffh17f7hw__166_cu_ft_frost_free_upright_freezer_product.png">
+            <p>Oven Manual</p>
+          </li>
+          <li class="document">
+            <img src="https://data2.manualslib.com/big_thumbs/38/3800/379980_ffh17f7hw__166_cu_ft_frost_free_upright_freezer_product.png">
+            <p>Ice Maker Manual</p>
+          </li>
+        </ul>
+        <!-- TODO re-enable when the document slider functionality is implemented -->
+        <!-- <div class="action action-right">
+          <i class="fa fa-chevron-right"></i>
+        </div> -->
+      </div>
     </div>
-    <div class="card-content">
-      <ul class="contact-list">
-        <li>
-          <div class="avatar">
-            <img src="https://s-media-cache-ak0.pinimg.com/236x/c3/75/8a/c3758a4f3974b2d2216eccbaf3305c92.jpg">
-          </div>
-          <div class="contact-details">
-            <p class="contact-name">Lee Kemp</p>
-            <div class="contact-actions">
-              <a href="">
-                <%= fa_icon "phone" %>
-                <span>01234 567890</span>
-              </a>
-              <a href="">
-                <%= fa_icon "envelope" %>
-                <span>lee.kemp@haynes.com</span>
-              </a>
+  </div>
+  <div class="row card-container">
+    <!--CONTACTS-->
+    <div class="card quarter my-contacts bordered">
+      <div class="card-header">
+        <h2 class="card-title"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
+        <span class="card-action">
+          <a href="" class="btn"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
+        </span>
+      </div>
+      <div class="card-content">
+        <ul class="contact-list">
+          <li>
+            <div class="avatar">
+              <img src="https://s-media-cache-ak0.pinimg.com/236x/c3/75/8a/c3758a4f3974b2d2216eccbaf3305c92.jpg">
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="avatar">
-            <img src="http://grsf.org/wp-content/uploads/2016/05/Taylor-Harvey-headshot-square.jpg">
-          </div>
-          <div class="contact-details">
-            <p class="contact-name">Shana Milton</p>
-            <div class="contact-actions">
-              <a href="">
-                <%= fa_icon "phone" %>
-                <span>01234 567890</span>
-              </a>
-              <a href="">
-                <%= fa_icon "envelope" %>
-                <span>shana.milton@calor.com</span>
-              </a>
+            <div class="contact-details">
+              <p class="contact-name">Lee Kemp</p>
+              <div class="contact-actions">
+                <a href="">
+                  <%= fa_icon "phone" %>
+                  <span>01234 567890</span>
+                </a>
+                <a href="">
+                  <%= fa_icon "envelope" %>
+                  <span>lee.kemp@haynes.com</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="avatar">
-            <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e4eee4b0ec881d797cd5/1440016010806/Ariel+Tharpe+Headshot+Square.png?format=300w">
-          </div>
-          <div class="contact-details">
-            <p class="contact-name">Anne Simmons</p>
-            <div class="contact-actions">
-              <a href="">
-                <%= fa_icon "phone" %>
-                <span>01234 567890</span>
-              </a>
-              <a href="">
-                <%= fa_icon "envelope" %>
-                <span>anne.simmons@bovis.com</span>
-              </a>
+          </li>
+          <li>
+            <div class="avatar">
+              <img src="http://grsf.org/wp-content/uploads/2016/05/Taylor-Harvey-headshot-square.jpg">
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="avatar">
-            <img src="http://www.quindry.com/wp-content/gallery/people/corporate-headshot-Philadelphia-36-Square.jpg">
-          </div>
-          <div class="contact-details">
-            <p class="contact-name">Clive Dodson</p>
-            <div class="contact-actions">
-              <a href="">
-                <%= fa_icon "phone" %>
-                <span>01234 567890</span>
-              </a>
-              <a href="">
-                <%= fa_icon "envelope" %>
-                <span>clive.dodson@grantham.com</span>
-              </a>
+            <div class="contact-details">
+              <p class="contact-name">Shana Milton</p>
+              <div class="contact-actions">
+                <a href="">
+                  <%= fa_icon "phone" %>
+                  <span>01234 567890</span>
+                </a>
+                <a href="">
+                  <%= fa_icon "envelope" %>
+                  <span>shana.milton@calor.com</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </li>
-        <li>
-          <div class="avatar">
-            <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e527e4b00f3b16d060d6/1440016045882/Daley+Browning+Headshot+Square.jpg?format=300w">
-          </div>
-          <div class="contact-details">
-            <p class="contact-name">Jennifer Abraham</p>
-            <div class="contact-actions">
-              <a href="">
-                <%= fa_icon "phone" %>
-                <span>01234 567890</span>
-              </a>
-              <a href="">
-                <%= fa_icon "envelope" %>
-                <span>jennifer.abraham@plazahomes.com</span>
-              </a>
+          </li>
+          <li>
+            <div class="avatar">
+              <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e4eee4b0ec881d797cd5/1440016010806/Ariel+Tharpe+Headshot+Square.png?format=300w">
             </div>
-          </div>
-        </li>
-      </ul>
+            <div class="contact-details">
+              <p class="contact-name">Anne Simmons</p>
+              <div class="contact-actions">
+                <a href="">
+                  <%= fa_icon "phone" %>
+                  <span>01234 567890</span>
+                </a>
+                <a href="">
+                  <%= fa_icon "envelope" %>
+                  <span>anne.simmons@bovis.com</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="avatar">
+              <img src="http://www.quindry.com/wp-content/gallery/people/corporate-headshot-Philadelphia-36-Square.jpg">
+            </div>
+            <div class="contact-details">
+              <p class="contact-name">Clive Dodson</p>
+              <div class="contact-actions">
+                <a href="">
+                  <%= fa_icon "phone" %>
+                  <span>01234 567890</span>
+                </a>
+                <a href="">
+                  <%= fa_icon "envelope" %>
+                  <span>clive.dodson@grantham.com</span>
+                </a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="avatar">
+              <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e527e4b00f3b16d060d6/1440016045882/Daley+Browning+Headshot+Square.jpg?format=300w">
+            </div>
+            <div class="contact-details">
+              <p class="contact-name">Jennifer Abraham</p>
+              <div class="contact-actions">
+                <a href="">
+                  <%= fa_icon "phone" %>
+                  <span>01234 567890</span>
+                </a>
+                <a href="">
+                  <%= fa_icon "envelope" %>
+                  <span>jennifer.abraham@plazahomes.com</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-  <!--FAQs-->
-  <div class="card row-item quarter faqs bordered">
-    <div class="card-header">
-      <h3 class="card-title">
-        <%= t('homeowner.dashboard.cards.faqs.title') %>
-      </h3>
-      <span class="card-action">
-        <a href="" class="btn"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
-      </span>
+    <!--FAQs-->
+    <div class="card quarter faqs bordered">
+      <div class="card-header">
+        <h3 class="card-title">
+          <%= t('homeowner.dashboard.cards.faqs.title') %>
+        </h3>
+        <span class="card-action">
+          <a href="" class="btn"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
+        </span>
+      </div>
+      <div class="card-content">
+        <ul>
+          <li>
+            <a href="">
+              <span class="text">Where can I find information on how to look after my home's finishes?</span>
+              <%= fa_icon "chevron-right" %>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <span class="text">Are there any restrictions to attaching wall or floor fixings?</span>
+              <%= fa_icon "chevron-right" %>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <span class="text">What should I do if I have no heating or hot water?</span>
+              <%= fa_icon "chevron-right" %>
+            </a>
+          </li>
+          <li>
+            <a href="">
+              <span class="text">How can I protect my new carpet?</span>
+              <%= fa_icon "chevron-right" %>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="card-content">
-      <ul>
-        <li>
-          <a href="">
-            <span class="text">Where can I find information on how to look after my home's finishes?</span>
-            <%= fa_icon "chevron-right" %>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <span class="text">Are there any restrictions to attaching wall or floor fixings?</span>
-            <%= fa_icon "chevron-right" %>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <span class="text">What should I do if I have no heating or hot water?</span>
-            <%= fa_icon "chevron-right" %>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <span class="text">How can I protect my new carpet?</span>
-            <%= fa_icon "chevron-right" %>
-          </a>
-        </li>
-      </ul>
+    <!-- ARTICLES -->
+    <div class="card quarter how-to" style="background-image: url('http://www.staffordshirefire.gov.uk/Images/winter_home_safety_510x244.jpg')">
+      <div class="card-header">
+        <a href="" class="favourite-article">
+          <%= image_tag "favourite-icon.png" %>
+        </a>
+      </div>
+      <div class="card-content">
+        <h3 class="how-to-title">Warmer This Winter</h3>
+        <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+        <span class="how-to-logo">How To</span>
+        <a href="" class="btn btn-alt view-article">View Article</a>
+      </div>
     </div>
-  </div>
-  <!-- ARTICLES -->
-  <div class="card row-item quarter how-to" style="background-image: url('http://www.staffordshirefire.gov.uk/Images/winter_home_safety_510x244.jpg')">
-    <div class="card-header">
-      <a href="" class="favourite-article">
-        <%= image_tag "favourite-icon.png" %>
-      </a>
+    <div class="card quarter how-to" style="background-image: url('http://www.thehandmadehome.net/storage/storage_stairs_168f038-168f03g.jpg?__SQUARESPACE_CACHEVERSION=1290105095432')">
+      <div class="card-header">
+        <a href="" class="favourite-article">
+          <%= image_tag "favourite-icon.png" %>
+        </a>
+      </div>
+      <div class="card-content">
+        <h3 class="how-to-title">Clever Storage Solutions</h3>
+        <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+        <span class="how-to-logo">How To</span>
+        <a href="" class="btn btn-alt view-article">View Article</a>
+      </div>
     </div>
-    <div class="card-content">
-      <h3 class="how-to-title">Warmer This Winter</h3>
-      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-      <span class="how-to-logo">How To</span>
-      <a href="" class="btn btn-alt view-article">View Article</a>
+    <div class="card quarter how-to" style="background-image: url('http://www.local-ad.co.uk/wp-content/uploads/2016/05/garden.jpg')">
+      <div class="card-header">
+        <a href="" class="favourite-article">
+          <%= image_tag "favourite-icon.png" %>
+        </a>
+      </div>
+      <div class="card-content">
+        <h3 class="how-to-title">Summer Ready Garden</h3>
+        <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+        <span class="how-to-logo">How To</span>
+        <a href="" class="btn btn-alt view-article">View Article</a>
+      </div>
     </div>
-  </div>
-  <div class="card row-item quarter how-to" style="background-image: url('http://www.thehandmadehome.net/storage/storage_stairs_168f038-168f03g.jpg?__SQUARESPACE_CACHEVERSION=1290105095432')">
-    <div class="card-header">
-      <a href="" class="favourite-article">
-        <%= image_tag "favourite-icon.png" %>
-      </a>
+    <div class="card quarter how-to" style="background-image: url('http://cdn.home-designing.com/wp-content/uploads/2015/11/ultra-luxurious-modern-interior.jpg')">
+      <div class="card-header">
+        <a href="" class="favourite-article">
+          <%= image_tag "favourite-icon.png" %>
+        </a>
+      </div>
+      <div class="card-content">
+        <h3 class="how-to-title">The Modern Touch</h3>
+        <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+        <span class="how-to-logo">How To</span>
+        <a href="" class="btn btn-alt view-article">View Article</a>
+      </div>
     </div>
-    <div class="card-content">
-      <h3 class="how-to-title">Clever Storage Solutions</h3>
-      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-      <span class="how-to-logo">How To</span>
-      <a href="" class="btn btn-alt view-article">View Article</a>
-    </div>
-  </div>
-  <div class="card row-item quarter how-to" style="background-image: url('http://www.local-ad.co.uk/wp-content/uploads/2016/05/garden.jpg')">
-    <div class="card-header">
-      <a href="" class="favourite-article">
-        <%= image_tag "favourite-icon.png" %>
-      </a>
-    </div>
-    <div class="card-content">
-      <h3 class="how-to-title">Summer Ready Garden</h3>
-      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-      <span class="how-to-logo">How To</span>
-      <a href="" class="btn btn-alt view-article">View Article</a>
-    </div>
-  </div>
-  <div class="card row-item quarter how-to" style="background-image: url('http://cdn.home-designing.com/wp-content/uploads/2015/11/ultra-luxurious-modern-interior.jpg')">
-    <div class="card-header">
-      <a href="" class="favourite-article">
-        <%= image_tag "favourite-icon.png" %>
-      </a>
-    </div>
-    <div class="card-content">
-      <h3 class="how-to-title">The Modern Touch</h3>
-      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-      <span class="how-to-logo">How To</span>
-      <a href="" class="btn btn-alt view-article">View Article</a>
-    </div>
-  </div>
-  <div class="card row-item quarter how-to" style="background-image: url('http://i.telegraph.co.uk/multimedia/archive/03487/RBS-Win-On-Water-D_3487583b.jpg')">
-    <div class="card-header">
-      <a href="" class="favourite-article">
-        <%= image_tag "favourite-icon.png" %>
-      </a>
-    </div>
-    <div class="card-content">
-      <h3 class="how-to-title">Smart Water Tactics</h3>
-      <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-      <span class="how-to-logo">How To</span>
-      <a href="" class="btn btn-alt view-article">View Article</a>
+    <div class="card quarter how-to" style="background-image: url('http://i.telegraph.co.uk/multimedia/archive/03487/RBS-Win-On-Water-D_3487583b.jpg')">
+      <div class="card-header">
+        <a href="" class="favourite-article">
+          <%= image_tag "favourite-icon.png" %>
+        </a>
+      </div>
+      <div class="card-content">
+        <h3 class="how-to-title">Smart Water Tactics</h3>
+        <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
+        <span class="how-to-logo">How To</span>
+        <a href="" class="btn btn-alt view-article">View Article</a>
+      </div>
     </div>
   </div>
 </div>

@@ -1,0 +1,144 @@
+.sub-navigation-container {
+  border-top: 1px solid $ui-grey;
+  padding: 8px;
+
+  .nav-inner {
+    margin-top: 0;
+  }
+
+  h1 {
+    font-size: $title-font-size-3;
+    line-height: $title-font-size-3;
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  ul {
+    display: inline-block;
+    margin-left: 40px;
+  }
+
+  li {
+    display: inline-block;
+
+    a {
+      text-decoration: none;
+      color: $ui-black;
+      padding: 4px $spacing-small;
+      font-weight: bold;
+      border-radius: 3px;
+
+      &:hover {
+        background-color: $ui-grey;
+        color: $ui-black;
+      }
+
+      &.active {
+        border: 1px solid $ui-grey;
+      }
+    }
+  }
+}
+
+.hero {
+  margin-bottom: $spacing-medium;
+  
+  .filter-banner {
+    @include grad-yellow-orange();
+    height: 100%;
+    overflow: hidden;
+    z-index: 2;
+    padding: 28px;
+  }
+
+  h1 {
+    text-align: center;
+    padding: $spacing-small 0;
+    margin-bottom: $spacing-medium;
+    color: $ui-white;
+    font-weight: 200;
+    font-size: 24px;
+  }
+
+  ul {
+    text-align: center;
+  }
+
+  li {
+    display: inline-block;
+    margin-bottom: 6px;
+
+    .btn {
+      background-color: transparent;
+      text-decoration: none;
+      color: $ui-white;
+      border-color: $ui-white;
+      padding: 0 $spacing-small;
+
+      &:hover {
+        color: $secondary-orange;
+        border-color: $secondary-orange;
+        background-color: $ui-white;
+      }
+
+      &.active {
+        background-color: $ui-white;
+        color: $secondary-orange;
+      }
+    }
+  }
+}
+
+.documents {
+  .document {
+    margin-bottom: $spacing-medium;
+    height: 300px;
+    text-align: center;
+    padding: $spacing-small;
+
+    img {
+      height: 80%;
+      display: block;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-size: $title-font-size-5;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: $base-small-font-size;
+    }
+  }
+}
+
+@include media($tablet-portrait-down) {
+  .sub-navigation-container {
+    h1 {
+      display: none;  
+    }
+    
+    ul {
+      display: block;
+      text-align: center;
+      margin-left: 0;
+    }
+  }
+}
+
+@include media($mobile-down) {
+  .homeowner-view {
+    .hero {
+      height: 230px;
+
+      h1 {
+        font-size: $title-font-size-5;
+      }
+
+      li .btn {
+        font-size: $base-small-font-size;
+      }
+    }
+  }
+}
