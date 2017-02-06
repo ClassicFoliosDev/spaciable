@@ -10,7 +10,7 @@ module ModuleImporter
 
       def self.method_missing(method, *args)
         if #{mod}.methods.include?(method)
-          #{mod}.send(method)
+          #{mod}.send(method, *args)
         else
           super
         end

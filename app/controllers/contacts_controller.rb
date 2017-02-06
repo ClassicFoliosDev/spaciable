@@ -2,6 +2,7 @@
 class ContactsController < ApplicationController
   include PaginationConcern
   include SortingConcern
+
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
   load_and_authorize_resource :development
@@ -26,6 +27,7 @@ class ContactsController < ApplicationController
   end
 
   def create
+    @contact.contactable = @parent
     if @contact.save
       notice = t("controller.success.create", name: @contact)
       redirect_to [@parent, :contacts], notice: notice
@@ -65,6 +67,6 @@ class ContactsController < ApplicationController
   end
 
   def set_parent
-    @parent = @contact&.contactable || @development || @division || @developer
+    @parent = @development || @division || @developer || @contact&.contactable
   end
 end

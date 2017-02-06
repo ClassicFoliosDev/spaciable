@@ -2,38 +2,22 @@
 module PlotTabsHelper
   include TabsHelper
 
-  def development_plot_tabs(development, current_tab)
-    rooms_tab = Tab.new(
-      title: t("plots.collection.rooms"),
-      icon: :building,
-      link: development_plot_path(development, active_tab: :rooms),
-      active: (current_tab == "rooms")
-    )
-
-    residents_tab = Tab.new(
-      title: t("plots.collection.residents"),
-      icon: :building,
-      link: development_plot_path(development, active_tab: :residents),
-      active: (current_tab == "residents")
-    )
-
-    [rooms_tab, residents_tab].map(&:to_a)
+  def plot_tabs(plot, current_tab)
+    tabs = PLOT_TABS.call(plot)
+    Tabs.new(plot, tabs, current_tab, self).all
   end
 
-  def phase_plot_tabs(development, current_tab)
-    rooms_tab = Tab.new(
-      title: t("plots.collection.rooms"),
-      icon: :building,
-      link: phase_plot_path(development, active_tab: :rooms),
-      active: (current_tab == "rooms")
-    )
-
-    residents_tab = Tab.new(
-      title: t("plots.collection.residents"),
-      icon: :building,
-      link: phase_plot_path(development, active_tab: :residents),
-      active: (current_tab == "residents")
-    )
-    [rooms_tab, residents_tab].map(&:to_a)
+  PLOT_TABS = lambda do |plot|
+    {
+      rooms: {
+        icon: :building,
+        link: [plot.parent, plot, active_tab: :rooms],
+        permissions_on: -> { plot.development.rooms.build }
+      },
+      residents: {
+        icon: :building,
+        link: [plot.parent, plot, active_tab: :residents]
+      }
+    }
   end
 end

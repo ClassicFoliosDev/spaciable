@@ -3,4 +3,4 @@
 <%= render @parent %>
 
 <%= render 'components/tabs', tabs: tabs_for(@parent, "faqs"), parent: @parent %>
-<%= render_collection @faqs, parent: @parent, can_create: (can? :create, @faq) %>
+<%= render_collection @faqs, parent: @parent, new_faq: @faq %>

@@ -12,9 +12,11 @@ require "database_cleaner_setup"
 require "drivers_setup"
 require "debugging_world"
 require "hoozzi_world"
+require "goto_page"
 
 World(
   HoozziWorld,
+  GotoPage,
   DebuggingWorld,
   Warden::Test::Helpers,
   FactoryGirl::Syntax::Methods,

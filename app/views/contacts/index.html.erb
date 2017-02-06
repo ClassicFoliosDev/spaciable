@@ -4,4 +4,4 @@
 
 <%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
 
-<%= render_collection @contacts, parent: @parent, can_manage: (can? :manage, @contact) %>
+<%= render_collection @contacts, parent: @parent, new_contact: @contact %>

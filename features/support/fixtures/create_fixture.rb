@@ -8,7 +8,7 @@ module CreateFixture
     appliance: "Bosch WAB28161GB Washing Machine",
     developer: "Hamble View Developer",
     development: "Riverside Development",
-    division: "Hamble Riverside",
+    division: "Hamble Riverside Division",
     division_development: "Hamble East Riverside (Division) Development",
     division_phase: "Beta (Division) Phase",
     finish: "Fluffy carpet",
@@ -35,6 +35,16 @@ module CreateFixture
     module_function :"#{resource}_id"
   end
 
+  def get(resource, parent = nil)
+    send ResourceName(resource, parent)
+  end
+
+  def ResourceName(resource, parent = nil)
+    parent&.gsub!(/\W/, "") if parent
+
+    [parent, resource].compact.map(&:to_s).map(&:downcase).join("_")
+  end
+
   # Category and type selects for appliances and finishes
   def appliance_category_name
     "Washing Machine"
@@ -53,6 +63,11 @@ module CreateFixture
   end
 
   # FACTORIES
+
+  def create_admin(admin_type = :cf, parent = nil)
+    resource_name = ResourceName(admin_type, parent)
+    send("create_#{resource_name}_admin")
+  end
 
   def create_cf_admin
     FactoryGirl.create(:cf_admin)

@@ -20,7 +20,8 @@ class DivisionsController < ApplicationController
   def show
     @active_tab = params[:active_tab] || "developments"
     @collection = if @active_tab == "developments"
-                    paginate(sort(@division.developments, default: :name))
+                    developments = @division.developments.accessible_by(current_ability)
+                    paginate(sort(developments, default: :name))
                   end
   end
 

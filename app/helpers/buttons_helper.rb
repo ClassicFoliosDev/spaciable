@@ -6,13 +6,17 @@ module ButtonsHelper
     end
   end
 
-  def edit_btn(edit_path, label = "")
+  def edit_btn(edit_path, label = "", element: nil)
+    return if element && (cannot? :update, element)
+
     link_to edit_path, class: "btn", data: { action: "edit" } do
       icon "pencil", label
     end
   end
 
-  def delete_btn(resource, label = "", path: nil)
+  def delete_btn(resource, label = "", path: nil, element: nil)
+    return if element && (cannot? :destroy, element)
+
     content_tag(:button, data: data_to_delete(resource, path: path), class: "archive-btn") do
       icon "trash", label
     end

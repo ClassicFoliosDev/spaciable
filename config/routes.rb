@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     resources :plots
     resources :contacts, shallow: true
     resources :brands, shallow: true
+    resources :faqs, shallow: true
   end
 
   resources :developers do
@@ -56,6 +57,7 @@ Rails.application.routes.draw do
     resources :developments, controller: 'divisions/developments'
     resources :contacts, shallow: true
     resources :brands, shallow: true
+    resources :faqs, shallow: true
   end
 
   resources :appliances

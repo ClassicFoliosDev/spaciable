@@ -34,16 +34,14 @@ class Ability
 
   def developer_admin_abilities(user)
     developer_id = user.permission_level_id
-
-    developer_abilities(developer_id)
-
     division_ids = Division.where(developer_id: developer_id).pluck(:id)
-    division_abilities(division_ids, nil)
-
     development_ids = Development
                       .where(developer_id: developer_id)
                       .or(Development.where(division_id: division_ids))
                       .pluck(:id)
+
+    developer_abilities(developer_id)
+    division_abilities(division_ids, nil)
     development_abilities(development_ids, nil, nil)
   end
 

@@ -21,6 +21,42 @@ module FaqsFixture
         answer: "It's turtles all the way down.",
         category: :urgent
       }
+    },
+    division: {
+      created: {
+        question: "How many lightbulbs does it take to change a light bulb?",
+        answer: "Uhhhh. 42!",
+        category: :general
+      },
+      updated: {
+        question: "What is the meaning of life?",
+        answer: "Ruby on Rails :robot:",
+        category: :urgent
+      }
+    },
+    development: {
+      created: {
+        question: "How do I deal with noisy neighbours?",
+        answer: "Save up for a house in rural location.",
+        category: :general
+      },
+      updated: {
+        question: "How do I be a good neighbour?",
+        answer: "Always keep a *full* cup of sugar near the front door.",
+        category: :urgent
+      }
+    },
+    division_development: {
+      created: {
+        question: "What pets can I keep?",
+        answer: "Nothing genetically modified or cloned.",
+        category: :general
+      },
+      updated: {
+        question: "Can I keep runner ducks on the property?",
+        answer: "Firstly, please register your duck online...",
+        category: :urgent
+      }
     }
   }.freeze
 
@@ -28,14 +64,18 @@ module FaqsFixture
     create_developer
     create_division
     create_development
+    create_division_development
   end
 
-  def create_admin(admin_type = :cf)
-    send("create_#{admin_type.to_s.downcase}_admin")
+  def create_faqs_for(resource = :developer)
+    resource_name = ResourceName(resource).to_sym
+
+    attrs = FAQ_ATTRS.select { |(key, _)| key == resource_name }
+    create_faqs(attrs)
   end
 
-  def create_faqs
-    FAQ_ATTRS.each_pair do |faqable, actions|
+  def create_faqs(attrs_scope = FAQ_ATTRS)
+    attrs_scope.each_pair do |faqable, actions|
       actions.select { |key, _| key == :created }.each do |_, attrs|
         resource = send(faqable)
         faq_attrs = attrs.merge(faqable: resource)
@@ -45,14 +85,18 @@ module FaqsFixture
     end
   end
 
-  def faq_attrs(action = "created", under: :developer)
-    FAQ_ATTRS.dig(under.to_sym, action.to_sym)
+  def faq_attrs(action = "created", parent = nil, under: :developer)
+    resource_name = ResourceName(under, parent)
+
+    FAQ_ATTRS.fetch(resource_name.to_sym).fetch(action.to_sym)
   end
 
-  def faq_id(under: :developer, updated: false)
-    action = updated ? :updated : :created
-    question = FAQ_ATTRS.dig(under.to_sym, action, :question)
+  def faq_id(parent = nil, under: :developer, updated: false)
+    resource_name = ResourceName(under, parent)
 
-    Faq.find_by(question: question, faqable: send(under)).id
+    action = updated ? :updated : :created
+    question = FAQ_ATTRS.fetch(resource_name.to_sym).dig(action, :question)
+
+    Faq.find_by(question: question, faqable: send(resource_name)).id
   end
 end

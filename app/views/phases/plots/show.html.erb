@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: phase_plot_tabs(@phase, @active_tab), parent: @phase %>
+<%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab), parent: @phase %>
 
 <%= render_collection @collection, parent: @plot.unit_type %>
 

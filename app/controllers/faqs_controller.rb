@@ -3,10 +3,10 @@ class FaqsController < ApplicationController
   include PaginationConcern
   include SortingConcern
 
-  load_and_authorize_resource :developer
-  load_and_authorize_resource :division
   load_and_authorize_resource :development
-  load_and_authorize_resource :faq, through: [:developer, :division, :development], shallow: true
+  load_and_authorize_resource :division
+  load_and_authorize_resource :developer
+  load_and_authorize_resource :faq, through: [:development, :division, :developer], shallow: true
 
   before_action :set_parent
 
@@ -19,6 +19,8 @@ class FaqsController < ApplicationController
   end
 
   def create
+    @faq.faqable = @parent
+
     if @faq.save
       redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
     else
@@ -52,11 +54,12 @@ class FaqsController < ApplicationController
     params.require(:faq).permit(
       :question,
       :answer,
-      :category
+      :category,
+      :division_id
     )
   end
 
   def set_parent
-    @parent = @faq&.faqable || @developer || @division || @development
+    @parent = @development || @division || @developer || @faq&.faqable
   end
 end

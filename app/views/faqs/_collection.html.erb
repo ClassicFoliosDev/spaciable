@@ -1,5 +1,5 @@
 <div class="section-actions">
-  <% if can_create %>
+  <% if can? :create, new_faq %>
     <%= link_to [:new, parent, :faq], class: "btn btn-primary" do %>
       <i class="fa fa-plus"></i>
       <span class="btn-label"><%= t(".add") %></span>
@@ -18,8 +18,8 @@
     <% collection.each do |faq| %>
         <dd class="record-list-item" data-faq="<%= faq.id %>">
           <div class="record-list-item-actions">
-            <%= edit_btn edit_faq_path(faq) %>
-            <%= delete_btn faq, path: faq_path(faq) %>
+            <%= edit_btn edit_faq_path(faq), element: faq %>
+            <%= delete_btn faq, path: faq_path(faq), element: faq %>
           </div>
           <div class="record-list-item-content">
             <%= link_to faq, faq_path(faq), title: faq %>

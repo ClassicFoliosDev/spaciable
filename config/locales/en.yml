@@ -265,6 +265,10 @@ en:
       unit_types: "Unit types"
       plots: "Plots"
       add: "Add development"
+      faqs: "FAQs"
+      contacts: "Contacts"
+      rooms: "Rooms"
+      brands: "Styling"
     edit:
       back: "Back"
     form:
@@ -366,6 +370,9 @@ en:
       back: "Back"
     collection:
       developments: "Developments"
+      contacts: "Contacts"
+      brands: "Styling"
+      faqs: "FAQs"
       add: "Add division"
     new:
       title: "New division"

@@ -5,22 +5,30 @@ module TabsHelper
     send(method_name, parent, active_tab)
   end
 
-  def room_tabs(room, current_tab)
-    finishes_tab = Tab.new(
-      title: t("rooms.collection.finishes"),
-      icon: :building,
-      link: room_path(room, active_tab: :finishes),
-      active: (current_tab == "finishes")
-    )
+  Tabs = Struct.new(:scope, :tabs, :current_tab, :view_context) do
+    def all
+      tabs.each_pair.map do |association, options|
+        next if cannot_read?(association, options.delete(:permissions_on))
 
-    appliances_tab = Tab.new(
-      title: t("rooms.collection.appliances"),
-      icon: :building,
-      link: room_path(room, active_tab: :appliances),
-      active: (current_tab == "appliances")
-    )
+        Tab.new(
+          options.reverse_merge(
+            active: current_tab == association.to_s,
+            title: title(association),
+            link: [scope, association]
+          )
+        ).to_a
+      end.compact
+    end
 
-    [finishes_tab, appliances_tab].map(&:to_a)
+    def cannot_read?(association, permissions_scope = nil)
+      model = permissions_scope&.call || scope.send(association).build
+
+      view_context.cannot? :read, model
+    end
+
+    def title(key)
+      I18n.t("#{scope.model_name.plural}.collection.#{key}")
+    end
   end
 
   class Tab

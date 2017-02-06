@@ -1,19 +1,19 @@
 # frozen_string_literal: true
-Given(/^I am a (\w+) Admin and I want to manage FAQs$/) do |admin_type|
+Given(/^I am a (\(\w+\) )?(\w+) Admin and I want to manage FAQs$/) do |parent_type, admin_type|
   FaqsFixture.setup
 
-  admin = FaqsFixture.create_admin(admin_type)
+  admin = FaqsFixture.create_admin(admin_type, parent_type)
   login_as admin
   visit "/"
 end
 
-When(/^I create a FAQ for a Developer$/) do
-  click_on t("components.navigation.developers")
-  click_on FaqsFixture.developer
+When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
+  goto_resource_show_page(parent, resource)
+
   click_on t("developers.collection.faqs")
   click_on t("faqs.collection.add")
 
-  attrs = FaqsFixture.faq_attrs(:created, under: :developer)
+  attrs = FaqsFixture.faq_attrs(:created, parent, under: resource)
 
   fill_in :faq_question, with: attrs[:question]
   fill_in :faq_answer, with: attrs[:answer]
@@ -24,37 +24,38 @@ When(/^I create a FAQ for a Developer$/) do
   click_on t("faqs.form.submit")
 end
 
-Then(/^I should see the (created|updated) Developer FAQ$/) do |action|
-  attrs = FaqsFixture.faq_attrs(action, under: :developer)
+Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, parent, resource|
+  attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
+  category = FaqsFixture.t_category(attrs[:category])
   notice = t("faqs.#{action.gsub(/d\Z/, '')}.success", title: attrs[:question])
 
   expect(page).to have_content(notice)
-
   expect(page).to have_content(attrs[:question])
-  category = FaqsFixture.t_category(attrs[:category])
   expect(page).to have_content(category)
 
   within ".breadcrumbs" do
-    expect(page).to have_content(FaqsFixture.developer)
+    expect(page).to have_content(CreateFixture.get(resource, parent))
   end
 
-  click_on attrs[:question]
+  within ".record-list" do
+    click_on attrs[:question]
+  end
+
   expect(page).to have_content(attrs[:question])
   expect(page).to have_content(attrs[:answer])
-  category = FaqsFixture.t_category(attrs[:category])
   expect(page).to have_content(category)
 
   click_on t("faqs.show.back")
 end
 
-When(/^I update the Developer FAQ$/) do
-  faq_id = FaqsFixture.faq_id(under: :developer)
+When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
+  faq_id = FaqsFixture.faq_id(parent, under: resource)
 
   within "[data-faq='#{faq_id}']" do
     find("[data-action='edit']").trigger("click")
   end
 
-  attrs = FaqsFixture.faq_attrs(:updated, under: :developer)
+  attrs = FaqsFixture.faq_attrs(:updated, parent, under: resource)
 
   fill_in :faq_question, with: attrs[:question]
   fill_in :faq_answer, with: attrs[:answer]
@@ -86,20 +87,23 @@ Then(/^I should no longer see the Developer FAQ$/) do
   end
 end
 
-Given(/^my Divisions Developer has FAQs$/) do
-  FaqsFixture.create_faqs
+Given(/^my .+ (\w+) has FAQs$/) do |resource|
+  FaqsFixture.create_faqs_for(resource)
 end
 
-Then(/^I should only be able to see the Developers FAQs for my Division$/) do
-  click_on t("components.navigation.developers")
-  click_on FaqsFixture.developer
+Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resource|
+  attrs = FaqsFixture.faq_attrs(:created, under: parent_resource)
+
+  goto_resource_show_page(nil, parent_resource)
+
   click_on t("developers.collection.faqs")
 
   expect(page).not_to have_link(t("faqs.collection.add"))
 
-  attrs = FaqsFixture.faq_attrs(:created, under: :developer)
-
   within ".record-list" do
+    expect(page).not_to have_selector("[data-action='edit']")
+    expect(page).not_to have_selector("[data-action='delete']")
+
     click_on attrs[:question]
   end
 
@@ -107,24 +111,4 @@ Then(/^I should only be able to see the Developers FAQs for my Division$/) do
   expect(page).to have_content(attrs[:answer])
   category = FaqsFixture.t_category(attrs[:category])
   expect(page).to have_content(category)
-end
-
-Given(/^my Developments Developer has FAQs$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then(/^I should be able to see the Developers FAQs for my Development$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given(/^I am a \(Division\) Development Admin and I want to manage FAQs$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Given(/^my \(Division\) Developments Developer has FAQs$/) do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Then(/^I should be able to see the Developers FAQs for my \(Division\) Development$/) do
-  pending # Write code here that turns the phrase above into concrete actions
 end

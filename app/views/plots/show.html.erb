@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: development_plot_tabs(@development, @active_tab), parent: @plot.unit_type %>
+<%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab), parent: @plot.unit_type %>
 
 <%= render_collection @collection, parent: @plot.unit_type %>
 

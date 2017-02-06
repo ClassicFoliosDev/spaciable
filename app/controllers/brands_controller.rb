@@ -11,7 +11,7 @@ class BrandsController < ApplicationController
   before_action :set_parent
 
   def index
-    @collection = paginate(sort(@parent.brands, default: :logo))
+    @collection = paginate(sort(@parent.brands.accessible_by(current_ability), default: :logo))
     @brand = @parent.brands.build
   end
 
