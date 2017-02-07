@@ -1,0 +1,38 @@
+<style>
+
+  .main-container {
+    background-color: <%= brand.bg_color? ? brand.bg_color : "#FFFFFF" %>;
+  }
+
+  .card .card-header .card-title {
+    color: <%= brand.text_color? ? brand.text_color : "#252C31" %>;
+  }
+
+  .card {
+    background-color: <%= brand.content_bg_color? ? brand.content_bg_color : "#FFFFFF" %>;
+  }
+
+  .card.bordered {
+    border-color: <%= brand.content_text_color? ? brand.content_text_color : "#EAEAEA" %>;
+  }
+
+  .homeowner-btn {
+    background-color: <%= brand.button_color? ? brand.button_color : "#18A895" %>;
+    border-color: <%= brand.button_color? ? brand.button_color : "#18A895" %>;
+    color: <%= brand.button_text_color? ? brand.button_text_color : "#FFFFFF" %>;
+  }
+
+  .card.my-contacts .contact-actions i {
+    color: <%= brand.button_color? ? brand.button_color : "#18A895" %>;
+  }
+
+  .homeowner-view .hero {
+    background-image: url(<%= brand.banner.url&.html_safe || "https://tinyurl.com/j6s6be3" %>);
+  }
+
+  .homeowner-view nav .logo img {
+    content: url(<%= brand.logo.url&.html_safe || "/assets/logo-a40d715627a4868566cbcfbb069c10aae356dd9cefbce74c9c7ee9730f9ad95b.png" %>);
+    height: 40px;
+  }
+
+</style>

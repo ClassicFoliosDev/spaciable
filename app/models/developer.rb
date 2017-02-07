@@ -15,6 +15,7 @@ class Developer < ApplicationRecord
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
   has_many :contacts, as: :contactable
+  has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
   has_one :address, as: :addressable, dependent: :destroy
 

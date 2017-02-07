@@ -50,11 +50,6 @@
 }
 
 .btn-delete {
-  .ui-button-text {
-    background-color: $primary-green;
-    color: white;
-  }
-
   // Add the font awesome fa-trash icon
   .ui-button-text:before {
     font-family: FontAwesome;

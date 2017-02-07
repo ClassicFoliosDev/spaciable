@@ -1,4 +1,4 @@
-<%= simple_form_for([parent, brand]) do |f| %>
+<%= simple_form_for([parent, brand], url: [parent, :brand]) do |f| %>
   <% if brand.errors.any? %>
     <div class="submission-errors">
       <ul>
@@ -24,13 +24,31 @@
       </fieldset>
     </div>
     <div class="row-item third">
-      <fieldset>
-        <%= f.input :bg_color %>
-        <%= f.input :text_color %>
-        <%= f.input :content_bg_color %>
-        <%= f.input :content_text_color %>
-        <%= f.input :button_color %>
-        <%= f.input :button_text_color %>
+      <fieldset class="form-colors">
+        <div class="bg_color">
+          <%= label_tag t("activerecord.attributes.brand.bg_color") %><%= branded_color_preview(brand.bg_color) if brand.bg_color? %>
+          <%= f.input :bg_color, label: false %>
+        </div>
+        <div class="text_color">
+          <%= label_tag t("activerecord.attributes.brand.text_color") %><%= branded_color_preview(brand.text_color) if brand.text_color? %>
+          <%= f.input :text_color, label: false %>
+        </div>
+        <div class="content_bg_color">
+          <%= label_tag t("activerecord.attributes.brand.content_bg_color") %><%= branded_color_preview(brand.content_bg_color) if brand.content_bg_color? %>
+          <%= f.input :content_bg_color, label: false %>
+        </div>
+        <div class="content_text_color">
+          <%= label_tag t("activerecord.attributes.brand.content_text_color") %><%= branded_color_preview(brand.content_text_color) if brand.content_text_color? %>
+          <%= f.input :content_text_color, label: false %>
+        </div>
+        <div class="button_color">
+          <%= label_tag t("activerecord.attributes.brand.button_color") %><%= branded_color_preview(brand.button_color) if brand.button_color? %>
+          <%= f.input :button_color, label: false %>
+        </div>
+        <div class="button_text_color">
+          <%= label_tag t("activerecord.attributes.brand.button_text_color") %><%= branded_color_preview(brand.button_text_color) if brand.button_text_color? %>
+          <%= f.input :button_text_color, label: false %>
+        </div>
       </fieldset>
     </div>
   </div>

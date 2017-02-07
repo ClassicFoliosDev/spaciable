@@ -4,7 +4,7 @@
     <ul>
       <li><a href=""><%= t('layouts.homeowner.sub_nav.rooms') %></a></li>
       <li><a href=""><%= t('layouts.homeowner.sub_nav.appliances') %></a></li>
-      <li><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path, class: 'btn active' %></a></li>
+      <li><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path, class: 'homeowner-second-btn active' %></a></li>
       <li><a href=""><%= t('layouts.homeowner.sub_nav.faqs') %></a></li>
     </ul>
   </div>
@@ -14,10 +14,10 @@
   <div class="filter-banner">
     <h1><%= t('layouts.homeowner.library.title') %></h1>
     <ul>
-      <li><a href="" class="btn active"><%= t('activerecord.attributes.document.categories.all') %></a></li>
-      <li><a href="" class="btn"><%= t('activerecord.attributes.document.categories.homeowner_manual') %></a></li>
-      <li><a href="" class="btn"><%= t('activerecord.attributes.document.categories.appliance_manuals') %></a></li>
-      <li><a href="" class="btn"><%= t('activerecord.attributes.document.categories.insurance_warranty') %></a></li>
+      <li><a href="" class="homeowner-second-btn active"><%= t('activerecord.attributes.document.categories.all') %></a></li>
+      <li><a href="" class="homeowner-second-btn"><%= t('activerecord.attributes.document.categories.homeowner_manual') %></a></li>
+      <li><a href="" class="homeowner-second-btn"><%= t('activerecord.attributes.document.categories.appliance_manuals') %></a></li>
+      <li><a href="" class="homeowner-second-btn"><%= t('activerecord.attributes.document.categories.insurance_warranty') %></a></li>
     </ul>
   </div>
 </div>

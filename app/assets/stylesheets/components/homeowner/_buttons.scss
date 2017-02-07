@@ -1,0 +1,36 @@
+.homeowner-btn {
+  color: $ui-white;
+  background-color: $primary-cta-color;
+  border-color: $primary-cta-color;
+}
+
+.homeowner-btn.alt {
+  border-color: $primary-cta-color;
+  background-color: $ui-white;
+  color: $primary-cta-color;
+}
+
+.homeowner-second-btn {
+  background-color: $secondary-cta-color;
+  border-color: $ui-white;
+  color: $ui-white;
+  text-decoration: none;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 0 $spacing-small;
+  font-size: $base-button-font-size;
+  line-height: $button-line-height;
+  height: 30px;
+  display: inline-block;
+}
+
+.homeowner-second-btn.alt {
+  border-color: $secondary-cta-color;
+  background-color: $ui-white;
+  color: $secondary-cta-color;
+}
+
+.right {
+  float: right;
+}

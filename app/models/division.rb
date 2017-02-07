@@ -17,6 +17,7 @@ class Division < ApplicationRecord
   has_many :unit_types, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_many :contacts, as: :contactable
+  has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true

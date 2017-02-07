@@ -4,6 +4,9 @@ module Homeowner
     skip_authorization_check
 
     def show
+      @brand = current_user.permission_level&.brand
+      return unless @brand.nil?
+      @brand = Brand.new
     end
   end
 end

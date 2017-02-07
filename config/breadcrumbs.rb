@@ -369,7 +369,7 @@ crumb :brands do |brand_parent|
 end
 
 crumb :brand_new do |brand_parent|
-  link t("breadcrumbs.brand_add"), [:new, brand_parent, :brand]
+  link t("breadcrumbs.brand_add", name: brand_parent), [:new, brand_parent, :brand]
   parent :brands, brand_parent
 end
 
@@ -379,6 +379,6 @@ crumb :brand do |brand|
 end
 
 crumb :brand_edit do |brand|
-  link t("breadcrumbs.brand_edit"), [:edit, brand]
+  link t("breadcrumbs.brand_edit", name: brand), [:edit, brand.brandable, brand]
   parent :brands, brand.brandable
 end

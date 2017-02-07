@@ -1,3 +1,5 @@
+<%= render "components/homeowner/brand_template", brand: @brand %>
+
 <div class="hero"></div>
 <div class="main-container">
   <div class="row card-container">
@@ -16,7 +18,7 @@
           <span>United Kingdom</span><br/>
           <span>GU15 1AF</span>
         </address>
-        <a class="btn btn-alt" href=""><%= t('homeowner.dashboard.cards.my_home.view_more') %></a>
+        <a class="homeowner-second-btn" href=""><%= t('homeowner.dashboard.cards.my_home.view_more') %></a>
       </div>
     </div>
 
@@ -24,7 +26,7 @@
       <div class="card-header">
         <h2 class="card-title"><%= t('homeowner.dashboard.cards.library.title') %></h2>
         <span class="card-action">
-          <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'btn' %>
+          <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'homeowner-second-btn alt right' %>
         </span>
       </div>
 
@@ -76,7 +78,7 @@
       <div class="card-header">
         <h2 class="card-title"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
         <span class="card-action">
-          <a href="" class="btn"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
+          <a href="" class="homeowner-second-btn alt right"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
         </span>
       </div>
       <div class="card-content">
@@ -181,7 +183,7 @@
           <%= t('homeowner.dashboard.cards.faqs.title') %>
         </h3>
         <span class="card-action">
-          <a href="" class="btn"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
+          <a href="" class="homeowner-second-btn alt right"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
         </span>
       </div>
       <div class="card-content">
@@ -224,7 +226,7 @@
         <h3 class="how-to-title">Warmer This Winter</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="btn btn-alt view-article">View Article</a>
+        <a href="" class="homeowner-second-btn view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to" style="background-image: url('http://www.thehandmadehome.net/storage/storage_stairs_168f038-168f03g.jpg?__SQUARESPACE_CACHEVERSION=1290105095432')">
@@ -237,7 +239,7 @@
         <h3 class="how-to-title">Clever Storage Solutions</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="btn btn-alt view-article">View Article</a>
+        <a href="" class="homeowner-second-btn view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to" style="background-image: url('http://www.local-ad.co.uk/wp-content/uploads/2016/05/garden.jpg')">
@@ -250,7 +252,7 @@
         <h3 class="how-to-title">Summer Ready Garden</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="btn btn-alt view-article">View Article</a>
+        <a href="" class="homeowner-second-btn view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to" style="background-image: url('http://cdn.home-designing.com/wp-content/uploads/2015/11/ultra-luxurious-modern-interior.jpg')">
@@ -263,7 +265,7 @@
         <h3 class="how-to-title">The Modern Touch</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="btn btn-alt view-article">View Article</a>
+        <a href="" class="homeowner-second-btn view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to" style="background-image: url('http://i.telegraph.co.uk/multimedia/archive/03487/RBS-Win-On-Water-D_3487583b.jpg')">
@@ -276,7 +278,7 @@
         <h3 class="how-to-title">Smart Water Tactics</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="btn btn-alt view-article">View Article</a>
+        <a href="" class="homeowner-second-btn view-article">View Article</a>
       </div>
     </div>
   </div>

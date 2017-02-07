@@ -1,7 +1,9 @@
 <div class="section-actions">
-  <%= link_to [:new, parent, :brand], class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".create") %></span>
+  <% if !parent.brand.present? %>
+    <%= link_to [:new, parent, :brand], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".create") %></span>
+    <% end %>
   <% end %>
 </div>
 
@@ -14,26 +16,26 @@
         <span><%= sortable(Brand, :updated_at) %></span>
       </div>
     </dt>
-    <% collection.each do |brand| %>
+    <% if brand.id? %>
       <dd class="record-list-item" data-brands="<%= brand.id %>">
         <div class="record-list-item-actions">
-          <%= edit_btn edit_brand_path(brand) %>
-          <%= delete_btn brand %>
+          <%= edit_btn [:edit, brand.brandable, :brand] %>
+          <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>
         </div>
         <div class="record-list-item-content">
           <span class="icon">
             <%= image_tag brand.logo, class: "circle" if brand.logo? %>
           </span>
           <span>
-            <%= link_to brand, brand_path(brand) %>
+            <%= link_to brand, [brand.brandable, :brand] %>
           </span>
           <span>
             <%= l brand.updated_at.to_date, format: :digits %>
           </span>
         </div>
       </dd>
-    <% end %>
-  </dl>
+    </dl>
+  <% end %>
 </div>
 
 <div class="paging">

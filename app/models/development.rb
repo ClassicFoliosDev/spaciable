@@ -20,6 +20,7 @@ class Development < ApplicationRecord
   has_one :address, as: :addressable
   has_many :residents, through: :plots
   has_many :contacts, as: :contactable
+  has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true

@@ -6,19 +6,23 @@ class BrandsController < ApplicationController
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
   load_and_authorize_resource :development
-  load_and_authorize_resource :brand, through: [:developer, :division, :development], shallow: true
+  load_and_authorize_resource :brand, through: [:developer, :division, :development],
+                                      singleton: true,
+                                      except: [:index, :new, :create]
 
   before_action :set_parent
 
   def index
-    @collection = paginate(sort(@parent.brands.accessible_by(current_ability), default: :logo))
-    @brand = @parent.brands.build
+    @brand = @parent.brand
+    @brand = @parent.brands.build if @brand.nil?
   end
 
   def new
+    @brand = @parent.build_brand
   end
 
   def create
+    @brand = @parent.build_brand(brand_params)
     if @brand.save
       notice = t("controller.success.create", name: @brand)
       redirect_to [@parent, :brands], notice: notice
@@ -59,11 +63,13 @@ class BrandsController < ApplicationController
       :content_bg_color,
       :content_text_color,
       :button_color,
-      :button_text_color
+      :button_text_color,
+      :remove_logo,
+      :remove_banner
     )
   end
 
   def set_parent
-    @parent = @brand&.brandable || @developer || @division || @development
+    @parent = @brand&.brandable || @development || @division || @developer
   end
 end

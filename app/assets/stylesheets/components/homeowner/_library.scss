@@ -67,25 +67,6 @@
   li {
     display: inline-block;
     margin-bottom: 6px;
-
-    .btn {
-      background-color: transparent;
-      text-decoration: none;
-      color: $ui-white;
-      border-color: $ui-white;
-      padding: 0 $spacing-small;
-
-      &:hover {
-        color: $secondary-orange;
-        border-color: $secondary-orange;
-        background-color: $ui-white;
-      }
-
-      &.active {
-        background-color: $ui-white;
-        color: $secondary-orange;
-      }
-    }
   }
 }
 

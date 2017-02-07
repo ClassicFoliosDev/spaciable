@@ -53,12 +53,6 @@
         height: 40px;
         border-radius: 3px 0 0 3px;
       }
-      button {
-        @include span-columns(6);
-        height: 40px;
-        border-radius: 0 3px 3px 0;
-        border-color: $primary-cta-color;
-      }
     }
   }
 
@@ -127,7 +121,7 @@
       background-color: $ui-white;
       width: 100%;
       position: absolute;
-      left: 0px;
+      left: 0;
       top: 60px;
     }
   }
@@ -144,5 +138,13 @@
         margin: 0 auto;
       }
     }
+  }
+}
+
+.search {
+  .homeowner-btn {
+    @include span-columns(6);
+    height: 40px;
+    border-radius: 0 3px 3px 0;
   }
 }

@@ -109,7 +109,7 @@ en:
     contact_add: "Add contact"
     contact_edit: "Edit %{contact_name}"
     brands: "Styling"
-    brand_add: "Add styling for {name}"
+    brand_add: "Add styling for %{name}"
     brand_edit: "Edit styling for %{name}"
 
   image_preview:
@@ -245,6 +245,8 @@ en:
 
   homeowner:
     dashboard:
+      show:
+        brand: "%{id}/brand.css"
       cards:
         library:
           title: "Library"
@@ -901,6 +903,12 @@ en:
         banner: "Banner"
         styling: "Styling"
         for: "%{name} styling"
+        bg_color: "Background colour"
+        text_color: "Text colour"
+        content_bg_color: "Content box colour"
+        content_text_color: "Content box outline colour"
+        button_color: "Button colour"
+        button_text_color: "Button text colour"
 
     errors:
       messages:
