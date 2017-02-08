@@ -21,14 +21,18 @@
 
     <div class="row-item third">
       <fieldset>
-        <%= f.association :unit_type, as: :select, collection: parent.unit_types.pluck(:name, :id) %>
+        <%= f.association :unit_type, as: :select, collection: plot.unit_types.pluck(:name, :id) %>
       </fieldset>
     </div>
   </div>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), [parent, :plots], class: "btn" %>
+      <% if parent %>
+        <%= link_to t(".back"), [parent, :plots], class: "btn" %>
+      <% else %>
+        <%= link_to t(".back"), plot, class: "btn" %>
+      <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

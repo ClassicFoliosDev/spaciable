@@ -1,9 +1,0 @@
-<% breadcrumb :plots, @phase %>
-
-<div class="section-header">
-  <h3 class="section-title">
-    <%= t(".title", phase_name: @phase.name) %>
-  </h3>
-</div>
-
-<%= render_collection @plots, parent: @phase %>

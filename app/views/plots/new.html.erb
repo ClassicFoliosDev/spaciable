@@ -1,10 +1,10 @@
-<% breadcrumb :plot_new, @development %>
+<% breadcrumb :plot_new, @parent %>
 
 <div class="section-header">
   <h3 class="section-title">
     <%= fa_icon "vcard" %>
-    <%= t(".title") %>
+    <%= t(".title", parent: @parent) %>
   </h3>
 </div>
 
-<%= render 'form', plot: @plot, parent: @development %>
+<%= render 'form', plot: @plot, parent: @parent %>

@@ -32,13 +32,13 @@ Rails.application.routes.draw do
   end
 
   resources :phases do
-    resources :plots, controller: 'phases/plots'
+    resources :plots, shallow: true
   end
 
   resources :developments do
     resources :phases
     resources :unit_types
-    resources :plots
+    resources :plots, shallow: true
     resources :contacts, shallow: true
     resources :faqs, shallow: true
     resource :brand

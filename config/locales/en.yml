@@ -454,34 +454,14 @@ en:
       title: "%{development_name} phases"
     show:
       back: "Back"
-      phase: "Phase %{number}"
+    phase:
+      name: "Phase %{number}"
     collection:
       add: "Add Phase"
       plots: "Plots"
       name: "Phase"
     new:
       title: "New phase"
-    plots:
-      new:
-        title: "Add plot"
-      create:
-        success: "%{plot_name} was created successfully"
-      destroy:
-        success: "%{plot_name} was deleted successfully"
-      edit:
-        back: "Back"
-        title: "Edit %{plot_name}"
-      form:
-        back: "Back"
-        submit: "Submit"
-      index:
-        add: "Add Plot"
-        title: "%{phase_name} Plots"
-      show:
-        back: "Back"
-        completion: "Completion date"
-      update:
-        success: "%{plot_name} was updated successfully"
     update:
       success: "%{phase_name} was updated successfully"
 
@@ -498,9 +478,9 @@ en:
       submit: "Submit"
       back: "Back"
     index:
-      title: "%{development_name} Plots"
+      title: "%{parent_name} Plots"
     new:
-      title: "New plot"
+      title: "New %{parent} plot"
     update:
       success: "%{plot_name} was updated successfully"
     collection:

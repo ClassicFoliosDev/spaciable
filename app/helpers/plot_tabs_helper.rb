@@ -11,12 +11,12 @@ module PlotTabsHelper
     {
       rooms: {
         icon: :building,
-        link: [plot.parent, plot, active_tab: :rooms],
+        link: [plot, active_tab: :rooms],
         permissions_on: -> { plot.development.rooms.build }
       },
       residents: {
         icon: :building,
-        link: [plot.parent, plot, active_tab: :residents]
+        link: [plot, active_tab: :residents]
       }
     }
   end

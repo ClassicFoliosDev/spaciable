@@ -9,7 +9,7 @@
     <!-- No house number yet -->
     <%= render 'address/address', address: @plot.development.address %>
     <span class="strong"><%= @plot.unit_type %></span>
-    <%= edit_btn [:edit, @development, @plot] %>
+    <%= edit_btn [:edit, @plot] %>
     <!-- span class="strong"><%= t(".completion") %></span -->
   </div>
 </div>
@@ -18,4 +18,4 @@
 
 <%= render_collection @collection, parent: @plot.unit_type %>
 
-<%= link_to t(".back"), development_plots_path, class: "btn" %>
+<%= link_to t(".back"), [@plot.parent, :plots], class: "btn" %>

@@ -35,7 +35,9 @@ Then(/^I should see the created plot$/) do
 end
 
 When(/^I update the plot$/) do
-  find("[data-action='edit']").click
+  within ".record-list" do
+    find("[data-action='edit']").click
+  end
 
   sleep 0.3 # these fields do not get filled in without the sleep :(
   fill_in "plot[number]", with: PlotFixture.updated_plot_number
@@ -71,9 +73,8 @@ end
 When(/^I delete the plot$/) do
   click_on t("plots.edit.back")
 
-  # Flaky test, make sure there's enough time
-  sleep 0.1
-  delete_and_confirm!
+  plot_id = PlotFixture.plot_id
+  delete_and_confirm!(scope: "[data-plot='#{plot_id}']")
 end
 
 Then(/^I should see that the plot deletion completed successfully$/) do

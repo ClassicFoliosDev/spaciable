@@ -3,10 +3,14 @@ class PlotsController < ApplicationController
   include PaginationConcern
   include SortingConcern
   load_and_authorize_resource :development
-  load_and_authorize_resource :plot, through: :development
+  load_and_authorize_resource :phase
+  load_and_authorize_resource :plot, through: [:development, :phase], shallow: true
+
+  before_action :set_parent
 
   def index
     @plots = paginate(sort(@plots, default: :number))
+    @plot = @parent.plots.build
   end
 
   def new
@@ -26,9 +30,11 @@ class PlotsController < ApplicationController
   end
 
   def create
+    @plot.parent = @parent
+
     if @plot.save
       notice = t(".success", plot_name: @plot.to_s)
-      redirect_to [@development, :plots], notice: notice
+      redirect_to [@parent, :plots], notice: notice
     else
       render :new
     end
@@ -37,7 +43,7 @@ class PlotsController < ApplicationController
   def update
     if @plot.update(plot_params)
       notice = t(".success", plot_name: @plot.to_s)
-      redirect_to [@development, :plots], notice: notice
+      redirect_to [@parent, :plots], notice: notice
     else
       render :edit
     end
@@ -46,7 +52,7 @@ class PlotsController < ApplicationController
   def destroy
     @plot.destroy
     notice = t(".success", plot_name: @plot.to_s)
-    redirect_to development_plots_url(@development), notice: notice
+    redirect_to [@parent, :plots], notice: notice
   end
 
   private
@@ -59,5 +65,9 @@ class PlotsController < ApplicationController
       :apartment_prefix,
       :unit_type_id
     )
+  end
+
+  def set_parent
+    @parent ||= @phase || @development || @plot&.parent
   end
 end

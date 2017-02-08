@@ -19,7 +19,7 @@ module DevelopmentTabsHelper
       },
       plots: {
         icon: :building,
-        link: [development.parent, development, active_tab: :plots]
+        link: [development, :plots]
       },
       faqs: { icon: "question-circle" },
       contacts: { icon: :vcard },

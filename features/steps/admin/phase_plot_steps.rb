@@ -25,7 +25,7 @@ When(/^I create a plot for the phase$/) do
   click_on t("plots.collection.add")
 
   fill_in "plot_number", with: PhasePlotFixture.plot_number
-  click_on t("phases.plots.form.submit")
+  click_on t("plots.form.submit")
 end
 
 Then(/^I should see the created phase plot$/) do
@@ -33,7 +33,9 @@ Then(/^I should see the created phase plot$/) do
 end
 
 When(/^I update the phase plot$/) do
-  find("[data-action='edit']").click
+  within ".record-list" do
+    find("[data-action='edit']").click
+  end
 
   sleep 0.3 # these fields do not get filled in without the sleep :(
   fill_in "plot[number]", with: PhasePlotFixture.updated_plot_number
@@ -67,7 +69,7 @@ Then(/^I should see the updated phase plot$/) do
 end
 
 When(/^I delete the phase plot$/) do
-  click_on t("phases.plots.edit.back")
+  click_on t("plots.edit.back")
 
   delete_scope = "[data-plot='#{PhasePlotFixture.plot.id}']"
   delete_and_confirm!(scope: delete_scope)
@@ -75,7 +77,7 @@ end
 
 Then(/^I should see that the phase plot deletion completed successfully$/) do
   success_flash = t(
-    "phases.plots.destroy.success",
+    "plots.destroy.success",
     plot_name: PhasePlotFixture.updated_plot_name
   )
   expect(page).to have_content(success_flash)

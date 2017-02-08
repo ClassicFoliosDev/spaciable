@@ -1,9 +1,7 @@
-<% breadcrumb :plots, @development %>
+<% breadcrumb :plots, @parent %>
 
-<div class="section-header">
-  <h3 class="section-title">
-    <%= t(".title", development_name: @development.name) %>
-  </h3>
-</div>
+<%= render @parent %>
 
-<%= render_collection @plots, parent: @development %>
+<%= render 'components/tabs', tabs: tabs_for(@parent, "plots"), parent: @parent %>
+
+<%= render_collection @plots, parent: @parent %>

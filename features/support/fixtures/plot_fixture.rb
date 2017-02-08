@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 module PlotFixture
+  extend ModuleImporter
+  import_module CreateFixture
+
   module_function
 
   def create_developer_with_development_and_unit_types
@@ -17,10 +20,6 @@ module PlotFixture
     FactoryGirl.create_list(:unit_type, 3, development: development)
   end
 
-  def create_developer
-    FactoryGirl.create(:developer, company_name: developer_name)
-  end
-
   def unit_type_name
     "3 Bedroom, 1 Bathroom"
   end
@@ -29,20 +28,8 @@ module PlotFixture
     "Studio"
   end
 
-  def developer_name
-    "Development Developer Ltd"
-  end
-
-  def development_name
-    "Riverside Development"
-  end
-
-  def developer_id
-    Developer.find_by(company_name: developer_name).id
-  end
-
-  def development_id
-    Development.find_by(name: development_name).id
+  def plot_id
+    development.plots.find_by(prefix: "Plot", number: 42).id
   end
 
   def plot_name

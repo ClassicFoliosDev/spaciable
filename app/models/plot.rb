@@ -13,9 +13,9 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
+  has_many :unit_types, through: :development
   has_many :plot_residents
   has_many :residents, through: :plot_residents
-
   has_many :rooms, through: :unit_type
   has_many :finishes, through: :rooms
   has_many :documents, as: :documentable
@@ -28,6 +28,17 @@ class Plot < ApplicationRecord
   def number
     return self[:number] unless self[:number].to_i == self[:number]
     self[:number].to_i
+  end
+
+  def parent=(object)
+    case object
+    when Phase
+      self.phase = object
+      self.development = nil
+    when Development
+      self.phase = nil
+      self.development = object
+    end
   end
 
   def to_s
