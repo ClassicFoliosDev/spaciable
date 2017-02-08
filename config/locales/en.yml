@@ -798,8 +798,9 @@ en:
         updated_at: "Last edited"
       finish:
         name: "Name"
-        type: "Type"
-        manuf: "Manufacturer"
+        type: "Finish type"
+        category: "Finish category"
+        manufacturer: "Manufacturer"
         descr: "Description"
         picture: "Finish picture"
         provider: "Provider"

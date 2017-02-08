@@ -35,14 +35,14 @@ $(document).on('click', '.finish .ui-menu-item', function (event) {
     // Only run through this code if adding an appliance to a room
     // Not when creating a new appliance
   } else if (listClasses.contains("manufacturer") && (add_finish.length > 0)) {
-      var finishesDiv = $parentFieldset.find(".finishes");
-      var finishesSelect = clearFields(finishesDiv);
+      var $finishesDiv = $parentFieldset.find(".finishes");
+      var finishesSelect = clearFields($finishesDiv);
 
       var $typeDiv = $(".finish_type");
-      var $typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
+      var typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
 
       var url = "/finish_list";
-      setFields(finishesSelect, url, { type_name: $typeValue , manufacturer_name: optionName});
+      setFields(finishesSelect, url, { type_name: typeValue , manufacturer_name: optionName});
   }
 });
 
@@ -50,14 +50,14 @@ function no_manufacturers() {
   //console.log("Found no manufacturers, loading finishes directly from category and type");
   var $parentFieldset = $(document).find(".finish");
 
-  var finishesDiv = $parentFieldset.find(".finishes");
-  var finishesSelect = clearFields(finishesDiv);
+  var $finishesDiv = $parentFieldset.find(".finishes");
+  var finishesSelect = clearFields($finishesDiv);
 
   var $typeDiv = $(".finish_type");
-  var $typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
+  var typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
 
   var url = "/finish_list";
-  setFields(finishesSelect, url, { type_name: $typeValue , manufacturer_name: ""});
+  setFields(finishesSelect, url, { type_name: typeValue , manufacturer_name: ""});
 }
 
 function no_finish_matches() {

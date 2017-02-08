@@ -24,9 +24,11 @@
     <div class="row-item third">
       <fieldset>
         <div class="finish_category ui-front select-container">
+          <%= label_tag Finish.human_attribute_name(:category) %>
           <%= select_tag "finish_category", options_from_collection_for_select(@finish_categories, "id", "name") %>
         </div>
         <div class="finish_type ui-front select-container">
+          <%= label_tag Finish.human_attribute_name(:type) %>
           <%= select_tag "finish_type" %>
         </div>
       </fieldset>
@@ -35,6 +37,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="manufacturer ui-front select-container">
+          <%= label_tag Finish.human_attribute_name(:manufacturer) %>
           <%= select_tag "manufacturer" %>
         </div>
       </fieldset>
@@ -43,6 +46,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="finishes ui-front select-container">
+          <%= label_tag Finish.model_name.human %>
           <%= select_tag "finishes", required: true %>
         </div>
       </fieldset>

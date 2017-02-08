@@ -24,6 +24,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="appliance_category ui-front select-container">
+          <%= label_tag Appliance.human_attribute_name(:category) %>
           <%= select_tag "appliance_category", options_from_collection_for_select(@appliance_categories, "id", "name"), prompt: t(".choose") %>
         </div>
       </fieldset>
@@ -32,6 +33,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="manufacturer ui-front select-container">
+          <%= label_tag Appliance.human_attribute_name(:manufacturer) %>
           <%= select_tag "manufacturer" %>
         </div>
       </fieldset>
@@ -40,6 +42,7 @@
     <div class="row-item third">
       <fieldset>
         <div class="appliances ui-front select-container">
+          <%= label_tag Appliance.model_name.human %>
           <%= select_tag "appliances", required: true %>
         </div>
       </fieldset>
