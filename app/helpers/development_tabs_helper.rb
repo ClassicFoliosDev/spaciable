@@ -21,6 +21,10 @@ module DevelopmentTabsHelper
         icon: :building,
         link: [development, :plots]
       },
+      plot_documents: {
+        icon: "files-o",
+        link: [development, :plot_documents]
+      },
       faqs: { icon: "question-circle" },
       contacts: { icon: :vcard },
       brands: { icon: "css3" }

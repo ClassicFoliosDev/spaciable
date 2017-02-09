@@ -1,0 +1,35 @@
+<%= simple_form_for new_plot_document, url: [:bulk_upload, parent, :plot_documents] do |f| %>
+  <div class="row plot_documents">
+    <div class="row-item third hint">
+      <h2>Bulk Upload</h2>
+      <p>
+        Filenames must inlcude the plot prefix and plot number to be successfully uploaded and associated with a plot,
+        e.g. <i>"Plot 55.pdf"</i>, <i>"Plot 101 Owner Manual.pdf"</i>, <i>"Apartment 6 Manual.pdf"</i>,
+        <i>"Homeowner Manual B 23.pdf"</i>.
+      </p>
+    </div>
+    <div class="row-item third hint">
+      <p>
+        Filenames that cannot be matched to a plot prefix and number will not be uploaded.
+        The unmatched filenames will be displayed above.
+      </p>
+
+      <p>
+        When choosing files to upload, hold down the <strong>SHIFT</strong> key to select a group, or the <strong>CTRL</strong> /
+        <strong>CMD</strong> key to select an individual file that is separate from the highlighted group.
+      </p>
+
+    </div>
+
+    <div class="row-item third">
+      <h4>Upload Plot Documents</h4>
+
+      <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
+      <%= label_tag('document_files', "Choose files", class: "btn") %>
+      <%= f.file_field :files, multiple: true, class: "hidden" %>
+
+      <%= f.submit "Upload All", class: "btn-form-submit btn-primary" %>
+    </div>
+
+  </div>
+<% end %>

@@ -263,6 +263,7 @@ en:
 
   developments:
     collection:
+      plot_documents: "Plot Documents"
       phases: "Phases"
       unit_types: "Unit types"
       plots: "Plots"
@@ -492,6 +493,10 @@ en:
     show:
       back: "Back"
       completion: "Completion date"
+
+  plot_documents:
+    form:
+      add: "Upload"
 
   unit_types:
     destroy:

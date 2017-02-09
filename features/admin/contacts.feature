@@ -1,4 +1,3 @@
-@slow
 Feature: Contacts
   As a CF Admin
   I want to create contacts

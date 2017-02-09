@@ -1,0 +1,11 @@
+<%= render @parent %>
+
+<div class="section-actions">
+  <% if can? :bulk_upload, @new_plot_document %>
+    <%= render 'form', new_plot_document: @new_plot_document, parent: @parent %>
+  <% end %>
+</div>
+
+<%= render 'components/tabs', tabs: tabs_for(@parent, "plot_documents"), parent: @parent %>
+
+<%= render_collection @plot_documents, path: "plot_documents/collection", parent: @parent %>

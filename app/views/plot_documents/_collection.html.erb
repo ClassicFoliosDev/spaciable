@@ -1,0 +1,42 @@
+<div class="record-list">
+  <dl class="plot_documents">
+    <dt class="record-list-item record-header">
+    <div class="record-list-header-content">
+      <span><%= sortable(Document, :title) %></span>
+      <span><%= "Plot" %></span>
+      <span><%= sortable(Document, :updated_at) %></span>
+      <span><%= sortable(Document, :category) %></span>
+    </div>
+    </dt>
+    <% collection.each do |document| %>
+      <dd class="record-list-item skip-global-selectmenu" data-document="<%= document.id %>">
+        <div class="record-list-item-actions">
+          <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
+            <%= icon "cloud-download" %>
+          <% end %>
+          <%#= delete_btn document, path: url_for(document) %>
+        </div>
+        <div class="record-list-item-content">
+          <%= link_to document.title, document_path(document) %>
+          <span class="plot-select">
+            <%= simple_form_for document, remote: true do |f| %>
+              <%= f.association :documentable,
+                collection: admin_plot_select_options(scope: parent),
+                include_blank: false,
+                label: false %>
+            <% end %>
+          </span>
+          <span class="division-updated-timestamp">
+            <%= l document.updated_at.to_date, format: :digits %>
+          </span>
+          <span><%= t_enum(Document, :category, document.category) %></span>
+        </div>
+      </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

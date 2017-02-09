@@ -1,0 +1,24 @@
+.plot_documents.row {
+  margin-top: $spacing-large;
+  margin-bottom: $spacing-large;
+}
+
+.plot_documents .record-header {
+    padding-right: $three-actions-width;
+}
+
+.plot_documents .row-item {
+  text-align: left;
+}
+
+.plot_documents .hint {
+  background: none;
+}
+
+.plot_documents .record-list-item-content .ui-selectmenu-button span.ui-selectmenu-text {
+    line-height: 0.8;
+}
+
+.plot_documents .edit_document {
+    width: 100%;
+}

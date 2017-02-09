@@ -34,13 +34,15 @@ gem "turbolinks", "~> 5"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "carrierwave"
-gem "mini_magick"
-gem "fog-aws"
 gem "simple_form"
 gem "cocoon"
 gem "cancancan", "~> 1"
 gem "gretel" # breadcrumbs
+
+# File Uploads
+gem "carrierwave"
+gem "mini_magick"
+gem "fog-aws"
 
 # Authentication
 gem "devise", "~> 4.2"

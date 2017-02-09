@@ -39,6 +39,9 @@ Rails.application.routes.draw do
     resources :phases
     resources :unit_types
     resources :plots, shallow: true
+    resources :plot_documents, only: [:index] do
+      post :bulk_upload, on: :collection
+    end
     resources :contacts, shallow: true
     resources :faqs, shallow: true
     resource :brand

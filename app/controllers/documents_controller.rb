@@ -32,7 +32,14 @@ class DocumentsController < ApplicationController
 
   def update
     if @document.update(document_params)
-      redirect_to documents_url, notice: t("controller.success.update", name: @document.title)
+      respond_to do |format|
+        format.html do
+          redirect_to documents_url, notice: t("controller.success.update", name: @document.title)
+        end
+        format.json do
+          render json: @document.to_json, status: :ok
+        end
+      end
     else
       render :edit
     end
@@ -47,6 +54,6 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.require(:document).permit(:title, :file, :category)
+    params.require(:document).permit(:title, :file, :category, :documentable_id)
   end
 end
