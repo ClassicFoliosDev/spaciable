@@ -59,11 +59,3 @@ function no_manufacturers() {
   var url = "/finish_list";
   setFields(finishesSelect, url, { type_name: typeValue , manufacturer_name: ""});
 }
-
-function no_finish_matches() {
-  var $parentFieldset = $(document).find(".finishes.select-container");
-
-  var noMatches =  document.createElement("span");
-  noMatches.innerHTML = "<%= I18n.t(".finishes.no_match") %>";
-  $parentFieldset.append(noMatches);
-}

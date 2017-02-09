@@ -48,6 +48,7 @@
         <div class="finishes ui-front select-container">
           <%= label_tag Finish.model_name.human %>
           <%= select_tag "finishes", required: true %>
+          <span class="match-errors"></span>
         </div>
       </fieldset>
     </div>

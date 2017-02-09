@@ -237,3 +237,8 @@ fieldset {
     padding: 4px $spacing-small;
   }
 }
+
+.match-errors {
+  color: $primary-red;
+  margin-top: $spacing-small;
+}

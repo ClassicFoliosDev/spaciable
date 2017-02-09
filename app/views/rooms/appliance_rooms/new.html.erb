@@ -44,6 +44,7 @@
         <div class="appliances ui-front select-container">
           <%= label_tag Appliance.model_name.human %>
           <%= select_tag "appliances", required: true %>
+          <span class="match-errors"></span>
         </div>
       </fieldset>
     </div>

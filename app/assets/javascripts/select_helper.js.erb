@@ -53,13 +53,18 @@ function setFields(selectList, url, data) {
         no_manufacturers();
       }
       else if (url == "/finish_list") {
-        no_finish_matches();
+        no_matches("<%= I18n.t(".finishes.no_match") %>");
       }
       else if (url == "/appliance_list") {
-        no_appliance_matches();
+        no_matches("<%= I18n.t(".appliances.no_match") %>");
       }
     };
   }).fail(function (response) {
     console.error("Call to " + url + " failed");
   });
+}
+
+function no_matches(error_message) {
+  var $errors = $(document).find(".match-errors");
+  $errors[0].innerHTML = error_message;
 }
