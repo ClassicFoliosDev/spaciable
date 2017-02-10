@@ -1,8 +1,6 @@
 <% breadcrumb :phase, @phase %>
 
-<div class="section-header">
-  <%= render @phase %>
-</div>
+<%= render @phase %>
 
 <%= render_collection @collection, parent: @phase %>
 

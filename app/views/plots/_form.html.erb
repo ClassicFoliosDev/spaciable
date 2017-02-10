@@ -24,6 +24,19 @@
         <%= f.association :unit_type, as: :select, collection: plot.unit_types.pluck(:name, :id) %>
       </fieldset>
     </div>
+
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :house_number %>
+        <%= f.fields_for :address do |ff| %>
+          <%= ff.input :building_name, label: false, placeholder: t("addresses.placeholders.building") %>
+          <%= ff.input :road_name, label: false, placeholder: t("addresses.placeholders.road") %>
+          <%= ff.input :postcode %>
+          <%= ff.input :city, readonly: true, class: "readonly" %>
+          <%= ff.input :county, readonly: true, class: "readonly" %>
+        <% end %>
+      </fieldset>
+    </div>
   </div>
 
   <div class="form-actions-footer-container">

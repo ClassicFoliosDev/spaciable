@@ -323,6 +323,7 @@ ActiveRecord::Schema.define(version: 20170209165508) do
     t.integer  "development_id"
     t.datetime "deleted_at"
     t.integer  "phase_id"
+    t.string   "house_number"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree

@@ -7,20 +7,30 @@ Feature: Plots
   Scenario:
     Given I am logged in as an admin
     And I have a developer with a development with unit types
+    And I have configured the development address
     When I create a plot for the development
     Then I should see the created plot
     When I update the plot
     Then I should see the updated plot
+    And I should see the development address has not been changed
     When I delete the plot
     Then I should see that the plot deletion completed successfully
+    Given I have created a plot for the development
+    When I delete the plot
+    Then I should see the development address has not been changed
 
   @javascript
   Scenario: Phase Plots
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
+    And I have configured the phase address
     When I create a plot for the phase
     Then I should see the created phase plot
     When I update the phase plot
     Then I should see the updated phase plot
+    And I should see the phase address has not been changed
     When I delete the phase plot
     Then I should see that the phase plot deletion completed successfully
+    Given I have created a plot for the phase
+    When I delete the phase plot
+    Then I should see the phase address has not been changed

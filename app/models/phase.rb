@@ -15,7 +15,7 @@ class Phase < ApplicationRecord
   has_many :residents, through: :plots
   has_many :unit_types, through: :development
   has_many :document, as: :documentable
-  has_one :address, as: :addressable
+  has_one :address, as: :addressable, dependent: :destroy
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 

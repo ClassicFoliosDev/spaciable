@@ -1,11 +1,13 @@
-<h3 class="section-title">
-  <%= phase.name %><br>
-</h3>
+<div class="section-header">
+  <h3 class="section-title">
+    <%= phase.name %><br>
+  </h3>
 
-<div class="section-data">
-  <%= render 'address/address', address: phase.address %>
-  <span class="right">
-    <span class="strong"><%= t(".name", number: phase.number) %></span>
-    <%= edit_btn [:edit, phase.development, phase] %>
-  </span>
+  <div class="section-data">
+    <%= render 'address/address', address: phase.address %>
+    <span class="right">
+      <span class="strong"><%= t(".name", number: phase.number) %></span>
+      <%= edit_btn [:edit, phase.development, phase] %>
+    </span>
+  </div>
 </div>

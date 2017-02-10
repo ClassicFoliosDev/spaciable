@@ -779,7 +779,8 @@ en:
         title: "Plots"
         one: "Plot"
         prefix: "Prefix"
-        number: "Number"
+        number: "Plot number"
+        house_number: "Postal number / name"
         updated_at: "Last edited"
       room:
         name: "Room Name"

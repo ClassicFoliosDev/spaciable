@@ -64,7 +64,12 @@ class DevelopersController < ApplicationController
       :email,
       :contact_number,
       :about,
-      address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
+      address_attributes: [:postal_name,
+                           :road_name,
+                           :building_name,
+                           :city, :county,
+                           :postcode,
+                           :id]
     )
   end
 end

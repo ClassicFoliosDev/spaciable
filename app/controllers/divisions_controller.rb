@@ -68,7 +68,13 @@ class DivisionsController < ApplicationController
       :address,
       :email,
       :contact_number,
-      address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
+      address_attributes: [:postal_name,
+                           :road_name,
+                           :building_name,
+                           :city,
+                           :county,
+                           :postcode,
+                           :id]
     )
   end
 end

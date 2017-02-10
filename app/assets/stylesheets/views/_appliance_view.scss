@@ -1,5 +1,3 @@
-$manual-filename-type: $type-grey;
-
 .appliances .record-header {
   padding-right: $two-actions-width;
 }
@@ -12,10 +10,6 @@ $manual-filename-type: $type-grey;
     width: 80%;
     display: inline-block;
   }
-}
-
-.manual-filename {
-  color: $manual-filename-type;
 }
 
 .manual-download {

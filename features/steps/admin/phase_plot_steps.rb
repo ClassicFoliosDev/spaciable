@@ -38,8 +38,9 @@ When(/^I update the phase plot$/) do
   end
 
   sleep 0.3 # these fields do not get filled in without the sleep :(
-  fill_in "plot[number]", with: PhasePlotFixture.updated_plot_number
-  fill_in "plot[prefix]", with: PhasePlotFixture.update_attrs[:prefix]
+  PhasePlotFixture.update_attrs.each do |attr, value|
+    fill_in "plot_#{attr}", with: value
+  end
 
   within ".plot_unit_type" do
     select PhasePlotFixture.updated_unit_type_name, visible: false
@@ -64,12 +65,38 @@ Then(/^I should see the updated phase plot$/) do
 
   within ".section-data" do
     expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
-    expect(page).not_to have_content(PhasePlotFixture.unit_type_name)
+    expect(page).to have_content(PhasePlotFixture.plot_building_name)
+    expect(page).to have_content(PhasePlotFixture.plot_road_name)
+    expect(page).to have_content(PhasePlotFixture.plot_postcode)
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:city_name])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:county_name])
+
+    expect(page).not_to have_content(PlotFixture.unit_type_name)
   end
 end
 
 When(/^I delete the phase plot$/) do
-  click_on t("plots.edit.back")
+  visit "/developers"
+
+  within ".developers" do
+    click_on PhasePlotFixture.developer_name
+  end
+
+  within ".tabs" do
+    click_on t("developers.collection.developments")
+  end
+
+  within ".developments" do
+    click_on PhasePlotFixture.development_name
+  end
+
+  within ".tabs" do
+    click_on t("developments.collection.phases")
+  end
+
+  within ".record-list" do
+    click_on PhasePlotFixture.phase_name
+  end
 
   delete_scope = "[data-plot='#{PhasePlotFixture.plot.id}']"
   delete_and_confirm!(scope: delete_scope)
@@ -88,5 +115,73 @@ Then(/^I should see that the phase plot deletion completed successfully$/) do
 
   within ".record-list" do
     expect(page).not_to have_content PhasePlotFixture.updated_plot_name
+  end
+end
+
+Given(/^I have configured the phase address$/) do
+  visit "/developers"
+
+  within ".developers" do
+    click_on PhasePlotFixture.developer_name
+  end
+
+  within ".tabs" do
+    click_on t("developers.collection.developments")
+  end
+
+  within ".developments" do
+    click_on PhasePlotFixture.development_name
+  end
+
+  within ".tabs" do
+    click_on t("developments.collection.phases")
+  end
+
+  within ".phases" do
+    find("[data-action='edit']").click
+  end
+
+  PhaseFixture.address_update_attrs.each do |attr, value|
+    fill_in "phase_address_attributes_#{attr}", with: value
+  end
+
+  click_on t("phases.form.submit")
+end
+
+Given(/^I have created a plot for the phase$/) do
+  click_on t("plots.collection.add")
+
+  fill_in "plot_prefix", with: PlotFixture.update_attrs[:prefix]
+  fill_in "plot_number", with: PlotFixture.updated_plot_number
+  click_on t("phases.form.submit")
+end
+
+Then(/^I should see the phase address has not been changed$/) do
+  visit "/developers"
+
+  within ".developers" do
+    click_on PhasePlotFixture.developer_name
+  end
+
+  within ".tabs" do
+    click_on t("developers.collection.developments")
+  end
+
+  within ".developments" do
+    click_on PhasePlotFixture.development_name
+  end
+
+  within ".tabs" do
+    click_on t("developments.collection.phases")
+  end
+
+  within ".phases" do
+    click_on PhasePlotFixture.phase_name
+  end
+
+  within ".section-data" do
+    PhaseFixture.address_update_attrs.each do |_attr, value|
+      expect(page).to have_content(value)
+    end
   end
 end

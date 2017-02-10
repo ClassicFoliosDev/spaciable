@@ -40,8 +40,9 @@ When(/^I update the plot$/) do
   end
 
   sleep 0.3 # these fields do not get filled in without the sleep :(
-  fill_in "plot[number]", with: PlotFixture.updated_plot_number
-  fill_in "plot[prefix]", with: PlotFixture.update_attrs[:prefix]
+  PlotFixture.update_attrs.each do |attr, value|
+    fill_in "plot_#{attr}", with: value
+  end
 
   within ".plot_unit_type" do
     select PlotFixture.updated_unit_type_name, visible: false
@@ -66,12 +67,22 @@ Then(/^I should see the updated plot$/) do
 
   within ".section-data" do
     expect(page).to have_content(PlotFixture.updated_unit_type_name)
+    expect(page).to have_content(PlotFixture.plot_building_name)
+    expect(page).to have_content(PlotFixture.plot_road_name)
+    expect(page).to have_content(PlotFixture.plot_postcode)
+    expect(page).to have_content(PhaseFixture.development_address_attrs[:city_name])
+    expect(page).to have_content(PhaseFixture.development_address_attrs[:county_name])
+
     expect(page).not_to have_content(PlotFixture.unit_type_name)
   end
 end
 
 When(/^I delete the plot$/) do
-  click_on t("plots.edit.back")
+  goto_development_show_page
+
+  within ".tabs" do
+    click_on t("developments.collection.plots")
+  end
 
   plot_id = PlotFixture.plot_id
   delete_and_confirm!(scope: "[data-plot='#{plot_id}']")
@@ -91,4 +102,18 @@ Then(/^I should see that the plot deletion completed successfully$/) do
   within ".record-list" do
     expect(page).not_to have_content PlotFixture.updated_plot_name
   end
+end
+
+Given(/^I have created a plot for the development$/) do
+  goto_development_show_page
+
+  within ".tabs" do
+    click_on t("developments.collection.plots")
+  end
+
+  click_on t("plots.collection.add")
+
+  fill_in "plot_prefix", with: PlotFixture.update_attrs[:prefix]
+  fill_in "plot_number", with: PlotFixture.updated_plot_number
+  click_on t("phases.form.submit")
 end

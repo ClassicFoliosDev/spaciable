@@ -17,7 +17,7 @@ class Development < ApplicationRecord
   has_many :phases, dependent: :destroy
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
-  has_one :address, as: :addressable
+  has_one :address, as: :addressable, dependent: :destroy
   has_many :residents, through: :plots
   has_many :contacts, as: :contactable
   has_one :brand, as: :brandable, dependent: :destroy

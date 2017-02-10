@@ -3,18 +3,25 @@ Given(/^I have a developer with a development$/) do
   CreateFixture.create_developer_with_development
 end
 
+Given(/^I have configured the development address$/) do
+  goto_development_show_page
+
+  sleep 0.3
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  PhaseFixture.development_address_attrs.each do |attr, value|
+    fill_in "development_address_attributes_#{attr}", with: value
+  end
+
+  click_on t("developments.form.submit")
+end
+
 When(/^I create a phase for the development$/) do
-  visit "/"
+  goto_development_show_page
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t("developers.index.developments")
-  end
-
-  within "[data-development='#{CreateFixture.development_id}']" do
+  within ".tabs" do
     click_on t("developments.collection.phases")
   end
 
@@ -25,7 +32,12 @@ When(/^I create a phase for the development$/) do
 end
 
 Then(/^I should see the created phase$/) do
-  expect(page).to have_content(CreateFixture.developer_name)
+  click_on CreateFixture.phase_name
+
+  # Address fields should be inherited from the development
+  PhaseFixture.development_address_attrs.each do |_attr, value|
+    expect(page).to have_content(value)
+  end
 end
 
 When(/^I update the phase$/) do
@@ -61,9 +73,12 @@ Then(/^I should see the updated phase$/) do
 end
 
 When(/^I delete the phase$/) do
-  click_on t("phases.edit.back")
+  goto_development_show_page
 
-  sleep 0.2
+  within ".tabs" do
+    click_on t("developments.collection.phases")
+  end
+
   delete_and_confirm!
 end
 
@@ -72,7 +87,10 @@ Then(/^I should see that the deletion completed successfully$/) do
     "phases.destroy.success",
     phase_name: PhaseFixture.updated_phase_name
   )
-  expect(page).to have_content(success_flash)
+
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
 
   within ".breadcrumbs" do
     expect(page).to have_content(CreateFixture.development_name)
@@ -80,5 +98,15 @@ Then(/^I should see that the deletion completed successfully$/) do
 
   within ".record-list" do
     expect(page).not_to have_content PhaseFixture.updated_phase_name
+  end
+end
+
+Then(/^I should see the development address has not been changed$/) do
+  goto_development_show_page
+
+  within ".section-data" do
+    PhaseFixture.development_address_attrs.each do |_attr, value|
+      expect(page).to have_content(value)
+    end
   end
 end

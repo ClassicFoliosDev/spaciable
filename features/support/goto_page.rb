@@ -67,8 +67,9 @@ module GotoPage
       click_on t("developers.collection.developments")
     end
 
+    sleep 0.3
     within ".record-list" do
-      click_on development
+      click_on CreateFixture.development_name
     end
   end
 end

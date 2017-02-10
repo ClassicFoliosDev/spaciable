@@ -74,6 +74,22 @@ module PhasePlotFixture
     "42"
   end
 
+  def plot_house_number
+    "124"
+  end
+
+  def plot_building_name
+    "Armada building"
+  end
+
+  def plot_road_name
+    "Phase plot road"
+  end
+
+  def plot_postcode
+    "SO33 4FG"
+  end
+
   def plot
     phase.plots.find_by(prefix: update_attrs[:prefix], number: update_attrs[:number])
   end
@@ -82,7 +98,10 @@ module PhasePlotFixture
     {
       prefix: "Plot",
       number: updated_plot_number,
-      unit_type: updated_unit_type_name
+      house_number: plot_house_number,
+      address_attributes_building_name: plot_building_name,
+      address_attributes_road_name: plot_road_name,
+      address_attributes_postcode: plot_postcode
     }
   end
 end

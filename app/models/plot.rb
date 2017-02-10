@@ -19,7 +19,10 @@ class Plot < ApplicationRecord
   has_many :rooms, through: :unit_type
   has_many :finishes, through: :rooms
   has_many :documents, as: :documentable
+  has_one :address, as: :addressable, dependent: :destroy
+
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
   validates :number, presence: true
 
@@ -32,6 +35,31 @@ class Plot < ApplicationRecord
   def number
     return self[:number] unless self[:number].to_i == self[:number]
     self[:number].to_i
+  end
+
+  def build_address_with_defaults
+    return if address.present?
+    return build_address if !parent || !parent.address
+
+    address_fields = [:postal_name, :building_name, :road_name, :city, :county, :postcode]
+    address_attributes = parent.address.attributes.select do |key, _|
+      address_fields.include?(key.to_sym)
+    end
+
+    build_address(address_attributes)
+  end
+
+  def keep_parent_address(plot_parent)
+    self.parent = plot_parent
+
+    if address&.to_plot_s == parent.address&.to_plot_s
+      # Make sure we don't save the address if it hasn't changed
+      self.address = nil
+    else
+      # City and county are always inherited, and can not be overwritten
+      address&.city = parent.address&.city
+      address&.county = parent.address&.county
+    end
   end
 
   def parent=(object)

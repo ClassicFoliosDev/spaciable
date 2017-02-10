@@ -219,6 +219,20 @@ fieldset {
   }
 }
 
+input[type="text"].readonly {
+  border-style: none;
+  color: $type-grey;
+}
+
+.readonly {
+  color: $type-grey;
+
+  input {
+    border-style: none;
+    color: $type-grey;
+  }
+}
+
 .submission-errors {
 
   .fa {
