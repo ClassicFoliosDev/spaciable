@@ -23,6 +23,10 @@ class Plot < ApplicationRecord
 
   validates :number, presence: true
 
+  def resident
+    residents.last
+  end
+
   # `1.0` becomes `1`
   # `1.1` stays as `1.1`
   def number

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170202101420) do
+ActiveRecord::Schema.define(version: 20170209165508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -331,13 +331,11 @@ ActiveRecord::Schema.define(version: 20170202101420) do
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id", using: :btree
   end
 
-  create_table "plots_users", id: false, force: :cascade do |t|
-    t.integer  "plot_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["plot_id"], name: "index_plots_users_on_plot_id", using: :btree
-    t.index ["user_id"], name: "index_plots_users_on_user_id", using: :btree
+  create_table "plots_residents", id: false, force: :cascade do |t|
+    t.integer "plot_id"
+    t.integer "resident_id"
+    t.index ["plot_id"], name: "index_plots_residents_on_plot_id", using: :btree
+    t.index ["resident_id"], name: "index_plots_residents_on_resident_id", using: :btree
   end
 
   create_table "resident_notifications", force: :cascade do |t|
@@ -347,6 +345,26 @@ ActiveRecord::Schema.define(version: 20170202101420) do
     t.datetime "updated_at",      null: false
     t.index ["notification_id"], name: "index_resident_notifications_on_notification_id", using: :btree
     t.index ["resident_id"], name: "index_resident_notifications_on_resident_id", using: :btree
+  end
+
+  create_table "residents", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.datetime "deleted_at"
+    t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -442,8 +460,8 @@ ActiveRecord::Schema.define(version: 20170202101420) do
   add_foreign_key "plots", "divisions"
   add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
-  add_foreign_key "plots_users", "plots"
-  add_foreign_key "plots_users", "users"
+  add_foreign_key "plots_residents", "plots"
+  add_foreign_key "plots_residents", "residents"
   add_foreign_key "resident_notifications", "notifications"
   add_foreign_key "rooms", "developers"
   add_foreign_key "rooms", "developments"

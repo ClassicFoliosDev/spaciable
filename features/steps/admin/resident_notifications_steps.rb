@@ -129,7 +129,7 @@ Then(/^all residents under (my|that) (\(\w+\) )?(\w+) should receive a notificat
 end
 
 Then(/^all residents should receive a notification$/) do
-  resident_email_addresses = User.homeowner.pluck(:email)
+  resident_email_addresses = Resident.pluck(:email)
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
 
   expect(emailed_addresses).to match_array(resident_email_addresses)

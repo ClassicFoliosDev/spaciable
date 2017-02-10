@@ -1,6 +1,6 @@
 # frozen_string_literal: true
-module Homeowner
-  class LibraryController < Homeowner::BaseController
+module Homeowners
+  class LibraryController < Homeowners::BaseController
     skip_authorization_check
 
     def show

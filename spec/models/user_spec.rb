@@ -2,21 +2,6 @@
 require "rails_helper"
 
 RSpec.describe User do
-  describe ".admin" do
-    it "should not return homeowners" do
-      create(:homeowner)
-      cf_admin = create(:cf_admin)
-      developer_admin = create(:developer_admin)
-      division_admin = create(:division_admin)
-      development_admin = create(:development_admin)
-      admin_users = [cf_admin, developer_admin, division_admin, development_admin]
-
-      collection = described_class.admin
-
-      expect(collection.to_a).to match_array(admin_users)
-    end
-  end
-
   describe ".accessible_admin_roles" do
     context "for a CF Admin" do
       it "should return all admin roles" do
@@ -56,12 +41,6 @@ RSpec.describe User do
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)
       end
-    end
-  end
-
-  describe "#admin_roles" do
-    it "does not include homeowner" do
-      expect(described_class.admin_roles.keys).not_to include("homeowner")
     end
   end
 
@@ -133,17 +112,6 @@ RSpec.describe User do
     context "for a CF Admin" do
       it "should not populate the developer_id, division_id or development_id" do
         user = create(:cf_admin)
-        user.assign_permissionable_ids
-
-        expect(user.developer_id).to be_nil
-        expect(user.division_id).to be_nil
-        expect(user.development_id).to be_nil
-      end
-    end
-
-    context "for a Homeowner" do
-      it "should not populate the developer_id, division_id or development_id" do
-        user = create(:homeowner)
         user.assign_permissionable_ids
 
         expect(user.developer_id).to be_nil

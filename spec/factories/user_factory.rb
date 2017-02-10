@@ -5,6 +5,7 @@ FactoryGirl.define do
     password { Faker::Internet.password(8) }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
+    invitation_accepted_at { Date.yesterday }
 
     factory :cf_admin do
       role { :cf_admin }
@@ -23,10 +24,6 @@ FactoryGirl.define do
     factory :development_admin do
       role { :development_admin }
       permission_level { |user| user.association(:development) }
-    end
-
-    factory :homeowner do
-      role { :homeowner }
     end
   end
 end

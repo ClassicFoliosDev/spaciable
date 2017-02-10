@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 module Abilities
   module HomeownerAbilities
-    def homeowner_abilities(user)
-      development_ids = user.plots.pluck(:development_id)
+    def homeowner_abilities(resident)
+      development_ids = resident.developments.pluck(:id)
 
       can :read, Developer, developments: { id: development_ids }
       can :read, Development, id: development_ids

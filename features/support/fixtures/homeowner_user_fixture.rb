@@ -4,7 +4,7 @@ module HomeownerUserFixture
 
   def create
     FactoryGirl.create(
-      :homeowner,
+      :resident,
       email: email,
       password: password,
       first_name: first_name

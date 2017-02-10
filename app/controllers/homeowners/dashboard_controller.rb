@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-module Homeowner
-  class DashboardController < Homeowner::BaseController
+module Homeowners
+  class DashboardController < Homeowners::BaseController
     skip_authorization_check
 
     def show
-      @brand = current_user.permission_level&.brand
+      @brand = current_resident.brand
       return unless @brand.nil?
       @brand = Brand.new
     end

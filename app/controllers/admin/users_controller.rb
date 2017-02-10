@@ -6,7 +6,7 @@ module Admin
     load_and_authorize_resource :user
 
     def index
-      @users = @users.admin.includes(:permission_level)
+      @users = @users.includes(:permission_level)
       @users = sort(@users, default: :email)
       @users = paginate(@users)
     end

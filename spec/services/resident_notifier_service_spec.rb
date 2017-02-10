@@ -61,7 +61,7 @@ RSpec.describe ResidentNotifierService do
           subject.notify_residents
         end.to change(ResidentNotification, :count).by(number_of_residents)
 
-        expect(residents.map(&:homeowner_notifications)).to all eq([notification])
+        expect(residents.map(&:notifications)).to all eq([notification])
       end
 
       it "should record the sent_at times on the notification" do
@@ -76,7 +76,7 @@ RSpec.describe ResidentNotifierService do
         create_list(:plot, 1, :with_resident)
         create_list(:plot, 2, :with_resident, development: create(:division_development))
 
-        all_residents = User.homeowner
+        all_residents = Resident.all
         cf_admin = create(:cf_admin)
         notification = create(:notification, sender: cf_admin, send_to: nil, send_to_all: true)
 

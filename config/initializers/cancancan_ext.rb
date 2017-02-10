@@ -1,9 +1,13 @@
 module SkipIfManageAll
   def accessible_by(ability, action = :index)
     first_rule = ability.send(:rules)[0]
-    manage_all = first_rule.subjects == [:all] && first_rule.actions == [:manage]
 
-    manage_all ? self.all : super
+    if first_rule
+      manage_all = first_rule.subjects == [:all] && first_rule.actions == [:manage]
+      manage_all ? self.all : super
+    else
+      super
+    end
   end
 end
 

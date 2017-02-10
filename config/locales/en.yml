@@ -168,6 +168,8 @@ en:
         choose: "Choose..."
         submit: "Send"
         back: "Back"
+        send_to_all_residents: "Send to all %{residents_count} homeowners"
+        send_to: "Send to all homeowners under:"
       index:
         title: "Notifications"
       new:
@@ -412,10 +414,11 @@ en:
       road: "Road name"
 
   devise:
-    admin:
-      sessions:
-        new:
-          login_cta: "Login"
+    sessions:
+      new:
+        login_cta: "Login"
+
+  residents:
     sessions:
       new:
         title:

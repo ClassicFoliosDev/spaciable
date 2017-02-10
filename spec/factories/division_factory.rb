@@ -9,9 +9,7 @@ FactoryGirl.define do
     trait :with_residents do
       after(:create) do |division|
         development = create(:division_development, division: division)
-        create_list(:plot, 3, development: development).each do |plot|
-          create(:homeowner, plots: [plot])
-        end
+        create_list(:plot, 3, :with_resident, development: development)
       end
     end
 

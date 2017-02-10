@@ -29,18 +29,18 @@ if User.cf_admin.none?
   INFO
 end
 
-if Rails.env.development? && User.homeowner.none?
-  homeowner_email = "homeowner@alliants.com"
-  homeowner_password = "12345678"
+if Rails.env.development? && Resident.none?
+  resident_email = "homeowner@alliants.com"
+  resident_password = "12345678"
 
-  FactoryGirl.create(:homeowner, email: homeowner_email, password: homeowner_password)
+  FactoryGirl.create(:resident, email: resident_email, password: resident_password)
 
   STDOUT.puts <<-INFO
 
   #{'*' * 100}
-  Homeowner has been added:
-    email: #{homeowner_email}
-    password: #{homeowner_password}
+  Resident has been added:
+    email: #{resident_email}
+    password: #{resident_password}
   #{'*' * 100}
 
   INFO
@@ -48,10 +48,10 @@ end
 
 if HomeownerLoginContent.none?
   content = HomeownerLoginContent.new
-  content.title_left = I18n.t('devise.sessions.new.title.left')
-  content.title_right = I18n.t('devise.sessions.new.title.right')
-  content.blurb_para_1 = I18n.t('devise.sessions.new.intro_para_1')
-  content.blurb_para_2 = I18n.t('devise.sessions.new.intro_para_2')
+  content.title_left = I18n.t('residents.sessions.new.title.left')
+  content.title_right = I18n.t('residents.sessions.new.title.right')
+  content.blurb_para_1 = I18n.t('residents.sessions.new.intro_para_1')
+  content.blurb_para_2 = I18n.t('residents.sessions.new.intro_para_2')
   content.save!
 end
 

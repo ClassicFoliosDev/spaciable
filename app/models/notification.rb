@@ -9,7 +9,7 @@ class Notification < ApplicationRecord
   belongs_to :send_to, polymorphic: true
 
   has_many :resident_notifications
-  has_many :homeowners, through: :resident_notifications, source: :resident
+  has_many :residents, through: :resident_notifications
 
   validates :subject, :message, :sender, presence: true
   validate :recipients_selected

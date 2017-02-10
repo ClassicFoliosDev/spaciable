@@ -12,10 +12,12 @@ When(/^I log in as an admin$/) do
   admin = CFAdminUserFixture
 
   visit "/admin"
+
   click_on "Login"
 
-  fill_in "Email Address", with: admin.email
-  fill_in "Password", with: admin.password
+  fill_in :user_email, with: admin.email
+  fill_in :user_password, with: admin.password
+
   click_on "Login"
 end
 
@@ -28,5 +30,5 @@ Then(/^I should be on the admin dashboard$/) do
 end
 
 Then(/^I should be on the "Admin Login" page$/) do
-  expect(current_path).to eq("/admin")
+  expect(current_path).to eq("/admin/sign_in")
 end

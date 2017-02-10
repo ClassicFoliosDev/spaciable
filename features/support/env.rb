@@ -13,12 +13,14 @@ require "drivers_setup"
 require "debugging_world"
 require "hoozzi_world"
 require "goto_page"
+require_relative "./../../spec/support/login_as"
 
 World(
   HoozziWorld,
+  Warden::Test::Helpers,
+  LoginAs,
   GotoPage,
   DebuggingWorld,
-  Warden::Test::Helpers,
   FactoryGirl::Syntax::Methods,
   WebMock::API
 )

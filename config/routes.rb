@@ -1,11 +1,28 @@
 Rails.application.routes.draw do
 
+  devise_for :residents,
+             path: "homeowners",
+             controllers: {
+               sessions: 'residents/sessions',
+               passwords: 'residents/passwords',
+               confirmations: 'residents/confirmations',
+               registrations: 'residents/registrations',
+               unlocks: 'residents/unlocks',
+               omniauth: 'residents/omniauth',
+             }
+
   devise_scope :user do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
   end
   devise_for :users,
+             path: "admin",
              controllers: {
-               sessions: 'users/sessions'
+               sessions: 'users/sessions',
+               passwords: 'users/passwords',
+               confirmations: 'users/confirmations',
+               registrations: 'users/registrations',
+               unlocks: 'users/unlocks',
+               omniauth: 'users/omniauth',
              }
 
   namespace :admin do
@@ -70,8 +87,8 @@ Rails.application.routes.draw do
   resources :finishes
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
-  get "/dashboard", to: 'homeowner/dashboard#show', as: :homeowner_dashboard
-  get "/library", to: 'homeowner/library#show', as: :homeowner_library
+  get "/dashboard", to: 'homeowners/dashboard#show', as: :homeowner_dashboard
+  get "/library", to: 'homeowners/library#show', as: :homeowner_library
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"

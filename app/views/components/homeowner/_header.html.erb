@@ -2,10 +2,10 @@
   <div class="session">
     <div class="session-inner">
       <div class="user">
-        <span><%= t('.hi', first_name: current_user.first_name) %></span>
+        <span><%= t('.hi', first_name: current_resident.first_name) %></span>
         <%= fa_icon "bell" %>
         <%= fa_icon "heart" %>
-        <%= link_to destroy_user_session_path, class: 'sign-out', method: :delete do %>
+        <%= link_to destroy_resident_session_path, class: 'sign-out', method: :delete do %>
           <%= fa_icon "sign-out" %>
         <% end %>
 

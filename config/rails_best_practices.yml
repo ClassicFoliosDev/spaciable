@@ -24,7 +24,7 @@ ProtectMassAssignmentCheck: { }
 RemoveEmptyHelpersCheck: { }
 #RemoveTabCheck: { }
 RemoveTrailingWhitespaceCheck: { }
-RemoveUnusedMethodsInControllersCheck: { except_methods: ["Users::SessionsController#respond_to_on_destroy", "Admin::NotificationsController#notification_params"] }
+RemoveUnusedMethodsInControllersCheck: { except_methods: ["Users::SessionsController#respond_to_on_destroy", "Admin::NotificationsController#notification_params", "ApplicationController#after_sign_out_path_for"] }
 RemoveUnusedMethodsInHelpersCheck: { except_methods: ["TabsHelper#initialize", "TabsHelper#active?", "TabsHelper#to_a", "TabsHelper#developer_tabs", "ApplicationHelper#sortable", "PhaseTabsHelper#phase_tabs"] }
 RemoveUnusedMethodsInModelsCheck: { except_methods: ["User#password_required?", "ApplicationRecord#to_str", "SendToAll#to_str"] }
 ReplaceComplexCreationWithFactoryMethodCheck: { attribute_assignment_count: 2 }

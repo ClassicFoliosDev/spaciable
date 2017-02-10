@@ -18,7 +18,7 @@ class ResidentNotifierService
 
   def residents
     if notification.send_to_all?
-      User.homeowner
+      Resident.all
     else
       notification.send_to.residents
     end

@@ -9,14 +9,6 @@ class User < ApplicationRecord
   attr_accessor :developer_id, :division_id, :development_id
   belongs_to :permission_level, polymorphic: true
 
-  # as home owner, maybe move these out?
-  has_many :plot_residents
-  has_many :plots, through: :plot_residents
-  has_many :resident_notifications, foreign_key: :resident_id
-  has_many :homeowner_notifications, through: :resident_notifications, source: :notification
-
-  scope :admin, -> { where.not(role: :homeowner) }
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable,
@@ -30,8 +22,7 @@ class User < ApplicationRecord
     :cf_admin, # Client Folio Admin
     :developer_admin,
     :division_admin,
-    :development_admin,
-    :homeowner
+    :development_admin
   ]
 
   def self.admin_roles

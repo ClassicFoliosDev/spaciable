@@ -14,8 +14,8 @@ When(/^I log in as a homeowner$/) do
   visit "/"
   click_on "Login"
 
-  fill_in "Email Address", with: homeowner.email
-  fill_in "Password", with: homeowner.password
+  fill_in :resident_email, with: homeowner.email
+  fill_in :resident_password, with: homeowner.password
   click_on "Login"
 end
 
@@ -34,6 +34,6 @@ Then(/^I should be on the "Hoozzi Home" page$/) do
   expect(current_path).to eq("/")
 end
 
-Then(/^I should be on the "User Login" page$/) do
-  expect(current_path).to eq("/users/sign_in")
+Then(/^I should be on the "Homeowner Login" page$/) do
+  expect(current_path).to eq("/homeowners/sign_in")
 end
