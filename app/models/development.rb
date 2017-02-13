@@ -12,13 +12,13 @@ class Development < ApplicationRecord
   has_many :documents, dependent: :destroy
   has_many :faqs, as: :faqable
   has_many :finishes, dependent: :destroy
-  has_many :images, dependent: :destroy
-  has_many :plots, -> { where(phase_id: nil) }, dependent: :destroy
   has_many :phases, dependent: :destroy
+  has_many :plots, -> { where(phase_id: nil) }, dependent: :destroy
+  has_many :plot_residencies, through: :plots
+  has_many :residents, through: :plot_residencies
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
-  has_many :residents, through: :plots
   has_many :contacts, as: :contactable
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable

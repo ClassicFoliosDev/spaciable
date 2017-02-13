@@ -29,6 +29,16 @@ RSpec.describe Plot do
     end
   end
 
+  describe "#build_resident" do
+    it "should build a resident associated with the plot" do
+      plot = create(:plot)
+
+      resident = plot.build_resident
+
+      expect(resident.plot).to eq(plot)
+    end
+  end
+
   describe "#destroy" do
     subject { FactoryGirl.create(:plot) }
 

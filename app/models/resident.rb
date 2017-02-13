@@ -7,15 +7,19 @@ class Resident < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :plot_residents
-  has_many :plots, through: :plot_residents
-
   has_many :resident_notifications
   has_many :notifications, through: :resident_notifications
 
+  has_one :plot_residency
+  delegate :plot, to: :plot_residency, allow_nil: true
+  delegate :developer, :division, :development, :phase, to: :plot
+
+  def plot=(plot_record)
+    (plot_residency || build_plot_residency).update(plot: plot_record)
+  end
+
   def brand
-    # TODO: use permissions to determine the first brand in the
-    # permission hierarchy to use.
+    phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
   end
 
   def to_s

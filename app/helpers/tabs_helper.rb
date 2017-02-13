@@ -21,9 +21,17 @@ module TabsHelper
     end
 
     def cannot_read?(association, permissions_scope = nil)
-      model = permissions_scope&.call || scope.send(association).build
+      model = permissions_scope&.call || build_association(association)
 
       view_context.cannot? :read, model
+    end
+
+    def build_association(association)
+      if association.to_s == association.to_s.pluralize
+        scope.send(association).build
+      else
+        scope.send("build_#{association}")
+      end
     end
 
     def title(key)

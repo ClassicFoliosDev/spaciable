@@ -14,9 +14,9 @@ module PlotTabsHelper
         link: [plot, active_tab: :rooms],
         permissions_on: -> { plot.development.rooms.build }
       },
-      residents: {
+      resident: {
         icon: :building,
-        link: [plot, active_tab: :residents]
+        link: [plot, active_tab: :resident]
       }
     }
   end

@@ -15,8 +15,6 @@ class UnitType < ApplicationRecord
   has_many :phases, through: :phases_unit_types
   has_many :documents, as: :documentable
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
-  has_many :images, as: :imageable
-  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
 
   enum build_type: [
     :apartment,

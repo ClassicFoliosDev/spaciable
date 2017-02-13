@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209165508) do
+ActiveRecord::Schema.define(version: 20170213115201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,8 +111,14 @@ ActiveRecord::Schema.define(version: 20170209165508) do
     t.string   "contactable_type"
     t.integer  "contactable_id"
     t.string   "organisation"
+    t.integer  "developer_id"
+    t.integer  "division_id"
+    t.integer  "development_id"
     t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id", using: :btree
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
+    t.index ["developer_id"], name: "index_contacts_on_developer_id", using: :btree
+    t.index ["development_id"], name: "index_contacts_on_development_id", using: :btree
+    t.index ["division_id"], name: "index_contacts_on_division_id", using: :btree
   end
 
   create_table "developers", force: :cascade do |t|
@@ -177,10 +183,16 @@ ActiveRecord::Schema.define(version: 20170209165508) do
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
+    t.integer  "developer_id"
+    t.integer  "division_id"
+    t.integer  "development_id"
+    t.index ["developer_id"], name: "index_faqs_on_developer_id", using: :btree
+    t.index ["development_id"], name: "index_faqs_on_development_id", using: :btree
+    t.index ["division_id"], name: "index_faqs_on_division_id", using: :btree
     t.index ["faqable_type", "faqable_id"], name: "index_faqs_on_faqable_type_and_faqable_id", using: :btree
   end
 
@@ -260,20 +272,6 @@ ActiveRecord::Schema.define(version: 20170209165508) do
     t.datetime "updated_at",       null: false
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string  "title"
-    t.string  "imageable_type"
-    t.integer "imageable_id"
-    t.string  "file"
-    t.integer "developer_id"
-    t.integer "division_id"
-    t.integer "development_id"
-    t.index ["developer_id"], name: "index_images_on_developer_id", using: :btree
-    t.index ["development_id"], name: "index_images_on_development_id", using: :btree
-    t.index ["division_id"], name: "index_images_on_division_id", using: :btree
-    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable_type_and_imageable_id", using: :btree
-  end
-
   create_table "manufacturers", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
@@ -312,6 +310,13 @@ ActiveRecord::Schema.define(version: 20170209165508) do
     t.index ["division_id"], name: "index_phases_on_division_id", using: :btree
   end
 
+  create_table "plot_residencies", force: :cascade do |t|
+    t.integer "plot_id"
+    t.integer "resident_id"
+    t.index ["plot_id"], name: "index_plot_residencies_on_plot_id", using: :btree
+    t.index ["resident_id"], name: "index_plot_residencies_on_resident_id", using: :btree
+  end
+
   create_table "plots", force: :cascade do |t|
     t.string   "prefix"
     t.decimal  "number"
@@ -330,13 +335,6 @@ ActiveRecord::Schema.define(version: 20170209165508) do
     t.index ["division_id"], name: "index_plots_on_division_id", using: :btree
     t.index ["phase_id"], name: "index_plots_on_phase_id", using: :btree
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id", using: :btree
-  end
-
-  create_table "plots_residents", id: false, force: :cascade do |t|
-    t.integer "plot_id"
-    t.integer "resident_id"
-    t.index ["plot_id"], name: "index_plots_residents_on_plot_id", using: :btree
-    t.index ["resident_id"], name: "index_plots_residents_on_resident_id", using: :btree
   end
 
   create_table "resident_notifications", force: :cascade do |t|
@@ -437,12 +435,18 @@ ActiveRecord::Schema.define(version: 20170209165508) do
 
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "manufacturers"
+  add_foreign_key "contacts", "developers"
+  add_foreign_key "contacts", "developments"
+  add_foreign_key "contacts", "divisions"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"
   add_foreign_key "documents", "developers"
   add_foreign_key "documents", "developments"
   add_foreign_key "documents", "divisions"
+  add_foreign_key "faqs", "developers"
+  add_foreign_key "faqs", "developments"
+  add_foreign_key "faqs", "divisions"
   add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "developments"
   add_foreign_key "finishes", "divisions"
@@ -450,19 +454,16 @@ ActiveRecord::Schema.define(version: 20170209165508) do
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "finishes", "manufacturers"
   add_foreign_key "finishes", "rooms"
-  add_foreign_key "images", "developers"
-  add_foreign_key "images", "developments"
-  add_foreign_key "images", "divisions"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"
+  add_foreign_key "plot_residencies", "plots"
+  add_foreign_key "plot_residencies", "residents"
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"
   add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
-  add_foreign_key "plots_residents", "plots"
-  add_foreign_key "plots_residents", "residents"
   add_foreign_key "resident_notifications", "notifications"
   add_foreign_key "rooms", "developers"
   add_foreign_key "rooms", "developments"

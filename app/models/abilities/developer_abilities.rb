@@ -38,7 +38,6 @@ module Abilities
     def crud_developers(developer_id)
       can :crud, Document, developer_id: developer_id
       can :crud, Finish, developer_id: developer_id
-      can :crud, Image, developer_id: developer_id
       can :crud, Plot, developer_id: developer_id
     end
 

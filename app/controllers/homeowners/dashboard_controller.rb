@@ -5,8 +5,6 @@ module Homeowners
 
     def show
       @brand = current_resident.brand
-      return unless @brand.nil?
-      @brand = Brand.new
     end
   end
 end

@@ -12,10 +12,14 @@ class Phase < ApplicationRecord
   belongs_to :division, optional: true
 
   has_many :plots
-  has_many :residents, through: :plots
+  has_many :plot_residencies, through: :plots
+  has_many :residents, through: :plot_residencies
+
   has_many :unit_types, through: :development
   has_many :document, as: :documentable
   has_one :address, as: :addressable, dependent: :destroy
+  has_one :brand, as: :brandable, dependent: :destroy
+  has_many :brands, as: :brandable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 

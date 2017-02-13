@@ -490,7 +490,7 @@ en:
     collection:
       add: "Add plot"
       rooms: "Rooms"
-      residents: "Residents"
+      resident: "Residents"
       unit_type: "Unit type"
       name: "Plot"
     show:

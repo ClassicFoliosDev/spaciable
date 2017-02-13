@@ -8,10 +8,10 @@ class Developer < ApplicationRecord
   has_many :documents, dependent: :destroy
   has_many :faqs, as: :faqable
   has_many :finishes, dependent: :destroy
-  has_many :images, dependent: :destroy
-  has_many :plots, dependent: :destroy
   has_many :phases, dependent: :destroy
-  has_many :residents, through: :plots
+  has_many :plots, dependent: :destroy
+  has_many :plot_residencies, through: :plots
+  has_many :residents, through: :plot_residencies
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
   has_many :contacts, as: :contactable

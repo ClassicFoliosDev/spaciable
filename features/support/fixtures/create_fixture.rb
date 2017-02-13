@@ -148,9 +148,8 @@ module CreateFixture
 
   def create_residents
     Plot.all.each do |plot|
-      attrs = { first_name: "Resident of", last_name: "plot #{plot}" }
-      resident = FactoryGirl.create(:resident, attrs)
-      resident.plots << plot
+      attrs = { first_name: "Resident of", last_name: "plot #{plot}", plot: plot }
+      FactoryGirl.create(:resident, :with_residency, attrs)
     end
   end
 

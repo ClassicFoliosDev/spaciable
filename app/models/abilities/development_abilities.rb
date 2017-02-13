@@ -16,7 +16,6 @@ module Abilities
     def crud_developments(development)
       can :crud, Document, development_id: development
       can :crud, Finish, development_id: development
-      can :crud, Image, development_id: development
       can :crud, Plot, development_id: development
     end
 

@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 FactoryGirl.define do
-  factory :appliance do
+  factory :appliance_category do
     sequence :name do |n|
-      "Washing Machine #{n}"
+      "Appliance Category #{n}"
     end
-    appliance_category
-    manufacturer
   end
 end

@@ -13,9 +13,10 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
+  has_one :plot_residency
+  delegate :resident, to: :plot_residency, allow_nil: true
+
   has_many :unit_types, through: :development
-  has_many :plot_residents
-  has_many :residents, through: :plot_residents
   has_many :rooms, through: :unit_type
   has_many :finishes, through: :rooms
   has_many :documents, as: :documentable
@@ -26,9 +27,7 @@ class Plot < ApplicationRecord
 
   validates :number, presence: true
 
-  def resident
-    residents.last
-  end
+  delegate :build_resident, to: :build_plot_residency
 
   # `1.0` becomes `1`
   # `1.1` stays as `1.1`

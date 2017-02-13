@@ -14,7 +14,7 @@ FactoryGirl.define do
 
     trait :with_resident do
       after(:create) do |plot|
-        create(:resident, plots: [plot])
+        create(:resident, plot: plot)
       end
     end
   end

@@ -5,7 +5,7 @@ module PolymorphicPermissionable
   include Api
 
   included do
-    attr_accessor :developer_id, :division_id, :development_id, :phase_id
+    attr_accessor :developer_id, :division_id, :development_id, :phase_id, :plot_id
 
     before_validation :assign_permissionable
     before_validation :assign_permissionable_ids
@@ -34,6 +34,8 @@ module PolymorphicPermissionable
         set_development_id
       when Phase
         set_phase_id
+      when Plot
+        set_plot_id
       end
     end
 
@@ -77,6 +79,15 @@ module PolymorphicPermissionable
 
     def set_phase_id
       self.phase_id = permissionable.id
+      self.development_id = permissionable.development_id
+      self.division_id = permissionable.division_id
+      self.developer_id = permissionable.developer_id ||
+                          permissionable.division&.developer_id
+    end
+
+    def set_plot_id
+      self.plot_id = permissionable.id
+      self.phase_id = permissionable.phase_id
       self.development_id = permissionable.development_id
       self.division_id = permissionable.division_id
       self.developer_id = permissionable.developer_id ||

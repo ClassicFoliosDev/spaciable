@@ -5,6 +5,7 @@ FactoryGirl.define do
       "Finish #{n}"
     end
     finish_category
+    finish_type
     room
   end
 end

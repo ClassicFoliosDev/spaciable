@@ -16,7 +16,6 @@ module Abilities
     def crud_divisions(division)
       can :crud, Document, division_id: division
       can :crud, Finish, division_id: division
-      can :crud, Image, division_id: division
       can :crud, Plot, division_id: division
     end
 

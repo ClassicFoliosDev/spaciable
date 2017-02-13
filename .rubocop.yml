@@ -38,8 +38,8 @@ Metrics/LineLength:
   Enabled: true
   Exclude:
     - features/steps/**/*
-    - features/support/fixtures/**/*
-    - spec/support/**/*
+    - features/support/**/*
+    - spec/**/*
 Documentation:
   Enabled: false
 Metrics/MethodLength:

@@ -5,14 +5,18 @@ class Ability
   include Abilities::DeveloperAbilities
   include Abilities::DivisionAbilities
   include Abilities::DevelopmentAbilities
-  include Abilities::HomeownerAbilities
+  include Abilities::ResidentAbilities
 
   def initialize(user)
     return unless user
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
-    role_abilities(user.role, user)
+    if user.instance_of? Resident
+      resident_abilities(user)
+    else
+      role_abilities(user.role, user)
+    end
   end
 
   private
@@ -27,8 +31,6 @@ class Ability
       division_admin_abilities(user)
     when :development_admin
       development_admin_abilities(user)
-    when :homeowner
-      homeowner_abilities(user)
     end
   end
 

@@ -3,7 +3,14 @@ class Contact < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
 
+  belongs_to :developer, optional: false
+  belongs_to :division, optional: true
+  belongs_to :development, optional: true
   belongs_to :contactable, polymorphic: true
+
+  alias parent contactable
+  include InheritParentPermissionIds
+  include InheritPolymorphicParentPermissionIds
 
   enum title: [
     :mr,
