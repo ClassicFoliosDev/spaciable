@@ -542,6 +542,7 @@ en:
    show:
      back: "Back"
      upload: "Upload"
+     download: "Download manual"
    edit:
      title: "Edit %{name}"
      back: "Back"

@@ -48,9 +48,11 @@
   <div class="row-item third">
     <div class="manual">
       <%= label_tag :manual %>
-      <%= @appliance.manual.file.filename if @appliance.manual? %>
-      <%= link_to @appliance.manual.url, class: "btn",  target: "_blank" do %>
-        <%= icon "cloud-download" %>
+      <% if @appliance.manual %>
+        <%= link_to @appliance.manual.url, class: "btn right",  target: "_blank" do %>
+          <%= icon "cloud-download" %>
+        <% end %>
+        <%= label_tag t(".download") %>
       <% end %>
     </div>
     <div class="appliance_secondary_image">
