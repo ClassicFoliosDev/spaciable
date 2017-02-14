@@ -39,12 +39,12 @@
 @import 'components/admin/record_list';
 @import 'components/admin/paging';
 
-@import 'components/homeowner/buttons';
+@import 'components/homeowner/components';
 
-@import 'components/homeowner/header/session';
-@import 'components/homeowner/header/navigation';
-@import 'components/homeowner/header/hero';
-@import 'components/homeowner/dashboard/components';
+@import 'components/homeowner/session';
+@import 'components/homeowner/navigation';
+@import 'components/homeowner/hero';
+@import 'components/homeowner/contacts';
 @import 'components/homeowner/library';
 
 @import 'components/section';

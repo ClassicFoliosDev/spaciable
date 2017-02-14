@@ -4,6 +4,9 @@
 
     .nav-inner {
       @include outer-container(90%);
+      h3, ul {
+        display: inline-block;
+      }
     }
 
     .logo {
@@ -24,9 +27,6 @@
       list-style-type: none;
       line-height: 44px;
       margin-bottom: 0;
-    }
-
-    .navbar-item {
       padding: $spacing-small $spacing-medium;
 
       &:hover {
@@ -39,6 +39,10 @@
         font-weight: bold;
         text-decoration: none;
         cursor: pointer;
+      }
+
+      .active {
+        color: $primary-cta-color;
       }
     }
 
@@ -56,7 +60,16 @@
     }
   }
 
-  #navbar-trigger,
+  .sub-navigation-container {
+    height: 45px;
+    border-top: solid 1px $ui-grey;
+
+    ul {
+      margin-left: 40px;
+    }
+  }
+
+    #navbar-trigger,
   .navbar-trigger-label {
     display: none;
   }

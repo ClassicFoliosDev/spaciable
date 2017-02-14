@@ -1,48 +1,4 @@
-.sub-navigation-container {
-  border-top: 1px solid $ui-grey;
-  padding: 8px;
-
-  .nav-inner {
-    margin-top: 0;
-  }
-
-  h1 {
-    font-size: $title-font-size-3;
-    line-height: $title-font-size-3;
-    display: inline-block;
-    margin-bottom: 0;
-  }
-
-  ul {
-    display: inline-block;
-    margin-left: 40px;
-  }
-
-  li {
-    display: inline-block;
-
-    a {
-      text-decoration: none;
-      color: $ui-black;
-      padding: 4px $spacing-small;
-      font-weight: bold;
-      border-radius: 3px;
-
-      &:hover {
-        background-color: $ui-grey;
-        color: $ui-black;
-      }
-
-      &.active {
-        border: 1px solid $ui-grey;
-      }
-    }
-  }
-}
-
 .hero {
-  margin-bottom: $spacing-medium;
-  
   .filter-banner {
     @include grad-yellow-orange();
     height: 100%;
@@ -67,6 +23,18 @@
   li {
     display: inline-block;
     margin-bottom: 6px;
+
+    a {
+      border: 1px solid $ui-white;
+      border-radius: 3px;
+      padding: 4px 10px;
+      color: $ui-white;
+
+      &:hover {
+        background-color: $ui-white;
+        color: $secondary-orange;
+      }
+    }
   }
 }
 
