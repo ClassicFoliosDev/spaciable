@@ -12,7 +12,7 @@ class Resident < ApplicationRecord
 
   has_one :plot_residency
   delegate :plot, to: :plot_residency, allow_nil: true
-  delegate :developer, :division, :development, :phase, to: :plot
+  delegate :developer, :division, :development, :phase, to: :plot, allow_nil: true
 
   def plot=(plot_record)
     (plot_residency || build_plot_residency).update(plot: plot_record)
