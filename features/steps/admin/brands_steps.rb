@@ -7,10 +7,15 @@ When(/^I create a brand$/) do
   end
 
   click_on CreateFixture.developer_name
-
   click_on t("developers.collection.brands")
 
   click_on t("brands.collection.create")
+  logo_full_path = FileFixture.file_path + FileFixture.logo_name
+  within ".brand_logo" do
+    attach_file("brand_logo",
+                File.absolute_path(logo_full_path),
+                visible: false)
+  end
 
   click_on t("brands.form.submit")
 end
@@ -36,13 +41,6 @@ When(/^I update the brand$/) do
     find("[data-action='edit']").click
   end
 
-  logo_full_path = FileFixture.file_path + FileFixture.logo_name
-  within ".brand_logo" do
-    attach_file("brand_logo",
-                File.absolute_path(logo_full_path),
-                visible: false)
-  end
-
   banner_full_path = FileFixture.file_path + FileFixture.banner_name
   within ".brand_banner" do
     attach_file("brand_banner",
@@ -52,6 +50,45 @@ When(/^I update the brand$/) do
 
   fill_in "brand[bg_color]", with: BrandFixture.bg_color
   fill_in "brand[button_text_color]", with: BrandFixture.button_text_color
+end
+
+Then(/^I should be able to preview the brand$/) do
+  within ".preview-container" do
+    click_on t("brands.form.preview")
+  end
+
+  # Logo has been customised, expect it to have the customised alt tag
+  within ".header" do
+    image = page.find("img")
+    expect(image["src"]).to have_content(FileFixture.logo_name)
+    expect(image["alt"]).to have_content(t("brands.preview.logo"))
+
+    button = page.find("button")
+    expect(button[:style]).to have_content("background-color: rgb(24, 168, 149)")
+    expect(button[:style]).to have_content("color: rgb(85, 106, 65)")
+  end
+
+  # Banner has not been customised, expect it to have the default alt tag
+  within ".banner" do
+    image = page.find("img")
+    expect(image["src"]).to have_content(FileFixture.default_banner_name)
+    expect(image["alt"]).to have_content(t("activerecord.attributes.brand.banner"))
+  end
+
+  within ".content" do
+    div = page.first("div")
+    expect(div[:style]).to have_content("background-color: rgb(255, 255, 255)")
+    expect(div[:style]).to have_content("color: rgb(234, 234, 234)")
+
+    button = page.find("button")
+    expect(button[:style]).to have_content("background-color: rgb(85, 106, 65)")
+    expect(button[:style]).to have_content("color: rgb(24, 168, 149)")
+  end
+
+  within ".ui-dialog-titlebar" do
+    button = page.find("button")
+    button.click
+  end
 
   click_on t("rooms.form.submit")
 end
@@ -176,6 +213,13 @@ When(/^I create a division brand$/) do
   click_on t("developers.collection.brands")
 
   click_on t("brands.collection.create")
+  logo_full_path = FileFixture.file_path + FileFixture.logo_name
+  within ".brand_logo" do
+    attach_file("brand_logo",
+                File.absolute_path(logo_full_path),
+                visible: false)
+  end
+
   click_on t("brands.form.submit")
 end
 
@@ -205,6 +249,13 @@ When(/^I create a development brand$/) do
   click_on t("developers.collection.brands")
 
   click_on t("brands.collection.create")
+  logo_full_path = FileFixture.file_path + FileFixture.logo_name
+  within ".brand_logo" do
+    attach_file("brand_logo",
+                File.absolute_path(logo_full_path),
+                visible: false)
+  end
+
   click_on t("brands.form.submit")
 end
 

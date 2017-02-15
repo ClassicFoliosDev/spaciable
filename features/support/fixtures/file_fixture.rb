@@ -50,6 +50,10 @@ module FileFixture
     "Bovis logo"
   end
 
+  def default_banner_name
+    "https://tinyurl.com/j6s6be3"
+  end
+
   def banner_name
     "cala_banner.jpg"
   end

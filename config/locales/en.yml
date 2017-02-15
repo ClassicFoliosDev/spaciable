@@ -110,7 +110,7 @@ en:
     contact_edit: "Edit %{contact_name}"
     brands: "Styling"
     brand_add: "Add styling for %{name}"
-    brand_edit: "Edit styling for %{name}"
+    brand_edit: "Edit %{name}"
 
   image_preview:
     replace: "Replace"
@@ -696,11 +696,19 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      preview: "Preview"
     show:
       back: "Back"
       image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB"
     edit:
       title: "Edit styling for %{name}"
+    preview:
+      logo: "Branded logo"
+      banner: "Branded banner"
+      primary_button: "Primary button"
+      content_button: "Content button"
+      header: "Header"
+      text: "Content text paragraph"
 
   resident_notification_mailer:
     notify:

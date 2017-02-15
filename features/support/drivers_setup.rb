@@ -3,12 +3,12 @@ require "capybara/poltergeist"
 
 Capybara.javascript_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+  Capybara::Poltergeist::Driver.new(app, js_errors: false, window_size: [1024, 896])
 end
 
 if ENV["DEBUG"] == "true"
   Capybara.register_driver :debug do |app|
-    Capybara::Poltergeist::Driver.new(app, inspector: true)
+    Capybara::Poltergeist::Driver.new(app, inspector: true, window_size: [1024, 896])
   end
   Capybara.javascript_driver = :debug
 end

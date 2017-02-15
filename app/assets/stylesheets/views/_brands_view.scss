@@ -1,38 +1,22 @@
-$circle-radius: 16px;
+$circle-size: 32px;
 $darker-grey: #7a8585;
 
 .color-circle {
-  /* Draw an outline circle around the colour:
-     If we don't have this it's very difficult to
-     tell when you set white or pale colours
-     Make it slightly wider than the main colour
-     (but not too much, or you get ugly gapping)
-   */
-  &:before {
-    content:'';
-    width: (2 * $circle-radius) +1;
-    height: (2 * $circle-radius) +1;
-    border-color: $darker-grey;
-    border-width: 2px;
-    border-radius: 50%;
-    border-style: solid;
-    display: inline-block;
-    transform: (translateX(-$circle-radius) translateY(-$circle-radius));
-  }
-
-  /*
-   If user has selected a colour, it will over-ride the border-color here
+   /*
+   If user has selected a colour, it will over-ride the background-color here
    Otherwise, default the background colour to show nothing selected
    */
-  width: $circle-radius * 2;
-  height: $circle-radius * 2;
+  width: $circle-size;
+  height: $circle-size;
   border-style: solid;
   border-radius: 50%;
   display: inline-block;
-  border-width: $circle-radius;
+  border-width: 2px;
   float: left;
   margin-right: $spacing-medium;
-  border-color: $ui-light-grey;
+  border-color: $darker-grey;
+  background-color: $ui-light-grey;
+  border-radius: 50%;
 }
 
 .brand {
@@ -56,14 +40,10 @@ $darker-grey: #7a8585;
   &:after {
     content: '';
     position: absolute;
-    // Actually the length of the stripe, basically the full circle width
-    width: $circle-radius * 2;
-    // Width of the stripe
-    border-width: 8px 0 0 0;
-    border-color: $darker-grey;
-    border-radius: 0;
-    border-style: solid;
-    transform: (rotate(45deg) translateX(-37px) translateY(-15px));
+    width: $circle-size - 1;
+    height: 8px;
+    background-color: $type-grey;
+    transform: (rotate(45deg) translateX(6px) translateY(8px));
   }
 }
 

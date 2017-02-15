@@ -11,7 +11,8 @@ Feature: Brands
     When I create a brand
     Then I should see the created developer brand
     When I update the brand
-    Then I should see the updated developer brand
+    Then I should be able to preview the brand
+    And I should see the updated developer brand
     When I remove an image from a brand
     Then I should see the updated developer brand without the image
     When I delete the developer brand
@@ -24,7 +25,8 @@ Feature: Brands
     When I create a division brand
     Then I should see the created division brand
     When I update the brand
-    Then I should see the updated division brand
+    Then I should be able to preview the brand
+    And I should see the updated division brand
     When I remove an image from a brand
     Then I should see the updated division brand without the image
     When I delete the division brand
@@ -37,7 +39,8 @@ Feature: Brands
     When I create a development brand
     Then I should see the created development brand
     When I update the brand
-    Then I should see the updated development brand
+    Then I should be able to preview the brand
+    And I should see the updated development brand
     When I remove an image from a brand
     Then I should see the updated development brand without the image
     When I delete the development brand
@@ -54,3 +57,4 @@ Feature: Brands
   Scenario: Development Admin
     Given I am a Development Admin
     Then I should not be able to see development brands
+

@@ -42,7 +42,6 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
                               class: "btn remove-btn fa fa-trash")
     out << @builder.check_box("remove_#{attribute_name}",
                               label: false, class: "hidden remove-image")
-    # out << @builder.label("", image.file.identifier, class: "picture-label")
   end
 
   def image_preview
