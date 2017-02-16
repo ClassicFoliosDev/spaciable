@@ -1,0 +1,9 @@
+<h3 class="section-title">
+  <%= plot %>
+</h3>
+
+<div class="section-data">
+  <%= render 'address/address', address: plot %>
+  <span class="strong"><%= plot.unit_type %></span>
+  <%= edit_btn [:edit, plot] %>
+</div>

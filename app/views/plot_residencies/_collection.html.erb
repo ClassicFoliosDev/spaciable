@@ -1,0 +1,39 @@
+<div class="section-actions">
+  <% if can? :create, new_residency %>
+    <%= link_to [:new, plot, :plot_residency], class: "btn btn-primary", data: { action: "new" } do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
+  <% end %>
+</div>
+<div class="record-list">
+  <dl class="residencies">
+    <dt class="record-list-item record-header">
+    <div class="record-list-header-content">
+      <span><%= sortable({ PlotResidency => Resident }, :last_name, t(".last_name")) %></span>
+      <span><%= sortable({ PlotResidency => Resident }, :email, t(".email")) %></span>
+      <span><%= sortable(PlotResidency, :updated_at, t(".updated_at")) %></span>
+    </div>
+    </dt>
+    <% collection.each do |plot_residency| %>
+        <dd class="record-list-item" data-plot_residency="<%= plot_residency.id %>">
+          <div class="record-list-item-actions">
+            <%= edit_btn [:edit, plot_residency], element: plot_residency %>
+            <%= delete_btn plot_residency, path: plot_residency_path(plot_residency), element: plot_residency %>
+          </div>
+          <div class="record-list-item-content">
+            <%= link_to plot_residency, plot_residency, title: plot_residency %>
+            <span><%= plot_residency.email %></span>
+            <span class="plot_residency-updated-timestamp">
+              <%= l plot_residency.updated_at.to_date, format: :digits %>
+            </span>
+          </div>
+        </dd>
+    <% end %>
+  </dl>
+</div>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>

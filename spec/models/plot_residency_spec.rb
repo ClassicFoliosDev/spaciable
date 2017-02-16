@@ -1,0 +1,68 @@
+# frozen_string_literal: true
+require "rails_helper"
+
+RSpec.describe PlotResidency do
+  describe "#create" do
+    context "when the resident does not exist" do
+      it "should create the resident using the provided email address" do
+        email = "joe@bloggs.com"
+        plot = create(:plot)
+
+        expect { PlotResidency.create!(plot: plot, email: email) }
+          .to change(Resident, :count).by(1)
+
+        expect(Resident.find_by(email: email)).not_to be_nil
+      end
+    end
+
+    context "when the resident exists" do
+      it "should assign the existing resident using the provided email address" do
+        resident = create(:resident, first_name: "Joe", last_name: "Doe")
+        plot = create(:plot)
+
+        expect do
+          PlotResidency.create!(
+            plot: plot,
+            email: resident.email,
+            first_name: "",
+            last_name: "Bloggs"
+          )
+        end.not_to change(Resident, :count)
+
+        resident.reload
+        expect(resident.plot).to eq(plot)
+        expect(resident.first_name).to eq("Joe")
+        expect(resident.last_name).to eq("Bloggs")
+      end
+    end
+
+    it "cannot assign a resident that already has a residency" do
+      resident = create(:resident, :with_residency)
+      plot = create(:plot)
+
+      residency = PlotResidency.create(plot: plot, email: resident.email)
+
+      error = I18n.t("activerecord.errors.models.plot_residency.attributes.email.already_in_use")
+      expect(residency.errors[:email]).to include(error)
+    end
+  end
+
+  describe "#update" do
+    it "should update the resident details" do
+      updated_attrs = {
+        title: :mr, first_name: "John", last_name: "Bloggs", email: "john@bloggs.com"
+      }
+      resident = create(:resident, :with_residency)
+
+      expect do
+        resident.plot_residency.update(updated_attrs)
+      end.not_to change(Resident, :count)
+      resident.reload
+
+      expect(resident.title).to eq(updated_attrs[:title].to_s)
+      expect(resident.first_name).to eq(updated_attrs[:first_name])
+      expect(resident.last_name).to eq(updated_attrs[:last_name])
+      expect(resident.email).to eq(updated_attrs[:email])
+    end
+  end
+end

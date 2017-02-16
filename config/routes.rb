@@ -52,6 +52,10 @@ Rails.application.routes.draw do
     resources :plots, shallow: true
   end
 
+  resources :plots, only: [] do
+    resources :plot_residencies, shallow: true, path: "residencies"
+  end
+
   resources :developments do
     resources :phases
     resources :unit_types

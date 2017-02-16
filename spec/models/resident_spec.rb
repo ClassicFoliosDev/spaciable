@@ -9,10 +9,13 @@ RSpec.describe Resident do
         plot = create(:plot)
 
         resident.plot = plot
+        resident.save
+        resident.reload
 
+        expect(resident.plot_residency).not_to be_nil
         expect(resident.plot_residency.plot_id).to eq(plot.id)
         expect(resident.plot_residency.resident_id).to eq(resident.id)
-        expect(resident.reload.plot).to eq(plot)
+        expect(resident.plot).to eq(plot)
       end
     end
 
@@ -23,6 +26,7 @@ RSpec.describe Resident do
         new_plot = create(:plot)
 
         resident.update(plot: new_plot)
+        resident.reload
 
         expect(resident.plot_residency.plot_id).to eq(new_plot.id)
         expect(resident.plot_residency.resident_id).to eq(resident.id)

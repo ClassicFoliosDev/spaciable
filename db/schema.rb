@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213115201) do
+ActiveRecord::Schema.define(version: 20170216170200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,8 +311,12 @@ ActiveRecord::Schema.define(version: 20170213115201) do
   end
 
   create_table "plot_residencies", force: :cascade do |t|
-    t.integer "plot_id"
-    t.integer "resident_id"
+    t.integer  "plot_id"
+    t.integer  "resident_id"
+    t.date     "completion_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
     t.index ["plot_id"], name: "index_plot_residencies_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_plot_residencies_on_resident_id", using: :btree
   end
@@ -362,6 +366,7 @@ ActiveRecord::Schema.define(version: 20170213115201) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.datetime "deleted_at"
+    t.integer  "title",                  default: 0
     t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true, using: :btree
   end

@@ -6,7 +6,7 @@ module TabsHelper
   end
 
   Tabs = Struct.new(:scope, :tabs, :current_tab, :view_context) do
-    BuildHasOnePermissionsError = Class.new(StandardError)
+    BuildHasOneAssociationPermissionsError = Class.new(StandardError)
 
     def all
       tabs.each_pair.map do |association, options|
@@ -30,11 +30,21 @@ module TabsHelper
 
     def build_association(association)
       return scope.send(association).build unless one_to_one_association?(association)
-      raise BuildHasOnePermissionsError, build_has_one_error
+      raise BuildHasOneAssociationPermissionsError, build_has_one_error
     end
 
     def one_to_one_association?(association)
       association.to_s == association.to_s.singularize
+    end
+
+    def build_has_one_error
+      <<-ERROR
+        Tabs for singular resources cannot automatically check the permissions on a has_one association.
+        Doing so would delete the existing association: `@plot.build_plot_residency` deletes the plot residency record.
+
+        To avoid this, set the `permission_on` options when building that tab which uses the belongs_to model to
+        populate the association: `permissions_on: -> { PlotResidence.new(plot_id: plot.id) }`.
+      ERROR
     end
 
     def build_has_one_error

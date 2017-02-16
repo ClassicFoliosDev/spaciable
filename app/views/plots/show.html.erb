@@ -1,17 +1,7 @@
 <% breadcrumb :plot, @plot %>
 
 <div class="section-header">
-  <h3 class="section-title">
-    <%= @plot %>
-  </h3>
-
-  <div class="section-data">
-    <%= render 'address/address', address: @plot %>
-    <span class="strong"><%= @plot.unit_type %></span>
-    <%= edit_btn [:edit, @plot] %>
-    <!-- Completion date will be found on the homeowner, not on the plot -->
-    <!-- span class="strong"><%= t(".completion") %></span -->
-  </div>
+  <%= render @plot %>
 </div>
 
 <%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab), parent: @plot.unit_type %>

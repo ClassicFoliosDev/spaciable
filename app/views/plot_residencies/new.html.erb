@@ -1,0 +1,13 @@
+<% breadcrumb :plot_residency_add, @plot %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "user" %>
+    <%= t(".title", plot: @plot) %>
+  </h3>
+</div>
+
+<%= render 'form', plot_residency: @plot_residency, plot: @plot %>
+
+
+

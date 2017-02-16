@@ -17,6 +17,11 @@ module Abilities
       can :crud, Document, development_id: development
       can :crud, Finish, development_id: development
       can :crud, Plot, development_id: development
+      can :crud, PlotResidency, plot: { development_id: development }
+      cannot :create, PlotResidency do |residency|
+        residency.plot.reload.resident.present?
+      end
+      can :crud, Resident, plot: { development_id: development }
     end
 
     def read_developments(developer_id, division_id, development)

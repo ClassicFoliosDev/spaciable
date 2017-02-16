@@ -2,6 +2,7 @@
 class Ability
   include CanCan::Ability
   include Abilities::UserPermissions
+  include Abilities::CfAdminAbilities
   include Abilities::DeveloperAbilities
   include Abilities::DivisionAbilities
   include Abilities::DevelopmentAbilities
@@ -24,7 +25,7 @@ class Ability
   def role_abilities(role, user)
     case role.to_sym
     when :cf_admin
-      can :manage, :all
+      cf_admin_abilities
     when :developer_admin
       developer_admin_abilities(user)
     when :division_admin

@@ -37,6 +37,7 @@ en:
   date:
     formats:
       digits: "%d.%m.%Y"
+      default: "%d/%m/%Y"
 
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
@@ -97,6 +98,10 @@ en:
     phase_edit: "Edit %{phase_name}"
     plot_add: "Add plot"
     plot_edit: "Edit %{plot_name}"
+    plot_residencies: "Resident"
+    plot_residency: "Resident %{residency}"
+    plot_residency_add: "Add Resident"
+    plot_residency_edit: "Edit %{plot} Resident"
     room_edit: "Edit %{room_name}"
     room_add: "Add room"
     unit_type_edit: "Edit %{unit_type_name}"
@@ -499,12 +504,35 @@ en:
     collection:
       add: "Add plot"
       rooms: "Rooms"
-      resident: "Residents"
+      plot_residency: "Residents"
       unit_type: "Unit type"
       name: "Plot"
     show:
       back: "Back"
       completion: "Completion date"
+
+  plot_residencies:
+    collection:
+      add: "Add Resident"
+      last_name: "Resident"
+      email: "Email"
+      updated_at: "Last Edited"
+    create:
+      success: "Resident has been successfully assigned to this plot %{plot}."
+    destroy:
+      success: "Resident has been successfully removed from this plot %{plot}."
+    edit:
+      title: "Edit %{plot}"
+    form:
+      back: "Back"
+      submit: "Submit"
+    new:
+      title: "New %{plot} Resident"
+    show:
+      back: "Back"
+      title: "Plot %{plot} resident"
+    update:
+      success: "%{resident_name} was updated successfully."
 
   plot_documents:
     form:
@@ -917,6 +945,15 @@ en:
         content_text_color: "Content box outline colour"
         button_color: "Button colour"
         button_text_color: "Button text colour"
+      resident:
+        titles:
+          mr: "Mr"
+          ms: "Ms"
+          mrs: "Mrs"
+          miss: "Miss"
+          dr: "Dr"
+          prof: "Professor"
+          other: "Other"
 
     errors:
       messages:
@@ -940,3 +977,7 @@ en:
             base:
               email_or_phone_required: "You must provide either an email address or a contact number"
               name_or_organisation_required: "You must provide either a contact name or an organisation name"
+        plot_residency:
+          attributes:
+            email:
+              already_in_use: "is already associated to another plot"

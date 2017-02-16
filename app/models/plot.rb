@@ -13,7 +13,7 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
-  has_one :plot_residency
+  has_one :plot_residency, dependent: :destroy
   delegate :resident, to: :plot_residency, allow_nil: true
 
   has_many :unit_types, through: :development

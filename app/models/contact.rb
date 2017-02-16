@@ -12,15 +12,8 @@ class Contact < ApplicationRecord
   include InheritParentPermissionIds
   include InheritPolymorphicParentPermissionIds
 
-  enum title: [
-    :mr,
-    :ms,
-    :mrs,
-    :miss,
-    :dr,
-    :prof,
-    :other
-  ]
+  # ENUMS
+  include TitleEnum
 
   enum category: [
     :customer_care,
