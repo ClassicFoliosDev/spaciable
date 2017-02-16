@@ -2,7 +2,7 @@
   <div class="nav-inner">
     <h3><%= t('layouts.homeowner.title') %></h3>
     <ul>
-      <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.rooms') %></a></li>
+      <li class="navbar-item"><%= link_to t(".rooms"), homeowner_my_home_path, class: "navbar-link" %></li>
       <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.appliances') %></a></li>
       <li class="navbar-item"><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path, class: ' active' %></a></li>
       <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.faqs') %></a></li>

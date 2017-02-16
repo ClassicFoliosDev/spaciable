@@ -9,6 +9,14 @@
         @include span-columns(0);
         @include pad(10px default);
         float: right;
+
+        i {
+          color: white;
+          padding: 3px;
+          font-size: 20px;
+          vertical-align: middle;
+          cursor: pointer;
+        }
       }
 
       span {
@@ -32,4 +40,10 @@
       z-index: 20;
     }
   }
+}
+
+.homeowner-body {
+  background-color: $ui-superlight-grey;
+  min-height: 520px;
+  padding-top: $spacing-small;
 }

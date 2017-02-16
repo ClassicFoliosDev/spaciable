@@ -63,6 +63,7 @@ Then(/^I should see the updated unit type$/) do
 end
 
 And(/^I have created a unit type$/) do
+  CreateFixture.create_developer_with_development
   CreateFixture.create_unit_type
 end
 

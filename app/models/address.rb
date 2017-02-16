@@ -6,11 +6,4 @@ class Address < ApplicationRecord
   def to_s
     postal_name
   end
-
-  # These are the fields that a plot can override:
-  # We want to know what the values are so we can test
-  # if they have changed
-  def to_plot_s
-    "#{postcode} #{building_name} #{road_name}"
-  end
 end

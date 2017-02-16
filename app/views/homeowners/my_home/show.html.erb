@@ -1,0 +1,37 @@
+<%= render "components/homeowner/brand_template", brand: @brand %>
+
+<nav class="sub-navigation-container">
+  <div class="nav-inner">
+    <h3><%= t('.title') %></h3>
+    <ul>
+      <li class="navbar-item"><a href="" class="active"><%= t('layouts.homeowner.sub_nav.rooms')%></a></li>
+      <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.appliances') %></a></li>
+      <li class="navbar-item"><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path %></a></li>
+      <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.faqs') %></a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="filter-dark">
+    <div class="hero-text">
+      <span>
+        <span class="strong"><%= @plot %></span>
+        <%= render 'address/address', address: @plot %>
+      </span>
+      <span class="secondary"><%= t(".home_for", years: "", months: "") %></span>
+    </div>
+  </div>
+</div>
+
+<div class="homeowner-body">
+  <div class="rooms">
+    <% @plot.rooms.each do | room | %>
+      <div class="sixth room">
+        <%= fa_icon "bath" %><br>
+        <span><%= room %></span>
+        <%= link_to t(".view"), "", class: "homeowner-btn alt" %>
+      </div>
+    <% end %>
+  </div>
+</div>

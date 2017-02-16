@@ -26,7 +26,7 @@ end
 Then(/^I should be on the "My Home" dashboard$/) do
   homeowner = HomeownerUserFixture
 
-  expect(page).to have_link "My Home"
+  expect(page).to have_link "My home"
   expect(page).to have_content "Hi #{homeowner.first_name}"
 end
 

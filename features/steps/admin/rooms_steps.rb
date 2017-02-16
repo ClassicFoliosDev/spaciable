@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 Given(/^I have a developer with a development and a unit type$/) do
+  CreateFixture.create_developer_with_development
   CreateFixture.create_unit_type
 end
 
@@ -146,6 +147,7 @@ Then(/^I should see the room with no finish$/) do
 end
 
 And(/^I have created a room$/) do
+  CreateFixture.create_developer_with_development
   CreateFixture.create_room
 end
 

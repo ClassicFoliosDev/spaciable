@@ -18,6 +18,7 @@ $type-white: #FFFFFF;
 
 //UI Palette
 $ui-white: #FFFFFF;
+$ui-superlight-grey: #FAFAFA;
 $ui-light-grey: #F4F4F4;
 $ui-grey: #EAEAEA;
 $ui-dark-grey: #B3B5B7;
@@ -35,8 +36,8 @@ $secondary-cta-color: $type-grey;
   @include linear-gradient($deg, $secondary-orange, $primary-red, $secondary-pink);
 }
 
-@mixin grad-blue-black($deg:135deg) {
-  @include linear-gradient($deg, $secondary-blue, $default-text-color);
+@mixin grad-blue-black($deg:135deg, $opacity:1) {
+  @include linear-gradient($deg, rgba(57,79,95, $opacity), rgba(37, 44, 49, $opacity));
 }
 
 @mixin grad-green-green() {

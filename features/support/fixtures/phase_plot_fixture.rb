@@ -99,9 +99,9 @@ module PhasePlotFixture
       prefix: "Plot",
       number: updated_plot_number,
       house_number: plot_house_number,
-      address_attributes_building_name: plot_building_name,
-      address_attributes_road_name: plot_road_name,
-      address_attributes_postcode: plot_postcode
+      building_name: plot_building_name,
+      road_name: plot_road_name,
+      postcode: plot_postcode
     }
   end
 end

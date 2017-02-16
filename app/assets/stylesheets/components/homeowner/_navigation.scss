@@ -10,16 +10,22 @@
     }
 
     .logo {
-      height: 80px;
-      width: 160px;
-      padding: 20px;
+      padding: $spacing-medium;
       @include span-columns(2 of 12);
+
+      img {
+        height: 40px;
+      }
     }
 
     .navigation {
       height: 80px;
       @include span-columns(6 of 12);
       padding: $spacing-medium;
+    }
+
+    .navbar-menu {
+      height: 55px;
     }
 
     .navbar-item {

@@ -2,6 +2,7 @@
 class PlotsController < ApplicationController
   include PaginationConcern
   include SortingConcern
+
   load_and_authorize_resource :development
   load_and_authorize_resource :phase
   load_and_authorize_resource :plot, through: [:development, :phase], shallow: true
@@ -14,11 +15,9 @@ class PlotsController < ApplicationController
   end
 
   def new
-    @plot.build_address_with_defaults
   end
 
   def edit
-    @plot.build_address_with_defaults
   end
 
   def show
@@ -32,20 +31,15 @@ class PlotsController < ApplicationController
   end
 
   def create
-    @plot.keep_parent_address(@parent)
-
     if @plot.save
       notice = t(".success", plot_name: @plot)
       redirect_to [@parent, :plots], notice: notice
     else
-      @plot.build_address_with_defaults
       render :new
     end
   end
 
   def update
-    @plot.keep_parent_address(@parent)
-
     if @plot.update(plot_params)
       notice = t(".success", plot_name: @plot.to_s)
       redirect_to [@parent, :plots], notice: notice
@@ -69,13 +63,11 @@ class PlotsController < ApplicationController
       :number,
       :unit_type_id,
       :house_number,
-      address_attributes: [:postal_name,
-                           :road_name,
-                           :building_name,
-                           :city,
-                           :county,
-                           :postcode,
-                           :id]
+      :road_name,
+      :building_name,
+      :city,
+      :county,
+      :postcode
     )
   end
 

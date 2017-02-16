@@ -16,7 +16,7 @@
   <nav>
     <div class="nav-inner">
       <div class="logo">
-        <%= image_tag 'logo.png'%>
+        <%= image_tag brand.logo? ? brand.logo : "logo.png" %>
       </div>
       <div class="navigation">
         <%= render "components/homeowner/navigation" %>

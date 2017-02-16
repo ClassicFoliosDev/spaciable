@@ -50,12 +50,11 @@ en:
     application:
       title: "Hoozzi"
     home:
-      title: "Hoozzi Home"
+      title: "Hoozzi home"
     homeowner:
-      title: "My Home"
+      title: "My home"
       nav:
-        my_home: "My Home"
-
+        my_home: "My home"
       sub_nav: 
         rooms: "Rooms"
         appliances: "Appliances"
@@ -252,16 +251,16 @@ en:
       cards:
         library:
           title: "Library"
-          view_more: "View Library"
+          view_more: "View library"
         contacts:
           title: "Contacts"
-          view_more: "View Contacts"
+          view_more: "View contacts"
         faqs:
           title: "FAQs"
           view_more: "View FAQs"
         my_home:
           title: "My Home"
-          view_more: "View My Home"
+          view_more: "View my home"
 
   developments:
     collection:
@@ -282,6 +281,16 @@ en:
       back: "Back"
     index:
       add: "Add development"
+
+  homeowners:
+    my_home:
+      show:
+        title: "My home"
+        view: "View room"
+        home_for: "Home sweet home for %{years} years %{months} months"
+    library:
+      show:
+        rooms: "Rooms"
 
   developers:
     destroy:

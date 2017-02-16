@@ -1,0 +1,53 @@
+$room-size: 150px;
+
+.filter-dark {
+  @include grad-blue-black(135deg, 0.6);
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  padding: 28px;
+}
+
+.hero-text {
+  margin-top: 35px;
+  color: $ui-grey;
+  display: block;
+  text-align: center;
+  opacity: 0.8;
+
+  .secondary {
+    opacity: 0.6;
+  }
+}
+
+.homeowner-body {
+  .rooms {
+    width: (4 * $room-size) + (3 * $spacing-medium);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .room {
+    background-color: $ui-white;
+    border-style: solid;
+    border-color: $ui-grey;
+    border-width: 1px;
+    height: $room-size;
+    width: $room-size;
+    margin-bottom: $spacing-medium;
+    text-align: center;
+    padding-top: $spacing-large;
+
+    span {
+      display: block;
+      font-size: $base-font-size;
+      margin-top: $spacing-small / 2;
+      margin-bottom: $spacing-small / 2;
+    }
+
+    i::before {
+      color: $primary-cta-color;
+      font-size: 24px;
+    }
+  }
+}

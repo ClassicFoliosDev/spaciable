@@ -36,6 +36,7 @@ class Development < ApplicationRecord
   validates :name, presence: true
   validate :permissable_id_presence
 
+  delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
 
   def permissable_id_presence

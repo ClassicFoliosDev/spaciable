@@ -6,8 +6,7 @@
   </h3>
 
   <div class="section-data">
-    <%= @plot.house_number %>
-    <%= render 'address/address', address: @plot.address || @plot.parent.address %>
+    <%= render 'address/address', address: @plot %>
     <span class="strong"><%= @plot.unit_type %></span>
     <%= edit_btn [:edit, @plot] %>
     <!-- Completion date will be found on the homeowner, not on the plot -->

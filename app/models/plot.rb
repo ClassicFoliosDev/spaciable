@@ -29,36 +29,62 @@ class Plot < ApplicationRecord
 
   delegate :build_resident, to: :build_plot_residency
 
+  # ADDRESSES
+
+  delegate :address, to: :parent, prefix: :parent, allow_nil: true
+  delegate :city, :county, to: :parent, allow_nil: true
+  alias postal_name house_number
+
+  def building_name
+    if address&.building_name?
+      address.building_name
+    else
+      parent.building_name
+    end
+  end
+
+  def road_name
+    if address&.road_name?
+      address.road_name
+    else
+      parent.road_name
+    end
+  end
+
+  def postcode
+    if address&.postcode?
+      address.postcode
+    else
+      parent.postcode
+    end
+  end
+
+  def building_name=(name)
+    return if parent_address && name == parent_address.building_name
+    (address || build_address).building_name = name
+  end
+
+  def road_name=(name)
+    return if parent_address && name == parent_address.road_name
+    (address || build_address).road_name = name
+  end
+
+  def city=(_)
+  end
+
+  def county=(_)
+  end
+
+  def postcode=(name)
+    return if parent_address && name == parent_address.postcode
+    (address || build_address).postcode = name
+  end
+
   # `1.0` becomes `1`
   # `1.1` stays as `1.1`
   def number
     return self[:number] unless self[:number].to_i == self[:number]
     self[:number].to_i
-  end
-
-  def build_address_with_defaults
-    return if address.present?
-    return build_address if !parent || !parent.address
-
-    address_fields = [:postal_name, :building_name, :road_name, :city, :county, :postcode]
-    address_attributes = parent.address.attributes.select do |key, _|
-      address_fields.include?(key.to_sym)
-    end
-
-    build_address(address_attributes)
-  end
-
-  def keep_parent_address(plot_parent)
-    self.parent = plot_parent
-
-    if address&.to_plot_s == parent.address&.to_plot_s
-      # Make sure we don't save the address if it hasn't changed
-      self.address = nil
-    else
-      # City and county are always inherited, and can not be overwritten
-      address&.city = parent.address&.city
-      address&.county = parent.address&.county
-    end
   end
 
   def parent=(object)

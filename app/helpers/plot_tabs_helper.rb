@@ -16,7 +16,8 @@ module PlotTabsHelper
       },
       resident: {
         icon: :building,
-        link: [plot, active_tab: :resident]
+        link: [plot, active_tab: :resident],
+        permissions_on: -> { PlotResidency.new(plot_id: plot.id) }
       }
     }
   end

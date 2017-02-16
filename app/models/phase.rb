@@ -35,6 +35,8 @@ class Phase < ApplicationRecord
   validates :number,
             uniqueness: { scope: :development_id }
 
+  delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true
+
   def build_address_with_defaults
     return if address.present?
     return build_address if !development || !development.address

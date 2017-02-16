@@ -116,7 +116,7 @@ module CreateFixture
   end
 
   def create_unit_type
-    FactoryGirl.create(:unit_type, name: unit_type_name, development: create_developer_with_development)
+    FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
   end
 
   def create_room
@@ -140,10 +140,22 @@ module CreateFixture
     FactoryGirl.create(:phase, name: division_phase_name, development: division_development)
   end
 
-  def create_plots
+  def create_development_plot
     FactoryGirl.create(:plot, development: development)
+  end
+
+  def create_division_development_plot
     FactoryGirl.create(:plot, development: division_development)
+  end
+
+  def create_phase_plot
     FactoryGirl.create(:phase_plot, phase: phase)
+  end
+
+  def create_plots
+    create_development_plot
+    create_division_development_plot
+    create_phase_plot
   end
 
   def create_residents
