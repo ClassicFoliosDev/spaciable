@@ -39,20 +39,23 @@
 @import 'components/admin/record_list';
 @import 'components/admin/paging';
 
-@import 'components/homeowner/components';
-
-@import 'components/homeowner/session';
-@import 'components/homeowner/navigation';
-@import 'components/homeowner/hero';
-@import 'components/homeowner/contacts';
-@import 'components/homeowner/library';
-@import 'components/homeowner/my_home';
 
 @import 'components/section';
 @import 'components/flashes';
 @import 'components/dialogs';
 @import 'components/images';
 @import 'components/cards';
+
+@import 'components/homeowner/components';
+@import 'components/homeowner/homeowner';
+@import 'components/homeowner/navigation';
+@import 'components/homeowner/hero';
+@import 'components/homeowner/contacts';
+@import 'components/homeowner/faqs';
+@import 'components/homeowner/how_to';
+@import 'components/homeowner/library';
+@import 'components/homeowner/rooms';
+@import 'components/homeowner/appliances';
 
 @import 'views/login_view';
 @import 'views/admin_login_view';

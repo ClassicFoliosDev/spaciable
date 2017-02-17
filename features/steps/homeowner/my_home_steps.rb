@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-And(/^I have created a plot$/) do
+And(/^I have created a unit_type$/) do
   CreateFixture.create_developer
   CreateFixture.create_division
   CreateFixture.create_development
@@ -9,7 +9,7 @@ And(/^I have created a plot$/) do
   CreateFixture.create_room
 end
 
-And(/^I have logged in as a resident$/) do
+And(/^I have logged in as a resident and associated the plot$/) do
   plot = CreateFixture.create_development_plot
   resident = FactoryGirl.create(:resident, :with_residency, plot: plot)
 
@@ -26,6 +26,10 @@ end
 
 Then(/^I should see the plot rooms$/) do
   within ".hero" do
-    expect(page).to have_content(t("homeowners.my_home.show.home_for", years: "", months: ""))
+    expect(page).to have_content(t("components.homeowner.sub_header.home_for", years: "", months: ""))
+  end
+
+  within ".rooms" do
+    expect(page).to have_content(CreateFixture.room_name)
   end
 end

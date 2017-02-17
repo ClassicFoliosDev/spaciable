@@ -1,88 +1,73 @@
-<nav class="sub-navigation-container">
-  <div class="nav-inner">
-    <h3><%= t('layouts.homeowner.title') %></h3>
-    <ul>
-      <li class="navbar-item"><%= link_to t(".rooms"), homeowner_my_home_path, class: "navbar-link" %></li>
-      <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.appliances') %></a></li>
-      <li class="navbar-item"><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path, class: ' active' %></a></li>
-      <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.faqs') %></a></li>
-    </ul>
-  </div>
-</nav>
+<%= render "components/homeowner/brand_template", brand: @brand %>
 
-<div class="hero">
-  <div class="filter-banner">
-    <h1><%= t('layouts.homeowner.library.title') %></h1>
-    <ul>
-      <li><a href="" class="active"><%= t('activerecord.attributes.document.categories.all') %></a></li>
-      <li><a href=""><%= t('activerecord.attributes.document.categories.homeowner_manual') %></a></li>
-      <li><a href=""><%= t('activerecord.attributes.document.categories.appliance_manuals') %></a></li>
-      <li><a href=""><%= t('activerecord.attributes.document.categories.insurance_warranty') %></a></li>
-    </ul>
+<div class="library">
+  <%= render "components/homeowner/sub_header", active_tab: "library", plot: @plot %>
+</div>
+
+<div class="homeowner-body">
+  <div class="main-container documents brand-background">
+    <div class="row">
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>My Homeowner's Manual</h2>
+        <p>Homeowner's Manual</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>New Homes Policy Document</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>Homeowner's Insurance Policy</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>Your DIY Home Energy Checklist</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>My Homeowner's Manual</h2>
+        <p>Homeowner's Manual</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>New Homes Policy Document</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>My Homeowner's Manual</h2>
+        <p>Homeowner's Manual</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>New Homes Policy Document</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>Homeowner's Insurance Policy</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>Your DIY Home Energy Checklist</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>My Homeowner's Manual</h2>
+        <p>Homeowner's Manual</p>
+      </div>
+      <div class="sixth document">
+        <img src="https://tinyurl.com/z5qyo49">
+        <h2>New Homes Policy Document</h2>
+        <p>Insurance &amp; Warranty</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="main-container documents">
-  <div class="row">
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>My Homeowner's Manual</h2>
-      <p>Homeowner's Manual</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>New Homes Policy Document</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>Homeowner's Insurance Policy</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>Your DIY Home Energy Checklist</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>My Homeowner's Manual</h2>
-      <p>Homeowner's Manual</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>New Homes Policy Document</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>My Homeowner's Manual</h2>
-      <p>Homeowner's Manual</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>New Homes Policy Document</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>Homeowner's Insurance Policy</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>Your DIY Home Energy Checklist</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>My Homeowner's Manual</h2>
-      <p>Homeowner's Manual</p>
-    </div>
-    <div class="sixth document">
-      <img src="https://tinyurl.com/z5qyo49">
-      <h2>New Homes Policy Document</h2>
-      <p>Insurance &amp; Warranty</p>
-    </div>
-  </div>
-</div>

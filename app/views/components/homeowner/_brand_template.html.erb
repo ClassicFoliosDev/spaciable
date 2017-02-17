@@ -1,33 +1,53 @@
 <style>
 
-  .main-container {
-    background-color: <%= brand.bg_color? ? brand.bg_color : "#FFFFFF" %>;
-  }
+  <% if brand.bg_color? %>
+    .homeowner-body {
+      background-color: <%= brand.bg_color %>;
+    }
+  <% end %>
 
-  .card .card-header .card-title {
-    color: <%= brand.text_color? ? brand.text_color : "#252C31" %>;
-  }
+  <% if brand.text_color? %>
+    .brand-text {
+      color: <%= brand.text_color %>;
+    }
+  <% end %>
 
-  .card {
-    background-color: <%= brand.content_bg_color? ? brand.content_bg_color : "#FFFFFF" %>;
-  }
+  <% if brand.content_bg_color? %>
+    .brand-content {
+      background-color: <%= brand.content_bg_color %>;
+    }
+  <% end %>
 
-  .card.bordered {
-    border-color: <%= brand.content_text_color? ? brand.content_text_color : "#EAEAEA" %>;
+  <% if brand.content_text_color? %>
+  .brand-border {
+     border-color: <%= brand.content_text_color %>;
   }
+  <% end %>
 
-  .homeowner-btn {
-    background-color: <%= brand.button_color? ? brand.button_color : "#18A895" %>;
-    border-color: <%= brand.button_color? ? brand.button_color : "#18A895" %>;
-    color: <%= brand.button_text_color? ? brand.button_text_color : "#FFFFFF" %>;
-  }
+  <% if brand.button_color? %>
+    .homeowner-btn {
+      background-color: <%= brand.button_color %>;
+    }
 
-  .card.my-contacts .contact-actions i {
-    color: <%= brand.button_color? ? brand.button_color : "#18A895" %>;
-  }
+    .homeowner-btn.alt {
+      border-color: <%= brand.button_color %>;
+      color: <%= brand.button_color %>;
+    }
+  <% end %>
+
+  <% if brand.button_text_color? %>
+    .homeowner-btn {
+      color: <%= brand.button_text_color %>;
+      border-color: <%= brand.button_text_color %>;
+    }
+
+    .homeowner-btn.alt {
+      background-color: <%= brand.button_text_color %>;
+    }
+  <% end %>
 
   <% if brand.banner? %>
-    .homeowner-view .hero {
+    .brand-hero {
       background-image: url(<%= brand.banner.url&.html_safe %>);
     }
   <% end %>

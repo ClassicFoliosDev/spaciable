@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" viewBox="0 0 531.5 531.5" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0 -520.86)">
+  <path d="m100.84 903.71v35.312h112.15l17.656-17.656-17.656-17.656h-312.15z" fill="#f00"/>
+  <path d="m100.84 858.8v35.281h291.41l17.656-17.625-17.656-17.656h-291.41z" fill="#f37020"/>
+  <path d="m100.84 813.89v35.281h270.12v-0.0312l17.625-17.625-17.625-17.594v-0.0312h-270.12z" fill="#fcb913"/>
+  <path d="m100.84 768.96v35.312h248.15l17.656-17.656-17.656-17.656h-248.15z" fill="#fef200"/>
+  <path d="m100.87 724.05v35.312h227.62v-0.0937l0.0937 0.0937 17.656-17.656-17.656-17.656-0.0937 0.0937v-0.0937h-227.62z" fill="#c0d731"/>
+  <path d="m100.87 679.11v35.344h205.12v-0.0625l17.625-17.625-17.625-17.625v-0.0312h-205.12z" fill="#50b849"/>
+  <path d="m100.87 634.21v35.312h184.66v-0.0937l0.0937 0.0937 17.656-17.656-17.656-17.656-0.0937 0.0937v-0.0937h-184.66z" fill="#00a654"/>
+  <text x="121.02927" y="662.56653" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="662.56653">A</tspan></text>
+  <text x="121.02927" y="707.4884" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="707.4884">A</tspan></text>
+  <text x="121.02927" y="752.41028" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="752.41028">A</tspan></text>
+  <text x="121.02927" y="797.31653" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="797.31653">A</tspan></text>
+  <text x="121.02927" y="842.2384" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="842.2384">B</tspan></text>
+  <text x="121.02927" y="887.14465" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="887.14465">C</tspan></text>
+  <text x="121.02927" y="932.06653" fill="#ffffff" font-family="Arial" font-size="29.906px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="121.02927" y="932.06653">D</tspan></text>
+  <text x="142.68651" y="741.81268" fill="#ffffff" font-family="Arial" font-size="21.28px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="142.68651" y="741.81268">+</tspan></text>
+  <text x="142.68651" y="697.97205" fill="#ffffff" font-family="Arial" font-size="21.28px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="142.68651" y="697.97205">+</tspan></text>
+  <text x="155.33687" y="697.97205" fill="#ffffff" font-family="Arial" font-size="21.28px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="155.33687" y="697.97205">+</tspan></text>
+  <text x="142.78963" y="653.73669" fill="#ffffff" font-family="Arial" font-size="21.28px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="142.78963" y="653.73669">+</tspan></text>
+  <text x="155.43999" y="653.73669" fill="#ffffff" font-family="Arial" font-size="21.28px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="155.43999" y="653.73669">+</tspan></text>
+  <text x="168.09035" y="653.73669" fill="#ffffff" font-family="Arial" font-size="21.28px" font-weight="bold" letter-spacing="0px" word-spacing="0px" style="line-height:125%" xml:space="preserve"><tspan x="168.09035" y="653.73669">+</tspan></text>
+ </g>
+</svg>

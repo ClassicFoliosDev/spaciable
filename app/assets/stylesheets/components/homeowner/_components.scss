@@ -1,7 +1,7 @@
 .homeowner-btn {
   color: $ui-white;
   background-color: $primary-cta-color;
-  border-color: $primary-cta-color;
+  border-color: $ui-white;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
@@ -20,14 +20,7 @@
   background-color: $secondary-cta-color;
   border-color: $ui-white;
   color: $ui-white;
-  text-decoration: none;
   font-size: $base-button-font-size;
-}
-
-.homeowner-second-btn.alt {
-  border-color: $secondary-cta-color;
-  background-color: $ui-white;
-  color: $secondary-cta-color;
 }
 
 .right {

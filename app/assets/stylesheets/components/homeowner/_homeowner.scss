@@ -1,0 +1,134 @@
+$card-size: 150px;
+
+.homeowner-view {
+  .session {
+    background-color: $secondary-blue;
+    
+    .session-inner {
+      @include outer-container(90%);
+
+      .user {
+        @include span-columns(0);
+        @include pad(10px default);
+        float: right;
+
+        i {
+          color: white;
+          padding: 3px;
+          font-size: 20px;
+          vertical-align: middle;
+          cursor: pointer;
+        }
+      }
+
+      span {
+        color: white;
+      }
+
+      img {
+        vertical-align:middle;
+        border-radius: 50%;
+        height: 40px;
+      }
+    }
+  }
+
+  @include media($tablet-landscape-down) {
+    .session {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+    }
+  }
+}
+
+.homeowner-body {
+  background-color: $ui-superlight-grey;
+  margin: 0;
+  padding: 20px;
+}
+
+.brand-border {
+  border-color: $ui-grey;
+  border-width: 1px;
+}
+
+.brand-content {
+  background-color: $ui-white;
+  margin-bottom: $spacing-medium;
+  border-style: solid;
+}
+
+.brand-text {
+  display: block;
+  margin-bottom: $spacing-small / 2;
+}
+
+.black-show-through {
+  &:before {
+    @include trans-to-black(360deg);
+    background-color: transparent;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 60%;
+    margin-top: 40%;
+    border-radius: 5px;
+  }
+}
+
+.black-show-left {
+  &:before {
+    @include trans-to-black(90deg);
+    background-color: transparent;
+    content: '';
+    display: block;
+    width: 50%;
+    height: 100%;
+    margin-top: 0;
+  }
+}
+
+.my-home {
+  .card-header {
+    margin-top: -220px;
+    margin-left: 12px;
+  }
+
+  .card-content {
+    margin-left: $spacing-medium;
+  }
+}
+
+.favourite {
+  color: #FFCCD5;
+  opacity: 0.6;
+  margin-top: $spacing-small;
+  margin-right: $spacing-small;
+  font-size: 16px;
+
+  i::after {
+    font-family: FontAwesome;
+    content: "\f08a";
+    margin-left: -16px;
+    color: #FF4C4C;
+  }
+}
+
+@include media($mobile-down) {
+  .homeowner-view {
+    .hero {
+      height: 230px;
+
+      h1 {
+        font-size: $title-font-size-5;
+      }
+
+      li .btn {
+        font-size: $base-small-font-size;
+      }
+    }
+  }
+}

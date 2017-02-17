@@ -1,0 +1,24 @@
+.how-to {
+  .card-header {
+    margin-top: -250px;
+  }
+
+  .card-content {
+    margin-top: 90px;
+    width: 100%;
+    padding: $spacing-small;
+  }
+
+  h3 {
+    color: $ui-white;
+    margin-bottom: $spacing-small / 2;
+  }
+}
+
+.how-to-logo {
+  font-style: italic;
+  color: $ui-light-grey;
+  font-size: 12px;
+  position: relative;
+  top: 4px;
+}

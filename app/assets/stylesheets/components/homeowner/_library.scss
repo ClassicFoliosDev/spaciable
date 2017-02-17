@@ -1,21 +1,8 @@
-.hero {
-  .filter-banner {
-    @include grad-yellow-orange();
-    height: 100%;
-    overflow: hidden;
-    z-index: 2;
-    padding: 28px;
-  }
+.hero-header {
+  color: $ui-light-grey;
+}
 
-  h1 {
-    text-align: center;
-    padding: $spacing-small 0;
-    margin-bottom: $spacing-medium;
-    color: $ui-white;
-    font-weight: 200;
-    font-size: 24px;
-  }
-
+.library-links {
   ul {
     text-align: center;
   }
@@ -32,21 +19,36 @@
 
       &:hover {
         background-color: $ui-white;
-        color: $secondary-orange;
+        color: $ui-grey;
       }
     }
   }
 }
 
+.my-library {
+  .card-header {
+    border-bottom-style: solid;
+  }
+}
+
 .documents {
+
+  .row {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    float: none;
+  }
+
   .document {
     margin-bottom: $spacing-medium;
-    height: 300px;
+    width: 100px;
     text-align: center;
     padding: $spacing-small;
+    display: inline-block;
 
     img {
-      height: 80%;
+      width: 100%;
       display: block;
       margin: 0 auto;
     }
@@ -62,32 +64,3 @@
   }
 }
 
-@include media($tablet-portrait-down) {
-  .sub-navigation-container {
-    h1 {
-      display: none;  
-    }
-    
-    ul {
-      display: block;
-      text-align: center;
-      margin-left: 0;
-    }
-  }
-}
-
-@include media($mobile-down) {
-  .homeowner-view {
-    .hero {
-      height: 230px;
-
-      h1 {
-        font-size: $title-font-size-5;
-      }
-
-      li .btn {
-        font-size: $base-small-font-size;
-      }
-    }
-  }
-}

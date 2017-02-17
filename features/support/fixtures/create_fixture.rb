@@ -62,6 +62,10 @@ module CreateFixture
     "Stone"
   end
 
+  def energy_rating
+    "a1"
+  end
+
   # FACTORIES
 
   def create_admin(admin_type = :cf, parent = nil)
@@ -120,13 +124,17 @@ module CreateFixture
   end
 
   def create_room
-    FactoryGirl.create(:room, name: room_name, unit_type: create_unit_type)
+    FactoryGirl.create(:room, name: room_name, unit_type: unit_type)
   end
 
   def create_appliance
     appliance_category = ApplianceCategory.find_by_name(appliance_category_name)
     manufacturer = Manufacturer.find_by_name(appliance_manufacturer_name)
-    FactoryGirl.create(:appliance, name: appliance_name, appliance_category: appliance_category, manufacturer: manufacturer)
+    FactoryGirl.create(:appliance, name: appliance_name, appliance_category: appliance_category, manufacturer: manufacturer, e_rating: energy_rating)
+  end
+
+  def create_appliance_room
+    FactoryGirl.create(:appliance_room, room: room, appliance: appliance)
   end
 
   def create_finish
@@ -141,7 +149,7 @@ module CreateFixture
   end
 
   def create_development_plot
-    FactoryGirl.create(:plot, development: development)
+    FactoryGirl.create(:plot, development: development, unit_type: unit_type)
   end
 
   def create_division_development_plot
@@ -189,6 +197,18 @@ module CreateFixture
 
   def division_phase
     Phase.find_by(name: division_phase_name)
+  end
+
+  def unit_type
+    UnitType.find_by(name: unit_type_name)
+  end
+
+  def room
+    Room.find_by(name: room_name)
+  end
+
+  def appliance
+    Appliance.find_by(name: appliance_name)
   end
 end
 # rubocop:enable ModuleLength

@@ -16,7 +16,7 @@
   <nav>
     <div class="nav-inner">
       <div class="logo">
-        <%= image_tag brand.logo? ? brand.logo : "logo.png" %>
+        <%= link_to image_tag(brand.logo? ? brand.logo : "logo.png"), homeowner_dashboard_path %>
       </div>
       <div class="navigation">
         <%= render "components/homeowner/navigation" %>

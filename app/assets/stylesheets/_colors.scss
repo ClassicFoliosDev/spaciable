@@ -51,3 +51,7 @@ $secondary-cta-color: $type-grey;
 @mixin trans-to-black($deg:135deg) {
   @include linear-gradient($deg, $default-text-color, transparent);
 }
+
+@mixin center-trans() {
+  @include circular($deg, $default-text-color, transparent);
+}

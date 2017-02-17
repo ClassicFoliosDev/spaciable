@@ -94,6 +94,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: 'homeowners/dashboard#show', as: :homeowner_dashboard
   get "/library", to: 'homeowners/library#show', as: :homeowner_library
   get "/my_home", to: 'homeowners/my_home#show', as: :homeowner_my_home
+  get "/my_appliances", to: 'homeowners/appliances#show', as: :homeowner_appliances
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"

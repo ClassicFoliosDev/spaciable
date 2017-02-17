@@ -148,6 +148,7 @@ end
 
 And(/^I have created a room$/) do
   CreateFixture.create_developer_with_development
+  CreateFixture.create_unit_type
   CreateFixture.create_room
 end
 

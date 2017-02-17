@@ -132,6 +132,11 @@ en:
     homeowner:
       header:
         hi: "Hi %{first_name}"
+      sub_header:
+        title: "My home"
+        home_for: "Home sweet home for %{years} years %{months} months"
+        rooms: "Rooms"
+        appliances: "Appliances"
     home:
       header:
         nav:
@@ -290,12 +295,7 @@ en:
   homeowners:
     my_home:
       show:
-        title: "My home"
         view: "View room"
-        home_for: "Home sweet home for %{years} years %{months} months"
-    library:
-      show:
-        rooms: "Rooms"
 
   developers:
     destroy:
@@ -580,6 +580,7 @@ en:
      back: "Back"
      upload: "Upload"
      download: "Download manual"
+     documents: "Documents"
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -871,9 +872,6 @@ en:
           b: "B"
           c: "C"
           d: "D"
-          e: "E"
-          f: "F"
-          g: "G"
       document:
         title: "Document name"
         file: "File"

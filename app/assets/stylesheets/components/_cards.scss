@@ -20,14 +20,12 @@ $card-height: 230px;
 
   .card-header {
     @include pad($spacing-small);
-    border-bottom: 1px solid $ui-grey;
     height: 52px;
 
     .card-title {
       @include span-columns(6 of 12);
       font-size: $title-font-size-4;
       margin: 0;
-      color: $default-text-color;
     }
 
     .card-title-alt {
@@ -43,12 +41,7 @@ $card-height: 230px;
   }
 
   .card-content {
-    @include pad($spacing-small);
     @include span-columns(12 of 12);
-  }
-
-  &.bordered {
-    border: 1px solid $ui-grey;
   }
 
   li {
@@ -57,264 +50,21 @@ $card-height: 230px;
 }
 
 .card {
-  &.my-home {
-    background-image: url(http://www.claudehooper.co.uk/wp-content/uploads/2013/08/Gerrards-Cross-Lounge.jpg);
-    color: $ui-white;
-    position: relative;
-    background-size: cover;
-    background-position: center;
-
-    &:before {
-      @include trans-to-black(90deg);
-      background-color: transparent;
-      content: '';
-      display: block;
-      width: 50%;
-      height: 100%;
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      border-radius: $border-radius;
-    }
-
-    .card-header {
-      border-bottom: none;
-    }
-
-    .title {
-      color: $ui-white;
-    }
-
-    .my-home-address {
-      margin: 0 0 $spacing-small;
-      font-size: $base-font-size;
-    }
-
-    .btn {
-      float: left;
-    }
+  .view-article {
+    float: right;
   }
+}
 
-  &.my-library {
-    border: 1px $ui-grey solid;
-    height: 230px;
-    color: $ui-white;
+.my-home {
+  background-image: url(http://www.claudehooper.co.uk/wp-content/uploads/2013/08/Gerrards-Cross-Lounge.jpg);
+  color: $ui-white;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+}
 
-    .btn-primary {
-      border-color: $ui-white;
-      background-color: transparent;
-      color: $ui-white;
-
-      &:hover {
-        border-color: $ui-white;
-        background-color: $ui-white;
-        color: #fb9e59;
-      }
-    }
-
-    .card-header {
-      border-bottom: none;
-    }
-
-    .title {
-      color: $default-text-color;
-    }
-
-    .action {
-      @include span-columns(1 of 12);
-      color: $primary-cta-color;
-      cursor: pointer;
-      display: inline-block;
-      padding-top: 64px;
-      height: $library-interface-height;
-    }
-
-    .action-left {
-      float: left;
-    }
-
-    .action-right {
-      float: right;
-
-      i {
-        float: right;
-      }
-    }
-
-    .documents {
-      // @include span-columns(10 of 12); TODO re-enable when the document slider functionality is implemented
-      display: inline-block;
-      height: $library-interface-height;
-      overflow: hidden;
-
-      .document {
-        display: inline-table;
-        margin: 0 10px;
-        width: 100px;
-        cursor: pointer;
-
-        img {
-          border: 1px solid $ui-white;
-          height: 118px;
-        }
-
-        p { 
-          font-size: $base-small-font-size;
-          line-height: 14px;
-          margin-top: 4px;
-        }
-      }
-    }
-  }
-
-  &.my-contacts {
-    height: 484px;
-
-    .contact-list {
-      margin-bottom: 0;
-    }
-
-    .card-content {
-      padding: 0;
-    }
-
-    .contact-name {
-      font-weight: bold;
-      margin: 0 0 0 $spacing-small;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-
-    .contact-details {
-      overflow: hidden;
-    }
-
-    .contact-actions {
-
-      i {
-        color: $primary-cta-color;
-      }
-
-      a {
-        text-decoration: none;
-        font-size: $title-font-size-4;
-        color: $default-text-color;
-        display: block;
-        margin-left: 10px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-
-        span {
-          font-size: $base-font-size;
-          color: $default-text-color;
-        }
-      }
-    }
-
-    .avatar {
-      float: left;
-    }
-
-    li {
-      @include pad($spacing-small $spacing-medium);
-      border-bottom: 1px solid $ui-grey;
-      height: 86px;
-
-
-      &:last-child {
-        border-bottom: 0px;
-      }
-    }
-  }
-
-  &.faqs {
-
-    .card-content {
-      padding: 0;
-    }
-
-    li {
-      border-bottom: 1px solid $ui-grey;
-      height: 44px;
-
-      &:last-child {
-        border-bottom: none;
-      }
-    }
-
-    .text {
-      @include span-columns(11 of 12);
-      @include ellipsis;
-      height: 44px;
-      padding: 8px;
-      line-height: 28px;
-      color: $default-text-color;
-    }
-
-    i {
-      @include span-columns(1 of 12);
-      height: 44px;
-      padding-top: 14px;
-      color: $primary-cta-color;
-    }
-  }
-
-  &.how-to {
-    position: relative;
-
-    .card-header {
-      border-bottom: 0px;
-    }
-
-    .how-to-logo {
-      font-style: italic;
-      color: $primary-red;
-      font-size: 10px;
-      position: relative;
-      top: 4px;
-    }
-
-    .favourite-article {
-      float: right;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .view-article {
-      float: right;
-    }
-
-    .hoozzi-logo {
-      width: 48px;
-      float: left;
-      margin-top: -7px;
-      margin-right: 2px;
-    }
-
-    .how-to-title {
-      color: $ui-white;
-      margin-bottom: $spacing-small;
-    }
-
-    &:before {
-      @include trans-to-black(360deg);
-      background-color: transparent;
-      content: '';
-      display: block;
-      width: 100%;
-      height: 60%;
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      border-radius: $border-radius;
-    }
-
-    .card-content {
-      position: absolute;
-      bottom: 0px;
-      width: 100%;
-    }
-  }
+.favourite {
+  float: right;
+  cursor: pointer;
+  position: relative;
 }

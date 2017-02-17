@@ -6,3 +6,23 @@
     background-position: center;
   }
 }
+
+.filter-hero {
+  @include grad-blue-black(135deg, 0.6);
+  height: 100%;
+  overflow: hidden;
+  z-index: 2;
+  padding: 28px;
+}
+
+.hero-text {
+  margin-top: 35px;
+  color: $ui-grey;
+  display: block;
+  text-align: center;
+  opacity: 0.8;
+
+  .secondary {
+    opacity: 0.6;
+  }
+}

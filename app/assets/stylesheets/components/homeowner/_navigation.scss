@@ -41,14 +41,15 @@
       }
 
       a {
-        color: $default-text-color;
+        color: $primary-cta-color;
         font-weight: bold;
         text-decoration: none;
         cursor: pointer;
       }
 
       .active {
-        color: $primary-cta-color;
+        color: $default-text-color;
+        cursor: none;
       }
     }
 
@@ -75,7 +76,7 @@
     }
   }
 
-    #navbar-trigger,
+  #navbar-trigger,
   .navbar-trigger-label {
     display: none;
   }
@@ -98,7 +99,8 @@
 
     .navbar-menu {
       max-height: 0;
-      overflow: hidden;
+      display: none;
+      //max-width: 220px;
 
       ul {
         margin-bottom: 0;
@@ -107,6 +109,7 @@
 
     #navbar-trigger:checked + .navbar-menu {
       max-height: 100%;
+      display: block;
     }
 
     nav {
@@ -120,10 +123,11 @@
         display: block;
         text-align: center;
         width: 100%;
+        background-color: white;
 
         a {
           line-height: 36px;
-          
+          max-width: 200px;
         }
       }
 
@@ -138,10 +142,20 @@
 
     .navbar {
       background-color: $ui-white;
-      width: 100%;
+      //width: 100%;
       position: absolute;
       left: 0;
       top: 60px;
+    }
+
+    .sub-navigation-container {
+      display: none;
+
+      ul {
+        display: block;
+        text-align: center;
+        margin-left: 0;
+      }
     }
   }
 

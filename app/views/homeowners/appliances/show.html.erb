@@ -1,0 +1,70 @@
+<%= render "components/homeowner/brand_template", brand: @brand %>
+
+<%= render "components/homeowner/sub_header", active_tab: "appliances", plot: @plot %>
+
+<div class="homeowner-body">
+  <div class="appliances">
+    <% @appliances.each do | appliance | %>
+        <div class="card appliance brand-content brand-border brand-text">
+          <span class="favourite">
+            <%= fa_icon "heart" %>
+          </span>
+          <div class="third">
+            <% if appliance.primary_image? %>
+              <div class="primary-image">
+                <%= image_tag(appliance.primary_image.url) %>
+              </div>
+            <% else %>
+              <div class="dummy-image">
+                <%= fa_icon "image" %>
+              </div>
+            <% end %>
+            <% if appliance.secondary_image? %>
+              <div class="secondary-image">
+                <%= image_tag(appliance.secondary_image.url) %>
+              </div>
+            <% end %>
+          </div>
+          <div class="third">
+            <div class="category">
+              <%= appliance.appliance_category %>
+            </div>
+            <div class="manufacturer">
+              <%= label_tag(:manufacturer) %>
+              <span><%= appliance&.manufacturer %></span>
+            </div>
+            <div class="model">
+              <%= label_tag(t("appliances.form.model_num")) %>
+              <span><%= appliance.model_num %></span>
+            </div>
+            <div class="warranty">
+              <%= label_tag(t("appliances.form.warranty_length")) %>
+              <span><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length %></span>
+            </div>
+            <div class="e-rating">
+              <%= label_tag(t("appliances.form.e_rating")) %>
+              <% if appliance.e_rating %>
+                <%= image_tag "Hoozzi Energy Rating #{appliance.e_rating.upcase}.svg" %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="third">
+            <div class="description">
+              <%= label_tag(:description) %>
+              <span><%= appliance.description %></span>
+              <br>
+            </div>
+            <div class="manual">
+              <%= label_tag t("appliances.show.documents") %>
+              <% if appliance.manual? %>
+                <%= link_to appliance.manual.url, class: "btn", target: "_blank" do %>
+                  <%= icon "cloud-download" %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

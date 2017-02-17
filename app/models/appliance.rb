@@ -39,10 +39,7 @@ class Appliance < ApplicationRecord
     :a,
     :b,
     :c,
-    :d,
-    :e,
-    :f,
-    :g
+    :d
   ]
 
   def to_s
