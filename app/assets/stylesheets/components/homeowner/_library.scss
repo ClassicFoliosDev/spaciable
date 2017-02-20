@@ -34,7 +34,7 @@
 .documents {
 
   .row {
-    width: 500px;
+    width: 690px;
     margin-left: auto;
     margin-right: auto;
     float: none;
@@ -64,3 +64,18 @@
   }
 }
 
+@include media($tablet-landscape-down) {
+  .documents {
+    .row {
+      width: 530px;
+    }
+  }
+}
+
+@include media($tablet-portrait-down) {
+  .documents {
+    .row {
+      width: 440px;
+    }
+  }
+}

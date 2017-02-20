@@ -1,0 +1,17 @@
+<div class="labels">
+  <div class="finish-image">
+    <%= image_tag finish.picture.thumbnail.url, class: "circle" if finish.picture? %>
+  </div>
+  <div class="label strong">
+    <span><%= finish.finish_category %></span>
+  </div>
+  <div class="label">
+    <span><%= finish.finish_type %></span>
+  </div>
+  <div class="label">
+    <span><%= finish.manufacturer %></span>
+  </div>
+  <div class="label">
+    <span><%= finish.name %></span>
+  </div>
+</div>

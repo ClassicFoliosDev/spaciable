@@ -102,6 +102,18 @@ $card-size: 150px;
   }
 }
 
+.dummy-image {
+  width: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 55%;
+
+  i:before {
+    font-size: 50px;
+    color: $ui-dark-grey;
+  }
+}
+
 .favourite {
   color: #FFCCD5;
   opacity: 0.6;

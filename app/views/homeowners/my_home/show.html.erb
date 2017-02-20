@@ -5,10 +5,42 @@
 <div class="homeowner-body">
   <div class="rooms">
     <% @plot.rooms.each do | room | %>
-      <div class="sixth room brand-content brand-border">
-        <%= fa_icon "bath" %><br>
-        <span class="brand-text"><%= room %></span>
-        <%= link_to t(".view"), "", class: "homeowner-btn alt" %>
+      <div class="room brand-content brand-border">
+        <div class="fifth">
+          <div class="dummy-image">
+            <%= fa_icon "image" %>
+          </div>
+        </div>
+
+        <div class="two-fifths">
+          <span class="brand-text"><%= room %></span>
+          <% room.finishes.each_with_index do | finish, index | %>
+            <% if index.even? %>
+              <%= render "homeowners/components/finish", finish: finish %>
+            <% end %>
+          <% end %>
+          <% room.appliances.each_with_index do | appliance, index | %>
+            <% if index.odd? %>
+              <%= render "homeowners/components/appliance", appliance: appliance %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <div class="second-column two-fifths">
+          <span class="favourite">
+            <%= fa_icon "heart" %>
+          </span>
+          <% room.finishes.each_with_index do | finish, index | %>
+            <% if index.odd? %>
+              <%= render "homeowners/components/finish", finish: finish %>
+            <% end %>
+          <% end %>
+          <% room.appliances.each_with_index do | appliance, index | %>
+            <% if index.even? %>
+              <%= render "homeowners/components/appliance", appliance: appliance %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     <% end %>
   </div>

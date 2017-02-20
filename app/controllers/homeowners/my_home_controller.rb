@@ -6,6 +6,7 @@ module Homeowners
     def show
       @plot = current_resident.plot
       @brand = current_resident.brand
+      @rooms = @plot.rooms
     end
   end
 end

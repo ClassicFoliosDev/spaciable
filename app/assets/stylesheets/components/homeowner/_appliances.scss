@@ -17,6 +17,7 @@ $energy-border-color: #66C3F3;
 .primary-image {
   img {
     max-height: 230px;
+    max-width: 180px;
     margin-top: $spacing-medium;
     margin-left: auto;
     margin-right: auto;
@@ -27,23 +28,8 @@ $energy-border-color: #66C3F3;
 .secondary-image {
   img {
     max-height: 100px;
-    margin-top: $spacing-small;
-    margin-left: auto;
-    margin-right: auto;
+    margin: $spacing-small auto 0;
     display: block;
-  }
-}
-
-.dummy-image {
-  width: 50px;
-  height: 50px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 160px;
-  font-size: 50px;
-
-  i:before {
-    color: $ui-grey;
   }
 }
 
@@ -98,7 +84,7 @@ $energy-border-color: #66C3F3;
 
 @include media($mobile-down) {
   .appliance {
-    height: 170px;
+    width: 220px;
   }
 
   .primary-image {
