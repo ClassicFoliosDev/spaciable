@@ -7,11 +7,14 @@
     <% @plot.rooms.each do | room | %>
       <div class="room brand-content brand-border">
         <div class="fifth">
-          <div class="dummy-image">
-            <%= fa_icon "image" %>
-          </div>
+          <% if room.icon_name %>
+            <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(room.icon_name)) %>)"></div>
+          <% else %>
+            <div class="room-icon">
+              <%= fa_icon "image" %>
+            </div>
+          <% end %>
         </div>
-
         <div class="two-fifths">
           <span class="brand-text"><%= room %></span>
           <% room.finishes.each_with_index do | finish, index | %>

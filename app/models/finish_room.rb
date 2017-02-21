@@ -3,9 +3,9 @@ class FinishRoom < ApplicationRecord
   self.table_name = "finishes_rooms"
 
   belongs_to :finish
-  belongs_to :room
+  belongs_to :room, optional: true
 
-  validates :finish, uniqueness: { scope: :room }
+  validates :finish, uniqueness: { scope: :room }, on: :create
   validates :finish, presence: true
   validates :room, presence: true
 end

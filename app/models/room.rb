@@ -10,6 +10,15 @@ class Room < ApplicationRecord
   alias parent unit_type
   include InheritParentPermissionIds
 
+  enum icon_name: [
+    :bedroom,
+    :bathroom,
+    :kitchen,
+    :living_room,
+    :dining_room,
+    :study
+  ]
+
   has_many :finish_rooms
   has_many :finishes, through: :finish_rooms
 

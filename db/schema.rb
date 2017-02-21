@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216170200) do
+ActiveRecord::Schema.define(version: 20170220121626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20170216170200) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -380,6 +381,7 @@ ActiveRecord::Schema.define(version: 20170216170200) do
     t.integer  "division_id"
     t.integer  "development_id"
     t.datetime "deleted_at"
+    t.integer  "icon_name"
     t.index ["deleted_at"], name: "index_rooms_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_rooms_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_rooms_on_development_id", using: :btree

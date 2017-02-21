@@ -18,6 +18,12 @@
         <%= f.input :name %>
       </fieldset>
     </div>
+
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :icon_name, as: :select, collection: icon_names_collection, include_blank: true %>
+      </fieldset>
+    </div>
   </div>
 
   <div class="form-actions-footer-container">

@@ -102,12 +102,7 @@ class RoomsController < ApplicationController
     params.require(:room).permit(
       :name,
       :unit_type_id,
-      appliance_ids: [],
-      finishes_attributes: [
-        :id, :room_id, :name, :description, :picture_cache,
-        :finish_category_id, :finish_type_id, :manufacturer_id,
-        :picture, :_destroy
-      ]
+      :icon_name
     )
   end
 end

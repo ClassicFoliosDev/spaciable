@@ -1,3 +1,5 @@
+$icon-color: #252C31;
+
 .homeowner-body {
   .rooms {
     width: 800px;
@@ -11,8 +13,14 @@
     padding-right: $spacing-small / 2;
     padding-left: $spacing-small / 2;
 
-    .dummy-image {
-      margin-top: 20px;
+    .room-icon {
+      margin-left: $spacing-large;
+
+      i:before {
+        color: $icon-color;
+        font-size: 30px;
+        padding: 7px;
+      }
     }
 
     .finish-image {

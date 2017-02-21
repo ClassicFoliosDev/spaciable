@@ -56,7 +56,10 @@ When(/^I update the room$/) do
 
   fill_in "room[name]", with: RoomFixture.updated_room_name
 
-  click_on t("unit_types.form.submit")
+  select t("activerecord.attributes.room.icon_names.dining_room"),
+         from: "room[icon_name]"
+
+  click_on t("rooms.form.submit")
 end
 
 Then(/^I should see the updated room$/) do
@@ -68,6 +71,11 @@ Then(/^I should see the updated room$/) do
   expect(page).to have_content(success_flash)
   within ".section-title" do
     expect(page).to have_content(RoomFixture.updated_room_name)
+  end
+
+  within ".section-data" do
+    image_div = page.find(".room-icon")
+    expect(image_div["style"]).to have_content("Hoozzi_icon_dining_room")
   end
 end
 

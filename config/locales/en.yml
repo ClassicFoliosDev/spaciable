@@ -834,6 +834,14 @@ en:
       room:
         name: "Room Name"
         updated_at: "Last edited"
+        icon_names:
+           # Icon name enums for room
+           bedroom: "Bedroom"
+           bathroom: "Bathroom"
+           kitchen: "Kitchen"
+           dining_room: "Dining room"
+           living_room: "Living room"
+           study: "Study"
       finish:
         name: "Name"
         type: "Finish type"
