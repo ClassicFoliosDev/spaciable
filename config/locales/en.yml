@@ -484,8 +484,10 @@ en:
       success: "%{phase_name} was updated successfully"
 
   plots:
+    bulk:
+      succeeded: "%{title} %{plot_numbers} with a prefix of '%{plot_prefix}'"
     create:
-      success: "%{plot_name} was created successfully"
+      success: "Plots %{plots} were created successfully"
     destroy:
       success: "%{plot_name} was deleted successfully"
     edit:
@@ -502,7 +504,7 @@ en:
     update:
       success: "%{plot_name} was updated successfully"
     collection:
-      add: "Add plot"
+      add: "Add plots"
       rooms: "Rooms"
       plot_residency: "Residents"
       unit_type: "Unit type"

@@ -24,7 +24,7 @@ When(/^I create a plot for the phase$/) do
 
   click_on t("plots.collection.add")
 
-  fill_in "plot_number", with: PhasePlotFixture.plot_number
+  fill_in "plot_list", with: PhasePlotFixture.plot_number
   click_on t("plots.form.submit")
 end
 
@@ -50,13 +50,9 @@ When(/^I update the phase plot$/) do
 end
 
 Then(/^I should see the updated phase plot$/) do
-  # On the index page
   within ".record-list" do
-    expect(page).to have_content(PhasePlotFixture.updated_plot_name)
+    click_on PhasePlotFixture.plot_name
   end
-
-  # and on the show page
-  click_on PhasePlotFixture.updated_plot_name
 
   within ".section-title" do
     expect(page).to have_content(PhasePlotFixture.update_attrs[:prefix])
@@ -65,6 +61,7 @@ Then(/^I should see the updated phase plot$/) do
 
   within ".section-data" do
     expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
+    expect(page).to have_content(PhasePlotFixture.updated_house_number)
     expect(page).to have_content(PhasePlotFixture.plot_building_name)
     expect(page).to have_content(PhasePlotFixture.plot_road_name)
     expect(page).to have_content(PhasePlotFixture.plot_postcode)
@@ -105,7 +102,7 @@ end
 Then(/^I should see that the phase plot deletion completed successfully$/) do
   success_flash = t(
     "plots.destroy.success",
-    plot_name: PhasePlotFixture.updated_plot_name
+    plot_name: PhasePlotFixture.plot_name
   )
   expect(page).to have_content(success_flash)
 
@@ -114,7 +111,7 @@ Then(/^I should see that the phase plot deletion completed successfully$/) do
   end
 
   within ".record-list" do
-    expect(page).not_to have_content PhasePlotFixture.updated_plot_name
+    expect(page).not_to have_content PhasePlotFixture.plot_name
   end
 end
 
@@ -152,7 +149,7 @@ Given(/^I have created a plot for the phase$/) do
   click_on t("plots.collection.add")
 
   fill_in "plot_prefix", with: PlotFixture.update_attrs[:prefix]
-  fill_in "plot_number", with: PlotFixture.updated_plot_number
+  fill_in "plot_list", with: PlotFixture.plot_number
   click_on t("phases.form.submit")
 end
 

@@ -33,22 +33,18 @@ module PlotFixture
   end
 
   def plot_id
-    development.plots.find_by(prefix: "Plot", number: 42).id
+    development.plots.find_by(prefix: "Plot", number: plot_number).id
   end
 
   def plot_name
     "1"
   end
 
-  def updated_plot_name
-    "Plot 42"
-  end
-
   def plot_number
     "1"
   end
 
-  def updated_plot_number
+  def updated_house_number
     "42"
   end
 
@@ -71,8 +67,8 @@ module PlotFixture
   def update_attrs
     {
       prefix: "Plot",
-      number: updated_plot_number,
-      house_number: plot_house_number,
+      list: plot_number,
+      house_number: updated_house_number,
       building_name: plot_building_name,
       road_name: plot_road_name,
       postcode: plot_postcode

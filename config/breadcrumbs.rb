@@ -231,24 +231,19 @@ crumb :plots do |plot_parent|
   end
 end
 
-crumb :phase_plot do |plot|
-  link plot
-  parent :phase, plot.phase
-end
-
 crumb :plot do |plot|
   link plot, plot
-  parent :development, plot.development
+  parent :plots, plot.parent
 end
 
 crumb :plot_edit do |plot|
-  link t("breadcrumbs.plot_edit", plot_name: plot)
-  parent :plots, plot.development
+  link t("breadcrumbs.plot_edit", plot_name: plot), [:edit, plot]
+  parent :plots, plot.parent
 end
 
-crumb :plot_new do |plot, development, developer|
-  link t("breadcrumbs.plot_add")
-  parent :plots, plot, development, developer
+crumb :plot_new do |plot|
+  link t("breadcrumbs.plot_add"), [:new, plot.parent, :plot]
+  parent :plots, plot.parent
 end
 
 # PLOT RESIDENCIES

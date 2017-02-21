@@ -18,7 +18,7 @@
       <dd class="record-list-item" data-plot="<%= plot.id %>">
         <div class="record-list-item-actions">
           <%= edit_btn [:edit, plot], element: plot %>
-          <%= delete_btn plot, path: plot_path(plot), element: plot %>
+          <%= delete_btn plot, path: url_for(plot), element: plot %>
         </div>
         <div class="record-list-item-content">
           <%= link_to_unless (cannot? :read, plot), plot, plot, title: plot %>

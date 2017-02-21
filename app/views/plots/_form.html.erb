@@ -1,8 +1,8 @@
-<%= simple_form_for([parent, plot]) do |f| %>
-  <% if plot.errors.any? %>
+<%= simple_form_for([parent, plots]) do |f| %>
+  <% if plots.errors.any? %>
     <div class="submission-errors">
       <ul>
-        <% plot.errors.full_messages.each do |message| %>
+        <% plots.errors.full_messages.each do |message| %>
           <li>
             <%= fa_icon "exclamation-circle" %>
             <%= message %>
@@ -15,13 +15,15 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :prefix %>
-        <%= f.input :number, as: :integer %>
+        <%= f.input :range_from, as: :integer, placeholder: "Range from", label: "Add Plots by range" %>
+        <%= f.input :range_to, as: :integer, placeholder: "Range to", label: false %>
+        <%= f.input :list, as: :text, label: "Add Plots by List", hint: "Seperated by commas e.g. '1,2,5,10,15" %>
       </fieldset>
     </div>
 
     <div class="row-item third">
       <fieldset>
-        <%= f.association :unit_type, as: :select, collection: plot.unit_types.pluck(:name, :id) %>
+        <%= f.association :unit_type, as: :select, collection: plots.unit_types.pluck(:name, :id) %>
       </fieldset>
     </div>
 
@@ -41,7 +43,7 @@
       <% if parent %>
         <%= link_to t(".back"), [parent, :plots], class: "btn" %>
       <% else %>
-        <%= link_to t(".back"), plot, class: "btn" %>
+        <%= link_to t(".back"), [plots.parent, :plots], class: "btn" %>
       <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
