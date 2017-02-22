@@ -87,13 +87,13 @@ module PhasePlotFixture
   end
 
   def plot
-    phase.plots.find_by(prefix: update_attrs[:prefix], number: update_attrs[:list])
+    phase.plots.find_by(prefix: update_attrs[:prefix], number: update_attrs[:number])
   end
 
   def update_attrs
     {
       prefix: "Plot",
-      list: plot_number,
+      number: plot_number,
       house_number: updated_house_number,
       building_name: plot_building_name,
       road_name: plot_road_name,

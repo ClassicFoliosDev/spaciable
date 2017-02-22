@@ -26,7 +26,6 @@ end
 
 Then(/^I should see the created plot$/) do
   expect(page).to have_content(PlotFixture.developer_name)
-
   click_on PlotFixture.plot_name
 
   expect(page).to have_content(PlotFixture.plot_number)

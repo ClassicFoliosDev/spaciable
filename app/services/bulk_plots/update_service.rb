@@ -7,25 +7,43 @@ module BulkPlots
 
       if block_given?
         service.update(params)
-        block.call(service, service.numbers, service.errors)
+        block.call(service, service.successful_numbers, service.errors)
       end
 
       service
     end
 
     def update(plot_params)
-      plot_params = plot_params.to_h.symbolize_keys
-      update_plot_numbers(plot_params)
-      update_attributes = bulk_attributes(plot_params)
+      self.params = plot_params.to_h.symbolize_keys
 
-      return no_numbers_error if numbers.empty?
+      if any_bulk_attrs?
+        update_plot_numbers
+        return no_numbers_error if numbers.empty?
 
-      update_attributes.map do |attrs|
-        update_existing_plots(attrs)
-      end.any?
+        bulk_attributes(params).map do |attrs|
+          update_existing_plots(attrs)
+        end.any?
+      else
+        bulk_attr_keys.each { |attr| params.delete(attr) }
+        base_plot.update(params)
+      end
+    end
+
+    def successful_numbers
+      return Array(base_plot.number) unless any_bulk_attrs?
+
+      numbers - @errors.map(&:number).map(&:to_i)
     end
 
     protected
+
+    def any_bulk_attrs?
+      params.values_at(*bulk_attr_keys).any?(&:present?)
+    end
+
+    def bulk_attr_keys
+      [:range_from, :range_to, :list]
+    end
 
     BulkUpdatePlotsModel = Class.new(Plot) do
       delegate :model_name, to: :Plot
@@ -40,23 +58,23 @@ module BulkPlots
       BulkUpdatePlotsModel
     end
 
-    def update_plot_numbers(plot_params)
-      collection.assign_attributes(plot_params)
+    def update_plot_numbers
+      collection.assign_attributes(params)
       set_numbers
     end
 
     def update_existing_plots(attrs)
-      updated_plot = Plot.find_by(number: attrs[:number], prefix: params[:prefix])
+      updated_plots = plots_scope.where(number: attrs[:number])
                        &.update(attrs)
 
-      add_update_error(attrs[:number], attrs[:prefix]) unless updated_plot
+      add_update_error(attrs[:number]) if updated_plots.empty?
 
-      updated_plot
+      updated_plots
     end
 
-    def add_update_error(number, prefix)
+    def add_update_error(number)
       error_plot = Plot.new(number: number)
-      error_plot.errors.add(:number, "not found with a prefix of '#{prefix}'")
+      error_plot.errors.add(:base, :missing)
       @errors << error_plot
     end
   end

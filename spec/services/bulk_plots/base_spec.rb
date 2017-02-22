@@ -11,14 +11,6 @@ RSpec.describe BulkPlots::Base do
 
       expect(result.development_id).to eq(development.id)
     end
-
-    it "should populate the list field if a plot with a number is supplied" do
-      plot = create(:plot, number: 5)
-
-      result = described_class.call(plot).collection
-
-      expect(result.list).to eq("5")
-    end
   end
 
   describe "#plots" do

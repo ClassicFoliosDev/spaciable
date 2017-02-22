@@ -13,18 +13,69 @@ RSpec.describe BulkPlots::UpdateService do
       expect(plot.reload.house_number).to eq(params[:house_number])
       expect(plot_without_prefix.reload.house_number).to eq("70")
     end
+
+    it "should update all of the unit type associations" do
+      development = create(:development)
+      plot1 = create(:plot, prefix: "Marsh", number: 1, unit_type: nil, development: development)
+      plot2 = create(:plot, prefix: "Marsh", number: 2, unit_type: nil, development: development)
+      plot3 = create(:plot, prefix: "Marsh", number: 3, unit_type: nil, development: development)
+
+      unit_type = create(:unit_type, development: plot1.development)
+      params = { range_from: "1", range_to: "5", list: "2", prefix: "Marsh", unit_type_id: unit_type.id }
+
+      described_class.call(plot1).update(params)
+
+      expect(plot1.reload.unit_type_id).to eq(unit_type.id)
+      expect(plot2.reload.unit_type_id).to eq(unit_type.id)
+      expect(plot3.reload.unit_type_id).to eq(unit_type.id)
+    end
+  end
+
+  context "when supplied with a number field" do
+    it "should update the base plots number" do
+      plot = create(:plot, number: 5)
+      params = { number: 10 }
+
+      described_class.call(plot).update(params)
+
+      expect(plot.reload.number).to eq(params[:number])
+    end
+  end
+
+  context "when plots accross developments share the same prefix" do
+    it "should not update the other developments plots" do
+      plot1 = create(:plot, prefix: "Marsh", number: 1, development: create(:development))
+      plot2 = create(:plot, prefix: "Marsh", number: 2, development: create(:development))
+
+      params = { range_from: "1", range_to: "2", prefix: "Marsh", house_number: "100" }
+
+      described_class.call(plot1).update(params)
+
+      expect(plot1.reload.house_number).to eq("100")
+      expect(plot2.reload.house_number).not_to eq("100")
+    end
   end
 
   context "when some of the plots to be updated do not exist" do
     it "should return the missing plot numbers" do
       params = { range_from: 1, range_to: 5, prefix: "Hilltop" }
       plot = create(:plot, number: 1, prefix: "Hilltop")
-      service = described_class.call(plot)
 
-      expect { service.update(params) }.not_to change(Plot, :count)
+      described_class.call(plot, params: params) do |service, _, _|
+        error = "Plots 2, 3, 4, and 5 could not be saved: Plot not found"
 
-      error = "Plots 2, 3, 4, and 5 could not be saved: Plot number not found with a prefix of 'Hilltop'"
-      expect(service.errors).to include(error)
+        expect(service.errors).to include(error)
+      end
+    end
+
+    it "should not say the missing numbers have been updated" do
+      params = { range_from: 2, range_to: "5", list: "2", prefix: "Hilltop" }
+      plot1 = create(:plot, number: 2, prefix: "Hilltop")
+      create(:plot, number: 3, prefix: "Hilltop", development: plot1.development)
+
+      described_class.call(plot1, params: params) do |service, _, _|
+        expect(service.succeeded).to eq("Plots 2 and 3")
+      end
     end
   end
 

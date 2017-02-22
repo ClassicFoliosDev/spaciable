@@ -30,7 +30,7 @@ module BulkPlots
     end
 
     def save_new_plot(attrs)
-      new_plot = Plot.find_or_initialize_by(number: attrs[:number], prefix: attrs[:prefix])
+      new_plot = plots_scope.find_or_initialize_by(number: attrs[:number])
       new_plot.assign_attributes(attrs)
 
       saved = new_plot.save

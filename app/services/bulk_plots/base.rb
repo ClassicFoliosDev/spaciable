@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 module BulkPlots
   class Base
-    def initialize(params:, numbers: nil)
+    def initialize(plot, params:, numbers: nil)
+      @base_plot = plot
       @params = params
       @collection = collection_model.new(params)
       @numbers = numbers || set_numbers
       @errors = []
     end
-    attr_accessor :collection, :params, :numbers, :errors
+    attr_accessor :collection, :params, :numbers, :errors, :base_plot
 
     BulkPersistPlotsModel = Class.new(Plot) do
       attr_accessor :range_from, :range_to, :list
@@ -21,9 +22,9 @@ module BulkPlots
       params = params.to_h.symbolize_keys
 
       if plot
-        service.new params: build_attrs(plot, params)
+        service.new(plot, params: build_attrs(plot, params))
       else
-        service.new params: params
+        service.new(plot, params: params)
       end
     end
 
@@ -31,10 +32,7 @@ module BulkPlots
       base_attrs = plot.attributes.select { |_, value| value.present? }.symbolize_keys
       base_attrs.merge!(params)
 
-      if plot.persisted?
-        base_attrs[:list] = plot.number.to_s
-        base_attrs[:prefix] = plot.prefix
-      end
+      base_attrs[:number] = plot.number if plot.persisted?
 
       base_attrs
     end
@@ -50,13 +48,11 @@ module BulkPlots
     end
 
     def succeeded
-      persisted_numbers = numbers - @errors.map(&:number)
+      persisted_numbers = successful_numbers
       digits = persisted_numbers.to_sentence
 
       I18n.t("plots.bulk.succeeded",
-             title: model_title(persisted_numbers),
-             plot_numbers: digits,
-             plot_prefix: collection.prefix)
+             plot_numbers: digits, count: persisted_numbers.count)
     end
 
     def bulk_attributes(plot_params = params)
@@ -74,6 +70,10 @@ module BulkPlots
     def model_title(collection = [])
       count = collection.count
       Plot.model_name.human.pluralize(count)
+    end
+
+    def plots_scope
+      base_plot.parent.plots
     end
 
     private

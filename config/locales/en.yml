@@ -485,9 +485,13 @@ en:
 
   plots:
     bulk:
-      succeeded: "%{title} %{plot_numbers} with a prefix of '%{plot_prefix}'"
+      succeeded:
+        one: "Plot %{plot_numbers}"
+        other: "Plots %{plot_numbers}"
     create:
-      success: "Plots %{plots} were created successfully"
+      success:
+        one: "Plot %{plots} was created successfully"
+        other: "Plots %{plots} were created successfully"
     destroy:
       success: "%{plot_name} was deleted successfully"
     edit:
@@ -497,12 +501,15 @@ en:
       address: "Plot address"
       submit: "Submit"
       back: "Back"
+      optional_range_hint: "Optionally, choose a range or list of plots to apply the prefix, unit type and address updates to:"
     index:
       title: "%{parent_name} Plots"
     new:
       title: "New %{parent} plot"
     update:
-      success: "%{plot_name} was updated successfully"
+      success:
+        one: "Plot %{plot_name} was updated successfully"
+        other: "Plots %{plot_name} were updated successfully"
     collection:
       add: "Add plots"
       rooms: "Rooms"
@@ -985,6 +992,10 @@ en:
             base:
               email_or_phone_required: "You must provide either an email address or a contact number"
               name_or_organisation_required: "You must provide either a contact name or an organisation name"
+        plot:
+          attributes:
+            base:
+              missing: "Plot not found"
         plot_residency:
           attributes:
             email:

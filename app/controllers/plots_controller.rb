@@ -34,7 +34,7 @@ class PlotsController < ApplicationController
   def create
     BulkPlots::CreateService.call(@plot, params: plot_params) do |service, created_plots, errors|
       if created_plots.any?
-        notice = t(".success", plots: created_plots.to_sentence)
+        notice = t(".success", plots: created_plots.to_sentence, count: created_plots.count)
 
         redirect_to [@parent, :plots], notice: notice, alert: errors
       else
@@ -49,7 +49,7 @@ class PlotsController < ApplicationController
   def update
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
       if updated_plots.any?
-        notice = t(".success", plot_name: updated_plots.to_sentence)
+        notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
 
         redirect_to [@parent, :plots], notice: notice, alert: errors
       else
@@ -83,6 +83,7 @@ class PlotsController < ApplicationController
   def plot_attributes
     [
       :prefix,
+      :number,
       :unit_type_id,
       :house_number,
       :road_name,

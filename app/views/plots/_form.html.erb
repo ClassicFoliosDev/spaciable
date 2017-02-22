@@ -15,6 +15,15 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :prefix %>
+
+        <% if f.object.persisted? %>
+          <%= f.input :number, as: :integer %>
+
+          <hr>
+
+          <span class="hint range-hint"><%= t(".optional_range_hint") %></span>
+        <% end %>
+
         <%= f.input :range_from, as: :integer, placeholder: "Range from", label: "Add Plots by range" %>
         <%= f.input :range_to, as: :integer, placeholder: "Range to", label: false %>
         <%= f.input :list, as: :text, label: "Add Plots by List", hint: "Seperated by commas e.g. '1,2,5,10,15" %>
