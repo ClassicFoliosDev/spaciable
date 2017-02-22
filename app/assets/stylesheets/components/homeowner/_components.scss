@@ -1,4 +1,4 @@
-.homeowner-btn {
+.branded-btn {
   color: $ui-white;
   background-color: $primary-cta-color;
   border-color: $ui-white;
@@ -9,14 +9,14 @@
   display: inline-block;
 }
 
-.homeowner-btn.alt {
+.branded-btn.alt {
   border-color: $primary-cta-color;
   background-color: $ui-white;
   color: $primary-cta-color;
   font-size: $base-small-font-size;
 }
 
-.homeowner-btn.second {
+.branded-btn.second {
   background-color: $secondary-cta-color;
   border-color: $ui-white;
   color: $ui-white;

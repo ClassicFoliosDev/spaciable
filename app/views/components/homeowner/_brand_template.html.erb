@@ -1,54 +1,54 @@
 <style>
 
-  <% if brand.bg_color? %>
-    .homeowner-body {
-      background-color: <%= brand.bg_color %>;
+  <% if brand.branded_bg_color.present? %>
+    .branded-body {
+      background-color: <%= brand.branded_bg_color %>;
     }
   <% end %>
 
-  <% if brand.text_color? %>
-    .brand-text {
-      color: <%= brand.text_color %>;
+  <% if brand.branded_text_color.present? %>
+    .branded-text {
+      color: <%= brand.branded_text_color %>;
     }
   <% end %>
 
-  <% if brand.content_bg_color? %>
-    .brand-content {
-      background-color: <%= brand.content_bg_color %>;
+  <% if brand.branded_content_bg_color.present? %>
+    .branded-content {
+      background-color: <%= brand.branded_content_bg_color %>;
     }
   <% end %>
 
-  <% if brand.content_text_color? %>
-  .brand-border {
-     border-color: <%= brand.content_text_color %>;
+  <% if brand.branded_content_text_color.present? %>
+  .branded-border {
+     border-color: <%= brand.branded_content_text_color %>;
   }
   <% end %>
 
-  <% if brand.button_color? %>
-    .homeowner-btn {
-      background-color: <%= brand.button_color %>;
+  <% if brand.branded_button_color.present? %>
+    .branded-btn {
+      background-color: <%= brand.branded_button_color %>;
     }
 
-    .homeowner-btn.alt {
+    .branded-btn.alt {
       border-color: <%= brand.button_color %>;
-      color: <%= brand.button_color %>;
+      color: <%= brand.branded_button_color %>;
     }
   <% end %>
 
-  <% if brand.button_text_color? %>
-    .homeowner-btn {
-      color: <%= brand.button_text_color %>;
-      border-color: <%= brand.button_text_color %>;
+  <% if brand.branded_button_text_color.present? %>
+    .branded-btn {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
     }
 
-    .homeowner-btn.alt {
-      background-color: <%= brand.button_text_color %>;
+    .branded-btn.alt {
+      background-color: <%= brand.branded_button_text_color %>;
     }
   <% end %>
 
-  <% if brand.banner? %>
-    .brand-hero {
-      background-image: url(<%= brand.banner.url&.html_safe %>);
+  <% if brand.branded_banner.present? %>
+    .branded-hero {
+      background-image: url(<%= brand.branded_banner&.html_safe %>);
     }
   <% end %>
 

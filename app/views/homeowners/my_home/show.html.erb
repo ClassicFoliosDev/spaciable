@@ -2,10 +2,10 @@
 
 <%= render "components/homeowner/sub_header", active_tab: "rooms", plot: @plot %>
 
-<div class="homeowner-body">
+<div class="branded-body">
   <div class="rooms">
     <% @plot.rooms.each do | room | %>
-      <div class="room brand-content brand-border">
+      <div class="room branded-content branded-border">
         <div class="fifth">
           <% if room.icon_name %>
             <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(room.icon_name)) %>)"></div>
@@ -16,7 +16,7 @@
           <% end %>
         </div>
         <div class="two-fifths">
-          <span class="brand-text"><%= room %></span>
+          <span class="branded-text"><%= room %></span>
           <% room.finishes.each_with_index do | finish, index | %>
             <% if index.even? %>
               <%= render "homeowners/components/finish", finish: finish %>
@@ -30,9 +30,6 @@
         </div>
 
         <div class="second-column two-fifths">
-          <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
           <% room.finishes.each_with_index do | finish, index | %>
             <% if index.odd? %>
               <%= render "homeowners/components/finish", finish: finish %>

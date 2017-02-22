@@ -123,6 +123,10 @@ module CreateFixture
     FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
   end
 
+  def create_division_development_unit_type
+    FactoryGirl.create(:unit_type, name: unit_type_name, development: division_development)
+  end
+
   def create_room
     FactoryGirl.create(:room, name: room_name, unit_type: unit_type)
   end

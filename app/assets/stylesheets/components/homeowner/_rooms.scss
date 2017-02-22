@@ -1,6 +1,6 @@
 $icon-color: #252C31;
 
-.homeowner-body {
+.branded-body {
   .rooms {
     width: 800px;
     margin-left: auto;
@@ -17,7 +17,7 @@ $icon-color: #252C31;
       margin-left: $spacing-large;
 
       i:before {
-        color: $icon-color;
+        color: $type-grey;
         font-size: 30px;
         padding: 7px;
       }
@@ -54,7 +54,7 @@ $icon-color: #252C31;
 }
 
 @include media($tablet-landscape-down) {
-  .homeowner-body {
+  .branded-body {
     .rooms {
       width: 480px;
     }
@@ -70,7 +70,7 @@ $icon-color: #252C31;
 }
 
 @include media($mobile-down) {
-  .homeowner-body {
+  .branded-body {
     .rooms {
       width: 280px;
 

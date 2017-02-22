@@ -25,4 +25,55 @@ RSpec.describe Brand do
       end
     end
   end
+
+  describe "#branded_text_color" do
+    it "should use the text color on the brand" do
+      white = "#FFFFFF"
+      brand = create(:brand, text_color: white)
+
+      expect(brand.branded_text_color).to eq(white)
+    end
+
+    context "brand is blank but parent brand is not" do
+      it "should use the text_color from the parent brand" do
+        white = "#FFFFFF"
+        development = create(:development)
+        phase = create(:phase, development: development)
+
+        brand = create(:brand, text_color: nil, brandable: phase)
+        parent_brand = create(:brand, text_color: white, brandable: development)
+
+        expect(brand.branded_text_color).to eq(parent_brand.branded_text_color)
+      end
+    end
+
+    context "brand is blank but parent parent brand is not" do
+      it "should use the text_color from the parent brand" do
+        white = "#FFFFFF"
+        developer = create(:developer)
+        development = create(:development, developer: developer)
+        phase = create(:phase, development: development)
+
+        brand = create(:brand, text_color: nil, brandable: phase)
+        create(:brand, text_color: nil, brandable: development)
+        parent_parent_brand = create(:brand, text_color: white, brandable: developer)
+
+        expect(brand.branded_text_color).to eq(parent_parent_brand.branded_text_color)
+      end
+    end
+
+    context "brand and all parent brands are blank" do
+      it "should return the default brand color" do
+        developer = create(:developer)
+        development = create(:development, developer: developer)
+        phase = create(:phase, development: development)
+
+        brand = create(:brand, text_color: nil, brandable: phase)
+        create(:brand, text_color: nil, brandable: development)
+        create(:brand, text_color: nil, brandable: developer)
+
+        expect(brand.branded_text_color).to eq(nil)
+      end
+    end
+  end
 end

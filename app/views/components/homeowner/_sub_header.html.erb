@@ -1,6 +1,6 @@
 <nav class="sub-navigation-container">
   <div class="nav-inner">
-    <h3 class="brand-text"><%= t('.title') %></h3>
+    <h3 class="branded-text"><%= t('.title') %></h3>
     <ul>
       <li class="navbar-item"><%= link_to t(".rooms"), homeowner_my_home_path, active_tab: "rooms", class: (active_tab == "rooms"? "active": "") %></li>
       <li class="navbar-item"><%= link_to t(".appliances"), homeowner_appliances_path, active_tab: "appliances", class: (active_tab == "appliances"? "active": "") %></li>
@@ -10,7 +10,7 @@
   </div>
 </nav>
 
-<div class="hero">
+<div class="branded-hero">
   <div class="filter-hero">
     <div class="hero-text">
       <% if active_tab == "library" %>

@@ -1,4 +1,4 @@
-Feature: Homeowner MyHome
+Feature: Homeowner Appliances
   As a homeowner
   I want to log into Hoozzi
   To look at the configuration of my home appliances

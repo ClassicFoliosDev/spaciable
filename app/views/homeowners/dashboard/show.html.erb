@@ -1,7 +1,7 @@
 <%= render "components/homeowner/brand_template", brand: @brand %>
 
-<div class="hero"></div>
-<div class="homeowner-body">
+<div class="branded-hero"></div>
+<div class="outer-container branded-body">
   <div class="row card-container">
     <div class="card half my-home black-show-left">
       <div class="card-header">
@@ -22,11 +22,11 @@
       </div>
     </div>
 
-    <div class="card half my-library brand-content brand-border">
-      <div class="card-header brand-border">
-        <h2 class="card-title brand-text"><%= t('homeowner.dashboard.cards.library.title') %></h2>
+    <div class="card half my-library branded-content branded-border">
+      <div class="card-header branded-border">
+        <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.library.title') %></h2>
         <span class="card-action">
-          <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'homeowner-btn alt right' %>
+          <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'branded-btn alt right' %>
         </span>
       </div>
 
@@ -74,17 +74,17 @@
   </div>
   <div class="row card-container">
     <!--CONTACTS-->
-    <div class="card quarter my-contacts brand-content brand-border ">
+    <div class="card quarter my-contacts branded-content branded-border ">
       <div class="card-header">
-        <h2 class="card-title brand-text"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
+        <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
         <span class="card-action">
-          <a href="" class="homeowner-btn alt right"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
+          <a href="" class="branded-btn alt right"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
         </span>
       </div>
       <div class="card-content">
         <ul class="contact-list">
           <li>
-            <div class="contact brand-border">
+            <div class="contact branded-border">
               <div class="avatar">
                 <img src="https://s-media-cache-ak0.pinimg.com/236x/c3/75/8a/c3758a4f3974b2d2216eccbaf3305c92.jpg">
               </div>
@@ -102,7 +102,7 @@
             </div>
           </li>
           <li>
-            <div class="contact brand-border">
+            <div class="contact branded-border">
               <div class="avatar">
                 <img src="http://grsf.org/wp-content/uploads/2016/05/Taylor-Harvey-headshot-square.jpg">
               </div>
@@ -120,7 +120,7 @@
             </div>
           </li>
           <li>
-            <div class="contact brand-border">
+            <div class="contact branded-border">
               <div class="avatar">
                 <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e4eee4b0ec881d797cd5/1440016010806/Ariel+Tharpe+Headshot+Square.png?format=300w">
               </div>
@@ -138,12 +138,12 @@
             </div>
           </li>
           <li>
-            <div class="contact brand-border">
+            <div class="contact branded-border">
               <div class="avatar">
                 <img src="http://www.quindry.com/wp-content/gallery/people/corporate-headshot-Philadelphia-36-Square.jpg">
               </div>
               <div class="contact-details">
-                <span class="brand-text">Clive Dodson</span>
+                <span class="branded-text">Clive Dodson</span>
                 <div class="contact-actions">
                   <a href="">
                     <span><%= fa_icon "phone" %> 01234 567890</span>
@@ -156,7 +156,7 @@
             </div>
           </li>
           <li>
-            <div class="contact brand-border">
+            <div class="contact branded-border">
               <div class="avatar">
                 <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e527e4b00f3b16d060d6/1440016045882/Daley+Browning+Headshot+Square.jpg?format=300w">
               </div>
@@ -179,36 +179,36 @@
       </div>
     </div>
     <!--FAQs-->
-    <div class="card quarter faqs brand-content brand-border ">
+    <div class="card quarter faqs branded-content branded-border ">
       <div class="card-header">
-        <h3 class="card-title brand-text">
+        <h3 class="card-title branded-text">
           <%= t('homeowner.dashboard.cards.faqs.title') %>
         </h3>
         <span class="card-action">
-          <a href="" class="homeowner-btn alt right"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
+          <a href="" class="branded-btn alt right"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
         </span>
       </div>
       <div class="card-content">
         <ul class="faq-list">
-          <li class="brand-border">
+          <li class="branded-border">
             <a href="">
               <span class="text">Where can I find information on how to look after my home's finishes?</span>
               <%= fa_icon "chevron-right" %>
             </a>
           </li>
-          <li class="brand-border">
+          <li class="branded-border">
             <a href="">
               <span class="text">Are there any restrictions to attaching wall or floor fixings?</span>
               <%= fa_icon "chevron-right" %>
             </a>
           </li>
-          <li class="brand-border">
+          <li class="branded-border">
             <a href="">
               <span class="text">What should I do if I have no heating or hot water?</span>
               <%= fa_icon "chevron-right" %>
             </a>
           </li>
-          <li class="brand-border">
+          <li class="branded-border">
             <a href="">
               <span class="text">How can I protect my new carpet?</span>
               <%= fa_icon "chevron-right" %>
@@ -220,67 +220,52 @@
     <!-- ARTICLES -->
     <div class="card quarter how-to black-show-through" style="background-image: url('http://www.staffordshirefire.gov.uk/Images/winter_home_safety_510x244.jpg')">
       <div class="card-header">
-         <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
       </div>
       <div class="card-content">
         <h3 class="how-to-title">Warmer This Winter</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="homeowner-btn second view-article">View Article</a>
+        <a href="" class="branded-btn second view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to black-show-through" style="background-image: url('http://www.thehandmadehome.net/storage/storage_stairs_168f038-168f03g.jpg?__SQUARESPACE_CACHEVERSION=1290105095432')">
       <div class="card-header">
-          <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
       </div>
       <div class="card-content">
         <h3 class="how-to-title">Clever Storage Solutions</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="homeowner-btn second view-article">View Article</a>
+        <a href="" class="branded-btn second view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to black-show-through" style="background-image: url('http://www.local-ad.co.uk/wp-content/uploads/2016/05/garden.jpg')">
       <div class="card-header">
-         <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
       </div>
       <div class="card-content">
         <h3 class="how-to-title">Summer Ready Garden</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="homeowner-btn second view-article">View Article</a>
+        <a href="" class="branded-btn second view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to black-show-through" style="background-image: url('http://cdn.home-designing.com/wp-content/uploads/2015/11/ultra-luxurious-modern-interior.jpg')">
       <div class="card-header">
-         <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
       </div>
       <div class="card-content">
         <h3 class="how-to-title">The Modern Touch</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="homeowner-btn second view-article">View Article</a>
+        <a href="" class="branded-btn second view-article">View Article</a>
       </div>
     </div>
     <div class="card quarter how-to black-show-through" style="background-image: url('http://i.telegraph.co.uk/multimedia/archive/03487/RBS-Win-On-Water-D_3487583b.jpg')">
       <div class="card-header">
-        <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
       </div>
       <div class="card-content">
         <h3 class="how-to-title">Smart Water Tactics</h3>
         <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
         <span class="how-to-logo">How To</span>
-        <a href="" class="homeowner-btn second view-article">View Article</a>
+        <a href="" class="branded-btn second view-article">View Article</a>
       </div>
     </div>
   </div>

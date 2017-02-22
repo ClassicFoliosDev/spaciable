@@ -2,13 +2,10 @@
 
 <%= render "components/homeowner/sub_header", active_tab: "appliances", plot: @plot %>
 
-<div class="homeowner-body">
+<div class="branded-body">
   <div class="appliances">
     <% @appliances.each do | appliance | %>
-        <div class="card appliance brand-content brand-border brand-text">
-          <span class="favourite">
-            <%= fa_icon "heart" %>
-          </span>
+        <div class="card appliance branded-content branded-border branded-text">
           <div class="third">
             <% if appliance.primary_image? %>
               <div class="primary-image">

@@ -16,16 +16,11 @@
   <nav>
     <div class="nav-inner">
       <div class="logo">
-        <%= link_to image_tag(brand.logo? ? brand.logo : "logo.png"), homeowner_dashboard_path %>
+        <%= link_to image_tag(brand.branded_logo.present? ? brand.branded_logo : "logo.png"), homeowner_dashboard_path %>
+        <!-- link_to image_tag("logo.png"), homeowner_dashboard_path -->
       </div>
       <div class="navigation">
         <%= render "components/homeowner/navigation" %>
-      </div>
-      <div class="search">
-        <form>
-          <input type="text">
-          <button class="homeowner-btn">Search</button>
-        </form>
       </div>
     </div>
   </nav>

@@ -44,24 +44,24 @@ $card-size: 150px;
   }
 }
 
-.homeowner-body {
+.branded-body {
   background-color: $ui-superlight-grey;
   margin: 0;
   padding: 20px;
 }
 
-.brand-border {
+.branded-border {
   border-color: $ui-grey;
   border-width: 1px;
 }
 
-.brand-content {
+.branded-content {
   background-color: $ui-white;
   margin-bottom: $spacing-medium;
   border-style: solid;
 }
 
-.brand-text {
+.branded-text {
   display: block;
   margin-bottom: $spacing-small / 2;
 }
