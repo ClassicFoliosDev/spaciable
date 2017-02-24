@@ -1,13 +1,4 @@
 # frozen_string_literal: true
-Given(/^I have a developer with a development and a unit type$/) do
-  CreateFixture.create_developer_with_development
-  CreateFixture.create_unit_type
-end
-
-And(/^I have seeded the database$/) do
-  load "#{Rails.root}/db/seeds.rb"
-end
-
 When(/^I create a room with no room name$/) do
   visit "/"
 

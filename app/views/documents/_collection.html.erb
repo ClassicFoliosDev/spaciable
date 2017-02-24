@@ -1,9 +1,9 @@
 <div class="section-actions">
   <% if parent %>
-      <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
-      <% end %>
+    <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
   <% end %>
 </div>
 
@@ -20,7 +20,7 @@
       <dd class="record-list-item" data-document="<%= document.id %>">
         <div class="record-list-item-actions">
           <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
-              <%= icon "cloud-download" %>
+            <%= icon "cloud-download" %>
           <% end %>
           <%= edit_btn edit_document_path(document) %>
           <%= delete_btn document, path: url_for(document) %>

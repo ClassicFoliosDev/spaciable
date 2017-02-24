@@ -22,6 +22,9 @@ class DivisionsController < ApplicationController
     @collection = if @active_tab == "developments"
                     developments = @division.developments.accessible_by(current_ability)
                     paginate(sort(developments, default: :name))
+                  elsif @active_tab == "documents"
+                    documents = @division.documents.accessible_by(current_ability)
+                    paginate(sort(documents, default: :title))
                   end
   end
 

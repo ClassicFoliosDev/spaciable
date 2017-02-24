@@ -13,6 +13,8 @@ module CreateFixture
     division_phase: "Beta (Division) Phase",
     finish: "Fluffy carpet",
     phase: "Alpha Phase",
+    plot: "1",
+    phase_plot: "2",
     room: "Living Room",
     unit_type: "8 Bedrooms"
   }.freeze
@@ -147,13 +149,21 @@ module CreateFixture
     FactoryGirl.create(:finish, name: finish_name, finish_category: finish_category, finish_type: finish_type)
   end
 
-  def create_phases
+  def create_development_phase
     FactoryGirl.create(:phase, name: phase_name, development: development)
+  end
+
+  def create_division_development_phase
     FactoryGirl.create(:phase, name: division_phase_name, development: division_development)
   end
 
+  def create_phases
+    create_development_phase
+    create_division_development_phase
+  end
+
   def create_development_plot
-    FactoryGirl.create(:plot, development: development, unit_type: unit_type)
+    FactoryGirl.create(:plot, development: development, unit_type: unit_type, number: plot_name)
   end
 
   def create_division_development_plot
@@ -161,7 +171,7 @@ module CreateFixture
   end
 
   def create_phase_plot
-    FactoryGirl.create(:phase_plot, phase: phase)
+    FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name)
   end
 
   def create_plots

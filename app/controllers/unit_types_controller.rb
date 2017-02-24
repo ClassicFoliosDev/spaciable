@@ -16,7 +16,14 @@ class UnitTypesController < ApplicationController
   end
 
   def show
-    @collection = paginate(sort(@unit_type.rooms, default: :name))
+    @active_tab = params[:active_tab] || "rooms"
+
+    @collection = if @active_tab == "rooms"
+                    paginate(sort(@unit_type.rooms, default: :name))
+                  elsif @active_tab == "documents"
+                    documents = @unit_type.documents.accessible_by(current_ability)
+                    paginate(sort(documents, default: :title))
+                  end
   end
 
   def create

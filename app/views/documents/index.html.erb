@@ -5,7 +5,9 @@
     <i class="fa fa-pdf-o"></i>
     <%= t(".title") %>
   </h3>
-  <span><b>Note:</b> To upload new documents, go to the model you want to add them to, for example developer</span>
+  <div class="section-data">
+    <span><%= t(".load_helper") %></span>
+  </div>
 </div>
 
 <%= render_collection @documents, parent: nil %>

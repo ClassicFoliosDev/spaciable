@@ -13,6 +13,8 @@
   </div>
 </div>
 
+<%= render 'components/tabs', tabs: unit_type_tabs(@unit_type, @active_tab), parent: @unit_type %>
+
 <%= render_collection @collection, parent: @unit_type %>
 
 <%= link_to t(".back"), development_unit_types_path, class: "btn" %>

@@ -18,7 +18,14 @@ class PhasesController < ApplicationController
   end
 
   def show
-    @collection = paginate(sort(@phase.plots, default: :number))
+    @active_tab = params[:active_tab] || "plots"
+
+    @collection = if @active_tab == "plots"
+                    paginate(sort(@phase.plots, default: :number))
+                  elsif @active_tab == "documents"
+                    documents = @phase.documents.accessible_by(current_ability)
+                    paginate(sort(documents, default: :title))
+                  end
   end
 
   def create

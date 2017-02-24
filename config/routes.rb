@@ -46,19 +46,23 @@ Rails.application.routes.draw do
 
   resources :unit_types do
     resources :rooms
+    resources :documents, only: [:new, :create]
   end
 
   resources :phases do
     resources :plots, shallow: true
+    resources :documents, only: [:new, :create]
   end
 
   resources :plots, only: [] do
     resources :plot_residencies, shallow: true, path: "residencies"
+    resources :documents, only: [:new, :create]
   end
 
   resources :developments do
     resources :phases
     resources :unit_types
+    resources :documents, only: [:new, :create]
     resources :plots, shallow: true
     resources :plot_documents, only: [:index] do
       post :bulk_upload, on: :collection
@@ -81,6 +85,7 @@ Rails.application.routes.draw do
 
   resources :divisions do
     resources :developments, controller: 'divisions/developments'
+    resources :documents, only: [:new, :create]
     resources :contacts, shallow: true
     resources :faqs, shallow: true
     resource :brand

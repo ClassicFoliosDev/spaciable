@@ -6,7 +6,7 @@ Feature: Rooms
   Scenario:
     Given I am logged in as an admin
     And I have seeded the database
-    And I have a developer with a development and a unit type
+    And there is a unit type
     When I create a room with no room name
     Then I should see the room failure message
     When I create a room

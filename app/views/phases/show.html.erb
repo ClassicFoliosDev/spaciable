@@ -2,6 +2,8 @@
 
 <%= render @phase %>
 
+<%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
+
 <%= render_collection @collection, parent: @phase %>
 
 <%= link_to t(".back"), development_phases_path, class: "btn" %>

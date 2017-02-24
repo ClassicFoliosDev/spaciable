@@ -14,6 +14,10 @@ module DivisionTabsHelper
         link: [division.parent, division, active_tab: :developments],
         permissions_on: -> { division }
       },
+      documents: {
+        icon: "file-pdf-o",
+        link: [division.parent, division, active_tab: :documents]
+      },
       contacts: { icon: :vcard },
       faqs: { icon: "question-circle" },
       brands: { icon: "css3" }

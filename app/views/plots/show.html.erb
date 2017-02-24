@@ -6,6 +6,6 @@
 
 <%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab), parent: @plot.unit_type %>
 
-<%= render_collection @collection, parent: @plot.unit_type %>
+<%= render_collection @collection, parent: @collection_parent %>
 
 <%= link_to t(".back"), [@plot.parent, :plots], class: "btn" %>

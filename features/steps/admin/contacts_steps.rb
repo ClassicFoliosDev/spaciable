@@ -201,10 +201,6 @@ When(/^I delete the division contact$/) do
   delete_and_confirm!
 end
 
-Given(/^there is a developer with a development$/) do
-  CreateFixture.create_developer_with_development
-end
-
 When(/^I create a development contact with no name or organisation$/) do
   visit "/"
 

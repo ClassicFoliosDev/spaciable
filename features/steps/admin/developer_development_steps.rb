@@ -97,3 +97,7 @@ Then(/^I should see that the deletion was successful for the developer developme
     expect(page).to have_content DeveloperDevelopmentFixture.second_development_name
   end
 end
+
+Given(/^there is a developer with a development$/) do
+  CreateFixture.create_developer_with_development
+end

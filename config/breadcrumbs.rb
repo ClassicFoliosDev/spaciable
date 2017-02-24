@@ -193,9 +193,17 @@ crumb :document_edit do |document|
   parent :documents
 end
 
-crumb :document_new do |developer|
+crumb :document_new do |document_parent|
   link t("breadcrumbs.document_add")
-  parent :developer, developer
+
+  case document_parent.model_name.element.to_sym
+    when :developer
+      parent :developer, document_parent
+    when :division
+      parent :division, document_parent
+    when :development
+      parent :development, document_parent
+  end
 end
 
 # ROOMS

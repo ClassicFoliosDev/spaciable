@@ -277,6 +277,7 @@ en:
       plot_documents: "Plot Documents"
       phases: "Phases"
       unit_types: "Unit types"
+      documents: "Documents"
       plots: "Plots"
       add: "Add development"
       faqs: "FAQs"
@@ -389,6 +390,7 @@ en:
       back: "Back"
     collection:
       developments: "Developments"
+      documents: "Documents"
       contacts: "Contacts"
       brands: "Styling"
       faqs: "FAQs"
@@ -477,6 +479,7 @@ en:
     collection:
       add: "Add Phase"
       plots: "Plots"
+      documents: "Documents"
       name: "Phase"
     new:
       title: "New phase"
@@ -513,6 +516,7 @@ en:
     collection:
       add: "Add plots"
       rooms: "Rooms"
+      documents: "Documents"
       plot_residency: "Residents"
       unit_type: "Unit type"
       name: "Plot"
@@ -567,6 +571,7 @@ en:
     collection:
       add: "Add Unit Type"
       rooms: "Rooms"
+      documents: "Documents"
     require_phase: " must be from %{development_name}"
 
   appliances:
@@ -694,6 +699,7 @@ en:
     loaded_name: "Upload parent"
     index:
       title: "Documents"
+      load_helper: "To upload new documents, go to the scope you want to add them to, which can be any of: developer, division, development, phase, plot"
     new:
       title: "New document for %{name}"
     show:

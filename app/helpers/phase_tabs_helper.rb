@@ -7,5 +7,16 @@ module PhaseTabsHelper
     Tabs.new(phase, tabs, current_tab, self).all
   end
 
-  PHASE_TABS = ->(_) { {} }
+  PHASE_TABS = lambda do |phase|
+    {
+      plots: {
+        icon: :building,
+        link: [phase.parent, phase, active_tab: :plots]
+      },
+      documents: {
+        icon: "file-pdf-o",
+        link: [phase.parent, phase, active_tab: :documents]
+      }
+    }
+  end
 end
