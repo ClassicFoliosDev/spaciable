@@ -12,6 +12,13 @@
     <fieldset>
       <%= label_tag(t(".sent_to")) %>
       <%= @notification.send_to %>
+
+      <label>Plot numbers:</label>
+      <% if @notification.plot_numbers.any? %>
+        <%= @notification.plot_numbers.to_sentence %>
+      <% else %>
+          All
+      <% end %>
     </fieldset>
   </div>
   <div class="row-item two-thirds">

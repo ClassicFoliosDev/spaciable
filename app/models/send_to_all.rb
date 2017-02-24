@@ -12,6 +12,10 @@ class SendToAll
     nil
   end
 
+  def plots
+    Plot.all
+  end
+
   def to_s
     I18n.t("activerecord.attributes.send_to_all.all")
   end

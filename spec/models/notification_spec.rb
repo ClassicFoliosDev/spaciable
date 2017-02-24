@@ -2,6 +2,36 @@
 require "rails_helper"
 
 RSpec.describe Notification do
+  describe "#sent_to" do
+    context "when there is no plots specified" do
+      it "should return the send_to string representation" do
+        developer = create(:developer)
+        notification = build(:notification, send_to: developer)
+
+        expect(notification.sent_to).to eq(developer.to_s)
+      end
+    end
+    context "when a single plot is specified" do
+      it "should return the send_to value and the plot number" do
+        plot = create(:plot)
+        developer = plot.developer
+        notification = create(:notification, send_to: developer, plot_numbers: [plot.number])
+
+        expect(notification.sent_to).to eq("#{developer} (Plot #{plot.number})")
+      end
+    end
+
+    context "when a list of plots are speficied" do
+      it "should return the send_tot value and the plot numbers" do
+        numbers = [3, 5, 7, 8, 9, 10]
+        developer = create(:developer)
+        notification = create(:notification, send_to: developer, plot_numbers: numbers)
+
+        expect(notification.sent_to).to eq("#{developer} (Plots #{numbers.to_sentence})")
+      end
+    end
+  end
+
   describe "#with_sender" do
     it "should set the sender" do
       user = create(:developer_admin)

@@ -19,15 +19,17 @@ module Admin
 
     def create
       if @notification.with_sender(current_user).valid?
-        @notification.save
-        residents = ResidentNotifierService.new(@notification).notify_residents
+        ResidentNotifierService.call(@notification) do |residents, missing_residents|
+          notice = t(".success",
+                     notification_name: @notification.to_s,
+                     count: residents.count)
 
-        notice = t(
-          ".success",
-          notification_name: @notification.to_s,
-          recipient_count: residents.count
-        )
-        redirect_to [:admin, :notifications], notice: notice
+          alert = t(".missing_residents",
+                    plot_numbers: missing_residents.to_sentence,
+                    count: missing_residents.count) if missing_residents.any?
+
+          redirect_to [:admin, :notifications], notice: notice, alert: alert
+        end
       else
         render :new
       end
@@ -44,10 +46,8 @@ module Admin
         :send_to_id,
         :send_to_type,
         :send_to_all,
-        :developer_id,
-        :division_id,
-        :development_id,
-        :phase_id
+        :developer_id, :division_id, :development_id, :phase_id,
+        :range_from, :range_to, :list
       )
     end
   end

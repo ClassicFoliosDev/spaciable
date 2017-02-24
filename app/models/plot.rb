@@ -80,11 +80,13 @@ class Plot < ApplicationRecord
     (address || build_address).postcode = name
   end
 
-  # `1.0` becomes `1`
-  # `1.1` stays as `1.1`
   def number
-    return self[:number] unless self[:number].to_i == self[:number]
-    self[:number].to_i
+    return if self[:number].blank?
+    BulkPlots::Numbers.Number(self[:number])
+  end
+
+  def number=(int_or_float)
+    self[:number] = BulkPlots::Numbers.Number(int_or_float)
   end
 
   def parent=(object)

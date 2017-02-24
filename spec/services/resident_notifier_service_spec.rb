@@ -96,7 +96,7 @@ RSpec.describe ResidentNotifierService do
       end
 
       context "with developer phase plots" do
-        let(:developer_with_phase_residents) { create(:developer, :with_phase_residents) }
+        let(:developer_with_phase_residents) { create(:developer, :with_phase_residents, plots_count: 5) }
         let(:notification) { create(:notification, send_to: developer_with_phase_residents) }
 
         it "should create notifications for all developer phase residents" do
@@ -107,11 +107,28 @@ RSpec.describe ResidentNotifierService do
 
           expect(notified_residents).to match_array(residents)
         end
+
+        context "with a range of plots selected" do
+          it "should only send notifications to the selected plot range residents" do
+            residents = developer_with_phase_residents.residents
+            send_to_residents = residents.take(3)
+            plot_numbers = send_to_residents.map(&:plot).map(&:number)
+
+            notification = create(:notification,
+                                  send_to: developer_with_phase_residents,
+                                  range_from: plot_numbers.min,
+                                  range_to: plot_numbers.max)
+
+            notified_residents = described_class.new(notification).notify_residents
+
+            expect(notified_residents).to match_array(send_to_residents)
+          end
+        end
       end
     end
 
     context "send_to Division" do
-      let(:division_with_residents) { create(:division, :with_residents) }
+      let(:division_with_residents) { create(:division, :with_residents, plots_count: 5) }
       let(:notification) { create(:notification, send_to: division_with_residents) }
 
       it "should create notifications for all division residents" do
@@ -136,10 +153,27 @@ RSpec.describe ResidentNotifierService do
           expect(notified_residents).to match_array(residents)
         end
       end
+
+      context "with a range of plots selected" do
+        it "should only send notifications to the selected plot range residents" do
+          residents = division_with_residents.residents
+          send_to_residents = residents.take(3)
+          plot_numbers = send_to_residents.map(&:plot).map(&:number)
+
+          notification = create(:notification,
+                                send_to: division_with_residents,
+                                range_from: plot_numbers.min,
+                                range_to: plot_numbers.max)
+
+          notified_residents = described_class.new(notification).notify_residents
+
+          expect(notified_residents).to match_array(send_to_residents)
+        end
+      end
     end
 
     context "send_to Development" do
-      let(:development_with_residents) { create(:development, :with_residents) }
+      let(:development_with_residents) { create(:development, :with_residents, plots_count: 5) }
       let(:notification) { create(:notification, send_to: development_with_residents) }
 
       it "should create notifications for all development residents" do
@@ -149,6 +183,23 @@ RSpec.describe ResidentNotifierService do
         notified_residents = subject.notify_residents
 
         expect(notified_residents).to match_array(development_residents)
+      end
+
+      context "with a range of plots selected" do
+        it "should only send notifications to the selected plot range residents" do
+          residents = development_with_residents.residents
+          send_to_residents = residents.take(3)
+          plot_numbers = send_to_residents.map(&:plot).map(&:number)
+
+          notification = create(:notification,
+                                send_to: development_with_residents,
+                                range_from: plot_numbers.min,
+                                range_to: plot_numbers.max)
+
+          notified_residents = described_class.new(notification).notify_residents
+
+          expect(notified_residents).to match_array(send_to_residents)
+        end
       end
     end
 
@@ -163,6 +214,62 @@ RSpec.describe ResidentNotifierService do
         notified_residents = subject.notify_residents
 
         expect(notified_residents).to match_array(phase_residents)
+      end
+    end
+  end
+
+  describe "#missing_resident_plots" do
+    context "for plots without residents" do
+      it "should return the missing plot numbers" do
+        development = create(:development)
+        notification = create(:notification, send_to: development)
+        plots = create_list(:plot, 3, development: development)
+        plot_numbers = plots.map(&:number)
+
+        service = described_class.new(notification)
+
+        expect(service.missing_resident_plots).to match_array(plot_numbers)
+      end
+    end
+
+    context "for plots with residencies" do
+      it "should not return any missing resident plot numbers" do
+        development = create(:development)
+        notification = create(:notification, send_to: development)
+        plots = create_list(:plot, 3, :with_resident, development: development)
+        plot_numbers = plots.map(&:number).map(&:to_s)
+
+        service = described_class.new(notification)
+
+        expect(service.missing_resident_plots).not_to match_array(plot_numbers)
+      end
+    end
+
+    context "a range of plot numbers has been supplied" do
+      it "should only return the plot numbers without residents within the range" do
+        development = create(:development)
+        notification = create(:notification, send_to: development)
+        plots_without_residents = create_list(:plot, 10, development: development)
+        plot_numbers = plots_without_residents.take(5).map(&:number).sort.map(&:to_s)
+
+        notification.range_from = plot_numbers.min
+        notification.range_to = plot_numbers.max
+        service = described_class.new(notification)
+
+        expect(service.missing_resident_plots).to match_array(plot_numbers)
+      end
+    end
+
+    context "send_to_all" do
+      it "does not return the missing residents" do
+        create_list(:plot, 5)
+        create_list(:plot, 5, :with_resident)
+        notification = create(:notification, send_to_all: true, sender: create(:cf_admin), send_to_id: nil, send_to_type: nil)
+
+        described_class.call(notification) do |residents, missing_residents|
+          expect(residents).not_to be_empty
+          expect(missing_residents).to be_empty
+        end
       end
     end
   end

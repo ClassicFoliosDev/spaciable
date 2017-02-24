@@ -30,6 +30,10 @@
         <%= cascade_select_input f, :division_id, Division %>
         <%= cascade_select_input f, :development_id, Development %>
         <%= cascade_select_input f, :phase_id, Phase %>
+
+        <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
+        <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
+        <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
       </fieldset>
     </div>
 

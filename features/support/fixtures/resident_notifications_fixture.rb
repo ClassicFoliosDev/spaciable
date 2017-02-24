@@ -35,6 +35,22 @@ module ResidentNotificationsFixture
     division_phase: {
       subject: "Reminder for",
       message: "Bonfires are not allowed on the premises!"
+    },
+    developer_plot: {
+      subject: "You are being evicted",
+      message: "Only joking! We need to replace your boiler."
+    },
+    division_plot: {
+      subject: "We are dividing your plot into two",
+      message: "To offer you a better habitat abstraction."
+    },
+    development_plot: {
+      subject: "How To Read How Tos",
+      message: "Firstly, grab a spoon and a hammer..."
+    },
+    phase_plot: {
+      subject: "When you hit *that* phase in your development",
+      message: "The concrete is in, the timber has been put up...."
     }
   }.freeze
 
@@ -46,6 +62,14 @@ module ResidentNotificationsFixture
     create_phases
     create_plots
     create_residents
+  end
+
+  def developer_plot
+    plot
+  end
+
+  def development_plot
+    plot
   end
 
   def resident_email_addresses(under: instance)

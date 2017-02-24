@@ -294,7 +294,7 @@ ActiveRecord::Schema.define(version: 20170221115158) do
     t.integer  "range_from"
     t.integer  "range_to"
     t.text     "list"
-    t.integer  "plot_numbers",                              array: true
+    t.string   "plot_numbers",                              array: true
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree

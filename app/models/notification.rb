@@ -4,6 +4,8 @@ class Notification < ApplicationRecord
   include PolymorphicPermissionable::ByResources
   permissionable_field :send_to
 
+  attr_accessor :range_from, :range_to, :list
+
   belongs_to :author, class_name: "User"
   belongs_to :sender, class_name: "User"
   belongs_to :send_to, polymorphic: true
@@ -40,6 +42,18 @@ class Notification < ApplicationRecord
   def with_sender(user)
     self.sender = user
     self
+  end
+
+  def plot_numbers
+    self[:plot_numbers] || []
+  end
+
+  def sent_to
+    return send_to.to_s if plot_numbers.empty?
+    to_count = plot_numbers.count > 1 ? :plural : :singular
+    plot_title = Plot.model_name.send(to_count).titleize
+
+    "#{send_to} (#{plot_title} #{plot_numbers.to_sentence})"
   end
 
   delegate :role, to: :sender

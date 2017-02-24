@@ -15,7 +15,6 @@ RSpec.describe "Resident Abilities" do
   it_behaves_like "it can read polymorphic models associated with the residency", Document, :documentable
   it_behaves_like "it can read polymorphic models associated with the residency", Faq, :faqable
   it_behaves_like "it can read polymorphic models associated with the residency", Contact, :contactable
-  it_behaves_like "it can read polymorphic models associated with the residency", Notification, :send_to
 
   it "has READ access to a plots developer" do
     developer = plot.developer
@@ -107,6 +106,28 @@ RSpec.describe "Resident Abilities" do
         division = division_development.division
 
         expect(subject).to be_able_to(:read, division)
+      end
+    end
+  end
+
+  describe "notifications" do
+    it_behaves_like "it can read polymorphic models associated with the residency", Notification, :send_to
+
+    context "when a notifications plot range includes my plot number" do
+      it "should allow me to read the notification" do
+        plot = current_resident.plot
+        notification = create(:notification, send_to: plot.development, plot_numbers: [plot.number])
+        expect(subject).to be_able_to(:read, notification)
+      end
+    end
+
+    context "when a notifications plot range does not include my plot number" do
+      it "should not allow me to read the notification" do
+        plot = current_resident.plot
+        other_plot = create(:plot, development: plot.development)
+        notification = create(:notification, send_to: plot.development, plot_numbers: [other_plot.number])
+
+        expect(subject).not_to be_able_to(:read, notification)
       end
     end
   end

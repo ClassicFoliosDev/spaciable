@@ -172,13 +172,23 @@ en:
           sent_at: "Date Sent"
           recipient: "Recipient"
       create:
-        success: "Sending notification to %{recipient_count} residents: \"%{notification_name}\""
+        success:
+          one: "Sending notification to resident: \"%{notification_name}\""
+          other: "Sending notifications residents: \"%{notification_name}\""
+        missing_residents:
+          one: "Resident not found for Plot: %{plot_numbers}"
+          other: "Residents not found for plots: %{plot_numbers}"
       form:
         choose: "Choose..."
         submit: "Send"
         back: "Back"
         send_to_all_residents: "Send to all %{residents_count} homeowners"
         send_to: "Send to all homeowners under:"
+        list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
+        range_label: "Add Plots by range"
+        range_from_placeholder: "Range from"
+        range_to_placeholder: "Range to"
+
       index:
         title: "Notifications"
       new:
@@ -505,6 +515,10 @@ en:
       submit: "Submit"
       back: "Back"
       optional_range_hint: "Optionally, choose a range or list of plots to apply the prefix, unit type and address updates to:"
+      list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
+      range_label: "Add Plots by range"
+      range_from_placeholder: "Range from"
+      range_to_placeholder: "Range to"
     index:
       title: "%{parent_name} Plots"
     new:

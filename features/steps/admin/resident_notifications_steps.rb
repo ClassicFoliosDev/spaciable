@@ -90,6 +90,60 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
   sleep 0.5 # wait for emails to be processed
 end
 
+When(/^I send a notification to a resident under a (\(\w+\) )?(\w+)$/) do |parent, plot_class|
+  ActionMailer::Base.deliveries.clear
+
+  type, plot = ResidentNotificationsFixture.extract_resource(parent, plot_class)
+  parent_method = type[/(\w+)_/][0...-1]
+  parent = plot.send(parent_method)
+  attrs = ResidentNotificationsFixture::MESSAGES[type]
+
+  click_on t("admin.notifications.collection.add")
+
+  fill_in :notification_subject, with: attrs[:subject]
+  fill_in :notification_message, with: attrs[:message]
+
+  sleep 0.3 # wait for dropdown to be populated
+  select_from_selectmenu(:notification_developer_id, with: plot.developer.to_s)
+
+  unless parent_method == :developer
+    sleep 0.3 # wait for dropdown to be populated
+    select_from_selectmenu(:"notification_#{parent_method}_id", with: parent.to_s)
+  end
+
+  sleep 0.3 # wait for dropdown to be populated
+  fill_in :notification_list, with: plot.number
+
+  click_on t("admin.notifications.form.submit")
+  sleep 0.5 # wait for emails to be processed
+end
+
+Then(/^the resident under that (\(\w+\) )?(\w+) should receive a notification$/) do |parent, plot_class|
+  type, plot = ResidentNotificationsFixture.extract_resource(parent, plot_class)
+  emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
+
+  expect(emailed_addresses).to match_array([plot.resident.email])
+
+  notice = t(
+    "admin.notifications.create.success",
+    notification_name: ResidentNotificationsFixture::MESSAGES.dig(type, :subject),
+    count: 1
+  )
+  expect(page).to have_content(notice)
+end
+
+Then(/^I can see the (\(\w+\) )?(\w+) notification I sent to the resident$/) do |parent, plot_class|
+  type, plot = ResidentNotificationsFixture.extract_resource(parent, plot_class)
+  parent_method = type[/(\w+)_/][0...-1]
+  subject = ResidentNotificationsFixture::MESSAGES.dig(type, :subject)
+
+  within ".record-list .notifications" do
+    expect(page).to have_content(subject)
+
+    expect(page).to have_content("#{Notification.human_attribute_name(:send_to)}: #{plot.send(parent_method)} (Plot #{plot})")
+  end
+end
+
 Then(/^I can see the (\(\w+\) )?(\w+) notification I sent$/) do |parent, resource_class|
   type, instance = ResidentNotificationsFixture.extract_resource(parent, resource_class)
 
@@ -123,7 +177,7 @@ Then(/^all residents under (my|that) (\(\w+\) )?(\w+) should receive a notificat
   notice = t(
     "admin.notifications.create.success",
     notification_name: ResidentNotificationsFixture::MESSAGES.dig(type, :subject),
-    recipient_count: resident_email_addresses.count
+    count: resident_email_addresses.count
   )
   expect(page).to have_content(notice)
 end
@@ -137,7 +191,7 @@ Then(/^all residents should receive a notification$/) do
   notice = t(
     "admin.notifications.create.success",
     notification_name: ResidentNotificationsFixture::MESSAGES.dig(:all, :subject),
-    recipient_count: resident_email_addresses.count
+    count: resident_email_addresses.count
   )
   expect(page).to have_content(notice)
 end

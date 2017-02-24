@@ -29,6 +29,20 @@ RSpec.describe BulkPlots::UpdateService do
       expect(plot2.reload.unit_type_id).to eq(unit_type.id)
       expect(plot3.reload.unit_type_id).to eq(unit_type.id)
     end
+
+    it "should update plots with decimal places supplied as a list" do
+      development = create(:development)
+      plot1 = create(:plot, number: 1.1, unit_type: nil, development: development)
+      plot2 = create(:plot, number: 1.2, unit_type: nil, development: development)
+
+      unit_type = create(:unit_type, development: plot1.development)
+      params = { list: "1.1, 1.2", unit_type_id: unit_type.id }
+
+      described_class.call(plot1).update(params)
+
+      expect(plot1.reload.unit_type_id).to eq(unit_type.id)
+      expect(plot2.reload.unit_type_id).to eq(unit_type.id)
+    end
   end
 
   context "when supplied with a number field" do

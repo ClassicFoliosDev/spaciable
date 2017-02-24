@@ -42,6 +42,10 @@ class Resident < ApplicationRecord
     phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
   end
 
+  def plot_number
+    plot&.number&.to_s
+  end
+
   def to_s
     full_name = "#{first_name} #{last_name}"
 

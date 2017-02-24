@@ -11,14 +11,14 @@ RSpec.describe BulkPlots::CreateService do
 
   context "when no plots already exist" do
     it "should create all of the plots" do
-      params = { range_from: 1, range_to: 3, prefix: "Marsh" }
+      params = { range_from: 1, range_to: 3, list: "5.5, 6.6", prefix: "Marsh" }
       development = create(:development)
       plot = build(:plot, development: development)
       service = described_class.call(plot, params: params)
 
-      expect { service.save }.to change(Plot, :count).by(3)
-      expect(Plot.where(number: [1, 2, 3], prefix: "Marsh").count).to eq(3)
-      expect(development.reload.plots.count).to eq(3)
+      expect { service.save }.to change(Plot, :count).by(5)
+      expect(Plot.where(number: [1, 2, 3, "5.5", "6.6"], prefix: "Marsh").count).to eq(5)
+      expect(development.reload.plots.count).to eq(5)
     end
   end
 

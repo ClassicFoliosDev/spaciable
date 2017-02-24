@@ -7,17 +7,25 @@ FactoryGirl.define do
     contact_number { "+44 #{Faker::Number.number(9)}" }
 
     trait :with_residents do
-      after(:create) do |division|
+      transient do
+        plots_count 3
+      end
+
+      after(:create) do |division, evaluator|
         development = create(:division_development, division: division)
-        create_list(:plot, 3, :with_resident, development: development)
+        create_list(:plot, evaluator.plots_count, :with_resident, development: development)
       end
     end
 
     trait :with_phase_residents do
-      after(:create) do |division|
+      transient do
+        plots_count 3
+      end
+
+      after(:create) do |division, evaluator|
         development = create(:division_development, division: division)
         phase = create(:phase, development: development)
-        create_list(:phase_plot, 3, :with_resident, phase: phase)
+        create_list(:phase_plot, evaluator.plots_count, :with_resident, phase: phase)
       end
     end
   end

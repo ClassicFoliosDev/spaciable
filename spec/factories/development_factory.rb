@@ -21,8 +21,12 @@ FactoryGirl.define do
     end
 
     trait :with_residents do
-      after(:create) do |development|
-        create_list(:plot, 3, :with_resident, development: development)
+      transient do
+        plots_count 3
+      end
+
+      after(:create) do |development, evaluator|
+        create_list(:plot, evaluator.plots_count, :with_resident, development: development)
       end
     end
   end

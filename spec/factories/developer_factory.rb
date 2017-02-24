@@ -15,10 +15,14 @@ FactoryGirl.define do
     end
 
     trait :with_phase_residents do
-      after(:create) do |developer|
+      transient do
+        plots_count 3
+      end
+
+      after(:create) do |developer, evaluator|
         development = create(:development, developer: developer)
         phase = create(:phase, development: development)
-        create_list(:phase_plot, 3, :with_resident, phase: phase)
+        create_list(:phase_plot, evaluator.plots_count, :with_resident, phase: phase)
       end
     end
   end

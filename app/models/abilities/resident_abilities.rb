@@ -32,6 +32,12 @@ module Abilities
         can :read, model, developer_id: plot.developer_id
       end
 
+      cannot :read, Notification do |notification|
+        # If a plot range has been defined for the notification:
+        #   Resident cannot read a notification that does not include their plot number
+        notification.plot_numbers.exclude?(plot.number.to_s) if notification.plot_numbers.any?
+      end
+
       polymorphic_abilities Brand, :brandable do
         type "Developer", id: plot.developer_id, actions: :read
         type "Division", id: plot.division_id, actions: :read

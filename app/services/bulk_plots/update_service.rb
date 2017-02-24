@@ -64,7 +64,7 @@ module BulkPlots
     end
 
     def update_existing_plots(attrs)
-      updated_plots = plots_scope.where(number: attrs[:number])
+      updated_plots = plots_scope.where(number: attrs[:number].to_s)
                        &.update(attrs)
 
       add_update_error(attrs[:number]) if updated_plots.empty?

@@ -27,7 +27,7 @@
            </span>
            <span class="notification-recipient-level">
              <strong><%= Notification.human_attribute_name(:send_to) %>:</strong>
-             <%= notification.send_to %>
+             <%= truncate(notification.sent_to, length: 80) %>
            </span>
         </div>
       </dd>

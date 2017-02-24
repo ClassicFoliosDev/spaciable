@@ -224,5 +224,17 @@ module CreateFixture
   def appliance
     Appliance.find_by(name: appliance_name)
   end
+
+  def plot
+    development.plots.first
+  end
+
+  def division_plot
+    division_development.plots.first
+  end
+
+  def phase_plot
+    phase.plots.first
+  end
 end
 # rubocop:enable ModuleLength
