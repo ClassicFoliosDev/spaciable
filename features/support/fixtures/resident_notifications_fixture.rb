@@ -59,17 +59,17 @@ module ResidentNotificationsFixture
     create_division
     create_development
     create_division_development
-    create_phases
+    create_development_phase
     create_plots
     create_residents
   end
 
   def developer_plot
-    plot
+    development_plot
   end
 
-  def development_plot
-    plot
+  def division_plot
+    division_development_plot
   end
 
   def resident_email_addresses(under: instance)
