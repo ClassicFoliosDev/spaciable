@@ -15,7 +15,6 @@ module CreateFixture
     phase: "Alpha Phase",
     plot: "1",
     phase_plot: "2",
-    division_plot: "3",
     room: "Living Room",
     unit_type: "8 Bedrooms"
   }.freeze
@@ -168,7 +167,7 @@ module CreateFixture
   end
 
   def create_division_development_plot
-    FactoryGirl.create(:plot, development: division_development, number: division_plot_name)
+    FactoryGirl.create(:plot, development: division_development)
   end
 
   def create_phase_plot
@@ -226,11 +225,11 @@ module CreateFixture
     Appliance.find_by(name: appliance_name)
   end
 
-  def development_plot
+  def plot
     development.plots.first
   end
 
-  def division_development_plot
+  def division_plot
     division_development.plots.first
   end
 
