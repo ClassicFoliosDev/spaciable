@@ -9,7 +9,7 @@ class Faq < ApplicationRecord
   include InheritParentPermissionIds
   include InheritPolymorphicParentPermissionIds
 
-  enum category: [:general, :settling, :troubleshooting, :urgent, :your_home]
+  enum category: [:settling, :home, :troubleshooting, :urgent, :general]
 
   validates :question, :answer, :category, :faqable, presence: true
 

@@ -1,0 +1,102 @@
+# frozen_string_literal: true
+module MyHomeFaqsFixture
+  extend ModuleImporter
+  import_module CreateFixture
+
+  module_function
+
+  FAQS = [
+    {
+      question: "How do I unlock the front door?",
+      answer: "Your doorman will do this for you.",
+      faqable: -> { developer },
+      category: :urgent
+    },
+    {
+      question: "Where do you keep the chauffeurs?",
+      answer: "Simply use the chauffeur app on you phone to locate them.",
+      faqable: -> { developer },
+      category: :settling
+    },
+    {
+      question: "What day is pancake day?",
+      answer: "Everyday if you wish.",
+      faqable: -> { development },
+      category: :urgent
+    },
+    {
+      question: "Was it the butler in the garage with the frying pan?",
+      answer: "Cluedo!",
+      faqable: -> { development },
+      category: :settling
+    }
+  ].freeze
+
+  def setup
+    create_developer
+    create_development
+    create_development_plot
+    create_resident
+    create_faqs
+  end
+
+  def create_resident
+    FactoryGirl.create(:resident, :with_residency, plot: development_plot, email: resident_email)
+  end
+
+  def resident_email
+    "resident@example.com"
+  end
+
+  def resident
+    Resident.find_by(email: resident_email)
+  end
+
+  def create_faqs
+    FAQS.each do |attrs|
+      FactoryGirl.create(
+        :faq,
+        question: attrs[:question],
+        answer: attrs[:answer],
+        faqable: attrs[:faqable].call,
+        category: attrs[:category]
+      )
+    end
+  end
+
+  def default_category_name
+    I18n.t("activerecord.attributes.faq.categories.settling")
+  end
+
+  def other_category_name
+    I18n.t("activerecord.attributes.faq.categories.urgent")
+  end
+
+  def default_filtered_faqs
+    FAQS.select { |attrs| attrs[:category] == :settling }.map(&method(:front_end_attrs))
+  end
+
+  def default_filtered_out_faqs
+    all_faqs - default_filtered_faqs
+  end
+
+  def filtered_faqs
+    FAQS.select { |attrs| attrs[:category] == :urgent }.map(&method(:front_end_attrs))
+  end
+
+  def filtered_out_faqs
+    all_faqs - filtered_faqs
+  end
+
+  private
+
+  module_function
+
+  def all_faqs
+    FAQS.map(&method(:front_end_attrs))
+  end
+
+  def front_end_attrs(attrs)
+    [attrs[:question], attrs[:answer]]
+  end
+end

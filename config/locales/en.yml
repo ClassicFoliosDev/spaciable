@@ -58,6 +58,7 @@ en:
         my_home: "My home"
         contacts: "Contacts"
         how_to: "How to"
+        faqs: "FAQs"
       sub_nav: 
         rooms: "Rooms"
         appliances: "Appliances"
@@ -304,6 +305,10 @@ en:
       add: "Add development"
 
   homeowners:
+    faqs:
+      index:
+        title: "Welcome to Frequently Asked Questions"
+        try_contacts: "Not find what you were after? Try the %{contacts_link} page to speak to someone."
     my_home:
       show:
         view: "View room"
@@ -809,7 +814,7 @@ en:
       division: "Division"
       development: "Development"
       phase: "Phase"
-      unit_type: "Unit type"
+      unit_type: "Unit Type"
       plot: "Plot"
       room: "Room"
       finish: "Finish"
@@ -977,11 +982,11 @@ en:
         all: "All"
       faq:
         categories:
-          general: "General Queries"
-          settling: "Settling-in"
+          general: "General"
+          home: "Home Care"
+          settling: "Settling In"
           troubleshooting: "Troubleshooting"
-          urgent: "Urgent issues"
-          your_home: "Caring for your home"
+          urgent: "Urgent"
       brand:
         logo: "Logo"
         banner: "Banner"

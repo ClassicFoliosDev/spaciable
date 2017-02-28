@@ -232,7 +232,7 @@ module CreateFixture
     Appliance.find_by(name: appliance_name)
   end
 
-  def plot
+  def development_plot
     development.plots.first
   end
 

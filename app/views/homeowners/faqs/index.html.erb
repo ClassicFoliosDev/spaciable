@@ -1,0 +1,34 @@
+<%= render "components/homeowner/brand_template", brand: @brand %>
+<% content_for :hero_text_primary do %>
+    <%= t('.title') %>
+<% end %>
+<% content_for :hero_text_secondary do %>
+  <ul class="hero-links categories">
+    <% @categories.each do |category| %>
+      <li>
+        <%= link_to t_enum(Faq, :category, category),
+          homeowner_faqs_path(category),
+          class: ("active" if @category == category) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "faqs" %>
+
+<div class="branded-body">
+  <div class="main-container">
+    <dl class="faqs">
+      <% @faqs.each do |faq| %>
+        <dt><h3><%= faq.question %></h3></dt>
+        <dd><%= simple_format faq.answer %></dd>
+      <% end %>
+    </dl>
+
+    <div class="branded-text check-contacts">
+      <p>
+        <%= raw t(".try_contacts", contacts_link: link_to(Contact.model_name.human.pluralize, homeowner_contacts_path)) %>
+      </p>
+    </div>
+  </div>
+</div>

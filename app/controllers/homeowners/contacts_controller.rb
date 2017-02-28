@@ -4,7 +4,8 @@ module Homeowners
     load_and_authorize_resource :contact
 
     def index
-      @contacts = @contacts.where(category: contact_params[:category])
+      @category = contact_params[:category]
+      @contacts = @contacts.where(category: @category)
       @categories = Contact.categories.keys
       @brand = current_resident.brand
     end

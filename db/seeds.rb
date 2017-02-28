@@ -49,11 +49,23 @@ if Rails.env.development?
   resident = Resident.find_by(email: resident_email)
 
   if resident.plot.nil?
-    plot = FactoryGirl.create(:plot, :with_resident, resident: resident)
+    FactoryGirl.create(:plot, :with_resident, resident: resident)
+  end
 
+  resident.reload
+  plot = resident.plot
+
+  if plot.developer.contacts.empty?
     Contact.categories.keys.each do |category|
       FactoryGirl.create_list(:contact, 10, category: category, contactable: plot.developer)
       FactoryGirl.create_list(:contact, 10, category: category, contactable: plot.development)
+    end
+  end
+
+  if resident.plot.developer.faqs.empty?
+    Faq.categories.keys.each do |category|
+      FactoryGirl.create_list(:faq, 10, category: category, faqable: plot.developer)
+      FactoryGirl.create_list(:faq, 10, category: category, faqable: plot.development)
     end
   end
 end

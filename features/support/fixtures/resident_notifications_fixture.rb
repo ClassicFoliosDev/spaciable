@@ -65,11 +65,7 @@ module ResidentNotificationsFixture
   end
 
   def developer_plot
-    plot
-  end
-
-  def development_plot
-    plot
+    development_plot
   end
 
   def resident_email_addresses(under: instance)

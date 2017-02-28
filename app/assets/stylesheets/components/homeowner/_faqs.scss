@@ -5,3 +5,27 @@
     padding: $spacing-small / 2;
   }
 }
+
+.homeowner-view .faqs {
+  h3 {
+    margin: $spacing-small 0;
+  }
+
+  .ui-accordion-header {
+    background: $ui-white;
+    margin-top: $spacing-small;
+  }
+
+  .ui-accordion-content {
+    padding-bottom: $spacing-small;
+  }
+}
+
+.check-contacts {
+  font-size: $base-font-size;
+  margin: $spacing-medium 0;
+
+  a {
+    font-weight: bold;
+  }
+}

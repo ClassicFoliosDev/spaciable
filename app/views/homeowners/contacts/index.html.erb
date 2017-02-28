@@ -7,7 +7,11 @@
 <% content_for :hero_text_secondary do %>
   <ul class="hero-links">
     <% @categories.each do |category| %>
-      <li><%= link_to t_enum(Contact, :category, category), homeowner_contacts_path(category) %></li>
+      <li>
+        <%= link_to  t_enum(Contact, :category, category),
+          homeowner_contacts_path(category),
+          class: ("active" if @category == category) %>
+      </li>
     <% end %>
   </ul>
 <% end %>
@@ -16,7 +20,7 @@
 
 <div class="branded-body outer-container">
   <div class="check-faqs branded-text">
-    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, "TODO_FAQs", class: "branded-primary")).html_safe %></span>
+    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, homeowner_faqs_path, class: "branded-primary")).html_safe %></span>
   </div>
   <div class="full-contacts">
     <div class="half">

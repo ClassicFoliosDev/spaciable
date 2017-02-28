@@ -95,12 +95,16 @@ Rails.application.routes.draw do
   resources :appliances
   resources :finishes
 
+  scope :homeowners, module: :homeowners do
+    get "faqs/:category", to: "faqs#index", as: :homeowner_faqs, defaults: { category: "settling"}
+    get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
+    get :library, to: 'library#show', as: :homeowner_library
+    get :my_home, to: 'my_home#show', as: :homeowner_my_home
+    get "contacts/:category", to: 'contacts#index', as: :homeowner_contacts, defaults: { category: :sales }
+  end
+
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowners/dashboard#show', as: :homeowner_dashboard
-  get "/library", to: 'homeowners/library#show', as: :homeowner_library
-  get "/my_home", to: 'homeowners/my_home#show', as: :homeowner_my_home
-  get "/my_appliances", to: 'homeowners/appliances#show', as: :homeowner_appliances
-  get "homeowner/contacts/:category", to: 'homeowners/contacts#index', as: :homeowner_contacts, defaults: { category: :sales }
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"
