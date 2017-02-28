@@ -29,22 +29,35 @@ if User.cf_admin.none?
   INFO
 end
 
-if Rails.env.development? && Resident.none?
+if Rails.env.development?
   resident_email = "homeowner@alliants.com"
-  resident_password = "12345678"
 
-  FactoryGirl.create(:resident, email: resident_email, password: resident_password)
+  if Resident.none?
+    resident_password = "12345678"
 
-  STDOUT.puts <<-INFO
+    FactoryGirl.create(:resident, email: resident_email, password: resident_password)
 
-  #{'*' * 100}
-  Resident has been added:
-    email: #{resident_email}
-    password: #{resident_password}
-  #{'*' * 100}
+    STDOUT.puts <<-INFO
+    #{'*' * 100}
+      Resident has been added:
+        email: #{resident_email}
+        password: #{resident_password}
+    #{'*' * 100}
+    INFO
+  end
 
-  INFO
+  resident = Resident.find_by(email: resident_email)
+
+  if resident.plot.nil?
+    plot = FactoryGirl.create(:plot, :with_resident, resident: resident)
+
+    Contact.categories.keys.each do |category|
+      FactoryGirl.create_list(:contact, 10, category: category, contactable: plot.developer)
+      FactoryGirl.create_list(:contact, 10, category: category, contactable: plot.development)
+    end
+  end
 end
+
 
 if HomeownerLoginContent.none?
   content = HomeownerLoginContent.new

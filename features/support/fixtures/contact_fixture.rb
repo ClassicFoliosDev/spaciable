@@ -27,7 +27,7 @@ module ContactFixture
   end
 
   def category
-    "Warranty Provider"
+    "Customer Care"
   end
 
   def updated_name

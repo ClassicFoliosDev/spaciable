@@ -1,0 +1,37 @@
+<%= render "components/homeowner/brand_template", brand: @brand %>
+
+<% content_for :hero_text_primary do %>
+    <%= t('.title') %>
+<% end %>
+
+<% content_for :hero_text_secondary do %>
+  <ul class="hero-links">
+    <% @categories.each do |category| %>
+      <li><%= link_to t_enum(Contact, :category, category), homeowner_contacts_path(category) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "none" %>
+
+<div class="branded-body outer-container">
+  <div class="check-faqs branded-text">
+    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, "TODO_FAQs", class: "branded-primary")).html_safe %></span>
+  </div>
+  <div class="full-contacts">
+    <div class="half">
+      <% @contacts.each_with_index do | contact, index | %>
+        <% if index.even? %>
+          <%= render "homeowners/components/contact", contact: contact %>
+        <% end %>
+    <% end %>
+    </div>
+    <div class="half">
+      <% @contacts.each_with_index do | contact, index | %>
+        <% if index.odd? %>
+          <%= render "homeowners/components/contact", contact: contact %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

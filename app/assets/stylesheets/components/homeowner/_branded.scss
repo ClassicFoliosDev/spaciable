@@ -1,0 +1,57 @@
+.branded-primary {
+  color: $primary-cta-color;
+}
+
+.branded-btn {
+  color: $ui-white;
+  background-color: $primary-cta-color;
+  border-color: $ui-white;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 0 $spacing-small;
+  display: inline-block;
+}
+
+.branded-btn.alt {
+  border-color: $primary-cta-color;
+  background-color: $ui-white;
+  color: $primary-cta-color;
+  font-size: $base-small-font-size;
+}
+
+.branded-btn.second {
+  background-color: $secondary-cta-color;
+  border-color: $ui-white;
+  color: $ui-white;
+  font-size: $base-button-font-size;
+}
+
+.branded-hero {
+  height: 200px;
+  background-image: url(https://tinyurl.com/j6s6be3);
+  background-size: cover;
+  background-position: center;
+}
+
+.branded-body {
+  background-color: $ui-superlight-grey;
+  margin: 0;
+  padding: 20px;
+}
+
+.branded-border {
+  border-color: $ui-grey;
+  border-width: 1px;
+}
+
+.branded-content {
+  background-color: $ui-white;
+  margin-bottom: $spacing-medium;
+  border-style: solid;
+}
+
+.branded-text {
+  display: block;
+  margin-bottom: $spacing-small / 2;
+}

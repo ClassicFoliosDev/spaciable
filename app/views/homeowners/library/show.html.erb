@@ -1,7 +1,19 @@
 <%= render "components/homeowner/brand_template", brand: @brand %>
 
+<% content_for :hero_text_primary do %>
+    <%= t('.title') %>
+<% end %>
+<% content_for :hero_text_secondary do %>
+  <ul class="hero-links">
+    <li><a href="" class="active"><%= t('activerecord.attributes.document.categories.all') %></a></li>
+    <li><a href=""><%= t('activerecord.attributes.document.categories.homeowner_manual') %></a></li>
+    <li><a href=""><%= t('activerecord.attributes.document.categories.appliance_manuals') %></a></li>
+    <li><a href=""><%= t('activerecord.attributes.document.categories.insurance_warranty') %></a></li>
+  </ul>
+<% end %>
+
 <div class="library">
-  <%= render "components/homeowner/sub_header", active_tab: "library", plot: @plot %>
+  <%= render "components/homeowner/sub_header", active_tab: "library" %>
 </div>
 
 <div class="branded-body">

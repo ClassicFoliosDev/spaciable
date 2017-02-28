@@ -1,6 +1,13 @@
 <%= render "components/homeowner/brand_template", brand: @brand %>
 
-<%= render "components/homeowner/sub_header", active_tab: "appliances", plot: @plot %>
+<% content_for :hero_text_primary do %>
+    <%= render 'address/address', address: @plot %>
+<% end %>
+<% content_for :hero_text_secondary do %>
+    <%= t("components.homeowner.sub_header.home_for", years: "", months: "") %>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "appliances" %>
 
 <div class="branded-body">
   <div class="appliances">

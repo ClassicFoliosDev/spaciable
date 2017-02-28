@@ -8,16 +8,14 @@
         <%= link_to destroy_resident_session_path, class: 'sign-out', method: :delete do %>
           <%= fa_icon "sign-out" %>
         <% end %>
-
         <img src="https://tinyurl.com/zvl8hxo">
       </div>
     </div>
   </div>
   <nav>
     <div class="nav-inner">
-      <div class="logo">
+      <div class="logo branded-logo">
         <%= link_to image_tag(brand.branded_logo.present? ? brand.branded_logo : "logo.png"), homeowner_dashboard_path %>
-        <!-- link_to image_tag("logo.png"), homeowner_dashboard_path -->
       </div>
       <div class="navigation">
         <%= render "components/homeowner/navigation" %>

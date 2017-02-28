@@ -188,6 +188,12 @@ module CreateFixture
     end
   end
 
+  def create_contacts
+    FactoryGirl.create(:contact, contactable: developer, category: "management")
+    FactoryGirl.create(:contact, contactable: division, category: "customer_care")
+    FactoryGirl.create(:contact, contactable: division_development, category: "management")
+  end
+
   # INSTANCES
 
   def developer

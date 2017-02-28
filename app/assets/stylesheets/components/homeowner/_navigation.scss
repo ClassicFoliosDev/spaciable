@@ -4,6 +4,8 @@
 
     .nav-inner {
       @include outer-container(90%);
+      margin: 6px auto;
+
       h3, ul {
         display: inline-block;
       }
@@ -42,7 +44,6 @@
       }
 
       a {
-        color: $primary-cta-color;
         font-weight: bold;
         text-decoration: none;
       }
@@ -135,7 +136,7 @@
         @include span-columns(4 of 12);
       }
 
-      .search { 
+      .search {
         @include span-columns(8 of 12);
       }
     }
@@ -165,7 +166,7 @@
       .search {
         @include span-columns(12 of 12);
       }
-      
+
       img {
         display: block;
         margin: 0 auto;

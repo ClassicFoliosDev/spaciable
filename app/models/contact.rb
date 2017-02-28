@@ -16,12 +16,11 @@ class Contact < ApplicationRecord
   include TitleEnum
 
   enum category: [
-    :customer_care,
     :sales,
-    :warranty_provider,
-    :local_authority,
-    :emergency,
-    :concierge
+    :services,
+    :customer_care,
+    :management,
+    :emergency
   ]
 
   validates :contactable_id, presence: true

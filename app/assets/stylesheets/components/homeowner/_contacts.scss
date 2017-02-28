@@ -1,19 +1,18 @@
 $contact_thumb_diameter: 54px;
 
-.branded-body {
-  .contact-list {
-    .avatar {
-      overflow: hidden;
-      border-radius: 50%;
-      float: left;
+// Contact summary list on dashboard
+.contact-list {
+  .avatar {
+    overflow: hidden;
+    border-radius: 50%;
+    float: left;
 
-      img {
-        display: block;
-        height: $contact_thumb_diameter;
-        width: $contact_thumb_diameter;
-      }
+    img {
+      display: block;
+      height: $contact_thumb_diameter;
+      width: $contact_thumb_diameter;
     }
-  }   
+  }
 }
 
 .contact-details {
@@ -41,4 +40,45 @@ $contact_thumb_diameter: 54px;
 
 .my-contacts {
   height: 520px;
+}
+
+// Contacts on contacts page
+.full-contacts {
+  width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .contact {
+    width: 100%;
+    height: 160px;
+    font-size: $base-small-font-size;
+
+    .name {
+      font-size: $base-font-size;
+    }
+
+    .avatar {
+      width: 50px;
+      height: 50px;
+      font-size: 40px;
+      margin: $spacing-small auto $spacing-small/2 auto;
+      color: $type-grey;
+    }
+    
+    .details {
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    i {
+      width: 14px;
+    }
+  }
+}
+
+.check-faqs {
+  font-size: $base-font-size;
+  text-align: center;
+  margin-bottom: $spacing-medium;
 }

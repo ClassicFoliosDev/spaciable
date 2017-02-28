@@ -44,28 +44,6 @@ $card-size: 150px;
   }
 }
 
-.branded-body {
-  background-color: $ui-superlight-grey;
-  margin: 0;
-  padding: 20px;
-}
-
-.branded-border {
-  border-color: $ui-grey;
-  border-width: 1px;
-}
-
-.branded-content {
-  background-color: $ui-white;
-  margin-bottom: $spacing-medium;
-  border-style: solid;
-}
-
-.branded-text {
-  display: block;
-  margin-bottom: $spacing-small / 2;
-}
-
 .black-show-through {
   &:before {
     @include trans-to-black(360deg);

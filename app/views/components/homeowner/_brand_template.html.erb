@@ -19,9 +19,9 @@
   <% end %>
 
   <% if brand.branded_content_text_color.present? %>
-  .branded-border {
-     border-color: <%= brand.branded_content_text_color %>;
-  }
+    .branded-border {
+      border-color: <%= brand.branded_content_text_color %>;
+    }
   <% end %>
 
   <% if brand.branded_button_color.present? %>
@@ -31,6 +31,10 @@
 
     .branded-btn.alt {
       border-color: <%= brand.button_color %>;
+      color: <%= brand.branded_button_color %>;
+    }
+
+    .branded-primary {
       color: <%= brand.branded_button_color %>;
     }
   <% end %>

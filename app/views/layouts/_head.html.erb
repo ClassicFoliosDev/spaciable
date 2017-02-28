@@ -1,5 +1,10 @@
 <head>
   <title><%= title %></title>
+
+  <% if Rails.env.test? %>
+    <meta name="turbolinks-cache-control" content="no-cache">
+  <% end %>
+
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 

@@ -13,8 +13,14 @@ FactoryGirl.define do
     end
 
     trait :with_resident do
-      after(:create) do |plot|
-        create(:resident, plot: plot)
+      transient do
+        resident { build(:resident) }
+      end
+
+      after(:create) do |plot, evaluator|
+        resident = evaluator.resident
+        resident.plot = plot
+        resident.save!
       end
     end
   end

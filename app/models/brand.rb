@@ -48,8 +48,8 @@ class Brand < ApplicationRecord
 
     brand_parent = brandable
     while brand_parent.respond_to?(:parent)
-      return brand_parent.brand.logo.url if brand_parent.brand.logo.url.present?
       brand_parent = brand_parent.parent
+      return brand_parent.brand.logo.url if brand_parent.brand.logo.url.present?
     end
   end
 

@@ -1,28 +1,3 @@
-.branded-btn {
-  color: $ui-white;
-  background-color: $primary-cta-color;
-  border-color: $ui-white;
-  border-style: solid;
-  border-width: 1px;
-  border-radius: 5px;
-  padding: 0 $spacing-small;
-  display: inline-block;
-}
-
-.branded-btn.alt {
-  border-color: $primary-cta-color;
-  background-color: $ui-white;
-  color: $primary-cta-color;
-  font-size: $base-small-font-size;
-}
-
-.branded-btn.second {
-  background-color: $secondary-cta-color;
-  border-color: $ui-white;
-  color: $ui-white;
-  font-size: $base-button-font-size;
-}
-
 .right {
   float: right;
 }

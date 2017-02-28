@@ -5,6 +5,6 @@ module TranslationHelper
 
     model_name = model.model_name.i18n_key
 
-    t("activerecord.attributes.#{model_name}.#{attribute.to_s.pluralize}.#{key}")
+    t("activerecord.attributes.#{model_name}.#{attribute.to_s.pluralize}.#{key.to_sym}")
   end
 end

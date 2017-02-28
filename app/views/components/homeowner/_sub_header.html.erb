@@ -2,10 +2,10 @@
   <div class="nav-inner">
     <h3 class="branded-text"><%= t('.title') %></h3>
     <ul>
-      <li class="navbar-item"><%= link_to t(".rooms"), homeowner_my_home_path, active_tab: "rooms", class: (active_tab == "rooms"? "active": "") %></li>
-      <li class="navbar-item"><%= link_to t(".appliances"), homeowner_appliances_path, active_tab: "appliances", class: (active_tab == "appliances"? "active": "") %></li>
-      <li class="navbar-item"><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path, active_tab: "library", class: (active_tab == "library" ? "active": "") %></a></li>
-      <li class="navbar-item"><a href=""><%= t('layouts.homeowner.sub_nav.faqs') %></a></li>
+      <li class="navbar-item"><%= link_to t(".rooms"), homeowner_my_home_path, active_tab: "rooms", class: "branded-primary " + (active_tab == "rooms"? "active": "") %></li>
+      <li class="navbar-item"><%= link_to t(".appliances"), homeowner_appliances_path, active_tab: "appliances", class: "branded-primary " + (active_tab == "appliances"? "active": "") %></li>
+      <li class="navbar-item"><%= link_to t('layouts.homeowner.sub_nav.library'), homeowner_library_path, active_tab: "library", class: "branded-primary " + (active_tab == "library" ? "active": "") %></a></li>
+      <li class="navbar-item"><%= link_to t('layouts.homeowner.sub_nav.faqs'), "TODO_FAQs", active_tab: "faqs", class: "branded-primary " + (active_tab == "faqs" ? "active": "") %></a></li>
     </ul>
   </div>
 </nav>
@@ -13,20 +13,11 @@
 <div class="branded-hero">
   <div class="filter-hero">
     <div class="hero-text">
-      <% if active_tab == "library" %>
-        <h3 class="hero-header"><%= t('layouts.homeowner.library.title') %></h3>
-        <ul class="library-links">
-          <li><a href="" class="active"><%= t('activerecord.attributes.document.categories.all') %></a></li>
-          <li><a href=""><%= t('activerecord.attributes.document.categories.homeowner_manual') %></a></li>
-          <li><a href=""><%= t('activerecord.attributes.document.categories.appliance_manuals') %></a></li>
-          <li><a href=""><%= t('activerecord.attributes.document.categories.insurance_warranty') %></a></li>
-        </ul>
-      <% else %>
-        <span>
-          <span class="strong"><%= plot %></span>
-          <%= render 'address/address', address: plot %>
-        </span>
-        <span class="secondary"><%= t(".home_for", years: "", months: "") %></span>
+      <% if content_for?(:hero_text_primary) %>
+        <h2><%= yield(:hero_text_primary) %></h2>
+      <% end %>
+      <% if content_for?(:hero_text_secondary) %>
+        <p class="secondary"><%= yield(:hero_text_secondary) %></p>
       <% end %>
     </div>
   </div>

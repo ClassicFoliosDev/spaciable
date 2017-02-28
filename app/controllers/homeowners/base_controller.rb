@@ -7,5 +7,9 @@ module Homeowners
     before_action :authenticate_resident!
 
     layout "homeowner"
+
+    def current_ability
+      @ability ||= Ability.new(current_resident)
+    end
   end
 end

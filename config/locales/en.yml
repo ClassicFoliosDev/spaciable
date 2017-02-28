@@ -56,13 +56,13 @@ en:
       title: "My home"
       nav:
         my_home: "My home"
+        contacts: "Contacts"
+        how_to: "How to"
       sub_nav: 
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
-      library:
-        title: "Welcome to your digital home library"
     admin_login:
       title: "Admin Login to Hoozzi"
     login:
@@ -307,6 +307,19 @@ en:
     my_home:
       show:
         view: "View room"
+    contacts:
+      index:
+        title: "Useful contacts"
+        check_faqs: "If you have an issue, have you tried looking in the %{link} section"
+    library:
+      show:
+        title: "Welcome to your digital home library"
+    components:
+      contact:
+        mobile: "Mobile"
+        email: "Email"
+        tel: "tel: %{number}"
+        phone: "Phone"
 
   developers:
     destroy:
@@ -792,19 +805,20 @@ en:
 
   activerecord:
     models:
-      Developer: "Developer"
-      Division: "Division"
-      Development: "Development"
-      Phase: "Phase"
-      Unit_Type: "Unit Type"
-      Plot: "Plot"
-      Room: "Room"
-      Finish: "Finish"
-      Document: "Document"
-      User: "User"
-      Address: "Address"
-      Plot_Resident: "Resident"
-      Contact: "Contact"
+      developer: "Developer"
+      division: "Division"
+      development: "Development"
+      phase: "Phase"
+      unit_type: "Unit type"
+      plot: "Plot"
+      room: "Room"
+      finish: "Finish"
+      document: "Document"
+      user: "User"
+      address: "Address"
+      plot_resident: "Resident"
+      contact: "Contact"
+      faq: "FAQ"
 
     attributes:
       developer:
@@ -956,10 +970,9 @@ en:
         categories:
           customer_care: "Customer Care"
           sales: "Sales"
-          warranty_provider: "Warranty Provider"
-          local_authority: "Local Authority"
+          services: "Services"
           emergency: "Emergency"
-          concierge: "Concierge"
+          management: "Management"
       send_to_all:
         all: "All"
       faq:
