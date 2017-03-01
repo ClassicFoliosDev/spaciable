@@ -59,7 +59,7 @@ gem "newrelic_rpm"
 gem "font-awesome-rails"
 gem "livingstyleguide", git: "https://github.com/Alliants/livingstyleguide.git", branch: "rails_5"
 gem "bourbon"
-gem "neat"
+gem "neat", "~> 1"
 
 # Pagination with kaminari: https://github.com/amatsuda/kaminari
 gem "kaminari"
