@@ -1,6 +1,12 @@
 $library-interface-height: 164px;
 $card-height: 230px;
 
+.dashboard {
+  @include outer-container(90%);
+  margin: 0 auto;
+  padding: 20px;
+}
+
 .card-container {
   & > *:nth-child(4),
   & > *:nth-child(4n+7) {

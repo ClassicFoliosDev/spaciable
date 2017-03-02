@@ -3,7 +3,7 @@ $card-size: 150px;
 .homeowner-view {
   .session {
     background-color: $secondary-blue;
-    
+
     .session-inner {
       @include outer-container(90%);
 
@@ -23,6 +23,14 @@ $card-size: 150px;
 
       span {
         color: white;
+      }
+
+      a {
+        color: $ui-white;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       img {

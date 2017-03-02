@@ -6,8 +6,17 @@
       @include outer-container(90%);
       margin: 6px auto;
 
-      h3, ul {
+      h3 {
         display: inline-block;
+      }
+
+      ul {
+        display: inline-block;
+
+        .active li {
+          color: $type-grey;
+          font-weight: bold;
+        }
       }
     }
 
@@ -69,7 +78,6 @@
   }
 
   .sub-navigation-container {
-    height: 45px;
     border-top: solid 1px $ui-grey;
 
     ul {
@@ -94,14 +102,13 @@
       font-size: 25px;
       height: 22px;
       line-height: 25px;
-      left: $navbar-trigger-offset;
-      top: $navbar-trigger-offset;
+      left: 16px;
+      top: 16px;
     }
 
     .navbar-menu {
       max-height: 0;
       display: none;
-      //max-width: 220px;
 
       ul {
         margin-bottom: 0;
@@ -143,7 +150,6 @@
 
     .navbar {
       background-color: $ui-white;
-      //width: 100%;
       position: absolute;
       left: 0;
       top: 60px;

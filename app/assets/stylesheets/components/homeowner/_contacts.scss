@@ -13,17 +13,16 @@ $contact_thumb_diameter: 54px;
       width: $contact_thumb_diameter;
     }
   }
-}
 
-.contact-details {
-  width: 150px;
-  float: right;
-  font-size: $base-small-font-size;
+  .contact-details {
+    font-size: $base-small-font-size;
+    margin-left: 70px;
+  }
 }
 
 .contact {
   padding: 10px;
-  height: 95px;
+  height: 86px;
   border-top-style: solid;
   border-top-width: 1px;
 }
@@ -39,7 +38,7 @@ $contact_thumb_diameter: 54px;
 }
 
 .my-contacts {
-  height: 520px;
+  height: 482px;
 }
 
 // Contacts on contacts page
@@ -64,7 +63,7 @@ $contact_thumb_diameter: 54px;
       margin: $spacing-small auto $spacing-small/2 auto;
       color: $type-grey;
     }
-    
+
     .details {
       text-align: center;
       overflow: hidden;

@@ -2,6 +2,8 @@ $login-form-bg-color: $ui-white;
 $login-title-left-color: $primary-green;
 $login-title-right-color: $primary-red;
 
+$maximum-logo-size: 400px;
+
 .admin-login-view {
   @include grad-orange-pink(180deg);
 
@@ -41,6 +43,6 @@ $login-title-right-color: $primary-red;
     background-color: $login-form-bg-color;
     border-radius: $border-radius;
     overflow: hidden;
-    padding: $spacing-medium;   
+    padding: $spacing-medium;
   }
 }

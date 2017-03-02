@@ -3,12 +3,9 @@
     <div class="session-inner">
       <div class="user">
         <span><%= t('.hi', first_name: current_resident.first_name) %></span>
-        <%= fa_icon "bell" %>
-        <%= fa_icon "heart" %>
-        <%= link_to destroy_resident_session_path, class: 'sign-out', method: :delete do %>
-          <%= fa_icon "sign-out" %>
-        <% end %>
         <img src="https://tinyurl.com/zvl8hxo">
+        <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete %>
+
       </div>
     </div>
   </div>

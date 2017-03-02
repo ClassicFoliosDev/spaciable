@@ -55,11 +55,12 @@ en:
     homeowner:
       title: "My home"
       nav:
+        dashboard: "Dashboard"
         my_home: "My home"
         contacts: "Contacts"
         how_to: "How to"
         faqs: "FAQs"
-      sub_nav: 
+      sub_nav:
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
@@ -222,7 +223,7 @@ en:
         role_at: "%{role} at %{permission_level_name}"
       update:
         success: "%{user_email} was updated successfully"
-  
+
   dashboard:
     header: "Dashboard title for Hoozzi"
     title: "Dashboard"

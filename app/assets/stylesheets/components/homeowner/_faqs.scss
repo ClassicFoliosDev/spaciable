@@ -1,8 +1,21 @@
-.faq-list {
+.component-faqs .faq-list {
   li {
     border-top-style: solid;
     border-top-width: 1px;
-    padding: $spacing-small / 2;
+    padding: 6px;
+
+    span {
+      float: left;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 95%;
+      white-space: nowrap;
+      padding-right: 10px;
+    }
+
+    i {
+      width: 5%;
+    }
   }
 }
 

@@ -5,15 +5,29 @@
   <input id="navbar-trigger" type="checkbox">
   <nav class="navbar-menu">
     <ul>
-      <li class="navbar-item">
-        <%= link_to t("layouts.homeowner.nav.my_home"), homeowner_my_home_path, class: "navbar-link branded-primary" %>
-      </li>
-      <li class="navbar-item branded-primary">
-        <%= link_to t("layouts.homeowner.nav.how_to"), homeowner_my_home_path, class: "navbar-link branded-primary" %>
-      </li>
-      <li class="navbar-item branded-primary">
-        <%= link_to t("layouts.homeowner.nav.contacts"), homeowner_contacts_path, class: "navbar-link branded-primary" %>
-      </li>
+      <%= link_to homeowner_dashboard_path, class: "navbar-link branded-primary" do %>
+        <li class="navbar-item">
+          <%= t("layouts.homeowner.nav.dashboard") %>
+        </li>
+      <% end %>
+
+      <%= link_to homeowner_my_home_path, class: "navbar-link branded-primary" do %>
+        <li class="navbar-item">
+          <%= t("layouts.homeowner.nav.my_home") %>
+        </li>
+      <% end %>
+
+      <%= link_to homeowner_my_home_path, class: "navbar-link branded-primary" do %>
+        <li class="navbar-item branded-primary">
+          <%= t("layouts.homeowner.nav.how_to") %>
+        </li>
+      <% end %>
+
+      <%= link_to homeowner_contacts_path, class: "navbar-link branded-primary" do %>
+        <li class="navbar-item branded-primary">
+          <%= t("layouts.homeowner.nav.contacts") %>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </div>
