@@ -17,6 +17,13 @@ $contact_thumb_diameter: 54px;
   .contact-details {
     font-size: $base-small-font-size;
     margin-left: 70px;
+    white-space: nowrap;
+
+    span {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: block;
+    }
   }
 }
 
@@ -25,16 +32,6 @@ $contact_thumb_diameter: 54px;
   height: 86px;
   border-top-style: solid;
   border-top-width: 1px;
-}
-
-.contact-actions {
-  white-space: nowrap;
-
-  span {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: block;
-  }
 }
 
 .my-contacts {
