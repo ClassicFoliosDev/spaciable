@@ -5,19 +5,13 @@
 }
 
 .documents {
-
   .row {
-    width: 690px;
     margin-left: auto;
     margin-right: auto;
     float: none;
   }
 
   .document {
-    margin-bottom: $spacing-medium;
-    width: 100px;
-    text-align: center;
-    padding: $spacing-small;
     display: inline-block;
 
     img {
@@ -26,9 +20,10 @@
       margin: 0 auto;
     }
 
-    h2 {
-      font-size: $title-font-size-5;
-      margin-bottom: 0;
+    h5 {
+      font-size: $base-font-size;
+      font-weight: bold;
+      margin: $spacing-small 0 0 0;
     }
 
     p {

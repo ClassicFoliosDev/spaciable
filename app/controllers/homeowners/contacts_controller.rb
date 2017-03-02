@@ -7,7 +7,6 @@ module Homeowners
       @category = contact_params[:category]
       @contacts = @contacts.where(category: @category)
       @categories = Contact.categories.keys
-      @brand = current_resident.brand
     end
 
     private

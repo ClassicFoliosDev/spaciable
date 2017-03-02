@@ -5,6 +5,8 @@ class Brand < ApplicationRecord
   mount_uploader :logo, PictureUploader
   mount_uploader :banner, PictureUploader
   attr_accessor :logo_cache, :banner_cache
+  process_in_background :logo
+  process_in_background :banner
 
   belongs_to :brandable, polymorphic: true
 

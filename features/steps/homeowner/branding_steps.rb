@@ -34,30 +34,26 @@ When(/^I visit the dashboard$/) do
 end
 
 Then(/^I should see the branding for my page$/) do
-  within ".homeowner-view" do
-    container = page.find(".content-container")
+  style = find("head [data-test='brand-style-overrides']", visible: false)
 
-    style = container.find("style")
+  # bg-color set on developer and division: should be the division color
+  expect(style.native).to have_content("branded-body { background-color: #000222")
+  # text-color set on developer only
+  expect(style.native).to have_content("branded-text { color: #EEEFFF")
+  # content bg-color set on division only
+  expect(style.native).to have_content("branded-content { background-color: #000222")
+  # content border (aka text) color set on development only
+  expect(style.native).to have_content("branded-border { border-color: #446677")
+  # button background color set on development and developer: should be development color
+  expect(style.native).to have_content("branded-btn { background-color: #776644")
+  # button text color set on development, division, and developer: should be development color
+  expect(style.native).to have_content("branded-btn { color: #446677")
 
-    # bg-color set on developer and division: should be the division color
-    expect(style.native).to have_content("branded-body { background-color: #000222")
-    # text-color set on developer only
-    expect(style.native).to have_content("branded-text { color: #EEEFFF")
-    # content bg-color set on division only
-    expect(style.native).to have_content("branded-content { background-color: #000222")
-    # content border (aka text) color set on development only
-    expect(style.native).to have_content("branded-border { border-color: #446677")
-    # button background color set on development and developer: should be development color
-    expect(style.native).to have_content("branded-btn { background-color: #776644")
-    # button text color set on development, division, and developer: should be development color
-    expect(style.native).to have_content("branded-btn { color: #446677")
+  # banner set on development, division, and developer: should be development image
+  expect(style.native).to have_content("cala_banner.jpg")
 
-    # banner set on development, division, and developer: should be development image
-    expect(style.native).to have_content("cala_banner.jpg")
-
-    # button text color should NOT be the developer color
-    expect(style.native).not_to have_content("branded-btn { color: #FFFEEE")
-    # button text color should NOT be the division color
-    expect(style.native).not_to have_content("branded-btn { color: #000222")
-  end
+  # button text color should NOT be the developer color
+  expect(style.native).not_to have_content("branded-btn { color: #FFFEEE")
+  # button text color should NOT be the division color
+  expect(style.native).not_to have_content("branded-btn { color: #000222")
 end

@@ -4,7 +4,7 @@
       <div class="user">
         <span><%= t('.hi', first_name: current_resident.first_name) %></span>
         <img src="https://tinyurl.com/zvl8hxo">
-        <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete %>
+        <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
 
       </div>
     </div>

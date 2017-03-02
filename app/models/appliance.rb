@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 class Appliance < ApplicationRecord
   acts_as_paranoid
+
   mount_uploader :primary_image, PictureUploader
   mount_uploader :secondary_image, PictureUploader
   mount_uploader :manual, DocumentUploader
+  process_in_background :primary_image
+  process_in_background :secondary_image
+  process_in_background :manual
 
   attr_accessor :primary_image_cache
   attr_accessor :secondary_image_cache
@@ -13,6 +17,8 @@ class Appliance < ApplicationRecord
 
   has_many :appliance_rooms
   has_many :rooms, through: :appliance_rooms
+
+  scope :with_manuals, -> { where.not(manual: nil) }
 
   paginates_per 10
 

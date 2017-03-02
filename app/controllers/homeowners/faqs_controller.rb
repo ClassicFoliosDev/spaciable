@@ -7,8 +7,6 @@ module Homeowners
       @category = faq_params[:category]
       @faqs = @faqs.where(category: @category)
 
-      @brand = current_resident.brand
-      @plot = current_resident.plot
       @categories = Faq.categories.keys
     end
 

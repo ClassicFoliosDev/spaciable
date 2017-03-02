@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PictureUploader < CarrierWave::Uploader::Base
+  include ::CarrierWave::Backgrounder::Delay
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick

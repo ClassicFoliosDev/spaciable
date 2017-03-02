@@ -9,6 +9,22 @@
 - `cd` into the project directory: `cd hoozzi`
 - Setup the project: `bin/setup`
 
+To generate thumbnails of PDFs make sure you have imagemagick 6 with ghostscript installed, imagemagick 7 does not work with RMagick:
+
+```
+$ brew tap homebrew/versions
+$ brew install imagemagick@6
+$ PKG_CONFIG_PATH=/usr/local/opt/imagemagick@6/lib/pkgconfig gem install rmagick
+$ echo 'export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"' >> ~/.bash_profile
+```
+If you are having problems with imagemagick, then getting graphicsmagick to work can be easier:
+
+```
+# gs is the ghostscript package
+brew install gs graphicsmagick
+```
+
+
 ## Generate admin and homeowner accounts
 
 `$ rake db:seed`

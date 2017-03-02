@@ -4,7 +4,6 @@ module Homeowners
     skip_authorization_check
 
     def show
-      @brand = current_resident.brand
     end
   end
 end

@@ -1,4 +1,4 @@
-  <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title") } %>
+  <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title"), brand: @brand } %>
   <body class="login-view" style="background-image: url('<%= @content&.background_image %>');">
     <div class="outer-container">
         <div class="main-container">

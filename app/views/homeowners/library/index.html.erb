@@ -1,0 +1,52 @@
+<% content_for :hero_text_primary do %>
+  <%= t('.title') %>
+<% end %>
+<% content_for :hero_text_secondary do %>
+  <ul class="hero-links categories">
+    <% @categories.each do |category| %>
+      <li>
+        <%= link_to t_enum(Document, :category, category),
+          homeowner_library_path(category),
+          class: ("active" if @category == category) %>
+      </li>
+    <% end %>
+    <li>
+      <%= link_to t(".appliances"),
+        homeowner_appliance_manuals_path,
+        class: ("active" if @category == t(".appliances_category")) %>
+    </li>
+  </ul>
+<% end %>
+
+<div class="library">
+  <%= render "components/homeowner/sub_header", active_tab: "library" %>
+</div>
+
+<div class="branded-body">
+  <div class="main-container documents branded-background">
+    <div class="row">
+      <% @documents.each do |document| %>
+        <div class="sixth document">
+          <%= link_to document.file.url, target: "_blank" do %>
+            <%= image_tag document.file.preview.url if document.file? %>
+          <% end %>
+
+          <h5><%= document.title %></h5>
+          <p><%= t_enum(Document, :category, document.category) %></p>
+        </div>
+      <% end %>
+
+      <% @appliances.each do |appliance| %>
+        <div class="sixth document">
+          <%= link_to appliance.manual.url, target: "_blank" do %>
+            <%= image_tag appliance.manual.preview.url if appliance.manual? %>
+          <% end %>
+
+          <h5><%= appliance.name %></h5>
+          <p><%= t(".manual") %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

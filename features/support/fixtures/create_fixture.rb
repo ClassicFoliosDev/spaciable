@@ -6,6 +6,7 @@ module CreateFixture
 
   RESOURCES ||= {
     appliance: "Bosch WAB28161GB Washing Machine",
+    appliance_without_manual: "Appliance without manual",
     developer: "Hamble View Developer",
     development: "Riverside Development",
     division: "Hamble Riverside Division",
@@ -67,6 +68,10 @@ module CreateFixture
 
   def energy_rating
     "a1"
+  end
+
+  def resident_email
+    "resident@example.com"
   end
 
   # FACTORIES
@@ -134,10 +139,27 @@ module CreateFixture
     FactoryGirl.create(:room, name: room_name, unit_type: unit_type)
   end
 
+  def appliance_category
+    ApplianceCategory.find_or_create_by(name: appliance_category_name)
+  end
+
+  def manufacturer
+    Manufacturer.find_or_create_by(name: appliance_manufacturer_name)
+  end
+
   def create_appliance
-    appliance_category = ApplianceCategory.find_by_name(appliance_category_name)
-    manufacturer = Manufacturer.find_by_name(appliance_manufacturer_name)
     FactoryGirl.create(:appliance, name: appliance_name, appliance_category: appliance_category, manufacturer: manufacturer, e_rating: energy_rating)
+  end
+
+  def create_appliance_without_manual
+    FactoryGirl.create(
+      :appliance,
+      name: appliance_without_manual_name,
+      appliance_category: appliance_category,
+      manufacturer: manufacturer,
+      rooms: [room],
+      manual: nil
+    )
   end
 
   def create_appliance_room
@@ -172,7 +194,7 @@ module CreateFixture
   end
 
   def create_phase_plot
-    FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name)
+    FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, unit_type: unit_type)
   end
 
   def create_plots
@@ -188,10 +210,28 @@ module CreateFixture
     end
   end
 
+  def create_resident
+    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email)
+  end
+
   def create_contacts
     FactoryGirl.create(:contact, contactable: developer, category: "management")
     FactoryGirl.create(:contact, contactable: division, category: "customer_care")
     FactoryGirl.create(:contact, contactable: division_development, category: "management")
+  end
+
+  def create_resident_under_a_phase_plot_with_appliances_and_rooms
+    create_developer
+    create_development
+    create_development_phase
+    create_unit_type
+    create_phase_plot
+
+    create_room
+    create_appliance
+    create_appliance_room
+    create_appliance_without_manual
+    create_resident
   end
 
   # INSTANCES
@@ -242,6 +282,10 @@ module CreateFixture
 
   def phase_plot
     phase.plots.first
+  end
+
+  def resident
+    Resident.find_by(email: resident_email)
   end
 end
 # rubocop:enable ModuleLength

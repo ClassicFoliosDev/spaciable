@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Document < ApplicationRecord
   mount_uploader :file, DocumentUploader
+  process_in_background :file
 
   belongs_to :documentable, polymorphic: true
   alias parent documentable
@@ -14,9 +15,9 @@ class Document < ApplicationRecord
   validates :title, presence: true, uniqueness: false
 
   enum category: [
-    :homeowner_manual,
-    :appliance_manuals,
-    :insurance_warranty
+    :my_home,
+    :locality,
+    :legal_and_warranty
   ]
 
   def to_s

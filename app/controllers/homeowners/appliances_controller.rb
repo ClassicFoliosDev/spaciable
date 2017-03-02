@@ -5,8 +5,6 @@ module Homeowners
 
     def show
       @appliances = Appliance.accessible_by(Ability.new(current_resident))
-      @plot = current_resident.plot
-      @brand = current_resident.brand
     end
   end
 end

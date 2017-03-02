@@ -4,8 +4,6 @@ module Homeowners
     skip_authorization_check
 
     def show
-      @plot = current_resident.plot
-      @brand = current_resident.brand
       @rooms = @plot.rooms
     end
   end

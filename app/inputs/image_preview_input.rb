@@ -25,7 +25,7 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
   end
 
   def build_buttons(out)
-    if object.send("#{attribute_name}?")
+    if valid_url?
       input_html_options.delete(:remove_path)
       build_remove_button(out, object.send(attribute_name))
       label_text = t("image_preview.replace")
@@ -34,6 +34,13 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
     end
     out << @builder.label(attribute_name, label_text, class: "btn image-name")
     out << @builder.file_field(attribute_name, input_html_options)
+  end
+
+  def valid_url?
+    url = object.send(attribute_name.to_s)&.url
+
+    # cached files on tmp are not reliable behind a load balancer
+    url && !url.to_s.starts_with?("/uploads/tmp/")
   end
 
   def build_remove_button(out, _image)
@@ -47,6 +54,7 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
   def image_preview
     version = input_html_options.delete(:preview_version)
     url = object.send(attribute_name).tap { |o| break o.send(version) if version }.send("url")
-    template.image_tag(url, class: "image-preview")
+
+    template.image_tag(url, class: "image-preview") if url.present?
   end
 end

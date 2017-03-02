@@ -44,7 +44,7 @@ And(/^I should see the original filename$/) do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.document_name)
     # Wasn't set explicitly, but current behaviour will default it
-    expect(page).to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
+    expect(page).to have_content(t("activerecord.attributes.document.categories.my_home"))
   end
 end
 
@@ -57,7 +57,7 @@ When(/^I update the developer's document$/) do
 
   fill_in "document_title", with: DocumentFixture.updated_document_name
 
-  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.insurance_warranty")
+  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
 
   click_on t("developers.form.submit")
 end
@@ -85,8 +85,8 @@ Then(/^I should see the updated (\w+) document$/) do |parent_type|
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
-    expect(page).to have_content(t("activerecord.attributes.document.categories.insurance_warranty"))
-    expect(page).not_to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
+    expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
+    expect(page).not_to have_content(t("activerecord.attributes.document.categories.my_home"))
   end
 end
 
@@ -403,7 +403,7 @@ When(/^I update the document$/) do
   end
 
   fill_in "document_title", with: DocumentFixture.updated_document_name
-  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.insurance_warranty")
+  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
 
   click_on t("developers.form.submit")
 end
@@ -429,8 +429,8 @@ Then(/^I should see the updated document for the plot$/) do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
-    expect(page).to have_content(t("activerecord.attributes.document.categories.insurance_warranty"))
-    expect(page).not_to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
+    expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
+    expect(page).not_to have_content(t("activerecord.attributes.document.categories.my_home"))
   end
 end
 
@@ -455,7 +455,7 @@ Then(/^I should see the updated document for the phase plot$/) do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
-    expect(page).to have_content(t("activerecord.attributes.document.categories.insurance_warranty"))
-    expect(page).not_to have_content(t("activerecord.attributes.document.categories.homeowner_manual"))
+    expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
+    expect(page).not_to have_content(t("activerecord.attributes.document.categories.my_home"))
   end
 end

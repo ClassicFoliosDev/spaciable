@@ -5,6 +5,9 @@ $LOAD_PATH.unshift("features/support")
 
 ActionController::Base.allow_rescue = false
 
+# Make background jobs run synchronously:
+require "sucker_punch/testing/inline"
+
 require "module_importer.rb"
 require "feature_application_actions"
 require "webmock/cucumber"

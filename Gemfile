@@ -41,8 +41,10 @@ gem "gretel" # breadcrumbs
 
 # File Uploads
 gem "carrierwave"
+gem "carrierwave_backgrounder"
 gem "mini_magick"
 gem "fog-aws"
+gem "rmagick"
 
 # Authentication
 gem "devise", "~> 4.2"

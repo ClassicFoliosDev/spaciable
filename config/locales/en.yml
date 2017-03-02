@@ -318,8 +318,14 @@ en:
         title: "Useful contacts"
         check_faqs: "If you have an issue, have you tried looking in the %{link} section"
     library:
-      show:
+      index:
         title: "Welcome to your digital home library"
+        appliances_category: "appliance_manuals"
+        appliances: "Appliances"
+        manual: "Manual"
+      appliance_manuals:
+        appliances_category: "appliance_manuals"
+        manual: "Manual"
     components:
       contact:
         mobile: "Mobile"
@@ -935,10 +941,9 @@ en:
         updated_at: "Last edited"
         categories:
           # Category enum values for documents
-          all: "All"
-          homeowner_manual: "Homeowner's manual"
-          appliance_manuals: "Appliance manuals"
-          insurance_warranty: "Insurance & warranty"
+          my_home: "My Home"
+          locality: "Locality"
+          legal_and_warranty: "Legal & Warranty"
       user:
         email: "Email Address"
         password: "Password"
