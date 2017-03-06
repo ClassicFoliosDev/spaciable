@@ -9,9 +9,7 @@ $icon-color: #252C31;
 
   .room {
     overflow: auto;
-    padding-top: $spacing-small;
-    padding-right: $spacing-small / 2;
-    padding-left: $spacing-small / 2;
+    padding: $spacing-small;
 
     .room-icon {
       margin-left: $spacing-large;

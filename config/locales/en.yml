@@ -332,6 +332,9 @@ en:
         email: "Email"
         tel: "tel: %{number}"
         phone: "Phone"
+    appliances:
+      show:
+        register: "Register appliance"
 
   developers:
     destroy:

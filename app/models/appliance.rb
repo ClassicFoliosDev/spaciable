@@ -24,6 +24,8 @@ class Appliance < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  delegate :link, to: :manufacturer, prefix: true
+
   enum warranty_length: [
     :no_warranty,
     :one,

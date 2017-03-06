@@ -1,58 +1,98 @@
 $energy-border-color: #66C3F3;
+$card-height: 350px;
 
 .appliance {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  height: 380px;
+  width: 860px;
+  margin: $spacing-small auto;
+  height: $card-height;
 
-  .third {
-    span {
-      font-size: $base-small-font-size;
-      margin-right: $spacing-small;
-    }
+  span {
+    font-size: $base-small-font-size;
   }
+}
+
+.two-thirds {
+  padding-top: 40px;
 }
 
 .primary-image {
   img {
-    max-height: 230px;
+    max-height: 180px;
     max-width: 180px;
-    margin-top: $spacing-medium;
-    margin-left: auto;
-    margin-right: auto;
+    margin: $spacing-small auto 0 auto;
     display: block;
   }
 }
 
 .secondary-image {
   img {
-    max-height: 100px;
-    margin: $spacing-small auto 0;
+    max-height: 50px;
+    margin: 0 auto;
     display: block;
   }
 }
 
-.category, .description {
+.category {
   margin-top: $spacing-medium;
+  margin-left: $spacing-medium;
+}
+
+.register {
+  a {
+    margin: $spacing-medium auto 0 auto;
+    display: block;
+    width: 144px;
+  }
+}
+
+.manual {
+  margin-top: $spacing-small;
+}
+
+.description {
+  float: left;
+  margin-top: $spacing-small;
+  margin-right: 15px;
+  width: 530px;
+
+  span {
+    overflow-y: scroll;
+    height: 74px;
+    display: block;
+    padding-top: 4px;
+  }
 }
 
 .e-rating {
   margin-top: $spacing-small;
 
   img {
-    max-width: 180px;
+    max-width: 150px;
     margin-top: $spacing-small / 2;
   }
 }
 
 @include media($tablet-landscape-down) {
   .appliance {
-    width: 480px;
+    width: 540px;
     height: 280px;
+
+    .left-column {
+      width: 170px;
+    }
+
+    .right-column, .description {
+      width: 368px;
+      padding-top: $spacing-small;
+    }
 
     .third {
       width: 30%;
+      min-height: 150px;
+    }
+
+    .quarter {
+      width: 25%;
     }
   }
 
@@ -84,11 +124,21 @@ $energy-border-color: #66C3F3;
 
 @include media($mobile-down) {
   .appliance {
-    width: 220px;
-  }
+    width: 250px;
 
-  .primary-image {
-    display: none;
+    .right-column {
+      width: 250px;
+    }
+
+    .left-column {
+      display: none;
+    }
+
+    .third, .quarter, .description {
+      width: 200px;
+      min-height: 20px;
+      margin: $spacing-small/2 $spacing-small;
+    }
   }
 
   .dummy-image {

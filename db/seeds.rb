@@ -86,6 +86,24 @@ if HomeownerLoginContent.none?
   content.save!
 end
 
+#################################
+# Manufacturers and their links #
+#################################
+{
+  "AEG" => "http://www.aeg.co.uk/mypages/register-a-product/",
+  "Bosch" => "http://www.bosch-home.co.uk/register-your-appliance.html",
+  "Miele"=> "https://shop.miele.co.uk/promotions/amdea/",
+  "Samsung" => "http://www.samsung.com/us/support/register/product",
+  "Siemens" => "http://www.siemens-home.bsh-group.com/uk/2_year_guarantee_registration",
+  "Zanussi" => "http://www.zanussi.co.uk/support/register-products/"
+}.each_pair do |manufacturer_name, link|
+  puts "Manufacturer: #{manufacturer_name} #{link}"
+
+  manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name)
+  manufacturer.link = link
+  manufacturer.save!
+end
+
 ####################################################
 # Finish Categories, Types and their Manufacturers #
 ####################################################
@@ -294,7 +312,7 @@ end
     "Bosch",
     "Miele",
     "Samsung",
-    "Zannussi",
+    "Zanussi",
     "Siemens"
   ],
   "Washer Dryer": [

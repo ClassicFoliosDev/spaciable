@@ -287,6 +287,7 @@ ActiveRecord::Schema.define(version: 20170306102026) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "link"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -300,9 +301,6 @@ ActiveRecord::Schema.define(version: 20170306102026) do
     t.string   "send_to_type"
     t.integer  "send_to_id"
     t.boolean  "send_to_all",  default: false
-    t.integer  "range_from"
-    t.integer  "range_to"
-    t.text     "list"
     t.string   "plot_numbers",                              array: true
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree

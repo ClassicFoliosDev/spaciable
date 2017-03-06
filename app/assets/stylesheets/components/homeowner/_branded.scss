@@ -37,6 +37,8 @@
 .branded-body {
   background-color: $ui-superlight-grey;
   overflow: hidden;
+  padding-top: $spacing-medium;
+  padding-bottom: $spacing-medium;
 }
 
 .branded-border {

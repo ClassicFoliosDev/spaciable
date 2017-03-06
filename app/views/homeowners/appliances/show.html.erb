@@ -10,38 +10,36 @@
 <div class="branded-body">
   <div class="appliances">
     <% @appliances.each do | appliance | %>
-        <div class="card appliance branded-content branded-border branded-text">
-          <div class="third">
-            <% if appliance.primary_image? %>
-              <div class="primary-image">
-                <%= image_tag(appliance.primary_image.url) %>
-              </div>
-            <% else %>
-              <div class="dummy-image">
-                <%= fa_icon "image" %>
-              </div>
-            <% end %>
-            <% if appliance.secondary_image? %>
-              <div class="secondary-image">
-                <%= image_tag(appliance.secondary_image.url) %>
-              </div>
-            <% end %>
+      <div class="card appliance branded-content branded-border branded-text">
+        <div class="third">
+          <div class="category">
+            <%= appliance.appliance_category %>
           </div>
-          <div class="third">
-            <div class="category">
-              <%= appliance.appliance_category %>
+          <% if appliance.primary_image? %>
+            <div class="primary-image">
+              <%= image_tag(appliance.primary_image.url) %>
             </div>
+          <% else %>
+            <div class="dummy-image">
+              <%= fa_icon "image" %>
+            </div>
+          <% end %>
+          <% if appliance.secondary_image? %>
+            <div class="secondary-image">
+              <%= image_tag(appliance.secondary_image.url) %>
+            </div>
+          <% end %>
+          <% if appliance.manufacturer_link.present? %>
+            <div class="register">
+              <%= link_to t(".register"), appliance.manufacturer_link, class: "branded-btn" %>
+            </div>
+          <% end %>
+        </div>
+        <div class="two-thirds">
+          <div class="third">
             <div class="manufacturer">
               <%= label_tag(:manufacturer) %>
               <span><%= appliance&.manufacturer %></span>
-            </div>
-            <div class="model">
-              <%= label_tag(t("appliances.form.model_num")) %>
-              <span><%= appliance.model_num %></span>
-            </div>
-            <div class="warranty">
-              <%= label_tag(t("appliances.form.warranty_length")) %>
-              <span><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length %></span>
             </div>
             <div class="e-rating">
               <%= label_tag(t("appliances.form.e_rating")) %>
@@ -49,13 +47,15 @@
                 <%= image_tag "Hoozzi Energy Rating #{appliance.e_rating.upcase}.svg" %>
               <% end %>
             </div>
-          </div>
-
-          <div class="third">
             <div class="description">
               <%= label_tag(:description) %>
               <span><%= appliance.description %></span>
-              <br>
+            </div>
+          </div>
+          <div class="third">
+            <div class="model">
+              <%= label_tag(t("appliances.form.model_num")) %>
+              <span><%= appliance.model_num %></span>
             </div>
             <div class="manual">
               <%= label_tag t("appliances.show.documents") %>
@@ -66,7 +66,14 @@
               <% end %>
             </div>
           </div>
+          <div class="third">
+            <div class="warranty">
+              <%= label_tag(t("appliances.form.warranty_length")) %>
+              <span><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length? %></span>
+            </div>
+          </div>
         </div>
+      </div>
     <% end %>
   </div>
 </div>

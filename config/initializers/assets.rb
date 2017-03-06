@@ -17,3 +17,6 @@ Rails.application.config.assets.precompile += %w( manifest_homeowner.css )
 Rails.application.config.assets.precompile += %w( manifest_admin.css )
 Rails.application.config.assets.precompile += %w( logo.png )
 Rails.application.config.assets.precompile += ["styleguide.html"]
+
+# WYSIWYG Editor
+Rails.application.config.assets.precompile += %w( ckeditor/* )
