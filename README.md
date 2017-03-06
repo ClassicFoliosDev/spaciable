@@ -13,7 +13,7 @@ To generate thumbnails of PDFs make sure you have imagemagick 6 with ghostscript
 
 ```
 $ brew tap homebrew/versions
-$ brew install imagemagick@6
+$ brew install imagemagick@6 --with-ghostscript
 $ PKG_CONFIG_PATH=/usr/local/opt/imagemagick@6/lib/pkgconfig gem install rmagick
 $ echo 'export PATH="/usr/local/opt/imagemagick@6/bin:$PATH"' >> ~/.bash_profile
 ```

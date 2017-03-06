@@ -19,4 +19,5 @@ Rails.application.config.assets.precompile += %w( logo.png )
 Rails.application.config.assets.precompile += ["styleguide.html"]
 
 # WYSIWYG Editor
+Rails.application.config.assets.paths += %w( ckeditor/config.js )
 Rails.application.config.assets.precompile += %w( ckeditor/* )

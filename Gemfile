@@ -18,6 +18,9 @@ gem "uglifier", ">= 1.3.0"
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Generate digest and non-digest assets (whitelisted)
+gem "non-stupid-digest-assets"
+
 # Use jquery as the JavaScript library
 gem "jquery-rails"
 
