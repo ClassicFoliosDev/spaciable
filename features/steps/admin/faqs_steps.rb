@@ -16,11 +16,12 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
   attrs = FaqsFixture.faq_attrs(:created, parent, under: resource)
 
   fill_in :faq_question, with: attrs[:question]
-  fill_in :faq_answer, with: attrs[:answer]
+  fill_in_ckeditor(:faq_answer, with: attrs[:answer])
 
   category = FaqsFixture.t_category(attrs[:category])
   select_from_selectmenu :faq_category, with: category
 
+  sleep 0.3
   click_on t("faqs.form.submit")
 end
 
@@ -58,7 +59,7 @@ When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
   attrs = FaqsFixture.faq_attrs(:updated, parent, under: resource)
 
   fill_in :faq_question, with: attrs[:question]
-  fill_in :faq_answer, with: attrs[:answer]
+  fill_in_ckeditor(:faq_answer, with: attrs[:answer])
 
   category = FaqsFixture.t_category(attrs[:category])
   select_from_selectmenu :faq_category, with: category

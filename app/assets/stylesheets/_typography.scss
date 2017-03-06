@@ -81,6 +81,7 @@ p {
 ul,
 ol,
 dl {
+  color: $font-copy-color;
   padding: $list-padding;
   margin: $list-margin;
   list-style-position: inside;

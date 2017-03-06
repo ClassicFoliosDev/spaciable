@@ -13,7 +13,8 @@ MoveCodeIntoControllerCheck: { }
 MoveCodeIntoHelperCheck: { array_count: 3 }
 MoveCodeIntoModelCheck: { use_count: 2, ignored_files: [app/views/kaminari] }
 MoveFinderToNamedScopeCheck: { }
-MoveModelLogicIntoModelCheck: { use_count: 4 }
+# +2 over default to account for using ivars for translating flash messages
+MoveModelLogicIntoModelCheck: { use_count: 6 }
 # Temporary skip of routes.rb, to fix this causes breadcrumb messiness
 NeedlessDeepNestingCheck: { nested_count: 2, ignored_files: [] }
 NotRescueExceptionCheck: { }

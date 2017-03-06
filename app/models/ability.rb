@@ -17,6 +17,7 @@ class Ability
       resident_abilities(user)
     else
       role_abilities(user.role, user)
+      wysiwyg_permissions
     end
   end
 
@@ -33,6 +34,10 @@ class Ability
     when :development_admin
       development_admin_abilities(user)
     end
+  end
+
+  def wysiwyg_permissions
+    can :access, :ckeditor
   end
 
   def developer_admin_abilities(user)

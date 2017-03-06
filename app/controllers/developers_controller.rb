@@ -32,6 +32,8 @@ class DevelopersController < ApplicationController
 
   def create
     if @developer.save
+      CloneDefaultFaqsJob.perform_later(faqable_type: "Developer", faqable_id: @developer.id)
+
       redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
       @developer.build_address unless @developer.address

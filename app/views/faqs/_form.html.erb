@@ -19,8 +19,8 @@
     <div class="row">
       <div class="row-item two-thirds">
         <fieldset>
-          <%= f.input :question %>
-          <%= f.input :answer, as: :text %>
+          <%= f.input :question, as: :string %>
+          <%= f.input :answer, as: :ckeditor, input_html: { ckeditor: { toolbar: 'simple' } } %>
         </fieldset>
       </div>
 

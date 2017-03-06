@@ -8,6 +8,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+if DefaultFaq.none?
+  load(Rails.root + "db/seeds/default_faqs.rb")
+end
+
+
 if User.cf_admin.none?
   admin_email = "admin@alliants.com"
   admin_password = "12345678"

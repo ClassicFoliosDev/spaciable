@@ -12,3 +12,9 @@ Feature: Developers
     Then I should see the updated developer
     When I delete the developer
     Then I should see the delete complete successfully
+
+  Scenario: Cloned Default FAQs for new Developers
+    Given I am logged in as an admin
+    And default FAQs exist
+    When I create a developer
+    Then I should see default faqs for the developer

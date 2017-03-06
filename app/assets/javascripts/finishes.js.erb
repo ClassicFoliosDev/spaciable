@@ -1,9 +1,3 @@
-$(document).on('cocoon:after-insert', function(event, item) {
-
-  // Set the CSS style classes on the selects that we've just added
-  $('select').selectmenu();
-});
-
 $(document).on('click', '.finish .ui-menu-item', function (event) {
 
   var optionName = this.innerText;

@@ -15,7 +15,7 @@
       <br>
       <br>
       <%= label_tag(Faq.human_attribute_name(:answer)) %>
-      <%= simple_format @faq.answer %>
+      <%= raw @faq.answer %>
     </fieldset>
   </div>
   <div class="row-item third">

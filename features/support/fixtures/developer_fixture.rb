@@ -30,4 +30,28 @@ module DeveloperFixture
   def updated_company_name
     "Hamble View LTD"
   end
+
+  DEFAULT_FAQS = [
+    {
+      question: "What does FAQ stand for?",
+      answer: "Forgo armadillo quilts.",
+      category: "urgent"
+    }, {
+      question: "How long is a pomodoro?",
+      answer: "25 minutes.",
+      category: "troubleshooting"
+    }
+  ].freeze
+
+  def create_default_faqs
+    DEFAULT_FAQS.each { |attrs| FactoryGirl.create(:default_faq, attrs) }
+  end
+
+  def default_faqs
+    category_scope = "activerecord.attributes.faq.categories"
+
+    DEFAULT_FAQS.map do |faq|
+      [faq[:question], I18n.t(".#{faq[:category]}", scope: category_scope)]
+    end
+  end
 end

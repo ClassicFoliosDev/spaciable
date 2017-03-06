@@ -4,6 +4,29 @@ module HoozziWorld
     I18n.t(*args)
   end
 
+  def fill_in_ckeditor(locator, opts)
+    content = opts.fetch(:with).to_json # convert to a safe javascript string
+    tries = 0
+
+    begin
+      tries += 1
+      sleep 0.3
+      set_ckeditor_content(locator, content)
+
+      raise "didn't work" if find("##{locator}", visible: false).value != opts[:with]
+    rescue
+      retry if tries < 3
+      raise "Could not set CKEDITOR content for #{locator}"
+    end
+  end
+
+  def set_ckeditor_content(locator, content)
+    page.execute_script <<-SCRIPT
+      CKEDITOR.instances['#{locator}'].setData(#{content});
+      $('textarea##{locator}').text(#{content});
+    SCRIPT
+  end
+
   def select_from_selectmenu(field, with:, skip_if: :already_selected)
     stdout "Select from: #{field} with: #{with}"
     return (stdout "Skipping: #{skip_if}") if really_skip_select?(skip_if, with, field)

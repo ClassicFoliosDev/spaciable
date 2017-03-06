@@ -34,8 +34,10 @@ gem "turbolinks", "~> 5"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Forms
 gem "simple_form"
-gem "cocoon"
+gem "ckeditor"
+
 gem "cancancan", "~> 1"
 gem "gretel" # breadcrumbs
 

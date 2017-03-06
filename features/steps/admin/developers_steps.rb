@@ -78,3 +78,20 @@ Then(/^I should see the delete complete successfully$/) do
     expect(page).not_to have_content DeveloperFixture.updated_company_name
   end
 end
+
+Given(/^default FAQs exist$/) do
+  DeveloperFixture.create_default_faqs
+end
+
+Then(/^I should see default faqs for the developer$/) do
+  click_on CreateFixture.developer_name
+
+  within ".tabs" do
+    click_on t("developers.collection.faqs")
+  end
+
+  DeveloperFixture.default_faqs.each do |question, category|
+    expect(page).to have_content(question)
+    expect(page).to have_content(category)
+  end
+end
