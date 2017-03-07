@@ -7,6 +7,35 @@ RSpec.describe Room do
     let(:association_with_parent) { :rooms }
   end
 
+  describe "#name=" do
+    context "under the same unit_type" do
+      it "should not allow duplicate room names" do
+        name = "Only room named this"
+        unit_type = create(:unit_type)
+        create(:room, name: name, unit_type: unit_type)
+        room = Room.new(name: name, unit_type: unit_type)
+
+        room.validate
+        name_errors = room.errors.details[:name]
+
+        expect(name_errors).to include(error: :taken, value: name)
+      end
+    end
+
+    context "under different unit_types" do
+      it "should allow duplicate room names" do
+        name = "Only room named this"
+        create(:room, name: name)
+        room = Room.new(name: name)
+
+        room.validate
+        name_errors = room.errors.details[:name]
+
+        expect(name_errors).not_to include(error: :taken, value: name)
+      end
+    end
+  end
+
   describe "#destroy" do
     subject { FactoryGirl.create(:room) }
 

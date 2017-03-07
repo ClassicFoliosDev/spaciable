@@ -11,7 +11,10 @@ When(/^I assign a new resident to a plot$/) do
 
   goto_development_show_page
   click_on t("developments.collection.plots")
-  click_on PlotResidencyFixture.plot
+  within ".record-list" do
+    click_on PlotResidencyFixture.plot
+  end
+
   click_on t("plots.collection.plot_residency")
   click_on t("plot_residencies.collection.add")
 

@@ -33,7 +33,7 @@ class Development < ApplicationRecord
     where(developer_id: developer_id).or(where(division_id: division_ids))
   }
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: [:developer_id, :division_id] }
   validate :permissable_id_presence
 
   delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true

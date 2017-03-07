@@ -6,7 +6,7 @@ module BulkPlots
 
       if block_given?
         service.save
-        block.call(service, service.numbers, service.errors)
+        block.call(service, service.successful_numbers, service.errors)
       end
 
       service
@@ -16,6 +16,10 @@ module BulkPlots
       return no_numbers_error if bulk_attributes.empty?
 
       bulk_attributes.map { |attrs| save_new_plot(attrs) }.any?
+    end
+
+    def successful_numbers
+      @successful_numbers ||= []
     end
 
     protected
@@ -30,11 +34,14 @@ module BulkPlots
     end
 
     def save_new_plot(attrs)
-      new_plot = plots_scope.find_or_initialize_by(number: attrs[:number])
-      new_plot.assign_attributes(attrs)
+      new_plot = plots_scope.build(attrs)
 
-      saved = new_plot.save
-      @errors << new_plot unless saved
+      if (saved = new_plot.save)
+        successful_numbers << new_plot.number
+      else
+        @errors << new_plot
+      end
+
       saved
     end
   end

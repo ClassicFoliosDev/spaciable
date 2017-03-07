@@ -1043,6 +1043,8 @@ en:
           attributes:
             base:
               missing: "Plot not found"
+              combination_taken: "prefix and number has already been added"
+              number_taken: "number has already been added"
         plot_residency:
           attributes:
             email:

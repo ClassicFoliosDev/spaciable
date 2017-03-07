@@ -51,7 +51,7 @@ end
 
 Then(/^I should see the updated phase plot$/) do
   within ".record-list" do
-    click_on PhasePlotFixture.plot_name
+    click_on PhasePlotFixture.updated_plot_name
   end
 
   within ".section-title" do
@@ -95,14 +95,14 @@ When(/^I delete the phase plot$/) do
     click_on PhasePlotFixture.phase_name
   end
 
-  delete_scope = "[data-plot='#{PhasePlotFixture.plot.id}']"
+  delete_scope = "[data-plot='#{PhasePlotFixture.updated_plot.id}']"
   delete_and_confirm!(scope: delete_scope)
 end
 
 Then(/^I should see that the phase plot deletion completed successfully$/) do
   success_flash = t(
     "plots.destroy.success",
-    plot_name: PhasePlotFixture.plot_name
+    plot_name: PhasePlotFixture.updated_plot_name
   )
   expect(page).to have_content(success_flash)
 
@@ -148,8 +148,9 @@ end
 Given(/^I have created a plot for the phase$/) do
   click_on t("plots.collection.add")
 
-  fill_in "plot_prefix", with: PlotFixture.update_attrs[:prefix]
-  fill_in "plot_list", with: PlotFixture.plot_number
+  fill_in "plot_prefix", with: PhasePlotFixture.update_attrs[:prefix]
+  fill_in "plot_list", with: PhasePlotFixture.update_attrs[:number]
+
   click_on t("phases.form.submit")
 end
 

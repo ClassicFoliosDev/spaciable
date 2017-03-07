@@ -11,6 +11,130 @@ RSpec.describe Plot do
     let(:association_with_parent) { :plots }
   end
 
+  describe "#prefix_and_number_uniqueness" do
+    context "under the same development" do
+      context "with a prefix" do
+        it "should not allow duplicate plots" do
+          prefix = "Only plot named this"
+          number = 88
+
+          development = create(:development)
+          create(:plot, prefix: prefix, number: number, development: development)
+          plot = Plot.new(prefix: prefix, number: number, development: development)
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).to include(error: :combination_taken, value: "#{prefix} #{number}")
+        end
+      end
+
+      context "without a prefix" do
+        it "should not allow duplicate plots" do
+          number = 88
+
+          development = create(:development)
+          create(:plot, prefix: nil, number: number, development: development)
+          plot = Plot.new(prefix: nil, number: number, development: development)
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).to include(error: :number_taken, value: number.to_s)
+        end
+      end
+    end
+
+    context "under different developments" do
+      context "with a prefix" do
+        it "should allow duplicate plot numbers" do
+          prefix = "Only plot called this"
+          number = 88
+          create(:plot, number: number, prefix: prefix)
+          plot = Plot.new(number: number, development: create(:development))
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).not_to include(error: :combination_taken, value: "#{prefix} #{number}")
+        end
+      end
+
+      context "without a prefix" do
+        it "should allow duplicate plot numbers" do
+          number = 88
+          create(:plot, number: number)
+          plot = Plot.new(number: number, development: create(:development))
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).not_to include(error: :number_taken, value: number.to_s)
+        end
+      end
+    end
+
+    context "under the same phase" do
+      context "with a prefix" do
+        it "should not allow duplicate plots" do
+          prefix = "Only plot named this"
+          number = 88
+
+          phase = create(:phase)
+          create(:phase_plot, prefix: prefix, number: number, phase: phase)
+          plot = Plot.new(prefix: prefix, number: number, phase: phase)
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).to include(error: :combination_taken, value: "#{prefix} #{number}")
+        end
+      end
+
+      context "without a prefix" do
+        it "should not allow duplicate plots" do
+          number = 88
+
+          phase = create(:phase)
+          create(:phase_plot, prefix: nil, number: number, phase: phase)
+          plot = Plot.new(prefix: nil, number: number, phase: phase)
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).to include(error: :number_taken, value: number.to_s)
+        end
+      end
+    end
+
+    context "under different phases" do
+      context "with a prefix" do
+        it "should allow duplicate plot numbers" do
+          prefix = "Only plot called this"
+          number = 88
+          create(:phase_plot, number: number, prefix: prefix)
+          plot = Plot.new(number: number, phase: create(:phase))
+
+          plot.validate
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).not_to include(error: :combination_taken, value: "#{prefix} #{number}")
+        end
+      end
+
+      context "without a prefix" do
+        it "should allow duplicate plot numbers" do
+          number = 88
+          create(:phase_plot, number: number)
+          plot = Plot.new(number: number, phase: create(:phase))
+
+          plot.validate
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).not_to include(error: :number_taken, value: number.to_s)
+        end
+      end
+    end
+  end
+
   describe "#number" do
     context "is a decimal" do
       it "is displayed as a decimal" do

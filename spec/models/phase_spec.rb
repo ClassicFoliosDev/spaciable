@@ -7,6 +7,35 @@ RSpec.describe Phase do
     let(:association_with_parent) { :phases }
   end
 
+  describe "#name=" do
+    context "under the same development" do
+      it "should not allow duplicate phase names" do
+        name = "Only phase named this"
+        development = create(:development)
+        create(:phase, name: name, development: development)
+        phase = Phase.new(name: name, development: development)
+
+        phase.validate
+        name_errors = phase.errors.details[:name]
+
+        expect(name_errors).to include(error: :taken, value: name)
+      end
+    end
+
+    context "under different developments" do
+      it "should allow duplicate phase names" do
+        name = "Only phase named this"
+        create(:phase, name: name)
+        phase = Phase.new(name: name)
+
+        phase.validate
+        name_errors = phase.errors.details[:name]
+
+        expect(name_errors).not_to include(error: :taken, value: name)
+      end
+    end
+  end
+
   describe "#number" do
     it "should start at 1" do
       phase = described_class.new

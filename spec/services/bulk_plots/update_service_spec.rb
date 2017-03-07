@@ -76,7 +76,7 @@ RSpec.describe BulkPlots::UpdateService do
       plot = create(:plot, number: 1, prefix: "Hilltop")
 
       described_class.call(plot, params: params) do |service, _, _|
-        error = "Plots 2, 3, 4, and 5 could not be saved: Plot not found"
+        error = "Plots '2, 3, 4, and 5' could not be saved: Plot not found"
 
         expect(service.errors).to include(error)
       end

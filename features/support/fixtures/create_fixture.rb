@@ -14,9 +14,9 @@ module CreateFixture
     division_phase: "Beta (Division) Phase",
     finish: "Fluffy carpet",
     phase: "Alpha Phase",
-    plot: "1",
-    phase_plot: "2",
-    division_plot: "3",
+    plot: "100",
+    phase_plot: "200",
+    division_plot: "300",
     room: "Living Room",
     unit_type: "8 Bedrooms"
   }.freeze

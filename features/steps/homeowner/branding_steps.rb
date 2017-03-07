@@ -23,7 +23,7 @@ Given(/^I have configured branding$/) do
 end
 
 And(/^I have logged in as a resident and associated the division development plot$/) do
-  plot = CreateFixture.create_division_development_plot
+  plot = CreateFixture.division_plot
   resident = FactoryGirl.create(:resident, :with_residency, plot: plot)
 
   login_as resident

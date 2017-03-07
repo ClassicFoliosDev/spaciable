@@ -21,7 +21,7 @@ class Division < ApplicationRecord
   has_many :brands, as: :brandable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
-  validates :division_name, presence: true, uniqueness: true
+  validates :division_name, presence: true, uniqueness: { scope: :developer_id }
 
   delegate :to_s, to: :division_name
 

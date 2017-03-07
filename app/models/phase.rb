@@ -31,7 +31,7 @@ class Phase < ApplicationRecord
 
   before_validation :set_number
 
-  validates :name, :number, presence: true
+  validates :name, :number, presence: true, uniqueness: { scope: :development_id }
   validates :number,
             uniqueness: { scope: :development_id }
 

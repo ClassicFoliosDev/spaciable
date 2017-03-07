@@ -27,7 +27,7 @@ class UnitType < ApplicationRecord
     :studio
   ]
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :development_id }
 
   def to_s
     name

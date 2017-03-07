@@ -85,15 +85,33 @@ RSpec.describe BulkPlots::CreateService do
     end
   end
 
+  context "when adding a single invalid plot" do
+    it "should not return as successful" do
+      existing_plot = create(:plot, number: "1")
+      base_plot = build(:plot, development: existing_plot.development)
+      params = { list: "1" }
+
+      described_class.call(base_plot, params: params) do |_service, created_plots, errors|
+        expect(created_plots).to be_empty
+        expect(errors).to include("Plot '1' could not be saved: number has already been added")
+      end
+    end
+  end
+
   context "when the plots are invalid" do
     it "should expose plots that could not be saved" do
-      params = { list: "1,2", prefix: "Hillock", development_id: nil }
-      plot = build(:plot)
-      service = described_class.call(plot, params: params)
+      prefix = "Hillock"
+      phase = create(:phase)
+      create(:phase_plot, number: "1", prefix: prefix, phase: phase)
+      create(:phase_plot, number: "2", prefix: prefix, phase: phase)
 
-      service.save
+      base_plot = build(:phase_plot, prefix: prefix, phase: phase)
+      params = { list: "1, 2", prefix: prefix }
 
-      expect(service.errors).to include("Plots 1 and 2 could not be saved: Development  is required")
+      described_class.call(base_plot, params: params) do |_service, created_plots, errors|
+        expect(created_plots).to be_empty
+        expect(errors).to include("Plots '#{prefix} 1 and 2' could not be saved: prefix and number has already been added")
+      end
     end
   end
 end

@@ -2,6 +2,62 @@
 require "rails_helper"
 
 RSpec.describe Development do
+  describe "#name=" do
+    context "under the same developer" do
+      it "should not allow duplicate development names" do
+        name = "Only development named this"
+        developer = create(:developer)
+        create(:development, name: name, developer: developer)
+        development = Development.new(name: name, developer: developer)
+
+        development.validate
+        name_errors = development.errors.details[:name]
+
+        expect(name_errors).to include(error: :taken, value: name)
+      end
+    end
+
+    context "under different developers" do
+      it "should allow duplicate development names" do
+        name = "Only development named this"
+        create(:development, name: name)
+        development = Development.new(name: name)
+
+        development.validate
+        name_errors = development.errors.details[:name]
+
+        expect(name_errors).not_to include(error: :taken, value: name)
+      end
+    end
+
+    context "under the same division" do
+      it "should not allow duplicate development names" do
+        name = "Only development named this"
+        division = create(:division)
+        create(:division_development, name: name, division: division)
+        development = build(:division_development, name: name, division: division)
+
+        development.validate
+        name_errors = development.errors.details[:name]
+
+        expect(name_errors).to include(error: :taken, value: name)
+      end
+    end
+
+    context "under different divisions" do
+      it "should allow duplicate development names" do
+        name = "Only development named this"
+        create(:division_development, name: name)
+        development = build(:division_development, name: name)
+
+        development.validate
+        name_errors = development.errors.details[:name]
+
+        expect(name_errors).not_to include(error: :taken, value: name)
+      end
+    end
+  end
+
   describe "#parent" do
     it "must have a developer_id or division_id" do
       development = described_class.new(developer_id: nil, division_id: nil)

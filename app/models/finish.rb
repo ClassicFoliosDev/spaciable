@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 class Finish < ApplicationRecord
-  # acts_as_paranoid does not work for nested fields
+  acts_as_paranoid
+
   belongs_to :room
   alias parent room
   mount_uploader :picture, PictureUploader
@@ -14,7 +15,7 @@ class Finish < ApplicationRecord
   belongs_to :finish_type, optional: false
   belongs_to :manufacturer
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   def to_s
     name
