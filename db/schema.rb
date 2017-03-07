@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306173906) do
+ActiveRecord::Schema.define(version: 20170307160708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,8 +156,7 @@ ActiveRecord::Schema.define(version: 20170306173906) do
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
-    t.index ["name", "developer_id"], name: "index_developments_on_name_and_developer_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "division_id"], name: "index_developments_on_name_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["name", "developer_id", "division_id"], name: "index_developments_on_name_and_developer_id_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -243,7 +242,6 @@ ActiveRecord::Schema.define(version: 20170306173906) do
   end
 
   create_table "finishes", force: :cascade do |t|
-    t.integer  "room_id"
     t.string   "name"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -265,7 +263,6 @@ ActiveRecord::Schema.define(version: 20170306173906) do
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
     t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
     t.index ["name"], name: "index_finishes_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["room_id"], name: "index_finishes_on_room_id", using: :btree
   end
 
   create_table "finishes_rooms", id: false, force: :cascade do |t|
@@ -273,7 +270,6 @@ ActiveRecord::Schema.define(version: 20170306173906) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -493,7 +489,6 @@ ActiveRecord::Schema.define(version: 20170306173906) do
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "finishes", "manufacturers"
-  add_foreign_key "finishes", "rooms"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"

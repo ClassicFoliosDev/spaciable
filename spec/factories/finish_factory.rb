@@ -6,6 +6,5 @@ FactoryGirl.define do
     end
     finish_category
     finish_type
-    room
   end
 end

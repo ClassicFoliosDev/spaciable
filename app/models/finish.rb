@@ -2,8 +2,6 @@
 class Finish < ApplicationRecord
   acts_as_paranoid
 
-  belongs_to :room
-  alias parent room
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
 
@@ -14,6 +12,9 @@ class Finish < ApplicationRecord
   belongs_to :finish_category, optional: false
   belongs_to :finish_type, optional: false
   belongs_to :manufacturer
+
+  has_many :finish_rooms
+  has_many :rooms, through: :finish_rooms
 
   validates :name, presence: true, uniqueness: true
 

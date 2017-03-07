@@ -22,7 +22,7 @@ module Abilities
     def resident_abilities_via_unit_type(unit_type_id)
       can :read, UnitType, id: unit_type_id
       can :read, Room, unit_type_id: unit_type_id
-      can :read, Finish, room: { unit_type_id: unit_type_id }
+      can :read, Finish, rooms: { unit_type_id: unit_type_id }
       can :read, Appliance, rooms: { unit_type_id: unit_type_id }
     end
 
