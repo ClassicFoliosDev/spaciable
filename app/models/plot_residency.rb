@@ -6,6 +6,7 @@ class PlotResidency < ApplicationRecord
   belongs_to :resident, optional: false, autosave: true
 
   validate :email_is_unassigned
+  validates_associated :resident
 
   before_validation :set_resident
   before_validation :assign_resident_attributes

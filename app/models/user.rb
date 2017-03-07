@@ -17,6 +17,7 @@ class User < ApplicationRecord
          :rememberable,
          :trackable,
          :validatable
+  include DeviseInvitable::Admin
 
   enum role: [
     :cf_admin, # Client Folio Admin

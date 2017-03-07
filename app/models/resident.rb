@@ -6,8 +6,12 @@ class Resident < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :invitable,
+         :database_authenticatable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable
 
   has_many :resident_notifications
   has_many :notifications, through: :resident_notifications
@@ -15,6 +19,8 @@ class Resident < ApplicationRecord
   has_one :plot_residency, dependent: :destroy
   delegate :plot, to: :plot_residency, allow_nil: true
   delegate :developer, :division, :development, :phase, to: :plot, allow_nil: true
+
+  validates :first_name, :last_name, presence: true
 
   def create_without_password(**params)
     extend User::NoPasswordRequired

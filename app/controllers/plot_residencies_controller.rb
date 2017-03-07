@@ -28,6 +28,7 @@ class PlotResidenciesController < ApplicationController
 
   def create
     if @plot_residency.save
+      @plot_residency.resident.invite!(current_user)
       notice = t(".success", plot: @plot_residency.plot)
 
       redirect_to [@plot, :plot_residencies], notice: notice

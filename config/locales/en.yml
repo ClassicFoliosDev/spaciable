@@ -484,6 +484,24 @@ en:
         intro_para_2: You can scroll away to your hearts content,
                       discovering exciting ideas on how to make the most of your home,
                       habbits and hobbies.
+    invitations:
+      edit:
+        everything: "everything"
+        home: "home"
+        submit_button: "Let's go"
+        welcome: "Welcome to Hoozzi"
+        welcome2: "You're almost there"
+        welcome3: "We just need a few final details, then you'll be in home management heaven. Here you can"
+        hoozzi1: "View your home's documents"
+        hoozzi2: "Find out how to view your new appliances"
+        hoozzi3: "Contact your developer"
+        hoozzi4: "Live the lifestyle your new home brings"
+        first_name: "First name"
+        last_name: "Last name"
+        password: "Choose a password"
+        terms: "Terms & conditions"
+        policy: "Data policy"
+        copyright: "Copyright 2016 Houseclouds. All rights reserved"
 
   folders:
     title: "Folders"
@@ -573,9 +591,9 @@ en:
       email: "Email"
       updated_at: "Last Edited"
     create:
-      success: "Resident has been successfully assigned to this plot %{plot}."
+      success: "Resident has been successfully assigned to %{plot}."
     destroy:
-      success: "Resident has been successfully removed from this plot %{plot}."
+      success: "Resident has been successfully removed from %{plot}."
     edit:
       title: "Edit %{plot}"
     form:

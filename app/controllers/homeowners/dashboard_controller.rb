@@ -5,5 +5,11 @@ module Homeowners
 
     def show
     end
+
+    def ts_and_cs
+    end
+
+    def data_policy
+    end
   end
 end

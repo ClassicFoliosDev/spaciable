@@ -9,6 +9,7 @@ Rails.application.routes.draw do
                registrations: 'residents/registrations',
                unlocks: 'residents/unlocks',
                omniauth: 'residents/omniauth',
+               invitations: 'residents/invitations'
              }
 
   devise_scope :user do
@@ -121,6 +122,8 @@ Rails.application.routes.draw do
 
   get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
   get "/dashboard", to: 'homeowners/dashboard#show', as: :homeowner_dashboard
+  get "/ts_and_cs", to: 'homeowners/dashboard#ts_and_cs'
+  get "/data_policy", to: 'homeowners/dashboard#data_policy'
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"
@@ -129,5 +132,6 @@ Rails.application.routes.draw do
   get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types", to: 'finishes#finish_types', format: :json
+
   root 'home#show'
 end

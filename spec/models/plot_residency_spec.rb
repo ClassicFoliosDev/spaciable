@@ -8,7 +8,7 @@ RSpec.describe PlotResidency do
         email = "joe@bloggs.com"
         plot = create(:plot)
 
-        expect { PlotResidency.create!(plot: plot, email: email) }
+        expect { PlotResidency.create!(plot: plot, email: email, first_name: "Joe", last_name: "Bloggs") }
           .to change(Resident, :count).by(1)
 
         expect(Resident.find_by(email: email)).not_to be_nil

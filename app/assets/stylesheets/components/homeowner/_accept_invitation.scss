@@ -1,0 +1,102 @@
+$content-height: 480px;
+
+.accept {
+  position: absolute;
+  top: 160px;
+  width: 100%;
+}
+
+.accept-content {
+
+  background-color: $ui-light-grey;
+  width: 700px;
+  height: $content-height;
+  margin-left: auto;
+  margin-right: auto;
+
+  .right-col {
+    float: right;
+    width: 45%;
+    background-color: $primary-red;
+    color: $ui-white;
+    padding: $spacing-small;
+    height: $content-height;
+
+    // ERROR formatting: h2 and ul
+    h2, ul {
+      color: $ui-white;
+      font-size: $base-font-size;
+      margin-bottom: 0;
+    }
+
+    .error {
+      color: $ui-white;
+    }
+  }
+
+  .resident_password, .resident_password_confirmation {
+    width: 80%;
+    margin: $spacing-medium auto;
+    input {
+      background-color: $faded-red;
+      border-color: $faded-red;
+      color: $ui-white;
+    }
+  }
+
+  input[type="submit"] {
+    width: 140px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: $primary-red;
+    border-color: $primary-red;
+    font-weight: bold;
+  }
+
+  a {
+    color: $ui-white;
+  }
+
+  .information {
+    font-size: $base-small-font-size;
+    margin-top: $spacing-medium;
+  }
+
+  .copyright {
+    margin-top: $spacing-medium;
+  }
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.preamble {
+  width: 55%;
+  padding: $spacing-small 40px;
+
+  h2 {
+    color: $primary-cta-color;
+    font-style: italic;
+    margin-bottom: $spacing-small;
+    margin-top: $spacing-large;
+  }
+
+  h3 {
+    color: $primary-red;
+    font-style: italic;
+    float: right;
+  }
+
+  h4 {
+    margin-top: 60px;
+    font-size: $base-font-size;
+  }
+
+  li {
+    margin-top: $spacing-small;
+  }
+}

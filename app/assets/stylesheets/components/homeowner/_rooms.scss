@@ -13,6 +13,11 @@ $icon-color: #252C31;
 
     .room-icon {
       margin-left: $spacing-large;
+      height: 50px;
+      width: 50px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
 
       i:before {
         color: $type-grey;
