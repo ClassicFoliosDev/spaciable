@@ -54,21 +54,26 @@ $contact_thumb_diameter: 54px;
     }
 
     .avatar {
-      width: 50px;
-      height: 50px;
-      font-size: 40px;
+      font-size: 48px;
       margin: $spacing-small auto $spacing-small/2 auto;
       color: $type-grey;
+      text-align: center;
+      width: 50px;
+      height: 50px;
+
+      img {
+        width: 100%;
+        border-radius: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+      }
     }
 
     .details {
       text-align: center;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    i {
-      width: 14px;
     }
   }
 }

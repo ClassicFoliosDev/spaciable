@@ -1,5 +1,5 @@
 <div class="card contact branded-content branded-border branded-text">
-  <div class="third">
+  <div class="two-fifths">
     <div class="avatar">
       <% if contact.picture? %>
           <%= image_tag(contact.picture.url) %>
@@ -13,7 +13,7 @@
       <span><%= contact.position %></span>
     </div>
   </div>
-  <div class="two-thirds">
+  <div class="three-fifths">
     <% if contact.phone? %>
       <label><%= fa_icon "phone" %> <%= t(".phone")%></label>
       <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-primary" %></span>
