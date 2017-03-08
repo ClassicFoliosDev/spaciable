@@ -31,7 +31,7 @@
           <% end %>
           <% if appliance.manufacturer_link.present? %>
             <div class="register">
-              <%= link_to t(".register"), appliance.manufacturer_link, class: "branded-btn" %>
+              <%= link_to t(".register"), appliance.manufacturer_link, class: "branded-btn", target: :_blank %>
             </div>
           <% end %>
         </div>
