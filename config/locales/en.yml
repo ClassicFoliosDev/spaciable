@@ -136,7 +136,6 @@ en:
         hi: "Hi %{first_name}"
       sub_header:
         title: "My home"
-        home_for: "Home sweet home for %{years} years %{months} months"
         rooms: "Rooms"
         appliances: "Appliances"
     home:

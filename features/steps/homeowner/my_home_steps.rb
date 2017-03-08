@@ -25,10 +25,6 @@ When(/^I visit the My Home page$/) do
 end
 
 Then(/^I should see the plot rooms$/) do
-  within ".branded-hero" do
-    expect(page).to have_content(t("components.homeowner.sub_header.home_for", years: "", months: ""))
-  end
-
   within ".rooms" do
     expect(page).to have_content(CreateFixture.room_name)
   end
