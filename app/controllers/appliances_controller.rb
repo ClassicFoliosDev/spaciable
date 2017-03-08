@@ -5,6 +5,7 @@ class AppliancesController < ApplicationController
   load_and_authorize_resource :appliance
 
   def index
+    @appliances = @appliances.includes(:appliance_category, :manufacturer)
     @appliances = paginate(sort(@appliances, default: :name))
   end
 

@@ -5,6 +5,10 @@ module Homeowners
 
     def show
       @appliances = Appliance.accessible_by(Ability.new(current_resident))
+                             .includes(
+                               :appliance_category,
+                               :manufacturer
+                             )
     end
   end
 end

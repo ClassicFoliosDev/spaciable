@@ -24,6 +24,8 @@ class Room < ApplicationRecord
 
   has_many :appliance_rooms
   has_many :appliances, through: :appliance_rooms
+  has_many :manufacturers, through: :appliances
+  has_many :appliance_categories, through: :appliances
 
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true

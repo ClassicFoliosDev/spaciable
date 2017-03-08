@@ -5,6 +5,12 @@ module Homeowners
 
     def show
       @rooms = @plot.rooms
+                    .includes(:finish_rooms,
+                              :finishes,
+                              :appliance_rooms,
+                              :appliances,
+                              :manufacturers,
+                              :appliance_categories)
     end
   end
 end
