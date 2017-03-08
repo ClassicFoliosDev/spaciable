@@ -5,6 +5,7 @@ Feature: FAQs
 
   Scenario:
     Given I am logged in as a homeowner wanting to read FAQs
+    Then I should see recent FAQs on my dashboard
     When I go to read the FAQs for my home
     Then I should see the FAQs related to settling in
 

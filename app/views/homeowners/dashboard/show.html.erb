@@ -176,47 +176,24 @@
         </div>
       </div>
       <!--FAQs-->
-      <div class="card quarter component-faqs branded-content branded-border ">
+      <div class="card quarter component-faqs branded-content branded-border " data-test="dashboard-faqs">
         <div class="card-header">
           <h3 class="card-title branded-text">
             <%= t('homeowner.dashboard.cards.faqs.title') %>
           </h3>
           <span class="card-action">
-            <a href="" class="branded-btn alt right"><%= t('homeowner.dashboard.cards.faqs.view_more') %></a>
+            <%= link_to t('homeowner.dashboard.cards.faqs.view_more'), homeowner_faqs_path, class: "branded-btn alt right" %>
           </span>
         </div>
         <div class="card-content">
           <ul class="faq-list">
-            <li class="branded-border">
-              <a href="">
-                <span class="text">Where can I find information on how to look after my home's finishes?</span>
-                <%= fa_icon "chevron-right" %>
-              </a>
-            </li>
-            <li class="branded-border">
-              <a href="">
-                <span class="text">Are there any restrictions to attaching wall or floor fixings?</span>
-                <%= fa_icon "chevron-right" %>
-              </a>
-            </li>
-            <li class="branded-border">
-              <a href="">
-                <span class="text">What should I do if I have no heating or hot water?</span>
-                <%= fa_icon "chevron-right" %>
-              </a>
-            </li>
-            <li class="branded-border">
-              <a href="">
-                <span class="text">How can I protect my new carpet?</span>
-                <%= fa_icon "chevron-right" %>
-              </a>
-            </li>
-            <li class="branded-border">
-              <a href="">
-                <span class="text">Where can I find information on how to find the paint colour used on my walls?</span>
-                <%= fa_icon "chevron-right" %>
-              </a>
-            </li>
+            <% @faqs.each do |faq| %>
+              <li class="branded-border">
+                <%= link_to homeowner_faqs_path(faq.category, anchor: "faq-#{faq.id}") do %>
+                  <span class="text"><%= faq.question %></span>
+                  <%= fa_icon "chevron-right" %>
+              <% end %>
+            <% end %>
           </ul>
         </div>
       </div>

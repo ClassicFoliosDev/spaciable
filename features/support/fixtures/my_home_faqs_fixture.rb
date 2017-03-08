@@ -72,6 +72,10 @@ module MyHomeFaqsFixture
     I18n.t("activerecord.attributes.faq.categories.urgent")
   end
 
+  def recent_faqs
+    all_faqs.reverse.take(5)
+  end
+
   def default_filtered_faqs
     FAQS.select { |attrs| attrs[:category] == :settling }.map(&method(:front_end_attrs))
   end

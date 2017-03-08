@@ -6,12 +6,17 @@ Given(/^I am logged in as a homeowner wanting to read FAQs$/) do
   visit "/"
 end
 
-When(/^I go to read the FAQs for my home$/) do
-  within ".navbar" do
-    click_on t("layouts.homeowner.nav.my_home")
+Then(/^I should see recent FAQs on my dashboard$/) do
+  within "[data-test='dashboard-faqs']" do
+    MyHomeFaqsFixture.recent_faqs.each do |question, _answer|
+      expect(page).to have_content(question)
+    end
   end
+end
 
-  click_on t("layouts.homeowner.sub_nav.faqs")
+When(/^I go to read the FAQs for my home$/) do
+  recent_question = MyHomeFaqsFixture.recent_faqs.first[0]
+  click_on recent_question
 end
 
 Then(/^I should see the FAQs related to settling in$/) do

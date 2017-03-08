@@ -4,6 +4,7 @@ module Homeowners
     skip_authorization_check
 
     def show
+      @faqs = Faq.accessible_by(current_ability).order(created_at: :desc).limit(5)
     end
 
     def ts_and_cs

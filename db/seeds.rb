@@ -52,9 +52,10 @@ if Rails.env.development?
     INFO
   end
 
-  resident = Resident.find_by(email: resident_email)
+  resident = Resident.find_by(email: resident_email) || Resident.first
 
   if resident.plot.nil?
+    puts "Creating plot for resident #{resident.email}"
     FactoryGirl.create(:plot, :with_resident, resident: resident)
   end
 
