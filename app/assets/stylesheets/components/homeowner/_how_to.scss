@@ -1,12 +1,11 @@
 .how-to {
-  .card-header {
-    margin-top: -250px;
-  }
+  position: relative;
 
   .card-content {
-    margin-top: -90px;
-    width: 100%;
+    position: absolute;
+    bottom: 0;
     padding: $spacing-small;
+    background-color: rgba(0,0,0, 0.4);
   }
 
   h3 {
