@@ -4,7 +4,47 @@
   }
 }
 
-.documents {
+.documents-component {
+  .card-content {
+    padding: 0 $spacing-medium;
+  }
+
+  .document-images, .document-titles {
+    .document {
+      display: inline-block;
+    }
+  }
+
+  .document-images {
+   height: ($card-height / 1.75);
+    padding: 0;
+    margin-bottom: 5px;
+    overflow: hidden;
+  }
+
+  .document {
+    display: inline-block;
+
+    img {
+      display: block;
+      text-align: left;
+    }
+  }
+
+  .document-titles {
+      height: ($card-height / 1.25);
+    padding: 0;
+
+    a {
+      font-size: $base-small-font-size;
+      line-height: $base-small-font-line-height;
+      color: $type-grey;
+      font-weight: lighter;
+    }
+  }
+}
+
+.library .documents {
   .row {
     margin-left: auto;
     margin-right: auto;
@@ -33,7 +73,7 @@
 }
 
 @include media($tablet-landscape-down) {
-  .documents {
+  .library .documents {
     .row {
       width: 530px;
     }
@@ -41,7 +81,7 @@
 }
 
 @include media($tablet-portrait-down) {
-  .documents {
+  .library .documents {
     .row {
       width: 440px;
     }

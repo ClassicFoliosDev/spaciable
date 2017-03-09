@@ -6,6 +6,15 @@ Given(/^I am logged in as a homeowner want to download my documents$/) do
   visit "/"
 end
 
+Then(/^I should see recent documents added to my library$/) do
+  MyLibraryFixture.recent_documents.each do |title, _download_link|
+    expect(page).to have_content(title)
+  end
+
+  recent_document = MyLibraryFixture.recent_documents.first[0]
+  click_on recent_document
+end
+
 When(/^I go to download the documents for my home$/) do
   within ".navbar" do
     click_on t("layouts.homeowner.nav.my_home")

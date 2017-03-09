@@ -79,6 +79,10 @@ module MyLibraryFixture
     Appliance.model_name.human.pluralize
   end
 
+  def recent_documents
+    all_documents.reverse.take(5)
+  end
+
   def default_filtered_documents
     DOCUMENTS.select { |attrs| attrs[:category] == :my_home }.map(&method(:front_end_attrs))
   end
