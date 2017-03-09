@@ -37,8 +37,8 @@
             <ul class="document-images row-item">
               <% @documents.each do |document| %>
                 <li class="document sixth">
-                  <%= link_to homeowner_library_path(document.category) do %>
-                    <%= image_tag document.file.preview.url if document.file.preview.url %>
+                  <%= link_to document.file.url, target: "_blank" do %>
+                    <%= image_tag document_preview_url(document.file) %>
                   <% end %>
                 </li>
               <% end %>
@@ -46,7 +46,7 @@
             <ul class="document-titles row-item">
               <% @documents.each do |document| %>
                 <li class="document sixth">
-                  <%= link_to truncate(document.title, length: 35), homeowner_library_path(document.category) %>
+                  <%= link_to truncate(document.title, length: 35), document.file.url, target: "_blank" %>
                 </li>
               <% end %>
             </ul>

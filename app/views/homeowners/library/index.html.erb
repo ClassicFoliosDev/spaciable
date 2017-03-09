@@ -28,7 +28,7 @@
       <% @documents.each do |document| %>
         <div class="sixth document">
           <%= link_to document.file.url, target: "_blank" do %>
-            <%= image_tag document.file.preview.url if document.file? %>
+            <%= image_tag document_preview_url(document.file) if document.file? %>
           <% end %>
 
           <h5><%= document.title %></h5>
@@ -39,7 +39,7 @@
       <% @appliances.each do |appliance| %>
         <div class="sixth document">
           <%= link_to appliance.manual.url, target: "_blank" do %>
-            <%= image_tag appliance.manual.preview.url if appliance.manual? %>
+            <%= image_tag document_preview_url(appliance.manual) if appliance.manual? %>
           <% end %>
 
           <h5><%= appliance.name %></h5>

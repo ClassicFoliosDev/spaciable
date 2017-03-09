@@ -11,8 +11,7 @@ Then(/^I should see recent documents added to my library$/) do
     expect(page).to have_content(title)
   end
 
-  recent_document = MyLibraryFixture.recent_documents.first[0]
-  click_on recent_document
+  click_on t("homeowner.dashboard.cards.library.view_more")
 end
 
 When(/^I go to download the documents for my home$/) do
