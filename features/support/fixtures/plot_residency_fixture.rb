@@ -25,6 +25,7 @@ module PlotResidencyFixture
   def setup
     create_developer
     create_development
+    create_unit_type
     create_development_plot
   end
 

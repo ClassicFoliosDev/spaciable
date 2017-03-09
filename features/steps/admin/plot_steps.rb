@@ -19,8 +19,12 @@ When(/^I create a plot for the development$/) do
   end
 
   click_on t("plots.collection.add")
-
   fill_in "plot_list", with: PlotFixture.plot_number
+
+  within ".plot_unit_type" do
+    select PlotFixture.unit_type_name, visible: false
+  end
+
   click_on t("plots.form.submit")
 end
 
@@ -29,6 +33,7 @@ Then(/^I should see the created plot$/) do
   click_on PlotFixture.plot_name
 
   expect(page).to have_content(PlotFixture.plot_number)
+  expect(page).to have_content(PlotFixture.unit_type_name)
 
   click_on t("plots.edit.back")
 end
@@ -112,5 +117,9 @@ Given(/^I have created a plot for the development$/) do
 
   fill_in "plot_prefix", with: PlotFixture.update_attrs[:prefix]
   fill_in "plot_list", with: PlotFixture.plot_number
+  within ".plot_unit_type" do
+    select PlotFixture.unit_type_name, visible: false
+  end
+
   click_on t("phases.form.submit")
 end

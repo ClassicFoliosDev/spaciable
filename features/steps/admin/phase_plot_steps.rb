@@ -23,6 +23,9 @@ When(/^I create a plot for the phase$/) do
   end
 
   click_on t("plots.collection.add")
+  within ".plot_unit_type" do
+    select PhasePlotFixture.unit_type_name, visible: false
+  end
 
   fill_in "plot_list", with: PhasePlotFixture.plot_number
   click_on t("plots.form.submit")
@@ -30,6 +33,7 @@ end
 
 Then(/^I should see the created phase plot$/) do
   expect(page).to have_content(PhasePlotFixture.plot_number)
+  expect(page).to have_content(PhasePlotFixture.unit_type_name)
 end
 
 When(/^I update the phase plot$/) do
@@ -150,6 +154,9 @@ Given(/^I have created a plot for the phase$/) do
 
   fill_in "plot_prefix", with: PhasePlotFixture.update_attrs[:prefix]
   fill_in "plot_list", with: PhasePlotFixture.update_attrs[:number]
+  within ".plot_unit_type" do
+    select PhasePlotFixture.unit_type_name, visible: false
+  end
 
   click_on t("phases.form.submit")
 end

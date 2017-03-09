@@ -10,6 +10,8 @@ $icon-color: #252C31;
   .room {
     overflow: auto;
     padding: $spacing-small;
+    border-style: solid;
+    margin-bottom: $spacing-medium;
 
     .room-icon {
       margin-left: $spacing-large;

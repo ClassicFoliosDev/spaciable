@@ -198,6 +198,7 @@ module CreateFixture
   end
 
   def create_plots
+    create_unit_type
     create_development_plot
     create_division_development_plot
     create_phase_plot

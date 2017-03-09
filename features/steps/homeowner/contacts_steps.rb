@@ -33,3 +33,12 @@ Then(/^I should see the contacts for my plot$/) do
     page.find(".contact")
   end
 end
+
+And(/^I should see contacts on the dashboard$/) do
+  visit "/"
+
+  within ".contact-list" do
+    contacts = page.all(".contact")
+    expect(contacts.count).to eq(3)
+  end
+end

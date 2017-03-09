@@ -23,6 +23,7 @@ $card-height: 230px;
   box-sizing: border-box;
   margin-bottom: $spacing-medium;
   height: $card-height;
+  border-style: solid;
 
   .card-header {
     @include pad($spacing-small);
@@ -42,6 +43,7 @@ $card-height: 230px;
     }
 
     .card-action {
+      margin-top: 2px;
       @include span-columns(6 of 12);
     }
   }
@@ -59,14 +61,6 @@ $card-height: 230px;
   .view-article {
     float: right;
   }
-}
-
-.my-home {
-  background-image: url(http://www.claudehooper.co.uk/wp-content/uploads/2013/08/Gerrards-Cross-Lounge.jpg);
-  color: $ui-white;
-  position: relative;
-  background-size: cover;
-  background-position: center;
 }
 
 .favourite {

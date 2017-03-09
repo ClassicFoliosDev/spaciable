@@ -32,7 +32,7 @@
 
     <div class="row-item third">
       <fieldset>
-        <%= f.association :unit_type, as: :select, collection: plots.unit_types.pluck(:name, :id) %>
+        <%= f.association :unit_type, as: :select, collection: unit_types.pluck(:name, :id) %>
       </fieldset>
     </div>
 
@@ -44,6 +44,7 @@
         <%= f.input :postcode %>
         <%= f.input :city, readonly: true, class: "readonly" %>
         <%= f.input :county, readonly: true, class: "readonly" %>
+      </fieldset>
     </div>
   </div>
 

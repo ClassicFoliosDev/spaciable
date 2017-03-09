@@ -2,22 +2,25 @@
 <div class="branded-body">
   <div class="outer-container dashboard">
     <div class="row card-container">
-      <div class="card half my-home black-show-left">
+      <% if @plot.unit_type_picture.present? %>
+      <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" >
+      <% else %>
+      <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path "Hoozzi Sign In Image 3.jpg" %>')" >
+      <% end %>
         <div class="card-header">
           <h3 class="card-title-alt">
-            <%= t('homeowner.dashboard.cards.my_home.title') %>
+            <%= t('.my_home_title') %>
           </h3>
         </div>
         <div class="card-content">
           <address class="my-home-address">
-            <span>34 Baird Street</span><br/>
-            <span>Upper Caldecote</span><br/>
-            <span>Biggleswade</span><br/>
-            <span>Surrey</span><br/>
-            <span>United Kingdom</span><br/>
-            <span>GU15 1AF</span>
+            <span><%= @plot.house_number %> <%= @plot.building_name %></span><br/>
+            <span><%= @plot.road_name if @plot.road_name.present? %></span><br/>
+            <span><%= @plot.city if @plot.city.present? %></span><br/>
+            <span><%= @plot.county if @plot.county.present? %></span><br/>
+            <span><%= @plot.postcode if @plot.postcode.present? %></span><br/>
           </address>
-          <%= link_to t("layouts.homeowner.nav.my_home"), homeowner_my_home_path, class: "navbar-link" %>
+          <%= link_to t(".my_home_view_more"), homeowner_my_home_path, class: "branded-btn second" %>
         </div>
       </div>
 
@@ -75,103 +78,16 @@
       <!--CONTACTS-->
       <div class="card quarter my-contacts branded-content branded-border ">
         <div class="card-header">
-          <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.contacts.title') %></h2>
+          <h2 class="card-title branded-text"><%= t('.contacts_title') %></h2>
           <span class="card-action">
-            <a href="" class="branded-btn alt right"><%= t('homeowner.dashboard.cards.contacts.view_more') %></a>
+            <a href="" class="branded-btn alt right"><%= t('.contacts_view_more') %></a>
           </span>
         </div>
         <div class="card-content">
           <ul class="contact-list">
-            <li>
-              <div class="contact branded-border">
-                <div class="avatar">
-                  <img src="https://s-media-cache-ak0.pinimg.com/236x/c3/75/8a/c3758a4f3974b2d2216eccbaf3305c92.jpg">
-                </div>
-                <div class="contact-details">
-                  <span class="contact-name">Lee Kemp - Sales Manager</span>
-                  <div class="contact-actions">
-                    <a href="">
-                      <span><%= fa_icon "phone" %> 01234 567890</span>
-                    </a>
-                    <a href="">
-                      <span><%= fa_icon "envelope" %> lee.kemp@haynes.com</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="contact branded-border">
-                <div class="avatar">
-                  <img src="http://grsf.org/wp-content/uploads/2016/05/Taylor-Harvey-headshot-square.jpg">
-                </div>
-                <div class="contact-details">
-                  <span class="contact-name">Shana Milton - Site Administrator</span>
-                  <div class="contact-actions">
-                    <a href="">
-                      <span><%= fa_icon "phone" %> 01234 567890</span>
-                    </a>
-                    <a href="">
-                      <span><%= fa_icon "envelope" %> shana.milton@calor.com</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="contact branded-border">
-                <div class="avatar">
-                  <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e4eee4b0ec881d797cd5/1440016010806/Ariel+Tharpe+Headshot+Square.png?format=300w">
-                </div>
-                <div class="contact-details">
-                  <span class="contact-name">Anne Simmons - Community Liason</span>
-                  <div class="contact-actions">
-                    <a href="">
-                      <span><%= fa_icon "phone" %> 01234 567890</span>
-                    </a>
-                    <a href="">
-                      <span><%= fa_icon "envelope" %> anne.simmons@bovis.com</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="contact branded-border">
-                <div class="avatar">
-                  <img src="http://www.quindry.com/wp-content/gallery/people/corporate-headshot-Philadelphia-36-Square.jpg">
-                </div>
-                <div class="contact-details">
-                  <span class="branded-text">Clive Dodson - Neighbourhood Watch</span>
-                  <div class="contact-actions">
-                    <a href="">
-                      <span><%= fa_icon "phone" %> 01234 567890</span>
-                    </a>
-                    <a href="">
-                      <span><%= fa_icon "envelope" %> clive.dodson@grantham.com</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="contact branded-border">
-                <div class="avatar">
-                  <img src="https://static1.squarespace.com/static/54f8d688e4b046ee76993217/55d4e46ee4b0f6fc76a75af5/55d4e527e4b00f3b16d060d6/1440016045882/Daley+Browning+Headshot+Square.jpg?format=300w">
-                </div>
-                <div class="contact-details">
-                  <span class="contact-name">Jennifer Abraham - Council Representative</span>
-                  <div class="contact-actions">
-                    <a href="">
-                      <span><%= fa_icon "phone" %> 01234 567890</span>
-                    </a>
-                    <a href="">
-                      <span><%= fa_icon "envelope" %> jennifer.abraham@plazahomes.com</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
+            <% @contacts.each do | contact | %>
+              <%= render "homeowners/components/contact_summary", contact: contact %>
+          <% end %>
           </ul>
         </div>
       </div>
@@ -198,7 +114,7 @@
         </div>
       </div>
       <!-- ARTICLES -->
-      <div class="card quarter how-to black-show-through" style="background-image: url('http://www.staffordshirefire.gov.uk/Images/winter_home_safety_510x244.jpg')">
+      <div class="card quarter how-to black-show-through branded-border" style="background-image: url('http://www.staffordshirefire.gov.uk/Images/winter_home_safety_510x244.jpg')">
         <div class="card-content">
           <h3 class="how-to-title">Warmer This Winter</h3>
           <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
@@ -206,7 +122,7 @@
           <a href="" class="branded-btn second view-article">View Article</a>
         </div>
       </div>
-      <div class="card quarter how-to black-show-through" style="background-image: url('http://www.thehandmadehome.net/storage/storage_stairs_168f038-168f03g.jpg?__SQUARESPACE_CACHEVERSION=1290105095432')">
+      <div class="card quarter how-to black-show-through branded-border" style="background-image: url('http://www.thehandmadehome.net/storage/storage_stairs_168f038-168f03g.jpg?__SQUARESPACE_CACHEVERSION=1290105095432')">
         <div class="card-content">
           <h3 class="how-to-title">Clever Storage Solutions</h3>
           <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
@@ -214,7 +130,7 @@
           <a href="" class="branded-btn second view-article">View Article</a>
         </div>
       </div>
-      <div class="card quarter how-to black-show-through" style="background-image: url('http://www.local-ad.co.uk/wp-content/uploads/2016/05/garden.jpg')">
+      <div class="card quarter how-to black-show-through branded-border" style="background-image: url('http://www.local-ad.co.uk/wp-content/uploads/2016/05/garden.jpg')">
         <div class="card-content">
           <h3 class="how-to-title">Summer Ready Garden</h3>
           <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
@@ -222,7 +138,7 @@
           <a href="" class="branded-btn second view-article">View Article</a>
         </div>
       </div>
-      <div class="card quarter how-to black-show-through" style="background-image: url('http://cdn.home-designing.com/wp-content/uploads/2015/11/ultra-luxurious-modern-interior.jpg')">
+      <div class="card quarter how-to black-show-through branded-border" style="background-image: url('http://cdn.home-designing.com/wp-content/uploads/2015/11/ultra-luxurious-modern-interior.jpg')">
         <div class="card-content">
           <h3 class="how-to-title">The Modern Touch</h3>
           <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
@@ -230,7 +146,7 @@
           <a href="" class="branded-btn second view-article">View Article</a>
         </div>
       </div>
-      <div class="card quarter how-to black-show-through" style="background-image: url('http://i.telegraph.co.uk/multimedia/archive/03487/RBS-Win-On-Water-D_3487583b.jpg')">
+      <div class="card quarter how-to black-show-through branded-border" style="background-image: url('http://i.telegraph.co.uk/multimedia/archive/03487/RBS-Win-On-Water-D_3487583b.jpg')">
         <div class="card-content">
           <h3 class="how-to-title">Smart Water Tactics</h3>
           <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
@@ -240,4 +156,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

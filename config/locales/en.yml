@@ -273,15 +273,9 @@ en:
         library:
           title: "Library"
           view_more: "View library"
-        contacts:
-          title: "Contacts"
-          view_more: "View contacts"
         faqs:
           title: "FAQs"
           view_more: "View FAQs"
-        my_home:
-          title: "My Home"
-          view_more: "View my home"
 
   developments:
     collection:
@@ -334,6 +328,12 @@ en:
     appliances:
       show:
         register: "Register appliance"
+    dashboard:
+      show:
+        my_home_title: "My Home"
+        my_home_view_more: "View my home"
+        contacts_title: "Contacts"
+        contacts_view_more: "View contacts"
 
   developers:
     destroy:

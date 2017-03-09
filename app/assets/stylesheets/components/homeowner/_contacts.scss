@@ -1,29 +1,39 @@
-$contact_thumb_diameter: 54px;
+$contact_thumb_size: 46px;
 
 // Contact summary list on dashboard
 .contact-list {
+  font-size: $base-font-size;
+  overflow-y: scroll;
+  height: 100%;
+
   .avatar {
-    overflow: hidden;
-    border-radius: 50%;
-    float: left;
+    height: $contact_thumb_size;
+    width: $contact_thumb_size;
+    font-size: $contact_thumb_size;
+    color: $ui-dark-grey;
 
     img {
       display: block;
-      height: $contact_thumb_diameter;
-      width: $contact_thumb_diameter;
+      width: 100%;
+      border-radius: 50%;
     }
   }
 
-  .contact-details {
-    font-size: $base-small-font-size;
-    margin-left: 70px;
+  .name {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    display: block;
     white-space: nowrap;
+  }
 
-    span {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: block;
-    }
+  .primary {
+    font-size: $title-font-size-5;
+  }
+
+  a {
+    color: inherit;
+    padding: 2px;
+    font-size: $title-font-size-5;
   }
 }
 
@@ -36,6 +46,7 @@ $contact_thumb_diameter: 54px;
 
 .my-contacts {
   height: 482px;
+  overflow: scroll;
 }
 
 // Contacts on contacts page

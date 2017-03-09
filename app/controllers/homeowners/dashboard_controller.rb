@@ -5,6 +5,7 @@ module Homeowners
 
     def show
       @faqs = Faq.accessible_by(current_ability).order(created_at: :desc).limit(5)
+      @contacts = Contact.accessible_by(current_ability)
     end
 
     def ts_and_cs

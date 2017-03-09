@@ -1,0 +1,39 @@
+<div class="contact branded-content branded-border branded-text">
+  <div class="quarter">
+    <div class="avatar">
+      <% if contact.picture? %>
+        <%= image_tag(contact.picture.url) %>
+      <% else %>
+        <%= fa_icon "user-circle-o" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="three-quarters branded-text">
+    <span class="name primary"><%= contact %></span>
+    <% if (contact.organisation? && contact.first_name?) %>
+      <span class="name"><%= contact.organisation %></span>
+    <% end %>
+
+    <% if contact.phone? %>
+      <span class="branded-primary">
+        <%= link_to number: contact.phone do %>
+          <%= fa_icon "phone" %>
+        <% end %>
+      </span>
+    <% end %>
+    <% if contact.mobile? %>
+      <span class="branded-primary">
+        <%= link_to number: contact.mobile do %>
+          <%= fa_icon "mobile" %>
+        <% end %>
+      </span>
+    <% end %>
+    <% if contact.email? %>
+      <span class="branded-primary">
+        <%= mail_to contact.email do %>
+          <%= fa_icon "envelope" %>
+        <% end %>
+      </span>
+    <% end %>
+  </div>
+</div>

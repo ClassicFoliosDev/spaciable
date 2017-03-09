@@ -9,3 +9,4 @@ Feature: Homeowner Contacts
     And I have logged in as a resident and associated the division development plot
     When I visit the contacts page
     Then I should see the contacts for my plot
+    And I should see contacts on the dashboard

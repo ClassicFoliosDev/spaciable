@@ -16,11 +16,11 @@ RSpec.describe BulkPlots::UpdateService do
 
     it "should update all of the unit type associations" do
       development = create(:development)
-      plot1 = create(:plot, prefix: "Marsh", number: 1, unit_type: nil, development: development)
-      plot2 = create(:plot, prefix: "Marsh", number: 2, unit_type: nil, development: development)
-      plot3 = create(:plot, prefix: "Marsh", number: 3, unit_type: nil, development: development)
+      unit_type = create(:unit_type)
+      plot1 = create(:plot, prefix: "Marsh", number: 1, unit_type: unit_type, development: development)
+      plot2 = create(:plot, prefix: "Marsh", number: 2, unit_type: unit_type, development: development)
+      plot3 = create(:plot, prefix: "Marsh", number: 3, unit_type: unit_type, development: development)
 
-      unit_type = create(:unit_type, development: plot1.development)
       params = { range_from: "1", range_to: "5", list: "2", prefix: "Marsh", unit_type_id: unit_type.id }
 
       described_class.call(plot1).update(params)
@@ -32,10 +32,10 @@ RSpec.describe BulkPlots::UpdateService do
 
     it "should update plots with decimal places supplied as a list" do
       development = create(:development)
-      plot1 = create(:plot, number: 1.1, unit_type: nil, development: development)
-      plot2 = create(:plot, number: 1.2, unit_type: nil, development: development)
+      unit_type = create(:unit_type)
+      plot1 = create(:plot, number: 1.1, unit_type: unit_type, development: development)
+      plot2 = create(:plot, number: 1.2, unit_type: unit_type, development: development)
 
-      unit_type = create(:unit_type, development: plot1.development)
       params = { list: "1.1, 1.2", unit_type_id: unit_type.id }
 
       described_class.call(plot1).update(params)

@@ -23,6 +23,7 @@ end
 
 Given(/^there is a plot$/) do
   CreateFixture.create_developer_with_development
+  CreateFixture.create_unit_type
   CreateFixture.create_development_plot
 end
 
@@ -30,12 +31,14 @@ Given(/^there is a division plot$/) do
   CreateFixture.create_developer
   CreateFixture.create_division
   CreateFixture.create_division_development
+  CreateFixture.create_division_development_unit_type
   CreateFixture.create_division_development_plot
 end
 
 Given(/^there is a phase plot$/) do
   CreateFixture.create_developer_with_development
   CreateFixture.create_development_phase
+  CreateFixture.create_unit_type
   CreateFixture.create_phase_plot
 end
 
