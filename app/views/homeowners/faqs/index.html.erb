@@ -20,7 +20,7 @@
     <dl class="faqs">
       <% @faqs.each do |faq| %>
         <dt id="faq-<%= faq.id %>"><h3><%= faq.question %></h3></dt>
-        <dd><%= raw faq.answer %></dd>
+        <dd class="branded-text"><%= raw faq.answer %></dd>
       <% end %>
     </dl>
 
