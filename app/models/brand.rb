@@ -51,6 +51,7 @@ class Brand < ApplicationRecord
     brand_parent = brandable
     while brand_parent.respond_to?(:parent)
       brand_parent = brand_parent.parent
+      next unless brand_parent.brand
       return brand_parent.brand.logo.url if brand_parent.brand.logo.url.present?
     end
   end
@@ -61,6 +62,7 @@ class Brand < ApplicationRecord
     brand_parent = brandable
     while brand_parent.respond_to?(:parent)
       brand_parent = brand_parent.parent
+      next unless brand_parent.brand
       return brand_parent.brand.banner.url if brand_parent.brand.banner.url.present?
     end
   end
@@ -73,6 +75,7 @@ class Brand < ApplicationRecord
     brand_parent = brandable
     while brand_parent.respond_to?(:parent)
       brand_parent = brand_parent.parent
+      next unless brand_parent.brand
       return brand_parent.brand[attr_name] if brand_parent.brand[attr_name].present?
     end
   end

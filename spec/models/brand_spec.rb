@@ -75,5 +75,19 @@ RSpec.describe Brand do
         expect(brand.branded_text_color).to eq(nil)
       end
     end
+
+    context "brand does not exist for division" do
+      it "should return the developer brand color" do
+        white = "#FFFFFF"
+        developer = create(:developer)
+        division = create(:division, developer: developer)
+        development = create(:development, division: division)
+
+        parent_parent_brand = create(:brand, text_color: white, brandable: developer)
+        brand = create(:brand, text_color: nil, brandable: development)
+
+        expect(brand.branded_text_color).to eq(parent_parent_brand.branded_text_color)
+      end
+    end
   end
 end
