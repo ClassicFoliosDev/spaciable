@@ -14,48 +14,47 @@
 
   <div class="row appliance">
     <div class="row-item third">
-      <fieldset>
-        <%= f.input :primary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-        <%= f.input :name %>
-        <%= f.input :model_num %>
-      </fieldset>
+      <div class="image-container">
+        <%= f.input :primary_image, as: :image_preview %>
+      </div>
+      <%= f.input :name %>
+      <%= f.input :model_num %>
     </div>
     <div class="row-item third">
-      <fieldset>
-        <div class="appliance_category ui-front select-container">
-          <%= f.association :appliance_category %>
-        </div>
-        <div class="manufacturer ui-front select-container">
-          <%= f.association :manufacturer %>
-        </div>
-        <div class="warranty ui-front">
-        <%= f.label t(".warranty_length") %>
-        <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
-        </div>
-        <div class="e_rating ui-front">
-        <%= f.label t(".e_rating") %>
-        <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
-        </div>
-        <%= f.label t(".description") %>
-        <%= f.text_area :description %>
-      </fieldset>
+      <div class="appliance_category ui-front select-container">
+        <%= f.association :appliance_category %>
+      </div>
+      <div class="manufacturer ui-front select-container">
+        <%= f.association :manufacturer %>
+      </div>
+      <div class="warranty ui-front">
+      <%= f.label t(".warranty_length") %>
+      <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
+      </div>
+      <div class="e_rating ui-front">
+      <%= f.label t(".e_rating") %>
+      <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
+      </div>
+      <%= f.label t(".description") %>
+      <%= f.text_area :description %>
     </div>
     <div class="row-item third">
-      <fieldset>
+      <div class="manual-container">
         <%= f.label t(".manual") %>
-
-        <%= label_tag('appliance_manual', t(".upload"), class: "btn") %>
         <% if appliance.manual? %>
           <div class="appliance-manual">
             <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename readonly" %>
             <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
-            <%= icon "cloud-download" %>
-          <% end %>
+              <%= icon "cloud-download" %>
+            <% end %>
+            <label class="btn remove-btn fa fa-trash" for="appliance_remove_manual"></label>
+            <%= f.check_box :remove_manual, label: false, class: "hidden remove-document" %>
           </div>
         <% end %>
-        <%= f.input :manual, as: :file, label: false, input_html: { class: 'hidden' } %>
-        <%= f.input :secondary_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-      </fieldset>
+        <%= f.file_field :manual, label: false, class: "file-upload" %>
+        <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
+      </div>
+      <%= f.input :secondary_image, as: :image_preview %>
     </div>
   </div>
 

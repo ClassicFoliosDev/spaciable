@@ -46,6 +46,8 @@ en:
   development_admin: "Development Admin"
   homeowner: "Home Owner"
 
+  choose: "Choose file"
+
   # LAYOUTS
   layouts:
     application:
@@ -117,9 +119,6 @@ en:
     brands: "Styling"
     brand_add: "Add styling for %{name}"
     brand_edit: "Edit %{name}"
-
-  image_preview:
-    replace: "Replace"
 
   pagination:
     per_page_10: "10"
@@ -651,7 +650,6 @@ en:
      title: "New appliance"
    show:
      back: "Back"
-     upload: "Upload"
      download: "Download manual"
      documents: "Documents"
    edit:
@@ -665,7 +663,6 @@ en:
      category: "Appliance category"
      manufacturer: "Manufacturer"
      model_num: "Model"
-     upload: "Upload"
      warranty_length: "Warranty length"
      e_rating: "Energy rating"
      manual: "Appliance manual"

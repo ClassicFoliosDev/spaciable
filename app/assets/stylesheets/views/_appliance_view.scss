@@ -12,9 +12,25 @@
   }
 }
 
+.manual-container {
+  margin-bottom: 40px;
+}
+
 .manual-download {
-  line-height: 35px;
-  height: 41px;
+  height: 30px;
+  margin: 4px;
+}
+
+.manual {
+  height: 90px;
+
+  input {
+    margin-bottom: 0;
+  }
+
+  a {
+    float: right;
+  }
 }
 
 .appliance_secondary_image {

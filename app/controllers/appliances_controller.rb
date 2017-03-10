@@ -69,7 +69,8 @@ class AppliancesController < ApplicationController
       :serial, :source, :warranty_num, :description,
       :warranty_length, :model_num, :e_rating,
       :manufacturer_id, :appliance_category_id,
-      :remove_primary_image, :remove_secondary_image
+      :remove_primary_image, :remove_secondary_image,
+      :remove_manual
     )
   end
 end

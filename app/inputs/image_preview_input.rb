@@ -2,7 +2,7 @@
 class ImagePreviewInput < SimpleForm::Inputs::FileInput
   def input(_wrapper_options = nil)
     # :preview_version is a custom attribute from :input_html hash, so you can pick custom sizes
-    input_html_classes.push("hidden")
+    input_html_classes.push("file-upload")
     build_input(ActiveSupport::SafeBuffer.new)
   end
 
@@ -10,30 +10,31 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
 
   def build_input(out)
     build_preview(out)
-
     build_buttons(out)
+
+    if valid_url?
+      input_html_options.delete(:remove_path)
+      build_remove_button(out, object.send(attribute_name))
+    end
+
+    out
   end
 
   def build_preview(out)
     # check if there's an uploaded file (eg: edit mode or form not saved)
     # append preview image to output
     out << image_preview if object.send("#{attribute_name}?")
-    out << content_tag(:br)
 
     # allow multiple submissions without losing the tmp version
     out << @builder.hidden_field("#{attribute_name}_cache")
   end
 
   def build_buttons(out)
-    if valid_url?
-      input_html_options.delete(:remove_path)
-      build_remove_button(out, object.send(attribute_name))
-      label_text = t("image_preview.replace")
-    else
-      label_text = t("simple_form.inputs.image_preview.upload")
-    end
-    out << @builder.label(attribute_name, label_text, class: "btn image-name")
+    # It's not possible to style the "Choose file" button that's standard for a file input
+    # So instead, here's a label that will cover the top of the browser button
+    # This can be CSSed into something prettier
     out << @builder.file_field(attribute_name, input_html_options)
+    out << @builder.label(attribute_name, t("choose"), class: "choose-file")
   end
 
   def valid_url?

@@ -150,22 +150,62 @@ fieldset {
 .remove-btn {
   float: right;
   margin-right: $spacing-small;
+  height: 30px;
 }
 
-.finish_picture, .appliance_primary_image, .appliance_secondary_image {
-  border-color: $ui-light-grey;
-  border-width: 1px;
-  border-style: solid;
+// IMAGE file load styling
 
-  label {
-    margin-left: $spacing-small;
-  }
+.image-container {
+  margin-bottom: 56px;
 }
 
 .image-preview {
   margin-left: auto;
   margin-right: auto;
   display: block;
+
+}
+
+.image_preview {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    margin: 15px 0;
+  }
+
+  .remove-btn {
+    margin-top: -25px;
+  }
+}
+
+.file-upload {
+  color: $type-grey;
+  font-size: $base-font-size;
+  float: right;
+  padding-left: 15px;
+  padding-top: 6px;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.choose-file {
+  float: left;
+  margin-top: -25px;
+  font-size: $base-font-size;
+  color: $type-grey;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  width: 89px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: white;
 }
 
 // VALIDATION
@@ -192,7 +232,7 @@ fieldset {
     .required {
       font-size: $input-small-font-size;
       font-weight: normal;
-      color: $ui-dark-grey;
+      color: $type-grey;
       position: absolute;
       right: 13px;
       top: 38px;

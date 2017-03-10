@@ -15,8 +15,9 @@
     <div class="row finish">
       <div class="row-item third">
         <fieldset>
-          <br>
-          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          <div class="image-container">
+            <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
           <%= f.input :name %>
         </fieldset>
       </div>
