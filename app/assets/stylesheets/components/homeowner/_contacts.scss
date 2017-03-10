@@ -43,6 +43,11 @@ $contact_thumb_size: 46px;
   height: 86px;
   border-top-style: solid;
   border-top-width: 1px;
+
+  .three-fifths {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  }
 }
 
 .my-contacts {
