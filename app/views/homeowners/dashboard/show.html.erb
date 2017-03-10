@@ -60,7 +60,7 @@
         <div class="card-header">
           <h2 class="card-title branded-text"><%= t('.contacts_title') %></h2>
           <span class="card-action">
-            <a href="" class="branded-btn alt right"><%= t('.contacts_view_more') %></a>
+            <%= link_to t('.contacts_view_more'), homeowner_contacts_path, class: "branded-btn alt right" %>
           </span>
         </div>
         <div class="card-content">

@@ -29,15 +29,25 @@ module Abilities
     def resident_abilities_for_polymorphic_models(plot)
       [Document, Faq, Contact, Notification].each do |model|
         can :read, model, development_id: plot.development_id
-        can :read, model, developer_id: plot.developer_id
+        can :read, model, developer_id: plot.developer_id, division_id: nil
+        can :read, model, division_id: plot.division_id if plot.division_id?
       end
 
+      resident_plot_number_notifications(plot)
+      resident_brand_abilities(plot)
+    end
+
+    private
+
+    def resident_plot_number_notifications(plot)
       cannot :read, Notification do |notification|
         # If a plot range has been defined for the notification:
         #   Resident cannot read a notification that does not include their plot number
         notification.plot_numbers.exclude?(plot.number.to_s) if notification.plot_numbers.any?
       end
+    end
 
+    def resident_brand_abilities(plot)
       polymorphic_abilities Brand, :brandable do
         type "Developer", id: plot.developer_id, actions: :read
         type "Division", id: plot.division_id, actions: :read

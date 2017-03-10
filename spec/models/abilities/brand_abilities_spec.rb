@@ -28,6 +28,27 @@ RSpec.describe "Brand Abilities" do
     end
   end
 
+  context "when another division has a brand" do
+    let(:resident) do
+      plot = create(:plot, development: create(:division_development))
+      create(:resident, :with_residency, plot: plot)
+    end
+
+    it "should not have READ access to the other division brand" do
+      other_division = create(:division, developer: resident.developer)
+      brand = create(:brand, brandable: other_division)
+
+      expect(subject).not_to be_able_to(:read, brand)
+    end
+
+    it "should not have READ access to the other division brand" do
+      other_division_development = create(:division_development, division: resident.division)
+      brand = create(:brand, brandable: other_division_development)
+
+      expect(subject).not_to be_able_to(:read, brand)
+    end
+  end
+
   context "when a development has a brand" do
     it "should have READ access to the divisions brand" do
       brand = create(:brand, brandable: resident.development)

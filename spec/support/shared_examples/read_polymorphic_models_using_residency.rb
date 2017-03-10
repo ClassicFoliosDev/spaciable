@@ -27,6 +27,13 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
     expect(subject).to be_able_to(:read, model)
   end
 
+  it "cannot read models under a division" do
+    division = create(:division, developer: plot.developer)
+    model = create(polymorphic_factory_name, association => division)
+
+    expect(subject).not_to be_able_to(:read, model)
+  end
+
   context "with a residency under a division" do
     let(:division_development) { create(:division_development) }
     let(:plot) { create(:plot, development: division_development) }
