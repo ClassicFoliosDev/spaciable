@@ -20,6 +20,7 @@
     padding: 0;
     margin-bottom: 5px;
     overflow: hidden;
+    background: inherit;
   }
 
   .document {
@@ -32,13 +33,14 @@
   }
 
   .document-titles {
-      height: ($card-height / 1.25);
+    height: ($card-height / 1.25);
     padding: 0;
+    background: inherit;
 
     a {
       font-size: $base-small-font-size;
       line-height: $base-small-font-line-height;
-      color: $type-grey;
+      color: inherit;
       font-weight: lighter;
     }
   }

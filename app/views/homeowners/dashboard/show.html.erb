@@ -43,7 +43,7 @@
                 </li>
               <% end %>
             </ul>
-            <ul class="document-titles row-item">
+            <ul class="document-titles branded-text branded-background row-item">
               <% @documents.each do |document| %>
                 <li class="document sixth">
                   <%= link_to truncate(document.title, length: 35), document.file.url, target: "_blank" %>

@@ -9,6 +9,18 @@
   <% if brand.branded_text_color.present? %>
    .branded-text {
       color: <%= brand.branded_text_color %>;
+   }
+   .branded-text h1,
+   .branded-text h2,
+   .branded-text h3,
+   .branded-text h4,
+   .branded-text h5,
+   .branded-text h6,
+   .branded-text p, .branded-text span {
+      color: inherit;
+    }
+   .branded-text a, .branded-text a:visited, .branded-text a:hover, .branded-text a:active {
+      color: inherit;
     }
   <% end %>
 
