@@ -122,7 +122,8 @@ Then(/^I should see the document in the developer document list$/) do
 end
 
 When(/^I delete the document$/) do
-  visit "/documents"
+  click_on t("documents.form.back")
+  click_on t("developers.collection.documents")
 
   delete_and_confirm!(finder_options: { match: :first })
 end

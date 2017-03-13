@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     get 'phases', to: 'phases#index', format: :json
   end
 
-  resources :documents, except: [:new, :create]
+  resources :documents, only: [:edit, :show, :update, :destroy]
 
   resources :rooms
 

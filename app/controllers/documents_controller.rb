@@ -18,10 +18,6 @@ class DocumentsController < ApplicationController
 
   before_action :set_parent
 
-  def index
-    @documents = paginate(sort(@documents, default: :title))
-  end
-
   def new
   end
 

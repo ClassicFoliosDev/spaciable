@@ -179,18 +179,28 @@ end
 
 # DOCUMENTS
 
-crumb :documents do
-  link Document.model_name.human.pluralize, documents_path
-end
-
 crumb :document do |document|
   link document.title, document_path
-  parent :documents
+  case document.parent.model_name.element.to_sym
+    when :developer
+      parent :developer, document.parent
+    when :division
+      parent :division, document.parent
+    when :development
+      parent :development, document.parent
+  end
 end
 
 crumb :document_edit do |document|
   link t("breadcrumbs.document_edit", document_name: document.title), edit_document_path(document)
-  parent :documents
+  case document.parent.model_name.element.to_sym
+    when :developer
+      parent :developer, document.parent
+    when :division
+      parent :division, document.parent
+    when :development
+      parent :development, document.parent
+  end
 end
 
 crumb :document_new do |document_parent|
