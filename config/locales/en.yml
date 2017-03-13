@@ -47,6 +47,7 @@ en:
   homeowner: "Home Owner"
 
   choose: "Choose file"
+  no_image: "No image available"
 
   # LAYOUTS
   layouts:
