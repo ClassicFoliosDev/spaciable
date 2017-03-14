@@ -8,15 +8,17 @@ $primary-record-list-item-color: $type-grey;
 $primary-record-list-header-color: $type-grey;
 
 table.record-list {
-  color: $type-grey;
+  table-layout: fixed;
   border-collapse: collapse;
   width: 100%;
   margin-bottom: $spacing-small;
+  color: $type-grey;
 
   th, td {
     text-align: left;
     padding: $spacing-small;
     border-bottom: 3px solid $ui-light-grey;
+    word-wrap: break-word;
 
     &:first-of-type {
       border-radius: $border-radius 0 0 $border-radius;
