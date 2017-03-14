@@ -3,7 +3,6 @@ $contact_thumb_size: 46px;
 // Contact summary list on dashboard
 .contact-list {
   font-size: $base-font-size;
-  overflow-y: scroll;
   height: 100%;
 
   .avatar {
@@ -52,7 +51,6 @@ $contact_thumb_size: 46px;
 
 .my-contacts {
   height: 482px;
-  overflow: scroll;
 }
 
 // Contacts on contacts page
