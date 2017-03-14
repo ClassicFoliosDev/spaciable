@@ -16,6 +16,12 @@
       @include omega();
       padding: $spacing-small;
 
+      .secondary-image {
+        display: block;
+        max-width: 80px;
+        margin-bottom: $spacing-small;
+      }
+
       i.dummy-image {
         display: block;
         width: 86px;
@@ -30,6 +36,8 @@
 
       a {
         margin-top: $spacing-small;
+        display: table;
+        margin: auto;
       }
     }
 
@@ -39,6 +47,10 @@
 
       .detail {
         @include span-columns(6 of 12);
+      }
+
+      .energy-rating {
+        max-width: 260px;
       }
     }
   }

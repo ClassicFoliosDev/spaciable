@@ -17,7 +17,7 @@
             <span><%= t("no_image") %></span>
           <% end %>
           <% if appliance.secondary_image? %>
-            <%= image_tag(appliance.secondary_image.url) %>
+            <%= image_tag(appliance.secondary_image.url, class: "secondary-image") %>
           <% end %>
 
           <% if appliance.manufacturer_link.present? %>
@@ -30,16 +30,6 @@
             <%= label_tag(:manufacturer) %>
             <%= appliance&.manufacturer %>
 
-            <%= label_tag(t("appliances.form.e_rating")) %>
-            <% if appliance.e_rating %>
-              <%= image_tag "Hoozzi Energy Rating #{appliance.e_rating.upcase}.svg" %>
-            <% end %>
-
-            <%= label_tag(:description) %>
-            <%= appliance.description %>
-          </div>
-
-          <div class="detail">
             <%= label_tag(t("appliances.form.model_num")) %>
             <%= appliance.model_num %>
 
@@ -52,6 +42,16 @@
 
             <%= label_tag(t("appliances.form.warranty_length")) %>
             <%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length? %>
+
+            <%= label_tag(t("appliances.form.e_rating")) %>
+            <% if appliance.e_rating %>
+              <%= image_tag "Hoozzi Energy Rating #{appliance.e_rating.upcase}.svg", class: "energy-rating" %>
+            <% end %>
+          </div>
+
+          <div class="detail">
+            <%= label_tag(:description) %>
+            <p><%= appliance.description %></p>
           </div>
         </div>
       </div>
