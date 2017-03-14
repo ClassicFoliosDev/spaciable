@@ -652,7 +652,7 @@ en:
    show:
      back: "Back"
      download: "Download manual"
-     documents: "Documents"
+     documents: "Appliance Manual"
    edit:
      title: "Edit %{name}"
      back: "Back"
