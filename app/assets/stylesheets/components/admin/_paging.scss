@@ -50,11 +50,21 @@
 
   ul {
     display: inline;
-  }
-  .current,
-  .gap {
-    padding: 0 $spacing-small;
-    color: $ui-dark-grey;
+
+    li {
+      color: $ui-dark-grey;
+
+      &.current {
+        color: $type-grey;
+        font-weight: bold;
+        padding: 0 $spacing-small;
+      }
+
+      .gap {
+        color: $ui-dark-grey;
+        padding: 0 $spacing-small;
+      }
+    }
   }
 }
 

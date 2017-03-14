@@ -5,34 +5,28 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="plots">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(Plot, :number, t(".name")) %></span>
-        <span><%= sortable(Plot, :updated_at) %></span>
-        <span><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></span>
-      </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Plot, :number, t(".name")) %></th>
+      <th><%= sortable(Plot, :updated_at) %></th>
+      <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |plot| %>
-      <dd class="record-list-item" data-plot="<%= plot.id %>">
-        <div class="record-list-item-actions">
-          <%= edit_btn [:edit, plot], element: plot %>
-          <%= delete_btn plot, path: url_for(plot), element: plot %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to_unless (cannot? :read, plot), plot, plot, title: plot %>
-           <span class="plot-updated-timestamp">
-             <%= l plot.updated_at.to_date, format: :digits %>
-           </span>
-           <span>
-             <%= plot.unit_type %>
-           </span>
-        </div>
-      </dd>
+    <tr data-plot="<%= plot.id %>">
+      <td><%= link_to_unless (cannot? :read, plot), plot, plot, title: plot %></td>
+      <td><%= l plot.updated_at.to_date, format: :digits %></td>
+      <td><%= plot.unit_type %></td>
+      <td class="actions">
+        <%= edit_btn [:edit, plot], element: plot %>
+        <%= delete_btn plot, path: url_for(plot), element: plot %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

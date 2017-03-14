@@ -8,14 +8,11 @@ class FinishesController < ApplicationController
     @finishes = paginate(sort(@finishes, default: :name))
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
-  def show
-  end
+  def show; end
 
   def create
     if @finish.save
@@ -61,16 +58,16 @@ class FinishesController < ApplicationController
   end
 
   def finish_list
-    if params[:manufacturer_name].present?
-      finishes = Finish.joins(:finish_type, :manufacturer)
+    finishes = if params[:manufacturer_name].present?
+                 Finish.joins(:finish_type, :manufacturer)
                        .where(finish_types: { name: params[:type_name] },
                               manufacturers: { name: params[:manufacturer_name] })
                        .distinct
-    else
-      finishes = Finish.joins(:finish_type)
+               else
+                 Finish.joins(:finish_type)
                        .where(finish_types: { name: params[:type_name] })
                        .distinct
-    end
+               end
 
     render json: finishes
   end

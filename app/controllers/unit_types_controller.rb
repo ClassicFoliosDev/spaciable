@@ -9,11 +9,9 @@ class UnitTypesController < ApplicationController
     @unit_types = paginate(sort(@unit_types, default: :name))
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
   def show
     @active_tab = params[:active_tab] || "rooms"

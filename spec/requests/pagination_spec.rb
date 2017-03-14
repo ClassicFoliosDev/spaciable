@@ -11,8 +11,7 @@ RSpec.describe "Pagination", type: :feature do
     visit "/developers"
 
     within(".record-list") do
-      # Use dd. to make sure we don't pick up the header (which is dt)
-      expect(page.all("dd.record-list-item").count).to eq(25)
+      expect(page.all("tbody tr").count).to eq(25)
     end
 
     within ".page-sizes" do
@@ -25,8 +24,7 @@ RSpec.describe "Pagination", type: :feature do
     click_on(I18n.t("pagination.per_page_10"))
 
     within(".record-list") do
-      # Use dd. to make sure we don't pick up the header (which is dt)
-      expect(page.all("dd.record-list-item").count).to eq(10)
+      expect(page.all("tbody tr").count).to eq(10)
     end
 
     within ".pagination" do

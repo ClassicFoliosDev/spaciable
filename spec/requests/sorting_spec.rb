@@ -14,16 +14,16 @@ RSpec.describe "Sorting", type: :feature do
       expect(page).to have_link(I18n.t("activerecord.attributes.developer.company_name"))
     end
 
-    first_row_content = first(".record-list-item-content").text
-    last_row_content = all(".record-list-item-content").last.text
+    first_row_content = first("tbody tr td").text
+    last_row_content = all("tbody tr td:first").last.text
 
     expect(first_row_content).to have_content("Alpha")
     expect(last_row_content).to have_content("Gamma")
 
     click_on(I18n.t("activerecord.attributes.developer.company_name"))
 
-    post_sort_first_row_content = first(".record-list-item-content").text
-    post_sort_last_row_content = all(".record-list-item-content").last.text
+    post_sort_first_row_content = first("tbody tr td").text
+    post_sort_last_row_content = all("tbody tr td:first").last.text
 
     expect(post_sort_first_row_content).to have_content("Gamma")
     expect(post_sort_last_row_content).to have_content("Alpha")

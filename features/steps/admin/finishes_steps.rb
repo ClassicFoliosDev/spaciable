@@ -38,7 +38,7 @@ Then(/^I should see the created finish$/) do
 
   expect(page).to have_content(success_flash)
 
-  within ".finishes" do
+  within ".record-list" do
     expect(page).to have_content(FinishFixture.finish_name)
   end
 end

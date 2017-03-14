@@ -14,34 +14,30 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="users">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(@users, :email) %></span>
-        <span><%= sortable(@users, :updated_at) %></span>
-        <span><%= sortable(@users, :role) %></span>
-        <span><%= t(".headings.permission_level") %></span>
-      </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(@users, :email) %></th>
+      <th><%= sortable(@users, :updated_at) %></th>
+      <th><%= sortable(@users, :role) %></th>
+      <th><%= t(".headings.permission_level") %></th>
+    </tr>
+  </thead>
+  <tbody>
     <% @users.each do |user| %>
-      <dd class="record-list-item" data-user="<%= user.id %>">
-        <div class="record-list-item-actions">
-          <%= edit_btn edit_admin_user_path(user) %>
-          <%= delete_btn user, path: url_for([:admin, user]) %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to user, admin_user_path(user) %>
-          <span class="user-updated-timestamp">
-             <%= l user.updated_at.to_date, format: :digits %>
-          </span>
-          <span><%= t(user.role) %></span>
-          <span><%= user.permission_level %></span>
-        </div>
-      </dd>
+    <tr data-user="<%= user.id %>">
+      <td><%= link_to user, admin_user_path(user) %></td>
+      <td><%= l user.updated_at.to_date, format: :digits %></td>
+      <td><%= t(user.role) %></td>
+      <td><%= user.permission_level %></td>
+      <td class="actions">
+        <%= edit_btn edit_admin_user_path(user) %>
+        <%= delete_btn user, path: url_for([:admin, user]) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

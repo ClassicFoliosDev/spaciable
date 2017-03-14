@@ -167,8 +167,8 @@ module CreateFixture
   end
 
   def create_finish
-    finish_category = FinishCategory.find_by_name(finish_category_name)
-    finish_type = FinishType.find_by_name(finish_type_name)
+    finish_category = FinishCategory.find_by(name: finish_category_name)
+    finish_type = FinishType.find_by(name: finish_type_name)
     FactoryGirl.create(:finish, name: finish_name, finish_category: finish_category, finish_type: finish_type)
   end
 

@@ -47,7 +47,7 @@ module MyLibraryFixture
 
   def create_documents
     DOCUMENTS.each do |attrs|
-      path = File.join(Rails.root, "features", "support", "files", attrs[:file])
+      path = Rails.root.join("features", "support", "files", attrs[:file])
       file = Rack::Test::UploadedFile.new(path)
 
       FactoryGirl.create(
@@ -62,9 +62,11 @@ module MyLibraryFixture
 
   def create_appliance_manual
     filename = "washing_machine_manual.pdf"
-    path = File.join(Rails.root, "features", "support", "files", filename)
+    path = Rails.root.join("features", "support", "files", filename)
 
-    CreateFixture.appliance.update_column(:manual, path)
+    File.open(path) do |file|
+      CreateFixture.appliance.update_attribute(:manual, file)
+    end
   end
 
   def default_category_name

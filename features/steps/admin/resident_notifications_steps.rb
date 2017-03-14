@@ -137,7 +137,7 @@ Then(/^I can see the (\(\w+\) )?(\w+) notification I sent to the resident$/) do 
   parent_method = type[/(\w+)_/][0...-1]
   subject = ResidentNotificationsFixture::MESSAGES.dig(type, :subject)
 
-  within ".record-list .notifications" do
+  within ".record-list" do
     expect(page).to have_content(subject)
 
     expect(page).to have_content("#{Notification.human_attribute_name(:send_to)}: #{plot.send(parent_method)} (Plot #{plot})")
@@ -149,7 +149,7 @@ Then(/^I can see the (\(\w+\) )?(\w+) notification I sent$/) do |parent, resourc
 
   subject = ResidentNotificationsFixture::MESSAGES.dig(type, :subject)
 
-  within ".record-list .notifications" do
+  within ".record-list" do
     expect(page).to have_content(subject)
 
     expect(page).to have_content("#{Notification.human_attribute_name(:send_to)}: #{instance}")
@@ -159,7 +159,7 @@ end
 Then(/^I can see the notification I sent to all residents$/) do
   subject = ResidentNotificationsFixture::MESSAGES.dig(:all, :subject)
 
-  within ".record-list .notifications" do
+  within ".record-list" do
     expect(page).to have_content(subject)
 
     expect(page).to have_content("#{Notification.human_attribute_name(:send_to)}: All")

@@ -5,35 +5,38 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="notifications">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(Notification, :subject, t(".headers.subject")) %></span>
-        <span><%= sortable(Notification, :sent_at, t(".headers.sent_at")) %></span>
-        <span><%= t(".headers.recipient") %></span>
-      </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Notification, :subject, t(".headers.subject")) %></th>
+      <th><%= sortable(Notification, :sent_at, t(".headers.sent_at")) %></th>
+      <th><%= t(".headers.recipient") %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |notification| %>
-      <dd class="record-list-item" data-notification="<%= notification.id %>">
-        <div class="record-list-item-actions">
-          <%= view_btn admin_notification_path(notification) %>
-        </div>
+    <tr>
+      <td>
+        <%= link_to notification, [:admin, notification], title: notification %>
+      </td>
 
-        <div class="record-list-item-content">
-            <%= link_to notification, [:admin, notification], title: notification %>
-           <span class="notification-sent-at-timestamp">
-             <%= l(notification.sent_at.to_date, format: :digits) %>
-           </span>
-           <span class="notification-recipient-level">
-             <strong><%= Notification.human_attribute_name(:send_to) %>:</strong>
-             <%= truncate(notification.sent_to, length: 80) %>
-           </span>
-        </div>
-      </dd>
+      <td>
+        <%= l(notification.sent_at.to_date, format: :digits) %>
+      </td>
+
+      <td>
+        <strong><%= Notification.human_attribute_name(:send_to) %>:</strong>
+        <%= truncate(notification.sent_to, length: 80) %>
+      </td>
+
+      <td class="actions">
+        <%= view_btn admin_notification_path(notification) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

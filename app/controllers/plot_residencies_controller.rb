@@ -46,11 +46,9 @@ class PlotResidenciesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     @plot_residency.destroy

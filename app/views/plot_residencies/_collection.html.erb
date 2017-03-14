@@ -6,32 +6,30 @@
     <% end %>
   <% end %>
 </div>
-<div class="record-list">
-  <dl class="residencies">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable({ PlotResidency => Resident }, :last_name, t(".last_name")) %></span>
-      <span><%= sortable({ PlotResidency => Resident }, :email, t(".email")) %></span>
-      <span><%= sortable(PlotResidency, :updated_at, t(".updated_at")) %></span>
-    </div>
-    </dt>
+
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable({ PlotResidency => Resident }, :last_name, t(".last_name")) %></th>
+      <th><%= sortable({ PlotResidency => Resident }, :email, t(".email")) %></th>
+      <th><%= sortable(PlotResidency, :updated_at, t(".updated_at")) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |plot_residency| %>
-        <dd class="record-list-item" data-plot_residency="<%= plot_residency.id %>">
-          <div class="record-list-item-actions">
-            <%= edit_btn [:edit, plot_residency], element: plot_residency %>
-            <%= delete_btn plot_residency, path: plot_residency_path(plot_residency), element: plot_residency %>
-          </div>
-          <div class="record-list-item-content">
-            <%= link_to plot_residency, plot_residency, title: plot_residency %>
-            <span><%= plot_residency.email %></span>
-            <span class="plot_residency-updated-timestamp">
-              <%= l plot_residency.updated_at.to_date, format: :digits %>
-            </span>
-          </div>
-        </dd>
+    <tr>
+      <td><%= link_to plot_residency, plot_residency, title: plot_residency %></td>
+      <td><%= plot_residency.email %></td>
+      <td><%= l plot_residency.updated_at.to_date, format: :digits %></td>
+      <td>
+        <%= edit_btn [:edit, plot_residency], element: plot_residency %>
+        <%= delete_btn plot_residency, path: plot_residency_path(plot_residency), element: plot_residency %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

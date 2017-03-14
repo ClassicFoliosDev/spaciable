@@ -5,30 +5,27 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="rooms">
-    <dd class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(Room, :name) %></span>
-        <span><%= sortable(Room, :updated_at) %></span>
-      </div>
-    </dd>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Room, :name) %></th>
+      <th><%= sortable(Room, :updated_at) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |room| %>
-        <dt class="record-list-item" data-room="<%= room.id %>">
-        <div class="record-list-item-actions">
-          <%= edit_btn edit_room_path(room) %>
-          <%= delete_btn room, path: room_path(room) %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to room.name, room_path(room), title: room.name, class: "room-name" %>
-          <span class="room-updated-timestamp">
-             <%= l room.updated_at.to_date, format: :digits %>
-           </span>
-        </div>
-        </dt>
+    <tr>
+      <td><%= link_to room.name, room_path(room), title: room.name, class: "room-name" %></td>
+      <td><%= l room.updated_at.to_date, format: :digits %></td>
+      <td>
+        <%= edit_btn edit_room_path(room) %>
+        <%= delete_btn room, path: room_path(room) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

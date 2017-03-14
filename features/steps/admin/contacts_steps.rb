@@ -47,13 +47,13 @@ Then(/^I should see the created contact$/) do
 
   expect(page).to have_content(success_flash)
 
-  within ".contacts" do
+  within ".record-list" do
     expect(page).to have_content(ContactFixture.first_name)
   end
 end
 
 When(/^I update the contact$/) do
-  within ".contacts" do
+  within ".record-list" do
     find("[data-action='edit']").click
   end
 
@@ -83,7 +83,7 @@ Then(/^I should see the updated contact$/) do
 
   expect(page).to have_content(success_flash)
 
-  within ".contacts" do
+  within ".record-list" do
     click_on "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   end
 
@@ -107,7 +107,7 @@ end
 When(/^I remove an image from a contact$/) do
   click_on t("contacts.show.back")
 
-  within ".contacts" do
+  within ".record-list" do
     find("[data-action='edit']").click
   end
 
@@ -127,7 +127,7 @@ Then(/^I should see the updated contact without the image$/) do
 
   expect(page).to have_content(success_flash)
 
-  within ".contacts" do
+  within ".record-list" do
     click_on "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   end
 
@@ -170,7 +170,7 @@ When(/^I create a division contact with no email or phone$/) do
 
   click_on t("developers.collection.divisions")
 
-  within ".divisions" do
+  within ".record-list" do
     click_on CreateFixture.division_name
   end
 
@@ -192,7 +192,7 @@ When(/^I delete the division contact$/) do
 
   click_on t("developers.collection.divisions")
 
-  within ".divisions" do
+  within ".record-list" do
     click_on CreateFixture.division_name
   end
 
@@ -210,7 +210,7 @@ When(/^I create a development contact with no name or organisation$/) do
 
   click_on t("developers.collection.developments")
 
-  within ".developments" do
+  within ".record-list" do
     click_on CreateFixture.development_name
   end
 
@@ -231,7 +231,7 @@ When(/^I delete the development contact$/) do
 
   click_on t("developers.collection.developments")
 
-  within ".developments" do
+  within ".record-list" do
     click_on CreateFixture.development_name
   end
 
@@ -284,7 +284,7 @@ When(/^I create a division contact$/) do
   end
 
   click_on t("developers.collection.divisions")
-  within ".divisions" do
+  within ".record-list" do
     click_on CreateFixture.division_name
   end
 
@@ -309,7 +309,7 @@ Then(/^I should not be able to create a division contact$/) do
     click_on t("components.navigation.developers")
   end
 
-  within ".developers" do
+  within ".record-list" do
     click_on t("developers.collection.divisions")
   end
 
@@ -327,12 +327,12 @@ When(/^I create a development contact$/) do
   end
 
   click_on t("developers.collection.divisions")
-  within ".divisions" do
+  within ".record-list" do
     click_on CreateFixture.division_name
   end
 
   click_on t("developers.collection.developments")
-  within ".developments" do
+  within ".record-list" do
     click_on CreateFixture.division_development_name
   end
 

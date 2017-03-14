@@ -36,7 +36,7 @@ class ResidentNotifierService
   private
 
   def residents
-    @residents ||= (
+    @residents ||= begin
       if notification.send_to_all?
         Resident.all
       elsif notification.plot_numbers.any?
@@ -44,17 +44,17 @@ class ResidentNotifierService
       else
         notification.send_to.residents.includes(plot_residency: :plot)
       end
-    )
+    end
   end
 
   def plot_numbers
-    @plot_numbers ||= (
+    @plot_numbers ||= begin
       if notification.plot_numbers.any?
         notification.plot_numbers
       else
         notification.send_to.plots.map(&:number).uniq
       end
-    )
+    end
   end
 
   def plot_residents

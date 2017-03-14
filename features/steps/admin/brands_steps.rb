@@ -31,13 +31,13 @@ Then(/^I should see the created (\w+) brand$/) do |parent_type|
 
   expect(page).to have_content(success_flash)
 
-  within ".brands" do
+  within ".record-list" do
     expect(page).to have_content(name)
   end
 end
 
 When(/^I update the brand$/) do
-  within ".brands" do
+  within ".record-list" do
     find("[data-action='edit']").click
   end
 
@@ -104,7 +104,7 @@ Then(/^I should see the updated (\w+) brand$/) do |parent_type|
 
   expect(page).to have_content(success_flash)
 
-  within ".brands" do
+  within ".record-list" do
     click_on name
   end
 
@@ -134,7 +134,7 @@ end
 When(/^I remove an image from a brand$/) do
   click_on t("brands.show.back")
 
-  within ".brands" do
+  within ".record-list" do
     find("[data-action='edit']").click
   end
 
@@ -157,7 +157,7 @@ Then(/^I should see the updated (\w+) brand without the image$/) do |parent_type
 
   expect(page).to have_content(success_flash)
 
-  within ".brands" do
+  within ".record-list" do
     click_on name
   end
 

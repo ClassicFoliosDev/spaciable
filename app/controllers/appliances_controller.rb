@@ -9,14 +9,11 @@ class AppliancesController < ApplicationController
     @appliances = paginate(sort(@appliances, default: :name))
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
-  def show
-  end
+  def show; end
 
   def create
     if @appliance.save

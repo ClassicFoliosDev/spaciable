@@ -4,109 +4,39 @@
   </h3>
   <div class="section-actions">
     <button class="btn-primary">
-      <%= fa_icon "plus" %>
       <span class="btn-label">
         <%= t("dashboard.section.notifications.new") %>
       </span>
     </button>
   </div>
 </div>
-<div class="record-list">
-  <ul class="notifications">
-    <li class="record-list-item unread">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
+
+<table class="record-list">
+  <tbody>
+    <% 4.times do %>
+    <tr>
+      <td>
         <a href="" class="notification-subject">
           <span>Re: Garden Flood Warning</span>
         </a>
-        <span class="notification-timestamp">01.12.16</span>
+      </td>
+      <td>
+        <span>01.12.16</span>
+      </td>
+      <td>
         <a href=""  class="notification-participants">
           <span>
             <%= t("dashboard.section.notifications.sent_to") %>
             <strong>Brighter Homes</strong>
           </span>
         </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
+      </td>
+      <td class="actions">
         <button>
           <%= fa_icon "eye" %>
         </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="notification-subject">
-          <span>Re: Garden Flood Warning</span>
-        </a>
-        <span class="notification-timestamp">01.12.16</span>
-        <a href=""  class="notification-participants">
-          <span>
-            <%= t("dashboard.section.notifications.sent_to") %>
-            <strong>Brighter Homes</strong>
-          </span>
-        </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="notification-subject">
-          <span>Re: Garden Flood Warning</span>
-        </a>
-        <span class="notification-timestamp">01.12.16</span>
-        <a href=""  class="notification-participants">
-          <span>
-            <%= t("dashboard.section.notifications.sent_to") %>
-            <strong>Brighter Homes</strong>
-          </span>
-        </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="notification-subject">
-          <span>Re: Garden Flood Warning</span>
-        </a>
-        <span class="notification-timestamp">01.12.16</span>
-        <a href=""  class="notification-participants">
-          <span>
-            <%= t("dashboard.section.notifications.sent_to") %>
-            <strong>Brighter Homes</strong>
-          </span>
-        </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="notification-subject">
-          <span>Re: Garden Flood Warning</span>
-        </a>
-        <span class="notification-timestamp">01.12.16</span>
-        <a href=""  class="notification-participants">
-          <span>
-            <%= t("dashboard.section.notifications.sent_to") %>
-            <strong>Brighter Homes</strong>
-          </span>
-        </a>
-      </div>
-    </li>
-  </ul>
-</div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

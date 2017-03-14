@@ -8,8 +8,7 @@ module Rooms
       @appliance_categories = ApplianceCategory.all
     end
 
-    def edit
-    end
+    def edit; end
 
     def create
       appliance_id = params[:appliances]

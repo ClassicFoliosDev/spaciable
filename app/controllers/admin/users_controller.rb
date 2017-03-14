@@ -11,8 +11,7 @@ module Admin
       @users = paginate(@users)
     end
 
-    def new
-    end
+    def new; end
 
     def create
       if @user.create_without_password
@@ -24,8 +23,7 @@ module Admin
       end
     end
 
-    def show
-    end
+    def show; end
 
     def edit
       @user.assign_permissionable_ids

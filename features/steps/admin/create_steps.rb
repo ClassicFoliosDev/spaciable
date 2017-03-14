@@ -47,5 +47,5 @@ Given(/^there are contacts$/) do
 end
 
 Given(/^I have seeded the database$/) do
-  load "#{Rails.root}/db/seeds.rb"
+  load Rails.root.join("db", "seeds.rb")
 end

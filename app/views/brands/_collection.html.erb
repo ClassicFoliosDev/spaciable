@@ -7,36 +7,28 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="brands">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span class="icon">&nbsp;</span>
-        <span><%= sortable(Brand, :brandable, t(".name")) %></span>
-        <span><%= sortable(Brand, :updated_at) %></span>
-      </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th class="icon">&nbsp;</th>
+      <th><%= sortable(Brand, :brandable, t(".name")) %></th>
+      <th><%= sortable(Brand, :updated_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
     <% if brand.id? %>
-      <dd class="record-list-item" data-brands="<%= brand.id %>">
-        <div class="record-list-item-actions">
-          <%= edit_btn [:edit, brand.brandable, :brand] %>
-          <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>
-        </div>
-        <div class="record-list-item-content">
-          <span class="icon">
-            <%= image_tag brand.logo, class: "circle" if brand.logo? %>
-          </span>
-          <span>
-            <%= link_to brand, [brand.brandable, :brand] %>
-          </span>
-          <span>
-            <%= l brand.updated_at.to_date, format: :digits %>
-          </span>
-        </div>
-      </dd>
-    </dl>
-  <% end %>
-</div>
+    <tr>
+      <td><%= image_tag brand.logo, class: "circle" if brand.logo? %></td>
+      <td><%= link_to brand, [brand.brandable, :brand] %></td>
+      <td><%= l brand.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= edit_btn [:edit, brand.brandable, :brand] %>
+        <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

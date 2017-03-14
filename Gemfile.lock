@@ -397,7 +397,7 @@ DEPENDENCIES
   carrierwave
   carrierwave_backgrounder
   ckeditor
-  codeclimate-test-reporter
+  codeclimate-test-reporter (~> 0.6)
   cucumber-rails
   database_cleaner
   devise (~> 4.2)
@@ -428,14 +428,14 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-controller-testing
-  rails_best_practices
+  rails_best_practices (~> 1.17)
   rmagick
   rollbar
   rspec-rails
-  rubocop
+  rubocop (~> 0.43)
   sass-rails (~> 5.0)
   simple_form
-  simplecov
+  simplecov (~> 0.12)
   spring
   spring-watcher-listen (~> 2.0.0)
   sucker_punch (~> 2.0)

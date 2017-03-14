@@ -126,7 +126,7 @@ end
 When(/^I remove a finish$/) do
   click_on t("rooms.form.back")
 
-  within ".finishes" do
+  within ".record-list" do
     find(".remove").click
   end
 end
@@ -206,7 +206,7 @@ end
 When(/^I remove an appliance$/) do
   click_on t("rooms.form.back")
 
-  within ".appliances" do
+  within ".record-list" do
     find(".remove").click
   end
 end

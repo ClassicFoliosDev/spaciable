@@ -5,31 +5,28 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="phases">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable(Phase, :name, t(".name")) %></span>
-      <span><%= sortable(Phase, :updated_at) %></span>
-    </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Phase, :name, t(".name")) %></th>
+      <th><%= sortable(Phase, :updated_at) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |phase| %>
-        <dd class="record-list-item" data-phase="<%= phase.id %>">
-          <div class="record-list-item-actions">
-            <%= link_to t(".plots"), phase_plots_path(phase), class: "btn" %>
-            <%= edit_btn edit_development_phase_path(parent, phase) %>
-            <%= delete_btn phase, path: url_for([parent, phase]) %>
-          </div>
-          <div class="record-list-item-content">
-            <%= link_to phase.name, development_phase_path(parent, phase), title: phase.name %>
-            <span class="phase-updated-timestamp">
-             <%= l phase.updated_at.to_date, format: :digits %>
-           </span>
-          </div>
-        </dd>
+    <tr data-phase="<%= phase.id %>">
+      <td><%= link_to phase.name, development_phase_path(parent, phase), title: phase.name %></td>
+      <td><%= l phase.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= link_to t(".plots"), phase_plots_path(phase), class: "btn" %>
+        <%= edit_btn edit_development_phase_path(parent, phase) %>
+        <%= delete_btn phase, path: url_for([parent, phase]) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

@@ -1,26 +1,19 @@
-
-<div class="record-list">
-  <dl class="users">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable(User, :email) %></span>
-      <span><%= sortable(User, :updated_at) %></span>
-    </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(User, :email) %></th>
+      <th><%= sortable(User, :updated_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |user| %>
-        <dd class="record-list-item" data-user="<%= user.id %>">
-          <div class="record-list-item-actions">
-          </div>
-          <div class="record-list-item-content">
-            <%= link_to user, admin_user_path(user) %>
-            <span class="user-updated-timestamp">
-              <%= l user.updated_at.to_date, format: :digits %>
-            </span>
-          </div>
-        </dd>
+    <tr>
+      <td><%= link_to user, admin_user_path(user) %></td>
+      <td><%= l user.updated_at.to_date, format: :digits %></td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

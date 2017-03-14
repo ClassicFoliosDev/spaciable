@@ -14,19 +14,18 @@ module Admin
       current_user.assign_permissionable_ids
     end
 
-    def show
-    end
+    def show; end
 
     def create
       if @notification.with_sender(current_user).valid?
         ResidentNotifierService.call(@notification) do |residents, missing_residents|
-          notice = t(".success",
-                     notification_name: @notification.to_s,
-                     count: residents.count)
+          notice = t(".success", notification_name: @notification.to_s, count: residents.count)
 
-          alert = t(".missing_residents",
-                    plot_numbers: missing_residents.to_sentence,
-                    count: missing_residents.count) if missing_residents.any?
+          if missing_residents.any?
+            alert = t(".missing_residents",
+                      plot_numbers: missing_residents.to_sentence,
+                      count: missing_residents.count)
+          end
 
           redirect_to [:admin, :notifications], notice: notice, alert: alert
         end

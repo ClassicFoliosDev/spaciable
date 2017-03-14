@@ -6,7 +6,7 @@ When(/^I upload a document for the developer$/) do
     click_on t("components.navigation.developers")
   end
 
-  within ".developers" do
+  within ".record-list" do
     click_on CreateFixture.developer_name
   end
 
@@ -30,13 +30,13 @@ When(/^I upload a document for the developer$/) do
 end
 
 Then(/^I should see the created document$/) do
-  within ".documents" do
+  within ".record-list" do
     expect(page).to have_content(DocumentFixture.document_name)
   end
 end
 
 And(/^I should see the original filename$/) do
-  within ".documents" do
+  within ".record-list" do
     click_on DocumentFixture.document_name
   end
 
@@ -51,7 +51,7 @@ end
 When(/^I update the developer's document$/) do
   click_on(t("developers.show.back"))
 
-  within ".documents" do
+  within ".record-list" do
     find("[data-action='edit']").click
   end
 
@@ -76,7 +76,7 @@ Then(/^I should see the updated (\w+) document$/) do |parent_type|
   end
 
   # On the list page
-  within ".documents" do
+  within ".record-list" do
     click_on DocumentFixture.updated_document_name
   end
 
@@ -92,7 +92,7 @@ end
 
 When(/^I create another document$/) do
   visit "/developers"
-  within ".developers" do
+  within ".record-list" do
     click_on CreateFixture.developer_name
   end
 
@@ -125,7 +125,8 @@ When(/^I delete the document$/) do
   click_on t("documents.form.back")
   click_on t("developers.collection.documents")
 
-  delete_and_confirm!(finder_options: { match: :first })
+  document_id = DocumentFixture.updated_document_id
+  delete_and_confirm!(scope: "[data-document='#{document_id}']")
 end
 
 Then(/^I should see that the deletion was successful for the developer document$/) do
@@ -155,11 +156,11 @@ end
 
 When(/^I upload a document for the division$/) do
   visit "/developers"
-  within ".developers" do
+  within ".record-list" do
     click_on t("developers.collection.divisions")
   end
 
-  within ".divisions" do
+  within ".record-list" do
     click_on CreateFixture.division_name
   end
 
@@ -237,7 +238,7 @@ When(/^I upload a document for the phase$/) do
   end
 
   sleep 0.2
-  within ".phases" do
+  within ".record-list" do
     click_on CreateFixture.phase_name
   end
 
@@ -270,7 +271,7 @@ When(/^I upload a document for the unit type$/) do
   end
 
   sleep 0.3
-  within ".unit_types" do
+  within ".record-list" do
     click_on CreateFixture.unit_type_name
   end
 
@@ -303,7 +304,7 @@ When(/^I upload a document for the division phase$/) do
   end
 
   sleep 0.2
-  within ".phases" do
+  within ".record-list" do
     click_on CreateFixture.division_phase_name
   end
 
@@ -336,7 +337,7 @@ When(/^I upload a document for the plot$/) do
   end
 
   sleep 0.2
-  within ".plots" do
+  within ".record-list" do
     click_on "1"
   end
 
@@ -369,12 +370,12 @@ When(/^I upload a document for the phase plot$/) do
   end
 
   sleep 0.4
-  within ".phases" do
+  within ".record-list" do
     click_on CreateFixture.phase_name
   end
 
   sleep 0.4
-  within ".plots" do
+  within ".record-list" do
     click_on CreateFixture.phase_plot_name
   end
 
@@ -421,7 +422,7 @@ Then(/^I should see the updated document for the plot$/) do
   end
 
   # On the list page
-  within ".documents" do
+  within ".record-list" do
     click_on DocumentFixture.updated_document_name
   end
 
@@ -447,7 +448,7 @@ Then(/^I should see the updated document for the phase plot$/) do
   end
 
   # On the list page
-  within ".documents" do
+  within ".record-list" do
     click_on DocumentFixture.updated_document_name
   end
 

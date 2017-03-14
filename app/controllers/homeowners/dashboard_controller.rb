@@ -9,10 +9,8 @@ module Homeowners
       @documents = Document.accessible_by(current_ability).order(updated_at: :desc).limit(5)
     end
 
-    def ts_and_cs
-    end
+    def ts_and_cs; end
 
-    def data_policy
-    end
+    def data_policy; end
   end
 end

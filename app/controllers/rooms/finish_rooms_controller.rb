@@ -8,8 +8,7 @@ module Rooms
       @finish_categories = FinishCategory.all
     end
 
-    def edit
-    end
+    def edit; end
 
     def create
       finish_id = params[:finishes]

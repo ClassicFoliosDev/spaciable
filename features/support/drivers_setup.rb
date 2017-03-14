@@ -12,3 +12,5 @@ if ENV["DEBUG"] == "true"
   end
   Capybara.javascript_driver = :debug
 end
+
+Capybara.default_max_wait_time = 5

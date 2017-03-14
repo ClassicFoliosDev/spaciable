@@ -15,8 +15,7 @@ class FaqsController < ApplicationController
     @faq = @parent.faqs.build
   end
 
-  def new
-  end
+  def new; end
 
   def create
     @faq.faqable = @parent
@@ -36,11 +35,9 @@ class FaqsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def destroy
     @faq.destroy

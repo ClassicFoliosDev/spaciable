@@ -12,50 +12,40 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="finishes">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span class="icon">&nbsp;</span>
-      <span><%= sortable(Finish, :name) %></span>
-      <span><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></span>
-      <span><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></span>
-      <span><%= sortable({ Appliance => Manufacturer }, :name, t(".manufacturer")) %></span>
-      <span><%= sortable(Finish, :updated_at) %></span>
-    </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th class="icon">&nbsp;</th>
+      <th><%= sortable(Finish, :name) %></th>
+      <th><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></th>
+      <th><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
+      <th><%= sortable({ Appliance => Manufacturer }, :name, t(".manufacturer")) %></th>
+      <th><%= sortable(Finish, :updated_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |finish| %>
-        <dd class="record-list-item" data-finishes="<%= finish.id %>">
-          <div class="record-list-item-actions">
-            <%= edit_btn edit_finish_path(finish) %>
-            <% if room %>
-              <%= link_to remove_finish_path(room: room, finish: finish), class: "btn remove" do %>
-                <%= fa_icon "times" %>
-              <% end %>
-            <% else %>
-              <%= delete_btn finish %>
-            <% end %>
-          </div>
-          <div class="record-list-item-content">
-            <span class="icon"><%= image_tag finish.picture if finish.picture? %></span>
-              <%= link_to finish.name, finish_path(finish)%>
-            <span>
-              <%= finish.finish_category %>
-            </span>
-            <span>
-              <%= finish.finish_type %>
-            </span>
-            <span>
-              <%= finish.manufacturer %>
-            </span>
-            <span>
-              <%= l finish.updated_at.to_date, format: :digits %>
-            </span>
-          </div>
-        </dd>
+    <tr>
+      <td><%= image_tag finish.picture if finish.picture? %></td>
+      <td><%= link_to finish.name, finish_path(finish)%></td>
+      <td><%= finish.finish_category %></td>
+      <td><%= finish.finish_type %></td>
+      <td><%= finish.manufacturer %></td>
+      <td><%= l finish.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= edit_btn edit_finish_path(finish) %>
+        <% if room %>
+          <%= link_to remove_finish_path(room: room, finish: finish), class: "btn remove" do %>
+            <%= fa_icon "times" %>
+          <% end %>
+        <% else %>
+          <%= delete_btn finish %>
+        <% end %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

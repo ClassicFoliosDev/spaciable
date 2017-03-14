@@ -5,32 +5,28 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="unit_types">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(collection, :name) %></span>
-        <span><%= sortable(collection, :updated_at) %></span>
-      </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(collection, :name) %></th>
+      <th><%= sortable(collection, :updated_at) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |unit_type| %>
-        <dd class="record-list-item" data-unit_type="<%= unit_type.id %>">
-        <div class="record-list-item-actions">
-          <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
-          <%= edit_btn edit_development_unit_type_path(unit_type.development, unit_type) %>
-          <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]) %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to unit_type.name, development_unit_type_path(unit_type.development, unit_type), title: unit_type.name, class: "unit_type-name" %>
-
-          <span class="unit_type-updated-timestamp">
-             <%= l unit_type.updated_at.to_date, format: :digits %>
-           </span>
-        </div>
-        </dd>
+    <tr>
+      <td><%= link_to unit_type.name, development_unit_type_path(unit_type.development, unit_type), title: unit_type.name, class: "unit_type-name" %></td>
+      <td><%= l unit_type.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
+        <%= edit_btn edit_development_unit_type_path(unit_type.development, unit_type) %>
+        <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

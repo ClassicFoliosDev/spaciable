@@ -13,42 +13,40 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="appliances">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span class="icon">&nbsp;</span>
-      <span><%= sortable(Appliance, :name) %></span>
-      <span><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></span>
-      <span><%= sortable(Appliance, :model_num) %></span>
-      <span><%= sortable({ Appliance => Manufacturer }, :name) %></span>
-      <span><%= sortable(Appliance, :updated_at) %></span>
-    </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th class="icon">&nbsp;</th>
+      <th><%= sortable(Appliance, :name) %></th>
+      <th><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
+      <th><%= sortable(Appliance, :model_num) %></th>
+      <th><%= sortable({ Appliance => Manufacturer }, :name) %></th>
+      <th><%= sortable(Appliance, :updated_at) %></th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |appliance| %>
-        <dd class="record-list-item" data-appliances="<%= appliance.id %>">
-          <div class="record-list-item-actions">
-            <%= edit_btn edit_appliance_path(appliance) %>
-            <% if room %>
-              <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
-                <%= fa_icon "times" %>
-              <% end %>
-            <% else %>
-               <%= delete_btn appliance %>
-            <% end %>
-          </div>
-          <div class="record-list-item-content">
-            <span class="icon"><%= image_tag appliance.primary_image if appliance.primary_image? %></span>
-            <%= link_to appliance.name, appliance_path(appliance), title: appliance.name %>
-            <span><%= appliance.appliance_category %></span>
-            <span><%= appliance.model_num %></span>
-            <span><%= appliance.manufacturer %></span>
-            <span><%= l appliance.updated_at.to_date, format: :digits %></span>
-          </div>
-        </dd>
+    <tr>
+      <td><%= image_tag appliance.primary_image if appliance.primary_image? %></td>
+      <td><%= link_to appliance.name, appliance_path(appliance), title: appliance.name %></td>
+      <td><%= appliance.appliance_category %></td>
+      <td><%= appliance.model_num %></td>
+      <td><%= appliance.manufacturer %></td>
+      <td><%= l appliance.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= edit_btn edit_appliance_path(appliance) %>
+        <% if room %>
+          <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
+            <%= fa_icon "times" %>
+          <% end %>
+        <% else %>
+           <%= delete_btn appliance %>
+        <% end %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

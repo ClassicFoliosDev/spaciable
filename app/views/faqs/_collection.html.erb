@@ -6,32 +6,30 @@
     <% end %>
   <% end %>
 </div>
-<div class="record-list">
-  <dl class="faqs">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable(Faq, :question) %></span>
-      <span><%= sortable(Faq, :updated_at) %></span>
-      <span><%= sortable(Faq, :category) %></span>
-    </div>
-    </dt>
+
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Faq, :question) %></th>
+      <th><%= sortable(Faq, :updated_at) %></th>
+      <th><%= sortable(Faq, :category) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |faq| %>
-        <dd class="record-list-item" data-faq="<%= faq.id %>">
-          <div class="record-list-item-actions">
-            <%= edit_btn edit_faq_path(faq), element: faq %>
-            <%= delete_btn faq, path: faq_path(faq), element: faq %>
-          </div>
-          <div class="record-list-item-content">
-            <%= link_to faq, faq_path(faq), title: faq %>
-            <span class="faq-updated-timestamp">
-              <%= l faq.updated_at.to_date, format: :digits %>
-            </span>
-            <%= content_tag(:span, t_enum(Faq, :category, faq.category)) %>
-          </div>
-        </dd>
+    <tr data-faq="<%= faq.id %>">
+      <td><%= link_to faq, faq_path(faq), title: faq %></td>
+      <td><%= l faq.updated_at.to_date, format: :digits %></td>
+      <td><%= content_tag(:span, t_enum(Faq, :category, faq.category)) %></td>
+      <td class="actions">
+        <%= edit_btn edit_faq_path(faq), element: faq %>
+        <%= delete_btn faq, path: faq_path(faq), element: faq %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

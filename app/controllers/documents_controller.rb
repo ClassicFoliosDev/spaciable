@@ -18,14 +18,15 @@ class DocumentsController < ApplicationController
 
   before_action :set_parent
 
-  def new
+  def index
+    @documents = paginate(sort(@documents, default: :title))
   end
 
-  def edit
-  end
+  def new; end
 
-  def show
-  end
+  def edit; end
+
+  def show; end
 
   def create
     @document.set_original_filename
@@ -72,8 +73,8 @@ class DocumentsController < ApplicationController
   end
 
   def redirect_path
-    if @parent&.model_name.element.to_sym == :plot ||
-       @parent&.model_name.element.to_sym == :developer
+    if @parent&.model_name&.element&.to_sym == :plot ||
+       @parent&.model_name&.element&.to_sym == :developer
       [@parent, active_tab: "documents"]
     else
       [@parent&.parent, @parent, active_tab: "documents"].compact

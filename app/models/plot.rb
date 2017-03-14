@@ -72,11 +72,9 @@ class Plot < ApplicationRecord
     (address || build_address).road_name = name
   end
 
-  def city=(_)
-  end
+  def city=(_); end
 
-  def county=(_)
-  end
+  def county=(_); end
 
   def postcode=(name)
     return if parent_address && name == parent_address.postcode

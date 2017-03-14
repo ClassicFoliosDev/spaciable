@@ -4,86 +4,36 @@
   </h3>
   <div class="section-actions">
     <button class="btn-primary">
-      <%= fa_icon "plus" %>
       <span class="btn-label">
         <%= t("dashboard.section.faqs.new") %>
       </span>
     </button>
   </div>
 </div>
-<div class="record-list">
-  <ul class="documents">
-    <li class="record-list-item unread">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
+
+<table class="record-list">
+  <tbody>
+    <% 4.times do %>
+    <tr>
+      <td>
         <a href="" class="document-title">
-          <span>Zannusi Washing Machine 5000</span>
+          <span>Zanussi Washing Machine 5000</span>
         </a>
+      </td>
+      <td>
         <a href=""  class="document-category">
           <span>
-            <%= fa_icon "question-circle" %>
+            <%= fa_icon "file-text" %>
             Insurance and Warranty
           </span>
         </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
+      </td>
+      <td class="actions">
         <button>
           <%= fa_icon "eye" %>
         </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="document-title">
-          <span>Zannusi Washing Machine 5000</span>
-        </a>
-        <a href=""  class="document-category">
-          <span>
-            <%= fa_icon "question-circle" %>
-            Insurance and Warranty
-          </span>
-        </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="document-title">
-          <span>Zannusi Washing Machine 5000</span>
-        </a>
-        <a href=""  class="document-category">
-          <span>
-            <%= fa_icon "question-circle" %>
-            Insurance and Warranty
-          </span>
-        </a>
-      </div>
-    </li>
-    <li class="record-list-item">
-      <div class="record-list-item-actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </div>
-      <div class="record-list-item-content">
-        <a href="" class="document-title">
-          <span>Zannusi Washing Machine 5000</span>
-        </a>
-        <a href=""  class="document-category">
-          <span>
-            <%= fa_icon "question-circle" %>
-            Insurance and Warranty
-          </span>
-        </a>
-      </div>
-    </li>
-  </ul>
-</div>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

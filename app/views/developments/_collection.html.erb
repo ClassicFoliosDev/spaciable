@@ -5,33 +5,30 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="developments">
-    <dt class="record-list-item record-header">
-      <div class="record-list-header-content">
-        <span><%= sortable(Development, :name) %></span>
-        <span><%= sortable(Development, :updated_at) %></span>
-      </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Development, :name) %></th>
+      <th><%= sortable(Development, :updated_at) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |development| %>
-      <dt class="record-list-item" data-development="<%= development.id %>">
-        <div class="record-list-item-actions">
-          <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
-          <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
-          <%= link_to t(".plots"), development_plots_path(development), class: "btn" %>
-          <%= edit_btn [:edit, parent, development] %>
-          <%= delete_btn development, path: url_for([parent, development]) %>
-        </div>
-        <div class="record-list-item-content">
-           <%= link_to development.name, polymorphic_url([parent, development]), title: development.name %>
-           <span class="development-updated-timestamp">
-             <%= l development.updated_at.to_date, format: :digits %>
-           </span>
-        </div>
-      </dt>
+    <tr data-development="<%= development.id %>">
+      <td><%= link_to development.name, polymorphic_url([parent, development]), title: development.name %></td>
+      <td><%= l development.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
+        <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
+        <%= link_to t(".plots"), development_plots_path(development), class: "btn" %>
+        <%= edit_btn [:edit, parent, development] %>
+        <%= delete_btn development, path: url_for([parent, development]) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

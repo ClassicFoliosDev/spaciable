@@ -4,31 +4,29 @@
       <span class="btn-label"><%= t(".add") %></span>
   <% end %>
 </div>
-<div class="record-list">
-  <dl class="divisions">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable(Division, :division_name) %></span>
-      <span><%= sortable(Division, :updated_at) %></span>
-    </div>
-    </dt>
+
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Division, :division_name) %></th>
+      <th><%= sortable(Division, :updated_at) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |division| %>
-        <dd class="record-list-item" data-division="<%= division.id %>">
-          <div class="record-list-item-actions">
-            <%= link_to t(".developments"), division_developments_path(division), class: "btn" %>
-            <%= edit_btn edit_developer_division_path(parent, division) %>
-            <%= delete_btn division, path: url_for([parent, division]) %>
-          </div>
-          <div class="record-list-item-content">
-            <%= link_to division.division_name, developer_division_path(parent, division), title: division.division_name %>
-            <span class="division-updated-timestamp">
-              <%= l division.updated_at.to_date, format: :digits %>
-            </span>
-          </div>
-        </dd>
+    <tr data-division="<%= division.id %>">
+      <td><%= link_to division.division_name, developer_division_path(parent, division), title: division.division_name %></td>
+      <td><%= l division.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= link_to t(".developments"), division_developments_path(division), class: "btn" %>
+        <%= edit_btn edit_developer_division_path(parent, division) %>
+        <%= delete_btn division, path: url_for([parent, division]) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

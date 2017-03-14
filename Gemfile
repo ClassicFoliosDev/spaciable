@@ -38,8 +38,8 @@ gem "turbolinks", "~> 5"
 # gem 'capistrano-rails', group: :development
 
 # Forms
-gem "simple_form"
 gem "ckeditor"
+gem "simple_form"
 
 gem "cancancan", "~> 1"
 gem "gretel" # breadcrumbs
@@ -47,8 +47,8 @@ gem "gretel" # breadcrumbs
 # File Uploads
 gem "carrierwave"
 gem "carrierwave_backgrounder"
-gem "mini_magick"
 gem "fog-aws"
+gem "mini_magick"
 gem "rmagick"
 
 # Authentication
@@ -63,9 +63,9 @@ gem "rollbar"
 gem "newrelic_rpm"
 
 # Frontend
+gem "bourbon"
 gem "font-awesome-rails"
 gem "livingstyleguide", git: "https://github.com/Alliants/livingstyleguide.git", branch: "rails_5"
-gem "bourbon"
 gem "neat", "~> 1"
 
 # Pagination with kaminari: https://github.com/amatsuda/kaminari
@@ -85,11 +85,11 @@ end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "brakeman", require: false
   gem "byebug", platform: :mri
   gem "pry-rails"
-  gem "rubocop"
-  gem "rails_best_practices", require: false
-  gem "brakeman", require: false
+  gem "rails_best_practices", "~> 1.17", require: false
+  gem "rubocop", "~> 0.43"
 end
 
 group :development do
@@ -97,16 +97,16 @@ group :development do
   gem "letter_opener"
 
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "web-console"
   gem "listen", "~> 3.0.5"
+  gem "web-console"
   # Spring speeds up development by keeping your application
   # running in the background.
   # Read more: https://github.com/rails/spring
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "guard"
   gem "guard-rake"
   gem "guard-sass", require: false
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
 end
 
 group :development, :qa do
@@ -115,14 +115,14 @@ group :development, :qa do
 end
 
 group :test do
-  gem "codeclimate-test-reporter"
+  gem "codeclimate-test-reporter", "~> 0.6"
   gem "cucumber-rails", require: false
   gem "database_cleaner"
+  gem "launchy"
   gem "rspec-rails"
-  gem "simplecov", require: false
+  gem "simplecov", "~> 0.12", require: false
   gem "timecop"
   gem "webmock"
-  gem "launchy"
   # Headless browser, see https://github.com/teampoltergeist/poltergeist
   gem "poltergeist"
   gem "rails-controller-testing"

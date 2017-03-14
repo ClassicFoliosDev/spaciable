@@ -7,37 +7,32 @@
   <% end %>
 </div>
 
-<div class="record-list">
-  <dl class="documents">
-    <dt class="record-list-item record-header">
-    <div class="record-list-header-content">
-      <span><%= sortable(Document, :title) %></span>
-      <span><%= sortable(Document, :size) %></span>
-      <span><%= sortable(Document, :updated_at) %></span>
-    </div>
-    </dt>
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= sortable(Document, :title) %></th>
+      <th><%= sortable(Document, :size) %></th>
+      <th><%= sortable(Document, :updated_at) %></th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
     <% collection.each do |document| %>
-      <dd class="record-list-item" data-document="<%= document.id %>">
-        <div class="record-list-item-actions">
-          <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
-            <%= icon "cloud-download" %>
-          <% end %>
-          <%= edit_btn edit_document_path(document) %>
-          <%= delete_btn document, path: url_for(document) %>
-        </div>
-        <div class="record-list-item-content">
-          <%= link_to document.title, document_path(document) %>
-          <span>
-            <%= document.file.size %>
-          </span>
-          <span class="division-updated-timestamp">
-            <%= l document.updated_at.to_date, format: :digits %>
-          </span>
-        </div>
-      </dd>
+    <tr data-document="<%= document.id %>">
+      <td><%= link_to document.title, document_path(document) %></td>
+      <td><%= document.file.size %></td>
+      <td><%= l document.updated_at.to_date, format: :digits %></td>
+      <td class="actions">
+        <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
+          <%= icon "cloud-download" %>
+        <% end %>
+        <%= edit_btn edit_document_path(document) %>
+        <%= delete_btn document, path: url_for(document) %>
+      </td>
+    </tr>
     <% end %>
-  </dl>
-</div>
+  </tbody>
+</table>
 
 <div class="paging">
   <%= render 'components/page_size' %>

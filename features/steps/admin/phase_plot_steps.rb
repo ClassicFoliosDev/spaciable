@@ -79,7 +79,7 @@ end
 When(/^I delete the phase plot$/) do
   visit "/developers"
 
-  within ".developers" do
+  within ".record-list" do
     click_on PhasePlotFixture.developer_name
   end
 
@@ -87,7 +87,7 @@ When(/^I delete the phase plot$/) do
     click_on t("developers.collection.developments")
   end
 
-  within ".developments" do
+  within ".record-list" do
     click_on PhasePlotFixture.development_name
   end
 
@@ -122,7 +122,7 @@ end
 Given(/^I have configured the phase address$/) do
   visit "/developers"
 
-  within ".developers" do
+  within ".record-list" do
     click_on PhasePlotFixture.developer_name
   end
 
@@ -130,7 +130,7 @@ Given(/^I have configured the phase address$/) do
     click_on t("developers.collection.developments")
   end
 
-  within ".developments" do
+  within ".record-list" do
     click_on PhasePlotFixture.development_name
   end
 
@@ -138,7 +138,7 @@ Given(/^I have configured the phase address$/) do
     click_on t("developments.collection.phases")
   end
 
-  within ".phases" do
+  within ".record-list" do
     find("[data-action='edit']").click
   end
 
@@ -164,7 +164,7 @@ end
 Then(/^I should see the phase address has not been changed$/) do
   visit "/developers"
 
-  within ".developers" do
+  within ".record-list" do
     click_on PhasePlotFixture.developer_name
   end
 
@@ -172,7 +172,7 @@ Then(/^I should see the phase address has not been changed$/) do
     click_on t("developers.collection.developments")
   end
 
-  within ".developments" do
+  within ".record-list" do
     click_on PhasePlotFixture.development_name
   end
 
@@ -180,7 +180,7 @@ Then(/^I should see the phase address has not been changed$/) do
     click_on t("developments.collection.phases")
   end
 
-  within ".phases" do
+  within ".record-list" do
     click_on PhasePlotFixture.phase_name
   end
 

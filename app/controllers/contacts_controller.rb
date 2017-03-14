@@ -17,14 +17,11 @@ class ContactsController < ApplicationController
     @contact = @parent.contacts.build
   end
 
-  def new
-  end
+  def new; end
 
-  def edit
-  end
+  def edit; end
 
-  def show
-  end
+  def show; end
 
   def create
     @contact.contactable = @parent
