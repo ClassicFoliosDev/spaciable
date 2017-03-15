@@ -12,7 +12,6 @@ When(/^I log in as a homeowner$/) do
   homeowner = HomeownerUserFixture
 
   visit "/"
-  click_on "Login"
 
   fill_in :resident_email, with: homeowner.email
   fill_in :resident_password, with: homeowner.password

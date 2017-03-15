@@ -13,6 +13,7 @@ en:
         header: "Send invitation"
         submit_button: "Send an invitation"
       edit:
+        header: "Accept invitation"
     mailer:
       invitation_instructions:
         subject: "Invitation instructions"

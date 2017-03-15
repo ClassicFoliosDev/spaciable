@@ -1,0 +1,19 @@
+<div class="admin-login-panel">
+  <div class="admin-login-form">
+    <%= image_tag "logo-with-strapline.png", class: "logo" %>
+    <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
+      <h2><%= t(".header") %></h2>
+
+      <%= f.hidden_field :invitation_token %>
+      <%= f.input :password %>
+      <%= f.input :password_confirmation %>
+
+      <%= f.button :submit, t(".submit_button") %>
+
+      <div class="information">
+        <div class="links">
+          <%= render "devise/shared/links" %>
+        </div>
+      </div>
+  <% end %>
+</div>

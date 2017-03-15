@@ -24,6 +24,7 @@ Rails.application.routes.draw do
                registrations: 'users/registrations',
                unlocks: 'users/unlocks',
                omniauth: 'users/omniauth',
+               invitations: 'users/invitations'
              }
 
   namespace :admin do
@@ -132,5 +133,15 @@ Rails.application.routes.draw do
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types", to: 'finishes#finish_types', format: :json
 
-  root 'home#show'
+  authenticated :user do
+    root "admin/dashboard#show", as: :authenticated_admin
+  end
+
+  authenticated :resident do
+    root "homeowners/dashboard#show", as: :authenticated_resident
+  end
+
+  devise_scope :resident do
+    root 'residents/sessions#new'
+  end
 end

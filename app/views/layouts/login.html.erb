@@ -1,13 +1,7 @@
   <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title"), brand: @brand } %>
-  <body class="login-view" style="background-image: url('<%= @content&.background_image %>');">
-    <div class="outer-container">
-        <div class="main-container">
-          <main>
-            <%= render "components/flashes" %>
-            <%= yield %>
-          </main>
-        </div>
-      </div>
-    </div>
+  <body class="login-view">
+    <%= render 'components/homeowner/carousel' %>
+
+    <%= yield %>
   </body>
 </html>

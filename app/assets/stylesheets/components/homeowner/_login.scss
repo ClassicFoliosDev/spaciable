@@ -1,0 +1,115 @@
+.login {
+  position: relative;
+  background-color: $ui-light-grey;
+  @include outer-container(1000px);
+  min-height: 1px;
+  margin-top: 160px;
+
+  .preamble {
+    @include span-columns(6 of 12);
+    padding: 40px;
+
+    .content {
+      @include span-columns(9 of 12);
+      @include shift(1.5 of 12);
+      margin-top: 100px;
+    }
+
+    .title {
+      @include row();
+
+      * {
+        font-style: italic;
+      }
+
+      h2 {
+        &.primary {
+          color: $primary-red;
+          margin-bottom: 0;
+        }
+        &.secondary {
+          color: $primary-green;
+          float: right;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  .sign-in {
+    @include span-columns(6 of 12);
+    background-color: $primary-red;
+    padding: $spacing-large;
+    color: $ui-white;
+
+    .logo {
+      display: block;
+      margin: 0 auto;
+      @include span-columns(8 of 12);
+      @include shift(2 of 12);
+    }
+
+    .notice, .alert {
+        display: inline-block;
+        clear: both;
+        width: 100%;
+        margin-top: $spacing-large;
+        margin-bottom: 0;
+        background: $ui-white;
+    }
+    .alert {
+        color: $primary-red;
+    }
+    .notice {
+        color: $primary-green;
+    }
+
+    form {
+      @include span-columns(8 of 12);
+      @include shift(2 of 12);
+      margin-top: $spacing-large;
+
+      input {
+        background-color: $faded-red;
+        border-color: $primary-red;
+      }
+
+      input[type="submit"] {
+        @include span-columns(4 of 12);
+        @include shift(4 of 12);
+        color: $primary-red;
+        background-color: $ui-white;
+        font-weight: bold;
+        padding: 4px;
+      }
+
+      p {
+        color: $ui-white;
+      }
+
+      a {
+        color: $ui-white;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+
+@include media($tablet-portrait-down) {
+  .login {
+    margin-top: 40px;
+
+    .preamble {
+      @include span-columns(12 of 12);
+
+      .content {
+        margin-top: 0;
+      }
+    }
+
+    .sign-in {
+      @include span-columns(12 of 12);
+    }
+  }
+}

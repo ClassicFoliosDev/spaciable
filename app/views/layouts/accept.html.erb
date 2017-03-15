@@ -1,14 +1,5 @@
 <%= render partial: 'layouts/homeowner_head', locals: { title: "", brand: @brand } %>
 <body class="accept-view">
-  <%= image_tag "Hoozzi Sign In Image 1.jpg", class: "carousel img0" %>
-  <%= image_tag "Hoozzi Sign In Image 2.jpg", class: "carousel img1" %>
-  <%= image_tag "Hoozzi Sign In Image 3.jpg", class: "carousel img2" %>
-  <%= image_tag "Hoozzi Sign In Image 4.jpg", class: "carousel img3" %>
-  <%= image_tag "Hoozzi Sign In Image 5.jpg", class: "carousel img4" %>
-  <%= image_tag "Hoozzi Sign In Image 6.jpg", class: "carousel img5" %>
-  <%= image_tag "Hoozzi Sign In Image 7.jpg", class: "carousel img6" %>
-  <%= image_tag "Hoozzi Sign In Image 8.jpg", class: "carousel img7" %>
-  <%= image_tag "Hoozzi Sign In Image 9.jpg", class: "carousel img8" %>
-  <%= image_tag "Hoozzi Sign In Image 10.jpg", class: "carousel img9" %>
+  <%= render 'components/homeowner/carousel' %>
   <%= yield %>
 </body>

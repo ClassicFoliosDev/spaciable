@@ -77,16 +77,6 @@ if Rails.env.development?
   end
 end
 
-
-if HomeownerLoginContent.none?
-  content = HomeownerLoginContent.new
-  content.title_left = I18n.t('residents.sessions.new.title.left')
-  content.title_right = I18n.t('residents.sessions.new.title.right')
-  content.blurb_para_1 = I18n.t('residents.sessions.new.intro_para_1')
-  content.blurb_para_2 = I18n.t('residents.sessions.new.intro_para_2')
-  content.save!
-end
-
 #################################
 # Manufacturers and their links #
 #################################
