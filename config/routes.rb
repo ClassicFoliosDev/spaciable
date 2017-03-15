@@ -38,9 +38,7 @@ Rails.application.routes.draw do
 
   resources :documents, only: [:edit, :show, :update, :destroy]
 
-  resources :rooms
-
-  resources :rooms do
+  resources :rooms, only: [] do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]
     resources :finish_rooms, controller: 'rooms/finish_rooms', only: [:new, :create, :edit]
   end
@@ -58,6 +56,7 @@ Rails.application.routes.draw do
   resources :plots, only: [] do
     resources :plot_residencies, shallow: true, path: "residencies"
     resources :documents, only: [:new, :create]
+    resources :rooms, controller: "plots/rooms"
   end
 
   resources :developments do

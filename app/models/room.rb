@@ -2,12 +2,15 @@
 class Room < ApplicationRecord
   acts_as_paranoid
 
-  belongs_to :unit_type, optional: false
+  belongs_to :plot, optional: true
+  belongs_to :unit_type, optional: true
   belongs_to :development, optional: true
   belongs_to :division, optional: true
   belongs_to :developer, optional: false
 
-  alias parent unit_type
+  def parent
+    plot || unit_type
+  end
   include InheritParentPermissionIds
 
   enum icon_name: [

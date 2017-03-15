@@ -4,7 +4,15 @@ class RoomsController < ApplicationController
   include SortingConcern
 
   load_and_authorize_resource :unit_type
-  load_and_authorize_resource :room, through: :unit_type, shallow: true
+
+  load_and_authorize_resource :room,
+                              through: :unit_type,
+                              except: [:remove_finish, :remove_appliance]
+
+  load_and_authorize_resource :room,
+                              only: [:remove_finish, :remove_appliance]
+
+  before_action :set_parent
 
   def index
     @rooms = paginate(sort(@rooms, default: :name))
@@ -36,7 +44,7 @@ class RoomsController < ApplicationController
         "controller.success.create",
         name: @room.name
       )
-      redirect_to unit_type_rooms_url(@unit_type), notice: notice
+      redirect_to [@parent, :rooms], notice: notice
     else
       @room.build_finishes
       render :new
@@ -49,7 +57,7 @@ class RoomsController < ApplicationController
         "controller.success.update",
         name: @room.name
       )
-      redirect_to room_url(@room), notice: notice
+      redirect_to [@unit_type, @room], notice: notice
     else
       @room.build_finishes
       render :edit
@@ -59,8 +67,7 @@ class RoomsController < ApplicationController
   def destroy
     @room.destroy
     notice = t("controller.success.destroy", name: @room.name)
-    redirect_to unit_type_rooms_url(@room.unit_type_id),
-                notice: notice
+    redirect_to [@parent, :rooms], notice: notice
   end
 
   def remove_appliance
@@ -76,7 +83,7 @@ class RoomsController < ApplicationController
       notice = t(".success", room_name: @room.name, appliance_name: @appliance.name)
     end
 
-    redirect_to room_url(@room, active_tab: "appliances"), notice: notice
+    redirect_to [@room.parent, @room, active_tab: "appliances"], notice: notice
   end
 
   def remove_finish
@@ -92,7 +99,7 @@ class RoomsController < ApplicationController
       notice = t(".success", room_name: @room.name, finish_name: @finish.name)
     end
 
-    redirect_to room_url(@room, active_tab: "finishes"), notice: notice
+    redirect_to [@room.parent, @room, active_tab: "finishes"], notice: notice
   end
 
   private
@@ -101,8 +108,11 @@ class RoomsController < ApplicationController
   def room_params
     params.require(:room).permit(
       :name,
-      :unit_type_id,
       :icon_name
     )
+  end
+
+  def set_parent
+    @parent = @unit_type || @room&.parent
   end
 end

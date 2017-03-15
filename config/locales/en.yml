@@ -547,6 +547,26 @@ en:
       success: "%{phase_name} was updated successfully"
 
   plots:
+    rooms:
+      index:
+        title: "%{parent_name} rooms"
+      collection:
+        add: "Add room to %{parent_type} %{parent_name}"
+        finishes: "Finishes"
+        appliances: "Appliances"
+      edit:
+        title: "Edit %{room_name}"
+      form:
+        back: "Back"
+        submit: "Submit"
+        add: "Add"
+        add_finish: "Add finish"
+      show:
+        back: "Back"
+      new:
+        add: "Add %{parent_name} room"
+
+
     bulk:
       succeeded:
         one: "Plot %{plot_numbers}"
@@ -710,9 +730,9 @@ en:
 
   rooms:
     index:
-      title: "%{unit_type_name} rooms"
+      title: "%{parent_name} rooms"
     collection:
-      add: "Add room to the unit type"
+      add: "Add room to %{parent_type} %{parent_name}"
       finishes: "Finishes"
       appliances: "Appliances"
     edit:
@@ -725,8 +745,7 @@ en:
     show:
       back: "Back"
     new:
-      # add: "Add %{unit_type_name} room"
-      add: "Add new room to TODO"
+      add: "Add %{parent_name} room"
     appliance_rooms:
       new:
         choose: "Choose..."

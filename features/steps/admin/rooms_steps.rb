@@ -16,7 +16,7 @@ When(/^I create a room with no room name$/) do
 
   click_on t("unit_types.collection.rooms")
 
-  click_on t("rooms.collection.add")
+  click_on t("rooms.collection.add", parent_type: UnitType.model_name, parent_name: CreateFixture.unit_type_name)
   click_on t("rooms.form.submit")
 end
 
@@ -60,6 +60,7 @@ Then(/^I should see the updated room$/) do
     name: RoomFixture.updated_room_name
   )
   expect(page).to have_content(success_flash)
+
   within ".section-title" do
     expect(page).to have_content(RoomFixture.updated_room_name)
   end

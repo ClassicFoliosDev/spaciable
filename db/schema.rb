@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307160708) do
+ActiveRecord::Schema.define(version: 20170310150359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,18 +402,21 @@ ActiveRecord::Schema.define(version: 20170307160708) do
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.integer  "unit_type_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
     t.datetime "deleted_at"
     t.integer  "icon_name"
+    t.integer  "plot_id"
+    t.integer  "template_room_id"
     t.index ["deleted_at"], name: "index_rooms_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_rooms_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_rooms_on_development_id", using: :btree
     t.index ["division_id"], name: "index_rooms_on_division_id", using: :btree
     t.index ["name", "unit_type_id"], name: "index_rooms_on_name_and_unit_type_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["plot_id"], name: "index_rooms_on_plot_id", using: :btree
     t.index ["unit_type_id"], name: "index_rooms_on_unit_type_id", using: :btree
   end
 
@@ -503,6 +506,7 @@ ActiveRecord::Schema.define(version: 20170307160708) do
   add_foreign_key "rooms", "developers"
   add_foreign_key "rooms", "developments"
   add_foreign_key "rooms", "divisions"
+  add_foreign_key "rooms", "plots"
   add_foreign_key "rooms", "unit_types"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"

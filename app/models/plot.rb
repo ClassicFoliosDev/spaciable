@@ -17,7 +17,7 @@ class Plot < ApplicationRecord
   delegate :resident, to: :plot_residency, allow_nil: true
 
   has_many :unit_types, through: :development
-  has_many :rooms, through: :unit_type
+  has_many :plot_rooms, class_name: "Room"
   has_many :finishes, through: :rooms
   has_many :documents, as: :documentable
   has_one :address, as: :addressable, dependent: :destroy
@@ -31,6 +31,15 @@ class Plot < ApplicationRecord
 
   delegate :build_resident, to: :build_plot_residency
   delegate :picture, to: :unit_type, prefix: true
+
+  def rooms(room_scope = Room.all)
+    templated_room_ids = plot_rooms.with_deleted.pluck(:template_room_id).compact
+    unit_type_rooms_relation = room_scope
+                               .where(unit_type_id: unit_type_id)
+                               .where.not(id: templated_room_ids)
+
+    room_scope.where(plot_id: id).or(unit_type_rooms_relation)
+  end
 
   # ADDRESSES
 

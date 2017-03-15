@@ -16,7 +16,7 @@ module Rooms
 
       if @appliance_room.save
         notice = t("controller.success.update", name: @room.name)
-        redirect_to room_url(@room, active_tab: "appliances"), notice: notice
+        redirect_to [@room.parent, @room, active_tab: "appliances"], notice: notice
       else
         @appliance_categories = ApplianceCategory.all
         render :new

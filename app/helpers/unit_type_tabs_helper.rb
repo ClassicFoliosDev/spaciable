@@ -9,14 +9,14 @@ module UnitTypeTabsHelper
 
   UNIT_TYPE_TABS = lambda do |unit_type|
     {
-      rooms: {
-        icon: :bath,
-        link: [unit_type.parent, unit_type, active_tab: :rooms],
-        permissions_on: -> { unit_type.rooms.build }
-      },
       documents: {
         icon: "file-pdf-o",
         link: [unit_type.parent, unit_type, active_tab: :documents]
+      },
+      rooms: {
+        icon: :bath,
+        link: [unit_type, :rooms],
+        permissions_on: -> { unit_type.rooms.build }
       }
     }
   end

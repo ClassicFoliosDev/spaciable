@@ -46,6 +46,24 @@ RSpec.describe "Resident Abilities" do
     expect(subject).to be_able_to(:read, room)
   end
 
+  it "cannot read unit type rooms used as plot room templates" do
+    unit_type = plot.unit_type
+    template_room = create(:room, unit_type: unit_type)
+
+    create(:room, plot: plot, template_room_id: template_room.id)
+
+    expect(subject).not_to be_able_to(:read, template_room)
+  end
+
+  it "can read plot rooms" do
+    unit_type = plot.unit_type
+    template_room = create(:room, unit_type: unit_type)
+
+    plot_room = create(:room, plot: plot, template_room_id: template_room.id)
+
+    expect(subject).to be_able_to(:read, plot_room)
+  end
+
   it "has READ access to the plots rooms finishes" do
     unit_type = plot.unit_type
     finish = create(:finish)

@@ -24,20 +24,10 @@ class PlotsController < ApplicationController
   end
 
   def show
-    @active_tab = params[:active_tab] || "rooms"
-
-    @collection_parent = if @active_tab == "rooms"
-                           @plot.unit_type
-                         elsif @active_tab == "documents"
-                           @plot
-                         end
-
-    @collection = if @active_tab == "rooms"
-                    paginate(sort(@plot.rooms, default: :name))
-                  elsif @active_tab == "documents"
-                    documents = @plot.documents.accessible_by(current_ability)
-                    paginate(sort(documents, default: :title))
-                  end
+    documents = @plot.documents.accessible_by(current_ability)
+    @active_tab = "documents"
+    @collection_parent = @plot
+    @collection = paginate(sort(documents, default: :title))
   end
 
   def create

@@ -1,0 +1,11 @@
+<% breadcrumb :rooms, @plot %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= t(".title", parent_name: @plot) %>
+  </h3>
+</div>
+
+<%= render 'components/tabs', tabs: plot_tabs(@plot, "rooms") %>
+
+<%= render_collection @rooms, parent: @plot %>

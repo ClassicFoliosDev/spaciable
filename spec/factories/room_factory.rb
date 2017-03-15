@@ -5,5 +5,10 @@ FactoryGirl.define do
       "Bedroom #{n}"
     end
     unit_type
+
+    factory :plot_room do
+      unit_type_id { nil }
+      plot
+    end
   end
 end

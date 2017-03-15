@@ -9,14 +9,14 @@ module PlotTabsHelper
 
   PLOT_TABS = lambda do |plot|
     {
-      rooms: {
-        icon: :bath,
-        link: [plot, active_tab: :rooms],
-        permissions_on: -> { plot.development.rooms.build }
-      },
       documents: {
         icon: "file-pdf-o",
         link: [plot, active_tab: :documents]
+      },
+      rooms: {
+        icon: :bath,
+        link: [plot, :rooms],
+        permissions_on: -> { plot.development.rooms.build }
       },
       plot_residency: {
         icon: :user,

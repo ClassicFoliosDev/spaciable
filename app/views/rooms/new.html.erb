@@ -1,10 +1,10 @@
-<% breadcrumb :room_new, @unit_type %>
+<% breadcrumb :room_new, @parent %>
 
 <div class="section-header">
   <h3 class="section-title">
     <%= fa_icon "vcard" %>
-    <% t(".add", unit_type_name: @unit_type) %>
+    <% t(".add", parent_name: @parent) %>
   </h3>
 </div>
 
-<%= render 'form', room: @room, parent: @unit_type %>
+<%= render 'form', room: @room, parent: @parent %>

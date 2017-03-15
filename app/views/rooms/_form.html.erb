@@ -1,4 +1,6 @@
-<%= simple_form_for([room.unit_type, room]) do |f| %>
+<%= simple_form_for([parent, room]) do |f| %>
+  <%= f.hidden_field :template_room_id %>
+
   <% if room.errors.any? %>
     <div class="submission-errors">
       <ul>
@@ -28,7 +30,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), [room.unit_type, :rooms], class: "btn" %>
+      <%= link_to t(".back"), [parent, :rooms], class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

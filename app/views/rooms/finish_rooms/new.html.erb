@@ -56,7 +56,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), room_path(@room, active_tab: "finishes"), class: "btn" %>
+      <%= link_to t(".back"), [@room.parent, @room, active_tab: "finishes"], class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

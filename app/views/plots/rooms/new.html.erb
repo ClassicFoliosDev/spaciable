@@ -1,0 +1,10 @@
+<% breadcrumb :room_new, @plot %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "vcard" %>
+    <% t(".add", parent_name: @plot) %>
+  </h3>
+</div>
+
+<%= render 'rooms/form', room: @room, parent: @plot %>

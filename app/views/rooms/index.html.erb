@@ -1,9 +1,11 @@
-<% breadcrumb :rooms, @unit_type %>
+<% breadcrumb :rooms, @parent %>
 
 <div class="section-header">
   <h3 class="section-title">
-    <%= t(".title", unit_type_name: @unit_type) %>
+    <%= t(".title", parent_name: @parent) %>
   </h3>
 </div>
 
-<%= render_collection @rooms, parent: @unit_type %>
+<%= render 'components/tabs', tabs: unit_type_tabs(@unit_type, "rooms") %>
+
+<%= render_collection @rooms, parent: @parent %>

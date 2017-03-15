@@ -217,24 +217,42 @@ crumb :document_new do |document_parent|
 end
 
 # ROOMS
-crumb :rooms do |unit_type|
-  link Room.model_name.human.pluralize, unit_type_rooms_path(unit_type)
-  parent :unit_type, unit_type
+crumb :rooms do |room_parent|
+  link Room.model_name.human.pluralize, [room_parent, :rooms]
+
+  case room_parent
+  when Plot
+    parent :plot, room_parent
+  when UnitType
+    parent :unit_type, room_parent
+  end
 end
 
 crumb :room_edit do |room|
-  link t("breadcrumbs.room_edit", room_name: room.name), edit_room_path(room)
+  link t("breadcrumbs.room_edit", room_name: room.name), [:edit, room.parent, room]
   parent :room, room
 end
 
 crumb :room do |room|
-  link room.name, room_path(room)
-  parent :unit_type, room.unit_type
+  link room.name, [room.parent, room]
+
+  case room.parent
+  when Plot
+    parent :plot, room.plot
+  when UnitType
+    parent :unit_type, room.unit_type
+  end
 end
 
-crumb :room_new do |unit_type|
+crumb :room_new do |room_parent|
   link t("breadcrumbs.room_add")
-  parent :unit_type, unit_type
+
+  case room_parent
+  when Plot
+    parent :plot, room_parent
+  when UnitType
+    parent :unit_type, room_parent
+  end
 end
 
 # PLOTS

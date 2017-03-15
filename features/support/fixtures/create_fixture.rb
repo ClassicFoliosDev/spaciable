@@ -241,6 +241,10 @@ module CreateFixture
 
   # INSTANCES
 
+  def cf_admin
+    User.find_by(role: :cf_admin)
+  end
+
   def developer
     Developer.find_by(company_name: developer_name)
   end

@@ -16,7 +16,7 @@ module Rooms
 
       if @finish_room.save
         notice = t("controller.success.update", name: @room.name)
-        redirect_to room_url(@room, active_tab: "finishes"), notice: notice
+        redirect_to [@room.parent, @room, active_tab: "finishes"], notice: notice
       else
         @finish_categories = FinishCategory.all
         render :new

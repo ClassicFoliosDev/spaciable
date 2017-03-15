@@ -7,7 +7,7 @@ module Abilities
       can :manage, Resident, id: resident.id
 
       resident_abilities_via_development(plot.development_id)
-      resident_abilities_via_unit_type(plot.unit_type_id)
+      resident_abilities_via_unit_type(plot.unit_type_id, plot.rooms.pluck(:id))
       resident_abilities_for_polymorphic_models(plot)
     end
 
@@ -19,11 +19,11 @@ module Abilities
       can :read, Plot, development_id: development_id
     end
 
-    def resident_abilities_via_unit_type(unit_type_id)
+    def resident_abilities_via_unit_type(unit_type_id, room_ids)
       can :read, UnitType, id: unit_type_id
-      can :read, Room, unit_type_id: unit_type_id
-      can :read, Finish, rooms: { unit_type_id: unit_type_id }
-      can :read, Appliance, rooms: { unit_type_id: unit_type_id }
+      can :read, Room, id: room_ids
+      can :read, Finish, rooms: { id: room_ids }
+      can :read, Appliance, rooms: { id: room_ids }
     end
 
     def resident_abilities_for_polymorphic_models(plot)
