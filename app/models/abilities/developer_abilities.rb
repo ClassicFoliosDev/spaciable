@@ -9,6 +9,7 @@ module Abilities
       developer_notifications(developer)
       developer_faqs(developer)
       developer_contacts(developer)
+      developer_documents(developer)
       crud_developers(developer)
       read_developers(developer)
     end
@@ -35,8 +36,18 @@ module Abilities
       end
     end
 
+    def developer_documents(developer_id)
+      polymorphic_abilities Document, :documentable do
+        actions :manage do
+          type "Developer", id: developer_id
+          type "UnitType", id: UnitType.where(developer_id: developer_id).pluck(:id)
+          type "Phase", id: Phase.where(developer_id: developer_id).pluck(:id)
+          type "Plot", id: Plot.where(developer_id: developer_id).pluck(:id)
+        end
+      end
+    end
+
     def crud_developers(developer_id)
-      can :crud, Document, developer_id: developer_id
       can :crud, Finish, developer_id: developer_id
       can :crud, Plot, developer_id: developer_id
     end

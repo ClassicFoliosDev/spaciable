@@ -7,6 +7,7 @@ module Abilities
       division_notifications(division, developer_id)
       division_faqs(division, developer_id)
       division_contacts(division, developer_id)
+      division_documents(division, developer_id)
       crud_divisions(division)
       read_divisions(developer_id, division)
     end
@@ -14,7 +15,6 @@ module Abilities
     private
 
     def crud_divisions(division)
-      can :crud, Document, division_id: division
       can :crud, Finish, division_id: division
       can :crud, Plot, division_id: division
     end
@@ -48,6 +48,19 @@ module Abilities
       polymorphic_abilities Contact, :contactable do
         type "Division", id: division, actions: :manage
         type "Developer", id: developer, actions: :read
+      end
+    end
+
+    def division_documents(division, developer)
+      polymorphic_abilities Document, :documentable do
+        type "Developer", id: developer, actions: :read
+
+        actions :manage do
+          type "Division", id: division
+          type "UnitType", id: UnitType.where(division_id: division).pluck(:id)
+          type "Phase", id: Phase.where(division_id: division).pluck(:id)
+          type "Plot", id: Plot.where(division_id: division).pluck(:id)
+        end
       end
     end
   end

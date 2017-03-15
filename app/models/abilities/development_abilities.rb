@@ -7,6 +7,7 @@ module Abilities
       development_notifications(development, division_id, developer_id)
       development_faqs(development, division_id, developer_id)
       development_contacts(development, division_id, developer_id)
+      development_documents(development, division_id, developer_id)
       crud_developments(development)
       read_developments(developer_id, division_id, development)
     end
@@ -14,7 +15,6 @@ module Abilities
     private
 
     def crud_developments(development)
-      can :crud, Document, development_id: development
       can :crud, Finish, development_id: development
       can :crud, Plot, development_id: development
       can :crud, PlotResidency, plot: { development_id: development }
@@ -60,6 +60,20 @@ module Abilities
         type "Development", id: development, actions: :manage
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read
+      end
+    end
+
+    def development_documents(development, division, developer)
+      polymorphic_abilities Document, :documentable do
+        type "Division", id: division, actions: :read if division
+        type "Developer", id: developer, actions: :read
+
+        actions :manage do
+          type "Development", id: development
+          type "UnitType", id: UnitType.where(development_id: development).pluck(:id)
+          type "Phase", id: Phase.where(development_id: development).pluck(:id)
+          type "Plot", id: Plot.where(development_id: development).pluck(:id)
+        end
       end
     end
   end

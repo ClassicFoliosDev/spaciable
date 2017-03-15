@@ -7,9 +7,15 @@ module Abilities
         @klass = klass
         @association = association
         @ability = ability
+        @actions = [:create, :read, :update, :destroy]
       end
 
-      def type(poly_type, id:, actions: default)
+      def actions(*actions)
+        @actions = actions
+        yield
+      end
+
+      def type(poly_type, id:, actions: @actions)
         ability.manage_polymorphic_association(
           klass, association, id: id, model_type: poly_type, actions: Array(actions)
         )
@@ -32,10 +38,6 @@ module Abilities
       return if !actions.include?(:create) || !actions.include?(:manage)
 
       can(:create, klass, :"#{association}_id" => nil, :"#{association}_type" => nil)
-    end
-
-    def default
-      [:create, :read, :update, :destroy]
     end
   end
 end
