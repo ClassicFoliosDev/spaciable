@@ -21,6 +21,8 @@ Feature: Admin Users
 
     When I add a new Developer Admin
     Then I should see the new Developer Admin
+    When I update the new admin
+    Then I should see the updated admin
 
     When I add a new Division Admin
     Then I should see the new Division Admin
@@ -47,6 +49,9 @@ Feature: Admin Users
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
 
+    When I change my password
+    Then I should be logged out
+
   Scenario: Division Admin
     Given I am logged in as a Division Admin
     And I am on the Admin Users page
@@ -70,3 +75,6 @@ Feature: Admin Users
 
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
+
+    When I change my password
+    Then I should be logged out

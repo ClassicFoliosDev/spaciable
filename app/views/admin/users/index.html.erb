@@ -17,7 +17,7 @@
 <table class="record-list">
   <thead>
     <tr>
-      <th><%= sortable(@users, :email) %></th>
+      <th><%= sortable(@users, :email, t(".user")) %></th>
       <th><%= sortable(@users, :updated_at) %></th>
       <th><%= sortable(@users, :role) %></th>
       <th><%= t(".headings.permission_level") %></th>

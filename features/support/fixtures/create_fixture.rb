@@ -49,6 +49,10 @@ module CreateFixture
     [parent, resource].compact.map(&:to_s).map(&:downcase).join("_")
   end
 
+  def admin_password
+    "fooBar12"
+  end
+
   # Category and type selects for appliances and finishes
   def appliance_category_name
     "Washing Machine"
@@ -86,19 +90,19 @@ module CreateFixture
   end
 
   def create_developer_admin
-    FactoryGirl.create(:developer_admin, permission_level: CreateFixture.developer)
+    FactoryGirl.create(:developer_admin, permission_level: CreateFixture.developer, password: admin_password)
   end
 
   def create_division_admin
-    FactoryGirl.create(:division_admin, permission_level: CreateFixture.division)
+    FactoryGirl.create(:division_admin, permission_level: CreateFixture.division, password: admin_password)
   end
 
   def create_development_admin
-    FactoryGirl.create(:development_admin, permission_level: CreateFixture.development)
+    FactoryGirl.create(:development_admin, permission_level: CreateFixture.development, password: admin_password)
   end
 
   def create_division_development_admin
-    FactoryGirl.create(:development_admin, permission_level: CreateFixture.division_development)
+    FactoryGirl.create(:development_admin, permission_level: CreateFixture.division_development, password: admin_password)
   end
 
   def create_developer_with_division

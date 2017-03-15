@@ -14,12 +14,16 @@ module AdminUsersFixture
     create_division_development
   end
 
+  def new_password
+    "barFoo21"
+  end
+
   def second_cf_admin_attrs
     { email_address: "second@cf.com", role: "CF Admin" }
   end
 
   def second_cf_admin_update_attrs
-    { email_address: "second.admin@cf.co.uk", role: "CF Admin" }
+    { first_name: "Second", last_name: "Last name", role: "CF Admin" }
   end
 
   def second_cf_admin_id

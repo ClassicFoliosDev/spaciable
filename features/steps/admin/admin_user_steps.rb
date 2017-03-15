@@ -69,23 +69,31 @@ Then(/^I should see the new CF Admin$/) do
 end
 
 When(/^I update the CF Admin$/) do
+  sleep 0.2
   within "[data-user=\"#{AdminUsersFixture.second_cf_admin_id}\"]" do
-    sleep 0.2
     find("[data-action='edit']").click
   end
 
   sleep 0.3
-  within ".user_email" do
-    fill_in "user[email]", with: AdminUsersFixture.second_cf_admin_update_attrs[:email_address]
+  within ".user_first_name" do
+    fill_in "user[first_name]", with: AdminUsersFixture.second_cf_admin_update_attrs[:first_name]
+  end
+  within ".user_last_name" do
+    fill_in "user[last_name]", with: AdminUsersFixture.second_cf_admin_update_attrs[:last_name]
   end
 
-  click_on t("admin.users.form.submit")
+  within ".form-actions-footer" do
+    click_on t("admin.users.form.submit")
+  end
 end
 
 Then(/^I should see the updated CF Admin$/) do
-  email_address = AdminUsersFixture.second_cf_admin_update_attrs[:email_address]
+  sleep 0.4
 
-  expect(page).to have_content(email_address)
+  within ".record-list" do
+    expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:first_name])
+    expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:last_name])
+  end
 end
 
 When(/^I delete the updated CF Admin$/) do
@@ -93,10 +101,9 @@ When(/^I delete the updated CF Admin$/) do
 end
 
 Then(/^I should not see the deleted CF Admin$/) do
-  email_address = AdminUsersFixture.second_cf_admin_update_attrs[:email_address]
-
   within ".record-list" do
-    expect(page).not_to have_content(email_address)
+    expect(page).not_to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:first_name])
+    expect(page).not_to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:last_name])
   end
 end
 
@@ -232,4 +239,55 @@ Then(/^I should see the new \(division\) Development Admin$/) do
   expect(page).to have_content(attrs[:development])
 
   click_on t("admin.users.show.back")
+end
+
+When(/^I update the new admin$/) do
+  find("[data-action='edit']").click
+
+  sleep 0.2
+  expect(page).not_to have_content(".password")
+  within ".user_first_name" do
+    fill_in "user[first_name]", with: AdminUsersFixture.second_cf_admin_update_attrs[:first_name]
+  end
+  within ".user_last_name" do
+    fill_in "user[last_name]", with: AdminUsersFixture.second_cf_admin_update_attrs[:last_name]
+  end
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the updated admin$/) do
+  sleep 0.2
+  within ".record-list" do
+    expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:first_name])
+    expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:last_name])
+  end
+end
+
+When(/^I change my password$/) do
+  visit "/"
+  click_on t("components.navigation.profile")
+  find("[data-action='edit']").click
+
+  sleep 0.2
+  within(".user_current_password") do
+    fill_in :password, with: CreateFixture.admin_password
+  end
+  within(".user_password") do
+    fill_in :password, with: AdminUsersFixture.new_password
+  end
+  within(".user_password_confirmation") do
+    fill_in :password, with: AdminUsersFixture.new_password
+  end
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should be logged out$/) do
+  expect(page).to have_content(t("devise.failure.unauthenticated"))
+
+  within ".admin-login-form" do
+    expect(page).to have_content(t("activerecord.attributes.user.email"))
+    expect(page).to have_content(t("activerecord.attributes.user.password"))
+  end
 end

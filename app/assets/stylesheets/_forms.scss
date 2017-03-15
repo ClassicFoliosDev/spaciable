@@ -209,6 +209,17 @@ fieldset {
 }
 
 // VALIDATION
+.required {
+  label {
+    color: $ui-black;
+  }
+}
+
+.readonly {
+  span {
+    display: none;
+  }
+}
 
 .input {
   position: relative;
@@ -251,7 +262,7 @@ fieldset {
     display: block;
   }
 
-  &.select .error { 
+  &.select .error {
     margin-top: 2px;
   }
 

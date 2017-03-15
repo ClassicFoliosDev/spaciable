@@ -30,9 +30,8 @@ module Admin
     end
 
     def update
-      if @user.update_without_password(user_params)
-        notice = t(".success", user_email: @user.to_s)
-        redirect_to [:admin, :users], notice: notice
+      if UpdateUserService.call(@user, user_params)
+        redirect_to [:admin, :users], notice: t(".success", user_email: @user.to_s)
       else
         render :edit
       end
@@ -49,13 +48,16 @@ module Admin
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(
-        :email,
-        :role,
+        :email, :role,
+        :first_name, :last_name,
         :developer_id,
         :division_id,
         :development_id,
         :permission_level_id,
-        :permission_level_type
+        :permission_level_type,
+        :password,
+        :password_confirmation,
+        :current_password
       )
     end
   end

@@ -15,11 +15,18 @@
   <div class="row">
     <div class="row-item third">
       <fieldset>
-        <%= f.input :email %>
+        <%= f.input :email, readonly: user.email? %>
+        <% if user == current_user %>
+          <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
+          <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>
+          <%= f.input :password_confirmation, label: t(".confirm_password") %>
+        <% end %>
       </fieldset>
     </div>
     <div class="row-item third">
         <fieldset>
+          <%= f.input :first_name %>
+          <%= f.input :last_name %>
           <%= f.input :role,
             as: :select,
             collection: User::accessible_admin_roles(current_user),
