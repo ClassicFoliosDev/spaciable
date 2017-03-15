@@ -136,7 +136,9 @@ Then(/^I should see the finish deletion complete successfully$/) do
     expect(page).to have_content(CreateFixture.finish_name)
   end
 
-  within ".record-list" do
-    expect(page).not_to have_content CreateFixture.finish_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Finish.model_name.human)
   end
 end

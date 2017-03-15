@@ -1,55 +1,63 @@
-<div class="section-actions">
-  <% if room %>
-    <%= link_to new_room_appliance_room_path(room), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add_appliance_room") %></span>
-    <% end %>
-    <br>
+<% if collection.empty? %>
+  <% if room.nil? %>
+      <%= render 'components/empty_list', icon_name: "shower", type: Appliance, parent: room %>
   <% else %>
-    <%= link_to new_appliance_path, class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".create") %></span>
-    <% end %>
+      <%= render 'components/empty_list', icon_name: "shower", type: ApplianceRoom, parent: room %>
   <% end %>
-</div>
-
-<table class="record-list">
-  <thead>
-    <tr>
-      <th class="icon">&nbsp;</th>
-      <th><%= sortable(Appliance, :name) %></th>
-      <th><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
-      <th><%= sortable(Appliance, :model_num) %></th>
-      <th><%= sortable({ Appliance => Manufacturer }, :name) %></th>
-      <th><%= sortable(Appliance, :updated_at) %></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% collection.each do |appliance| %>
-    <tr>
-      <td><%= image_tag appliance.primary_image if appliance.primary_image? %></td>
-      <td><%= link_to appliance.name, appliance_path(appliance), title: appliance.name %></td>
-      <td><%= appliance.appliance_category %></td>
-      <td><%= appliance.model_num %></td>
-      <td><%= appliance.manufacturer %></td>
-      <td><%= l appliance.updated_at.to_date, format: :digits %></td>
-      <td class="actions">
-        <%= edit_btn edit_appliance_path(appliance) %>
-        <% if room %>
-          <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
-            <%= fa_icon "times" %>
-          <% end %>
-        <% else %>
-           <%= delete_btn appliance %>
-        <% end %>
-      </td>
-    </tr>
+<% else %>
+  <div class="section-actions">
+    <% if room %>
+      <%= link_to new_room_appliance_room_path(room), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".create") %></span>
+      <% end %>
+      <br>
+    <% else %>
+      <%= link_to new_appliance_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".create") %></span>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate collection %>
-</div>
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th class="icon">&nbsp;</th>
+        <th><%= sortable(Appliance, :name) %></th>
+        <th><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
+        <th><%= sortable(Appliance, :model_num) %></th>
+        <th><%= sortable({ Appliance => Manufacturer }, :name) %></th>
+        <th><%= sortable(Appliance, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |appliance| %>
+        <tr>
+          <td><%= image_tag appliance.primary_image if appliance.primary_image? %></td>
+          <td><%= link_to appliance.name, appliance_path(appliance), title: appliance.name %></td>
+          <td><%= appliance.appliance_category %></td>
+          <td><%= appliance.model_num %></td>
+          <td><%= appliance.manufacturer %></td>
+          <td><%= l appliance.updated_at.to_date, format: :digits %></td>
+          <td class="actions">
+            <%= edit_btn edit_appliance_path(appliance) %>
+            <% if room %>
+              <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
+                <%= fa_icon "times" %>
+              <% end %>
+            <% else %>
+              <%= delete_btn appliance %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

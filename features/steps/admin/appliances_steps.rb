@@ -180,7 +180,9 @@ Then(/^I should see the appliance deletion complete successfully$/) do
     expect(page).to have_content(CreateFixture.appliance_name)
   end
 
-  within ".record-list" do
-    expect(page).not_to have_content CreateFixture.appliance_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human)
   end
 end

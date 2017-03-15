@@ -7,7 +7,6 @@ When(/^I create a developer$/) do
   end
 
   click_on t("developers.index.add")
-
   fill_in "developer_company_name", with: CreateFixture.developer_name
 
   click_on t("developers.form.submit")
@@ -74,8 +73,10 @@ Then(/^I should see the delete complete successfully$/) do
   )
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
-    expect(page).not_to have_content DeveloperFixture.updated_company_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Developer.model_name.human)
   end
 end
 

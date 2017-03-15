@@ -13,8 +13,12 @@
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: unit_type_tabs(@unit_type, @active_tab) %>
 
+<%= render 'components/tabs', tabs: unit_type_tabs(@unit_type, @active_tab) %>
 <%= render_collection @collection, parent: @unit_type %>
 
-<%= link_to t(".back"), development_unit_types_path, class: "btn" %>
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), development_unit_types_path, class: "btn" %>
+  </div>
+</div>

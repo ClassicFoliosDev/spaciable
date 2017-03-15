@@ -1,36 +1,28 @@
-<div class="section-actions">
-  <% if !parent.brand.present? %>
-    <%= link_to [:new, parent, :brand], class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".create") %></span>
-    <% end %>
-  <% end %>
-</div>
+<% if brand.id.nil? %>
+  <%= render 'components/empty_list', icon_name: "css3", type: Brand, parent: parent %>
+<% else %>
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th class="icon">&nbsp;</th>
+        <th><%= sortable(Brand, :brandable, t(".name")) %></th>
+        <th><%= sortable(Brand, :updated_at) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= image_tag brand.logo, class: "circle" if brand.logo? %></td>
+        <td><%= link_to brand, [brand.brandable, :brand] %></td>
+        <td><%= l brand.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= edit_btn [:edit, brand.brandable, :brand] %>
+          <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
-<table class="record-list">
-  <thead>
-    <tr>
-      <th class="icon">&nbsp;</th>
-      <th><%= sortable(Brand, :brandable, t(".name")) %></th>
-      <th><%= sortable(Brand, :updated_at) %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% if brand.id? %>
-    <tr>
-      <td><%= image_tag brand.logo, class: "circle" if brand.logo? %></td>
-      <td><%= link_to brand, [brand.brandable, :brand] %></td>
-      <td><%= l brand.updated_at.to_date, format: :digits %></td>
-      <td class="actions">
-        <%= edit_btn [:edit, brand.brandable, :brand] %>
-        <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <!-- paginate collection -->
-</div>
+  <div class="paging">
+    <%= render 'components/page_size' %>
+  </div>
+<% end %>

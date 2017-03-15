@@ -1,36 +1,40 @@
-<div class="section-actions">
-  <%= link_to new_polymorphic_url([parent, Development]), class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".add") %></span>
-  <% end %>
-</div>
-
-<table class="record-list">
-  <thead>
-    <tr>
-      <th><%= sortable(Development, :name) %></th>
-      <th><%= sortable(Development, :updated_at) %></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% collection.each do |development| %>
-    <tr data-development="<%= development.id %>">
-      <td><%= link_to development.name, polymorphic_url([parent, development]), title: development.name %></td>
-      <td><%= l development.updated_at.to_date, format: :digits %></td>
-      <td class="actions">
-        <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
-        <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
-        <%= link_to t(".plots"), development_plots_path(development), class: "btn" %>
-        <%= edit_btn [:edit, parent, development] %>
-        <%= delete_btn development, path: url_for([parent, development]) %>
-      </td>
-    </tr>
+<% if collection.empty? %>
+  <%= render 'components/empty_list', icon_name: "building", type: Development, parent: parent %>
+<% else %>
+  <div class="section-actions">
+    <%= link_to new_polymorphic_url([parent, Development]), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate collection %>
-</div>
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th><%= sortable(Development, :name) %></th>
+        <th><%= sortable(Development, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |development| %>
+      <tr data-development="<%= development.id %>">
+        <td><%= link_to development.name, polymorphic_url([parent, development]), title: development.name %></td>
+        <td><%= l development.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
+          <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
+          <%= link_to t(".plots"), development_plots_path(development), class: "btn" %>
+          <%= edit_btn [:edit, parent, development] %>
+          <%= delete_btn development, path: url_for([parent, development]) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

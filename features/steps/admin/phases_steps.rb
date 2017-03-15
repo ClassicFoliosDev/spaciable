@@ -11,6 +11,7 @@ Given(/^I have configured the development address$/) do
     find("[data-action='edit']").click
   end
 
+  sleep 0.2
   PhaseFixture.development_address_attrs.each do |attr, value|
     fill_in "development_address_attributes_#{attr}", with: value
   end
@@ -96,8 +97,10 @@ Then(/^I should see that the deletion completed successfully$/) do
     expect(page).to have_content(CreateFixture.development_name)
   end
 
-  within ".record-list" do
-    expect(page).not_to have_content PhaseFixture.updated_phase_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Phase.model_name.human)
   end
 end
 

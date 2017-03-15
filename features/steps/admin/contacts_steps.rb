@@ -154,10 +154,10 @@ Then(/^I should see the contact deletion complete successfully$/) do
   )
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
-    expect(page).not_to have_content ContactFixture.email
-    expect(page).not_to have_content ContactFixture.updated_name
-    expect(page).not_to have_content ContactFixture.last_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Contact.model_name.human)
   end
 end
 

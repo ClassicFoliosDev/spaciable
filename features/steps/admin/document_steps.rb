@@ -14,7 +14,7 @@ When(/^I upload a document for the developer$/) do
     click_on t("developers.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -149,8 +149,10 @@ Then(/^I should see that the deletion was successful for the document$/) do
   )
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
-    expect(page).not_to have_content DocumentFixture.updated_document_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Document.model_name.human)
   end
 end
 
@@ -168,7 +170,7 @@ When(/^I upload a document for the division$/) do
     click_on t("divisions.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -191,7 +193,7 @@ When(/^I upload a document for the development$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -214,7 +216,7 @@ When(/^I upload a document for the division development$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -247,7 +249,7 @@ When(/^I upload a document for the phase$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -280,7 +282,7 @@ When(/^I upload a document for the unit type$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -313,7 +315,7 @@ When(/^I upload a document for the division phase$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -346,7 +348,7 @@ When(/^I upload a document for the plot$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 
@@ -384,7 +386,7 @@ When(/^I upload a document for the phase plot$/) do
     click_on t("developments.collection.documents")
   end
 
-  within ".section-actions" do
+  within ".empty" do
     click_on t("documents.collection.add")
   end
 

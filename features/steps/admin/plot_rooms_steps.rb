@@ -20,7 +20,7 @@ Then(/^I should see the plots unit type rooms$/) do
 end
 
 When(/^I add a new plot room$/) do
-  click_on t("plots.rooms.collection.add", parent_type: "Plot", parent_name: CreateFixture.plot_name)
+  click_on t("rooms.collection.add", parent_type: "Plot", parent_name: CreateFixture.plot_name)
 
   fill_in :room_name, with: PlotRoomsFixture.new_plot_room_name
   click_on t("plots.rooms.form.submit")

@@ -12,7 +12,10 @@
 </div>
 
 <%= render 'components/tabs', tabs: room_tabs(@room, @active_tab), parent: @room.parent %>
-
 <%= render_collection @collection, room: @room %>
 
-<%= link_to t(".back"), [@unit_type, :rooms], class: "btn" %>
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), [@unit_type, :rooms], class: "btn" %>
+  </div>
+</div>

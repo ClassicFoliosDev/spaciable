@@ -49,3 +49,25 @@ end
 Given(/^I have seeded the database$/) do
   load Rails.root.join("db", "seeds.rb")
 end
+
+Given(/^I am a Developer Admin$/) do
+  CreateFixture.create_developer
+  developer_admin = CreateFixture.create_developer_admin
+  login_as developer_admin
+end
+
+Given(/^I am a Division Admin$/) do
+  CreateFixture.create_developer
+  CreateFixture.create_division
+  division_admin = CreateFixture.create_division_admin
+
+  login_as division_admin
+end
+
+Given(/^I am a Development Admin$/) do
+  CreateFixture.create_developer
+  CreateFixture.create_development
+  development_admin = CreateFixture.create_developer_admin
+
+  login_as development_admin
+end

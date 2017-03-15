@@ -194,8 +194,10 @@ Then(/^I should see the (\w+) brand deletion complete successfully$/) do |parent
   )
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
-    expect(page).not_to have_content name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Brand.model_name.human)
   end
 end
 
@@ -271,12 +273,6 @@ When(/^I delete the development brand$/) do
   delete_and_confirm!
 end
 
-Given(/^I am a Developer Admin$/) do
-  CreateFixture.create_developer
-  developer_admin = CreateFixture.create_developer_admin
-  login_as developer_admin
-end
-
 Then(/^I should not be able to see developer brands$/) do
   visit "/"
 
@@ -287,14 +283,6 @@ Then(/^I should not be able to see developer brands$/) do
   click_on CreateFixture.developer_name
 
   expect(page).not_to have_content(t("developers.collection.brands"))
-end
-
-Given(/^I am a Division Admin$/) do
-  CreateFixture.create_developer
-  CreateFixture.create_division
-  division_admin = CreateFixture.create_division_admin
-
-  login_as division_admin
 end
 
 Then(/^I should not be able to see division brands$/) do
@@ -308,14 +296,6 @@ Then(/^I should not be able to see division brands$/) do
   click_on t("developers.collection.divisions")
 
   expect(page).not_to have_content(t("developers.collection.brands"))
-end
-
-Given(/^I am a Development Admin$/) do
-  CreateFixture.create_developer
-  CreateFixture.create_development
-  development_admin = CreateFixture.create_developer_admin
-
-  login_as development_admin
 end
 
 Then(/^I should not be able to see development brands$/) do

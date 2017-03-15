@@ -19,7 +19,6 @@ class FaqsController < ApplicationController
 
   def create
     @faq.faqable = @parent
-
     if @faq.save
       redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
     else

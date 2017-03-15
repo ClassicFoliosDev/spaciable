@@ -71,5 +71,9 @@ Then(/^I should not see the plot residency$/) do
   expect(page).not_to have_content("#{attrs[:first_name]} #{attrs[:last_name]}")
   expect(page).not_to have_content(attrs[:email])
 
-  expect(page).to have_selector("[data-action='new']")
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: PlotResidency.model_name.human)
+  end
 end

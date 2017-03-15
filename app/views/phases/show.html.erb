@@ -1,9 +1,11 @@
 <% breadcrumb :phase, @phase %>
 
 <%= render @phase %>
-
 <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
-
 <%= render_collection @collection, parent: @phase %>
 
-<%= link_to t(".back"), development_phases_path, class: "btn" %>
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), development_phases_path, class: "btn" %>
+  </div>
+</div>

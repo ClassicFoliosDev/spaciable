@@ -3,7 +3,10 @@
 <%= render @developer %>
 
 <%= render 'components/tabs', tabs: developer_tabs(@developer, @active_tab), parent: @developer %>
-
 <%= render_collection @collection, parent: @developer %>
 
-<%= link_to t(".back"), developers_path, class: "btn" %>
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), developers_path, class: "btn" %>
+  </div>
+</div>

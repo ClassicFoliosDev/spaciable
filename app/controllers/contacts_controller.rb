@@ -25,6 +25,7 @@ class ContactsController < ApplicationController
 
   def create
     @contact.contactable = @parent
+    authorize! :create, @contact
     if @contact.save
       notice = t("controller.success.create", name: @contact)
       redirect_to [@parent, :contacts], notice: notice

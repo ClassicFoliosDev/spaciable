@@ -1,34 +1,38 @@
-<div class="section-actions">
-  <%= link_to new_development_unit_type_path(parent), class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".add") %></span>
-  <% end %>
-</div>
-
-<table class="record-list">
-  <thead>
-    <tr>
-      <th><%= sortable(collection, :name) %></th>
-      <th><%= sortable(collection, :updated_at) %></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% collection.each do |unit_type| %>
-    <tr>
-      <td><%= link_to unit_type.name, development_unit_type_path(unit_type.development, unit_type), title: unit_type.name, class: "unit_type-name" %></td>
-      <td><%= l unit_type.updated_at.to_date, format: :digits %></td>
-      <td class="actions">
-        <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
-        <%= edit_btn edit_development_unit_type_path(unit_type.development, unit_type) %>
-        <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]) %>
-      </td>
-    </tr>
+<% if collection.empty? %>
+    <%= render 'components/empty_list', icon_name: "bath", type: UnitType, parent: parent %>
+<% else %>
+  <div class="section-actions">
+    <%= link_to new_development_unit_type_path(parent), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate collection %>
-</div>
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th><%= sortable(collection, :name) %></th>
+        <th><%= sortable(collection, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |unit_type| %>
+      <tr>
+        <td><%= link_to unit_type.name, development_unit_type_path(unit_type.development, unit_type), title: unit_type.name, class: "unit_type-name" %></td>
+        <td><%= l unit_type.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
+          <%= edit_btn edit_development_unit_type_path(unit_type.development, unit_type) %>
+          <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

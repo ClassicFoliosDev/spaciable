@@ -15,8 +15,8 @@ When(/^I create a room with no room name$/) do
   end
 
   click_on t("unit_types.collection.rooms")
+  click_on t("components.empty_list.add", type_name: Room.model_name.human)
 
-  click_on t("rooms.collection.add", parent_type: UnitType.model_name, parent_name: CreateFixture.unit_type_name)
   click_on t("rooms.form.submit")
 end
 
@@ -94,7 +94,7 @@ When(/^I add a finish$/) do
     click_on t("rooms.collection.finishes")
   end
 
-  click_on t("finishes.collection.add_finish")
+  click_on t("components.empty_list.add", type_name: Finish.model_name.human)
 
   select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
   select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
@@ -141,8 +141,10 @@ Then(/^I should see the room with no finish$/) do
 
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
-    expect(page).not_to have_content CreateFixture.finish_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Finish.model_name.human)
   end
 end
 
@@ -175,7 +177,7 @@ When(/^I add an appliance$/) do
     click_on t("rooms.collection.appliances")
   end
 
-  click_on t("appliances.collection.add_appliance_room")
+  click_on t("components.empty_list.add", type_name: Appliance.model_name.human)
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
   select_from_selectmenu :manufacturer, with: CreateFixture.appliance_manufacturer_name
@@ -218,11 +220,12 @@ Then(/^I should see the room with no appliance$/) do
     appliance_name: CreateFixture.appliance_name,
     room_name: CreateFixture.room_name
   )
-
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
-    expect(page).not_to have_content CreateFixture.appliance_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human)
   end
 end
 
@@ -244,7 +247,9 @@ Then(/^I should see the room deletion complete successfully$/) do
     expect(page).to have_content(CreateFixture.development_name)
   end
 
-  within ".record-list" do
-    expect(page).not_to have_content CreateFixture.room_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Room.model_name.human)
   end
 end

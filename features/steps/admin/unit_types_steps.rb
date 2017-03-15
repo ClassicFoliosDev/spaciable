@@ -82,7 +82,9 @@ Then(/^I should see the deletion complete successfully$/) do
     expect(page).to have_content(CreateFixture.development_name)
   end
 
-  within ".record-list" do
-    expect(page).not_to have_content CreateFixture.unit_type_name
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: UnitType.model_name.human)
   end
 end

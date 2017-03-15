@@ -79,12 +79,14 @@ Then(/^I should no longer see the Developer FAQ$/) do
 
   expect(page).to have_content(notice)
 
-  within ".record-list" do
-    expect(page).not_to have_content(attrs[:question])
-  end
-
   within ".breadcrumbs" do
     expect(page).to have_link(FaqsFixture.developer)
+  end
+
+  expect(page).not_to have_content(".record-list")
+
+  within ".empty" do
+    expect(page).to have_content t("components.empty_list.add", type_name: Faq.model_name.human)
   end
 end
 

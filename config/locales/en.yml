@@ -83,7 +83,7 @@ en:
     admin_notifications: "Notifications"
     admin_notifications_new: "Send Notification"
     admin_users: "Admin Users"
-    admin_users_add: "Add Admin User"
+    admin_users_add: "Add admin user"
     admin_user_edit: "Edit %{user_email}"
     appliance_edit: "Edit %{name}"
     appliance_add: "Add appliance"
@@ -105,7 +105,7 @@ en:
     plot_edit: "Edit %{plot_name}"
     plot_residencies: "Resident"
     plot_residency: "Resident %{residency}"
-    plot_residency_add: "Add Resident"
+    plot_residency_add: "Add resident"
     plot_residency_edit: "Edit %{plot} Resident"
     room_edit: "Edit %{room_name}"
     room_add: "Add room"
@@ -154,6 +154,10 @@ en:
       profile: "Profile"
       notifications: "Notifications"
       contacts: "Contacts"
+    empty_list:
+      empty: "You have no %{type_names}"
+      add: "Add %{type_name}"
+      request_add: "You have insufficient permissions. Please contact the Classic Folio team and ask them to create %{type_names}"
 
   destroy:
     cancel: "Cancel"
@@ -289,7 +293,7 @@ en:
       unit_types: "Unit types"
       documents: "Documents"
       plots: "Plots"
-      add: "Add development"
+      add: "Add Development"
       faqs: "FAQs"
       contacts: "Contacts"
       rooms: "Rooms"
@@ -301,7 +305,7 @@ en:
       address: "Development address"
       back: "Back"
     index:
-      add: "Add development"
+      add: "Add Development"
 
   homeowners:
     faqs:
@@ -349,7 +353,7 @@ en:
       edit:
         title: "Edit %{development_name}"
       index:
-        add: "Add development"
+        add: "Add Development"
         title: "%{developer_name} developments"
       new:
         title: "New development"
@@ -403,7 +407,7 @@ en:
       create:
         success: "%{development_name} was created successfully"
       new:
-        add: "Add development"
+        add: "Add Development"
         title: "New development"
       update:
         success: "%{development_name} was updated successfully"
@@ -411,7 +415,7 @@ en:
         title: "Edit %{development_name}"
         edit: "Edit %{development_name}"
       index:
-        add: "Add development"
+        add: "Add Development"
         title: "%{division_name} developments"
       show:
         back: "Back"
@@ -436,7 +440,7 @@ en:
       contacts: "Contacts"
       brands: "Styling"
       faqs: "FAQs"
-      add: "Add division"
+      add: "Add Division"
     new:
       title: "New division"
       back: "Back"
@@ -515,7 +519,7 @@ en:
 
   images:
     title: "Pictures"
-    add: "Add picture"
+    #add: "Add picture"
     remove: "Remove picture"
     img_name: "Picture name"
     not_yet: "You can add pictures after this resource has been saved"
@@ -553,7 +557,6 @@ en:
       index:
         title: "%{parent_name} rooms"
       collection:
-        add: "Add room to %{parent_type} %{parent_name}"
         finishes: "Finishes"
         appliances: "Appliances"
       edit:
@@ -600,7 +603,7 @@ en:
         one: "Plot %{plot_name} was updated successfully"
         other: "Plots %{plot_name} were updated successfully"
     collection:
-      add: "Add plots"
+      add: "Add Plot"
       rooms: "Rooms"
       documents: "Documents"
       plot_residency: "Residents"
@@ -670,8 +673,7 @@ en:
    index:
      title: "Appliances"
    collection:
-     create: "Create appliance"
-     add_appliance_room: "Add existing appliance"
+     create: "Add Appliance"
      appliance_category: "Category"
      remove: "Remove"
    new:
@@ -708,11 +710,10 @@ en:
    index:
      title: "Finishes"
    collection:
-     add_finish: "Add existing finish"
      finish_category: "Category"
      finish_type: "Type"
      manufacturer: "Manufacturer"
-     create: "Create finish"
+     create: "Add Finish"
    new:
      title: "New finish"
    form:
@@ -734,7 +735,11 @@ en:
     index:
       title: "%{parent_name} rooms"
     collection:
-      add: "Add room to %{parent_type} %{parent_name}"
+      # Some examples of this on screen:
+      # Add room to Plot 'Plot 1'
+      # Add room to Plot 'Apartment 5'
+      # Add room to Unit Type 'Kempton'
+      add: "Add room to %{parent_type} \'%{parent_name}\'"
       finishes: "Finishes"
       appliances: "Appliances"
     edit:
@@ -743,7 +748,7 @@ en:
       back: "Back"
       submit: "Submit"
       add: "Add"
-      add_finish: "Add finish"
+      add_finish: "Add Finish"
     show:
       back: "Back"
     new:
@@ -801,7 +806,7 @@ en:
       size: "File size"
       updated: "Upload date"
     collection:
-      add: "Add document"
+      add: "Add Document"
     edit:
       title: "Edit %{name}"
 
@@ -809,7 +814,7 @@ en:
     index:
       title: "Contacts"
     collection:
-       create: "Add contact"
+       create: "Add Contact"
        name: "Name"
     new:
       title: "New contact for %{name}"
@@ -827,7 +832,7 @@ en:
     new:
       title: "Custom styling for %{name}"
     collection:
-      create: "Create custom style"
+      create: "Add Styling"
       name: "Name"
     form:
       back: "Back"
@@ -869,12 +874,16 @@ en:
       plot: "Plot"
       room: "Room"
       finish: "Finish"
+      finish_room: "Finish"
+      appliance: "Appliance"
+      appliance_room: "Appliance"
       document: "Document"
       user: "User"
       address: "Address"
-      plot_resident: "Resident"
+      plot_residency: "Resident"
       contact: "Contact"
       faq: "FAQ"
+      brand: "Styling"
 
     attributes:
       developer:

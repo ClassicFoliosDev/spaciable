@@ -1,54 +1,62 @@
-<div class="section-actions">
-  <% if room %>
-    <%= link_to new_room_finish_room_path(room), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add_finish") %></span>
-    <% end %>
+<% if collection.empty? %>
+  <% if room.nil? %>
+    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room %>
   <% else %>
-    <%= link_to new_finish_path, class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".create") %></span>
-    <% end %>
+    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room %>
   <% end %>
-</div>
-
-<table class="record-list">
-  <thead>
-    <tr>
-      <th class="icon">&nbsp;</th>
-      <th><%= sortable(Finish, :name) %></th>
-      <th><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></th>
-      <th><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
-      <th><%= sortable({ Appliance => Manufacturer }, :name, t(".manufacturer")) %></th>
-      <th><%= sortable(Finish, :updated_at) %></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% collection.each do |finish| %>
-    <tr>
-      <td><%= image_tag finish.picture if finish.picture? %></td>
-      <td><%= link_to finish.name, finish_path(finish)%></td>
-      <td><%= finish.finish_category %></td>
-      <td><%= finish.finish_type %></td>
-      <td><%= finish.manufacturer %></td>
-      <td><%= l finish.updated_at.to_date, format: :digits %></td>
-      <td class="actions">
-        <%= edit_btn edit_finish_path(finish), element: finish %>
-        <% if room %>
-          <%= link_to remove_finish_path(room: room, finish: finish), class: "btn remove" do %>
-            <%= fa_icon "times" %>
-          <% end %>
-        <% else %>
-          <%= delete_btn finish, element: finish %>
-        <% end %>
-      </td>
-    </tr>
+<% else %>
+  <div class="section-actions">
+    <% if room %>
+      <%= link_to new_room_finish_room_path(room), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".create") %></span>
+      <% end %>
+    <% else %>
+      <%= link_to new_finish_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".create") %></span>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate collection %>
-</div>
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th class="icon">&nbsp;</th>
+        <th><%= sortable(Finish, :name) %></th>
+        <th><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></th>
+        <th><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
+        <th><%= sortable({ Appliance => Manufacturer }, :name, t(".manufacturer")) %></th>
+        <th><%= sortable(Finish, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |finish| %>
+        <tr>
+          <td><%= image_tag finish.picture if finish.picture? %></td>
+          <td><%= link_to finish.name, finish_path(finish)%></td>
+          <td><%= finish.finish_category %></td>
+          <td><%= finish.finish_type %></td>
+          <td><%= finish.manufacturer %></td>
+          <td><%= l finish.updated_at.to_date, format: :digits %></td>
+          <td class="actions">
+            <%= edit_btn edit_finish_path(finish) %>
+            <% if room %>
+              <%= link_to remove_finish_path(room: room, finish: finish), class: "btn remove" do %>
+                <%= fa_icon "times" %>
+              <% end %>
+            <% else %>
+              <%= delete_btn finish, element: finish %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

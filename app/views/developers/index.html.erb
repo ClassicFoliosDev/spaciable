@@ -6,39 +6,44 @@
   </h3>
 </div>
 
-<div class="section-actions">
-  <%= link_to new_developer_path, class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".add") %></span>
+<% if @developers.empty? %>
+  <%= render 'components/empty_list', icon_name: "building", type: Developer, parent: nil %>
+<% else %>
+  <% if can_create(Developer, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_developer_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
   <% end %>
-</div>
 
-<table class="record-list">
-  <thead>
-    <tr>
-      <th><%= sortable(Developer, :company_name) %></th>
-      <th><%= sortable(Developer, :updated_at) %></th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @developers.each do |developer| %>
-    <tr data-developer="<%= developer.id %>">
-      <td><%= link_to developer.company_name, developer_path(developer), active_tab: :divisions, title: developer.company_name %></td>
-      <td><%= l developer.updated_at.to_date, format: :digits %></td>
-      <td class="actions">
-        <%= link_to t(".divisions"), developer_divisions_path(developer), class: "btn" %>
-        <%= link_to t(".developments"), developer_developments_path(developer), class: "btn" %>
-        <%= edit_btn edit_developer_path(developer) %>
-        <%= delete_btn developer %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th><%= sortable(Developer, :company_name) %></th>
+        <th><%= sortable(Developer, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @developers.each do |developer| %>
+      <tr data-developer="<%= developer.id %>">
+        <td><%= link_to developer.company_name, developer_path(developer), active_tab: :divisions, title: developer.company_name %></td>
+        <td><%= l developer.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= link_to t(".divisions"), developer_divisions_path(developer), class: "btn" %>
+          <%= link_to t(".developments"), developer_developments_path(developer), class: "btn" %>
+          <%= edit_btn edit_developer_path(developer) %>
+          <%= delete_btn developer %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<div class="paging">
-  <%= render 'components/page_size' %>
-  <%= paginate @developers %>
-</div>
-
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate @developers %>
+  </div>
+<% end %>
