@@ -1,186 +1,147 @@
-$content-height: 480px;
-
-.accept {
-  position: absolute;
-  top: 160px;
+.carousel {
+  position: fixed;
+  top: 0;
+  height: 100%;
   width: 100%;
 }
 
-.accept-content {
-
+.invitation {
+  position: relative;
   background-color: $ui-light-grey;
-  width: 700px;
-  height: $content-height;
-  margin-left: auto;
-  margin-right: auto;
+  @include outer-container(1000px);
+  min-height: 1px;
+  margin-top: 160px;
 
-  .right-col {
-    float: right;
-    width: 45%;
+  .preamble {
+    @include span-columns(6 of 12);
+    padding: 40px;
+
+    .content {
+      @include span-columns(9 of 12);
+      @include shift(1.5 of 12);
+      margin-top: 100px;
+    }
+
+    .title {
+      @include row();
+
+      * {
+        font-style: italic;
+      }
+
+      h2 {
+        color: $primary-cta-color;
+      }
+
+      h3 {
+        color: $primary-red;
+        float: right;
+      }
+    }
+
+    li {
+      list-style-type: none;
+      font-weight: bold;
+      margin-left: $spacing-small;
+    }
+  }
+
+  .register {
+    @include span-columns(6 of 12);
     background-color: $primary-red;
+    padding: $spacing-large;
     color: $ui-white;
-    padding: $spacing-small;
-    height: $content-height;
 
-    // ERROR formatting: h2 and ul
-    h2, ul {
-      color: $ui-white;
-      font-size: $base-font-size;
-      margin-bottom: 0;
+    #error_explanation {
+      background-color: $ui-white;
+      border: 1px solid $primary-red;
+      border-radius: $border-radius;
+      padding: $spacing-small;
+      margin: $spacing-small 0 0;
+
+      h2, ul {
+        color: $primary-red;
+        font-size: $base-font-size;
+        margin: 0;
+      }
     }
 
-    .error {
-      color: $ui-white;
+    .logo {
+      display: block;
+      margin: 0 auto;
+      @include span-columns(8 of 12);
+      @include shift(2 of 12);
     }
-  }
 
-  .resident_password, .resident_password_confirmation {
-    width: 80%;
-    margin: $spacing-medium auto;
-    input {
-      background-color: $faded-red;
-      border-color: $faded-red;
-      color: $ui-white;
+    form {
+      @include span-columns(8 of 12);
+      @include shift(2 of 12);
+
+      input {
+        background-color: $faded-red;
+        border-color: $primary-red;
+      }
+
+      input[type="submit"] {
+        @include span-columns(4 of 12);
+        @include shift(4 of 12);
+        color: $primary-red;
+        background-color: $ui-white;
+        font-weight: bold;
+        padding: 4px;
+      }
+
+      p {
+        color: $ui-white;
+      }
+
+      a {
+        color: $ui-white;
+        text-decoration: underline;
+      }
     }
-  }
-
-  input[type="submit"] {
-    width: 140px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    color: $primary-red;
-    border-color: $primary-red;
-    font-weight: bold;
-  }
-
-  a {
-    color: $ui-white;
-  }
-
-  .information {
-    font-size: $base-small-font-size;
-    margin-top: $spacing-medium;
-  }
-
-  .copyright {
-    margin-top: $spacing-medium;
   }
 }
 
-.carousel {
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-}
+@include media($tablet-landscape-down) {
+  .invitation {
+    margin: 160px 40px;
 
-.preamble {
-  width: 55%;
-
-  .accept-content {
-    width: 800px;
-    height: 600px;
-    background-color: $ui-light-grey;
-    margin: 100px auto;
-  }
-
-  .right-col {
-    float: right;
-    width: 45%;
-    background-color: $primary-red;
-    color: $ui-white;
-    padding: $spacing-small;
-    height: $content-height;
-
-    // ERROR formatting: h2 and ul
-    h2, ul {
-      color: $ui-white;
-      font-size: $base-font-size;
-      margin-bottom: 0;
+    .preamble .content {
+      @include span-columns(11 of 12);
+      @include shift(0.5 of 12);
+      margin-top: 60px;
     }
 
-    .error {
-      color: $ui-white;
+    .register .logo,
+    .register form {
+      @include span-columns(11 of 12);
+      @include shift(0.5 of 12);
     }
-  }
 
-  .resident_password, .resident_password_confirmation {
-    width: 80%;
-    margin: $spacing-medium auto;
-    input {
-      background-color: $faded-red;
-      border-color: $faded-red;
-      color: $ui-white;
+    .register form {
+      input[type="submit"] {
+        @include span-columns(8 of 12);
+        @include shift(2 of 12);
+      }
     }
-  }
-
-  input[type="submit"] {
-    width: 140px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    color: $primary-red;
-    border-color: $primary-red;
-    font-weight: bold;
-  }
-
-  a {
-    color: $ui-white;
-  }
-
-  .information {
-    font-size: $base-small-font-size;
-    margin-top: $spacing-medium;
-  }
-
-  .copyright {
-    margin-top: $spacing-medium;
-  }
-}
-
-.carousel {
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-}
-
-.preamble {
-  width: 55%;
-  padding: $spacing-small 40px;
-
-  h2 {
-    color: $primary-cta-color;
-    font-style: italic;
-    margin-bottom: $spacing-small;
-    margin-top: $spacing-large;
-  }
-
-  h3 {
-    color: $primary-red;
-    font-style: italic;
-    float: right;
-  }
-
-  h4 {
-    margin-top: 60px;
-    font-size: $base-font-size;
-  }
-
-  li {
-    margin-top: $spacing-small;
   }
 }
 
 @include media($tablet-portrait-down) {
-  .preamble {
-    display: none;
-  }
+  .invitation {
+    margin-top: 40px;
 
-  .accept-content {
-    width: 315px;
+    .preamble {
+      @include span-columns(12 of 12);
 
-    .right-col {
-      width: 100%;
+      .content {
+        margin-top: 0;
+      }
+    }
+
+    .register {
+      @include span-columns(12 of 12);
     }
   }
 }
