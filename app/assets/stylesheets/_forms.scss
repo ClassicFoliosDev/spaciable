@@ -90,6 +90,7 @@ label {
     border-color: $input-border-color-active !important;
     border-radius: 0 0 $border-radius $border-radius !important;
     max-height: 300px;
+    word-wrap: break-word;
   }
 
   .ui-menu-item {
@@ -271,16 +272,11 @@ fieldset {
   }
 }
 
-input[type="text"].readonly {
-  border-style: none;
-  color: $type-grey;
-}
-
 .readonly {
   color: $type-grey;
 
   input {
-    border-style: none;
+    border-style: none !important;
     color: $type-grey;
   }
 }
