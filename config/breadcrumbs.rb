@@ -188,6 +188,8 @@ crumb :document do |document|
       parent :division, document.parent
     when :development
       parent :development, document.parent
+    when :plot
+      parent :plot, document.parent
   end
 end
 

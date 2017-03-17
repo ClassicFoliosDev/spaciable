@@ -1,5 +1,4 @@
 .empty {
-  margin-top: $spacing-medium;
   width: 100%;
   float: left;
   text-align: center;
@@ -15,4 +14,12 @@
     color: $ui-dark-grey;
     font-size: 32px;
   }
+}
+
+.lower {
+  margin-top: $spacing-medium;
+}
+
+.panel {
+  background-color: $ui-white;
 }

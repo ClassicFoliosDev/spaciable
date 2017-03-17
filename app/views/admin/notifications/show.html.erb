@@ -9,27 +9,22 @@
 
 <div class="row">
   <div class="row-item third">
-    <fieldset>
-      <%= label_tag(t(".sent_to")) %>
-      <%= @notification.send_to %>
-
-      <label>Plot numbers:</label>
-      <% if @notification.plot_numbers.any? %>
-        <%= @notification.plot_numbers.to_sentence %>
-      <% else %>
-          All
-      <% end %>
-    </fieldset>
+    <%= label_tag(t(".sent_to")) %>
+    <%= @notification.send_to %>
+    <label>Plot numbers:</label>
+    <% if @notification.plot_numbers.any? %>
+      <%= @notification.plot_numbers.to_sentence %>
+    <% else %>
+      <%= t(".all") %>
+    <% end %>
   </div>
   <div class="row-item two-thirds">
-    <fieldset>
-      <%= label_tag(Notification.human_attribute_name(:subject)) %>
-      <%= @notification.subject %>
-      <br>
-      <br>
-      <%= label_tag(Notification.human_attribute_name(:message)) %>
-      <%= simple_format @notification.message %>
-    </fieldset>
+    <%= label_tag(Notification.human_attribute_name(:subject)) %>
+    <%= @notification.subject %>
+    <br>
+    <br>
+    <%= label_tag(Notification.human_attribute_name(:message)) %>
+    <%= simple_format @notification.message %>
   </div>
 </div>
 

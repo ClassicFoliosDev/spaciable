@@ -172,6 +172,7 @@ en:
     notifications:
       collection:
         add: "Send Notification"
+        sent_to: "Sent to %{sendees}"
         headers:
           subject: "Notification"
           sent_at: "Date Sent"
@@ -193,14 +194,13 @@ en:
         range_label: "Add Plots by range"
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
-
       index:
         title: "Notifications"
       new:
         title: "Send Notification"
       show:
-        sent_to: "Sent to"
         back: "Back"
+        all: "All"
 
     users:
       create:
@@ -231,6 +231,12 @@ en:
         role_at: "%{role} at %{permission_level_name}"
       update:
         success: "%{user_email} was updated successfully"
+    dashboard:
+      components:
+        no_recent:
+          no_recent: "There are no recent %{type_names}"
+        recent_notifications:
+          send: "Send Notification"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
@@ -884,6 +890,7 @@ en:
       contact: "Contact"
       faq: "FAQ"
       brand: "Styling"
+      notification: "Notification"
 
     attributes:
       developer:

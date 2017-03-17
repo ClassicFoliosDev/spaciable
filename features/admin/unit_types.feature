@@ -19,3 +19,20 @@ Feature: UnitTypes
     And I have created a unit type
     When I delete the unit type
     Then I should see the deletion complete successfully
+
+  Scenario: Developer Admin
+    Given I am a Developer Admin
+    And there is a development
+    When I navigate to the development
+    Then I should not be able to create a unit type
+
+  Scenario: Division Admin
+    Given I am a Division Admin
+    And there is a division development
+    When I navigate to the division development
+    Then I should not be able to create a unit type
+
+  Scenario: Development Admin
+    Given I am a Development Admin
+    When I navigate to the development
+    Then I should not be able to create a unit type

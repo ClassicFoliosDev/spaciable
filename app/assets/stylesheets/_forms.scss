@@ -53,10 +53,9 @@ label {
   display: block;
   font-size: $label-font-size;
   font-weight: $label-font-weight;
-  margin-top: $label-margin;
+  margin-top: $label-margin * 2;
   margin-bottom: $label-margin/2;
 }
-
 
 // SELECTS
 
@@ -164,7 +163,6 @@ fieldset {
   margin-left: auto;
   margin-right: auto;
   display: block;
-
 }
 
 .image_preview {
@@ -186,7 +184,7 @@ fieldset {
   color: $type-grey;
   font-size: $base-font-size;
   float: right;
-  padding-left: 15px;
+  padding-left: 12px;
   padding-top: 6px;
   width: 100%;
 

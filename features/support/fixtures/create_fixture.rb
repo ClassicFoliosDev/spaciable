@@ -155,6 +155,14 @@ module CreateFixture
     FactoryGirl.create(:appliance, name: appliance_name, appliance_category: appliance_category, manufacturer: manufacturer, e_rating: energy_rating)
   end
 
+  def create_notification
+    FactoryGirl.create(:notification)
+  end
+
+  def create_faq
+    FactoryGirl.create(:faq, developer: developer, faqable: developer)
+  end
+
   def create_appliance_without_manual
     FactoryGirl.create(
       :appliance,
@@ -223,6 +231,10 @@ module CreateFixture
     FactoryGirl.create(:contact, contactable: developer, category: "management")
     FactoryGirl.create(:contact, contactable: division, category: "customer_care")
     FactoryGirl.create(:contact, contactable: division_development, category: "management")
+  end
+
+  def create_document
+    FactoryGirl.create(:document, developer: developer, documentable: developer)
   end
 
   def create_resident_under_a_phase_plot_with_appliances_and_rooms

@@ -16,6 +16,14 @@ Given(/^there is a division phase$/) do
   CreateFixture.create_division_development_phase
 end
 
+Given(/^there is a development$/) do
+  CreateFixture.create_development
+end
+
+Given(/^there is a division development$/) do
+  CreateFixture.create_division_development
+end
+
 Given(/^there is a unit type$/) do
   CreateFixture.create_developer_with_development
   CreateFixture.create_unit_type
@@ -44,6 +52,18 @@ end
 
 Given(/^there are contacts$/) do
   CreateFixture.create_contacts
+end
+
+Given(/^there are documents$/) do
+  CreateFixture.create_document
+end
+
+Given(/^there are faqs$/) do
+  CreateFixture.create_faq
+end
+
+Given(/^there are notifications$/) do
+  CreateFixture.create_notification
 end
 
 Given(/^I have seeded the database$/) do

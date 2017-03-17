@@ -9,20 +9,14 @@
 
 <div class="row">
   <div class="row-item two-thirds">
-    <fieldset>
-      <%= label_tag(PlotResidency.human_attribute_name(:resident)) %>
-      <%= @plot_residency %>
-      <br>
-      <br>
-      <%= label_tag(PlotResidency.human_attribute_name(:email)) %>
-      <%= @plot_residency.email %>
-    </fieldset>
+    <%= label_tag(PlotResidency.human_attribute_name(:resident)) %>
+    <%= @plot_residency %>
+    <%= label_tag(PlotResidency.human_attribute_name(:email)) %>
+    <%= @plot_residency.email %>
   </div>
   <div class="row-item third">
-    <fieldset>
-      <%= label_tag(PlotResidency.human_attribute_name(:completion_date)) %>
-      <%= l(@plot_residency.completion_date) if @plot_residency.completion_date? %>
-    </fieldset>
+    <%= label_tag(PlotResidency.human_attribute_name(:completion_date)) %>
+    <%= l(@plot_residency.completion_date) if @plot_residency.completion_date? %>
   </div>
 </div>
 

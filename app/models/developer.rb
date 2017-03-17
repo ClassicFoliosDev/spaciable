@@ -5,7 +5,7 @@ class Developer < ApplicationRecord
   has_many :divisions, dependent: :destroy
   has_many :developments, dependent: :destroy
 
-  has_many :documents, dependent: :destroy
+  has_many :documents, as: :documentable, dependent: :destroy
   has_many :faqs, as: :faqable
   has_many :finishes, dependent: :destroy
   has_many :phases, dependent: :destroy
