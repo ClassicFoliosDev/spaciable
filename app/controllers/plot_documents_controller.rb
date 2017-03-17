@@ -17,16 +17,16 @@ class PlotDocumentsController < ApplicationController
   end
 
   def bulk_upload
-    plots = @parent.plots.map { |plot| [plot.to_s.downcase.strip, plot] }
-    files = plot_document_params[:files].map do |file|
-      [file.original_filename.downcase.strip, file]
+    if plot_document_params[:files].nil?
+      alert = t(".files_required")
+      redirect_to [@parent, :plot_documents], alert: alert && return
     end
 
     matched, unmatched = BulkUploadPlotDocumentsService
-                         .call(files, plots, plot_document_params[:category])
+                         .call(@parent.plots, plot_document_params)
 
-    notice = "Uploaded #{matched.count} Plot Documents Successfully." if matched.any?
-    alert = "Failed to find plots for: #{unmatched.to_sentence}." if unmatched.any?
+    notice = t(".success", matched: matched.count) if matched.any?
+    alert = t(".failure", unmatched: unmatched.to_sentence) if unmatched.any?
 
     redirect_to [@parent, :plot_documents], alert: alert, notice: notice
   end

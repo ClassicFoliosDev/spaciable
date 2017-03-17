@@ -647,6 +647,10 @@ en:
   plot_documents:
     form:
       add: "Upload"
+    bulk_upload:
+      files_required: "You must select files to upload"
+      success: "Uploaded %{matched} Plot Documents successfully"
+      failure: "Failed to find plots matching filename(s): %{unmatched}"
 
   unit_types:
     destroy:

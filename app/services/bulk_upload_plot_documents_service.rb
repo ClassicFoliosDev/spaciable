@@ -2,7 +2,14 @@
 module BulkUploadPlotDocumentsService
   module_function
 
-  def call(files, plots, category)
+  def call(parent_plots, plot_document_params)
+    category = plot_document_params[:category]
+    raw_files = plot_document_params[:files]
+    plots = parent_plots.map { |plot| [plot.to_s.downcase.strip, plot] }
+    files = raw_files.map do |file|
+      [file.original_filename.downcase.strip, file]
+    end
+
     matches, unmatched = find_matches(files, plots)
     saved, _errors = save_matches(matches, category)
 
