@@ -42,9 +42,9 @@ $navbar-bg-color-mobile: $ui-white;
 
   .navbar-menu {
 
-    @include media($tablet-landscape-down) { 
+    @include media($tablet-landscape-down) {
       max-height: 0;
-      overflow: hidden; 
+      overflow: hidden;
       @include transition(max-height 0.2s ease-in-out);
 
     }
