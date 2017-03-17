@@ -8,7 +8,8 @@ RSpec.describe Brand do
                                   text_color: "33ff55",
                                   content_bg_color: "#77EE33",
                                   content_text_color: "FFF",
-                                  button_color: "#000")
+                                  button_color: "#000",
+                                  header_color: "890")
       brand.validate
 
       expect(brand.errors).to be_empty

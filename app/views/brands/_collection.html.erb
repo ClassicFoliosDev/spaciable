@@ -5,15 +5,16 @@
     <thead>
       <tr>
         <th class="icon">&nbsp;</th>
-        <th><%= sortable(Brand, :brandable, t(".name")) %></th>
-        <th><%= sortable(Brand, :updated_at) %></th>
+        <th colspan="3"><%= sortable(Brand, :brandable, t(".name")) %></th>
+        <th colspan="2"><%= sortable(Brand, :updated_at) %></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><%= image_tag brand.logo, class: "circle" if brand.logo? %></td>
-        <td><%= link_to brand, [brand.brandable, :brand] %></td>
-        <td><%= l brand.updated_at.to_date, format: :digits %></td>
+        <td colspan="3"><%= link_to brand, [brand.brandable, :brand] %></td>
+        <td colspan="2"><%= l brand.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= edit_btn [:edit, brand.brandable, :brand] %>
           <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>

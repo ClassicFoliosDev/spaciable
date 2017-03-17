@@ -50,12 +50,17 @@ When(/^I update the brand$/) do
 
   fill_in "brand[bg_color]", with: BrandFixture.bg_color
   fill_in "brand[button_text_color]", with: BrandFixture.button_text_color
+  fill_in "brand[header_color]", with: BrandFixture.header_color
 end
 
 Then(/^I should be able to preview the brand$/) do
   within ".preview-container" do
     click_on t("brands.form.preview")
   end
+
+  # Header background color has been customised
+  header = page.find(".header")
+  expect(header[:style]).to have_content("background-color: rgb(137, 0, 51)")
 
   # Logo has been customised, expect it to have the customised alt tag
   within ".header" do
@@ -118,6 +123,7 @@ Then(/^I should see the updated (\w+) brand$/) do |parent_type|
 
     expect(spans[0]["title"]).to have_content(BrandFixture.bg_color)
     expect(spans[5]["title"]).to have_content(BrandFixture.button_text_color)
+    expect(spans[6]["title"]).to have_content(BrandFixture.header_color)
   end
 
   within ".brand" do
@@ -247,6 +253,7 @@ When(/^I create a development brand$/) do
   click_on CreateFixture.developer_name
   click_on t("developers.collection.developments")
 
+  sleep 0.2
   click_on CreateFixture.development_name
   click_on t("developers.collection.brands")
 

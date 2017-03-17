@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170315152430) do
+ActiveRecord::Schema.define(version: 20170317110225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170315152430) do
     t.datetime "updated_at",         null: false
     t.string   "brandable_type"
     t.integer  "brandable_id"
+    t.string   "header_color"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 

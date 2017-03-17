@@ -15,7 +15,8 @@ Given(/^I have configured branding$/) do
   FactoryGirl.create(:brand, brandable: CreateFixture.division,
                              bg_color: "#000222",
                              content_bg_color: "#000222",
-                             button_text_color: "#000222")
+                             button_text_color: "#000222",
+                             header_color: "#222000")
   FactoryGirl.create(:brand, brandable: CreateFixture.division_development,
                              content_text_color: "#446677",
                              button_color: "#776644",
@@ -36,6 +37,8 @@ end
 Then(/^I should see the branding for my page$/) do
   style = find("head [data-test='brand-style-overrides']", visible: false)
 
+  # header-color set on division only
+  expect(style.native).to have_content("branded-header { background-color: #222000")
   # bg-color set on developer and division: should be the division color
   expect(style.native).to have_content("branded-body { background-color: #000222")
   # text-color set on developer only

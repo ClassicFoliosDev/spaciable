@@ -41,6 +41,10 @@ class Brand < ApplicationRecord
     branded_param(:button_text_color)
   end
 
+  def branded_header_color
+    branded_param(:header_color)
+  end
+
   def to_s
     I18n.t("activerecord.attributes.brand.for", name: brandable)
   end

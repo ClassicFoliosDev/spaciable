@@ -49,6 +49,10 @@
           <%= label_tag t("activerecord.attributes.brand.button_text_color") %><%= branded_color_preview(brand.button_text_color) if brand.button_text_color? %>
           <%= f.input :button_text_color, label: false %>
         </div>
+        <div class="header_color">
+          <%= label_tag t("activerecord.attributes.brand.header_color") %><%= branded_color_preview(brand.header_color) if brand.header_color? %>
+          <%= f.input :header_color, label: false %>
+        </div>
       </fieldset>
     </div>
   </div>

@@ -9,4 +9,8 @@ module BrandFixture
   def button_text_color
     "#556a41"
   end
+
+  def header_color
+    "890033"
+  end
 end

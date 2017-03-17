@@ -11,6 +11,7 @@ $(document).on('click', '.preview', function (event) {
   brandColors[3] = "#EAEAEA"; // content box border color
   brandColors[4] = "#18A895"; // button color
   brandColors[5] = "#FFFFFF"; // button text color
+  brandColors[6] = "#394F5F"; // header color
 
   var logoAlt =  "<%= I18n.t("activerecord.attributes.brand.logo") %>"
   var bannerAlt =  "<%= I18n.t("activerecord.attributes.brand.banner") %>"
@@ -45,7 +46,7 @@ $(document).on('click', '.preview', function (event) {
   }
 
   var formColors = $(document).find(".form-colors").children();
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 7; i++) {
     var color =  $(formColors[i]).find("input")[0].value
     if (color) {
       brandColors[i] = color
@@ -56,7 +57,11 @@ $(document).on('click', '.preview', function (event) {
   // HEADER
   var headerDiv = document.createElement("div");
   headerDiv.className = "header";
-  $(headerDiv).css({"height": "50px"});
+  $(headerDiv).css({
+      "height": "50px",
+      "background-color": brandColors[6],
+      "padding": "5px"
+  });
 
   // LOGO
   var logoImage = document.createElement("img");

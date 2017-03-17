@@ -3,7 +3,6 @@ $homeowner-margin: 12px;
 
 .homeowner-view {
   .session {
-    background-color: $secondary-blue;
 
     .session-inner {
       @include outer-container(90%);

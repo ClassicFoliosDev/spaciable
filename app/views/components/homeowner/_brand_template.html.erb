@@ -6,6 +6,12 @@
     }
   <% end %>
 
+  <% if brand.branded_header_color.present? %>
+  .branded-header {
+    background-color: <%= brand.branded_header_color %>;
+  }
+  <% end %>
+
   <% if brand.branded_text_color.present? %>
    .branded-text {
       color: <%= brand.branded_text_color %>;

@@ -1065,6 +1065,7 @@ en:
         content_text_color: "Content box outline colour"
         button_color: "Button colour"
         button_text_color: "Button text colour"
+        header_color: "Header colour"
       resident:
         titles:
           mr: "Mr"
