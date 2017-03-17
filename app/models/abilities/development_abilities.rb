@@ -8,14 +8,13 @@ module Abilities
       development_faqs(development, division_id, developer_id)
       development_contacts(development, division_id, developer_id)
       development_documents(development, division_id, developer_id)
-      crud_developments(development)
+      crud_residents(development)
       read_developments(developer_id, division_id, development)
     end
 
     private
 
-    def crud_developments(development)
-      can :crud, Plot, development_id: development
+    def crud_residents(development)
       can :crud, PlotResidency, plot: { development_id: development }
       cannot :create, PlotResidency do |residency|
         residency.plot.reload.resident.present?
@@ -29,6 +28,7 @@ module Abilities
       can :read, Development, id: development
       can :read, Phase, development_id: development
       can :read, Room, development_id: development
+      can :read, Plot, development_id: development
 
       unit_type_ids = UnitType.where(development: development).lazy.pluck(:id)
       can :read, UnitType, id: unit_type_ids

@@ -464,3 +464,18 @@ Then(/^I should see the updated document for the phase plot$/) do
     expect(page).not_to have_content(t("activerecord.attributes.document.categories.my_home"))
   end
 end
+
+When(/^I navigate to the plot$/) do
+  goto_development_show_page
+
+  within ".actions" do
+    click_on t("developments.collection.plots")
+  end
+end
+
+Then(/^I should not see the bulk uploads tab$/) do
+  within ".tabs" do
+    expect(page).not_to have_content(t("developments.collection.plot_documents"))
+    expect(page).to have_content(t("developments.collection.documents"))
+  end
+end

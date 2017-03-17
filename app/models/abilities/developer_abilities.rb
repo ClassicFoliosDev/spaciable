@@ -10,7 +10,6 @@ module Abilities
       developer_faqs(developer)
       developer_contacts(developer)
       developer_documents(developer)
-      crud_developers(developer)
       read_developers(developer)
     end
 
@@ -47,18 +46,11 @@ module Abilities
       end
     end
 
-    def crud_developers(developer_id)
-      can :crud, Plot, developer_id: developer_id
-    end
-
     def read_developers(developer_id)
       can :read, Developer, id: developer_id
       can :read, Development, developer_id: developer_id
       can :read, Development, developer_id: developer_id
       can :read, Division, developer_id: developer_id
-      can :read, Phase, developer_id: developer_id
-      can :read, Room, developer_id: developer_id
-      can :read, UnitType, developer_id: developer_id
     end
   end
 end

@@ -85,6 +85,7 @@ Feature: Documents
 
   Scenario: Plot
     Given I am logged in as an admin
+    And there is a developer with a development
     And there is a plot
     When I upload a document for the plot
     Then I should see the created document
@@ -116,3 +117,9 @@ Feature: Documents
     Then I should see the document in the developer document list
     When I delete the document
     Then I should see that the deletion was successful for the developer document
+
+  Scenario: Plot documents
+    Given I am logged in as a Developer Admin
+    And there is a plot
+    When I navigate to the plot
+    Then I should not see the bulk uploads tab

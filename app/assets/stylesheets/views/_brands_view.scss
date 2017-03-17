@@ -13,8 +13,8 @@ $darker-grey: #7a8585;
   display: inline-block;
   border-width: 2px;
   float: left;
-  margin-right: $spacing-medium;
-  margin-top: -$spacing-medium;
+  margin-right: $spacing-small;
+  margin-top: 4px;
   border-color: $darker-grey;
   background-color: $ui-light-grey;
 }
@@ -58,7 +58,16 @@ $darker-grey: #7a8585;
 }
 
 .form-colors {
-  span {
+  input {
+    width: 80%;
+  }
+
+  .color-circle {
     float: right;
+    margin-right: 0;
+  }
+
+  span {
+    margin-top: $spacing-small / 2;
   }
 }

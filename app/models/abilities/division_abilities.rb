@@ -8,23 +8,15 @@ module Abilities
       division_faqs(division, developer_id)
       division_contacts(division, developer_id)
       division_documents(division, developer_id)
-      crud_divisions(division)
       read_divisions(developer_id, division)
     end
 
     private
 
-    def crud_divisions(division)
-      can :crud, Plot, division_id: division
-    end
-
     def read_divisions(developer_id, division)
       can :read, Developer, id: developer_id
       can :read, Development, division_id: division
       can :read, Division, id: division
-      can :read, Phase, division_id: division
-      can :read, Room, division_id: division
-      can :read, UnitType, division_id: division
     end
 
     def division_notifications(division, developer)
