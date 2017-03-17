@@ -157,11 +157,23 @@ end
 
 Then(/^I can see the notification I sent to all residents$/) do
   subject = ResidentNotificationsFixture::MESSAGES.dig(:all, :subject)
+  contents = ResidentNotificationsFixture::MESSAGES.dig(:all, :message)
 
   within ".record-list" do
     expect(page).to have_content(subject)
     expect(page).to have_content("All")
   end
+
+  within ".actions" do
+    find("[data-action='view']").click
+  end
+
+  sleep 0.2
+  expect(page).to have_content(subject)
+  expect(page).to have_content("All")
+  expect(page).to have_content(contents)
+
+  click_on t("admin.notifications.show.back")
 end
 
 Then(/^all residents under (my|that) (\(\w+\) )?(\w+) should receive a notification$/) do |_, parent, resource_class|

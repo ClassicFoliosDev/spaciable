@@ -202,6 +202,8 @@ en:
       show:
         back: "Back"
         all: "All"
+        sent_to: "Sent to"
+        numbers: "Plot numbers"
 
     users:
       create:
@@ -577,7 +579,6 @@ en:
         back: "Back"
       new:
         add: "Add %{parent_name} room"
-
 
     bulk:
       succeeded:
