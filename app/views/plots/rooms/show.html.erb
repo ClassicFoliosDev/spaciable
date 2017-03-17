@@ -7,12 +7,16 @@
 
   <div class="section-data">
     <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
-    <%= edit_btn [:edit, @plot, @room] %>
+    <%= edit_btn [:edit, @plot, @room], element: @room %>
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: room_tabs(@room, "rooms") %>
+<%= render 'components/tabs', tabs: room_tabs(@room, @active_tab) %>
 
 <%= render_collection @collection, room: @room %>
 
-<%= link_to t(".back"), [@plot, :rooms], class: "btn" %>
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), [@plot, :rooms], class: "btn" %>
+  </div>
+</div>

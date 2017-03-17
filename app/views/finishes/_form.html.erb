@@ -30,7 +30,7 @@
             <%= f.association :finish_type %>
           </div>
           <div class="manufacturer ui-front select-container">
-            <%= f.association :manufacturer %>
+            <%= f.association :manufacturer, collection: Manufacturer.for_finishes %>
           </div>
         </fieldset>
       </div>

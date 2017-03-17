@@ -11,11 +11,13 @@ module RoomTabsHelper
     {
       finishes: {
         icon: :building,
-        link: [room.parent, room, active_tab: :finishes]
+        link: [room.parent, room, active_tab: :finishes],
+        always_show: true
       },
       appliances: {
         icon: :building,
-        link: [room.parent, room, active_tab: :appliances]
+        link: [room.parent, room, active_tab: :appliances],
+        always_show: true
       }
     }
   end

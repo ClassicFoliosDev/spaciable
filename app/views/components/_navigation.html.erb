@@ -6,16 +6,25 @@
   <nav class="navbar-menu">
     <% if current_user %>
       <%= navigation_link(admin_dashboard_path, "tachometer", t(".dashboard"), "navbar-link") %>
-        <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
-        <%= navigation_link(developers_path, "building", t(".developers"), "navbar-link") %>
+      <% unless current_user.cf_admin? %>
+        <%= navigation_link(my_admin_area_url(current_user.permission_level), "building", t(".my_area", area: current_user.permission_level.model_name), "navbar-link") %>
+      <% end %>
 
+      <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
+      <%= navigation_link(developers_path, "building", t(".developers"), "navbar-link") %>
+
+      <% if can? :crud, Finish %>
         <%= navigation_link(finishes_path, "shower", t(".finishes"), "navbar-link") %>
+      <% end %>
+
+      <% if can? :crud, Appliance %>
         <%= navigation_link(appliances_path, "coffee", t(".appliances"), "navbar-link") %>
+      <% end %>
 
-        <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
-        <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
+      <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
+      <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
 
-        <div class="navbar-item">
+      <div class="navbar-item">
         <%= link_to destroy_user_session_path, method: :delete, class: "navbar-link" do %>
           <%= fa_icon "sign-out" %>
           <%= t(".log_out") %>

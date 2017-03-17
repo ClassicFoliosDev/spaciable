@@ -15,7 +15,6 @@ module Abilities
     private
 
     def crud_divisions(division)
-      can :crud, Finish, division_id: division
       can :crud, Plot, division_id: division
     end
 
@@ -57,9 +56,9 @@ module Abilities
 
         actions :manage do
           type "Division", id: division
-          type "UnitType", id: UnitType.where(division_id: division).pluck(:id)
-          type "Phase", id: Phase.where(division_id: division).pluck(:id)
-          type "Plot", id: Plot.where(division_id: division).pluck(:id)
+          type "UnitType", id: UnitType.where(division_id: division).lazy.pluck(:id)
+          type "Phase", id: Phase.where(division_id: division).lazy.pluck(:id)
+          type "Plot", id: Plot.where(division_id: division).lazy.pluck(:id)
         end
       end
     end

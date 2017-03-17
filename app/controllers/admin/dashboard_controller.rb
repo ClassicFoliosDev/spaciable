@@ -3,26 +3,41 @@ module Admin
   class DashboardController < ApplicationController
     skip_authorization_check
 
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Style/MethodLength
     def show
+      @notifications = notifications_scope.order(updated_at: :desc).limit(5)
+      @documents = documents_scope.order(updated_at: :desc).limit(5)
+      @faqs = faqs_scope.order(updated_at: :desc).limit(5)
+    end
+
+    private
+
+    def notifications_scope
       if current_user.cf_admin?
-        @notifications = Notification.all
-                                     .includes(:sender, :send_to)
-                                     .order(updated_at: :desc).limit(5)
-        @documents = Document.all.order(updated_at: :desc).limit(5)
-        @faqs = Faq.all.order(updated_at: :desc).limit(5)
+        Notification.all.includes(:sender, :send_to)
       else
-        @notifications = Notification.where(sender_id: current_user.permission_level_id)
-                                     .includes(:sender, :send_to)
-                                     .order(updated_at: :desc).limit(5)
-        @documents = Document.where(documentable_id: current_user.permission_level_id)
-                             .order(updated_at: :desc).limit(5)
-        @faqs = Faq.where(faqable_id: current_user.permission_level_id)
-                   .order(updated_at: :desc).limit(5)
+        Notification.accessible_by(current_ability)
+                    .where(sender_id: current_user.id).includes(:sender, :send_to)
       end
     end
-    # rubocop:enable Style/MethodLength
-    # rubocop:enable Metrics/AbcSize
+
+    def documents_scope
+      if current_user.cf_admin?
+        Document.all
+      else
+        Document.accessible_by(current_ability)
+                .where(documentable_id: current_user.permission_level_id,
+                       documentable_type: current_user.permission_level_type)
+      end
+    end
+
+    def faqs_scope
+      if current_user.cf_admin?
+        @faqs = Faq.all
+      else
+        @faqs = Faq.accessible_by(current_ability)
+                   .where(faqable_id: current_user.permission_level_id,
+                          faqable_type: current_user.permission_level_type)
+      end
+    end
   end
 end

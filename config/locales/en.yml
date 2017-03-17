@@ -145,6 +145,7 @@ en:
           home: "Home"
     navigation:
       dashboard: "Dashboard"
+      my_area: "My %{area}"
       log_out: "Log out"
       developers: "Developers"
       documents: "Documents"
@@ -172,7 +173,7 @@ en:
     notifications:
       collection:
         add: "Send Notification"
-        sent_to: "Sent to %{sendees}"
+        sent_to_html: "<strong>Sent to:</strong> %{sendees}"
         headers:
           subject: "Notification"
           sent_at: "Date Sent"

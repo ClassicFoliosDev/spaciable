@@ -25,7 +25,7 @@
         <td><%= l room.updated_at.to_date, format: :digits %></td>
         <td>
           <%= edit_btn url_for([:edit, parent, room]), element: room %>
-          <%= delete_btn room, path: url_for([parent, room]) %>
+          <%= delete_btn room, path: url_for([parent, room]), element: room %>
         </td>
       </tr>
       <% end %>

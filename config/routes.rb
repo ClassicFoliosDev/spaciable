@@ -120,8 +120,6 @@ Rails.application.routes.draw do
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
   end
 
-  get "/admin/dashboard", to: 'admin/dashboard#show', as: :admin_dashboard
-  get "/dashboard", to: 'homeowners/dashboard#show', as: :homeowner_dashboard
   get "/ts_and_cs", to: 'homeowners/dashboard#ts_and_cs'
   get "/data_policy", to: 'homeowners/dashboard#data_policy'
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
@@ -134,11 +132,11 @@ Rails.application.routes.draw do
   get "/finish_types", to: 'finishes#finish_types', format: :json
 
   authenticated :user do
-    root "admin/dashboard#show", as: :authenticated_admin
+    root "admin/dashboard#show", as: :admin_dashboard
   end
 
   authenticated :resident do
-    root "homeowners/dashboard#show", as: :authenticated_resident
+    root "homeowners/dashboard#show", as: :homeowner_dashboard
   end
 
   devise_scope :resident do

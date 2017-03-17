@@ -140,7 +140,7 @@ Then(/^I can see the (\(\w+\) )?(\w+) notification I sent to the resident$/) do 
   within ".record-list" do
     expect(page).to have_content(subject)
     sendees = "#{plot.send(parent_method)} (Plot #{plot})"
-    expect(page).to have_content(t("admin.notifications.collection.sent_to", sendees: sendees))
+    expect(page).to have_content(sendees)
   end
 end
 
@@ -151,7 +151,7 @@ Then(/^I can see the (\(\w+\) )?(\w+) notification I sent$/) do |parent, resourc
 
   within ".record-list" do
     expect(page).to have_content(subject)
-    expect(page).to have_content(t("admin.notifications.collection.sent_to", sendees: instance))
+    expect(page).to have_content(instance)
   end
 end
 
@@ -160,7 +160,7 @@ Then(/^I can see the notification I sent to all residents$/) do
 
   within ".record-list" do
     expect(page).to have_content(subject)
-    expect(page).to have_content(t("admin.notifications.collection.sent_to", sendees: "All"))
+    expect(page).to have_content("All")
   end
 end
 

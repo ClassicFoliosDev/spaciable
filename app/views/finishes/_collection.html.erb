@@ -41,8 +41,8 @@
           <td><%= finish.manufacturer %></td>
           <td><%= l finish.updated_at.to_date, format: :digits %></td>
           <td class="actions">
-            <%= edit_btn edit_finish_path(finish) %>
-            <% if room %>
+            <%= edit_btn edit_finish_path(finish), element: finish %>
+            <% if room && can?(:destroy, finish) %>
               <%= link_to remove_finish_path(room: room, finish: finish), class: "btn remove" do %>
                 <%= fa_icon "times" %>
               <% end %>

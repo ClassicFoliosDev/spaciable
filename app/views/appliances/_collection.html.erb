@@ -42,13 +42,13 @@
           <td><%= appliance.manufacturer %></td>
           <td><%= l appliance.updated_at.to_date, format: :digits %></td>
           <td class="actions">
-            <%= edit_btn edit_appliance_path(appliance) %>
-            <% if room %>
+            <%= edit_btn edit_appliance_path(appliance), element: appliance %>
+            <% if room && can?(:destroy, appliance) %>
               <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
                 <%= fa_icon "times" %>
               <% end %>
             <% else %>
-              <%= delete_btn appliance %>
+              <%= delete_btn appliance, element: appliance %>
             <% end %>
           </td>
         </tr>

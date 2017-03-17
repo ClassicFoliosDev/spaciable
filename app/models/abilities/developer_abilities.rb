@@ -40,15 +40,14 @@ module Abilities
       polymorphic_abilities Document, :documentable do
         actions :manage do
           type "Developer", id: developer_id
-          type "UnitType", id: UnitType.where(developer_id: developer_id).pluck(:id)
-          type "Phase", id: Phase.where(developer_id: developer_id).pluck(:id)
-          type "Plot", id: Plot.where(developer_id: developer_id).pluck(:id)
+          type "UnitType", id: UnitType.where(developer_id: developer_id).lazy.pluck(:id)
+          type "Phase", id: Phase.where(developer_id: developer_id).lazy.pluck(:id)
+          type "Plot", id: Plot.where(developer_id: developer_id).lazy.pluck(:id)
         end
       end
     end
 
     def crud_developers(developer_id)
-      can :crud, Finish, developer_id: developer_id
       can :crud, Plot, developer_id: developer_id
     end
 

@@ -8,7 +8,6 @@ class Division < ApplicationRecord
   has_many :developments, dependent: :destroy
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :faqs, as: :faqable
-  has_many :finishes, dependent: :destroy
   has_many :phases, dependent: :destroy
   has_many :plots, dependent: :destroy
   has_many :plot_residencies, through: :plots

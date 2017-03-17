@@ -247,9 +247,6 @@ ActiveRecord::Schema.define(version: 20170317110225) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "picture"
-    t.integer  "developer_id"
-    t.integer  "division_id"
-    t.integer  "development_id"
     t.datetime "deleted_at"
     t.integer  "type"
     t.string   "description"
@@ -257,9 +254,6 @@ ActiveRecord::Schema.define(version: 20170317110225) do
     t.integer  "finish_type_id"
     t.integer  "manufacturer_id"
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
-    t.index ["developer_id"], name: "index_finishes_on_developer_id", using: :btree
-    t.index ["development_id"], name: "index_finishes_on_development_id", using: :btree
-    t.index ["division_id"], name: "index_finishes_on_division_id", using: :btree
     t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
     t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
@@ -477,9 +471,6 @@ ActiveRecord::Schema.define(version: 20170317110225) do
   add_foreign_key "faqs", "developers"
   add_foreign_key "faqs", "developments"
   add_foreign_key "faqs", "divisions"
-  add_foreign_key "finishes", "developers"
-  add_foreign_key "finishes", "developments"
-  add_foreign_key "finishes", "divisions"
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "finishes", "manufacturers"

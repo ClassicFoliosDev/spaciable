@@ -16,7 +16,7 @@ module UnitTypeTabsHelper
       rooms: {
         icon: :bath,
         link: [unit_type, :rooms],
-        permissions_on: -> { unit_type }
+        always_show: true
       }
     }
   end
