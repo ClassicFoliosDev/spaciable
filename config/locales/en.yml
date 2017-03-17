@@ -521,6 +521,10 @@ en:
         terms: "Terms & Conditions"
         policy: "Data policy"
         copyright: "Copyright 2016 Houseclouds. All rights reserved"
+    passwords:
+      new:
+        title: "Forgot your password?"
+        submit: "Send me reset password instructions"
 
   folders:
     title: "Folders"
