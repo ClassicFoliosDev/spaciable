@@ -1,13 +1,13 @@
 <div class="row">
-  <div>
-    <%= render "admin/dashboard/components/recent_notifications" %>
+  <div class="notifications">
+    <%= render "admin/dashboard/components/recent_notifications", notifications: @notifications %>
   </div>
 </div>
 <div class="row">
-  <div class="half">
-    <%= render "admin/dashboard/components/recent_documents" %>
+  <div class="half documents">
+    <%= render "admin/dashboard/components/recent_documents", documents: @documents %>
   </div>
-  <div class="half">
-    <%= render "admin/dashboard/components/recent_faqs" %>
+  <div class="half faqs">
+    <%= render "admin/dashboard/components/recent_faqs", faqs: @faqs %>
   </div>
 </div>

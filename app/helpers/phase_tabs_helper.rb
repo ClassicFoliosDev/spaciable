@@ -11,7 +11,8 @@ module PhaseTabsHelper
     {
       plots: {
         icon: :building,
-        link: [phase.parent, phase, active_tab: :plots]
+        link: [phase.parent, phase, active_tab: :plots],
+        permissions_on: -> { phase }
       },
       documents: {
         icon: "file-pdf-o",

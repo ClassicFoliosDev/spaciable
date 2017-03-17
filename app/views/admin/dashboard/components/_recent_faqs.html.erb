@@ -1,39 +1,27 @@
-<div class="section-header">
-  <h3 class="section-title">
-    <%= t("dashboard.section.faqs.title") %>
-  </h3>
-  <div class="section-actions">
-    <button class="btn-primary">
-      <span class="btn-label">
-        <%= t("dashboard.section.faqs.new") %>
-      </span>
-    </button>
-  </div>
-</div>
+<h3 class="section-title lower">
+  <%= t("dashboard.section.faqs.title") %>
+</h3>
 
-<table class="record-list">
-  <tbody>
-    <% 4.times do %>
-    <tr>
-      <td>
-        <a href="" class="document-title">
-          <span>Zanussi Washing Machine 5000</span>
-        </a>
-      </td>
-      <td>
-        <a href=""  class="document-category">
-          <span>
-            <%= fa_icon "file-text" %>
-            Insurance and Warranty
-          </span>
-        </a>
-      </td>
-      <td class="actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if faqs.empty? %>
+  <%= render 'admin/dashboard/components/no_recent', icon_name: "envelope", type: Faq %>
+<% else %>
+  <table class="record-list">
+    <tbody>
+      <% faqs.each do | faq | %>
+        <tr>
+          <td colspan="3">
+            <%= link_to faq, faq_path(faq), title: faq %>
+          </td>
+          <td colspan="2">
+            <%= icon "folder" %> <%= t("activerecord.attributes.faq.categories.#{faq.category}") %>
+          </td>
+          <td class="actions">
+            <%= link_to faq_path(faq), class: "btn" do %>
+              <%= fa_icon "eye" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

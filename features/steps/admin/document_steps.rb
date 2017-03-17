@@ -117,14 +117,15 @@ end
 Then(/^I should see the document in the developer document list$/) do
   within ".record-list" do
     expect(page).to have_content DocumentFixture.updated_document_name
-    expect(page).to have_content DocumentFixture.second_document_name
+    click_on DocumentFixture.second_document_name
+    sleep 0.2
   end
 end
 
 When(/^I delete the document$/) do
   click_on t("documents.form.back")
-  click_on t("developers.collection.documents")
 
+  sleep 0.2
   document_id = DocumentFixture.updated_document_id
   delete_and_confirm!(scope: "[data-document='#{document_id}']")
 end

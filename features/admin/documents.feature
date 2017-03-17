@@ -105,3 +105,14 @@ Feature: Documents
     When I delete the document
     Then I should see that the deletion was successful for the document
 
+  Scenario: Developer admin
+    Given I am logged in as a Developer Admin
+    When I upload a document for the developer
+    Then I should see the created document
+    And I should see the original filename
+    When I update the developer's document
+    Then I should see the updated developer document
+    When I create another document
+    Then I should see the document in the developer document list
+    When I delete the document
+    Then I should see that the deletion was successful for the developer document

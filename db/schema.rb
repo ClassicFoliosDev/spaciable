@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 20170315152430) do
     t.datetime "deleted_at"
     t.text     "about"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
 
   create_table "developments", force: :cascade do |t|
@@ -156,8 +157,6 @@ ActiveRecord::Schema.define(version: 20170315152430) do
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
     t.index ["name", "developer_id", "division_id"], name: "index_developments_on_name_and_developer_id_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "developer_id"], name: "index_developments_on_name_and_developer_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "division_id"], name: "index_developments_on_name_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -271,7 +270,6 @@ ActiveRecord::Schema.define(version: 20170315152430) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end

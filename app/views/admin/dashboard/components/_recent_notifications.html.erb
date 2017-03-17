@@ -1,42 +1,36 @@
-<div class="section-header">
-  <h3 class="section-title">
-    <%= t("dashboard.section.notifications.title") %>
-  </h3>
-  <div class="section-actions">
-    <button class="btn-primary">
-      <span class="btn-label">
-        <%= t("dashboard.section.notifications.new") %>
-      </span>
-    </button>
-  </div>
+<h3 class="section-title">
+  <%= t("dashboard.section.notifications.title") %>
+</h3>
+<div class="section-actions">
+  <%= link_to [:new, :admin, :notification], class: "btn btn-primary" do %>
+    <i class="fa fa-plus"></i>
+    <span class="btn-label"><%= t(".send") %></span>
+  <% end %>
 </div>
 
-<table class="record-list">
-  <tbody>
-    <% 4.times do %>
-    <tr>
-      <td>
-        <a href="" class="notification-subject">
-          <span>Re: Garden Flood Warning</span>
-        </a>
-      </td>
-      <td>
-        <span>01.12.16</span>
-      </td>
-      <td>
-        <a href=""  class="notification-participants">
-          <span>
-            <%= t("dashboard.section.notifications.sent_to") %>
-            <strong>Brighter Homes</strong>
-          </span>
-        </a>
-      </td>
-      <td class="actions">
-        <button>
-          <%= fa_icon "eye" %>
-        </button>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if notifications.empty? %>
+  <%= render 'admin/dashboard/components/no_recent', icon_name: "envelope", type: Notification %>
+<% else %>
+  <table class="record-list">
+    <tbody>
+      <% notifications.each do | notification | %>
+        <tr>
+          <td colspan="3">
+            <%= link_to notification, [:admin, notification], title: notification %>
+          </td>
+          <td colspan="2">
+            <%= l(notification.sent_at.to_date, format: :digits) %>
+          </td>
+          <td colspan="3">
+            <%= t("admin.notifications.collection.sent_to", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>:
+          </td>
+          <td class="actions">
+            <%= link_to [:admin, notification], class: "btn" do %>
+              <%= icon "eye" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

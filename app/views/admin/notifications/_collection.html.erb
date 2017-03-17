@@ -24,12 +24,9 @@
       <td>
         <%= l(notification.sent_at.to_date, format: :digits) %>
       </td>
-
       <td>
-        <strong><%= Notification.human_attribute_name(:send_to) %>:</strong>
-        <%= truncate(notification.sent_to, length: 80) %>
+        <%= t(".sent_to", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>
       </td>
-
       <td class="actions">
         <%= view_btn admin_notification_path(notification) %>
       </td>
