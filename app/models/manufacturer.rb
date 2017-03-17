@@ -6,7 +6,8 @@ class Manufacturer < ApplicationRecord
   has_many :appliance_categories_manufacturer
   has_many :appliance_categories, through: :appliance_categories_manufacturer
 
-  scope :for_finishes, -> { joins(:finish_types) }
+  scope :for_finishes, -> { joins(:finish_types).distinct }
+  scope :for_appliances, -> { joins(:appliance_categories).distinct }
 
   validates :name, uniqueness: true
 

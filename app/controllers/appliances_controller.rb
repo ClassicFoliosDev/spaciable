@@ -40,9 +40,8 @@ class AppliancesController < ApplicationController
   end
 
   def appliance_manufacturers
-    manufacturers = Manufacturer.joins(:appliance_categories)
+    manufacturers = Manufacturer.for_appliances
                                 .where(appliance_categories: { name: params[:option_name] })
-                                .distinct
                                 .order(:name)
 
     render json: manufacturers
@@ -52,6 +51,7 @@ class AppliancesController < ApplicationController
     appliances = Appliance.joins(:appliance_category, :manufacturer)
                           .where(appliance_categories: { name: params[:category_name] },
                                  manufacturers: { name: params[:option_name] })
+                          .order(:name)
                           .distinct
 
     render json: appliances
