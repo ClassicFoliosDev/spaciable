@@ -8,13 +8,6 @@ $card-header-height: 52px;
   padding: 20px;
 }
 
-.card-container {
-  & > *:nth-child(4),
-  & > *:nth-child(4n+7) {
-    @include omega();
-  }
-}
-
 .card {
   background-color: $ui-white;
   border-radius: $border-radius;

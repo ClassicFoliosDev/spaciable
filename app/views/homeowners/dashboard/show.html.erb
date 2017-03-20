@@ -1,7 +1,7 @@
 <div class="branded-hero"></div>
 <div class="branded-body">
   <div class="outer-container dashboard">
-    <div class="row card-container">
+    <div class="row">
       <% if @plot.unit_type_picture.present? %>
       <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" >
       <% else %>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div class="row card-container">
+    <div class="row">
       <!--CONTACTS-->
       <div class="card quarter contacts-component branded-content branded-border ">
         <div class="card-header">
@@ -88,7 +88,7 @@
         </div>
       </div>
       <!-- ARTICLES -->
-      <div class="card quarter how-to branded-border" style="background-image: url(<%= image_path("63-key-handover-moving-home-cco.jpg") %>)">
+      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("63-key-handover-moving-home-cco.jpg") %>)">
         <div class="overlay">
           <div class="card-content">
             <h3 class="how-to-title">Changing Home Checklist</h3>
@@ -99,7 +99,7 @@
         </div>
       </div>
 
-      <div class="card quarter how-to branded-border" style="background-image: url(<%= image_path("48-new-home-cco.jpg") %>)">
+      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("48-new-home-cco.jpg") %>)">
         <div class="overlay">
           <div class="card-content">
             <h3 class="how-to-title">Drying Out Your Domain</h3>
@@ -110,7 +110,7 @@
         </div>
       </div>
 
-      <div class="card quarter how-to branded-border" style="background-image: url(<%= image_path("16-lightbulb-our-image.jpg") %>)">
+      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("16-lightbulb-our-image.jpg") %>)">
         <div class="overlay">
           <div class="card-content">
             <h3 class="how-to-title">That Lightbulb Moment</h3>
@@ -121,7 +121,7 @@
         </div>
       </div>
 
-      <div class="card quarter how-to branded-border" style="background-image: url(<%= image_path("226-legal-documents-cco.jpg") %>)">
+      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("226-legal-documents-cco.jpg") %>)">
         <div class="overlay">
           <div class="card-content">
             <h3 class="how-to-title">The Legal Side to Selling Your Home</h3>
@@ -132,7 +132,7 @@
         </div>
       </div>
 
-      <div class="card quarter how-to branded-border" style="background-image: url(<%= image_path("49-crack-in-wall-cco.jpg") %>)">
+      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("49-crack-in-wall-cco.jpg") %>)">
         <div class="overlay">
           <div class="card-content">
             <h3 class="how-to-title">Counter New Home Cracks</h3>

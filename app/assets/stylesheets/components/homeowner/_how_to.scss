@@ -1,5 +1,11 @@
-.how-to {
+.dashboard-article{
   position: relative;
+  @include span-columns(3 of 12);
+
+  &:nth-child(4),
+  &:nth-child(4n+7) {
+    @include omega();
+  }
 
   .overlay {
     @include linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.6));
@@ -24,4 +30,20 @@
   font-size: 12px;
   position: relative;
   top: 4px;
+}
+
+@include media($tablet-landscape-down) {
+  .dashboard-article {
+    @include span-columns(6 of 12);
+    @include omega-reset(4n);
+    @include omega-reset(4n+7);
+    @include omega(2n);
+  }
+}
+
+@include media($mobile-down) {
+  .dashboard-article {
+    @include span-columns(12 of 12);
+    @include omega-reset(2n);
+  }
 }
