@@ -495,7 +495,7 @@ en:
         login_cta: "Login"
         welcome_1: "Hoozzi isn't just a hub,"
         welcome_2: "it's a librarian"
-        copyright: "Copyright 2016 Houseclouds. All rights reserved"
+        copyright: "Copyright 2016 Classic Folios. All rights reserved"
         intro_para_1: With pen in hand and fresh ideas in mind.
                       Hoozzi is constantly churning out fun and helpful articles.
         intro_para_2: You can scroll away to your hearts content,
@@ -520,7 +520,7 @@ en:
         password: "Choose a password"
         terms: "Terms & Conditions"
         policy: "Data policy"
-        copyright: "Copyright 2016 Houseclouds. All rights reserved"
+        copyright: "Copyright 2016 Classic Folios. All rights reserved"
     passwords:
       new:
         title: "Forgot your password?"
