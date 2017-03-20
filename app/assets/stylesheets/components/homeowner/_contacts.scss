@@ -1,56 +1,59 @@
-$contact_thumb_size: 46px;
+// Dashboard contacts component
+.contacts-component {
+  height: 482px;
 
-// Contact summary list on dashboard
-.contact-list {
-  font-size: $base-font-size;
-  height: 100%;
+  .contact {
+    padding: 10px;
+    height: 108px;
+    border-top: 1px solid $ui-grey;
 
-  .avatar {
-    height: $contact_thumb_size;
-    width: $contact_thumb_size;
-    font-size: $contact_thumb_size;
-    color: $ui-dark-grey;
+    .contact-avatar {
+      @include span-columns(3 of 12);
 
-    img {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 50%;
+      img {
+        display: block;
+        max-width: 100%;
+        max-height: 86px;
+        border-radius: 50%;
+      }
+    }
+
+    .contact-details {
+      @include span-columns(9 of 12);
+
+      .contact-detail {
+        font-size: 12px;
+        text-overflow: ellipsis;
+        overflow-x: hidden;
+        display: block;
+        white-space: nowrap;
+      }
     }
   }
+}
 
-  .name {
-    text-overflow: ellipsis;
-    overflow-x: hidden;
-    display: block;
-    white-space: nowrap;
-  }
+@include media($tablet-landscape-down) {
+  .contact-list .contact {
+    .contact-avatar {
+      @include span-columns(2 of 12);
+    }
 
-  .primary {
-    font-size: $title-font-size-5;
-  }
-
-  a {
-    color: inherit;
-    padding: 2px;
-    font-size: $title-font-size-5;
+    .contact-details {
+      @include span-columns(10 of 12);
+    }
   }
 }
 
-.contact {
-  padding: 10px;
-  height: 86px;
-  border-top-style: solid;
-  border-top-width: 1px;
+@include media($tablet-portrait-down) {
+  .contact-list .contact {
+    .contact-avatar {
+      @include span-columns(3 of 12);
+    }
 
-  .three-fifths {
-    text-overflow: ellipsis;
-    overflow-x: hidden;
+    .contact-details {
+      @include span-columns(9 of 12);
+    }
   }
-}
-
-.my-contacts {
-  height: 482px;
 }
 
 // Contacts on contacts page
