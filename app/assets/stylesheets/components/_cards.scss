@@ -1,5 +1,6 @@
 $library-interface-height: 164px;
 $card-height: 230px;
+$card-header-height: 52px;
 
 .dashboard {
   @include outer-container(90%);
@@ -27,7 +28,7 @@ $card-height: 230px;
 
   .card-header {
     @include pad($spacing-small);
-    height: 52px;
+    height: $card-header-height;
 
     .card-title {
       @include span-columns(6 of 12);

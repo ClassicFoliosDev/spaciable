@@ -56,7 +56,9 @@ When(/^I send a notification to all residents$/) do
 
   click_on t("admin.notifications.collection.add")
 
+  sleep 0.2
   check :notification_send_to_all
+  sleep 0.2
   fill_in :notification_subject, with: attrs[:subject]
   fill_in :notification_message, with: attrs[:message]
 

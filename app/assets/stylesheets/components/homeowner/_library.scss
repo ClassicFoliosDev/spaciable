@@ -2,6 +2,10 @@
   .card-header {
     border-bottom-style: solid;
   }
+
+  .card-content {
+    height: $card-height - $card-header-height;
+  }
 }
 
 .documents-component {
@@ -9,39 +13,43 @@
     padding: 0 $spacing-medium;
   }
 
-  .document-images, .document-titles {
+  .document-images {
     .document {
       display: inline-block;
     }
   }
 
   .document-images {
-   height: ($card-height / 1.75);
     padding: 0;
-    margin-bottom: 5px;
     overflow: hidden;
     background: inherit;
+    height: 100%;
   }
 
   .document {
     display: inline-block;
+    padding: 10px 0;
+
+    a {
+      font-size: $base-small-font-size;
+    }
 
     img {
+      height: 125px;
       display: block;
       text-align: left;
     }
   }
 
-  .document-titles {
-    height: ($card-height / 1.25);
-    padding: 0;
-    background: inherit;
+  .document-name {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    display: block;
+    white-space: nowrap;
+    text-align: center;
 
     a {
-      font-size: $base-small-font-size;
-      line-height: $base-small-font-line-height;
-      color: inherit;
-      font-weight: lighter;
+      font-size: $base-font-size;
     }
   }
 }
@@ -55,11 +63,13 @@
 
   .document {
     display: inline-block;
+    height: 360px;
 
     img {
-      width: 100%;
+      max-width: 100%;
       display: block;
       margin: 0 auto;
+      height: 290px;
     }
 
     h5 {

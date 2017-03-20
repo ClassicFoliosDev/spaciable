@@ -33,24 +33,18 @@
         </div>
 
         <div class="card-content row">
-          <% if @documents.any? %>
-            <ul class="document-images row-item">
+          <div class="document-images row-item">
+            <% if @documents.present? && @documents.length.positive? %>
               <% @documents.each do |document| %>
-                <li class="document sixth">
-                  <%= link_to document.file.url, target: "_blank" do %>
-                    <%= image_tag document_preview_url(document.file) %>
+                <div class="document sixth">
+                  <%= link_to document[:link], target: "_blank" do %>
+                    <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] %>
                   <% end %>
-                </li>
+                  <span class="document-name"><%= link_to truncate(document[:name], length: 35), document[:link], target: "_blank" %></span>
+                </div>
               <% end %>
-            </ul>
-            <ul class="document-titles branded-text branded-background row-item">
-              <% @documents.each do |document| %>
-                <li class="document sixth">
-                  <%= link_to truncate(document.title, length: 35), document.file.url, target: "_blank" %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

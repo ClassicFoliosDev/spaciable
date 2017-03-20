@@ -6,7 +6,10 @@ module Homeowners
     def show
       @faqs = Faq.accessible_by(current_ability).order(updated_at: :desc).limit(5)
       @contacts = Contact.accessible_by(current_ability).order(updated_at: :desc).limit(4)
-      @documents = Document.accessible_by(current_ability).order(updated_at: :desc).limit(5)
+      docs = Document.accessible_by(current_ability).order(updated_at: :desc).first(5)
+      appliances = Appliance.accessible_by(current_ability)
+                            .with_manuals.order(updated_at: :desc).first(5)
+      @documents = DocumentLibraryService.call(docs, appliances)
     end
 
     def ts_and_cs; end
