@@ -264,19 +264,19 @@ RSpec.describe ResidentNotifierService do
       it "should not return missing decimal plot numbers" do
         development = create(:development)
         notification = create(:notification, send_to: development)
-        plot1 = create(:plot, :with_resident, development: development, number: "5.1")
-        plot2 = create(:plot, :with_resident, development: development, number: "5.55")
-        plot3 = create(:plot, :with_resident, development: development, number: "5.2")
         plots = []
-        plots.push(plot1)
-        plots.push(plot2)
-        plots.push(plot3)
-        plot_numbers = plots.map(&:number).map(&:to_s)
+        plots[0] = create(:plot, :with_resident, development: development, number: "5")
+        plots[1] = create(:plot, :with_resident, development: development, number: "5.55")
+        plots[2] = create(:plot, :with_resident, development: development, number: "5.2")
+        plots[3] = create(:plot, development: development, number: "2")
+        plots[4] = create(:plot, development: development, number: "2.31")
 
+        plot_numbers = plots.map(&:number).map(&:to_s)
         service = described_class.new(notification)
 
         service.missing_resident_plots.each_with_index do |number, index|
-          expect(number.to_f).not_to eq(plot_numbers[index].to_f)
+          expect(number.to_f).not_to eq(plot_numbers[index].to_f) if index < 3
+          expect(number.to_f).to eq(plot_numbers[index].to_f) if index >= 3
         end
 
         expect(service.missing_resident_plots).not_to match_array(plot_numbers)
