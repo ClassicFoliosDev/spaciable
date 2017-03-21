@@ -23,4 +23,8 @@ module HomeownerUserFixture
   def first_name
     "Jonathan"
   end
+
+  def updated_password
+    "foo54321"
+  end
 end

@@ -1,0 +1,45 @@
+.resident-hero {
+  .branded-hero {
+    height: 140px;
+  }
+
+  .hero-text {
+    text-align: left;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  h2  {
+    margin-bottom: 0;
+  }
+
+  .secondary {
+    color: $ui-white
+  }
+}
+
+.resident {
+  width: 600px;
+  margin: 0 auto;
+
+  .half {
+    padding: $spacing-small;
+  }
+
+  label {
+    font-weight: normal;
+  }
+
+  input[type="text"].readonly {
+    border-style: none;
+  }
+
+  .actions {
+    padding: 20px 0;
+    float: right;
+
+    .branded-btn.alt {
+      font-size: $base-font-size;
+    }
+  }
+}

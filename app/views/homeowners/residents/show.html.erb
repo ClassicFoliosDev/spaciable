@@ -1,0 +1,37 @@
+<% content_for :hero_text_primary do %>
+  <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %> <%= current_resident %></span>
+<% end %>
+<% content_for :hero_text_secondary do %>
+  <span><%= render 'address/address', address: @plot %></span>
+<% end %>
+
+<nav class="sub-navigation-container">
+  <div class="nav-inner">
+    <h3 class="branded-text"><%= t(".my_account") %></h3>
+  </div>
+</nav>
+
+<div class="resident-hero">
+  <%= render "components/homeowner/hero" %>
+</div>
+
+<div class="branded-body outer-container">
+  <div class="resident">
+    <div class="half branded-content branded-border">
+      <%= label_tag t(".email") %>
+      <span><%= @resident.email %></span>
+      <%= label_tag t(".title") %>
+      <span><%= t("activerecord.attributes.resident.titles.#{@resident.title}") %></span>
+      <%= label_tag t(".name") %>
+      <span><%= @resident.first_name %> <%= @resident.last_name %></span>
+    </div>
+    <div class="half branded-content branded-border">
+
+      <%= label_tag t(".password") %>
+      <span><%= t(".dummy_password") %></span>
+      <div class="actions">
+        <%= link_to t(".edit_profile"), [:edit, :homeowners, @resident], class: "branded-btn alt" %>
+      </div>
+    </div>
+  </div>
+</div>

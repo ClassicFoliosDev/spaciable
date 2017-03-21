@@ -1,0 +1,57 @@
+<% content_for :hero_text_primary do %>
+  <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %> <%= current_resident %></span>
+<% end %>
+<% content_for :hero_text_secondary do %>
+  <span><%= render 'address/address', address: @plot %></span>
+<% end %>
+
+<nav class="sub-navigation-container">
+  <div class="nav-inner">
+    <h3 class="branded-text"><%= t(".my_account") %></h3>
+  </div>
+</nav>
+
+<div class="resident-hero">
+  <%= render "components/homeowner/hero" %>
+</div>
+
+<div class="branded-body outer-container">
+  <div class="resident">
+    <%= simple_form_for ([:homeowners, @resident]) do |f| %>
+      <% if @resident.errors.any? %>
+        <div class="submission-errors">
+          <ul>
+            <% @resident.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="half branded-content branded-border">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: "readonly" %>
+      <%= f.input :title,
+                  as: :select,
+                  collection: Resident.titles,
+                  label_method: ->((key, _)) { t_enum(Resident, :title, key) },
+                  value_method: ->((key, _)) { key },
+                  include_blank: true %>
+      <%= f.input :first_name %>
+      <%= f.input :last_name %>
+      </div>
+        <div class="half branded-content branded-border">
+        <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
+        <%= f.input :password, autocomplete: "off" %>
+        <%= f.input :password_confirmation %>
+        <div class="actions">
+          <%= f.submit t(".submit"), class: "branded-btn alt" %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>
+

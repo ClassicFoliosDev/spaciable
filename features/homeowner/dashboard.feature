@@ -12,3 +12,7 @@ Feature: Dashboard
     When I navigate to the dashboard
     Then I see the recent homeowner contents
 
+  Scenario: Password
+    Given I have created a homeowner user
+    When I change my homeowner password
+    Then I should be logged out of homeowner

@@ -96,6 +96,10 @@ Rails.application.routes.draw do
   resources :appliances
   resources :finishes
 
+  namespace :homeowners do
+    resources :residents, only: [:show, :edit, :update]
+  end
+
   scope :homeowners, module: :homeowners do
     get "contacts/:category",
         to: 'contacts#index',

@@ -25,15 +25,4 @@
   </div>
 </nav>
 
-<div class="branded-hero">
-  <div class="filter-hero">
-    <div class="hero-text">
-      <% if content_for?(:hero_text_primary) %>
-        <h2><%= yield(:hero_text_primary) %></h2>
-      <% end %>
-      <% if content_for?(:hero_text_secondary) %>
-        <p class="secondary"><%= yield(:hero_text_secondary) %></p>
-      <% end %>
-    </div>
-  </div>
-</div>
+<%= render "components/homeowner/hero" %>

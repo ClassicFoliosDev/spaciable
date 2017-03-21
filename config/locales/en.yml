@@ -134,6 +134,7 @@ en:
     homeowner:
       header:
         hi: "Hi %{first_name}"
+        account: "My account"
       sub_header:
         title: "My home"
         rooms: "Rooms"
@@ -352,6 +353,22 @@ en:
         my_home_view_more: "View my home"
         contacts_title: "Contacts"
         contacts_view_more: "View contacts"
+    residents:
+      edit:
+        my_account: "My account"
+        current_password: "Current password"
+        current_password2: "Only required for new password"
+        submit: "Submit"
+      show:
+        my_account: "My account"
+        title: "Title"
+        password: "Password"
+        email: "Email address"
+        name: "Full name"
+        dummy_password: "********"
+        edit_profile: "Edit profile"
+      update:
+        success: "Your account has been updated successfully"
 
   developers:
     destroy:
@@ -1085,6 +1102,11 @@ en:
           dr: "Dr"
           prof: "Professor"
           other: "Other"
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email address"
+        password: "Password"
+        password_confirmation: "Confirm password"
 
     errors:
       messages:
