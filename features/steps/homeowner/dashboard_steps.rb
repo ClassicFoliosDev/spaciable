@@ -18,7 +18,7 @@ Then(/^I see the recent homeowner contents$/) do
     expect(contacts.count).to eq(3)
   end
 
-  howtos = page.all(".how-to")
+  howtos = page.all(".dashboard-article")
   expect(howtos.count).to eq(5)
   expect(howtos[0]).to have_content("Changing Home Checklist")
   expect(howtos[4]).to have_content("Counter New Home Cracks")

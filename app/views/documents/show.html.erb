@@ -35,12 +35,6 @@
 
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">
-    <% if @document.parent.is_a?(Plot) %>
-        <%= link_to t(".back"), [@document.parent, active_tab: "documents"], class: "btn" %>
-    <% elsif @document.parent.respond_to?(:parent) %>
-      <%= link_to t(".back"), [@document.parent.parent, @document.parent, active_tab: "documents"], class: "btn" %>
-    <% else %>
-      <%= link_to t(".back"), [@document.parent, active_tab: "documents"], class: "btn" %>
-    <% end %>
+    <%= link_to t(".back"), @redirect_path, class: "btn" %>
   </div>
 </div>

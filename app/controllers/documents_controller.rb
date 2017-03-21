@@ -33,6 +33,7 @@ class DocumentsController < ApplicationController
 
   def show
     authorize! :show, @document
+    @redirect_path = url_for(target)
   end
 
   def create
@@ -42,7 +43,7 @@ class DocumentsController < ApplicationController
 
     if @document.save
       notice = t("controller.success.create", name: @document.title)
-      redirect_to redirect_path, notice: notice
+      redirect_to target, notice: notice
     else
       render :new
     end
@@ -54,7 +55,7 @@ class DocumentsController < ApplicationController
     if @document.update(document_params)
       respond_to do |format|
         format.html do
-          redirect_to redirect_path, notice: t("controller.success.update", name: @document.title)
+          redirect_to target, notice: t("controller.success.update", name: @document.title)
         end
         format.json do
           render json: @document.to_json, status: :ok
@@ -69,7 +70,7 @@ class DocumentsController < ApplicationController
     authorize! :destroy, @document
 
     @document.destroy
-    redirect_to redirect_path, notice: t("controller.success.destroy", name: @document.title)
+    redirect_to target, notice: t("controller.success.destroy", name: @document.title)
   end
 
   private
@@ -85,7 +86,7 @@ class DocumentsController < ApplicationController
     @document&.documentable = @parent
   end
 
-  def redirect_path
+  def target
     if @parent&.model_name&.element&.to_sym == :plot ||
        @parent&.model_name&.element&.to_sym == :developer
       [@parent, active_tab: "documents"]
