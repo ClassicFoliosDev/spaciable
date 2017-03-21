@@ -9,7 +9,7 @@
     <span class="strong">
     <%= t("activerecord.attributes.unit_type.build_types.#{@unit_type.build_type}") %>
     </span>
-    <%= edit_btn [:edit, @unit_type.development, @unit_type] %>
+    <%= edit_btn [:edit, @unit_type.development, @unit_type], element: @unit_type %>
   </div>
 </div>
 

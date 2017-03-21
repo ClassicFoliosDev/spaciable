@@ -6,19 +6,23 @@ class FaqsController < ApplicationController
   load_and_authorize_resource :development
   load_and_authorize_resource :division
   load_and_authorize_resource :developer
-  load_and_authorize_resource :faq, through: [:development, :division, :developer], shallow: true
+  load_resource :faq, through: [:development, :division, :developer], shallow: true
 
   before_action :set_parent
 
   def index
+    authorize! :index, Faq
+
     @faqs = paginate(sort(@faqs, default: :question))
-    @faq = @parent.faqs.build
   end
 
-  def new; end
+  def new
+    authorize! :new, @faq
+  end
 
   def create
-    @faq.faqable = @parent
+    authorize! :create, @faq
+
     if @faq.save
       redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
     else
@@ -27,6 +31,8 @@ class FaqsController < ApplicationController
   end
 
   def update
+    authorize! :update, @faq
+
     if @faq.update(faq_params)
       redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
     else
@@ -34,11 +40,17 @@ class FaqsController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    authorize! :show, @faq
+  end
 
-  def edit; end
+  def edit
+    authorize! :edit, @faq
+  end
 
   def destroy
+    authorize! :destroy, @faq
+
     @faq.destroy
     notice = t(".success", title: @faq)
     redirect_to [@parent, :faqs], notice: notice
@@ -57,5 +69,6 @@ class FaqsController < ApplicationController
 
   def set_parent
     @parent = @development || @division || @developer || @faq&.faqable
+    @faq&.faqable = @parent
   end
 end

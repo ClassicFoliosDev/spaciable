@@ -7,7 +7,7 @@
     <%= render 'address/address', address: phase.address %>
     <span class="right">
       <span class="strong"><%= t(".name", number: phase.number) %></span>
-      <%= edit_btn [:edit, phase.development, phase] %>
+      <%= edit_btn [:edit, phase.development, phase], element: phase %>
     </span>
   </div>
 </div>

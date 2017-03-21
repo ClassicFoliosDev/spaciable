@@ -13,19 +13,27 @@ class ContactsController < ApplicationController
   before_action :set_parent
 
   def index
+    authorize! :index, Contact
+
     @contacts = paginate(sort(@contacts, default: :last_name))
     @contact = @parent.contacts.build
   end
 
-  def new; end
+  def new
+    authorize! :new, @contact
+  end
 
-  def edit; end
+  def edit
+    authorize! :edit, @contact
+  end
 
-  def show; end
+  def show
+    authorize! :show, @contact
+  end
 
   def create
-    @contact.contactable = @parent
     authorize! :create, @contact
+
     if @contact.save
       notice = t("controller.success.create", name: @contact)
       redirect_to [@parent, :contacts], notice: notice
@@ -35,6 +43,8 @@ class ContactsController < ApplicationController
   end
 
   def update
+    authorize! :update, @contact
+
     if @contact.update(contact_params)
       notice = t("controller.success.update", name: @contact)
       redirect_to [@parent, :contacts], notice: notice
@@ -44,6 +54,8 @@ class ContactsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @contact
+
     @contact.destroy
     notice = t(
       "controller.success.destroy",
@@ -66,5 +78,6 @@ class ContactsController < ApplicationController
 
   def set_parent
     @parent = @development || @division || @developer || @contact&.contactable
+    @contact&.contactable = @parent
   end
 end

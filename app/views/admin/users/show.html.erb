@@ -8,7 +8,7 @@
     <div class="section-data">
       <i class="fa fa-envelope"></i>
       <%= @user.email %>
-      <%= edit_btn [:edit, :admin, @user] %>
+      <%= edit_btn [:edit, :admin, @user], element: @user %>
 
       <i class="fa fa-lock"></i>
       <%= t(".role_at", role: t(@user.role), permission_level_name: @user.permission_level) %>

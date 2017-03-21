@@ -30,8 +30,9 @@ module Abilities
       can :read, Room, development_id: development
       can :read, Plot, development_id: development
 
+      can :read, UnitType, development_id: development
+
       unit_type_ids = UnitType.where(development: development).lazy.pluck(:id)
-      can :read, UnitType, id: unit_type_ids
       can :read, Finish, rooms: { unit_type_id: unit_type_ids }
       can :read, Finish, rooms: { plot: { development_id: development } }
       can :read, Appliance, rooms: { unit_type_id: unit_type_ids }

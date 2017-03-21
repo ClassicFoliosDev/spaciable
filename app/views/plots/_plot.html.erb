@@ -5,5 +5,5 @@
 <div class="section-data">
   <%= render 'address/address', address: plot %>
   <span class="strong"><%= plot.unit_type %></span>
-  <%= edit_btn [:edit, plot] %>
+  <%= edit_btn [:edit, plot], element: plot %>
 </div>

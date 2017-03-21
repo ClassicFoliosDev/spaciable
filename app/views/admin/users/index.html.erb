@@ -32,8 +32,8 @@
       <td><%= t(user.role) %></td>
       <td><%= user.permission_level %></td>
       <td class="actions">
-        <%= edit_btn edit_admin_user_path(user) %>
-        <%= delete_btn user, path: url_for([:admin, user]) %>
+        <%= edit_btn edit_admin_user_path(user), element: user %>
+        <%= delete_btn user, path: url_for([:admin, user]), element: user %>
       </td>
     </tr>
     <% end %>

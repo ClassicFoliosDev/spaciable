@@ -17,10 +17,6 @@ module DevelopmentTabsHelper
         icon: :building,
         link: [development.parent, development, active_tab: :phases]
       },
-      documents: {
-        icon: "file-pdf-o",
-        link: [development.parent, development, active_tab: :documents]
-      },
       plots: {
         icon: :building,
         link: [development, :plots]
@@ -28,6 +24,10 @@ module DevelopmentTabsHelper
       plot_documents: {
         icon: "files-o",
         link: [development, :plot_documents]
+      },
+      documents: {
+        icon: "file-pdf-o",
+        link: [development.parent, development, active_tab: :documents]
       },
       faqs: { icon: "question-circle" },
       contacts: { icon: :vcard },

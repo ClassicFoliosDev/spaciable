@@ -5,6 +5,9 @@
     <i class="fa fa-question-circle"></i>
     <%= t(".title", parent: @parent) %><br>
   </h3>
+  <div class="section-data">
+    <%= edit_btn [:edit, @faq], element: @faq %>
+  </div>
 </div>
 
 <div class="row">

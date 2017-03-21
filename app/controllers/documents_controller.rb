@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
   load_and_authorize_resource :phase
   load_and_authorize_resource :unit_type
   load_and_authorize_resource :plot
-  load_and_authorize_resource :document, through:
+  load_resource :document, through:
     [:developer,
      :division,
      :development,
@@ -19,29 +19,38 @@ class DocumentsController < ApplicationController
   before_action :set_parent
 
   def index
+    authorize! :index, Document
     @documents = paginate(sort(@documents, default: :title))
   end
 
-  def new; end
+  def new
+    authorize! :new, @document
+  end
 
-  def edit; end
+  def edit
+    authorize! :edit, @document
+  end
 
-  def show; end
+  def show
+    authorize! :show, @document
+  end
 
   def create
+    authorize! :create, @document
+
     @document.set_original_filename
-    @document.documentable = @parent
 
     if @document.save
       notice = t("controller.success.create", name: @document.title)
       redirect_to redirect_path, notice: notice
     else
-      @parent = Developer.find(params[:developer_id])
       render :new
     end
   end
 
   def update
+    authorize! :update, @document
+
     if @document.update(document_params)
       respond_to do |format|
         format.html do
@@ -57,6 +66,8 @@ class DocumentsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, @document
+
     @document.destroy
     redirect_to redirect_path, notice: t("controller.success.destroy", name: @document.title)
   end
@@ -70,6 +81,8 @@ class DocumentsController < ApplicationController
 
   def set_parent
     @parent = @plot || @phase || @development || @division || @developer || @document&.documentable
+
+    @document&.documentable = @parent
   end
 
   def redirect_path

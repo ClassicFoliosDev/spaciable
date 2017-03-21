@@ -6,6 +6,6 @@
   <div class="section-data">
     <%= render 'address/address', address: division.address %>
     <%= render 'components/contacts', contact: division %>
-    <%= edit_btn [:edit, division.parent, division] %>
+    <%= edit_btn [:edit, division.parent, division], element: division %>
   </div>
 </div>

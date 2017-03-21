@@ -26,7 +26,7 @@ module Abilities
       PolymorphicAbility.new(klass, association, self).instance_eval(&block)
     end
 
-    def manage_polymorphic_association(klass, association, id:, model_type:, actions: default)
+    def manage_polymorphic_association(klass, association, id:, model_type:, actions:)
       can(actions, klass, :"#{association}_id" => id, :"#{association}_type" => model_type)
 
       create_unassociated(actions)

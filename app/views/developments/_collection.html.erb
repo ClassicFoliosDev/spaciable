@@ -1,12 +1,14 @@
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "building", type: Development, parent: parent %>
 <% else %>
-  <div class="section-actions">
-    <%= link_to new_polymorphic_url([parent, Development]), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
+  <% if parent && can_create(Development, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to [:new, parent, :development], class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
 
   <table class="record-list">
     <thead>
@@ -25,8 +27,8 @@
           <%= link_to t(".unit_types"), development_unit_types_path(development), class: "btn" %>
           <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
           <%= link_to t(".plots"), development_plots_path(development), class: "btn" %>
-          <%= edit_btn [:edit, parent, development] %>
-          <%= delete_btn development, path: url_for([parent, development]) %>
+          <%= edit_btn [:edit, parent, development], element: development %>
+          <%= delete_btn development, path: url_for([parent, development]), element: development %>
         </td>
       </tr>
       <% end %>

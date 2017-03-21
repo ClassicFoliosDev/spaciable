@@ -16,8 +16,8 @@
         <td colspan="3"><%= link_to brand, [brand.brandable, :brand] %></td>
         <td colspan="2"><%= l brand.updated_at.to_date, format: :digits %></td>
         <td class="actions">
-          <%= edit_btn [:edit, brand.brandable, :brand] %>
-          <%= delete_btn brand, path: url_for([brand.brandable, :brand])%>
+          <%= edit_btn [:edit, brand.brandable, :brand], element: brand %>
+          <%= delete_btn brand, path: url_for([brand.brandable, :brand]), element: brand %>
         </td>
       </tr>
     </tbody>

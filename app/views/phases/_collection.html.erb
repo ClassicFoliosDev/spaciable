@@ -1,12 +1,14 @@
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "building", type: Phase, parent: parent %>
 <% else %>
-  <div class="section-actions">
-    <%= link_to new_development_phase_path(parent), class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
+  <% if can_create(Phase, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_development_phase_path(parent), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
 
   <table class="record-list">
     <thead>
@@ -23,8 +25,8 @@
         <td><%= l phase.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= link_to t(".plots"), phase_plots_path(phase), class: "btn" %>
-          <%= edit_btn edit_development_phase_path(parent, phase) %>
-          <%= delete_btn phase, path: url_for([parent, phase]) %>
+          <%= edit_btn edit_development_phase_path(parent, phase), element: phase %>
+          <%= delete_btn phase, path: url_for([parent, phase]), element: phase %>
         </td>
       </tr>
       <% end %>

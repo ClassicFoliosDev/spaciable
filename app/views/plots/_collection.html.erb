@@ -1,12 +1,14 @@
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "building", type: Plot, parent: parent %>
 <% else %>
-  <div class="section-actions">
-    <%= link_to [:new, parent, :plot], class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-    <% end %>
-  </div>
+  <% if can_create(Plot, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to [:new, parent, :plot], class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
 
   <table class="record-list">
     <thead>

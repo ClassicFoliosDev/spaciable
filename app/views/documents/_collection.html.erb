@@ -1,14 +1,14 @@
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "file-pdf-o", type: Document, parent: parent %>
 <% else %>
-  <div class="section-actions">
-    <% if parent %>
+  <% if parent && can_create(Document, parent) %>
+    <div class="section-actions">
       <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   <table class="record-list">
     <thead>
@@ -29,8 +29,8 @@
           <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
             <%= icon "cloud-download" %>
           <% end %>
-          <%= edit_btn edit_document_path(document) %>
-          <%= delete_btn document, path: url_for(document) %>
+          <%= edit_btn edit_document_path(document), element: document %>
+          <%= delete_btn document, path: url_for(document), element: document %>
         </td>
       </tr>
       <% end %>

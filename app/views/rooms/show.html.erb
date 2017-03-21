@@ -7,7 +7,7 @@
 
   <div class="section-data">
     <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
-    <%= edit_btn [:edit, @room.parent, @room] %>
+    <%= edit_btn [:edit, @room.parent, @room], element: @room %>
   </div>
 </div>
 

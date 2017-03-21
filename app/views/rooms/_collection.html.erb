@@ -3,12 +3,14 @@
 <% if collection.empty? %>
     <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent %>
 <% else %>
-  <div class="section-actions">
-    <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add", parent_type: parent.model_name.human, parent_name: parent) %></span>
-    <% end %>
-  </div>
+  <% if can_create(Room, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t(".add", parent_type: parent.model_name.human, parent_name: parent) %></span>
+      <% end %>
+    </div>
+  <% end %>
 
   <table class="record-list">
     <thead>
