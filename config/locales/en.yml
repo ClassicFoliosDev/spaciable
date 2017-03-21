@@ -182,7 +182,7 @@ en:
       create:
         success:
           one: "Sending notification to resident: \"%{notification_name}\""
-          other: "Sending notifications residents: \"%{notification_name}\""
+          other: "Sending notifications to residents: \"%{notification_name}\""
         missing_residents:
           one: "Resident not found for Plot: %{plot_numbers}"
           other: "Residents not found for plots: %{plot_numbers}"

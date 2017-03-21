@@ -30,10 +30,20 @@ class ResidentNotifierService
 
     resident_plot_numbers = residents.map(&:plot_number)
 
-    (plot_numbers - resident_plot_numbers).sort
+    compare_numbers(plot_numbers, resident_plot_numbers).sort
   end
 
   private
+
+  def compare_numbers(plot_numbers, resident_numbers)
+    remaining_numbers = []
+
+    plot_numbers.each_with_index do |number, index|
+      remaining_numbers.push(number) unless number.to_f == resident_numbers[index].to_f
+    end
+
+    remaining_numbers
+  end
 
   def residents
     @residents ||= begin
