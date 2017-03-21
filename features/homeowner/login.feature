@@ -12,3 +12,10 @@ Feature: Homeowner Login
     Given I am logged in as a homeowner
     When I log out as a homeowner
     Then I should be on the "Homeowner Login" page
+
+  Scenario: Unassociated homeowner
+    Given I am a homeowner with no plot
+    When I log in as a homeowner
+    Then I should be on the "Homeowner Login" page with errors
+
+

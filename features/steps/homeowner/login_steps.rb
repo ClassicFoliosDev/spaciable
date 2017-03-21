@@ -36,3 +36,13 @@ end
 Then(/^I should be on the "Homeowner Login" page$/) do
   expect(current_path).to eq("/homeowners/sign_in")
 end
+
+Given(/^I am a homeowner with no plot$/) do
+  HomeownerUserFixture.create_without_residency
+end
+
+Then(/^I should be on the "Homeowner Login" page with errors$/) do
+  expect(page).to have_content(t("residents.sessions.create.no_plot"))
+  expect(page).to have_content(t("activerecord.attributes.resident.email"))
+  expect(page).to have_content(t("activerecord.attributes.resident.password"))
+end

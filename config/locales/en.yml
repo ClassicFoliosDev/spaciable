@@ -518,6 +518,8 @@ en:
         intro_para_2: You can scroll away to your hearts content,
                       discovering exciting ideas on how to make the most of your home,
                       habits and hobbies.
+      create:
+        no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team"
 
     invitations:
       edit:

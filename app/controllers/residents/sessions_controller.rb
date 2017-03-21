@@ -15,9 +15,13 @@ module Residents
     end
 
     # POST /resource/sign_in
-    # def create
-    #   super
-    # end
+    def create
+      super
+      return unless resource.plot.nil?
+
+      sign_out_all_scopes
+      flash[:alert] = t(".no_plot")
+    end
 
     # DELETE /resource/sign_out
     # def destroy

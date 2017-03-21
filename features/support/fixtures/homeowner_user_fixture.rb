@@ -12,6 +12,15 @@ module HomeownerUserFixture
     )
   end
 
+  def create_without_residency
+    FactoryGirl.create(
+      :resident,
+      email: email,
+      password: password,
+      first_name: first_name
+    )
+  end
+
   def email
     "homeowner@example.com"
   end
