@@ -10,62 +10,68 @@
 # ```
 
 [{
-  question: %(There is a white powder on my walls.  Is this a defect?),
+  question: %(There is a white powder on my walls. Is this a defect?),
   answer: %(<p>No. You may notice a white chalk-like substance on the exterior brickwork of your new home.&nbsp; This isn&rsquo;t a defect, just the natural salts escaping from the building materials.&nbsp; Efflorescence will be washed away naturally by rainfall and will stop once the salts are exhausted.&nbsp;</p>
 ),
   category: %(settling)
 }, {
   question: %(Why are there small cracks in my walls and ceilings?),
-  answer: %(<p>The materials that were used to build your new home contained a lot of water.&nbsp; This water will take around 6&ndash;18 months to evaporate completely, which is known as the drying out process.&nbsp; During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur.&nbsp; One of these changes is small cracks appearing in plastered finishes, which can be filled using a suitable product and covered with paint.&nbsp; Below is a list of the other common signs of drying out and simple steps you can take to deal with them:</p>
+  answer: %(<p>The materials that were used to build your new home contained a lot of water. This water will take around 6–18 months to evaporate completely, which is known as the drying out process. During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur. One of these changes is small cracks appearing in plastered finishes, which can be filled using a suitable product and covered with paint.</p>
+
+<p>Below is a list of the other common signs of drying out and simple steps you can take to deal with them:</p>
 
 <ul>
-	<li>Baths and shower trays may drop very slightly.&nbsp; You should reseal them around the edges with a silicone sealant</li>
-	<li>Wooden door frames and windows may move.&nbsp; Simply adjust the door or window keep if necessary</li>
-	<li>Nail or screw heads may pop out of plastered finishes.&nbsp; Hammer or screw them down, fill the hole with a suitable product and cover with paint</li>
+	<li>Baths and shower trays may drop very slightly. You should reseal them around the edges with a silicone sealant</li>
+	<li>Wooden door frames and windows may move. Simply adjust the door or window keep if necessary</li>
+	<li>Nail or screw heads may pop out of plastered finishes. Hammer or screw them down, fill the hole with a suitable product and cover with paint</li>
 </ul>
 
-<p>Further advice on the drying out process can be found in the manual that you received when you moved into your home.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website.</p>
+<p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(settling)
 }, {
   question: %(Why has my bath or shower tray dropped?),
-  answer: %(<p>The materials that were used to build your new home contained a lot of water.&nbsp; This water will take around 6&ndash;18 months to evaporate completely, which is known as the drying out process.&nbsp; During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur.&nbsp; One of the changes is that baths and shower trays may drop very slightly and will simply need to be resealed around the edges with a silicone sealant.&nbsp; Below is a list of the other common signs of drying out and simple steps you can take to deal with them:&nbsp; &nbsp; &nbsp;</p>
+  answer: %(<p>The materials that were used to build your new home contained a lot of water. This water will take around 6–18 months to evaporate completely, which is known as the drying out process. During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur. One of the changes is that baths and shower trays may drop very slightly and will simply need to be resealed around the edges with a silicone sealant.</p>
+
+<p>Below is a list of the other common signs of drying out and simple steps you can take to deal with them:</p>
 
 <ul>
-	<li>Small shrinkage cracks may appear in plastered finishes.&nbsp; These can be filled using a suitable product and covered with paint</li>
-	<li>Wooden door frames and windows may move.&nbsp; Simply adjust the door or window keep if necessary</li>
-	<li>Nail or screw heads may pop out of plastered finishes.&nbsp; Hammer or screw them down, fill the hole with a suitable product and cover with paint</li>
+	<li>Small shrinkage cracks may appear in plastered finishes. These can be filled using a suitable product and covered with paint</li>
+	<li>Wooden door frames and windows may move. Simply adjust the door or window keep if necessary</li>
+	<li>Nail or screw heads may pop out of plastered finishes. Hammer or screw them down, fill the hole with a suitable product and cover with paint</li>
 </ul>
 
-<p>Further advice on the drying out process can be found in the manual that you received when you moved into your home.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website.</p>
+<p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(settling)
 }, {
   question: %(Why are screw/nail heads starting to show in the plastered surfaces?),
-  answer: %(<p>The materials that were used to build your new home contained a lot of water.&nbsp; This water will take around 6&ndash;18 months to evaporate completely, which is known as the drying out process.&nbsp; During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur.&nbsp; One of the changes is that nail or screw heads may pop out of plastered finishes and will need to be hammered or screwed down.&nbsp; The hole can then be filled with a suitable product and covered with paint.&nbsp; Below is a list of the other common signs of drying out and simple steps you can take to deal with them:&nbsp; &nbsp; &nbsp;</p>
+  answer: %(<p>The materials that were used to build your new home contained a lot of water. This water will take around 6–18 months to evaporate completely, which is known as the drying out process. During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur. One of the changes is that nail or screw heads may pop out of plastered finishes and will need to be hammered or screwed down. The hole can then be filled with a suitable product and covered with paint.</p>
+
+<p>Below is a list of the other common signs of drying out and simple steps you can take to deal with them:</p>
 
 <ul>
-	<li>Small shrinkage cracks may appear in plastered finishes.&nbsp; These can be filled using a suitable product and covered with paint</li>
-	<li>Baths and shower trays may drop very slightly.&nbsp; You should reseal them around the edges with a silicone sealant</li>
-	<li>Wooden door frames and windows may move.&nbsp; Simply adjust the door or window keep if necessary</li>
+	<li>Small shrinkage cracks may appear in plastered finishes. These can be filled using a suitable product and covered with paint</li>
+	<li>Baths and shower trays may drop very slightly. You should reseal them around the edges with a silicone sealant</li>
+	<li>Wooden door frames and windows may move. Simply adjust the door or window keep if necessary</li>
 </ul>
 
-<p>Further advice on the drying out process can be found in the manual that you received when you moved into your home.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website.</p>
+<p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(settling)
 }, {
   question: %(How can I reduce condensation in my home?),
-  answer: %(<p>Condensation is steam or water vapour, which reverts to water on contact with a cold surface.&nbsp; There are a few steps you can take to reduce condensation in your home:</p>
+  answer: %(<p>Condensation is steam or water vapour, which reverts to water on contact with a cold surface. There are a few steps you can take to reduce condensation in your home:</p>
 
 <ul>
 	<li>Stop moisture from spreading by closing kitchen and bathroom doors when cooking, showering or bathing</li>
 	<li>Cover pans when cooking</li>
 	<li>Use extractor fans and ventilation systems</li>
-	<li>Open windows when possible and leave trickle vents open at all times (where fitted).&nbsp; Or, if you have a whole house ventilation system, leave windows and trickle vents closed, and keep your system running constantly</li>
+	<li>Open windows when possible and leave trickle vents open at all times (where fitted). Or, if you have a whole house ventilation system, leave windows and trickle vents closed, and keep your system running constantly</li>
 	<li>Leave internal and wardrobe doors (except fire doors) open when possible</li>
 </ul>
 
-<p>Despite taking these steps, condensation may still occur.&nbsp; Simply wipe the affected surface with a dry cloth to prevent moisture from soaking into finishes.&nbsp; Further information may be available in the manual that you received when you moved into your home.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website.</p>
+<p>Despite taking these steps, condensation may still occur. Simply wipe the affected surface with a dry cloth to prevent moisture from soaking into finishes. Further information may be available in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(settling)
 }, {
@@ -75,12 +81,14 @@
   category: %(settling)
 }, {
   question: %(Will my new utility companies already have my details?),
-  answer: %(<p>We have advised the utility companies supplying your property that we no longer own your home but you will need to call them separately to register your details.&nbsp; You will also need to supply your meter readings from the day you moved in.&nbsp; You can find their details in the Settling In section of this website or in the manual that you received at handover.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website.</p>
+  answer: %(<p>We have advised the utility companies supplying your property that we no longer own your home but you will need to call them separately to register your details. You will also need to supply your meter readings from the day you moved in.</p>
+
+<p>You will find contact details for your utility suppliers in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(settling)
 }, {
   question: %(Does my local authority have my details?),
-  answer: %(<p>You will need to contact your local authority to provide your details and set-up your council tax payments.&nbsp; You can find their details in the manual that you received at handover.&nbsp; You can view or download a PDF of this manual in the My Home Essentials section of this website.</p>
+  answer: %(<p>You will need to contact your local authority to provide your details and set up your council tax payments. You can find their details in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(settling)
 }, {
@@ -96,12 +104,12 @@
   category: %(urgent)
 }, {
   question: %(Who should I contact if I have an urgent problem with my new home?),
-  answer: %(<p>Please see the advice contained within the manual that you received when you moved into your home.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website.</p>
+  answer: %(<p>Please consult the advice contained in your homeowner&rsquo;s manual and get in touch with any emergency contacts provided. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(urgent)
 }, {
-  question: %(There’s damage to my roof.  What should I do?),
-  answer: %(<p>If you live in a freehold property, and the damage is as a result of bad weather conditions, please contact your insurance company.&nbsp; If you live in a leasehold property, and the damage is as a result of bad weather conditions, please contact your managing agent or landlord. For other roofing issues, please see the advice contained within the manual that you received when you moved into your home.&nbsp; You can view or download a PDF of your manual in the My Home Essentials section of this website.</p>
+  question: %(There&rsquo;s damage to my roof. What should I do?),
+  answer: %(<p>If you live in a freehold property, and the damage is as a result of bad weather conditions, please contact your insurance company. If you live in a leasehold property, and the damage is as a result of bad weather conditions, please contact your managing agent or landlord. For other roofing issues, please see the advice contained in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(urgent)
 }, {
@@ -121,8 +129,18 @@
 ),
   category: %(troubleshooting)
 }, {
-  question: %(I have no power or water.  What should I do?),
-  answer: %(<p>Before contacting us to report loss of power or water, you should check with the site office (where applicable), neighbours or the relevant service provider to confirm whether this is due to works being carried out on site or locally.&nbsp; You should also check whether an MCB has tripped on your consumer unit (please see &lsquo;Why has an MCB tripped?&rsquo;)</p>
+  question: %(I have no power or water. What should I do?),
+  answer: %(
+<ul>
+  <li>Check with your neighbours to see if they are also affected</li>
+  <li>Contact the managing agent (if applicable) to check whether this loss of supply is due to local maintenance works</li>
+  <li>If a loss of power is confined to your home, check whether an MCB has tripped on your consumer unit (please see ‘Why has an MCB tripped?&rsquo;)</li>
+  <li>If your home&rsquo;s electrical system or water system fails soon after legal completion, the developer may be liable. Consult your homeowner&rsquo;s manual for details of the developer&rsquo;s liability period and then get in touch with your developer&rsquo;s customer care team. After legal completion, you can view or download a PDF file of this manual in the document library on this website</li>
+  <li>If the developer is not liable, contact a qualified electrician or plumber</li>
+  <li>Report a local power cut to your area&rsquo;s electricity network operator – dial 105 and you will be put through to the local contact</li>
+  <li>Report a loss of water supply to your water supplier – most have a 24 hour line for supply or drainage emergencies</li>
+  <li>If you need to flush a toilet without any water supply, pour half a bucket of water down it to flush it manually</li>
+</ul>
 ),
   category: %(troubleshooting)
 }, {
@@ -130,17 +148,17 @@
   answer: %(<p>First check the following:</p>
 
 <ul>
-	<li>The timer is programmed (where applicable)</li>
-	<li>You allowed enough time for the system to heat up</li>
+	<li>The timer is programmed correctly (where applicable), with accurate time and date and no active override settings</li>
+	<li>You have allowed enough time for the system to heat up</li>
 </ul>
 
 <p>Please note, during the winter there may be a warm-up period of at least 60 minutes before the effects of any heating will be noticed.</p>
 
-<p>In the event of a heating system breakdown, please see the manual that you received when you moved into your home for further advice.&nbsp; A PDF of your manual can be viewed in the My Home Essentials section of this website.</p>
+<p>In the event of a heating system breakdown, please consult your homeowner&rsquo;s manual for further advice, as the developer may be liable for issues occurring shortly after legal completion. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(troubleshooting)
 }, {
-  question: %(My radiator is not heating properly.  What should I do?),
+  question: %(My radiator is not heating properly. What should I do?),
   answer: %(<p>If you experience a radiator failing to heat this could be an indication of air in the system.&nbsp; This is a common problem, particularly in newly installed heating systems.&nbsp; In this instance you should follow the steps below:</p>
 
 <ul>
@@ -183,25 +201,32 @@
 ),
   category: %(troubleshooting)
 }, {
-  question: %(I have spotted a water leak.  What should I do?),
-  answer: %(<p>Any leak that appears, however small, should be reported to your water supplier at your earliest convenience so that it can be rectified before it escalates into a more serious problem.&nbsp; Details of your water supplier can be found in the manual that you received when you moved into your home.&nbsp; A PDF of this can be viewed in the My Home Essentials section of this website.</p>
+  question: %(I have spotted a water leak. What should I do?),
+  answer: %(<p>Any leak that appears, however small, should be reported to your water supplier at your earliest convenience so that it can be rectified before it escalates into a more serious problem. Details of your water supplier can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 
-<p>If water is leaking within your home, turn off the supply at the stop tap or use buckets or towels to keep the water contained.&nbsp; You may find advice on who to contact within the manual that you were provided with at handover.&nbsp; You can view or download a PDF file of this in the My Home Essentials section of this website. Alternatively, you should call a plumber.</p>
+<p>If water is leaking within your home, turn off the supply at the stop tap or use buckets or towels to keep the water contained. You may find advice on who to contact within your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(troubleshooting)
 }, {
   question: %(Why is water draining slowly in my kitchen/bathroom?),
-  answer: %(<p>Slow draining water, or water that is not draining at all, indicates a blockage.&nbsp; Try using a flexible rod or suction cup to remove it.&nbsp; If your sink or basin is still blocked, empty it by hand and pour in a drain cleaner.&nbsp; If this fails, wearing gloves, carefully unscrew the plastic trap underneath the sink or basin (remembering to place a container beneath it to catch any waste water), remove the obstructing material and screw the trap firmly back in place.&nbsp; If these tips fail, please call a plumber.</p>
-
-<p>The following steps will help to prevent blockages:</p>
+  answer: %(<p>Slow draining water, or water that is not draining at all, indicates a blockage. To clear a blockage:</p>
 
 <ul>
-	<li>Don&rsquo;t empty large quantities of bleach or similar cleaning agents into the system</li>
-	<li>Don&rsquo;t empty cooking oil or anything similar down the sink</li>
-	<li>Don&rsquo;t put anything other than toilet paper down your WC</li>
-	<li>Don&rsquo;t use excess washing powder in your washing machine</li>
-	<li>Remove hairs that get trapped in the basin/bath/shower plug hole</li>
-	<li>Regularly flush basin/bath/shower pipework with disinfectant to clear soap residue</li>
+	<li>Try using a flexible rod or plunger/suction cup to remove it</li>
+	<li>If a plunger doesn&rsquo;t work, pour in a drain cleaner. Make sure you follow the manufacturer&rsquo;s instructions on any drain cleaning product</li>
+	<li>If you try to remove a blockage from a sink by hand, please wear gloves to protect your hands and place a bucket under the sink trap. Unscrew the trap, reach in and remove the blockage, then screw the trap back into place</li>
+	<li>For serious plumbing issues, please contact a plumber.</li>
+</ul>
+
+<p>To help prevent blockages:</p>
+
+<ul>
+  <li>don&rsquo;t empty large quantities of bleach or similar cleaning agents into the system</li>
+  <li>don&rsquo;t empty cooking oil or anything similar down the sink</li>
+  <li>don&rsquo;t put anything other than toilet paper down your WC</li>
+  <li>don&rsquo;t use excess washing powder in your washing machine</li>
+  <li>Regularly remove hairs that get trapped in the basin/bath/shower plughole</li>
+  <li>Use a plughole protector to prevent sink blockages</li>
 </ul>
 ),
   category: %(troubleshooting)
@@ -213,10 +238,10 @@
 ),
   category: %(home)
 }, {
-  question: %(Where can I find information on how to look after my home’s finishes and fittings?),
+  question: %(Where can I find information on how to look after my home&rsquo;s finishes and fittings?),
   answer: %(<p>Some advice on how to care for the finishes that may have been installed within your home has been provided in this section.</p>
 
-<p>Please see the manual that you received when you moved into your home for further advice on how to care for your home&rsquo;s finishes and fittings.&nbsp; A PDF your manual can be viewed in the My Home Essentials section of this website.&nbsp; You may also have been provided with manufacturer&rsquo;s manuals for some of your fittings, which will contain specialist care instructions.</p>
+<p>Please see your homeowner&rsquo;s manual for further advice on how to care for your home&rsquo;s finishes and fittings. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(home)
 }, {
@@ -235,7 +260,7 @@
 ),
   category: %(home)
 }, {
-  question: %(My doors or windows are squeaking or stiff.  What should I do?),
+  question: %(My doors or windows are squeaking or stiff. What should I do?),
   answer: %(<p>Use a silicone type spray on the mechanism and hinges.</p>
 
 <p>Wooden door frames might move as your home dries out.&nbsp; This could mean you need to &lsquo;shave&rsquo; a little off the bottom or sides of doors with a plane so they close easily again.</p>
@@ -266,7 +291,7 @@
 ),
   category: %(home)
 }, {
-  question: %(I’ve got weeds growing on my driveway/patio. What should I do?),
+  question: %(I&rsquo;ve got weeds growing on my driveway/patio. What should I do?),
   answer: %(<p>Regularly sweeping your driveway or patio will help keep weeds down.&nbsp;Pulling weeds up could cause damage, so instead spray them with weed killer.</p>
 ),
   category: %(home)
@@ -282,10 +307,10 @@
   category: %(general)
 }, {
   question: %(Will my existing TV Licence cover my new home?),
-  answer: %(<p>Please be aware that your television licence doesn&rsquo;t automatically move with you, and it&rsquo;s important that you notify TV Licensing so they can transfer your licence to your new address:&nbsp;</p>
+  answer: %(<p>Please be aware that your television licence doesn&rsquo;t automatically move with you, and it&rsquo;s important that you notify TV Licensing so they can transfer your licence to your new address:</p>
 
-<p>Telephone: 0300 790 6165<br />
-Website: <a href="http://www.tvlicensing.co.uk">www.tvlicensing.co.uk</a></p>
+<p>Telephone: 0300 790 6165 <br />
+Website:  www.tvlicensing.co.uk</p>
 ),
   category: %(general)
 }, {
@@ -310,29 +335,35 @@ Website: <a href="http://www.tvlicensing.co.uk">www.tvlicensing.co.uk</a></p>
   category: %(general)
 }, {
   question: %(What steps can I take to save energy and water?),
-  answer: %(<ul>
-	<li>Don&rsquo;t set your heating thermostat higher than necessary</li>
-	<li>Programme your heating and hot water to only turn on at the times you need it</li>
-	<li>Use energy saving light bulbs, which use a fraction of the electricity to generate the same amount of light</li>
-	<li>Only turn lights on when needed</li>
-	<li>Turn appliances off instead of leaving them on standby</li>
-	<li>Only fill your kettle with the amount of water you need to boil</li>
-	<li>Allow food to cool before placing in the fridge or freezer</li>
-	<li>Run your washing machine at 30&deg;C; most washing detergents are specially designed to work well at low temperatures</li>
-	<li>Wait until you have a full load of washing, or use the &lsquo;half load&rsquo; setting</li>
-	<li>Use the &lsquo;economy&rsquo; setting on your washing machine or dishwasher, if it has one</li>
-	<li>Unplug portable devices once they are fully charged</li>
-	<li>Cover pans when cooking; they will boil quicker</li>
-	<li>Match pan size to ring size to avoid heating air</li>
-	<li>Dry your clothes naturally where you can, and avoid using your tumble dryer</li>
-	<li>If buying a new boiler or kitchen appliance in the future, choose one with a higher energy efficiency rating</li>
-	<li>Have a shower instead of a bath</li>
-	<li>Turn the tap off while brushing your teeth or shaving</li>
-	<li>Store a bottle or jug of water in the fridge, instead of running the tap until the water is cold</li>
-	<li>Reuse water where possible, for example water used for washing up could then be used to water your houseplants or garden</li>
-	<li>Wash your car with a bucket of water instead of the hose</li>
-	<li>Water your garden in the morning or evening, when the temperature is lower so less water will evaporate</li>
-	<li>Use a save-a-flush bag in your toilet cistern</li>
+  answer: %(<p>To reduce your energy use:</p>
+<ul>
+	<li>don&rsquo;t set your heating thermostat higher than necessary; turn your heating settings down by 1°C will reduce your energy consumption and your heating bills</li>
+  <li>Programme your heating and hot water to only turn on at the times you need it</li>
+  <li>Wait until you have a full load before using your washing machine or dishwasher</li>
+  <li>Where possible, allow clothes to dry naturally rather than using a tumble dryer</li>
+  <li>Let food cool down before putting it in the fridge or freezer</li>
+  <li>Switch lights off when you don&rsquo;t need them</li>
+  <li>Use energy saving light bulbs</li>
+  <li>Use “economy” settings on your appliances and turn them off when not in use, instead of leaving them on standby</li>
+  <li>If buying a new boiler or kitchen appliance in the future, choose one with a higher energy efficiency rating</li>
+  <li>Unplug portable devices once they are fully charged</li>
+  <li>Run your washing machine at 30°C; most washing detergents are specially designed to work well at low temperatures</li>
+  <li>Match pan size to ring size and cover pans so that the contents heat up quicker</li>
+</ul>
+
+<p>To reduce your water consumption:</p>
+
+<ul>
+  <li>Repair dripping taps</li>
+  <li>Only fill the kettle with the amount of water you need</li>
+  <li>Have a shower instead of a bath</li>
+  <li>Use a save-a-flush bag in your toilet cistern</li>
+  <li>don&rsquo;t leave the tap running while brushing your teeth or shaving</li>
+  <li>Wash your car using a bucket and sponge, rather than a hose</li>
+  <li>Wash your fruit and vegetables in a bowl rather than under a running tap</li>
+  <li>Put a jug of water in the fridge, instead of running the tap until the water is cold</li>
+  <li>If you have a garden, water it in the morning or evening, when the temperature is lower so less water will evaporate</li>
+  <li>Reuse washing up water for your houseplants or garden</li>
 </ul>
 ),
   category: %(general)

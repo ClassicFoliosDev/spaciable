@@ -46,25 +46,25 @@ h1, h2, h3, h4, h5 {
   font-family: $base-font-family;
 }
 
-h1 { 
+h1 {
   font-size: $title-font-size-1;
   margin: $title-margin-large;
 }
-h2 { 
-  font-size: $title-font-size-2; 
+h2 {
+  font-size: $title-font-size-2;
   margin: $title-margin-medium;
 }
-h3 { 
+h3 {
   font-size: $title-font-size-3;
-  margin: $title-margin-medium; 
+  margin: $title-margin-medium;
 }
-h4 { 
+h4 {
   font-size: $title-font-size-4;
-  margin: $title-margin-medium; 
+  margin: $title-margin-medium;
 }
-h5 { 
+h5 {
   font-size: $title-font-size-5;
-  margin: $title-margin-small; 
+  margin: $title-margin-small;
 }
 
 //Paragraph Styles
@@ -87,8 +87,6 @@ dl {
   margin: $list-margin;
   list-style-position: inside;
   font-family: $base-font-family;
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
 }
 
 li {
