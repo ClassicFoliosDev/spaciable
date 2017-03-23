@@ -10,7 +10,15 @@
     .contact-avatar {
       @include span-columns(3 of 12);
 
+      .avatar {
+        margin: 0 auto;
+        max-width: 55px;
+        font-size: 55px;
+        color: $ui-dark-grey;
+      }
+
       img {
+        margin: 0 auto;
         display: block;
         max-width: 100%;
         max-height: 86px;
@@ -22,7 +30,6 @@
       @include span-columns(9 of 12);
 
       .contact-detail {
-        font-size: 12px;
         text-overflow: ellipsis;
         overflow-x: hidden;
         display: block;
@@ -36,6 +43,11 @@
   .contact-list .contact {
     .contact-avatar {
       @include span-columns(2 of 12);
+
+      .avatar {
+        max-width: 86px;
+        font-size: 86px;
+      }
     }
 
     .contact-details {
@@ -48,6 +60,12 @@
   .contact-list .contact {
     .contact-avatar {
       @include span-columns(3 of 12);
+      max-height: 69px;
+
+      .avatar {
+        max-width: 69px;
+        font-size: 69px;
+      }
     }
 
     .contact-details {

@@ -3,7 +3,9 @@
     <% if contact.picture? %>
       <%= image_tag(contact.picture.url) %>
     <% else %>
-      <%= image_tag('user-icon.png') %>
+      <div class="avatar">
+        <%= fa_icon "user-circle-o" %>
+      </div>
     <% end %>
   </div>
   <div class="contact-details branded-text">
