@@ -8,38 +8,37 @@
       </div>
     <% end %>
   </div>
-  <div class="contact-details branded-text">
-    <div class="contact-detail">
-      <%= contact %>
 
-      <% if contact.position %>
-        - <%= contact.position %>
-      <% end %>
-    </div>
+  <div class="contact-details branded-text">
+    <span class="contact-detail"><%= contact %></span>
+
+    <% if contact.position? %>
+      <span class="contact-detail"><%= contact.position %></span>
+    <% end %>
 
     <% if contact.phone? %>
-      <div class="contact-detail">
+      <span class="contact-detail">
         <%= link_to 'tel:#{contact.phone}', number: contact.phone, class: 'branded-primary' do %>
-          <%= fa_icon "phone" %>
+          <%= fa_icon "phone" %> <%= contact.phone %>
         <% end %>
-      </div>
+      </span>
     <% end %>
 
     <% if contact.mobile? %>
-      <div class="contact-detail">
+      <span class="contact-detail">
         <%= link_to 'tel:#{contact.mobile}', number: contact.mobile, class: 'branded-primary' do %>
-          <%= fa_icon "mobile" %>
+          <%= fa_icon "mobile" %> <%= contact.mobile %>
         <% end %>
-      </div>
+      </span>
     <% end %>
 
     <% if contact.email? %>
-      <div class="contact-detail">
+      <span class="contact-detail">
         <%= mail_to contact.email, class: 'branded-primary' do %>
           <%= fa_icon "envelope" %>
           <%= contact.email %>
         <% end %>
-      </div>
+      </span>
     <% end %>
   </div>
 </div>
