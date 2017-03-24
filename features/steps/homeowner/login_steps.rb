@@ -46,3 +46,29 @@ Then(/^I should be on the "Homeowner Login" page with errors$/) do
   expect(page).to have_content(t("activerecord.attributes.resident.email"))
   expect(page).to have_content(t("activerecord.attributes.resident.password"))
 end
+
+When(/^I visit the data policy page$/) do
+  visit "/data_policy"
+end
+
+Then(/^I should see the data policy contents$/) do
+  within ".policy" do
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.title"))
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.para1"))
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.para2"))
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.para3"))
+  end
+end
+
+When(/^I visit the ts_and_cs page$/) do
+  visit "/ts_and_cs"
+end
+
+Then(/^I should see the terms and conditions for using Hoozzi$/) do
+  within ".policy" do
+    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.title"))
+    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para1"))
+    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para2"))
+    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para3"))
+  end
+end

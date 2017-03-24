@@ -38,8 +38,8 @@ class ResidentNotifierService
   def compare_numbers(plot_numbers, resident_numbers)
     remaining_numbers = []
 
-    plot_numbers.each_with_index do |number, index|
-      remaining_numbers.push(number) unless number.to_f == resident_numbers[index].to_f
+    plot_numbers.each do |number|
+      remaining_numbers.push(number) unless resident_numbers.include?(number.to_s)
     end
 
     remaining_numbers

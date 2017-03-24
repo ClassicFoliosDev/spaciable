@@ -79,7 +79,6 @@ $homeowner-margin: 12px;
 
 .my-home {
   color: $ui-white;
-  //position: relative;
   background-size: cover;
   background-position: center;
 
@@ -95,6 +94,15 @@ $homeowner-margin: 12px;
   address {
     margin-bottom: $homeowner-margin;
   }
+}
+
+.policy {
+  width: 600px;
+  margin: 80px auto;
+  border-style: solid;
+  border-radius: 5px;
+  text-align: center;
+  background-color: $ui-white;
 }
 
 .dummy-image {

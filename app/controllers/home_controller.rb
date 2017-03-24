@@ -8,4 +8,12 @@ class HomeController < ApplicationController
     redirect_to(homeowner_dashboard_path) && return if current_resident
     redirect_to(admin_dashboard_path) && return if current_user
   end
+
+  def ts_and_cs
+    render "homeowners/dashboard/ts_and_cs"
+  end
+
+  def data_policy
+    render "homeowners/dashboard/data_policy"
+  end
 end

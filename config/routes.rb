@@ -124,8 +124,8 @@ Rails.application.routes.draw do
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
   end
 
-  get "/ts_and_cs", to: 'homeowners/dashboard#ts_and_cs'
-  get "/data_policy", to: 'homeowners/dashboard#data_policy'
+  get "/ts_and_cs", to: 'home#ts_and_cs'
+  get "/data_policy", to: 'home#data_policy'
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/remove_appliance", to: "rooms#remove_appliance"

@@ -11,9 +11,5 @@ module Homeowners
                             .with_manuals.order(updated_at: :desc).first(5)
       @documents = DocumentLibraryService.call(docs, appliances)
     end
-
-    def ts_and_cs; end
-
-    def data_policy; end
   end
 end

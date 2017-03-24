@@ -18,4 +18,12 @@ Feature: Homeowner Login
     When I log in as a homeowner
     Then I should be on the "Homeowner Login" page with errors
 
+  Scenario: Data policy
+    When I visit the data policy page
+    Then I should see the data policy contents
+
+  Scenario: Ts and Cs
+    When I visit the ts_and_cs page
+    Then I should see the terms and conditions for using Hoozzi
+
 

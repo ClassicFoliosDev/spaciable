@@ -266,20 +266,20 @@ RSpec.describe ResidentNotifierService do
         notification = create(:notification, send_to: development)
         plots = []
         plots[0] = create(:plot, :with_resident, development: development, number: "5")
-        plots[1] = create(:plot, :with_resident, development: development, number: "5.55")
-        plots[2] = create(:plot, :with_resident, development: development, number: "5.2")
-        plots[3] = create(:plot, development: development, number: "2")
-        plots[4] = create(:plot, development: development, number: "2.31")
+        plots[1] = create(:plot, development: development, number: "4")
+        plots[2] = create(:plot, :with_resident, development: development, number: "5.55")
+        plots[3] = create(:plot, development: development, number: "2.31")
+        plots[4] = create(:plot, :with_resident, development: development, number: "5.2")
 
-        plots.map(&:number).map(&:to_s)
-        described_class.new(notification)
+        service = described_class.new(notification)
 
-        # service.missing_resident_plots.each_with_index do |number, index|
-        #  expect(number.to_f).not_to eq(plot_numbers[index].to_f) if index < 3
-        #  expect(number.to_f).to eq(plot_numbers[index].to_f) if index >= 3
-        # end
+        expect(service.missing_resident_plots.count).to eq(2)
 
-        # expect(service.missing_resident_plots).not_to match_array(plot_numbers)
+        expect(service.missing_resident_plots).to include(4)
+        expect(service.missing_resident_plots).to include(2.31)
+        expect(service.missing_resident_plots).not_to include(5)
+        expect(service.missing_resident_plots).not_to include(5.55)
+        expect(service.missing_resident_plots).not_to include(5.2)
       end
     end
 
