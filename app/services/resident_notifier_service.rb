@@ -30,20 +30,10 @@ class ResidentNotifierService
 
     resident_plot_numbers = residents.map(&:plot_number)
 
-    compare_numbers(plot_numbers, resident_plot_numbers).sort
+    plot_numbers.reject { |number| resident_plot_numbers.include?(number.to_s) }
   end
 
   private
-
-  def compare_numbers(plot_numbers, resident_numbers)
-    remaining_numbers = []
-
-    plot_numbers.each do |number|
-      remaining_numbers.push(number) unless resident_numbers.include?(number.to_s)
-    end
-
-    remaining_numbers
-  end
 
   def residents
     @residents ||= begin
