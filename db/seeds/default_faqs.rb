@@ -337,7 +337,7 @@ Website:  www.tvlicensing.co.uk</p>
   question: %(What steps can I take to save energy and water?),
   answer: %(<p>To reduce your energy use:</p>
 <ul>
-	<li>don&rsquo;t set your heating thermostat higher than necessary; turn your heating settings down by 1°C will reduce your energy consumption and your heating bills</li>
+	<li>Don&rsquo;t set your heating thermostat higher than necessary; turn your heating settings down by 1°C will reduce your energy consumption and your heating bills</li>
   <li>Programme your heating and hot water to only turn on at the times you need it</li>
   <li>Wait until you have a full load before using your washing machine or dishwasher</li>
   <li>Where possible, allow clothes to dry naturally rather than using a tumble dryer</li>
