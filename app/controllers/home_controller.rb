@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   layout "home"
   skip_before_action :authenticate_user!
   skip_authorization_check
+  skip_before_action :redirect_residents, only: :data_policy
 
   def show
     redirect_to(homeowner_dashboard_path) && return if current_resident

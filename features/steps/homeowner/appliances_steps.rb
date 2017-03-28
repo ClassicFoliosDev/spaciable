@@ -1,8 +1,4 @@
 # frozen_string_literal: true
-Given(/^I have an appliance with a guide$/) do
-  ApplianceFixture.create_appliance_with_guide
-end
-
 When(/^I visit the appliances page$/) do
   visit "/"
 

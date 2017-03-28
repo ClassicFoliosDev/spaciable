@@ -10,6 +10,7 @@ Feature: Dashboard
     And there are contacts
     When I navigate to the dashboard
     Then I see the recent homeowner contents
+    And I can see the data policy page
 
   Scenario: Password
     Given I have created a homeowner user

@@ -754,7 +754,6 @@ en:
      remove_manual: "Remove appliance manual"
      guide: "Quick reference guide"
      remove_guide: "Remove appliance quick reference guide"
-
    no_match: "No matching appliances found"
 
   finishes:

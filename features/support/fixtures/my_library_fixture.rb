@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable ModuleLength
 module MyLibraryFixture
   module_function
 
@@ -37,6 +38,7 @@ module MyLibraryFixture
 
     ApplianceFixture.update_appliance_manual
     ApplianceFixture.update_appliance_guide
+
     create_documents
   end
 
@@ -52,6 +54,24 @@ module MyLibraryFixture
         documentable: attrs[:documentable].call,
         category: attrs[:category]
       )
+    end
+  end
+
+  def create_appliance_manual
+    filename = FileFixture.manual_name
+    path = Rails.root.join("features", "support", "files", filename)
+
+    File.open(path) do |file|
+      CreateFixture.appliance.update_attribute(:manual, file)
+    end
+  end
+
+  def create_appliance_guide
+    filename = FileFixture.document_name
+    path = Rails.root.join("features", "support", "files", filename)
+
+    File.open(path) do |file|
+      CreateFixture.appliance.update_attribute(:guide, file)
     end
   end
 

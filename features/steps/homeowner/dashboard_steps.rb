@@ -27,6 +27,13 @@ Then(/^I see the recent homeowner contents$/) do
   expect(howtos.count).to eq(5)
   expect(howtos[0]).to have_content("Changing Home Checklist")
   expect(howtos[4]).to have_content("Counter New Home Cracks")
+
+  within ".footer" do
+    copyright = t("components.homeowner.footer.copyright", year: Time.current.year)
+    copyright = copyright.gsub(/&copy;/, "")
+    expect(page).to have_content(copyright)
+    expect(page).to have_content(t("components.homeowner.footer.privacy"))
+  end
 end
 
 Given(/^I have created a homeowner user$/) do
@@ -70,5 +77,18 @@ Then(/^I should be logged out of homeowner$/) do
   within ".sign-in" do
     expect(page).to have_content(t("activerecord.attributes.resident.email"))
     expect(page).to have_content(t("activerecord.attributes.resident.password"))
+  end
+end
+
+And(/^I can see the data policy page$/) do
+  within ".footer" do
+    click_on t("components.homeowner.footer.privacy")
+  end
+
+  within ".policy" do
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.title"))
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.para1"))
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.para2"))
+    expect(page).to have_content(t("homeowners.dashboard.data_policy.para3"))
   end
 end

@@ -47,7 +47,7 @@
   </div>
   <div class="row-item third">
     <%= label_tag :manual %>
-    <% if @appliance&.manual&.file %>
+    <% if @appliance.manual && @appliance.manual.file %>
       <div class="manual">
         <span class="manual-filename readonly"><%= @appliance.manual.file.filename %></span>
         <%= link_to @appliance.manual.url, class: "btn right",  target: "_blank" do %>
