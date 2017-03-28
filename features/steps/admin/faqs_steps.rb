@@ -29,7 +29,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
   sleep 0.2
   attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
   category = FaqsFixture.t_category(attrs[:category])
-  notice = t("faqs.#{action.gsub(/d\Z/, '')}.success", title: attrs[:question])
+  notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
 
   expect(page).to have_content(notice)
   expect(page).to have_content(attrs[:question])
@@ -76,7 +76,7 @@ end
 
 Then(/^I should no longer see the Developer FAQ$/) do
   attrs = FaqsFixture.faq_attrs(:updated, under: :developer)
-  notice = t("faqs.destroy.success", title: attrs[:subject])
+  notice = t("controller.success.destroy", name: attrs[:subject])
 
   expect(page).to have_content(notice)
 

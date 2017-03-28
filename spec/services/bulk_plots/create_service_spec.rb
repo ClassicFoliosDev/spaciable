@@ -93,7 +93,7 @@ RSpec.describe BulkPlots::CreateService do
 
       described_class.call(base_plot, params: params) do |_service, created_plots, errors|
         expect(created_plots).to be_empty
-        expect(errors).to include("Plot '1' could not be saved: number has already been added")
+        expect(errors).to include(I18n.t("activerecord.errors.models.plot.attributes.base.number_taken"))
       end
     end
   end
@@ -110,7 +110,7 @@ RSpec.describe BulkPlots::CreateService do
 
       described_class.call(base_plot, params: params) do |_service, created_plots, errors|
         expect(created_plots).to be_empty
-        expect(errors).to include("Plots '#{prefix} 1 and 2' could not be saved: prefix and number has already been added")
+        expect(errors).to include(I18n.t("activerecord.errors.models.plot.attributes.base.combination_taken"))
       end
     end
   end

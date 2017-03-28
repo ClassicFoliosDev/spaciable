@@ -1,5 +1,15 @@
 <% if collection.empty? %>
-  <%= render 'components/empty_list', icon_name: "question-circle", type: Faq, parent: parent %>
+  <div class="empty lower">
+    <div><%= fa_icon "question-circle" %></div>
+    <div><span><%= t("components.empty_list.empty", type_names: Faq.model_name.human.pluralize) %></span></div>
+    <div>
+      <% if can_create(Faq, parent) %>
+          <%= link_to t(".add", type_name: Faq.model_name.human), [:new, parent, Faq.name.underscore.to_sym], class: "btn btn-primary" %>
+      <% else %>
+          <span><%= t("components.empty_list.request_add", type_names: Faq.model_name.human.pluralize) %></span>
+      <% end%>
+    </div>
+  </div>
 <% else %>
   <% if can_create(Faq, parent) %>
     <div class="section-actions">

@@ -89,7 +89,7 @@ Then(/^I should see the deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: UnitType.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: UnitType.model_name.human.downcase)
   end
 end
 
@@ -102,8 +102,8 @@ Then(/^I should not be able to create a unit type$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.request_add", type_names: UnitType.model_name.human.pluralize)
-    expect(page).not_to have_content t("components.empty_list.add", type_name: UnitType.model_name.human)
+    expect(page).to have_content t("components.empty_list.request_add", type_names: UnitType.model_name.human.downcase.pluralize)
+    expect(page).not_to have_content t("components.empty_list.add", type_name: UnitType.model_name.human.downcase)
   end
 end
 

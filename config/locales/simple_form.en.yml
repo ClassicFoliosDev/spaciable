@@ -21,12 +21,12 @@ en:
     #     password: 'Password'
     #   user:
     #     new:
-    #       email: 'E-mail to sign in.'
+    #       email: 'Email to sign in.'
     #     edit:
-    #       email: 'E-mail.'
+    #       email: 'Email.'
     # hints:
     #   defaults:
-    #     username: 'User name to sign in.'
+    #     username: 'Username to sign in.'
     #     password: 'No special characters, please.'
     # include_blanks:
     #   defaults:

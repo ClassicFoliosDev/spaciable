@@ -15,13 +15,13 @@ When(/^I create a room with no room name$/) do
   end
 
   click_on t("unit_types.collection.rooms")
-  click_on t("components.empty_list.add", type_name: Room.model_name.human)
+  click_on t("components.empty_list.add", type_name: Room.model_name.human.downcase)
 
   click_on t("rooms.form.submit")
 end
 
 Then(/^I should see the room failure message$/) do
-  failure_flash_room = "Room Name " + t("activerecord.errors.messages.blank")
+  failure_flash_room = "Room name " + t("activerecord.errors.messages.blank")
   # "Room Name can't be blank"
   within ".submission-errors" do
     expect(page).to have_content(failure_flash_room)
@@ -94,7 +94,7 @@ When(/^I add a finish$/) do
     click_on t("rooms.collection.finishes")
   end
 
-  click_on t("components.empty_list.add", type_name: Finish.model_name.human)
+  click_on t("components.empty_list.add", type_name: Finish.model_name.human.downcase)
 
   select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
   select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
@@ -144,7 +144,7 @@ Then(/^I should see the room with no finish$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Finish.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: Finish.model_name.human.downcase)
   end
 end
 
@@ -177,7 +177,7 @@ When(/^I add an appliance$/) do
     click_on t("rooms.collection.appliances")
   end
 
-  click_on t("components.empty_list.add", type_name: Appliance.model_name.human)
+  click_on t("components.empty_list.add", type_name: Appliance.model_name.human.downcase)
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
   select_from_selectmenu :manufacturer, with: CreateFixture.appliance_manufacturer_name
@@ -225,7 +225,7 @@ Then(/^I should see the room with no appliance$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human.downcase)
   end
 end
 
@@ -250,6 +250,6 @@ Then(/^I should see the room deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Room.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: Room.model_name.human.downcase)
   end
 end

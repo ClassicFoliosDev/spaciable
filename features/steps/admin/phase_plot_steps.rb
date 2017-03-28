@@ -117,7 +117,7 @@ Then(/^I should see that the phase plot deletion completed successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Plot.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: Plot.model_name.human.downcase)
   end
 end
 

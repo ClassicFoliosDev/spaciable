@@ -203,7 +203,7 @@ Then(/^I should see the (\w+) brand deletion complete successfully$/) do |parent
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Brand.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: Brand.model_name.human.downcase)
   end
 end
 

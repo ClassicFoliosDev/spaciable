@@ -232,6 +232,6 @@ Then(/^I should see the appliance deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human)
+    expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human.downcase)
   end
 end

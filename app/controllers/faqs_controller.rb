@@ -24,7 +24,7 @@ class FaqsController < ApplicationController
     authorize! :create, @faq
 
     if @faq.save
-      redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
+      redirect_to [@parent, :faqs], notice: t("controller.success.create", name: @faq)
     else
       render :new
     end
@@ -34,7 +34,7 @@ class FaqsController < ApplicationController
     authorize! :update, @faq
 
     if @faq.update(faq_params)
-      redirect_to [@parent, :faqs], notice: t(".success", title: @faq)
+      redirect_to [@parent, :faqs], notice: t("controller.success.update", name: @faq)
     else
       render :edit
     end
@@ -52,7 +52,7 @@ class FaqsController < ApplicationController
     authorize! :destroy, @faq
 
     @faq.destroy
-    notice = t(".success", title: @faq)
+    notice = t("controller.success.destroy", name: @faq)
     redirect_to [@parent, :faqs], notice: notice
   end
 

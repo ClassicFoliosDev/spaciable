@@ -44,7 +44,7 @@ en:
   developer_admin: "Developer Admin"
   division_admin: "Division Admin"
   development_admin: "Development Admin"
-  homeowner: "Home Owner"
+  homeowner: "Homeowner"
 
   choose: "Choose file"
   no_image: "No image available"
@@ -72,21 +72,21 @@ en:
         library: "Library"
         faqs: "FAQs"
     admin_login:
-      title: "Admin Login to Hoozzi"
+      title: "Admin login to Hoozzi"
     login:
       title: "Login to Hoozzi"
 
   controller:
     resource_not_found: "Resource not found"
     success:
-      create: "%{name} was created successfully"
-      update: "%{name} was updated successfully"
-      destroy: "%{name} was deleted successfully"
+      create: "%{name} was created successfully."
+      update: "%{name} was updated successfully."
+      destroy: "%{name} was deleted successfully."
 
   breadcrumbs:
     admin_notifications: "Notifications"
-    admin_notifications_new: "Send Notification"
-    admin_users: "Admin Users"
+    admin_notifications_new: "Send notification"
+    admin_users: "Admin users"
     admin_users_add: "Add admin user"
     admin_user_edit: "Edit %{user_email}"
     appliance_edit: "Edit %{name}"
@@ -110,7 +110,7 @@ en:
     plot_residencies: "Resident"
     plot_residency: "Resident %{residency}"
     plot_residency_add: "Add resident"
-    plot_residency_edit: "Edit %{plot} Resident"
+    plot_residency_edit: "Edit %{plot} resident"
     room_edit: "Edit %{room_name}"
     room_add: "Add room"
     unit_type_edit: "Edit %{unit_type_name}"
@@ -165,14 +165,14 @@ en:
       contacts: "Contacts"
 
     empty_list:
-      empty: "You have no %{type_names}"
+      empty: "You have no %{type_names}."
       add: "Add %{type_name}"
-      request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}"
+      request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}."
 
   destroy:
     cancel: "Cancel"
     confirm_title: "Confirm delete"
-    confirm_text: "Are you sure you wish to delete %{type}"
+    confirm_text: "Are you sure you wish to delete %{type}?"
     destroy: "Delete"
 
   forms:
@@ -181,18 +181,18 @@ en:
   admin:
     notifications:
       collection:
-        add: "Send Notification"
+        add: "Send notification"
         sent_to_html: "<strong>Sent to:</strong> %{sendees}"
         headers:
           subject: "Notification"
-          sent_at: "Date Sent"
+          sent_at: "Date sent"
           recipient: "Recipient"
       create:
         success:
           one: "Sending notification to resident: \"%{notification_name}\""
           other: "Sending notifications to residents: \"%{notification_name}\""
         missing_residents:
-          one: "Resident not found for Plot: %{plot_numbers}"
+          one: "Resident not found for plot: %{plot_numbers}"
           other: "Residents not found for plots: %{plot_numbers}"
       form:
         choose: "Choose..."
@@ -201,13 +201,13 @@ en:
         send_to_all_residents: "Send to all %{residents_count} homeowners"
         send_to: "Send to all homeowners under:"
         list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
-        range_label: "Add Plots by range"
+        range_label: "Add plots by range"
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
       index:
         title: "Notifications"
       new:
-        title: "Send Notification"
+        title: "Send notification"
       show:
         back: "Back"
         all: "All"
@@ -216,10 +216,10 @@ en:
 
     users:
       create:
-        success: "%{user_email} was created successfully"
+        success: "%{user_email} was created successfully."
       destroy:
         archive:
-          success: "%{user_email} was deleted successfully"
+          success: "%{user_email} was deleted successfully."
       edit:
         title: "Edit user %{user_email}"
         back: "Back"
@@ -237,30 +237,30 @@ en:
         headings:
           permission_level: "Permission level"
       new:
-        add: "Add User"
+        add: "Add user"
       show:
         back: "Back"
-        role_at: "%{role} at %{permission_level_name}"
+        role_at: "%{role} at %{permission_level_name}."
       update:
-        success: "%{user_email} was updated successfully"
+        success: "%{user_email} was updated successfully."
     dashboard:
       components:
         no_recent:
-          no_recent: "There are no recent %{type_names}"
+          no_recent: "There are no recent %{type_names}."
         recent_notifications:
-          send: "Send Notification"
+          send: "Send notification"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
     title: "Dashboard"
     section:
       notifications:
-        title: "Recent Notifications"
+        title: "Recent notifications"
         sent_to: "Sent to "
-        new: "New Notification"
+        new: "New notification"
       documents:
-        title: "Recent Documents"
-        new: "New Document"
+        title: "Recent documents"
+        new: "New document"
       faqs:
         title: "Recent FAQs"
         new: "New FAQ"
@@ -268,10 +268,6 @@ en:
   faqs:
     collection:
       add: "Add FAQ"
-    create:
-      success: "Successfully created FAQ: %{title}"
-    destroy:
-      success: "Successfully destroyed FAQ %{title}"
     edit:
       title: "%{parent} FAQ"
       back: "Back"
@@ -285,8 +281,6 @@ en:
     show:
       title: "%{parent} FAQ"
       back: "Back"
-    update:
-      success: "Successfully updated FAQ: %{title}"
 
   home:
     show:
@@ -306,12 +300,12 @@ en:
 
   developments:
     collection:
-      plot_documents: "Plot Documents"
+      plot_documents: "Plot documents"
       phases: "Phases"
       unit_types: "Unit types"
       documents: "Documents"
       plots: "Plots"
-      add: "Add Development"
+      add: "Add development"
       faqs: "FAQs"
       contacts: "Contacts"
       rooms: "Rooms"
@@ -323,20 +317,20 @@ en:
       address: "Development address"
       back: "Back"
     index:
-      add: "Add Development"
+      add: "Add development"
 
   homeowners:
     faqs:
       index:
         title: "Welcome to Frequently Asked Questions"
-        try_contacts: "Not find what you were after? Try the %{contacts_link} page to speak to someone."
+        try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
     my_home:
       show:
         view: "View room"
     contacts:
       index:
         title: "Useful contacts"
-        check_faqs: "If you have an issue, have you tried looking in the %{link} section"
+        check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
     library:
       index:
         title: "Welcome to your digital home library"
@@ -359,7 +353,7 @@ en:
         guide: "Quick reference guide"
     dashboard:
       show:
-        my_home_title: "My Home"
+        my_home_title: "My home"
         my_home_view_more: "View my home"
         contacts_title: "Contacts"
         contacts_view_more: "View contacts"
@@ -388,29 +382,29 @@ en:
         dummy_password: "********"
         edit_profile: "Edit profile"
       update:
-        success: "Your account has been updated successfully"
+        success: "Your account has been updated successfully."
 
   developers:
     destroy:
-      success: "%{developer_name} was deleted successfully"
+      success: "%{developer_name} was deleted successfully."
     create:
-      success: "%{developer_name} was created successfully"
+      success: "%{developer_name} was created successfully."
     developments:
       edit:
         title: "Edit %{development_name}"
       index:
-        add: "Add Development"
+        add: "Add development"
         title: "%{developer_name} developments"
       new:
         title: "New development"
       show:
         back: "Back"
       create:
-        success: "%{development_name} was created successfully"
+        success: "%{development_name} was created successfully."
       update:
-        success: "%{development_name} was updated successfully"
+        success: "%{development_name} was updated successfully."
       destroy:
-        success: "%{development_name} was deleted successfully"
+        success: "%{development_name} was deleted successfully."
     edit:
       title: "Edit %{developer_name}"
       show: "Show"
@@ -418,9 +412,9 @@ en:
     form:
       submit: "Submit"
       back: "Back"
-      address: "Postal Address"
+      address: "Postal address"
     index:
-      add: "Add Developer"
+      add: "Add developer"
       actions: "Actions"
       destroy: "Delete"
       developments: "Developments"
@@ -428,12 +422,12 @@ en:
       show: "Show"
       title: "Developers"
     new:
-      title: "New Developer"
+      title: "New developer"
       back: "Back"
     show:
       back: "Back"
     update:
-      success: "%{developer_name} was updated successfully"
+      success: "%{developer_name} was updated successfully."
     collection:
       developments: "Developments"
       divisions: "Divisions"
@@ -444,24 +438,24 @@ en:
 
   divisions:
     destroy:
-      success: "%{division_name} was deleted successfully"
+      success: "%{division_name} was deleted successfully."
     create:
-      success: "%{division_name} was created successfully"
+      success: "%{division_name} was created successfully."
     developments:
       destroy:
-        success: "%{development_name} was deleted successfully"
+        success: "%{development_name} was deleted successfully."
       create:
-        success: "%{development_name} was created successfully"
+        success: "%{development_name} was created successfully."
       new:
-        add: "Add Development"
+        add: "Add development"
         title: "New development"
       update:
-        success: "%{development_name} was updated successfully"
+        success: "%{development_name} was updated successfully."
       edit:
         title: "Edit %{development_name}"
         edit: "Edit %{development_name}"
       index:
-        add: "Add Development"
+        add: "Add development"
         title: "%{division_name} developments"
       show:
         back: "Back"
@@ -486,19 +480,19 @@ en:
       contacts: "Contacts"
       brands: "Styling"
       faqs: "FAQs"
-      add: "Add Division"
+      add: "Add division"
     new:
       title: "New division"
       back: "Back"
     update:
-      success: "%{division_name} was updated successfully"
+      success: "%{division_name} was updated successfully."
 
 
   addresses:
     destroy:
-      success: "%{address_title} was deleted successfully"
+      success: "%{address_title} was deleted successfully."
     create:
-      success: "%{address_title} was created successfully"
+      success: "%{address_title} was created successfully."
     edit:
       title: "Edit %{address_title}"
       show: "Show"
@@ -506,16 +500,16 @@ en:
     form:
       submit: "Submit"
     index:
-      add: "Add Address"
+      add: "Add address"
       actions: "Actions"
       destroy: "Delete"
       show: "Show"
       title: "Address"
     new:
-      title: "New Address"
+      title: "New address"
       back: "Back"
     update:
-      success: "%{address_title} was updated successfully"
+      success: "%{address_title} was updated successfully."
     placeholders:
       postal: "Postal number / name"
       building: "Building name"
@@ -532,14 +526,14 @@ en:
         login_cta: "Login"
         welcome_1: "Hoozzi isn't just a hub,"
         welcome_2: "it's a librarian"
-        copyright: "Copyright 2016 Classic Folios. All rights reserved"
+        copyright: "Copyright 2017 Classic Folios. All rights reserved"
         intro_para_1: With pen in hand and fresh ideas in mind.
                       Hoozzi is constantly churning out fun and helpful articles.
-        intro_para_2: You can scroll away to your hearts content,
+        intro_para_2: You can scroll away to your heart's content,
                       discovering exciting ideas on how to make the most of your home,
                       habits and hobbies.
       create:
-        no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team"
+        no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
 
     invitations:
       edit:
@@ -559,10 +553,10 @@ en:
         password: "Choose a password"
         terms: "Terms & Conditions"
         policy: "Data policy"
-        copyright: "Copyright 2016 Classic Folios. All rights reserved"
+        copyright: "Copyright 2017 Classic Folios. All rights reserved"
     passwords:
       new:
-        title: "Forgot your password?"
+        title: "Forgotten your password?"
         submit: "Send me reset password instructions"
 
   folders:
@@ -574,13 +568,13 @@ en:
     #add: "Add picture"
     remove: "Remove picture"
     img_name: "Picture name"
-    not_yet: "You can add pictures after this resource has been saved"
+    not_yet: "You can add pictures after this resource has been saved."
 
   phases:
     create:
-      success: "%{phase_name} was created successfully"
+      success: "%{phase_name} was created successfully."
     destroy:
-      success: "%{phase_name} was deleted successfully"
+      success: "%{phase_name} was deleted successfully."
     edit:
       back: "Back"
       title: "Edit %{phase_name}"
@@ -595,14 +589,14 @@ en:
     phase:
       name: "Phase %{number}"
     collection:
-      add: "Add Phase"
+      add: "Add phase"
       plots: "Plots"
       documents: "Documents"
       name: "Phase"
     new:
       title: "New phase"
     update:
-      success: "%{phase_name} was updated successfully"
+      success: "%{phase_name} was updated successfully."
 
   plots:
     rooms:
@@ -629,10 +623,10 @@ en:
         other: "Plots %{plot_numbers}"
     create:
       success:
-        one: "Plot %{plots} was created successfully"
-        other: "Plots %{plots} were created successfully"
+        one: "Plot %{plots} was created successfully."
+        other: "Plots %{plots} were created successfully."
     destroy:
-      success: "%{plot_name} was deleted successfully"
+      success: "%{plot_name} was deleted successfully."
     edit:
       back: "Back"
       title: "Edit %{plot_name}"
@@ -642,7 +636,7 @@ en:
       back: "Back"
       optional_range_hint: "Optionally, choose a range or list of plots to apply the prefix, unit type and address updates to:"
       list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
-      range_label: "Add Plots by range"
+      range_label: "Add plots by range"
       range_from_placeholder: "Range from"
       range_to_placeholder: "Range to"
     index:
@@ -651,10 +645,10 @@ en:
       title: "New %{parent} plot"
     update:
       success:
-        one: "Plot %{plot_name} was updated successfully"
-        other: "Plots %{plot_name} were updated successfully"
+        one: "Plot %{plot_name} was updated successfully."
+        other: "Plots %{plot_name} were updated successfully."
     collection:
-      add: "Add Plot"
+      add: "Add plot"
       rooms: "Rooms"
       documents: "Documents"
       plot_residency: "Residents"
@@ -666,10 +660,10 @@ en:
 
   plot_residencies:
     collection:
-      add: "Add Resident"
+      add: "Add resident"
       last_name: "Resident"
       email: "Email"
-      updated_at: "Last Edited"
+      updated_at: "Last edited"
     create:
       success: "Resident has been successfully assigned to %{plot}."
     destroy:
@@ -680,7 +674,7 @@ en:
       back: "Back"
       submit: "Submit"
     new:
-      title: "New %{plot} Resident"
+      title: "New %{plot} resident"
     show:
       back: "Back"
       title: "Plot %{plot} resident"
@@ -691,13 +685,13 @@ en:
     form:
       add: "Upload"
     bulk_upload:
-      files_required: "You must select files to upload"
-      success: "Uploaded %{matched} Plot Documents successfully"
-      failure: "Failed to find plots matching filename(s): %{unmatched}"
+      files_required: "You must select files to upload."
+      success: "Uploaded %{matched} plot documents successfully."
+      failure: "Failed to find plots matching filename(s): %{unmatched}."
 
   unit_types:
     destroy:
-      success: "%{unit_type_name} was deleted successfully"
+      success: "%{unit_type_name} was deleted successfully."
     edit:
       title: "Edit %{unit_type_name}"
       back: "Back"
@@ -707,28 +701,28 @@ en:
       submit: "Submit"
       back: "Back"
     new:
-      add: "Add %{development_name} Unit Type"
+      add: "Add %{development_name} unit type"
     show:
       back: "Back"
     index:
-      title: "%{development_name} Unit Types"
+      title: "%{development_name} unit types"
     collection:
-      add: "Add Unit Type"
+      add: "Add unit type"
       rooms: "Rooms"
       documents: "Documents"
-    require_phase: " must be from %{development_name}"
+    require_phase: " must be from %{development_name}."
 
   appliances:
    destroy:
-     success: "%{name} was deleted successfully"
+     success: "%{name} was deleted successfully."
    create:
-     success: "%{name} was created successfully"
+     success: "%{name} was created successfully."
    update:
-     success: "%{name} was updated successfully"
+     success: "%{name} was updated successfully."
    index:
      title: "Appliances"
    collection:
-     create: "Add Appliance"
+     create: "Add appliance"
      appliance_category: "Category"
      remove: "Remove"
    new:
@@ -736,7 +730,7 @@ en:
    show:
      back: "Back"
      download: "Download manual"
-     documents: "Appliance Manual"
+     documents: "Appliance manual"
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -758,18 +752,18 @@ en:
 
   finishes:
    destroy:
-     success: "%{name} was deleted successfully"
+     success: "%{name} was deleted successfully."
    create:
-     success: "%{name} was created successfully"
+     success: "%{name} was created successfully."
    update:
-     success: "%{name} was updated successfully"
+     success: "%{name} was updated successfully."
    index:
      title: "Finishes"
    collection:
      finish_category: "Category"
      finish_type: "Type"
      manufacturer: "Manufacturer"
-     create: "Add Finish"
+     create: "Add finish"
    new:
      title: "New finish"
    form:
@@ -804,7 +798,7 @@ en:
       back: "Back"
       submit: "Submit"
       add: "Add"
-      add_finish: "Add Finish"
+      add_finish: "Add finish"
     show:
       back: "Back"
     new:
@@ -821,14 +815,14 @@ en:
         submit: "Submit"
         back: "Back"
     remove_appliance:
-      success: "Successfully removed %{appliance_name} from %{room_name}"
+      success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:
-      success: "Successfully removed %{finish_name} from %{room_name}"
+      success: "Successfully removed %{finish_name} from %{room_name}."
     choose: "Choose..."
 
   users:
     sign_out: "Sign out"
-    choose_scope: "Select a developer, division, or development to associate this user with"
+    choose_scope: "Select a developer, division, or development to associate this user with."
 
   documents:
     all_docs: "All documents from rooms in this plot"
@@ -843,7 +837,6 @@ en:
     loaded_name: "Upload parent"
     index:
       title: "Documents"
-      load_helper: "To upload new documents, go to the scope you want to add them to, which can be any of: developer, division, development, phase, plot"
     new:
       title: "New document for %{name}"
     show:
@@ -862,7 +855,7 @@ en:
       size: "File size"
       updated: "Upload date"
     collection:
-      add: "Add Document"
+      add: "Add document"
     edit:
       title: "Edit %{name}"
 
@@ -870,7 +863,7 @@ en:
     index:
       title: "Contacts"
     collection:
-       create: "Add Contact"
+       create: "Add contact"
        name: "Name"
     new:
       title: "New contact for %{name}"
@@ -888,7 +881,7 @@ en:
     new:
       title: "Custom styling for %{name}"
     collection:
-      create: "Add Styling"
+      create: "Add styling"
       name: "Name"
     form:
       back: "Back"
@@ -896,7 +889,7 @@ en:
       preview: "Preview"
     show:
       back: "Back"
-      image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB"
+      image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB."
     edit:
       title: "Edit styling for %{name}"
     preview:
@@ -909,7 +902,7 @@ en:
 
   resident_notification_mailer:
     notify:
-      new_notification: "You have a new notification form Hoozzi."
+      new_notification: "You have a new notification from Hoozzi."
       login: "Login to Hoozzi."
 
   services:
@@ -918,7 +911,7 @@ en:
         title_left: "Hoozzi Homeowner"
         title_right: "Login"
         blurb_para_1: "Welcome back."
-        blurb_para_2: "Login to access your home owners manual and more."
+        blurb_para_2: "Login to access your homeowners manual and more."
 
   activerecord:
     models:
@@ -926,7 +919,7 @@ en:
       division: "Division"
       development: "Development"
       phase: "Phase"
-      unit_type: "Unit Type"
+      unit_type: "Unit type"
       plot: "Plot"
       room: "Room"
       finish: "Finish"
@@ -995,7 +988,7 @@ en:
         house_number: "Postal number / name"
         updated_at: "Last edited"
       room:
-        name: "Room Name"
+        name: "Room name"
         updated_at: "Last edited"
         icon_names:
            # Icon name enums for room
@@ -1051,9 +1044,9 @@ en:
         updated_at: "Last edited"
         categories:
           # Category enum values for documents
-          my_home: "My Home"
+          my_home: "My home"
           locality: "Locality"
-          legal_and_warranty: "Legal & Warranty"
+          legal_and_warranty: "Legal & warranty"
       user:
         email: "Email address"
         password: "Password"
@@ -1133,13 +1126,13 @@ en:
 
     errors:
       messages:
-        blank: " is required, and must not be blank"
-        required: " is required, and must be configured"
-        missing_permissable_id: "be associated with a Developer or Division"
-        only_one_parent_allowed: "cannot be associated with a Developer and a Division"
-        taken: " has already been added"
-        select: "must be selected"
-        not_valid_hex: " must have a valid hex colour, for example #445544"
+        blank: " is required, and must not be blank."
+        required: " is required, and must be configured."
+        missing_permissable_id: " be associated with a developer or division."
+        only_one_parent_allowed: " cannot be associated with a developer and a division."
+        taken: " has already been added."
+        select: " must be selected."
+        not_valid_hex: " must have a valid hex colour, for example #445544."
 
       models:
         notification:
@@ -1151,15 +1144,15 @@ en:
         contact:
           attributes:
             base:
-              email_or_phone_required: "You must provide either an email address or a contact number"
-              name_or_organisation_required: "You must provide either a contact name or an organisation name"
+              email_or_phone_required: "You must provide either an email address or a contact number."
+              name_or_organisation_required: "You must provide either a contact name or an organisation name."
         plot:
           attributes:
             base:
               missing: "Plot not found"
-              combination_taken: "prefix and number has already been added"
-              number_taken: "number has already been added"
+              combination_taken: "Prefix and number has already been added."
+              number_taken: "Number has already been added."
         plot_residency:
           attributes:
             email:
-              already_in_use: "is already associated to another plot"
+              already_in_use: "is already associated to another plot."
