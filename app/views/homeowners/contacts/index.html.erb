@@ -21,18 +21,8 @@
     <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, homeowner_faqs_path, class: "branded-primary")).html_safe %></span>
   </div>
   <div class="full-contacts">
-    <div class="half">
       <% @contacts.each_with_index do | contact, index | %>
-        <% if index.even? %>
-          <%= render "homeowners/components/contact", contact: contact %>
-        <% end %>
-    <% end %>
-    </div>
-    <div class="half">
-      <% @contacts.each_with_index do | contact, index | %>
-        <% if index.odd? %>
-          <%= render "homeowners/components/contact", contact: contact %>
-        <% end %>
+        <%= render "homeowners/components/contact", contact: contact %>
       <% end %>
     </div>
   </div>

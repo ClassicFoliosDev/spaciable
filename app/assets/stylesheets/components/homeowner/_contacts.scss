@@ -95,42 +95,45 @@
 
 // Contacts on contacts page
 .full-contacts {
-  width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  @include outer-container();
 
   .contact {
-    width: 100%;
-    height: 160px;
-    font-size: $base-small-font-size;
-    padding: 0 $spacing-small/2;
-
-    .name {
-      font-size: $base-font-size;
-    }
+    @include span-columns(4 of 12);
+    @include omega(3n);
+    margin-bottom: $spacing-medium;
+    border-radius: $border-radius;
+    border-style: solid;
+    padding: $spacing-small;
 
     .avatar {
-      font-size: 48px;
-      margin: $spacing-small auto $spacing-small/2 auto;
+      @include span-columns(4 of 12);
       color: $type-grey;
+      font-size: 48px;
       text-align: center;
-      width: 50px;
-      height: 50px;
 
       img {
-        max-width: 100%;
-        max-height: 100%;
+        max-width: 50px;
+        max-height: 50px;
         border-radius: 50%;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
       }
+
     }
 
-    .three-fifths, .details {
-      text-align: center;
+    .details {
+      @include span-columns(8 of 12);
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+  }
+}
+
+@include media($tablet-landscape-down) {
+  .full-contacts {
+    @include outer-container(80%);
+
+    .contact {
+      @include span-columns(12 of 12);
+      @include omega-reset(3n);
     }
   }
 }

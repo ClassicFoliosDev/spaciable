@@ -5,7 +5,7 @@ module Homeowners
 
     def index
       @category = contact_params[:category]
-      @contacts = @contacts.where(category: @category)
+      @contacts = @contacts.where(category: @category).order(updated_at: :desc)
       @categories = Contact.categories.keys
     end
 

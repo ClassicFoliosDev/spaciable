@@ -1,27 +1,25 @@
-<div class="card contact branded-content branded-border branded-text">
-  <div class="two-fifths">
-    <div class="avatar">
-      <% if contact.picture? %>
-          <%= image_tag(contact.picture.url) %>
-      <% else %>
-          <%= fa_icon "user-circle-o" %>
-      <% end %>
-    </div>
-    <div class="details">
-      <span class="name"><%= contact.to_s %></span>
-      <br>
-      <span><%= contact.position %></span>
-    </div>
+<div class="contact branded-content branded-border branded-text">
+  <div class="avatar">
+    <% if contact.picture? %>
+      <%= image_tag(contact.picture.url) %>
+    <% else %>
+      <%= fa_icon "user-circle-o" %>
+    <% end %>
+    <p><%= contact.to_s %></p>
+    <p><%= contact.position %></p>
   </div>
-  <div class="three-fifths">
+
+  <div class="details">
     <% if contact.phone? %>
       <label><%= fa_icon "phone" %> <%= t(".phone")%></label>
       <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-primary" %></span>
     <% end %>
+
     <% if contact.mobile? %>
       <label><%= fa_icon "mobile" %> <%= t(".mobile")%></label>
       <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-primary" %></span>
     <% end %>
+
     <% if contact.email? %>
       <label><%= fa_icon "envelope" %> <%= t(".email")%></label>
       <span><%= mail_to contact.email, contact.email, class: "branded-primary" %></span>
