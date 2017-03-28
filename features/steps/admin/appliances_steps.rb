@@ -11,15 +11,15 @@ When(/^I create an appliance with no name$/) do
   click_on t("appliances.form.submit")
 end
 
-Then(/^I should see the appliance name error$/) do
-  failure_flash_appliance_category = Appliance.human_attribute_name(:name) +
+Then(/^I should see the appliance model num error$/) do
+  failure_flash_appliance_category = Appliance.human_attribute_name(:model_num) +
                                      t("activerecord.errors.messages.blank")
 
   expect(page).to have_content(failure_flash_appliance_category)
 end
 
 When(/^I create an appliance with no category$/) do
-  fill_in "appliance_name", with: ApplianceFixture.name
+  fill_in "appliance_model_num", with: ApplianceFixture.model_num
 
   click_on t("appliances.form.submit")
 end
@@ -42,7 +42,7 @@ When(/^I create an appliance$/) do
 
   click_on t("appliances.collection.create")
 
-  fill_in "appliance_name", with: ApplianceFixture.name
+  fill_in "appliance_model_num", with: ApplianceFixture.model_num
 
   select_from_selectmenu :appliance_appliance_category, with: ApplianceFixture.category
   select_from_selectmenu :appliance_manufacturer, with: ApplianceFixture.manufacturer
@@ -51,9 +51,9 @@ When(/^I create an appliance$/) do
 end
 
 Then(/^I should see the created appliance$/) do
-  expect(page).to have_content(ApplianceFixture.name)
+  expect(page).to have_content(ApplianceFixture.full_name)
 
-  click_on ApplianceFixture.name
+  click_on ApplianceFixture.full_name
 
   click_on t("appliances.edit.back")
 end
@@ -63,8 +63,8 @@ When(/^I update the appliance$/) do
 
   sleep 0.1
   within ".appliance" do
-    fill_in "appliance[name]", with: ApplianceFixture.updated_name
-    fill_in "appliance[description]", with: ApplianceFixture.appliance_name
+    fill_in "appliance[model_num]", with: ApplianceFixture.updated_model_num
+    fill_in "appliance[description]", with: ApplianceFixture.description
 
     select_from_selectmenu :appliance_appliance_category, with: ApplianceFixture.updated_category
     select_from_selectmenu :appliance_manufacturer, with: ApplianceFixture.updated_manufacturer
@@ -107,15 +107,15 @@ end
 Then(/^I should see the updated appliance$/) do
   success_flash = t(
     "appliances.update.success",
-    name: ApplianceFixture.updated_name
+    name: ApplianceFixture.updated_full_name
   )
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_name
+  click_on ApplianceFixture.updated_full_name
 
   within ".section-title" do
-    expect(page).to have_content(ApplianceFixture.updated_name)
+    expect(page).to have_content(ApplianceFixture.updated_full_name)
   end
 
   within ".appliance" do
@@ -161,12 +161,12 @@ end
 Then(/^I should see the updated appliance without the image$/) do
   success_flash = t(
     "appliances.update.success",
-    name: ApplianceFixture.updated_name
+    name: ApplianceFixture.updated_full_name
   )
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_name
+  click_on ApplianceFixture.updated_full_name
 
   # Make sure primary image has not been affected, we only deleted the second one
   within ".appliance_primary_image" do
@@ -194,12 +194,12 @@ end
 Then(/^I should see the updated appliance without the file$/) do
   success_flash = t(
     "appliances.update.success",
-    name: ApplianceFixture.updated_name
+    name: ApplianceFixture.updated_full_name
   )
 
   expect(page).to have_content(success_flash)
 
-  click_on ApplianceFixture.updated_name
+  click_on ApplianceFixture.updated_full_name
 
   # Manual should still exist, we only deleted the guide
   within ".manual" do
@@ -221,12 +221,12 @@ end
 Then(/^I should see the appliance deletion complete successfully$/) do
   success_flash = t(
     "appliances.destroy.success",
-    name: CreateFixture.appliance_name
+    name: CreateFixture.full_appliance_name
   )
   expect(page).to have_content(success_flash)
 
   within ".notice" do
-    expect(page).to have_content(CreateFixture.appliance_name)
+    expect(page).to have_content(CreateFixture.full_appliance_name)
   end
 
   expect(page).not_to have_content(".record-list")

@@ -1,13 +1,30 @@
 # frozen_string_literal: true
+# rubocop:disable ModuleLength
 module ApplianceFixture
   module_function
 
-  def appliance_name
-    "Bosch washing machine"
+  def description
+    "Some text\nSome more text"
   end
 
-  def updated_name
-    "AEG washing machine"
+  def model_num
+    "FF 456 T UK"
+  end
+
+  def updated_model_num
+    "HH 654 F EU"
+  end
+
+  def full_name
+    category + " " + manufacturer + " " + model_num
+  end
+
+  def updated_full_name
+    updated_category + " " + updated_manufacturer + " " + updated_model_num
+  end
+
+  def description_display
+    "Some text\r\nSome more text"
   end
 
   def warranty_len
@@ -40,7 +57,8 @@ module ApplianceFixture
       manufaturer: updated_manufacturer,
       warranty_len: warranty_len,
       e_rating: e_rating,
-      description: appliance_name
+      description: description,
+      model_num: updated_model_num
     }
   end
 
@@ -125,3 +143,4 @@ module ApplianceFixture
     )
   end
 end
+# rubocop:enable ModuleLength

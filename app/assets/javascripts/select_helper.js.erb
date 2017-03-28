@@ -47,6 +47,7 @@ function setFields(selectList, url, data) {
 
     if (results.length > 0) {
       enableSelect("#" + selectList.id);
+      clearMatchErrors();
     } else {
       disableSelect("#" + selectList.id);
       if (url == "/finish_manufacturers") {
@@ -67,4 +68,9 @@ function setFields(selectList, url, data) {
 function no_matches(error_message) {
   var $errors = $(document).find(".match-errors");
   $errors[0].innerHTML = error_message;
+}
+
+function clearMatchErrors() {
+    var $errors = $(document).find(".match-errors");
+    $errors[0].innerHTML = "";
 }

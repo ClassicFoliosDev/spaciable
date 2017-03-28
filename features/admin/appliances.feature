@@ -8,7 +8,7 @@ Feature: Appliances
     Given I am logged in as an admin
     And I have seeded the database
     When I create an appliance with no name
-    Then I should see the appliance name error
+    Then I should see the appliance model num error
     When I create an appliance with no category
     Then I should see the appliance category error
     When I create an appliance

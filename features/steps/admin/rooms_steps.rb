@@ -181,7 +181,7 @@ When(/^I add an appliance$/) do
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
   select_from_selectmenu :manufacturer, with: CreateFixture.appliance_manufacturer_name
-  select_from_selectmenu :appliances, with: CreateFixture.appliance_name
+  select_from_selectmenu :appliances, with: CreateFixture.full_appliance_name
 
   click_on t("rooms.form.submit")
 end
@@ -201,7 +201,7 @@ end
 Then(/^I should see a duplicate error$/) do
   duplicate_flash = t(
     "activerecord.errors.messages.taken",
-    name: ApplianceFixture.updated_name
+    name: ApplianceFixture.updated_full_name
   )
   expect(page).to have_content(duplicate_flash)
 end
@@ -217,7 +217,7 @@ end
 Then(/^I should see the room with no appliance$/) do
   success_flash = t(
     "rooms.remove_appliance.success",
-    appliance_name: CreateFixture.appliance_name,
+    appliance_name: CreateFixture.full_appliance_name,
     room_name: CreateFixture.room_name
   )
   expect(page).to have_content(success_flash)

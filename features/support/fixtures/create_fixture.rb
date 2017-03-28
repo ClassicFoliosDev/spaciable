@@ -5,7 +5,7 @@ module CreateFixture
   module_function
 
   RESOURCES ||= {
-    appliance: "Bosch WAB28161GB Washing Machine",
+    appliance: "WAB28161GB",
     appliance_without_manual: "Appliance without manual",
     developer: "Hamble View Developer",
     development: "Riverside Development",
@@ -47,6 +47,10 @@ module CreateFixture
     parent&.gsub!(/\W/, "") if parent
 
     [parent, resource].compact.map(&:to_s).map(&:downcase).join("_")
+  end
+
+  def full_appliance_name
+    appliance_category_name + " " + appliance_manufacturer_name + " " + appliance_name
   end
 
   def admin_password
@@ -152,7 +156,7 @@ module CreateFixture
   end
 
   def create_appliance
-    FactoryGirl.create(:appliance, name: appliance_name, appliance_category: appliance_category, manufacturer: manufacturer, e_rating: energy_rating)
+    FactoryGirl.create(:appliance, name: full_appliance_name, appliance_category: appliance_category, manufacturer: manufacturer, e_rating: energy_rating, model_num: appliance_name)
   end
 
   def create_notification
@@ -296,7 +300,7 @@ module CreateFixture
   end
 
   def appliance
-    Appliance.find_by(name: appliance_name)
+    Appliance.find_by(name: full_appliance_name)
   end
 
   def development_plot

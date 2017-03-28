@@ -22,7 +22,7 @@ class Appliance < ApplicationRecord
 
   paginates_per 10
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, :model_num, presence: true, uniqueness: true
 
   delegate :link, to: :manufacturer, prefix: true
 

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-And(/^I have an appliance with a guide$/) do
+Given(/^I have an appliance with a guide$/) do
   ApplianceFixture.create_appliance_with_guide
 end
 
@@ -27,13 +27,15 @@ Then(/^I should see the appliances for my plot$/) do
     register_appliance = page.first(".branded-btn")
     expect(register_appliance[:href]).to have_content(ApplianceFixture.second_manufacturer_link)
 
-    appliances = page.all(".appliance")
-    # Appliance with both manual and guide
-    expect(appliances[1]).to have_content(FileFixture.manual_name)
-    expect(appliances[1]).to have_content(FileFixture.document_name)
+    appliance = page.find("span", text: CreateFixture.appliance_name)
+    appliance_with_both = appliance.find(:xpath, "..")
+    expect(appliance_with_both).to have_content(FileFixture.manual_name)
+    expect(appliance_with_both).to have_content(FileFixture.document_name)
 
-    # Second appliance with only guide
-    expect(appliances[2]).not_to have_content(FileFixture.manual_name)
-    expect(appliances[2]).to have_content(FileFixture.document_name)
+    appliance = page.find("span", text: ApplianceFixture.second_manufacturer_name)
+    # Second appliance has only guide
+    appliance_with_guide = appliance.find(:xpath, "..")
+    expect(appliance_with_guide).not_to have_content(FileFixture.manual_name)
+    expect(appliance_with_guide).to have_content(FileFixture.document_name)
   end
 end
