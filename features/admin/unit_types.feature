@@ -3,8 +3,6 @@ Feature: UnitTypes
   I want to add the development unit types
   So that I can categorise the homes to be built
 
-  # Note that adding javascript here will mean that capybara can't find the select
-  # box tested in When I update the unit type
   Scenario:
     Given I am logged in as an admin
     And I have a developer with a development

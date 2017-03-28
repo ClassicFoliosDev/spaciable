@@ -5,21 +5,31 @@ class ApplicationController < ActionController::Base
 
   check_authorization unless: :devise_controller?
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true
+
+  rescue_from ActiveRecord::RecordNotFound do |_exception|
+    flash[:alert] = t("controller.resource_not_found")
+
+    redirect_to previous_url
+  end
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = exception.message
-    referrer = request.referer
-    url = if !referrer.blank? && referrer != request.url
-            referrer
-          else
-            root_url
-          end
 
-    redirect_to url
+    redirect_to previous_url
   end
 
   private
+
+  def previous_url
+    referrer = request.referer
+
+    if !referrer.blank? && referrer != request.url
+      referrer
+    else
+      root_url
+    end
+  end
 
   def redirect_residents
     redirect_to(homeowner_dashboard_path) && return

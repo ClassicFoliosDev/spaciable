@@ -62,7 +62,7 @@ Rails.application.routes.draw do
 
   resources :developments do
     resources :phases
-    resources :unit_types
+    resources :unit_types, except: :index
     resources :documents, only: [:new, :create]
     resources :plots, shallow: true
     resources :plot_documents, only: [:index] do

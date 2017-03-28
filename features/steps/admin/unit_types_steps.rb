@@ -33,7 +33,9 @@ Then(/^I should see the created unit type$/) do
 end
 
 When(/^I update the unit type$/) do
-  find("[data-action='edit']").click
+  within ".record-list" do
+    find("[data-action='edit']").click
+  end
 
   sleep 0.3 # these fields are not found without the sleep :(
   fill_in "unit_type[name]", with: UnitTypeFixture.updated_unit_type_name
@@ -68,8 +70,10 @@ And(/^I have created a unit type$/) do
 end
 
 When(/^I delete the unit type$/) do
-  unit_type_path = "/developments/#{CreateFixture.development_id}/unit_types"
-  visit unit_type_path
+  goto_development_show_page
+
+  sleep 0.2
+  click_on t("developments.collection.unit_types")
 
   delete_and_confirm!
 end

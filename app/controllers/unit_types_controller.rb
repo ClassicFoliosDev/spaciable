@@ -25,7 +25,7 @@ class UnitTypesController < ApplicationController
         "controller.success.create",
         name: @unit_type.name
       )
-      redirect_to [@development, :unit_types], notice: notice
+      redirect_to [@development.parent, @development, active_tab: :unit_types], notice: notice
     else
       render :new
     end
@@ -37,7 +37,7 @@ class UnitTypesController < ApplicationController
         "controller.success.update",
         name: @unit_type.name
       )
-      redirect_to [@development, :unit_types], notice: notice
+      redirect_to [@development.parent, @development, active_tab: :unit_types], notice: notice
     else
       render :edit
     end
@@ -46,7 +46,7 @@ class UnitTypesController < ApplicationController
   def destroy
     @unit_type.destroy
     notice = t("controller.success.destroy", name: @unit_type.name)
-    redirect_to development_unit_types_url(@development), notice: notice
+    redirect_to [@development.parent, @development, active_tab: :unit_types], notice: notice
   end
 
   private
