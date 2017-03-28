@@ -71,20 +71,29 @@ When(/^I filter the documents by appliances$/) do
 end
 
 Then(/^I should only see the appliance manuals to download$/) do
-  MyLibraryFixture.appliance_manuals.each do |title, download_link|
-    expect(page).to have_content(title)
+  within ".branded-body" do
+    MyLibraryFixture.appliance_manuals.each do |title, download_link|
+      expect(page).to have_content(title)
 
-    anchor = first("a[href='#{download_link}']")
-    expect(anchor).not_to be_nil
+      anchor = first("a[href='#{download_link}']")
+      expect(anchor).not_to be_nil
+    end
+
+    # Appliance guide
+    second_appliance = page.find("h5", text: ApplianceFixture.second_appliance_name)
+    appliance_with_guide = second_appliance.find("+p")
+    expect(appliance_with_guide).to have_content(t("homeowners.appliances.show.guide"))
+
+    MyLibraryFixture.not_appliance_manuals.each do |title, download_link|
+      expect(page).not_to have_content(title)
+
+      anchor = first("a[href='#{download_link}']")
+      expect(anchor).to be_nil
+    end
   end
 
-  MyLibraryFixture.not_appliance_manuals.each do |title, download_link|
-    expect(page).not_to have_content(title)
-
-    anchor = first("a[href='#{download_link}']")
-    expect(anchor).to be_nil
+  within ".hero-text" do
+    active_category = find(".categories .active").text
+    expect(active_category).to eq(MyLibraryFixture.appliances_category_name)
   end
-
-  active_category = find(".categories .active").text
-  expect(active_category).to eq(MyLibraryFixture.appliances_category_name)
 end

@@ -4,11 +4,10 @@ Feature: Dashboard
   So I can see what's changed recently
 
   Scenario: Dashboard
-    Given there is a division plot
+    And I am logged in as a homeowner want to download my documents
+    And I have an appliance with a guide
     And there are faqs
-    And there are documents
     And there are contacts
-    And I have logged in as a resident and associated the division development plot
     When I navigate to the dashboard
     Then I see the recent homeowner contents
 

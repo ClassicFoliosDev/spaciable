@@ -17,11 +17,13 @@ Feature: Appliances
     Then I should see the updated appliance
     When I remove an image
     Then I should see the updated appliance without the image
+    When I remove a file
+    Then I should see the updated appliance without the file
 
   @javascript
   Scenario: Delete
     Given I am logged in as an admin
     And I have seeded the database
-    And I have created an appliance
+    And there is an appliance
     When I delete the appliance
     Then I should see the appliance deletion complete successfully

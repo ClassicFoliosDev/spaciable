@@ -64,7 +64,7 @@ When(/^I update the appliance$/) do
   sleep 0.1
   within ".appliance" do
     fill_in "appliance[name]", with: ApplianceFixture.updated_name
-    fill_in "appliance[description]", with: ApplianceFixture.description
+    fill_in "appliance[description]", with: ApplianceFixture.appliance_name
 
     select_from_selectmenu :appliance_appliance_category, with: ApplianceFixture.updated_category
     select_from_selectmenu :appliance_manufacturer, with: ApplianceFixture.updated_manufacturer
@@ -83,6 +83,20 @@ When(/^I update the appliance$/) do
     within ".appliance_secondary_image" do
       attach_file("appliance_secondary_image",
                   File.absolute_path(secondary_picture_full_path),
+                  visible: false)
+    end
+
+    manual_full_path = FileFixture.file_path + FileFixture.manual_name
+    within ".manual-container" do
+      attach_file("appliance_manual",
+                  File.absolute_path(manual_full_path),
+                  visible: false)
+    end
+
+    guide_full_path = FileFixture.file_path + FileFixture.document_name
+    within ".guide-container" do
+      attach_file("appliance_guide",
+                  File.absolute_path(guide_full_path),
                   visible: false)
     end
   end
@@ -121,6 +135,14 @@ Then(/^I should see the updated appliance$/) do
     expect(image["src"]).to have_content(FileFixture.appliance_secondary_picture_name)
     expect(image["alt"]).to have_content(FileFixture.appliance_secondary_picture_alt)
   end
+
+  within ".manual" do
+    expect(page).to have_content(FileFixture.manual_name)
+  end
+
+  within ".guide" do
+    expect(page).to have_content(FileFixture.document_name)
+  end
 end
 
 When(/^I remove an image$/) do
@@ -158,8 +180,35 @@ Then(/^I should see the updated appliance without the image$/) do
   end
 end
 
-And(/^I have created an appliance$/) do
-  CreateFixture.create_appliance
+When(/^I remove a file$/) do
+  find("[data-action='edit']").click
+
+  within ".guide-container" do
+    remove_btn = find(".remove-btn", visible: false)
+    remove_btn.click
+  end
+
+  click_on t("unit_types.form.submit")
+end
+
+Then(/^I should see the updated appliance without the file$/) do
+  success_flash = t(
+    "appliances.update.success",
+    name: ApplianceFixture.updated_name
+  )
+
+  expect(page).to have_content(success_flash)
+
+  click_on ApplianceFixture.updated_name
+
+  # Manual should still exist, we only deleted the guide
+  within ".manual" do
+    expect(page).to have_content(FileFixture.manual_name)
+  end
+
+  within ".appliance" do
+    expect(page).not_to have_content(FileFixture.document_name)
+  end
 end
 
 When(/^I delete the appliance$/) do

@@ -5,9 +5,11 @@ class Appliance < ApplicationRecord
   mount_uploader :primary_image, PictureUploader
   mount_uploader :secondary_image, PictureUploader
   mount_uploader :manual, DocumentUploader
+  mount_uploader :guide, DocumentUploader
   process_in_background :primary_image
   process_in_background :secondary_image
   process_in_background :manual
+  process_in_background :guide
 
   attr_accessor :primary_image_cache
   attr_accessor :secondary_image_cache
@@ -17,8 +19,6 @@ class Appliance < ApplicationRecord
 
   has_many :appliance_rooms
   has_many :rooms, through: :appliance_rooms
-
-  scope :with_manuals, -> { where.not(manual: nil) }
 
   paginates_per 10
 

@@ -6,6 +6,10 @@
     @include row();
     margin-bottom: 20px;
 
+    span {
+      font-size: $base-font-size;
+    }
+
     img {
       width: 100%;
       margin-top: $spacing-small;
@@ -47,6 +51,22 @@
 
       .detail {
         @include span-columns(6 of 12);
+      }
+
+      .file-details {
+        height: 40px;
+
+        span {
+          float: left;
+          margin-bottom: $spacing_small;
+          width: 80%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        a {
+          float: right;
+        }
       }
 
       .energy-rating {

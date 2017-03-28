@@ -5,8 +5,10 @@ module Admin
 
     def show
       @notifications = notifications_scope.order(updated_at: :desc).limit(5)
-      @documents = documents_scope.order(updated_at: :desc).limit(5)
       @faqs = faqs_scope.order(updated_at: :desc).limit(5)
+      docs = documents_scope.order(updated_at: :desc).limit(5)
+      appliances = Appliance.accessible_by(current_ability).order(updated_at: :desc).first(5)
+      @documents = DocumentLibraryService.call(docs, appliances).first(5)
     end
 
     private

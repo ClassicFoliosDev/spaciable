@@ -74,6 +74,7 @@ Feature: Documents
 
   Scenario: Unit type
     Given I am logged in as an admin
+    And there is a developer with a development
     And there is a unit type
     When I upload a document for the unit type
     Then I should see the created document

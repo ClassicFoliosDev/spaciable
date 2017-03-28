@@ -170,7 +170,8 @@ module CreateFixture
       appliance_category: appliance_category,
       manufacturer: manufacturer,
       rooms: [room],
-      manual: nil
+      manual: nil,
+      guide: nil
     )
   end
 
@@ -227,10 +228,15 @@ module CreateFixture
     FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email)
   end
 
-  def create_contacts
+  def create_division_contacts
     FactoryGirl.create(:contact, contactable: developer, category: "management")
     FactoryGirl.create(:contact, contactable: division, category: "customer_care")
     FactoryGirl.create(:contact, contactable: division_development, category: "management")
+  end
+
+  def create_contacts
+    FactoryGirl.create(:contact, contactable: developer, category: "emergency")
+    FactoryGirl.create(:contact, contactable: development, category: "services")
   end
 
   def create_document

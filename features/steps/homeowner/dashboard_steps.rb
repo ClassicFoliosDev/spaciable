@@ -10,12 +10,17 @@ Then(/^I see the recent homeowner contents$/) do
   end
 
   within ".library-component" do
-    expect(page).to have_content("Document")
+    MyLibraryFixture.all_documents.each do |title, _filename|
+      expect(page).to have_content(title)
+    end
+
+    expect(page).to have_content(CreateFixture.appliance_name)
+    expect(page).to have_content(ApplianceFixture.second_appliance_name)
   end
 
   within ".contacts-component" do
     contacts = page.all(".contact")
-    expect(contacts.count).to eq(3)
+    expect(contacts.count).to eq(2)
   end
 
   howtos = page.all(".dashboard-article")

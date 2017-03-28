@@ -43,7 +43,7 @@
         <%= f.label t(".manual") %>
         <% if appliance.manual? %>
           <div class="appliance-manual">
-            <%= text_field_tag "", appliance.manual.file.filename, readonly: true, class: "manual-filename readonly" %>
+            <span class="manual-filename readonly"><%= appliance.manual.file.filename %></span>
             <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
               <%= icon "cloud-download" %>
             <% end %>
@@ -53,6 +53,21 @@
         <% end %>
         <%= f.file_field :manual, label: false, class: "file-upload" %>
         <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
+      </div>
+      <div class="guide-container">
+        <%= f.label t(".guide") %>
+        <% if appliance.guide? %>
+          <div class="appliance-guide">
+            <span class="guide-filename readonly"><%= appliance.guide.file.filename %></span>
+            <%= link_to appliance.guide.url, class: "btn guide-download",  target: "_blank" do %>
+                <%= icon "cloud-download" %>
+            <% end %>
+            <label class="btn remove-btn fa fa-trash" for="appliance_remove_guide"></label>
+            <%= f.check_box :remove_guide, label: false, class: "hidden remove-document" %>
+          </div>
+        <% end %>
+        <%= f.file_field :guide, label: false, class: "file-upload" %>
+        <%= label_tag('appliance_guide', t("choose"), class: "choose-file") %>
       </div>
       <%= f.input :secondary_image, as: :image_preview %>
     </div>

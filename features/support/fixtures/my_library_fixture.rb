@@ -19,19 +19,13 @@ module MyLibraryFixture
       title: "Unit Type Document",
       file: "unit_type_document.pdf",
       documentable: -> { CreateFixture.unit_type },
-      category: :my_home
+      category: :legal_and_warranty
     },
     {
       title: "Phase Plot Document",
       file: "phase_plot_document.pdf",
       documentable: -> { CreateFixture.phase_plot },
       category: :my_home
-    },
-    {
-      title: "Developer Legal Document",
-      file: "developer_legal_document.pdf",
-      documentable: -> { CreateFixture.developer },
-      category: :legal_and_warranty
     }
   ].freeze
 
@@ -41,7 +35,8 @@ module MyLibraryFixture
   def setup
     CreateFixture.create_resident_under_a_phase_plot_with_appliances_and_rooms
 
-    create_appliance_manual
+    ApplianceFixture.update_appliance_manual
+    ApplianceFixture.update_appliance_guide
     create_documents
   end
 
@@ -57,15 +52,6 @@ module MyLibraryFixture
         documentable: attrs[:documentable].call,
         category: attrs[:category]
       )
-    end
-  end
-
-  def create_appliance_manual
-    filename = "washing_machine_manual.pdf"
-    path = Rails.root.join("features", "support", "files", filename)
-
-    File.open(path) do |file|
-      CreateFixture.appliance.update_attribute(:manual, file)
     end
   end
 
@@ -125,3 +111,4 @@ module MyLibraryFixture
     [attrs[:title], document.file.url]
   end
 end
+# rubocop:enable ModuleLength

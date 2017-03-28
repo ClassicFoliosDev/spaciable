@@ -13,12 +13,12 @@
     <li>
       <%= link_to t(".appliances"),
         homeowner_appliance_manuals_path,
-        class: ("active" if @category == t(".appliances_category")) %>
+        class: ("active" if @category == :appliance_manuals.to_s) %>
     </li>
   </ul>
 <% end %>
 
-<div class="library">
+<div>
   <%= render "components/homeowner/sub_header", active_tab: "library" %>
 </div>
 
@@ -37,14 +37,24 @@
       <% end %>
 
       <% @appliances.each do |appliance| %>
-        <div class="sixth document">
-          <%= link_to appliance.manual.url, target: "_blank" do %>
-            <%= image_tag document_preview_url(appliance.manual) if appliance.manual? %>
-          <% end %>
-
-          <h5><%= appliance.name %></h5>
-          <p><%= t(".manual") %></p>
-        </div>
+        <% if appliance.manual? %>
+          <div class="sixth document">
+            <%= link_to appliance.manual.url, target: "_blank" do %>
+              <%= image_tag document_preview_url(appliance.manual)  %>
+            <% end %>
+            <h5><%= appliance.name %></h5>
+            <p><%= t(".manual") %></p>
+          </div>
+        <% end %>
+        <% if appliance.guide? %>
+          <div class="sixth document">
+            <%= link_to appliance.guide.url, target: "_blank" do %>
+              <%= image_tag document_preview_url(appliance.guide) %>
+            <% end %>
+            <h5><%= appliance.name %></h5>
+            <p><%= t(".guide") %></p>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

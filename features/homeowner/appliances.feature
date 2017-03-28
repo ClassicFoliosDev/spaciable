@@ -4,10 +4,7 @@ Feature: Homeowner Appliances
   To look at the configuration of my home appliances
 
   Scenario:
-    Given I have created a unit_type
-    And I have seeded the database
-    And I have created an appliance
-    And I have created an appliance_room
-    And I have logged in as a resident and associated the plot
+    Given I am logged in as a homeowner want to download my documents
+    And I have an appliance with a guide
     When I visit the appliances page
     Then I should see the appliances for my plot

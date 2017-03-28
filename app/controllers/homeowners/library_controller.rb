@@ -15,7 +15,7 @@ module Homeowners
     def appliance_manuals
       @category = t(".appliances_category")
 
-      @appliances = Appliance.accessible_by(current_ability).with_manuals
+      @appliances = Appliance.accessible_by(current_ability)
       @documents = []
 
       render :index

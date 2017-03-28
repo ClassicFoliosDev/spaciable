@@ -1,4 +1,8 @@
-.appliance-manual {
+.appliance .remove-btn {
+  margin-right: 0;
+}
+
+.appliance-manual, .appliance-guide {
   @include display(flex);
   @include flex-direction(row);
 
@@ -6,19 +10,31 @@
     width: 80%;
     display: inline-block;
   }
+
 }
 
-.manual-container {
+// FORM / EDIT / NEW
+.manual-container, .guide-container {
   margin-bottom: 40px;
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+  }
 }
 
-.manual-download {
+.manual-download, .guide-download {
   height: 30px;
   margin: 4px;
 }
 
-.manual {
-  height: 90px;
+// SHOW
+.manual, .guide {
+  margin-bottom: 45px;
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   input {
     margin-bottom: 0;

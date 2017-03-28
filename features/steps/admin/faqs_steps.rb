@@ -26,6 +26,7 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
 end
 
 Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, parent, resource|
+  sleep 0.2
   attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
   category = FaqsFixture.t_category(attrs[:category])
   notice = t("faqs.#{action.gsub(/d\Z/, '')}.success", title: attrs[:question])
@@ -99,6 +100,7 @@ Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resou
 
   goto_resource_show_page(nil, parent_resource)
 
+  sleep 0.2
   click_on t("developers.collection.faqs")
 
   expect(page).not_to have_link(t("faqs.collection.add"))

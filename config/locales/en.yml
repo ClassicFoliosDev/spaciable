@@ -49,6 +49,9 @@ en:
   choose: "Choose file"
   no_image: "No image available"
 
+  manual: "Appliance manual"
+  guide: "Appliance guide"
+
   # LAYOUTS
   layouts:
     application:
@@ -139,6 +142,9 @@ en:
         title: "My home"
         rooms: "Rooms"
         appliances: "Appliances"
+      footer:
+        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved."
+        privacy: "Privacy Policy."
     home:
       header:
         nav:
@@ -156,6 +162,7 @@ en:
       profile: "Profile"
       notifications: "Notifications"
       contacts: "Contacts"
+
     empty_list:
       empty: "You have no %{type_names}"
       add: "Add %{type_name}"
@@ -332,9 +339,9 @@ en:
     library:
       index:
         title: "Welcome to your digital home library"
-        appliances_category: "appliance_manuals"
         appliances: "Appliances"
         manual: "Manual"
+        guide: "Quick reference guide"
       appliance_manuals:
         appliances_category: "appliance_manuals"
         manual: "Manual"
@@ -347,6 +354,8 @@ en:
     appliances:
       show:
         register: "Register appliance"
+        manual: "Manual"
+        guide: "Quick reference guide"
     dashboard:
       show:
         my_home_title: "My Home"
@@ -741,8 +750,10 @@ en:
      warranty_length: "Warranty length"
      e_rating: "Energy rating"
      manual: "Appliance manual"
-     manual_name: "Appliance manual file name"
      remove_manual: "Remove appliance manual"
+     guide: "Quick reference guide"
+     remove_guide: "Remove appliance quick reference guide"
+
    no_match: "No matching appliances found"
 
   finishes:

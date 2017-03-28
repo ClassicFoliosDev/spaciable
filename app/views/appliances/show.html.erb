@@ -46,15 +46,24 @@
     </div>
   </div>
   <div class="row-item third">
-    <div class="manual">
-      <%= label_tag :manual %>
-      <% if @appliance.manual && @appliance.manual.file %>
-          <%= text_field_tag "", @appliance.manual.file.filename, readonly: true, class: "manual-filename readonly" %>
-          <%= link_to @appliance.manual.url, class: "btn right",  target: "_blank" do %>
-            <%= icon "cloud-download" %>
-          <% end %>
-      <% end %>
-    </div>
+    <%= label_tag :manual %>
+    <% if @appliance&.manual&.file %>
+      <div class="manual">
+        <span class="manual-filename readonly"><%= @appliance.manual.file.filename %></span>
+        <%= link_to @appliance.manual.url, class: "btn right",  target: "_blank" do %>
+          <%= icon "cloud-download" %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= label_tag :guide %>
+    <% if @appliance&.guide&.file %>
+      <div class="guide">
+        <span class="guide-filename readonly"><%= @appliance.guide.file.filename %></span>
+        <%= link_to @appliance.guide.url, class: "btn right",  target: "_blank" do %>
+          <%= icon "cloud-download" %>
+        <% end %>
+      </div>
+    <% end %>
     <% if @appliance.secondary_image? %>
       <div class="appliance_secondary_image">
         <%= label_tag :appliance_secondary_image %>

@@ -28,20 +28,37 @@
         <div class="details">
           <div class="detail">
             <%= label_tag(:manufacturer) %>
-            <%= appliance&.manufacturer %>
+            <span><%= appliance&.manufacturer %></span>
 
             <%= label_tag(t("appliances.form.model_num")) %>
-            <%= appliance.model_num %>
+            <span><%= appliance.model_num %></span>
 
-            <%= label_tag t("appliances.show.documents") %>
-            <% if appliance.manual? %>
-              <%= link_to appliance.manual.url, class: "btn", target: "_blank" do %>
-                <%= icon "cloud-download" %>
+            <div class="manual">
+              <%= label_tag t(".manual") %>
+              <% if appliance.manual? %>
+                <div class="file-details">
+                  <span><%= appliance.manual.file.filename %></span>
+                  <%= link_to appliance.manual.url, class: "btn", target: "_blank" do %>
+                    <%= icon "cloud-download" %>
+                  <% end %>
+                </div>
               <% end %>
-            <% end %>
+            </div>
+
+            <div class="guide">
+              <%= label_tag t(".guide") %>
+              <% if appliance.guide? %>
+                <div class="file-details">
+                  <span><%= appliance.guide.file.filename %></span>
+                  <%= link_to appliance.guide.url, class: "btn", target: "_blank" do %>
+                    <%= icon "cloud-download" %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
 
             <%= label_tag(t("appliances.form.warranty_length")) %>
-            <%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length? %>
+            <span><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length? %></span>
 
             <%= label_tag(t("appliances.form.e_rating")) %>
             <% if appliance.e_rating %>

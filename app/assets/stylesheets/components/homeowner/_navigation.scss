@@ -10,6 +10,7 @@ nav {
 
     ul {
       display: inline-block;
+      margin-bottom: 0;
 
       .active li {
         color: $type-grey;
@@ -59,6 +60,21 @@ nav {
       color: $default-text-color;
       cursor: none;
     }
+  }
+}
+
+.footer {
+  height: 40px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.copyright {
+  display: block;
+  font-size: $ultra-small-font;
+
+  a {
+    font-size: inherit;
   }
 }
 

@@ -9,17 +9,31 @@
     <tbody>
       <% documents.each do | document| %>
         <tr>
-          <td colspan="3">
-            <%= link_to document.title, document_path(document) %>
-          </td>
-          <td colspan="2">
-            <%= icon "folder" %> <%= t("activerecord.attributes.document.categories.#{document.category}") %>
-          </td>
-          <td class="actions">
-            <%= link_to document_path(document), class: "btn" do %>
-              <%= icon "eye" %>
-            <% end %>
-          </td>
+          <% if document[:parent].nil? %>
+            <td colspan="3">
+              <%= link_to document[:name], document_path(document) %>
+            </td>
+            <td colspan="2">
+              <%= icon "folder" %> <%= t("activerecord.attributes.document.categories.#{document[:category]}") %>
+            </td>
+            <td class="actions">
+              <%= link_to document[:link], class: "btn guide-download",  target: "_blank" do %>
+                <%= icon "cloud-download" %>
+              <% end %>
+            </td>
+          <% else %>
+            <td colspan="3">
+              <%= link_to document[:name], appliance_path(document[:parent]) %>
+            </td>
+            <td colspan="2">
+              <%= icon "folder" %> <%= document[:category] %>
+            </td>
+            <td class="actions">
+              <%= link_to document[:link], class: "btn guide-download",  target: "_blank" do %>
+                <%= icon "cloud-download" %>
+              <% end %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

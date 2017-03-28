@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317110225) do
+ActiveRecord::Schema.define(version: 20170324105621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20170317110225) do
     t.string   "document"
     t.integer  "appliance_category_id"
     t.integer  "manufacturer_id"
+    t.string   "guide"
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
     t.index ["manufacturer_id"], name: "index_appliances_on_manufacturer_id", using: :btree

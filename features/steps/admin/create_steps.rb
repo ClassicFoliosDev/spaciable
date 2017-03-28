@@ -25,7 +25,6 @@ Given(/^there is a division development$/) do
 end
 
 Given(/^there is a unit type$/) do
-  CreateFixture.create_developer_with_development
   CreateFixture.create_unit_type
 end
 
@@ -53,7 +52,11 @@ Given(/^there are contacts$/) do
   CreateFixture.create_contacts
 end
 
-Given(/^there are documents$/) do
+Given(/^there are division contacts$/) do
+  CreateFixture.create_division_contacts
+end
+
+Given(/^there is a document$/) do
   CreateFixture.create_document
 end
 
@@ -63,6 +66,20 @@ end
 
 Given(/^there are notifications$/) do
   CreateFixture.create_notification
+end
+
+Given(/^there is a room$/) do
+  CreateFixture.create_room
+end
+
+Given(/^there is an appliance$/) do
+  CreateFixture.create_appliance
+end
+
+Given(/^there is an appliance with manual$/) do
+  CreateFixture.create_appliance
+  CreateFixture.create_appliance_room
+  ApplianceFixture.update_appliance_manual
 end
 
 Given(/^I have seeded the database$/) do
