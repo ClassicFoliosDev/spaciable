@@ -12,7 +12,7 @@
 <div class="row finish">
   <div class="row-item third">
     <div class="finish-picture">
-      <%= image_tag @finish.picture.thumbnail.url, class: "circle" if @finish.picture? %>
+      <%= image_tag @finish.picture.thumbnail.url if @finish.picture? %>
     </div>
   </div>
   <div class="row-item third">

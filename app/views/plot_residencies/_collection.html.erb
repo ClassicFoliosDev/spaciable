@@ -25,7 +25,7 @@
         <td><%= link_to plot_residency, plot_residency, title: plot_residency %></td>
         <td><%= plot_residency.email %></td>
         <td><%= l plot_residency.updated_at.to_date, format: :digits %></td>
-        <td>
+        <td class="actions">
           <%= edit_btn [:edit, plot_residency], element: plot_residency %>
           <%= delete_btn plot_residency, path: plot_residency_path(plot_residency), element: plot_residency %>
         </td>

@@ -46,30 +46,32 @@
     </div>
   </div>
   <div class="row-item third">
-    <%= label_tag :manual %>
-    <% if @appliance.manual && @appliance.manual.file %>
-      <div class="manual">
+    <div class="manual">
+      <%= label_tag :manual %>
+      <% if @appliance.manual && @appliance.manual.file %>
         <span class="manual-filename readonly"><%= @appliance.manual.file.filename %></span>
         <%= link_to @appliance.manual.url, class: "btn right",  target: "_blank" do %>
           <%= icon "cloud-download" %>
         <% end %>
-      </div>
-    <% end %>
-    <%= label_tag :guide %>
-    <% if @appliance&.guide&.file %>
-      <div class="guide">
+      <% end %>
+    </div>
+
+    <div class="guide">
+      <%= label_tag :guide %>
+      <% if @appliance&.guide&.file %>
         <span class="guide-filename readonly"><%= @appliance.guide.file.filename %></span>
         <%= link_to @appliance.guide.url, class: "btn right",  target: "_blank" do %>
           <%= icon "cloud-download" %>
         <% end %>
-      </div>
-    <% end %>
-    <% if @appliance.secondary_image? %>
-      <div class="appliance_secondary_image">
-        <%= label_tag :appliance_secondary_image %>
+      <% end %>
+    </div>
+
+    <div class="appliance_secondary_image">
+      <%= label_tag :appliance_secondary_image %>
+      <% if @appliance.secondary_image? %>
         <span><%= image_tag(@appliance.secondary_image.url)  %></span>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
 
