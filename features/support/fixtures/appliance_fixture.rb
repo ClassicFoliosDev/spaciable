@@ -16,11 +16,11 @@ module ApplianceFixture
   end
 
   def full_name
-    category + " " + manufacturer + " " + model_num
+    manufacturer + " " + model_num
   end
 
   def updated_full_name
-    updated_category + " " + updated_manufacturer + " " + updated_model_num
+    updated_manufacturer + " " + updated_model_num
   end
 
   def description_display

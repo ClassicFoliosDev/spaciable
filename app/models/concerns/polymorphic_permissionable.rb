@@ -42,6 +42,8 @@ module PolymorphicPermissionable
     private
 
     def permissionable_id_by_role
+      return unless permissionable_role
+
       case permissionable_role.to_sym
       when :development_admin then :development_id
       when :division_admin then :division_id
@@ -50,6 +52,8 @@ module PolymorphicPermissionable
     end
 
     def permissionable_type_by_role
+      return unless permissionable_role
+
       case permissionable_role.to_sym
       when :development_admin then "Development"
       when :division_admin then "Division"

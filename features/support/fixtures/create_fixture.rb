@@ -50,7 +50,7 @@ module CreateFixture
   end
 
   def full_appliance_name
-    appliance_category_name + " " + appliance_manufacturer_name + " " + appliance_name
+    appliance_manufacturer_name + " " + appliance_name
   end
 
   def admin_password

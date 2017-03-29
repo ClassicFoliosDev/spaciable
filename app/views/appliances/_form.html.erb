@@ -14,11 +14,18 @@
 
   <div class="row appliance">
     <div class="row-item third">
-      <div class="image-container">
-        <%= f.input :primary_image, as: :image_preview %>
-      </div>
-      <%= f.input :name, required: false %>
-      <%= f.input :model_num %>
+      <fieldset>
+        <div class="image-container">
+          <%= f.input :primary_image, as: :image_preview %>
+        </div>
+        <%= f.input :model_num, required: true %>
+        <div class="name">
+          <%= f.label :name, required: false %>
+          <span class="readonly">
+            <%= f.input :name, required: false, label: false, readonly: true %>
+          </span>
+        </div>
+      </fieldset>
     </div>
     <div class="row-item third">
       <div class="appliance_category ui-front select-container">
@@ -48,10 +55,10 @@
               <%= icon "cloud-download" %>
             <% end %>
             <label class="btn remove-btn fa fa-trash" for="appliance_remove_manual"></label>
-            <%= f.check_box :remove_manual, label: false, class: "hidden remove-document" %>
+            <%= f.check_box :remove_manual, class: "hidden remove-document" %>
           </div>
         <% end %>
-        <%= f.file_field :manual, label: false, class: "file-upload" %>
+        <%= f.file_field :manual, class: "file-upload" %>
         <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
       </div>
       <div class="guide-container">
@@ -66,7 +73,7 @@
             <%= f.check_box :remove_guide, label: false, class: "hidden remove-document" %>
           </div>
         <% end %>
-        <%= f.file_field :guide, label: false, class: "file-upload" %>
+        <%= f.file_field :guide, class: "file-upload" %>
         <%= label_tag('appliance_guide', t("choose"), class: "choose-file") %>
       </div>
       <%= f.input :secondary_image, as: :image_preview %>

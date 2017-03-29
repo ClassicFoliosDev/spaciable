@@ -1,5 +1,14 @@
-.appliance .remove-btn {
-  margin-right: 0;
+.appliance {
+  .remove-btn {
+    margin-right: 0;
+  }
+
+  .name {
+    .readonly {
+      width: 100%;
+      float: none;
+    }
+  }
 }
 
 .appliance-manual, .appliance-guide {
