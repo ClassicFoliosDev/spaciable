@@ -7,7 +7,8 @@ module Admin
       @notifications = notifications_scope.order(updated_at: :desc).limit(5)
       @faqs = faqs_scope.order(updated_at: :desc).limit(5)
       docs = documents_scope.order(updated_at: :desc).limit(5)
-      appliances = Appliance.accessible_by(current_ability).order(updated_at: :desc).first(5)
+      appliances = []
+      appliances = Appliance.all.order(updated_at: :desc).limit(5) if current_user.cf_admin?
       @documents = DocumentLibraryService.call(docs, appliances).first(5)
     end
 
