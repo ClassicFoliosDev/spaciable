@@ -3,7 +3,7 @@
     <% if contact.picture? %>
       <%= image_tag(contact.picture.url) %>
     <% else %>
-      <%= fa_icon "user-circle-o" %>
+      <%= image_tag("user-circle-o") %>
     <% end %>
     <p><%= contact.to_s %></p>
     <p><%= contact.position %></p>
