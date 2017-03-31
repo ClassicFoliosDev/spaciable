@@ -68,6 +68,10 @@ Given(/^there are notifications$/) do
   CreateFixture.create_notification
 end
 
+Given(/^there are how\-tos$/) do
+  CreateFixture.create_how_tos
+end
+
 Given(/^there is a room$/) do
   CreateFixture.create_room
 end
@@ -80,6 +84,10 @@ Given(/^there is an appliance with manual$/) do
   CreateFixture.create_appliance
   CreateFixture.create_appliance_room
   ApplianceFixture.update_appliance_manual
+end
+
+Given(/^there is an appliance with a guide$/) do
+  ApplianceFixture.update_appliance_guide
 end
 
 Given(/^I have seeded the database$/) do

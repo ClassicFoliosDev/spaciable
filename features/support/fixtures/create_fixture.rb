@@ -238,6 +238,12 @@ module CreateFixture
     FactoryGirl.create(:contact, contactable: division_development, category: "management")
   end
 
+  def create_how_tos
+    FactoryGirl.create(:how_to, category: "diy")
+    FactoryGirl.create(:how_to)
+    FactoryGirl.create(:how_to, category: "diy")
+  end
+
   def create_contacts
     FactoryGirl.create(:contact, contactable: developer, category: "emergency")
     FactoryGirl.create(:contact, contactable: development, category: "services")

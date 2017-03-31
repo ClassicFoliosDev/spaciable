@@ -1,148 +1,84 @@
 <div class="branded-hero"></div>
-<div class="branded-body">
-  <div class="outer-container dashboard">
-    <div class="row">
-      <% if @plot.unit_type_picture.present? %>
-      <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" >
-      <% else %>
-      <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path "Hoozzi Sign In Image 3.jpg" %>')" >
-      <% end %>
-        <div class="card-header">
-          <h3 class="card-title-alt">
-            <%= t('.my_home_title') %>
-          </h3>
+  <div class="branded-body">
+    <div class="outer-container dashboard">
+      <div class="row">
+        <% if @plot.unit_type_picture.present? %>
+          <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" >
+        <% else %>
+          <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path "Hoozzi Sign In Image 3.jpg" %>')" >
+        <% end %>
+          <div class="card-header">
+            <h3 class="card-title-alt">
+              <%= t('.my_home_title') %>
+            </h3>
+          </div>
+          <div class="card-content">
+            <address class="my-home-address">
+              <%= @plot.house_number %> <%= @plot.building_name %><br/>
+              <%= @plot.road_name if @plot.road_name.present? %><br/>
+              <%= @plot.city if @plot.city.present? %><br/>
+              <%= @plot.county if @plot.county.present? %><br/>
+              <%= @plot.postcode if @plot.postcode.present? %><br/>
+            </address>
+            <%= link_to t(".my_home_view_more"), homeowner_my_home_path, class: "branded-btn second" %>
+          </div>
         </div>
-        <div class="card-content">
-          <address class="my-home-address">
-            <span><%= @plot.house_number %> <%= @plot.building_name %></span><br/>
-            <span><%= @plot.road_name if @plot.road_name.present? %></span><br/>
-            <span><%= @plot.city if @plot.city.present? %></span><br/>
-            <span><%= @plot.county if @plot.county.present? %></span><br/>
-            <span><%= @plot.postcode if @plot.postcode.present? %></span><br/>
-          </address>
-          <%= link_to t(".my_home_view_more"), homeowner_my_home_path, class: "branded-btn second" %>
+
+        <div class="card half library-component documents-component branded-content branded-border">
+          <div class="card-header branded-border">
+            <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.library.title') %></h2>
+            <span class="card-action">
+              <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'branded-btn alt right' %>
+            </span>
+          </div>
+          <div class="card-content row">
+            <div class="document-images row-item">
+              <%= render "homeowners/components/document_summary", collection: @documents %>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="card half library-component documents-component branded-content branded-border">
-        <div class="card-header branded-border">
-          <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.library.title') %></h2>
-          <span class="card-action">
-            <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'branded-btn alt right' %>
-          </span>
+      <div class="row">
+        <!--CONTACTS-->
+        <div class="card quarter contacts-component branded-content branded-border ">
+          <div class="card-header">
+            <h2 class="card-title branded-text"><%= t('.contacts_title') %></h2>
+            <span class="card-action">
+              <%= link_to t('.contacts_view_more'), homeowner_contacts_path, class: "branded-btn alt right" %>
+            </span>
+          </div>
+          <div class="card-content">
+            <ul class="contact-list">
+              <%= render "homeowners/components/contact_summary", collection: @contacts %>
+            </ul>
+          </div>
         </div>
-
-        <div class="card-content row">
-          <div class="document-images row-item">
-            <% if @documents.present? && @documents.length.positive? %>
-              <% @documents.each do |document| %>
-                <div class="document sixth">
-                  <%= link_to document[:link], target: "_blank" do %>
-                    <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] %>
+        <!--FAQs-->
+        <div class="card quarter faqs-component branded-content branded-border " data-test="dashboard-faqs">
+          <div class="card-header">
+            <h3 class="card-title branded-text">
+              <%= t('homeowner.dashboard.cards.faqs.title') %>
+            </h3>
+            <span class="card-action">
+              <%= link_to t('homeowner.dashboard.cards.faqs.view_more'), homeowner_faqs_path, class: "branded-btn alt right" %>
+            </span>
+          </div>
+          <div class="card-content">
+            <ul class="faq-list branded-text">
+              <% @faqs.each do |faq| %>
+                <li class="branded-border">
+                  <%= link_to homeowner_faqs_path(faq.category, anchor: "faq-#{faq.id}") do %>
+                    <span class="text"><%= faq.question %></span>
+                    <%= fa_icon "chevron-right" %>
                   <% end %>
-                  <span class="document-name"><%= link_to truncate(document[:name], length: 35), document[:link], target: "_blank", class: "branded-primary" %></span>
-                </div>
+                </li>
               <% end %>
-            <% end %>
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <!--CONTACTS-->
-      <div class="card quarter contacts-component branded-content branded-border ">
-        <div class="card-header">
-          <h2 class="card-title branded-text"><%= t('.contacts_title') %></h2>
-          <span class="card-action">
-            <%= link_to t('.contacts_view_more'), homeowner_contacts_path, class: "branded-btn alt right" %>
-          </span>
-        </div>
-        <div class="card-content">
-          <ul class="contact-list">
-            <% @contacts.each do | contact | %>
-              <%= render "homeowners/components/contact_summary", contact: contact %>
-          <% end %>
-          </ul>
-        </div>
-      </div>
-      <!--FAQs-->
-      <div class="card quarter faqs-component branded-content branded-border " data-test="dashboard-faqs">
-        <div class="card-header">
-          <h3 class="card-title branded-text">
-            <%= t('homeowner.dashboard.cards.faqs.title') %>
-          </h3>
-          <span class="card-action">
-            <%= link_to t('homeowner.dashboard.cards.faqs.view_more'), homeowner_faqs_path, class: "branded-btn alt right" %>
-          </span>
-        </div>
-        <div class="card-content">
-          <ul class="faq-list branded-text">
-            <% @faqs.each do |faq| %>
-              <li class="branded-border">
-                <%= link_to homeowner_faqs_path(faq.category, anchor: "faq-#{faq.id}") do %>
-                  <span class="text"><%= faq.question %></span>
-                  <%= fa_icon "chevron-right" %>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-      <!-- ARTICLES -->
-      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("63-key-handover-moving-home-cco.jpg") %>)">
-        <div class="overlay">
-          <div class="card-content">
-            <h3 class="how-to-title">Changing Home Checklist</h3>
-            <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-            <span class="how-to-logo">How To</span>
-            <a href="http://hoozzi.com/how-to/lifestyle/legal/changing-home-checklist/" class="branded-btn second view-article" target="_blank">View Article</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("48-new-home-cco.jpg") %>)">
-        <div class="overlay">
-          <div class="card-content">
-            <h3 class="how-to-title">Drying Out Your Domain</h3>
-            <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-            <span class="how-to-logo">How To</span>
-            <a href="http://hoozzi.com/how-to/around-the-home/home-tips/home-care/drying-out-your-domain/" class="branded-btn second view-article" target="_blank">View Article</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("16-lightbulb-our-image.jpg") %>)">
-        <div class="overlay">
-          <div class="card-content">
-            <h3 class="how-to-title">That Lightbulb Moment</h3>
-            <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-            <span class="how-to-logo">How To</span>
-            <a href="http://hoozzi.com/how-to/diy/electrics/that-lightbulb-moment/" class="branded-btn second view-article" target="_blank">View Article</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("226-legal-documents-cco.jpg") %>)">
-        <div class="overlay">
-          <div class="card-content">
-            <h3 class="how-to-title">The Legal Side to Selling Your Home</h3>
-            <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-            <span class="how-to-logo">How To</span>
-            <a href="http://hoozzi.com/how-to/lifestyle/legal/the-legal-side-to-selling-your-home/" class="branded-btn second view-article" target="_blank">View Article</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card dashboard-article branded-border" style="background-image: url(<%= image_path("49-crack-in-wall-cco.jpg") %>)">
-        <div class="overlay">
-          <div class="card-content">
-            <h3 class="how-to-title">Counter New Home Cracks</h3>
-            <%= image_tag "logo-small-white.png", class: "hoozzi-logo" %>
-            <span class="how-to-logo">How To</span>
-            <a href="http://hoozzi.com/how-to/diy/home-care/counter-new-home-cracks/" class="branded-btn second view-article" target="_blank">View Article</a>
-          </div>
-        </div>
+        <!-- ARTICLES -->
+        <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
       </div>
     </div>
   </div>
-</div>
 </div>

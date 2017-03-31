@@ -5,6 +5,7 @@ class FinishesController < ApplicationController
   load_and_authorize_resource :finish
 
   def index
+    @finishes = @finishes.includes(:finish_category, :finish_type, :manufacturer)
     @finishes = paginate(sort(@finishes, default: :name))
   end
 

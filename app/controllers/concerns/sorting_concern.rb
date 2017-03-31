@@ -3,14 +3,14 @@ module SortingConcern
   extend ActiveSupport::Concern
 
   def sort(resources, default: :updated_at)
-    return resources if resources.empty?
+    return resources if resources&.empty?
 
     if params[:direction].present? && params[:sort].present?
       direction = params[:direction] == "desc" ? :desc : :asc
 
       sort_on_column(resources, params[:sort], params[:sort_on], direction)
-    else
-      resources.order(default)
+    elsif resources
+      resources&.order(default)
     end
   end
 

@@ -62,16 +62,24 @@ module ApplianceFixture
     }
   end
 
-  def second_appliance_name
-    "Samsung fridge freezer"
+  def second_appliance_category_name
+    "Fridge Freezer"
   end
 
-  def second_appliance_category_name
-    "Fridge freezer"
+  def second_appliance_full_name
+    second_manufacturer_name + " " + second_model_num
   end
 
   def second_manufacturer_name
     "Samsung"
+  end
+
+  def second_model_num
+    "SF 456 TT"
+  end
+
+  def manufacturer_link
+    "http://www.bosch-home.co.uk/register-your-appliance.html"
   end
 
   def second_manufacturer_link

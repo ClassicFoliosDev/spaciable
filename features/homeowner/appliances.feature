@@ -4,7 +4,9 @@ Feature: Homeowner Appliances
   To look at the configuration of my home appliances
 
   Scenario:
-    Given I am logged in as a homeowner want to download my documents
-    And I have an appliance with a guide
+    Given I have seeded the database
+    And I am logged in as a homeowner want to download my documents
+    And there is an appliance with a guide
+    And there is a second appliance
     When I visit the appliances page
     Then I should see the appliances for my plot

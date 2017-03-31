@@ -1,0 +1,36 @@
+<% breadcrumb :admin_how_to, @how_to %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-question-circle"></i>
+    <%= t(".title", title: @how_to.title) %><br>
+  </h3>
+  <div class="section-data">
+    <%= edit_btn edit_admin_how_to_path, element: @how_to %>
+  </div>
+</div>
+
+<div class="row how-to">
+  <div class="row-item half">
+    <%= label_tag(HowTo.human_attribute_name(:title)) %>
+    <span><%= @how_to.title %></span>
+    <%= label_tag(HowTo.human_attribute_name(:summary)) %>
+    <span><%= @how_to.summary %></span>
+    <%= label_tag(HowTo.human_attribute_name(:description)) %>
+    <span><%= raw @how_to.description %></span>
+  </div>
+  <div class="row-item half">
+    <%= label_tag(HowTo.human_attribute_name(:category)) %>
+    <span><%= @how_to.category %></span>
+    <%= label_tag(HowTo.human_attribute_name(:featured)) %>
+    <span><%= @how_to.featured %></span>
+    <%= label_tag(HowTo.human_attribute_name(:picture)) %>
+    <%= image_tag @how_to.picture.url if @how_to.picture? %>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), admin_how_tos_path, class: "btn" %>
+  </div>
+</div>

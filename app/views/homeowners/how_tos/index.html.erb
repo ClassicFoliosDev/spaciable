@@ -1,0 +1,24 @@
+<% content_for :hero_text_primary do %>
+  <%= t('.title') %>
+<% end %>
+<% content_for :hero_text_secondary do %>
+  <ul class="hero-links categories">
+    <% @categories.each do |category| %>
+      <li>
+        <%= link_to t_enum(HowTo, :category, category),
+          homeowner_how_tos_path(category),
+          class: ("active" if @category == category) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "how_tos" %>
+
+<div class="branded-body">
+  <div class="main-container">
+    <div class="how-tos">
+      <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
+    </div>
+  </div>
+</div>

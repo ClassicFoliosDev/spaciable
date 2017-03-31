@@ -1,0 +1,50 @@
+<%= simple_form_for([:admin, how_to]) do |f| %>
+  <% if how_to.errors.any? %>
+    <div class="row">
+      <div class="row-item">
+        <div class="submission-errors">
+          <ul>
+            <% how_to.errors.full_messages.each do |message| %>
+              <li>
+                <%= fa_icon "exclamation-circle" %>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="row-item half">
+      <fieldset>
+        <%= f.input :title, as: :string %>
+        <%= f.input :summary, as: :string %>
+        <%= f.input :description, as: :ckeditor, input_html: { ckeditor: { toolbar: 'simple' } } %>
+      </fieldset>
+    </div>
+
+    <div class="row-item half">
+      <fieldset>
+        <div class="category ui-front">
+          <%= f.input :category, as: :select, collection: how_to_category_collection, include_blank: false %>
+        </div>
+        <div class="featured ui-front">
+          <%= f.input :featured, as: :select, collection: HowTo.feature_numbers, include_blank: true %>
+        </div>
+        <div class="image-container">
+          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), admin_how_tos_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>
+

@@ -1,0 +1,10 @@
+<% breadcrumb :admin_how_to_edit, @how_to %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "question-circle" %>
+    <%= t(".title", title: @how_to.title) %>
+  </h3>
+</div>
+
+<%= render 'form', how_to: @how_to %>

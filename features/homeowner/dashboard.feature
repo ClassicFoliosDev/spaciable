@@ -5,9 +5,10 @@ Feature: Dashboard
 
   Scenario: Dashboard
     And I am logged in as a homeowner want to download my documents
-    And I have an appliance with a guide
+    And there is an appliance with a guide
     And there are faqs
     And there are contacts
+    And there are how-tos
     When I navigate to the dashboard
     Then I see the recent homeowner contents
     And I can see the data policy page

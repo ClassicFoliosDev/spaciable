@@ -89,6 +89,9 @@ en:
     admin_users: "Admin users"
     admin_users_add: "Add admin user"
     admin_user_edit: "Edit %{user_email}"
+    admin_how_tos: "How tos"
+    admin_how_to_new: "New how to"
+    admin_how_to_edit: "Edit how to"
     appliance_edit: "Edit %{name}"
     appliance_add: "Add appliance"
     developer_edit: "Edit %{developer_name}"
@@ -163,7 +166,7 @@ en:
       profile: "Profile"
       notifications: "Notifications"
       contacts: "Contacts"
-
+      howtos: "How tos"
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
@@ -213,7 +216,6 @@ en:
         all: "All"
         sent_to: "Sent to"
         numbers: "Plot numbers"
-
     users:
       create:
         success: "%{user_email} was created successfully."
@@ -249,7 +251,21 @@ en:
           no_recent: "There are no recent %{type_names}."
         recent_notifications:
           send: "Send notification"
-
+    how_tos:
+      new:
+        title: "New how to"
+      form:
+        back: "Back"
+        submit: "Submit"
+      collection:
+        add: "Add how to"
+      show:
+        title: "How to %{title}"
+        back: "Back"
+      edit:
+        title: "How to %{title}"
+      index:
+        title: "How tos"
   dashboard:
     header: "Dashboard title for Hoozzi"
     title: "Dashboard"
@@ -346,11 +362,16 @@ en:
         email: "Email"
         tel: "tel: %{number}"
         phone: "Phone"
+      how_to_summary:
+        article: "View article"
     appliances:
       show:
         register: "Register appliance"
         manual: "Manual"
         guide: "Quick reference guide"
+    how_tos:
+      index:
+        title: "Featured"
     dashboard:
       show:
         my_home_title: "My home"
@@ -1097,6 +1118,14 @@ en:
           settling: "Settling In"
           troubleshooting: "Troubleshooting"
           urgent: "Urgent"
+      how_to:
+        categories:
+          home: "Around the home"
+          diy: "DIY"
+          lifestyle: "Lifestyle"
+          recipes: "Recipes"
+          cleaning: "Cleaning"
+          outdoors: "Outdoors"
       brand:
         logo: "Logo"
         banner: "Banner"

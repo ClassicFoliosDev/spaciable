@@ -37,6 +37,26 @@ crumb :admin_notification do |notification|
   parent :admin_notifications
 end
 
+# Admin HowTos
+crumb :admin_how_tos do
+  link t("breadcrumbs.admin_how_tos"), admin_how_tos_path
+end
+
+crumb :admin_how_to_new do
+  link t("breadcrumbs.admin_how_to_new"), new_admin_how_to_path
+  parent :admin_how_tos
+end
+
+crumb :admin_how_to_edit do
+  link t("breadcrumbs.admin_how_to_edit"), edit_admin_how_to_path
+  parent :admin_how_tos
+end
+
+crumb :admin_how_to do |how_to|
+  link how_to.to_s, admin_how_to_path(how_to)
+  parent :admin_how_tos
+end
+
 # DEVELOPERS
 
 crumb :developers do

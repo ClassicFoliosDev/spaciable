@@ -2,8 +2,8 @@
 module CollectionHelper
   def render_collection(collection, **options)
     path = options.delete(:path)
-    path ||= "#{options[:path_prefix]}/#{collection_path(collection)}"
 
+    path ||= "#{options[:path_prefix]}/#{collection_path(collection)}"
     render path, options.merge(collection: collection)
   end
 

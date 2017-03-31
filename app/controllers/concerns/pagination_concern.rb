@@ -14,6 +14,6 @@ module PaginationConcern
     page = params[:page].blank? ? 1 : params[:page]
 
     @per_page = per
-    resource.page(page).per(per)
+    resource&.page(page)&.per(per)
   end
 end

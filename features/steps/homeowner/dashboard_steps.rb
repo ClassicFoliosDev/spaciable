@@ -14,8 +14,9 @@ Then(/^I see the recent homeowner contents$/) do
       expect(page).to have_content(title)
     end
 
-    expect(page).to have_content(CreateFixture.appliance_name)
-    expect(page).to have_content(ApplianceFixture.second_appliance_name)
+    appliance_docs = page.all("a", text: CreateFixture.full_appliance_name)
+    # Two docs for the same appliance, one manual and one quick reference guide
+    expect(appliance_docs.count).to eq(2)
   end
 
   within ".contacts-component" do
@@ -23,10 +24,10 @@ Then(/^I see the recent homeowner contents$/) do
     expect(contacts.count).to eq(2)
   end
 
-  howtos = page.all(".dashboard-article")
-  expect(howtos.count).to eq(5)
-  expect(howtos[0]).to have_content("Changing Home Checklist")
-  expect(howtos[4]).to have_content("Counter New Home Cracks")
+  within ".dashboard" do
+    howtos = page.all(".article")
+    expect(howtos.count).to eq(3)
+  end
 
   within ".footer" do
     copyright = t("components.homeowner.footer.copyright", year: Time.current.year)

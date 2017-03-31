@@ -1,42 +1,46 @@
-<div class="contact branded-content branded-border branded-text">
-  <div class="contact-avatar">
-    <% if contact.picture? %>
-      <%= image_tag(contact.picture.url) %>
-    <% else %>
-      <%= image_tag("user-circle-o") %>
-    <% end %>
+<% collection.each do | contact | %>
+  <div class="contact branded-content branded-border branded-text">
+    <div class="contact-avatar">
+      <% if contact.picture? %>
+        <%= image_tag(contact.picture.url) %>
+      <% else %>
+        <div class="avatar">
+          <%= fa_icon "user-circle-o" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="contact-details branded-text">
+      <span class="contact-detail"><%= contact %></span>
+
+      <% if contact.position? %>
+        <span class="contact-detail"><%= contact.position %></span>
+      <% end %>
+
+      <% if contact.phone? %>
+        <span class="contact-detail">
+          <%= link_to 'tel:#{contact.phone}', number: contact.phone, class: 'branded-primary' do %>
+            <%= fa_icon "phone" %> <%= contact.phone %>
+          <% end %>
+        </span>
+      <% end %>
+
+      <% if contact.mobile? %>
+        <span class="contact-detail">
+          <%= link_to 'tel:#{contact.mobile}', number: contact.mobile, class: 'branded-primary' do %>
+            <%= fa_icon "mobile" %> <%= contact.mobile %>
+          <% end %>
+        </span>
+      <% end %>
+
+      <% if contact.email? %>
+        <span class="contact-detail">
+          <%= mail_to contact.email, class: 'branded-primary' do %>
+            <%= fa_icon "envelope" %>
+            <%= contact.email %>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
   </div>
-
-  <div class="contact-details branded-text">
-    <span class="contact-detail"><%= contact %></span>
-
-    <% if contact.position? %>
-      <span class="contact-detail"><%= contact.position %></span>
-    <% end %>
-
-    <% if contact.phone? %>
-      <span class="contact-detail">
-        <%= link_to 'tel:#{contact.phone}', number: contact.phone, class: 'branded-primary' do %>
-          <%= fa_icon "phone" %> <%= contact.phone %>
-        <% end %>
-      </span>
-    <% end %>
-
-    <% if contact.mobile? %>
-      <span class="contact-detail">
-        <%= link_to 'tel:#{contact.mobile}', number: contact.mobile, class: 'branded-primary' do %>
-          <%= fa_icon "mobile" %> <%= contact.mobile %>
-        <% end %>
-      </span>
-    <% end %>
-
-    <% if contact.email? %>
-      <span class="contact-detail">
-        <%= mail_to contact.email, class: 'branded-primary' do %>
-          <%= fa_icon "envelope" %>
-          <%= contact.email %>
-        <% end %>
-      </span>
-    <% end %>
-  </div>
-</div>
+<% end %>

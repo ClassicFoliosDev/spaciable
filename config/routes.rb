@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :notifications, except: [:edit, :update, :destroy]
+    resources :how_tos
     resources :users
 
     get 'developers', to: 'developers#index', format: :json
@@ -110,6 +111,11 @@ Rails.application.routes.draw do
         to: "faqs#index",
         as: :homeowner_faqs,
         defaults: { category: :settling }
+
+    get "how_tos/:category",
+        to: "how_tos#index",
+        as: :homeowner_how_tos,
+        defaults: { category: :home }
 
     get "library/appliance_manuals",
         to: 'library#appliance_manuals',

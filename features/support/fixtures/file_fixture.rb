@@ -19,7 +19,7 @@ module FileFixture
   end
 
   def finish_picture_alt
-    "roca basin"
+    "oca basin"
   end
 
   def appliance_primary_picture_name

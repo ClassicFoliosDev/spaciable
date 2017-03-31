@@ -13,6 +13,10 @@
       <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
       <%= navigation_link(developers_path, "building", t(".developers"), "navbar-link") %>
 
+      <% if current_user.cf_admin? %>
+        <%= navigation_link(admin_how_tos_path, "question-circle", t(".howtos"), "navbar-link") %>
+      <% end %>
+
       <% if can? :crud, Finish %>
         <%= navigation_link(finishes_path, "shower", t(".finishes"), "navbar-link") %>
       <% end %>

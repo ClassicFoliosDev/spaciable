@@ -1,9 +1,8 @@
-.dashboard-article{
+.article {
   position: relative;
   @include span-columns(3 of 12);
 
-  &:nth-child(4),
-  &:nth-child(4n+7) {
+  &:nth-child(4n) {
     @include omega();
   }
 
@@ -33,16 +32,15 @@
 }
 
 @include media($tablet-landscape-down) {
-  .dashboard-article {
+  .article {
     @include span-columns(6 of 12);
     @include omega-reset(4n);
-    @include omega-reset(4n+7);
     @include omega(2n);
   }
 }
 
 @include media($mobile-down) {
-  .dashboard-article {
+  .article {
     @include span-columns(12 of 12);
     @include omega-reset(2n);
   }

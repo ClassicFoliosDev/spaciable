@@ -1,0 +1,43 @@
+<% if collection.empty? %>
+  <%= render 'components/empty_list', icon_name: "question-circle", type: HowTo, parent: "admin" %>
+<% else %>
+  <% if can_create(HowTo, nil) %>
+    <div class="section-actions">
+      <%= link_to new_admin_how_to_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th><%= sortable(HowTo, :title) %></th>
+        <th><%= sortable(HowTo, :updated_at) %></th>
+        <th><%= sortable(HowTo, :category) %></th>
+        <th><%= sortable(HowTo, :featured) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |how_to| %>
+        <tr data-how_to="<%= how_to.id %>">
+          <td><%= link_to how_to, admin_how_to_path(how_to), title: how_to %></td>
+          <td><%= l how_to.updated_at.to_date, format: :digits %></td>
+          <td><%= content_tag(:span, t_enum(HowTo, :category, how_to.category)) %></td>
+          <td><%= how_to.featured %></td>
+          <td class="actions">
+            <%= edit_btn edit_admin_how_to_path(how_to), element: how_to %>
+            <%= delete_btn how_to, path: admin_how_to_path(how_to), element: how_to %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

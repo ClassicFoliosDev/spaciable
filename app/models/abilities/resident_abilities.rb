@@ -6,6 +6,7 @@ module Abilities
       return unless plot
 
       can :manage, Resident, id: resident.id
+      can :read, HowTo
 
       resident_abilities_via_development(plot.development_id)
       resident_abilities_via_unit_type(plot.unit_type_id, plot.rooms.pluck(:id))
