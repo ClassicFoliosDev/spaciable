@@ -12,6 +12,10 @@ $homeowner-margin: 12px;
         @include pad(10px default);
         float: right;
 
+        &.user-mobile {
+          display: none;
+        }
+
         i {
           color: white;
           padding: 3px;
@@ -133,6 +137,14 @@ $homeowner-margin: 12px;
 }
 
 @include media($mobile-down) {
+  .homeowner-view .session .session-inner .user {
+    display: none;
+
+    &.user-mobile {
+      display: inline-block;
+    }
+  }
+
   .homeowner-view {
     .hero {
       height: 230px;

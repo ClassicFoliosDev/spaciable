@@ -19,7 +19,7 @@ When(/^I log in as a homeowner$/) do
 end
 
 When(/^I log out as a homeowner$/) do
-  find(:css, "[data-test='homeowner-sign-out']").click
+  first(:css, "[data-test='homeowner-sign-out']").click
 end
 
 Then(/^I should be on the "My Home" dashboard$/) do

@@ -25,11 +25,6 @@
 }
 
 @include media($tablet-landscape-down) {
-
-  .session-container {
-    z-index: 19;
-  }
-
   .navbar {
     z-index: 20;
   }
