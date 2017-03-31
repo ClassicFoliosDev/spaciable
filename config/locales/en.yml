@@ -579,6 +579,12 @@ en:
       new:
         title: "Forgotten your password?"
         submit: "Send me reset password instructions"
+      edit:
+        title: "Reset your password"
+        new: "New password"
+        minimum: "Minimum password length is 6"
+        confirm: "Confirm password"
+        submit: "Reset"
 
   folders:
     title: "Folders"

@@ -72,3 +72,11 @@ Then(/^I should see the terms and conditions for using Hoozzi$/) do
     expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para3"))
   end
 end
+
+Then(/^I can request a password reset$/) do
+  visit "/"
+  click_on t("devise.forgot_password")
+
+  fill_in :resident_email, with: HomeownerUserFixture.email
+  click_on t("residents.passwords.new.submit")
+end

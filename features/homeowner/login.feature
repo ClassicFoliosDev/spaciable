@@ -26,4 +26,7 @@ Feature: Homeowner Login
     When I visit the ts_and_cs page
     Then I should see the terms and conditions for using Hoozzi
 
+  Scenario: Reset password
+    Given I am a homeowner
+    When I can request a password reset
 

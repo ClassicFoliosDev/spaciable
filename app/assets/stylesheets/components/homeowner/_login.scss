@@ -1,4 +1,4 @@
-.login, .forgotten-password {
+.login, .new-password, .reset-password {
   position: relative;
   background-color: $ui-light-grey;
   @include outer-container(1000px);
@@ -36,7 +36,7 @@
     }
   }
 
-  .sign-in, .reset-password {
+  .sign-in, .set-password {
     @include span-columns(6 of 12);
     background-color: $primary-red;
     padding: $spacing-large;
@@ -62,6 +62,10 @@
     }
     .notice {
         color: $primary-green;
+    }
+
+    .error {
+      color: $ui-white;
     }
 
     form {
@@ -101,10 +105,28 @@
         color: $ui-white;
         text-decoration: underline;
       }
+
     }
   }
 }
 
+.reset-password {
+  @include outer-container(600px);
+
+  .set-password {
+    @include span-columns(12 of 12);
+  }
+
+  h2 {
+    text-align: center;
+    color: $ui-white;
+  }
+
+  a {
+    color: $ui-white;
+    text-decoration: underline;
+  }
+}
 
 @include media($tablet-portrait-down) {
   .login {

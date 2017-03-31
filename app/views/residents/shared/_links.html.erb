@@ -1,25 +1,12 @@
 <%- if controller_name != 'sessions' %>
-  <%= link_to "Log in", new_resident_session_path %><br />
+  <%= link_to t("devise.login"), new_resident_session_path %><br />
 <% end -%>
 
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-  <%= link_to "Sign up", new_resident_registration_path %><br />
+  <%= link_to t("devise.register"), new_resident_registration_path %><br />
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-  <%= link_to "Forgot your password?", new_resident_password_path %><br />
+  <%= link_to t("devise.forgot_password"), new_resident_password_path %><br />
 <% end -%>
 
-<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
-  <%= link_to "Didn't receive confirmation instructions?", new_resident_confirmation_path %><br />
-<% end -%>
-
-<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
-  <%= link_to "Didn't receive unlock instructions?", new_resident_unlock_path %><br />
-<% end -%>
-
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", resident_omniauth_authorize_path(provider) %><br />
-  <% end -%>
-<% end -%>
