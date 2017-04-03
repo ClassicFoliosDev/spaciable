@@ -353,6 +353,11 @@ en:
         appliances: "Appliances"
         manual: "Manual"
         guide: "Quick reference guide"
+        disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
+         of any of the specific matters described by any order under the Consumer Protection from Unfair Trading
+         Regulations 2008 and Business Protection from Misleading Marketing Regulations 2008. This information does not
+         constitute a contract, or warranty. The dimensions given on plans are subject to minor variations and are not
+         intended to be used for carpet sizes, appliance sizes or items of furniture."
       appliance_manuals:
         appliances_category: "appliance_manuals"
         manual: "Manual"

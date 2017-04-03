@@ -86,6 +86,12 @@
   }
 }
 
+.disclaimer {
+  font-size: $ultra-small-font;
+  padding: $spacing-small;
+  border-bottom: solid 1px $ui-grey;
+}
+
 @include media($tablet-landscape-down) {
   .library .documents {
     .row {

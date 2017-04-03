@@ -10,13 +10,13 @@
 <div class="row">
   <div class="row-item two-thirds">
     <%= label_tag(PlotResidency.human_attribute_name(:resident)) %>
-    <%= @plot_residency %>
+    <span><%= @plot_residency %></span>
     <%= label_tag(PlotResidency.human_attribute_name(:email)) %>
-    <%= @plot_residency.email %>
+    <span><%= @plot_residency.email %></span>
   </div>
   <div class="row-item third">
     <%= label_tag(PlotResidency.human_attribute_name(:completion_date)) %>
-    <%= l(@plot_residency.completion_date) if @plot_residency.completion_date? %>
+    <span><%= l(@plot_residency.completion_date) if @plot_residency.completion_date? %></span>
   </div>
 </div>
 
