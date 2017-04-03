@@ -13,7 +13,6 @@ class PlotCombinationValidator < ActiveModel::Validator
     return if combinations.empty?
 
     combination = "#{prefix} #{number}"
-
     return unless combinations.include?(combination)
 
     if prefix.present?

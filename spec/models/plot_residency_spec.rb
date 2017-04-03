@@ -50,7 +50,7 @@ RSpec.describe PlotResidency do
   describe "#update" do
     it "should update the resident details" do
       updated_attrs = {
-        title: :mr, first_name: "John", last_name: "Bloggs", email: "john@bloggs.com"
+        title: :mr, first_name: "John", last_name: "Bloggs"
       }
       resident = create(:resident, :with_residency)
 
@@ -62,7 +62,6 @@ RSpec.describe PlotResidency do
       expect(resident.title).to eq(updated_attrs[:title].to_s)
       expect(resident.first_name).to eq(updated_attrs[:first_name])
       expect(resident.last_name).to eq(updated_attrs[:last_name])
-      expect(resident.email).to eq(updated_attrs[:email])
     end
   end
 end

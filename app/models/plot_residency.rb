@@ -6,6 +6,7 @@ class PlotResidency < ApplicationRecord
   belongs_to :resident, optional: false, autosave: true
 
   validate :email_is_unassigned
+  validate :email_updated, on: :update
   validates_associated :resident
 
   before_validation :set_resident
@@ -19,6 +20,12 @@ class PlotResidency < ApplicationRecord
   def email_is_unassigned
     return unless email_already_in_use?
     errors.add(:email, :already_in_use)
+  end
+
+  def email_updated
+    return if email == Resident.find(resident.id).email
+
+    errors.add(:email, :change_email)
   end
 
   delegate :to_s, :title, :first_name, :last_name, :email, to: :resident

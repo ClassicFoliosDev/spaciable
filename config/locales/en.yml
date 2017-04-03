@@ -1196,3 +1196,5 @@ en:
           attributes:
             email:
               already_in_use: "is already associated to another plot."
+              change_email: "can not be updated. If you need to change the resident email, remove this plot resident and
+               add a new one"

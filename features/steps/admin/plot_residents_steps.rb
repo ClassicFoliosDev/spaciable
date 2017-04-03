@@ -45,12 +45,22 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
   click_on t("plot_residencies.show.back")
 end
 
-When(/^I update the plot residency$/) do
-  attrs = PlotResidencyFixture.attrs(:updated)
-
+When(/^I update the plot resident's email$/) do
   within ".record-list" do
     find("[data-action='edit']").click
   end
+
+  fill_in :plot_residency_email, with: PlotResidencyFixture.updated_email
+
+  click_on t("plot_residencies.form.submit")
+end
+
+Then(/^I should see an error$/) do
+  expect(page).to have_content(t("activerecord.errors.models.plot_residency.attributes.email.change_email"))
+end
+
+When(/^I update the plot residency$/) do
+  attrs = PlotResidencyFixture.attrs(:updated)
 
   select_from_selectmenu :plot_residency_title, with: attrs[:title]
   fill_in :plot_residency_first_name, with: attrs[:first_name]
