@@ -1,6 +1,6 @@
 <div class="invitation">
   <div class="register">
-    <%= image_tag "Hoozzi Everything Home Logo White", class: "logo" %>
+    <%= image_tag "hoozzi-everything-home-logo-white", class: "logo" %>
 
     <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
       <%= devise_error_messages! %>
