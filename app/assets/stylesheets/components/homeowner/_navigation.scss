@@ -21,21 +21,20 @@ nav {
 
   .logo {
     padding: $spacing-medium;
-    @include span-columns(2 of 12);
+    @include span-columns(3 of 12);
 
     img {
-      height: 40px;
+      max-height: 80px;
     }
   }
 
   .navigation {
-    @include span-columns(10 of 12);
+    @include span-columns(9 of 12);
     padding: $spacing-medium;
-    height: 80px;
   }
 
   .navbar-menu {
-    height: 55px;
+    float: right;
   }
 
   .navbar-item {
