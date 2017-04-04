@@ -9,10 +9,8 @@ $(document).on('click', '.remove-image', function (event) {
 });
 
 $(document).on('click', '.remove-document', function (event) {
+  targetName = "." + this.id.replace("_remove_", "-");
 
-  var $docPreview = $(this).closest(".appliance-manual");
-
+  var $docPreview = $(this).closest(targetName);
   $docPreview.hide();
 });
-
-
