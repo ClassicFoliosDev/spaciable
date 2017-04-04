@@ -10,10 +10,11 @@
   background-color: $ui-light-grey;
   @include outer-container(1000px);
   min-height: 1px;
-  margin-top: 160px;
+  top: 100px;
 
   .preamble {
     @include span-columns(6 of 12);
+    float: right;
     padding: 40px;
 
     .content {
@@ -48,6 +49,8 @@
 
   .register {
     @include span-columns(6 of 12);
+    @include omega();
+    float: right;
     background-color: $primary-red;
     padding: $spacing-large;
     color: $ui-white;
@@ -83,8 +86,7 @@
       }
 
       input[type="submit"] {
-        @include span-columns(4 of 12);
-        @include shift(4 of 12);
+        @include span-columns(12 of 12);
         color: $primary-red;
         background-color: $ui-white;
         font-weight: bold;
@@ -105,7 +107,7 @@
 
 @include media($tablet-landscape-down) {
   .invitation {
-    margin: 160px 40px;
+    margin-bottom: 100px;
 
     .preamble .content {
       @include span-columns(11 of 12);
@@ -118,20 +120,11 @@
       @include span-columns(11 of 12);
       @include shift(0.5 of 12);
     }
-
-    .register form {
-      input[type="submit"] {
-        @include span-columns(8 of 12);
-        @include shift(2 of 12);
-      }
-    }
   }
 }
 
 @include media($tablet-portrait-down) {
   .invitation {
-    margin-top: 40px;
-
     .preamble {
       @include span-columns(12 of 12);
 

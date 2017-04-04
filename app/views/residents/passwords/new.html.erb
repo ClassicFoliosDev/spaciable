@@ -1,14 +1,6 @@
-<div class="new-password" >
-  <div class="preamble">
-    <div class="content">
-      <div class="title">
-        <h2 class="primary"><%= t(".title") %></h2>
-      </div>
-    </div>
-  </div>
-
+<div class="new-password">
   <div class="set-password">
-    <%= image_tag "logo-with-strapline.png", class: "logo" %>
+    <%= image_tag "Hoozzi Everything Home Logo White", class: "logo" %>
     <%= render "components/flashes" %>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
@@ -22,5 +14,13 @@
 
       <%= f.button :submit, t(".submit"), class: "reset-btn" %>
     <% end %>
+  </div>
+
+  <div class="preamble">
+    <div class="content">
+      <div class="title">
+        <h2 class="primary"><%= t(".title") %></h2>
+      </div>
+    </div>
   </div>
 </div>

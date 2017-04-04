@@ -3,10 +3,11 @@
   background-color: $ui-light-grey;
   @include outer-container(1000px);
   min-height: 1px;
-  margin-top: 160px;
+  top: 100px;
 
   .preamble {
     @include span-columns(6 of 12);
+    float: right;
     padding: 40px;
 
     .content {
@@ -38,8 +39,10 @@
 
   .sign-in, .set-password {
     @include span-columns(6 of 12);
+    @include omega();
+    float: right;
     background-color: $primary-red;
-    padding: $spacing-large;
+    padding: $spacing-large 0;
     color: $ui-white;
 
     .logo {
@@ -50,18 +53,18 @@
     }
 
     .notice, .alert {
-        display: inline-block;
-        clear: both;
-        width: 100%;
-        margin-top: $spacing-large;
-        margin-bottom: 0;
-        background: $ui-white;
+      display: inline-block;
+      clear: both;
+      width: 100%;
+      margin-top: $spacing-large;
+      margin-bottom: 0;
+      background: $ui-white;
     }
     .alert {
-        color: $primary-red;
+      color: $primary-red;
     }
     .notice {
-        color: $primary-green;
+      color: $primary-green;
     }
 
     .error {
@@ -81,20 +84,15 @@
         background-color: $faded-red;
         border-color: $primary-red;
         color: $ui-white;
+        white-space: normal;
       }
 
       input[type="submit"] {
-        @include span-columns(4 of 12);
-        @include shift(4 of 12);
+        @include span-columns(12 of 12);
         color: $primary-red;
         background-color: $ui-white;
         font-weight: bold;
         padding: 4px;
-
-        &.reset-btn {
-            width: auto;
-            margin: auto;
-        }
       }
 
       p {
@@ -111,8 +109,6 @@
 }
 
 .reset-password {
-  @include outer-container(600px);
-
   .set-password {
     @include span-columns(12 of 12);
   }
@@ -129,8 +125,8 @@
 }
 
 @include media($tablet-portrait-down) {
-  .login {
-    margin-top: 40px;
+  .login, .new-password, .reset-password {
+    margin-bottom: 100px;
 
     .preamble {
       @include span-columns(12 of 12);
@@ -140,7 +136,7 @@
       }
     }
 
-    .sign-in {
+    .sign-in, .set-password {
       @include span-columns(12 of 12);
     }
   }

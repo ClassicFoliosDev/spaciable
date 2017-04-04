@@ -1,24 +1,6 @@
 <div class="invitation">
-  <div class="preamble">
-    <div class="content">
-      <div class="title">
-        <h2><%= t '.welcome' %></h2>
-        <h3><%= t '.welcome2' %></h3>
-      </div>
-
-      <p><%= t '.welcome3' %></p>
-
-      <ul>
-        <li><%= t '.hoozzi1' %></li>
-        <li><%= t '.hoozzi2' %></li>
-        <li><%= t '.hoozzi3' %></li>
-        <li><%= t '.hoozzi4' %></li>
-      </ul>
-    </div>
-  </div>
-
   <div class="register">
-    <%= image_tag "logo-with-strapline.png", class: "logo" %>
+    <%= image_tag "Hoozzi Everything Home Logo White", class: "logo" %>
 
     <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
       <%= devise_error_messages! %>
@@ -35,5 +17,23 @@
       <%= f.button :submit, t(".submit_button") %>
 
     <% end %>
+  </div>
+
+  <div class="preamble">
+    <div class="content">
+      <div class="title">
+        <h2><%= t '.welcome' %></h2>
+        <h3><%= t '.welcome2' %></h3>
+      </div>
+
+      <p><%= t '.welcome3' %></p>
+
+      <ul>
+        <li><%= t '.hoozzi1' %></li>
+        <li><%= t '.hoozzi2' %></li>
+        <li><%= t '.hoozzi3' %></li>
+        <li><%= t '.hoozzi4' %></li>
+      </ul>
+    </div>
   </div>
 </div>

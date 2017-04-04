@@ -1,4 +1,22 @@
-<div class="login" >
+<div class="login">
+  <div class="sign-in">
+    <%= image_tag "Hoozzi Everything Home Logo White", class: "logo" %>
+    <%= render "components/flashes" %>
+
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.input :email, required: false, autofocus: true %>
+      <%= f.input :password, required: false %>
+      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+
+      <div class="information">
+        <p><%= render "residents/shared/links" %></p>
+        <p><%= t(".copyright", year: Time.current.year).gsub(".", ".<br>").html_safe %></p>
+      </div>
+
+      <%= f.submit t(".login_cta"), class: "login-cta" %>
+    <% end %>
+  </div>
+
   <div class="preamble">
     <div class="content">
       <div class="title">
@@ -11,23 +29,5 @@
         <p><%= t(".intro_para_2") %></p>
       </div>
     </div>
-  </div>
-
-  <div class="sign-in">
-    <%= image_tag "logo-with-strapline.png", class: "logo" %>
-    <%= render "components/flashes" %>
-
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <%= f.input :email, required: false, autofocus: true %>
-      <%= f.input :password, required: false %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-
-      <div class="information">
-        <p><%= render "residents/shared/links" %></p>
-        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
-      </div>
-
-      <%= f.submit t(".login_cta"), class: "login-cta" %>
-    <% end %>
   </div>
 </div>
