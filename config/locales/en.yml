@@ -383,16 +383,6 @@ en:
         my_home_view_more: "View my home"
         contacts_title: "Contacts"
         contacts_view_more: "View contacts"
-      data_policy:
-        title: "Hoozzi data policy"
-        para1: "PLACEHOLDER paragraph 1 contents"
-        para2: "PLACEHOLDER paragraph 2 contents"
-        para3: "PLACEHOLDER paragraph 3 contents"
-      ts_and_cs:
-        title: "Hoozzi terms and conditions"
-        para1: "PLACEHOLDER paragraph 1 contents"
-        para2: "PLACEHOLDER paragraph 2 contents"
-        para3: "PLACEHOLDER paragraph 3 contents"
     residents:
       edit:
         my_account: "My account"
@@ -552,7 +542,7 @@ en:
         login_cta: "Login"
         welcome_1: "Hoozzi isn't just a hub,"
         welcome_2: "it's a librarian"
-        copyright: "Copyright 2017 Classic Folios. All rights reserved"
+        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         intro_para_1: With pen in hand and fresh ideas in mind.
                       Hoozzi is constantly churning out fun and helpful articles.
         intro_para_2: You can scroll away to your heart's content,
@@ -579,7 +569,7 @@ en:
         password: "Choose a password"
         terms: "Terms & Conditions"
         policy: "Data policy"
-        copyright: "Copyright 2017 Classic Folios. All rights reserved"
+        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
     passwords:
       new:
         title: "Forgotten your password?"
@@ -1129,6 +1119,7 @@ en:
           settling: "Settling In"
           troubleshooting: "Troubleshooting"
           urgent: "Urgent"
+          legal: "Legal & warranty"
       how_to:
         categories:
           home: "Around the home"

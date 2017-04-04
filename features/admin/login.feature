@@ -12,3 +12,7 @@ Feature: Admin Login
     Given I am logged in as an admin
     When I log out as a an admin
     Then I should be on the "Admin Login" page
+
+  Scenario: Ts and Cs
+    When I visit the admin ts_and_cs page
+    Then I should see the terms and conditions for developers using Hoozzi

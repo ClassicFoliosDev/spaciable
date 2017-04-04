@@ -4,10 +4,10 @@ module Homeowners
     load_and_authorize_resource :how_to
 
     def index
-      @category = how_to_params[:category]
-      @how_tos = @how_tos.where(category: @category)
-
       @categories = HowTo.categories.keys
+      @category = how_to_params[:category]
+
+      @how_tos = @how_tos.where(category: @category)
     end
 
     private

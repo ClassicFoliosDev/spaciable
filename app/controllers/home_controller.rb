@@ -11,10 +11,14 @@ class HomeController < ApplicationController
   end
 
   def ts_and_cs
-    render "homeowners/dashboard/ts_and_cs"
+    render "legal/ts_and_cs"
+  end
+
+  def ts_and_cs2
+    render "legal/ts_and_cs2"
   end
 
   def data_policy
-    render "homeowners/dashboard/data_policy"
+    render "legal/data_policy"
   end
 end

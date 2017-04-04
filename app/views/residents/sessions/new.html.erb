@@ -24,7 +24,7 @@
 
       <div class="information">
         <p><%= render "residents/shared/links" %></p>
-        <p><%= t '.copyright' %></p>
+        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
       </div>
 
       <%= f.submit t(".login_cta"), class: "login-cta" %>

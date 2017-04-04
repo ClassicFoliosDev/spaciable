@@ -53,10 +53,13 @@ end
 
 Then(/^I should see the data policy contents$/) do
   within ".policy" do
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.title"))
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.para1"))
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.para2"))
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.para3"))
+    expect(page).to have_content(t("legal.data_policy.title"))
+    expect(page).to have_content(t("legal.data_policy.information"))
+    expect(page).to have_content(t("legal.data_policy.links"))
+    expect(page).to have_content(t("legal.data_policy.what_we_do"))
+    expect(page).to have_content(t("legal.data_policy.where_we_store"))
+    expect(page).to have_content(t("legal.data_policy.who_we_are"))
+    expect(page).to have_content(t("legal.data_policy.your_rights"))
   end
 end
 
@@ -66,10 +69,15 @@ end
 
 Then(/^I should see the terms and conditions for using Hoozzi$/) do
   within ".policy" do
-    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.title"))
-    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para1"))
-    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para2"))
-    expect(page).to have_content(t("homeowners.dashboard.ts_and_cs.para3"))
+    expect(page).to have_content(t("legal.ts_and_cs.title"))
+    expect(page).to have_content(t("legal.ts_and_cs.about_us"))
+    expect(page).to have_content(t("legal.ts_and_cs.ip"))
+    expect(page).to have_content(t("legal.ts_and_cs.accuracy"))
+    expect(page).to have_content(t("legal.ts_and_cs.law"))
+    expect(page).to have_content(t("legal.ts_and_cs.limitation"))
+    expect(page).to have_content(t("legal.ts_and_cs.security"))
+    expect(page).to have_content(t("legal.ts_and_cs.viruses"))
+    expect(page).to have_content(t("legal.ts_and_cs.welcome").first(80))
   end
 end
 

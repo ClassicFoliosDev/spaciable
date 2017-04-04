@@ -14,6 +14,11 @@ en:
         submit_button: "Send an invitation"
       edit:
         header: "Accept invitation"
+        policy_instructions: "By clicking 'Continue', you confirm you have read and agree to our %{href1} and %{href2}."
+        terms: "Terms & Conditions"
+        policy: "Data policy"
+        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved."
+        continue: "Continue"
     mailer:
       invitation_instructions:
         subject: "Invitation instructions"

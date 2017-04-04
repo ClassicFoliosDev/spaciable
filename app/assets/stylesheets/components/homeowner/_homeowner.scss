@@ -1,4 +1,5 @@
 $card-size: 150px;
+$card-size: 150px;
 $homeowner-margin: 12px;
 
 .homeowner-view {
@@ -98,15 +99,6 @@ $homeowner-margin: 12px;
   address {
     margin-bottom: $homeowner-margin;
   }
-}
-
-.policy {
-  width: 600px;
-  margin: 80px auto;
-  border-style: solid;
-  border-radius: 5px;
-  text-align: center;
-  background-color: $ui-white;
 }
 
 .dummy-image {

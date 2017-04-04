@@ -131,6 +131,7 @@ Rails.application.routes.draw do
   end
 
   get "/ts_and_cs", to: 'home#ts_and_cs'
+  get "/ts_and_cs2", to: 'home#ts_and_cs2'
   get "/data_policy", to: 'home#data_policy'
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'

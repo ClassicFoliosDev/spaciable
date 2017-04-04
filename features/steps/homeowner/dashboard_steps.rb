@@ -87,9 +87,9 @@ And(/^I can see the data policy page$/) do
   end
 
   within ".policy" do
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.title"))
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.para1"))
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.para2"))
-    expect(page).to have_content(t("homeowners.dashboard.data_policy.para3"))
+    expect(page).to have_content(t("legal.data_policy.title"))
+    expect(page).to have_content(t("legal.data_policy.your_rights"))
+    expect(page).to have_content(t("legal.data_policy.who_we_are"))
+    expect(page).to have_content(t("legal.data_policy.information"))
   end
 end

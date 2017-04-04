@@ -1,0 +1,194 @@
+en:
+  # LEGAL
+  legal:
+    ts_and_cs:
+      title: "Hoozzi Terms and Conditions of Use"
+      welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
+      www.hoozzi.com (referred to as 'the website' or 'our website'). By using our website, you acknowledge that you
+      have read, understood and accept these Terms and Conditions of Use and that you agree to be bound by them. You
+      also accept our <a href=\"/data_policy\">Privacy Policy</a>. If you do not agree to these terms of use, please
+      stop using our website, any of the products or services. www.hoozzi.com is a website operated by Classic Folios
+      Ltd (referred to as 'us', 'we' or 'our')."
+      accuracy: "Accuracy and Use of Information on the Website"
+      accuracy_para1: "We aim to keep the information on the website up-to-date, but sometimes this may not be possible.
+       There may be times when you are not able to access the website. Our website changes regularly and the content may
+        change at any time without warning. The information on this website can only be provided on an ‘as is’ basis."
+      accuracy_para2: "When looking at the information on the website we advise that you do not rely solely on it to
+      make any decision. We are not liable to you for your use of the information."
+      third_party: "Third Parties and Links from our Website to Other Websites"
+      third_party_para1: "Our website may contain links to other websites and resources provided by third parties –
+      these links are provided for your information only. As we have no control over the contents of third party
+      websites or resources, we cannot accept responsibility for them, their content or any loss or damage that may
+      arise from your use of them."
+      third_party_para2: "When accessing another website via our website, we advise you to check their terms of use and
+      privacy policies to ensure compliance and determine how they may use your information."
+      third_party_para3: "Our inclusion of hyperlinks to third party websites does not imply any endorsement of or
+      responsibility for any views, statements or information contained in those websites."
+      security: "Security and Use of the Website"
+      security_para: "It is a condition of using the website that you do not do anything to impair the performance,
+      corrupt the content or reduce the overall functionality of the website. This includes doing anything that would
+      compromise the security of the website, including, but not limited to: trying to gain access to secured areas of
+      the website or sensitive information and introducing viruses, Trojans, worms, logic bombs or other material that
+      is malicious or technologically harmful."
+      viruses: "Viruses, Hacking and Other Offences"
+      viruses_para1: "By doing any of the prohibited activities mentioned in the last section, you might commit a
+      criminal offence under the Computer Misuse Act 1990 or any other related legislation. We may be bound by law to
+      co-operate in any related investigations."
+      viruses_para2: "While we will make reasonable attempts to exclude harmful viruses and malware from our website,
+      we cannot guarantee total exclusion. We recommend that you take appropriate measures to protect yourself before
+      downloading any content."
+      ip: "Intellectual Property Rights"
+      ip_para1: "By using the website you agree to refrain from copying, downloading, transmitting, reproducing,
+      printing, or exploiting for commercial purpose(s) any material contained within the website."
+      ip_para2: "Where you have been given explicit permission to download material from the website, you may only
+      download one copy on one computer for your own private use and you must keep all Intellectual Property Rights
+      notices intact."
+      ip_para3: "All intellectual property on this website, such as trademarks, trade names, patents, databases,
+      registered designs and any other automatic intellectual property rights derived from the aesthetics or
+      functionality of the website, remains the property of Classic Folios Ltd."
+      limitation: "Limitation of Liability"
+      limitation_para1: "Classic Folios will not, under any circumstances, be liable for indirect, special, or
+      consequential damages, including any loss of business, revenue, profits or data in relation to your use of the
+      website."
+      limitation_para2: "Nothing within these Terms and Conditions of Use will operate to include any liability for
+      death or personal injury arising as result of the negligence of Classic Folios, its employees or agents."
+      law: "Governing Law and Jurisdiction"
+      law_para: "These Terms and Conditions of Use will be governed by the laws of England and Wales and any user of the
+       website agrees to be bound exclusively by the jurisdiction of English courts, should any dispute or claim arise
+       from, or in connection with, them or their subject matter or formation (including non-contractual disputes or
+       claims)."
+      about_us: "Information About Us"
+      about_us_para: "We are a company registered in England and Wales under registration number 4562237. Our registered
+       office is Classic Folios Ltd, Unit B, Woodside Trade Centre, 34 Parham Drive, Eastleigh, Hampshire, SO50 4NU. Our
+        VAT number is GB675 7084 00."
+    data_policy:
+      title: "Privacy Policy"
+      who_we_are: "Who we are"
+      who_we_are_para: "In this privacy policy references to 'we', 'us' and 'our' are to Classic Folios Limited.
+      References to 'our Website' or 'the Website' are to www.hoozzi.com"
+      information: "What information we collect and how"
+      information_intro: "The information we collect via the Website may include."
+      information_para1: "Any personal details you knowingly provide us with through forms and our email, such as name,
+      address, telephone number etc."
+      information_para2: "In order to effectively process credit or debit card transactions it may be necessary for the
+       bank or card processing agency to verify your personal details for authorisation outside the European Economic
+        Area (EEA). Such information will not be transferred out of the EEA for any other purpose."
+      information_para3: "Your preferences and use of email updates, recorded by emails we send you (if you select to
+      receive email updates on products and offers)."
+      information_para4: "Your IP Address, this is a string of numbers unique to your computer that is recorded by our
+      web server when you request any page or component on the website. This information is used to monitor your usage
+      of the website."
+      information_para5: "Data recorded by the website which allows us to recognise you and your preferred settings,
+      this saves you from re‐entering information on return visits to the site. Such data is recorded locally on your
+      computer through the use of cookies. Most browsers can be programmed to reject, or warn you before downloading
+      cookies, information regarding this may be found in your browser's 'help' facility."
+      what_we_do: "What we do with your information"
+      what_we_do_intro: "Any personal information we collect from this website will be used in accordance with the Data
+       Protection Act 1998 and other applicable laws. The details we collect will be used:"
+      what_we_do_para1: "To process your order, to provide after sales service (we may pass your details to another
+      organisation to supply/deliver products or services you have purchased and/or to provide after‐sales service);"
+      what_we_do_para2: "In certain cases we may use your email address to send you information on our other products
+      and services. In such a case you will be offered the option to opt in/out before completing your purchase."
+      what_we_do_rider: "We may need to pass the information we collect to other companies for administrative purposes.
+       We may use third parties to carry out certain activities, such as processing and sorting data, monitoring how
+        customers use the website and issuing our e‐mails for us."
+      where_we_store: "Where we store your personal data"
+      where_we_store_para: "All information you provide to us is stored on our secure servers. Any payment transactions
+       will be encrypted using TSL (SSL). Where we have given you (or where you have chosen) a password which enables
+        you to access certain parts of our site, you are responsible for keeping this password confidential. We ask you
+         not to share a password with anyone."
+      your_rights: "Your Rights"
+      your_rights_para: "You have the right to request a copy of any information that we currently hold about you. In
+       order to receive such information please send your contact details including address and payment of £10 to cover
+        administration expenses to the following address: Classic Folios Ltd., Woodside Trade Centre, 34 Parham Drive,
+         Eastleigh, SO50 4NU"
+      your_rights_links: "Our site may, from time to time, contain links to and from the websites of our partner networks,
+       advertisers and affiliates. If you follow a link to any of these websites, please note that these websites have
+        their own privacy policies and that we do not accept any responsibility or liability for these policies. Please
+         check these policies before you submit any personal data to these websites."
+      links: "Other Websites"
+      links_para: "This privacy policy only covers this website. Any other websites which may be linked to by our
+       website are subject to their own policy, which may differ from ours."
+    ts_and_cs2:
+      title: "Hoozzi Terms and Conditions of Use"
+      welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
+      www.hoozzi.com (referred to as “the website” or “our website”). By using our website, you acknowledge that you
+      have read, understood and accept these Terms and Conditions of Use and that you agree to be bound by them. You
+      also accept our <a href=\"/data_policy\">Privacy Policy</a>. If you do not agree to these terms of use, please
+      stop using our website, any of the products or services and leave immediately."
+      about_us: "Information About Us"
+      about_us_para: "www.hoozzi.com is a website operated by Classic Folios Ltd (referred to as 'us', 'we' or 'our');
+      we are a company registered in England and Wales under registration number 4562237. Our registered office is
+      Classic Folios Ltd, Unit A-B, Woodside Trade Centre, 34 Parham Drive, Eastleigh, Hampshire, SO50 4NU. Our VAT
+      number is GB675 7084 00."
+      information: "Use of Information on the Website"
+      information_para1: "The information is provided on the understanding that the website is not engaged in rendering
+       advice and should not be wholly relied upon when making any related decision."
+      information_para2: "The information contained within the website is provided on an ‘as is’ basis with no
+      warranties expressed or otherwise implied relating to the accuracy, fitness for purpose, compatibility or security
+       of any components of the website."
+      information_para3: "We do not guarantee uninterrupted availability of the www.hoozzi.com website and cannot
+       provide any representation that using the website will be error free."
+      information_para4: "You agree that you shall not use the website for illegal purposes, and will respect all
+      applicable laws and regulations."
+      information_para5: "You agree not to use the website in a way that may impair the performance, corrupt the content
+       or otherwise reduce the overall functionality of the website. You also agree not to compromise the security of
+       the website or attempt to gain access to secured areas or sensitive information."
+      information_para6: "You agree to be fully responsible for any claim, expense, liability, losses, and costs,
+      including legal fees, sustained by us arising from any infringement of the terms and conditions set out in this
+      agreement."
+      changes: "Changes to the Website"
+      changes_para1: "Our website changes regularly: we aim to update our website regularly, and may change the content
+       at any time without warning, and have no liability arising from such action."
+      changes_para2: "If the need arises, we may suspend access to our website, or close it indefinitely. Any of the
+      material on our website may be out of date at any given time, and we are under no obligation to update such
+      material."
+      changes_para3: "Classic Folios reserves the right to change any part of the Terms and Conditions of Use without
+       notice and your continued use of the website will be deemed as acknowledgment of that. We advise users to
+        regularly check these Terms and Conditions of Use."
+      ip: "Intellectual Property Rights"
+      ip_para1: "All intellectual property of Classic Folios, such as trademarks, trade names, patents, databases,
+      registered designs and any other automatic intellectual property rights derived from the aesthetics or
+      functionality of the website, remains the property of Classic Folios."
+      ip_para2: "By using the website you agree to respect the intellectual property rights of Classic Folios and will
+      refrain from copying, downloading, transmitting, reproducing, printing, or exploiting for commercial purpose(s)
+      any material contained within the website."
+      ip_para3: "Where you have been given explicit permission to download material from the website, you may only
+      download one copy on one computer for your own private use and you are obligated to keep all Intellectual Property
+       Rights notices intact."
+      third_party: "Third Parties and Links from our Website to Other Websites"
+      third_party_para1: "Where our website contains links to other websites and resources provided by third parties,
+       these links are provided for your information only. We have no control over the contents of those websites or
+        resources, and accept no responsibility for them, their content or for any loss or damage that may arise from
+         your use of them. When accessing another website via our website we advise you to check their terms of use and
+          privacy policies to ensure compliance and determine how they may use your information."
+      third_party_para2: "Our inclusion of hyperlinks to third party websites does not imply any endorsement of or
+      responsibility for any views, statements or information contained in those websites."
+      viruses: "Viruses, Hacking and Other Offences"
+      viruses_para1: "You must not misuse our website by knowingly introducing viruses, Trojans, worms, logic bombs or
+      other material that is malicious or technologically harmful. You must not attempt to gain unauthorised access to
+      our website, the server on which our website is stored, or any server, computer or database connected to our
+      website. You must not attack our website via a denial-of- service attack or a distributed denial-of-service attack."
+      viruses_para2: "By doing any of the above activities you would commit a criminal offence under the Computer Misuse
+       Act 1990. We will report any such breach to the relevant law enforcement authorities and we will co-operate with
+       those authorities by disclosing your identity to them. In the event of such a breach, your right to use our
+       website will cease immediately."
+      viruses_para3: "We will not be liable for any loss or damage caused by a distributed denial-of-service attack,
+      viruses or other technologically harmful material that may infect your computer equipment, computer programs, data
+       or other proprietary material due to your use of our website or due to your downloading of any material posted on
+        it, or on any website linked to it. We recommend that you take appropriate measures to protect yourself before
+         downloading any content."
+      limitation: "Limitation of Liability"
+      limitation_para1: "Classic Folios will not, under any circumstances, be liable for indirect, special or
+      consequential damages, including any loss of business, revenue, profits or data, in relation to your use of the
+      website."
+      limitation_para2: "Nothing within these Terms and Conditions of Use will operate to include any liability for
+      death or personal injury arising as result of the negligence of Classic Folios, its employees or agents."
+      severance: "Severance"
+      severance_para: "If any provision of these Terms and Conditions of Use is held to be invalid or unenforceable,
+      such provision shall be struck out and the remaining Terms and Conditions of Use shall remain in force."
+      law: "Governing Law and Jurisdiction"
+      law_para: "These Terms and Conditions of Use will be governed by the laws of England and Wales and any user of the
+       website agrees to be bound exclusively by the jurisdiction of English courts, should any dispute or claim arise
+        from, or in connection with, them or their subject matter or formation (including non-contractual disputes or
+        claims)"

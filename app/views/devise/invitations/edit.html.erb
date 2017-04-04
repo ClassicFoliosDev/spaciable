@@ -8,12 +8,15 @@
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
 
-      <%= f.button :submit, t(".submit_button") %>
-
       <div class="information">
-        <div class="links">
-          <%= render "devise/shared/links" %>
-        </div>
+        <p><%= t('.policy_instructions', :href1 => link_to(t(".terms"), ts_and_cs2_path, target: "_blank"), :href2 => link_to(t(".policy"), data_policy_path), target: "_blank").html_safe %></p>
+
+        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
       </div>
-  <% end %>
+
+      <div class="confirm">
+        <%= f.button :submit, t(".continue") %>
+      </div>
+    <% end %>
+  </div>
 </div>

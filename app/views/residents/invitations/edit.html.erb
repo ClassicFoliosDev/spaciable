@@ -29,8 +29,7 @@
 
       <div class="information">
         <p><%= t('.policy_instructions', :href1 => link_to(t(".terms"), ts_and_cs_path), :href2 => link_to(t(".policy"), data_policy_path)).html_safe %></p>
-
-        <p><%= t '.copyright' %></p>
+        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
       </div>
 
       <%= f.button :submit, t(".submit_button") %>
