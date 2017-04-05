@@ -5,6 +5,5 @@ FactoryGirl.define do
     summary { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph(3) }
     category { 0 }
-    featured { 2 }
   end
 end
