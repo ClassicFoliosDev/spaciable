@@ -20,7 +20,7 @@ class ResidentNotifierService
   def notify_residents
     notification.update(sent_at: Time.zone.now)
 
-    SendResidentNotificationsJob.perform_async(residents.pluck(:id), notification)
+    SendResidentNotificationsJob.perform_later(residents.pluck(:id), notification)
 
     residents
   end

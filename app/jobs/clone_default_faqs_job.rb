@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class CloneDefaultFaqsJob < ApplicationJob
+  queue_as :admin
+
   def perform(faqable_type:, faqable_id:)
     ActiveRecord::Base.connection_pool.with_connection do
       model = faqable_type.constantize.find(faqable_id)

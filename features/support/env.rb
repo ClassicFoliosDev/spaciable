@@ -5,9 +5,6 @@ $LOAD_PATH.unshift("features/support")
 
 ActionController::Base.allow_rescue = false
 
-# Make background jobs run synchronously:
-require "sucker_punch/testing/inline"
-
 require "module_importer.rb"
 require "feature_application_actions"
 require "webmock/cucumber"
@@ -31,3 +28,6 @@ World(
 WebMock.disable_net_connect!(allow_localhost: true)
 Warden.test_mode!
 After { Warden.test_reset! }
+
+require "sidekiq/testing"
+Sidekiq::Testing.inline!

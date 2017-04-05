@@ -1,0 +1,6 @@
+---
+:queues:
+  - [file_processing,2] # check twice as often as other queues
+  - admin
+  - default
+  - mailer

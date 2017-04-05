@@ -24,6 +24,11 @@ If you are having problems with imagemagick, then getting graphicsmagick to work
 brew install gs graphicsmagick
 ```
 
+To allow Sidekiq to process background jobs you will need to install Redis, which is available on homebrew:
+
+```
+$ brew install redis
+```
 
 ## Generate admin and homeowner accounts
 
@@ -31,7 +36,9 @@ brew install gs graphicsmagick
 
 ## Running the application
 
-`$ rails s`
+To ensure that the sidekiq processes are running as well as puma, you can use:
+
+`$ foreman start`
 
 The default admin user's credentials are:
 
@@ -222,3 +229,11 @@ This should take a couple of minutes. The process the deployment roughly follows
 - runs a series of post deployment hooks
 - switches the load balancer to point traffic to the new EC2 instance
 - turns the old EC2 instance off, but keeps it around incase we want to revert back to it
+
+## Background Jobs
+
+Sidekiq uses threads to handle many jobs at the same time in the same process. All background jobs are queued up on Redis for Sidekiq to pick them up and process them.
+
+There are several named queues, as define in the `config/sidekiq.yml` file, to distribute the type of jobs that need to be performed and managed. By default ActionMailer will use the `mailer` queue, and ActiveJob will use the `default` queue.
+
+If you are logged in as a CF Admin you can access the Sidekiq dashbaord at `/sidekiq`.

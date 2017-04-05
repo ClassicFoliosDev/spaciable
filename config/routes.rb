@@ -146,6 +146,11 @@ Rails.application.routes.draw do
     root "admin/dashboard#show", as: :admin_dashboard
   end
 
+  authenticated :user, lambda { |user| user.cf_admin? } do
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   authenticated :resident do
     root "homeowners/dashboard#show", as: :homeowner_dashboard
   end

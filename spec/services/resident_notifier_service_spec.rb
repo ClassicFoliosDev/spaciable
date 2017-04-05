@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require "rails_helper"
-require "sucker_punch/testing/inline"
 
 RSpec.describe ResidentNotifierService do
   let(:current_user) { create(:developer_admin) }

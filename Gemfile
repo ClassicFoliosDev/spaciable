@@ -46,7 +46,6 @@ gem "gretel" # breadcrumbs
 
 # File Uploads
 gem "carrierwave"
-gem "carrierwave_backgrounder"
 gem "fog-aws"
 gem "mini_magick"
 gem "rmagick"
@@ -75,7 +74,11 @@ gem "kaminari"
 gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"
 
 # Background Jobs
-gem "sucker_punch", "~> 2.0"
+gem "sidekiq", "~> 4.2"
+gem "carrierwave_backgrounder"
+
+# Process management
+gem "foreman" # configuration in the Procfile
 
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
