@@ -30,7 +30,7 @@ RSpec.describe BulkPlots::Base do
       result = described_class.call(nil, params: params).bulk_attributes
 
       values = result.map { |hash| hash[:number] }
-      expect(values).to match_array([1, 3, 5])
+      expect(values).to match_array(%w(1 3 5))
     end
 
     it "should populate the attributes with those passed in as params" do

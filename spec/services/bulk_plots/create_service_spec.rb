@@ -114,4 +114,18 @@ RSpec.describe BulkPlots::CreateService do
       end
     end
   end
+
+  context "given a valid plot list" do
+    it "should create all the plots" do
+      params = { list: " 1, 1a, 1A, 10, 100, 1000, 1.1, 1.1A, 1.1a, 1.1.1, 1.1.1.1, 1.10, 1.1.10, 1.1.1.10, A1, a1", prefix: "Hollow" }
+      development = create(:development)
+      plot = build(:plot, development: development)
+      service = described_class.call(plot, params: params)
+
+      expect { service.save }.to change(Plot, :count).by(16)
+      expect(Plot.where(prefix: "Hollow").count).to eq(16)
+      result_test = params[:list].split(",").map { |plot_number| "Hollow#{plot_number}" }
+      expect(development.reload.plots.map(&:to_s)).to match_array(result_test)
+    end
+  end
 end

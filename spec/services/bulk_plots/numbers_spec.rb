@@ -4,24 +4,48 @@ require "rails_helper"
 RSpec.describe BulkPlots::Numbers do
   describe ".Number" do
     context "is a decimal" do
-      it "is displayed as a decimal" do
+      it "is displayed as a string decimal" do
         result = described_class.Number(3.5)
 
         expect(result).to be(3.5)
       end
 
-      it "should convert string representation to a decimal" do
+      it "should maintain string representation" do
         result = described_class.Number("3.5")
 
-        expect(result).to be(3.5)
+        expect(result).to eq("3.5")
       end
     end
 
     context "is a decimal that could be a whole number" do
-      it "is displayed as a whole number" do
+      it "is displayed as a decimal" do
         result = described_class.Number(3.0)
 
-        expect(result).to be(3)
+        expect(result).to be(3.0)
+      end
+    end
+
+    context "is a decimal that has trailing zeros" do
+      it "is displayed with trailing zeros" do
+        result = described_class.Number(5.2000)
+
+        expect(result).to be(5.2000)
+      end
+    end
+
+    context "is a string with multiple dots" do
+      it "is displayed with multiple dots" do
+        result = described_class.Number("7.2.1")
+
+        expect(result).to eq("7.2.1")
+      end
+    end
+
+    context "is a string with multiple dots and trailing zeros" do
+      it "is displayed with trailing zeros" do
+        result = described_class.Number("1.12.000")
+
+        expect(result).to eq("1.12.000")
       end
     end
 
@@ -34,9 +58,12 @@ RSpec.describe BulkPlots::Numbers do
     end
 
     context "when not given a number" do
-      it "should raise an exception" do
-        expect { described_class.Number("Holy cow!") }
-          .to raise_error(BulkPlots::Numbers::NaN)
+      it "should tolerate the mixed characters" do
+        result = described_class.Number("Holy cow!")
+        expect(result).to eq("Holy cow!")
+
+        result = described_class.Number("63a")
+        expect(result).to eq("63a")
       end
     end
   end
@@ -77,15 +104,15 @@ RSpec.describe BulkPlots::Numbers do
 
       result = described_class.new(params).numbers
 
-      expect(result).to match_array([3, 5, 10])
+      expect(result).to match_array(%w(3 5 10))
     end
 
     it "should return floats from the list" do
-      params = { list: "3.1, 0.5, 10.6" }
+      params = { list: "3.1, 0.5, 10.6, 4.20" }
 
       result = described_class.new(params).numbers
 
-      expect(result).to match_array([3.1, 0.5, 10.6])
+      expect(result).to match_array(["3.1", "0.5", "10.6", "4.20"])
     end
   end
 
@@ -95,17 +122,17 @@ RSpec.describe BulkPlots::Numbers do
 
       result = described_class.new(params).numbers
 
-      expect(result).to match_array([3, 5, 6, 7, 8, 9, 10])
+      expect(result).to match_array([5, 6, 7, 8, 9, 10, "3", "5", "8"])
     end
   end
 
   context "when the list value is present but cannot be converted to integers" do
-    it "should not return any numbers" do
+    it "should tolerate the string" do
       params = { list: "New york, new york!" }
 
       result = described_class.new(params).numbers
 
-      expect(result).to be_empty
+      expect(result).to eq(["New york", "new york!"])
     end
   end
 end

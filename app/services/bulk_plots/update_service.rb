@@ -30,12 +30,27 @@ module BulkPlots
     end
 
     def successful_numbers
+      numbers = sanitize
+
       return Array(base_plot.number) unless any_bulk_attrs?
 
-      numbers - @errors.map(&:number).map(&:to_i)
+      @errors.each do |error|
+        numbers.delete(error.number) if numbers.include?(error.number)
+      end
+
+      numbers
     end
 
     protected
+
+    def sanitize
+      new_numbers = []
+      numbers.each do |number|
+        new_numbers.push(number.to_s) unless new_numbers.include?(number.to_s)
+      end
+
+      new_numbers
+    end
 
     def any_bulk_attrs?
       params.values_at(*bulk_attr_keys).any?(&:present?)

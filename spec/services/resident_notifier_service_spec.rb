@@ -267,18 +267,27 @@ RSpec.describe ResidentNotifierService do
         plots[0] = create(:plot, :with_resident, development: development, number: "5")
         plots[1] = create(:plot, development: development, number: "4")
         plots[2] = create(:plot, :with_resident, development: development, number: "5.55")
-        plots[3] = create(:plot, development: development, number: "2.31")
-        plots[4] = create(:plot, :with_resident, development: development, number: "5.2")
+        plots[3] = create(:plot, :with_resident, development: development, number: "A6")
+        plots[4] = create(:plot, development: development, number: "2.31")
+        plots[5] = create(:plot, :with_resident, development: development, number: "3.10")
+        plots[5] = create(:plot, development: development, number: "5.200")
+        plots[6] = create(:plot, :with_resident, development: development, number: "5.2")
+        plots[7] = create(:plot, development: development, number: "b8")
 
         service = described_class.new(notification)
 
-        expect(service.missing_resident_plots.count).to eq(2)
+        expect(service.missing_resident_plots.count).to eq(4)
 
-        expect(service.missing_resident_plots).to include(4)
-        expect(service.missing_resident_plots).to include(2.31)
-        expect(service.missing_resident_plots).not_to include(5)
-        expect(service.missing_resident_plots).not_to include(5.55)
-        expect(service.missing_resident_plots).not_to include(5.2)
+        expect(service.missing_resident_plots).to include("4")
+        expect(service.missing_resident_plots).to include("2.31")
+        expect(service.missing_resident_plots).to include("b8")
+        expect(service.missing_resident_plots).to include("5.200")
+
+        expect(service.missing_resident_plots).not_to include("3.10")
+        expect(service.missing_resident_plots).not_to include("5")
+        expect(service.missing_resident_plots).not_to include("5.55")
+        expect(service.missing_resident_plots).not_to include("5.2")
+        expect(service.missing_resident_plots).not_to include("A6")
       end
     end
 

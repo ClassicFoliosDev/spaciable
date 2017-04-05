@@ -3,7 +3,7 @@ class PlotCombinationValidator < ActiveModel::Validator
   def validate(record)
     return unless record.parent
 
-    prefix_and_number_uniqueness(record, record.prefix, record.number.to_f)
+    prefix_and_number_uniqueness(record, record.prefix, record.number)
   end
 
   private

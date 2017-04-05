@@ -52,7 +52,7 @@ RSpec.describe BulkPlots::UpdateService do
 
       described_class.call(plot).update(params)
 
-      expect(plot.reload.number).to eq(params[:number])
+      expect(plot.reload.number).to eq(params[:number].to_s)
     end
   end
 
@@ -83,7 +83,7 @@ RSpec.describe BulkPlots::UpdateService do
     end
 
     it "should not say the missing numbers have been updated" do
-      params = { range_from: 2, range_to: "5", list: "2", prefix: "Hilltop" }
+      params = { range_from: 2, range_to: "5", list: "1, 2", prefix: "Hilltop" }
       plot1 = create(:plot, number: 2, prefix: "Hilltop")
       create(:plot, number: 3, prefix: "Hilltop", development: plot1.development)
 
@@ -114,6 +114,19 @@ RSpec.describe BulkPlots::UpdateService do
       expect { service.update(params) }.not_to change(Plot, :count)
 
       expect(plot.reload.prefix).to eq(params[:prefix])
+    end
+  end
+
+  context "given a decimal plot number" do
+    it "should update the plot" do
+      create(:plot, prefix: "Marsh", number: "A1.1.10")
+      params = { number: "A1.1.10", prefix: "Foo" }
+      development = create(:development)
+      plot = build(:plot, development: development)
+
+      described_class.call(plot, params: params) do |service, _, _|
+        expect(service.succeeded).to eq("Plot A1.1.10")
+      end
     end
   end
 end
