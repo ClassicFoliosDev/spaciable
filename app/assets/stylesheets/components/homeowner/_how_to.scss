@@ -23,6 +23,62 @@
   }
 }
 
+.how-to {
+  color: $ui-black;
+
+  img {
+    max-width: 100%;
+  }
+
+  h4 {
+    margin-top: $spacing-medium;
+    margin-bottom: 0;
+    font-size: $base-font-size;
+    font-weight: bold;
+  }
+
+  .tag {
+    line-height: 20px;
+    background-color: $ui-grey;
+    cursor: default;
+    margin-top: 6px;
+  }
+
+  .tag:hover {
+    color: $type-grey;
+    border-color: $type-grey;
+  }
+
+  .breadcrumb {
+    a {
+      color: $ui-dark-grey;
+      font-size: $base-small-font-size;
+    }
+  }
+
+  .light {
+    color: $ui-dark-grey;
+    font-size: $base-small-font-size;
+  }
+
+  iframe {
+    margin: $spacing-large 0;
+  }
+
+  .also {
+    margin-top: $spacing-medium;
+
+    img {
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+    }
+    a {
+      color: $ui-dark-grey;
+    }
+  }
+}
+
 .how-to-logo {
   font-style: italic;
   color: $ui-light-grey;

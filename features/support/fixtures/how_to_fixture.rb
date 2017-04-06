@@ -19,10 +19,38 @@ module HowToFixture
   end
 
   def category
-    "Around the home"
+    "Around the Home"
+  end
+
+  def sub_category
+    "Home Tips"
   end
 
   def featured
     "3"
+  end
+
+  def url
+    "https://youtube.com/foo"
+  end
+
+  def additional_text
+    "And whether ships have wings"
+  end
+
+  def tag
+    "Family"
+  end
+
+  def tag1
+    "Meals"
+  end
+
+  def tag2
+    "Cooking"
+  end
+
+  def tags
+    tag1 + "," + tag2
   end
 end

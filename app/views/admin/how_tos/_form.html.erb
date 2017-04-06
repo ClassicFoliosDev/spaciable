@@ -16,22 +16,47 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <div class="row how-to">
     <div class="row-item half">
       <fieldset>
         <%= f.input :title, as: :string %>
         <%= f.input :summary, as: :string %>
-        <%= f.input :description, as: :ckeditor, input_html: { ckeditor: { toolbar: 'simple' } } %>
+        <%= f.input :description, as: :ckeditor, input_html: { ckeditor: { toolbar: 'mini' } } %>
+        <div class="tags">
+          <%= label_tag Tag.model_name.human.pluralize %>
+          <%= f.simple_fields_for :tags do |fields| %>
+            <% if fields.object.name.nil? %>
+              <%= fields.input :name, label: t(".new_tag"), placeholder: t(".csv"), class: "tag-name" %>
+            <% else %>
+              <span>
+                <%= fields.object.name %>
+                <%= link_to remove_tag_path(how_to: how_to, tag: fields.object), class: "btn remove" do %>
+                  <%= fa_icon "times" %>
+                <% end %>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
       </fieldset>
     </div>
 
     <div class="row-item half">
       <fieldset>
-        <div class="category ui-front">
+        <div class="category ui-front select-container">
           <%= f.input :category, as: :select, collection: how_to_category_collection, include_blank: false %>
+        </div>
+        <div class="sub-category ui-front select-container">
+          <%= f.association :how_to_sub_category, collection: sub_categories, label: t(".subcategory"), prompt: t(".choose") %>
         </div>
         <div class="featured ui-front">
           <%= f.input :featured, as: :select, collection: HowTo.feature_numbers, include_blank: true %>
+        </div>
+        <div class="url">
+          <%= f.input :url, as: :string, placeholder: t(".youtube") %>
+        </div>
+        <div class="text">
+          <%= label_tag HowTo.human_attribute_name(:additional_text) %>
+          <%= f.text_area :additional_text %>
         </div>
         <div class="image-container">
           <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>

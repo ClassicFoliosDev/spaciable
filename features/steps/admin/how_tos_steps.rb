@@ -18,6 +18,10 @@ When(/^I create a HowTo$/) do
     select_from_selectmenu :how_to_featured, with: HowToFixture.featured
   end
 
+  within ".how_to_tags_name" do
+    fill_in t("admin.how_tos.form.new_tag"), with: HowToFixture.tag
+  end
+
   sleep 0.3
   click_on t("faqs.form.submit")
 end
@@ -34,7 +38,19 @@ When(/^I update the HowTo$/) do
     find("[data-action='edit']").trigger("click")
   end
 
-  fill_in :how_to_title, with: HowToFixture.updated_title
+  within ".how-to" do
+    fill_in :how_to_title, with: HowToFixture.updated_title
+    fill_in :how_to_url, with: HowToFixture.url
+    fill_in :how_to_additional_text, with: HowToFixture.additional_text
+  end
+
+  within ".how_to_tags_name" do
+    fill_in t("admin.how_tos.form.new_tag"), with: HowToFixture.tags
+  end
+
+  within ".sub-category" do
+    select_from_selectmenu :how_to_how_to_sub_category, with: HowToFixture.sub_category
+  end
 
   picture_full_path = FileFixture.file_path + FileFixture.finish_picture_name
   within ".how_to_picture" do
@@ -67,9 +83,38 @@ Then(/^I should see the updated HowTo$/) do
 
   within ".how-to" do
     image = page.find("img")
-
     expect(image["src"]).to have_content(FileFixture.finish_picture_name)
     expect(image["alt"]).to have_content(FileFixture.finish_picture_alt)
+
+    expect(page).to have_content(HowToFixture.url)
+    expect(page).to have_content(HowToFixture.additional_text)
+    expect(page).to have_content(HowToFixture.sub_category)
+    expect(page).to have_content(HowToFixture.tag)
+    expect(page).to have_content(HowToFixture.tag1)
+    expect(page).to have_content(HowToFixture.tag2)
+  end
+end
+
+When(/^I remove a Tag$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  within ".tags" do
+    target_btn = page.find("span", text: HowToFixture.tag1).find(".remove", visible: false)
+    target_btn.click
+  end
+end
+
+Then(/^I should see the remove complete successfully$/) do
+  within ".record-list" do
+    click_on HowToFixture.updated_title
+  end
+
+  within ".how-to" do
+    expect(page).to have_content(HowToFixture.tag)
+    expect(page).not_to have_content(HowToFixture.tag1)
+    expect(page).to have_content(HowToFixture.tag2)
   end
 end
 

@@ -10,6 +10,10 @@ module Homeowners
       @how_tos = @how_tos.where(category: @category)
     end
 
+    def show
+      @others = HowTo.where(category: @how_to.category).where.not(id: @how_to.id)
+    end
+
     private
 
     def how_to_params

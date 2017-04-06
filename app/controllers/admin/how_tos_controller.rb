@@ -3,25 +3,36 @@ module Admin
   class HowTosController < ApplicationController
     include PaginationConcern
     include SortingConcern
-    load_and_authorize_resource :how_to
+    load_and_authorize_resource :how_to, :how_to_tag
+    load_and_authorize_resource :tag, through: :how_to_tag
 
     def index
-      @how_tos = paginate(sort(@how_tos, default: { featured: :desc }))
+      @how_tos = @how_tos.includes(:how_to_tags, :tags)
+      @how_tos = paginate(sort(@how_tos, default: { updated_at: :desc }))
     end
 
     def new
+      @how_to_sub_categories = HowToSubCategory.where(
+        parent_category: t("activerecord.attributes.how_to.categories.home")
+      )
+      @how_to.build_tags
     end
 
     def create
+      @how_to.save_tags(how_to_params)
+
       if @how_to.save
         redirect_to admin_how_tos_path, notice: t("controller.success.create", name: @how_to)
       else
+        @how_to.build_tags
         render :new
       end
     end
 
     def update
-      if @how_to.update(how_to_params)
+      filtered_params = @how_to.save_tags(how_to_params)
+
+      if @how_to.update(filtered_params)
         redirect_to admin_how_tos_path, notice: t("controller.success.update", name: @how_to)
       else
         render :edit
@@ -32,6 +43,9 @@ module Admin
     end
 
     def edit
+      parent_category = t("activerecord.attributes.how_to.categories.#{@how_to.category}")
+      @how_to_sub_categories = HowToSubCategory.where(parent_category: parent_category)
+      @how_to.build_tags
     end
 
     def destroy
@@ -40,17 +54,33 @@ module Admin
       redirect_to admin_how_tos_path, notice: notice
     end
 
+    def remove_tag
+      tag_id = params[:tag]
+      how_to_id = params[:how_to]
+
+      @tag = Tag.find(tag_id)
+      @how_to = HowTo.find(how_to_id)
+
+      # This will delete all joins between @tag and @how_to
+      # if there is more than one
+      if @how_to.tags.delete(@tag)
+        notice = t(".success", how_to_name: @how_to.title, tag_name: @tag.name)
+      end
+
+      redirect_to admin_how_tos_path(@how_to), notice: notice
+    end
+
     private
 
     def how_to_params
       params.require(:how_to).permit(
-        :title,
-        :summary,
-        :category,
-        :description,
-        :featured,
-        :picture,
-        :picture_cache
+        :title, :summary, :category,
+        :description, :featured,
+        :picture, :picture_cache,
+        :remove_picture,
+        :url, :additional_text,
+        :how_to_sub_category_id,
+        tags_attributes: [:id, :name, :_destroy]
       )
     end
   end

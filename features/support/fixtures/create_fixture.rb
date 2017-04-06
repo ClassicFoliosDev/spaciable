@@ -18,7 +18,8 @@ module CreateFixture
     phase_plot: "200",
     division_plot: "300",
     room: "Living Room",
-    unit_type: "8 Bedrooms"
+    unit_type: "8 Bedrooms",
+    how_to: "How to dig yourself a hole"
   }.freeze
 
   # Generate methods for each resource, e.g. for 'phase: "Alpha Phase"':
@@ -239,7 +240,7 @@ module CreateFixture
   end
 
   def create_how_tos
-    FactoryGirl.create(:how_to, category: "diy")
+    FactoryGirl.create(:how_to, category: "diy", title: how_to_name)
     FactoryGirl.create(:how_to)
     FactoryGirl.create(:how_to, category: "diy")
   end

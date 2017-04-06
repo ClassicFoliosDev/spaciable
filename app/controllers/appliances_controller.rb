@@ -67,7 +67,8 @@ class AppliancesController < ApplicationController
       :warranty_length, :model_num, :e_rating,
       :manufacturer_id, :appliance_category_id,
       :remove_primary_image, :remove_secondary_image,
-      :remove_manual, :guide, :remove_guide
+      :remove_manual, :guide, :remove_guide,
+      :primary_image_cache, :secondary_image_cache
     )
   end
 end

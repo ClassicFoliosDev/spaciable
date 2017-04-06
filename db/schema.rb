@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330123138) do
+ActiveRecord::Schema.define(version: 20170404152807) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,9 +267,16 @@ ActiveRecord::Schema.define(version: 20170330123138) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
+  end
+
+  create_table "how_to_sub_categories", force: :cascade do |t|
+    t.text     "name"
+    t.text     "parent_category"
+    t.datetime "deleted_at"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "how_tos", force: :cascade do |t|
@@ -280,8 +287,21 @@ ActiveRecord::Schema.define(version: 20170330123138) do
     t.integer  "featured"
     t.string   "picture"
     t.datetime "deleted_at"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "url"
+    t.string   "additional_text"
+    t.integer  "how_to_sub_category_id"
+    t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree
+  end
+
+  create_table "how_tos_tags", id: false, force: :cascade do |t|
+    t.integer  "how_to_id",  null: false
+    t.integer  "tag_id",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["how_to_id", "tag_id"], name: "how_to_tag_index", using: :btree
+    t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
   end
 
   create_table "manufacturers", force: :cascade do |t|
@@ -420,6 +440,13 @@ ActiveRecord::Schema.define(version: 20170330123138) do
     t.index ["unit_type_id"], name: "index_rooms_on_unit_type_id", using: :btree
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.text     "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "unit_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                 null: false
@@ -489,6 +516,7 @@ ActiveRecord::Schema.define(version: 20170330123138) do
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "finishes", "manufacturers"
+  add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"

@@ -257,6 +257,11 @@ en:
       form:
         back: "Back"
         submit: "Submit"
+        choose: "Choose..."
+        subcategory: "Sub category"
+        youtube: "https://www.youtube.com/embed/xyz123, use the embed version of a youtube URL"
+        new_tag: "Add tag"
+        csv: "Enter tag value, use a comma to separate multiple tags"
       collection:
         add: "Add how to"
       show:
@@ -266,6 +271,9 @@ en:
         title: "How to %{title}"
       index:
         title: "How tos"
+      remove_tag:
+        success: "Successfully removed %{tag_name} from %{how_to_name}."
+
   dashboard:
     header: "Dashboard title for Hoozzi"
     title: "Dashboard"
@@ -378,6 +386,11 @@ en:
     how_tos:
       index:
         title: "Featured"
+      show:
+        tags: "Tags"
+        read: "%{minutes} minute read"
+        also: "You may also like"
+        featured: "Featured"
     dashboard:
       show:
         my_home_title: "My home"
@@ -957,6 +970,8 @@ en:
       faq: "FAQ"
       brand: "Styling"
       notification: "Notification"
+      how_to: "How to"
+      tag: "Tag"
 
     attributes:
       developer:
@@ -1121,8 +1136,16 @@ en:
           troubleshooting: "Troubleshooting"
           urgent: "Urgent"
       how_to:
+        title: "Title"
+        summary: "Summary"
+        description: "Description"
+        category: "Category"
+        featured: "Featured"
+        picture: "Picture"
+        url: "Url link"
+        additional_text: "Additional text"
         categories:
-          home: "Around the home"
+          home: "Around the Home"
           diy: "DIY"
           lifestyle: "Lifestyle"
           recipes: "Recipes"

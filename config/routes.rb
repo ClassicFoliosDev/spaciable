@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   end
 
   scope :homeowners, module: :homeowners do
+    resources :how_tos, only: [:show]
     get "contacts/:category",
         to: 'contacts#index',
         as: :homeowner_contacts,
@@ -112,7 +113,7 @@ Rails.application.routes.draw do
         as: :homeowner_faqs,
         defaults: { category: :settling }
 
-    get "how_tos/:category",
+    get "how_tos/category/:category",
         to: "how_tos#index",
         as: :homeowner_how_tos,
         defaults: { category: :home }
@@ -135,9 +136,10 @@ Rails.application.routes.draw do
   get "/data_policy", to: 'home#data_policy'
   get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
   get "/appliance_list", to: 'appliances#appliance_list'
+  get "/how_to_sub_category_list", to: 'how_to_sub_category#list'
   get "/remove_appliance", to: "rooms#remove_appliance"
   get "/remove_finish", to: "rooms#remove_finish"
-  get "/remove_contact", to: "contacts#remove_contact"
+  get "/remove_tag", to: "admin/how_tos#remove_tag"
   get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types", to: 'finishes#finish_types', format: :json
