@@ -5,7 +5,11 @@
   .contact {
     padding: 5px 10px;
     height: 108px;
-    border-top: 1px solid $ui-grey;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-top-style: solid;
+    border-top-width: 1px;
 
     .contact-avatar {
       @include span-columns(3 of 12);
