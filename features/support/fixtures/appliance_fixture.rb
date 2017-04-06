@@ -126,29 +126,17 @@ module ApplianceFixture
     end
   end
 
-  def create_appliance_with_guide
-    appliance2 = create_second_appliance
-
-    FactoryGirl.create(:appliance_room, room: CreateFixture.room, appliance: appliance2)
-
-    filename = FileFixture.document_name
-    file_path = Rails.root.join("features", "support", "files", filename)
-    File.open(file_path) do |file|
-      appliance2.update_attribute(:guide, file)
-    end
+  def manual_url
+    appliance_instance.manual.url
   end
 
-  def create_second_appliance
-    second_appliance_category = ApplianceCategory.find_or_create_by(name: second_appliance_category_name)
-    second_manufacturer = Manufacturer.find_or_create_by(name: second_manufacturer_name, link: second_manufacturer_link)
+  def guide_url
+    appliance_instance.guide.url
+  end
 
-    FactoryGirl.create(
-      :appliance,
-      name: second_appliance_name,
-      appliance_category: second_appliance_category,
-      manufacturer: second_manufacturer,
-      e_rating: second_energy_rating
-    )
+  def appliance_instance
+    appliance_name = "#{CreateFixture.appliance_manufacturer_name} #{CreateFixture.appliance_name}"
+    Appliance.find_by(name: appliance_name)
   end
 end
 # rubocop:enable ModuleLength

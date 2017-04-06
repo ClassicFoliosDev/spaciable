@@ -36,24 +36,20 @@
             <div class="manual">
               <%= label_tag t(".manual") %>
               <% if appliance.manual? %>
-                <div class="file-details">
-                  <span><%= appliance.manual.file.filename %></span>
-                  <%= link_to appliance.manual.url, class: "btn", target: "_blank" do %>
-                    <%= icon "cloud-download" %>
-                  <% end %>
-                </div>
+                <%= link_to appliance.manual.url, class: "btn", target: "_blank" do %>
+                  <%= icon "cloud-download" %>
+                  <%= t(".download") %>
+                <% end %>
               <% end %>
             </div>
 
             <div class="guide">
               <%= label_tag t(".guide") %>
               <% if appliance.guide? %>
-                <div class="file-details">
-                  <span><%= appliance.guide.file.filename %></span>
-                  <%= link_to appliance.guide.url, class: "btn", target: "_blank" do %>
-                    <%= icon "cloud-download" %>
-                  <% end %>
-                </div>
+                <%= link_to appliance.guide.url, class: "btn", target: "_blank" do %>
+                  <%= icon "cloud-download" %>
+                  <%= t(".download") %>
+                <% end %>
               <% end %>
             </div>
 

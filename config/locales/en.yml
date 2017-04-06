@@ -374,6 +374,7 @@ en:
         register: "Register appliance"
         manual: "Manual"
         guide: "Quick reference guide"
+        download: "Download"
     how_tos:
       index:
         title: "Featured"

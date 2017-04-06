@@ -33,8 +33,8 @@ Then(/^I should see the appliances for my plot$/) do
 
     appliance = page.find("span", text: CreateFixture.appliance_name)
     appliance_with_both = appliance.find(:xpath, "..")
-    expect(appliance_with_both).to have_content(FileFixture.manual_name)
-    expect(appliance_with_both).to have_content(FileFixture.document_name)
+    expect(appliance_with_both).to have_link("Download", href: ApplianceFixture.manual_url)
+    expect(appliance_with_both).to have_link("Download", href: ApplianceFixture.guide_url)
 
     appliance = page.find("span", text: ApplianceFixture.second_manufacturer_name)
     # Second appliance has only guide

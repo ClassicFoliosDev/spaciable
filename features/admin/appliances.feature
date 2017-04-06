@@ -6,7 +6,7 @@ Feature: Appliances
   @javascript
   Scenario:
     Given I am logged in as an admin
-    And I have seeded the database
+    And I have seeded the database with appliances
     When I create an appliance with no name
     Then I should see the appliance model num error
     When I create an appliance with no category
@@ -23,7 +23,7 @@ Feature: Appliances
   @javascript
   Scenario: Delete
     Given I am logged in as an admin
-    And I have seeded the database
+    And I have seeded the database with appliances
     And there is an appliance
     When I delete the appliance
     Then I should see the appliance deletion complete successfully
