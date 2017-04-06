@@ -32,7 +32,7 @@
   "Flooring": {
     "Carpet": [
       "Victoria Carpets",
-      "Corma Carpets"
+      "Cormar Carpets"
     ],
     "Ceramic Tiles": [
       "HR Johnson",
