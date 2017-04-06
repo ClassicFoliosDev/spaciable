@@ -24,7 +24,7 @@ $card-header-height: 52px;
     height: $card-header-height;
 
     .card-title {
-      @include span-columns(6 of 12);
+      @include span-columns(5 of 12);
       font-size: $title-font-size-4;
       margin: 0;
     }
@@ -37,8 +37,9 @@ $card-header-height: 52px;
     }
 
     .card-action {
+      @include span-columns(7 of 12);
+      text-align: center;
       margin-top: 2px;
-      @include span-columns(6 of 12);
     }
   }
 
