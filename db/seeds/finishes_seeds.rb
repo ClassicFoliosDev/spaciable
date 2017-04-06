@@ -31,6 +31,7 @@
   },
   "Flooring": {
     "Carpet": [
+      "Victoria Carpets",
       "Corma Carpets"
     ],
     "Ceramic Tiles": [
@@ -39,73 +40,146 @@
       "Saloni"
     ],
     "Concrete": [],
-    "Laminate": [],
+    "Laminate": [
+      "Amtico",
+      "Karndean"
+    ],
     "Stone": [],
-    "Vinyl": [],
+    "Vinyl": ["Forbo"],
     "Wood":[]
   },
   "Sanitaryware": {
     "Basin": [
       "Ideal Standard",
       "Roca",
-      "Kohler"
+      "Kohler",
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
     ],
     "Basin Tap": [
       "Bristan",
       "Franke",
-      "Grohe"
+      "Grohe",
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
     ],
-    "Bath": [],
-    "Bath Screen": [],
-    "Bath Tap/Mixer": [],
-    "Shower Head": [],
-    "Shower Tray": [],
+    "Bath": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
+    ],
+    "Bath Screen": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
+    ],
+    "Bath Tap/Mixer": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
+    ],
+    "Shower Head": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
+    ],
+    "Shower Tray": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode",
+      "Just Trays"
+    ],
     "Shower Unit": [
       "Mira",
       "Aqualisa",
-      "Triton"
+      "Triton",
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
     ],
-    "Shower Screen/Door": [],
+    "Shower Screen/Door": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
+    ],
     "Vanity Cabinet": [],
-    "WC": []
+    "WC": [
+      "Villeroy and Boch",
+      "VitrA",
+      "Kaldewei",
+      "Abode"
+    ]
   },
   "Worktop": {
     "Composite Stone": [
       "Symphony",
       "Moores",
-      "Wren"
+      "Wren",
+      "Leicht Kitchens"
     ],
-    "Corian": [],
-    "Glass": [],
-    "Granite": [],
-    "Laminate": [],
-    "Quartz": [],
-    "Silestone": [],
-    "Stainless Steel": [],
-    "Wood": []
+    "Corian": ["Leicht Kitchens"],
+    "Glass": ["Leicht Kitchens"],
+    "Granite": ["Leicht Kitchens"],
+    "Laminate": ["Leicht Kitchens"],
+    "Quartz": ["Leicht Kitchens"],
+    "Silestone": ["Leicht Kitchens"],
+    "Stainless Steel": ["Leicht Kitchens"],
+    "Wood": ["Leicht Kitchens"]
   },
   "Cabinet": {
      "Corner": [
        "Symphony",
        "Moores",
-       "Wren"
+       "Wren",
+       "Leicht Kitchens"
      ],
-     "Island": [],
-     "Floor": [],
-     "Tall": [],
-     "Wall": []
+    "Island": ["Leicht Kitchens"],
+    "Floor": ["Leicht Kitchens"],
+    "Tall": ["Leicht Kitchens"],
+    "Wall": ["Leicht Kitchens"]
   },
   "Handles": {
     "Stainless Steel": [
       "Symphony",
-      "Moores"
+      "Moores",
+      "Wren",
+      "Leicht Kitchens"
     ],
-    "Brushed Steel": [],
-    "Plastic": [],
-    "Polished Chrome": [],
-    "Pewter": [],
-    "Aluminium": [],
-    "Brushed Nickel": []
+    "Brushed Steel": [
+      "Wren",
+      "Leicht Kitchens"
+                     ],
+    "Plastic": [
+      "Wren",
+      "Leicht Kitchens"
+    ],
+    "Polished Chrome": [
+      "Wren",
+      "Leicht Kitchens"
+    ],
+    "Pewter": [
+      "Wren",
+      "Leicht Kitchens"
+    ],
+    "Aluminium": [
+      "Wren",
+      "Leicht Kitchens"
+     ],
+    "Brushed Nickel": [
+       "Wren",
+       "Leicht Kitchens"
+     ]
   },
   "Tap": {
     "Dual": [
