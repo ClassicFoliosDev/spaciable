@@ -49,10 +49,10 @@ class HowTo < ApplicationRecord
   # The save_tags method above works well for update, but on create it has to be called after
   # the how_to object has been created, which in turn means that there is a duplicate
   # tag created when there are comma-separated tags
-  # Compensate here by removing the first tag if there is more than one
-  # The assumption that more than one implies duplicates is safe for create (and not for
-  # update, however the problem solved only exists on create)
-  def delete_duplicate_tags_on_create
-    tags.first.destroy if tags.length > 1
+  # Compensate here by removing the tag if it contains a comma
+  def delete_duplicate_tags
+    tags.each do |tag|
+      tags.destroy(tag) if tag.name.index(",").present?
+    end
   end
 end
