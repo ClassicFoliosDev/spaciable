@@ -208,6 +208,8 @@ crumb :document do |document|
       parent :division, document.parent
     when :development
       parent :development, document.parent
+    when :phase
+      parent :phase, document.parent
     when :plot
       parent :plot, document.parent
   end
@@ -222,6 +224,10 @@ crumb :document_edit do |document|
       parent :division, document.parent
     when :development
       parent :development, document.parent
+    when :phase
+      parent :phase, document.parent
+    when :plot
+      parent :plot, document.parent
   end
 end
 
@@ -235,6 +241,10 @@ crumb :document_new do |document_parent|
       parent :division, document_parent
     when :development
       parent :development, document_parent
+    when :phase
+      parent :phase, document_parent
+    when :plot
+      parent :plot, document_parent
   end
 end
 

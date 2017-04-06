@@ -25,10 +25,12 @@ class DocumentsController < ApplicationController
 
   def new
     authorize! :new, @document
+    @redirect_path = url_for(target)
   end
 
   def edit
     authorize! :edit, @document
+    @redirect_path = url_for(target)
   end
 
   def show
