@@ -237,3 +237,15 @@ Sidekiq uses threads to handle many jobs at the same time in the same process. A
 There are several named queues, as define in the `config/sidekiq.yml` file, to distribute the type of jobs that need to be performed and managed. By default ActionMailer will use the `mailer` queue, and ActiveJob will use the `default` queue.
 
 If you are logged in as a CF Admin you can access the Sidekiq dashbaord at `/sidekiq`.
+
+For more information about using Sidekiq check out the [FAQs](https://github.com/mperham/sidekiq/wiki/FAQ).
+
+The Sidekiq process will restart automatically on deploy, but if you want to change the number of threads in use you will need to:
+
+- Update the environment varaible `SIDEKIQ_WORKERS` on the ElasticBeanstalk environment settings
+- Restart the sidekiq process manually:
+
+```
+$ eb ssh
+$ sudo initctl restart sidekiq
+```
