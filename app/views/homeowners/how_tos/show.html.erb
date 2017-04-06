@@ -1,33 +1,53 @@
-<div class="branded-body">
-  <div class="main-container">
-    <div class="how-to branded-border branded-background">
-      <div class="sixth">
+<div class="article-container">
+  <div class="article branded-body branded-border">
+    <div class="article-content">
+      <p class="breadcrumb"><%= link_to HowTo.human_attribute_name(@how_to.category), homeowner_how_tos_path(@how_to.category) %></p>
+
+      <h2><%= @how_to.title %></h2>
+
+      <p class="strong"><%= t(".featured") if @how_to.featured.present? %></p>
+
+      <p><%= @how_to.summary %></p>
+
+      <p><%= t(".read", minutes: @how_to.read_size) %></p>
+
+      <% if @how_to.url? %>
+        <iframe height="346" src=<%= @how_to.url %> frameborder="0"></iframe>
+      <% end %>
+
+      <%= @how_to.description.html_safe %>
+    </div>
+
+    <div class="article-meta">
+      <div class="article-image-container">
         <%= image_tag @how_to.picture.url if @how_to.picture? %>
+      </div>
+
+      <div class="tags-container">
         <h4><%= t(".tags") %></h4>
-        <% @how_to.tags.each do |tag| %>
-          <span class="tag btn"><%= tag %></span>
-        <% end %>
-      </div>
-      <div class="half">
-        <span class="breadcrumb"><%= link_to HowTo.human_attribute_name(@how_to.category), homeowner_how_tos_path(@how_to.category) %></span>
-        <h2><%= @how_to.title %></h2>
-        <p class="strong"><%= t(".featured") if @how_to.featured.present? %></p>
-        <p><%= @how_to.summary %></p>
-        <span class="light"><%= t(".read", minutes: @how_to.read_size) %></span>
-        <% if @how_to.url? %>
-          <iframe height="220" width="500" src=<%= @how_to.url %> frameborder="0"></iframe>
-        <% end %>
-        <%= @how_to.description.html_safe %>
-      </div>
-      <div class="sixth">
-        <h4><%= t(".also") %></h4>
-        <% @others.each do |other_how_to| %>
-          <div class="also">
-            <%= image_tag other_how_to.picture.url if other_how_to.picture.present? %>
-            <%= link_to other_how_to.title, how_to_path(other_how_to) %>
-          </div>
-        <% end %>
+
+        <ul>
+          <% @how_to.tags.each do |tag| %>
+            <li class="tag"><%= tag %></li>
+          <% end %>
+        </ul>
       </div>
     </div>
+  </div>
+
+  <div class="recommended-articles branded-body branded-border">
+    <h4><%= t(".also") %></h4>
+
+    <% @others.each do |other_how_to| %>
+      <div class="recommended-article">
+        <div class="recommended-article-image">
+          <%= image_tag other_how_to.picture.url if other_how_to.picture.present? %>
+        </div>
+        <div class="recommended-article-detail">
+          <%= link_to other_how_to.title, how_to_path(other_how_to) %>
+          <p><%= t(".read", minutes: other_how_to.read_size) %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>

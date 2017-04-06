@@ -45,12 +45,12 @@ When(/^I select a HowTo article$/) do
 end
 
 Then(/^I should see the HowTo details$/) do
-  within ".how-to" do
+  within ".article-container" do
     expect(page).to have_content(t("homeowners.how_tos.show.tags"))
     expect(page).to have_content("Diy")
     expect(page).to have_content(t("homeowners.how_tos.show.also"))
 
-    other_articles = page.all(".also")
+    other_articles = page.all(".recommended-articles")
     expect(other_articles.count).to eq(1)
   end
 end

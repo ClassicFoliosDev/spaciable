@@ -1,103 +1,187 @@
-.article {
-  position: relative;
-  @include span-columns(3 of 12);
+.article-container {
+  @include outer-container();
 
-  &:nth-child(4n) {
-    @include omega();
-  }
+  .article {
+    @include span-columns(9 of 12);
+    border-radius: $border-radius;
+    padding: 20px;
 
-  .overlay {
-    @include linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.6));
-    height: 100%;
-  }
+    .article-content {
+      @include span-columns(9 of 12);
+      @include omega();
+      float: right;
 
-  .card-content {
-    position: absolute;
-    bottom: 0;
-    padding: $spacing-small;
-  }
+      .breadcrumb a {
+        color: $ui-dark-grey;
+        font-size: $base-small-font-size;
+      }
 
-  h3 {
-    color: $ui-white;
-    margin-bottom: $spacing-small / 2;
-  }
-}
+      iframe {
+        margin-bottom: 20px;
+        width: 100%;
+      }
+    }
 
-.how-to {
-  color: $ui-black;
+    .article-meta {
+      @include span-columns(3 of 12);
 
-  img {
-    max-width: 100%;
-  }
+      .article-image-container img {
+        width: 100%;
+        margin-bottom: 20px;
+      }
 
-  h4 {
-    margin-top: $spacing-medium;
-    margin-bottom: 0;
-    font-size: $base-font-size;
-    font-weight: bold;
-  }
 
-  .tag {
-    line-height: 20px;
-    background-color: $ui-grey;
-    cursor: default;
-    margin-top: 6px;
-  }
-
-  .tag:hover {
-    color: $type-grey;
-    border-color: $type-grey;
-  }
-
-  .breadcrumb {
-    a {
-      color: $ui-dark-grey;
-      font-size: $base-small-font-size;
+      .tags-container .tag {
+        display: inline-block;
+        line-height: $button-line-height;
+        padding: 0 $spacing-small;
+        margin-bottom: 5px;
+        border: 1px solid $base-button-border-color;
+        border-radius: $border-radius;
+      }
     }
   }
 
-  .light {
-    color: $ui-dark-grey;
+  .recommended-articles {
+    @include span-columns(3 of 12);
+    border-radius: $border-radius;
+    padding: 20px;
+
+    .recommended-article {
+      .recommended-article-image {
+        @include span-columns(3 of 12);
+        width: initial;
+
+        img {
+          border-radius: 50%;
+          width: 45px;
+          height: 45px;
+        }
+      }
+
+      .recommended-article-detail {
+        @include span-columns(9 of 12);
+
+        a {
+          display: inline-block;
+          color: $ui-dark-grey;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+        }
+      }
+    }
+  }
+}
+
+.dashboard, .how-tos {
+  .article {
+    position: relative;
+    @include span-columns(3 of 12);
+
+    &:nth-child(4n) {
+      @include omega();
+    }
+
+    .overlay {
+      @include linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.6));
+      height: 100%;
+    }
+
+    .card-content {
+      position: absolute;
+      bottom: 0;
+      padding: $spacing-small;
+    }
+
+    h3 {
+      color: $ui-white;
+      margin-bottom: $spacing-small / 2;
+    }
+  }
+
+  .how-to-logo {
+    font-style: italic;
+    color: $ui-light-grey;
     font-size: $base-small-font-size;
+    position: relative;
+    top: 4px;
   }
-
-  iframe {
-    margin: $spacing-large 0;
-  }
-
-  .also {
-    margin-top: $spacing-medium;
-
-    img {
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-    }
-    a {
-      color: $ui-dark-grey;
-    }
-  }
-}
-
-.how-to-logo {
-  font-style: italic;
-  color: $ui-light-grey;
-  font-size: 12px;
-  position: relative;
-  top: 4px;
 }
 
 @include media($tablet-landscape-down) {
-  .article {
-    @include span-columns(6 of 12);
-    @include omega-reset(4n);
-    @include omega(2n);
+  .dashboard, .how-tos {
+    .article {
+      @include span-columns(6 of 12);
+      @include omega-reset(4n);
+      @include omega(2n);
+    }
+  }
+
+  .article-container {
+    .article, .recommended-articles  {
+      @include span-columns(12 of 12);
+    }
+
+    .recommended-articles {
+      .recommended-article {
+        @include span-columns(4 of 12);
+
+        &:nth-child(3n) {
+          @include omega();
+        }
+      }
+    }
+  }
+}
+
+@include media($tablet-portrait-down) {
+  .article-container {
+    .article {
+      .article-content {
+        @include span-columns(12 of 12);
+      }
+
+      .article-meta {
+        @include span-columns(12 of 12);
+
+        .article-image-container {
+          @include span-columns(6 of 12);
+        }
+
+        .tags-container {
+          @include span-columns(6 of 12);
+        }
+      }
+    }
+
+    .recommended-articles {
+      .recommended-article {
+        @include span-columns(6 of 12);
+
+        &:nth-child(2n) {
+          @include omega();
+        }
+      }
+    }
   }
 }
 
 @include media($mobile-down) {
-  .article {
-    @include span-columns(12 of 12);
-    @include omega-reset(2n);
+  .dashboard, .how-tos {
+    .article {
+      @include span-columns(12 of 12);
+      @include omega-reset(2n);
+    }
+  }
+
+  .article-container {
+    .recommended-articles {
+      .recommended-article {
+        @include span-columns(12 of 12);
+      }
+    }
   }
 }
+
