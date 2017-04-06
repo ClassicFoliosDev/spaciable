@@ -19,7 +19,8 @@ When(/^I create a HowTo$/) do
   end
 
   within ".how_to_tags_name" do
-    fill_in t("admin.how_tos.form.new_tag"), with: HowToFixture.tag
+    tags = HowToFixture.tag + ", " + HowToFixture.tag1
+    fill_in t("admin.how_tos.form.new_tag"), with: tags
   end
 
   sleep 0.3
@@ -89,9 +90,9 @@ Then(/^I should see the updated HowTo$/) do
     expect(page).to have_content(HowToFixture.url)
     expect(page).to have_content(HowToFixture.additional_text)
     expect(page).to have_content(HowToFixture.sub_category)
-    expect(page).to have_content(HowToFixture.tag)
-    expect(page).to have_content(HowToFixture.tag1)
-    expect(page).to have_content(HowToFixture.tag2)
+    expect(page).to have_content(HowToFixture.tag, count: 1)
+    expect(page).to have_content(HowToFixture.tag1, count: 1)
+    expect(page).to have_content(HowToFixture.tag2, count: 1)
   end
 end
 

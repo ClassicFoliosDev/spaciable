@@ -31,6 +31,7 @@ class HowTo < ApplicationRecord
   def save_tags(how_to_params)
     tags_params = how_to_params.delete(:tags_attributes)
     return unless tags_params
+    return how_to_params unless self
 
     tags_params.each do |tag_id|
       tag_param = tags_params[tag_id]
@@ -43,5 +44,15 @@ class HowTo < ApplicationRecord
     end
 
     how_to_params
+  end
+
+  # The save_tags method above works well for update, but on create it has to be called after
+  # the how_to object has been created, which in turn means that there is a duplicate
+  # tag created when there are comma-separated tags
+  # Compensate here by removing the first tag if there is more than one
+  # The assumption that more than one implies duplicates is safe for create (and not for
+  # update, however the problem solved only exists on create)
+  def delete_duplicate_tags_on_create
+    tags.first.destroy if tags.length > 1
   end
 end

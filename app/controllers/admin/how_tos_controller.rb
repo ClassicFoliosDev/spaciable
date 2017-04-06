@@ -19,9 +19,9 @@ module Admin
     end
 
     def create
-      @how_to.save_tags(how_to_params)
-
-      if @how_to.save
+      if @how_to.save(how_to_params)
+        @how_to.save_tags(how_to_params)
+        @how_to.delete_duplicate_tags_on_create
         redirect_to admin_how_tos_path, notice: t("controller.success.create", name: @how_to)
       else
         @how_to.build_tags
