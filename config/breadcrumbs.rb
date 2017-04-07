@@ -199,6 +199,11 @@ end
 
 # DOCUMENTS
 
+crumb :plot_documents do |plot_docs_parent|
+  link t("developments.collection.plot_documents")
+  parent :development, plot_docs_parent
+end
+
 crumb :document do |document|
   link document.title, document_path
   case document.parent.model_name.element.to_sym
