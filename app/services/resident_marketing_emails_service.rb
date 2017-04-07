@@ -11,52 +11,33 @@ class ResidentMarketingEmailsService
   attr_reader :resident
 
   def resident_assigned_to_plot
-    add_to_unactivated_list
+    response = list.members(md5_hashed_email).upsert(
+      body: {
+        email_address: resident.email,
+        status: "subscribed",
+        merge_fields: merge_fields.merge(HOOZSTATUS: "unactivated")
+      }
+    )
+
+    puts response.body
   end
 
   def resident_activated
-    remove_from_unactivated_list
-    add_to_activated_list
+    response = list.members(md5_hashed_email).upsert(
+      body: {
+        email_address: resident.email,
+        status: "subscribed",
+        merge_fields: merge_fields.merge(HOOZSTATUS: "activated")
+      }
+    )
+
+    puts response.body
   end
 
   private
 
   def md5_hashed_email
     Digest::MD5.hexdigest(resident.email.downcase)
-  end
-
-  def add_to_unactivated_list
-    response = unactivated_list.members(md5_hashed_email).upsert(
-      body: {
-        email_address: resident.email,
-        status: "subscribed",
-        merge_fields: merge_fields
-      }
-    )
-
-    puts response.body
-  end
-
-  def remove_from_unactivated_list
-    response = unactivated_list.members(md5_hashed_email).update(
-      body: {
-        status: "unsubscribed",
-      }
-    )
-
-    puts response.body
-  end
-
-  def add_to_activated_list
-    response = activated_list.members(md5_hashed_email).upsert(
-      body: {
-        email_address: resident.email,
-        status: "subscribed",
-        merge_fields: merge_fields
-      }
-    )
-
-    puts response.body
   end
 
   def merge_fields
@@ -74,12 +55,8 @@ class ResidentMarketingEmailsService
     }
   end
 
-  def unactivated_list
-    client.lists("3e8a6e1ee9")
-  end
-
-  def activated_list
-    client.lists("58329f50e7")
+  def list
+    client.lists("91418e8697")
   end
 
   def client
