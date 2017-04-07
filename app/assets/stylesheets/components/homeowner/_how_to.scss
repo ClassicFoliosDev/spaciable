@@ -3,8 +3,10 @@
 
   .article {
     @include span-columns(9 of 12);
+    background-color: $ui-white;
     border-radius: $border-radius;
     padding: 20px;
+    margin-bottom: $spacing-medium;
 
     .article-content {
       @include span-columns(9 of 12);
@@ -44,6 +46,7 @@
 
   .recommended-articles {
     @include span-columns(3 of 12);
+    background-color: $ui-white;
     border-radius: $border-radius;
     padding: 20px;
 
