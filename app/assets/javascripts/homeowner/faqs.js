@@ -7,10 +7,10 @@ document.addEventListener("turbolinks:load", function() {
     var faqIndex = $dashboardFaqs.find("dt").index($faq);
 
     if (faqIndex > -1) {
-      $dashboardFaqs.accordion({ active: faqIndex });
+      $dashboardFaqs.accordion({ active: faqIndex, heightStyle: 'content'});
       $("body").scrollTop($faq.position().top);
     } else {
-      $dashboardFaqs.accordion();
+      $dashboardFaqs.accordion({ heightStyle: 'content'});
     }
   }
 });

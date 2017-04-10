@@ -34,10 +34,16 @@
   .ui-accordion-header {
     background: $ui-white;
     margin-top: $spacing-small;
+    &:focus {
+      outline: none;
+    }
   }
 
   .ui-accordion-content {
     padding-bottom: $spacing-small;
+    p {
+      margin-bottom: $spacing-small;
+    }
   }
 }
 
