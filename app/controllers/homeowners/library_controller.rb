@@ -6,7 +6,6 @@ module Homeowners
 
     def index
       @category = document_params[:category]
-
       @documents = Document.accessible_by(current_ability).where(category: @category)
       @appliances = []
     end

@@ -12,11 +12,6 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
     expect(subject).to be_able_to(:read, model)
   end
 
-  it "cannot read models for someone elses plot" do
-    model = create(polymorphic_factory_name, association => create(:plot))
-    expect(subject).not_to be_able_to(:read, model)
-  end
-
   it "can read models for my development" do
     model = create(polymorphic_factory_name, association => plot.development)
     expect(subject).to be_able_to(:read, model)

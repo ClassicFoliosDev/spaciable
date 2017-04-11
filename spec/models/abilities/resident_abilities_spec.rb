@@ -16,6 +16,16 @@ RSpec.describe "Resident Abilities" do
   it_behaves_like "it can read polymorphic models associated with the residency", Faq, :faqable
   it_behaves_like "it can read polymorphic models associated with the residency", Contact, :contactable
 
+  it "cannot read documents for someone else's plot" do
+    document = create(:document, documentable: create(:plot, development: plot.development))
+    expect(subject).not_to be_able_to(:read, document)
+  end
+
+  it "cannot read documents for someone else's phase plot" do
+    document = create(:document, documentable: create(:plot, phase: plot.phase))
+    expect(subject).not_to be_able_to(:read, document)
+  end
+
   it "has READ access to a plots developer" do
     developer = plot.developer
 
@@ -32,11 +42,23 @@ RSpec.describe "Resident Abilities" do
     expect(subject).to be_able_to(:read, plot)
   end
 
+  it "does not have access to other plots" do
+    plot2 = create(:plot, development: plot.development)
+    expect(subject).not_to be_able_to(:read, plot2)
+  end
+
   it "has READ access to plots unit type" do
     unit_type = plot.unit_type
     raise "unit type is nil" unless unit_type
 
     expect(subject).to be_able_to(:read, unit_type)
+  end
+
+  it "has READ access to plots unit type documents" do
+    unit_type = plot.unit_type
+    document = create(:document, documentable: unit_type)
+
+    expect(subject).to be_able_to(:read, document)
   end
 
   it "has READ access to the plots unit types rooms" do
@@ -111,8 +133,20 @@ RSpec.describe "Resident Abilities" do
       expect(subject).to be_able_to(:read, phase)
     end
 
+    it "has READ access to a phase documents" do
+      phase = plot.phase
+      document = create(:document, documentable: phase)
+
+      expect(subject).to be_able_to(:read, document)
+    end
+
     it "has READ access to its plot" do
       expect(subject).to be_able_to(:read, plot)
+    end
+
+    it "does not have access to other plots" do
+      plot2 = create(:plot, phase: plot.phase)
+      expect(subject).not_to be_able_to(:read, plot2)
     end
 
     context "under a division" do
