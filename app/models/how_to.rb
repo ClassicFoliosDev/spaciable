@@ -9,7 +9,7 @@ class HowTo < ApplicationRecord
   accepts_nested_attributes_for :tags, reject_if: :all_blank, allow_destroy: true
 
   enum category: [:home, :diy, :lifestyle, :recipes, :cleaning, :outdoors]
-  enum feature_numbers: { "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5, "6" => 6 }
+  enum feature_numbers: { "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5 }
 
   validates :title, :summary, :description, presence: true
   validates :featured, uniqueness: true, if: -> { featured.present? }
