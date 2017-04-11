@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 module Homeowners
   class LibraryController < Homeowners::BaseController
-    authorize_resource :document, :appliance
-
+    skip_authorization_check
     before_action :set_categories
 
     def index

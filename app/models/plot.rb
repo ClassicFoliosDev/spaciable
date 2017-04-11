@@ -99,6 +99,10 @@ class Plot < ApplicationRecord
     self[:number] = BulkPlots::Numbers.Number(int_or_float)
   end
 
+  def brand
+    phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
+  end
+
   def parent=(object)
     case object
     when Phase

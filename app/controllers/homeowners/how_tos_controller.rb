@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module Homeowners
   class HowTosController < Homeowners::BaseController
+    skip_authorization_check
     load_and_authorize_resource :how_to
 
     def index

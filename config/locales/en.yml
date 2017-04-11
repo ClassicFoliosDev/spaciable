@@ -139,7 +139,7 @@ en:
 
   components:
     homeowner:
-      header:
+      welcome:
         hi: "Hi %{first_name}"
         account: "My account"
       sub_header:
@@ -652,7 +652,6 @@ en:
         back: "Back"
       new:
         add: "Add %{parent_name} room"
-
     bulk:
       succeeded:
         one: "Plot %{plot_numbers}"
@@ -693,6 +692,7 @@ en:
     show:
       back: "Back"
       completion: "Completion date"
+      preview: "Preview"
 
   plot_residencies:
     collection:

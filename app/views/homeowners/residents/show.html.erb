@@ -19,18 +19,18 @@
   <div class="resident">
     <div class="half branded-content branded-border">
       <%= label_tag t(".email") %>
-      <span><%= @resident.email %></span>
+      <span><%= current_resident.email %></span>
       <%= label_tag t(".title") %>
-      <span><%= t("activerecord.attributes.resident.titles.#{@resident.title}") %></span>
+      <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %></span>
       <%= label_tag t(".name") %>
-      <span><%= @resident.first_name %> <%= @resident.last_name %></span>
+      <span><%= current_resident.first_name %> <%= current_resident.last_name %></span>
     </div>
     <div class="half branded-content branded-border">
 
       <%= label_tag t(".password") %>
       <span><%= t(".dummy_password") %></span>
       <div class="actions">
-        <%= link_to t(".edit_profile"), [:edit, :homeowners, @resident], class: "branded-btn alt" %>
+        <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "branded-btn alt" %>
       </div>
     </div>
   </div>

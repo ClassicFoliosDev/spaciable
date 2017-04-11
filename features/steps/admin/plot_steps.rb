@@ -125,3 +125,85 @@ Given(/^I have created a plot for the development$/) do
 
   click_on t("phases.form.submit")
 end
+
+When(/^I preview the plot$/) do
+  within ".record-list" do
+    click_on PlotFixture.plot_name
+  end
+
+  sleep 0.2
+
+  within ".above-footer" do
+    click_on t("plots.show.preview")
+  end
+end
+
+Then(/^I see the plot preview page$/) do
+  sleep 0.3
+
+  within_frame("rails_iframe") do
+    expect(page).to have_content(t("layouts.homeowner.nav.dashboard"))
+    expect(page).to have_content(t("layouts.homeowner.nav.my_home"))
+    expect(page).to have_content(t("layouts.homeowner.nav.how_to"))
+    expect(page).to have_content(t("layouts.homeowner.nav.contacts"))
+
+    expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))
+    expect(page).to have_content(t("homeowners.dashboard.show.my_home_view_more"))
+
+    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:building_name])
+    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:road_name])
+    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:postcode])
+
+    expect(page).to have_content(t("homeowners.dashboard.show.contacts_title"))
+    expect(page).to have_content(t("homeowners.dashboard.show.contacts_view_more"))
+
+    expect(page).to have_content(t("homeowner.dashboard.cards.faqs.title"))
+    expect(page).to have_content(t("homeowner.dashboard.cards.faqs.view_more"))
+  end
+end
+
+Then(/^I can see my library$/) do
+  within_frame("rails_iframe") do
+    click_on t("homeowner.dashboard.cards.library.view_more")
+  end
+
+  sleep 0.2
+  within_frame("rails_iframe") do
+    expect(page).to have_content(t("homeowners.library.index.title"))
+  end
+end
+
+Then(/^I can see my appliances$/) do
+  within_frame("rails_iframe") do
+    click_on t("layouts.homeowner.sub_nav.rooms")
+  end
+
+  sleep 0.2
+  within_frame("rails_iframe") do
+    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:building_name])
+    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:road_name])
+    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:postcode])
+  end
+end
+
+Then(/^I can see my contacts$/) do
+  within_frame("rails_iframe") do
+    click_on t("layouts.homeowner.nav.contacts")
+  end
+
+  sleep 0.2
+  within_frame("rails_iframe") do
+    expect(page).to have_content(t("homeowners.contacts.index.title"))
+  end
+end
+
+Then(/^I can see my faqs$/) do
+  within_frame("rails_iframe") do
+    click_on t("layouts.homeowner.sub_nav.faqs")
+  end
+
+  sleep 0.2
+  within_frame("rails_iframe") do
+    expect(page).to have_content(t("homeowners.faqs.index.title"))
+  end
+end

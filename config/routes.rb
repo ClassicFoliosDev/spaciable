@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources :plot_residencies, shallow: true, path: "residencies"
     resources :documents, only: [:new, :create]
     resources :rooms, controller: "plots/rooms"
+    resource :preview, only: [:show], controller: "plots/previews"
   end
 
   resources :developments do
@@ -143,6 +144,7 @@ Rails.application.routes.draw do
   get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types", to: 'finishes#finish_types', format: :json
+  get "/dashboard", to: "homeowners/dashboard#show"
 
   authenticated :user do
     root "admin/dashboard#show", as: :admin_dashboard

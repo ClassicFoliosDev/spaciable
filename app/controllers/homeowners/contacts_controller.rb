@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module Homeowners
   class ContactsController < Homeowners::BaseController
+    skip_authorization_check
     load_and_authorize_resource :contact
 
     def index

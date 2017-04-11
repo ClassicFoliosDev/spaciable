@@ -4,7 +4,7 @@ module Homeowners
     skip_authorization_check
 
     def show
-      @appliances = Appliance.accessible_by(Ability.new(current_resident))
+      @appliances = Appliance.accessible_by(current_ability)
                              .includes(
                                :appliance_category,
                                :manufacturer

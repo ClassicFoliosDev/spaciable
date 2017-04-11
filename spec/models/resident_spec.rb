@@ -112,31 +112,4 @@ RSpec.describe Resident do
       end
     end
   end
-
-  describe "#brand" do
-    it "should use the lowest denominator of permissions" do
-      developer = create(:developer)
-      division = create(:division, developer: developer)
-      division_development = create(:division_development, division: division)
-      phase = create(:phase, development: division_development)
-      plot = create(:phase_plot, phase: phase)
-      resident = create(:resident, :with_residency, plot: plot)
-
-      developer_brand = create(:brand)
-      developer.brands << developer_brand
-      expect(resident.reload.brand).to eq(developer_brand)
-
-      division_brand = create(:brand)
-      division.brands << division_brand
-      expect(resident.reload.brand).to eq(division_brand)
-
-      development_brand = create(:brand)
-      division_development.brands << development_brand
-      expect(resident.reload.brand).to eq(development_brand)
-
-      phase_brand = create(:brand)
-      phase.brands << phase_brand
-      expect(resident.reload.brand).to eq(phase_brand)
-    end
-  end
 end

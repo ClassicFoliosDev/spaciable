@@ -17,11 +17,11 @@
 
 <div class="branded-body outer-container">
   <div class="resident">
-    <%= simple_form_for ([:homeowners, @resident]) do |f| %>
-      <% if @resident.errors.any? %>
+    <%= simple_form_for ([:homeowners, current_resident]) do |f| %>
+      <% if current_resident.errors.any? %>
         <div class="submission-errors">
           <ul>
-            <% @resident.errors.full_messages.each do |message| %>
+            <% current_resident.errors.full_messages.each do |message| %>
               <li>
                 <%= fa_icon "exclamation-circle" %>
                 <%= message %>

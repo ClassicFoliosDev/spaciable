@@ -44,10 +44,6 @@ class Resident < ApplicationRecord
     end
   end
 
-  def brand
-    phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
-  end
-
   def plot_number
     plot&.number&.to_s
   end

@@ -80,9 +80,10 @@ Then(/^I should only see the appliance manuals to download$/) do
     end
 
     # Appliance guide
-    second_appliance = page.find("h5", text: ApplianceFixture.second_appliance_name)
-    appliance_with_guide = second_appliance.find("+p")
-    expect(appliance_with_guide).to have_content(t("homeowners.appliances.show.guide"))
+    within ".row" do
+      expect(page).to have_content(t("homeowners.appliances.show.guide"))
+      expect(page).to have_content(t("homeowners.appliances.show.manual"))
+    end
 
     MyLibraryFixture.not_appliance_manuals.each do |title, download_link|
       expect(page).not_to have_content(title)

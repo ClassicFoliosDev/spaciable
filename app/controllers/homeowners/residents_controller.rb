@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Homeowners
   class ResidentsController < Homeowners::BaseController
-    load_and_authorize_resource :resident
+    skip_authorization_check
 
     def show
     end
@@ -10,7 +10,7 @@ module Homeowners
     end
 
     def update
-      if UpdateUserService.call(@resident, resident_params)
+      if UpdateUserService.call(current_resident, resident_params)
         redirect_to root_path, notice: t(".success")
       else
         render :edit

@@ -28,6 +28,8 @@ class PlotsController < ApplicationController
     @active_tab = "documents"
     @collection_parent = @plot
     @collection = paginate(sort(documents, default: :title))
+
+    session[:plot_id] = @plot.id
   end
 
   def create

@@ -1,23 +1,8 @@
 <header>
-  <div class="session branded-header">
-    <div class="session-inner">
-      <div class="user">
-        <span><%= t('.hi', first_name: current_resident.first_name) %></span>
-        <span>|</span>
-        <%= link_to t(".account"), homeowners_resident_path(current_resident) %>
-        <span>|</span>
-        <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
-      </div>
+  <% if current_resident.present? %>
+    <%= render "components/homeowner/welcome" %>
+  <% end %>
 
-      <div class="user user-mobile">
-        <span><%= t('.hi', first_name: current_resident.first_name) %></span>
-        <span>|</span>
-        <%= link_to '<i class="fa fa-user"></i>'.html_safe, homeowners_resident_path(current_resident) %>
-        <span>|</span>
-        <%= link_to '<i class="fa fa-sign-out"></i>'.html_safe, destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
-      </div>
-    </div>
-  </div>
   <nav class="main-navigation">
     <div class="nav-inner">
       <div class="logo branded-logo">

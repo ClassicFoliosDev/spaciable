@@ -7,6 +7,7 @@ class User < ApplicationRecord
   permissionable_field :permission_level
 
   attr_accessor :developer_id, :division_id, :development_id
+
   belongs_to :permission_level, polymorphic: true
 
   # Include default devise modules. Others available are:

@@ -7,6 +7,10 @@
 <%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab), parent: @plot.unit_type %>
 <%= render_collection @collection, parent: @collection_parent %>
 
+<div class="above-footer">
+  <%= link_to t(".preview"), plot_preview_path(@plot), class: "btn" %>
+</div>
+
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">
     <%= link_to t(".back"), [@plot.parent, :plots], class: "btn" %>
