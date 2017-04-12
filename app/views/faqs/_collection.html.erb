@@ -32,7 +32,7 @@
     <tbody>
       <% collection.each do |faq| %>
       <tr data-faq="<%= faq.id %>">
-        <td><%= link_to faq, faq_path(faq), title: faq %></td>
+        <td><%= link_to faq.question.html_safe, faq_path(faq), title: faq.question.html_safe %></td>
         <td><%= l faq.updated_at.to_date, format: :digits %></td>
         <td><%= content_tag(:span, t_enum(Faq, :category, faq.category)) %></td>
         <td class="actions">

@@ -433,7 +433,7 @@ crumb :faq_add do |faq_parent|
 end
 
 crumb :faq do |faq|
-  link faq, faq_path(faq)
+  link faq.question.html_safe, faq_path(faq)
   parent :faqs, faq.faqable
 end
 

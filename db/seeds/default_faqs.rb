@@ -221,10 +221,10 @@
 <p>To help prevent blockages:</p>
 
 <ul>
-  <li>don&rsquo;t empty large quantities of bleach or similar cleaning agents into the system</li>
-  <li>don&rsquo;t empty cooking oil or anything similar down the sink</li>
-  <li>don&rsquo;t put anything other than toilet paper down your WC</li>
-  <li>don&rsquo;t use excess washing powder in your washing machine</li>
+  <li>Don&rsquo;t empty large quantities of bleach or similar cleaning agents into the system</li>
+  <li>Don&rsquo;t empty cooking oil or anything similar down the sink</li>
+  <li>Don&rsquo;t put anything other than toilet paper down your WC</li>
+  <li>Don&rsquo;t use excess washing powder in your washing machine</li>
   <li>Regularly remove hairs that get trapped in the basin/bath/shower plughole</li>
   <li>Use a plughole protector to prevent sink blockages</li>
 </ul>
@@ -358,7 +358,7 @@ Website:  www.tvlicensing.co.uk</p>
   <li>Only fill the kettle with the amount of water you need</li>
   <li>Have a shower instead of a bath</li>
   <li>Use a save-a-flush bag in your toilet cistern</li>
-  <li>don&rsquo;t leave the tap running while brushing your teeth or shaving</li>
+  <li>Don&rsquo;t leave the tap running while brushing your teeth or shaving</li>
   <li>Wash your car using a bucket and sponge, rather than a hose</li>
   <li>Wash your fruit and vegetables in a bowl rather than under a running tap</li>
   <li>Put a jug of water in the fridge, instead of running the tap until the water is cold</li>
@@ -373,7 +373,7 @@ Website:  www.tvlicensing.co.uk</p>
   next unless faq.new_record?
 
   if faq.save
-    puts "Added Default Faq: #{attrs[:question]}"
+    puts "Added Default Faq: #{faq.question}"
   else
     puts "Error adding default FAQ: #{attrs[:question]} -- #{faq.errors.full_messages}"
   end
