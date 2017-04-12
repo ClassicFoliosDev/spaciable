@@ -2,7 +2,7 @@
   <div class="article-container">
     <div class="article branded-content branded-text branded-border">
       <div class="article-content">
-        <p class="breadcrumb"><%= link_to HowTo.human_attribute_name(@how_to.category), homeowner_how_tos_path(@how_to.category) %></p>
+        <p class="breadcrumb"><%= link_to t_enum(HowTo, :category, @how_to.category), homeowner_how_tos_path(@how_to.category) %></p>
 
         <h2><%= @how_to.title %></h2>
 

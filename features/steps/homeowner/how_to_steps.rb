@@ -47,7 +47,7 @@ end
 Then(/^I should see the HowTo details$/) do
   within ".article-container" do
     expect(page).to have_content(t("homeowners.how_tos.show.tags"))
-    expect(page).to have_content("Diy")
+    expect(page).to have_content(t("activerecord.attributes.how_to.categories.diy"))
     expect(page).to have_content(t("homeowners.how_tos.show.also"))
 
     other_articles = page.all(".recommended-articles")
