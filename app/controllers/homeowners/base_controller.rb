@@ -22,7 +22,7 @@ module Homeowners
     protected
 
     def set_brand
-      @brand ||= @plot.brand
+      @brand ||= @plot&.brand
     end
 
     def set_plot
