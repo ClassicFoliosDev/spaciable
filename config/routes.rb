@@ -95,7 +95,12 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
   end
 
-  resources :appliances
+  resources :appliances do
+    collection do
+      post :search, to: "appliances#search", as: :search
+      get :search, to: "appliances#search"
+    end
+  end
   resources :finishes
 
   namespace :homeowners do

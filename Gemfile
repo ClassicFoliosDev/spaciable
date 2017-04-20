@@ -69,6 +69,7 @@ gem "neat", "~> 1"
 
 # Pagination with kaminari: https://github.com/amatsuda/kaminari
 gem "kaminari"
+gem "ransack"
 
 # Soft Delete
 gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"

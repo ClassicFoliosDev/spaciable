@@ -22,44 +22,71 @@
     </div>
   <% end %>
 
-  <table class="record-list">
-    <thead>
-      <tr>
-        <th class="icon">&nbsp;</th>
-        <th><%= sortable(Appliance, :name) %></th>
-        <th><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
-        <th><%= sortable(Appliance, :model_num) %></th>
-        <th><%= sortable({ Appliance => Manufacturer }, :name) %></th>
-        <th><%= sortable(Appliance, :updated_at) %></th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% collection.each do |appliance| %>
+  <%= search_form_for @q, url: search_appliances_path, method: :post do |f| %>
+    <table class="record-list">
+      <thead>
         <tr>
-          <td><%= image_tag appliance.primary_image if appliance.primary_image? %></td>
-          <td><%= link_to appliance.name, appliance_path(appliance), title: appliance.name %></td>
-          <td><%= appliance.appliance_category %></td>
-          <td><%= appliance.model_num %></td>
-          <td><%= appliance.manufacturer %></td>
-          <td><%= l appliance.updated_at.to_date, format: :digits %></td>
-          <td class="actions">
-            <%= edit_btn edit_appliance_path(appliance), element: appliance %>
-            <% if room && can?(:destroy, appliance) %>
-              <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
-                <%= fa_icon "times" %>
-              <% end %>
-            <% else %>
-              <%= delete_btn appliance, element: appliance %>
-            <% end %>
-          </td>
+          <th class="icon">&nbsp;</th>
+          <th>
+              <%= sort_link(@q, :name) %>
+              <%= f.input :name_cont, label: false %>
+          </th>
+          <th>
+              <%= sort_link(@q, "appliance_categories.name") { t(".appliance_category") } %>
+              <%= f.input :appliance_category_name_cont, label: false %>
+          </th>
+          <th>
+              <%= sort_link(@q, :model_num) %>
+              <%= f.input :model_num_cont, label: false %>
+          </th>
+          <th>
+              <%= sort_link(@q, :manufacturer_name) { t(".manufacturer") } %>
+              <%= f.input :manufacturer_name_cont, label: false %>
+          </th>
+          <th>
+              <%= sort_link(@q, :updated_at) %>
+              <%= f.input :updated_at_cont, label: false, readonly: true %>
+          </th>
+          <th>
+              <%= f.submit "Filter", class: "btn-primary" %>
+              <%= link_to "Reset", search_appliances_path %>
+          </th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% collection.each do |appliance| %>
+          <tr>
+            <td><%= image_tag appliance.primary_image if appliance.primary_image? %></td>
+            <td><%= link_to appliance.name, appliance_path(appliance), title: appliance.name %></td>
+            <td><%= appliance.appliance_category %></td>
+            <td><%= appliance.model_num %></td>
+            <td><%= appliance.manufacturer %></td>
+            <td><%= l appliance.updated_at.to_date, format: :digits %></td>
+            <td class="actions">
+              <%= edit_btn edit_appliance_path(appliance), element: appliance %>
+              <% if room && can?(:destroy, appliance) %>
+                <%= link_to remove_appliance_path(room: room, appliance: appliance), class: "btn remove" do %>
+                  <%= fa_icon "times" %>
+                <% end %>
+              <% else %>
+                <%= delete_btn appliance, element: appliance %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <div class="paging">
-    <%= render 'components/page_size' %>
+    <div class="paging">
+<div class="page-sizes">
+  <ul>
+    <li class="<%= 'active' if per_page?(10) %>" ><%= link_to t("pagination.per_page_10"), request.query_parameters.merge(per: 10) %></li>
+    <li class="<%= 'active' if per_page?(25) %>"><%= link_to t("pagination.per_page_25"), per: 25 %></li>
+    <li class="<%= 'active' if per_page?(50) %>"><%= link_to t("pagination.per_page_50"), per: 50 %></li>
+    <li class="<%= 'active' if per_page?(100) %>"><%= link_to t("pagination.per_page_100"), per: 100 %></li>
+  </ul>
+</div>
     <%= paginate collection %>
   </div>
+  <% end %>
 <% end %>

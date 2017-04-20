@@ -760,6 +760,7 @@ en:
    collection:
      create: "Add appliance"
      appliance_category: "Category"
+     manufacturer: "Manufacturer"
      remove: "Remove"
    new:
      title: "New appliance"

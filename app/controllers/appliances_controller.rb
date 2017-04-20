@@ -5,8 +5,18 @@ class AppliancesController < ApplicationController
   load_and_authorize_resource :appliance
 
   def index
-    @appliances = @appliances.includes(:appliance_category, :manufacturer)
-    @appliances = paginate(sort(@appliances, default: :name))
+    @q = Appliance.ransack(params[:q])
+    @appliances = @q.result(distinct: true)
+                    .joins(:appliance_category, :manufacturer)
+                    .includes(:appliance_category, :manufacturer)
+                    .select("appliances.*, appliance_categories.name, manufacturers.name")
+                    .page(params[:page]).per(params[:per])
+                    .order(:name)
+  end
+
+  def search
+    index
+    render :index
   end
 
   def new; end
