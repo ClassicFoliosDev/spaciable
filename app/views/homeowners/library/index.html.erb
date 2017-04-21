@@ -27,9 +27,11 @@
     <div class="row">
       <% @documents.each do |document| %>
         <div class="sixth document">
-          <%= link_to document.file.url, target: "_blank" do %>
-            <%= image_tag document_preview_url(document.file) if document.file? %>
-          <% end %>
+          <div class="document-image-container">
+            <%= link_to document.file.url, target: "_blank" do %>
+              <%= image_tag document_preview_url(document.file) if document.file? %>
+            <% end %>
+          </div>
 
           <h5><%= document.title %></h5>
           <p><%= t_enum(Document, :category, document.category) %></p>
@@ -39,18 +41,22 @@
       <% @appliances.each do |appliance| %>
         <% if appliance.manual? %>
           <div class="sixth document">
-            <%= link_to appliance.manual.url, target: "_blank" do %>
-              <%= image_tag document_preview_url(appliance.manual)  %>
-            <% end %>
+            <div class="document-image-container">
+              <%= link_to appliance.manual.url, target: "_blank" do %>
+                <%= image_tag document_preview_url(appliance.manual)  %>
+              <% end %>
+            </div>
             <h5><%= appliance.name %></h5>
             <p><%= t(".manual") %></p>
           </div>
         <% end %>
         <% if appliance.guide? %>
           <div class="sixth document">
-            <%= link_to appliance.guide.url, target: "_blank" do %>
-              <%= image_tag document_preview_url(appliance.guide) %>
-            <% end %>
+            <div class="document-image-container">
+              <%= link_to appliance.guide.url, target: "_blank" do %>
+                <%= image_tag document_preview_url(appliance.guide) %>
+              <% end %>
+            </div>
             <h5><%= appliance.name %></h5>
             <p><%= t(".guide") %></p>
           </div>

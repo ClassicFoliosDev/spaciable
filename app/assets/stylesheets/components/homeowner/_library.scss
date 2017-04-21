@@ -37,10 +37,13 @@
       font-size: $base-small-font-size;
     }
 
-    img {
+    .document-image-container {
+      display: table;
       height: 125px;
-      display: block;
-      text-align: left;
+
+      img {
+        max-height: 125px;
+      }
     }
   }
 
@@ -68,13 +71,15 @@
 
   .document {
     display: inline-block;
-    height: 360px;
 
-    img {
-      max-width: 100%;
-      display: block;
-      margin: 0 auto;
-      height: 290px;
+    .document-image-container {
+      display: table;
+      height: 125px;
+      width: 100%;
+
+      img {
+        max-height: 125px;
+      }
     }
 
     h5 {

@@ -1,8 +1,10 @@
 <% collection.each do |document| %>
   <div class="document sixth">
-    <%= link_to document[:link], target: "_blank" do %>
-      <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] %>
-    <% end %>
+    <div class="document-image-container">
+      <%= link_to document[:link], target: "_blank" do %>
+        <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] %>
+      <% end %>
+    </div>
     <span class="document-name"><%= link_to truncate(document[:name], length: 35), document[:link], target: "_blank", class: "branded-primary" %></span>
   </div>
 <% end %>
