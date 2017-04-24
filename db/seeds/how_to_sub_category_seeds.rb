@@ -43,7 +43,7 @@
   "World Food"
 ]}.each_pair do |parent_name, sub_category_names|
   sub_category_names.each do | sub_category_name |
-    sub_category = HowToSubCategory.find_or_initialize_by(name: sub_category_name)
+    sub_category = HowToSubCategory.find_or_initialize_by(parent_category: parent_name, name: sub_category_name)
 
     if sub_category.new_record?
       puts "HowTo SubCategory: #{sub_category_name} #{parent_name}"
