@@ -20,7 +20,9 @@ class HowTo < ApplicationRecord
   paginates_per 25
 
   def read_size
-    Math.log(description.length).to_i
+    size = Math.log(description.length, 30).to_i
+    size = 0.5 if size < 1
+    size
   end
 
   def build_tags
