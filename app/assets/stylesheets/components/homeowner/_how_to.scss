@@ -13,6 +13,10 @@
       @include omega();
       float: right;
 
+      ul {
+        margin-left: $spacing-medium;
+      }
+
       .breadcrumb a {
         color: $ui-dark-grey;
         font-size: $base-small-font-size;
