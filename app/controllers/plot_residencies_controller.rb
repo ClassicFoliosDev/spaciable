@@ -29,6 +29,7 @@ class PlotResidenciesController < ApplicationController
   def create
     if @plot_residency.save
       @plot_residency.resident.invite!(current_user)
+      MarketingMailService.call(@plot_residency, "unactivated")
       notice = t(".success", plot: @plot_residency.plot)
 
       redirect_to [@plot, :plot_residencies], notice: notice

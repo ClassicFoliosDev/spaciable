@@ -80,6 +80,9 @@ gem "carrierwave_backgrounder"
 # Process management
 gem "foreman" # configuration in the Procfile
 
+# APIs
+gem "gibbon", "~> 3" # Mailchimp API wrapper
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "factory_girl_rails"
