@@ -29,7 +29,7 @@ class PlotResidenciesController < ApplicationController
   def create
     if @plot_residency.save
       @plot_residency.resident.invite!(current_user)
-      response = MarketingMailService.call(@plot_residency, "unactivated")
+      MarketingMailService.call(@plot_residency, "unactivated")
 
       notice = t(".success", plot: @plot_residency.plot)
 
