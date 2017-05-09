@@ -35,6 +35,8 @@ module PlotResidencyFixture
     create_development
     create_unit_type
     create_development_plot
+
+    Sidekiq::Testing.fake!
   end
 
   def attrs(scope = :created)

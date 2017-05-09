@@ -29,10 +29,7 @@ class PlotResidenciesController < ApplicationController
   def create
     if @plot_residency.save
       @plot_residency.resident.invite!(current_user)
-      # TODO: If test should not be needed if sidekiq is set to (default) Testing.fake
-      # But Joe has set Testing.inline for the notification tests, need to talk to him
-      # about how to remove it or make it work
-      MarketingMailService.call(@plot_residency, "unactivated") unless Rails.env.test?
+      MarketingMailService.call(@plot_residency, "unactivated")
 
       notice = t(".success", plot: @plot_residency.plot)
 
