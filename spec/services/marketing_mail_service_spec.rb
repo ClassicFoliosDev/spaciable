@@ -19,6 +19,7 @@ RSpec.describe MarketingMailService do
         expect(marketing_mail_job.arguments[2][:HOOZSTATUS]).to eq(Rails.configuration.mailchimp[:unactivated])
         expect(marketing_mail_job.arguments[2][:FNAME]).to eq(resident.first_name)
         expect(marketing_mail_job.arguments[2][:LNAME]).to eq(resident.last_name)
+        expect(marketing_mail_job.arguments[2][:CDATE]).to eq(plot_resident.completion_date.to_s)
         expect(marketing_mail_job.arguments[3]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       end
     end

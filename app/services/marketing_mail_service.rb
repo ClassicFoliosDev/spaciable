@@ -16,6 +16,7 @@ module MarketingMailService
 
     { HOOZSTATUS: hooz_status,
       FNAME: plot_residency.first_name,
-      LNAME: plot_residency.last_name }
+      LNAME: plot_residency.last_name,
+      CDATE: plot_residency.completion_date.to_s }
   end
 end

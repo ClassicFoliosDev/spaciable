@@ -56,6 +56,14 @@ password: 12345678
 
 This user is added when you run `bin/setup`.
 
+In order to send mails to mailchimp from a dev environment, you will need to configure an
+environment variable with the mailchimp API key. This can be found in any of the AWS environments,
+and in the mailchimp profile under Extras.
+
+```
+MAILCHIMP_KEY=64-bit-key
+```
+
 ## Running the tests
 
 `$ brew install phantomjs`
