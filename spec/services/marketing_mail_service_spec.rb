@@ -10,18 +10,13 @@ RSpec.describe MarketingMailService do
   let(:plot_resident) { create(:plot_residency, resident: resident, plot: plot) }
 
   context "adding a user to a plot" do
-    it "registers a new resident with the marketing mail service" do
-      Sidekiq::Testing.fake! do
-        marketing_mail_job = described_class.call(plot_resident.email, plot_resident, Rails.configuration.mailchimp[:unactivated], Rails.configuration.mailchimp[:unsubscribed])
+    it "builds the merge fields" do
+      merge_fields = described_class.build_merge_fields(Rails.configuration.mailchimp[:unactivated], plot_resident)
 
-        # Argument 0 is the list id, argument 1 is the email, argument 2 is the merge parameters
-        expect(marketing_mail_job.arguments[1]).to eq(resident.email)
-        expect(marketing_mail_job.arguments[2][:HOOZSTATUS]).to eq(Rails.configuration.mailchimp[:unactivated])
-        expect(marketing_mail_job.arguments[2][:FNAME]).to eq(resident.first_name)
-        expect(marketing_mail_job.arguments[2][:LNAME]).to eq(resident.last_name)
-        expect(marketing_mail_job.arguments[2][:CDATE]).to eq(plot_resident.completion_date.to_s)
-        expect(marketing_mail_job.arguments[3]).to eq(Rails.configuration.mailchimp[:unsubscribed])
-      end
+      expect(merge_fields[:HOOZSTATUS]).to eq(Rails.configuration.mailchimp[:unactivated])
+      expect(merge_fields[:FNAME]).to eq(resident.first_name)
+      expect(merge_fields[:LNAME]).to eq(resident.last_name)
+      expect(merge_fields[:CDATE]).to eq(plot_resident.completion_date.to_s)
     end
   end
 end

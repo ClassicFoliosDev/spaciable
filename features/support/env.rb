@@ -5,6 +5,7 @@ $LOAD_PATH.unshift("features/support")
 
 ActionController::Base.allow_rescue = false
 
+require "webmock/rspec"
 require "module_importer.rb"
 require "feature_application_actions"
 require "webmock/cucumber"
