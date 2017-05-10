@@ -12,13 +12,14 @@ RSpec.describe MarketingMailService do
   context "adding a user to a plot" do
     it "registers a new resident with the marketing mail service" do
       Sidekiq::Testing.fake! do
-        marketing_mail_job = described_class.call(plot_resident, "unactivated")
+        marketing_mail_job = described_class.call(plot_resident.email, plot_resident, Rails.configuration.mailchimp[:unactivated], Rails.configuration.mailchimp[:unsubscribed])
 
         # Argument 0 is the list id, argument 1 is the email, argument 2 is the merge parameters
         expect(marketing_mail_job.arguments[1]).to eq(resident.email)
-        expect(marketing_mail_job.arguments[2][:HOOZSTATUS]).to eq("unactivated")
+        expect(marketing_mail_job.arguments[2][:HOOZSTATUS]).to eq(Rails.configuration.mailchimp[:unactivated])
         expect(marketing_mail_job.arguments[2][:FNAME]).to eq(resident.first_name)
         expect(marketing_mail_job.arguments[2][:LNAME]).to eq(resident.last_name)
+        expect(marketing_mail_job.arguments[3]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       end
     end
   end

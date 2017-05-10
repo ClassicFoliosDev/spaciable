@@ -2,11 +2,11 @@
 class MailchimpJob < ActiveJob::Base
   queue_as :default
 
-  def perform(list_id, email, merge_fields)
+  def perform(list_id, email, merge_fields, subscribe_status)
     client.lists(list_id).members(md5_hashed_email(email)).upsert(
       body: {
         email_address: email,
-        status: "subscribed",
+        status: subscribe_status,
         merge_fields: merge_fields
       }
     )

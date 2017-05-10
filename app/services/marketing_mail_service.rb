@@ -2,13 +2,20 @@
 module MarketingMailService
   module_function
 
-  def call(plot_residency, status)
-    merge_fields = { HOOZSTATUS: status,
-                     FNAME: plot_residency.first_name,
-                     LNAME: plot_residency.last_name }
+  def call(email, plot_residency, hooz_status, subscribed_status)
+    merge_fields = build_merge_fields(hooz_status, plot_residency)
 
     MailchimpJob.perform_later("91418e8697",
-                               plot_residency.email,
-                               merge_fields)
+                               email,
+                               merge_fields,
+                               subscribed_status)
+  end
+
+  def build_merge_fields(hooz_status, plot_residency)
+    return { HOOZSTATUS: hooz_status } unless plot_residency
+
+    { HOOZSTATUS: hooz_status,
+      FNAME: plot_residency.first_name,
+      LNAME: plot_residency.last_name }
   end
 end

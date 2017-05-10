@@ -584,6 +584,7 @@ en:
         terms: "Terms & Conditions"
         policy: "Data policy"
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
+        subscribe_email: "Subscribe to emails"
     passwords:
       new:
         title: "Forgotten your password?"

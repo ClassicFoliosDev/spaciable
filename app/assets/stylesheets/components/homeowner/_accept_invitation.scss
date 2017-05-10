@@ -103,6 +103,41 @@
       }
     }
   }
+
+  .information {
+    float: left;
+    margin-top: 10px;
+  }
+
+  label.checkbox {
+    width:100%;
+    cursor:pointer;
+    overflow: hidden;
+
+    input[type=checkbox] {
+      float:left;
+      position:relative;
+      margin-left:-9999px;
+    }
+
+    i {
+      border-color: $primary-red;
+      background-color: $ui-white;
+      border-style: solid;
+      border-radius: 5px;
+      border-width: 1px;
+      padding: 2.5px;
+    }
+
+    i:before {
+      width:25px;
+      color: $ui-white;
+    }
+
+    input[type=checkbox]:checked + i:before {
+      color: $primary-red;
+    }
+  }
 }
 
 @include media($tablet-landscape-down) {

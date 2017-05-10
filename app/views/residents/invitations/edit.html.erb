@@ -9,14 +9,23 @@
       <%= f.input :password %>
       <%= f.input :password_confirmation %>
 
+      <div>
+        <%= f.label :subscribe_emails, class: "checkbox" do %>
+          <%= f.check_box :subscribe_emails %>
+          <i class="fa fa-check"></i> <%= t(".subscribe_email") %>
+        <% end %>
+      </div>
+
       <div class="information">
         <p><%= t('.policy_instructions', :href1 => link_to(t(".terms"), ts_and_cs_path, target: "_blank"), :href2 => link_to(t(".policy"), data_policy_path, target: "_blank")).html_safe %></p>
-        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
       </div>
 
       <%= f.button :submit, t(".submit_button") %>
 
-    <% end %>
+      <div class="information">
+        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
+      </div>
+  <% end %>
   </div>
 
   <div class="preamble">

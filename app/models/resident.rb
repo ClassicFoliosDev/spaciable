@@ -4,6 +4,8 @@ class Resident < ApplicationRecord
 
   acts_as_paranoid
 
+  attr_accessor :subscribe_emails
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable,
