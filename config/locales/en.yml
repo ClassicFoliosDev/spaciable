@@ -1199,7 +1199,7 @@ en:
         taken: " has already been added."
         select: " must be selected."
         not_valid_hex: " must have a valid hex colour, for example #445544."
-        mailchimp_failure: "WARNING %{name} was created but %{type} could not be registered with mailchimp, details: %{message}"
+        mailchimp_failure: "WARNING %{name} was created or updated or deleted, but %{type} could not be updated for mailchimp, details: %{message}"
       models:
         notification:
           attributes:
