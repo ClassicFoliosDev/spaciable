@@ -12,10 +12,10 @@ module Residents
                      Rails.configuration.mailchimp[:unsubscribed]
                    end
 
-      MarketingMailService.call(current_resident.email,
-                                nil,
-                                Rails.configuration.mailchimp[:activated],
-                                subscribed)
+      Mailchimp::MarketingMailService.call(current_resident,
+                                           nil,
+                                           Rails.configuration.mailchimp[:activated],
+                                           subscribed)
     end
   end
 end

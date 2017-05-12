@@ -9,14 +9,12 @@ Rails.configuration.mailchimp = {
 
   merge_fields: [
     {
-      # Development column
       name: "Development",
       tag: "DEVT",
       type: "text",
       public: true
     },
     {
-      # Completion date column
       name: "Completion date",
       tag: "CDATE",
       type: "date",
@@ -26,11 +24,70 @@ Rails.configuration.mailchimp = {
       }
     },
     {
-      # Hoozzi status column
       name: "Hoozzi status",
       tag: "HOOZSTATUS",
       type: "text",
       public: true
+    },
+    {
+        name: "Postal name",
+        tag: "POSTAL",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Building",
+        tag: "BLDG",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Road",
+        tag: "ROAD",
+        type: "text",
+        public: true
+    },
+    {
+        name: "City",
+        tag: "CITY",
+        type: "text",
+        public: true
+    },
+    {
+        name: "County",
+        tag: "COUNTY",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Postal code",
+        tag: "ZIP",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Phase",
+        tag: "PHASE",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Plot",
+        tag: "PLOT",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Title",
+        tag: "TITLE",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Unit type",
+        tag: "UNIT_TYPE",
+        type: "text",
+        public: true
     }
   ]
 }

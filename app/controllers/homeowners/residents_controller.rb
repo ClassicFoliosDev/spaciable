@@ -11,6 +11,10 @@ module Homeowners
 
     def update
       if UpdateUserService.call(current_resident, resident_params)
+        Mailchimp::MarketingMailService.call(current_resident,
+                                             nil,
+                                             nil,
+                                             nil)
         redirect_to root_path, notice: t(".success")
       else
         render :edit

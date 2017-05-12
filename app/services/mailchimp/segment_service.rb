@@ -13,18 +13,15 @@ module Mailchimp
     def self.call_gibbon(list_id, development)
       segment_params = build_segment_params(development)
 
-      begin
-        gibbon = MailchimpUtils.client(development.parent.api_key)
-        mail_chimp_segment = gibbon.lists(list_id).segments.create(body: segment_params)
-        development.update(segment_id: mail_chimp_segment.body[:id])
-        notice = I18n.t("controller.success.create", name: development.name)
-      rescue Gibbon::MailChimpError => e
-        notice = I18n.t("activerecord.errors.messages.mailchimp_failure",
-                        name: development.name,
-                        type: "segment",
-                        message: e.message)
-      end
-      notice
+      gibbon = MailchimpUtils.client(development.parent.api_key)
+      mail_chimp_segment = gibbon.lists(list_id).segments.create(body: segment_params)
+      development.update(segment_id: mail_chimp_segment.body[:id])
+      I18n.t("controller.success.create", name: development.name)
+    rescue Gibbon::MailChimpError => e
+      I18n.t("activerecord.errors.messages.mailchimp_failure",
+             name: development.name,
+             type: "segment",
+             message: e.message)
     end
 
     def self.build_segment_params(development)

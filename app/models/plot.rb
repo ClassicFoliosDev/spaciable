@@ -45,6 +45,7 @@ class Plot < ApplicationRecord
 
   delegate :address, to: :parent, prefix: :parent, allow_nil: true
   delegate :city, :county, to: :parent, allow_nil: true
+  delegate :api_key, to: :developer, allow_nil: true
   alias postal_name house_number
 
   def building_name

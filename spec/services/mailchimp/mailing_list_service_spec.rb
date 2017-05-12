@@ -7,9 +7,9 @@ RSpec.describe Mailchimp::MailingListService do
 
   context "creating a division" do
     it "builds the mailing list parameters" do
-      segment_params = described_class.build_list_params(division)
+      list_params = described_class.build_list_params(division)
 
-      expect(segment_params).to include(
+      expect(list_params).to include(
         name: division.division_name,
         contact: {
           company: I18n.t("mailchimp.company"),

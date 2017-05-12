@@ -1,41 +1,80 @@
 # frozen_string_literal: true
 module Mailchimp
   class MarketingMailService
-    def self.call(email, plot_residency, hooz_status, subscribed_status)
-      return true unless plot_residency.plot.developer.api_key
+    def self.call(resident, plot_residency, hooz_status, subscribed_status)
+      plot = plot_residency&.plot || resident&.plot
+      return true unless plot.api_key
 
       # Create a new mailing list if one doesn't already exist, otherwise the MailingListService
       # will just look up the existing mailing list id
-      list_id = Mailchimp::MailingListService.call(plot_residency.plot.development.parent)
-      merge_fields = build_merge_fields(hooz_status, plot_residency)
+      list_id = Mailchimp::MailingListService.call(plot.development.parent)
 
-      call_gibbon(email, list_id, plot_residency, merge_fields, subscribed_status)
+      subscribed_status = existing_status(plot.api_key,
+                                          resident.email,
+                                          list_id) if subscribed_status.nil?
+      merge_fields = build_merge_fields(hooz_status, resident, plot_residency)
+
+      call_gibbon(resident.email,
+                  list_id,
+                  merge_fields,
+                  subscribed_status,
+                  plot.api_key)
     end
 
-    def self.call_gibbon(email, list_id, plot_residency, merge_fields, subscribed_status)
-      begin
-        gibbon = MailchimpUtils.client(plot_residency.plot.developer.api_key)
-        gibbon.lists(list_id).members(md5_hashed_email(email)).upsert(
-          body: { email_address: plot_residency.email,
-                  status: subscribed_status, merge_fields: merge_fields }
-        )
-        notice = I18n.t("controller.success.create", name: plot_residency.plot)
-      rescue Gibbon::MailChimpError => e
-        notice = t("activerecord.errors.messages.mailchimp_failure",
-                   name: email,
-                   type: "list subscriber", message: e.message)
+    def self.existing_status(api_key, email, list_id)
+      gibbon = MailchimpUtils.client(api_key)
+
+      member = gibbon.lists(list_id).members(md5_hashed_email(email)).retrieve
+      member.body[:status]
+    end
+
+    def self.call_gibbon(email, list_id, merge_fields, subscribed_status, api_key)
+      gibbon = MailchimpUtils.client(api_key)
+
+      gibbon.lists(list_id).members(md5_hashed_email(email)).upsert(
+        body: { email_address: email,
+                status: subscribed_status, merge_fields: merge_fields }
+      )
+      nil
+    rescue Gibbon::MailChimpError => e
+      I18n.t("activerecord.errors.messages.mailchimp_failure",
+             name: email,
+             type: "list subscriber",
+             message: e.message)
+    end
+
+    def self.build_merge_fields(hooz_status, resident, plot_residency)
+      return { HOOZSTATUS: hooz_status } unless resident
+
+      merge_fields = {
+        HOOZSTATUS: hooz_status,
+        FNAME: resident.first_name,
+        LNAME: resident.last_name,
+        TITLE: resident.title
+      }
+
+      if plot_residency
+        merge_fields[:CDATE] = plot_residency.completion_date.to_s
+
+        residency_fields = build_residency_fields(plot_residency.plot)
+        merge_fields = merge_fields.merge(residency_fields)
       end
-      notice
+
+      merge_fields
     end
 
-    def self.build_merge_fields(hooz_status, plot_residency)
-      return { HOOZSTATUS: hooz_status } unless plot_residency
-
-      { HOOZSTATUS: hooz_status,
-        FNAME: plot_residency.first_name,
-        LNAME: plot_residency.last_name,
-        CDATE: plot_residency.completion_date.to_s,
-        DEVT: plot_residency.plot.parent.to_s }
+    def self.build_residency_fields(plot)
+      {
+        DEVT: plot.parent.to_s,
+        POSTAL: plot.postal_name,
+        BLDG: plot.building_name,
+        ROAD: plot.road_name,
+        CITY: plot.city,
+        COUNTY: plot.county,
+        ZIP: plot.postcode,
+        PHASE: plot.phase.to_s,
+        UNIT_TYPE: plot.unit_type.to_s
+      }
     end
 
     def self.md5_hashed_email(email)

@@ -34,6 +34,7 @@ module Developers
     def create
       if @development.save
         notice = Mailchimp::SegmentService.call(@development)
+        notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, :developments], notice: notice
       else
         @development.build_address unless @development.address
