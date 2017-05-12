@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404152807) do
+ActiveRecord::Schema.define(version: 20170510130409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(version: 20170404152807) do
     t.datetime "updated_at",     null: false
     t.datetime "deleted_at"
     t.text     "about"
+    t.string   "api_key"
+    t.string   "list_id"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
@@ -154,6 +156,7 @@ ActiveRecord::Schema.define(version: 20170404152807) do
     t.integer  "division_id"
     t.datetime "deleted_at"
     t.integer  "phases_count",   default: 0
+    t.string   "segment_id"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -170,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170404152807) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "list_id"
     t.index ["created_at"], name: "index_divisions_on_created_at", using: :btree
     t.index ["deleted_at"], name: "index_divisions_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_divisions_on_developer_id", using: :btree

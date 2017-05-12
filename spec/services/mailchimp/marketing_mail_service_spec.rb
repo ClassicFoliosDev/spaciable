@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe MarketingMailService do
+RSpec.describe Mailchimp::MarketingMailService do
   let(:developer) { create(:developer) }
   let(:current_user) { create(:developer_admin, developer: developer) }
   let(:development) { create(:development, developer: developer) }

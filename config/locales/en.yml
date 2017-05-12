@@ -342,6 +342,9 @@ en:
       back: "Back"
     index:
       add: "Add development"
+    development:
+      segment_id: "Segment id "
+      none: "(not configured)"
 
   homeowners:
     faqs:
@@ -443,6 +446,7 @@ en:
       submit: "Submit"
       back: "Back"
       address: "Postal address"
+      api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
     index:
       add: "Add developer"
       actions: "Actions"
@@ -465,6 +469,9 @@ en:
       contacts: "Contacts"
       faqs: "FAQs"
       brands: "Styling"
+    developer:
+      list_id: "List id "
+      none: "(not configured)"
 
   divisions:
     destroy:
@@ -516,6 +523,9 @@ en:
       back: "Back"
     update:
       success: "%{division_name} was updated successfully."
+    division:
+      list_id: "List id "
+      none: "(not configured)"
 
 
   addresses:
@@ -984,6 +994,7 @@ en:
         email: "Email address"
         contact_number: "Contact number"
         updated_at: "Last edited"
+        api_key: "Mailchimp API key"
       division:
         division_name: "Division name"
         address: "Division address"
@@ -1188,7 +1199,7 @@ en:
         taken: " has already been added."
         select: " must be selected."
         not_valid_hex: " must have a valid hex colour, for example #445544."
-
+        mailchimp_failure: "WARNING %{name} was created but %{type} could not be registered with mailchimp, details: %{message}"
       models:
         notification:
           attributes:

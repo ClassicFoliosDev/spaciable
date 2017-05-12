@@ -23,6 +23,7 @@ class Division < ApplicationRecord
   validates :division_name, presence: true, uniqueness: { scope: :developer_id }
 
   delegate :to_s, to: :division_name
+  delegate :api_key, to: :developer
 
   paginates_per 25
 end

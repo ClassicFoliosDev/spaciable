@@ -66,6 +66,7 @@ class DevelopersController < ApplicationController
       :email,
       :contact_number,
       :about,
+      :api_key,
       address_attributes: [:postal_name,
                            :road_name,
                            :building_name,

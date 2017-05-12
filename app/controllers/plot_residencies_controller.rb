@@ -29,13 +29,10 @@ class PlotResidenciesController < ApplicationController
   def create
     if @plot_residency.save
       @plot_residency.resident.invite!(current_user)
-      MarketingMailService.call(@plot_residency.email,
-                                @plot_residency,
-                                Rails.configuration.mailchimp[:unactivated],
-                                Rails.configuration.mailchimp[:subscribed])
-
-      notice = t(".success", plot: @plot_residency.plot)
-
+      notice = Mailchimp::MarketingMailService.call(@plot_residency.email,
+                                                    @plot_residency,
+                                                    Rails.configuration.mailchimp[:unactivated],
+                                                    Rails.configuration.mailchimp[:subscribed])
       redirect_to [@plot, :plot_residencies], notice: notice
     else
       render :new

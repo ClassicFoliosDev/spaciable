@@ -1,0 +1,16 @@
+en:
+  mailchimp:
+    company: "Hoozzi"
+    address1: "Woodside Trade Centre"
+    address2: "34 Parham Drive"
+    city: "Eastleigh"
+    state: "Hampshire"
+    zip: "SO50 4NU"
+    country: "United Kingdom"
+    reminder: "You are receiving this email because you have agreed to purchase a home through a developer that
+    uses the Hoozzi.com site."
+    from_name: "Hoozzi"
+    from_email: "no-reply@hoozzi.com"
+    language: "en"
+
+

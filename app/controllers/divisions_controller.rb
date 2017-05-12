@@ -30,10 +30,8 @@ class DivisionsController < ApplicationController
 
   def create
     if @division.save
-      notice = t(
-        "controller.success.create",
-        name: @division.division_name
-      )
+      Mailchimp::MailingListService.call(@division)
+      notice = t("controller.success.create", name: @division.division_name)
       redirect_to [@developer, :divisions], notice: notice
     else
       @division.build_address unless @division.address
