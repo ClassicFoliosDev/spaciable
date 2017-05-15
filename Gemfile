@@ -79,6 +79,7 @@ gem "carrierwave_backgrounder"
 
 # Process management
 gem "foreman" # configuration in the Procfile
+gem "activerecord-session_store" # Store session data to avoid cookie cache overflow
 
 # APIs
 gem "gibbon", "~> 3" # Mailchimp API wrapper
