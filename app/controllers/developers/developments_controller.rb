@@ -44,7 +44,8 @@ module Developers
 
     def update
       if @development.update(development_params)
-        notice = t(".success", development_name: @development.name)
+        notice = Mailchimp::SegmentService.call(@development)
+        notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, @development], notice: notice
       else
         @development.build_address unless @development.address

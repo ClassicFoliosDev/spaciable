@@ -43,7 +43,8 @@ class DevelopersController < ApplicationController
 
   def update
     if @developer.update(developer_params)
-      notice = t(".success", developer_name: @developer.company_name)
+      notice = Mailchimp::MailingListService.call(@developer)
+      notice = t(".success", developer_name: @developer.company_name) if notice.nil?
       redirect_to developer_path(@developer), notice: notice
     else
       render :edit

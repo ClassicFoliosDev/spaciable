@@ -2,11 +2,12 @@
 module Mailchimp
   class SegmentService
     def self.call(development)
-      return true unless development.parent.api_key
+      return unless development.parent.api_key
 
       # Create a new mailing list if one doesn't already exist, otherwise the MailingListService
       # will just look up the existing mailing list id
-      list_id = Mailchimp::MailingListService.call(development.parent)
+      Mailchimp::MailingListService.call(development.parent) unless development.parent.list_id
+      list_id = development.parent.list_id
       call_gibbon(list_id, development)
     end
 
@@ -16,7 +17,7 @@ module Mailchimp
       gibbon = MailchimpUtils.client(development.parent.api_key)
       mail_chimp_segment = gibbon.lists(list_id).segments.create(body: segment_params)
       development.update(segment_id: mail_chimp_segment.body[:id])
-      I18n.t("controller.success.create", name: development.name)
+      I18n.t("controller.success.create_update", name: development.name)
     rescue Gibbon::MailChimpError => e
       I18n.t("activerecord.errors.messages.mailchimp_failure",
              name: development.name,

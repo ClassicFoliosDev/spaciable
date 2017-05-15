@@ -36,6 +36,7 @@ module Divisions
     def create
       if @development.save
         notice = Mailchimp::SegmentService.call(@development)
+        notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, :developments], notice: notice
       else
         @development.build_address unless @development.address
@@ -45,7 +46,8 @@ module Divisions
 
     def update
       if @development.update(development_params)
-        notice = t(".success", development_name: @development.name)
+        notice = Mailchimp::SegmentService.call(@development)
+        notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, @development], notice: notice
       else
         @development.build_address unless @development.address

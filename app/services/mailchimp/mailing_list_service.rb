@@ -4,32 +4,26 @@ module Mailchimp
     require "mailchimp_utils"
 
     def self.call(resource)
-      # Don't create the list again if we already have one: just return the list id
-      return resource.list_id if resource.list_id
-
       api_key = resource.api_key || resource.parent.api_key
-      return true unless api_key
+      return unless api_key&.present?
 
       call_gibbon(api_key, resource)
     end
 
     def self.call_gibbon(api_key, resource)
-      begin
-        gibbon = MailchimpUtils.client(api_key)
-        mail_chimp_list = gibbon.lists.create(body: build_list_params(resource))
+      gibbon = MailchimpUtils.client(api_key)
+      mail_chimp_list = gibbon.lists.create(body: build_list_params(resource))
 
-        list_id = mail_chimp_list.body[:id]
-        resource.update(list_id: list_id)
+      list_id = mail_chimp_list.body[:id]
+      resource.update(list_id: list_id)
 
-        Rails.configuration.mailchimp[:merge_fields].each do |field_params|
-          gibbon.lists(list_id).merge_fields.create(body: field_params)
-        end
-      rescue Gibbon::MailChimpError => e
-        return t("activerecord.errors.messages.mailchimp_failure",
-                 name: resource.to_s, type: "mailing list", message: e.message)
+      Rails.configuration.mailchimp[:merge_fields].each do |field_params|
+        gibbon.lists(list_id).merge_fields.create(body: field_params)
       end
-
-      list_id
+      I18n.t("controller.success.create_update", name: resource.to_s)
+    rescue Gibbon::MailChimpError => e
+      I18n.t("activerecord.errors.messages.mailchimp_failure",
+             name: resource.to_s, type: "mailing list", message: e.message)
     end
 
     def self.build_list_params(resource)

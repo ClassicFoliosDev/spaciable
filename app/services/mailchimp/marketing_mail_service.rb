@@ -3,22 +3,21 @@ module Mailchimp
   class MarketingMailService
     def self.call(resident, plot_residency, hooz_status, subscribed_status)
       plot = plot_residency&.plot || resident&.plot
-      return true unless plot.api_key
+      return unless plot.api_key
 
       # Create a new mailing list if one doesn't already exist, otherwise the MailingListService
       # will just look up the existing mailing list id
-      list_id = Mailchimp::MailingListService.call(plot.development.parent)
+      parent = plot.development.parent
+      Mailchimp::MailingListService.call(parent) unless parent.list_id
+      list_id = plot.development.parent.list_id
 
       subscribed_status = existing_status(plot.api_key,
                                           resident.email,
                                           list_id) if subscribed_status.nil?
       merge_fields = build_merge_fields(hooz_status, resident, plot_residency)
 
-      call_gibbon(resident.email,
-                  list_id,
-                  merge_fields,
-                  subscribed_status,
-                  plot.api_key)
+      call_gibbon(resident.email, list_id, merge_fields,
+                  subscribed_status, plot.api_key)
     end
 
     def self.existing_status(api_key, email, list_id)
