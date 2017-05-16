@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Mailchimp
   class MarketingMailService
-    def self.call(resident, plot_residency, hooz_status, subscribed_status)
+    def self.call(resident, plot_residency = nil, hooz_status = nil)
       plot = plot_residency&.plot || resident&.plot
       return unless plot.api_key
 
@@ -11,33 +11,21 @@ module Mailchimp
       Mailchimp::MailingListService.call(parent) unless parent.list_id
       list_id = plot.development.parent.list_id
 
-      subscribed_status = existing_status(plot.api_key,
-                                          resident.email,
-                                          list_id) if subscribed_status.nil?
       merge_fields = build_merge_fields(hooz_status, resident, plot_residency)
-
-      call_gibbon(resident.email, list_id, merge_fields,
-                  subscribed_status, plot.api_key)
+      call_gibbon(resident, list_id, merge_fields, plot.api_key)
     end
 
-    def self.existing_status(api_key, email, list_id)
+    def self.call_gibbon(resident, list_id, merge_fields, api_key)
       gibbon = MailchimpUtils.client(api_key)
 
-      member = gibbon.lists(list_id).members(md5_hashed_email(email)).retrieve
-      member.body[:status]
-    end
-
-    def self.call_gibbon(email, list_id, merge_fields, subscribed_status, api_key)
-      gibbon = MailchimpUtils.client(api_key)
-
-      gibbon.lists(list_id).members(md5_hashed_email(email)).upsert(
-        body: { email_address: email,
-                status: subscribed_status, merge_fields: merge_fields }
+      gibbon.lists(list_id).members(md5_hashed_email(resident.email)).upsert(
+        body: { email_address: resident.email,
+                status: resident.subscribed_status, merge_fields: merge_fields }
       )
       nil
     rescue Gibbon::MailChimpError => e
       I18n.t("activerecord.errors.messages.mailchimp_failure",
-             name: email,
+             name: resident.email,
              type: "list subscriber",
              message: e.message)
     end
@@ -66,6 +54,7 @@ module Mailchimp
         FNAME: resident.first_name,
         LNAME: resident.last_name,
         TITLE: resident.title,
+        DEVLPR_UPD: resident.developer_email_updates&.positive? ? subscribed : unsubscribed,
         HOOZ_UPD: resident.hoozzi_email_updates&.positive? ? subscribed : unsubscribed,
         PHONE_UPD: resident.telephone_updates&.positive? ? subscribed : unsubscribed,
         POST_UPD: resident.post_updates&.positive? ? subscribed : unsubscribed
@@ -81,6 +70,7 @@ module Mailchimp
         CITY: plot.city,
         COUNTY: plot.county,
         ZIP: plot.postcode,
+        PLOT: plot.to_s,
         PHASE: plot.phase,
         UNIT_TYPE: plot.unit_type
       }.transform_values(&:to_s)

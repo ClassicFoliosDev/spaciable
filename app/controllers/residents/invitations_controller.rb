@@ -6,18 +6,14 @@ module Residents
     def update
       super
 
-      subscribed = if params[:resident][:subscribe_emails].to_i.positive?
-                     current_resident&.update(hoozzi_email_updates: 1)
-                     current_resident&.update(developer_email_updates: 1)
-                     Rails.configuration.mailchimp[:subscribed]
-                   else
-                     Rails.configuration.mailchimp[:unsubscribed]
-                   end
+      if params[:resident][:subscribe_emails].to_i.positive?
+        current_resident&.update(hoozzi_email_updates: 1)
+        current_resident&.update(developer_email_updates: 1)
+      end
 
       Mailchimp::MarketingMailService.call(current_resident,
                                            nil,
-                                           Rails.configuration.mailchimp[:activated],
-                                           subscribed)
+                                           Rails.configuration.mailchimp[:activated])
     end
   end
 end

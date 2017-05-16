@@ -11,13 +11,7 @@ module Homeowners
 
     def update
       if UpdateUserService.call(current_resident, resident_params)
-        subscribed = if current_resident.developer_email_updates.positive?
-                       Rails.configuration.mailchimp[:subscribed]
-                     else
-                       Rails.configuration.mailchimp[:unsubscribed]
-                     end
-
-        Mailchimp::MarketingMailService.call(current_resident, nil, nil, subscribed)
+        Mailchimp::MarketingMailService.call(current_resident)
         redirect_to root_path, notice: t(".success")
       else
         render :edit

@@ -31,8 +31,7 @@ class PlotResidenciesController < ApplicationController
       @plot_residency.resident.invite!(current_user)
       notice = Mailchimp::MarketingMailService.call(@plot_residency.resident,
                                                     @plot_residency,
-                                                    Rails.configuration.mailchimp[:unactivated],
-                                                    Rails.configuration.mailchimp[:subscribed])
+                                                    Rails.configuration.mailchimp[:unactivated])
       notice = t(".success", plot: @plot_residency.plot) if notice.nil?
       redirect_to [@plot, :plot_residencies], notice: notice
     else
@@ -43,9 +42,7 @@ class PlotResidenciesController < ApplicationController
   def update
     if @plot_residency.update(plot_residency_params)
       notice = Mailchimp::MarketingMailService.call(@plot_residency.resident,
-                                                    @plot_residency,
-                                                    nil,
-                                                    nil)
+                                                    @plot_residency)
       notice = t(".success", resident_name: @plot_residency.resident) if notice.nil?
       redirect_to [@plot_residency.plot, :plot_residencies], notice: notice
     else
@@ -62,8 +59,7 @@ class PlotResidenciesController < ApplicationController
       @plot_residency.plot.development.name = nil
       notice = Mailchimp::MarketingMailService.call(@plot_residency.resident,
                                                     @plot_residency,
-                                                    Rails.configuration.mailchimp[:unassigned],
-                                                    Rails.configuration.mailchimp[:unsubscribed])
+                                                    Rails.configuration.mailchimp[:unassigned])
       notice = t(".success", plot: @plot_residency.plot) if notice.nil?
     end
 

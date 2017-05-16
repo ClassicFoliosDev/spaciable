@@ -409,6 +409,8 @@ en:
         submit: "Submit"
         comms_preferences: "Communication preferences"
         updates_by: "Updates on products and services by:"
+        helpful: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click submit"
+
       show:
         my_account: "My account"
         title: "Title"

@@ -24,6 +24,14 @@ class Resident < ApplicationRecord
 
   validates :first_name, :last_name, presence: true
 
+  def subscribed_status
+    if hoozzi_email_updates || developer_email_updates
+      return Rails.configuration.mailchimp[:subscribed]
+    end
+
+    Rails.configuration.mailchimp[:unsubscribed]
+  end
+
   def create_without_password(**params)
     extend User::NoPasswordRequired
 

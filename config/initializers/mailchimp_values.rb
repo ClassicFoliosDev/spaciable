@@ -3,8 +3,6 @@ Rails.configuration.mailchimp = {
   unsubscribed: "unsubscribed",
   unactivated: "unactivated",
   activated: "activated",
-  reserved: "reserved",
-  completed: "completed",
   unassigned: "unassigned",
 
   merge_fields: [
@@ -86,6 +84,12 @@ Rails.configuration.mailchimp = {
     {
         name: "Unit type",
         tag: "UNIT_TYPE",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Developer email updates",
+        tag: "DEVLPR_UPD",
         type: "text",
         public: true
     },

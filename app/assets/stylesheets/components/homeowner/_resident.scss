@@ -37,6 +37,11 @@
     h3 {
       color: $ui-black;
     }
+
+    span {
+      color: $type-grey;
+      font-size: $base-font-size;
+    }
   }
 
   input.boolean {

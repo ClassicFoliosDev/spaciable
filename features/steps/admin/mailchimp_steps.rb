@@ -14,7 +14,7 @@ Given(/^I have configured an API key$/) do
     end
 
     class MarketingMailService
-      def self.call(_resident, _plot_residency, _hooz_status, _subscribed_status)
+      def self.call(_resident, _plot_residency = nil, _hooz_status = nil)
         nil
       end
     end

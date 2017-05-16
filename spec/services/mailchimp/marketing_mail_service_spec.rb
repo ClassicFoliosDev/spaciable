@@ -35,12 +35,14 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:COUNTY]).to eq(plot.county.to_s)
       expect(merge_fields[:ZIP]).to eq(plot.postcode)
       expect(merge_fields[:PHASE]).to eq(plot.phase.to_s)
+      expect(merge_fields[:PLOT]).to eq(plot.to_s)
       expect(merge_fields[:UNIT_TYPE]).to eq(plot.unit_type.to_s)
+      expect(merge_fields[:DEVLPR_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:HOOZ_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
 
-      expect(merge_fields.length).to eq 17
+      expect(merge_fields.length).to eq 19
     end
   end
 
@@ -50,14 +52,17 @@ RSpec.describe Mailchimp::MarketingMailService do
       resident.post_updates = 1
       merge_fields = described_class.build_merge_fields(Rails.configuration.mailchimp[:unactivated], resident, nil)
 
+      expect(resident.subscribed_status).to eq(Rails.configuration.mailchimp[:subscribed])
+
       expect(merge_fields[:HOOZSTATUS]).to eq(Rails.configuration.mailchimp[:unactivated])
       expect(merge_fields[:FNAME]).to eq(resident.first_name)
       expect(merge_fields[:LNAME]).to eq(resident.last_name)
       expect(merge_fields[:TITLE]).to eq(resident.title)
+      expect(merge_fields[:DEVLPR_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:HOOZ_UPD]).to eq(Rails.configuration.mailchimp[:subscribed])
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:subscribed])
-      expect(merge_fields.length).to eq 7
+      expect(merge_fields.length).to eq 8
     end
   end
 end
