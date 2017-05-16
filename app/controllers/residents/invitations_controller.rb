@@ -7,7 +7,8 @@ module Residents
       super
 
       subscribed = if params[:resident][:subscribe_emails].to_i.positive?
-                     current_resident.update(hoozzi_email_updates: 1)
+                     current_resident&.update(hoozzi_email_updates: 1)
+                     current_resident&.update(developer_email_updates: 1)
                      Rails.configuration.mailchimp[:subscribed]
                    else
                      Rails.configuration.mailchimp[:unsubscribed]
