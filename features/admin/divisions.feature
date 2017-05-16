@@ -6,6 +6,7 @@ Feature: Divisions
 
   Scenario: Divisions
     Given I am logged in as an admin
+    And I have configured an API key
     And there is a developer with divisions
     When I create a division for the developer
     Then I should see the created developer division

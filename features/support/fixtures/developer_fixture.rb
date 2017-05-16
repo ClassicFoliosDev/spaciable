@@ -54,4 +54,8 @@ module DeveloperFixture
       [faq[:question], I18n.t(".#{faq[:category]}", scope: category_scope)]
     end
   end
+
+  def api_key
+    "dummy-54321-key"
+  end
 end

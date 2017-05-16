@@ -6,6 +6,7 @@ Feature: Developers
   @javascript
   Scenario: Create and delete developer
     Given I am logged in as an admin
+    And I have configured an API key
     When I create a developer
     Then I should see the created developer
     When I update the developer

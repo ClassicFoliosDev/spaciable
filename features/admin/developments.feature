@@ -6,6 +6,7 @@ Feature: Developments
 
   Scenario: Developers
     Given I am logged in as an admin
+    And I have configured an API key
     And there is a developer
     When I create a development for the developer
     Then I should see the created developer development
@@ -18,6 +19,7 @@ Feature: Developments
 
   Scenario: Divisions
     Given I am logged in as an admin
+    And I have configured an API key
     And there is a developer with a division
     When I create a development for the division
     Then I should see the created division development

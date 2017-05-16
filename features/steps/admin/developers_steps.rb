@@ -8,6 +8,7 @@ When(/^I create a developer$/) do
 
   click_on t("developers.index.add")
   fill_in "developer_company_name", with: CreateFixture.developer_name
+  fill_in "developer_api_key", with: DeveloperFixture.api_key
 
   click_on t("developers.form.submit")
 end
@@ -35,8 +36,8 @@ end
 
 Then(/^I should see the updated developer$/) do
   success_flash = t(
-    "developers.update.success",
-    developer_name: DeveloperFixture.updated_company_name
+    "controller.success.create_update",
+    name: DeveloperFixture.updated_company_name
   )
   expect(page).to have_content(success_flash)
 

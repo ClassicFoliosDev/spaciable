@@ -6,6 +6,7 @@ Feature: Plot Residents
 
   Scenario: Developer Admin
     Given I am a Development Admin wanting to assign a new resident to a plot
+    And I have configured an API key
     When I assign a new resident to a plot
     Then I should see the created plot residency
     When I update the plot resident's email
