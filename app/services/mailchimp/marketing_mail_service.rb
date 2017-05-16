@@ -64,16 +64,16 @@ module Mailchimp
 
     def self.build_residency_fields(plot)
       {
-        DEVT: plot.parent.to_s,
+        DEVT: plot.parent,
         POSTAL: plot.postal_name,
         BLDG: plot.building_name,
         ROAD: plot.road_name,
         CITY: plot.city,
         COUNTY: plot.county,
         ZIP: plot.postcode,
-        PHASE: plot.phase.to_s,
-        UNIT_TYPE: plot.unit_type.to_s
-      }
+        PHASE: plot.phase,
+        UNIT_TYPE: plot.unit_type
+      }.transform_values(&:to_s)
     end
 
     def self.md5_hashed_email(email)
