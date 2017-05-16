@@ -309,6 +309,11 @@ crumb :plot do |plot|
   parent :plots, plot.parent
 end
 
+crumb :plot_preview do |plot|
+  link t("plots.show.preview")
+  parent :plot, plot
+end
+
 crumb :plot_edit do |plot|
   link t("breadcrumbs.plot_edit", plot_name: plot), [:edit, plot]
   parent :plots, plot.parent

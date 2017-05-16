@@ -5,7 +5,7 @@ module Plots
     skip_before_action :redirect_residents
 
     def show
-      @target = params[:target]
+      @plot = Plot.find(params[:plot_id])
     end
   end
 end
