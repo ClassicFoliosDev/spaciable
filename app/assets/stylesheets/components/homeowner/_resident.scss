@@ -26,8 +26,61 @@
     padding: $spacing-small;
   }
 
+  .last {
+    margin-right: 0;
+  }
+
+  .full {
+    padding: $spacing-small;
+    margin-top: $spacing-small;
+
+    h3 {
+      color: $ui-black;
+    }
+  }
+
+  input.boolean {
+    float: right;
+  }
+
+  label.checkbox {
+    width: 100%;
+    cursor:pointer;
+    overflow: hidden;
+
+    input[type=checkbox] {
+      float:left;
+      position:relative;
+      margin-left:-9999px;
+    }
+
+    i {
+      float: right;
+      border-color: $primary-cta-color;
+      background-color: $ui-white;
+      border-style: solid;
+      border-radius: 2px;
+      border-width: 1px;
+      padding: 1px;
+      font-size: $base-small-font-size;
+    }
+
+    i:before {
+      width: 25px;
+      color: $ui-white;
+    }
+
+    input[type=checkbox]:checked + i:before {
+      color: $primary-cta-color;
+    }
+  }
+
   label {
     font-weight: normal;
+
+    .boolean {
+      color: $type-grey;
+    }
   }
 
   input[type="text"].readonly {
@@ -35,11 +88,33 @@
   }
 
   .actions {
-    padding: 20px 0;
-    float: right;
-
     .branded-btn.alt {
+      float: right;
       font-size: $base-font-size;
     }
   }
+}
+
+.communications {
+  i {
+    float: right;
+  }
+
+  .selected {
+    color: $ui-black;
+    i {
+      visibility: visible;
+    }
+  }
+
+  .unselected {
+    color: $ui-dark-grey;
+    i {
+      visibility: hidden;
+    }
+  }
+}
+
+.show-actions {
+  margin-top: 34px;
 }

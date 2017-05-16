@@ -88,6 +88,24 @@ Rails.configuration.mailchimp = {
         tag: "UNIT_TYPE",
         type: "text",
         public: true
+    },
+    {
+        name: "Hoozzi email updates",
+        tag: "HOOZ_UPD",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Telephone updates",
+        tag: "PHONE_UPD",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Post updates",
+        tag: "POST_UPD",
+        type: "text",
+        public: true
     }
   ]
 }

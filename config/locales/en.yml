@@ -407,6 +407,8 @@ en:
         current_password: "Current password"
         current_password2: "Only required for new password"
         submit: "Submit"
+        comms_preferences: "Communication preferences"
+        updates_by: "Updates on products and services by:"
       show:
         my_account: "My account"
         title: "Title"
@@ -415,6 +417,10 @@ en:
         name: "Full name"
         dummy_password: "********"
         edit_profile: "Edit profile"
+        developer_email_updates: "Developer emails"
+        hoozzi_email_updates: "Hoozzi emails"
+        telephone_updates: "Telephone updates"
+        post_updates: "Post updates"
       update:
         success: "Your account has been updated successfully."
 
@@ -1190,6 +1196,10 @@ en:
         email: "Email address"
         password: "Password"
         password_confirmation: "Confirm password"
+        developer_email_updates: "Emails from my property developer about managing and maintaining my new home through Hoozzi"
+        hoozzi_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How to' updates"
+        telephone_updates: "Phone"
+        post_updates: "Post"
 
     errors:
       messages:

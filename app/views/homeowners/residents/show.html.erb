@@ -24,12 +24,27 @@
       <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %></span>
       <%= label_tag t(".name") %>
       <span><%= current_resident.first_name %> <%= current_resident.last_name %></span>
-    </div>
-    <div class="half branded-content branded-border">
-
       <%= label_tag t(".password") %>
       <span><%= t(".dummy_password") %></span>
-      <div class="actions">
+    </div>
+    <div class="half branded-content branded-border">
+      <div class="communications">
+        <h4><%= t("homeowners.residents.edit.comms_preferences") %></h4>
+        <label class=<%= current_resident.developer_email_updates? ? "selected" : "unselected" %>> <%= t(".developer_email_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.hoozzi_email_updates? ? "selected" : "unselected" %>> <%= t(".hoozzi_email_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.telephone_updates? ? "selected" : "unselected" %>> <%= t(".telephone_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.post_updates? ? "selected" : "unselected" %>> <%= t(".post_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+      </div>
+
+      <div class="actions show-actions">
         <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "branded-btn alt" %>
       </div>
     </div>

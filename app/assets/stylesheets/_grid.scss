@@ -220,3 +220,7 @@ $row-bg-color: $ui-white;
 .three-fifths {
   @include span-columns(6 of 10);
 }
+
+.full {
+  @include span-columns(12 of 12);
+}

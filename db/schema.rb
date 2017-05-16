@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515092933) do
+ActiveRecord::Schema.define(version: 20170515121319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(version: 20170515092933) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -393,20 +394,20 @@ ActiveRecord::Schema.define(version: 20170515092933) do
   create_table "residents", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                   default: "", null: false
+    t.string   "encrypted_password",      default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",           default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.datetime "deleted_at"
-    t.integer  "title",                  default: 0
+    t.integer  "title",                   default: 0
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -414,7 +415,11 @@ ActiveRecord::Schema.define(version: 20170515092933) do
     t.integer  "invitation_limit"
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",       default: 0
+    t.integer  "developer_email_updates"
+    t.integer  "hoozzi_email_updates"
+    t.integer  "telephone_updates"
+    t.integer  "post_updates"
     t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_residents_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_residents_on_invitations_count", using: :btree

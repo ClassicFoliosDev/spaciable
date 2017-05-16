@@ -45,12 +45,7 @@ module Mailchimp
     def self.build_merge_fields(hooz_status, resident, plot_residency)
       return { HOOZSTATUS: hooz_status } unless resident
 
-      merge_fields = {
-        HOOZSTATUS: hooz_status,
-        FNAME: resident.first_name,
-        LNAME: resident.last_name,
-        TITLE: resident.title
-      }
+      merge_fields = build_resident_fields(hooz_status, resident)
 
       if plot_residency
         merge_fields[:CDATE] = plot_residency.completion_date.to_s
@@ -60,6 +55,21 @@ module Mailchimp
       end
 
       merge_fields
+    end
+
+    def self.build_resident_fields(hooz_status, resident)
+      subscribed = Rails.configuration.mailchimp[:subscribed]
+      unsubscribed = Rails.configuration.mailchimp[:unsubscribed]
+
+      {
+        HOOZSTATUS: hooz_status,
+        FNAME: resident.first_name,
+        LNAME: resident.last_name,
+        TITLE: resident.title,
+        HOOZ_UPD: resident.hoozzi_email_updates&.positive? ? subscribed : unsubscribed,
+        PHONE_UPD: resident.telephone_updates&.positive? ? subscribed : unsubscribed,
+        POST_UPD: resident.post_updates&.positive? ? subscribed : unsubscribed
+      }.transform_values(&:to_s)
     end
 
     def self.build_residency_fields(plot)
