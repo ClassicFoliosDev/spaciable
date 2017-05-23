@@ -121,7 +121,7 @@ module CreateFixture
   end
 
   def create_developer
-    FactoryGirl.create(:developer, company_name: developer_name, api_key: DeveloperFixture.api_key)
+    FactoryGirl.create(:developer, company_name: developer_name)
   end
 
   def create_division

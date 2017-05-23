@@ -46,10 +46,10 @@ class Resident < ApplicationRecord
 
   def plot=(plot_record)
     if new_record?
-      build_plot_residency(plot_id: plot_record.id)
+      build_plot_residency(plot_id: plot_record&.id)
     else
       residency = PlotResidency.find_or_initialize_by(resident_id: id)
-      residency.plot_id = plot_record.id
+      residency.plot_id = plot_record&.id
       residency.save
     end
   end

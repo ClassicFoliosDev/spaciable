@@ -2,8 +2,6 @@
 Given(/^I am a Development Admin wanting to assign a new resident to a plot$/) do
   PlotResidencyFixture.setup
 
-  MailchimpHelper.stub_mailchimp
-
   login_as PlotResidencyFixture.create_development_admin
   visit "/"
 end

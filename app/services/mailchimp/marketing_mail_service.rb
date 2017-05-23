@@ -3,7 +3,8 @@ module Mailchimp
   class MarketingMailService
     def self.call(resident, plot_residency = nil, hooz_status = nil)
       plot = plot_residency&.plot || resident&.plot
-      return unless plot.api_key
+      api_key = plot&.api_key
+      return if api_key.blank?
 
       # Create a new mailing list if one doesn't already exist, otherwise the MailingListService
       # will just look up the existing mailing list id

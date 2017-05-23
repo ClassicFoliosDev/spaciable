@@ -42,8 +42,8 @@ end
 
 Then(/^I should see the updated developer development$/) do
   success_flash = t(
-    "controller.success.create_update",
-    name: DeveloperDevelopmentFixture.updated_development_name
+    "developers.developments.update.success",
+    development_name: DeveloperDevelopmentFixture.updated_development_name
   )
   expect(page).to have_content(success_flash)
 

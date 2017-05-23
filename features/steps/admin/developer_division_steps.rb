@@ -42,8 +42,8 @@ end
 
 Then(/^I should see the updated developer division$/) do
   success_flash = t(
-    "controller.success.create_update",
-    name: DeveloperDivisionFixture.updated_division_name
+    "divisions.update.success",
+    division_name: DeveloperDivisionFixture.updated_division_name
   )
   expect(page).to have_content(success_flash)
 

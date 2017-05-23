@@ -4,8 +4,9 @@ module Mailchimp
     require "mailchimp_utils"
 
     def self.call(resource)
-      api_key = resource.api_key || resource.parent.api_key
-      return unless api_key&.present?
+      api_key = resource.parent.api_key if resource&.respond_to?(:parent)
+      api_key = resource.api_key if api_key.blank?
+      return if api_key.blank?
 
       call_gibbon(api_key, resource)
     end
