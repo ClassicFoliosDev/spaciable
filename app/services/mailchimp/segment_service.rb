@@ -10,10 +10,10 @@ module Mailchimp
       Mailchimp::MailingListService.call(development.parent) unless development.parent.list_id
       list_id = development.parent.list_id
 
-      call_gibbon(list_id, development)
+      call_gibbon(api_key, list_id, development)
     end
 
-    def self.call_gibbon(list_id, development)
+    def self.call_gibbon(api_key, list_id, development)
       segment_params = build_segment_params(development)
 
       gibbon = MailchimpUtils.client(api_key)
