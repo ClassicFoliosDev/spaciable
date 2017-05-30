@@ -14,6 +14,7 @@ class Phase < ApplicationRecord
   has_many :plots
   has_many :plot_residencies, through: :plots
   has_many :residents, through: :plot_residencies
+  has_many :plot_documents, through: :plots, source: :documents
 
   has_many :unit_types, through: :development
   has_many :documents, as: :documentable

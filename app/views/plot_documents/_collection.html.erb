@@ -2,9 +2,10 @@
   <thead>
     <tr>
       <th><%= sortable(Document, :title) %></th>
-      <th><%= "Plot" %></th>
+      <th><%= t(".plot") %></th>
       <th><%= sortable(Document, :updated_at) %></th>
       <th><%= sortable(Document, :category) %></th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -20,11 +21,11 @@
         <% end %>
       </td>
       <td><%= l document.updated_at.to_date, format: :digits %></td>
+      <td><%= t("activerecord.attributes.document.categories.#{document.category}") %></td>
       <td class="actions">
         <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
           <%= icon "cloud-download" %>
         <% end %>
-        <%#= delete_btn document, path: url_for(document) %>
       </td>
     </tr>
     <% end %>

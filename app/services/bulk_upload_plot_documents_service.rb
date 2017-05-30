@@ -24,10 +24,10 @@ module BulkUploadPlotDocumentsService
     unmatched = []
 
     matched = files.each_with_object([]) do |(filename, file), acc|
-      matched_plot = plots.detect { |(plot_name, _)| filename.include? plot_name }
+      matched_plot = compare_names(plots, filename)
 
       if matched_plot
-        plot_obj = matched_plot.last
+        plot_obj = matched_plot
         acc << [plot_obj, file]
       else
         unmatched << file.original_filename
@@ -36,6 +36,26 @@ module BulkUploadPlotDocumentsService
     end
 
     [matched, unmatched]
+  end
+
+  def compare_names(plots, file_name)
+    plots.each do |plot|
+      return plot[1] if plot[0] == file_name
+
+      next unless file_name.include?(plot[0])
+      file_name_parts = file_name.split(" ")
+      plot_name_parts = plot[0].split(" ")
+
+      # Test all the segments from the plot name for a match
+      # Additional segments in the file name are supported, they are ignored for matching purposes
+      matched = true
+      plot_name_parts.each_with_index do |plot_name_part, index|
+        matched = false unless file_name_parts[index] == plot_name_part
+      end
+      return plot[1] if matched
+    end
+
+    false
   end
 
   def save_matches(matches, category)

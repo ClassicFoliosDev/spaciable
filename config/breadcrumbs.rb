@@ -201,7 +201,12 @@ end
 
 crumb :plot_documents do |plot_docs_parent|
   link t("developments.collection.plot_documents")
-  parent :development, plot_docs_parent
+  case plot_docs_parent.model_name.element.to_sym
+    when :development
+      parent :development, plot_docs_parent
+    when :phase
+      parent :phase, plot_docs_parent
+  end
 end
 
 crumb :document do |document|

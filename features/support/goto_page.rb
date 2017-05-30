@@ -73,6 +73,23 @@ module GotoPage
     end
   end
 
+  def goto_development_phase_page
+    development = CreateFixture.development
+
+    raise "Development does not exist" unless development
+
+    goto_development_show_page
+
+    within ".tabs" do
+      click_on t("developments.collection.phases")
+    end
+
+    sleep 0.3
+    within ".record-list" do
+      click_on CreateFixture.phase_name
+    end
+  end
+
   def goto_plot_show_page
     development_plot = CreateFixture.development_plot
 

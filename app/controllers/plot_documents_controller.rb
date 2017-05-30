@@ -4,11 +4,12 @@ class PlotDocumentsController < ApplicationController
   include SortingConcern
 
   load_and_authorize_resource :development
+  load_and_authorize_resource :phase
 
   before_action :set_parent
 
   def index
-    @new_plot_document = @development.plots.build.documents.build
+    @new_plot_document = @parent.plots.build.documents.build
     authorize! :index, @new_plot_document
 
     @plot_documents = @parent.plot_documents.accessible_by(current_ability)
@@ -34,7 +35,7 @@ class PlotDocumentsController < ApplicationController
   private
 
   def set_parent
-    @parent = @development
+    @parent ||= @phase || @development
   end
 
   def plot_document_params

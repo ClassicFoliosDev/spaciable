@@ -53,6 +53,9 @@ Rails.application.routes.draw do
   resources :phases do
     resources :plots, shallow: true
     resources :documents, only: [:new, :create]
+    resources :plot_documents, only: [:index] do
+      post :bulk_upload, on: :collection
+    end
   end
 
   resources :plots, only: [] do

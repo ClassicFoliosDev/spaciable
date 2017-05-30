@@ -649,6 +649,7 @@ en:
       plots: "Plots"
       documents: "Documents"
       name: "Phase"
+      plot_documents: "Plot documents"
     new:
       title: "New phase"
     update:
@@ -740,6 +741,21 @@ en:
   plot_documents:
     form:
       add: "Upload"
+      bulk_upload: "Bulk upload"
+      filename_requirements: "File names must fit a plot prefix and plot number naming convention in order to be
+      associated with a plot. For example: <i>Plot 55.pdf</i>, <i>plot 101 owner manual.pdf</i>,
+      <i>Apartment 6 Manual.pdf</i>, where the plot prefix is either Plot or Apartment."
+      case: "File names do not need to
+      match the case of the prefix (plot and Plot will both match)"
+      unmatched_files: "Files that can not be matched with a plot prefix and number will not be uploaded.
+      Any unmatched files will be reported as errors. This will not affect other matched files"
+      multiple_files: "In order to upload multiple files, use the <i>SHIFT</i> key with the <i>CTRL</i> or
+      <i>CMD</i> key"
+      repeat: "If you upload the same file successfully more than once, it will appear multiple times against the plot"
+      choose: "Select files"
+      upload_all: "Upload files"
+    collection:
+      plot: "Plot"
     bulk_upload:
       files_required: "You must select files to upload."
       success: "Uploaded %{matched} plot documents successfully."
