@@ -959,6 +959,10 @@ en:
       back: "Back"
       submit: "Submit"
       preview: "Preview"
+      banner_size: "The banner will be displayed 200px high and full browser width available. For best results in
+      desktop view, the recommended image size is between 200 x 1200px and 200 x 1500px"
+      banner_size_mobile: "In smaller screens, the left and right edges will be cropped, and only the central
+      section of the image will be shown"
     show:
       back: "Back"
       image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB."

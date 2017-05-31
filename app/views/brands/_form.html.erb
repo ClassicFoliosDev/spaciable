@@ -18,9 +18,11 @@
         <%= f.input :logo, as: :image_preview, input_html: { preview_version: :thumbnail } %>
       </fieldset>
     </div>
-    <div class="row-item third">
+    <div class="row-item third brand">
       <fieldset>
         <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        <span><%= t(".banner_size") %></span>
+        <span><%= t(".banner_size_mobile") %></span>
       </fieldset>
     </div>
     <div class="row-item third">
