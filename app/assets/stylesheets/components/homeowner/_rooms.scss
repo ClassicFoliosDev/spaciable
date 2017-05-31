@@ -46,7 +46,10 @@ $icon-color: #252C31;
     .label {
       span {
         white-space: nowrap;
-        text-overflow: clip;
+        width: 80%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: block;
       }
     }
 
