@@ -26,7 +26,7 @@ RSpec.describe BulkUploadPlotDocumentsService do
                          developer: developer)
         file120 = create(:document,
                          title: "Document title",
-                         original_filename: "plot 1.20 homeowner doc.pdf",
+                         original_filename: "plot 1.20.pdf",
                          developer: developer)
 
         raw_files = []

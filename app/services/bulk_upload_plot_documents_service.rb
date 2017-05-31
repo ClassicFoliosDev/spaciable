@@ -39,6 +39,7 @@ module BulkUploadPlotDocumentsService
   end
 
   def compare_names(plots, file_name)
+    file_name = file_name.sub(".pdf", "")
     plots.each do |plot|
       return plot[1] if plot[0] == file_name
 
