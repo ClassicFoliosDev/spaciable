@@ -22,7 +22,7 @@ module Mailchimp
         gibbon.lists(list_id).merge_fields.create(body: field_params)
       end
       I18n.t("controller.success.create_update", name: resource.to_s)
-    rescue Gibbon::MailChimpError => e
+    rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
       I18n.t("activerecord.errors.messages.mailchimp_failure",
              name: resource.to_s, type: "mailing list", message: e.message)
     end

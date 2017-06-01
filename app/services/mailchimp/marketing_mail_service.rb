@@ -24,7 +24,7 @@ module Mailchimp
                 status: resident.subscribed_status, merge_fields: merge_fields }
       )
       nil
-    rescue Gibbon::MailChimpError => e
+    rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
       I18n.t("activerecord.errors.messages.mailchimp_failure",
              name: resident.email,
              type: "list subscriber",

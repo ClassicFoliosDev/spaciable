@@ -18,9 +18,10 @@ module Mailchimp
 
       gibbon = MailchimpUtils.client(api_key)
       mail_chimp_segment = gibbon.lists(list_id).segments.create(body: segment_params)
+
       development.update(segment_id: mail_chimp_segment.body[:id])
       I18n.t("controller.success.create_update", name: development.name)
-    rescue Gibbon::MailChimpError => e
+    rescue Gibbon::GibbonError, Gibbon::MailChimpError => e
       I18n.t("activerecord.errors.messages.mailchimp_failure",
              name: development.name,
              type: "segment",
