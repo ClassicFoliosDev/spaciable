@@ -11,10 +11,10 @@
     </div>
 
     <div class="contact-details branded-text">
-      <span class="contact-detail"><%= contact %></span>
+      <span class="contact-detail" title="<%= contact.to_s %>"><%= contact %></span>
 
       <% if contact.position? %>
-        <span class="contact-detail"><%= contact.position %></span>
+        <span class="contact-detail" title="<%= contact.position %>"><%= contact.position %></span>
       <% end %>
 
       <% if contact.phone? %>

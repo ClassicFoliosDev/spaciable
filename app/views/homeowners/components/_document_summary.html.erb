@@ -5,6 +5,8 @@
         <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] %>
       <% end %>
     </div>
-    <span class="document-name"><%= link_to truncate(document[:name], length: 35), document[:link], target: "_blank", class: "branded-primary" %></span>
+    <span class="document-name" title="<%= document[:name] %>">
+      <%= link_to truncate(document[:name], length: 35), document[:link], target: "_blank", class: "branded-primary" %>
+    </span>
   </div>
 <% end %>
