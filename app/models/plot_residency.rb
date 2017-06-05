@@ -28,9 +28,9 @@ class PlotResidency < ApplicationRecord
     errors.add(:email, :change_email)
   end
 
-  delegate :to_s, :title, :first_name, :last_name, :email, to: :resident
+  delegate :to_s, :title, :first_name, :last_name, :email, :phone_number, to: :resident
 
-  attr_writer :title, :first_name, :last_name, :email
+  attr_writer :title, :first_name, :last_name, :email, :phone_number
 
   private
 
@@ -49,7 +49,8 @@ class PlotResidency < ApplicationRecord
   end
 
   def assign_resident_attributes
-    attrs = [:title, :first_name, :last_name, :email].each_with_object({}) do |attr, acc|
+    attrs = [:title, :first_name, :last_name, :email, :phone_number]
+            .each_with_object({}) do |attr, acc|
       value = instance_variable_get("@#{attr}")
       acc[attr] = value unless value.blank?
     end

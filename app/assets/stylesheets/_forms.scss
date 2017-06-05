@@ -57,6 +57,11 @@ label {
   margin-bottom: $label-margin/2;
 }
 
+.info-span {
+  font-size: $base-small-font-size;
+  color: $type-grey;
+}
+
 // SELECTS
 
 .ui-selectmenu-button {

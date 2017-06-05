@@ -11,11 +11,15 @@
 </div>
 
 <div class="row">
-  <div class="row-item two-thirds">
-    <%= label_tag(PlotResidency.human_attribute_name(:resident)) %>
+  <div class="row-item third">
+    <%= label_tag(PlotResidency.human_attribute_name(:full_name)) %>
     <span><%= @plot_residency %></span>
     <%= label_tag(PlotResidency.human_attribute_name(:email)) %>
     <span><%= @plot_residency.email %></span>
+  </div>
+  <div class="row-item third">
+    <%= label_tag(PlotResidency.human_attribute_name(:phone_number)) %>
+    <span><%= @plot_residency.phone_number %></span>
   </div>
   <div class="row-item third">
     <%= label_tag(PlotResidency.human_attribute_name(:completion_date)) %>

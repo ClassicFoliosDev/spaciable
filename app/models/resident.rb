@@ -23,6 +23,7 @@ class Resident < ApplicationRecord
   delegate :developer, :division, :development, :phase, to: :plot, allow_nil: true
 
   validates :first_name, :last_name, presence: true
+  validates :phone_number, phone: true, allow_nil: true
 
   def subscribed_status
     if hoozzi_email_updates || developer_email_updates

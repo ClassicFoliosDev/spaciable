@@ -75,6 +75,7 @@ class PlotResidenciesController < ApplicationController
       :first_name,
       :last_name,
       :email,
+      :phone_number,
       :completion_date
     )
   end

@@ -22,6 +22,7 @@ When(/^I assign a new resident to a plot$/) do
   fill_in :plot_residency_first_name, with: attrs[:first_name]
   fill_in :plot_residency_last_name, with: attrs[:last_name]
   fill_in :plot_residency_email, with: attrs[:email]
+  fill_in :plot_residency_phone_number, with: attrs[:phone]
   fill_in :plot_residency_completion_date, with: attrs[:completion_date]
 
   click_on t("plot_residencies.form.submit")
@@ -66,6 +67,7 @@ When(/^I update the plot residency$/) do
   fill_in :plot_residency_first_name, with: attrs[:first_name]
   fill_in :plot_residency_last_name, with: attrs[:last_name]
   fill_in :plot_residency_email, with: attrs[:email]
+  fill_in :plot_residency_phone_number, with: attrs[:phone]
   fill_in :plot_residency_completion_date, with: attrs[:completion_date]
 
   click_on t("plot_residencies.form.submit")

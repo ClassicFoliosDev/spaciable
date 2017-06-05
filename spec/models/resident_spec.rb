@@ -33,6 +33,31 @@ RSpec.describe Resident do
         expect(resident.reload.plot).to eq(new_plot)
       end
     end
+
+    context "with valid phone number" do
+      resident = described_class.new(email: "test@example.com",
+                                     first_name: "Joe",
+                                     last_name: "Bloggs",
+                                     password: "passw0rd",
+                                     phone_number: "07768 321456")
+      it "should be a valid resident" do
+        expect(resident).to be_valid
+      end
+    end
+
+    context "with invalid contents" do
+      resident = described_class.new(phone_number: "07768 32145")
+      it "should not be a valid resident" do
+        expect(resident).not_to be_valid
+
+        required = " is required, and must not be blank."
+        expect(resident.errors.messages[:email]).to include(required)
+        expect(resident.errors.messages[:first_name]).to include(required)
+        expect(resident.errors.messages[:last_name]).to include(required)
+        expect(resident.errors.messages[:password]).to include(required)
+        expect(resident.errors.messages[:phone_number]).to include("is invalid")
+      end
+    end
   end
 
   describe "#developer" do

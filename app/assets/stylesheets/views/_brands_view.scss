@@ -21,7 +21,7 @@ $darker-grey: #7a8585;
 
 .brand {
   span {
-    font-size: 12px;
+    font-size: $base-small-font-size;
     color: $type-grey;
     float: left;
     margin-top: $spacing-small;

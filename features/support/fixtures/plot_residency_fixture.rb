@@ -19,6 +19,7 @@ module PlotResidencyFixture
       first_name: "Jo",
       last_name: "Bloggs",
       email: original_email,
+      phone: "07796 333441",
       completion_date: I18n.l(Time.zone.today.advance(days: 7))
     },
     updated: {
@@ -26,6 +27,7 @@ module PlotResidencyFixture
       first_name: "Joe",
       last_name: "Blogs",
       email: original_email,
+      phone: "07785 144333",
       completion_date: I18n.l(Time.zone.today.advance(days: 20))
     }
   }.freeze

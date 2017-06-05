@@ -40,6 +40,8 @@ gem "turbolinks", "~> 5"
 # Forms
 gem "ckeditor"
 gem "simple_form"
+# Validation for phone numbers
+gem "phonelib"
 
 gem "cancancan", "~> 1"
 gem "gretel" # breadcrumbs

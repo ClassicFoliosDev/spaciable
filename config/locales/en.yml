@@ -730,6 +730,7 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      international: "Use international dialling code for non-UK numbers"
     new:
       title: "New %{plot} resident"
     show:
@@ -1224,6 +1225,12 @@ en:
         hoozzi_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How to' updates"
         telephone_updates: "Phone"
         post_updates: "Post"
+      plot_residency:
+        resident: "Resident"
+        full_name: "Full name"
+        email: "Email address"
+        phone_number: "Phone number"
+        completion_date: "Completion date"
 
     errors:
       messages:
