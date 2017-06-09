@@ -1,15 +1,19 @@
-.admin-view {
-  header {
-    @include pad($spacing-small $spacing-large $spacing-small $spacing-large);
-    background-color: $ui-white;
-    text-align: center;
+.header-container {
+  @include pad($spacing-small $spacing-large $spacing-small $spacing-large);
+  background-color: $ui-white;
+  text-align: center;
 
-    @include media($tablet-landscape-up) {
-      text-align: left;
-    }
+  @include media($tablet-landscape-up) {
+    text-align: left;
+  }
 
-    img {
-      margin-bottom: $spacing-small / 2;
-    }
+  img {
+    margin-bottom: $spacing-small / 2;
+  }
+
+  .logo {
+    width: 140px;
+    float: left;
   }
 }
+

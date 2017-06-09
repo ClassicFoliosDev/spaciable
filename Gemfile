@@ -86,6 +86,9 @@ gem "activerecord-session_store" # Store session data to avoid cookie cache over
 # APIs
 gem "gibbon", "~> 3" # Mailchimp API wrapper
 
+# Postgres search helper
+gem "pg_search"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "factory_girl_rails"

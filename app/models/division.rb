@@ -3,6 +3,9 @@ class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
 
+  include PgSearch
+  multisearchable against: [:division_name], using: [:tsearch, :trigram]
+
   alias parent developer
 
   has_many :developments, dependent: :destroy
@@ -26,4 +29,10 @@ class Division < ApplicationRecord
   delegate :api_key, to: :developer
 
   paginates_per 25
+
+  def self.rebuild_pg_search_documents
+    find_each do |record|
+      record.update_pg_search_document unless record.deleted?
+    end
+  end
 end

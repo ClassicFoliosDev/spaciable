@@ -238,6 +238,16 @@ This should take a couple of minutes. The process the deployment roughly follows
 - switches the load balancer to point traffic to the new EC2 instance
 - turns the old EC2 instance off, but keeps it around incase we want to revert back to it
 
+## Search deploy
+
+When you deploy the pg_search feature, any content added after this point will be included in search results. But 
+content added before the search feature will be missing from the search index in pg_search
+
+To include earlier content, run a rake task. You will need to repeat for each model type 
+which you want to be search-enabled, here's the syntax.
+
+```bundle exec bin/rake pg_search:multisearch:rebuild\[Appliance\]```
+
 ## Background Jobs
 
 Sidekiq uses threads to handle many jobs at the same time in the same process. All background jobs are queued up on Redis for Sidekiq to pick them up and process them.

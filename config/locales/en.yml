@@ -174,6 +174,8 @@ en:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
       request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}."
+    header:
+      search: "Search"
 
   destroy:
     cancel: "Cancel"
@@ -276,6 +278,9 @@ en:
         title: "How tos"
       remove_tag:
         success: "Successfully removed %{tag_name} from %{how_to_name}."
+    search:
+      new:
+        no_match: "No results found"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
@@ -887,6 +892,7 @@ en:
         title: "Add appliance to %{room_name}"
         submit: "Submit"
         back: "Back"
+        search: "Search"
     finish_rooms:
       new:
         title: "Add finish to %{room_name}"

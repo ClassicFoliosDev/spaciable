@@ -144,6 +144,9 @@ Rails.application.routes.draw do
   get "/remove_appliance", to: "rooms#remove_appliance"
   get "/remove_finish", to: "rooms#remove_finish"
   get "/remove_tag", to: "admin/how_tos#remove_tag"
+  get "/search", to: "admin/search#new", as: :admin_search, format: :json
+  get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json
+  get "/finish_search", to: "admin/finish_search#new", as: :admin_finish_search, format: :json
   get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types", to: 'finishes#finish_types', format: :json

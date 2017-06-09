@@ -22,5 +22,12 @@ module Rooms
         render :new
       end
     end
+
+    private
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def appliance_room_params
+      params.require(:appliance_room).permit(:search_text)
+    end
   end
 end

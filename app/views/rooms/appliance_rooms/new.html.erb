@@ -50,6 +50,15 @@
     </div>
   </div>
 
+  <div class="row search-appliance">
+    <div class="row-item two-thirds">
+        <%= f.text_field :search_text, class: "search-appliance-field", autocomplete: "off", placeholder: t(".search") %>
+        <%= link_to "", class: "btn search-appliance-btn" do %>
+          <i class="fa fa-search"></i>
+        <% end %>
+    </div>
+  </div>
+
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), [@room.parent, @room, active_tab: "appliances"], class: "btn" %>

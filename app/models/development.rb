@@ -5,6 +5,9 @@ class Development < ApplicationRecord
   belongs_to :developer, optional: true
   belongs_to :division, optional: true
 
+  include PgSearch
+  multisearchable against: [:name], using: [:tsearch, :trigram]
+
   def parent
     division || developer
   end
@@ -41,5 +44,11 @@ class Development < ApplicationRecord
   def permissable_id_presence
     return unless developer_id.blank? && division_id.blank?
     errors.add(:base, :missing_permissable_id)
+  end
+
+  def self.rebuild_pg_search_documents
+    find_each do |record|
+      record.update_pg_search_document unless record.deleted?
+    end
   end
 end

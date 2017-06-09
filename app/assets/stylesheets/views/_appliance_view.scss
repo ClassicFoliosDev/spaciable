@@ -55,3 +55,21 @@
     float: right;
   }
 }
+
+.search-appliance {
+  margin-top: 30px;
+
+  input[type="text"] {
+    display: inline-block;
+    border-style: solid;
+    padding-left: 38px;
+    border-radius: 0;
+  }
+}
+
+.search-appliance-btn {
+  margin-top: -48px;
+  margin-left: 2px;
+  padding: $spacing-small;
+  border: none;
+}

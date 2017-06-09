@@ -1,0 +1,76 @@
+/* global $, clearFields, setFields */
+var $document = $(document)
+
+$document.on('keypress', 'form', function (event) {
+  var RETURN = 13
+
+  if (event.keyCode === RETURN) {
+    var $searchField = $('.search-field')
+    var $searchList = $('.search-results')
+    // If there is a search value, process the search
+    if ($searchField.val()) {
+      var searchText = $searchField[0].value
+      var url = '/search'
+      var data = { search_term: searchText }
+      setSearchFields($searchList, url, data)
+    }
+     // Whether or not there is a search value, don't allow the user
+     // to submit the form using "enter" key
+    return false
+  }
+})
+
+$document.on('click', '.search-btn', function (event) {
+  event.preventDefault()
+
+  var $searchField = $('.search-field')
+  var searchText = $searchField[0].value
+
+  var url = '/search'
+  var data = { search_term: searchText }
+
+  var $searchList = $('.search-results')
+  setSearchFields($searchList, url, data)
+})
+
+$document.on('click', '.search-appliance-btn', function (event) {
+  event.preventDefault()
+
+  var $searchField = $('.search-appliance-field')
+  var searchText = $searchField[0].value
+
+  var url = '/appliance_search'
+  var data = { search_term: searchText }
+
+  var $applianceResultsDiv = $('.appliances')
+  var $applianceSelect = clearFields($applianceResultsDiv)
+  setFields($applianceSelect, url, data)
+})
+
+function setSearchFields ($searchList, url, data) {
+  $.getJSON({
+    url: url,
+    data: data
+  }).done(function (results) {
+    $searchList.empty()
+
+    $.each(results, function (key, value) {
+      var span1 = document.createElement('span')
+      span1.className = 'strong'
+      span1.innerHTML = value.type
+
+      var span2 = document.createElement('span')
+      span2.innerHTML = value.name
+
+      var a = document.createElement('a')
+      a.setAttribute('href', value.path)
+      a.appendChild(span1)
+      a.appendChild(span2)
+
+      var li = document.createElement('li')
+      li.appendChild(a)
+
+      $searchList.append(li)
+    })
+  })
+}

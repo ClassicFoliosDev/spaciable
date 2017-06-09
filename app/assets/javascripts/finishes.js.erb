@@ -1,54 +1,52 @@
+/* global $, clearFields, setFields */
 $(document).on('click', '.finish .ui-menu-item', function (event) {
+  var optionName = this.innerText
+  var $selectContainer = $(this).closest('.select-container')
+  var listClasses = $selectContainer[0].classList
+  var $parentFieldset = $selectContainer.closest('.finish')
 
-  var optionName = this.innerText;
-  var $selectContainer = $(this).closest(".select-container");
-  var listClasses = $selectContainer[0].classList;
-  var $parentFieldset = $selectContainer.closest(".finish");
+  var addFinish = $(document).find('.addFinish')
+  var manufacturerDiv = $parentFieldset.find('.manufacturer')
+  var url
 
-  var add_finish = $(document).find(".add_finish");
+  if (listClasses.contains('finish_category')) {
+    var finishTypeDiv = $parentFieldset.find('.finish_type')
+    var finishTypeSelect = clearFields(finishTypeDiv)
+    clearFields(manufacturerDiv)
 
-  if (listClasses.contains("finish_category")) {
-    var finishTypeDiv = $parentFieldset.find(".finish_type");
-    var finishTypeSelect = clearFields(finishTypeDiv);
+    url = '/finish_types'
+    setFields(finishTypeSelect, url, { option_name: optionName })
+  } else if (listClasses.contains('finish_type')) {
+    var manufacturerSelect = clearFields(manufacturerDiv)
 
-    var manufacturerDiv = $parentFieldset.find(".manufacturer");
-    clearFields(manufacturerDiv);
+    clearFields(manufacturerDiv)
 
-    var url = "/finish_types";
-    setFields(finishTypeSelect, url, { option_name: optionName });
-
-  } else if (listClasses.contains("finish_type")) {
-    var manufacturerDiv = $parentFieldset.find(".manufacturer");
-    var manufacturerSelect = clearFields(manufacturerDiv);
-
-    clearFields(manufacturerDiv);
-
-    var url = "/finish_manufacturers";
-    var resultCount = setFields(manufacturerSelect, url, { option_name: optionName });
+    url = '/finish_manufacturers'
+    setFields(manufacturerSelect, url, { option_name: optionName })
 
     // Only run through this code if adding an appliance to a room
     // Not when creating a new appliance
-  } else if (listClasses.contains("manufacturer") && (add_finish.length > 0)) {
-      var $finishesDiv = $parentFieldset.find(".finishes");
-      var finishesSelect = clearFields($finishesDiv);
+  } else if (listClasses.contains('manufacturer') && (addFinish.length > 0)) {
+    var $finishesDiv = $parentFieldset.find('.finishes')
+    var finishesSelect = clearFields($finishesDiv)
 
-      var $typeDiv = $(".finish_type");
-      var typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
+    var $typeDiv = $('.finish_type')
+    var typeValue = $typeDiv.find('.ui-selectmenu-text')[0].innerHTML
 
-      var url = "/finish_list";
-      setFields(finishesSelect, url, { type_name: typeValue , manufacturer_name: optionName});
+    url = '/finish_list'
+    setFields(finishesSelect, url, { type_name: typeValue, manufacturer_name: optionName })
   }
-});
+})
 
-function no_manufacturers() {
-  var $parentFieldset = $(document).find(".finish");
+function noManufacturers () {
+  var $parentFieldset = $(document).find('.finish')
 
-  var $finishesDiv = $parentFieldset.find(".finishes");
-  var finishesSelect = clearFields($finishesDiv);
+  var $finishesDiv = $parentFieldset.find('.finishes')
+  var finishesSelect = clearFields($finishesDiv)
 
-  var $typeDiv = $(".finish_type");
-  var typeValue = $typeDiv.find(".ui-selectmenu-text")[0].innerHTML;
+  var $typeDiv = $('.finish_type')
+  var typeValue = $typeDiv.find('.ui-selectmenu-text')[0].innerHTML
 
-  var url = "/finish_list";
-  setFields(finishesSelect, url, { type_name: typeValue , manufacturer_name: ""});
+  var url = '/finish_list'
+  setFields(finishesSelect, url, { type_name: typeValue, manufacturer_name: '' })
 }

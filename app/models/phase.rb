@@ -4,6 +4,9 @@ class Phase < ApplicationRecord
 
   acts_as_paranoid
 
+  include PgSearch
+  multisearchable against: [:name], using: [:tsearch, :trigram]
+
   belongs_to :development, optional: false, counter_cache: true
   alias parent development
   include InheritParentPermissionIds
@@ -37,6 +40,7 @@ class Phase < ApplicationRecord
             uniqueness: { scope: :development_id }
 
   delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true
+  delegate :to_s, to: :name
 
   def build_address_with_defaults
     return if address.present?
@@ -61,5 +65,9 @@ class Phase < ApplicationRecord
     self[:number] || set_number
   end
 
-  delegate :to_s, to: :name
+  def self.rebuild_pg_search_documents
+    find_each do |record|
+      record.update_pg_search_document unless record.deleted?
+    end
+  end
 end

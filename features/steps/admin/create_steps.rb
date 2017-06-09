@@ -86,6 +86,10 @@ Given(/^there is an appliance with manual$/) do
   ApplianceFixture.update_appliance_manual
 end
 
+Given(/^there is a finish$/) do
+  CreateFixture.create_finish
+end
+
 Given(/^there is an appliance with a guide$/) do
   ApplianceFixture.update_appliance_guide
 end
@@ -96,6 +100,10 @@ end
 
 Given(/^I have seeded the database with appliances$/) do
   load Rails.root.join("db", "seeds", "manufacturers_and_appliance_seeds.rb")
+end
+
+Given(/^I have seeded the database with finishes$/) do
+  load Rails.root.join("db", "seeds", "finishes_seeds.rb")
 end
 
 Given(/^I am a Developer Admin$/) do

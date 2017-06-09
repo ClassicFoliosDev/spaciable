@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170531085537) do
+ActiveRecord::Schema.define(version: 20170606095900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
 
   create_table "addresses", force: :cascade do |t|
     t.string   "postal_name"
@@ -254,7 +255,6 @@ ActiveRecord::Schema.define(version: 20170531085537) do
     t.datetime "updated_at",         null: false
     t.string   "picture"
     t.datetime "deleted_at"
-    t.integer  "type"
     t.string   "description"
     t.integer  "finish_category_id"
     t.integer  "finish_type_id"
@@ -271,6 +271,7 @@ ActiveRecord::Schema.define(version: 20170531085537) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -331,6 +332,15 @@ ActiveRecord::Schema.define(version: 20170531085537) do
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text     "content"
+    t.string   "searchable_type"
+    t.integer  "searchable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
   create_table "phases", force: :cascade do |t|

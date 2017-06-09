@@ -2,6 +2,9 @@
 class Developer < ApplicationRecord
   acts_as_paranoid
 
+  include PgSearch
+  multisearchable against: [:company_name], using: [:tsearch, :trigram]
+
   has_many :divisions, dependent: :destroy
   has_many :developments, dependent: :destroy
 
@@ -24,4 +27,10 @@ class Developer < ApplicationRecord
   delegate :to_s, to: :company_name
 
   paginates_per 10
+
+  def self.rebuild_pg_search_documents
+    find_each do |record|
+      record.update_pg_search_document unless record.deleted?
+    end
+  end
 end

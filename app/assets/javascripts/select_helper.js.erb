@@ -1,3 +1,5 @@
+/* global $ */
+
 function clearFields(selectDiv) {
 
   // Make the options list empty
@@ -28,7 +30,6 @@ function setFields(selectList, url, data) {
     url: url,
     data: data
   }).done(function (results) {
-
     var promptOption = document.createElement("option");
       promptOption.value = "";
       promptOption.name = "";
@@ -51,22 +52,22 @@ function setFields(selectList, url, data) {
     } else {
       disableSelect("#" + selectList.id);
       if (url == "/finish_manufacturers") {
-        no_manufacturers();
+        noManufacturers();
       }
       else if (url == "/finish_list") {
-        no_matches("<%= I18n.t(".finishes.no_match") %>");
+        noMatches("<%= I18n.t(".finishes.no_match") %>")
       }
       else if (url == "/appliance_list") {
-        no_matches("<%= I18n.t(".appliances.no_match") %>");
+        noMatches("<%= I18n.t(".appliances.no_match") %>")
       }
     };
   }).fail(function (response) {
-    console.error("Call to " + url + " failed");
+    console.error("Call to " + url + " failed")
   });
 }
 
-function no_matches(error_message) {
-  var $errors = $(document).find(".match-errors");
+function noMatches(error_message) {
+  var $errors = $(document).find(".match-errors")
   $errors[0].innerHTML = error_message;
 }
 
