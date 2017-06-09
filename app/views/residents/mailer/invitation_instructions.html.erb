@@ -1,6 +1,15 @@
-<p><%= t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", someone: @resource.invited_by.to_s, url: root_url) %></p>
+<% if @resource.plot.logo.blank? %>
+  <%= image_tag("logo.png", style: "display: block;width:120px;margin: 20px auto") %>
+<% else %>
+  <%= image_tag(@resource.plot.logo, style: "display: block;width:120px;margin: 20px auto") %>
+<% end %>
+
+<h4><%= t(".new_home", development_name: @resource.plot.development) %></h4>
+
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.to_s) %></p>
+
+<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", someone: @resource.invited_by.to_s, development: @resource.plot.development) %></p>
 
 <p><%= link_to t("devise.mailer.invitation_instructions.accept"), accept_invitation_url(@resource, :invitation_token => @token) %></p>
 

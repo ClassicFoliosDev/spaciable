@@ -31,6 +31,7 @@ class Plot < ApplicationRecord
 
   delegate :build_resident, to: :build_plot_residency
   delegate :picture, to: :unit_type, prefix: true
+  delegate :logo, to: :brand, allow_nil: true
 
   def rooms(room_scope = Room.all)
     templated_room_ids = plot_rooms.with_deleted.pluck(:template_room_id).compact

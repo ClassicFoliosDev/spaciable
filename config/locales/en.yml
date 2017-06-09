@@ -75,6 +75,8 @@ en:
       title: "Admin login to Hoozzi"
     login:
       title: "Login to Hoozzi"
+    email:
+      hoozzi_copyright: "Hoozzi &copy; %{year}"
 
   controller:
     resource_not_found: "Resource not found"
@@ -583,6 +585,9 @@ en:
                       habits and hobbies.
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
+    mailer:
+      invitation_instructions:
+        new_home: "Welcome to your new home at %{development_name}"
 
     invitations:
       edit:
