@@ -8,8 +8,8 @@ class ResidentNotificationMailer < ApplicationMailer
   def notify(resident, notification)
     @resident = resident
     @content = notification.message
-    @logo = resident&.plot.logo
-    @logo = "logo.png" if @logo.nil?
+    @logo = resident&.plot.branded_logo
+    @logo = "logo.png" if @logo.blank?
 
     mail to: resident.email, subject: notification.subject
   end

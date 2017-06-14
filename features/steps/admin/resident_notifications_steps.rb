@@ -60,7 +60,7 @@ When(/^I send a notification to all residents$/) do
   check :notification_send_to_all
   sleep 0.2
   fill_in :notification_subject, with: attrs[:subject]
-  fill_in :notification_message, with: attrs[:message]
+  fill_in_ckeditor(:notification_message, with: attrs[:message])
 
   click_on t("admin.notifications.form.submit")
 
@@ -76,17 +76,17 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
 
   click_on t("admin.notifications.collection.add")
 
-  fill_in :notification_subject, with: attrs[:subject]
-  fill_in :notification_message, with: attrs[:message]
-
-  sleep 0.3 # wait for dropdown to be populated
+  sleep 0.5 # wait for dropdown to be populated
   if instance.is_a?(Developer)
     select_from_selectmenu(:notification_developer_id, with: instance.to_s)
   else
     select_from_selectmenu(:notification_developer_id, with: instance.developer.to_s)
-    sleep 0.3 # wait for dropdown to be populated
+    sleep 0.5 # wait for dropdown to be populated
     select_from_selectmenu(:"notification_#{resource_class}_id", with: instance.to_s)
   end
+
+  fill_in :notification_subject, with: attrs[:subject]
+  fill_in_ckeditor(:notification_message, with: attrs[:message])
 
   click_on t("admin.notifications.form.submit")
   sleep 0.5 # wait for emails to be processed
@@ -103,7 +103,7 @@ When(/^I send a notification to a resident under a (\(\w+\) )?(\w+)$/) do |paren
   click_on t("admin.notifications.collection.add")
 
   fill_in :notification_subject, with: attrs[:subject]
-  fill_in :notification_message, with: attrs[:message]
+  fill_in_ckeditor(:notification_message, with: attrs[:message])
 
   sleep 0.3 # wait for dropdown to be populated
   select_from_selectmenu(:notification_developer_id, with: plot.developer.to_s)

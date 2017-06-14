@@ -42,9 +42,9 @@ module Admin
         :subject,
         :message,
         :sent_at,
-        :send_to_id,
-        :send_to_type,
+        :send_to_id, :send_to_type,
         :send_to_all,
+        :plot_prefix,
         :developer_id, :division_id, :development_id, :phase_id,
         :range_from, :range_to, :list
       )

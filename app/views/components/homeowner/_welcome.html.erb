@@ -5,6 +5,13 @@
       <span>|</span>
       <%= link_to t(".account"), homeowners_resident_path(current_resident) %>
       <span>|</span>
+      <%= link_to homeowners_notifications_path do %>
+        <i class="fa fa-envelope"></i>
+        <% if unread_count.positive? %>
+          <sup class="unread"><%= unread_count %></sup>
+        <% end %>
+      <% end %>
+      <span>|</span>
       <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
     </div>
 

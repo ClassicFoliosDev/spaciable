@@ -5,7 +5,7 @@ module Homeowners
     skip_before_action :redirect_residents
     skip_authorization_check
 
-    before_action :authenticate_resident!, unless: -> { current_user }
+    before_action :authenticate_resident!, :set_unread, unless: -> { current_user }
     before_action :set_plot, :set_brand
 
     layout "homeowner"
@@ -32,6 +32,10 @@ module Homeowners
       else
         @plot = current_resident.plot
       end
+    end
+
+    def set_unread
+      @unread_count = current_resident.resident_notifications.where(read_at: nil).count
     end
   end
 end

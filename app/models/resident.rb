@@ -21,6 +21,8 @@ class Resident < ApplicationRecord
   has_one :plot_residency, dependent: :destroy
   delegate :plot, to: :plot_residency, allow_nil: true
   delegate :developer, :division, :development, :phase, to: :plot, allow_nil: true
+  delegate :number, to: :plot
+  delegate :prefix, to: :plot
 
   validates :first_name, :last_name, presence: true
   validates :phone_number, phone: true, allow_nil: true
@@ -55,8 +57,8 @@ class Resident < ApplicationRecord
     end
   end
 
-  def plot_number
-    plot&.number&.to_s
+  def full_plot_number
+    plot&.to_s
   end
 
   def to_s

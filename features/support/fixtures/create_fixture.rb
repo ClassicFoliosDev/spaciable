@@ -204,15 +204,15 @@ module CreateFixture
   end
 
   def create_development_plot
-    FactoryGirl.create(:plot, development: development, unit_type: unit_type, number: plot_name)
+    FactoryGirl.create(:plot, development: development, unit_type: unit_type, prefix: "", number: plot_name)
   end
 
   def create_division_development_plot
-    FactoryGirl.create(:plot, development: division_development, number: division_plot_name)
+    FactoryGirl.create(:plot, development: division_development, prefix: "", number: division_plot_name)
   end
 
   def create_phase_plot
-    FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, unit_type: unit_type)
+    FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, prefix: "", unit_type: unit_type)
   end
 
   def create_plots
@@ -272,6 +272,10 @@ module CreateFixture
 
   def cf_admin
     User.find_by(role: :cf_admin)
+  end
+
+  def developer_admin
+    User.find_by(role: :developer_admin)
   end
 
   def developer

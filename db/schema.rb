@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606095900) do
+ActiveRecord::Schema.define(version: 20170612123317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,7 +271,6 @@ ActiveRecord::Schema.define(version: 20170606095900) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -329,6 +328,7 @@ ActiveRecord::Schema.define(version: 20170606095900) do
     t.integer  "send_to_id"
     t.boolean  "send_to_all",  default: false
     t.string   "plot_numbers",                              array: true
+    t.string   "plot_prefix"
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree
@@ -396,6 +396,7 @@ ActiveRecord::Schema.define(version: 20170606095900) do
     t.integer  "notification_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.datetime "read_at"
     t.index ["notification_id"], name: "index_resident_notifications_on_notification_id", using: :btree
     t.index ["resident_id"], name: "index_resident_notifications_on_resident_id", using: :btree
   end
@@ -518,6 +519,8 @@ ActiveRecord::Schema.define(version: 20170606095900) do
     t.datetime "deleted_at"
     t.string   "permission_level_type"
     t.integer  "permission_level_id"
+    t.string   "picture"
+    t.string   "job_title"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree

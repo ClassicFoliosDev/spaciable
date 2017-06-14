@@ -55,9 +55,10 @@ module Admin
         :development_id,
         :permission_level_id,
         :permission_level_type,
-        :password,
-        :password_confirmation,
-        :current_password
+        :password, :password_confirmation,
+        :current_password,
+        :picture, :picture_cache,
+        :job_title
       )
     end
   end

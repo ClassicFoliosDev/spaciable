@@ -5,6 +5,7 @@ class Notification < ApplicationRecord
   permissionable_field :send_to
 
   attr_accessor :range_from, :range_to, :list
+  attr_accessor :read_at
 
   belongs_to :author, class_name: "User"
   belongs_to :sender, class_name: "User"
@@ -16,6 +17,11 @@ class Notification < ApplicationRecord
   validates :subject, :message, :sender, presence: true
   validate :recipients_selected
   validate :send_to_conflicts
+
+  def picture_name
+    return "user-circle-o.jpg" if picture.blank?
+    picture
+  end
 
   def send_to_conflicts
     return unless send_to_all? && send_to_id.present?
@@ -57,6 +63,10 @@ class Notification < ApplicationRecord
   end
 
   delegate :role, to: :sender
+  delegate :job_title, to: :sender
+  delegate :first_name, to: :sender
+  delegate :last_name, to: :sender
+  delegate :picture, to: :sender
   delegate :to_s, to: :subject
   delegate :to_str, to: :subject
 end

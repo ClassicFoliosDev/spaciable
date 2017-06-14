@@ -27,6 +27,7 @@
         <fieldset>
           <%= f.input :first_name %>
           <%= f.input :last_name %>
+          <%= f.input :job_title %>
           <%= f.input :role,
             as: :select,
             collection: User::accessible_admin_roles(current_user),
@@ -37,6 +38,9 @@
     </div>
     <div class="row-item third">
       <fieldset class="skip-global-selectmenu">
+        <div class="image-container">
+          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
         <%= cascade_select_input f, :developer_id, Developer %>
         <%= cascade_select_input f, :division_id, Division %>
         <%= cascade_select_input f, :development_id, Development %>

@@ -150,7 +150,7 @@ en:
         rooms: "Rooms"
         appliances: "Appliances"
       footer:
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved."
+        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy."
     home:
       header:
@@ -173,7 +173,7 @@ en:
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
-      request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}."
+      request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}"
     header:
       search: "Search"
 
@@ -247,13 +247,13 @@ en:
         add: "Add user"
       show:
         back: "Back"
-        role_at: "%{role} at %{permission_level_name}."
+        role_at: "%{role} at %{permission_level_name}"
       update:
         success: "%{user_email} was updated successfully."
     dashboard:
       components:
         no_recent:
-          no_recent: "There are no recent %{type_names}."
+          no_recent: "There are no recent %{type_names}"
         recent_notifications:
           send: "Send notification"
     how_tos:
@@ -277,7 +277,7 @@ en:
       index:
         title: "How tos"
       remove_tag:
-        success: "Successfully removed %{tag_name} from %{how_to_name}."
+        success: "Successfully removed %{tag_name} from %{how_to_name}"
     search:
       new:
         no_match: "No results found"
@@ -388,6 +388,8 @@ en:
         phone: "Phone"
       how_to_summary:
         article: "View article"
+      notification_summary:
+        new: "New"
     appliances:
       show:
         register: "Register appliance"

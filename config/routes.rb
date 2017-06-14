@@ -103,10 +103,13 @@ Rails.application.routes.draw do
 
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update]
+    resources :notifications, only: [:index]
+    get 'notification', to: 'notifications#show', format: :json
   end
 
   scope :homeowners, module: :homeowners do
     resources :how_tos, only: [:show]
+
     get "contacts/:category",
         to: 'contacts#index',
         as: :homeowner_contacts,
@@ -131,6 +134,7 @@ Rails.application.routes.draw do
         as: :homeowner_library,
         defaults: { category: :my_home }
 
+    #get :notifications, to: 'notifications#index', as: :homeowner_notifications
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
   end

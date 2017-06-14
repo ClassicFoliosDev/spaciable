@@ -31,6 +31,7 @@
         <%= cascade_select_input f, :development_id, Development %>
         <%= cascade_select_input f, :phase_id, Phase %>
 
+        <%= f.input :plot_prefix %>
         <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
         <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
         <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
@@ -40,7 +41,7 @@
     <div class="row-item two-thirds">
       <fieldset>
         <%= f.input :subject %>
-        <%= f.input :message %>
+        <%= f.input :message, as: :ckeditor, input_html: { ckeditor: { toolbar: 'full' } } %>
       </fieldset>
     </div>
   </div>

@@ -28,6 +28,10 @@ $data-section-color: $type-grey;
     font-size: 12px;
     color: $data-section-color;
   }
+
+  .user-picture img {
+    max-height: 120px;
+  }
 }
 
 .section-actions {

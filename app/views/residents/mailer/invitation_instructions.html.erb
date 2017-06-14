@@ -1,8 +1,7 @@
-
-<% if @resource.plot.logo.blank? %>
+<% if @resource.plot.branded_logo.blank? %>
   <%= image_tag("logo.png", style: "display: block;width:120px;margin: 20px auto") %>
 <% else %>
-  <%= image_tag(@resource.plot.logo, style: "display: block;width:120px;margin: 20px auto") %>
+  <%= image_tag(@resource.plot.branded_logo, style: "display: block;width:120px;margin: 20px auto") %>
 <% end %>
 
 <h4><%= t(".new_home", development_name: @resource.plot.development) %></h4>

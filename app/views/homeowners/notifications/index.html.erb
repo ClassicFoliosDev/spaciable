@@ -1,0 +1,12 @@
+<div class="branded-body">
+  <div class="main-container">
+    <div class="notification-container">
+      <div class="notification-list">
+        <%= render "homeowners/components/notification_summary", collection: @notifications %>
+      </div>
+      <div class="notification-expanded branded-border branded-content branded-text">
+        <%= render "homeowners/components/notification" %>
+      </div>
+    </div>
+  </div>
+</div>

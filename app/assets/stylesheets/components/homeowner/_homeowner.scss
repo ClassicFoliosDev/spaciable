@@ -24,6 +24,22 @@ $homeowner-margin: 12px;
           vertical-align: middle;
           cursor: pointer;
         }
+
+        a:hover {
+          text-decoration: none;
+        }
+
+        a:active {
+          outline: none;
+        }
+      }
+
+      .unread {
+        background-color: $primary-red;
+        color: $ui-white;
+        border-radius: 50%;
+        padding: 1px 3px;
+        margin-left: -11px;
       }
 
       span {

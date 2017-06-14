@@ -1,0 +1,90 @@
+.notification-container {
+  width: 100%;
+}
+
+.notification-list, .notification-expanded {
+  width: 50%;
+  float: left;
+}
+
+.notification-expanded {
+  height: 100%;
+  padding: $spacing-small;
+  font-size: $base-font-size;
+
+  h5 {
+    font-size: $base-font-size;
+    font-weight: bold;
+  }
+
+  .header {
+    border-style: none;
+    border-bottom-style: solid;
+    border-bottom-color: inherit;
+    padding-bottom: $spacing-small;
+    height: 60px;
+    margin-bottom: $spacing-small;
+
+  }
+}
+
+.notification {
+  margin-bottom: 0;
+  border-radius: 0;
+  border-style: solid;
+  padding: $spacing-small;
+  height: 90px;
+  width: 100%;
+  cursor: pointer;
+
+  .details {
+    @include span-columns(9 of 12);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: $base-font-size;
+  }
+
+  .new {
+    border-radius: 50%;
+    background-color: $primary-red;
+    color: $ui-white;
+    width: 37px;
+    padding: 3px;
+    font-size: $base-font-size;
+    margin-bottom: -8px;
+  }
+
+  h5 {
+    font-size: $base-font-size;
+  }
+}
+
+.notification-avatar {
+  @include span-columns(2 of 12);
+
+  img {
+    margin: 0 auto;
+    display: block;
+    max-width: 100%;
+    max-height: 50px;
+    border-radius: 50%;
+  }
+
+  .avatar {
+    color: $type-grey;
+    text-align: center;
+    hyphens: auto;
+  }
+}
+
+@include media($tablet-landscape-up) {
+  .notification-container {
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  .notification-expanded {
+    padding: $spacing-medium;
+    padding-top: $spacing-small;
+  }
+}

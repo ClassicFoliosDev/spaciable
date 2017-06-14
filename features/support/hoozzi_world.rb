@@ -60,7 +60,7 @@ module HoozziWorld
   def expand_selectmenu(field)
     within ".#{field}" do
       begin
-        arrow = page.find ".ui-icon"
+        arrow = page.find ".ui-icon", wait: 5
       rescue Capybara::ElementNotFound
         screenshot if debug_mode?
         raise Capybara::ElementNotFound, "Selectmenu is missing for #{field}"
@@ -70,7 +70,7 @@ module HoozziWorld
   end
 
   def selectmenu_list_items
-    ul = page.find ".ui-menu"
+    ul = page.find ".ui-menu", wait: 5
     list = ul.all("li")
 
     [list, list.map(&:text).join(", ")]

@@ -23,6 +23,7 @@ en:
       invitation_instructions:
         subject: "Invitation instructions"
         hello: "Hello %{name}"
+        someone_invited_you_admin: "%{someone} at %{development} has invited you to become an administrator on hoozzi.com/admin, you can accept it through the link below."
         someone_invited_you: "%{someone} at %{development} has invited you to Hoozzi, you can accept it through the link below."
         accept: "Accept invitation"
         accept_until: "This invitation will be due in %{due_date}."

@@ -1,6 +1,6 @@
 <header>
   <% if current_resident.present? %>
-    <%= render "components/homeowner/welcome" %>
+    <%= render "components/homeowner/welcome", unread_count: unread_count %>
   <% end %>
 
   <nav class="main-navigation">

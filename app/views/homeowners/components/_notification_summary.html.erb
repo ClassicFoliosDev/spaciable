@@ -1,0 +1,24 @@
+<% collection.each do |notification| %>
+
+  <%= content_tag(:div, "",
+                  data: data_for_notification(notification),
+                  class: "card notification branded-border branded-content") do %>
+
+    <div class="notification-avatar">
+      <% if notification.read_at.nil? %>
+          <div class="new" ><%= t(".new") %></div>
+      <% end %>
+      <%= image_tag(notification.picture_name) %>
+    </div>
+    <div class="details branded-text">
+      <div id="notification-<%= notification.id %>">
+        <h5>
+          <span class="strong"><%= "#{notification.first_name} #{notification.last_name}" %></span>
+          <span><%= notification.job_title %></span>
+          <span class="right"><%= notification.sent_at.strftime("%d %b") %></span>
+        </h5>
+        <span><%= truncate(notification.subject, length: 35) %></span>
+      </div>
+    </div>
+  <% end %>
+<% end %>
