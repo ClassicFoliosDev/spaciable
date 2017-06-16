@@ -83,6 +83,10 @@ module CreateFixture
     "resident@example.com"
   end
 
+  def manufacturer_link
+    "https://www.example.com/register"
+  end
+
   # FACTORIES
 
   def create_admin(admin_type = :cf, parent = nil)
@@ -152,12 +156,24 @@ module CreateFixture
     ApplianceCategory.find_or_create_by(name: appliance_category_name)
   end
 
-  def manufacturer
-    Manufacturer.find_or_create_by(name: appliance_manufacturer_name)
+  def create_manufacturer
+    FactoryGirl.create(:manufacturer,
+                       name: appliance_manufacturer_name,
+                       link: manufacturer_link,
+                       assign_to_appliances: "true")
   end
 
   def create_appliance
-    FactoryGirl.create(:appliance, name: full_appliance_name, appliance_category: appliance_category, manufacturer: manufacturer, e_rating: energy_rating, model_num: appliance_name)
+    FactoryGirl.create(:appliance,
+                       name: full_appliance_name,
+                       appliance_category: appliance_category,
+                       manufacturer: manufacturer,
+                       e_rating: energy_rating,
+                       model_num: appliance_name)
+
+    FactoryGirl.create(:appliance_categories_manufacturer,
+                       appliance_category_id: appliance_category.id,
+                       manufacturer_id: manufacturer.id)
   end
 
   def create_notification
@@ -187,6 +203,7 @@ module CreateFixture
   def create_finish
     finish_category = FinishCategory.find_or_create_by(name: finish_category_name)
     finish_type = FinishType.find_or_create_by(name: finish_type_name)
+    FinishCategoriesType.find_or_create_by(finish_type_id: finish_type.id, finish_category_id: finish_category.id)
     FactoryGirl.create(:finish, name: finish_name, finish_category: finish_category, finish_type: finish_type)
   end
 
@@ -328,6 +345,10 @@ module CreateFixture
 
   def resident
     Resident.find_by(email: resident_email)
+  end
+
+  def manufacturer
+    Manufacturer.find_by(name: appliance_manufacturer_name)
   end
 end
 # rubocop:enable ModuleLength

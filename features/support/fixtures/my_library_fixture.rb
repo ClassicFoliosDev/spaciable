@@ -33,6 +33,7 @@ module MyLibraryFixture
   module_function :resident, :appliance
 
   def setup
+    CreateFixture.create_manufacturer
     CreateFixture.create_resident_under_a_phase_plot_with_appliances_and_rooms
 
     ApplianceFixture.update_appliance_manual

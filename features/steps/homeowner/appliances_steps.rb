@@ -12,10 +12,14 @@ When(/^I visit the appliances page$/) do
 end
 
 Given(/^there is a second appliance$/) do
-  manufacturer = Manufacturer.find_by(name: ApplianceFixture.second_manufacturer_name)
-  category = ApplianceCategory.find_by(name: ApplianceFixture.second_appliance_category_name)
+  manufacturer = FactoryGirl.create(:manufacturer, name: ApplianceFixture.second_manufacturer_name)
+  category = FactoryGirl.create(:appliance_category, name: ApplianceFixture.second_appliance_category_name)
 
-  appliance = FactoryGirl.create(:appliance, manufacturer: manufacturer, appliance_category: category, model_num: ApplianceFixture.second_model_num)
+  appliance = FactoryGirl.create(:appliance,
+                                 manufacturer: manufacturer,
+                                 appliance_category: category,
+                                 model_num: ApplianceFixture.second_model_num)
+
   FactoryGirl.create(:appliance_room, room: CreateFixture.room, appliance: appliance)
 end
 
@@ -29,7 +33,7 @@ Then(/^I should see the appliances for my plot$/) do
     expect(image["alt"]).to have_content("Hoozzi energy rating a")
 
     register_appliance = page.first(".branded-btn")
-    expect(register_appliance[:href]).to have_content(ApplianceFixture.manufacturer_link)
+    expect(register_appliance[:href]).to have_content(CreateFixture.manufacturer_link)
 
     appliance = page.find("span", text: CreateFixture.appliance_name)
     appliance_with_both = appliance.find(:xpath, "..")

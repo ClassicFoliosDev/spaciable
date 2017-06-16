@@ -97,6 +97,10 @@ en:
     admin_how_to_edit: "Edit how to"
     appliance_edit: "Edit %{name}"
     appliance_add: "Add appliance"
+    manufacturer_edit: "Edit %{name}"
+    manufacturer_add: "Add manufacturer"
+    appliance_category_edit: "Edit %{name}"
+    appliance_category_add: "Add appliance category"
     developer_edit: "Edit %{developer_name}"
     developer_add: "Add developer"
     development_edit: "Edit %{development_name}"
@@ -810,6 +814,9 @@ en:
      create: "Add appliance"
      appliance_category: "Category"
      remove: "Remove"
+     appliances: "Appliances"
+     manufacturers: "Manufacturers"
+     appliance_categories: "Categories"
    new:
      title: "New appliance"
    show:
@@ -835,32 +842,76 @@ en:
      remove_guide: "Remove appliance quick reference guide"
    no_match: "No matching appliances found"
 
-  finishes:
-   destroy:
-     success: "%{name} was deleted successfully."
-   create:
-     success: "%{name} was created successfully."
-   update:
-     success: "%{name} was updated successfully."
+  manufacturers:
    index:
-     title: "Finishes"
+     title: "Manufacturers"
    collection:
-     finish_category: "Category"
-     finish_type: "Type"
-     manufacturer: "Manufacturer"
-     create: "Add finish"
-   new:
-     title: "New finish"
-   form:
-     name: "Name"
-     submit: "Submit"
-     back: "Back"
-   edit:
-     title: "Edit %{name}"
-     back: "Back"
+     add: "Add manufacturer"
+     name: "Manufacturer"
+     appliances: "Appliances"
+     finishes: "Finishes"
+     applies_to: "Applies to"
    show:
      back: "Back"
-   no_match: "No matching finishes found"
+   manufacturer:
+     link: "Manufacturer registration link"
+     appliance_categories: "Appliance categories"
+     finish_types: "Finish types"
+   new:
+     title: "New manufacturer"
+   edit:
+     title: "Edit %{name}"
+   form:
+     back: "Back"
+     submit: "Submit"
+     for_appliances: "For appliances"
+     for_finishes: "For finishes"
+     finish_category: "Finish category"
+
+  appliance_categories:
+    index:
+      title: "Appliance categories"
+    collection:
+      add: "Add appliance category"
+      name: "Name"
+    new:
+      title: "New appliance category"
+    form:
+      back: "Back"
+      submit: "Submit"
+    edit:
+      title: "Edit %{name}"
+    show:
+      back: "Back"
+    appliance_category:
+      manufacturers: "Manufacturers"
+
+  finishes:
+    destroy:
+      success: "%{name} was deleted successfully"
+    create:
+      success: "%{name} was created successfully"
+    update:
+      success: "%{name} was updated successfully"
+    index:
+     title: "Finishes"
+    collection:
+      finish_category: "Category"
+      finish_type: "Type"
+      manufacturer: "Manufacturer"
+      create: "Add finish"
+    new:
+      title: "New finish"
+    form:
+      name: "Name"
+      submit: "Submit"
+      back: "Back"
+    edit:
+      title: "Edit %{name}"
+      back: "Back"
+    show:
+      back: "Back"
+    no_match: "No matching finishes found"
 
   profiles:
     title: "Profile"
@@ -1255,6 +1306,7 @@ en:
         select: " must be selected."
         not_valid_hex: " must have a valid hex colour, for example #445544."
         mailchimp_failure: "WARNING %{name} was created or updated or deleted, but %{type} could not be updated for MailChimp, details: %{message}"
+        delete_not_possible: "It is not possible to delete %{name} because other %{types} depend on it"
       models:
         notification:
           attributes:
@@ -1279,3 +1331,7 @@ en:
               already_in_use: "is already associated to another plot."
               change_email: "can not be updated. If you need to change the resident email, remove this plot resident and
                add a new one"
+        manufacturer:
+          attributes:
+            finish_category_id:
+              required_if_finish: " is required if you have configured a manufacturer for finishes"

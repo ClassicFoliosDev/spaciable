@@ -15,21 +15,9 @@ Feature: Dashboard
     And there is a room
     And there are faqs
     And there is a document
+    And there is a manufacturer
     And there is an appliance with manual
     And there is an appliance with a guide
     And there are notifications
     When I navigate to the dashboard
     Then I see the recent contents
-
-  # Scenario: Development admin
-    # Given I am a Development Admin
-    # And there is a plot
-    # And there is a room
-    # And there are faqs
-    # And there is a document
-    # And I have an appliance with a guide
-    # And there is an appliance with manual
-    # And there are notifications
-    # When I navigate to the dashboard
-    # Then I see the recent contents
-

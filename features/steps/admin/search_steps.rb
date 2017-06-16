@@ -52,7 +52,7 @@ Then(/^I should be able to navigate to the appliance$/) do
 
   within ".appliance" do
     expect(page).to have_content(CreateFixture.appliance_category)
-    expect(page).to have_content(CreateFixture.manufacturer)
+    expect(page).to have_content(CreateFixture.appliance_manufacturer_name)
   end
 end
 

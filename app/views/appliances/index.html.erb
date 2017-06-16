@@ -6,4 +6,5 @@
   </h3>
 </div>
 
+<%= render 'components/tabs', tabs: appliance_tabs(@active_tab) %>
 <%= render_collection @appliances, room: nil %>

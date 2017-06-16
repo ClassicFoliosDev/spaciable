@@ -80,6 +80,10 @@ Given(/^there is an appliance$/) do
   CreateFixture.create_appliance
 end
 
+Given(/^there is an appliance_category$/) do
+  CreateFixture.appliance_category
+end
+
 Given(/^there is an appliance with manual$/) do
   CreateFixture.create_appliance
   CreateFixture.create_appliance_room
@@ -126,4 +130,8 @@ Given(/^I am a Development Admin$/) do
   development_admin = CreateFixture.create_developer_admin
 
   login_as development_admin
+end
+
+Given(/^there is a manufacturer$/) do
+  CreateFixture.create_manufacturer
 end

@@ -392,6 +392,48 @@ crumb :appliance_new do
   parent :appliances
 end
 
+# MANUFACTURERS
+crumb :manufacturers do
+  link Manufacturer.model_name.human.pluralize, manufacturers_path
+  parent :appliances
+end
+
+crumb :manufacturer do | manufacturer |
+  link manufacturer.name, manufacturer_path
+  parent :manufacturers
+end
+
+crumb :manufacturer_edit do |manufacturer|
+  link t("breadcrumbs.manufacturer_edit", name: manufacturer.name), edit_manufacturer_path(manufacturer)
+  parent :manufacturers
+end
+
+crumb :manufacturer_new do
+  link t("breadcrumbs.manufacturer_add")
+  parent :manufacturers
+end
+
+# APPLIANCE CATEGORIES
+crumb :appliance_categories do
+  link ApplianceCategory.model_name.human.pluralize, appliance_categories_path
+  parent :appliances
+end
+
+crumb :appliance_category do | appliance_category |
+  link appliance_category.name, appliance_category_path
+  parent :appliance_categories
+end
+
+crumb :appliance_category_edit do |appliance_category|
+  link t("breadcrumbs.appliance_category_edit", name: appliance_category.name), edit_appliance_category_path(appliance_category)
+  parent :appliance_categories
+end
+
+crumb :appliance_category_new do
+  link t("breadcrumbs.appliance_category_add")
+  parent :appliance_categories
+end
+
 # CONTACTS
 
 crumb :contacts do |contact_parent|

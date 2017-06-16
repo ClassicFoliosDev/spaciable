@@ -10,12 +10,12 @@ module RoomTabsHelper
   ROOM_TABS = lambda do |room|
     {
       finishes: {
-        icon: :building,
+        icon: :shower,
         link: [room.parent, room, active_tab: :finishes],
         always_show: true
       },
       appliances: {
-        icon: :building,
+        icon: :coffee,
         link: [room.parent, room, active_tab: :appliances],
         always_show: true
       }

@@ -4,7 +4,7 @@ Feature: Dashboard
   So I can see what's changed recently
 
   Scenario: Dashboard
-    And I am logged in as a homeowner want to download my documents
+    Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide
     And there are faqs
     And there are contacts

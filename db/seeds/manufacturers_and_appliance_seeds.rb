@@ -35,8 +35,7 @@ manufacturers_and_links = {
   "White Knight" => "http://www.whiteknightrange.co.uk/warranty/",
   "Zanussi" => "http://www.zanussi.co.uk/support/register-products/"
 }.each_pair do |manufacturer_name, link|
-  manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name)
-  manufacturer.link = link
+  manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name, link: link)
 
   if manufacturer.new_record?
     puts "Manufacturer: #{manufacturer_name} #{link}"

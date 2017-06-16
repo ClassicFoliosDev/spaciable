@@ -1,0 +1,9 @@
+<% breadcrumb :appliance_category, @appliance_category %>
+
+<%= render @appliance_category %>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), appliance_categories_path, class: "btn" %>
+  </div>
+</div>

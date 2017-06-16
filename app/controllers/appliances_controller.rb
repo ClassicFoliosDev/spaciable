@@ -7,6 +7,7 @@ class AppliancesController < ApplicationController
   def index
     @appliances = @appliances.includes(:appliance_category, :manufacturer)
     @appliances = paginate(sort(@appliances, default: :name))
+    @active_tab = "appliances"
   end
 
   def new; end

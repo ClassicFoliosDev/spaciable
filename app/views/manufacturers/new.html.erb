@@ -1,0 +1,10 @@
+<% breadcrumb :manufacturer_new %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "industry" %>
+    <%= t(".title") %>
+  </h3>
+</div>
+
+<%= render "form", manufacturer: @manufacturer, finish_categories: @finish_categories %>

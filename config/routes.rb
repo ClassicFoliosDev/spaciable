@@ -99,6 +99,8 @@ Rails.application.routes.draw do
   end
 
   resources :appliances
+  resources :manufacturers
+  resources :appliance_categories
   resources :finishes
 
   namespace :homeowners do

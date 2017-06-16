@@ -1,0 +1,43 @@
+<%= simple_form_for manufacturer do |f| %>
+  <% if manufacturer.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% manufacturer.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row manufacturer">
+    <div class="row-item half">
+      <fieldset>
+        <%= f.input :name %>
+        <%= f.input :link %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <div>
+          <%= label_tag t(".for_appliances") %>
+          <%= f.radio_button :assign_to_appliances, true, checked: manufacturer&.finish_types.none? %>
+          <%= label_tag t(".for_finishes") %>
+          <%= f.radio_button :assign_to_appliances, false, checked: manufacturer&.finish_types.any? %>
+        </div>
+        <div class="manufacturer-finish-category ui-front select-container">
+          <%= label_tag :finish_category_id %>
+          <%= f.select :finish_category_id, options_from_collection_for_select(finish_categories, "id", "name"), include_blank: true %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), manufacturers_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>
