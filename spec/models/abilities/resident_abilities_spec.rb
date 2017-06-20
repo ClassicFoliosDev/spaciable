@@ -88,7 +88,9 @@ RSpec.describe "Resident Abilities" do
 
   it "has READ access to the plots rooms finishes" do
     unit_type = plot.unit_type
-    finish = create(:finish)
+    finish_category = create(:finish_category, name: "Test category")
+    finish_type = create(:finish_type, name: "Test type", finish_category_id: finish_category.id)
+    finish = create(:finish, finish_category: finish_category, finish_type: finish_type)
     create(:room, unit_type: unit_type, finishes: [finish])
 
     expect(subject).to be_able_to(:read, finish)

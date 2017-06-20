@@ -253,10 +253,9 @@
 
     if finish_type.new_record?
       puts "Finish Type: #{finish_type.name}" if Features.seed_output
-      finish_type.save!
+      finish_type.finish_categories = [finish_category]
+      finish_type.save!(validate: false)
     end
-
-    finish_category.finish_types << finish_type
 
     manufacturers.each do |manufacturer_name|
       manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name)

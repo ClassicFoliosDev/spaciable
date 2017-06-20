@@ -5,7 +5,7 @@ module Rooms
     load_and_authorize_resource :finish_room, through: :room
 
     def new
-      @finish_categories = FinishCategory.all
+      @finish_categories = FinishCategory.all.order(:name)
     end
 
     def edit; end

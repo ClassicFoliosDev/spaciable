@@ -371,6 +371,50 @@ crumb :finish_new do
   parent :finishes
 end
 
+# FINISH CATEGORIES
+
+crumb :finish_categories do
+  link FinishCategory.model_name.human.pluralize, finish_categories_path
+  parent :finishes
+end
+
+crumb :finish_category do | finish_category |
+  link finish_category.name, finish_category_path
+  parent :finish_categories
+end
+
+crumb :finish_category_edit do |finish_category|
+  link t("breadcrumbs.finish_category_edit", name: finish_category.name), edit_finish_category_path(finish_category)
+  parent :finish_categories
+end
+
+crumb :finish_category_new do
+  link t("breadcrumbs.finish_category_add")
+  parent :finish_categories
+end
+
+# FINISH TYPES
+
+crumb :finish_types do
+  link FinishType.model_name.human.pluralize, finish_types_path
+  parent :finishes
+end
+
+crumb :finish_type do | finish_type |
+  link finish_type.name, finish_type_path
+  parent :finish_types
+end
+
+crumb :finish_type_edit do |finish_type|
+  link t("breadcrumbs.finish_type_edit", name: finish_type.name), edit_finish_type_path(finish_type)
+  parent :finish_types
+end
+
+crumb :finish_type_new do
+  link t("breadcrumbs.finish_type_add")
+  parent :finish_types
+end
+
 # APPLIANCES
 
 crumb :appliances do
@@ -393,9 +437,9 @@ crumb :appliance_new do
 end
 
 # MANUFACTURERS
+
 crumb :manufacturers do
   link Manufacturer.model_name.human.pluralize, manufacturers_path
-  parent :appliances
 end
 
 crumb :manufacturer do | manufacturer |

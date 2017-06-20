@@ -7,6 +7,17 @@ class ManufacturersController < ApplicationController
   def index
     @manufacturers = paginate(sort(@manufacturers, default: :name))
     @active_tab = "manufacturers"
+
+    if request&.referrer && @parent.nil?
+      parent_type = URI(request.referer).path
+      @parent = if parent_type == "/finishes"
+                  Finish.new
+                else
+                  Appliance.new
+                end
+    elsif @parent.nil?
+      @parent = Appliance.new
+    end
   end
 
   def show
@@ -21,11 +32,14 @@ class ManufacturersController < ApplicationController
   end
 
   def update
-    update_relationships([:assign_to_appliances] == true)
-
+    update_relationships(assign_to_appliances)
     if @manufacturer.update(manufacturer_params)
       notice = t("controller.success.update", name: @manufacturer.name)
-      redirect_to manufacturers_path, notice: notice
+      if assign_to_appliances
+        redirect_to manufacturers_path, notice: notice
+      else
+        redirect_to "/finishes", notice: notice, active_tab: "manufacturers"
+      end
     else
       @finish_categories = FinishCategory.all
       render :edit
@@ -34,9 +48,13 @@ class ManufacturersController < ApplicationController
 
   def create
     if @manufacturer.save
-      create_relationships(manufacturer_params[:assign_to_appliances] == "true")
+      create_relationships(assign_to_appliances)
       notice = t("controller.success.create", name: @manufacturer.name)
-      redirect_to manufacturers_path, notice: notice
+      if assign_to_appliances
+        redirect_to manufacturers_path, notice: notice
+      else
+        redirect_to "/finishes", notice: notice, active_tab: "manufacturers"
+      end
     else
       @finish_categories = FinishCategory.all
       render :new
@@ -57,25 +75,29 @@ class ManufacturersController < ApplicationController
 
   private
 
+  def assign_to_appliances
+    manufacturer_params[:assign_to_appliances] == "true"
+  end
+
   def create_relationships(assign_to_appliances)
     if assign_to_appliances
-      ManufacturerRelationshipsService.appliance_category_manufacturers(@manufacturer.id)
+      RelationshipsService.join_appliance_category_manufacturers(@manufacturer.id)
     else
-      ManufacturerRelationshipsService
-        .finish_type_manufacturers(@manufacturer.id,
-                                   manufacturer_params[:finish_category_id])
+      RelationshipsService
+        .join_finish_type_manufacturers(@manufacturer,
+                                        manufacturer_params[:finish_category_id])
     end
   end
 
   def update_relationships(assign_to_appliances)
     if assign_to_appliances
-      ManufacturerRelationshipsService.appliance_category_manufacturers(@manufacturer.id)
-      ManufacturerRelationshipsService.remove_finish_type_manufacturers(@manufacturer)
+      RelationshipsService.join_appliance_category_manufacturers(@manufacturer.id)
+      RelationshipsService.remove_finish_type_manufacturers(@manufacturer)
     else
-      ManufacturerRelationshipsService
-        .finish_type_manufacturers(@manufacturer.id,
-                                   manufacturer_params[:finish_category_id])
-      ManufacturerRelationshipsService.remove_appliance_category_manufacturers(@manufacturer)
+      RelationshipsService.remove_appliance_category_manufacturers(@manufacturer)
+      RelationshipsService
+        .join_finish_type_manufacturers(@manufacturer,
+                                        manufacturer_params[:finish_category_id])
     end
   end
 

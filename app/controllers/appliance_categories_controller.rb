@@ -26,7 +26,7 @@ class ApplianceCategoriesController < ApplicationController
 
   def create
     if @appliance_category.save
-      ManufacturerRelationshipsService.manufacturer_appliance_categories(@appliance_category.id)
+      RelationshipsService.join_manufacturer_appliance_categories(@appliance_category.id)
       notice = t("controller.success.create", name: @appliance_category.name)
       redirect_to appliance_categories_path, notice: notice
     else

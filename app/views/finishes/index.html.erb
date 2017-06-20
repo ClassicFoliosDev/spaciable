@@ -6,4 +6,5 @@
   </h3>
 </div>
 
+<%= render 'components/tabs', tabs: finish_tabs(nil, @active_tab) %>
 <%= render_collection @finishes, room: nil %>

@@ -94,6 +94,14 @@ Given(/^there is a finish$/) do
   CreateFixture.create_finish
 end
 
+Given(/^there is a finish_category$/) do
+  CreateFixture.create_finish_category
+end
+
+Given(/^there is a finish_type$/) do
+  CreateFixture.create_finish_type
+end
+
 Given(/^there is an appliance with a guide$/) do
   ApplianceFixture.update_appliance_guide
 end

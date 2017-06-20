@@ -235,3 +235,19 @@ Then(/^I should see the appliance deletion complete successfully$/) do
     expect(page).to have_content t("components.empty_list.add", type_name: Appliance.model_name.human.downcase)
   end
 end
+
+When(/^I delete the appliance manufacturer$/) do
+  visit "./manufacturers"
+
+  manufacturer = Manufacturer.find_by(name: ApplianceFixture.updated_manufacturer)
+  delete_scope = "[data-manufacturer='#{manufacturer.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+When(/^I delete the appliance category$/) do
+  visit "./appliance_categories"
+
+  appliance_category = ApplianceCategory.find_by(name: ApplianceFixture.updated_category)
+  delete_scope = "[data-appliance_category='#{appliance_category.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end

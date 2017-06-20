@@ -40,7 +40,7 @@ class AppliancesController < ApplicationController
     redirect_to appliances_path, notice: notice
   end
 
-  def appliance_manufacturers
+  def appliance_manufacturers_list
     manufacturers = Manufacturer.for_appliances
                                 .where(appliance_categories: { name: params[:option_name] })
                                 .order(:name)

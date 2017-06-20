@@ -5,7 +5,7 @@ $(document).on('click', '.finish .ui-menu-item', function (event) {
   var listClasses = $selectContainer[0].classList
   var $parentFieldset = $selectContainer.closest('.finish')
 
-  var addFinish = $(document).find('.addFinish')
+  var addFinish = $(document).find('.add_finish')
   var manufacturerDiv = $parentFieldset.find('.manufacturer')
   var url
 
@@ -14,14 +14,14 @@ $(document).on('click', '.finish .ui-menu-item', function (event) {
     var finishTypeSelect = clearFields(finishTypeDiv)
     clearFields(manufacturerDiv)
 
-    url = '/finish_types'
+    url = '/finish_types_list'
     setFields(finishTypeSelect, url, { option_name: optionName })
   } else if (listClasses.contains('finish_type')) {
     var manufacturerSelect = clearFields(manufacturerDiv)
 
     clearFields(manufacturerDiv)
 
-    url = '/finish_manufacturers'
+    url = '/finish_manufacturers_list'
     setFields(manufacturerSelect, url, { option_name: optionName })
 
     // Only run through this code if adding an appliance to a room

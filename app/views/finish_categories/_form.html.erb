@@ -1,0 +1,28 @@
+<%= simple_form_for finish_category do |f| %>
+  <% if finish_category.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% finish_category.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row finish_category">
+    <div class="row-item half">
+      <fieldset>
+        <%= f.input :name %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), finish_categories_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

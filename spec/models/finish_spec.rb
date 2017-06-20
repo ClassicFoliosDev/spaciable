@@ -2,10 +2,13 @@
 require "rails_helper"
 
 RSpec.describe Finish do
+  let(:finish_category) { create(:finish_category, name: "Test category") }
+  let(:finish_type) { create(:finish_type, name: "Test type", finish_category_id: finish_category.id) }
+
   describe "#name=" do
-    it "should not allow duplicate company names" do
+    it "should not allow duplicate names" do
       name = "Only finish named this"
-      create(:finish, name: name)
+      create(:finish, name: name, finish_type: finish_type)
       finish = Finish.new(name: name)
 
       finish.validate
@@ -17,7 +20,7 @@ RSpec.describe Finish do
 
   describe "#destroy" do
     it "should be archived" do
-      finish = create(:finish)
+      finish = create(:finish, name: "Test finish", finish_type: finish_type)
 
       finish.destroy!
 

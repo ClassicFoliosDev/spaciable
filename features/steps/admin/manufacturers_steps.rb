@@ -85,7 +85,11 @@ end
 Then(/^I should be required to enter a finish category$/) do
   expect(page).to have_content(I18n.t("activerecord.errors.models.manufacturer.attributes.finish_category_id.required_if_finish"))
 
-  select CreateFixture.finish_category_name, from: :manufacturer_finish_category_id, visible: false
+  within ".manufacturer" do
+    page.find("#manufacturer_assign_to_appliances_false").set(true)
+    select CreateFixture.finish_category_name, from: :manufacturer_finish_category_id, visible: false
+  end
+
   click_on I18n.t("manufacturers.form.submit")
 end
 
@@ -95,6 +99,10 @@ Then(/^I should see the updated manufacturer$/) do
     name: ManufacturerFixture.updated_name
   )
   expect(page).to have_content(success_flash)
+
+  within ".tabs" do
+    click_on t("finishes.collection.manufacturers")
+  end
 
   within ".record-list" do
     expect(page).not_to have_content(ManufacturerFixture.name)
@@ -117,6 +125,35 @@ end
 When(/^I delete the manufacturer$/) do
   visit "/manufacturers"
   delete_and_confirm!
+end
+
+When(/^I create a finish with the new manufacturer$/) do
+  visit "/finishes"
+  click_on I18n.t("finishes.collection.create")
+
+  within ".finish" do
+    fill_in "finish_name", with: FinishFixture.name
+
+    select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
+    select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
+    select_from_selectmenu :manufacturer, with: ManufacturerFixture.updated_name
+  end
+
+  click_on I18n.t("finishes.form.submit")
+end
+
+Then(/^I should see the finish with manufacturer created successfully$/) do
+  success_flash = t(
+    "controller.success.create",
+    name: FinishFixture.name
+  )
+  expect(page).to have_content(success_flash)
+
+  within ".record-list" do
+    click_on FinishFixture.name
+  end
+
+  expect(page).to have_content(ManufacturerFixture.updated_name)
 end
 
 Then(/^I should see the manufacturer delete complete successfully$/) do

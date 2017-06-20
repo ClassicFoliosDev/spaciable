@@ -7,6 +7,7 @@ class FinishesController < ApplicationController
   def index
     @finishes = @finishes.includes(:finish_category, :finish_type, :manufacturer)
     @finishes = paginate(sort(@finishes, default: :name))
+    @active_tab = "finishes"
   end
 
   def new; end
@@ -40,7 +41,7 @@ class FinishesController < ApplicationController
     redirect_to finishes_url, notice: notice
   end
 
-  def finish_types
+  def finish_types_list
     finish_types = FinishType.joins(:finish_categories)
                              .where(finish_categories: { name: params[:option_name] })
                              .distinct
@@ -49,7 +50,7 @@ class FinishesController < ApplicationController
     render json: finish_types
   end
 
-  def manufacturers
+  def manufacturers_list
     manufacturers = Manufacturer
                     .joins(:finish_types)
                     .where(finish_types: { name: params[:option_name] })

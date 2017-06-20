@@ -1,0 +1,10 @@
+<% breadcrumb :finish_category_edit, @finish_category %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "folder" %>
+    <%= t(".title", name: @finish_category.name) %>
+  </h3>
+</div>
+
+<%= render 'form', finish_category: @finish_category %>

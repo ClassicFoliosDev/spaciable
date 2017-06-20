@@ -113,6 +113,10 @@ en:
     faqs_edit: "Edit FAQ"
     finish_edit: "Edit %{name}"
     finish_add: "Add finish"
+    finish_category_edit: "Edit %{name}"
+    finish_category_add: "Add finish category"
+    finish_type_edit: "Edit %{name}"
+    finish_type_add: "Add finish type"
     phase_add: "Add phase"
     phase_edit: "Edit %{phase_name}"
     plot_add: "Add plot"
@@ -898,8 +902,12 @@ en:
     collection:
       finish_category: "Category"
       finish_type: "Type"
-      manufacturer: "Manufacturer"
       create: "Add finish"
+      finishes: "Finishes"
+      manufacturers: "Manufacturers"
+      manufacturer: "Manufacturer"
+      finish_types: "Finish types"
+      finish_categories: "Finish categories"
     new:
       title: "New finish"
     form:
@@ -912,6 +920,45 @@ en:
     show:
       back: "Back"
     no_match: "No matching finishes found"
+
+  finish_categories:
+    index:
+      title: "Finish categories"
+    collection:
+      add: "Add finish category"
+      name: "Name"
+    show:
+      back: "Back"
+    finish_category:
+      types: "Finish types"
+    new:
+      title: "New finish category"
+    edit:
+      title: "Edit %{name}"
+    form:
+      back: "Back"
+      submit: "Submit"
+
+  finish_types:
+    index:
+      title: "Finish types"
+    collection:
+      add: "Add finish type"
+      name: "Name"
+      finish_category: "Finish category"
+    show:
+      back: "Back"
+    finish_type:
+      manufacturers: "Manufacturers"
+      finish_category: "Finish category"
+    new:
+      title: "New finish type"
+    edit:
+      title: "Edit %{name}"
+    form:
+      finish_category: "Finish category"
+      back: "Back"
+      submit: "Submit"
 
   profiles:
     title: "Profile"
@@ -1144,6 +1191,8 @@ en:
            dining_room: "Dining room"
            living_room: "Living room"
            study: "Study"
+           exterior: "Exterior"
+           garage: "Garage"
       finish:
         name: "Name"
         type: "Finish type"
@@ -1152,6 +1201,8 @@ en:
         descr: "Description"
         picture: "Finish picture"
         provider: "Provider"
+        updated_at: "Last edited"
+      manufacturer:
         updated_at: "Last edited"
       appliance:
         primary_image: "Primary image"

@@ -19,6 +19,10 @@ Feature: Appliances
     Then I should see the updated appliance without the image
     When I remove a file
     Then I should see the updated appliance without the file
+    When I delete the appliance manufacturer
+    Then I should see a failed to delete message
+    When I delete the appliance category
+    Then I should see a failed to delete message
 
   @javascript
   Scenario: Delete

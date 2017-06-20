@@ -13,6 +13,7 @@ class Manufacturer < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
   validate :required_fields
+  default_scope { order(name: :asc) }
 
   delegate :to_s, to: :name
 

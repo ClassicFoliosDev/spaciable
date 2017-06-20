@@ -16,6 +16,8 @@ Feature: Developers
     When I update the manufacturer
     Then I should be required to enter a finish category
     Then I should see the updated manufacturer
+    When I create a finish with the new manufacturer
+    Then I should see the finish with manufacturer created successfully
 
   @javascript
   Scenario: Delete manufacturer

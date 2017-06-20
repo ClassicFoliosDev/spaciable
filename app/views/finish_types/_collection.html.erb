@@ -1,0 +1,41 @@
+<% if collection.empty? %>
+  <%= render 'components/empty_list', icon_name: "industry", type: FinishType, parent: nil %>
+<% else %>
+  <% if can_create(FinishType, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_finish_type_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list">
+    <thead>
+    <tr>
+      <th><%= sortable(FinishType, :name, t(".name")) %></th>
+      <th><%= sortable(FinishType, :updated_at) %></th>
+      <th><%= t(".finish_category") %></th>
+      <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collection.each do |finish_type| %>
+      <tr data-finish_type="<%= finish_type.id %>">
+        <td><%= link_to finish_type.name, finish_type_path(finish_type), title: finish_type.name %></td>
+        <td><%= l finish_type.updated_at.to_date, format: :digits %></td>
+        <td><%= finish_type.finish_categories.first %></td>
+        <td class="actions">
+          <%= edit_btn edit_finish_type_path(finish_type), element: finish_type %>
+          <%= delete_btn finish_type, path: url_for(finish_type), element: finish_type %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

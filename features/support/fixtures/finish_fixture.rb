@@ -35,7 +35,7 @@ module FinishFixture
   end
 
   def manufacturer
-    "Ideal Standard"
+    "Abode"
   end
 
   def updated_attrs

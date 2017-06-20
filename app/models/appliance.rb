@@ -26,6 +26,7 @@ class Appliance < ApplicationRecord
   paginates_per 10
 
   validates :name, :model_num, presence: true, uniqueness: true
+  default_scope { order(name: :asc) }
 
   delegate :link, to: :manufacturer, prefix: true
 

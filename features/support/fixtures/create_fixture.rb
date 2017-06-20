@@ -200,11 +200,25 @@ module CreateFixture
     FactoryGirl.create(:appliance_room, room: room, appliance: appliance)
   end
 
+  def create_finish_category
+    FinishCategory.find_or_create_by(name: finish_category_name)
+  end
+
+  def create_finish_type
+    finish_category = create_finish_category
+    finish_type = FactoryGirl.create(:finish_type,
+                                     name: finish_type_name,
+                                     finish_category_id: finish_category.id)
+
+    FactoryGirl.create(:finish_categories_type,
+                       finish_category_id: finish_category.id,
+                       finish_type_id: finish_type.id)
+
+    finish_type
+  end
+
   def create_finish
-    finish_category = FinishCategory.find_or_create_by(name: finish_category_name)
-    finish_type = FinishType.find_or_create_by(name: finish_type_name)
-    FinishCategoriesType.find_or_create_by(finish_type_id: finish_type.id, finish_category_id: finish_category.id)
-    FactoryGirl.create(:finish, name: finish_name, finish_category: finish_category, finish_type: finish_type)
+    FactoryGirl.create(:finish, name: finish_name, finish_category: create_finish_category, finish_type: create_finish_type)
   end
 
   def create_development_phase
@@ -325,6 +339,10 @@ module CreateFixture
 
   def room
     Room.find_by(name: room_name)
+  end
+
+  def finish_category
+    FinishCategory.find_by(name: finish_category_name)
   end
 
   def appliance

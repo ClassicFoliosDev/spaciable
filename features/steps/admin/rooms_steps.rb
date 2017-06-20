@@ -98,7 +98,6 @@ When(/^I add a finish$/) do
 
   select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
   select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
-
   select_from_selectmenu :finishes, with: CreateFixture.finish_name
 
   click_on t("rooms.form.submit")
@@ -252,4 +251,8 @@ Then(/^I should see the room deletion complete successfully$/) do
   within ".empty" do
     expect(page).to have_content t("components.empty_list.add", type_name: Room.model_name.human.downcase)
   end
+end
+
+Given(/^there is a second category$/) do
+  FactoryGirl.create(:finish_category)
 end

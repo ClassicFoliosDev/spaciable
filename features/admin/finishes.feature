@@ -13,13 +13,18 @@ Feature: Finishes
     Then I should see the created finish
     When I update the finish
     Then I should see the updated finish
+    When I delete the finish manufacturer
+    Then I should see a failed to delete message
+    When I delete the finish category
+    Then I should see a failed to delete message
+    When I delete the finish type
+    Then I should see a failed to delete message
     When I remove an image from a finish
     Then I should see the updated finish without the image
 
   @javascript
   Scenario: Delete
     Given I am logged in as an admin
-    And I have seeded the database
     And I have created a finish
     When I delete the finish
     Then I should see the finish deletion complete successfully

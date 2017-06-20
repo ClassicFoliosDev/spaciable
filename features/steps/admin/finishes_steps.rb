@@ -45,13 +45,10 @@ end
 
 When(/^I update the finish$/) do
   find("[data-action='edit']").click
-
   fill_in "finish[name]", with: FinishFixture.updated_name
 
   select_from_selectmenu :finish_finish_category, with: FinishFixture.updated_category
-
   select_from_selectmenu :finish_finish_type, with: FinishFixture.updated_type
-
   select_from_selectmenu :finish_manufacturer, with: FinishFixture.manufacturer
 
   picture_full_path = FileFixture.file_path + FileFixture.finish_picture_name
@@ -89,7 +86,7 @@ Then(/^I should see the updated finish$/) do
 end
 
 When(/^I remove an image from a finish$/) do
-  click_on t("finishes.show.back")
+  visit "/finishes"
 
   find("[data-action='edit']").click
 
@@ -141,4 +138,33 @@ Then(/^I should see the finish deletion complete successfully$/) do
   within ".empty" do
     expect(page).to have_content t("components.empty_list.add", type_name: Finish.model_name.human.downcase)
   end
+end
+
+When(/^I delete the finish manufacturer$/) do
+  visit "./manufacturers"
+
+  manufacturer = Manufacturer.find_by(name: FinishFixture.manufacturer)
+  delete_scope = "[data-manufacturer='#{manufacturer.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+Then(/^I should see a failed to delete message$/) do
+  error_flash = "It is not possible to delete"
+  expect(page).to have_content(error_flash)
+end
+
+When(/^I delete the finish category$/) do
+  visit "./finish_categories"
+
+  finish_category = FinishCategory.find_by(name: FinishFixture.updated_category)
+  delete_scope = "[data-finish_category='#{finish_category.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+When(/^I delete the finish type$/) do
+  visit "./finish_types"
+
+  finish_type = FinishType.find_by(name: FinishFixture.updated_type)
+  delete_scope = "[data-finish_type='#{finish_type.id}']"
+  delete_and_confirm!(scope: delete_scope)
 end

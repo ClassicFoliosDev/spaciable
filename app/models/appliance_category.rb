@@ -4,6 +4,7 @@ class ApplianceCategory < ApplicationRecord
   has_many :manufacturers, through: :appliance_categories_manufacturer
 
   belongs_to :appliance, optional: true
+  default_scope { order(name: :asc) }
 
   validates :name, presence: true, uniqueness: true
 

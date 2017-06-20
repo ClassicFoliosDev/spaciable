@@ -19,7 +19,9 @@ class Room < ApplicationRecord
     :kitchen,
     :living_room,
     :dining_room,
-    :study
+    :study,
+    :exterior,
+    :garage
   ]
 
   has_many :finish_rooms

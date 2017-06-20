@@ -18,9 +18,9 @@ Feature: Rooms
   @javascript
   Scenario: Finishes
   Given I am logged in as an admin
-    And I have seeded the database
+    And there is a finish
+    And there is a second category
     And I have created a room
-    And I have created a finish
     When I add a finish
     Then I should see the room with a finish
     When I add a finish

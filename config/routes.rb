@@ -98,10 +98,20 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
   end
 
-  resources :appliances
   resources :manufacturers
+  resources :appliances
   resources :appliance_categories
   resources :finishes
+  resources :finish_categories
+  resources :finish_types
+
+  namespace :appliances do
+    resources :manufacturers, shallow: true
+  end
+
+  namespace :finishes do
+    resources :manufacturers, shallow: true
+  end
 
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update]
@@ -144,7 +154,7 @@ Rails.application.routes.draw do
   get "/ts_and_cs", to: 'home#ts_and_cs'
   get "/ts_and_cs2", to: 'home#ts_and_cs2'
   get "/data_policy", to: 'home#data_policy'
-  get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers'
+  get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers_list'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/how_to_sub_category_list", to: 'how_to_sub_category#list'
   get "/remove_appliance", to: "rooms#remove_appliance"
@@ -153,9 +163,9 @@ Rails.application.routes.draw do
   get "/search", to: "admin/search#new", as: :admin_search, format: :json
   get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json
   get "/finish_search", to: "admin/finish_search#new", as: :admin_finish_search, format: :json
-  get "/finish_manufacturers", to: 'finishes#manufacturers', format: :json
+  get "/finish_manufacturers_list", to: 'finishes#manufacturers_list', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
-  get "/finish_types", to: 'finishes#finish_types', format: :json
+  get "/finish_types_list", to: 'finishes#finish_types_list', format: :json
   get "/dashboard", to: "homeowners/dashboard#show"
 
   authenticated :user do

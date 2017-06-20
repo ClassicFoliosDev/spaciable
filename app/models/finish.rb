@@ -17,6 +17,7 @@ class Finish < ApplicationRecord
   has_many :unit_types, through: :rooms
 
   validates :name, presence: true, uniqueness: true
+  default_scope { order(name: :asc) }
 
   def to_s
     name
