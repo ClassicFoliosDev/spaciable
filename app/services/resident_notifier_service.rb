@@ -107,7 +107,7 @@ class ResidentNotifierService
     residents_with_plots = notification.send_to.residents.includes(plot_residency: :plot)
 
     residents_with_plots.each do |resident|
-      residents_in_scope.push(resident) && next if resident.plot.prefix == notification.plot_prefix
+      residents_in_scope.push(resident)
     end
 
     residents_in_scope
