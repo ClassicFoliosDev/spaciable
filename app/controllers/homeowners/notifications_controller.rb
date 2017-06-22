@@ -5,6 +5,9 @@ module Homeowners
     skip_authorization_check
 
     def index
+      @notifications = []
+      return unless current_resident
+
       @notifications = current_resident.notifications.order(sent_at: :desc).includes(:sender)
       @notifications.each do |notification|
         resident_notification = ResidentNotification.find_by(notification_id: notification.id,
