@@ -5,7 +5,6 @@ class FinishCategory < ApplicationRecord
   has_many :manufacturers, through: :finish_types
 
   belongs_to :finish, optional: true
-  default_scope { order(name: :asc) }
 
   validates :name, presence: true, uniqueness: true
 

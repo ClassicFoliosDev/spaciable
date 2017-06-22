@@ -54,6 +54,7 @@ class FinishesController < ApplicationController
     manufacturers = Manufacturer
                     .joins(:finish_types)
                     .where(finish_types: { name: params[:option_name] })
+                    .order(:name)
                     .distinct
 
     render json: manufacturers
@@ -64,10 +65,12 @@ class FinishesController < ApplicationController
                  Finish.joins(:finish_type, :manufacturer)
                        .where(finish_types: { name: params[:type_name] },
                               manufacturers: { name: params[:manufacturer_name] })
+                       .order(:name)
                        .distinct
                else
                  Finish.joins(:finish_type)
                        .where(finish_types: { name: params[:type_name] })
+                       .order(:name)
                        .distinct
                end
 

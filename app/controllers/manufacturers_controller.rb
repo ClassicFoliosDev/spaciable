@@ -24,11 +24,11 @@ class ManufacturersController < ApplicationController
   end
 
   def new
-    @finish_categories = FinishCategory.all
+    @finish_categories = sort(FinishCategory.all, default: :name)
   end
 
   def edit
-    @finish_categories = FinishCategory.all
+    @finish_categories = sort(FinishCategory.all, default: :name)
   end
 
   def update
@@ -41,7 +41,7 @@ class ManufacturersController < ApplicationController
         redirect_to "/finishes", notice: notice, active_tab: "manufacturers"
       end
     else
-      @finish_categories = FinishCategory.all
+      @finish_categories = sort(FinishCategory.all, default: :name)
       render :edit
     end
   end
@@ -56,7 +56,7 @@ class ManufacturersController < ApplicationController
         redirect_to "/finishes", notice: notice, active_tab: "manufacturers"
       end
     else
-      @finish_categories = FinishCategory.all
+      @finish_categories = sort(FinishCategory.all, default: :name)
       render :new
     end
   end

@@ -12,11 +12,11 @@ class FinishTypesController < ApplicationController
   def show; end
 
   def new
-    @finish_categories = FinishCategory.all
+    @finish_categories = sort(FinishCategory.all, default: :name)
   end
 
   def edit
-    @finish_categories = FinishCategory.all
+    @finish_categories = sort(FinishCategory.all, default: :name)
   end
 
   def update
@@ -26,7 +26,7 @@ class FinishTypesController < ApplicationController
       notice = t("controller.success.update", name: @finish_type.name)
       redirect_to finish_types_path, notice: notice
     else
-      @finish_categories = FinishCategory.all
+      @finish_categories = sort(FinishCategory.all, default: :name)
       render :edit
     end
   end
@@ -38,7 +38,7 @@ class FinishTypesController < ApplicationController
       notice = t("controller.success.create", name: @finish_type.name)
       redirect_to finish_types_path, notice: notice
     else
-      @finish_categories = FinishCategory.all
+      @finish_categories = sort(FinishCategory.all, default: :name)
       render :new
     end
   end

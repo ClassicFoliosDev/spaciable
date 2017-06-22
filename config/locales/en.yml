@@ -851,7 +851,7 @@ en:
      title: "Manufacturers"
    collection:
      add: "Add manufacturer"
-     name: "Manufacturer"
+     name: "Name"
      appliances: "Appliances"
      finishes: "Finishes"
      applies_to: "Applies to"
