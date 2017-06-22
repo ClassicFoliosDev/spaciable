@@ -74,3 +74,16 @@ function noMatches(error_message) {
 function clearMatchErrors() {
   $('.match-errors').html('');
 }
+
+function noManufacturers () {
+    var $parentFieldset = $(document).find('.finish')
+
+    var $finishesDiv = $parentFieldset.find('.finishes')
+    var finishesSelect = clearFields($finishesDiv)
+
+    var $typeDiv = $('.finish_type')
+    var typeValue = $typeDiv.find('.ui-selectmenu-text')[0].innerHTML
+
+    var url = '/finish_list'
+    setFields(finishesSelect, url, { type_name: typeValue, manufacturer_name: '' })
+}

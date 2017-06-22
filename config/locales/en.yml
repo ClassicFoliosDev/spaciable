@@ -998,6 +998,7 @@ en:
         title: "Add finish to %{room_name}"
         submit: "Submit"
         back: "Back"
+        search: "Search"
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:

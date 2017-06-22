@@ -27,7 +27,7 @@ module Rooms
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def appliance_room_params
-      params.require(:appliance_room).permit(:search_text)
+      params.require(:appliance_room).permit(:search_appliance_text)
     end
   end
 end

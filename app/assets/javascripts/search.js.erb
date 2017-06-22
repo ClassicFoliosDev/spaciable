@@ -6,13 +6,15 @@ $document.on('keypress', 'form', function (event) {
 
   if (event.keyCode === RETURN) {
     var $searchField = $('.search-field')
-    var $searchList = $('.search-results')
+    var $searchApplianceField = $('.search-appliance-field')
+    var $searchFinishField = $('.search-finish-field')
     // If there is a search value, process the search
     if ($searchField.val()) {
-      var searchText = $searchField[0].value
-      var url = '/search'
-      var data = { search_term: searchText }
-      setSearchFields($searchList, url, data)
+      searchGlobal()
+    } else if ($searchApplianceField.val()) {
+      searchAppliance()
+    } else if ($searchFinishField.val()) {
+      searchFinish()
     }
      // Whether or not there is a search value, don't allow the user
      // to submit the form using "enter" key
@@ -22,7 +24,10 @@ $document.on('keypress', 'form', function (event) {
 
 $document.on('click', '.search-btn', function (event) {
   event.preventDefault()
+  searchGlobal()
+})
 
+function searchGlobal () {
   var $searchField = $('.search-field')
   var searchText = $searchField[0].value
 
@@ -31,11 +36,14 @@ $document.on('click', '.search-btn', function (event) {
 
   var $searchList = $('.search-results')
   setSearchFields($searchList, url, data)
-})
+}
 
 $document.on('click', '.search-appliance-btn', function (event) {
   event.preventDefault()
+  searchAppliance()
+})
 
+function searchAppliance () {
   var $searchField = $('.search-appliance-field')
   var searchText = $searchField[0].value
 
@@ -45,7 +53,24 @@ $document.on('click', '.search-appliance-btn', function (event) {
   var $applianceResultsDiv = $('.appliances')
   var $applianceSelect = clearFields($applianceResultsDiv)
   setFields($applianceSelect, url, data)
+}
+
+$document.on('click', '.search-finish-btn', function (event) {
+  event.preventDefault()
+  searchFinish()
 })
+
+function searchFinish () {
+  var $searchField = $('.search-finish-field')
+  var searchText = $searchField[0].value
+
+  var url = '/finish_search'
+  var data = { search_term: searchText }
+
+  var $applianceResultsDiv = $('.finishes')
+  var $applianceSelect = clearFields($applianceResultsDiv)
+  setFields($applianceSelect, url, data)
+}
 
 function setSearchFields ($searchList, url, data) {
   $.getJSON({

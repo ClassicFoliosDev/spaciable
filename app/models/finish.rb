@@ -6,6 +6,7 @@ class Finish < ApplicationRecord
   multisearchable against: [:name], using: [:tsearch, :trigram]
 
   mount_uploader :picture, PictureUploader
+  process_in_background :picture
   attr_accessor :picture_cache
 
   belongs_to :finish_category, optional: false
@@ -14,7 +15,6 @@ class Finish < ApplicationRecord
 
   has_many :finish_rooms
   has_many :rooms, through: :finish_rooms
-  has_many :unit_types, through: :rooms
 
   validates :name, presence: true, uniqueness: true
   default_scope { order(name: :asc) }
