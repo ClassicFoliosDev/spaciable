@@ -3,10 +3,11 @@ module Rooms
   class FinishRoomsController < ApplicationController
     load_and_authorize_resource :room
     load_and_authorize_resource :finish_room, through: :room
+    include SortingConcern
 
     def new
       @finish_room = FinishRoom.new
-      @finish_categories = FinishCategory.all
+      @finish_categories = FinishCategory.all.order(:name)
     end
 
     def edit; end

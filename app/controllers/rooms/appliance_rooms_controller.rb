@@ -3,9 +3,10 @@ module Rooms
   class ApplianceRoomsController < ApplicationController
     load_and_authorize_resource :room
     load_and_authorize_resource :appliance_room, through: :room
+    include SortingConcern
 
     def new
-      @appliance_categories = ApplianceCategory.all
+      @appliance_categories = sort(ApplianceCategory.all, default: :name)
     end
 
     def edit; end

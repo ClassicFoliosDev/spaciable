@@ -254,5 +254,5 @@ Then(/^I should see the room deletion complete successfully$/) do
 end
 
 Given(/^there is a second category$/) do
-  FactoryGirl.create(:finish_category)
+  FactoryGirl.create(:finish_category, name: "Alabaster")
 end
