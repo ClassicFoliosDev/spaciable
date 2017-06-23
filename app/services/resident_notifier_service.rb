@@ -48,17 +48,25 @@ class ResidentNotifierService
   def plots_with_no_residents(potential_plots, sent_residents)
     missing_plot_names = []
     sent_resident_numbers = sent_residents.map(&:number)
+    sent_resident_full_numbers = sent_residents.map(&:full_plot_number)
+
     potential_plots.each do |potential_plot|
       index = sent_resident_numbers.index(potential_plot.number)
 
-      if index && index >= 0
-        if sent_residents[index].prefix != notification.plot_prefix
-          # If number matches, but prefix does not match
+      # If there were no notification numbers, just compare the full plot name
+      if notification.plot_numbers.empty?
+        missing_plot_names.push(potential_plot.to_s) unless sent_resident_full_numbers.include?(potential_plot.to_s)
+        #byebug
+      else
+        if index && index >= 0
+          if sent_residents[index].prefix != notification.plot_prefix
+            # If number matches, but prefix does not match
+            missing_plot_names.push(potential_plot.to_s)
+          end
+        else
+          # If no prefix and number does not match
           missing_plot_names.push(potential_plot.to_s)
         end
-      else
-        # If number does not match
-        missing_plot_names.push(potential_plot.to_s)
       end
     end
 
