@@ -258,15 +258,17 @@ RSpec.describe ResidentNotifierService do
         expect(notified_residents[0].prefix).to eq("Apartment")
       end
 
-      it "should not send to any plots with different prefix" do
+      it "should ignore prefixes for all in development" do
         development = create(:development)
-        notification = create(:notification, send_to: development, plot_prefix: "Plot")
+        notification = create(:notification, send_to: development)
+        create(:plot, :with_resident, development: development, prefix: "Plot", number: "6")
         create(:plot, :with_resident, development: development, prefix: "Apartment", number: "6")
         create(:plot, development: development, prefix: "Penthouse", number: "6")
 
         service = described_class.new(notification)
+        notified_residents = service.notify_residents
+        expect(notified_residents.length).to eq(2)
 
-        expect(service.missing_resident_plots).to include("Apartment 6")
         expect(service.missing_resident_plots).to include("Penthouse 6")
       end
 
@@ -302,10 +304,18 @@ RSpec.describe ResidentNotifierService do
       it "should not send to plot numbers with different prefix" do
         development = create(:development)
         create(:plot, :with_resident, development: development, prefix: "Apartment", number: "4")
-        notification = create(:notification, send_to: development, list: "4", plot_prefix: "Plot")
+        create(:plot, :with_resident, development: development, prefix: "Plot", number: "4")
+        create(:plot, development: development, prefix: "Plot", number: "5")
+        notification = create(:notification, send_to: development, list: "4, 5", plot_prefix: "Plot")
 
         service = described_class.new(notification)
+        notified_residents = service.notify_residents
+
+        expect(notified_residents.length).to eq(1)
+        expect(notified_residents.map(&:full_plot_number)).to match_array(["Plot 4"])
+
         expect(service.missing_resident_plots).to include("Apartment 4")
+        expect(service.missing_resident_plots).to include("Plot 5")
       end
     end
   end
