@@ -10,7 +10,7 @@ module CreateFixture
     developer: "Hamble View Developer",
     development: "Riverside Development",
     division: "Hamble Riverside Division",
-    division_development: "Hamble East Riverside (Division) Development",
+    division_development: "Hamble East Riverside Division Development",
     division_phase: "Beta (Division) Phase",
     finish: "Fluffy carpet",
     phase: "Alpha Phase",

@@ -1,5 +1,5 @@
 <head>
-  <title><%=  yield(:title) || title %></title>
+  <title><%= t(".hoozzi") %></title>
 
   <% if Rails.env.test? %>
     <meta name="turbolinks-cache-control" content="no-cache">
@@ -11,6 +11,8 @@
   <%= stylesheet_link_tag 'manifest_homeowner', media: 'all', 'data-turbolinks-track': 'reload' %>
 
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+  <link rel="apple-touch-icon" href=<%= image_path("Hoozzi_Webclip.png") %> content=<%= t(".hoozzi") %> />
+  <%= favicon_link_tag "Hoozzi_Favicon.png" %>
 
   <%= render "components/homeowner/brand_template", brand: brand if brand %>
 
