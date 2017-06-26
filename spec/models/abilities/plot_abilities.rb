@@ -54,6 +54,15 @@ RSpec.describe "Plot Abilities" do
       expect(ability).to be_able_to(:create, resident)
       expect(ability).to be_able_to(:crud, plot_resident)
     end
+
+    specify "can not clone a unit type" do
+      development = create(:development)
+      development_admin = create(:development_admin, permission_level: development)
+      unit_type = create(:unit_type, development: development)
+
+      ability = Ability.new(development_admin)
+      expect(ability).not_to be_able_to(:clone, unit_type)
+    end
   end
 
   context "As a division admin" do

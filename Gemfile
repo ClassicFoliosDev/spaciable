@@ -89,6 +89,9 @@ gem "gibbon", "~> 3" # Mailchimp API wrapper
 # Postgres search helper
 gem "pg_search"
 
+# Help with deep cloning
+gem "amoeba"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "factory_girl_rails"

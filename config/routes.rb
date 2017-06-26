@@ -159,6 +159,7 @@ Rails.application.routes.draw do
   get "/how_to_sub_category_list", to: 'how_to_sub_category#list'
   get "/remove_appliance", to: "rooms#remove_appliance"
   get "/remove_finish", to: "rooms#remove_finish"
+  get "/clone_unit_type", to: "unit_types#clone"
   get "/remove_tag", to: "admin/how_tos#remove_tag"
   get "/search", to: "admin/search#new", as: :admin_search, format: :json
   get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json

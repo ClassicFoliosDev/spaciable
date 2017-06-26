@@ -9,12 +9,17 @@ class UnitType < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
-  has_many :rooms, dependent: :destroy
+  has_many :rooms, dependent: :destroy, inverse_of: :unit_type
   has_many :plots, dependent: :destroy
   has_many :phases_unit_types
   has_many :phases, through: :phases_unit_types
   has_many :documents, as: :documentable
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
+
+  amoeba do
+    include_association :documents
+    include_association :rooms
+  end
 
   enum build_type: [
     :apartment,

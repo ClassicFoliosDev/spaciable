@@ -3,7 +3,7 @@ class Room < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :plot, optional: true
-  belongs_to :unit_type, optional: true
+  belongs_to :unit_type, optional: true, inverse_of: :rooms
   belongs_to :development, optional: true
   belongs_to :division, optional: true
   belongs_to :developer, optional: false
@@ -24,13 +24,19 @@ class Room < ApplicationRecord
     :garage
   ]
 
-  has_many :finish_rooms
+  has_many :finish_rooms, inverse_of: :room
   has_many :finishes, through: :finish_rooms
 
-  has_many :appliance_rooms
+  has_many :appliance_rooms, inverse_of: :room
   has_many :appliances, through: :appliance_rooms
   has_many :manufacturers, through: :appliances
   has_many :appliance_categories, through: :appliances
+
+  amoeba do
+    include_association :finish_rooms
+    include_association :appliance_rooms
+    include_association :documents
+  end
 
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true

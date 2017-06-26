@@ -221,6 +221,10 @@ module CreateFixture
     FactoryGirl.create(:finish, name: finish_name, finish_category: create_finish_category, finish_type: create_finish_type)
   end
 
+  def create_finish_room
+    FactoryGirl.create(:finish_room, room: room, finish: create_finish)
+  end
+
   def create_development_phase
     FactoryGirl.create(:phase, name: phase_name, development: development)
   end

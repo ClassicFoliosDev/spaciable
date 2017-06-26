@@ -3,7 +3,7 @@ class UnitTypesController < ApplicationController
   include PaginationConcern
   include SortingConcern
   load_and_authorize_resource :development
-  load_and_authorize_resource :unit_type, through: :development
+  load_and_authorize_resource :unit_type, through: :development, except: [:clone]
 
   def index
     @unit_types = paginate(sort(@unit_types, default: :name))
@@ -47,6 +47,23 @@ class UnitTypesController < ApplicationController
     @unit_type.destroy
     notice = t("controller.success.destroy", name: @unit_type.name)
     redirect_to [@development.parent, @development, active_tab: :unit_types], notice: notice
+  end
+
+  def clone
+    @unit_type = UnitType.find(params[:id])
+    development = @unit_type.parent
+
+    new_unit_type = @unit_type.amoeba_dup
+    new_unit_type.name = CloneNameService.call(@unit_type.name)
+    new_unit_type.save!
+
+    notice = t("controller.success.create", name: new_unit_type.name)
+    redirect_to [development.parent, development, active_tab: :unit_types], notice: notice
+
+  rescue ActiveRecord::RecordInvalid
+    notice = t("activerecord.errors.messages.clone_not_possible",
+               name: new_unit_type.name)
+    redirect_to [development.parent, development, active_tab: :unit_types], alert: notice
   end
 
   private

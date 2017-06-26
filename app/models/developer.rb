@@ -21,6 +21,10 @@ class Developer < ApplicationRecord
   has_many :brands, as: :brandable
   has_one :address, as: :addressable, dependent: :destroy
 
+  amoeba do
+    enable
+  end
+
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
 

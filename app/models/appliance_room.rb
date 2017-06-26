@@ -3,7 +3,7 @@ class ApplianceRoom < ApplicationRecord
   self.table_name = "appliances_rooms"
 
   belongs_to :appliance
-  belongs_to :room
+  belongs_to :room, inverse_of: :appliance_rooms
 
   attr_accessor :search_appliance_text
 

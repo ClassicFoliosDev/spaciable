@@ -111,3 +111,90 @@ When(/^I navigate to the division development$/) do
   visit "/"
   goto_division_development_show_page
 end
+
+When(/^I clone the unit type$/) do
+  within ".record-list" do
+    links = page.all(".clone")
+    links.last.click
+  end
+end
+
+Then(/^I should see a duplicate unit type created successfully$/) do
+  new_name = CreateFixture.unit_type_name + " 1"
+
+  within ".record-list" do
+    expect(page).to have_content(new_name)
+  end
+end
+
+Then(/^I should see another duplicate unit type created successfully$/) do
+  new_name = CreateFixture.unit_type_name + " 2"
+
+  within ".record-list" do
+    expect(page).to have_content(new_name)
+  end
+end
+
+Given(/^there is a unit type room with finish and appliance$/) do
+  MyLibraryFixture.setup
+  CreateFixture.create_finish_room
+end
+
+Then(/^I should see a duplicate unit type with finish and appliance created successfully$/) do
+  new_name = CreateFixture.unit_type_name + " 1"
+
+  within ".record-list" do
+    click_on new_name
+  end
+
+  within ".record-list" do
+    expect(page).to have_content("Unit Type Document")
+  end
+
+  within ".tabs" do
+    click_on t("unit_types.collection.rooms")
+  end
+
+  within ".record-list" do
+    click_on CreateFixture.room_name
+  end
+
+  within ".record-list" do
+    expect(page).to have_content(CreateFixture.finish_name)
+  end
+
+  within ".tabs" do
+    click_on t("rooms.collection.appliances")
+  end
+
+  within ".record-list" do
+    expect(page).to have_content(CreateFixture.appliance_without_manual_name)
+    expect(page).to have_content(CreateFixture.full_appliance_name)
+  end
+end
+
+When(/^I clone a unit type twice$/) do
+  within ".record-list" do
+    links = page.all(".clone")
+    links.first.click
+  end
+end
+
+Then(/^I should see a duplicate name error$/) do
+  error_flash = t("activerecord.errors.messages.clone_not_possible", name: CreateFixture.unit_type_name + " 1")
+  expect(page).to have_content(error_flash)
+end
+
+Then(/^I should not be able to clone a unit type$/) do
+  within ".tabs" do
+    click_on t("developments.collection.unit_types")
+  end
+
+  within ".record-list" do
+    expect(page).to have_no_css(".clone")
+  end
+end
+
+When(/^there is a division development unit type$/) do
+  CreateFixture.create_division_development_unit_type
+end
