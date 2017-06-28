@@ -73,4 +73,17 @@ RSpec.describe CloneNameService do
       expect(result).to eq("A name with 44 and 76542 that ends with a letter 1")
     end
   end
+
+  context "clone in the database already" do
+    it "increments an extra time" do
+      unit_type = create(:unit_type)
+      new_name = unit_type.name + " 1"
+      create(:unit_type, name: new_name)
+
+      result = described_class.call(unit_type.name)
+
+      new_name2 = unit_type.name + " 2"
+      expect(result).to eq(new_name2)
+    end
+  end
 end

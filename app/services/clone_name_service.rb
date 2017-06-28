@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 module CloneNameService
   module_function
 
@@ -6,15 +6,24 @@ module CloneNameService
     last_index = old_name.length - 1
     last_char = old_name[last_index]
 
-    return old_name + " 1" if last_char =~ /[[:alpha:]]/
+    if last_char =~ /[[:alpha:]]/
+      base_name = old_name + " "
+      new_number = 0
+    else
+      numbers_in_string = old_name.scan(/\d+/)
+      old_number = numbers_in_string[numbers_in_string.length - 1]
+      old_number_index = old_name.index(old_number.to_s)
 
-    numbers_in_string = old_name.scan(/\d+/)
-    old_number = numbers_in_string[numbers_in_string.length - 1]
-    old_number_index = old_name.index(old_number.to_s)
+      base_name = old_name[0, old_number_index]
+      new_number = old_number.to_i
+    end
 
-    new_number = (old_number.to_i + 1)
-    name = old_name[0, old_number_index]
-    name << new_number.to_s
+    existing_unit_type = true
+    while existing_unit_type
+      new_number = new_number + 1
+      name = base_name + new_number.to_s
+      existing_unit_type = UnitType.find_by_name(name)
+    end
 
     name
   end
