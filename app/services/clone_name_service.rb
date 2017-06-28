@@ -2,6 +2,7 @@
 module CloneNameService
   module_function
 
+  # rubocop:disable MethodLength
   def call(old_name)
     last_index = old_name.length - 1
     last_char = old_name[last_index]
@@ -20,11 +21,12 @@ module CloneNameService
 
     existing_unit_type = true
     while existing_unit_type
-      new_number = new_number + 1
+      new_number += 1
       name = base_name + new_number.to_s
       existing_unit_type = UnitType.find_by_name(name)
     end
 
     name
   end
+  # rubocop:enable MethodLength
 end

@@ -82,8 +82,8 @@ RSpec.describe CloneNameService do
 
       result = described_class.call(unit_type.name)
 
-      new_name2 = unit_type.name + " 2"
-      expect(result).to eq(new_name2)
+      next_new_name = unit_type.name + " 2"
+      expect(result).to eq(next_new_name)
     end
   end
 end
