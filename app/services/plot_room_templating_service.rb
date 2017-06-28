@@ -20,6 +20,27 @@ class PlotRoomTemplatingService
     room
   end
 
+  def self.clone_room(plot_id, old_room)
+    return if plot_id.nil?
+
+    plot = Plot.find(plot_id)
+
+    # Don't continue if the room parent is already the plot
+    return if old_room.parent == plot
+
+    # Tidy up any unsaved content in the old room
+    old_room.reload
+
+    # Clone the room, and connect it with the plot instead of the unit type
+    new_room = old_room.amoeba_dup
+    new_room.unit_type_id = nil
+    new_room.plot_id = plot.id
+    new_room.template_room_id = old_room.id
+
+    new_room.save!
+    new_room
+  end
+
   def destroy(room)
     if template_room?(room)
       create_deleted_plot_room(template_room_id: room.id)

@@ -11,8 +11,8 @@
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: room_tabs(@room, @active_tab), parent: @room.parent %>
-<%= render_collection @collection, room: @room %>
+<%= render 'components/tabs', tabs: room_tabs(@room, @active_tab, @plot), parent: @room.parent %>
+<%= render_collection @collection, room: @room, plot: @plot %>
 
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">

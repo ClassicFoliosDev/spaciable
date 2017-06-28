@@ -32,6 +32,25 @@ RSpec.describe PlotRoomTemplatingService do
     end
   end
 
+  describe "#clone_room" do
+    it "should clone a room for a plot, but only once" do
+      unit_type = create(:unit_type)
+      unit_type_room = create(:room, unit_type: unit_type)
+      plot = create(:plot, unit_type: unit_type)
+
+      new_room = described_class.clone_room(plot, unit_type_room)
+
+      expect(new_room.name).to eq(unit_type_room.name)
+      expect(new_room.id).not_to eq(unit_type_room.id)
+      expect(new_room.unit_type_id).to be_nil
+      expect(new_room.plot_id).to eq(plot.id)
+      expect(new_room.template_room_id).to eq(unit_type_room.id)
+
+      response = described_class.clone_room(plot, new_room)
+      expect(response).to be_nil
+    end
+  end
+
   describe "#destroy" do
     context "when the room is a template room" do
       it "should not delete the template room" do

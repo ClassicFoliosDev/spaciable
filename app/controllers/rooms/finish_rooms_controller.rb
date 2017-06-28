@@ -8,6 +8,12 @@ module Rooms
     def new
       @finish_room = FinishRoom.new
       @finish_categories = FinishCategory.all.order(:name)
+
+      new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
+      return unless new_room
+
+      @room = new_room
+      redirect_to [:new, @room, "finish_room"]
     end
 
     def edit; end
@@ -17,7 +23,6 @@ module Rooms
       @finish_room = FinishRoom.new(finish_id: finish_id, room_id: @room.id)
 
       if @finish_room.save
-
         notice = t("controller.success.update", name: @room.name)
         redirect_to [@room.parent, @room, active_tab: "finishes"], notice: notice
       else

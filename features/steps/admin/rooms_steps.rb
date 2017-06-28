@@ -252,7 +252,3 @@ Then(/^I should see the room deletion complete successfully$/) do
     expect(page).to have_content t("components.empty_list.add", type_name: Room.model_name.human.downcase)
   end
 end
-
-Given(/^there is a second category$/) do
-  FactoryGirl.create(:finish_category, name: "Alabaster")
-end

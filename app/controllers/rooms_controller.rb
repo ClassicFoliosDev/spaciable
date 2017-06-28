@@ -30,6 +30,7 @@ class RoomsController < ApplicationController
 
   def show
     @active_tab = params[:active_tab] || "finishes"
+    @plot = Plot.find(params[:plot]) if params[:plot]
 
     @collection = if @active_tab == "finishes"
                     paginate(sort(@room.finishes, default: :name))
@@ -71,11 +72,11 @@ class RoomsController < ApplicationController
   end
 
   def remove_appliance
-    appliance_id = params[:appliance]
-    room_id = params[:room]
+    @appliance = Appliance.find(params[:appliance])
+    @room = Room.find(params[:room])
 
-    @appliance = Appliance.find(appliance_id)
-    @room = Room.find(room_id)
+    new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
+    @room = new_room if new_room
 
     # This will delete all joins between @room and @appliance
     # if there is more than one
@@ -87,11 +88,11 @@ class RoomsController < ApplicationController
   end
 
   def remove_finish
-    finish_id = params[:finish]
-    room_id = params[:room]
+    @finish = Finish.find(params[:finish])
+    @room = Room.find(params[:room])
 
-    @finish = Finish.find(finish_id)
-    @room = Room.find(room_id)
+    new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
+    @room = new_room if new_room
 
     # This will delete all joins between @room and @appliance
     # if there is more than one

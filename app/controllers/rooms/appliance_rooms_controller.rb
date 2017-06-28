@@ -7,6 +7,12 @@ module Rooms
 
     def new
       @appliance_categories = sort(ApplianceCategory.all, default: :name)
+
+      new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
+      return unless new_room
+
+      @room = new_room
+      redirect_to [:new, @room, "appliance_room"]
     end
 
     def edit; end

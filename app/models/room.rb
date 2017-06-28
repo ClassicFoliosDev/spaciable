@@ -41,7 +41,8 @@ class Room < ApplicationRecord
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, presence: true, uniqueness: { scope: :unit_type_id }
+  validates :name, presence: true
+  validates :name, uniqueness: { scope: [:unit_type_id, :plot_id] }
   validates_associated :finish_rooms
   validates_associated :finishes
   validates_associated :appliance_rooms

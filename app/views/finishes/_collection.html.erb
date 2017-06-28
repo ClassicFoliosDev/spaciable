@@ -2,13 +2,13 @@
   <% if room.nil? %>
     <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room %>
   <% else %>
-    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room %>
+    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot %>
   <% end %>
 <% else %>
   <% if can_create(Finish, current_user.permission_level) %>
     <div class="section-actions">
       <% if room %>
-        <%= link_to new_room_finish_room_path(room), class: "btn btn-primary" do %>
+        <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
           <span class="btn-label"><%= t(".create") %></span>
         <% end %>
@@ -45,7 +45,7 @@
           <td class="actions">
             <%= edit_btn edit_finish_path(finish), element: finish %>
             <% if room && can?(:destroy, finish) %>
-              <%= link_to remove_finish_path(room: room, finish: finish), class: "btn remove" do %>
+              <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
                 <%= fa_icon "times" %>
               <% end %>
             <% else %>

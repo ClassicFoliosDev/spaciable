@@ -25,7 +25,7 @@
       <fieldset>
         <div class="finish_category ui-front select-container">
           <%= label_tag Finish.human_attribute_name(:category) %>
-          <%= select_tag "finish_category", options_from_collection_for_select(@finish_categories, "id", "name") %>
+          <%= select_tag "finish_category", options_from_collection_for_select(@finish_categories, "id", "name"), prompt: t(".choose") %>
         </div>
         <div class="finish_type ui-front select-container">
           <%= label_tag Finish.human_attribute_name(:type) %>

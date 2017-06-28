@@ -3,7 +3,7 @@
   <div><span><%= t(".empty", type_names: type.model_name.human.downcase.pluralize) %></span></div>
   <div>
     <% if can_create(type, parent) %>
-      <%= link_to t(".add", type_name: type.model_name.human.downcase), [:new, parent, type.name.underscore.to_sym], class: "btn btn-primary" %>
+      <%= link_to t(".add", type_name: type.model_name.human.downcase), [:new, parent, type.name.underscore.to_sym, plot: @plot], class: "btn btn-primary" %>
     <% else %>
       <span><%= t(".request_add", type_names: type.model_name.human.downcase.pluralize) %></span>
     <% end%>

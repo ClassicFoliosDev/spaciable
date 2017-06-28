@@ -2,21 +2,21 @@
 module RoomTabsHelper
   include TabsHelper
 
-  def room_tabs(room, current_tab)
-    tabs = ROOM_TABS.call(room)
+  def room_tabs(room, current_tab, plot)
+    tabs = ROOM_TABS.call(room, plot)
     Tabs.new(room, tabs, current_tab, self).all
   end
 
-  ROOM_TABS = lambda do |room|
+  ROOM_TABS = lambda do |room, plot|
     {
       finishes: {
         icon: :shower,
-        link: [room.parent, room, active_tab: :finishes],
+        link: [room.parent, room, active_tab: :finishes, plot: plot],
         always_show: true
       },
       appliances: {
         icon: :coffee,
-        link: [room.parent, room, active_tab: :appliances],
+        link: [room.parent, room, active_tab: :appliances, plot: plot],
         always_show: true
       }
     }

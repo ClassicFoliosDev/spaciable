@@ -1001,6 +1001,7 @@ en:
         submit: "Submit"
         back: "Back"
         search: "Search"
+        choose: "Choose..."
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:

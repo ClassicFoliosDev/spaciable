@@ -13,7 +13,7 @@ class Finish < ApplicationRecord
   belongs_to :finish_type, optional: false
   belongs_to :manufacturer
 
-  has_many :finish_rooms
+  has_many :finish_rooms, inverse_of: :finish
   has_many :rooms, through: :finish_rooms
 
   validates :name, presence: true, uniqueness: true

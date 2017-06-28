@@ -13,7 +13,7 @@ module PlotRoomsFixture
 
   UNIT_TYPE_ROOMS = [
     "Ultra Modern Bathroom",
-    "Resturant Kitchen",
+    "Restaurant Kitchen",
     "Saloon",
     "Greenhouse"
   ].freeze
@@ -38,8 +38,20 @@ module PlotRoomsFixture
     "Greenhouse"
   end
 
+  def template_room_to_add_finish
+    "Restaurant Kitchen"
+  end
+
   def template_room_id_to_delete
     Room.find_by(name: template_room_to_delete).id
+  end
+
+  def add_appliance_finish_to_unit_type_room
+    CreateFixture.create_room
+    CreateFixture.create_manufacturer
+    CreateFixture.create_appliance
+    CreateFixture.create_appliance_room
+    CreateFixture.create_finish_room
   end
 
   private

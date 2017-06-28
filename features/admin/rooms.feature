@@ -19,7 +19,6 @@ Feature: Rooms
   Scenario: Finishes
   Given I am logged in as an admin
     And there is a finish
-    And there is a second category
     And I have created a room
     When I add a finish
     Then I should see the room with a finish
