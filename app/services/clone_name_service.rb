@@ -31,6 +31,6 @@ module CloneNameService
       new_number = old_number.to_i
     end
 
-    return base_name, new_number
+    [base_name, new_number]
   end
 end
