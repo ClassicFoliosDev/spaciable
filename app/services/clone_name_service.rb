@@ -3,6 +3,8 @@ module CloneNameService
   module_function
 
   # rubocop:disable MethodLength
+  # Splitting this method would be complex because the variables calculated in the top
+  # section are used in the lower section
   def call(old_name)
     last_index = old_name.length - 1
     last_char = old_name[last_index]
