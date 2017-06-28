@@ -57,4 +57,20 @@ RSpec.describe CloneNameService do
       expect(result).to eq("A name that ends with 10")
     end
   end
+
+  context "name with several numbers ending in 0" do
+    it "increments the end" do
+      result = described_class.call("A name with 44 48960 that ends with 190")
+
+      expect(result).to eq("A name with 44 48960 that ends with 191")
+    end
+  end
+
+  context "name with several numbers ending in a letter" do
+    it "increments the end" do
+      result = described_class.call("A name with 44 and 76542 that ends with a letter")
+
+      expect(result).to eq("A name with 44 and 76542 that ends with a letter 1")
+    end
+  end
 end
