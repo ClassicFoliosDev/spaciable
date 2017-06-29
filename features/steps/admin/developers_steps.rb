@@ -61,7 +61,7 @@ Then(/^I should see the updated developer$/) do
 end
 
 When(/^I delete the developer$/) do
-  click_on t("developers.show.back")
+  visit "/developers"
 
   delete_and_confirm!
 end
