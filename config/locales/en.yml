@@ -259,7 +259,8 @@ en:
         back: "Back"
         role_at: "%{role} at %{permission_level_name}"
       update:
-        success: "%{user_email} was updated successfully."
+        success: "%{user_name} was updated successfully."
+        success_password: "%{user_name} password was updated successfully, please log in again."
     dashboard:
       components:
         no_recent:
@@ -594,7 +595,7 @@ en:
         login_cta: "Login"
         welcome_1: "Hoozzi isn't just a hub,"
         welcome_2: "it's a librarian"
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
         intro_para_1: With pen in hand and fresh ideas in mind.
                       Hoozzi is constantly churning out fun and helpful articles.
         intro_para_2: You can scroll away to your heart's content,
@@ -624,7 +625,7 @@ en:
         password: "Choose a password"
         terms: "Terms & Conditions"
         policy: "Data policy"
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
         subscribe_email: "Subscribe to emails"
     passwords:
       new:
@@ -1076,9 +1077,7 @@ en:
       submit: "Submit"
       preview: "Preview"
       banner_size: "The banner will be displayed 200px high and full browser width available. For best results in
-      desktop view, the recommended image size is between 200 x 1200px and 200 x 1600px"
-      banner_size_mobile: "In smaller screens, the left and right edges will be cropped, and only the central
-      section of the image will be shown"
+      desktop view, the recommended image size is above 200 x 1200px"
       svg_information: "There have been some issues with SVG images. Recommended approach: make sure you export the
       svg as <em>embed</em>, not <em><del>link</del></em>, and test thoroughly in Google Chrome"
     show:
@@ -1356,7 +1355,7 @@ en:
         blank: " is required, and must not be blank."
         required: " is required, and must be configured."
         missing_permissable_id: " be associated with a developer or division."
-        only_one_parent_allowed: " cannot be associated with a developer and a division."
+        only_one_parent_allowed: " must not be associated with both a developer and a division."
         taken: " has already been added."
         select: " must be selected."
         not_valid_hex: " must have a valid hex colour, for example #445544."
@@ -1364,6 +1363,18 @@ en:
         delete_not_possible: "It is not possible to delete %{name} because other %{types} depend on it"
         clone_not_possible: "It is not possible to clone %{name}, probably you have already cloned it and the name is duplicate"
       models:
+        developer:
+          attributes:
+            base:
+              invalid_name: "You must not use special characters (for example - or ,) in a developer company name. You can only use letters, numbers, and spaces"
+        division:
+          attributes:
+            base:
+              invalid_name: "You must not use special characters (for example - or ,) in a division name. You can only use letters, numbers, and spaces"
+        development:
+          attributes:
+            base:
+              invalid_name: "You must not use special characters (for example - or ,) in a development name. You can only use letters, numbers, and spaces"
         notification:
           attributes:
             send_to_all:
@@ -1385,7 +1396,7 @@ en:
           attributes:
             email:
               already_in_use: "is already associated to another plot."
-              change_email: "can not be updated. If you need to change the resident email, remove this plot resident and
+              change_email: "could not be updated. If you need to change the resident email, remove this plot resident and
                add a new one"
         manufacturer:
           attributes:

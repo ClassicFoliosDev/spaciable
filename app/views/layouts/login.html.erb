@@ -1,7 +1,12 @@
   <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title"), brand: @brand } %>
   <body class="login-view">
-    <%= render 'components/homeowner/carousel' %>
-
+    <% if @brand&.branded_login_image %>
+      <div class="login-background" style="background-image: url('<%= image_path(@brand.branded_login_image) %>')" >
+    <% else %>
+      <div>
+        <%= render 'components/homeowner/carousel' %>
+    <% end %>
     <%= yield %>
+    </div>
   </body>
 </html>

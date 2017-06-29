@@ -31,7 +31,11 @@ module Admin
 
     def update
       if UpdateUserService.call(@user, user_params)
-        redirect_to [:admin, :users], notice: t(".success", user_email: @user.to_s)
+        if user_params[:password]
+          redirect_to new_user_session_url, notice: t(".success_password", user_name: @user.to_s)
+        else
+          redirect_to [:admin, :users], notice: t(".success", user_name: @user.to_s)
+        end
       else
         render :edit
       end

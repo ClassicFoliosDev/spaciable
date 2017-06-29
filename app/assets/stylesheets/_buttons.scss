@@ -17,9 +17,7 @@ $primary-button-border-color: $primary-cta-color;
 $primary-button-border-color-hover: $primary-cta-color;
 $button-line-height: 28px;
 
-.btn,
-input[type="submit"],
-button {
+.btn {
   display: inline-block;
   text-decoration: none;
   color: $base-button-font-color;
@@ -66,6 +64,19 @@ button {
   color: $primary-button-font-color;
   background-color: $primary-button-color;
   border-color: $primary-button-color;
+  border-width: 1px;
+  border-radius:  $border-radius;
+  padding: 0 $spacing-small;
+  font-size: $base-button-font-size;
+  line-height: $button-line-height;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: bold;
+
+  &:focus,
+  &:active {
+    outline: none;
+  }
 
   &:hover {
     color: $primary-button-font-color-hover;
@@ -74,6 +85,10 @@ button {
   }
 }
 
+button:focus, button:active {
+  outline: none;
+}
+
 .remove {
-  padding: 8px 9px 7px 9px;
+  padding: 8px 9px 7px;
 }

@@ -17,7 +17,7 @@ module ButtonsHelper
   def delete_btn(resource, label = "", path: nil, element:)
     return if element && (cannot? :destroy, element)
 
-    content_tag(:button, data: data_to_delete(resource, path: path), class: "archive-btn") do
+    content_tag(:button, data: data_to_delete(resource, path: path), class: "btn archive-btn") do
       icon "trash", label
     end
   end

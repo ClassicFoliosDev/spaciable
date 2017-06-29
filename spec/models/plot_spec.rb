@@ -441,10 +441,6 @@ RSpec.describe Plot do
       development_brand = create(:brand)
       division_development.brands << development_brand
       expect(plot.reload.brand).to eq(development_brand)
-
-      phase_brand = create(:brand)
-      phase.brands << phase_brand
-      expect(plot.reload.brand).to eq(phase_brand)
     end
   end
 end

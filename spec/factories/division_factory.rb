@@ -3,7 +3,8 @@ FactoryGirl.define do
   factory :division do
     developer
     email { Faker::Internet.email }
-    division_name { Faker::Company.name }
+    division_name { Faker::Company.name.delete("-").delete(",").delete("'") }
+
     contact_number { "+44 #{Faker::Number.number(9)}" }
 
     trait :with_residents do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 FactoryGirl.define do
   factory :development do
-    name { "#{Faker::Company.name} Development" }
+    name { "#{Faker::Company.name.delete('-').delete(',').delete("'")} Development" }
     email { Faker::Internet.email }
     contact_number { "+44 #{Faker::Number.number(9)}" }
 

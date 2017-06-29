@@ -62,7 +62,15 @@ module FileFixture
     "cala_banner.jpg"
   end
 
+  def login_image_name
+    "new-home.jpg"
+  end
+
   def banner_alt
     "Cala banner"
+  end
+
+  def login_image_alt
+    "New home"
   end
 end

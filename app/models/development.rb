@@ -37,9 +37,16 @@ class Development < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: [:developer_id, :division_id] }
   validate :permissable_id_presence
+  validates_with ParameterizableValidator
 
   delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
+
+  def brand_any
+    return brand if brand
+    return parent.brand if parent&.brand
+    return parent.parent&.brand if parent.is_a? Division
+  end
 
   def permissable_id_presence
     return unless developer_id.blank? && division_id.blank?

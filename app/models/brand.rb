@@ -4,7 +4,8 @@ class Brand < ApplicationRecord
 
   mount_uploader :logo, PictureUploader
   mount_uploader :banner, PictureUploader
-  attr_accessor :logo_cache, :banner_cache
+  mount_uploader :login_image, PictureUploader
+  attr_accessor :logo_cache, :banner_cache, :login_image_cache
   process_in_background :logo
   process_in_background :banner
 
@@ -50,37 +51,27 @@ class Brand < ApplicationRecord
   end
 
   def branded_logo
-    return logo.url if logo.url.present?
-
-    brand_parent = brandable
-    while brand_parent.respond_to?(:parent)
-      brand_parent = brand_parent.parent
-      next unless brand_parent.brand
-      return brand_parent.brand.logo.url if brand_parent.brand.logo.url.present?
-    end
+    branded_param(:logo)
   end
 
   def branded_banner
-    return banner.url if banner.url.present?
+    branded_param(:banner)
+  end
 
-    brand_parent = brandable
-    while brand_parent.respond_to?(:parent)
-      brand_parent = brand_parent.parent
-      next unless brand_parent.brand
-      return brand_parent.brand.banner.url if brand_parent.brand.banner.url.present?
-    end
+  def branded_login_image
+    branded_param(:login_image)
   end
 
   private
 
   def branded_param(attr_name)
-    return self[attr_name] if self[attr_name].present?
+    return self[attr_name] if self[attr_name]
 
     brand_parent = brandable
     while brand_parent.respond_to?(:parent)
       brand_parent = brand_parent.parent
       next unless brand_parent.brand
-      return brand_parent.brand[attr_name] if brand_parent.brand[attr_name].present?
+      return brand_parent.brand[attr_name] if brand_parent.brand[attr_name]
     end
   end
 end

@@ -102,7 +102,7 @@ class Plot < ApplicationRecord
   end
 
   def brand
-    phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
+    development&.brand || division&.brand || developer&.brand || Brand.new
   end
 
   def parent=(object)

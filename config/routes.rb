@@ -12,6 +12,11 @@ Rails.application.routes.draw do
                invitations: 'residents/invitations'
              }
 
+  devise_scope :resident do
+    get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
+    get "/:developer_name(/:division_name)/:development_name/accept", to: "residents/invitations#edit"
+  end
+
   devise_scope :user do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
   end
@@ -146,7 +151,6 @@ Rails.application.routes.draw do
         as: :homeowner_library,
         defaults: { category: :my_home }
 
-    #get :notifications, to: 'notifications#index', as: :homeowner_notifications
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
   end

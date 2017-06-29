@@ -4,10 +4,10 @@
   @include outer-container(1000px);
   min-height: 1px;
   top: 100px;
+  border-radius: ($border-radius * 2);
 
   .preamble {
-    @include span-columns(6 of 12);
-    float: right;
+    @include span-columns(7 of 12);
     padding: 40px;
 
     .content {
@@ -15,42 +15,38 @@
       @include shift(1.5 of 12);
       margin-top: 100px;
     }
+  }
 
-    .title {
-      @include row();
+  form {
+    @include span-columns(8 of 12);
+    @include shift(2 of 12);
+    margin-top: $spacing-large;
 
-      * {
-        font-style: italic;
-      }
+    .required {
+      color: $ui-white;
+    }
 
-      h2 {
-        &.primary {
-          color: $primary-red;
-          margin-bottom: 0;
-        }
-        &.secondary {
-          color: $primary-green;
-          float: right;
-          margin-top: 0;
-        }
-      }
+    input[type="email"], input[type="password"] {
+      background-color: $faded-red;
+      border-color: $primary-red;
+      color: $ui-white;
+      white-space: normal;
+    }
+
+    input[type="submit"] {
+      @include span-columns(12 of 12);
+      font-weight: bold;
+      padding: 4px;
     }
   }
 
   .sign-in, .set-password {
-    @include span-columns(6 of 12);
+    @include span-columns(5 of 12);
     @include omega();
     float: right;
+    padding: 80px $spacing-medium 40px $spacing-medium;
+    border-radius: ($border-radius * 2);
     background-color: $primary-red;
-    padding: $spacing-large 0;
-    color: $ui-white;
-
-    .logo {
-      display: block;
-      margin: 0 auto;
-      @include span-columns(8 of 12);
-      @include shift(2 of 12);
-    }
 
     .notice, .alert {
       display: inline-block;
@@ -70,42 +66,11 @@
     .error {
       color: $ui-white;
     }
-
-    form {
-      @include span-columns(8 of 12);
-      @include shift(2 of 12);
-      margin-top: $spacing-large;
-
-      .required {
-        color: $ui-white;
-      }
-
-      input {
-        background-color: $faded-red;
-        border-color: $primary-red;
-        color: $ui-white;
-        white-space: normal;
-      }
-
-      input[type="submit"] {
-        @include span-columns(12 of 12);
-        color: $primary-red;
-        background-color: $ui-white;
-        font-weight: bold;
-        padding: 4px;
-      }
-
-      p {
-        color: $ui-white;
-      }
-
-      a {
-        color: $ui-white;
-        text-decoration: underline;
-      }
-
-    }
   }
+}
+
+.sign-in .branded-content {
+  background-color: $primary-red;
 }
 
 .reset-password {
@@ -122,6 +87,13 @@
     color: $ui-white;
     text-decoration: underline;
   }
+}
+
+.login-background {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @include media($tablet-portrait-down) {

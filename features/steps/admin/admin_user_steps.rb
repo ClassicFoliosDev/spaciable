@@ -284,7 +284,7 @@ When(/^I change my password$/) do
 end
 
 Then(/^I should be logged out$/) do
-  expect(page).to have_content(t("devise.failure.unauthenticated"))
+  expect(page).to have_content(t("admin.users.update.success_password", user_name: ""))
 
   within ".admin-login-form" do
     expect(page).to have_content(t("activerecord.attributes.user.email"))

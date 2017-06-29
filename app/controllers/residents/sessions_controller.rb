@@ -10,6 +10,8 @@ module Residents
     # GET /resource/sign_in
     def new
       self.resource = resource_class.new(sign_in_params)
+      development = DevelopmentFinderService.call(params)
+      @brand = development&.brand_any
       clean_up_passwords(resource)
       yield resource if block_given?
     end
@@ -17,10 +19,18 @@ module Residents
     # POST /resource/sign_in
     def create
       super
+
       return unless resource.plot.nil?
 
       sign_out_all_scopes
       flash[:alert] = t(".no_plot")
+    end
+
+    def update
+      development = DevelopmentFinderService.call(params)
+      @brand = development&.brand_any
+
+      super
     end
 
     # DELETE /resource/sign_out

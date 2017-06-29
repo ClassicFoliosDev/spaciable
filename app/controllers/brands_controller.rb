@@ -56,15 +56,13 @@ class BrandsController < ApplicationController
     params.require(:brand).permit(
       :logo, :banner,
       :bg_color, :text_color,
-      :content_bg_color,
-      :content_text_color,
-      :button_color,
-      :button_text_color,
+      :content_bg_color, :content_text_color,
+      :button_color, :button_text_color,
       :header_color,
-      :remove_logo,
-      :remove_banner,
-      :logo_cache,
-      :banner_cache
+      :logo_cache, :remove_logo,
+      :banner_cache, :remove_banner,
+      :login_image,
+      :login_image_cache, :remove_login_image
     )
   end
 

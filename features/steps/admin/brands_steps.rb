@@ -48,6 +48,13 @@ When(/^I update the brand$/) do
                 visible: false)
   end
 
+  login_image_path = FileFixture.file_path + FileFixture.login_image_name
+  within ".brand_login_image" do
+    attach_file("brand_login_image",
+                File.absolute_path(login_image_path),
+                visible: false)
+  end
+
   fill_in "brand[bg_color]", with: BrandFixture.bg_color
   fill_in "brand[button_text_color]", with: BrandFixture.button_text_color
   fill_in "brand[header_color]", with: BrandFixture.header_color
@@ -134,6 +141,9 @@ Then(/^I should see the updated (\w+) brand$/) do |parent_type|
 
     expect(images[1]["src"]).to have_content(FileFixture.banner_name)
     expect(images[1]["alt"]).to have_content(FileFixture.banner_alt)
+
+    expect(images[2]["src"]).to have_content(FileFixture.login_image_name)
+    expect(images[2]["alt"]).to have_content(FileFixture.login_image_alt)
   end
 end
 
@@ -176,6 +186,47 @@ Then(/^I should see the updated (\w+) brand without the image$/) do |parent_type
   end
 
   within ".brand_banner" do
+    expect(page).not_to have_content("img")
+  end
+end
+
+When(/^I remove a login image from a brand$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  within ".brand_login_image" do
+    remove_btn = find(".remove-btn", visible: false)
+    remove_btn.click
+  end
+
+  click_on t("unit_types.form.submit")
+end
+
+Then(/^I should see the (\w+) login image is no longer present$/) do |parent_type|
+  parent_name = CreateFixture.send("#{parent_type}_name")
+  name = t("activerecord.attributes.brand.for", name: parent_name)
+
+  success_flash = t(
+    "controller.success.update",
+    name: name
+  )
+
+  expect(page).to have_content(success_flash)
+
+  within ".record-list" do
+    click_on name
+  end
+
+  # On the show page
+  within ".brand_logo" do
+    image = page.find("img")
+
+    expect(image["src"]).to have_content(FileFixture.logo_name)
+    expect(image["alt"]).to have_content(FileFixture.logo_alt)
+  end
+
+  within ".brand_login_image" do
     expect(page).not_to have_content("img")
   end
 end

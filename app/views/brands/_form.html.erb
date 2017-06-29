@@ -20,10 +20,14 @@
     </div>
     <div class="row-item third brand">
       <fieldset>
-        <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-        <span><%= t(".banner_size") %></span>
-        <span><%= t(".banner_size_mobile") %></span>
-        <span><%= t(".svg_information").html_safe %></span>
+        <div class="banner-image">
+          <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          <span><%= t(".banner_size") %></span>
+          <span><%= t(".svg_information").html_safe %></span>
+        </div>
+        <div class="login-image">
+          <%= f.input :login_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
       </fieldset>
     </div>
     <div class="row-item third">

@@ -21,7 +21,7 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
   category = FaqsFixture.t_category(attrs[:category])
   select_from_selectmenu :faq_category, with: category
 
-  sleep 0.3
+  sleep 0.5
   click_on t("faqs.form.submit")
 end
 

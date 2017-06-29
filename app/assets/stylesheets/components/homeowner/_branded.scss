@@ -58,3 +58,54 @@
 .branded-header {
   background-color: $secondary-blue
 }
+
+.branded-primary-text {
+  color: $ui-white;
+
+  p, a, label {
+    color: inherit;
+  }
+}
+
+.branded-primary-text {
+  background-color: $primary-red;
+  color: $ui-white;
+
+  input[type=checkbox]:checked + i:before {
+    color: $ui-white;
+  }
+
+  i {
+    background-color: $ui-white;
+    border-color: $primary-red;
+    color: $primary-red;
+  }
+}
+
+.branded-primary-btn {
+  color: $primary-red;
+  background-color: $ui-white;
+
+  input {
+    border: none;
+    color: inherit;
+    background-color: inherit;
+    margin-bottom: $spacing-small;
+  }
+}
+
+.branded-titles h2 {
+  color: $primary-red;
+
+  &:last-child {
+    color: $primary-cta-color;
+  }
+}
+
+.branded-second-title {
+  color: $primary-red;
+
+  h2 {
+    color: inherit;
+  }
+}

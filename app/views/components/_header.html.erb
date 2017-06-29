@@ -2,7 +2,7 @@
   <div class="logo">
     <%= image_tag 'logo.png' %>
   </div>
-  <% if current_user.cf_admin? %>
+  <% if current_user&.cf_admin? %>
     <div class="search-container">
       <%= simple_form_for :search, html: { autocomplete: 'off' } do |f| %>
         <span>

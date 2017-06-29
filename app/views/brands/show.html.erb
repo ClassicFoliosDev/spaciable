@@ -23,6 +23,10 @@
     <div class="brand_banner">
       <%= image_tag(@brand.banner.url) if @brand.banner? %>
     </div>
+    <%= label_tag :login_image %>
+    <div class="brand_login_image">
+      <%= image_tag(@brand.login_image.url) if @brand.login_image? %>
+    </div>
   </div>
   <div class="row-item third">
     <%= label_tag :styling %>

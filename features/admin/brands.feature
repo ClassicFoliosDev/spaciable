@@ -15,6 +15,8 @@ Feature: Brands
     And I should see the updated developer brand
     When I remove an image from a brand
     Then I should see the updated developer brand without the image
+    When I remove a login image from a brand
+    Then I should see the developer login image is no longer present
     When I delete the developer brand
     Then I should see the developer brand deletion complete successfully
 

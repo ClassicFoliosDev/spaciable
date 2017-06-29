@@ -35,7 +35,7 @@ RSpec.describe Brand do
       expect(brand.branded_text_color).to eq(white)
     end
 
-    context "brand is blank but parent brand is not" do
+    context "brand does not have text_color and parent brand has text_color" do
       it "should use the text_color from the parent brand" do
         white = "#FFFFFF"
         development = create(:development)
@@ -48,8 +48,8 @@ RSpec.describe Brand do
       end
     end
 
-    context "brand is blank but parent parent brand is not" do
-      it "should use the text_color from the parent brand" do
+    context "brand does not have text_color and grandparent brand param has text_color" do
+      it "should use the text_color from the grandparent brand" do
         white = "#FFFFFF"
         developer = create(:developer)
         development = create(:development, developer: developer)
@@ -57,14 +57,14 @@ RSpec.describe Brand do
 
         brand = create(:brand, text_color: nil, brandable: phase)
         create(:brand, text_color: nil, brandable: development)
-        parent_parent_brand = create(:brand, text_color: white, brandable: developer)
+        grandparent_brand = create(:brand, text_color: white, brandable: developer)
 
-        expect(brand.branded_text_color).to eq(parent_parent_brand.branded_text_color)
+        expect(brand.branded_text_color).to eq(grandparent_brand.branded_text_color)
       end
     end
 
-    context "brand and all parent brands are blank" do
-      it "should return the default brand color" do
+    context "brand and all parent brand params do not have text_color" do
+      it "should return nil" do
         developer = create(:developer)
         development = create(:development, developer: developer)
         phase = create(:phase, development: development)
@@ -77,17 +77,62 @@ RSpec.describe Brand do
       end
     end
 
-    context "brand does not exist for division" do
-      it "should return the developer brand color" do
+    context "brand does not exist for division and grandparent brand param has text_color" do
+      it "should return the grandparent brand text_color" do
         white = "#FFFFFF"
         developer = create(:developer)
         division = create(:division, developer: developer)
         development = create(:development, division: division)
 
-        parent_parent_brand = create(:brand, text_color: white, brandable: developer)
+        grandparent_brand = create(:brand, text_color: white, brandable: developer)
         brand = create(:brand, text_color: nil, brandable: development)
 
-        expect(brand.branded_text_color).to eq(parent_parent_brand.branded_text_color)
+        expect(brand.branded_text_color).to eq(grandparent_brand.branded_text_color)
+      end
+    end
+
+    context "both development and division brand have text_color" do
+      it "should return the development text_color" do
+        white = "#FFFFFF"
+        blue = "#0000FF"
+        developer = create(:developer)
+        division = create(:division, developer: developer)
+        development = create(:development, division: division)
+
+        brand = create(:brand, text_color: blue, brandable: development)
+        create(:brand, text_color: white, brandable: division)
+
+        expect(brand.branded_text_color).to eq(blue)
+      end
+    end
+
+    context "both development and developer brand have text_color" do
+      it "should return the development text_color" do
+        white = "#FFFFFF"
+        blue = "#0000FF"
+        developer = create(:developer)
+        development = create(:development, developer: developer)
+
+        brand = create(:brand, text_color: blue, brandable: development)
+        create(:brand, text_color: white, brandable: developer)
+
+        expect(brand.branded_text_color).to eq(blue)
+      end
+    end
+
+    context "both division and developer brand have text_color, development has brand but no text_color" do
+      it "should return the division text_color" do
+        white = "#FFFFFF"
+        blue = "#0000FF"
+        developer = create(:developer)
+        division = create(:division, developer: developer)
+        development = create(:development, division: division)
+
+        brand = create(:brand, text_color: nil, brandable: development)
+        create(:brand, text_color: blue, brandable: division)
+        create(:brand, text_color: white, brandable: developer)
+
+        expect(brand.branded_text_color).to eq(blue)
       end
     end
   end

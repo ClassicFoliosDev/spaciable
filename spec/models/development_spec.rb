@@ -15,6 +15,38 @@ RSpec.describe Development do
 
         expect(name_errors).to include(error: :taken, value: name)
       end
+
+      it "should not allow development name with dash" do
+        development_name = "Development with-dash"
+        development = Development.new(name: development_name)
+
+        development.validate
+        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
+      end
+
+      it "should not allow development name with comma" do
+        development_name = "Development with,comma"
+        development = Development.new(name: development_name)
+
+        development.validate
+        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
+      end
+
+      it "should not allow development name with apostrophe" do
+        development_name = "Development with'apostrophe"
+        development = Development.new(name: development_name)
+
+        development.validate
+        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
+      end
+
+      it "should not allow development name with at_sign" do
+        development_name = "Development with @at_sign"
+        development = Development.new(name: development_name)
+
+        development.validate
+        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
+      end
     end
 
     context "under different developers" do
@@ -106,6 +138,84 @@ RSpec.describe Development do
     it_behaves_like "archiving is dependent on parent association", :developer
     it_behaves_like "archiving is dependent on parent association", :division do
       subject { FactoryGirl.create(:division_development) }
+    end
+  end
+
+  describe "#brand_any" do
+    let(:developer) { create(:developer) }
+    let(:development) { create(:development, developer: developer) }
+
+    context "there is a development with a developer" do
+      it "returns nil if no brand has been configured" do
+        response = development.brand_any
+        expect(response).to be_nil
+      end
+
+      it "returns development brand if there is one" do
+        brand = create(:brand, brandable: development)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+      end
+
+      it "returns developer brand if there is no development brand" do
+        brand = create(:brand, brandable: developer)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+      end
+
+      it "does not return the developer brand when there is a development brand" do
+        developer_brand = create(:brand, brandable: developer)
+        brand = create(:brand, brandable: development)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+        expect(response).not_to eq(developer_brand)
+      end
+    end
+
+    context "there is a development with a division" do
+      let(:developer) { create(:developer) }
+      let(:division) { create(:division, developer: developer) }
+      let(:development) { create(:development, division: division) }
+
+      it "returns nil if no brand has been configured" do
+        response = development.brand_any
+        expect(response).to be_nil
+      end
+
+      it "returns development brand if there is one" do
+        brand = create(:brand, brandable: development)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+      end
+
+      it "returns division brand when there is no development brand" do
+        brand = create(:brand, brandable: division)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+      end
+
+      it "returns developer brand when there is no development or division brand" do
+        brand = create(:brand, brandable: developer)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+      end
+
+      it "returns development brand when there are brands on division and developer" do
+        brand = create(:brand, brandable: development)
+        division_brand = create(:brand, brandable: division)
+        developer_brand = create(:brand, brandable: developer)
+
+        response = development.brand_any
+        expect(response).to eq(brand)
+        expect(response).not_to eq(division_brand)
+        expect(response).not_to eq(developer_brand)
+      end
     end
   end
 end

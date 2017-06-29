@@ -27,6 +27,7 @@ class Developer < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
+  validates_with ParameterizableValidator
 
   delegate :to_s, to: :company_name
 

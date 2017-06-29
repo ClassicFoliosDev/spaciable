@@ -5,55 +5,120 @@
   width: 100%;
 }
 
+.preamble {
+  .titles {
+    @include row();
+    margin-bottom: $spacing-medium;
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 0;
+      font-style: italic;
+
+      &:last-child {
+        float: right;
+      }
+    }
+  }
+
+  .content {
+    margin-top: 100px;
+    margin-left: $spacing-small;
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+.information {
+  float: left;
+
+  p {
+    margin-bottom: $spacing-small;
+    font-size: $base-small-font-size;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: $base-small-font-size;
+    font-weight: bold;
+  }
+}
+
+.login-logo {
+  display: block;
+  margin-bottom: $spacing-large;
+  @include span-columns(8 of 12);
+  @include shift(2 of 12);
+
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    max-height: 100px;
+  }
+}
+
+label.login-checkbox {
+  width: 100%;
+  cursor:pointer;
+  overflow: hidden;
+  margin-top: $spacing-small;
+
+  input[type=checkbox] {
+    float:left;
+    position:relative;
+    margin-left:-9999px;
+  }
+
+  i {
+    border-style: solid;
+    border-radius: $border-radius;
+    border-width: 1px;
+    padding: 2.5px;
+  }
+
+  i:before {
+    width: 25px;
+  }
+
+  span {
+    padding-left: 3px;
+  }
+}
+
 .invitation {
   position: relative;
   background-color: $ui-light-grey;
   @include outer-container(1000px);
   min-height: 1px;
   top: 100px;
+  border-radius: ($border-radius * 2);
 
   .preamble {
-    @include span-columns(6 of 12);
-    float: right;
-    padding: 40px;
-
-    .content {
-      @include span-columns(9 of 12);
-      @include shift(1.5 of 12);
-      margin-top: 100px;
-    }
-
-    .title {
-      @include row();
-
-      * {
-        font-style: italic;
-      }
-
-      h2 {
-        color: $primary-cta-color;
-      }
-
-      h3 {
-        color: $primary-red;
-        float: right;
-      }
-    }
+    @include span-columns(7 of 12);
+    padding: 80px;
 
     li {
-      list-style-type: none;
-      font-weight: bold;
       margin-left: $spacing-small;
+      font-size: 16px;
+      line-height: 24px;
+
+      span {
+        position: relative;
+        left: -8px;
+      }
     }
   }
 
   .register {
-    @include span-columns(6 of 12);
+    @include span-columns(5 of 12);
     @include omega();
-    float: right;
     background-color: $primary-red;
-    padding: $spacing-large;
-    color: $ui-white;
+    float: right;
+    border-radius: ($border-radius * 2);
+    padding: 80px $spacing-large 40px $spacing-large;
 
     #error_explanation {
       background-color: $ui-white;
@@ -69,73 +134,20 @@
       }
     }
 
-    .logo {
-      display: block;
-      margin: 0 auto;
-      @include span-columns(8 of 12);
-      @include shift(2 of 12);
-    }
-
     form {
-      @include span-columns(8 of 12);
-      @include shift(2 of 12);
-
-      input {
-        background-color: $faded-red;
-        border-color: $primary-red;
-      }
+      @include span-columns(12 of 12);
 
       input[type="submit"] {
         @include span-columns(12 of 12);
-        color: $primary-red;
-        background-color: $ui-white;
         font-weight: bold;
         padding: 4px;
+        margin-top: $spacing-medium;
+        margin-bottom: $spacing-large;
       }
 
-      p {
-        color: $ui-white;
+      input[type="password"] {
+        margin-bottom: 16px;
       }
-
-      a {
-        color: $ui-white;
-        text-decoration: underline;
-      }
-    }
-  }
-
-  .information {
-    float: left;
-    margin-top: 10px;
-  }
-
-  label.checkbox {
-    width:100%;
-    cursor:pointer;
-    overflow: hidden;
-
-    input[type=checkbox] {
-      float:left;
-      position:relative;
-      margin-left:-9999px;
-    }
-
-    i {
-      border-color: $primary-red;
-      background-color: $ui-white;
-      border-style: solid;
-      border-radius: 5px;
-      border-width: 1px;
-      padding: 2.5px;
-    }
-
-    i:before {
-      width:25px;
-      color: $ui-white;
-    }
-
-    input[type=checkbox]:checked + i:before {
-      color: $primary-red;
     }
   }
 }
@@ -145,8 +157,6 @@
     margin-bottom: 100px;
 
     .preamble .content {
-      @include span-columns(11 of 12);
-      @include shift(0.5 of 12);
       margin-top: 60px;
     }
 

@@ -3,7 +3,15 @@ module Residents
   class InvitationsController < Devise::InvitationsController
     layout "accept"
 
+    def edit
+      development = DevelopmentFinderService.call(params)
+      @brand = development&.brand_any
+      super
+    end
+
     def update
+      development = DevelopmentFinderService.call(params)
+      @brand = development&.brand_any
       super
 
       if params[:resident][:subscribe_emails].to_i.positive?

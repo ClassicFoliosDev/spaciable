@@ -15,6 +15,38 @@ RSpec.describe Division do
 
         expect(name_errors).to include(error: :taken, value: division_name)
       end
+
+      it "should not allow division name with dash" do
+        division_name = "Division with-dash"
+        division = Division.new(division_name: division_name)
+
+        division.validate
+        expect(division.errors.details[:base]).to include(error: :invalid_name, value: division_name)
+      end
+
+      it "should not allow division name with comma" do
+        division_name = "Division with,comma"
+        division = Division.new(division_name: division_name)
+
+        division.validate
+        expect(division.errors.details[:base]).to include(error: :invalid_name, value: division_name)
+      end
+
+      it "should not allow division name with apostrophe" do
+        division_name = "Division with'apostrophe"
+        division = Division.new(division_name: division_name)
+
+        division.validate
+        expect(division.errors.details[:base]).to include(error: :invalid_name, value: division_name)
+      end
+
+      it "should not allow division name with at_sign" do
+        division_name = "Division with @at_sign"
+        division = Division.new(division_name: division_name)
+
+        division.validate
+        expect(division.errors.details[:base]).to include(error: :invalid_name, value: division_name)
+      end
     end
 
     context "under different developers" do

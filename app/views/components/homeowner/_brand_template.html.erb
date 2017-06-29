@@ -1,18 +1,18 @@
 <style data-test="brand-style-overrides">
 
-  <% if brand.branded_bg_color.present? %>
+  <% if brand.branded_bg_color %>
     .branded-body {
       background-color: <%= brand.branded_bg_color %>;
     }
   <% end %>
 
-  <% if brand.branded_header_color.present? %>
+  <% if brand.branded_header_color %>
   .branded-header {
     background-color: <%= brand.branded_header_color %>;
   }
   <% end %>
 
-  <% if brand.branded_text_color.present? %>
+  <% if brand.branded_text_color %>
    .branded-text {
       color: <%= brand.branded_text_color %>;
    }
@@ -23,26 +23,55 @@
    .branded-text h5,
    .branded-text h6,
    .branded-text p, .branded-text span {
-      color: inherit;
-    }
+     color: inherit;
+   }
    .branded-text a, .branded-text a:visited, .branded-text a:hover, .branded-text a:active {
-      color: inherit;
-    }
+     color: inherit;
+   }
+
+   .branded-primary-text {
+     color: <%= brand.branded_text_color %>;
+   }
+
   <% end %>
 
-  <% if brand.branded_content_bg_color.present? %>
+  <% if brand.branded_content_bg_color %>
     .branded-content {
       background-color: <%= brand.branded_content_bg_color %>;
     }
+
+    .branded-primary-text {
+      background-color: inherit;
+    }
+
+    .login form input[type="email"] {
+      background-color: #FFFFFF;
+      color: #252C31;
+      border-color: #B3B5B7; // Same as $ui-dark-grey
+    }
+
+    .login form input[type="password"] {
+      background-color: #FFFFFF;
+      color: #252C31;
+      border-color: #B3B5B7; // Same as $ui-dark-grey
+    }
+
+    .invitation .register {
+      background-color: inherit;
+    }
+
+    .login .sign-in {
+      background-color: inherit;
+    }
   <% end %>
 
-  <% if brand.branded_content_text_color.present? %>
+  <% if brand.branded_content_text_color %>
     .branded-border {
       border-color: <%= brand.branded_content_text_color %>;
     }
   <% end %>
 
-  <% if brand.branded_button_color.present? %>
+  <% if brand.branded_button_color %>
     .branded-btn {
       background-color: <%= brand.branded_button_color %>;
     }
@@ -55,9 +84,26 @@
     .branded-primary {
       color: <%= brand.branded_button_color %>;
     }
+
+    .branded-primary-btn {
+      background-color: <%= brand.branded_button_color %>;
+    }
+
+    .branded-titles h2 {
+      color: <%= brand.branded_button_color %>;
+    }
+
+     .branded-titles h2:last-child {
+      color: <%= brand.branded_button_color %>;
+    }
+
+    .branded-primary-text i {
+      color: <%= brand.branded_button_color %>;
+      border-color: #B3B5B7; // Same as $ui-dark-grey
+    }
   <% end %>
 
-  <% if brand.branded_button_text_color.present? %>
+  <% if brand.branded_button_text_color %>
     .branded-btn {
       color: <%= brand.branded_button_text_color %>;
       border-color: <%= brand.branded_button_text_color %>;
@@ -66,9 +112,14 @@
     .branded-btn.alt {
       background-color: <%= brand.branded_button_text_color %>;
     }
+
+    .branded-primary-btn {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
   <% end %>
 
-  <% if brand.branded_banner.present? %>
+  <% if brand.branded_banner %>
     .branded-hero {
       background-image: url(<%= brand.branded_banner&.html_safe %>);
     }
