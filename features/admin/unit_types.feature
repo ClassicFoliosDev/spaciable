@@ -20,7 +20,7 @@ Feature: UnitTypes
     And I clone the unit type
     Then I should see another duplicate unit type created successfully
     When I clone a unit type twice
-    Then I should see a duplicate name error
+    Then I should see another duplicate unit type created successfully
 
   Scenario: Clone full unit type
     Given I am logged in as an admin
