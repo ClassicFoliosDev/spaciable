@@ -11,8 +11,11 @@ module Abilities
       resident_abilities_for_plot(plot.id)
       resident_abilities_via_development(plot.development_id)
       resident_abilities_via_unit_type(plot.unit_type_id, plot.rooms.pluck(:id))
-      resident_abilities_for_polymorphic_models(plot)
       resident_abilities_for_documents(plot)
+      resident_abilities_for_contacts(plot)
+      resident_abilities_for_faqs(plot)
+      resident_abilities_for_notifications(plot)
+      resident_brand_abilities(plot)
     end
 
     def resident_abilities_for_plot(plot_id)
@@ -43,16 +46,24 @@ module Abilities
       can :read, Document, documentable_type: "Division", documentable_id: plot.division_id
     end
 
-    # Except documents, which need to cater for unit type, phase, plot
-    def resident_abilities_for_polymorphic_models(plot)
-      [Faq, Contact, Notification].each do |model|
-        can :read, model, development_id: plot.development_id
-        can :read, model, developer_id: plot.developer_id, division_id: nil
-        can :read, model, division_id: plot.division_id if plot.division_id?
-      end
+     def resident_abilities_for_contacts(plot)
+      can :read, Contact, development_id: plot.development_id, contactable_type: "Development"
+      can :read, Contact, developer_id: plot.developer_id, contactable_type: "Developer"
+      can :read, Contact, division_id: plot.division_id, contactable_type: "Division"
+    end
+
+     def resident_abilities_for_faqs(plot)
+      can :read, Faq, development_id: plot.development_id, faqable_type: "Development"
+      can :read, Faq, developer_id: plot.developer_id, faqable_type: "Developer"
+      can :read, Faq, division_id: plot.division_id, faqable_type: "Division"
+    end
+
+    def resident_abilities_for_notifications(plot)
+      can :read, Notification, development_id: plot.development_id
+      can :read, Notification, developer_id: plot.developer_id, division_id: nil
+      can :read, Notification, division_id: plot.division_id if plot.division_id?
 
       resident_plot_number_notifications(plot)
-      resident_brand_abilities(plot)
     end
 
     private
