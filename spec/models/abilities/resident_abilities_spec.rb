@@ -185,4 +185,56 @@ RSpec.describe "Resident Abilities" do
       end
     end
   end
+
+  describe "contacts" do
+    context "when there are developers" do
+      it "has READ access to its own developer contacts" do
+        readable_contact = create(:contact, contactable: plot.developer)
+
+        expect(subject).to be_able_to(:read, readable_contact)
+      end
+
+      it "does NOT have read access to other developer contacts" do
+        another_developer = create(:developer)
+        non_readable_contact = create(:contact, contactable: another_developer)
+
+        expect(subject).not_to be_able_to(:read, non_readable_contact)
+      end
+    end
+
+    context "when there are divisions" do
+      let(:division) { create(:division, developer: plot.developer) }
+      let(:development) { create(:development, division: division) }
+      let(:division_plot) { create(:plot, development: development) }
+      let(:division_resident) { create(:resident, plot: division_plot) }
+
+      it "has READ access to its own division contacts" do
+        readable_contact = create(:contact, contactable: division)
+
+        expect(Ability.new(division_resident)).to be_able_to(:read, readable_contact)
+      end
+
+      it "does NOT have read access to other division contacts" do
+        another_division = create(:division, developer: plot.developer)
+        non_readable_contact = create(:contact, contactable: another_division)
+
+        expect(Ability.new(division_resident)).not_to be_able_to(:read, non_readable_contact)
+      end
+    end
+
+    context "when there are developments" do
+        it "has READ access to its own development contacts" do
+        readable_contact = create(:contact, contactable: plot.development)
+
+        expect(subject).to be_able_to(:read, readable_contact)
+      end
+
+      it "does NOT have read access to other division contacts" do
+        another_development = create(:development, developer: plot.developer)
+        non_readable_contact = create(:contact, contactable: another_development)
+
+        expect(subject).not_to be_able_to(:read, non_readable_contact)
+      end
+    end
+  end
 end
