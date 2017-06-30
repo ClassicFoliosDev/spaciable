@@ -55,15 +55,10 @@ class UnitTypesController < ApplicationController
 
     new_unit_type = @unit_type.amoeba_dup
     new_unit_type.name = CloneNameService.call(@unit_type.name)
-    new_unit_type.save!
 
+    new_unit_type.save!
     notice = t("controller.success.create", name: new_unit_type.name)
     redirect_to [development.parent, development, active_tab: :unit_types], notice: notice
-
-  rescue ActiveRecord::RecordInvalid
-    notice = t("activerecord.errors.messages.clone_not_possible",
-               name: new_unit_type.name)
-    redirect_to [development.parent, development, active_tab: :unit_types], alert: notice
   end
 
   private
