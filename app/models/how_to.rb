@@ -11,10 +11,10 @@ class HowTo < ApplicationRecord
   enum category: [:home, :diy, :lifestyle, :recipes, :cleaning, :outdoors]
   enum feature_numbers: { "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5 }
 
-  validates :title, :summary, :description, presence: true
+  validates :name, :summary, :description, presence: true
   validates :featured, uniqueness: true, if: -> { featured.present? }
 
-  delegate :to_s, to: :title
+  delegate :to_s, to: :name
   delegate :tag_attributes, to: :tags
 
   paginates_per 25

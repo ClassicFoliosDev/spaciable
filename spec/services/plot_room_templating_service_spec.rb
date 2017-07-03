@@ -38,7 +38,7 @@ RSpec.describe PlotRoomTemplatingService do
       unit_type_room = create(:room, unit_type: unit_type)
       plot = create(:plot, unit_type: unit_type)
 
-      new_room = described_class.clone_room(plot, unit_type_room)
+      new_room = described_class.clone_room(plot.id, unit_type_room)
 
       expect(new_room.name).to eq(unit_type_room.name)
       expect(new_room.id).not_to eq(unit_type_room.id)
@@ -46,7 +46,7 @@ RSpec.describe PlotRoomTemplatingService do
       expect(new_room.plot_id).to eq(plot.id)
       expect(new_room.template_room_id).to eq(unit_type_room.id)
 
-      response = described_class.clone_room(plot, new_room)
+      response = described_class.clone_room(plot.id, new_room)
       expect(response).to be_nil
     end
   end
