@@ -250,7 +250,6 @@ ActiveRecord::Schema.define(version: 20170619153918) do
   end
 
   create_table "finishes", force: :cascade do |t|
-    t.integer  "room_id"
     t.string   "name"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -265,7 +264,6 @@ ActiveRecord::Schema.define(version: 20170619153918) do
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
     t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
     t.index ["name"], name: "index_finishes_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["room_id"], name: "index_finishes_on_room_id", using: :btree
   end
 
   create_table "finishes_rooms", id: false, force: :cascade do |t|
@@ -550,7 +548,6 @@ ActiveRecord::Schema.define(version: 20170619153918) do
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "finishes", "manufacturers"
-  add_foreign_key "finishes", "rooms"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
