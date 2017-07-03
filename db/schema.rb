@@ -287,7 +287,7 @@ ActiveRecord::Schema.define(version: 20170619153918) do
   end
 
   create_table "how_tos", force: :cascade do |t|
-    t.text     "name"
+    t.text     "title"
     t.text     "summary"
     t.text     "description"
     t.integer  "category"
