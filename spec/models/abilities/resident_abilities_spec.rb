@@ -235,12 +235,12 @@ RSpec.describe "Resident Abilities" do
     end
 
     context "when there are developments" do
-        it "has READ access to its own development contacts and faqs" do
-          readable_contact = create(:contact, contactable: plot.development)
-          readable_faq = create(:faq, faqable: plot.development)
+      it "has READ access to its own development contacts and faqs" do
+        readable_contact = create(:contact, contactable: plot.development)
+        readable_faq = create(:faq, faqable: plot.development)
 
-          expect(subject).to be_able_to(:read, readable_contact)
-          expect(subject).to be_able_to(:read, readable_faq)
+        expect(subject).to be_able_to(:read, readable_contact)
+        expect(subject).to be_able_to(:read, readable_faq)
       end
 
       it "does NOT have read access to other development contacts" do

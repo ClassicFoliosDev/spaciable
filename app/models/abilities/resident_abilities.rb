@@ -46,13 +46,13 @@ module Abilities
       can :read, Document, documentable_type: "Division", documentable_id: plot.division_id
     end
 
-     def resident_abilities_for_contacts(plot)
+    def resident_abilities_for_contacts(plot)
       can :read, Contact, development_id: plot.development_id, contactable_type: "Development"
       can :read, Contact, developer_id: plot.developer_id, contactable_type: "Developer"
       can :read, Contact, division_id: plot.division_id, contactable_type: "Division"
     end
 
-     def resident_abilities_for_faqs(plot)
+    def resident_abilities_for_faqs(plot)
       can :read, Faq, development_id: plot.development_id, faqable_type: "Development"
       can :read, Faq, developer_id: plot.developer_id, faqable_type: "Developer"
       can :read, Faq, division_id: plot.division_id, faqable_type: "Division"
