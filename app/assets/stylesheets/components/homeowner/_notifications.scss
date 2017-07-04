@@ -77,6 +77,11 @@
   }
 }
 
+.notification-message img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
 @include media($tablet-landscape-up) {
   .notification-container {
     width: 75%;
