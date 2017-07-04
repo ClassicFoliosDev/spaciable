@@ -13,8 +13,6 @@ RSpec.describe "Resident Abilities" do
   end
 
   it_behaves_like "it can read polymorphic models associated with the residency", Document, :documentable
-  it_behaves_like "it can read polymorphic models associated with the residency", Faq, :faqable
-  it_behaves_like "it can read polymorphic models associated with the residency", Contact, :contactable
 
   it "cannot read documents for someone else's plot" do
     document = create(:document, documentable: create(:plot, development: plot.development))
@@ -23,6 +21,12 @@ RSpec.describe "Resident Abilities" do
 
   it "cannot read documents for someone else's phase plot" do
     document = create(:document, documentable: create(:plot, phase: plot.phase))
+    expect(subject).not_to be_able_to(:read, document)
+  end
+
+  it "cannot read documents for another development" do
+    development = create(:development, developer: plot.developer)
+    document = create(:document, documentable: development)
     expect(subject).not_to be_able_to(:read, document)
   end
 
@@ -182,6 +186,70 @@ RSpec.describe "Resident Abilities" do
         notification = create(:notification, send_to: plot.development, plot_numbers: [other_plot.number])
 
         expect(subject).not_to be_able_to(:read, notification)
+      end
+    end
+  end
+
+  describe "contacts and faqs" do
+    context "when there are developers" do
+      it "has READ access to its own developer contacts and faqs" do
+        readable_contact = create(:contact, contactable: plot.developer)
+        readable_faq = create(:faq, faqable: plot.developer)
+
+        expect(subject).to be_able_to(:read, readable_contact)
+        expect(subject).to be_able_to(:read, readable_faq)
+      end
+
+      it "does NOT have read access to other developer contacts and faqs" do
+        another_developer = create(:developer)
+        non_readable_contact = create(:contact, contactable: another_developer)
+        non_readable_faq = create(:faq, faqable: another_developer)
+
+        expect(subject).not_to be_able_to(:read, non_readable_contact)
+        expect(subject).not_to be_able_to(:read, non_readable_faq)
+      end
+    end
+
+    context "when there are divisions" do
+      let(:division) { create(:division, developer: plot.developer) }
+      let(:development) { create(:development, division: division) }
+      let(:division_plot) { create(:plot, development: development) }
+      let(:division_resident) { create(:resident, plot: division_plot) }
+
+      it "has READ access to its own division contacts and faqs" do
+        readable_contact = create(:contact, contactable: division)
+        readable_faq = create(:faq, faqable: division)
+
+        expect(Ability.new(division_resident)).to be_able_to(:read, readable_contact)
+        expect(Ability.new(division_resident)).to be_able_to(:read, readable_faq)
+      end
+
+      it "does NOT have read access to other division contacts and faqs" do
+        another_division = create(:division, developer: plot.developer)
+        non_readable_contact = create(:contact, contactable: another_division)
+        non_readable_faq = create(:faq, faqable: another_division)
+
+        expect(Ability.new(division_resident)).not_to be_able_to(:read, non_readable_contact)
+        expect(Ability.new(division_resident)).not_to be_able_to(:read, non_readable_faq)
+      end
+    end
+
+    context "when there are developments" do
+      it "has READ access to its own development contacts and faqs" do
+        readable_contact = create(:contact, contactable: plot.development)
+        readable_faq = create(:faq, faqable: plot.development)
+
+        expect(subject).to be_able_to(:read, readable_contact)
+        expect(subject).to be_able_to(:read, readable_faq)
+      end
+
+      it "does NOT have read access to other development contacts" do
+        another_development = create(:development, developer: plot.developer)
+        non_readable_contact = create(:contact, contactable: another_development)
+        non_readable_faq = create(:faq, faqable: another_development)
+
+        expect(subject).not_to be_able_to(:read, non_readable_contact)
+        expect(subject).not_to be_able_to(:read, non_readable_faq)
       end
     end
   end

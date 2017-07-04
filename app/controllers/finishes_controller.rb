@@ -82,7 +82,6 @@ class FinishesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def finish_params
     params.require(:finish).permit(
-      :room_id,
       :name,
       :description,
       :finish_category_id,
