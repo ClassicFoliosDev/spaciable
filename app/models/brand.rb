@@ -8,6 +8,11 @@ class Brand < ApplicationRecord
   attr_accessor :logo_cache, :banner_cache, :login_image_cache
   process_in_background :logo
   process_in_background :banner
+  process_in_background :login_image
+
+  delegate :url, to: :banner, prefix: true
+  delegate :url, to: :logo, prefix: true
+  delegate :url, to: :login_image, prefix: true
 
   belongs_to :brandable, polymorphic: true
 
@@ -51,15 +56,15 @@ class Brand < ApplicationRecord
   end
 
   def branded_logo
-    branded_param(:logo)
+    branded_image(:logo_url)
   end
 
   def branded_banner
-    branded_param(:banner)
+    branded_image(:banner_url)
   end
 
   def branded_login_image
-    branded_param(:login_image)
+    branded_image(:login_image_url)
   end
 
   private
@@ -72,6 +77,17 @@ class Brand < ApplicationRecord
       brand_parent = brand_parent.parent
       next unless brand_parent.brand
       return brand_parent.brand[attr_name] if brand_parent.brand[attr_name]
+    end
+  end
+
+  def branded_image(attr_name_url)
+    return send(attr_name_url) if send(attr_name_url)
+
+    brand_parent = brandable
+    while brand_parent.respond_to?(:parent)
+      brand_parent = brand_parent.parent
+      next unless brand_parent.brand
+      return brand_parent.brand.send(attr_name_url) if brand_parent.brand.send(attr_name_url)
     end
   end
 end

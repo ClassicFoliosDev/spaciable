@@ -33,6 +33,7 @@ module DevelopmentFinderService
   def find_division_development(developer_id, division_name, development_name)
     division = Division.where("lower(division_name) = ?", division_name)
                        .where(developer_id: developer_id).first
+    return unless division
     Development.where("lower(name) = ?", development_name)
                .where(division_id: division.id).first
   end

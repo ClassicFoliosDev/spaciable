@@ -20,9 +20,9 @@ module ResidentRouteHelper
   def build_path(plot)
     path = root_url
 
-    path << plot.developer.to_s.parameterize.underscore
-    path << "/#{plot.division.to_s.parameterize.underscore}" if plot.division
-    path << "/#{plot.development.to_s.parameterize.underscore}"
+    path << plot.developer.to_s.parameterize
+    path << "/#{plot.division.to_s.parameterize}" if plot.division
+    path << "/#{plot.development.to_s.parameterize}"
 
     path
   end
