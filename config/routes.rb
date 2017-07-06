@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
 
   mount Ckeditor::Engine => '/ckeditor'
+
+  devise_for :users,
+             path: "admin",
+             controllers: {
+                 sessions: 'users/sessions',
+                 passwords: 'users/passwords',
+                 confirmations: 'users/confirmations',
+                 registrations: 'users/registrations',
+                 unlocks: 'users/unlocks',
+                 omniauth: 'users/omniauth',
+                 invitations: 'users/invitations'
+             }
+
   devise_for :residents,
              path: "homeowners",
              controllers: {
@@ -21,17 +34,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
   end
-  devise_for :users,
-             path: "admin",
-             controllers: {
-               sessions: 'users/sessions',
-               passwords: 'users/passwords',
-               confirmations: 'users/confirmations',
-               registrations: 'users/registrations',
-               unlocks: 'users/unlocks',
-               omniauth: 'users/omniauth',
-               invitations: 'users/invitations'
-             }
 
   namespace :admin do
     resources :notifications, except: [:edit, :update, :destroy]
