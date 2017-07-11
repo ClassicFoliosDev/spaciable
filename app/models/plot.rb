@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
   acts_as_paranoid
 
@@ -105,6 +106,10 @@ class Plot < ApplicationRecord
     development&.brand || division&.brand || developer&.brand || Brand.new
   end
 
+  def <=>(other)
+    PlotCompareService.call(self, other)
+  end
+
   def parent=(object)
     case object
     when Phase
@@ -124,3 +129,4 @@ class Plot < ApplicationRecord
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
