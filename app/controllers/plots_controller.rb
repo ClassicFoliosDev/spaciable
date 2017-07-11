@@ -24,7 +24,7 @@ class PlotsController < ApplicationController
   end
 
   def show
-    documents = @plot.documents.accessible_by(current_ability)
+    documents = @plot.documents
     @active_tab = "documents"
     @collection_parent = @plot
     @collection = paginate(sort(documents, default: :title))

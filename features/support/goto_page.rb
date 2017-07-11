@@ -51,6 +51,7 @@ module GotoPage
       click_on t("divisions.collection.developments")
     end
 
+    sleep 0.3
     within ".record-list" do
       click_on division_development
     end

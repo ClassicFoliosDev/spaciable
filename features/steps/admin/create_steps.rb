@@ -33,6 +33,11 @@ Given(/^there is a plot$/) do
   CreateFixture.create_development_plot
 end
 
+Given(/^there is a plot for the division development$/) do
+  CreateFixture.create_division_development_unit_type
+  CreateFixture.create_division_development_plot
+end
+
 Given(/^there is a division plot$/) do
   CreateFixture.create_developer
   CreateFixture.create_division
@@ -58,6 +63,14 @@ end
 
 Given(/^there is a document$/) do
   CreateFixture.create_document
+end
+
+Given(/^there is a document for the development$/) do
+  CreateFixture.create_development_document
+end
+
+Given(/^there is a document for the division$/) do
+  CreateFixture.create_division_document
 end
 
 Given(/^there are faqs$/) do

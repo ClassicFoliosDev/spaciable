@@ -35,6 +35,14 @@ Then(/^I should see the created document$/) do
   end
 end
 
+Then(/^I should see only the created document$/) do
+  within "tbody" do
+    rows = page.all("tr")
+    expect(rows.length).to eq(1)
+    expect(page).to have_content(DocumentFixture.document_name)
+  end
+end
+
 And(/^I should see the original filename$/) do
   within ".record-list" do
     click_on DocumentFixture.document_name
@@ -312,6 +320,36 @@ When(/^I upload a document for the division phase$/) do
   end
 
   sleep 0.2
+  within ".tabs" do
+    click_on t("developments.collection.documents")
+  end
+
+  within ".empty" do
+    click_on t("documents.collection.add")
+  end
+
+  document_full_path = FileFixture.file_path + FileFixture.document_name
+  within ".documents" do
+    attach_file("document_file",
+                File.absolute_path(document_full_path),
+                visible: false)
+    fill_in "document_title", with: DocumentFixture.document_name
+  end
+
+  click_on t("documents.form.submit")
+end
+
+When(/^I upload a document for the division plot$/) do
+  goto_division_development_show_page
+
+  within ".tabs" do
+    click_on t("developments.collection.plots")
+  end
+
+  within ".record-list" do
+    click_on CreateFixture.division_plot_name
+  end
+
   within ".tabs" do
     click_on t("developments.collection.documents")
   end
