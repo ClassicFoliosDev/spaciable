@@ -1,0 +1,24 @@
+.about-section {
+  width: 853px;
+  margin: $spacing-small auto;
+}
+
+.about-card {
+  width: 414px;
+  margin: $spacing-medium 0 0 0;
+  display: inline-block;
+  padding: 20px 25px;
+
+  &:nth-child(2n) {
+    float: right;
+  }
+
+  a {
+    display: block;
+  }
+
+  span {
+    font-size: $base-small-font-size;
+    color: $type-grey;
+  }
+}

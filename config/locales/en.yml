@@ -155,10 +155,13 @@ en:
       welcome:
         hi: "Hi %{first_name}"
         account: "My account"
-      sub_header:
+      sub_menu:
+        about: "About"
         title: "My home"
         rooms: "Rooms"
         appliances: "Appliances"
+        library: "Library"
+        faqs: "FAQs"
       footer:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy."
@@ -421,6 +424,13 @@ en:
         my_home_view_more: "View my home"
         contacts_title: "Contacts"
         contacts_view_more: "View contacts"
+    about:
+      show:
+        rooms_description: "View finishes and fittings in each room of your home"
+        appliances_description: "View documents and details of appliances your home"
+        library_description: "View and upload documents about your home"
+        faqs_description: "Frequently asked questions about moving into a new home"
+
     residents:
       edit:
         my_account: "My account"
@@ -796,6 +806,7 @@ en:
       upload: "Upload"
       submit: "Submit"
       back: "Back"
+      matterport_example: "For example https://my.matterport.com/show/?m=dummy"
     new:
       add: "Add %{development_name} unit type"
     show:

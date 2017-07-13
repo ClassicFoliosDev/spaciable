@@ -8,7 +8,12 @@ module UnitTypeFixture
 
   def update_attrs
     {
-      name: updated_unit_type_name
+      name: updated_unit_type_name,
+      external_link: external_url
     }
+  end
+
+  def external_url
+    "https://my.matterport.com/show/?m=dummy"
   end
 end

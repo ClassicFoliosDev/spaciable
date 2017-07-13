@@ -65,6 +65,6 @@ class UnitTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def unit_type_params
-    params.require(:unit_type).permit(:name, :picture, :build_type, phase_ids: [])
+    params.require(:unit_type).permit(:name, :picture, :build_type, :external_link, phase_ids: [])
   end
 end

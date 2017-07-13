@@ -19,7 +19,9 @@ When(/^I go to download the documents for my home$/) do
     click_on t("layouts.homeowner.nav.my_home")
   end
 
-  click_on t("layouts.homeowner.sub_nav.library")
+  within ".sub-navigation-container" do
+    click_on t("layouts.homeowner.sub_nav.library")
+  end
 end
 
 Then(/^I should see all of the documents related to my home$/) do

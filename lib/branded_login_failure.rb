@@ -7,8 +7,10 @@ class BrandedLoginFailure < Devise::FailureApp
   def respond
     if http_auth?
       http_auth
-    else
+    elsif request.referer
       redirect
+    else
+      redirect_to new_resident_session_path
     end
   end
 end

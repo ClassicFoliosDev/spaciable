@@ -22,6 +22,10 @@ When(/^I visit the My Home page$/) do
   within ".navbar-menu" do
     click_on t("layouts.homeowner.nav.my_home")
   end
+
+  within ".sub-navigation-container" do
+    click_on t("layouts.homeowner.sub_nav.rooms")
+  end
 end
 
 Then(/^I should see the plot rooms$/) do

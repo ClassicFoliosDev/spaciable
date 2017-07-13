@@ -1,28 +1,3 @@
-<nav class="sub-navigation-container">
-  <div class="nav-inner">
-    <h3 class="branded-text"><%= t('.title') %></h3>
-    <ul>
-      <%= link_to homeowner_my_home_path, active_tab: "rooms",
-        class: "branded-primary #{'active' if active_tab == 'rooms' }" do %>
-        <li class="navbar-item"><%= t(".rooms") %></li>
-      <% end %>
-      <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "branded-primary #{'active' if active_tab == 'appliances' }" do %>
-        <li class="navbar-item">
-          <%= t(".appliances") %>
-        </li>
-      <% end %>
-      <%= link_to homeowner_library_path, active_tab: "library", class: "branded-primary #{'active' if active_tab == 'library' }" do %>
-        <li class="navbar-item">
-          <%= t('layouts.homeowner.sub_nav.library') %>
-        </li>
-      <% end %>
-      <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "branded-primary #{'active' if active_tab == 'faqs' }" do %>
-        <li class="navbar-item">
-          <%= t('layouts.homeowner.sub_nav.faqs') %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</nav>
+<%= render "components/homeowner/sub_menu", active_tab: active_tab %>
 
 <%= render "components/homeowner/hero" %>

@@ -32,7 +32,7 @@ module HoozziWorld
     return (stdout "Skipping: #{skip_if}") if really_skip_select?(skip_if, with, field)
 
     expand_selectmenu(field)
-    sleep 0.5
+    sleep 1
 
     list, list_text = selectmenu_list_items
     stdout "Options: #{list_text}"
