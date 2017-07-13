@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 FactoryGirl.define do
-  factory :manufacturer do
+  factory :finish_manufacturer do
     sequence :name do |n|
-      "Manufacturer #{n}"
+      "Finish manufacturer #{n}"
     end
   end
 end

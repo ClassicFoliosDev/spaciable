@@ -6,7 +6,7 @@ Feature: Documents
 
   Scenario: CF Admin
     Given I am logged in as an admin
-    And there is a manufacturer
+    And there is an appliance manufacturer
     And there is a finish
     And there is an appliance
     When I search for a search term

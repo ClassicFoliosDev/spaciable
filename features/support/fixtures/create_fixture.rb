@@ -67,12 +67,16 @@ module CreateFixture
     "Bosch"
   end
 
+  def finish_manufacturer_name
+    "Farrow & Ball"
+  end
+
   def finish_category_name
     "Flooring"
   end
 
   def finish_type_name
-    "Stone"
+    "Carpet"
   end
 
   def energy_rating
@@ -156,24 +160,25 @@ module CreateFixture
     ApplianceCategory.find_or_create_by(name: appliance_category_name)
   end
 
-  def create_manufacturer
-    FactoryGirl.create(:manufacturer,
+  def create_finish_manufacturer
+    FactoryGirl.create(:finish_manufacturer,
+                       name: finish_manufacturer_name,
+                       finish_types: [create_finish_type])
+  end
+
+  def create_appliance_manufacturer
+    FactoryGirl.create(:appliance_manufacturer,
                        name: appliance_manufacturer_name,
-                       link: manufacturer_link,
-                       assign_to_appliances: "true")
+                       link: manufacturer_link)
   end
 
   def create_appliance
     FactoryGirl.create(:appliance,
                        name: full_appliance_name,
                        appliance_category: appliance_category,
-                       manufacturer: manufacturer,
+                       appliance_manufacturer: appliance_manufacturer,
                        e_rating: energy_rating,
                        model_num: appliance_name)
-
-    FactoryGirl.create(:appliance_categories_manufacturer,
-                       appliance_category_id: appliance_category.id,
-                       manufacturer_id: manufacturer.id)
   end
 
   def create_notification
@@ -189,7 +194,7 @@ module CreateFixture
       :appliance,
       name: appliance_without_manual_name,
       appliance_category: appliance_category,
-      manufacturer: manufacturer,
+      appliance_manufacturer: appliance_manufacturer,
       rooms: [room],
       manual: nil,
       guide: nil
@@ -206,15 +211,9 @@ module CreateFixture
 
   def create_finish_type
     finish_category = create_finish_category
-    finish_type = FactoryGirl.create(:finish_type,
-                                     name: finish_type_name,
-                                     finish_category_id: finish_category.id)
-
-    FactoryGirl.create(:finish_categories_type,
-                       finish_category_id: finish_category.id,
-                       finish_type_id: finish_type.id)
-
-    finish_type
+    FactoryGirl.create(:finish_type,
+                       name: finish_type_name,
+                       finish_categories: [finish_category])
   end
 
   def create_finish
@@ -377,8 +376,8 @@ module CreateFixture
     Resident.find_by(email: resident_email)
   end
 
-  def manufacturer
-    Manufacturer.find_by(name: appliance_manufacturer_name)
+  def appliance_manufacturer
+    ApplianceManufacturer.find_by(name: appliance_manufacturer_name)
   end
 end
 # rubocop:enable ModuleLength

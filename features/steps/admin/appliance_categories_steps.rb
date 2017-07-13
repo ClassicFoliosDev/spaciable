@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-When(/^I create an appliance_category$/) do
+When(/^I create an appliance category$/) do
   visit "/appliance_categories"
 
   within ".section-actions" do
@@ -13,7 +13,7 @@ When(/^I create an appliance_category$/) do
   click_on I18n.t("appliance_categories.form.submit")
 end
 
-Then(/^I should see the created appliance_category$/) do
+Then(/^I should see the created appliance category$/) do
   success_flash = t(
     "controller.success.create",
     name: ApplianceCategoryFixture.name
@@ -21,13 +21,20 @@ Then(/^I should see the created appliance_category$/) do
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
-    expect(page).to have_content(ApplianceCategoryFixture.name)
+    click_on ApplianceCategoryFixture.name
   end
+
+  within ".appliance_category" do
+    expect(page).to have_content(I18n.t("appliance_categories.appliance_category.manufacturers"))
+    expect(page).to have_content(CreateFixture.appliance_manufacturer_name)
+  end
+
+  click_on I18n.t("appliance_manufacturers.show.back")
 end
 
-When(/^I update the appliance_category$/) do
+When(/^I update the appliance category$/) do
   appliance_category = ApplianceCategory.find_by(name: ApplianceCategoryFixture.name)
-  within "[data-appliance_category=\"#{appliance_category.id}\"]" do
+  within "[data-appliance-category=\"#{appliance_category.id}\"]" do
     find("[data-action='edit']").click
   end
 
@@ -38,7 +45,7 @@ When(/^I update the appliance_category$/) do
   click_on I18n.t("appliance_categories.form.submit")
 end
 
-Then(/^I should see the updated appliance_category$/) do
+Then(/^I should see the updated appliance category$/) do
   success_flash = t(
     "controller.success.update",
     name: ApplianceCategoryFixture.updated_name
@@ -51,42 +58,7 @@ Then(/^I should see the updated appliance_category$/) do
   end
 end
 
-When(/^I create an appliance with the new appliance_category$/) do
-  visit "/appliances"
-  click_on I18n.t("appliances.collection.create")
-
-  within ".appliance" do
-    fill_in "appliance_model_num", with: ApplianceFixture.model_num
-
-    select_from_selectmenu :appliance_appliance_category, with: ApplianceCategoryFixture.updated_name
-    select_from_selectmenu :appliance_manufacturer, with: CreateFixture.appliance_manufacturer_name
-  end
-
-  click_on I18n.t("appliances.form.submit")
-end
-
-Then(/^I should see the appliance created successfully$/) do
-  name = "#{CreateFixture.appliance_manufacturer_name} #{ApplianceFixture.model_num}"
-
-  success_flash = t(
-    "controller.success.create",
-    name: name
-  )
-  expect(page).to have_content(success_flash)
-
-  within ".record-list" do
-    click_on name
-  end
-
-  expect(page).to have_content(ApplianceCategoryFixture.updated_name)
-end
-
-When(/^I delete the appliance_category$/) do
-  visit "/appliance_categories"
-  delete_and_confirm!
-end
-
-Then(/^I should see the appliance_category delete complete successfully$/) do
+Then(/^I should see the appliance category delete complete successfully$/) do
   success_flash = t(
     "controller.success.destroy",
     name: CreateFixture.appliance_category_name
@@ -100,7 +72,7 @@ Then(/^I should see the appliance_category delete complete successfully$/) do
   end
 end
 
-Then(/^I should not see appliance_categories$/) do
+Then(/^I should not see appliance categories$/) do
   visit "/appliance_categories"
 
   expect(page).to have_content("You are not authorized to access this page")

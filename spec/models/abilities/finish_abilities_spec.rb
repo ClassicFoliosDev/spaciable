@@ -4,7 +4,7 @@ require "cancan/matchers"
 
 RSpec.describe "Finish Abilities" do
   let(:finish_category) { create(:finish_category, name: "Test category") }
-  let(:finish_type) { create(:finish_type, name: "Test type", finish_category_id: finish_category.id) }
+  let(:finish_type) { create(:finish_type, name: "Test type", finish_categories: [finish_category]) }
 
   context "As a development admin" do
     specify "can read finishes used under the developments unit types" do

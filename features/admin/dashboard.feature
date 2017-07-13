@@ -15,7 +15,7 @@ Feature: Dashboard
     And there is a room
     And there are faqs
     And there is a document
-    And there is a manufacturer
+    And there is an appliance manufacturer
     And there is an appliance with manual
     And there is an appliance with a guide
     And there are notifications

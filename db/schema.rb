@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712134739) do
+ActiveRecord::Schema.define(version: 20170713082512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,13 +39,12 @@ ActiveRecord::Schema.define(version: 20170712134739) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "appliance_categories_manufacturers", id: false, force: :cascade do |t|
-    t.integer  "appliance_category_id", null: false
-    t.integer  "manufacturer_id",       null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.index ["appliance_category_id", "manufacturer_id"], name: "appliance_category_manufacturers_index", using: :btree
-    t.index ["manufacturer_id", "appliance_category_id"], name: "manufacturer_appliance_category_index", using: :btree
+  create_table "appliance_manufacturers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.string   "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "appliances", force: :cascade do |t|
@@ -57,8 +56,8 @@ ActiveRecord::Schema.define(version: 20170712134739) do
     t.integer  "warranty_length"
     t.string   "model_num"
     t.integer  "e_rating"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.datetime "deleted_at"
     t.string   "description"
     t.string   "secondary_image"
@@ -66,7 +65,9 @@ ActiveRecord::Schema.define(version: 20170712134739) do
     t.integer  "appliance_category_id"
     t.integer  "manufacturer_id"
     t.string   "guide"
+    t.integer  "appliance_manufacturer_id"
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
+    t.index ["appliance_manufacturer_id"], name: "index_appliances_on_appliance_manufacturer_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
     t.index ["manufacturer_id"], name: "index_appliances_on_manufacturer_id", using: :btree
     t.index ["name"], name: "index_appliances_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
@@ -245,6 +246,13 @@ ActiveRecord::Schema.define(version: 20170712134739) do
     t.index ["finish_type_id", "finish_category_id"], name: "finish_type_finish_category_index", using: :btree
   end
 
+  create_table "finish_manufacturers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "finish_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
@@ -253,26 +261,31 @@ ActiveRecord::Schema.define(version: 20170712134739) do
   end
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
-    t.integer  "finish_type_id",  null: false
-    t.integer  "manufacturer_id", null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.integer  "finish_type_id",         null: false
+    t.integer  "manufacturer_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "finish_manufacturer_id"
+    t.index ["finish_manufacturer_id"], name: "index_finish_types_manufacturers_on_finish_manufacturer_id", using: :btree
     t.index ["finish_type_id", "manufacturer_id"], name: "finish_type_manufacturers_index", using: :btree
+    t.index ["finish_type_id"], name: "index_finish_types_manufacturers_on_finish_type_id", using: :btree
     t.index ["manufacturer_id", "finish_type_id"], name: "manufacturer_finish_type_index", using: :btree
   end
 
   create_table "finishes", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "picture"
     t.datetime "deleted_at"
     t.string   "description"
     t.integer  "finish_category_id"
     t.integer  "finish_type_id"
     t.integer  "manufacturer_id"
+    t.integer  "finish_manufacturer_id"
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree
+    t.index ["finish_manufacturer_id"], name: "index_finishes_on_finish_manufacturer_id", using: :btree
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
     t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
     t.index ["name"], name: "index_finishes_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
@@ -545,6 +558,7 @@ ActiveRecord::Schema.define(version: 20170712134739) do
   end
 
   add_foreign_key "appliances", "appliance_categories"
+  add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "manufacturers"
   add_foreign_key "contacts", "developers"
   add_foreign_key "contacts", "developments"
@@ -558,7 +572,9 @@ ActiveRecord::Schema.define(version: 20170712134739) do
   add_foreign_key "faqs", "developers"
   add_foreign_key "faqs", "developments"
   add_foreign_key "faqs", "divisions"
+  add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "finish_categories"
+  add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "finishes", "manufacturers"
   add_foreign_key "how_tos", "how_to_sub_categories"

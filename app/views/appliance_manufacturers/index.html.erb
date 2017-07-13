@@ -1,0 +1,10 @@
+<% breadcrumb :appliance_manufacturers %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= t(".title") %>
+  </h3>
+</div>
+
+<%= render 'components/tabs', tabs: appliance_tabs(nil, "appliance_manufacturers") %>
+<%= render_collection @appliance_manufacturers %>

@@ -21,8 +21,6 @@ class FinishTypesController < ApplicationController
 
   def update
     if @finish_type.update(finish_type_params)
-      RelationshipsService.join_finish_category_types(@finish_type,
-                                                      finish_type_params[:finish_category_id])
       notice = t("controller.success.update", name: @finish_type.name)
       redirect_to finish_types_path, notice: notice
     else
@@ -33,8 +31,6 @@ class FinishTypesController < ApplicationController
 
   def create
     if @finish_type.save
-      RelationshipsService.join_finish_category_types(@finish_type,
-                                                      finish_type_params[:finish_category_id])
       notice = t("controller.success.create", name: @finish_type.name)
       redirect_to finish_types_path, notice: notice
     else
@@ -61,7 +57,7 @@ class FinishTypesController < ApplicationController
   def finish_type_params
     params.require(:finish_type).permit(
       :name,
-      :finish_category_id
+      finish_category_ids: []
     )
   end
 end

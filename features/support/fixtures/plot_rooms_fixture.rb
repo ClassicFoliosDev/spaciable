@@ -48,7 +48,7 @@ module PlotRoomsFixture
 
   def add_appliance_finish_to_unit_type_room
     CreateFixture.create_room
-    CreateFixture.create_manufacturer
+    CreateFixture.create_appliance_manufacturer
     CreateFixture.create_appliance
     CreateFixture.create_appliance_room
     CreateFixture.create_finish_room

@@ -1,0 +1,21 @@
+<div class="section-header">
+  <div class="section-title">
+    <h3><%= finish_manufacturer.name %></h3>
+    <span class="about"><%= finish_manufacturer.finish_categories.first %></span>
+  </div>
+
+  <div class="section-data">
+    <span class="right">
+      <%= edit_btn edit_finish_manufacturer_path, element: finish_manufacturer %>
+    </span>
+  </div>
+</div>
+
+<div class="row finish_manufacturer">
+  <div class="row-item half">
+    <%= label_tag t(".finish_types") %>
+    <% finish_manufacturer.finish_types.each do | type | %>
+      <span><%= type %></span><br>
+    <% end %>
+  </div>
+</div>

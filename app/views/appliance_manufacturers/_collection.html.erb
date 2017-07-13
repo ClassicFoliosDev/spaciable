@@ -1,0 +1,39 @@
+<% if collection.empty? %>
+  <%= render 'components/empty_list', icon_name: "industry", type: ApplianceManufacturer, parent: nil %>
+<% else %>
+  <% if can_create(ApplianceManufacturer, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_appliance_manufacturer_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th><%= sortable(ApplianceManufacturer, :name, t(".name")) %></th>
+        <th><%= sortable(ApplianceManufacturer, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |appliance_manufacturer| %>
+        <tr data-appliance-manufacturer="<%= appliance_manufacturer.id %>">
+          <td><%= link_to appliance_manufacturer.name, appliance_manufacturer_path(appliance_manufacturer), title: appliance_manufacturer.name %></td>
+          <td><%= l appliance_manufacturer.updated_at.to_date, format: :digits %></td>
+          <td class="actions">
+            <%= edit_btn edit_appliance_manufacturer_path(appliance_manufacturer), element: appliance_manufacturer %>
+            <%= delete_btn appliance_manufacturer, path: url_for(appliance_manufacturer), element: appliance_manufacturer %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render "components/page_size" %>
+    <%= paginate collection %>
+  </div>
+<% end %>

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 Then(/^I should see most of the children have been removed from the database$/) do
   # Most children should be removed
+
   expect(Developer.count).to eq(0)
   expect(Development.count).to eq(0)
 

@@ -5,9 +5,9 @@ FactoryGirl.define do
       " #{n}"
     end
     sequence :name do |n|
-      "Category manufacturer #{n}"
+      "Appliance from manufacturer #{n}"
     end
     appliance_category
-    manufacturer
+    appliance_manufacturer
   end
 end

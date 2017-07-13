@@ -20,7 +20,7 @@
     </thead>
     <tbody>
       <% collection.each do |appliance_category| %>
-        <tr data-appliance_category="<%= appliance_category.id %>">
+        <tr data-appliance-category="<%= appliance_category.id %>">
           <td><%= link_to appliance_category.name, appliance_category_path(appliance_category), title: appliance_category.name %></td>
           <td><%= l appliance_category.updated_at.to_date, format: :digits %></td>
           <td class="actions">

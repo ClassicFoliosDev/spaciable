@@ -7,7 +7,7 @@ module Homeowners
       @appliances = Appliance.accessible_by(current_ability)
                              .includes(
                                :appliance_category,
-                               :manufacturer
+                               :appliance_manufacturer
                              )
     end
   end

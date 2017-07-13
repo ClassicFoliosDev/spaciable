@@ -17,15 +17,13 @@ Then(/^I should see the category failure message$/) do
                                   t("activerecord.errors.messages.required")
 
   expect(page).to have_content(failure_flash_finish_category)
-
-  expect(page).not_to have_content FinishFixture.finish_name
 end
 
 When(/^I create a finish$/) do
   fill_in "finish_name", with: FinishFixture.finish_name
 
-  select_from_selectmenu :finish_finish_category, with: FinishFixture.category
-  select_from_selectmenu :finish_finish_type, with: FinishFixture.type
+  select_from_selectmenu :finish_finish_category, with: CreateFixture.finish_category_name
+  select_from_selectmenu :finish_finish_type, with: CreateFixture.finish_type_name
 
   click_on t("appliances.form.submit")
 end
@@ -44,12 +42,17 @@ Then(/^I should see the created finish$/) do
 end
 
 When(/^I update the finish$/) do
-  find("[data-action='edit']").click
+  visit "/finishes"
+
+  within ".record-list" do
+    find("[data-action='edit']").click
+  end
+
   fill_in "finish[name]", with: FinishFixture.updated_name
 
   select_from_selectmenu :finish_finish_category, with: FinishFixture.updated_category
   select_from_selectmenu :finish_finish_type, with: FinishFixture.updated_type
-  select_from_selectmenu :finish_manufacturer, with: FinishFixture.manufacturer
+  select_from_selectmenu :finish_finish_manufacturer, with: FinishFixture.updated_manufacturer
 
   picture_full_path = FileFixture.file_path + FileFixture.finish_picture_name
   within ".finish_picture" do
@@ -141,10 +144,11 @@ Then(/^I should see the finish deletion complete successfully$/) do
 end
 
 When(/^I delete the finish manufacturer$/) do
-  visit "./manufacturers"
+  visit "./finish_manufacturers"
 
-  manufacturer = Manufacturer.find_by(name: FinishFixture.manufacturer)
-  delete_scope = "[data-manufacturer='#{manufacturer.id}']"
+  manufacturer = FinishManufacturer.find_by(name: CreateFixture.finish_manufacturer_name)
+  delete_scope = "[data-finish-manufacturer='#{manufacturer.id}']"
+
   delete_and_confirm!(scope: delete_scope)
 end
 
@@ -156,15 +160,15 @@ end
 When(/^I delete the finish category$/) do
   visit "./finish_categories"
 
-  finish_category = FinishCategory.find_by(name: FinishFixture.updated_category)
-  delete_scope = "[data-finish_category='#{finish_category.id}']"
+  finish_category = FinishCategory.find_by(name: CreateFixture.finish_category_name)
+  delete_scope = "[data-finish-category='#{finish_category.id}']"
   delete_and_confirm!(scope: delete_scope)
 end
 
 When(/^I delete the finish type$/) do
   visit "./finish_types"
 
-  finish_type = FinishType.find_by(name: FinishFixture.updated_type)
-  delete_scope = "[data-finish_type='#{finish_type.id}']"
+  finish_type = FinishType.find_by(name: CreateFixture.finish_type_name)
+  delete_scope = "[data-finish-type='#{finish_type.id}']"
   delete_and_confirm!(scope: delete_scope)
 end

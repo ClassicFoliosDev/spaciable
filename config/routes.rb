@@ -106,20 +106,13 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
   end
 
-  resources :manufacturers
   resources :appliances
   resources :appliance_categories
+  resources :appliance_manufacturers
   resources :finishes
   resources :finish_categories
   resources :finish_types
-
-  namespace :appliances do
-    resources :manufacturers, shallow: true
-  end
-
-  namespace :finishes do
-    resources :manufacturers, shallow: true
-  end
+  resources :finish_manufacturers
 
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update]
@@ -162,7 +155,7 @@ Rails.application.routes.draw do
   get "/ts_and_cs", to: 'home#ts_and_cs'
   get "/ts_and_cs2", to: 'home#ts_and_cs2'
   get "/data_policy", to: 'home#data_policy'
-  get "/appliance_manufacturers", to: 'appliances#appliance_manufacturers_list'
+  get "/appliance_manufacturers_list", to: 'appliances#appliance_manufacturers_list'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/how_to_sub_category_list", to: 'how_to_sub_category#list'
   get "/remove_appliance", to: "rooms#remove_appliance"

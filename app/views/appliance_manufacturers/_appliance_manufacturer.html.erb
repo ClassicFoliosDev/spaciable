@@ -1,0 +1,21 @@
+<div class="section-header">
+  <div class="section-title">
+    <h3><%= appliance_manufacturer.name %></h3>
+    <span class="about"><%= appliance_manufacturer.link %></span>
+  </div>
+
+  <div class="section-data">
+    <span class="right">
+      <%= edit_btn edit_appliance_manufacturer_path, element: appliance_manufacturer %>
+    </span>
+  </div>
+</div>
+
+<div class="row appliance_manufacturer">
+  <div class="row-item half">
+    <%= label_tag t(".appliance_categories") %>
+    <% ApplianceCategory.all.each do | category | %>
+      <span><%= category %></span><br>
+    <% end %>
+  </div>
+</div>

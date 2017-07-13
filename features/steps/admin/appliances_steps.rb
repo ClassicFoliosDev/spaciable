@@ -44,8 +44,8 @@ When(/^I create an appliance$/) do
 
   fill_in "appliance_model_num", with: ApplianceFixture.model_num
 
-  select_from_selectmenu :appliance_appliance_category, with: ApplianceFixture.category
-  select_from_selectmenu :appliance_manufacturer, with: ApplianceFixture.manufacturer
+  select_from_selectmenu :appliance_appliance_category, with: CreateFixture.appliance_category_name
+  select_from_selectmenu :appliance_appliance_manufacturer, with: CreateFixture.appliance_manufacturer_name
 
   click_on t("appliances.form.submit")
 end
@@ -59,6 +59,8 @@ Then(/^I should see the created appliance$/) do
 end
 
 When(/^I update the appliance$/) do
+  visit "/appliances"
+
   find("[data-action='edit']").click
 
   sleep 0.1
@@ -67,7 +69,7 @@ When(/^I update the appliance$/) do
     fill_in "appliance[description]", with: ApplianceFixture.description
 
     select_from_selectmenu :appliance_appliance_category, with: ApplianceFixture.updated_category
-    select_from_selectmenu :appliance_manufacturer, with: ApplianceFixture.updated_manufacturer
+    select_from_selectmenu :appliance_appliance_manufacturer, with: ApplianceFixture.updated_manufacturer
 
     select_from_selectmenu :warranty, with: ApplianceFixture.warranty_len
     select_from_selectmenu :e_rating, with: ApplianceFixture.e_rating
@@ -236,18 +238,18 @@ Then(/^I should see the appliance deletion complete successfully$/) do
   end
 end
 
-When(/^I delete the appliance manufacturer$/) do
-  visit "./manufacturers"
-
-  manufacturer = Manufacturer.find_by(name: ApplianceFixture.updated_manufacturer)
-  delete_scope = "[data-manufacturer='#{manufacturer.id}']"
-  delete_and_confirm!(scope: delete_scope)
-end
-
 When(/^I delete the appliance category$/) do
   visit "./appliance_categories"
 
-  appliance_category = ApplianceCategory.find_by(name: ApplianceFixture.updated_category)
-  delete_scope = "[data-appliance_category='#{appliance_category.id}']"
+  appliance_category = ApplianceCategory.find_by(name: CreateFixture.appliance_category_name)
+  delete_scope = "[data-appliance-category='#{appliance_category.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+When(/^I delete the appliance manufacturer$/) do
+  visit "./appliance_manufacturers"
+
+  manufacturer = ApplianceManufacturer.find_by(name: CreateFixture.appliance_manufacturer_name)
+  delete_scope = "[data-appliance-manufacturer='#{manufacturer.id}']"
   delete_and_confirm!(scope: delete_scope)
 end

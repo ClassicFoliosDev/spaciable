@@ -7,9 +7,10 @@ module Homeowners
       @rooms = @plot.rooms
                     .includes(:finish_rooms,
                               :finishes,
+                              :finish_manufacturers,
                               :appliance_rooms,
                               :appliances,
-                              :manufacturers,
+                              :appliance_manufacturers,
                               :appliance_categories)
     end
   end

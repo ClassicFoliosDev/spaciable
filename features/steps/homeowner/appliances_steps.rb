@@ -12,11 +12,11 @@ When(/^I visit the appliances page$/) do
 end
 
 Given(/^there is a second appliance$/) do
-  manufacturer = FactoryGirl.create(:manufacturer, name: ApplianceFixture.second_manufacturer_name)
+  manufacturer = FactoryGirl.create(:appliance_manufacturer, name: ApplianceFixture.second_manufacturer_name)
   category = FactoryGirl.create(:appliance_category, name: ApplianceFixture.second_appliance_category_name)
 
   appliance = FactoryGirl.create(:appliance,
-                                 manufacturer: manufacturer,
+                                 appliance_manufacturer: manufacturer,
                                  appliance_category: category,
                                  model_num: ApplianceFixture.second_model_num)
 

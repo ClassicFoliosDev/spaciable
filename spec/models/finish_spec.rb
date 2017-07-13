@@ -3,7 +3,7 @@ require "rails_helper"
 
 RSpec.describe Finish do
   let(:finish_category) { create(:finish_category, name: "Test category") }
-  let(:finish_type) { create(:finish_type, name: "Test type", finish_category_id: finish_category.id) }
+  let(:finish_type) { create(:finish_type, name: "Test type", finish_categories: [finish_category]) }
 
   describe "#name=" do
     it "should not allow duplicate names" do

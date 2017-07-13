@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# rubocop:disable ModuleLength
 module ApplianceFixture
   module_function
 
@@ -16,7 +15,7 @@ module ApplianceFixture
   end
 
   def full_name
-    manufacturer + " " + model_num
+    CreateFixture.appliance_manufacturer_name + " " + model_num
   end
 
   def updated_full_name
@@ -35,16 +34,8 @@ module ApplianceFixture
     "A++"
   end
 
-  def category
-    "Freezer"
-  end
-
   def updated_category
     "Washing Machine"
-  end
-
-  def manufacturer
-    "Bosch"
   end
 
   def updated_manufacturer
@@ -139,4 +130,3 @@ module ApplianceFixture
     Appliance.find_by(name: appliance_name)
   end
 end
-# rubocop:enable ModuleLength

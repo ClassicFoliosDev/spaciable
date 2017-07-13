@@ -19,7 +19,7 @@ Feature: Plot Rooms
     When I add a finish to one of the default unit type rooms
     Then I should see the new plot room with the finish
 
-    Given there is a manufacturer
+    Given there is an appliance manufacturer
     And there is an appliance
     When I add an appliance to one of the default unit type rooms
     Then I should see the new plot room with the appliance

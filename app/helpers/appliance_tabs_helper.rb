@@ -19,9 +19,9 @@ module ApplianceTabsHelper
         link: ["appliance_categories", active_tab: :appliance_categories],
         permissions_on: -> { Appliance.new }
       },
-      manufacturers: {
+      appliance_manufacturers: {
         icon: :industry,
-        link: ["manufacturers", active_tab: :manufacturers],
+        link: ["appliance_manufacturers", active_tab: :appliance_manufacturers],
         permissions_on: -> { Appliance.new }
       }
     }

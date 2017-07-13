@@ -1,0 +1,31 @@
+<%= simple_form_for appliance_manufacturer do |f| %>
+  <% if appliance_manufacturer.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% appliance_manufacturer.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row appliance_manufacturer">
+    <div class="row-item half">
+      <fieldset>
+        <%= f.input :name %>
+        <%= f.input :link %>
+      </fieldset>
+    </div>
+    <div class="row-item half">
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), appliance_manufacturers_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

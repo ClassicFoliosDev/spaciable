@@ -11,7 +11,7 @@ class ResidentNotifierService
   def self.call(notification)
     service = new(notification)
     residents_notified = service.notify_residents
-    missing_residents = service.missing_resident_plots
+    missing_residents = service.all_missing_plots
 
     yield(residents_notified, missing_residents)
 
@@ -26,60 +26,52 @@ class ResidentNotifierService
     residents_in_scope
   end
 
-  def missing_resident_plots
+  def all_missing_plots
     return [] if notification.send_to_all?
 
+    if notification.plot_numbers && notification.plot_prefix?
+      missing_resident_plots_with_prefix
+    else
+      missing_resident_plots
+    end
+  end
+
+  private
+
+  def missing_resident_plots
     sent_residents = notification.send_to.residents
-    missing_plot_names = plots_with_no_residents(potential_plots, sent_residents)
+    missing_plot_names = plots_no_residents(potential_plots, sent_residents)
 
     potential_plot_numbers = potential_plots.map(&:number)
-    notification.plot_numbers.each do |potential_number|
+    notification.plot_numbers.each do |sent_number|
       # Plot numbers in the plot number list, where there is no matching plot in the development
-      unless potential_plot_numbers.include?(potential_number)
-        missing_plot_names.push("#{notification.plot_prefix} #{potential_number}".strip)
+      unless potential_plot_numbers.include?(sent_number)
+        missing_plot_names.add(sent_number)
       end
     end
 
     missing_plot_names
   end
 
-  private
+  def missing_resident_plots_with_prefix
+    sent_residents = notification.send_to.residents
+    missing_plot_names = plots_no_residents(potential_plots, sent_residents)
 
-  def plots_with_no_residents(potential_plots, sent_residents)
-    if notification.plot_numbers.empty?
-      plots_no_residents_no_prefix(potential_plots, sent_residents)
-    else
-      plots_no_residents_with_prefix(potential_plots, sent_residents)
+    potential_plot_full_numbers = potential_plots.map(&:to_s)
+    sent_full_numbers = notification.plot_numbers.map do |plot_number|
+      "#{notification.plot_prefix} #{plot_number}".strip
     end
+
+    missing_plot_names + (potential_plot_full_numbers - sent_full_numbers)
   end
 
-  def plots_no_residents_no_prefix(potential_plots, sent_residents)
-    missing_plot_names = []
+  def plots_no_residents(potential_plots, sent_residents)
+    missing_plot_names = Set.new
     sent_resident_full_numbers = sent_residents.map(&:full_plot_number)
 
     potential_plots.each do |potential_plot|
-      # If there were no notification numbers, compare the full plot name
-      next if sent_resident_full_numbers.include?(potential_plot.to_s)
-      missing_plot_names.push(potential_plot.to_s)
-    end
-
-    missing_plot_names
-  end
-
-  def plots_no_residents_with_prefix(potential_plots, sent_residents)
-    missing_plot_names = []
-    sent_resident_numbers = sent_residents.map(&:number)
-
-    potential_plots.each do |potential_plot|
-      index = sent_resident_numbers.index(potential_plot.number)
-      if index && index >= 0
-        if sent_residents[index].prefix != notification.plot_prefix
-          # If number matches, but prefix does not match
-          missing_plot_names.push(potential_plot.to_s)
-        end
-      else
-        # If no prefix and number does not match
-        missing_plot_names.push(potential_plot.to_s)
+      unless sent_resident_full_numbers.include?(potential_plot.to_s)
+        missing_plot_names.add(potential_plot.to_s)
       end
     end
 

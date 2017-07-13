@@ -1,0 +1,10 @@
+<% breadcrumb :finish_manufacturers %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= t(".title") %>
+  </h3>
+</div>
+
+<%= render 'components/tabs', tabs: finish_tabs(nil, @active_tab) %>
+<%= render_collection @finish_manufacturers %>

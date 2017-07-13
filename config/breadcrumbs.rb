@@ -436,25 +436,46 @@ crumb :appliance_new do
   parent :appliances
 end
 
-# MANUFACTURERS
+# FINISH MANUFACTURERS
 
-crumb :manufacturers do
-  link Manufacturer.model_name.human.pluralize, manufacturers_path
+crumb :finish_manufacturers do
+  link FinishManufacturer.model_name.human.pluralize, finish_manufacturers_path
 end
 
-crumb :manufacturer do | manufacturer |
-  link manufacturer.name, manufacturer_path
-  parent :manufacturers
+crumb :finish_manufacturer do | manufacturer |
+  link manufacturer.name, finish_manufacturer_path
+  parent :finish_manufacturers
 end
 
-crumb :manufacturer_edit do |manufacturer|
-  link t("breadcrumbs.manufacturer_edit", name: manufacturer.name), edit_manufacturer_path(manufacturer)
-  parent :manufacturers
+crumb :finish_manufacturer_edit do |manufacturer|
+  link t("breadcrumbs.manufacturer_edit", name: manufacturer.name), edit_finish_manufacturer_path(manufacturer)
+  parent :finish_manufacturers
 end
 
-crumb :manufacturer_new do
+crumb :finish_manufacturer_new do
   link t("breadcrumbs.manufacturer_add")
-  parent :manufacturers
+  parent :finish_manufacturers
+end
+
+# APPLIANCE MANUFACTURERS
+
+crumb :appliance_manufacturers do
+  link ApplianceManufacturer.model_name.human.pluralize, appliance_manufacturers_path
+end
+
+crumb :appliance_manufacturer do | manufacturer |
+  link manufacturer.name, appliance_manufacturer_path
+  parent :appliance_manufacturers
+end
+
+crumb :appliance_manufacturer_edit do |manufacturer|
+  link t("breadcrumbs.manufacturer_edit", name: manufacturer.name), edit_appliance_manufacturer_path(manufacturer)
+  parent :appliance_manufacturers
+end
+
+crumb :appliance_manufacturer_new do
+  link t("breadcrumbs.manufacturer_add")
+  parent :appliance_manufacturers
 end
 
 # APPLIANCE CATEGORIES

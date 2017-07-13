@@ -110,6 +110,22 @@ label {
   }
 }
 
+// MULTISELECT
+
+.select2-container--default .select2-selection--multiple {
+  border-color: $ui-grey;
+  outline: none;
+
+  ul {
+    min-height: 50px;
+    outline: none;
+  }
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: $ui-grey;
+}
+
 // MAIN FORM STYLING
 
 form {

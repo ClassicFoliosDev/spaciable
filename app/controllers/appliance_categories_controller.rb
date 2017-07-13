@@ -26,7 +26,6 @@ class ApplianceCategoriesController < ApplicationController
 
   def create
     if @appliance_category.save
-      RelationshipsService.join_manufacturer_appliance_categories(@appliance_category.id)
       notice = t("controller.success.create", name: @appliance_category.name)
       redirect_to appliance_categories_path, notice: notice
     else
@@ -43,7 +42,7 @@ class ApplianceCategoriesController < ApplicationController
     notice = t("activerecord.errors.messages.delete_not_possible",
                name: @appliance_category.name,
                types: "appliances")
-    redirect_to manufacturers_path, alert: notice
+    redirect_to appliance_categories_path, alert: notice
   end
 
   private

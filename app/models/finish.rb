@@ -9,9 +9,9 @@ class Finish < ApplicationRecord
   process_in_background :picture
   attr_accessor :picture_cache
 
-  belongs_to :finish_category, optional: false
-  belongs_to :finish_type, optional: false
-  belongs_to :manufacturer
+  belongs_to :finish_category, required: true
+  belongs_to :finish_type, required: true
+  belongs_to :finish_manufacturer
 
   has_many :finish_rooms, inverse_of: :finish
   has_many :rooms, through: :finish_rooms

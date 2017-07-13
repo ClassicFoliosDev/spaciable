@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-When(/^I create a finish_type$/) do
+When(/^I create a finish type$/) do
   visit "/finish_types"
 
   within ".empty" do
@@ -14,7 +14,7 @@ When(/^I create a finish_type$/) do
   click_on I18n.t("finish_types.form.submit")
 end
 
-Then(/^I should see the created finish_type$/) do
+Then(/^I should see the created finish type$/) do
   success_flash = t(
     "controller.success.create",
     name: FinishTypeFixture.name
@@ -26,9 +26,9 @@ Then(/^I should see the created finish_type$/) do
   end
 end
 
-When(/^I update the finish_type$/) do
+When(/^I update the finish type$/) do
   finish_type = FinishType.find_by(name: FinishTypeFixture.name)
-  within "[data-finish_type=\"#{finish_type.id}\"]" do
+  within "[data-finish-type=\"#{finish_type.id}\"]" do
     find("[data-action='edit']").click
   end
 
@@ -39,7 +39,7 @@ When(/^I update the finish_type$/) do
   click_on I18n.t("finish_types.form.submit")
 end
 
-Then(/^I should see the updated finish_type$/) do
+Then(/^I should see the updated finish type$/) do
   success_flash = t(
     "controller.success.update",
     name: FinishTypeFixture.updated_name
@@ -52,7 +52,7 @@ Then(/^I should see the updated finish_type$/) do
   end
 end
 
-When(/^I create a finish with the new finish_type$/) do
+When(/^I create a finish with the new finish type$/) do
   visit "/finishes"
   click_on I18n.t("finishes.collection.create")
 
@@ -81,12 +81,7 @@ Then(/^I should see the finish created successfully$/) do
   expect(page).to have_content(CreateFixture.finish_category_name)
 end
 
-When(/^I delete the finish_type$/) do
-  visit "/finish_types"
-  delete_and_confirm!
-end
-
-Then(/^I should see the finish_type delete complete successfully$/) do
+Then(/^I should see the finish type delete complete successfully$/) do
   success_flash = t(
     "controller.success.destroy",
     name: CreateFixture.finish_type_name
@@ -100,7 +95,7 @@ Then(/^I should see the finish_type delete complete successfully$/) do
   end
 end
 
-Then(/^I should not see finish_types$/) do
+Then(/^I should not see finish types$/) do
   visit "/finish_types"
 
   expect(page).to have_content("You are not authorized to access this page")

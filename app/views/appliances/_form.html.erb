@@ -22,17 +22,17 @@
         <div class="name">
           <%= f.label :name, required: false %>
           <span class="readonly">
-            <%= f.input :name, required: false, label: false, readonly: true %>
+            <%= f.input :full_name, required: false, label: false, readonly: true %>
           </span>
         </div>
       </fieldset>
     </div>
     <div class="row-item third">
       <div class="appliance_category ui-front select-container">
-        <%= f.association :appliance_category %>
+        <%= f.association :appliance_category, collection: ApplianceCategory.order('name ASC') %>
       </div>
       <div class="manufacturer ui-front select-container">
-        <%= f.association :manufacturer, collection: Manufacturer.for_appliances.order(:name) %>
+        <%= f.association :appliance_manufacturer, collection: ApplianceManufacturer.order('name ASC') %>
       </div>
       <div class="warranty ui-front">
       <%= f.label t(".warranty_length") %>

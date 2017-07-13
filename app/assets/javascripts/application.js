@@ -15,4 +15,5 @@
 // = require jquery-ui
 // = require turbolinks
 // = require ckeditor/init
+// = require select2
 // = require_tree .

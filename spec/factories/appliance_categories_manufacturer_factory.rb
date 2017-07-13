@@ -2,6 +2,6 @@
 FactoryGirl.define do
   factory :appliance_categories_manufacturer do
     appliance_category
-    manufacturer
+    appliance_manufacturer
   end
 end

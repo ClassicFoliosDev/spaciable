@@ -93,7 +93,7 @@ Given(/^there is an appliance$/) do
   CreateFixture.create_appliance
 end
 
-Given(/^there is an appliance_category$/) do
+Given(/^there is an appliance category$/) do
   CreateFixture.appliance_category
 end
 
@@ -107,11 +107,11 @@ Given(/^there is a finish$/) do
   CreateFixture.create_finish
 end
 
-Given(/^there is a finish_category$/) do
+Given(/^there is a finish category$/) do
   CreateFixture.create_finish_category
 end
 
-Given(/^there is a finish_type$/) do
+Given(/^there is a finish type$/) do
   CreateFixture.create_finish_type
 end
 
@@ -153,6 +153,10 @@ Given(/^I am a Development Admin$/) do
   login_as development_admin
 end
 
-Given(/^there is a manufacturer$/) do
-  CreateFixture.create_manufacturer
+Given(/^there is an appliance manufacturer$/) do
+  CreateFixture.create_appliance_manufacturer
+end
+
+Given(/^there is a finish manufacturer$/) do
+  CreateFixture.create_finish_manufacturer
 end

@@ -31,7 +31,7 @@ Feature: Rooms
   Scenario: Appliances
     Given I am logged in as an admin
     And I have created a room
-    And there is a manufacturer
+    And there is an appliance manufacturer
     And there is an appliance
     When I add an appliance
     Then I should see the room with an appliance

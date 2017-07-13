@@ -24,9 +24,9 @@ module FinishTabsHelper
         link: ["finish_types", active_tab: :finish_types],
         permissions_on: -> { Finish.new }
       },
-      manufacturers: {
+      finish_manufacturers: {
         icon: :industry,
-        link: ["manufacturers", active_tab: :manufacturers],
+        link: ["finish_manufacturers", active_tab: :finish_manufacturers],
         permissions_on: -> { Finish.new }
       }
     }

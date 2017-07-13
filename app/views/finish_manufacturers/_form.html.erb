@@ -1,0 +1,35 @@
+<%= simple_form_for finish_manufacturer do |f| %>
+  <% if finish_manufacturer.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% finish_manufacturer.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row finish_manufacturer">
+    <div class="row-item half">
+      <fieldset>
+        <%= f.input :name %>
+      </fieldset>
+    </div>
+    <div class="row-item half">
+      <fieldset class="skip-global-selectmenu">
+         <div class="finish_manufacturer_finish_type ui-front select-container">
+          <%= f.association :finish_types, collection: FinishType.order('name ASC'), multiple: true, class: "multiple" %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), finish_manufacturers_path, class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

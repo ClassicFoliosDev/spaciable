@@ -35,19 +35,19 @@ manufacturers_and_links = {
   "White Knight" => "http://www.whiteknightrange.co.uk/warranty/",
   "Zanussi" => "http://www.zanussi.co.uk/support/register-products/"
 }.each_pair do |manufacturer_name, link|
-  manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name, link: link)
+  manufacturer = ApplianceManufacturer.find_or_initialize_by(name: manufacturer_name, link: link)
 
   if manufacturer.new_record?
-    puts "Manufacturer: #{manufacturer_name} #{link}"
+    puts "Appliance manufacturer: #{manufacturer_name} #{link}"
   end
 
   manufacturer.save!
 end
 
-######################################
-# Appliances and their Manufacturers #
-######################################
-all_manufactuers = Manufacturer.where(name: manufacturers_and_links.keys).to_a
+########################
+# Appliance categories #
+########################
+categories =
 [
   "Washing Machine",
   "Washer Dryer",
@@ -64,11 +64,5 @@ all_manufactuers = Manufacturer.where(name: manufacturers_and_links.keys).to_a
   "Warming Drawer",
   "Microwave",
   "Combi Microwave",
-].map { |name| ApplianceCategory.find_or_create_by(name: name) }.each do |appliance_category|
-  missing_manufacturers = all_manufactuers - appliance_category.manufacturers
+].each { |name| ApplianceCategory.find_or_create_by(name: name) }
 
-  if missing_manufacturers.count.positive?
-    appliance_category.manufacturers << missing_manufacturers
-    puts "Added #{missing_manufacturers.count} manufacturers to appliance: #{appliance_category.name}"
-  end
-end

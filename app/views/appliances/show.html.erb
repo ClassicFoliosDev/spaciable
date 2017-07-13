@@ -3,7 +3,7 @@
 <div class="section-header">
   <h3 class="section-title">
     <i class="fa fa-coffee"></i>
-    <%= @appliance.name %><br>
+    <%= @appliance.full_name %><br>
   </h3>
   <div class="section-data">
     <%= edit_btn [:edit, @appliance], element: @appliance %>
@@ -23,7 +23,7 @@
     </div>
     <div class="manufacturer">
       <%= label_tag(:manufacturer) %>
-      <span><%= @appliance&.manufacturer %></span>
+      <span><%= @appliance&.appliance_manufacturer %></span>
     </div>
     <div class="model">
       <%= label_tag(t("appliances.form.model_num")) %>

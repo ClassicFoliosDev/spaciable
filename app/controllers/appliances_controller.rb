@@ -5,7 +5,7 @@ class AppliancesController < ApplicationController
   load_and_authorize_resource :appliance
 
   def index
-    @appliances = @appliances.includes(:appliance_category, :manufacturer)
+    @appliances = @appliances.includes(:appliance_category, :appliance_manufacturer)
     @appliances = paginate(sort(@appliances, default: :name))
     @active_tab = "appliances"
   end
@@ -18,7 +18,7 @@ class AppliancesController < ApplicationController
 
   def create
     if @appliance.save
-      notice = t(".success", name: @appliance.name)
+      notice = t(".success", name: @appliance.full_name)
       redirect_to appliances_path, notice: notice
     else
       render :new
@@ -27,7 +27,7 @@ class AppliancesController < ApplicationController
 
   def update
     if @appliance.update(appliance_params)
-      notice = t(".success", name: @appliance.name)
+      notice = t(".success", name: @appliance.full_name)
       redirect_to appliances_path, notice: notice
     else
       render :edit
@@ -41,17 +41,14 @@ class AppliancesController < ApplicationController
   end
 
   def appliance_manufacturers_list
-    manufacturers = Manufacturer.for_appliances
-                                .where(appliance_categories: { name: params[:option_name] })
-                                .order(:name)
-
-    render json: manufacturers
+    appliance_manufacturers = ApplianceManufacturer.all
+    render json: appliance_manufacturers
   end
 
   def appliance_list
-    appliances = Appliance.joins(:appliance_category, :manufacturer)
+    appliances = Appliance.joins(:appliance_category, :appliance_manufacturer)
                           .where(appliance_categories: { name: params[:category_name] },
-                                 manufacturers: { name: params[:option_name] })
+                                 appliance_manufacturers: { name: params[:option_name] })
                           .order(:name)
                           .distinct
 
@@ -66,7 +63,7 @@ class AppliancesController < ApplicationController
       :name, :primary_image, :secondary_image, :manual,
       :serial, :source, :warranty_num, :description,
       :warranty_length, :model_num, :e_rating,
-      :manufacturer_id, :appliance_category_id,
+      :appliance_manufacturer_id, :appliance_category_id,
       :remove_primary_image, :remove_secondary_image,
       :remove_manual, :guide, :remove_guide,
       :primary_image_cache, :secondary_image_cache

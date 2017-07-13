@@ -26,10 +26,11 @@ class Room < ApplicationRecord
 
   has_many :finish_rooms, inverse_of: :room
   has_many :finishes, through: :finish_rooms
+  has_many :finish_manufacturers, through: :finishes
 
   has_many :appliance_rooms, inverse_of: :room
   has_many :appliances, through: :appliance_rooms
-  has_many :manufacturers, through: :appliances
+  has_many :appliance_manufacturers, through: :appliances
   has_many :appliance_categories, through: :appliances
 
   amoeba do

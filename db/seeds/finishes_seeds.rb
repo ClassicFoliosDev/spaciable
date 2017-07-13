@@ -225,19 +225,19 @@
       "Wavin"
     ],
     "Windows": [
-        "Wavin"
+      "Wavin"
     ],
     "Door (Front)": [
-        "Wavin"
+      "Wavin"
     ],
     "Door (Garage)": [
-        "Wavin"
+      "Wavin"
     ],
     "Door (Patio)": [
-        "Wavin"
+      "Wavin"
     ],
     "Door (Rear)": [
-        "Wavin"
+      "Wavin"
     ]
   }
 }.each_pair do |category_name, types|
@@ -258,14 +258,14 @@
     end
 
     manufacturers.each do |manufacturer_name|
-      manufacturer = Manufacturer.find_or_initialize_by(name: manufacturer_name)
+      manufacturer = FinishManufacturer.find_or_initialize_by(name: manufacturer_name)
+      manufacturer.finish_types << finish_type unless manufacturer.finish_types.include?(finish_type)
 
       if manufacturer.new_record?
         puts "Manufacturer: #{manufacturer.name}" if Features.seed_output
-        manufacturer.save!
       end
 
-      finish_type.manufacturers << manufacturer
+      manufacturer.save!
     end
   end
 end

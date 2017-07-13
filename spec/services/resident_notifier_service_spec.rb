@@ -243,7 +243,7 @@ RSpec.describe ResidentNotifierService do
 
         service = described_class.new(notification)
 
-        expect(service.missing_resident_plots).not_to match_array(plot_numbers)
+        expect(service.all_missing_plots).not_to match_array(plot_numbers)
       end
     end
 
@@ -271,7 +271,7 @@ RSpec.describe ResidentNotifierService do
         notified_residents = service.notify_residents
         expect(notified_residents.length).to eq(2)
 
-        expect(service.missing_resident_plots).to include("Penthouse 6")
+        expect(service.all_missing_plots).to include("Penthouse 6")
       end
 
       it "should send to a range of plots with the same prefix" do
@@ -287,7 +287,7 @@ RSpec.describe ResidentNotifierService do
         expect(notified_residents.length).to eq(2)
         expect(notified_residents.map(&:full_plot_number)).to match_array(["Apartment 7", "Apartment 8"])
 
-        expect(service.missing_resident_plots).to include("Plot 9")
+        expect(service.all_missing_plots).to include("Plot 9")
       end
 
       it "should send to plot numbers with the same prefix" do
@@ -307,7 +307,7 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         create(:plot, :with_resident, development: development, prefix: "Apartment", number: "4")
         create(:plot, :with_resident, development: development, prefix: "Plot", number: "4")
-        create(:plot, development: development, prefix: "Plot", number: "5")
+        create(:plot, :with_resident, development: development, prefix: "", number: "4")
         notification = create(:notification, send_to: development, list: "4, 5", plot_prefix: "Plot")
 
         service = described_class.new(notification)
@@ -316,13 +316,29 @@ RSpec.describe ResidentNotifierService do
         expect(notified_residents.length).to eq(1)
         expect(notified_residents.map(&:full_plot_number)).to match_array(["Plot 4"])
 
-        expect(service.missing_resident_plots).to include("Apartment 4")
-        expect(service.missing_resident_plots).to include("Plot 5")
+        expect(service.all_missing_plots.length).to eq(2)
+        expect(service.all_missing_plots).to include("Apartment 4")
+        expect(service.all_missing_plots).to include("4")
+      end
+
+      it "should not send to plots with no residents" do
+        development = create(:development)
+        create(:plot, development: development, prefix: "Plot", number: "4")
+        create(:plot, development: development, prefix: "Plot", number: "5")
+        notification = create(:notification, send_to: development, list: "4, 5", plot_prefix: "Plot")
+
+        service = described_class.new(notification)
+        notified_residents = service.notify_residents
+
+        expect(notified_residents.length).to eq(0)
+
+        expect(service.all_missing_plots).to include("Plot 4")
+        expect(service.all_missing_plots).to include("Plot 5")
       end
     end
   end
 
-  describe "#missing_resident_plots" do
+  describe "#all_missing_plots" do
     context "for plots without residents" do
       it "should return the missing plot numbers" do
         development = create(:development)
@@ -332,7 +348,7 @@ RSpec.describe ResidentNotifierService do
 
         service = described_class.new(notification)
 
-        expect(service.missing_resident_plots).to match_array(plot_numbers)
+        expect(service.all_missing_plots).to match_array(plot_numbers)
       end
     end
 
@@ -347,7 +363,7 @@ RSpec.describe ResidentNotifierService do
         notification.range_to = plot_numbers.max
         service = described_class.new(notification)
 
-        expect(service.missing_resident_plots).to match_array(plot_numbers)
+        expect(service.all_missing_plots).to match_array(plot_numbers)
         expect(notification.resident_notifications.length).to eq(0)
       end
     end
@@ -359,12 +375,15 @@ RSpec.describe ResidentNotifierService do
         plots = []
         plots[0] = create(:plot, :with_resident, development: development, number: "5")
         plots[1] = create(:plot, development: development, number: "4")
+        plots[2] = create(:plot, development: development, number: "4", prefix: "Plot")
 
         service = described_class.new(notification)
         notified_residents = service.notify_residents
 
-        expect(service.missing_resident_plots.count).to eq(2)
-        expect(service.missing_resident_plots).to match(%w(4 2))
+        expect(service.all_missing_plots.count).to eq(3)
+        expect(service.all_missing_plots).to include("4")
+        expect(service.all_missing_plots).to include("2")
+        expect(service.all_missing_plots).to include("Plot 4")
 
         expect(notified_residents.count).to eq(1)
         expect(notified_residents[0]).to eq(plots[0].resident)
@@ -388,18 +407,18 @@ RSpec.describe ResidentNotifierService do
 
         service = described_class.new(notification)
 
-        expect(service.missing_resident_plots.count).to eq(4)
+        expect(service.all_missing_plots.count).to eq(4)
 
-        expect(service.missing_resident_plots).to include("4")
-        expect(service.missing_resident_plots).to include("2.31")
-        expect(service.missing_resident_plots).to include("b8")
-        expect(service.missing_resident_plots).to include("5.200")
+        expect(service.all_missing_plots).to include("4")
+        expect(service.all_missing_plots).to include("2.31")
+        expect(service.all_missing_plots).to include("b8")
+        expect(service.all_missing_plots).to include("5.200")
 
-        expect(service.missing_resident_plots).not_to include("3.10")
-        expect(service.missing_resident_plots).not_to include("5")
-        expect(service.missing_resident_plots).not_to include("5.55")
-        expect(service.missing_resident_plots).not_to include("5.2")
-        expect(service.missing_resident_plots).not_to include("A6")
+        expect(service.all_missing_plots).not_to include("3.10")
+        expect(service.all_missing_plots).not_to include("5")
+        expect(service.all_missing_plots).not_to include("5.55")
+        expect(service.all_missing_plots).not_to include("5.2")
+        expect(service.all_missing_plots).not_to include("A6")
       end
 
       it "should only send to matching numbers from a list" do
@@ -413,8 +432,8 @@ RSpec.describe ResidentNotifierService do
         service = described_class.new(notification)
         notified_residents = service.notify_residents
 
-        expect(service.missing_resident_plots.count).to eq(2)
-        expect(service.missing_resident_plots).to match(["4a", "2.6"])
+        expect(service.all_missing_plots.count).to eq(2)
+        expect(service.all_missing_plots).to match(["4a", "2.6"])
 
         expect(notified_residents.count).to eq(2)
       end

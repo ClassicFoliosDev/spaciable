@@ -18,16 +18,16 @@ class Appliance < ApplicationRecord
   attr_accessor :secondary_image_cache
 
   belongs_to :appliance_category, required: true
-  belongs_to :manufacturer, required: true
+  belongs_to :appliance_manufacturer, required: true
 
   has_many :appliance_rooms
   has_many :rooms, through: :appliance_rooms
 
   paginates_per 10
 
-  validates :name, :model_num, presence: true, uniqueness: true
+  validates :model_num, presence: true, uniqueness: true
 
-  delegate :link, to: :manufacturer, prefix: true
+  delegate :link, to: :appliance_manufacturer, prefix: true
 
   enum warranty_length: [
     :no_warranty,
@@ -53,8 +53,12 @@ class Appliance < ApplicationRecord
     :d
   ]
 
+  def full_name
+    "#{appliance_manufacturer&.name} #{model_num}".strip
+  end
+
   def to_s
-    name
+    full_name
   end
 
   def self.rebuild_pg_search_documents

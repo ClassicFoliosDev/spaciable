@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module ManufacturerFixture
+module ApplianceManufacturerFixture
   module_function
 
   def name

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
-When(/^I create a finish_category$/) do
+When(/^I create a finish category$/) do
   visit "/finish_categories"
 
-  within ".empty" do
+  within ".section-actions" do
     click_on I18n.t("finish_categories.collection.add")
   end
 
@@ -13,7 +13,7 @@ When(/^I create a finish_category$/) do
   click_on I18n.t("finish_categories.form.submit")
 end
 
-Then(/^I should see the created finish_category$/) do
+Then(/^I should see the created finish category$/) do
   success_flash = t(
     "controller.success.create",
     name: FinishCategoryFixture.name
@@ -25,9 +25,9 @@ Then(/^I should see the created finish_category$/) do
   end
 end
 
-When(/^I update the finish_category$/) do
+When(/^I update the finish category$/) do
   finish_category = FinishCategory.find_by(name: FinishCategoryFixture.name)
-  within "[data-finish_category=\"#{finish_category.id}\"]" do
+  within "[data-finish-category=\"#{finish_category.id}\"]" do
     find("[data-action='edit']").click
   end
 
@@ -38,7 +38,7 @@ When(/^I update the finish_category$/) do
   click_on I18n.t("finish_categories.form.submit")
 end
 
-Then(/^I should see the updated finish_category$/) do
+Then(/^I should see the updated finish category$/) do
   success_flash = t(
     "controller.success.update",
     name: FinishCategoryFixture.updated_name
@@ -51,12 +51,7 @@ Then(/^I should see the updated finish_category$/) do
   end
 end
 
-When(/^I delete the finish_category$/) do
-  visit "/finish_categories"
-  delete_and_confirm!
-end
-
-Then(/^I should see the finish_category delete complete successfully$/) do
+Then(/^I should see the finish category delete complete successfully$/) do
   success_flash = t(
     "controller.success.destroy",
     name: CreateFixture.finish_category_name
@@ -70,7 +65,7 @@ Then(/^I should see the finish_category delete complete successfully$/) do
   end
 end
 
-Then(/^I should not see finish_categories$/) do
+Then(/^I should not see finish categories$/) do
   visit "/finish_categories"
 
   expect(page).to have_content("You are not authorized to access this page")

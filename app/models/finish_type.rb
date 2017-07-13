@@ -4,12 +4,11 @@ class FinishType < ApplicationRecord
   has_many :finish_categories, through: :finish_categories_type
 
   has_many :finish_types_manufacturer
+  has_many :finish_manufacturers, through: :finish_types_manufacturer
   has_many :manufacturers, through: :finish_types_manufacturer
 
-  attr_accessor :finish_category_id
-
   validates :name, presence: true, uniqueness: true
-  validates :finish_category_id, presence: true
+  validates :finish_categories, length: { minimum: 1 }
 
   delegate :to_s, to: :name
 end

@@ -13,21 +13,21 @@ Feature: Appliances
     Then I should see the appliance category error
     When I create an appliance
     Then I should see the created appliance
+    When I delete the appliance manufacturer
+    Then I should see a failed to delete message
+    When I delete the appliance category
+    Then I should see a failed to delete message
     When I update the appliance
     Then I should see the updated appliance
     When I remove an image
     Then I should see the updated appliance without the image
     When I remove a file
     Then I should see the updated appliance without the file
-    When I delete the appliance manufacturer
-    Then I should see a failed to delete message
-    When I delete the appliance category
-    Then I should see a failed to delete message
 
   @javascript
   Scenario: Delete
     Given I am logged in as an admin
-    And there is a manufacturer
+    And there is an appliance manufacturer
     And there is an appliance
     When I delete the appliance
     Then I should see the appliance deletion complete successfully

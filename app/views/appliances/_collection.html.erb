@@ -26,24 +26,24 @@
     <thead>
       <tr>
         <th class="icon">&nbsp;</th>
-        <th><%= sortable(Appliance, :name) %></th>
-        <th><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
-        <th><%= sortable(Appliance, :model_num) %></th>
-        <th><%= sortable({ Appliance => Manufacturer }, :name) %></th>
-        <th><%= sortable(Appliance, :updated_at) %></th>
-        <th>&nbsp;</th>
+        <th colspan="2"><%= sortable(Appliance, :name) %></th>
+        <th colspan="2"><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
+        <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
+        <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name) %></th>
+        <th colspan="2"><%= sortable(Appliance, :updated_at) %></th>
+        <th colspan="2">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% collection.each do |appliance| %>
         <tr>
           <td><%= image_tag appliance.primary_image if appliance.primary_image? %></td>
-          <td><%= link_to appliance.name, appliance_path(appliance), title: appliance.name %></td>
-          <td><%= appliance.appliance_category %></td>
-          <td><%= appliance.model_num %></td>
-          <td><%= appliance.manufacturer %></td>
-          <td><%= l appliance.updated_at.to_date, format: :digits %></td>
-          <td class="actions">
+          <td colspan="2"><%= link_to appliance.full_name, appliance_path(appliance), title: appliance.full_name %></td>
+          <td colspan="2"><%= appliance.appliance_category %></td>
+          <td colspan="2"><%= appliance.model_num %></td>
+          <td colspan="2"><%= appliance.appliance_manufacturer %></td>
+          <td colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
+          <td colspan="2" class="actions">
             <%= edit_btn edit_appliance_path(appliance), element: appliance %>
             <% if room && can?(:destroy, appliance) %>
               <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>

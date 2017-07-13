@@ -27,6 +27,9 @@ gem "jquery-rails"
 # Use jQuery UI for widgets
 gem "jquery-ui-rails"
 
+# jQuery library for multi-select
+gem "rails-assets-select2", source: "https://rails-assets.org"
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Use Redis adapter to run Action Cable in production

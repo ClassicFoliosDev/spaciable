@@ -5,7 +5,7 @@ class FinishesController < ApplicationController
   load_and_authorize_resource :finish
 
   def index
-    @finishes = @finishes.includes(:finish_category, :finish_type, :manufacturer)
+    @finishes = @finishes.includes(:finish_category, :finish_type, :finish_manufacturer)
     @finishes = paginate(sort(@finishes, default: :name))
     @active_tab = "finishes"
   end
@@ -51,7 +51,7 @@ class FinishesController < ApplicationController
   end
 
   def manufacturers_list
-    manufacturers = Manufacturer
+    manufacturers = FinishManufacturer
                     .joins(:finish_types)
                     .where(finish_types: { name: params[:option_name] })
                     .order(:name)
@@ -62,7 +62,7 @@ class FinishesController < ApplicationController
 
   def finish_list
     finishes = if params[:manufacturer_name].present?
-                 Finish.joins(:finish_type, :manufacturer)
+                 Finish.joins(:finish_type, :finish_manufacturer)
                        .where(finish_types: { name: params[:type_name] },
                               manufacturers: { name: params[:manufacturer_name] })
                        .order(:name)
@@ -86,9 +86,10 @@ class FinishesController < ApplicationController
       :description,
       :finish_category_id,
       :finish_type_id,
-      :manufacturer_id,
+      :finish_manufacturer_id,
       :picture,
       :remove_picture,
+      :picture_cache,
       documents_attributes: [:id, :title, :file, :_destroy]
     )
   end

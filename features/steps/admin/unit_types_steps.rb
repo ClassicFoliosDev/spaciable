@@ -169,7 +169,6 @@ Then(/^I should see a duplicate unit type with finish and appliance created succ
   end
 
   within ".record-list" do
-    expect(page).to have_content(CreateFixture.appliance_without_manual_name)
     expect(page).to have_content(CreateFixture.full_appliance_name)
   end
 end

@@ -833,7 +833,7 @@ en:
      appliance_category: "Category"
      remove: "Remove"
      appliances: "Appliances"
-     manufacturers: "Manufacturers"
+     appliance_manufacturers: "Appliance manufacturers"
      appliance_categories: "Categories"
    new:
      title: "New appliance"
@@ -860,31 +860,45 @@ en:
      remove_guide: "Remove appliance quick reference guide"
    no_match: "No matching appliances found"
 
-  manufacturers:
+  finish_manufacturers:
    index:
-     title: "Manufacturers"
+     title: "Finish manufacturers"
    collection:
-     add: "Add manufacturer"
+     add: "Add finish manufacturer"
      name: "Name"
-     appliances: "Appliances"
      finishes: "Finishes"
-     applies_to: "Applies to"
    show:
      back: "Back"
-   manufacturer:
-     link: "Manufacturer registration link"
-     appliance_categories: "Appliance categories"
+   finish_manufacturer:
      finish_types: "Finish types"
    new:
-     title: "New manufacturer"
+     title: "New finish manufacturer"
    edit:
      title: "Edit %{name}"
    form:
      back: "Back"
      submit: "Submit"
-     for_appliances: "For appliances"
-     for_finishes: "For finishes"
      finish_category: "Finish category"
+
+  appliance_manufacturers:
+   index:
+     title: "Appliance manufacturers"
+   collection:
+     add: "Add appliance manufacturer"
+     name: "Name"
+     appliances: "Appliances"
+   show:
+     back: "Back"
+   appliance_manufacturer:
+     link: "Manufacturer registration link"
+     appliance_categories: "Appliance categories"
+   new:
+     title: "New appliance manufacturer"
+   edit:
+     title: "Edit %{name}"
+   form:
+     back: "Back"
+     submit: "Submit"
 
   appliance_categories:
     index:
@@ -918,7 +932,7 @@ en:
       finish_type: "Type"
       create: "Add finish"
       finishes: "Finishes"
-      manufacturers: "Manufacturers"
+      finish_manufacturers: "Finish manufacturers"
       manufacturer: "Manufacturer"
       finish_types: "Finish types"
       finish_categories: "Finish categories"
@@ -1409,7 +1423,11 @@ en:
               already_in_use: "is already associated to another plot."
               change_email: "could not be updated. If you need to change the resident email, remove this plot resident and
                add a new one"
-        manufacturer:
+        finish_type:
           attributes:
-            finish_category_id:
-              required_if_finish: " is required if you have configured a manufacturer for finishes"
+            finish_categories:
+              too_short: " must be selected"
+        finish_manufacturer:
+          attributes:
+            finish_types:
+              too_short: " required, at least one must be selected"
