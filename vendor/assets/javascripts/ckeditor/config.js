@@ -33,6 +33,8 @@ CKEDITOR.editorConfig = function( config )
 
   config.allowedContent = true;
 
+  config.image_previewText = "Your text content will be displayed here"
+
   // Toolbar groups configuration.
   config.toolbar = [
     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source'] },
