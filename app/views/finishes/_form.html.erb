@@ -24,7 +24,7 @@
       <div class="row-item third">
         <fieldset>
           <div class="finish_category ui-front select-container">
-            <%= f.association :finish_category, collection: FinishCategory.order('name ASC') %>
+            <%= f.association :finish_category, collection: FinishCategory.order(:name) %>
           </div>
           <div class="finish_type ui-front select-container">
             <%= f.association :finish_type %>

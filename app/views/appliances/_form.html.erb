@@ -29,10 +29,10 @@
     </div>
     <div class="row-item third">
       <div class="appliance_category ui-front select-container">
-        <%= f.association :appliance_category, collection: ApplianceCategory.order('name ASC') %>
+        <%= f.association :appliance_category, collection: ApplianceCategory.order(:name) %>
       </div>
       <div class="manufacturer ui-front select-container">
-        <%= f.association :appliance_manufacturer, collection: ApplianceManufacturer.order('name ASC') %>
+        <%= f.association :appliance_manufacturer, collection: ApplianceManufacturer.order(:name) %>
       </div>
       <div class="warranty ui-front">
       <%= f.label t(".warranty_length") %>

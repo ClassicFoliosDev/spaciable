@@ -7,6 +7,11 @@ Given(/^I have created appliances and finishes with old manufacturers$/) do
   MigrateManufacturersFixture.setup
 end
 
+Given(/^there are duplicate finish categories types relationships$/) do
+  FinishCategoriesType.create(finish_category_id: 1, finish_type_id: 1)
+  FinishCategoriesType.create(finish_category_id: 1, finish_type_id: 1)
+end
+
 When(/^I migrate the old manufacturers$/) do
   require "rake"
   rake = Rake::Application.new
@@ -102,4 +107,20 @@ Then(/^I should find the old finish relationships have been updated$/) do
   expect(related_manufacturer_names).to have_content("Dulux")
   expect(related_manufacturer_names).to have_content("Farrow & Ball")
   expect(related_manufacturer_names).to have_content("Manufacturer for appliance and finish")
+end
+
+Then(/^I should find no extra appliance or finish manufacturers$/) do
+  appliance_manufacturers = ApplianceManufacturer.all
+  expect(appliance_manufacturers.length).to eq(7)
+
+  finish_manufacturers = FinishManufacturer.all
+  expect(finish_manufacturers.length).to eq(8)
+end
+
+Then(/^I should find no extra relationships$/) do
+  finish_types_manufacturers = FinishTypesManufacturer.all
+  expect(finish_types_manufacturers.length).to eq(22)
+
+  finish_categories_types = FinishCategoriesType.all
+  expect(finish_categories_types.length).to eq(6)
 end

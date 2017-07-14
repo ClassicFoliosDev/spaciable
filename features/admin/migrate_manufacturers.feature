@@ -1,4 +1,4 @@
-Feature: Manufaturer migrations
+Feature: Manufacturer migrations
   As a Sys Admin
   I want to migrate manufacturers
   So that old manufacturer relationships are patched up
@@ -6,8 +6,16 @@ Feature: Manufaturer migrations
   Scenario: Sys Admin
   Given I have seeded the database with old manufacturers
   And I have created appliances and finishes with old manufacturers
+  And there are duplicate finish categories types relationships
   When I migrate the old manufacturers
   Then I should find new appliance manufacturers
   And I should find new finish manufacturers
   And I should find the old appliance relationships have been updated
   And I should find the old finish relationships have been updated
+  When I migrate the old manufacturers
+  Then I should find no extra appliance or finish manufacturers
+  And I should find no extra relationships
+  And I should find new finish manufacturers
+  And I should find the old appliance relationships have been updated
+  And I should find the old finish relationships have been updated
+

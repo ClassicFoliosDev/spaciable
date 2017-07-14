@@ -159,16 +159,41 @@ end
 
 When(/^I delete the finish category$/) do
   visit "./finish_categories"
-
   finish_category = FinishCategory.find_by(name: CreateFixture.finish_category_name)
+
   delete_scope = "[data-finish-category='#{finish_category.id}']"
   delete_and_confirm!(scope: delete_scope)
 end
 
 When(/^I delete the finish type$/) do
   visit "./finish_types"
-
   finish_type = FinishType.find_by(name: CreateFixture.finish_type_name)
+
   delete_scope = "[data-finish-type='#{finish_type.id}']"
   delete_and_confirm!(scope: delete_scope)
+end
+
+When(/^I review the finish category$/) do
+  visit "./finish_categories"
+  click_on CreateFixture.finish_category_name
+end
+
+Then(/^I should see the finish type shown$/) do
+  sleep 0.5
+  within ".finish_category" do
+    expect(page).to have_content(CreateFixture.finish_type_name)
+  end
+end
+
+When(/^I review the finish type$/) do
+  visit "./finish_types"
+  click_on CreateFixture.finish_type_name
+end
+
+Then(/^I should see the finish manufacturer shown$/) do
+  sleep 0.5
+  within ".finish_type" do
+    expect(page).to have_content("Victoria Carpets")
+    expect(page).to have_content("Cormar Carpets")
+  end
 end

@@ -13,8 +13,12 @@ Feature: Finishes
     Then I should see the created finish
     When I delete the finish manufacturer
     Then I should see a failed to delete message
+    When I review the finish category
+    Then I should see the finish type shown
     When I delete the finish category
     Then I should see a failed to delete message
+    When I review the finish type
+    Then I should see the finish manufacturer shown
     When I delete the finish type
     Then I should see a failed to delete message
     When I update the finish

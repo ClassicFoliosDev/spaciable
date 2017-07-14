@@ -8,7 +8,13 @@ namespace :manufacturers do
     logger.info(">>>>>>>> New migration <<<<<<<<")
 
     migrate_manufacturers(logger)
+
+    logger.info(">>>>>>> Tidy up duplicate relationships <<<<<<<<<")
+
+    remove_duplicate_finish_categories_types
+
     logger.info(">>>>>>>> <<<<<<<<")
+
   end
 
   def migrate_manufacturers(logger)
@@ -52,9 +58,9 @@ namespace :manufacturers do
     if finish_manufacturer.nil?
       finish_manufacturer = FinishManufacturer.new(name: manufacturer.name)
       finish_manufacturer.finish_types << finish_types
+      finish_manufacturer.save!
     end
 
-    finish_manufacturer.save!
     logger.info("Created or found finish manufacturer #{finish_manufacturer.id}: #{finish_manufacturer.name} with #{finish_types.length} finish types")
 
     finish_manufacturer
@@ -88,5 +94,27 @@ namespace :manufacturers do
     end
 
     logger.info("Connections complete for #{appliance_manufacturer.to_s}")
+  end
+
+  def remove_duplicate_finish_categories_types
+    finish_categories_types = FinishCategoriesType.all
+    finish_categories_types_to_keep = []
+
+    finish_categories_types.each do | finish_categories_type |
+      finish_categories_type_combined_id = [finish_categories_type.finish_category_id,
+                                            finish_categories_type.finish_type_id]
+       unless finish_categories_types_to_keep.include?(finish_categories_type_combined_id)
+         finish_categories_types_to_keep << finish_categories_type_combined_id
+      end
+    end
+
+    ActiveRecord::Base.connection.execute("DELETE from finish_categories_types")
+
+    finish_categories_types_to_keep.each do | finish_categories_type_ids |
+      finish_category_id = finish_categories_type_ids[0]
+      finish_type_id = finish_categories_type_ids[1]
+
+      FinishCategoriesType.create(finish_category_id: finish_category_id, finish_type_id: finish_type_id)
+    end
   end
 end

@@ -21,7 +21,7 @@
     <div class="row-item half">
       <fieldset>
         <div class="finish-type-finish-category ui-front select-container">
-          <%= f.association :finish_categories, label: FinishCategory.model_name.human %>
+          <%= f.association :finish_categories, collection: FinishCategory.order(:name), label: FinishCategory.model_name.human %>
         </div>
       </fieldset>
     </div>
