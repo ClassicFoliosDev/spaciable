@@ -8,15 +8,7 @@ $(document).on('click', '.appliance-add .ui-menu-item', function (event) {
     var listClasses = $selectContainer[0].classList;
     var $parentFieldset = $selectContainer.closest(".appliance-add");
 
-    if (listClasses.contains("appliance_category")) {
-      var $manufacturerDiv = $parentFieldset.find(".manufacturer");
-      var $manufacturerSelect = clearFields($manufacturerDiv);
-
-      var url = "/appliance_manufacturers_list";
-      setFields($manufacturerSelect, url, { option_name: optionName });
-
-    }
-    else if (listClasses.contains("manufacturer")) {
+    if (listClasses.contains("appliance_manufacturer")) {
 
       var $categoryDiv = $(".appliance_category");
       var categoryValue = $categoryDiv.find(".ui-selectmenu-text").html();

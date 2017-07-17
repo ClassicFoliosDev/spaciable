@@ -7,6 +7,7 @@ module Rooms
 
     def new
       @appliance_categories = sort(ApplianceCategory.all, default: :name)
+      @appliance_manufacturers = sort(ApplianceManufacturer.all, default: :name)
 
       new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
       return unless new_room
@@ -25,7 +26,8 @@ module Rooms
         notice = t("controller.success.update", name: @room.name)
         redirect_to [@room.parent, @room, active_tab: "appliances"], notice: notice
       else
-        @appliance_categories = ApplianceCategory.all
+        @appliance_categories = sort(ApplianceCategory.all, default: :name)
+        @appliance_manufacturers = sort(ApplianceManufacturer.all, default: :name)
         render :new
       end
     end

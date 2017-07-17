@@ -3,7 +3,7 @@ class Appliance < ApplicationRecord
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:name], using: [:tsearch, :trigram]
+  multisearchable against: [:name, :model_num], using: [:tsearch, :trigram]
 
   mount_uploader :primary_image, PictureUploader
   mount_uploader :secondary_image, PictureUploader

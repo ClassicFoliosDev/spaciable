@@ -179,7 +179,7 @@ When(/^I add an appliance$/) do
   click_on t("components.empty_list.add", type_name: Appliance.model_name.human.downcase)
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
-  select_from_selectmenu :manufacturer, with: CreateFixture.appliance_manufacturer_name
+  select_from_selectmenu :appliance_manufacturer, with: CreateFixture.appliance_manufacturer_name
   select_from_selectmenu :appliances, with: CreateFixture.full_appliance_name
 
   click_on t("rooms.form.submit")
