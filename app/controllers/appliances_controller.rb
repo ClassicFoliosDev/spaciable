@@ -52,6 +52,10 @@ class AppliancesController < ApplicationController
                           .order(:name)
                           .distinct
 
+    appliances.each do |appliance|
+      appliance.name = appliance.full_name
+    end
+
     render json: appliances
   end
 

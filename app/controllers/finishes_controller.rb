@@ -64,7 +64,7 @@ class FinishesController < ApplicationController
     finishes = if params[:manufacturer_name].present?
                  Finish.joins(:finish_type, :finish_manufacturer)
                        .where(finish_types: { name: params[:type_name] },
-                              manufacturers: { name: params[:manufacturer_name] })
+                              finish_manufacturers: { name: params[:manufacturer_name] })
                        .order(:name)
                        .distinct
                else
