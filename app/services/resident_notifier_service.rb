@@ -30,9 +30,9 @@ class ResidentNotifierService
     return [] if notification.send_to_all?
 
     if notification.plot_numbers && notification.plot_prefix?
-      missing_resident_plots_with_prefix
+      missing_resident_plots_with_prefix.sort
     else
-      missing_resident_plots
+      missing_resident_plots.sort
     end
   end
 
@@ -46,7 +46,7 @@ class ResidentNotifierService
     notification.plot_numbers.each do |sent_number|
       # Plot numbers in the plot number list, where there is no matching plot in the development
       unless potential_plot_numbers.include?(sent_number)
-        missing_plot_names.add(sent_number)
+        missing_plot_names.push(sent_number)
       end
     end
 
@@ -75,7 +75,7 @@ class ResidentNotifierService
       end
     end
 
-    missing_plot_names
+    missing_plot_names.to_a
   end
 
   def potential_plots
