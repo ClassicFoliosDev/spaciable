@@ -31,7 +31,8 @@ module DevelopmentTabsHelper
       },
       faqs: { icon: "question-circle" },
       contacts: { icon: :vcard },
-      brands: { icon: "css3" }
+      brands: { icon: "css3" },
+      videos: { icon: "file-video-o" }
     }
   end
 end

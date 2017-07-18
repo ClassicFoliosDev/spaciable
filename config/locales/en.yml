@@ -113,6 +113,9 @@ en:
     faqs: "FAQs"
     faqs_add: "Add FAQ"
     faqs_edit: "Edit FAQ"
+    videos: "Videos"
+    videos_add: "New video link"
+    videos_edit: "Edit video link"
     finish_edit: "Edit %{name}"
     finish_add: "Add finish"
     finish_category_edit: "Edit %{name}"
@@ -328,6 +331,22 @@ en:
       title: "%{parent} FAQ"
       back: "Back"
 
+  videos:
+    new:
+      title: "New video link"
+    form:
+      back: "Back"
+      submit: "Submit"
+      link_example: "For example https://player.vimeo.com/video/654321"
+    collection:
+      create: "Add video link"
+      title: "Display title"
+      link: "Link to external site"
+    show:
+      back: "Back"
+    edit:
+      title: "Edit %{name}"
+
   home:
     show:
      home: "Home"
@@ -356,6 +375,7 @@ en:
       contacts: "Contacts"
       rooms: "Rooms"
       brands: "Styling"
+      videos: "Videos"
     edit:
       back: "Back"
     form:

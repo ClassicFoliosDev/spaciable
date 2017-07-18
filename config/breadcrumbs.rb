@@ -559,6 +559,28 @@ crumb :faq_edit do |faq|
   parent :faqs, faq.faqable
 end
 
+# Videos
+
+crumb :videos do |video_parent|
+  link t("breadcrumbs.videos"), ([video_parent, :videos])
+  parent :development, video_parent
+end
+
+crumb :video_add do |video_parent|
+  link t("breadcrumbs.videos_add"), [:new, video_parent, :video]
+  parent :videos, video_parent
+end
+
+crumb :video do |video|
+  link video.title, video_path(video)
+  parent :videos, video.videoable
+end
+
+crumb :video_edit do |video|
+  link t("breadcrumbs.videos_edit"), [:edit, video]
+  parent :videos, video.videoable
+end
+
 # Brands
 
 crumb :brands do |brand_parent|

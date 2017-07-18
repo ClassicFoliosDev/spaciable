@@ -1,0 +1,9 @@
+<% breadcrumb :video_edit, @video %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= t(".title", name: @video.title) %>
+  </h3>
+</div>
+
+<%= render 'form', video: @video, parent: nil %>

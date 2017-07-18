@@ -1,0 +1,39 @@
+<% if collection.empty? %>
+  <%= render 'components/empty_list', icon_name: "file-video-o", type: Video, parent: parent %>
+<% else %>
+  <% if can_create(Video, parent) %>
+    <div class="section-actions">
+      <%= link_to [:new, parent, :video], class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".create") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th><%= sortable(Video, :title, t(".title")) %></th>
+        <th><%= t(".link") %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |video| %>
+      <tr>
+        <td><%= link_to video.title, video_path(video) %></td>
+        <td><%= video.link %></td>
+        <td class="actions">
+          <%= edit_btn edit_video_path(video), element: video %>
+          <%= delete_btn video, path: video_path(video), element: video %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

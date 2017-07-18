@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170713082512) do
+ActiveRecord::Schema.define(version: 20170717153257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 20170713082512) do
   end
 
   create_table "appliances", force: :cascade do |t|
-    t.string   "name"
     t.string   "primary_image"
     t.string   "manual"
     t.string   "service_log"
@@ -66,11 +65,11 @@ ActiveRecord::Schema.define(version: 20170713082512) do
     t.integer  "manufacturer_id"
     t.string   "guide"
     t.integer  "appliance_manufacturer_id"
+    t.string   "name"
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["appliance_manufacturer_id"], name: "index_appliances_on_appliance_manufacturer_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
     t.index ["manufacturer_id"], name: "index_appliances_on_manufacturer_id", using: :btree
-    t.index ["name"], name: "index_appliances_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
   create_table "appliances_rooms", id: false, force: :cascade do |t|
@@ -555,6 +554,16 @@ ActiveRecord::Schema.define(version: 20170713082512) do
     t.index ["invited_by_type"], name: "index_users_on_invited_by_type", using: :btree
     t.index ["permission_level_type", "permission_level_id"], name: "index_users_on_permission_level_type_and_permission_level_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string   "title"
+    t.string   "link"
+    t.string   "videoable_type"
+    t.integer  "videoable_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
   add_foreign_key "appliances", "appliance_categories"

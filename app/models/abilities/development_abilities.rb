@@ -8,6 +8,7 @@ module Abilities
       development_faqs(development, division_id, developer_id)
       development_contacts(development, division_id, developer_id)
       development_documents(development, division_id, developer_id)
+      development_videos(development)
       crud_residents(development)
       read_developments(developer_id, division_id, development)
     end
@@ -54,6 +55,10 @@ module Abilities
 
       cannot :manage, Notification, send_to_all: true
       cannot :send_to_all, Notification
+    end
+
+    def development_videos(development)
+      can :manage, Video, videoable_id: development
     end
 
     def development_faqs(development, division, developer)

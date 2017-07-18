@@ -1,0 +1,7 @@
+<% breadcrumb :videos, @parent %>
+
+<%= render @parent %>
+
+<%= render 'components/tabs', tabs: tabs_for(@parent, "videos"), parent: @parent %>
+
+<%= render_collection @videos, parent: @parent, new_video: @video %>

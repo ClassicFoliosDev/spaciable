@@ -1,0 +1,10 @@
+<% breadcrumb :video_add, @parent %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "file-video-o" %>
+    <%= t(".title") %>
+  </h3>
+</div>
+
+<%= render 'form', parent: @parent, video: @video %>
