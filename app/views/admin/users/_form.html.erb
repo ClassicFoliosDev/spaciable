@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <div class="row">
+  <div class="row user">
     <div class="row-item third">
       <fieldset>
         <%= f.input :email, readonly: user.email? %>
@@ -33,7 +33,8 @@
             collection: User::accessible_admin_roles(current_user),
             label_method: ->(role) { t(role.first) },
             value_method: :first,
-            include_blank: "Choose..." %>
+            include_blank: t("users.choose"),
+            selected: selected_role %>
       </fieldset>
     </div>
     <div class="row-item third">
