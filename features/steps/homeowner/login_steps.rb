@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 Given(/^I am a homeowner$/) do
   HomeownerUserFixture.create
 end
@@ -33,8 +33,14 @@ Then(/^I should be on the "Hoozzi Home" page$/) do
   expect(current_path).to eq("/")
 end
 
-Then(/^I should be on the "Homeowner Login" page$/) do
-  expect(current_path).to eq("/homeowners/sign_in")
+Then(/^I should be on the branded homeowner login page$/) do
+  homeowner = Resident.find_by(email: HomeownerUserFixture.email)
+
+  expected_path = "/#{homeowner.plot.developer.to_s.parameterize}"
+  expected_path << "/#{homeowner.plot.division.to_s.parameterize}" if homeowner.plot.division
+  expected_path << "/#{homeowner.plot.development.to_s.parameterize}/sign_in"
+
+  expect(current_path).to eq(expected_path)
 end
 
 Given(/^I am a homeowner with no plot$/) do

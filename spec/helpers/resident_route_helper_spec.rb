@@ -8,7 +8,7 @@ RSpec.describe ResidentRouteHelper do
       development = create(:development, developer: developer, name: "Development name")
       plot = create(:plot, development: development)
 
-      result = resident_notification_route(plot)
+      result = resident_sign_in_route(plot)
       expect(result).to eq("http://test.host/developer-name/development-name/sign_in")
     end
   end
@@ -20,7 +20,7 @@ RSpec.describe ResidentRouteHelper do
       development = create(:development, division: division, developer: developer, name: "Development name")
       plot = create(:plot, development: development)
 
-      result = resident_notification_route(plot)
+      result = resident_sign_in_route(plot)
       expect(result).to eq("http://test.host/developer-name/division-name/development-name/sign_in")
     end
   end

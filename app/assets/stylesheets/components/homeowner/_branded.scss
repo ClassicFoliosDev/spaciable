@@ -87,9 +87,9 @@
   background-color: $ui-white;
 
   input {
-    border: none;
     color: inherit;
     background-color: inherit;
+    border-color: inherit;
     margin-bottom: $spacing-small;
   }
 }

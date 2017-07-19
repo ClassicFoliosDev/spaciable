@@ -31,6 +31,7 @@ module Homeowners
         @plot = Plot.find(plot_id) if plot_id
       else
         @plot = current_resident.plot
+        session[:plot_id] = @plot.id
       end
     end
 

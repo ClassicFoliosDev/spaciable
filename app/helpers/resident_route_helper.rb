@@ -10,7 +10,7 @@ module ResidentRouteHelper
     path
   end
 
-  def resident_notification_route(plot)
+  def resident_sign_in_route(plot)
     path = build_path(plot)
     path << "/sign_in"
 

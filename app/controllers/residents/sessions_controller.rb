@@ -34,9 +34,10 @@ module Residents
     end
 
     # DELETE /resource/sign_out
-    # def destroy
-    #   super
-    # end
+    def destroy
+      @plot = Plot.find(session[:plot_id]) if session[:plot_id]
+      super
+    end
 
     # protected
 

@@ -11,7 +11,7 @@ Feature: Homeowner Login
   Scenario: Log out
     Given I am logged in as a homeowner
     When I log out as a homeowner
-    Then I should be on the "Homeowner Login" page
+    Then I should be on the branded homeowner login page
 
   Scenario: Unassociated homeowner
     Given I am a homeowner with no plot

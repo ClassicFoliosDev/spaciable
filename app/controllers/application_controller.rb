@@ -36,6 +36,19 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource_or_scope)
+    return build_sign_in_path(@plot) if @plot
+
     new_session_path(resource_or_scope)
+  end
+
+  def build_sign_in_path(plot)
+    path = root_url
+
+    path << plot.developer.to_s.parameterize
+    path << "/#{plot.division.to_s.parameterize}" if plot.division
+    path << "/#{plot.development.to_s.parameterize}"
+    path << "/sign_in"
+
+    path
   end
 end
