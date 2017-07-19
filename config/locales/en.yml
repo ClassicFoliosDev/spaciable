@@ -168,6 +168,10 @@ en:
       footer:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy."
+      library_hero:
+        title: "Welcome to your digital home library"
+        appliances: "Appliances"
+        videos: "Videos"
     home:
       header:
         nav:
@@ -402,8 +406,6 @@ en:
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
     library:
       index:
-        title: "Welcome to your digital home library"
-        appliances: "Appliances"
         manual: "Manual"
         guide: "Quick reference guide"
         disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
@@ -450,6 +452,9 @@ en:
         appliances_description: "View documents and details of appliances your home"
         library_description: "View and upload documents about your home"
         faqs_description: "Frequently asked questions about moving into a new home"
+    videos:
+      index:
+
 
     residents:
       edit:

@@ -169,7 +169,7 @@ Then(/^I can see my library$/) do
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content(t("homeowners.library.index.title"))
+    expect(page).to have_content(t("components.homeowner.library_hero.title"))
   end
 end
 

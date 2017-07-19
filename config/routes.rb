@@ -143,6 +143,10 @@ Rails.application.routes.draw do
         to: 'library#appliance_manuals',
         as: :homeowner_appliance_manuals
 
+    get "library/videos",
+        to: 'videos#index',
+        as: :homeowner_videos
+
     get "library/:category",
         to: 'library#index',
         as: :homeowner_library,

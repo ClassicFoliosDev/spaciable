@@ -1,0 +1,27 @@
+$two-video-width: 950px;
+$one-video-width: 450px;
+
+.video {
+  display: inline-block;
+  margin: $spacing-medium auto;
+
+  h5 {
+    font-size: $base-font-size;
+    margin-top: $spacing-small;
+  }
+}
+
+.videos {
+  width: $one-video-width;
+  margin: $spacing-medium auto;
+}
+
+@include media($tablet-landscape-up) {
+  .videos {
+    width: $two-video-width;
+  }
+
+   .video {
+    margin: $spacing-medium;
+  }
+}

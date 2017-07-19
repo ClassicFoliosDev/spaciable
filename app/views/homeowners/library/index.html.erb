@@ -1,22 +1,5 @@
-<% content_for :hero_text_primary do %>
-  <%= t('.title') %>
-<% end %>
-<% content_for :hero_text_secondary do %>
-  <ul class="hero-links categories">
-    <% @categories.each do |category| %>
-      <li>
-        <%= link_to t_enum(Document, :category, category),
-          homeowner_library_path(category),
-          class: ("active" if @category == category) %>
-      </li>
-    <% end %>
-    <li>
-      <%= link_to t(".appliances"),
-        homeowner_appliance_manuals_path,
-        class: ("active" if @category == :appliance_manuals.to_s) %>
-    </li>
-  </ul>
-<% end %>
+
+<%= render "components/homeowner/library_hero", active_category: @category, categories: @categories %>
 
 <div>
   <%= render "components/homeowner/sub_header", active_tab: "library" %>
