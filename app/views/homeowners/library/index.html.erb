@@ -17,7 +17,6 @@
           </div>
 
           <h5><%= document.title %></h5>
-          <p><%= t_enum(Document, :category, document.category) %></p>
         </div>
       <% end %>
 
@@ -29,7 +28,7 @@
                 <%= image_tag document_preview_url(appliance.manual)  %>
               <% end %>
             </div>
-            <h5><%= appliance.name %></h5>
+            <h5><%= appliance.full_name %></h5>
             <span><%= appliance.appliance_category %></span>
             <p><%= t(".manual") %></p>
           </div>
@@ -41,7 +40,7 @@
                 <%= image_tag document_preview_url(appliance.guide) %>
               <% end %>
             </div>
-            <h5><%= appliance.name %></h5>
+            <h5><%= appliance.full_name %></h5>
             <span><%= appliance.appliance_category %></span>
             <p><%= t(".guide") %></p>
           </div>

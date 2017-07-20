@@ -27,10 +27,10 @@
             <%= f.association :finish_category, collection: FinishCategory.order(:name) %>
           </div>
           <div class="finish_type ui-front select-container">
-            <%= f.association :finish_type %>
+            <%= f.association :finish_type, collection: [finish&.finish_type] %>
           </div>
           <div class="finish-manufacturer ui-front select-container">
-            <%= f.association :finish_manufacturer %>
+            <%= f.association :finish_manufacturer, collection: [finish&.finish_manufacturer] %>
           </div>
         </fieldset>
       </div>

@@ -13,7 +13,7 @@
 <div class="row appliance_category">
   <div class="row-item half">
     <label><%= t(".manufacturers") %></label>
-    <% ApplianceManufacturer.all.each do | manufacturer| %>
+    <% ApplianceManufacturer.all.order(:name).each do | manufacturer| %>
       <span><%= manufacturer %></span><br>
     <% end %>
   </div>
