@@ -18,6 +18,11 @@
   background-color: $ui-white;
   color: $primary-cta-color;
   font-size: $base-small-font-size;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .branded-btn.second {

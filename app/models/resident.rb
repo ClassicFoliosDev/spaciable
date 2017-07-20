@@ -28,7 +28,7 @@ class Resident < ApplicationRecord
   validates :phone_number, phone: true, allow_nil: true
 
   def subscribed_status
-    if hoozzi_email_updates || developer_email_updates
+    if hoozzi_email_updates.to_i.positive? || developer_email_updates.to_i.positive?
       return Rails.configuration.mailchimp[:subscribed]
     end
 

@@ -137,4 +137,58 @@ RSpec.describe Resident do
       end
     end
   end
+
+  describe "#subscribed_status" do
+    context "when not getting email updates" do
+      it "should be unsubscribed" do
+        resident = create(:resident)
+
+        resident.hoozzi_email_updates = 0
+        resident.developer_email_updates = 0
+
+        expect(resident.subscribed_status).to eq("unsubscribed")
+      end
+    end
+
+    context "when getting hoozzi email updates" do
+      it "should be subscribed" do
+        resident = create(:resident)
+
+        resident.hoozzi_email_updates = 1
+        resident.developer_email_updates = 0
+
+        expect(resident.subscribed_status).to eq("subscribed")
+      end
+    end
+
+    context "when getting developer email updates" do
+      it "should be subscribed" do
+        resident = create(:resident)
+
+        resident.hoozzi_email_updates = 0
+        resident.developer_email_updates = 1
+
+        expect(resident.subscribed_status).to eq("subscribed")
+      end
+    end
+
+    context "when getting both email updates" do
+      it "should be subscribed" do
+        resident = create(:resident)
+
+        resident.hoozzi_email_updates = 1
+        resident.developer_email_updates = 1
+
+        expect(resident.subscribed_status).to eq("subscribed")
+      end
+    end
+
+    context "when nothing has been configured" do
+      it "should be unsubscribed" do
+        resident = create(:resident)
+
+        expect(resident.subscribed_status).to eq("unsubscribed")
+      end
+    end
+  end
 end

@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 module Mailchimp
   class MarketingMailService
-    def self.call(resident, plot_residency = nil, hooz_status = nil)
+    def self.call(resident,
+                  plot_residency = nil,
+                  hooz_status = Rails.configuration.mailchimp[:activated])
       plot = plot_residency&.plot || resident&.plot
       api_key = plot&.api_key
       return if api_key.blank?
