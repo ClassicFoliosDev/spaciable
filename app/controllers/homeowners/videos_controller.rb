@@ -3,7 +3,7 @@ module Homeowners
   class VideosController < Homeowners::BaseController
     def index
       @categories = Document.categories.keys
-      @videos = current_resident&.plot&.development&.videos
+      @videos = @plot&.development&.videos || []
       @category = "videos"
     end
   end
