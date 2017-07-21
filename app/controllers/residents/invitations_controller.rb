@@ -14,7 +14,7 @@ module Residents
       @brand = development&.brand_any
       super
 
-      JobManagementService.call(current_resident.id)
+      JobManagementService.call(current_resident&.id)
       update_resident_subscribe_params
 
       Mailchimp::MarketingMailService.call(current_resident,

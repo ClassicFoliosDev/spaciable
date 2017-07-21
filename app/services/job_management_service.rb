@@ -3,6 +3,8 @@ module JobManagementService
   module_function
 
   def call(resident_id)
+    return unless resident_id
+
     scheduled_jobs = Sidekiq::ScheduledSet.new
 
     scheduled_jobs.each do |job|
