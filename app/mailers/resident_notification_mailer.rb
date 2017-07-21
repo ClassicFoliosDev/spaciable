@@ -7,11 +7,26 @@ class ResidentNotificationMailer < ApplicationMailer
   #   en.resident_notification_mailer.notify.subject
   #
   def notify(resident, notification)
-    @resident = resident
+    template_configuration(resident)
     @content = notification.message
-    @logo = resident&.plot.branded_logo
-    @logo = "logo.png" if @logo.blank?
 
     mail to: resident.email, subject: notification.subject
+  end
+
+  # Reminder contents are set in the template
+  def remind(resident, subject, token)
+    template_configuration(resident)
+    @token = token
+    @invited_by = resident.invited_by.to_s
+
+    mail to: resident.email, subject: subject
+  end
+
+  private
+
+  def template_configuration(resident)
+    @resident = resident
+    @logo = resident&.plot.branded_logo
+    @logo = "logo.png" if @logo.blank?
   end
 end

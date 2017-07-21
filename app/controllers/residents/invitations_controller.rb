@@ -14,6 +14,17 @@ module Residents
       @brand = development&.brand_any
       super
 
+      JobManagementService.call(current_resident.id)
+      update_resident_subscribe_params
+
+      Mailchimp::MarketingMailService.call(current_resident,
+                                           nil,
+                                           Rails.configuration.mailchimp[:activated])
+    end
+
+    private
+
+    def update_resident_subscribe_params
       # The subscribe_emails checkbox is inverted in the UI
       # value of 1 => Unsubscribe
       # not set or 0 => Subscribe
@@ -24,10 +35,6 @@ module Residents
         current_resident&.update(hoozzi_email_updates: 1)
         current_resident&.update(developer_email_updates: 1)
       end
-
-      Mailchimp::MarketingMailService.call(current_resident,
-                                           nil,
-                                           Rails.configuration.mailchimp[:activated])
     end
   end
 end

@@ -14,3 +14,4 @@ Feature: Plot Residents
     Then I should see the updated plot residency
     When I delete a plot residency
     Then I should not see the plot residency
+

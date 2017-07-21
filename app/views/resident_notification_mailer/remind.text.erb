@@ -1,0 +1,10 @@
+
+<%= t("residents.mailer.invitation_instructions.new_home", development_name: @resident.plot.development) %>
+
+<%= t("devise.mailer.invitation_instructions.hello", name: @resident.to_s) %>
+
+<%= t("devise.mailer.invitation_instructions.someone_invited_you", someone: @invited_by, development: @resident.plot.development) %>
+
+<%= resident_invitation_route(@resident.plot, @token) %>
+
+<%= t("devise.mailer.invitation_instructions.ignore").html_safe %>

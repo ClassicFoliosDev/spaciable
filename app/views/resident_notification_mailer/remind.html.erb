@@ -1,0 +1,11 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+
+<h4><%= t("residents.mailer.invitation_instructions.new_home", development_name: @resident.plot.development) %></h4>
+
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @resident.to_s) %></p>
+
+<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", someone: @invited_by, development: @resident.plot.development) %></p>
+
+<p><%= link_to t("devise.mailer.invitation_instructions.accept"), resident_invitation_route(@resident.plot, @token) %></p>
+
+<p><%= t("devise.mailer.invitation_instructions.ignore").html_safe %></p>

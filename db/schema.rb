@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20170717153257) do
     t.string   "secondary_image"
     t.string   "document"
     t.integer  "appliance_category_id"
-    t.integer  "manufacturer_id"
     t.string   "guide"
+    t.integer  "manufacturer_id"
     t.integer  "appliance_manufacturer_id"
     t.string   "name"
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
@@ -158,7 +158,6 @@ ActiveRecord::Schema.define(version: 20170717153257) do
     t.string   "api_key"
     t.string   "list_id"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
 
   create_table "developments", force: :cascade do |t|
@@ -176,6 +175,8 @@ ActiveRecord::Schema.define(version: 20170717153257) do
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
     t.index ["name", "developer_id", "division_id"], name: "index_developments_on_name_and_developer_id_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["name", "developer_id"], name: "index_developments_on_name_and_developer_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["name", "division_id"], name: "index_developments_on_name_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -261,14 +262,12 @@ ActiveRecord::Schema.define(version: 20170717153257) do
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
     t.integer  "finish_type_id",         null: false
-    t.integer  "manufacturer_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "manufacturer_id"
     t.integer  "finish_manufacturer_id"
     t.index ["finish_manufacturer_id"], name: "index_finish_types_manufacturers_on_finish_manufacturer_id", using: :btree
-    t.index ["finish_type_id", "manufacturer_id"], name: "finish_type_manufacturers_index", using: :btree
     t.index ["finish_type_id"], name: "index_finish_types_manufacturers_on_finish_type_id", using: :btree
-    t.index ["manufacturer_id", "finish_type_id"], name: "manufacturer_finish_type_index", using: :btree
   end
 
   create_table "finishes", force: :cascade do |t|
@@ -505,12 +504,12 @@ ActiveRecord::Schema.define(version: 20170717153257) do
     t.string   "name"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.datetime "deleted_at"
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
     t.integer  "build_type",     default: 0
     t.string   "picture"
+    t.datetime "deleted_at"
     t.string   "external_link"
     t.index ["developer_id"], name: "index_unit_types_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_unit_types_on_development_id", using: :btree
@@ -568,7 +567,6 @@ ActiveRecord::Schema.define(version: 20170717153257) do
 
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
-  add_foreign_key "appliances", "manufacturers"
   add_foreign_key "contacts", "developers"
   add_foreign_key "contacts", "developments"
   add_foreign_key "contacts", "divisions"
@@ -585,7 +583,6 @@ ActiveRecord::Schema.define(version: 20170717153257) do
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
-  add_foreign_key "finishes", "manufacturers"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"

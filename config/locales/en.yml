@@ -52,6 +52,9 @@ en:
   manual: "Appliance manual"
   guide: "Appliance guide"
 
+  reminder_title: "%{ordinal} reminder to register with Hoozzi"
+  last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
+
   # LAYOUTS
   layouts:
     application:
