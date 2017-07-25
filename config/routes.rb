@@ -86,6 +86,7 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :videos, shallow: true
+    resources :services
   end
 
   resources :developers do

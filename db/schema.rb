@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170717153257) do
+ActiveRecord::Schema.define(version: 20170725092533) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,6 +484,16 @@ ActiveRecord::Schema.define(version: 20170717153257) do
     t.index ["unit_type_id"], name: "index_rooms_on_unit_type_id", using: :btree
   end
 
+  create_table "services", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "development_id"
+    t.datetime "deleted_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["development_id"], name: "index_services_on_development_id", using: :btree
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
     t.text     "data"
@@ -600,6 +610,7 @@ ActiveRecord::Schema.define(version: 20170717153257) do
   add_foreign_key "rooms", "divisions"
   add_foreign_key "rooms", "plots"
   add_foreign_key "rooms", "unit_types"
+  add_foreign_key "services", "developments"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"

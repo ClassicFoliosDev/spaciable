@@ -119,6 +119,9 @@ en:
     videos: "Videos"
     videos_add: "New video link"
     videos_edit: "Edit video link"
+    services: "Services"
+    services_add: "New service"
+    services_edit: "Edit service"
     finish_edit: "Edit %{name}"
     finish_add: "Add finish"
     finish_category_edit: "Edit %{name}"
@@ -383,6 +386,7 @@ en:
       rooms: "Rooms"
       brands: "Styling"
       videos: "Videos"
+      services: "Services"
     edit:
       back: "Back"
     form:
@@ -1159,6 +1163,18 @@ en:
         title_right: "Login"
         blurb_para_1: "Welcome back."
         blurb_para_2: "Login to access your homeowners manual and more."
+    new:
+      title: "New service"
+    form:
+      back: "Back"
+      submit: "Submit"
+    collection:
+      create: "Add service"
+      description: "Description"
+    edit:
+      title: "Edit %{name}"
+    show:
+      back: "Back"
 
   activerecord:
     models:

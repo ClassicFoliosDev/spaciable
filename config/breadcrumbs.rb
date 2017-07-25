@@ -559,7 +559,7 @@ crumb :faq_edit do |faq|
   parent :faqs, faq.faqable
 end
 
-# Videos
+# VIDEOS
 
 crumb :videos do |video_parent|
   link t("breadcrumbs.videos"), ([video_parent, :videos])
@@ -579,6 +579,28 @@ end
 crumb :video_edit do |video|
   link t("breadcrumbs.videos_edit"), [:edit, video]
   parent :videos, video.videoable
+end
+
+# SERVICES
+
+crumb :services do |development|
+  link t("breadcrumbs.services"), ([development, :services])
+  parent :development, development
+end
+
+crumb :service_add do |development|
+  link t("breadcrumbs.services_add"), [:new, development, :service]
+  parent :services, development
+end
+
+crumb :service do |service|
+  link service.name, [service.development, :service]
+  parent :services, service.development
+end
+
+crumb :service_edit do |service|
+  link t("breadcrumbs.services_edit"), [:edit, service.development, :service]
+  parent :services, service.development
 end
 
 # Brands
