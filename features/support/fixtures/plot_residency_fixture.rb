@@ -45,6 +45,18 @@ module PlotResidencyFixture
     ATTRS[scope.to_sym]
   end
 
+  def second_email
+    "jane@bloggs.com"
+  end
+
+  def second_attrs
+    {
+      email: second_email,
+      first_name: "Jane",
+      last_name: "Bloggs"
+    }
+  end
+
   def plot
     development.plots.first
   end

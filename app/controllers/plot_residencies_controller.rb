@@ -11,9 +11,6 @@ class PlotResidenciesController < ApplicationController
                               except: :index
 
   def index
-    @new_residency = PlotResidency.new(plot_id: @plot.id)
-    authorize! :index, @new_residency
-
     @residencies = PlotResidency
                    .includes(:resident)
                    .accessible_by(current_ability)

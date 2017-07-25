@@ -31,8 +31,6 @@ end
 Then(/^I should see the (created|updated) plot residency$/) do |action|
   attrs = PlotResidencyFixture.attrs(action)
 
-  expect(page).not_to have_selector("[data-action='new']")
-
   expect(page).to have_content(attrs[:first_name])
   expect(page).to have_content(attrs[:last_name])
   expect(page).to have_content(attrs[:email])
@@ -74,18 +72,48 @@ When(/^I update the plot residency$/) do
 end
 
 When(/^I delete a plot residency$/) do
-  delete_and_confirm!(scope: ".record-list")
+  resident = Resident.find_by(email: PlotResidencyFixture.second_email)
+  plot_resident = PlotResidency.find_by(resident_id: resident.id)
+  delete_scope = "[data-plot-resident='#{plot_resident.id}']"
+
+  delete_and_confirm!(scope: delete_scope)
 end
 
 Then(/^I should not see the plot residency$/) do
   attrs = PlotResidencyFixture.attrs(:updated)
+  second_attrs = PlotResidencyFixture.second_attrs
 
-  expect(page).not_to have_content("#{attrs[:first_name]} #{attrs[:last_name]}")
-  expect(page).not_to have_content(attrs[:email])
+  within ".record-list" do
+    expect(page).not_to have_content("#{second_attrs[:first_name]} #{second_attrs[:last_name]}")
+    expect(page).not_to have_content(second_attrs[:email])
 
-  expect(page).not_to have_content(".record-list")
+    expect(page).to have_content("#{attrs[:first_name]} #{attrs[:last_name]}")
+    expect(page).to have_content(attrs[:email])
+  end
+end
 
-  within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: PlotResidency.model_name.human.downcase)
+When(/^I create another plot resident$/) do
+  within ".section-actions" do
+    click_on t("plot_residencies.collection.add")
+  end
+
+  attrs = PlotResidencyFixture.second_attrs
+
+  within ".row" do
+    fill_in :plot_residency_first_name, with: attrs[:first_name]
+    fill_in :plot_residency_last_name, with: attrs[:last_name]
+    fill_in :plot_residency_email, with: attrs[:email]
+  end
+
+  click_on t("plot_residencies.form.submit")
+end
+
+Then(/^I should see the second plot residency created$/) do
+  attrs = PlotResidencyFixture.second_attrs
+
+  within ".record-list" do
+    expect(page).to have_content(attrs[:first_name])
+    expect(page).to have_content(attrs[:last_name])
+    expect(page).to have_content(attrs[:email])
   end
 end

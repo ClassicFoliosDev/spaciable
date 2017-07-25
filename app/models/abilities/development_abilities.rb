@@ -17,9 +17,6 @@ module Abilities
 
     def crud_residents(development)
       can :crud, PlotResidency, plot: { development_id: development }
-      cannot :create, PlotResidency do |residency|
-        residency.plot.reload.resident.present?
-      end
       can :crud, Resident, plot: { development_id: development }
     end
 

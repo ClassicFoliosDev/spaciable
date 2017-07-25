@@ -35,14 +35,14 @@ RSpec.describe "CF Admin Abilities" do
       expect(subject).to be_able_to(:create, first_residency)
     end
 
-    it "cannot create a second residency for the same plot" do
+    it "can create a second residency for the same plot" do
       development = create(:development)
       plot = create(:plot, development: development)
       create(:resident, :with_residency, plot: plot)
 
       second_residency = PlotResidency.new(resident: create(:resident), plot: plot)
 
-      expect(subject).not_to be_able_to(:create, second_residency)
+      expect(subject).to be_able_to(:create, second_residency)
     end
   end
 end

@@ -2,11 +2,9 @@
     <%= render 'components/empty_list', icon_name: "user", type: PlotResidency, parent: plot %>
 <% else %>
   <div class="section-actions">
-    <% if can? :create, new_residency %>
-      <%= link_to [:new, plot, :plot_residency], class: "btn btn-primary", data: { action: "new" } do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
-      <% end %>
+    <%= link_to [:new, plot, :plot_residency], class: "btn btn-primary", data: { action: "new" } do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
     <% end %>
   </div>
 
@@ -21,7 +19,7 @@
     </thead>
     <tbody>
       <% collection.each do |plot_residency| %>
-      <tr>
+        <tr data-plot-resident="<%= plot_residency.id %>">
         <td><%= link_to plot_residency, plot_residency, title: plot_residency %></td>
         <td><%= plot_residency.email %></td>
         <td><%= l plot_residency.updated_at.to_date, format: :digits %></td>
