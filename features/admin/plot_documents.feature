@@ -25,6 +25,9 @@ Feature: Documents
   Scenario: Phase
     Given I am logged in as an admin
     And there is a phase plot
+    And there are private plot documents
+    When I navigate to the development
+    Then I should see the number of private documents
     And I navigate to the phase
     When I upload a document using phase_plot_name plot
     Then I should see the created phase_plot_name plot document

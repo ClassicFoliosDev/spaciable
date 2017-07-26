@@ -3,7 +3,7 @@
     <h3><%= developer.company_name %></h3>
     <span class="about">
       <%= simple_format developer.about %>
-      <strong><%= t(".list_id") %></strong><%= developer.list_id || t(".none") %>
+      <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %>
     </span>
   </div>
 

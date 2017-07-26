@@ -71,3 +71,12 @@ When(/^I navigate to the phase$/) do
   visit "/"
   goto_development_phase_page
 end
+
+Given(/^I should see the number of private documents$/) do
+  documents_string = t("developments.development.private_documents")
+  documents_string << "2"
+
+  within ".section-title" do
+    expect(page).to have_content(documents_string)
+  end
+end

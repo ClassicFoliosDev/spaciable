@@ -124,6 +124,7 @@ Rails.application.routes.draw do
 
   scope :homeowners, module: :homeowners do
     resources :how_tos, only: [:show]
+    resources :private_documents, only: [:index, :create, :update, :destroy]
 
     get "contacts/:category",
         to: 'contacts#index',

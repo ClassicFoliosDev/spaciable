@@ -7,7 +7,6 @@
 }
 
 .hero-text {
-  margin-top: 35px;
   color: $ui-grey;
   display: block;
   text-align: center;
@@ -53,5 +52,11 @@
       color: $ui-black;
       border-color: $ui-black;
     }
+  }
+}
+
+@include media($tablet-portrait-up) {
+  .hero-text {
+    margin-top: 35px;
   }
 }

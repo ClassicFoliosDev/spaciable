@@ -1,0 +1,36 @@
+<%= render "components/homeowner/library_hero", active_category: @category, categories: @categories %>
+
+<%= render "components/homeowner/sub_header", active_tab: "my_documents" %>
+
+<div class="main-container">
+  <% if @private_document.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% @private_document.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="new-document">
+    <%= simple_form_for @private_document, class: "document-form" do | f | %>
+      <%= f.label :file, t(".new"), class: "btn branded-btn" %>
+      <%= f.file_field :file, class: "upload-document hidden" %>
+      <%= f.submit "", class: "hidden" %>
+    <% end %>
+    <p>
+      <span><%= t(".file_description") %></span></br>
+      <span class="constraint"><%= t(".file_constraint") %></span>
+    </p>
+  </div>
+
+  <div class="private-documents">
+    <% @my_documents.each do | document | %>
+      <%= render 'homeowners/private_documents/document', document: document %>
+    <% end %>
+  </div>
+</div>

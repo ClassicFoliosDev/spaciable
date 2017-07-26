@@ -15,6 +15,7 @@ module Abilities
       resident_abilities_for_contacts(plot)
       resident_abilities_for_faqs(plot)
       resident_abilities_for_notifications(plot)
+      resident_abilities_for_private_documents(resident.id)
       resident_brand_abilities(plot)
     end
 
@@ -83,6 +84,10 @@ module Abilities
         type "Development", id: plot.development_id, actions: :read
         type "Phase", id: plot.phase_id, actions: :read
       end
+    end
+
+    def resident_abilities_for_private_documents(current_resident_id)
+      can :manage, PrivateDocument, resident_id: current_resident_id
     end
   end
 end

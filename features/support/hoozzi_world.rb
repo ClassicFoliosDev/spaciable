@@ -60,7 +60,7 @@ module HoozziWorld
   def expand_selectmenu(field)
     within ".#{field}" do
       begin
-        arrow = page.find ".ui-icon", wait: 5
+        arrow = page.find ".ui-icon"
       rescue Capybara::ElementNotFound
         screenshot if debug_mode?
         raise Capybara::ElementNotFound, "Selectmenu is missing for #{field}"
@@ -70,7 +70,7 @@ module HoozziWorld
   end
 
   def selectmenu_list_items
-    ul = page.find ".ui-menu", wait: 5
+    ul = page.find ".ui-menu"
     list = ul.all("li")
 
     [list, list.map(&:text).join(", ")]
@@ -111,7 +111,6 @@ module HoozziWorld
       end
     end
 
-    sleep 0.3
     # Click the "real" delete in the confirmation dialog
     within ".ui-dialog" do
       find(".btn-delete").trigger("click")
@@ -126,9 +125,6 @@ module HoozziWorld
 
   def click_archive_btn(finder_options)
     btn = find(".archive-btn", finder_options)
-
-    # HACK! Can't get around needing this sleep :(
-    sleep 0.3
     btn.click
   end
 end

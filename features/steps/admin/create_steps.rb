@@ -160,3 +160,9 @@ end
 Given(/^there is a finish manufacturer$/) do
   CreateFixture.create_finish_manufacturer
 end
+
+Given(/^there are private plot documents$/) do
+  CreateFixture.create_resident
+  CreateFixture.create_private_document
+  CreateFixture.create_private_document
+end

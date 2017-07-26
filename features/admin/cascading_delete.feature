@@ -12,5 +12,4 @@ Feature: Cascading delete
     And there is an appliance manufacturer
     And there is an appliance
     When I delete the developer
-    And I delete the developer
     Then I should see most of the children have been removed from the database

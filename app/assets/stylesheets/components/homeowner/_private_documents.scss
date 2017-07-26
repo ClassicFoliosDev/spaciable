@@ -1,0 +1,101 @@
+.new-document {
+  margin-top: $spacing-medium;
+
+  p {
+    float: right;
+    text-align: right;
+    margin-right: $spacing-small;
+    font-size: $base-small-font-size;
+  }
+
+  form {
+    float: right;
+  }
+
+  .branded-btn {
+    cursor: pointer;
+  }
+}
+
+.private-documents {
+  margin-top: $spacing-small;
+  @include span-columns(9 of 12);
+  @include shift(1.5 of 12);
+}
+
+.private-document {
+  @include span-columns(4 of 12);
+  @include omega();
+  color: $type-grey;
+  margin-top: $spacing-medium;
+
+  a {
+    color: inherit;
+  }
+
+  .fa {
+    color: inherit;
+    text-align: center;
+  }
+
+  h5 {
+    font-size: $base-small-font-size;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .fa-file {
+    font-size: 40px;
+    display: block;
+  }
+
+  .actions {
+    width: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+    .btn {
+      border: none;
+      padding: 0;
+      font-size: $title-font-size-4;
+    }
+
+    .fa-trash:before {
+      font-size: $title-font-size-4;
+    }
+  }
+}
+
+.edit-dialog {
+
+  .ui-button-text {
+    background-color: inherit;
+    color: inherit;
+  }
+
+  .ui-dialog-buttonset .branded-primary-btn {
+    background-color: $primary-cta-color;
+    color: $ui-white;
+  }
+
+  .ui-dialog-buttonset .alt {
+    background-color: $ui-white;
+    color: $primary-cta-color;
+  }
+}
+
+@include media($tablet-portrait-up) {
+  .private-document {
+    @include span-columns(3 of 12);
+    @include omega();
+  }
+}
+
+@include media($tablet-landscape-up) {
+  .private-document {
+    @include span-columns(2 of 12);
+    @include omega();
+  }
+}

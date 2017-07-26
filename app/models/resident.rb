@@ -18,6 +18,7 @@ class Resident < ApplicationRecord
 
   has_many :resident_notifications
   has_many :notifications, through: :resident_notifications
+  has_many :private_documents, dependent: :destroy
 
   has_one :plot_residency, dependent: :destroy
   delegate :plot, to: :plot_residency, allow_nil: true

@@ -42,6 +42,10 @@ module FileFixture
     "dummy_pdf.pdf"
   end
 
+  def document_alt
+    "Dummy pdf"
+  end
+
   def manual_name
     "washing_machine_manual.pdf"
   end

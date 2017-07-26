@@ -11,7 +11,7 @@ module Homeowners
     end
 
     def appliance_manuals
-      @category = t(".appliances_category")
+      @category = "appliances"
 
       @appliances = Appliance.accessible_by(current_ability)
       @documents = []

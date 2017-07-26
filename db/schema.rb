@@ -415,6 +415,15 @@ ActiveRecord::Schema.define(version: 20170725092533) do
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id", using: :btree
   end
 
+  create_table "private_documents", force: :cascade do |t|
+    t.string   "title"
+    t.string   "file"
+    t.integer  "resident_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["resident_id"], name: "index_private_documents_on_resident_id", using: :btree
+  end
+
   create_table "resident_notifications", force: :cascade do |t|
     t.integer  "resident_id"
     t.integer  "notification_id"
@@ -604,6 +613,7 @@ ActiveRecord::Schema.define(version: 20170725092533) do
   add_foreign_key "plots", "divisions"
   add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
+  add_foreign_key "private_documents", "residents"
   add_foreign_key "resident_notifications", "notifications"
   add_foreign_key "rooms", "developers"
   add_foreign_key "rooms", "developments"

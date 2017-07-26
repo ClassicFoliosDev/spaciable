@@ -13,12 +13,17 @@
     <li>
       <%= link_to t(".appliances"),
                   homeowner_appliance_manuals_path,
-                  class: ("active" if active_category == "appliance_manuals") %>
+                  class: ("active" if active_category == "appliances") %>
     </li>
     <li>
       <%= link_to t(".videos"),
                   homeowner_videos_path,
                   class: ("active" if active_category == "videos") %>
+    </li>
+    <li>
+      <%= link_to t(".my_documents"),
+                  private_documents_path,
+                  class: ("active" if active_category == "my_documents") %>
     </li>
   </ul>
 <% end %>

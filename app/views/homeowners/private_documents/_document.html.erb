@@ -1,0 +1,12 @@
+<div class="private-document" data-document="<%= document.id %>">
+  <%= link_to document.file.url do %>
+      <div>
+        <%= fa_icon "file" %>
+        <h5><%= document.title %></h5>
+      </div>
+  <% end %>
+  <div class="actions">
+    <%= edit_modal document, element: document %>
+    <%= delete_btn document, element: document %>
+  </div>
+</div>

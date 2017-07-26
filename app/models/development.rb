@@ -60,4 +60,19 @@ class Development < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  def private_documents_count
+    all_documents = plots.to_a.inject(0) do |result, plot|
+      result + (plot&.private_documents&.count || 0)
+    end
+
+    phases.each do |phase|
+      phase_documents = phase.plots.to_a.inject(0) do |result, plot|
+        result + (plot&.private_documents&.count || 0)
+      end
+      all_documents += phase_documents
+    end
+
+    all_documents
+  end
 end

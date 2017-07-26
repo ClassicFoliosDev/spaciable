@@ -3,7 +3,7 @@ var $body = $('body')
 
 $(document).on('click', '.archive-btn', function (event) {
   var dataIn = $(this).data()
-  // Note: do not use _ in data content names, it will not work
+  // Note: _ in data content names is translated to camelCase automatically
 
   var $dialogContainer = $('<div>', { id: 'dialog' }).html(dataIn.text + '<h3>' + dataIn.name + '</h3>')
 
@@ -23,7 +23,7 @@ $(document).on('click', '.archive-btn', function (event) {
         }
       },
       {
-          // Font awesome trash icon added in SCSS
+        // Font awesome trash icon added in SCSS
         text: dataIn.cta,
         class: 'btn-delete',
         id: 'btn_confirm',

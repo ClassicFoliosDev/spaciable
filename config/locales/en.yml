@@ -178,6 +178,7 @@ en:
         title: "Welcome to your digital home library"
         appliances: "Appliances"
         videos: "Videos"
+        my_documents: "My documents"
     home:
       header:
         nav:
@@ -208,6 +209,10 @@ en:
     confirm_title: "Confirm delete"
     confirm_text: "Are you sure you wish to delete %{type}?"
     destroy: "Delete"
+  edit:
+    cancel: "Cancel"
+    title: "Edit document title"
+    submit: "Save changes"
 
   forms:
     required: "Required"
@@ -396,7 +401,8 @@ en:
     index:
       add: "Add development"
     development:
-      segment_id: "Segment id "
+      segment_id: "Segment id: "
+      private_documents: "Documents from all residents: "
       none: "(not configured)"
 
   homeowners:
@@ -459,9 +465,13 @@ en:
         appliances_description: "View documents and details of appliances your home"
         library_description: "View and upload documents about your home"
         faqs_description: "Frequently asked questions about moving into a new home"
-    videos:
+    private_documents:
       index:
-
+        file_description: "You can use this area of Hoozzi to store other documents, photos and files relating to your moving process and home"
+        file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format"
+        new: "Upload file"
+      edit:
+        submit: "Save changes"
 
     residents:
       edit:
@@ -779,6 +789,9 @@ en:
       back: "Back"
       completion: "Completion date"
       preview: "Preview"
+    plot:
+      private_documents: "Uploaded documents: "
+      none: "(n/a)"
 
   plot_residencies:
     collection:

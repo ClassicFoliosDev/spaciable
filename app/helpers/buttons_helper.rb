@@ -14,6 +14,14 @@ module ButtonsHelper
     end
   end
 
+  def edit_modal(resource, label = "", path: nil, element:)
+    return if element && (cannot? :destroy, element)
+
+    content_tag(:button, data: data_to_edit(resource, path: path), class: "btn edit-modal") do
+      icon "pencil", label
+    end
+  end
+
   def delete_btn(resource, label = "", path: nil, element:)
     return if element && (cannot? :destroy, element)
 

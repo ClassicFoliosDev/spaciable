@@ -1,0 +1,44 @@
+(function (document, $) {
+  'use strict'
+
+  $(document).on('click', '.edit-modal', function (event) {
+    var dataIn = $(this).data()
+
+    var $dialogContainer = $('<div>', { id: 'dialog' })
+    $dialogContainer.html('<form name="private-document">' +
+          '<input type="text" name="title" class="private-document-title" value="' + dataIn.name + '">' +
+          '</form>')
+
+    $body.append($dialogContainer)
+    var $titleInput = $dialogContainer.find(".private-document-title")
+
+    $dialogContainer.dialog({
+      show: 'show',
+      modal: true,
+      dialogClass: 'archive-dialog edit-dialog',
+      title: dataIn.title,
+      buttons: [
+        {
+          text: dataIn.cancel,
+          class: 'branded-btn alt',
+          click: function () {
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: dataIn.cta,
+          class: 'btn-update branded-primary-btn',
+          id: 'btn_submit',
+          click: function () {
+              $.ajax({
+              url: dataIn.url,
+              data: {private_document: {title: $titleInput[0].value}},
+              type: 'PUT'
+            })
+          }
+          }]
+    }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  })
+
+})(document, window.jQuery)

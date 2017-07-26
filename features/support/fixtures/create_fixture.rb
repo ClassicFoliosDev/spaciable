@@ -296,6 +296,10 @@ module CreateFixture
     FactoryGirl.create(:document, division: CreateFixture.division, documentable: CreateFixture.division)
   end
 
+  def create_private_document
+    FactoryGirl.create(:private_document, resident: CreateFixture.resident)
+  end
+
   def create_resident_under_a_phase_plot_with_appliances_and_rooms
     create_developer
     create_development
