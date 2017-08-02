@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "/sitemap.xml", to: "sitemap#show"
 
   mount Ckeditor::Engine => '/ckeditor'
 
