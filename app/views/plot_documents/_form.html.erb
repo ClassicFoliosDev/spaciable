@@ -22,13 +22,17 @@
     </div>
 
     <div class="row-item third upload">
-      <h4>Upload Plot Documents</h4>
+      <h4><%= t(".title") %></h4>
 
       <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
       <%= label_tag('document_files', t(".choose"), class: "btn") %>
       <%= f.file_field :files, multiple: true, class: "hidden" %>
 
-      <%= f.submit t(".upload_all"), class: "btn-form-submit btn-primary" %>
+      <%= label_tag t(".rename") %>
+      <%= text_field_tag :rename_text, nil, placeholder: t(".rename_to") %>
+
+      <%= f.submit t(".upload_rename"), class: "btn-form-submit btn-primary" %>
+      <%= f.submit t(".upload_all"), class: "btn-form-submit btn" %>
     </div>
 
   </div>

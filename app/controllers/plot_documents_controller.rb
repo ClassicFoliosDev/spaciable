@@ -20,14 +20,16 @@ class PlotDocumentsController < ApplicationController
   def bulk_upload
     if plot_document_params[:files].nil?
       alert = t(".files_required")
-      redirect_to [@parent, :plot_documents], alert: alert && return
+      redirect_to [@parent, :plot_documents], alert: alert
+      return
     end
 
-    matched, unmatched = BulkUploadPlotDocumentsService
-                         .call(@parent.plots, plot_document_params)
+    matched, unmatched, error = BulkUploadPlotDocumentsService
+                                .call(@parent.plots, plot_document_params, params)
 
     notice = t(".success", matched: matched.count) if matched.any?
     alert = t(".failure", unmatched: unmatched.to_sentence) if unmatched.any?
+    alert = error if error&.length&.positive?
 
     redirect_to [@parent, :plot_documents], alert: alert, notice: notice
   end

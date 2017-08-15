@@ -33,3 +33,10 @@ Feature: Documents
     Then I should see the created phase_plot_name plot document
     When I upload a document phase_plot_name that does not match a plot
     Then I should see a phase_plot_name plot document error
+
+  Scenario: Rename
+    Given I am logged in as a CF Admin
+    And there is a plot
+    And I navigate to the development
+    When I upload a document and rename it
+    Then I should see the renamed document

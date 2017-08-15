@@ -16,7 +16,7 @@ When(/^I upload a document using (\w+) plot$/) do |plot_name|
                 visible: false)
   end
 
-  click_on(t("documents.form.upload"))
+  click_on(t("plot_documents.form.upload_all"))
 end
 
 Then(/^I should see the created (\w+) plot document$/) do |plot_name|
@@ -50,7 +50,7 @@ When(/^I upload a document (\w+) that does not match a plot$/) do |plot_name|
                 visible: false)
   end
 
-  click_on(t("documents.form.upload"))
+  click_on(t("plot_documents.form.upload_all"))
 end
 
 Then(/^I should see a (\w+) plot document error$/) do |plot_name|
@@ -78,5 +78,33 @@ Given(/^I should see the number of private documents$/) do
 
   within ".section-title" do
     expect(page).to have_content(documents_string)
+  end
+end
+
+When(/^I upload a document and rename it$/) do
+  click_on(t("developments.collection.plot_documents"))
+
+  within ".upload" do
+    select PlotDocumentFixture.category2, from: :document_category, visible: false
+  end
+
+  document_number = CreateFixture.plot_name
+  document_name = PlotDocumentFixture.send("document#{document_number}")
+  plot_document_path = FileFixture.file_path + document_name
+
+  within ".upload" do
+    attach_file("document_files",
+                File.absolute_path(plot_document_path),
+                visible: false)
+
+    fill_in "rename_text", with: PlotDocumentFixture.rename_text
+  end
+
+  click_on(t("plot_documents.form.upload_rename"))
+end
+
+Then(/^I should see the renamed document$/) do
+  within ".record-list" do
+    expect(page).to have_content(PlotDocumentFixture.rename_text)
   end
 end

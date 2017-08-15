@@ -33,4 +33,8 @@ module PlotDocumentFixture
   def document20010
     "200.10 homeowner manual.pdf"
   end
+
+  def rename_text
+    "Homeowner manual"
+  end
 end

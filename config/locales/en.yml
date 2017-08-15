@@ -824,6 +824,7 @@ en:
 
   plot_documents:
     form:
+      title: "Upload plot documents"
       add: "Upload"
       bulk_upload: "Bulk upload"
       filename_requirements: "File names must fit a plot prefix and plot number naming convention in order to be
@@ -837,6 +838,9 @@ en:
       <i>CMD</i> key"
       repeat: "If you upload the same file successfully more than once, it will appear multiple times against the plot"
       choose: "Select files"
+      rename: "Rename files to"
+      rename_to: "e.g. Homeowner manual"
+      upload_rename: "Upload and rename files"
       upload_all: "Upload files"
     collection:
       plot: "Plot"
@@ -844,6 +848,7 @@ en:
       files_required: "You must select files to upload."
       success: "Uploaded %{matched} plot documents successfully."
       failure: "Failed to find plots matching filename(s): %{unmatched}."
+      no_rename_text: "You must supply the text to use when the files are renamed"
 
   unit_types:
     destroy:

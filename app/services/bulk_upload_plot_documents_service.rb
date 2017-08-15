@@ -2,18 +2,24 @@
 module BulkUploadPlotDocumentsService
   module_function
 
-  def call(parent_plots, plot_document_params)
+  def call(parent_plots, plot_document_params, params)
     category = plot_document_params[:category]
     raw_files = plot_document_params[:files]
+
+    rename, rename_text = rename_params(params)
+    if rename && rename_text.blank?
+      return [[], [], I18n.t("plot_documents.bulk_upload.no_rename_text")]
+    end
+
     plots = parent_plots.map { |plot| [plot.to_s.downcase.strip, plot] }
     files = raw_files.map do |file|
       [file.original_filename.downcase.strip, file]
     end
 
     matches, unmatched = find_matches(files, plots)
-    saved, _errors = save_matches(matches, category)
+    saved, _errors = save_matches(matches, category, rename, rename_text)
 
-    [saved, unmatched]
+    [saved, unmatched, nil]
   end
 
   private
@@ -40,6 +46,7 @@ module BulkUploadPlotDocumentsService
 
   def compare_names(plots, file_name)
     file_name = file_name.sub(".pdf", "")
+
     plots.each do |plot|
       return plot[1] if plot[0] == file_name
 
@@ -59,12 +66,14 @@ module BulkUploadPlotDocumentsService
     false
   end
 
-  def save_matches(matches, category)
+  def save_matches(matches, category, rename, rename_text)
     saved = []
     errors = []
 
     matches.each do |(plot, file)|
-      doc = plot.documents.build(file: file, title: file.original_filename, category: category)
+      title = file.original_filename
+      title = rename_text if rename
+      doc = plot.documents.build(file: file, title: title, category: category)
 
       if doc.save then saved << doc
       else errors << doc.errors.full_messages
@@ -72,5 +81,12 @@ module BulkUploadPlotDocumentsService
     end
 
     [saved, errors.flatten!]
+  end
+
+  def rename_params(params)
+    rename = params[:commit] == I18n.t("plot_documents.form.upload_rename")
+    rename_text = params[:rename_text]
+
+    [rename, rename_text]
   end
 end
