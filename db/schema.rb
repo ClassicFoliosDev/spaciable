@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815140203) do
+ActiveRecord::Schema.define(version: 20170815155525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20170815140203) do
   end
 
   create_table "appliances", force: :cascade do |t|
+    t.string   "name"
     t.string   "primary_image"
     t.string   "manual"
     t.string   "service_log"
@@ -63,13 +64,10 @@ ActiveRecord::Schema.define(version: 20170815140203) do
     t.string   "document"
     t.integer  "appliance_category_id"
     t.string   "guide"
-    t.integer  "manufacturer_id"
     t.integer  "appliance_manufacturer_id"
-    t.string   "name"
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["appliance_manufacturer_id"], name: "index_appliances_on_appliance_manufacturer_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
-    t.index ["manufacturer_id"], name: "index_appliances_on_manufacturer_id", using: :btree
   end
 
   create_table "appliances_rooms", id: false, force: :cascade do |t|
@@ -159,6 +157,7 @@ ActiveRecord::Schema.define(version: 20170815140203) do
     t.string   "list_id"
     t.boolean  "house_search"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
 
   create_table "developments", force: :cascade do |t|
@@ -177,8 +176,6 @@ ActiveRecord::Schema.define(version: 20170815140203) do
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
     t.index ["name", "developer_id", "division_id"], name: "index_developments_on_name_and_developer_id_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "developer_id"], name: "index_developments_on_name_and_developer_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "division_id"], name: "index_developments_on_name_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -264,9 +261,9 @@ ActiveRecord::Schema.define(version: 20170815140203) do
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
     t.integer  "finish_type_id",         null: false
+    t.integer  "manufacturer_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "manufacturer_id"
     t.integer  "finish_manufacturer_id"
     t.index ["finish_manufacturer_id"], name: "index_finish_types_manufacturers_on_finish_manufacturer_id", using: :btree
     t.index ["finish_type_id"], name: "index_finish_types_manufacturers_on_finish_type_id", using: :btree
@@ -281,13 +278,11 @@ ActiveRecord::Schema.define(version: 20170815140203) do
     t.string   "description"
     t.integer  "finish_category_id"
     t.integer  "finish_type_id"
-    t.integer  "manufacturer_id"
     t.integer  "finish_manufacturer_id"
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree
     t.index ["finish_manufacturer_id"], name: "index_finishes_on_finish_manufacturer_id", using: :btree
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
-    t.index ["manufacturer_id"], name: "index_finishes_on_manufacturer_id", using: :btree
     t.index ["name"], name: "index_finishes_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
@@ -332,14 +327,6 @@ ActiveRecord::Schema.define(version: 20170815140203) do
     t.datetime "updated_at", null: false
     t.index ["how_to_id", "tag_id"], name: "how_to_tag_index", using: :btree
     t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
-  end
-
-  create_table "manufacturers", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "link"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -525,12 +512,12 @@ ActiveRecord::Schema.define(version: 20170815140203) do
     t.string   "name"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.datetime "deleted_at"
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
     t.integer  "build_type",     default: 0
     t.string   "picture"
-    t.datetime "deleted_at"
     t.string   "external_link"
     t.index ["developer_id"], name: "index_unit_types_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_unit_types_on_development_id", using: :btree
