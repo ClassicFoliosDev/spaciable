@@ -14,10 +14,12 @@ module Admin
     def new; end
 
     def create
-      if @user.create_without_password
-        @user.invite!(current_user)
-        notice = t(".success", user_email: @user.to_s)
-        redirect_to [:admin, :users], notice: notice
+      if (@restore_user = User.only_deleted.find_by_email(user_params[:email]))
+        @restore_user.restore!
+        @user = @restore_user
+        user_success
+      elsif @user.create_without_password
+        user_success
       else
         render :new
       end
@@ -45,6 +47,12 @@ module Admin
       @user.destroy
       notice = t(".archive.success", user_email: @user.email)
       redirect_to admin_users_path, notice: notice
+    end
+
+    def user_success
+      @user.invite!(current_user)
+      notice = t(".success", user_email: @user.to_s)
+      redirect_to [:admin, :users], notice: notice
     end
 
     private

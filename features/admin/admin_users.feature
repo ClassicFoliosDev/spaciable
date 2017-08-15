@@ -14,6 +14,8 @@ Feature: Admin Users
     Then I should see the updated CF Admin
     When I delete the updated CF Admin
     Then I should not see the deleted CF Admin
+    When I add a new CF Admin
+    Then I should see the restored CF Admin
 
   Scenario: CF Admin
     Given I am logged in as a CF Admin

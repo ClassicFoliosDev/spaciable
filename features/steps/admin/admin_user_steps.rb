@@ -60,12 +60,16 @@ end
 Then(/^I should see the new CF Admin$/) do
   attrs = AdminUsersFixture.second_cf_admin_attrs
 
-  click_on attrs[:email_address]
-
   expect(page).to have_content(attrs[:email_address])
   expect(page).to have_content(attrs[:role])
+end
 
-  click_on t("admin.users.show.back")
+Then(/^I should see the restored CF Admin$/) do
+  attrs = AdminUsersFixture.second_cf_admin_attrs
+
+  expect(page).to have_content(attrs[:first_name])
+  expect(page).to have_content(attrs[:last_name])
+  expect(page).to have_content(attrs[:role])
 end
 
 When(/^I update the CF Admin$/) do
