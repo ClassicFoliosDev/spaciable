@@ -3,7 +3,8 @@
     <h3><%= developer.company_name %></h3>
     <span class="about">
       <%= simple_format developer.about %>
-      <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %>
+      <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %><br/>
+      <strong><%= t(".house_search") %></strong><%= developer.house_search? ? t(".enabled") : t(".disabled") %>
     </span>
   </div>
 

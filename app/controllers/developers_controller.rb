@@ -63,11 +63,9 @@ class DevelopersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def developer_params
     params.require(:developer).permit(
-      :company_name,
-      :email,
-      :contact_number,
-      :about,
-      :api_key,
+      :company_name, :email,
+      :contact_number, :about,
+      :api_key, :house_search,
       address_attributes: [:postal_name,
                            :road_name,
                            :building_name,

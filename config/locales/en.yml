@@ -181,6 +181,7 @@ en:
         my_documents: "My documents"
       navigation:
         maintenance: "Issues"
+        house_search: "BestArea4Me"
     home:
       header:
         nav:
@@ -533,6 +534,8 @@ en:
       back: "Back"
       address: "Postal address"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
+      enable_house_search: "Enable house search link"
+      house_search_description: "Provides an external link to the BestArea4Me site from the homeowner site"
     index:
       add: "Add developer"
       actions: "Actions"
@@ -558,6 +561,9 @@ en:
     developer:
       list_id: "List id "
       none: "(not configured)"
+      house_search: "House search "
+      enabled: "enabled"
+      disabled: "disabled"
 
   divisions:
     destroy:

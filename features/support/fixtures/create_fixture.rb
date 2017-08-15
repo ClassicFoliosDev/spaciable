@@ -129,7 +129,7 @@ module CreateFixture
   end
 
   def create_developer
-    FactoryGirl.create(:developer, company_name: developer_name)
+    FactoryGirl.create(:developer, company_name: developer_name, house_search: true)
   end
 
   def create_division

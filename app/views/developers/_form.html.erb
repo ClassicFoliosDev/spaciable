@@ -17,6 +17,9 @@
       <fieldset>
         <%= f.input :company_name %>
         <%= f.input :about %>
+        <%= f.label t(".enable_house_search") %>
+        <%= f.check_box :house_search %>
+        <p><%= t(".house_search_description") %></p>
       </fieldset>
     </div>
     <div class="row-item third">

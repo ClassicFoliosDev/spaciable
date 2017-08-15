@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814133036) do
+ActiveRecord::Schema.define(version: 20170815140203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,7 @@ ActiveRecord::Schema.define(version: 20170814133036) do
     t.text     "about"
     t.string   "api_key"
     t.string   "list_id"
+    t.boolean  "house_search"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 

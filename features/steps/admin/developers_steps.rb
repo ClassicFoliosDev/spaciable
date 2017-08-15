@@ -30,6 +30,8 @@ When(/^I update the developer$/) do
     fill_in "developer_address_attributes_#{attr}", with: value
   end
 
+  check "developer_house_search"
+
   click_on t("developers.form.submit")
 end
 
@@ -43,6 +45,7 @@ Then(/^I should see the updated developer$/) do
   # On the show page
   within ".section-title" do
     expect(page).to have_content(DeveloperFixture.updated_company_name)
+    expect(page).to have_content(t("developers.developer.enabled"))
   end
 
   within ".section-data" do
