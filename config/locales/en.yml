@@ -180,7 +180,7 @@ en:
         videos: "Videos"
         my_documents: "My documents"
       navigation:
-        maintenance: "Defect management"
+        maintenance: "Issues"
     home:
       header:
         nav:
