@@ -28,6 +28,14 @@
           <%= t("layouts.homeowner.nav.contacts") %>
         </li>
       <% end %>
+
+      <% if plot.maintenance_link.present? %>
+        <%= link_to homeowner_maintenance_path, class: "navbar-link branded-primary" do %>
+          <li class="navbar-item branded-primary">
+            <%= t(".maintenance") %>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </nav>
 </div>

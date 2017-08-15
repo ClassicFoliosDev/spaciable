@@ -158,6 +158,7 @@ Rails.application.routes.draw do
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
     get :about, to: 'about#show', as: :homeowner_about
+    get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
   end
 
   get "/ts_and_cs", to: 'home#ts_and_cs'

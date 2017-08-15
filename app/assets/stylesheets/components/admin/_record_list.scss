@@ -59,6 +59,14 @@ table.record-list {
   }
 }
 
+::-moz-placeholder {
+  font-size: $base-small-font-size;
+}
+
+::-webkit-input-placeholder {
+  font-size: $base-small-font-size;
+}
+
 // Documents List
 .documents {
   .unassigned {

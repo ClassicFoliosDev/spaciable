@@ -179,6 +179,8 @@ en:
         appliances: "Appliances"
         videos: "Videos"
         my_documents: "My documents"
+      navigation:
+        maintenance: "Defect management"
     home:
       header:
         nav:
@@ -398,12 +400,15 @@ en:
       submit: "Submit"
       address: "Development address"
       back: "Back"
+      maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
+      maintenance_tip: "Make sure you use the plugin-friendly version of a URL, for more details see http://www.fixflo.com/tech/plugin-example/"
     index:
       add: "Add development"
     development:
       segment_id: "Segment id: "
       private_documents: "Documents from all residents: "
       none: "(not configured)"
+      maintenance_link: "Maintenance link: "
 
   homeowners:
     faqs:

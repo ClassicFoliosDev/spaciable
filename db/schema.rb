@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170725092533) do
+ActiveRecord::Schema.define(version: 20170814133036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,12 +165,13 @@ ActiveRecord::Schema.define(version: 20170725092533) do
     t.integer  "developer_id"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "division_id"
     t.datetime "deleted_at"
-    t.integer  "phases_count",   default: 0
+    t.integer  "phases_count",     default: 0
     t.string   "segment_id"
+    t.string   "maintenance_link"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree

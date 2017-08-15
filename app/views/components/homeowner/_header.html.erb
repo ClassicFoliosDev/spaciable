@@ -9,7 +9,7 @@
         <%= link_to image_tag(brand&.branded_logo ? brand.branded_logo : "hoozzi-logo-primary.svg"), homeowner_dashboard_path %>
       </div>
       <div class="navigation">
-        <%= render "components/homeowner/navigation" %>
+        <%= render "components/homeowner/navigation", plot: plot %>
       </div>
     </div>
   </nav>

@@ -137,7 +137,7 @@ module CreateFixture
   end
 
   def create_development
-    FactoryGirl.create(:development, name: development_name, developer: developer)
+    FactoryGirl.create(:development, name: development_name, developer: developer, maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
   end
 
   def create_division_development

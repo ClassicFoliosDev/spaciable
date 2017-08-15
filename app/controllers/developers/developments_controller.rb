@@ -70,6 +70,7 @@ module Developers
         :division_id,
         :email,
         :contact_number,
+        :maintenance_link,
         address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
       )
     end

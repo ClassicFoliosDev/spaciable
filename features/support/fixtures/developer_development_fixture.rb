@@ -13,7 +13,8 @@ module DeveloperDevelopmentFixture
   def update_attrs
     {
       email: "hamble.developers@example.com",
-      contact_number: "07713538572"
+      contact_number: "07713538572",
+      maintenance_link: "https://brillianthomes.fixflo.com/issue/plugin"
     }
   end
 

@@ -1,0 +1,14 @@
+.maintenance iframe {
+  border: 0px;
+  width: 100%;
+  height: 700px;
+  overflow: hidden;
+}
+
+@include media($tablet-portrait-up) {
+  .maintenance {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
