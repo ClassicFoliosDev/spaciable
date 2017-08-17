@@ -6,7 +6,7 @@ module Homeowners
     def index
       @categories = Document.categories.keys
       @category = "my_documents"
-      @my_documents = current_resident.private_documents
+      @my_documents = current_resident&.private_documents || []
       @private_document ||= PrivateDocument.new
     end
 

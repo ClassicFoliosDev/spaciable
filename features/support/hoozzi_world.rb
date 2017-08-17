@@ -70,7 +70,7 @@ module HoozziWorld
   end
 
   def selectmenu_list_items
-    ul = page.find ".ui-menu"
+    ul = page.find(".ui-menu", wait: 5)
     list = ul.all("li")
 
     [list, list.map(&:text).join(", ")]
@@ -101,7 +101,7 @@ module HoozziWorld
     STDOUT.puts "DEBUG:   #{text}" if show
   end
 
-  def delete_and_confirm!(scope: "", finder_options: {})
+  def delete_and_confirm!(scope: "", finder_options: { wait: 5 })
     # Launches the confirmation dialog
     if scope.blank?
       click_archive_btn(finder_options)
@@ -112,9 +112,7 @@ module HoozziWorld
     end
 
     # Click the "real" delete in the confirmation dialog
-    within ".ui-dialog" do
-      find(".btn-delete").trigger("click")
-    end
+    find(".btn-delete").trigger("click")
   end
 
   def debug_mode?
