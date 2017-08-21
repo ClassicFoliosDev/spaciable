@@ -54,6 +54,14 @@ $homeowner-margin: 12px;
         }
       }
 
+      button {
+        color: $ui-white;
+        background-color: inherit;
+        font-size: $base-font-size;
+        border: none;
+        cursor: pointer;
+      }
+
       img {
         vertical-align:middle;
         border-radius: 50%;

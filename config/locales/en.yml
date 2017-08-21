@@ -164,6 +164,7 @@ en:
       welcome:
         hi: "Hi %{first_name}"
         account: "My account"
+        feedback: "Feedback"
       sub_menu:
         about: "About"
         title: "My home"
@@ -206,6 +207,7 @@ en:
       request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}"
     header:
       search: "Search"
+      feedback: "Feedback"
 
   destroy:
     cancel: "Cancel"
@@ -216,6 +218,23 @@ en:
     cancel: "Cancel"
     title: "Edit document title"
     submit: "Save changes"
+  feedback:
+    cancel: "Cancel"
+    title: "What do you think of Hoozzi?"
+    option1: "Unhappy"
+    option2: "Neutral"
+    option3: "Happy"
+    submit: "Send feedback"
+    comments: "Comments"
+    placeholder: "I think Hoozzi is..."
+    email_title: "You have received feedback from a Hoozzi user"
+    email_subject: "Feedback from Hoozzi"
+    option_title: "User happiness level"
+    comment_title: "User comments"
+    not_sent: "User did not provide this information"
+    send_email_addr: "Include my email address:"
+    leave_blank: "Leave this unchecked for anonymous feedback"
+    email_addr_title: "User email address"
 
   forms:
     required: "Required"

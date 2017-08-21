@@ -164,6 +164,7 @@ Rails.application.routes.draw do
   get "/ts_and_cs", to: 'home#ts_and_cs'
   get "/ts_and_cs2", to: 'home#ts_and_cs2'
   get "/data_policy", to: 'home#data_policy'
+  get "/feedback", to: 'home#feedback'
   get "/appliance_manufacturers_list", to: 'appliances#appliance_manufacturers_list'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/how_to_sub_category_list", to: 'how_to_sub_category#list'

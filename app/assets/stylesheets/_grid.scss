@@ -70,11 +70,11 @@ $row-bg-color: $ui-white;
     z-index: 100;
 
     @include media($tablet-landscape-up) {
-      @include span-columns(13 of 13);
+      @include span-columns(13 of 16);
     }
 
     @include media($desktop-large-up) {
-      @include span-columns(14 of 14);
+      @include span-columns(14 of 16);
     }
   }
 

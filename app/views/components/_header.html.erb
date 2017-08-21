@@ -16,5 +16,9 @@
         </div>
       <% end %>
     </div>
+  <% else %>
+    <div class="feedback-container">
+      <%= button_tag t(".feedback"), data: data_for_feedback(current_user.email), class: "right btn feedback-btn" %>
+    </div>
   <% end %>
 </header>

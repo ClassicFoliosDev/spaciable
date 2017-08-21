@@ -8,15 +8,6 @@
   font-size: $base-font-size;
 }
 
-// Note: we use jQuery UI CSS for functions like displaying the dialog and
-// disabling the background, if we didn't use it, we would need to recreate
-// its functions which is (probably) a lot of work
-
-// But because we do use it, we need settings to override the jQuery UI CSS styles
-
-// We also need to override the default Hoozzi button styles, which are
-// different to the styles for dialog buttons
-
 // The sections below here all change various bits and pieces of styling that
 // we have inherited but want to style differently in Hoozzi dialogs
 .ui-dialog.archive-dialog {
@@ -37,14 +28,31 @@
   h3 {
     font-weight: bold;
   }
+
+  label {
+    margin-top: $spacing-small;
+    color: $type-grey;
+  }
+
+  textarea {
+    margin-top: $spacing-small;
+  }
+
+  .btn-primary {
+    border: solid;
+    border-color: $type-grey;
+    border-width: 1px;
+  }
+
+  .btn-secondary {
+    border: none;
+  }
 }
 
 .ui-button-text {
   font-size: $base-font-size;
   background-color: $ui-white;
   color: $type-grey;
-  border-style: none;
-  border: none;
   border-radius: $border-radius;
 }
 
@@ -61,6 +69,71 @@
   border: none;
 }
 
-.ui-dialog .ui-dialog-buttonpane button {
-  border: none;
+.icons {
+  margin-bottom: $spacing-medium;
+
+  label {
+    margin-left: 24px;
+    margin-right: 24px;
+    width: 64px;
+    text-align: center;
+    display: inline-block;
+    color: $type-grey;
+  }
+
+  input {
+    display: none;
+  }
+}
+
+input:checked + .feedback {
+  color: $primary-green;
+}
+
+.option {
+  height: 64px;
+  border-style: solid;
+  border-radius: 50%;
+  border-width: 1px;
+  border-color: $ui-grey;
+  padding: 13px 11px;
+}
+
+.feedback:before {
+  font-size: 47px;
+  color: inherit;
+  cursor: pointer;
+  font-weight: normal;
+  line-height: 37px;
+}
+
+.option1:before {
+  font-family: FontAwesome;
+  content: "\f119";
+}
+
+.option2:before {
+  font-family: FontAwesome;
+  content: "\f11a";
+}
+
+.option3:before {
+  font-family: FontAwesome;
+  content: "\f118";
+}
+
+.include-email {
+  input {
+    float: right;
+    margin-top: 12px;
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  label {
+    display: inline-block;
+  }
 }
