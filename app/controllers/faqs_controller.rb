@@ -24,7 +24,14 @@ class FaqsController < ApplicationController
     authorize! :create, @faq
 
     if @faq.save
-      redirect_to [@parent, :faqs], notice: t("controller.success.create", name: @faq)
+      notice = t("controller.success.create", name: @faq)
+      if faq_params[:notify].to_i.positive?
+        resident_count = ResidentChangeNotifyService.call(@faq.parent,
+                                                          current_user,
+                                                          Faq.model_name.human.pluralize)
+        notice << t("resident_notification_mailer.notify.update_sent", count: resident_count)
+      end
+      redirect_to [@parent, :faqs], notice: notice
     else
       render :new
     end
@@ -34,7 +41,14 @@ class FaqsController < ApplicationController
     authorize! :update, @faq
 
     if @faq.update(faq_params)
-      redirect_to [@parent, :faqs], notice: t("controller.success.update", name: @faq)
+      notice = t("controller.success.update", name: @faq)
+      if faq_params[:notify].to_i.positive?
+        resident_count = ResidentChangeNotifyService.call(@faq.parent,
+                                                          current_user,
+                                                          Faq.model_name.human.pluralize)
+        notice << t("resident_notification_mailer.notify.update_sent", count: resident_count)
+      end
+      redirect_to [@parent, :faqs], notice: notice
     else
       render :edit
     end
@@ -63,7 +77,8 @@ class FaqsController < ApplicationController
       :question,
       :answer,
       :category,
-      :division_id
+      :division_id,
+      :notify
     )
   end
 

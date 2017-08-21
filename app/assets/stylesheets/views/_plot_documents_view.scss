@@ -15,6 +15,23 @@
     line-height: 0.8;
 }
 
-.plot_documents .edit_document {
+.plot_documents {
+  .edit_document {
     width: 100%;
+  }
+
+  .notify {
+    label {
+      @include span-columns(11 of 12);
+      font-weight: normal;
+      display: inline-block;
+      font-size: $base-small-font-size;
+    }
+
+    input {
+      @include span-columns(1 of 12);
+      float: right;
+      margin-top: $spacing-small;
+    }
+  }
 }

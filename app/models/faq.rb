@@ -5,6 +5,8 @@ class Faq < ApplicationRecord
   belongs_to :development, optional: true
   belongs_to :faqable, polymorphic: true
 
+  attr_accessor :notify
+
   alias parent faqable
   include InheritParentPermissionIds
   include InheritPolymorphicParentPermissionIds

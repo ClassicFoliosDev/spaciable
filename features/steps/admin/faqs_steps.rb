@@ -30,6 +30,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
   attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
   category = FaqsFixture.t_category(attrs[:category])
   notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
+  notice << t("resident_notification_mailer.notify.update_sent", count: 0) if action == "updated"
 
   expect(page).to have_content(notice)
   expect(page).to have_content(attrs[:question])
@@ -64,6 +65,8 @@ When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
 
   category = FaqsFixture.t_category(attrs[:category])
   select_from_selectmenu :faq_category, with: category
+
+  check :faq_notify
 
   click_on t("faqs.form.submit")
 end

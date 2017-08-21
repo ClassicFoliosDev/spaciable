@@ -16,11 +16,14 @@ When(/^I upload a document using (\w+) plot$/) do |plot_name|
                 visible: false)
   end
 
+  check :document_notify
+
   click_on(t("plot_documents.form.upload_all"))
 end
 
 Then(/^I should see the created (\w+) plot document$/) do |plot_name|
   notice = t("plot_documents.bulk_upload.success", matched: 1)
+  notice << t("resident_notification_mailer.notify.update_sent", count: 0)
   expect(page).to have_content(notice)
 
   document_number = CreateFixture.send(plot_name)

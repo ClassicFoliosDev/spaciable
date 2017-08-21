@@ -3,6 +3,8 @@ class Document < ApplicationRecord
   mount_uploader :file, DocumentUploader
   process_in_background :file
 
+  attr_accessor :notify
+
   belongs_to :documentable, polymorphic: true
   alias parent documentable
   include InheritParentPermissionIds

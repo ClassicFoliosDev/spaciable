@@ -43,6 +43,10 @@
           <%= link_to t(".back"), faq, class: "btn" %>
         <% end %>
         <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        <div class="notify">
+          <%= label_tag t(".notify") %>
+          <%= f.check_box :notify %>
+        </div>
       </div>
     </div>
 <% end %>

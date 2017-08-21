@@ -45,6 +45,8 @@ class DocumentsController < ApplicationController
 
     if @document.save
       notice = t("controller.success.create", name: @document.title)
+      notice = process_notification(notice) if document_params[:notify].to_i.positive?
+
       redirect_to target, notice: notice
     else
       render :new
@@ -57,7 +59,7 @@ class DocumentsController < ApplicationController
     if @document.update(document_params)
       respond_to do |format|
         format.html do
-          redirect_to target, notice: t("controller.success.update", name: @document.title)
+          process_html_format
         end
         format.json do
           render json: @document.to_json, status: :ok
@@ -77,9 +79,23 @@ class DocumentsController < ApplicationController
 
   private
 
+  def process_html_format
+    notice = t("controller.success.update", name: @document.title)
+    notice = process_notification(notice) if document_params[:notify].to_i.positive?
+    redirect_to target, notice: notice
+  end
+
+  def process_notification(notice)
+    type = Document.model_name.human.pluralize
+    resident_count = ResidentChangeNotifyService.call(@document.parent, current_user, type)
+    notice << t("resident_notification_mailer.notify.update_sent", count: resident_count)
+
+    notice
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.require(:document).permit(:title, :file, :category, :documentable_id)
+    params.require(:document).permit(:title, :file, :category, :documentable_id, :notify)
   end
 
   def set_parent

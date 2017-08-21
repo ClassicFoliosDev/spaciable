@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 class ResidentNotificationMailer < ApplicationMailer
   add_template_helper(ResidentRouteHelper)

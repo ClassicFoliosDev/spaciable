@@ -448,6 +448,8 @@ When(/^I update the document$/) do
   fill_in "document_title", with: DocumentFixture.updated_document_name
   select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
 
+  check :document_notify
+
   click_on t("developers.form.submit")
 end
 
@@ -456,6 +458,7 @@ Then(/^I should see the updated document for the plot$/) do
     "controller.success.update",
     name: DocumentFixture.updated_document_name
   )
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 0)
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do

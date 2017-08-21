@@ -86,10 +86,10 @@ en:
   controller:
     resource_not_found: "Resource not found"
     success:
-      create: "%{name} was created successfully."
-      update: "%{name} was updated successfully."
-      destroy: "%{name} was deleted successfully."
-      create_update: "%{name} was successfully created or updated, and the associated MailChimp records have been configured."
+      create: "%{name} was created successfully"
+      update: "%{name} was updated successfully"
+      destroy: "%{name} was deleted successfully"
+      create_update: "%{name} was successfully created or updated, and the associated MailChimp records have been configured"
 
   breadcrumbs:
     admin_notifications: "Notifications"
@@ -257,10 +257,10 @@ en:
         numbers: "Plot numbers"
     users:
       create:
-        success: "%{user_email} was created successfully."
+        success: "%{user_email} was created successfully"
       destroy:
         archive:
-          success: "%{user_email} was deleted successfully."
+          success: "%{user_email} was deleted successfully"
       edit:
         title: "Edit user %{user_email}"
         back: "Back"
@@ -283,7 +283,7 @@ en:
         back: "Back"
         role_at: "%{role} at %{permission_level_name}"
       update:
-        success: "%{user_name} was updated successfully."
+        success: "%{user_name} was updated successfully"
         success_password: "%{user_name} password was updated successfully, please log in again."
     dashboard:
       components:
@@ -341,6 +341,7 @@ en:
     form:
       submit: "Submit"
       back: "Back"
+      notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
     new:
@@ -502,13 +503,13 @@ en:
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
       update:
-        success: "Your account has been updated successfully."
+        success: "Your account has been updated successfully"
 
   developers:
     destroy:
-      success: "%{developer_name} was deleted successfully."
+      success: "%{developer_name} was deleted successfully"
     create:
-      success: "%{developer_name} was created successfully."
+      success: "%{developer_name} was created successfully"
     developments:
       edit:
         title: "Edit %{development_name}"
@@ -520,11 +521,11 @@ en:
       show:
         back: "Back"
       create:
-        success: "%{development_name} was created successfully."
+        success: "%{development_name} was created successfully"
       update:
-        success: "%{development_name} was updated successfully."
+        success: "%{development_name} was updated successfully"
       destroy:
-        success: "%{development_name} was deleted successfully."
+        success: "%{development_name} was deleted successfully"
     edit:
       title: "Edit %{developer_name}"
       show: "Show"
@@ -550,7 +551,7 @@ en:
     show:
       back: "Back"
     update:
-      success: "%{developer_name} was updated successfully."
+      success: "%{developer_name} was updated successfully"
     collection:
       developments: "Developments"
       divisions: "Divisions"
@@ -567,19 +568,19 @@ en:
 
   divisions:
     destroy:
-      success: "%{division_name} was deleted successfully."
+      success: "%{division_name} was deleted successfully"
     create:
-      success: "%{division_name} was created successfully."
+      success: "%{division_name} was created successfully"
     developments:
       destroy:
-        success: "%{development_name} was deleted successfully."
+        success: "%{development_name} was deleted successfully"
       create:
-        success: "%{development_name} was created successfully."
+        success: "%{development_name} was created successfully"
       new:
         add: "Add development"
         title: "New development"
       update:
-        success: "%{development_name} was updated successfully."
+        success: "%{development_name} was updated successfully"
       edit:
         title: "Edit %{development_name}"
         edit: "Edit %{development_name}"
@@ -614,7 +615,7 @@ en:
       title: "New division"
       back: "Back"
     update:
-      success: "%{division_name} was updated successfully."
+      success: "%{division_name} was updated successfully"
     division:
       list_id: "List id "
       none: "(not configured)"
@@ -622,9 +623,9 @@ en:
 
   addresses:
     destroy:
-      success: "%{address_title} was deleted successfully."
+      success: "%{address_title} was deleted successfully"
     create:
-      success: "%{address_title} was created successfully."
+      success: "%{address_title} was created successfully"
     edit:
       title: "Edit %{address_title}"
       show: "Show"
@@ -641,7 +642,7 @@ en:
       title: "New address"
       back: "Back"
     update:
-      success: "%{address_title} was updated successfully."
+      success: "%{address_title} was updated successfully"
     placeholders:
       postal: "Postal number / name"
       building: "Building name"
@@ -714,9 +715,9 @@ en:
 
   phases:
     create:
-      success: "%{phase_name} was created successfully."
+      success: "%{phase_name} was created successfully"
     destroy:
-      success: "%{phase_name} was deleted successfully."
+      success: "%{phase_name} was deleted successfully"
     edit:
       back: "Back"
       title: "Edit %{phase_name}"
@@ -739,7 +740,7 @@ en:
     new:
       title: "New phase"
     update:
-      success: "%{phase_name} was updated successfully."
+      success: "%{phase_name} was updated successfully"
 
   plots:
     rooms:
@@ -765,10 +766,10 @@ en:
         other: "Plots %{plot_numbers}"
     create:
       success:
-        one: "Plot %{plots} was created successfully."
-        other: "Plots %{plots} were created successfully."
+        one: "Plot %{plots} was created successfully"
+        other: "Plots %{plots} were created successfully"
     destroy:
-      success: "%{plot_name} was deleted successfully."
+      success: "%{plot_name} was deleted successfully"
     edit:
       back: "Back"
       title: "Edit %{plot_name}"
@@ -787,8 +788,8 @@ en:
       title: "New %{parent} plot"
     update:
       success:
-        one: "Plot %{plot_name} was updated successfully."
-        other: "Plots %{plot_name} were updated successfully."
+        one: "Plot %{plot_name} was updated successfully"
+        other: "Plots %{plot_name} were updated successfully"
     collection:
       add: "Add plot"
       rooms: "Rooms"
@@ -826,7 +827,7 @@ en:
       back: "Back"
       title: "Plot %{plot} resident"
     update:
-      success: "%{resident_name} was updated successfully."
+      success: "%{resident_name} was updated successfully"
 
   plot_documents:
     form:
@@ -848,17 +849,18 @@ en:
       rename_to: "e.g. Homeowner manual"
       upload_rename: "Upload and rename files"
       upload_all: "Upload files"
+      notify: "Notify subscribed residents about this change"
     collection:
       plot: "Plot"
     bulk_upload:
       files_required: "You must select files to upload."
-      success: "Uploaded %{matched} plot documents successfully."
+      success: "Uploaded %{matched} plot documents successfully"
       failure: "Failed to find plots matching filename(s): %{unmatched}."
       no_rename_text: "You must supply the text to use when the files are renamed"
 
   unit_types:
     destroy:
-      success: "%{unit_type_name} was deleted successfully."
+      success: "%{unit_type_name} was deleted successfully"
     edit:
       title: "Edit %{unit_type_name}"
       back: "Back"
@@ -882,11 +884,11 @@ en:
 
   appliances:
    destroy:
-     success: "%{name} was deleted successfully."
+     success: "%{name} was deleted successfully"
    create:
-     success: "%{name} was created successfully."
+     success: "%{name} was created successfully"
    update:
-     success: "%{name} was updated successfully."
+     success: "%{name} was updated successfully"
    index:
      title: "Appliances"
    collection:
@@ -1130,6 +1132,7 @@ en:
       original_name: "Original file name"
       size: "File size"
       updated: "Upload date"
+      notify: "Notify subscribed residents about this change"
     collection:
       add: "Add document"
     edit:
@@ -1146,6 +1149,7 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      notify: "Notify subscribed residents about this change"
     edit:
       title: "Edit %{name}"
     show:
@@ -1182,8 +1186,11 @@ en:
 
   resident_notification_mailer:
     notify:
-      new_notification: "You have a new notification from Hoozzi."
-      login: "Login to Hoozzi."
+      new_notification: "You have a new notification from Hoozzi"
+      login: "Login to Hoozzi"
+      update_subject: "You have a new update in Hoozzi"
+      update_message: "The %{type} for your home have been updated"
+      update_sent: " and %{count} residents have been notified"
 
   services:
     homeowner_login_content_service:

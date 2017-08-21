@@ -108,7 +108,7 @@ When(/^I remove a Tag$/) do
 end
 
 Then(/^I should see the remove complete successfully$/) do
-  sleep 0.3
+  sleep 0.5
 
   within ".record-list" do
     click_on HowToFixture.updated_title

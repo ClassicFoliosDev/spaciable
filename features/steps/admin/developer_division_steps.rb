@@ -45,7 +45,10 @@ Then(/^I should see the updated developer division$/) do
     "divisions.update.success",
     division_name: DeveloperDivisionFixture.updated_division_name
   )
-  expect(page).to have_content(success_flash)
+
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
 
   # On the show page
   within ".section-header" do

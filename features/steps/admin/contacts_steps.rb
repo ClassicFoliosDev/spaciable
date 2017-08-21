@@ -72,6 +72,8 @@ When(/^I update the contact$/) do
                 visible: false)
   end
 
+  check :contact_notify
+
   click_on t("rooms.form.submit")
 end
 
@@ -80,6 +82,7 @@ Then(/^I should see the updated contact$/) do
     "controller.success.update",
     name: "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   )
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 0)
 
   expect(page).to have_content(success_flash)
 

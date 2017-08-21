@@ -2,6 +2,7 @@
 class Contact < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
+  attr_accessor :notify
 
   belongs_to :developer, optional: false
   belongs_to :division, optional: true

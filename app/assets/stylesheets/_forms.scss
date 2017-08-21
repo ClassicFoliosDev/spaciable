@@ -167,6 +167,16 @@ fieldset {
     color: $ui-white;
     border-color: $primary-cta-color;
   }
+
+  label {
+    font-weight: normal;
+    display: inline-block;
+  }
+
+  .notify {
+    float: right;
+    margin-right: $spacing-medium;
+  }
 }
 
 .remove-btn {

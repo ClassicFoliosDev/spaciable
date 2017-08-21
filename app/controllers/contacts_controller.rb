@@ -36,6 +36,12 @@ class ContactsController < ApplicationController
 
     if @contact.save
       notice = t("controller.success.create", name: @contact)
+      if contact_params[:notify].to_i.positive?
+        result = ResidentChangeNotifyService.call(@contact.parent,
+                                                  current_user,
+                                                  Contact.model_name.human.pluralize)
+        notice << t("resident_notification_mailer.notify.update_sent", count: result)
+      end
       redirect_to [@parent, :contacts], notice: notice
     else
       render :new
@@ -47,6 +53,12 @@ class ContactsController < ApplicationController
 
     if @contact.update(contact_params)
       notice = t("controller.success.update", name: @contact)
+      if contact_params[:notify].to_i.positive?
+        result = ResidentChangeNotifyService.call(@contact.parent,
+                                                  current_user,
+                                                  Contact.model_name.human.pluralize)
+        notice << t("resident_notification_mailer.notify.update_sent", count: result)
+      end
       redirect_to [@parent, :contacts], notice: notice
     else
       render :edit
@@ -72,7 +84,7 @@ class ContactsController < ApplicationController
       :title, :first_name, :last_name, :position,
       :email, :phone, :category, :mobile, :picture,
       :remove_picture, :picture_cache, :contactable_id,
-      :contactable_type, :organisation
+      :contactable_type, :organisation, :notify
     )
   end
 
