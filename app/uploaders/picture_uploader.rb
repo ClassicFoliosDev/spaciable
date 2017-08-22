@@ -59,4 +59,8 @@ class PictureUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+
+  def fog_authenticated_url_expiration
+    90.minutes # will be converted to seconds,  (default is 10.minutes)
+  end
 end

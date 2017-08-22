@@ -26,4 +26,8 @@ class MultiUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png pdf PDF)
   end
+
+  def fog_authenticated_url_expiration
+    6.minutes # will be converted to seconds,  (default is 10.minutes)
+  end
 end
