@@ -13,7 +13,7 @@ RSpec.describe ResidentChangeNotifyService do
       resident.save!
 
       result = described_class.call(developer_with_residents, current_user, "Spec tests")
-      expect(result).to eq 1
+      expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.length).to eq(1)
@@ -45,7 +45,7 @@ RSpec.describe ResidentChangeNotifyService do
       resident.save!
 
       result = described_class.call(developer_with_residents, current_user, "Spec tests")
-      expect(result).to eq 1
+      expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.length).to eq(1)
@@ -68,7 +68,7 @@ RSpec.describe ResidentChangeNotifyService do
       resident.save!
 
       result = described_class.call(division_with_residents, current_user, "Spec tests")
-      expect(result).to eq 1
+      expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.length).to eq(1)
@@ -91,7 +91,7 @@ RSpec.describe ResidentChangeNotifyService do
       resident.save!
 
       result = described_class.call(development, current_user, "Spec tests")
-      expect(result).to eq 1
+      expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.length).to eq(1)

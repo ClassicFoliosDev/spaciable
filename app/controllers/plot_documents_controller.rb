@@ -25,30 +25,23 @@ class PlotDocumentsController < ApplicationController
     end
 
     notice, alert = process_documents
-    notice = process_notification(notice) if plot_document_params[:notify].to_i.positive?
 
     redirect_to [@parent, :plot_documents], alert: alert, notice: notice
   end
 
   private
 
-  def process_notification(notice)
-    # If notice is nil, this means no matching plots were found for the documents
-    # so there will be no residents to notify
-    return unless notice
-
-    resident_count = ResidentChangeNotifyService.call(@parent,
-                                                      current_user,
-                                                      Document.model_name.human.pluralize)
-    notice << t("resident_notification_mailer.notify.update_sent", count: resident_count)
-    notice
-  end
-
   def process_documents
     matched, unmatched, error = BulkUploadPlotDocumentsService
                                 .call(@parent.plots, plot_document_params, params)
 
     notice = t(".success", matched: matched.count) if matched.any?
+
+    if plot_document_params[:notify].to_i.positive? && notice
+      notice << ResidentChangeNotifyService
+                .call(@parent, current_user, Document.model_name.human.pluralize)
+    end
+
     alert = t(".failure", unmatched: unmatched.to_sentence) if unmatched.any?
     alert = error if error&.length&.positive?
 

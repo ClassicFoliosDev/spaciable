@@ -25,6 +25,8 @@ class Phase < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
+  attr_accessor :notify
+
   scope :by_developer_and_developer_divisions, lambda { |developer_id|
     division_ids = Division.where(developer_id: developer_id).pluck(:id)
 

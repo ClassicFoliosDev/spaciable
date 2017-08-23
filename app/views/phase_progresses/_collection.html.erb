@@ -1,0 +1,34 @@
+<%= simple_form_for edit_phase_path(phase), url: [:bulk_update, phase, :phase_progresses] do |f| %>
+
+  <div class="separate row">
+    <div class="row-item third">
+      <div class="phase_progress_all ui-front">
+        <label><%= t(".update_progress") %></label>
+        <%= select_tag "phase_progress_all", options_for_select(all_progress_collection), prompt: t(".choose") %>
+      </div>
+    </div>
+
+    <div class="row-item two-thirds">
+      <table class="record-list">
+        <% collection.each do |plot| %>
+          <tr data-plot="<%= plot.id %>">
+            <td><%= plot %></td>
+            <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), phase_path(phase), class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <div class="notify">
+        <%= label_tag t(".notify") %>
+        <%= check_box_tag :notify %>
+      </div>
+    </div>
+  </div>
+
+<% end %>

@@ -113,3 +113,34 @@ Then(/^I should see the development address has not been changed$/) do
     end
   end
 end
+
+When(/^I update the progress for the phase$/) do
+  visit "/"
+  goto_phase_show_page
+
+  within ".tabs" do
+    click_on t("phases.collection.phase_progresses")
+  end
+
+  select_from_selectmenu :phase_progress_all, with: PhaseFixture.progress
+
+  within ".form-actions-footer" do
+    click_on t("phase_progresses.collection.submit")
+  end
+end
+
+Then(/^I should see the plot progress has been updated$/) do
+  success_flash = t(
+    "phase_progresses.bulk_update.success",
+    progress: PhaseFixture.progress
+  )
+
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
+
+  within ".record-list" do
+    expect(page).to have_content(PhaseFixture.progress)
+    expect(page).not_to have_content("Building soon")
+  end
+end

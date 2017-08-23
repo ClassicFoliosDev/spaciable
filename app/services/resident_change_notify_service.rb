@@ -7,7 +7,7 @@ module ResidentChangeNotifyService
     notification = build_notification(resource, user, type)
     SendResidentNotificationsJob.perform_later(send_residents.pluck(:id), notification)
 
-    send_residents.count
+    I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
   end
 
   private

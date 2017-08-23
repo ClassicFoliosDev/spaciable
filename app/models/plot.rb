@@ -23,6 +23,8 @@ class Plot < ApplicationRecord
   has_many :documents, as: :documentable
   has_one :address, as: :addressable, dependent: :destroy
 
+  attr_accessor :notify
+
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
@@ -37,6 +39,15 @@ class Plot < ApplicationRecord
   delegate :private_documents, to: :resident, allow_nil: true
   delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, to: :developer, allow_nil: true
+
+  enum progress: [
+    :soon,
+    :in_progress,
+    :roof_on,
+    :exchange_ready,
+    :complete_ready,
+    :completed
+  ]
 
   def rooms(room_scope = Room.all)
     templated_room_ids = plot_rooms.with_deleted.pluck(:template_room_id).compact

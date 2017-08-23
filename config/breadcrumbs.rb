@@ -175,6 +175,11 @@ crumb :phase_new do |development|
   parent :development, development
 end
 
+crumb :phase_progresses do |phase|
+  link t("phases.collection.phase_progresses")
+  parent :phase, phase
+end
+
 # UNIT TYPES
 
 crumb :unit_types do |development|

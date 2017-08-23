@@ -131,9 +131,10 @@ Then(/^I should see the document in the developer document list$/) do
 end
 
 When(/^I delete the document$/) do
-  click_on t("documents.form.back")
+  within ".form-actions-footer" do
+    click_on t("documents.form.back")
+  end
 
-  sleep 0.2
   document_id = DocumentFixture.updated_document_id
   delete_and_confirm!(scope: "[data-document='#{document_id}']")
 end

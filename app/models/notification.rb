@@ -62,11 +62,11 @@ class Notification < ApplicationRecord
     "#{send_to} (#{plot_title} #{plot_numbers.to_sentence})"
   end
 
-  delegate :role, to: :sender
-  delegate :job_title, to: :sender
-  delegate :first_name, to: :sender
-  delegate :last_name, to: :sender
-  delegate :picture, to: :sender
+  delegate :role, to: :sender, allow_nil: true
+  delegate :job_title, to: :sender, allow_nil: true
+  delegate :first_name, to: :sender, allow_nil: true
+  delegate :last_name, to: :sender, allow_nil: true
+  delegate :picture, to: :sender, allow_nil: true
   delegate :to_s, to: :subject
   delegate :to_str, to: :subject
 end

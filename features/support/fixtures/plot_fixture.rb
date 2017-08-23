@@ -64,6 +64,10 @@ module PlotFixture
     "SO33 4FE"
   end
 
+  def progress
+    "In progress"
+  end
+
   def update_attrs
     {
       prefix: "Plot",

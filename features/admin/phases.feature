@@ -18,3 +18,10 @@ Feature: Phases
     Given I create a phase for the development
     When I delete the phase
     Then I should see the development address has not been changed
+
+  @javascript
+  Scenario: Phase plot progress
+    Given I am logged in as an admin
+    And there is a phase plot
+    When I update the progress for the phase
+    Then I should see the plot progress has been updated

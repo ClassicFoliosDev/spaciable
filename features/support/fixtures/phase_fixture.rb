@@ -38,4 +38,8 @@ module PhaseFixture
       postcode: "RG13 5HY"
     }
   end
+
+  def progress
+    "Ready for exchange"
+  end
 end

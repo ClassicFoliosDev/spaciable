@@ -35,6 +35,7 @@ module BulkPlots
 
     def save_new_plot(attrs)
       new_plot = plots_scope.build(attrs)
+      new_plot.progress = :soon if new_plot.progress.nil?
 
       if (saved = new_plot.save)
         successful_numbers << new_plot.number

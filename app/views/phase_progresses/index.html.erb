@@ -1,0 +1,9 @@
+<% breadcrumb :phase_progresses, @phase %>
+
+<div class="section-header">
+  <%= render @phase %>
+</div>
+
+<%= render 'components/tabs', tabs: tabs_for(@phase, "phase_progresses"), phase: @phase %>
+
+<%= render_collection @plots, path: "phase_progresses/collection", phase: @phase %>

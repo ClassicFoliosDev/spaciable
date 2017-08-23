@@ -53,6 +53,8 @@ When(/^I update the plot$/) do
     select PlotFixture.updated_unit_type_name, visible: false
   end
 
+  select_from_selectmenu :plot_progress, with: PlotFixture.progress
+
   click_on t("plots.form.submit")
 end
 
@@ -64,6 +66,7 @@ Then(/^I should see the updated plot$/) do
   within ".section-title" do
     expect(page).to have_content(PlotFixture.update_attrs[:prefix])
     expect(page).to have_content(PlotFixture.update_attrs[:number])
+    expect(page).to have_content(PlotFixture.progress)
   end
 
   within ".section-data" do

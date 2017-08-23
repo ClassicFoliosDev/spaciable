@@ -21,6 +21,11 @@ module PhaseTabsHelper
       documents: {
         icon: "file-pdf-o",
         link: [phase.parent, phase, active_tab: :documents]
+      },
+      phase_progresses: {
+        icon: "cogs",
+        link: [phase, :phase_progresses],
+        permissions_on: -> { phase }
       }
     }
   end

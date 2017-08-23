@@ -33,6 +33,10 @@
     <div class="row-item third">
       <fieldset>
         <%= f.association :unit_type, as: :select, collection: unit_types.pluck(:name, :id) %>
+        <label><%= t(".current_progress") %></label>
+        <span><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></span>
+        <label><%= t(".update_progress") %></label>
+        <%= f.input :progress, as: :select, collection: progress_collection(plot.progress), label: false %>
       </fieldset>
     </div>
 
@@ -56,6 +60,10 @@
         <%= link_to t(".back"), [plots.parent, :plots], class: "btn" %>
       <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <div class="notify">
+        <%= label_tag t(".notify") %>
+        <%= f.check_box :notify %>
+      </div>
     </div>
   </div>
 <% end %>

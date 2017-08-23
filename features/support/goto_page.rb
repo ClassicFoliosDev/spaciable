@@ -92,10 +92,6 @@ module GotoPage
   end
 
   def goto_plot_show_page
-    development_plot = CreateFixture.development_plot
-
-    raise "Plot does not exist" unless development_plot
-
     goto_development_show_page
 
     within ".tabs" do
@@ -105,6 +101,19 @@ module GotoPage
     sleep 0.3
     within ".record-list" do
       click_on CreateFixture.plot_name
+    end
+  end
+
+  def goto_phase_show_page
+    goto_development_show_page
+
+    within ".tabs" do
+      click_on t("developments.collection.phases")
+    end
+
+    sleep 0.3
+    within ".record-list" do
+      click_on CreateFixture.phase_name
     end
   end
 end

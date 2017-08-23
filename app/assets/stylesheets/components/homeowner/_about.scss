@@ -22,3 +22,18 @@
     color: $type-grey;
   }
 }
+
+.progress-card {
+  padding: 20px;
+
+  h5 {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+
+  span {
+    font-size: $base-small-font-size;
+    color: $type-grey;
+    margin-left: 5px;
+  }
+}

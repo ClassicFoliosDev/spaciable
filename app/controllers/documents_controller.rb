@@ -45,7 +45,10 @@ class DocumentsController < ApplicationController
 
     if @document.save
       notice = t("controller.success.create", name: @document.title)
-      notice = process_notification(notice) if document_params[:notify].to_i.positive?
+      if document_params[:notify].to_i.positive?
+        notice << ResidentChangeNotifyService
+                  .call(@document.parent, current_user, Document.model_name.human.pluralize)
+      end
 
       redirect_to target, notice: notice
     else
@@ -81,16 +84,11 @@ class DocumentsController < ApplicationController
 
   def process_html_format
     notice = t("controller.success.update", name: @document.title)
-    notice = process_notification(notice) if document_params[:notify].to_i.positive?
+    if document_params[:notify].to_i.positive?
+      notice << ResidentChangeNotifyService
+                .call(@document.parent, current_user, Document.model_name.human.pluralize)
+    end
     redirect_to target, notice: notice
-  end
-
-  def process_notification(notice)
-    type = Document.model_name.human.pluralize
-    resident_count = ResidentChangeNotifyService.call(@document.parent, current_user, type)
-    notice << t("resident_notification_mailer.notify.update_sent", count: resident_count)
-
-    notice
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

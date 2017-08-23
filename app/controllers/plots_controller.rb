@@ -17,6 +17,7 @@ class PlotsController < ApplicationController
 
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
+    @plot.progress = :soon
   end
 
   def edit
@@ -41,6 +42,7 @@ class PlotsController < ApplicationController
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
+        @plot.progress = :soon
 
         render :new
       end
@@ -51,7 +53,9 @@ class PlotsController < ApplicationController
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
       if updated_plots.any?
         notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
-
+        if params[:notify].to_i.positive?
+          notice << ResidentChangeNotifyService.call(@phase, current_user, t("plot_details"))
+        end
         redirect_to [@parent, :plots], notice: notice, alert: errors
       else
         flash.now[:alert] = errors if errors
@@ -83,15 +87,14 @@ class PlotsController < ApplicationController
 
   def plot_attributes
     [
-      :prefix,
-      :number,
+      :prefix, :number,
       :unit_type_id,
       :house_number,
       :road_name,
       :building_name,
-      :city,
-      :county,
-      :postcode
+      :city, :county,
+      :postcode, :progress,
+      :notify, :user_id
     ]
   end
 

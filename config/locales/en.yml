@@ -55,6 +55,8 @@ en:
   reminder_title: "%{ordinal} reminder to register with Hoozzi"
   last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
 
+  plot_details: "details"
+
   # LAYOUTS
   layouts:
     application:
@@ -491,6 +493,7 @@ en:
         appliances_description: "View documents and details of appliances your home"
         library_description: "View and upload documents about your home"
         faqs_description: "Frequently asked questions about moving into a new home"
+        build_progress: "Progress on my home is: "
     private_documents:
       index:
         file_description: "You can use this area of Hoozzi to store other documents, photos and files relating to your moving process and home"
@@ -756,6 +759,7 @@ en:
       documents: "Documents"
       name: "Phase"
       plot_documents: "Plot documents"
+      phase_progresses: "Phase progress"
     new:
       title: "New phase"
     update:
@@ -801,6 +805,9 @@ en:
       range_label: "Add plots by range"
       range_from_placeholder: "Range from"
       range_to_placeholder: "Range to"
+      current_progress: "Current progress"
+      update_progress: "Update progress to"
+      notify: "Notify subscribed residents about this change"
     index:
       title: "%{parent_name} Plots"
     new:
@@ -816,6 +823,7 @@ en:
       plot_residency: "Residents"
       unit_type: "Unit type"
       name: "Plot"
+      build_progress: "Build progress"
     show:
       back: "Back"
       completion: "Completion date"
@@ -823,6 +831,7 @@ en:
     plot:
       private_documents: "Uploaded documents: "
       none: "(n/a)"
+      build_progress: "Build progress: "
 
   plot_residencies:
     collection:
@@ -877,6 +886,16 @@ en:
       failure: "Failed to find plots matching filename(s): %{unmatched}."
       no_rename_text: "You must supply the text to use when the files are renamed"
 
+  phase_progresses:
+    collection:
+      update_progress: "Update progress for all plots in phase"
+      choose: "Choose..."
+      back: "Back"
+      submit: "Submit"
+      notify: "Notify subscribed residents about this change"
+    bulk_update:
+      success: "Progress for all plots in phase was updated to %{progress}"
+
   unit_types:
     destroy:
       success: "%{unit_type_name} was deleted successfully"
@@ -889,6 +908,7 @@ en:
       submit: "Submit"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=dummy"
+      matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
     new:
       add: "Add %{development_name} unit type"
     show:
@@ -1308,6 +1328,14 @@ en:
         number: "Plot number"
         house_number: "Postal number / name"
         updated_at: "Last edited"
+        progresses:
+          soon: "Building soon"
+          in_progress: "In progress"
+          roof_on: "Roof on"
+          exchange_ready: "Ready for exchange"
+          complete_ready: "Ready to complete"
+          completed: "Completed"
+          remove: "Remove build progress status"
       room:
         name: "Room name"
         updated_at: "Last edited"

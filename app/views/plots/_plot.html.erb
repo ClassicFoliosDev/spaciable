@@ -1,9 +1,10 @@
 <div class="section-title">
   <h3><%= plot %></h3>
 
-  <span class="about">
-    <strong><%= t(".private_documents") %></strong><%= plot&.private_documents&.count || t(".none") %>
-  </span>
+  <div class="about">
+    <strong><%= t(".private_documents") %></strong><%= plot&.private_documents&.count || t(".none") %><br/>
+    <strong><%= t(".build_progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %>
+  </div>
 </div>
 
 <div class="section-data">
