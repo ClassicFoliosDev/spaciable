@@ -41,15 +41,14 @@ $icon-color: #252C31;
     .labels {
       font-size: $base-font-size;
       padding-top: $spacing-small / 2;
+      margin-top: $spacing-small;
     }
 
     .label {
       span {
-        white-space: nowrap;
         width: 80%;
-        text-overflow: ellipsis;
-        overflow: hidden;
         display: block;
+        color: $type-grey;
       }
     }
 
