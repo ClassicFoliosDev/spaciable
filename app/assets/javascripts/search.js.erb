@@ -16,9 +16,10 @@ $document.on('keypress', 'form', function (event) {
     } else if ($searchFinishField.val()) {
       searchFinish()
     }
-     // Whether or not there is a search value, don't allow the user
-     // to submit the form using "enter" key
-    return false
+
+    // Whether or not there is a search value, don't allow the user
+    // to submit the form using "enter" key, unless this is a sign_in page
+    return window.location.pathname.includes("sign_in") ? true : false
   }
 })
 
