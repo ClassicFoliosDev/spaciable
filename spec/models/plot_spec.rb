@@ -105,6 +105,21 @@ RSpec.describe Plot do
           expect(base_errors).to include(error: :number_taken, value: number.to_s)
         end
       end
+
+      context "when the prefix is in the number field" do
+        it "should not allow duplicate plots" do
+          number = 88
+
+          development = create(:development)
+          create(:plot, prefix: "Plot", number: number, development: development)
+          plot = Plot.new(prefix: nil, number: "Plot 88", development: development)
+
+          plot.validate
+
+          base_errors = plot.errors.details[:base]
+          expect(base_errors).to include(error: :number_taken, value: plot.to_s)
+        end
+      end
     end
 
     context "under different developments" do

@@ -13,7 +13,8 @@ class PlotCombinationValidator < ActiveModel::Validator
     return if combinations.empty?
 
     combination = "#{prefix} #{number}"
-    return unless combinations.include?(combination)
+
+    return unless combinations.include?(combination.strip)
 
     if prefix.present?
       record.errors.add(:base, :combination_taken, value: record.to_s)
@@ -26,6 +27,6 @@ class PlotCombinationValidator < ActiveModel::Validator
     other_plots = record.parent.plots
     other_plots = other_plots.where.not(id: record.id) if record.persisted?
     other_plots = other_plots.pluck(:prefix, :number)
-    other_plots.map { |prefix, number| "#{prefix} #{number}" }
+    other_plots.map { |prefix, number| "#{prefix} #{number}".strip }
   end
 end
