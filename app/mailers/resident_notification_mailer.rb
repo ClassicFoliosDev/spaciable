@@ -27,7 +27,7 @@ class ResidentNotificationMailer < ApplicationMailer
 
   def template_configuration(resident)
     @resident = resident
-    @logo = resident&.plot.branded_logo
+    @logo = resident&.plot&.branded_logo
     @logo = "logo.png" if @logo.blank?
   end
 end
