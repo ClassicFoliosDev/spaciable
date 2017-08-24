@@ -19,7 +19,7 @@ $document.on('keypress', 'form', function (event) {
 
     // Whether or not there is a search value, don't allow the user
     // to submit the form using "enter" key, unless this is a sign_in page
-    return window.location.pathname.includes("sign_in") ? true : false
+    return !!window.location.pathname.includes('sign_in')
   }
 })
 
@@ -41,6 +41,10 @@ function searchGlobal () {
 
 $document.on('click', '.search-appliance-btn', function (event) {
   event.preventDefault()
+  var $categorySelect = $('.appliance_category').find('select')
+  $categorySelect.val('')
+  $categorySelect.selectmenu('refresh')
+  clearFields($('.appliance_manufacturer'))
   searchAppliance()
 })
 
@@ -58,6 +62,11 @@ function searchAppliance () {
 
 $document.on('click', '.search-finish-btn', function (event) {
   event.preventDefault()
+  var $categorySelect = $('.finish_category').find('select')
+  $categorySelect.val('')
+  $categorySelect.selectmenu('refresh')
+  clearFields($('.finish_type'))
+  clearFields($('.finish-manufacturer'))
   searchFinish()
 })
 
