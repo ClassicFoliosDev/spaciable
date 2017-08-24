@@ -41,7 +41,8 @@ class Development < ApplicationRecord
   validate :permissable_id_presence
   validates_with ParameterizableValidator
 
-  delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true
+  delegate :building_name, :road_name, :locality,
+           :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
 
   def brand_any

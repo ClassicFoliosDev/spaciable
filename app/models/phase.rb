@@ -39,14 +39,16 @@ class Phase < ApplicationRecord
   validates :number,
             uniqueness: { scope: :development_id }
 
-  delegate :building_name, :road_name, :city, :county, :postcode, to: :address, allow_nil: true
+  delegate :building_name, :road_name, :locality, :city,
+           :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
 
   def build_address_with_defaults
     return if address.present?
     return build_address if !development || !development.address
 
-    address_fields = [:postal_name, :building_name, :road_name, :city, :county, :postcode]
+    address_fields = [:postal_number, :building_name, :road_name,
+                      :locality, :city, :county, :postcode]
     address_attributes = development.address.attributes.select do |key, _|
       address_fields.include?(key.to_sym)
     end

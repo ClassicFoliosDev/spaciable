@@ -12,16 +12,7 @@
               <%= t('.my_home_title') %>
             </h3>
           </div>
-          <div class="card-content">
-            <address class="my-home-address">
-              <%= @plot.house_number %> <%= @plot.building_name %>
-              <%= @plot.road_name if @plot.road_name.present? %><br/>
-              <%= @plot.city if @plot.city.present? %><br/>
-              <%= @plot.county if @plot.county.present? %><br/>
-              <%= @plot.postcode if @plot.postcode.present? %><br/>
-            </address>
-            <%= link_to t(".my_home_view_more"), homeowner_my_home_path, class: "branded-btn second" %>
-          </div>
+          <%= render "homeowners/components/address", plot: @plot %>
         </div>
 
         <div class="card half library-component documents-component branded-content branded-border">

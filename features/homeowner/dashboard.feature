@@ -11,6 +11,8 @@ Feature: Dashboard
     And there are how-tos
     When I navigate to the dashboard
     Then I see the recent homeowner contents
+    When I the plot has a postal number
+    Then I see the dashboard address reformatted
     And I can see the data policy page
 
   Scenario: Password

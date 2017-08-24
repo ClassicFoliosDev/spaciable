@@ -14,7 +14,7 @@ module PlotFixture
     create_unit_types(development)
   end
 
-  def development_postal_name
+  def development_postal_number
     "Langosh Fort"
   end
 

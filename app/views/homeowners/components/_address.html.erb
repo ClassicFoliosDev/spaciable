@@ -1,0 +1,16 @@
+<div class="card-content">
+  <address class="my-home-address">
+    <%= plot.house_number %> <%= plot.building_name %>
+    <% if plot.building_name.present? && plot.road_name.present? %>
+      <br/>
+    <% end %>
+    <%= plot.road_name %><br/>
+    <% if plot.locality.present? %>
+      <%= plot.locality %><br/>
+    <% end %>
+    <%= plot.city if plot.city.present? %><br/>
+    <%= plot.county if plot.county.present? %><br/>
+    <%= plot.postcode if plot.postcode.present? %><br/>
+  </address>
+  <%= link_to t(".my_home_view_more"), homeowner_my_home_path, class: "branded-btn second" %>
+</div>

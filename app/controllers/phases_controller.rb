@@ -64,13 +64,8 @@ class PhasesController < ApplicationController
     params.require(:phase).permit(
       :name,
       :number,
-      address_attributes: [:postal_name,
-                           :road_name,
-                           :building_name,
-                           :city,
-                           :county,
-                           :postcode,
-                           :id]
+      address_attributes: [:postal_number, :road_name, :building_name,
+                           :locality, :city, :county, :postcode, :id]
     )
   end
 end

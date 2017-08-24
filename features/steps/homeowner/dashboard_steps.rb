@@ -29,6 +29,18 @@ Then(/^I see the recent homeowner contents$/) do
     expect(howtos.count).to eq(3)
   end
 
+  plot = CreateFixture.phase_plot
+  address = plot.phase.address
+  first_line = "#{address.building_name} #{address.road_name}"
+
+  within ".my-home" do
+    expect(page).to have_content(first_line)
+    expect(page).to have_content(address.locality)
+    expect(page).to have_content(address.city)
+    expect(page).to have_content(address.county)
+    expect(page).to have_content(address.postcode)
+  end
+
   within ".footer" do
     copyright = t("components.homeowner.footer.copyright", year: Time.current.year)
     copyright = copyright.gsub(/&copy;/, "")
@@ -91,5 +103,30 @@ And(/^I can see the data policy page$/) do
     expect(page).to have_content(t("legal.data_policy.your_rights"))
     expect(page).to have_content(t("legal.data_policy.who_we_are"))
     expect(page).to have_content(t("legal.data_policy.information"))
+  end
+end
+
+When(/^I the plot has a postal number$/) do
+  plot = CreateFixture.phase_plot
+  plot.build_address
+  plot.address.postal_number = "7C"
+  plot.save!
+end
+
+Then(/^I see the dashboard address reformatted$/) do
+  visit "/"
+
+  plot = CreateFixture.phase_plot
+  address = plot.phase.address
+
+  first_line = "#{plot.address.postal_number} #{address.building_name}"
+
+  within ".my-home" do
+    expect(page).to have_content(first_line)
+    expect(page).to have_content(address.road_name)
+    expect(page).to have_content(address.locality)
+    expect(page).to have_content(address.city)
+    expect(page).to have_content(address.county)
+    expect(page).to have_content(address.postcode)
   end
 end

@@ -71,7 +71,8 @@ module Developers
         :email,
         :contact_number,
         :maintenance_link,
-        address_attributes: [:postal_name, :road_name, :building_name, :city, :county, :postcode]
+        address_attributes: [:postal_number, :road_name, :building_name,
+                             :locality, :city, :county, :postcode]
       )
     end
   end

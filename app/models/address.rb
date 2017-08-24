@@ -4,6 +4,6 @@ class Address < ApplicationRecord
   belongs_to :addressable, polymorphic: true
 
   def to_s
-    postal_name
+    "#{postal_number} #{road_name}"
   end
 end

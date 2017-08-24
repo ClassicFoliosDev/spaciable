@@ -92,7 +92,7 @@ RSpec.describe Phase do
 
       phase.build_address_with_defaults
 
-      expect(phase.address.postal_name).to eq(development_address.postal_name)
+      expect(phase.address.postal_number).to eq(development_address.postal_number)
       expect(phase.address.building_name).to eq(development_address.building_name)
       expect(phase.address.road_name).to eq(development_address.road_name)
       expect(phase.address.city).to eq(development_address.city)

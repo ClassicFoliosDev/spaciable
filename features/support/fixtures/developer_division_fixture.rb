@@ -19,7 +19,7 @@ module DeveloperDivisionFixture
 
   def division_address_attrs
     {
-      postal_name: "Dragon Division",
+      postal_number: "Dragon Division",
       building_name: "Mega Building",
       road_name: "Foo Road",
       city: "Wadeland",

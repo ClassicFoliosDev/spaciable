@@ -92,6 +92,7 @@ class PlotsController < ApplicationController
       :house_number,
       :road_name,
       :building_name,
+      :locality,
       :city, :county,
       :postcode, :progress,
       :notify, :user_id

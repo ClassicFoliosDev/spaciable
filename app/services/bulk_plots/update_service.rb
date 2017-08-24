@@ -15,7 +15,12 @@ module BulkPlots
 
     def update(plot_params)
       self.params = plot_params.to_h.symbolize_keys
+      params[:progress] = base_plot.progress if plot_params[:progress]&.empty?
 
+      bulk_update
+    end
+
+    def bulk_update
       if any_bulk_attrs?
         update_plot_numbers
         return no_numbers_error if numbers.empty?

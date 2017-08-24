@@ -234,6 +234,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(parent.building_name)
         expect(plot.road_name).to eq(parent.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq(parent.city)
         expect(plot.county).to eq(parent.county)
         expect(plot.postcode).to eq(parent.postcode)
@@ -249,6 +250,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(parent.building_name)
         expect(plot.road_name).to eq(parent.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq(parent.city)
         expect(plot.county).to eq(parent.county)
         expect(plot.postcode).to eq(parent.postcode)
@@ -264,6 +266,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(parent.building_name)
         expect(plot.road_name).to eq(plot_address.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq(parent.city)
         expect(plot.county).to eq(parent.county)
         expect(plot.postcode).to eq(plot_address.postcode)
@@ -277,6 +280,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(plot_address.building_name)
         expect(plot.road_name).to eq(parent.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq(parent.city)
         expect(plot.county).to eq(parent.county)
         expect(plot.postcode).to eq(plot_address.postcode)
@@ -290,6 +294,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(plot_address.building_name)
         expect(plot.road_name).to eq(plot_address.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq(parent.city)
         expect(plot.county).to eq(parent.county)
         expect(plot.postcode).to eq(parent.postcode)
@@ -305,6 +310,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(plot_address.building_name)
         expect(plot.road_name).to eq(plot_address.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq(parent.city)
         expect(plot.county).to eq(parent.county)
         expect(plot.postcode).to eq(plot_address.postcode)
@@ -322,6 +328,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(plot_address.building_name)
         expect(plot.road_name).to eq(plot_address.road_name)
+        expect(plot.locality).to eq(parent.locality)
         expect(plot.city).to eq("Best City")
         expect(plot.county).to eq("The best county")
         expect(plot.postcode).to eq(plot_address.postcode)
@@ -335,6 +342,7 @@ RSpec.describe Plot do
         parent.address.update(
           building_name: "new building name",
           road_name: "wonky road",
+          locality: "Fun field",
           city: "Best City",
           county: "The best county",
           postcode: "SP10 4RR"
@@ -343,6 +351,7 @@ RSpec.describe Plot do
         expect(plot.house_number).to be_nil
         expect(plot.building_name).to eq(plot_address.building_name)
         expect(plot.road_name).to eq(plot_address.road_name)
+        expect(plot.locality).to eq("Fun field")
         expect(plot.city).to eq("Best City")
         expect(plot.county).to eq("The best county")
         expect(plot.postcode).to eq(plot_address.postcode)

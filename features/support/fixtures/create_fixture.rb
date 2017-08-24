@@ -225,7 +225,7 @@ module CreateFixture
   end
 
   def create_development_phase
-    FactoryGirl.create(:phase, name: phase_name, development: development)
+    FactoryGirl.create(:phase, name: phase_name, development: development, address: create_address)
   end
 
   def create_division_development_phase
@@ -243,6 +243,11 @@ module CreateFixture
 
   def create_division_development_plot
     FactoryGirl.create(:plot, development: division_development, prefix: "", number: division_plot_name)
+  end
+
+  def create_address
+    FactoryGirl.create(:address, building_name: "Quartz Tower", road_name: "Sapphire Road",
+                                 locality: "Pearlville", postcode: "HTTP 404")
   end
 
   def create_phase_plot

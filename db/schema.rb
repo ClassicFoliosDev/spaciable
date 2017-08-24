@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821095412) do
+ActiveRecord::Schema.define(version: 20170823114426) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
 
   create_table "addresses", force: :cascade do |t|
-    t.string   "postal_name"
+    t.string   "postal_number"
     t.string   "city"
     t.string   "county"
     t.string   "postcode"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170821095412) do
     t.datetime "deleted_at"
     t.string   "addressable_type"
     t.integer  "addressable_id"
+    t.string   "locality"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
   end
@@ -387,8 +388,8 @@ ActiveRecord::Schema.define(version: 20170821095412) do
     t.string   "prefix"
     t.string   "number"
     t.integer  "unit_type_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"

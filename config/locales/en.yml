@@ -467,6 +467,8 @@ en:
         article: "View article"
       notification_summary:
         new: "New"
+      address:
+        my_home_view_more: "View my home"
     appliances:
       show:
         register: "Register appliance"
@@ -484,7 +486,6 @@ en:
     dashboard:
       show:
         my_home_title: "My home"
-        my_home_view_more: "View my home"
         contacts_title: "Contacts"
         contacts_view_more: "View contacts"
     about:
@@ -669,6 +670,7 @@ en:
       postal: "Postal number / name"
       building: "Building name"
       road: "Road name"
+      locality: "Locality"
 
   devise:
     sessions:
@@ -1410,8 +1412,9 @@ en:
         last_name: "Last name"
         password_confirmation: "New password confirmation"
       address:
-        postal_name: "Postal number / name"
+        postal_number: "Postal number / name"
         building_name: "Building name"
+        locality: "Locality"
         road_name: "Road"
         city: "Town / city"
         county: "County"

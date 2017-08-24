@@ -18,7 +18,7 @@ module DeveloperFixture
 
   def developer_address_attrs
     {
-      postal_name: "Langosh Fort",
+      postal_number: "Langosh Fort",
       building_name: "Mega Building",
       road_name: "Swampy Road",
       city: "Wadeland",

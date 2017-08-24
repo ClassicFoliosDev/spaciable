@@ -46,6 +46,7 @@
         <%= f.input :building_name, label: false, placeholder: t("addresses.placeholders.building") %>
         <%= f.input :road_name, label: false, placeholder: t("addresses.placeholders.road") %>
         <%= f.input :postcode %>
+        <%= f.input :locality, readonly: true, class: "readonly" %>
         <%= f.input :city, readonly: true, class: "readonly" %>
         <%= f.input :county, readonly: true, class: "readonly" %>
       </fieldset>

@@ -75,6 +75,7 @@ Then(/^I should see the updated plot$/) do
     expect(page).to have_content(PlotFixture.plot_building_name)
     expect(page).to have_content(PlotFixture.plot_road_name)
     expect(page).to have_content(PlotFixture.plot_postcode)
+    expect(page).to have_content(PhaseFixture.development_address_attrs[:locality])
     expect(page).to have_content(PhaseFixture.development_address_attrs[:city_name])
     expect(page).to have_content(PhaseFixture.development_address_attrs[:county_name])
 
@@ -151,7 +152,7 @@ Then(/^I see the plot preview page$/) do
     expect(page).to have_content(t("layouts.homeowner.nav.contacts"))
 
     expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))
-    expect(page).to have_content(t("homeowners.dashboard.show.my_home_view_more"))
+    expect(page).to have_content(t("homeowners.components.address.my_home_view_more"))
 
     expect(page).to have_content(DeveloperFixture.developer_address_attrs[:building_name])
     expect(page).to have_content(DeveloperFixture.developer_address_attrs[:road_name])

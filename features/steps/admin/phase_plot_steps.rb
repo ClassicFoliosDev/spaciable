@@ -61,6 +61,10 @@ Then(/^I should see the updated phase plot$/) do
   within ".section-title" do
     expect(page).to have_content(PhasePlotFixture.update_attrs[:prefix])
     expect(page).to have_content(PhasePlotFixture.update_attrs[:number])
+    expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.soon"))
+    expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.complete_ready"))
+    expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.completed"))
+    expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.roof_on"))
   end
 
   within ".section-data" do
@@ -69,6 +73,7 @@ Then(/^I should see the updated phase plot$/) do
     expect(page).to have_content(PhasePlotFixture.plot_building_name)
     expect(page).to have_content(PhasePlotFixture.plot_road_name)
     expect(page).to have_content(PhasePlotFixture.plot_postcode)
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:locality])
     expect(page).to have_content(PhaseFixture.address_update_attrs[:city_name])
     expect(page).to have_content(PhaseFixture.address_update_attrs[:county_name])
 

@@ -28,7 +28,7 @@ Rails.configuration.mailchimp = {
       public: true
     },
     {
-        name: "Postal name",
+        name: "Postal number",
         tag: "POSTAL",
         type: "text",
         public: true
@@ -42,6 +42,12 @@ Rails.configuration.mailchimp = {
     {
         name: "Road",
         tag: "ROAD",
+        type: "text",
+        public: true
+    },
+    {
+        name: "Locality",
+        tag: "LOCL",
         type: "text",
         public: true
     },

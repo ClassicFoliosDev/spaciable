@@ -28,9 +28,10 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:CDATE]).to eq(plot_resident.completion_date.to_s)
       expect(merge_fields[:DEVT]).to eq(development.to_s)
       expect(merge_fields[:TITLE]).to eq(resident.title)
-      expect(merge_fields[:POSTAL]).to eq(plot.postal_name.to_s)
+      expect(merge_fields[:POSTAL]).to eq(plot.postal_number.to_s)
       expect(merge_fields[:BLDG]).to eq(plot.building_name.to_s)
       expect(merge_fields[:ROAD]).to eq(plot.road_name.to_s)
+      expect(merge_fields[:LOCL]).to eq(plot.locality.to_s)
       expect(merge_fields[:CITY]).to eq(plot.city)
       expect(merge_fields[:COUNTY]).to eq(plot.county.to_s)
       expect(merge_fields[:ZIP]).to eq(plot.postcode)
@@ -42,7 +43,7 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
 
-      expect(merge_fields.length).to eq 19
+      expect(merge_fields.length).to eq 20
     end
   end
 
