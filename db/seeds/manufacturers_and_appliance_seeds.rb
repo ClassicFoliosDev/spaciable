@@ -4,10 +4,10 @@
 manufacturers_and_links = {
   "ATAG" => "http://atagheating.co.uk/warranty-register/",
   "AEG" => "http://www.aeg.co.uk/mypages/register-a-product/",
-  "Baumatic" => "https://olr.domesticandgeneral.com/app/pages/ApplicationPage.aspx?country=gb&lang=en&brand=BAUM~",
+  "Baumatic" => "https://olr.domesticandgeneral.com/app/pages/ApplicationPage.aspx?country=gb&lang=en&brand=BAUM",
   "Beko" => "http://www.beko.co.uk/register",
   "Bosch" => "http://www.bosch-home.co.uk/register-your-appliance.html",
-  "Caple" => "http://www.caple.co.uk/special/guarantee/~",
+  "Caple" => "http://www.caple.co.uk/special/guarantee/",
   "CDA" => "http://www.cda.eu/register-appliance/",
   "Electrolux" => "http://www.electrolux.co.uk/mypages/register-a-product/",
   "Elica" => "http://elica.com/GB-en/register-your-product",
@@ -35,9 +35,14 @@ manufacturers_and_links = {
   "White Knight" => "http://www.whiteknightrange.co.uk/warranty/",
   "Zanussi" => "http://www.zanussi.co.uk/support/register-products/"
 }.each_pair do |manufacturer_name, link|
-  manufacturer = ApplianceManufacturer.find_or_initialize_by(name: manufacturer_name, link: link)
 
-  if manufacturer.new_record?
+  manufacturer = ApplianceManufacturer.where("lower(name) = ?", manufacturer_name.downcase).first
+
+  if manufacturer
+    manufacturer.name = manufacturer_name
+    manufacturer.link = link
+  else
+    manufacturer = ApplianceManufacturer.create(name: manufacturer_name, link: link)
     puts "Appliance manufacturer: #{manufacturer_name} #{link}"
   end
 
