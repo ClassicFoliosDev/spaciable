@@ -1517,7 +1517,7 @@ en:
         not_valid_hex: " must have a valid hex colour, for example #445544."
         mailchimp_failure: "WARNING %{name} was created or updated or deleted, but %{type} could not be updated for MailChimp, details: %{message}"
         delete_not_possible: "It is not possible to delete %{name} because other %{types} depend on it"
-        clone_not_possible: "It is not possible to clone %{name}"
+        clone_not_possible: "It is not possible to clone %{name}: it might have references to invalid appliances or finishes"
       models:
         developer:
           attributes:

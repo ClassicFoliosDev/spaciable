@@ -217,7 +217,9 @@ When(/^I delete the appliance$/) do
   appliance_path = "/appliances"
   visit appliance_path
 
-  delete_and_confirm!
+  appliance = Appliance.find_by(model_num: CreateFixture.appliance_name)
+  delete_scope = "[data-appliance='#{appliance.id}']"
+  delete_and_confirm!(scope: delete_scope)
 end
 
 Then(/^I should see the appliance deletion complete successfully$/) do

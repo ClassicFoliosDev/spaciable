@@ -22,12 +22,17 @@ Feature: UnitTypes
     When I clone a unit type twice
     Then I should see another duplicate unit type created successfully
 
+  @javascript
   Scenario: Clone full unit type
     Given I am logged in as an admin
     And there is a unit type room with finish and appliance
     When I navigate to the development
     And I clone the unit type
     Then I should see a duplicate unit type with finish and appliance created successfully
+    When I delete the appliance
+    And I delete the finish
+    And I clone the unit type
+    Then I should see a duplicate unit type without finish and appliance created successfully
 
   @javascript
   Scenario: Delete

@@ -20,7 +20,7 @@ class Appliance < ApplicationRecord
   belongs_to :appliance_category, required: true
   belongs_to :appliance_manufacturer, required: true
 
-  has_many :appliance_rooms
+  has_many :appliance_rooms, dependent: :delete_all
   has_many :rooms, through: :appliance_rooms
 
   paginates_per 10

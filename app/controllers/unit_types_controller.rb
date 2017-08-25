@@ -51,14 +51,18 @@ class UnitTypesController < ApplicationController
 
   def clone
     @unit_type = UnitType.find(params[:id])
-    development = @unit_type.parent
+    @development = @unit_type.parent
 
     new_unit_type = @unit_type.amoeba_dup
     new_unit_type.name = CloneNameService.call(@unit_type.name)
+    if new_unit_type.save
+      notice = t("controller.success.create", name: new_unit_type.name)
+    else
+      alert = t("activerecord.errors.messages.clone_not_possible", name: @unit_type.name)
+    end
 
-    new_unit_type.save!
-    notice = t("controller.success.create", name: new_unit_type.name)
-    redirect_to [development.parent, development, active_tab: :unit_types], notice: notice
+    redirect_to [@development.parent, @development, active_tab: :unit_types],
+                alert: alert, notice: notice
   end
 
   private

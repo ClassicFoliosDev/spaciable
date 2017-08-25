@@ -114,9 +114,13 @@ When(/^I navigate to the division development$/) do
 end
 
 When(/^I clone the unit type$/) do
+  goto_development_show_page
+
+  sleep 0.3
+
   within ".record-list" do
     links = page.all(".clone")
-    links.last.click
+    links.first.click
   end
 end
 
@@ -197,4 +201,36 @@ end
 
 When(/^there is a division development unit type$/) do
   CreateFixture.create_division_development_unit_type
+end
+
+Then(/^I should see a duplicate unit type without finish and appliance created successfully$/) do
+  new_name = CreateFixture.unit_type_name + " 2"
+
+  within ".record-list" do
+    click_on new_name
+  end
+
+  within ".record-list" do
+    expect(page).to have_content("Unit Type Document")
+  end
+
+  within ".tabs" do
+    click_on t("unit_types.collection.rooms")
+  end
+
+  within ".record-list" do
+    click_on CreateFixture.room_name
+  end
+
+  within ".record-list" do
+    expect(page).not_to have_content(CreateFixture.finish_name)
+  end
+
+  within ".tabs" do
+    click_on t("rooms.collection.appliances")
+  end
+
+  within ".record-list" do
+    expect(page).not_to have_content(CreateFixture.full_appliance_name)
+  end
 end

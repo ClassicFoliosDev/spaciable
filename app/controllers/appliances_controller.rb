@@ -36,7 +36,7 @@ class AppliancesController < ApplicationController
 
   def destroy
     @appliance.destroy
-    notice = t(".success", name: @appliance.name)
+    notice = t(".success", name: @appliance.to_s)
     redirect_to appliances_path, notice: notice
   end
 
