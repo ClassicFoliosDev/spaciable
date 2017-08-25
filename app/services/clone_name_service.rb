@@ -3,7 +3,7 @@ module CloneNameService
   module_function
 
   def call(old_name)
-    base_name, base_number = calculate_base(old_name)
+    base_name, base_number = calculate_base(old_name.strip)
 
     existing_unit_type = true
     while existing_unit_type

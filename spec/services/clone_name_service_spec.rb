@@ -74,6 +74,14 @@ RSpec.describe CloneNameService do
     end
   end
 
+  context "name ending in space" do
+    it "increments the end" do
+      result = described_class.call("A name that ends with space ")
+
+      expect(result).to eq("A name that ends with space 1")
+    end
+  end
+
   context "clone in the database already" do
     it "increments an extra time" do
       unit_type = create(:unit_type)
