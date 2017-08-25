@@ -82,5 +82,38 @@ RSpec.describe PlotCompareService do
       expect(result[2].to_s).to eq("11")
       expect(result[3].to_s).to eq("11A")
     end
+
+    it "should cope with alpha plot numbers" do
+      plot1 = FactoryGirl.create(:plot, prefix: "", number: "z", unit_type: unit_type)
+      plot2 = FactoryGirl.create(:plot, prefix: "", number: "X", unit_type: unit_type)
+      plot3 = FactoryGirl.create(:plot, prefix: "", number: "c", unit_type: unit_type)
+      plot4 = FactoryGirl.create(:plot, prefix: "", number: "A", unit_type: unit_type)
+      plot5 = FactoryGirl.create(:plot, prefix: "", number: "bl", unit_type: unit_type)
+      plot6 = FactoryGirl.create(:plot, prefix: "", number: "Gh", unit_type: unit_type)
+      plot7 = FactoryGirl.create(:plot, prefix: "", number: "1", unit_type: unit_type)
+      plot8 = FactoryGirl.create(:plot, prefix: "", number: "0", unit_type: unit_type)
+
+      plot_array = []
+      plot_array << plot1
+      plot_array << plot2
+      plot_array << plot3
+      plot_array << plot4
+      plot_array << plot5
+      plot_array << plot6
+      plot_array << plot7
+      plot_array << plot8
+      result = plot_array.sort
+
+      expect(result.length).to eq(8)
+
+      expect(result[0].to_s).to eq("A")
+      expect(result[1].to_s).to eq("Gh")
+      expect(result[2].to_s).to eq("X")
+      expect(result[3].to_s).to eq("bl")
+      expect(result[4].to_s).to eq("c")
+      expect(result[5].to_s).to eq("z")
+      expect(result[6].to_s).to eq("0")
+      expect(result[7].to_s).to eq("1")
+    end
   end
 end
