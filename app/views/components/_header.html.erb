@@ -16,7 +16,7 @@
         </div>
       <% end %>
     </div>
-  <% else %>
+  <% elsif current_user %>
     <div class="feedback-container">
       <%= button_tag t(".feedback"), data: data_for_feedback(current_user.email), class: "right btn feedback-btn" %>
     </div>

@@ -51,3 +51,10 @@ Then(/^I should see the terms and conditions for developers using Hoozzi$/) do
     expect(page).to have_content(t("legal.ts_and_cs2.third_party"))
   end
 end
+
+Then(/^I can request an admin password reset$/) do
+  click_on t("devise.forgot_password")
+
+  fill_in :user_email, with: CreateFixture.cf_admin.email
+  click_on t("residents.passwords.new.submit")
+end
