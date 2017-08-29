@@ -6,7 +6,7 @@ class AppliancesController < ApplicationController
 
   def index
     @appliances = @appliances.includes(:appliance_category, :appliance_manufacturer)
-    @appliances = paginate(sort(@appliances, default: :name))
+    @appliances = paginate(sort(@appliances, default: :model_num))
     @active_tab = "appliances"
   end
 
@@ -49,12 +49,8 @@ class AppliancesController < ApplicationController
     appliances = Appliance.joins(:appliance_category, :appliance_manufacturer)
                           .where(appliance_categories: { name: params[:category_name] },
                                  appliance_manufacturers: { name: params[:option_name] })
-                          .order(:name)
+                          .order(:model_num)
                           .distinct
-
-    appliances.each do |appliance|
-      appliance.name = appliance.full_name
-    end
 
     render json: appliances
   end
@@ -64,7 +60,7 @@ class AppliancesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def appliance_params
     params.require(:appliance).permit(
-      :name, :primary_image, :secondary_image, :manual,
+      :primary_image, :secondary_image, :manual,
       :serial, :source, :warranty_num, :description,
       :warranty_length, :model_num, :e_rating,
       :appliance_manufacturer_id, :appliance_category_id,

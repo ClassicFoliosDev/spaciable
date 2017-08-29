@@ -38,7 +38,8 @@ module Plots
       @collection = if @active_tab == "finishes"
                       paginate(sort(@room.finishes, default: :name))
                     elsif @active_tab == "appliances"
-                      paginate(sort(@room.appliances, default: :name))
+                      paginate(sort(@room.appliances.includes(:appliance_manufacturer),
+                                    default: :model_num))
                     end
     end
 

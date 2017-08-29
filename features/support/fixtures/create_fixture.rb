@@ -174,7 +174,6 @@ module CreateFixture
 
   def create_appliance
     FactoryGirl.create(:appliance,
-                       name: full_appliance_name,
                        appliance_category: appliance_category,
                        appliance_manufacturer: appliance_manufacturer,
                        e_rating: energy_rating,
@@ -366,7 +365,7 @@ module CreateFixture
   end
 
   def appliance
-    Appliance.find_by(name: full_appliance_name)
+    Appliance.find_by(model_num: appliance_name)
   end
 
   def development_plot

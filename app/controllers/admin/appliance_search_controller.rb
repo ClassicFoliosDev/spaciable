@@ -5,7 +5,7 @@ module Admin
     include SearchConcern
 
     def new
-      results = ilike_search(Appliance, params[:search_term])
+      results = appliance_search(params[:search_term])
       render json: results
     end
   end

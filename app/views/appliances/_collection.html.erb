@@ -26,7 +26,7 @@
     <thead>
       <tr>
         <th class="icon">&nbsp;</th>
-        <th colspan="2"><%= sortable(Appliance, :name) %></th>
+        <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
         <th colspan="2"><%= sortable({ Appliance => ApplianceCategory }, :name, t(".appliance_category")) %></th>
         <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
         <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name) %></th>

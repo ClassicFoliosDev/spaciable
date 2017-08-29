@@ -5,18 +5,25 @@ module SortingConcern
   def sort(resources, default: :updated_at)
     return resources if resources&.empty?
 
+    direction = params[:direction]
     if default == :number && resources.table_name == "plots"
-      sort_plot_numbers(resources, params[:direction])
-    elsif params[:direction].present? && params[:sort].present?
-      direction = params[:direction] == "desc" ? :desc : :asc
-
-      sort_on_column(resources, params[:sort], params[:sort_on], direction)
-    elsif resources
+      sort_plot_numbers(resources, direction)
+    elsif default == :model_num && resources.table_name == "appliances"
+      resources.order("appliance_manufacturers.name #{direction}, model_num #{direction}")
+    elsif direction.present? && params[:sort].present?
+      sort_resources(resources, params)
+    else
       resources&.order(default)
     end
   end
 
   private
+
+  def sort_resources(resources, params)
+    direction = params[:direction] == "desc" ? :desc : :asc
+
+    sort_on_column(resources, params[:sort], params[:sort_on], direction)
+  end
 
   def sort_on_column(resources, column, sort_on, direction)
     return resources.order(column => direction) if sort_on.blank?

@@ -432,7 +432,7 @@ crumb :appliance do |appliance|
 end
 
 crumb :appliance_edit do |appliance|
-  link t("breadcrumbs.appliance_edit", name: appliance.name), appliances_path(appliance)
+  link t("breadcrumbs.appliance_edit", name: appliance.full_name), appliances_path(appliance)
   parent :appliances
 end
 

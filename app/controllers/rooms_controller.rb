@@ -35,7 +35,8 @@ class RoomsController < ApplicationController
     @collection = if @active_tab == "finishes"
                     paginate(sort(@room.finishes, default: :name))
                   elsif @active_tab == "appliances"
-                    paginate(sort(@room.appliances, default: :name))
+                    paginate(sort(@room.appliances.includes(:appliance_manufacturer),
+                                  default: :model_num))
                   end
   end
 
@@ -81,7 +82,7 @@ class RoomsController < ApplicationController
     # This will delete all joins between @room and @appliance
     # if there is more than one
     if @room.appliances.delete(@appliance)
-      notice = t(".success", room_name: @room.name, appliance_name: @appliance.name)
+      notice = t(".success", room_name: @room.name, appliance_name: @appliance.full_name)
     end
 
     redirect_to [@room.parent, @room, active_tab: "appliances"], notice: notice
