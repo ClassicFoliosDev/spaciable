@@ -11,11 +11,14 @@ end
 When(/^I log in as a homeowner$/) do
   homeowner = HomeownerUserFixture
 
-  visit "/"
+  visit "/homeowners/sign_in"
 
   fill_in :resident_email, with: homeowner.email
   fill_in :resident_password, with: homeowner.password
-  click_on "Login"
+
+  within ".branded-primary-btn" do
+    click_on "Login"
+  end
 end
 
 When(/^I log out as a homeowner$/) do
@@ -25,8 +28,10 @@ end
 Then(/^I should be on the "My Home" dashboard$/) do
   homeowner = HomeownerUserFixture
 
-  expect(page).to have_link "My home"
-  expect(page).to have_content "Hi #{homeowner.first_name}"
+  within ".header-container" do
+    expect(page).to have_content "Hi #{homeowner.first_name}"
+    expect(page).to have_link "My home"
+  end
 end
 
 Then(/^I should be on the "Hoozzi Home" page$/) do

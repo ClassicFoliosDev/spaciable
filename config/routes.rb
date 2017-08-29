@@ -183,6 +183,10 @@ Rails.application.routes.draw do
   get "/finish_types_list", to: 'finishes#finish_types_list', format: :json
   get "/dashboard", to: "homeowners/dashboard#show"
 
+  authenticated :resident do
+    root "homeowners/dashboard#show", as: :homeowner_dashboard
+  end
+
   authenticated :user do
     root "admin/dashboard#show", as: :admin_dashboard
   end
@@ -190,10 +194,6 @@ Rails.application.routes.draw do
   authenticated :user, lambda { |user| user.cf_admin? } do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
-  end
-
-  authenticated :resident do
-    root "homeowners/dashboard#show", as: :homeowner_dashboard
   end
 
   devise_scope :resident do
