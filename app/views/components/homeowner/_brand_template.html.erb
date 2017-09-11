@@ -44,18 +44,6 @@
       background-color: inherit;
     }
 
-    .login form input[type="email"] {
-      background-color: #FFFFFF;
-      color: #252C31;
-      border-color: #B3B5B7; // Same as $ui-dark-grey
-    }
-
-    .login form input[type="password"] {
-      background-color: #FFFFFF;
-      color: #252C31;
-      border-color: #B3B5B7; // Same as $ui-dark-grey
-    }
-
     .invitation .register {
       background-color: inherit;
     }
@@ -63,12 +51,25 @@
     .login .sign-in {
       background-color: inherit;
     }
+
+    .branded-input input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px <%= brand.branded_content_bg_color %> inset;
+    }
   <% end %>
 
   <% if brand.branded_content_text_color %>
     .branded-border {
       border-color: <%= brand.branded_content_text_color %>;
     }
+
+  .branded-input input[type="email"] {
+    border-color: <%= brand.branded_content_text_color %>;
+  }
+
+  .branded-input input[type="password"] {
+    border-color: <%= brand.branded_content_text_color %>;
+  }
+
   <% end %>
 
   <% if brand.branded_button_color %>
@@ -93,13 +94,21 @@
       color: <%= brand.branded_button_color %>;
     }
 
-     .branded-titles h2:last-child {
+    .branded-titles h2:last-child {
       color: <%= brand.branded_button_color %>;
     }
 
     .branded-primary-text i {
       color: <%= brand.branded_button_color %>;
       border-color: #B3B5B7; // Same as $ui-dark-grey
+    }
+
+    .branded-primary-text a {
+      color: <%= brand.branded_button_color %>;
+    }
+
+    .branded-primary-text label.checkbox {
+      color: <%= brand.branded_button_color %>;
     }
   <% end %>
 

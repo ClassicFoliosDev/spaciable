@@ -70,13 +70,13 @@ class Brand < ApplicationRecord
   private
 
   def branded_param(attr_name)
-    return self[attr_name] if self[attr_name]
+    return self[attr_name] if self[attr_name].present?
 
     brand_parent = brandable
     while brand_parent.respond_to?(:parent)
       brand_parent = brand_parent.parent
       next unless brand_parent.brand
-      return brand_parent.brand[attr_name] if brand_parent.brand[attr_name]
+      return brand_parent.brand[attr_name] if brand_parent.brand[attr_name].present?
     end
   end
 

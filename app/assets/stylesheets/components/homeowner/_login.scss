@@ -26,13 +26,6 @@
       color: $ui-white;
     }
 
-    input[type="email"], input[type="password"] {
-      background-color: $faded-red;
-      border-color: $primary-red;
-      color: $ui-white;
-      white-space: normal;
-    }
-
     input[type="submit"] {
       @include span-columns(12 of 12);
       font-weight: bold;
@@ -67,6 +60,21 @@
       color: $ui-white;
     }
   }
+}
+
+.branded-input {
+  input[type="email"], input[type="password"] {
+    border-color: $primary-red;
+    white-space: normal;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $ui-white inset;
+  }
+}
+
+.branded-primary-text label.checkbox {
+  font-size: $base-small-font-size;
 }
 
 .sign-in .branded-content {
