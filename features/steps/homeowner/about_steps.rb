@@ -9,8 +9,6 @@ Then(/^I should see the about page links$/) do
     expect(page).to have_content(t("components.homeowner.sub_menu.appliances"))
     expect(page).to have_content(t("components.homeowner.sub_menu.library"))
     expect(page).to have_content(t("components.homeowner.sub_menu.faqs"))
-
-    expect(page).to have_content(t("activerecord.attributes.plot.progresses.soon"))
   end
 end
 
