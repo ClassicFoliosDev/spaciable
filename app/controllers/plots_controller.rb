@@ -53,8 +53,8 @@ class PlotsController < ApplicationController
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
       if updated_plots.any?
         notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
-        if params[:notify].to_i.positive?
-          notice << ResidentChangeNotifyService.call(@phase, current_user, t("plot_details"))
+        if plot_params[:notify].to_i.positive?
+          notice << ResidentChangeNotifyService.call(@plot, current_user, t("plot_details"))
         end
         redirect_to [@parent, :plots], notice: notice, alert: errors
       else

@@ -55,10 +55,20 @@ When(/^I update the plot$/) do
 
   select_from_selectmenu :plot_progress, with: PlotFixture.progress
 
+  check :plot_notify
+
   click_on t("plots.form.submit")
 end
 
 Then(/^I should see the updated plot$/) do
+  success_flash = t(
+    "controller.success.update",
+    name: "Plot #{PlotFixture.plot_number}"
+  )
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 0)
+
+  expect(page).to have_content(success_flash)
+
   within ".record-list" do
     click_on PlotFixture.plot_name
   end

@@ -81,6 +81,9 @@
               url: '/feedback',
               data: data
             })
+
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
           }
         }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
