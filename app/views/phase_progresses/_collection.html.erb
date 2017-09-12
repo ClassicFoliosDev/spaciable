@@ -22,7 +22,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), phase_path(phase), class: "btn" %>
+      <%= link_to t(".back"), [phase.parent, phase], class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
       <div class="notify">
         <%= label_tag t(".notify") %>
