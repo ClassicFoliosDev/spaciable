@@ -1,7 +1,7 @@
 <% breadcrumb :phase_progresses, @phase %>
 
 <div class="section-header">
-  <%= render @phase %>
+  <%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
 </div>
 
 <%= render 'components/tabs', tabs: tabs_for(@phase, "phase_progresses"), phase: @phase %>

@@ -15,6 +15,8 @@ class PlotDocumentsController < ApplicationController
     @plot_documents = @parent.plot_documents.accessible_by(current_ability)
     @plot_documents = sort(@plot_documents, default: { updated_at: :desc })
     @plot_documents = paginate(@plot_documents)
+    @resident_count = @parent.plot_residencies.size
+    @subscribed_resident_count = @parent.residents.where(hoozzi_email_updates: true).size
   end
 
   def bulk_upload

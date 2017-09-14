@@ -755,6 +755,8 @@ en:
       back: "Back"
     phase:
       name: "Phase %{number}"
+      residents: "All residents: "
+      subscribed_residents: "Subscribed residents: "
     collection:
       add: "Add phase"
       plots: "Plots"

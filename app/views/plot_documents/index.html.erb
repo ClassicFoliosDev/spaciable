@@ -1,5 +1,5 @@
 <% breadcrumb :plot_documents, @parent %>
-<%= render @parent %>
+<%= render @parent, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
 
 <div class="section-actions">
   <% if can? :bulk_upload, @new_plot_document %>

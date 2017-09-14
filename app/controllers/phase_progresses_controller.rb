@@ -6,6 +6,8 @@ class PhaseProgressesController < ApplicationController
 
   def index
     @plots = sort(@phase.plots, default: :number)
+    @resident_count = @phase.plot_residencies.size
+    @subscribed_resident_count = @phase.residents.where(hoozzi_email_updates: true).size
   end
 
   def bulk_update

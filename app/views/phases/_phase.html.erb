@@ -1,7 +1,13 @@
 <div class="section-header">
-  <h3 class="section-title">
-    <%= phase.name %><br>
-  </h3>
+  <div class="section-title">
+    <h3>
+      <%= phase.name %><br>
+    </h3>
+    <span class="about">
+      <strong><%= t(".residents") %></strong><%= resident_count %><br/>
+      <strong><%= t(".subscribed_residents") %></strong><%= subscribed_resident_count %>
+    </span>
+  </div>
 
   <div class="section-data">
     <%= render 'address/address', address: phase.address %>
