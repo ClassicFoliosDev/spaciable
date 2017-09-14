@@ -1118,6 +1118,8 @@ en:
       back: "Back"
     new:
       add: "Add %{parent_name} room"
+    update:
+      not_updated: "It was not possible to update"
     appliance_rooms:
       new:
         choose: "Choose..."

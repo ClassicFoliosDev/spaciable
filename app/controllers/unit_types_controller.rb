@@ -59,6 +59,7 @@ class UnitTypesController < ApplicationController
       notice = t("controller.success.create", name: new_unit_type.name)
     else
       alert = t("activerecord.errors.messages.clone_not_possible", name: @unit_type.name)
+      alert << AppliancesFinishesErrorsService.unit_type_errors(new_unit_type)
     end
 
     redirect_to [@development.parent, @development, active_tab: :unit_types],

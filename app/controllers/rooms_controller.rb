@@ -62,6 +62,11 @@ class RoomsController < ApplicationController
       redirect_to [@unit_type, @room], notice: notice
     else
       @room.build_finishes
+
+      alert = t(".not_updated")
+      alert << AppliancesFinishesErrorsService.room_errors(@room)
+      flash.now[:alert] = alert
+
       render :edit
     end
   end
