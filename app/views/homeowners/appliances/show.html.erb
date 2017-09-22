@@ -7,14 +7,14 @@
 <div class="branded-body">
   <div class="appliances">
     <% @appliances.each do | appliance | %>
-      <div class="appliance branded-content branded-border branded-text">
+      <div class="appliance branded-content branded-border">
         <div class="images">
           <h2><%= appliance.appliance_category %></h2>
           <% if appliance.primary_image? %>
             <%= image_tag(appliance.primary_image.url) %>
           <% else %>
             <%= fa_icon "image", class: " dummy-image fa-5x" %>
-            <span><%= t("no_image") %></span>
+            <span class="branded-text"><%= t("no_image") %></span>
           <% end %>
           <% if appliance.secondary_image? %>
             <%= image_tag(appliance.secondary_image.url, class: "secondary-image") %>
