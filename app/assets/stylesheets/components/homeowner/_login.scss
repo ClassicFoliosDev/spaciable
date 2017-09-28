@@ -7,7 +7,7 @@
   border-radius: ($border-radius * 2);
 
   .preamble {
-    @include span-columns(7 of 12);
+    @include span-columns(6 of 12);
     padding: 40px;
 
     .content {
@@ -18,13 +18,9 @@
   }
 
   form {
-    @include span-columns(8 of 12);
-    @include shift(2 of 12);
+    @include span-columns(10 of 12);
+    @include shift(1 of 12);
     margin-top: $spacing-large;
-
-    .required {
-      color: $ui-white;
-    }
 
     input[type="submit"] {
       @include span-columns(12 of 12);
@@ -33,12 +29,17 @@
     }
   }
 
+  img {
+    @include span-columns(9 of 12);
+    @include shift(1.5 of 12);
+  }
+
   .sign-in, .set-password {
-    @include span-columns(5 of 12);
+    @include span-columns(6 of 12);
     @include omega();
     float: right;
     padding: 80px $spacing-medium 40px $spacing-medium;
-    border-radius: ($border-radius * 2);
+    border-radius: 0 ($border-radius * 2) ($border-radius * 2) 0;
     background-color: $primary-red;
 
     .notice, .alert {
