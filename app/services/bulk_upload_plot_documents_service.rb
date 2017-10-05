@@ -2,7 +2,12 @@
 module BulkUploadPlotDocumentsService
   module_function
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable MethodLength
   def call(parent_plots, plot_document_params, params)
+    Rails.logger
+         .debug(">> Bulk upload plot document service call START #{Time.zone.now}")
+
     category = plot_document_params[:category]
     raw_files = plot_document_params[:files]
 
@@ -19,14 +24,20 @@ module BulkUploadPlotDocumentsService
     matches, unmatched = find_matches(files, plots)
     saved, _errors = save_matches(matches, category, rename, rename_text)
 
+    Rails.logger
+         .debug("<< Bulk upload plot document service call END #{Time.zone.now}")
     [saved, unmatched, nil]
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable MethodLength
 
   private
 
   module_function
 
+  # rubocop:disable MethodLength
   def find_matches(files, plots)
+    Rails.logger.debug(">>> Bulk upload plot document service find matches start #{Time.zone.now}")
     unmatched = []
 
     matched = files.each_with_object([]) do |(filename, file), acc|
@@ -41,10 +52,16 @@ module BulkUploadPlotDocumentsService
       acc
     end
 
+    Rails.logger.debug("<<< Bulk upload plot document service find matches end #{Time.zone.now}")
     [matched, unmatched]
   end
+  # rubocop:enable MethodLength
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable MethodLength
   def compare_names(plots, file_name)
+    Rails.logger
+         .debug(">>> Bulk upload plot document service compare names start #{Time.zone.now}")
     file_name = file_name.sub(".pdf", "")
 
     plots.each do |plot|
@@ -60,13 +77,26 @@ module BulkUploadPlotDocumentsService
       plot_name_parts.each_with_index do |plot_name_part, index|
         matched = false unless file_name_parts[index] == plot_name_part
       end
+
+      debug_str = "<<< Bulk upload plot document service compare names matched"
+      debug_str += "#{matched} #{Time.zone.now}"
+      Rails.logger.debug(debug_str)
       return plot[1] if matched
     end
 
+    debug_str = "<<< Bulk upload plot document service compare names matched"
+    debug_str += "false #{Time.zone.now}"
+    Rails.logger.debug(debug_str)
+
     false
   end
+  # rubocop:enable MethodLength
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable MethodLength
   def save_matches(matches, category, rename, rename_text)
+    Rails.logger
+         .debug(">>> Bulk upload plot document service save matches start #{Time.zone.now}")
     saved = []
     errors = []
 
@@ -80,8 +110,12 @@ module BulkUploadPlotDocumentsService
       end
     end
 
+    Rails.logger
+         .debug("<<< Bulk upload plot document service save matches end #{Time.zone.now}")
+
     [saved, errors.flatten!]
   end
+  # rubocop:enable MethodLength
 
   def rename_params(params)
     rename = params[:commit] == I18n.t("plot_documents.form.upload_rename")

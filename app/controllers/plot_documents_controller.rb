@@ -33,7 +33,9 @@ class PlotDocumentsController < ApplicationController
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def process_documents
+    Rails.logger.debug("> Process documents start #{Time.zone.now}")
     matched, unmatched, error = BulkUploadPlotDocumentsService
                                 .call(@parent.plots, plot_document_params, params)
 
@@ -47,8 +49,10 @@ class PlotDocumentsController < ApplicationController
     alert = t(".failure", unmatched: unmatched.to_sentence) if unmatched.any?
     alert = error if error&.length&.positive?
 
+    Rails.logger.debug("< Process documents end #{Time.zone.now}")
     [notice, alert]
   end
+  # rubocop:enable Metrics/AbcSize
 
   def set_parent
     @parent ||= @phase || @development
