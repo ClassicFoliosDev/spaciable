@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Residents
   class RegistrationsController < Devise::RegistrationsController
     layout "login"

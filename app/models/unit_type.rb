@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class UnitType < ApplicationRecord
   acts_as_paranoid
   belongs_to :development, optional: false
@@ -21,15 +22,15 @@ class UnitType < ApplicationRecord
     include_association :rooms
   end
 
-  enum build_type: [
-    :apartment,
-    :coach_house,
-    :house_detached,
-    :house_semi,
-    :house_terraced,
-    :maisonette,
-    :penthouse,
-    :studio
+  enum build_type: %i[
+    apartment
+    coach_house
+    house_detached
+    house_semi
+    house_terraced
+    maisonette
+    penthouse
+    studio
   ]
 
   validates :name, presence: true, uniqueness: { scope: :development_id }

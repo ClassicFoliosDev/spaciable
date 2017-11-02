@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe BulkPlots::Numbers do
@@ -104,7 +105,7 @@ RSpec.describe BulkPlots::Numbers do
 
       result = described_class.new(params).numbers
 
-      expect(result).to match_array(%w(3 5 10))
+      expect(result).to match_array(%w[3 5 10])
     end
 
     it "should return floats from the list" do

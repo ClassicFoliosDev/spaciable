@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 module CloneNameService
   module_function
 
@@ -9,7 +10,7 @@ module CloneNameService
     while existing_unit_type
       base_number += 1
       name = base_name + base_number.to_s
-      existing_unit_type = UnitType.find_by_name(name)
+      existing_unit_type = UnitType.find_by(name: name)
     end
 
     name

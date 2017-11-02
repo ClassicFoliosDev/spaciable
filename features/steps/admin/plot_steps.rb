@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I have a developer with a development with unit types$/) do
   PlotFixture.create_developer_with_development_and_unit_types
 end

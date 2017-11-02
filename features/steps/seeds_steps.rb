@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^There are existing DB contents$/) do
   SeedsFixture.create_appliance_manufacturers
 end

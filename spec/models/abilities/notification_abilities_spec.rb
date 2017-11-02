@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 require "cancan/matchers"
 
@@ -6,7 +7,7 @@ RSpec.describe "Notification Abiltities" do
   subject { Ability.new(current_user) }
 
   it_behaves_like "it has cascading polymorphic abilities", Notification do
-    let(:unsafe_actions) { [:create, :send] }
+    let(:unsafe_actions) { %i[create send] }
     let(:safe_actions) { [:read] }
     let(:belongs_to_association) { :send_to }
   end

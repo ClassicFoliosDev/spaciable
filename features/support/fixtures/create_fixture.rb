@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable ModuleLength
 # Method needs refactoring see HOOZ-232
 module CreateFixture

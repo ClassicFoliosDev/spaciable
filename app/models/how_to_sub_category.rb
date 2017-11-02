@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HowToSubCategory < ApplicationRecord
   validates :name, presence: true
 

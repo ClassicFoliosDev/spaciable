@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CloneDefaultFaqsJob < ApplicationJob
   queue_as :admin
 

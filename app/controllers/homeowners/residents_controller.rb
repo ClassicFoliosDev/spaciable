@@ -1,13 +1,12 @@
 # frozen_string_literal: true
+
 module Homeowners
   class ResidentsController < Homeowners::BaseController
     skip_authorization_check
 
-    def show
-    end
+    def show; end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if UpdateUserService.call(current_resident, resident_params)

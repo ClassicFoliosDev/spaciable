@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.shared_examples "archiving is dependent on parent association" do |parent_association|
   context "when #{parent_association} is destroyed" do
     it "shouild archive the #{described_class}" do

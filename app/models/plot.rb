@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
   acts_as_paranoid
@@ -40,13 +41,13 @@ class Plot < ApplicationRecord
   delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, to: :developer, allow_nil: true
 
-  enum progress: [
-    :soon,
-    :in_progress,
-    :roof_on,
-    :exchange_ready,
-    :complete_ready,
-    :completed
+  enum progress: %i[
+    soon
+    in_progress
+    roof_on
+    exchange_ready
+    complete_ready
+    completed
   ]
 
   def rooms(room_scope = Room.all)

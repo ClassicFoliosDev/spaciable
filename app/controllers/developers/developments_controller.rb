@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Developers
   class DevelopmentsController < ApplicationController
     include PaginationConcern
@@ -71,8 +72,8 @@ module Developers
         :email,
         :contact_number,
         :maintenance_link,
-        address_attributes: [:postal_number, :road_name, :building_name,
-                             :locality, :city, :county, :postcode]
+        address_attributes: %i[postal_number road_name building_name
+                               locality city county postcode]
       )
     end
   end

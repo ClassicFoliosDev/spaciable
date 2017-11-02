@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FinishManufacturer < ApplicationRecord
   has_many :finish_types_manufacturer
   has_many :finish_types, through: :finish_types_manufacturer

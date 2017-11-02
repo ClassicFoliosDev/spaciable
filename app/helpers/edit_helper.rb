@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module EditHelper
   def data_to_edit(resource, path: nil)
     {

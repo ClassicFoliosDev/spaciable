@@ -1,10 +1,12 @@
 # frozen_string_literal: true
+
 module TabsHelper
   def tabs_for(parent, active_tab)
     method_name = "#{parent.model_name.element}_tabs"
     send(method_name, parent, active_tab)
   end
 
+  # rubocop:disable BlockLength
   Tabs = Struct.new(:scope, :tabs, :current_tab, :view_context) do
     BuildHasOneAssociationPermissionsError = Class.new(StandardError)
 
@@ -64,6 +66,7 @@ module TabsHelper
       I18n.t("#{scope.model_name.plural}.collection.#{key}")
     end
   end
+  # rubocop:enable BlockLength
 
   class Tab
     attr_reader :title, :icon, :link, :active

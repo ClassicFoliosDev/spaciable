@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 And(/^I have created a unit_type$/) do
   CreateFixture.create_developer
   CreateFixture.create_division

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Faq < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
@@ -11,7 +12,7 @@ class Faq < ApplicationRecord
   include InheritParentPermissionIds
   include InheritPolymorphicParentPermissionIds
 
-  enum category: [:settling, :home, :troubleshooting, :urgent, :general]
+  enum category: %i[settling home troubleshooting urgent general]
 
   validates :question, :answer, :category, :faqable, presence: true
 

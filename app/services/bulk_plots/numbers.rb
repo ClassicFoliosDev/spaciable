@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BulkPlots
   class Numbers
     def initialize(range_from: nil, range_to: nil, list: nil)

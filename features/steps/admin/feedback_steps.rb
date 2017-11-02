@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I submit feedback$/) do
   ActionMailer::Base.deliveries.clear
   visit "/"

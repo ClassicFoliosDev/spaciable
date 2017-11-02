@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class SendResidentNotificationsJob < ActiveJob::Base
+
+class SendResidentNotificationsJob < ApplicationJob
   queue_as :mailer
 
   def perform(resident_ids, notification)

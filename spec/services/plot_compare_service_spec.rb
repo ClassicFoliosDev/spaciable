@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 RSpec.describe PlotCompareService do
   context "comparing two plots by prefix and number" do

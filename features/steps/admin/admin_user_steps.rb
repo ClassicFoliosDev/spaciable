@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I am logged in as a CF Admin$/) do
   AdminUsersFixture.create_permission_resources
   admin = CreateFixture.create_cf_admin

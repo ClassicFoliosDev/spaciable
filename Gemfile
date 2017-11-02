@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 source "https://rubygems.org"
 
 ruby "2.3.1"
@@ -79,12 +80,12 @@ gem "kaminari"
 gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.git"
 
 # Background Jobs
-gem "sidekiq", "~> 4.2"
 gem "carrierwave_backgrounder"
+gem "sidekiq", "~> 4.2"
 
 # Process management
-gem "foreman" # configuration in the Procfile
 gem "activerecord-session_store" # Store session data to avoid cookie cache overflow
+gem "foreman" # configuration in the Procfile
 
 # APIs
 gem "gibbon", "~> 3" # Mailchimp API wrapper
@@ -147,4 +148,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]

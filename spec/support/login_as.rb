@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module LoginAs
   def login_as(user, opts = {})
     opts.reverse_merge!(scope: user&.model_name&.element)

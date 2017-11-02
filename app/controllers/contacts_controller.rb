@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ContactsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -7,7 +8,7 @@ class ContactsController < ApplicationController
   load_and_authorize_resource :division
   load_and_authorize_resource :development
   load_and_authorize_resource :contact,
-                              through: [:developer, :division, :development],
+                              through: %i[developer division development],
                               shallow: true
 
   before_action :set_parent

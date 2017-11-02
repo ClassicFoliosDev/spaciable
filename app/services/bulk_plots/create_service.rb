@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BulkPlots
   class CreateService < BulkPlots::Base
     def self.call(plot, params: {}, &block)

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   class NotificationsController < ApplicationController
     include PaginationConcern
@@ -27,7 +28,7 @@ module Admin
                       count: missing_residents.count)
           end
 
-          redirect_to [:admin, :notifications], notice: notice, alert: alert
+          redirect_to %i[admin notifications], notice: notice, alert: alert
         end
       else
         render :new

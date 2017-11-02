@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :address do
     postal_number { Faker::Address.street_name }

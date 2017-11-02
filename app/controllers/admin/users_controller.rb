@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   class UsersController < ApplicationController
     include PaginationConcern
@@ -14,7 +15,7 @@ module Admin
     def new; end
 
     def create
-      if (@restore_user = User.only_deleted.find_by_email(user_params[:email]))
+      if (@restore_user = User.only_deleted.find_by(email: user_params[:email]))
         @restore_user.restore!
         @user = @restore_user
         UpdateUserService.call(@user, user_params)
@@ -37,7 +38,7 @@ module Admin
         if user_params[:password]
           redirect_to new_user_session_url, notice: t(".success_password", user_name: @user.to_s)
         else
-          redirect_to [:admin, :users], notice: t(".success", user_name: @user.to_s)
+          redirect_to %i[admin users], notice: t(".success", user_name: @user.to_s)
         end
       else
         render :edit
@@ -53,7 +54,7 @@ module Admin
     def user_success
       @user.invite!(current_user)
       notice = t(".success", user_email: @user.to_s)
-      redirect_to [:admin, :users], notice: notice
+      redirect_to %i[admin users], notice: notice
     end
 
     private

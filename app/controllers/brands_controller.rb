@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class BrandsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -6,9 +7,9 @@ class BrandsController < ApplicationController
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
   load_and_authorize_resource :development
-  load_and_authorize_resource :brand, through: [:developer, :division, :development],
+  load_and_authorize_resource :brand, through: %i[developer division development],
                                       singleton: true,
-                                      except: [:index, :new, :create]
+                                      except: %i[index new create]
 
   before_action :set_parent
 

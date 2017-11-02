@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
   default from: "no-reply@hoozzi.com"
   layout "email"
@@ -16,7 +17,7 @@ class ApplicationMailer < ActionMailer::Base
     @option = I18n.t("feedback.#{option}") unless option.empty?
 
     @email = I18n.t("feedback.not_sent")
-    @email = email unless email.blank?
+    @email = email if email.present?
 
     mail to: "feedback@hoozzi.com", subject: I18n.t("feedback.email_subject")
   end

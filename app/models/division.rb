@@ -1,10 +1,11 @@
 # frozen_string_literal: true
+
 class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
 
   include PgSearch
-  multisearchable against: [:division_name], using: [:tsearch, :trigram]
+  multisearchable against: [:division_name], using: %i[tsearch trigram]
 
   alias parent developer
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Document < ApplicationRecord
   mount_uploader :file, DocumentUploader
   process_in_background :file
@@ -16,10 +17,10 @@ class Document < ApplicationRecord
 
   validates :title, presence: true, uniqueness: false
 
-  enum category: [
-    :my_home,
-    :locality,
-    :legal_and_warranty
+  enum category: %i[
+    my_home
+    locality
+    legal_and_warranty
   ]
 
   def to_s

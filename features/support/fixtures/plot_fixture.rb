@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PlotFixture
   extend ModuleImporter
   import_module CreateFixture

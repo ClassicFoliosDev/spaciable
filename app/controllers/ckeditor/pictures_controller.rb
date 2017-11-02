@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Ckeditor
   class PicturesController < Ckeditor::ApplicationController
     skip_load_and_authorize_resource

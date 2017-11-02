@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DevelopersController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -66,8 +67,8 @@ class DevelopersController < ApplicationController
       :company_name, :email,
       :contact_number, :about,
       :api_key, :house_search,
-      address_attributes: [:postal_number, :road_name, :building_name,
-                           :locality, :city, :county, :postcode, :id]
+      address_attributes: %i[postal_number road_name building_name
+                             locality city county postcode id]
     )
   end
 end

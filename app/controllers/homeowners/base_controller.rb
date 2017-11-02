@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Homeowners
   class BaseController < ApplicationController
     skip_before_action :authenticate_user!

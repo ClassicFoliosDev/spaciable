@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FinishesController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -90,7 +91,7 @@ class FinishesController < ApplicationController
       :picture,
       :remove_picture,
       :picture_cache,
-      documents_attributes: [:id, :title, :file, :_destroy]
+      documents_attributes: %i[id title file _destroy]
     )
   end
 end

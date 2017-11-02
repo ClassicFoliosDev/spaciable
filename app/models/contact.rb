@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Contact < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -16,12 +17,12 @@ class Contact < ApplicationRecord
   # ENUMS
   include TitleEnum
 
-  enum category: [
-    :sales,
-    :services,
-    :customer_care,
-    :management,
-    :emergency
+  enum category: %i[
+    sales
+    services
+    customer_care
+    management
+    emergency
   ]
 
   validates :contactable_id, presence: true

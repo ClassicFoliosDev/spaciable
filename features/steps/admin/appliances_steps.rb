@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I create an appliance with no name$/) do
   visit "/"
 

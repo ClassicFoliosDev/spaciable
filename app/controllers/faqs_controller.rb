@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FaqsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -6,7 +7,7 @@ class FaqsController < ApplicationController
   load_and_authorize_resource :development
   load_and_authorize_resource :division
   load_and_authorize_resource :developer
-  load_resource :faq, through: [:development, :division, :developer], shallow: true
+  load_resource :faq, through: %i[development division developer], shallow: true
 
   before_action :set_parent
 

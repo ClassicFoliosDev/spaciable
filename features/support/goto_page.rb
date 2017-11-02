@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module GotoPage
   def goto_resource_show_page(parent, resource)
     resource = "Developer" if resource == "CF" # assume top level

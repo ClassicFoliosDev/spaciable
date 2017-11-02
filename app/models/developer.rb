@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 class Developer < ApplicationRecord
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:company_name], using: [:tsearch, :trigram]
+  multisearchable against: [:company_name], using: %i[tsearch trigram]
 
   has_many :divisions, dependent: :destroy
   has_many :developments, dependent: :destroy

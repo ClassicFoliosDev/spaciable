@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-class InvitationReminderJob < ActiveJob::Base
+
+class InvitationReminderJob < ApplicationJob
   queue_as :mailer
 
   def perform(resident, subject, token)

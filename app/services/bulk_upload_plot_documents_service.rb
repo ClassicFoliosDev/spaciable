@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BulkUploadPlotDocumentsService
   module_function
 

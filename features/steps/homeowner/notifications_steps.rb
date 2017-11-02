@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I am logged in as a homeowner wanting to read notifications$/) do
   HomeownerNotificationsFixture.setup
 
@@ -41,7 +42,7 @@ end
 
 When(/^I click on a notification summary$/) do
   within(".notification-list") do
-    card = page.find_by_id("notification-#{HomeownerNotificationsFixture.notification_id}")
+    card = page.find_by(id: "notification-#{HomeownerNotificationsFixture.notification_id}")
     card.click
   end
 end

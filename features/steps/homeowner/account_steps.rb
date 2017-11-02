@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Then(/^I should see be able to view My Account$/) do
   visit "/"
 

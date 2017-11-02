@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ButtonsHelper
   def view_btn(view_path, label = "")
     link_to view_path, class: "btn", data: { action: "view" } do

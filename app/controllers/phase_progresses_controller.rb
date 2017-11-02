@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PhaseProgressesController < ApplicationController
   include SortingConcern
 
@@ -12,7 +13,7 @@ class PhaseProgressesController < ApplicationController
 
   def bulk_update
     state = params[:phase_progress_all]
-    if @phase.plots.update_all(progress: state)
+    if @phase.plots.update_attributes(progress: state)
       notice = t(".success", progress: t("activerecord.attributes.plot.progresses.#{state}"))
       if params[:notify].to_i.positive?
         notice << ResidentChangeNotifyService.call(@phase, current_user, t("plot_details"))

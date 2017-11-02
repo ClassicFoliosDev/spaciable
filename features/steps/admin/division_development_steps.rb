@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^there is a developer with a division$/) do
   CreateFixture.create_developer_with_division
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe DevelopersController do
@@ -66,7 +67,7 @@ RSpec.describe DevelopersController do
     context "as a DeveloperAdmin" do
       it "should redirect to the root url" do
         login_as create(:developer_admin)
-        post developers_path, params
+        post developers_path, params: params
 
         expect(response.redirect_url).to eq(root_url)
       end
@@ -75,7 +76,7 @@ RSpec.describe DevelopersController do
     context "as a DivisionAdmin" do
       it "should redirect to the root url" do
         login_as create(:division_admin)
-        post developers_path, params
+        post developers_path, params: params
 
         expect(response.redirect_url).to eq(root_url)
       end
@@ -84,7 +85,7 @@ RSpec.describe DevelopersController do
     context "as a DevelopmentAdmin" do
       it "should redirect to the root url" do
         login_as create(:development_admin)
-        post developers_path, params
+        post developers_path, params: params
 
         expect(response.redirect_url).to eq(root_url)
       end

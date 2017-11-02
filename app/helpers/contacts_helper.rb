@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ContactsHelper
   def contact_titles_collection
     Contact.titles.map do |(title_name, _title_int)|

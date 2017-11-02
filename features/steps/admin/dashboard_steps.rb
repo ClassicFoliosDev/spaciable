@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I navigate to the dashboard$/) do
   visit "/"
 end

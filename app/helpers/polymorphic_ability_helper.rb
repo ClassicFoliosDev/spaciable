@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PolymorphicAbilityHelper
   def can_create(type, parent)
     # CF admin can do everything

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ImagePreviewInput < SimpleForm::Inputs::FileInput
   def input(_wrapper_options = nil)
     # :preview_version is a custom attribute from :input_html hash, so you can pick custom sizes

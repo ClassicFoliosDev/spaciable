@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I have a I have a developer with a development and a unit type$/) do
   CreateFixture.create_developer_with_development_and_unit_type
 end

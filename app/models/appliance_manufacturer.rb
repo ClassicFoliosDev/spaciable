@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplianceManufacturer < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 

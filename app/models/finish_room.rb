@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FinishRoom < ApplicationRecord
   self.table_name = "finishes_rooms"
 

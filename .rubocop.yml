@@ -13,7 +13,10 @@ AllCops:
     - bin/**/*
     - script/**/*
     - vendor/**/*
-    - features/support/debugging_world.rb
+    - spec/**/*
+    - features/**/*
+    - lib/tasks/*
+    - Guardfile
   TargetRubyVersion: 2.3
 
 Rails:

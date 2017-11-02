@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module CollectionHelper
   def render_collection(collection, **options)
     path = options.delete(:path)

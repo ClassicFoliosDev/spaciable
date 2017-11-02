@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DocumentsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -9,12 +10,12 @@ class DocumentsController < ApplicationController
   load_and_authorize_resource :unit_type
   load_and_authorize_resource :plot
   load_resource :document, through:
-    [:developer,
-     :division,
-     :development,
-     :phase,
-     :unit_type,
-     :plot], shallow: true
+    %i[developer
+       division
+       development
+       phase
+       unit_type
+       plot], shallow: true
 
   before_action :set_parent
 

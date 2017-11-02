@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe DocumentsController do
@@ -188,7 +189,7 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           login_as admin
-          post url_for([admin.permission_level, :documents]), params
+          post url_for([admin.permission_level, :documents]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -200,7 +201,7 @@ RSpec.describe DocumentsController do
           division = create(:division, developer: admin.permission_level)
 
           login_as admin
-          post url_for([division, :documents]), params
+          post url_for([division, :documents]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -212,7 +213,7 @@ RSpec.describe DocumentsController do
           development = create(:development, developer: admin.permission_level)
 
           login_as admin
-          post url_for([development, :documents]), params
+          post url_for([development, :documents]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -224,7 +225,7 @@ RSpec.describe DocumentsController do
         it "should redirect to the root url" do
           admin = create(:division_admin)
           login_as admin
-          post url_for([admin.permission_level.developer, :documents]), params
+          post url_for([admin.permission_level.developer, :documents]), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -235,7 +236,7 @@ RSpec.describe DocumentsController do
           admin = create(:division_admin)
 
           login_as admin
-          post url_for([admin.permission_level, :documents]), params
+          post url_for([admin.permission_level, :documents]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -247,7 +248,7 @@ RSpec.describe DocumentsController do
           division_development = create(:division_development, division: admin.permission_level)
 
           login_as admin
-          post url_for([division_development, :documents]), params
+          post url_for([division_development, :documents]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -259,7 +260,7 @@ RSpec.describe DocumentsController do
         it "should redirect to the root url" do
           admin = create(:development_admin)
           login_as admin
-          post url_for([admin.permission_level.developer, :documents]), params
+          post url_for([admin.permission_level.developer, :documents]), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -271,7 +272,7 @@ RSpec.describe DocumentsController do
           admin = create(:development_admin, permission_level: division_development)
 
           login_as admin
-          post url_for([admin.permission_level.division, :documents]), params
+          post url_for([admin.permission_level.division, :documents]), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -282,7 +283,7 @@ RSpec.describe DocumentsController do
           admin = create(:development_admin)
 
           login_as admin
-          post url_for([admin.permission_level, :documents]), params
+          post url_for([admin.permission_level, :documents]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -420,7 +421,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: admin.permission_level)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -433,7 +434,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: division)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -446,7 +447,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: development)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -460,7 +461,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: admin.permission_level.developer)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -472,7 +473,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: admin.permission_level)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -485,7 +486,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: division_development)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -499,7 +500,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: admin.permission_level.developer)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -512,7 +513,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: division_development.division)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -524,7 +525,7 @@ RSpec.describe DocumentsController do
           document = create(:document, documentable: admin.permission_level)
 
           login_as admin
-          put url_for(document), params
+          put url_for(document), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end

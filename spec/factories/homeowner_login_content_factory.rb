@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :homeowner_login_content do
     title_left { Faker::Lorem.sentence }

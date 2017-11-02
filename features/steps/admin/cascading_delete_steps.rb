@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Then(/^I should see most of the children have been removed from the database$/) do
   # Most children should be removed
 

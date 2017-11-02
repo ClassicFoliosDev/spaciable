@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DocumentLibraryService
   module_function
 
@@ -10,12 +11,16 @@ module DocumentLibraryService
         thumb: build_preview(d.file), timestamp: d.updated_at }
     end
     manuals = appliances.map do |a|
-      { name: a.to_s, link: a.manual.url, parent: a, category: I18n.t(".manual"),
-        thumb: build_preview(a.manual), timestamp: a.updated_at } if a.manual?
+      if a.manual?
+        { name: a.to_s, link: a.manual.url, parent: a, category: I18n.t(".manual"),
+          thumb: build_preview(a.manual), timestamp: a.updated_at }
+      end
     end
     guides = appliances.map do |a|
-      { name: a.to_s, link: a.guide.url, parent: a, category: I18n.t(".guide"),
-        thumb: build_preview(a.guide), timestamp: a.updated_at } if a.guide?
+      if a.guide?
+        { name: a.to_s, link: a.guide.url, parent: a, category: I18n.t(".guide"),
+          thumb: build_preview(a.guide), timestamp: a.updated_at }
+      end
     end
 
     alldocuments.concat(manuals.compact)

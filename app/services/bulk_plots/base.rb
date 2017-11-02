@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BulkPlots
   class Base
     def initialize(plot, params:, numbers: nil)
@@ -88,7 +89,7 @@ module BulkPlots
     end
 
     def bulk_attributes_black_list
-      [:id, :created_at, :updated_at, :range_from, :range_to, :list]
+      %i[id created_at updated_at range_from range_to list]
     end
 
     def set_numbers

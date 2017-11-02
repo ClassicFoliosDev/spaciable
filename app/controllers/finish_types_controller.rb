@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FinishTypesController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -43,7 +44,6 @@ class FinishTypesController < ApplicationController
     @finish_type.destroy
     notice = t("controller.success.destroy", name: @finish_type.name)
     redirect_to finish_types_path, notice: notice
-
   rescue ActiveRecord::InvalidForeignKey
     notice = t("activerecord.errors.messages.delete_not_possible",
                name: @finish_type.name,

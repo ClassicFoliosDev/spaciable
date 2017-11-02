@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RoomsHelper
   def icon_names_collection
     Room.icon_names.map do |(icon_name, _icon_name_int)|

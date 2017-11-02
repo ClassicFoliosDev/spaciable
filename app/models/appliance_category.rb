@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplianceCategory < ApplicationRecord
   belongs_to :appliance, optional: true
 

@@ -1,9 +1,11 @@
 # frozen_string_literal: true
+
 module PolymorphicPermissionable
   extend ActiveSupport::Concern
   extend Api
   include Api
 
+  # rubocop:disable BlockLength
   included do
     attr_accessor :developer_id, :division_id, :development_id, :phase_id, :plot_id
 
@@ -98,4 +100,5 @@ module PolymorphicPermissionable
                           permissionable.division&.developer_id
     end
   end
+  # rubocop:enable BlockLength
 end

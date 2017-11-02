@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe ContactsController do
@@ -191,7 +192,7 @@ RSpec.describe ContactsController do
         it "should return ok" do
           admin = create(:developer_admin)
           login_as admin
-          post url_for([admin.permission_level, :contacts]), params
+          post url_for([admin.permission_level, :contacts]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -203,7 +204,7 @@ RSpec.describe ContactsController do
           division = create(:division, developer: admin.permission_level)
 
           login_as admin
-          post url_for([division, :contacts]), params
+          post url_for([division, :contacts]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -215,7 +216,7 @@ RSpec.describe ContactsController do
           development = create(:development, developer: admin.permission_level)
 
           login_as admin
-          post url_for([development, :contacts]), params
+          post url_for([development, :contacts]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -227,7 +228,7 @@ RSpec.describe ContactsController do
         it "should redirect to the root url" do
           admin = create(:division_admin)
           login_as admin
-          post url_for([admin.permission_level.developer, :contacts]), params
+          post url_for([admin.permission_level.developer, :contacts]), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -238,7 +239,7 @@ RSpec.describe ContactsController do
           admin = create(:division_admin)
 
           login_as admin
-          post url_for([admin.permission_level, :contacts]), params
+          post url_for([admin.permission_level, :contacts]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -250,7 +251,7 @@ RSpec.describe ContactsController do
           division_development = create(:division_development, division: admin.permission_level)
 
           login_as admin
-          post url_for([division_development, :contacts]), params
+          post url_for([division_development, :contacts]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -262,7 +263,7 @@ RSpec.describe ContactsController do
         it "should redirect to the root url" do
           admin = create(:development_admin)
           login_as admin
-          post url_for([admin.permission_level.developer, :contacts]), params
+          post url_for([admin.permission_level.developer, :contacts]), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -274,7 +275,7 @@ RSpec.describe ContactsController do
           admin = create(:development_admin, permission_level: division_development)
 
           login_as admin
-          post url_for([admin.permission_level.division, :contacts]), params
+          post url_for([admin.permission_level.division, :contacts]), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -285,7 +286,7 @@ RSpec.describe ContactsController do
           admin = create(:development_admin)
 
           login_as admin
-          post url_for([admin.permission_level, :contacts]), params
+          post url_for([admin.permission_level, :contacts]), params: params
 
           expect(response.status).to eq(200)
         end
@@ -423,7 +424,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: admin.permission_level)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -436,7 +437,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: division)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -449,7 +450,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: development)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -463,7 +464,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: admin.permission_level.developer)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -475,7 +476,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: admin.permission_level)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -488,7 +489,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: division_development)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end
@@ -502,7 +503,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: admin.permission_level.developer)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -515,7 +516,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: division_development.division)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -527,7 +528,7 @@ RSpec.describe ContactsController do
           contact = create(:contact, contactable: admin.permission_level)
 
           login_as admin
-          put url_for(contact), params
+          put url_for(contact), params: params
 
           expect(response.redirect_url).not_to eq(root_url)
         end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AppliancesHelper
   def warranty_collection
     Appliance.warranty_lengths.map do |(warranty_name, _warranty_int)|

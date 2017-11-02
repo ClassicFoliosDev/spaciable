@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 RSpec.shared_examples "it has cascading polymorphic abilities" do |polymorphic_class|
   let(:model_name) { polymorphic_class.model_name }
   let(:belongs_to_association) { model_name.element + "able" }
   let(:safe_actions) { [:read] }
-  let(:unsafe_actions) { [:create, :update, :destroy] }
+  let(:unsafe_actions) { %i[create update destroy] }
   let(:all_actions) { safe_actions.concat(unsafe_actions) }
 
   context "as a Developer Admin" do

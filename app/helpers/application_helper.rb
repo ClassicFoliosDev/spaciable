@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ApplicationHelper
   def navigation_link(path, icon, label, base_link_class)
     render partial: "components/navbar_item",

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PlotResidency < ApplicationRecord
   acts_as_paranoid
 
@@ -49,10 +50,10 @@ class PlotResidency < ApplicationRecord
   end
 
   def assign_resident_attributes
-    attrs = [:title, :first_name, :last_name, :email, :phone_number]
+    attrs = %i[title first_name last_name email phone_number]
             .each_with_object({}) do |attr, acc|
       value = instance_variable_get("@#{attr}")
-      acc[attr] = value unless value.blank?
+      acc[attr] = value if value.present?
     end
 
     resident.assign_attributes(attrs)

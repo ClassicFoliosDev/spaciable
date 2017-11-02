@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 class PlotsController < ApplicationController
   include PaginationConcern
   include SortingConcern
 
   load_and_authorize_resource :development
   load_and_authorize_resource :phase
-  load_and_authorize_resource :plot, through: [:development, :phase], shallow: true
+  load_and_authorize_resource :plot, through: %i[development phase], shallow: true
 
   before_action :set_parent
 
@@ -77,7 +78,7 @@ class PlotsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def plot_params
     params.require(:plot).permit(
-      [:range_from, :range_to, :list].concat(plot_attributes)
+      %i[range_from range_to list].concat(plot_attributes)
     )
   end
 
@@ -86,16 +87,16 @@ class PlotsController < ApplicationController
   end
 
   def plot_attributes
-    [
-      :prefix, :number,
-      :unit_type_id,
-      :house_number,
-      :road_name,
-      :building_name,
-      :locality,
-      :city, :county,
-      :postcode, :progress,
-      :notify, :user_id
+    %i[
+      prefix number
+      unit_type_id
+      house_number
+      road_name
+      building_name
+      locality
+      city county
+      postcode progress
+      notify user_id
     ]
   end
 

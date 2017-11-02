@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DocumentPreviewHelper
   # Retrieve a preview thumbnail for a PDF with the correct content type set.
   #

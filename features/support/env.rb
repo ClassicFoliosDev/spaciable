@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "cucumber/rails"
 
 $LOAD_PATH.unshift("features/support")

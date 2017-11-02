@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module PolymorphicPermissionable
   module Api
     extend ActiveSupport::Concern

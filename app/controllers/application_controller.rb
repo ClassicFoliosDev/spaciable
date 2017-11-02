@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :redirect_residents, if: -> { current_resident }
   before_action :authenticate_user!
@@ -24,7 +25,7 @@ class ApplicationController < ActionController::Base
   def previous_url
     referrer = request.referer
 
-    if !referrer.blank? && referrer != request.url
+    if referrer.present? && referrer != request.url
       referrer
     else
       root_url

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module NotificationHelper
   def data_for_notification(notification)
     {

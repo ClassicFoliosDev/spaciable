@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I am a (\(\w+\) )?(\w+) Admin and I want to manage FAQs$/) do |parent_type, admin_type|
   FaqsFixture.setup
 

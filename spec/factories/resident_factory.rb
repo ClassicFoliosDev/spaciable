@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :resident do
     email { "resident." + Faker::Internet.email }

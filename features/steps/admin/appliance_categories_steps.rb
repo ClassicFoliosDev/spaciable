@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I create an appliance category$/) do
   visit "/appliance_categories"
 

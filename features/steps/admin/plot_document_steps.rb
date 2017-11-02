@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I upload a document using (\w+) plot$/) do |plot_name|
   click_on(t("developments.collection.plot_documents"))
 

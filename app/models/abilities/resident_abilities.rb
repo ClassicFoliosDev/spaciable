@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Abilities
   module ResidentAbilities
     def resident_abilities(resident)

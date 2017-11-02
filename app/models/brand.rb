@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Brand < ApplicationRecord
   include ActiveModel::Validations
 
@@ -16,12 +17,12 @@ class Brand < ApplicationRecord
 
   belongs_to :brandable, polymorphic: true
 
-  validates_with HexValidator, attributes: [:bg_color,
-                                            :text_color,
-                                            :content_bg_color,
-                                            :content_text_color,
-                                            :button_color,
-                                            :button_text_color]
+  validates_with HexValidator, attributes: %i[bg_color
+                                              text_color
+                                              content_bg_color
+                                              content_text_color
+                                              button_color
+                                              button_text_color]
 
   def branded_text_color
     branded_param(:text_color)

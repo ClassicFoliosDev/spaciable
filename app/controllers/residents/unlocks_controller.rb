@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Residents
   class UnlocksController < Devise::UnlocksController
     layout "login"

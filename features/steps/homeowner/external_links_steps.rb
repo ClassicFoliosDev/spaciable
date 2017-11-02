@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I visit the maintenance page$/) do
   within ".navbar-menu" do
     click_on I18n.t("components.homeowner.navigation.maintenance")

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe User do
@@ -6,7 +7,7 @@ RSpec.describe User do
     context "for a CF Admin" do
       it "should return all admin roles" do
         user = described_class.new(role: :cf_admin)
-        expected_roles = %w(cf_admin developer_admin division_admin development_admin)
+        expected_roles = %w[cf_admin developer_admin division_admin development_admin]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)
@@ -16,7 +17,7 @@ RSpec.describe User do
     context "for a Developer Admin" do
       it "should return all admin roles below CF Admin level" do
         user = described_class.new(role: :developer_admin)
-        expected_roles = %w(developer_admin division_admin development_admin)
+        expected_roles = %w[developer_admin division_admin development_admin]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)
@@ -26,7 +27,7 @@ RSpec.describe User do
     context "for a Division Admin" do
       it "should return all admin roles below Developer Admin level" do
         user = described_class.new(role: :division_admin)
-        expected_roles = %w(division_admin development_admin)
+        expected_roles = %w[division_admin development_admin]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)

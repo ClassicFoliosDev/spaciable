@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I have a developer with a development with unit types and a phase$/) do
   PhasePlotFixture.create_developer_with_development_and_unit_types_and_phase
 end

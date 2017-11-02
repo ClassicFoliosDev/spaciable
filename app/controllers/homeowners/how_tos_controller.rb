@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Homeowners
   class HowTosController < Homeowners::BaseController
     skip_authorization_check

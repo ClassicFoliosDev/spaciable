@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FeedbackHelper
   def data_for_feedback(email)
     {

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I create a HowTo$/) do
   visit "/"
   click_on t("components.navigation.howtos")

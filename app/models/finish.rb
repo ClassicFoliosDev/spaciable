@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 class Finish < ApplicationRecord
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:name], using: [:tsearch, :trigram]
+  multisearchable against: [:name], using: %i[tsearch trigram]
 
   mount_uploader :picture, PictureUploader
   process_in_background :picture

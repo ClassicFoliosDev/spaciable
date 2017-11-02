@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DeleteHelper
   def data_to_delete(resource, path: nil)
     {

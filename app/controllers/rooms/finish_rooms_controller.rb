@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Rooms
   class FinishRoomsController < ApplicationController
     load_and_authorize_resource :room

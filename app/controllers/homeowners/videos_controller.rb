@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Homeowners
   class VideosController < Homeowners::BaseController
     def index

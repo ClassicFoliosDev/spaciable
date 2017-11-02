@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 class Phase < ApplicationRecord
   attribute :number, :integer
 
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:name], using: [:tsearch, :trigram]
+  multisearchable against: [:name], using: %i[tsearch trigram]
 
   belongs_to :development, optional: false, counter_cache: true
   alias parent development
@@ -47,8 +48,8 @@ class Phase < ApplicationRecord
     return if address.present?
     return build_address if !development || !development.address
 
-    address_fields = [:postal_number, :building_name, :road_name,
-                      :locality, :city, :county, :postcode]
+    address_fields = %i[postal_number building_name road_name
+                        locality city county postcode]
     address_attributes = development.address.attributes.select do |key, _|
       address_fields.include?(key.to_sym)
     end

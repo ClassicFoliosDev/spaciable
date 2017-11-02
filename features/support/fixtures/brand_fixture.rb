@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BrandFixture
   module_function
 

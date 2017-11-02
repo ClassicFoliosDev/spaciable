@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.shared_examples "archive when destroyed" do
   it "shouild be archived" do
     subject.destroy!

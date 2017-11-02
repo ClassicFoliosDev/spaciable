@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module MigrateManufacturersFixture
   module_function
 
@@ -64,11 +65,11 @@ module MigrateManufacturersFixture
   end
 
   def appliance_manufacturer
-    Manufacturer.find_by_name(appliance_manufacturer_name)
+    Manufacturer.find_by(name: appliance_manufacturer_name)
   end
 
   def appliance_and_finish_manufacturer
-    Manufacturer.find_by_name(appliance_and_finish_manufacturer_name)
+    Manufacturer.find_by(name: appliance_and_finish_manufacturer_name)
   end
 
   def appliance_category_name
@@ -76,7 +77,7 @@ module MigrateManufacturersFixture
   end
 
   def appliance_category
-    ApplianceCategory.find_by_name(appliance_category_name)
+    ApplianceCategory.find_by(name: appliance_category_name)
   end
 
   def finish_manufacturer_name
@@ -84,7 +85,7 @@ module MigrateManufacturersFixture
   end
 
   def finish_manufacturer
-    Manufacturer.find_by_name(finish_manufacturer_name)
+    Manufacturer.find_by(name: finish_manufacturer_name)
   end
 
   def finish_multiple_category_manufacturer_name
@@ -92,23 +93,23 @@ module MigrateManufacturersFixture
   end
 
   def finish_multiple_category_manufacturer
-    Manufacturer.find_by_name(finish_multiple_category_manufacturer_name)
+    Manufacturer.find_by(name: finish_multiple_category_manufacturer_name)
   end
 
   def finish_type
-    FinishType.find_by_name("Paint")
+    FinishType.find_by(name: "Paint")
   end
 
   def second_finish_type
-    FinishType.find_by_name("Varnish")
+    FinishType.find_by(name: "Varnish")
   end
 
   def finish_category
-    FinishCategory.find_by_name("Wallcovering")
+    FinishCategory.find_by(name: "Wallcovering")
   end
 
   def second_finish_category
-    FinishCategory.find_by_name("Woodwork")
+    FinishCategory.find_by(name: "Woodwork")
   end
 
   def model_num

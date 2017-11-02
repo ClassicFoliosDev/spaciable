@@ -58,7 +58,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   def extension_white_list
-    %w(pdf PDF)
+    %w[pdf PDF]
   end
 
   def fog_authenticated_url_expiration

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class FinishManufacturersController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -9,8 +10,7 @@ class FinishManufacturersController < ApplicationController
     @active_tab = "finish_manufacturers"
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @finish_categories = sort(FinishCategory.all, default: :name)
@@ -44,7 +44,6 @@ class FinishManufacturersController < ApplicationController
     @finish_manufacturer.destroy
     notice = t("controller.success.destroy", name: @finish_manufacturer.name)
     redirect_to finish_manufacturers_path, notice: notice
-
   rescue ActiveRecord::InvalidForeignKey
     notice = t("activerecord.errors.messages.delete_not_possible",
                name: @finish_manufacturer.name,

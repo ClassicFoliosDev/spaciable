@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RoomFixture
   module_function
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :developer do
     company_name { Faker::Company.name.delete("-").delete(",").delete("'") }

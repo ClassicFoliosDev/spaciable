@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I create a brand$/) do
   visit "/"
 

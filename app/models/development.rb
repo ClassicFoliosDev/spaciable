@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Development < ApplicationRecord
   acts_as_paranoid
 
@@ -6,7 +7,7 @@ class Development < ApplicationRecord
   belongs_to :division, optional: true
 
   include PgSearch
-  multisearchable against: [:name], using: [:tsearch, :trigram]
+  multisearchable against: [:name], using: %i[tsearch trigram]
 
   def parent
     division || developer
@@ -37,7 +38,7 @@ class Development < ApplicationRecord
     where(developer_id: developer_id).or(where(division_id: division_ids))
   }
 
-  validates :name, presence: true, uniqueness: { scope: [:developer_id, :division_id] }
+  validates :name, presence: true, uniqueness: { scope: %i[developer_id division_id] }
   validate :permissable_id_presence
   validates_with ParameterizableValidator
 

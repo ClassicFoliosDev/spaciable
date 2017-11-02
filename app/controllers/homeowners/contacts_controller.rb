@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Homeowners
   class ContactsController < Homeowners::BaseController
     skip_authorization_check

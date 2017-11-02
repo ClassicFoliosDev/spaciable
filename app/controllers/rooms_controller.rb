@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class RoomsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -7,10 +8,10 @@ class RoomsController < ApplicationController
 
   load_and_authorize_resource :room,
                               through: :unit_type,
-                              except: [:remove_finish, :remove_appliance]
+                              except: %i[remove_finish remove_appliance]
 
   load_and_authorize_resource :room,
-                              only: [:remove_finish, :remove_appliance]
+                              only: %i[remove_finish remove_appliance]
 
   before_action :set_parent
 

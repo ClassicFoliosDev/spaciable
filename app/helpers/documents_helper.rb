@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DocumentsHelper
   def category_collection
     Document.categories.map do |(category_name, _category_int)|

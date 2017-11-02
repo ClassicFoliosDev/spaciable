@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Residents
   class PasswordsController < Devise::PasswordsController
     layout "login"

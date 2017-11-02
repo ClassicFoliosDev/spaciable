@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   module PlotSelectOptionsHelper
     def admin_plot_select_options(scope:)

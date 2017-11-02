@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HowTo < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -8,7 +9,7 @@ class HowTo < ApplicationRecord
   belongs_to :how_to_sub_category
   accepts_nested_attributes_for :tags, reject_if: :all_blank, allow_destroy: true
 
-  enum category: [:home, :diy, :lifestyle, :recipes, :cleaning, :outdoors]
+  enum category: %i[home diy lifestyle recipes cleaning outdoors]
   enum feature_numbers: { "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5 }
 
   validates :title, :summary, :description, presence: true
@@ -37,7 +38,7 @@ class HowTo < ApplicationRecord
 
     tags_params.each do |tag_id|
       tag_param = tags_params[tag_id]
-      next unless tag_param[:name].present?
+      next if tag_param[:name].blank?
       tag_names = tag_param.delete(:name).split(",")
       tag_names.each do |tag_name|
         tag = Tag.find_or_create_by(name: tag_name.strip)

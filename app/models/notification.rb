@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Notification < ApplicationRecord
   include PolymorphicPermissionable
   include PolymorphicPermissionable::ByResources

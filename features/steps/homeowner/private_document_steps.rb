@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 When(/^I upload private documents$/) do
   visit "/homeowners/private_documents"
 

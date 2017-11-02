@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   module SelectOptionsHelper
     def cascade_select_input(form, attribute, source_model = Developer, blank: -> { true })

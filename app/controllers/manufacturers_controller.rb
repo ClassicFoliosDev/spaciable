@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ManufacturersController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -20,8 +21,7 @@ class ManufacturersController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @finish_categories = sort(FinishCategory.all, default: :name)
@@ -65,7 +65,6 @@ class ManufacturersController < ApplicationController
     @manufacturer.destroy
     notice = t("controller.success.destroy", name: @manufacturer.name)
     redirect_to manufacturers_path, notice: notice
-
   rescue ActiveRecord::InvalidForeignKey
     notice = t("activerecord.errors.messages.delete_not_possible",
                name: @manufacturer.name,

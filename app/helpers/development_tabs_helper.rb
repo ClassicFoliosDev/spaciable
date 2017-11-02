@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module DevelopmentTabsHelper
   include TabsHelper
 
@@ -7,6 +8,7 @@ module DevelopmentTabsHelper
     Tabs.new(development, tabs, current_tab, self).all
   end
 
+  # rubocop:disable BlockLength
   DEVELOPMENT_TABS = lambda do |development|
     {
       unit_types: {
@@ -36,4 +38,5 @@ module DevelopmentTabsHelper
       services: { icon: "tasks" }
     }
   end
+  # rubocop:enable BlockLength
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ProgressHelper
   # rubocop:disable MethodLength
   def progress_collection(current_progress)

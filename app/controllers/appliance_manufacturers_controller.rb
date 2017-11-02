@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ApplianceManufacturersController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -37,7 +38,6 @@ class ApplianceManufacturersController < ApplicationController
     @appliance_manufacturer.destroy
     notice = t("controller.success.destroy", name: @appliance_manufacturer.name)
     redirect_to appliance_manufacturers_path, notice: notice
-
   rescue ActiveRecord::InvalidForeignKey
     notice = t("activerecord.errors.messages.delete_not_possible",
                name: @appliance_manufacturer.name,

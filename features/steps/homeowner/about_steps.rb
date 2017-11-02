@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I visit the About page$/) do
   visit "/homeowners/about"
 end

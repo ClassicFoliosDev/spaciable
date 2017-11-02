@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :how_to do
     title { Faker::Lorem.sentence }

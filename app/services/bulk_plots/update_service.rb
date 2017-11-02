@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module BulkPlots
   class UpdateService < BulkPlots::Base
     def self.call(plot, params: {}, &block)
@@ -62,7 +63,7 @@ module BulkPlots
     end
 
     def bulk_attr_keys
-      [:range_from, :range_to, :list]
+      %i[range_from range_to list]
     end
 
     BulkUpdatePlotsModel = Class.new(Plot) do

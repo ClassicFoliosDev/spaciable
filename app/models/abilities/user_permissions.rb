@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Abilities
   module UserPermissions
     def crud_users(role:, id:, model:)
@@ -6,7 +7,7 @@ module Abilities
 
       can :create, User, role: user_role
       can(
-        [:read, :update, :destroy],
+        %i[read update destroy],
         User,
         role: user_role,
         permission_level_id: id,

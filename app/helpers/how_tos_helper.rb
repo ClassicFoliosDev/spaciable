@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HowTosHelper
   def how_to_category_collection
     HowTo.categories.map do |(category_name, _category_int)|

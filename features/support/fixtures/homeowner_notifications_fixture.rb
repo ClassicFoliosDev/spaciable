@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module HomeownerNotificationsFixture
   extend ModuleImporter
   import_module CreateFixture

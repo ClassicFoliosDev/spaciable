@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ParameterizableValidator < ActiveModel::Validator
   def validate(record)
     name = find_name(record)

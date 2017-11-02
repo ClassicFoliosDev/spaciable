@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module AdminNavigationHelper
   def my_admin_area_url(permission_level)
     case permission_level

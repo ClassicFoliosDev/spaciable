@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I have a developer with a development with unit type and plot$/) do
   CreateFixture.create_developer_with_division
   CreateFixture.create_division_development

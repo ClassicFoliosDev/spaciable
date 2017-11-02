@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module TranslationHelper
   def t_enum(model, attribute, key)
     return "" if key.nil?

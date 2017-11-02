@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module UnitTypesHelper
   def build_types_collection
     UnitType.build_types.map do |(build_type_name, _build_type_int)|

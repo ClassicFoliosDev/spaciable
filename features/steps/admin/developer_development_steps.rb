@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^there is a developer$/) do
   CreateFixture.create_developer
 end

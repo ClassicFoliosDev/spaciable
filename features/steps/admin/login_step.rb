@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^I am an admin user$/) do
   CFAdminUserFixture.create
 end

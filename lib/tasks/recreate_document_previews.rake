@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 namespace :recreate_versions do
   desc "Recreate all versions"
-  task all: [:documents, :appliances, :brands]
+  task all: %i[documents appliances brands]
 
   desc "Recreate the preview image for all documents"
   task documents: :environment do
@@ -32,19 +34,19 @@ namespace :recreate_versions do
       appliance.process_manual_upload = true
 
       begin
-        appliance.primary_image.recreate_versions! && pimages +=1 if appliance.primary_image?
+        appliance.primary_image.recreate_versions! && pimages += 1 if appliance.primary_image?
       rescue => e
         puts "Appliance Primary Image: #{appliance.id} (#{appliance}) Failed: #{e}"
       end
 
       begin
-        appliance.secondary_image.recreate_versions! && simages +=1 if appliance.secondary_image?
+        appliance.secondary_image.recreate_versions! && simages += 1 if appliance.secondary_image?
       rescue => e
         puts "Appliance Secondary Image: #{appliance.id} (#{appliance}) Failed: #{e}"
       end
 
       begin
-        appliance.manual.recreate_versions! && manuals +=1 if appliance.manual?
+        appliance.manual.recreate_versions! && manuals += 1 if appliance.manual?
       rescue => e
         puts "Appliance Manual: #{appliance.id} (#{appliance}) Failed: #{e}"
       end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Room < ApplicationRecord
   acts_as_paranoid
 
@@ -13,15 +14,15 @@ class Room < ApplicationRecord
   end
   include InheritParentPermissionIds
 
-  enum icon_name: [
-    :bedroom,
-    :bathroom,
-    :kitchen,
-    :living_room,
-    :dining_room,
-    :study,
-    :exterior,
-    :garage
+  enum icon_name: %i[
+    bedroom
+    bathroom
+    kitchen
+    living_room
+    dining_room
+    study
+    exterior
+    garage
   ]
 
   has_many :finish_rooms, inverse_of: :room
@@ -43,7 +44,7 @@ class Room < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
-  validates :name, uniqueness: { scope: [:unit_type_id, :plot_id] }
+  validates :name, uniqueness: { scope: %i[unit_type_id plot_id] }
   validates_associated :finish_rooms
   validates_associated :finishes
   validates_associated :appliance_rooms

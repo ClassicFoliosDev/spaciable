@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   class HowTosController < ApplicationController
     include PaginationConcern
@@ -39,8 +40,7 @@ module Admin
       end
     end
 
-    def show
-    end
+    def show; end
 
     def edit
       parent_category = t("activerecord.attributes.how_to.categories.#{@how_to.category}")
@@ -80,7 +80,7 @@ module Admin
         :remove_picture,
         :url, :additional_text,
         :how_to_sub_category_id,
-        tags_attributes: [:id, :name, :_destroy]
+        tags_attributes: %i[id name _destroy]
       )
     end
   end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Then(/^I see the recent homeowner contents$/) do
   within ".my-home" do
     expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))

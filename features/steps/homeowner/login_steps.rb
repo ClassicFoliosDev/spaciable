@@ -1,4 +1,5 @@
 # frozen_string_literal: false
+
 Given(/^I am a homeowner$/) do
   HomeownerUserFixture.create
 end

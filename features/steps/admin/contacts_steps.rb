@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 When(/^I create a contact with no email or phone$/) do
   visit "/"
 

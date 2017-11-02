@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 FactoryGirl.define do
   factory :faq do
     question { Faker::Lorem.sentence }

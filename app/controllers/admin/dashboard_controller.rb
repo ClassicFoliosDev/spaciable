@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Admin
   class DashboardController < ApplicationController
     skip_authorization_check
@@ -34,13 +35,13 @@ module Admin
     end
 
     def faqs_scope
-      if current_user.cf_admin?
-        @faqs = Faq.all
-      else
-        @faqs = Faq.accessible_by(current_ability)
+      @faqs = if current_user.cf_admin?
+                Faq.all
+              else
+                Faq.accessible_by(current_ability)
                    .where(faqable_id: current_user.permission_level_id,
                           faqable_type: current_user.permission_level_type)
-      end
+              end
     end
   end
 end

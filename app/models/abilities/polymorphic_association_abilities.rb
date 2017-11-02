@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Abilities
   module PolymorphicAssociationAbilities
     class PolymorphicAbility
@@ -7,7 +8,7 @@ module Abilities
         @klass = klass
         @association = association
         @ability = ability
-        @actions = [:create, :read, :update, :destroy]
+        @actions = %i[create read update destroy]
       end
 
       def actions(*actions)

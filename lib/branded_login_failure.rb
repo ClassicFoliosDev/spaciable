@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class BrandedLoginFailure < Devise::FailureApp
   def redirect_url
     URI(request.referer).path

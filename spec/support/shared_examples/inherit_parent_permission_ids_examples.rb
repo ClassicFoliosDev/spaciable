@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec.shared_examples "it inherits permissable ids from the parent" do
   describe "#permissable_ids" do
     it "must have a developer_id or division_id" do

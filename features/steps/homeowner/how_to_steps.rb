@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Then(/^I should see recent HowTos on my dashboard$/) do
   visit "/"
 

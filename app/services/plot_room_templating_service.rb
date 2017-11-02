@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class PlotRoomTemplatingService
   def initialize(plot)
     @plot = plot

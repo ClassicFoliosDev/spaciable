@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Tag < ApplicationRecord
   delegate :to_s, to: :name
 

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module SortingHelper
   def sortable(klass, column, title = nil, sort_params: {}, html_options: { class: "both" })
     return sort_on_association(klass, column, title) if klass.is_a? Hash

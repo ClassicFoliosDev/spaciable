@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Given(/^there is a division with a development$/) do
   CreateFixture.create_developer
   CreateFixture.create_division

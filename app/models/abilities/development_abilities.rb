@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Abilities
   module DevelopmentAbilities
     def development_abilities(development, division_id, developer_id)

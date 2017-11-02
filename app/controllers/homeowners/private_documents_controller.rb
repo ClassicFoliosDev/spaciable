@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Homeowners
   class PrivateDocumentsController < Homeowners::BaseController
     load_and_authorize_resource :private_document

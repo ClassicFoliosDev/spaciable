@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class HowToTag < ApplicationRecord
   self.table_name = "how_tos_tags"
 
