@@ -5,12 +5,12 @@ require "capybara/poltergeist"
 Capybara.default_max_wait_time = 10
 Capybara.javascript_driver = :poltergeist
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false, window_size: [1600, 1200])
+  Capybara::Poltergeist::Driver.new(app, js_errors: false, window_size: [1600, 1200], url_whitelist: ["http://127.0.0.1"])
 end
 
 if ENV["DEBUG"] == "true"
   Capybara.register_driver :debug do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false, inspector: true, window_size: [1600, 1200])
+    Capybara::Poltergeist::Driver.new(app, inspector: true, window_size: [1600, 1200], url_whitelist: ["http://127.0.0.1"])
   end
   Capybara.javascript_driver = :debug
 end

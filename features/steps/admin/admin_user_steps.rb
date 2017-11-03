@@ -56,6 +56,11 @@ When(/^I add a new CF Admin$/) do
   select "CF Admin", visible: false
 
   click_on t("admin.users.form.submit")
+
+  recipient_email = ActionMailer::Base.deliveries.last
+
+  message = t("devise.mailer.invitation_instructions.someone_invited_you_admin", development: "Classic Folios")
+  expect(recipient_email.parts.first.body.raw_source).to include message
 end
 
 Then(/^I should see the new CF Admin$/) do

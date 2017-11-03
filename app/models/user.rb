@@ -34,6 +34,11 @@ class User < ApplicationRecord
     roles.reject { |key, _| key == "homeowner" }
   end
 
+  def permission_level_name
+    return "Classic Folios" if permission_level.nil?
+    permission_level
+  end
+
   def self.accessible_admin_roles(user)
     admin_roles.select { |_, value| value >= roles[user.role] }
   end

@@ -42,6 +42,11 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
 
   expect(page).to have_content(attrs[:completion_date])
 
+  recipient_email = ActionMailer::Base.deliveries.last
+
+  message = t("devise.mailer.invitation_instructions.someone_invited_you", developer: PlotResidencyFixture.plot.developer)
+  expect(recipient_email.parts.first.body.raw_source).to include message
+
   click_on t("plot_residencies.show.back")
 end
 
