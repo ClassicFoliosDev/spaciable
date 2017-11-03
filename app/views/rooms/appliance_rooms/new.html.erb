@@ -21,29 +21,29 @@
   <% end %>
 
   <div class="row appliance-add">
-    <div class="row-item third">
+    <div class="row-item third appliance-category">
       <fieldset>
         <div class="appliance_category ui-front select-container">
           <%= label_tag Appliance.human_attribute_name(:category) %>
-          <%= select_tag "appliance_category", options_from_collection_for_select(@appliance_categories, "id", "name"), prompt: t(".choose") %>
+          <%= select_tag :appliance_category, options_from_collection_for_select(@appliance_categories, "id", "name"), prompt: t(".choose") %>
         </div>
       </fieldset>
     </div>
 
-    <div class="row-item third">
+    <div class="row-item third appliance-manufacturer">
       <fieldset>
         <div class="appliance_manufacturer ui-front select-container">
           <%= label_tag :appliance_manufacturer %>
-          <%= select_tag "appliance_manufacturer", options_from_collection_for_select(@appliance_manufacturers, "id", "name"), prompt: t(".choose") %>
+          <%= select_tag :appliance_manufacturer, options_from_collection_for_select(@appliance_manufacturers, "id", "name"), prompt: t(".choose") %>
         </div>
       </fieldset>
     </div>
 
-    <div class="row-item third">
+    <div class="row-item third appliance">
       <fieldset>
         <div class="appliances ui-front select-container">
           <%= label_tag Appliance.model_name.human %>
-          <%= select_tag "appliances", required: true %>
+          <%= select_tag :appliances, required: true %>
           <span class="match-errors"></span>
         </div>
       </fieldset>

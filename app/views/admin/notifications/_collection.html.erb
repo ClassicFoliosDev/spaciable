@@ -22,7 +22,9 @@
       </td>
 
       <td>
-        <%= l(notification.sent_at.to_date, format: :digits) %>
+        <% if notification&.sent_at %>
+          <%= l(notification.sent_at.to_date, format: :digits) %>
+        <% end %>
       </td>
       <td>
         <%= t(".sent_to_html", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>

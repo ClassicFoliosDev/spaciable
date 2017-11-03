@@ -161,7 +161,7 @@ When(/^I add an appliance to one of the default unit type rooms$/) do
     find(".search-appliance-btn").click
   end
 
-  within ".appliance-add" do
+  within ".appliance" do
     select_from_selectmenu :appliances, with: CreateFixture.full_appliance_name
   end
 

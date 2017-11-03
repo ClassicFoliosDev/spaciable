@@ -74,8 +74,9 @@ end
 When(/^I delete the unit type$/) do
   goto_development_show_page
 
-  sleep 0.2
-  click_on t("developments.collection.unit_types")
+  within ".unit-types" do
+    expect(page).to have_content CreateFixture.unit_type_name
+  end
 
   delete_and_confirm!
 end

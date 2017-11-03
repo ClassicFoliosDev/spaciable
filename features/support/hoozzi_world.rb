@@ -66,6 +66,7 @@ module HoozziWorld
         screenshot if debug_mode?
         raise Capybara::ElementNotFound, "Selectmenu is missing for #{field}"
       end
+      sleep 0.2
       arrow.click
     end
   end

@@ -16,7 +16,7 @@
     </div>
   <% end %>
   <div class="row">
-    <div class="row-item third">
+    <div class="row-item third send-targets">
       <fieldset class="skip-global-selectmenu">
         <% if can?(:send_to_all, Notification) %>
           <%= f.input :send_to_all, label: t(".send_to_all_residents", residents_count: Resident.count) %>
@@ -26,10 +26,18 @@
 
         <%= f.label :send_to, label: t(".send_to") %>
 
-        <%= cascade_select_input f, :developer_id, Developer %>
-        <%= cascade_select_input f, :division_id, Division %>
-        <%= cascade_select_input f, :development_id, Development %>
-        <%= cascade_select_input f, :phase_id, Phase %>
+        <div class="developer-id ui-front select-container">
+          <%= cascade_select_input f, :developer_id, Developer %>
+        </div>
+        <div class="division-id ui-front select-container">
+          <%= cascade_select_input f, :division_id, Division %>
+        </div>
+        <div class="development-id ui-front select-container">
+          <%= cascade_select_input f, :development_id, Development %>
+        </div>
+        <div class="phase-id ui-front select-container">
+          <%= cascade_select_input f, :phase_id, Phase %>
+        </div>
 
         <%= f.input :plot_prefix %>
         <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
@@ -38,7 +46,7 @@
       </fieldset>
     </div>
 
-    <div class="row-item two-thirds">
+    <div class="row-item two-thirds send-message">
       <fieldset>
         <%= f.input :subject %>
         <%= f.input :message, as: :ckeditor, input_html: { ckeditor: { toolbar: 'full' } } %>
