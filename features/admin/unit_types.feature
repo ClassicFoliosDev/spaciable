@@ -31,6 +31,7 @@ Feature: UnitTypes
     Then I should see a duplicate unit type with finish and appliance created successfully
     When I delete the appliance
     And I delete the finish
+    When I navigate to the development
     And I clone the unit type
     Then I should see a duplicate unit type without finish and appliance created successfully
 

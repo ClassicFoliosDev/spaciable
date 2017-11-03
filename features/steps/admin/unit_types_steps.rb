@@ -115,11 +115,7 @@ When(/^I navigate to the division development$/) do
 end
 
 When(/^I clone the unit type$/) do
-  goto_development_show_page
-
-  sleep 0.3
-
-  within ".record-list" do
+  within ".unit-types" do
     links = page.all(".clone")
     links.first.click
   end

@@ -102,10 +102,12 @@ module HoozziWorld
     STDOUT.puts "DEBUG:   #{text}" if show
   end
 
-  def delete_and_confirm!(scope: "", finder_options: { wait: 5 })
+  def delete_and_confirm!(scope: "", finder_options: { wait: 0.4, visible: true })
     # Launches the confirmation dialog
     if scope.blank?
-      click_archive_btn(finder_options)
+      within ".record-list" do
+        click_archive_btn(finder_options)
+      end
     else
       within scope do
         click_archive_btn(finder_options)
@@ -113,7 +115,9 @@ module HoozziWorld
     end
 
     # Click the "real" delete in the confirmation dialog
-    find(".btn-delete").trigger("click")
+    within ".archive-dialog" do
+      find(".btn-delete").trigger(:click)
+    end
   end
 
   def debug_mode?
@@ -124,6 +128,7 @@ module HoozziWorld
 
   def click_archive_btn(finder_options)
     btn = find(".archive-btn", finder_options)
-    btn.click
+    sleep 0.1
+    btn.trigger(:click)
   end
 end

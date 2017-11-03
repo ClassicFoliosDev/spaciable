@@ -25,13 +25,15 @@
       </div>
 
       <div class="row-item third">
-        <fieldset>
+        <div class="faq ui-front select-container">
+          <fieldset>
             <%= f.input :category,
                 as: :select,
                 collection: Faq.categories,
                 label_method: ->((key, _)) { t_enum(Faq, :category, key) },
                 value_method: ->((key, _)) { key } %>
-        </fieldset>
+          </fieldset>
+        </div>
       </div>
     </div>
 

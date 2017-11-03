@@ -319,6 +319,10 @@ module CreateFixture
     create_resident
   end
 
+  def create_sub_category
+    FactoryGirl.create(:how_to_sub_category, name: HowToFixture.sub_category, parent_category: HowToFixture.category)
+  end
+
   # INSTANCES
 
   def cf_admin

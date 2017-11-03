@@ -185,7 +185,7 @@ RSpec.describe ContactsController do
   end
 
   describe "#create" do
-    let(:params) { { params: { contact: { name: "" } } } }
+    let(:params) { { contact: { name: "" } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer contact" do
@@ -415,7 +415,7 @@ RSpec.describe ContactsController do
   end
 
   describe "#update" do
-    let(:params) { { params: { contact: { name: "" } } } }
+    let(:params) { { contact: { name: "" } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer contact" do

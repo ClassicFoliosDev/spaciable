@@ -28,6 +28,10 @@ When(/^I create a HowTo$/) do
   click_on t("faqs.form.submit")
 end
 
+Given(/^There is a sub category$/) do
+  CreateFixture.create_sub_category
+end
+
 Then(/^I should see the created HowTo$/) do
   within ".record-list" do
     expect(page).to have_content(HowToFixture.title)
@@ -109,9 +113,15 @@ When(/^I remove a Tag$/) do
 end
 
 Then(/^I should see the remove complete successfully$/) do
-  sleep 0.6
+  success_message =  I18n.t("admin.how_tos.remove_tag.success",
+                    tag_name: HowToFixture.tag1,
+                    how_to_name: HowToFixture.updated_title)
 
-  within ".record-list" do
+  within ".notice" do
+    expect(page).to have_content success_message
+  end
+
+  within ".how-tos" do
     click_on HowToFixture.updated_title
   end
 

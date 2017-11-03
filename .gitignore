@@ -30,8 +30,9 @@ public/styleguide.html
 # RSpec's state persistence
 spec/examples.txt
 
-# Test coverage
+# Test coverage and reports
 /coverage
+/reports
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

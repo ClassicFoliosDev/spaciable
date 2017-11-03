@@ -6,7 +6,6 @@ module GotoPage
     resource_name = CreateFixture.ResourceName(resource, parent)
 
     send("goto_#{resource_name}_show_page")
-    sleep 0.3
   end
 
   def goto_developer_show_page
@@ -29,7 +28,6 @@ module GotoPage
     raise "Division does not exist" unless division
 
     goto_developer_show_page
-    sleep 0.3
 
     within ".tabs" do
       click_on t("developers.collection.divisions")
@@ -69,7 +67,6 @@ module GotoPage
       click_on t("developers.collection.developments")
     end
 
-    sleep 0.3
     within ".record-list" do
       click_on CreateFixture.development_name
     end
@@ -86,7 +83,6 @@ module GotoPage
       click_on t("developments.collection.phases")
     end
 
-    sleep 0.3
     within ".record-list" do
       click_on CreateFixture.phase_name
     end
@@ -99,7 +95,6 @@ module GotoPage
       click_on t("developments.collection.plots")
     end
 
-    sleep 0.3
     within ".record-list" do
       click_on CreateFixture.plot_name
     end
@@ -112,7 +107,6 @@ module GotoPage
       click_on t("developments.collection.phases")
     end
 
-    sleep 0.3
     within ".record-list" do
       click_on CreateFixture.phase_name
     end

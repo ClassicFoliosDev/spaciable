@@ -125,7 +125,7 @@ When(/^I add a finish to one of the default unit type rooms$/) do
 
   within ".search-finish" do
     fill_in "finish_room_search_finish_text", with: CreateFixture.finish_name
-    find(".search-finish-btn").click
+    find(".search-finish-btn", visible: true).trigger(:click)
   end
 
   within ".finish" do

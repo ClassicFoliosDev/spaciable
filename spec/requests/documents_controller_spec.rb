@@ -182,7 +182,7 @@ RSpec.describe DocumentsController do
   end
 
   describe "#create" do
-    let(:params) { { params: { document: { name: "" } } } }
+    let(:params) { { document: { name: "" } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer document" do
@@ -412,7 +412,7 @@ RSpec.describe DocumentsController do
   end
 
   describe "#update" do
-    let(:params) { { params: { document: { name: "" } } } }
+    let(:params) { { document: { name: "" } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer document" do

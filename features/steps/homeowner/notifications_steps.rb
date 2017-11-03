@@ -41,8 +41,9 @@ Then(/^I should not see notifications for other residents in my development$/) d
 end
 
 When(/^I click on a notification summary$/) do
+  notification_scope = "[data-id='#{HomeownerNotificationsFixture.notification_id}']"
   within(".notification-list") do
-    card = page.find_by(id: "notification-#{HomeownerNotificationsFixture.notification_id}")
+    card = page.find(notification_scope)
     card.click
   end
 end

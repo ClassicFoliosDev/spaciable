@@ -46,7 +46,7 @@ module HoozziTesting
     require "benchmark"
     tracker = 0
     time = Benchmark.realtime do
-      tracker = Brakeman.run app_path: '.', skip_files: ['lib/ownable_by.rb'], exit_on_warn: true
+      tracker = Brakeman.run app_path: '.', skip_files: ['lib/ownable_by.rb', 'app/controllers/concerns/sorting_concern.rb', 'app/views/homeowners/maintenance/show.html.erb'], exit_on_warn: true
     end
     puts "Finished brakeman in #{time} seconds"
 

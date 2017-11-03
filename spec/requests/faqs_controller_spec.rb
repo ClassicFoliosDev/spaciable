@@ -185,7 +185,7 @@ RSpec.describe FaqsController do
   end
 
   describe "#create" do
-    let(:params) { { params: { faq: { name: "" } } } }
+    let(:params) { { faq: { name: "" } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer faq" do
@@ -415,7 +415,7 @@ RSpec.describe FaqsController do
   end
 
   describe "#update" do
-    let(:params) { { params: { faq: { name: "" } } } }
+    let(:params) { { faq: { name: "" } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer faq" do

@@ -90,10 +90,11 @@ end
 
 When(/^I delete the division$/) do
   visit "/developers"
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.divisions")
 
-  sleep 0.2
+  within ".record-list" do
+    click_on t("developers.collection.divisions")
+  end
+
   delete_and_confirm!(finder_options: { match: :first })
 end
 

@@ -64,7 +64,6 @@ class Plot < ApplicationRecord
   delegate :address, to: :parent, prefix: :parent, allow_nil: true
   delegate :locality, :city, :county, to: :parent, allow_nil: true
   delegate :api_key, to: :developer, allow_nil: true
-  alias postal_number house_number
 
   def building_name
     if address&.building_name?
@@ -79,6 +78,15 @@ class Plot < ApplicationRecord
       address.road_name
     else
       parent.road_name
+    end
+  end
+
+  def postal_number
+    return house_number if house_number
+    if address&.postal_number?
+      address.postal_number
+    else
+      parent.address&.postal_number
     end
   end
 

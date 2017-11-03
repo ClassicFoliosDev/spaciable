@@ -62,7 +62,7 @@ RSpec.describe DevelopersController do
   end
 
   describe "#create" do
-    let(:params) { { params: { developer: { company_name: "" } } } }
+    let(:params) { { developer: { company_name: "" } } }
 
     context "as a DeveloperAdmin" do
       it "should redirect to the root url" do

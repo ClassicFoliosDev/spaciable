@@ -6,7 +6,7 @@ Feature: HowTos
 
   Scenario: CF Admin
     Given I am logged in as a CF Admin
-    And I have seeded the database
+    And There is a sub category
     When I create a HowTo
     Then I should see the created HowTo
     When I update the HowTo

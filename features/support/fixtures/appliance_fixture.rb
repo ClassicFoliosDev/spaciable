@@ -127,7 +127,6 @@ module ApplianceFixture
   end
 
   def appliance_instance
-    appliance_name = "#{CreateFixture.appliance_manufacturer_name} #{CreateFixture.appliance_name}"
-    Appliance.find_by(name: appliance_name)
+    Appliance.find_by(model_num: CreateFixture.appliance_name)
   end
 end

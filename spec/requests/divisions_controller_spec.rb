@@ -65,7 +65,7 @@ RSpec.describe DivisionsController do
   end
 
   describe "#create" do
-    let(:params) { { params: { division: { division_name: "" } } } }
+    let(:params) { { division: { division_name: "" } } }
 
     context "as a DeveloperAdmin" do
       it "should redirect to the root url" do

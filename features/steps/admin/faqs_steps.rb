@@ -10,20 +10,26 @@ end
 
 When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
   goto_resource_show_page(parent, resource)
+  sleep 0.3
 
-  click_on t("developers.collection.faqs")
-  click_on t("faqs.collection.add")
+  within ".tabs" do
+    click_on t("developers.collection.faqs")
+  end
+
+  within ".main-container" do
+    click_on t("faqs.collection.add")
+  end
 
   attrs = FaqsFixture.faq_attrs(:created, parent, under: resource)
-
-  fill_in :faq_question, with: attrs[:question]
-  fill_in_ckeditor(:faq_answer, with: attrs[:answer])
-
   category = FaqsFixture.t_category(attrs[:category])
-  select_from_selectmenu :faq_category, with: category
 
-  sleep 0.5
-  click_on t("faqs.form.submit")
+  within ".new_faq" do
+    fill_in :faq_question, with: attrs[:question]
+    fill_in_ckeditor(:faq_answer, with: attrs[:answer])
+
+    select_from_selectmenu :faq_category, with: category
+    click_on t("faqs.form.submit")
+  end
 end
 
 Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, parent, resource|
