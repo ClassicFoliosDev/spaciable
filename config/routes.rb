@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :notifications, except: [:edit, :update, :destroy]
     resources :how_tos
     resources :users
+    resources :residents, only: [:index, :show]
 
     get 'developers', to: 'developers#index', format: :json
     get 'divisions', to: 'divisions#index', format: :json

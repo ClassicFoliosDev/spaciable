@@ -305,18 +305,21 @@ module CreateFixture
     FactoryGirl.create(:private_document, resident: CreateFixture.resident)
   end
 
-  def create_resident_under_a_phase_plot_with_appliances_and_rooms
+  def create_resident_under_a_phase_plot
     create_developer
     create_development
     create_development_phase
     create_unit_type
     create_phase_plot
+    create_resident
+  end
 
+  def create_resident_under_a_phase_plot_with_appliances_and_rooms
+    create_resident_under_a_phase_plot
     create_room
     create_appliance
     create_appliance_room
     create_appliance_without_manual
-    create_resident
   end
 
   def create_sub_category

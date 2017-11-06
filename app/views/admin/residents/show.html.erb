@@ -1,0 +1,35 @@
+<% breadcrumb :admin_resident, @resident %>
+
+<div class="section-header">
+  <div class="section-title">
+    <h3>
+      <i class="fa fa-user"></i>
+      <%= @resident.to_s %><br>
+    </h3>
+    <span class="about">
+      <i class="fa fa-envelope"></i>
+      <%= @resident.email %>
+    </span>
+  </div>
+</div>
+
+<div class="resident section-data">
+  <label><%= t("admin.residents.index.plot") %></label>
+  <span><%= @resident.plot %></span>
+  <label><%= t("admin.residents.index.unit_type") %></label>
+  <span><%= @resident.unit_type %></span>
+  <label><%= t("admin.residents.index.development") %></label>
+  <span><%= @resident.development %></span>
+  <% if @resident.division %>
+    <label><%= t("admin.residents.index.division") %></label>
+    <span><%= @resident.division %></span>
+  <% end %>
+  <label><%= t("admin.residents.index.developer") %></label>
+  <span><%= @resident.developer %></span>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), admin_residents_path, class: "btn" %>
+  </div>
+</div>

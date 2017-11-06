@@ -23,9 +23,8 @@ class Resident < ApplicationRecord
 
   has_one :plot_residency, dependent: :destroy
   delegate :plot, to: :plot_residency, allow_nil: true
-  delegate :developer, :division, :development, :phase, to: :plot, allow_nil: true
-  delegate :number, to: :plot
-  delegate :prefix, to: :plot
+  delegate :developer, :division, :development, :phase, :unit_type, to: :plot, allow_nil: true
+  delegate :number, :prefix, to: :plot
 
   validates :first_name, :last_name, presence: true
   validates :phone_number, phone: true, allow_nil: true

@@ -22,6 +22,16 @@ crumb :admin_user do |user|
   parent :admin_users
 end
 
+# Admin Residents
+crumb :admin_residents do
+  link t("breadcrumbs.admin_residents"), admin_residents_path
+end
+
+crumb :admin_resident do |resident|
+  link resident.to_s, admin_resident_path(resident)
+  parent :admin_residents
+end
+
 # Admin Notifications
 crumb :admin_notifications do
   link t("breadcrumbs.admin_notifications"), admin_notifications_path

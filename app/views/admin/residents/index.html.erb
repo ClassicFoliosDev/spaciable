@@ -1,0 +1,40 @@
+<% breadcrumb :admin_residents %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <i class="fa fa-person"></i>
+    <%= t(".title") %>
+  </h3>
+</div>
+
+<table class="record-list">
+  <thead>
+    <tr>
+      <th><%= t(".name") %></th>
+      <th><%= t(".email") %></th>
+      <th><%= t(".plot") %></th>
+      <th><%= t(".unit_type") %></th>
+      <th><%= t(".development") %></th>
+      <th><%= t(".division") %></th>
+      <th><%= t(".developer") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @residents.each do |resident| %>
+    <tr data-user="<%= resident.id %>">
+      <td><%= link_to resident, admin_resident_path(resident) %></td>
+      <td><%= resident.email %></td>
+      <td><%= resident.plot %></td>
+      <td><%= resident.unit_type %></td>
+      <td><%= resident.development %></td>
+      <td><%= resident.division %></td>
+      <td><%= resident.developer %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate @residents %>
+</div>

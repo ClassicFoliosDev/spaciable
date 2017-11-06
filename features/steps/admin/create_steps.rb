@@ -167,3 +167,7 @@ Given(/^there are private plot documents$/) do
   CreateFixture.create_private_document
   CreateFixture.create_private_document
 end
+
+Given(/^there is a phase plot with a resident$/) do
+  CreateFixture.create_resident_under_a_phase_plot
+end

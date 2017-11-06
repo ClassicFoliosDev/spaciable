@@ -96,6 +96,7 @@ en:
   breadcrumbs:
     admin_notifications: "Notifications"
     admin_notifications_new: "Send notification"
+    admin_residents: "Admin residents"
     admin_users: "Admin users"
     admin_users_add: "Add admin user"
     admin_user_edit: "Edit %{user_email}"
@@ -337,6 +338,18 @@ en:
     search:
       new:
         no_match: "No results found"
+    residents:
+      index:
+        title: "Residents"
+        plot: "Plot"
+        developer: "Developer"
+        division: "Division"
+        development: "Development"
+        unit_type: "Unit type"
+        name: "Name"
+        email: "Email"
+      show:
+        back: "Back"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
