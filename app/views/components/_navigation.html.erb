@@ -27,6 +27,7 @@
 
       <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
       <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
+      <%= navigation_link(admin_help_path, "question", t(".help"), "navbar-link") %>
 
       <div class="navbar-item">
         <%= link_to destroy_user_session_path, method: :delete, class: "navbar-link" do %>

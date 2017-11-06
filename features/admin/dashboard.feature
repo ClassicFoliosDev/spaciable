@@ -21,3 +21,8 @@ Feature: Dashboard
     And there are notifications
     When I navigate to the dashboard
     Then I see the recent contents
+
+  Scenario: Help file
+    Given I am logged in as an admin
+    When I navigate to the Hoozzi help page
+    Then I see a link to the PDF help file

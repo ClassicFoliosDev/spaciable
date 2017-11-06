@@ -112,3 +112,10 @@ $navbar-bg-color-mobile: $ui-white;
     }
   }
 }
+
+.help-file {
+  .fa {
+    padding: $spacing-small;
+    font-size: 40px;
+  }
+}

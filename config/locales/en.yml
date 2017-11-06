@@ -204,6 +204,7 @@ en:
       notifications: "Notifications"
       contacts: "Contacts"
       howtos: "How tos"
+      help: "Hoozzi help"
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
@@ -350,6 +351,9 @@ en:
         email: "Email"
       show:
         back: "Back"
+    help:
+      show:
+        help_file: "Hoozzi admin interface user guide (PDF)"
 
   dashboard:
     header: "Dashboard title for Hoozzi"

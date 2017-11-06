@@ -30,3 +30,14 @@ Then(/^I see the recent contents$/) do
     expect(page).to have_content(t(".guide"))
   end
 end
+
+When(/^I navigate to the Hoozzi help page$/) do
+  visit "/"
+  click_on t("components.navigation.help")
+end
+
+Then(/^I see a link to the PDF help file$/) do
+  within ".help-file" do
+    expect(page).to have_link(t("admin.help.show.help_file"), href: "/HoozziAdminInterfaceUserGuide.pdf")
+  end
+end
