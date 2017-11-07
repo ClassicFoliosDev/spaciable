@@ -20,11 +20,14 @@ class Resident < ApplicationRecord
   has_many :resident_notifications
   has_many :notifications, through: :resident_notifications
   has_many :private_documents, dependent: :destroy
+  has_many :resident_services, dependent: :delete_all
+  has_many :services, through: :resident_services
 
   has_one :plot_residency, dependent: :destroy
   delegate :plot, to: :plot_residency, allow_nil: true
   delegate :developer, :division, :development, :phase, :unit_type, to: :plot, allow_nil: true
   delegate :number, :prefix, to: :plot
+  delegate :enable_services?, to: :developer
 
   validates :first_name, :last_name, presence: true
   validates :phone_number, phone: true, allow_nil: true

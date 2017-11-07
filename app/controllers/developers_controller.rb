@@ -67,6 +67,7 @@ class DevelopersController < ApplicationController
       :company_name, :email,
       :contact_number, :about,
       :api_key, :house_search,
+      :enable_services,
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

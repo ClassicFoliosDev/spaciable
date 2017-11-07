@@ -100,7 +100,7 @@
   }
 }
 
-.communications {
+.communications, .services {
   i {
     float: right;
   }
@@ -118,8 +118,24 @@
       visibility: hidden;
     }
   }
+
+  h4 {
+    margin-bottom: 0;
+  }
+
+  .resident-service {
+    p {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .show-actions {
   margin-top: 34px;
+}
+
+@include media($tablet-landscape-up) {
+  .resident-service:nth-child(odd) {
+    margin-right: 0;
+  }
 }

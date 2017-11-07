@@ -3,7 +3,8 @@
 class Service < ApplicationRecord
   acts_as_paranoid
 
-  belongs_to :development, optional: false
+  has_many :resident_services, dependent: :delete_all
+  has_many :residents, through: :resident_services
 
-  validates :name, presence: true, uniqueness: { scope: :development_id }
+  validates :name, presence: true, uniqueness: true
 end

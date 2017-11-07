@@ -23,6 +23,11 @@ module Residents
                                            Rails.configuration.mailchimp[:activated])
     end
 
+    def after_accept_path_for(resource)
+      return services_path if resource.plot.developer.enable_services?
+      root_path
+    end
+
     private
 
     def update_resident_subscribe_params

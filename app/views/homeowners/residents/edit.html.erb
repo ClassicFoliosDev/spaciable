@@ -31,9 +31,9 @@
         </div>
       <% end %>
 
-      <div class="half branded-content branded-border">
+      <div class="half details branded-content branded-border">
         <%= f.label :email %>
-        <%= f.text_field :email, class: "readonly" %>
+        <%= f.text_field :email, readonly: true, class: "readonly" %>
         <%= f.input :title,
                     as: :select,
                     collection: Resident.titles,
@@ -44,42 +44,15 @@
         <%= f.input :last_name %>
       </div>
 
-      <div class="half last branded-content branded-border">
+      <div class="half password last branded-content branded-border">
         <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
         <%= f.input :password, autocomplete: "off" %>
         <%= f.input :password_confirmation %>
 
       </div>
 
-      <div class="full branded-content branded-border">
-        <h3><%= t(".comms_preferences") %></h3>
-        <span><%= t(".helpful") %></span>
-        <div>
-          <%= f.label :developer_email_updates, class: "checkbox" do %>
-            <%= f.check_box :developer_email_updates %>
-            <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:developer_email_updates) %>
-          <% end %>
-        </div>
-        <div>
-          <%= f.label :hoozzi_email_updates, class: "checkbox" do %>
-            <%= f.check_box :hoozzi_email_updates %>
-            <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:hoozzi_email_updates) %>
-          <% end %>
-        </div>
-        <label><%= t(".updates_by") %></label>
-        <div>
-          <%= f.label :telephone_updates, class: "checkbox" do %>
-            <%= f.check_box :telephone_updates %>
-            <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:telephone_updates) %>
-          <% end %>
-        </div>
-        <div>
-          <%= f.label :post_updates, class: "checkbox" do %>
-            <%= f.check_box :post_updates %>
-            <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:post_updates) %>
-          <% end %>
-        </div>
-      </div>
+      <%= render "homeowners/residents/communications", f: f %>
+      <%= render "homeowners/residents/services", f: f, services: @services if current_resident.enable_services? %>
 
       <div class="full branded-content branded-border actions">
         <%= f.submit t(".submit"), class: "branded-btn alt" %>

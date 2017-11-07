@@ -26,7 +26,6 @@ class Development < ApplicationRecord
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
   has_many :videos, as: :videoable
-  has_many :services, dependent: :destroy
 
   has_many :plot_documents, through: :plots, source: :documents
 

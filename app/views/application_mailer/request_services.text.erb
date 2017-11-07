@@ -1,0 +1,29 @@
+<%= @title %>
+
+<%= t(".developer_title") %>
+<%= t(".developer") %> <%= @resident.developer %>
+<% if @resident.division %>
+  <%= t(".division") %> <%= @resident.division %>
+<% end %>
+<%= t(".development") %> <%= @resident.development %>
+<%= t(".phase") %> <%= @resident.phase %>
+<%= t(".number") %> <%= @resident.full_plot_number %>
+
+<%= t(".resident_title") %>
+
+<%= t(".first") %> <%= @resident.first_name %>
+<%= t(".last") %> <%= @resident.last_name %>
+<%= t(".email") %> <%= @resident.email %>
+<%= t(".phone") %> <%= @resident.phone_number %>
+
+<%= t(".subscribed") %>
+<% @new_services.each do | service | %>
+  <%= service %>
+<% end %>
+
+<% if @old_services&.any? %>
+  <%= t(".unsubscribed") %>
+  <% @old_services.each do | service | %>
+    <%= service %>
+  <% end %>
+<% end %>

@@ -63,6 +63,11 @@ label {
   color: $type-grey;
 }
 
+.checkbox-description {
+  margin-left: $spacing-small / 2;
+  display: inline;
+}
+
 // SELECTS
 
 .ui-selectmenu-button {

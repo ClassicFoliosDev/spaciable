@@ -16,6 +16,6 @@ Feature: Dashboard
     And I can see the data policy page
 
   Scenario: Password
-    Given I have created a homeowner user
+    Given I have created and logged in as a homeowner user
     When I change my homeowner password
     Then I should be logged out of homeowner

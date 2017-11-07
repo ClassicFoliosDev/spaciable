@@ -1,0 +1,37 @@
+<div style="width: 600px; margin: 0 auto; font-family: arial">
+
+  <div style="padding: 60px 40px;">
+    <p><%= @title %></p>
+    <h3><%= t(".developer_title") %></h3>
+    <p><span><strong><%= t(".developer") %></strong></span> <%= @resident.developer %></p>
+    <% if @resident.division %>
+      <p><span><strong><%= t(".division") %></strong></span> <%= @resident.division %></p>
+    <% end %>
+    <p><span><strong><%= t(".development") %></strong></span> <%= @resident.development %></p>
+    <p><span><strong><%= t(".phase") %></strong></span> <%= @resident.phase %></p>
+    <p><span><strong><%= t(".number") %></strong></span> <%= @resident.full_plot_number %></p>
+
+    <h3><%= t(".resident_title") %></h3>
+
+    <p><span><strong><%= t(".first") %></strong></span> <%= @resident.first_name %></p>
+    <p><span><strong><%= t(".last") %></strong></span> <%= @resident.last_name %></p>
+    <p><span><strong><%= t(".email") %></strong></span> <%= @resident.email %></p>
+    <p><span><strong><%= t(".phone") %></strong></span> <%= @resident.phone_number %></p>
+
+    <h3><%= t(".subscribed") %></h3>
+    <% @new_services.each do | service | %>
+      <ul>
+        <li><span><%= service %></span></li>
+      </ul>
+    <% end %>
+
+    <% if @old_services&.any? %>
+      <h3><%= t(".unsubscribed") %></h3>
+      <ul>
+        <% @old_services.each do | service | %>
+          <li><span><del><%= service %></del></span></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

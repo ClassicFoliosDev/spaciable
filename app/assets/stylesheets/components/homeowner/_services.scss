@@ -1,0 +1,56 @@
+.service-container {
+  position: relative;
+  background-color: $ui-light-grey;
+  @include outer-container(1000px);
+  min-height: 1px;
+  top: 100px;
+  padding: $spacing-medium;
+
+  .btn-form-submit {
+    float: right;
+  }
+}
+
+.service {
+  padding: $spacing-small;
+  margin: $spacing-medium 30px;
+  font-size: $base-font-size;
+
+  input {
+    float: right;
+    margin-top: 10px;
+  }
+}
+
+.services-form {
+  height: 500px;
+}
+
+.service-description {
+  color: $type-grey;
+  font-size: $base-small-font-size;
+}
+
+@include media($tablet-landscape-up) {
+  .service {
+    margin: $spacing-medium 44px;
+  }
+}
+
+@include media($tablet-portrait-up) {
+  .service {
+    width: 40%;
+
+    &:nth-child(odd) {
+      float: right;
+    }
+
+    &:nth-child(even) {
+      float: left;
+    }
+  }
+
+  .services-form {
+    height: 320px;
+  }
+}

@@ -19,12 +19,14 @@
     <div class="row">
       <div class="row-item third">
         <fieldset>
+          <div class="ui-front select-container">
             <%= f.input :title,
                 as: :select,
                 collection: Resident.titles,
                 label_method: ->((key, _)) { t_enum(Resident, :title, key) },
                 value_method: ->((key, _)) { key },
                 include_blank: false %>
+          </div>
 
           <%= f.input :first_name, required: true %>
           <%= f.input :last_name, required: true %>

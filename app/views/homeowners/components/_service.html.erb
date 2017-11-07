@@ -1,0 +1,6 @@
+<div class="half resident-service">
+  <label class=<%= service.resident_ids.include?(current_resident.id) ? "selected" : "unselected" %>><%= service.name %>
+    <i class="fa fa-check"></i>
+  </label>
+  <p><%= service.description %></p>
+</div>

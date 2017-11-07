@@ -92,7 +92,6 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :videos, shallow: true
-    resources :services
   end
 
   resources :developers do
@@ -131,6 +130,9 @@ Rails.application.routes.draw do
   scope :homeowners, module: :homeowners do
     resources :how_tos, only: [:show]
     resources :private_documents, only: [:index, :create, :update, :destroy]
+    resources :services, only: [:index] do
+      post :resident_services, on: :collection
+    end
 
     get "contacts/:category",
         to: 'contacts#index',

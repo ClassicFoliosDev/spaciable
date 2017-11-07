@@ -1,0 +1,7 @@
+<% selected = service.residents.include?(current_resident) %>
+<%= label_tag ["services[]",service.id], class: "checkbox" do %>
+  <%= check_box_tag ["services[]",service.id], true, selected %>
+  <i class="fa fa-check"></i> <%= service.name %>
+<% end %>
+
+<div class="service-description"><%= service.description %></div>

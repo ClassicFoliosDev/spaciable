@@ -50,7 +50,7 @@ Then(/^I see the recent homeowner contents$/) do
   end
 end
 
-Given(/^I have created a homeowner user$/) do
+Given(/^I have created and logged in as a homeowner user$/) do
   homeowner = HomeownerUserFixture.create
   login_as homeowner
 end
@@ -66,7 +66,6 @@ When(/^I change my homeowner password$/) do
     click_on t("homeowners.residents.show.edit_profile")
   end
 
-  sleep 0.2
   within(".resident_current_password") do
     fill_in :password, with: HomeownerUserFixture.password
   end
@@ -79,7 +78,7 @@ When(/^I change my homeowner password$/) do
     fill_in :password, with: HomeownerUserFixture.updated_password
   end
 
-  click_on t("admin.users.form.submit")
+  click_on t("homeowners.residents.edit.submit")
 end
 
 Then(/^I should be logged out of homeowner$/) do

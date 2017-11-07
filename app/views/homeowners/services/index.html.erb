@@ -1,0 +1,25 @@
+<div class="service-container branded-body">
+  <div class="preamble">
+  <h2><%= t(".title") %></h2>
+  <p><%= t(".description") %></p>
+  </div>
+
+  <%= simple_form_for :services, url: resident_services_services_path do | f | %>
+    <div class="services-form">
+      <%= f.simple_fields_for :service_ids do %>
+        <% @services.each do | service | %>
+          <%= render 'service', service: service %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="footer">
+      <div>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+      <br/>
+      <div>
+        <p class="right"><%= t(".postamble") %></p>
+      </div>
+    </div>
+  <% end %>
+</div>

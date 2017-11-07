@@ -240,6 +240,24 @@ en:
     leave_blank: "Leave this unchecked for anonymous feedback"
     email_addr_title: "User email address"
 
+  application_mailer:
+    request_services:
+      title: "%{name} has updated their services requests"
+      developer_title: "Plot details"
+      resident_title: "Resident details"
+      subscribed: "Resident has subscribed to"
+      unsubscribed: "Resident has unsubscribed from"
+      developer: "Developer:"
+      division: "Division:"
+      development: "Development:"
+      phase: "Phase:"
+      plot: "Plot:"
+      number: "Plot number:"
+      first: "First name:"
+      last: "Last name:"
+      email: "Email address:"
+      phone: "Phone number:"
+
   forms:
     required: "Required"
 
@@ -525,11 +543,13 @@ en:
         my_account: "My account"
         current_password: "Current password"
         current_password2: "Only required for new password"
-        submit: "Submit"
-        comms_preferences: "Communication preferences"
+        submit: "Save"
+      communications:
+        title: "Communication preferences"
         updates_by: "Updates on products and services by:"
         helpful: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click submit"
-
+      services:
+        title: "Services"
       show:
         my_account: "My account"
         title: "Title"
@@ -537,13 +557,24 @@ en:
         email: "Email address"
         name: "Full name"
         dummy_password: "********"
-        edit_profile: "Edit profile"
+        comms_preferences: "Communication preferences"
+        edit_profile: "Update preferences"
         developer_email_updates: "Developer emails"
         hoozzi_email_updates: "Hoozzi emails"
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
+        services: "Services"
       update:
         success: "Your account has been updated successfully"
+        updated_services: " and your services have been requested"
+    services:
+      index:
+        title: "Moving services"
+        description: "Hoozzi can provide a number of additional services to make your moving service as easy as possible. Click on the services you may be interested in below to receive more information"
+        submit: "Got it, let's go"
+        postamble: "You can always choose services later through your Account Settings"
+      resident_services:
+        success: "Your services have been requested"
 
   developers:
     destroy:
@@ -575,8 +606,10 @@ en:
       back: "Back"
       address: "Postal address"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
-      enable_house_search: "Enable house search link"
-      house_search_description: "Provides an external link to the BestArea4Me site from the homeowner site"
+      enable_house_search: "Enable area guide link"
+      house_search_description: "Provides an external link to BestArea4Me from the Hoozzi homeowner site"
+      enable_services: "Enable homeowner to request services"
+      services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
     index:
       add: "Add developer"
       actions: "Actions"
@@ -600,9 +633,10 @@ en:
       faqs: "FAQs"
       brands: "Styling"
     developer:
-      list_id: "List id "
+      list_id: "List id: "
       none: "(not configured)"
-      house_search: "House search "
+      house_search: "Area guide: "
+      services: "Services: "
       enabled: "enabled"
       disabled: "disabled"
 
