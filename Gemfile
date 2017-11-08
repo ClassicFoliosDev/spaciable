@@ -81,7 +81,7 @@ gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.
 
 # Background Jobs
 gem "carrierwave_backgrounder"
-gem "sidekiq", "~> 4.2"
+gem "sidekiq", "~> 5.0"
 
 # Process management
 gem "activerecord-session_store" # Store session data to avoid cookie cache overflow
