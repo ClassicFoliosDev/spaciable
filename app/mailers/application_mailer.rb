@@ -26,7 +26,7 @@ class ApplicationMailer < ActionMailer::Base
     @title = I18n.t("application_mailer.request_services.title", name: resident.to_s)
 
     @resident = resident
-    @new_services = resident.services.pluck(&:name)
+    @new_services = resident.services.map(&:name)
     @old_services = old_service_names
 
     mail to: "services@hoozzi.com", subject: @title
