@@ -10,7 +10,7 @@ end
 
 When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
   goto_resource_show_page(parent, resource)
-  sleep 0.3
+  sleep 0.4
 
   within ".tabs" do
     click_on t("developers.collection.faqs")
@@ -33,15 +33,19 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
 end
 
 Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, parent, resource|
-  sleep 0.2
   attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
   category = FaqsFixture.t_category(attrs[:category])
   notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
   notice << t("resident_notification_mailer.notify.update_sent", count: 0) if action == "updated"
 
-  expect(page).to have_content(notice)
-  expect(page).to have_content(attrs[:question])
-  expect(page).to have_content(category)
+  within ".notice" do
+    expect(page).to have_content(notice)
+  end
+
+  within ".faqs" do
+    expect(page).to have_content(attrs[:question])
+    expect(page).to have_content(category)
+  end
 
   within ".breadcrumbs" do
     expect(page).to have_content(CreateFixture.get(resource, parent))
@@ -51,11 +55,15 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
     click_on attrs[:question]
   end
 
-  expect(page).to have_content(attrs[:question])
-  expect(page).to have_content(attrs[:answer])
-  expect(page).to have_content(category)
+  within ".faq" do
+    expect(page).to have_content(attrs[:question])
+    expect(page).to have_content(attrs[:answer])
+    expect(page).to have_content(category)
+  end
 
-  click_on t("faqs.show.back")
+  within ".form-actions-footer-container" do
+    click_on t("faqs.show.back")
+  end
 end
 
 When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
@@ -66,16 +74,18 @@ When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
   end
 
   attrs = FaqsFixture.faq_attrs(:updated, parent, under: resource)
-
-  fill_in :faq_question, with: attrs[:question]
-  fill_in_ckeditor(:faq_answer, with: attrs[:answer])
-
   category = FaqsFixture.t_category(attrs[:category])
-  select_from_selectmenu :faq_category, with: category
 
-  check :faq_notify
+  within ".faq" do
+    fill_in :faq_question, with: attrs[:question]
+    fill_in_ckeditor(:faq_answer, with: attrs[:answer])
+    select_from_selectmenu :faq_category, with: category
+  end
 
-  click_on t("faqs.form.submit")
+  within ".form-actions-footer-container" do
+    check :faq_notify
+    click_on t("faqs.form.submit")
+  end
 end
 
 When(/^I delete the Developer FAQ$/) do
@@ -111,9 +121,13 @@ Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resou
   goto_resource_show_page(nil, parent_resource)
 
   sleep 0.2
-  click_on t("developers.collection.faqs")
+  within ".tabs" do
+    click_on t("developers.collection.faqs")
+  end
 
-  expect(page).not_to have_link(t("faqs.collection.add"))
+  within ".main-container" do
+    expect(page).not_to have_link(t("faqs.collection.add"))
+  end
 
   within ".record-list" do
     expect(page).not_to have_selector("[data-action='edit']")

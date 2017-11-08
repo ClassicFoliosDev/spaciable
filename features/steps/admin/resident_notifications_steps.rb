@@ -55,9 +55,9 @@ When(/^I send a notification to all residents$/) do
 end
 
 When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
-  type, instance = ResidentNotificationsFixture.extract_resource(parent, resource_class)
-
   ActionMailer::Base.deliveries.clear
+
+  type, instance = ResidentNotificationsFixture.extract_resource(parent, resource_class)
   attrs = ResidentNotificationsFixture::MESSAGES[type]
 
   within ".section-actions" do
@@ -130,12 +130,14 @@ Then(/^the resident under that (\(\w+\) )?(\w+) should receive a notification$/)
 
   expect(emailed_addresses).to match_array([plot.resident.email])
 
-  notice = t(
+  within ".notice" do
+    notice = t(
     "admin.notifications.create.success",
     notification_name: ResidentNotificationsFixture::MESSAGES.dig(type, :subject),
     count: 1
   )
-  expect(page).to have_content(notice)
+    expect(page).to have_content(notice)
+  end
 end
 
 Then(/^I can see the (\(\w+\) )?(\w+) notification I sent to the resident$/) do |parent, plot_class|
