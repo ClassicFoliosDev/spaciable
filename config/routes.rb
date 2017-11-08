@@ -203,4 +203,21 @@ Rails.application.routes.draw do
   devise_scope :resident do
     root 'residents/sessions#new'
   end
+
+  #### HOOZZI B2C ####
+  devise_for :clients,
+             path: "b2c",
+             controllers: {
+                 sessions: 'b2c/clients/sessions',
+                 passwords: 'b2c/clients/passwords',
+                 confirmations: 'b2c/clients/confirmations',
+                 registrations: 'b2c/clients/registrations',
+                 unlocks: 'b2c/clients/unlocks',
+                 omniauth: 'b2c/clients/omniauth',
+                 invitations: 'b2c/clients/invitations'
+             }
+
+  devise_scope :client do
+    get '/b2c', to: "b2c/clients/registrations#new"
+  end
 end

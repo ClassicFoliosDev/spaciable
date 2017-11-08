@@ -1,0 +1,58 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# Here's an example of text with a parameter from a controller
+#
+#  redirect_to @developer, notice: "#{@developer.company_name}#{t("controller.success.create")}"
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+# =========================== Style guide ====================
+# Use double quotes
+# Phrases should begin with capital letter
+# Do not use a full stop at the end of the text
+# Otherwise use punctuation as normal
+# Avoid apostrophes: can not instead of can't
+# (they can cause both code pain and translation pain)
+# Words that are likely to be reused a lot are under "views"
+# ===========================================================
+
+en:
+  layouts:
+    b2c:
+      head:
+        hoozzi: "Hoozzi"
+
+  b2c_mailer:
+    title: "Welcome to Hoozzi"
+    register:
+      success: "You have successfully signed up for Hoozzi"
+      email: "Email address:"
+      name: "Name:"
+
+  b2c:
+    clients:
+      registrations:
+        new:
+          title: "Sign up for free"
+          description: "Add your first property for free now and start using Hoozzi"
+          name: "Your name"
+          email: "Your email address"
+          password: "Your password"
+          submit: "Sign up"

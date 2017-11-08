@@ -12,9 +12,11 @@ Rails.application.config.assets.version = '1.0'
 
 Rails.application.config.assets.paths += %w( manifest_homeowner.css )
 Rails.application.config.assets.paths += %w( manifest_admin.css )
+Rails.application.config.assets.paths += %w( manifest_b2c.css )
 
 Rails.application.config.assets.precompile += %w( manifest_homeowner.css )
 Rails.application.config.assets.precompile += %w( manifest_admin.css )
+Rails.application.config.assets.precompile += %w( manifest_b2c.css )
 Rails.application.config.assets.precompile += %w( logo.png )
 Rails.application.config.assets.precompile += ["styleguide.html"]
 

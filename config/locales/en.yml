@@ -82,8 +82,8 @@ en:
       title: "Login to Hoozzi"
     email:
       hoozzi_copyright: "Hoozzi &copy; %{year}"
-    homeowner_head:
-      hoozzi: "Hoozzi"
+    common_header:
+      title: "Hoozzi"
 
   controller:
     resource_not_found: "Resource not found"

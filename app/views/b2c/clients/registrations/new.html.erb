@@ -1,0 +1,25 @@
+<%= render 'components/homeowner/carousel' %>
+
+<div class="register">
+  <%= simple_form_for(resource, as: resource_name, url: client_registration_path) do |f| %>
+    <h2><%= t(".title") %></h2>
+    <p><%= t(".description") %></p>
+
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <div class="sign-section name">
+        <%= f.input :name, required: true, label: false, placeholder: t(".name") %>
+      </div>
+      <div class="sign-section email">
+        <%= f.input :email, required: true, label: false, placeholder: t(".email") %>
+      </div>
+      <div class="sign-section password" %>
+        <%= f.input :password, required: true, label: false, placeholder: t(".password") %>
+      </div>
+      <div class="sign-section submit">
+        <%= f.button :submit, t(".submit"), class: "btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

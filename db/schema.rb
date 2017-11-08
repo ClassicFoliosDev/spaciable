@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171107103748) do
+ActiveRecord::Schema.define(version: 20171108102914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,24 @@ ActiveRecord::Schema.define(version: 20171107103748) do
     t.index ["type"], name: "index_ckeditor_assets_on_type", using: :btree
   end
 
+  create_table "clients", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "name"
+    t.index ["email"], name: "index_clients_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true, using: :btree
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -158,6 +176,7 @@ ActiveRecord::Schema.define(version: 20171107103748) do
     t.boolean  "house_search"
     t.boolean  "enable_services", default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
 
   create_table "developments", force: :cascade do |t|
@@ -176,8 +195,6 @@ ActiveRecord::Schema.define(version: 20171107103748) do
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
     t.index ["name", "developer_id", "division_id"], name: "index_developments_on_name_and_developer_id_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "developer_id"], name: "index_developments_on_name_and_developer_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["name", "division_id"], name: "index_developments_on_name_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -263,9 +280,9 @@ ActiveRecord::Schema.define(version: 20171107103748) do
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
     t.integer  "finish_type_id",         null: false
+    t.integer  "manufacturer_id"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
-    t.integer  "manufacturer_id"
     t.integer  "finish_manufacturer_id"
     t.index ["finish_manufacturer_id"], name: "index_finish_types_manufacturers_on_finish_manufacturer_id", using: :btree
     t.index ["finish_type_id"], name: "index_finish_types_manufacturers_on_finish_type_id", using: :btree
@@ -522,12 +539,12 @@ ActiveRecord::Schema.define(version: 20171107103748) do
     t.string   "name"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.datetime "deleted_at"
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
     t.integer  "build_type",     default: 0
     t.string   "picture"
-    t.datetime "deleted_at"
     t.string   "external_link"
     t.index ["developer_id"], name: "index_unit_types_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_unit_types_on_development_id", using: :btree

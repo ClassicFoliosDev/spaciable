@@ -1,0 +1,10 @@
+<div class="nav-bar">
+  <nav class="nav-menu">
+    <%= render 'b2c/nav/client_nav' if current_client %>
+    <%= render 'b2c/nav/public_nav' unless current_client %>
+  </nav>
+
+  <div class="logo">
+    <%= image_tag "hoozzi-logo-primary.svg", class: "logo" %>
+  </div>
+</div>
