@@ -1,7 +1,7 @@
 <% if @resource.plot.branded_logo.blank? %>
-  <%= image_tag("logo.png", style: "display: block;width:120px;margin: 20px auto") %>
+  <%= image_tag("logo.png", style: "display: block;width:120px;margin: 20px auto", alt: @resource.plot.development.to_s) %>
 <% else %>
-  <%= image_tag(@resource.plot.branded_logo, style: "display: block;width:120px;margin: 20px auto") %>
+  <%= image_tag(@resource.plot.branded_logo, style: "display: block;width:120px;margin: 20px auto", alt: @resource.plot.development.to_s) %>
 <% end %>
 
 <p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.to_s) %></p>
