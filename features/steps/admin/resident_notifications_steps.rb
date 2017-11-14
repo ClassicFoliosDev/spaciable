@@ -64,6 +64,7 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
     click_on t("admin.notifications.collection.add")
   end
 
+  sleep 0.3
   within ".send-targets" do
     if instance.is_a?(Developer)
       within ".developer-id" do

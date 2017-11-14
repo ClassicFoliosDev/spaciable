@@ -14,3 +14,14 @@
   <%= render 'components/homeowner/footer' %>
   </body>
 </html>
+
+<script>
+  /** Default settings inherited from the gem:
+   * The pop-up lives for 15 seconds, then will hide itself
+   * The pop-up is only displayed once every 1440 minutes, ie once per day
+   */
+  addToHomescreen({
+    skipFirstVisit: false, // show on first visit: the user has already accepted a token so we know they are interested
+    maxDisplayCount: 3 // The user will see the pop-up for a further 2 days, then it will stop appearing
+  });
+</script>

@@ -16,4 +16,5 @@
 // = require turbolinks
 // = require ckeditor/init
 // = require select2
+// = require addtohomescreen/addtohomescreen
 // = require_tree .
