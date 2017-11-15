@@ -1,3 +1,5 @@
+<%= t(".welcome", name: @resident.to_s) %>
+
 <%= @content %>
 
 <%= t(".login") %>: <%= resident_sign_in_route(@resident.plot) %>

@@ -66,7 +66,7 @@ Then(/^I should see the updated plot$/) do
     "controller.success.update",
     name: "Plot #{PlotFixture.plot_number}"
   )
-  success_flash << t("resident_notification_mailer.notify.update_sent", count: 0)
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 1)
 
   expect(page).to have_content(success_flash)
 

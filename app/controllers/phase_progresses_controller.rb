@@ -17,14 +17,20 @@ class PhaseProgressesController < ApplicationController
       plot.update_attributes(progress: state)
     end
     if result
-      notice = t(".success", progress: t("activerecord.attributes.plot.progresses.#{state}"))
-      if params[:notify].to_i.positive?
-        notice << ResidentChangeNotifyService.call(@phase, current_user, t("plot_details"))
-      end
-
+      notice = notify(state)
       redirect_to [@phase, :phase_progresses], notice: notice
     else
       render :edit
     end
+  end
+
+  private
+
+  def notify(state)
+    new_state = t("activerecord.attributes.plot.progresses.#{state}")
+    notice = t(".success", progress: new_state)
+    return notice if params[:notify].to_i.zero?
+    notice << ResidentChangeNotifyService.call(@phase.plots.first, current_user,
+                                               t("notify.updated_state", state: new_state), @phase)
   end
 end

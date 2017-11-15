@@ -34,18 +34,12 @@ class PlotDocumentsController < ApplicationController
 
   private
 
-  # rubocop:disable Metrics/AbcSize
   def process_documents
     Rails.logger.debug("> Process documents start #{Time.zone.now}")
     matched, unmatched, error = BulkUploadPlotDocumentsService
                                 .call(@parent.plots, plot_document_params, params)
 
-    notice = t(".success", matched: matched.count) if matched.any?
-
-    if plot_document_params[:notify].to_i.positive? && notice
-      notice << ResidentChangeNotifyService
-                .call(@parent, current_user, Document.model_name.human.pluralize)
-    end
+    notice = notify_and_notice(matched) if matched.any?
 
     alert = t(".failure", unmatched: unmatched.to_sentence) if unmatched.any?
     alert = error if error&.length&.positive?
@@ -53,7 +47,21 @@ class PlotDocumentsController < ApplicationController
     Rails.logger.debug("< Process documents end #{Time.zone.now}")
     [notice, alert]
   end
-  # rubocop:enable Metrics/AbcSize
+
+  def notify_and_notice(matched)
+    notice = t(".success", matched: matched.count)
+
+    if plot_document_params[:notify].to_i.positive?
+      matched.each do |match|
+        ResidentChangeNotifyService.call(match, current_user,
+                                         t("notifications.added"), match.parent)
+      end
+
+      notice << I18n.t("resident_notification_mailer.notify.update_sent", count: matched.count)
+    end
+
+    notice
+  end
 
   def set_parent
     @parent ||= @phase || @development

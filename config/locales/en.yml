@@ -55,7 +55,11 @@ en:
   reminder_title: "%{ordinal} reminder to register with Hoozzi"
   last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
 
-  plot_details: "details"
+  notify:
+    information: "information"
+    added: "added to"
+    updated: "updated for"
+    updated_state: "updated to %{state} for"
 
   # LAYOUTS
   layouts:
@@ -1282,8 +1286,9 @@ en:
     notify:
       new_notification: "You have a new notification from Hoozzi"
       login: "Login to Hoozzi"
+      welcome: "Dear %{name}"
       update_subject: "You have a new update in Hoozzi"
-      update_message: "The %{type} for your home have been updated"
+      update_message: "%{type} %{name} has been %{verb} your home"
       update_sent: " and %{count} residents have been notified"
 
   services:

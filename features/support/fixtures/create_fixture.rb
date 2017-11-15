@@ -274,7 +274,7 @@ module CreateFixture
   end
 
   def create_resident
-    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email)
+    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email, developer_email_updates: 1)
   end
 
   def create_division_contacts

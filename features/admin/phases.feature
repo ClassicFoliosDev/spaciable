@@ -22,6 +22,6 @@ Feature: Phases
   @javascript
   Scenario: Phase plot progress
     Given I am logged in as an admin
-    And there is a phase plot
+    And there is a phase plot with a resident
     When I update the progress for the phase
     Then I should see the plot progress has been updated

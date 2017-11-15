@@ -1,8 +1,11 @@
 <%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
 
+<p>
+  <%= t(".welcome", name: @resident.to_s) %>
+</p>
+
 <%= simple_format @content %>
 
 <p>
   <%= link_to t(".login"), resident_sign_in_route(@resident.plot) %>
-
 </p>

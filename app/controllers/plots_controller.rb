@@ -53,11 +53,7 @@ class PlotsController < ApplicationController
   def update
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
       if updated_plots.any?
-        notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
-        if plot_params[:notify].to_i.positive?
-          notice << ResidentChangeNotifyService.call(@plot, current_user, t("plot_details"))
-        end
-        redirect_to [@parent, :plots], notice: notice, alert: errors
+        notify_and_redirect(updated_plots, errors)
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
@@ -65,6 +61,20 @@ class PlotsController < ApplicationController
         render :edit
       end
     end
+  end
+
+  def notify_and_redirect(updated_plots, errors)
+    notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
+    if plot_params[:notify].to_i.positive?
+      updated_plots.each do |plot_id|
+        plot = Plot.find(plot_id)
+        ResidentChangeNotifyService.call(plot, current_user, t("notify.updated"), plot)
+      end
+
+      notice << I18n.t("resident_notification_mailer.notify.update_sent",
+                       count: updated_plots.count)
+    end
+    redirect_to [@parent, :plots], notice: notice, alert: errors
   end
 
   def destroy

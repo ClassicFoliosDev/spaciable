@@ -116,6 +116,7 @@ Then(/^I should see the development address has not been changed$/) do
 end
 
 When(/^I update the progress for the phase$/) do
+  ActionMailer::Base.deliveries.clear
   visit "/"
   goto_phase_show_page
 
@@ -126,6 +127,7 @@ When(/^I update the progress for the phase$/) do
   select_from_selectmenu :phase_progress_all, with: PhaseFixture.progress
 
   within ".form-actions-footer" do
+    check :notify
     click_on t("phase_progresses.collection.submit")
   end
 end
@@ -135,6 +137,7 @@ Then(/^I should see the plot progress has been updated$/) do
     "phase_progresses.bulk_update.success",
     progress: PhaseFixture.progress
   )
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 1)
 
   within ".notice" do
     expect(page).to have_content(success_flash)
@@ -144,4 +147,10 @@ Then(/^I should see the plot progress has been updated$/) do
     expect(page).to have_content(PhaseFixture.progress)
     expect(page).not_to have_content("Building soon")
   end
+
+  notification = ActionMailer::Base.deliveries.first
+  message = "Plot information has been updated to Ready for exchange for your home"
+  expect(notification.parts.first.body.raw_source).to include message
+
+  ActionMailer::Base.deliveries.clear
 end

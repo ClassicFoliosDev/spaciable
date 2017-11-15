@@ -47,8 +47,8 @@ class DocumentsController < ApplicationController
     if @document.save
       notice = t("controller.success.create", name: @document.title)
       if document_params[:notify].to_i.positive?
-        notice << ResidentChangeNotifyService
-                  .call(@document.parent, current_user, Document.model_name.human.pluralize)
+        notice << ResidentChangeNotifyService.call(@document, current_user,
+                                                   t("notify.added"), @document.parent)
       end
 
       redirect_to target, notice: notice
@@ -76,9 +76,9 @@ class DocumentsController < ApplicationController
 
   def destroy
     authorize! :destroy, @document
-
     @document.destroy
-    redirect_to target, notice: t("controller.success.destroy", name: @document.title)
+    notice = t("controller.success.destroy", name: @document.title)
+    redirect_to target, notice: notice
   end
 
   private
@@ -86,8 +86,8 @@ class DocumentsController < ApplicationController
   def process_html_format
     notice = t("controller.success.update", name: @document.title)
     if document_params[:notify].to_i.positive?
-      notice << ResidentChangeNotifyService
-                .call(@document.parent, current_user, Document.model_name.human.pluralize)
+      notice << ResidentChangeNotifyService.call(@document, current_user,
+                                                 t("notify.updated"), @document.parent)
     end
     redirect_to target, notice: notice
   end

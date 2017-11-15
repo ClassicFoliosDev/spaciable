@@ -13,7 +13,7 @@ When(/^I create a contact with no email or phone$/) do
 
   click_on t("contacts.collection.create")
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
   end
 
@@ -27,13 +27,13 @@ Then(/^I should see the contact create fail$/) do
 
   expect(page).to have_content(fail_flash)
 
-  within ".contacts" do
+  within ".contact" do
     expect(page).not_to have_content(ContactFixture.email)
   end
 end
 
 When(/^I create a contact$/) do
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_email", with: ContactFixture.email
   end
 
@@ -58,24 +58,27 @@ When(/^I update the contact$/) do
     find("[data-action='edit']").click
   end
 
-  fill_in "contact[first_name]", with: ContactFixture.updated_name
-  fill_in "contact[last_name]", with: ContactFixture.last_name
-  fill_in "contact[phone]", with: ContactFixture.phone
-  fill_in "contact[email]", with: ContactFixture.updated_email
+  within ".contact" do
+    fill_in "contact[first_name]", with: ContactFixture.updated_name
+    fill_in "contact[last_name]", with: ContactFixture.last_name
+    fill_in "contact[phone]", with: ContactFixture.phone
+    fill_in "contact[email]", with: ContactFixture.updated_email
 
-  select_from_selectmenu :contact_category, with: ContactFixture.category
-  select_from_selectmenu :contact_title, with: ContactFixture.title
+    select_from_selectmenu :contact_category, with: ContactFixture.category
+    select_from_selectmenu :contact_title, with: ContactFixture.title
 
-  picture_full_path = FileFixture.file_path + FileFixture.avatar_name
-  within ".contact_picture" do
-    attach_file("contact_picture",
-                File.absolute_path(picture_full_path),
-                visible: false)
+    picture_full_path = FileFixture.file_path + FileFixture.avatar_name
+    within ".contact_picture" do
+      attach_file("contact_picture",
+                  File.absolute_path(picture_full_path),
+                  visible: false)
+    end
   end
 
-  check :contact_notify
-
-  click_on t("rooms.form.submit")
+  within ".form-actions-footer" do
+    check :contact_notify
+    click_on t("rooms.form.submit")
+  end
 end
 
 Then(/^I should see the updated contact$/) do
@@ -182,7 +185,7 @@ When(/^I create a division contact with no email or phone$/) do
 
   click_on t("contacts.collection.create")
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
   end
 
@@ -222,7 +225,7 @@ When(/^I create a development contact with no name or organisation$/) do
 
   click_on t("contacts.collection.create")
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
   end
   click_on t("contacts.form.submit")
@@ -269,11 +272,11 @@ When(/^I create a developer contact$/) do
   click_on t("developers.collection.contacts")
   click_on t("contacts.collection.create")
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
   end
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_email", with: ContactFixture.email
   end
 
@@ -295,11 +298,8 @@ When(/^I create a division contact$/) do
   click_on t("developers.collection.contacts")
   click_on t("contacts.collection.create")
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
-  end
-
-  within ".contacts" do
     fill_in "contact_email", with: ContactFixture.email
   end
 
@@ -343,11 +343,8 @@ When(/^I create a development contact$/) do
   click_on t("developers.collection.contacts")
   click_on t("contacts.collection.create")
 
-  within ".contacts" do
+  within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
-  end
-
-  within ".contacts" do
     fill_in "contact_email", with: ContactFixture.email
   end
 
