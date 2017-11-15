@@ -5,20 +5,20 @@ Given(/^there is a developer with divisions$/) do
 end
 
 When(/^I create a division for the developer$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
+  visit "/developers"
 
   within "[data-developer='#{CreateFixture.developer_id}']" do
     click_on t("developers.index.divisions")
   end
 
-  click_on t("divisions.collection.add")
+  within ".divisions" do
+    click_on t("divisions.collection.add")
+  end
 
-  fill_in "division_division_name", with: CreateFixture.division_name
-  click_on t("divisions.form.submit")
+  within ".new_division" do
+    fill_in "division_division_name", with: CreateFixture.division_name
+    click_on t("divisions.form.submit")
+  end
 end
 
 Then(/^I should see the created developer division$/) do
@@ -26,19 +26,24 @@ Then(/^I should see the created developer division$/) do
 end
 
 When(/^I update the developer's division$/) do
-  find("[data-action='edit']").click
 
-  fill_in "division_division_name", with: DeveloperDivisionFixture.updated_division_name
-
-  DeveloperDivisionFixture.update_attrs.each do |attr, value|
-    fill_in "division_#{attr}", with: value
+  within ".divisions" do
+    find("[data-action='edit']").click
   end
 
-  DeveloperDivisionFixture.division_address_attrs.each do |attr, value|
-    fill_in "division_address_attributes_#{attr}", with: value
-  end
+  within ".edit_division" do
+    fill_in "division_division_name", with: DeveloperDivisionFixture.updated_division_name
 
-  click_on t("developers.form.submit")
+    DeveloperDivisionFixture.update_attrs.each do |attr, value|
+      fill_in "division_#{attr}", with: value
+    end
+
+    DeveloperDivisionFixture.division_address_attrs.each do |attr, value|
+      fill_in "division_address_attributes_#{attr}", with: value
+    end
+
+    click_on t("developers.form.submit")
+  end
 end
 
 Then(/^I should see the updated developer division$/) do
@@ -54,9 +59,8 @@ Then(/^I should see the updated developer division$/) do
   # On the show page
   within ".section-header" do
     expect(page).to have_content(DeveloperDivisionFixture.updated_division_name)
-  end
+    expect(page).not_to have_content CreateFixture.division_name
 
-  within ".section-data" do
     DeveloperDivisionFixture.update_attrs.each do |_attr, value|
       expect(page).to have_content(value)
     end
@@ -65,24 +69,27 @@ Then(/^I should see the updated developer division$/) do
       expect(page).to have_content(value)
     end
   end
-
-  expect(page).to have_content DeveloperDivisionFixture.updated_division_name
-  expect(page).not_to have_content CreateFixture.division_name
 end
 
 When(/^I create another division/) do
   visit "/developers"
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.divisions")
-  click_on t("divisions.collection.add")
 
-  fill_in "division_division_name", with: DeveloperDivisionFixture.second_division_name
+  within ".developers" do
+    click_on t("developers.collection.divisions")
+  end
 
-  click_on t("developments.form.submit")
+  within ".divisions" do
+    click_on t("divisions.collection.add")
+  end
+
+  within ".new_division" do
+    fill_in "division_division_name", with: DeveloperDivisionFixture.second_division_name
+    click_on t("developments.form.submit")
+  end
 end
 
 Then(/^I should see the divisions list$/) do
-  within ".record-list" do
+  within ".divisions" do
     expect(page).to have_content DeveloperDivisionFixture.updated_division_name
     expect(page).to have_content DeveloperDivisionFixture.second_division_name
   end
@@ -91,11 +98,11 @@ end
 When(/^I delete the division$/) do
   visit "/developers"
 
-  within ".record-list" do
+  within ".developers" do
     click_on t("developers.collection.divisions")
   end
 
-  delete_and_confirm!(finder_options: { match: :first })
+  delete_and_confirm!(finder_options: { match: :first }, scope: ".divisions")
 end
 
 Then(/^I should see that the deletion was successful for the division$/) do
@@ -109,7 +116,7 @@ Then(/^I should see that the deletion was successful for the division$/) do
     expect(page).to have_content(CreateFixture.developer_name)
   end
 
-  within ".record-list" do
+  within ".divisions" do
     expect(page).not_to have_content DeveloperDivisionFixture.updated_division_name
     expect(page).to have_content(DeveloperDivisionFixture.second_division_name)
   end

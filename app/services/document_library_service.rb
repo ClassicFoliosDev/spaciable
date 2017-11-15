@@ -23,9 +23,15 @@ module DocumentLibraryService
       end
     end
 
-    alldocuments.concat(manuals.compact)
-                .concat(guides.compact)
-                .sort_by { |hash| hash[:timestamp] }.reverse.take(6)
+    documents = alldocuments.concat(manuals.compact)
+                            .concat(guides.compact)
+                            .sort_by { |hash| hash[:timestamp] }.reverse.take(6)
+
+    documents.each do |document|
+      Rails.logger.debug(document[:thumb])
+    end
+
+    documents
   end
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable MethodLength

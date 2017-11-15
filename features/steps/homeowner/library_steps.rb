@@ -2,8 +2,9 @@
 
 Given(/^I am logged in as a homeowner want to download my documents$/) do
   MyLibraryFixture.setup
+  MyLibraryFixture.create_documents
 
-  login_as MyLibraryFixture.resident
+  login_as CreateFixture.resident
   visit "/"
 end
 

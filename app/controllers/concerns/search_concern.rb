@@ -4,14 +4,53 @@ module SearchConcern
   extend ActiveSupport::Concern
 
   def ilike_search(resources, search_term)
-    resources.where("LOWER(name) ILIKE LOWER(?)", "%#{search_term}%")
+    resources.where("LOWER(name) LIKE LOWER(?)", "%#{search_term}%")
   end
 
   def appliance_search(search_term)
-    models = Appliance.where("LOWER(model_num) ILIKE LOWER(?)", "%#{search_term}%")
-    manufacturers = ApplianceManufacturer.where("LOWER(name) ILIKE LOWER(?)", "%#{search_term}%")
-    appliances = Appliance.where(appliance_manufacturer_id: manufacturers)
+    models = Appliance.where("LOWER(model_num) LIKE LOWER(?)", "%#{search_term}%")
+    models = models.accessible_by(current_ability, :read)
+
+    manufacturers = ApplianceManufacturer.where("LOWER(name) LIKE LOWER(?)", "%#{search_term}%")
+    appliances = Appliance.includes(:appliance_manufacturer)
+                          .where(appliance_manufacturer_id: manufacturers)
+    appliances = appliances.accessible_by(current_ability, :read)
 
     (models + appliances).uniq
+  end
+
+  def room_search(search_term)
+    Room.where("LOWER(name) LIKE LOWER(?)",
+               "%#{search_term}%").accessible_by(current_ability, :read)
+  end
+
+  def document_search(search_term)
+    Document.where("LOWER(title) LIKE LOWER(?)",
+                   "%#{search_term}%").accessible_by(current_ability, :read)
+  end
+
+  def contact_search(search_term)
+    Contact.where("LOWER(concat_ws(' ', first_name, last_name, position))
+                  LIKE LOWER(?)", "%#{search_term}%").accessible_by(current_ability, :read)
+  end
+
+  def faq_search(search_term)
+    Faq.where("LOWER(question || answer) LIKE LOWER(?)",
+              "%#{search_term}%").accessible_by(current_ability, :read)
+  end
+
+  def finish_search(search_term)
+    Finish.where("LOWER(finishes.name) LIKE LOWER(?)",
+                 "%#{search_term}%").accessible_by(current_ability, :read)
+  end
+
+  def notification_search(search_term)
+    current_resident.notifications.where("LOWER(subject || message) LIKE LOWER(?)",
+                                         "%#{search_term}%")
+  end
+
+  def how_to_search(search_term)
+    HowTo.where("LOWER(title || summary || description) LIKE LOWER(?)",
+                "%#{search_term}%").accessible_by(current_ability, :read)
   end
 end

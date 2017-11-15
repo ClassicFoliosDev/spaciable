@@ -1,11 +1,13 @@
 <% breadcrumb :phase, @phase %>
 
-<%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
-<%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
-<%= render_collection @collection, parent: @phase %>
+<div class="phase">
+  <%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
+  <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
+  <%= render_collection @collection, parent: @phase %>
 
-<div class="form-actions-footer-container">
-  <div class="form-actions-footer">
-    <%= link_to t(".back"), development_phases_path, class: "btn" %>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), development_phases_path, class: "btn" %>
+    </div>
   </div>
 </div>

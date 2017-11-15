@@ -140,33 +140,27 @@ end
 
 Given(/^there is a unit type room with finish and appliance$/) do
   MyLibraryFixture.setup
-  CreateFixture.create_finish_room
+  MyLibraryFixture.create_documents
 end
 
 Then(/^I should see a duplicate unit type with finish and appliance created successfully$/) do
   new_name = CreateFixture.unit_type_name + " 1"
 
-  within ".record-list" do
+  within ".unit-types" do
     click_on new_name
   end
 
-  within ".record-list" do
+  within ".unit-type" do
     expect(page).to have_content("Unit Type Document")
-  end
-
-  within ".tabs" do
     click_on t("unit_types.collection.rooms")
   end
 
-  within ".record-list" do
+  within ".rooms" do
     click_on CreateFixture.room_name
   end
 
-  within ".record-list" do
+  within ".room" do
     expect(page).to have_content(CreateFixture.finish_name)
-  end
-
-  within ".tabs" do
     click_on t("rooms.collection.appliances")
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108102914) do
+ActiveRecord::Schema.define(version: 20171110120517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.string   "link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_appliance_manufacturer_name", using: :btree
   end
 
   create_table "appliances", force: :cascade do |t|
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.integer  "appliance_category_id"
     t.string   "guide"
     t.integer  "appliance_manufacturer_id"
+    t.index "lower((model_num)::text) varchar_pattern_ops", name: "search_index_on_appliance_model_num", using: :btree
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["appliance_manufacturer_id"], name: "index_appliances_on_appliance_manufacturer_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
@@ -147,6 +149,9 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.index "lower((\"position\")::text) varchar_pattern_ops", name: "search_index_on_contact_position", using: :btree
+    t.index "lower((first_name)::text) varchar_pattern_ops", name: "search_index_on_contact_first_name", using: :btree
+    t.index "lower((last_name)::text) varchar_pattern_ops", name: "search_index_on_contact_last_name", using: :btree
     t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id", using: :btree
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_contacts_on_developer_id", using: :btree
@@ -225,6 +230,7 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.integer  "development_id"
     t.string   "original_filename"
     t.integer  "category"
+    t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["developer_id"], name: "index_documents_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_documents_on_development_id", using: :btree
     t.index ["division_id"], name: "index_documents_on_division_id", using: :btree
@@ -242,6 +248,8 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
+    t.index "lower(answer) varchar_pattern_ops", name: "search_index_on_faq_answer", using: :btree
+    t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
     t.index ["developer_id"], name: "index_faqs_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_faqs_on_development_id", using: :btree
     t.index ["division_id"], name: "index_faqs_on_division_id", using: :btree
@@ -298,6 +306,7 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.integer  "finish_category_id"
     t.integer  "finish_type_id"
     t.integer  "finish_manufacturer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_name", using: :btree
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree
     t.index ["finish_manufacturer_id"], name: "index_finishes_on_finish_manufacturer_id", using: :btree
@@ -336,6 +345,8 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.string   "url"
     t.string   "additional_text"
     t.integer  "how_to_sub_category_id"
+    t.index "lower(description) varchar_pattern_ops", name: "search_index_on_how_to_description", using: :btree
+    t.index "lower(summary) varchar_pattern_ops", name: "search_index_on_how_to_summary", using: :btree
     t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree
   end
 
@@ -361,6 +372,8 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.boolean  "send_to_all",  default: false
     t.string   "plot_numbers",                              array: true
     t.string   "plot_prefix"
+    t.index "lower((subject)::text) varchar_pattern_ops", name: "search_index_on_notification_subject", using: :btree
+    t.index "lower(message) varchar_pattern_ops", name: "search_index_on_notification_message", using: :btree
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree
@@ -502,6 +515,7 @@ ActiveRecord::Schema.define(version: 20171108102914) do
     t.integer  "icon_name"
     t.integer  "plot_id"
     t.integer  "template_room_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_room_name", using: :btree
     t.index ["deleted_at"], name: "index_rooms_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_rooms_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_rooms_on_development_id", using: :btree

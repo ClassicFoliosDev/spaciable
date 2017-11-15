@@ -189,6 +189,7 @@ Rails.application.routes.draw do
 
   authenticated :resident do
     root "homeowners/dashboard#show", as: :homeowner_dashboard
+    get "/homeowner_search", to: "homeowners/search#new", format: :json
   end
 
   authenticated :user do

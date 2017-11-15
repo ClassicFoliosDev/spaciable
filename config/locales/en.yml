@@ -210,8 +210,9 @@ en:
       add: "Add %{type_name}"
       request_add: "You have insufficient permissions. Please contact the Classic Folios team and ask them to create %{type_names}"
     header:
-      search: "Search"
       feedback: "Feedback"
+    search:
+      search: "Search"
 
   destroy:
     cancel: "Cancel"

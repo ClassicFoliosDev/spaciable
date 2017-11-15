@@ -3,7 +3,7 @@ Feature: Finishes
   I want to create finishes
   So that I can add them to make rooms more descriptive
 
-  @javascript
+  @javascript @slow
   Scenario:
     Given I am logged in as an admin
     And I have seeded the database
@@ -26,7 +26,7 @@ Feature: Finishes
     When I remove an image from a finish
     Then I should see the updated finish without the image
 
-  @javascript
+  @javascript @sow
   Scenario: Delete
     Given I am logged in as an admin
     And I have created a finish

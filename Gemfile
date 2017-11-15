@@ -53,8 +53,8 @@ gem "gretel" # breadcrumbs
 # File Uploads
 gem "carrierwave"
 gem "fog-aws"
-gem "mini_magick"
-gem "rmagick"
+gem "mini_magick", "~> 4.8"
+gem "rmagick", "~> 2.16"
 
 # Authentication
 gem "devise", "~> 4.2"

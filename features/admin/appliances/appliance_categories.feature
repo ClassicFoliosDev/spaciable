@@ -3,7 +3,7 @@ Feature: Developers
   I want to add appliance categories
   So that I can use them when I create a new appliance
 
-  @javascript
+  @javascript @slow
   Scenario: Create appliance category
     Given I am logged in as an admin
     And there is an appliance manufacturer
@@ -13,7 +13,7 @@ Feature: Developers
     When I update the appliance category
     Then I should see the updated appliance category
 
-  @javascript
+  @javascript @slow
   Scenario: Test deleting the appliance category
     Given I am logged in as an admin
     And there is an appliance category

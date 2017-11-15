@@ -3,7 +3,7 @@ Feature: Developers
   I want to add manufacturers
   So that I can use them when I create a new appliance
 
-  @javascript
+  @javascript @slow
   Scenario: Create manufacturer
     Given I am logged in as an admin
     And there is an appliance category
@@ -15,7 +15,7 @@ Feature: Developers
     Then I should see the updated appliance manufacturer
     And I should see the appliance that uses it has been updated
 
-  @javascript
+  @javascript @slow
   Scenario: Test deleting the appliance_manufacturer
     Given I am logged in as an admin
     And there is an appliance manufacturer

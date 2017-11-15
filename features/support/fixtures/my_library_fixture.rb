@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
+require_relative "file_create_fixture"
+
 module MyLibraryFixture
+  extend ModuleImporter
+  import_module FileCreateFixture
+
   module_function
 
   DOCUMENTS = [
@@ -30,17 +35,13 @@ module MyLibraryFixture
     }
   ].freeze
 
-  delegate :resident, :appliance, to: :CreateFixture
-  module_function :resident, :appliance
-
   def setup
     CreateFixture.create_appliance_manufacturer
     CreateFixture.create_resident_under_a_phase_plot_with_appliances_and_rooms
+    CreateFixture.create_finish_room
 
     ApplianceFixture.update_appliance_manual
     ApplianceFixture.update_appliance_guide
-
-    create_documents
   end
 
   def create_documents
@@ -48,13 +49,17 @@ module MyLibraryFixture
       path = Rails.root.join("features", "support", "files", attrs[:file])
       file = Rack::Test::UploadedFile.new(path)
 
-      FactoryGirl.create(
+      document = FactoryGirl.create(
         :document,
         title: attrs[:title],
         file: file,
         documentable: attrs[:documentable].call,
         category: attrs[:category]
       )
+
+      preview_file_name = "preview_#{attrs[:file]}"
+      preview_file_name = preview_file_name.sub("pdf", "jpg")
+      write_file(document.id, preview_file_name)
     end
   end
 
@@ -91,7 +96,7 @@ module MyLibraryFixture
   end
 
   def appliance_manuals
-    my_appliance = appliance
+    my_appliance = CreateFixture.appliance
 
     [[my_appliance.name, my_appliance.manual.url]]
   end

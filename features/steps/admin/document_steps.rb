@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 When(/^I upload a document for the developer$/) do
-  visit "/"
+  visit "/developers"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within ".record-list" do
+  within ".developers" do
     click_on CreateFixture.developer_name
   end
 
@@ -31,7 +27,7 @@ When(/^I upload a document for the developer$/) do
 end
 
 Then(/^I should see the created document$/) do
-  within ".record-list" do
+  within ".documents" do
     expect(page).to have_content(DocumentFixture.document_name)
   end
 end
@@ -45,11 +41,11 @@ Then(/^I should see only the created document$/) do
 end
 
 And(/^I should see the original filename$/) do
-  within ".record-list" do
+  within ".documents" do
     click_on DocumentFixture.document_name
   end
 
-  within ".documents" do
+  within ".document" do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.document_name)
     # Wasn't set explicitly, but current behaviour will default it
@@ -60,15 +56,16 @@ end
 When(/^I update the developer's document$/) do
   click_on(t("developers.show.back"))
 
-  within ".record-list" do
+  within ".documents" do
     find("[data-action='edit']").click
   end
 
-  fill_in "document_title", with: DocumentFixture.updated_document_name
+  within ".edit_document" do
+    fill_in "document_title", with: DocumentFixture.updated_document_name
+    select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
 
-  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
-
-  click_on t("developers.form.submit")
+    click_on t("developers.form.submit")
+  end
 end
 
 Then(/^I should see the updated (\w+) document$/) do |parent_type|
@@ -78,19 +75,21 @@ Then(/^I should see the updated (\w+) document$/) do |parent_type|
     "controller.success.update",
     name: DocumentFixture.updated_document_name
   )
-  expect(page).to have_content(success_flash)
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
 
   within ".breadcrumbs" do
     expect(page).to have_content(parent_name)
   end
 
   # On the list page
-  within ".record-list" do
+  within ".documents" do
     click_on DocumentFixture.updated_document_name
   end
 
   # On the show page
-  within ".documents" do
+  within ".document" do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
@@ -101,7 +100,8 @@ end
 
 When(/^I create another document$/) do
   visit "/developers"
-  within ".record-list" do
+
+  within ".developers" do
     click_on CreateFixture.developer_name
   end
 
@@ -109,22 +109,24 @@ When(/^I create another document$/) do
     click_on t("developers.collection.documents")
   end
 
-  click_on t("documents.collection.add")
+  within ".section-actions" do
+    click_on t("documents.collection.add")
+  end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
 
-  within ".documents" do
+  within ".new_document" do
     fill_in "document_title", with: DocumentFixture.second_document_name
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
-  end
 
-  click_on t("developments.form.submit")
+    click_on t("developments.form.submit")
+  end
 end
 
 Then(/^I should see the document in the developer document list$/) do
-  within ".record-list" do
+  within ".documents" do
     expect(page).to have_content DocumentFixture.updated_document_name
     click_on DocumentFixture.second_document_name
     sleep 0.2
@@ -147,7 +149,7 @@ Then(/^I should see that the deletion was successful for the developer document$
   )
   expect(page).to have_content(success_flash)
 
-  within ".record-list" do
+  within ".documents" do
     expect(page).not_to have_content DocumentFixture.updated_document_name
     expect(page).to have_content(DocumentFixture.second_document_name)
   end
@@ -160,7 +162,7 @@ Then(/^I should see that the deletion was successful for the document$/) do
   )
   expect(page).to have_content(success_flash)
 
-  expect(page).not_to have_content(".record-list")
+  expect(page).not_to have_content(".documents")
 
   within ".empty" do
     expect(page).to have_content t("components.empty_list.add", type_name: Document.model_name.human.downcase)
@@ -169,11 +171,11 @@ end
 
 When(/^I upload a document for the division$/) do
   visit "/developers"
-  within ".record-list" do
+  within ".developers" do
     click_on t("developers.collection.divisions")
   end
 
-  within ".record-list" do
+  within ".divisions" do
     click_on CreateFixture.division_name
   end
 
@@ -186,14 +188,14 @@ When(/^I upload a document for the division$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the development$/) do
@@ -209,14 +211,14 @@ When(/^I upload a document for the development$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the division development$/) do
@@ -232,14 +234,14 @@ When(/^I upload a document for the division development$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the phase$/) do
@@ -250,13 +252,11 @@ When(/^I upload a document for the phase$/) do
     click_on t("developments.collection.phases")
   end
 
-  sleep 0.2
-  within ".record-list" do
+  within ".phases" do
     click_on CreateFixture.phase_name
   end
 
-  sleep 0.2
-  within ".tabs" do
+  within ".phase" do
     click_on t("developments.collection.documents")
   end
 
@@ -265,7 +265,7 @@ When(/^I upload a document for the phase$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
@@ -283,13 +283,11 @@ When(/^I upload a document for the unit type$/) do
     click_on t("developments.collection.unit_types")
   end
 
-  sleep 0.3
-  within ".record-list" do
+  within ".unit-types" do
     click_on CreateFixture.unit_type_name
   end
 
-  sleep 0.3
-  within ".tabs" do
+  within ".unit-type" do
     click_on t("developments.collection.documents")
   end
 
@@ -298,14 +296,14 @@ When(/^I upload a document for the unit type$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the division phase$/) do
@@ -316,13 +314,11 @@ When(/^I upload a document for the division phase$/) do
     click_on t("developments.collection.phases")
   end
 
-  sleep 0.2
-  within ".record-list" do
+  within ".phases" do
     click_on CreateFixture.division_phase_name
   end
 
-  sleep 0.2
-  within ".tabs" do
+  within ".phase" do
     click_on t("developments.collection.documents")
   end
 
@@ -331,14 +327,14 @@ When(/^I upload a document for the division phase$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the division plot$/) do
@@ -348,12 +344,8 @@ When(/^I upload a document for the division plot$/) do
     click_on t("developments.collection.plots")
   end
 
-  within ".record-list" do
+  within ".plots" do
     click_on CreateFixture.division_plot_name
-  end
-
-  within ".tabs" do
-    click_on t("developments.collection.documents")
   end
 
   within ".empty" do
@@ -361,32 +353,27 @@ When(/^I upload a document for the division plot$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the plot$/) do
   goto_development_show_page
-  sleep 0.3
+  sleep 0.4
 
   within ".tabs" do
     click_on t("developments.collection.plots")
   end
 
-  sleep 0.2
-  within ".record-list" do
-    click_on "1"
-  end
-
-  sleep 0.2
-  within ".tabs" do
-    click_on t("developments.collection.documents")
+  plots = Plot.where(development_id: CreateFixture.development.id, phase_id: nil)
+  within ".plots" do
+    click_on plots.first.id
   end
 
   within ".empty" do
@@ -412,19 +399,12 @@ When(/^I upload a document for the phase plot$/) do
     click_on t("developments.collection.phases")
   end
 
-  sleep 0.4
-  within ".record-list" do
+  within ".phases" do
     click_on CreateFixture.phase_name
   end
 
-  sleep 0.4
-  within ".record-list" do
+  within ".plots" do
     click_on CreateFixture.phase_plot_name
-  end
-
-  sleep 0.3
-  within ".tabs" do
-    click_on t("developments.collection.documents")
   end
 
   within ".empty" do
@@ -432,14 +412,15 @@ When(/^I upload a document for the phase plot$/) do
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
+
+    click_on t("documents.form.submit")
   end
 
-  click_on t("documents.form.submit")
 end
 
 When(/^I update the document$/) do
@@ -447,12 +428,13 @@ When(/^I update the document$/) do
     find("[data-action='edit']").click
   end
 
-  fill_in "document_title", with: DocumentFixture.updated_document_name
-  select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
+  within ".edit_document" do
+    fill_in "document_title", with: DocumentFixture.updated_document_name
+    select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
 
-  check :document_notify
-
-  click_on t("developers.form.submit")
+    check :document_notify
+    click_on t("developers.form.submit")
+  end
 end
 
 Then(/^I should see the updated document for the plot$/) do
@@ -468,12 +450,12 @@ Then(/^I should see the updated document for the plot$/) do
   end
 
   # On the list page
-  within ".record-list" do
+  within ".documents" do
     click_on DocumentFixture.updated_document_name
   end
 
   # On the show page
-  within ".documents" do
+  within ".document" do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
@@ -494,12 +476,12 @@ Then(/^I should see the updated document for the phase plot$/) do
   end
 
   # On the list page
-  within ".record-list" do
+  within ".documents" do
     click_on DocumentFixture.updated_document_name
   end
 
   # On the show page
-  within ".documents" do
+  within ".document" do
     expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name

@@ -1,0 +1,13 @@
+<div class="search-container">
+  <%= simple_form_for :search, html: { autocomplete: 'off' } do |f| %>
+    <span>
+      <%= f.text_field :search_text, class: "search-field", placeholder: t(".search") %>
+      <%= link_to "", class: "btn search-btn" do %>
+        <i class="fa fa-search"></i>
+      <% end %>
+    </span>
+    <div class="search-results-container">
+      <ul class="search-results"></ul>
+    </div>
+  <% end %>
+</div>

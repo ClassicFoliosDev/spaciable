@@ -39,6 +39,10 @@ Given(/^there is a plot for the division development$/) do
   CreateFixture.create_division_development_plot
 end
 
+Given(/^there is a division$/) do
+  CreateFixture.create_division
+end
+
 Given(/^there is a division plot$/) do
   CreateFixture.create_developer
   CreateFixture.create_division

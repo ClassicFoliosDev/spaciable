@@ -13,6 +13,7 @@ module CreateFixture
     division: "Hamble Riverside Division",
     division_development: "Hamble East Riverside Division Development",
     division_phase: "Beta (Division) Phase",
+    division_contact: "John",
     finish: "Fluffy carpet",
     phase: "Alpha Phase",
     plot: "100",
@@ -20,7 +21,10 @@ module CreateFixture
     division_plot: "300",
     room: "Living Room",
     unit_type: "8 Bedrooms",
-    how_to: "How to dig yourself a hole"
+    how_to: "How to dig yourself a hole",
+    contact: "Jane",
+    faq: "How do I dig holes?",
+    notification: "You have dug a hole"
   }.freeze
 
   # Generate methods for each resource, e.g. for 'phase: "Alpha Phase"':
@@ -182,11 +186,12 @@ module CreateFixture
   end
 
   def create_notification
-    FactoryGirl.create(:notification)
+    notification = FactoryGirl.create(:notification, subject: notification_name, send_to_type: "Phase", send_to_id: phase.id)
+    FactoryGirl.create(:resident_notification, resident_id: resident.id, notification_id: notification.id)
   end
 
   def create_faq
-    FactoryGirl.create(:faq, developer: developer, faqable: developer)
+    FactoryGirl.create(:faq, question: faq_name, developer: developer, faqable: developer)
   end
 
   def create_appliance_without_manual
@@ -274,7 +279,7 @@ module CreateFixture
 
   def create_division_contacts
     FactoryGirl.create(:contact, contactable: developer, category: "management")
-    FactoryGirl.create(:contact, contactable: division, category: "customer_care")
+    FactoryGirl.create(:contact, first_name: division_contact_name, contactable: division, category: "customer_care")
     FactoryGirl.create(:contact, contactable: division_development, category: "management")
   end
 
@@ -285,7 +290,7 @@ module CreateFixture
   end
 
   def create_contacts
-    FactoryGirl.create(:contact, contactable: developer, category: "emergency")
+    FactoryGirl.create(:contact, first_name: contact_name, contactable: developer, category: "emergency")
     FactoryGirl.create(:contact, contactable: development, category: "services")
   end
 

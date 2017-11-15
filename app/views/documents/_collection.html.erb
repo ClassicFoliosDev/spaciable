@@ -10,32 +10,34 @@
     </div>
   <% end %>
 
-  <table class="record-list">
-    <thead>
-      <tr>
-        <th><%= sortable(Document, :title) %></th>
-        <th><%= sortable(Document, :size) %></th>
-        <th><%= sortable(Document, :updated_at) %></th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% collection.each do |document| %>
-      <tr data-document="<%= document.id %>">
-        <td><%= link_to document.title, document_path(document) %></td>
-        <td><%= document.file.size %></td>
-        <td><%= l document.updated_at.to_date, format: :digits %></td>
-        <td class="actions">
-          <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
-            <%= icon "cloud-download" %>
-          <% end %>
-          <%= edit_btn edit_document_path(document), element: document %>
-          <%= delete_btn document, path: url_for(document), element: document %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="documents">
+    <table class="record-list">
+      <thead>
+        <tr>
+          <th><%= sortable(Document, :title) %></th>
+          <th><%= sortable(Document, :size) %></th>
+          <th><%= sortable(Document, :updated_at) %></th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% collection.each do |document| %>
+        <tr data-document="<%= document.id %>">
+          <td><%= link_to document.title, document_path(document) %></td>
+          <td><%= document.file.size %></td>
+          <td><%= l document.updated_at.to_date, format: :digits %></td>
+          <td class="actions">
+            <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
+              <%= icon "cloud-download" %>
+            <% end %>
+            <%= edit_btn edit_document_path(document), element: document %>
+            <%= delete_btn document, path: url_for(document), element: document %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 
   <div class="paging">
     <%= render 'components/page_size' %>

@@ -33,8 +33,12 @@ function searchGlobal () {
   var searchText = $searchField[0].value
 
   var url = '/search'
-  var data = { search_term: searchText }
+  var $homeowner = $('.homeowner-view')
+  if ($homeowner.length > 0) {
+    url = '/homeowner_search'
+  }
 
+  var data = { search_term: searchText }
   var $searchList = $('.search-results')
   setSearchFields($searchList, url, data)
 }
@@ -92,7 +96,7 @@ function setSearchFields ($searchList, url, data) {
     $.each(results, function (key, value) {
       var span1 = document.createElement('span')
       span1.className = 'strong'
-      span1.innerHTML = value.type
+      span1.innerHTML = value.type + " "
 
       var span2 = document.createElement('span')
       span2.innerHTML = value.name

@@ -1,6 +1,8 @@
+$search-width: 460px;
+
 .search-container {
   float: right;
-  width: 600px;
+  width: 500px;
   font-size: $base-small-font-size;
   line-height: $base-small-font-size;
 
@@ -24,21 +26,27 @@
   input[type="text"] {
     display: inline-block;
     border-style: solid;
-    width: 200px;
+    width: $search-width;
     padding-left: 38px;
     border-radius: 0;
   }
 }
 
 .search-btn {
-  margin-left: -200px;
+  margin-left: -$search-width;
   padding: $spacing-small;
   border: none;
 }
 
 .search-results-container {
-  width: 360px;
+  width: $search-width;
   margin-top: -10px;
+  position: absolute;
+  z-index: 20;
+
+  .search-results {
+    width: 100%;
+  }
 
   .strong {
     font-weight: bold;
