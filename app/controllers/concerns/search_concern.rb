@@ -8,15 +8,20 @@ module SearchConcern
   end
 
   def appliance_search(search_term)
-    models = Appliance.where("LOWER(model_num) LIKE LOWER(?)", "%#{search_term}%")
-    models = models.accessible_by(current_ability, :read)
+    search_tokens = search_term.split(" ")
+    appliances = []
 
-    manufacturers = ApplianceManufacturer.where("LOWER(name) LIKE LOWER(?)", "%#{search_term}%")
-    appliances = Appliance.includes(:appliance_manufacturer)
-                          .where(appliance_manufacturer_id: manufacturers)
-    appliances = appliances.accessible_by(current_ability, :read)
+    search_tokens.each do |token|
+      appliances << Appliance.where("LOWER(model_num) LIKE LOWER(?)",
+                                    "%#{token}%").accessible_by(current_ability, :read)
 
-    (models + appliances).uniq
+      manufacturers = ApplianceManufacturer.where("LOWER(name) LIKE LOWER(?)", "%#{token}%")
+      appliances << Appliance.includes(:appliance_manufacturer)
+                    .where(appliance_manufacturer_id: manufacturers)
+                             .accessible_by(current_ability, :read)
+    end
+
+    appliances.flatten.to_set.flatten
   end
 
   def room_search(search_term)

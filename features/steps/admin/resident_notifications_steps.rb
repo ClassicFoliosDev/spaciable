@@ -56,13 +56,10 @@ end
 
 When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
   ActionMailer::Base.deliveries.clear
+  visit "/admin/notifications/new"
 
   type, instance = ResidentNotificationsFixture.extract_resource(parent, resource_class)
   attrs = ResidentNotificationsFixture::MESSAGES[type]
-
-  within ".section-actions" do
-    click_on t("admin.notifications.collection.add")
-  end
 
   sleep 0.3
   within ".send-targets" do

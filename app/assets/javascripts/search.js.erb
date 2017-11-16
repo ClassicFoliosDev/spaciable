@@ -38,7 +38,7 @@ function searchGlobal () {
     url = '/homeowner_search'
   }
 
-  var data = { search_term: searchText }
+  var data = { search_term: searchText.trim() }
   var $searchList = $('.search-results')
   setSearchFields($searchList, url, data)
 }

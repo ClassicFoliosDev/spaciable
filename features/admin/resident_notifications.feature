@@ -27,10 +27,6 @@ Feature: Resident Notifications
     Then all residents under that Phase should receive a notification
     And I can see the Phase notification I sent
 
-    When I send a notification to a resident under a (Developer) Plot
-    Then the resident under that (Developer) Plot should receive a notification
-    And I can see the (Developer) Plot notification I sent to the resident
-
     When I send a notification to a resident under a (Phase) Plot
     Then the resident under that (Phase) Plot should receive a notification
     And I can see the (Phase) Plot notification I sent to the resident
@@ -53,10 +49,6 @@ Feature: Resident Notifications
     When I send a notification to residents under a Phase
     Then all residents under that Phase should receive a notification
     And I can see the Phase notification I sent
-
-    When I send a notification to a resident under a (Developer) Plot
-    Then the resident under that (Developer) Plot should receive a notification
-    And I can see the (Developer) Plot notification I sent to the resident
 
     When I send a notification to a resident under a (Phase) Plot
     Then the resident under that (Phase) Plot should receive a notification
@@ -91,10 +83,6 @@ Feature: Resident Notifications
     When I send a notification to residents under a Phase
     Then all residents under that Phase should receive a notification
     And I can see the Phase notification I sent
-
-    When I send a notification to a resident under a (Development) Plot
-    Then the resident under that (Development) Plot should receive a notification
-    And I can see the (Development) Plot notification I sent to the resident
 
     When I send a notification to a resident under a (Phase) Plot
     Then the resident under that (Phase) Plot should receive a notification

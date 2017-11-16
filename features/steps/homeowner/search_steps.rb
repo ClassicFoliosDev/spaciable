@@ -16,7 +16,8 @@ Then(/^I see the matching finish$/) do
 end
 
 When(/^I search for a room$/) do
-  search_for(CreateFixture.room_name)
+  # Test a trailing space
+  search_for("#{CreateFixture.room_name} ")
 end
 
 Then(/^I see the matching room$/) do
@@ -71,7 +72,7 @@ Then(/^I see the matching how\-to$/) do
 end
 
 When(/^I search for an appliance$/) do
-  search_for(CreateFixture.appliance_name)
+  search_for(CreateFixture.full_appliance_name)
 end
 
 Then(/^I see the matching appliance$/) do
