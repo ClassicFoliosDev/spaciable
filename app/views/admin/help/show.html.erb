@@ -1,7 +1,7 @@
 <div class="row">
   <div class="help-file">
     <label><%= t(".help_file") %></label>
-    <%= link_to @help_doc_path, target: "_blank", title: t(".help_file") do %>
+    <%= link_to asset_path("HoozziAdminInterfaceUserGuide.pdf"), target: "_blank", title: t(".help_file") do %>
       <%= fa_icon "file-pdf-o" %>
     <% end %>
   </div>

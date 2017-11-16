@@ -38,6 +38,7 @@ end
 
 Then(/^I see a link to the PDF help file$/) do
   within ".help-file" do
-    expect(page).to have_link(t("admin.help.show.help_file"), href: "/HoozziAdminInterfaceUserGuide.pdf")
+    help_link = page.find_link(t("admin.help.show.help_file"))
+    expect(help_link[:href]).to include("HoozziAdminInterfaceUserGuide")
   end
 end

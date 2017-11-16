@@ -10,8 +10,7 @@ Feature: Dashboard
 
   Scenario: Dashboard with content
     Given I am logged in as an admin
-    And there is a developer with a development
-    And there is a unit type
+    And there is a phase plot with a resident
     And there is a room
     And there are faqs
     And there is a document
