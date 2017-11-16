@@ -67,7 +67,7 @@ class PlotsController < ApplicationController
     notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
     if plot_params[:notify].to_i.positive?
       updated_plots.each do |plot_id|
-        plot = Plot.find(plot_id)
+        plot = Plot.find_by(number: plot_id)
         ResidentChangeNotifyService.call(plot, current_user, t("notify.updated"), plot)
       end
 
