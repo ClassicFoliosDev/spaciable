@@ -97,4 +97,7 @@ Rails.application.configure do
     authentication: Rails.application.secrets.smtp_auth
   }
   config.action_mailer.asset_host = ENV['ASSET_HOST']
+
+  config.enable_development_plots = false
+  config.enable_thumbnails = true
 end

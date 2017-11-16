@@ -47,7 +47,6 @@ Rails.application.configure do
   # Raises error for missing translations
   config.action_view.raise_on_missing_translations = true
 
-  # Path where preview files are stored in codeship
-  #config.file.base_path = "."
+  config.enable_development_plots = true
+  config.enable_thumbnails = false
 end
-
