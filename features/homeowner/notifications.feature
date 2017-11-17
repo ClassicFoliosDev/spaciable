@@ -12,4 +12,3 @@ Feature: Notifications
     When I click on a notification summary
     Then I should see the expanded notification
     And the notification status in my header should change
-

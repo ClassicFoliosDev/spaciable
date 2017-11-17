@@ -8,6 +8,8 @@ RSpec.describe "Reminder jobs", type: :feature do
 
   context "when there are jobs queued for a resident" do
     it "removes them from the queue" do
+      ActionMailer::Base.deliveries.clear
+
       resident = developer_with_residents.residents.first
 
       Sidekiq::Testing.disable! do
@@ -25,11 +27,14 @@ RSpec.describe "Reminder jobs", type: :feature do
 
         scheduled_jobs = Sidekiq::ScheduledSet.new
         expect(scheduled_jobs.size).to eq(initial_jobs)
+
       end
+      ActionMailer::Base.deliveries.clear
     end
 
     context "when there are jobs queued for two residents" do
       it "only removes the one for the matching resident" do
+
         resident = developer_with_residents.residents.first
         resident2 = developer_with_residents.residents.last
 
@@ -49,16 +54,19 @@ RSpec.describe "Reminder jobs", type: :feature do
           expect(scheduled_jobs.size).to eq(initial_jobs + 1)
         end
       end
+      ActionMailer::Base.deliveries.clear
+    end
 
-      context "when there is a job queued and it has not been removed" do
-        it "fires when the wait time expires" do
-          resident = developer_with_residents.residents.first
+    context "when there is a job queued and it has not been removed" do
+      it "fires when the wait time expires" do
+        ActionMailer::Base.deliveries.clear
+        resident = developer_with_residents.residents.first
 
-          InvitationReminderJob.perform_later(resident, "Spec testing 1", "abc")
+        InvitationReminderJob.perform_later(resident, "Spec testing 1", "abc")
 
-          deliveries = ActionMailer::Base.deliveries
-          expect(deliveries.length).to eq(1)
-        end
+        deliveries = ActionMailer::Base.deliveries
+        expect(deliveries.length).to eq(1)
+        ActionMailer::Base.deliveries.clear
       end
     end
   end

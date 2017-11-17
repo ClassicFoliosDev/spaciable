@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe ResidentNotifierService do
   let(:current_user) { create(:developer_admin) }
-  let(:developer_with_residents) { create(:developer, :with_residents) }
+  let(:developer_with_residents) { create(:developer, :with_activated_residents) }
   let(:notification) { create(:notification, send_to: developer_with_residents) }
   let(:deliveries) { ActionMailer::Base.deliveries }
 
@@ -80,8 +80,8 @@ RSpec.describe ResidentNotifierService do
 
     context "send_to_all" do
       it "should create notifications for ALL residents" do
-        create_list(:plot, 1, :with_resident)
-        create_list(:plot, 2, :with_resident, development: create(:division_development))
+        create_list(:plot, 1, :with_activated_resident)
+        create_list(:plot, 2, :with_activated_resident, development: create(:division_development))
 
         all_residents = Resident.all
         cf_admin = create(:cf_admin)
@@ -108,7 +108,7 @@ RSpec.describe ResidentNotifierService do
       end
 
       context "with developer phase plots" do
-        let(:developer_with_phase_residents) { create(:developer, :with_phase_residents, plots_count: 5) }
+        let(:developer_with_phase_residents) { create(:developer, :with_activated_phase_residents, plots_count: 5) }
         let(:notification) { create(:notification, send_to: developer_with_phase_residents) }
 
         it "should create notifications for all developer phase residents" do
@@ -140,7 +140,7 @@ RSpec.describe ResidentNotifierService do
     end
 
     context "send_to Division" do
-      let(:division_with_residents) { create(:division, :with_residents, plots_count: 5) }
+      let(:division_with_residents) { create(:division, :with_activated_phase_residents, plots_count: 5) }
       let(:notification) { create(:notification, send_to: division_with_residents) }
 
       it "should create notifications for all division residents" do
@@ -158,7 +158,7 @@ RSpec.describe ResidentNotifierService do
       end
 
       context "with division phase plots" do
-        let(:division_with_phase_residents) { create(:division, :with_phase_residents) }
+        let(:division_with_phase_residents) { create(:division, :with_activated_phase_residents) }
         let(:notification) { create(:notification, send_to: division_with_phase_residents) }
 
         it "should create notifications for all division phase residents" do
@@ -191,11 +191,11 @@ RSpec.describe ResidentNotifierService do
     end
 
     context "send_to Development" do
-      let(:development_with_residents) { create(:development, :with_residents, plots_count: 5) }
-      let(:notification) { create(:notification, send_to: development_with_residents) }
+      let(:development_with_activated_residents) { create(:development, :with_activated_residents, plots_count: 5) }
+      let(:notification) { create(:notification, send_to: development_with_activated_residents) }
 
       it "should create notifications for all development residents" do
-        development_residents = development_with_residents.residents
+        development_residents = development_with_activated_residents.residents
         raise "no residents" if development_residents.empty?
 
         notified_residents = subject.notify_residents
@@ -205,12 +205,12 @@ RSpec.describe ResidentNotifierService do
 
       context "with a range of plots selected" do
         it "should only send notifications to the selected plot range residents" do
-          residents = development_with_residents.residents
+          residents = development_with_activated_residents.residents
           send_to_residents = residents.take(3)
           plot_numbers = send_to_residents.map(&:plot).map(&:number)
 
           notification = create(:notification,
-                                send_to: development_with_residents,
+                                send_to: development_with_activated_residents,
                                 range_from: plot_numbers.min,
                                 range_to: plot_numbers.max)
 
@@ -222,11 +222,11 @@ RSpec.describe ResidentNotifierService do
     end
 
     context "send_to Phase" do
-      let(:phase_with_residents) { create(:phase, :with_residents) }
-      let(:notification) { create(:notification, send_to: phase_with_residents) }
+      let(:phase_with_activated_residents) { create(:phase, :with_activated_residents) }
+      let(:notification) { create(:notification, send_to: phase_with_activated_residents) }
 
       it "should create notifications for all phase residents" do
-        phase_residents = phase_with_residents.residents
+        phase_residents = phase_with_activated_residents.residents
         raise "no residents" if phase_residents.empty?
 
         notified_residents = subject.notify_residents
@@ -239,7 +239,7 @@ RSpec.describe ResidentNotifierService do
       it "should not return any missing resident plot numbers" do
         development = create(:development)
         notification = create(:notification, send_to: development)
-        plots = create_list(:plot, 3, :with_resident, development: development)
+        plots = create_list(:plot, 3, :with_activated_resident, development: development)
         plot_numbers = plots.map(&:number).map(&:to_s)
 
         service = described_class.new(notification)
@@ -250,7 +250,7 @@ RSpec.describe ResidentNotifierService do
     context "plots with prefixes" do
       it "should send to all plots with the same prefix" do
         development = create(:development)
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "7")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "7")
         notification = create(:notification, send_to: development, plot_prefix: "Apartment")
 
         notified_residents = described_class.new(notification).notify_residents
@@ -263,8 +263,8 @@ RSpec.describe ResidentNotifierService do
       it "should ignore prefixes for all in development" do
         development = create(:development)
         notification = create(:notification, send_to: development)
-        create(:plot, :with_resident, development: development, prefix: "Plot", number: "6")
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "6")
+        create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "6")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "6")
         create(:plot, development: development, prefix: "Penthouse", number: "6")
 
         service = described_class.new(notification)
@@ -276,9 +276,9 @@ RSpec.describe ResidentNotifierService do
 
       it "should send to a range of plots with the same prefix" do
         development = create(:development)
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "7")
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "8")
-        create(:plot, :with_resident, development: development, prefix: "Plot", number: "9")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "7")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "8")
+        create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "9")
         notification = create(:notification, send_to: development, range_from: 7, range_to: 9, plot_prefix: "Apartment")
 
         service = described_class.new(notification)
@@ -292,9 +292,9 @@ RSpec.describe ResidentNotifierService do
 
       it "should send to plot numbers with the same prefix" do
         development = create(:development)
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "5.1")
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "5a")
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "5")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "5.1")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "5a")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "5")
         notification = create(:notification, send_to: development, list: "5, 5a, 5.1", plot_prefix: "Apartment")
 
         notified_residents = described_class.new(notification).notify_residents
@@ -305,9 +305,9 @@ RSpec.describe ResidentNotifierService do
 
       it "should not send to plot numbers with different prefix" do
         development = create(:development)
-        create(:plot, :with_resident, development: development, prefix: "Apartment", number: "4")
-        create(:plot, :with_resident, development: development, prefix: "Plot", number: "4")
-        create(:plot, :with_resident, development: development, prefix: "", number: "4")
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "4")
+        create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "4")
+        create(:plot, :with_activated_resident, development: development, prefix: "", number: "4")
         notification = create(:notification, send_to: development, list: "4, 5", plot_prefix: "Plot")
 
         service = described_class.new(notification)
@@ -373,7 +373,7 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development, list: "2,4,5")
         plots = []
-        plots[0] = create(:plot, :with_resident, development: development, number: "5")
+        plots[0] = create(:plot, :with_activated_resident, development: development, number: "5")
         plots[1] = create(:plot, development: development, number: "4")
         plots[2] = create(:plot, development: development, number: "4", prefix: "Plot")
 
@@ -393,14 +393,14 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development)
         plots = []
-        plots[0] = create(:plot, :with_resident, development: development, number: "5")
+        plots[0] = create(:plot, :with_activated_resident, development: development, number: "5")
         plots[1] = create(:plot, development: development, number: "4")
-        plots[2] = create(:plot, :with_resident, development: development, number: "5.55")
-        plots[3] = create(:plot, :with_resident, development: development, number: "A6")
+        plots[2] = create(:plot, :with_activated_resident, development: development, number: "5.55")
+        plots[3] = create(:plot, :with_activated_resident, development: development, number: "A6")
         plots[4] = create(:plot, development: development, number: "2.31")
-        plots[5] = create(:plot, :with_resident, development: development, number: "3.10")
+        plots[5] = create(:plot, :with_activated_resident, development: development, number: "3.10")
         plots[5] = create(:plot, development: development, number: "5.200")
-        plots[6] = create(:plot, :with_resident, development: development, number: "5.2")
+        plots[6] = create(:plot, :with_activated_resident, development: development, number: "5.2")
         plots[7] = create(:plot, development: development, number: "b8")
 
         service = described_class.new(notification)
@@ -413,8 +413,8 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development, list: "2.6,4a,4b,5.200")
         plots = []
-        plots[0] = create(:plot, :with_resident, development: development, number: "5.200")
-        plots[0] = create(:plot, :with_resident, development: development, number: "4b")
+        plots[0] = create(:plot, :with_activated_resident, development: development, number: "5.200")
+        plots[0] = create(:plot, :with_activated_resident, development: development, number: "4b")
         plots[1] = create(:plot, development: development, number: "4a")
 
         service = described_class.new(notification)
@@ -430,7 +430,7 @@ RSpec.describe ResidentNotifierService do
     context "send_to_all" do
       it "does not return the missing residents" do
         create_list(:plot, 5)
-        create_list(:plot, 5, :with_resident)
+        create_list(:plot, 5, :with_activated_resident)
         notification = create(:notification, send_to_all: true, sender: create(:cf_admin), send_to_id: nil, send_to_type: nil)
 
         described_class.call(notification) do |residents, missing_residents|

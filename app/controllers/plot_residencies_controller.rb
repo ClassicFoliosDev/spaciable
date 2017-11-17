@@ -27,7 +27,7 @@ class PlotResidenciesController < ApplicationController
   def create
     if @plot_residency.save
       ResidentInvitationService.call(@plot_residency.resident, current_user)
-      @plot_residency.resident.developer_email_updates = 1
+      @plot_residency.resident.developer_email_updates = true
 
       notice = Mailchimp::MarketingMailService.call(@plot_residency.resident,
                                                     @plot_residency,

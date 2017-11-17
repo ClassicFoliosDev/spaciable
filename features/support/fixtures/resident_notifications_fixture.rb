@@ -62,7 +62,7 @@ module ResidentNotificationsFixture
     create_division_development
     create_phases
     create_plots
-    create_residents
+    create_activated_residents
   end
 
   def developer_plot

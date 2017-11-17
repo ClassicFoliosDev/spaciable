@@ -7,6 +7,13 @@ FactoryGirl.define do
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
 
+    trait :activated do
+      after(:create) do |resident|
+        resident.developer_email_updates = true
+        resident.save!
+      end
+    end
+
     trait :with_residency do
       transient do
         plot

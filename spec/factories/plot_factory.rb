@@ -13,6 +13,19 @@ FactoryGirl.define do
       phase
     end
 
+    trait :with_activated_resident do
+      transient do
+        resident { build(:resident) }
+      end
+
+      after(:create) do |plot, evaluator|
+        resident = evaluator.resident
+        resident.plot = plot
+        resident.developer_email_updates = true
+        resident.save!
+      end
+    end
+
     trait :with_resident do
       transient do
         resident { build(:resident) }

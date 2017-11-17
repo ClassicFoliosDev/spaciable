@@ -1,31 +1,27 @@
 # frozen_string_literal: true
 
 When(/^I create a HowTo$/) do
-  visit "/"
-  click_on t("components.navigation.howtos")
+  visit "/admin/how_tos"
 
-  sleep 0.3
-  click_on t("admin.how_tos.collection.add")
+  within ".main-container" do
+    click_on t("admin.how_tos.collection.add")
+  end
 
-  fill_in :how_to_title, with: HowToFixture.title
-  fill_in :how_to_summary, with: HowToFixture.summary
-  fill_in_ckeditor(:how_to_description, with: HowToFixture.description)
+  within ".new_how_to" do
 
-  within ".category" do
+    fill_in :how_to_title, with: HowToFixture.title
+    fill_in :how_to_summary, with: HowToFixture.summary
+    fill_in_ckeditor(:how_to_description, with: HowToFixture.description)
+
     select_from_selectmenu :how_to_category, with: HowToFixture.category
-  end
-
-  within ".featured" do
     select_from_selectmenu :how_to_featured, with: HowToFixture.featured
-  end
 
-  within ".how_to_tags_name" do
     tags = HowToFixture.tag + ", " + HowToFixture.tag1
     fill_in t("admin.how_tos.form.new_tag"), with: tags
+
+    click_on t("faqs.form.submit")
   end
 
-  sleep 0.3
-  click_on t("faqs.form.submit")
 end
 
 Given(/^There is a sub category$/) do
@@ -133,7 +129,9 @@ Then(/^I should see the remove complete successfully$/) do
 end
 
 When(/^I delete the HowTo$/) do
-  click_on t("admin.how_tos.show.back")
+  within ".form-actions-footer" do
+    click_on t("admin.how_tos.show.back")
+  end
 
   delete_and_confirm!
 end

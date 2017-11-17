@@ -9,6 +9,8 @@ class ResidentNotificationMailer < ApplicationMailer
   #   en.resident_notification_mailer.notify.subject
   #
   def notify(resident, notification)
+    return unless resident.developer_email_updates?
+
     template_configuration(resident)
     @content = notification.message
 

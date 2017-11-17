@@ -35,8 +35,10 @@
         <%= f.association :unit_type, as: :select, collection: unit_types.pluck(:name, :id) %>
         <label><%= t(".current_progress") %></label>
         <span><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></span>
-        <label><%= t(".update_progress") %></label>
-        <%= f.input :progress, as: :select, collection: progress_collection(plot.progress), label: false %>
+        <div class=" ui-front select-container">
+          <label><%= t(".update_progress") %></label>
+          <%= f.input :progress, as: :select, collection: progress_collection(plot.progress), label: false %>
+        </div>
       </fieldset>
     </div>
 

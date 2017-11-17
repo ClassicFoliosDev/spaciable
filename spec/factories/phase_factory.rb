@@ -14,9 +14,9 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_residents do
+    trait :with_activated_residents do
       after(:create) do |phase|
-        create_list(:phase_plot, 3, :with_resident, phase: phase)
+        create_list(:phase_plot, 3, :with_activated_resident, phase: phase)
       end
     end
   end

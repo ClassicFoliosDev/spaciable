@@ -266,10 +266,10 @@ module CreateFixture
     create_phase_plot
   end
 
-  def create_residents
+  def create_activated_residents
     Plot.all.each do |plot|
       attrs = { first_name: "Resident of", last_name: "plot #{plot}", plot: plot }
-      FactoryGirl.create(:resident, :with_residency, attrs)
+      FactoryGirl.create(:resident, :with_residency, :activated, attrs)
     end
   end
 

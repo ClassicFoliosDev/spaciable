@@ -19,9 +19,7 @@ module ResidentChangeNotifyService
     all_residents = Resident.joins(:plot_residency)
                             .where(plot_residencies: { plot_id: plots_for(parent).pluck(:id) })
 
-    subscribed_residents = all_residents.select do |resident|
-      resident.developer_email_updates == 1
-    end
+    subscribed_residents = all_residents.select(&:developer_email_updates?)
 
     subscribed_residents
   end
