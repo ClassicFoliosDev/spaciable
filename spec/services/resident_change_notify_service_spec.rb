@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe ResidentChangeNotifyService do
-  let(:developer_with_residents) { create(:developer, :with_residents) }
+  let(:developer_with_residents) { create(:developer, :with_phase_residents) }
 
   context "cf admin" do
     let(:current_user) { create(:cf_admin) }

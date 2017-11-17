@@ -4,31 +4,6 @@ Given(/^I have a developer with a development with unit types$/) do
   PlotFixture.create_developer_with_development_and_unit_types
 end
 
-When(/^I create a plot for the development$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within "[data-developer='#{PlotFixture.developer_id}']" do
-    click_on t("developers.index.developments")
-  end
-
-  within "[data-development='#{PlotFixture.development_id}']" do
-    click_on t("developments.collection.plots")
-  end
-
-  click_on t("plots.collection.add")
-  fill_in "plot_list", with: PlotFixture.plot_number
-
-  within ".plot_unit_type" do
-    select PlotFixture.unit_type_name, visible: false
-  end
-
-  click_on t("plots.form.submit")
-end
-
 Then(/^I should see the created plot$/) do
   expect(page).to have_content(PlotFixture.developer_name)
   click_on PlotFixture.plot_name
@@ -143,10 +118,8 @@ end
 
 When(/^I preview the plot$/) do
   within ".record-list" do
-    click_on PlotFixture.plot_name
+    click_on CreateFixture.phase_plot_name
   end
-
-  sleep 0.2
 
   within ".above-footer" do
     click_on t("plots.show.preview")
@@ -165,9 +138,9 @@ Then(/^I see the plot preview page$/) do
     expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))
     expect(page).to have_content(t("homeowners.components.address.my_home_view_more"))
 
-    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:building_name])
-    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:road_name])
-    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:postcode])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:postcode])
 
     expect(page).to have_content(t("homeowners.dashboard.show.contacts_title"))
     expect(page).to have_content(t("homeowners.dashboard.show.contacts_view_more"))
@@ -195,9 +168,9 @@ Then(/^I can see my appliances$/) do
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:building_name])
-    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:road_name])
-    expect(page).to have_content(DeveloperFixture.developer_address_attrs[:postcode])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
+    expect(page).to have_content(PhaseFixture.address_update_attrs[:postcode])
   end
 end
 

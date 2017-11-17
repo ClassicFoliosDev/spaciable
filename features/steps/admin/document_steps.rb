@@ -493,7 +493,7 @@ end
 When(/^I navigate to the plot$/) do
   goto_development_show_page
 
-  within ".actions" do
+  within ".tabs" do
     click_on t("developments.collection.plots")
   end
 end

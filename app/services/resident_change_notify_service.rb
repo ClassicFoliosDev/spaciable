@@ -27,6 +27,8 @@ module ResidentChangeNotifyService
   end
 
   def build_notification(resource, user, verb, parent)
+    return unless resource && parent
+
     type = resource.model_name.human
 
     notification = Notification.create(sender: user)
