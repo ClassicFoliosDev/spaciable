@@ -132,12 +132,6 @@ Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resou
   within ".record-list" do
     expect(page).not_to have_selector("[data-action='edit']")
     expect(page).not_to have_selector("[data-action='delete']")
-
-    click_on attrs[:question]
+    expect(page).to have_content(attrs[:question])
   end
-
-  expect(page).to have_content(attrs[:question])
-  expect(page).to have_content(attrs[:answer])
-  category = FaqsFixture.t_category(attrs[:category])
-  expect(page).to have_content(category)
 end

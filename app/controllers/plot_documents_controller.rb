@@ -52,12 +52,14 @@ class PlotDocumentsController < ApplicationController
     notice = t(".success", matched: matched.count)
 
     if plot_document_params[:notify].to_i.positive?
+      notify_count = 0
       matched.each do |match|
-        ResidentChangeNotifyService.call(match, current_user,
-                                         t("notifications.added"), match.parent)
+        response = ResidentChangeNotifyService.call(match, current_user,
+                                                    t("notify.added"), match.parent)
+        notify_count += 1 if response.start_with?(" and 1")
       end
 
-      notice << I18n.t("resident_notification_mailer.notify.update_sent", count: matched.count)
+      notice << I18n.t("resident_notification_mailer.notify.update_sent", count: notify_count)
     end
 
     notice

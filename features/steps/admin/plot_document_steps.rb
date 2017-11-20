@@ -24,7 +24,7 @@ end
 
 Then(/^I should see the created (\w+) plot document$/) do |plot_name|
   notice = t("plot_documents.bulk_upload.success", matched: 1)
-  notice << t("resident_notification_mailer.notify.update_sent", count: 0)
+  notice << t("resident_notification_mailer.notify.update_sent", count: Resident.all.count)
   expect(page).to have_content(notice)
 
   document_number = CreateFixture.send(plot_name)
@@ -111,4 +111,17 @@ Then(/^I should see the renamed document$/) do
   within ".record-list" do
     expect(page).to have_content(PlotDocumentFixture.rename_text)
   end
+end
+
+Then(/^I should see the document resident has been notified$/) do
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+
+  email_notification = ActionMailer::Base.deliveries.first
+  message = "Document 200 homeowner manual.pdf has been added to your home"
+  expect(email_notification.parts.first.body.raw_source).to include message
+  expect(email_notification.to).to eq [CreateFixture.resident_email]
+
+  ActionMailer::Base.deliveries.clear
 end

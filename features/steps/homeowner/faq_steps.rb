@@ -21,18 +21,22 @@ When(/^I go to read the FAQs for my home$/) do
 end
 
 Then(/^I should see the FAQs related to settling in$/) do
-  MyHomeFaqsFixture.default_filtered_faqs.each do |question, answer|
-    expect(page).to have_content(question)
-    expect(page).to have_content(answer)
+  within ".faqs" do
+    MyHomeFaqsFixture.default_filtered_faqs.each do |question, answer|
+      expect(page).to have_content(question)
+      expect(page).to have_content(answer)
+    end
+
+    MyHomeFaqsFixture.default_filtered_out_faqs.each do |question, answer|
+      expect(page).not_to have_content(question)
+      expect(page).not_to have_content(answer)
+    end
   end
 
-  MyHomeFaqsFixture.default_filtered_out_faqs.each do |question, answer|
-    expect(page).not_to have_content(question)
-    expect(page).not_to have_content(answer)
+  within ".categories" do
+    active_category = find(".active").text
+    expect(active_category).to eq(MyHomeFaqsFixture.default_category_name)
   end
-
-  active_category = find(".categories .active").text
-  expect(active_category).to eq(MyHomeFaqsFixture.default_category_name)
 end
 
 When(/^I filter my FAQs by a different category$/) do
@@ -40,16 +44,20 @@ When(/^I filter my FAQs by a different category$/) do
 end
 
 Then(/^I should only see the FAQs in the other category$/) do
-  MyHomeFaqsFixture.filtered_faqs.each do |question, answer|
-    expect(page).to have_content(question)
-    expect(page).to have_content(answer)
+  within ".faqs" do
+    MyHomeFaqsFixture.filtered_faqs.each do |question, answer|
+      expect(page).to have_content(question)
+      expect(page).to have_content(answer)
+    end
+
+    MyHomeFaqsFixture.filtered_out_faqs.each do |question, answer|
+      expect(page).not_to have_content(question)
+      expect(page).not_to have_content(answer)
+    end
   end
 
-  MyHomeFaqsFixture.filtered_out_faqs.each do |question, answer|
-    expect(page).not_to have_content(question)
-    expect(page).not_to have_content(answer)
+  within ".categories" do
+    active_category = find(".active").text
+    expect(active_category).to eq(MyHomeFaqsFixture.other_category_name)
   end
-
-  active_category = find(".categories .active").text
-  expect(active_category).to eq(MyHomeFaqsFixture.other_category_name)
 end

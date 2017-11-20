@@ -31,6 +31,7 @@ Feature: Documents
     And I navigate to the phase
     When I upload a document using phase_plot_name plot
     Then I should see the created phase_plot_name plot document
+    And I should see the document resident has been notified
     When I upload a document phase_plot_name that does not match a plot
     Then I should see a phase_plot_name plot document error
 
