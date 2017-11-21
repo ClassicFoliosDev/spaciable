@@ -535,7 +535,7 @@ en:
         appliances_description: "View documents and details of appliances your home"
         library_description: "View and upload documents about your home"
         faqs_description: "Frequently asked questions about moving into a new home"
-        build_progress: "Progress on my home is: "
+        progress: "Progress on my home is: "
     private_documents:
       index:
         file_description: "You can use this area of Hoozzi to store other documents, photos and files relating to your moving process and home"
@@ -817,7 +817,7 @@ en:
       documents: "Documents"
       name: "Phase"
       plot_documents: "Plot documents"
-      phase_progresses: "Phase progress"
+      progresses: "Phase build progress"
     new:
       title: "New phase"
     update:
@@ -881,7 +881,7 @@ en:
       plot_residency: "Residents"
       unit_type: "Unit type"
       name: "Plot"
-      build_progress: "Build progress"
+      progress: "Build progress"
     show:
       back: "Back"
       completion: "Completion date"
@@ -889,7 +889,7 @@ en:
     plot:
       private_documents: "Uploaded documents: "
       none: "(n/a)"
-      build_progress: "Build progress: "
+      progress: "Build progress: "
 
   plot_residencies:
     collection:
@@ -944,7 +944,7 @@ en:
       failure: "Failed to find plots matching filename(s): %{unmatched}."
       no_rename_text: "You must supply the text to use when the files are renamed"
 
-  phase_progresses:
+  progresses:
     collection:
       update_progress: "Update progress for all plots in phase"
       choose: "Choose..."
@@ -953,6 +953,12 @@ en:
       notify: "Notify subscribed residents about this change"
     bulk_update:
       success: "Progress for all plots in phase was updated to %{progress}"
+    show:
+      update_progress: "Update progress to"
+      previous: "Current progress"
+      submit: "Submit"
+      back: "Back"
+      notify: "Notify subscribed resident about this change"
 
   unit_types:
     destroy:
@@ -1396,7 +1402,7 @@ en:
           exchange_ready: "Ready for exchange"
           complete_ready: "Ready to complete"
           completed: "Completed"
-          remove: "Remove build progress status"
+          remove: "Remove progress status"
       room:
         name: "Room name"
         updated_at: "Last edited"

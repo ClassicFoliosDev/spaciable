@@ -48,6 +48,7 @@ class Plot < ApplicationRecord
     exchange_ready
     complete_ready
     completed
+    remove
   ]
 
   def rooms(room_scope = Room.all)

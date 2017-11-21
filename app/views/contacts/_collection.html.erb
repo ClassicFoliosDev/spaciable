@@ -10,36 +10,38 @@
     </div>
   <% end %>
 
-  <table class="record-list">
-    <thead>
-      <tr>
-        <th class="icon">&nbsp;</th>
-        <th colspan="2"><%= sortable(Contact, :last_name, t(".name")) %></th>
-        <th colspan="2"><%= sortable(Contact, :position) %></th>
-        <th colspan="2"><%= sortable(Contact, :updated_at) %></th>
-        <th colspan="2"><%= sortable(Contact, :category) %></th>
-        <th colspan="2">&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% collection.each do |contact| %>
-      <tr>
-        <td><%= image_tag contact.picture, class: "circle" if contact.picture? %></td>
-        <td colspan="2"><%= link_to contact, contact_path(contact) %></td>
-        <td colspan="2"><%= contact.position %></td>
-        <td colspan="2"><%= l contact.updated_at.to_date, format: :digits %></td>
-        <td colspan="2"><%= t("activerecord.attributes.contact.categories.#{contact.category}") if contact.category %></td>
-        <td colspan="2" class="actions">
-          <%= edit_btn edit_contact_path(contact), element: contact %>
-          <%= delete_btn contact, path: contact_path(contact), element: contact %>
-        </td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div class="contacts">
+    <table class="record-list">
+      <thead>
+        <tr>
+          <th class="icon">&nbsp;</th>
+          <th colspan="2"><%= sortable(Contact, :last_name, t(".name")) %></th>
+          <th colspan="2"><%= sortable(Contact, :position) %></th>
+          <th colspan="2"><%= sortable(Contact, :updated_at) %></th>
+          <th colspan="2"><%= sortable(Contact, :category) %></th>
+          <th colspan="2">&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% collection.each do |contact| %>
+        <tr>
+          <td><%= image_tag contact.picture, class: "circle" if contact.picture? %></td>
+          <td colspan="2"><%= link_to contact, contact_path(contact) %></td>
+          <td colspan="2"><%= contact.position %></td>
+          <td colspan="2"><%= l contact.updated_at.to_date, format: :digits %></td>
+          <td colspan="2"><%= t("activerecord.attributes.contact.categories.#{contact.category}") if contact.category %></td>
+          <td colspan="2" class="actions">
+            <%= edit_btn edit_contact_path(contact), element: contact %>
+            <%= delete_btn contact, path: contact_path(contact), element: contact %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-  <div class="paging">
-    <%= render 'components/page_size' %>
-    <%= paginate collection %>
+    <div class="paging">
+      <%= render 'components/page_size' %>
+      <%= paginate collection %>
+    </div>
   </div>
 <% end %>

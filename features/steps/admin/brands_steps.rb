@@ -296,18 +296,11 @@ When(/^I delete the division brand$/) do
 end
 
 When(/^I create a development brand$/) do
-  visit "/"
+  goto_development_show_page
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".tabs" do
+    click_on t("developers.collection.brands")
   end
-
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.developments")
-
-  sleep 0.2
-  click_on CreateFixture.development_name
-  click_on t("developers.collection.brands")
 
   click_on t("brands.collection.create")
   logo_full_path = FileFixture.file_path + FileFixture.logo_name
@@ -321,15 +314,13 @@ When(/^I create a development brand$/) do
 end
 
 When(/^I delete the development brand$/) do
-  visit "/developers"
+  goto_development_show_page
 
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.developments")
+  within ".tabs" do
+    click_on t("developers.collection.brands")
+  end
 
-  click_on CreateFixture.development_name
-  click_on t("developers.collection.brands")
-
-  delete_and_confirm!
+  delete_and_confirm!(scope: ".styling")
 end
 
 Then(/^I should not be able to see developer brands$/) do

@@ -47,14 +47,10 @@ module GotoPage
     development = CreateFixture.development
     raise "Development does not exist" unless development
 
-    goto_developer_show_page
+    visit "/developers/#{development.developer.id}/developments/#{development.id}"
 
-    within ".tabs" do
-      click_on t("developers.collection.developments")
-    end
-
-    within ".developments" do
-      click_on CreateFixture.development_name
+    within ".development" do
+      expect(page).to have_content(development.to_s)
     end
   end
 
@@ -94,6 +90,18 @@ module GotoPage
 
     within ".phases" do
       click_on CreateFixture.phase_name
+    end
+  end
+
+  def goto_phase_plot_show_page
+    goto_phase_show_page
+
+    within ".tabs" do
+      click_on t("phases.collection.plots")
+    end
+
+    within ".record-list" do
+      click_on CreateFixture.phase_plot_name
     end
   end
 end

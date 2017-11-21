@@ -28,6 +28,7 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
     fill_in_ckeditor(:faq_answer, with: attrs[:answer])
 
     select_from_selectmenu :faq_category, with: category
+    check :faq_notify
     click_on t("faqs.form.submit")
   end
 end
@@ -36,7 +37,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
   attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
   category = FaqsFixture.t_category(attrs[:category])
   notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
-  notice << t("resident_notification_mailer.notify.update_sent", count: 0) if action == "updated"
+  notice << t("resident_notification_mailer.notify.update_sent", count: Resident.all.count) if action == "updated"
 
   within ".notice" do
     expect(page).to have_content(notice)
@@ -134,4 +135,17 @@ Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resou
     expect(page).not_to have_selector("[data-action='delete']")
     expect(page).to have_content(attrs[:question])
   end
+end
+
+Then(/^I should see the faq resident has been notified$/) do
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+
+  email_notification = ActionMailer::Base.deliveries.first
+  question = FaqsFixture.faq_attrs(:created, under: :division)[:question]
+  message = "FAQ #{question} has been added to your home"
+  expect(email_notification.parts.first.body.raw_source).to include message
+
+  ActionMailer::Base.deliveries.clear
 end

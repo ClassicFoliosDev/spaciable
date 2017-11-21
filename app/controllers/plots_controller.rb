@@ -19,10 +19,12 @@ class PlotsController < ApplicationController
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
     @plot.progress = :soon
+    @progress_id = Plot.progresses[@plot.progress.to_sym]
   end
 
   def edit
     @plots = BulkPlots::UpdateService.call(@plot).collection
+    @progress_id = Plot.progresses[@plot.progress.to_sym]
   end
 
   def show
@@ -74,16 +76,30 @@ class PlotsController < ApplicationController
 
   def notify_and_redirect(updated_plots, errors)
     notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
+
     if plot_params[:notify].to_i.positive?
       updated_plots.each do |plot_id|
         plot = Plot.find_by(number: plot_id)
-        ResidentChangeNotifyService.call(plot, current_user, t("notify.updated"), plot)
+        ResidentChangeNotifyService.call(plot, current_user, update_verb, plot)
       end
 
       notice << I18n.t("resident_notification_mailer.notify.update_sent",
                        count: updated_plots.count)
     end
-    redirect_to [@parent, :plots], notice: notice, alert: errors
+
+    single_update = updated_plots.count == 1
+    bulk_update = updated_plots.count > 1
+    redirect_to @plot, notice: notice, alert: errors if single_update
+    redirect_to [@parent, :plots], notice: notice, alert: errors if bulk_update
+  end
+
+  def update_verb
+    if plot_params[:progress]
+      new_state = t("activerecord.attributes.plot.progresses.#{plot_params[:progress]}")
+      t("notify.updated_state", state: new_state)
+    else
+      t("notify.updated")
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -99,15 +115,9 @@ class PlotsController < ApplicationController
 
   def plot_attributes
     %i[
-      prefix number
-      unit_type_id
-      house_number
-      road_name
-      building_name
-      locality
-      city county
-      postcode progress
-      notify user_id
+      prefix number unit_type_id house_number road_name
+      building_name locality city county postcode
+      progress notify user_id
     ]
   end
 

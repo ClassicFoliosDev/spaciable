@@ -23,6 +23,11 @@ module PlotTabsHelper
         icon: :user,
         link: [plot, :plot_residencies],
         permissions_on: -> { PlotResidency.new(plot_id: plot.id) }
+      },
+      progress: {
+        icon: "cogs",
+        link: [:progress, plot],
+        permissions_on: -> { plot }
       }
     }
   end

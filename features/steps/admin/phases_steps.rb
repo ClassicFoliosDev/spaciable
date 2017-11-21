@@ -57,13 +57,9 @@ When(/^I update the phase$/) do
 end
 
 Then(/^I should see the updated phase$/) do
-  # On the index page
-  within ".record-list" do
-    expect(page).to have_content(PhaseFixture.updated_phase_name)
+  within ".phases" do
+    click_on PhaseFixture.updated_phase_name
   end
-
-  # and on the show page
-  click_on PhaseFixture.updated_phase_name
 
   PhaseFixture.update_attrs.each do |_attr, value|
     expect(page).to have_content(value)
@@ -121,36 +117,42 @@ When(/^I update the progress for the phase$/) do
   goto_phase_show_page
 
   within ".tabs" do
-    click_on t("phases.collection.phase_progresses")
+    click_on t("phases.collection.progresses")
   end
 
-  select_from_selectmenu :phase_progress_all, with: PhaseFixture.progress
+  select_from_selectmenu :progress_all, with: PhaseFixture.progress
 
   within ".form-actions-footer" do
     check :notify
-    click_on t("phase_progresses.collection.submit")
+    click_on t("progresses.collection.submit")
   end
 end
 
-Then(/^I should see the plot progress has been updated$/) do
-  success_flash = t(
-    "phase_progresses.bulk_update.success",
+Then(/^I should see the phase progress has been updated$/) do
+  success_message = t(
+    "progresses.bulk_update.success",
     progress: PhaseFixture.progress
   )
-  success_flash << t("resident_notification_mailer.notify.update_sent", count: 1)
+  residents = Resident.where(developer_email_updates: true)
+  success_flash = success_message + t("resident_notification_mailer.notify.update_sent", count: residents.count)
 
   within ".notice" do
     expect(page).to have_content(success_flash)
   end
+end
 
-  within ".record-list" do
-    expect(page).to have_content(PhaseFixture.progress)
-    expect(page).not_to have_content("Building soon")
-  end
+Then(/^Phase residents should have been notified$/) do
+  success_message = t("resident_notification_mailer.notify.update_message",
+                      type: "Plot",
+                      name: "information",
+                      verb: "updated to #{PhaseFixture.progress} for")
+
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.message).to eq success_message
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident_email
 
   notification = ActionMailer::Base.deliveries.first
-  message = "Plot information has been updated to Ready for exchange for your home"
-  expect(notification.parts.first.body.raw_source).to include message
+  expect(notification.parts.first.body.raw_source).to include success_message
 
   ActionMailer::Base.deliveries.clear
 end

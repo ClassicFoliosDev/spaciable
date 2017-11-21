@@ -1,16 +1,18 @@
-<div class="section-header">
-  <div class="section-title">
-    <h3><%= development.name %></h3>
-    <span class="about">
-      <strong><%= t(".segment_id") %></strong><%= development.segment_id || t(".none") %><br/>
-      <strong><%= t(".private_documents") %></strong><%= development.private_documents_count %><br/>
-      <strong><%= t(".maintenance_link") %></strong><%= development.maintenance_link || t(".none") %>
-    </span>
-  </div>
+<div class="development">
+  <div class="section-header">
+    <div class="section-title">
+      <h3><%= development.name %></h3>
+      <span class="about">
+        <strong><%= t(".segment_id") %></strong><%= development.segment_id || t(".none") %><br/>
+        <strong><%= t(".private_documents") %></strong><%= development.private_documents_count %><br/>
+        <strong><%= t(".maintenance_link") %></strong><%= development.maintenance_link || t(".none") %>
+      </span>
+    </div>
 
-  <div class="section-data">
-    <%= render 'address/address', address: development.address %>
-    <%= render 'components/contacts', contact: development %>
-    <%= edit_btn [:edit, development.parent, development], element: development %>
+    <div class="section-data">
+      <%= render 'address/address', address: development.address %>
+      <%= render 'components/contacts', contact: development %>
+      <%= edit_btn [:edit, development.parent, development], element: development %>
+    </div>
   </div>
 </div>

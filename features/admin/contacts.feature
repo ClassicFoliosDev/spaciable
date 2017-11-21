@@ -37,12 +37,14 @@ Feature: Contacts
   Scenario: Development
     Given I am logged in as an admin
     And there is a developer with a development
+    And there is a phase plot resident
     When I create a development contact with no name or organisation
     Then I should see the contact create fail
     When I create a contact
     Then I should see the created contact
-    When I update the contact
+    And I update the contact
     Then I should see the updated contact
+    And I should see the contact resident has been notified
     When I remove an image from a contact
     Then I should see the updated contact without the image
     When I delete the development contact

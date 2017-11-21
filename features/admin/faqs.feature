@@ -2,7 +2,7 @@
 Feature: FAQs
   As an Admin
   I want to CRUD FAQs at different levels in the resource tree
-  So that homeowners can see relavent FAQs for their plot
+  So that homeowners can see relevent FAQs for their plot
 
   Scenario: CF Admin
     Given I am a CF Admin and I want to manage FAQs
@@ -43,10 +43,13 @@ Feature: FAQs
   Scenario: Division Admin
     Given I am a Division Admin and I want to manage FAQs
     And my Divisions Developer has FAQs
+    And there is a division resident
     Then I should only be able to see the Developer FAQs for my Division
 
     When I create a FAQ for a Division
     Then I should see the created Division FAQ
+    And I should see the faq resident has been notified
+
     When I update the Division FAQ
     Then I should see the updated Division FAQ
 

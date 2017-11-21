@@ -67,7 +67,7 @@ Rails.application.routes.draw do
     resources :plot_documents, only: [:index] do
       post :bulk_upload, on: :collection
     end
-    resources :phase_progresses, only: [:index] do
+    resources :progresses, only: [:index] do
       post :bulk_update, on: :collection
     end
   end
@@ -77,6 +77,7 @@ Rails.application.routes.draw do
     resources :documents, only: [:new, :create]
     resources :rooms, controller: "plots/rooms"
     resource :preview, only: [:show], controller: "plots/previews"
+    get :progress, on: :member, to: "progresses#show"
   end
 
   resources :developments do

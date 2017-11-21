@@ -1,10 +1,10 @@
-<%= simple_form_for edit_phase_path(phase), url: [:bulk_update, phase, :phase_progresses] do |f| %>
+<%= simple_form_for edit_phase_path(phase), url: [:bulk_update, phase, :progresses] do |f| %>
 
   <div class="separate row">
     <div class="row-item third">
-      <div class="phase_progress_all ui-front">
+      <div class="progress_all ui-front">
         <label><%= t(".update_progress") %></label>
-        <%= select_tag "phase_progress_all", options_for_select(all_progress_collection), prompt: t(".choose") %>
+        <%= select_tag "progress_all", options_for_select(all_progress_collection), prompt: t(".choose") %>
       </div>
     </div>
 

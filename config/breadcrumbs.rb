@@ -185,9 +185,16 @@ crumb :phase_new do |development|
   parent :development, development
 end
 
-crumb :phase_progresses do |phase|
-  link t("phases.collection.phase_progresses")
+# PROGRESSES
+
+crumb :progresses do |phase|
+  link t("phases.collection.progresses")
   parent :phase, phase
+end
+
+crumb :progress do |plot|
+  link t("plots.collection.progress")
+  parent :plot, plot
 end
 
 # UNIT TYPES

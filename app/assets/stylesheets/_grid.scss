@@ -110,6 +110,8 @@ $row-bg-color: $ui-white;
   .row-end {
     @include omega();
   }
+
+  color: $type-grey;
 }
 
 .row-item {

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
-class PhaseProgressesController < ApplicationController
+class ProgressesController < ApplicationController
   include SortingConcern
 
-  load_and_authorize_resource :phase
+  load_and_authorize_resource :phase, only: %i[index bulk_update]
+  load_and_authorize_resource :plot, only: [:show]
 
   def index
     @plots = sort(@phase.plots, default: :number)
@@ -11,14 +12,19 @@ class PhaseProgressesController < ApplicationController
     @subscribed_resident_count = @phase.residents.where(hoozzi_email_updates: true).size
   end
 
+  def show
+    @plot = Plot.find(params[:id])
+    @progress_id = Plot.progresses[@plot.progress.to_sym]
+  end
+
   def bulk_update
-    state = params[:phase_progress_all]
+    state = params[:progress_all]
     result = @phase.plots.each do |plot|
       plot.update_attributes(progress: state)
     end
     if result
       notice = notify(state)
-      redirect_to [@phase, :phase_progresses], notice: notice
+      redirect_to [@phase, :progresses], notice: notice
     else
       render :edit
     end

@@ -1,0 +1,36 @@
+<% breadcrumb :progress, @plot %>
+
+<div class="section-header">
+  <%= render @plot %>
+</div>
+
+<%= render 'components/tabs', tabs: tabs_for(@plot, :progress), plot: @plot %>
+
+<div class="plot-progress">
+  <%= simple_form_for @plot, url: plot_path(@plot), html: { method: :put } do |f| %>
+    <div class="row">
+      <div class="row-item half">
+        <div class="plot_progress ui-front select-container">
+          <label><%= t(".update_progress") %></label>
+          <%= f.select :progress, options_for_select(progress_collection(@progress_id)) %>
+        </div>
+      </div>
+
+      <div class="row-item half">
+        <label><%= t(".previous") %></label>
+        <span><%= t("activerecord.attributes.plot.progresses.#{@plot.progress}") unless @plot.remove? %></span>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t(".back"), plot_path(@plot), class: "btn" %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        <div class="notify">
+          <%= label_tag t(".notify") %>
+          <%= f.check_box :notify %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

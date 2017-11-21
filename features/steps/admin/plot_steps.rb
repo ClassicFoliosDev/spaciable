@@ -19,21 +19,20 @@ When(/^I update the plot$/) do
     find("[data-action='edit']").click
   end
 
-  sleep 0.3 # these fields do not get filled in without the sleep :(
+  within ".edit_plot" do
+    PlotFixture.update_attrs.each do |attr, value|
+      fill_in "plot_#{attr}", with: value
+    end
 
-  PlotFixture.update_attrs.each do |attr, value|
-    fill_in "plot_#{attr}", with: value
+    within ".plot_unit_type" do
+      select PlotFixture.updated_unit_type_name, visible: false
+    end
+
+    select_from_selectmenu :plot_progress, with: PlotFixture.progress
+
+    check :plot_notify
+    click_on t("plots.form.submit")
   end
-
-  within ".plot_unit_type" do
-    select PlotFixture.updated_unit_type_name, visible: false
-  end
-
-  select_from_selectmenu :plot_progress, with: PlotFixture.progress
-
-  check :plot_notify
-
-  click_on t("plots.form.submit")
 end
 
 Then(/^I should see the updated plot$/) do
@@ -228,4 +227,50 @@ Then(/^I should see the notification is not sent to the former resident$/) do
 
   emails = ActionMailer::Base.deliveries
   expect(emails.length).to be_zero
+end
+
+When(/^I update the progress for the plot$/) do
+  goto_phase_plot_show_page
+
+  within ".tabs" do
+    click_on t("plots.collection.progress")
+  end
+
+  within ".edit_plot" do
+    select_from_selectmenu :plot_progress, with: PhaseFixture.progress
+  end
+
+  within ".form-actions-footer" do
+    check :plot_notify
+    click_on t("progresses.show.submit")
+  end
+end
+
+Then(/^I should see the plot progress has been updated$/) do
+  success_flash = t("plots.update.success.one", plot_name: CreateFixture.phase_plot_name )
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 1)
+
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
+
+  within ".section-header" do
+    expect(page).to have_content(PhaseFixture.progress)
+    expect(page).not_to have_content("Building soon")
+  end
+end
+
+Then(/^the resident has been notified$/) do
+  message = "Plot information has been updated to Ready for exchange for your home"
+
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+  expect(in_app_notification.message).to eq message
+
+  email_notification = ActionMailer::Base.deliveries.first
+  expect(email_notification.parts.first.body.raw_source).to include message
+  expect(email_notification.to).to include CreateFixture.resident.email
+
+  ActionMailer::Base.deliveries.clear
 end

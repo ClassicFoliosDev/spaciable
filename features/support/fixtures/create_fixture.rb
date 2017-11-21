@@ -274,7 +274,12 @@ module CreateFixture
   end
 
   def create_resident
-    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email, developer_email_updates: 1)
+    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email, developer_email_updates: true)
+  end
+
+  def create_division_resident
+    division_plot = create_division_development_plot
+    FactoryGirl.create(:resident, :with_residency, plot: division_plot, email: resident_email, developer_email_updates: true)
   end
 
   def create_division_contacts
@@ -310,13 +315,17 @@ module CreateFixture
     FactoryGirl.create(:private_document, resident: CreateFixture.resident)
   end
 
-  def create_resident_under_a_phase_plot
-    create_developer
-    create_development
+  def create_resident_and_phase
     create_development_phase
     create_unit_type
     create_phase_plot
     create_resident
+  end
+
+  def create_resident_under_a_phase_plot
+    create_developer
+    create_development
+    create_resident_and_phase
   end
 
   def create_resident_under_a_phase_plot_with_appliances_and_rooms

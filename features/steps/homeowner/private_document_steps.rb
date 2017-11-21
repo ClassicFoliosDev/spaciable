@@ -10,12 +10,21 @@ When(/^I upload private documents$/) do
     attach_file("private_document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
+  end
 
-    sleep 0.3
+  within ".notice" do
+    expect(page).to have_content("#{FileFixture.document_alt} was created successfully")
+  end
 
+  within ".new-document" do
     attach_file("private_document_file",
                 File.absolute_path(avatar_full_path),
                 visible: false)
+
+  end
+
+  within ".notice" do
+    expect(page).to have_content("#{FileFixture.avatar_alt} was created successfully")
   end
 end
 

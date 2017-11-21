@@ -55,10 +55,6 @@ When(/^I update the phase plot$/) do
 end
 
 Then(/^I should see the updated phase plot$/) do
-  within ".record-list" do
-    click_on PhasePlotFixture.updated_plot_name
-  end
-
   within ".section-title" do
     expect(page).to have_content(PhasePlotFixture.update_attrs[:prefix])
     expect(page).to have_content(PhasePlotFixture.update_attrs[:number])

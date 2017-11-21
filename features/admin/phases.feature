@@ -24,7 +24,8 @@ Feature: Phases
     Given I am logged in as an admin
     And there is a phase plot with a resident
     When I update the progress for the phase
-    Then I should see the plot progress has been updated
+    Then I should see the phase progress has been updated
+    And Phase residents should have been notified
 
   @javascript
   Scenario: Deleted phase plot progress
@@ -32,4 +33,5 @@ Feature: Phases
     And there is a phase plot with a resident
     And I delete the plot with resident
     When I update the progress for the phase
-    Then I should see the progress update is not sent to the former resident
+    Then I should see the phase progress has been updated
+    And I should see the progress update is not sent to the former resident

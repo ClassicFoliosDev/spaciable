@@ -86,8 +86,7 @@ Then(/^I should see the updated contact$/) do
     "controller.success.update",
     name: "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   )
-  success_flash << t("resident_notification_mailer.notify.update_sent", count: 0)
-
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: Resident.all.count)
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
@@ -131,7 +130,6 @@ Then(/^I should see the updated contact without the image$/) do
     "controller.success.update",
     name: "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   )
-
   expect(page).to have_content(success_flash)
 
   within ".record-list" do
@@ -142,6 +140,18 @@ Then(/^I should see the updated contact without the image$/) do
   within ".contact" do
     expect(page).not_to have_content("img")
   end
+end
+
+Then(/^I should see the contact resident has been notified$/) do
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+
+  email_notification = ActionMailer::Base.deliveries.first
+  message = "Contact #{ContactFixture.updated_name} #{ContactFixture.last_name} has been updated for your home"
+  expect(email_notification.parts.first.body.raw_source).to include message
+
+  ActionMailer::Base.deliveries.clear
 end
 
 When(/^I delete the contact$/) do
@@ -232,19 +242,13 @@ When(/^I create a development contact with no name or organisation$/) do
 end
 
 When(/^I delete the development contact$/) do
-  visit "/developers"
+  goto_development_show_page
 
-  click_on CreateFixture.developer_name
-
-  click_on t("developers.collection.developments")
-
-  within ".record-list" do
-    click_on CreateFixture.development_name
+  within ".tabs" do
+    click_on t("developers.collection.contacts")
   end
 
-  click_on t("developers.collection.contacts")
-
-  delete_and_confirm!
+  delete_and_confirm!(scope: ".contacts")
 end
 
 Then(/^I should not be able to create a developer contact$/) do

@@ -175,3 +175,11 @@ end
 Given(/^there is a phase plot with a resident$/) do
   CreateFixture.create_resident_under_a_phase_plot
 end
+
+Given(/^there is a phase plot resident$/) do
+  CreateFixture.create_resident_and_phase
+end
+
+Given(/^there is a division resident$/) do
+  CreateFixture.create_division_resident
+end

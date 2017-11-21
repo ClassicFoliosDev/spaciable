@@ -23,6 +23,6 @@ Then(/^I should no longer see build status on the about page$/) do
 
   within ".branded-body" do
     expect(page).not_to have_content(t("activerecord.attributes.plot.progresses.completed"))
-    expect(page).not_to have_content(t("homeowners.about.show.build_progress"))
+    expect(page).not_to have_content(t("homeowners.about.show.progress"))
   end
 end
