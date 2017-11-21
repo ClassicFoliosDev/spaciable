@@ -260,3 +260,4 @@ Then(/^I should see the unit type still has appliance and finish$/) do
     expect(page).to have_content(CreateFixture.full_appliance_name)
   end
 end
+

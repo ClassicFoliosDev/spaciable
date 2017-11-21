@@ -16,3 +16,5 @@ Feature: Plot Residents
     Then I should see the second plot residency created
     When I delete a plot residency
     Then I should not see the plot residency
+    And the resident should no longer receive notifications
+

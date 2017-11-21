@@ -195,3 +195,37 @@ Then(/^I can see my faqs$/) do
     expect(page).to have_content(t("homeowners.faqs.index.title"))
   end
 end
+
+When(/^I send a notification the phase$/) do
+  ActionMailer::Base.deliveries.clear
+  visit "/admin/notifications/new"
+
+  within ".send-targets" do
+    within ".developer-id" do
+      select_from_selectmenu(:notification_developer_id, with: PhasePlotFixture.developer_name)
+    end
+
+    sleep 0.3
+    within ".phase-id" do
+      select_from_selectmenu(:"notification_phase_id", with: PhasePlotFixture.phase_name)
+    end
+  end
+
+  within ".send-message" do
+    fill_in :notification_subject, with: "Send to deleted plot"
+    fill_in_ckeditor(:notification_message, with: "This message should not arrive")
+  end
+
+  within ".form-actions-footer" do
+    click_on t("admin.notifications.form.submit")
+  end
+end
+
+Then(/^I should see the notification is not sent to the former resident$/) do
+  within ".notice" do
+    expect(page).to have_content("Sending notifications to residents")
+  end
+
+  emails = ActionMailer::Base.deliveries
+  expect(emails.length).to be_zero
+end

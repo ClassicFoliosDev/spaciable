@@ -133,3 +133,14 @@ Then(/^I should see the second plot residency created$/) do
     expect(page).to have_content(attrs[:email])
   end
 end
+
+Then(/^the resident should no longer receive notifications$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.second_email)
+
+  expect(resident.developer_email_updates).to be_zero
+  expect(resident.hoozzi_email_updates).to be_zero
+  expect(resident.telephone_updates).to be_zero
+  expect(resident.post_updates).to be_zero
+
+  expect(resident.plot).to be_nil
+end

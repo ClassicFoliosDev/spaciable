@@ -18,6 +18,8 @@ Feature: Plots
     Given I have created a plot for the phase
     When I delete the phase plot
     Then I should see the phase address has not been changed
+    When I send a notification the phase
+    Then I should see the notification is not sent to the former resident
 
   @javascript
   Scenario: Plot preview

@@ -55,11 +55,8 @@ class PlotResidenciesController < ApplicationController
   def edit; end
 
   def destroy
+    notice = ResidentResetService.call(@plot_residency)
     if @plot_residency.destroy
-      @plot_residency.plot.development.name = nil
-      notice = Mailchimp::MarketingMailService.call(@plot_residency.resident,
-                                                    @plot_residency,
-                                                    Rails.configuration.mailchimp[:unassigned])
       notice = t(".success", plot: @plot_residency.plot) if notice.nil?
     end
 

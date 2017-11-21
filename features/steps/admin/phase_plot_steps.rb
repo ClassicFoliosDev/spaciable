@@ -85,23 +85,15 @@ end
 When(/^I delete the phase plot$/) do
   visit "/developers"
 
-  within ".record-list" do
-    click_on PhasePlotFixture.developer_name
-  end
-
-  within ".tabs" do
+  within ".developers" do
     click_on t("developers.collection.developments")
   end
 
-  within ".record-list" do
-    click_on PhasePlotFixture.development_name
-  end
-
-  within ".tabs" do
+  within ".developments" do
     click_on t("developments.collection.phases")
   end
 
-  within ".record-list" do
+  within ".phases" do
     click_on PhasePlotFixture.phase_name
   end
 
@@ -197,4 +189,27 @@ Then(/^I should see the phase address has not been changed$/) do
       expect(page).to have_content(value)
     end
   end
+end
+
+When(/^I delete the plot with resident$/) do
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+  goto_phase_show_page
+
+  within ".tabs" do
+    click_on t("developments.collection.plots")
+  end
+
+  delete_and_confirm!(scope: "[data-plot='#{plot.id}']")
+end
+
+Then(/^I should see the progress update is not sent to the former resident$/) do
+  within ".notice" do
+    expect(page).to have_content("and 0 residents have been notified")
+  end
+
+  resident_notifications = ResidentNotification.all
+  expect(resident_notifications.count).to be_zero
+
+  emails = ActionMailer::Base.deliveries
+  expect(emails.length).to be_zero
 end

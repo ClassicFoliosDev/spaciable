@@ -63,6 +63,15 @@ class PlotsController < ApplicationController
     end
   end
 
+  def destroy
+    ResidentResetService.call(@plot.plot_residency)
+    @plot.destroy
+    notice = t(".success", plot_name: @plot.to_s)
+    redirect_to [@parent, :plots], notice: notice
+  end
+
+  private
+
   def notify_and_redirect(updated_plots, errors)
     notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
     if plot_params[:notify].to_i.positive?
@@ -76,14 +85,6 @@ class PlotsController < ApplicationController
     end
     redirect_to [@parent, :plots], notice: notice, alert: errors
   end
-
-  def destroy
-    @plot.destroy
-    notice = t(".success", plot_name: @plot.to_s)
-    redirect_to [@parent, :plots], notice: notice
-  end
-
-  private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def plot_params
