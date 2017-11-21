@@ -55,3 +55,25 @@ Then(/^I should see the HowTo details$/) do
     expect(other_articles.count).to eq(1)
   end
 end
+
+When(/^I select a HowTo tag$/) do
+  within ".tags-container" do
+    link = page.first("a")
+    link.click
+  end
+end
+
+Then(/^I should see a list of matching HowTos$/) do
+  within ".tag-line" do
+    expect(page).to have_content(t("homeowners.how_tos.index.tagged"))
+  end
+
+  within ".how-tos" do
+    expect(page).to have_content(CreateFixture.how_to_name)
+  end
+
+  within ".categories" do
+    active_categories = page.all(".active")
+    expect(active_categories.length).to be_zero
+  end
+end

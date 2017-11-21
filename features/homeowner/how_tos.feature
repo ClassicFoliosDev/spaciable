@@ -13,4 +13,5 @@ Feature: HowTos
     Then I should only see the HowTos in the other category
     When I select a HowTo article
     Then I should see the HowTo details
-
+    When I select a HowTo tag
+    Then I should see a list of matching HowTos

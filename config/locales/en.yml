@@ -518,6 +518,7 @@ en:
     how_tos:
       index:
         title: "Featured"
+        tagged: "HowTo guides tagged with "
       show:
         tags: "Tags"
         read: "%{minutes} minute read"

@@ -7,4 +7,11 @@ FactoryGirl.define do
     description { Faker::Lorem.paragraph(3) }
     category { 0 }
   end
+
+  trait :with_tag do
+    after(:create) do |how_to|
+      tag = create(:tag)
+      how_to.tags << tag
+    end
+  end
 end

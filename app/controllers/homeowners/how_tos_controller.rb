@@ -8,8 +8,15 @@ module Homeowners
     def index
       @categories = HowTo.categories.keys
       @category = how_to_params[:category]
+      tag_id = how_to_params[:tag]
 
-      @how_tos = @how_tos.where(category: @category)
+      @how_tos = if tag_id
+                   @category = nil
+                   @tag = Tag.find(tag_id)
+                   @tag.how_tos.includes(:how_to_tags)
+                 else
+                   @how_tos.where(category: @category).includes(:how_to_tags)
+                 end
     end
 
     def show
@@ -19,7 +26,7 @@ module Homeowners
     private
 
     def how_to_params
-      params.permit(:category)
+      params.permit(:category, :tag)
     end
   end
 end

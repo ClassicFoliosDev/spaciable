@@ -17,6 +17,9 @@
 
 <div class="branded-body">
   <div class="main-container">
+    <% if @tag %>
+      <p class="tag-line"><%= t(".tagged", tag: @tag) %><strong><%= @tag.name %></strong></p>
+    <% end %>
     <div class="how-tos">
       <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
     </div>

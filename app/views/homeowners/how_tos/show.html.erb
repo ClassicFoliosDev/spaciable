@@ -26,10 +26,11 @@
 
         <div class="tags-container">
           <h4><%= t(".tags") %></h4>
-
           <ul>
             <% @how_to.tags.each do |tag| %>
-              <li class="tag"><%= tag %></li>
+              <li class="tag">
+                <%= link_to tag, homeowner_how_tos_path(tag: tag.id) %>
+              </li>
             <% end %>
           </ul>
         </div>

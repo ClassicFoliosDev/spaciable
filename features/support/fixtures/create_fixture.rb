@@ -284,9 +284,9 @@ module CreateFixture
   end
 
   def create_how_tos
-    FactoryGirl.create(:how_to, category: "diy", title: how_to_name)
-    FactoryGirl.create(:how_to)
-    FactoryGirl.create(:how_to, category: "diy")
+    FactoryGirl.create(:how_to, :with_tag, category: "diy", title: how_to_name)
+    FactoryGirl.create(:how_to, :with_tag)
+    FactoryGirl.create(:how_to, :with_tag, category: "diy")
   end
 
   def create_contacts
