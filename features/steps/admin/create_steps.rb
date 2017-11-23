@@ -183,3 +183,14 @@ end
 Given(/^there is a division resident$/) do
   CreateFixture.create_division_resident
 end
+
+Given(/^There is a plot with many residents$/) do
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  plot = resident.plot
+  FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test1@example.com")
+  FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test2@example.com")
+  FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test3@example.com")
+
+  other_plot = FactoryGirl.create(:plot, development: plot.development)
+  FactoryGirl.create(:resident, :with_residency, plot: other_plot, email: "test4@example.com")
+end

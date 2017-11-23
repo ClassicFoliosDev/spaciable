@@ -4,6 +4,7 @@ module Homeowners
   class ResidentsController < Homeowners::BaseController
     def show
       @services = Service.all
+      @all_residents = residents_for_my_plot.compact
     end
 
     def edit
@@ -22,6 +23,13 @@ module Homeowners
     end
 
     private
+
+    def residents_for_my_plot
+      current_resident.plot.residents.map do |resident|
+        next if resident.email == current_resident.email
+        { email: resident.email, name: resident.to_s }
+      end
+    end
 
     def process_service_ids(service_params)
       service_ids = []

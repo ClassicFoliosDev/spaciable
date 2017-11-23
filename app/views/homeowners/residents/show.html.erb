@@ -43,6 +43,18 @@
       </label>
     </div>
 
+    <div class="full branded-content branded-border">
+      <div class="other-residents">
+        <h4><%= t(".other_residents") %></h4>
+        <% @all_residents.each do | resident | %>
+          <span><%= resident[:name] %> <%= resident[:email] %></span><br/>
+        <% end %>
+        <% if @all_residents.count.zero? %>
+          <span><%= t(".none") %></span>
+        <% end %>
+      </div>
+    </div>
+
     <% if current_resident.enable_services? %>
       <div class="full branded-content branded-border">
         <div class="services">

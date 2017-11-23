@@ -64,7 +64,7 @@ class Development < ApplicationRecord
 
   def private_documents_count
     plots.to_a.inject(0) do |result, plot|
-      result + (plot&.private_documents&.count || 0)
+      result + (plot&.private_document_count || 0)
     end
   end
 end

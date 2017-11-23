@@ -32,3 +32,8 @@ Feature: Homeowner Account
     Given I am logged in as a homeowner
     Then I should not see services in my account
     And I should not see services when I edit my account
+
+  Scenario: Multiple residents
+    Given I am logged in as a homeowner
+    And There is a plot with many residents
+    Then I should see the resident emails listed in my account

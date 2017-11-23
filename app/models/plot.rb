@@ -16,7 +16,7 @@ class Plot < ApplicationRecord
   belongs_to :division, optional: true
 
   has_one :plot_residency, dependent: :destroy
-  delegate :resident, to: :plot_residency, allow_nil: true
+  has_many :residents, through: :plot_residency
 
   has_many :unit_types, through: :development
   has_many :plot_rooms, class_name: "Room"
@@ -37,7 +37,6 @@ class Plot < ApplicationRecord
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, to: :unit_type
   delegate :branded_logo, to: :brand, allow_nil: true
-  delegate :private_documents, to: :resident, allow_nil: true
   delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, to: :developer, allow_nil: true
 
@@ -146,6 +145,10 @@ class Plot < ApplicationRecord
       self.phase = nil
       self.development = object
     end
+  end
+
+  def private_document_count
+    residents.map { |resident| resident&.private_documents&.count.to_i }.sum
   end
 
   def to_s

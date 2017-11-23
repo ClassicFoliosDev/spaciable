@@ -570,6 +570,8 @@ en:
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
         services: "Services"
+        other_residents: "Other residents who have access to this information in Hoozzi"
+        none: "Only you can see the content in Hoozzi"
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"

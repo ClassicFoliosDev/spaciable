@@ -350,6 +350,24 @@ RSpec.describe ResidentNotifierService do
       end
     end
 
+    context "for plots with multiple residents" do
+      it "should send to all of the residents" do
+        development = create(:development)
+        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "4")
+        plot = create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "4")
+        create(:resident, :activated, plot: plot)
+        notification = create(:notification, send_to: development)
+
+        service = described_class.new(notification)
+        notified_residents = service.notify_residents
+
+        all_residents = Resident.all
+
+        expect(notified_residents.length).to eq 3
+        expect(notified_residents).to match_array(all_residents)
+      end
+    end
+
     context "a range of plot numbers has been supplied" do
       it "should only return the plot numbers without residents within the range" do
         development = create(:development)
@@ -384,7 +402,7 @@ RSpec.describe ResidentNotifierService do
         expect(service.all_missing_plots.to_sentence).to eq("2, 4, and Plot 4")
 
         expect(notified_residents.count).to eq(1)
-        expect(notified_residents[0]).to eq(plots[0].resident)
+        expect(notified_residents[0]).to eq(plots[0].residents.first)
       end
     end
 

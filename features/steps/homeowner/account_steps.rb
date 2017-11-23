@@ -182,3 +182,19 @@ Then(/^I should not see services when I edit my account$/) do
     expect(page).not_to have_content(".services")
   end
 end
+
+Then(/^I should see the resident emails listed in my account$/) do
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  visit "/homeowners/residents/#{resident.id}"
+
+  within ".other-residents" do
+    expect(page).to have_content "test1@example.com"
+    expect(page).to have_content "test2@example.com"
+    expect(page).to have_content "test3@example.com"
+
+    # Should not see resident for a different plot
+    expect(page).not_to have_content "test4@example.com"
+    # Should not see my own email address
+    expect(page).not_to have_content resident.email
+  end
+end
