@@ -1,9 +1,0 @@
----
-# For AWS environments: concurrency is set using the SIDEKIQ_WORKERS environment variable
-# For local development: the concurrency setting is set in the Procfile as the "-c" flag
-:queues:
-  - [file_processing,2] # check twice as often as other queues
-  - admin
-  - default
-  - mailer
-  - b2c_mailer

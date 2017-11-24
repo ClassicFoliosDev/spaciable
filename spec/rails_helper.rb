@@ -8,7 +8,6 @@ require "spec_helper"
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
 require "capybara/rspec"
-require "sidekiq/testing"
 
 Dir[Rails.root.join("spec", "support", "**", "*.rb")].each { |f| require f }
 
@@ -19,10 +18,6 @@ Warden::Test::Helpers.prepend(LoginAs)
 RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include FactoryGirl::Syntax::Methods
-
-  config.before(:suite) do
-    Sidekiq::Testing.inline!
-  end
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation

@@ -197,11 +197,6 @@ Rails.application.routes.draw do
     root "admin/dashboard#show", as: :admin_dashboard
   end
 
-  authenticated :user, lambda { |user| user.cf_admin? } do
-    require 'sidekiq/web'
-    mount Sidekiq::Web => '/sidekiq'
-  end
-
   devise_scope :resident do
     root 'residents/sessions#new'
   end

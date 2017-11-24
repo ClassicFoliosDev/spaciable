@@ -1,23 +1,20 @@
 # frozen_string_literal: true
 
 When(/^I create a contact with no email or phone$/) do
-  visit "/"
+  goto_developer_show_page
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".tabs" do
+    click_on t("developers.collection.contacts")
   end
 
-  click_on CreateFixture.developer_name
+  within ".empty" do
+    click_on t("contacts.collection.create")
+  end
 
-  click_on t("developers.collection.contacts")
-
-  click_on t("contacts.collection.create")
-
-  within ".contact" do
+  within ".new_contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
+    click_on t("contacts.form.submit")
   end
-
-  click_on t("contacts.form.submit")
 end
 
 Then(/^I should see the contact create fail$/) do

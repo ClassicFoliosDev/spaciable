@@ -31,5 +31,3 @@ WebMock.disable_net_connect!(allow_localhost: true)
 Warden.test_mode!
 After { Warden.test_reset! }
 
-require "sidekiq/testing"
-Sidekiq::Testing.inline!

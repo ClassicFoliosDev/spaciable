@@ -10,7 +10,7 @@
         <div class="sixth document">
           <div class="document-image-container">
             <%= link_to document.file.url, target: "_blank" do %>
-              <%= image_tag document_preview_url(document.file) if document.file? %>
+              <%= image_tag document_preview_url(document.file), alt: document.title if document.file? %>
             <% end %>
           </div>
 
@@ -23,7 +23,7 @@
           <div class="sixth document">
             <div class="document-image-container">
               <%= link_to appliance.manual.url, target: "_blank" do %>
-                <%= image_tag document_preview_url(appliance.manual)  %>
+                <%= image_tag document_preview_url(appliance.manual), alt: appliance.manual.to_s.split("/").last %>
               <% end %>
             </div>
             <h5><%= appliance.full_name %></h5>
@@ -35,7 +35,7 @@
           <div class="sixth document">
             <div class="document-image-container">
               <%= link_to appliance.guide.url, target: "_blank" do %>
-                <%= image_tag document_preview_url(appliance.guide) %>
+                <%= image_tag document_preview_url(appliance.guide), alt: appliance.guide.to_s.split("/").last %>
               <% end %>
             </div>
             <h5><%= appliance.full_name %></h5>

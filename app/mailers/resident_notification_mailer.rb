@@ -19,6 +19,8 @@ class ResidentNotificationMailer < ApplicationMailer
 
   # Reminder contents are set in the template
   def remind(resident, subject, token)
+    return unless resident.plot
+
     template_configuration(resident)
     @token = token
     @invited_by = resident.invited_by.to_s

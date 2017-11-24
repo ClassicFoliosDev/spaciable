@@ -12,8 +12,8 @@ RSpec.describe CloneDefaultFaqsJob do
     end.to change { developer.faqs.count }.by(default_faqs.count)
   end
 
-  describe "to support the 'run at least once' strategy of sidekiq" do
-    it "should not create duplicate FAQs on consequtive runs" do
+  describe "to allow user to run the seeds more than once" do
+    it "should not create duplicate FAQs on consecutive runs" do
       developer = create(:developer)
       clone_default_faqs = -> { described_class.perform_now(faqable_type: "Developer", faqable_id: developer.id) }
 
