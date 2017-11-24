@@ -8,7 +8,6 @@ class AddHomeownerSearchIndexes < ActiveRecord::Migration[5.0]
     add_index :contacts, 'lower(last_name) varchar_pattern_ops', name: "search_index_on_contact_last_name"
     add_index :contacts, 'lower(position) varchar_pattern_ops', name: "search_index_on_contact_position"
     add_index :faqs, 'lower(question) varchar_pattern_ops', name: "search_index_on_faq_question"
-    add_index :faqs, 'lower(answer) varchar_pattern_ops', name: "search_index_on_faq_answer"
     add_index :finishes, 'lower(name) varchar_pattern_ops', name: "search_index_on_finish_name"
     add_index :notifications, 'lower(subject) varchar_pattern_ops', name: "search_index_on_notification_subject"
     add_index :notifications, 'lower(message) varchar_pattern_ops', name: "search_index_on_notification_message"
