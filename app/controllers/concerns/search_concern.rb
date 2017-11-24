@@ -40,7 +40,7 @@ module SearchConcern
   end
 
   def faq_search(search_term)
-    Faq.where("LOWER(question || answer) LIKE LOWER(?)",
+    Faq.where("LOWER(question) LIKE LOWER(?)",
               "%#{search_term}%").accessible_by(current_ability, :read)
   end
 

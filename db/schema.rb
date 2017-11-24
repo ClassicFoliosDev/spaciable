@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171110120517) do
+ActiveRecord::Schema.define(version: 20171123135916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,14 +241,13 @@ ActiveRecord::Schema.define(version: 20171110120517) do
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
-    t.index "lower(answer) varchar_pattern_ops", name: "search_index_on_faq_answer", using: :btree
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
     t.index ["developer_id"], name: "index_faqs_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_faqs_on_development_id", using: :btree

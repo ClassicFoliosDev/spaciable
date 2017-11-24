@@ -9,6 +9,7 @@ Feature: Cascading delete
     Given there are contacts
     And there are how-tos
     And there is a finish
+    And there are faqs
     And there is an appliance manufacturer
     And there is an appliance
     When I delete the developer
