@@ -18,6 +18,15 @@ Feature: Homeowner Account
     And I select my services
     Then My services have been selected
 
+  Scenario: With services choose none
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    And the developer has enabled services
+    And I have seeded the database with services
+    When I assign a new resident to a plot
+    And I accept the invitation as a homeowner
+    And I select no services
+    Then I should be redirected to the homeowner dashboard
+
   Scenario: Account update
     Given I am logged in as a homeowner
     And the developer has enabled services

@@ -198,3 +198,9 @@ Then(/^I should see the resident emails listed in my account$/) do
     expect(page).not_to have_content resident.email
   end
 end
+
+When(/^I select no services$/) do
+  within ".services" do
+   click_on t("homeowners.services.index.submit")
+  end
+end

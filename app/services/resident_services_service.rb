@@ -4,6 +4,9 @@ module ResidentServicesService
   module_function
 
   def call(resident, service_ids, possible_old_services)
+    return 0 unless resident
+    return 0 unless service_ids
+
     # Remove all existing resident services
     if possible_old_services
       old_service_names = resident.services.map(&:name)
