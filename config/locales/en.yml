@@ -569,7 +569,6 @@ en:
         hoozzi_email_updates: "Hoozzi emails"
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
-        services: "Services"
         other_residents: "Other residents who have access to this information in Hoozzi"
         none: "Only you can see the content in Hoozzi"
       update:
@@ -577,8 +576,8 @@ en:
         updated_services: " and your services have been requested"
     services:
       index:
-        title: "Moving services"
-        description: "Hoozzi can provide a number of additional services to make your moving service as easy as possible. Click on the services you may be interested in below to receive more information"
+        title: "Hoozzi Services"
+        description: "Moving home can be very stressful. Hoozzi Services can help, we can take some of the pressure away with our trusted suppliers. Plus, with Hoozzi’s buying power you can get a great deal. Don't get stressed, let Hoozzi help and give yourself more choice."
         submit: "Got it, let's go"
         postamble: "You can always choose services later through your Account Settings"
       resident_services:

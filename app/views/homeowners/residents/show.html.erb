@@ -58,7 +58,8 @@
     <% if current_resident.enable_services? %>
       <div class="full branded-content branded-border">
         <div class="services">
-          <h4><%= t(".services") %></h4>
+          <h4><%= t("homeowners.services.index.title") %></h4>
+          <p><%= t("homeowners.services.index.description") %></p>
           <% @services.each do | service | %>
             <%= render "homeowners/components/service", service: service %>
           <% end %>
