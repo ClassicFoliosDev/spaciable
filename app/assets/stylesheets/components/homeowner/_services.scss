@@ -22,6 +22,10 @@
   }
 }
 
+.services p {
+  font-size: $base-small-font-size;
+}
+
 .services-form {
   height: 500px;
 }
@@ -38,8 +42,9 @@
 }
 
 @include media($tablet-portrait-up) {
-  .service {
-    width: 40%;
+  .service, .resident-service {
+    width: 47%;
+    height: 120px;
 
     &:nth-child(odd) {
       float: right;
