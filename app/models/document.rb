@@ -8,12 +8,6 @@ class Document < ApplicationRecord
 
   belongs_to :documentable, polymorphic: true
   alias parent documentable
-  include InheritParentPermissionIds
-  include InheritPolymorphicParentPermissionIds
-
-  belongs_to :developer, optional: false
-  belongs_to :division, optional: true
-  belongs_to :development, optional: true
 
   validates :title, presence: true, uniqueness: false
 

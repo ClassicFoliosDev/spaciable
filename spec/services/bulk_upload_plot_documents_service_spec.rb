@@ -16,19 +16,19 @@ RSpec.describe BulkUploadPlotDocumentsService do
         file1 = create(:document,
                        title: "Document title",
                        original_filename: "plot 1 homeowner doc.pdf",
-                       developer: developer)
+                       documentable: developer)
         file1a = create(:document,
                         title: "Document title",
                         original_filename: "plot 1a homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         file176 = create(:document,
                          title: "Document title",
                          original_filename: "plot 1.7.6 homeowner doc.pdf",
-                         developer: developer)
+                         documentable: developer)
         file120 = create(:document,
                          title: "Document title",
                          original_filename: "plot 1.20.pdf",
-                         developer: developer)
+                         documentable: developer)
 
         raw_files = []
         raw_files.push(file1, file1a, file176, file120)
@@ -57,7 +57,7 @@ RSpec.describe BulkUploadPlotDocumentsService do
         file2 = create(:document,
                        title: "Document title",
                        original_filename: "plot 2 homeowner doc.pdf",
-                       developer: developer)
+                       documentable: developer)
 
         raw_files = []
         raw_files.push(file2)
@@ -82,15 +82,15 @@ RSpec.describe BulkUploadPlotDocumentsService do
         file1b = create(:document,
                         title: "Document title",
                         original_filename: "plot 1b homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         file12 = create(:document,
                         title: "Document title",
                         original_filename: "plot 1.2 homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         file120 = create(:document,
                          title: "Document title",
                          original_filename: "1.20 homeowner doc.pdf",
-                         developer: developer)
+                         documentable: developer)
 
         raw_files = []
         raw_files.push(file1b, file12, file120)
@@ -117,15 +117,15 @@ RSpec.describe BulkUploadPlotDocumentsService do
         file1b = create(:document,
                         title: "Document title",
                         original_filename: "1b homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         file12 = create(:document,
                         title: "Document title",
                         original_filename: "1.2 homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         file120 = create(:document,
                          title: "Document title",
                          original_filename: "1.20 homeowner doc.pdf",
-                         developer: developer)
+                         documentable: developer)
         raw_files = []
         raw_files.push(file1b, file12, file120)
 
@@ -156,19 +156,19 @@ RSpec.describe BulkUploadPlotDocumentsService do
         file1 = create(:document,
                        title: "Document title",
                        original_filename: "plot 1 homeowner doc.pdf",
-                       developer: developer)
+                       documentable: developer)
         file1a = create(:document,
                         title: "Document title",
                         original_filename: "plot 1a homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         file176 = create(:document,
                          title: "Document title",
                          original_filename: "plot 1.7.6 homeowner doc.pdf",
-                         developer: developer)
+                         documentable: developer)
         file120 = create(:document,
                          title: "Document title",
                          original_filename: "plot 1.20.pdf",
-                         developer: developer)
+                         documentable: developer)
 
         raw_files = []
         raw_files.push(file1, file1a, file176, file120)
@@ -198,11 +198,11 @@ RSpec.describe BulkUploadPlotDocumentsService do
         file1 = create(:document,
                        title: "Document title",
                        original_filename: "plot 1 homeowner doc.pdf",
-                       developer: developer)
+                       documentable: developer)
         file1a = create(:document,
                         title: "Document title",
                         original_filename: "plot 1a homeowner doc.pdf",
-                        developer: developer)
+                        documentable: developer)
         raw_files = []
         raw_files.push(file1, file1a)
 

@@ -184,34 +184,6 @@ RSpec.describe Notification do
           expect(notification).to be_valid
           expect(notification.send_to).to eq(phase)
         end
-
-        context "when send_to is a developer" do
-          it "should return a development_id blank error" do
-            selection_error = I18n.t("activerecord.errors.messages.select")
-            developer = create(:developer)
-            development = create(:development, developer: developer)
-            current_user = create(:development_admin, permission_level: development)
-            notification = build(:notification, sender: current_user, send_to: developer)
-
-            notification.validate
-
-            expect(notification.errors[:development_id]).to include(selection_error)
-          end
-        end
-
-        context "when send_to is a division" do
-          it "should return a development_id blank error" do
-            selection_error = I18n.t("activerecord.errors.messages.select")
-            division = create(:division)
-            development = create(:division_development, division: division)
-            current_user = create(:development_admin, permission_level: development)
-            notification = build(:notification, sender: current_user, send_to: division)
-
-            notification.validate
-
-            expect(notification.errors[:development_id]).to include(selection_error)
-          end
-        end
       end
 
       context "as a division_admin" do
@@ -249,20 +221,6 @@ RSpec.describe Notification do
 
           expect(notification).to be_valid
           expect(notification.send_to).to eq(phase)
-        end
-
-        context "when send_to is a developer" do
-          it "should return a division_id blank error" do
-            selection_error = I18n.t("activerecord.errors.messages.select")
-            developer = create(:developer)
-            division = create(:division, developer: developer)
-            current_user = create(:division_admin, permission_level: division)
-            notification = build(:notification, sender: current_user, send_to: developer)
-
-            notification.validate
-
-            expect(notification.errors[:division_id]).to include(selection_error)
-          end
         end
       end
 
@@ -315,18 +273,6 @@ RSpec.describe Notification do
 
           expect(notification).to be_valid
           expect(notification.send_to).to eq(phase)
-        end
-
-        context "when send_to is blank" do
-          it "should return a developer_id blank error" do
-            selection_error = I18n.t("activerecord.errors.messages.select")
-            developer = create(:developer)
-            current_user = create(:developer_admin, permission_level: developer)
-            notification = build(:notification, sender: current_user, send_to: nil)
-
-            notification.validate
-            expect(notification.errors[:developer_id]).to include(selection_error)
-          end
         end
       end
     end

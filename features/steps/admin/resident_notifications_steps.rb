@@ -189,13 +189,11 @@ Then(/^all residents under (my|that) (\(\w+\) )?(\w+) should receive a notificat
   resident_email_addresses = ResidentNotificationsFixture.resident_email_addresses(under: instance)
 
   notice = t(
-      "admin.notifications.create.success",
-      notification_name: ResidentNotificationsFixture::MESSAGES.dig(type, :subject),
-      count: resident_email_addresses.count
+    "admin.notifications.create.success",
+    notification_name: ResidentNotificationsFixture::MESSAGES.dig(type, :subject),
+    count: resident_email_addresses.count
   )
-  within ".notice" do
-    expect(page).to have_content(notice)
-  end
+  expect(page).to have_content(notice)
 
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
   expect(emailed_addresses).to match_array(resident_email_addresses)

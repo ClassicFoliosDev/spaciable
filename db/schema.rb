@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171122160951) do
+ActiveRecord::Schema.define(version: 20171123135916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,17 +146,11 @@ ActiveRecord::Schema.define(version: 20171122160951) do
     t.string   "contactable_type"
     t.integer  "contactable_id"
     t.string   "organisation"
-    t.integer  "developer_id"
-    t.integer  "division_id"
-    t.integer  "development_id"
     t.index "lower((\"position\")::text) varchar_pattern_ops", name: "search_index_on_contact_position", using: :btree
     t.index "lower((first_name)::text) varchar_pattern_ops", name: "search_index_on_contact_first_name", using: :btree
     t.index "lower((last_name)::text) varchar_pattern_ops", name: "search_index_on_contact_last_name", using: :btree
     t.index ["contactable_type", "contactable_id"], name: "index_contacts_on_contactable_type_and_contactable_id", using: :btree
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
-    t.index ["developer_id"], name: "index_contacts_on_developer_id", using: :btree
-    t.index ["development_id"], name: "index_contacts_on_development_id", using: :btree
-    t.index ["division_id"], name: "index_contacts_on_division_id", using: :btree
   end
 
   create_table "default_faqs", force: :cascade do |t|
@@ -240,15 +234,9 @@ ActiveRecord::Schema.define(version: 20171122160951) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.string   "file"
-    t.integer  "developer_id"
-    t.integer  "division_id"
-    t.integer  "development_id"
     t.string   "original_filename"
     t.integer  "category"
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
-    t.index ["developer_id"], name: "index_documents_on_developer_id", using: :btree
-    t.index ["development_id"], name: "index_documents_on_development_id", using: :btree
-    t.index ["division_id"], name: "index_documents_on_division_id", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
   end
 
@@ -260,13 +248,8 @@ ActiveRecord::Schema.define(version: 20171122160951) do
     t.datetime "updated_at",   null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
-    t.integer  "developer_id"
-    t.integer  "division_id"
-    t.integer  "development_id"
+    t.index "lower(answer) varchar_pattern_ops", name: "search_index_on_faq_answer", using: :btree
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
-    t.index ["developer_id"], name: "index_faqs_on_developer_id", using: :btree
-    t.index ["development_id"], name: "index_faqs_on_development_id", using: :btree
-    t.index ["division_id"], name: "index_faqs_on_division_id", using: :btree
     t.index ["faqable_type", "faqable_id"], name: "index_faqs_on_faqable_type_and_faqable_id", using: :btree
   end
 
@@ -630,18 +613,9 @@ ActiveRecord::Schema.define(version: 20171122160951) do
 
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
-  add_foreign_key "contacts", "developers"
-  add_foreign_key "contacts", "developments"
-  add_foreign_key "contacts", "divisions"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"
-  add_foreign_key "documents", "developers"
-  add_foreign_key "documents", "developments"
-  add_foreign_key "documents", "divisions"
-  add_foreign_key "faqs", "developers"
-  add_foreign_key "faqs", "developments"
-  add_foreign_key "faqs", "divisions"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_manufacturers"

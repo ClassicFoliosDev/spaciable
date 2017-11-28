@@ -5,14 +5,9 @@ class Contact < ApplicationRecord
   attr_accessor :picture_cache
   attr_accessor :notify
 
-  belongs_to :developer, optional: false
-  belongs_to :division, optional: true
-  belongs_to :development, optional: true
   belongs_to :contactable, polymorphic: true
 
   alias parent contactable
-  include InheritParentPermissionIds
-  include InheritPolymorphicParentPermissionIds
 
   # ENUMS
   include TitleEnum

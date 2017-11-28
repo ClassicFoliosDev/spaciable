@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 class Notification < ApplicationRecord
-  include PolymorphicPermissionable
-  include PolymorphicPermissionable::ByResources
-  permissionable_field :send_to
-
   attr_accessor :range_from, :range_to, :list
   attr_accessor :read_at
+  attr_accessor :developer_id, :division_id, :development_id, :phase_id
 
   belongs_to :author, class_name: "User"
   belongs_to :sender, class_name: "User"

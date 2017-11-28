@@ -191,7 +191,7 @@ module CreateFixture
   end
 
   def create_faq
-    FactoryGirl.create(:faq, question: faq_name, developer: developer, faqable: developer)
+    FactoryGirl.create(:faq, question: faq_name, faqable: developer)
   end
 
   def create_appliance_without_manual
@@ -300,15 +300,15 @@ module CreateFixture
   end
 
   def create_document
-    FactoryGirl.create(:document, developer: developer, documentable: developer)
+    FactoryGirl.create(:document, documentable: developer)
   end
 
   def create_development_document
-    FactoryGirl.create(:document, development: CreateFixture.development, documentable: CreateFixture.development)
+    FactoryGirl.create(:document, documentable: CreateFixture.development)
   end
 
   def create_division_document
-    FactoryGirl.create(:document, division: CreateFixture.division, documentable: CreateFixture.division)
+    FactoryGirl.create(:document, documentable: CreateFixture.division)
   end
 
   def create_private_document

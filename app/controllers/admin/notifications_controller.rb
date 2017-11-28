@@ -18,24 +18,29 @@ module Admin
     def show; end
 
     def create
+      @notification = NotificationSendService.call(@notification, notification_params)
       if @notification.with_sender(current_user).valid?
-        ResidentNotifierService.call(@notification) do |residents, missing_residents|
-          notice = t(".success", notification_name: @notification.to_s, count: residents.count)
-
-          if missing_residents.any?
-            alert = t(".missing_residents",
-                      plot_numbers: missing_residents.to_sentence,
-                      count: missing_residents.count)
-          end
-
-          redirect_to %i[admin notifications], notice: notice, alert: alert
-        end
+        notify_and_redirect
       else
         render :new
       end
     end
 
     private
+
+    def notify_and_redirect
+      ResidentNotifierService.call(@notification) do |residents, missing_residents|
+        notice = t(".success", notification_name: @notification.to_s, count: residents.count)
+
+        if missing_residents.any?
+          alert = t(".missing_residents",
+                    plot_numbers: missing_residents.to_sentence,
+                    count: missing_residents.count)
+        end
+
+        redirect_to %i[admin notifications], notice: notice, alert: alert
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_params
