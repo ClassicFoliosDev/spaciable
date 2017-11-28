@@ -24,10 +24,11 @@
 
 .services p {
   font-size: $base-small-font-size;
+  padding-right: $spacing-small;
 }
 
 .services-form {
-  height: 500px;
+  height: 540px;
 }
 
 .service-description {
@@ -43,8 +44,6 @@
 
 @include media($tablet-portrait-up) {
   .service, .resident-service {
-    width: 47%;
-    height: 120px;
 
     &:nth-child(odd) {
       float: right;
@@ -53,6 +52,16 @@
     &:nth-child(even) {
       float: left;
     }
+  }
+
+  .resident-service {
+    width: 47%;
+    height: 120px;
+  }
+
+  .service {
+    width: 40%;
+    height: 90px;
   }
 
   .services-form {
