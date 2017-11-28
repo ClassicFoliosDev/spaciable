@@ -1,7 +1,7 @@
 <div class="invitation branded-content">
   <div class="register">
     <div class="login-logo">
-      <%= image_tag logo_image_name(resource.plot.brand) %>
+      <%= image_tag logo_image_name(resource&.plot&.brand) %>
     </div>
 
     <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
