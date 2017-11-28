@@ -81,6 +81,7 @@ gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.
 
 # Background Jobs
 gem "carrierwave_backgrounder"
+gem "daemons", "~> 1.2"
 gem "delayed_job_active_record", "~> 4.1"
 
 # Process management
