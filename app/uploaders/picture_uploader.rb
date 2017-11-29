@@ -8,7 +8,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   if Features.s3_storage?
-    storage :fog
+    storage :aws
   else
     storage :file
   end

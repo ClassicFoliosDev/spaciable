@@ -10,7 +10,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   # storage :file
   # storage :fog
   if Features.s3_storage?
-    storage :fog
+    storage :aws
   else
     storage :file
   end

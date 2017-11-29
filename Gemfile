@@ -52,6 +52,7 @@ gem "gretel" # breadcrumbs
 
 # File Uploads
 gem "carrierwave"
+gem "carrierwave-aws", "~> 1.3"
 gem "fog-aws"
 gem "mini_magick", "~> 4.8"
 gem "rmagick", "~> 2.16"
