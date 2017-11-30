@@ -2,7 +2,7 @@
   <div class="document sixth">
     <div class="document-image-container">
       <%= link_to document[:link], target: "_blank" do %>
-        <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] && Rails.application.config.enable_thumbnails %>
+        <%= image_tag (document[:thumb]), alt: document[:title] if document[:thumb] && Rails.application.config.enable_thumbnails %>
       <% end %>
     </div>
     <span class="document-name" title="<%= document[:name] %>">

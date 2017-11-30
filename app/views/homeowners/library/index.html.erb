@@ -10,7 +10,7 @@
         <div class="sixth document">
           <div class="document-image-container">
             <%= link_to document.file.url, target: "_blank" do %>
-              <%= image_tag document_preview_url(document.file), alt: document.title if document.file? %>
+              <%= image_tag (document[:thumb]), alt: document[:title] if document[:thumb] && Rails.application.config.enable_thumbnails %>
             <% end %>
           </div>
 
