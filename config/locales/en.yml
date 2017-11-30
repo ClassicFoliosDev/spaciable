@@ -577,7 +577,7 @@ en:
     services:
       index:
         title: "Hoozzi Services"
-        description: "Moving home can be very stressful. Hoozzi Services can help, we can take some of the pressure away with our trusted suppliers. Plus, with Hoozzi’s buying power you can get a great deal. Don't get stressed, let Hoozzi help and give yourself more choice."
+        description: "Moving home can be very stressful, but Hoozzi Services can help take some of the pressure away with our trusted suppliers. Plus, with Hoozzi’s buying power you can get a great deal. Don't get stressed - let Hoozzi help and give yourself more choice."
         submit: "Got it, let's go"
         postamble: "You can always choose services later through your Account Settings"
       resident_services:
