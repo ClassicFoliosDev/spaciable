@@ -12,7 +12,7 @@
 <div class="row contact">
   <div class="row-item third">
     <div class="contact-picture">
-      <%= image_tag(@contact.picture.url) if @contact.picture? %>
+      <%= image_tag @contact.picture.url :thumbnail if @contact.picture? %>
     </div>
     <%= label_tag(:title) %>
     <span><%= t("activerecord.attributes.contact.titles.#{@contact.title}") if @contact.title %></span>

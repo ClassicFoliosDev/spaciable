@@ -24,10 +24,10 @@
         <% collection.each do |document| %>
         <tr data-document="<%= document.id %>">
           <td><%= link_to document.title, document_path(document) %></td>
-          <td><%= document.file.size %></td>
+          <td><%= document.file&.size %></td>
           <td><%= l document.updated_at.to_date, format: :digits %></td>
           <td class="actions">
-            <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
+            <%= link_to document.file&.url, class: "btn",  target: "_blank" do %>
               <%= icon "cloud-download" %>
             <% end %>
             <%= edit_btn edit_document_path(document), element: document %>

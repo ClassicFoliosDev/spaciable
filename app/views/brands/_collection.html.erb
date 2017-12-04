@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr>
-          <td><%= image_tag brand.logo, class: "circle" if brand.logo? %></td>
+          <td><%= image_tag brand.logo.url :thumbnail if brand.logo? %></td>
           <td colspan="3"><%= link_to brand, [brand.brandable, :brand] %></td>
           <td colspan="2"><%= l brand.updated_at.to_date, format: :digits %></td>
           <td class="actions">

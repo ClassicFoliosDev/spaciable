@@ -7,7 +7,7 @@
 
     <div class="section-data">
       <div class="user-picture">
-        <%= image_tag(@user.picture.url) if @user.picture? %>
+        <%= image_tag @user.picture.url :thumbnail if @user.picture? %>
       </div>
       <i class="fa fa-envelope"></i>
       <%= @user.email %>

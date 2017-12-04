@@ -10,11 +10,10 @@
         <div class="sixth document">
           <div class="document-image-container">
             <%= link_to document.file.url, target: "_blank" do %>
-              <%= image_tag (document[:thumb]), alt: document[:title] if document[:thumb] && Rails.application.config.enable_thumbnails %>
-            <% end %>
+              <%= fa_icon "file-pdf-o" %>
+              <h5><%= document.title %></h5>
+          <% end %>
           </div>
-
-          <h5><%= document.title %></h5>
         </div>
       <% end %>
 
@@ -23,24 +22,24 @@
           <div class="sixth document">
             <div class="document-image-container">
               <%= link_to appliance.manual.url, target: "_blank" do %>
-                <%= image_tag document_preview_url(appliance.manual), alt: appliance.manual.to_s.split("/").last %>
+                <%= fa_icon "file-pdf-o" %>
+                <h5><%= appliance.full_name %></h5>
+                <span><%= appliance.appliance_category %></span>
+                <p><%= t(".manual") %></p>
               <% end %>
             </div>
-            <h5><%= appliance.full_name %></h5>
-            <span><%= appliance.appliance_category %></span>
-            <p><%= t(".manual") %></p>
           </div>
         <% end %>
         <% if appliance.guide? %>
           <div class="sixth document">
             <div class="document-image-container">
               <%= link_to appliance.guide.url, target: "_blank" do %>
-                <%= image_tag document_preview_url(appliance.guide), alt: appliance.guide.to_s.split("/").last %>
+                <%= fa_icon "file-pdf-o" %>
+                <h5><%= appliance.full_name %></h5>
+                <span><%= appliance.appliance_category %></span>
+                <p><%= t(".guide") %></p>
               <% end %>
             </div>
-            <h5><%= appliance.full_name %></h5>
-            <span><%= appliance.appliance_category %></span>
-            <p><%= t(".guide") %></p>
           </div>
         <% end %>
       <% end %>

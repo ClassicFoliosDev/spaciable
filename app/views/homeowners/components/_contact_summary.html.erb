@@ -2,7 +2,7 @@
   <div class="contact branded-content branded-border branded-text">
     <div class="contact-avatar">
       <% if contact.picture? %>
-        <%= image_tag(contact.picture.url) %>
+        <%= image_tag contact.picture.url :thumbnail if contact.picture?%>
       <% else %>
         <div class="avatar">
           <%= image_tag("user-circle-o.jpg") %>

@@ -2,9 +2,7 @@
 
 class DocumentUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
-  # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
@@ -13,20 +11,6 @@ class DocumentUploader < CarrierWave::Uploader::Base
     storage :aws
   else
     storage :file
-  end
-
-  def convert_to_image(height, width)
-    image = ::Magick::Image.read(current_path + "[0]")[0]
-    image.resize_to_fit(height, width).write(current_path)
-  end
-
-  version :preview do
-    process convert_to_image: [210, 297]
-    process convert: :jpg
-
-    def full_filename(for_file = model.file)
-      super.chomp(File.extname(super)) + ".jpg"
-    end
   end
 
   # Override the directory where uploaded files will be stored.
@@ -49,11 +33,6 @@ class DocumentUploader < CarrierWave::Uploader::Base
   #
   # def scale(width, height)
   #   # do something
-  # end
-
-  # Create different versions of your uploaded files:
-  # version :thumb do
-  #   process :resize_to_fit => [50, 50]
   # end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -12,7 +12,7 @@ module FileFixture
   end
 
   def avatar_alt
-    "Avatar girl face"
+    "vatar girl face"
   end
 
   def finish_picture_name

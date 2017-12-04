@@ -25,7 +25,7 @@
       <tbody>
         <% collection.each do |contact| %>
         <tr>
-          <td><%= image_tag contact.picture, class: "circle" if contact.picture? %></td>
+          <td><%= image_tag contact.picture.url :thumbnail if contact.picture? %></td>
           <td colspan="2"><%= link_to contact, contact_path(contact) %></td>
           <td colspan="2"><%= contact.position %></td>
           <td colspan="2"><%= l contact.updated_at.to_date, format: :digits %></td>

@@ -6,11 +6,6 @@ require "carrierwave"
 class CkeditorAttachmentFileUploader < CarrierWave::Uploader::Base
   include Ckeditor::Backend::CarrierWave
 
-  # Include RMagick or ImageScience support:
-  # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
-  # include CarrierWave::ImageScience
-
   # Choose what kind of storage to use for this uploader:
   if Features.s3_storage?
     storage :aws

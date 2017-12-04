@@ -13,10 +13,7 @@ module Admin
     end
 
     def new
-      @how_to_sub_categories = HowToSubCategory.where(
-        parent_category: t("activerecord.attributes.how_to.categories.home")
-      )
-      @how_to.build_tags
+      categories_and_tags
     end
 
     def create
@@ -25,7 +22,7 @@ module Admin
         @how_to.delete_duplicate_tags
         redirect_to admin_how_tos_path, notice: t("controller.success.create", name: @how_to)
       else
-        @how_to.build_tags
+        categories_and_tags
         render :new
       end
     end
@@ -71,6 +68,13 @@ module Admin
     end
 
     private
+
+    def categories_and_tags
+      @how_to_sub_categories = HowToSubCategory.where(
+        parent_category: t("activerecord.attributes.how_to.categories.home")
+      )
+      @how_to.build_tags
+    end
 
     def how_to_params
       params.require(:how_to).permit(
