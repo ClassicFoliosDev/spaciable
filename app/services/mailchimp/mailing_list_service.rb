@@ -13,19 +13,31 @@ module Mailchimp
     end
 
     def self.call_gibbon(api_key, resource)
+      if resource.list_id
+        notice = I18n.t("controller.success.update") + " "
+        notice << I18n.t("mailchimp.no_change")
+        return notice
+      end
+
+      create_list(api_key, resource)
+    end
+
+    def self.create_list(api_key, resource)
       gibbon = MailchimpUtils.client(api_key)
       mail_chimp_list = gibbon.lists.create(body: build_list_params(resource))
-
-      list_id = mail_chimp_list.body[:id]
-      resource.update(list_id: list_id)
+      resource.update(list_id: mail_chimp_list.body[:id])
 
       Rails.configuration.mailchimp[:merge_fields].each do |field_params|
-        gibbon.lists(list_id).merge_fields.create(body: field_params)
+        gibbon.lists(list_id(resource)).merge_fields.create(body: field_params)
       end
       I18n.t("controller.success.create_update", name: resource.to_s)
     rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
       I18n.t("activerecord.errors.messages.mailchimp_failure",
              name: resource.to_s, type: "mailing list", message: e.message)
+    end
+
+    def self.list_id(resource)
+      resource.list_id || mail_chimp_list.body[:id]
     end
 
     def self.build_list_params(resource)

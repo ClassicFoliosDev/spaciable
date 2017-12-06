@@ -61,6 +61,9 @@ en:
     updated: "updated for"
     updated_state: "updated to %{state} for"
 
+  mailchimp:
+    no_change: "Existing mailchimp details have not been modified"
+
   # LAYOUTS
   layouts:
     application:
