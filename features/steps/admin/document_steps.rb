@@ -46,7 +46,6 @@ And(/^I should see the original filename$/) do
   end
 
   within ".document" do
-    expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.document_name)
     # Wasn't set explicitly, but current behaviour will default it
     expect(page).to have_content(t("activerecord.attributes.document.categories.my_home"))
@@ -90,7 +89,6 @@ Then(/^I should see the updated (\w+) document$/) do |parent_type|
 
   # On the show page
   within ".document" do
-    expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
     expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
@@ -456,7 +454,6 @@ Then(/^I should see the updated document for the plot$/) do
 
   # On the show page
   within ".document" do
-    expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
     expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
@@ -482,7 +479,6 @@ Then(/^I should see the updated document for the phase plot$/) do
 
   # On the show page
   within ".document" do
-    expect(page).to have_content(FileFixture.document_name)
     expect(page).to have_content(DocumentFixture.updated_document_name)
     expect(page).not_to have_content DocumentFixture.document_name
     expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))

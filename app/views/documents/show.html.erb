@@ -21,16 +21,19 @@
     <span><%= t("activerecord.attributes.document.categories.#{@document.category}") %></span>
   </div>
 
-  <% if @document.file? %>
-    <div class="row-item third">
+  <div class="row-item third">
+    <% if @document.file? %>
       <%= label_tag t(".original_name") %>
       <span><%= @document.original_filename %></span>
       <%= label_tag t(".size") %>
       <span><%= @document.file.size %></span>
       <%= label_tag t(".updated") %>
       <span><%= @document.updated_at %></span>
-    </div>
+    <% else %>
+      <%= t(".processing") %>
   <% end %>
+  </div>
+
 </div>
 
 <div class="form-actions-footer-container">

@@ -41,17 +41,10 @@ class DocumentsController < ApplicationController
 
   def create
     authorize! :create, @document
-
     @document.set_original_filename
 
     if @document.save
-      notice = t("controller.success.create", name: @document.title)
-      if document_params[:notify].to_i.positive?
-        notice << ResidentChangeNotifyService.call(@document, current_user,
-                                                   t("notify.added"), @document.parent)
-      end
-
-      redirect_to target, notice: notice
+      notify_and_redirect
     else
       render :new
     end
@@ -82,6 +75,17 @@ class DocumentsController < ApplicationController
   end
 
   private
+
+  def notify_and_redirect
+    notice = t("controller.success.create", name: @document.title)
+
+    if document_params[:notify].to_i.positive?
+      notice << ResidentChangeNotifyService.call(@document, current_user,
+                                                 t("notify.added"), @document.parent)
+    end
+
+    redirect_to target, notice: notice
+  end
 
   def process_html_format
     notice = t("controller.success.update", name: @document.title)

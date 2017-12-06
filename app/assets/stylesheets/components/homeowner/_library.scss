@@ -40,9 +40,15 @@
 
     .document-image-container {
       display: table;
-      margin-right: 0;
+      height: 125px;
+
+      img {
+        max-height: 125px;
+      }
     }
   }
+
+
 
   .document-name {
     text-overflow: ellipsis;
@@ -72,7 +78,11 @@
 
     .document-image-container {
       display: table;
-      width: 100%;
+
+      img {
+        max-height: 125px;
+        margin: $spacing-small 0;
+      }
     }
 
     h5 {
@@ -88,9 +98,6 @@
 }
 
 .document {
-
-  text-align: center;
-
   .fa-file-pdf-o {
     font-size: 40px;
     display: block;

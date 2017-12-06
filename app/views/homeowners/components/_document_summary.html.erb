@@ -2,9 +2,11 @@
   <div class="document sixth">
     <div class="document-image-container">
       <%= link_to document[:link], target: "_blank" do %>
-        <%= fa_icon "file-pdf-o" %>
-        <span class="document-name" title="<%= document[:name] %>"><%= document[:name] %></span>
+        <%= image_tag (document[:thumb]), alt: document[:name] if document[:thumb] %>
       <% end %>
     </div>
+    <span class="document-name" title="<%= document[:name] %>">
+      <%= link_to truncate(document[:name], length: 35), document[:link], target: "_blank", class: "branded-primary" %>
+    </span>
   </div>
 <% end %>

@@ -939,6 +939,7 @@ en:
       notify: "Notify subscribed residents about this change"
     collection:
       plot: "Plot"
+      processing: "Processing..."
     bulk_upload:
       files_required: "You must select files to upload."
       success: "Uploaded %{matched} plot documents successfully"
@@ -1230,6 +1231,7 @@ en:
       updated: "Upload date"
       back: "Back"
       category: "Folder"
+      processing: "Processing..."
     form:
       load: "File"
       upload: "Upload"
@@ -1241,6 +1243,7 @@ en:
       notify: "Notify subscribed residents about this change"
     collection:
       add: "Add document"
+      processing: "Processing..."
     edit:
       title: "Edit %{name}"
 

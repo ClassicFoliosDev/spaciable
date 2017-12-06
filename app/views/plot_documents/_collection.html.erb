@@ -23,8 +23,12 @@
       <td><%= l document.updated_at.to_date, format: :digits %></td>
       <td><%= t("activerecord.attributes.document.categories.#{document.category}") %></td>
       <td class="actions">
-        <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
-          <%= icon "cloud-download" %>
+        <% if document.file_tmp %>
+          <%= t(".processing") %>
+        <% else %>
+          <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
+            <%= icon "cloud-download" %>
+          <% end %>
         <% end %>
       </td>
     </tr>

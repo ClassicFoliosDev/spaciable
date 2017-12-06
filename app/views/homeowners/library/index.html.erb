@@ -10,10 +10,10 @@
         <div class="sixth document">
           <div class="document-image-container">
             <%= link_to document.file.url, target: "_blank" do %>
-              <%= fa_icon "file-pdf-o" %>
-              <h5><%= document.title %></h5>
-          <% end %>
+              <%= image_tag document_preview_url(document.file) if document.file? %>
+            <% end %>
           </div>
+          <h5><%= document.title %></h5>
         </div>
       <% end %>
 
@@ -22,11 +22,11 @@
           <div class="sixth document">
             <div class="document-image-container">
               <%= link_to appliance.manual.url, target: "_blank" do %>
-                <%= fa_icon "file-pdf-o" %>
-                <h5><%= appliance.full_name %></h5>
-                <span><%= appliance.appliance_category %></span>
-                <p><%= t(".manual") %></p>
+                  <%= image_tag document_preview_url(appliance.manual)  %>
               <% end %>
+              <h5><%= appliance.full_name %></h5>
+              <span><%= appliance.appliance_category %></span>
+              <p><%= t(".manual") %></p>
             </div>
           </div>
         <% end %>
@@ -34,11 +34,11 @@
           <div class="sixth document">
             <div class="document-image-container">
               <%= link_to appliance.guide.url, target: "_blank" do %>
-                <%= fa_icon "file-pdf-o" %>
-                <h5><%= appliance.full_name %></h5>
-                <span><%= appliance.appliance_category %></span>
-                <p><%= t(".guide") %></p>
+                <%= image_tag document_preview_url(appliance.guide) %>
               <% end %>
+              <h5><%= appliance.full_name %></h5>
+              <span><%= appliance.appliance_category %></span>
+              <p><%= t(".guide") %></p>
             </div>
           </div>
         <% end %>
