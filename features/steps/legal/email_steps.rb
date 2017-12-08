@@ -16,7 +16,8 @@ end
 
 When(/^I update the plot progress$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
-  plot = resident.plot
+  # TODO improve plot calculation
+  plot = resident.plots.first
 
   visit "/plots/#{plot.id}/edit"
 
@@ -35,10 +36,12 @@ When(/^I send a notification to the development$/) do
   end
 
   resident = Resident.find_by(email: HomeownerUserFixture.email)
+  # TODO improve plot calculation
+  plot = resident.plots.first
 
   within ".new_notification" do
-    select_from_selectmenu(:notification_developer_id, with: resident.developer)
-    select_from_selectmenu(:notification_development_id, with: resident.development)
+    select_from_selectmenu(:notification_developer_id, with: plot.developer)
+    select_from_selectmenu(:notification_development_id, with: plot.development)
     fill_in :notification_subject, with: "Notification should not be sent to unactivated user"
     fill_in_ckeditor(:notification_message, with: "Notification contents should not be sent to unactivated user")
   end

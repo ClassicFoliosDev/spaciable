@@ -23,7 +23,7 @@
     <tbody>
       <% collection.each do |plot| %>
         <tr data-plot="<%= plot.id %>">
-          <td><%= link_to_unless (cannot? :read, plot), plot, plot, title: plot %></td>
+          <td><%= link_to_unless (cannot? :read, plot), plot, url_for(plot), title: plot %></td>
           <td><%= l plot.updated_at.to_date, format: :digits %></td>
           <td><%= plot.unit_type %></td>
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>

@@ -31,20 +31,39 @@ RSpec.describe PlotResidency do
         end.not_to change(Resident, :count)
 
         resident.reload
-        expect(resident.plot).to eq(plot)
+        expect(resident.plot_residencies.first.plot).to eq(plot)
         expect(resident.first_name).to eq("Joe")
         expect(resident.last_name).to eq("Bloggs")
       end
     end
 
-    it "cannot assign a resident that already has a residency" do
+    it "cannot assign a resident that already has a residency for the same plot" do
       resident = create(:resident, :with_residency)
-      plot = create(:plot)
+      plot = resident.plot_residencies.first.plot
 
       residency = PlotResidency.create(plot: plot, email: resident.email)
 
-      error = I18n.t("activerecord.errors.models.plot_residency.attributes.email.already_in_use")
-      expect(residency.errors[:email]).to include(error)
+      error = I18n.t("activerecord.errors.messages.taken")
+      expect(residency.errors[:resident]).to include(error)
+    end
+
+    it "can assign a a resident to multiple plots in the same development" do
+      resident = create(:resident, :with_residency)
+      development = resident.plot_residencies.first.plot.development
+
+      plot2 = create(:plot, development: development)
+      residency2 = PlotResidency.create(plot: plot2, email: resident.email)
+
+      expect(residency2).to be_valid
+      expect(plot2.residents.first.email).to eq resident.email
+
+      plot3 = create(:plot, development: development)
+      residency3 = PlotResidency.create(plot: plot3, email: resident.email)
+      expect(plot3.residents.first.email).to eq resident.email
+
+      expect(residency3).to be_valid
+      expect(resident.reload.plot_residencies.count).to eq 3
+      expect(resident.plots).to match_array [resident.plot_residencies.first.plot, plot2, plot3]
     end
   end
 
@@ -56,7 +75,7 @@ RSpec.describe PlotResidency do
       resident = create(:resident, :with_residency)
 
       expect do
-        resident.plot_residency.update(updated_attrs)
+        resident.update(updated_attrs)
       end.not_to change(Resident, :count)
       resident.reload
 

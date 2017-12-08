@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-module ResidentRouteHelper
+module PlotRouteHelper
   def resident_invitation_route(plot, token)
     token = token[:invitation_token] unless token.to_s == token
 

@@ -58,9 +58,9 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <% if parent %>
-        <%= link_to t(".back"), [parent, :plots], class: "btn" %>
+        <%= link_to t(".back"), [parent.parent, parent, active_tab: :plots], class: "btn" %>
       <% else %>
-        <%= link_to t(".back"), [plots.parent, :plots], class: "btn" %>
+        <%= link_to t(".back"), [plots.parent.parent, plots.parent, active_tab: :plots], class: "btn" %>
       <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
       <div class="notify">

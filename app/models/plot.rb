@@ -15,8 +15,8 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
-  has_one :plot_residency, dependent: :destroy
-  has_many :residents, through: :plot_residency
+  has_many :plot_residencies, dependent: :destroy
+  has_many :residents, through: :plot_residencies
 
   has_many :unit_types, through: :development
   has_many :plot_rooms, class_name: "Room"
@@ -33,12 +33,11 @@ class Plot < ApplicationRecord
   validates :unit_type, presence: true
   validates_with PlotCombinationValidator
 
-  delegate :build_resident, to: :build_plot_residency
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, to: :unit_type
   delegate :branded_logo, to: :brand, allow_nil: true
   delegate :maintenance_link, to: :development, allow_nil: true
-  delegate :house_search, to: :developer, allow_nil: true
+  delegate :house_search, :enable_services?, to: :developer, allow_nil: true
 
   enum progress: %i[
     soon

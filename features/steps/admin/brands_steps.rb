@@ -260,19 +260,13 @@ Then(/^I should see the (\w+) brand deletion complete successfully$/) do |parent
 end
 
 When(/^I create a division brand$/) do
-  visit "/"
+  division = CreateFixture.division
+  visit "/divisions/#{division.id}/brands"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".styling" do
+    click_on t("brands.collection.create")
   end
 
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.divisions")
-
-  click_on CreateFixture.division_name
-  click_on t("developers.collection.brands")
-
-  click_on t("brands.collection.create")
   logo_full_path = FileFixture.file_path + FileFixture.logo_name
   within ".brand_logo" do
     attach_file("brand_logo",
@@ -280,17 +274,14 @@ When(/^I create a division brand$/) do
                 visible: false)
   end
 
-  click_on t("brands.form.submit")
+  within ".new_brand" do
+    click_on t("brands.form.submit")
+  end
 end
 
 When(/^I delete the division brand$/) do
-  visit "/developers"
-
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.divisions")
-
-  click_on CreateFixture.division_name
-  click_on t("developers.collection.brands")
+  division = CreateFixture.division
+  visit "/divisions/#{division.id}/brands"
 
   delete_and_confirm!
 end

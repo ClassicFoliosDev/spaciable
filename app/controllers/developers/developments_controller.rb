@@ -21,6 +21,9 @@ module Developers
                     elsif @active_tab == "documents"
                       documents = @development.documents.accessible_by(current_ability)
                       paginate(sort(documents, default: :title))
+                    # Can only get here in test env
+                    elsif @active_tab == "plots"
+                      @development.plots
                     end
     end
 

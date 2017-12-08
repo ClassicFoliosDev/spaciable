@@ -104,7 +104,7 @@ When(/^I remove a Tag$/) do
 
   within ".tags" do
     target_btn = page.find("span", text: HowToFixture.tag1).find(".remove", visible: false)
-    target_btn.click
+    target_btn.trigger(:click)
   end
 end
 

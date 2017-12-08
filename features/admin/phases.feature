@@ -28,7 +28,7 @@ Feature: Phases
     And Phase residents should have been notified
 
   @javascript
-  Scenario: Deleted phase plot progress
+  Scenario: Phase plot progress for deleted plot
     Given I am logged in as an admin
     And there is a phase plot with a resident
     And I delete the plot with resident

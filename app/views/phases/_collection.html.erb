@@ -24,7 +24,7 @@
         <td><%= link_to phase.name, development_phase_path(parent, phase), title: phase.name %></td>
         <td><%= l phase.updated_at.to_date, format: :digits %></td>
         <td class="actions">
-          <%= link_to t(".plots"), phase_plots_path(phase), class: "btn" %>
+          <%= link_to t(".plots"), [parent, phase, active_tab: :plots], class: "btn" %>
           <%= edit_btn edit_development_phase_path(parent, phase), element: phase %>
           <%= delete_btn phase, path: url_for([parent, phase]), element: phase %>
         </td>

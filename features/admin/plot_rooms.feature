@@ -34,7 +34,8 @@ Feature: Plot Rooms
   Scenario: Remove
     Given I am logged in as a CF Admin wanting to manage plot rooms
     And the unit type has an appliance and a finish
-    When I remove a finish from the plot
+    When I go to review the plot rooms
+    And I remove a finish from the plot
     Then I should see the finish remove is successful
     When I remove an appliance from the plot
     Then I should see the appliance remove is successful

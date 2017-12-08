@@ -33,7 +33,7 @@ class DivisionsController < ApplicationController
     if @division.save
       notice = Mailchimp::MailingListService.call(@division)
       notice = t("controller.success.create", name: @division.division_name) if notice.nil?
-      redirect_to [@developer, :divisions], notice: notice
+      redirect_to @developer, active_tab: :divisions, notice: notice
     else
       @division.build_address unless @division.address
       render :new
@@ -44,7 +44,7 @@ class DivisionsController < ApplicationController
     if @division.update(division_params)
       notice = Mailchimp::MailingListService.call(@division)
       notice = t("controller.success.update", name: @division.division_name) if notice.nil?
-      redirect_to [@developer, @division], notice: notice
+      redirect_to @developer, active_tab: :divisions, notice: notice
     else
       render :edit
     end
@@ -56,7 +56,7 @@ class DivisionsController < ApplicationController
       "controller.success.destroy",
       name: @division.division_name
     )
-    redirect_to [@developer, :divisions], notice: notice
+    redirect_to @developer, active_tab: :divisions, notice: notice
   end
 
   private

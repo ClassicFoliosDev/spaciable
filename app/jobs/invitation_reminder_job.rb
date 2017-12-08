@@ -3,9 +3,9 @@
 class InvitationReminderJob < ApplicationJob
   queue_as :mailer
 
-  def perform(resident, subject, token)
-    return unless resident
+  def perform(plot_residency, subject, token)
+    return unless plot_residency
 
-    ResidentNotificationMailer.remind(resident, subject, token).deliver_now
+    ResidentNotificationMailer.remind(plot_residency, subject, token).deliver_now
   end
 end

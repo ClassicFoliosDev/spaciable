@@ -2,37 +2,40 @@
 # frozen_string_literal: true
 
 class ResidentNotificationMailer < ApplicationMailer
-  add_template_helper(ResidentRouteHelper)
+  add_template_helper(PlotRouteHelper)
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
   #   en.resident_notification_mailer.notify.subject
   #
-  def notify(resident, notification)
+  def notify(plot_residency, notification)
+    resident = plot_residency.resident
     return unless resident.developer_email_updates?
 
-    template_configuration(resident)
+    template_configuration(plot_residency)
     @content = notification.message
 
     mail to: resident.email, subject: notification.subject
   end
 
   # Reminder contents are set in the template
-  def remind(resident, subject, token)
-    return unless resident.plot
+  def remind(plot_residency, subject, token)
+    return unless plot_residency
 
-    template_configuration(resident)
+    template_configuration(plot_residency)
     @token = token
-    @invited_by = resident.invited_by.to_s
+    @invited_by = plot_residency.invited_by.to_s
+    @plot = plot_residency.plot
 
-    mail to: resident.email, subject: subject
+    mail to: plot_residency.email, subject: subject
   end
 
   private
 
-  def template_configuration(resident)
-    @resident = resident
-    @logo = resident&.plot&.branded_logo
+  def template_configuration(plot_residency)
+    @resident = plot_residency.resident
+    @plot = plot_residency.plot
+    @logo = @plot&.branded_logo
     @logo = "logo.png" if @logo.blank?
   end
 end

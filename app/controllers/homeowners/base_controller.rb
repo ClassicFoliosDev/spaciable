@@ -13,10 +13,10 @@ module Homeowners
 
     def current_ability
       if current_user.present?
-        @resident ||= Resident.new(plot: @plot, email: current_user.email)
-        @ability ||= Ability.new(@resident)
+        @resident ||= Resident.new(email: current_user.email)
+        @ability ||= Ability.new(@resident, @plot)
       else
-        @ability ||= Ability.new(current_resident)
+        @ability ||= Ability.new(current_resident, @plot)
       end
     end
 
@@ -28,7 +28,8 @@ module Homeowners
 
     def set_plot
       if current_resident.present?
-        @plot = current_resident.plot
+        # TODO: work out correct plot
+        @plot = current_resident.plots.first
         session[:plot_id] = @plot.id
       elsif current_user.present?
         plot_id = session[:plot_id]

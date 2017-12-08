@@ -17,20 +17,20 @@ class Resident < ApplicationRecord
          :trackable,
          :validatable
 
+  attr_accessor :completion_date
+
   has_many :resident_notifications
   has_many :notifications, through: :resident_notifications
   has_many :private_documents, dependent: :destroy
   has_many :resident_services, dependent: :delete_all
   has_many :services, through: :resident_services
 
-  has_one :plot_residency, dependent: :destroy
-  delegate :plot, to: :plot_residency, allow_nil: true
-  delegate :developer, :division, :development, :phase, :unit_type, to: :plot, allow_nil: true
-  delegate :number, :prefix, to: :plot
+  has_many :plot_residencies, dependent: :destroy
+  has_many :plots, through: :plot_residencies
   delegate :enable_services?, to: :developer
 
   validates :first_name, :last_name, presence: true
-  validates :phone_number, phone: true, allow_nil: true
+  validates :phone_number, phone: true, allow_blank: true
 
   def subscribed_status
     if hoozzi_email_updates.to_i.positive? || developer_email_updates.to_i.positive?
@@ -54,16 +54,12 @@ class Resident < ApplicationRecord
 
   def plot=(plot_record)
     if new_record?
-      build_plot_residency(plot_id: plot_record&.id)
+      PlotResidency.new(resident_id: id, plot_id: plot_record&.id)
     else
       residency = PlotResidency.find_or_initialize_by(resident_id: id)
       residency.plot_id = plot_record&.id
       residency.save
     end
-  end
-
-  def full_plot_number
-    plot&.to_s
   end
 
   def to_s

@@ -33,7 +33,7 @@ module DevelopmentTabsHelper
   def add_plot_tabs(tabs, development)
     tabs[:plots] = {
       icon: :building,
-      link: [development, :plots]
+      link: [development.parent, development, active_tab: :plots]
     }
 
     tabs[:plot_documents] = {

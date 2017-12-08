@@ -13,6 +13,7 @@
       <th><%= t(".name") %></th>
       <th><%= t(".email") %></th>
       <th><%= t(".plot") %></th>
+      <th><%= t(".plot_count") %></th>
       <th><%= t(".unit_type") %></th>
       <th><%= t(".development") %></th>
       <th><%= t(".division") %></th>
@@ -24,11 +25,16 @@
     <tr data-user="<%= resident.id %>">
       <td><%= link_to resident, admin_resident_path(resident) %></td>
       <td><%= resident.email %></td>
-      <td><%= resident.plot %></td>
-      <td><%= resident.unit_type %></td>
-      <td><%= resident.development %></td>
-      <td><%= resident.division %></td>
-      <td><%= resident.developer %></td>
+      <% if resident.plots.count.positive? %>
+        <td><%= resident.plots.first %></td>
+        <td><%= resident.plots.count %></td>
+        <td><%= resident.plots.first.unit_type %></td>
+        <td><%= resident.plots.first.development %></td>
+        <td><%= resident.plots.first.division %></td>
+        <td><%= resident.plots.first.developer %></td>
+      <% else %>
+        <td colspan="6"><em><%= t(".removed") %></em></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>

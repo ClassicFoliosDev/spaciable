@@ -24,7 +24,7 @@ class ProgressesController < ApplicationController
     end
     if result
       notice = notify(state)
-      redirect_to [@phase, :progresses], notice: notice
+      redirect_to [@phase.parent, @phase, active_tab: :plots], notice: notice
     else
       render :edit
     end
@@ -36,7 +36,8 @@ class ProgressesController < ApplicationController
     new_state = t("activerecord.attributes.plot.progresses.#{state}")
     notice = t(".success", progress: new_state)
     return notice if params[:notify].to_i.zero?
-    notice << ResidentChangeNotifyService.call(@phase.plots.first, current_user,
+
+    notice << ResidentChangeNotifyService.call(:not_set, current_user,
                                                t("notify.updated_state", state: new_state), @phase)
   end
 end

@@ -27,8 +27,8 @@ module PlotResidencyFixture
       title: "Mr",
       first_name: "Joe",
       last_name: "Blogs",
-      email: original_email,
-      phone: "07785 144333",
+      email: updated_email,
+      phone: "07780 135246",
       completion_date: I18n.l(Time.zone.today.advance(days: 20))
     }
   }.freeze
@@ -37,7 +37,8 @@ module PlotResidencyFixture
     create_developer
     create_development
     create_unit_type
-    create_development_plot
+    create_development_phase
+    create_phase_plot
   end
 
   def attrs(scope = :created)
@@ -50,9 +51,11 @@ module PlotResidencyFixture
 
   def second_attrs
     {
+      title: "Professor",
       email: second_email,
       first_name: "Jane",
-      last_name: "Bloggs"
+      last_name: "Bloggs",
+      phone: "02380 135246"
     }
   end
 

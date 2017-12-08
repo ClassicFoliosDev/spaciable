@@ -11,15 +11,16 @@ RSpec.describe "Reminder jobs", type: :feature do
     it "removes them from the queue" do
       Delayed::Worker.delay_jobs = true
       resident = developer_with_residents.residents.first
+      plot_residency = resident.plot_residencies.first
 
-      InvitationReminderJob.set(wait: 3.minutes).perform_later(resident, "Spec testing", "abc")
-      InvitationReminderJob.set(wait: 5.minutes).perform_later(resident, "Spec testing", "abc")
-      InvitationReminderJob.set(wait: 7.minutes).perform_later(resident, "Spec testing", "abc")
+      InvitationReminderJob.set(wait: 3.minutes).perform_later(plot_residency, "Spec testing", "abc")
+      InvitationReminderJob.set(wait: 5.minutes).perform_later(plot_residency, "Spec testing", "abc")
+      InvitationReminderJob.set(wait: 7.minutes).perform_later(plot_residency, "Spec testing", "abc")
 
       scheduled_jobs = Delayed::Job.all
       expect(scheduled_jobs.count).to eq(3)
 
-      JobManagementService.call(resident.id)
+      JobManagementService.call(plot_residency.id)
 
       scheduled_jobs = Delayed::Job.count
       expect(scheduled_jobs).to eq(0)
@@ -34,17 +35,19 @@ RSpec.describe "Reminder jobs", type: :feature do
 
         resident = developer_with_residents.residents.first
         resident2 = developer_with_residents.residents.last
+        plot_residency = resident.plot_residencies.first
+        plot_residency2 = resident2.plot_residencies.first
 
         scheduled_jobs = Delayed::Job.all
         initial_jobs = scheduled_jobs.size
 
-        InvitationReminderJob.set(wait: 3.minutes).perform_later(resident, "Spec testing", "abc")
-        InvitationReminderJob.set(wait: 5.minutes).perform_later(resident2, "Spec testing", "abc")
+        InvitationReminderJob.set(wait: 3.minutes).perform_later(plot_residency, "Spec testing", "abc")
+        InvitationReminderJob.set(wait: 5.minutes).perform_later(plot_residency2, "Spec testing", "abc")
 
         scheduled_jobs = Delayed::Job.all
         expect(scheduled_jobs.size).to eq(initial_jobs + 2)
 
-        JobManagementService.call(resident.id)
+        JobManagementService.call(plot_residency.id)
 
         scheduled_jobs = Delayed::Job.all
         expect(scheduled_jobs.size).to eq(initial_jobs + 1)
@@ -58,8 +61,9 @@ RSpec.describe "Reminder jobs", type: :feature do
       it "fires when the wait time expires" do
         ActionMailer::Base.deliveries.clear
         resident = developer_with_residents.residents.first
+        plot_residency = resident.plot_residencies.first
 
-        InvitationReminderJob.set(wait: 2.seconds).perform_later(resident, "Spec testing", "abc")
+        InvitationReminderJob.set(wait: 2.seconds).perform_later(plot_residency, "Spec testing", "abc")
 
         scheduled_jobs = Delayed::Job.all
         expect(scheduled_jobs.size).to eq(0)

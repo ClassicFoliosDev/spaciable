@@ -142,10 +142,10 @@ en:
     phase_edit: "Edit %{phase_name}"
     plot_add: "Add plot"
     plot_edit: "Edit %{plot_name}"
-    plot_residencies: "Resident"
-    plot_residency: "Resident %{residency}"
-    plot_residency_add: "Add resident"
-    plot_residency_edit: "Edit %{plot} resident"
+    residents: "Residents"
+    resident: "Resident %{name}"
+    resident_add: "Add resident"
+    resident_edit: "Edit %{name}"
     room_edit: "Edit %{room_name}"
     room_add: "Add room"
     unit_type_edit: "Edit %{unit_type_name}"
@@ -368,15 +368,19 @@ en:
     residents:
       index:
         title: "Residents"
-        plot: "Plot"
+        plot: "First plot"
+        plot_count: "Plot count"
         developer: "Developer"
         division: "Division"
         development: "Development"
         unit_type: "Unit type"
         name: "Name"
         email: "Email"
+        removed: "Resident has been removed from all plots"
       show:
         back: "Back"
+      plot_details:
+        plot: "Plot"
     help:
       show:
         help_file: "Hoozzi admin interface user guide (PDF)"
@@ -704,7 +708,6 @@ en:
       list_id: "List id "
       none: "(not configured)"
 
-
   addresses:
     destroy:
       success: "%{address_title} was deleted successfully"
@@ -733,11 +736,6 @@ en:
       road: "Road name"
       locality: "Locality"
 
-  devise:
-    sessions:
-      new:
-        login_cta: "Login"
-
   residents:
     sessions:
       new:
@@ -752,6 +750,28 @@ en:
                       habits and hobbies.
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
+    collection:
+      add: "Add resident"
+      last_name: "Resident"
+      email: "Email"
+      updated_at: "Last edited"
+    create:
+      success: "Resident has been successfully assigned to %{plot}."
+    destroy:
+      success: "Resident has been successfully removed from %{plot}."
+    edit:
+      title: "Edit %{name}"
+    form:
+      back: "Back"
+      submit: "Submit"
+      international: "Use international dialling code for non-UK numbers"
+    new:
+      title: "New %{plot} resident"
+    show:
+      back: "Back"
+      title: "Plot %{plot} resident"
+    update:
+      success: "%{resident_name} was updated successfully"
 
     invitations:
       edit:
@@ -790,7 +810,6 @@ en:
 
   images:
     title: "Pictures"
-    #add: "Add picture"
     remove: "Remove picture"
     img_name: "Picture name"
     not_yet: "You can add pictures after this resource has been saved."
@@ -882,7 +901,7 @@ en:
       add: "Add plot"
       rooms: "Rooms"
       documents: "Documents"
-      plot_residency: "Residents"
+      residents: "Residents"
       unit_type: "Unit type"
       name: "Plot"
       progress: "Build progress"
@@ -894,30 +913,6 @@ en:
       private_documents: "Uploaded documents: "
       none: "(n/a)"
       progress: "Build progress: "
-
-  plot_residencies:
-    collection:
-      add: "Add resident"
-      last_name: "Resident"
-      email: "Email"
-      updated_at: "Last edited"
-    create:
-      success: "Resident has been successfully assigned to %{plot}."
-    destroy:
-      success: "Resident has been successfully removed from %{plot}."
-    edit:
-      title: "Edit %{plot}"
-    form:
-      back: "Back"
-      submit: "Submit"
-      international: "Use international dialling code for non-UK numbers"
-    new:
-      title: "New %{plot} resident"
-    show:
-      back: "Back"
-      title: "Plot %{plot} resident"
-    update:
-      success: "%{resident_name} was updated successfully"
 
   plot_documents:
     form:
@@ -958,7 +953,7 @@ en:
       notify: "Notify subscribed residents about this change"
     bulk_update:
       success: "Progress for all plots in phase was updated to %{progress}"
-    show:
+    progress:
       update_progress: "Update progress to"
       previous: "Current progress"
       submit: "Submit"
@@ -1341,7 +1336,7 @@ en:
       document: "Document"
       user: "User"
       address: "Address"
-      plot_residency: "Resident"
+      resident: "Resident"
       contact: "Contact"
       faq: "FAQ"
       brand: "Styling"
@@ -1571,7 +1566,7 @@ en:
         hoozzi_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How to' updates"
         telephone_updates: "Phone"
         post_updates: "Post"
-      plot_residency:
+      residents:
         resident: "Resident"
         full_name: "Full name"
         email: "Email address"
@@ -1620,12 +1615,6 @@ en:
               missing: "Plot not found"
               combination_taken: "Prefix and number has already been added."
               number_taken: "Number has already been added."
-        plot_residency:
-          attributes:
-            email:
-              already_in_use: "is already associated to another plot."
-              change_email: "could not be updated. If you need to change the resident email, remove this plot resident and
-               add a new one"
         finish_type:
           attributes:
             finish_categories:

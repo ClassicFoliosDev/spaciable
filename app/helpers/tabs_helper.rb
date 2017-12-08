@@ -42,6 +42,7 @@ module TabsHelper
       association.to_s == association.to_s.singularize
     end
 
+    # TODO: do we still need these?
     def build_has_one_error
       <<-ERROR
         Tabs for singular resources cannot automatically check the permissions on a has_one association.

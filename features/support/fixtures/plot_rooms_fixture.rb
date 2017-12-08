@@ -8,7 +8,8 @@ module PlotRoomsFixture
     CreateFixture.create_developer
     CreateFixture.create_development
     CreateFixture.create_unit_type
-    CreateFixture.create_development_plot
+    CreateFixture.create_development_phase
+    CreateFixture.create_phase_plot
     create_unit_type_rooms
   end
 

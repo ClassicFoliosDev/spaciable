@@ -80,7 +80,7 @@ RSpec.describe "Private document abilities" do
         resident = create(:resident, plot: plot)
         private_document = create(:private_document, resident: resident)
 
-        ability = Ability.new(resident)
+        ability = Ability.new(resident, plot)
 
         expect(ability).to be_able_to(:manage, private_document)
       end

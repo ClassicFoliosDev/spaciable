@@ -16,8 +16,8 @@ module ResidentChangeNotifyService
   module_function
 
   def subscribed_residents(parent)
-    all_residents = Resident.joins(:plot_residency)
-                            .where(plot_residencies: { plot_id: plots_for(parent).pluck(:id) })
+    plot_residencies = PlotResidency.where(plot_id: plots_for(parent).pluck(:id))
+    all_residents = plot_residencies.map(&:resident)
 
     subscribed_residents = all_residents.select(&:developer_email_updates?)
     subscribed_residents
@@ -26,17 +26,23 @@ module ResidentChangeNotifyService
   def build_notification(resource, user, verb, parent)
     return unless resource && parent
 
-    type = resource.model_name.human
-
     notification = Notification.create(sender: user)
     notification.subject = I18n.t("resident_notification_mailer.notify.update_subject")
     notification.message = I18n.t("resident_notification_mailer.notify.update_message",
-                                  type: type, name: resource_name(resource), verb: verb)
+                                  type: type(resource), name: resource_name(resource), verb: verb)
     notification.send_to = parent
     notification.sent_at = Time.zone.now
 
     notification.save!
     notification
+  end
+
+  def type(resource)
+    if resource == :not_set
+      "Plot"
+    else
+      resource.model_name.human
+    end
   end
 
   def plots_for(parent)
@@ -45,7 +51,7 @@ module ResidentChangeNotifyService
   end
 
   def resource_name(resource)
-    return I18n.t("notify.information") if resource.is_a?(Plot)
+    return I18n.t("notify.information") if resource == :not_set
     resource.to_s
   end
 end

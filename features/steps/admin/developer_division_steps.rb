@@ -56,6 +56,10 @@ Then(/^I should see the updated developer division$/) do
     expect(page).to have_content(success_flash)
   end
 
+  within ".divisions" do
+    click_on DeveloperDivisionFixture.updated_division_name
+  end
+
   # On the show page
   within ".section-header" do
     expect(page).to have_content(DeveloperDivisionFixture.updated_division_name)

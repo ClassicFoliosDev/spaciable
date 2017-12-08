@@ -5,22 +5,13 @@ require "rails_helper"
 RSpec.describe DocumentsController do
   describe "#index" do
     context "as a DeveloperAdmin" do
-      context "for developer documents" do
-        it "should return ok" do
-          admin = create(:developer_admin)
-          login_as admin
-          get url_for([:developers, active_tab: "documents"])
-
-          expect(response.status).to eq(200)
-        end
-      end
-
       context "for division documents" do
         it "should return ok" do
           admin = create(:developer_admin)
+          division = create(:division, developer_id: admin.developer_id)
 
           login_as admin
-          get url_for([admin.permission_level, :divisions, active_tab: "documents"])
+          get url_for([admin.permission_level, division, active_tab: "documents"])
 
           expect(response.status).to eq(200)
         end
@@ -39,22 +30,13 @@ RSpec.describe DocumentsController do
     end
 
     context "as a DivisionAdmin" do
-      context "for developer documents" do
-        it "should redirect to the root url" do
-          admin = create(:division_admin)
-          login_as admin
-          get url_for([:developers, active_tab: "documents"])
-
-          expect(response.status).to eq(200)
-        end
-      end
-
       context "for division documents" do
         it "should return ok" do
           admin = create(:division_admin)
+          division = admin.permission_level
 
           login_as admin
-          get url_for([admin.permission_level.developer, :divisions, active_tab: "documents"])
+          get url_for([division.developer, division, active_tab: "documents"])
 
           expect(response.status).to eq(200)
         end
@@ -110,7 +92,7 @@ RSpec.describe DocumentsController do
       end
     end
 
-    context "as a DocumentAdmin" do
+    context "as a DivisionAdmin" do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:division_admin)

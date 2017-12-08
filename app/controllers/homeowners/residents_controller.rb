@@ -25,7 +25,8 @@ module Homeowners
     private
 
     def residents_for_my_plot
-      current_resident.plot.residents.map do |resident|
+      # TODO: Which plot
+      current_resident.plots.first.residents.map do |resident|
         next if resident.email == current_resident.email
         { email: resident.email, name: resident.to_s }
       end

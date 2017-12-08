@@ -1,10 +1,10 @@
-<%= simple_form_for([plot, plot_residency]) do |f| %>
-    <% if plot_residency.errors.any? %>
+<%= simple_form_for([plot, resident]) do |f| %>
+    <% if resident.errors.any? %>
         <div class="row">
           <div class="row-item">
             <div class="submission-errors">
               <ul>
-                <% plot_residency.errors.full_messages.each do |message| %>
+                <% resident.errors.full_messages.each do |message| %>
                     <li>
                       <%= fa_icon "exclamation-circle" %>
                       <%= message %>
@@ -42,21 +42,17 @@
       </div>
 
       <div class="row-item third">
-          <fieldset>
-            <%= f.input :completion_date, as: :string,
-            placeholder: "DD/MM/YYYY",
-            input_html: { type: :date } %>
-        </fieldset>
+        <fieldset>
+          <%= f.input :completion_date, as: :string,
+          placeholder: "DD/MM/YYYY",
+          input_html: { type: :date } %>
+      </fieldset>
       </div>
     </div>
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
-        <% if plot %>
-          <%= link_to t(".back"), [plot, :plot_residencies], class: "btn" %>
-        <% else %>
-          <%= link_to t(".back"), plot_residency, class: "btn" %>
-        <% end %>
+        <%= link_to t(".back"), [plot, :residents], class: "btn" %>
         <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
       </div>
     </div>

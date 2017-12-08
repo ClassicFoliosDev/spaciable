@@ -8,13 +8,11 @@ module Admin
     load_and_authorize_resource :resident
 
     def index
-      if current_user.cf_admin?
-        @residents = Resident.joins(:plot_residency)
-                             .where(plot_residencies: { resident_id: @residents.pluck(:id) })
-      else
-        plots = current_user.permission_level.plots
-        @residents = plots.map(&:resident)
-      end
+      @residents = if current_user.cf_admin?
+                     Resident.all
+                   else
+                     Resident.accessible_by(current_ability)
+                   end
 
       @residents = sort(@residents, default: :updated_at)
       @residents = paginate(@residents)

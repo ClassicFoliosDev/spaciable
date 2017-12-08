@@ -3,38 +3,6 @@
 require "rails_helper"
 
 RSpec.describe DivisionsController do
-  describe "#index" do
-    context "as a DeveloperAdmin" do
-      it "should redirect to the root url" do
-        admin = create(:developer_admin)
-        login_as admin
-        get url_for([admin.permission_level, :divisions])
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context "as a DivisionAdmin" do
-      it "should redirect to the root url" do
-        admin = create(:division_admin)
-        login_as admin
-        get url_for([admin.permission_level.developer, :divisions])
-
-        expect(response.status).to eq(200)
-      end
-    end
-
-    context "as a DevelopmentAdmin" do
-      it "should redirect to the root url" do
-        admin = create(:development_admin)
-        login_as admin
-        get url_for([admin.permission_level.developer, :developments])
-
-        expect(response.status).to eq(200)
-      end
-    end
-  end
-
   describe "#new" do
     context "as a DeveloperAdmin" do
       it "should redirect to the root url" do

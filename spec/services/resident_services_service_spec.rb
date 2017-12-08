@@ -6,7 +6,7 @@ RSpec.describe ResidentServicesService do
   let(:resident) { create(:resident) }
   let(:development) { create(:development) }
   let(:plot) { create(:plot) }
-  let(:plot_resident) { create(:plot_resident, plot_id: plot.id, resident_id: resident.id) }
+  let(:plot_resident) { create(:plot_residency, plot_id: plot.id, resident_id: resident.id) }
   let(:service1) {create(:service)}
   let(:service2) {create(:service)}
   let(:service3) {create(:service)}
@@ -16,6 +16,7 @@ RSpec.describe ResidentServicesService do
     it "creates an email notification" do
       ActionMailer::Base.deliveries.clear
 
+      plot_resident
       service_ids = [service1, service2].pluck(:id)
       service_count = described_class.call(resident, service_ids, false)
       expect(service_count).to eq 2
@@ -43,6 +44,7 @@ RSpec.describe ResidentServicesService do
       ResidentService.create(resident_id: resident.id, service_id: service2.id)
       ResidentService.create(resident_id: resident.id, service_id: service3.id)
 
+      plot_resident
       service_ids = [service3, service4].pluck(:id)
       service_count = described_class.call(resident, service_ids, true)
       expect(service_count).to eq 2

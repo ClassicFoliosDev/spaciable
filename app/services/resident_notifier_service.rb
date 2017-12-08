@@ -68,7 +68,12 @@ class ResidentNotifierService
 
   def plots_no_residents(potential_plots, sent_residents)
     missing_plot_names = Set.new
-    sent_resident_full_numbers = sent_residents.map(&:full_plot_number)
+    sent_resident_full_numbers = []
+    sent_residents.each do |resident|
+      resident.plots.each do |plot|
+        sent_resident_full_numbers << plot.to_s
+      end
+    end
 
     potential_plots.each do |potential_plot|
       unless sent_resident_full_numbers.include?(potential_plot.to_s)
@@ -118,7 +123,7 @@ class ResidentNotifierService
 
   def all_residents_in_scope
     residents_in_scope = []
-    residents_with_plots = notification.send_to.residents.includes(plot_residency: :plot)
+    residents_with_plots = notification.send_to.residents
 
     residents_with_plots.each do |resident|
       residents_in_scope.push(resident)
@@ -130,11 +135,13 @@ class ResidentNotifierService
   def numbered_residents_in_scope
     residents = []
 
-    filtered_residents = notification.send_to.residents.includes(plot_residency: :plot)
+    filtered_residents = notification.send_to.residents
                                      .where(plots: { number: notification.plot_numbers })
 
     filtered_residents.each do |resident|
-      residents.push(resident) if resident.plot.prefix == notification.plot_prefix
+      resident.plots.each do |plot|
+        residents.push(resident) if plot.prefix == notification.plot_prefix
+      end
     end
 
     residents

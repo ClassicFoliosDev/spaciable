@@ -55,7 +55,8 @@
       </div>
     </div>
 
-    <% if current_resident.enable_services? %>
+    <%# TODO: which plot %>
+    <% if current_resident.plots.first.enable_services? %>
       <div class="full branded-content branded-border">
         <div class="services">
           <h4><%= t("homeowners.services.index.title") %></h4>

@@ -11,7 +11,7 @@ RSpec.describe ResidentInvitationService do
       ActionMailer::Base.deliveries.clear
       resident = developer_with_residents.residents.first
 
-      result = described_class.call(resident, current_user)
+      result = described_class.call(resident.plot_residencies.first, current_user)
       expect(result.arguments[1]).to eq(I18n.t("last_reminder_title", ordinal: "Third"))
 
       deliveries = ActionMailer::Base.deliveries

@@ -41,10 +41,12 @@ end
 
 Then(/^I should be on the branded homeowner login page$/) do
   homeowner = Resident.find_by(email: HomeownerUserFixture.email)
+  # TODO improve plot calculation
+  plot = homeowner.plots.first
 
-  expected_path = "/#{homeowner.plot.developer.to_s.parameterize}"
-  expected_path << "/#{homeowner.plot.division.to_s.parameterize}" if homeowner.plot.division
-  expected_path << "/#{homeowner.plot.development.to_s.parameterize}/sign_in"
+  expected_path = "/#{plot.developer.to_s.parameterize}"
+  expected_path << "/#{plot.division.to_s.parameterize}" if plot.division
+  expected_path << "/#{plot.development.to_s.parameterize}/sign_in"
 
   expect(current_path).to eq(expected_path)
 end

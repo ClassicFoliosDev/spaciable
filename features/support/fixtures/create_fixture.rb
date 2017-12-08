@@ -259,6 +259,10 @@ module CreateFixture
     FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, prefix: "", unit_type: unit_type)
   end
 
+  def create_division_phase_plot
+    FactoryGirl.create(:phase_plot, phase: division_phase, number: phase_plot_name, prefix: "", unit_type: unit_type)
+  end
+
   def create_plots
     create_unit_type
     create_development_plot
@@ -323,8 +327,8 @@ module CreateFixture
   end
 
   def create_resident_under_a_phase_plot
-    create_developer
-    create_development
+    create_developer unless developer
+    create_development unless development
     create_resident_and_phase
   end
 

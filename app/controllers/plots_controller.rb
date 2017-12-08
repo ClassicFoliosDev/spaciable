@@ -10,12 +10,6 @@ class PlotsController < ApplicationController
 
   before_action :set_parent
 
-  def index
-    @plots = @plots.includes(:unit_type)
-    @plots = paginate(sort(@plots, default: :number))
-    @plot = @parent.plots.build
-  end
-
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
     @plot.progress = :soon
@@ -28,10 +22,15 @@ class PlotsController < ApplicationController
   end
 
   def show
-    documents = @plot.documents
-    @active_tab = "documents"
+    @active_tab = params[:active_tab] || "documents"
     @collection_parent = @plot
-    @collection = paginate(sort(documents, default: :title))
+    @collection = if @active_tab == "documents"
+                    paginate(sort(@plot.documents, default: :title))
+                  elsif @active_tab == "rooms"
+                    paginate(sort(@plot.rooms, default: :name))
+                  elsif @active_tab == "residents"
+                    paginate(sort(@plot.residents, default: :last_name))
+                  end
 
     session[:plot_id] = @plot.id
   end
@@ -40,8 +39,7 @@ class PlotsController < ApplicationController
     BulkPlots::CreateService.call(@plot, params: plot_params) do |service, created_plots, errors|
       if created_plots.any?
         notice = t(".success", plots: created_plots.to_sentence, count: created_plots.count)
-
-        redirect_to [@parent, :plots], notice: notice, alert: errors
+        redirect_to [@parent.parent, @parent, active_tab: :plots], notice: notice, alert: errors
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
@@ -66,10 +64,10 @@ class PlotsController < ApplicationController
   end
 
   def destroy
-    ResidentResetService.call(@plot.plot_residency)
+    ResidentResetService.reset_all_residents_for_plot(@plot)
     @plot.destroy
     notice = t(".success", plot_name: @plot.to_s)
-    redirect_to [@parent, :plots], notice: notice
+    redirect_to [@parent.parent, @parent, active_tab: :plots], notice: notice
   end
 
   private

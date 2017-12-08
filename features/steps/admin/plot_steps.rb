@@ -240,9 +240,9 @@ When(/^I update the progress for the plot$/) do
     select_from_selectmenu :plot_progress, with: PhaseFixture.progress
   end
 
-  within ".form-actions-footer" do
+  within ".above-footer" do
     check :plot_notify
-    click_on t("progresses.show.submit")
+    click_on t("progresses.progress.submit")
   end
 end
 
@@ -261,7 +261,7 @@ Then(/^I should see the plot progress has been updated$/) do
 end
 
 Then(/^the resident has been notified$/) do
-  message = "Plot information has been updated to Ready for exchange for your home"
+  message = "Plot 200 has been updated to Ready for exchange for your home"
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 1

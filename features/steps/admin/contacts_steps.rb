@@ -127,9 +127,12 @@ Then(/^I should see the updated contact without the image$/) do
     "controller.success.update",
     name: "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   )
-  expect(page).to have_content(success_flash)
 
-  within ".record-list" do
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
+
+  within ".contacts" do
     click_on "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   end
 
@@ -152,13 +155,10 @@ Then(/^I should see the contact resident has been notified$/) do
 end
 
 When(/^I delete the contact$/) do
-  visit "/developers"
+  developer = CreateFixture.developer
+  visit "/developers/#{developer.id}/contacts"
 
-  click_on CreateFixture.developer_name
-
-  click_on t("developers.collection.contacts")
-
-  delete_and_confirm!
+  delete_and_confirm!(scope: ".contacts")
 end
 
 Then(/^I should see the contact deletion complete successfully$/) do
@@ -166,7 +166,10 @@ Then(/^I should see the contact deletion complete successfully$/) do
     "controller.success.destroy",
     name: "#{ContactFixture.updated_name} #{ContactFixture.last_name}"
   )
-  expect(page).to have_content(success_flash)
+
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
 
   expect(page).not_to have_content(".record-list")
 
@@ -176,61 +179,33 @@ Then(/^I should see the contact deletion complete successfully$/) do
 end
 
 When(/^I create a division contact with no email or phone$/) do
-  visit "/"
+  division = CreateFixture.division
+  visit "/divisions/#{division.id}/contacts"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".empty" do
+    click_on t("contacts.collection.create")
   end
 
-  click_on t("developers.collection.divisions")
-
-  within ".record-list" do
-    click_on CreateFixture.division_name
-  end
-
-  click_on t("developers.collection.contacts")
-
-  click_on t("contacts.collection.create")
-
-  within ".contact" do
+  within ".new_contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
+    click_on t("contacts.form.submit")
   end
-
-  click_on t("contacts.form.submit")
 end
 
 When(/^I delete the division contact$/) do
-  visit "/developers"
+  division = CreateFixture.division
+  visit "/divisions/#{division.id}/contacts"
 
-  click_on CreateFixture.developer_name
-
-  click_on t("developers.collection.divisions")
-
-  within ".record-list" do
-    click_on CreateFixture.division_name
-  end
-
-  click_on t("developers.collection.contacts")
-
-  delete_and_confirm!
+  delete_and_confirm!(scope: ".contacts")
 end
 
 When(/^I create a development contact with no name or organisation$/) do
-  visit "/"
+  development = CreateFixture.development
+  visit "/developments/#{development.id}/contacts"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".empty" do
+    click_on t("contacts.collection.create")
   end
-
-  click_on t("developers.collection.developments")
-
-  within ".record-list" do
-    click_on CreateFixture.development_name
-  end
-
-  click_on t("developers.collection.contacts")
-
-  click_on t("contacts.collection.create")
 
   within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
@@ -239,11 +214,8 @@ When(/^I create a development contact with no name or organisation$/) do
 end
 
 When(/^I delete the development contact$/) do
-  goto_development_show_page
-
-  within ".tabs" do
-    click_on t("developers.collection.contacts")
-  end
+  development = CreateFixture.development
+  visit "/developments/#{development.id}/contacts"
 
   delete_and_confirm!(scope: ".contacts")
 end

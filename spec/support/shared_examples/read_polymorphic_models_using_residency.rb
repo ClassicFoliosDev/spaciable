@@ -5,7 +5,7 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
   let(:current_resident) { create(:resident, plot: plot) }
   let(:plot) { create(:plot) }
 
-  subject { Ability.new(current_resident) }
+  subject { Ability.new(current_resident, plot) }
 
   it "can read models for my plot" do
     model = create(polymorphic_factory_name, association => plot)

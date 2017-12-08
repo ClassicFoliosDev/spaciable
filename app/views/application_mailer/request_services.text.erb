@@ -1,13 +1,13 @@
 <%= @title %>
 
 <%= t(".developer_title") %>
-<%= t(".developer") %> <%= @resident.developer %>
-<% if @resident.division %>
-  <%= t(".division") %> <%= @resident.division %>
+<%= t(".developer") %> <%= @plot.developer %>
+<% if @plot.division %>
+  <%= t(".division") %> <%= @plot.division %>
 <% end %>
-<%= t(".development") %> <%= @resident.development %>
-<%= t(".phase") %> <%= @resident.phase %>
-<%= t(".number") %> <%= @resident.full_plot_number %>
+<%= t(".development") %> <%= @plot.development %>
+<%= t(".phase") %> <%= @plot.phase %>
+<%= t(".number") %> <%= @plot.to_s %>
 
 <%= t(".resident_title") %>
 

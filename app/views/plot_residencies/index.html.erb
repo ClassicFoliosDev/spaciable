@@ -1,9 +1,0 @@
-<% breadcrumb :plot_residencies, @plot %>
-
-<div class="section-header">
-  <%= render @plot %>
-</div>
-
-<%= render 'components/tabs', tabs: tabs_for(@plot, :plot_residency), plot: @plot %>
-
-<%= render_collection @residencies, plot: @plot %>

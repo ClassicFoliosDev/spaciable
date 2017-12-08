@@ -8,8 +8,8 @@ Given(/^I am logged in as a CF Admin wanting to manage plot rooms$/) do
 end
 
 When(/^I go to review the plot rooms$/) do
-  goto_plot_show_page
-  click_on t("plots.collection.rooms")
+  plot = CreateFixture.phase_plot
+  visit "/plots/#{plot.id}?active_tab=rooms"
 end
 
 Then(/^I should see the plots unit type rooms$/) do
@@ -21,7 +21,7 @@ Then(/^I should see the plots unit type rooms$/) do
 end
 
 When(/^I add a new plot room$/) do
-  click_on t("rooms.collection.add", parent_type: "Plot", parent_name: CreateFixture.plot_name)
+  click_on t("rooms.collection.add", parent_type: "Plot", parent_name: CreateFixture.phase_plot_name)
 
   fill_in :room_name, with: PlotRoomsFixture.new_plot_room_name
   click_on t("plots.rooms.form.submit")
@@ -54,7 +54,7 @@ end
 
 When(/^I delete one of the default unit type rooms$/) do
   within ".breadcrumbs" do
-    click_on CreateFixture.plot_name
+    click_on CreateFixture.phase_plot_name
   end
 
   within ".tabs" do
@@ -139,7 +139,7 @@ end
 
 Then(/^I should see the new plot room with the finish$/) do
   within ".breadcrumbs" do
-    expect(page).to have_content(t("developments.collection.plots"))
+    expect(page).to have_content(CreateFixture.phase_name)
   end
 
   within ".record-list" do
@@ -172,7 +172,7 @@ end
 
 Then(/^I should see the new plot room with the appliance$/) do
   within ".breadcrumbs" do
-    expect(page).to have_content(t("developments.collection.plots"))
+    expect(page).to have_content(CreateFixture.phase_name)
   end
 
   within ".record-list" do
@@ -197,7 +197,7 @@ end
 
 Then(/^I should see the finish remove is successful$/) do
   within ".breadcrumbs" do
-    expect(page).to have_content(t("developments.collection.plots"))
+    expect(page).to have_content(CreateFixture.phase_plot_name)
   end
 
   within ".empty" do
@@ -209,7 +209,7 @@ end
 
 Then(/^I should see the appliance remove is successful$/) do
   within ".breadcrumbs" do
-    expect(page).to have_content(t("developments.collection.plots"))
+    expect(page).to have_content(CreateFixture.phase_plot_name)
   end
 
   within ".empty" do
@@ -220,15 +220,12 @@ Then(/^I should see the appliance remove is successful$/) do
 end
 
 When(/^I remove a finish from the plot$/) do
-  goto_plot_show_page
-  click_on t("plots.collection.rooms")
-
-  within ".record-list" do
+  within ".plot" do
     click_on CreateFixture.room_name
   end
 
-  within ".record-list" do
-    remove_btn = page.find ".remove", wait: 5
+  within ".room" do
+    remove_btn = page.find ".remove"
     remove_btn.click
   end
 end

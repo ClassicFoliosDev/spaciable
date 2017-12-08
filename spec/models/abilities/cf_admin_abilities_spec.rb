@@ -14,7 +14,7 @@ RSpec.describe "CF Admin Abilities" do
       plot = create(:plot, development: development)
       resident = create(:resident, :with_residency, plot: plot)
 
-      expect(subject).to be_able_to(:crud, resident.plot_residency)
+      expect(subject).to be_able_to(:crud, resident.plot_residencies.first)
     end
 
     it "should CRUD residencies under their developments phase plots" do
@@ -23,7 +23,7 @@ RSpec.describe "CF Admin Abilities" do
       phase_plot = create(:phase_plot, phase: phase)
       resident = create(:resident, :with_residency, plot: phase_plot)
 
-      expect(subject).to be_able_to(:crud, resident.plot_residency)
+      expect(subject).to be_able_to(:crud, resident.plot_residencies.first)
     end
 
     it "can create a first residency for a plot" do

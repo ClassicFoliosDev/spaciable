@@ -39,6 +39,12 @@ Given(/^there is a plot for the division development$/) do
   CreateFixture.create_division_development_plot
 end
 
+Given(/^there is a phase plot for the division development$/) do
+  CreateFixture.create_division_development_unit_type
+  CreateFixture.create_division_development_phase
+  CreateFixture.create_phase_plot
+end
+
 Given(/^there is a division$/) do
   CreateFixture.create_division
 end
@@ -52,10 +58,16 @@ Given(/^there is a division plot$/) do
 end
 
 Given(/^there is a phase plot$/) do
-  CreateFixture.create_developer_with_development
+  CreateFixture.create_developer_with_development unless CreateFixture.development
   CreateFixture.create_development_phase
   CreateFixture.create_unit_type
   CreateFixture.create_phase_plot
+end
+
+Given(/^there is a division phase plot$/) do
+  CreateFixture.create_division_development_phase
+  CreateFixture.create_unit_type
+  CreateFixture.create_division_phase_plot
 end
 
 Given(/^there are contacts$/) do
@@ -186,7 +198,8 @@ end
 
 Given(/^There is a plot with many residents$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
-  plot = resident.plot
+  # TODO: which plot?
+  plot = resident.plots.first
   FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test1@example.com")
   FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test2@example.com")
   FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test3@example.com")

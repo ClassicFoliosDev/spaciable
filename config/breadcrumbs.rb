@@ -91,7 +91,7 @@ end
 # DIVISIONS
 
 crumb :developer_divisions do |developer|
-  link Division.model_name.human.pluralize, developer_divisions_path(developer)
+  link Division.model_name.human.pluralize, [developer, active_tab: :divisions]
   parent :developer, developer
 end
 
@@ -322,18 +322,13 @@ end
 # PLOTS
 
 crumb :plots do |plot_parent|
-  if plot_parent.is_a? Development
-    link Plot.model_name.human.pluralize, development_plots_path(plot_parent)
-    parent :development, plot_parent
-  elsif plot_parent.is_a? Phase
-    link Plot.model_name.human.pluralize, phase_plots_path(plot_parent)
-    parent :phase, plot_parent
-  end
+  link Plot.model_name.human.pluralize, ([plot_parent, active_tab: :plots])
+  parent :phase, plot.parent if plot.parent.is_a? Phase
 end
 
 crumb :plot do |plot|
   link plot, plot
-  parent :plots, plot.parent
+  parent :phase, plot.parent if plot.parent.is_a? Phase
 end
 
 crumb :plot_preview do |plot|
@@ -343,33 +338,33 @@ end
 
 crumb :plot_edit do |plot|
   link t("breadcrumbs.plot_edit", plot_name: plot), [:edit, plot]
-  parent :plots, plot.parent
+  parent :phase, plot.parent if plot.parent.is_a? Phase
 end
 
 crumb :plot_new do |plot|
   link t("breadcrumbs.plot_add"), [:new, plot.parent, :plot]
-  parent :plots, plot.parent
+  parent :phase, plot.parent if plot.parent.is_a? Phase
 end
 
 # PLOT RESIDENCIES
-crumb :plot_residencies do |plot|
-  link t("breadcrumbs.plot_residencies"), [plot, :plot_residencies]
+crumb :residents do |plot|
+  link t("breadcrumbs.residents"), [plot, active_tab: :residents]
   parent :plot, plot
 end
 
-crumb :plot_residency_add do |plot|
-  link t("breadcrumbs.plot_residency_add"), [:new, plot, :plot_residency]
-  parent :plot_residencies, plot
+crumb :resident_add do |plot|
+  link t("breadcrumbs.resident_add"), [:new, plot, :resident]
+  parent :residents, plot
 end
 
-crumb :plot_residency_edit do |plot_residency|
-  link t("breadcrumbs.plot_residency_edit", plot: plot_residency.plot), [:edit, plot_residency]
-  parent :plot_residencies, plot_residency.plot
+crumb :resident_edit do |resident, plot|
+  link t("breadcrumbs.resident_edit", name: resident), [:edit, plot, resident]
+  parent :residents, plot
 end
 
-crumb :plot_residency do |plot_residency|
-  link t("breadcrumbs.plot_residency", residency: plot_residency), plot_residency
-  parent :plot_residencies, plot_residency.plot
+crumb :resident do |resident, plot|
+  link t("breadcrumbs.resident", name: resident), [plot, resident]
+  parent :residents, resident.plots.first
 end
 
 # FINISHES

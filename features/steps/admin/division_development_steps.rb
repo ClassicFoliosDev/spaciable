@@ -5,23 +5,17 @@ Given(/^there is a developer with a division$/) do
 end
 
 When(/^I create a development for the division$/) do
-  visit "/"
+  division = CreateFixture.division
+  visit "/developers/#{division.developer.id}/divisions/#{division.id}"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".division" do
+    click_on t("developments.index.add")
   end
 
-  click_on t("developers.collection.divisions")
-
-  # Sleep to make sure we link to developments from the right place
-  sleep(0.2)
-
-  click_on t("divisions.collection.developments")
-
-  click_on t("developments.index.add")
-
-  fill_in "development_name", with: CreateFixture.development_name
-  click_on t("developments.form.submit")
+  within ".new_development" do
+    fill_in "development_name", with: CreateFixture.development_name
+    click_on t("developments.form.submit")
+  end
 end
 
 Then(/^I should see the created division development$/) do

@@ -16,17 +16,17 @@ module PlotTabsHelper
       },
       rooms: {
         icon: :bath,
-        link: [plot, :rooms],
+        link: [plot, active_tab: :rooms],
         permissions_on: -> { plot.development.rooms.build }
       },
-      plot_residency: {
+      residents: {
         icon: :user,
-        link: [plot, :plot_residencies],
+        link: [plot, active_tab: :residents],
         permissions_on: -> { PlotResidency.new(plot_id: plot.id) }
       },
       progress: {
         icon: "cogs",
-        link: [:progress, plot],
+        link: [plot, active_tab: :progress],
         permissions_on: -> { plot }
       }
     }

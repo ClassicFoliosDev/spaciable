@@ -21,7 +21,7 @@ module Residents
     def create
       super
 
-      return unless resource.plot.nil?
+      return if resource.plots.any?
 
       sign_out_all_scopes
       flash[:alert] = t(".no_plot")

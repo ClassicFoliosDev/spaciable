@@ -231,16 +231,6 @@ RSpec.describe Plot do
     end
   end
 
-  describe "#build_resident" do
-    it "should build a resident associated with the plot" do
-      plot = create(:plot)
-
-      resident = plot.build_resident
-
-      expect(resident.plot).to eq(plot)
-    end
-  end
-
   describe "#address" do
     context "no plot address has been set" do
       it "should use the parents address" do

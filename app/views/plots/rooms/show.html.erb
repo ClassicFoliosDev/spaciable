@@ -1,22 +1,24 @@
 <% breadcrumb :room, @room %>
 
-<div class="section-header">
-  <h3 class="section-title">
-    <%= @room.name %><br>
-  </h3>
+<div class="room">
+  <div class="section-header">
+    <h3 class="section-title">
+      <%= @room.name %><br>
+    </h3>
 
-  <div class="section-data">
-    <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
-    <%= edit_btn [:edit, @plot, @room], element: @room %>
+    <div class="section-data">
+      <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
+      <%= edit_btn [:edit, @plot, @room], element: @room %>
+    </div>
   </div>
-</div>
 
-<%= render 'components/tabs', tabs: room_tabs(@room, @active_tab, @plot) %>
+  <%= render 'components/tabs', tabs: room_tabs(@room, @active_tab, @plot) %>
 
-<%= render_collection @collection, room: @room, plot: @plot %>
+  <%= render_collection @collection, room: @room, plot: @plot %>
 
-<div class="form-actions-footer-container">
-  <div class="form-actions-footer">
-    <%= link_to t(".back"), [@plot, :rooms], class: "btn" %>
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), [@plot, :rooms], class: "btn" %>
+    </div>
   </div>
 </div>

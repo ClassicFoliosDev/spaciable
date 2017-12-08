@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   end
 
   resources :phases do
-    resources :plots, shallow: true
+    resources :plots, shallow: true, except: :index
     resources :documents, only: [:new, :create]
     resources :plot_documents, only: [:index] do
       post :bulk_upload, on: :collection
@@ -73,7 +73,7 @@ Rails.application.routes.draw do
   end
 
   resources :plots, only: [] do
-    resources :plot_residencies, shallow: true, path: "residencies"
+    resources :residents
     resources :documents, only: [:new, :create]
     resources :rooms, controller: "plots/rooms"
     resource :preview, only: [:show], controller: "plots/previews"
@@ -84,7 +84,7 @@ Rails.application.routes.draw do
     resources :phases
     resources :unit_types, except: :index
     resources :documents, only: [:new, :create]
-    resources :plots, shallow: true
+    resources :plots, shallow: true, except: :index
     resources :plot_documents, only: [:index] do
       post :bulk_upload, on: :collection
     end

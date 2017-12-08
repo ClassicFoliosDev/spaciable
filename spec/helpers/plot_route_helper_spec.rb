@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ResidentRouteHelper do
+RSpec.describe PlotRouteHelper do
   context "given a developer development" do
     it "should build the developer development route" do
       developer = create(:developer, company_name: "Developer name")

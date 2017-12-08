@@ -84,18 +84,6 @@ Feature: Documents
     When I delete the document
     Then I should see that the deletion was successful for the document
 
-  Scenario: Plot
-    Given I am logged in as an admin
-    And there is a developer with a development
-    And there is a plot
-    When I upload a document for the plot
-    Then I should see the created document
-    And I should see the original filename
-    When I update the document
-    Then I should see the updated document for the plot
-    When I delete the document
-    Then I should see that the deletion was successful for the document
-
   Scenario: Phase plot
     Given I am logged in as an admin
     And there is a phase plot
@@ -121,27 +109,39 @@ Feature: Documents
 
   Scenario: Plot documents developer admin
     Given I am logged in as a Developer Admin
-    And there is a plot
-    And there is a document
-    When I navigate to the plot
+    And there is a phase plot
+    When I upload a document for the phase plot
+    Then I should see the created document
+    And I should see the original filename
+    When I update the document
+    Then I should see the updated document for the phase plot
+    When I delete the document
+    Then I should see that the deletion was successful for the document
+    When I navigate to the phase
     Then I should not see the bulk uploads tab
-    When I upload a document for the plot
-    Then I should see only the created document
 
   Scenario: Plot documents division admin
     Given I am logged in as a Division Admin
-    And there is a plot for the division development
-    And there is a document for the division
-    When I navigate to the division development
+    And there is a division phase plot
+    When I upload a document for the division phase plot
+    Then I should see the created document
+    And I should see the original filename
+    When I update the document
+    Then I should see the updated document for the phase plot
+    When I delete the document
+    Then I should see that the deletion was successful for the document
+    When I navigate to the division phase
     Then I should not see the bulk uploads tab
-    When I upload a document for the division plot
-    Then I should see only the created document
 
   Scenario: Plot documents development admin
     Given I am logged in as a Development Admin
-    And there is a plot
-    And there is a document for the development
-    When I navigate to the plot
+    And there is a phase plot
+    When I upload a document for the phase plot
+    Then I should see the created document
+    And I should see the original filename
+    When I update the document
+    Then I should see the updated document for the phase plot
+    When I delete the document
+    Then I should see that the deletion was successful for the document
+    When I navigate to the phase
     Then I should not see the bulk uploads tab
-    When I upload a document for the plot
-    Then I should see only the created document

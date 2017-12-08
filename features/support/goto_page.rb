@@ -25,10 +25,10 @@ module GotoPage
     division = CreateFixture.division
     raise "Division does not exist" unless division
 
-    goto_developer_show_page
+    visit "/developers/#{division.developer.id}/divisions/#{division.id}"
 
-    within ".divisions" do
-      click_on division
+    within ".division" do
+      expect(page).to have_content(division.to_s)
     end
   end
 
@@ -54,21 +54,6 @@ module GotoPage
     end
   end
 
-  def goto_development_phase_page
-    development = CreateFixture.development
-    raise "Development does not exist" unless development
-
-    goto_development_show_page
-
-    within ".tabs" do
-      click_on t("developments.collection.phases")
-    end
-
-    within ".phases" do
-      click_on CreateFixture.phase_name
-    end
-  end
-
   def goto_plot_show_page
     goto_development_show_page
 
@@ -76,7 +61,7 @@ module GotoPage
       click_on t("developments.collection.plots")
     end
 
-    within ".record-list" do
+    within ".plots" do
       click_on CreateFixture.plot_name
     end
   end
@@ -96,11 +81,7 @@ module GotoPage
   def goto_phase_plot_show_page
     goto_phase_show_page
 
-    within ".tabs" do
-      click_on t("phases.collection.plots")
-    end
-
-    within ".record-list" do
+    within ".plots" do
       click_on CreateFixture.phase_plot_name
     end
   end

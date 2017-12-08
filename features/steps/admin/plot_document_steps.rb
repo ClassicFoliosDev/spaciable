@@ -73,7 +73,7 @@ end
 
 When(/^I navigate to the phase$/) do
   visit "/"
-  goto_development_phase_page
+  goto_phase_show_page
 end
 
 Given(/^I should see the number of private documents$/) do

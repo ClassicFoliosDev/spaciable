@@ -32,14 +32,6 @@ Then(/^I should see the created document$/) do
   end
 end
 
-Then(/^I should see only the created document$/) do
-  within "tbody" do
-    rows = page.all("tr")
-    expect(rows.length).to eq(1)
-    expect(page).to have_content(DocumentFixture.document_name)
-  end
-end
-
 And(/^I should see the original filename$/) do
   within ".documents" do
     click_on DocumentFixture.document_name
@@ -168,18 +160,8 @@ Then(/^I should see that the deletion was successful for the document$/) do
 end
 
 When(/^I upload a document for the division$/) do
-  visit "/developers"
-  within ".developers" do
-    click_on t("developers.collection.divisions")
-  end
-
-  within ".divisions" do
-    click_on CreateFixture.division_name
-  end
-
-  within ".tabs" do
-    click_on t("divisions.collection.documents")
-  end
+  division = CreateFixture.division
+  visit "/developers/#{division.developer.id}/divisions/#{division.id}?active_tab=documents"
 
   within ".empty" do
     click_on t("documents.collection.add")
@@ -198,7 +180,6 @@ end
 
 When(/^I upload a document for the development$/) do
   goto_development_show_page
-  sleep 0.3
 
   within ".tabs" do
     click_on t("developments.collection.documents")
@@ -220,12 +201,8 @@ When(/^I upload a document for the development$/) do
 end
 
 When(/^I upload a document for the division development$/) do
-  goto_division_development_show_page
-  sleep 0.3
-
-  within ".tabs" do
-    click_on t("developments.collection.documents")
-  end
+  development = CreateFixture.division_development
+  visit "/divisions/#{development.division.id}/developments/#{development.id}?active_tab=documents"
 
   within ".empty" do
     click_on t("documents.collection.add")
@@ -243,16 +220,7 @@ When(/^I upload a document for the division development$/) do
 end
 
 When(/^I upload a document for the phase$/) do
-  goto_development_show_page
-  sleep 0.3
-
-  within ".tabs" do
-    click_on t("developments.collection.phases")
-  end
-
-  within ".phases" do
-    click_on CreateFixture.phase_name
-  end
+  goto_phase_show_page
 
   within ".phase" do
     click_on t("developments.collection.documents")
@@ -275,7 +243,6 @@ end
 
 When(/^I upload a document for the unit type$/) do
   goto_development_show_page
-  sleep 0.3
 
   within ".tabs" do
     click_on t("developments.collection.unit_types")
@@ -306,7 +273,6 @@ end
 
 When(/^I upload a document for the division phase$/) do
   goto_division_development_show_page
-  sleep 0.3
 
   within ".tabs" do
     click_on t("developments.collection.phases")
@@ -361,48 +327,35 @@ When(/^I upload a document for the division plot$/) do
   end
 end
 
-When(/^I upload a document for the plot$/) do
-  goto_development_show_page
-  sleep 0.4
-
-  within ".tabs" do
-    click_on t("developments.collection.plots")
-  end
-
-  plots = Plot.where(development_id: CreateFixture.development.id, phase_id: nil)
-  within ".plots" do
-    click_on plots.first.id
-  end
+When(/^I upload a document for the division phase plot$/) do
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+  visit "/plots/#{plot.id}?active_tab=documents"
 
   within ".empty" do
     click_on t("documents.collection.add")
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".documents" do
+  within ".new_document" do
     attach_file("document_file",
                 File.absolute_path(document_full_path),
                 visible: false)
     fill_in "document_title", with: DocumentFixture.document_name
-  end
 
-  click_on t("documents.form.submit")
+    click_on t("documents.form.submit")
+  end
 end
 
 When(/^I upload a document for the phase plot$/) do
-  goto_development_show_page
-  sleep 0.4
+  goto_phase_show_page
 
-  within ".tabs" do
-    click_on t("developments.collection.phases")
+  within ".phase" do
+    click_on t("phases.collection.plots")
   end
 
-  within ".phases" do
-    click_on CreateFixture.phase_name
-  end
-
+  plots = Plot.where(phase_id: CreateFixture.phase.id)
   within ".plots" do
-    click_on CreateFixture.phase_plot_name
+    click_on plots.first
   end
 
   within ".empty" do
@@ -418,7 +371,6 @@ When(/^I upload a document for the phase plot$/) do
 
     click_on t("documents.form.submit")
   end
-
 end
 
 When(/^I update the document$/) do
@@ -486,17 +438,14 @@ Then(/^I should see the updated document for the phase plot$/) do
   end
 end
 
-When(/^I navigate to the plot$/) do
-  goto_development_show_page
-
-  within ".tabs" do
-    click_on t("developments.collection.plots")
-  end
-end
-
 Then(/^I should not see the bulk uploads tab$/) do
   within ".tabs" do
     expect(page).not_to have_content(t("developments.collection.plot_documents"))
     expect(page).to have_content(t("developments.collection.documents"))
   end
+end
+
+When(/^I navigate to the division phase$/) do
+  phase = CreateFixture.division_phase
+  visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 end

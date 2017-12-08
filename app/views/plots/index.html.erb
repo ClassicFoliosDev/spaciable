@@ -1,7 +1,0 @@
-<% breadcrumb :plots, @parent %>
-
-<%= render @parent, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
-
-<%= render 'components/tabs', tabs: tabs_for(@parent, "plots"), parent: @parent %>
-
-<%= render_collection @plots, parent: @parent %>

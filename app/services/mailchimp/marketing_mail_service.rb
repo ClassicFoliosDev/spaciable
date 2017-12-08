@@ -5,7 +5,8 @@ module Mailchimp
     def self.call(resident,
                   plot_residency = nil,
                   hooz_status = Rails.configuration.mailchimp[:activated])
-      plot = plot_residency&.plot || resident&.plot
+      # TODO: calculate which plot
+      plot = plot_residency&.plot || resident&.plots&.first
       api_key = plot&.api_key
       return if api_key.blank?
 

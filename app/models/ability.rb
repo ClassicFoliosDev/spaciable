@@ -9,13 +9,13 @@ class Ability
   include Abilities::DevelopmentAbilities
   include Abilities::ResidentAbilities
 
-  def initialize(user)
+  def initialize(user, plot = nil)
     return unless user
 
     alias_action :create, :read, :update, :destroy, to: :crud
 
     if user.instance_of? Resident
-      resident_abilities(user)
+      resident_abilities(user, plot)
     else
       role_abilities(user.role, user)
       wysiwyg_permissions

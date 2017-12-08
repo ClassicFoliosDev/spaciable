@@ -1,0 +1,10 @@
+<% breadcrumb :resident_edit, @resident, @plot %>
+
+<div class="section-header">
+  <h3 class="section-title">
+    <%= fa_icon "user" %>
+    <%= t(".title", name: @resident) %>
+  </h3>
+</div>
+
+<%= render 'form', resident: @resident, plot: @plot %>

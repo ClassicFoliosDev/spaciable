@@ -1,0 +1,14 @@
+<div class="plot fifth">
+  <label><%= t(".plot") %></label>
+  <span><%= plot %></span>
+  <label><%= t("admin.residents.index.unit_type") %></label>
+  <span><%= plot.unit_type %></span>
+  <label><%= t("admin.residents.index.development") %></label>
+  <span><%= plot.development %></span>
+  <% if plot.division %>
+      <label><%= t("admin.residents.index.division") %></label>
+      <span><%= plot.division %></span>
+  <% end %>
+  <label><%= t("admin.residents.index.developer") %></label>
+  <span><%= plot.developer %></span>
+</div>

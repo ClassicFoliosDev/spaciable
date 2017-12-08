@@ -20,7 +20,7 @@ FactoryGirl.define do
       end
 
       after(:create) do |resident, evaluator|
-        resident.plot = evaluator.plot
+        resident.plots << evaluator.plot
         resident.save!
       end
     end

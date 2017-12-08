@@ -1,0 +1,39 @@
+<% if collection.empty? %>
+    <%= render 'components/empty_list', icon_name: "user", type: Resident, parent: parent %>
+<% else %>
+  <div class="section-actions">
+    <%= link_to [:new, plot, :resident], class: "btn btn-primary", data: { action: "new" } do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
+  </div>
+
+  <table class="record-list residents">
+    <thead>
+      <tr>
+        <th><%= sortable(Resident, :last_name, t(".last_name")) %></th>
+        <th><%= sortable(Resident, :email, t(".email")) %></th>
+        <th><%= sortable(Resident, :updated_at, t(".updated_at")) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |resident| %>
+        <tr data-plot-resident="<%= resident.id %>">
+        <td><%= link_to resident, [plot, resident], title: resident %></td>
+        <td><%= resident.email %></td>
+        <td><%= l resident.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= edit_btn [:edit, plot, resident], element: resident %>
+          <%= delete_btn resident, path: url_for([plot, resident]), element: resident %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

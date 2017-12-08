@@ -188,13 +188,10 @@ Then(/^I should see the phase address has not been changed$/) do
 end
 
 When(/^I delete the plot with resident$/) do
-  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
-  goto_phase_show_page
+  phase = CreateFixture.phase
+  visit "/developments/#{phase.development.id}/phases/#{phase.id}?active_tab=plots"
 
-  within ".tabs" do
-    click_on t("developments.collection.plots")
-  end
-
+  plot = CreateFixture.phase_plot
   delete_and_confirm!(scope: "[data-plot='#{plot.id}']")
 end
 
@@ -208,4 +205,8 @@ Then(/^I should see the progress update is not sent to the former resident$/) do
 
   emails = ActionMailer::Base.deliveries
   expect(emails.length).to be_zero
+end
+
+Given(/^there is another phase plot$/) do
+  PhasePlotFixture.create_another_phase_plot
 end

@@ -124,7 +124,12 @@ RSpec.describe ResidentNotifierService do
           it "should only send notifications to the selected plot range residents" do
             residents = developer_with_phase_residents.residents
             send_to_residents = residents.take(3)
-            plot_numbers = send_to_residents.map(&:plot).map(&:number)
+            plot_numbers = []
+            send_to_residents.each do | resident |
+              resident.plots.each do | plot |
+                plot_numbers << plot.number.to_i
+              end
+            end
 
             notification = create(:notification,
                                   send_to: developer_with_phase_residents,
@@ -175,7 +180,12 @@ RSpec.describe ResidentNotifierService do
         it "should only send notifications to the selected plot range residents" do
           residents = division_with_residents.residents
           send_to_residents = residents.take(3)
-          plot_numbers = send_to_residents.map(&:plot).map(&:number)
+          plot_numbers = []
+          send_to_residents.each do | resident |
+            resident.plots.each do | plot |
+              plot_numbers << plot.number.to_i
+            end
+          end
 
           notification = create(:notification,
                                 send_to: division_with_residents,
@@ -207,7 +217,12 @@ RSpec.describe ResidentNotifierService do
         it "should only send notifications to the selected plot range residents" do
           residents = development_with_activated_residents.residents
           send_to_residents = residents.take(3)
-          plot_numbers = send_to_residents.map(&:plot).map(&:number)
+          plot_numbers = []
+          send_to_residents.each do | resident |
+            resident.plots.each do | plot |
+              plot_numbers << plot.number.to_i
+            end
+          end
 
           notification = create(:notification,
                                 send_to: development_with_activated_residents,
@@ -240,7 +255,10 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development)
         plots = create_list(:plot, 3, :with_activated_resident, development: development)
-        plot_numbers = plots.map(&:number).map(&:to_s)
+        plot_numbers = []
+        plots.each do | plot |
+          plot_numbers << plot.number.to_i
+        end
 
         service = described_class.new(notification)
         expect(service.all_missing_plots).not_to match_array(plot_numbers)
@@ -256,8 +274,8 @@ RSpec.describe ResidentNotifierService do
         notified_residents = described_class.new(notification).notify_residents
 
         expect(notified_residents.length).to eq(1)
-        expect(notified_residents[0].number).to eq("7")
-        expect(notified_residents[0].prefix).to eq("Apartment")
+        expect(notified_residents[0].plots.first.number).to eq("7")
+        expect(notified_residents[0].plots.first.prefix).to eq("Apartment")
       end
 
       it "should ignore prefixes for all in development" do
@@ -285,7 +303,13 @@ RSpec.describe ResidentNotifierService do
         notified_residents = service.notify_residents
 
         expect(notified_residents.length).to eq(2)
-        expect(notified_residents.map(&:full_plot_number)).to match_array(["Apartment 7", "Apartment 8"])
+        full_plot_numbers = []
+        notified_residents.each do | resident |
+          resident.plots.each do | plot |
+            full_plot_numbers << plot.to_s
+          end
+        end
+        expect(full_plot_numbers).to match_array(["Apartment 7", "Apartment 8"])
 
         expect(service.all_missing_plots.to_sentence).to eq("Plot 9")
       end
@@ -300,7 +324,13 @@ RSpec.describe ResidentNotifierService do
         notified_residents = described_class.new(notification).notify_residents
 
         expect(notified_residents.length).to eq(3)
-        expect(notified_residents.map(&:full_plot_number)).to match_array(["Apartment 5", "Apartment 5a", "Apartment 5.1"])
+        full_plot_numbers = []
+        notified_residents.each do | resident |
+          resident.plots.each do | plot |
+            full_plot_numbers << plot.to_s
+          end
+        end
+        expect(full_plot_numbers).to match_array(["Apartment 5", "Apartment 5a", "Apartment 5.1"])
       end
 
       it "should not send to plot numbers with different prefix" do
@@ -314,7 +344,13 @@ RSpec.describe ResidentNotifierService do
         notified_residents = service.notify_residents
 
         expect(notified_residents.length).to eq(1)
-        expect(notified_residents.map(&:full_plot_number)).to match_array(["Plot 4"])
+        full_plot_numbers = []
+        notified_residents.each do | resident |
+          resident.plots.each do | plot |
+            full_plot_numbers << plot.to_s
+          end
+        end
+        expect(full_plot_numbers).to match_array(["Plot 4"])
 
         expect(service.all_missing_plots.length).to eq(2)
         expect(service.all_missing_plots.to_sentence).to eq("4 and Apartment 4")
@@ -341,7 +377,10 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development)
         plots = create_list(:plot, 3, development: development)
-        plot_numbers = plots.map(&:number)
+        plot_numbers = []
+        plots.each do | plot |
+          plot_numbers << plot.number
+        end
 
         service = described_class.new(notification)
 
@@ -355,14 +394,14 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "4")
         plot = create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "4")
-        create(:resident, :activated, plot: plot)
+        second_resident = create(:resident, :activated)
+        create(:plot_residency, plot_id: plot.id, resident_id: second_resident.id)
         notification = create(:notification, send_to: development)
 
         service = described_class.new(notification)
         notified_residents = service.notify_residents
 
         all_residents = Resident.all
-
         expect(notified_residents.length).to eq 3
         expect(notified_residents).to match_array(all_residents)
       end
@@ -373,7 +412,10 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development)
         plots_without_residents = create_list(:plot, 10, development: development)
-        plot_numbers = plots_without_residents.take(5).map(&:number).sort.map(&:to_s)
+        plot_numbers = []
+        plots_without_residents.take(5).each do | plot |
+          plot_numbers << plot.number
+        end
 
         notification.range_from = plot_numbers.min
         notification.range_to = plot_numbers.max

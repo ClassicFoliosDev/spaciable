@@ -27,6 +27,14 @@ module PhasePlotFixture
     FactoryGirl.create(:phase, name: phase_name, development: development)
   end
 
+  def create_another_phase_plot
+    FactoryGirl.create(:phase_plot,
+                       phase: CreateFixture.phase,
+                       number: another_plot_number,
+                       prefix: "Apartment",
+                       unit_type: CreateFixture.unit_type)
+  end
+
   def phase_name
     "Alpine"
   end
@@ -65,6 +73,10 @@ module PhasePlotFixture
 
   def plot_number
     CreateFixture.phase_plot_name
+  end
+
+  def another_plot_number
+    "50 B"
   end
 
   def updated_plot_name

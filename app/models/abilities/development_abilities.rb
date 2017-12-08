@@ -18,7 +18,7 @@ module Abilities
 
     def crud_residents(development)
       can :crud, PlotResidency, plot: { development_id: development }
-      can :crud, Resident, plot: { development_id: development }
+      can :crud, Resident
     end
 
     def read_developments(developer_id, division_id, development)

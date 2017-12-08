@@ -7,84 +7,49 @@ Given(/^I am a Development Admin wanting to assign a new resident to a plot$/) d
   visit "/"
 end
 
+# First resident, with original_email
 When(/^I assign a new resident to a plot$/) do
-  attrs = PlotResidencyFixture.attrs
+  plot = CreateFixture.phase_plot
+  visit "/plots/#{plot.id}?active_tab=residents"
 
-  goto_development_show_page
-  within ".tabs" do
-    click_on t("developments.collection.plots")
+  within ".plot" do
+    click_on t("residents.collection.add")
   end
 
-  within ".record-list" do
-    click_on PlotResidencyFixture.plot
-  end
-
-  within ".tabs" do
-    click_on t("plots.collection.plot_residency")
-  end
-
-  within ".empty" do
-    click_on t("plot_residencies.collection.add")
-  end
-
-  within ".new_plot_residency" do
-    select_from_selectmenu :plot_residency_title, with: attrs[:title]
-    fill_in :plot_residency_first_name, with: attrs[:first_name]
-    fill_in :plot_residency_last_name, with: attrs[:last_name]
-    fill_in :plot_residency_email, with: attrs[:email]
-    fill_in :plot_residency_phone_number, with: attrs[:phone]
-    fill_in :plot_residency_completion_date, with: attrs[:completion_date]
-
-    click_on t("plot_residencies.form.submit")
+  within ".new_resident" do
+    fill_in_resident_details(PlotResidencyFixture.attrs)
   end
 end
 
 Then(/^I should see the (created|updated) plot residency$/) do |action|
   attrs = PlotResidencyFixture.attrs(action)
 
-  expect(page).to have_content(attrs[:first_name])
-  expect(page).to have_content(attrs[:last_name])
-  expect(page).to have_content(attrs[:email])
+  within ".residents" do
+    expect(page).to have_content(attrs[:first_name])
+    expect(page).to have_content(attrs[:last_name])
+    expect(page).to have_content(attrs[:email])
 
-  within ".record-list" do
-    click_on attrs.values_at(:first_name, :last_name).join(" ")
+    # TODO move completion date
+    # click_on attrs.values_at(:first_name, :last_name).join(" ")
+    # expect(page).to have_content(attrs[:completion_date])
   end
-
-  expect(page).to have_content(attrs[:completion_date])
 
   recipient_email = ActionMailer::Base.deliveries.last
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", developer: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
-
-  click_on t("plot_residencies.show.back")
-end
-
-When(/^I update the plot resident's email$/) do
-  within ".record-list" do
-    find("[data-action='edit']").click
-  end
-
-  fill_in :plot_residency_email, with: PlotResidencyFixture.updated_email
-
-  click_on t("plot_residencies.form.submit")
-end
-
-Then(/^I should see an error$/) do
-  expect(page).to have_content(t("activerecord.errors.models.plot_residency.attributes.email.change_email"))
 end
 
 When(/^I update the plot residency$/) do
+  within ".residents" do
+    find("[data-action='edit']").click
+  end
+
   attrs = PlotResidencyFixture.attrs(:updated)
 
-  select_from_selectmenu :plot_residency_title, with: attrs[:title]
-  fill_in :plot_residency_first_name, with: attrs[:first_name]
-  fill_in :plot_residency_last_name, with: attrs[:last_name]
-  fill_in :plot_residency_email, with: attrs[:email]
-  fill_in :plot_residency_phone_number, with: attrs[:phone]
-  fill_in :plot_residency_completion_date, with: attrs[:completion_date]
-
-  click_on t("plot_residencies.form.submit")
+  within ".edit_resident" do
+    fill_in_resident_details(attrs)
+  end
 end
 
 When(/^I delete a plot residency$/) do
@@ -99,7 +64,7 @@ Then(/^I should not see the plot residency$/) do
   attrs = PlotResidencyFixture.attrs(:updated)
   second_attrs = PlotResidencyFixture.second_attrs
 
-  within ".record-list" do
+  within ".residents" do
     expect(page).not_to have_content("#{second_attrs[:first_name]} #{second_attrs[:last_name]}")
     expect(page).not_to have_content(second_attrs[:email])
 
@@ -108,39 +73,115 @@ Then(/^I should not see the plot residency$/) do
   end
 end
 
+# A different resident with second_email, added to the original plot
 When(/^I create another plot resident$/) do
   within ".section-actions" do
-    click_on t("plot_residencies.collection.add")
+    click_on t("residents.collection.add")
   end
 
-  attrs = PlotResidencyFixture.second_attrs
-
-  within ".row" do
-    fill_in :plot_residency_first_name, with: attrs[:first_name]
-    fill_in :plot_residency_last_name, with: attrs[:last_name]
-    fill_in :plot_residency_email, with: attrs[:email]
+  within ".new_resident" do
+    fill_in_resident_details(PlotResidencyFixture.second_attrs)
   end
+end
 
-  click_on t("plot_residencies.form.submit")
+Then(/^I should see two residents for the plot$/) do
+  within ".residents" do
+    expect(page).to have_content PlotResidencyFixture.second_email
+    expect(page).to have_content PlotResidencyFixture.updated_email
+  end
+end
+
+When(/^The resident subscribes to emails$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  resident.hoozzi_email_updates = 1
+  resident.developer_email_updates = 1
+  resident.save!
 end
 
 Then(/^I should see the second plot residency created$/) do
   attrs = PlotResidencyFixture.second_attrs
 
-  within ".record-list" do
+  within ".residents" do
     expect(page).to have_content(attrs[:first_name])
     expect(page).to have_content(attrs[:last_name])
     expect(page).to have_content(attrs[:email])
   end
+
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  expect(resident.plots.length).to eq 2
+
+  expect(resident.developer_email_updates).to be_nil
+  expect(resident.hoozzi_email_updates).to be_nil
+  expect(resident.telephone_updates).to eq 1
+  expect(resident.post_updates).to eq 1
 end
 
 Then(/^the resident should no longer receive notifications$/) do
   resident = Resident.find_by(email: PlotResidencyFixture.second_email)
 
+  expect(resident.plots.length).to be_zero
+
   expect(resident.developer_email_updates).to be_zero
   expect(resident.hoozzi_email_updates).to be_zero
   expect(resident.telephone_updates).to be_zero
   expect(resident.post_updates).to be_zero
+end
 
-  expect(resident.plot).to be_nil
+When(/^I assign the same resident to the second plot$/) do
+  second_plot = Plot.find_by(number: PhasePlotFixture.another_plot_number)
+
+  visit "/plots/#{second_plot.id}?active_tab=residents"
+
+  within ".plot" do
+    click_on t("residents.collection.add")
+  end
+
+  within ".new_resident" do
+    fill_in_resident_details(PlotResidencyFixture.attrs)
+  end
+end
+
+When(/^I delete the second plot residency$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  delete_scope = "[data-plot-resident='#{resident.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+Then(/^the resident should still be associated to the first plot$/) do
+  attrs = PlotResidencyFixture.attrs
+
+  expect(page).not_to have_content(".residents")
+
+  first_plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+  visit "/plots/#{first_plot.id}?active_tab=residents"
+
+  within ".residents" do
+    expect(page).to have_content("#{attrs[:first_name]} #{attrs[:last_name]}")
+    expect(page).to have_content(attrs[:email])
+  end
+end
+
+Then(/^the resident should still receive notifications$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  expect(resident.plots.length).to eq 1
+
+  expect(resident.developer_email_updates).to eq 1
+  expect(resident.hoozzi_email_updates).to eq 1
+  expect(resident.telephone_updates).to be_nil
+  expect(resident.post_updates).to be_nil
+end
+
+def fill_in_resident_details(attrs)
+  select_from_selectmenu :resident_title, with: attrs[:title]
+  fill_in :resident_first_name, with: attrs[:first_name]
+  fill_in :resident_last_name, with: attrs[:last_name]
+  fill_in :resident_email, with: attrs[:email]
+  fill_in :resident_phone_number, with: attrs[:phone]
+  fill_in :resident_completion_date, with: attrs[:completion_date]
+
+  click_on t("residents.form.submit")
 end

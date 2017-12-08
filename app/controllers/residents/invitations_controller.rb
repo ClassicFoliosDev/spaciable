@@ -4,6 +4,10 @@ module Residents
   class InvitationsController < Devise::InvitationsController
     layout "accept"
 
+    def create
+      super
+    end
+
     def edit
       development = DevelopmentFinderService.call(params)
       @brand = development&.brand_any
@@ -24,7 +28,8 @@ module Residents
     end
 
     def after_accept_path_for(resource)
-      return services_path if resource.plot.developer.enable_services?
+      # TODO: Which plot
+      return services_path if resource.plots.first.developer.enable_services?
       root_path
     end
 

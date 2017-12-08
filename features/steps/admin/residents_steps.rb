@@ -17,9 +17,10 @@ Then(/^I can see an invidividual resident$/) do
   end
 
   within ".resident" do
-    expect(page).to have_content resident.plot.developer
-    expect(page).to have_content resident.plot.division
-    expect(page).to have_content resident.plot.development
-    expect(page).to have_content resident.plot.unit_type
+    plot = resident.plots.first
+    expect(page).to have_content plot.developer
+    expect(page).to have_content plot.division
+    expect(page).to have_content plot.development
+    expect(page).to have_content plot.unit_type
   end
 end

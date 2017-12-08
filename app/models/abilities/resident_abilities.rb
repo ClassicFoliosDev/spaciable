@@ -2,8 +2,7 @@
 
 module Abilities
   module ResidentAbilities
-    def resident_abilities(resident)
-      plot = resident.plot
+    def resident_abilities(resident, plot)
       return unless plot
 
       can :manage, Resident, id: resident.id

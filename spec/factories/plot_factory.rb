@@ -20,7 +20,7 @@ FactoryGirl.define do
 
       after(:create) do |plot, evaluator|
         resident = evaluator.resident
-        resident.plot = plot
+        plot.residents << resident
         resident.developer_email_updates = true
         resident.save!
       end
@@ -33,7 +33,7 @@ FactoryGirl.define do
 
       after(:create) do |plot, evaluator|
         resident = evaluator.resident
-        resident.plot = plot
+        plot.residents << resident
         resident.save!
       end
     end
