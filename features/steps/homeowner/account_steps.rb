@@ -25,8 +25,8 @@ Then(/^I should be redirected to the homeowner dashboard$/) do
 end
 
 Given(/^the developer has enabled services$/) do
-  developers = Developer.all
-  developers.last.update_attributes(enable_services: true)
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  resident.developer.update_attributes(enable_services: true)
 end
 
 Given(/^I have seeded the database with services$/) do

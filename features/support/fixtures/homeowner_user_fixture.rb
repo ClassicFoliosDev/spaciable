@@ -4,12 +4,19 @@ module HomeownerUserFixture
   module_function
 
   def create
+    developer = FactoryGirl.create(:developer)
+    division = FactoryGirl.create(:division, developer_id: developer.id)
+    development = FactoryGirl.create(:development, division_id: division.id)
+    phase = FactoryGirl.create(:phase, development_id: development.id)
+    plot = FactoryGirl.create(:plot, phase_id: phase.id)
+
     FactoryGirl.create(
       :resident,
       :with_residency,
       email: email,
       password: password,
-      first_name: first_name
+      first_name: first_name,
+      plot: plot
     )
   end
 
