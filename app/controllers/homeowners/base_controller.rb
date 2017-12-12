@@ -14,10 +14,17 @@ module Homeowners
     def current_ability
       if current_user.present?
         @resident ||= Resident.new(email: current_user.email)
-        @ability ||= Ability.new(@resident, @plot)
       else
-        @ability ||= Ability.new(current_resident, @plot)
+        @resident = current_resident
       end
+      @ability ||= Ability.new(@resident, @plot)
+    end
+
+    def change_plot
+      @plot = Plot.find(params[:id])
+      @brand = @plot&.brand
+      session[:plot_id] = @plot.id
+      redirect_to homeowner_dashboard_path
     end
 
     protected
@@ -27,13 +34,17 @@ module Homeowners
     end
 
     def set_plot
+      plot_id = session[:plot_id]
+      @plot = if plot_id
+                Plot.find(plot_id)
+              else
+                current_resident.plots.first
+              end
       if current_resident.present?
-        # TODO: work out correct plot
-        @plot = current_resident.plots.first
         session[:plot_id] = @plot.id
+        @plots = current_resident.plots
       elsif current_user.present?
-        plot_id = session[:plot_id]
-        @plot = Plot.find(plot_id) if plot_id
+        @plots = [@plot]
       end
     end
 

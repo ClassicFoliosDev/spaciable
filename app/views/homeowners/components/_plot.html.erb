@@ -1,0 +1,13 @@
+<div class="row plot-summary">
+  <%= link_to change_plot_path(id: plot.id) do %>
+    <div class="sixth">
+      <%= image_tag brand_or_red_logo(plot.development.brand_any) %>
+    </div>
+
+    <div class="five-sixths">
+      <span><%= plot.developer %></span><br/>
+      <span class="strong"><%= plot.development %></span></br/>
+      <span><%= plot.number %></span>
+    </div>
+  <% end %>
+</div>

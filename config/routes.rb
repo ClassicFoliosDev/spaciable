@@ -167,6 +167,7 @@ Rails.application.routes.draw do
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
     get :about, to: 'about#show', as: :homeowner_about
     get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
+    get :change_plot, to: 'base#change_plot'
   end
 
   get "/ts_and_cs", to: 'home#ts_and_cs'

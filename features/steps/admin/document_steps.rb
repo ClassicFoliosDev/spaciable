@@ -119,7 +119,10 @@ Then(/^I should see the document in the developer document list$/) do
   within ".documents" do
     expect(page).to have_content DocumentFixture.updated_document_name
     click_on DocumentFixture.second_document_name
-    sleep 0.2
+  end
+
+  within ".document" do
+    expect(page).to have_content DocumentFixture.second_document_name
   end
 end
 

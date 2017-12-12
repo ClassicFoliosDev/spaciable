@@ -59,6 +59,10 @@ module FileFixture
     "Bovis logo"
   end
 
+  def default_logo_alt
+    "Hoozzi logo primary"
+  end
+
   def default_banner_name
     "https://tinyurl.com/j6s6be3"
   end

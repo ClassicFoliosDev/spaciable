@@ -175,6 +175,7 @@ en:
         hi: "Hi %{first_name}"
         account: "My account"
         feedback: "Feedback"
+        my_plots: "My plots"
       sub_menu:
         about: "About"
         title: "My home"

@@ -15,6 +15,7 @@ require "drivers_setup"
 require "debugging_world"
 require "hoozzi_world"
 require "goto_page"
+require "sleeps"
 require_relative "./../../spec/support/login_as"
 
 World(
@@ -24,7 +25,8 @@ World(
   GotoPage,
   DebuggingWorld,
   FactoryGirl::Syntax::Methods,
-  WebMock::API
+  WebMock::API,
+  Sleeps
 )
 
 WebMock.disable_net_connect!(allow_localhost: true)

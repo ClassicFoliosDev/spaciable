@@ -4,35 +4,39 @@
     .branded-body {
       background-color: <%= brand.branded_bg_color %>;
     }
+  <% else %>
+    .branded-body {
+      background-color: #FAFAFA; // $ui-superlight-grey
+    }
   <% end %>
 
   <% if brand.branded_header_color %>
-  .branded-header {
-    background-color: <%= brand.branded_header_color %>;
-  }
+    .branded-header {
+      background-color: <%= brand.branded_header_color %>;
+    }
+  <% else %>
+    .branded-header {
+      background-color: #394F5F; // $secondary-blue
+    }
   <% end %>
 
   <% if brand.branded_text_color %>
    .branded-text {
       color: <%= brand.branded_text_color %>;
    }
-   .branded-text h1,
-   .branded-text h2,
-   .branded-text h3,
-   .branded-text h4,
-   .branded-text h5,
-   .branded-text h6,
-   .branded-text p, .branded-text span {
-     color: inherit;
-   }
-   .branded-text a, .branded-text a:visited, .branded-text a:hover, .branded-text a:active {
-     color: inherit;
-   }
 
    .branded-primary-text {
      color: <%= brand.branded_text_color %>;
    }
 
+  <% else %>
+    .branded-text {
+      color: #67747C; // $type-grey
+    }
+
+    .branded-primary-text {
+      color: #67747C; // $type-grey
+    }
   <% end %>
 
   <% if brand.branded_content_bg_color %>
@@ -40,20 +44,16 @@
       background-color: <%= brand.branded_content_bg_color %>;
     }
 
-    .branded-primary-text {
-      background-color: inherit;
+    .branded-input input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px <%= brand.branded_content_bg_color %> inset;
     }
-
-    .invitation .register {
-      background-color: inherit;
-    }
-
-    .login .sign-in {
-      background-color: inherit;
+  <% else %>
+    .branded-content {
+      background-color: #FFFFFF;  // $ui-white
     }
 
     .branded-input input:-webkit-autofill {
-      -webkit-box-shadow: 0 0 0 30px <%= brand.branded_content_bg_color %> inset;
+      -webkit-box-shadow: 0 0 0 30px #FFFFFF inset; // $ui-white
     }
   <% end %>
 
@@ -62,14 +62,25 @@
       border-color: <%= brand.branded_content_text_color %>;
     }
 
-  .branded-input input[type="email"] {
-    border-color: <%= brand.branded_content_text_color %>;
-  }
+    .branded-input input[type="email"] {
+      border-color: <%= brand.branded_content_text_color %>;
+    }
 
-  .branded-input input[type="password"] {
-    border-color: <%= brand.branded_content_text_color %>;
-  }
+    .branded-input input[type="password"] {
+      border-color: <%= brand.branded_content_text_color %>;
+    }
+  <% else %>
+    .branded-border {
+      border-color: #EAEAEA; // $ui-grey
+    }
 
+    .branded-input input[type="email"] {
+      border-color: #EAEAEA; // $ui-grey
+    }
+
+    .branded-input input[type="password"] {
+      border-color: #EAEAEA; // $ui-grey
+    }
   <% end %>
 
   <% if brand.branded_button_color %>
@@ -100,7 +111,7 @@
 
     .branded-primary-text i {
       color: <%= brand.branded_button_color %>;
-      border-color: #B3B5B7; // Same as $ui-dark-grey
+      border-color: #B3B5B7; // $ui-dark-grey
     }
 
     .branded-primary-text a {
@@ -109,6 +120,37 @@
 
     .branded-primary-text label.checkbox {
       color: <%= brand.branded_button_color %>;
+    }
+  <% else %>
+    .branded-btn {
+      background-color: #18A895; // $primary-green
+    }
+
+    .branded-btn.alt {
+      border-color: #18A895; // $primary-green
+      color: #18A895; // $primary-green
+    }
+
+    .branded-primary {
+      color: #18A895; // $primary-green
+    }
+
+    .branded-primary-btn {
+      color: #F7525E; // $type-red
+      border-color: #F7525E; // $type-red
+    }
+
+    .branded-titles h2 {
+      color: #F7525E; // $type-red
+    }
+
+    .branded-titles h2:last-child {
+      color: #18A895; // $primary-green
+    }
+
+    .branded-primary-text i {
+      color: #F7525E; // $type-red
+      border-color: #F7525E; // $type-red
     }
   <% end %>
 
@@ -126,12 +168,44 @@
       color: <%= brand.branded_button_text_color %>;
       border-color: <%= brand.branded_button_text_color %>;
     }
+
+    .branded-primary-text {
+      color: <%= brand.branded_button_color %>;
+    }
+
+    .branded-primary-text label.checkbox {
+      color: <%= brand.branded_button_color %>;
+    }
+  <% else %>
+    .branded-btn {
+      color: #FFFFFF; // $ui-white
+      border-color: #FFFFFF; // $ui-white
+    }
+
+    .branded-btn.alt {
+      background-color: #FFFFFF; // $ui-white
+    }
+
+    .branded-primary-btn {
+      background-color: #FFFFFF; // $ui-white
+    }
+
+    .branded-primary-text {
+      color: #FFFFFF; // $ui-white
+    }
+
+    .branded-primary-text label.checkbox {
+      color: #FFFFFF; // $ui-white
+    }
   <% end %>
 
   <% if brand.branded_banner %>
     .branded-hero {
       background-image: url(<%= brand.branded_banner&.html_safe %>);
     }
+  <% else %>
+    .branded-hero {
+      background-image: url(https://tinyurl.com/j6s6be3);
+    }
   <% end %>
-
 </style>

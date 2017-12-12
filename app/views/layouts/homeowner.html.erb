@@ -1,9 +1,9 @@
-  <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title"), brand: @brand } %>
+  <%= render 'layouts/homeowner_head', title: t(".title"), brand: @brand %>
   <body class="hoozzi homeowner-view">
     <div>
       <div class="content-container">
         <div class="header-container">
-          <%= render 'components/homeowner/header', brand: @brand, unread_count: @unread_count, plot: @plot %>
+          <%= render 'components/homeowner/header', brand: @brand, unread_count: @unread_count, plot: @plot, plots: @plots %>
         </div>
 
           <%= render "components/flashes" %>

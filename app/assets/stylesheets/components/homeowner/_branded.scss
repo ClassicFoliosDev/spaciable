@@ -1,11 +1,4 @@
-.branded-primary {
-  color: $primary-cta-color;
-}
-
 .branded-btn {
-  color: $ui-white;
-  background-color: $primary-cta-color;
-  border-color: $ui-white;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
@@ -14,9 +7,6 @@
 }
 
 .branded-btn.alt {
-  border-color: $primary-cta-color;
-  background-color: $ui-white;
-  color: $primary-cta-color;
   font-size: $base-small-font-size;
   cursor: pointer;
 
@@ -34,83 +24,62 @@
 
 .branded-hero {
   height: 200px;
-  background-image: url(https://tinyurl.com/j6s6be3);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .branded-body {
-  background-color: $ui-superlight-grey;
   padding-top: $spacing-medium;
   padding-bottom: $spacing-medium;
 }
 
 .branded-border {
-  border-color: $ui-grey;
   border-width: 1px;
   border-style: solid;
 }
 
-.branded-content {
-  background-color: $ui-white;
-}
-
 .branded-text {
   display: block;
-}
 
-.branded-header {
-  background-color: $secondary-blue
-}
+  h1, h2, h3, h4, h5, h6, p, span {
+    color: inherit;
+  }
 
-.branded-primary-text {
-  color: $ui-white;
-
-  p, a, label {
+  a, a:visited, a:hover, a:active {
     color: inherit;
   }
 }
 
 .branded-primary-text {
-  background-color: $primary-red;
-  color: $ui-white;
+  p, a, label {
+    color: inherit;
+  }
+}
 
+.invitation .register {
+  background-color: inherit;
+}
+
+.login .sign-in {
+  background-color: inherit;
+}
+
+.branded-primary-text {
   input[type=checkbox]:checked + i:before {
     color: $ui-white;
   }
 
   i {
     background-color: $ui-white;
-    border-color: $primary-red;
-    color: $primary-red;
   }
 }
 
 .branded-primary-btn {
-  color: $primary-red;
-  background-color: $ui-white;
-
   input {
     color: inherit;
     background-color: inherit;
     border-color: inherit;
     margin-bottom: $spacing-small;
-  }
-}
-
-.branded-titles h2 {
-  color: $primary-red;
-
-  &:last-child {
-    color: $primary-cta-color;
-  }
-}
-
-.branded-second-title {
-  color: $primary-red;
-
-  h2 {
-    color: inherit;
   }
 }

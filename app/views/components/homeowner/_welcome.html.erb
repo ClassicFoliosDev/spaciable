@@ -4,6 +4,10 @@
       <span><%= t('.hi', first_name: current_resident&.first_name) %></span>
       <span>|</span>
       <%= link_to t(".account"), homeowners_resident_path(current_resident) %>
+      <% if plots.count > 1 %>
+        <span>|</span>
+        <span class="my-plots"><%= t(".my_plots") %></span>
+      <% end %>
       <span>|</span>
       <%= link_to homeowners_notifications_path do %>
         <i class="fa fa-envelope"></i>
@@ -15,6 +19,12 @@
       <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident.email || "") %>
       <span>|</span>
       <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
+    </div>
+
+    <div class="plot-list hidden">
+      <% plots.each do |plot| %>
+        <%= render "homeowners/components/plot", plot: plot %>
+      <% end %>
     </div>
 
     <div class="user user-mobile">
