@@ -12,7 +12,7 @@ end
 
 And(/^I have logged in as a resident and associated the plot$/) do
   plot = CreateFixture.create_development_plot
-  resident = FactoryGirl.create(:resident, :with_residency, plot: plot)
+  resident = FactoryGirl.create(:resident, :with_residency, plot: plot, email: "multiple_resident@example.com")
 
   login_as resident
 end
@@ -32,5 +32,25 @@ end
 Then(/^I should see the plot rooms$/) do
   within ".rooms" do
     expect(page).to have_content(CreateFixture.room_name)
+  end
+end
+
+Given(/^there is another plot$/) do
+  unit_type = FactoryGirl.create(:unit_type)
+  plot = FactoryGirl.create(:plot, unit_type: unit_type, number: "222")
+  resident = Resident.find_by(email: "multiple_resident@example.com")
+  FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id)
+end
+
+Then(/^I should see no rooms$/) do
+  within ".rooms" do
+    expect(page).not_to have_selector(".room")
+  end
+end
+
+When(/^I switch back to the development plot$/) do
+  within ".plot-list" do
+    plot_link = page.find_link(CreateFixture.plot_name)
+    plot_link.trigger(:click)
   end
 end

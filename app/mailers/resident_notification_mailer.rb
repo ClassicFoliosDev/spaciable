@@ -30,6 +30,15 @@ class ResidentNotificationMailer < ApplicationMailer
     mail to: plot_residency.email, subject: subject
   end
 
+  def new_plot(plot_residency, subject)
+    return unless plot_residency
+
+    template_configuration(plot_residency)
+    @plot = plot_residency.plot
+
+    mail to: plot_residency.email, subject: subject
+  end
+
   private
 
   def template_configuration(plot_residency)

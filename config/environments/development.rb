@@ -29,8 +29,8 @@ Rails.application.configure do
   # Alert if missing translation
   config.action_view.raise_on_missing_translations = true
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  # Do care if the mailer can't send.
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 

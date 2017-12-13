@@ -3,9 +3,19 @@ Feature: Homeowner Appliances
   I want to log into Hoozzi
   To look at the configuration of my home appliances
 
+  @javascript
   Scenario:
     Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide
     And there is a second appliance
+    And there is a second plot
     When I visit the appliances page
+    Then I should see the appliances for my plot
+    When I show the plots
+    And I switch to the second plot
+    When I visit the appliances page
+    Then I should see no appliances
+    When I show the plots
+    When I switch to the first plot
+    And I visit the appliances page
     Then I should see the appliances for my plot

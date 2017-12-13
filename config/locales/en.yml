@@ -54,6 +54,7 @@ en:
 
   reminder_title: "%{ordinal} reminder to register with Hoozzi"
   last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
+  new_plot_title: "Information about your new home"
 
   notify:
     information: "information"

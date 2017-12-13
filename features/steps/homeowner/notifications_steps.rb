@@ -23,7 +23,9 @@ Then(/^I should see the notifications list$/) do
     expect(page).to have_content("Sent from admin to all development")
     expect(page).to have_content("Sent from developer to resident")
   end
+end
 
+Then(/^All my notifications should be unread$/) do
   within ".user" do
     sup = page.find(".unread")
     expect(sup).to have_content("3")
@@ -55,9 +57,13 @@ Then(/^I should see the expanded notification$/) do
   end
 end
 
-Then(/^the notification status in my header should change$/) do
+Then(/^the notification status in my header should be updated$/) do
   within ".user" do
     sup = page.find(".unread")
     expect(sup).to have_content("2")
   end
+end
+
+And(/^there is a second notification plot$/) do
+  HomeownerNotificationsFixture.create_second_plot
 end

@@ -29,7 +29,7 @@ Then(/^I see all the plots I own$/) do
 end
 
 Given(/^there is a second plot$/) do
-  second_plot = FactoryGirl.create(:plot, development: CreateFixture.division_development, prefix: "", number: "222")
+  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, prefix: "", number: "222")
   FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: CreateFixture.resident.id)
 end
 

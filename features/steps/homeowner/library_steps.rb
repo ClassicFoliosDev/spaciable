@@ -86,11 +86,8 @@ end
 
 Then(/^I should only see the appliance manuals to download$/) do
   within ".branded-body" do
-    MyLibraryFixture.appliance_manuals.each do |title, download_link|
+    MyLibraryFixture.appliance_manuals.each do |title|
       expect(page).to have_content(title)
-
-      anchor = first("a[href='#{download_link}']")
-      expect(anchor).not_to be_nil
     end
 
     # Appliance guide
@@ -99,16 +96,33 @@ Then(/^I should only see the appliance manuals to download$/) do
       expect(page).to have_content(t("homeowners.appliances.show.manual"))
     end
 
-    MyLibraryFixture.not_appliance_manuals.each do |title, download_link|
+    MyLibraryFixture.not_appliance_manuals.each do |title|
       expect(page).not_to have_content(title)
-
-      anchor = first("a[href='#{download_link}']")
-      expect(anchor).to be_nil
     end
   end
 
   within ".hero-text" do
     active_category = find(".categories .active").text
     expect(active_category).to eq(MyLibraryFixture.appliances_category_name)
+  end
+end
+
+Then(/^I should not see plot documents in the dashboard$/) do
+  within ".library-component" do
+    expect(page).to have_content("Developer Document")
+    expect(page).to have_content("Development Document")
+    expect(page).not_to have_content("Phase Plot Document")
+  end
+end
+
+When(/^I visit the library page$/) do
+  visit "/homeowners/library/my_home"
+end
+
+Then(/^I should not see plot documents$/) do
+  within ".documents" do
+    expect(page).to have_content("Developer Document")
+    expect(page).to have_content("Development Document")
+    expect(page).not_to have_content("Phase Plot Document")
   end
 end

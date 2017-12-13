@@ -38,6 +38,14 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", developer: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
+
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  if resident&.invitation_accepted_at.nil?
+    expect(recipient_email.subject).to eq t("last_reminder_title", ordinal: "Third")
+  elsif resident
+    expect(recipient_email.subject).to eq t("new_plot_title")
+  end
 end
 
 When(/^I update the plot residency$/) do
@@ -94,6 +102,7 @@ end
 When(/^The resident subscribes to emails$/) do
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
+  resident.invitation_accepted_at = Time.zone.now
   resident.hoozzi_email_updates = 1
   resident.developer_email_updates = 1
   resident.save!

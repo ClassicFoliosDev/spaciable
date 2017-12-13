@@ -25,7 +25,7 @@ class PlotResidency < ApplicationRecord
   end
 
   delegate :to_s, :title, :first_name, :last_name, :email, :phone_number, to: :resident
-  delegate :invited_by, to: :resident
+  delegate :invited_by, :invitation_accepted_at, to: :resident
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 

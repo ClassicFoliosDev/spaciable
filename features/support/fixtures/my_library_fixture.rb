@@ -96,13 +96,11 @@ module MyLibraryFixture
   end
 
   def appliance_manuals
-    my_appliance = CreateFixture.appliance
-
-    [[my_appliance.name, my_appliance.manual.url]]
+    [CreateFixture.full_appliance_name]
   end
 
   def not_appliance_manuals
-    all_documents << [CreateFixture.appliance_without_manual_name, nil]
+    all_documents << CreateFixture.appliance_without_manual_name
   end
 
   private

@@ -19,9 +19,9 @@ Feature: Plot Residents
   Scenario: Multiple plots
     Given I am a Development Admin wanting to assign a new resident to a plot
     When I assign a new resident to a plot
-    And The resident subscribes to emails
     Then I should see the created plot residency
-    Given there is another phase plot
+    Given The resident subscribes to emails
+    And there is another phase plot
     When I assign the same resident to the second plot
     Then I should see the created plot residency
     When I delete the second plot residency

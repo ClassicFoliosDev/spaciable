@@ -49,7 +49,8 @@ en:
         activate: "To activate your Hoozzi account, click the link below and set your password. If you select \"Subscribe to emails\", you may be sent tips on moving, settling in and more (to unsubscribe later, go to the \"My account\" page on Hoozzi)."
         log_in: "To log in next time, visit <a href=\"http://www.hoozzi.com/\">www.hoozzi.com</a>"
         log_in_text: "To log in next time, visit http://www.hoozzi.com/"
-
+        welcome_back: "We're delighted to see you back!"
+        already_activated: "To see your new plot, log in at: "
   time:
     formats:
       devise:

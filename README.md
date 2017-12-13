@@ -24,21 +24,31 @@ If you are having problems with imagemagick, then getting graphicsmagick to work
 brew install gs graphicsmagick
 ```
 
-To allow Sidekiq to process background jobs you will need to install Redis, which is available on homebrew:
-
-```
-$ brew install redis
-```
-
 ## Generate admin and homeowner accounts
 
 `$ rake db:seed`
 
 ## Running the application
 
-To ensure that the sidekiq processes are running as well as puma, you can use:
+To see emails sent locally you will need to start up a delayed job queue using:
 
-`$ foreman start`
+```
+$ bin/delayed_job start
+```
+
+You can stop the queue using:
+
+```
+$ bin/delayed_job stop
+```
+
+To run delayed job in the foreground, for inspection of the log, you can use the rake task instead of the `bin/delayed_job` script:
+
+```
+$ rails jobs:work
+```
+
+## Users
 
 The default admin user's credentials are:
 
@@ -250,20 +260,10 @@ which you want to be search-enabled, here's the syntax.
 
 ## Background Jobs
 
-Sidekiq uses threads to handle many jobs at the same time in the same process. All background jobs are queued up on Redis for Sidekiq to pick them up and process them.
+Delayed job is configured with active record, it uses a database and workers to handle many jobs at the same time in the same process. All background jobs are queued up in the delayed_job table, waiting for workers to pick them up and process them.
 
-There are several named queues, as define in the `config/sidekiq.yml` file, to distribute the type of jobs that need to be performed and managed. By default ActionMailer will use the `mailer` queue, and ActiveJob will use the `default` queue.
+There are several named queues, the most important, carrierwave, is defined in the `config/initializers/carrierwave_backgrounder.rb` file.
 
-If you are logged in as a CF Admin you can access the Sidekiq dashbaord at `/sidekiq`.
-
-For more information about using Sidekiq check out the [FAQs](https://github.com/mperham/sidekiq/wiki/FAQ).
-
-The Sidekiq process will restart automatically on deploy, but if you want to change the number of threads in use you will need to:
-
-- Update the environment varaible `SIDEKIQ_WORKERS` on the ElasticBeanstalk environment settings
-- Restart the sidekiq process manually:
-
-```
-$ eb ssh
-$ sudo initctl restart sidekiq
-```
+For more information see 
+* https://github.com/collectiveidea/delayed_job_active_record
+* https://github.com/collectiveidea/delayed_job/wiki

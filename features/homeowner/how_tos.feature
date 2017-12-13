@@ -6,6 +6,7 @@ Feature: HowTos
   Scenario:
     Given I am logged in as a homeowner
     And there are how-tos
+    And there is a second plot
     Then I should see recent HowTos on my dashboard
     When I go to read the HowTos
     Then I should see the HowTos for Around the home

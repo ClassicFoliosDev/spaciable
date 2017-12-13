@@ -30,7 +30,6 @@ Then(/^I should see the appliances for my plot$/) do
     expect(page).to have_content(CreateFixture.appliance_manufacturer_name)
 
     image = page.first(".energy-rating")
-    expect(image["src"]).to have_content("Hoozzi Energy Rating A")
     expect(image["alt"]).to have_content("Hoozzi energy rating a")
 
     register_appliance = page.first(".branded-btn")
@@ -47,4 +46,22 @@ Then(/^I should see the appliances for my plot$/) do
     expect(appliance_with_guide).not_to have_content(FileFixture.manual_name)
     expect(appliance_with_guide).not_to have_content(FileFixture.document_name)
   end
+end
+
+Then(/^I should see no appliances$/) do
+  within ".appliances" do
+    expect(page).not_to have_selector(".appliance")
+    expect(page).not_to have_content CreateFixture.appliance_category_name
+    expect(page).not_to have_content CreateFixture.appliance_manufacturer_name
+    expect(page).not_to have_content ApplianceFixture.second_manufacturer_name
+  end
+end
+
+When(/^I switch to the first plot$/) do
+  within ".plot-list" do
+    plot_link = page.find_link(CreateFixture.phase_plot_name)
+    plot_link.trigger(:click)
+  end
+
+  wait_for_branding_to_reload
 end

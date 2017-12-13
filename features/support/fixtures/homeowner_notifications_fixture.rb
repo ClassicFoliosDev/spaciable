@@ -20,6 +20,11 @@ module HomeownerNotificationsFixture
     FactoryGirl.create(:resident, :with_residency, plot: development_plot, email: resident_email)
   end
 
+  def create_second_plot
+    plot = FactoryGirl.create(:plot, number: "222")
+    FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id)
+  end
+
   def resident_email
     "resident@example.com"
   end
