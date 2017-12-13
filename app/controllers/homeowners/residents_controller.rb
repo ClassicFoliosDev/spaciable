@@ -25,8 +25,7 @@ module Homeowners
     private
 
     def residents_for_my_plot
-      # TODO: Which plot
-      current_resident.plots.first.residents.map do |resident|
+      @plot.residents.map do |resident|
         next if resident.email == current_resident.email
         { email: resident.email, name: resident.to_s }
       end
@@ -41,7 +40,7 @@ module Homeowners
         service_ids.push(param.to_i)
       end
 
-      service_count = ResidentServicesService.call(current_resident, service_ids, true)
+      service_count = ResidentServicesService.call(current_resident, service_ids, true, @plot)
       return t(".updated_services") if service_count.positive?
 
       ""

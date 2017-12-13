@@ -28,9 +28,9 @@ module Residents
     end
 
     def after_accept_path_for(resource)
-      # TODO: Which plot
-      return services_path if resource.plots.first.developer.enable_services?
-      root_path
+      services_enabled = resource.plots.any? { |plot| plot.developer.enable_services? }
+
+      services_enabled ? services_path : root_path
     end
 
     private

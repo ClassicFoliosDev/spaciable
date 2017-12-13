@@ -206,7 +206,3 @@ Then(/^I should see the progress update is not sent to the former resident$/) do
   emails = ActionMailer::Base.deliveries
   expect(emails.length).to be_zero
 end
-
-Given(/^there is another phase plot$/) do
-  PhasePlotFixture.create_another_phase_plot
-end

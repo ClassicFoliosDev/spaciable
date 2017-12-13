@@ -41,7 +41,8 @@ end
 
 Then(/^I should be on the branded homeowner login page$/) do
   homeowner = Resident.find_by(email: HomeownerUserFixture.email)
-  # TODO improve plot calculation
+
+  # Should be safe, we only created one plot
   plot = homeowner.plots.first
 
   expected_path = "/#{plot.developer.to_s.parameterize}"
@@ -101,4 +102,16 @@ Then(/^I can request a password reset$/) do
 
   fill_in :resident_email, with: HomeownerUserFixture.email
   click_on t("residents.passwords.new.submit")
+end
+
+Given(/^there is another phase plot for the homeowner$/) do
+  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, prefix: "", number: PlotFixture.another_plot_number)
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: resident.id)
+end
+
+Given(/^there is another division phase plot for the homeowner$/) do
+  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.division_phase, prefix: "", number: PlotFixture.another_plot_number)
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: resident.id)
 end

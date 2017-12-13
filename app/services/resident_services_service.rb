@@ -3,7 +3,7 @@
 module ResidentServicesService
   module_function
 
-  def call(resident, service_ids, possible_old_services)
+  def call(resident, service_ids, possible_old_services, plot = nil)
     return 0 unless resident
     return 0 unless service_ids
 
@@ -19,7 +19,19 @@ module ResidentServicesService
       old_service_names.delete(service.name) if old_service_names&.include?(service.name)
     end
 
-    ServicesNotificationJob.perform_later(resident, old_service_names)
+    ServicesNotificationJob.perform_later(resident, old_service_names, plots(resident, plot))
     service_ids.length
+  end
+
+  private
+
+  module_function
+
+  def plots(resident, provided_plot)
+    if provided_plot.nil?
+      resident.plots.select { |plot| plot.developer.enable_services? }
+    else
+      Array(provided_plot)
+    end
   end
 end

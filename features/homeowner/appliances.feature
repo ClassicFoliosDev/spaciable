@@ -8,7 +8,7 @@ Feature: Homeowner Appliances
     Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide
     And there is a second appliance
-    And there is a second plot
+    And there is another phase plot
     When I visit the appliances page
     Then I should see the appliances for my plot
     When I show the plots

@@ -184,6 +184,12 @@ Then(/^the resident should still receive notifications$/) do
   expect(resident.post_updates).to be_nil
 end
 
+Given(/^there is a plot in another phase$/) do
+  unit_type = FactoryGirl.create(:unit_type)
+  phase = FactoryGirl.create(:phase, development: CreateFixture.development)
+  FactoryGirl.create(:plot, unit_type: unit_type, phase: phase, number: PhasePlotFixture.another_plot_number)
+end
+
 def fill_in_resident_details(attrs)
   select_from_selectmenu :resident_title, with: attrs[:title]
   fill_in :resident_first_name, with: attrs[:first_name]

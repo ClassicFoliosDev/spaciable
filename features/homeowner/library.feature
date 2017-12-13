@@ -7,7 +7,7 @@ Feature: My Home Library
   Scenario:
     Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide
-    And there is a second plot
+    And there is another phase plot
     Then I should see recent documents added to my library
     When I go to download the documents for my home
     Then I should see all of the documents related to my home

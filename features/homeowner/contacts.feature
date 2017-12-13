@@ -4,7 +4,7 @@ Feature: Homeowner Contacts
   To look at the contact details for my developer
 
   Scenario:
-    Given there is a division plot
+    Given I have a developer with a development with unit type and plot
     And there are division contacts
     And I have logged in as a resident and associated the division development plot
     When I visit the contacts page

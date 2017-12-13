@@ -21,7 +21,7 @@ Feature: Plot Residents
     When I assign a new resident to a plot
     Then I should see the created plot residency
     Given The resident subscribes to emails
-    And there is another phase plot
+    And there is a plot in another phase
     When I assign the same resident to the second plot
     Then I should see the created plot residency
     When I delete the second plot residency

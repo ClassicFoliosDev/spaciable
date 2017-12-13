@@ -45,6 +45,10 @@ module PlotFixture
     "1"
   end
 
+  def another_plot_number
+    "222"
+  end
+
   def updated_house_number
     "42"
   end

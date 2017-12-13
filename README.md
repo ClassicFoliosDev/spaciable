@@ -36,6 +36,8 @@ To see emails sent locally you will need to start up a delayed job queue using:
 $ bin/delayed_job start
 ```
 
+Make sure you restart the rails server after starting the delayed job workers
+
 You can stop the queue using:
 
 ```

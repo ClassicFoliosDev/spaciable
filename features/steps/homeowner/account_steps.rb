@@ -25,8 +25,10 @@ Then(/^I should be redirected to the homeowner dashboard$/) do
 end
 
 Given(/^the developer has enabled services$/) do
-  resident = Resident.find_by(email: HomeownerUserFixture.email)
-  resident.developer.update_attributes(enable_services: true)
+  developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
+  developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
+
+  developer.update_attributes(enable_services: true)
 end
 
 Given(/^I have seeded the database with services$/) do
@@ -203,4 +205,28 @@ When(/^I select no services$/) do
   within ".services" do
    click_on t("homeowners.services.index.submit")
   end
+end
+
+Then(/^I should not see other resident emails listed in my account$/) do
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  visit "/homeowners/residents/#{resident.id}"
+
+  within ".other-residents" do
+    expect(page).to have_content t("homeowners.residents.show.none", plot: PlotFixture.another_plot_number)
+
+    expect(page).not_to have_content "test1@example.com"
+    expect(page).not_to have_content "test2@example.com"
+    expect(page).not_to have_content "test3@example.com"
+    expect(page).not_to have_content "test4@example.com"
+    expect(page).not_to have_content resident.email
+  end
+end
+
+When(/^I switch to the homeowner plot$/) do
+  within ".plot-list" do
+    plot_link = page.find_link(HomeownerUserFixture.plot_number)
+    plot_link.trigger(:click)
+  end
+
+  wait_for_branding_to_reload
 end

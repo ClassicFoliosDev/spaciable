@@ -579,13 +579,13 @@ en:
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
         other_residents: "Other residents who have access to this information in Hoozzi"
-        none: "Only you can see the content in Hoozzi"
+        none: "Only you can see the content for %{plot}"
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
     services:
       index:
-        title: "Hoozzi Services"
+        title: "Hoozzi Services for %{developer}"
         description: "Moving home can be very stressful, but Hoozzi Services can help take some of the pressure away with our trusted suppliers. Plus, with Hoozzi’s buying power you can get a great deal. Don't get stressed - let Hoozzi help and give yourself more choice."
         submit: "Got it, let's go"
         postamble: "You can always choose services later through your Account Settings"

@@ -50,16 +50,15 @@
           <span><%= resident[:name] %> <%= resident[:email] %></span><br/>
         <% end %>
         <% if @all_residents.count.zero? %>
-          <span><%= t(".none") %></span>
+          <span><%= t(".none", plot: @plot) %></span>
         <% end %>
       </div>
     </div>
 
-    <%# TODO: which plot %>
-    <% if current_resident.plots.first.enable_services? %>
+    <% if @plot.developer.enable_services? %>
       <div class="full branded-content branded-border">
         <div class="services">
-          <h4><%= t("homeowners.services.index.title") %></h4>
+          <h4><%= t("homeowners.services.index.title", developer: @plot.developer) %></h4>
           <p><%= t("homeowners.services.index.description") %></p>
           <% @services.each do | service | %>
             <%= render "homeowners/components/service", service: service %>

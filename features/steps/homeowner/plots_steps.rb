@@ -28,8 +28,13 @@ Then(/^I see all the plots I own$/) do
   end
 end
 
-Given(/^there is a second plot$/) do
-  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, prefix: "", number: "222")
+Given(/^there is another phase plot$/) do
+  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, prefix: "", number: PlotFixture.another_plot_number)
+  FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: CreateFixture.resident.id)
+end
+
+Given(/^there is another division phase plot$/) do
+  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.division_phase, prefix: "", number: PlotFixture.another_plot_number)
   FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: CreateFixture.resident.id)
 end
 
@@ -42,7 +47,7 @@ end
 
 When(/^I switch to the second plot$/) do
   within ".plot-list" do
-    plot_link = page.find_link("222")
+    plot_link = page.find_link(PlotFixture.another_plot_number)
     plot_link.trigger(:click)
   end
 end

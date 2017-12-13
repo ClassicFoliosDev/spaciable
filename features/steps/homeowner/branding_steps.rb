@@ -108,7 +108,7 @@ Given(/^the resident also has an unbranded plot$/) do
   division = FactoryGirl.create(:division, developer: developer)
   development = FactoryGirl.create(:development, division: division)
   phase = FactoryGirl.create(:phase, development: development)
-  plot = FactoryGirl.create(:plot, phase: phase, prefix: "", number: "222")
+  plot = FactoryGirl.create(:plot, phase: phase, prefix: "", number: PlotFixture.another_plot_number)
   FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: CreateFixture.resident.id)
 end
 
@@ -117,9 +117,12 @@ Then(/^I should see the branded logos$/) do
     images = page.all("img")
     expect(images.count).to eq 3
 
-    expect(images[0]["alt"]).to eq FileFixture.logo_alt
-    expect(images[1]["alt"]).to eq FileFixture.logo_alt
-    expect(images[2]["alt"]).to eq FileFixture.default_logo_alt
+    image_file_names = images.map do |image|
+      image["alt"]
+    end
+
+    expect(image_file_names).to include FileFixture.logo_alt
+    expect(image_file_names).to include FileFixture.default_logo_alt
   end
 end
 

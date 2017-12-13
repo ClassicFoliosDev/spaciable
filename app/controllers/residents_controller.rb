@@ -63,7 +63,8 @@ class ResidentsController < ApplicationController
 
   def notify_and_redirect(new)
     plot_residency = PlotResidency.create(resident_id: @resident.id, plot_id: @plot.id)
-    # TODO: send new status to ResidentInvitationService
+    # Resident invitation service will not send new invitations if the resident has
+    # already accepted a Hoozzi invitation
     ResidentInvitationService.call(plot_residency, current_user)
     @resident.developer_email_updates = true
 
