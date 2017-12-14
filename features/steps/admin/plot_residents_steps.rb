@@ -28,10 +28,6 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
     expect(page).to have_content(attrs[:first_name])
     expect(page).to have_content(attrs[:last_name])
     expect(page).to have_content(attrs[:email])
-
-    # TODO move completion date
-    # click_on attrs.values_at(:first_name, :last_name).join(" ")
-    # expect(page).to have_content(attrs[:completion_date])
   end
 
   recipient_email = ActionMailer::Base.deliveries.last
@@ -196,7 +192,6 @@ def fill_in_resident_details(attrs)
   fill_in :resident_last_name, with: attrs[:last_name]
   fill_in :resident_email, with: attrs[:email]
   fill_in :resident_phone_number, with: attrs[:phone]
-  fill_in :resident_completion_date, with: attrs[:completion_date]
 
   click_on t("residents.form.submit")
 end

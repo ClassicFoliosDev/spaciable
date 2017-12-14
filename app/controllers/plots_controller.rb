@@ -115,7 +115,7 @@ class PlotsController < ApplicationController
     %i[
       prefix number unit_type_id house_number road_name
       building_name locality city county postcode
-      progress notify user_id
+      progress notify user_id completion_date
     ]
   end
 

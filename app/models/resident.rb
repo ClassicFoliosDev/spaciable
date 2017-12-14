@@ -17,8 +17,6 @@ class Resident < ApplicationRecord
          :trackable,
          :validatable
 
-  attr_accessor :completion_date
-
   has_many :resident_notifications
   has_many :notifications, through: :resident_notifications
   has_many :private_documents, dependent: :destroy

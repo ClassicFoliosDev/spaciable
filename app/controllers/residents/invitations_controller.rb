@@ -22,9 +22,11 @@ module Residents
       JobManagementService.call(current_resident&.id)
       update_resident_subscribe_params
 
-      Mailchimp::MarketingMailService.call(current_resident,
-                                           nil,
-                                           Rails.configuration.mailchimp[:activated])
+      current_resident.plots.each do |plot|
+        Mailchimp::MarketingMailService.call(current_resident,
+                                             plot,
+                                             Rails.configuration.mailchimp[:activated])
+      end
     end
 
     def after_accept_path_for(resource)

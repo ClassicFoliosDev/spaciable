@@ -7,10 +7,12 @@ FactoryGirl.define do
     end
     unit_type
     development
+    completion_date { Faker::Date.forward(3) }
 
     factory :phase_plot do
       development { nil }
       phase
+      completion_date { Faker::Date.forward(3) }
     end
 
     trait :with_activated_resident do

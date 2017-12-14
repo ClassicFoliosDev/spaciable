@@ -13,7 +13,7 @@ module Homeowners
 
     def update
       if UpdateUserService.call(current_resident, resident_params)
-        Mailchimp::MarketingMailService.call(current_resident)
+        Mailchimp::MarketingMailService.call(current_resident, @plot)
         notice = t(".success")
         notice += process_service_ids(params[:services])
         redirect_to root_path, notice: notice

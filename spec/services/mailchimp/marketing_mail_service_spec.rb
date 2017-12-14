@@ -21,12 +21,12 @@ RSpec.describe Mailchimp::MarketingMailService do
 
   context "adding a user to a plot" do
     it "builds the merge fields for plot and resident" do
-      merge_fields = described_class.build_merge_fields(Rails.configuration.mailchimp[:unactivated], resident, plot_resident)
+      merge_fields = described_class.build_merge_fields(Rails.configuration.mailchimp[:unactivated], resident, plot)
 
       expect(merge_fields[:HOOZSTATUS]).to eq(Rails.configuration.mailchimp[:unactivated])
       expect(merge_fields[:FNAME]).to eq(resident.first_name)
       expect(merge_fields[:LNAME]).to eq(resident.last_name)
-      expect(merge_fields[:CDATE]).to eq(plot_resident.completion_date.to_s)
+      expect(merge_fields[:CDATE]).to eq(plot.completion_date.to_s)
       expect(merge_fields[:DEVT]).to eq(development.to_s)
       expect(merge_fields[:TITLE]).to eq(resident.title)
       expect(merge_fields[:POSTAL]).to eq(plot.postal_number.to_s)

@@ -52,6 +52,7 @@ Then(/^I should see the updated plot$/) do
     expect(page).to have_content(PlotFixture.update_attrs[:prefix])
     expect(page).to have_content(PlotFixture.update_attrs[:number])
     expect(page).to have_content(PlotFixture.progress)
+    expect(page).to have_content(PlotFixture.completion_date)
   end
 
   within ".section-data" do

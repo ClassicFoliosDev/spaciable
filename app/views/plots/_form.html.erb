@@ -33,6 +33,9 @@
     <div class="row-item third">
       <fieldset>
         <%= f.association :unit_type, as: :select, collection: unit_types.pluck(:name, :id) %>
+        <%= f.input :completion_date, as: :string,
+                    placeholder: "DD/MM/YYYY",
+                    input_html: { type: :date } %>
         <label><%= t(".current_progress") %></label>
         <span><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></span>
         <div class=" ui-front select-container">

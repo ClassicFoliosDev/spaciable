@@ -3,10 +3,8 @@
 module Mailchimp
   class MarketingMailService
     def self.call(resident,
-                  plot_residency = nil,
+                  plot,
                   hooz_status = Rails.configuration.mailchimp[:activated])
-      # TODO: calculate which plot
-      plot = plot_residency&.plot || resident&.plots&.first
       api_key = plot&.api_key
       return if api_key.blank?
 
@@ -16,7 +14,7 @@ module Mailchimp
       Mailchimp::MailingListService.call(parent) unless parent.list_id
       list_id = plot.development.parent.list_id
 
-      merge_fields = build_merge_fields(hooz_status, resident, plot_residency)
+      merge_fields = build_merge_fields(hooz_status, resident, plot)
       call_gibbon(resident, list_id, merge_fields, plot.api_key)
     end
 
@@ -35,15 +33,15 @@ module Mailchimp
              message: e.message)
     end
 
-    def self.build_merge_fields(hooz_status, resident, plot_residency)
+    def self.build_merge_fields(hooz_status, resident, plot)
       return { HOOZSTATUS: hooz_status } unless resident
 
       merge_fields = build_resident_fields(hooz_status, resident)
 
-      if plot_residency
-        merge_fields[:CDATE] = plot_residency.completion_date.to_s
+      if plot
+        merge_fields[:CDATE] = plot.completion_date.to_s
 
-        residency_fields = build_residency_fields(plot_residency.plot)
+        residency_fields = build_residency_fields(plot)
         merge_fields = merge_fields.merge(residency_fields)
       end
 

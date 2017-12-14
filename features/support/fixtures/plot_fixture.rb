@@ -73,6 +73,10 @@ module PlotFixture
     "In progress"
   end
 
+  def completion_date
+    I18n.l(Time.zone.today.advance(days: 7))
+  end
+
   def update_attrs
     {
       prefix: "Plot",
@@ -80,7 +84,8 @@ module PlotFixture
       house_number: updated_house_number,
       building_name: plot_building_name,
       road_name: plot_road_name,
-      postcode: plot_postcode
+      postcode: plot_postcode,
+      completion_date: completion_date
     }
   end
 end

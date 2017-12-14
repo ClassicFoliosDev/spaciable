@@ -8,15 +8,15 @@ module ResidentResetService
 
     plot.residents.each do |resident|
       # Reset the resident settings if this is the last plot they are associated with
-      reset_resident(resident, [plot.id]) if resident.plot_residencies.count == 1
+      reset_resident(resident, [plot]) if resident.plot_residencies.count == 1
     end
   end
 
   def reset_all_plots_for_resident(resident)
-    reset_resident(resident, resident.plots.map(&:id))
+    reset_resident(resident, resident.plots)
   end
 
-  def reset_resident(resident, plot_ids)
+  def reset_resident(resident, plots)
     resident.developer_email_updates = false
     resident.hoozzi_email_updates = false
     resident.telephone_updates = false
@@ -24,10 +24,9 @@ module ResidentResetService
     resident.save!
 
     response = ""
-    plot_ids.each do |plot_id|
-      plot_residency = PlotResidency.find_by(resident_id: resident.id, plot_id: plot_id)
+    plots.each do |plot|
       response = Mailchimp::MarketingMailService.call(resident,
-                                                      plot_residency,
+                                                      plot,
                                                       Rails.configuration.mailchimp[:unassigned])
     end
 

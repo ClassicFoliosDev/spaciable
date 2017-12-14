@@ -915,6 +915,7 @@ en:
       private_documents: "Uploaded documents: "
       none: "(n/a)"
       progress: "Build progress: "
+      completion_date: "Completion date: "
 
   plot_documents:
     form:
@@ -1573,7 +1574,6 @@ en:
         full_name: "Full name"
         email: "Email address"
         phone_number: "Phone number"
-        completion_date: "Completion date"
 
     errors:
       messages:
