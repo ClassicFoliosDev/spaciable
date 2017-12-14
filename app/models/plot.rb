@@ -157,5 +157,19 @@ class Plot < ApplicationRecord
       "#{prefix} #{number}"
     end
   end
+
+  def to_homeowner_s
+    if house_number.present?
+      if building_name.present?
+        "#{house_number} #{building_name}"
+      else
+        "#{house_number} #{road_name}".strip
+      end
+    elsif building_name.present?
+      "#{building_name} (#{self})"
+    else
+      "#{road_name} (#{self})".strip
+    end
+  end
 end
 # rubocop:enable Metrics/ClassLength

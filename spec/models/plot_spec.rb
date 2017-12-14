@@ -458,4 +458,63 @@ RSpec.describe Plot do
       expect(plot.reload.brand).to eq(development_brand)
     end
   end
+
+  describe "#to_homeowner_s" do
+    context "there is a house number" do
+      it "should use the house number" do
+        plot = create(:phase_plot, house_number: "14C")
+
+        expect(plot.to_homeowner_s).to eq "14C"
+      end
+    end
+
+    context "there is a house number and a road" do
+      it "should use both" do
+        address = create(:address, building_name: "")
+        phase = create(:phase, address: address)
+        plot = create(:phase_plot, phase: phase, house_number: "14C")
+
+        expect(plot.to_homeowner_s).to eq "14C #{address.road_name}"
+      end
+    end
+
+    context "there is a house number and a building and a road" do
+      it "should use house number and building" do
+        address = create(:address)
+        phase = create(:phase, address: address)
+        plot = create(:phase_plot, phase: phase, house_number: "14C")
+
+        expect(plot.to_homeowner_s).to eq "14C #{address.building_name}"
+      end
+    end
+
+    context "there is no house number or address" do
+      it "should use the plot id" do
+        plot = create(:phase_plot)
+
+        expect(plot.to_homeowner_s).to eq "(#{plot.to_s})"
+      end
+    end
+
+    context "there is building name but no house number" do
+      it "should use the building name and plot id" do
+        address = create(:address)
+        phase = create(:phase, address: address)
+        plot = create(:phase_plot, phase: phase)
+
+        expect(plot.to_homeowner_s).to eq "#{address.building_name} (#{plot.to_s})"
+      end
+    end
+
+    context "there is road name but no house number" do
+      it "should use the building name and plot id" do
+        address = create(:address, building_name: nil)
+        phase = create(:phase, address: address)
+        plot = create(:phase_plot, phase: phase)
+
+        expect(plot.to_homeowner_s).to eq "#{address.road_name} (#{plot.to_s})"
+      end
+    end
+
+  end
 end

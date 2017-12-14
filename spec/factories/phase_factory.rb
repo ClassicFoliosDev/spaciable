@@ -5,7 +5,6 @@ FactoryGirl.define do
     sequence :name do |n|
       "Phase #{n}"
     end
-    address
     development
 
     trait :with_address do

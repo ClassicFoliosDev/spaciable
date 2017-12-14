@@ -13,7 +13,7 @@ RSpec.describe ResidentChangeNotifyService do
       resident.developer_email_updates = true
       resident.save!
 
-      result = described_class.call(developer_with_residents.plots.first, current_user, "updated for", developer_with_residents)
+      result = described_class.call(developer_with_residents.plots.first, current_user, "updated", developer_with_residents)
       expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
 
       deliveries = ActionMailer::Base.deliveries
@@ -21,7 +21,7 @@ RSpec.describe ResidentChangeNotifyService do
 
       expect(deliveries[0].subject).to eq(I18n.t("resident_notification_mailer.notify.update_subject"))
       expect(deliveries[0].to).to include(resident.email)
-      message = "#{resident.plots.first} has been updated for your home"
+      message = "Plot (#{resident.plots.first}) has been updated"
       expect(deliveries[0].parts.first.body.raw_source).to include message
 
       ActionMailer::Base.deliveries.clear

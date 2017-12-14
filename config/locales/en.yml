@@ -58,9 +58,9 @@ en:
 
   notify:
     information: "information"
-    added: "added to"
-    updated: "updated for"
-    updated_state: "updated to %{state} for"
+    added: "added to your home"
+    updated: "updated for your home"
+    updated_state: "updated to %{state}"
 
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
@@ -1300,7 +1300,7 @@ en:
       login: "Login to Hoozzi"
       welcome: "Dear %{name}"
       update_subject: "You have a new update in Hoozzi"
-      update_message: "%{type} %{name} has been %{verb} your home"
+      update_message: "%{type} %{name} has been %{verb}"
       update_sent: " and %{count} residents have been notified"
 
   services:

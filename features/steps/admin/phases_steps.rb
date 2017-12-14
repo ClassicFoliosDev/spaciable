@@ -145,7 +145,7 @@ Then(/^Phase residents should have been notified$/) do
   success_message = t("resident_notification_mailer.notify.update_message",
                       type: "Plot",
                       name: "information",
-                      verb: "updated to #{PhaseFixture.progress} for")
+                      verb: "updated to #{PhaseFixture.progress}")
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.message).to eq success_message

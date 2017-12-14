@@ -262,7 +262,7 @@ Then(/^I should see the plot progress has been updated$/) do
 end
 
 Then(/^the resident has been notified$/) do
-  message = "Plot 200 has been updated to Ready for exchange for your home"
+  message = "Plot Quartz Tower (200) has been updated to Ready for exchange"
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 1

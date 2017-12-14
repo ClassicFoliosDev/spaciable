@@ -52,6 +52,7 @@ module ResidentChangeNotifyService
 
   def resource_name(resource)
     return I18n.t("notify.information") if resource == :not_set
+    return resource.to_homeowner_s if resource.is_a? Plot
     resource.to_s
   end
 end
