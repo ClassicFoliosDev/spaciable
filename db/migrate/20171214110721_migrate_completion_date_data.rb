@@ -5,14 +5,12 @@ class MigrateCompletionDateData < ActiveRecord::Migration[5.0]
     plot_residencies_with_dates.each do | plot_residency |
       plot = Plot.find(plot_residency.plot_id)
 
-      if plot&.completion_date != plot_residency.completion_date
+      if plot.completion_date && (plot.completion_date != plot_residency.completion_date)
         resident = plot_residency.resident
         message = "WARNING: Different completion date, plot: #{plot.id}. "
         message << "Plot completion date: #{plot.completion_date}. "
         message << "Resident is #{resident.email}, completion date: #{plot_residency.completion_date}"
-        say_with_time(message) do
-          # Do nothing inside the say block, we just want to report the problem
-        end
+        say(message)
       else
         plot.update_attribute(:completion_date, plot_residency.completion_date)
       end

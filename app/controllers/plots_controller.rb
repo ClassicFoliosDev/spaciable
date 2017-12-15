@@ -73,16 +73,13 @@ class PlotsController < ApplicationController
   private
 
   def notify_and_redirect(updated_plots, errors)
-    notice = t(".success", plot_name: updated_plots.to_sentence, count: updated_plots.count)
+    notice = t(".success", plot_name: @plot, count: updated_plots.count)
 
     if plot_params[:notify].to_i.positive?
       updated_plots.each do |plot_id|
-        plot = Plot.find_by(number: plot_id)
-        ResidentChangeNotifyService.call(plot, current_user, update_verb, plot)
+        plot = Plot.find(plot_id)
+        notice << ResidentChangeNotifyService.call(plot, current_user, update_verb, plot)
       end
-
-      notice << I18n.t("resident_notification_mailer.notify.update_sent",
-                       count: updated_plots.count)
     end
 
     single_update = updated_plots.count == 1

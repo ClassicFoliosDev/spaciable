@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 When(/^I accept the invitation as a homeowner$/) do
-  within ".navbar-menu" do
-    click_on t("components.navigation.log_out")
-  end
 
   invitation = ActionMailer::Base.deliveries.last
   sections = invitation.text_part.body.to_s.split("http://")

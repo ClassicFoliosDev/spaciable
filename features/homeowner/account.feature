@@ -6,7 +6,10 @@ Feature: Homeowner Account
   Scenario:
     Given I am a Development Admin wanting to assign a new resident to a plot
     When I assign a new resident to a plot
-    And I accept the invitation as a homeowner
+    And I log out as a an admin
+    And I do not accept terms and condisions
+    Then I can not complete registration
+    When I accept the invitation as a homeowner
     Then I should be redirected to the homeowner dashboard
 
   Scenario: With services
@@ -14,6 +17,7 @@ Feature: Homeowner Account
     And the developer has enabled services
     And I have seeded the database with services
     When I assign a new resident to a plot
+    And I log out as a an admin
     And I accept the invitation as a homeowner
     And I select my services
     Then My services have been selected
@@ -23,6 +27,7 @@ Feature: Homeowner Account
     And the developer has enabled services
     And I have seeded the database with services
     When I assign a new resident to a plot
+    And I log out as a an admin
     And I accept the invitation as a homeowner
     And I select no services
     Then I should be redirected to the homeowner dashboard

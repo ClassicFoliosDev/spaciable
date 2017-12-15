@@ -39,5 +39,7 @@ class ProgressesController < ApplicationController
 
     notice << ResidentChangeNotifyService.call(:not_set, current_user,
                                                t("notify.updated_state", state: new_state), @phase)
+
+    notice
   end
 end

@@ -126,7 +126,7 @@ RSpec.describe BulkPlots::UpdateService do
       plot = build(:plot, development: development)
 
       described_class.call(plot, params: params) do |service, _, _|
-        expect(service.succeeded).to eq("Plot A1.1.10")
+        expect(service.succeeded).to eq("Plot #{plot.id}")
       end
     end
   end

@@ -27,7 +27,7 @@
           <% if document.file_tmp %>
             <td><%= t(".processing") %></td>
             <td></td>
-            <td><%= delete_btn document, path: url_for(document), element: document %></td>
+            <td class="actions"><%= delete_btn document, path: url_for(document), element: document %></td>
           <% else %>
             <td><%= document.file&.size %></td>
             <td><%= l document.updated_at.to_date, format: :digits %></td>

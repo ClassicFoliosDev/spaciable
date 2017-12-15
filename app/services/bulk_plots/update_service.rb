@@ -38,7 +38,7 @@ module BulkPlots
     def successful_numbers
       numbers = sanitize
 
-      return Array(base_plot.number) unless any_bulk_attrs?
+      return Array(base_plot.id) unless any_bulk_attrs?
 
       @errors.each do |error|
         numbers.delete(error.number) if numbers.include?(error.number)
