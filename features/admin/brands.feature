@@ -59,4 +59,3 @@ Feature: Brands
   Scenario: Development Admin
     Given I am a Development Admin
     Then I should not be able to see development brands
-

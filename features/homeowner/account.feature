@@ -58,3 +58,16 @@ Feature: Homeowner Account
     When I show the plots
     When I switch to the homeowner plot
     Then I should see the resident emails listed in my account
+
+  Scenario: Delete and recreate legacy style
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    When I assign a new resident to a plot
+    And I accept the invitation as a homeowner
+    Then I should be redirected to the homeowner dashboard
+    When I soft delete the plot residency
+    And I log in as a Development Admin
+    When I assign a new resident to a plot
+    When I log in as an existing homeowner
+    Then I should be redirected to the homeowner dashboard
+
+

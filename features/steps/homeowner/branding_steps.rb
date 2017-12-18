@@ -155,3 +155,40 @@ When(/^I switch back to the first plot$/) do
 
   wait_for_branding_to_reload
 end
+
+Given(/^I log in as CF Admin$/) do
+  login_as CreateFixture.create_cf_admin
+  visit "/"
+end
+
+Then(/^The resident receives a branded invitation$/) do
+  expect(ActionMailer::Base.deliveries.count).to eq 4
+  invitation = ActionMailer::Base.deliveries.first
+
+  expect(invitation.parts.second.body.raw_source).to include FileFixture.logo_name
+
+  ActionMailer::Base.deliveries.clear
+end
+
+Given(/^I have configured blank branding$/) do
+  FactoryGirl.create(:brand, brandable: CreateFixture.developer, bg_color: "", logo: nil)
+  FactoryGirl.create(:brand, brandable: CreateFixture.division, header_color: "", logo: nil)
+  FactoryGirl.create(:brand, brandable: CreateFixture.division_development, logo: "")
+end
+
+Then(/^The resident receives an invitation with default branding$/) do
+  expect(ActionMailer::Base.deliveries.count).to eq 4
+  invitation = ActionMailer::Base.deliveries.first
+
+  expect(invitation.parts.second.body.raw_source).to include "assets/logo-"
+
+  ActionMailer::Base.deliveries.clear
+end
+
+Given(/^I have configured developer branding$/) do
+  FactoryGirl.create(:brand, brandable: CreateFixture.developer,
+                     bg_color: "#FFFEEE",
+                     text_color: "#646467",
+                     button_color: "#A6A7B2",
+                     button_text_color: "#FCFBE3")
+end

@@ -4,6 +4,7 @@ When(/^I accept the invitation as a homeowner$/) do
 
   invitation = ActionMailer::Base.deliveries.last
   sections = invitation.text_part.body.to_s.split("http://")
+
   paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
 
   url = "http://#{paths[0]}"
@@ -226,4 +227,45 @@ When(/^I switch to the homeowner plot$/) do
   end
 
   wait_for_branding_to_reload
+end
+
+When(/^I soft delete the plot residency$/) do
+  within ".session-inner" do
+    click_on t("users.sign_out")
+  end
+
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+  plot = resident.plots.first
+
+  # PlotResidency is now hard delete
+  # Sadly, we have legacy data in both staging and production with soft delete of PlotResidencies
+  # The moral of the story is: never use soft delete on join tables
+  plot_residency = PlotResidency.find_by(resident_id: resident.id, plot_id: plot.id)
+  plot_residency.update_attribute(:deleted_at, Time.zone.now)
+end
+
+When(/^I log in as a Development Admin$/) do
+  development_admin = CreateFixture.development_admin
+
+  login_as development_admin
+end
+
+When(/^I log in as an existing homeowner$/) do
+  within ".navbar-menu" do
+    click_on t("components.navigation.log_out")
+  end
+
+  invitation = ActionMailer::Base.deliveries.last
+  body_text = invitation.text_part.body.to_s
+  sections = body_text.split(t("devise.mailer.resident_invitation.already_activated"))
+  url = sections[1].strip
+
+  visit url
+
+  within ".new_resident" do
+    fill_in :resident_email, with: PlotResidencyFixture.original_email
+    fill_in :resident_password, with: HomeownerUserFixture.updated_password
+
+    click_on t("residents.sessions.new.login_cta")
+  end
 end

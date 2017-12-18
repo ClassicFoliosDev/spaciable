@@ -34,6 +34,7 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", developer: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
+  expect(recipient_email.parts.second.body.raw_source).to include "assets/logo-"
 
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
@@ -102,25 +103,6 @@ When(/^The resident subscribes to emails$/) do
   resident.hoozzi_email_updates = 1
   resident.developer_email_updates = 1
   resident.save!
-end
-
-Then(/^I should see the second plot residency created$/) do
-  attrs = PlotResidencyFixture.second_attrs
-
-  within ".residents" do
-    expect(page).to have_content(attrs[:first_name])
-    expect(page).to have_content(attrs[:last_name])
-    expect(page).to have_content(attrs[:email])
-  end
-
-  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
-
-  expect(resident.plots.length).to eq 2
-
-  expect(resident.developer_email_updates).to be_nil
-  expect(resident.hoozzi_email_updates).to be_nil
-  expect(resident.telephone_updates).to eq 1
-  expect(resident.post_updates).to eq 1
 end
 
 Then(/^the resident should no longer receive notifications$/) do
@@ -194,4 +176,14 @@ def fill_in_resident_details(attrs)
   fill_in :resident_phone_number, with: attrs[:phone]
 
   click_on t("residents.form.submit")
+end
+
+Then(/^I should see a duplicate resident notice$/) do
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+
+  within ".notice" do
+    expect(page).to have_content t("residents.create.plot_residency_already_exists",
+                                   email: PlotResidencyFixture.original_email,
+                                   plot: plot)
+  end
 end

@@ -5,7 +5,7 @@ class Resident < ApplicationRecord
 
   acts_as_paranoid
 
-  attr_accessor :subscribe_emails
+  attr_accessor :subscribe_emails, :invitation_plot
   attr_reader :raw_invitation_token
 
   # Include default devise modules. Others available are:

@@ -27,3 +27,11 @@ Feature: Plot Residents
     When I delete the second plot residency
     Then the resident should still be associated to the first plot
     And the resident should still receive notifications
+
+  Scenario: Add same email to same plot
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    When I assign a new resident to a plot
+    Then I should see the created plot residency
+    When I assign a new resident to a plot
+    Then I should see a duplicate resident notice
+

@@ -1,9 +1,9 @@
-<% @plot = @resource.plots.last %>
+<% plot = @resource.invitation_plot %>
 <%= t("devise.mailer.invitation_instructions.hello", name: @resource.to_s) %>
 
-<%= t("devise.mailer.resident_invitation.new_home", development_name: @plot.development) %>
+<%= t("devise.mailer.resident_invitation.new_home", development_name: plot.development) %>
 
-<%= t("devise.mailer.invitation_instructions.someone_invited_you", developer: @plot.developer) %>
+<%= t("devise.mailer.invitation_instructions.someone_invited_you", developer: plot.developer) %>
 
 <%= t("devise.mailer.resident_invitation.benefits") %>
 <%= t("devise.mailer.resident_invitation.benefit1") %>
@@ -16,7 +16,7 @@
 
 <%= t("devise.mailer.resident_invitation.log_in_text") %>
 
-<%= resident_invitation_route(@plot, @token) %>
+<%= resident_invitation_route(plot, @token) %>
 
 <% if @resource.invitation_due_at %>
   <%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>

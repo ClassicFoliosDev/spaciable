@@ -354,6 +354,10 @@ module CreateFixture
     User.find_by(role: :developer_admin)
   end
 
+  def development_admin
+    User.find_by(role: :development_admin)
+  end
+
   def developer
     Developer.find_by(company_name: developer_name)
   end
@@ -403,7 +407,10 @@ module CreateFixture
   end
 
   def phase_plot
-    phase.plots.first
+    plot = phase&.plots&.first
+    plot = division_phase&.plots&.first if plot.nil?
+
+    plot
   end
 
   def resident

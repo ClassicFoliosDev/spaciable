@@ -20,3 +20,24 @@ Feature: Homeowner Branding
     Then I should see the branding for my page
     When I log out as a homeowner
     Then I should see the configured branding
+
+  Scenario: Branded invitation
+    Given I have a developer with a development with unit type and plot
+    And I have configured branding
+    And I log in as CF Admin
+    When I assign a new resident to a plot
+    Then The resident receives a branded invitation
+
+  Scenario: Empty brand
+    Given I have a developer with a development with unit type and plot
+    And I have configured blank branding
+    And I log in as CF Admin
+    When I assign a new resident to a plot
+    Then The resident receives an invitation with default branding
+
+  Scenario: Partial branding
+    Given I have a developer with a development with unit type and plot
+    And I have configured developer branding
+    And I log in as CF Admin
+    When I assign a new resident to a plot
+    Then The resident receives a branded invitation

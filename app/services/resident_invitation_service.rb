@@ -20,10 +20,16 @@ module ResidentInvitationService
   module_function
 
   def new_resident(plot_residency, from_user)
-    plot_residency.resident.invite!(from_user)
+    resident = plot_residency.resident
+    # Delete any reminders hanging around from a previous invitation
+    JobManagementService.call(resident.id)
+
+    resident.invitation_plot = plot_residency.plot
+    resident.invite!(from_user)
     # If the resident has had a previous invitation with a token, that token
     # will be invalidated by this action: since they haven't accepted it,
-    # we're assuming that they will have lost those emails
+    # we're assuming that they will have lost those emails: but we should
+    # have stopped reminders
     token = plot_residency.resident.raw_invitation_token
 
     subject = I18n.t(".reminder_title", ordinal: "First")
