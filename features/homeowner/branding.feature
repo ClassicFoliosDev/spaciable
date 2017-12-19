@@ -27,6 +27,8 @@ Feature: Homeowner Branding
     And I log in as CF Admin
     When I assign a new resident to a plot
     Then The resident receives a branded invitation
+    And I visit the accept page
+    Then I should see the configured branding
 
   Scenario: Empty brand
     Given I have a developer with a development with unit type and plot

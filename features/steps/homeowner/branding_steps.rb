@@ -85,22 +85,20 @@ Then(/^I should see the configured branding$/) do
     expect(page.body).to have_content "branded-titles h2:last-child { color: #776644"
   end
 
-  within ".new_resident" do
-    # Label text should be text color, only set on developer
-    expect(page.body).to have_content "branded-primary-text { color: #646467"
-    # Input field background should be content bg color, set on developer and division: should be division
-    expect(page.body).to have_content ".branded-input input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #32344E"
-    # Input field border should be content border color, set on development only
-    expect(page.body).to have_content ".branded-input input[type=\"email\"] { border-color: #446677"
-    expect(page.body).to have_content ".branded-input input[type=\"password\"] { border-color: #446677"
-    # Link text should be button (background) color as text colour, set on development and developer: should be development color
-    expect(page.body).to have_content ".branded-primary-text label.checkbox { color: #776644"
-    expect(page.body).to have_content ".branded-primary-text a { color: #776644"
-    # Button text should be button (text) color, set on development, division and developer: should be development color
-    expect(page.body).to have_content "branded-primary-btn { color: #698492"
-    # Button border and background should be button (background) color, set on development and developer: should be development color
-    expect(page.body).to have_content "branded-primary-btn { background-color: #776644"
-  end
+  # Label text should be text color, only set on developer
+  expect(page.body).to have_content "branded-primary-text { color: #646467"
+  # Input field background should be content bg color, set on developer and division: should be division
+  expect(page.body).to have_content ".branded-input input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #32344E"
+  # Input field border should be content border color, set on development only
+  expect(page.body).to have_content ".branded-input input[type=\"email\"] { border-color: #446677"
+  expect(page.body).to have_content ".branded-input input[type=\"password\"] { border-color: #446677"
+  # Link text should be button (background) color as text colour, set on development and developer: should be development color
+  expect(page.body).to have_content ".branded-primary-text label.checkbox { color: #776644"
+  expect(page.body).to have_content ".branded-primary-text a { color: #776644"
+  # Button text should be button (text) color, set on development, division and developer: should be development color
+  expect(page.body).to have_content "branded-primary-btn { color: #698492"
+  # Button border and background should be button (background) color, set on development and developer: should be development color
+  expect(page.body).to have_content "branded-primary-btn { background-color: #776644"
 end
 
 Given(/^the resident also has an unbranded plot$/) do
@@ -166,6 +164,16 @@ Then(/^The resident receives a branded invitation$/) do
   invitation = ActionMailer::Base.deliveries.first
 
   expect(invitation.parts.second.body.raw_source).to include FileFixture.logo_name
+end
+
+Then(/^I visit the accept page$/) do
+  invitation = ActionMailer::Base.deliveries.first
+
+  sections = invitation.text_part.body.to_s.split("http://")
+  paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
+
+  url = "http://#{paths[0]}"
+  visit url
 
   ActionMailer::Base.deliveries.clear
 end
