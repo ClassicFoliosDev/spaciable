@@ -37,32 +37,32 @@
       font-size: $base-small-font-size;
       color: $type-grey;
     }
-
-    .document-image-container {
-      display: table;
-      height: 125px;
-
-      img {
-        max-height: 125px;
-      }
-    }
   }
-
-
 
   .document-name {
     text-overflow: ellipsis;
-    overflow-x: hidden;
+    overflow: hidden;
     display: block;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     font-size: $base-small-font-size;
+    padding-top: $spacing-small / 2;
 
     a {
       font-size: $base-small-font-size;
       line-height: 17px;
     }
+  }
+}
+
+.document-image-container {
+  display: table;
+
+  img {
+    max-height: 120px;
+    max-width: 96%;
+    margin: 0;
   }
 }
 
@@ -76,19 +76,10 @@
   .document {
     display: inline-block;
 
-    .document-image-container {
-      display: table;
-
-      img {
-        max-height: 125px;
-        margin: $spacing-small 0;
-      }
-    }
-
     h5 {
       font-size: $base-font-size;
       font-weight: bold;
-      margin: $spacing-small 0 0 0;
+      margin: $spacing-medium 0;
     }
 
     p, span {
@@ -106,25 +97,8 @@
   }
 }
 
-
 .disclaimer {
   font-size: $ultra-small-font;
   padding: $spacing-small;
   border-bottom: solid 1px $ui-grey;
-}
-
-@include media($tablet-landscape-down) {
-  .library .documents {
-    .row {
-      width: 530px;
-    }
-  }
-}
-
-@include media($tablet-portrait-down) {
-  .library .documents {
-    .row {
-      width: 440px;
-    }
-  }
 }

@@ -1,6 +1,6 @@
 <div class="session branded-header">
   <div class="session-inner">
-    <div class="user">
+    <div class="menu full-menu">
       <span><%= t('.hi', first_name: current_resident&.first_name) %></span>
       <span>|</span>
       <%= link_to t(".account"), homeowners_resident_path(current_resident) %>
@@ -27,7 +27,7 @@
       <% end %>
     </div>
 
-    <div class="user user-mobile">
+    <div class="menu small-menu">
       <span><%= t('.hi', first_name: current_resident&.first_name) %></span>
       <span>|</span>
       <%= link_to '<i class="fa fa-user"></i>'.html_safe, homeowners_resident_path(current_resident) %>

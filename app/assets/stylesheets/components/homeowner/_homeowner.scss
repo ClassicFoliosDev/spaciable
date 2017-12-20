@@ -5,32 +5,6 @@ $homeowner-margin: 12px;
 .session-inner {
   @include outer-container(90%);
 
-  .user {
-    @include span-columns(0);
-    @include pad(10px default);
-    float: right;
-
-    &.user-mobile {
-      display: none;
-    }
-
-    i {
-      color: white;
-      padding: 3px;
-      font-size: 20px;
-      vertical-align: middle;
-      cursor: pointer;
-    }
-
-    a:hover {
-      text-decoration: none;
-    }
-
-    a:active {
-      outline: none;
-    }
-  }
-
   .unread {
     background-color: $primary-red;
     color: $ui-white;
@@ -69,6 +43,33 @@ $homeowner-margin: 12px;
     cursor: pointer;
     font-size: $base-font-size;
   }
+}
+
+.menu {
+  @include span-columns(0);
+  @include pad(10px default);
+  float: right;
+
+  i {
+    color: white;
+    padding: 3px;
+    font-size: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a:active {
+    outline: none;
+  }
+}
+
+.full-menu,
+.sub-navigation-container {
+  display: none;
 }
 
 .homeowner-view {
@@ -198,26 +199,12 @@ $homeowner-margin: 12px;
   }
 }
 
-@include media($mobile-down) {
-  .homeowner-view .session .session-inner .user {
-    display: none;
-
-    &.user-mobile {
-      display: inline-block;
-    }
+@include media($tablet-portrait-up) {
+  .full-menu, .sub-navigation-container {
+    display: block;
   }
 
-  .homeowner-view {
-    .hero {
-      height: 230px;
-
-      h1 {
-        font-size: $title-font-size-5;
-      }
-
-      li .btn {
-        font-size: $base-small-font-size;
-      }
-    }
+  .small-menu {
+    display: none;
   }
 }

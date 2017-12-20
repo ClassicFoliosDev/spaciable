@@ -26,16 +26,16 @@ $search-width: 460px;
   input[type="text"] {
     display: inline-block;
     border-style: solid;
-    width: $search-width;
     padding-left: 38px;
     border-radius: 0;
   }
 }
 
 .search-btn {
-  margin-left: -$search-width;
   padding: $spacing-small;
   border: none;
+  margin-top: -47px;
+  margin-left: 2px;
 }
 
 .search-results-container {

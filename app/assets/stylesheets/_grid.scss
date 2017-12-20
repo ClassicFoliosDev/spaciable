@@ -202,15 +202,15 @@ $row-bg-color: $ui-white;
   }
 
   @include media($tablet-portrait-down) {
-    @include span-columns(3 of 12);
+    @include span-columns(4 of 12);
     @include omega-reset(4n);
-    @include omega(4n);
+    @include omega(3n);
   }
 
   @include media($mobile-down) {
-    @include span-columns(4 of 12);
-    @include omega-reset(2n);
-    @include omega(3n);
+    @include span-columns(6 of 12);
+    @include omega-reset(n);
+    @include omega(2n);
   }
 }
 

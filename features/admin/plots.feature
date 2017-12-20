@@ -35,9 +35,11 @@ Feature: Plots
     And I can see my contacts
 
   @javascript
-  Scenario: Plot progress
+  Scenario: Update notifications
     Given I am logged in as a Development Admin
     And there is a phase plot resident
     When I update the progress for the plot
     Then I should see the plot progress has been updated
     And the resident has been notified
+    When I update the completion date for the plot
+    Then the resident has been notified of the completion date

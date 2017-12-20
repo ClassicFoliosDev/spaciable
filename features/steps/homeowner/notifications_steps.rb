@@ -26,7 +26,7 @@ Then(/^I should see the notifications list$/) do
 end
 
 Then(/^All my notifications should be unread$/) do
-  within ".user" do
+  within ".full-menu" do
     sup = page.find(".unread")
     expect(sup).to have_content("3")
   end
@@ -58,7 +58,7 @@ Then(/^I should see the expanded notification$/) do
 end
 
 Then(/^the notification status in my header should be updated$/) do
-  within ".user" do
+  within ".full-menu" do
     sup = page.find(".unread")
     expect(sup).to have_content("2")
   end

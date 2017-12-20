@@ -3,7 +3,7 @@
   height: 100%;
   overflow: hidden;
   z-index: 2;
-  padding: 28px;
+  padding: $spacing-medium;
 }
 
 .hero-text {
@@ -11,11 +11,17 @@
   display: block;
   text-align: center;
   opacity: 0.8;
-
+  margin-top: $spacing-small;
 
   h2 {
     color: $ui-white;
     font-weight: 200;
+    font-size: $title-font-size-3;
+    margin-bottom: $spacing-small;
+  }
+
+  .secondary {
+    color: $ui-white;
   }
 }
 
@@ -56,7 +62,7 @@
 }
 
 @include media($tablet-portrait-up) {
-  .hero-text {
-    margin-top: 35px;
+  .hero-text h2 {
+    font-size: $title-font-size-2;
   }
 }

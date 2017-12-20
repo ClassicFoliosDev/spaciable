@@ -1,13 +1,12 @@
 .about-section {
-  width: 853px;
   margin: $spacing-small auto;
+  width: 100%;
 }
 
 .about-card {
-  width: 414px;
   display: inline-block;
-  padding: 20px;
-  margin-top: $spacing-medium;
+  padding: $spacing-medium;
+  width: 100%;
 
   &:nth-child(2n) {
     float: right;
@@ -35,5 +34,25 @@
     font-size: $base-small-font-size;
     color: $type-grey;
     margin-left: 5px;
+  }
+}
+
+@include media($tablet-portrait-up) {
+  .about-section {
+    width: 80%;
+  }
+
+  .about-card {
+    margin-bottom: $spacing-medium;
+  }
+}
+
+@include media($tablet-landscape-up) {
+  .about-section {
+    width: 853px;
+  }
+
+  .about-card {
+    width: 414px;
   }
 }

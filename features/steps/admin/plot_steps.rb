@@ -275,3 +275,30 @@ Then(/^the resident has been notified$/) do
 
   ActionMailer::Base.deliveries.clear
 end
+
+When(/^I update the completion date for the plot$/) do
+  plot = CreateFixture.phase_plot
+  visit "/plots/#{plot.id}/edit"
+
+  within ".edit_plot" do
+    fill_in "plot_completion_date", with: PlotFixture.completion_date
+  end
+
+  check :plot_notify
+  click_on t("plots.form.submit")
+end
+
+Then(/^the resident has been notified of the completion date$/) do
+  message = "Plot Quartz Tower (200) has been updated for your home"
+
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+  expect(in_app_notification.message).to eq message
+
+  email_notification = ActionMailer::Base.deliveries.first
+  expect(email_notification.parts.first.body.raw_source).to include message
+  expect(email_notification.to).to include CreateFixture.resident.email
+
+  ActionMailer::Base.deliveries.clear
+end
