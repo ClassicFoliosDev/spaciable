@@ -23,7 +23,7 @@ class ResidentsController < ApplicationController
       @resident = existing_resident
     end
 
-    if @resident
+    if @resident&.valid?
       notify_and_redirect(existing_resident.nil?)
     else
       render :new
