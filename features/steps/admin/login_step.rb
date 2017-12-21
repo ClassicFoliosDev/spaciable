@@ -12,14 +12,18 @@ end
 When(/^I log in as an admin$/) do
   admin = CFAdminUserFixture
 
-  visit "/admin"
+  visit "/admin/sign_in"
 
-  click_on "Login"
+  within ".admin-login-form" do
+    fill_in :user_email, with: admin.email
+    fill_in :user_password, with: admin.password
 
-  fill_in :user_email, with: admin.email
-  fill_in :user_password, with: admin.password
+    click_on "Login"
+  end
 
-  click_on "Login"
+  within ".notifications" do
+    expect(page).to have_content(t("dashboard.title"))
+  end
 end
 
 When(/^I log out as a an admin$/) do

@@ -24,6 +24,10 @@ end
 
 When(/^I log out as a homeowner$/) do
   first(:css, "[data-test='homeowner-sign-out']").click
+
+  within ".notice" do
+    expect(page).to have_content(t("devise.sessions.signed_out"))
+  end
 end
 
 Then(/^I should be on the "My Home" dashboard$/) do

@@ -19,3 +19,13 @@ Feature: Notifications
     When I read the notifications
     Then I should see the notifications list
     And the notification status in my header should be updated
+
+  @javascript
+  Scenario: Plot progress notifications
+    Given I am logged in as a homeowner wanting to read notifications
+    And I log out as a homeowner
+    And I am logged in as an admin
+    And I update the notification plot progress
+    And I log out as a an admin
+    When I log in as a notification homeowner
+    Then I should see a notification for the updated plot progress

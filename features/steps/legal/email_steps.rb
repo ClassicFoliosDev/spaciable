@@ -16,7 +16,6 @@ end
 
 When(/^I update the plot progress$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
-  # TODO improve plot calculation
   plot = resident.plots.first
 
   visit "/plots/#{plot.id}/edit"

@@ -4,8 +4,9 @@ module ResidentChangeNotifyService
   module_function
 
   def call(resource, user, verb, parent)
-    send_residents = subscribed_residents(parent)
     notification = build_notification(resource, user, verb, parent)
+
+    send_residents = subscribed_residents(parent)
     SendResidentNotificationsJob.perform_later(send_residents.pluck(:id), notification)
 
     I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
@@ -34,6 +35,8 @@ module ResidentChangeNotifyService
     notification.sent_at = Time.zone.now
 
     notification.save!
+
+    notification.residents << all_residents_for(parent)
     notification
   end
 
@@ -43,6 +46,12 @@ module ResidentChangeNotifyService
     else
       resource.model_name.human
     end
+  end
+
+  # Includes unsubscribed residents, this call should only be used for in-app notifications
+  def all_residents_for(parent)
+    plots = plots_for(parent)
+    plots.map(&:residents)
   end
 
   def plots_for(parent)

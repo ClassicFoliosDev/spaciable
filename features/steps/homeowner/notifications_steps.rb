@@ -67,3 +67,34 @@ end
 And(/^there is a second notification plot$/) do
   HomeownerNotificationsFixture.create_second_plot
 end
+
+When(/^I update the notification plot progress$/) do
+  resident = HomeownerNotificationsFixture.resident
+  plot = resident.plots.first
+
+  visit "/plots/#{plot.id}/edit"
+
+  within ".edit_plot" do
+    select_from_selectmenu :plot_progress, with: PlotFixture.progress
+    check :plot_notify
+    click_on t("plots.form.submit")
+  end
+end
+
+Then(/^I should see a notification for the updated plot progress$/) do
+  visit "/homeowners/notifications"
+
+  within ".notification-list" do
+    card = page.find(".details", text: t("resident_notification_mailer.notify.update_subject"))
+    card.trigger(:click)
+  end
+
+  within ".notification-expanded" do
+    expect(page).to have_content "has been updated to In progress"
+  end
+end
+
+When(/^I log in as a notification homeowner$/) do
+  login_as HomeownerNotificationsFixture.resident
+  visit "/"
+end
