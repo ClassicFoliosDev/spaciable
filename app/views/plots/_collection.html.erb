@@ -17,6 +17,7 @@
         <th><%= sortable(Plot, :updated_at) %></th>
         <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
         <th><%= t(".progress") %></th>
+        <th><%= t(".activation") %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -27,6 +28,7 @@
           <td><%= l plot.updated_at.to_date, format: :digits %></td>
           <td><%= plot.unit_type %></td>
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
+          <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
           <td class="actions">
             <%= edit_btn [:edit, plot], element: plot %>
             <%= delete_btn plot, path: url_for(plot), element: plot %>

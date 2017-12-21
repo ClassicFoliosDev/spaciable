@@ -757,6 +757,8 @@ en:
       last_name: "Resident"
       email: "Email"
       updated_at: "Last edited"
+      status: "Activation status"
+      activated: "Activated"
     create:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
@@ -909,6 +911,8 @@ en:
       unit_type: "Unit type"
       name: "Plot"
       progress: "Build progress"
+      activation: "Activated Residents"
+      activated: "%{activated} of %{all}"
     show:
       back: "Back"
       completion: "Completion date"

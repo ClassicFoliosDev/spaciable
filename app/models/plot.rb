@@ -158,6 +158,10 @@ class Plot < ApplicationRecord
     end
   end
 
+  def activated_resident_count
+    residents.where.not(invitation_accepted_at: nil).count
+  end
+
   def to_homeowner_s
     if house_number.present?
       if building_name.present?

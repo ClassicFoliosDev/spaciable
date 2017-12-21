@@ -14,6 +14,7 @@
         <th><%= sortable(Resident, :last_name, t(".last_name")) %></th>
         <th><%= sortable(Resident, :email, t(".email")) %></th>
         <th><%= sortable(Resident, :updated_at, t(".updated_at")) %></th>
+        <th><%= t(".status") %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
         <td><%= link_to resident, [plot, resident], title: resident %></td>
         <td><%= resident.email %></td>
         <td><%= l resident.updated_at.to_date, format: :digits %></td>
+        <td><%= t(".activated") if resident.invitation_accepted? %></td>
         <td class="actions">
           <%= edit_btn [:edit, plot, resident], element: resident %>
           <%= delete_btn resident, path: url_for([plot, resident]), element: resident %>

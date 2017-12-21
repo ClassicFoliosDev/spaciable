@@ -60,8 +60,8 @@ end
 When(/^I delete a plot residency$/) do
   resident = Resident.find_by(email: PlotResidencyFixture.second_email)
   plot_resident = PlotResidency.find_by(resident_id: resident.id)
-  delete_scope = "[data-plot-resident='#{plot_resident.id}']"
 
+  delete_scope = "[data-plot-resident='#{plot_resident.id}']"
   delete_and_confirm!(scope: delete_scope)
 end
 
@@ -185,5 +185,39 @@ Then(/^I should see a duplicate resident notice$/) do
     expect(page).to have_content t("residents.create.plot_residency_already_exists",
                                    email: PlotResidencyFixture.original_email,
                                    plot: plot)
+  end
+end
+
+When(/^I view the phase$/) do
+  phase = Phase.find_by(name: CreateFixture.phase_name)
+  visit "/developments/#{phase.development.id}/phases/#{phase.id}"
+end
+
+Then(/^I should see no activated residents$/) do
+  within ".plots" do
+    expect(page).to have_content "0 of 2"
+  end
+end
+
+Then(/^I should see one activated resident$/) do
+  within ".plots" do
+    expect(page).to have_content "1 of 1"
+  end
+end
+
+When(/^I view the plot$/) do
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+  visit "/plots/#{plot.id}?active_tab=residents"
+end
+
+Then(/^I should see the activated resident$/) do
+  within ".residents" do
+    expect(page).to have_content t("residents.collection.activated")
+  end
+end
+
+Then(/^I should see the resident is not activated$/) do
+  within ".residents" do
+    expect(page).not_to have_content t("residents.collection.activated")
   end
 end
