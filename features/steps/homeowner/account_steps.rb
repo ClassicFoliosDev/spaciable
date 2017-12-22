@@ -1,18 +1,12 @@
 # frozen_string_literal: true
 
 When(/^I accept the invitation as a homeowner$/) do
-
-  invitation = ActionMailer::Base.deliveries.last
-  sections = invitation.text_part.body.to_s.split("http://")
-
-  paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
-
-  url = "http://#{paths[0]}"
-  visit url
-
   within ".edit_resident" do
     fill_in :resident_password, with: HomeownerUserFixture.updated_password
     fill_in :resident_password_confirmation, with: HomeownerUserFixture.updated_password
+
+    check_box = find(".accept-ts-and-cs")
+    check_box.trigger(:click)
 
     click_on t("residents.invitations.edit.submit_button")
   end
@@ -71,14 +65,16 @@ When(/^I update the account details$/) do
   end
 
   within ".communications" do
-    check "resident[telephone_updates]"
-    check "resident[hoozzi_email_updates]"
+    phone_updates = find(".telephone-updates")
+    phone_updates.trigger(:click)
+    email_updates = find(".hoozzi-email-updates")
+    email_updates.trigger(:click)
   end
 
   within ".services" do
     check_boxes = page.all("input")
-    check_boxes.first.set(true)
-    check_boxes.last.set(true)
+    check_boxes.first.trigger(:click)
+    check_boxes.last.trigger(:click)
   end
 
   within ".actions" do
@@ -120,14 +116,16 @@ When(/^I remove services from my account$/) do
   end
 
   within ".communications" do
-    uncheck "resident[telephone_updates]"
-    uncheck "resident[hoozzi_email_updates]"
+    phone_updates = find(".telephone-updates")
+    phone_updates.trigger(:click)
+    email_updates = find(".hoozzi-email-updates")
+    email_updates.trigger(:click)
   end
 
   within ".services" do
     check_boxes = page.all("input")
-    check_boxes.last.set(false)
-    check_boxes.first.set(false)
+    check_boxes.last.trigger(:click)
+    check_boxes.first.trigger(:click)
   end
 
   within ".actions" do
@@ -258,9 +256,10 @@ When(/^I log in as an existing homeowner$/) do
   invitation = ActionMailer::Base.deliveries.last
   body_text = invitation.text_part.body.to_s
   sections = body_text.split(t("devise.mailer.resident_invitation.already_activated"))
-  url = sections[1].strip
+  full_url = sections[1].strip
+  relative_url = full_url.split("http://")[1]
 
-  visit url
+  visit relative_url
 
   within ".new_resident" do
     fill_in :resident_email, with: PlotResidencyFixture.original_email
@@ -268,4 +267,24 @@ When(/^I log in as an existing homeowner$/) do
 
     click_on t("residents.sessions.new.login_cta")
   end
+end
+
+When(/^I visit the invitation accept page$/) do
+  invitation = ActionMailer::Base.deliveries.last
+  sections = invitation.text_part.body.to_s.split("http://")
+  paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
+
+  visit paths[0]
+end
+
+When(/^I do not accept terms and conditions$/) do
+  within ".edit_resident" do
+    fill_in :resident_password, with: HomeownerUserFixture.updated_password
+    fill_in :resident_password_confirmation, with: HomeownerUserFixture.updated_password
+  end
+end
+
+Then(/^I can not complete registration$/) do
+  disabled_btn = page.find("[disabled]")
+  expect(disabled_btn.value).to eq t("residents.invitations.edit.submit_button")
 end

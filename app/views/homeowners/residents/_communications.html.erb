@@ -2,26 +2,26 @@
   <h3><%= t(".title") %></h3>
   <span><%= t(".helpful") %></span>
   <div>
-    <%= f.label :developer_email_updates, class: "checkbox" do %>
+    <%= f.label :developer_email_updates, class: "checkbox developer-email-updates" do %>
         <%= f.check_box :developer_email_updates %>
         <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:developer_email_updates) %>
     <% end %>
   </div>
   <div>
-    <%= f.label :hoozzi_email_updates, class: "checkbox" do %>
+    <%= f.label :hoozzi_email_updates, class: "checkbox hoozzi-email-updates" do %>
         <%= f.check_box :hoozzi_email_updates %>
         <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:hoozzi_email_updates) %>
     <% end %>
   </div>
   <label><%= t(".updates_by") %></label>
   <div>
-    <%= f.label :telephone_updates, class: "checkbox" do %>
+    <%= f.label :telephone_updates, class: "checkbox telephone-updates" do %>
         <%= f.check_box :telephone_updates %>
         <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:telephone_updates) %>
     <% end %>
   </div>
   <div>
-    <%= f.label :post_updates, class: "checkbox" do %>
+    <%= f.label :post_updates, class: "checkbox post-updates" do %>
         <%= f.check_box :post_updates %>
         <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:post_updates) %>
     <% end %>

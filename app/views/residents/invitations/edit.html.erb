@@ -13,13 +13,18 @@
         <%= f.input :password_confirmation, autocomplete: "off" %>
 
         <%= f.label :subscribe_emails, class: "login-checkbox" do %>
-          <%= f.check_box :subscribe_emails, class: "branded-input" %>
+          <%= f.check_box :subscribe_emails, class: "branded-input subscribe-emails" %>
           <i class="fa fa-check"></i> <span><%= t(".subscribe_email") %></span>
+        <% end %>
+
+        <%= f.label :accept_ts_and_cs, class: "login-checkbox" do %>
+          <%= f.check_box :accept_ts_and_cs, class: "branded-input accept-ts-and-cs", checked: false %>
+          <i class="fa fa-check"></i> <span><%= t(".accept_ts_and_cs") %></span>
         <% end %>
       </div>
 
       <div class="branded-primary-btn">
-        <%= f.button :submit, t(".submit_button"), class: "btn" %>
+        <%= f.button :submit, t(".submit_button"), class: "continue", disabled: true %>
       </div>
 
       <div class="information branded-primary-text">

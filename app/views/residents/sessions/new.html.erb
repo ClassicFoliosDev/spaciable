@@ -6,19 +6,24 @@
     <%= render "components/flashes" %>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="branded-primary-text branded-input">
-        <%= f.input :email, required: false, autofocus: true %>
-        <%= f.input :password, required: false %>
-        <%= f.input :remember_me, class: "remember-checkbox branded-link", as: :boolean if devise_mapping.rememberable? %>
-      </div>
+      <div class="branded-primary-text">
+        <div class="branded-input">
+          <%= f.input :email, required: false, autofocus: true %>
+          <%= f.input :password, required: false %>
+          <%= f.label :remember_me, class: "login-checkbox" do %>
+            <%= f.check_box :remember_me, class: "branded-input remember-checkbox", checked: false %>
+            <i class="fa fa-check"></i> <span><%= t(".remember_me") %></span>
+          <% end %>
+        </div>
 
-      <div class="branded-primary-btn">
-        <%= f.submit t(".login_cta"), class: "btn" %>
-      </div>
+        <div class="branded-primary-btn">
+          <%= f.submit t(".login_cta"), class: "btn" %>
+        </div>
 
-      <div class="information branded-primary-text">
-        <p><%= render "residents/shared/links" %></p>
-        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
+        <div class="information">
+          <p><%= render "residents/shared/links" %></p>
+          <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
+        </div>
       </div>
     <% end %>
   </div>

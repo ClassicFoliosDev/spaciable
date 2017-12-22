@@ -92,3 +92,8 @@ button:focus, button:active {
 .remove {
   padding: 8px 9px 7px;
 }
+
+input[disabled="disabled"], input[disabled] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

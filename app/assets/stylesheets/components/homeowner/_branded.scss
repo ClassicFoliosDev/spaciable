@@ -66,8 +66,12 @@
 }
 
 .branded-primary-text {
-  input[type=checkbox]:checked + i:before {
+  input[type=checkbox] {
     color: $ui-white;
+  }
+
+  input[type=checkbox]:checked + i:before {
+    color: $primary-red;
   }
 
   i {

@@ -1,3 +1,4 @@
+@javascript
 Feature: Homeowner Account
   As a homeowner
   I want to manage my account
@@ -7,7 +8,8 @@ Feature: Homeowner Account
     Given I am a Development Admin wanting to assign a new resident to a plot
     When I assign a new resident to a plot
     And I log out as a an admin
-    And I do not accept terms and condisions
+    When I visit the invitation accept page
+    And I do not accept terms and conditions
     Then I can not complete registration
     When I accept the invitation as a homeowner
     Then I should be redirected to the homeowner dashboard
@@ -18,6 +20,7 @@ Feature: Homeowner Account
     And I have seeded the database with services
     When I assign a new resident to a plot
     And I log out as a an admin
+    When I visit the invitation accept page
     And I accept the invitation as a homeowner
     And I select my services
     Then My services have been selected
@@ -28,6 +31,7 @@ Feature: Homeowner Account
     And I have seeded the database with services
     When I assign a new resident to a plot
     And I log out as a an admin
+    When I visit the invitation accept page
     And I accept the invitation as a homeowner
     And I select no services
     Then I should be redirected to the homeowner dashboard
@@ -47,7 +51,6 @@ Feature: Homeowner Account
     Then I should not see services in my account
     And I should not see services when I edit my account
 
-  @javascript
   Scenario: Multiple residents
     Given I am logged in as a homeowner
     And There is a plot with many residents
@@ -61,7 +64,8 @@ Feature: Homeowner Account
 
   Scenario: Delete and recreate legacy style
     Given I am a Development Admin wanting to assign a new resident to a plot
-    When I assign a new resident to a plot
+    And I assign a new resident to a plot
+    When I visit the invitation accept page
     And I accept the invitation as a homeowner
     Then I should be redirected to the homeowner dashboard
     When I soft delete the plot residency

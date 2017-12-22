@@ -750,6 +750,7 @@ en:
         intro_para_2: You can scroll away to your heart's content,
                       discovering exciting ideas on how to make the most of your home,
                       habits and hobbies.
+        remember_me: "Remember me"
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
     collection:
@@ -791,7 +792,7 @@ en:
         hoozzi2: "Find out how to view your new appliances"
         hoozzi3: "Contact your developer"
         hoozzi4: "Live the lifestyle your new home brings"
-        policy_instructions: "By clicking 'Continue', you confirm you have read and agree to our %{href1} and %{href2}."
+        policy_instructions: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Continue'"
         first_name: "First name"
         last_name: "Last name"
         password: "Choose a password"
@@ -799,6 +800,7 @@ en:
         policy: "Data policy"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         subscribe_email: "Subscribe to emails"
+        accept_ts_and_cs: "Accept terms and conditions"
     passwords:
       new:
         title: "Forgotten your password?"

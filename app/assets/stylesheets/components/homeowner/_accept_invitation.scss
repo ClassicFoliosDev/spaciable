@@ -46,6 +46,15 @@
   }
 }
 
+.login {
+  color: $ui-white;
+  border-color: $ui-white;
+
+  .branded-text {
+    color: $type-grey;
+  }
+}
+
 .login-logo {
   display: block;
   margin-bottom: $spacing-large;
@@ -65,6 +74,7 @@ label.login-checkbox {
   cursor:pointer;
   overflow: hidden;
   margin-top: $spacing-small;
+  margin-bottom: $spacing-small;
 
   input[type=checkbox] {
     float:left;
@@ -142,7 +152,7 @@ label.login-checkbox {
         font-weight: bold;
         padding: 4px;
         margin-top: $spacing-medium;
-        margin-bottom: $spacing-large;
+        margin-bottom: $spacing-small;
       }
 
       input[type="password"] {
