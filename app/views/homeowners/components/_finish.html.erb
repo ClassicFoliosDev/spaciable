@@ -1,6 +1,6 @@
 <div class="labels">
   <div class="finish-image">
-    <%= image_tag finish.picture.thumbnail.url, class: "circle" if finish.picture? %>
+    <%= image_tag finish.picture.url, class: "circle" if finish.picture? %>
   </div>
   <div class="label strong">
     <span><%= finish.finish_category %></span>
