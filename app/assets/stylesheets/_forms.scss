@@ -147,7 +147,7 @@ fieldset {
     @include clearfix();
     clear: both;
     position: fixed;
-    bottom: 0;
+    bottom: 40px;
     margin-left: -$spacing-large;
     border-top: $border-size solid $ui-grey;
   }
