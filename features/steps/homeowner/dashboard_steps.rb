@@ -46,7 +46,8 @@ Then(/^I see the recent homeowner contents$/) do
     copyright = t("components.homeowner.footer.copyright", year: Time.current.year)
     copyright = copyright.gsub(/&copy;/, "")
     expect(page).to have_content(copyright)
-    expect(page).to have_content(t("components.homeowner.footer.privacy"))
+    expect(page).to have_link(t("components.homeowner.footer.privacy"))
+    expect(page).to have_link(t("components.homeowner.footer.ts_and_cs"))
   end
 end
 

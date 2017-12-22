@@ -23,7 +23,6 @@ $row-bg-color: $ui-white;
 
   .content-container {
     @include span-columns(16 of 16);
-    overflow: scroll;
     height: 100%;
 
     @include media($tablet-landscape-up) {

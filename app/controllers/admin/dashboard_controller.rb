@@ -9,7 +9,10 @@ module Admin
       @faqs = faqs_scope.order(updated_at: :desc).limit(5)
       docs = documents_scope.order(updated_at: :desc).limit(5)
       appliances = []
-      appliances = Appliance.all.order(updated_at: :desc).limit(5) if current_user.cf_admin?
+      if current_user.cf_admin?
+        appliances = Appliance.all.includes(:appliance_manufacturer)
+                              .order(updated_at: :desc).limit(5)
+      end
       @documents = DocumentLibraryService.call(docs, appliances).first(5)
     end
 

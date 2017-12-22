@@ -4,7 +4,8 @@
   border-style: solid;
   border-radius: 5px;
   background-color: $ui-white;
-  padding: $spacing-small;
+  border-color: $ui-grey;
+  padding: $spacing-large;
 
   p, li, a {
     font-size: $base-small-font-size;

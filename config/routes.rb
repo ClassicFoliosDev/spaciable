@@ -170,8 +170,8 @@ Rails.application.routes.draw do
     get :change_plot, to: 'base#change_plot'
   end
 
-  get "/ts_and_cs", to: 'home#ts_and_cs'
-  get "/ts_and_cs2", to: 'home#ts_and_cs2'
+  get "/ts_and_cs_admin", to: 'home#ts_and_cs_admin'
+  get "/ts_and_cs_homeowner", to: 'home#ts_and_cs_homeowner'
   get "/data_policy", to: 'home#data_policy'
   get "/feedback", to: 'home#feedback'
   get "/appliance_manufacturers_list", to: 'appliances#appliance_manufacturers_list'

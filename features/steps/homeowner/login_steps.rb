@@ -66,40 +66,6 @@ Then(/^I should be on the "Homeowner Login" page with errors$/) do
   expect(page).to have_content(t("activerecord.attributes.resident.password"))
 end
 
-When(/^I visit the data policy page$/) do
-  visit "/data_policy"
-end
-
-Then(/^I should see the data policy contents$/) do
-  within ".policy" do
-    expect(page).to have_content(t("legal.data_policy.title"))
-    expect(page).to have_content(t("legal.data_policy.information"))
-    expect(page).to have_content(t("legal.data_policy.links"))
-    expect(page).to have_content(t("legal.data_policy.what_we_do"))
-    expect(page).to have_content(t("legal.data_policy.where_we_store"))
-    expect(page).to have_content(t("legal.data_policy.who_we_are"))
-    expect(page).to have_content(t("legal.data_policy.your_rights"))
-  end
-end
-
-When(/^I visit the ts_and_cs page$/) do
-  visit "/ts_and_cs"
-end
-
-Then(/^I should see the terms and conditions for using Hoozzi$/) do
-  within ".policy" do
-    expect(page).to have_content(t("legal.ts_and_cs.title"))
-    expect(page).to have_content(t("legal.ts_and_cs.about_us"))
-    expect(page).to have_content(t("legal.ts_and_cs.ip"))
-    expect(page).to have_content(t("legal.ts_and_cs.accuracy"))
-    expect(page).to have_content(t("legal.ts_and_cs.law"))
-    expect(page).to have_content(t("legal.ts_and_cs.limitation"))
-    expect(page).to have_content(t("legal.ts_and_cs.security"))
-    expect(page).to have_content(t("legal.ts_and_cs.viruses"))
-    expect(page).to have_content(t("legal.ts_and_cs.welcome").first(80))
-  end
-end
-
 Then(/^I can request a password reset$/) do
   visit "/"
   click_on t("devise.forgot_password")

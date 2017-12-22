@@ -17,6 +17,3 @@ Feature: Admin Login
     Then I should be on the "Admin Login" page
     And I can request an admin password reset
 
-  Scenario: Ts and Cs
-    When I visit the admin ts_and_cs page
-    Then I should see the terms and conditions for developers using Hoozzi

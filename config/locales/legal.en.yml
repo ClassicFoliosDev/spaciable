@@ -1,7 +1,7 @@
 en:
   # LEGAL
   legal:
-    ts_and_cs:
+    ts_and_cs_admin:
       title: "Hoozzi Terms and Conditions of Use"
       welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
       www.hoozzi.com (referred to as 'the website' or 'our website'). By using our website, you acknowledge that you
@@ -109,7 +109,7 @@ en:
       links: "Other Websites"
       links_para: "This privacy policy only covers this website. Any other websites which may be linked to by our
        website are subject to their own policy, which may differ from ours."
-    ts_and_cs2:
+    ts_and_cs_homeowner:
       title: "Hoozzi Terms and Conditions of Use"
       welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
       www.hoozzi.com (referred to as “the website” or “our website”). By using our website, you acknowledge that you

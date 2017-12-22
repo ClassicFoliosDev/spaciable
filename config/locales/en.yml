@@ -186,7 +186,8 @@ en:
         faqs: "FAQs"
       footer:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
-        privacy: "Privacy Policy."
+        privacy: "Privacy Policy"
+        ts_and_cs: "Terms and Conditions"
       library_hero:
         title: "Welcome to your digital home library"
         appliances: "Appliances"
@@ -222,6 +223,11 @@ en:
       feedback: "Feedback"
     search:
       search: "Search"
+    admin:
+      footer:
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
+        privacy: "Privacy Policy"
+        ts_and_cs: "Terms and Conditions"
 
   destroy:
     cancel: "Cancel"
