@@ -4,26 +4,7 @@ Feature: Homeowner Account
   I want to manage my account
   So that Hoozzi knows my preferences
 
-  Scenario:
-    Given I am a Development Admin wanting to assign a new resident to a plot
-    When I assign a new resident to a plot
-    And I log out as a an admin
-    When I visit the invitation accept page
-    And I do not accept terms and conditions
-    Then I can not complete registration
-    When I accept the invitation as a homeowner
-    Then I should be redirected to the homeowner dashboard
-
-  Scenario: With services
-    Given I am a Development Admin wanting to assign a new resident to a plot
-    And the developer has enabled services
-    And I have seeded the database with services
-    When I assign a new resident to a plot
-    And I log out as a an admin
-    When I visit the invitation accept page
-    And I accept the invitation as a homeowner
-    And I select my services
-    Then My services have been selected
+  # Some account tests moved to legal -> email notifications
 
   Scenario: With services choose none
     Given I am a Development Admin wanting to assign a new resident to a plot
@@ -73,5 +54,3 @@ Feature: Homeowner Account
     When I assign a new resident to a plot
     When I log in as an existing homeowner
     Then I should be redirected to the homeowner dashboard
-
-

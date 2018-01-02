@@ -805,7 +805,7 @@ en:
         terms: "Terms & Conditions"
         policy: "Data policy"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
-        subscribe_email: "Subscribe to emails"
+        subscribe_email: "Yes! I would like to receive updates, news and information about my new home via email"
         accept_ts_and_cs: "Accept terms and conditions"
     passwords:
       new:

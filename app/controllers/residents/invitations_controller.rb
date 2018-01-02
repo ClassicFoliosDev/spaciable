@@ -38,15 +38,12 @@ module Residents
     private
 
     def update_resident_subscribe_params
-      # The subscribe_emails checkbox is inverted in the UI
-      # value of 1 => Unsubscribe
-      # not set or 0 => Subscribe
       if params[:resident][:subscribe_emails].to_i.positive?
-        current_resident&.update(hoozzi_email_updates: 0)
-        current_resident&.update(developer_email_updates: 0)
-      else
         current_resident&.update(hoozzi_email_updates: 1)
         current_resident&.update(developer_email_updates: 1)
+      else
+        current_resident&.update(hoozzi_email_updates: 0)
+        current_resident&.update(developer_email_updates: 0)
       end
     end
   end

@@ -1,0 +1,137 @@
+# frozen_string_literal: true
+
+Then(/^I have not yet activated my account$/) do
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+
+  expect(resident.last_sign_in_at).to be_nil
+  expect(resident.sign_in_count).to be_zero
+  expect(resident.invitation_accepted?).to eq false
+
+  expect(resident.developer_email_updates).to be_nil
+  expect(resident.hoozzi_email_updates).to be_nil
+  expect(resident.telephone_updates).to be_nil
+  expect(resident.post_updates).to be_nil
+
+  ActionMailer::Base.deliveries.clear
+end
+
+When(/^I update the plot progress$/) do
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  plot = resident.plots.first
+
+  visit "/plots/#{plot.id}/edit"
+
+  within ".edit_plot" do
+    select_from_selectmenu :plot_progress, with: PlotFixture.progress
+    check :plot_notify
+    click_on t("plots.form.submit")
+  end
+end
+
+When(/^I update the resident plot progress$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+  plot = resident.plots.first
+
+  visit "/plots/#{plot.id}/edit"
+
+  within ".edit_plot" do
+    select_from_selectmenu :plot_progress, with: PlotFixture.progress
+    check :plot_notify
+    click_on t("plots.form.submit")
+  end
+end
+
+When(/^I send a notification to the development$/) do
+  visit "/admin/notifications"
+
+  within ".section-actions" do
+    click_on t("admin.notifications.collection.add")
+  end
+
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+  plot = resident.plots.first
+
+  within ".new_notification" do
+    select_from_selectmenu(:notification_developer_id, with: plot.developer)
+    select_from_selectmenu(:notification_development_id, with: plot.development)
+    fill_in :notification_subject, with: "Notification should not be sent to unactivated user"
+    fill_in_ckeditor(:notification_message, with: "Notification contents should not be sent to unactivated user")
+  end
+
+  within ".form-actions-footer" do
+    click_on t("admin.notifications.form.submit")
+  end
+end
+
+When(/^I send a notification to the resident's development$/) do
+  visit "/admin/notifications"
+
+  within ".section-actions" do
+    click_on t("admin.notifications.collection.add")
+  end
+
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+  plot = resident.plots.first
+
+  within ".new_notification" do
+    select_from_selectmenu(:notification_developer_id, with: plot.developer)
+    select_from_selectmenu(:notification_development_id, with: plot.development)
+    fill_in :notification_subject, with: "Notification should not be sent to unactivated user"
+    fill_in_ckeditor(:notification_message, with: "Notification contents should not be sent to unactivated user")
+  end
+
+  within ".form-actions-footer" do
+    click_on t("admin.notifications.form.submit")
+  end
+end
+
+Then(/^no emails are sent to the unactivated homeowner$/) do
+  email_notifications = ActionMailer::Base.deliveries
+
+  # The updates are sent to other recipients, but should not go to the
+  # unactivated homeowner
+  expect(email_notifications.count).to eq 2
+  email_notifications.each do |notification|
+    if notification.subject == t("resident_notification_mailer.notify.update_subject")
+      expect(notification.to).not_to include(HomeownerUserFixture.email)
+    end
+  end
+end
+
+Then(/^I should not receive email notifications$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  expect(resident.hoozzi_email_updates).to be_zero
+  expect(resident.developer_email_updates).to be_zero
+  expect(resident.telephone_updates).to be_nil
+  expect(resident.post_updates).to be_nil
+end
+
+When(/^I choose email notifications$/) do
+  within ".edit_resident" do
+    check_box = find(".subscribe-emails")
+    check_box.trigger(:click)
+  end
+end
+
+Then(/^I should receive email notifications$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  expect(resident.hoozzi_email_updates).to eq 1
+  expect(resident.developer_email_updates).to eq 1
+  expect(resident.telephone_updates).to be_nil
+  expect(resident.post_updates).to be_nil
+end
+
+Then(/^no emails are sent to the activated homeowner$/) do
+  email_notifications = ActionMailer::Base.deliveries
+
+  # The original invitations and reminders will be there
+  # But should not be any updates or other notification emails
+  expect(email_notifications.count).to eq 4
+  email_notifications.each do |notification|
+    expect(notification.to).to include(PlotResidencyFixture.original_email)
+    expect(notification.subject).not_to eq t("resident_notification_mailer.notify.update_subject")
+  end
+end
+

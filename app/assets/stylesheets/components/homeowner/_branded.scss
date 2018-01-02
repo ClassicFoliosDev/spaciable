@@ -52,6 +52,8 @@
 }
 
 .branded-primary-text {
+  color: $ui-white;
+
   p, a, label {
     color: inherit;
   }
@@ -76,10 +78,13 @@
 
   i {
     background-color: $ui-white;
+    border-color: $ui-white;
   }
 }
 
 .branded-primary-btn {
+  color: $ui-white;
+
   input {
     color: inherit;
     background-color: inherit;
