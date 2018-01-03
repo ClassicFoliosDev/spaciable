@@ -3,6 +3,7 @@ Feature: Homeowner Login
   I want to log into Hoozzi
   So that I can access documents related to my plot
 
+  @javascript
   Scenario:
     Given I am a homeowner
     When I log in as a homeowner
@@ -13,6 +14,7 @@ Feature: Homeowner Login
     When I log out as a homeowner
     Then I should be on the branded homeowner login page
 
+  @javascript
   Scenario: Unassociated homeowner
     Given I am a homeowner with no plot
     When I log in as a homeowner
@@ -21,4 +23,3 @@ Feature: Homeowner Login
   Scenario: Reset password
     Given I am a homeowner
     When I can request a password reset
-

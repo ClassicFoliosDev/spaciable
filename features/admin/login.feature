@@ -7,9 +7,6 @@ Feature: Admin Login
     Given I am an admin user
     When I log in as an admin
     Then I should be on the admin dashboard
-    Given I am a homeowner
-    When I log in as a homeowner
-    Then I should be on the "My Home" dashboard
 
   Scenario: Log out
     Given I am logged in as an admin

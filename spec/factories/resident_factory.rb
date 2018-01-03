@@ -10,6 +10,7 @@ FactoryGirl.define do
     trait :activated do
       after(:create) do |resident|
         resident.developer_email_updates = true
+        resident.ts_and_cs_accepted_at = Time.zone.now
         resident.save!
       end
     end

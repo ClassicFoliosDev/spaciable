@@ -22,7 +22,7 @@ When(/^I log in as an admin$/) do
   end
 
   within ".notifications" do
-    expect(page).to have_content(t("dashboard.title"))
+    expect(page).to have_content(t("dashboard.section.notifications.title"))
   end
 end
 

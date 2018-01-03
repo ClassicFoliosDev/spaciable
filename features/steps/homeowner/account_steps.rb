@@ -257,6 +257,7 @@ When(/^I log in as an existing homeowner$/) do
   body_text = invitation.text_part.body.to_s
   sections = body_text.split(t("devise.mailer.resident_invitation.already_activated"))
   full_url = sections[1].strip
+
   relative_url = full_url.split("http://")[1]
 
   visit relative_url
@@ -264,6 +265,9 @@ When(/^I log in as an existing homeowner$/) do
   within ".new_resident" do
     fill_in :resident_email, with: PlotResidencyFixture.original_email
     fill_in :resident_password, with: HomeownerUserFixture.updated_password
+
+    check_box = find(".accept-ts-and-cs")
+    check_box.trigger(:click)
 
     click_on t("residents.sessions.new.login_cta")
   end
@@ -274,7 +278,7 @@ When(/^I visit the invitation accept page$/) do
   sections = invitation.text_part.body.to_s.split("http://")
   paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
 
-  visit paths[0]
+  visit "/#{paths[0]}"
 end
 
 When(/^I do not accept terms and conditions$/) do

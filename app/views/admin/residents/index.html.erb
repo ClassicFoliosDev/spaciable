@@ -12,12 +12,12 @@
     <tr>
       <th><%= t(".name") %></th>
       <th><%= t(".email") %></th>
-      <th><%= t(".plot") %></th>
       <th><%= t(".plot_count") %></th>
       <th><%= t(".unit_type") %></th>
       <th><%= t(".development") %></th>
       <th><%= t(".division") %></th>
       <th><%= t(".developer") %></th>
+      <th><%= t(".ts_and_cs_accepted") %></th>
     </tr>
   </thead>
   <tbody>
@@ -26,15 +26,15 @@
       <td><%= link_to resident, admin_resident_path(resident) %></td>
       <td><%= resident.email %></td>
       <% if resident.plots.count.positive? %>
-        <td><%= resident.plots.first %></td>
         <td><%= resident.plots.count %></td>
         <td><%= resident.plots.first.unit_type %></td>
         <td><%= resident.plots.first.development %></td>
         <td><%= resident.plots.first.division %></td>
         <td><%= resident.plots.first.developer %></td>
       <% else %>
-        <td colspan="6"><em><%= t(".removed") %></em></td>
+        <td colspan="5"><em><%= t(".removed") %></em></td>
       <% end %>
+      <td><%= resident.ts_and_cs_accepted? %></td>
     </tr>
     <% end %>
   </tbody>

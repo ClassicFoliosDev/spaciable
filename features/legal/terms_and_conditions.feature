@@ -24,3 +24,22 @@ Feature: Terms and Conditions
     Then I should see the terms and conditions for administrators using Hoozzi
     When I visit the privacy page directly
     Then I should see the privacy information for using Hoozzi
+
+  @javascript
+  Scenario: Accept and reset terms and conditions
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    And I assign a new resident to a plot
+    Then I should not be recorded as accepting ts and cs
+    When I visit the invitation accept page
+    And I accept the invitation as a homeowner
+    Then I should have been recorded as accepting ts and cs
+    When the ts and cs are reset
+    Then I should not be recorded as accepting ts and cs
+    And I should be prompted for ts and cs on next action
+    When I accept the ts and cs
+    Then I should have been recorded as accepting ts and cs
+    When I log out as a homeowner
+    Then I should not be prompted for ts and cs
+    Given there is a second homeowner
+    When I log in as the second homeowner
+    Then I should be prompted for ts and cs

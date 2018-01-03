@@ -21,7 +21,8 @@ module HomeownerUserFixture
       :resident,
       email: email,
       password: password,
-      first_name: first_name
+      first_name: first_name,
+      ts_and_cs_accepted_at: Time.zone.now
     )
   end
 

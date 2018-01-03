@@ -43,7 +43,7 @@ module MyHomeFaqsFixture
   end
 
   def create_resident
-    FactoryGirl.create(:resident, :with_residency, plot: development_plot, email: resident_email)
+    FactoryGirl.create(:resident, :with_residency, plot: development_plot, email: resident_email, ts_and_cs_accepted_at: Time.zone.now)
   end
 
   def resident_email

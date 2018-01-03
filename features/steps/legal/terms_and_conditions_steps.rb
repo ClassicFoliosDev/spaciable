@@ -68,3 +68,84 @@ Then(/^I should see the terms and conditions for administrators using Hoozzi$/) 
     expect(page).to have_content(t("legal.ts_and_cs_admin.welcome").first(80))
   end
 end
+
+Then(/^I should not be recorded as accepting ts and cs$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  expect(resident.ts_and_cs_accepted_at).to be_nil
+end
+
+Then(/^I should have been recorded as accepting ts and cs$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  expect(resident.ts_and_cs_accepted_at).not_to be_nil
+end
+
+When(/^the ts and cs are reset$/) do
+  require 'rake'
+
+  rake = Rake::Application.new
+  Rake.application = rake
+  Rake::Task.define_task(:environment)
+  load Rails.root.join("lib", "tasks", "reset_ts_and_cs.rake")
+  rake["ts_and_cs:reset"].invoke
+end
+
+When(/^I accept the ts and cs$/) do
+  within ".sign-in" do
+    fill_in :resident_email, with: PlotResidencyFixture.original_email
+    fill_in :resident_password, with: HomeownerUserFixture.updated_password
+
+    check_box = find(".accept-ts-and-cs")
+    check_box.trigger(:click)
+
+    click_on t("residents.sessions.new.login_cta")
+  end
+end
+
+Then(/^I should not be prompted for ts and cs$/) do
+  expect(page).not_to have_content("[disabled]")
+end
+
+Then(/^I should be prompted for ts and cs$/) do
+  visit "/"
+
+  within ".sign-in" do
+    expect(page).to have_selector ".accept-ts-and-cs"
+
+    disabled_btn = page.find("[disabled]")
+    expect(disabled_btn.value).to eq t("residents.sessions.new.login_cta")
+  end
+end
+
+Then(/^I should be prompted for ts and cs on next action$/) do
+  within ".navbar-menu" do
+    click_on t("layouts.homeowner.nav.how_to")
+  end
+
+  within ".sign-in" do
+    expect(page).to have_selector ".accept-ts-and-cs"
+
+    disabled_btn = page.find("[disabled]")
+    expect(disabled_btn.value).to eq t("residents.sessions.new.login_cta")
+  end
+end
+
+Given(/^there is a second homeowner$/) do
+  plot = CreateFixture.phase_plot
+  FactoryGirl.create(:resident, :with_residency,
+                     plot: plot,
+                     email: TermsAndConditionsFixture.email,
+                     password: TermsAndConditionsFixture.password)
+end
+
+When(/^I log in as the second homeowner$/) do
+  visit "/"
+
+  within ".sign-in" do
+    fill_in :resident_email, with: TermsAndConditionsFixture.email
+    fill_in :resident_password, with: TermsAndConditionsFixture.password
+
+    click_on t("residents.sessions.new.login_cta")
+  end
+end

@@ -19,7 +19,10 @@ module Residents
       @brand = development&.brand_any
       super
 
-      JobManagementService.call(current_resident&.id)
+      return if current_resident.blank?
+
+      JobManagementService.call(current_resident.id)
+      update_resident_ts_and_cs
       update_resident_subscribe_params
 
       current_resident.plots.each do |plot|
@@ -37,13 +40,19 @@ module Residents
 
     private
 
+    def update_resident_ts_and_cs
+      return if params[:resident][:ts_and_cs_accepted].blank?
+
+      current_resident.update(ts_and_cs_accepted_at: Time.zone.now)
+    end
+
     def update_resident_subscribe_params
       if params[:resident][:subscribe_emails].to_i.positive?
-        current_resident&.update(hoozzi_email_updates: 1)
-        current_resident&.update(developer_email_updates: 1)
+        current_resident.update(hoozzi_email_updates: 1)
+        current_resident.update(developer_email_updates: 1)
       else
-        current_resident&.update(hoozzi_email_updates: 0)
-        current_resident&.update(developer_email_updates: 0)
+        current_resident.update(hoozzi_email_updates: 0)
+        current_resident.update(developer_email_updates: 0)
       end
     end
   end

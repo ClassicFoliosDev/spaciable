@@ -267,3 +267,12 @@ There are several named queues, the most important, carrierwave, is defined in t
 For more information see 
 * https://github.com/collectiveidea/delayed_job_active_record
 * https://github.com/collectiveidea/delayed_job/wiki
+
+## Reset terms and conditions
+
+To reset the terms and conditions database contents, run the following rake task:
+
+```bundle exec bin/rake ts_and_cs:reset```
+
+*Warning* 
+This will reset the status for all residents in the database to "false" for ts_and-cs_accepted

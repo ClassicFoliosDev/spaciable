@@ -11,13 +11,15 @@ end
 
 When(/^I log in as a homeowner$/) do
   homeowner = HomeownerUserFixture
+  visit "/"
 
-  visit "/homeowners/sign_in"
+  within ".sign-in" do
+    fill_in :resident_email, with: homeowner.email
+    fill_in :resident_password, with: homeowner.password
 
-  fill_in :resident_email, with: homeowner.email
-  fill_in :resident_password, with: homeowner.password
+    check_box = find(".accept-ts-and-cs")
+    check_box.trigger(:click)
 
-  within ".branded-primary-btn" do
     click_on "Login"
   end
 end

@@ -12,7 +12,7 @@ end
 
 And(/^I have logged in as a resident and associated the plot$/) do
   plot = CreateFixture.create_development_plot
-  resident = FactoryGirl.create(:resident, :with_residency, plot: plot, email: "multiple_resident@example.com")
+  resident = FactoryGirl.create(:resident, :with_residency, plot: plot, email: "multiple_resident@example.com", ts_and_cs_accepted_at: Time.zone.now)
 
   login_as resident
 end
