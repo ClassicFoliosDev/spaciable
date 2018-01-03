@@ -3,7 +3,6 @@
 class Document < ApplicationRecord
   mount_uploader :file, DocumentUploader
   process_in_background :file
-  store_in_background :file
 
   attr_accessor :notify
 
