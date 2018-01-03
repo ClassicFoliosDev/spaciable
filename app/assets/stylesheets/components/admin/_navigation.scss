@@ -113,14 +113,14 @@ $navbar-bg-color-mobile: $ui-white;
   }
 }
 
-.footer {
+.copyright-footer {
   height: 40px;
   line-height: 36px;
-  text-align: center;
+  text-align: right;
   font-size: $base-small-font-size;
-  border-top: 1px solid $ui-white;
   position: fixed;
   bottom: 0;
+  right: 0;
   padding: 0 38px;
 
   a {
@@ -132,14 +132,6 @@ $navbar-bg-color-mobile: $ui-white;
   .fa {
     padding: $spacing-small;
     font-size: 40px;
-  }
-}
-
-@include media($tablet-landscape-up) {
-  .footer {
-    @include span-columns(13 of 16, block-collapse);
-    @include clearfix();
-    clear: both;
   }
 }
 
