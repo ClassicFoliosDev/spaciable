@@ -79,12 +79,10 @@ Then(/^I should see the restored CF Admin$/) do
 end
 
 When(/^I update the CF Admin$/) do
-  sleep 0.2
   within "[data-user=\"#{AdminUsersFixture.second_cf_admin_id}\"]" do
     find("[data-action='edit']").click
   end
 
-  sleep 0.3
   within ".user_first_name" do
     fill_in "user[first_name]", with: AdminUsersFixture.second_cf_admin_update_attrs[:first_name]
   end
@@ -97,9 +95,13 @@ When(/^I update the CF Admin$/) do
   end
 end
 
-Then(/^I should see the updated CF Admin$/) do
-  sleep 0.4
+When(/^I log in as development admin$/) do
+  development_user = User.find_by(email: AdminUsersFixture.development_admin_attrs[:email_address] )
+  login_as development_user
+  visit "/"
+end
 
+Then(/^I should see the updated CF Admin$/) do
   within ".record-list" do
     expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:first_name])
     expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:last_name])
@@ -118,11 +120,14 @@ Then(/^I should not see the deleted CF Admin$/) do
 end
 
 When(/^I add a new Developer Admin$/) do
-  click_on t("admin.users.index.add")
+  visit "/admin/users"
+
+  within ".section-actions" do
+    click_on t("admin.users.index.add")
+  end
 
   attrs = AdminUsersFixture.developer_admin_attrs
 
-  sleep 0.3
   within ".user_email" do
     fill_in "user[email]", with: attrs[:email_address]
   end
@@ -155,7 +160,6 @@ When(/^I add a new Division Admin$/) do
 
   attrs = AdminUsersFixture.division_admin_attrs
 
-  sleep 0.3
   within ".user_email" do
     fill_in "user[email]", with: attrs[:email_address]
   end
@@ -185,7 +189,11 @@ Then(/^I should see the new Division Admin$/) do
 end
 
 When(/^I add a Development Admin$/) do
-  click_on t("admin.users.index.add")
+  visit "/admin/users"
+
+  within ".section-actions" do
+    click_on t("admin.users.index.add")
+  end
 
   attrs = AdminUsersFixture.development_admin_attrs
 
@@ -254,7 +262,6 @@ end
 When(/^I update the new admin$/) do
   find("[data-action='edit']").click
 
-  sleep 0.2
   expect(page).not_to have_content(".password")
   within ".user_first_name" do
     fill_in "user[first_name]", with: AdminUsersFixture.second_cf_admin_update_attrs[:first_name]
@@ -267,7 +274,6 @@ When(/^I update the new admin$/) do
 end
 
 Then(/^I should see the updated admin$/) do
-  sleep 0.2
   within ".record-list" do
     expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:first_name])
     expect(page).to have_content(AdminUsersFixture.second_cf_admin_update_attrs[:last_name])
@@ -279,7 +285,6 @@ When(/^I change my password$/) do
   click_on t("components.navigation.profile")
   find("[data-action='edit']").click
 
-  sleep 0.2
   within(".user_current_password") do
     fill_in :password, with: CreateFixture.admin_password
   end
@@ -300,4 +305,44 @@ Then(/^I should be logged out$/) do
     expect(page).to have_content(t("activerecord.attributes.user.email"))
     expect(page).to have_content(t("activerecord.attributes.user.password"))
   end
+end
+
+When(/^I visit the users page$/) do
+  visit "/admin/users"
+end
+
+Then(/^I see the activated users$/) do
+  today = Time.zone.now.to_date.strftime("%d.%m.%Y")
+
+  development_admin = User.find_by(email: AdminUsersFixture.development_admin_attrs[:email_address] )
+  within "[data-user=\"#{development_admin.id}\"]" do
+    expect(page).to have_content today
+  end
+
+  division_admin = User.find_by(email: AdminUsersFixture.division_admin_attrs[:email_address] )
+  within "[data-user=\"#{division_admin.id}\"]" do
+    expect(page).not_to have_content today
+  end
+
+  developer_admin = User.find_by(email: AdminUsersFixture.developer_admin_attrs[:email_address] )
+  within "[data-user=\"#{developer_admin.id}\"]" do
+    expect(page).not_to have_content today
+  end
+end
+
+When(/^I accept the invitation as development admin$/) do
+  invitation = ActionMailer::Base.deliveries.last
+  sections = invitation.text_part.body.to_s.split("http://localhost")
+  paths = sections[1].split(t("devise.mailer.invitation_instructions.ignore"))
+
+  visit paths[0]
+
+  within ".admin-login-form" do
+    fill_in :user_password, with: AdminUsersFixture.new_password
+    fill_in :user_password_confirmation, with: AdminUsersFixture.new_password
+
+    click_on t("residents.invitations.edit.submit_button")
+  end
+
+  ActionMailer::Base.deliveries.clear
 end

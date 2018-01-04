@@ -35,6 +35,18 @@ Feature: Admin Users
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
 
+  Scenario: Users view
+    Given I am logged in as a CF Admin
+    And I add a new Developer Admin
+    And I add a new Division Admin
+    And I add a Development Admin
+    And I log out as a an admin
+    Given I accept the invitation as development admin
+    And I log out as a an admin
+    When I log in as CF Admin
+    And I visit the users page
+    Then I see the activated users
+
   Scenario: Developer Admin
     Given I am logged in as a Developer Admin
     And I am on the Admin Users page

@@ -27,7 +27,9 @@ When(/^I log in as an admin$/) do
 end
 
 When(/^I log out as a an admin$/) do
-  click_on "Log out"
+  within ".navbar-menu" do
+    click_on "Log out"
+  end
 end
 
 Then(/^I should be on the admin dashboard$/) do

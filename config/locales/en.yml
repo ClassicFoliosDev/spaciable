@@ -1499,6 +1499,7 @@ en:
         first_name: "First name"
         last_name: "Last name"
         password_confirmation: "New password confirmation"
+        invitation_accepted_at: "Activation date"
       address:
         postal_number: "Postal number / name"
         building_name: "Building name"
