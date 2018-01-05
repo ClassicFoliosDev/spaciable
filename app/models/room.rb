@@ -23,6 +23,11 @@ class Room < ApplicationRecord
     study
     exterior
     garage
+    cloakroom
+    heating
+    internal_finishes
+    stairway
+    utility
   ]
 
   has_many :finish_rooms, inverse_of: :room

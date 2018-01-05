@@ -1459,6 +1459,11 @@ en:
            study: "Study"
            exterior: "Exterior"
            garage: "Garage"
+           cloakroom: "Cloakroom"
+           heating: "Heating systems"
+           internal_finishes: "Internal finishes"
+           stairway: "Landing / hall / stairway"
+           utility: "Utility room"
       finish:
         name: "Name"
         type: "Finish type"
