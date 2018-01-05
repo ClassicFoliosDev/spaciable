@@ -1,0 +1,56 @@
+.video-container {
+  background-color: $ui-superlight-grey;
+  color: $type-grey;
+  padding: $spacing-small;
+  position: relative;
+  margin: 100px auto;
+  border-radius: $border-radius;
+
+  span {
+    font-size: $base-small-font-size;
+  }
+
+  p {
+    width: 100%;
+    height: 30px;
+    margin-bottom: $spacing-small;
+  }
+
+  .centered {
+    width: 360px;
+    margin: $spacing-small auto;
+  }
+
+  iframe {
+    height: 273px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.video-footer {
+  span {
+    float: right;
+  }
+}
+
+.video-link {
+  float: right;
+  margin-top: $spacing-medium;
+}
+
+@include media($tablet-portrait-up) {
+  .video-container {
+    padding: $spacing-medium $spacing-large;
+    width: 800px;
+    height: 685px;
+
+    iframe {
+      height: 480px;
+    }
+
+    .centered {
+      width: 640px;
+    }
+  }
+}

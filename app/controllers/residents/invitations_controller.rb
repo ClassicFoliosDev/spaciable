@@ -32,10 +32,8 @@ module Residents
       end
     end
 
-    def after_accept_path_for(resource)
-      services_enabled = resource.plots.any? { |plot| plot.developer.enable_services? }
-
-      services_enabled ? services_path : root_path
+    def after_accept_path_for(_resource)
+      intro_video_path
     end
 
     private

@@ -34,7 +34,7 @@
       <% else %>
         <td colspan="5"><em><%= t(".removed") %></em></td>
       <% end %>
-      <td><%= resident.ts_and_cs_accepted? %></td>
+      <td><%= l resident.ts_and_cs_accepted_at.to_date if resident.ts_and_cs_accepted_at? %></td>
     </tr>
     <% end %>
   </tbody>

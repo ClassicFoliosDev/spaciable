@@ -1,0 +1,11 @@
+<div class="video-container">
+
+  <h4><%= t(".welcome_title", name: current_resident.first_name) %></h4>
+  <span><%= t(".welcome_1") %></span><br/>
+  <span><%= t(".welcome_2") %></span><br/>
+
+  <%= render "homeowners/about_videos/video", setting: @setting %>
+
+  <p><%= link_to t(".next"), @next_path, class: "btn btn-primary right" %></p>
+  <p class="video-footer"><span><%= t(".return") %></span></p>
+</div>

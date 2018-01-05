@@ -292,3 +292,15 @@ Then(/^I can not complete registration$/) do
   disabled_btn = page.find("[disabled]")
   expect(disabled_btn.value).to eq t("residents.invitations.edit.submit_button")
 end
+
+Given(/^a CF admin has configured a video link$/) do
+  FactoryGirl.create(:setting, video_link: SettingsFixture.video_url)
+end
+
+Then(/^I should be redirected to the video introduction page$/) do
+  within ".video-container" do
+    expect(page).to have_content t("homeowners.intro_videos.show.welcome_title", name: PlotResidencyFixture.attrs[:first_name])
+
+    click_on t("homeowners.intro_videos.show.next")
+  end
+end

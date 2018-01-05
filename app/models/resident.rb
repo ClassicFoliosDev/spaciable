@@ -50,6 +50,12 @@ class Resident < ApplicationRecord
     save
   end
 
+  def services_enabled?
+    plots.any? do |plot|
+      plot.developer.enable_services?
+    end
+  end
+
   def plot=(plot_record)
     if new_record?
       PlotResidency.new(resident_id: id, plot_id: plot_record&.id)

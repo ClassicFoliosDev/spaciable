@@ -215,6 +215,7 @@ en:
       contacts: "Contacts"
       howtos: "How tos"
       help: "Hoozzi help"
+      configuration: "Global settings"
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
@@ -392,6 +393,18 @@ en:
     help:
       show:
         help_file: "Hoozzi admin interface user guide (PDF)"
+    settings:
+      show:
+        title: "Global settings for Hoozzi"
+        video_link: "Introductory video link"
+        edit: "Edit"
+      edit:
+        title: "Edit global settings for Hoozzi"
+        back: "Back"
+        submit: "Submit"
+        embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
+      update:
+        success: "The configuration settings for Hoozzi have been updated successfully"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
@@ -586,6 +599,7 @@ en:
         post_updates: "Post updates"
         other_residents: "Other residents who have access to this information in Hoozzi"
         none: "Only you can see the content for %{plot}"
+        intro_video: "Hoozzi introduction video"
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
@@ -597,7 +611,13 @@ en:
         postamble: "You can always choose services later through your Account Settings"
       resident_services:
         success: "Your services have been requested"
-
+    intro_videos:
+      show:
+        welcome_title: "Welcome %{name} and welcome to Hoozzi, your new home management portal"
+        welcome_1: "Check out the video below for a quick introduction to the benefits and services Hoozzi offers."
+        welcome_2: "Everything is specific and personalised to your new home."
+        next: "Next"
+        return: "You can always return to this through the Account Settings"
   developers:
     destroy:
       success: "%{developer_name} was deleted successfully"

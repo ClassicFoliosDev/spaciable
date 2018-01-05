@@ -8,6 +8,14 @@ When(/^I visit the ts_and_cs page$/) do
   end
 end
 
+When(/^I visit the admin ts_and_cs page$/) do
+  visit "/"
+
+  within ".copyright-footer" do
+    click_on t("components.homeowner.footer.ts_and_cs")
+  end
+end
+
 Then(/^I should see the terms and conditions for using Hoozzi$/) do
   within ".policy" do
     expect(page).to have_content(t("legal.ts_and_cs_homeowner.title"))
@@ -27,6 +35,14 @@ When(/^I visit the privacy page$/) do
   visit "/"
 
   within ".footer" do
+    click_on t("components.homeowner.footer.privacy")
+  end
+end
+
+When(/^I visit the admin privacy page$/) do
+  visit "/"
+
+  within ".copyright-footer" do
     click_on t("components.homeowner.footer.privacy")
   end
 end

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     resources :users
     resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
+    resource :settings, only: [:show, :edit, :update]
 
     get 'developers', to: 'developers#index', format: :json
     get 'divisions', to: 'divisions#index', format: :json
@@ -134,6 +135,8 @@ Rails.application.routes.draw do
     resources :services, only: [:index] do
       post :resident_services, on: :collection
     end
+    resource :intro_video, only: [:show]
+    resource :about_video, only: [:show]
 
     get "contacts/:category",
         to: 'contacts#index',

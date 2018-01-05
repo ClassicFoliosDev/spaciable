@@ -25,7 +25,9 @@ When(/^I log in as a homeowner$/) do
 end
 
 When(/^I log out as a homeowner$/) do
-  first(:css, "[data-test='homeowner-sign-out']").click
+  within ".session-inner" do
+    first(:css, "[data-test='homeowner-sign-out']").click
+  end
 
   within ".notice" do
     expect(page).to have_content(t("devise.sessions.signed_out"))

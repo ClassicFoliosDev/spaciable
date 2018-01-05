@@ -51,30 +51,6 @@ if Rails.env.development?
     #{'*' * 100}
     INFO
   end
-
-  resident = Resident.find_by(email: resident_email) || Resident.first
-
-  if resident.plot.nil?
-    puts "Creating plot for resident #{resident.email}"
-    FactoryGirl.create(:plot, :with_resident, resident: resident)
-  end
-
-  resident.reload
-  plot = resident.plot
-
-  if plot.developer.contacts.empty?
-    Contact.categories.keys.each do |category|
-      FactoryGirl.create_list(:contact, 10, category: category, contactable: plot.developer)
-      FactoryGirl.create_list(:contact, 10, category: category, contactable: plot.development)
-    end
-  end
-
-  if resident.plot.developer.faqs.empty?
-    Faq.categories.keys.each do |category|
-      FactoryGirl.create_list(:faq, 10, category: category, faqable: plot.developer)
-      FactoryGirl.create_list(:faq, 10, category: category, faqable: plot.development)
-    end
-  end
 end
 
 
@@ -82,3 +58,4 @@ load(Rails.root + "db/seeds/manufacturers_and_appliance_seeds.rb")
 load(Rails.root + "db/seeds/finishes_seeds.rb")
 load(Rails.root + "db/seeds/how_to_sub_category_seeds.rb")
 load(Rails.root + "db/seeds/services_seeds.rb")
+load(Rails.root + "db/seeds/settings_seeds.rb")

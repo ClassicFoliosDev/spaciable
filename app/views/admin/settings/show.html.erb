@@ -1,0 +1,12 @@
+<h3><%= t(".title") %></h3>
+
+<div class="section-data">
+  <%= edit_btn edit_admin_settings_path, element: @setting %>
+</div>
+
+<div class="row configuration">
+  <div class="row-item half intro-video">
+    <h5><%= t(".video_link") %></h5>
+    <span><%= @setting.video_link %></span>
+  </div>
+</div>

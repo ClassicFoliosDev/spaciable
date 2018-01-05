@@ -24,3 +24,4 @@ Then(/^I can see an invidividual resident$/) do
     expect(page).to have_content plot.unit_type
   end
 end
+

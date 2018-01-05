@@ -9,12 +9,14 @@ Feature: Homeowner Account
   Scenario: With services choose none
     Given I am a Development Admin wanting to assign a new resident to a plot
     And the developer has enabled services
+    And a CF admin has configured a video link
     And I have seeded the database with services
     When I assign a new resident to a plot
     And I log out as a an admin
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
-    And I select no services
+    Then I should be redirected to the video introduction page
+    When I select no services
     Then I should be redirected to the homeowner dashboard
 
   Scenario: Account update
@@ -45,10 +47,12 @@ Feature: Homeowner Account
 
   Scenario: Delete and recreate legacy style
     Given I am a Development Admin wanting to assign a new resident to a plot
+    And a CF admin has configured a video link
     And I assign a new resident to a plot
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
-    Then I should be redirected to the homeowner dashboard
+    Then I should be redirected to the video introduction page
+    And I should be redirected to the homeowner dashboard
     When I soft delete the plot residency
     And I log in as a Development Admin
     When I assign a new resident to a plot
