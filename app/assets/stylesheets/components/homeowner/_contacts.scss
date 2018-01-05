@@ -91,6 +91,7 @@
     border-radius: $border-radius;
     border-style: solid;
     padding: $spacing-small;
+    height: 200px;
 
     .avatar {
       @include span-columns(4 of 12);
