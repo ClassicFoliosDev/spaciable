@@ -25,7 +25,7 @@
             <% end %>
           <% end %>
           <% room.appliances.each_with_index do | appliance, index | %>
-            <% if index.odd? %>
+            <% if index.even? %>
               <%= render "homeowners/components/appliance", appliance: appliance %>
             <% end %>
           <% end %>
@@ -38,7 +38,7 @@
             <% end %>
           <% end %>
           <% room.appliances.each_with_index do | appliance, index | %>
-            <% if index.even? %>
+            <% if index.odd? %>
               <%= render "homeowners/components/appliance", appliance: appliance %>
             <% end %>
           <% end %>
@@ -47,4 +47,3 @@
     <% end %>
   </div>
 </div>
-
