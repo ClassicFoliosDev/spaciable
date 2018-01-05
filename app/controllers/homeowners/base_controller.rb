@@ -41,6 +41,10 @@ module Homeowners
                 current_resident.plots.first
               end
       if current_resident.present?
+        @plots = current_resident.plots.includes(:developer, :address,
+                                                 phase: :address,
+                                                 development: %i[brand division],
+                                                 division: %i[brand developer])
         session[:plot_id] = @plot.id
         @plots = current_resident.plots
       elsif current_user.present?
