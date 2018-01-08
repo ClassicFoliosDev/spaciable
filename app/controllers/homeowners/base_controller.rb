@@ -35,21 +35,21 @@ module Homeowners
 
     def set_plot
       plot_id = session[:plot_id]
-      @plot = if plot_id
-                Plot.find(plot_id)
-              else
-                current_resident.plots.first
-              end
+
+      @plot = Plot.find(plot_id) if plot_id
+
       if current_resident.present?
         @plots = current_resident.plots.includes(:developer, :address,
                                                  phase: :address,
                                                  development: %i[brand division],
                                                  division: %i[brand developer])
+        @plot = @plots.first if @plot.nil?
         session[:plot_id] = @plot.id
-        @plots = current_resident.plots
       elsif current_user.present?
         @plots = [@plot]
       end
+
+      redirect_to new_resident_session_path if @plot.nil?
     end
 
     def set_unread
