@@ -4,7 +4,7 @@
 
   <div class="about-section">
     <% if @plot.unit_type.external_link? %>
-      <iframe width="853" height="480" src=<%= @plot.external_link %> frameborder="0" allowfullscreen></iframe>
+      <iframe src=<%= @plot.external_link %> frameborder="0" allowfullscreen></iframe>
     <% end %>
   </div>
 

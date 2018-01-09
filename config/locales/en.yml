@@ -1034,7 +1034,7 @@ en:
       upload: "Upload"
       submit: "Submit"
       back: "Back"
-      matterport_example: "For example https://my.matterport.com/show/?m=dummy"
+      matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
       matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
     new:
       add: "Add %{development_name} unit type"
