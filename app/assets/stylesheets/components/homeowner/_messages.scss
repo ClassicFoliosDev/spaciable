@@ -1,0 +1,29 @@
+.messages-container {
+  color: $type-grey;
+  span {
+    font-size: $base-small-font-size;
+  }
+
+  .message {
+    border-style: solid;
+    border-width: 1px;
+    border-color: $ui-dark-grey;
+    padding: $spacing-medium;
+
+    .reply-send {
+      float: right;
+    }
+  }
+}
+
+.message-form {
+  .send {
+    float: right;
+    margin-bottom: $spacing-small;
+  }
+}
+
+.message-submit {
+  width: 100%;
+  height: 40px;
+}

@@ -54,23 +54,35 @@ module Residents
 
     def verify_ts_and_cs_accepted
       return if current_resident.blank?
-      return if current_resident.ts_and_cs_accepted_at.present?
 
       if params[:resident][:ts_and_cs_accepted_at]
-        current_resident.update(ts_and_cs_accepted_at: Time.zone.now)
         # Set a generic cookie, not a devise session, because the devise session data
         # is removed on log out, and we need this to persist through log out to the next user
         # log in.
         # WARNING Cookies are stored in the clear (do not include confidential information)
-        cookies[:ts_and_cs_accepted] = current_resident.ts_and_cs_accepted_at.present?
-      else
-        # If the device is shared, a user might get here by signing in with a different email
-        # address. They will also get here after the rake task reset_ts_and_cs has been run
-        # If so, delete the cookie and send them back to log in again
-        cookies.delete :ts_and_cs_accepted
-        sign_out_all_scopes
-        flash[:alert] = t(".ts_and_cs_required")
+        cookies[:ts_and_cs_accepted] = true
+        accept_ts_and_cs
+      elsif cookies[:ts_and_cs_accepted]
+        reset_cookie
       end
+    end
+
+    def accept_ts_and_cs
+      return if current_resident.ts_and_cs_accepted_at.present?
+      current_resident.update(ts_and_cs_accepted_at: Time.zone.now)
+    end
+
+    def reset_cookie
+      # Keep the cookie if the resident has accepted ts and cs previously
+      return if current_resident.ts_and_cs_accepted_at.present?
+
+      # A user might get here by signing in with a different email address on a shared device,
+      # or if they log in from a new device. They will also get here after the rake task
+      # reset_ts_and_cs has been run
+      # For all these cases, delete the cookie and send them back to log in again
+      cookies.delete :ts_and_cs_accepted
+      sign_out_all_scopes
+      flash[:alert] = t(".ts_and_cs_required")
     end
   end
 end

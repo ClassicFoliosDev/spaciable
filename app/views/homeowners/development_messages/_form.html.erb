@@ -1,0 +1,24 @@
+<div class="message-form">
+  <%= simple_form_for message, url: development_messages_path do |f| %>
+    <% if message.errors.any? %>
+      <div class="submission-errors">
+        <ul>
+          <% message.errors.full_messages.each do |error_msg| %>
+            <li>
+              <%= fa_icon "exclamation-circle" %>
+              <%= error_msg %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="message-submit">
+      <%= f.submit t(".send"), class: "btn btn-primary send", disabled: true %>
+    </div>
+
+    <%= f.input :subject, label: false, placeholder: t(".subject"), maxlength: 100, required: true, class: "message-subject" %>
+    <%= f.text_area :content, placeholder: t(".content"), maxlength: 255, required: true, class: "message-content" %>
+
+  <% end %>
+</div>

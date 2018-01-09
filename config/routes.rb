@@ -137,6 +137,7 @@ Rails.application.routes.draw do
     end
     resource :intro_video, only: [:show]
     resource :about_video, only: [:show]
+    resources :development_messages, only: [:index, :create]
 
     get "contacts/:category",
         to: 'contacts#index',

@@ -39,6 +39,10 @@ en:
       digits: "%d.%m.%Y"
       default: "%d/%m/%Y"
 
+  time:
+    formats:
+      day_time: "%A %d %B %H:%M"   # Friday 20 October 13:24
+
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
   developer_admin: "Developer Admin"
@@ -75,6 +79,7 @@ en:
       title: "My home"
       nav:
         dashboard: "Dashboard"
+        community: "Community"
         my_home: "My home"
         contacts: "Contacts"
         how_to: "How to"
@@ -618,6 +623,20 @@ en:
         welcome_2: "Everything is specific and personalised to your new home."
         next: "Next"
         return: "You can always return to this through the Account Settings"
+    development_messages:
+      index:
+        title: "Community messages for %{development}"
+        description: "Share information with other residents in your development"
+      form:
+        send: "Send"
+        subject: "Topic (max 100 characters)"
+        content: "Message (max 255 characters)"
+      reply_form:
+        send: "Send"
+        content: "Reply (max 255 characters)"
+      create:
+        failure: "It was not possible to send your message, please correct the errors shown:"
+
   developers:
     destroy:
       success: "%{developer_name} was deleted successfully"
@@ -652,6 +671,8 @@ en:
       house_search_description: "Provides an external link to BestArea4Me from the Hoozzi homeowner site"
       enable_services: "Enable homeowner to request services"
       services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
+      enable_messages: "Enable community messages"
+      messages_description: "Allow development residents to share messages with each other"
     index:
       add: "Add developer"
       actions: "Actions"
@@ -679,6 +700,7 @@ en:
       none: "(not configured)"
       house_search: "Area guide: "
       services: "Services: "
+      messages: "Community messages: "
       enabled: "enabled"
       disabled: "disabled"
 
@@ -1631,6 +1653,7 @@ en:
         mailchimp_failure: "WARNING %{name} was created or updated or deleted, but %{type} could not be updated for MailChimp, details: %{message}"
         delete_not_possible: "It is not possible to delete %{name} because other %{types} depend on it"
         clone_not_possible: "It is not possible to clone %{name}: it might have references to invalid appliances or finishes"
+        must_have_subject: "You must provide a topic for your new message"
       models:
         developer:
           attributes:

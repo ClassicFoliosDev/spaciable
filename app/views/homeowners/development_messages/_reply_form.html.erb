@@ -1,0 +1,10 @@
+<div class="message-reply">
+  <%= simple_form_for message do |f| %>
+    <div class="message-submit">
+      <%= f.submit t(".send"), class: "btn reply-send", disabled: true %>
+    </div>
+
+    <%= f.text_area :content, placeholder: t(".content"), maxlength: 255, required: true, class: "reply-content" %>
+    <%= f.hidden_field :parent_id, value: parent_id %>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<div class="message">
+  <span class="strong"><%= message.resident %></span>
+  <span><%= l message.created_at, format: :day_time %></span>
+  <h5><%= message.subject %></h5>
+  <span><%= message.content %></span>
+
+  <% message.children.each do | child | %>
+    <%= render "homeowners/development_messages/reply", message: child %>
+  <% end %>
+
+  <%= render "homeowners/development_messages/reply_form", message: DevelopmentMessage.new, parent_id: message.id %>
+</div>

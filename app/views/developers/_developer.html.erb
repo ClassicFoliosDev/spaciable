@@ -5,7 +5,8 @@
       <%= simple_format developer.about %>
       <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %><br/>
       <strong><%= t(".house_search") %></strong><%= developer.house_search? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".services") %></strong><%= developer.enable_services? ? t(".enabled") : t(".disabled") %>
+      <strong><%= t(".services") %></strong><%= developer.enable_services? ? t(".enabled") : t(".disabled") %><br/>
+      <strong><%= t(".messages") %></strong><%= developer.enable_development_messages? ? t(".enabled") : t(".disabled") %>
     </span>
   </div>
 

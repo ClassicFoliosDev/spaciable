@@ -1,0 +1,14 @@
+<div class="branded-body">
+  <div class="main-container">
+    <div class="messages-container half">
+      <h5><%= t(".title", development: @plot.development) %></h5>
+      <span><%= t(".description") %></span>
+
+      <%= render "homeowners/development_messages/form", message: @message %>
+
+      <% @messages.each do | message | %>
+        <%= render "homeowners/development_messages/message", message: message %>
+      <% end %>
+    </div>
+  </div>
+</div>

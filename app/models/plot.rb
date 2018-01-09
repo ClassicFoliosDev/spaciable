@@ -38,6 +38,7 @@ class Plot < ApplicationRecord
   delegate :branded_logo, to: :brand, allow_nil: true
   delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, :enable_services?, to: :developer, allow_nil: true
+  delegate :enable_development_messages?, to: :developer
 
   enum progress: %i[
     soon

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180104104131) do
+ActiveRecord::Schema.define(version: 20180108133245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,16 +181,30 @@ ActiveRecord::Schema.define(version: 20180104104131) do
     t.string   "company_name"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.datetime "deleted_at"
     t.text     "about"
     t.string   "api_key"
     t.string   "list_id"
     t.boolean  "house_search"
-    t.boolean  "enable_services", default: false
+    t.boolean  "enable_services",             default: false
+    t.boolean  "enable_development_messages", default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
+  end
+
+  create_table "development_messages", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "content"
+    t.integer  "parent_id"
+    t.integer  "development_id"
+    t.integer  "resident_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["development_id"], name: "index_development_messages_on_development_id", using: :btree
+    t.index ["parent_id"], name: "index_development_messages_on_parent_id", using: :btree
+    t.index ["resident_id"], name: "index_development_messages_on_resident_id", using: :btree
   end
 
   create_table "developments", force: :cascade do |t|
@@ -621,6 +635,8 @@ ActiveRecord::Schema.define(version: 20180104104131) do
 
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
+  add_foreign_key "development_messages", "developments"
+  add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"

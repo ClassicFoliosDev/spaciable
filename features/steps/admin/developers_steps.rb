@@ -14,7 +14,15 @@ When(/^I create a developer$/) do
 end
 
 Then(/^I should see the created developer$/) do
-  expect(page).to have_content(CreateFixture.developer_name)
+  within ".developers" do
+    click_on CreateFixture.developer_name
+  end
+
+  within ".section-title" do
+    expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.disabled")}")
+    expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.disabled")}")
+    expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.disabled")}")
+  end
 end
 
 When(/^I update the developer$/) do
@@ -32,6 +40,8 @@ When(/^I update the developer$/) do
   end
 
   check "developer_house_search"
+  check "developer_enable_services"
+  check "developer_enable_development_messages"
 
   click_on t("developers.form.submit")
 end
@@ -43,10 +53,11 @@ Then(/^I should see the updated developer$/) do
   )
   expect(page).to have_content(success_flash)
 
-  # On the show page
   within ".section-title" do
     expect(page).to have_content(DeveloperFixture.updated_company_name)
-    expect(page).to have_content(t("developers.developer.enabled"))
+    expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.enabled")}")
+    expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.enabled")}")
+    expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.enabled")}")
   end
 
   within ".section-data" do
