@@ -4,8 +4,9 @@ require "rails_helper"
 
 RSpec.describe ResidentServicesService do
   let(:resident) { create(:resident) }
-  let(:development) { create(:development) }
-  let(:plot) { create(:plot) }
+  let(:developer) { create(:developer, enable_services: true) }
+  let(:development) { create(:development, developer_id: developer.id) }
+  let(:plot) { create(:plot, development_id: development.id) }
   let(:plot_resident) { create(:plot_residency, plot_id: plot.id, resident_id: resident.id) }
   let(:service1) {create(:service)}
   let(:service2) {create(:service)}
@@ -18,7 +19,7 @@ RSpec.describe ResidentServicesService do
 
       plot_resident
       service_ids = [service1, service2].pluck(:id)
-      service_count = described_class.call(resident, service_ids, false)
+      service_count = described_class.call(resident, service_ids, false, plot)
       expect(service_count).to eq 2
 
       services_email = ActionMailer::Base.deliveries.last
@@ -46,7 +47,7 @@ RSpec.describe ResidentServicesService do
 
       plot_resident
       service_ids = [service3, service4].pluck(:id)
-      service_count = described_class.call(resident, service_ids, true)
+      service_count = described_class.call(resident, service_ids, true, plot)
       expect(service_count).to eq 2
 
       services_email = ActionMailer::Base.deliveries.last

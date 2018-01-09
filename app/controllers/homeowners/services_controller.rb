@@ -11,7 +11,8 @@ module Homeowners
     end
 
     def resident_services
-      service_count = ResidentServicesService.call(current_resident, params[:services], false)
+      service_count = ResidentServicesService
+                      .call(current_resident, params[:services], false, @plot)
 
       notice = t(".success") if service_count.positive?
       redirect_to root_path, notice: notice

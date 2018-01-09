@@ -3,23 +3,13 @@
 module ResidentServicesService
   module_function
 
-  def call(resident, service_ids, possible_old_services, plot = nil)
+  def call(resident, service_ids, possible_old_services, plot)
     return 0 unless resident
     return 0 unless service_ids
+    return 0 unless plot.enable_services?
 
-    # Remove all existing resident services
-    if possible_old_services
-      old_service_names = resident.services.map(&:name)
-      resident.services.delete_all
-    end
-
-    service_ids.each do |id|
-      ResidentService.create(resident_id: resident.id, service_id: id)
-      service = Service.find(id)
-      old_service_names.delete(service.name) if old_service_names&.include?(service.name)
-    end
-
-    ServicesNotificationJob.perform_later(resident, old_service_names, plots(resident, plot))
+    old_service_names = update_services(resident, service_ids, possible_old_services)
+    ServicesNotificationJob.perform_later(resident, old_service_names, plot)
     service_ids.length
   end
 
@@ -27,11 +17,23 @@ module ResidentServicesService
 
   module_function
 
-  def plots(resident, provided_plot)
-    if provided_plot.nil?
-      resident.plots.select { |plot| plot.developer.enable_services? }
-    else
-      Array(provided_plot)
+  def update_services(resident, service_ids, possible_old_services)
+    # Make a list of previously selected services,
+    # then clear them from the resident_services join table
+    if possible_old_services
+      old_service_names = resident.services.map(&:name)
+      resident.services.delete_all
     end
+
+    # Create a new join table entry for services subscribed now
+    # Work out the delta between the services subscribed now and the ones that were
+    # previously subscribed
+    service_ids.each do |id|
+      ResidentService.create(resident_id: resident.id, service_id: id)
+      service = Service.find(id)
+      old_service_names.delete(service.name) if old_service_names&.include?(service.name)
+    end
+
+    old_service_names
   end
 end

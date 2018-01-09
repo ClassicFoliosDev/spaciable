@@ -3,28 +3,26 @@
   <div style="padding: 60px 40px;">
     <p><%= @title %></p>
 
-    <% @plots.each do | plot | %>
+    <h3><%= t(".developer_title") %></h3>
+    <p><span><strong><%= t(".developer") %></strong></span> <%= @plot.developer %></p>
+    <% if @plot.division %>
+      <p><span><strong><%= t(".division") %></strong></span> <%= @plot.division %></p>
 
-      <h3><%= t(".developer_title") %></h3>
-      <p><span><strong><%= t(".developer") %></strong></span> <%= plot.developer %></p>
-      <% if plot.division %>
-        <p><span><strong><%= t(".division") %></strong></span> <%= plot.division %></p>
-      <% end %>
-      <p><span><strong><%= t(".development") %></strong></span> <%= plot.development %></p>
-      <p><span><strong><%= t(".phase") %></strong></span> <%= plot.phase %></p>
-      <p><span><strong><%= t(".number") %></strong></span> <%= plot.to_s %></p>
-      <p><span><strong><%= t("plots.plot.completion_date") %></strong></span> <%= l plot.completion_date, format: :digits %></p>
-
-      <p><span><strong><%= "#{t("activerecord.attributes.plot.house_number")}:" %></strong></span> <%= plot.house_number %></p>
-      <p><span><strong><%= "#{t("activerecord.attributes.address.building_name")}:" %></strong></span> <%= plot.building_name %></p>
-      <p><span><strong><%= "#{t("activerecord.attributes.address.road_name")}:" %></strong></span> <%= plot.road_name %></p>
-      <p><span><strong><%= "#{t("activerecord.attributes.address.locality")}:" %></strong></span> <%= plot.locality %></p>
-      <p><span><strong><%= "#{t("activerecord.attributes.address.city")}:" %></strong></span> <%= plot.city %></p>
-      <p><span><strong><%= "#{t("activerecord.attributes.address.county")}:" %></strong></span> <%= plot.county %></p>
-      <p><span><strong><%= "#{t("activerecord.attributes.address.postcode")}:" %></strong></span> <%= plot.postcode %></p>
-
-      <hr>
     <% end %>
+    <p><span><strong><%= t(".development") %></strong></span> <%= @plot.development %></p>
+    <p><span><strong><%= t(".phase") %></strong></span> <%= @plot.phase %></p>
+    <p><span><strong><%= t(".number") %></strong></span> <%= @plot.to_s %></p>
+    <p><span><strong><%= t("plots.plot.completion_date") %></strong></span> <%= l @plot.completion_date, format: :digits %></p>
+
+    <p><span><strong><%= "#{t("activerecord.attributes.plot.house_number")}:" %></strong></span> <%= @plot.house_number %></p>
+    <p><span><strong><%= "#{t("activerecord.attributes.address.building_name")}:" %></strong></span> <%= @plot.building_name %></p>
+    <p><span><strong><%= "#{t("activerecord.attributes.address.road_name")}:" %></strong></span> <%= @plot.road_name %></p>
+    <p><span><strong><%= "#{t("activerecord.attributes.address.locality")}:" %></strong></span> <%= @plot.locality %></p>
+    <p><span><strong><%= "#{t("activerecord.attributes.address.city")}:" %></strong></span> <%= @plot.city %></p>
+    <p><span><strong><%= "#{t("activerecord.attributes.address.county")}:" %></strong></span> <%= @plot.county %></p>
+    <p><span><strong><%= "#{t("activerecord.attributes.address.postcode")}:" %></strong></span> <%= @plot.postcode %></p>
+
+    <hr>
 
     <h3><%= t(".resident_title") %></h3>
 

@@ -2,26 +2,24 @@
 
 <%= t(".developer_title") %>
 
-<% @plots.each do | plot | %>
-  <%= t(".developer") %> <%= plot.developer %>
-  <% if plot.division %>
-    <%= t(".division") %> <%= plot.division %>
-  <% end %>
-  <%= t(".development") %> <%= plot.development %>
-  <%= t(".phase") %> <%= plot.phase %>
-  <%= t(".number") %> <%= plot.to_s %>
-  <%= t("plots.plot.completion_date") %> <%= l plot.completion_date, format: :digits %>
-
-  <%= "#{t("activerecord.attributes.plot.house_number")}:" %> <%= plot.house_number %>
-  <%= "#{t("activerecord.attributes.address.building_name")}:" %> <%= plot.building_name %>
-  <%= "#{t("activerecord.attributes.address.road_name")}:" %> <%= plot.road_name %>
-  <%= "#{t("activerecord.attributes.address.locality")}:" %> <%= plot.locality %>
-  <%= "#{t("activerecord.attributes.address.city")}:" %> <%= plot.city %>
-  <%= "#{t("activerecord.attributes.address.county")}:" %> <%= plot.county %>
-  <%= "#{t("activerecord.attributes.address.postcode")}:" %> <%= plot.postcode %>
-
-  "------------------------------"
+<%= t(".developer") %> <%= @plot.developer %>
+<% if @plot.division %>
+  <%= t(".division") %> <%= @plot.division %>
 <% end %>
+<%= t(".development") %> <%= @plot.development %>
+<%= t(".phase") %> <%= @plot.phase %>
+<%= t(".number") %> <%= @plot.to_s %>
+<%= t("plots.plot.completion_date") %> <%= l @plot.completion_date, format: :digits %>
+
+<%= "#{t("activerecord.attributes.plot.house_number")}:" %> <%= @plot.house_number %>
+<%= "#{t("activerecord.attributes.address.building_name")}:" %> <%= @plot.building_name %>
+<%= "#{t("activerecord.attributes.address.road_name")}:" %> <%= @plot.road_name %>
+<%= "#{t("activerecord.attributes.address.locality")}:" %> <%= @plot.locality %>
+<%= "#{t("activerecord.attributes.address.city")}:" %> <%= @plot.city %>
+<%= "#{t("activerecord.attributes.address.county")}:" %> <%= @plot.county %>
+<%= "#{t("activerecord.attributes.address.postcode")}:" %> <%= @plot.postcode %>
+
+"------------------------------"
 
 <%= t(".resident_title") %>
 
