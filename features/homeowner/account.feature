@@ -22,12 +22,14 @@ Feature: Homeowner Account
   Scenario: Account update
     Given I am logged in as a homeowner
     And the developer has enabled services
+    And the plot has an address
     And I have seeded the database with services
     Then I should see be able to view My Account
     When I update the account details
     Then I should see account details updated successfully
     When I remove services from my account
     Then I should see account subscriptions removed successfully
+    And the email should include all my details
 
   Scenario: Without services
     Given I am logged in as a homeowner

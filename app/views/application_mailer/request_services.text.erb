@@ -10,12 +10,22 @@
   <%= t(".development") %> <%= plot.development %>
   <%= t(".phase") %> <%= plot.phase %>
   <%= t(".number") %> <%= plot.to_s %>
+  <%= t("plots.plot.completion_date") %> <%= l plot.completion_date, format: :digits %>
+
+  <%= "#{t("activerecord.attributes.plot.house_number")}:" %> <%= plot.house_number %>
+  <%= "#{t("activerecord.attributes.address.building_name")}:" %> <%= plot.building_name %>
+  <%= "#{t("activerecord.attributes.address.road_name")}:" %> <%= plot.road_name %>
+  <%= "#{t("activerecord.attributes.address.locality")}:" %> <%= plot.locality %>
+  <%= "#{t("activerecord.attributes.address.city")}:" %> <%= plot.city %>
+  <%= "#{t("activerecord.attributes.address.county")}:" %> <%= plot.county %>
+  <%= "#{t("activerecord.attributes.address.postcode")}:" %> <%= plot.postcode %>
 
   "------------------------------"
 <% end %>
 
 <%= t(".resident_title") %>
 
+<%= "#{t("activerecord.attributes.resident.title")}:" %> <%= t("activerecord.attributes.contact.titles.#{@resident.title}") if @resident.title %>
 <%= t(".first") %> <%= @resident.first_name %>
 <%= t(".last") %> <%= @resident.last_name %>
 <%= t(".email") %> <%= @resident.email %>

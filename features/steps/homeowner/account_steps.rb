@@ -304,3 +304,46 @@ Then(/^I should be redirected to the video introduction page$/) do
     click_on t("homeowners.intro_videos.show.next")
   end
 end
+
+Then(/^the email should include all my details$/) do
+  services_email = ActionMailer::Base.deliveries.last
+
+  expect(services_email.from).to eq ["no-reply@hoozzi.com"]
+
+  contents = services_email.text_part.body.raw_source
+
+  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
+
+  expect(contents).to have_content ("Completion date: #{plot.completion_date.strftime("%d.%m.%Y")}")
+  expect(contents).to have_content ("Postal number / name: 66")
+  expect(contents).to have_content ("Building name: #{plot.building_name}")
+  expect(contents).to have_content ("Road: #{plot.road_name}")
+  expect(contents).to have_content ("Locality: #{plot.locality}")
+  expect(contents).to have_content ("Town / city: #{plot.city}")
+  expect(contents).to have_content ("County: #{plot.county}")
+  expect(contents).to have_content ("Postcode: #{plot.postcode}")
+
+  resident = Resident.find_by(email: HomeownerUserFixture.email)
+
+  expect(contents).to have_content ("Title: Mr")
+  expect(contents).to have_content ("First name: #{resident.first_name}")
+  expect(contents).to have_content ("Last name: #{resident.last_name}")
+  expect(contents).to have_content ("Email address: #{resident.email}")
+  expect(contents).to have_content ("Phone number: #{resident.phone_number}")
+
+  expect(contents).to have_content ("Resident has unsubscribed from
+          Financial Services
+          Other Services")
+
+  ActionMailer::Base.deliveries.clear
+end
+
+Given(/^the plot has an address$/) do
+  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
+  plot.house_number = "66"
+  address = FactoryGirl.create(:address)
+  address.addressable = plot
+
+  plot.save!
+  address.save!
+end
