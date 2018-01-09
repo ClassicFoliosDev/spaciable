@@ -46,6 +46,12 @@ module Admin
     end
 
     def destroy
+      # Update whether or not the user is valid:
+      # validation will be checked if the user is resumed
+      # rubocop:disable SkipsModelValidations
+      @user.update_attribute(:permission_level_id, nil)
+      @user.update_attribute(:permission_level_type, nil)
+      # rubocop:enable SkipsModelValidations
       @user.destroy
       notice = t(".archive.success", user_email: @user.email)
       redirect_to admin_users_path, notice: notice

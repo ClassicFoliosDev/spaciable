@@ -346,3 +346,114 @@ When(/^I accept the invitation as development admin$/) do
 
   ActionMailer::Base.deliveries.clear
 end
+
+When(/^I delete the developer admin$/) do
+  visit "/admin/users"
+  developer_admin = User.find_by(email: AdminUsersFixture.developer_admin_attrs[:email_address] )
+  delete_and_confirm!(scope: "[data-user=\"#{developer_admin.id}\"]")
+end
+
+Then(/^I should not see the deleted developer admin$/) do
+  within ".notice" do
+    expect(page).to have_content AdminUsersFixture.developer_admin_attrs[:email_address]
+  end
+
+  within ".users" do
+    expect(page).not_to have_content AdminUsersFixture.developer_admin_attrs[:email_address]
+  end
+
+  developer_admin = User.with_deleted.find_by(email: AdminUsersFixture.developer_admin_attrs[:email_address] )
+  expect(developer_admin.permission_level_type).to be_nil
+  expect(developer_admin.permission_level_id).to be_nil
+end
+
+When(/^I delete the division admin$/) do
+  visit "/admin/users"
+  division_admin = User.find_by(email: AdminUsersFixture.division_admin_attrs[:email_address] )
+  delete_and_confirm!(scope: "[data-user=\"#{division_admin.id}\"]")
+end
+
+Then(/^I should not see the deleted division admin$/) do
+  within ".notice" do
+    expect(page).to have_content AdminUsersFixture.division_admin_attrs[:email_address]
+  end
+
+  within ".users" do
+    expect(page).not_to have_content AdminUsersFixture.division_admin_attrs[:email_address]
+  end
+
+  division_admin = User.with_deleted.find_by(email: AdminUsersFixture.division_admin_attrs[:email_address] )
+  expect(division_admin.permission_level_type).to be_nil
+  expect(division_admin.permission_level_id).to be_nil
+end
+
+When(/^I delete the division development admin$/) do
+  visit "/admin/users"
+  development_admin = User.find_by(email: AdminUsersFixture.division_development_admin_attrs[:email_address] )
+  delete_and_confirm!(scope: "[data-user=\"#{development_admin.id}\"]")
+end
+
+Then(/^I should not see the deleted division development admin$/) do
+  within ".notice" do
+    expect(page).to have_content AdminUsersFixture.division_development_admin_attrs[:email_address]
+  end
+
+  within ".users" do
+    expect(page).not_to have_content AdminUsersFixture.division_development_admin_attrs[:email_address]
+  end
+
+  division_development_admin = User.with_deleted.find_by(email: AdminUsersFixture.division_development_admin_attrs[:email_address] )
+  expect(division_development_admin.permission_level_type).to be_nil
+  expect(division_development_admin.permission_level_id).to be_nil
+end
+
+
+When(/^I delete the development admin$/) do
+  visit "/admin/users"
+  development_admin = User.find_by(email: AdminUsersFixture.development_admin_attrs[:email_address] )
+  delete_and_confirm!(scope: "[data-user=\"#{development_admin.id}\"]")
+end
+
+Then(/^I should not see the deleted development admin$/) do
+  within ".notice" do
+    expect(page).to have_content AdminUsersFixture.development_admin_attrs[:email_address]
+  end
+
+  within ".users" do
+    expect(page).not_to have_content AdminUsersFixture.development_admin_attrs[:email_address]
+  end
+
+  development_admin = User.with_deleted.find_by(email: AdminUsersFixture.development_admin_attrs[:email_address] )
+  expect(development_admin.permission_level_type).to be_nil
+  expect(development_admin.permission_level_id).to be_nil
+end
+
+When(/^I restore the deleted developer admin as CF admin$/) do
+  visit "/admin/users"
+
+  within ".section-actions" do
+    click_on t("admin.users.index.add")
+  end
+
+  within ".user_email" do
+    fill_in :user_email, with: AdminUsersFixture.developer_admin_attrs[:email_address]
+  end
+
+  select_from_selectmenu :user_role, with: "CF Admin"
+
+  click_on t("admin.users.form.submit")
+end
+
+Then(/^I should see the recreated CF admin$/) do
+  within ".notice" do
+    expect(page).to have_content AdminUsersFixture.developer_admin_attrs[:email_address]
+  end
+
+  restored_cf_user = User.find_by(email: AdminUsersFixture.developer_admin_attrs[:email_address])
+
+  within "[data-user=\"#{restored_cf_user.id}\"]" do
+    expect(page).to have_content AdminUsersFixture.developer_admin_attrs[:email_address]
+    expect(page).to have_content "CF Admin"
+    expect(page).not_to have_content "Developer Admin"
+  end
+end

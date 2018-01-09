@@ -33,7 +33,10 @@ module AdminUsersFixture
   end
 
   def developer_admin_attrs
-    { email_address: "developer@cf.com", role: "Developer Admin", developer: developer_name }
+    { email_address: "developer@cf.com",
+      role: "Developer Admin",
+      developer: developer_name,
+    }
   end
 
   def division_admin_attrs

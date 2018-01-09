@@ -35,6 +35,12 @@ Feature: Admin Users
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
 
+    When I delete the developer admin
+    Then I should not see the deleted developer admin
+
+    When I restore the deleted developer admin as CF admin
+    Then I should see the recreated CF admin
+
   Scenario: Users view
     Given I am logged in as a CF Admin
     And I add a new Developer Admin
@@ -63,6 +69,9 @@ Feature: Admin Users
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
 
+    When I delete the developer admin
+    Then I should not see the deleted developer admin
+
     When I change my password
     Then I should be logged out
 
@@ -76,6 +85,9 @@ Feature: Admin Users
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
 
+    When I delete the division admin
+    Then I should not see the deleted division admin
+
   Scenario: Development Admin
     Given I am logged in as a Development Admin
     And I am on the Admin Users page
@@ -83,12 +95,18 @@ Feature: Admin Users
     When I add a Development Admin
     Then I should see the new Development Admin
 
+    When I delete the development admin
+    Then I should not see the deleted development admin
+
   Scenario: (Division) Development Admin
     Given I am logged in as a Development Admin for a Division
     And I am on the Admin Users page
 
     When I add a (division) Development Admin
     Then I should see the new (division) Development Admin
+
+    When I delete the division development admin
+    Then I should not see the deleted division development admin
 
     When I change my password
     Then I should be logged out
