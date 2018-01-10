@@ -19,7 +19,11 @@ $document.on('keypress', 'form', function (event) {
 
     // Whether or not there is a search value, don't allow the user
     // to submit the form using "enter" key, unless this is a sign_in page
-    return !!window.location.pathname.includes('sign_in')
+    var homeownerSignInPage = $('.login-view').length > 0
+    var acceptPage = $('.accept-view').length > 0
+    var signInPage = window.location.pathname.includes('sign_in')
+
+    return !!(homeownerSignInPage || signInPage || acceptPage)
   }
 })
 
