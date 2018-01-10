@@ -56,6 +56,10 @@
 
   p, a, label {
     color: inherit;
+
+    i {
+      color: $ui-white;
+    }
   }
 }
 

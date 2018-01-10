@@ -11,12 +11,12 @@
           <%= f.input :email, required: false, autofocus: true %>
           <%= f.input :password, required: false %>
           <%= f.label :remember_me, class: "login-checkbox" do %>
-            <%= f.check_box :remember_me, class: "branded-input remember-checkbox", checked: false %>
+            <%= f.check_box :remember_me, class: "remember-checkbox", checked: false %>
             <i class="fa fa-check"></i> <span><%= t(".remember_me") %></span>
           <% end %>
           <% if cookies[:ts_and_cs_accepted].nil? %>
             <%= f.label :ts_and_cs_accepted_at, class: "login-checkbox" do %>
-              <%= f.check_box :ts_and_cs_accepted_at, class: "branded-input accept-ts-and-cs" %>
+              <%= f.check_box :ts_and_cs_accepted_at, class: "accept-ts-and-cs" %>
               <i class="fa fa-check"></i> <span><%= t(".accept_ts_and_cs") %></span>
             <% end %>
             <div class="information branded-primary-text">
