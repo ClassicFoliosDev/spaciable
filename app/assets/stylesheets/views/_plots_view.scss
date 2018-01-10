@@ -6,5 +6,7 @@
 .above-footer {
   width: 100%;
   float: left;
-  margin-top: $spacing-large;
+  margin-top: $spacing-medium;
+  position: fixed;
+  bottom: 100px;
 }
