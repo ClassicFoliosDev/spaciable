@@ -10,7 +10,7 @@
       <% faqs.each do | faq | %>
         <tr>
           <td colspan="3">
-            <%= link_to faq, faq_path(faq), title: faq %>
+            <%= link_to faq.question.html_safe, faq_path(faq), title: faq.question.html_safe %>
           </td>
           <td colspan="2">
             <%= icon "folder" %> <%= t("activerecord.attributes.faq.categories.#{faq.category}") %>

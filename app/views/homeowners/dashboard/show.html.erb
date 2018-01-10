@@ -59,7 +59,7 @@
               <% @faqs.each do |faq| %>
                 <li class="branded-border">
                   <%= link_to homeowner_faqs_path(faq.category, anchor: "faq-#{faq.id}") do %>
-                    <span class="text"><%= faq.question %></span>
+                    <span class="text"><%= faq.question.html_safe %></span>
                     <%= fa_icon "chevron-right" %>
                   <% end %>
                 </li>
