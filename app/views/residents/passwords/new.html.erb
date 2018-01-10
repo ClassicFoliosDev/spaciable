@@ -13,6 +13,10 @@
       </div>
 
       <%= f.button :submit, t(".submit"), class: "reset-btn" %>
+
+      <div class="information">
+        <p class="copyright"><%= t("residents.invitations.edit.copyright", year: Time.current.year).html_safe %></p>
+      </div>
     <% end %>
   </div>
 

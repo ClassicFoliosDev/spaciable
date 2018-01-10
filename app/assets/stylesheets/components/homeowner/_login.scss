@@ -98,6 +98,23 @@
   }
 }
 
+.new-password {
+  label, a {
+    color: $ui-white;
+  }
+
+  .reset-btn {
+    color: $ui-white;
+    border-color: $ui-white;
+    background-color: $primary-red;
+  }
+
+  .copyright {
+    margin-top: $spacing-medium;
+    color: $ui-white;
+  }
+}
+
 .login-background {
   height: 100%;
   width: 100%;
