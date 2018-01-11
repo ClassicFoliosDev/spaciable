@@ -7,10 +7,10 @@ module SortingConcern
     return resources if resources&.empty?
 
     direction = params[:direction]
-    if default == :number && resources.table_name == "plots"
+    if custom_sort?(resources, params, default, "plots", "number")
       sort_plot_numbers(resources, direction)
-    elsif default == :model_num && resources.table_name == "appliances"
-      resources.order("appliance_manufacturers.name #{direction}, model_num #{direction}")
+    elsif custom_sort?(resources, params, default, "appliances", "id")
+      sort_appliances(resources, direction)
     elsif direction.present? && params[:sort].present?
       sort_resources(resources, params)
     else
@@ -19,6 +19,13 @@ module SortingConcern
   end
 
   private
+
+  def custom_sort?(resources, params, default, table_name, sort_on)
+    return false unless resources.table_name == table_name
+    return true if params[:sort] == sort_on
+    return true if params[:sort].nil? && default == sort_on
+    false
+  end
 
   def sort_resources(resources, params)
     direction = params[:direction] == "desc" ? :desc : :asc
@@ -44,5 +51,9 @@ module SortingConcern
     ids = ids.reverse if direction == "desc"
 
     Plot.where(id: ids).order("position(id::text in '#{ids.join(',')}')")
+  end
+
+  def sort_appliances(resources, direction)
+    resources.order("appliance_manufacturers.name #{direction}, model_num #{direction}")
   end
 end

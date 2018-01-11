@@ -1064,6 +1064,7 @@ en:
      appliances: "Appliances"
      appliance_manufacturers: "Appliance manufacturers"
      appliance_categories: "Categories"
+     name: "Name"
    new:
      title: "New appliance"
    show:
