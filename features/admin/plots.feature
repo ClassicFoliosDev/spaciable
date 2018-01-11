@@ -38,8 +38,9 @@ Feature: Plots
   Scenario: Update notifications
     Given I am logged in as a Development Admin
     And there is a phase plot resident
+    And there is a second resident
     When I update the progress for the plot
     Then I should see the plot progress has been updated
-    And the resident has been notified
+    And both residents have been notified
     When I update the completion date for the plot
-    Then the resident has been notified of the completion date
+    Then both residents have been notified of the completion date

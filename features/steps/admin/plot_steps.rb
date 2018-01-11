@@ -249,7 +249,7 @@ end
 
 Then(/^I should see the plot progress has been updated$/) do
   success_flash = t("plots.update.success.one", plot_name: CreateFixture.phase_plot_name )
-  success_flash << t("resident_notification_mailer.notify.update_sent", count: 1)
+  success_flash << t("resident_notification_mailer.notify.update_sent", count: 2)
 
   within ".notice" do
     expect(page).to have_content(success_flash)
@@ -261,17 +261,24 @@ Then(/^I should see the plot progress has been updated$/) do
   end
 end
 
-Then(/^the resident has been notified$/) do
+Then(/^both residents have been notified$/) do
   message = "Plot Quartz Tower (200) has been updated to Ready for exchange"
 
   in_app_notification = Notification.all.last
-  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.count).to eq 2
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+  expect(in_app_notification.residents.last.email).to eq PlotResidencyFixture.second_email
   expect(in_app_notification.message).to eq message
 
-  email_notification = ActionMailer::Base.deliveries.first
-  expect(email_notification.parts.first.body.raw_source).to include message
-  expect(email_notification.to).to include CreateFixture.resident.email
+  expect(ActionMailer::Base.deliveries.count).to eq 2
+
+  first_notification = ActionMailer::Base.deliveries.first
+  expect(first_notification.parts.first.body.raw_source).to include message
+  expect(first_notification.to).to include CreateFixture.resident.email
+
+  last_notification = ActionMailer::Base.deliveries.last
+  expect(last_notification.parts.first.body.raw_source).to include message
+  expect(last_notification.to).to include PlotResidencyFixture.second_email
 
   ActionMailer::Base.deliveries.clear
 end
@@ -288,17 +295,28 @@ When(/^I update the completion date for the plot$/) do
   click_on t("plots.form.submit")
 end
 
-Then(/^the resident has been notified of the completion date$/) do
+Then(/^both residents have been notified of the completion date$/) do
   message = "Plot Quartz Tower (200) has been updated for your home"
 
   in_app_notification = Notification.all.last
-  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.count).to eq 2
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+  expect(in_app_notification.residents.last.email).to eq PlotResidencyFixture.second_email
   expect(in_app_notification.message).to eq message
 
-  email_notification = ActionMailer::Base.deliveries.first
-  expect(email_notification.parts.first.body.raw_source).to include message
-  expect(email_notification.to).to include CreateFixture.resident.email
+  first_notification = ActionMailer::Base.deliveries.first
+  expect(first_notification.parts.first.body.raw_source).to include message
+  expect(first_notification.to).to include CreateFixture.resident.email
+
+  last_notification = ActionMailer::Base.deliveries.last
+  expect(last_notification.parts.first.body.raw_source).to include message
+  expect(last_notification.to).to include PlotResidencyFixture.second_email
 
   ActionMailer::Base.deliveries.clear
+end
+
+Given(/^there is a second resident$/) do
+  phase_plot = CreateFixture.phase_plot
+  resident = FactoryGirl.create(:resident, :activated, email: PlotResidencyFixture.second_email)
+  FactoryGirl.create(:plot_residency, resident_id: resident.id, plot_id: phase_plot.id)
 end
