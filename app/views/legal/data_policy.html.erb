@@ -1,38 +1,84 @@
 <%= content_for(:title, t("layouts.application.title") + ' ' + t("residents.invitations.edit.policy")) %>
 
 <div class="policy branded-border">
-  <h2><%= t(".title")%></h2>
+  <h2><%= t(".title") %></h2>
 
-  <h4><%= t(".who_we_are")%></h4>
-  <p><%= t(".who_we_are_para")%></p>
+  <h4><%= t(".us_title").html_safe %></h4>
+  <p><%= t(".us_1") %></p>
+  <p><%= t(".us_2") %></p>
 
-  <h4><%= t(".information")%></h4>
-  <p><%= t(".information_intro")%></p>
-  <ol>
-    <li><%= t(".information_para1")%></li>
-    <li><%= t(".information_para2")%></li>
-    <li><%= t(".information_para3")%></li>
-    <li><%= t(".information_para4")%></li>
-    <li><%= t(".information_para5")%></li>
-  </ol>
+  <h4><%= t(".information_title") %></h4>
+  <p><%= t(".information_1") %></p>
+  <ul>
+    <li><%= t(".information_list_1").html_safe %></li>
+    <li><%= t(".information_list_2").html_safe %></li>
+    <ul class="secondary">
+      <li><%= t(".information_list_2_1") %></li>
+      <li><%= t(".information_list_2_2") %></li>
+    </ul>
+    <li><%= t(".information_list_3").html_safe %></li>
+  </ul>
 
+  <h4><%= t(".cookies_title") %></h4>
+  <p><%= t(".cookies_1") %></p>
 
-  <h4><%= t(".what_we_do")%></h4>
-  <p><%= t(".what_we_do_intro")%></p>
-  <ol>
-    <li><%= t(".what_we_do_para1")%></li>
-    <li><%= t(".what_we_do_para2")%></li>
-  </ol>
-  <p><%= t(".what_we_do_rider")%></p>
+  <h4><%= t(".uses_title") %></h4>
+  <p><%= t(".uses_1") %></p>
+  <ul>
+    <li><%= t(".uses_list_1").html_safe %></li>
+    <ul class="secondary">
+      <li><%= t(".uses_list_1_1") %></li>
+      <li><%= t(".uses_list_1_2") %></li>
+      <li><%= t(".uses_list_1_3") %></li>
+      <li><%= t(".uses_list_1_4") %></li>
+      <li><%= t(".uses_list_1_5") %></li>
+    </ul>
+    <li><%= t(".uses_list_2").html_safe %></li>
+    <ul class="secondary">
+      <li><%= t(".uses_list_2_1") %></li>
+      <li><%= t(".uses_list_2_2") %></li>
+      <li><%= t(".uses_list_2_3") %></li>
+      <li><%= t(".uses_list_2_4") %></li>
+      <li><%= t(".uses_list_2_5") %></li>
+    </ul>
+    <li><%= t(".uses_list_3").html_safe %></li>
+  </ul>
 
-  <h4><%= t(".where_we_store")%></h4>
-  <p><%= t(".where_we_store_para")%></p>
+  <h4><%= t(".disclosure_title") %></h4>
+  <p><%= t(".disclosure_1") %></p>
+  <ul>
+    <li><%= t(".disclosure_list_1") %></li>
+    <li><%= t(".disclosure_list_2") %></li>
+    <ul class="secondary">
+      <li><%= t(".disclosure_list_2_1") %></li>
+      <li><%= t(".disclosure_list_2_2") %></li>
+      <li><%= t(".disclosure_list_2_3") %></li>
+      <li><%= t(".disclosure_list_2_4") %></li>
+      <li><%= t(".disclosure_list_2_5") %></li>
+    </ul>
+    <li><%= t(".disclosure_list_3") %></li>
+    <ul class="secondary">
+      <li><%= t(".disclosure_list_3_1") %></li>
+      <li><%= t(".disclosure_list_3_2") %></li>
+      <li><%= t(".disclosure_list_3_3") %></li>
+    </ul>
+  </ul>
 
-  <h4><%= t(".your_rights")%></h4>
-  <p><%= t(".your_rights_para")%></p>
-  <p><%= t(".your_rights_links")%></p>
+  <h4><%= t(".store_title") %></h4>
+  <p><%= t(".store_1").html_safe %></p>
+  <p><%= t(".store_2") %></p>
+  <p><%= t(".store_3") %></p>
 
-  <h4><%= t(".links")%></h4>
-  <p><%= t(".links_para")%></p>
+  <h4><%= t(".rights_title") %></h4>
+  <p><%= t(".rights_1") %></p>
+  <p><%= t(".rights_2") %></p>
 
+  <h4><%= t(".access_title") %></h4>
+  <p><%= t(".access_1") %></p>
+
+  <h4><%= t(".changes_title") %></h4>
+  <p><%= t(".changes_1") %></p>
+
+  <h4><%= t(".contact_title") %></h4>
+  <p><%= t(".contact_1") %></p>
 </div>

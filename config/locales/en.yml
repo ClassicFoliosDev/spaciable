@@ -619,7 +619,13 @@ en:
     services:
       index:
         title: "Hoozzi Services for %{developer}"
-        description: "Moving home can be very stressful, but Hoozzi Services can help take some of the pressure away with our trusted suppliers. Plus, with Hoozzi’s buying power you can get a great deal. Don't get stressed - let Hoozzi help and give yourself more choice."
+        subtitle: "Potentially save £1,600 on an average house move."
+        description_1: "Moving home can be very stressful and expensive, but Hoozzi Services can help take some of the
+        pressure away with our trusted suppliers. Plus, with Hoozzi’s buying power you can get a great deal, there is
+        no obligation so why not?! Don't get stressed - let Hoozzi help and give yourself more choice."
+        description_2: "<em>Excellent service, highly recommend. Hoozzi Services helped me organise everything I needed
+        when I moved in to my new home. They also got me some great deals. I will certainly continue to use them for
+        all my services.</em> Jean, Watford."
         submit: "Got it, let's go"
         postamble: "You can always choose services later through your Account Settings"
       resident_services:
@@ -801,11 +807,11 @@ en:
         welcome_1: "Hoozzi isn't just a hub,"
         welcome_2: "it's a librarian"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
-        intro_para_1: With pen in hand and fresh ideas in mind.
-                      Hoozzi is constantly churning out fun and helpful articles.
-        intro_para_2: You can scroll away to your heart's content,
+        intro_para_1: "With pen in hand and fresh ideas in mind,
+                      Hoozzi is constantly churning out fun and helpful articles."
+        intro_para_2: "You can scroll away to your heart's content,
                       discovering exciting ideas on how to make the most of your home,
-                      habits and hobbies.
+                      habits and hobbies."
         remember_me: "Remember me"
         accept_ts_and_cs: "Accept terms and conditions"
         policy_instructions_required: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Login'"

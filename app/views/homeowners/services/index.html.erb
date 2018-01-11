@@ -1,7 +1,9 @@
 <div class="service-container branded-body">
   <div class="preamble">
   <h2><%= t(".title", developer: @plot.developer) %></h2>
-  <p><%= t(".description") %></p>
+  <h4><%= t(".subtitle") %></h4>
+    <p><%= t(".description_1") %></p>
+    <p><%= t(".description_2").html_safe %></p>
   </div>
 
   <%= simple_form_for :services, url: resident_services_services_path do | f | %>

@@ -1,5 +1,9 @@
 // SCSS classes might not have finished loading, so don't use variables
 
+.cookies-eu {
+  margin-top: 46px;
+}
+
 .cookies-eu-content-holder {
   font-size: 12px;
 }
@@ -29,5 +33,16 @@
 .ts-and-cs-file {
   .fa-file-word-o {
     font-size: 40px;
+  }
+}
+
+.policy {
+  ul {
+    list-style-position: inside;
+  }
+
+  .secondary {
+    margin-bottom: 0;
+    margin-left: 20px;
   }
 }

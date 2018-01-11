@@ -1,47 +1,122 @@
 <%= content_for(:title, t("layouts.application.title") + ' ' + t("residents.invitations.edit.terms")) %>
 
 <div class="policy branded-border">
-  <h4><%= t(".title")%></h4>
-  <p><%= t(".welcome").html_safe %></p>
+  <h2><%= t(".title") %></h2>
+  <p><%= t(".please_read").html_safe %></p>
 
-  <h4><%= t(".about_us")%></h4>
-  <p><%= t(".about_us_para")%></p>
+  <h4><%= t(".about_us_title") %></h4>
+  <p><%= t(".about_us_1").html_safe %></p>
+  <p><%= t(".limited") %></p>
+  <p><%= t(".contact") %></p>
 
-  <h4><%= t(".information")%></h4>
-  <p><%= t(".information_para1")%></p>
-  <p><%= t(".information_para2")%></p>
-  <p><%= t(".information_para3")%></p>
-  <p><%= t(".information_para4")%></p>
-  <p><%= t(".information_para5")%></p>
-  <p><%= t(".information_para6")%></p>
+  <h4><%= t(".terms_title") %></h4>
+  <p><%= t(".terms_1") %></p>
+  <p><%= t(".terms_2") %></p>
+  <p><%= t(".terms_3") %></p>
 
-  <h4><%= t(".changes")%></h4>
-  <p><%= t(".changes_para1")%></p>
-  <p><%= t(".changes_para2")%></p>
-  <p><%= t(".changes_para3")%></p>
+  <h4><%= t(".other_terms_title") %></h4>
+  <p><%= t(".other_terms_1") %></p>
+  <p><%= t(".other_terms_2").html_safe %></p>
+  <p><%= t(".other_terms_3") %></p>
+  <p><%= t(".other_terms_4").html_safe %></p>
+  <p><%= t(".other_terms_5") %></p>
 
-  <h4><%= t(".ip")%></h4>
-  <p><%= t(".ip_para1")%></p>
-  <p><%= t(".ip_para2")%></p>
-  <p><%= t(".ip_para3")%></p>
+  <h4><%= t(".changes_title") %></h4>
+  <p><%= t(".changes") %></p>
 
-  <h4><%= t(".third_party")%></h4>
-  <p><%= t(".third_party_para1")%></p>
-  <p><%= t(".third_party_para2")%></p>
+  <h4><%= t(".site_changes_title") %></h4>
+  <p><%= t(".site_changes") %></p>
 
-  <h4><%= t(".viruses")%></h4>
-  <p><%= t(".viruses_para1")%></p>
-  <p><%= t(".viruses_para2")%></p>
+  <h4><%= t(".suspend_title") %></h4>
+  <p><%= t(".suspend_1") %></p>
+  <p><%= t(".suspend_2") %></p>
 
-  <h4><%= t(".limitation")%></h4>
-  <p><%= t(".limitation_para1")%></p>
-  <p><%= t(".limitation_para2")%></p>
+  <h4><%= t(".uk_title") %></h4>
+  <p><%= t(".uk") %></p>
 
-  <h4><%= t(".severance")%></h4>
-  <p><%= t(".severance_para")%></p>
+  <h4><%= t(".safe_title") %></h4>
+  <p><%= t(".safe_1") %></p>
+  <p><%= t(".safe_2") %></p>
+  <p><%= t(".safe_3") %></p>
 
-  <h4><%= t(".law")%></h4>
-  <p><%= t(".law_para")%></p>
+  <h4><%= t(".ip_title") %></h4>
+  <p><%= t(".ip_1") %></p>
+  <p><%= t(".ip_2") %></p>
+  <p><%= t(".ip_3") %></p>
+  <p><%= t(".ip_4") %></p>
+  <p><%= t(".ip_5") %></p>
+  <p><%= t(".ip_6") %></p>
+
+  <h4><%= t(".information_title") %></h4>
+  <p><%= t(".information_1") %></p>
+  <p><%= t(".information_2") %></p>
+
+  <h4><%= t(".external_title") %></h4>
+  <p><%= t(".external_1") %></p>
+  <p><%= t(".external_2") %></p>
+
+  <h4><%= t(".user_content_title") %></h4>
+  <p><%= t(".user_content_1") %></p>
+  <p><%= t(".user_content_2") %></p>
+
+  <h4><%= t(".damages_title") %></h4>
+  <p><%= t(".damages_1") %></p>
+  <p><%= t(".damages_2") %></p>
+
+  <h4><%= t(".damages_business_title") %></h4>
+  <p><%= t(".damages_business_1") %></p>
+  <p><%= t(".damages_business_2") %></p>
+  <ul>
+    <li><%= t(".damages_list_1") %></li>
+    <li><%= t(".damages_list_2") %></li>
+  </ul>
+  <p><%= t(".damages_business_3") %></p>
+  <ul>
+    <li><%= t(".damages_list_3") %></li>
+    <li><%= t(".damages_list_4") %></li>
+    <li><%= t(".damages_list_5") %></li>
+    <li><%= t(".damages_list_6") %></li>
+    <li><%= t(".damages_list_7") %></li>
+  </ul>
+
+  <h4><%= t(".damages_consumer_title") %></h4>
+  <p><%= t(".damages_consumer_1") %></p>
+  <p><%= t(".damages_consumer_2") %></p>
+
+  <h4><%= t(".content_title") %></h4>
+  <p><%= t(".content_1") %></p>
+  <p><%= t(".content_2") %></p>
+  <p><%= t(".content_3") %></p>
+  <p><%= t(".content_4") %></p>
+  <p><%= t(".content_5") %></p>
+  <p><%= t(".content_6") %></p>
+
+  <h4><%= t(".rights_title") %></h4>
+  <p><%= t(".rights_1") %></p>
+  <ul>
+    <li><%= t(".rights_list_1") %></li>
+    <li><%= t(".rights_list_2") %></li>
+    <li><%= t(".rights_list_3") %></li>
+  </ul>
+  <p><%= t(".rights_2") %></p>
+
+  <h4><%= t(".viruses_title") %></h4>
+  <p><%= t(".viruses_1") %></p>
+  <p><%= t(".viruses_2") %></p>
+  <p><%= t(".viruses_3") %></p>
+
+  <h4><%= t(".links_title") %></h4>
+  <p><%= t(".links_1") %></p>
+  <p><%= t(".links_2") %></p>
+  <p><%= t(".links_3") %></p>
+  <p><%= t(".links_4") %></p>
+  <p><%= t(".links_5") %></p>
+  <p><%= t(".links_6") %></p>
+  <p><%= t(".links_7") %></p>
+
+  <h4><%= t(".law_title") %></h4>
+  <p><%= t(".law_consumer") %></p>
+  <p><%= t(".law_business") %></p>
 
   <div class="ts-and-cs-file">
     <h4><%= t("legal.ts_and_cs_file") %></h4>
@@ -49,4 +124,93 @@
       <%= fa_icon "file-word-o" %>
     <% end %>
   </div>
+
+  <h2><%= t("legal.acceptable_use.title") %></h2>
+  <p><%= t("legal.acceptable_use.please_read").html_safe %></p>
+
+  <h4><%= t("legal.acceptable_use.about_terms_title") %></h4>
+  <p><%= t("legal.acceptable_use.about_terms_1") %></p>
+
+  <h4><%= t("legal.acceptable_use.contact_title") %></h4>
+  <p><%= t("legal.acceptable_use.contact_1").html_safe %></p>
+  <p><%= t("legal.acceptable_use.contact_2") %></p>
+  <p><%= t("legal.acceptable_use.contact_3") %></p>
+
+  <h4><%= t("legal.acceptable_use.terms_title") %></h4>
+  <p><%= t("legal.acceptable_use.terms_1") %></p>
+  <p><%= t("legal.acceptable_use.terms_2") %></p>
+  <p><%= t("legal.acceptable_use.terms_3") %></p>
+  <p><%= t("legal.acceptable_use.terms_4") %></p>
+  <p><%= t("legal.acceptable_use.terms_4") %></p>
+
+  <h4><%= t("legal.acceptable_use.changes_title") %></h4>
+  <p><%= t("legal.acceptable_use.changes_1") %></p>
+
+  <h4><%= t("legal.acceptable_use.prohibited_title") %></h4>
+  <p><%= t("legal.acceptable_use.prohibited_1") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_2") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_3") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_4") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_5") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_6") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_7") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_8") %></p>
+  <p><%= t("legal.acceptable_use.prohibited_9") %></p>
+  <ul>
+    <li><%= t("legal.acceptable_use.prohibited_list_9_1") %></li>
+    <li><%= t("legal.acceptable_use.prohibited_list_9_2") %></li>
+    <li><%= t("legal.acceptable_use.prohibited_list_9_3") %></li>
+    <li><%= t("legal.acceptable_use.prohibited_list_9_4") %></li>
+  </ul>
+
+  <h4><%= t("legal.acceptable_use.services_title") %></h4>
+  <p><%= t("legal.acceptable_use.services_1") %></p>
+  <p><%= t("legal.acceptable_use.services_2") %></p>
+  <p><%= t("legal.acceptable_use.services_3") %></p>
+  <p><%= t("legal.acceptable_use.services_4") %></p>
+  <p><%= t("legal.acceptable_use.services_5") %></p>
+  <p><%= t("legal.acceptable_use.services_6") %></p>
+  <p><%= t("legal.acceptable_use.services_7") %></p>
+
+  <h4><%= t("legal.acceptable_use.standards_title") %></h4>
+  <p><%= t("legal.acceptable_use.standards_1").html_safe %></p>
+  <p><%= t("legal.acceptable_use.standards_2") %></p>
+  <p><%= t("legal.acceptable_use.standards_3") %></p>
+  <p><%= t("legal.acceptable_use.standards_4") %></p>
+  <p><%= t("legal.acceptable_use.standards_5") %></p>
+  <p><%= t("legal.acceptable_use.standards_6") %></p>
+  <p><%= t("legal.acceptable_use.standards_7") %></p>
+  <p><%= t("legal.acceptable_use.standards_8") %></p>
+  <p><%= t("legal.acceptable_use.standards_9") %></p>
+  <p><%= t("legal.acceptable_use.standards_10") %></p>
+  <p><%= t("legal.acceptable_use.standards_11") %></p>
+  <p><%= t("legal.acceptable_use.standards_12") %></p>
+  <p><%= t("legal.acceptable_use.standards_13") %></p>
+  <p><%= t("legal.acceptable_use.standards_14") %></p>
+  <p><%= t("legal.acceptable_use.standards_15") %></p>
+  <p><%= t("legal.acceptable_use.standards_16") %></p>
+  <p><%= t("legal.acceptable_use.standards_17") %></p>
+  <p><%= t("legal.acceptable_use.standards_18") %></p>
+  <p><%= t("legal.acceptable_use.standards_19") %></p>
+  <p><%= t("legal.acceptable_use.standards_20") %></p>
+  <p><%= t("legal.acceptable_use.standards_21") %></p>
+  <p><%= t("legal.acceptable_use.standards_22") %></p>
+  <p><%= t("legal.acceptable_use.standards_23") %></p>
+  <p><%= t("legal.acceptable_use.standards_24") %></p>
+  <p><%= t("legal.acceptable_use.standards_25") %></p>
+
+  <h4><%= t("legal.acceptable_use.breach_title") %></h4>
+  <p><%= t("legal.acceptable_use.breach_1") %></p>
+  <p><%= t("legal.acceptable_use.breach_2") %></p>
+  <p><%= t("legal.acceptable_use.breach_3") %></p>
+  <p><%= t("legal.acceptable_use.breach_4") %></p>
+  <p><%= t("legal.acceptable_use.breach_5") %></p>
+  <p><%= t("legal.acceptable_use.breach_6") %></p>
+  <p><%= t("legal.acceptable_use.breach_7") %></p>
+  <p><%= t("legal.acceptable_use.breach_8") %></p>
+  <p><%= t("legal.acceptable_use.breach_9") %></p>
+
+  <h4><%= t("legal.acceptable_use.law_title") %></h4>
+  <p><%= t("legal.acceptable_use.law_1") %></p>
+  <p><%= t("legal.acceptable_use.law_2") %></p>
 </div>

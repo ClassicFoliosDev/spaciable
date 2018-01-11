@@ -62,137 +62,449 @@ en:
       about_us_para: "We are a company registered in England and Wales under registration number 4562237. Our registered
        office is Classic Folios Ltd, Unit B, Woodside Trade Centre, 34 Parham Drive, Eastleigh, Hampshire, SO50 4NU. Our
         VAT number is GB675 7084 00."
+
     data_policy:
       title: "Privacy Policy"
-      who_we_are: "Who we are"
-      who_we_are_para: "In this privacy policy references to 'we', 'us' and 'our' are to Classic Folios Limited.
-      References to 'our Website' or 'the Website' are to www.hoozzi.com"
-      information: "What information we collect and how"
-      information_intro: "The information we collect via the Website may include."
-      information_para1: "Any personal details you knowingly provide us with through forms and our email, such as name,
-      address, telephone number etc."
-      information_para2: "In order to effectively process credit or debit card transactions it may be necessary for the
-       bank or card processing agency to verify your personal details for authorisation outside the European Economic
-        Area (EEA). Such information will not be transferred out of the EEA for any other purpose."
-      information_para3: "Your preferences and use of email updates, recorded by emails we send you (if you select to
-      receive email updates on products and offers)."
-      information_para4: "Your IP Address, this is a string of numbers unique to your computer that is recorded by our
-      web server when you request any page or component on the website. This information is used to monitor your usage
-      of the website."
-      information_para5: "Data recorded by the website which allows us to recognise you and your preferred settings,
-      this saves you from re‐entering information on return visits to the site. Such data is recorded locally on your
-      computer through the use of cookies. Most browsers can be programmed to reject, or warn you before downloading
-      cookies, information regarding this may be found in your browser's 'help' facility."
-      what_we_do: "What we do with your information"
-      what_we_do_intro: "Any personal information we collect from this website will be used in accordance with the Data
-       Protection Act 1998 and other applicable laws. The details we collect will be used:"
-      what_we_do_para1: "To process your order, to provide after sales service (we may pass your details to another
-      organisation to supply/deliver products or services you have purchased and/or to provide after‐sales service);"
-      what_we_do_para2: "In certain cases we may use your email address to send you information on our other products
-      and services. In such a case you will be offered the option to opt in/out before completing your purchase."
-      what_we_do_rider: "We may need to pass the information we collect to other companies for administrative purposes.
-       We may use third parties to carry out certain activities, such as processing and sorting data, monitoring how
-        customers use the website and issuing our e‐mails for us."
-      where_we_store: "Where we store your personal data"
-      where_we_store_para: "All information you provide to us is stored on our secure servers. Any payment transactions
-       will be encrypted using TSL (SSL). Where we have given you (or where you have chosen) a password which enables
-        you to access certain parts of our site, you are responsible for keeping this password confidential. We ask you
-         not to share a password with anyone."
-      your_rights: "Your Rights"
-      your_rights_para: "You have the right to request a copy of any information that we currently hold about you. In
-       order to receive such information please send your contact details including address and payment of £10 to cover
-        administration expenses to the following address: Classic Folios Ltd., Woodside Trade Centre, 34 Parham Drive,
-         Eastleigh, SO50 4NU"
-      your_rights_links: "Our site may, from time to time, contain links to and from the websites of our partner networks,
-       advertisers and affiliates. If you follow a link to any of these websites, please note that these websites have
-        their own privacy policies and that we do not accept any responsibility or liability for these policies. Please
-         check these policies before you submit any personal data to these websites."
-      links: "Other Websites"
-      links_para: "This privacy policy only covers this website. Any other websites which may be linked to by our
-       website are subject to their own policy, which may differ from ours."
+      us_title: "CLASSIC FOLIOS LIMITED (<strong>We</strong>) are committed to protecting and respecting your
+      privacy."
+      us_1: "This policy (together with our terms of use www.hoozzi.com/hoozzi_terms_of_use) and any other documents
+      referred to on it) sets out the basis on which any personal data we collect from you, or that you provide to us,
+      will be processed by us.  Please read the following carefully to understand our views and practices regarding
+      your personal data and how we will treat it. By visiting www.hoozzi.com you are accepting and consenting to the
+      practices described in this policy."
+      us_2: "For the purpose of the Data Protection Act 1998 (the Act), the data controller is CLASSIC FOLIOS LIMITD of
+      Highland House Mayflower Close Chandlers Ford Eastleigh  Hampshire  SO53 4AR"
+      information_title: "Information we collect from you"
+      information_1: "We will collect and process the following data about you:"
+      information_list_1: "<strong>Information you give us.</strong> This is information about you that you give us by
+      filling in forms on our site www.hoozzi.com (<strong>our site</strong>) or by corresponding with us by phone,
+      e-mail or otherwise. It includes information you provide when you register to use our site, subscribe to our
+      service, search for a product, place an order on our site, participate in discussion boards or other social media
+      functions on our site, enter a competition, promotion or survey, and when you report a problem with our site.
+      The information you give us may include your name, address, e-mail address and phone number, financial and credit
+      card information, personal description and photograph"
+      information_list_2: "<strong>Information we collect about you.</strong> With regard to each of your visits to our
+      site we will automatically collect the following information:"
+      information_list_2_1: "technical information, including the Internet protocol (IP) address used to connect your
+      computer to the Internet, your login information, browser type and version, location, browser plug-in types and
+      versions, operating system and platform."
+      information_list_2_2: "information about your visit, including the full Uniform Resource Locators (URL),
+      clickstream to, through and from our site (including date and time), products you viewed or searched for' page
+      response times, download errors, length of visits to certain pages, page interaction information (such as
+      scrolling, clicks, and mouse-overs), methods used to browse away from the page, and any phone number used to
+      call our customer service number."
+      information_list_3: "<strong>Information we receive from other sources</strong>. This is information we receive about you if you
+      use any of the other websites we operate or the other services we provide. In this case we will have informed you
+      when we collected that data if we intend to share those data internally and combine it with data collected on
+      this site and also for what purpose we will share and combine your data.  Where data is provided to us, by the
+      developer from whom you bought your home:  (i)  we will seek to inform you about how we intend to use the data as
+      soon as you sign up to receive the Hoozzi service (for which the developer has paid on your behalf).  We are
+      working closely with third parties (including, for example, business partners, (such as the developer from whom
+      you bought your home), sub-contractors in technical, payment and delivery services, advertising networks,
+      analytics providers, search information providers, credit reference agencies). We will notify you when we receive
+      information about you from them and the purposes for which we intend to use that information."
+      cookies_title: "Cookies"
+      cookies_1: "Our website uses cookies to distinguish you from other users of our website. This helps us to provide
+      you with a good experience when you browse our website and also allows us to improve our site. For detailed
+      information on the cookies we use and the purposes for which we use them see our <a href='/cookies_policy'>Cookie
+      policy</a>"
+      uses_title: "Uses made of the information"
+      uses_1: "We use information held about you in the following ways:"
+      uses_list_1: "<strong>Information you give to us.</strong> We will use this information:"
+      uses_list_1_1: "to carry out our obligations arising from any contracts entered into between you and us and to
+      provide you with the information, products and services that you request from us;"
+      uses_list_1_2: "to provide you with information about other goods and services we offer that are similar to those
+      that you have already purchased or enquired about;"
+      uses_list_1_3: "to provide you, or permit selected third parties to provide you, with information about goods or
+      services we feel may interest you. If you are an existing customer, we will only contact you by electronic means
+      (e-mail or SMS) with information about goods and services similar to those which were the subject of a previous
+      sale or negotiations of a sale to you. If you are a new customer, and where we permit selected third parties to
+      use your data, we (or they) will contact you by electronic means only if you have consented to this. If you do
+      not want us to use your data in this way, or to pass your details on to third parties for marketing purposes,
+      please tick the relevant box situated on the form on which we collect your data (the order or registration form)
+      (as applicable); you can update your information in ‘my account’ > ‘edit preferences’."
+      uses_list_1_4: "to notify you about changes to our service;"
+      uses_list_1_5: "to ensure that content from our site is presented in the most effective manner for you and for
+      your computer."
+      uses_list_2: "<strong>Information we collect about you.</strong> We will use this information:"
+      uses_list_2_1: "to administer our site and for internal operations, including troubleshooting, data analysis,
+      testing, research, statistical and survey purposes;"
+      uses_list_2_2: "to improve our site to ensure that content is presented in the most effective manner for you and
+      for your computer;"
+      uses_list_2_3: "to allow you to participate in interactive features of our service, when you choose to do so;
+      as part of our efforts to keep our site safe and secure;"
+      uses_list_2_4: "to measure or understand the effectiveness of advertising we serve to you and others, and to
+      deliver relevant advertising to you;"
+      uses_list_2_5: "to make suggestions and recommendations to you and other users of our site about goods or
+      services that may interest you or them."
+      uses_list_3: "<strong>Information we receive from other sources.</strong> We will combine this information with information you
+      give to us and information we collect about you. We will use this information and the combined information for
+      the purposes set out above (depending on the types of information we receive)."
+      disclosure_title: "Disclosure of your information"
+      disclosure_1: "You agree that we have the right to share your personal information with:"
+      disclosure_list_1: "Any member of our group, which means our subsidiaries, our ultimate holding company and its
+      subsidiaries, as defined in section 1159 of the UK Companies Act 2006."
+      disclosure_list_2: "Selected third parties including:"
+      disclosure_list_2_1: "the developer from whom you bought your home, which has resulted in you receiving the Hoozzi
+      service;"
+      disclosure_list_2_2: "business partners, suppliers and sub-contractors for the performance of any contract we
+      enter into with them or you;"
+      disclosure_list_2_3: "advertisers and advertising networks that require the data to select and serve relevant
+      adverts to you and others. We do not disclose information about identifiable individuals to our advertisers, but
+      we will provide them with aggregate information about our users (for example, we may inform them that 500 men
+      aged under 30 have clicked on their advertisement on any given day). We may also use such aggregate information
+      to help advertisers reach the kind of audience they want to target (for example, women in SW1). We may make use
+      of the personal data we have collected from you to enable us to comply with our advertisers' wishes by displaying
+      their advertisement to that target audience."
+      disclosure_list_2_4: "analytics and search engine providers that assist us in the improvement and optimisation of
+      our site;"
+      disclosure_list_2_5: "credit reference agencies for the purpose of assessing your credit score where this is a
+      condition of us entering into a contract with you."
+      disclosure_list_3: "We will disclose your personal information to third parties:"
+      disclosure_list_3_1: "In the event that we sell or buy any business or assets, in which case we will disclose
+      your personal data to the prospective seller or buyer of such business or assets."
+      disclosure_list_3_2: "If CLASSIC FOLIOS LIMITED or substantially all of its assets are acquired by a third party,
+      in which case personal data held by it about its customers will be one of the transferred assets."
+      disclosure_list_3_3: "If we are under a duty to disclose or share your personal data in order to comply with any
+      legal obligation, or in order to enforce or apply our <a href='/ts_and_cs_homeowner', target='_blank'>terms of
+      use</a> and other agreements; or to protect the rights, property, or safety of CLASSIC FOLIOS LIMITED, our
+      customers, or others. This includes exchanging information with other companies and organisations for the
+      purposes of fraud protection and credit risk reduction.]"
+      store_title: "Where we store your personal data"
+      store_1: "The data that we collect from you will not be transferred to, and stored at, a destination outside the
+      European Economic Area (<strong>EEA</strong>),  but it may be processed by staff  who work for one of our suppliers. This includes
+      staff engaged in, among other things,  the provision of Hoozzi, the processing of your payment details and the
+      provision of support services. By submitting your personal data, you agree to this transfer, storing or
+      processing. We will take all steps reasonably necessary to ensure that your data is treated securely and in
+      accordance with this privacy policy."
+      store_2: "All information you provide to us is stored on our secure servers. Any payment transactions will be
+      encrypted using SSL technology. Where we have given you (or where you have chosen) a password which enables you
+      to access certain parts of our site, you are responsible for keeping this password confidential. We ask you not
+      to share a password with anyone."
+      store_3: "Unfortunately, the transmission of information via the internet is not completely secure. Although we
+      will do our best to protect your personal data, we cannot guarantee the security of your data transmitted to our
+      site; any transmission is at your own risk. Once we have received your information, we will use strict procedures
+      and security features to try to prevent unauthorised access."
+      rights_title: "Your rights"
+      rights_1: "You have the right to ask us not to process your personal data for marketing purposes. We will usually
+      inform you (before collecting your data) if we intend to use your data for such purposes or if we intend to
+      disclose your information to any third party for such purposes. You can exercise your right to prevent such
+      processing by checking certain boxes on the forms we use to collect your data.  You can also exercise the right
+      at any time by contacting us at hello@hoozzi.com."
+      rights_2: "Our site may, from time to time, contain links to and from the websites of our partner networks,
+      advertisers and affiliates.  If you follow a link to any of these websites, please note that these websites have
+      their own privacy policies and that we do not accept any responsibility or liability for these policies. Please
+      check these policies before you submit any personal data to these websites."
+      access_title: "Access to information"
+      access_1: "The Act gives you the right to access information held about you. Your right of access can be
+      exercised in accordance with the Act. Any access request will be subject to a fee of £10 to meet our costs in
+      providing you with details of the information we hold about you."
+      changes_title: "Changes to our privacy policy"
+      changes_1: "Any changes we make to our privacy policy in the future will be posted on this page and, where
+      appropriate, notified to you by e-mail. Please check back frequently to see any updates or changes to our privacy
+      policy."
+      contact_title: "Contact"
+      contact_1: "Questions, comments and requests regarding this privacy policy are welcomed and should be addressed
+      to hello@hoozzi.com."
+
     ts_and_cs_homeowner:
       title: "Hoozzi Terms and Conditions of Use"
-      welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
-      www.hoozzi.com (referred to as “the website” or “our website”). By using our website, you acknowledge that you
-      have read, understood and accept these Terms and Conditions of Use and that you agree to be bound by them. You
-      also accept our <a href=\"/data_policy\">Privacy Policy</a>. If you do not agree to these terms of use, please
-      stop using our website, any of the products or services and leave immediately."
-      about_us: "Information About Us"
-      about_us_para: "www.hoozzi.com is a website operated by Classic Folios Ltd (referred to as 'us', 'we' or 'our');
-      we are a company registered in England and Wales under registration number 4562237. Our registered office is
-      Classic Folios Ltd, Unit A-B, Woodside Trade Centre, 34 Parham Drive, Eastleigh, Hampshire, SO50 4NU. Our VAT
-      number is GB675 7084 00."
-      information: "Use of Information on the Website"
-      information_para1: "The information is provided on the understanding that the website is not engaged in rendering
-       advice and should not be wholly relied upon when making any related decision."
-      information_para2: "The information contained within the website is provided on an ‘as is’ basis with no
-      warranties expressed or otherwise implied relating to the accuracy, fitness for purpose, compatibility or security
-       of any components of the website."
-      information_para3: "We do not guarantee uninterrupted availability of the www.hoozzi.com website and cannot
-       provide any representation that using the website will be error free."
-      information_para4: "You agree that you shall not use the website for illegal purposes, and will respect all
-      applicable laws and regulations."
-      information_para5: "You agree not to use the website in a way that may impair the performance, corrupt the content
-       or otherwise reduce the overall functionality of the website. You also agree not to compromise the security of
-       the website or attempt to gain access to secured areas or sensitive information."
-      information_para6: "You agree to be fully responsible for any claim, expense, liability, losses, and costs,
-      including legal fees, sustained by us arising from any infringement of the terms and conditions set out in this
-      agreement."
-      changes: "Changes to the Website"
-      changes_para1: "Our website changes regularly: we aim to update our website regularly, and may change the content
-       at any time without warning, and have no liability arising from such action."
-      changes_para2: "If the need arises, we may suspend access to our website, or close it indefinitely. Any of the
-      material on our website may be out of date at any given time, and we are under no obligation to update such
-      material."
-      changes_para3: "Classic Folios reserves the right to change any part of the Terms and Conditions of Use without
-       notice and your continued use of the website will be deemed as acknowledgment of that. We advise users to
-        regularly check these Terms and Conditions of Use."
-      ip: "Intellectual Property Rights"
-      ip_para1: "All intellectual property of Classic Folios, such as trademarks, trade names, patents, databases,
-      registered designs and any other automatic intellectual property rights derived from the aesthetics or
-      functionality of the website, remains the property of Classic Folios."
-      ip_para2: "By using the website you agree to respect the intellectual property rights of Classic Folios and will
-      refrain from copying, downloading, transmitting, reproducing, printing, or exploiting for commercial purpose(s)
-      any material contained within the website."
-      ip_para3: "Where you have been given explicit permission to download material from the website, you may only
-      download one copy on one computer for your own private use and you are obligated to keep all Intellectual Property
-       Rights notices intact."
-      third_party: "Third Parties and Links from our Website to Other Websites"
-      third_party_para1: "Where our website contains links to other websites and resources provided by third parties,
-       these links are provided for your information only. We have no control over the contents of those websites or
-        resources, and accept no responsibility for them, their content or for any loss or damage that may arise from
-         your use of them. When accessing another website via our website we advise you to check their terms of use and
-          privacy policies to ensure compliance and determine how they may use your information."
-      third_party_para2: "Our inclusion of hyperlinks to third party websites does not imply any endorsement of or
-      responsibility for any views, statements or information contained in those websites."
-      viruses: "Viruses, Hacking and Other Offences"
-      viruses_para1: "You must not misuse our website by knowingly introducing viruses, Trojans, worms, logic bombs or
-      other material that is malicious or technologically harmful. You must not attempt to gain unauthorised access to
-      our website, the server on which our website is stored, or any server, computer or database connected to our
-      website. You must not attack our website via a denial-of- service attack or a distributed denial-of-service attack."
-      viruses_para2: "By doing any of the above activities you would commit a criminal offence under the Computer Misuse
-       Act 1990. We will report any such breach to the relevant law enforcement authorities and we will co-operate with
-       those authorities by disclosing your identity to them. In the event of such a breach, your right to use our
-       website will cease immediately."
-      viruses_para3: "We will not be liable for any loss or damage caused by a distributed denial-of-service attack,
-      viruses or other technologically harmful material that may infect your computer equipment, computer programs, data
-       or other proprietary material due to your use of our website or due to your downloading of any material posted on
-        it, or on any website linked to it. We recommend that you take appropriate measures to protect yourself before
-         downloading any content."
-      limitation: "Limitation of Liability"
-      limitation_para1: "Classic Folios will not, under any circumstances, be liable for indirect, special or
-      consequential damages, including any loss of business, revenue, profits or data, in relation to your use of the
-      website."
-      limitation_para2: "Nothing within these Terms and Conditions of Use will operate to include any liability for
-      death or personal injury arising as result of the negligence of Classic Folios, its employees or agents."
-      severance: "Severance"
-      severance_para: "If any provision of these Terms and Conditions of Use is held to be invalid or unenforceable,
-      such provision shall be struck out and the remaining Terms and Conditions of Use shall remain in force."
-      law: "Governing Law and Jurisdiction"
-      law_para: "These Terms and Conditions of Use will be governed by the laws of England and Wales and any user of the
-       website agrees to be bound exclusively by the jurisdiction of English courts, should any dispute or claim arise
-        from, or in connection with, them or their subject matter or formation (including non-contractual disputes or
-        claims)"
+      please_read: "PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY BEFORE USING THIS SITE"
+      about_us_title: "Who we are and how to contact us"
+      about_us_1: "www.hoozzi.com is a site operated by CLASSIC FOLIOS LIMITED (<strong>We</strong>). We are
+      registered in England and Wales under company number 04562237 and have our registered office at Highland House
+      Mayflower Close Chandlers Ford  Eastleigh  Hampshire  SO53 4AR Our main trading address is Highland House
+      Mayflower Close Chandlers Ford  Eastleigh  Hampshire  SO53 4AR. Our VAT number is GB 675 7084 00."
+      limited: "We are a limited company."
+      contact: "To contact us, please email hello@hoozzi.com or telephone our customer service line on 02380626280."
+      terms_title: "By using our site you accept these terms"
+      terms_1: "By using our site, you confirm that you accept these terms of use and that you agree to comply with
+      them."
+      terms_2: "If you do not agree to these terms, you must not use our site."
+      terms_3: "We recommend that you print a copy of these terms for future reference."
+      other_terms_title: "There are other terms that may apply to you"
+      other_terms_1: "These terms of use refer to the following additional terms, which also apply to your use of our
+      site:"
+      other_terms_2: "Our <a href='/data_policy' target='_blank'>Privacy Policy</a> which sets out the terms on
+      which we process any personal data we collect from you, or that you provide to us. By using our site, you consent
+      to such processing
+      and you warrant that all data provided by you is accurate."
+      other_terms_3: "Our Acceptable Use Policy in this page, which sets out the permitted uses and prohibited uses of
+      our site. When using our site, you must comply with this Acceptable Use Policy."
+      other_terms_4: "Our <a href='/cookies_policy' target='_blank'>Cookie Policy</a>, which sets out information
+      about the cookies on our site."
+      other_terms_5: "If you purchase services from us via our site, our online Terms and conditions of supply
+      in this page will apply to the suppliers."
+      changes_title: "We may make changes to these terms"
+      changes: "We amend these terms from time to time. Every time you wish to use our site, please check these terms
+      to ensure you understand the terms that apply at that time."
+      site_changes_title: "We may make changes to our site"
+      site_changes: "We may update and change our site from time to time to reflect changes to our services, our users'
+      needs and our business priorities.  We will try to give you reasonable notice of any major changes."
+      suspend_title: "We may suspend or withdraw our site"
+      suspend_1: "We do not guarantee that our site, or any content on it, will always be available or be uninterrupted.
+      We may suspend or withdraw or restrict the availability of all or any part of our site for business and
+      operational reasons. We will try to give you reasonable notice of any suspension or withdrawal."
+      suspend_2: "You are also responsible for ensuring that all persons who access our site through your internet
+      connection are aware of these terms of use and other applicable terms and conditions, and that they comply with
+      them."
+      uk_title: "Our site is only for users in the UK"
+      uk: "Our site is directed to people residing in the United Kingdom. We do not represent that content available on
+      or through our site is appropriate for use or available in other locations."
+      safe_title: "You must keep your account details safe"
+      safe_1: "If you choose, or you are provided with, a user identification code, password or any other piece of
+      information as part of our security procedures, you must treat such information as confidential. You must not
+      disclose it to any third party."
+      safe_2: "We have the right to disable any user identification code or password, whether chosen by you or
+      allocated by us, at any time, if in our reasonable opinion you have failed to comply with any of the provisions
+      of these terms of use."
+      safe_3: "If you know or suspect that anyone other than you knows your user identification code or password, you
+      must promptly notify us at hello@hoozzi.com."
+      ip_title: "How you may use material on our site"
+      ip_1: "We are the owner or the licensee of all intellectual property rights in our site, and in the material
+      published on it.  Those works are protected by copyright laws and treaties around the world. All such rights are
+      reserved."
+      ip_2: "You may print off one copy, and may download extracts, of any page(s) from our site for your personal use
+      and you may draw the attention of others within your organisation to content posted on our site."
+      ip_3: "You must not modify the paper or digital copies of any materials you have printed off or downloaded in any
+      way, and you must not use any illustrations, photographs, video or audio sequences or any graphics separately
+      from any accompanying text."
+      ip_4: "Our status (and that of any identified contributors) as the authors of content on our site must always be
+      acknowledged."
+      ip_5: "You must not use any part of the content on our site for commercial purposes without obtaining a licence
+      to do so from us or our licensors."
+      ip_6: "If you print off, copy or download any part of our site in breach of these terms of use, your right to use
+      our site will cease immediately and you must, at our option, return or destroy any copies of the materials you
+      have made."
+      information_title: "Do not rely on information on this site"
+      information_1: "The content on our site is provided for general information only. It is not intended to amount to
+      advice on which you should rely. You must obtain professional or specialist advice before taking, or refraining
+      from, any action on the basis of the content on our site."
+      information_2: "Although we make reasonable efforts to update the information on our site, we make no
+      representations, warranties or guarantees, whether express or implied, that the content on our site is accurate,
+      complete or up to date."
+      external_title: "We are not responsible for websites we link to"
+      external_1: "Where our site contains links to other sites and resources provided by third parties, these links
+      are provided for your information only. Such links should not be interpreted as approval by us of those linked
+      websites or information you may obtain from them."
+      external_2: "We have no control over the contents of those sites or resources."
+      user_content_title: "User-generated content is not approved by us"
+      user_content_1: "This website may include information and materials uploaded by other users of the site,
+      including to bulletin boards and chat rooms. This information and these materials have not been verified or
+      approved by us. The views expressed by other users on our site do not represent our views or values."
+      user_content_2: "If you wish to complain about information and materials uploaded by other users please contact
+      us at hello@hoozzi.com"
+      damages_title: "Our responsibility for loss or damage suffered by you"
+      damages_title_2: "Whether you are a consumer or a business user:"
+      damages_1: "We do not exclude or limit in any way our liability to you where it would be unlawful to do so. This
+      includes liability for death or personal injury caused by our negligence or the negligence of our employees,
+      agents or subcontractors and for fraud or fraudulent misrepresentation."
+      damages_2: "Different limitations and exclusions of liability will apply to liability arising as a result of the
+      supply of any services to you, which will be set out in our Online Terms and Conditions of supply in this page."
+      damages_business_title: "If you are a business user:"
+      damages_business_1: "We exclude all implied conditions, warranties, representations or other terms that may apply
+      to our site or any content on it."
+      damages_business_2: "We will not be liable to you for any loss or damage, whether in contract, tort (including
+      negligence), breach of statutory duty, or otherwise, even if foreseeable, arising under or in connection with:"
+      damages_list_1: "use of, or inability to use, our site; or"
+      damages_list_2: "use of or reliance on any content displayed on our site."
+      damages_business_3: "In particular, we will not be liable for:"
+      damages_list_3: "loss of profits, sales, business, or revenue;"
+      damages_list_4: "business interruption;"
+      damages_list_5: "loss of anticipated savings;"
+      damages_list_6: "loss of business opportunity, goodwill or reputation; or"
+      damages_list_7: "any indirect or consequential loss or damage."
+      damages_consumer_title: "If you are a consumer user:"
+      damages_consumer_1: "Please note that we only provide our site for domestic and private use. You agree not to use
+      our site for any commercial or business purposes, and we have no liability to you for any loss of profit, loss of
+      business, business interruption, or loss of business opportunity."
+      damages_consumer_2: "If defective digital content that we have supplied, damages a device or digital content
+      belonging to you and this is caused by our failure to use reasonable care and skill, we will either repair the
+      damage or pay you compensation. However, we will not be liable for damage that you could have avoided by
+      following our advice to apply an update offered to you free of charge or for damage that was caused by you
+      failing to correctly follow installation instructions or to have in place the minimum system requirements advised
+      by us."
+      content_title: "Uploading content to our site"
+      content_1: "Whenever you make use of a feature that allows you to upload content to our site, or to make
+      contact with other users of our site, you must comply with the content standards set out in our Acceptable Use
+      Policy in this page."
+      content_2: "You warrant that any such contribution does comply with those standards, and you will be liable to us
+      and indemnify us for any breach of that warranty. This means you will be responsible for any loss or damage we
+      suffer as a result of your breach of warranty."
+      content_3: "Any content you upload to our site will be considered confidential. You retain all of your ownership
+      rights in your content, but you are required to grant us [and other users of our site] a limited licence to use,
+      store that content."
+      content_4: "We also have the right to disclose your identity to any third party who is claiming that any content
+      posted or uploaded by you to our site constitutes a violation of their intellectual property rights, or of their
+      right to privacy."
+      content_5: "We have the right to remove any posting you make on our site if, in our opinion, your post does not
+      comply with the content standards set out in our Acceptable Use Policy on this page."
+      content_6: "You are solely responsible for securing and backing up your content."
+      rights_title: "Rights you are giving us to use material you upload"
+      rights_1: "When you upload or post content to our site, you grant us a perpetual, worldwide, non-exclusive,
+      royalty-free, transferable licence to:"
+      rights_list_1: "use, reproduce, distribute, prepare derivative works of, display, and perform that user-generated
+      content in connection with the service provided by the website and across different media;"
+      rights_list_2: "use the content to promote the site or the service."
+      rights_list_3: "allow third parties (for example, other users, partners or advertisers) to use the content for
+      their purposes or in accordance with the functionality of the site."
+      rights_2: "The licence will expire when the you delete the content from the site and inform us you wish to
+      terminate the licence."
+      viruses_title: "We are not responsible for viruses and you must not introduce them"
+      viruses_1: "We do not guarantee that our site will be secure or free from bugs or viruses."
+      viruses_2: "You are responsible for configuring your information technology, computer programmes and platform to
+      access our site. You should use your own virus protection software."
+      viruses_3: "You must not misuse our site by knowingly introducing viruses, trojans, worms, logic bombs or other
+      material that is malicious or technologically harmful. You must not attempt to gain unauthorised access to our
+      site, the server on which our site is stored or any server, computer or database connected to our site. You must
+      not attack our site via a denial-of-service attack or a distributed denial-of service attack. By breaching this
+      provision, you would commit a criminal offence under the Computer Misuse Act 1990. We will report any such breach
+      to the relevant law enforcement authorities and we will co-operate with those authorities by disclosing your
+      identity to them. In the event of such a breach, your right to use our site will cease immediately."
+      links_title: "Rules about linking to our site"
+      links_1: "You may link to our home page, provided you do so in a way that is fair and legal and does not damage
+      our reputation or take advantage of it."
+      links_2: "You must not establish a link in such a way as to suggest any form of association, approval or
+      endorsement on our part where none exists."
+      links_3: "You must not establish a link to our site in any website that is not owned by you."
+      links_4: "Our site must not be framed on any other site, nor may you create a link to any part of our site other
+      than the home page."
+      links_5: "We reserve the right to withdraw linking permission without notice."
+      links_6: "The website in which you are linking must comply in all respects with the content standards set out in
+      our Acceptable Use Policy in this page"
+      links_7: "If you wish to link to or make any use of content on our site other than that set out above, please
+      contact hello@hoozi.com."
+      law_title: "Which country's laws apply to any disputes?"
+      law_consumer: "If you are a consumer, please note that these terms of use, their subject matter and their formation, are
+      governed by English law. You and we both agree that the courts of England and Wales will have exclusive
+      jurisdiction except that if you are a resident of Northern Ireland you may also bring proceedings in Northern
+      Ireland, and if you are resident of Scotland, you may also bring proceedings in Scotland."
+      law_business: "If you are a business, these terms of use, their subject matter and their formation (and any
+      non-contractual disputes or claims) are governed by English law. We both agree to the exclusive jurisdiction of
+      the courts of England and Wales."
+
+    acceptable_use:
+      title: "Website acceptable use policy"
+      please_read: "PLEASE READ THE TERMS OF THIS POLICY CAREFULLY BEFORE USING THE SITE"
+      about_terms_title: "What's in these terms?"
+      about_terms_1: "This acceptable use policy sets out the content standards that apply when you upload content to our
+      site, make contact with other users on our site, link to our site, or interact with our site in any other way"
+      contact_title: "Who we are and how to contact us"
+      contact_1: "www.hoozzi.com is a site operated by CLASSIC FOLIOS LIMITED (<strong>We</strong>). We are registered
+      in England and Wales under company number 04562237 and have our registered office at Highland House  Mayflower
+      Close  Chandlers Ford  Eastleigh  Hampshire  SO53 4AR. Our main trading address is Highland House  Mayflower
+      Close  Chandlers Ford  Eastleigh  Hampshire  SO53 4AR. Our VAT number is GB675708400"
+      contact_2: "We are a limited company."
+      contact_3: "To contact us, please email hello@hoozzi.com or customer service line on 02380626280."
+      terms_title: "By using our site you accept these terms"
+      terms_1: "By using our site, you confirm that you accept the terms of this policy and that you agree to comply
+      with them."
+      terms_2: "If you do not agree to these terms, you must not use our site."
+      terms_3: "We recommend that you print a copy of these terms for future reference."
+      terms_4: "There are other terms that may apply to you"
+      terms_5: "Our Terms of website elsewhere in this page also apply to your use of our site."
+      changes_title: "We may make changes to the terms of this policy"
+      changes_1: "We amend these terms from time to time. Every time you wish to use our site, please check these terms
+      to ensure you understand the terms that apply at that time."
+      prohibited_title: "Prohibited uses"
+      prohibited_1: "You may use our site only for lawful purposes. You may not use our site:"
+      prohibited_2: "In any way that breaches any applicable local, national or international law or regulation."
+      prohibited_3: "In any way that is unlawful or fraudulent, or has any unlawful or fraudulent purpose or effect.
+      For the purpose of harming or attempting to harm minors in any way."
+      prohibited_4: "To send, knowingly receive, upload, download, use or re-use any material which does not comply
+      with our content standards"
+      prohibited_5: "To transmit, or procure the sending of, any unsolicited or unauthorised advertising or promotional
+      material or any other form of similar solicitation (spam)."
+      prohibited_6: "To knowingly transmit any data, send or upload any material that contains viruses, Trojan horses,
+      worms, time-bombs, keystroke loggers, spyware, adware or any other harmful programs or similar computer code
+      designed to adversely affect the operation of any computer software or hardware."
+      prohibited_7: "You also agree:"
+      prohibited_8: "Not to reproduce, duplicate, copy or re-sell any part of our site in contravention of the
+      provisions of our terms of website use in this page"
+      prohibited_9: "Not to access without authority, interfere with, damage or disrupt:"
+      prohibited_list_9_1: "any part of our site;"
+      prohibited_list_9_2: "any equipment or network on which our site is stored;"
+      prohibited_list_9_3: "any software used in the provision of our site; or"
+      prohibited_list_9_4: "any equipment or network or software owned or used by any third party."
+      services_title: "Interactive services"
+      services_1: "We may from time to time provide interactive services on our site, including, without limitation:"
+      services_2: "Chat rooms."
+      services_3: "Bulletin boards."
+      services_4: "Where we do provide any interactive service, we will provide clear information to you about the
+      kind of service offered, if it is moderated and what form of moderation is used (including whether it is human
+      or technical)."
+      services_5: "We will do our best to assess any possible risks for users (and in particular, for children) from
+      third parties when they use any interactive service provided on our site, and we will decide in each case whether
+      it is appropriate to use moderation of the relevant service (including what kind of moderation to use) in the
+      light of those risks. However, we are under no obligation to oversee, monitor or moderate any interactive service
+      we provide on our site, and we expressly exclude our liability for any loss or damage arising from the use of any
+      interactive service by a user in contravention of our content standards, whether the service is moderated or not."
+      services_6: "The use of any of our interactive services by a minor is subject to the consent of their parent or
+      guardian. We advise parents who permit their children to use an interactive service that it is important that
+      they communicate with their children about their safety online, as moderation is not fool proof. Minors who are
+      using any interactive service should be made aware of the potential risks to them."
+      services_7: "Where we do moderate an interactive service, we will normally provide you with a means of contacting
+      the moderator, should a concern or difficulty arise."
+      standards_title: "Content standards"
+      standards_1: "These content standards apply to any and all material which you contribute to our site
+      (<strong>Contribution</strong>), and to any interactive services associated with it."
+      standards_2: "The Content Standards must be complied with in spirit as well as to the letter. The standards apply
+      to each part of any Contribution as well as to its whole."
+      standards_3: "CLASSIC FOLIOS LIMITED will determine, in its discretion, whether a Contribution breaches the
+      Content Standards."
+      standards_4: "A Contribution must:"
+      standards_5: "Be accurate (where it states facts)."
+      standards_6: "Be genuinely held (where it states opinions)."
+      standards_7: "Comply with the law applicable in England and Wales and in any country from which it is posted."
+      standards_8: "A Contribution must not:"
+      standards_9: "Be defamatory of any person."
+      standards_10: "Be obscene, offensive, hateful or inflammatory."
+      standards_11: "Promote sexually explicit material."
+      standards_12: "Promote violence."
+      standards_13: "Promote discrimination based on race, sex, religion, nationality, disability, sexual orientation
+      or age."
+      standards_14: "Infringe any copyright, database right or trade mark of any other person."
+      standards_15: "Be likely to deceive any person."
+      standards_16: "Breach any legal duty owed to a third party, such as a contractual duty or a duty of confidence."
+      standards_17: "Promote any illegal activity."
+      standards_18: "Be in contempt of court."
+      standards_19: "Be threatening, abuse or invade another's privacy, or cause annoyance, inconvenience or needless
+      anxiety."
+      standards_20: "Be likely to harass, upset, embarrass, alarm or annoy any other person."
+      standards_21: "Impersonate any person, or misrepresent your identity or affiliation with any person."
+      standards_22: "Give the impression that the Contribution emanates from CLASSIC FOLIOS LIMITED (in dealing through
+      its trading name Hoozzi), if this is not the case."
+      standards_23: "Advocate, promote, incite any party to commit, or assist any unlawful or criminal act such as (by
+      way of example only) copyright infringement or computer misuse."
+      standards_24: "Contain a statement which you know or believe, or have reasonable grounds for believing, that
+      members of the public to whom the statement is, or is to be, published are likely to understand as a direct or
+      indirect encouragement or other inducement to the commission, preparation or instigation of acts of terrorism."
+      standards_25: "Contain any advertising or promote any services or web links to other sites."
+      breach_title: "Breach of this policy"
+      breach_1: "When we consider that a breach of this acceptable use policy has occurred, we may take such action as
+      we deem appropriate."
+      breach_2: "Failure to comply with this acceptable use policy constitutes a material breach of the terms of use
+      in this page upon which you are permitted to use our site, and may result in our taking all or any of the
+      following actions:"
+      breach_3: "Immediate, temporary or permanent withdrawal of your right to use our site."
+      breach_4: "Immediate, temporary or permanent removal of any Contribution uploaded by you to our site."
+      breach_5: "Issue of a warning to you."
+      breach_6: "Legal proceedings against you for reimbursement of all costs on an indemnity basis (including, but not
+      limited to, reasonable administrative and legal costs) resulting from the breach."
+      breach_7: "Further legal action against you."
+      breach_8: "Disclosure of such information to law enforcement authorities as we reasonably feel is necessary or as
+      required by law."
+      breach_9: "We exclude our liability for all action we may take in response to breaches of this acceptable use
+      policy. The actions we may take are not limited to those described above, and we may take any other action we
+      reasonably deem appropriate."
+      law_title: "Which country's laws apply to any disputes?"
+      law_1: "If you are a consumer, please note that the terms of this policy, its subject matter and its formation
+      are governed by English law. You and we both agree that the courts of England and Wales will have exclusive
+      jurisdiction except that if you are a resident of Northern Ireland you may also bring proceedings in Northern
+      Ireland, and if you are resident of Scotland, you may also bring proceedings in Scotland."
+      law_2: "If you are a business, the terms of this policy, its subject matter and its formation (and any
+      non-contractual disputes or claims) are governed by English law. We both agree to the exclusive jurisdiction of
+      the courts of England and Wales."
 
     cookies_policy:
       title: "Cookie policy"
@@ -248,8 +560,8 @@ en:
         google_expires_2: "_GA expires after 2 years"
         fixflo: "Asp.net_sessionid"
         fixflo_type: "Strictly Necessary"
-        fixflo_for: "Fixflo is the software that we use for Hoozzi issue resolution. This allow Hoozzi users to report
-        defects with their homes, so that a repair or maintenance information can be provided.  This is a strictly
+        fixflo_for: "Fixflo is the software that we use for Hoozzi issue resolution. This allows Hoozzi users to report
+        defects with their homes, so that repair or maintenance information can be provided.  This is a strictly
         necessary cookie that is used to identify the user for that visit and will be deleted at the end of your
         session."
         fixflo_more: "Fixflo cookie policy"
@@ -261,7 +573,6 @@ en:
         website pages. We use cookies to see where users click on a page so that we van make it easier for them to find
         the information they are looking for."
         crazy_egg_more: "Crazy Egg cookie policy"
-
       note: "Please note that third parties (including, for example, advertising networks and providers of external
       services like web traffic analysis services) may also use cookies, over which we have no control. These cookies
       are likely to be analytical/performance cookies or targeting cookies"
