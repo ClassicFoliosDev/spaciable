@@ -9,7 +9,7 @@
 <%= t(".development") %> <%= @plot.development %>
 <%= t(".phase") %> <%= @plot.phase %>
 <%= t(".number") %> <%= @plot.to_s %>
-<%= t("plots.plot.completion_date") %> <%= l @plot.completion_date, format: :digits %>
+<%= t("plots.plot.completion_date") %> <%= l @plot.completion_date, format: :digits if @plot.completion_date %>
 
 <%= "#{t("activerecord.attributes.plot.house_number")}:" %> <%= @plot.house_number %>
 <%= "#{t("activerecord.attributes.address.building_name")}:" %> <%= @plot.building_name %>
