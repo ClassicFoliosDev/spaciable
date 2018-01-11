@@ -337,7 +337,8 @@ en:
       index:
         title: "Admin users"
         add: "Add user"
-        user: "User"
+        email: "Email"
+        name: "Name"
         headings:
           permission_level: "Permission level"
       new:

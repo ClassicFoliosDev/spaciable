@@ -17,9 +17,10 @@
 <table class="record-list users">
   <thead>
     <tr>
-      <th><%= sortable(@users, :email, t(".user")) %></th>
+      <th><%= sortable(@users, :email, t(".email")) %></th>
+      <th><%= sortable(@users, :first_name, t(".name")) %></th>
       <th><%= sortable(@users, :role) %></th>
-      <th><%= t(".headings.permission_level") %></th>
+      <th><%= sortable(@users, :permission_level_id ,t(".headings.permission_level")) %></th>
       <th><%= sortable(@users, :invitation_accepted_at) %></th>
       <th>&nbsp;</th>
     </tr>
@@ -27,7 +28,8 @@
   <tbody>
     <% @users.each do |user| %>
     <tr data-user="<%= user.id %>">
-      <td><%= link_to user, admin_user_path(user) %></td>
+      <td><%= link_to user.email, admin_user_path(user) %></td>
+      <td><%= user.full_name %></td>
       <td><%= t(user.role) %></td>
       <td><%= user.permission_level %></td>
       <td><%= l user.invitation_accepted_at.to_date, format: :digits if user.invitation_accepted? %></td>
