@@ -2,7 +2,6 @@
 
 class PrivateDocument < ApplicationRecord
   mount_uploader :file, MultiUploader
-  process_in_background :file
 
   belongs_to :resident
 

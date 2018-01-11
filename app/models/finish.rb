@@ -7,7 +7,6 @@ class Finish < ApplicationRecord
   multisearchable against: [:name], using: %i[tsearch trigram]
 
   mount_uploader :picture, PictureUploader
-  process_in_background :picture
   attr_accessor :picture_cache
 
   belongs_to :finish_category, required: true

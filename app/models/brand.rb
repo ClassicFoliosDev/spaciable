@@ -7,9 +7,6 @@ class Brand < ApplicationRecord
   mount_uploader :banner, PictureUploader
   mount_uploader :login_image, PictureUploader
   attr_accessor :logo_cache, :banner_cache, :login_image_cache
-  process_in_background :logo
-  process_in_background :banner
-  process_in_background :login_image
 
   delegate :url, to: :banner, prefix: true
   delegate :url, to: :logo, prefix: true
