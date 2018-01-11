@@ -7,7 +7,7 @@ en:
       welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
       www.hoozzi.com (referred to as 'the website' or 'our website'). By using our website, you acknowledge that you
       have read, understood and accept these Terms and Conditions of Use and that you agree to be bound by them. You
-      also accept our <a href=\"/data_policy\">Privacy Policy</a>. If you do not agree to these terms of use, please
+      also accept our <a href=\"/data_policy\" target='_blank'>Privacy Policy</a>. If you do not agree to these terms of use, please
       stop using our website, any of the products or services. www.hoozzi.com is a website operated by Classic Folios
       Ltd (referred to as 'us', 'we' or 'our')."
       accuracy: "Accuracy and Use of Information on the Website"
@@ -106,7 +106,7 @@ en:
       cookies_title: "Cookies"
       cookies_1: "Our website uses cookies to distinguish you from other users of our website. This helps us to provide
       you with a good experience when you browse our website and also allows us to improve our site. For detailed
-      information on the cookies we use and the purposes for which we use them see our <a href='/cookies_policy'>Cookie
+      information on the cookies we use and the purposes for which we use them see our <a href='/cookies_policy' target='_blank'>Cookie
       policy</a>"
       uses_title: "Uses made of the information"
       uses_1: "We use information held about you in the following ways:"
@@ -166,7 +166,7 @@ en:
       disclosure_list_3_2: "If CLASSIC FOLIOS LIMITED or substantially all of its assets are acquired by a third party,
       in which case personal data held by it about its customers will be one of the transferred assets."
       disclosure_list_3_3: "If we are under a duty to disclose or share your personal data in order to comply with any
-      legal obligation, or in order to enforce or apply our <a href='/ts_and_cs_homeowner', target='_blank'>terms of
+      legal obligation, or in order to enforce or apply our <a href='/ts_and_cs_homeowner' target='_blank'>terms of
       use</a> and other agreements; or to protect the rights, property, or safety of CLASSIC FOLIOS LIMITED, our
       customers, or others. This includes exchanging information with other companies and organisations for the
       purposes of fraud protection and credit risk reduction.]"
