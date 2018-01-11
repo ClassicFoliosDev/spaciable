@@ -1,0 +1,33 @@
+// SCSS classes might not have finished loading, so don't use variables
+
+.cookies-eu-content-holder {
+  font-size: 12px;
+}
+
+.cookies-eu-link {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.cookies-table {
+  color: #67747C; // $type-grey;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+
+  th, td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #B3B5B7; // $ui-dark-grey;
+    padding: 8px 12px;
+  }
+
+  td {
+    font-size: 12px;
+  }
+}
+
+.ts-and-cs-file {
+  .fa-file-word-o {
+    font-size: 40px;
+  }
+}

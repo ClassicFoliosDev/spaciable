@@ -24,6 +24,18 @@ When(/^I log in as a homeowner$/) do
   end
 end
 
+When(/^I log in as a returning homeowner$/) do
+  homeowner = HomeownerUserFixture
+  visit "/"
+
+  within ".sign-in" do
+    fill_in :resident_email, with: homeowner.email
+    fill_in :resident_password, with: homeowner.password
+
+    click_on "Login"
+  end
+end
+
 When(/^I log out as a homeowner$/) do
   within ".session-inner" do
     first(:css, "[data-test='homeowner-sign-out']").click

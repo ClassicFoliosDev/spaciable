@@ -14,6 +14,7 @@
  *= require font-awesome
  *= require jquery-ui
  *= require select2
+ *= require cookies_eu
  */
 
 @import 'geometry';
@@ -30,6 +31,7 @@
 @import 'buttons';
 @import 'z_sorting';
 @import 'font-awesome';
+@import 'legal';
 
 @import 'components/admin/base';
 @import 'components/admin/header';

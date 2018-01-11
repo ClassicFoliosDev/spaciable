@@ -2,6 +2,8 @@
 <%= render 'b2c/nav/navigation' %>
 
 <body class="b2c-registration-view">
+<%= render 'cookies_eu/consent_banner', link: '/cookies_policy', target: '_blank' %>
+
   <div class="main-container">
     <main>
       <%= render "components/flashes" %>

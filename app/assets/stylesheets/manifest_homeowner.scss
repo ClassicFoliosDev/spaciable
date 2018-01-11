@@ -13,6 +13,7 @@
  *= require_self
  *= require font-awesome
  *= require jquery-ui
+ *= require cookies_eu
  */
 
 @import 'geometry';
@@ -30,6 +31,7 @@
 @import 'z_sorting';
 @import 'font-awesome';
 @import 'addtohomescreen/addtohomescreen';
+@import 'legal';
 
 @import 'components/section';
 @import 'components/flashes';

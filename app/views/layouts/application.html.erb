@@ -1,6 +1,7 @@
   <%= render partial: 'layouts/admin_head', locals: { title: t(".title") } %>
   <body class="admin-view">
     <div class="outer-container">
+      <%= render 'cookies_eu/consent_banner', link: '/cookies_policy', target: '_blank' %>
       <div class="sidebar-container">
         <%= render 'components/navigation' %>
       </div>

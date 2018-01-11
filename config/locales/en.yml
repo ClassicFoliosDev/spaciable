@@ -43,6 +43,11 @@ en:
     formats:
       day_time: "%A %d %B %H:%M"   # Friday 20 October 13:24
 
+  cookies_eu:
+    cookies_text: "Cookies help us deliver our services. By using our services, you agree to our use of cookies."
+    learn_more: "Find out more"
+    ok: "OK"
+
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
   developer_admin: "Developer Admin"
@@ -193,6 +198,7 @@ en:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
+        cookies: "Cookies Policy"
       library_hero:
         title: "Welcome to your digital home library"
         appliances: "Appliances"
@@ -234,6 +240,7 @@ en:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
+        cookies: "Cookies Policy"
 
   destroy:
     cancel: "Cancel"

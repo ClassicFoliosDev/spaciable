@@ -177,6 +177,7 @@ Rails.application.routes.draw do
   get "/ts_and_cs_admin", to: 'home#ts_and_cs_admin'
   get "/ts_and_cs_homeowner", to: 'home#ts_and_cs_homeowner'
   get "/data_policy", to: 'home#data_policy'
+  get "/cookies_policy", to: 'home#cookies_policy'
   get "/feedback", to: 'home#feedback'
   get "/appliance_manufacturers_list", to: 'appliances#appliance_manufacturers_list'
   get "/appliance_list", to: 'appliances#appliance_list'

@@ -13,9 +13,11 @@
  *= require_self
  *= require font-awesome
  *= require jquery-ui
+ *= require cookies_eu
  */
 
 @import 'geometry';
+@import 'legal';
 
 @import 'bourbon/bourbon';
 @import 'grid_settings';

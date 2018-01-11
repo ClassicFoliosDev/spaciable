@@ -98,6 +98,9 @@ gem "pg_search"
 # Help with deep cloning
 gem "amoeba"
 
+# EU Cookie pop-up
+gem "cookies_eu", "~> 1.6"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "factory_girl_rails"

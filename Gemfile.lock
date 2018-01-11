@@ -126,6 +126,8 @@ GEM
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
+    cookies_eu (1.6.3)
+      js_cookie_rails
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     cucumber (2.4.0)
@@ -230,6 +232,8 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
+    js_cookie_rails (2.1.4)
+      railties (>= 3.1)
     json (2.0.1)
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
@@ -448,6 +452,7 @@ DEPENDENCIES
   carrierwave_backgrounder
   ckeditor
   codeclimate-test-reporter (~> 0.6)
+  cookies_eu (~> 1.6)
   cucumber-rails
   daemons (~> 1.2)
   database_cleaner

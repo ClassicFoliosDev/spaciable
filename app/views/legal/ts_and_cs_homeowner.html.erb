@@ -42,4 +42,11 @@
 
   <h4><%= t(".law")%></h4>
   <p><%= t(".law_para")%></p>
+
+  <div class="ts-and-cs-file">
+    <h4><%= t("legal.ts_and_cs_file") %></h4>
+    <%= link_to asset_path("HoozziTermsOfUse.doc"), target: "_blank", title: t("legal.ts_and_cs_file") do %>
+      <%= fa_icon "file-word-o" %>
+    <% end %>
+  </div>
 </div>

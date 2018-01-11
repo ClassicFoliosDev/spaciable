@@ -12,4 +12,5 @@ if Rails.env.development?
   Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :finish_manufacturers)
   Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :appliance_manufacturers)
   Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :appliance_categories)
+  Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Plot", association: :division)
 end

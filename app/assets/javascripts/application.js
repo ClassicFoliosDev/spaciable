@@ -17,4 +17,5 @@
 // = require ckeditor/init
 // = require select2
 // = require addtohomescreen/addtohomescreen
+// = require cookies_eu
 // = require_tree .
