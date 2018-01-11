@@ -151,7 +151,6 @@ Then(/^I should see a duplicate unit type with finish and appliance created succ
   end
 
   within ".unit-type" do
-    expect(page).to have_content("Unit Type Document")
     click_on t("unit_types.collection.rooms")
   end
 
@@ -198,12 +197,8 @@ end
 Then(/^I should see a duplicate unit type without finish and appliance created successfully$/) do
   new_name = CreateFixture.unit_type_name + " 2"
 
-  within ".record-list" do
+  within ".unit-types" do
     click_on new_name
-  end
-
-  within ".record-list" do
-    expect(page).to have_content("Unit Type Document")
   end
 
   within ".tabs" do
@@ -224,5 +219,17 @@ Then(/^I should see a duplicate unit type without finish and appliance created s
 
   within ".record-list" do
     expect(page).not_to have_content(CreateFixture.full_appliance_name)
+  end
+end
+
+Then(/^the document has not been cloned$/) do
+  cloned_unit_type_name = CreateFixture.unit_type_name + " 1"
+  within ".breadcrumbs" do
+    click_on cloned_unit_type_name
+  end
+
+  within ".unit-type" do
+    expect(page).not_to have_content DocumentFixture.document_name
+    expect(page).to have_content t("components.empty_list.empty", type_names: "documents")
   end
 end

@@ -26,9 +26,11 @@ Feature: UnitTypes
   Scenario: Clone full unit type
     Given I am logged in as an admin
     And there is a unit type room with finish and appliance
+    And I upload a document for the unit type
     When I navigate to the development
     And I clone the unit type
     Then I should see a duplicate unit type with finish and appliance created successfully
+    And the document has not been cloned
     When I delete the appliance
     And I delete the finish
     When I navigate to the development

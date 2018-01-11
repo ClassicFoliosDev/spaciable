@@ -42,7 +42,6 @@ class Room < ApplicationRecord
   amoeba do
     include_association :finish_rooms
     include_association :appliance_rooms
-    include_association :documents
   end
 
   has_many :documents, as: :documentable, dependent: :destroy

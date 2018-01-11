@@ -245,21 +245,10 @@ When(/^I upload a document for the phase$/) do
 end
 
 When(/^I upload a document for the unit type$/) do
-  goto_development_show_page
-
-  within ".tabs" do
-    click_on t("developments.collection.unit_types")
-  end
-
-  within ".unit-types" do
-    click_on CreateFixture.unit_type_name
-  end
+  unit_type = CreateFixture.unit_type
+  visit "/developments/#{unit_type.development.id}/unit_types/#{unit_type.id}"
 
   within ".unit-type" do
-    click_on t("developments.collection.documents")
-  end
-
-  within ".empty" do
     click_on t("documents.collection.add")
   end
 

@@ -18,7 +18,6 @@ class UnitType < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   amoeba do
-    include_association :documents
     include_association :rooms
   end
 
