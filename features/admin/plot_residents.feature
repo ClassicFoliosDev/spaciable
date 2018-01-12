@@ -42,3 +42,18 @@ Feature: Plot Residents
     Then I should see the created plot residency
     When I assign a new resident to a plot
     Then I should see a duplicate resident notice
+
+  Scenario: Delete and recreate with no phone number (legacy)
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    And There is a resident without phone number assigned to the plot
+    When I delete the second plot residency
+    And I assign a new resident to a plot
+    When I am prompted to fill in the phone number
+    Then I should see the created plot residency
+
+  Scenario: Invalid create
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    When I assign a new resident to the plot without completing the mandatory fields
+    Then I should see the invalid resident errors
+    When I assign a new resident to a plot
+    Then I should see the created plot residency

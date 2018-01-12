@@ -21,7 +21,7 @@ module ResidentResetService
     resident.hoozzi_email_updates = false
     resident.telephone_updates = false
     resident.post_updates = false
-    resident.save!
+    resident.save(validate: false)
 
     response = ""
     plots.each do |plot|

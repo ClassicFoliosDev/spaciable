@@ -844,7 +844,8 @@ en:
       back: "Back"
       title: "Plot %{plot} resident"
     update:
-      success: "%{resident_name} was updated successfully"
+      resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
+      plot_residency_already_exists: "Resident %{email} was updated successfully"
 
     invitations:
       edit:

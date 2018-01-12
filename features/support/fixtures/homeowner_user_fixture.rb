@@ -22,7 +22,8 @@ module HomeownerUserFixture
       email: email,
       password: password,
       first_name: first_name,
-      ts_and_cs_accepted_at: Time.zone.now
+      ts_and_cs_accepted_at: Time.zone.now,
+      phone_number: phone_num
     )
   end
 
@@ -58,6 +59,11 @@ module HomeownerUserFixture
 
   def password
     "87654321"
+  end
+
+  # https://fakenumber.org/united-kingdom
+  def phone_num
+    "020 7925 0918"
   end
 
   def phase_name

@@ -221,3 +221,57 @@ Then(/^I should see the resident is not activated$/) do
     expect(page).not_to have_content t("residents.collection.activated")
   end
 end
+
+# Resident without phone number is not valid now, but there may be legacy resident data
+# for residents without phone numbers, so to make sure we can still use them
+Given(/^There is a resident without phone number assigned to the plot$/) do
+  attrs = PlotResidencyFixture.attrs(:created)
+
+  resident = Resident.new(email: attrs[:email],
+                          first_name: attrs[:first_name],
+                          last_name: attrs[:last_name])
+  resident.save(validate: false)
+
+  plot = CreateFixture.phase_plot
+
+  plot_resident = PlotResidency.new(plot_id: plot.id, resident_id: resident.id)
+  plot_resident.save(validate: false)
+
+  visit "/plots/#{plot.id}?active_tab=residents"
+end
+
+Then(/^I am prompted to fill in the phone number$/) do
+  within ".submission-errors" do
+    expect(page).to have_content("Phone number is invalid")
+  end
+
+  within ".edit_resident" do
+    attrs = PlotResidencyFixture.attrs(:created)
+    fill_in :resident_phone_number, with: attrs[:phone]
+
+    click_on t("residents.form.submit")
+  end
+end
+
+When(/^I assign a new resident to the plot without completing the mandatory fields$/) do
+  plot = CreateFixture.phase_plot
+  visit "/plots/#{plot.id}?active_tab=residents"
+
+  within ".plot" do
+    click_on t("residents.collection.add")
+  end
+
+  within ".new_resident" do
+    fill_in :resident_email, with: PlotResidencyFixture.original_email
+    click_on t("residents.form.submit")
+  end
+end
+
+Then(/^I should see the invalid resident errors$/) do
+  within ".submission-errors" do
+    expect(page).to have_content "First name is required, and must not be blank"
+    expect(page).to have_content "Last name is required, and must not be blank"
+    expect(page).to have_content "Phone number is required, and must not be blank"
+    expect(page).to have_content "Phone number is invalid"
+  end
+end

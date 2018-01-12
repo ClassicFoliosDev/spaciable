@@ -28,7 +28,8 @@ class Resident < ApplicationRecord
   delegate :enable_services?, to: :developer
 
   validates :first_name, :last_name, presence: true
-  validates :phone_number, phone: true, allow_blank: true
+  validates :phone_number, phone: true
+  validates :phone_number, presence: true, on: :create
 
   def subscribed_status
     if hoozzi_email_updates.to_i.positive? || developer_email_updates.to_i.positive?

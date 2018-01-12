@@ -32,11 +32,7 @@ class ResidentsController < ApplicationController
 
   def update
     if @resident.update(resident_params)
-      notice = Mailchimp::MarketingMailService.call(@resident,
-                                                    @plot,
-                                                    Rails.configuration.mailchimp[:unactivated])
-      notice = t(".success", resident_name: @resident) if notice.nil?
-      redirect_to [@resident.plots.first, active_tab: :residents], notice: notice
+      notify_and_redirect(false)
     else
       render :edit
     end
@@ -62,6 +58,14 @@ class ResidentsController < ApplicationController
 
   private
 
+  def activation_status
+    if @resident.invitation_accepted?
+      Rails.configuration.mailchimp[:activated]
+    else
+      Rails.configuration.mailchimp[:unactivated]
+    end
+  end
+
   def notify_and_redirect(new_resident)
     plot_residency = PlotResidency.find_by(resident_id: @resident.id, plot_id: @plot.id)
 
@@ -70,8 +74,7 @@ class ResidentsController < ApplicationController
              elsif new_resident
                @resident.save!
                plot_residency_and_invitation
-               Mailchimp::MarketingMailService.call(@resident, @plot,
-                                                    Rails.configuration.mailchimp[:unactivated])
+               Mailchimp::MarketingMailService.call(@resident, @plot, activation_status)
              else
                plot_residency_and_invitation
                t(".resident_already_exists", plot: @plot)

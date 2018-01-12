@@ -47,7 +47,7 @@ Feature: Homeowner Account
     When I switch to the homeowner plot
     Then I should see the resident emails listed in my account
 
-  Scenario: Delete and recreate legacy style
+  Scenario: Delete and recreate with soft delete (legacy)
     Given I am a Development Admin wanting to assign a new resident to a plot
     And a CF admin has configured a video link
     And I assign a new resident to a plot
