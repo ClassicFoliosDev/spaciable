@@ -60,3 +60,11 @@ Feature: Homeowner Account
     When I assign a new resident to a plot
     When I log in as an existing homeowner
     Then I should be redirected to the homeowner dashboard
+
+  Scenario: Legacy homeowner
+    Given there is a division with a development
+    And there is a plot for the division development
+    And I am a legacy homeowner
+    When I log in with cookies
+    Then I should be on the "My Home" dashboard
+    And the cookie should be set correctly

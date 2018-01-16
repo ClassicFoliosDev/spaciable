@@ -347,3 +347,37 @@ Given(/^the plot has an address$/) do
   plot.save!
   address.save!
 end
+
+Given(/^I am a legacy homeowner$/) do
+  # Invalid homeowner with no phone number
+  homeowner = Resident.create(email: HomeownerUserFixture.email,
+                              first_name: HomeownerUserFixture.first_name,
+                              last_name: "Fooness",
+                              password: HomeownerUserFixture.password,
+                              invitation_accepted_at: Time.zone.now)
+  homeowner.save(validate: false)
+
+  plot = CreateFixture.division_plot
+  plot_residency = PlotResidency.create(resident: homeowner, plot: plot)
+  plot_residency.save(validate: false)
+end
+
+Given(/^I log in with cookies$/) do
+  homeowner = Resident.find_by(email: HomeownerUserFixture.email)
+  visit "/"
+
+  within ".sign-in" do
+    fill_in :resident_email, with: homeowner.email
+    fill_in :resident_password, with: HomeownerUserFixture.password
+
+    check_box = find(".accept-ts-and-cs")
+    check_box.trigger(:click)
+
+    click_on "Login"
+  end
+end
+
+Then(/^the cookie should be set correctly$/) do
+  homeowner = Resident.find_by(email: HomeownerUserFixture.email)
+  expect(homeowner.ts_and_cs_accepted_at).not_to be_nil
+end

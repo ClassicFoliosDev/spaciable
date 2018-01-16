@@ -67,10 +67,13 @@ module Residents
       end
     end
 
+    # rubocop:disable SkipsModelValidations
     def accept_ts_and_cs
       return if current_resident.ts_and_cs_accepted_at.present?
-      current_resident.update(ts_and_cs_accepted_at: Time.zone.now)
+      # Make sure legacy residents can log in, even if they do not have a phone number
+      current_resident.update_attribute(:ts_and_cs_accepted_at, Time.zone.now)
     end
+    # rubocop:enable SkipsModelValidations
 
     def reset_cookie
       # Keep the cookie if the resident has accepted ts and cs previously
