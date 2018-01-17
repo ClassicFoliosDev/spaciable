@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   skip_before_action :authenticate_user!
   skip_authorization_check
   skip_before_action :redirect_residents, only: %i[data_policy cookies_policy ts_and_cs_admin
-                                                   ts_and_cs_homeowner feedback]
+                                                   ts_and_cs_homeowner feedback health]
 
   def show
     redirect_to(homeowner_dashboard_path) && return if current_resident
@@ -31,5 +31,9 @@ class HomeController < ApplicationController
   def feedback
     FeedbackNotificationJob.perform_later(params[:comments], params[:option], params[:email])
     render json: ""
+  end
+
+  def health
+    head :ok
   end
 end
