@@ -101,9 +101,9 @@ And(/^I can see the data policy page$/) do
 
   within ".policy" do
     expect(page).to have_content(t("legal.data_policy.title"))
-    expect(page).to have_content(t("legal.data_policy.your_rights"))
-    expect(page).to have_content(t("legal.data_policy.who_we_are"))
-    expect(page).to have_content(t("legal.data_policy.information"))
+    expect(page).to have_content(t("legal.data_policy.information_1"))
+    expect(page).to have_content(t("legal.data_policy.us_1"))
+    expect(page).to have_content(t("legal.data_policy.rights_1"))
   end
 end
 

@@ -19,15 +19,16 @@ end
 Then(/^I should see the terms and conditions for using Hoozzi$/) do
   within ".policy" do
     expect(page).to have_content(t("legal.ts_and_cs_homeowner.title"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.about_us"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.ip"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.law"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.limitation"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.viruses"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.welcome").first(30))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.about_us_title"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.please_read"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.changes_title"))
     expect(page).to have_content(t("legal.ts_and_cs_homeowner.changes"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.severance"))
-    expect(page).to have_content(t("legal.ts_and_cs_homeowner.third_party"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.contact"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.damages_consumer_1"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.damages_consumer_title"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.changes"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.other_terms_title"))
+    expect(page).to have_content(t("legal.ts_and_cs_homeowner.law_title"))
   end
 end
 
@@ -50,12 +51,12 @@ end
 Then(/^I should see the privacy information for using Hoozzi$/) do
   within ".policy" do
     expect(page).to have_content(t("legal.data_policy.title"))
-    expect(page).to have_content(t("legal.data_policy.information"))
-    expect(page).to have_content(t("legal.data_policy.links"))
-    expect(page).to have_content(t("legal.data_policy.what_we_do"))
-    expect(page).to have_content(t("legal.data_policy.where_we_store"))
-    expect(page).to have_content(t("legal.data_policy.who_we_are"))
-    expect(page).to have_content(t("legal.data_policy.your_rights"))
+    expect(page).to have_content(t("legal.data_policy.access_title"))
+    expect(page).to have_content(t("legal.data_policy.access_1"))
+    expect(page).to have_content(t("legal.data_policy.us_1"))
+    expect(page).to have_content(t("legal.data_policy.us_2"))
+    expect(page).to have_content(t("legal.data_policy.disclosure_1"))
+    expect(page).to have_content(t("legal.data_policy.information_1"))
   end
 end
 

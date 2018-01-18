@@ -15,8 +15,7 @@ namespace :ts_and_cs do
       Resident.find_each do |resident|
         count += 1
 
-        resident.ts_and_cs_accepted_at = nil
-        resident.save!
+        resident.update_attribute(:ts_and_cs_accepted_at, nil)
       end
     end
 
