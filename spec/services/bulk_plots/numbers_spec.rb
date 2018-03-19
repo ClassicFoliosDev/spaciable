@@ -8,7 +8,7 @@ RSpec.describe BulkPlots::Numbers do
       it "is displayed as a string decimal" do
         result = described_class.Number(3.5)
 
-        expect(result).to be(3.5)
+        expect(result).to eq(3.5)
       end
 
       it "should maintain string representation" do
@@ -22,7 +22,7 @@ RSpec.describe BulkPlots::Numbers do
       it "is displayed as a decimal" do
         result = described_class.Number(3.0)
 
-        expect(result).to be(3.0)
+        expect(result).to eq(3.0)
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe BulkPlots::Numbers do
       it "is displayed with trailing zeros" do
         result = described_class.Number(5.2000)
 
-        expect(result).to be(5.2000)
+        expect(result).to eq(5.2000)
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe BulkPlots::Numbers do
       it "is displayed as a whole number" do
         result = described_class.Number(3)
 
-        expect(result).to be(3)
+        expect(result).to eq(3)
       end
     end
 
