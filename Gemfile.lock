@@ -85,6 +85,7 @@ GEM
       aws-sigv4 (~> 1.0)
     aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
+    bcrypt (3.1.11-x64-mingw32)
     bcrypt (3.1.11-x86-mingw32)
     bourbon (4.2.7)
       sass (~> 3.4)
@@ -180,6 +181,7 @@ GEM
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.14)
+    ffi (1.9.14-x64-mingw32)
     ffi (1.9.14-x86-mingw32)
     fog-aws (0.11.0)
       fog-core (~> 1.38)
@@ -272,6 +274,8 @@ GEM
     nio4r (1.2.1)
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
+    nokogiri (1.6.8.1-x64-mingw32)
+      mini_portile2 (~> 2.1.0)
     nokogiri (1.6.8.1-x86-mingw32)
       mini_portile2 (~> 2.1.0)
     non-stupid-digest-assets (1.0.9)
@@ -284,6 +288,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.19.0)
+    pg (0.19.0-x64-mingw32)
     pg (0.19.0-x86-mingw32)
     pg_search (2.0.1)
       activerecord (>= 4.2)
@@ -446,6 +451,7 @@ GEM
 
 PLATFORMS
   ruby
+  x64-mingw32
   x86-mingw32
 
 DEPENDENCIES
@@ -518,7 +524,7 @@ DEPENDENCIES
   webmock
 
 RUBY VERSION
-   ruby 2.3.3p222
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.16.1
