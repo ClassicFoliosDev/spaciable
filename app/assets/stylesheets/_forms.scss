@@ -56,6 +56,7 @@ label {
   font-weight: $label-font-weight;
   margin-top: $label-margin * 2;
   margin-bottom: $label-margin/2;
+  clear: left;
 }
 
 .info-span {
@@ -223,20 +224,52 @@ fieldset {
   font-size: $base-font-size;
   float: right;
   padding-top: 6px;
-  width: 100%;
-  padding-left: 12px;
-  @-moz-document url-prefix() {
-    padding-left: 0;
-  }
 
   &:focus {
     outline: none;
   }
 }
 
+// Hide the browser file button entirely
+// Chrome and safari only
+.file-upload::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+// Make sure the browser file button is behind the overlay button
+// Firefox only
+@-moz-document url-prefix() {
+  .file-upload {
+    float: right;
+    padding-left: 12px;
+  }
+}
+
+// In IE, the browse field is completely different
+// Hide the choose button and use the browser file browse button and layout
+// IE edge
+@supports (-ms-ime-align:auto) {
+  .choose-file {
+   display: none;
+  }
+}
+
+// IE 8 - 10
+@media screen\0 {
+  .choose-file {
+    display: none;
+  }
+}
+
+// IE 6 - 7
+@media screen\9 {
+  .choose-file {
+    display: none;
+  }
+}
+
 .choose-file {
   float: left;
-  margin-top: -25px;
   font-size: $base-font-size;
   color: $type-grey;
   border-style: solid;
@@ -352,4 +385,15 @@ fieldset {
 .match-errors {
   color: $primary-red;
   margin-top: $spacing-small;
+}
+
+@include media($tablet-landscape-up) {
+  .choose-file {
+    margin-top: -25px;
+  }
+
+  .file-upload {
+    padding-left: 10px;
+    width: 100%;
+  }
 }

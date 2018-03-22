@@ -58,7 +58,8 @@
             <%= f.check_box :remove_manual, class: "hidden remove-document" %>
           </div>
         <% end %>
-        <%= f.file_field :manual, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>        <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
+        <%= f.file_field :manual, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
+        <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
       </div>
       <div class="guide-container">
         <%= f.label t(".guide") %>
@@ -72,9 +73,12 @@
             <%= f.check_box :remove_guide, label: false, class: "hidden remove-document" %>
           </div>
         <% end %>
-        <%= f.file_field :guide, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>        <%= label_tag('appliance_guide', t("choose"), class: "choose-file") %>
+        <%= f.file_field :guide, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
+        <%= label_tag('appliance_guide', t("choose"), class: "choose-file") %>
       </div>
-      <%= f.input :secondary_image, as: :image_preview %>
+      <div>
+        <%= f.input :secondary_image, as: :image_preview %>
+      </div>
     </div>
   </div>
 

@@ -1103,6 +1103,7 @@ en:
      remove_manual: "Remove appliance manual"
      guide: "Quick reference guide"
      remove_guide: "Remove appliance quick reference guide"
+     secondary_image: "Secondary image"
    no_match: "No matching appliances found"
 
   finish_manufacturers:

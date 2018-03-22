@@ -116,7 +116,7 @@ When(/^I remove an image from a contact$/) do
 
   within ".contact_picture" do
     remove_btn = find(".remove-btn", visible: false)
-    remove_btn.click
+    remove_btn.trigger("click")
   end
 
   click_on t("unit_types.form.submit")
