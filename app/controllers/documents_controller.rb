@@ -54,13 +54,9 @@ class DocumentsController < ApplicationController
     authorize! :update, @document
 
     if @document.update(document_params)
+      @document.set_original_filename
       respond_to do |format|
-        format.html do
-          process_html_format
-        end
-        format.json do
-          render json: @document.to_json, status: :ok
-        end
+        build_response(format)
       end
     else
       render :edit
@@ -76,6 +72,21 @@ class DocumentsController < ApplicationController
 
   private
 
+  def build_response(format)
+    format.html do
+      notice = t("controller.success.update", name: @document.title)
+      if document_params[:notify].to_i.positive?
+        notice << ResidentChangeNotifyService.call(@document, current_user,
+                                                   t("notify.updated"), @document.parent)
+      end
+      redirect_to target, notice: notice
+    end
+
+    format.json do
+      render json: @document.to_json, status: :ok
+    end
+  end
+
   def notify_and_redirect
     notice = t("controller.success.create", name: @document.title)
 
@@ -84,15 +95,6 @@ class DocumentsController < ApplicationController
                                                  t("notify.added"), @document.parent)
     end
 
-    redirect_to target, notice: notice
-  end
-
-  def process_html_format
-    notice = t("controller.success.update", name: @document.title)
-    if document_params[:notify].to_i.positive?
-      notice << ResidentChangeNotifyService.call(@document, current_user,
-                                                 t("notify.updated"), @document.parent)
-    end
     redirect_to target, notice: notice
   end
 

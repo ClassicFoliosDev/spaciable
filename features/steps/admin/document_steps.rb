@@ -441,3 +441,70 @@ When(/^I navigate to the division phase$/) do
   phase = CreateFixture.division_phase
   visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 end
+
+When(/^I upload an image for the phase plot$/) do
+  goto_phase_show_page
+
+  within ".phase" do
+    click_on t("phases.collection.plots")
+  end
+
+  plots = Plot.where(phase_id: CreateFixture.phase.id)
+  within ".plots" do
+    click_on plots.first
+  end
+
+  within ".empty" do
+    click_on t("documents.collection.add")
+  end
+
+  image_full_path = FileFixture.file_path + FileFixture.finish_picture_name
+  within ".new_document" do
+    attach_file("document_file",
+                File.absolute_path(image_full_path),
+                visible: false)
+    fill_in "document_title", with: DocumentFixture.document_name
+
+    click_on t("documents.form.submit")
+  end
+end
+
+Then(/^I should see the created image$/) do
+  within ".documents" do
+    expect(page).to have_content(DocumentFixture.document_name)
+  end
+end
+
+When(/^I update the image name$/) do
+  click_on(t("developers.show.back"))
+
+  within ".documents" do
+    find("[data-action='edit']").click
+  end
+
+  within ".edit_document" do
+    fill_in "document_title", with: DocumentFixture.updated_document_name
+    select_from_selectmenu :document_category, with: t("activerecord.attributes.document.categories.legal_and_warranty")
+
+    click_on t("developers.form.submit")
+  end
+end
+
+When(/^I upload an svg image for the division phase plot$/) do
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+  visit "/plots/#{plot.id}?active_tab=documents"
+
+  within ".plot" do
+    click_on t("documents.collection.add")
+  end
+
+  document_full_path = FileFixture.file_path + FileFixture.svg_picture_name
+  within ".new_document" do
+    attach_file("document_file",
+                File.absolute_path(document_full_path),
+                visible: false)
+    fill_in "document_title", with: DocumentFixture.document_name
+
+    click_on t("documents.form.submit")
+  end
+end

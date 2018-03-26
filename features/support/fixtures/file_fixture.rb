@@ -19,6 +19,10 @@ module FileFixture
     "roca_basin.jpg"
   end
 
+  def svg_picture_name
+    "SVG_logo.svg"
+  end
+
   def finish_picture_alt
     "oca basin"
   end

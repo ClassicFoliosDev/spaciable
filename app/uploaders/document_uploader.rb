@@ -18,7 +18,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
     image.resize_to_fit(height, width).write(current_path)
   end
 
-  version :preview do
+  version :preview, if: :not_svg? do
     process convert_to_image: [210, 297]
     process convert: :jpg
 
@@ -51,10 +51,16 @@ class DocumentUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   def extension_white_list
-    %w[pdf PDF]
+    %w[pdf PDF jpg jpeg gif png svg]
   end
 
   def fog_authenticated_url_expiration
     90.minutes # will be converted to seconds,  (default is 10.minutes)
+  end
+
+  protected
+
+  def not_svg?(new_file)
+    !new_file.content_type.start_with? "image/svg+xml"
   end
 end

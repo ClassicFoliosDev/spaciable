@@ -38,11 +38,11 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   process :resize_to_fit => [50, 50]
   # end
 
-  version :medium do
+  version :medium, if: :not_svg? do
     process resize_to_fit: [300, 300]
   end
 
-  version :thumbnail do
+  version :thumbnail, if: :not_svg? do
     process resize_to_fit: [150, 150]
   end
 
@@ -60,5 +60,11 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   def fog_authenticated_url_expiration
     90.minutes # will be converted to seconds,  (default is 10.minutes)
+  end
+
+  protected
+
+  def not_svg?(new_file)
+    !new_file.content_type.start_with? "image/svg+xml"
   end
 end

@@ -145,3 +145,25 @@ Feature: Documents
     Then I should see that the deletion was successful for the document
     When I navigate to the phase
     Then I should not see the bulk uploads tab
+
+  Scenario: Plot image development admin image
+    Given I am logged in as a Development Admin
+    And there is a phase plot
+    When I upload an image for the phase plot
+    Then I should see the created image
+    And I should see the original filename
+    When I update the image name
+    Then I should see the updated document for the phase plot
+    When I delete the document
+    Then I should see that the deletion was successful for the document
+
+  Scenario: Plot svg image division admin
+    Given I am logged in as a Division Admin
+    And there is a division phase plot
+    When I upload an svg image for the division phase plot
+    Then I should see the created image
+    And I should see the original filename
+    When I update the image name
+    Then I should see the updated document for the phase plot
+    When I delete the document
+    Then I should see that the deletion was successful for the document

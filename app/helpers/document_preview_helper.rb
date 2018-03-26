@@ -7,6 +7,8 @@ module DocumentPreviewHelper
   # for the preview image, and all browsers except for Safari will show the image
   # (regardless of the content type header). This fixes the preview thumbs for Safari.
   def document_preview_url(file)
-    file.preview&.url(response_content_type: %( "image/jpeg" ))
+    return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
+
+    file.url(response_content_type: %( "image/svg+xml"))
   end
 end
