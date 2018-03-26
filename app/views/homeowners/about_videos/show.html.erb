@@ -1,3 +1,5 @@
 <div class="video-container">
-  <%= render "homeowners/about_videos/video", setting: @setting %>
+  <% if @setting&.video? %>
+    <%= render "homeowners/about_videos/video", setting: @setting %>
+  <% end %>
 </div>
