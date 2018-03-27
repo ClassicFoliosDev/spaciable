@@ -65,6 +65,15 @@ class Brand < ApplicationRecord
     branded_image(:login_image_url)
   end
 
+  def logo_thumb_url
+    return unless logo
+    return unless logo.file
+
+    return logo.url if logo.file.extension.casecmp("svg").zero?
+
+    logo.url :thumbnail
+  end
+
   private
 
   def branded_param(attr_name)
