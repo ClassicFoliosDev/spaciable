@@ -11,22 +11,22 @@ module PlotTabsHelper
   PLOT_TABS = lambda do |plot|
     {
       documents: {
-        icon: "file-pdf-o",
-        link: [plot, active_tab: :documents]
+        icon: "file-pdf-o", link: [plot, active_tab: :documents]
       },
       rooms: {
-        icon: :bath,
-        link: [plot, active_tab: :rooms],
+        icon: :bath, link: [plot, active_tab: :rooms],
         permissions_on: -> { plot.development.rooms.build }
       },
       residents: {
-        icon: :user,
-        link: [plot, active_tab: :residents],
+        icon: :user, link: [plot, active_tab: :residents],
         permissions_on: -> { PlotResidency.new(plot_id: plot.id) }
       },
       progress: {
-        icon: "cogs",
-        link: [plot, active_tab: :progress],
+        icon: "cogs", link: [plot, active_tab: :progress],
+        permissions_on: -> { plot }
+      },
+      completion: {
+        icon: "calendar", link: [plot, active_tab: :completion],
         permissions_on: -> { plot }
       }
     }

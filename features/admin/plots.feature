@@ -44,3 +44,13 @@ Feature: Plots
     And both residents have been notified
     When I update the completion date for the plot
     Then both residents have been notified of the completion date
+    And I can not create a plot
+    And I can not edit a plot
+
+  Scenario: Developer Admin
+    Given I am logged in as a Developer Admin
+    And there is a phase plot resident
+    Then I can not create a plot
+    And I can not edit a plot
+    And I can update the completion date for a plot
+    And the completion date has been set

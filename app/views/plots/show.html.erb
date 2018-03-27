@@ -8,6 +8,8 @@
   <%= render 'components/tabs', tabs: plot_tabs(@plot, @active_tab), parent: @plot.unit_type %>
   <% if @active_tab == "progress" %>
     <%= render "progresses/progress", plot: @plot, progress_id: @progress_id %>
+  <% elsif @active_tab == "completion" %>
+    <%= render "plots/completion", plot: @plot %>
   <% else %>
     <%= render_collection @collection, collection: @collection, parent: @collection_parent, plot: @plot %>
     <div class="above-footer">

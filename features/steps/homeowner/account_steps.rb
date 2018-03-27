@@ -314,7 +314,7 @@ Then(/^the email should include all my details$/) do
 
   plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
 
-  expect(contents).to have_content ("Completion date: #{plot.completion_date.strftime("%d.%m.%Y")}")
+  expect(contents).to have_content ("Legal completion date: #{plot.completion_date.strftime("%d.%m.%Y")}")
   expect(contents).to have_content ("Postal number / name: 66")
   expect(contents).to have_content ("Building name: #{plot.building_name}")
   expect(contents).to have_content ("Road: #{plot.road_name}")

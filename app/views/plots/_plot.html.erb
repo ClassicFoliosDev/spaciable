@@ -11,5 +11,5 @@
 <div class="section-data">
   <%= render 'address/address', address: plot %>
   <span class="strong"><%= plot.unit_type %></span>
-  <%= edit_btn [:edit, plot], element: plot %>
+  <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
 </div>

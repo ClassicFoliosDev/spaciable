@@ -320,3 +320,54 @@ Given(/^there is a second resident$/) do
   resident = FactoryGirl.create(:resident, :activated, email: PlotResidencyFixture.second_email)
   FactoryGirl.create(:plot_residency, resident_id: resident.id, plot_id: phase_plot.id)
 end
+
+Then(/^I can not create a plot$/) do
+  goto_phase_show_page
+
+  within ".phase" do
+    expect(page).not_to have_selector(".section-actions")
+    expect(page).not_to have_content(t("plots.collection.add"))
+  end
+end
+
+Then(/^I can not edit a plot$/) do
+  within ".plots" do
+    edit_links = page.all("[data-action='edit']")
+    expect(edit_links.count).to eq 0
+  end
+
+  within ".record-list" do
+    click_on CreateFixture.phase_plot_name
+  end
+
+  within ".plot" do
+    edit_links = page.all("[data-action='edit']")
+    expect(edit_links.count).to eq 0
+  end
+end
+
+Then(/^I can update the completion date for a plot$/) do
+  within ".tabs" do
+    click_on t("plots.collection.completion")
+  end
+
+  within ".edit_plot" do
+    fill_in "plot_completion_date", with: PlotFixture.completion_date
+  end
+
+  within ".above-footer" do
+    click_on t("edit.submit")
+  end
+end
+
+Then(/^the completion date has been set$/) do
+  success_flash = t("plots.update.success.one", plot_name: CreateFixture.phase_plot_name )
+
+  within ".notice" do
+    expect(page).to have_content(success_flash)
+  end
+
+  within ".section-header" do
+    expect(page).to have_content Time.zone.today.advance(days: 7).to_date.strftime("%d %B %Y")
+  end
+end

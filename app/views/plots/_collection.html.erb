@@ -30,7 +30,7 @@
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
           <td class="actions">
-            <%= edit_btn [:edit, plot], element: plot %>
+            <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
             <%= delete_btn plot, path: url_for(plot), element: plot %>
           </td>
         </tr>

@@ -980,6 +980,7 @@ en:
       unit_type: "Unit type"
       name: "Plot"
       progress: "Build progress"
+      completion: "Completion"
       activation: "Activated Residents"
       activated: "%{activated} of %{all}"
     show:
@@ -990,7 +991,9 @@ en:
       private_documents: "Uploaded documents: "
       none: "(n/a)"
       progress: "Build progress: "
-      completion_date: "Completion date: "
+      completion_date: "Legal completion date: "
+    completion:
+      title: "Legal completion date"
 
   plot_documents:
     form:
