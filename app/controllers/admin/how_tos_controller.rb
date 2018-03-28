@@ -9,7 +9,7 @@ module Admin
 
     def index
       @how_tos = @how_tos.includes(:how_to_tags, :tags)
-      @how_tos = paginate(sort(@how_tos, default: :created_at))
+      @how_tos = paginate(sort(@how_tos, default: { created_at: :desc }))
     end
 
     def new

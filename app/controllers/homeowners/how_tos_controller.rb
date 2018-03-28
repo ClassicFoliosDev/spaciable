@@ -13,10 +13,10 @@ module Homeowners
       @how_tos = if tag_id
                    @category = nil
                    @tag = Tag.find(tag_id)
-                   @tag.how_tos.active.includes(:how_to_tags).order(:created_at)
+                   @tag.how_tos.active.includes(:how_to_tags).order(created_at: :desc)
                  else
                    @how_tos.active.where(category: @category)
-                           .includes(:how_to_tags).order(:created_at)
+                           .includes(:how_to_tags).order(created_at: :desc)
                  end
     end
 
