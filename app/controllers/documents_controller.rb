@@ -46,6 +46,7 @@ class DocumentsController < ApplicationController
     if @document.save
       notify_and_redirect
     else
+      @document = Document.new
       render :new
     end
   end
