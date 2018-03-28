@@ -22,5 +22,6 @@ class Document < ApplicationRecord
 
   def set_original_filename
     self.original_filename = file.filename
+    save!
   end
 end

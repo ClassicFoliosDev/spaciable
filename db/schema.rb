@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180328074632) do
+ActiveRecord::Schema.define(version: 20180328134915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -317,6 +317,7 @@ ActiveRecord::Schema.define(version: 20180328074632) do
     t.integer  "finish_category_id"
     t.integer  "finish_type_id"
     t.integer  "finish_manufacturer_id"
+    t.string   "original_filename"
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_name", using: :btree
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree

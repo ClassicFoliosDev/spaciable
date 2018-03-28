@@ -27,4 +27,9 @@ class Finish < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  def set_original_filename
+    self.original_filename = picture.filename
+    save!
+  end
 end

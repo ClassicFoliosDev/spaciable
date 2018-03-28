@@ -19,6 +19,7 @@ class FinishesController < ApplicationController
 
   def create
     if @finish.save
+      @finish.set_original_filename
       redirect_to finishes_path, notice: t("controller.success.create", name: @finish.name)
     else
       render :new
@@ -27,6 +28,7 @@ class FinishesController < ApplicationController
 
   def update
     if @finish.update(finish_params)
+      @finish.set_original_filename
       redirect_to finish_path, notice: t("controller.success.update", name: @finish.name)
     else
       render :edit

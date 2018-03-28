@@ -41,12 +41,11 @@ class DocumentsController < ApplicationController
 
   def create
     authorize! :create, @document
-    @document.set_original_filename
 
     if @document.save
+      @document.set_original_filename
       notify_and_redirect
     else
-      @document = Document.new
       render :new
     end
   end
