@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180108133245) do
+ActiveRecord::Schema.define(version: 20180328074632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -351,11 +351,12 @@ ActiveRecord::Schema.define(version: 20180108133245) do
     t.integer  "featured"
     t.string   "picture"
     t.datetime "deleted_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "url"
     t.string   "additional_text"
     t.integer  "how_to_sub_category_id"
+    t.boolean  "hide",                   default: false
     t.index "lower(description) varchar_pattern_ops", name: "search_index_on_how_to_description", using: :btree
     t.index "lower(summary) varchar_pattern_ops", name: "search_index_on_how_to_summary", using: :btree
     t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree

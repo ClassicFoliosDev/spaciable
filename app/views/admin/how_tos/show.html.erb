@@ -10,6 +10,10 @@
   </div>
 </div>
 
+<% if @how_to.hide %>
+  <h4 class="alert"><%= t(".hidden_alert") %></h4>
+<% end %>
+
 <div class="row how-to">
   <div class="row-item third">
     <%= label_tag(HowTo.human_attribute_name(:title)) %>
@@ -40,6 +44,8 @@
     </span>
     <%= label_tag(HowTo.human_attribute_name(:featured)) %>
     <span><%= @how_to.featured %></span>
+    <%= label_tag(HowTo.human_attribute_name(:hide)) %>
+    <span><%= @how_to.hide? ? t(".hidden") : t(".not_hidden") %></span>
   </div>
 </div>
 

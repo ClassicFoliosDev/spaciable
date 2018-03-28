@@ -18,5 +18,5 @@ Then(/^I should see most of the children have been removed from the database$/) 
   # Finishes and appliances and how_tos should not be removed
   expect(Finish.count).to eq(1)
   expect(Appliance.count).to eq(1)
-  expect(HowTo.count).to eq(3)
+  expect(HowTo.count).to eq(4)
 end

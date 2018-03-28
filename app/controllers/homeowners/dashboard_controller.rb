@@ -11,7 +11,7 @@ module Homeowners
       appliances = Appliance.accessible_by(current_ability)
                             .includes(:appliance_manufacturer).order(updated_at: :desc).limit(6)
       @documents = DocumentLibraryService.call(docs, appliances)
-      @how_tos = HowTo.all.order(featured: :asc).limit(5)
+      @how_tos = HowTo.active.order(featured: :asc).limit(5)
     end
   end
 end

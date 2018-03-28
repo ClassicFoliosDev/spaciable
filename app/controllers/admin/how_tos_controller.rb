@@ -9,7 +9,7 @@ module Admin
 
     def index
       @how_tos = @how_tos.includes(:how_to_tags, :tags)
-      @how_tos = paginate(sort(@how_tos, default: { updated_at: :desc }))
+      @how_tos = paginate(sort(@how_tos, default: :created_at))
     end
 
     def new
@@ -81,7 +81,7 @@ module Admin
         :title, :summary, :category,
         :description, :featured,
         :picture, :picture_cache,
-        :remove_picture,
+        :remove_picture, :hide,
         :url, :additional_text,
         :how_to_sub_category_id,
         tags_attributes: %i[id name _destroy]

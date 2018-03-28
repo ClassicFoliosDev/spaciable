@@ -61,6 +61,11 @@
         <div class="image-container">
           <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
+        <div class="hide">
+          <%= f.label :hide %>
+          <%= f.check_box :hide, class: "hide-box" %>
+          <span><%= t(".hide_explanation") %></span>
+        </div>
       </fieldset>
     </div>
   </div>

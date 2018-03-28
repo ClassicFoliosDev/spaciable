@@ -8,6 +8,7 @@ Feature: HowTos
     And there are how-tos
     And there is another phase plot for the homeowner
     Then I should see recent HowTos on my dashboard
+    And I should not see the hidden HowTo
     When I go to read the HowTos
     Then I should see the HowTos for Around the home
     When I filter my HowTos by a different category

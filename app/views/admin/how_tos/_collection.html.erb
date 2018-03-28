@@ -17,6 +17,7 @@
         <th><%= sortable(HowTo, :updated_at) %></th>
         <th><%= sortable(HowTo, :category) %></th>
         <th><%= sortable(HowTo, :featured) %></th>
+        <th><%= sortable(HowTo, :hide) %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -27,6 +28,7 @@
           <td><%= l how_to.updated_at.to_date, format: :digits %></td>
           <td><%= content_tag(:span, t_enum(HowTo, :category, how_to.category)) %></td>
           <td><%= how_to.featured %></td>
+          <td><%= t("admin.how_tos.show.hidden") if how_to.hide %> </td>
           <td class="actions">
             <%= edit_btn edit_admin_how_to_path(how_to), element: how_to %>
             <%= delete_btn how_to, path: admin_how_to_path(how_to), element: how_to %>

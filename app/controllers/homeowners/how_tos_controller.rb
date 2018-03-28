@@ -13,14 +13,15 @@ module Homeowners
       @how_tos = if tag_id
                    @category = nil
                    @tag = Tag.find(tag_id)
-                   @tag.how_tos.includes(:how_to_tags)
+                   @tag.how_tos.active.includes(:how_to_tags).order(:created_at)
                  else
-                   @how_tos.where(category: @category).includes(:how_to_tags)
+                   @how_tos.active.where(category: @category)
+                           .includes(:how_to_tags).order(:created_at)
                  end
     end
 
     def show
-      @others = HowTo.where(category: @how_to.category).where.not(id: @how_to.id)
+      @others = HowTo.active.where(category: @how_to.category).where.not(id: @how_to.id)
     end
 
     private

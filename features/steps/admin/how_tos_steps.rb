@@ -32,6 +32,7 @@ Then(/^I should see the created HowTo$/) do
   within ".record-list" do
     expect(page).to have_content(HowToFixture.title)
     expect(page).to have_content(HowToFixture.category)
+    expect(page).not_to have_content("True")
   end
 end
 
@@ -44,6 +45,7 @@ When(/^I update the HowTo$/) do
     fill_in :how_to_title, with: HowToFixture.updated_title
     fill_in :how_to_url, with: HowToFixture.url
     fill_in :how_to_additional_text, with: HowToFixture.additional_text
+    check :how_to_hide
   end
 
   within ".how_to_tags_name" do
@@ -77,10 +79,15 @@ Then(/^I should see the updated HowTo$/) do
   within ".record-list" do
     expect(page).to have_content(HowToFixture.updated_title)
     expect(page).to have_content(HowToFixture.category)
+    expect(page).to have_content(I18n.t("admin.how_tos.show.hidden"))
   end
 
   within ".record-list" do
     click_on HowToFixture.updated_title
+  end
+
+  within ".alert" do
+    expect(page).to have_content(I18n.t("admin.how_tos.show.hidden_alert"))
   end
 
   within ".how-to" do

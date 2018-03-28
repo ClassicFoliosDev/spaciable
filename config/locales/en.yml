@@ -373,11 +373,15 @@ en:
         youtube: "https://www.youtube.com/embed/xyz123, use the embed version of a youtube URL"
         new_tag: "Add tag"
         csv: "Enter tag value, use a comma to separate multiple tags"
+        hide_explanation: "If selected: do not show this how to in the homeowner view"
       collection:
         add: "Add how to"
       show:
         title: "How to %{title}"
         back: "Back"
+        hidden_alert: "This how to will not appear in the homeowner view"
+        hidden: "True"
+        not_hidden: "False"
       edit:
         title: "How to %{title}"
       index:
@@ -1618,6 +1622,7 @@ en:
         picture: "Picture"
         url: "Url link"
         additional_text: "Additional text"
+        hide: "Hidden"
         categories:
           home: "Around the Home"
           diy: "DIY"

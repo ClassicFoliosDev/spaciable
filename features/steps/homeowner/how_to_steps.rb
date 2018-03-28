@@ -77,3 +77,9 @@ Then(/^I should see a list of matching HowTos$/) do
     expect(active_categories.length).to be_zero
   end
 end
+
+Then(/^I should not see the hidden HowTo$/) do
+  within ".dashboard" do
+    expect(page).not_to have_content("Hidden how to")
+  end
+end

@@ -9,6 +9,8 @@ class HowTo < ApplicationRecord
   belongs_to :how_to_sub_category
   accepts_nested_attributes_for :tags, reject_if: :all_blank, allow_destroy: true
 
+  scope :active, -> { where.not(hide: true) }
+
   enum category: %i[home diy lifestyle recipes cleaning outdoors]
   enum feature_numbers: { "1" => 1, "2" => 2, "3" => 3, "4" => 4, "5" => 5 }
 
