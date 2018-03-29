@@ -8,23 +8,23 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
   subject { Ability.new(current_resident, plot) }
 
   it "can read models for my plot" do
-    model = create(polymorphic_factory_name, association => plot)
+    model = build(polymorphic_factory_name, association => plot)
     expect(subject).to be_able_to(:read, model)
   end
 
   it "can read models for my development" do
-    model = create(polymorphic_factory_name, association => plot.development)
+    model = build(polymorphic_factory_name, association => plot.development)
     expect(subject).to be_able_to(:read, model)
   end
 
   it "can read models for my developer" do
-    model = create(polymorphic_factory_name, association => plot.developer)
+    model = build(polymorphic_factory_name, association => plot.developer)
     expect(subject).to be_able_to(:read, model)
   end
 
   it "cannot read models under a division" do
     division = create(:division, developer: plot.developer)
-    model = create(polymorphic_factory_name, association => division)
+    model = build(polymorphic_factory_name, association => division)
 
     expect(subject).not_to be_able_to(:read, model)
   end
@@ -34,7 +34,7 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
     let(:plot) { create(:plot, development: division_development) }
 
     it "can read models for my division" do
-      model = create(polymorphic_factory_name, association => division_development.division)
+      model = build(polymorphic_factory_name, association => division_development.division)
       expect(subject).to be_able_to(:read, model)
     end
   end
@@ -43,12 +43,12 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
     let(:plot) { create(:phase_plot) }
 
     it "can read models for my developer" do
-      model = create(polymorphic_factory_name, association => plot.developer)
+      model = build(polymorphic_factory_name, association => plot.developer)
       expect(subject).to be_able_to(:read, model)
     end
 
     it "can read models for my development" do
-      model = create(polymorphic_factory_name, association => plot.development)
+      model = build(polymorphic_factory_name, association => plot.development)
       expect(subject).to be_able_to(:read, model)
     end
   end
@@ -59,7 +59,7 @@ RSpec.shared_examples "it can read polymorphic models associated with the reside
     let(:plot) { create(:phase_plot, phase: phase) }
 
     it "can read models for my division" do
-      model = create(polymorphic_factory_name, association => division_development.division)
+      model = build(polymorphic_factory_name, association => division_development.division)
       expect(subject).to be_able_to(:read, model)
     end
   end

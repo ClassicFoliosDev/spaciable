@@ -9,6 +9,7 @@ class Document < ApplicationRecord
   alias parent documentable
 
   validates :title, presence: true, uniqueness: false
+  validates :file, presence: true
 
   enum category: %i[
     my_home

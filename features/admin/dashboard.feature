@@ -13,7 +13,7 @@ Feature: Dashboard
     And there is a phase plot with a resident
     And there is a room
     And there are faqs
-    And there is a document
+    And there are documents
     And there is an appliance manufacturer
     And there is an appliance with manual
     And there is an appliance with a guide

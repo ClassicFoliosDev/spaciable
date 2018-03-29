@@ -304,18 +304,6 @@ module CreateFixture
     FactoryGirl.create(:contact, contactable: development, category: "services")
   end
 
-  def create_document
-    FactoryGirl.create(:document, documentable: developer)
-  end
-
-  def create_development_document
-    FactoryGirl.create(:document, documentable: CreateFixture.development)
-  end
-
-  def create_division_document
-    FactoryGirl.create(:document, documentable: CreateFixture.division)
-  end
-
   def create_private_document
     FactoryGirl.create(:private_document, resident: CreateFixture.resident)
   end

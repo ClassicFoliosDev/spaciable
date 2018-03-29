@@ -16,18 +16,18 @@ RSpec.describe "Resident Abilities" do
     it_behaves_like "it can read polymorphic models associated with the residency", Document, :documentable
 
     it "cannot read documents for someone else's plot" do
-      document = create(:document, documentable: create(:plot, development: plot.development))
+      document = build(:document, documentable: create(:plot, development: plot.development))
       expect(subject).not_to be_able_to(:read, document)
     end
 
     it "cannot read documents for someone else's phase plot" do
-      document = create(:document, documentable: create(:plot, phase: plot.phase))
+      document = build(:document, documentable: create(:plot, phase: plot.phase))
       expect(subject).not_to be_able_to(:read, document)
     end
 
     it "cannot read documents for another development" do
       development = create(:development, developer: plot.developer)
-      document = create(:document, documentable: development)
+      document = build(:document, documentable: development)
       expect(subject).not_to be_able_to(:read, document)
     end
 
@@ -61,7 +61,7 @@ RSpec.describe "Resident Abilities" do
 
     it "has READ access to plots unit type documents" do
       unit_type = plot.unit_type
-      document = create(:document, documentable: unit_type)
+      document = build(:document, documentable: unit_type)
 
       expect(subject).to be_able_to(:read, document)
     end
@@ -150,7 +150,7 @@ RSpec.describe "Resident Abilities" do
 
     it "has READ access to a phase documents" do
       phase = phase_plot.phase
-      document = create(:document, documentable: phase)
+      document = build(:document, documentable: phase)
 
       expect(subject).to be_able_to(:read, document)
     end

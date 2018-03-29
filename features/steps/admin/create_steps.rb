@@ -78,18 +78,6 @@ Given(/^there are division contacts$/) do
   CreateFixture.create_division_contacts
 end
 
-Given(/^there is a document$/) do
-  CreateFixture.create_document
-end
-
-Given(/^there is a document for the development$/) do
-  CreateFixture.create_development_document
-end
-
-Given(/^there is a document for the division$/) do
-  CreateFixture.create_division_document
-end
-
 Given(/^there are faqs$/) do
   CreateFixture.create_faq
 end

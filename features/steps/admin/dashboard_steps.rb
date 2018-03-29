@@ -42,3 +42,7 @@ Then(/^I see a link to the PDF help file$/) do
     expect(help_link[:href]).to include("HoozziAdminInterfaceUserGuide")
   end
 end
+
+Given(/^there are documents$/) do
+  MyLibraryFixture.create_documents
+end

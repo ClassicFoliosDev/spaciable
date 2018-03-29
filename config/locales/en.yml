@@ -1330,6 +1330,7 @@ en:
     collection:
       add: "Add document"
       processing: "Processing..."
+      size: "Size"
     edit:
       title: "Edit %{name}"
 

@@ -278,7 +278,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should return ok" do
           admin = create(:developer_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -291,7 +292,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
-          document = create(:document, documentable: division)
+          document = build(:document, documentable: division)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -304,7 +306,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
-          document = create(:document, documentable: development)
+          document = build(:document, documentable: development)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -318,7 +321,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:division_admin)
-          document = create(:document, documentable: admin.permission_level.developer)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -330,7 +334,8 @@ RSpec.describe DocumentsController do
       context "for a division document" do
         it "should return ok" do
           admin = create(:division_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -343,7 +348,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
-          document = create(:document, documentable: division_development)
+          document = build(:document, documentable: division_development)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -357,7 +363,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:development_admin)
-          document = create(:document, documentable: admin.permission_level.developer)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -370,7 +377,8 @@ RSpec.describe DocumentsController do
         it "should redirect to the root url" do
           division_development = create(:division_development)
           admin = create(:development_admin, permission_level: division_development)
-          document = create(:document, documentable: division_development.division)
+          document = build(:document, documentable: division_development.division)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -382,7 +390,8 @@ RSpec.describe DocumentsController do
       context "for a development document" do
         it "should return ok" do
           admin = create(:development_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           get url_for([:edit, document])
@@ -400,7 +409,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should return ok" do
           admin = create(:developer_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -413,7 +423,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
-          document = create(:document, documentable: division)
+          document = build(:document, documentable: division)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -426,7 +437,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
-          document = create(:document, documentable: development)
+          document = build(:document, documentable: development)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -440,7 +452,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:division_admin)
-          document = create(:document, documentable: admin.permission_level.developer)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -452,7 +465,8 @@ RSpec.describe DocumentsController do
       context "for a division document" do
         it "should return ok" do
           admin = create(:division_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -465,7 +479,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
-          document = create(:document, documentable: division_development)
+          document = build(:document, documentable: division_development)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -479,7 +494,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:development_admin)
-          document = create(:document, documentable: admin.permission_level.developer)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -492,7 +508,8 @@ RSpec.describe DocumentsController do
         it "should redirect to the root url" do
           division_development = create(:division_development)
           admin = create(:development_admin, permission_level: division_development)
-          document = create(:document, documentable: division_development.division)
+          document = build(:document, documentable: division_development.division)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -504,7 +521,8 @@ RSpec.describe DocumentsController do
       context "for a development document" do
         it "should return ok" do
           admin = create(:development_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           put url_for(document), params: params
@@ -520,7 +538,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should return ok" do
           admin = create(:developer_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -533,7 +552,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
-          document = create(:document, documentable: division)
+          document = build(:document, documentable: division)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -546,7 +566,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
-          document = create(:document, documentable: development)
+          document = build(:document, documentable: development)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -560,7 +581,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:division_admin)
-          document = create(:document, documentable: admin.permission_level.developer)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -572,7 +594,8 @@ RSpec.describe DocumentsController do
       context "for a division document" do
         it "should return ok" do
           admin = create(:division_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -585,7 +608,8 @@ RSpec.describe DocumentsController do
         it "should return ok" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
-          document = create(:document, documentable: division_development)
+          document = build(:document, documentable: division_development)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -599,7 +623,8 @@ RSpec.describe DocumentsController do
       context "for a developer document" do
         it "should redirect to the root url" do
           admin = create(:development_admin)
-          document = create(:document, documentable: admin.permission_level.developer)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -612,7 +637,8 @@ RSpec.describe DocumentsController do
         it "should redirect to the root url" do
           division_development = create(:division_development)
           admin = create(:development_admin, permission_level: division_development)
-          document = create(:document, documentable: division_development.division)
+          document = build(:document, documentable: division_development.division)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)
@@ -624,7 +650,8 @@ RSpec.describe DocumentsController do
       context "for a development document" do
         it "should return ok" do
           admin = create(:development_admin)
-          document = create(:document, documentable: admin.permission_level)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
 
           login_as admin
           delete url_for(document)

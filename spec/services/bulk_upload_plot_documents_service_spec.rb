@@ -13,22 +13,27 @@ RSpec.describe BulkUploadPlotDocumentsService do
 
     context "with a matching file id" do
       it "should match a plot with a file of the same name" do
-        file1 = create(:document,
+        file1 = build(:document,
                        title: "Document title",
                        original_filename: "plot 1 homeowner doc.pdf",
                        documentable: developer)
-        file1a = create(:document,
+        file1a = build(:document,
                         title: "Document title",
                         original_filename: "plot 1a homeowner doc.pdf",
                         documentable: developer)
-        file176 = create(:document,
+        file176 = build(:document,
                          title: "Document title",
                          original_filename: "plot 1.7.6 homeowner doc.pdf",
                          documentable: developer)
-        file120 = create(:document,
+        file120 = build(:document,
                          title: "Document title",
                          original_filename: "plot 1.20.pdf",
                          documentable: developer)
+
+        file1.save(validate: false)
+        file1a.save(validate: false)
+        file176.save(validate: false)
+        file120.save(validate: false)
 
         raw_files = []
         raw_files.push(file1, file1a, file176, file120)
@@ -54,7 +59,7 @@ RSpec.describe BulkUploadPlotDocumentsService do
 
     context "with a non matching file id" do
       it "should not match a plot with a file of a different name" do
-        file2 = create(:document,
+        file2 = build(:document,
                        title: "Document title",
                        original_filename: "plot 2 homeowner doc.pdf",
                        documentable: developer)
@@ -79,15 +84,15 @@ RSpec.describe BulkUploadPlotDocumentsService do
 
     context "with a partially matching file id" do
       it "should not match a plot with a file of a similar name" do
-        file1b = create(:document,
+        file1b = build(:document,
                         title: "Document title",
                         original_filename: "plot 1b homeowner doc.pdf",
                         documentable: developer)
-        file12 = create(:document,
+        file12 = build(:document,
                         title: "Document title",
                         original_filename: "plot 1.2 homeowner doc.pdf",
                         documentable: developer)
-        file120 = create(:document,
+        file120 = build(:document,
                          title: "Document title",
                          original_filename: "1.20 homeowner doc.pdf",
                          documentable: developer)
@@ -114,15 +119,15 @@ RSpec.describe BulkUploadPlotDocumentsService do
 
     context "with no plot prefix" do
       it "still matches plot numbers correctly" do
-        file1b = create(:document,
+        file1b = build(:document,
                         title: "Document title",
                         original_filename: "1b homeowner doc.pdf",
                         documentable: developer)
-        file12 = create(:document,
+        file12 = build(:document,
                         title: "Document title",
                         original_filename: "1.2 homeowner doc.pdf",
                         documentable: developer)
-        file120 = create(:document,
+        file120 = build(:document,
                          title: "Document title",
                          original_filename: "1.20 homeowner doc.pdf",
                          documentable: developer)
@@ -151,55 +156,13 @@ RSpec.describe BulkUploadPlotDocumentsService do
       end
     end
 
-    context "with valid file rename" do
-      it "replaces the document title" do
-        file1 = create(:document,
-                       title: "Document title",
-                       original_filename: "plot 1 homeowner doc.pdf",
-                       documentable: developer)
-        file1a = create(:document,
-                        title: "Document title",
-                        original_filename: "plot 1a homeowner doc.pdf",
-                        documentable: developer)
-        file176 = create(:document,
-                         title: "Document title",
-                         original_filename: "plot 1.7.6 homeowner doc.pdf",
-                         documentable: developer)
-        file120 = create(:document,
-                         title: "Document title",
-                         original_filename: "plot 1.20.pdf",
-                         documentable: developer)
-
-        raw_files = []
-        raw_files.push(file1, file1a, file176, file120)
-
-        files = raw_files.map do |file|
-          [file.original_filename.downcase.strip, file]
-        end
-
-        raw_plots = []
-        raw_plots.push(plot1, plot120, plot176, plot1a)
-        plots = raw_plots.map { |plot| [plot.to_s.downcase.strip, plot] }
-
-        match_results = subject.find_matches(files, plots)
-
-        rename_text = "Rename test"
-        response = subject.save_matches(match_results[0], :legal_and_warranty, true, rename_text)
-
-        expect(response[0][0].title).to eq rename_text
-        expect(response[0][1].title).to eq rename_text
-        expect(response[0][2].title).to eq rename_text
-        expect(response[0][3].title).to eq rename_text
-      end
-    end
-
     context "with blank file rename" do
       it "generates an error" do
-        file1 = create(:document,
+        file1 = build(:document,
                        title: "Document title",
                        original_filename: "plot 1 homeowner doc.pdf",
                        documentable: developer)
-        file1a = create(:document,
+        file1a = build(:document,
                         title: "Document title",
                         original_filename: "plot 1a homeowner doc.pdf",
                         documentable: developer)
