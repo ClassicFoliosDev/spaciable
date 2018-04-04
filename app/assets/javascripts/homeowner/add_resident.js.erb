@@ -1,0 +1,110 @@
+(function (document, $) {
+  'use strict'
+
+  $(document).on('click', '.add-resident', function (event) {
+    var dataIn = $(this).data()
+
+    var $residentContainer = $('.add-resident-form')
+
+    $('body').append($residentContainer)
+    var $form = $('.new_resident')
+
+    $residentContainer.dialog({
+      show: 'show',
+      modal: true,
+      width: 700,
+      title: dataIn.title,
+      buttons: [
+        {
+          text: dataIn.cancel,
+          class: 'branded-btn alt',
+          click: function () {
+            $(this).dialog('destroy')
+          }
+        },
+        {
+          text: dataIn.cta,
+          class: 'btn-send branded-primary-btn',
+          id: 'btn_submit',
+          click: function () {
+            // Clear any old messages before the post
+            $('.flash').empty()
+
+            $.post({
+              url: '/homeowners/create_resident',
+              data: $form.serialize(),
+              dataType: 'json',
+              success: function (response) {
+                var $responseP = document.createElement('p')
+                if (response.alert === null) {
+                  $responseP.className = 'notice'
+                  $responseP.innerHTML = response.notice
+                } else {
+                  // If there are both alert and notice responses, only show the alert
+                  $responseP.className = 'alert'
+                  $responseP.innerHTML = response.alert
+                }
+                $('.flash').append($responseP)
+              }
+            })
+            $(this).dialog('destroy')
+            $residentContainer.hide()
+          }
+        }]
+    }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+
+    validateSendInvitation()
+  })
+
+  $(document).on('input', '.add-resident-form', function (event) {
+    validateSendInvitation()
+  })
+
+  function validateSendInvitation () {
+    if (validateEmail() && (validatePhone()) &&
+       ($('input#resident_first_name').val().length > 0) && ($('input#resident_last_name').val().length > 0)) {
+      $('.btn-send').prop('disabled', false)
+      $('.btn-send').removeClass('ui-state-disabled')
+    } else {
+      $('.btn-send').prop('disabled', true)
+      $('.btn-send').addClass('ui-state-disabled')
+    }
+  }
+
+  function validateEmail () {
+    var re = /\S+@\S+\.\S+/
+    return re.test($('input.email').val())
+  }
+
+  function validatePhone () {
+    var phoneNumber = $('input.tel').val()
+    var regex = /^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|#)\d{3,4})?$/
+    return phoneNumber.length > 9 && phoneNumber.match(regex)
+  }
+
+  $(document).on('click', '.remove-resident', function (event) {
+    // Clear any old messages before the post
+    $('.flash').empty()
+    var $residentToDelete = $(this).closest('li')
+    var emailAddress = $residentToDelete.find('.email')[0].innerHTML
+
+    $.ajax({
+      url: '/homeowners/remove_resident',
+      data: { email: emailAddress },
+      dataType: 'json',
+      success: function (response) {
+        var $responseP = document.createElement('p')
+        if (response.alert === null) {
+          $responseP.className = 'notice'
+          $responseP.innerHTML = response.notice
+        } else {
+          $responseP.className = 'alert'
+          $responseP.innerHTML = response.alert
+        }
+        $('.flash').append($responseP)
+        // Hide the removed resident temporarily, the next page refresh will remove it properly
+        $residentToDelete.hide()
+      }
+    })
+  })
+})(document, window.jQuery)

@@ -20,7 +20,6 @@
 
     span {
       color: $type-grey;
-      font-size: $base-font-size;
     }
   }
 
@@ -112,6 +111,22 @@
 
 .show-actions {
   margin-top: 34px;
+}
+
+.other-residents {
+  ul {
+    list-style-type: none;
+
+    li {
+      margin-bottom: $spacing-small / 2;
+    }
+
+    button {
+      float: right;
+      color: $type-grey;
+      font-size: $title-font-size-4
+    }
+  }
 }
 
 @include media($tablet-landscape-up) {

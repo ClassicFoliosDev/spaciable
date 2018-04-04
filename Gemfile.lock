@@ -457,6 +457,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord-session_store
   amoeba
+  bcrypt (~> 3.1.7)
   bourbon
   brakeman
   bullet

@@ -46,9 +46,7 @@ class ResidentNotifierService
     potential_plot_numbers = potential_plots.map(&:number)
     notification.plot_numbers.each do |sent_number|
       # Plot numbers in the plot number list, where there is no matching plot in the development
-      unless potential_plot_numbers.include?(sent_number)
-        missing_plot_names.push(sent_number)
-      end
+      missing_plot_names.push(sent_number) unless potential_plot_numbers.include?(sent_number)
     end
 
     missing_plot_names

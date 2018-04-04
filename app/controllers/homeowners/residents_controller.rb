@@ -5,6 +5,8 @@ module Homeowners
     def show
       @services = Service.all
       @all_residents = residents_for_my_plot.compact
+      @resident = Resident.new
+      @resident.plots.push(@plot)
     end
 
     def edit
@@ -22,7 +24,68 @@ module Homeowners
       end
     end
 
+    def create
+      email_addr = resident_params[:email]
+
+      notice = configure_resident_and_plot(email_addr)
+
+      alert = t(".already_resident", email: email_addr) if notice == "duplicate_plot_residency"
+
+      unless @resident.valid?
+        alert = t(".not_created", email: email_addr)
+        @resident.errors.full_messages.each do |message|
+          alert << " " + message
+        end
+      end
+
+      # In some scenarios, there may be both alert and notice contents:
+      # if so the JS will only process the alert
+      render json: { alert: alert, notice: notice }, status: :ok
+    end
+
+    def remove_resident
+      if current_resident.invited_by_type == "Resident"
+        render json: { alert: nil, notice: nil }, status: 401
+        return
+      end
+
+      resident = Resident.find_by(email: params[:email])
+      resident.plots.delete(@plot)
+
+      render json: { alert: nil, notice: t(".success", email: params[:email]) }, status: :ok
+    end
+
     private
+
+    def configure_resident_and_plot(email_addr)
+      existing_resident = Resident.find_by(email: email_addr)
+
+      if existing_resident.nil?
+        build_new_resident_and_residency
+        t(".new_invitation", email: email_addr)
+      else
+        @resident = existing_resident
+        build_new_residency
+      end
+    end
+
+    def build_new_residency
+      plot_residency = PlotResidency.new(resident_id: @resident.id, plot_id: @plot.id)
+      return "duplicate_plot_residency" unless plot_residency.valid?
+
+      plot_residency.save!
+      t(".existing_resident", email: @resident.email)
+    end
+
+    def build_new_resident_and_residency
+      @resident = Resident.new(resident_params)
+      @resident.create_without_password
+      plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
+      ResidentInvitationService.call(plot_residency, current_resident, current_resident.to_s)
+      @resident.developer_email_updates = true
+      Mailchimp::MarketingMailService.call(@resident, @plot,
+                                           Rails.configuration.mailchimp[:unactivated])
+    end
 
     def residents_for_my_plot
       @plot.residents.map do |resident|
@@ -50,15 +113,15 @@ module Homeowners
     def resident_params
       params.require(:resident).permit(
         :title,
-        :first_name,
-        :last_name,
-        :password,
-        :password_confirmation,
+        :first_name, :last_name,
+        :password, :password_confirmation,
         :current_password,
         :developer_email_updates,
         :hoozzi_email_updates,
         :telephone_updates,
-        :post_updates
+        :post_updates,
+        :email,
+        :phone_number
       )
     end
   end

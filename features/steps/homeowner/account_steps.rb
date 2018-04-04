@@ -10,6 +10,8 @@ When(/^I accept the invitation as a homeowner$/) do
 
     click_on t("residents.invitations.edit.submit_button")
   end
+
+  ActionMailer::Base.deliveries.clear
 end
 
 Then(/^I should be redirected to the homeowner dashboard$/) do
@@ -380,4 +382,73 @@ end
 Then(/^the cookie should be set correctly$/) do
   homeowner = Resident.find_by(email: HomeownerUserFixture.email)
   expect(homeowner.ts_and_cs_accepted_at).not_to be_nil
+end
+
+Then(/^I add another resident$/) do
+  visit "/"
+
+  within ".session-inner" do
+    click_on t("homeowners.residents.show.my_account")
+  end
+
+  within ".other-residents" do
+    find(".add-resident").trigger("click")
+  end
+
+  within ".ui-dialog" do
+    fill_in :resident_email, with: AccountFixture.second_resident_email
+    fill_in :resident_phone_number, with: AccountFixture.second_resident_phone
+    fill_in :resident_first_name, with: AccountFixture.second_resident_first
+    fill_in :resident_last_name, with: AccountFixture.second_resident_last
+
+    send_button = page.find(".btn-send")
+    send_button.trigger("click")
+  end
+end
+
+Then(/^I should see the resident has been added$/) do
+  within ".notice" do
+    expect(page).to have_content t("homeowners.residents.create.new_invitation", email: AccountFixture.second_resident_email)
+  end
+end
+
+Then(/^I should see a duplicate plot resident error$/) do
+  within ".alert" do
+    expect(page).to have_content t("homeowners.residents.create.already_resident", email: AccountFixture.second_resident_email)
+  end
+end
+
+Then(/^I can not remove residents$/) do
+  within ".other-residents" do
+    expect(page).not_to have_content(".remove-resident")
+  end
+end
+
+When(/^I log back in as the first homeowner$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  login_as resident
+
+  visit "/"
+end
+
+When(/^I remove the additional resident$/) do
+  within ".other-residents" do
+    remove_buttons = page.all(".remove-resident")
+    expect(page).to have_content( AccountFixture.second_resident_email)
+    remove_buttons.first.trigger("click")
+  end
+end
+
+Then(/^I see the resident has been removed$/) do
+  # Wait for the page refresh
+  #sleep 0.5
+
+  within ".flash" do
+    expect(page).to have_content t("homeowners.residents.remove_resident.success", email: AccountFixture.second_resident_email)
+  end
+
+  within ".other-residents" do
+    expect(page).not_to have_content( AccountFixture.second_resident_email)
+  end
 end

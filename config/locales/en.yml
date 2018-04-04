@@ -595,6 +595,7 @@ en:
         current_password: "Current password"
         current_password2: "Only required for new password"
         submit: "Save"
+        title: "My details"
       communications:
         title: "Communication preferences"
         updates_by: "Updates on products and services by:"
@@ -617,9 +618,18 @@ en:
         other_residents: "Other residents who have access to this information in Hoozzi"
         none: "Only you can see the content for %{plot}"
         intro_video: "Hoozzi introduction video"
+        send_invitation: "Invite new resident"
+        invite: "Invite new resident to %{plot}"
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
+      create:
+        new_invitation: "%{email} has been sent an invitation to Hoozzi"
+        not_created: "It was not possible to invite %{email} because of the following errors: "
+        existing_resident: "Use with email %{email} already has access to Hoozzi. They will be able to see details for this plot next time they log in"
+        already_resident: "A resident with %{email} is already associated with this plot"
+      remove_resident:
+        success: "Resident %{email} has been removed from this plot"
     services:
       index:
         title: "Hoozzi Services for %{developer}"
@@ -1682,6 +1692,7 @@ en:
         delete_not_possible: "It is not possible to delete %{name} because other %{types} depend on it"
         clone_not_possible: "It is not possible to clone %{name}: it might have references to invalid appliances or finishes"
         must_have_subject: "You must provide a topic for your new message"
+        already_resident: "A resident with this email address is already associated with this plot"
       models:
         developer:
           attributes:

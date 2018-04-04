@@ -6,4 +6,20 @@ module AccountFixture
   def first_name
     "Janet"
   end
+
+  def second_resident_email
+    "another_resident@example.com"
+  end
+
+  def second_resident_phone
+    "02380 123456"
+  end
+
+  def second_resident_first
+    "Another"
+  end
+
+  def second_resident_last
+    "Bloggs"
+  end
 end

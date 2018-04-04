@@ -17,6 +17,7 @@
 
 <div class="branded-body outer-container">
   <div class="resident">
+    <h3><%= t(".title") %></h3>
     <%= simple_form_for ([:homeowners, current_resident]) do |f| %>
       <% if current_resident.errors.any? %>
         <div class="submission-errors">
@@ -48,7 +49,6 @@
         <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
         <%= f.input :password, autocomplete: "off" %>
         <%= f.input :password_confirmation %>
-
       </div>
 
       <%= render "homeowners/residents/communications", f: f %>

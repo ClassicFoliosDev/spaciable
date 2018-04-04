@@ -45,6 +45,10 @@ spec/examples.txt
 # Upload files for previews
 /uploads/*
 
+# JS Standard files
+node_modules/
+package-lock.json
+
 # Windows-specific files and gems
 .idea/*
 vendor/cache/ffi-1.9.14-x86-mingw32.gem

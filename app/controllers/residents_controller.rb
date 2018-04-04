@@ -87,7 +87,7 @@ class ResidentsController < ApplicationController
     plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
     # Resident invitation service will not send new invitations if the resident has
     # already accepted a Hoozzi invitation
-    ResidentInvitationService.call(plot_residency, current_user)
+    ResidentInvitationService.call(plot_residency, current_user, @plot.developer.to_s)
     @resident.developer_email_updates = true
   end
 

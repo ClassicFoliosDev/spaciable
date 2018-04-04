@@ -126,12 +126,6 @@ end
 Then(/^no emails are sent to the activated homeowner$/) do
   email_notifications = ActionMailer::Base.deliveries
 
-  # The original invitations and reminders will be there
-  # But should not be any updates or other notification emails
-  expect(email_notifications.count).to eq 4
-  email_notifications.each do |notification|
-    expect(notification.to).to include(PlotResidencyFixture.original_email)
-    expect(notification.subject).not_to eq t("resident_notification_mailer.notify.update_subject")
-  end
+  expect(email_notifications.count).to eq 0
 end
 

@@ -11,8 +11,8 @@ module PaginationConcern
   end
 
   def paginate(resource)
-    per = params[:per].blank? ? 25 : params[:per]
-    page = params[:page].blank? ? 1 : params[:page]
+    per = params[:per].presence || 25
+    page = params[:page].presence || 1
 
     @per_page = per
     resource&.page(page)&.per(per)

@@ -63,7 +63,7 @@ RSpec.describe "Reminder jobs", type: :feature do
         resident = developer_with_residents.residents.first
         plot_residency = resident.plot_residencies.first
 
-        InvitationReminderJob.set(wait: 2.seconds).perform_later(plot_residency, "Spec testing", "abc")
+        InvitationReminderJob.set(wait: 2.seconds).perform_later(plot_residency, "Spec testing", "abc", "spec remove owner")
 
         scheduled_jobs = Delayed::Job.all
         expect(scheduled_jobs.size).to eq(0)

@@ -32,7 +32,7 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
 
   recipient_email = ActionMailer::Base.deliveries.last
 
-  message = t("devise.mailer.invitation_instructions.someone_invited_you", developer: PlotResidencyFixture.plot.developer)
+  message = t("devise.mailer.invitation_instructions.someone_invited_you", name: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
   expect(recipient_email.parts.second.body.raw_source).to include "assets/logo-"
 

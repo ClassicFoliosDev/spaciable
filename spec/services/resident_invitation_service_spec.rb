@@ -10,14 +10,16 @@ RSpec.describe ResidentInvitationService do
     it "creates the reminders" do
       ActionMailer::Base.deliveries.clear
       resident = developer_with_residents.residents.first
+      plot_residency = resident.plot_residencies.first
 
-      described_class.call(resident.plot_residencies.first, current_user)
+      described_class.call(plot_residency, current_user, plot_residency.plot.developer)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.length).to eq(4)
 
       expect(deliveries[0].subject).to eq(I18n.t("devise.mailer.invitation_instructions.subject"))
       expect(deliveries[0].to).to include(resident.email)
+
       expect(deliveries[1].subject).to eq(I18n.t("reminder_title", ordinal: "First"))
       expect(deliveries[2].subject).to eq(I18n.t("reminder_title", ordinal: "Second"))
       expect(deliveries[3].subject).to eq(I18n.t("last_reminder_title", ordinal: "Third"))
@@ -30,8 +32,9 @@ RSpec.describe ResidentInvitationService do
   context "with a resident who has already accepted an invitation" do
     it "does not create a new token" do
       resident = developer_with_residents.residents.first
+      plot_residency = resident.plot_residencies.first
 
-      described_class.call(resident.plot_residencies.first, current_user)
+      described_class.call(plot_residency, current_user, plot_residency.plot.developer)
 
       resident.accept_invitation!
       resident.update_attribute(:invitation_accepted_at, Time.zone.now)
@@ -42,7 +45,7 @@ RSpec.describe ResidentInvitationService do
       new_plot = create(:plot, phase_id: phase.id)
       new_plot_residency = create(:plot_residency, plot_id: new_plot.id, resident_id: resident.id)
 
-      result = described_class.call(new_plot_residency, current_user)
+      result = described_class.call(new_plot_residency, current_user, plot_residency.plot.developer)
       expect(result.class).to eq NewPlotJob
 
       deliveries = ActionMailer::Base.deliveries
@@ -55,8 +58,9 @@ RSpec.describe ResidentInvitationService do
   context "with a resident who has not accepted the first invitation" do
     it "creates a new token and sends new invitations" do
       resident = developer_with_residents.residents.first
+      plot_residency = resident.plot_residencies.first
 
-      described_class.call(resident.plot_residencies.first, current_user)
+      described_class.call(plot_residency, current_user, plot_residency.plot.developer)
 
       ActionMailer::Base.deliveries.clear
 
@@ -64,7 +68,7 @@ RSpec.describe ResidentInvitationService do
       new_plot = create(:plot, phase_id: phase.id)
       new_plot_residency = create(:plot_residency, plot_id: new_plot.id, resident_id: resident.id)
 
-      described_class.call(new_plot_residency, current_user)
+      described_class.call(new_plot_residency, current_user, plot_residency.plot.developer)
 
       deliveries = ActionMailer::Base.deliveries
       expect(deliveries.length).to eq(4)

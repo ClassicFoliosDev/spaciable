@@ -36,7 +36,7 @@ gem "turbolinks", "~> 5"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem "bcrypt", "~> 3.1.7", platforms: :ruby
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -110,7 +110,7 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "brakeman", require: false
-  gem "byebug", platform: :mri
+  gem "byebug", platform: %i[mri mingw x64_mingw]
   gem "pry-rails"
   gem "rails_best_practices", "~> 1.17", require: false
   gem "rubocop", "~> 0.49"

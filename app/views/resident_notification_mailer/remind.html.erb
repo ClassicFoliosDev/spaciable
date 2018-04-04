@@ -4,7 +4,7 @@
 
 <h4><%= t("devise.mailer.resident_invitation.new_home", development_name: @plot&.development) %></h4>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", developer: @plot.developer) %></p>
+<p><%= t("devise.mailer.invitation_instructions.someone_invited_you", name: @invited_by) %></p>
 
 <p><%= t("devise.mailer.resident_invitation.benefits") %></p>
 <ul>

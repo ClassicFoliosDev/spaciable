@@ -90,7 +90,7 @@ module Plots
 
     def find_plot_room
       @room = @plot.plot_rooms.find_by(id: params[:id])
-      @room = @plot.unit_type.rooms.find_by(id: params[:id]) unless @room
+      @room ||= @plot.unit_type.rooms.find_by(id: params[:id])
     end
   end
 end

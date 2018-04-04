@@ -18,6 +18,20 @@ Feature: Homeowner Account
     Then I should be redirected to the video introduction page
     When I select no services
     Then I should be redirected to the homeowner dashboard
+    When I add another resident
+    Then I should see the resident has been added
+    When I add another resident
+    Then I should see a duplicate plot resident error
+    When I log out as a homeowner
+    And I visit the invitation accept page
+    And I accept the invitation as a homeowner
+    And I should see be able to view My Account
+    Then I can not remove residents
+    When I log out as a homeowner
+    And I log back in as the first homeowner
+    And I should see be able to view My Account
+    And I remove the additional resident
+    Then I see the resident has been removed
 
   Scenario: Account update
     Given I am logged in as a homeowner

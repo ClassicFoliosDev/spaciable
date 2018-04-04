@@ -48,12 +48,25 @@
     <div class="full branded-content branded-border">
       <div class="other-residents">
         <h4><%= t(".other_residents") %></h4>
-        <% @all_residents.each do | resident | %>
-          <span><%= resident[:name] %> <%= resident[:email] %></span><br/>
-        <% end %>
-        <% if @all_residents.count.zero? %>
-          <span><%= t(".none", plot: @plot) %></span>
-        <% end %>
+        <ul>
+          <% @all_residents.each do | resident | %>
+            <% if current_resident.invited_by_type == "User" %>
+              <li><%= resident[:name] %> <span class="email"><%= resident[:email] %></span> <button class="remove-resident"><i class="fa fa-times"></i></button></li>
+            <% else %>
+              <li><%= resident[:name] %> <%= resident[:email] %>
+            <% end %>
+          <% end %>
+          <% if @all_residents.count.zero? %>
+            <li><%= t(".none", plot: @plot) %></li>
+          <% end %>
+        </ul>
+        <div>
+          <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn add-resident",
+          data: { cancel: t("edit.cancel"),
+                  cta: t(".send_invitation"),
+                  title: t(".invite", plot: @plot.to_homeowner_s),
+                  plot: @plot.id } %>
+        </div>
       </div>
     </div>
 
@@ -74,3 +87,16 @@
     </div>
   </div>
 </div>
+
+<div class="add-resident-form hidden">
+  <%= simple_form_for @resident, url: homeowners_resident_path, remote: true do |ff| %>
+    <div class="half">
+      <%= ff.input :email, required: true %>
+      <%= ff.input :phone_number, required: true %>
+    </div>
+    <div class="half">
+      <%= ff.input :first_name, required: true %>
+      <%= ff.input :last_name, required: true %>
+    </div>
+  <% end %>
+ </div>
