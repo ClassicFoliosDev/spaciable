@@ -418,9 +418,10 @@ Then(/^I should see a duplicate plot resident error$/) do
   end
 end
 
-Then(/^I can not remove residents$/) do
+Then(/^I can not add or remove residents$/) do
   within ".other-residents" do
     expect(page).not_to have_content(".remove-resident")
+    expect(page).not_to have_content(".add-resident")
   end
 end
 

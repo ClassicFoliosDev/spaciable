@@ -60,13 +60,15 @@
             <li><%= t(".none", plot: @plot) %></li>
           <% end %>
         </ul>
-        <div>
-          <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn add-resident",
-          data: { cancel: t("edit.cancel"),
+        <% if current_resident.invited_by_type == "User" %>
+          <div>
+            <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn add-resident",
+            data: { cancel: t("edit.cancel"),
                   cta: t(".send_invitation"),
                   title: t(".invite", plot: @plot.to_homeowner_s),
                   plot: @plot.id } %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
 

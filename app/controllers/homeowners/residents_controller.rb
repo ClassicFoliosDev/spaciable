@@ -25,18 +25,15 @@ module Homeowners
     end
 
     def create
+      if current_resident.invited_by_type != "User"
+        render json: { alert: nil, notice: nil }, status: 401
+        return
+      end
+
       email_addr = resident_params[:email]
 
       notice = configure_resident_and_plot(email_addr)
-
-      alert = t(".already_resident", email: email_addr) if notice == "duplicate_plot_residency"
-
-      unless @resident.valid?
-        alert = t(".not_created", email: email_addr)
-        @resident.errors.full_messages.each do |message|
-          alert << " " + message
-        end
-      end
+      alert = build_alert(notice, email_addr)
 
       # In some scenarios, there may be both alert and notice contents:
       # if so the JS will only process the alert
@@ -44,7 +41,7 @@ module Homeowners
     end
 
     def remove_resident
-      if current_resident.invited_by_type == "Resident"
+      if current_resident.invited_by_type != "User"
         render json: { alert: nil, notice: nil }, status: 401
         return
       end
@@ -56,6 +53,16 @@ module Homeowners
     end
 
     private
+
+    def build_alert(notice, email_addr)
+      return t(".already_resident", email: email_addr) if notice == "duplicate_plot_residency"
+      return nil if @resident.valid?
+
+      alert = t(".not_created", email: email_addr)
+      @resident.errors.full_messages.each do |message|
+        alert << " " + message
+      end
+    end
 
     def configure_resident_and_plot(email_addr)
       existing_resident = Resident.find_by(email: email_addr)
@@ -118,10 +125,8 @@ module Homeowners
         :current_password,
         :developer_email_updates,
         :hoozzi_email_updates,
-        :telephone_updates,
-        :post_updates,
-        :email,
-        :phone_number
+        :telephone_updates, :post_updates,
+        :email, :phone_number
       )
     end
   end

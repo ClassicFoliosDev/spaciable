@@ -26,7 +26,7 @@ Feature: Homeowner Account
     And I visit the invitation accept page
     And I accept the invitation as a homeowner
     And I should see be able to view My Account
-    Then I can not remove residents
+    Then I can not add or remove residents
     When I log out as a homeowner
     And I log back in as the first homeowner
     And I should see be able to view My Account
