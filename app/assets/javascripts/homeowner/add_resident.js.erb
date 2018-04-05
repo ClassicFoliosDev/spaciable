@@ -45,6 +45,7 @@
                   $responseP.innerHTML = response.alert
                 }
                 $('.flash').append($responseP)
+                $(window).scrollTop(0)
               }
             })
             $(this).dialog('destroy')
