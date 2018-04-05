@@ -21,6 +21,7 @@ class ResidentsController < ApplicationController
       @resident.create_without_password
     else
       @resident = existing_resident
+      @resident.update_attributes(invited_by: current_user)
     end
 
     if @resident&.valid?
