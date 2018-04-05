@@ -50,12 +50,22 @@
         <h4><%= t(".other_residents") %></h4>
         <ul>
           <% @all_residents.each do | resident | %>
-            <% if current_resident.invited_by_type == "User" %>
-              <li><%= resident[:name] %> <span class="email"><%= resident[:email] %></span> <button class="remove-resident"><i class="fa fa-times"></i></button></li>
-            <% else %>
-              <li><%= resident[:name] %> <%= resident[:email] %>
-            <% end %>
+            <li>
+              <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
+
+              <% if current_resident.invited_by_type == "User" %>
+                <%= button_tag "", class: "btn prompt-remove",
+                  data: { title: t(".destroy"),
+                    cancel: t("destroy.cancel"),
+                    cta: t(".confirm_cta" ),
+                    email: resident[:email],
+                    text: t(".confirm_text", name: resident[:name]) } do %>
+                <i class="fa fa-times"></i>
+                <% end %>
+              <% end %>
+            </li>
           <% end %>
+
           <% if @all_residents.count.zero? %>
             <li><%= t(".none", plot: @plot) %></li>
           <% end %>

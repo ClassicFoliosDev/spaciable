@@ -435,16 +435,18 @@ end
 
 When(/^I remove the additional resident$/) do
   within ".other-residents" do
-    remove_buttons = page.all(".remove-resident")
     expect(page).to have_content( AccountFixture.second_resident_email)
+
+    remove_buttons = page.all(".prompt-remove")
     remove_buttons.first.trigger("click")
+  end
+
+  within ".ui-dialog-buttonset" do
+    find(".remove-resident").trigger('click')
   end
 end
 
 Then(/^I see the resident has been removed$/) do
-  # Wait for the page refresh
-  #sleep 0.5
-
   within ".flash" do
     expect(page).to have_content t("homeowners.residents.remove_resident.success", email: AccountFixture.second_resident_email)
   end

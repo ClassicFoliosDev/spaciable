@@ -407,6 +407,7 @@ en:
         back: "Back"
       plot_details:
         plot: "Plot"
+
     help:
       show:
         help_file: "Hoozzi admin interface user guide (PDF)"
@@ -620,6 +621,9 @@ en:
         intro_video: "Hoozzi introduction video"
         send_invitation: "Invite new resident"
         invite: "Invite new resident to %{plot}"
+        destroy: "Confirm remove"
+        confirm_cta: "Remove"
+        confirm_text: "Are you sure you want to remove %{name}?"
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
@@ -840,6 +844,7 @@ en:
       updated_at: "Last edited"
       status: "Activation status"
       activated: "Activated"
+      invited_by: "Invited by"
     create:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
