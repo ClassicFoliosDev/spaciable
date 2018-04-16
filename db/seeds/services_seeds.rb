@@ -12,10 +12,10 @@ maintenance_providers = Service.find_by(name: "Maintenance providers")
 maintenance_providers.update_attributes(name: "Maintenance Providers") if maintenance_providers
 
 utilities = Service.find_by(name: "Utilities")
-utilities.update_attributes(description: "TV (digital aeriel, satellite, cable), broadband, electricity, gas, telephone, residential parking permits") if utilities
+utilities.update_attributes(description: "TV (digital aerial, satellite, cable), broadband, electricity, gas, telephone, residential parking permits") if utilities
 
 Service.find_or_create_by(name: "Financial Services", description: "Mortgage brokers, solicitors")
-Service.find_or_create_by(name: "Utilities", description: "TV (digital aeriel, satellite, cable), broadband, electricity, gas, telephone, residential parking permits")
+Service.find_or_create_by(name: "Utilities", description: "TV (digital aerial, satellite, cable), broadband, electricity, gas, telephone, residential parking permits")
 Service.find_or_create_by(name: "Insurance", description: "Building, content, car, security")
 Service.find_or_create_by(name: "Removals", description: "Removal firms, packing services")
 Service.find_or_create_by(name: "Maintenance Providers", description: "Landscaping, interior designers, electricians, plumbers, builders, conservatory suppliers, gardeners, window cleaners")
