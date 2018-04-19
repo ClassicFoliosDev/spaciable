@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
     resource :settings, only: [:show, :edit, :update]
+    resource :analytics, only: [:new, :create]
 
     get 'developers', to: 'developers#index', format: :json
     get 'divisions', to: 'divisions#index', format: :json

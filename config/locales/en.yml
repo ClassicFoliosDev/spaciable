@@ -42,6 +42,7 @@ en:
   time:
     formats:
       day_time: "%A %d %B %H:%M"   # Friday 20 October 13:24
+      file_time: "%Y_%m_%d_%H_%M_%S"
 
   cookies_eu:
     cookies_text: "Cookies help us deliver our services. By using our services, you agree to our use of cookies."
@@ -227,6 +228,7 @@ en:
       howtos: "How tos"
       help: "Hoozzi help"
       configuration: "Global settings"
+      reports: "Reports"
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
@@ -423,6 +425,10 @@ en:
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
       update:
         success: "The configuration settings for Hoozzi have been updated successfully"
+    analytics:
+      new:
+        developer: "Download report for developer"
+        development: "Download report for development"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
@@ -1447,6 +1453,7 @@ en:
       notification: "Notification"
       how_to: "How to"
       tag: "Tag"
+      report: "Report"
 
     attributes:
       developer:
@@ -1683,6 +1690,9 @@ en:
         full_name: "Full name"
         email: "Email address"
         phone_number: "Phone number"
+      report:
+        report_from: "Resident and active resident count from:"
+        report_to: "Resident and active resident count to:"
 
     errors:
       messages:

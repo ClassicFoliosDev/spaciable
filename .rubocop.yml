@@ -37,6 +37,12 @@ Style/MethodName:
   Exclude:
     - features/support/fixtures/create_fixture.rb # ResourceName(resource, parent)
     - app/services/bulk_plots/numbers.rb # Number(int_or_float)
+Style/YodaCondition:
+  Exclude:
+    - app/controllers/documents_controller.rb
+Layout/EndOfLine:
+  Exclude:
+    - app/services/csv/*
 Metrics/LineLength:
   Max: 99
   Enabled: true

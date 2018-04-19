@@ -4,12 +4,13 @@ function clearFields(selectDiv) {
 
   // Make the options list empty
   var selectList = selectDiv.find("select")[0];
-    selectList.options.length = 0;
+  selectList.options.length = 0;
   // Remove the previously-selected option name
   var prevOption = selectDiv.find(".ui-selectmenu-text")[0];
+  if (prevOption != null) {
     prevOption.innerHTML = "&nbsp";
-
-  disableSelect($(selectDiv).find("select"));
+    disableSelect($(selectDiv).find("select"));
+ }
 
   return selectList;
 }

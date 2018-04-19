@@ -16,6 +16,7 @@
       <% if current_user.cf_admin? %>
         <%= navigation_link(admin_how_tos_path, "question-circle", t(".howtos"), "navbar-link") %>
         <%= navigation_link(admin_settings_path, "wrench", t(".configuration"), "navbar-link") %>
+        <%= navigation_link(new_admin_analytics_path, "bar-chart", t(".reports"), "navbar-link") %>
       <% end %>
 
       <% if can? :crud, Finish %>

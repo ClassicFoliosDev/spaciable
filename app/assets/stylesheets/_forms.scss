@@ -354,6 +354,13 @@ fieldset {
   }
 }
 
+.select-container {
+  span.required {
+    padding-right: 15px;
+    line-height: 5px;
+  }
+}
+
 .readonly {
   color: $type-grey;
 

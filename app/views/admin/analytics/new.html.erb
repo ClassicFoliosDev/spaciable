@@ -1,0 +1,51 @@
+<%= simple_form_for @report, url: admin_analytics_path do |f| %>
+  <div class="row">
+    <div class="report-date half">
+      <%= f.input :report_from,
+        label: t("activerecord.attributes.report.report_from"),
+        as: :date,
+        order: [:day, :month, :year],
+        start_year: Date.today.year,
+        end_year: 2017,
+        default: Time.now.ago(1.month) %>
+    </div>
+
+    <div class="report-date half">
+      <%= f.input :report_to,
+        label: t("activerecord.attributes.report.report_to"),
+        as: :date,
+        order: [:day, :month, :year],
+        start_year: Date.today.year,
+        end_year: 2017 %>
+    </div>
+  </div>
+
+  <div class="row report-targets">
+    <div class="half">
+      <div class="developer-id ui-front select-container">
+        <%= cascade_select_input f, :developer_id, Developer %>
+      </div>
+      <div class="division-id ui-front select-container">
+        <%= cascade_select_input f, :division_id, Division %>
+      </div>
+      <div class="development-id ui-front select-container">
+        <%= cascade_select_input f, :development_id, Development %>
+      </div>
+    </div>
+
+    <div class="half report-buttons">
+      <%= f.button :submit, t(".developer"),
+          data: { disable_with: false },
+          name: :developer,
+          class: "developer-csv",
+          disabled: true %><br/>
+
+      <%= f.button :submit, t(".development"),
+          data: { disable_with: false },
+          name: :development,
+          class: "development-csv",
+          disabled: true %>
+    </div>
+  </div>
+
+<% end %>
