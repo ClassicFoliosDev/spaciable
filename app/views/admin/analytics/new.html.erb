@@ -34,6 +34,11 @@
     </div>
 
     <div class="half report-buttons">
+      <%= f.button :submit, t(".all"),
+          data: { disable_with: false },
+          name: :all,
+          class: "all-csv" %><br/>
+
       <%= f.button :submit, t(".developer"),
           data: { disable_with: false },
           name: :developer,

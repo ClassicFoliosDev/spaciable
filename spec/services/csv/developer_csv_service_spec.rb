@@ -44,9 +44,10 @@ RSpec.describe Csv::DeveloperCsvService do
       expect(development_row["Plots count"]).to eq "2"
       expect(development_row["Residents count"]).to eq "2"
 
+      # Counts are not given in the division row
       division_row = csv[2]
-      expect(division_row["Plots count"]).to eq "2"
-      expect(division_row["Residents count"]).to eq "1"
+      expect(division_row["Plots count"]).to eq ""
+      expect(division_row["Residents count"]).to eq ""
 
       division_development_row = csv[3]
       expect(division_development_row["Plots count"]).to eq "2"

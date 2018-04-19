@@ -8,6 +8,12 @@ When(/^I navigate to the analytics page$/) do
   end
 end
 
+Then(/^I export all developers CSV$/) do
+  within ".report-buttons" do
+    click_on t("admin.analytics.new.all")
+  end
+end
+
 Then(/^I export a developer CSV$/) do
   within ".report-buttons" do
     click_on t("admin.analytics.new.developer")
@@ -68,15 +74,13 @@ Then(/^the developer CSV contents are correct$/) do
   developer_row = csv[0]
 
   expect(developer_row["Company name"]).to eq developer.to_s
-  expect(developer_row["Divisions count"]).to eq "1"
-  expect(developer_row["Developments count"]).to eq "2"
   expect(developer_row["Plots count"]).to eq "3"
   expect(developer_row["Residents count"]).to eq "3"
   expect(developer_row["Activated residents count"]).to eq "0"
   expect(developer_row["Last edited"]).to eq I18n.l(Time.zone.now.to_date, format: :digits)
 
   development_row = csv[1]
-
+  expect(development_row["Company name"]).to be_blank
   expect(development_row["Division name"]).to be_blank
   expect(development_row["Development name"]).to eq CreateFixture.development_name
 
@@ -112,4 +116,45 @@ Then(/^the development CSV contents are correct$/) do
 
   expect(first_plot_row["Plot number"]).to eq "100"
   expect(second_plot_row["Plot number"]).to eq "200"
+end
+
+Then(/^the all developer CSV contents are correct$/) do
+  header = page.response_headers['Content-Disposition']
+  expect(header).to match /^attachment/
+  expect(header).to include "all_developers_summary.csv"
+
+  filename = header.partition('filename="').last.chomp('"')
+  path = Rails.root.join("tmp/#{filename}")
+
+  csv = CSV.read(path, headers: true)
+  expect(csv.size).to eq 5
+
+  developer_row = csv[0]
+  expect(developer_row["Company name"]).to eq CreateFixture.developer_name
+  expect(developer_row["Division name"]).to be_blank
+  expect(developer_row["Development name"]).to be_blank
+
+  division_row = csv[1]
+  expect(division_row["Division name"]).to eq CreateFixture.division_name
+  expect(division_row["Development name"]).to be_blank
+
+  stray_developer_row = csv[2]
+  expect(stray_developer_row["Division name"]).to be_blank
+  expect(stray_developer_row["Development name"]).to be_blank
+
+  second_developer_row = csv[3]
+  expect(second_developer_row["Company name"]).to eq AnalyticsFixture.developer_name
+  expect(second_developer_row["Division name"]).to be_blank
+  expect(second_developer_row["Development name"]).to be_blank
+
+  second_division_row = csv[4]
+  expect(second_division_row["Company name"]).to be_blank
+  expect(second_division_row["Division name"]).to eq AnalyticsFixture.division_name
+  expect(second_division_row["Development name"]).to be_blank
+end
+
+Given(/^there is another developer with a division and development$/) do
+  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name)
+  FactoryGirl.create(:division, division_name: AnalyticsFixture.division_name, developer: developer)
+  FactoryGirl.create(:development, name: AnalyticsFixture.development_name, developer: developer)
 end

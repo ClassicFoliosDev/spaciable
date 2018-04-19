@@ -6,7 +6,7 @@ class Report
 
   attr_accessor :report_from, :report_to, :developer_id, :division_id, :development_id, :csv_type
 
-  validates :report_from, :report_to, :developer_id, presence: true
+  validates :report_from, :report_to, presence: true
   validate :report_from_not_in_future
   validate :report_to_not_before_report_from
 

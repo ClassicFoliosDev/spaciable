@@ -4,6 +4,13 @@ Feature: Analytics
   I want to export analytics
   So I can use them to see how Hoozzi is used
 
+  Scenario: All developers report
+    Given I am CF Admin wanting to send notifications to residents
+    And there is another developer with a division and development
+    When I navigate to the analytics page
+    And I export all developers CSV
+    Then the all developer CSV contents are correct
+
   Scenario: Developer report
     Given I am CF Admin wanting to send notifications to residents
     When I navigate to the analytics page

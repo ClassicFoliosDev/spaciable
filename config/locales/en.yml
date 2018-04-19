@@ -429,6 +429,7 @@ en:
       new:
         developer: "Download report for developer"
         development: "Download report for development"
+        all: "Download summary report for all developers"
 
   dashboard:
     header: "Dashboard title for Hoozzi"
