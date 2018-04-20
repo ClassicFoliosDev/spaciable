@@ -7,6 +7,9 @@ module Csv
       filename = build_filename(development.to_s.parameterize.underscore)
       path = Rails.root.join("tmp/#{filename}")
 
+      @from = report.extract_date(report.report_from)
+      @to = report.extract_date(report.report_to)
+
       ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << headers
         append_data(csv, development)
@@ -16,11 +19,16 @@ module Csv
     end
 
     def self.headers
+      formatted_from = I18n.l(@from.to_date, format: :digits)
+      formatted_to = I18n.l(@to.to_date, format: :digits)
+
       [
-        "Development name", "Plot number", "Plot", "Resident email", "Resident name",
+        "Development name", "Plot number", "Plot", "Phase", "Resident email", "Resident name",
         "Resident invited on", "Resident invited by", "Resident activated",
-        "Resident last sign in", "Developer updates", "Hoozzi updates", "Telephone updates",
-        "Post updates", "Terms and conditions accepted", "Services subscribed"
+        "Resident last sign in", "Sign in count",
+        "Notifications between #{formatted_from} and #{formatted_to}", "Developer updates",
+        "Hoozzi updates", "Telephone updates", "Post updates", "Terms and conditions accepted",
+        "Services subscribed"
       ]
     end
 
@@ -30,7 +38,7 @@ module Csv
       plots = development.plots.includes(:phase).order("number::integer")
       plots.each do |plot|
         csv << plot_info(plot) if plot.residents.empty?
-        plot.residents.each do |resident|
+        plot.residents.includes(:services).each do |resident|
           csv << resident_info(plot, resident)
         end
       end
@@ -46,16 +54,17 @@ module Csv
       [
         "",
         plot.to_s,
-        plot.to_homeowner_s
+        plot.to_homeowner_s,
+        plot.phase.to_s
       ]
     end
 
     def self.resident_info(plot, resident)
       [
-        "", plot.to_s, plot.to_homeowner_s,
-        resident.email, resident.to_s,
+        "", plot.to_s, plot.to_homeowner_s, plot.phase.to_s, resident.email, resident.to_s,
         build_date(resident, "invitation_sent_at"), resident&.invited_by&.email,
         build_date(resident, "invitation_accepted_at"), build_date(resident, "last_sign_in_at"),
+        resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),
         yes_or_no(resident, "hoozzi_email_updates"),
         yes_or_no(resident, "telephone_updates"), yes_or_no(resident, "post_updates"),
@@ -77,6 +86,12 @@ module Csv
       service_array = resident.services.map(&:name)
 
       service_array.join(",")
+    end
+
+    def self.notification_count(resident_id)
+      ResidentNotification.where(resident_id: resident_id)
+                          .where(created_at: @from.beginning_of_day..@to.end_of_day)
+                          .count
     end
   end
 end

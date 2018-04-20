@@ -11,6 +11,7 @@ end
 Then(/^I export all developers CSV$/) do
   within ".report-buttons" do
     click_on t("admin.analytics.new.all")
+    click_on t("admin.analytics.new.all")
   end
 end
 
@@ -68,31 +69,16 @@ Then(/^the developer CSV contents are correct$/) do
   path = Rails.root.join("tmp/#{filename}")
 
   csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq(4)
+  expect(csv.size).to eq(3)
 
-  developer = Developer.find_by(company_name: CreateFixture.developer_name)
-  developer_row = csv[0]
+  development_row = csv[0]
+  expect(development_row["Name"]).to eq CreateFixture.development_name
 
-  expect(developer_row["Company name"]).to eq developer.to_s
-  expect(developer_row["Plots count"]).to eq "3"
-  expect(developer_row["Residents count"]).to eq "3"
-  expect(developer_row["Activated residents count"]).to eq "0"
-  expect(developer_row["Last edited"]).to eq I18n.l(Time.zone.now.to_date, format: :digits)
+  division_row = csv[1]
+  expect(division_row["Name"]).to eq CreateFixture.division_name
 
-  development_row = csv[1]
-  expect(development_row["Company name"]).to be_blank
-  expect(development_row["Division name"]).to be_blank
-  expect(development_row["Development name"]).to eq CreateFixture.development_name
-
-  division_row = csv[2]
-
-  expect(division_row["Division name"]).to eq CreateFixture.division_name
-  expect(division_row["Development name"]).to be_blank
-
-  division_development_row = csv[3]
-
-  expect(division_development_row["Division name"]).to eq CreateFixture.division_name
-  expect(division_development_row["Development name"]).to eq CreateFixture.division_development_name
+  division_development_row = csv[2]
+  expect(division_development_row["Name"]).to eq CreateFixture.division_development_name
 end
 
 Then(/^the development CSV contents are correct$/) do
@@ -107,8 +93,8 @@ Then(/^the development CSV contents are correct$/) do
   expect(csv.size).to eq(3)
 
   development = Development.find_by(name: CreateFixture.development_name)
+  
   development_row = csv[0]
-
   expect(development_row["Development name"]).to eq development.to_s
 
   first_plot_row = csv[1]
@@ -127,30 +113,18 @@ Then(/^the all developer CSV contents are correct$/) do
   path = Rails.root.join("tmp/#{filename}")
 
   csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq 5
+  expect(csv.size).to eq 3
 
-  developer_row = csv[0]
-  expect(developer_row["Company name"]).to eq CreateFixture.developer_name
-  expect(developer_row["Division name"]).to be_blank
-  expect(developer_row["Development name"]).to be_blank
+  division_row = csv[0]
+  expect(division_row["Name"]).to eq CreateFixture.division_name
+  expect(division_row["Parent"]).to eq CreateFixture.developer_name
 
-  division_row = csv[1]
-  expect(division_row["Division name"]).to eq CreateFixture.division_name
-  expect(division_row["Development name"]).to be_blank
+  developer_row = csv[1]
+  expect(developer_row["Parent"]).to eq "DEVELOPER"
 
-  stray_developer_row = csv[2]
-  expect(stray_developer_row["Division name"]).to be_blank
-  expect(stray_developer_row["Development name"]).to be_blank
-
-  second_developer_row = csv[3]
-  expect(second_developer_row["Company name"]).to eq AnalyticsFixture.developer_name
-  expect(second_developer_row["Division name"]).to be_blank
-  expect(second_developer_row["Development name"]).to be_blank
-
-  second_division_row = csv[4]
-  expect(second_division_row["Company name"]).to be_blank
-  expect(second_division_row["Division name"]).to eq AnalyticsFixture.division_name
-  expect(second_division_row["Development name"]).to be_blank
+  second_division_row = csv[2]
+  expect(second_division_row["Name"]).to eq AnalyticsFixture.division_name
+  expect(second_division_row["Parent"]).to eq AnalyticsFixture.developer_name
 end
 
 Given(/^there is another developer with a division and development$/) do

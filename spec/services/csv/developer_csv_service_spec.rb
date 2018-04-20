@@ -13,7 +13,6 @@ RSpec.describe Csv::DeveloperCsvService do
   let(:plot_b) { create(:plot, development: development, developer: developer) }
   let(:resident_b) { create(:resident) }
   let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b) }
-  let(:plot_c) { create(:plot, development: division_development, developer: developer) }
   let(:plot_d) { create(:plot, development: division_development, developer: developer) }
   let(:resident_d) { create(:resident) }
   let(:plot_resident_d) { create(:plot_residency, resident: resident_d, plot: plot_d) }
@@ -22,13 +21,17 @@ RSpec.describe Csv::DeveloperCsvService do
     it "only shows residents within dates" do
       start_date = Time.zone.now.ago(1.month).to_date
       end_date = Time.zone.now.to_date
-      resident_c = Resident.create(created_at: Time.zone.now.ago(2.months),
+      plot_c = Plot.create(development: division_development, 
+                           developer: developer,
+                           created_at: Time.zone.now.ago(2.months))
+
+      resident_e = Resident.create(created_at: Time.zone.now.ago(2.months),
                                    email: "resident@before_csv_date",
                                    first_name: "Early",
                                    last_name: "Resident",
                                    phone_number: "02380 123456",
                                    password: "Passw0rd")
-      plot_c.residents << resident_c
+      plot_d.residents << resident_e
       plot_resident_a
       plot_resident_b
       plot_resident_d
@@ -38,24 +41,25 @@ RSpec.describe Csv::DeveloperCsvService do
 
       csv = CSV.read(result, headers: true)
 
-      expect(csv.length).to eq 4
+      expect(csv.length).to eq 3
+     
+      formatted_from = I18n.l(start_date.to_date, format: :digits)
+      formatted_to = I18n.l(end_date.to_date, format: :digits)
+      between_dates = "between #{formatted_from} and #{formatted_to}"
 
-      development_row = csv[1]
-      expect(development_row["Plots count"]).to eq "2"
-      expect(development_row["Residents count"]).to eq "2"
+      development_row = csv[0]
+      expect(development_row["Plots created #{between_dates}"]).to eq "2"
+      expect(development_row["Residents invited #{between_dates}"]).to eq "2"
 
-      # Counts are not given in the division row
-      division_row = csv[2]
-      expect(division_row["Plots count"]).to eq ""
-      expect(division_row["Residents count"]).to eq ""
+      division_row = csv[1]
+      expect(division_row["Plots created #{between_dates}"]).to eq "3"
+      expect(division_row["Residents invited #{between_dates}"]).to eq "3"
 
-      division_development_row = csv[3]
-      expect(division_development_row["Plots count"]).to eq "2"
-      expect(division_development_row["Residents count"]).to eq "1"
-
-      developer_row = csv[0]
-      expect(developer_row["Plots count"]).to eq "4"
-      expect(developer_row["Residents count"]).to eq "3"
+      division_development_row = csv[2]
+      # Two plots: plot_c and plot_d, but only plot_d was created within the time limits
+      # plot_d has two residents: resident_d and resident_e, but only resident_d was created within the time limits
+      expect(division_development_row["Plots created #{between_dates}"]).to eq "1"
+      expect(division_development_row["Residents invited #{between_dates}"]).to eq "1"
     end
   end
 end

@@ -7,32 +7,37 @@ module Csv
       filename = build_filename(developer.to_s.parameterize.underscore)
       path = Rails.root.join("tmp/#{filename}")
 
+      @from = report.extract_date(report.report_from)
+      @to = report.extract_date(report.report_to)
+
       ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << headers
-        append_data(csv, developer, report, true)
+        append_data(csv, developer, true)
       end
 
       path
     end
 
     def self.headers
+      formatted_from = I18n.l(@from.to_date, format: :digits)
+      formatted_to = I18n.l(@to.to_date, format: :digits)
+
       [
-        "Company name", "Division name", "Development name",
-        "Plots count", "Residents count", "Activated residents count",
-        "BestArea4Me enabled", "Services enabled", "Forum enabled",
-        "Fixflo link", "Mailchimp API key", "Date created", "Last edited"
+        "Parent", "Name", "Plots created between #{formatted_from} and #{formatted_to}",
+        "Residents invited between #{formatted_from} and #{formatted_to}",
+        "Residents activated between #{formatted_from} and #{formatted_to}",
+        "Notifications between #{formatted_from} and #{formatted_to}",
+        "BestArea4Me enabled", "Services enabled", "Forum enabled", "Fixflo link",
+        "Mailchimp API key", "Date created", "Last edited"
       ]
     end
 
-    def self.append_data(csv, developer, report, with_developments)
-      @from = report.extract_date(report.report_from)
-      @to = report.extract_date(report.report_to)
-
-      csv << developer_info(developer)
+    def self.append_data(csv, developer, with_developments)
+      csv << developer_info(developer) if developer.divisions.count.zero?
       append_developments(csv, developer) if with_developments
 
       developer.divisions.each do |division|
-        csv << division_info(division)
+        csv << division_info(division, division.developer)
         append_developments(csv, division) if with_developments
       end
     end
@@ -45,23 +50,25 @@ module Csv
 
     def self.development_info(development)
       [
-        "", development&.division&.to_s, development.to_s,
+        development.parent.to_s, development.to_s,
         plots_for("development_id", development.id),
         residents_for("development_id", development.id),
         activated_residents_for("development_id", development.id),
-        "", "", "",
-        development.maintenance_link, development.segment_id,
+        notifications_for("development", development.id),
+        "", "", "", development.maintenance_link, development.segment_id,
         I18n.l(development.created_at.to_date, format: :digits),
         I18n.l(development.updated_at.to_date, format: :digits)
       ]
     end
 
-    def self.division_info(division)
+    def self.division_info(division, developer)
       [
-        "", division.to_s, "",
-        "", "", "",
-        "", "", "", "",
-        division.list_id,
+        division.parent.to_s, division.to_s, plots_for("developer_id", developer.id),
+        residents_for("developer_id", developer.id),
+        activated_residents_for("developer_id", developer.id),
+        notifications_for("division", division.id),
+        developer.house_search, developer.enable_services,
+        developer.enable_development_messages, "", division.list_id,
         I18n.l(division.created_at.to_date, format: :digits),
         I18n.l(division.updated_at.to_date, format: :digits)
       ]
@@ -69,10 +76,10 @@ module Csv
 
     def self.developer_info(developer)
       [
-        developer.to_s, "", "",
-        plots_for("developer_id", developer.id),
+        "DEVELOPER", developer.to_s, plots_for("developer_id", developer.id),
         residents_for("developer_id", developer.id),
         activated_residents_for("developer_id", developer.id),
+        notifications_for("developer", developer.id),
         developer.house_search, developer.enable_services,
         developer.enable_development_messages, "", developer.api_key,
         I18n.l(developer.created_at.to_date, format: :digits),
@@ -106,6 +113,11 @@ module Csv
       end
 
       plot_residents.sum
+    end
+
+    def self.notifications_for(resource_name, resource_id)
+      Notification.where(send_to_type: resource_name).where(send_to_id: resource_id)
+                  .where(created_at: @from.beginning_of_day..@to.end_of_day).count
     end
   end
 end

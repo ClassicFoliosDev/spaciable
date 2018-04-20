@@ -1692,8 +1692,8 @@ en:
         email: "Email address"
         phone_number: "Phone number"
       report:
-        report_from: "Resident and active resident count from:"
-        report_to: "Resident and active resident count to:"
+        report_from: "Resident and notification count from:"
+        report_to: "Resident and notification count to:"
 
     errors:
       messages:

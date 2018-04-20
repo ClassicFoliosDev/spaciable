@@ -7,7 +7,7 @@
         order: [:day, :month, :year],
         start_year: Date.today.year,
         end_year: 2017,
-        default: Time.now.ago(1.month) %>
+        default: Date.parse("2017-1-1") %>
     </div>
 
     <div class="report-date half">
