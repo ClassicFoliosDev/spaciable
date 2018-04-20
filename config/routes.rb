@@ -40,7 +40,9 @@ Rails.application.routes.draw do
     resources :notifications, except: [:edit, :update, :destroy]
     resources :how_tos
     resources :users
-    resources :residents, only: [:index, :show]
+    unless Rails.env.production?
+      resources :residents, only: [:index, :show]
+    end
     resource :help, only: [:show], controller: 'help'
     resource :settings, only: [:show, :edit, :update]
     resource :analytics, only: [:new, :create]

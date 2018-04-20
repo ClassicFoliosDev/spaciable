@@ -405,6 +405,7 @@ en:
         email: "Email"
         removed: "Resident has been removed from all plots"
         ts_and_cs_accepted: "Accepted terms and conditions"
+        phone_number: "Phone number"
       show:
         back: "Back"
       plot_details:

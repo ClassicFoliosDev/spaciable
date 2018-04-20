@@ -120,7 +120,7 @@ RSpec.describe ResidentChangeNotifyService do
       current_user = create(:development_admin, permission_level: development)
 
       ActionMailer::Base.deliveries.clear
-      
+
       result = described_class.call(plot, current_user, "updated for invalid resident", development)
       expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
 
