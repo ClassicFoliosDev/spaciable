@@ -5,10 +5,7 @@ module Csv
     def self.call(report)
       development = Development.find(report.development_id)
       filename = build_filename(development.to_s.parameterize.underscore)
-      path = Rails.root.join("tmp/#{filename}")
-
-      @from = report.extract_date(report.report_from)
-      @to = report.extract_date(report.report_to)
+      path = init(report, filename)
 
       ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << headers
@@ -19,16 +16,12 @@ module Csv
     end
 
     def self.headers
-      formatted_from = I18n.l(@from.to_date, format: :digits)
-      formatted_to = I18n.l(@to.to_date, format: :digits)
-
       [
         "Development name", "Plot number", "Plot", "Phase", "Resident email", "Resident name",
         "Resident invited on", "Resident invited by", "Resident activated",
-        "Resident last sign in", "Sign in count",
-        "Notifications between #{formatted_from} and #{formatted_to}", "Developer updates",
-        "Hoozzi updates", "Telephone updates", "Post updates", "Terms and conditions accepted",
-        "Services subscribed"
+        "Resident last sign in", "Sign in count", "Notifications #{@between}",
+        "Developer updates", "Hoozzi updates", "Telephone updates", "Post updates",
+        "Terms and conditions accepted", "Services subscribed"
       ]
     end
 
@@ -46,7 +39,8 @@ module Csv
 
     def self.development_info(development)
       [
-        development.to_s
+        development.to_s,
+        development.maintenance_link
       ]
     end
 

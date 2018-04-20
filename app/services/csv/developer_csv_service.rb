@@ -5,10 +5,7 @@ module Csv
     def self.call(report)
       developer = Developer.find(report.developer_id)
       filename = build_filename(developer.to_s.parameterize.underscore)
-      path = Rails.root.join("tmp/#{filename}")
-
-      @from = report.extract_date(report.report_from)
-      @to = report.extract_date(report.report_to)
+      path = init(report, filename)
 
       ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << headers
@@ -19,20 +16,18 @@ module Csv
     end
 
     def self.headers
-      formatted_from = I18n.l(@from.to_date, format: :digits)
-      formatted_to = I18n.l(@to.to_date, format: :digits)
-
       [
-        "Parent", "Name", "Plots created between #{formatted_from} and #{formatted_to}",
-        "Residents invited between #{formatted_from} and #{formatted_to}",
-        "Residents activated between #{formatted_from} and #{formatted_to}",
-        "Notifications between #{formatted_from} and #{formatted_to}",
-        "BestArea4Me enabled", "Services enabled", "Forum enabled", "Fixflo link",
-        "Mailchimp API key", "Date created", "Last edited"
+        "Parent", "Name", "Plots created #{@between}", "Residents invited #{@between}",
+        "Residents activated #{@between}", "Notifications #{@between}", "BestArea4Me enabled",
+        "Services enabled", "Forum enabled", "Fixflo link", "Mailchimp list or segment id",
+        "Developer emails accepted", "Hoozzi emails accepted", "Telephone accepted",
+        "Post accepted", "Date created", "Last edited"
       ]
     end
 
     def self.append_data(csv, developer, with_developments)
+      @plots_for_developer = plots_for("developer", developer.id)
+
       csv << developer_info(developer) if developer.divisions.count.zero?
       append_developments(csv, developer) if with_developments
 
@@ -49,75 +44,82 @@ module Csv
     end
 
     def self.development_info(development)
+      plots_for_development = plots_for("development", development.id)
       [
-        development.parent.to_s, development.to_s,
-        plots_for("development_id", development.id),
-        residents_for("development_id", development.id),
-        activated_residents_for("development_id", development.id),
-        notifications_for("development", development.id),
-        "", "", "", development.maintenance_link, development.segment_id,
-        I18n.l(development.created_at.to_date, format: :digits),
-        I18n.l(development.updated_at.to_date, format: :digits)
+        development.parent.to_s, development.to_s, *count_fields(plots_for_development),
+        notifications_in_range("development", development.id), "", "", "",
+        development.maintenance_link, development.segment_id,
+        *mailchimp_fields(plots_for_development), *dates_for(development)
       ]
     end
 
     def self.division_info(division, developer)
+      plots_for_division = plots_for("division", division.id)
+
       [
-        division.parent.to_s, division.to_s, plots_for("developer_id", developer.id),
-        residents_for("developer_id", developer.id),
-        activated_residents_for("developer_id", developer.id),
-        notifications_for("division", division.id),
-        developer.house_search, developer.enable_services,
-        developer.enable_development_messages, "", division.list_id,
-        I18n.l(division.created_at.to_date, format: :digits),
-        I18n.l(division.updated_at.to_date, format: :digits)
+        division.parent.to_s, division.to_s, *count_fields(@plots_for_developer),
+        notifications_in_range("division", division.id), developer.house_search,
+        developer.enable_services, developer.enable_development_messages, "", division.list_id,
+        *mailchimp_fields(plots_for_division), *dates_for(division)
       ]
     end
 
     def self.developer_info(developer)
       [
-        "DEVELOPER", developer.to_s, plots_for("developer_id", developer.id),
-        residents_for("developer_id", developer.id),
-        activated_residents_for("developer_id", developer.id),
-        notifications_for("developer", developer.id),
-        developer.house_search, developer.enable_services,
-        developer.enable_development_messages, "", developer.api_key,
-        I18n.l(developer.created_at.to_date, format: :digits),
-        I18n.l(developer.updated_at.to_date, format: :digits)
+        "DEVELOPER", developer.to_s, *count_fields(@plots_for_developer),
+        notifications_in_range("developer", developer.id), developer.house_search,
+        developer.enable_services, developer.enable_development_messages, "", developer.api_key,
+        *mailchimp_fields(@plots_for_developer), *dates_for(developer)
       ]
     end
 
-    def self.plots_for(resource_name, resource_id)
-      query = Hash[resource_name, resource_id]
-      plots = Plot.where(query).where(created_at: @from.beginning_of_day..@to.end_of_day)
-
-      plots.count
+    def self.count_fields(plots_for_resource)
+      [
+        plots_in_range(plots_for_resource),
+        residents_in_range(plots_for_resource),
+        activated_residents_in_range(plots_for_resource)
+      ]
     end
 
-    def self.residents_for(resource_name, resource_id)
-      query = Hash[resource_name, resource_id]
-      plots = Plot.where(query)
-      plot_residents = plots.map do |plot|
+    def self.mailchimp_fields(plots_for_resource)
+      [updates_for(plots_for_resource, "developer_email_updates"),
+       updates_for(plots_for_resource, "hoozzi_email_updates"),
+       updates_for(plots_for_resource, "telephone_updates"),
+       updates_for(plots_for_resource, "post_updates")]
+    end
+
+    def self.plots_in_range(plots_for_resource)
+      plots_for_resource.where(created_at: @from.beginning_of_day..@to.end_of_day).count
+    end
+
+    def self.residents_in_range(plots_for_resource)
+      plots_for_resource.map do |plot|
         plot.residents.where(created_at: @from.beginning_of_day..@to.end_of_day).count
-      end
-
-      plot_residents.sum
+      end.sum
     end
 
-    def self.activated_residents_for(resource_name, resource_id)
-      type_query = Hash[resource_name, resource_id]
-      plots = Plot.where(type_query)
-      plot_residents = plots.map do |plot|
+    def self.activated_residents_in_range(plots_for_resource)
+      plots_for_resource.map do |plot|
         plot.residents.where.not(invitation_accepted_at: nil)
             .where(invitation_accepted_at: @from.beginning_of_day..@to.end_of_day).count
-      end
-
-      plot_residents.sum
+      end.sum
     end
 
-    def self.notifications_for(resource_name, resource_id)
+    def self.notifications_in_range(resource_name, resource_id)
       Notification.where(send_to_type: resource_name).where(send_to_id: resource_id)
                   .where(created_at: @from.beginning_of_day..@to.end_of_day).count
+    end
+
+    def self.updates_for(plots_for_resource, update_type)
+      plots_for_resource.map do |plot|
+        update_type_query = Hash[update_type, nil]
+        plot.residents.where.not(update_type_query).count
+      end.sum
+    end
+
+    def self.plots_for(resource_name, resource_id)
+      type_query = Hash[resource_name, resource_id]
+      Plot.where(type_query)
     end
   end
 end
