@@ -105,4 +105,32 @@ RSpec.describe ResidentChangeNotifyService do
       ActionMailer::Base.deliveries.clear
     end
   end
+
+  context "old user with no phone number" do
+    it "can still send notifications" do
+      development = developer_with_residents.developments.first
+      plot = development.plots.first
+      invalid_resident = Resident.new(email: "no_phone@example.com", 
+                                      first_name: "No", 
+                                      last_name: "Phone",
+                                      developer_email_updates: true)
+      invalid_resident.save(validate: false)
+      plot_residency = PlotResidency.new(plot: plot, resident: invalid_resident)
+      plot_residency.save(validate: false)
+      current_user = create(:development_admin, permission_level: development)
+
+      ActionMailer::Base.deliveries.clear
+      
+      result = described_class.call(plot, current_user, "updated for invalid resident", development)
+      expect(result).to eq I18n.t("resident_notification_mailer.notify.update_sent", count: 1)
+
+      deliveries = ActionMailer::Base.deliveries
+      expect(deliveries.length).to eq(1)
+
+      expect(deliveries[0].subject).to eq(I18n.t("resident_notification_mailer.notify.update_subject"))
+      expect(deliveries[0].to).to include(invalid_resident.email)
+
+      ActionMailer::Base.deliveries.clear
+    end
+  end
 end

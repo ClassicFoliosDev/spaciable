@@ -36,7 +36,10 @@ module ResidentChangeNotifyService
 
     notification.save!
 
-    notification.residents << all_residents_for(parent)
+    all_residents_for(parent).each do |resident|
+      ResidentNotification.create(notification_id: notification.id, resident_id: resident.id)
+    end
+
     notification
   end
 
@@ -51,7 +54,7 @@ module ResidentChangeNotifyService
   # Includes unsubscribed residents, this call should only be used for in-app notifications
   def all_residents_for(parent)
     plots = plots_for(parent)
-    plots.map(&:residents)
+    plots.map(&:residents).flatten
   end
 
   def plots_for(parent)
