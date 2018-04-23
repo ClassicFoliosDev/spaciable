@@ -118,9 +118,11 @@ Then(/^the all developer CSV contents are correct$/) do
   division_row = csv[0]
   expect(division_row["Name"]).to eq CreateFixture.division_name
   expect(division_row["Parent"]).to eq CreateFixture.developer_name
+  expect(division_row["BestArea4Me enabled"]).to eq "true"
 
   developer_row = csv[1]
   expect(developer_row["Parent"]).to eq "DEVELOPER"
+  expect(developer_row["BestArea4Me enabled"]).to eq "false"
 
   second_division_row = csv[2]
   expect(second_division_row["Name"]).to eq AnalyticsFixture.division_name
@@ -128,7 +130,7 @@ Then(/^the all developer CSV contents are correct$/) do
 end
 
 Given(/^there is another developer with a division and development$/) do
-  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name)
+  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil)
   FactoryGirl.create(:division, division_name: AnalyticsFixture.division_name, developer: developer)
   FactoryGirl.create(:development, name: AnalyticsFixture.development_name, developer: developer)
 end

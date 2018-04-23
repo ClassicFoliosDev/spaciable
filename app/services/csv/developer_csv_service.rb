@@ -58,7 +58,7 @@ module Csv
 
       [
         division.parent.to_s, division.to_s, *count_fields(@plots_for_developer),
-        notifications_in_range("Division", division.id), developer.house_search,
+        notifications_in_range("Division", division.id), house_search(developer),
         developer.enable_services, developer.enable_development_messages, "", division.list_id,
         *mailchimp_fields(plots_for_division), *dates_for(division)
       ]
@@ -67,10 +67,15 @@ module Csv
     def self.developer_info(developer)
       [
         "DEVELOPER", developer.to_s, *count_fields(@plots_for_developer),
-        notifications_in_range("Developer", developer.id), developer.house_search,
+        notifications_in_range("Developer", developer.id), house_search(developer),
         developer.enable_services, developer.enable_development_messages, "", developer.api_key,
         *mailchimp_fields(@plots_for_developer), *dates_for(developer)
       ]
+    end
+
+    def self.house_search(developer)
+      return "false" unless developer.house_search?
+      developer.house_search
     end
 
     def self.notifications_in_range(resource_name, resource_id)
