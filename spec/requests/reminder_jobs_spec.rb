@@ -56,6 +56,21 @@ RSpec.describe "Reminder jobs", type: :feature do
         ActionMailer::Base.deliveries.clear
       end
     end
+    
+    context "when there is a legacy job queued" do
+      it "fires when the wait time expires" do
+        ActionMailer::Base.deliveries.clear
+        resident = developer_with_residents.residents.first
+        plot_residency = resident.plot_residencies.first
+
+        InvitationReminderJob.set(wait: 2.seconds).perform_later(plot_residency, "Spec testing", "abc")
+
+        scheduled_jobs = Delayed::Job.all
+        expect(scheduled_jobs.size).to eq(0)
+
+        ActionMailer::Base.deliveries.clear
+      end
+    end  
 
     context "when there is a job queued and it has not been removed" do
       it "fires when the wait time expires" do
