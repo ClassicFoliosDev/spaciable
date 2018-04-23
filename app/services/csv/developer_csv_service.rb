@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Csv
-  class DeveloperCsvService < CsvService
+  class DeveloperCsvService < CountCsvService
     def self.call(report)
       developer = Developer.find(report.developer_id)
       filename = build_filename(developer.to_s.parameterize.underscore)
@@ -47,7 +47,7 @@ module Csv
       plots_for_development = plots_for("development", development.id)
       [
         development.parent.to_s, development.to_s, *count_fields(plots_for_development),
-        notifications_in_range("development", development.id), "", "", "",
+        notifications_in_range("Development", development.id), "", "", "",
         development.maintenance_link, development.segment_id,
         *mailchimp_fields(plots_for_development), *dates_for(development)
       ]
@@ -58,7 +58,7 @@ module Csv
 
       [
         division.parent.to_s, division.to_s, *count_fields(@plots_for_developer),
-        notifications_in_range("division", division.id), developer.house_search,
+        notifications_in_range("Division", division.id), developer.house_search,
         developer.enable_services, developer.enable_development_messages, "", division.list_id,
         *mailchimp_fields(plots_for_division), *dates_for(division)
       ]
@@ -67,42 +67,10 @@ module Csv
     def self.developer_info(developer)
       [
         "DEVELOPER", developer.to_s, *count_fields(@plots_for_developer),
-        notifications_in_range("developer", developer.id), developer.house_search,
+        notifications_in_range("Developer", developer.id), developer.house_search,
         developer.enable_services, developer.enable_development_messages, "", developer.api_key,
         *mailchimp_fields(@plots_for_developer), *dates_for(developer)
       ]
-    end
-
-    def self.count_fields(plots_for_resource)
-      [
-        plots_in_range(plots_for_resource),
-        residents_in_range(plots_for_resource),
-        activated_residents_in_range(plots_for_resource)
-      ]
-    end
-
-    def self.mailchimp_fields(plots_for_resource)
-      [updates_for(plots_for_resource, "developer_email_updates"),
-       updates_for(plots_for_resource, "hoozzi_email_updates"),
-       updates_for(plots_for_resource, "telephone_updates"),
-       updates_for(plots_for_resource, "post_updates")]
-    end
-
-    def self.plots_in_range(plots_for_resource)
-      plots_for_resource.where(created_at: @from.beginning_of_day..@to.end_of_day).count
-    end
-
-    def self.residents_in_range(plots_for_resource)
-      plots_for_resource.map do |plot|
-        plot.residents.where(created_at: @from.beginning_of_day..@to.end_of_day).count
-      end.sum
-    end
-
-    def self.activated_residents_in_range(plots_for_resource)
-      plots_for_resource.map do |plot|
-        plot.residents.where.not(invitation_accepted_at: nil)
-            .where(invitation_accepted_at: @from.beginning_of_day..@to.end_of_day).count
-      end.sum
     end
 
     def self.notifications_in_range(resource_name, resource_id)
@@ -110,16 +78,9 @@ module Csv
                   .where(created_at: @from.beginning_of_day..@to.end_of_day).count
     end
 
-    def self.updates_for(plots_for_resource, update_type)
-      plots_for_resource.map do |plot|
-        update_type_query = Hash[update_type, nil]
-        plot.residents.where.not(update_type_query).count
-      end.sum
-    end
-
     def self.plots_for(resource_name, resource_id)
       type_query = Hash[resource_name, resource_id]
-      Plot.where(type_query)
+      Plot.where(type_query).eager_load(:residents)
     end
   end
 end
