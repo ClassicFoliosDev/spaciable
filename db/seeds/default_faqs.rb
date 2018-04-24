@@ -11,7 +11,7 @@
 
 [{
   question: %(There is a white powder on my walls. Is this a defect?),
-  answer: %(<p>No. You may notice a white chalk-like substance on the exterior brickwork of your new home.&nbsp; This isn&rsquo;t a defect, just the natural salts escaping from the building materials.&nbsp; Efflorescence will be washed away naturally by rainfall and will stop once the salts are exhausted.&nbsp;</p>
+  answer: %(<p>No. You may notice a white, chalk-like substance on the exterior brickwork of your new home.&nbsp; This isn&rsquo;t a defect, just the natural salts escaping from the building materials.&nbsp; Efflorescence will be washed away naturally by rainfall and will stop once the salts are exhausted.&nbsp;</p>
 ),
   category: %(settling)
 }, {
@@ -98,7 +98,7 @@
 	<li>Don&rsquo;t turn electrical switches on or off, including doorbells and light switches&nbsp;</li>
 	<li>Open doors and windows&nbsp;</li>
 	<li>Turn off the meter at the control valve (unless it is in a confined space and you&rsquo;re putting yourself at risk)</li>
-	<li>Call the free 24 hour national gas emergency helpline on 0800 111 999</li>
+	<li>Call the free 24 hour National Gas Emergency helpline on 0800 111 999</li>
 </ul>
 ),
   category: %(urgent)
@@ -125,7 +125,7 @@
 
 <p>If you can&rsquo;t find the fault, please call an electrician.</p>
 
-<p>It is important to note that some faults are intermittent and everything may work for a short time.&nbsp; In this case, don&rsquo;t keep switching the MCB and instead call a suitable qualified electrician to correct the fault.</p>
+<p>It is important to note that some faults are intermittent and everything may work for a short time.&nbsp; In this case, don&rsquo;t keep switching the MCB and instead call a suitably qualified electrician to correct the fault.</p>
 ),
   category: %(troubleshooting)
 }, {
@@ -152,25 +152,25 @@
 	<li>You have allowed enough time for the system to heat up</li>
 </ul>
 
-<p>Please note, during the winter there may be a warm-up period of at least 60 minutes before the effects of any heating will be noticed.</p>
+<p>Please note, during the winter, there may be a warm-up period of at least 60 minutes before the effects of any heating will be noticed.</p>
 
 <p>In the event of a heating system breakdown, please consult your homeowner&rsquo;s manual for further advice, as the developer may be liable for issues occurring shortly after legal completion. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
   category: %(troubleshooting)
 }, {
   question: %(My radiator is not heating properly. What should I do?),
-  answer: %(<p>If you experience a radiator failing to heat this could be an indication of air in the system.&nbsp; This is a common problem, particularly in newly installed heating systems.&nbsp; In this instance you should follow the steps below:</p>
+  answer: %(<p>If you experience a radiator failing to heat this could be an indication of air in the system.&nbsp; This is a common problem, particularly in newly installed heating systems.&nbsp; In this instance, you should follow the steps below:</p>
 
 <ul>
 	<li>To release the air, attach a radiator bleeding key to the bleed valve and turn it anticlockwise.&nbsp; This should be done gently to avoid the valve being removed completely</li>
 	<li>Open the valve until a hissing sound can be heard; this will indicate that the air is escaping.&nbsp; Hold a cloth beneath the valve to protect both the floor surface and your hands from any hot water that escapes</li>
-	<li>When water starts to escape from the radiator close the bleed valve by turning it clockwise</li>
+	<li>When water starts to escape from the radiator, close the bleed valve by turning it clockwise</li>
 </ul>
 ),
   category: %(troubleshooting)
 }, {
   question: %(I have heated towel rails – why does my bathroom feel cold?),
-  answer: %(<p>If heated towel rails have been installed, they may be there not only to warm towels but also to heat the room.&nbsp; If your bathroom feels cold it might be because you&rsquo;ve completely covered your rails with towels.</p>
+  answer: %(<p>If heated towel rails have been installed, they may be there not only to warm towels but also to heat the room.&nbsp; If your bathroom feels cold, it might be because you&rsquo;ve completely covered your rails with towels.</p>
 ),
   category: %(troubleshooting)
 }, {
@@ -215,7 +215,7 @@
 	<li>Try using a flexible rod or plunger/suction cup to remove it</li>
 	<li>If a plunger doesn&rsquo;t work, pour in a drain cleaner. Make sure you follow the manufacturer&rsquo;s instructions on any drain cleaning product</li>
 	<li>If you try to remove a blockage from a sink by hand, please wear gloves to protect your hands and place a bucket under the sink trap. Unscrew the trap, reach in and remove the blockage, then screw the trap back into place</li>
-	<li>For serious plumbing issues, please contact a plumber.</li>
+	<li>For serious plumbing issues, please contact a plumber</li>
 </ul>
 
 <p>To help prevent blockages:</p>
@@ -246,7 +246,7 @@
   category: %(home)
 }, {
   question: %(How can I protect my new carpet?),
-  answer: %(<p>You should vacuum your carpet regularly in order to remove dirt and grit.&nbsp; Any stains should be treated as quickly as possible, blotting the area not rubbing.&nbsp; For large and persistent stains you should call a professional carpet cleaner.</p>
+  answer: %(<p>You should vacuum your carpet regularly in order to remove dirt and grit.&nbsp; Any stains should be treated as quickly as possible, blotting the area, not rubbing.&nbsp; For large or persistent stains, you should call a professional carpet cleaner.</p>
 ),
   category: %(home)
 }, {
@@ -277,7 +277,7 @@
   category: %(home)
 }, {
   question: %(Can I cover my air bricks?),
-  answer: %(<p>If your home has a suspended ground floor you will find air bricks outside at low level to provide ventilation.&nbsp; Please ensure that no rubbish, garden material or soil covers the damp proof course or air bricks.&nbsp; Soil and paving or patio material should be kept a minimum of 150mm or two brick courses below the damp proof course.</p>
+  answer: %(<p>If your home has a suspended ground floor, you will find air bricks outside at low level to provide ventilation.&nbsp; Please ensure that no rubbish, garden material or soil covers the damp-proof course or air bricks.&nbsp; Soil and paving or patio material should be kept a minimum of 150mm or two brick courses below the damp-proof course.</p>
 ),
   category: %(home)
 }, {
@@ -328,7 +328,7 @@ Website:  www.tvlicensing.co.uk</p>
 	<li>Use a detector to check for hidden pipes or cables beneath wall or floor surfaces before drilling</li>
 	<li>If you&rsquo;re using a ladder, make sure it&rsquo;s in good condition and suitable for its purpose&nbsp;</li>
 	<li>Set up the ladder at a stable angle (one out to four up) and either secure at the top or wedge the bottom with a heavy object to prevent slipping</li>
-	<li>Don&rsquo;t extend the ladder beyond the manufacturer&rsquo;s recommendations and always re-position your ladder instead of over stretching</li>
+	<li>Don&rsquo;t extend the ladder beyond the manufacturer&rsquo;s recommendations and always re-position your ladder instead of overstretching</li>
 	<li>Beware of overhead dangers, e.g., power cables</li>
 </ul>
 ),
@@ -337,7 +337,7 @@ Website:  www.tvlicensing.co.uk</p>
   question: %(What steps can I take to save energy and water?),
   answer: %(<p>To reduce your energy use:</p>
 <ul>
-	<li>Don&rsquo;t set your heating thermostat higher than necessary; turn your heating settings down by 1°C will reduce your energy consumption and your heating bills</li>
+	<li>Don&rsquo;t set your heating thermostat higher than necessary; turning your heating settings down by 1°C will reduce your energy consumption and your heating bills</li>
   <li>Programme your heating and hot water to only turn on at the times you need it</li>
   <li>Wait until you have a full load before using your washing machine or dishwasher</li>
   <li>Where possible, allow clothes to dry naturally rather than using a tumble dryer</li>
@@ -348,7 +348,7 @@ Website:  www.tvlicensing.co.uk</p>
   <li>If buying a new boiler or kitchen appliance in the future, choose one with a higher energy efficiency rating</li>
   <li>Unplug portable devices once they are fully charged</li>
   <li>Run your washing machine at 30°C; most washing detergents are specially designed to work well at low temperatures</li>
-  <li>Match pan size to ring size and cover pans so that the contents heat up quicker</li>
+  <li>Match pan size to ring size and cover pans so that the contents heat up more quickly</li>
 </ul>
 
 <p>To reduce your water consumption:</p>

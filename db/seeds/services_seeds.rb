@@ -19,7 +19,7 @@ Service.find_or_create_by(name: "Utilities", description: "TV (digital aerial, s
 Service.find_or_create_by(name: "Insurance", description: "Building, content, car, security")
 Service.find_or_create_by(name: "Removals", description: "Removal firms, packing services")
 Service.find_or_create_by(name: "Maintenance Providers", description: "Landscaping, interior designers, electricians, plumbers, builders, conservatory suppliers, gardeners, window cleaners")
-Service.find_or_create_by(name: "Other Services", description: "Security systems, internet of things (smart home) providers, furniture packs, appliances, change of address service")
+Service.find_or_create_by(name: "Other Services", description: "Security systems, smart home system providers, furniture packs, appliances, change of address service")
 
 STDOUT.puts <<-INFO
    Finished creating homeowner services

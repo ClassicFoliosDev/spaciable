@@ -1,5 +1,6 @@
 <div class="full services branded-content branded-border">
   <h3><%= t("homeowners.services.index.title", developer: developer) %></h3>
+  <h4><%= t("homeowners.services.index.subtitle") %></h4>
   <p><%= t("homeowners.services.index.description_1") %></p>
   <% services.each_with_index do | service, index | %>
     <%= render 'homeowners/residents/service', service: service, index: index %>
