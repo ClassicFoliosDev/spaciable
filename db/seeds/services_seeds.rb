@@ -6,7 +6,7 @@ financial_services = Service.find_by(name: "Financial services")
 financial_services.update_attributes(name: "Financial Services") if financial_services
 
 other_services = Service.find_by(name: "Other services")
-other_services.update_attributes(name: "Other Services", description: "Security systems, internet of things (smart home) providers, furniture packs, appliances, change of address service") if other_services
+other_services.update_attributes(name: "Other Services", description: "Security systems, smart home system providers, furniture packs, appliances, change of address service") if other_services
 
 maintenance_providers = Service.find_by(name: "Maintenance providers")
 maintenance_providers.update_attributes(name: "Maintenance Providers") if maintenance_providers

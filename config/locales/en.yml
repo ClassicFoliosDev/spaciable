@@ -535,6 +535,7 @@ en:
     my_home:
       show:
         view: "View room"
+        disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
     contacts:
       index:
         title: "Useful contacts"
