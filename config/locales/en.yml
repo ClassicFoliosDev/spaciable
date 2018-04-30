@@ -602,14 +602,15 @@ en:
     residents:
       edit:
         my_account: "My account"
-        current_password: "Current password"
-        current_password2: "Only required for new password"
+        current_password: "Change password"
+        new_password: "New password"
+        confirm_new_password: "Confirm new password"
         submit: "Save"
         title: "My details"
       communications:
         title: "Communication preferences"
         updates_by: "Updates on products and services by:"
-        helpful: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click submit"
+        helpful: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click 'Save'."
       services:
         title: "Services"
       show:
@@ -1687,7 +1688,7 @@ en:
         password_confirmation: "Confirm password"
         developer_email_updates: "Emails from my property developer about managing and maintaining my new home through Hoozzi"
         hoozzi_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How to' updates"
-        telephone_updates: "Phone"
+        telephone_updates: "Telephone call"
         post_updates: "Post"
       residents:
         resident: "Resident"

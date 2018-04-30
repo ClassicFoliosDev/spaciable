@@ -46,9 +46,9 @@
       </div>
 
       <div class="half password last branded-content branded-border">
-        <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
-        <%= f.input :password, autocomplete: "off" %>
-        <%= f.input :password_confirmation %>
+        <%= f.input :current_password, label: t(".current_password"), autocomplete: "off" %>
+        <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>
+        <%= f.input :password_confirmation, label: t(".confirm_new_password") %>
       </div>
 
       <%= render "homeowners/residents/communications", f: f %>
