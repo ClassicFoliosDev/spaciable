@@ -602,11 +602,12 @@ en:
     residents:
       edit:
         my_account: "My account"
-        current_password: "Change password"
+        change_password: "Change password"
+        current_password: "Current password"
         new_password: "New password"
         confirm_new_password: "Confirm new password"
         submit: "Save"
-        title: "My details"
+        change_details: "Change details"
       communications:
         title: "Communication preferences"
         updates_by: "Updates on products and services by:"

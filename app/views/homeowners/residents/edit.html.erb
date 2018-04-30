@@ -17,7 +17,6 @@
 
 <div class="branded-body outer-container">
   <div class="resident">
-    <h3><%= t(".title") %></h3>
     <%= simple_form_for ([:homeowners, current_resident]) do |f| %>
       <% if current_resident.errors.any? %>
         <div class="submission-errors">
@@ -33,6 +32,7 @@
       <% end %>
 
       <div class="half details branded-content branded-border">
+        <h3><%= t(".change_details") %></h3>
         <%= f.label :email %>
         <%= f.text_field :email, readonly: true, class: "readonly" %>
         <%= f.input :title,
@@ -46,6 +46,7 @@
       </div>
 
       <div class="half password last branded-content branded-border">
+        <h3><%= t(".change_password") %></h3>
         <%= f.input :current_password, label: t(".current_password"), autocomplete: "off" %>
         <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>
         <%= f.input :password_confirmation, label: t(".confirm_new_password") %>
