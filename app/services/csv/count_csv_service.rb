@@ -14,7 +14,7 @@ module Csv
     def self.updates_for(residents_for_resource, update_type)
       count = 0
       residents_for_resource.each do |resident|
-        count += 1 if resident.send(update_type).present?
+        count += 1 if resident.send(update_type)&.positive?
       end
 
       count
