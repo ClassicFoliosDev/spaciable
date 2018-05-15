@@ -22,17 +22,17 @@
       </thead>
       <tbody>
         <% collection.each do |document| %>
-        <tr data-document="<%= document.id %>">
-          <td><%= link_to document.title, document_path(document) %></td>
-          <% if document.file_tmp %>
+        <tr data-document="<%= document&.id %>">
+          <td><%= link_to document&.title, document_path(document) %></td>
+          <% if document&.file_tmp %>
             <td><%= t(".processing") %></td>
             <td></td>
             <td class="actions"><%= delete_btn document, path: url_for(document), element: document %></td>
           <% else %>
-            <td><%= document.file&.size %></td>
-            <td><%= l document.updated_at.to_date, format: :digits %></td>
+            <td><%= document&.file&.size %></td>
+            <td><%= l document&.updated_at.to_date, format: :digits %></td>
             <td class="actions">
-              <%= link_to document.file&.url, class: "btn",  target: "_blank" do %>
+              <%= link_to document&.file&.url, class: "btn",  target: "_blank" do %>
                 <%= icon "cloud-download" %>
               <% end %>
               <%= edit_btn edit_document_path(document), element: document %>
