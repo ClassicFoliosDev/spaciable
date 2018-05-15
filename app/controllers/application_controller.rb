@@ -14,6 +14,10 @@ class ApplicationController < ActionController::Base
     redirect_to previous_url
   end
 
+  rescue_from Aws::S3::Errors::Forbidden do |_exception|
+    flash[:alert] = t("controller.no_s3_access") if Rails.env.production?
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     flash[:alert] = exception.message
     redirect_to previous_url

@@ -106,6 +106,7 @@ en:
 
   controller:
     resource_not_found: "Resource not found"
+    no_s3_access: "You do not have permission to retrieve this file"
     success:
       create: "%{name} was created successfully"
       update: "%{name} was updated successfully"
