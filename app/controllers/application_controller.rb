@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from Aws::S3::Errors::Forbidden do |_exception|
     flash[:alert] = t("controller.no_s3_access") if Rails.env.production?
+    redirect_to previous_url
   end
 
   rescue_from CanCan::AccessDenied do |exception|

@@ -6,11 +6,6 @@ module CollectionHelper
 
     path ||= "#{options[:path_prefix]}/#{collection_path(collection)}"
     render path, options.merge(collection: collection)
-  # We have a clone of production data in staging, so this error can be expected
-  # in the staging environment: but don't swallow it in prod
-  rescue Aws::S3::Errors::Forbidden
-    raise if Rails.env.production?
-    Rails.logger.debug("S3 forbidden error for #{path}")
   end
 
   def collection_path(collection)
