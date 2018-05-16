@@ -74,7 +74,7 @@ module Csv
         "DEVELOPER", developer.to_s, plots_in_range(@plots_for_developer),
         *count_fields(@residents_developer), notifications_in_range("Developer", developer.id),
         house_search(developer), developer.enable_services, count_services(@residents_developer),
-        developer.enable_development_messages, "", developer.api_key,
+        developer.enable_development_messages, "", developer.list_id,
         *mailchimp_fields(@residents_developer), *dates_for(developer)
       ]
     end

@@ -8,13 +8,13 @@ RSpec.describe Csv::DeveloperCsvService do
   # If developer not set to nil, the create factory builds and assigns another (different) developer
   let(:division_development) { create(:development, division: division, developer: nil) }
   let(:plot_a) { create(:plot, development: development, developer: developer, number: "A") }
-  let(:resident_a) { create(:resident) }
+  let(:resident_a) { create(:resident, developer_email_updates: true, hoozzi_email_updates: true) }
   let(:plot_resident_a) { create(:plot_residency, resident: resident_a, plot: plot_a) }
   let(:plot_b) { create(:plot, development: development, developer: developer, number: "B") }
-  let(:resident_b) { create(:resident) }
+  let(:resident_b) { create(:resident, hoozzi_email_updates: true, telephone_updates: true) }
   let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b) }
   let(:plot_d) { create(:plot, development: division_development, developer: developer, number: "D") }
-  let(:resident_d) { create(:resident) }
+  let(:resident_d) { create(:resident, telephone_updates: true, post_updates: true) }
   let(:plot_resident_d) { create(:plot_residency, resident: resident_d, plot: plot_d) }
 
   context "start and end date for report" do
@@ -30,7 +30,9 @@ RSpec.describe Csv::DeveloperCsvService do
                                    first_name: "Early",
                                    last_name: "Resident",
                                    phone_number: "02380 123456",
-                                   password: "Passw0rd")
+                                   password: "Passw0rd",
+                                   post_updates: true,
+                                   developer_email_updates: true)
       plot_d.residents << resident_e
       plot_resident_a
       plot_resident_b
@@ -50,12 +52,23 @@ RSpec.describe Csv::DeveloperCsvService do
       development_row = csv[0]
       expect(development_row["Plots created #{between_dates}"]).to eq "2"
       expect(development_row["Residents invited #{between_dates}"]).to eq "2"
+      expect(development_row["Developer emails accepted"]).to eq "1"
+      expect(development_row["Hoozzi emails accepted"]).to eq "2"
+      expect(development_row["Telephone accepted"]).to eq "1"
+      expect(development_row["Post accepted"]).to eq "0"
 
       division_row = csv[1]
+
       # Two plots: plot_c and plot_d, but only plot_d was created within the time limits
       # plot_d has two residents: resident_d and resident_e, but only resident_d was created within the time limits
       expect(division_row["Plots created #{between_dates}"]).to eq "1"
       expect(division_row["Residents invited #{between_dates}"]).to eq "1"
+      # Note that mailchimp settings are not filtered by date range, these will include updates for
+      # both resident d and resident e 
+      expect(division_row["Developer emails accepted"]).to eq "1"
+      expect(division_row["Hoozzi emails accepted"]).to eq "0"
+      expect(division_row["Telephone accepted"]).to eq "1"
+      expect(division_row["Post accepted"]).to eq "2"
 
       division_development_row = csv[2]
       # Two plots: plot_c and plot_d, but only plot_d was created within the time limits
