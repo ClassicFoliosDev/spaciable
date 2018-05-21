@@ -48,7 +48,7 @@ module Homeowners
         return
       end
 
-      RemoveMailchimpSubscriptionService.call(current_resident)
+      ResidentResetService.reset_all_plots_for_resident(current_resident)
       redirect_to root_url, notice: t(".success") if current_resident.destroy
     end
 

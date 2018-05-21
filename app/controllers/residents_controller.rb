@@ -17,6 +17,7 @@ class ResidentsController < ApplicationController
 
   def create
     existing_resident = Resident.find_by(email: resident_params[:email])
+
     if existing_resident.nil?
       @resident.create_without_password
     else
@@ -48,10 +49,12 @@ class ResidentsController < ApplicationController
   def destroy
     @resident.plots.delete(@plot)
 
-    notice = t(".success", plot: @plot)
+    notice = t(".success", email: @resident.email, plot: @plot)
 
     if @resident.plots.count.zero?
       notice << ResidentResetService.reset_all_plots_for_resident(@resident)
+      @resident.destroy
+      notice << t(".deactivated")
     end
 
     redirect_to [@plot, active_tab: :residents], notice: notice

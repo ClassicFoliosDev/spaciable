@@ -34,7 +34,7 @@
               type: 'DELETE',
               data: { password: password },
               success: function(response) {
-                if (response.alert !== null) {
+                if (response.alert !== undefined) {
                   alert(response.alert)
                 }
               }

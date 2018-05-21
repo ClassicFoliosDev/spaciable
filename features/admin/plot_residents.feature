@@ -18,7 +18,7 @@ Feature: Plot Residents
     Then I should see the resident is not activated
     When I delete a plot residency
     Then I should not see the plot residency
-    And the resident should no longer receive notifications
+    And the resident should have been deleted
 
   Scenario: Multiple plots
     Given I am a Development Admin wanting to assign a new resident to a plot
@@ -43,12 +43,12 @@ Feature: Plot Residents
     When I assign a new resident to a plot
     Then I should see a duplicate resident notice
 
-  Scenario: Delete and recreate with no phone number (legacy)
+  Scenario: Add existing resident with no phone number (legacy)
     Given I am a Development Admin wanting to assign a new resident to a plot
     And There is a resident without phone number assigned to the plot
     When I delete the second plot residency
-    And I assign a new resident to a plot
-    When I am prompted to fill in the phone number
+    And there is a plot
+    And I assign the legacy resident to another plot
     Then I should see the created plot residency
 
   Scenario: Invalid create

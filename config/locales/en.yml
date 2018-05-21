@@ -870,7 +870,8 @@ en:
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
       plot_residency_already_exists: "Resident %{email} was already assigned to %{plot}, no notification will be sent"
     destroy:
-      success: "Resident has been successfully removed from %{plot}."
+      success: "%{email} has been successfully removed from %{plot}"
+      deactivated: " and has been deactivated: this user will no longer be able to log in"
     edit:
       title: "Edit %{name}"
     form:

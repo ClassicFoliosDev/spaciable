@@ -30,7 +30,7 @@ Given(/^there is a unit type$/) do
 end
 
 Given(/^there is a plot$/) do
-  CreateFixture.create_unit_type
+  CreateFixture.create_unit_type unless CreateFixture.unit_type
   CreateFixture.create_development_plot
 end
 

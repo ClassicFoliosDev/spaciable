@@ -76,6 +76,8 @@ Then(/^I should not see the plot residency$/) do
     expect(page).to have_content("#{attrs[:first_name]} #{attrs[:last_name]}")
     expect(page).to have_content(attrs[:email])
   end
+
+  expect(page).to have_content t(".residents.destroy.deactivated")
 end
 
 # A different resident with second_email, added to the original plot
@@ -273,5 +275,23 @@ Then(/^I should see the invalid resident errors$/) do
     expect(page).to have_content "Last name is required, and must not be blank"
     expect(page).to have_content "Phone number is required, and must not be blank"
     expect(page).to have_content "Phone number is invalid"
+  end
+end
+
+Then(/^the resident should have been deleted$/) do
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+  expect(resident).to be_nil
+end
+
+Given(/^I assign the legacy resident to another plot$/) do
+  plot = CreateFixture.development_plot
+  visit "/plots/#{plot.id}?active_tab=residents"
+
+  within ".plot" do
+    click_on t("residents.collection.add")
+  end
+
+  within ".new_resident" do
+    fill_in_resident_details(PlotResidencyFixture.attrs)
   end
 end
