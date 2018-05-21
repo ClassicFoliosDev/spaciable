@@ -3,8 +3,6 @@
 class Resident < ApplicationRecord
   include TitleEnum
 
-  acts_as_paranoid
-
   attr_accessor :subscribe_emails, :invitation_plot, :accept_ts_and_cs
   attr_reader :raw_invitation_token
 

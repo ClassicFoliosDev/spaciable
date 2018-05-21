@@ -70,22 +70,27 @@ class ResidentsController < ApplicationController
   def notify_and_redirect(new_resident)
     plot_residency = PlotResidency.find_by(resident_id: @resident.id, plot_id: @plot.id)
 
-    notice = if plot_residency&.present?
+    notice = if plot_residency && !plot_residency.deleted_at?
                t(".plot_residency_already_exists", email: @resident.email, plot: @plot)
              elsif new_resident
                @resident.save!
-               plot_residency_and_invitation
+               plot_residency_and_invitation(plot_residency)
                Mailchimp::MarketingMailService.call(@resident, @plot, activation_status)
              else
-               plot_residency_and_invitation
+               plot_residency_and_invitation(plot_residency)
                t(".resident_already_exists", plot: @plot)
              end
 
     redirect_to [@plot, active_tab: :residents], notice: notice
   end
 
-  def plot_residency_and_invitation
-    plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
+  def plot_residency_and_invitation(plot_residency)
+    if plot_residency.nil?
+      plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
+    else
+      plot_residency.update_attributes!(deleted_at: nil)
+    end
+
     # Resident invitation service will not send new invitations if the resident has
     # already accepted a Hoozzi invitation
     ResidentInvitationService.call(plot_residency, current_user, @plot.developer.to_s)

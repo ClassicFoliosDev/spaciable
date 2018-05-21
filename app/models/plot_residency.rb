@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PlotResidency < ApplicationRecord
-  acts_as_paranoid
-
   belongs_to :plot, optional: false
   belongs_to :resident, optional: false, autosave: true
 

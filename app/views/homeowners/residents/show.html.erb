@@ -96,7 +96,12 @@
     <% end %>
 
     <div class="full actions show-actions">
-      <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "branded-btn alt" %>
+      <%= button_tag t(".deactivate"), class: "btn destroy-resident",
+      data: { cancel: t("edit.cancel"),
+            cta: t(".confirm_deactivate"),
+            title: t(".deactivate"),
+            resident: current_resident.id } %>
+      <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "btn branded-btn alt" %>
     </div>
   </div>
 </div>
@@ -112,4 +117,17 @@
       <%= ff.input :last_name, required: true %>
     </div>
   <% end %>
- </div>
+</div>
+
+<div class="remove-resident-form hidden">
+  <form autocomplete="off">
+    <h4><%= t(".deactivate_text") %></h4>
+    <p><%= t(".deactivate_password") %></p>
+    <input class="resident-password" type="password" id="password" name="password" autocomplete="off" >
+  </form>
+</div>
+
+
+
+
+

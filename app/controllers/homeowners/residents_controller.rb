@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
+# Technical debt: need to refactor some of the private methods into separate service
 module Homeowners
   class ResidentsController < Homeowners::BaseController
     def show
@@ -38,6 +40,16 @@ module Homeowners
       # In some scenarios, there may be both alert and notice contents:
       # if so the JS will only process the alert
       render json: { alert: alert, notice: notice }, status: :ok
+    end
+
+    def destroy
+      unless current_resident.valid_password?(params[:password])
+        render json: { alert: t(".incorrect_password") }
+        return
+      end
+
+      RemoveMailchimpSubscriptionService.call(current_resident)
+      redirect_to root_url, notice: t(".success") if current_resident.destroy
     end
 
     def remove_resident
@@ -119,15 +131,11 @@ module Homeowners
     # Never trust parameters from the scary internet, only allow the white list through.
     def resident_params
       params.require(:resident).permit(
-        :title,
-        :first_name, :last_name,
-        :password, :password_confirmation,
-        :current_password,
-        :developer_email_updates,
-        :hoozzi_email_updates,
-        :telephone_updates, :post_updates,
+        :title, :first_name, :last_name, :password, :password_confirmation, :current_password,
+        :developer_email_updates, :hoozzi_email_updates, :telephone_updates, :post_updates,
         :email, :phone_number
       )
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -127,7 +127,7 @@ Rails.application.routes.draw do
   resources :finish_manufacturers
 
   namespace :homeowners do
-    resources :residents, only: [:show, :edit, :update]
+    resources :residents, only: [:show, :edit, :update, :destroy]
     resources :notifications, only: [:index]
     get 'notification', to: 'notifications#show', format: :json
   end
