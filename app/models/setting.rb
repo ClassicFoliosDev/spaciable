@@ -5,16 +5,10 @@ class Setting < ApplicationRecord
   mount_uploader :privacy_policy, DocumentUploader
   mount_uploader :help, DocumentUploader
 
-  # rubocop:disable Metrics/AbcSize
   def set_filenames
-    self.help_short_name = help.file.original_filename if help&.file&.original_filename&.present?
-    if cookie_policy&.file&.original_filename&.present?
-      self.cookie_short_name = cookie_policy.file.original_filename
-    end
-    if privacy_policy&.file&.original_filename&.present?
-      self.privacy_short_name = privacy_policy.file.original_filename
-    end
+    self.help_short_name = help.filename if help&.filename&.present?
+    self.cookie_short_name = cookie_policy.filename if cookie_policy&.filename&.present?
+    self.privacy_short_name = privacy_policy.filename if privacy_policy&.filename&.present?
     save!
   end
-  # rubocop:enable Metrics/AbcSize
 end
