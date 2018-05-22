@@ -23,6 +23,35 @@
     </div>
   </div>
 
+  <div class="row files">
+    <div class="row-item third">
+      <%= f.label t(".help"), class: "text-label" %>
+      <div class="help-file">
+        <span><%= @setting.help_short_name if @setting.help? %></span>
+        <%= f.file_field :help, class: "file-upload" %>
+        <%= label_tag(:setting_help, t("choose"), class: "choose-file") %>
+      </div>
+    </div>
+
+    <div class="row-item third">
+      <%= f.label t(".cookie"), class: "text-label" %>
+      <div class="cookie-file">
+        <span><%= @setting.cookie_short_name if @setting.cookie_policy? %></span>
+        <%= f.file_field :cookie_policy, class: "file-upload" %>
+        <%= label_tag(:setting_cookie_policy, t("choose"), class: "choose-file") %>
+      </div>
+    </div>
+
+    <div class="row-item third">
+      <%= f.label t(".privacy"), class: "text-label" %>
+      <div class="privacy-file">
+        <span><%= @setting.privacy_short_name if @setting.privacy_policy? %></span>
+        <%= f.file_field :privacy_policy, class: "file-upload" %>
+        <%= label_tag(:setting_privacy_policy, t("choose"), class: "choose-file") %>
+      </div>
+    </div>
+  </div>
+
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), admin_settings_path, class: "btn" %>

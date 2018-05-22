@@ -39,10 +39,33 @@ end
 Then(/^I see a link to the PDF help file$/) do
   within ".help-file" do
     help_link = page.find_link(t("admin.help.show.help_file"))
-    expect(help_link[:href]).to include("HoozziAdminInterfaceUserGuide")
+    expect(help_link[:href]).to include FileFixture.help_document_name
   end
 end
 
 Given(/^there are documents$/) do
   MyLibraryFixture.create_documents
+end
+
+When(/^I upload a help file$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  help_document_full_path = FileFixture.file_path + FileFixture.help_document_name
+  within ".help-file" do
+    attach_file(:setting_help,
+                File.absolute_path(help_document_full_path),
+                visible: false)
+  end
+
+  within ".form-actions-footer" do
+    click_on t("admin.settings.edit.submit")
+  end
+end
+
+Then(/^I see the help file has been uploaded$/) do
+  within ".help" do
+    expect(page).to have_content FileFixture.help_document_name
+  end
 end

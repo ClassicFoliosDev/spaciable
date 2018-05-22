@@ -1,5 +1,76 @@
 # frozen_string_literal: true
 
+When(/^I visit the settings page$/) do
+  within ".navbar-menu" do
+    click_on t("components.navigation.configuration")
+  end
+  #visit "/admin/settings"
+end
+
+When(/^I upload a data privacy file$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  privacy_document_full_path = FileFixture.file_path + FileFixture.privacy_document_name
+  within ".privacy-file" do
+    attach_file(:setting_privacy_policy,
+                File.absolute_path(privacy_document_full_path),
+                visible: false)
+  end
+
+  within ".form-actions-footer" do
+    click_on t("admin.settings.edit.submit")
+  end
+end
+
+Then(/^I should see the data privacy file has been uploaded$/) do
+  within ".privacy" do
+    expect(page).to have_content FileFixture.privacy_document_name
+  end
+end
+
+Then(/^I upload a cookies information file$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  cookies_document_full_path = FileFixture.file_path + FileFixture.cookies_document_name
+  within ".cookie-file" do
+    attach_file(:setting_cookie_policy,
+                File.absolute_path(cookies_document_full_path),
+                visible: false)
+  end
+
+  within ".form-actions-footer" do
+    click_on t("admin.settings.edit.submit")
+  end
+end
+
+Then(/^I should see the cookies information file has been uploaded$/) do
+  within ".cookie" do
+    expect(page).to have_content FileFixture.cookies_document_name
+  end
+end
+
+Then(/^I see the data privacy file$/) do
+  within ".privacy-file" do
+    link = page.find("a")
+    expect(link[:href]).to have_content FileFixture.privacy_document_name
+  end
+end
+
+Then(/^I visit the cookies page directly$/) do
+  visit "/cookies_policy"
+end
+
+Then(/^I see the cookies policy file$/) do
+  within ".cookies-file" do
+    link = page.find("a")
+    expect(link[:href]).to have_content FileFixture.cookies_document_name
+  end
+end
+
 When(/^I visit the ts_and_cs page$/) do
   visit "/"
 
@@ -165,4 +236,8 @@ When(/^I log in as the second homeowner$/) do
 
     click_on t("residents.sessions.new.login_cta")
   end
+end
+
+Then(/^I can not visit the settings page$/) do
+    expect(current_path).to eq '/'
 end

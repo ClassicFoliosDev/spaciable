@@ -37,12 +37,47 @@
 }
 
 .policy {
+  width: 90%;
+  margin: 0 auto;
+  border-style: solid;
+  border-radius: 5px;
+  background-color: #FFFFFF; // $ui-white;
+  border-color: #EAEAEA; // $ui-grey;
+  padding: 38px; // $spacing-large;
+
+  p, li, a {
+    font-size: 12px; // $base-small-font-size;
+  }
+
+  h3, h4, p {
+    margin-bottom: 10px; // $spacing-small;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
   ul {
     list-style-position: inside;
+  }
+
+  i {
+    font-size: 40px;
   }
 
   .secondary {
     margin-bottom: 0;
     margin-left: 20px;
+  }
+}
+
+.confirm {
+  text-align: center;
+}
+
+.information {
+  a {
+    color: #18A895; // $primary-cta-color;
+    text-decoration: none;
   }
 }

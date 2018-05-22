@@ -21,10 +21,12 @@ class HomeController < ApplicationController
   end
 
   def data_policy
+    @setting = Setting.first
     render "legal/data_policy"
   end
 
   def cookies_policy
+    @setting = Setting.first
     render "legal/cookies_policy"
   end
 

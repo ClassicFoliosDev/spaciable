@@ -25,8 +25,3 @@ Feature: Terms and Conditions
     And I log out as a an admin
     And I log in as a CF admin
     Then I should no longer see the cookie pop-up
-
-  Scenario: Cookie page contents
-    When I visit the cookie page
-    Then I should see the cookie information for Hoozzi
-

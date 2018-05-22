@@ -3,27 +3,40 @@ Feature: Terms and Conditions
   I want to be able to see terms and conditions and privacy policy
   To understand what I am committing to when I use Hoozzi
 
+  Scenario: Upload privacy and cookies files
+    Given I am logged in as a CF Admin
+    And I have run the settings seeds
+    When I visit the settings page
+    And I upload a data privacy file
+    Then I should see the data privacy file has been uploaded
+    And I upload a cookies information file
+    Then I should see the cookies information file has been uploaded
+    When I log out as a an admin
+    And I visit the privacy page directly
+    Then I see the data privacy file
+    And I visit the cookies page directly
+    Then I see the cookies policy file
+
+  Scenario: Developer Admin
+    Given I am logged in as a Developer Admin
+    And I have run the settings seeds
+    Then I can not visit the settings page
+
   Scenario:  Homeowner
     Given I am logged in as a homeowner
     When I visit the ts_and_cs page
     Then I should see the terms and conditions for using Hoozzi
-    When I visit the privacy page
-    Then I should see the privacy information for using Hoozzi
 
   Scenario: Admin
     Given I am logged in as a CF Admin
     When I visit the admin ts_and_cs page
     Then I should see the terms and conditions for administrators using Hoozzi
-    When I visit the admin privacy page
-    Then I should see the privacy information for using Hoozzi
 
   Scenario: Logged out
     When I visit the ts_and_cs page directly
     Then I should see the terms and conditions for using Hoozzi
     When I visit the admin ts_and_cs page directly
     Then I should see the terms and conditions for administrators using Hoozzi
-    When I visit the privacy page directly
-    Then I should see the privacy information for using Hoozzi
 
   @javascript
   Scenario: Accept and reset terms and conditions

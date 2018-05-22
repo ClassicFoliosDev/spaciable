@@ -10,3 +10,4 @@ Feature: Plots
     And I set the video link
     Then The video link has been configured
 
+  # Other settings files are tested in the legal terms_and_conditions feature

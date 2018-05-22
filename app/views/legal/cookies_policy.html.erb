@@ -1,69 +1,13 @@
-<%= content_for(:title, t("layouts.application.title") + ' ' + t("legal.cookies_policy.title")) %>
+<div class="main branded-body">
 
-<div class="policy branded-border">
-  <h2><%= t(".title")%></h2>
+  <div class="policy branded-border">
+    <h2><%= t("layouts.application.title") %> <%= t("legal.cookies_policy.title") %></h2>
 
-  <h4><%= t(".subtitle") %></h4>
-  <p><%= t(".information_1") %></p>
-  <p><%= t(".information_2") %></p>
-
-  <h5><%= t(".we_use") %></h5>
-  <p><%= t(".necessary") %></p>
-  <p><%= t(".analytics") %></p>
-  <p><%= t(".functional") %></p>
-  <p><%= t(".target") %></p>
-  <p><%= t(".more_information") %></p>
-
-  <table class="cookies-table">
-    <thead>
-    <th><%= t(".table.name") %></th>
-    <th><%= t(".table.type") %></th>
-    <th><%= t(".table.purpose") %></th>
-    <th><%= t(".table.more_info") %></th>
-    </thead>
-    <tr>
-      <td><%= t(".table.hoozzi") %></td>
-      <td><%= t(".table.hoozzi_type") %></td>
-      <td><%= t(".table.hoozzi_for") %></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td><%= t(".table.ts_and_cs") %></td>
-      <td><%= t(".table.ts_and_cs_type") %></td>
-      <td><%= t(".table.ts_and_cs_for") %></td>
-      <td><%= t(".table.ts_and_cs_more") %></td>
-    </tr>
-    <tr>
-      <td><%= t(".table.fixflo") %></td>
-      <td><%= t(".table.fixflo_type") %></td>
-      <td><%= t(".table.fixflo_for") %></td>
-      <td><%= link_to t(".table.fixflo_more"), 'https://www.fixflo.com/cookie-policy/', target: '_blank' %></td>
-    </tr>
-    <tr>
-      <td><%= t(".table.google") %><br/>
-        <%= t(".table.google_cookie_1") %><br/>
-        <%= t(".table.google_cookie_2") %><br/>
-        <%= t(".table.google_cookie_3") %><br/>
-      </td>
-      <td><%= t(".table.google_type") %></td>
-      <td><%= t(".table.google_for") %></td>
-      <td><%= link_to t(".table.google_more"), 'https://www.google.com/intl/en/policies/privacy/', target: '_blank' %><br/>
-        <%= t(".table.google_expires_1") %><br/>
-        <%= t(".table.google_expires_2") %><br/>
-      </td>
-    </tr>
-    <tr>
-      <td><%= t(".table.crazy_egg") %><br/>
-        <%= t(".table.crazy_cookie_1") %><br/>
-        <%= t(".table.crazy_cookie_2") %>
-      </td>
-      <td><%= t(".table.crazy_egg_type") %></td>
-      <td><%= t(".table.crazy_egg_for") %></td>
-      <td><%= link_to t(".table.crazy_egg_more"), 'https://www.crazyegg.com/privacy/', target: '_blank' %>
-      </td>
-    </tr>
-  </table>
-
-  <p><%= t(".note") %></p>
-  <p><%= t(".block") %></p>
+    <div class="cookies-file">
+      <label><%= t(".cookies_file") %></label>
+      <%= link_to @setting.cookie_policy.url, target: "_blank", title: t(".cookies_file") do %>
+        <%= fa_icon "file-pdf-o" %>
+      <% end %>
+    </div>
+  </div>
 </div>

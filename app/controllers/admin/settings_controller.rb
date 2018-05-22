@@ -12,6 +12,7 @@ module Admin
 
     def update
       if @setting.update(setting_params)
+        @setting.set_filenames
         notice = t(".success")
         redirect_to admin_settings_path, notice: notice
       else
@@ -28,7 +29,7 @@ module Admin
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
       params.require(:setting).permit(
-        :video_link
+        :video_link, :help, :cookie_policy, :privacy_policy
       )
     end
   end

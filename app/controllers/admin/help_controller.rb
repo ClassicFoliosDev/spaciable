@@ -4,6 +4,8 @@ module Admin
   class HelpController < ApplicationController
     skip_authorization_check
 
-    def show; end
+    def show
+      @setting = Setting.first
+    end
   end
 end

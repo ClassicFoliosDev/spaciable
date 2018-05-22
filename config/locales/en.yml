@@ -420,11 +420,18 @@ en:
         title: "Global settings for Hoozzi"
         video_link: "Introductory video link"
         edit: "Edit"
+        help: "Help document"
+        cookie: "Cookie policy document"
+        privacy: "Privacy policy document"
       edit:
         title: "Edit global settings for Hoozzi"
         back: "Back"
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
+        load: "Upload"
+        help: "Help file"
+        cookie: "Cookie policy file"
+        privacy: "Privacy policy file"
       update:
         success: "The configuration settings for Hoozzi have been updated successfully"
     analytics:

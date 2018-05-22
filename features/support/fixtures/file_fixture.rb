@@ -86,4 +86,16 @@ module FileFixture
   def login_image_alt
     "New home"
   end
+
+  def privacy_document_name
+    "Hoozzi_Privacy_policy_GDPR_version_May_2018.pdf"
+  end
+
+  def cookies_document_name
+    "dummy_pdf.pdf"
+  end
+
+  def help_document_name
+    "dummy_pdf.pdf"
+  end
 end

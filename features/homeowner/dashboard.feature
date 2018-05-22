@@ -13,7 +13,6 @@ Feature: Dashboard
     Then I see the recent homeowner contents
     When I the plot has a postal number
     Then I see the dashboard address reformatted
-    And I can see the data policy page
 
   Scenario: Password
     Given I have created and logged in as a homeowner user
