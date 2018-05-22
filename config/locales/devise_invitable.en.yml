@@ -51,6 +51,7 @@ en:
         log_in_text: "To log in next time, visit http://www.hoozzi.com/"
         welcome_back: "We're delighted to see you back!"
         already_activated: "To switch between your plots, please select My Plots in the top menu after logging in at: "
+        name: "A Hoozzi customer"
 
   time:
     formats:

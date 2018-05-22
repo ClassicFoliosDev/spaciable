@@ -31,7 +31,7 @@ Feature: Homeowner Account
     And I log back in as the first homeowner
     And I should see be able to view My Account
     And I remove the additional resident
-    Then I see the resident has been removed
+    Then I see the resident has been hard removed
 
   Scenario: Account update
     Given I am logged in as a homeowner

@@ -53,14 +53,18 @@
             <li>
               <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
 
-              <% if current_resident.invited_by_type == "User" %>
+              <% if current_resident.invited_by_type == "User" && resident[:invited_by_type] == "Resident" %>
+                <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
+                <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
                 <%= button_tag "", class: "btn prompt-remove",
                   data: { title: t(".destroy"),
                     cancel: t("destroy.cancel"),
+                    text: t(".confirm_text", name: resident[:name]),
                     cta: t(".confirm_cta" ),
-                    email: resident[:email],
-                    text: t(".confirm_text", name: resident[:name]) } do %>
-                <i class="fa fa-times"></i>
+                    details: confirm_resident,
+                    email: resident[:email]
+                  } do %>
+                  <i class="fa fa-times"></i>
                 <% end %>
               <% end %>
             </li>

@@ -250,6 +250,9 @@ en:
     confirm_title: "Confirm delete"
     confirm_text: "Are you sure you wish to delete %{type}?"
     destroy: "Delete"
+    confirm_final_resident: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed."
+    confirm_resident: "This resident will be removed from this plot, the account will still exist and continue to have access to other plots."
+
   edit:
     cancel: "Cancel"
     title: "Edit document title"
@@ -644,7 +647,7 @@ en:
         confirm_cta: "Remove"
         confirm_text: "Are you sure you want to remove %{name}?"
         deactivate: "Deactivate my account"
-        deactivate_text: "Are you sure you want to remove your account permanently? You can not reverse this decision, and your uploaded documents will be destroyed"
+        deactivate_text: "Are you sure you want to remove your account permanently? You can not reverse this decision, and your uploaded documents will be destroyed."
         confirm_deactivate: "Confirm deactivate"
         deactivate_password: "Enter your password to confirm"
       update:

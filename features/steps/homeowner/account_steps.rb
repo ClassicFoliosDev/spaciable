@@ -446,7 +446,7 @@ When(/^I remove the additional resident$/) do
   end
 end
 
-Then(/^I see the resident has been removed$/) do
+Then(/^I see the resident has been hard removed$/) do
   within ".flash" do
     expect(page).to have_content t("homeowners.residents.remove_resident.success", email: AccountFixture.second_resident_email)
   end
@@ -454,4 +454,7 @@ Then(/^I see the resident has been removed$/) do
   within ".other-residents" do
     expect(page).not_to have_content( AccountFixture.second_resident_email)
   end
+
+  resident = Resident.find_by(email: AccountFixture.second_resident_email)
+  expect(resident).to be_nil
 end

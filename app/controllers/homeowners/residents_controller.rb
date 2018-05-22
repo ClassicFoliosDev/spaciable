@@ -53,18 +53,35 @@ module Homeowners
     end
 
     def remove_resident
-      if current_resident.invited_by_type != "User"
-        render json: { alert: nil, notice: nil }, status: 401
-        return
-      end
+      not_allowed if current_resident.invited_by_type != "User"
 
       resident = Resident.find_by(email: params[:email])
-      resident.plots.delete(@plot)
+      not_allowed if resident.invited_by_type == "User"
 
-      render json: { alert: nil, notice: t(".success", email: params[:email]) }, status: :ok
+      notice = remove_plots(resident)
+      render json: { alert: nil, notice: notice }, status: :ok
     end
 
     private
+
+    def remove_plots(resident)
+      resident&.plots&.delete(@plot)
+
+      notice = t(".success", email: params[:email])
+
+      if resident.plots.count.zero?
+        notice << ResidentResetService.reset_all_plots_for_resident(resident)
+        resident.destroy
+        notice << t("residents.destroy.deactivated")
+      end
+
+      notice
+    end
+
+    def not_allowed
+      render json: { alert: nil, notice: nil }, status: 401
+      nil
+    end
 
     def build_alert(notice, email_addr)
       return t(".already_resident", email: email_addr) if notice == "duplicate_plot_residency"
@@ -109,7 +126,10 @@ module Homeowners
     def residents_for_my_plot
       @plot.residents.map do |resident|
         next if resident.email == current_resident.email
-        { email: resident.email, name: resident.to_s }
+        { email: resident.email,
+          name: resident.to_s,
+          invited_by_type: resident.invited_by_type,
+          plot_count: resident.plots.count }
       end
     end
 

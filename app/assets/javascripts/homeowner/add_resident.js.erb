@@ -86,7 +86,7 @@
   $(document).on('click', '.prompt-remove', function (event) {
     var dataIn = $(this).data()
 
-    var $confirmContainer = $('<div>', { id: 'dialog' }).html(dataIn.text)
+    var $confirmContainer = $('<div>', { id: 'dialog' }).html(dataIn.text + '<p>' + dataIn.details + '</p>')
     $('body').append($confirmContainer)
 
     $confirmContainer.dialog({
@@ -125,6 +125,7 @@
                   $responseP.innerHTML = response.alert
                 }
                 $('.flash').append($responseP)
+                $(window).scrollTop(0)
                 // Hide the removed resident temporarily, the next page refresh will remove it properly
                 var $residentToDelete = $('li:contains(' + dataIn.email + ')')
                 $residentToDelete.hide()

@@ -5,7 +5,11 @@ $(document).on('click', '.archive-btn', function (event) {
   var dataIn = $(this).data()
   // Note: _ in data content names is translated to camelCase automatically
 
-  var $dialogContainer = $('<div>', { id: 'dialog' }).html(dataIn.text + '<h3>' + dataIn.name + '</h3>')
+  var $dialogContainer = $('<div>', { id: 'dialog' }).html('<p>' + dataIn.text + '</p><h3>' + dataIn.name + '</h3>')
+
+  console.log(dataIn.details)
+  var $details = $('<p>').html(dataIn.details)
+  $dialogContainer.append($details)
 
   $body.append($dialogContainer)
 

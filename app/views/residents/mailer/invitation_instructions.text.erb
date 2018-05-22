@@ -4,6 +4,7 @@
 <%= t("devise.mailer.resident_invitation.new_home", development_name: plot.development) %>
 
 <% invited_by = @resource.invited_by_type == "User" ? plot.developer.to_s : @resource.invited_by %>
+<% invited_by = I18n.t("devise.mailer.resident_invitation.name") if invited_by.nil? %>
 <%= t("devise.mailer.invitation_instructions.someone_invited_you", name: invited_by) %>
 
 <%= t("devise.mailer.resident_invitation.benefits") %>
