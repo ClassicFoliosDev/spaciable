@@ -1,7 +1,7 @@
 Feature: Admin Login
   As an admin user
-  I want to log into Hoozzi
-  So that I can use the admin area to manage Hoozzi
+  I want to log into the site
+  So that I can use the admin area to manage the site
 
   Scenario:
     Given I am an admin user

@@ -1,6 +1,6 @@
 en:
   mailchimp:
-    company: "Hoozzi"
+    company: "ISYT"
     address1: "Woodside Trade Centre"
     address2: "34 Parham Drive"
     city: "Eastleigh"
@@ -8,9 +8,9 @@ en:
     zip: "SO50 4NU"
     country: "United Kingdom"
     reminder: "You are receiving this email because you have agreed to purchase a home through a developer that
-    uses the Hoozzi.com site."
-    from_name: "Hoozzi"
-    from_email: "no-reply@hoozzi.com"
+    uses the isyt.com site."
+    from_name: "ISYT"
+    from_email: "no-reply@isyt.com"
     language: "en"
 
 

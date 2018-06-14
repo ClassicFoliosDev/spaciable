@@ -22,7 +22,7 @@ class PhasesController < ApplicationController
     @active_tab = params[:active_tab] || "plots"
 
     @resident_count = @phase.plot_residencies.size
-    @subscribed_resident_count = @phase.residents.where(hoozzi_email_updates: true).size
+    @subscribed_resident_count = @phase.residents.where(isyt_email_updates: true).size
 
     @collection = if @active_tab == "plots"
                     paginate(sort(@phase.plots, default: :number))

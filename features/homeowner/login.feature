@@ -1,7 +1,7 @@
 Feature: Homeowner Login
   As a homeowner
-  I want to log into Hoozzi
-  So that I can access documents related to my plot
+  I want to log in
+  So that I can access content related to my plot
 
   @javascript
   Scenario:

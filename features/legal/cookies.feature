@@ -2,7 +2,7 @@
 Feature: Terms and Conditions
   As a site user
   I must see information about cookies
-  To understand how Hoozzi uses cookies and what I can do with them
+  To understand how the site uses cookies and what I can do with them
 
   Scenario:  Homeowner
     Given I am logged in as a homeowner

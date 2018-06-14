@@ -1,7 +1,7 @@
 Feature: HowTos
   As a homeowner
-  I want to read HowTos
-  So that I revisit Hoozzi more frequently
+  I want to see HowTos
+  So that I revisit more frequently
 
   Scenario:
     Given I am logged in as a homeowner

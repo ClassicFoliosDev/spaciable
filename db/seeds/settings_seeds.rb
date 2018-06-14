@@ -1,7 +1,7 @@
 
 if Setting.none?
   STDOUT.puts <<-INFO
-    Creating Hoozzi global configuration
+    Creating ISYT global configuration
   INFO
 
   Setting.create()

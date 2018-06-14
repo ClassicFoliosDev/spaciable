@@ -1,6 +1,6 @@
 Feature: Homeowner MyHome
   As a homeowner
-  I want to log into Hoozzi
+  I want to log into the site
   To look at the configuration of my home
 
   Scenario:

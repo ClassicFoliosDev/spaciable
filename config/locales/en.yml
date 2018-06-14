@@ -62,8 +62,8 @@ en:
   manual: "Appliance manual"
   guide: "Appliance guide"
 
-  reminder_title: "%{ordinal} reminder to register with Hoozzi"
-  last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
+  reminder_title: "%{ordinal} reminder to register with ISYT"
+  last_reminder_title: "%{ordinal} and last reminder to register with ISYT"
   new_plot_title: "Information about your new home"
 
   notify:
@@ -78,9 +78,9 @@ en:
   # LAYOUTS
   layouts:
     application:
-      title: "Hoozzi"
+      title: "ISYT"
     home:
-      title: "Hoozzi home"
+      title: "ISYT home"
     homeowner:
       title: "My home"
       nav:
@@ -96,13 +96,13 @@ en:
         library: "Library"
         faqs: "FAQs"
     admin_login:
-      title: "Admin login to Hoozzi"
+      title: "Admin login to ISYT"
     login:
-      title: "Login to Hoozzi"
+      title: "Login to ISYT"
     email:
-      hoozzi_copyright: "Hoozzi &copy; %{year}"
+      copyright: "ISYT &copy; %{year}"
     common_header:
-      title: "Hoozzi"
+      title: "ISYT"
 
   controller:
     resource_not_found: "Resource not found"
@@ -227,7 +227,7 @@ en:
       notifications: "Notifications"
       contacts: "Contacts"
       howtos: "How tos"
-      help: "Hoozzi help"
+      help: "ISYT help"
       configuration: "Global settings"
       reports: "Reports"
     empty_list:
@@ -251,7 +251,7 @@ en:
     confirm_text: "Are you sure you wish to delete %{type}?"
     destroy: "Delete"
     confirm_final_resident: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed."
-    confirm_resident: "This resident will be removed from this plot, the account will still exist and continue to have access to other plots."
+    confirm_resident: "This resident will be removed from this plot, but their account will still exist and they will continue to have access to their other plots."
 
   edit:
     cancel: "Cancel"
@@ -259,15 +259,15 @@ en:
     submit: "Save changes"
   feedback:
     cancel: "Cancel"
-    title: "What do you think of Hoozzi?"
+    title: "What do you think of ISYT?"
     option1: "Unhappy"
     option2: "Neutral"
     option3: "Happy"
     submit: "Send feedback"
     comments: "Comments"
-    placeholder: "I think Hoozzi is..."
-    email_title: "You have received feedback from a Hoozzi user"
-    email_subject: "Feedback from Hoozzi"
+    placeholder: "I think ISYT is..."
+    email_title: "You have received feedback from a ISYT user"
+    email_subject: "Feedback from ISYT"
     option_title: "User happiness level"
     comment_title: "User comments"
     not_sent: "User did not provide this information"
@@ -417,17 +417,17 @@ en:
 
     help:
       show:
-        help_file: "Hoozzi admin interface user guide (PDF)"
+        help_file: "ISYT admin interface user guide (PDF)"
     settings:
       show:
-        title: "Global settings for Hoozzi"
+        title: "Global settings for ISYT"
         video_link: "Introductory video link"
         edit: "Edit"
         help: "Help document"
         cookie: "Cookie policy document"
         privacy: "Privacy policy document"
       edit:
-        title: "Edit global settings for Hoozzi"
+        title: "Edit global settings for ISYT"
         back: "Back"
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
@@ -436,7 +436,7 @@ en:
         cookie: "Cookie policy file"
         privacy: "Privacy policy file"
       update:
-        success: "The configuration settings for Hoozzi have been updated successfully"
+        success: "The configuration settings for ISYT have been updated successfully"
     analytics:
       new:
         developer: "Download report for developer"
@@ -444,7 +444,7 @@ en:
         all: "Download summary report for all developers"
 
   dashboard:
-    header: "Dashboard title for Hoozzi"
+    header: "Dashboard title for ISYT"
     title: "Dashboard"
     section:
       notifications:
@@ -604,7 +604,7 @@ en:
         progress: "Progress on my home is: "
     private_documents:
       index:
-        file_description: "You can use this area of Hoozzi to store other documents, photos and files relating to your moving process and home"
+        file_description: "You can use this area of ISYT to store other documents, photos and files relating to your moving process and home"
         file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format"
         new: "Upload file"
       edit:
@@ -635,28 +635,29 @@ en:
         comms_preferences: "Communication preferences"
         edit_profile: "Update preferences"
         developer_email_updates: "Developer emails"
-        hoozzi_email_updates: "Hoozzi emails"
+        isyt_email_updates: "ISYT emails"
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
-        other_residents: "Other residents who have access to this information in Hoozzi"
+        other_residents: "Other residents who have access to this information in ISYT"
         none: "Only you can see the content for %{plot}"
-        intro_video: "Hoozzi introduction video"
+        intro_video: "ISYT introduction video"
         send_invitation: "Invite new resident"
         invite: "Invite new resident to %{plot}"
         destroy: "Confirm remove"
         confirm_cta: "Remove"
         confirm_text: "Are you sure you want to remove %{name}?"
         deactivate: "Deactivate my account"
-        deactivate_text: "Are you sure you want to remove your account permanently? You can not reverse this decision, and your uploaded documents will be destroyed."
+        deactivate_text: "Are you sure you wish to deactivate your account permanently? You cannot reverse this decision
+        and any documents you have uploaded will be deleted."
         confirm_deactivate: "Confirm deactivate"
         deactivate_password: "Enter your password to confirm"
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
       create:
-        new_invitation: "%{email} has been sent an invitation to Hoozzi"
+        new_invitation: "%{email} has been sent an invitation to ISYT"
         not_created: "It was not possible to invite %{email} because of the following errors: "
-        existing_resident: "Use with email %{email} already has access to Hoozzi. They will be able to see details for this plot next time they log in"
+        existing_resident: "User with email %{email} already has access to ISYT. They will be able to see details for this plot next time they log in"
         already_resident: "A resident with %{email} is already associated with this plot"
       remove_resident:
         success: "Resident %{email} has been removed from this plot"
@@ -665,13 +666,13 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        title: "Hoozzi Services for %{developer}"
+        title: "ISYT Services for %{developer}"
         subtitle: "Potentially save £1,600 on an average house move."
-        description_1: "Moving home can be a very stressful and expensive experience, but Hoozzi 
-        Services can help take some of that pressure away.  By using our trusted suppliers, Hoozzi 
+        description_1: "Moving home can be a very stressful and expensive experience, but ISYT 
+        Services can help take some of that pressure away.  By using our trusted suppliers, ISYT 
         can offer you great deals with a no-obligation quote.  So don’t get stressed – give 
-        yourself more choice and let Hoozzi help."
-        description_2: "<em>Excellent service, highly recommend. Hoozzi Services helped me organise everything I needed
+        yourself more choice and let ISYT help."
+        description_2: "<em>Excellent service, highly recommend. ISYT Services helped me organise everything I needed
         when I moved in to my new home. They also got me some great deals. I will certainly continue to use them for
         all my services.</em> Jean, Watford."
         submit: "Got it, let's go"
@@ -680,11 +681,12 @@ en:
         success: "Your services have been requested"
     intro_videos:
       show:
-        welcome_title: "Welcome %{name} and welcome to Hoozzi, your new home management portal"
-        welcome_1: "Check out the video below for a quick introduction to the benefits and services Hoozzi offers."
+        welcome_title: "Welcome %{name} and welcome to your new home's online portal"
+        welcome_1: "Check out the video below for a quick introduction to the benefits and services  your portal offers.
+        The content on your portal is personalised to your home."
         welcome_2: "Everything is specific and personalised to your new home."
         next: "Next"
-        return: "You can always return to this through the Account Settings"
+        return: "You can also view this welcome video on your portal’s My account page."
     development_messages:
       index:
         title: "Community messages for %{development}"
@@ -730,9 +732,9 @@ en:
       address: "Postal address"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
       enable_house_search: "Enable area guide link"
-      house_search_description: "Provides an external link to BestArea4Me from the Hoozzi homeowner site"
+      house_search_description: "Provides an external link to BestArea4Me from the ISYT homeowner site"
       enable_services: "Enable homeowner to request services"
-      services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
+      services_description: "A homeowner can select moving and other services, ISYT will be notified by email about these selections"
       enable_messages: "Enable community messages"
       messages_description: "Allow development residents to share messages with each other"
     index:
@@ -852,11 +854,11 @@ en:
     sessions:
       new:
         login_cta: "Login"
-        welcome_1: "Hoozzi isn't just a hub,"
+        welcome_1: "ISYT isn't just a hub,"
         welcome_2: "it's a librarian"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         intro_para_1: "With pen in hand and fresh ideas in mind,
-                      Hoozzi is constantly churning out fun and helpful articles."
+                      ISYT is constantly churning out fun and helpful articles."
         intro_para_2: "You can scroll away to your heart's content,
                       discovering exciting ideas on how to make the most of your home,
                       habits and hobbies."
@@ -902,13 +904,13 @@ en:
         everything: "everything"
         home: "home"
         submit_button: "Continue"
-        welcome: "Welcome to Hoozzi"
+        welcome: "Welcome to ISYT"
         welcome2: "You're almost there"
         welcome3: "We just need a few final details, then you'll be in home management heaven. Here you can:"
-        hoozzi1: "View your home's documents"
-        hoozzi2: "Find out how to view your new appliances"
-        hoozzi3: "Contact your developer"
-        hoozzi4: "Live the lifestyle your new home brings"
+        documents: "View your home's documents"
+        appliances: "Find out how to view your new appliances"
+        contact: "Contact your developer"
+        home: "Live the lifestyle your new home brings"
         policy_instructions: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Continue'"
         first_name: "First name"
         last_name: "Last name"
@@ -1428,17 +1430,17 @@ en:
 
   resident_notification_mailer:
     notify:
-      new_notification: "You have a new notification from Hoozzi"
-      login: "Login to Hoozzi"
+      new_notification: "You have a new notification from ISYT"
+      login: "Login to ISYT"
       welcome: "Dear %{name}"
-      update_subject: "You have a new update in Hoozzi"
+      update_subject: "You have a new update in ISYT"
       update_message: "%{type} %{name} has been %{verb}"
       update_sent: " and %{count} residents have been notified"
 
   services:
     homeowner_login_content_service:
       defaults:
-        title_left: "Hoozzi Homeowner"
+        title_left: "ISYT Homeowner"
         title_right: "Login"
         blurb_para_1: "Welcome back."
         blurb_para_2: "Login to access your homeowners manual and more."
@@ -1706,8 +1708,8 @@ en:
         email: "Email address"
         password: "Password"
         password_confirmation: "Confirm password"
-        developer_email_updates: "Emails from my property developer about managing and maintaining my new home through Hoozzi"
-        hoozzi_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How to' updates"
+        developer_email_updates: "Emails from my property developer about managing and maintaining my new home through ISYT"
+        isyt_email_updates: "Home inspiration direct to my inbox with ISYT 'How to' updates"
         telephone_updates: "Telephone call"
         post_updates: "Post"
       residents:

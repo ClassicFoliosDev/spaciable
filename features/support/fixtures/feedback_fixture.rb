@@ -4,7 +4,7 @@ module FeedbackFixture
   module_function
 
   def feedback_comments
-    "Thoughts on Hoozzi.
+    "Thoughts on the site.
 
     And a new paragraph"
   end

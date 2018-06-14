@@ -30,7 +30,7 @@ Then(/^I should see the appliances for my plot$/) do
     expect(page).to have_content(CreateFixture.appliance_manufacturer_name)
 
     image = page.first(".energy-rating")
-    expect(image["alt"]).to have_content("Hoozzi energy rating a")
+    expect(image["alt"]).to have_content("Energy rating a")
 
     register_appliance = page.first(".branded-btn")
     expect(register_appliance[:href]).to have_content(CreateFixture.manufacturer_link)

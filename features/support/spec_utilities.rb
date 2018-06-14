@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module HoozziWorld
+module SpecUtilities
   def t(*args)
     I18n.t(*args)
   end

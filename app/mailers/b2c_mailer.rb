@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class B2cMailer < ActionMailer::Base
-  default from: "no-reply@hoozzi.com"
+  default from: "no-reply@isyt.com"
   layout "email"
 
   def register(client)

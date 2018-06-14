@@ -1,5 +1,5 @@
 Feature: Seeds
-  As a Hoozzi administrator
+  As an administrator
   I want to be able to run the seeds
   So that I can deploy builds
 

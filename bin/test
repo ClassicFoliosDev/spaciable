@@ -1,15 +1,15 @@
 #!/usr/bin/env ruby
 
-module HoozziTesting
+module Testing
   module_function
 
   def run_all_with_coverage
     with_coverage do
-      HoozziTesting.run_rubocop
-      HoozziTesting.run_rails_best_practices
-      HoozziTesting.run_brakeman
-      HoozziTesting.run_rspec
-      HoozziTesting.run_cucumber
+      Testing.run_rubocop
+      Testing.run_rails_best_practices
+      Testing.run_brakeman
+      Testing.run_rspec
+      Testing.run_cucumber
     end
   end
 
@@ -103,16 +103,16 @@ test_type = ARGV.shift
 
 case test_type
 when "rubocop"
-  HoozziTesting.run_rubocop
+  Testing.run_rubocop
 when "rails_best_practices"
-  HoozziTesting.run_rails_best_practices
+  Testing.run_rails_best_practices
 when "brakeman"
-  HoozziTesting.run_brakeman
+  Testing.run_brakeman
 when "rspec"
-  HoozziTesting.run_rspec
+  Testing.run_rspec
 when "cucumber"
-  HoozziTesting.run_cucumber
+  Testing.run_cucumber
 else
-  HoozziTesting.run_all_with_coverage
+  Testing.run_all_with_coverage
 end
 

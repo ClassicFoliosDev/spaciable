@@ -58,7 +58,7 @@ module Mailchimp
         LNAME: resident.last_name,
         TITLE: resident.title,
         DEVLPR_UPD: resident.developer_email_updates&.positive? ? subscribed : unsubscribed,
-        HOOZ_UPD: resident.hoozzi_email_updates&.positive? ? subscribed : unsubscribed,
+        HOOZ_UPD: resident.isyt_email_updates&.positive? ? subscribed : unsubscribed,
         PHONE_UPD: resident.telephone_updates&.positive? ? subscribed : unsubscribed,
         POST_UPD: resident.post_updates&.positive? ? subscribed : unsubscribed
       }.transform_values(&:to_s)

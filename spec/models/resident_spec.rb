@@ -66,7 +66,7 @@ RSpec.describe Resident do
       it "should be unsubscribed" do
         resident = create(:resident)
 
-        resident.hoozzi_email_updates = false
+        resident.isyt_email_updates = false
         resident.developer_email_updates = false
         resident.save!
 
@@ -74,11 +74,11 @@ RSpec.describe Resident do
       end
     end
 
-    context "when getting hoozzi email updates" do
+    context "when getting email updates" do
       it "should be subscribed" do
         resident = create(:resident)
 
-        resident.hoozzi_email_updates = true
+        resident.isyt_email_updates = true
         resident.developer_email_updates = false
         resident.save!
 
@@ -90,7 +90,7 @@ RSpec.describe Resident do
       it "should be subscribed" do
         resident = create(:resident)
 
-        resident.hoozzi_email_updates = false
+        resident.isyt_email_updates = false
         resident.developer_email_updates = true
         resident.save!
 
@@ -102,7 +102,7 @@ RSpec.describe Resident do
       it "should be subscribed" do
         resident = create(:resident)
 
-        resident.hoozzi_email_updates = true
+        resident.isyt_email_updates = true
         resident.developer_email_updates = true
 
         expect(resident.subscribed_status).to eq("subscribed")

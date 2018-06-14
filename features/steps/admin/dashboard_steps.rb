@@ -31,7 +31,7 @@ Then(/^I see the recent contents$/) do
   end
 end
 
-When(/^I navigate to the Hoozzi help page$/) do
+When(/^I navigate to the help page$/) do
   visit "/"
   click_on t("components.navigation.help")
 end

@@ -68,7 +68,7 @@ Then(/^I should see the updated room$/) do
 
   within ".section-data" do
     image_div = page.find(".room-icon")
-    expect(image_div["style"]).to have_content("Hoozzi_icon_dining_room")
+    expect(image_div["style"]).to have_content("icon_dining_room")
   end
 end
 

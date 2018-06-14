@@ -1,7 +1,7 @@
 Feature: Plots
   As a CF Admin
   I want to add a link to a video
-  So that all users will see how wonderful Hoozzi is
+  So that all users will see how wonderful the site is
 
   Scenario:
     Given I am logged in as an admin

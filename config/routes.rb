@@ -213,7 +213,7 @@ Rails.application.routes.draw do
     root 'residents/sessions#new'
   end
 
-  #### HOOZZI B2C ####
+  #### B2C ####
   devise_for :clients,
              path: "b2c",
              controllers: {

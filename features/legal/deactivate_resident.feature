@@ -1,7 +1,7 @@
 @javascript
 Feature: Deactivate Resident
   As a homeowner
-  I want to be able to close my account with Hoozzi
+  I want to be able to close my account
   So that my data is safe and I no longer receive emails
 
   Scenario: Homeowner

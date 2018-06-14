@@ -13,13 +13,13 @@ require "webmock/cucumber"
 require "database_cleaner_setup"
 require "drivers_setup"
 require "debugging_world"
-require "hoozzi_world"
+require "spec_utilities"
 require "goto_page"
 require "sleeps"
 require_relative "./../../spec/support/login_as"
 
 World(
-  HoozziWorld,
+  SpecUtilities,
   Warden::Test::Helpers,
   LoginAs,
   GotoPage,

@@ -1,7 +1,7 @@
 Feature: Homeowner Appliances
   As a homeowner
-  I want to log into Hoozzi
-  To look at the configuration of my home appliances
+  When I log in
+  I want to see the configuration of my home appliances
 
   @javascript
   Scenario:

@@ -55,10 +55,6 @@ Then(/^I should be on the "My Home" dashboard$/) do
   end
 end
 
-Then(/^I should be on the "Hoozzi Home" page$/) do
-  expect(current_path).to eq("/")
-end
-
 Then(/^I should be on the branded homeowner login page$/) do
   homeowner = Resident.find_by(email: HomeownerUserFixture.email)
 

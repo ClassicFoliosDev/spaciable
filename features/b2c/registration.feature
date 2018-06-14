@@ -1,6 +1,6 @@
 Feature: Registration
   As a guest
-  I want to sign up to Hoozzi
+  I want to sign up
   So I can use it to manage my property
 
   Scenario:

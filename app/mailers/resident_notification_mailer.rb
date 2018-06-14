@@ -46,6 +46,6 @@ class ResidentNotificationMailer < ApplicationMailer
     @resident = plot_residency.resident
     @plot = plot_residency.plot
     @logo = @plot&.branded_logo
-    @logo = "logo.png" if @logo.blank?
+    @logo = "ISYT-40px-01.png" if @logo.blank?
   end
 end

@@ -1,7 +1,7 @@
 @javascript
 Feature: Plots
   As a homeowner with multiple plots
-  I want to be able to switch between plots in Hoozzi
+  I want to be able to switch between plots
   So I can see each plot's details
 
   Scenario: Multiple plots

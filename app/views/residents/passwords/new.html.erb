@@ -1,6 +1,6 @@
 <div class="new-password">
   <div class="set-password">
-    <%= image_tag "hoozzi-everything-home-logo-white.svg", class: "logo" %>
+    <%= image_tag brand_or_white_logo(@brand) %>
     <%= render "components/flashes" %>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>

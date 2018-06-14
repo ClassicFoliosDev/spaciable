@@ -16,7 +16,7 @@ common: &default_settings
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: Hoozzi
+  app_name: Isyt
 
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
@@ -30,7 +30,7 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: Hoozzi (Development)
+  app_name: Isyt (Development)
 
   # NOTE: There is substantial overhead when running in developer mode.
   # Do not use for production or load testing.
@@ -43,11 +43,11 @@ test:
 
 qa:
   <<: *default_settings
-  app_name: Hoozzi (QA)
+  app_name: Isyt (QA)
 
 staging:
   <<: *default_settings
-  app_name: Hoozzi (Staging)
+  app_name: Isyt (Staging)
 
 production:
   <<: *default_settings

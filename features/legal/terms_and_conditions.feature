@@ -1,7 +1,7 @@
 Feature: Terms and Conditions
   As a homeowner
   I want to be able to see terms and conditions and privacy policy
-  To understand what I am committing to when I use Hoozzi
+  To understand what I am committing to when I use the site
 
   Scenario: Upload privacy and cookies files
     Given I am logged in as a CF Admin
@@ -25,18 +25,18 @@ Feature: Terms and Conditions
   Scenario:  Homeowner
     Given I am logged in as a homeowner
     When I visit the ts_and_cs page
-    Then I should see the terms and conditions for using Hoozzi
+    Then I should see the terms and conditions
 
   Scenario: Admin
     Given I am logged in as a CF Admin
     When I visit the admin ts_and_cs page
-    Then I should see the terms and conditions for administrators using Hoozzi
+    Then I should see the terms and conditions for administrators
 
   Scenario: Logged out
     When I visit the ts_and_cs page directly
-    Then I should see the terms and conditions for using Hoozzi
+    Then I should see the terms and conditions
     When I visit the admin ts_and_cs page directly
-    Then I should see the terms and conditions for administrators using Hoozzi
+    Then I should see the terms and conditions for administrators
 
   @javascript
   Scenario: Accept and reset terms and conditions

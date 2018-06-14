@@ -1,5 +1,5 @@
 @scss stylesheets/application.scss
-@title Hoozzi Pattern Library
+@title Isyt Pattern Library
 
 @style font-family: 'Open Sans', sans-serif
 
@@ -20,7 +20,7 @@
 
 @header {
   <div class="my-header" style="text-align: center; padding: 10px;">
-    <img style="display: inline;"src="/assets/styleguide-logo.png" alt="My Style Guide">
+    <img style="display: inline;"src="/assets/ISYT-40px-01.png" alt="My Style Guide">
   </div>
 }
 

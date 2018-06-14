@@ -2,7 +2,7 @@
 Feature: Plot Residents
   As an admin
   I want to assign a resident to a plot
-  So that the resident can log in to hoozzi and view their plot
+  So that the resident can log in and view their plot
 
   Scenario: Development Admin
     Given I am a Development Admin wanting to assign a new resident to a plot

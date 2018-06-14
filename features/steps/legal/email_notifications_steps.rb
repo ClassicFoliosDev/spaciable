@@ -8,7 +8,7 @@ Then(/^I have not yet activated my account$/) do
   expect(resident.invitation_accepted?).to eq false
 
   expect(resident.developer_email_updates).to be_nil
-  expect(resident.hoozzi_email_updates).to be_nil
+  expect(resident.isyt_email_updates).to be_nil
   expect(resident.telephone_updates).to be_nil
   expect(resident.post_updates).to be_nil
 
@@ -101,7 +101,7 @@ end
 Then(/^I should not receive email notifications$/) do
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
-  expect(resident.hoozzi_email_updates).to be_zero
+  expect(resident.isyt_email_updates).to be_zero
   expect(resident.developer_email_updates).to be_zero
   expect(resident.telephone_updates).to be_nil
   expect(resident.post_updates).to be_nil
@@ -117,7 +117,7 @@ end
 Then(/^I should receive email notifications$/) do
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
-  expect(resident.hoozzi_email_updates).to eq 1
+  expect(resident.isyt_email_updates).to eq 1
   expect(resident.developer_email_updates).to eq 1
   expect(resident.telephone_updates).to be_nil
   expect(resident.post_updates).to be_nil

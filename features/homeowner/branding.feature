@@ -1,6 +1,6 @@
 Feature: Homeowner Branding
   As a homeowner
-  When I log into Hoozzie
+  When I log in
   I want to see the branding configured by my developer
 
   @javascript

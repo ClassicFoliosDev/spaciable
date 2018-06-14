@@ -87,7 +87,7 @@ When(/^I visit the admin ts_and_cs page$/) do
   end
 end
 
-Then(/^I should see the terms and conditions for using Hoozzi$/) do
+Then(/^I should see the terms and conditions$/) do
   within ".policy" do
     expect(page).to have_content(t("legal.ts_and_cs_homeowner.title"))
     expect(page).to have_content(t("legal.ts_and_cs_homeowner.about_us_title"))
@@ -119,7 +119,7 @@ When(/^I visit the admin privacy page$/) do
   end
 end
 
-Then(/^I should see the privacy information for using Hoozzi$/) do
+Then(/^I should see the privacy information$/) do
   within ".policy" do
     expect(page).to have_content(t("legal.data_policy.title"))
     expect(page).to have_content(t("legal.data_policy.access_title"))
@@ -143,7 +143,7 @@ When(/^I visit the privacy page directly$/) do
   visit "/data_policy"
 end
 
-Then(/^I should see the terms and conditions for administrators using Hoozzi$/) do
+Then(/^I should see the terms and conditions for administrators$/) do
   within ".policy" do
     expect(page).to have_content(t("legal.ts_and_cs_admin.title"))
     expect(page).to have_content(t("legal.ts_and_cs_admin.about_us"))

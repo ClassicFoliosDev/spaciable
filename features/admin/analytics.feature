@@ -2,7 +2,7 @@
 Feature: Analytics
   As a CF Admin
   I want to export analytics
-  So I can use them to see how Hoozzi is used
+  So I can use them to see how the site is used
 
   Scenario: All developers report
     Given I am CF Admin wanting to send notifications to residents

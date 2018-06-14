@@ -188,7 +188,7 @@ Then(/^The resident receives an invitation with default branding$/) do
   expect(ActionMailer::Base.deliveries.count).to eq 4
   invitation = ActionMailer::Base.deliveries.first
 
-  expect(invitation.parts.second.body.raw_source).to include "assets/logo-"
+  expect(invitation.parts.second.body.raw_source).to include "assets/ISYT-40px-01"
 
   ActionMailer::Base.deliveries.clear
 end

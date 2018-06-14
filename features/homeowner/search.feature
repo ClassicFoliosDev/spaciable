@@ -1,6 +1,6 @@
 Feature: Homeowner Search
   As a homeowner
-  I want to search Hoozzi content
+  I want to search content
   To find stuff about my home
 
   @javascript

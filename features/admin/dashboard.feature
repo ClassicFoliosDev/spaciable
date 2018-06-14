@@ -27,5 +27,5 @@ Feature: Dashboard
     When I visit the settings page
     And I upload a help file
     Then I see the help file has been uploaded
-    When I navigate to the Hoozzi help page
+    When I navigate to the help page
     Then I see a link to the PDF help file

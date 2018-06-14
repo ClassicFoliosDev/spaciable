@@ -1,6 +1,6 @@
 Feature: Community
   As a homeowner
-  When I log into Hoozzi
+  When I log in
   I want to see messages from other residents in my development
 
   @javascript

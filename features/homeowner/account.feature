@@ -2,7 +2,7 @@
 Feature: Homeowner Account
   As a homeowner
   I want to manage my account
-  So that Hoozzi knows my preferences
+  So that I can set my preferences
 
   # Some account tests moved to legal -> email notifications
 

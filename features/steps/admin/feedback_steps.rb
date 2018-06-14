@@ -19,7 +19,7 @@ When(/^I submit feedback$/) do
   end
 end
 
-Then(/^An email should be sent to Hoozzi$/) do
+Then(/^An email should be sent$/) do
   sleep 0.6
 
   emails = ActionMailer::Base.deliveries
@@ -28,7 +28,7 @@ Then(/^An email should be sent to Hoozzi$/) do
   email_address = emails[0].to
 
   expect(subject_text).to eq t("feedback.email_subject")
-  expect(email_address).to match_array(["feedback@hoozzi.com"])
+  expect(email_address).to match_array(["feedback@isyt.com"])
 
   body = Capybara.string(emails[0].body.encoded)
   expect(body.native).to have_content t("feedback.option3")
@@ -56,7 +56,7 @@ When(/^I submit feedback with email$/) do
   end
 end
 
-Then(/^My email should be sent to Hoozzi$/) do
+Then(/^My email should be sent$/) do
   sleep 0.5
 
   emails = ActionMailer::Base.deliveries
@@ -65,7 +65,7 @@ Then(/^My email should be sent to Hoozzi$/) do
   email_address = emails[0].to
 
   expect(subject_text).to eq t("feedback.email_subject")
-  expect(email_address).to match_array(["feedback@hoozzi.com"])
+  expect(email_address).to match_array(["feedback@isyt.com"])
 
   body = Capybara.string(emails[0].body.encoded)
   expect(body.native).not_to have_content t("feedback.option3")

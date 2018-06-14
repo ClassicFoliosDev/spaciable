@@ -64,7 +64,7 @@ module FileFixture
   end
 
   def default_logo_alt
-    "Hoozzi logo primary"
+    "Isyt 40px 01"
   end
 
   def default_banner_name

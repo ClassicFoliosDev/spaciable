@@ -5,7 +5,7 @@
 - Install the ruby version defined in the `.ruby-version` file
 - Make sure you have bundler installed `gem install bundler`
 - Install PostgreSQL: either with `brew install postgresql` or download the [Postgres.app](http://postgresapp.com/)
-- Clone the project: `git clone https://github.com/Alliants/hoozzi.git`
+- Clone the project: `git clone https://github.com/Classic-Folios/hoozzi.git`
 - `cd` into the project directory: `cd hoozzi`
 - Setup the project: `bin/setup`
 

@@ -37,12 +37,12 @@ en:
   layouts:
     b2c:
       head:
-        hoozzi: "Hoozzi"
+        isyt: "ISYT?"
 
   b2c_mailer:
-    title: "Welcome to Hoozzi"
+    title: "Welcome to ISYT?"
     register:
-      success: "You have successfully signed up for Hoozzi"
+      success: "You have successfully signed up for ISYT?"
       email: "Email address:"
       name: "Name:"
 
@@ -51,7 +51,7 @@ en:
       registrations:
         new:
           title: "Sign up for free"
-          description: "Add your first property for free now and start using Hoozzi"
+          description: "Add your first property for free now and start using ISYT?"
           name: "Your name"
           email: "Your email address"
           password: "Your password"

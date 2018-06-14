@@ -46,10 +46,10 @@ module Residents
 
     def update_resident_subscribe_params
       if params[:resident][:subscribe_emails].to_i.positive?
-        current_resident.update(hoozzi_email_updates: 1)
+        current_resident.update(isyt_email_updates: 1)
         current_resident.update(developer_email_updates: 1)
       else
-        current_resident.update(hoozzi_email_updates: 0)
+        current_resident.update(isyt_email_updates: 0)
         current_resident.update(developer_email_updates: 0)
       end
     end

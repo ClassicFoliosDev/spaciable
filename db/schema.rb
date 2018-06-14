@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180522070909) do
+ActiveRecord::Schema.define(version: 20180614080551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -496,7 +496,7 @@ ActiveRecord::Schema.define(version: 20180522070909) do
     t.integer  "invited_by_id"
     t.integer  "invitations_count",       default: 0
     t.integer  "developer_email_updates"
-    t.integer  "hoozzi_email_updates"
+    t.integer  "isyt_email_updates"
     t.integer  "telephone_updates"
     t.integer  "post_updates"
     t.string   "phone_number"

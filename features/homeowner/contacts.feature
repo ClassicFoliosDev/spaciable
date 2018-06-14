@@ -1,7 +1,7 @@
 Feature: Homeowner Contacts
   As a homeowner
-  I want to log into Hoozzi
-  To look at the contact details for my developer
+  When I log in
+  I want to see the contact details for my developer
 
   Scenario:
     Given I have a developer with a development with unit type and plot
