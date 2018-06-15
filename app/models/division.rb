@@ -28,7 +28,7 @@ class Division < ApplicationRecord
   validates_with ParameterizableValidator
 
   delegate :to_s, to: :division_name
-  delegate :api_key, to: :developer
+  delegate :api_key, :development_faqs, to: :developer
 
   paginates_per 25
 

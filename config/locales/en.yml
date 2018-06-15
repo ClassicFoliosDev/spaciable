@@ -735,6 +735,8 @@ en:
       services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
       enable_messages: "Enable community messages"
       messages_description: "Allow development residents to share messages with each other"
+      development_faqs: "Development FAQs"
+      development_faqs_description: "Create default FAQs for each development, not at developer scope"
     index:
       add: "Add developer"
       actions: "Actions"
@@ -765,6 +767,9 @@ en:
       messages: "Community messages: "
       enabled: "enabled"
       disabled: "disabled"
+      faq_scope: "FAQ scope: "
+      developer: "developer"
+      development: "development"
 
   divisions:
     destroy:

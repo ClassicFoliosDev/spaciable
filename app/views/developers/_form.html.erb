@@ -43,6 +43,9 @@
           <%= f.check_box :enable_development_messages %>
           <p class="checkbox-description"><%= t(".messages_description") %></p>
         <% end %>
+        <%= f.label t(".development_faqs") %>
+        <%= f.check_box :development_faqs %>
+        <p class="checkbox-description"><%= t(".development_faqs_description") %></p>
       </fieldset>
     </div>
   </div>
