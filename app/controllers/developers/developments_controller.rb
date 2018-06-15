@@ -37,6 +37,10 @@ module Developers
 
     def create
       if @development.save
+        if @development.development_faqs
+          CloneDefaultFaqsJob.perform_later(faqable_type: "Development",
+                                            faqable_id: @development.id)
+        end
         notice = Mailchimp::SegmentService.call(@development)
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, :developments], notice: notice

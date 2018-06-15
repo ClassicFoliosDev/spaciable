@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180614080551) do
+ActiveRecord::Schema.define(version: 20180615080902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(version: 20180614080551) do
     t.boolean  "house_search"
     t.boolean  "enable_services",             default: false
     t.boolean  "enable_development_messages", default: false
+    t.boolean  "development_faqs",            default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end

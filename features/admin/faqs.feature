@@ -75,3 +75,27 @@ Feature: FAQs
     Then I should see the created (Division) Development FAQ
     When I update the (Division) Development FAQ
     Then I should see the updated (Division) Development FAQ
+
+  Scenario: Cloned Default FAQs for new Developments
+    Given I am logged in as an admin
+    And default FAQs exist
+    When I create a developer with development level FAQs
+    Then I should not see default faqs for the developer
+    When I create a development
+    Then I should see default faqs for the development
+
+  Scenario: Cloned Default FAQs for existing developer new Developments
+    Given I am logged in as an admin
+    And default FAQs exist
+    When I create a developer
+    Then I should see default faqs for the developer
+    When I edit a developer faq
+    And I create a development
+    Then I should see no faqs for the development
+    When I select development level FAQs
+    Then I should see no faqs for the development
+    When I create a second development
+    Then I should not see the edited faq in the development faqs
+    When I deselect development level FAQs
+    And I create a third development
+    Then I should see no faqs for the development

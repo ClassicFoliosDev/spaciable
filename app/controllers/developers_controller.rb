@@ -33,7 +33,9 @@ class DevelopersController < ApplicationController
 
   def create
     if @developer.save
-      CloneDefaultFaqsJob.perform_later(faqable_type: "Developer", faqable_id: @developer.id)
+      unless @developer.development_faqs
+        CloneDefaultFaqsJob.perform_later(faqable_type: "Developer", faqable_id: @developer.id)
+      end
 
       redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
@@ -67,7 +69,7 @@ class DevelopersController < ApplicationController
       :company_name, :email,
       :contact_number, :about,
       :api_key, :house_search,
-      :enable_services,
+      :enable_services, :development_faqs,
       :enable_development_messages,
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]

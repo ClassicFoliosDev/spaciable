@@ -100,4 +100,16 @@ module FaqsFixture
 
     Faq.find_by(question: question, faqable: send(resource_name)).id
   end
+
+  def edited_question
+    "How do you change an FAQ?"
+  end
+
+  def development2_name
+    "Water Meadows"
+  end
+
+  def development3_name
+    "Flood Plain"
+  end
 end
