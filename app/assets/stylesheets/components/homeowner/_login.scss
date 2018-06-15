@@ -5,6 +5,7 @@
   min-height: 1px;
   top: 100px;
   border-radius: ($border-radius * 2);
+  opacity: $base-opacity;
 
   .preamble {
     @include span-columns(6 of 12);
@@ -40,7 +41,7 @@
     float: right;
     padding: 80px $spacing-medium 40px $spacing-medium;
     border-radius: 0 ($border-radius * 2) ($border-radius * 2) 0;
-    background-color: $primary-red;
+    background-color: $primary-background;
 
     .notice, .alert {
       display: inline-block;
@@ -51,7 +52,7 @@
       background: $ui-white;
     }
     .alert {
-      color: $primary-red;
+      color: $primary-background;
     }
     .notice {
       color: $primary-green;
@@ -65,7 +66,7 @@
 
 .branded-input {
   input[type="email"], input[type="password"] {
-    border-color: $primary-red;
+    border-color: $primary-background;
     white-space: normal;
   }
 
@@ -79,7 +80,7 @@
 }
 
 .sign-in .branded-content {
-  background-color: $primary-red;
+  background-color: $primary-background;
 }
 
 .reset-password {
@@ -106,7 +107,7 @@
   .reset-btn {
     color: $ui-white;
     border-color: $ui-white;
-    background-color: $primary-red;
+    background-color: $primary-background;
   }
 
   .copyright {

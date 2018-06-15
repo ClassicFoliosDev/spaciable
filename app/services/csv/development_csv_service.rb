@@ -20,7 +20,7 @@ module Csv
         "Development name", "Plot number", "Phase", "Resident email", "Resident name",
         "Resident invited on", "Resident invited by", "Resident activated",
         "Resident last sign in", "Lifetime sign in count", "Notifications #{@between}",
-        "Developer updates", "ISYT updates", "Telephone updates", "Post updates",
+        "Developer updates", "ISYT? updates", "Telephone updates", "Post updates",
         "Terms and conditions accepted", "Services subscribed"
       ]
     end

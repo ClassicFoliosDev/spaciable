@@ -1,6 +1,6 @@
 en:
   mailchimp:
-    company: "ISYT"
+    company: "ISYT?"
     address1: "Woodside Trade Centre"
     address2: "34 Parham Drive"
     city: "Eastleigh"
@@ -9,7 +9,7 @@ en:
     country: "United Kingdom"
     reminder: "You are receiving this email because you have agreed to purchase a home through a developer that
     uses the isyt.com site."
-    from_name: "ISYT"
+    from_name: "ISYT?"
     from_email: "no-reply@isyt.com"
     language: "en"
 

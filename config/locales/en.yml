@@ -62,8 +62,8 @@ en:
   manual: "Appliance manual"
   guide: "Appliance guide"
 
-  reminder_title: "%{ordinal} reminder to register with ISYT"
-  last_reminder_title: "%{ordinal} and last reminder to register with ISYT"
+  reminder_title: "%{ordinal} reminder to register with ISYT?"
+  last_reminder_title: "%{ordinal} and last reminder to register with ISYT?"
   new_plot_title: "Information about your new home"
 
   notify:
@@ -78,9 +78,9 @@ en:
   # LAYOUTS
   layouts:
     application:
-      title: "ISYT"
+      title: "ISYT?"
     home:
-      title: "ISYT home"
+      title: "ISYT? home"
     homeowner:
       title: "My home"
       nav:
@@ -96,13 +96,13 @@ en:
         library: "Library"
         faqs: "FAQs"
     admin_login:
-      title: "Admin login to ISYT"
+      title: "Admin login to ISYT?"
     login:
-      title: "Login to ISYT"
+      title: "Login to ISYT?"
     email:
-      copyright: "ISYT &copy; %{year}"
+      copyright: "ISYT? &copy; %{year}"
     common_header:
-      title: "ISYT"
+      title: "ISYT?"
 
   controller:
     resource_not_found: "Resource not found"
@@ -227,7 +227,7 @@ en:
       notifications: "Notifications"
       contacts: "Contacts"
       howtos: "How tos"
-      help: "ISYT help"
+      help: "ISYT? help"
       configuration: "Global settings"
       reports: "Reports"
     empty_list:
@@ -265,9 +265,9 @@ en:
     option3: "Happy"
     submit: "Send feedback"
     comments: "Comments"
-    placeholder: "I think ISYT is..."
-    email_title: "You have received feedback from a ISYT user"
-    email_subject: "Feedback from ISYT"
+    placeholder: "I think ISYT? is..."
+    email_title: "You have received feedback from a ISYT? user"
+    email_subject: "Feedback from ISYT?"
     option_title: "User happiness level"
     comment_title: "User comments"
     not_sent: "User did not provide this information"
@@ -417,17 +417,17 @@ en:
 
     help:
       show:
-        help_file: "ISYT admin interface user guide (PDF)"
+        help_file: "ISYT? admin interface user guide (PDF)"
     settings:
       show:
-        title: "Global settings for ISYT"
+        title: "Global settings for ISYT?"
         video_link: "Introductory video link"
         edit: "Edit"
         help: "Help document"
         cookie: "Cookie policy document"
         privacy: "Privacy policy document"
       edit:
-        title: "Edit global settings for ISYT"
+        title: "Edit global settings for ISYT?"
         back: "Back"
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
@@ -436,7 +436,7 @@ en:
         cookie: "Cookie policy file"
         privacy: "Privacy policy file"
       update:
-        success: "The configuration settings for ISYT have been updated successfully"
+        success: "The configuration settings for ISYT? have been updated successfully"
     analytics:
       new:
         developer: "Download report for developer"
@@ -444,7 +444,7 @@ en:
         all: "Download summary report for all developers"
 
   dashboard:
-    header: "Dashboard title for ISYT"
+    header: "Dashboard title for ISYT?"
     title: "Dashboard"
     section:
       notifications:
@@ -604,7 +604,7 @@ en:
         progress: "Progress on my home is: "
     private_documents:
       index:
-        file_description: "You can use this area of ISYT to store other documents, photos and files relating to your moving process and home"
+        file_description: "You can use this area of ISYT? to store other documents, photos and files relating to your moving process and home"
         file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format"
         new: "Upload file"
       edit:
@@ -635,12 +635,12 @@ en:
         comms_preferences: "Communication preferences"
         edit_profile: "Update preferences"
         developer_email_updates: "Developer emails"
-        isyt_email_updates: "ISYT emails"
+        isyt_email_updates: "ISYT? emails"
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
-        other_residents: "Other residents who have access to this information in ISYT"
+        other_residents: "Other residents who have access to this information in ISYT?"
         none: "Only you can see the content for %{plot}"
-        intro_video: "ISYT introduction video"
+        intro_video: "ISYT? introduction video"
         send_invitation: "Invite new resident"
         invite: "Invite new resident to %{plot}"
         destroy: "Confirm remove"
@@ -655,9 +655,9 @@ en:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
       create:
-        new_invitation: "%{email} has been sent an invitation to ISYT"
+        new_invitation: "%{email} has been sent an invitation to ISYT?"
         not_created: "It was not possible to invite %{email} because of the following errors: "
-        existing_resident: "User with email %{email} already has access to ISYT. They will be able to see details for this plot next time they log in"
+        existing_resident: "User with email %{email} already has access to ISYT?. They will be able to see details for this plot next time they log in"
         already_resident: "A resident with %{email} is already associated with this plot"
       remove_resident:
         success: "Resident %{email} has been removed from this plot"
@@ -666,13 +666,13 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        title: "ISYT Services for %{developer}"
+        title: "ISYT? Services for %{developer}"
         subtitle: "Potentially save £1,600 on an average house move."
-        description_1: "Moving home can be a very stressful and expensive experience, but ISYT 
-        Services can help take some of that pressure away.  By using our trusted suppliers, ISYT 
+        description_1: "Moving home can be a very stressful and expensive experience, but ISYT? 
+        Services can help take some of that pressure away.  By using our trusted suppliers, ISYT? 
         can offer you great deals with a no-obligation quote.  So don’t get stressed – give 
-        yourself more choice and let ISYT help."
-        description_2: "<em>Excellent service, highly recommend. ISYT Services helped me organise everything I needed
+        yourself more choice and let ISYT? help."
+        description_2: "<em>Excellent service, highly recommend. ISYT? Services helped me organise everything I needed
         when I moved in to my new home. They also got me some great deals. I will certainly continue to use them for
         all my services.</em> Jean, Watford."
         submit: "Got it, let's go"
@@ -732,9 +732,9 @@ en:
       address: "Postal address"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
       enable_house_search: "Enable area guide link"
-      house_search_description: "Provides an external link to BestArea4Me from the ISYT homeowner site"
+      house_search_description: "Provides an external link to BestArea4Me from the ISYT? homeowner site"
       enable_services: "Enable homeowner to request services"
-      services_description: "A homeowner can select moving and other services, ISYT will be notified by email about these selections"
+      services_description: "A homeowner can select moving and other services, ISYT? will be notified by email about these selections"
       enable_messages: "Enable community messages"
       messages_description: "Allow development residents to share messages with each other"
       development_faqs: "Development FAQs"
@@ -859,11 +859,11 @@ en:
     sessions:
       new:
         login_cta: "Login"
-        welcome_1: "ISYT isn't just a hub,"
+        welcome_1: "ISYT? isn't just a hub,"
         welcome_2: "it's a librarian"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         intro_para_1: "With pen in hand and fresh ideas in mind,
-                      ISYT is constantly churning out fun and helpful articles."
+                      ISYT? is constantly churning out fun and helpful articles."
         intro_para_2: "You can scroll away to your heart's content,
                       discovering exciting ideas on how to make the most of your home,
                       habits and hobbies."
@@ -909,7 +909,7 @@ en:
         everything: "everything"
         home: "home"
         submit_button: "Continue"
-        welcome: "Welcome to ISYT"
+        welcome: "Welcome to ISYT?"
         welcome2: "You're almost there"
         welcome3: "We just need a few final details, then you'll be in home management heaven. Here you can:"
         documents: "View your home's documents"
@@ -1435,17 +1435,17 @@ en:
 
   resident_notification_mailer:
     notify:
-      new_notification: "You have a new notification from ISYT"
-      login: "Login to ISYT"
+      new_notification: "You have a new notification from ISYT?"
+      login: "Login to ISYT?"
       welcome: "Dear %{name}"
-      update_subject: "You have a new update in ISYT"
+      update_subject: "You have a new update in ISYT?"
       update_message: "%{type} %{name} has been %{verb}"
       update_sent: " and %{count} residents have been notified"
 
   services:
     homeowner_login_content_service:
       defaults:
-        title_left: "ISYT Homeowner"
+        title_left: "ISYT? Homeowner"
         title_right: "Login"
         blurb_para_1: "Welcome back."
         blurb_para_2: "Login to access your homeowners manual and more."
@@ -1713,8 +1713,8 @@ en:
         email: "Email address"
         password: "Password"
         password_confirmation: "Confirm password"
-        developer_email_updates: "Emails from my property developer about managing and maintaining my new home through ISYT"
-        isyt_email_updates: "Home inspiration direct to my inbox with ISYT 'How to' updates"
+        developer_email_updates: "Emails from my property developer about managing and maintaining my new home through ISYT?"
+        isyt_email_updates: "Home inspiration direct to my inbox with ISYT? 'How to' updates"
         telephone_updates: "Telephone call"
         post_updates: "Post"
       residents:

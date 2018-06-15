@@ -1,11 +1,11 @@
 $login-form-bg-color: $ui-white;
 $login-title-left-color: $primary-green;
-$login-title-right-color: $primary-red;
+$login-title-right-color: $primary-blue;
 
 $maximum-logo-size: 400px;
 
 .admin-login-view {
-  @include grad-orange-pink(180deg);
+  background-color: $primary-background;
 
   @include media($tablet-landscape-down) {
     main {
@@ -30,7 +30,6 @@ $maximum-logo-size: 400px;
 }
 
 .admin-login-form {
-
   .logo {
     display: block;
     width: 70%;

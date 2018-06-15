@@ -1,6 +1,6 @@
 $login-form-bg-color: rgba($ui-white, 0.9);
 $login-title-left-color: $primary-green;
-$login-title-right-color: $primary-red;
+$login-title-right-color: $primary-blue;
 
 $maximum-logo-size: 400px;
 
@@ -52,11 +52,12 @@ $maximum-logo-size: 400px;
 }
 
 .login-form {
-  @include grad-orange-pink();
   @include flex(1);
 
   flex-basis: 1;
   padding: $spacing-medium;
+  background-color: $primary-background;
+  opacity: $base-opacity;
 
   .logo {
     display: block;

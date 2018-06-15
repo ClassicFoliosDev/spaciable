@@ -4,11 +4,11 @@ $input-border-color: $ui-grey;
 $input-border-color-active: $ui-dark-grey;
 $input-font-size: $base-font-size;
 $input-line-height: $base-font-line-height;
-$input-inline-error-font-color: $primary-red;
+$input-inline-error-font-color: $primary-background;
 $input-small-font-size: 10px;
 
-$field-invalid-border-color: $primary-red;
-$field-invalid-font-color: $primary-red;
+$field-invalid-border-color: $primary-background;
+$field-invalid-font-color: $primary-background;
 
 $label-margin: 4px;
 $label-font-size: 14px;
@@ -17,7 +17,7 @@ $label-font-weight: bold;
 $form-action-footer-bg-color: $ui-white;
 
 $submission-error-font-color: $ui-white;
-$submission-error-bg-color: $primary-red;
+$submission-error-bg-color: $primary-background;
 
 
 // INPUTS
@@ -390,7 +390,7 @@ fieldset {
 }
 
 .match-errors {
-  color: $primary-red;
+  color: $primary-background;
   margin-top: $spacing-small;
 }
 

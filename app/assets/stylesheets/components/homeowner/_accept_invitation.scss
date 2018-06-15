@@ -125,20 +125,20 @@ label.login-checkbox {
   .register {
     @include span-columns(5 of 12);
     @include omega();
-    background-color: $primary-red;
+    background-color: $primary-background;
     float: right;
     border-radius: ($border-radius * 2);
     padding: 80px $spacing-large 40px $spacing-large;
 
     #error_explanation {
       background-color: $ui-white;
-      border: 1px solid $primary-red;
+      border: 1px solid $primary-background;
       border-radius: $border-radius;
       padding: $spacing-small;
       margin: $spacing-small 0 0;
 
       h2, ul {
-        color: $primary-red;
+        color: $primary-background;
         font-size: $base-font-size;
         margin: 0;
       }
