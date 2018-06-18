@@ -2,7 +2,7 @@
 
 module LogoHelper
   def brand_or_white_logo(brand)
-    brand&.branded_logo ? brand.branded_logo : "ISYT_white.png"
+    brand&.branded_logo ? brand.branded_logo : "ISYT_white_R.png"
   end
 
   def brand_or_red_logo(brand)
