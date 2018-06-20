@@ -12,9 +12,13 @@
     padding: 40px;
 
     .content {
-      @include span-columns(9 of 12);
-      @include shift(1.5 of 12);
+      @include span-columns(12 of 12);
       margin-top: 100px;
+    }
+
+    .top-title {
+      font-weight: bold;
+      margin-bottom: 0;
     }
   }
 
@@ -55,7 +59,7 @@
       color: $primary-background;
     }
     .notice {
-      color: $primary-green;
+      color: $primary-blue;
     }
 
     .error {
@@ -102,12 +106,6 @@
 .new-password {
   label, a {
     color: $ui-white;
-  }
-
-  .reset-btn {
-    color: $ui-white;
-    border-color: $ui-white;
-    background-color: $primary-background;
   }
 
   .copyright {

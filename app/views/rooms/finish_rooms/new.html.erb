@@ -1,9 +1,9 @@
 <% breadcrumb :room_edit, @room %>
 
 <div class="section-header add_finish">
-  <h3 class="section-title">
+  <div class="section-title">
     <%= t(".title", room_name: @room.name) %><br>
-  </h3>
+  </div>
 </div>
 
 <%= simple_form_for([@room, @finish_room]) do |f| %>

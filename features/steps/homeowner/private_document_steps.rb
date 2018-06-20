@@ -30,8 +30,8 @@ end
 
 Then(/^I should see my private documents$/) do
   within ".private-documents" do
-    expect(page).to have_content(FileFixture.document_alt)
-    expect(page).to have_content(FileFixture.avatar_alt)
+    expect(page).to have_content %r{#{FileFixture.document_alt}}i
+    expect(page).to have_content %r{#{FileFixture.avatar_alt}}i
   end
 end
 
@@ -49,8 +49,8 @@ end
 
 Then(/^I should see my updated private document$/) do
   within ".private-documents" do
-    expect(page).to have_content(FileFixture.logo_alt)
-    expect(page).not_to have_content(FileFixture.avatar_alt)
+    expect(page).to have_content %r{#{FileFixture.logo_alt}}i
+    expect(page).not_to have_content %r{#{FileFixture.avatar_alt}}i
   end
 end
 
@@ -63,7 +63,7 @@ end
 
 Then(/^I should no longer see the private document$/) do
   within ".private-documents" do
-    expect(page).not_to have_content(FileFixture.document_alt)
-    expect(page).to have_content(FileFixture.avatar_alt)
+    expect(page).not_to have_content %r{#{FileFixture.document_alt}}i
+    expect(page).to have_content %r{#{FileFixture.avatar_alt}}i
   end
 end

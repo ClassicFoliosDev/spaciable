@@ -1,9 +1,9 @@
 <% breadcrumb :developments, @division %>
 
 <div class="section-header">
-  <h3 class="section-title">
+  <div class="section-title">
     <%= t(".title", division_name: @division) %>
-  </h3>
+  </div>
 </div>
 
 <%= render_collection @developments, parent: @division %>

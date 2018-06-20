@@ -52,9 +52,9 @@ end
 
 Then(/^I see all the messages$/) do
   within ".messages-container" do
-    expect(page).to have_content CommunityFixture.topic_1
+    expect(page).to have_content %r{#{CommunityFixture.topic_1}}i
     expect(page).to have_content CommunityFixture.reply
-    expect(page).to have_content CommunityFixture.topic_2
+    expect(page).to have_content %r{#{CommunityFixture.topic_2}}i
 
     first_resident = CreateFixture.resident
     expect(page).to have_content first_resident.to_s

@@ -12,7 +12,9 @@
         <p><%= render "residents/shared/links" %></p>
       </div>
 
-      <%= f.button :submit, t(".submit"), class: "reset-btn" %>
+      <div class="branded-primary-btn">
+        <%= f.button :submit, t(".submit"), class: "btn reset-btn" %>
+      </div>
 
       <div class="information">
         <p class="copyright"><%= t("residents.invitations.edit.copyright", year: Time.current.year).html_safe %></p>

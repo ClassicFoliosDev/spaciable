@@ -31,11 +31,11 @@
 
   <% else %>
     .branded-text {
-      color: #67747C; // $type-grey;
+      color: #2F2F2F; // $type-grey;
     }
 
     .branded-primary-text {
-      color: #67747C; // $type-grey;
+      color: #2F2F2F; // $type-grey;
     }
   <% end %>
 
@@ -101,6 +101,10 @@
       background-color: <%= brand.branded_button_color %>;
     }
 
+    .branded-primary-btn:hover {
+      color: <%= brand.branded_button_color %>;
+    }
+
     .branded-titles h2 {
       color: <%= brand.branded_button_color %>;
     }
@@ -118,29 +122,29 @@
     }
   <% else %>
     .branded-btn {
-      background-color: #18A895; // $primary-green;
+      background-color: #F93549; // $primary-red;
     }
 
     .branded-btn.alt {
-      border-color: #18A895; // $primary-green;
-      color: #18A895; // $primary-green;
+      border-color: #F93549; // $primary-red;
+      color: #F93549; // $primary-red;
     }
 
     .branded-primary {
-      color: #18A895; // $primary-green;
+      color: #F93549; // $primary-red;
     }
 
     .branded-primary-btn {
-      color: #F7525E; // $type-red;
-      border-color: #F7525E; // $type-red;
+      color: #F93549; // $type-red;
+      border-color: #F93549; // $type-red;
     }
 
-    .branded-titles h2 {
-      color: #F7525E; // $type-red;
+    .branded-titles h2.top-title {
+      color: #00416B; // $primary-blue;
     }
 
-    .branded-titles h2:last-child {
-      color: #18A895; // $primary-green;
+    .branded-titles h2.second-title {
+      color: #F93549; // $primary-red;
     }
   <% end %>
 
@@ -157,6 +161,10 @@
     .branded-primary-btn {
       color: <%= brand.branded_button_text_color %>;
       border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .branded-primary-btn:hover {
+      background-color: <%= brand.branded_button_text_color %>;
     }
 
     .branded-primary-text {

@@ -1,10 +1,10 @@
 <% breadcrumb :developer_edit, @developer %>
 
 <div class="section-header">
-  <h3 class="section-title">
+  <div class="section-title">
     <%= fa_icon "vcard" %>
     <%= t(".title", developer_name: @developer.company_name) %>
-  </h3>
+  </div>
 </div>
 
 <%= render 'form', developer: @developer %>

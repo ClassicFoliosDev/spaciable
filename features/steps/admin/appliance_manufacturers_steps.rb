@@ -3,7 +3,7 @@
 When(/^I create an appliance manufacturer$/) do
   visit "/appliance_manufacturers"
 
-  add_button = page.find("a", text: I18n.t("appliance_manufacturers.collection.add"))
+  add_button = page.find("a", text: I18n.t("appliance_manufacturers.collection.add").upcase)
   add_button.click
 
   within ".appliance_manufacturer" do
@@ -110,7 +110,7 @@ Then(/^I should see the appliance manufacturer delete complete successfully$/) d
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: ApplianceManufacturer.model_name.human.downcase)
+    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: ApplianceManufacturer.model_name.human)}}i
   end
 end
 

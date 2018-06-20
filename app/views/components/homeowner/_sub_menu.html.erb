@@ -1,6 +1,6 @@
 <nav class="sub-navigation-container">
   <div class="nav-inner">
-    <h3 class="branded-text"><%= t('.title') %></h3>
+    <div class="branded-text"><%= t('.title') %></div>
     <ul>
       <%= link_to homeowner_about_path, active_tab: "about",
                   class: "branded-primary #{'active' if active_tab == 'about' }" do %>

@@ -87,7 +87,7 @@ Then(/^I should see the updated HowTo$/) do
   end
 
   within ".alert" do
-    expect(page).to have_content(I18n.t("admin.how_tos.show.hidden_alert"))
+    expect(page).to have_content %r{#{I18n.t("admin.how_tos.show.hidden_alert")}}i
   end
 
   within ".how-to" do
@@ -153,7 +153,7 @@ Then(/^I should see the how-to deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: HowTo.model_name.human.downcase)
+    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: HowTo.model_name.human)}}i
   end
 end
 

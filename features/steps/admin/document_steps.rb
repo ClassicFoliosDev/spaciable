@@ -158,7 +158,7 @@ Then(/^I should see that the deletion was successful for the document$/) do
   expect(page).not_to have_content(".documents")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Document.model_name.human.downcase)
+    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Document.model_name.human)}}i
   end
 end
 

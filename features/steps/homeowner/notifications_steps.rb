@@ -52,8 +52,8 @@ end
 
 Then(/^I should see the expanded notification$/) do
   within ".notification-expanded" do
-    expect(page).to have_content("Sent from admin to all development")
-    expect(page).to have_content("Mauris pretium euismod arcu, at placerat magna aliquet condimentum.")
+    expect(page).to have_content %r{#{"Sent from admin to all development"}}i
+    expect(page).to have_content "Mauris pretium euismod arcu, at placerat magna aliquet condimentum."
   end
 end
 

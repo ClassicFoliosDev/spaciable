@@ -26,8 +26,8 @@ end
 
 Then(/^I should see the appliances for my plot$/) do
   within ".appliances" do
-    expect(page).to have_content(CreateFixture.appliance_category_name)
-    expect(page).to have_content(CreateFixture.appliance_manufacturer_name)
+    expect(page).to have_content %r{#{CreateFixture.appliance_category_name}}i
+    expect(page).to have_content CreateFixture.appliance_manufacturer_name
 
     image = page.first(".energy-rating")
     expect(image["alt"]).to have_content("Energy rating a")

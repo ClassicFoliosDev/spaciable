@@ -157,7 +157,7 @@ Then(/^I can see my library$/) do
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content(t("components.homeowner.library_hero.title"))
+    expect(page).to have_content %r{#{t("components.homeowner.library_hero.title")}}i
   end
 end
 
@@ -168,9 +168,9 @@ Then(/^I can see my appliances$/) do
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:postcode])
+    expect(page).to have_content %r{#{PhaseFixture.address_update_attrs[:building_name]}}i
+    expect(page).to have_content %r{#{PhaseFixture.address_update_attrs[:road_name]}}i
+    expect(page).to have_content PhaseFixture.address_update_attrs[:postcode]
   end
 end
 
@@ -181,7 +181,7 @@ Then(/^I can see my contacts$/) do
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content(t("homeowners.contacts.index.title"))
+    expect(page).to have_content %r{#{t("homeowners.contacts.index.title")}}i
   end
 end
 
@@ -192,7 +192,7 @@ Then(/^I can see my faqs$/) do
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content(t("homeowners.faqs.index.title"))
+    expect(page).to have_content %r{#{t("homeowners.faqs.index.title")}}i
   end
 end
 

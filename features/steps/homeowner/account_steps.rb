@@ -301,7 +301,7 @@ end
 
 Then(/^I should be redirected to the video introduction page$/) do
   within ".video-container" do
-    expect(page).to have_content t("homeowners.intro_videos.show.welcome_title", name: PlotResidencyFixture.attrs[:first_name])
+    expect(page).to have_content %r{#{t("homeowners.intro_videos.show.welcome_title", name: PlotResidencyFixture.attrs[:first_name])}}i
 
     click_on t("homeowners.intro_videos.show.next")
   end

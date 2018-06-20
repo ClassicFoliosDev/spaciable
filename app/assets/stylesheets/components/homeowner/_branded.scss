@@ -87,12 +87,30 @@
 }
 
 .branded-primary-btn {
-  color: $ui-white;
-
   input {
     color: inherit;
     background-color: inherit;
     border-color: inherit;
     margin-bottom: $spacing-small;
+  }
+}
+
+// These colours will be over-ridden if branding is applied
+
+.top-title {
+  color: $primary-blue;
+}
+
+.second-title {
+  color: $primary-red;
+}
+
+.branded-primary-btn {
+  color: $primary-cta-color;
+  border-color: $primary-cta-color;
+
+  &:hover {
+    background-color: $primary-cta-color;
+    color: $primary-blue;
   }
 }

@@ -136,10 +136,10 @@ Then(/^I should see the default branding$/) do
 
   expect(style['outerHTML']).to have_content("branded-header { background-color: #394F5F")
   expect(style['outerHTML']).to have_content("branded-body { background-color: #FAFAFA")
-  expect(style['outerHTML']).to have_content("branded-text { color: #67747C")
+  expect(style['outerHTML']).to have_content("branded-text { color: #2F2F2F")
   expect(style['outerHTML']).to have_content("branded-content { background-color: #FFFFFF")
   expect(style['outerHTML']).to have_content("branded-border { border-color: #EAEAEA")
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #18A89")
+  expect(style['outerHTML']).to have_content("branded-btn { background-color: #F93549")
   expect(style['outerHTML']).to have_content("branded-btn { color: #FFFFFF")
 
   expect(style['outerHTML']).not_to have_content("cala_banner.jpg")

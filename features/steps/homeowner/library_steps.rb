@@ -31,7 +31,7 @@ end
 Then(/^I should see all of the documents related to my home$/) do
   within ".documents" do
     MyLibraryFixture.default_filtered_documents.each do |title, download_link|
-      expect(page).to have_content(title)
+      expect(page).to have_content %r{#{title}}i
 
       anchor = first("a[href='#{download_link}']")
       expect(anchor).not_to be_nil
@@ -58,7 +58,7 @@ end
 Then(/^I should only see the documents for the other category$/) do
   within ".documents" do
     MyLibraryFixture.filtered_documents.each do |title, download_link|
-      expect(page).to have_content(title)
+      expect(page).to have_content %r{#{title}}i
 
       anchor = first("a[href='#{download_link}']")
       expect(anchor).not_to be_nil
@@ -87,7 +87,7 @@ end
 Then(/^I should only see the appliance manuals to download$/) do
   within ".branded-body" do
     MyLibraryFixture.appliance_manuals.each do |title|
-      expect(page).to have_content(title)
+      expect(page).to have_content %r{#{title}}i
     end
 
     # Appliance guide
@@ -121,8 +121,8 @@ end
 
 Then(/^I should not see plot documents$/) do
   within ".documents" do
-    expect(page).to have_content("Developer Document")
-    expect(page).to have_content("Development Document")
-    expect(page).not_to have_content("Phase Plot Document")
+    expect(page).to have_content %r{#{"Developer Document"}}i
+    expect(page).to have_content %r{#{"Development Document"}}i
+    expect(page).not_to have_content %r{#{"Phase Plot Document"}}i
   end
 end

@@ -93,6 +93,6 @@ Then(/^I should no longer see the video$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: Video.model_name.human.downcase)
+    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Video.model_name.human)}}i
   end
 end

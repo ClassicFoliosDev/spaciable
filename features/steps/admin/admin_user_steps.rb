@@ -302,8 +302,8 @@ Then(/^I should be logged out$/) do
   expect(page).to have_content(t("admin.users.update.success_password", user_name: ""))
 
   within ".admin-login-form" do
-    expect(page).to have_content(t("activerecord.attributes.user.email"))
-    expect(page).to have_content(t("activerecord.attributes.user.password"))
+    expect(page).to have_content %r{#{t("activerecord.attributes.user.email")}}i
+    expect(page).to have_content %r{#{t("activerecord.attributes.user.password")}}i
   end
 end
 

@@ -1,10 +1,10 @@
 <% breadcrumb :admin_user_new %>
 
 <div class="section-header">
-  <h3 class="section-title">
+  <div class="section-title">
     <%= fa_icon "vcard" %>
     <%= t(".add") %>
-  </h3>
+  </div>
 </div>
 
 <%= render 'form', user: @user, selected_role: t("users.choose") %>

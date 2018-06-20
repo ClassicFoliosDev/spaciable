@@ -1,5 +1,9 @@
+@font-face {
+  font-family: "Trade Gothic";
+  src: url(/assets/TradeGothicLTStd.otf) format("truetype");
+}
 
-$base-font-family: 'Open Sans', sans-serif;
+$base-font-family: 'Trade Gothic LT Std', 'Open Sans', sans-serif;
 $base-small-font-size: 12px;
 $base-font-size: 14px;
 $base-font-line-height: 22px;
@@ -45,6 +49,7 @@ h1, h2, h3, h4, h5 {
   color: $font-title-color;
   font-weight: $base-font-weight;
   font-family: $base-font-family;
+  text-transform: uppercase;
 }
 
 h1 {
@@ -125,4 +130,8 @@ a {
   line-height: $base-font-line-height;
   font-weight: $base-font-weight;
   font-family: $base-font-family;
+}
+
+.larger {
+  font-size: 19px;
 }

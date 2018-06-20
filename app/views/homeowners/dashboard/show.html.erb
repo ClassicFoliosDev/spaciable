@@ -8,9 +8,9 @@
           <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path "Sign In Image 3.jpg" %>')" >
         <% end %>
           <div class="card-header">
-            <h3 class="card-title-alt">
+            <div class="card-title-alt">
               <%= t('.my_home_title') %>
-            </h3>
+            </div>
           </div>
           <%= render "homeowners/components/address", plot: @plot %>
         </div>
@@ -47,9 +47,9 @@
         <!--FAQs-->
         <div class="card quarter faqs-component branded-content branded-border " data-test="dashboard-faqs">
           <div class="card-header">
-            <h3 class="card-title branded-text">
+            <div class="card-title branded-text">
               <%= t('homeowner.dashboard.cards.faqs.title') %>
-            </h3>
+            </div>
             <span class="card-action">
               <%= link_to t('homeowner.dashboard.cards.faqs.view_more'), homeowner_faqs_path, class: "branded-btn alt right" %>
             </span>

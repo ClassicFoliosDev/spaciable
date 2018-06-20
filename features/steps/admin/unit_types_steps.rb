@@ -92,7 +92,7 @@ Then(/^I should see the deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.add", type_name: UnitType.model_name.human.downcase)
+    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: UnitType.model_name.human)}}i
   end
 end
 

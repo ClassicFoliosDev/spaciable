@@ -1,6 +1,6 @@
 <% unless f.object.new_record? %>
   <div class="field">
-    <h3><%= Document.model_name.human.pluralize %></h3>
+    <div><%= Document.model_name.human.pluralize %></div>
     <div id="documents">
       <%= f.simple_fields_for :documents do |document| %>
         <%= render 'document_fields', f: document %>
@@ -15,6 +15,6 @@
   <br>
 
 <% else %>
-  <h3><%= Document.model_name.human.pluralize %></h3>
+  <h3><%= Document.model_name.human.pluralize %></div>
   <p><%= t("documents.not_yet") %></p>
 <% end %>

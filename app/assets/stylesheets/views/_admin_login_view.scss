@@ -1,5 +1,5 @@
 $login-form-bg-color: $ui-white;
-$login-title-left-color: $primary-green;
+$login-title-left-color: $primary-blue;
 $login-title-right-color: $primary-blue;
 
 $maximum-logo-size: 400px;
@@ -43,5 +43,13 @@ $maximum-logo-size: 400px;
     border-radius: $border-radius;
     overflow: hidden;
     padding: $spacing-medium;
+  }
+
+  label {
+    text-transform: uppercase;
+  }
+
+  a {
+    color: $primary-cta-color;
   }
 }
