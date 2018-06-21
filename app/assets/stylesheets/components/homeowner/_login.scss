@@ -7,6 +7,11 @@
   border-radius: ($border-radius * 2);
   opacity: $base-opacity;
 
+  .branded-btn {
+    width: 100%;
+    cursor: pointer;
+  }
+
   .preamble {
     @include span-columns(6 of 12);
     padding: 40px;

@@ -2,7 +2,7 @@ $base-button-font-color: $type-grey;
 $base-button-font-size: $base-font-size;
 $base-button-padding: $spacing-small;
 $base-button-bg-color: $ui-white;
-$base-button-border-color: $type-grey;
+$base-button-border-color: $primary-red;
 
 $base-button-bg-color-hover: $ui-white;
 $base-button-font-color-hover: $primary-cta-color;
@@ -28,9 +28,11 @@ $button-line-height: 28px;
   cursor: pointer;
   white-space: nowrap;
   background-color: $ui-white;
+  color: $default-text-color;
 
   &:hover {
-    border: $border-size solid;
+    color: $ui-white;
+    background-color: $primary-red;
   }
 
   &:focus,

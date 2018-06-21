@@ -5,6 +5,14 @@
   padding: 0 $spacing-small;
   display: inline-block;
 
+  // Need to set defaults here for the sign-in page
+  // They are set again in the branding template
+  border-color: $primary-red;
+
+  &:hover {
+    color: $ui-white;
+    background-color: $primary-red;
+  }
 }
 
 .branded-hero {

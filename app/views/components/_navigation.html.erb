@@ -1,8 +1,4 @@
 <div class="navbar">
-  <label class="navbar-trigger-label" for="navbar-trigger">
-    <%= fa_icon "bars" %>
-  </label>
-  <input id="navbar-trigger" type="checkbox">
   <nav class="navbar-menu">
     <% if current_user %>
       <%= navigation_link(admin_dashboard_path, "tachometer", t(".dashboard"), "navbar-link") %>

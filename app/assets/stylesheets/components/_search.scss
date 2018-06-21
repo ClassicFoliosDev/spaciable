@@ -2,7 +2,7 @@ $search-width: 460px;
 
 .search-container {
   float: right;
-  width: 500px;
+  width: $search-width + 40px;
   font-size: $base-small-font-size;
   line-height: $base-small-font-size;
 
@@ -24,10 +24,7 @@ $search-width: 460px;
   }
 
   input[type="text"] {
-    display: inline-block;
-    border-style: solid;
     padding-left: 38px;
-    border-radius: 0;
   }
 }
 
@@ -50,5 +47,11 @@ $search-width: 460px;
 
   .strong {
     font-weight: bold;
+  }
+}
+
+@include media($tablet-landscape-down) {
+  .search-container {
+    display: none;
   }
 }
