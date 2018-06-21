@@ -28,7 +28,7 @@
 # Phrases should begin with capital letter
 # Do not use a full stop at the end of the text
 # Otherwise use punctuation as normal
-# Avoid apostrophes: can not instead of can't
+# Avoid apostrophes: do not instead of don't
 # (they can cause both code pain and translation pain)
 # Words that are likely to be reused a lot are under "views"
 # ===========================================================
@@ -88,7 +88,7 @@ en:
         community: "Community"
         my_home: "My home"
         contacts: "Contacts"
-        how_to: "How to"
+        how_to: "How To"
         faqs: "FAQs"
       sub_nav:
         rooms: "Rooms"
@@ -120,7 +120,7 @@ en:
     admin_users: "Admin users"
     admin_users_add: "Add admin user"
     admin_user_edit: "Edit %{user_email}"
-    admin_how_tos: "How tos"
+    admin_how_tos: "How Tos"
     admin_how_to_new: "New how to"
     admin_how_to_edit: "Edit how to"
     appliance_edit: "Edit %{name}"
@@ -200,7 +200,7 @@ en:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
-        cookies: "Cookies Policy"
+        cookies: "Cookie Policy"
       library_hero:
         title: "Welcome to your digital home library"
         appliances: "Appliances"
@@ -226,7 +226,7 @@ en:
       profile: "Profile"
       notifications: "Notifications"
       contacts: "Contacts"
-      howtos: "How tos"
+      howtos: "How Tos"
       help: "ISYT? help"
       configuration: "Global settings"
       reports: "Reports"
@@ -243,7 +243,7 @@ en:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
-        cookies: "Cookies Policy"
+        cookies: "Cookie Policy"
 
   destroy:
     cancel: "Cancel"
@@ -383,15 +383,15 @@ en:
       collection:
         add: "Add how to"
       show:
-        title: "How to %{title}"
+        title: "How To %{title}"
         back: "Back"
         hidden_alert: "This how to will not appear in the homeowner view"
         hidden: "True"
         not_hidden: "False"
       edit:
-        title: "How to %{title}"
+        title: "How To %{title}"
       index:
-        title: "How tos"
+        title: "How Tos"
       remove_tag:
         success: "Successfully removed %{tag_name} from %{how_to_name}"
     search:
@@ -602,6 +602,9 @@ en:
         library_description: "View and upload documents about your home"
         faqs_description: "Frequently asked questions about moving into a new home"
         progress: "Progress on my home is: "
+    notifications:
+      index:
+        none: "You have no notifications"
     private_documents:
       index:
         file_description: "You can use this area of ISYT? to store other documents, photos and files relating to your moving process and home"
@@ -1062,7 +1065,7 @@ en:
       <i>Apartment 6 Manual.pdf</i>, where the plot prefix is either Plot or Apartment."
       case: "File names do not need to
       match the case of the prefix (plot and Plot will both match)"
-      unmatched_files: "Files that can not be matched with a plot prefix and number will not be uploaded.
+      unmatched_files: "Files that cannot be matched with a plot prefix and number will not be uploaded.
       Any unmatched files will be reported as errors. This will not affect other matched files"
       multiple_files: "In order to upload multiple files, use the <i>SHIFT</i> key with the <i>CTRL</i> or
       <i>CMD</i> key"
@@ -1483,7 +1486,7 @@ en:
       faq: "FAQ"
       brand: "Styling"
       notification: "Notification"
-      how_to: "How to"
+      how_to: "How To"
       tag: "Tag"
       report: "Report"
 
@@ -1714,7 +1717,7 @@ en:
         password: "Password"
         password_confirmation: "Confirm password"
         developer_email_updates: "Emails from my property developer about managing and maintaining my new home through ISYT?"
-        isyt_email_updates: "Home inspiration direct to my inbox with ISYT? 'How to' updates"
+        isyt_email_updates: "Home inspiration direct to my inbox with ISYT? 'How To' updates"
         telephone_updates: "Telephone call"
         post_updates: "Post"
       residents:

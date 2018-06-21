@@ -4,9 +4,12 @@
       <div class="notification-list">
         <%= render "homeowners/components/notification_summary", collection: @notifications %>
       </div>
-      <div class="notification-expanded branded-border branded-content branded-text">
+
+      <% if @notifications.any? %>
         <%= render "homeowners/components/notification" %>
-      </div>
+      <% else %>
+        <%= t(".none") %>
+      <% end %>
     </div>
   </div>
 </div>

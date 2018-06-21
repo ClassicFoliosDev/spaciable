@@ -28,7 +28,7 @@
 # Phrases should begin with capital letter
 # Do not use a full stop at the end of the text
 # Otherwise use punctuation as normal
-# Avoid apostrophes: can not instead of can't
+# Avoid apostrophes: do not instead of don't
 # (they can cause both code pain and translation pain)
 # Words that are likely to be reused a lot are under "views"
 # ===========================================================

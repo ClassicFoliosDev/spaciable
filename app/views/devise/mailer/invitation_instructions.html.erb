@@ -1,6 +1,6 @@
 <p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.to_s) %></p>
 
-<p><%= t("devise.mailer.invitation_instructions.someone_invited_you_admin", development: @resource.permission_level_name) %></p>
+<p><%= t("devise.mailer.invitation_instructions.someone_invited_you_admin", development: admin_permission_level(@resource)) %></p>
 
 <ul>
   <li><%= t(".can1") %></li>

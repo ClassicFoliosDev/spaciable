@@ -152,6 +152,10 @@ label.login-checkbox {
   }
 }
 
+.error_notification {
+  color: $ui-white;
+}
+
 @include media($tablet-landscape-down) {
   .invitation {
     margin-bottom: 100px;

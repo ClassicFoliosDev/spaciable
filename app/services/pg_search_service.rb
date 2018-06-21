@@ -36,11 +36,17 @@ module PgSearchService
 
       {
         id: result.searchable_id,
-        type: "#{result.searchable_type} ",
+        type: search_type_name(result.searchable_type),
         name: result.content,
         path: path
       }
     end
     result_list
+  end
+
+  def search_type_name(searchable_type)
+    return "FAQ " if searchable_type == "Faq"
+
+    "#{searchable_type} "
   end
 end
