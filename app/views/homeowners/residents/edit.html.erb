@@ -56,7 +56,7 @@
       <%= render "homeowners/residents/services", f: f, services: @services, developer: @plot.developer if @plot.developer.enable_services? %>
 
       <div class="full branded-content branded-border actions">
-        <%= f.submit t(".submit"), class: "branded-btn alt" %>
+        <%= f.submit t(".submit"), class: "branded-btn" %>
       </div>
     </div>
     <% end %>

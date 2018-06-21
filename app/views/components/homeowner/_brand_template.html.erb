@@ -16,7 +16,7 @@
     }
   <% else %>
     .branded-header {
-      background-color: #394F5F; // $secondary-blue;
+      background-color: #00416B; // $primary-blue;
     }
   <% end %>
 
@@ -88,20 +88,12 @@
       background-color: <%= brand.branded_button_color %>;
     }
 
-    .branded-btn.alt {
-      border-color: <%= brand.branded_button_color %>;
+    .branded-btn:hover {
       color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
     }
 
     .branded-primary {
-      color: <%= brand.branded_button_color %>;
-    }
-
-    .branded-primary-btn {
-      background-color: <%= brand.branded_button_color %>;
-    }
-
-    .branded-primary-btn:hover {
       color: <%= brand.branded_button_color %>;
     }
 
@@ -122,21 +114,15 @@
     }
   <% else %>
     .branded-btn {
-      background-color: #F93549; // $primary-red;
+      background-color: #FFFFFF; // $ui-white;
     }
 
-    .branded-btn.alt {
-      border-color: #F93549; // $primary-red;
-      color: #F93549; // $primary-red;
+    .branded-btn:hover {
+      background-color: #F93549; // $primary-red;
     }
 
     .branded-primary {
       color: #F93549; // $primary-red;
-    }
-
-    .branded-primary-btn {
-      color: #F93549; // $type-red;
-      border-color: #F93549; // $type-red;
     }
 
     .branded-titles h2.top-title {
@@ -154,16 +140,7 @@
       border-color: <%= brand.branded_button_text_color %>;
     }
 
-    .branded-btn.alt {
-      background-color: <%= brand.branded_button_text_color %>;
-    }
-
-    .branded-primary-btn {
-      color: <%= brand.branded_button_text_color %>;
-      border-color: <%= brand.branded_button_text_color %>;
-    }
-
-    .branded-primary-btn:hover {
+    .branded-btn:hover {
       background-color: <%= brand.branded_button_text_color %>;
     }
 
@@ -176,16 +153,12 @@
     }
   <% else %>
     .branded-btn {
+      color: #2F2F2F; // $default-text-color;
+      border-color: #F93549; // $primary-red;
+    }
+
+    .branded-btn:hover {
       color: #FFFFFF; // $ui-white;
-      border-color: #FFFFFF; // $ui-white;
-    }
-
-    .branded-btn.alt {
-      background-color: #FFFFFF; // $ui-white;
-    }
-
-    .branded-primary-btn {
-      background-color: #FFFFFF; // $ui-white;
     }
 
     .branded-primary-text {

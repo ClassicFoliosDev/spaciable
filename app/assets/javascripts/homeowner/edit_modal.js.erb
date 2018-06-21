@@ -20,7 +20,7 @@
       buttons: [
         {
           text: dataIn.cancel,
-          class: 'branded-btn alt',
+          class: 'branded-btn',
           click: function () {
             $(this).dialog('close')
             $(this).dialog('destroy').remove()
@@ -28,7 +28,7 @@
         },
         {
           text: dataIn.cta,
-          class: 'btn-update branded-primary-btn',
+          class: 'btn-update branded-btn',
           id: 'btn_submit',
           click: function () {
               $.ajax({

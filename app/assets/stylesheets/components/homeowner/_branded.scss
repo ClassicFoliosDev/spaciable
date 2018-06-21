@@ -4,22 +4,7 @@
   border-radius: 5px;
   padding: 0 $spacing-small;
   display: inline-block;
-}
 
-.branded-btn.alt {
-  font-size: $base-small-font-size;
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
-}
-
-.branded-btn.second {
-  background-color: $secondary-cta-color;
-  border-color: $ui-white;
-  color: $ui-white;
-  font-size: $base-button-font-size;
 }
 
 .branded-hero {
@@ -86,15 +71,6 @@
   }
 }
 
-.branded-primary-btn {
-  input {
-    color: inherit;
-    background-color: inherit;
-    border-color: inherit;
-    margin-bottom: $spacing-small;
-  }
-}
-
 // These colours will be over-ridden if branding is applied
 
 .top-title {
@@ -103,14 +79,4 @@
 
 .second-title {
   color: $primary-red;
-}
-
-.branded-primary-btn {
-  color: $primary-cta-color;
-  border-color: $primary-cta-color;
-
-  &:hover {
-    background-color: $primary-cta-color;
-    color: $primary-blue;
-  }
 }
