@@ -2,11 +2,11 @@
 
 <div class="branded-body">
 
-  <div class="about-section">
-    <% if @plot.unit_type.external_link? %>
+  <% if @plot.unit_type.external_link? %>
+    <div class="about-section">
       <iframe src=<%= @plot.external_link %> frameborder="0" allowfullscreen></iframe>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 
   <div class="about-section">
     <%= link_to homeowner_my_home_path, active_tab: "rooms", class: "about-card branded-content branded-border" do %>
