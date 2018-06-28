@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Trade Gothic Regular";
-  src: url(/assets/TradeGothicNextLTPro-Rg.otf) format("truetype");
+  src: asset-url("TradeGothicNextLTPro-Rg.otf") format("truetype");
 }
 
 @font-face {
   font-family: "Trade Gothic Heavy";
-  src: url(/assets/TradeGothicNextLTPro-Hv.otf) format("truetype");
+  src: asset-url("TradeGothicNextLTPro-Hv.otf") format("truetype");
 }
 
 $base-font-family: 'Open Sans', sans-serif;

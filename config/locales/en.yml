@@ -862,8 +862,8 @@ en:
     sessions:
       new:
         login_cta: "Login"
-        welcome_1: "ISYT? isn't just a hub,"
-        welcome_2: "it's a librarian"
+        welcome_1: "Queries about your home?"
+        welcome_2: "ISYT? has the answers"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         intro_para_1: "Your personal home portal – ISYT? – knows all about your property and can provide downloadable documents, key contacts,
         notifications, maintenance advice and much more."

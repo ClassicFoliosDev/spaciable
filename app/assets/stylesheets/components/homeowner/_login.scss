@@ -35,7 +35,7 @@
     input[type="submit"] {
       @include span-columns(12 of 12);
       font-weight: bold;
-      padding: 4px;
+      padding: 6px;
     }
   }
 
@@ -70,6 +70,10 @@
     .error {
       color: $ui-white;
     }
+  }
+
+  input:disabled {
+    cursor: not-allowed;
   }
 }
 
