@@ -15,18 +15,26 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :prefix %>
-
         <% if f.object.persisted? %>
           <%= f.input :number %>
-
+          <%= f.input :reservation_release_date, as: :string,
+             placeholder: "DD/MM/YYYY",
+             input_html: { type: :date } %>
+          <%= f.input :completion_release_date, as: :string,
+                     placeholder: "DD/MM/YYYY",
+                     input_html: { type: :date } %>
+          <%= f.label :validity %>
+          <%= f.number_field :validity, min: 0 %>
+          <%= f.label :extended_access %>
+          <%= f.number_field :extended_access, min: 0 %>
+        <% else %>
           <hr>
-
           <span class="hint range-hint"><%= t(".optional_range_hint") %></span>
+          <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
+          <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
+          <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
         <% end %>
 
-        <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
-        <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
-        <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
       </fieldset>
     </div>
 

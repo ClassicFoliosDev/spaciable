@@ -31,6 +31,9 @@ class Plot < ApplicationRecord
 
   validates :number, presence: true
   validates :unit_type, presence: true
+  validates :validity, :extended_access, numericality: {
+    greater_than_or_equal_to: 0, only_integer: true
+  }
   validates_with PlotCombinationValidator
 
   delegate :picture, to: :unit_type, prefix: true
@@ -149,6 +152,17 @@ class Plot < ApplicationRecord
 
   def private_document_count
     residents.map { |resident| resident&.private_documents&.count.to_i }.sum
+  end
+
+  def expiry_date
+    return if completion_release_date.blank?
+    completion_release_date + validity.months + extended_access.months
+  end
+
+  def show_maintenance?
+    return false if maintenance_link.blank?
+    return true if expiry_date.blank?
+    Time.zone.today < expiry_date
   end
 
   def to_s

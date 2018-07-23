@@ -52,7 +52,7 @@ class PlotsController < ApplicationController
 
   def update
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
-      if updated_plots.any?
+      if updated_plots.any? && @plot.valid?
         notify_and_redirect(updated_plots, errors)
       else
         flash.now[:alert] = errors if errors
@@ -113,6 +113,7 @@ class PlotsController < ApplicationController
       prefix number unit_type_id house_number road_name
       building_name locality city county postcode
       progress notify user_id completion_date
+      reservation_release_date completion_release_date validity extended_access
     ]
   end
 

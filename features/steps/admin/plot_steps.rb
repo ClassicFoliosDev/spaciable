@@ -8,8 +8,10 @@ Then(/^I should see the created plot$/) do
   expect(page).to have_content(PlotFixture.developer_name)
   click_on PlotFixture.plot_name
 
-  expect(page).to have_content(PlotFixture.plot_number)
-  expect(page).to have_content(PlotFixture.unit_type_name)
+  within ".about" do
+    expect(page).to have_content(PlotFixture.plot_number)
+    expect(page).to have_content(PlotFixture.unit_type_name)
+  end
 
   click_on t("plots.edit.back")
 end
@@ -293,6 +295,28 @@ When(/^I update the completion date for the plot$/) do
 
   check :plot_notify
   click_on t("plots.form.submit")
+end
+
+When(/^I update the release dates$/) do
+  plot = CreateFixture.phase_plot
+  visit "/plots/#{plot.id}/edit"
+
+  within ".edit_plot" do
+    fill_in :plot_reservation_release_date, with: PlotFixture.reservation_release_date
+    fill_in :plot_completion_release_date, with: PlotFixture.completion_release_date
+    fill_in :plot_validity, with: 20
+    fill_in :plot_extended_access, with: 2
+  end
+
+  click_on t("plots.form.submit")
+end
+
+Then(/^I should see the expiry date has been updated$/) do
+  expiry_date = Time.zone.today.advance(months: 22).strftime("%d %B %Y")
+
+  within ".about" do
+    expect(page).to have_content " Expiry date: #{expiry_date}"
+  end
 end
 
 Then(/^both residents have been notified of the completion date$/) do
