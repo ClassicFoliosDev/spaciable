@@ -17,7 +17,7 @@ RSpec.describe Csv::DevelopmentCsvService do
     it "creates the csv correctly" do
       plot_resident_a
       plot_resident_b
-      plot_c
+      plot_c.update_attributes(completion_release_date: Time.zone.now, extended_access: 2)
       plot_d  
       start_date = Time.zone.now.ago(1.month).to_date
       end_date = Time.zone.now.to_date   
@@ -35,6 +35,9 @@ RSpec.describe Csv::DevelopmentCsvService do
       expect(csv[2]["Plot number"]).to eq plot_b.to_s
       expect(csv[3]["Plot number"]).to eq plot_d.to_s
       expect(csv[4]["Plot number"]).to eq plot_c.to_s
+
+      expiry_date = Time.zone.today.advance(months: 26).to_s
+      expect(csv[4]["Expiry date"]).to eq expiry_date
     end
   end
 end

@@ -19,6 +19,8 @@ module BulkPlots
       params[:progress] = base_plot.progress if plot_params[:progress]&.empty?
 
       bulk_update
+
+      @errors << base_plot unless base_plot.valid?
     end
 
     def bulk_update

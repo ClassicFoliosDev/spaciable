@@ -1051,6 +1051,7 @@ en:
       none: "(n/a)"
       progress: "Build progress: "
       completion_date: "Legal completion date: "
+      expiry_date: "Expiry date: "
     completion:
       title: "Legal completion date"
 
@@ -1542,6 +1543,10 @@ en:
         number: "Plot number"
         house_number: "Postal number / name"
         updated_at: "Last edited"
+        reservation_release_date: "Reservation release date"
+        completion_release_date: "Completion release date"
+        validity: "Validity (months)"
+        extended_access: "Extended access (months)"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"

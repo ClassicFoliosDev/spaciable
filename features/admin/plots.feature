@@ -44,6 +44,8 @@ Feature: Plots
     And both residents have been notified
     When I update the completion date for the plot
     Then both residents have been notified of the completion date
+    When I update the release dates
+    Then I should see the expiry date has been updated
     And I can not create a plot
     And I can not edit a plot
 

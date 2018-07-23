@@ -77,6 +77,14 @@ module PlotFixture
     I18n.l(Time.zone.today.advance(days: 7))
   end
 
+  def completion_release_date
+    I18n.l(Time.zone.today)
+  end
+
+  def reservation_release_date
+    I18n.l(Time.zone.today.ago(1.month))
+  end
+
   def update_attrs
     {
       prefix: "Plot",

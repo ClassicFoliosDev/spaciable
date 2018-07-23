@@ -12,7 +12,7 @@ module BulkPlots
     attr_accessor :collection, :params, :numbers, :errors, :base_plot
 
     BulkPersistPlotsModel = Class.new(Plot) do
-      attr_accessor :range_from, :range_to, :list
+      attr_accessor :range_from, :range_to, :list, :validity
     end
 
     def collection_model

@@ -90,7 +90,7 @@ Then(/^no emails are sent to the unactivated homeowner$/) do
 
   # The updates are sent to other recipients, but should not go to the
   # unactivated homeowner
-  expect(email_notifications.count).to eq 2
+  expect(email_notifications.count).to eq 1
   email_notifications.each do |notification|
     if notification.subject == t("resident_notification_mailer.notify.update_subject")
       expect(notification.to).not_to include(HomeownerUserFixture.email)

@@ -10,3 +10,5 @@ Feature: Homeowner external links
     Then I should see the bafm link
     When I visit the maintenance page
     Then I should see the fixflo page
+    When the expiry date is past
+    Then I should not see the maintenance link

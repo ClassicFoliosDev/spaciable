@@ -36,7 +36,7 @@
         </li>
       <% end %>
 
-      <% if plot.maintenance_link.present? %>
+      <% if plot.show_maintenance? %>
         <%= link_to homeowner_maintenance_path, class: "navbar-link branded-primary" do %>
           <li class="navbar-item branded-primary">
             <%= t(".maintenance") %>

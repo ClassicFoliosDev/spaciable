@@ -17,8 +17,8 @@ module Csv
 
     def self.headers
       [
-        "Development name", "Plot number", "Phase", "Resident email", "Resident name",
-        "Resident invited on", "Resident invited by", "Resident activated",
+        "Development name", "Plot number", "Phase", "Expiry date", "Resident email",
+        "Resident name", "Resident invited on", "Resident invited by", "Resident activated",
         "Resident last sign in", "Lifetime sign in count", "Notifications #{@between}",
         "Developer updates", "ISYT? updates", "Telephone updates", "Post updates",
         "Terms and conditions accepted", "Services subscribed"
@@ -33,7 +33,7 @@ module Csv
       plots.each do |plot|
         csv << plot_info(plot) if plot.residents.empty?
         plot.residents.includes(:services).each do |resident|
-          csv << resident_info(plot, resident)
+          csv << plot_info(plot) + resident_info(resident)
         end
       end
     end
@@ -49,13 +49,14 @@ module Csv
       [
         "",
         plot.to_s,
-        plot.phase.to_s
+        plot.phase.to_s,
+        plot.expiry_date
       ]
     end
 
-    def self.resident_info(plot, resident)
+    def self.resident_info(resident)
       [
-        "", plot.to_s, plot.phase.to_s, resident.email, resident.to_s,
+        resident.email, resident.to_s,
         build_date(resident, "invitation_sent_at"), resident&.invited_by&.email,
         build_date(resident, "invitation_accepted_at"), build_date(resident, "last_sign_in_at"),
         resident.sign_in_count, notification_count(resident.id),
