@@ -28,8 +28,8 @@ module Csv
     def self.append_data(csv, development)
       csv << development_info(development)
 
-      plots = development.plots.includes(:phase)
-      plots = sort_plot_numbers(plots)
+      plots = development_plots(development)
+
       plots.each do |plot|
         csv << plot_info(plot) if plot.residents.empty?
         plot.residents.includes(:services).each do |resident|
@@ -87,13 +87,6 @@ module Csv
       ResidentNotification.where(resident_id: resident_id)
                           .where(created_at: @from.beginning_of_day..@to.end_of_day)
                           .count
-    end
-
-    def self.sort_plot_numbers(plots)
-      plot_array = plots.sort
-      ids = plot_array.map(&:id)
-
-      Plot.where(id: ids).order("position(id::text in '#{ids.join(',')}')")
     end
   end
 end

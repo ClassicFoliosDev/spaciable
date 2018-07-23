@@ -50,6 +50,13 @@
           name: :development,
           class: "development-csv",
           disabled: true %>
+
+      <%= f.button :submit, t(".billing"),
+          data: { disable_with: false },
+          name: :billing,
+          class: "billing-csv" %><br/>
+      <%= f.label t(".billing_info") %>
+
     </div>
   </div>
 
