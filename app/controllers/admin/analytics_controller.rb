@@ -23,6 +23,7 @@ module Admin
     def build_csv
       return Csv::AllDeveloperCsvService.call(@report) if params[:all].present?
       return Csv::DeveloperCsvService.call(@report) if params[:developer].present?
+      return Csv::BillingCsvService.call(@report) if params[:billing].present?
       Csv::DevelopmentCsvService.call(@report)
     end
 

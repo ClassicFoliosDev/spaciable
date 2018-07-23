@@ -18,7 +18,7 @@ module Csv
       formatted_to = I18n.l(@to.to_date, format: :digits)
       @between = "between #{formatted_from} and #{formatted_to}"
 
-      Rails.root.join("tmp/#{filename}")
+      Rails.root.join("tmp/#{filename}_#{formatted_from}_#{formatted_to}.csv")
     end
 
     def self.dates_for(resource)
@@ -26,6 +26,24 @@ module Csv
         I18n.l(resource.created_at.to_date, format: :digits),
         I18n.l(resource.updated_at.to_date, format: :digits)
       ]
+    end
+
+    def self.development_plots(development)
+      phases = development.phases.order(:name)
+      plots = Plot.none
+      phases.each do |phase|
+        unsorted_plots = phase.plots.where(created_at: @from.beginning_of_day..@to.end_of_day)
+        plots += sort_plot_numbers(unsorted_plots)
+      end
+
+      plots
+    end
+
+    def self.sort_plot_numbers(plots)
+      plot_array = plots.sort
+      ids = plot_array.map(&:id)
+
+      Plot.where(id: ids).order("position(id::text in '#{ids.join(',')}')")
     end
   end
 end

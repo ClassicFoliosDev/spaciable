@@ -442,6 +442,8 @@ en:
         developer: "Download report for developer"
         development: "Download report for development"
         all: "Download summary report for all developers"
+        billing: "Download billing report for all plots under all developers"
+        billing_info: "WARNING: This file may be slow and large, use the dates to reduce the content"
 
   dashboard:
     header: "Dashboard title for ISYT?"

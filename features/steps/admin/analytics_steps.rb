@@ -90,18 +90,13 @@ Then(/^the development CSV contents are correct$/) do
   path = Rails.root.join("tmp/#{filename}")
 
   csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq(3)
+  expect(csv.size).to eq(2)
 
   development = Development.find_by(name: CreateFixture.development_name)
-  
-  development_row = csv[0]
-  expect(development_row["Development name"]).to eq development.to_s
 
-  first_plot_row = csv[1]
-  second_plot_row = csv[2]
-
-  expect(first_plot_row["Plot number"]).to eq "100"
-  expect(second_plot_row["Plot number"]).to eq "200"
+  expect(csv[0]["Development name"]).to eq development.to_s
+  expect(csv[1]["Plot number"]).to eq "200"
+  # Plot 100 has no phase, so won't show up in this CSV
 end
 
 Then(/^the all developer CSV contents are correct$/) do
@@ -133,4 +128,23 @@ Given(/^there is another developer with a division and development$/) do
   developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil)
   FactoryGirl.create(:division, division_name: AnalyticsFixture.division_name, developer: developer)
   FactoryGirl.create(:development, name: AnalyticsFixture.development_name, developer: developer)
+end
+
+Then(/^I export billing CSV$/) do
+  within ".report-buttons" do
+    click_on t("admin.analytics.new.billing")
+  end
+end
+
+Then(/^the all billing CSV contents are correct$/) do
+  header = page.response_headers['Content-Disposition']
+  expect(header).to include "billing"
+
+  filename = header.partition('filename="').last.chomp('"')
+  path = Rails.root.join("tmp/#{filename}")
+
+  csv = CSV.read(path, headers: true)
+
+  expect(csv.size).to eq(1)
+  expect(csv[0]["Plot"]).to eq "200"
 end
