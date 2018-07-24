@@ -155,4 +155,66 @@ RSpec.describe "Plot Abilities" do
       expect(ability).to be_able_to(:crud, plot_resident)
     end
   end
+
+  context "As a site admin" do
+    specify "can read plots under the development" do
+      development = create(:development)
+      site_admin = create(:site_admin, permission_level: development)
+
+      plot = create(:plot, development: development)
+      ability = Ability.new(site_admin)
+
+      expect(ability).to be_able_to(:read, plot)
+      expect(ability).not_to be_able_to(:crud, plot)
+    end
+
+    specify "can read plots under the development phase" do
+      development = create(:development)
+      site_admin = create(:site_admin, permission_level: development)
+
+      phase = create(:phase, development: development)
+      plot = create(:phase_plot, phase: phase)
+
+      ability = Ability.new(site_admin)
+
+      expect(ability).to be_able_to(:read, plot)
+      expect(ability).not_to be_able_to(:crud, plot)
+    end
+
+    specify "cannot read plots from other developments" do
+      other_development = create(:development)
+
+      unit_type = create(:unit_type, development: other_development)
+      plot = create(:plot, unit_type: unit_type, development: other_development)
+
+      site_admin = create(:site_admin)
+      ability = Ability.new(site_admin)
+
+      expect(ability).not_to be_able_to(:read, plot)
+      expect(ability).not_to be_able_to(:crud, plot)
+    end
+
+    specify "can add residents to a development plot" do
+      development = create(:development)
+      site_admin = create(:site_admin, permission_level: development)
+
+      plot = create(:plot, development: development)
+      resident = create(:resident)
+      plot_resident = create(:plot_residency, plot: plot, resident: resident)
+
+      ability = Ability.new(site_admin)
+
+      expect(ability).to be_able_to(:create, resident)
+      expect(ability).to be_able_to(:crud, plot_resident)
+    end
+
+    specify "can not clone a unit type" do
+      development = create(:development)
+      site_admin = create(:site_admin, permission_level: development)
+      unit_type = create(:unit_type, development: development)
+
+      ability = Ability.new(site_admin)
+      expect(ability).not_to be_able_to(:clone, unit_type)
+    end
+  end
 end

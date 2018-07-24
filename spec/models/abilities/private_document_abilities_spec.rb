@@ -72,6 +72,22 @@ RSpec.describe "Private document abilities" do
       end
     end
 
+    context "As a site admin" do
+      specify "can not manage plot documents even from development plots" do
+        development = create(:development, developer: developer)
+        plot = create(:plot, development: development)
+
+        resident = create(:resident, plot: plot)
+        private_document = create(:private_document, resident: resident)
+
+        site_admin = create(:site_admin, permission_level: development)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, private_document)
+        expect(ability).not_to be_able_to(:read, private_document)
+      end
+    end
+
     context "As a resident" do
       specify "can manage my own documents" do
         development = create(:development, developer: developer)

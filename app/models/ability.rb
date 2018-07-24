@@ -7,6 +7,7 @@ class Ability
   include Abilities::DeveloperAbilities
   include Abilities::DivisionAbilities
   include Abilities::DevelopmentAbilities
+  include Abilities::SiteAbilities
   include Abilities::ResidentAbilities
 
   def initialize(user, plot = nil)
@@ -34,6 +35,8 @@ class Ability
       division_admin_abilities(user)
     when :development_admin
       development_admin_abilities(user)
+    when :site_admin
+      site_admin_abilities(user)
     end
   end
 
@@ -69,5 +72,13 @@ class Ability
     developer_id = development.developer_id || division&.developer_id
 
     development_abilities(development.id, development.division_id, developer_id)
+  end
+
+  def site_admin_abilities(user)
+    development = user.permission_level
+    division = development.division
+    developer_id = development.developer_id || division&.developer_id
+
+    site_abilities(development.id, development.division_id, developer_id)
   end
 end

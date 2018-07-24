@@ -184,6 +184,41 @@ RSpec.describe ContactsController do
     end
   end
 
+  context "as a SiteAdmin" do
+    context "for a developer contact" do
+      it "should redirect to the root url" do
+        admin = create(:site_admin)
+        login_as admin
+        get url_for([:new, admin.permission_level.developer, :contact])
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "for a division contact" do
+      it "should redirect to the root url" do
+        division_development = create(:division_development)
+        admin = create(:site_admin, permission_level: division_development)
+
+        login_as admin
+        get url_for([:new, admin.permission_level.division, :contact])
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "for a development contact" do
+      it "should redirect to the root url" do
+        admin = create(:site_admin)
+
+        login_as admin
+        get url_for([:new, admin.permission_level, :contact])
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+  end
+
   describe "#create" do
     let(:params) { { contact: { name: "" } } }
 

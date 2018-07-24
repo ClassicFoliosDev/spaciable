@@ -76,6 +76,28 @@ RSpec.describe "Document Abilities" do
         expect(ability).not_to be_able_to(:manage, document)
       end
     end
+
+    context "As a site admin" do
+      specify "can not manage plot documents under the development" do
+        plot = create(:plot)
+        document = build(:document, documentable: plot)
+
+        site_admin = create(:site_admin, permission_level: plot.development)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, document)
+      end
+
+      specify "cannot manage plot documents under another development" do
+        plot = create(:plot)
+        document = build(:document, documentable: plot)
+
+        site_admin = create(:site_admin)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, document)
+      end
+    end
   end
 
   describe "unit_type documents" do
@@ -146,6 +168,28 @@ RSpec.describe "Document Abilities" do
         expect(ability).not_to be_able_to(:manage, document)
       end
     end
+
+    context "As a site admin" do
+      specify "can not manage unit_type under the development" do
+        unit_type = create(:unit_type)
+        document = build(:document, documentable: unit_type)
+
+        site_admin = create(:site_admin, permission_level: unit_type.development)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, document)
+      end
+
+      specify "cannot manage unit_types under another development" do
+        unit_type = create(:unit_type)
+        document = build(:document, documentable: unit_type)
+
+        site_admin = create(:site_admin)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, document)
+      end
+    end
   end
 
   describe "phase documents" do
@@ -212,6 +256,28 @@ RSpec.describe "Document Abilities" do
 
         development_admin = create(:development_admin)
         ability = Ability.new(development_admin)
+
+        expect(ability).not_to be_able_to(:manage, document)
+      end
+    end
+
+    context "As a site admin" do
+      specify "can not manage phase under the development" do
+        phase = create(:phase)
+        document = build(:document, documentable: phase)
+
+        site_admin = create(:site_admin, permission_level: phase.development)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, document)
+      end
+
+      specify "cannot manage phases under another development" do
+        phase = create(:phase)
+        document = build(:document, documentable: phase)
+
+        site_admin = create(:site_admin)
+        ability = Ability.new(site_admin)
 
         expect(ability).not_to be_able_to(:manage, document)
       end

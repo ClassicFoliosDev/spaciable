@@ -81,5 +81,30 @@ RSpec.describe "Video Abilities" do
         expect(ability).not_to be_able_to(:manage, video)
       end
     end
+
+    context "As a site admin" do
+      specify "can not manage videos for my development" do
+        developer = create(:developer)
+        development = create(:development, developer: developer)
+        video = build(:video, videoable: development)
+
+        site_admin = create(:site_admin, permission_level: development)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, video)
+      end
+
+      specify "cannot manage vidoes for other developments" do
+        developer = create(:developer)
+        development = create(:development, developer: developer)
+        other_development = create(:development, developer: developer)
+        video = build(:video, videoable: other_development)
+
+        site_admin = create(:site_admin, permission_level: development)
+        ability = Ability.new(site_admin)
+
+        expect(ability).not_to be_able_to(:manage, video)
+      end
+    end
   end
 end

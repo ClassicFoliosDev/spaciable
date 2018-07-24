@@ -1,12 +1,15 @@
 <h3 class="section-title">
   <%= t("dashboard.section.notifications.title") %>
 </h3>
-<div class="section-actions">
-  <%= link_to [:new, :admin, :notification], class: "btn btn-primary" do %>
-    <i class="fa fa-plus"></i>
-    <span class="btn-label"><%= t(".send") %></span>
-  <% end %>
-</div>
+
+<% if can? :crud, Notification %>
+  <div class="section-actions">
+    <%= link_to [:new, :admin, :notification], class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t(".send") %></span>
+    <% end %>
+  </div>
+<% end %>
 
 <% if notifications.empty? %>
   <%= render 'admin/dashboard/components/no_recent', icon_name: "envelope", type: Notification %>

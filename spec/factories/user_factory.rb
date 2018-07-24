@@ -26,5 +26,10 @@ FactoryGirl.define do
       role { :development_admin }
       permission_level { |user| user.association(:development) }
     end
+
+    factory :site_admin do
+      role { :site_admin }
+      permission_level { |user| user.association(:development) }
+    end
   end
 end

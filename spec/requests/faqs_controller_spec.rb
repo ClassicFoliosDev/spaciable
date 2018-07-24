@@ -182,6 +182,41 @@ RSpec.describe FaqsController do
         end
       end
     end
+
+    context "as a SiteAdmin" do
+      context "for a developer faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          login_as admin
+          get url_for([:new, admin.permission_level.developer, :faq])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division faq" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+
+          login_as admin
+          get url_for([:new, admin.permission_level.division, :faq])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+
+          login_as admin
+          get url_for([:new, admin.permission_level, :faq])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+    end
   end
 
   describe "#create" do
@@ -289,6 +324,41 @@ RSpec.describe FaqsController do
           post url_for([admin.permission_level, :faqs]), params: params
 
           expect(response.status).to eq(200)
+        end
+      end
+    end
+
+    context "as a SiteAdmin" do
+      context "for a developer faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          login_as admin
+          post url_for([admin.permission_level.developer, :faqs]), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division faq" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+
+          login_as admin
+          post url_for([admin.permission_level.division, :faqs]), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+
+          login_as admin
+          post url_for([admin.permission_level, :faqs]), params: params
+
+          expect(response.redirect_url).to eq(root_url)
         end
       end
     end
@@ -409,6 +479,45 @@ RSpec.describe FaqsController do
           get url_for([:edit, faq])
 
           expect(response.status).to eq(200)
+        end
+      end
+    end
+
+    context "as a SiteAdmin" do
+      context "for a developer faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          faq = create(:faq, faqable: admin.permission_level.developer)
+
+          login_as admin
+          get url_for([:edit, faq])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division faq" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+          faq = create(:faq, faqable: division_development.division)
+
+          login_as admin
+          get url_for([:edit, faq])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          faq = create(:faq, faqable: admin.permission_level)
+
+          login_as admin
+          get url_for([:edit, faq])
+
+          expect(response.redirect_url).to eq(root_url)
         end
       end
     end
@@ -534,6 +643,45 @@ RSpec.describe FaqsController do
         end
       end
     end
+
+    context "as a SiteAdmin" do
+      context "for a developer faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          faq = create(:faq, faqable: admin.permission_level.developer)
+
+          login_as admin
+          put url_for(faq), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division faq" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+          faq = create(:faq, faqable: division_development.division)
+
+          login_as admin
+          put url_for(faq), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          faq = create(:faq, faqable: admin.permission_level)
+
+          login_as admin
+          put url_for(faq), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+    end
   end
 
   describe "#destroy" do
@@ -651,6 +799,45 @@ RSpec.describe FaqsController do
           delete url_for(faq)
 
           expect(response.redirect_url).not_to eq(root_url)
+        end
+      end
+    end
+
+    context "as a SiteAdmin" do
+      context "for a developer faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          faq = create(:faq, faqable: admin.permission_level.developer)
+
+          login_as admin
+          delete url_for(faq)
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division faq" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+          faq = create(:faq, faqable: division_development.division)
+
+          login_as admin
+          delete url_for(faq)
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development faq" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          faq = create(:faq, faqable: admin.permission_level)
+
+          login_as admin
+          delete url_for(faq)
+
+          expect(response.redirect_url).to eq(root_url)
         end
       end
     end

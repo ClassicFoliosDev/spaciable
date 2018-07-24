@@ -30,6 +30,15 @@ RSpec.describe DivisionsController do
         expect(response.redirect_url).to eq(root_url)
       end
     end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        login_as create(:site_admin)
+        get new_division_path
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
   end
 
   describe "#create" do
@@ -56,6 +65,15 @@ RSpec.describe DivisionsController do
     context "as a DevelopmentAdmin" do
       it "should redirect to the root url" do
         login_as create(:development_admin)
+        post divisions_path, params: params
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        login_as create(:site_admin)
         post divisions_path, params: params
 
         expect(response.redirect_url).to eq(root_url)
@@ -90,6 +108,18 @@ RSpec.describe DivisionsController do
       it "should redirect to the root url" do
         division_development = create(:division_development)
         admin = create(:development_admin, permission_level: division_development)
+        login_as admin
+
+        get edit_division_path(admin.permission_level.division)
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        division_development = create(:division_development)
+        admin = create(:site_admin, permission_level: division_development)
         login_as admin
 
         get edit_division_path(admin.permission_level.division)
@@ -132,6 +162,18 @@ RSpec.describe DivisionsController do
         expect(response.redirect_url).to eq(root_url)
       end
     end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        division_development = create(:division_development)
+        admin = create(:site_admin, permission_level: division_development)
+        login_as admin
+
+        put division_path(admin.permission_level.division)
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
   end
 
   describe "#destroy" do
@@ -161,6 +203,18 @@ RSpec.describe DivisionsController do
       it "should redirect to the root url" do
         division_development = create(:division_development)
         admin = create(:development_admin, permission_level: division_development)
+        login_as admin
+
+        delete division_path(admin.permission_level.division)
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        division_development = create(:division_development)
+        admin = create(:site_admin, permission_level: division_development)
         login_as admin
 
         delete division_path(admin.permission_level.division)

@@ -66,4 +66,19 @@ RSpec.describe "Notification Abiltities" do
       expect(subject).not_to be_able_to(:send_to_all, Notification)
     end
   end
+
+  context "as a Site Admin" do
+    let(:current_user) { create(:site_admin) }
+
+    it "cannot send a notification to all" do
+      development = current_user.permission_level
+      notification = Notification.new(send_to_all: true, send_to: development)
+
+      expect(subject).not_to be_able_to(:send, notification)
+      expect(subject).not_to be_able_to(:create, notification)
+      expect(subject).not_to be_able_to(:read, notification)
+
+      expect(subject).not_to be_able_to(:send_to_all, Notification)
+    end
+  end
 end
