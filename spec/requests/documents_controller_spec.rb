@@ -161,6 +161,41 @@ RSpec.describe DocumentsController do
         end
       end
     end
+
+    context "as a SiteAdmin" do
+      context "for a developer document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          login_as admin
+          get url_for([:new, admin.permission_level.developer, :document])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division document" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+
+          login_as admin
+          get url_for([:new, admin.permission_level.division, :document])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+
+          login_as admin
+          get url_for([:new, admin.permission_level, :document])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+    end
   end
 
   describe "#create" do
@@ -268,6 +303,41 @@ RSpec.describe DocumentsController do
           post url_for([admin.permission_level, :documents]), params: params
 
           expect(response.status).to eq(200)
+        end
+      end
+    end
+
+    context "as a SiteAdmin" do
+      context "for a developer document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          login_as admin
+          post url_for([admin.permission_level.developer, :documents]), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division document" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+
+          login_as admin
+          post url_for([admin.permission_level.division, :documents]), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+
+          login_as admin
+          post url_for([admin.permission_level, :documents]), params: params
+
+          expect(response.redirect_url).to eq(root_url)
         end
       end
     end
@@ -397,6 +467,48 @@ RSpec.describe DocumentsController do
           get url_for([:edit, document])
 
           expect(response.status).to eq(200)
+        end
+      end
+    end
+
+    context "as a SiteAdmin" do
+      context "for a developer document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
+
+          login_as admin
+          get url_for([:edit, document])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division document" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+          document = build(:document, documentable: division_development.division)
+          document.save(validate: false)
+
+          login_as admin
+          get url_for([:edit, document])
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
+
+          login_as admin
+          get url_for([:edit, document])
+
+          expect(response.redirect_url).to eq(root_url)
         end
       end
     end
@@ -531,6 +643,48 @@ RSpec.describe DocumentsController do
         end
       end
     end
+
+    context "as a SiteAdmin" do
+      context "for a developer document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
+
+          login_as admin
+          put url_for(document), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division document" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+          document = build(:document, documentable: division_development.division)
+          document.save(validate: false)
+
+          login_as admin
+          put url_for(document), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
+
+          login_as admin
+          put url_for(document), params: params
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+    end
   end
 
   describe "#destroy" do
@@ -657,6 +811,48 @@ RSpec.describe DocumentsController do
           delete url_for(document)
 
           expect(response.redirect_url).not_to eq(root_url)
+        end
+      end
+    end
+
+    context "as a SiteAdmin" do
+      context "for a developer document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          document = build(:document, documentable: admin.permission_level.developer)
+          document.save(validate: false)
+
+          login_as admin
+          delete url_for(document)
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a division document" do
+        it "should redirect to the root url" do
+          division_development = create(:division_development)
+          admin = create(:site_admin, permission_level: division_development)
+          document = build(:document, documentable: division_development.division)
+          document.save(validate: false)
+
+          login_as admin
+          delete url_for(document)
+
+          expect(response.redirect_url).to eq(root_url)
+        end
+      end
+
+      context "for a development document" do
+        it "should redirect to the root url" do
+          admin = create(:site_admin)
+          document = build(:document, documentable: admin.permission_level)
+          document.save(validate: false)
+
+          login_as admin
+          delete url_for(document)
+
+          expect(response.redirect_url).to eq(root_url)
         end
       end
     end

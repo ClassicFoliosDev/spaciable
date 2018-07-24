@@ -4,6 +4,7 @@ module Abilities
   module DevelopmentAbilities
     def development_abilities(development, division_id, developer_id)
       crud_users(role: :development_admin, id: development, model: "Development")
+      crud_users(role: :site_admin, id: development, model: "Development")
 
       development_notifications(development, division_id, developer_id)
       development_faqs(development, division_id, developer_id)

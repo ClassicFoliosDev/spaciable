@@ -54,6 +54,7 @@ en:
   developer_admin: "Developer Admin"
   division_admin: "Division Admin"
   development_admin: "Development Admin"
+  site_admin: "Site Admin"
   homeowner: "Homeowner"
 
   choose: "Choose file"

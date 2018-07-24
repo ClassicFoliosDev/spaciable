@@ -1,9 +1,11 @@
-<div class="section-actions">
-  <%= link_to [:new, :admin, :notification], class: "btn btn-primary" do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
-  <% end %>
-</div>
+<% if can? :crud, Notification %>
+  <div class="section-actions">
+    <%= link_to [:new, :admin, :notification], class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+    <% end %>
+  </div>
+<% end %>
 
 <table class="record-list">
   <thead>

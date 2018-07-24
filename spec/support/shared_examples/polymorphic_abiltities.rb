@@ -381,4 +381,100 @@ RSpec.shared_examples "it has cascading polymorphic abilities" do |polymorphic_c
       end
     end
   end
+
+  context "as a Site Admin" do
+    let(:developer) { create(:developer) }
+    let(:development) { create(:development, developer: developer) }
+    let(:current_user) { create(:site_admin, permission_level: development) }
+    let(:model_instance) { polymorphic_class.new }
+
+    specify "I can READ a model when associated with my developments developer" do
+      model_instance.send("#{belongs_to_association}=", developer)
+
+      safe_actions.each do |action|
+        expect(subject).to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot change a model when associated with my developments developer" do
+      developer = current_user.permission_level.developer
+      model_instance.send("#{belongs_to_association}=", developer)
+
+      unsafe_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with another developer" do
+      other_developer = create(:developer)
+      model_instance.send("#{belongs_to_association}=", other_developer)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with a division that is under my developments developer" do
+      developer = current_user.permission_level.developer
+      division = create(:division, developer: developer)
+      model_instance.send("#{belongs_to_association}=", division)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with another developers division" do
+      other_developer = create(:developer)
+      division = create(:division, developer: other_developer)
+      model_instance.send("#{belongs_to_association}=", division)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with another development that is under my developer" do
+      developer = current_user.permission_level.developer
+      development = create(:development, developer: developer)
+      model_instance.send("#{belongs_to_association}=", development)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with another developers development" do
+      other_developer = create(:developer)
+      development = create(:development, developer: other_developer)
+      model_instance.send("#{belongs_to_association}=", development)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with a division development that is under my developer" do
+      developer = current_user.permission_level.developer
+      division = create(:division, developer: developer)
+      division_development = create(:division_development, division: division)
+      model_instance.send("#{belongs_to_association}=", division_development)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+
+    specify "I cannot CRUD a model when associated with another developers division development" do
+      other_developer = create(:developer)
+      division = create(:division, developer: other_developer)
+      division_development = create(:division_development, division: division)
+      model_instance.send("#{belongs_to_association}=", division_development)
+
+      all_actions.each do |action|
+        expect(subject).not_to be_able_to(action, model_instance)
+      end
+    end
+  end
+
 end

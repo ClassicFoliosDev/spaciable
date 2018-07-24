@@ -7,7 +7,7 @@ RSpec.describe User do
     context "for a CF Admin" do
       it "should return all admin roles" do
         user = described_class.new(role: :cf_admin)
-        expected_roles = %w[cf_admin developer_admin division_admin development_admin]
+        expected_roles = %w[cf_admin developer_admin division_admin development_admin site_admin]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)
@@ -17,7 +17,7 @@ RSpec.describe User do
     context "for a Developer Admin" do
       it "should return all admin roles below CF Admin level" do
         user = described_class.new(role: :developer_admin)
-        expected_roles = %w[developer_admin division_admin development_admin]
+        expected_roles = %w[developer_admin division_admin development_admin site_admin]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)
@@ -27,7 +27,7 @@ RSpec.describe User do
     context "for a Division Admin" do
       it "should return all admin roles below Developer Admin level" do
         user = described_class.new(role: :division_admin)
-        expected_roles = %w[division_admin development_admin]
+        expected_roles = %w[division_admin development_admin site_admin]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)
@@ -35,9 +35,19 @@ RSpec.describe User do
     end
 
     context "for a Development Admin" do
-      it "should return all admin roles below Division Admin level" do
+      it "should return all admin roles below Development Admin level" do
         user = described_class.new(role: :development_admin)
-        expected_roles = ["development_admin"]
+        expected_roles = %w[development_admin site_admin]
+
+        roles = described_class.accessible_admin_roles(user)
+        expect(roles.keys).to match_array(expected_roles)
+      end
+    end
+
+    context "for a Site Admin" do
+      it "should return only site admin roles" do
+        user = described_class.new(role: :site_admin)
+        expected_roles = ["site_admin"]
 
         roles = described_class.accessible_admin_roles(user)
         expect(roles.keys).to match_array(expected_roles)

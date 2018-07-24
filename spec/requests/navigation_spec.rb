@@ -108,4 +108,31 @@ RSpec.describe "Navigation", type: :feature do
       end
     end
   end
+
+  context "as a Site Admin" do
+    it "can navigate down to the developments" do
+      developer = create(:developer)
+      division = create(:division, developer: developer)
+      division_development = create(:division_development, division: division)
+      site_admin = create(:site_admin, permission_level: division_development)
+
+      login_as site_admin
+      visit "/"
+
+      within "nav" do
+        click_on I18n.t("components.navigation.developers")
+      end
+
+      click_on developer.to_s
+      click_on I18n.t("developers.collection.divisions")
+      click_on division.to_s
+      click_on division_development.to_s
+
+      within ".breadcrumb-container" do
+        expect(page).to have_link(developer.to_s)
+        expect(page).to have_link(division.to_s)
+        expect(page).to have_content(division_development.to_s)
+      end
+    end
+  end
 end

@@ -27,7 +27,8 @@ class User < ApplicationRecord
     :cf_admin, # Client Folio Admin
     :developer_admin,
     :division_admin,
-    :development_admin
+    :development_admin,
+    :site_admin
   ]
 
   def self.admin_roles

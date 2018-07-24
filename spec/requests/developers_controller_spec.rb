@@ -30,6 +30,15 @@ RSpec.describe DevelopersController do
         expect(response.status).to eq(200)
       end
     end
+
+    context "as a SiteAdmin" do
+      it "should return ok" do
+        login_as create(:site_admin)
+        get developers_path
+
+        expect(response.status).to eq(200)
+      end
+    end
   end
 
   describe "#new" do
@@ -54,6 +63,15 @@ RSpec.describe DevelopersController do
     context "as a DevelopmentAdmin" do
       it "should redirect to the root url" do
         login_as create(:development_admin)
+        get new_developer_path
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        login_as create(:site_admin)
         get new_developer_path
 
         expect(response.redirect_url).to eq(root_url)
@@ -90,6 +108,15 @@ RSpec.describe DevelopersController do
         expect(response.redirect_url).to eq(root_url)
       end
     end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        login_as create(:site_admin)
+        post developers_path, params: params
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
   end
 
   describe "#edit" do
@@ -116,6 +143,17 @@ RSpec.describe DevelopersController do
     context "as a DevelopmentAdmin" do
       it "should redirect to the root url" do
         admin = create(:development_admin)
+        login_as admin
+
+        get edit_developer_path(admin.permission_level.developer)
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        admin = create(:site_admin)
         login_as admin
 
         get edit_developer_path(admin.permission_level.developer)
@@ -156,6 +194,17 @@ RSpec.describe DevelopersController do
         expect(response.redirect_url).to eq(root_url)
       end
     end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        admin = create(:site_admin)
+        login_as admin
+
+        put developer_path(admin.permission_level.developer)
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
   end
 
   describe "#destroy" do
@@ -182,6 +231,17 @@ RSpec.describe DevelopersController do
     context "as a DevelopmentAdmin" do
       it "should redirect to the root url" do
         admin = create(:development_admin)
+        login_as admin
+
+        delete developer_path(admin.permission_level.developer)
+
+        expect(response.redirect_url).to eq(root_url)
+      end
+    end
+
+    context "as a SiteAdmin" do
+      it "should redirect to the root url" do
+        admin = create(:site_admin)
         login_as admin
 
         delete developer_path(admin.permission_level.developer)

@@ -127,7 +127,7 @@ document.addEventListener("turbolinks:load", function () {
     } else if (role === 'division_admin') {
       $('.user_developer_id, .user_division_id').show();
       $('.user_development_id').hide();
-    } else if (role === 'development_admin') {
+    } else if ((role === 'development_admin') || (role === 'site_admin')) {
       $('.user_developer_id, .user_division_id, .user_development_id').show();
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide();
