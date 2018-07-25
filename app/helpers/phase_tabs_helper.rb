@@ -26,7 +26,7 @@ module PhaseTabsHelper
       progresses: {
         icon: "cogs",
         link: [phase, :progresses],
-        permissions_on: -> { phase }
+        permissions_on: -> { Plot.new(development_id: phase.development.id) }
       }
     }
   end

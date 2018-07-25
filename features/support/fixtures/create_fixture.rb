@@ -119,6 +119,10 @@ module CreateFixture
     FactoryGirl.create(:development_admin, permission_level: CreateFixture.development, password: admin_password)
   end
 
+  def create_site_admin
+    FactoryGirl.create(:site_admin, permission_level: CreateFixture.development, password: admin_password)
+  end
+
   def create_division_development_admin
     FactoryGirl.create(:development_admin, permission_level: CreateFixture.division_development, password: admin_password)
   end

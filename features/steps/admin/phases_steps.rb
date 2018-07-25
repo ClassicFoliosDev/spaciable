@@ -156,3 +156,8 @@ Then(/^Phase residents should have been notified$/) do
 
   ActionMailer::Base.deliveries.clear
 end
+
+When(/^I visit the phase$/) do
+  visit "/"
+  goto_phase_show_page
+end

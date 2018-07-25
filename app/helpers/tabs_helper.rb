@@ -12,7 +12,7 @@ module TabsHelper
 
     def all
       tabs.each_pair.map do |association, options|
-        next unless can_read?(association, options)
+        next unless display?(association, options)
 
         Tab.new(
           options.reverse_merge(
@@ -24,11 +24,15 @@ module TabsHelper
       end.compact
     end
 
-    def can_read?(association, options)
+    def display?(association, options)
       permissions_scope = options.delete(:permissions_on)
       return true if options.delete(:always_show) == true
 
       model = permissions_scope&.call || build_association(association)
+
+      if %i[completion progress progresses].include? association
+        return view_context.can? :update, model
+      end
 
       view_context.can? :read, model
     end

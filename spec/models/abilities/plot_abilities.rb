@@ -13,7 +13,13 @@ RSpec.describe "Plot Abilities" do
       ability = Ability.new(development_admin)
 
       expect(ability).to be_able_to(:read, plot)
-      expect(ability).not_to be_able_to(:crud, plot)
+      # Development admin needs edit ability on plots, so that they can update the progress
+      # and completion date.
+      # They should not be able to edit other fields, this is limited in the controller
+      expect(ability).to be_able_to(:edit, plot)
+      expect(ability).to be_able_to(:update, plot)
+      expect(ability).not_to be_able_to(:delete, plot)
+      expect(ability).not_to be_able_to(:create, plot)
     end
 
     specify "can read plots under the development phase" do
@@ -165,7 +171,11 @@ RSpec.describe "Plot Abilities" do
       ability = Ability.new(site_admin)
 
       expect(ability).to be_able_to(:read, plot)
-      expect(ability).not_to be_able_to(:crud, plot)
+
+      expect(ability).not_to be_able_to(:create, plot)
+      expect(ability).not_to be_able_to(:edit, plot)
+      expect(ability).not_to be_able_to(:update, plot)
+      expect(ability).not_to be_able_to(:delete, plot)
     end
 
     specify "can read plots under the development phase" do
@@ -178,7 +188,11 @@ RSpec.describe "Plot Abilities" do
       ability = Ability.new(site_admin)
 
       expect(ability).to be_able_to(:read, plot)
-      expect(ability).not_to be_able_to(:crud, plot)
+
+      expect(ability).not_to be_able_to(:create, plot)
+      expect(ability).not_to be_able_to(:edit, plot)
+      expect(ability).not_to be_able_to(:update, plot)
+      expect(ability).not_to be_able_to(:delete, plot)
     end
 
     specify "cannot read plots from other developments" do

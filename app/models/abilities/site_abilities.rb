@@ -21,7 +21,6 @@ module Abilities
       can :read, Phase, development_id: development_id
       can :read, Room, development_id: development_id
       can :read, Plot, development_id: development_id
-      can :update, Plot, development_id: development_id
 
       can :read, UnitType, development_id: development_id
 

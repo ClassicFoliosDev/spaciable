@@ -35,3 +35,16 @@ Feature: Phases
     When I update the progress for the phase
     Then I should see the phase progress has been updated
     And I should see the progress update is not sent to the former resident
+
+  Scenario: Site Admin
+    Given I am logged in as a Site Admin
+    And there is a phase plot with a resident
+    When I visit the phase
+    Then I can not update the progress for a plot
+
+  @javascript
+  Scenario: Development admin
+    Given I am logged in as a Development Admin
+    And there is a phase plot with a resident
+    When I update the progress for the phase
+    Then I should see the phase progress has been updated
