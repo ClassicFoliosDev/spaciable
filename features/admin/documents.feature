@@ -139,6 +139,7 @@ Feature: Documents
     When I upload a document for the phase plot
     Then I should see the created document
     And I should see the original filename
+    And I should see who uploaded the file
     When I update the document
     Then I should see the updated document for the phase plot
     When I delete the document

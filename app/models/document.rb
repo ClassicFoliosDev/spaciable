@@ -6,6 +6,7 @@ class Document < ApplicationRecord
   attr_accessor :notify
 
   belongs_to :documentable, polymorphic: true
+  belongs_to :user, optional: true
   alias parent documentable
 
   validates :title, presence: true, uniqueness: false

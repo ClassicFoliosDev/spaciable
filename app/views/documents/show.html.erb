@@ -29,6 +29,8 @@
       <span><%= @document.file.size %></span>
       <%= label_tag t(".updated") %>
       <span><%= @document.updated_at %></span>
+      <%= label_tag t(".by") %>
+      <span><%= @document.user %></span>
     <% else %>
       <%= t(".processing") %>
   <% end %>

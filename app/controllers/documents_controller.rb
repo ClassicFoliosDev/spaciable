@@ -43,6 +43,7 @@ class DocumentsController < ApplicationController
     authorize! :create, @document
 
     if @document.save
+      @document.update_attributes(user_id: current_user.id)
       @document.set_original_filename
       notify_and_redirect
     else

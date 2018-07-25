@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180723075123) do
+ActiveRecord::Schema.define(version: 20180725141025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,8 +252,10 @@ ActiveRecord::Schema.define(version: 20180723075123) do
     t.string   "original_filename"
     t.integer  "category"
     t.string   "file_tmp"
+    t.integer  "user_id"
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
+    t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
   end
 
   create_table "faqs", force: :cascade do |t|
@@ -653,6 +655,7 @@ ActiveRecord::Schema.define(version: 20180723075123) do
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"
+  add_foreign_key "documents", "users"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_manufacturers"
