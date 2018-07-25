@@ -27,6 +27,8 @@
           <%= f.number_field :validity, min: 0 %>
           <%= f.label :extended_access %>
           <%= f.number_field :extended_access, min: 0 %>
+          <%= f.label t(".expiry_date") %>
+          <span><%= plot&.expiry_date&.strftime("%d %B %Y") %></span>
         <% else %>
           <hr>
           <span class="hint range-hint"><%= t(".optional_range_hint") %></span>
