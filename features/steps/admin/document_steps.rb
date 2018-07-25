@@ -44,6 +44,12 @@ And(/^I should see the original filename$/) do
   end
 end
 
+And(/^I should see who uploaded the file$/) do
+  within ".document" do
+    expect(page).to have_content(CreateFixture.development_admin)
+  end
+end
+
 When(/^I update the developer's document$/) do
   click_on(t("developers.show.back"))
 

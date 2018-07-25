@@ -1374,6 +1374,7 @@ en:
       back: "Back"
       category: "Folder"
       processing: "Processing..."
+      by: "Uploaded by"
     form:
       load: "File"
       upload: "Upload"
