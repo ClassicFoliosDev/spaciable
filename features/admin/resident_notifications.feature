@@ -4,12 +4,14 @@ Feature: Resident Notifications
   I want to be able to notify residents in bulk
   So that I am efficient in communicating updates to many residents
 
-  Scenario: CF Admin
+  Scenario: Send to all
     Given I am CF Admin wanting to send notifications to residents
-
     When I send a notification to all residents
     Then all residents should receive a notification
     And I can see the notification I sent to all residents
+
+  Scenario: CF Admin
+    Given I am CF Admin wanting to send notifications to residents
 
     When I send a notification to residents under a Developer
     Then all residents under that Developer should receive a notification

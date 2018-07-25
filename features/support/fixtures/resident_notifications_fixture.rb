@@ -62,7 +62,7 @@ module ResidentNotificationsFixture
     create_division_development
     create_phases
     create_plots
-    create_activated_residents
+    create_notification_residents
   end
 
   def developer_plot
@@ -70,7 +70,7 @@ module ResidentNotificationsFixture
   end
 
   def resident_email_addresses(under: instance)
-    under.residents.map(&:email)
+    under.residents.where(developer_email_updates: true).map(&:email).uniq
   end
 
   def extract_resource(parent, resource_class)

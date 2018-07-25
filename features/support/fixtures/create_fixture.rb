@@ -274,10 +274,26 @@ module CreateFixture
     create_phase_plot
   end
 
-  def create_activated_residents
+  def create_notification_residents
+    # A resident with no plots
+    attrs = { first_name: "Resident with no", last_name: "Plots", email: "resident@no.plots.com" }
+    FactoryGirl.create(:resident, attrs)
+
+    # An unactivated resident
+    attrs = { first_name: "Unactivated", last_name: "Resident", plot: Plot.first, email: "unactivated@resident.com" }
+    FactoryGirl.create(:resident, :with_residency, attrs)
+
+    # A resident that will be added to multiple plots in the loop below
+    attrs = { first_name: "Multiple plot", last_name: "Resident", email: "multiple_plot@residents.com" }
+    multiple_resident = FactoryGirl.create(:resident, :activated, attrs)
+
+    # A new resident for each plot, plus a resident with residency of all plots except the last one
     Plot.all.each do |plot|
-      attrs = { first_name: "Resident of", last_name: "plot #{plot}", plot: plot }
+      attrs = { first_name: "Resident of", last_name: "plot #{plot}", plot: plot, email: "#{plot.number}@residents.com" }
       FactoryGirl.create(:resident, :with_residency, :activated, attrs)
+      unless plot == Plot.last
+        FactoryGirl.create(:plot_residency, resident: multiple_resident, plot: plot)
+      end
     end
   end
 
