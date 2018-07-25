@@ -124,18 +124,14 @@ end
 
 Then(/^the resident under that (\(\w+\) )?(\w+) should receive a notification$/) do |parent, plot_class|
   type, plot = ResidentNotificationsFixture.extract_resource(parent, plot_class)
-  notice = t(
-    "admin.notifications.create.success",
-    notification_name: ResidentNotificationsFixture::MESSAGES.dig(type, :subject),
-    count: 1
-  )
+  resident_email_addresses = ResidentNotificationsFixture.resident_email_addresses(under: plot)
 
   within ".notice" do
-    expect(page).to have_content(notice)
+    expect(page).to have_content(ResidentNotificationsFixture::MESSAGES.dig(type, :subject))
   end
 
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
-  expect(emailed_addresses).to match_array([plot.residents.first.email])
+  expect(emailed_addresses).to match_array(resident_email_addresses)
 end
 
 Then(/^I can see the (\(\w+\) )?(\w+) notification I sent to the resident$/) do |parent, plot_class|
@@ -200,7 +196,7 @@ Then(/^all residents under (my|that) (\(\w+\) )?(\w+) should receive a notificat
 end
 
 Then(/^all residents should receive a notification$/) do
-  resident_email_addresses = Resident.pluck(:email)
+  resident_email_addresses = Resident.where(developer_email_updates: true).pluck(:email)
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
 
   expect(emailed_addresses).to match_array(resident_email_addresses)

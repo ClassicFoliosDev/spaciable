@@ -21,7 +21,6 @@ class ResidentNotifierService
 
   def notify_residents
     notification.update(sent_at: Time.zone.now)
-
     SendResidentNotificationsJob.perform_later(residents_in_scope.pluck(:id), notification)
 
     residents_in_scope
