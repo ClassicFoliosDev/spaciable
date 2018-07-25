@@ -9,6 +9,7 @@ class PlotsController < ApplicationController
   load_and_authorize_resource :plot, through: %i[development phase], shallow: true
 
   before_action :set_parent
+  before_action :only_cf_admins, except: %i[show update]
 
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
@@ -84,6 +85,7 @@ class PlotsController < ApplicationController
 
     single_update = updated_plots.count == 1
     bulk_update = updated_plots.count > 1
+
     redirect_to @plot, notice: notice, alert: errors if single_update
     redirect_to [@parent, :plots], notice: notice, alert: errors if bulk_update
   end
@@ -109,15 +111,18 @@ class PlotsController < ApplicationController
   end
 
   def plot_attributes
-    %i[
-      prefix number unit_type_id house_number road_name
-      building_name locality city county postcode
-      progress notify user_id completion_date
-      reservation_release_date completion_release_date validity extended_access
-    ]
+    %i[ prefix number unit_type_id house_number road_name building_name locality city county
+        postcode progress notify user_id completion_date reservation_release_date
+        completion_release_date validity extended_access ]
   end
 
   def set_parent
     @parent ||= @phase || @development || @plot&.parent
+  end
+
+  def only_cf_admins
+    return if current_user.cf_admin?
+
+    render file: "public/401.html", status: :unauthorized
   end
 end

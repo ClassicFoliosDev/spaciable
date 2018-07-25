@@ -32,6 +32,14 @@ Given(/^I am logged in as a Development Admin$/) do
   visit "/"
 end
 
+Given(/^I am logged in as a Site Admin$/) do
+  AdminUsersFixture.create_permission_resources
+  admin = CreateFixture.create_site_admin
+
+  login_as admin
+  visit "/"
+end
+
 Given(/^I am logged in as a Development Admin for a Division$/) do
   AdminUsersFixture.create_permission_resources
   admin = CreateFixture.create_division_development_admin

@@ -287,19 +287,20 @@ end
 
 When(/^I update the completion date for the plot$/) do
   plot = CreateFixture.phase_plot
-  visit "/plots/#{plot.id}/edit"
+  visit "/plots/#{plot.id}?active_tab=completion"
 
   within ".edit_plot" do
     fill_in "plot_completion_date", with: PlotFixture.completion_date
   end
 
   check :plot_notify
-  click_on t("plots.form.submit")
+  click_on t("edit.submit")
 end
 
 When(/^I update the release dates$/) do
-  plot = CreateFixture.phase_plot
-  visit "/plots/#{plot.id}/edit"
+  within ".record-list" do
+    find("[data-action='edit']").click
+  end
 
   within ".edit_plot" do
     fill_in :plot_reservation_release_date, with: PlotFixture.reservation_release_date
@@ -393,5 +394,17 @@ Then(/^the completion date has been set$/) do
 
   within ".section-header" do
     expect(page).to have_content Time.zone.today.advance(days: 7).to_date.strftime("%d %B %Y")
+  end
+end
+
+Then(/^I can not update the completion date for a plot$/) do
+  within ".tabs" do
+    expect(page).not_to have_content t("plots.collection.completion")
+  end
+end
+
+Then(/^I can not update the progress for a plot$/) do
+  within ".tabs" do
+    expect(page).not_to have_content t("phases.collection.progresses")
   end
 end

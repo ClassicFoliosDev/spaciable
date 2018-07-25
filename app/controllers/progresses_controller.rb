@@ -22,6 +22,7 @@ class ProgressesController < ApplicationController
     result = @phase.plots.each do |plot|
       plot.update_attributes(progress: state)
     end
+
     if result
       notice = notify(state)
       redirect_to [@phase.parent, @phase, active_tab: :plots], notice: notice
