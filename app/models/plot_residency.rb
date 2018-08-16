@@ -4,6 +4,11 @@ class PlotResidency < ApplicationRecord
   belongs_to :plot, optional: false
   belongs_to :resident, optional: false, autosave: true
 
+  enum role: %i[
+    tenant
+    homeowner
+  ]
+
   validate :email_updated, on: :update
   validates_associated :resident
   validates :resident, uniqueness: { scope: :plot }

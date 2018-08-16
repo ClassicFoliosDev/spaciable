@@ -55,7 +55,6 @@ en:
   division_admin: "Division Admin"
   development_admin: "Development Admin"
   site_admin: "Site Admin"
-  homeowner: "Homeowner"
 
   choose: "Choose file"
   no_image: "No image available"
@@ -882,7 +881,7 @@ en:
       updated_at: "Last edited"
       status: "Activation status"
       activated: "Activated"
-      invited_by: "Invited by"
+      role: "Role"
     create:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
@@ -1556,6 +1555,11 @@ en:
           complete_ready: "Ready to complete"
           completed: "Completed"
           remove: "Remove progress status"
+      plot_residency:
+        roles:
+          # Homeowner enum roles
+          homeowner: "Homeowner (Full Access)"
+          tenant: "Tenant (Limited Access)"
       room:
         name: "Room name"
         updated_at: "Last edited"

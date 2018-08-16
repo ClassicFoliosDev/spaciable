@@ -37,7 +37,7 @@ Feature: Plot Residents
     And the resident should still receive notifications
 
   Scenario: Add same email to same plot
-    Given I am a Development Admin wanting to assign a new resident to a plot
+    Given I am a Site Admin wanting to assign a new resident to a plot
     When I assign a new resident to a plot
     Then I should see the created plot residency
     When I assign a new resident to a plot

@@ -53,7 +53,7 @@
             <li>
               <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
 
-              <% if current_resident.invited_by_type == "User" && resident[:invited_by_type] == "Resident" %>
+              <% if @plot_residency.homeowner? && resident[:invited_by_type] == "Resident" %>
                 <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
                 <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
                 <%= button_tag "", class: "btn prompt-remove",
@@ -74,7 +74,7 @@
             <li><%= t(".none", plot: @plot) %></li>
           <% end %>
         </ul>
-        <% if current_resident.invited_by_type == "User" %>
+        <% if @plot_residency.homeowner? %>
           <div>
             <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn add-resident",
             data: { cancel: t("edit.cancel"),
@@ -113,6 +113,9 @@
 <div class="add-resident-form hidden">
   <%= simple_form_for @resident, url: homeowners_resident_path, remote: true do |ff| %>
     <div class="half">
+      <div class="ui-front select-container">
+        <%= ff.input :role, as: :select, collection: roles_collection, include_blank: false %>
+      </div>
       <%= ff.input :email, required: true %>
       <%= ff.input :phone_number, required: true %>
     </div>

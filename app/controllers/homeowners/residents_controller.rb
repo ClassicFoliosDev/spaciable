@@ -4,6 +4,8 @@
 # Technical debt: need to refactor some of the private methods into separate service
 module Homeowners
   class ResidentsController < Homeowners::BaseController
+    before_action :plot_residency, only: %i[show create remove_resident]
+
     def show
       @services = Service.all
       @all_residents = residents_for_my_plot.compact
@@ -27,7 +29,7 @@ module Homeowners
     end
 
     def create
-      if current_resident.invited_by_type != "User"
+      if @plot_residency.tenant?
         render json: { alert: nil, notice: nil }, status: 401
         return
       end
@@ -53,16 +55,21 @@ module Homeowners
     end
 
     def remove_resident
-      not_allowed if current_resident.invited_by_type != "User"
+      return not_allowed unless @plot_residency.homeowner?
 
       resident = Resident.find_by(email: params[:email])
-      not_allowed if resident.invited_by_type == "User"
+      plot_residency_to_remove = PlotResidency.find_by(resident_id: resident.id, plot_id: @plot.id)
+      return not_allowed unless plot_residency_to_remove.tenant?
 
       notice = remove_plots(resident)
       render json: { alert: nil, notice: notice }, status: :ok
     end
 
     private
+
+    def plot_residency
+      @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: current_resident.id)
+    end
 
     def remove_plots(resident)
       resident&.plots&.delete(@plot)
@@ -109,6 +116,8 @@ module Homeowners
       plot_residency = PlotResidency.new(resident_id: @resident.id, plot_id: @plot.id)
       return "duplicate_plot_residency" unless plot_residency.valid?
 
+      plot_residency.role = resident_params[:role]
+
       plot_residency.save!
       t(".existing_resident", email: @resident.email)
     end
@@ -117,6 +126,8 @@ module Homeowners
       @resident = Resident.new(resident_params)
       @resident.create_without_password
       plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
+      plot_residency.update_attributes(role: resident_params[:role])
+
       ResidentInvitationService.call(plot_residency, current_resident, current_resident.to_s)
       @resident.developer_email_updates = true
       Mailchimp::MarketingMailService.call(@resident, @plot,

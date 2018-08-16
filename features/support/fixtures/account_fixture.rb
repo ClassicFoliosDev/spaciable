@@ -11,6 +11,10 @@ module AccountFixture
     "another_resident@example.com"
   end
 
+  def third_resident_email
+    "homeowner_resident@example.com"
+  end
+
   def second_resident_phone
     "02380 123456"
   end
@@ -21,5 +25,9 @@ module AccountFixture
 
   def second_resident_last
     "Bloggs"
+  end
+
+  def third_resident_last
+    "Jones"
   end
 end

@@ -6,7 +6,7 @@ Feature: Homeowner Account
 
   # Some account tests moved to legal -> email notifications
 
-  Scenario: With services choose none
+  Scenario: Manage resident account
     Given I am a Development Admin wanting to assign a new resident to a plot
     And the developer has enabled services
     And a CF admin has configured a video link
@@ -20,6 +20,8 @@ Feature: Homeowner Account
     Then I should be redirected to the homeowner dashboard
     When I add another resident
     Then I should see the resident has been added
+    When I add a homeowner resident
+    Then I should see the homeowner resident has been added
     When I add another resident
     Then I should see a duplicate plot resident error
     When I log out as a homeowner
