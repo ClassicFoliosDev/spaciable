@@ -410,6 +410,48 @@ Then(/^I should see the resident has been added$/) do
   within ".notice" do
     expect(page).to have_content t("homeowners.residents.create.new_invitation", email: AccountFixture.second_resident_email)
   end
+
+  resident = Resident.find_by(email: AccountFixture.second_resident_email)
+  plot_residency = resident.plot_residencies.last
+  expect(plot_residency.role).to eq "tenant"
+  expect(plot_residency.homeowner?).to be false
+  expect(plot_residency.tenant?).to be true
+end
+
+Then(/^I add a homeowner resident$/) do
+  visit "/"
+
+  within ".session-inner" do
+    click_on t("homeowners.residents.show.my_account")
+  end
+
+  within ".other-residents" do
+    find(".add-resident").trigger("click")
+  end
+
+  within ".ui-dialog" do
+    select_from_selectmenu :resident_role, with: t("activerecord.attributes.plot_residency.roles.homeowner")
+    fill_in :resident_email, with: AccountFixture.third_resident_email
+    fill_in :resident_phone_number, with: AccountFixture.second_resident_phone
+    fill_in :resident_first_name, with: AccountFixture.second_resident_first
+    fill_in :resident_last_name, with: AccountFixture.third_resident_last
+
+    send_button = page.find(".btn-send")
+    send_button.trigger("click")
+  end
+end
+
+Then(/^I should see the homeowner resident has been added$/) do
+  within ".notice" do
+    expect(page).to have_content t("homeowners.residents.create.new_invitation", email: AccountFixture.third_resident_email)
+  end
+
+  resident = Resident.find_by(email: AccountFixture.third_resident_email)
+  plot_residency = resident.plot_residencies.last
+
+  expect(plot_residency.role).to eq "homeowner"
+  expect(plot_residency.homeowner?).to be true
+  expect(plot_residency.tenant?).to be false
 end
 
 Then(/^I should see a duplicate plot resident error$/) do
@@ -437,8 +479,8 @@ When(/^I remove the additional resident$/) do
   within ".other-residents" do
     expect(page).to have_content( AccountFixture.second_resident_email)
 
-    remove_buttons = page.all(".prompt-remove")
-    remove_buttons.first.trigger("click")
+    button = page.find("[data-email='#{AccountFixture.second_resident_email}']")
+    button.trigger("click")
   end
 
   within ".ui-dialog-buttonset" do

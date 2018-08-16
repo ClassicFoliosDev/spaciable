@@ -3,7 +3,7 @@
 class Resident < ApplicationRecord
   include TitleEnum
 
-  attr_accessor :subscribe_emails, :invitation_plot, :accept_ts_and_cs
+  attr_accessor :subscribe_emails, :invitation_plot, :accept_ts_and_cs, :role
   attr_reader :raw_invitation_token
 
   # Include default devise modules. Others available are:
@@ -63,6 +63,11 @@ class Resident < ApplicationRecord
       residency.plot_id = plot_record&.id
       residency.save
     end
+  end
+
+  def plot_residency_role(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+    residency.role&.camelcase
   end
 
   def to_s

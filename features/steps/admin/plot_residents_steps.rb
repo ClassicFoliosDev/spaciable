@@ -7,6 +7,13 @@ Given(/^I am a Development Admin wanting to assign a new resident to a plot$/) d
   visit "/"
 end
 
+Given(/^I am a Site Admin wanting to assign a new resident to a plot$/) do
+  PlotResidencyFixture.setup
+
+  login_as PlotResidencyFixture.create_site_admin
+  visit "/"
+end
+
 # First resident, with original_email
 When(/^I assign a new resident to a plot$/) do
   plot = CreateFixture.phase_plot
@@ -42,6 +49,14 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
     expect(recipient_email.subject).to eq t("last_reminder_title", ordinal: "Third")
   elsif resident
     expect(recipient_email.subject).to eq t("new_plot_title")
+  end
+
+  plot_residency = resident&.plot_residencies&.last
+
+  if plot_residency
+    expect(plot_residency.role).to eq :homeowner.to_s
+    expect(plot_residency.homeowner?).to be true
+    expect(plot_residency.tenant?).to be false
   end
 end
 

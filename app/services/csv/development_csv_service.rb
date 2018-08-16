@@ -18,10 +18,10 @@ module Csv
     def self.headers
       [
         "Development name", "Plot number", "Phase", "Expiry date", "Resident email",
-        "Resident name", "Resident invited on", "Resident invited by", "Resident activated",
-        "Resident last sign in", "Lifetime sign in count", "Notifications #{@between}",
-        "Developer updates", "ISYT? updates", "Telephone updates", "Post updates",
-        "Terms and conditions accepted", "Services subscribed"
+        "Resident name", "Resident invited on", "Resident invited by", "Resident role",
+        "Resident activated", "Resident last sign in", "Lifetime sign in count",
+        "Notifications #{@between}", "Developer updates", "ISYT? updates", "Telephone updates",
+        "Post updates", "Terms and conditions accepted", "Services subscribed"
       ]
     end
 
@@ -57,7 +57,7 @@ module Csv
     def self.resident_info(resident)
       [
         resident.email, resident.to_s,
-        build_date(resident, "invitation_sent_at"), resident&.invited_by&.email,
+        build_date(resident, "invitation_sent_at"), resident&.invited_by&.email, resident.role,
         build_date(resident, "invitation_accepted_at"), build_date(resident, "last_sign_in_at"),
         resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),

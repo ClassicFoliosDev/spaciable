@@ -94,6 +94,9 @@ class ResidentsController < ApplicationController
       plot_residency.update_attributes!(deleted_at: nil)
     end
 
+    # Plot residency created by any admin is always a homeowner
+    plot_residency.update_attributes(role: PlotResidency.roles[:homeowner])
+
     # Resident invitation service will not send new invitations if the resident has
     # already accepted a previous invitation
     ResidentInvitationService.call(plot_residency, current_user, @plot.developer.to_s)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180725141025) do
+ActiveRecord::Schema.define(version: 20180816122522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -427,6 +427,7 @@ ActiveRecord::Schema.define(version: 20180725141025) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "role"
     t.index ["plot_id"], name: "index_plot_residencies_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_plot_residencies_on_resident_id", using: :btree
   end
