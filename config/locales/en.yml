@@ -305,6 +305,7 @@ en:
           subject: "Notification"
           sent_at: "Date sent"
           recipient: "Recipient"
+          role: "Role"
       create:
         success:
           one: "Sending notification to resident: \"%{notification_name}\""
@@ -317,11 +318,15 @@ en:
         submit: "Send"
         back: "Back"
         send_to_all_residents: "Send to all %{residents_count} homeowners"
-        send_to: "Send to all homeowners under:"
+        send_to: "Send to residents of:"
         list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
         range_label: "Add plots by range"
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
+        send_to_role: "Send to residents:"
+        homeowner: "Homeowners"
+        tenant: "Tenants"
+        both: "Homeowners and tenants"
       index:
         title: "Notifications"
       new:

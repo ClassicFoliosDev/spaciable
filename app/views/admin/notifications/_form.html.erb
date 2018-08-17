@@ -18,11 +18,14 @@
   <div class="row">
     <div class="row-item third send-targets">
       <fieldset class="skip-global-selectmenu">
-        <% if can?(:send_to_all, Notification) %>
-          <%= f.input :send_to_all, label: t(".send_to_all_residents", residents_count: Resident.count) %>
+        <div class="send-to-role">
+          <%= f.label :send_to_role, label: t(".send_to_role") %>
+
+          <%= f.radio_button :send_to_role, 'homeowner', checked: true %> <span><%= t(".homeowner") %></span><br/>
+          <%= f.radio_button :send_to_role, 'tenant' %> <span><%= t(".tenant") %></span><br/>
+          <%= f.radio_button :send_to_role, 'both' %> <span><%= t(".both") %></span><br/>
           <hr>
-          <br>
-        <% end %>
+        </div>
 
         <%= f.label :send_to, label: t(".send_to") %>
 
@@ -44,6 +47,10 @@
         <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
         <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
       </fieldset>
+      <% if can?(:send_to_all, Notification) %>
+       <hr>
+       <%= f.input :send_to_all, label: t(".send_to_all_residents", residents_count: Resident.count) %>
+      <% end %>
     </div>
 
     <div class="row-item two-thirds send-message">
