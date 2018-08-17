@@ -6,12 +6,15 @@ Feature: Resident Notifications
 
   Scenario: Send to all
     Given I am CF Admin wanting to send notifications to residents
+    And there are homeowners
+
     When I send a notification to all residents
     Then all residents should receive a notification
     And I can see the notification I sent to all residents
 
   Scenario: CF Admin
     Given I am CF Admin wanting to send notifications to residents
+    And there are homeowners
 
     When I send a notification to residents under a Developer
     Then all residents under that Developer should receive a notification
@@ -35,6 +38,7 @@ Feature: Resident Notifications
 
   Scenario: Developer Admin
     Given I am Developer Admin wanting to send notifications to residents
+    And there are homeowners
 
     When I send a notification to residents under my Developer
     Then all residents under my Developer should receive a notification
@@ -58,6 +62,7 @@ Feature: Resident Notifications
 
   Scenario: Division Admin
     Given I am Division Admin wanting to send notifications to residents
+    And there are homeowners
 
     When I send a notification to residents under my Division
     Then all residents under my Division should receive a notification
@@ -77,6 +82,7 @@ Feature: Resident Notifications
 
   Scenario: Development Admin
     Given I am Development Admin wanting to send notifications to residents
+    And there are homeowners
 
     When I send a notification to residents under my Development
     Then all residents under my Development should receive a notification
@@ -92,6 +98,7 @@ Feature: Resident Notifications
 
   Scenario: (Division) Development Admin
     Given I am (Division) Development Admin wanting to send notifications to residents
+    And there are homeowners
 
     When I send a notification to residents under my (Division) Development
     Then all residents under my (Division) Development should receive a notification
@@ -100,3 +107,19 @@ Feature: Resident Notifications
     When I send a notification to residents under a (Division) Phase
     Then all residents under that (Division) Phase should receive a notification
     And I can see the (Division) Development notification I sent
+
+  Scenario: Role
+    Given I am Developer Admin wanting to send notifications to residents
+    And there are homeowners
+    And there is a tenant
+
+    When I send a notification to homeowner residents under my Developer
+    Then all homeowner residents under my Developer should receive a notification
+    And tenants should not receive a notification
+
+    When I send a notification to tenant residents under my Developer
+    Then all tenant residents under my Developer should receive a notification
+    And homeowners should not receive a notification
+
+    When I send a notification to homeowner and tenant residents under my Developer
+    Then all residents under my Developer should receive a notification

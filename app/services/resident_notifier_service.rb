@@ -105,7 +105,20 @@ class ResidentNotifierService
       end
     end
 
-    @residents
+    filter_by_role
+  end
+
+  def filter_by_role
+    return @residents if notification.send_to_role == "both"
+
+    filtered_residents = []
+    @residents.each do |resident|
+      resident.plot_residencies.each do |residency|
+        filtered_residents.push(resident) if residency.role == notification.send_to_role
+      end
+    end
+
+    @residents = filtered_residents
   end
 
   def plot_numbers

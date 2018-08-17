@@ -16,6 +16,12 @@ class Notification < ApplicationRecord
   validate :recipients_selected
   validate :send_to_conflicts
 
+  enum send_to_role: %i[
+    tenant
+    homeowner
+    both
+  ]
+
   def picture_name
     return "user-circle-o.jpg" if picture.blank?
     picture

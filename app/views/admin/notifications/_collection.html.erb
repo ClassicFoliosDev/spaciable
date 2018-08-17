@@ -10,16 +10,17 @@
 <table class="record-list">
   <thead>
     <tr>
-      <th><%= sortable(Notification, :subject, t(".headers.subject")) %></th>
+      <th colspan="2"><%= sortable(Notification, :subject, t(".headers.subject")) %></th>
       <th><%= sortable(Notification, :sent_at, t(".headers.sent_at")) %></th>
-      <th><%= t(".headers.recipient") %></th>
+      <th colspan="2"><%= t(".headers.recipient") %></th>
+      <th><%= t(".headers.role") %></th>
       <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <% collection.each do |notification| %>
     <tr>
-      <td>
+      <td colspan="2">
         <%= link_to notification, [:admin, notification], title: notification %>
       </td>
 
@@ -28,8 +29,11 @@
           <%= l(notification.sent_at.to_date, format: :digits) %>
         <% end %>
       </td>
-      <td>
+      <td colspan="2">
         <%= t(".sent_to_html", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>
+      </td>
+      <td>
+        <%= notification.send_to_role %>
       </td>
       <td class="actions">
         <%= view_btn admin_notification_path(notification) %>
