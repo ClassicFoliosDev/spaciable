@@ -216,20 +216,9 @@ def visit_notifications_page(admin)
   visit "/admin/notifications"
 end
 
-Given(/^there are homeowners$/) do
-  plot_residencies = PlotResidency.all
-
-  plot_residencies.each do |plot_residency|
-    plot_residency.update_attributes(role: 'homeowner')
-  end
-end
-
 Given(/^there is a tenant$/) do
   phase_plot = CreateFixture.phase_plot
-  tenant = FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: "tenant@example.com", developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
-
-  plot_residency = tenant.plot_residencies.first
-  plot_residency.update_attributes(role: 'tenant')
+  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: phase_plot, email: "tenant@example.com", developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
 end
 
 When(/^I send a notification to homeowner residents under my Developer$/) do

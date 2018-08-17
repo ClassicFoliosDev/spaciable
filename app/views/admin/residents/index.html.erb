@@ -12,12 +12,11 @@
     <tr>
       <th><%= t(".name") %></th>
       <th><%= t(".email") %></th>
+      <th><%= t(".role") %></th>
       <th><%= t(".plot_count") %></th>
       <th><%= t(".unit_type") %></th>
       <th><%= t(".development") %></th>
-      <th><%= t(".division") %></th>
-      <th><%= t(".developer") %></th>
-      <th><%= t(".ts_and_cs_accepted") %></th>
+      <th><%= t(".invited_by") %></th>
       <th><%= t(".phone_number") %></th>
     </tr>
   </thead>
@@ -27,15 +26,14 @@
       <td><%= link_to resident, admin_resident_path(resident) %></td>
       <td><%= resident.email %></td>
       <% if resident.plots.count.positive? %>
+        <td><%= resident.plot_residencies.first.role %></td>
         <td><%= resident.plots.count %></td>
         <td><%= resident.plots.first.unit_type %></td>
         <td><%= resident.plots.first.development %></td>
-        <td><%= resident.plots.first.division %></td>
-        <td><%= resident.plots.first.developer %></td>
       <% else %>
-        <td colspan="5"><em><%= t(".removed") %></em></td>
+        <td colspan="4"><em><%= t(".removed") %></em></td>
       <% end %>
-      <td><%= l resident.ts_and_cs_accepted_at.to_date if resident.ts_and_cs_accepted_at? %></td>
+      <td><%= resident.invited_by %></td>
       <td><%= resident.phone_number %></td>
     </tr>
     <% end %>

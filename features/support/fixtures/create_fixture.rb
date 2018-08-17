@@ -292,7 +292,7 @@ module CreateFixture
       attrs = { first_name: "Resident of", last_name: "plot #{plot}", plot: plot, email: "#{plot.number}@residents.com" }
       FactoryGirl.create(:resident, :with_residency, :activated, attrs)
       unless plot == Plot.last
-        FactoryGirl.create(:plot_residency, resident: multiple_resident, plot: plot)
+        FactoryGirl.create(:plot_residency, resident: multiple_resident, plot: plot, role: 'homeowner')
       end
     end
   end
