@@ -24,6 +24,25 @@ FactoryGirl.define do
       after(:create) do |resident, evaluator|
         resident.plots << evaluator.plot
         resident.save!
+
+        plot_residency = resident.plot_residencies.first
+        plot_residency.role = 'homeowner'
+        plot_residency.save!
+      end
+    end
+
+    trait :with_tenancy do
+      transient do
+        plot
+      end
+
+      after(:create) do |resident, evaluator|
+        resident.plots << evaluator.plot
+        resident.save!
+
+        plot_residency = resident.plot_residencies.first
+        plot_residency.role = 'tenant'
+        plot_residency.save!
       end
     end
   end

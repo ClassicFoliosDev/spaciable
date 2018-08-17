@@ -406,14 +406,15 @@ en:
       index:
         title: "Residents"
         plot_count: "Plot count"
-        developer: "Developer"
-        division: "Division"
         development: "Development"
+        division: "Division"
+        developer: "Developer"
         unit_type: "Unit type"
+        role: "Role"
         name: "Name"
         email: "Email"
         removed: "Resident has been removed from all plots"
-        ts_and_cs_accepted: "Accepted terms and conditions"
+        invited_by: "Invited by"
         phone_number: "Phone number"
       show:
         back: "Back"
