@@ -7,5 +7,6 @@ FactoryGirl.define do
     subject { Faker::Lorem.words(5).join(" ") }
     message { Faker::Lorem.paragraph(3) }
     sender { |notification| notification.association(:developer_admin) }
+    send_to_role { :homeowner }
   end
 end
