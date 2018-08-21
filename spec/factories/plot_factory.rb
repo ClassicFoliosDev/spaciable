@@ -25,6 +25,10 @@ FactoryGirl.define do
         plot.residents << resident
         resident.developer_email_updates = true
         resident.save!
+
+        plot_residency = resident.plot_residencies.first
+        plot_residency.role = :homeowner
+        plot_residency.save!
       end
     end
 
@@ -37,6 +41,10 @@ FactoryGirl.define do
         resident = evaluator.resident
         plot.residents << resident
         resident.save!
+
+        plot_residency = resident.plot_residencies.first
+        plot_residency.role = :homeowner
+        plot_residency.save!
       end
     end
   end

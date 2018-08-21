@@ -126,8 +126,13 @@ Then(/^the resident under that (\(\w+\) )?(\w+) should receive a notification$/)
   type, plot = ResidentNotificationsFixture.extract_resource(parent, plot_class)
   resident_email_addresses = ResidentNotificationsFixture.resident_email_addresses(under: plot)
 
-  within ".notice" do
+  missing = "Resident not found for plot"
+  missings = "Residents not found for plot"
+
+  within ".flash" do
     expect(page).to have_content(ResidentNotificationsFixture::MESSAGES.dig(type, :subject))
+    expect(page).not_to have_content missing
+    expect(page).not_to have_content missings
   end
 
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
@@ -217,8 +222,9 @@ def visit_notifications_page(admin)
 end
 
 Given(/^there is a tenant$/) do
-  phase_plot = CreateFixture.phase_plot
-  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: phase_plot, email: "tenant@example.com", developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
+  phase = CreateFixture.phase
+  plot = FactoryGirl.create(:plot, phase: phase)
+  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: plot, email: "tenant@example.com", developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
 end
 
 When(/^I send a notification to homeowner residents under my Developer$/) do
@@ -258,8 +264,13 @@ Then(/^all homeowner residents under my Developer should receive a notification$
     count: homeowner_email_addresses.count
   )
 
+  tenant = Resident.find_by(email: "tenant@example.com")
+  plot = tenant.plot_residencies.first.plot
+  missing = t("admin.notifications.create.missing_residents.one", plot_numbers: plot.number)
+
   within ".flash" do
     expect(page).to have_content(notice)
+    expect(page).to have_content(missing)
   end
 
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
@@ -323,8 +334,16 @@ Then(/^homeowners should not receive a notification$/) do
     count: 1
   )
 
+  numbers = []
+  homeowner_plot_residencies.each do |plot_residency|
+    numbers << plot_residency.plot.number unless numbers.include? plot_residency.plot.number
+  end
+
+  missing = t("admin.notifications.create.missing_residents.other", plot_numbers: numbers.sort.to_sentence)
+
   within ".flash" do
     expect(page).to have_content(notice)
+    expect(page).to have_content(missing)
   end
 
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten

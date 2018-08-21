@@ -12,7 +12,8 @@ class ResidentNotifierService
   def self.call(notification)
     service = new(notification)
     residents_notified = service.notify_residents
-    missing_residents = service.all_missing_plots
+
+    missing_residents = service.all_missing_plots(residents_notified)
 
     yield(residents_notified, missing_residents)
 
@@ -26,21 +27,22 @@ class ResidentNotifierService
     residents_in_scope
   end
 
-  def all_missing_plots
+  def all_missing_plots(residents_notified = nil)
     return [] if notification.send_to_all?
 
+    residents_notified = notify_residents if residents_notified.nil?
+
     if notification.plot_numbers && notification.plot_prefix?
-      missing_resident_plots_with_prefix.sort
+      missing_resident_plots_with_prefix(residents_notified).sort
     else
-      missing_resident_plots.sort
+      missing_resident_plots(residents_notified).sort
     end
   end
 
   private
 
-  def missing_resident_plots
-    sent_residents = notification.send_to.residents
-    missing_plot_names = plots_no_residents(potential_plots, sent_residents)
+  def missing_resident_plots(residents_notified)
+    missing_plot_names = plots_no_residents(potential_plots, residents_notified)
 
     potential_plot_numbers = potential_plots.map(&:number)
     notification.plot_numbers.each do |sent_number|
@@ -51,22 +53,21 @@ class ResidentNotifierService
     missing_plot_names
   end
 
-  def missing_resident_plots_with_prefix
-    sent_residents = notification.send_to.residents
-    missing_plot_names = plots_no_residents(potential_plots, sent_residents)
+  def missing_resident_plots_with_prefix(residents_notified)
+    missing_plot_names = plots_no_residents(potential_plots, residents_notified)
 
     potential_plot_full_numbers = potential_plots.map(&:to_s)
     sent_full_numbers = notification.plot_numbers.map do |plot_number|
       "#{notification.plot_prefix} #{plot_number}".strip
     end
 
-    missing_plot_names + (potential_plot_full_numbers - sent_full_numbers)
+    (missing_plot_names + (potential_plot_full_numbers - sent_full_numbers)).uniq
   end
 
-  def plots_no_residents(potential_plots, sent_residents)
+  def plots_no_residents(potential_plots, residents_notified)
     missing_plot_names = Set.new
     sent_resident_full_numbers = []
-    sent_residents.each do |resident|
+    residents_notified.each do |resident|
       resident.plots.each do |plot|
         sent_resident_full_numbers << plot.to_s
       end
@@ -95,15 +96,15 @@ class ResidentNotifierService
   end
 
   def residents_in_scope
-    @residents ||= begin
-      if notification.send_to_all?
-        Resident.all
-      elsif notification.plot_numbers.any?
-        numbered_residents_in_scope
-      else
-        all_residents_in_scope
-      end
-    end
+    return @residents unless @residents.nil?
+
+    @residents = if notification.send_to_all?
+                   Resident.all
+                 elsif notification.plot_numbers.any?
+                   numbered_residents_in_scope
+                 else
+                   all_residents_in_scope
+                 end
 
     filter_by_role
   end
@@ -118,7 +119,7 @@ class ResidentNotifierService
       end
     end
 
-    @residents = filtered_residents
+    @residents = filtered_residents.uniq
   end
 
   def plot_numbers
