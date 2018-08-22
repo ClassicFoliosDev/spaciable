@@ -42,7 +42,7 @@ RSpec.describe Csv::BillingCsvService do
       expect(csv[0]["Residents invited"]).to eq "1"
       expect(csv[0]["Residents accepted"]).to eq "1"
 
-      expiry_date = Time.zone.today.advance(months: 26).to_s
+      expiry_date = Time.zone.today.advance(months: 29).to_s
       expect(csv[1]["Plot"]).to eq plot_c.to_s
       expect(csv[1]["Expiry date"]).to eq expiry_date
 
