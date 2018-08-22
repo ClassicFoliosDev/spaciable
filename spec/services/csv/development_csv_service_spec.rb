@@ -41,7 +41,7 @@ RSpec.describe Csv::DevelopmentCsvService do
       expect(csv[3]["Plot number"]).to eq plot_d.to_s
       expect(csv[4]["Plot number"]).to eq plot_c.to_s
 
-      expiry_date = Time.zone.today.advance(months: 26).to_s
+      expiry_date = Time.zone.today.advance(months: 29).to_s
       expect(csv[4]["Expiry date"]).to eq expiry_date
     end
   end
