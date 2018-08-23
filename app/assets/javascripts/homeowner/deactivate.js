@@ -1,3 +1,5 @@
+/* global alert */
+
 (function (document, $) {
   'use strict'
 
@@ -7,7 +9,6 @@
     var $deactivateContainer = $('.remove-resident-form')
 
     $('body').append($deactivateContainer)
-    var $form = $('.destroy_resident')
 
     $deactivateContainer.dialog({
       show: 'show',
@@ -30,10 +31,10 @@
           click: function () {
             var password = $('.resident-password')[0].value
             $.ajax({
-              url: "/homeowners/residents/" + dataIn.resident,
+              url: '/homeowners/residents/' + dataIn.resident,
               type: 'DELETE',
               data: { password: password },
-              success: function(response) {
+              success: function (response) {
                 if (response.alert !== undefined) {
                   alert(response.alert)
                 }
@@ -50,6 +51,4 @@
     $('.btn-send').prop('disabled', false)
     $('.btn-send').removeClass('ui-state-disabled')
   })
-
 })(document, window.jQuery)
-
