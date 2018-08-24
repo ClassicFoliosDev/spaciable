@@ -309,8 +309,8 @@
   question: %(Will my existing TV Licence cover my new home?),
   answer: %(<p>Please be aware that your television licence doesn&rsquo;t automatically move with you, and it&rsquo;s important that you notify TV Licensing so they can transfer your licence to your new address:</p>
 
-<p>Telephone: 0300 790 6165 <br />
-Website:  www.tvlicensing.co.uk</p>
+  <p>Telephone: 0300 790 6165<br>
+  Website:  www.tvlicensing.co.uk</p>
 ),
   category: %(general)
 }, {
