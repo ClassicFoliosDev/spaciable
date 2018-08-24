@@ -11,7 +11,7 @@ module HomeownerUserFixture
     plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id)
 
     resident = create_without_residency
-    FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id)
+    FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id, role: :homeowner)
 
     resident
   end

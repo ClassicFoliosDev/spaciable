@@ -56,6 +56,11 @@
   border-radius: $border-radius;
 }
 
+.ui-button-icon-only .ui-button-text,
+.ui-button-icons-only .ui-button-text {
+  padding: 0;
+}
+
 .btn-delete {
   // Add the font awesome fa-trash icon
   .ui-button-text:before {
@@ -67,6 +72,10 @@
 
 .ui-dialog .ui-dialog-buttonpane {
   border: none;
+
+  .branded-btn {
+    padding: 0;
+  }
 }
 
 .icons {

@@ -6,7 +6,10 @@ module ResidentChangeNotifyService
   def call(resource, user, verb, parent)
     notification = build_notification(resource, user, verb, parent)
 
-    send_residents = subscribed_residents(parent)
+    is_private_document = resource.is_a?(Document) &&
+                          resource.documentable_type != "Developer" &&
+                          resource.documentable_type != "Division"
+    send_residents = subscribed_residents(parent, is_private_document)
     SendResidentNotificationsJob.perform_later(send_residents.pluck(:id), notification)
 
     I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
@@ -16,12 +19,12 @@ module ResidentChangeNotifyService
 
   module_function
 
-  def subscribed_residents(parent)
+  def subscribed_residents(parent, is_private_document)
     plot_residencies = PlotResidency.where(plot_id: plots_for(parent).pluck(:id))
-    all_residents = plot_residencies.map(&:resident)
+    plot_residencies = plot_residencies.where(role: :homeowner) if is_private_document
 
-    subscribed_residents = all_residents.select(&:developer_email_updates?)
-    subscribed_residents
+    plot_residents = plot_residencies.map(&:resident)
+    plot_residents.select(&:developer_email_updates?)
   end
 
   def build_notification(resource, user, verb, parent)

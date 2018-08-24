@@ -1,3 +1,5 @@
+/* global $body */
+
 (function (document, $) {
   'use strict'
 
@@ -10,7 +12,7 @@
           '</form>')
 
     $body.append($dialogContainer)
-    var $titleInput = $dialogContainer.find(".private-document-title")
+    var $titleInput = $dialogContainer.find('.private-document-title')
 
     $dialogContainer.dialog({
       show: 'show',
@@ -31,14 +33,22 @@
           class: 'btn-update branded-primary-btn',
           id: 'btn_submit',
           click: function () {
-              $.ajax({
+            /* Not using forms, so update the document name in the page */
+            var documentId = dataIn.url.split('/homeowners/private_documents/')[1]
+            var dataPath = "[data-document='" + documentId + "']"
+            var $privateDocument = $(dataPath)
+            $privateDocument.find('h5')[0].innerHTML = $titleInput[0].value
+
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+
+            $.ajax({
               url: dataIn.url,
               data: {private_document: {title: $titleInput[0].value}},
               type: 'PUT'
             })
           }
-          }]
+        }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
   })
-
 })(document, window.jQuery)

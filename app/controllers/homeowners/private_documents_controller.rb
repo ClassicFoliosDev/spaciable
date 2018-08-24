@@ -7,14 +7,15 @@ module Homeowners
     def index
       @categories = Document.categories.keys
       @category = "my_documents"
-      @my_documents = current_resident&.private_documents || []
       @private_document ||= PrivateDocument.new
+      @homeowner = current_resident&.plot_residency_homeowner?(@plot)
     end
 
     def create
       file_title = @private_document&.file&.filename&.split(".")
       @private_document.title = file_title[0].humanize if file_title
       if @private_document.save
+        @private_document.update_attributes(plot_id: @plot.id)
         notice = t("controller.success.create", name: @private_document.title)
         redirect_to private_documents_path, notice: notice
       else
@@ -24,11 +25,18 @@ module Homeowners
     end
 
     def update
-      if @private_document.update(private_document_params)
-        notice = t("controller.success.update", name: "Document")
+      unless current_resident.plot_residency_homeowner?(@plot)
+        render json: {}, status: 401
+        return
       end
 
-      redirect_to private_documents_path, notice: notice
+      notice = if private_document_params[:enable_tenant_read] == "toggle"
+                 toggle_shared
+               elsif @private_document.update(private_document_params)
+                 t("controller.success.update", name: @private_document.title)
+               end
+
+      render json: { notice: notice }, status: :ok
     end
 
     def destroy
@@ -40,8 +48,24 @@ module Homeowners
 
     private
 
+    def toggle_shared
+      plot_private_document = PlotPrivateDocument
+                              .find_or_create_by!(plot_id: @plot.id,
+                                                  private_document_id: @private_document.id)
+
+      if plot_private_document.enable_tenant_read.blank?
+        plot_private_document.update_attributes(enable_tenant_read: true)
+        t("homeowners.private_documents.update.shared", title: @private_document.title,
+                                                        address: @plot.to_homeowner_s)
+      else
+        plot_private_document.update_attributes(enable_tenant_read: false)
+        t("homeowners.private_documents.update.not_shared", title: @private_document.title,
+                                                            address: @plot.to_homeowner_s)
+      end
+    end
+
     def private_document_params
-      params.require(:private_document).permit(:file, :title)
+      params.require(:private_document).permit(:file, :title, :enable_tenant_read)
     end
   end
 end

@@ -65,9 +65,16 @@ class Resident < ApplicationRecord
     end
   end
 
-  def plot_residency_role(plot)
+  def plot_residency_role_name(plot)
     residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
     residency.role&.camelcase
+  end
+
+  def plot_residency_homeowner?(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+
+    return false if residency.blank?
+    residency.role == "homeowner"
   end
 
   def to_s

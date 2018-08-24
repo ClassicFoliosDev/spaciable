@@ -6,6 +6,11 @@
       </div>
   <% end %>
   <div class="actions">
+    <% if homeowner %>
+      <% shared = document.shared?(plot) ? "shared" : "" %>
+      <% hover_text = document.shared?(plot) ? I18n.t("buttons.shared") : I18n.t("buttons.share_all") %>
+      <span class="document-permission <%= shared %>", title="<%= hover_text %>">&nbsp;</span>
+    <% end %>
     <%= edit_modal document, element: document %>
     <%= delete_btn document, element: document %>
   </div>

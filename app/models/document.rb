@@ -7,6 +7,7 @@ class Document < ApplicationRecord
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
+  has_many :plot_documents, dependent: :destroy
   alias parent documentable
 
   validates :title, presence: true, uniqueness: false
@@ -25,5 +26,12 @@ class Document < ApplicationRecord
   def set_original_filename
     self.original_filename = file.filename
     save!
+  end
+
+  def shared?(plot)
+    plot_document = plot_documents.find_by(plot_id: plot.id)
+    return false unless plot_document
+
+    plot_document.enable_tenant_read
   end
 end

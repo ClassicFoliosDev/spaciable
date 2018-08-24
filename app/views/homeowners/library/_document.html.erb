@@ -1,0 +1,19 @@
+<div class="sixth document" data-document="<%= document.id %>" >
+  <div class="document-image-container">
+    <%= link_to document.file.url, target: "_blank" do %>
+      <%= image_tag document_preview_url(document.file) if document.file? %>
+    <% end %>
+  </div>
+  <h5>
+    <% if homeowner %>
+      <% developer_doc = document.documentable_type == 'Developer' %>
+      <% division_doc = document.documentable_type == 'Division' %>
+      <% shared = document.shared?(plot) ? "shared" : "" %>
+      <% hover_text = document.shared?(plot) ? I18n.t("buttons.shared") : I18n.t("buttons.share_tenants") %>
+      <% if !developer_doc && !division_doc %>
+        <span class="document-permission <%= shared %>" title="<%= hover_text %>">&nbsp;</span>
+      <% end %>
+    <% end %>
+    <span><%= document.title %></span>
+  </h5>
+</div>

@@ -7,45 +7,19 @@
   <div class="main-container documents branded-background branded-text">
     <div class="row">
       <% @documents.each do |document| %>
-        <div class="sixth document">
-          <div class="document-image-container">
-            <%= link_to document.file.url, target: "_blank" do %>
-              <%= image_tag document_preview_url(document.file) if document.file? %>
-            <% end %>
-          </div>
-          <h5><%= document.title %></h5>
-        </div>
+        <%= render "homeowners/library/document", document: document, homeowner: @homeowner, plot: @plot %>
       <% end %>
 
       <% @appliances.each do |appliance| %>
-        <% if appliance.manual? %>
-          <div class="sixth document">
-            <div class="document-image-container">
-              <%= link_to appliance.manual.url, target: "_blank" do %>
-                  <%= image_tag document_preview_url(appliance.manual)  %>
-              <% end %>
-              <h5><%= appliance.full_name %></h5>
-              <span><%= appliance.appliance_category %></span>
-              <p><%= t(".manual") %></p>
-            </div>
-          </div>
-        <% end %>
-        <% if appliance.guide? %>
-          <div class="sixth document">
-            <div class="document-image-container">
-              <%= link_to appliance.guide.url, target: "_blank" do %>
-                <%= image_tag document_preview_url(appliance.guide) %>
-              <% end %>
-              <h5><%= appliance.full_name %></h5>
-              <span><%= appliance.appliance_category %></span>
-              <p><%= t(".guide") %></p>
-            </div>
-          </div>
-        <% end %>
+        <%= render "homeowners/library/appliance", appliance: appliance %>
       <% end %>
     </div>
   </div>
 </div>
+
+<% if current_resident&.plot_residency_homeowner?(@plot) %>
+  <%= render "homeowners/components/sharing_info" %>
+<% end %>
 
 <div class="disclaimer branded-content">
   <span><%= t(".disclaimer") %></span>

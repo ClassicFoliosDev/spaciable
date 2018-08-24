@@ -55,6 +55,10 @@ module FileFixture
     "washing_machine_manual.pdf"
   end
 
+  def manual_name_alt
+    "Washing Machine Manual"
+  end
+
   def logo_name
     "bovis_logo.png"
   end
