@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180822101440) do
+ActiveRecord::Schema.define(version: 20180824075354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,16 @@ ActiveRecord::Schema.define(version: 20180822101440) do
     t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
   end
 
+  create_table "documents_plots", force: :cascade do |t|
+    t.integer  "document_id",                        null: false
+    t.integer  "plot_id",                            null: false
+    t.boolean  "enable_tenant_read", default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.index ["document_id", "plot_id"], name: "document_plot_index", using: :btree
+    t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
+  end
+
   create_table "faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
@@ -460,12 +470,24 @@ ActiveRecord::Schema.define(version: 20180822101440) do
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id", using: :btree
   end
 
+  create_table "plots_private_documents", force: :cascade do |t|
+    t.integer  "private_document_id",                 null: false
+    t.integer  "plot_id",                             null: false
+    t.boolean  "enable_tenant_read",  default: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["plot_id", "private_document_id"], name: "plot_private_document_index", using: :btree
+    t.index ["private_document_id", "plot_id"], name: "private_document_plot_index", using: :btree
+  end
+
   create_table "private_documents", force: :cascade do |t|
     t.string   "title"
     t.string   "file"
     t.integer  "resident_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "plot_id"
+    t.index ["plot_id"], name: "index_private_documents_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_private_documents_on_resident_id", using: :btree
   end
 
@@ -673,6 +695,7 @@ ActiveRecord::Schema.define(version: 20180822101440) do
   add_foreign_key "plots", "divisions"
   add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
+  add_foreign_key "private_documents", "plots"
   add_foreign_key "private_documents", "residents"
   add_foreign_key "resident_notifications", "notifications"
   add_foreign_key "rooms", "developers"

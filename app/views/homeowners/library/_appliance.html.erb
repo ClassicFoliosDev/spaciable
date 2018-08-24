@@ -1,0 +1,24 @@
+<% if appliance.manual? %>
+  <div class="sixth document">
+    <div class="document-image-container">
+      <%= link_to appliance.manual.url, target: "_blank" do %>
+          <%= image_tag document_preview_url(appliance.manual)  %>
+      <% end %>
+      <h5><%= appliance.full_name %></h5>
+      <span><%= appliance.appliance_category %></span>
+      <p><%= t(".manual") %></p>
+    </div>
+  </div>
+<% end %>
+<% if appliance.guide? %>
+  <div class="sixth document">
+    <div class="document-image-container">
+      <%= link_to appliance.guide.url, target: "_blank" do %>
+        <%= image_tag document_preview_url(appliance.guide) %>
+      <% end %>
+      <h5><%= appliance.full_name %></h5>
+      <span><%= appliance.appliance_category %></span>
+      <p><%= t(".guide") %></p>
+    </div>
+  </div>
+<% end %>

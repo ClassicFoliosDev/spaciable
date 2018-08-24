@@ -26,3 +26,18 @@ Feature: My Home Library
     When I show the plots
     When I switch to the first plot
     Then I should see recent documents added to my library
+
+  @javascript
+  Scenario: Document permissions
+    Given I am logged in as a homeowner want to download my documents
+    And there is an appliance with a guide
+    And there is another tenant on the plot
+    Then I should see recent documents added to my library
+    When I enable document tenant read
+    Then I should see the document has been enabled for tenants
+    When I log out as a homeowner
+    And I log in as a tenant
+    Then I should see the enabled document
+    And I should see the developer document
+    And I should not see any other plot documents
+    And I should see the appliance documents

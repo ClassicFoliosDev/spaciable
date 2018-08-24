@@ -6,6 +6,7 @@ Feature: My Home Library Documents
   @javascript
   Scenario:
     Given I am logged in as a homeowner
+    And there is another tenant on the homeowner plot
     When I upload private documents
     Then I should see my private documents
 
@@ -14,3 +15,11 @@ Feature: My Home Library Documents
 
     When I edit a private document
     Then I should see my updated private document
+
+    When I share a private document with tenants
+    Then I should see the private document has been shared
+
+    When I log out as a homeowner
+    And I log in as a tenant
+    Then I should see the shared private document
+

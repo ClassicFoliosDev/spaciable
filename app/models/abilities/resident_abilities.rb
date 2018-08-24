@@ -11,11 +11,11 @@ module Abilities
       resident_abilities_for_plot(plot.id)
       resident_abilities_via_development(plot.development_id)
       resident_abilities_via_unit_type(plot.unit_type_id, plot.rooms.pluck(:id))
-      resident_abilities_for_documents(plot)
+      resident_abilities_for_documents(plot, resident.plot_residency_homeowner?(plot))
       resident_abilities_for_contacts(plot)
       resident_abilities_for_faqs(plot)
       resident_abilities_for_notifications(plot)
-      resident_abilities_for_private_documents(resident.id)
+      resident_abilities_for_private_documents(resident, plot)
       resident_brand_abilities(plot)
     end
 
@@ -37,13 +37,28 @@ module Abilities
       can :read, Appliance, rooms: { id: room_ids }
     end
 
-    def resident_abilities_for_documents(plot)
+    def resident_abilities_for_documents(plot, homeowner)
+      if homeowner
+        homeowner_read(plot)
+      else
+        tenant_read(plot)
+      end
+
+      can :read, Document, documentable_type: "Developer", documentable_id: plot.developer_id
+      can :read, Document, documentable_type: "Division", documentable_id: plot.division_id
+    end
+
+    def homeowner_read(plot)
       can :read, Document, documentable_type: "UnitType", documentable_id: plot.unit_type_id
       can :read, Document, documentable_type: "Plot", documentable_id: plot.id
       can :read, Document, documentable_type: "Phase", documentable_id: plot.phase_id
       can :read, Document, documentable_type: "Development", documentable_id: plot.development_id
-      can :read, Document, documentable_type: "Developer", documentable_id: plot.developer_id
-      can :read, Document, documentable_type: "Division", documentable_id: plot.division_id
+    end
+
+    def tenant_read(plot)
+      # If the document has been shared for this plot, all residents can read it including tenants
+      ids = plot.plot_documents.where(enable_tenant_read: true).pluck(:document_id)
+      can :read, Document, id: ids
     end
 
     def resident_abilities_for_contacts(plot)
@@ -89,8 +104,16 @@ module Abilities
       end
     end
 
-    def resident_abilities_for_private_documents(current_resident_id)
-      can :manage, PrivateDocument, resident_id: current_resident_id
+    def resident_abilities_for_private_documents(current_resident, plot)
+      # Legacy documents may have no plot id, if so, allow resident to manage them all
+      can :manage, PrivateDocument, resident_id: current_resident.id, plot_id: nil
+
+      # New documents should have a plot id
+      can :manage, PrivateDocument, resident_id: current_resident.id, plot_id: plot.id
+
+      # If the document has been shared for this plot, all residents can read it including tenants
+      ids = plot.plot_private_documents.where(enable_tenant_read: true).pluck(:private_document_id)
+      can :read, PrivateDocument, id: ids
     end
   end
 end

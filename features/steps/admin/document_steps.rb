@@ -514,3 +514,23 @@ When(/^I upload an svg image for the division phase plot$/) do
     click_on t("documents.form.submit")
   end
 end
+
+Then(/^only the homeowner should receive a notification$/) do
+  emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
+  expect(emailed_addresses.count).to eq 1
+
+  expect(emailed_addresses).to include "resident@example.com"
+  expect(emailed_addresses).not_to include "tenant@example.com"
+
+  ActionMailer::Base.deliveries.clear
+end
+
+Then(/^both homeowner and tenant should receive a notification$/) do
+  emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
+  expect(emailed_addresses.count).to eq 2
+
+  expect(emailed_addresses).to include "resident@example.com"
+  expect(emailed_addresses).to include "tenant@example.com"
+
+  ActionMailer::Base.deliveries.clear
+end

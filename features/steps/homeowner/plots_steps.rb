@@ -30,7 +30,8 @@ end
 
 Given(/^there is another phase plot$/) do
   second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, prefix: "", number: PlotFixture.another_plot_number)
-  FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: CreateFixture.resident.id)
+
+  FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: CreateFixture.resident.id, role: :homeowner)
 end
 
 Given(/^there is another division phase plot$/) do

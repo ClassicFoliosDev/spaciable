@@ -16,6 +16,10 @@ class Plot < ApplicationRecord
   belongs_to :division, optional: true
 
   has_many :plot_residencies, dependent: :destroy
+  has_many :plot_private_documents, dependent: :destroy
+  has_many :private_documents, through: :plot_private_documents
+  has_many :plot_documents, dependent: :destroy
+  has_many :documents, through: :plot_documents
   has_many :residents, through: :plot_residencies
 
   has_many :unit_types, through: :development

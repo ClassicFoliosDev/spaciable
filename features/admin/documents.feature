@@ -168,3 +168,23 @@ Feature: Documents
     Then I should see the updated document for the phase plot
     When I delete the document
     Then I should see that the deletion was successful for the document
+
+  Scenario: Tenant notifications for private documents
+    Given I am logged in as a Development Admin
+    And there is a phase plot with a resident
+    And there is a tenant
+    When I upload a document for the development
+    Then I should see the created document
+    And I should see the original filename
+    When I update the document
+    Then only the homeowner should receive a notification
+
+  Scenario: Tenant notifications for public documents
+    Given I am logged in as a Developer Admin
+    And there is a phase plot with a resident
+    And there is a tenant
+    When I upload a document for the developer
+    Then I should see the created document
+    And I should see the original filename
+    When I update the document
+    Then both homeowner and tenant should receive a notification

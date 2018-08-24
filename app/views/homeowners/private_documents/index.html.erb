@@ -29,8 +29,12 @@
   </div>
 
   <div class="private-documents">
-    <% @my_documents.each do | document | %>
-      <%= render 'homeowners/private_documents/document', document: document %>
+    <% @private_documents.each do | document | %>
+      <%= render 'homeowners/private_documents/document', document: document, homeowner: @homeowner, plot: @plot %>
     <% end %>
   </div>
 </div>
+
+<% if current_resident.plot_residency_homeowner?(@plot) %>
+  <%= render "homeowners/components/sharing_info" %>
+<% end %>

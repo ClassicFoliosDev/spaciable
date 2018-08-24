@@ -49,6 +49,13 @@ en:
     learn_more: "Find out more"
     ok: "OK"
 
+  buttons:
+    edit: "Edit"
+    trash: "Delete"
+    share_tenants: "Private: click to share with tenants of this plot"
+    share_all: "Private: click to share with tenants and other residents of this plot"
+    shared: "Shared: click to disable sharing"
+
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
   developer_admin: "Developer Admin"
@@ -561,13 +568,17 @@ en:
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
     library:
       index:
-        manual: "Manual"
-        guide: "Quick reference guide"
         disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
          of any of the specific matters described by any order under the Consumer Protection from Unfair Trading
          Regulations 2008 and Business Protection from Misleading Marketing Regulations 2008. This information does not
          constitute a contract, or warranty. The dimensions given on plans are subject to minor variations and are not
          intended to be used for carpet sizes, appliance sizes or items of furniture."
+      update:
+         not_shared: "%{title} is no longer being shared with Tenant (Limited Access) users of %{address}"
+         shared: "%{title} is now being shared with Tenant (Limited Access) users of %{address}"
+      appliance:
+        manual: "Manual"
+        guide: "Quick reference guide"
       appliance_manuals:
         appliances_category: "appliance_manuals"
         manual: "Manual"
@@ -583,6 +594,11 @@ en:
         new: "New"
       address:
         my_home_view_more: "View my home"
+      sharing_info:
+        modal_title: "Hints &amp; tips"
+        dismiss: "Dismiss"
+        modal_content: "Tick the circles to select files you wish to share with Tenant (Limited Access) users and other residents of this plot"
+        not_again: "Don't show this again"
     appliances:
       show:
         register: "Register appliance"
@@ -620,6 +636,9 @@ en:
         new: "Upload file"
       edit:
         submit: "Save changes"
+      update:
+         not_shared: "%{title} is no longer shared with Tenant (Limited Access) and other residents at %{address}"
+         shared: "%{title} is now shared with Tenant (Limited Access) and other residents at %{address}"
 
     residents:
       edit:

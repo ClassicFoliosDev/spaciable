@@ -88,30 +88,107 @@ RSpec.describe "Private document abilities" do
       end
     end
 
-    context "As a resident" do
+    context "As a homeowner resident" do
       specify "can manage my own documents" do
         development = create(:development, developer: developer)
         plot = create(:plot, development: development)
 
         resident = create(:resident, plot: plot)
-        private_document = create(:private_document, resident: resident)
+        private_document = create(:private_document, resident: resident, plot_id: plot.id)
 
         ability = Ability.new(resident, plot)
 
         expect(ability).to be_able_to(:manage, private_document)
       end
 
-      specify "can not manage documents for another resident" do
+      specify "can not read or manage documents for another resident" do
+        development = create(:development, developer: developer)
+        plot = create(:plot, development: development)
+
+        resident = create(:resident, :with_residency, plot: plot)
+        private_document = create(:private_document, resident: resident, plot_id: plot.id)
+
+        other_resident = create(:resident, :with_residency, plot: plot)
+
+        ability = Ability.new(other_resident, plot)
+
+        expect(ability).not_to be_able_to(:manage, private_document)
+        expect(ability).not_to be_able_to(:read, private_document)
+      end
+    end
+
+    context "Legacy documents" do
+      specify "can manage my own documents" do
         development = create(:development, developer: developer)
         plot = create(:plot, development: development)
 
         resident = create(:resident, plot: plot)
-        private_document = create(:private_document, resident: resident)
+        private_document = create(:private_document, resident: resident, plot_id: nil)
 
-        other_resident = create(:resident, plot: plot)
+        ability = Ability.new(resident, plot)
 
-        ability = Ability.new(other_resident)
+        expect(ability).to be_able_to(:manage, private_document)
+      end
+
+      specify "can not read documents for another resident" do
+        development = create(:development, developer: developer)
+        plot = create(:plot, development: development)
+
+        resident = create(:resident, :with_residency, plot: plot)
+        private_document = create(:private_document, resident: resident, plot_id: nil)
+
+        other_resident = create(:resident, :with_residency, plot: plot)
+
+        ability = Ability.new(other_resident, plot)
+
         expect(ability).not_to be_able_to(:manage, private_document)
+        expect(ability).not_to be_able_to(:read, private_document)
+      end
+    end
+
+    context "As a tenant resident" do
+      specify "can not view private documents" do
+        development = create(:development, developer: developer)
+        plot = create(:plot, development: development)
+
+        resident = create(:resident, :with_residency, plot: plot,)
+        tenant = create(:resident, :with_tenancy, plot: plot,)
+        private_document = create(:private_document, resident: resident, plot_id: plot.id)
+
+        ability = Ability.new(tenant, plot)
+
+        expect(ability).not_to be_able_to(:manage, private_document)
+        expect(ability).not_to be_able_to(:read, private_document)
+      end
+
+      specify "can view private documents if tenant read enabled" do
+        development = create(:development, developer: developer)
+        plot = create(:plot, development: development)
+
+        resident = create(:resident, plot: plot,role: :homeowner)
+        tenant = create(:resident, plot: plot, role: :tenant)
+        private_document = create(:private_document, resident: resident, plot_id: plot.id)
+        plot_private_document = create(:plot_private_document, plot: plot, private_document: private_document, enable_tenant_read: true)
+
+        ability = Ability.new(tenant, plot)
+
+        expect(ability).not_to be_able_to(:manage, private_document)
+        expect(ability).to be_able_to(:read, private_document)
+      end
+
+      specify "can not view private documents if tenant read was previously enabled, now disabled" do
+        development = create(:development, developer: developer)
+        plot = create(:plot, development: development)
+
+        resident = create(:resident, plot: plot,role: :homeowner)
+        tenant = create(:resident, plot: plot, role: :tenant)
+        private_document = create(:private_document, resident: resident, plot_id: plot.id)
+        plot_private_document = create(:plot_private_document, plot: plot, private_document: private_document, enable_tenant_read: false)
+
+        ability = Ability.new(tenant, plot)
+
+        expect(ability).not_to be_able_to(:manage, private_document)
+        expect(ability).not_to be_able_to(:read, private_document)
       end
     end
   end
