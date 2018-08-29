@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "we_transfer_client"
+
 module ResidentResetService
   module_function
 
@@ -17,6 +19,8 @@ module ResidentResetService
   end
 
   def reset_resident(resident, plots)
+    transfer_files(resident) if resident.private_documents.any?
+
     resident.developer_email_updates = false
     resident.isyt_email_updates = false
     resident.telephone_updates = false
@@ -31,5 +35,19 @@ module ResidentResetService
     end
 
     response
+  end
+
+  def transfer_files(resident)
+    return unless Rails.application.secrets.we_transfer_key
+
+    @file_client = WeTransferClient.new(api_key: Rails.application.secrets.we_transfer_key)
+
+    description = "Files from your closed account"
+    @file_client.create_transfer(name: "Close account", description: description) do |upload|
+      resident.private_documents.each do |document|
+        upload.add_file_at(path: document.file.url)
+      end
+      upload.add_web_url(url: "https://hoozzi.wetransfer.com", title: "Hoozzi file transfers")
+    end
   end
 end
