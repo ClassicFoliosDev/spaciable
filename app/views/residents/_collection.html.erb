@@ -11,22 +11,24 @@
   <table class="record-list residents">
     <thead>
       <tr>
-        <th><%= sortable(Resident, :last_name, t(".last_name")) %></th>
-        <th><%= sortable(Resident, :email, t(".email")) %></th>
+        <th colspan="2"><%= sortable(Resident, :last_name, t(".last_name")) %></th>
+        <th colspan="2"><%= sortable(Resident, :email, t(".email")) %></th>
         <th><%= sortable(Resident, :updated_at, t(".updated_at")) %></th>
         <th><%= t(".status") %></th>
         <th><%= t(".role") %></th>
+        <th colspan="2"><%= t(".invited_by") %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% collection.each do |resident| %>
         <tr data-plot-resident="<%= resident.id %>">
-        <td><%= link_to resident, [plot, resident], title: resident %></td>
-        <td><%= resident.email %></td>
+        <td colspan="2"><%= link_to resident, [plot, resident], title: resident %></td>
+        <td colspan="2"><%= resident.email %></td>
         <td><%= l resident.updated_at.to_date, format: :digits %></td>
         <td><%= t(".activated") if resident.invitation_accepted? %></td>
         <td><%= resident.plot_residency_role_name(plot) %>
+        <td colspan="2"><%= resident.invited_by %>
         <td class="actions">
           <%= edit_btn [:edit, plot, resident], element: resident %>
           <%= delete_btn resident, path: url_for([plot, resident]), element: resident %>

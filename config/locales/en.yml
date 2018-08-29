@@ -911,6 +911,7 @@ en:
       status: "Activation status"
       activated: "Activated"
       role: "Role"
+      invited_by: "Invited by"
     create:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
