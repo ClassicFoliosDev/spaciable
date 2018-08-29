@@ -115,7 +115,9 @@ class ResidentNotifierService
     filtered_residents = []
     @residents.each do |resident|
       resident.plot_residencies.each do |residency|
-        filtered_residents.push(resident) if residency.role == notification.send_to_role
+        if residency.role == notification.send_to_role
+          filtered_residents.push(resident) if potential_plots.include?(residency.plot)
+        end
       end
     end
 
@@ -155,7 +157,7 @@ class ResidentNotifierService
       end
     end
 
-    residents
+    residents.uniq
   end
 
   def set_and_save_notification_plot_numbers
