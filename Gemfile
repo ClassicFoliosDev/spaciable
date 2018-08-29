@@ -36,7 +36,7 @@ gem "turbolinks", "~> 5"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-gem "bcrypt", "~> 3.1.7", platforms: :ruby
+gem "bcrypt", "~> 3.1.11", platforms: %i[ruby x64_mingw mingw]
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -56,6 +56,9 @@ gem "carrierwave-aws", "~> 1.3"
 gem "fog-aws"
 gem "mini_magick", "~> 4.8"
 gem "rmagick", "~> 2.16"
+
+# File share
+gem "wetransfer"
 
 # Authentication
 gem "devise", "~> 4.2"

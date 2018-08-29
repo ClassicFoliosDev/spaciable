@@ -1,5 +1,5 @@
 <div class="private-document" data-document="<%= document.id %>">
-  <%= link_to document.file.url do %>
+  <%= link_to document.file.url,  target: "_blank" do %>
       <div>
         <%= fa_icon "file" %>
         <h5><%= document.title %></h5>
