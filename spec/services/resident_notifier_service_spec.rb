@@ -424,7 +424,116 @@ RSpec.describe ResidentNotifierService do
       end
     end
 
-    context  "send to role with prefix" do
+    context "tenant is a homeowner on another plot" do
+      let (:development) { create(:development) }
+      let (:phase) { create(:phase, development: development) }
+      let (:homeowner) { create(:resident, :activated) }
+      let (:plot_with_tenant) { create(:plot, phase: phase, number: "4") }
+      let (:tenant) { create(:resident, :activated) }
+      let (:plot_residency1) { create(:plot_residency, plot_id: plot_with_tenant.id, resident_id: homeowner.id, role: :homeowner) }
+      let (:plot_residency2) { create(:plot_residency, plot_id: plot_with_tenant.id, resident_id: tenant.id, role: :tenant) }
+
+      # These plot residents should not receive notifications
+      let (:other_phase) { create(:phase, development: development) }
+      let (:other_plot) { create(:plot, :with_activated_resident, phase: other_phase, number: "5") }
+      # Roles are reversed here, the tenant is a homeowner on this (other) plot, and the homeowner is a tenant
+      let (:plot_residency3) { create(:plot_residency, plot_id: other_plot.id, resident_id: tenant.id, role: :homeowner) }
+      let (:plot_residency4) { create(:plot_residency, plot_id: other_plot.id, resident_id: homeowner.id, role: :tenant) }
+
+      it "sends to plot_with_tenant homeowners only" do
+        plot_residency1
+        plot_residency2
+        plot_residency3
+        plot_residency4
+
+        notification = create(:notification, send_to: development, list: plot_with_tenant.number, send_to_role: :homeowner)
+
+        described_class.call(notification) do |notified_residents, missing_residents|
+          expect(notified_residents.length).to eq 1
+          expect(notified_residents).to include homeowner
+          expect(missing_residents.length).to eq 0
+        end
+      end
+
+      it "sends to plot_with_tenant tenants only" do
+        plot_residency1
+        plot_residency2
+        plot_residency3
+        plot_residency4
+
+        notification = create(:notification, send_to: development, list: plot_with_tenant.number, send_to_role: :tenant)
+
+        described_class.call(notification) do |notified_residents, missing_residents|
+          expect(notified_residents.length).to eq 1
+          expect(notified_residents).to include tenant
+          expect(missing_residents.length).to eq 0
+        end
+      end
+
+      it "sends to plot_with_tenant both" do
+        plot_residency1
+        plot_residency2
+        plot_residency3
+        plot_residency4
+
+        notification = create(:notification, send_to: development, list: plot_with_tenant.number, send_to_role: :both)
+
+        described_class.call(notification) do |notified_residents, missing_residents|
+          expect(notified_residents.length).to eq 2
+          expect(notified_residents).to include homeowner
+          expect(notified_residents).to include tenant
+          expect(missing_residents.length).to eq 0
+        end
+      end
+
+      it "sends to phase homeowners only" do
+        plot_residency1
+        plot_residency2
+        plot_residency3
+        plot_residency4
+
+        notification = create(:notification, send_to: phase, send_to_role: :homeowner)
+
+        described_class.call(notification) do |notified_residents, missing_residents|
+          expect(notified_residents.length).to eq 1
+          expect(notified_residents).to include homeowner
+          expect(missing_residents.length).to eq 0
+        end
+      end
+
+      it "sends to phase tenants only" do
+        plot_residency1
+        plot_residency2
+        plot_residency3
+        plot_residency4
+
+        notification = create(:notification, send_to: phase, send_to_role: :tenant)
+
+        described_class.call(notification) do |notified_residents, missing_residents|
+          expect(notified_residents.length).to eq 1
+          expect(notified_residents).to include tenant
+          expect(missing_residents.length).to eq 0
+        end
+      end
+
+      it "sends to phase both" do
+        plot_residency1
+        plot_residency2
+        plot_residency3
+        plot_residency4
+
+        notification = create(:notification, send_to: phase, send_to_role: :both)
+
+        described_class.call(notification) do |notified_residents, missing_residents|
+          expect(notified_residents.length).to eq 2
+          expect(notified_residents).to include homeowner
+          expect(notified_residents).to include tenant
+          expect(missing_residents.length).to eq 0
+        end
+      end
+    end
+
+    context "send to role with prefix" do
       let (:phase) { create(:phase) }
       let (:plot_with_tenant) { create(:plot, :with_activated_resident, phase: phase, prefix: "Plot") }
       let (:tenant) { create(:resident, :activated) }
