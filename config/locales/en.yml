@@ -72,6 +72,9 @@ en:
   reminder_title: "%{ordinal} reminder to register with Hoozzi"
   last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
   new_plot_title: "Information about your new home"
+  close_account_files_description: "Your ISYT? account has been deactivated and you no longer have access.
+   Please click below to download the files you uploaded to your online portal."
+  file_transfer: "ISYT? file transfers"
 
   notify:
     information: "information"
