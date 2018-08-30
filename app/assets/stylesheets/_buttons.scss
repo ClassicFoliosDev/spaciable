@@ -22,7 +22,7 @@ $button-line-height: 28px;
   text-decoration: none;
   font-size: $base-button-font-size;
   line-height: $button-line-height;
-  padding: 0 $spacing-small;
+  padding: 0 10px;
   border: 1px solid $base-button-border-color;
   border-radius: $border-radius;
   cursor: pointer;
@@ -46,6 +46,10 @@ $button-line-height: 28px;
     position: relative;
     top: -1px;
   }
+}
+
+.ui-dialog-buttonset .btn {
+  padding: 0;
 }
 
 .btn-label {

@@ -53,7 +53,7 @@
             <li>
               <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
 
-              <% if @plot_residency.homeowner? && resident[:invited_by_type] == "Resident" %>
+              <% if current_resident.plot_residency_homeowner?(@plot) && (resident[:tenant] || resident[:invited_by_me]) %>
                 <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
                 <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
                 <%= button_tag "", class: "btn prompt-remove",
@@ -74,7 +74,7 @@
             <li><%= t(".none", plot: @plot) %></li>
           <% end %>
         </ul>
-        <% if @plot_residency.homeowner? %>
+        <% if current_resident.plot_residency_homeowner?(@plot) %>
           <div>
             <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn add-resident",
             data: { cancel: t("edit.cancel"),

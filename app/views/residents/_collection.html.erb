@@ -28,7 +28,7 @@
         <td><%= l resident.updated_at.to_date, format: :digits %></td>
         <td><%= t(".activated") if resident.invitation_accepted? %></td>
         <td><%= resident.plot_residency_role_name(plot) %>
-        <td colspan="2"><%= resident.invited_by %>
+        <td colspan="2"><%= resident.plot_residency_invited_by(plot) %>
         <td class="actions">
           <%= edit_btn [:edit, plot, resident], element: resident %>
           <%= delete_btn resident, path: url_for([plot, resident]), element: resident %>

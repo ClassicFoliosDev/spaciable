@@ -33,7 +33,9 @@ module Csv
       plots.each do |plot|
         csv << plot_info(plot) if plot.residents.empty?
         plot.residents.includes(:services).each do |resident|
-          csv << plot_info(plot) + resident_info(resident, resident.plot_residency_role_name(plot))
+          csv << plot_info(plot) + resident_info(resident,
+                                                 resident.plot_residency_role_name(plot),
+                                                 resident.plot_residency_invited_by(plot)&.email)
         end
       end
     end
@@ -54,10 +56,10 @@ module Csv
       ]
     end
 
-    def self.resident_info(resident, role)
+    def self.resident_info(resident, role, invited_by_email)
       [
         resident.email, resident.to_s,
-        build_date(resident, "invitation_sent_at"), resident&.invited_by&.email, role,
+        build_date(resident, "invitation_sent_at"), invited_by_email, role,
         build_date(resident, "invitation_accepted_at"), build_date(resident, "last_sign_in_at"),
         resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),

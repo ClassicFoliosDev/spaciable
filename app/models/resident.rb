@@ -77,6 +77,18 @@ class Resident < ApplicationRecord
     residency.role == "homeowner"
   end
 
+  def plot_residency_tenant?(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+
+    residency.role == "tenant"
+  end
+
+  def plot_residency_invited_by(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+
+    residency.invited_by
+  end
+
   def to_s
     full_name = "#{first_name} #{last_name}"
 

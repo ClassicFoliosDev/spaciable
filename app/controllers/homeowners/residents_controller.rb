@@ -59,7 +59,9 @@ module Homeowners
 
       resident = Resident.find_by(email: params[:email])
       plot_residency_to_remove = PlotResidency.find_by(resident_id: resident.id, plot_id: @plot.id)
-      return not_allowed unless plot_residency_to_remove.tenant?
+      if plot_residency_to_remove.homeowner?
+        return not_allowed unless plot_residency_to_remove.invited_by == current_resident
+      end
 
       notice = remove_plots(resident)
       render json: { alert: nil, notice: notice }, status: :ok
@@ -117,6 +119,7 @@ module Homeowners
       return "duplicate_plot_residency" unless plot_residency.valid?
 
       plot_residency.role = resident_params[:role]
+      plot_residency.invited_by = current_resident
 
       plot_residency.save!
       t(".existing_resident", email: @resident.email)
@@ -126,7 +129,8 @@ module Homeowners
       @resident = Resident.new(resident_params)
       @resident.create_without_password
       plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
-      plot_residency.update_attributes(role: resident_params[:role])
+      plot_residency.update_attributes(role: resident_params[:role],
+                                       invited_by: current_resident)
 
       ResidentInvitationService.call(plot_residency, current_resident, current_resident.to_s)
       @resident.developer_email_updates = true
@@ -136,10 +140,13 @@ module Homeowners
 
     def residents_for_my_plot
       @plot.residents.map do |resident|
+        invited_by = resident.plot_residency_invited_by(@plot)
+
         next if resident.email == current_resident.email
         { email: resident.email,
           name: resident.to_s,
-          invited_by_type: resident.invited_by_type,
+          tenant: resident.plot_residency_tenant?(@plot),
+          invited_by_me: invited_by == current_resident,
           plot_count: resident.plots.count }
       end
     end

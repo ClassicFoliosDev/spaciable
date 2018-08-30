@@ -22,7 +22,6 @@ class ResidentsController < ApplicationController
       @resident.create_without_password
     else
       @resident = existing_resident
-      @resident.update_attributes(invited_by: current_user)
     end
 
     if @resident&.valid?
@@ -88,14 +87,14 @@ class ResidentsController < ApplicationController
   end
 
   def plot_residency_and_invitation(plot_residency)
+    # Plot residency created by admin is always a homeowner
     if plot_residency.nil?
-      plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id)
+      plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id,
+                                             role: :homeowner, invited_by: current_user)
     else
-      plot_residency.update_attributes!(deleted_at: nil)
+      plot_residency.update_attributes!(deleted_at: nil,
+                                        role: :homeowner, invited_by: current_user)
     end
-
-    # Plot residency created by any admin is always a homeowner
-    plot_residency.update_attributes(role: PlotResidency.roles[:homeowner])
 
     # Resident invitation service will not send new invitations if the resident has
     # already accepted a previous invitation

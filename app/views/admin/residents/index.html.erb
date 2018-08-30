@@ -33,7 +33,7 @@
       <% else %>
         <td colspan="4"><em><%= t(".removed") %></em></td>
       <% end %>
-      <td><%= resident.invited_by %></td>
+      <td><%= resident.plot_residencies.first.invited_by %></td>
       <td><%= resident.phone_number %></td>
     </tr>
     <% end %>
