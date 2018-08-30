@@ -49,6 +49,10 @@ $button-line-height: 28px;
   }
 }
 
+.ui-dialog-buttonset .btn {
+  padding: 0;
+}
+
 .btn-label {
   font-weight: bold;
   font-size: $base-font-size;

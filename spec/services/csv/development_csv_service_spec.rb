@@ -10,7 +10,7 @@ RSpec.describe Csv::DevelopmentCsvService do
   let(:plot_resident_a) { create(:plot_residency, resident: resident_a, plot: plot_a, role: 0) }
   let(:plot_b) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "B") }
   let(:resident_b) { create(:resident) }
-  let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b, role: 1) }
+  let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b, invited_by: plot_resident_a, role: 1) }
   let(:plot_c) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "10") }
   let(:plot_d) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "9") }
 
@@ -31,12 +31,16 @@ RSpec.describe Csv::DevelopmentCsvService do
       expect(csv.length).to eq 5
 
       expect(csv[0]["Development name"]).to eq development.name
+
       expect(csv[1]["Development name"]).to eq ""
       expect(csv[1]["Plot number"]).to eq plot_a.to_s
       expect(csv[1]["Resident role"]).to eq "Tenant"
+      # Nil is expected for legacy residents with no invited_by
+      expect(csv[1]["Resident invited by"]).to be_nil
 
       expect(csv[2]["Plot number"]).to eq plot_b.to_s
       expect(csv[2]["Resident role"]).to eq "Homeowner"
+      expect(csv[2]["Resident invited by"]).to eq plot_resident_a.email
 
       expect(csv[3]["Plot number"]).to eq plot_d.to_s
       expect(csv[4]["Plot number"]).to eq plot_c.to_s

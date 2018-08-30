@@ -3,6 +3,7 @@
 class PlotResidency < ApplicationRecord
   belongs_to :plot, optional: false
   belongs_to :resident, optional: false, autosave: true
+  belongs_to :invited_by, polymorphic: true
 
   enum role: %i[
     tenant
@@ -28,7 +29,7 @@ class PlotResidency < ApplicationRecord
   end
 
   delegate :to_s, :title, :first_name, :last_name, :email, :phone_number, to: :resident
-  delegate :invited_by, :invitation_accepted_at, to: :resident
+  delegate :invitation_accepted_at, to: :resident
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180824140850) do
+ActiveRecord::Schema.define(version: 20180830080252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -439,6 +439,9 @@ ActiveRecord::Schema.define(version: 20180824140850) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "role"
+    t.string   "invited_by_type"
+    t.integer  "invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_plot_residencies_on_invited_by_type_and_invited_by_id", using: :btree
     t.index ["plot_id"], name: "index_plot_residencies_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_plot_residencies_on_resident_id", using: :btree
   end
@@ -524,7 +527,6 @@ ActiveRecord::Schema.define(version: 20180824140850) do
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.string   "invited_by_type"
-    t.integer  "invited_by_id"
     t.integer  "invitations_count",       default: 0
     t.integer  "developer_email_updates"
     t.integer  "hoozzi_email_updates"
@@ -532,6 +534,7 @@ ActiveRecord::Schema.define(version: 20180824140850) do
     t.integer  "post_updates"
     t.string   "phone_number"
     t.datetime "ts_and_cs_accepted_at"
+    t.integer  "invited_by_id"
     t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_residents_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_residents_on_invitations_count", using: :btree
