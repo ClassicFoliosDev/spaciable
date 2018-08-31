@@ -116,7 +116,6 @@
               data: { email: dataIn.email },
               dataType: 'json',
               success: function (response) {
-                console.log(response)
                 var $responseP = document.createElement('p')
                 if (response.alert === null) {
                   $responseP.className = 'notice'

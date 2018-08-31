@@ -7,7 +7,6 @@ $(document).on('click', '.archive-btn', function (event) {
 
   var $dialogContainer = $('<div>', { id: 'dialog' }).html('<p>' + dataIn.text + '</p><h3>' + dataIn.name + '</h3>')
 
-  console.log(dataIn.details)
   var $details = $('<p>').html(dataIn.details)
   $dialogContainer.append($details)
 

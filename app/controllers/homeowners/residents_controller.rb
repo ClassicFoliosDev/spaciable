@@ -55,13 +55,8 @@ module Homeowners
     end
 
     def remove_resident
-      return not_allowed unless @plot_residency.homeowner?
-
       resident = Resident.find_by(email: params[:email])
-      plot_residency_to_remove = PlotResidency.find_by(resident_id: resident.id, plot_id: @plot.id)
-      if plot_residency_to_remove.homeowner?
-        return not_allowed unless plot_residency_to_remove.invited_by == current_resident
-      end
+      return not_allowed unless removeable?(resident)
 
       notice = remove_plots(resident)
       render json: { alert: nil, notice: notice }, status: :ok
@@ -141,15 +136,24 @@ module Homeowners
 
     def residents_for_my_plot
       @plot.residents.map do |resident|
-        invited_by = resident.plot_residency_invited_by(@plot)
-
         next if resident.email == current_resident.email
-        { email: resident.email,
+
+        {
+          email: resident.email,
           name: resident.to_s,
-          tenant: resident.plot_residency_tenant?(@plot),
-          invited_by_me: invited_by == current_resident,
-          plot_count: resident.plots.count }
+          removeable: removeable?(resident),
+          plot_count: resident.plots.count
+        }
       end
+    end
+
+    def removeable?(resident)
+      if current_resident.plot_residency_homeowner?(@plot)
+        return true if resident.plot_residency_invited_by(@plot).class == Resident
+        return true if resident.plot_residency_tenant?(@plot)
+      end
+
+      false
     end
 
     def process_service_ids(service_params)

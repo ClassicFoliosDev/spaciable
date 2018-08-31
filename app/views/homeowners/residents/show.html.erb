@@ -53,7 +53,7 @@
             <li>
               <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
 
-              <% if current_resident.plot_residency_homeowner?(@plot) && (resident[:tenant] || resident[:invited_by_me]) %>
+              <% if resident[:removeable] %>
                 <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
                 <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
                 <%= button_tag "", class: "btn prompt-remove",
