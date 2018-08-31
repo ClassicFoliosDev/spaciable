@@ -923,8 +923,8 @@ en:
       plot_residency_already_exists: "Resident %{email} was already assigned to %{plot}, no notification will be sent"
     destroy:
       success: "%{email} has been successfully removed from %{plot}"
-      deactivated: " and has been deactivated: this user will no longer be able to log in"
-      private_documents: " their private documents have been sent to weTransfer and deleted from this system"
+      deactivated: ", has been deactivated, and will no longer be able to log in."
+      private_documents: " Their private documents have been sent to them and deleted from this system"
       check: " <strong>Please check all documents uploaded to this plot and delete any that contain personal data relating to this resident.</strong>"
     edit:
       title: "Edit %{name}"

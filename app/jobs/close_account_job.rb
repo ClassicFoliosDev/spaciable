@@ -3,9 +3,9 @@
 class CloseAccountJob < ApplicationJob
   queue_as :mailer
 
-  def perform(resident, url)
-    return unless resident
+  def perform(email, name, url)
+    return unless email
 
-    ResidentNotificationMailer.close_account(resident, url).deliver_now
+    ResidentNotificationMailer.close_account(email, name, url).deliver_now
   end
 end

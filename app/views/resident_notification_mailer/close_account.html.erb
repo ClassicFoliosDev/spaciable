@@ -1,6 +1,6 @@
 <%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
 
-<p><%= t("devise.mailer.invitation_instructions.hello", name: @resident.to_s) %></p>
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @name) %></p>
 
 <p><%= t("devise.mailer.close_account.title") %></p>
 

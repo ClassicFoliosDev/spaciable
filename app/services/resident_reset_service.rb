@@ -21,7 +21,7 @@ module ResidentResetService
   def reset_resident(resident, plots)
     transfer_url = transfer_private_files(resident) if resident.private_documents.any?
     update_resident_params(resident)
-    CloseAccountJob.perform_later(resident, transfer_url)
+    CloseAccountJob.perform_later(resident.email, resident.to_s, transfer_url)
     update_mailchimp(resident, plots)
   end
 

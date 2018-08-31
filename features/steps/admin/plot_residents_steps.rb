@@ -81,6 +81,11 @@ When(/^I delete a plot residency$/) do
 end
 
 Then(/^I should not see the plot residency$/) do
+  notice = I18n.t("residents.destroy.success", email: PlotResidencyFixture.second_email, plot: CreateFixture.phase_plot)
+  within ".flash" do
+    expect(page).to have_content notice
+  end
+
   attrs = PlotResidencyFixture.attrs(:updated)
   second_attrs = PlotResidencyFixture.second_attrs
 

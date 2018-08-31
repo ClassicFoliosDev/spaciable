@@ -48,35 +48,37 @@ class ResidentsController < ApplicationController
   def destroy
     @resident.plots.delete(@plot)
 
-    notice = t(".success", email: @resident.email, plot: @plot)
+    @notice = t(".success", email: @resident.email, plot: @plot)
 
     homeowners = @plot.plot_residencies.where(role: nil)
     homeowners += @plot.plot_residencies.where(role: :homeowner)
     remove_tenants if homeowners.count.zero?
 
-    notice << remove_resident(notice) if @resident.plots.count.zero?
+    remove_resident if @resident.plots.count.zero?
 
-    redirect_to [@plot, active_tab: :residents], notice: notice
+    redirect_to [@plot, active_tab: :residents], notice: @notice
   end
 
   private
 
-  def remove_resident(notice)
-    notice << ResidentResetService.reset_all_plots_for_resident(@resident)
-    notice << t(".private_documents") if @resident.private_documents.any?
+  def remove_resident
+    @notice << ResidentResetService.reset_all_plots_for_resident(@resident)
+    @notice << t(".deactivated")
+    @notice << t(".private_documents") if @resident.private_documents.any?
     @resident.destroy
-    notice << t(".deactivated")
-
-    notice
   end
 
   def remove_tenants
     tenant_residencies = @plot.plot_residencies.where(role: :tenant)
     tenants = tenant_residencies.map(&:resident)
     tenants.each do |tenant|
+      # Remove tenant from this plot
       tenant.plots.delete(@plot)
+
+      # If this was the only plot, also delete the tenant account
       if tenant.plot_residencies.count.zero?
         ResidentResetService.reset_all_plots_for_resident(tenant)
+        tenant.destroy
       end
     end
   end
