@@ -50,16 +50,36 @@ class ResidentsController < ApplicationController
 
     notice = t(".success", email: @resident.email, plot: @plot)
 
-    if @resident.plots.count.zero?
-      notice << ResidentResetService.reset_all_plots_for_resident(@resident)
-      @resident.destroy
-      notice << t(".deactivated")
-    end
+    homeowners = @plot.plot_residencies.where(role: nil)
+    homeowners += @plot.plot_residencies.where(role: :homeowner)
+    remove_tenants if homeowners.count.zero?
+
+    notice << remove_resident(notice) if @resident.plots.count.zero?
 
     redirect_to [@plot, active_tab: :residents], notice: notice
   end
 
   private
+
+  def remove_resident(notice)
+    notice << ResidentResetService.reset_all_plots_for_resident(@resident)
+    notice << t(".private_documents") if @resident.private_documents.any?
+    @resident.destroy
+    notice << t(".deactivated")
+
+    notice
+  end
+
+  def remove_tenants
+    tenant_residencies = @plot.plot_residencies.where(role: :tenant)
+    tenants = tenant_residencies.map(&:resident)
+    tenants.each do |tenant|
+      tenant.plots.delete(@plot)
+      if tenant.plot_residencies.count.zero?
+        ResidentResetService.reset_all_plots_for_resident(tenant)
+      end
+    end
+  end
 
   def activation_status
     if @resident.invitation_accepted?
@@ -104,11 +124,7 @@ class ResidentsController < ApplicationController
 
   def resident_params
     params.require(:resident).permit(
-      :title,
-      :first_name,
-      :last_name,
-      :email,
-      :phone_number
+      :title, :first_name, :last_name, :email, :phone_number
     )
   end
 end
