@@ -43,9 +43,6 @@ module Abilities
       else
         tenant_read(plot)
       end
-
-      can :read, Document, documentable_type: "Developer", documentable_id: plot.developer_id
-      can :read, Document, documentable_type: "Division", documentable_id: plot.division_id
     end
 
     def homeowner_read(plot)
@@ -53,6 +50,8 @@ module Abilities
       can :read, Document, documentable_type: "Plot", documentable_id: plot.id
       can :read, Document, documentable_type: "Phase", documentable_id: plot.phase_id
       can :read, Document, documentable_type: "Development", documentable_id: plot.development_id
+      can :read, Document, documentable_type: "Developer", documentable_id: plot.developer_id
+      can :read, Document, documentable_type: "Division", documentable_id: plot.division_id
     end
 
     def tenant_read(plot)

@@ -6,13 +6,9 @@
   </div>
   <h5>
     <% if homeowner %>
-      <% developer_doc = document.documentable_type == 'Developer' %>
-      <% division_doc = document.documentable_type == 'Division' %>
       <% shared = document.shared?(plot) ? "shared" : "" %>
       <% hover_text = document.shared?(plot) ? I18n.t("buttons.shared") : I18n.t("buttons.share_tenants") %>
-      <% if !developer_doc && !division_doc %>
-        <span class="document-permission <%= shared %>" title="<%= hover_text %>">&nbsp;</span>
-      <% end %>
+      <span class="document-permission <%= shared %>" title="<%= hover_text %>">&nbsp;</span>
     <% end %>
     <span><%= document.title %></span>
   </h5>
