@@ -36,13 +36,13 @@ class ResidentNotificationMailer < ApplicationMailer
     mail to: plot_residency.email, subject: subject
   end
 
-  def close_account(resident, url)
-    @resident = resident
+  def close_account(email, name, url)
+    @name = name
     @url = url
     @logo = @plot&.branded_logo
     @logo = "ISYT-40px-01.png" if @logo.blank?
 
-    mail to: resident.email, subject: I18n.t("devise.mailer.close_account.title")
+    mail to: email, subject: I18n.t("devise.mailer.close_account.title")
   end
 
   private

@@ -80,8 +80,9 @@ module Homeowners
 
       if resident.plots.count.zero?
         notice << ResidentResetService.reset_all_plots_for_resident(resident)
-        resident.destroy
         notice << t("residents.destroy.deactivated")
+        notice << t("residents.destroy.private_documents") if resident.private_documents.any?
+        resident.destroy
       end
 
       notice

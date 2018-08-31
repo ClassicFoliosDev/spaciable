@@ -57,7 +57,7 @@ en:
         deactivated: "We can confirm that your Hoozzi account has been deactivated. You will no longer have access to your home's
         personalised online portal."
         data: "Your user data has been deleted."
-        private_documents: "Private documents that you uploaded to the portal can be downloaded from WeTransfer %{url}."
+        private_documents: "Private documents that you uploaded to the portal can be downloaded from <a href=\"%{url}\">WeTransfer</a>."
         error: "If you think your Hoozzi portal account has been deleted in error, please contact your property developer or landlord."
   time:
     formats:
