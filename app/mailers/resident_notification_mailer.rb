@@ -3,11 +3,7 @@
 
 class ResidentNotificationMailer < ApplicationMailer
   add_template_helper(PlotRouteHelper)
-  # Subject can be set in your I18n file at config/locales/en.yml
-  # with the following lookup:
-  #
-  #   en.resident_notification_mailer.notify.subject
-  #
+
   def notify(plot_residency, notification)
     resident = plot_residency.resident
     return unless resident.developer_email_updates?
@@ -38,6 +34,15 @@ class ResidentNotificationMailer < ApplicationMailer
     @invited_by_name = invited_by_name
 
     mail to: plot_residency.email, subject: subject
+  end
+
+  def close_account(resident, url)
+    @resident = resident
+    @url = url
+    @logo = @plot&.branded_logo
+    @logo = "ISYT-40px-01.png" if @logo.blank?
+
+    mail to: resident.email, subject: I18n.t("devise.mailer.close_account.title")
   end
 
   private

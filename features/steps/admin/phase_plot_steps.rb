@@ -203,6 +203,9 @@ Then(/^I should see the progress update is not sent to the former resident$/) do
   resident_notifications = ResidentNotification.all
   expect(resident_notifications.count).to be_zero
 
+  # Should not be a resident notification, but there will be a closed account email
   emails = ActionMailer::Base.deliveries
-  expect(emails.length).to be_zero
+  expect(emails.length).to eq 1
+
+  expect(emails.first.subject).to eq I18n.t("devise.mailer.close_account.title")
 end

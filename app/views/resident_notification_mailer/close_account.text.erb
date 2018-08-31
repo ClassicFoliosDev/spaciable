@@ -1,0 +1,13 @@
+<%= t("devise.mailer.invitation_instructions.hello", name: @resident.to_s) %>
+
+<%= t("devise.mailer.close_account.title") %>
+
+<%= t("devise.mailer.close_account.deactivated") %>
+
+<%= t("devise.mailer.close_account.data") %>
+
+<% unless @url.blank? %>
+  <%= t("devise.mailer.close_account.private_documents", url: @url) %>
+<% end %>
+
+<%= t("devise.mailer.close_account.error") %>

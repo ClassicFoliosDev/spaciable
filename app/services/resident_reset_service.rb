@@ -19,8 +19,9 @@ module ResidentResetService
   end
 
   def reset_resident(resident, plots)
-    transfer_private_files(resident) if resident.private_documents.any?
+    transfer_url = transfer_private_files(resident) if resident.private_documents.any?
     update_resident_params(resident)
+    CloseAccountJob.perform_later(resident, transfer_url)
     update_mailchimp(resident, plots)
   end
 
@@ -55,6 +56,8 @@ module ResidentResetService
 
     transfer_url = transfer_files(resident, logger)
     logger.info(transfer_url)
+
+    transfer_url
   end
 
   def transfer_files(resident, logger)
@@ -66,17 +69,16 @@ module ResidentResetService
 
     transfer = @file_client.create_transfer(name: name, description: description) do |upload|
       resident.private_documents.each do |document|
-        cloned_file_path = file_path(document, hash, logger)
-        upload.add_file_at(path: cloned_file_path)
+        document_file_path = file_path(document, hash, logger)
+        upload.add_file_at(path: document_file_path)
       end
-      upload.add_web_url(url: "https://wetransfer.com", title: I18n.t("file_transfer"))
     end
 
     transfer.shortened_url
   end
 
   def tmp_folder(email)
-    # The file will be stored as "mini_magic_<timestamp>" by default, so we need to save it with
+    # The file has the name "mini_magic_<timestamp>" by default, so we need to save it with
     # a more user friendly name, reusing the original file name. File names are not guaranteed
     # unique, so for safety create a temp folder to store it in
 
@@ -96,7 +98,7 @@ module ResidentResetService
     save_path = Rails.root.join("tmp", hash, document_name)
     cloned_file.write(save_path)
 
-    logger.info("Transferring #{cloned_file.path}")
-    cloned_file.path
+    logger.info("Transferring #{save_path}")
+    save_path
   end
 end
