@@ -14,12 +14,14 @@ module DeleteHelper
     }
   end
 
+  # rubocop:disable OutputSafety
   def confirm_text(resource)
     unless resource.is_a? Resident
       return t("destroy.confirm_text", type: resource.class.model_name.human)
     end
 
-    return t("destroy.confirm_resident") if resource.plots.count > 1
-    t("destroy.confirm_final_resident")
+    return t("destroy.confirm_resident_admin").html_safe if resource.plots.count > 1
+    t("destroy.confirm_final_resident_admin").html_safe
   end
+  # rubocop:enable OutputSafety
 end

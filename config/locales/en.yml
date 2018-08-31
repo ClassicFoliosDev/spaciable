@@ -260,6 +260,8 @@ en:
     confirm_title: "Confirm delete"
     confirm_text: "Are you sure you wish to delete %{type}?"
     destroy: "Delete"
+    confirm_final_resident_admin: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed. <strong>Please check all documents uploaded to this plot and delete any that contain personal data relating to this resident.</strong>"
+    confirm_resident_admin: "This resident will be removed from this plot, but their account will still exist and they will continue to have access to their other plots. <strong>Please check all documents uploaded to this plot and delete any that contain personal data relating to this resident.</strong>"
     confirm_final_resident: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed."
     confirm_resident: "This resident will be removed from this plot, the account will still exist and continue to have access to other plots."
 
@@ -918,6 +920,8 @@ en:
     destroy:
       success: "%{email} has been successfully removed from %{plot}"
       deactivated: " and has been deactivated: this user will no longer be able to log in"
+      private_documents: " their private documents have been sent to weTransfer and deleted from this system"
+      check: " <strong>Please check all documents uploaded to this plot and delete any that contain personal data relating to this resident.</strong>"
     edit:
       title: "Edit %{name}"
     form:
