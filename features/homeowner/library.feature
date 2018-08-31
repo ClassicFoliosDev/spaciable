@@ -38,6 +38,5 @@ Feature: My Home Library
     When I log out as a homeowner
     And I log in as a tenant
     Then I should see the enabled document
-    And I should see the developer document
     And I should not see any other plot documents
     And I should see the appliance documents

@@ -171,14 +171,9 @@ Then(/^I should see the enabled document$/) do
   end
 end
 
-Then(/^I should see the developer document$/) do
-  within ".documents" do
-    expect(page).to have_content %r{#{"Developer Document"}}i
-  end
-end
-
 Then(/^I should not see any other plot documents$/) do
   within ".documents" do
+    expect(page).not_to have_content %r{#{"Developer Document"}}i
     expect(page).not_to have_content %r{#{"Development Document"}}i
     expect(page).not_to have_content %r{#{"Unit Type Document"}}i
   end

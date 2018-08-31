@@ -94,16 +94,16 @@ RSpec.describe "Resident Document Abilities" do
       expect(subject).not_to be_able_to(:read, document)
     end
 
-    it "can READ developer documents" do
+    it "cannot read developer documents" do
       document = build(:document, documentable: developer)
 
-      expect(subject).to be_able_to(:read, document)
+      expect(subject).not_to be_able_to(:read, document)
     end
 
-    it "can READ division documents" do
+    it "cannot read division documents" do
       document = build(:document, documentable: division)
 
-      expect(subject).to be_able_to(:read, document)
+      expect(subject).not_to be_able_to(:read, document)
     end
 
     # By default, a tenant has no ability to read development, phase, unit type, and plot documents
@@ -134,8 +134,24 @@ RSpec.describe "Resident Document Abilities" do
       expect(subject).not_to be_able_to(:read, document)
     end
 
-    it "can READ development documents if a homeowner has enabled tenant read" do
+    it "can READ developer documents if a homeowner has enabled tenant read" do
       # Document is not valid because it's missing a file, but that shouldn't affect this test, which is about permissions
+      document = build(:document, documentable: phase_plot.developer)
+      document.save(validate: false)
+      plot_document = create(:plot_document, document_id: document.id, plot_id: phase_plot.id, enable_tenant_read: true)
+
+      expect(subject).to be_able_to(:read, document)
+    end
+
+    it "can READ division documents if a homeowner has enabled tenant read" do
+      document = build(:document, documentable: phase_plot.division)
+      document.save(validate: false)
+      plot_document = create(:plot_document, document_id: document.id, plot_id: phase_plot.id, enable_tenant_read: true)
+
+      expect(subject).to be_able_to(:read, document)
+    end
+
+    it "can READ development documents if a homeowner has enabled tenant read" do
       document = build(:document, documentable: phase_plot.development)
       document.save(validate: false)
       plot_document = create(:plot_document, document_id: document.id, plot_id: phase_plot.id, enable_tenant_read: true)
@@ -165,6 +181,22 @@ RSpec.describe "Resident Document Abilities" do
       plot_document = create(:plot_document, document_id: document.id, plot_id: phase_plot.id, enable_tenant_read: true)
 
       expect(subject).to be_able_to(:read, document)
+    end
+
+    it "cannot read developer documents if a homeowner has enabled tenant read for another plot" do
+      document = build(:document, documentable: developer)
+      document.save(validate: false)
+      plot_document = create(:plot_document, document_id: document.id, plot_id: another_plot.id, enable_tenant_read: true)
+
+      expect(subject).not_to be_able_to(:read, document)
+    end
+
+    it "cannot read division documents if a homeowner has enabled tenant read for another plot" do
+      document = build(:document, documentable: division)
+      document.save(validate: false)
+      plot_document = create(:plot_document, document_id: document.id, plot_id: another_plot.id, enable_tenant_read: true)
+
+      expect(subject).not_to be_able_to(:read, document)
     end
 
     it "cannot read development documents if a homeowner has enabled tenant read for another plot" do
