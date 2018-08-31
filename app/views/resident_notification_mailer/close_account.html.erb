@@ -1,0 +1,15 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @resident.to_s) %></p>
+
+<p><%= t("devise.mailer.close_account.title") %></p>
+
+<p><%= t("devise.mailer.close_account.deactivated") %></p>
+
+<p><%= t("devise.mailer.close_account.data") %></p>
+
+<% unless @url.blank? %>
+  <p><%= t("devise.mailer.close_account.private_documents", url: @url) %></p>
+<% end %>
+
+<p><%= t("devise.mailer.close_account.error") %></p>
