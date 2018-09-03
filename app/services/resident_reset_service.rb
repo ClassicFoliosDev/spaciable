@@ -69,6 +69,7 @@ module ResidentResetService
 
     transfer = @file_client.create_transfer(name: name, description: description) do |upload|
       resident.private_documents.each do |document|
+        next if document.file.size.zero?
         document_file_path = file_path(document, hash, logger)
         upload.add_file_at(path: document_file_path)
       end
