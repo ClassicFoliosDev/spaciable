@@ -1,0 +1,7 @@
+<%= t("devise.mailer.invitation_instructions.hello", name: @name) %>
+
+<%= t("devise.mailer.transfer_files.title") %>
+
+<%= t("devise.mailer.transfer_files.for_plot", plot: @plot_name) %>
+
+<%= t("devise.mailer.transfer_files.private_documents", url: @url).html_safe %>

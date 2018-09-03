@@ -5,29 +5,45 @@ require "we_transfer_client"
 module ResidentResetService
   module_function
 
-  def reset_all_residents_for_plot(plot)
-    return unless plot
+  def reset_all_residents_for_plot(reset_plot)
+    return unless reset_plot
 
-    plot.residents.each do |resident|
+    reset_plot.residents.each do |resident|
+      transfer_files_and_notify(resident, reset_plot) if resident.private_documents.any?
       # Reset the resident settings if this is the last plot they are associated with
-      reset_resident(resident, [plot]) if resident.plot_residencies.count == 1
+      reset_resident(resident) if resident.plot_residencies.count == 1
     end
   end
 
   def reset_all_plots_for_resident(resident)
-    reset_resident(resident, resident.plots)
+    transfer_files_and_notify(resident, nil) if resident.private_documents.any?
+    reset_resident(resident)
   end
 
-  def reset_resident(resident, plots)
-    transfer_url = transfer_private_files(resident) if resident.private_documents.any?
+  def transfer_files_and_notify(resident, reset_plot)
+    transfer_url = transfer_private_files(resident, reset_plot)
+
+    TransferFilesJob.perform_later(resident.email, resident.to_s,
+                                   transfer_url, plots_string(resident, reset_plot))
+  end
+
+  def plots_string(resident, reset_plot)
+    return reset_plot.to_homeowner_s unless reset_plot.nil?
+
+    # In practice, there will only be a single plot here
+    resident.plots.last.to_homeowner_s
+  end
+
+  def reset_resident(resident)
     update_resident_params(resident)
-    CloseAccountJob.perform_later(resident.email, resident.to_s, transfer_url)
-    update_mailchimp(resident, plots)
+    CloseAccountJob.perform_later(resident.email, resident.to_s)
+    update_mailchimp(resident)
   end
 
-  def update_mailchimp(resident, plots)
+  def update_mailchimp(resident)
     response = ""
-    plots.each do |plot|
+
+    resident.plots.each do |plot|
       response = Mailchimp::MarketingMailService.call(resident,
                                                       plot,
                                                       Rails.configuration.mailchimp[:unassigned])
@@ -44,7 +60,7 @@ module ResidentResetService
     resident.save(validate: false)
   end
 
-  def transfer_private_files(resident)
+  def transfer_private_files(resident, reset_plot)
     log_path = Rails.root.join("log", "closing_file_transfer.log")
     logger = Logger.new(log_path)
     logger.info("==== Resident #{resident.email} ====")
@@ -54,13 +70,13 @@ module ResidentResetService
       return
     end
 
-    transfer_url = transfer_files(resident, logger)
+    transfer_url = transfer_files(resident, reset_plot, logger)
     logger.info(transfer_url)
 
     transfer_url
   end
 
-  def transfer_files(resident, logger)
+  def transfer_files(resident, reset_plot, logger)
     @file_client = WeTransferClient.new(api_key: Rails.application.secrets.we_transfer_key)
 
     name = resident.to_s
@@ -68,7 +84,8 @@ module ResidentResetService
     hash = tmp_folder(resident.email)
 
     transfer = @file_client.create_transfer(name: name, description: description) do |upload|
-      resident.private_documents.each do |document|
+      resident_private_documents(resident, reset_plot).each do |document|
+        next unless document.file
         next if document.file.size.zero?
         document_file_path = file_path(document, hash, logger)
         upload.add_file_at(path: document_file_path)
@@ -76,6 +93,17 @@ module ResidentResetService
     end
 
     transfer.shortened_url
+  end
+
+  def resident_private_documents(resident, reset_plot)
+    return resident.private_documents.where(plot_id: reset_plot.id) if reset_plot
+
+    # If you get here, the resident has no more plots and is being removed from Hoozzi.
+    # In most valid code paths, there will only be a single plot left by now, but it's
+    # still important that we query all private documents here, to cover there case where
+    # there are legacy private documents that have no plot id associated
+
+    resident.private_documents.all
   end
 
   def tmp_folder(email)

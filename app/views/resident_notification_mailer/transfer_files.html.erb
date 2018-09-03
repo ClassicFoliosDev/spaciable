@@ -1,0 +1,9 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @name) %></p>
+
+<p><%= t("devise.mailer.transfer_files.title") %></p>
+
+<p><%= t("devise.mailer.transfer_files.for_plot", plot: @plot_name) %></p>
+
+<p><%= t("devise.mailer.transfer_files.private_documents", url: @url).html_safe %></p>
