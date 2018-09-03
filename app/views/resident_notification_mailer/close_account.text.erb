@@ -6,8 +6,4 @@
 
 <%= t("devise.mailer.close_account.data") %>
 
-<% unless @url.blank? %>
-  <%= t("devise.mailer.close_account.private_documents", url: @url).html_safe %>
-<% end %>
-
 <%= t("devise.mailer.close_account.error") %>
