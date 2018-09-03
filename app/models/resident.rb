@@ -72,9 +72,24 @@ class Resident < ApplicationRecord
 
   def plot_residency_homeowner?(plot)
     residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
-
     return false if residency.blank?
+
+    # If residency role is blank, this is a legacy resident,
+    # so it predates the tenant function and must be a homeowner
+    return true if residency.role.blank?
+
     residency.role == "homeowner"
+  end
+
+  def plot_residency_primary_resident?(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+    return false if residency.blank?
+
+    # If residency invited by is blank, this is a legacy resident,
+    # so it predates the tenant function and must be a homeowner
+    return true if residency.invited_by.blank?
+
+    residency.invited_by.class == User
   end
 
   def plot_residency_tenant?(plot)
