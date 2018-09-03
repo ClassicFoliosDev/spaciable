@@ -128,3 +128,10 @@ Then(/^I should see the shared private document$/) do
     expect(page).to have_content %r{#{FileFixture.avatar_alt}}i
   end
 end
+
+Then(/^I should not be able to share a private document$/) do
+  within ".private-documents" do
+    permission_circles = page.all(".document-permission")
+    expect(permission_circles.length).to be_zero
+  end
+end

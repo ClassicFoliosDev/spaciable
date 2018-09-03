@@ -23,3 +23,13 @@ Feature: My Home Library Documents
     And I log in as a tenant
     Then I should see the shared private document
 
+    When I upload private documents
+    Then I should see my private documents
+
+    When I delete a private document
+    Then I should no longer see the private document
+
+    When I edit a private document
+    Then I should see my updated private document
+
+    And I should not be able to share a private document

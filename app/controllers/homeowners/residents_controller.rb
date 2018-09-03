@@ -29,10 +29,7 @@ module Homeowners
     end
 
     def create
-      if @plot_residency.tenant?
-        render json: { alert: nil, notice: nil }, status: 401
-        return
-      end
+      return not_allowed if @plot_residency.tenant?
 
       email_addr = resident_params[:email]
 
@@ -58,6 +55,7 @@ module Homeowners
       resident = Resident.find_by(email: params[:email])
       return not_allowed unless removeable?(resident)
 
+      resident&.plots&.delete(@plot)
       notice = remove_plots(resident)
       render json: { alert: nil, notice: notice }, status: :ok
     end
@@ -69,8 +67,6 @@ module Homeowners
     end
 
     def remove_plots(resident)
-      resident&.plots&.delete(@plot)
-
       notice = t(".success", email: params[:email])
 
       if resident.plots.count.zero?
@@ -78,14 +74,12 @@ module Homeowners
         notice << t("residents.destroy.deactivated")
         notice << t("residents.destroy.private_documents") if resident.private_documents.any?
         resident.destroy
+      elsif resident.private_documents.any?
+        ResidentResetService.transfer_files_and_notify(resident, @plot)
+        notice << t("residents.destroy.private_documents")
       end
 
       notice
-    end
-
-    def not_allowed
-      render json: { alert: nil, notice: nil }, status: 401
-      nil
     end
 
     def build_alert(notice, email_addr)
@@ -145,6 +139,11 @@ module Homeowners
           plot_count: resident.plots.count
         }
       end
+    end
+
+    def not_allowed
+      render json: { alert: nil, notice: nil }, status: 401
+      nil
     end
 
     def removeable?(resident)
