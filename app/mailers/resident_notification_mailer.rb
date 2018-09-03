@@ -40,7 +40,7 @@ class ResidentNotificationMailer < ApplicationMailer
     @name = name
     @url = url
     @logo = @plot&.branded_logo
-    @logo = "ISYT-40px-01.png" if @logo.blank?
+    @logo = "logo.png" if @logo.blank?
 
     mail to: email, subject: I18n.t("devise.mailer.close_account.title")
   end
