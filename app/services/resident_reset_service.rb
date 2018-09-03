@@ -28,10 +28,10 @@ module ResidentResetService
   end
 
   def plots_string(resident, reset_plot)
-    return reset_plot.to_homeowner_s unless reset_plot.nil?
+    return reset_plot&.to_homeowner_s if reset_plot.present?
 
     # In practice, there will only be a single plot here
-    resident.plots.last.to_homeowner_s
+    resident&.plots&.last&.to_homeowner_s
   end
 
   def reset_resident(resident)

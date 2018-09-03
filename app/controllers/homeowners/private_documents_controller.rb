@@ -25,16 +25,18 @@ module Homeowners
     end
 
     def update
-      unless current_resident.plot_residency_homeowner?(@plot)
-        render json: {}, status: 401
-        return
-      end
+      plot_private_document = find_plot_private_document
 
       notice = if private_document_params[:enable_tenant_read] == "toggle"
-                 toggle_shared
+                 toggle_shared(plot_private_document)
                elsif @private_document.update(private_document_params)
                  t("controller.success.update", name: @private_document.title)
                end
+
+      if plot_private_document.nil? || notice.nil?
+        render json: {}, status: 401
+        return
+      end
 
       render json: { notice: notice }, status: :ok
     end
@@ -48,10 +50,8 @@ module Homeowners
 
     private
 
-    def toggle_shared
-      plot_private_document = PlotPrivateDocument
-                              .find_or_create_by!(plot_id: @plot.id,
-                                                  private_document_id: @private_document.id)
+    def toggle_shared(plot_private_document)
+      return nil if current_resident.plot_residency_tenant?(@plot)
 
       if plot_private_document.enable_tenant_read.blank?
         plot_private_document.update_attributes(enable_tenant_read: true)
@@ -62,6 +62,13 @@ module Homeowners
         t("homeowners.private_documents.update.not_shared", title: @private_document.title,
                                                             address: @plot.to_homeowner_s)
       end
+    end
+
+    def find_plot_private_document
+      return nil if @private_document.resident_id != current_resident.id
+
+      PlotPrivateDocument.find_or_create_by!(plot_id: @plot.id,
+                                             private_document_id: @private_document.id)
     end
 
     def private_document_params

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class ResidentsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -50,16 +51,23 @@ class ResidentsController < ApplicationController
 
     @notice = t(".success", email: @resident.email, plot: @plot)
 
-    homeowners = @plot.plot_residencies.where(role: nil)
-    homeowners += @plot.plot_residencies.where(role: :homeowner)
-    remove_tenants if homeowners.count.zero?
+    remove_tenants if all_homeowners.empty?
 
-    remove_resident if @resident.plots.count.zero?
+    if @resident.plots.count.zero?
+      remove_resident
+    elsif @resident.private_documents.any?
+      ResidentResetService.transfer_files_and_notify(@resident, @plot)
+      @notice << t("residents.destroy.private_documents")
+    end
 
     redirect_to [@plot, active_tab: :residents], notice: @notice
   end
 
   private
+
+  def all_homeowners
+    @plot.plot_residencies.where(role: nil) + @plot.plot_residencies.where(role: :homeowner)
+  end
 
   def remove_resident
     @notice << ResidentResetService.reset_all_plots_for_resident(@resident)
@@ -79,6 +87,8 @@ class ResidentsController < ApplicationController
       if tenant.plot_residencies.count.zero?
         ResidentResetService.reset_all_plots_for_resident(tenant)
         tenant.destroy
+      elsif tenant.private_documents.any?
+        ResidentResetService.transfer_files_and_notify(tenant, @plot)
       end
     end
   end
@@ -125,8 +135,7 @@ class ResidentsController < ApplicationController
   end
 
   def resident_params
-    params.require(:resident).permit(
-      :title, :first_name, :last_name, :email, :phone_number
-    )
+    params.require(:resident).permit(:title, :first_name, :last_name, :email, :phone_number)
   end
 end
+# rubocop:enable Metrics/ClassLength
