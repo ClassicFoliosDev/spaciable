@@ -99,7 +99,8 @@
           text: dataIn.cancel,
           class: 'btn',
           click: function () {
-            $(this).dialog('destroy')
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
           }
         },
         {
@@ -107,9 +108,12 @@
           class: 'remove-resident btn',
           id: 'btn_submit',
           click: function () {
-            $(this).dialog('destroy')
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
             // Clear any old messages before the ajax call
             $('.flash').empty()
+            // Hide the removed resident temporarily, the next page refresh will remove it properly
+            var $residentToDelete = $('li:contains(' + dataIn.email + ')')
 
             $.ajax({
               url: '/homeowners/remove_resident',
@@ -126,8 +130,7 @@
                 }
                 $('.flash').append($responseP)
                 $(window).scrollTop(0)
-                // Hide the removed resident temporarily, the next page refresh will remove it properly
-                var $residentToDelete = $('li:contains(' + dataIn.email + ')')
+
                 $residentToDelete.hide()
               }
             })

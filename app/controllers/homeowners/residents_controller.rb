@@ -65,7 +65,7 @@ module Homeowners
     private
 
     def plot_residency
-      @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: current_resident.id)
+      @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: current_resident&.id)
     end
 
     def remove_plots(resident)
@@ -149,8 +149,13 @@ module Homeowners
 
     def removeable?(resident)
       if current_resident.plot_residency_homeowner?(@plot)
-        return true if resident.plot_residency_invited_by(@plot).class == Resident
         return true if resident.plot_residency_tenant?(@plot)
+
+        if current_resident.plot_residency_primary_resident?(@plot)
+          return true if resident.plot_residency_invited_by(@plot).class == Resident
+        elsif resident.plot_residency_invited_by(@plot) == current_resident
+          return true
+        end
       end
 
       false
