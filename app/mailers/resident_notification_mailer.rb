@@ -46,6 +46,15 @@ class ResidentNotificationMailer < ApplicationMailer
 
   def transfer_files(email, name, url, plot_name)
     @name = name
+    @logo = @plot&.branded_logo
+    @logo = "ISYT-40px-01.png" if @logo.blank?
+    @plot_name = plot_name
+
+    mail to: email, subject: I18n.t("devise.mailer.transfer_files.title")
+  end
+
+  def transfer_files(email, name, url, plot_name)
+    @name = name
     @url = url
     @logo = @plot&.branded_logo
     @logo = "ISYT-40px-01.png" if @logo.blank?
