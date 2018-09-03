@@ -176,7 +176,7 @@ module Homeowners
       params.require(:resident).permit(
         :title, :first_name, :last_name, :password, :password_confirmation, :current_password,
         :developer_email_updates, :hoozzi_email_updates, :telephone_updates, :post_updates,
-        :email, :phone_number
+        :email, :phone_number, :role
       )
     end
   end
