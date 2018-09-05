@@ -74,7 +74,7 @@ en:
   new_plot_title: "Information about your new home"
   transfer_files_description: "Your ISYT? account has been deactivated and you no longer have access.
    Please click below to download the files you uploaded to your online portal."
-  transfer_title: "ISYT? portal deactivated"
+  transfer_files_title: "ISYT? portal deactivated"
   file_transfer: "ISYT? file transfers"
 
   notify:
