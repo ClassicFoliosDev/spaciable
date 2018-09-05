@@ -54,10 +54,10 @@ en:
         name: "A ISYT? customer"
       close_account:
         title: "Sorry to see you go!"
-        deactivated: "We can confirm that your Hoozzi account has been deactivated. You will no longer have access to your home's
+        deactivated: "We can confirm that your ISYT? account has been deactivated. You will no longer have access to your home's
         personalised online portal."
         data: "Your user data has been deleted."
-        error: "If you think your Hoozzi portal account has been deleted in error, please contact your property developer or landlord."
+        error: "If you think your ISYT? portal account has been deleted in error, please contact your property developer or landlord."
       transfer_files:
         title: "Your private files have been transferred"
         for_plot: "You are no longer a resident at %{plot}."

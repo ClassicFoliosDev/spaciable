@@ -147,12 +147,12 @@ module Homeowners
     end
 
     def removeable?(resident)
-      if current_resident.plot_residency_homeowner?(@plot)
-        return true if resident.plot_residency_tenant?(@plot)
+      if current_resident&.plot_residency_homeowner?(@plot)
+        return true if resident&.plot_residency_tenant?(@plot)
 
-        if current_resident.plot_residency_primary_resident?(@plot)
+        if current_resident&.plot_residency_primary_resident?(@plot)
           return true if resident.plot_residency_invited_by(@plot).class == Resident
-        elsif resident.plot_residency_invited_by(@plot) == current_resident
+        elsif resident&.plot_residency_invited_by(@plot) == current_resident
           return true
         end
       end
