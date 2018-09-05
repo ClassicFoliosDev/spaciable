@@ -246,6 +246,61 @@ RSpec.describe Homeowners::ResidentsController do
           end
         end
       end
+
+      context "when a resident has private documents" do
+        let(:other_plot) { create(:plot) }
+        let(:other_plot_residency) { create(:plot_residency, plot_id: other_plot.id, resident_id: primary_homeowner.id, role: :homeowner, invited_by: site_admin) }
+
+        let(:second_homeowner) { create(:resident, :activated) }
+        let(:second_plot_residency) { create(:plot_residency, plot_id: plot.id, resident_id: second_homeowner.id, role: :homeowner, invited_by: primary_homeowner) }
+
+        let(:private_document) { create(:private_document, resident_id: second_homeowner.id) }
+        let(:plot_private_document) { create(:plot_private_document, private_document: private_document, plot: plot) }
+
+        let(:second_other_plot_residency) { create(:plot_residency, plot_id: other_plot.id, resident_id: second_homeowner.id, role: :homeowner, invited_by: primary_homeowner) }
+        let(:other_private_document) { create(:private_document, resident_id: second_homeowner.id) }
+        let(:other_plot_private_document) { create(:plot_private_document, private_document: other_private_document, plot: other_plot) }
+
+        it "removes the plot residency" do
+          plot_residency
+          second_plot_residency
+          other_plot_residency
+          second_other_plot_residency
+          plot_private_document
+          other_plot_private_document
+
+          expect(Resident.count).to eq 2
+          expect(PlotResidency.count).to eq 4
+
+          login_as primary_homeowner
+
+          change_url = "/homeowners/change_plot?id=#{plot.id}"
+          get change_url
+
+          url = "/homeowners/remove_resident?email=#{second_homeowner.email}"
+          get url
+
+          expect(response.status).to eq(200)
+
+          expect(Resident.count).to eq 2
+          expect(PlotResidency.count).to eq 3
+
+          change_url = "/homeowners/change_plot?id=#{other_plot.id}"
+          get change_url
+
+          url = "/homeowners/remove_resident?email=#{second_homeowner.email}"
+          get url
+
+          expect(response.status).to eq(200)
+
+          expect(Resident.count).to eq 1
+          expect(PlotResidency.count).to eq 2
+
+          PlotResidency.all.each do |plot_residency|
+            expect(plot_residency.resident).to eq primary_homeowner
+          end
+        end
+      end
     end
   end
 end

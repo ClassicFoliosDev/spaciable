@@ -31,6 +31,8 @@ $(document).on('click', '.archive-btn', function (event) {
         class: 'btn-delete',
         id: 'btn_confirm',
         click: function () {
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
           $.ajax({
             url: dataIn.url,
             type: 'DELETE'
