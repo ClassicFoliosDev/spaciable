@@ -99,10 +99,11 @@ module ResidentResetService
   # This will happen automatically through the model dependencies if a resident is deleted
   # entirely, but is needed in the scenario where a resident is removed from a single plot
   def remove_document_from_plot(document, reset_plot)
-    if reset_plot.nil? || document.plots.count == 1
+    if reset_plot.nil? || document.plots.empty?
       document.destroy
     else
       document.plots.delete(reset_plot)
+      document.destroy if document.plots.empty?
     end
   end
 

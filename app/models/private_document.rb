@@ -5,6 +5,7 @@ class PrivateDocument < ApplicationRecord
 
   belongs_to :resident
   has_many :plot_private_documents, dependent: :destroy
+  has_many :plots, through: :plot_private_documents
 
   def to_s
     title
