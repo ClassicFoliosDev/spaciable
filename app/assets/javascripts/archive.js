@@ -20,6 +20,7 @@ $(document).on('click', '.archive-btn', function (event) {
     buttons: [
       {
         text: dataIn.cancel,
+        class: 'btn-cancel',
         click: function () {
           $(this).dialog('close')
           $(this).dialog('destroy').remove()
@@ -31,8 +32,9 @@ $(document).on('click', '.archive-btn', function (event) {
         class: 'btn-delete',
         id: 'btn_confirm',
         click: function () {
-          $(this).dialog('close')
-          $(this).dialog('destroy').remove()
+          $('.btn-delete').button('disable')
+          $('.btn-cancel').button('disable')
+
           $.ajax({
             url: dataIn.url,
             type: 'DELETE'
