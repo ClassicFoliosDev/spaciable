@@ -56,7 +56,6 @@ end
 
 Then(/^I should see the updated phase plot$/) do
   within ".section-title" do
-    expect(page).to have_content(PhasePlotFixture.update_attrs[:prefix])
     expect(page).to have_content(PhasePlotFixture.update_attrs[:number])
     expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.soon"))
     expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.complete_ready"))
@@ -148,7 +147,6 @@ end
 Given(/^I have created a plot for the phase$/) do
   click_on t("plots.collection.add")
 
-  fill_in "plot_prefix", with: PhasePlotFixture.update_attrs[:prefix]
   fill_in "plot_list", with: PhasePlotFixture.update_attrs[:number]
   within ".plot_unit_type" do
     select PhasePlotFixture.unit_type_name, visible: false

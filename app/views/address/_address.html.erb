@@ -1,5 +1,6 @@
 <span>
   <% if address %>
+    <%= address.prefix if address.prefix %>
     <%= address.postal_number %>
     <%= address.building_name %>
     <%= address.road_name %>

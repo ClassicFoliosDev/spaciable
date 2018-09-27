@@ -36,11 +36,11 @@ RSpec.describe "Sorting", type: :feature do
     developer = create(:developer, company_name: "Alpha")
     development = create(:development, developer: developer)
     phase = create(:phase, development: development)
-    create(:plot, prefix: "Plot", number: "1", phase: phase)
-    create(:plot, prefix: "Plot", number: "9", phase: phase)
-    create(:plot, prefix: "Plot", number: "10", phase: phase)
-    create(:plot, prefix: "Plot", number: "11", phase: phase)
-    create(:plot, prefix: "Plot", number: "12", phase: phase)
+    create(:plot, number: "1", phase: phase)
+    create(:plot, number: "9", phase: phase)
+    create(:plot, number: "10", phase: phase)
+    create(:plot, number: "11", phase: phase)
+    create(:plot, number: "12", phase: phase)
 
     visit "/developments/#{development.id}/phases/#{phase.id}"
 

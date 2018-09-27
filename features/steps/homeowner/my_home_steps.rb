@@ -49,8 +49,10 @@ Then(/^I should see no rooms$/) do
 end
 
 When(/^I switch back to the development plot$/) do
-  within ".plot-list" do
-    plot_link = page.find_link(CreateFixture.plot_name)
+  plot = Plot.find_by(number: CreateFixture.plot_name)
+
+  within ".session-inner" do
+    plot_link = page.find_link(plot.to_homeowner_s)
     plot_link.trigger(:click)
   end
 end

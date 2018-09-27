@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :address do
-    postal_number { Faker::Address.street_name }
+    postal_number { Faker::Address.building_number }
     building_name { Faker::Address.street_name }
     road_name { Faker::Address.street_name }
     locality { Faker::Address.city_prefix }

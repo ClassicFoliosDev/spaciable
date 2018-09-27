@@ -82,10 +82,9 @@ module BulkPlots
     def grouped_error_message(plots_with_errors)
       messages = plots_with_errors.map(&:errors).map(&:full_messages).flatten.uniq.to_sentence
       numbers = plots_with_errors.map(&:number).to_sentence
-      prefix = plots_with_errors.first.prefix
       title = model_title(plots_with_errors)
 
-      "#{title} '#{prefix}#{' ' if prefix}#{numbers}' could not be saved: #{messages}"
+      "#{title} #{numbers} could not be saved: #{messages}"
     end
 
     def bulk_attributes_black_list

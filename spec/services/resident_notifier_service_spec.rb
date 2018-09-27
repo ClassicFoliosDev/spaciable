@@ -263,63 +263,13 @@ RSpec.describe ResidentNotifierService do
         service = described_class.new(notification)
         expect(service.all_missing_plots).not_to match_array(plot_numbers)
       end
-    end
 
-    context "plots with prefixes" do
-      it "should send to all plots with the same prefix" do
+      it "should send to plot numbers" do
         development = create(:development)
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "7")
-        notification = create(:notification, send_to: development, plot_prefix: "Apartment")
-
-        notified_residents = described_class.new(notification).notify_residents
-
-        expect(notified_residents.length).to eq(1)
-        expect(notified_residents[0].plots.first.number).to eq("7")
-        expect(notified_residents[0].plots.first.prefix).to eq("Apartment")
-      end
-
-      it "should ignore prefixes for all in development" do
-        development = create(:development)
-        notification = create(:notification, send_to: development)
-        create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "6")
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "6")
-        create(:plot, development: development, prefix: "Penthouse", number: "6")
-
-        service = described_class.new(notification)
-        notified_residents = service.notify_residents
-        expect(notified_residents.length).to eq(2)
-
-        expect(service.all_missing_plots.to_sentence).to eq("Penthouse 6")
-      end
-
-      it "should send to a range of plots with the same prefix" do
-        development = create(:development)
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "7")
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "8")
-        create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "9")
-        notification = create(:notification, send_to: development, range_from: 7, range_to: 9, plot_prefix: "Apartment")
-
-        service = described_class.new(notification)
-        notified_residents = service.notify_residents
-
-        expect(notified_residents.length).to eq(2)
-        full_plot_numbers = []
-        notified_residents.each do | resident |
-          resident.plots.each do | plot |
-            full_plot_numbers << plot.to_s
-          end
-        end
-        expect(full_plot_numbers).to match_array(["Apartment 7", "Apartment 8"])
-
-        expect(service.all_missing_plots.to_sentence).to eq("Plot 9")
-      end
-
-      it "should send to plot numbers with the same prefix" do
-        development = create(:development)
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "5.1")
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "5a")
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "5")
-        notification = create(:notification, send_to: development, list: "5, 5a, 5.1", plot_prefix: "Apartment")
+        create(:plot, :with_activated_resident, development: development, number: "5.1")
+        create(:plot, :with_activated_resident, development: development, number: "5a")
+        create(:plot, :with_activated_resident, development: development, number: "5")
+        notification = create(:notification, send_to: development, list: "5, 5a, 5.1")
 
         notified_residents = described_class.new(notification).notify_residents
 
@@ -330,43 +280,20 @@ RSpec.describe ResidentNotifierService do
             full_plot_numbers << plot.to_s
           end
         end
-        expect(full_plot_numbers).to match_array(["Apartment 5", "Apartment 5a", "Apartment 5.1"])
-      end
-
-      it "should not send to plot numbers with different prefix" do
-        development = create(:development)
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "4")
-        create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "4")
-        create(:plot, :with_activated_resident, development: development, prefix: "", number: "4")
-        notification = create(:notification, send_to: development, list: "4, 5", plot_prefix: "Plot")
-
-        service = described_class.new(notification)
-        notified_residents = service.notify_residents
-
-        expect(notified_residents.length).to eq(1)
-        full_plot_numbers = []
-        notified_residents.each do | resident |
-          resident.plots.each do | plot |
-            full_plot_numbers << plot.to_s
-          end
-        end
-        expect(full_plot_numbers).to match_array(["Plot 4"])
-
-        expect(service.all_missing_plots.length).to eq(2)
-        expect(service.all_missing_plots.to_sentence).to eq("4 and Apartment 4")
+        expect(full_plot_numbers).to match_array(["Plot 5", "Plot 5a", "Plot 5.1"])
       end
 
       it "should not send to plots with no residents" do
         development = create(:development)
-        create(:plot, development: development, prefix: "Plot", number: "4")
-        create(:plot, development: development, prefix: "Plot", number: "5")
-        notification = create(:notification, send_to: development, list: "4, 5", plot_prefix: "Plot")
+        create(:plot, development: development, number: "4")
+        create(:plot, development: development, number: "5")
+        notification = create(:notification, send_to: development, list: "4, 5")
 
         service = described_class.new(notification)
         notified_residents = service.notify_residents
 
         expect(notified_residents.length).to eq(0)
-        expect(service.all_missing_plots.to_sentence).to eq("Plot 4 and Plot 5")
+        expect(service.all_missing_plots.to_sentence).to eq("4 and 5")
       end
     end
 
@@ -532,61 +459,6 @@ RSpec.describe ResidentNotifierService do
         end
       end
     end
-
-    context "send to role with prefix" do
-      let (:phase) { create(:phase) }
-      let (:plot_with_tenant) { create(:plot, :with_activated_resident, phase: phase, prefix: "Plot") }
-      let (:tenant) { create(:resident, :activated) }
-      let (:plot_residency) { create(:plot_residency, plot_id: plot_with_tenant.id, resident_id: tenant.id, role: :tenant) }
-
-      # These plot residents should not receive notifications, their plot is in the same phase but the prefix and number do not match
-      let (:plot) { create(:plot, :with_activated_resident, phase: phase) }
-      let (:tenant2) { create(:resident, :activated) }
-      let (:plot_residency2) { create(:plot_residency, plot_id: plot.id, resident_id: tenant2.id, role: :tenant) }
-
-      it "sends to plot homeowners" do
-        plot_residency
-        homeowner = plot_with_tenant.plot_residencies.find_by(role: 'homeowner').resident
-        homeowner2 = plot.plot_residencies.find_by(role: 'homeowner').resident
-
-        notification = create(:notification, send_to: phase, plot_prefix: "Plot", list: plot_with_tenant.number, send_to_role: :homeowner)
-
-        described_class.call(notification) do |notified_residents, missing_residents|
-          expect(notified_residents.length).to eq 1
-          expect(notified_residents).to include homeowner
-          expect(missing_residents.length).to eq 0
-        end
-      end
-
-      it "sends to plot tenants" do
-        plot_residency
-        homeowner = plot_with_tenant.plot_residencies.find_by(role: 'homeowner').resident
-        homeowner2 = plot.plot_residencies.find_by(role: 'homeowner').resident
-
-        notification = create(:notification, send_to: phase, plot_prefix: "Plot", list: plot_with_tenant.number, send_to_role: :tenant)
-
-        described_class.call(notification) do |notified_residents, missing_residents|
-          expect(notified_residents.length).to eq 1
-          expect(notified_residents).to include tenant
-          expect(missing_residents.length).to eq 0
-        end
-      end
-
-      it "sends to both" do
-        plot_residency
-        homeowner = plot_with_tenant.plot_residencies.find_by(role: 'homeowner').resident
-        homeowner2 = plot.plot_residencies.find_by(role: 'homeowner').resident
-
-        notification = create(:notification, send_to: phase, plot_prefix: "Plot", list: plot_with_tenant.number, send_to_role: :both)
-
-        described_class.call(notification) do |notified_residents, missing_residents|
-          expect(notified_residents.length).to eq 2
-          expect(notified_residents).to include homeowner
-          expect(notified_residents).to include tenant
-          expect(missing_residents.length).to eq 0
-        end
-      end
-    end
   end
 
   describe "#all_missing_plots" do
@@ -610,8 +482,8 @@ RSpec.describe ResidentNotifierService do
     context "for plots with multiple residents" do
       it "should send to all of the residents" do
         development = create(:development)
-        create(:plot, :with_activated_resident, development: development, prefix: "Apartment", number: "4")
-        plot = create(:plot, :with_activated_resident, development: development, prefix: "Plot", number: "4")
+        create(:plot, :with_activated_resident, development: development, number: "4")
+        plot = create(:plot, :with_activated_resident, development: development, number: "5")
         second_resident = create(:resident, :activated)
         create(:plot_residency, plot_id: plot.id, resident_id: second_resident.id, role: :homeowner)
         notification = create(:notification, send_to: development)
@@ -651,15 +523,14 @@ RSpec.describe ResidentNotifierService do
         development = create(:development)
         notification = create(:notification, send_to: development, list: "2,4,5")
         plots = []
-        plots[0] = create(:plot, :with_activated_resident, development: development, number: "5")
-        plots[1] = create(:plot, development: development, number: "4")
-        plots[2] = create(:plot, development: development, number: "4", prefix: "Plot")
+        plots[0] = create(:plot, :with_activated_resident, development: development, number: "4")
+        plots[1] = create(:plot, :with_activated_resident, development: development, number: "7")
 
         service = described_class.new(notification)
         notified_residents = service.notify_residents
 
-        expect(service.all_missing_plots.count).to eq(3)
-        expect(service.all_missing_plots.to_sentence).to eq("2, 4, and Plot 4")
+        expect(service.all_missing_plots.count).to eq(2)
+        expect(service.all_missing_plots.to_sentence).to eq("2 and 5")
 
         expect(notified_residents.count).to eq(1)
         expect(notified_residents[0]).to eq(plots[0].residents.first)

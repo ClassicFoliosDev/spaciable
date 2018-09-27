@@ -14,7 +14,9 @@ Feature: Dashboard
     When I the plot has a postal number
     Then I see the dashboard address reformatted
 
-  Scenario: Password
+  Scenario: Prefix and Password
     Given I have created and logged in as a homeowner user
+    When I navigate to the dashboard
+    Then I see the plot number as postal number
     When I change my homeowner password
     Then I should be logged out of homeowner

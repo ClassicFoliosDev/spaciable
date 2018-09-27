@@ -210,7 +210,7 @@ Then(/^I should not see other resident emails listed in my account$/) do
   visit "/homeowners/residents/#{resident.id}"
 
   within ".other-residents" do
-    expect(page).to have_content t("homeowners.residents.show.none", plot: PlotFixture.another_plot_number)
+    expect(page).to have_content t("homeowners.residents.show.none", plot: "Plot #{PlotFixture.another_plot_number}")
 
     expect(page).not_to have_content "test1@example.com"
     expect(page).not_to have_content "test2@example.com"
@@ -221,8 +221,10 @@ Then(/^I should not see other resident emails listed in my account$/) do
 end
 
 When(/^I switch to the homeowner plot$/) do
+  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
+
   within ".plot-list" do
-    plot_link = page.find_link(HomeownerUserFixture.plot_number)
+    plot_link = page.find_link(plot.to_homeowner_s)
     plot_link.trigger(:click)
   end
 

@@ -2,7 +2,7 @@
   'use strict'
 
   $(document).on('click', '.my-plots', function (event) {
-    $('.plot-list').toggle()
+    $('.plot-list').toggleClass('hidden')
   })
 
   $(document).on('click', '.plot-summary', function (event) {

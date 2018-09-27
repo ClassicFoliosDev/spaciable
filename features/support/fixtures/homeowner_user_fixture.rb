@@ -8,7 +8,7 @@ module HomeownerUserFixture
     division = FactoryGirl.create(:division, division_name: division_name, developer_id: developer.id)
     development = FactoryGirl.create(:development, name: development_name, division_id: division.id, developer_id: developer.id)
     phase = FactoryGirl.create(:phase, name: phase_name, development_id: development.id)
-    plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id)
+    plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id, prefix: "Flat")
 
     resident = create_without_residency
     FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id, role: :homeowner)

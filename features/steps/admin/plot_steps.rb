@@ -51,7 +51,6 @@ Then(/^I should see the updated plot$/) do
   end
 
   within ".section-title" do
-    expect(page).to have_content(PlotFixture.update_attrs[:prefix])
     expect(page).to have_content(PlotFixture.update_attrs[:number])
     expect(page).to have_content(PlotFixture.progress)
     expect(page).to have_content(PlotFixture.completion_date)
@@ -109,7 +108,6 @@ Given(/^I have created a plot for the development$/) do
 
   click_on t("plots.collection.add")
 
-  fill_in "plot_prefix", with: PlotFixture.update_attrs[:prefix]
   fill_in "plot_list", with: PlotFixture.plot_number
   within ".plot_unit_type" do
     select PlotFixture.unit_type_name, visible: false
@@ -264,13 +262,13 @@ Then(/^I should see the plot progress has been updated$/) do
 end
 
 Then(/^both residents have been notified$/) do
-  message = "Plot Quartz Tower (200) has been updated to Ready for exchange"
+  message = "has been updated to Ready for exchange"
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 2
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
   expect(in_app_notification.residents.last.email).to eq PlotResidencyFixture.second_email
-  expect(in_app_notification.message).to eq message
+  expect(in_app_notification.message).to include message
 
   expect(ActionMailer::Base.deliveries.count).to eq 2
 
@@ -321,13 +319,13 @@ Then(/^I should see the expiry date has been updated$/) do
 end
 
 Then(/^both residents have been notified of the completion date$/) do
-  message = "Plot Quartz Tower (200) has been updated for your home"
+  message = "has been updated for your home"
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 2
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
   expect(in_app_notification.residents.last.email).to eq PlotResidencyFixture.second_email
-  expect(in_app_notification.message).to eq message
+  expect(in_app_notification.message).to include message
 
   first_notification = ActionMailer::Base.deliveries.first
   expect(first_notification.parts.first.body.raw_source).to include message
@@ -406,5 +404,49 @@ end
 Then(/^I can not update the progress for a plot$/) do
   within ".tabs" do
     expect(page).not_to have_content t("phases.collection.progresses")
+  end
+end
+
+When(/^I create a plot with prefix$/) do
+  phase = PhasePlotFixture.phase
+  visit "/phases/#{phase.id}/plots/new"
+
+  within ".new_plot" do
+    select PhasePlotFixture.unit_type_name, visible: false
+    fill_in :plot_list, with: PhasePlotFixture.prefix_plot_number
+    fill_in :plot_prefix, with: "Flat"
+
+    click_on t("plots.form.submit")
+  end
+end
+
+Then(/^I should see the postal number inherit from the plot number$/) do
+  within ".plots" do
+    click_on "Plot #{PhasePlotFixture.prefix_plot_number}"
+  end
+
+  within ".plot" do
+    expect(page).to have_content "Flat #{PhasePlotFixture.prefix_plot_number}"
+  end
+end
+
+When(/^I edit a plot with prefix and postal number$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  within ".edit_plot" do
+    fill_in :plot_house_number, with: PhasePlotFixture.prefix_postal_number
+
+   click_on t("plots.form.submit")
+  end
+end
+
+Then(/^the postal number should not inherit from the plot number$/) do
+  within ".plot" do
+    within ".section-data" do
+      expect(page).to have_content "Flat #{PhasePlotFixture.prefix_postal_number}"
+      expect(page).not_to have_content PhasePlotFixture.prefix_plot_number
+    end
   end
 end

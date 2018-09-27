@@ -32,11 +32,7 @@ class ResidentNotifierService
 
     residents_notified = notify_residents if residents_notified.nil?
 
-    if notification.plot_numbers && notification.plot_prefix?
-      missing_resident_plots_with_prefix(residents_notified).sort
-    else
-      missing_resident_plots(residents_notified).sort
-    end
+    missing_resident_plots(residents_notified).sort
   end
 
   private
@@ -53,29 +49,18 @@ class ResidentNotifierService
     missing_plot_names
   end
 
-  def missing_resident_plots_with_prefix(residents_notified)
-    missing_plot_names = plots_no_residents(potential_plots, residents_notified)
-
-    potential_plot_full_numbers = potential_plots.map(&:to_s)
-    sent_full_numbers = notification.plot_numbers.map do |plot_number|
-      "#{notification.plot_prefix} #{plot_number}".strip
-    end
-
-    (missing_plot_names + (potential_plot_full_numbers - sent_full_numbers)).uniq
-  end
-
   def plots_no_residents(potential_plots, residents_notified)
     missing_plot_names = Set.new
     sent_resident_full_numbers = []
     residents_notified.each do |resident|
       resident.plots.each do |plot|
-        sent_resident_full_numbers << plot.to_s
+        sent_resident_full_numbers << plot.number
       end
     end
 
     potential_plots.each do |potential_plot|
-      unless sent_resident_full_numbers.include?(potential_plot.to_s)
-        missing_plot_names.add(potential_plot.to_s)
+      unless sent_resident_full_numbers.include?(potential_plot.number)
+        missing_plot_names.add(potential_plot.number)
       end
     end
 
@@ -152,8 +137,8 @@ class ResidentNotifierService
                                      .where(plots: { number: notification.plot_numbers })
 
     filtered_residents.each do |resident|
-      resident.plots.each do |plot|
-        residents.push(resident) if plot.prefix == notification.plot_prefix
+      resident.plots.each do |_plot|
+        residents.push(resident)
       end
     end
 

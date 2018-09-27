@@ -12,27 +12,27 @@ module PlotDocumentFixture
   end
 
   def document100
-    "100 homeowner manual.pdf"
+    "Plot 100 homeowner manual.pdf"
   end
 
   def document10010
-    "100.10 homeowner manual.pdf"
+    "Plot 100.10 homeowner manual.pdf"
   end
 
   def document300
-    "300 homeowner manual.pdf"
+    "Plot 300 homeowner manual.pdf"
   end
 
   def document30010
-    "300.10 homeowner manual.pdf"
+    "Plot 300.10 homeowner manual.pdf"
   end
 
   def document200
-    "200 homeowner manual.pdf"
+    "Plot 200 homeowner manual.pdf"
   end
 
   def document20010
-    "200.10 homeowner manual.pdf"
+    "Plot 200.10 homeowner manual.pdf"
   end
 
   def rename_text

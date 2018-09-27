@@ -95,7 +95,7 @@ Then(/^the development CSV contents are correct$/) do
   development = Development.find_by(name: CreateFixture.development_name)
 
   expect(csv[0]["Development name"]).to eq development.to_s
-  expect(csv[1]["Plot number"]).to eq "200"
+  expect(csv[1]["Plot number"]).to eq "Plot 200"
   # Plot 100 has no phase, so won't show up in this CSV
 end
 
@@ -146,5 +146,5 @@ Then(/^the all billing CSV contents are correct$/) do
   csv = CSV.read(path, headers: true)
 
   expect(csv.size).to eq(1)
-  expect(csv[0]["Plot"]).to eq "200"
+  expect(csv[0]["Plot"]).to eq "Plot 200"
 end

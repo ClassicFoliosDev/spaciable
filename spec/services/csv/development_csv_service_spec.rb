@@ -5,14 +5,14 @@ RSpec.describe Csv::DevelopmentCsvService do
   let(:developer) { create(:developer) }
   let(:development) { create(:development, developer: developer) }
   let(:phase) { create(:phase, development: development, name: "A") }
-  let(:plot_a) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "A") }
+  let(:plot_a) { create(:plot, phase: phase, development: development, developer: developer, number: "A") }
   let(:resident_a) { create(:resident) }
   let(:plot_resident_a) { create(:plot_residency, resident: resident_a, plot: plot_a, role: 0) }
-  let(:plot_b) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "B") }
+  let(:plot_b) { create(:plot, phase: phase, development: development, developer: developer, number: "B") }
   let(:resident_b) { create(:resident) }
   let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b, invited_by: plot_resident_a, role: 1) }
-  let(:plot_c) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "10") }
-  let(:plot_d) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "9") }
+  let(:plot_c) { create(:plot, phase: phase, development: development, developer: developer, number: "10") }
+  let(:plot_d) { create(:plot, phase: phase, development: development, developer: developer, number: "9") }
 
   context "plot with alphanumeric number" do
     it "creates the csv correctly" do

@@ -29,7 +29,7 @@ Then(/^I can post a message$/) do
 end
 
 Given(/^there is another resident$/) do
-  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, prefix: "", number: PlotFixture.another_plot_number)
+  second_plot = FactoryGirl.create(:plot, phase: CreateFixture.phase, number: PlotFixture.another_plot_number)
   resident = FactoryGirl.create(:resident, email: HomeownerUserFixture.email, password: HomeownerUserFixture.password)
   FactoryGirl.create(:plot_residency, plot_id: second_plot.id, resident_id: resident.id)
 end

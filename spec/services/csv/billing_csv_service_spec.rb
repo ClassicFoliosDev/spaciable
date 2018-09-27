@@ -8,15 +8,15 @@ RSpec.describe Csv::BillingCsvService do
   let(:division_development) { create(:development, division: division, developer: division.developer) }
   let(:phase) { create(:phase, development: development, name: "A") }
   let(:division_phase) { create(:phase, development: division_development, name: "1") }
-  let(:plot_a) { create(:plot, phase: division_phase, development: division_development, developer: division.developer, prefix: "Plot", number: "A") }
+  let(:plot_a) { create(:plot, phase: division_phase, development: division_development, developer: division.developer, number: "A") }
   let(:resident_a) { create(:resident) }
   let(:plot_resident_a) { create(:plot_residency, resident: resident_a, plot: plot_a) }
-  let(:plot_b) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "B") }
+  let(:plot_b) { create(:plot, phase: phase, development: development, developer: developer, number: "B") }
   let(:resident_b) { create(:resident, invitation_accepted_at: Time.zone.now) }
   let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b) }
-  let(:plot_c) { create(:plot, phase: phase, development: development, developer: developer, prefix: "Plot", number: "10") }
-  let(:plot_d) { create(:plot, phase: division_phase, development: division_development, developer: division.developer, prefix: "Plot", number: "9", progress: 2) }
-  let(:plot_e) { create(:plot, phase: division_phase, development: division_development, developer: division.developer, prefix: "Plot", number: "2") }
+  let(:plot_c) { create(:plot, phase: phase, development: development, developer: developer, number: "10") }
+  let(:plot_d) { create(:plot, phase: division_phase, development: division_development, developer: division.developer, number: "9", progress: 2) }
+  let(:plot_e) { create(:plot, phase: division_phase, development: division_development, developer: division.developer, number: "2") }
 
   context "plots" do
     it "creates the csv correctly" do
