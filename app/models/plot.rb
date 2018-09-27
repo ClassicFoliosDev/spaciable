@@ -89,9 +89,12 @@ class Plot < ApplicationRecord
   end
 
   def postal_number
-    return house_number if house_number
+    return house_number if house_number.present?
+
     if address&.postal_number?
       address.postal_number
+    elsif address&.prefix?
+      number
     else
       parent.address&.postal_number
     end
@@ -103,6 +106,14 @@ class Plot < ApplicationRecord
     else
       parent.postcode
     end
+  end
+
+  def prefix
+    address.prefix if address&.prefix?
+  end
+
+  def prefix=(name)
+    (address || build_address).prefix = name
   end
 
   def building_name=(name)
@@ -170,11 +181,7 @@ class Plot < ApplicationRecord
   end
 
   def to_s
-    if prefix.blank?
-      number.to_s
-    else
-      "#{prefix} #{number}"
-    end
+    I18n.t(".plot", number: number)
   end
 
   def activated_resident_count
@@ -182,11 +189,11 @@ class Plot < ApplicationRecord
   end
 
   def to_homeowner_s
-    if house_number.present?
+    if postal_number.present?
       if building_name.present?
-        "#{house_number} #{building_name}"
+        "#{prefix} #{postal_number} #{building_name}".strip
       else
-        "#{house_number} #{road_name}".strip
+        "#{prefix} #{postal_number} #{road_name}".strip
       end
     elsif building_name.present?
       "#{building_name} (#{self})"

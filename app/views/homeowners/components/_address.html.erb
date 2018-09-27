@@ -1,6 +1,6 @@
 <div class="card-content">
   <address class="my-home-address">
-    <%= plot.postal_number %> <%= plot.building_name %>
+    <%= plot.to_homeowner_s %>
     <% if plot.building_name.present? && plot.road_name.present? %>
       <br/>
     <% end %>

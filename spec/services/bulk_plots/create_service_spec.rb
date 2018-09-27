@@ -12,33 +12,33 @@ RSpec.describe BulkPlots::CreateService do
 
   context "when no plots already exist" do
     it "should create all of the plots" do
-      params = { range_from: 1, range_to: 3, list: "5.5, 6.6", prefix: "Marsh" }
+      params = { range_from: 1, range_to: 3, list: "5.5, 6.6" }
       development = create(:development)
       plot = build(:plot, development: development)
       service = described_class.call(plot, params: params)
 
       expect { service.save }.to change(Plot, :count).by(5)
-      expect(Plot.where(number: [1, 2, 3, "5.5", "6.6"], prefix: "Marsh").count).to eq(5)
+      expect(Plot.where(number: [1, 2, 3, "5.5", "6.6"]).count).to eq(5)
       expect(development.reload.plots.count).to eq(5)
     end
   end
 
   context "when some of the plots already exist" do
     it "should overwrite the attributes of the existing plots" do
-      params = { range_from: 1, range_to: 3, prefix: "Marsh" }
+      params = { range_from: 1, range_to: 3 }
       development = create(:development)
-      plot = create(:plot, development: development, number: 3, prefix: "Marsh")
+      plot = create(:plot, development: development, number: 3)
       service = described_class.call(plot, params: params)
 
       expect { service.save }.to change(Plot, :count).by(2)
-      expect(Plot.where(number: [1, 2, 3], prefix: "Marsh").count).to eq(3)
+      expect(Plot.where(number: [1, 2, 3]).count).to eq(3)
       expect(development.reload.plots.count).to eq(3)
     end
   end
 
   context "when no numbers are supplied" do
     it "should not update any plots" do
-      params = { prefix: "Hillock" }
+      params = { }
       plot = build(:plot)
       service = described_class.call(plot, params: params)
 
@@ -46,7 +46,7 @@ RSpec.describe BulkPlots::CreateService do
     end
 
     it "should return a validation error" do
-      params = { prefix: "Hillock" }
+      params = { }
       plot = build(:plot)
       service = described_class.call(plot, params: params)
 
@@ -57,10 +57,10 @@ RSpec.describe BulkPlots::CreateService do
     end
   end
 
-  context "when plots exist with the same prefix under other developments" do
+  context "when plots exist under other developments" do
     it "should create the plots under this development" do
-      other_plot = create(:plot, number: 1, prefix: "Riverway")
-      params = { range_from: 1, range_to: 5, prefix: "Riverway", house_number: "88" }
+      other_plot = create(:plot, number: 1, )
+      params = { range_from: 1, range_to: 5, house_number: "88" }
       development = create(:development)
       plot = build(:plot, development: development)
       service = described_class.call(plot, params: params)
@@ -101,31 +101,30 @@ RSpec.describe BulkPlots::CreateService do
 
   context "when the plots are invalid" do
     it "should expose plots that could not be saved" do
-      prefix = "Hillock"
       phase = create(:phase)
-      create(:phase_plot, number: "1", prefix: prefix, phase: phase)
-      create(:phase_plot, number: "2", prefix: prefix, phase: phase)
+      create(:phase_plot, number: "1", phase: phase)
+      create(:phase_plot, number: "2", phase: phase)
 
-      base_plot = build(:phase_plot, prefix: prefix, phase: phase)
-      params = { list: "1, 2", prefix: prefix }
+      base_plot = build(:phase_plot, phase: phase)
+      params = { list: "1, 2" }
 
       described_class.call(base_plot, params: params) do |_service, created_plots, errors|
         expect(created_plots).to be_empty
-        expect(errors).to include(I18n.t("activerecord.errors.models.plot.attributes.base.combination_taken"))
+        expect(errors).to include(I18n.t("activerecord.errors.models.plot.attributes.base.number_taken"))
       end
     end
   end
 
   context "given a valid plot list" do
     it "should create all the plots" do
-      params = { list: " 1, 1a, 1A, 10, 100, 1000, 1.1, 1.1A, 1.1a, 1.1.1, 1.1.1.1, 1.10, 1.1.10, 1.1.1.10, A1, a1", prefix: "Hollow" }
+      params = { list: " 1, 1a, 1A, 10, 100, 1000, 1.1, 1.1A, 1.1a, 1.1.1, 1.1.1.1, 1.10, 1.1.10, 1.1.1.10, A1, a1" }
       development = create(:development)
       plot = build(:plot, development: development)
       service = described_class.call(plot, params: params)
 
       expect { service.save }.to change(Plot, :count).by(16)
-      expect(Plot.where(prefix: "Hollow").count).to eq(16)
-      result_test = params[:list].split(",").map { |plot_number| "Hollow#{plot_number}" }
+      expect(Plot.count).to eq(16)
+      result_test = params[:list].split(",").map { |plot_number| "Plot#{plot_number}" }
       expect(development.reload.plots.map(&:to_s)).to match_array(result_test)
     end
   end

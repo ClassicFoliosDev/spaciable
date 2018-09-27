@@ -8,6 +8,7 @@ FactoryGirl.define do
     unit_type
     development
     completion_date { Faker::Date.forward(3) }
+    address
 
     factory :phase_plot do
       development { nil }

@@ -21,7 +21,7 @@ RSpec.describe ResidentChangeNotifyService do
 
       expect(deliveries[0].subject).to eq(I18n.t("resident_notification_mailer.notify.update_subject"))
       expect(deliveries[0].to).to include(resident.email)
-      message = "Plot (#{resident.plots.first}) has been updated"
+      message = "Plot #{resident.plots.first.to_homeowner_s} has been updated"
       expect(deliveries[0].parts.first.body.raw_source).to include message
 
       ActionMailer::Base.deliveries.clear

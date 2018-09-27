@@ -35,12 +35,10 @@ RSpec.describe BulkPlots::Base do
     end
 
     it "should populate the attributes with those passed in as params" do
-      params = { range_from: 1, range_to: 3, prefix: "Hilltop" }
+      params = { range_from: 1, range_to: 3 }
 
       result = described_class.call(nil, params: params).bulk_attributes
-
-      values = result.map { |hash| hash[:prefix] }
-      expect(values).to all eq("Hilltop")
+      expect(result.pluck(:number)).to eq [1, 2, 3]
     end
 
     it "should populate attributes from the plots attributes" do

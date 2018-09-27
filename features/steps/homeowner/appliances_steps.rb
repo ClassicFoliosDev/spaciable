@@ -58,8 +58,10 @@ Then(/^I should see no appliances$/) do
 end
 
 When(/^I switch to the first plot$/) do
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+
   within ".plot-list" do
-    plot_link = page.find_link(CreateFixture.phase_plot_name)
+    plot_link = page.find_link(plot.to_homeowner_s)
     plot_link.trigger(:click)
   end
 

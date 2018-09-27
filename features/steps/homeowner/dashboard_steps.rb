@@ -31,15 +31,15 @@ Then(/^I see the recent homeowner contents$/) do
   end
 
   plot = CreateFixture.phase_plot
-  address = plot.phase.address
-  first_line = "#{address.building_name} #{address.road_name}"
 
   within ".my-home" do
-    expect(page).to have_content(first_line)
-    expect(page).to have_content(address.locality)
-    expect(page).to have_content(address.city)
-    expect(page).to have_content(address.county)
-    expect(page).to have_content(address.postcode)
+    expect(page).to have_content(plot.to_homeowner_s)
+    expect(page).to have_content(plot.building_name)
+    expect(page).to have_content(plot.road_name)
+    expect(page).to have_content(plot.locality)
+    expect(page).to have_content(plot.city)
+    expect(page).to have_content(plot.county)
+    expect(page).to have_content(plot.postcode)
   end
 
   within ".footer" do
@@ -129,5 +129,21 @@ Then(/^I see the dashboard address reformatted$/) do
     expect(page).to have_content(address.city)
     expect(page).to have_content(address.county)
     expect(page).to have_content(address.postcode)
+  end
+end
+
+Then(/^I see the plot number as postal number$/) do
+  visit "/"
+
+  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
+
+  within ".my-home" do
+    expect(page).to have_content(plot.to_homeowner_s)
+    expect(page).to have_content(plot.building_name)
+    expect(page).to have_content(plot.road_name)
+    expect(page).to have_content(plot.locality)
+    expect(page).to have_content(plot.city)
+    expect(page).to have_content(plot.county)
+    expect(page).to have_content(plot.postcode)
   end
 end

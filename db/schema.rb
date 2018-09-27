@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180830080252) do
+ActiveRecord::Schema.define(version: 20180926083443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180830080252) do
     t.string   "addressable_type"
     t.integer  "addressable_id"
     t.string   "locality"
+    t.string   "prefix"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
   end
@@ -447,7 +448,6 @@ ActiveRecord::Schema.define(version: 20180830080252) do
   end
 
   create_table "plots", force: :cascade do |t|
-    t.string   "prefix"
     t.string   "number"
     t.integer  "unit_type_id"
     t.datetime "created_at",                            null: false
@@ -469,7 +469,6 @@ ActiveRecord::Schema.define(version: 20180830080252) do
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
     t.index ["division_id"], name: "index_plots_on_division_id", using: :btree
     t.index ["phase_id"], name: "index_plots_on_phase_id", using: :btree
-    t.index ["prefix", "number", "development_id", "phase_id"], name: "plot_combinations", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["unit_type_id"], name: "index_plots_on_unit_type_id", using: :btree
   end
 

@@ -106,7 +106,7 @@ Given(/^the resident also has an unbranded plot$/) do
   division = FactoryGirl.create(:division, developer: developer)
   development = FactoryGirl.create(:development, division: division)
   phase = FactoryGirl.create(:phase, development: development)
-  plot = FactoryGirl.create(:plot, phase: phase, prefix: "", number: PlotFixture.another_plot_number)
+  plot = FactoryGirl.create(:plot, phase: phase, number: PlotFixture.another_plot_number)
   FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: CreateFixture.resident.id)
 end
 

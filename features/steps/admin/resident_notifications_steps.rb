@@ -146,7 +146,7 @@ Then(/^I can see the (\(\w+\) )?(\w+) notification I sent to the resident$/) do 
 
   within ".record-list" do
     expect(page).to have_content(subject)
-    sendees = "#{plot.send(parent_method)} (Plot #{plot})"
+    sendees = "#{plot.send(parent_method)} (#{plot})"
     expect(page).to have_content(sendees)
   end
 end

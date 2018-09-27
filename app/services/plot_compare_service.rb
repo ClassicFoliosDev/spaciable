@@ -6,12 +6,6 @@ module PlotCompareService
   include Comparable
 
   def call(plot_a, plot_b)
-    prefix_a = plot_a.prefix
-    prefix_b = plot_b.prefix
-
-    compare_prefix_result = compare_prefix(prefix_b, prefix_a)
-    return compare_prefix_result unless compare_prefix_result.zero?
-
     preferred = plot_a.number <=> plot_b.number
     compare_number(plot_a.number.scan(/\d+/), plot_b.number.scan(/\d+/), preferred)
   end
@@ -43,11 +37,5 @@ module PlotCompareService
     return -1 if array_b.length > array_a.length
     return preferred if array_a.length == array_b.length
     1
-  end
-
-  def compare_prefix(a, b)
-    return 0 if a == b
-
-    b <=> a
   end
 end

@@ -31,7 +31,6 @@ module PhasePlotFixture
     FactoryGirl.create(:phase_plot,
                        phase: CreateFixture.phase,
                        number: another_plot_number,
-                       prefix: "Apartment",
                        unit_type: CreateFixture.unit_type)
   end
 
@@ -79,8 +78,16 @@ module PhasePlotFixture
     "50 B"
   end
 
+  def prefix_plot_number
+    "18"
+  end
+
+  def prefix_postal_number
+    "7c"
+  end
+
   def updated_plot_name
-    "#{update_attrs[:prefix]} #{update_attrs[:number]}"
+    update_attrs[:number]
   end
 
   def updated_house_number
@@ -108,12 +115,11 @@ module PhasePlotFixture
   end
 
   def updated_plot
-    phase.plots.find_by(prefix: update_attrs[:prefix], number: update_attrs[:number])
+    phase.plots.find_by(number: update_attrs[:number])
   end
 
   def update_attrs
     {
-      prefix: "Plot",
       number: CreateFixture.phase_plot_name.to_i + 1,
       house_number: updated_house_number,
       building_name: plot_building_name,

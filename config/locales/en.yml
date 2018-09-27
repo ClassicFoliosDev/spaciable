@@ -65,6 +65,7 @@ en:
 
   choose: "Choose file"
   no_image: "No image available"
+  plot: "Plot %{number}"
 
   manual: "Appliance manual"
   guide: "Appliance guide"
@@ -885,6 +886,7 @@ en:
       building: "Building name"
       road: "Road name"
       locality: "Locality"
+      prefix: "Apartment"
 
   residents:
     sessions:
@@ -1047,7 +1049,7 @@ en:
       address: "Plot address"
       submit: "Submit"
       back: "Back"
-      optional_range_hint: "Optionally, choose a range or list of plots to apply the prefix, unit type and address updates to:"
+      optional_range_hint: "Choose a range or list of plots, the unit type and address details will apply to all the selected plots"
       list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
       range_label: "Add plots by range"
       range_from_placeholder: "Range from"
@@ -1343,7 +1345,7 @@ en:
       # Add room to Plot 'Plot 1'
       # Add room to Plot 'Apartment 5'
       # Add room to Unit Type 'Kempton'
-      add: "Add room to %{parent_type} \'%{parent_name}\'"
+      add: "Add room to \'%{name}\'"
       finishes: "Finishes"
       appliances: "Appliances"
     edit:
@@ -1814,7 +1816,6 @@ en:
           attributes:
             base:
               missing: "Plot not found"
-              combination_taken: "Prefix and number has already been added."
               number_taken: "Number has already been added."
         finish_type:
           attributes:

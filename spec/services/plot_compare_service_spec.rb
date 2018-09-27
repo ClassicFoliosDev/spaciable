@@ -2,32 +2,15 @@
 
 require "rails_helper"
 RSpec.describe PlotCompareService do
-  context "comparing two plots by prefix and number" do
+  context "comparing two plots" do
     let(:unit_type) { create(:unit_type) }
 
-    it "should sort based on plot prefixes" do
-      plot1 = FactoryGirl.create(:plot, prefix: "Plot", number: "1", unit_type: unit_type)
-      plot2 = FactoryGirl.create(:plot, prefix: "Apartment", number: "1", unit_type: unit_type)
-      plot3 = FactoryGirl.create(:plot, prefix: "", number: "1", unit_type: unit_type)
-
-      plot_array = []
-      plot_array << plot1
-      plot_array << plot2
-      plot_array << plot3
-
-      result = plot_array.sort
-
-      expect(result[0].to_s).to eq("1")
-      expect(result[1].to_s).to eq("Apartment 1")
-      expect(result[2].to_s).to eq("Plot 1")
-    end
-
-    it "should sort based on numbers if prefixes are equal" do
-      plot1 = FactoryGirl.create(:plot, prefix: "", number: "3", unit_type: unit_type)
-      plot2 = FactoryGirl.create(:plot, prefix: "", number: "2", unit_type: unit_type)
-      plot3 = FactoryGirl.create(:plot, prefix: "", number: "1", unit_type: unit_type)
-      plot4 = FactoryGirl.create(:plot, prefix: "", number: "11", unit_type: unit_type)
-      plot5 = FactoryGirl.create(:plot, prefix: "", number: "10", unit_type: unit_type)
+    it "should sort based on numbers" do
+      plot1 = FactoryGirl.create(:plot, number: "3", unit_type: unit_type)
+      plot2 = FactoryGirl.create(:plot, number: "2", unit_type: unit_type)
+      plot3 = FactoryGirl.create(:plot, number: "1", unit_type: unit_type)
+      plot4 = FactoryGirl.create(:plot, number: "11", unit_type: unit_type)
+      plot5 = FactoryGirl.create(:plot, number: "10", unit_type: unit_type)
 
       plot_array = []
       plot_array << plot1
@@ -38,17 +21,17 @@ RSpec.describe PlotCompareService do
 
       result = plot_array.sort
 
-      expect(result[0].to_s).to eq("1")
-      expect(result[1].to_s).to eq("2")
-      expect(result[2].to_s).to eq("3")
-      expect(result[3].to_s).to eq("10")
-      expect(result[4].to_s).to eq("11")
+      expect(result[0].to_s).to eq("Plot 1")
+      expect(result[1].to_s).to eq("Plot 2")
+      expect(result[2].to_s).to eq("Plot 3")
+      expect(result[3].to_s).to eq("Plot 10")
+      expect(result[4].to_s).to eq("Plot 11")
     end
 
     it "should cope with decimal plot numbers" do
-      plot1 = FactoryGirl.create(:plot, prefix: "Plot", number: "1.1.4", unit_type: unit_type)
-      plot2 = FactoryGirl.create(:plot, prefix: "Plot", number: "1.1.6", unit_type: unit_type)
-      plot3 = FactoryGirl.create(:plot, prefix: "Plot", number: "1.1", unit_type: unit_type)
+      plot1 = FactoryGirl.create(:plot, number: "1.1.4", unit_type: unit_type)
+      plot2 = FactoryGirl.create(:plot, number: "1.1.6", unit_type: unit_type)
+      plot3 = FactoryGirl.create(:plot, number: "1.1", unit_type: unit_type)
 
       plot_array = []
       plot_array << plot1
@@ -64,10 +47,10 @@ RSpec.describe PlotCompareService do
     end
 
     it "should cope with alphanumeric plot numbers" do
-      plot1 = FactoryGirl.create(:plot, prefix: "", number: "11A", unit_type: unit_type)
-      plot2 = FactoryGirl.create(:plot, prefix: "", number: "10c", unit_type: unit_type)
-      plot3 = FactoryGirl.create(:plot, prefix: "", number: "10", unit_type: unit_type)
-      plot4 = FactoryGirl.create(:plot, prefix: "", number: "11", unit_type: unit_type)
+      plot1 = FactoryGirl.create(:plot, number: "11A", unit_type: unit_type)
+      plot2 = FactoryGirl.create(:plot, number: "10c", unit_type: unit_type)
+      plot3 = FactoryGirl.create(:plot, number: "10", unit_type: unit_type)
+      plot4 = FactoryGirl.create(:plot, number: "11", unit_type: unit_type)
 
       plot_array = []
       plot_array << plot1
@@ -78,21 +61,21 @@ RSpec.describe PlotCompareService do
       result = plot_array.sort
       expect(result.length).to eq(4)
 
-      expect(result[0].to_s).to eq("10")
-      expect(result[1].to_s).to eq("10c")
-      expect(result[2].to_s).to eq("11")
-      expect(result[3].to_s).to eq("11A")
+      expect(result[0].to_s).to eq("Plot 10")
+      expect(result[1].to_s).to eq("Plot 10c")
+      expect(result[2].to_s).to eq("Plot 11")
+      expect(result[3].to_s).to eq("Plot 11A")
     end
 
     it "should cope with alpha plot numbers" do
-      plot1 = FactoryGirl.create(:plot, prefix: "", number: "z", unit_type: unit_type)
-      plot2 = FactoryGirl.create(:plot, prefix: "", number: "X", unit_type: unit_type)
-      plot3 = FactoryGirl.create(:plot, prefix: "", number: "c", unit_type: unit_type)
-      plot4 = FactoryGirl.create(:plot, prefix: "", number: "A", unit_type: unit_type)
-      plot5 = FactoryGirl.create(:plot, prefix: "", number: "bl", unit_type: unit_type)
-      plot6 = FactoryGirl.create(:plot, prefix: "", number: "Gh", unit_type: unit_type)
-      plot7 = FactoryGirl.create(:plot, prefix: "", number: "1", unit_type: unit_type)
-      plot8 = FactoryGirl.create(:plot, prefix: "", number: "0", unit_type: unit_type)
+      plot1 = FactoryGirl.create(:plot, number: "z", unit_type: unit_type)
+      plot2 = FactoryGirl.create(:plot, number: "X", unit_type: unit_type)
+      plot3 = FactoryGirl.create(:plot, number: "c", unit_type: unit_type)
+      plot4 = FactoryGirl.create(:plot, number: "A", unit_type: unit_type)
+      plot5 = FactoryGirl.create(:plot, number: "bl", unit_type: unit_type)
+      plot6 = FactoryGirl.create(:plot, number: "Gh", unit_type: unit_type)
+      plot7 = FactoryGirl.create(:plot, number: "1", unit_type: unit_type)
+      plot8 = FactoryGirl.create(:plot, number: "0", unit_type: unit_type)
 
       plot_array = []
       plot_array << plot1
@@ -107,14 +90,14 @@ RSpec.describe PlotCompareService do
 
       expect(result.length).to eq(8)
 
-      expect(result[0].to_s).to eq("A")
-      expect(result[1].to_s).to eq("Gh")
-      expect(result[2].to_s).to eq("X")
-      expect(result[3].to_s).to eq("bl")
-      expect(result[4].to_s).to eq("c")
-      expect(result[5].to_s).to eq("z")
-      expect(result[6].to_s).to eq("0")
-      expect(result[7].to_s).to eq("1")
+      expect(result[0].to_s).to eq("Plot A")
+      expect(result[1].to_s).to eq("Plot Gh")
+      expect(result[2].to_s).to eq("Plot X")
+      expect(result[3].to_s).to eq("Plot bl")
+      expect(result[4].to_s).to eq("Plot c")
+      expect(result[5].to_s).to eq("Plot z")
+      expect(result[6].to_s).to eq("Plot 0")
+      expect(result[7].to_s).to eq("Plot 1")
     end
   end
 end

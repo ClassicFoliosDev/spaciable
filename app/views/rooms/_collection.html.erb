@@ -7,7 +7,7 @@
     <div class="section-actions">
       <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".add", parent_type: parent.model_name.human, parent_name: parent) %></span>
+          <span class="btn-label"><%= t(".add", name: parent) %></span>
       <% end %>
     </div>
   <% end %>
