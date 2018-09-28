@@ -1065,6 +1065,7 @@ en:
       update_progress: "Update progress to"
       notify: "Notify subscribed residents about this change"
       expiry_date: "Expiry date (calculated from last save)"
+      prefix_explanation: "When the prefix is set, postal number will default to the plot number if left blank"
     index:
       title: "%{parent_name} Plots"
     new:
