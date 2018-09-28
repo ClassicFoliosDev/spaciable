@@ -64,7 +64,7 @@ Then(/^I should see the appliance with manufacturer created successfully$/) do
   name = "#{ApplianceManufacturerFixture.name} #{ApplianceFixture.model_num}"
 
   success_flash = t(
-    "controller.success.create",
+    "appliances.create.success",
     name: name
   )
   expect(page).to have_content(success_flash)

@@ -10,12 +10,7 @@ class DocumentsController < ApplicationController
   load_and_authorize_resource :unit_type
   load_and_authorize_resource :plot
   load_resource :document, through:
-    %i[developer
-       division
-       development
-       phase
-       unit_type
-       plot], shallow: true
+    %i[developer division development phase unit_type plot], shallow: true
 
   before_action :set_parent
 
@@ -42,13 +37,12 @@ class DocumentsController < ApplicationController
   def create
     authorize! :create, @document
 
-    if @document.save
-      @document.update_attributes(user_id: current_user.id)
-      @document.set_original_filename
-      notify_and_redirect
-    else
-      render :new
+    document_params[:files]&.each do |file|
+      create_document(file)
     end
+
+    process_error && return if @document.errors.any?
+    notify_and_redirect(document_params[:files]&.count)
   end
 
   def update
@@ -67,11 +61,25 @@ class DocumentsController < ApplicationController
   def destroy
     authorize! :destroy, @document
     @document.destroy
-    notice = t("controller.success.destroy", name: @document.title)
-    redirect_to target, notice: notice
+    redirect_to target, notice: t("controller.success.destroy", name: @document.title)
   end
 
   private
+
+  def process_error
+    render :new, alert: I18n.t("activerecord.errors.messages.not_save_documents",
+                               message: @document.errors.full_messages.first)
+  end
+
+  def create_document(file)
+    document = Document.new(file: file)
+    document.set_original_filename
+
+    document.save
+    @document = document unless document.valid?
+
+    document.update_attributes(user_id: current_user.id, documentable: @parent)
+  end
 
   def build_response(format)
     format.html do
@@ -88,8 +96,8 @@ class DocumentsController < ApplicationController
     end
   end
 
-  def notify_and_redirect
-    notice = t("controller.success.create", name: @document.title)
+  def notify_and_redirect(count)
+    notice = t("controller.success.create", name: I18n.t("controller.success.count", count: count))
 
     if document_params[:notify].to_i.positive?
       notice << ResidentChangeNotifyService.call(@document, current_user,
@@ -101,7 +109,7 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.require(:document).permit(:title, :file, :category, :documentable_id, :notify)
+    params.require(:document).permit(:title, :category, :documentable_id, :notify, files: [])
   end
 
   def set_parent

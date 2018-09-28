@@ -64,6 +64,8 @@ en:
   site_admin: "Site Admin"
 
   choose: "Choose file"
+  choose_multiple: "Choose files"
+  choose_multiple_explanation: "Use control or shift to select multiple files"
   no_image: "No image available"
   plot: "Plot %{number}"
 
@@ -120,10 +122,11 @@ en:
     resource_not_found: "Resource not found"
     no_s3_access: "You do not have permission to retrieve this file"
     success:
-      create: "%{name} was created successfully"
+      create: "%{name} created successfully"
       update: "%{name} was updated successfully"
       destroy: "%{name} was deleted successfully"
       create_update: "%{name} was successfully created or updated, and the associated MailChimp records have been configured"
+      count: "%{count} documents"
 
   breadcrumbs:
     admin_notifications: "Notifications"
@@ -1400,7 +1403,7 @@ en:
     index:
       title: "Documents"
     new:
-      title: "New document for %{name}"
+      title: "New document(s) for %{name}"
     show:
       title: "Document name"
       original_name: "Original file name"
@@ -1419,8 +1422,9 @@ en:
       size: "File size"
       updated: "Upload date"
       notify: "Notify subscribed residents about this change"
+      title: "Document title"
     collection:
-      add: "Add document"
+      add: "Add document(s)"
       processing: "Processing..."
       size: "Size"
     edit:
@@ -1788,6 +1792,7 @@ en:
         clone_not_possible: "It is not possible to clone %{name}: it might have references to invalid appliances or finishes"
         must_have_subject: "You must provide a topic for your new message"
         already_resident: "A resident with this email address is already associated with this plot"
+        not_save_documents: "Document upload failed, make sure all documents are valid PDF files, %{message}"
       models:
         developer:
           attributes:

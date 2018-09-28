@@ -31,7 +31,7 @@ end
 
 Then(/^I should see the created finish$/) do
   success_flash = t(
-    "finishes.create.success",
+    "controller.success.create",
     name: FinishFixture.finish_name
   )
 

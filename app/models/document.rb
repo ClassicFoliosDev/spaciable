@@ -3,14 +3,13 @@
 class Document < ApplicationRecord
   mount_uploader :file, DocumentUploader
 
-  attr_accessor :notify
+  attr_accessor :notify, :files
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
 
-  validates :title, presence: true, uniqueness: false
   validates :file, presence: true
 
   enum category: %i[
@@ -25,7 +24,9 @@ class Document < ApplicationRecord
 
   def set_original_filename
     self.original_filename = file.filename
-    save!
+
+    return if title.present?
+    self.title = file&.filename&.humanize
   end
 
   def shared?(plot)

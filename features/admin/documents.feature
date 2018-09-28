@@ -152,7 +152,6 @@ Feature: Documents
     And there is a phase plot
     When I upload an image for the phase plot
     Then I should see the created image
-    And I should see the original filename
     When I update the image name
     Then I should see the updated document for the phase plot
     When I delete the document
@@ -162,8 +161,7 @@ Feature: Documents
     Given I am logged in as a Division Admin
     And there is a division phase plot
     When I upload an svg image for the division phase plot
-    Then I should see the created image
-    And I should see the original filename
+    Then I should see the created svg image
     When I update the image name
     Then I should see the updated document for the phase plot
     When I delete the document
@@ -188,3 +186,11 @@ Feature: Documents
     And I should see the original filename
     When I update the document
     Then both homeowner and tenant should receive a notification
+
+  Scenario: Multiple file uploads
+    Given I am logged in as a Development Admin
+    And there is a phase plot with a resident
+    When I upload documents for the development
+    Then I should see the documents have been created
+    When I delete one of the documents
+    Then I should see that the document has been deleted

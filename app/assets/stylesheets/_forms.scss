@@ -281,6 +281,10 @@ fieldset {
   background-color: white;
 }
 
+.choose-files {
+  width: 98px;
+}
+
 .image_preview.input.field_with_errors {
   input.file-upload {
     height: inherit;
@@ -392,6 +396,10 @@ fieldset {
 .match-errors {
   color: $primary-red;
   margin-top: $spacing-small;
+}
+
+.left {
+  float: left;
 }
 
 @include media($tablet-landscape-up) {
