@@ -12,7 +12,7 @@ When(/^I upload private documents$/) do
   end
 
   within ".notice" do
-    expect(page).to have_content("#{FileFixture.document_alt} was created successfully")
+    expect(page).to have_content I18n.t("controller.success.create", name: FileFixture.document_alt)
   end
 
   avatar_full_path = FileFixture.file_path + FileFixture.avatar_name
@@ -25,7 +25,7 @@ When(/^I upload private documents$/) do
   end
 
   within ".notice" do
-    expect(page).to have_content("#{FileFixture.avatar_alt} was created successfully")
+    expect(page).to have_content I18n.t("controller.success.create", name: FileFixture.avatar_alt)
   end
 
   manual_full_path = FileFixture.file_path + FileFixture.manual_name
@@ -38,7 +38,7 @@ When(/^I upload private documents$/) do
   end
 
   within ".notice" do
-    expect(page).to have_content("Washing machine manual was created successfully")
+    expect(page).to have_content I18n.t("controller.success.create", name: "Washing machine manual")
   end
 end
 

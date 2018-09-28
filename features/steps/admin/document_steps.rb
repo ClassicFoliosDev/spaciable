@@ -12,15 +12,14 @@ When(/^I upload a document for the developer$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".documents" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
   end
 
   click_on t("documents.form.submit")
@@ -112,8 +111,7 @@ When(/^I create another document$/) do
   document_full_path = FileFixture.file_path + FileFixture.document_name
 
   within ".new_document" do
-    fill_in "document_title", with: DocumentFixture.second_document_name
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
 
@@ -173,15 +171,14 @@ When(/^I upload a document for the division$/) do
   visit "/developers/#{division.developer.id}/divisions/#{division.id}?active_tab=documents"
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -195,15 +192,14 @@ When(/^I upload a document for the development$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -214,15 +210,14 @@ When(/^I upload a document for the division development$/) do
   visit "/divisions/#{development.division.id}/developments/#{development.id}?active_tab=documents"
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(@document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -236,15 +231,14 @@ When(/^I upload a document for the phase$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
   end
 
   click_on t("documents.form.submit")
@@ -255,15 +249,14 @@ When(/^I upload a document for the unit type$/) do
   visit "/developments/#{unit_type.development.id}/unit_types/#{unit_type.id}"
 
   within ".unit-type" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -285,15 +278,14 @@ When(/^I upload a document for the division phase$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -311,15 +303,14 @@ When(/^I upload a document for the division plot$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -330,15 +321,14 @@ When(/^I upload a document for the division phase plot$/) do
   visit "/plots/#{plot.id}?active_tab=documents"
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -357,15 +347,14 @@ When(/^I upload a document for the phase plot$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -461,15 +450,14 @@ When(/^I upload an image for the phase plot$/) do
   end
 
   within ".empty" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   image_full_path = FileFixture.file_path + FileFixture.finish_picture_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(image_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -477,7 +465,13 @@ end
 
 Then(/^I should see the created image$/) do
   within ".documents" do
-    expect(page).to have_content(DocumentFixture.document_name)
+    expect(page).to have_content(FileFixture.finish_picture_name.humanize)
+  end
+end
+
+Then(/^I should see the created svg image$/) do
+  within ".documents" do
+    expect(page).to have_content(FileFixture.svg_picture_name.humanize)
   end
 end
 
@@ -501,15 +495,14 @@ When(/^I upload an svg image for the division phase plot$/) do
   visit "/plots/#{plot.id}?active_tab=documents"
 
   within ".plot" do
-    click_on t("documents.collection.add")
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.svg_picture_name
   within ".new_document" do
-    attach_file("document_file",
+    attach_file(:document_files,
                 File.absolute_path(document_full_path),
                 visible: false)
-    fill_in "document_title", with: DocumentFixture.document_name
 
     click_on t("documents.form.submit")
   end
@@ -533,4 +526,44 @@ Then(/^both homeowner and tenant should receive a notification$/) do
   expect(emailed_addresses).to include "tenant@example.com"
 
   ActionMailer::Base.deliveries.clear
+end
+
+When(/^I upload documents for the development$/) do
+  development = CreateFixture.development
+  url = "/developers/#{development.developer_id}/developments/#{development.id}?active_tab=documents"
+  visit url
+
+  within ".empty" do
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
+  end
+
+  document_full_path = FileFixture.file_path + FileFixture.document_name
+  manual_full_path = FileFixture.file_path + FileFixture.manual_name
+
+  within ".documents" do
+    attach_file(:document_files,
+                [File.absolute_path(document_full_path), File.absolute_path(manual_full_path)],
+                visible: false)
+  end
+
+  click_on t("documents.form.submit")
+end
+
+Then(/^I should see the documents have been created$/) do
+  within ".documents" do
+    expect(page).to have_content FileFixture.document_name.humanize
+    expect(page).to have_content FileFixture.manual_name.humanize
+  end
+end
+
+When(/^I delete one of the documents$/) do
+  document = Document.find_by(title: FileFixture.document_name.humanize)
+  delete_and_confirm!(scope: "[data-document='#{document.id}']")
+end
+
+Then(/^I should see that the document has been deleted$/) do
+  within ".documents" do
+    expect(page).not_to have_content FileFixture.document_name.humanize
+    expect(page).to have_content FileFixture.manual_name.humanize
+  end
 end

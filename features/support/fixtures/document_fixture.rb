@@ -4,7 +4,7 @@ module DocumentFixture
   module_function
 
   def document_name
-    "Shower pdf title"
+    "Dummy pdf.pdf"
   end
 
   def updated_document_name
@@ -16,6 +16,6 @@ module DocumentFixture
   end
 
   def second_document_name
-    "Microwave pdf title"
+    "Dummy pdf.pdf"
   end
 end

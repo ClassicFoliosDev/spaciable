@@ -6,7 +6,7 @@ RSpec.describe DocumentsController do
   describe "#index" do
     context "as a DeveloperAdmin" do
       context "for division documents" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           division = create(:division, developer_id: admin.developer_id)
 
@@ -18,7 +18,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for development documents" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
 
           login_as admin
@@ -31,7 +31,7 @@ RSpec.describe DocumentsController do
 
     context "as a DivisionAdmin" do
       context "for division documents" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           division = admin.permission_level
 
@@ -43,7 +43,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for development documents" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
 
           login_as admin
@@ -58,7 +58,7 @@ RSpec.describe DocumentsController do
   describe "#new" do
     context "as a DeveloperAdmin" do
       context "for a developer document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           login_as admin
           get url_for([:new, admin.permission_level, :document])
@@ -68,7 +68,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
 
@@ -80,7 +80,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
 
@@ -104,7 +104,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
 
           login_as admin
@@ -115,7 +115,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
 
@@ -151,7 +151,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:development_admin)
 
           login_as admin
@@ -203,36 +203,39 @@ RSpec.describe DocumentsController do
 
     context "as a DeveloperAdmin" do
       context "for a developer document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           login_as admin
           post url_for([admin.permission_level, :documents]), params: params
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+          expect(response.redirect_url).to include("?active_tab=documents")
         end
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
 
           login_as admin
           post url_for([division, :documents]), params: params
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+          expect(response.redirect_url).to include("?active_tab=documents")
         end
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
 
           login_as admin
           post url_for([development, :documents]), params: params
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+          expect(response.redirect_url).to include("?active_tab=documents")
         end
       end
     end
@@ -249,25 +252,27 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
 
           login_as admin
           post url_for([admin.permission_level, :documents]), params: params
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+          expect(response.redirect_url).to include("?active_tab=documents")
         end
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
 
           login_as admin
           post url_for([division_development, :documents]), params: params
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+          expect(response.redirect_url).to include("?active_tab=documents")
         end
       end
     end
@@ -296,13 +301,14 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:development_admin)
 
           login_as admin
           post url_for([admin.permission_level, :documents]), params: params
 
-          expect(response.status).to eq(200)
+          expect(response.status).to eq(302)
+          expect(response.redirect_url).to include("?active_tab=documents")
         end
       end
     end
@@ -346,7 +352,7 @@ RSpec.describe DocumentsController do
   describe "#edit" do
     context "as a DeveloperAdmin" do
       context "for a developer document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -359,7 +365,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
           document = build(:document, documentable: division)
@@ -373,7 +379,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
           document = build(:document, documentable: development)
@@ -402,7 +408,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -415,7 +421,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
           document = build(:document, documentable: division_development)
@@ -458,7 +464,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:development_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -519,7 +525,7 @@ RSpec.describe DocumentsController do
 
     context "as a DeveloperAdmin" do
       context "for a developer document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -532,7 +538,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
           document = build(:document, documentable: division)
@@ -546,7 +552,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
           document = build(:document, documentable: development)
@@ -575,7 +581,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -588,7 +594,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
           document = build(:document, documentable: division_development)
@@ -631,7 +637,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:development_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -690,7 +696,7 @@ RSpec.describe DocumentsController do
   describe "#destroy" do
     context "as a DeveloperAdmin" do
       context "for a developer document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -703,7 +709,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
           document = build(:document, documentable: division)
@@ -717,7 +723,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
           document = build(:document, documentable: development)
@@ -746,7 +752,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a division document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
@@ -759,7 +765,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
           document = build(:document, documentable: division_development)
@@ -802,7 +808,7 @@ RSpec.describe DocumentsController do
       end
 
       context "for a development document" do
-        it "should return ok" do
+        it "should succeed" do
           admin = create(:development_admin)
           document = build(:document, documentable: admin.permission_level)
           document.save(validate: false)
