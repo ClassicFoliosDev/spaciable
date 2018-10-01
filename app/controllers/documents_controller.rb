@@ -78,7 +78,8 @@ class DocumentsController < ApplicationController
     document.save
     @document = document unless document.valid?
 
-    document.update_attributes(user_id: current_user.id, documentable: @parent)
+    document.update_attributes(user_id: current_user.id, documentable: @parent,
+                               category: document_params[:category])
   end
 
   def build_response(format)
