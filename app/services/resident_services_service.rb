@@ -4,14 +4,13 @@ module ResidentServicesService
   module_function
 
   def call(resident, service_ids, possible_old_services, plot)
-    return 0 unless resident
-    return 0 unless service_ids
-    return 0 unless plot.enable_services?
+    return unless resident
+    return unless service_ids
+    return unless plot.enable_services?
 
     old_service_names = update_services(resident, service_ids, possible_old_services)
     ServicesNotificationJob.perform_later(resident, old_service_names, plot)
     Mailchimp::MarketingMailService.update_services(resident, plot, service_ids)
-    service_ids.length
   end
 
   private
