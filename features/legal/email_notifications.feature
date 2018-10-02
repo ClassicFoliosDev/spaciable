@@ -33,8 +33,8 @@ Feature: Legal emails
   Scenario: Homeowner accepted services and email notifications
     Given I am a Development Admin wanting to assign a new resident to a plot
     And the developer has enabled services
+    And there are services
     And a CF admin has configured a video link
-    And I have seeded the database with services
     When I assign a new resident to a plot
     And I log out as a an admin
     When I visit the invitation accept page

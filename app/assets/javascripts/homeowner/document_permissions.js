@@ -30,7 +30,6 @@
 
       $sharingDialog.dialog({
         width: 500,
-        title: $sharingDialog.data().title,
         dialogClass: 'sharing-info-dialog',
         create: function () {
           $footer.show()
@@ -46,6 +45,8 @@
           }
         ]
       })
+
+      $('.ui-dialog-titlebar').hide() // Hide the standard title bar and close button
     }
   }
 

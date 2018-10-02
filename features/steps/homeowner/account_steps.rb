@@ -25,20 +25,12 @@ Given(/^the developer has enabled services$/) do
   developer.update_attributes(enable_services: true)
 end
 
-Given(/^I have seeded the database with services$/) do
-  load Rails.root.join("db", "seeds", "services_seeds.rb")
-end
-
 Then(/^I select my services$/) do
-  services = Service.all
-  first_service = services.first
-  last_service = services.last
-
   within ".services" do
-    check_box = find("[value='#{first_service.id}']")
-    check_box.set(true)
-    check_box = find("[value='#{last_service.id}']")
-    check_box.set(true)
+    check_boxes = page.all(".add-service-checkbox")
+
+    check_boxes.first.set(true)
+    check_boxes.last.trigger("click")
 
     click_on t("homeowners.services.index.submit")
   end
@@ -73,12 +65,6 @@ When(/^I update the account details$/) do
     email_updates.trigger(:click)
   end
 
-  within ".services" do
-    check_boxes = page.all("input")
-    check_boxes.first.trigger(:click)
-    check_boxes.last.trigger(:click)
-  end
-
   within ".actions" do
     click_on t("homeowners.residents.edit.submit")
   end
@@ -102,17 +88,9 @@ Then(/^I should see account details updated successfully$/) do
     expect(unselected).to have_content t("homeowners.residents.show.post_updates")
     expect(unselected).to have_content t("homeowners.residents.show.developer_email_updates")
   end
-
-  within ".services" do
-    selected = page.all(".selected")
-    expect(selected.count).to eq 2
-
-    unselected = page.all(".unselected")
-    expect(unselected.count).to eq 4
-  end
 end
 
-When(/^I remove services from my account$/) do
+When(/^I remove notification methods from my account$/) do
   within ".resident" do
     click_on t("homeowners.residents.show.edit_profile")
   end
@@ -122,12 +100,6 @@ When(/^I remove services from my account$/) do
     phone_updates.trigger(:click)
     email_updates = find(".isyt-email-updates")
     email_updates.trigger(:click)
-  end
-
-  within ".services" do
-    check_boxes = page.all("input")
-    check_boxes.last.trigger(:click)
-    check_boxes.first.trigger(:click)
   end
 
   within ".actions" do
@@ -151,15 +123,6 @@ Then(/^I should see account subscriptions removed successfully$/) do
     unselected = page.all(".unselected").map(&:text)
     expect(unselected).to have_content t("homeowners.residents.show.telephone_updates")
     expect(unselected).to have_content t("homeowners.residents.show.isyt_email_updates")
-  end
-
-  within ".services" do
-    selected = page.all(".selected").map(&:text)
-    expect(selected.count).to be_zero
-
-    unselected = page.all(".unselected").map(&:text)
-    expect(unselected.count).to eq 6
-    expect(unselected).to have_content "Removals"
   end
 end
 
@@ -307,39 +270,6 @@ Then(/^I should be redirected to the video introduction page$/) do
 
     click_on t("homeowners.intro_videos.show.next")
   end
-end
-
-Then(/^the email should include all my details$/) do
-  services_email = ActionMailer::Base.deliveries.last
-
-  expect(services_email.from).to eq ["no-reply@isyt.com"]
-
-  contents = services_email.text_part.body.raw_source
-
-  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
-
-  expect(contents).to have_content ("Legal completion date: #{plot.completion_date.strftime("%d.%m.%Y")}")
-  expect(contents).to have_content ("Postal number / name: 66")
-  expect(contents).to have_content ("Building name: #{plot.building_name}")
-  expect(contents).to have_content ("Road: #{plot.road_name}")
-  expect(contents).to have_content ("Locality: #{plot.locality}")
-  expect(contents).to have_content ("Town / city: #{plot.city}")
-  expect(contents).to have_content ("County: #{plot.county}")
-  expect(contents).to have_content ("Postcode: #{plot.postcode}")
-
-  resident = Resident.find_by(email: HomeownerUserFixture.email)
-
-  expect(contents).to have_content ("Title: Mr")
-  expect(contents).to have_content ("First name: #{resident.first_name}")
-  expect(contents).to have_content ("Last name: #{resident.last_name}")
-  expect(contents).to have_content ("Email address: #{resident.email}")
-  expect(contents).to have_content ("Phone number: #{resident.phone_number}")
-
-  expect(contents).to have_content ("Resident has unsubscribed from
-          Financial Services
-          Other Services")
-
-  ActionMailer::Base.deliveries.clear
 end
 
 Given(/^the plot has an address$/) do
@@ -501,4 +431,10 @@ Then(/^I see the resident has been hard removed$/) do
 
   resident = Resident.find_by(email: AccountFixture.second_resident_email)
   expect(resident).to be_nil
+end
+
+Given(/^there are services$/) do
+  Service.categories.each do |category|
+    Service.create(category: category.last)
+  end
 end

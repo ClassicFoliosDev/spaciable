@@ -1,70 +1,123 @@
 .service-container {
   position: relative;
   background-color: $ui-light-grey;
-  @include outer-container(1000px);
-  min-height: 1px;
-  top: 100px;
   padding: $spacing-medium;
+  width: 100%;
+  margin: 0 auto;
 
   .btn-form-submit {
     float: right;
   }
-}
 
-.service {
-  padding: $spacing-small;
-  margin: $spacing-medium 30px;
-  font-size: $base-font-size;
+  .preamble {
+    margin-bottom: $spacing-medium;
 
-  input {
-    float: right;
-    margin-top: 10px;
+    h3 {
+      color: $primary-red;
+    }
   }
 }
 
-.services p {
-  font-size: $base-small-font-size;
-  padding-right: $spacing-small;
+.service {
+  font-size: $base-font-size;
+  vertical-align: middle;
+  width: 320px;
+  height: 200px;
+  display: block;
+  margin: 0 auto;
+  border-radius: $border-radius;
+  color: $transparent-white;
+  background-size: cover;
+}
+
+.service-overlay {
+  padding: $spacing-small;
+  width: 100%;
+  height: 100%;
+  background-color: $transparent-black;
+  border-radius: $border-radius;
 }
 
 .services-form {
   height: 580px;
 }
 
-.service-description {
-  color: $type-grey;
-  font-size: $base-small-font-size;
+.service-title {
+  color: $transparent-white;
+  margin-bottom: 20px;
+  font-family: $header-font-family;
 }
 
-@include media($tablet-landscape-up) {
-  .service {
-    margin: $spacing-medium 44px;
+.service-long-text:before {
+  top: 60px;
+}
+
+.service-description {
+  width: 88%;
+  margin: 0 auto;
+  text-align: center;
+  font-size: $base-font-size;
+  font-weight: bold;
+}
+
+.add-service {
+  margin-top: $spacing-medium;
+  text-align: center;
+  width: 96px;
+  margin: $spacing-medium auto;
+
+  input {
+    color: $transparent-white;
+    border: 2px solid $transparent-white;
+    background-color: $transparent-black;
+    -webkit-appearance: none;
+    width: 110px;
+    height: 40px;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: $border-radius;
+    font-family: $header-font-family;
+    font-size: $title-font-size-5;
+    text-align: center;
+    line-height: 26px;
+    outline: none;
+
+    &:after {
+      content: "YES!";
+    }
   }
+
+  input:checked {
+    outline: none;
+
+    &:after {
+      content: "SELECTED!";
+    }
+  }
+
+  input:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.checkbox-btn {
+  border-color: $transparent-white;
+  cursor: pointer;
 }
 
 @include media($tablet-portrait-up) {
-  .service, .resident-service {
-
-    &:nth-child(odd) {
-      float: right;
-    }
-
-    &:nth-child(even) {
-      float: left;
-    }
-  }
-
-  .resident-service {
-    width: 47%;
-    height: 120px;
+  .service-container {
+    width: 730px;
   }
 
   .service {
-    width: 40%;
-    height: 90px;
+    margin: $spacing-small;
+    display: inline-block;
   }
+}
 
-  .services-form {
-    height: 320px;
+@include media($tablet-landscape-up) {
+  .service-container {
+    width: 1074;
   }
 }

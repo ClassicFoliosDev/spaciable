@@ -1,4 +1,13 @@
-<div class="service branded-content branded-border">
-  <div class="branded-text service-title"><%= check_box_tag "services[]", service.id %><%= service.name %></div>
-  <div class="service-description"><%= service.description %></div>
+<div class="service" style="background-image: url('<%=service_image(service)%>')">
+  <div class="service-overlay">
+    <% if service.to_s.length > 24 %>
+      <h4 class="service-title underline service-long-text"><%= service.to_s %></h4>
+    <% else %>
+      <h4 class="service-title underline"><%= service.to_s %></h4>
+    <% end %>
+    <div class="service-description"><%= service.to_description_s %></div>
+    <div class="add-service">
+      <%= check_box_tag "services[]", service.id, service.selected?(current_resident), disabled: service.selected?(current_resident), class: "add-service-checkbox" %>
+    </div>
+  </div>
 </div>

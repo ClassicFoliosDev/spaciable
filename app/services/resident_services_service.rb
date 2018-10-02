@@ -10,6 +10,7 @@ module ResidentServicesService
 
     old_service_names = update_services(resident, service_ids, possible_old_services)
     ServicesNotificationJob.perform_later(resident, old_service_names, plot)
+    Mailchimp::MarketingMailService.update_services(resident, plot, service_ids)
     service_ids.length
   end
 

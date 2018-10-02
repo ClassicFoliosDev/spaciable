@@ -4,10 +4,8 @@ module Homeowners
   class ServicesController < Homeowners::BaseController
     skip_authorization_check
 
-    layout "accept"
-
     def index
-      @services = Service.all
+      @services = Service.where.not(category: nil)
     end
 
     def resident_services

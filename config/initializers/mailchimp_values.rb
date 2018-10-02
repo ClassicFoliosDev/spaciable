@@ -116,6 +116,36 @@ Rails.configuration.mailchimp = {
         tag: "POST_UPD",
         type: "text",
         public: true
+    },
+    {
+       name: "Conveyancing and legal",
+       tag: "LEGAL",
+       type: "text",
+       public: true
+    },
+    {
+       name: "Moving manager",
+       tag: "MANAGER",
+       type: "text",
+       public: true
+    },
+    {
+       name: "Mortgages and insurance",
+       tag: "FINANCE",
+       type: "text",
+       public: true
+    },
+    {
+       name: "Removals and storage",
+       tag: "REMOVALS",
+       type: "text",
+       public: true
+    },
+    {
+      name: "Utilities",
+      tag: "UTILITIES",
+      type: "text",
+      public: true
     }
   ]
 }

@@ -86,19 +86,6 @@
       </div>
     </div>
 
-    <% if @plot.developer.enable_services? %>
-      <div class="full branded-content branded-border">
-        <div class="services">
-          <h4><%= t("homeowners.services.index.title", developer: @plot.developer) %></h4>
-          <h5><%= t("homeowners.services.index.subtitle") %></h4>
-          <p><%= t("homeowners.services.index.description_1") %></p>
-          <% @services.each do | service | %>
-            <%= render "homeowners/components/service", service: service %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
     <div class="full actions show-actions">
       <%= button_tag t(".deactivate"), class: "btn destroy-resident",
       data: { cancel: t("edit.cancel"),

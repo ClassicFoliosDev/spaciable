@@ -1,27 +1,17 @@
-<div class="service-container branded-body">
-  <div class="preamble">
-  <h2><%= t(".title", developer: @plot.developer) %></h2>
-  <h4><%= t(".subtitle") %></h4>
-    <p><%= t(".description_1") %></p>
-    <p><%= t(".description_2").html_safe %></p>
-  </div>
-
+<div class="service-container">
   <%= simple_form_for :services, url: resident_services_services_path do | f | %>
+    <div class="preamble">
+      <h3><%= t(".title", developer: @plot.developer) %></h3>
+      <p><%= t(".subtitle") %></p>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <p><%= t(".description_html") %></p>
+    </div>
     <div class="services-form">
       <%= f.simple_fields_for :service_ids do %>
         <% @services.each do | service | %>
           <%= render 'service', service: service %>
         <% end %>
       <% end %>
-    </div>
-    <div class="footer">
-      <div>
-        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      </div>
-      <br/>
-      <div>
-        <p class="right"><%= t(".postamble") %></p>
-      </div>
     </div>
   <% end %>
 </div>
