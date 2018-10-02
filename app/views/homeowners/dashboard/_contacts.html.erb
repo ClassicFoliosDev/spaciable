@@ -1,0 +1,13 @@
+<div class="card quarter contacts-component branded-content branded-border ">
+  <div class="card-header">
+    <h2 class="card-title branded-text"><%= t('.contacts_title') %></h2>
+    <span class="card-action">
+      <%= link_to t('.contacts_view_more'), homeowner_contacts_path, class: "branded-btn right" %>
+    </span>
+  </div>
+  <div class="card-content">
+    <ul class="contact-list">
+      <%= render "homeowners/components/contact_summary", collection: contacts %>
+    </ul>
+  </div>
+</div>

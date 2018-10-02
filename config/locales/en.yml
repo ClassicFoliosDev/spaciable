@@ -628,8 +628,11 @@ en:
     dashboard:
       show:
         my_home_title: "My home"
+      contacts:
         contacts_title: "Contacts"
         contacts_view_more: "View contacts"
+      services:
+        services: "See how we can help"
     about:
       show:
         rooms_description: "View finishes and fittings in each room of your home"

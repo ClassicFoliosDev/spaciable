@@ -14,7 +14,7 @@ module Mailchimp
 
     def self.call_gibbon(api_key, resource)
       if resource.list_id
-        notice = I18n.t("controller.success.update") + " "
+        notice = I18n.t("controller.success.update", name: resource.to_s) + " "
         notice << I18n.t("mailchimp.no_change")
         return notice
       end

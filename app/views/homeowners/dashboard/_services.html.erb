@@ -1,0 +1,13 @@
+<% services.each do |service| %>
+  <div class="card article branded-border" style="background-image: url(<%= service_image(service) %>)">
+    <div class="service-overlay">
+      <div class="service-summary">
+        <div id="service-<%= service.id %>">
+          <p class="larger"><%= service.to_s %></p>
+        </div>
+        <p><%= service.to_description_s %></p>
+        <%= link_to t(".services").titleize, services_path, class: "service-link" %>
+      </div>
+    </div>
+  </div>
+<% end %>
