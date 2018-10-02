@@ -133,14 +133,6 @@
     background: $ui-white;
     text-align: center;
     text-transform: uppercase;
-
-    &:after {
-      border-bottom: 2px $primary-red solid;
-      width: 15%;
-      padding-top: 20px;
-      margin-left: 30%;
-      display: block;
-    }
   }
 
   .ui-dialog-buttonpane {

@@ -6,5 +6,29 @@ class Service < ApplicationRecord
   has_many :resident_services, dependent: :delete_all
   has_many :residents, through: :resident_services
 
-  validates :name, presence: true, uniqueness: true
+  enum category: %i[
+    removals
+    finance
+    legal
+    utilities
+    estate
+    manager
+  ]
+
+  def to_s
+    return name if name.present?
+
+    I18n.t("activerecord.attributes.service.categories.#{category}")
+  end
+
+  def selected?(resident)
+    return true if residents.include? resident
+    false
+  end
+
+  def to_description_s
+    return description if description.present?
+
+    I18n.t("activerecord.attributes.service.category_descriptions.#{category}")
+  end
 end

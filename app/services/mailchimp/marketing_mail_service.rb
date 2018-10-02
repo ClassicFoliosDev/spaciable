@@ -18,6 +18,13 @@ module Mailchimp
       call_gibbon(resident, list_id, merge_fields, plot.api_key)
     end
 
+    def self.update_services(resident, plot, service_ids)
+      list_id = plot.development.parent.list_id
+
+      services_fields = build_services_fields(service_ids)
+      call_gibbon(resident, list_id, services_fields, plot.api_key)
+    end
+
     def self.call_gibbon(resident, list_id, merge_fields, api_key)
       gibbon = MailchimpUtils.client(api_key)
 
@@ -78,6 +85,28 @@ module Mailchimp
         PHASE: plot.phase,
         UNIT_TYPE: plot.unit_type
       }.transform_values(&:to_s)
+    end
+
+    def self.build_services_fields(service_ids)
+      fields = {}
+
+      service_ids.each do |service_id|
+        service = Service.find(service_id)
+        fields = assign_service_fields(fields, service.category)
+      end
+
+      fields.transform_values(&:to_s)
+    end
+
+    def self.assign_service_fields(fields, category)
+      fields[:FINANCE] = true if category == :finance.to_s
+      fields[:LEGAL] = true if category == :legal.to_s
+      fields[:UTILITIES] = true if category == :utilities.to_s
+      fields[:MANAGER] = true if category == :manager.to_s
+      fields[:ESTATE] = true if category == :estate.to_s
+      fields[:REMOVALS] = true if category == :removals.to_s
+
+      fields
     end
 
     def self.md5_hashed_email(email)

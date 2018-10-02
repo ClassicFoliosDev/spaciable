@@ -25,20 +25,12 @@ Given(/^the developer has enabled services$/) do
   developer.update_attributes(enable_services: true)
 end
 
-Given(/^I have seeded the database with services$/) do
-  load Rails.root.join("db", "seeds", "services_seeds.rb")
-end
-
 Then(/^I select my services$/) do
-  services = Service.all
-  first_service = services.first
-  last_service = services.last
-
   within ".services" do
-    check_box = find("[value='#{first_service.id}']")
-    check_box.set(true)
-    check_box = find("[value='#{last_service.id}']")
-    check_box.set(true)
+    check_boxes = page.all(".add-service-checkbox")
+
+    check_boxes.first.set(true)
+    check_boxes.last.trigger("click")
 
     click_on t("homeowners.services.index.submit")
   end
@@ -73,12 +65,6 @@ When(/^I update the account details$/) do
     email_updates.trigger(:click)
   end
 
-  within ".services" do
-    check_boxes = page.all("input")
-    check_boxes.first.trigger(:click)
-    check_boxes.last.trigger(:click)
-  end
-
   within ".actions" do
     click_on t("homeowners.residents.edit.submit")
   end
@@ -102,17 +88,9 @@ Then(/^I should see account details updated successfully$/) do
     expect(unselected).to have_content t("homeowners.residents.show.post_updates")
     expect(unselected).to have_content t("homeowners.residents.show.developer_email_updates")
   end
-
-  within ".services" do
-    selected = page.all(".selected")
-    expect(selected.count).to eq 2
-
-    unselected = page.all(".unselected")
-    expect(unselected.count).to eq 4
-  end
 end
 
-When(/^I remove services from my account$/) do
+When(/^I remove notification methods from my account$/) do
   within ".resident" do
     click_on t("homeowners.residents.show.edit_profile")
   end
@@ -122,12 +100,6 @@ When(/^I remove services from my account$/) do
     phone_updates.trigger(:click)
     email_updates = find(".hoozzi-email-updates")
     email_updates.trigger(:click)
-  end
-
-  within ".services" do
-    check_boxes = page.all("input")
-    check_boxes.last.trigger(:click)
-    check_boxes.first.trigger(:click)
   end
 
   within ".actions" do
@@ -151,15 +123,6 @@ Then(/^I should see account subscriptions removed successfully$/) do
     unselected = page.all(".unselected").map(&:text)
     expect(unselected).to have_content t("homeowners.residents.show.telephone_updates")
     expect(unselected).to have_content t("homeowners.residents.show.hoozzi_email_updates")
-  end
-
-  within ".services" do
-    selected = page.all(".selected").map(&:text)
-    expect(selected.count).to be_zero
-
-    unselected = page.all(".unselected").map(&:text)
-    expect(unselected.count).to eq 6
-    expect(unselected).to have_content "Removals"
   end
 end
 
@@ -309,6 +272,7 @@ Then(/^I should be redirected to the video introduction page$/) do
   end
 end
 
+<<<<<<< HEAD
 Then(/^the email should include all my details$/) do
   services_email = ActionMailer::Base.deliveries.last
 
@@ -501,4 +465,10 @@ Then(/^I see the resident has been hard removed$/) do
 
   resident = Resident.find_by(email: AccountFixture.second_resident_email)
   expect(resident).to be_nil
+end
+
+Given(/^there are services$/) do
+  Service.categories.each do |category|
+    Service.create(category: category.last)
+  end
 end

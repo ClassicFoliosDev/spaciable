@@ -224,6 +224,7 @@ en:
       navigation:
         maintenance: "Issues"
         house_search: "Area guide"
+        services: "Services"
     home:
       header:
         nav:
@@ -702,17 +703,13 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        title: "Hoozzi Services for %{developer}"
-        subtitle: "Potentially save £1,600 on an average house move."
-        description_1: "Moving home can be a very stressful and expensive experience, but Hoozzi 
-        Services can help take some of that pressure away.  By using our trusted suppliers, Hoozzi 
-        can offer you great deals with a no-obligation quote.  So don’t get stressed – give 
-        yourself more choice and let Hoozzi help."
-        description_2: "<em>Excellent service, highly recommend. Hoozzi Services helped me organise everything I needed
-        when I moved in to my new home. They also got me some great deals. I will certainly continue to use them for
-        all my services.</em> Jean, Watford."
+        title: "Congratulations! You're nearly there - in your new home!"
+        subtitle: "ISYT? has partnered with key providers who can all help you to make your move as stress-free and as competitively
+        priced as possible. By selecting any of the services below, ISYT? will help you get moving"
+        description_html: "<em>Quotations are free, and without obligation, so get clicking, get saving with ISYT?</em>"
         submit: "Got it, let's go"
-        postamble: "You can always choose services later through your Account Settings"
+      service:
+        add: "Yes!"
       resident_services:
         success: "Your services have been requested"
     intro_videos:
@@ -1778,6 +1775,21 @@ en:
       report:
         report_from: "Resident and notification count from:"
         report_to: "Resident and notification count to:"
+      service:
+        categories:
+          removals: "Removals & storage"
+          finance: "Mortgages & insurance"
+          legal: "Conveyancing & legal services"
+          utilities: "Utilities"
+          estate: "Selling or renting"
+          manager: "Moving manager"
+        category_descriptions:
+          removals: "ISYT? a man and a van or a full packing service you need?"
+          finance: "ISYT? help finding a mortgage and insurance deal you need?"
+          legal: "ISYT? a solicitor you need?"
+          utilities: "ISYT? the best deals on things like gas, electricity and other essentials you need?"
+          estate: "ISYT? an estate agent or letting agent you need?"
+          manager: "ISYT? someone to do it all for you that you need?"
 
     errors:
       messages:

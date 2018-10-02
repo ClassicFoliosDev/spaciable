@@ -50,9 +50,7 @@ class Resident < ApplicationRecord
   end
 
   def services_enabled?
-    plots.any? do |plot|
-      plot.developer.enable_services?
-    end
+    plots.any?(&:enable_services?)
   end
 
   def plot=(plot_record)
