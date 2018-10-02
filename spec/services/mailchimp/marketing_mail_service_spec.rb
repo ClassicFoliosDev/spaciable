@@ -5,8 +5,10 @@ require "rails_helper"
 RSpec.describe Mailchimp::MarketingMailService do
   let(:developer) { create(:developer) }
   let(:current_user) { create(:developer_admin, developer: developer) }
-  let(:development) { create(:development, developer: developer) }
-  let(:plot) { create(:plot, development: development) }
+  let(:address) { create(:address) }
+  let(:development) { create(:development, developer: developer, address: address) }
+  let(:phase) { create(:phase, development: development) }
+  let(:plot) { create(:plot, phase: phase) }
   let(:resident) { create(:resident) }
   let(:plot_resident) { create(:plot_residency, resident: resident, plot: plot) }
 
@@ -33,7 +35,7 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:BLDG]).to eq(plot.building_name.to_s)
       expect(merge_fields[:ROAD]).to eq(plot.road_name.to_s)
       expect(merge_fields[:LOCL]).to eq(plot.locality.to_s)
-      expect(merge_fields[:CITY]).to eq(plot.city)
+      expect(merge_fields[:CITY]).to eq(plot.city.to_s)
       expect(merge_fields[:COUNTY]).to eq(plot.county.to_s)
       expect(merge_fields[:ZIP]).to eq(plot.postcode)
       expect(merge_fields[:PHASE]).to eq(plot.phase.to_s)

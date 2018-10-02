@@ -73,7 +73,7 @@ module Mailchimp
 
     def self.build_residency_fields(plot)
       {
-        DEVT: plot.parent,
+        DEVT: plot.development,
         POSTAL: plot.postal_number,
         BLDG: plot.building_name,
         ROAD: plot.road_name,

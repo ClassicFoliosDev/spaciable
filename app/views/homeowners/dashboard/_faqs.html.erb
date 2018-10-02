@@ -1,0 +1,22 @@
+<div class="card quarter faqs-component branded-content branded-border " data-test="dashboard-faqs">
+  <div class="card-header">
+    <div class="card-title branded-text">
+      <%= t('homeowner.dashboard.cards.faqs.title') %>
+    </div>
+    <span class="card-action">
+      <%= link_to t('homeowner.dashboard.cards.faqs.view_more'), homeowner_faqs_path, class: "branded-btn right" %>
+    </span>
+  </div>
+  <div class="card-content">
+    <ul class="faq-list branded-text">
+      <% faqs.each do |faq| %>
+        <li class="branded-border">
+          <%= link_to homeowner_faqs_path(faq.category, anchor: "faq-#{faq.id}") do %>
+            <span class="text"><%= faq.question.html_safe %></span>
+            <%= fa_icon "chevron-right" %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

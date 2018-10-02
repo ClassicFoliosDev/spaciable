@@ -15,59 +15,13 @@
           <%= render "homeowners/components/address", plot: @plot %>
         </div>
 
-        <div class="card half library-component documents-component branded-content branded-border">
-          <div class="card-header branded-border">
-            <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.library.title') %></h2>
-            <span class="card-action">
-              <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'branded-btn right' %>
-            </span>
-          </div>
-          <div class="card-content row">
-            <div class="document-images row-item">
-              <%= render "homeowners/components/document_summary", collection: @documents %>
-            </div>
-          </div>
-        </div>
+        <%= render "homeowners/dashboard/library", documents: @documents %>
       </div>
-      <div class="row">
-        <!--CONTACTS-->
-        <div class="card quarter contacts-component branded-content branded-border ">
-          <div class="card-header">
-            <h2 class="card-title branded-text"><%= t('.contacts_title') %></h2>
-            <span class="card-action">
-              <%= link_to t('.contacts_view_more'), homeowner_contacts_path, class: "branded-btn right" %>
-            </span>
-          </div>
-          <div class="card-content">
-            <ul class="contact-list">
-              <%= render "homeowners/components/contact_summary", collection: @contacts %>
-            </ul>
-          </div>
-        </div>
-        <!--FAQs-->
-        <div class="card quarter faqs-component branded-content branded-border " data-test="dashboard-faqs">
-          <div class="card-header">
-            <div class="card-title branded-text">
-              <%= t('homeowner.dashboard.cards.faqs.title') %>
-            </div>
-            <span class="card-action">
-              <%= link_to t('homeowner.dashboard.cards.faqs.view_more'), homeowner_faqs_path, class: "branded-btn right" %>
-            </span>
-          </div>
-          <div class="card-content">
-            <ul class="faq-list branded-text">
-              <% @faqs.each do |faq| %>
-                <li class="branded-border">
-                  <%= link_to homeowner_faqs_path(faq.category, anchor: "faq-#{faq.id}") do %>
-                    <span class="text"><%= faq.question.html_safe %></span>
-                    <%= fa_icon "chevron-right" %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </div>
-        <!-- ARTICLES -->
+
+      <div class="row articles">
+        <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
+        <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
+        <%= render "homeowners/dashboard/services", services: @services if @services %>
         <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
       </div>
     </div>

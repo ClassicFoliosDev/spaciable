@@ -105,6 +105,23 @@
   cursor: pointer;
 }
 
+.service-summary {
+  height: 100px;
+  margin-top: 40px;
+  padding: $spacing-small;
+  text-align: center;
+}
+
+.service-link {
+  color: $transparent-white;
+  border: 2px solid $transparent-white;
+  border-radius: $border-radius;
+  padding: 5px;
+  display: block;
+  width: 166px;
+  margin: 15px auto;
+}
+
 @include media($tablet-portrait-up) {
   .service-container {
     width: 730px;

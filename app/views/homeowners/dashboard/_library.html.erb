@@ -1,0 +1,14 @@
+<div class="card half library-component documents-component branded-content branded-border">
+  <div class="card-header branded-border">
+    <h2 class="card-title branded-text"><%= t('homeowner.dashboard.cards.library.title') %></h2>
+    <span class="card-action">
+      <%= link_to t('homeowner.dashboard.cards.library.view_more'), homeowner_library_path, class: 'branded-btn right' %>
+    </span>
+  </div>
+  <div class="card-content row">
+    <div class="document-images row-item">
+      <%= render "homeowners/components/document_summary", collection: documents %>
+    </div>
+  </div>
+</div>
+

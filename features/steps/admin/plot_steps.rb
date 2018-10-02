@@ -142,8 +142,8 @@ Then(/^I see the plot preview page$/) do
     expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
     expect(page).to have_content(PhaseFixture.address_update_attrs[:postcode])
 
-    expect(page).to have_content(t("homeowners.dashboard.show.contacts_title"))
-    expect(page).to have_content(t("homeowners.dashboard.show.contacts_view_more"))
+    expect(page).to have_content(t("homeowners.dashboard.contacts.contacts_title"))
+    expect(page).to have_content(t("homeowners.dashboard.contacts.contacts_view_more"))
 
     expect(page).to have_content(t("homeowner.dashboard.cards.faqs.title"))
     expect(page).to have_content(t("homeowner.dashboard.cards.faqs.view_more"))
