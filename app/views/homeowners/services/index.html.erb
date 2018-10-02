@@ -8,7 +8,7 @@
     </div>
     <div class="services-form">
       <%= f.simple_fields_for :service_ids do %>
-        <% @services.each do | service | %>
+        <% @services&.each do | service | %>
           <%= render 'service', service: service %>
         <% end %>
       <% end %>

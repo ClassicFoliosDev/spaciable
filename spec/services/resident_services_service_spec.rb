@@ -19,8 +19,7 @@ RSpec.describe ResidentServicesService do
 
       plot_resident
       service_ids = [service1, service2].pluck(:id)
-      service_count = described_class.call(resident, service_ids, false, plot)
-      expect(service_count).to eq 2
+      described_class.call(resident, service_ids, false, plot)
 
       services_email = ActionMailer::Base.deliveries.last
 
@@ -47,8 +46,7 @@ RSpec.describe ResidentServicesService do
 
       plot_resident
       service_ids = [service3, service4].pluck(:id)
-      service_count = described_class.call(resident, service_ids, true, plot)
-      expect(service_count).to eq 2
+      described_class.call(resident, service_ids, true, plot)
 
       services_email = ActionMailer::Base.deliveries.last
 

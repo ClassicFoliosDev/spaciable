@@ -19,7 +19,10 @@ module Mailchimp
     end
 
     def self.update_services(resident, plot, service_ids)
+      api_key = plot&.api_key
+      return if api_key.blank?
       list_id = plot.development.parent.list_id
+      return if list_id.blank?
 
       services_fields = build_services_fields(service_ids)
       call_gibbon(resident, list_id, services_fields, plot.api_key)

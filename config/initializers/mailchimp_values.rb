@@ -146,6 +146,12 @@ Rails.configuration.mailchimp = {
       tag: "UTILITIES",
       type: "text",
       public: true
+    },
+    {
+      name: "Selling or renting",
+      tag: "ESTATE",
+      type: "text",
+      public: true
     }
   ]
 }

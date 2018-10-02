@@ -66,11 +66,13 @@
   width: 96px;
   margin: $spacing-medium auto;
 
-  input {
+  .add-service-checkbox {
     color: $transparent-white;
     border: 2px solid $transparent-white;
     background-color: $transparent-black;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    -appearance: none;
     width: 110px;
     height: 40px;
     cursor: pointer;
