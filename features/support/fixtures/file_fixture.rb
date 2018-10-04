@@ -23,6 +23,10 @@ module FileFixture
     "SVG_logo.svg"
   end
 
+  def svg_picture_alt
+    "SVG logo"
+  end
+
   def finish_picture_alt
     "oca basin"
   end
@@ -57,6 +61,10 @@ module FileFixture
 
   def manual_name_alt
     "Washing Machine Manual"
+  end
+
+  def manual_name_downcase
+    "washing machine manual"
   end
 
   def logo_name

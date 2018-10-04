@@ -26,7 +26,9 @@ class Document < ApplicationRecord
     self.original_filename = file.filename
 
     return if title.present?
-    self.title = file&.filename&.humanize
+
+    new_title = File.basename(file.filename, File.extname(file.filename))
+    self.title = new_title.tr("_", " ")
   end
 
   def shared?(plot)

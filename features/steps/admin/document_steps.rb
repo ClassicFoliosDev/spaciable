@@ -27,17 +27,17 @@ end
 
 Then(/^I should see the created document$/) do
   within ".documents" do
-    expect(page).to have_content(DocumentFixture.document_name)
+    expect(page).to have_content(DocumentFixture.document_name_alt)
   end
 end
 
 And(/^I should see the original filename$/) do
   within ".documents" do
-    click_on DocumentFixture.document_name
+    click_on DocumentFixture.document_name_alt
   end
 
   within ".document" do
-    expect(page).to have_content(DocumentFixture.document_name)
+    expect(page).to have_content(DocumentFixture.document_name_alt)
     # Wasn't set explicitly, but current behaviour will default it
     expect(page).to have_content(t("activerecord.attributes.document.categories.my_home"))
   end
@@ -121,12 +121,12 @@ end
 
 Then(/^I should see the document in the developer document list$/) do
   within ".documents" do
-    expect(page).to have_content DocumentFixture.updated_document_name
-    click_on DocumentFixture.second_document_name
+    expect(page).to have_content DocumentFixture.document_name_alt
+    click_on DocumentFixture.document_name_alt
   end
 
   within ".document" do
-    expect(page).to have_content DocumentFixture.second_document_name
+    expect(page).to have_content DocumentFixture.document_name_alt
   end
 end
 
@@ -148,7 +148,7 @@ Then(/^I should see that the deletion was successful for the developer document$
 
   within ".documents" do
     expect(page).not_to have_content DocumentFixture.updated_document_name
-    expect(page).to have_content(DocumentFixture.second_document_name)
+    expect(page).to have_content(DocumentFixture.document_name_alt)
   end
 end
 
@@ -465,13 +465,13 @@ end
 
 Then(/^I should see the created image$/) do
   within ".documents" do
-    expect(page).to have_content(FileFixture.finish_picture_name.humanize)
+    expect(page).to have_content(FileFixture.finish_picture_alt)
   end
 end
 
 Then(/^I should see the created svg image$/) do
   within ".documents" do
-    expect(page).to have_content(FileFixture.svg_picture_name.humanize)
+    expect(page).to have_content(FileFixture.svg_picture_alt)
   end
 end
 
@@ -551,19 +551,19 @@ end
 
 Then(/^I should see the documents have been created$/) do
   within ".documents" do
-    expect(page).to have_content FileFixture.document_name.humanize
-    expect(page).to have_content FileFixture.manual_name.humanize
+    expect(page).to have_content DocumentFixture.document_name_alt
+    expect(page).to have_content FileFixture.manual_name_downcase
   end
 end
 
 When(/^I delete one of the documents$/) do
-  document = Document.find_by(title: FileFixture.document_name.humanize)
+  document = Document.find_by(title: DocumentFixture.document_name_alt)
   delete_and_confirm!(scope: "[data-document='#{document.id}']")
 end
 
 Then(/^I should see that the document has been deleted$/) do
   within ".documents" do
     expect(page).not_to have_content FileFixture.document_name.humanize
-    expect(page).to have_content FileFixture.manual_name.humanize
+    expect(page).to have_content FileFixture.manual_name_downcase
   end
 end

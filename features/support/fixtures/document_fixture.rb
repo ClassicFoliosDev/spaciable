@@ -7,6 +7,10 @@ module DocumentFixture
     "Dummy pdf.pdf"
   end
 
+  def document_name_alt
+    "dummy pdf"
+  end
+
   def updated_document_name
     "Dishwasher pdf title"
   end
