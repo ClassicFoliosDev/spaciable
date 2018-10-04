@@ -24,14 +24,16 @@
             <% else %>
               <%= f.file_field :files, multiple: true, class: "file-upload" %>
               <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
-              <div class="left"><p><%= t("choose_multiple_explanation") %></p></div>
+              <div class="left"><p><%= t(".choose_multiple_explanation_html") %></p></div>
             <% end %>
           </div>
-          <% if document.persisted? %>
-            <div class="document-title">
-              <%= f.input :title, label: t(".title") %>
-            </div>
-          <% end %>
+          <div class="document-title">
+            <%= f.label t(".title") %>
+            <% if !document.persisted? %>
+              <p><%= t(".title_explanation") %></p>
+            <% end %>
+            <%= f.input :title, label: false %>
+          </div>
         </div>
       </fieldset>
     </div>
