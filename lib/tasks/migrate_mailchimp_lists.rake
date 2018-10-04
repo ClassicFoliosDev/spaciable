@@ -23,7 +23,7 @@ namespace :mailchimp do
     ActiveRecord::Base.transaction do
       Developer.all.each do |developer|
         next unless developer.api_key?
-        @gibbon = MailchimpUtils.client(api_key)
+        @gibbon = MailchimpUtils.client(developer.api_key)
 
         migrate_list(developer, logger)
 
@@ -31,7 +31,6 @@ namespace :mailchimp do
           migrate_list(division, logger)
         end
         logger.info("")
-
       end
     end
   end
@@ -44,6 +43,10 @@ namespace :mailchimp do
               create(body: {tag: field[:tag], name: field[:tag], type: field[:type], public: field[:public]})
     end
     logger.info("Migrated #{resource.to_s}")
+
+  rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
+    logger.warn("Not able to migrate #{resource.to_s}, probable cause is that the list has been deleted in mailchimp")
+    logger.info(e.message)
   end
 
   def fields
