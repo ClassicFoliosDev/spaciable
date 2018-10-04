@@ -450,3 +450,33 @@ Then(/^the postal number should not inherit from the plot number$/) do
     end
   end
 end
+
+When(/^I create plots for the phase$/) do
+  phase = PhasePlotFixture.phase
+  visit "/phases/#{phase.id}/plots/new"
+
+  within ".new_plot" do
+    select PhasePlotFixture.unit_type_name, visible: false
+    fill_in :plot_range_from, with: 1
+    fill_in :plot_range_to, with: 11
+    check :plot_copy_plot_numbers
+
+    click_on t("plots.form.submit")
+  end
+end
+
+Then(/^I should see the plots have been created$/) do
+  success_flash = "Plots 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and 11 were created successfully"
+
+  expect(page).to have_content(success_flash)
+end
+
+Then(/^the plots should have the postal number configured$/) do
+  within ".plots" do
+    click_on "Plot 11"
+  end
+
+  within ".section-data" do
+    expect(page).to have_content "11"
+  end
+end

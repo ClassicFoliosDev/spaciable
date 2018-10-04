@@ -1588,6 +1588,7 @@ en:
         completion_release_date: "Completion release date"
         validity: "Validity (months)"
         extended_access: "Extended access (months)"
+        copy_plot_numbers: "Copy plot number into address postal number"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"

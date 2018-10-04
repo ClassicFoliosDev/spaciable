@@ -81,3 +81,12 @@ Feature: Plots
     And I can not edit a plot
     And I can not update the progress for a plot
     And I can not update the completion date for a plot
+
+  Scenario: Copy plot numbers
+    Given I am logged in as an admin
+    And I have a developer with a development with unit types and a phase
+    And I have configured the phase address
+    When I create plots for the phase
+    Then I should see the plots have been created
+    And the plots should have the postal number configured
+
