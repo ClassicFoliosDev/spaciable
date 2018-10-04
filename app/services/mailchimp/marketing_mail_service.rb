@@ -29,18 +29,38 @@ module Mailchimp
     end
 
     def self.call_gibbon(resident, list_id, merge_fields, api_key)
-      gibbon = MailchimpUtils.client(api_key)
+      @gibbon = MailchimpUtils.client(api_key)
 
-      gibbon.lists(list_id).members(md5_hashed_email(resident.email)).upsert(
-        body: { email_address: resident.email,
-                status: resident.subscribed_status, merge_fields: merge_fields }
-      )
+      if existing_member?(resident.email, list_id)
+        update_member(list_id, resident, merge_fields)
+      else
+        create_member(list_id, resident, merge_fields)
+      end
+
       nil
     rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
-      I18n.t("activerecord.errors.messages.mailchimp_failure",
-             name: resident.email,
-             type: "list subscriber",
-             message: e.message)
+      I18n.t("activerecord.errors.messages.mailchimp_failure", name: resident.email,
+                                                               type: "list subscriber",
+                                                               message: e.message)
+    end
+
+    def self.create_member(list_id, resident, merge_fields)
+      @gibbon.lists(list_id).members.create(body: { email_address: resident.email,
+                                                    status: resident.subscribed_status,
+                                                    merge_fields: merge_fields })
+    end
+
+    def self.update_member(list_id, resident, merge_fields)
+      @gibbon.lists(list_id).members(md5_hashed_email(resident.email)).upsert(
+        body: { email_address: resident.email, status: resident.subscribed_status,
+                merge_fields: merge_fields }
+      )
+    end
+
+    def self.existing_member?(email, list_id)
+      mails = gibbon.lists(list_id).members.retrieve(params: { "fields": "members.email_address" })
+      return true if mails.include? email
+      false
     end
 
     def self.build_merge_fields(hooz_status, resident, plot)
@@ -63,10 +83,8 @@ module Mailchimp
       unsubscribed = Rails.configuration.mailchimp[:unsubscribed]
 
       {
-        HOOZSTATUS: hooz_status,
-        FNAME: resident.first_name,
-        LNAME: resident.last_name,
-        TITLE: resident.title,
+        HOOZSTATUS: hooz_status, FNAME: resident.first_name,
+        LNAME: resident.last_name, TITLE: resident.title,
         DEVLPR_UPD: resident.developer_email_updates&.positive? ? subscribed : unsubscribed,
         HOOZ_UPD: resident.isyt_email_updates&.positive? ? subscribed : unsubscribed,
         PHONE_UPD: resident.telephone_updates&.positive? ? subscribed : unsubscribed,
@@ -76,16 +94,11 @@ module Mailchimp
 
     def self.build_residency_fields(plot)
       {
-        DEVT: plot.development,
-        POSTAL: plot.postal_number,
-        BLDG: plot.building_name,
-        ROAD: plot.road_name,
-        LOCL: plot.locality,
-        CITY: plot.city,
-        COUNTY: plot.county,
-        ZIP: plot.postcode,
-        PLOT: plot.to_s,
-        PHASE: plot.phase,
+        DEVT: plot.development, POSTAL: plot.postal_number,
+        BLDG: plot.building_name, ROAD: plot.road_name,
+        LOCL: plot.locality, CITY: plot.city,
+        COUNTY: plot.county, ZIP: plot.postcode,
+        PLOT: plot.to_s, PHASE: plot.phase,
         UNIT_TYPE: plot.unit_type
       }.transform_values(&:to_s)
     end
