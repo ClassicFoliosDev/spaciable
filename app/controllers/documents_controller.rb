@@ -75,6 +75,8 @@ class DocumentsController < ApplicationController
 
   def create_document(file)
     document = Document.new(file: file)
+
+    document.title = document_params[:title]
     document.set_original_filename
 
     document.save
@@ -112,7 +114,8 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.require(:document).permit(:title, :category, :documentable_id, :notify, files: [])
+    params.require(:document).permit(:title, :category, :documentable_id, :notify, :file,
+                                     files: [])
   end
 
   def set_parent

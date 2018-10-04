@@ -21,14 +21,3 @@ document.addEventListener('turbolinks:load', function () {
     })()
   }
 })
-
-$(document).on('change', '#document_file', function () {
-  var filename = this.value
-  var index = filename.lastIndexOf('\\')
-  if (index >= 0) { filename = filename.substring(index + 1) }
-  index = filename.indexOf('.')
-  if (index > 0) { filename = filename.substring(0, index) }
-
-  console.log(filename)
-  $('.document_title').find('input')[0].value = filename
-})

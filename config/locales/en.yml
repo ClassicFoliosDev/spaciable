@@ -65,7 +65,6 @@ en:
 
   choose: "Choose file"
   choose_multiple: "Choose files"
-  choose_multiple_explanation: "Use control or shift to select multiple files"
   no_image: "No image available"
   plot: "Plot %{number}"
 
@@ -1424,6 +1423,10 @@ en:
       updated: "Upload date"
       notify: "Notify subscribed residents about this change"
       title: "Document title"
+      choose_multiple_explanation_html: "Use control or shift to select multiple files. <br> If uploading multiple files, do not use
+      Document Title field below or this name will be applied to all files being uploaded. <br> Files keep their original file names,
+      but special characters, e.g., ( ) _ ' & \", will be removed. <br> After clicking Submit, click the pencil icon on a file to edit the file name"
+      title_explanation: "Only use when uploading a single file, as name will apply to all files"
     collection:
       add: "Add document(s)"
       processing: "Processing..."
