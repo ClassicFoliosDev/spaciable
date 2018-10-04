@@ -4,6 +4,8 @@
 class Plot < ApplicationRecord
   acts_as_paranoid
 
+  attr_accessor :copy_plot_numbers
+
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
   def parent
@@ -93,8 +95,6 @@ class Plot < ApplicationRecord
 
     if address&.postal_number?
       address.postal_number
-    elsif address&.prefix?
-      number
     else
       parent.address&.postal_number
     end
