@@ -889,7 +889,7 @@ en:
       building: "Building name"
       road: "Road name"
       locality: "Locality"
-      prefix: "Apartment"
+      prefix: "Plot, Flat, or Apartment"
 
   residents:
     sessions:
@@ -1580,7 +1580,7 @@ en:
       plot:
         title: "Plots"
         one: "Plot"
-        prefix: "Prefix"
+        prefix: "Postal prefix, eg Plot, Flat, Apartment"
         number: "Plot number"
         house_number: "Postal number / name"
         updated_at: "Last edited"
@@ -1588,7 +1588,7 @@ en:
         completion_release_date: "Completion release date"
         validity: "Validity (months)"
         extended_access: "Extended access (months)"
-        copy_plot_numbers: "Copy plot number into address postal number"
+        copy_plot_numbers: "Use plot number for address postal number"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"

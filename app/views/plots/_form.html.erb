@@ -55,7 +55,7 @@
     <div class="row-item third">
       <fieldset>
         <% if !plot.persisted? %>
-          <%= f.input :copy_plot_numbers, as: :boolean %>
+          <%= f.input :copy_plot_numbers, as: :boolean, class: "copy-plot-numbers" %>
         <% end %>
         <%= f.input :prefix, placeholder: t("addresses.placeholders.prefix") %>
         <%= f.input :house_number %>
