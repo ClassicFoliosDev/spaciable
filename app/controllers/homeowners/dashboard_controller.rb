@@ -23,7 +23,7 @@ module Homeowners
     def build_articles
       how_tos_limit = 5
       if @plot.enable_services?
-        @services = Service.where.not(category: nil).order("RANDOM()").limit(2)
+        @services = Service.where(category: %i[finance legal])
         how_tos_limit = 3
       end
 

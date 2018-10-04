@@ -710,10 +710,10 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        title: "Congratulations! You're nearly there - in your new home!"
-        subtitle: "ISYT? has partnered with key providers who can all help you to make your move as stress-free and as competitively
-        priced as possible. By selecting any of the services below, ISYT? will help you get moving"
-        description_html: "<em>Quotations are free, and without obligation, so get clicking, get saving with ISYT?</em>"
+        title: "Congratulations! You're nearly there"
+        subtitle: "ISYT? has partnered with key providers who can help make your move as stress-free and as competitively priced
+        as possible. By selecting any of the services below, ISYT? Services will get you moving!"
+        description_html: "<em>Quotations are free, and without obligation, so start saving today with ISYT?</em>"
         submit: "Got it, let's go"
       service:
         add: "Yes!"
@@ -1791,13 +1791,19 @@ en:
           estate: "Selling or renting"
           manager: "Moving manager"
         category_descriptions:
-          removals: "ISYT? a man and a van or a full packing service you need?"
-          finance: "ISYT? help finding a mortgage and insurance deal you need?"
-          legal: "ISYT? a solicitor you need?"
-          utilities: "ISYT? the best deals on things like gas, electricity and other essentials you need?"
-          estate: "ISYT? an estate agent or letting agent you need?"
-          manager: "ISYT? someone to do it all for you that you need?"
-
+          removals: "ISYT? Services can assist you with removals, packing or storage facilities."
+          finance: "ISYT? Services can help find a mortgage or insurance deal that’s right for you"
+          legal: "Do you require a solicitor? ISYT? Services can help"
+          utilities: "Want the best deals for gas, electricity and other essential services? ISYT? Services can find your perfect tariff."
+          estate: "Wish to rent out your property? ISUT? Services has the right package for you."
+          manager: "Looking for someone to organise your entire move? ISYT? Services can manage it for you"
+        dashboard_titles:
+          finance: "Conveyancing and insurance"
+          legal: "Moving and utilities"
+        dashboard_descriptions:
+          finance: "Need a solicitor to carry out your conveyancing? Wish to arrange insurance for your new home?"
+          legal: "Need help with removals, packing or storage facilities? Want the best deals on gas, electricity and other
+          essential services?"
     errors:
       messages:
         blank: " is required, and must not be blank."

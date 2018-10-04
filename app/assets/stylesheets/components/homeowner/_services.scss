@@ -22,12 +22,12 @@
   font-size: $base-font-size;
   vertical-align: middle;
   width: 320px;
-  height: 200px;
+  height: 220px;
   display: block;
-  margin: 0 auto;
   border-radius: $border-radius;
   color: $transparent-white;
   background-size: cover;
+  margin: $spacing-small auto;
 }
 
 .service-overlay {
@@ -53,7 +53,7 @@
 }
 
 .service-description {
-  width: 88%;
+  width: 280px;
   margin: 0 auto;
   text-align: center;
   font-size: $base-font-size;
@@ -108,10 +108,14 @@
 }
 
 .service-summary {
-  height: 100px;
-  margin-top: 40px;
+  height: 90%;
+  margin: 5% auto;
   padding: $spacing-small;
   text-align: center;
+
+  p:not(.larger) {
+    font-size: $base-small-font-size;
+  }
 }
 
 .service-link {
@@ -130,8 +134,8 @@
   }
 
   .service {
-    margin: $spacing-small;
     display: inline-block;
+    margin: $spacing-small;
   }
 }
 

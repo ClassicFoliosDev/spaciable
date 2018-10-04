@@ -31,4 +31,12 @@ class Service < ApplicationRecord
 
     I18n.t("activerecord.attributes.service.category_descriptions.#{category}")
   end
+
+  def to_dashboard_s
+    I18n.t("activerecord.attributes.service.dashboard_descriptions.#{category}")
+  end
+
+  def to_dashboard_title_s
+    I18n.t("activerecord.attributes.service.dashboard_titles.#{category}")
+  end
 end
