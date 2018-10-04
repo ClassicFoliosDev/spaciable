@@ -95,4 +95,18 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(service_fields.length).to eq 6
     end
   end
+
+  context "email hash" do
+    it "returns the correct hash" do
+      email = "lower_case@example.com"
+
+      result =  described_class.md5_hashed_email(email)
+      expect(result).to eq "4d3c3a254f7ed41d1f5d3786c81e815b"
+
+      email = "CamelCase@example.com"
+
+      result =  described_class.md5_hashed_email(email)
+      expect(result).to eq "c312cc447cb95ed81b14654e3bce3511"
+    end
+  end
 end
