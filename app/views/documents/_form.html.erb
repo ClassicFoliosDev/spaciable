@@ -18,10 +18,15 @@
         <div class="document-container">
           <%= f.label t(".load"), class: "text-label" %>
           <div class="document-file">
-            <%= f.file_field :files, multiple: true, class: "file-upload" %>
-            <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
+            <% if document.persisted? %>
+              <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
+              <%= label_tag('document_file', t("choose"), class: "choose-file") %>
+            <% else %>
+              <%= f.file_field :files, multiple: true, class: "file-upload" %>
+              <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
+              <div class="left"><p><%= t("choose_multiple_explanation") %></p></div>
+            <% end %>
           </div>
-          <div class="left"><p><%= t("choose_multiple_explanation") %></p></div>
           <% if document.persisted? %>
             <div class="document-title">
               <%= f.input :title, label: t(".title") %>
