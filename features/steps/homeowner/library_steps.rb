@@ -40,8 +40,8 @@ Then(/^I should see all of the documents related to my home$/) do
     MyLibraryFixture.default_filtered_out_documents.each do |title, download_link|
       expect(page).not_to have_content(title)
 
-      anchor = first("a[href='#{download_link}']")
-      expect(anchor).to be_nil
+      anchors = page.all("a[href='#{download_link}']")
+      expect(anchors.length).to be_zero
     end
   end
 
@@ -67,8 +67,8 @@ Then(/^I should only see the documents for the other category$/) do
     MyLibraryFixture.filtered_out_documents.each do |title, download_link|
       expect(page).not_to have_content(title)
 
-      anchor = first("a[href='#{download_link}']")
-      expect(anchor).to be_nil
+      anchors = page.all("a[href='#{download_link}']")
+      expect(anchors.count).to be_zero
     end
   end
 
@@ -183,7 +183,7 @@ Then(/^I should see the appliance documents$/) do
   visit "/homeowners/library/appliance_manuals"
 
   within ".documents" do
-    expect(page).to have_content FileFixture.manual_name_alt
-    expect(page).to have_content "Washing Machine Quick reference guide"
+    expect(page).to have_content "Washing Machine\nManual"
+    expect(page).to have_content "Washing Machine\nQuick reference guide"
   end
 end

@@ -8,4 +8,8 @@ module FeedbackFixture
 
     And a new paragraph"
   end
+
+  def feedback_comments_test
+    "Thoughts on the site.\r\n\r\n    And a new paragraph"
+  end
 end
