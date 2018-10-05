@@ -1587,7 +1587,7 @@ en:
       plot:
         title: "Plots"
         one: "Plot"
-        prefix: "Postal prefix, eg Plot, Flat, Apartment"
+        prefix: "Postal prefix, e.g. Plot, Flat and Apartment"
         number: "Plot number"
         house_number: "Postal number / name"
         updated_at: "Last edited"
@@ -1595,7 +1595,7 @@ en:
         completion_release_date: "Completion release date"
         validity: "Validity (months)"
         extended_access: "Extended access (months)"
-        copy_plot_numbers: "Use plot number for address postal number"
+        copy_plot_numbers: "Use Plot number for Postal number"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"
