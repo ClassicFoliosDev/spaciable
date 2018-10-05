@@ -707,9 +707,9 @@ en:
     services:
       index:
         title: "Congratulations! You're nearly there"
-        subtitle: "ISYT? has partnered with key providers who can help make your move as stress-free and as competitively priced
-        as possible. By selecting any of the services below, ISYT? Services will get you moving!"
-        description_html: "<em>Quotations are free, and without obligation, so start saving today with ISYT?</em>"
+        subtitle: "Hoozzi has partnered with key providers who can help make your move as stress-free and as competitively priced
+        as possible. By selecting any of the services below, Hoozzi Services will get you moving!"
+        description_html: "<em>Quotations are free, and without obligation, so start saving today with Hoozzi</em>"
         submit: "Got it, let's go"
       service:
         add: "Yes!"
@@ -1788,12 +1788,12 @@ en:
           estate: "Selling or renting"
           manager: "Moving manager"
         category_descriptions:
-          removals: "ISYT? Services can assist you with removals, packing or storage facilities."
-          finance: "ISYT? Services can help find a mortgage or insurance deal that’s right for you"
-          legal: "Do you require a solicitor? ISYT? Services can help"
-          utilities: "Want the best deals for gas, electricity and other essential services? ISYT? Services can find your perfect tariff."
+          removals: "Hoozzi Services can assist you with removals, packing or storage facilities."
+          finance: "Hoozzi Services can help find a mortgage or insurance deal that’s right for you"
+          legal: "Do you require a solicitor? Hoozzi Services can help"
+          utilities: "Want the best deals for gas, electricity and other essential services? Hoozzi Services can find your perfect tariff."
           estate: "Wish to rent out your property? ISUT? Services has the right package for you."
-          manager: "Looking for someone to organise your entire move? ISYT? Services can manage it for you"
+          manager: "Looking for someone to organise your entire move? Hoozzi Services can manage it for you"
         dashboard_titles:
           finance: "Conveyancing and insurance"
           legal: "Moving and utilities"
