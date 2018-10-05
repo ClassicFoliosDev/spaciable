@@ -35,6 +35,6 @@
   </div>
 </div>
 
-<% if current_resident.plot_residency_homeowner?(@plot) %>
+<% if current_resident&.plot_residency_homeowner?(@plot) %>
   <%= render "homeowners/components/sharing_info" %>
 <% end %>
