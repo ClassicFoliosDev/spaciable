@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 module Mailchimp
   class MarketingMailService
     def self.call(resident,
@@ -58,7 +59,8 @@ module Mailchimp
     end
 
     def self.existing_member?(email, list_id)
-      mails = gibbon.lists(list_id).members.retrieve(params: { "fields": "members.email_address" })
+      mails = @gibbon.lists(list_id).members
+                     .retrieve(params: { "fields": "members.email_address" })
       return true if mails.include? email
       false
     end
@@ -130,3 +132,4 @@ module Mailchimp
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
