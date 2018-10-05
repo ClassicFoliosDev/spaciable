@@ -85,6 +85,12 @@ namespace :mailchimp do
       tag: "ESTATE",
       type: "text",
       public: true
+    },
+    {
+      name: "Phone",
+      tag: "PHONE",
+      type: "text",
+      public: true
     }]
   end
 end

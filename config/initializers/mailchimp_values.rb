@@ -152,6 +152,12 @@ Rails.configuration.mailchimp = {
       tag: "ESTATE",
       type: "text",
       public: true
+    },
+    {
+      name: "Phone",
+      tag: "PHONE",
+      type: "text",
+      public: true
     }
   ]
 }

@@ -45,8 +45,9 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:HOOZ_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
+      expect(merge_fields[:PHONE]).to eq(resident.phone_number)
 
-      expect(merge_fields.length).to eq 20
+      expect(merge_fields.length).to eq 21
     end
   end
 
@@ -66,7 +67,8 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:HOOZ_UPD]).to eq(Rails.configuration.mailchimp[:subscribed])
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:subscribed])
-      expect(merge_fields.length).to eq 8
+      expect(merge_fields[:PHONE]).to eq(resident.phone_number)
+      expect(merge_fields.length).to eq 9
     end
   end
 
