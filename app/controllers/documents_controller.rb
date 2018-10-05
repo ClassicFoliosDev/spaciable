@@ -50,6 +50,7 @@ class DocumentsController < ApplicationController
 
     if @document.update(document_params)
       @document.set_original_filename
+      @document.save
       respond_to do |format|
         build_response(format)
       end
