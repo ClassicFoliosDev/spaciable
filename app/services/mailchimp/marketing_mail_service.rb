@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 module Mailchimp
   class MarketingMailService
     def self.call(resident,
@@ -32,11 +31,7 @@ module Mailchimp
     def self.call_gibbon(resident, list_id, merge_fields, api_key)
       @gibbon = MailchimpUtils.client(api_key)
 
-      if existing_member?(resident.email, list_id)
-        update_member(list_id, resident, merge_fields)
-      else
-        create_member(list_id, resident, merge_fields)
-      end
+      update_member(list_id, resident, merge_fields)
 
       nil
     rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
@@ -45,24 +40,11 @@ module Mailchimp
                                                                message: e.message)
     end
 
-    def self.create_member(list_id, resident, merge_fields)
-      @gibbon.lists(list_id).members.create(body: { email_address: resident.email,
-                                                    status: resident.subscribed_status,
-                                                    merge_fields: merge_fields })
-    end
-
     def self.update_member(list_id, resident, merge_fields)
       @gibbon.lists(list_id).members(md5_hashed_email(resident.email)).upsert(
         body: { email_address: resident.email, status: resident.subscribed_status,
                 merge_fields: merge_fields }
       )
-    end
-
-    def self.existing_member?(email, list_id)
-      mails = @gibbon.lists(list_id).members
-                     .retrieve(params: { "fields": "members.email_address" })
-      return true if mails.include? email
-      false
     end
 
     def self.build_merge_fields(hooz_status, resident, plot)
@@ -132,4 +114,3 @@ module Mailchimp
     end
   end
 end
-# rubocop:enable Metrics/ClassLength
