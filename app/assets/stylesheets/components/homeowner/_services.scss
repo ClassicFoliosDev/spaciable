@@ -45,7 +45,6 @@
 .service-title {
   color: $transparent-white;
   margin-bottom: 20px;
-  font-family: $header-font-family;
 }
 
 .service-long-text:before {
@@ -78,7 +77,6 @@
     cursor: pointer;
     padding: 5px;
     border-radius: $border-radius;
-    font-family: $header-font-family;
     font-size: $title-font-size-5;
     text-align: center;
     line-height: 26px;
