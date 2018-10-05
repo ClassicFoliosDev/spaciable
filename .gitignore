@@ -61,7 +61,7 @@ vendor/cache/bcrypt-3.1.11-x86-mingw32.gem
 vendor/cache/wdm-0.1.1.gem
 vendor/cache/bcrypt-3.1.11-x64-mingw32.gem
 vendor/cache/ffi-1.9.14-x64-mingw32.gem
-vendor/cache/nokogiri-1.6.8.1-x64-mingw32.gem
+vendor/cache/nokogiri-1.8.5-x64-mingw32.gem
 vendor/cache/pg-0.19.0-x64-mingw32.gem
 vendor/cache/ks-0.0.1.gem
 vendor/cache/wetransfer-0.4.4.gem

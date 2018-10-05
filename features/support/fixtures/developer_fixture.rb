@@ -12,8 +12,7 @@ module DeveloperFixture
 
   def about
     <<~ABOUT
-      Established in 1977. Hamble Developments have been serving the local area
-      with exceptional housing that combines the maritime location with comfortable living.
+      Established in 1977. Hamble Developments have been serving the local area with exceptional housing that combines the maritime location with comfortable living.
     ABOUT
   end
 
