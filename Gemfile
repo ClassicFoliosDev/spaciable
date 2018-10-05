@@ -161,7 +161,7 @@ group :test do
   # in turn had a knock-on effect on dependencies: a full bundle update would change
   # our rails version, so these are an attempt at the minimal test updates required
   # to get cucumber-rails updated
-  gem "nokogiri", "~> 1.8", require: false
+  gem "nokogiri", "~> 1.8"
   gem "rails-controller-testing"
   gem "rails-dom-testing", "~> 2.0"
 end
