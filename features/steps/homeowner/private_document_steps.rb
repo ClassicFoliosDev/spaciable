@@ -50,22 +50,6 @@ Then(/^I should see my private documents$/) do
   end
 end
 
-When(/^I edit a private document as a tenant$/) do
-  tenant_residency = PlotResidency.find_by(role: :tenant)
-  manual_document = PrivateDocument.find_by(title: "Washing machine manual", resident_id: tenant_residency.resident_id)
-
-  within ".private-document[data-document='#{manual_document.id}']" do
-    edit_button = page.find("[data-action='update']")
-    edit_button.click
-  end
-
-  within ".ui-dialog" do
-    fill_in :title, with: "Updated private document"
-    click_on t("homeowners.private_documents.edit.submit")
-  end
-end
-
-
 When(/^I edit a private document$/) do
   manual_document = PrivateDocument.find_by(title: "Washing machine manual")
 

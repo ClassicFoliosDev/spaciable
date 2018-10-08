@@ -29,7 +29,7 @@ Feature: My Home Library Documents
     When I delete a private document
     Then I should no longer see the private document
 
-    When I edit a private document as a tenant
+    When I edit a private document
     Then I should see my updated private document
 
     And I should not be able to share a private document

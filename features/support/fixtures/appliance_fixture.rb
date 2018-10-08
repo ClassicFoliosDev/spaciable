@@ -24,7 +24,7 @@ module ApplianceFixture
   end
 
   def description_display
-    "Some text Some more text"
+    "Some text\r\nSome more text"
   end
 
   def warranty_len
@@ -49,7 +49,7 @@ module ApplianceFixture
       manufaturer: updated_manufacturer,
       warranty_len: warranty_len,
       e_rating: e_rating,
-      description: description_display,
+      description: description,
       model_num: updated_model_num
     }
   end

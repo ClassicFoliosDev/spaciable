@@ -19,9 +19,9 @@ Then(/^I should see the created developer$/) do
   end
 
   within ".section-title" do
-    expect(page).to have_content("#{t(".developers.developer.house_search")}#{t("developers.developer.disabled")}")
-    expect(page).to have_content("#{t(".developers.developer.services")}#{t("developers.developer.disabled")}")
-    expect(page).to have_content("#{t(".developers.developer.messages")}#{t("developers.developer.disabled")}")
+    expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.disabled")}")
+    expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.disabled")}")
+    expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.disabled")}")
   end
 end
 
@@ -55,9 +55,9 @@ Then(/^I should see the updated developer$/) do
 
   within ".section-title" do
     expect(page).to have_content(DeveloperFixture.updated_company_name)
-    expect(page).to have_content("#{t(".developers.developer.house_search")}#{t("developers.developer.enabled")}")
-    expect(page).to have_content("#{t(".developers.developer.services")}#{t("developers.developer.enabled")}")
-    expect(page).to have_content("#{t(".developers.developer.messages")}#{t("developers.developer.enabled")}")
+    expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.enabled")}")
+    expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.enabled")}")
+    expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.enabled")}")
   end
 
   within ".section-data" do
