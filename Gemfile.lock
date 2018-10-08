@@ -506,6 +506,7 @@ DEPENDENCIES
   mini_magick (~> 4.8)
   neat (~> 1)
   newrelic_rpm
+  nokogiri (~> 1.8)
   non-stupid-digest-assets
   paranoia!
   pg (~> 0.18)
