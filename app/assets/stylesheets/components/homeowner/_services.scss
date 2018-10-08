@@ -111,6 +111,10 @@
   padding: $spacing-small;
   text-align: center;
 
+  p {
+    color: $transparent-white;
+  }
+
   p:not(.larger) {
     font-size: $base-small-font-size;
   }
