@@ -13,6 +13,10 @@ Then(/^I should see the created plot$/) do
     expect(page).to have_content(PlotFixture.unit_type_name)
   end
 
+  within ".section-data" do
+    expect(page).not_to have_content(PlotFixture.plot_number)
+  end
+
   click_on t("plots.edit.back")
 end
 
@@ -407,7 +411,7 @@ Then(/^I can not update the progress for a plot$/) do
   end
 end
 
-When(/^I create a plot with prefix$/) do
+When(/^I create a plot with prefix and copy plot numbers$/) do
   phase = PhasePlotFixture.phase
   visit "/phases/#{phase.id}/plots/new"
 
@@ -415,6 +419,8 @@ When(/^I create a plot with prefix$/) do
     select PhasePlotFixture.unit_type_name, visible: false
     fill_in :plot_list, with: PhasePlotFixture.prefix_plot_number
     fill_in :plot_prefix, with: "Flat"
+    checkbox = page.find("#plot_copy_plot_numbers")
+    checkbox.set(true)
 
     click_on t("plots.form.submit")
   end

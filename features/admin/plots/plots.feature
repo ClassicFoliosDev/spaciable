@@ -23,10 +23,11 @@ Feature: Plots
     When I send a notification the phase
     Then I should see the notification is not sent to the former resident
 
+  @javascript
   Scenario: Address Prefix
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
-    When I create a plot with prefix
+    When I create a plot with prefix and copy plot numbers
     Then I should see the postal number inherit from the plot number
     When I edit a plot with prefix and postal number
     Then the postal number should not inherit from the plot number
