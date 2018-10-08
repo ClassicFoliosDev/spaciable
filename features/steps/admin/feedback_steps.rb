@@ -32,7 +32,7 @@ Then(/^An email should be sent$/) do
 
   body = Capybara.string(emails[0].body.encoded)
   expect(body.native).to have_content t("feedback.option3")
-  expect(body.native).to have_content FeedbackFixture.feedback_comments_test
+  expect(body.native).to have_content FeedbackFixture.feedback_comments
   expect(body.native).to have_content t("feedback.not_sent")
 
   ActionMailer::Base.deliveries.clear

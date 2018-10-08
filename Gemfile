@@ -30,8 +30,6 @@ gem "jquery-ui-rails"
 
 # jQuery library for multi-select
 gem "rails-assets-select2", source: "https://rails-assets.org"
-# Temporary use for building on windows, make sure this line is commented in product builds
-# gem "rails-assets-select2", source: "http://insecure.rails-assets.org"
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
@@ -147,7 +145,7 @@ end
 
 group :test do
   gem "codeclimate-test-reporter", "~> 0.6"
-  gem "cucumber-rails", "~> 1.6", require: false
+  gem "cucumber-rails", require: false
   gem "database_cleaner"
   gem "launchy"
   gem "rspec-rails"
@@ -155,14 +153,8 @@ group :test do
   gem "timecop"
   gem "webmock"
   # Headless browser, see https://github.com/teampoltergeist/poltergeist
-  gem "poltergeist", "~> 1.18"
-
-  # gunzip has been deprecated, this led to a need to update cucumber-rails, which
-  # in turn had a knock-on effect on dependencies: a full bundle update would change
-  # our rails version, so these are an attempt at the minimal test updates required
-  # to get cucumber-rails updated
+  gem "poltergeist"
   gem "rails-controller-testing"
-  gem "rails-dom-testing", "~> 2.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

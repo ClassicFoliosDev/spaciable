@@ -22,7 +22,7 @@ When(/^I create a room with no room name$/) do
 end
 
 Then(/^I should see the room failure message$/) do
-  failure_flash_room = "Room name" + t("activerecord.errors.messages.blank")
+  failure_flash_room = "Room name " + t("activerecord.errors.messages.blank")
   # "Room Name can't be blank"
   within ".submission-errors" do
     expect(page).to have_content(failure_flash_room)

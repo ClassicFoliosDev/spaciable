@@ -343,9 +343,9 @@ When(/^I accept the invitation as development admin$/) do
   sections = invitation.text_part.body.to_s.split("http://localhost")
   paths = sections[1].split(t("devise.mailer.invitation_instructions.ignore"))
 
-  response = visit paths[0].strip
+  visit paths[0]
 
-  within ".edit_user" do
+  within ".admin-login-form" do
     fill_in :user_password, with: AdminUsersFixture.new_password
     fill_in :user_password_confirmation, with: AdminUsersFixture.new_password
 

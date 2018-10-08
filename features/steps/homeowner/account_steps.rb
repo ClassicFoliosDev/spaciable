@@ -245,7 +245,7 @@ When(/^I visit the invitation accept page$/) do
   sections = invitation.text_part.body.to_s.split("http://")
   paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
 
-  visit "/#{paths[0].strip}"
+  visit "/#{paths[0]}"
 end
 
 When(/^I do not accept terms and conditions$/) do
