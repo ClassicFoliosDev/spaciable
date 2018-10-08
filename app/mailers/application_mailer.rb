@@ -22,12 +22,11 @@ class ApplicationMailer < ActionMailer::Base
     mail to: "feedback@isyt.com", subject: I18n.t("feedback.email_subject")
   end
 
-  def request_services(resident, old_service_names, plot)
+  def request_services(resident, new_service_names, plot)
     @title = I18n.t("application_mailer.request_services.title", name: resident.to_s)
 
     @resident = resident
-    @new_services = resident.services.map(&:name)
-    @old_services = old_service_names
+    @new_services = new_service_names
     @plot = plot
 
     mail to: "services@isyt.com", subject: @title

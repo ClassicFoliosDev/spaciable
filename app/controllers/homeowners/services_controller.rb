@@ -10,7 +10,7 @@ module Homeowners
 
     def resident_services
       response = ResidentServicesService
-                 .call(current_resident, params[:services], false, @plot)
+                 .call(current_resident, params[:services], true, @plot)
 
       if response.blank?
         redirect_to root_path, notice: t(".success")

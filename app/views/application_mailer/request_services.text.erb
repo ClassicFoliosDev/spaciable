@@ -31,12 +31,5 @@
 
 <%= t(".subscribed") %>
 <% @new_services.each do | service | %>
-  <%= service %>
-<% end %>
-
-<% if @old_services&.any? %>
-  <%= t(".unsubscribed") %>
-  <% @old_services.each do | service | %>
-    <%= service %>
-  <% end %>
+  <%= service.to_s %>
 <% end %>

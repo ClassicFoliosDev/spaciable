@@ -54,18 +54,13 @@ RSpec.describe ResidentServicesService do
       expect(services_email.subject).to eq title
       expect(services_email.to).to include "services@isyt.com"
 
-      email_sections = services_email.parts.first.body.to_s.split(I18n.t("application_mailer.request_services.unsubscribed"))
+      email_contents = services_email.parts.first.body.to_s
 
-      expect(email_sections[0]).to include I18n.t("application_mailer.request_services.subscribed")
-      expect(email_sections[0]).to include service3.name
-      expect(email_sections[0]).to include service4.name
-      expect(email_sections[0]).not_to include service1.name
-      expect(email_sections[0]).not_to include service2.name
-
-      expect(email_sections[1]).to include service1.name
-      expect(email_sections[1]).to include service2.name
-      expect(email_sections[1]).not_to include service3.name
-      expect(email_sections[1]).not_to include service4.name
+      expect(email_contents).to include I18n.t("application_mailer.request_services.subscribed")
+      expect(email_contents).to include service3.name
+      expect(email_contents).to include service4.name
+      expect(email_contents).not_to include service1.name
+      expect(email_contents).not_to include service2.name
 
       ActionMailer::Base.deliveries.clear
     end

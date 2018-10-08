@@ -34,16 +34,7 @@
     <h3><%= t(".subscribed") %></h3>
     <% @new_services.each do | service | %>
       <ul>
-        <li><span><%= service %></span></li>
-      </ul>
-    <% end %>
-
-    <% if @old_services&.any? %>
-      <h3><%= t(".unsubscribed") %></h3>
-      <ul>
-        <% @old_services.each do | service | %>
-          <li><span><del><%= service %></del></span></li>
-        <% end %>
+        <li><span><%= service.to_s %></span></li>
       </ul>
     <% end %>
   </div>
