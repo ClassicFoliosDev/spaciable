@@ -888,7 +888,7 @@ en:
       building: "Building name"
       road: "Road name"
       locality: "Locality"
-      prefix: "Plot, Flat, or Apartment"
+      prefix: "Plot, Flat or Apartment"
 
   residents:
     sessions:
@@ -1583,7 +1583,7 @@ en:
       plot:
         title: "Plots"
         one: "Plot"
-        prefix: "Postal prefix, e.g. Plot, Flat and Apartment"
+        prefix: "Postal Prefix, e.g., Plot, Flat and Apartment"
         number: "Plot number"
         house_number: "Postal number / name"
         updated_at: "Last edited"
