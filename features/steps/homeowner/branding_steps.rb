@@ -135,15 +135,6 @@ Then(/^I should see the default branding$/) do
 
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
-<<<<<<< HEAD
-  expect(style['outerHTML']).to have_content("branded-header { background-color: #394F5F")
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #FAFAFA")
-  expect(style['outerHTML']).to have_content("branded-text { color: #67747C")
-  expect(style['outerHTML']).to have_content("branded-content { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-border { border-color: #EAEAEA")
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #18A89")
-  expect(style['outerHTML']).to have_content("branded-btn { color: #FFFFFF")
-=======
   expect(style['outerHTML']).to have_content("branded-header {\n      background-color: #00416B")
   expect(style['outerHTML']).to have_content("branded-body {\n      background-color: #FAFAFA")
   expect(style['outerHTML']).to have_content("branded-text {\n      color: #2F2F2F")
@@ -151,7 +142,6 @@ Then(/^I should see the default branding$/) do
   expect(style['outerHTML']).to have_content("branded-border {\n      border-color: #EAEAEA")
   expect(style['outerHTML']).to have_content("branded-btn {\n      background-color: #FFFFFF")
   expect(style['outerHTML']).to have_content("branded-btn {\n      color: #2F2F2F")
->>>>>>> 1130dbbe... Upgrade cucumber (#633)
 
   expect(style['outerHTML']).not_to have_content("cala_banner.jpg")
 end
