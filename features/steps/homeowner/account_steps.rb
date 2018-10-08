@@ -272,7 +272,6 @@ Then(/^I should be redirected to the video introduction page$/) do
   end
 end
 
-<<<<<<< HEAD
 Then(/^the email should include all my details$/) do
   services_email = ActionMailer::Base.deliveries.last
 
