@@ -605,7 +605,7 @@ en:
       address:
         my_home_view_more: "View my home"
       sharing_info:
-        modal_title: "Hints &amp; tips"
+        modal_title: "Hints & tips"
         dismiss: "Dismiss"
         modal_content: "Tick the circles to select files you wish to share with Tenant (Limited Access) users and other residents of this plot"
         not_again: "Don't show this again"
@@ -712,7 +712,7 @@ en:
         title: "Congratulations! You're nearly there"
         subtitle: "ISYT? has partnered with key providers who can help make your move as stress-free and as competitively priced
         as possible. By selecting any of the services below, ISYT? Services will get you moving!"
-        description_html: "<em>Quotations are free, and without obligation, so start saving today with ISYT?</em>"
+        description_html: "<em>Quotations are free, and without obligation, so start saving today with ISYT? Services.</em>"
         submit: "Got it, let's go"
       service:
         add: "Yes!"
@@ -948,8 +948,6 @@ en:
 
     invitations:
       edit:
-        everything: "everything"
-        home: "home"
         submit_button: "Continue"
         welcome: "Welcome to ISYT?"
         welcome2: "You're almost there"
@@ -1796,14 +1794,14 @@ en:
           manager: "Moving manager"
         category_descriptions:
           removals: "ISYT? Services can assist you with removals, packing or storage facilities."
-          finance: "ISYT? Services can help find a mortgage or insurance deal that’s right for you"
-          legal: "Do you require a solicitor? ISYT? Services can help"
+          finance: "ISYT? Services can help find a mortgage or insurance deal that’s right for you."
+          legal: "Do you require a solicitor? ISYT? Services can help."
           utilities: "Want the best deals for gas, electricity and other essential services? ISYT? Services can find your perfect tariff."
-          estate: "Wish to rent out your property? ISUT? Services has the right package for you."
-          manager: "Looking for someone to organise your entire move? ISYT? Services can manage it for you"
+          estate: "Wish to rent out your property? ISYT? Services has the right package for you."
+          manager: "Looking for someone to organise your entire move? ISYT? Services can manage it for you."
         dashboard_titles:
-          finance: "Conveyancing and insurance"
-          legal: "Moving and utilities"
+          finance: "Conveyancing & insurance"
+          legal: "Moving & utilities"
         dashboard_descriptions:
           finance: "Need a solicitor to carry out your conveyancing? Wish to arrange insurance for your new home?"
           legal: "Need help with removals, packing or storage facilities? Want the best deals on gas, electricity and other
