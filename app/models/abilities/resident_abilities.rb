@@ -11,7 +11,7 @@ module Abilities
       resident_abilities_for_plot(plot.id)
       resident_abilities_via_development(plot.development_id)
       resident_abilities_via_unit_type(plot.unit_type_id, plot.rooms.pluck(:id))
-      resident_abilities_for_documents(plot, resident.plot_residency_homeowner?(plot))
+      resident_abilities_for_documents(plot, resident)
       resident_abilities_for_contacts(plot)
       resident_abilities_for_faqs(plot)
       resident_abilities_for_notifications(plot)
@@ -37,8 +37,8 @@ module Abilities
       can :read, Appliance, rooms: { id: room_ids }
     end
 
-    def resident_abilities_for_documents(plot, homeowner)
-      if homeowner
+    def resident_abilities_for_documents(plot, resident)
+      if resident.plot_residency_homeowner?(plot) || resident.admin_preview
         homeowner_read(plot)
       else
         tenant_read(plot)

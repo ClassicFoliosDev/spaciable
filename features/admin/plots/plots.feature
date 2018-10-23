@@ -38,6 +38,7 @@ Feature: Plots
     And I have a developer with a development with unit types and a phase
     And I have configured the phase address
     When I create a plot for the phase
+    And there are documents
     And I preview the plot
     Then I see the plot preview page
     And I can see my library

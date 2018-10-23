@@ -13,7 +13,7 @@ module Homeowners
 
     def current_ability
       if current_user.present?
-        @resident ||= Resident.new(email: current_user.email)
+        @resident ||= Resident.new(email: current_user.email, admin_preview: true)
       else
         @resident = current_resident
       end

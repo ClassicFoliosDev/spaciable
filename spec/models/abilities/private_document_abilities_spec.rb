@@ -165,8 +165,10 @@ RSpec.describe "Private document abilities" do
         development = create(:development, developer: developer)
         plot = create(:plot, development: development)
 
-        resident = create(:resident, plot: plot,role: :homeowner)
-        tenant = create(:resident, plot: plot, role: :tenant)
+        resident = create(:resident, plot: plot)
+        create(:plot_residency, resident: resident, plot: plot, role: :homeowner)
+        tenant = create(:resident, plot: plot)
+        create(:plot_residency, resident: tenant, plot: plot, role: :tenant)
         private_document = create(:private_document, resident: resident, plot_id: plot.id)
         plot_private_document = create(:plot_private_document, plot: plot, private_document: private_document, enable_tenant_read: true)
 
@@ -180,8 +182,10 @@ RSpec.describe "Private document abilities" do
         development = create(:development, developer: developer)
         plot = create(:plot, development: development)
 
-        resident = create(:resident, plot: plot,role: :homeowner)
-        tenant = create(:resident, plot: plot, role: :tenant)
+        resident = create(:resident, plot: plot)
+        create(:plot_residency, resident: resident, plot: plot, role: :homeowner)
+        tenant = create(:resident, plot: plot)
+        create(:plot_residency, resident: tenant, plot: plot, role: :tenant)
         private_document = create(:private_document, resident: resident, plot_id: plot.id)
         plot_private_document = create(:plot_private_document, plot: plot, private_document: private_document, enable_tenant_read: false)
 

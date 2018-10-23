@@ -3,7 +3,7 @@
 class Resident < ApplicationRecord
   include TitleEnum
 
-  attr_accessor :subscribe_emails, :invitation_plot, :accept_ts_and_cs, :role
+  attr_accessor :subscribe_emails, :invitation_plot, :accept_ts_and_cs, :role, :admin_preview
   attr_reader :raw_invitation_token
 
   # Include default devise modules. Others available are:

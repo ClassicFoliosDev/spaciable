@@ -162,6 +162,10 @@ Then(/^I can see my library$/) do
   sleep 0.2
   within_frame("rails_iframe") do
     expect(page).to have_content %r{#{t("components.homeowner.library_hero.title")}}i
+
+    expect(page).to have_content "DEVELOPMENT DOCUMENT"
+    anchor = page.first("a[href='/uploads/document/file/2/development_document.pdf']")
+    expect(anchor).not_to be_nil
   end
 end
 
