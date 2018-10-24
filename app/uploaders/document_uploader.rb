@@ -2,7 +2,7 @@
 
 class DocumentUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
-  include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
@@ -14,8 +14,9 @@ class DocumentUploader < CarrierWave::Uploader::Base
   end
 
   def convert_to_image(height, width)
-    image = ::Magick::Image.read(current_path + "[0]")[0]
-    image.resize_to_fit(height, width).write(current_path)
+    image = MiniMagick::Image.open(current_path)
+    image.resize "#{height}x#{width}"
+    image.write(current_path)
   end
 
   version :preview, if: :not_svg? do

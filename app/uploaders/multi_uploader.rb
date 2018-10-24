@@ -2,7 +2,7 @@
 
 class MultiUploader < CarrierWave::Uploader::Base
   include ::CarrierWave::Backgrounder::Delay
-  include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   if Features.s3_storage?
