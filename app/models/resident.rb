@@ -65,7 +65,7 @@ class Resident < ApplicationRecord
 
   def plot_residency_role_name(plot)
     residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
-    residency.role&.camelcase
+    I18n.t("activerecord.attributes.plot_residency.roles.#{residency.role}")
   end
 
   def plot_residency_homeowner?(plot)

@@ -122,10 +122,11 @@ class ResidentsController < ApplicationController
     # Plot residency created by admin is always a homeowner
     if plot_residency.nil?
       plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id,
-                                             role: :homeowner, invited_by: current_user)
+                                             role: params[:resident][:role],
+                                             invited_by: current_user)
     else
       plot_residency.update_attributes!(deleted_at: nil,
-                                        role: :homeowner, invited_by: current_user)
+                                        role: params[:resident][:role], invited_by: current_user)
     end
 
     # Resident invitation service will not send new invitations if the resident has

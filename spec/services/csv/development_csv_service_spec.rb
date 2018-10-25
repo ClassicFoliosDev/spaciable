@@ -34,12 +34,12 @@ RSpec.describe Csv::DevelopmentCsvService do
 
       expect(csv[1]["Development name"]).to eq ""
       expect(csv[1]["Plot number"]).to eq plot_a.to_s
-      expect(csv[1]["Resident role"]).to eq "Tenant"
+      expect(csv[1]["Resident role"]).to eq I18n.t("activerecord.attributes.plot_residency.roles.tenant")
       # Nil is expected for legacy residents with no invited_by
       expect(csv[1]["Resident invited by"]).to be_nil
 
       expect(csv[2]["Plot number"]).to eq plot_b.to_s
-      expect(csv[2]["Resident role"]).to eq "Homeowner"
+      expect(csv[2]["Resident role"]).to eq I18n.t("activerecord.attributes.plot_residency.roles.homeowner")
       expect(csv[2]["Resident invited by"]).to eq plot_resident_a.email
 
       expect(csv[3]["Plot number"]).to eq plot_d.to_s

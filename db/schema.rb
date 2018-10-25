@@ -345,6 +345,7 @@ ActiveRecord::Schema.define(version: 20181024104019) do
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["finish_id", "room_id"], name: "by_finish_and_by_room", unique: true, using: :btree
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -525,6 +526,7 @@ ActiveRecord::Schema.define(version: 20181024104019) do
     t.datetime "invitation_accepted_at"
     t.integer  "invitation_limit"
     t.string   "invited_by_type"
+    t.integer  "invited_by_id"
     t.integer  "invitations_count",       default: 0
     t.integer  "developer_email_updates"
     t.integer  "cf_email_updates"
@@ -532,7 +534,6 @@ ActiveRecord::Schema.define(version: 20181024104019) do
     t.integer  "post_updates"
     t.string   "phone_number"
     t.datetime "ts_and_cs_accepted_at"
-    t.integer  "invited_by_id"
     t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_residents_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_residents_on_invitations_count", using: :btree

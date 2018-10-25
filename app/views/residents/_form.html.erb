@@ -35,6 +35,14 @@
 
       <div class="row-item third">
         <fieldset>
+          <div class="ui-front select-container">
+            <%= f.input :role,
+            as: :select,
+            selected: :homeowner,
+            collection: roles_collection,
+            include_blank: false %>
+          </div>
+
           <%= f.input :email, required: true %>
           <%= f.input :phone_number, required: true %>
           <span class="info-span"><%= t(".international") %></span>

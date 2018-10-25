@@ -148,8 +148,46 @@ When(/^I assign the same resident to the second plot$/) do
   end
 
   within ".new_resident" do
+    expect(page).to have_content I18n.t("activerecord.attributes.plot_residency.roles.homeowner")
+    expect(page).not_to have_content I18n.t("activerecord.attributes.plot_residency.roles.tenant")
+    select_from_selectmenu :resident_role, with: I18n.t("activerecord.attributes.plot_residency.roles.tenant")
     fill_in_resident_details(PlotResidencyFixture.attrs)
   end
+end
+
+
+
+Then(/^I should see the resident is a Tenant$/) do
+  attrs = PlotResidencyFixture.attrs(:created)
+
+  within ".residents" do
+    expect(page).to have_content(attrs[:first_name])
+    expect(page).to have_content(attrs[:last_name])
+    expect(page).to have_content(attrs[:email])
+    expect(page).to have_content I18n.t("activerecord.attributes.plot_residency.roles.tenant")
+  end
+
+  recipient_email = ActionMailer::Base.deliveries.last
+
+  message = t("devise.mailer.invitation_instructions.someone_invited_you", name: PlotResidencyFixture.plot.developer)
+  expect(recipient_email.parts.first.body.raw_source).to include message
+  expect(recipient_email.parts.second.body.raw_source).to include "assets/ISYT-40px-01"
+
+  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+
+  if resident&.invitation_accepted_at.nil?
+    expect(recipient_email.subject).to eq t("last_reminder_title", ordinal: "Third")
+  elsif resident
+    expect(recipient_email.subject).to eq t("new_plot_title")
+  end
+
+  plot_residency = resident&.plot_residencies&.last
+
+  if plot_residency
+    expect(plot_residency.homeowner?).to be false
+    expect(plot_residency.tenant?).to be true
+  end
+
 end
 
 When(/^I delete the second plot residency$/) do

@@ -31,7 +31,7 @@ Feature: Plot Residents
     Then I should see the activated resident
     And there is a plot in another phase
     When I assign the same resident to the second plot
-    Then I should see the created plot residency
+    Then I should see the resident is a Tenant
     When I delete the second plot residency
     Then the resident should still be associated to the first plot
     And the resident should still receive notifications
