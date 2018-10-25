@@ -171,7 +171,7 @@ Then(/^I should see the resident is a Tenant$/) do
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", name: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
-  expect(recipient_email.parts.second.body.raw_source).to include "assets/ISYT-40px-01"
+  expect(recipient_email.parts.second.body.raw_source).to include "assets/logo"
 
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
