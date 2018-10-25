@@ -53,7 +53,7 @@ RSpec.describe Mailchimp::MarketingMailService do
 
   context "updating an existing user" do
     it "builds the merge fields for resident only" do
-      resident.isyt_email_updates = 1
+      resident.cf_email_updates = 1
       resident.post_updates = 1
       merge_fields = described_class.build_merge_fields(Rails.configuration.mailchimp[:unactivated], resident, nil)
 

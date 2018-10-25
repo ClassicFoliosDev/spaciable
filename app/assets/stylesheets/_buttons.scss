@@ -2,7 +2,7 @@ $base-button-font-color: $type-grey;
 $base-button-font-size: $base-font-size;
 $base-button-padding: $spacing-small;
 $base-button-bg-color: $ui-white;
-$base-button-border-color: $primary-red;
+$base-button-border-color: $type-grey;
 
 $base-button-bg-color-hover: $ui-white;
 $base-button-font-color-hover: $primary-cta-color;
@@ -99,8 +99,4 @@ button:focus, button:active {
 input[disabled="disabled"], input[disabled] {
   cursor: not-allowed;
   opacity: 0.6;
-}
-
-.btn, input[type="submit"] {
-  text-transform: uppercase;
 }

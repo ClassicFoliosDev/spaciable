@@ -5,7 +5,7 @@ module Csv
     def self.mailchimp_fields(residents_for_resource)
       [
         updates_for(residents_for_resource, "developer_email_updates"),
-        updates_for(residents_for_resource, "isyt_email_updates"),
+        updates_for(residents_for_resource, "cf_email_updates"),
         updates_for(residents_for_resource, "telephone_updates"),
         updates_for(residents_for_resource, "post_updates")
       ]

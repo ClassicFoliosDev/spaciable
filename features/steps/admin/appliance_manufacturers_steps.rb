@@ -3,7 +3,7 @@
 When(/^I create an appliance manufacturer$/) do
   visit "/appliance_manufacturers"
 
-  add_button = page.find("a", text: I18n.t("appliance_manufacturers.collection.add").upcase)
+  add_button = page.find("a", text: I18n.t("appliance_manufacturers.collection.add"))
   add_button.click
 
   within ".appliance_manufacturer" do

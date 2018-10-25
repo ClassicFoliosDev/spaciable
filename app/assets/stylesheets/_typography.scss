@@ -1,16 +1,6 @@
-@font-face {
-  font-family: "Trade Gothic Regular";
-  src: asset-url("TradeGothicNextLTPro-Rg.otf") format("truetype");
-}
-
-@font-face {
-  font-family: "Trade Gothic Heavy";
-  src: asset-url("TradeGothicNextLTPro-Hv.otf") format("truetype");
-}
-
 $base-font-family: 'Open Sans', sans-serif;
-$medium-font-family: 'Trade Gothic Regular', 'Open Sans', sans-serif;
-$header-font-family: 'Trade Gothic Heavy', 'Open Sans', sans-serif;
+$medium-font-family: 'Open Sans', sans-serif;
+$header-font-family: 'Open Sans', sans-serif;
 $base-small-font-size: 12px;
 $base-font-size: 14px;
 $base-font-line-height: 22px;
@@ -55,7 +45,6 @@ body {
 h1, h2, h3, h4, h5 {
   color: $font-title-color;
   font-weight: $base-font-weight;
-  text-transform: uppercase;
 }
 
 h1, h2, h3, .btn, .branded-btn {

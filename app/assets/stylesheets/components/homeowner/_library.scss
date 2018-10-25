@@ -132,7 +132,6 @@
     border: none;
     background: $ui-white;
     text-align: center;
-    text-transform: uppercase;
   }
 
   .ui-dialog-buttonpane {
@@ -150,7 +149,6 @@
 
   .ui-button-text {
     color: $primary-red;
-    text-transform: uppercase;
   }
 
   .ui-dialog-buttonset {
@@ -171,7 +169,6 @@
     width: 100%;
     height: 40px;
     background-color: $ui-white;
-    text-transform: uppercase;
     cursor: pointer;
   }
 }

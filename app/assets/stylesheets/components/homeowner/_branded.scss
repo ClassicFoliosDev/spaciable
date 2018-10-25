@@ -11,7 +11,7 @@
 
   &:hover {
     color: $ui-white;
-    background-color: $primary-red;
+    background-color: $primary-background;
   }
 }
 
@@ -82,7 +82,7 @@
 // These colours will be over-ridden if branding is applied
 
 .top-title {
-  color: $primary-blue;
+  color: $primary-red;
 }
 
 .second-title {

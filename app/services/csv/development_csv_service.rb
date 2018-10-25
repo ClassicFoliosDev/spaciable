@@ -20,7 +20,7 @@ module Csv
         "Development name", "Plot number", "Phase", "Expiry date", "Resident email",
         "Resident name", "Resident invited on", "Resident invited by", "Resident role",
         "Resident activated", "Resident last sign in", "Lifetime sign in count",
-        "Notifications #{@between}", "Developer updates", "ISYT? updates", "Telephone updates",
+        "Notifications #{@between}", "Developer updates", "Hoozzi updates", "Telephone updates",
         "Post updates", "Terms and conditions accepted", "Services subscribed"
       ]
     end
@@ -63,7 +63,7 @@ module Csv
         build_date(resident, "invitation_accepted_at"), build_date(resident, "last_sign_in_at"),
         resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),
-        yes_or_no(resident, "isyt_email_updates"),
+        yes_or_no(resident, "cf_email_updates"),
         yes_or_no(resident, "telephone_updates"), yes_or_no(resident, "post_updates"),
         build_date(resident, "ts_and_cs_accepted_at"), build_services(resident)
       ]

@@ -15,7 +15,7 @@ $navbar-link-font-size-mobile: $title-font-size-3;
 $navbar-bg-color-mobile: $ui-white;
 
 .navbar {
-  background-color: $primary-blue;
+  background-color: $secondary-blue;
   margin-top: 108px;
   // Start hidden, until toggle
   display: none;
@@ -23,7 +23,7 @@ $navbar-bg-color-mobile: $ui-white;
 
 // Hamburger
 .admin-trigger-label {
-  color: $primary-blue;
+  color: $primary-background;
   font-size: $title-font-size-1;
   height: $title-font-size-1;
   line-height: $title-font-size-1;

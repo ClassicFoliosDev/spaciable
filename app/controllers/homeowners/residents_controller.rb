@@ -160,7 +160,7 @@ module Homeowners
     def resident_params
       params.require(:resident).permit(
         :title, :first_name, :last_name, :password, :password_confirmation, :current_password,
-        :developer_email_updates, :isyt_email_updates, :telephone_updates, :post_updates,
+        :developer_email_updates, :cf_email_updates, :telephone_updates, :post_updates,
         :email, :phone_number, :role
       )
     end

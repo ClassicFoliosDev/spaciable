@@ -9,7 +9,7 @@ module RoomsHelper
 
   def icon_file_name(icon_name)
     return unless icon_name
-    _icon_file_name = "ISYT_icon_#{icon_name}.svg"
+    _icon_file_name = "icon_#{icon_name}.svg"
   end
 
   private

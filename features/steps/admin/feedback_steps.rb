@@ -28,7 +28,7 @@ Then(/^An email should be sent$/) do
   email_address = emails[0].to
 
   expect(subject_text).to eq t("feedback.email_subject")
-  expect(email_address).to match_array(["feedback@isyt.com"])
+  expect(email_address).to match_array(["feedback@hoozzi.com"])
 
   body = Capybara.string(emails[0].body.encoded)
   expect(body.native).to have_content t("feedback.option3")
@@ -65,7 +65,7 @@ Then(/^My email should be sent$/) do
   email_address = emails[0].to
 
   expect(subject_text).to eq t("feedback.email_subject")
-  expect(email_address).to match_array(["feedback@isyt.com"])
+  expect(email_address).to match_array(["feedback@hoozzi.com"])
 
   body = Capybara.string(emails[0].body.encoded)
   expect(body.native).not_to have_content t("feedback.option3")

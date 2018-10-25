@@ -41,7 +41,7 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", name: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
-  expect(recipient_email.parts.second.body.raw_source).to include "assets/ISYT-40px-01"
+  expect(recipient_email.parts.second.body.raw_source).to include "assets/logo"
 
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
@@ -122,7 +122,7 @@ When(/^The resident subscribes to emails$/) do
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
   resident.invitation_accepted_at = Time.zone.now
-  resident.isyt_email_updates = 1
+  resident.cf_email_updates = 1
   resident.developer_email_updates = 1
   resident.save!
 end
@@ -133,7 +133,7 @@ Then(/^the resident should no longer receive notifications$/) do
   expect(resident.plots.length).to be_zero
 
   expect(resident.developer_email_updates).to be_zero
-  expect(resident.isyt_email_updates).to be_zero
+  expect(resident.cf_email_updates).to be_zero
   expect(resident.telephone_updates).to be_zero
   expect(resident.post_updates).to be_zero
 end
@@ -179,7 +179,7 @@ Then(/^the resident should still receive notifications$/) do
   expect(resident.plots.length).to eq 1
 
   expect(resident.developer_email_updates).to eq 1
-  expect(resident.isyt_email_updates).to eq 1
+  expect(resident.cf_email_updates).to eq 1
   expect(resident.telephone_updates).to be_nil
   expect(resident.post_updates).to be_nil
 end

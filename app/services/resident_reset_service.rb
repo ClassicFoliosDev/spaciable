@@ -54,7 +54,7 @@ module ResidentResetService
 
   def update_resident_params(resident)
     resident.developer_email_updates = false
-    resident.isyt_email_updates = false
+    resident.cf_email_updates = false
     resident.telephone_updates = false
     resident.post_updates = false
     resident.save(validate: false)

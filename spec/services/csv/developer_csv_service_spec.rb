@@ -8,10 +8,10 @@ RSpec.describe Csv::DeveloperCsvService do
   # If developer not set to nil, the create factory builds and assigns another (different) developer
   let(:division_development) { create(:development, division: division, developer: nil) }
   let(:plot_a) { create(:plot, development: development, developer: developer, number: "A") }
-  let(:resident_a) { create(:resident, developer_email_updates: true, isyt_email_updates: true) }
+  let(:resident_a) { create(:resident, developer_email_updates: true, cf_email_updates: true) }
   let(:plot_resident_a) { create(:plot_residency, resident: resident_a, plot: plot_a) }
   let(:plot_b) { create(:plot, development: development, developer: developer, number: "B") }
-  let(:resident_b) { create(:resident, isyt_email_updates: true, telephone_updates: true) }
+  let(:resident_b) { create(:resident, cf_email_updates: true, telephone_updates: true) }
   let(:plot_resident_b) { create(:plot_residency, resident: resident_b, plot: plot_b) }
   let(:plot_d) { create(:plot, development: division_development, developer: developer, number: "D") }
   let(:resident_d) { create(:resident, telephone_updates: true, post_updates: true) }
@@ -53,7 +53,7 @@ RSpec.describe Csv::DeveloperCsvService do
       expect(development_row["Plots created #{between_dates}"]).to eq "2"
       expect(development_row["Residents invited #{between_dates}"]).to eq "2"
       expect(development_row["Developer emails accepted"]).to eq "1"
-      expect(development_row["ISYT? emails accepted"]).to eq "2"
+      expect(development_row["Hoozzi emails accepted"]).to eq "2"
       expect(development_row["Telephone accepted"]).to eq "1"
       expect(development_row["Post accepted"]).to eq "0"
 
@@ -66,7 +66,7 @@ RSpec.describe Csv::DeveloperCsvService do
       # Note that mailchimp settings are not filtered by date range, these will include updates for
       # both resident d and resident e 
       expect(division_row["Developer emails accepted"]).to eq "1"
-      expect(division_row["ISYT? emails accepted"]).to eq "0"
+      expect(division_row["Hoozzi emails accepted"]).to eq "0"
       expect(division_row["Telephone accepted"]).to eq "1"
       expect(division_row["Post accepted"]).to eq "2"
 

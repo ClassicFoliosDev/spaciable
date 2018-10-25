@@ -95,10 +95,6 @@ Then(/^I should see the configured branding$/) do
   # Link text should be button (background) color as text colour, set on development and developer: should be development color
   expect(page.body).to have_content ".branded-primary-text label.checkbox { color: #776644"
   expect(page.body).to have_content ".branded-primary-text a { color: #776644"
-  # Button text should be button (text) color, set on development, division and developer: should be development color
-  expect(page.body).to have_content "branded-btn { color: #698492"
-  # Button border and background should be button (background) color, set on development and developer: should be development color
-  expect(page.body).to have_content "branded-btn { background-color: #776644"
 end
 
 Given(/^the resident also has an unbranded plot$/) do
@@ -134,13 +130,13 @@ Then(/^I should see the default branding$/) do
 
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
-  expect(style['outerHTML']).to have_content("branded-header { background-color: #00416B")
+  expect(style['outerHTML']).to have_content("branded-header { background-color: #394F5F")
   expect(style['outerHTML']).to have_content("branded-body { background-color: #FAFAFA")
-  expect(style['outerHTML']).to have_content("branded-text { color: #2F2F2F")
+  expect(style['outerHTML']).to have_content("branded-text { color: #67747C")
   expect(style['outerHTML']).to have_content("branded-content { background-color: #FFFFFF")
   expect(style['outerHTML']).to have_content("branded-border { border-color: #EAEAEA")
-  expect(style['outerHTML']).to have_content("branded-btn { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-btn { color: #2F2F2F")
+  expect(style['outerHTML']).to have_content("branded-btn { background-color: #18A89")
+  expect(style['outerHTML']).to have_content("branded-btn { color: #FFFFFF")
 
   expect(style['outerHTML']).not_to have_content("cala_banner.jpg")
 end
@@ -188,7 +184,7 @@ Then(/^The resident receives an invitation with default branding$/) do
   expect(ActionMailer::Base.deliveries.count).to eq 4
   invitation = ActionMailer::Base.deliveries.first
 
-  expect(invitation.parts.second.body.raw_source).to include "assets/ISYT-40px-01"
+  expect(invitation.parts.second.body.raw_source).to include "assets/logo-"
 
   ActionMailer::Base.deliveries.clear
 end

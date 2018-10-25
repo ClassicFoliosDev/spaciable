@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: "no-reply@isyt.com"
+  default from: "no-reply@hoozzi.com"
   layout "email"
 
   def feedback(comments, option, email)
@@ -19,7 +19,7 @@ class ApplicationMailer < ActionMailer::Base
     @email = I18n.t("feedback.not_sent")
     @email = email if email.present?
 
-    mail to: "feedback@isyt.com", subject: I18n.t("feedback.email_subject")
+    mail to: "feedback@hoozzi.com", subject: I18n.t("feedback.email_subject")
   end
 
   def request_services(resident, new_service_names, plot)
@@ -29,6 +29,6 @@ class ApplicationMailer < ActionMailer::Base
     @new_services = new_service_names
     @plot = plot
 
-    mail to: "services@isyt.com", subject: @title
+    mail to: "services@hoozzi.com", subject: @title
   end
 end

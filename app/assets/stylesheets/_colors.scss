@@ -1,9 +1,9 @@
 
 //Primary color Palette
-$primary-red: #F93549;
-$primary-blue: #00416B;
+$primary-red: #F7525E;
 $default-text-color: #2F2F2F;
 $primary-yellow: #FFC85D;
+$primary-green: #59B8AE;
 
 //Secondary color Palette
 $secondary-blue: #394F5F;
@@ -13,7 +13,7 @@ $secondary-green: #48D5D9;
 $faded-red: #E58C92;
 
 //Type Palette
-$type-grey: #2F2F2F;
+$type-grey: #67747C;
 $type-red: #F93549;
 $type-white: #FFFFFF;
 $transparent-white: rgba(255, 255, 255, 0.8);
@@ -30,8 +30,8 @@ $ui-black: #252C31;
 //Opacity Levels
 $base-opacity: 0.9;
 
-$primary-background: $primary-blue;
-$primary-cta-color: $primary-red;
+$primary-background: $primary-red;
+$primary-cta-color: $primary-green;
 $secondary-cta-color: $type-grey;
 
 @mixin trans-to-black($deg:135deg) {

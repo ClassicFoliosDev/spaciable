@@ -61,7 +61,7 @@ When(/^I update the account details$/) do
   within ".communications" do
     phone_updates = find(".telephone-updates")
     phone_updates.trigger(:click)
-    email_updates = find(".isyt-email-updates")
+    email_updates = find(".cf-email-updates")
     email_updates.trigger(:click)
   end
 
@@ -82,7 +82,7 @@ Then(/^I should see account details updated successfully$/) do
   within ".communications" do
     selected = page.all(".selected").map(&:text)
     expect(selected).to have_content t("homeowners.residents.show.telephone_updates")
-    expect(selected).to have_content t("homeowners.residents.show.isyt_email_updates")
+    expect(selected).to have_content t("homeowners.residents.show.cf_email_updates")
 
     unselected = page.all(".unselected").map(&:text)
     expect(unselected).to have_content t("homeowners.residents.show.post_updates")
@@ -98,7 +98,7 @@ When(/^I remove notification methods from my account$/) do
   within ".communications" do
     phone_updates = find(".telephone-updates")
     phone_updates.trigger(:click)
-    email_updates = find(".isyt-email-updates")
+    email_updates = find(".cf-email-updates")
     email_updates.trigger(:click)
   end
 
@@ -122,7 +122,7 @@ Then(/^I should see account subscriptions removed successfully$/) do
 
     unselected = page.all(".unselected").map(&:text)
     expect(unselected).to have_content t("homeowners.residents.show.telephone_updates")
-    expect(unselected).to have_content t("homeowners.residents.show.isyt_email_updates")
+    expect(unselected).to have_content t("homeowners.residents.show.cf_email_updates")
   end
 end
 

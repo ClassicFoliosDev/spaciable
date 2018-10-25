@@ -39,7 +39,7 @@ class ResidentNotificationMailer < ApplicationMailer
   def close_account(email, name)
     @name = name
     @logo = @plot&.branded_logo
-    @logo = "ISYT-40px-01.png" if @logo.blank?
+    @logo = "logo.png" if @logo.blank?
 
     mail to: email, subject: I18n.t("devise.mailer.close_account.title")
   end
@@ -48,7 +48,7 @@ class ResidentNotificationMailer < ApplicationMailer
     @name = name
     @url = url
     @logo = @plot&.branded_logo
-    @logo = "ISYT-40px-01.png" if @logo.blank?
+    @logo = "logo.png" if @logo.blank?
     @plot_name = plot_name
 
     mail to: email, subject: I18n.t("devise.mailer.transfer_files.title")
@@ -60,6 +60,6 @@ class ResidentNotificationMailer < ApplicationMailer
     @resident = plot_residency.resident
     @plot = plot_residency.plot
     @logo = @plot&.branded_logo
-    @logo = "ISYT-40px-01.png" if @logo.blank?
+    @logo = "logo.png" if @logo.blank?
   end
 end

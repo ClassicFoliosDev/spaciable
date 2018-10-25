@@ -7,7 +7,7 @@ if Rails.env.development?
   Bullet.rails_logger = true
   Bullet.add_footer = Features.bullet_footer?
   # Not using slack
-  # Bullet.slack = { webhook_url: 'https://classic-folios.slack.com/', channel: '#client-isyt', username: 'bullet-notifier' }
+  # Bullet.slack = { webhook_url: 'https://classic-folios.slack.com/', channel: '#client-hoozzi', username: 'bullet-notifier' }
 
   Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :finish_manufacturers)
   Bullet.add_whitelist(type: :unused_eager_loading, class_name: "Room", association: :appliance_manufacturers)
