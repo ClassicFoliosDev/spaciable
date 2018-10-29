@@ -497,27 +497,6 @@ RSpec.describe ResidentNotifierService do
       end
     end
 
-    context "a range of plot numbers has been supplied" do
-      it "should only return the plot numbers without residents within the range" do
-        development = create(:development)
-        notification = create(:notification, send_to: development)
-        plots_without_residents = create_list(:plot, 10, development: development)
-        plot_numbers = []
-        plots_without_residents.take(5).each do | plot |
-          plot_numbers << plot.number
-        end
-
-        notification.range_from = plot_numbers.min
-        notification.range_to = plot_numbers.max
-        service = described_class.new(notification)
-
-        expect(service.all_missing_plots.length).to eq(5)
-        expect(service.all_missing_plots).to match_array(plot_numbers)
-
-        expect(notification.resident_notifications.length).to eq(0)
-      end
-    end
-
     context "a list of plot numbers has been supplied" do
       it "should only send to matching numbers from a list" do
         development = create(:development)
