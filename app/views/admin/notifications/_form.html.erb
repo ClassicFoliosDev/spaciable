@@ -42,9 +42,8 @@
           <%= cascade_select_input f, :phase_id, Phase %>
         </div>
 
-        <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
-        <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
-        <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
+        <%= render "components/admin/plots_select", f: f %>
+
       </fieldset>
       <% if can?(:send_to_all, Notification) %>
        <hr>

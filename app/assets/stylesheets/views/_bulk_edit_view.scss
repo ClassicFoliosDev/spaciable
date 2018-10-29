@@ -1,0 +1,27 @@
+.bulk-edit {
+  span.required {
+    display: none;
+  }
+
+  .plot-field {
+    display: inline-block;
+  }
+
+  .bulk-check {
+    display: inline-block;
+  }
+
+  .fix-checkbox {
+    float: left;
+    padding-top: 35px;
+    padding-right: 5px;
+  }
+
+  .select {
+    width: 180px;
+  }
+
+  label {
+    max-width: 180px;
+  }
+}

@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     resources :progresses, only: [:index] do
       post :bulk_update, on: :collection
     end
+    resources :bulk_edit, only: [:index, :create]
   end
 
   resources :plots, only: [] do

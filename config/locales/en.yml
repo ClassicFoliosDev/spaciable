@@ -186,6 +186,7 @@ en:
     brands: "Styling"
     brand_add: "Add styling for %{name}"
     brand_edit: "Edit %{name}"
+    bulk_edit: "Bulk edit"
 
   pagination:
     per_page_10: "10"
@@ -197,6 +198,31 @@ en:
     truncate: "More..."
 
   components:
+    admin:
+      footer:
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
+        privacy: "Privacy Policy"
+        ts_and_cs: "Terms and Conditions"
+        cookies: "Cookie Policy"
+      plots_select:
+        list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
+        range_label: "Select plots by range"
+        list_label: "Select plots by list"
+        range_from_placeholder: "Range from"
+        range_to_placeholder: "Range to"
+      plot_fields:
+        current_progress: "Current progress"
+        update_progress: "Update progress to"
+      plot_date_fields:
+        expiry_date: "Expiry date (calculated from last save)"
+        prefix_explanation: "When the prefix is set, postal number will default to the plot number if left blank"
+        validity: "Validity (months)"
+        extended_access: "Extended access (months)"
+      plot_address_fields:
+        copy_plot_numbers: "Use Plot number for Postal number"
+        house_number: "Postal number / name"
+        prefix: "Postal Prefix, e.g., Plot, Flat and Apartment"
+
     homeowner:
       welcome:
         hi: "Hi %{first_name}"
@@ -253,12 +279,6 @@ en:
       feedback: "Feedback"
     search:
       search: "Search"
-    admin:
-      footer:
-        copyright: "&copy; %{year} Classic Folios. All rights reserved"
-        privacy: "Privacy Policy"
-        ts_and_cs: "Terms and Conditions"
-        cookies: "Cookie Policy"
 
   destroy:
     cancel: "Cancel"
@@ -336,10 +356,6 @@ en:
         back: "Back"
         send_to_all_residents: "Send to all %{residents_count} homeowners"
         send_to: "Send to residents of:"
-        list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
-        range_label: "Add plots by range"
-        range_from_placeholder: "Range from"
-        range_to_placeholder: "Range to"
         send_to_role: "Send to residents:"
         homeowner: "Homeowners"
         tenant: "Tenants"
@@ -1013,6 +1029,7 @@ en:
       name: "Phase"
       plot_documents: "Plot documents"
       progresses: "Phase build progress"
+      bulk_edit: "Bulk edit"
     new:
       title: "New phase"
     update:
@@ -1053,16 +1070,7 @@ en:
       address: "Plot address"
       submit: "Submit"
       back: "Back"
-      optional_range_hint: "Choose a range or list of plots, the unit type and address details will apply to all the selected plots"
-      list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
-      range_label: "Add plots by range"
-      range_from_placeholder: "Range from"
-      range_to_placeholder: "Range to"
-      current_progress: "Current progress"
-      update_progress: "Update progress to"
       notify: "Notify subscribed residents about this change"
-      expiry_date: "Expiry date (calculated from last save)"
-      prefix_explanation: "When the prefix is set, postal number will default to the plot number if left blank"
     index:
       title: "%{parent_name} Plots"
     new:
@@ -1508,8 +1516,19 @@ en:
       description: "Description"
     edit:
       title: "Edit %{name}"
+      title: "Edit %{name}"
     show:
       back: "Back"
+
+  bulk_edit:
+    index:
+      title: "Bulk edit"
+      description: "Select the plots to edit, then select the fields to update for all selected plots"
+      back: "Back"
+      submit: "Submit"
+    create:
+      success: "Successfully updated plots %{plot_numbers}"
+      success_one: "Successfully updated plot %{plot_number}"
 
   activerecord:
     models:
@@ -1591,9 +1610,6 @@ en:
         updated_at: "Last edited"
         reservation_release_date: "Reservation release date"
         completion_release_date: "Completion release date"
-        validity: "Validity (months)"
-        extended_access: "Extended access (months)"
-        copy_plot_numbers: "Use Plot number for Postal number"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"
@@ -1821,6 +1837,9 @@ en:
         must_have_subject: "You must provide a topic for your new message"
         already_resident: "A resident with this email address is already associated with this plot"
         not_save_documents: "Document upload failed, make sure all documents are valid PDF files, %{message}"
+        bulk_edit_no_fields: "No fields to update, did you remember to set the checkboxes?"
+        bulk_edit_no_plots: "No plots to update, make sure you set the range or list values"
+        bulk_edit_not_save: "%{title} %{numbers} could not be saved: %{messages}"
       models:
         developer:
           attributes:

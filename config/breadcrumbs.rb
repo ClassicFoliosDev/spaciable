@@ -185,6 +185,11 @@ crumb :phase_new do |development|
   parent :development, development
 end
 
+crumb :phase_bulk_edit do |phase|
+  link t("breadcrumbs.bulk_edit"), phase_path(phase, active_tab: :bulk_edit)
+  parent :phase, phase
+end
+
 # PROGRESSES
 
 crumb :progresses do |phase|

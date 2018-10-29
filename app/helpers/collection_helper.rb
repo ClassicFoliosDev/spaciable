@@ -11,4 +11,8 @@ module CollectionHelper
   def collection_path(collection)
     collection.model_name.route_key + "/collection"
   end
+
+  def unit_type_collection(parent)
+    parent.unit_types.pluck(:name, :id)
+  end
 end

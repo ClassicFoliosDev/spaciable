@@ -6,6 +6,8 @@ class Plot < ApplicationRecord
 
   attr_accessor :copy_plot_numbers
 
+  DUMMY_PLOT_NAME = "ZZZ_DUMMY_PLOT_QQQ"
+
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
   def parent
@@ -171,6 +173,7 @@ class Plot < ApplicationRecord
 
   def expiry_date
     return if completion_release_date.blank?
+    return completion_release_date + validity.months if extended_access.blank?
     completion_release_date + validity.months + extended_access.months
   end
 

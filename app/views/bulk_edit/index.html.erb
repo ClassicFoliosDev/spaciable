@@ -1,0 +1,38 @@
+<% breadcrumb :phase_bulk_edit, @phase %>
+
+<div class="section-header">
+  <div class="section-title">
+    <div><%= t(".title") %></div>
+    <span class="about"><%= t(".description") %></span>
+  </div>
+</div>
+
+<div class="bulk-edit">
+  <%= simple_form_for(:phase_bulk_edit) do |f| %>
+
+    <div class="row">
+      <div class="row-item third">
+        <%= render "components/admin/plots_select", f: f %>
+      </div>
+
+      <div class="row-item third">
+        <fieldset>
+          <div class="bulk-check fix-checkbox"><%= f.input_field :unit_type_id_check, as: :boolean, label: false %></div>
+          <div class="plot-field">
+            <%= f.input :unit_type_id, as: :select, collection: unit_type_collection(@phase) %>
+          </div><br/>
+          <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
+        </fieldset>
+      </div>
+
+      <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t(".back"), development_phase_path(@phase.parent, @phase), class: "btn" %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

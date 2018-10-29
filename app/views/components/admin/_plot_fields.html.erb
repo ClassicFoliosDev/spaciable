@@ -1,0 +1,20 @@
+
+<div>
+  <%= f.input :completion_date, as: :string,
+            placeholder: "DD/MM/YYYY",
+            input_html: { type: :date } %>
+</div>
+
+<% if plot&.progress %>
+  <div>
+    <label><%= t(".current_progress") %></label>
+    <span><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></span>
+  </div>
+<% end %>
+
+<div>
+  <div class=" ui-front select-container">
+    <label><%= t(".update_progress") %></label>
+    <%= f.input :progress, as: :select, collection: progress_collection(plot&.progress), label: false %>
+  </div>
+</div>

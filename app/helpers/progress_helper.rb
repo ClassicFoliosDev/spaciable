@@ -7,9 +7,9 @@ module ProgressHelper
     end
   end
 
-  def progress_collection(existing_progress_id)
-    progress_list = Plot.progresses.map do |(progress_name, progress_int)|
-      next if progress_int == existing_progress_id
+  def progress_collection(existing_progress_name)
+    progress_list = Plot.progresses.map do |(progress_name, _progress_int)|
+      next if progress_name == existing_progress_name
       [t(progress_name, scope: progress_scope), progress_name]
     end
 

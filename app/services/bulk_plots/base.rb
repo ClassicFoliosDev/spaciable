@@ -60,6 +60,7 @@ module BulkPlots
       attributes = plot_params.dup
 
       bulk_attributes_black_list.each { |attr| attributes.delete(attr) }
+
       numbers.map { |number| attributes.merge(number: number) }
     end
 
@@ -84,7 +85,8 @@ module BulkPlots
       numbers = plots_with_errors.map(&:number).to_sentence
       title = model_title(plots_with_errors)
 
-      "#{title} #{numbers} could not be saved: #{messages}"
+      I18n.t("activerecord.errors.messages.bulk_edit_not_save",
+             title: title, numbers: numbers, messages: messages)
     end
 
     def bulk_attributes_black_list

@@ -16,22 +16,9 @@
       <fieldset>
         <% if f.object.persisted? %>
           <%= f.input :number %>
-          <%= f.input :reservation_release_date, as: :string,
-             placeholder: "DD/MM/YYYY",
-             input_html: { type: :date } %>
-          <%= f.input :completion_release_date, as: :string,
-                     placeholder: "DD/MM/YYYY",
-                     input_html: { type: :date } %>
-          <%= f.label :validity %>
-          <%= f.number_field :validity, min: 0 %>
-          <%= f.label :extended_access %>
-          <%= f.number_field :extended_access, min: 0 %>
-          <%= f.label t(".expiry_date") %>
-          <span><%= plot&.expiry_date&.strftime("%d %B %Y") %></span>
+          <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
         <% else %>
-          <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
-          <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
-          <%= f.input :list, as: :text, label: "Add Plots by List", hint: t(".list_input_hint") %>
+          <%= render "components/admin/plots_select", f: f %>
         <% end %>
 
       </fieldset>
@@ -39,34 +26,12 @@
 
     <div class="row-item third">
       <fieldset>
-        <%= f.association :unit_type, as: :select, collection: unit_types.pluck(:name, :id) %>
-        <%= f.input :completion_date, as: :string,
-                    placeholder: "DD/MM/YYYY",
-                    input_html: { type: :date } %>
-        <label><%= t(".current_progress") %></label>
-        <span><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></span>
-        <div class=" ui-front select-container">
-          <label><%= t(".update_progress") %></label>
-          <%= f.input :progress, as: :select, collection: progress_collection(progress_id), label: false %>
-        </div>
+        <%= f.association :unit_type, as: :select, collection: unit_type_collection(plot.parent) %>
+        <%= render "components/admin/plot_fields", f: f, plot: plot %>
       </fieldset>
     </div>
 
-    <div class="row-item third">
-      <fieldset>
-        <% if !plot.persisted? %>
-          <%= f.input :copy_plot_numbers, as: :boolean, class: "copy-plot-numbers" %>
-        <% end %>
-        <%= f.input :prefix, placeholder: t("addresses.placeholders.prefix") %>
-        <%= f.input :house_number %>
-        <%= f.input :building_name, label: false, placeholder: t("addresses.placeholders.building") %>
-        <%= f.input :road_name, label: false, placeholder: t("addresses.placeholders.road") %>
-        <%= f.input :postcode %>
-        <%= f.input :locality, readonly: true, class: "readonly" %>
-        <%= f.input :city, readonly: true, class: "readonly" %>
-        <%= f.input :county, readonly: true, class: "readonly" %>
-      </fieldset>
-    </div>
+    <%= render "components/admin/plot_address_fields", f: f, plot: plot %>
   </div>
 
   <div class="form-actions-footer-container">
