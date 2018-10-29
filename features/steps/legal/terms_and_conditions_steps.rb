@@ -208,7 +208,7 @@ end
 
 Then(/^I should be prompted for ts and cs on next action$/) do
   within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.how_to")
+    click_on t("layouts.homeowner.nav.contacts")
   end
 
   within ".sign-in" do

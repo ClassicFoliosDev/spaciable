@@ -200,6 +200,8 @@ Rails.application.routes.draw do
   get "/finish_manufacturers_list", to: 'finishes#manufacturers_list', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types_list", to: 'finishes#finish_types_list', format: :json
+  get "/how_tos", to: "homeowners/how_tos#list_how_tos", format: :json
+  get "/how_tos/:id", to: "homeowners/how_tos#show_how_to", format: :json
   get "/dashboard", to: "homeowners/dashboard#show"
 
   authenticated :resident do

@@ -3,14 +3,16 @@
     <%= render "components/homeowner/welcome", unread_count: unread_count, plots: plots %>
   <% end %>
 
-  <nav class="main-navigation">
-    <div class="nav-inner">
-      <div class="logo branded-logo">
-        <%= link_to image_tag(brand&.branded_logo ? brand.branded_logo : "logo.png"), homeowner_dashboard_path %>
+  <% if plot.present? %>
+    <nav class="main-navigation">
+      <div class="nav-inner">
+        <div class="logo branded-logo">
+          <%= link_to image_tag(brand&.branded_logo ? brand.branded_logo : "logo.png"), homeowner_dashboard_path %>
+        </div>
+        <div class="navigation">
+          <%= render "components/homeowner/navigation", plot: plot %>
+        </div>
       </div>
-      <div class="navigation">
-        <%= render "components/homeowner/navigation", plot: plot %>
-      </div>
-    </div>
-  </nav>
+    </nav>
+  <% end %>
 </header>

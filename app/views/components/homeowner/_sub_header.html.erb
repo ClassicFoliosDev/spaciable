@@ -1,3 +1,5 @@
-<%= render "components/homeowner/sub_menu", active_tab: active_tab %>
+<% if current_resident.present? || current_user.present? %>
+  <%= render "components/homeowner/sub_menu", active_tab: active_tab %>
+<% end %>
 
 <%= render "components/homeowner/hero" %>

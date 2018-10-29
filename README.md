@@ -275,3 +275,21 @@ To reset the terms and conditions database contents, run the following rake task
 
 *Warning* 
 This will reset the status for all residents in the database to "false" for ts_and-cs_accepted
+
+## JSON API for how tos
+
+```curl -i -H "Content-type: application/json" -H "Accept: application/json" "https://hoozzi.com/how_tos"```
+```curl -i -H "Content-type: application/json" -H "Accept: application/json" "https://hoozzi.com/how_tos/25"```
+```curl -i -H "Content-type: application/json" -H "Accept: application/json" "https://hoozzi.com/how_tos?category=cleaning"```
+
+Optionally append the id of a specific how_to
+
+Optionally append category, which should be one of:
+* home
+* diy
+* lifestyle
+* recipes
+* cleaning
+* outdoors
+
+If no category is provided, the default category is "home"

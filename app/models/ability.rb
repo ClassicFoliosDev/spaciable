@@ -11,6 +11,8 @@ class Ability
   include Abilities::ResidentAbilities
 
   def initialize(user, plot = nil)
+    guest_abilities
+
     return unless user
 
     alias_action :create, :read, :update, :destroy, to: :crud
@@ -24,6 +26,10 @@ class Ability
   end
 
   private
+
+  def guest_abilities
+    can :read, HowTo
+  end
 
   def role_abilities(role, user)
     case role.to_sym
