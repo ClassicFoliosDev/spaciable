@@ -1,12 +1,14 @@
 <div class="production">
 
   <div class="row">
-    <div class="th">Number</div>
-    <div class="th">Prefix</div>
-    <div class="th">Postal number</div>
-    <div class="th">Building name</div>
-    <div class="th">Road name</div>
-    <div class="th">Postcode</div>
+    <div class="th"><%= sortable(Plot, :number, t(".name")) %></div>
+    <div class="th"><%= sortable({Plot => Address}, :prefix, t(".prefix")) %></div>
+    <div class="th"><%= sortable(Plot, :house_number) %></div>
+    <div class="th"><%= sortable({Plot => Address}, :building_name, t(".building_name")) %></div>
+    <div class="th"><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></div>
+    <div class="th"><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></div>
+    <div class="th"><%= sortable({Plot => UnitType}, :id, t(".unit_type")) %></div>
+    <div class="th"><span class="date"><%= t(".date_r") %></span><span class="date"><%= t(".date_c") %></span></div>
   <div class="row">
 
   <% collection.each do |plot| %>
@@ -18,7 +20,7 @@
       <div class="td"><%= f.text_field :building_name, { class: "update", "data-name": "prefix" } %></div>
       <div class="td"><%= f.text_field :road_name, { class: "update", "data-name": "prefix" } %></div>
       <div class="td"><%= f.text_field :postcode, { class: "update", "data-name": "prefix" } %></div>
-      <div class="td"><!-- f.select :unit_type_id --></div>
+      <div class="td"><%= f.select :unit_type_id, unit_type_collection(@phase), { class: "update", "data-name": "unit_type_id" } %></div>
       <% res = plot.reservation_release_date? ? "green" : "white" %>
       <% comp = plot.completion_release_date? ? "green" : "white" %>
       <div class="td"><span class = 'circle <%= res %>'>&nbsp;</span><span class = 'circle <%= comp %>'>&nbsp;</span></div>
