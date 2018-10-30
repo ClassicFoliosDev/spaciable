@@ -1,22 +1,29 @@
 <div class="production">
 
-    <% collection.each do |plot| %>
-        <%= form_for(plot, url: plot_path(plot.id), html: { method: :put }) do |f| %>
-          <tr class="plot" data-name="plot" data-id='<%= plot.id %>'>
-          <td><%= link_to plot, url_for(plot), title: plot %></td>
-            <td><%= f.text_field :prefix, { class: "update", "data-name": "prefix", label: false } %></td>
-            <td><%= f.text_field :house_number %></td>
-            <td><%= f.text_field :building_name %></td>
-            <td><%= f.text_field :road_name %></td>
-            <td><%= f.text_field :postcode %></td>
-            <td><!-- f.select :unit_type_id --></td>
-            <% res = plot.reservation_release_date? ? "green" : "white" %>
-            <% comp = plot.completion_release_date? ? "green" : "white" %>
-            <td><span class = 'circle <%= res %>'>&nbsp;</span><span class = 'circle <%= comp %>'>&nbsp;</span></td>
-          </tr>
-        <% end %>
-      <% end %>
+  <div class="row">
+    <div class="th">Number</div>
+    <div class="th">Prefix</div>
+    <div class="th">Postal number</div>
+    <div class="th">Building name</div>
+    <div class="th">Road name</div>
+    <div class="th">Postcode</div>
+  <div class="row">
 
+  <% collection.each do |plot| %>
+    <%= form_for(plot, url: plot_path(plot.id), html: { method: :put }) do |f| %>
+      <div class="tr plot" data-name="plot" data-id='<%= plot.id %>'></div>
+      <div class="td"><%= link_to plot, url_for(plot), title: plot %></div>
+      <div class="td"><%= f.text_field :prefix, { class: "update", "data-name": "prefix" } %></div>
+      <div class="td"><%= f.text_field :house_number, { class: "update", "data-name": "prefix" } %></div>
+      <div class="td"><%= f.text_field :building_name, { class: "update", "data-name": "prefix" } %></div>
+      <div class="td"><%= f.text_field :road_name, { class: "update", "data-name": "prefix" } %></div>
+      <div class="td"><%= f.text_field :postcode, { class: "update", "data-name": "prefix" } %></div>
+      <div class="td"><!-- f.select :unit_type_id --></div>
+      <% res = plot.reservation_release_date? ? "green" : "white" %>
+      <% comp = plot.completion_release_date? ? "green" : "white" %>
+      <div class="td"><span class = 'circle <%= res %>'>&nbsp;</span><span class = 'circle <%= comp %>'>&nbsp;</span></div>
+    <% end %>
+  <% end %>
 
   <div class="paging">
     <%= render 'components/page_size' %>
