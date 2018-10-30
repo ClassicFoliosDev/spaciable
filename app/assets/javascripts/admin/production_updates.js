@@ -1,34 +1,59 @@
-(function (document, $) {
-  'use strict'
+/* global $ */
 
-  $(document).on('change', '.update', function (event) {
-    const $input = $(event.target)
-    const $form = $input.closest('form')
-    const method = $('input[name="_method"]').val()
-    const params = 'TODO'
+$(document).on('change', '.update', function (event) {
+  const $input = $("#" + event.target.id)
+  const $form = $input.closest('form')
+  const method = $('input[name="_method"]').val()
 
-    $.ajax({
-      url: $form.attr('action'),
-      method: method,
-      dataType: 'json',
-      data: params,
-      success: function (response) {
-        var $flash = $('.flash')
-        $flash.empty()
+  console.log(method)
+  const params = buildParams($input, $form)
 
-        var $notice = document.createElement('p')
-        $notice.className = 'notice'
-        $notice.innerHTML = response.notice
-        $flash.append($notice)
-      },
-      error: function (response) {
-        var $flash = $('.flash')
-        $flash.empty()
-        var $notice = document.createElement('p')
-        $notice.className = 'alert'
-        $notice.innerHTML = response.responseJSON['error']
-        $flash.append($notice)
-      }
-    })
+  var url = $form.attr("action")
+
+  console.log(url)
+
+  $.ajax({
+    url: url,
+    method: method,
+    dataType: 'json',
+    data: params,
+    success: function (response) {
+      var $flash = $('.flash')
+      $flash.empty()
+
+      var $notice = document.createElement('p')
+      $notice.className = 'notice'
+      $notice.innerHTML = response.notice
+      $flash.append($notice)
+    },
+    error: function (response) {
+      var $flash = $('.flash')
+      $flash.empty()
+      var $notice = document.createElement('p')
+      $notice.className = 'alert'
+      console.log(response)
+      $notice.innerHTML = response
+      $flash.append($notice)
+    }
   })
 })
+
+
+function buildParams ($input, $form) {
+  console.log($input.attr('name'));
+
+  const inputNameParts = ($input.attr('name')).split('[');
+  const token = $('input[name="authenticity_token"]', $form).val();
+
+  var modelName = inputNameParts[0]
+  var methodName = inputNameParts[1].replace("]", "")
+
+  const params = {
+    authenticity_token: token,
+    [modelName]: {
+      [methodName]: $input.val()
+    }
+  };
+
+  return params;
+}
