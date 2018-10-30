@@ -2,13 +2,13 @@
   'use strict'
   document.addEventListener('turbolinks:render', function () {
     $('select').not('.skip-global-selectmenu select').selectmenu()
-    $('select#finish_manufacturer_finish_type_ids').select2({width: 400})
+    $('select#finish_manufacturer_finish_type_ids').select2({ width: 400 })
     $('.skip-global-selectmenu select').hide()
   })
 
   document.addEventListener('turbolinks:load', function () {
     $('select').not('.skip-global-selectmenu select').selectmenu()
-    $('select#finish_manufacturer_finish_type_ids').select2({width: 400})
+    $('select#finish_manufacturer_finish_type_ids').select2({ width: 400 })
     $('.skip-global-selectmenu select').hide()
   })
 

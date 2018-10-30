@@ -1,79 +1,76 @@
 /* global $ */
 
-function clearFields(selectDiv) {
-
+function clearFields (selectDiv) {
   // Make the options list empty
-  var selectList = selectDiv.find("select")[0];
-  selectList.options.length = 0;
+  var selectList = selectDiv.find('select')[0]
+  selectList.options.length = 0
   // Remove the previously-selected option name
-  var prevOption = selectDiv.find(".ui-selectmenu-text")[0];
+  var prevOption = selectDiv.find('.ui-selectmenu-text')[0]
   if (prevOption != null) {
-    prevOption.innerHTML = "&nbsp";
-    disableSelect($(selectDiv).find("select"));
- }
+    prevOption.innerHTML = '&nbsp'
+    disableSelect($(selectDiv).find('select'))
+  }
 
-  return selectList;
+  return selectList
 }
 
-function disableSelect(selectElement) {
-  $(selectElement).attr("disabled", "disabled").addClass("disabled");
-  $(selectElement).selectmenu("disable");
+function disableSelect (selectElement) {
+  $(selectElement).attr('disabled', 'disabled').addClass('disabled')
+  $(selectElement).selectmenu('disable')
 }
 
-function enableSelect(selectElement) {
-  $(selectElement).removeAttr("disabled").removeClass("disabled");
-  $(selectElement).selectmenu("enable");
-  $(selectElement).selectmenu("refresh");
+function enableSelect (selectElement) {
+  $(selectElement).removeAttr('disabled').removeClass('disabled')
+  $(selectElement).selectmenu('enable')
+  $(selectElement).selectmenu('refresh')
 }
 
-function setFields(selectList, url, data) {
+function setFields (selectList, url, data) {
   $.getJSON({
     url: url,
     data: data
   }).done(function (results) {
-    var promptOption = document.createElement("option");
-      promptOption.value = "";
-      promptOption.name = "";
-      promptOption.textContent = "<%= I18n.t(".rooms.choose") %>";
-      selectList.appendChild(promptOption);
+    var promptOption = document.createElement('option')
+    promptOption.value = ''
+    promptOption.name = ''
+    promptOption.textContent = '<%= I18n.t(".rooms.choose") %>'
+    selectList.appendChild(promptOption)
 
     $.each(results, function (key, value) {
-      var option = document.createElement("option");
-      option.value = value.id;
-      option.name = value.name;
-      option.selected = value.selected;
-      option.textContent = value.name;
+      var option = document.createElement('option')
+      option.value = value.id
+      option.name = value.name
+      option.selected = value.selected
+      option.textContent = value.name
 
-      selectList.appendChild(option);
-    });
+      selectList.appendChild(option)
+    })
 
     if (results.length > 0) {
-      enableSelect("#" + selectList.id);
-      clearMatchErrors();
+      enableSelect('#' + selectList.id)
+      clearMatchErrors()
     } else {
-      disableSelect("#" + selectList.id);
-      if (url == "/finish_manufacturers_list") {
-        noManufacturers();
-      }
-      else if (url == "/finish_list") {
-        noMatches("<%= I18n.t(".finishes.no_match") %>")
-      }
-      else if (url == "/appliance_list") {
-        noMatches("<%= I18n.t(".appliances.no_match") %>")
+      disableSelect('#' + selectList.id)
+      if (url === '/finish_manufacturers_list') {
+        noManufacturers()
+      } else if (url === '/finish_list') {
+        noMatches('<%= I18n.t(".finishes.no_match") %>')
+      } else if (url === '/appliance_list') {
+        noMatches('<%= I18n.t(".appliances.no_match") %>')
       }
     };
   }).fail(function (response) {
-    console.error("Call to " + url + " failed")
-  });
+    console.error('Call to ' + url + ' failed')
+  })
 }
 
-function noMatches(error_message) {
-  var $errors = $(document).find(".match-errors")
-  $errors[0].innerHTML = error_message;
+function noMatches (errorMessage) {
+  var $errors = $(document).find('.match-errors')
+  $errors[0].innerHTML = errorMessage
 }
 
-function clearMatchErrors() {
-  $('.match-errors').html('');
+function clearMatchErrors () {
+  $('.match-errors').html('')
 }
 
 function noManufacturers () {
@@ -87,6 +84,6 @@ function noManufacturers () {
     var typeValue = $typeDiv.find('.ui-selectmenu-text')[0].innerHTML
 
     var url = '/finish_list'
-    setFields(finishesSelect, url, {type_name: typeValue, manufacturer_name: ''})
+    setFields(finishesSelect, url, { type_name: typeValue, manufacturer_name: '' })
   }
 }

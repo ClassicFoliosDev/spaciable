@@ -1,53 +1,54 @@
+/* global $ */
+
 $(document).on('click', '.preview', function (event) {
-
   // Default settings if the user has not provided styling images and/or colours
-  var logoPath = "/assets/logo-a40d715627a4868566cbcfbb069c10aae356dd9cefbce74c9c7ee9730f9ad95b.png";
-  var bannerPath = "https://tinyurl.com/j6s6be3";
-  var brandColors = [];
+  var logoPath = '/assets/logo-a40d715627a4868566cbcfbb069c10aae356dd9cefbce74c9c7ee9730f9ad95b.png'
+  var bannerPath = 'https://tinyurl.com/j6s6be3'
+  var brandColors = []
   // Set the default colors, if user has not configured them
-  brandColors[0] = "#FFFFFF"; // background color
-  brandColors[1] = "#252C31"; // text color
-  brandColors[2] = "#FFFFFF"; // content box (bg) color
-  brandColors[3] = "#EAEAEA"; // content box border color
-  brandColors[4] = "#18A895"; // button color
-  brandColors[5] = "#FFFFFF"; // button text color
-  brandColors[6] = "#394F5F"; // header color
+  brandColors[0] = '#FFFFFF' // background color
+  brandColors[1] = '#252C31' // text color
+  brandColors[2] = '#FFFFFF' // content box (bg) color
+  brandColors[3] = '#EAEAEA' // content box border color
+  brandColors[4] = '#18A895' // button color
+  brandColors[5] = '#FFFFFF' // button text color
+  brandColors[6] = '#394F5F' // header color
 
-  var logoAlt =  "<%= I18n.t("activerecord.attributes.brand.logo") %>"
-  var bannerAlt =  "<%= I18n.t("activerecord.attributes.brand.banner") %>"
+  var logoAlt = '<%= I18n.t("activerecord.attributes.brand.logo") %>'
+  var bannerAlt = '<%= I18n.t("activerecord.attributes.brand.banner") %>'
 
-  var $oldContainer = $("#dialog");
+  var $oldContainer = $('#dialog')
   if ($oldContainer) {
-    $oldContainer.empty();
-    $oldContainer.remove();
+    $oldContainer.empty()
+    $oldContainer.remove()
   }
 
-  var dialogContainer = document.createElement("div");
-  dialogContainer.id = "dialog";
+  var dialogContainer = document.createElement('div')
+  dialogContainer.id = 'dialog'
 
   // Read in the values: only override the defaults above if values are set in the live page
-  var $styleBreadcrumb = $(document).find(".current");
-  var styleName = $styleBreadcrumb[0].innerHTML;
-  styleName = styleName.substring(5);
+  var $styleBreadcrumb = $(document).find('.current')
+  var styleName = $styleBreadcrumb[0].innerHTML
+  styleName = styleName.substring(5)
 
-  var $logoImage = $(document).find(".brand_logo").find(".image-preview")[0];
+  var $logoImage = $(document).find('.brand_logo').find('.image-preview')[0]
   if ($logoImage) {
-    logoPath = $logoImage.src;
-    logoAlt = "<%= I18n.t(".brands.preview.logo") %>";
+    logoPath = $logoImage.src
+    logoAlt = '<%= I18n.t(".brands.preview.logo") %>'
   }
 
-  var $bannerImage = $(document).find(".brand_banner").find(".image-preview")[0];
+  var $bannerImage = $(document).find('.brand_banner').find('.image-preview')[0]
   if ($bannerImage) {
-    bannerPath = $bannerImage.src;
+    bannerPath = $bannerImage.src
     // This will be the thumbnail, so it may end up slightly blurred when enlarged
     // It's not possible to switch to the full image because the AWS signature
     // is specific to the file scale
-    bannerAlt = "<%= I18n.t(".brands.preview.banner") %>";
+    bannerAlt = '<%= I18n.t(".brands.preview.banner") %>'
   }
 
-  var formColors = $(document).find(".form-colors").children();
+  var formColors = $(document).find('.form-colors').children()
   for (var i = 0; i < 7; i++) {
-    var color =  $(formColors[i]).find("input")[0].value
+    var color = $(formColors[i]).find('input')[0].value
     if (color) {
       brandColors[i] = color
     }
@@ -55,117 +56,116 @@ $(document).on('click', '.preview', function (event) {
 
   // Build the preview dialog contents
   // HEADER
-  var headerDiv = document.createElement("div");
-  headerDiv.className = "header";
+  var headerDiv = document.createElement('div')
+  headerDiv.className = 'header'
   $(headerDiv).css({
-      "height": "50px",
-      "background-color": brandColors[6],
-      "padding": "5px"
-  });
+    'height': '50px',
+    'background-color': brandColors[6],
+    'padding': '5px'
+  })
 
   // LOGO
-  var logoImage = document.createElement("img");
-  logoImage.src = logoPath;
-  logoImage.alt = (logoAlt);
-  $(logoImage).css({"max-height": "40px"});
-  headerDiv.appendChild(logoImage);
+  var logoImage = document.createElement('img')
+  logoImage.src = logoPath
+  logoImage.alt = (logoAlt)
+  $(logoImage).css({ 'max-height': '40px' })
+  headerDiv.appendChild(logoImage)
 
   // PRIMARY BUTTON
-  var primaryBtn = document.createElement("button");
+  var primaryBtn = document.createElement('button')
   $(primaryBtn).css({
-    "background-color": brandColors[4],
-    "color": brandColors[5],
-    "float": "right"});
-  primaryBtn.innerHTML = ("<%= I18n.t(".brands.preview.primary_button") %>");
-  headerDiv.appendChild(primaryBtn);
+    'background-color': brandColors[4],
+    'color': brandColors[5],
+    'float': 'right' })
+  primaryBtn.innerHTML = ('<%= I18n.t(".brands.preview.primary_button") %>')
+  headerDiv.appendChild(primaryBtn)
 
   // BANNER
-  var bannerDiv = document.createElement("div");
-  bannerDiv.className = "banner";
-  var bannerImg = document.createElement("img");
-  bannerImg.src = bannerPath;
-  bannerImg.alt = (bannerAlt);
-  $(bannerImg).css({"width": "100%"});
-  bannerDiv.appendChild(bannerImg);
+  var bannerDiv = document.createElement('div')
+  bannerDiv.className = 'banner'
+  var bannerImg = document.createElement('img')
+  bannerImg.src = bannerPath
+  bannerImg.alt = (bannerAlt)
+  $(bannerImg).css({ 'width': '100%' })
+  bannerDiv.appendChild(bannerImg)
 
   // CONTENT BOX
-  var contentDiv = document.createElement("div");
-  contentDiv.className = "content";
+  var contentDiv = document.createElement('div')
+  contentDiv.className = 'content'
   $(contentDiv).css({
-    "background-color": brandColors[0],
-    "font-size": "14px",
-    "margin-top": "10px",
-    "padding": "5px"
-  });
+    'background-color': brandColors[0],
+    'font-size': '14px',
+    'margin-top': '10px',
+    'padding': '5px'
+  })
 
-  var contentBox = document.createElement("div");
+  var contentBox = document.createElement('div')
   $(contentBox).css({
-    "background-color": brandColors[2],
-    "color": brandColors[3],
-    "border-color": brandColors[3],
-    "width": "60%",
-    "margin-left": "auto",
-    "margin-right": "auto",
-    "border-width": "1px",
-    "border-style": "solid",
-    "border-radius": "5px"
-  });
+    'background-color': brandColors[2],
+    'color': brandColors[3],
+    'border-color': brandColors[3],
+    'width': '60%',
+    'margin-left': 'auto',
+    'margin-right': 'auto',
+    'border-width': '1px',
+    'border-style': 'solid',
+    'border-radius': '5px'
+  })
 
   // CONTENT BOX HEADER
-  var contentHeaderDiv = document.createElement("div");
+  var contentHeaderDiv = document.createElement('div')
   $(contentHeaderDiv).css({
-    "height": "30px",
-    "padding": "10px 5px"
-  });
+    'height': '30px',
+    'padding': '10px 5px'
+  })
 
-  var headerText = document.createElement("h3");
-  headerText.innerHTML = ("<%= I18n.t(".brands.preview.header") %>");
+  var headerText = document.createElement('h3')
+  headerText.innerHTML = ('<%= I18n.t(".brands.preview.header") %>')
   $(headerText).css({
-    "color": brandColors[1],
-    "float": "left"
-  });
-    contentHeaderDiv.appendChild(headerText);
+    'color': brandColors[1],
+    'float': 'left'
+  })
+  contentHeaderDiv.appendChild(headerText)
 
   // CONTENT BOX HEADER BUTTON
-  var altBtn = document.createElement("button");
+  var altBtn = document.createElement('button')
   $(altBtn).css({
-    "background-color": brandColors[5],
-    "color": brandColors[4],
-    "border-color": brandColors[4],
-    "float": "right"
-  });
-  altBtn.innerHTML = ("<%= I18n.t(".brands.preview.content_button") %>");
-  contentHeaderDiv.appendChild(altBtn);
-  contentBox.appendChild(contentHeaderDiv);
+    'background-color': brandColors[5],
+    'color': brandColors[4],
+    'border-color': brandColors[4],
+    'float': 'right'
+  })
+  altBtn.innerHTML = ('<%= I18n.t(".brands.preview.content_button") %>')
+  contentHeaderDiv.appendChild(altBtn)
+  contentBox.appendChild(contentHeaderDiv)
 
   // CONTENT BOX CONTENT
-  var paraDiv = document.createElement("div");
-  paraDiv.innerHTML =  ("<%= I18n.t(".brands.preview.text") %>");
-    $(paraDiv).css({
-    "color": brandColors[1],
-    "border-top-color": brandColors[3],
-    "border-top-style": "solid",
-    "border-top-width": "1px",
-    "margin-top": "20px",
-    "padding": "5px"
-  });
-  contentBox.appendChild(paraDiv);
-  contentDiv.appendChild(contentBox);
+  var paraDiv = document.createElement('div')
+  paraDiv.innerHTML = ('<%= I18n.t(".brands.preview.text") %>')
+  $(paraDiv).css({
+    'color': brandColors[1],
+    'border-top-color': brandColors[3],
+    'border-top-style': 'solid',
+    'border-top-width': '1px',
+    'margin-top': '20px',
+    'padding': '5px'
+  })
+  contentBox.appendChild(paraDiv)
+  contentDiv.appendChild(contentBox)
 
   // Add all the components into the dialog
-  dialogContainer.appendChild(headerDiv);
-  dialogContainer.appendChild(bannerDiv);
-  dialogContainer.appendChild(contentDiv);
+  dialogContainer.appendChild(headerDiv)
+  dialogContainer.appendChild(bannerDiv)
+  dialogContainer.appendChild(contentDiv)
 
-  $('body').append(dialogContainer);
+  $('body').append(dialogContainer)
 
-  $( "#dialog" ).dialog({
-    show : "show",
+  $('#dialog').dialog({
+    show: 'show',
     modal: true,
     width: 600,
-    dialogClass: "preview-dialog",
+    dialogClass: 'preview-dialog',
     title: styleName,
-    closeText: ""
+    closeText: ''
   })
-});
-
+})

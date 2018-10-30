@@ -1,59 +1,48 @@
-/* global $ */
+/* global $, clearFields, setFields */
 $(document).on('click', '.appliance-add .ui-menu-item', function (event) {
-
-  var optionName = this.innerText;
-  var $selectContainer = $(this).closest(".select-container");
+  var optionName = this.innerText
+  var $selectContainer = $(this).closest('.select-container')
 
   if ($selectContainer.length) {
-    var listClasses = $selectContainer[0].classList;
-    var $parentFieldset = $selectContainer.closest(".appliance-add");
+    var listClasses = $selectContainer[0].classList
+    var $parentFieldset = $selectContainer.closest('.appliance-add')
 
-    if (listClasses.contains("appliance_manufacturer")) {
+    if (listClasses.contains('appliance_manufacturer')) {
+      var $categoryDiv = $('.appliance_category')
+      var categoryValue = $categoryDiv.find('.ui-selectmenu-text').html()
 
-      var $categoryDiv = $(".appliance_category");
-      var categoryValue = $categoryDiv.find(".ui-selectmenu-text").html();
+      var $applianceDiv = $parentFieldset.find('.appliances')
+      var $applianceSelect = clearFields($applianceDiv)
 
-      var $applianceDiv = $parentFieldset.find(".appliances");
-      var $applianceSelect = clearFields($applianceDiv);
-
-      var url = "/appliance_list";
-      setFields($applianceSelect, url, {option_name: optionName, category_name: categoryValue});
-      updateDefaultName(optionName, null);
+      var url = '/appliance_list'
+      setFields($applianceSelect, url, { option_name: optionName, category_name: categoryValue })
+      updateDefaultName(optionName, null)
     }
   }
-});
+})
 
 $(document).on('change paste keyup', '.appliance_model_num', function (event) {
-  var modelName = $(this).find("input")[0].value;
+  var modelName = $(this).find('input')[0].value
   updateDefaultName(null, modelName)
-});
+})
 
 $(document).on('click', '.manufacturer .ui-menu-item', function (event) {
-    var manufacturerName = $(this).innerText
-    updateDefaultName(manufacturerName, null)
-});
+  var manufacturerName = $(this).innerText
+  updateDefaultName(manufacturerName, null)
+})
 
-function no_appliance_matches() {
-  var $parentFieldset = $(document).find(".appliances.select-container");
-
-  var noMatches =  document.createElement("span");
-  noMatches.innerText = "<%= I18n.t(".appliances.no_match") %>";
-  $parentFieldset.append(noMatches);
-}
-
-function updateDefaultName(manufacturer, model) {
-
-  var $applianceName = $(".appliance_full_name").find("input");
+function updateDefaultName (manufacturer, model) {
+  var $applianceName = $('.appliance_full_name').find('input')
 
   if (manufacturer == null) {
-    var $manufacturerDiv = $(".appliance_appliance_manufacturer");
-    manufacturer = $manufacturerDiv.find(".ui-selectmenu-text")[0].innerHTML.replace(/&nbsp;/g, '').replace(/Choose.../g, '').trim();
+    var $manufacturerDiv = $('.appliance_appliance_manufacturer')
+    manufacturer = $manufacturerDiv.find('.ui-selectmenu-text')[0].innerHTML.replace(/&nbsp;/g, '').replace(/Choose.../g, '').trim()
   }
 
   if (model == null) {
-    var $modelDiv = $(".appliance_model_num");
-    model = $modelDiv.find("input")[0].value.trim();
+    var $modelDiv = $('.appliance_model_num')
+    model = $modelDiv.find('input')[0].value.trim()
   }
 
-  $applianceName.val(manufacturer + " " + model);
+  $applianceName.val(manufacturer + ' ' + model)
 }

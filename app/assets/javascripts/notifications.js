@@ -17,7 +17,7 @@ $(document).on('click', '.notification', function (event) {
 function setNotificationRead (notificationId) {
   $.getJSON({
     url: '/homeowners/notification/',
-    data: {notification_id: notificationId}
+    data: { notification_id: notificationId }
   }).done(function (results) {
     $('.unread').html(results)
   })

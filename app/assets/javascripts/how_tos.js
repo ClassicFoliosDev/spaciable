@@ -12,6 +12,6 @@ $(document).on('click', '.how-to .ui-menu-item', function (event) {
     var subCategorySelect = clearFields(subCategoryDiv)
 
     var url = '/how_to_sub_category_list'
-    setFields(subCategorySelect, url, {option_name: optionName})
+    setFields(subCategorySelect, url, { option_name: optionName })
   }
 })
