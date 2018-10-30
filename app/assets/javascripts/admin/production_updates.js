@@ -1,7 +1,7 @@
 /* global $ */
 
 $(document).on('change', '.update', function (event) {
-  const $input = $("#" + event.target.id)
+  const $input = $(event.target)
   const $form = $input.closest('form')
   const method = $('input[name="_method"]').val()
 
@@ -10,6 +10,7 @@ $(document).on('change', '.update', function (event) {
 
   var url = $form.attr("action")
 
+  console.log($input)
   console.log(url)
 
   $.ajax({
@@ -32,7 +33,7 @@ $(document).on('change', '.update', function (event) {
       var $notice = document.createElement('p')
       $notice.className = 'alert'
       console.log(response)
-      $notice.innerHTML = response
+      $notice.innerHTML = response.errors
       $flash.append($notice)
     }
   })
@@ -40,8 +41,6 @@ $(document).on('change', '.update', function (event) {
 
 
 function buildParams ($input, $form) {
-  console.log($input.attr('name'));
-
   const inputNameParts = ($input.attr('name')).split('[');
   const token = $('input[name="authenticity_token"]', $form).val();
 
