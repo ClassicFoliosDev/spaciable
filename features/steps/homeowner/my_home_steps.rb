@@ -23,13 +23,12 @@ When(/^I visit the My Home page$/) do
   within ".navbar-menu" do
     click_on t("layouts.homeowner.nav.my_home")
   end
-
-  within ".sub-navigation-container" do
-    click_on t("layouts.homeowner.sub_nav.rooms")
-  end
 end
 
 Then(/^I should see the plot rooms$/) do
+  within ".sub-navigation-container" do
+    click_on t("layouts.homeowner.sub_nav.rooms")
+  end
   within ".rooms" do
     expect(page).to have_content(CreateFixture.room_name)
   end
@@ -42,9 +41,10 @@ Given(/^there is another plot$/) do
   FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id)
 end
 
-Then(/^I should see no rooms$/) do
-  within ".rooms" do
-    expect(page).not_to have_selector(".room")
+Then(/^I should see no rooms or appliances$/) do
+  within ".sub-navigation-container" do
+    expect(page).not_to have_content("Rooms")
+    expect(page).not_to have_content("Appliances")
   end
 end
 
@@ -56,3 +56,30 @@ When(/^I switch back to the development plot$/) do
     plot_link.trigger(:click)
   end
 end
+
+When(/^I visit the Library page$/) do
+  within ".sub-navigation-container" do
+    click_on t("layouts.homeowner.sub_nav.library")
+  end
+end
+
+Then(/^I should see My Documents$/) do
+  within ".filter-hero" do
+    expect(page).to have_content("My documents")
+    expect(page).to_not have_content("Services")
+    expect(page).to_not have_content("Legal & warranty")
+    expect(page).to_not have_content("My home")
+  end
+end
+
+When(/^I visit the Contacts page$/) do
+  within ".navbar-menu" do
+    click_on t("layouts.homeowner.nav.my_home")
+  end
+end
+
+Then(/^I should see no tabs$/) do
+  expect(page).to_not have_content("Services")
+  expect(page).to_not have_content("Sales")
+end
+

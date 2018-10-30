@@ -4,17 +4,51 @@
 
 <% content_for :hero_text_secondary do %>
   <ul class="hero-links">
-    <% @categories.each do |category| %>
+
+    <% if Contact.accessible_by(current_ability).where(category: "sales").any? %>
       <li>
-        <%= link_to  t_enum(Contact, :category, category),
-          homeowner_contacts_path(category),
-          class: ("active" if @category == category) %>
+        <%= link_to  t_enum(Contact, :category, "sales"),
+          homeowner_contacts_path("sales"),
+          class: ("active" if @category == "sales") %>
       </li>
     <% end %>
+
+    <% if Contact.accessible_by(current_ability).where(category: "services").any? %>
+      <li>
+        <%= link_to  t_enum(Contact, :category, "services"),
+          homeowner_contacts_path("services"),
+          class: ("active" if @category == "services") %>
+      </li>
+    <% end %>
+
+    <% if Contact.accessible_by(current_ability).where(category: "customer_care").any? %>
+      <li>
+        <%= link_to  t_enum(Contact, :category, "customer_care"),
+          homeowner_contacts_path("customer_care"),
+          class: ("active" if @category == "customer_care") %>
+      </li>
+    <% end %>
+
+    <% if Contact.accessible_by(current_ability).where(category: "management").any? %>
+      <li>
+        <%= link_to  t_enum(Contact, :category, "management"),
+          homeowner_contacts_path("management"),
+          class: ("active" if @category == "management") %>
+      </li>
+    <% end %>
+
+    <% if Contact.accessible_by(current_ability).where(category: "emergency").any? %>
+      <li>
+        <%= link_to  t_enum(Contact, :category, "emergency"),
+          homeowner_contacts_path("emergency"),
+          class: ("active" if @category == "emergency") %>
+      </li>
+    <% end %>
+
   </ul>
 <% end %>
 
-<%= render "components/homeowner/sub_header", active_tab: "none" %>
+<%= render "components/homeowner/sub_header", active_tab: "none", plot: @plot %>
 
 <div class="branded-body outer-container">
   <div class="check-faqs branded-text">

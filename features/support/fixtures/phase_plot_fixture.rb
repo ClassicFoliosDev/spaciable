@@ -11,16 +11,26 @@ module PhasePlotFixture
     )
     create_unit_types(development)
     create_phase(development)
+    create_contact(development)
+
   end
 
   def create_developer
     FactoryGirl.create(:developer, company_name: developer_name)
   end
 
+  def create_contact(development)
+    FactoryGirl.create(:contact, contactable: development)
+  end
+
   def create_unit_types(development)
-    FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
+    unit_one= FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
     FactoryGirl.create(:unit_type, name: updated_unit_type_name, development: development)
     FactoryGirl.create_list(:unit_type, 3, development: development)
+
+    room = FactoryGirl.create(:room, unit_type: unit_one)
+    appliance = FactoryGirl.create(:appliance)
+    FactoryGirl.create(:appliance_room, appliance: appliance, room: room)
   end
 
   def create_phase(development)

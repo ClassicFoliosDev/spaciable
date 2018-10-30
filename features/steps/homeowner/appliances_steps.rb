@@ -49,11 +49,15 @@ Then(/^I should see the appliances for my plot$/) do
 end
 
 Then(/^I should see no appliances$/) do
-  within ".appliances" do
-    expect(page).not_to have_selector(".appliance")
-    expect(page).not_to have_content CreateFixture.appliance_category_name
-    expect(page).not_to have_content CreateFixture.appliance_manufacturer_name
-    expect(page).not_to have_content ApplianceFixture.second_manufacturer_name
+visit "/"
+
+  within ".navbar-menu" do
+    click_on t("layouts.homeowner.nav.my_home")
+  end
+
+  within ".sub-navigation-container" do
+    expect(page).not_to have_content("Appliances")
+    expect(page).to have_content("FAQs")
   end
 end
 

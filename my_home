@@ -1,0 +1,11 @@
+features/steps/admin/finishes_steps.rb:  delete_scope = "[data-finish-category='#{finish_category.id}']"
+features/steps/admin/appliance_categories_steps.rb:  within "[data-appliance-category=\"#{appliance_category.id}\"]" do
+features/steps/admin/appliances_steps.rb:  delete_scope = "[data-appliance-category='#{appliance_category.id}']"
+features/steps/admin/finish_category_steps.rb:  within "[data-finish-category=\"#{finish_category.id}\"]" do
+app/views/appliance_categories/_collection.html.erb:        <tr data-appliance-category="<%= appliance_category.id %>">
+app/views/finish_categories/_collection.html.erb:      <tr data-finish-category="<%= finish_category.id %>">
+log/development.log:Started GET "/documents/2?category=locality&link=%2Fuploads%2Fdocument%2Ffile%2F2%2Fdummy.pdf&name=Developer01dummy&thumb=%2Fuploads%2Fdocument%2Ffile%2F2%2Fpreview_dummy.jpg&timestamp=2018-10-29+12%3A21%3A49+UTC" for ::1 at 2018-10-29 12:24:09 +0000
+log/development.log:GET /documents/2?category=locality&link=%2Fuploads%2Fdocument%2Ffile%2F2%2Fdummy.pdf&name=Developer01dummy&thumb=%2Fuploads%2Fdocument%2Ffile%2F2%2Fpreview_dummy.jpg&timestamp=2018-10-29+12%3A21%3A49+UTC
+log/development.log:GET /documents/2?category=locality&link=%2Fuploads%2Fdocument%2Ffile%2F2%2Fdummy.pdf&name=Developer01dummy&thumb=%2Fuploads%2Fdocument%2Ffile%2F2%2Fpreview_dummy.jpg&timestamp=2018-10-29+12%3A21%3A49+UTC
+log/bullet.log:GET /documents/2?category=locality&link=%2Fuploads%2Fdocument%2Ffile%2F2%2Fdummy.pdf&name=Developer01dummy&thumb=%2Fuploads%2Fdocument%2Ffile%2F2%2Fpreview_dummy.jpg&timestamp=2018-10-29+12%3A21%3A49+UTC
+log/bullet.log:GET /documents/2?category=locality&link=%2Fuploads%2Fdocument%2Ffile%2F2%2Fdummy.pdf&name=Developer01dummy&thumb=%2Fuploads%2Fdocument%2Ffile%2F2%2Fpreview_dummy.jpg&timestamp=2018-10-29+12%3A21%3A49+UTC

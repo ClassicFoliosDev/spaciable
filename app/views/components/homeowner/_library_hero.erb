@@ -3,23 +3,47 @@
 <% end %>
 <% content_for :hero_text_secondary do %>
   <ul class="hero-links categories">
-    <% categories.each do |category| %>
+
+    <% if Document.accessible_by(current_ability).where(category: "my_home").any? %>
       <li>
-        <%= link_to t_enum(Document, :category, category),
-                    homeowner_library_path(category),
-                    class: ("active" if active_category == category) %>
+          <%= link_to t_enum(Document, :category, "my_home"),
+                      homeowner_library_path("my_home"),
+                      class: ("active" if active_category == "my_home") %>
       </li>
     <% end %>
-    <li>
-      <%= link_to t(".appliances"),
-                  homeowner_appliance_manuals_path,
-                  class: ("active" if active_category == "appliances") %>
-    </li>
-    <li>
-      <%= link_to t(".videos"),
-                  homeowner_videos_path,
-                  class: ("active" if active_category == "videos") %>
-    </li>
+
+    <% if Document.accessible_by(current_ability).where(category: "locality").any? %>
+      <li>
+          <%= link_to t_enum(Document, :category, "locality"),
+                      homeowner_library_path("locality"),
+                      class: ("active" if active_category == "locality") %>
+      </li>
+    <% end %>
+
+    <% if Document.accessible_by(current_ability).where(category: "legal_and_warranty").any? %>
+      <li>
+          <%= link_to t_enum(Document, :category, "legal_and_warranty"),
+                      homeowner_library_path("legal_and_warranty"),
+                      class: ("active" if active_category == "legal_and_warranty") %>
+      </li>
+    <% end %>
+
+    <% if Appliance.accessible_by(current_ability).any? %>
+      <li>
+        <%= link_to t(".appliances"),
+                    homeowner_appliance_manuals_path,
+                    class: ("active" if active_category == "appliances") %>
+      </li>
+    <% end %>
+
+    <% if plot&.development&.videos.any? %>
+      <li>
+        <%= link_to t(".videos"),
+                    homeowner_videos_path,
+                    class: ("active" if active_category == "videos") %>
+      </li>
+    <% end %>
+
     <li>
       <%= link_to t(".my_documents"),
                   private_documents_path,

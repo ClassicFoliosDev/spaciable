@@ -1,4 +1,4 @@
-<%= render "components/homeowner/sub_menu", active_tab: "about" %>
+<%= render "components/homeowner/sub_menu", active_tab: "about", plot: @plot %>
 
 <div class="branded-body">
 
@@ -6,32 +6,33 @@
     <div class="about-section">
       <iframe src=<%= @plot.external_link %> frameborder="0" allowfullscreen></iframe>
     </div>
-  <% end %>
 
-  <div class="about-section">
-    <%= link_to homeowner_my_home_path, active_tab: "rooms", class: "about-card branded-content branded-border" do %>
-      <div>
-        <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.rooms") %></h5>
-        <span><%= t(".rooms_description") %></span>
-      </div>
-    <% end %>
-    <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "about-card branded-content branded-border" do %>
-      <div>
-        <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.appliances") %></h5>
-        <span><%= t(".appliances_description") %></span>
-      </div>
-    <% end %>
-    <%= link_to homeowner_library_path, active_tab: "library", class: "about-card branded-content branded-border" do %>
-      <div>
-        <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.library") %></h5>
-        <span><%= t(".library_description") %></span>
-      </div>
-    <% end %>
-    <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "about-card branded-content branded-border" do %>
-      <div>
-        <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.faqs") %></h5>
-        <span><%= t(".faqs_description") %></span>
-      </div>
-    <% end %>
-  </div>
+
+    <div class="about-section">
+      <%= link_to homeowner_my_home_path, active_tab: "rooms", class: "about-card branded-content branded-border" do %>
+        <div>
+          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.rooms") %></h5>
+          <span><%= t(".rooms_description") %></span>
+        </div>
+      <% end %>
+      <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "about-card branded-content branded-border" do %>
+        <div>
+          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.appliances") %></h5>
+          <span><%= t(".appliances_description") %></span>
+        </div>
+      <% end %>
+      <%= link_to homeowner_library_path, active_tab: "library", class: "about-card branded-content branded-border" do %>
+        <div>
+          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.library") %></h5>
+          <span><%= t(".library_description") %></span>
+        </div>
+      <% end %>
+      <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "about-card branded-content branded-border" do %>
+        <div>
+          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.faqs") %></h5>
+          <span><%= t(".faqs_description") %></span>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>

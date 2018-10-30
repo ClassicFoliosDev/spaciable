@@ -13,8 +13,12 @@ Feature: Homeowner MyHome
     When I show the plots
     And I switch to the second plot
     When I visit the My Home page
-    Then I should see no rooms
+    Then I should see no rooms or appliances
     When I show the plots
     When I switch back to the development plot
     When I visit the My Home page
     Then I should see the plot rooms
+    When I visit the Library page
+    Then I should see My Documents
+    When I visit the Contacts page
+    Then I should see no tabs

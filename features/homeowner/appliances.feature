@@ -13,7 +13,6 @@ Feature: Homeowner Appliances
     Then I should see the appliances for my plot
     When I show the plots
     And I switch to the second plot
-    When I visit the appliances page
     Then I should see no appliances
     When I show the plots
     When I switch to the first plot

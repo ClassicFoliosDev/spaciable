@@ -2,7 +2,9 @@
   <%= render 'address/address', address: @plot %>
 <% end %>
 
-<%= render "components/homeowner/sub_header", active_tab: "rooms" %>
+<%= render "components/homeowner/sub_header", active_tab: "rooms", plot: @plot %>
+
+
 
 <div class="branded-body">
   <div class="rooms">
