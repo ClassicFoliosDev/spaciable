@@ -1,0 +1,13 @@
+<% breadcrumb :phase_production, @phase %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render 'components/tabs', tabs: tabs_for(@phase, "production"), phase: @phase %>
+
+<div class="production">
+  <%= render_collection @collection, path: "production/collection", parent: @phase %>
+</div>

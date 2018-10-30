@@ -71,6 +71,9 @@ Rails.application.routes.draw do
     resources :plot_documents, only: [:index] do
       post :bulk_upload, on: :collection
     end
+    resources :production, only: [:index] do
+      post :bulk_upload, on: :collection
+    end
     resources :progresses, only: [:index] do
       post :bulk_update, on: :collection
     end

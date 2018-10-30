@@ -8,8 +8,15 @@ module PhaseTabsHelper
     Tabs.new(phase, tabs, current_tab, self).all
   end
 
+  # rubocop:disable BlockLength
   PHASE_TABS = lambda do |phase|
     {
+      production: {
+        icon: :superpowers,
+        link: [phase, :production_index],
+        # Only a CF admin can create appliances and use the production tab
+        permissions_on: -> { Appliance.new }
+      },
       plots: {
         icon: :building,
         link: [phase.parent, phase, active_tab: :plots],
@@ -36,4 +43,5 @@ module PhaseTabsHelper
       }
     }
   end
+  # rubocop:enable BlockLength
 end

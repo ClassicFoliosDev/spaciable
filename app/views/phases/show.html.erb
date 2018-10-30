@@ -3,7 +3,12 @@
 <div class="phase">
   <%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
   <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
-  <%= render_collection @collection, parent: @phase %>
+
+  <% if @active_tab == "production" %>
+    <%= render_collection @collection, path: "production/collection", parent: @phase %>
+  <% else %>
+    <%= render_collection @collection, parent: @phase %>
+  <% end %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

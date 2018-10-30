@@ -1,0 +1,16 @@
+.circle {
+  border: 1px solid $type-grey;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  margin: 0 6px;
+  display: inline-block;
+}
+
+.green {
+  background-color: $primary-green;
+}
+
+.date {
+  margin: 0 8px;
+}

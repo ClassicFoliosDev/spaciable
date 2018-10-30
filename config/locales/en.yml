@@ -187,6 +187,7 @@ en:
     brand_add: "Add styling for %{name}"
     brand_edit: "Edit %{name}"
     bulk_edit: "Bulk edit"
+    production: "Production"
 
   pagination:
     per_page_10: "10"
@@ -1030,6 +1031,7 @@ en:
       plot_documents: "Plot documents"
       progresses: "Phase build progress"
       bulk_edit: "Bulk edit"
+      production: "Production"
     new:
       title: "New phase"
     update:
@@ -1529,6 +1531,19 @@ en:
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
+
+  production:
+    index:
+      title: "Production overview of plots"
+    collection:
+      name: "Plot number"
+      unit_type: "Unit type"
+      date_r: "R"
+      date_c: "C"
+      prefix: "Postal prefix"
+      building_name: "Building name"
+      road_name: "Road name"
+      postcode: "Postcode"
 
   activerecord:
     models:

@@ -304,9 +304,8 @@ When(/^I update the completion date for the plot$/) do
 end
 
 When(/^I update the release dates$/) do
-  within ".record-list" do
-    find("[data-action='edit']").click
-  end
+  plot = Plot.find_by(number: PhasePlotFixture.plot_number.to_i + 1)
+  visit "/plots/#{plot.id}/edit"
 
   within ".edit_plot" do
     fill_in :plot_reservation_release_date, with: PlotFixture.reservation_release_date

@@ -19,12 +19,13 @@ class PhasesController < ApplicationController
   end
 
   def show
-    @active_tab = params[:active_tab] || "plots"
+    default_tab = current_user.cf_admin? ? "production" : "plots"
+    @active_tab = params[:active_tab] || default_tab
 
     @resident_count = @phase.plot_residencies.size
     @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
 
-    @collection = if @active_tab == "plots"
+    @collection = if @active_tab == "plots" || @active_tab == "production"
                     paginate(sort(@phase.plots, default: :number))
                   elsif @active_tab == "documents"
                     documents = @phase.documents.accessible_by(current_ability)

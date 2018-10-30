@@ -78,19 +78,9 @@ Then(/^I should see the updated phase plot$/) do
 end
 
 When(/^I delete the phase plot$/) do
-  visit "/developers"
+  phase = Phase.find_by(name: PhasePlotFixture.phase_name)
 
-  within ".developers" do
-    click_on t("developers.collection.developments")
-  end
-
-  within ".developments" do
-    click_on t("developments.collection.phases")
-  end
-
-  within ".phases" do
-    click_on PhasePlotFixture.phase_name
-  end
+  visit "/developments/#{phase.development.id}/phases/#{phase.id}?active_tab=plots"
 
   delete_scope = "[data-plot='#{PhasePlotFixture.updated_plot.id}']"
   delete_and_confirm!(scope: delete_scope)

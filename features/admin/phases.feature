@@ -41,6 +41,7 @@ Feature: Phases
     And there is a phase plot with a resident
     When I visit the phase
     Then I can not update the progress for a plot
+    And I should not see the production tab
 
   @javascript
   Scenario: Development admin
@@ -48,3 +49,4 @@ Feature: Phases
     And there is a phase plot with a resident
     When I update the progress for the phase
     Then I should see the phase progress has been updated
+    And I should not see the production tab
