@@ -52,6 +52,11 @@ class PlotsController < ApplicationController
   end
 
   def update
+    puts "=========="
+    puts params
+    puts params[:authenticity_token]
+    puts "=========="
+
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
       if updated_plots.any? && @plot.valid?
         notify_and_redirect(updated_plots, errors)
@@ -81,6 +86,13 @@ class PlotsController < ApplicationController
         plot = Plot.find(plot_id)
         notice << ResidentChangeNotifyService.call(plot, current_user, update_verb, plot)
       end
+    end
+
+    ajax_update = params[:client].present?
+
+    if ajax_update
+      render json: { notice: notice }, status: :ok
+      return
     end
 
     single_update = updated_plots.count == 1

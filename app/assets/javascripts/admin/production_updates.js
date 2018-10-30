@@ -52,7 +52,8 @@ function buildParams ($input, $form) {
     authenticity_token: token,
     [modelName]: {
       [methodName]: $input.val()
-    }
+    },
+    client: true
   };
 
   return params;
