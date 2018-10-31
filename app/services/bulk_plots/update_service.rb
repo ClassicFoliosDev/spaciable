@@ -29,13 +29,17 @@ module BulkPlots
       if any_bulk_attrs?
         bulk_update
       else
-        if params.keys.include? :unit_type_id_check
-          add_error I18n.t("activerecord.errors.messages.bulk_edit_no_plots")
-          return
-        end
-        bulk_attr_keys.each { |attr| params.delete(attr) }
-        base_plot.update(params)
+        single_update
       end
+    end
+
+    def single_update
+      if params.keys.include? :unit_type_id_check
+        add_error I18n.t("activerecord.errors.messages.bulk_edit_no_plots")
+        return
+      end
+      bulk_attr_keys.each { |attr| params.delete(attr) }
+      base_plot.update(params)
     end
 
     def bulk_update
@@ -55,6 +59,8 @@ module BulkPlots
       @errors.each do |error|
         numbers.delete(error.number) if numbers.include?(error.number)
       end
+
+      return [] if @attribute_params.empty?
 
       numbers
     end
