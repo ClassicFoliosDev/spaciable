@@ -19,6 +19,8 @@ Feature: Documents
     Then the plot fields are all unchanged
     When I bulk edit the plot and set all fields to empty
     Then the plot fields are all unset
+    When I bulk edit the plot and set unit type field to empty
+    Then I see an error for the blank unit type
 
   Scenario: Developer Admin
     Given I am logged in as a Developer Admin
