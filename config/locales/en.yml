@@ -695,7 +695,7 @@ en:
         comms_preferences: "Communication preferences"
         edit_profile: "Update preferences"
         developer_email_updates: "Developer emails"
-        cf_email_updates: "Classic Folio emails"
+        cf_email_updates: "Hoozzi emails"
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
         other_residents: "Other residents who have access to this information in Hoozzi"
@@ -1807,7 +1807,7 @@ en:
         password: "Password"
         password_confirmation: "Confirm password"
         developer_email_updates: "Emails from my property developer about managing and maintaining my new home through Hoozzi"
-        hoozzi_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How To' updates"
+        cf_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How To' updates"
         telephone_updates: "Telephone call"
         post_updates: "Post"
       residents:
