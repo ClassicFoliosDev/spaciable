@@ -5,7 +5,7 @@ $login-title-right-color: $primary-red;
 $maximum-logo-size: 400px;
 
 .admin-login-view {
-  background-color: $primary-background;
+  @include grad-orange-pink(180deg);
 
   @include media($tablet-landscape-down) {
     main {
