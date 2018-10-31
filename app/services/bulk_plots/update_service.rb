@@ -142,23 +142,22 @@ module BulkPlots
     end
 
     def validate_params
-      if (@attribute_params.include? :unit_type_id) && @attribute_params[:unit_type_id].blank?
-        add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: UnitType.model_name.human)
-        @attribute_params.delete(:unit_type_id)
-      end
-
-      if (@attribute_params.include? :validity) && @attribute_params[:validity].blank?
-        add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: I18n.t("activerecord.attributes.plot.validity"))
-        @attribute_params.delete(:validity)
-      end
-
-      if (@attribute_params.include? :extended_access) && @attribute_params[:extended_access].blank?
-        add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: I18n.t("activerecord.attributes.plot.extended_access"))
-        @attribute_params.delete(:extended_access)
-      end
+      validate_mandatory_param(:unit_type_id, UnitType.model_name.human)
+      validate_mandatory_param(:validity, I18n.t("activerecord.attributes.plot.validity"))
+      validate_mandatory_param(:extended_access,
+                               I18n.t("activerecord.attributes.plot.extended_access"))
 
       return if @attribute_params.any?
       add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
+    end
+
+    def validate_mandatory_param(param_sym, param_name)
+      return unless @attribute_params.include? param_sym
+      return if @attribute_params[param_sym].present?
+
+      add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank",
+                       field_name: param_name)
+      @attribute_params.delete(param_sym)
     end
 
     def bulk_attribute(key)
