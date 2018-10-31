@@ -17,8 +17,8 @@ Feature: Documents
     Given I am a CF admin and there is a plot with all fields set
     When I bulk edit the plot but do not set checkboxes
     Then the plot fields are all unchanged
-    When I bulk edit the plot and set all fields to empty
-    Then the plot fields are all unset
+    When I bulk edit the plot and set optional fields to empty
+    Then the optional plot fields are unset
     When I bulk edit the plot and set mandatory fields to empty
     Then I see an error for the mandatory fields
 

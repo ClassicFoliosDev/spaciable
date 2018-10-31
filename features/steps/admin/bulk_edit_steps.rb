@@ -233,7 +233,7 @@ Then(/^the plot fields are all unchanged$/) do
   end
 end
 
-When(/^I bulk edit the plot and set all fields to empty$/) do
+When(/^I bulk edit the plot and set optional fields to empty$/) do
   phase = CreateFixture.phase
   visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 
@@ -291,13 +291,13 @@ end
 Then(/^I see an error for the mandatory fields$/) do
   within ".flash" do
     expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Unit type")
-    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "validity")
-    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "extended access")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Validity")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Extended access")
   end
 end
 
 
-Then(/^the plot fields are all unset$/) do
+Then(/^the optional plot fields are unset$/) do
   plot = Plot.find_by(number: 17)
 
   message = I18n.t("bulk_edit.create.success_one", plot_number: plot.number)

@@ -147,6 +147,16 @@ module BulkPlots
         @attribute_params.delete(:unit_type_id)
       end
 
+      if (@attribute_params.include? :validity) && @attribute_params[:validity].blank?
+        add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: I18n.t("activerecord.attributes.plot.validity"))
+        @attribute_params.delete(:validity)
+      end
+
+      if (@attribute_params.include? :extended_access) && @attribute_params[:extended_access].blank?
+        add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: I18n.t("activerecord.attributes.plot.extended_access"))
+        @attribute_params.delete(:extended_access)
+      end
+
       return if @attribute_params.any?
       add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
     end

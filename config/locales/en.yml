@@ -1625,6 +1625,8 @@ en:
         updated_at: "Last edited"
         reservation_release_date: "Reservation release date"
         completion_release_date: "Completion release date"
+        validity: "Validity"
+        extended_access: "Extended access"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"
