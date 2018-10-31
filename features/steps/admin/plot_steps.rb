@@ -318,7 +318,7 @@ When(/^I update the release dates$/) do
 end
 
 Then(/^I should see the expiry date has been updated$/) do
-  expiry_date = Time.zone.today.advance(months: 22).strftime("%d %B %Y")
+  expiry_date = Time.zone.today.advance(months: 20).advance(months: 2).strftime("%d %B %Y")
 
   within ".about" do
     expect(page).to have_content " Expiry date: #{expiry_date}"
