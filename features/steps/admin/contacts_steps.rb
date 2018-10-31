@@ -323,3 +323,30 @@ When(/^I create a development contact$/) do
 
   click_on t("contacts.form.submit")
 end
+
+When(/^I create a phase contact with no email or phone$/) do
+  goto_phase_show_page
+
+  within ".tabs" do
+    click_on t("phases.collection.contacts")
+  end
+
+  within ".empty" do
+    click_on t("contacts.collection.create")
+  end
+
+  within ".new_contact" do
+    fill_in "contact_first_name", with: ContactFixture.first_name
+    click_on t("contacts.form.submit")
+  end
+end
+
+When(/^I delete the phase contact$/) do
+  goto_phase_show_page
+
+  within ".tabs" do
+    click_on t("phases.collection.contacts")
+  end
+
+  delete_and_confirm!(scope: ".contacts")
+end

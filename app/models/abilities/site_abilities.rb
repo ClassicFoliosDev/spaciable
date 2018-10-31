@@ -58,6 +58,9 @@ module Abilities
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read
       end
+
+      can :read, Contact, contactable_type: "Phase",
+                          contactable_id: Phase.where(development_id: development).lazy.pluck(:id)
     end
 
     def site_documents(development, division, developer)

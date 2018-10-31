@@ -25,12 +25,7 @@ class PhasesController < ApplicationController
     @resident_count = @phase.plot_residencies.size
     @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
 
-    @collection = if @active_tab == "plots" || @active_tab == "production"
-                    paginate(sort(@phase.plots, default: :number))
-                  elsif @active_tab == "documents"
-                    documents = @phase.documents.accessible_by(current_ability)
-                    paginate(sort(documents, default: :title))
-                  end
+    @collection = build_collection
   end
 
   def create
@@ -63,6 +58,18 @@ class PhasesController < ApplicationController
   end
 
   private
+
+  def build_collection
+    if @active_tab == "plots" || @active_tab == "production"
+      paginate(sort(@phase.plots, default: :number))
+    elsif @active_tab == "documents"
+      documents = @phase.documents.accessible_by(current_ability)
+      paginate(sort(documents, default: :title))
+    elsif @active_tab == "contacts"
+      contacts = Contact.accessible_by(current_ability)
+      paginate(sort(contacts, default: :first_name))
+    end
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def phase_params

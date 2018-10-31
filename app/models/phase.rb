@@ -20,6 +20,8 @@ class Phase < ApplicationRecord
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
 
+  has_many :contacts, as: :contactable, dependent: :destroy
+
   has_many :unit_types, through: :development
   has_many :documents, as: :documentable
   has_one :address, as: :addressable, dependent: :destroy

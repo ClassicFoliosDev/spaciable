@@ -64,6 +64,7 @@ module Abilities
       can :read, Contact, contactable_id: plot.development_id, contactable_type: "Development"
       can :read, Contact, contactable_id: plot.developer_id, contactable_type: "Developer"
       can :read, Contact, contactable_id: plot.division_id, contactable_type: "Division"
+      can :read, Contact, contactable_id: plot.phase_id, contactable_type: "Phase"
     end
 
     def resident_abilities_for_faqs(plot)

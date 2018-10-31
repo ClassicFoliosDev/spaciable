@@ -306,6 +306,10 @@ module CreateFixture
     FactoryGirl.create(:resident, :with_residency, plot: division_plot, email: resident_email, developer_email_updates: true)
   end
 
+  def create_phase_contact
+    FactoryGirl.create(:contact, contactable: phase, category: "management")
+  end
+
   def create_division_contacts
     FactoryGirl.create(:contact, contactable: developer, category: "management")
     FactoryGirl.create(:contact, first_name: division_contact_name, contactable: division, category: "customer_care")

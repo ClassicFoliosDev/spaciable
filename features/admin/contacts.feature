@@ -50,6 +50,21 @@ Feature: Contacts
     When I delete the development contact
     Then I should see the contact deletion complete successfully
 
+ @javascript
+ Scenario: Phase
+    Given I am logged in as an admin
+    And there is a phase
+    When I create a phase contact with no email or phone
+    Then I should see the contact create fail
+    When I create a contact
+    Then I should see the created contact
+    And I update the contact
+    Then I should see the updated contact
+    When I remove an image from a contact
+    Then I should see the updated contact without the image
+    When I delete the phase contact
+    Then I should see the contact deletion complete successfully
+
   Scenario: Developer admin
     Given I am logged in as a Developer Admin
     When I create a developer contact

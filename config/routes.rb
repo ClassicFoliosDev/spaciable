@@ -78,6 +78,7 @@ Rails.application.routes.draw do
       post :bulk_update, on: :collection
     end
     resources :bulk_edit, only: [:index, :create]
+    resources :contacts, shallow: true
   end
 
   resources :plots, only: [] do

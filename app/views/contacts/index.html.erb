@@ -1,6 +1,6 @@
 <% breadcrumb :contacts, @parent %>
 
-<%= render @parent %>
+<%= render @parent, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count, phase: @parent %>
 
 <%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
 

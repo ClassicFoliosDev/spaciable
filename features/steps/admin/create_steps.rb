@@ -78,6 +78,10 @@ Given(/^there are division contacts$/) do
   CreateFixture.create_division_contacts
 end
 
+Given(/^there is a phase contact$/) do
+  CreateFixture.create_phase_contact
+end
+
 Given(/^there are faqs$/) do
   CreateFixture.create_faq
 end

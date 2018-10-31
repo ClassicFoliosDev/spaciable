@@ -1,7 +1,7 @@
 <% breadcrumb :phase, @phase %>
 
 <div class="phase">
-  <%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
+  <%= render "phases/phase", resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count, phase: @phase %>
   <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
 
   <% if @active_tab == "production" %>

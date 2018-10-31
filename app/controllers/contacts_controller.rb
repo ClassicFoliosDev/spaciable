@@ -7,14 +7,18 @@ class ContactsController < ApplicationController
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
   load_and_authorize_resource :development
+  load_and_authorize_resource :phase
   load_and_authorize_resource :contact,
-                              through: %i[developer division development],
+                              through: %i[developer division development phase],
                               shallow: true
 
   before_action :set_parent
 
   def index
     authorize! :index, Contact
+
+    @resident_count = @parent&.plot_residencies&.size
+    @subscribed_resident_count = @parent&.residents&.where(cf_email_updates: true)&.size
 
     @contacts = paginate(sort(@contacts, default: :last_name))
     @contact = @parent.contacts.build
@@ -86,7 +90,7 @@ class ContactsController < ApplicationController
   end
 
   def set_parent
-    @parent = @development || @division || @developer || @contact&.contactable
+    @parent = @development || @division || @developer || @phase || @contact&.contactable
     @contact&.contactable = @parent
   end
 end

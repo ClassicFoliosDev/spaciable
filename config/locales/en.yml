@@ -1028,6 +1028,7 @@ en:
       plots: "Plots"
       documents: "Documents"
       name: "Phase"
+      contacts: "Contacts"
       plot_documents: "Plot documents"
       progresses: "Phase build progress"
       bulk_edit: "Bulk edit"
@@ -1626,8 +1627,8 @@ en:
         updated_at: "Last edited"
         reservation_release_date: "Reservation release date"
         completion_release_date: "Completion release date"
-        validity: "Validity"
-        extended_access: "Extended access"
+        validity: "Validity (months)"
+        extended_access: "Extended access (months)"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"
