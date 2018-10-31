@@ -5,10 +5,6 @@
   padding: 0 $spacing-small;
   display: inline-block;
 
-  // Need to set defaults here for the sign-in page
-  // They are set again in the branding template
-  border-color: $primary-red;
-
   &:hover {
     color: $ui-white;
     background-color: $primary-background;
@@ -60,8 +56,21 @@
   background-color: inherit;
 }
 
-.login .sign-in {
+.login, .sign-in {
   background-color: inherit;
+
+  // Need to set defaults here for devise pages
+  // They are set again in the branding template for all other pages
+  .btn {
+    border-color: $primary-red;
+    color: $primary-red;
+    background-color: $ui-white;
+  }
+
+  .btn:hover {
+    color: $primary-green;
+    border-color: $primary-green;
+  }
 }
 
 .branded-primary-text {

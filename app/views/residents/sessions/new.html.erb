@@ -29,7 +29,7 @@
           <% end %>
         </div>
 
-        <%= f.submit t(".login_cta"), class: "continue branded-btn", disabled: cookies[:ts_and_cs_accepted].nil? %>
+        <%= f.submit t(".login_cta"), class: "continue btn", disabled: cookies[:ts_and_cs_accepted].nil? %>
 
         <div class="information">
           <p><%= render "residents/shared/links" %></p>
