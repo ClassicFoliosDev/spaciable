@@ -233,7 +233,7 @@ Then(/^the plot fields are all unchanged$/) do
   end
 end
 
-When(/^I bulk edit the plot and set all fields to empty$/) do
+When(/^I bulk edit the plot and set optional fields to empty$/) do
   phase = CreateFixture.phase
   visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 
@@ -269,7 +269,35 @@ When(/^I bulk edit the plot and set all fields to empty$/) do
   end
 end
 
-Then(/^the plot fields are all unset$/) do
+When(/^I bulk edit the plot and set mandatory fields to empty$/) do
+  phase = CreateFixture.phase
+  visit "/developments/#{phase.development.id}/phases/#{phase.id}"
+
+  within ".tabs" do
+    click_on t("phases.collection.bulk_edit")
+  end
+
+  within ".bulk-edit" do
+    fill_in :phase_bulk_edit_list, with: 17
+
+    find("#phase_bulk_edit_unit_type_id_check").set true
+    find("#phase_bulk_edit_validity_check").set true
+    find("#phase_bulk_edit_extended_access_check").set true
+
+    click_on t("bulk_edit.index.submit")
+  end
+end
+
+Then(/^I see an error for the mandatory fields$/) do
+  within ".flash" do
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Unit type")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Validity")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Extended access")
+  end
+end
+
+
+Then(/^the optional plot fields are unset$/) do
   plot = Plot.find_by(number: 17)
 
   message = I18n.t("bulk_edit.create.success_one", plot_number: plot.number)

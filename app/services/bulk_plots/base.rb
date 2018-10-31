@@ -82,7 +82,7 @@ module BulkPlots
 
     def grouped_error_message(plots_with_errors)
       messages = plots_with_errors.map(&:errors).map(&:full_messages).flatten.uniq.to_sentence
-      numbers = plots_with_errors.map(&:number).to_sentence
+      numbers = plots_with_errors.map(&:number).uniq.to_sentence
       title = model_title(plots_with_errors)
 
       I18n.t("activerecord.errors.messages.bulk_edit_not_save",

@@ -115,16 +115,17 @@ class Plot < ApplicationRecord
   end
 
   def prefix=(name)
+    return if parent_address && name.present? && name == parent_address.building_name
     (address || build_address).prefix = name
   end
 
   def building_name=(name)
-    return if parent_address && name == parent_address.building_name
+    return if parent_address && name.present? && name == parent_address.building_name
     (address || build_address).building_name = name
   end
 
   def road_name=(name)
-    return if parent_address && name == parent_address.road_name
+    return if parent_address && name.present? && name == parent_address.road_name
     (address || build_address).road_name = name
   end
 
@@ -135,7 +136,7 @@ class Plot < ApplicationRecord
   def county=(_); end
 
   def postcode=(name)
-    return if parent_address && name == parent_address.postcode
+    return if parent_address && name.present? && name == parent_address.postcode
     (address || build_address).postcode = name
   end
 

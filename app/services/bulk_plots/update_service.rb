@@ -19,24 +19,36 @@ module BulkPlots
       self.params = plot_params.to_h.symbolize_keys
       params[:progress] = base_plot.progress if plot_params[:progress]&.empty?
 
-      bulk_update
+      bulk_or_single_update
 
       # Dummy plot is for bulk update and does not need validation
       @errors << base_plot if base_plot.invalid? && (base_plot.number != Plot::DUMMY_PLOT_NAME)
     end
 
-    def bulk_update
+    def bulk_or_single_update
       if any_bulk_attrs?
-        update_plot_numbers
-        return no_numbers_error if numbers.empty?
-
-        bulk_attributes(params).map do |attrs|
-          update_existing_plots(attrs)
-        end.any?
+        bulk_update
       else
-        bulk_attr_keys.each { |attr| params.delete(attr) }
-        base_plot.update(params)
+        single_update
       end
+    end
+
+    def single_update
+      if params.keys.include? :unit_type_id_check
+        add_error I18n.t("activerecord.errors.messages.bulk_edit_no_plots")
+        return
+      end
+      bulk_attr_keys.each { |attr| params.delete(attr) }
+      base_plot.update(params)
+    end
+
+    def bulk_update
+      update_plot_numbers
+      return no_numbers_error if numbers.empty?
+
+      bulk_attributes(params).map do |attrs|
+        update_existing_plots(attrs)
+      end.any?
     end
 
     def successful_numbers
@@ -47,6 +59,8 @@ module BulkPlots
       @errors.each do |error|
         numbers.delete(error.number) if numbers.include?(error.number)
       end
+
+      return [] if @attribute_params.empty?
 
       numbers
     end
@@ -122,11 +136,28 @@ module BulkPlots
         bulk_attribute(key)
       end
 
-      if @attribute_params.empty?
-        add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
-      end
+      validate_params
 
       @attribute_params
+    end
+
+    def validate_params
+      validate_mandatory_param(:unit_type_id, UnitType.model_name.human)
+      validate_mandatory_param(:validity, I18n.t("activerecord.attributes.plot.validity"))
+      validate_mandatory_param(:extended_access,
+                               I18n.t("activerecord.attributes.plot.extended_access"))
+
+      return if @attribute_params.any?
+      add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
+    end
+
+    def validate_mandatory_param(param_sym, param_name)
+      return unless @attribute_params.include? param_sym
+      return if @attribute_params[param_sym].present?
+
+      add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank",
+                       field_name: param_name)
+      @attribute_params.delete(param_sym)
     end
 
     def bulk_attribute(key)
