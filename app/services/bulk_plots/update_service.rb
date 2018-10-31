@@ -19,20 +19,15 @@ module BulkPlots
       self.params = plot_params.to_h.symbolize_keys
       params[:progress] = base_plot.progress if plot_params[:progress]&.empty?
 
-      bulk_update
+      bulk_or_single_update
 
       # Dummy plot is for bulk update and does not need validation
       @errors << base_plot if base_plot.invalid? && (base_plot.number != Plot::DUMMY_PLOT_NAME)
     end
 
-    def bulk_update
+    def bulk_or_single_update
       if any_bulk_attrs?
-        update_plot_numbers
-        return no_numbers_error if numbers.empty?
-
-        bulk_attributes(params).map do |attrs|
-          update_existing_plots(attrs)
-        end.any?
+        bulk_update
       else
         if params.keys.include? :unit_type_id_check
           add_error I18n.t("activerecord.errors.messages.bulk_edit_no_plots")
@@ -41,6 +36,15 @@ module BulkPlots
         bulk_attr_keys.each { |attr| params.delete(attr) }
         base_plot.update(params)
       end
+    end
+
+    def bulk_update
+      update_plot_numbers
+      return no_numbers_error if numbers.empty?
+
+      bulk_attributes(params).map do |attrs|
+        update_existing_plots(attrs)
+      end.any?
     end
 
     def successful_numbers
@@ -126,17 +130,20 @@ module BulkPlots
         bulk_attribute(key)
       end
 
+      validate_params
+
+      @attribute_params
+    end
+
+    def validate_params
       if (@attribute_params.include? :unit_type_id) && @attribute_params[:unit_type_id].blank?
         add_error I18n.t("activerecord.errors.messages.bulk_edit_unit_type_blank")
         @attribute_params.delete(:unit_type_id)
 
       end
 
-      if @attribute_params.empty?
-        add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
-      end
-
-      @attribute_params
+      return if @attribute_params.any?
+      add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
     end
 
     def bulk_attribute(key)
