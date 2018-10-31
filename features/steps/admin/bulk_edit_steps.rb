@@ -269,7 +269,7 @@ When(/^I bulk edit the plot and set all fields to empty$/) do
   end
 end
 
-When(/^I bulk edit the plot and set unit type field to empty$/) do
+When(/^I bulk edit the plot and set mandatory fields to empty$/) do
   phase = CreateFixture.phase
   visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 
@@ -281,14 +281,18 @@ When(/^I bulk edit the plot and set unit type field to empty$/) do
     fill_in :phase_bulk_edit_list, with: 17
 
     find("#phase_bulk_edit_unit_type_id_check").set true
+    find("#phase_bulk_edit_validity_check").set true
+    find("#phase_bulk_edit_extended_access_check").set true
 
     click_on t("bulk_edit.index.submit")
   end
 end
 
-Then(/^I see an error for the blank unit type$/) do
+Then(/^I see an error for the mandatory fields$/) do
   within ".flash" do
-    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_unit_type_blank")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "Unit type")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "validity")
+    expect(page).to have_content I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: "extended access")
   end
 end
 

@@ -143,9 +143,8 @@ module BulkPlots
 
     def validate_params
       if (@attribute_params.include? :unit_type_id) && @attribute_params[:unit_type_id].blank?
-        add_error I18n.t("activerecord.errors.messages.bulk_edit_unit_type_blank")
+        add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank", field_name: UnitType.model_name.human)
         @attribute_params.delete(:unit_type_id)
-
       end
 
       return if @attribute_params.any?

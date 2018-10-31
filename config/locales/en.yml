@@ -1855,7 +1855,7 @@ en:
         bulk_edit_no_fields: "No fields to update, did you remember to set the checkboxes?"
         bulk_edit_no_plots: "No plots to update, make sure you set the range or list values"
         bulk_edit_not_save: "%{title} %{numbers} could not be saved: %{messages}"
-        bulk_edit_unit_type_blank: "You can not remove unit type from plots, unit type must be provided"
+        bulk_edit_field_blank: "You can not remove %{field_name} from plots, a value must be provided"
       models:
         developer:
           attributes:
