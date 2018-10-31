@@ -76,7 +76,7 @@
         </ul>
         <% if current_resident.plot_residency_homeowner?(@plot) %>
           <div>
-            <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn add-resident",
+            <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn branded-btn add-resident",
             data: { cancel: t("edit.cancel"),
                   cta: t(".send_invitation"),
                   title: t(".invite", plot: @plot.to_homeowner_s),
@@ -87,7 +87,7 @@
     </div>
 
     <div class="full actions show-actions">
-      <%= button_tag t(".deactivate"), class: "btn destroy-resident",
+      <%= button_tag t(".deactivate"), class: "btn branded-btn destroy-resident",
       data: { cancel: t("edit.cancel"),
             cta: t(".confirm_deactivate"),
             title: t(".deactivate"),
