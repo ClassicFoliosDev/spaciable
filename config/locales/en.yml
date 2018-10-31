@@ -167,7 +167,7 @@ en:
     finish_type_add: "Add finish type"
     phase_add: "Add phase"
     phase_edit: "Edit %{phase_name}"
-    plot_add: "Add plot"
+    plot_add: "Add plot(s)"
     plot_edit: "Edit %{plot_name}"
     residents: "Residents"
     resident: "Resident %{name}"
@@ -1082,7 +1082,7 @@ en:
         one: "Plot %{plot_name} was updated successfully"
         other: "Plots %{plot_name} were updated successfully"
     collection:
-      add: "Add plot"
+      add: "Add plot(s)"
       rooms: "Rooms"
       documents: "Documents"
       residents: "Residents"
@@ -1544,6 +1544,7 @@ en:
       building_name: "Building name"
       road_name: "Road name"
       postcode: "Postcode"
+      add: "Add plot(s)"
 
   activerecord:
     models:

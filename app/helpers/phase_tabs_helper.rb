@@ -13,7 +13,7 @@ module PhaseTabsHelper
     {
       production: {
         icon: :superpowers,
-        link: [phase, :production_index],
+        link: [phase.parent, phase, active_tab: :production],
         # Only a CF admin can create appliances and use the production tab
         permissions_on: -> { Appliance.new }
       },

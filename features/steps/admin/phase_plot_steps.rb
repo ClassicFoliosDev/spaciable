@@ -23,7 +23,7 @@ When(/^I create a plot for the phase$/) do
     click_on t("phases.collection.plots")
   end
 
-  click_on t("plots.collection.add")
+  click_on t("components.empty_list.add", type_name: "plot")
   within ".plot_unit_type" do
     select PhasePlotFixture.unit_type_name, visible: false
   end
@@ -135,7 +135,7 @@ Given(/^I have configured the phase address$/) do
 end
 
 Given(/^I have created a plot for the phase$/) do
-  click_on t("plots.collection.add")
+  click_on t("components.empty_list.add", type_name: "plot")
 
   fill_in "plot_list", with: PhasePlotFixture.update_attrs[:number]
   within ".plot_unit_type" do

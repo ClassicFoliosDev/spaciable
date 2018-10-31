@@ -1,4 +1,14 @@
 <div class="production">
+
+  <% if can_create(Plot, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to [:new, parent, :plot], class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
   <table class="record-list plots">
     <thead>
       <tr>
@@ -10,6 +20,7 @@
         <th><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></th>
         <th><%= sortable({Plot => UnitType}, :id, t(".unit_type")) %></th>
         <th><span class="date"><%= t(".date_r") %></span><span class="date"><%= t(".date_c") %></span></th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +36,10 @@
           <% res = plot.reservation_release_date? ? "green" : "white" %>
           <% comp = plot.completion_release_date? ? "green" : "white" %>
           <td><span class = 'circle <%= res %>'>&nbsp;</span><span class = 'circle <%= comp %>'>&nbsp;</span></td>
+          <td class="actions">
+            <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
+            <%= delete_btn plot, path: url_for(plot), element: plot %>
+          </td>
         </tr>
       <% end %>
     </tbody>
