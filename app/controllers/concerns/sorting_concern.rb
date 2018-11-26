@@ -47,10 +47,24 @@ module SortingConcern
   def sort_plot_numbers(resources, direction)
     plot_array = resources.sort
 
+    numbers = plot_array.map(&:number)
     ids = plot_array.map(&:id)
-    ids = ids.reverse if direction == "desc"
 
-    Plot.where(id: ids).order("position(id::text in '#{ids.join(',')}')")
+    sorted_numbers = numbers.sort_by do |element|
+      number, letter = *element.split
+      [letter, number.to_i]
+    end
+
+    if direction == "desc"
+      sort_plots(ids, sorted_numbers.reverse)
+    else
+      sort_plots(ids, sorted_numbers)
+    end
+  end
+
+  def sort_plots(ids, sorted_numbers)
+    sorted_number_string = sorted_numbers.join(",") + ","
+    Plot.where(id: ids).order("position(','||number::text||',' in '#{sorted_number_string}')")
   end
 
   def sort_appliances(resources, direction)
