@@ -14,7 +14,10 @@
     <thead>
       <tr>
         <th><%= sortable(Plot, :number, t(".name")) %></th>
-        <th><%= sortable(Plot, :updated_at) %></th>
+        <th><%= sortable(Plot, :house_number) %></th>
+        <th><%= sortable({Plot => Address}, :building_name, t(".building_name")) %></th>
+        <th><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></th>
+        <th><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></th>
         <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
         <th><%= sortable(Plot, :progress, t(".progress")) %></th>
         <th><%= t(".activation") %></th>
@@ -25,7 +28,10 @@
       <% collection.each do |plot| %>
         <tr data-plot="<%= plot.id %>">
           <td><%= link_to_unless (cannot? :read, plot), plot, url_for(plot), title: plot %></td>
-          <td><%= l plot.updated_at.to_date, format: :digits %></td>
+          <td><%= plot.house_number %></td>
+          <td><%= plot.building_name %></td>
+          <td><%= plot.road_name %></td>
+          <td><%= plot.postcode %></td>
           <td><%= plot.unit_type %></td>
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
