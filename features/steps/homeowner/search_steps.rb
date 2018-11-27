@@ -1,5 +1,5 @@
 Given(/^I am logged in as a homeowner with populated content$/) do
-  MyLibraryFixture.setup
+  MyLibraryFixture.create_room_appliance_and_finish
 
   login_as CreateFixture.resident
   visit "/"

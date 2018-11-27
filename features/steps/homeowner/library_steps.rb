@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Given(/^I am logged in as a homeowner want to download my documents$/) do
-  MyLibraryFixture.setup
+  MyLibraryFixture.create_room_appliance_and_finish
   MyLibraryFixture.create_documents
 
   login_as CreateFixture.resident

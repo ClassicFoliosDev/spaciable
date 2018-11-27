@@ -139,7 +139,7 @@ Then(/^I should see another duplicate unit type created successfully$/) do
 end
 
 Given(/^there is a unit type room with finish and appliance$/) do
-  MyLibraryFixture.setup
+  MyLibraryFixture.create_room_appliance_and_finish
   MyLibraryFixture.create_documents
 end
 

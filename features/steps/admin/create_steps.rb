@@ -31,7 +31,7 @@ end
 
 Given(/^there is a plot$/) do
   CreateFixture.create_unit_type unless CreateFixture.unit_type
-  CreateFixture.create_development_plot
+  CreateFixture.create_development_plot_depreciated
 end
 
 Given(/^there is a plot for the division development$/) do

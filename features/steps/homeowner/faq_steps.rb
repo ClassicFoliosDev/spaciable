@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Given(/^I am logged in as a homeowner wanting to read FAQs$/) do
-  MyHomeFaqsFixture.setup
+  MyHomeFaqsFixture.create_homeowner_faqs
 
   login_as MyHomeFaqsFixture.resident
   visit "/"

@@ -61,7 +61,9 @@ module ResidentNotificationsFixture
     create_development
     create_division_development
     create_phases
-    create_plots
+    create_unit_type
+    create_phase_plot
+    create_division_development_plot
     create_notification_residents
   end
 

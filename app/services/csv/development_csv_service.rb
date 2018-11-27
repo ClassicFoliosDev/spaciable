@@ -32,7 +32,7 @@ module Csv
 
       plots.each do |plot|
         csv << plot_info(plot) if plot.residents.empty?
-        plot.residents.includes(:services).each do |resident|
+        plot.residents.includes(:services).sort_by(&:email).each do |resident|
           csv << plot_info(plot) + resident_info(resident,
                                                  resident.plot_residency_role_name(plot),
                                                  resident.plot_residency_invited_by(plot)&.email)

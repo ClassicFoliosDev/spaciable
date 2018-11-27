@@ -7,6 +7,7 @@ Feature: Analytics
   Scenario: All developers and billing reports
     Given I am CF Admin wanting to send notifications to residents
     And there is another developer with a division and development
+    And there is another developer with no children
     When I navigate to the analytics page
     And I export all developers CSV
     Then the all developer CSV contents are correct
@@ -15,6 +16,7 @@ Feature: Analytics
 
   Scenario: Developer report
     Given I am CF Admin wanting to send notifications to residents
+    And there is another development for the division
     When I navigate to the analytics page
     Then I can not export a developer CSV
     When I select the developer

@@ -11,7 +11,7 @@ And(/^I have created a unit_type$/) do
 end
 
 And(/^I have logged in as a resident and associated the plot$/) do
-  plot = CreateFixture.create_development_plot
+  plot = CreateFixture.create_phase_plot
   resident = FactoryGirl.create(:resident, :with_residency, plot: plot, email: "multiple_resident@example.com", ts_and_cs_accepted_at: Time.zone.now)
 
   login_as resident
@@ -49,7 +49,7 @@ Then(/^I should see no rooms or appliances$/) do
 end
 
 When(/^I switch back to the development plot$/) do
-  plot = Plot.find_by(number: CreateFixture.plot_name)
+  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
 
   within ".session-inner" do
     plot_link = page.find_link(plot.to_homeowner_s)

@@ -6,13 +6,11 @@ module HomeownerNotificationsFixture
 
   module_function
 
-  def setup
+  def create_homeowner_notifications
     create_cf_admin
     create_developer
     create_development
-    create_unit_type
-    create_development_plot
-    create_resident
+    create_resident_and_phase
     create_notifications
   end
 

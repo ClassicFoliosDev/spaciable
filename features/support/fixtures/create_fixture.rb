@@ -246,7 +246,7 @@ module CreateFixture
     create_division_development_phase
   end
 
-  def create_development_plot
+  def create_development_plot_depreciated
     FactoryGirl.create(:plot, development: development, unit_type: unit_type, number: plot_name)
   end
 
@@ -267,13 +267,6 @@ module CreateFixture
     FactoryGirl.create(:phase_plot, phase: division_phase, number: phase_plot_name, unit_type: unit_type)
   end
 
-  def create_plots
-    create_unit_type
-    create_development_plot
-    create_division_development_plot
-    create_phase_plot
-  end
-
   def create_notification_residents
     # A resident with no plots
     attrs = { first_name: "Resident with no", last_name: "Plots", email: "resident@no.plots.com" }
@@ -291,6 +284,7 @@ module CreateFixture
     Plot.all.each do |plot|
       attrs = { first_name: "Resident of", last_name: "plot #{plot}", plot: plot, email: "#{plot.number}@residents.com" }
       FactoryGirl.create(:resident, :with_residency, :activated, attrs)
+
       unless plot == Plot.last
         FactoryGirl.create(:plot_residency, resident: multiple_resident, plot: plot, role: 'homeowner')
       end

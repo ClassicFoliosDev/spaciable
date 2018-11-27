@@ -3,7 +3,7 @@
 module MigrateManufacturersFixture
   module_function
 
-  def setup
+  def create_appliances_and_finishes
     create_appliances
     create_finishes
   end

@@ -61,7 +61,7 @@ module FaqsFixture
     }
   }.freeze
 
-  def setup
+  def create_developer_division_development_divdevelopment
     create_developer
     create_division
     create_development

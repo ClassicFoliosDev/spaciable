@@ -201,6 +201,8 @@ Then(/^all residents under (my|that) (\(\w+\) )?(\w+) should receive a notificat
 end
 
 Then(/^all residents should receive a notification$/) do
+  residents = Resident.where(developer_email_updates: true)
+
   resident_email_addresses = Resident.where(developer_email_updates: true).pluck(:email)
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
 

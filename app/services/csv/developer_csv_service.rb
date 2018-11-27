@@ -40,7 +40,7 @@ module Csv
     end
 
     def self.append_developments(csv, resource)
-      resource.developments.each do |development|
+      resource.developments.sort_by(&:name).each do |development|
         csv << development_info(development)
       end
     end

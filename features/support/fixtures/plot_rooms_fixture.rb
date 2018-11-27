@@ -3,7 +3,7 @@
 module PlotRoomsFixture
   module_function
 
-  def setup
+  def create_plot_rooms_as_cf_admin
     CreateFixture.create_cf_admin
     CreateFixture.create_developer
     CreateFixture.create_development

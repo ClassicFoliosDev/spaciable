@@ -31,7 +31,7 @@ module PlotResidencyFixture
     }
   }.freeze
 
-  def setup
+  def create_development_phase_plot
     create_developer
     create_development
     create_unit_type

@@ -2,7 +2,6 @@
 
 Given(/^I am a CF admin and there are many plots$/) do
   ResidentNotificationsFixture.create_permission_resources
-  CreateFixture.create_division_phase_plot
   login_as CreateFixture.create_cf_admin
   FactoryGirl.create(:unit_type, name: "Another", development: CreateFixture.development)
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 180, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")

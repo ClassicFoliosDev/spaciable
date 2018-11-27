@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Given(/^I am logged in as a CF Admin wanting to manage plot rooms$/) do
-  PlotRoomsFixture.setup
+  PlotRoomsFixture.create_plot_rooms_as_cf_admin
 
   login_as CreateFixture.cf_admin
   visit "/"

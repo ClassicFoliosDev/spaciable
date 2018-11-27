@@ -33,12 +33,10 @@ module MyHomeFaqsFixture
     }
   ].freeze
 
-  def setup
+  def create_homeowner_faqs
     create_developer
     create_development
-    create_unit_type
-    create_development_plot
-    create_resident
+    create_resident_and_phase
     create_faqs
   end
 
