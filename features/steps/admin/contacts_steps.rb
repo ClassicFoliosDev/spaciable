@@ -257,19 +257,12 @@ When(/^I create a developer contact$/) do
 end
 
 When(/^I create a division contact$/) do
-  visit "/"
+  division = CreateFixture.division
+  visit "/divisions/#{division.id}/contacts"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  within ".empty" do
+    click_on t("contacts.collection.create")
   end
-
-  click_on t("developers.collection.divisions")
-  within ".record-list" do
-    click_on CreateFixture.division_name
-  end
-
-  click_on t("developers.collection.contacts")
-  click_on t("contacts.collection.create")
 
   within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
@@ -278,6 +271,37 @@ When(/^I create a division contact$/) do
 
   click_on t("contacts.form.submit")
 end
+
+When(/^I create a phase contact$/) do
+  phase = CreateFixture.phase
+  visit "/phases/#{phase.id}/contacts"
+
+  within ".empty" do
+    click_on t("contacts.collection.create")
+  end
+
+  within ".new_contact" do
+    fill_in "contact_first_name", with: ContactFixture.first_name
+    fill_in "contact_email", with: ContactFixture.email
+    click_on t("contacts.form.submit")
+  end
+end
+
+When(/^I create a division phase contact$/) do
+  phase = CreateFixture.division_phase
+  visit "/phases/#{phase.id}/contacts"
+
+  within ".empty" do
+    click_on t("contacts.collection.create")
+  end
+
+  within ".new_contact" do
+    fill_in "contact_first_name", with: ContactFixture.first_name
+    fill_in "contact_email", with: ContactFixture.email
+    click_on t("contacts.form.submit")
+  end
+end
+
 
 Then(/^I should not be able to create a division contact$/) do
   visit "/"
@@ -297,24 +321,13 @@ Then(/^I should not be able to create a division contact$/) do
 end
 
 When(/^I create a development contact$/) do
-  visit "/"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
+  development = Development.find_by(name: CreateFixture.division_development_name)
+  visit "/developments/#{development.id}/contacts"
+
+  within ".contact-index" do
+    click_on t("contacts.collection.create")
   end
-
-  click_on t("developers.collection.divisions")
-  within ".record-list" do
-    click_on CreateFixture.division_name
-  end
-
-  click_on t("developers.collection.developments")
-  within ".record-list" do
-    click_on CreateFixture.division_development_name
-  end
-
-  click_on t("developers.collection.contacts")
-  click_on t("contacts.collection.create")
 
   within ".contact" do
     fill_in "contact_first_name", with: ContactFixture.first_name
@@ -325,11 +338,8 @@ When(/^I create a development contact$/) do
 end
 
 When(/^I create a phase contact with no email or phone$/) do
-  goto_phase_show_page
-
-  within ".tabs" do
-    click_on t("phases.collection.contacts")
-  end
+  phase = CreateFixture.phase
+  visit "/phases/#{phase.id}/contacts"
 
   within ".empty" do
     click_on t("contacts.collection.create")
@@ -342,11 +352,15 @@ When(/^I create a phase contact with no email or phone$/) do
 end
 
 When(/^I delete the phase contact$/) do
-  goto_phase_show_page
+  phase = CreateFixture.phase
+  visit "/phases/#{phase.id}/contacts/"
 
-  within ".tabs" do
-    click_on t("phases.collection.contacts")
-  end
+  delete_and_confirm!(scope: ".contacts")
+end
+
+When(/^I delete the division phase contact$/) do
+  phase = CreateFixture.division_phase
+  visit "/phases/#{phase.id}/contacts/"
 
   delete_and_confirm!(scope: ".contacts")
 end

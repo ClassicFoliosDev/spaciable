@@ -33,6 +33,7 @@ module Abilities
     def developer_contacts(developer_id)
       polymorphic_abilities Contact, :contactable do
         type "Developer", id: developer_id, actions: :manage
+        type "Phase", id: Phase.where(developer_id: developer_id).lazy.pluck(:id), actions: :manage
       end
     end
 

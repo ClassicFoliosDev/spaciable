@@ -50,8 +50,8 @@ Feature: Contacts
     When I delete the development contact
     Then I should see the contact deletion complete successfully
 
- @javascript
- Scenario: Phase
+  @javascript
+  Scenario: Phase
     Given I am logged in as an admin
     And there is a phase
     When I create a phase contact with no email or phone
@@ -65,20 +65,50 @@ Feature: Contacts
     When I delete the phase contact
     Then I should see the contact deletion complete successfully
 
+  @javascript
   Scenario: Developer admin
     Given I am logged in as a Developer Admin
+    And there is a phase
     When I create a developer contact
     Then I should see the created contact
+    When I create a phase contact
+    Then I should see the created contact
+    And I update the contact
+    Then I should see the updated contact
+    When I remove an image from a contact
+    Then I should see the updated contact without the image
+    When I delete the phase contact
+    Then I should see the contact deletion complete successfully
 
+  @javascript
   Scenario: Division admin
     Given I am logged in as a Division Admin
+    And there is a division phase
     Then I should not be able to create a developer contact
     When I create a division contact
     Then I should see the created contact
+    When I create a division phase contact
+    Then I should see the created contact
+    And I update the contact
+    Then I should see the updated contact
+    When I remove an image from a contact
+    Then I should see the updated contact without the image
+    When I delete the division phase contact
+    Then I should see the contact deletion complete successfully
 
-  Scenario: Development admin
+  @javascript
+  Scenario: Division Development admin
     Given I am logged in as a Development Admin for a Division
+    And there is a division phase
     Then I should not be able to create a developer contact
     And I should not be able to create a division contact
     When I create a development contact
     Then I should see the created contact
+    When I create a division phase contact
+    Then I should see the created contact
+    And I update the contact
+    Then I should see the updated contact
+    When I remove an image from a contact
+    Then I should see the updated contact without the image
+    When I delete the division phase contact
+    Then I should see the contact deletion complete successfully

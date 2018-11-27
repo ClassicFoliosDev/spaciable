@@ -74,6 +74,8 @@ module Abilities
         type "Development", id: development, actions: :manage
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read
+        type "Phase", id: Phase.where(development_id: development).lazy.pluck(:id),
+                      actions: :manage
       end
     end
 

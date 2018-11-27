@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
     @resident_count = @parent&.plot_residencies&.size
     @subscribed_resident_count = @parent&.residents&.where(cf_email_updates: true)&.size
 
-    @contacts = paginate(sort(@contacts, default: :last_name))
+    @contacts = paginate(sort(@parent.contacts, default: :last_name))
     @contact = @parent.contacts.build
   end
 

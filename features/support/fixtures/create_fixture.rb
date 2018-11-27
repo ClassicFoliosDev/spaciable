@@ -138,18 +138,22 @@ module CreateFixture
   end
 
   def create_developer
+    return if developer
     FactoryGirl.create(:developer, company_name: developer_name, house_search: true)
   end
 
   def create_division
+    return if division
     FactoryGirl.create(:division, division_name: division_name, developer: developer)
   end
 
   def create_development
+    return if development
     FactoryGirl.create(:development, name: development_name, developer: developer, maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
   end
 
   def create_division_development
+    return if division_development
     FactoryGirl.create(:division_development, name: division_development_name, division: division)
   end
 
@@ -334,8 +338,8 @@ module CreateFixture
   end
 
   def create_resident_under_a_phase_plot
-    create_developer unless developer
-    create_development unless development
+    create_developer
+    create_development
     create_resident_and_phase
   end
 

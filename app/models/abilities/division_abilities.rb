@@ -40,6 +40,7 @@ module Abilities
       polymorphic_abilities Contact, :contactable do
         type "Division", id: division, actions: :manage
         type "Developer", id: developer, actions: :read
+        type "Phase", id: Phase.where(division_id: division).lazy.pluck(:id), actions: :manage
       end
     end
 
