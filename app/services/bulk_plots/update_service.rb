@@ -148,7 +148,11 @@ module BulkPlots
                                I18n.t("activerecord.attributes.plot.extended_access"))
 
       return if @attribute_params.any?
-      add_error I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
+
+      plots_scope.where(number: update_plot_numbers).each do |plot|
+        plot.errors[:base] << I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
+        @errors << plot
+      end
     end
 
     def validate_mandatory_param(param_sym, param_name)

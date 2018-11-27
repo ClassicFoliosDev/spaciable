@@ -12,11 +12,11 @@
 </div>
 <div class="plot-field validity">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :validity_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :validity, min: 0 %>
+  <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
 </div>
 <div class="plot-field extended_access">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :extended_access, min: 0 %>
+  <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
 </div>
 <% if plot.present? %>
   <div class="plot-field">

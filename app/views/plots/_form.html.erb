@@ -13,15 +13,14 @@
   <% end %>
   <div class="row">
     <div class="row-item third">
-      <fieldset>
-        <% if f.object.persisted? %>
+      <% if f.object.persisted? %>
+        <fieldset>
           <%= f.input :number %>
           <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
-        <% else %>
-          <%= render "components/admin/plots_select", f: f %>
-        <% end %>
-
-      </fieldset>
+        </fieldset>
+      <% else %>
+        <%= render "components/admin/plots_select", f: f %>
+      <% end %>
     </div>
 
     <div class="row-item third">

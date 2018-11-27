@@ -17,8 +17,8 @@
 
       <div class="row-item third">
         <fieldset>
-          <div class="bulk-check fix-checkbox"><%= f.input_field :unit_type_id_check, as: :boolean, label: false %></div>
           <div class="plot-field">
+            <div class="bulk-check fix-checkbox"><%= f.input_field :unit_type_id_check, as: :boolean, label: false %></div>
             <%= f.input :unit_type_id, as: :select, collection: unit_type_collection(@phase) %>
           </div><br/>
           <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
