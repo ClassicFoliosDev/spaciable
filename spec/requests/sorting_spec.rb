@@ -124,7 +124,7 @@ RSpec.describe "Sorting", type: :feature do
     end
   end
 
-  it "only finds plots in the correct phase" do
+  it "only finds plots in the correct phase and copes with special characters" do
     login_as create(:cf_admin)
 
     developer = create(:developer, company_name: "Alpha")
@@ -134,12 +134,14 @@ RSpec.describe "Sorting", type: :feature do
     create(:plot, number: "A2", phase: phase)
     create(:plot, number: "10", phase: another_phase)
     create(:plot, number: "2C", phase: phase)
-    create(:plot, number: "11E", phase: phase)
+    create(:plot, number: "11 E", phase: phase)
+    create(:plot, number: "C 3", phase: phase)
     create(:plot, number: "1B", phase: another_phase)
     create(:plot, number: "103", phase: phase)
     create(:plot, number: "10.2", phase: phase)
+    create(:plot, number: "C-2", phase: phase)
     create(:plot, number: "1", phase: phase)
-    create(:plot, number: "9", phase: phase)
+    create(:plot, number: "9-5", phase: phase)
 
     visit "/developments/#{development.id}/phases/#{phase.id}"
 
@@ -148,12 +150,14 @@ RSpec.describe "Sorting", type: :feature do
 
       # Row 0 is the headers
       expect(rows[1].text).to have_content("Plot A2")
-      expect(rows[2].text).to have_content("Plot 1")
-      expect(rows[3].text).to have_content("Plot 2C")
-      expect(rows[4].text).to have_content("Plot 9")
-      expect(rows[5].text).to have_content("Plot 10.2")
-      expect(rows[6].text).to have_content("Plot 11E")
-      expect(rows[7].text).to have_content("Plot 103")
+      expect(rows[2].text).to have_content("Plot C 3")
+      expect(rows[3].text).to have_content("Plot C-2")
+      expect(rows[4].text).to have_content("Plot 1")
+      expect(rows[5].text).to have_content("Plot 2C")
+      expect(rows[6].text).to have_content("Plot 9-5")
+      expect(rows[7].text).to have_content("Plot 10.2")
+      expect(rows[8].text).to have_content("Plot 11 E")
+      expect(rows[9].text).to have_content("Plot 103")
     end
   end
 end
