@@ -143,11 +143,12 @@ module BulkPlots
 
     def validate_params
       validate_mandatory_param(:unit_type_id, UnitType.model_name.human)
-      validate_mandatory_param(:validity, I18n.t("activerecord.attributes.plot.validity"))
+      validate_mandatory_param(:validity,
+                               I18n.t("activerecord.attributes.plot.validity"))
       validate_mandatory_param(:extended_access,
                                I18n.t("activerecord.attributes.plot.extended_access"))
 
-      return if @attribute_params.any?
+      return if @attribute_params.any? || @errors.any?
 
       plots_scope.where(number: update_plot_numbers).each do |plot|
         plot.errors[:base] << I18n.t("activerecord.errors.messages.bulk_edit_no_fields")
@@ -159,8 +160,12 @@ module BulkPlots
       return unless @attribute_params.include? param_sym
       return if @attribute_params[param_sym].present?
 
-      add_error I18n.t("activerecord.errors.messages.bulk_edit_field_blank",
-                       field_name: param_name)
+      plots_scope.where(number: update_plot_numbers).each do |plot|
+        plot.errors[:base] << I18n.t("activerecord.errors.messages.bulk_edit_field_blank",
+                                     field_name: param_name)
+        @errors << plot
+      end
+
       @attribute_params.delete(param_sym)
     end
 
