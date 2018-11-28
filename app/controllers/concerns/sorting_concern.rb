@@ -76,7 +76,7 @@ module SortingConcern
       else
         @sorted_numbers.each_with_index do |element, index|
           next if element =~ /^[0-9].*/
-          break unless (unsorted.tr("0-9", "") <=> element.tr("0-9", "")).positive?
+          break unless (unsorted <=> element).positive?
           insert_at = index + 1
         end
       end
@@ -87,7 +87,7 @@ module SortingConcern
   def sort_mixed_alphanumeric
     @numbers.sort_by do |element|
       number, letter = *element.split
-      [letter, number.to_i]
+      [number.to_i, letter]
     end
   end
 
@@ -96,7 +96,11 @@ module SortingConcern
     regex = /[#{special.gsub(/./) { |char| "\\#{char}" }}]/
 
     @numbers.each do |element|
-      @unsorted_numbers << element if element =~ regex
+      if element =~ regex
+        @unsorted_numbers << element
+      elsif element.chr =~ /[A-Za-z]/
+        @unsorted_numbers << element
+      end
     end
 
     @numbers -= @unsorted_numbers

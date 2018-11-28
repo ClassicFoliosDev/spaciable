@@ -78,9 +78,12 @@ RSpec.describe "Sorting", type: :feature do
     development = create(:development, developer: developer)
     phase = create(:phase, development: development)
     create(:plot, number: "12", phase: phase)
+    create(:plot, number: "B2", phase: phase)
     create(:plot, number: "10", phase: phase)
-    create(:plot, number: "2C", phase: phase)
+    create(:plot, number: "C2", phase: phase)
+    create(:plot, number: "C1", phase: phase)
     create(:plot, number: "11E", phase: phase)
+    create(:plot, number: "B1", phase: phase)
     create(:plot, number: "1B", phase: phase)
     create(:plot, number: "103", phase: phase)
     create(:plot, number: "10.2", phase: phase)
@@ -93,15 +96,18 @@ RSpec.describe "Sorting", type: :feature do
       rows = page.all("tr")
 
       # Row 0 is the headers
-      expect(rows[1].text).to have_content("Plot 1")
-      expect(rows[2].text).to have_content("Plot 1B")
-      expect(rows[3].text).to have_content("Plot 2C")
-      expect(rows[4].text).to have_content("Plot 9")
-      expect(rows[5].text).to have_content("Plot 10")
-      expect(rows[6].text).to have_content("Plot 10.2")
-      expect(rows[7].text).to have_content("Plot 11E")
-      expect(rows[8].text).to have_content("Plot 12")
-      expect(rows[9].text).to have_content("Plot 103")
+      expect(rows[1].text).to have_content("Plot B1")
+      expect(rows[2].text).to have_content("Plot B2")
+      expect(rows[3].text).to have_content("Plot C1")
+      expect(rows[4].text).to have_content("Plot C2")
+      expect(rows[5].text).to have_content("Plot 1")
+      expect(rows[6].text).to have_content("Plot 1B")
+      expect(rows[7].text).to have_content("Plot 9")
+      expect(rows[8].text).to have_content("Plot 10")
+      expect(rows[9].text).to have_content("Plot 10.2")
+      expect(rows[10].text).to have_content("Plot 11E")
+      expect(rows[11].text).to have_content("Plot 12")
+      expect(rows[12].text).to have_content("Plot 103")
     end
 
     within "thead" do
@@ -118,9 +124,12 @@ RSpec.describe "Sorting", type: :feature do
       expect(rows[4].text).to have_content("Plot 10.2")
       expect(rows[5].text).to have_content("Plot 10")
       expect(rows[6].text).to have_content("Plot 9")
-      expect(rows[7].text).to have_content("Plot 2C")
-      expect(rows[8].text).to have_content("Plot 1B")
-      expect(rows[9].text).to have_content("Plot 1")
+      expect(rows[7].text).to have_content("Plot 1B")
+      expect(rows[8].text).to have_content("Plot 1")
+      expect(rows[9].text).to have_content("Plot C2")
+      expect(rows[10].text).to have_content("Plot C1")
+      expect(rows[11].text).to have_content("Plot B2")
+      expect(rows[12].text).to have_content("Plot B1")
     end
   end
 
