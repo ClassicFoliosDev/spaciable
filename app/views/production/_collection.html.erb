@@ -19,7 +19,8 @@
         <th><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></th>
         <th><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></th>
         <th><%= sortable({Plot => UnitType}, :id, t(".unit_type")) %></th>
-        <th><span class="date"><%= t(".date_r") %></span><span class="date"><%= t(".date_c") %></span></th>
+        <th><span class="date"><%= sortable(Plot, :reservation_release_date, t(".date_r")) %></span>
+            <span class="date"><%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -35,7 +36,8 @@
           <td><%= plot.unit_type %></td>
           <% res = plot.reservation_release_date? ? "green" : "white" %>
           <% comp = plot.completion_release_date? ? "green" : "white" %>
-          <td><span class = 'circle <%= res %>'>&nbsp;</span><span class = 'circle <%= comp %>'>&nbsp;</span></td>
+          <td><span class = 'circle <%= res %>'>&nbsp;</span>
+              <span class = 'circle <%= comp %>'>&nbsp;</span></td>
           <td class="actions">
             <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
             <%= delete_btn plot, path: url_for(plot), element: plot %>

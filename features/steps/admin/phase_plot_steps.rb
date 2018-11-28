@@ -97,10 +97,8 @@ Then(/^I should see that the phase plot deletion completed successfully$/) do
     expect(page).to have_content(PhasePlotFixture.phase_name)
   end
 
-  expect(page).not_to have_content(".record-list")
-
-  within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Plot.model_name.human)}}i
+  within ".plots" do
+    expect(page).not_to have_content PhasePlotFixture.updated_plot_name
   end
 end
 

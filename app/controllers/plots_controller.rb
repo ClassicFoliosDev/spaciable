@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
+
 class PlotsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -40,7 +42,8 @@ class PlotsController < ApplicationController
     BulkPlots::CreateService.call(@plot, params: plot_params) do |service, created_plots, errors|
       if created_plots.any?
         notice = t(".success", plots: created_plots.to_sentence, count: created_plots.count)
-        redirect_to [@parent.parent, @parent, active_tab: :plots], notice: notice, alert: errors
+        redirect_to [@parent.parent, @parent, active_tab: :production],
+                    notice: notice, alert: errors
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
@@ -68,7 +71,7 @@ class PlotsController < ApplicationController
     ResidentResetService.reset_all_residents_for_plot(@plot)
     @plot.destroy
     notice = t(".success", plot_name: @plot.to_s)
-    redirect_to [@parent.parent, @parent, active_tab: :plots], notice: notice
+    redirect_to [@parent.parent, @parent, active_tab: :production], notice: notice
   end
 
   private
@@ -126,3 +129,4 @@ class PlotsController < ApplicationController
     render file: "public/401.html", status: :unauthorized
   end
 end
+# rubocop:enable Metrics/ClassLength

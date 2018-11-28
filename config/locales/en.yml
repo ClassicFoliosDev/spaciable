@@ -730,7 +730,7 @@ en:
         subtitle: "Hoozzi has partnered with key providers who can help make your move as stress-free and as competitively priced
         as possible. By selecting any of the services below, Hoozzi Services will get you moving!"
         description_html: "<em>Quotations are free, and without obligation, so start saving today with Hoozzi Services.</em>"
-        submit: "Got it, let's go"
+        submit: "Submit"
       service:
         add: "Yes!"
       resident_services:
