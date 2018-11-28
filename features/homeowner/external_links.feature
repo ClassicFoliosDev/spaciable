@@ -12,3 +12,8 @@ Feature: Homeowner external links
     Then I should see the fixflo page
     When the expiry date is past
     Then I should not see the maintenance link
+
+  @javascript
+  Scenario:
+    Given I am logged in as a homeowner
+    Then I should see the RoomSketcher tab

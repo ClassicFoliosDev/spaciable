@@ -27,3 +27,7 @@ Then(/^I should not see the maintenance link$/) do
     expect(page).not_to have_content(I18n.t("components.homeowner.navigation.maintenance"))
   end
 end
+
+Then(/^I should see the RoomSketcher tab$/) do
+  expect(page).to have_content(I18n.t("layouts.homeowner.nav.room_sketcher"))
+end
