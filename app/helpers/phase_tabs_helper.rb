@@ -31,7 +31,8 @@ module PhaseTabsHelper
         link: [phase.parent, phase, active_tab: :documents]
       },
       contacts: {
-        icon: :vcard
+        icon: :vcard,
+        link: [phase.parent, phase, active_tab: :contacts]
       },
       progresses: {
         icon: "cogs",

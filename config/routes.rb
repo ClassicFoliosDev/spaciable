@@ -66,7 +66,7 @@ Rails.application.routes.draw do
   end
 
   resources :phases do
-    resources :plots, shallow: true, except: :index
+    resources :plots, except: :index
     resources :documents, only: [:new, :create]
     resources :plot_documents, only: [:index] do
       post :bulk_upload, on: :collection
@@ -75,7 +75,7 @@ Rails.application.routes.draw do
       post :bulk_update, on: :collection
     end
     resources :bulk_edit, only: [:index, :create]
-    resources :contacts, shallow: true
+    resources :contacts
   end
 
   resources :plots, only: [] do
