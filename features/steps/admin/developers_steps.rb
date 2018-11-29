@@ -22,6 +22,7 @@ Then(/^I should see the created developer$/) do
     expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.disabled")}")
     expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.disabled")}")
     expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.disabled")}")
+    expect(page).to have_content("#{t(".developers.developer.roomsketcher")} #{t("developers.developer.enabled")}")
   end
 end
 
@@ -42,6 +43,8 @@ When(/^I update the developer$/) do
   check "developer_house_search"
   check "developer_enable_services"
   check "developer_enable_development_messages"
+  uncheck "developer_enable_roomsketcher"
+
 
   click_on t("developers.form.submit")
 end
@@ -58,6 +61,7 @@ Then(/^I should see the updated developer$/) do
     expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.enabled")}")
     expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.enabled")}")
     expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.enabled")}")
+    expect(page).to have_content("#{t(".developers.developer.roomsketcher")} #{t("developers.developer.disabled")}")
   end
 
   within ".section-data" do

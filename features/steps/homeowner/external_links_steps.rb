@@ -28,6 +28,23 @@ Then(/^I should not see the maintenance link$/) do
   end
 end
 
-Then(/^I should see the RoomSketcher tab$/) do
+Given(/^the developer has enabled roomsketcher$/) do
+  developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
+  developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
+end
+
+Given(/^the developer has disabled roomsketcher$/) do
+  developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
+  developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
+
+  developer.update_attributes(enable_roomsketcher: false)
+end
+
+Then(/^I should see the roomsketcher link$/) do
   expect(page).to have_content(I18n.t("layouts.homeowner.nav.room_sketcher"))
+end
+
+Then(/^I should not see the roomsketcher link$/) do
+  visit "/"
+  expect(page).not_to have_content(I18n.t("layouts.homeowner.nav.room_sketcher"))
 end

@@ -792,6 +792,8 @@ en:
       house_search_description: "Provides an external link to BestArea4Me from the Hoozzi homeowner site"
       enable_services: "Enable homeowner to request services"
       services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
+      enable_roomsketcher: "Enable Room Sketcher"
+      roomsketcher_description: "Provide residents with a link to an external Room Sketcher utility"
       enable_messages: "Enable community messages"
       messages_description: "Allow development residents to share messages with each other"
       development_faqs: "Development FAQs"
@@ -821,6 +823,7 @@ en:
     developer:
       list_id: "List id: "
       none: "(not configured)"
+      roomsketcher: "Room Sketcher: "
       house_search: "Area guide: "
       services: "Services: "
       messages: "Community messages: "

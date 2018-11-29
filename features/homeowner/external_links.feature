@@ -16,4 +16,11 @@ Feature: Homeowner external links
   @javascript
   Scenario:
     Given I am logged in as a homeowner
-    Then I should see the RoomSketcher tab
+    And the developer has enabled roomsketcher
+    Then I should see the roomsketcher link
+
+  @javascript
+  Scenario:
+    Given I am logged in as a homeowner
+    And the developer has disabled roomsketcher
+    Then I should not see the roomsketcher link

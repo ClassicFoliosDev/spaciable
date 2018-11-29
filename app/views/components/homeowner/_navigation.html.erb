@@ -36,11 +36,13 @@
         </li>
       <% end %>
 
-      <a href="https://planner.roomsketcher.com/?ctxt=classic_folios_en" class="navbar-link branded-primary" target="_blank">
-        <li class="navbar-item branded-primary">
-          <%= t("layouts.homeowner.nav.room_sketcher") %>
-        </li>
-      </a>
+      <% if plot.enable_roomsketcher? %>
+        <a href="https://planner.roomsketcher.com/?ctxt=classic_folios_en" class="navbar-link branded-primary" target="_blank">
+          <li class="navbar-item branded-primary">
+            <%= t("layouts.homeowner.nav.room_sketcher") %>
+          </li>
+        </a>
+      <% end %>
 
       <% if plot.enable_services? %>
         <%= link_to services_path, class: "navbar-link branded-primary" do %>
