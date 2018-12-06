@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 module DocumentPreviewHelper
-  # Retrieve a preview thumbnail for a PDF with the correct content type set.
-  #
-  # Without overriding the content_type, the headers would return 'application/pdf'
-  # for the preview image, and all browsers except for Safari will show the image
-  # (regardless of the content type header). This fixes the preview thumbs for Safari.
   def document_preview_url(file)
-    return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
+    if file.type_pdf?
+      "pdf_icon.jpg"
+    else
+      return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
 
-    file.url(response_content_type: %( "image/svg+xml"))
+      file.url(response_content_type: %( "image/svg+xml"))
+    end
   end
 end

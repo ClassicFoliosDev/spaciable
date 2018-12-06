@@ -42,6 +42,12 @@ module DocumentLibraryService
   # for the preview image, and all browsers except for Safari will show the image
   # (regardless of the content type header). This fixes the preview thumbs for Safari.
   def library_preview_url(file)
-    file.preview&.url(response_content_type: %( "image/jpeg" ))
+    if file.type_pdf?
+      "pdf_icon.jpg"
+    else
+      return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
+
+      file.url(response_content_type: %( "image/svg+xml"))
+    end
   end
 end

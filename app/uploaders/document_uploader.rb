@@ -19,8 +19,10 @@ class DocumentUploader < CarrierWave::Uploader::Base
     image.write(current_path)
   end
 
+  # Removing call convert_to_image fixed issues related to pdf conversions by MiniMagick
+  # Review over time whether MiniMagick needs replacing or updating
   version :preview, if: :not_svg? do
-    process convert_to_image: [210, 297]
+    # process convert_to_image: [210, 297]
     process convert: :jpg
 
     def full_filename(for_file = model.file)
@@ -59,9 +61,18 @@ class DocumentUploader < CarrierWave::Uploader::Base
     90.minutes # will be converted to seconds,  (default is 10.minutes)
   end
 
+  def type_pdf?
+    pdf?(file)
+  end
+
   protected
 
   def not_svg?(new_file)
     !new_file.content_type.start_with? "image/svg+xml"
+    !new_file.content_type.start_with? "application/pdf"
+  end
+
+  def pdf?(new_file)
+    new_file.content_type.start_with? "application/pdf" if new_file.present?
   end
 end

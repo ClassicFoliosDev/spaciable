@@ -1,3 +1,4 @@
+@javascript
 Feature: Dashboard
   As an admin user
   I want to see the dashboard
