@@ -42,9 +42,7 @@ module DocumentLibraryService
     if file.type_pdf?
       "pdf_icon.jpg"
     else
-      return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
-
-      file.url(response_content_type: %( "image/svg+xml"))
+      file.preview&.url(response_content_type: %( "image/jpeg" ))
     end
   end
 end

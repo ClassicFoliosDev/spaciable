@@ -68,11 +68,11 @@ class DocumentUploader < CarrierWave::Uploader::Base
   protected
 
   def not_svg?(new_file)
-    (!new_file.content_type.start_with? "image/svg+xml") ||
+    new_file.present? && (!new_file.content_type.start_with? "image/svg+xml") ||
       (!new_file.content_type.start_with? "application/pdf")
   end
 
   def pdf?(new_file)
-    new_file.content_type.start_with? "application/pdf"
+    new_file.present? && (new_file.content_type.start_with? "application/pdf")
   end
 end
