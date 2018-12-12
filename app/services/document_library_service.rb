@@ -5,7 +5,6 @@ module DocumentLibraryService
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable MethodLength
-
   def call(documents, appliances)
     alldocuments = documents.map do |d|
       { name: d.title, link: d.file.url, category: d.category, id: d.id,
@@ -34,7 +33,6 @@ module DocumentLibraryService
 
     documents
   end
-
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable MethodLength
 

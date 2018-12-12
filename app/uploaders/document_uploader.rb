@@ -19,8 +19,6 @@ class DocumentUploader < CarrierWave::Uploader::Base
     image.write(current_path)
   end
 
-  # Removing call convert_to_image fixed issues related to pdf conversions by MiniMagick
-  # Review over time whether MiniMagick needs replacing or updating
   version :preview, if: :not_svg? do
     # process convert_to_image: [210, 297]
     process convert: :jpg
@@ -28,10 +26,6 @@ class DocumentUploader < CarrierWave::Uploader::Base
     def full_filename(for_file = model.file)
       super.chomp(File.extname(super)) + ".jpg"
     end
-  end
-
-  version :preview, if: :pdf? do
-    "pdf_icon.jpg"
   end
 
   # Override the directory where uploaded files will be stored.
@@ -72,11 +66,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   protected
 
   def not_svg?(new_file)
-    (!new_file.content_type.start_with? "image/svg+xml") && !pdf?(new_file) if new_file.present?
-  end
-
-  def pdf?(new_file)
-    (new_file.content_type.start_with? "application/pdf") if new_file.present?
+    !new_file.content_type.start_with? "image/svg+xml"
   end
 
   def pdf?(new_file)
