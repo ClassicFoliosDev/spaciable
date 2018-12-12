@@ -65,14 +65,14 @@ class DocumentUploader < CarrierWave::Uploader::Base
     90.minutes # will be converted to seconds,  (default is 10.minutes)
   end
 
-  def type_pdf?
-    pdf?(file)
+  def type_image?
+    not_svg?(file)
   end
 
   protected
 
   def not_svg?(new_file)
-    (!new_file.content_type.start_with? "image/svg+xml") if new_file.present?
+    (!new_file.content_type.start_with? "image/svg+xml") && !pdf?(new_file) if new_file.present?
   end
 
   def pdf?(new_file)
