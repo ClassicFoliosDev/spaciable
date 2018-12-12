@@ -39,10 +39,10 @@ module DocumentLibraryService
   # rubocop:enable MethodLength
 
   def library_preview_url(file)
-    if file.type_image?
-      file.preview&.url(response_content_type: %( "image/jpeg" ))
-    else
+    if file.type_pdf?
       "pdf_icon.jpg"
+    else
+      file.preview&.url
     end
   end
 end
