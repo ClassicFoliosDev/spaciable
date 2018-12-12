@@ -2,12 +2,8 @@
 
 module DocumentPreviewHelper
   def document_preview_url(file)
-    if file.type_image?
-      return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
+    return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
 
-      file.url(response_content_type: %( "image/svg+xml"))
-    else
-      "pdf_icon.jpg"
-    end
+    file.url(response_content_type: %( "image/svg+xml"))
   end
 end
