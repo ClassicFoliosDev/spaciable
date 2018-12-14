@@ -69,7 +69,13 @@ class DocumentUploader < CarrierWave::Uploader::Base
     !new_file.content_type.start_with? "image/svg+xml"
   end
 
+  # May return true for missing or error files, so that the file is processed is PDF,
+  # which means we will not try and preview it
   def pdf?(new_file)
-    new_file.content_type.start_with? "application/pdf" if file.present?
+    return true unless new_file
+    new_file.content_type.start_with? "application/pdf"
+  rescue Aws::S3::Errors::Forbidden
+    Rails.logger.info("S3 forbidden error, this may mean the file is not found in S3")
+    return true
   end
 end
