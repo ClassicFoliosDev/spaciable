@@ -71,7 +71,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
 
   # May return true for missing or error files, so that the file is processed is PDF,
   # which means we will not try and preview it
-  def pf?(new_file)
+  def pdf?(new_file)
     return true unless new_file
     new_file.content_type.start_with? "application/pdf"
   rescue Aws::S3::Errors::Forbidden
