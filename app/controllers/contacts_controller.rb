@@ -90,7 +90,7 @@ class ContactsController < ApplicationController
   end
 
   def set_parent
-    @parent = @development || @division || @developer || @phase || @contact&.contactable
+    @parent = @phase || @development || @division || @developer || @contact&.contactable
     @contact&.contactable = @parent
   end
 end
