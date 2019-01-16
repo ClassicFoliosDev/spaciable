@@ -60,6 +60,10 @@
           <%= label_tag t("activerecord.attributes.brand.header_color") %><%= branded_color_preview(brand.header_color) if brand.header_color? %>
           <%= f.input :header_color, label: false %>
         </div>
+        <div class="topnav_text_color">
+          <%= label_tag t("activerecord.attributes.brand.topnav_text_color") %><%= branded_color_preview(brand.topnav_text_color) if brand.topnav_text_color? %>
+          <%= f.input :topnav_text_color, label: false %>
+        </div>
       </fieldset>
     </div>
   </div>

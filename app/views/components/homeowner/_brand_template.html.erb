@@ -20,6 +20,16 @@
     }
   <% end %>
 
+  <% if brand.branded_topnav_text_color %>
+    .branded-primary {
+      color: <%= brand.branded_topnav_text_color %>;
+    }
+  <% else %>
+    .branded-primary {
+      color: #18A895; // $primary-green;
+    }
+  <% end %>
+
   <% if brand.branded_text_color %>
    .branded-text {
       color: <%= brand.branded_text_color %>;
@@ -92,10 +102,6 @@
       color: <%= brand.branded_button_color %>;
     }
 
-    .branded-primary {
-      color: <%= brand.branded_button_color %>;
-    }
-
     .branded-titles h2 {
       color: <%= brand.branded_button_color %>;
     }
@@ -118,10 +124,6 @@
 
     .branded-btn:hover {
       background-color: #18A895; // $primary-green;
-    }
-
-    .branded-primary {
-      color: #18A895; // $primary-green;
     }
 
     .branded-titles h2.top-title {

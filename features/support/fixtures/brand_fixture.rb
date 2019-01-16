@@ -14,4 +14,8 @@ module BrandFixture
   def header_color
     "890033"
   end
+
+  def topnav_text_color
+    "#48f442"
+  end
 end

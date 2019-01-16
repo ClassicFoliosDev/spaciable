@@ -62,7 +62,7 @@ class BrandsController < ApplicationController
       :header_color,
       :logo_cache, :remove_logo,
       :banner_cache, :remove_banner,
-      :login_image,
+      :login_image, :topnav_text_color,
       :login_image_cache, :remove_login_image
     )
   end

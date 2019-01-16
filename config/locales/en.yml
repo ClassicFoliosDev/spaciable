@@ -103,7 +103,7 @@ en:
         contacts: "Contacts"
         how_to: "How To"
         faqs: "FAQs"
-        room_sketcher: "Room Sketcher"
+        room_sketcher: "Home Designer"
       sub_nav:
         rooms: "Rooms"
         appliances: "Appliances"
@@ -1796,9 +1796,10 @@ en:
         text_color: "Text colour"
         content_bg_color: "Content box colour"
         content_text_color: "Content box outline colour"
-        button_color: "Button colour"
-        button_text_color: "Button text colour"
+        button_color: "Static: Button fill. Hover: Text colour"
+        button_text_color: "Static: Button text/stroke. Hover: Button fill"
         header_color: "Header colour"
+        topnav_text_color: "Top nav text colour"
       resident:
         titles:
           mr: "Mr"

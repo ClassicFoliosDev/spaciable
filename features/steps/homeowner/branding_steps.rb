@@ -13,7 +13,8 @@ Given(/^I have configured branding$/) do
                              bg_color: "#FFFEEE",
                              text_color: "#646467",
                              button_color: "#A6A7B2",
-                             button_text_color: "#FCFBE3")
+                             button_text_color: "#FCFBE3",
+                             topnav_text_color: "#48f442")
 
   FactoryGirl.create(:brand, brandable: CreateFixture.division,
                              bg_color: "#000222",
@@ -56,6 +57,7 @@ Then(/^I should see the branding for my page$/) do
   expect(style['outerHTML']).to have_content("branded-btn { background-color: #776644")
   # button text color set on development, division, and developer: should be development color
   expect(style['outerHTML']).to have_content("branded-btn { color: #698492")
+  expect(style['outerHTML']).to have_content("branded-primary { color: #48f442")
 
   # banner set on development, division, and developer: should be development image
   expect(style['outerHTML']).to have_content("cala_banner.jpg")
@@ -194,5 +196,6 @@ Given(/^I have configured developer branding$/) do
                      bg_color: "#FFFEEE",
                      text_color: "#646467",
                      button_color: "#A6A7B2",
-                     button_text_color: "#FCFBE3")
+                     button_text_color: "#FCFBE3",
+                     topnav_text_color: "#48f442")
 end
