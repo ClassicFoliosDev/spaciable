@@ -22,6 +22,7 @@ class DocumentUploader < CarrierWave::Uploader::Base
   version :preview, if: :not_svg? do
     # process convert_to_image: [210, 297]
     process convert: :jpg
+    process resize_to_fill: [210, 297]
 
     def full_filename(for_file = model.file)
       super.chomp(File.extname(super)) + ".jpg"

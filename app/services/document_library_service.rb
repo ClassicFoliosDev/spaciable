@@ -37,8 +37,6 @@ module DocumentLibraryService
   # rubocop:enable MethodLength
 
   def library_preview_url(file)
-    return file.preview.url(response_content_type: %( "image/jpeg" )) if file.preview.present?
-
-    file.url(response_content_type: %( "image/svg+xml"))
+    file.preview&.url
   end
 end
