@@ -65,9 +65,6 @@ class PhasesController < ApplicationController
     elsif @active_tab == "documents"
       documents = @phase.documents.accessible_by(current_ability)
       paginate(sort(documents, default: :title))
-    elsif @active_tab == "contacts"
-      contacts = @phase.contacts.accessible_by(current_ability)
-      paginate(sort(contacts, default: :first_name))
     end
   end
 

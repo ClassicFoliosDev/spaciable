@@ -30,10 +30,7 @@ module PhaseTabsHelper
         icon: "file-pdf-o",
         link: [phase.parent, phase, active_tab: :documents]
       },
-      contacts: {
-        icon: :vcard,
-        link: [phase.parent, phase, active_tab: :contacts]
-      },
+      contacts: { icon: :vcard },
       progresses: {
         icon: "cogs",
         link: [phase, :progresses],

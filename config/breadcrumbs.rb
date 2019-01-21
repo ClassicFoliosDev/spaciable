@@ -538,6 +538,8 @@ crumb :contacts do |contact_parent|
       parent :division, contact_parent
     when :development
       parent :development, contact_parent
+    when :phase
+      parent :phase, contact_parent
   end
 end
 
