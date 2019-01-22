@@ -586,7 +586,7 @@ en:
       index:
         title: "Welcome to Frequently Asked Questions"
         try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
-    my_home:
+    rooms:
       show:
         view: "View room"
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."

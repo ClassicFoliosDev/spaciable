@@ -10,7 +10,7 @@
       <% end %>
 
       <% if plot.rooms.any? %>
-        <%= link_to homeowner_my_home_path, active_tab: "rooms",
+        <%= link_to homeowner_rooms_path, active_tab: "rooms",
                     class: "branded-primary #{'active' if active_tab == 'rooms' }" do %>
             <li class="navbar-item"><%= t(".rooms") %></li>
         <% end %>

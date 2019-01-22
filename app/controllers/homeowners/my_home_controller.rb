@@ -5,14 +5,13 @@ module Homeowners
     skip_authorization_check
 
     def show
-      @rooms = @plot.rooms
-                    .includes(:finish_rooms,
-                              :finishes,
-                              :finish_manufacturers,
-                              :appliance_rooms,
-                              :appliances,
-                              :appliance_manufacturers,
-                              :appliance_categories)
+      if @plot.unit_type.external_link?
+        redirect_to homeowner_about_path
+      elsif @plot.rooms.any?
+        redirect_to homeowner_rooms_path
+      else
+        redirect_to homeowner_library_path
+      end
     end
   end
 end
