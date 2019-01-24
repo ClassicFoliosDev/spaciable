@@ -1643,7 +1643,7 @@ en:
           exchange_ready: "Ready for exchange"
           complete_ready: "Ready to complete"
           completed: "Completed"
-          remove: "Remove progress status"
+          remove: "No progress status"
       plot_residency:
         roles:
           # Homeowner enum roles

@@ -8,6 +8,8 @@ class ResidentsController < ApplicationController
   load_and_authorize_resource :plot
   load_and_authorize_resource :resident
 
+  before_action :set_plot_residency, only: %i[update show edit]
+
   def index
     @residents = @plot.residents
 
@@ -33,16 +35,14 @@ class ResidentsController < ApplicationController
   end
 
   def update
-    if @resident.update(resident_params)
+    if @resident.update(resident_params) && @plot_residency.update(resident_role_params)
       notify_and_redirect(false)
     else
       render :edit
     end
   end
 
-  def show
-    @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: @resident.id)
-  end
+  def show; end
 
   def edit; end
 
@@ -64,6 +64,14 @@ class ResidentsController < ApplicationController
   end
 
   private
+
+  def resident_role_params
+    params.require(:resident).permit(:role)
+  end
+
+  def set_plot_residency
+    @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: @resident.id)
+  end
 
   def all_homeowners
     @plot.plot_residencies.where(role: nil) + @plot.plot_residencies.where(role: :homeowner)
@@ -136,7 +144,7 @@ class ResidentsController < ApplicationController
   end
 
   def resident_params
-    params.require(:resident).permit(:title, :first_name, :last_name, :email, :phone_number)
+    params.require(:resident).permit(:title, :first_name, :last_name, :role, :email, :phone_number)
   end
 end
 # rubocop:enable Metrics/ClassLength

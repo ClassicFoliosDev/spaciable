@@ -7,4 +7,4 @@
   </div>
 </div>
 
-<%= render 'form', resident: @resident, plot: @plot %>
+<%= render 'form', resident: @resident, plot: @plot, :locals => {:role => @plot_residency.role} %>

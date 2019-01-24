@@ -38,9 +38,9 @@
           <div class="ui-front select-container">
             <%= f.input :role,
             as: :select,
-            selected: :homeowner,
             collection: roles_collection,
-            include_blank: false %>
+            include_blank: false,
+            selected: locals[:role] %>
           </div>
 
           <%= f.input :email, required: true %>
