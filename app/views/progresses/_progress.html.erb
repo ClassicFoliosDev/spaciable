@@ -5,7 +5,7 @@
       <div class="row-item half">
         <div class="plot_progress ui-front select-container">
           <label><%= t(".update_progress") %></label>
-          <%= f.select :progress, options_for_select(progress_collection(progress_id)) %>
+          <%= f.select :progress, options_for_select(progress_collection(plot&.progress)), label: false %>
         </div>
       </div>
 
