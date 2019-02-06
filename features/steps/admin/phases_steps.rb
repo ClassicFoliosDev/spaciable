@@ -23,10 +23,6 @@ end
 When(/^I create a phase for the development$/) do
   goto_development_show_page
 
-  within ".tabs" do
-    click_on t("developments.collection.phases")
-  end
-
   click_on t("phases.collection.add")
 
   fill_in "phase_name", with: CreateFixture.phase_name
@@ -72,10 +68,6 @@ end
 
 When(/^I delete the phase$/) do
   goto_development_show_page
-
-  within ".tabs" do
-    click_on t("developments.collection.phases")
-  end
 
   delete_and_confirm!
 end

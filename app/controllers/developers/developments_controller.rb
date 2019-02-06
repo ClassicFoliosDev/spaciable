@@ -12,7 +12,7 @@ module Developers
     end
 
     def show
-      @active_tab = params[:active_tab] || "unit_types"
+      @active_tab = params[:active_tab] || "phases"
 
       @collection = if @active_tab == "unit_types"
                       paginate(sort(@development.unit_types, default: :name))
@@ -73,7 +73,7 @@ module Developers
     # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
-        :name,
+        :name, :business,
         :developer_id,
         :division_id,
         :email,

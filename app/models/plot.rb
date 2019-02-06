@@ -10,6 +10,7 @@ class Plot < ApplicationRecord
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
+  delegate :business, to: :development, prefix: true
   def parent
     phase || development
   end

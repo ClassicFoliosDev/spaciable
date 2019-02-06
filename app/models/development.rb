@@ -47,6 +47,11 @@ class Development < ApplicationRecord
   delegate :to_s, to: :name
   delegate :development_faqs, to: :parent
 
+  enum business: [
+    :core, # default
+    :nhbc
+  ]
+
   def brand_any
     return brand if brand
     return parent.brand if parent&.brand

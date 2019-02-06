@@ -16,6 +16,7 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :name %>
+        <%= f.input :business, as: :select, collection: development_businesses_collection, include_blank: false %>
       </fieldset>
     </div>
     <div class="row-item third">

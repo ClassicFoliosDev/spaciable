@@ -45,7 +45,7 @@ module Csv
       [
         "Developer", "Division", "Development", "Phase", "Plot", "Legal completion date",
         "Reservation release date", "Completion release date", "Validity (months)",
-        "Extended access (months)", "Expiry date", "BA4M enabled", "Services enabled",
+        "Extended access (months)", "Expiry date", "Business", "BA4M enabled", "Services enabled",
         "Defects subscribed", "Residents invited", "Residents accepted", "Build progress"
       ]
     end
@@ -72,6 +72,7 @@ module Csv
         plot.validity,
         plot.extended_access,
         plot.expiry_date,
+        I18n.t("activerecord.attributes.development.businesses.#{plot.development_business}"),
         plot.house_search,
         plot.enable_services?,
         plot.show_maintenance?

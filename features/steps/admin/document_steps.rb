@@ -265,10 +265,6 @@ end
 When(/^I upload a document for the division phase$/) do
   goto_division_development_show_page
 
-  within ".tabs" do
-    click_on t("developments.collection.phases")
-  end
-
   within ".phases" do
     click_on CreateFixture.division_phase_name
   end

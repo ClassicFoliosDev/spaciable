@@ -60,6 +60,7 @@ Feature: UnitTypes
     When there is a division development unit type
     Then I should not be able to clone a unit type
 
+  @javascript
   Scenario: Development Admin
     Given I am a Development Admin
     When I navigate to the development

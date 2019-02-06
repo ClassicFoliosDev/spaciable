@@ -573,6 +573,8 @@ en:
       back: "Back"
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
       maintenance_tip: "Make sure you use the plugin-friendly version of a URL, for more details see http://www.fixflo.com/tech/plugin-example/"
+      business: "Business"
+
     index:
       add: "Add development"
     development:
@@ -580,6 +582,7 @@ en:
       private_documents: "Documents from all residents: "
       none: "(not configured)"
       maintenance_link: "Maintenance link: "
+      business: "Business: "
 
   homeowners:
     faqs:
@@ -1608,6 +1611,9 @@ en:
         email: "Email address"
         contact_number: "Contact number"
         updated_at: "Last edited"
+        businesses:
+          core: "Core"
+          nhbc: "NHBC"
       phase:
         name: "Name"
         updated_at: "Last edited"

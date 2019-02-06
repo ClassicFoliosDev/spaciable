@@ -2,6 +2,7 @@
 
 module Homeowners
   class LibraryController < Homeowners::BaseController
+    include TabsConcern
     skip_authorization_check
     before_action :set_categories
 
@@ -10,6 +11,9 @@ module Homeowners
       @documents = Document.accessible_by(current_ability).where(category: @category)
       @appliances = []
       @homeowner = current_resident&.plot_residency_homeowner?(@plot)
+
+      # If there are no documents of the required category, redirect to the next tab with content
+      redirect_to first_populated_tab_after(@category) if @documents.none?
     end
 
     def update
@@ -25,11 +29,14 @@ module Homeowners
 
     def appliance_manuals
       @category = "appliances"
-
       @appliances = Appliance.accessible_by(current_ability)
-      @documents = []
 
-      render :index
+      if @appliances.any?
+        @documents = []
+        render :index
+      else
+        redirect_to first_populated_tab_after(@category)
+      end
     end
 
     private

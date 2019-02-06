@@ -69,10 +69,6 @@ module GotoPage
   def goto_phase_show_page
     goto_development_show_page
 
-    within ".tabs" do
-      click_on t("developments.collection.phases")
-    end
-
     within ".phases" do
       click_on CreateFixture.phase_name
     end

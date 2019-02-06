@@ -74,6 +74,10 @@ end
 When(/^I delete the unit type$/) do
   goto_development_show_page
 
+  within ".tabs" do
+    click_on t("developments.collection.unit_types")
+  end
+
   within ".unit-types" do
     expect(page).to have_content CreateFixture.unit_type_name
   end
@@ -99,6 +103,9 @@ end
 When(/^I navigate to the development$/) do
   visit "/"
   goto_development_show_page
+  within ".tabs" do
+    click_on t("developments.collection.unit_types")
+  end
 end
 
 Then(/^I should not be able to create a unit type$/) do
@@ -113,6 +120,9 @@ end
 When(/^I navigate to the division development$/) do
   visit "/"
   goto_division_development_show_page
+  within ".tabs" do
+    click_on t("developments.collection.unit_types")
+  end
 end
 
 When(/^I clone the unit type$/) do

@@ -233,6 +233,10 @@ end
 Then(/^I should see the unit type still has appliance and finish$/) do
   goto_development_show_page
 
+  within ".tabs" do
+    click_on t("developments.collection.unit_types")
+  end
+
   within ".record-list" do
     click_on CreateFixture.unit_type_name
   end
