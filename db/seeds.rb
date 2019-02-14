@@ -13,7 +13,6 @@ if DefaultFaq.none?
   load(Rails.root + "db/seeds/default_faqs.rb")
 end
 
-
 if User.cf_admin.none?
   admin_email = "admin@alliants.com"
   admin_password = "12345678"
@@ -59,3 +58,4 @@ load(Rails.root + "db/seeds/finishes_seeds.rb")
 load(Rails.root + "db/seeds/how_to_sub_category_seeds.rb")
 load(Rails.root + "db/seeds/services_seeds.rb")
 load(Rails.root + "db/seeds/settings_seeds.rb")
+load(Rails.root + "db/seeds/default_spanish_faqs.rb")
