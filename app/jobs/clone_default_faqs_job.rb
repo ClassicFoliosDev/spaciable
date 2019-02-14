@@ -3,12 +3,12 @@
 class CloneDefaultFaqsJob < ApplicationJob
   queue_as :admin
 
-  def perform(faqable_type:, faqable_id:)
+  def perform(faqable_type:, faqable_id:, country_id:)
     ActiveRecord::Base.connection_pool.with_connection do
       model = faqable_type.constantize.find(faqable_id)
       existing_questions = model.faqs.pluck(:question)
 
-      default_faq_attributes.each do |default_faq|
+      default_faq_attributes(country_id).each do |default_faq|
         next if existing_questions.include?(default_faq[:question])
         model.faqs.create(default_faq)
       end
@@ -17,8 +17,8 @@ class CloneDefaultFaqsJob < ApplicationJob
 
   private
 
-  def default_faq_attributes
-    DefaultFaq.all.map do |default_faq|
+  def default_faq_attributes(country_id)
+    DefaultFaq.where(country_id: country_id).map do |default_faq|
       {
         question: default_faq.question,
         answer: default_faq.answer,

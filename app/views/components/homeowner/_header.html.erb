@@ -10,7 +10,8 @@
           <%= link_to image_tag(brand&.branded_logo ? brand.branded_logo : "logo.png"), homeowner_dashboard_path %>
         </div>
         <div class="navigation">
-          <%= render "components/homeowner/navigation", plot: plot %>
+          <!-- pass the country to the navigation -->
+          <%= render "components/homeowner/navigation", plot: plot, country: country %>
         </div>
       </div>
     </nav>

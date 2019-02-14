@@ -7,7 +7,9 @@ module Homeowners
     skip_authorization_check
 
     before_action :authenticate_resident!, :set_unread, if: -> { current_resident }
-    before_action :validate_ts_and_cs, :set_plot, :set_brand
+    # set_country to enable all country specific filtering in derived
+    # controllers and views
+    before_action :validate_ts_and_cs, :set_plot, :set_country, :set_brand
 
     layout "homeowner"
 
@@ -46,6 +48,12 @@ module Homeowners
       end
 
       redirect_to new_resident_session_path if @plot.nil?
+    end
+
+    # Plot has a 'belongs_to developer' and delevoper has a 'belongs_to country' which
+    # means you can plot.developer.country and the dataabase will retrieve it automatically
+    def set_country
+      @country = @plot&.developer&.country
     end
 
     def current_resident_plots

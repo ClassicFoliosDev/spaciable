@@ -4,10 +4,12 @@ module HomeownerUserFixture
   module_function
 
   def create
-    developer = FactoryGirl.create(:developer, company_name: developer_name)
+    country = FactoryGirl.create(:country)
+    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
     division = FactoryGirl.create(:division, division_name: division_name, developer_id: developer.id)
     development = FactoryGirl.create(:development, name: development_name, division_id: division.id, developer_id: developer.id)
     phase = FactoryGirl.create(:phase, name: phase_name, development_id: development.id)
+
     plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id, prefix: "Flat")
 
     resident = create_without_residency
@@ -46,7 +48,8 @@ module HomeownerUserFixture
     second_division_development_plot = FactoryGirl.create(:plot, phase_id: second_division_development_phase.id)
     FactoryGirl.create(:plot_residency, plot_id: second_division_development_plot.id, resident_id: resident.id)
 
-    second_developer = FactoryGirl.create(:developer)
+    country = FactoryGirl.create(:country)
+    second_developer = FactoryGirl.create(:developer, country_id: country.id)
     second_developer_development = FactoryGirl.create(:development, developer_id: second_developer.id)
     second_developer_development_phase = FactoryGirl.create(:phase, development_id: second_developer_development.id)
     second_developer_development_plot = FactoryGirl.create(:plot, phase_id: second_developer_development_phase.id)

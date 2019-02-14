@@ -9,11 +9,14 @@
 # File.open(Rails.root + "db/seeds/faqs.rb", "wb+") { |f| f.write("[" + faqs.join(", ") + "]") }
 # ```
 
+UK_id = Country.find_by(name: "UK").id
+
 [{
   question: %(There is a white powder on my walls. Is this a defect?),
   answer: %(<p>No. You may notice a white, chalk-like substance on the exterior brickwork of your new home.&nbsp; This isn&rsquo;t a defect, just the natural salts escaping from the building materials.&nbsp; Efflorescence will be washed away naturally by rainfall and will stop once the salts are exhausted.&nbsp;</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(Why are there small cracks in my walls and ceilings?),
   answer: %(<p>The materials that were used to build your new home contained a lot of water. This water will take around 6–18 months to evaporate completely, which is known as the drying out process. During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur. One of these changes is small cracks appearing in plastered finishes, which can be filled using a suitable product and covered with paint.</p>
@@ -28,7 +31,8 @@
 
 <p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(Why has my bath or shower tray dropped?),
   answer: %(<p>The materials that were used to build your new home contained a lot of water. This water will take around 6–18 months to evaporate completely, which is known as the drying out process. During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur. One of the changes is that baths and shower trays may drop very slightly and will simply need to be resealed around the edges with a silicone sealant.</p>
@@ -43,7 +47,8 @@
 
 <p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(Why are screw/nail heads starting to show in the plastered surfaces?),
   answer: %(<p>The materials that were used to build your new home contained a lot of water. This water will take around 6–18 months to evaporate completely, which is known as the drying out process. During this time, the plasterwork in your home may shrink slightly, causing some small changes to occur. One of the changes is that nail or screw heads may pop out of plastered finishes and will need to be hammered or screwed down. The hole can then be filled with a suitable product and covered with paint.</p>
@@ -58,7 +63,8 @@
 
 <p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(How can I reduce condensation in my home?),
   answer: %(<p>Condensation is steam or water vapour, which reverts to water on contact with a cold surface. There are a few steps you can take to reduce condensation in your home:</p>
@@ -73,24 +79,28 @@
 
 <p>Despite taking these steps, condensation may still occur. Simply wipe the affected surface with a dry cloth to prevent moisture from soaking into finishes. Further information may be available in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(When can I redecorate my home?),
   answer: %(<p>You should wait until the drying out process is complete before you begin to redecorate your home.&nbsp; This process can take between 6 and 18 months.&nbsp; Paint that is applied too soon may crack as the moisture in the construction evaporates.&nbsp;</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(Will my new utility companies already have my details?),
   answer: %(<p>We have advised the utility companies supplying your property that we no longer own your home but you will need to call them separately to register your details. You will also need to supply your meter readings from the day you moved in.</p>
 
 <p>You will find contact details for your utility suppliers in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(Does my local authority have my details?),
   answer: %(<p>You will need to contact your local authority to provide your details and set up your council tax payments. You can find their details in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(settling)
+  category: %(settling),
+  country_id: UK_id
 }, {
   question: %(What should I do if I smell gas?),
   answer: %(<ul>
@@ -101,17 +111,20 @@
 	<li>Call the free 24 hour National Gas Emergency helpline on 0800 111 999</li>
 </ul>
 ),
-  category: %(urgent)
+  category: %(urgent),
+  country_id: UK_id
 }, {
   question: %(Who should I contact if I have an urgent problem with my new home?),
   answer: %(<p>Please consult the advice contained in your homeowner&rsquo;s manual and get in touch with any emergency contacts provided. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(urgent)
+  category: %(urgent),
+  country_id: UK_id
 }, {
   question: %(There&rsquo;s damage to my roof. What should I do?),
   answer: %(<p>If you live in a freehold property, and the damage is as a result of bad weather conditions, please contact your insurance company. If you live in a leasehold property, and the damage is as a result of bad weather conditions, please contact your managing agent or landlord. For other roofing issues, please see the advice contained in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(urgent)
+  category: %(urgent),
+  country_id: UK_id
 }, {
   question: %(Why has an MCB tripped?),
   answer: %(<p>A miniature circuit breaker (MCB) on your consumer unit usually trips either because a light bulb has blown or a faulty appliance has overloaded the circuit or caused a short circuit somewhere in the system.&nbsp; Instead of just switching the MCB back on:</p>
@@ -127,7 +140,8 @@
 
 <p>It is important to note that some faults are intermittent and everything may work for a short time.&nbsp; In this case, don&rsquo;t keep switching the MCB and instead call a suitably qualified electrician to correct the fault.</p>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(I have no power or water. What should I do?),
   answer: %(
@@ -142,7 +156,8 @@
   <li>If you need to flush a toilet without any water supply, pour half a bucket of water down it to flush it manually</li>
 </ul>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(What should I do if I have no heating or hot water?),
   answer: %(<p>First check the following:</p>
@@ -156,7 +171,8 @@
 
 <p>In the event of a heating system breakdown, please consult your homeowner&rsquo;s manual for further advice, as the developer may be liable for issues occurring shortly after legal completion. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(My radiator is not heating properly. What should I do?),
   answer: %(<p>If you experience a radiator failing to heat this could be an indication of air in the system.&nbsp; This is a common problem, particularly in newly installed heating systems.&nbsp; In this instance, you should follow the steps below:</p>
@@ -167,12 +183,14 @@
 	<li>When water starts to escape from the radiator, close the bleed valve by turning it clockwise</li>
 </ul>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(I have heated towel rails – why does my bathroom feel cold?),
   answer: %(<p>If heated towel rails have been installed, they may be there not only to warm towels but also to heat the room.&nbsp; If your bathroom feels cold, it might be because you&rsquo;ve completely covered your rails with towels.</p>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(What should I do if one of my appliances is not working?),
   answer: %(<p>Generally, if an appliance is not working, you should consult the instruction manual and check whether:</p>
@@ -190,7 +208,8 @@
 
 <p>If you can&rsquo;t resolve the problem, please book a service call.</p>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(Why does my smoke alarm/heat detector keep beeping?),
   answer: %(<p>If a detector is beeping, this could mean that there&rsquo;s a fault or that the battery is low.</p>
@@ -199,14 +218,16 @@
 
 <p>Vacuuming them every now and then helps get rid of any dust, preventing false alarms.</p>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(I have spotted a water leak. What should I do?),
   answer: %(<p>Any leak that appears, however small, should be reported to your water supplier at your earliest convenience so that it can be rectified before it escalates into a more serious problem. Details of your water supplier can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 
 <p>If water is leaking within your home, turn off the supply at the stop tap or use buckets or towels to keep the water contained. You may find advice on who to contact within your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(Why is water draining slowly in my kitchen/bathroom?),
   answer: %(<p>Slow draining water, or water that is not draining at all, indicates a blockage. To clear a blockage:</p>
@@ -229,36 +250,42 @@
   <li>Use a plughole protector to prevent sink blockages</li>
 </ul>
 ),
-  category: %(troubleshooting)
+  category: %(troubleshooting),
+  country_id: UK_id
 }, {
   question: %(Are there any restrictions to attaching wall or floor fixings?),
   answer: %(<p>Before fixing to walls or floors, always check for pipes and cables beneath the surface using a detector. If your home has underfloor heating, do not drill into your floors.&nbsp; It is important to note that an area of at least 200mm on either side of wiring (switches or power points) must be avoided when applying fixings.</p>
 
 <p>Plasterboard should be able to take the weight of pictures and other light items using steel picture hooks or masonry nails.&nbsp; For medium to heavyweight fixtures, the fixing device should be long enough to bridge the cavity between the boards and the background, penetrating well into the background.&nbsp; A DIY store will be able to provide further advice.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(Where can I find information on how to look after my home&rsquo;s finishes and fittings?),
   answer: %(<p>Some advice on how to care for the finishes that may have been installed within your home has been provided in this section.</p>
 
 <p>Please see your homeowner&rsquo;s manual for further advice on how to care for your home&rsquo;s finishes and fittings. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(How can I protect my new carpet?),
   answer: %(<p>You should vacuum your carpet regularly in order to remove dirt and grit.&nbsp; Any stains should be treated as quickly as possible, blotting the area, not rubbing.&nbsp; For large or persistent stains, you should call a professional carpet cleaner.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(How can I protect my wooden flooring?),
   answer: %(<p>You should clean your wooden flooring regularly using dry cleaning methods, such as a vacuum cleaner or a soft broom.&nbsp; An entrance mat will reduce the amount of dirt and grit brought into your home, which can scratch your flooring.&nbsp; When necessary, use a mild household cleaner and a well wrung-out mop, keeping the amount of moisture used to a minimum.&nbsp; Spillages should be cleaned up straight away.&nbsp; Avoid dragging heavy objects across the floor and use felt pads or castor cups under furniture.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(How do I clean ceramic floor tiles?),
   answer: %(<p>You should clean ceramic floor tiles with a soft cloth and a mild detergent solution.&nbsp; Avoid cream cleaners and abrasive agents.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(My doors or windows are squeaking or stiff. What should I do?),
   answer: %(<p>Use a silicone type spray on the mechanism and hinges.</p>
@@ -267,44 +294,52 @@
 
 <p>Alternatively, you may need to adjust the door or window keep.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(Why is my gutter overflowing?),
   answer: %(<p>Materials that build up in gutters can slow water drainage from the roof, causing overflows, clogging of downpipes and interference with the guttering installation.&nbsp; Gutters should be checked every six months and leaves or other debris removed.&nbsp; Don&rsquo;t lean ladders against gutters, as this will cause distortion and permanent damage to the system.</p>
 
 <p>It is strongly advised that, unless you have suitable access equipment, you employ the services of a reputable contractor for this activity.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(Can I cover my air bricks?),
   answer: %(<p>If your home has a suspended ground floor, you will find air bricks outside at low level to provide ventilation.&nbsp; Please ensure that no rubbish, garden material or soil covers the damp-proof course or air bricks.&nbsp; Soil and paving or patio material should be kept a minimum of 150mm or two brick courses below the damp-proof course.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(When can I walk on my new lawn?),
   answer: %(<p>You should avoid walking on or mowing new turf for at least three weeks, but ensure that your lawn gets plenty of water during this time.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(Why is water pooling on my lawn?),
   answer: %(<p>This is because your ground&rsquo;s natural drainage has been affected by all the construction work.&nbsp; It will improve over the next 18 months and planting trees and shrubs will help to speed up this process.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(I&rsquo;ve got weeds growing on my driveway/patio. What should I do?),
   answer: %(<p>Regularly sweeping your driveway or patio will help keep weeds down.&nbsp;Pulling weeds up could cause damage, so instead spray them with weed killer.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(Why are my floors squeaking?),
   answer: %(<p>This is quite normal, due to the different materials we have used to build your home.&nbsp; We have made every effort to minimise this as much as possible.</p>
 ),
-  category: %(home)
+  category: %(home),
+  country_id: UK_id
 }, {
   question: %(Can I attach a television aerial to my home?),
   answer: %(<p>When you purchased your home, special terms and conditions were contained within your Title Deeds or Lease.&nbsp; They may restrict or prohibit items that can be attached to the outside of your home.&nbsp; You should check with us before attaching aerials to your home.</p>
 ),
-  category: %(general)
+  category: %(general),
+  country_id: UK_id
 }, {
   question: %(Will my existing TV Licence cover my new home?),
   answer: %(<p>Please be aware that your television licence doesn&rsquo;t automatically move with you, and it&rsquo;s important that you notify TV Licensing so they can transfer your licence to your new address:</p>
@@ -312,7 +347,8 @@
   <p>Telephone: 0300 790 6165<br>
   Website:  www.tvlicensing.co.uk</p>
 ),
-  category: %(general)
+  category: %(general),
+  country_id: UK_id
 }, {
   question: %(Can I make changes to the structure of my home?),
   answer: %(<p>When you purchased your home, special terms and conditions were contained within your Title Deeds or Lease.&nbsp; They may restrict or prohibit the changes that you can make to your home.&nbsp; You might also need planning permission from your local authority if you wish to build an extension or make changes that affect the external appearance of your home.</p>
@@ -332,7 +368,8 @@
 	<li>Beware of overhead dangers, e.g., power cables</li>
 </ul>
 ),
-  category: %(general)
+  category: %(general),
+  country_id: UK_id
 }, {
   question: %(What steps can I take to save energy and water?),
   answer: %(<p>To reduce your energy use:</p>
@@ -366,7 +403,8 @@
   <li>Reuse washing up water for your houseplants or garden</li>
 </ul>
 ),
-  category: %(general)
+  category: %(general),
+  country_id: UK_id
  }].each do |attrs|
   faq = DefaultFaq.find_or_initialize_by(attrs)
 

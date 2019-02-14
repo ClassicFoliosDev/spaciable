@@ -6,8 +6,9 @@ RSpec.describe "Pagination", type: :feature do
   it "provides page links" do
     login_as create(:cf_admin)
 
+    country = FactoryGirl.create(:country)
     77.times do |n|
-      FactoryGirl.create(:developer, company_name: "Developer #{n}")
+      FactoryGirl.create(:developer, company_name: "Developer #{n}", country_id: country.id)
     end
     visit "/developers"
 

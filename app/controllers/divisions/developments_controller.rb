@@ -36,10 +36,7 @@ module Divisions
 
     def create
       if @development.save
-        if @development.development_faqs
-          CloneDefaultFaqsJob.perform_later(faqable_type: "Development",
-                                            faqable_id: @development.id)
-        end
+        clone_default_faqs if @development.development_faqs
         notice = Mailchimp::SegmentService.call(@development)
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, :developments], notice: notice
@@ -80,6 +77,13 @@ module Divisions
         address_attributes: %i[postal_number road_name building_name
                                locality city county postcode]
       )
+    end
+
+    def clone_default_faqs
+      developer = Developer.find_by(id: @division.developer_id)
+      CloneDefaultFaqsJob.perform_later(faqable_type: "Development",
+                                        faqable_id: @development.id,
+                                        country_id: developer.country)
     end
   end
 end

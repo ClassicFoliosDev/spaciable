@@ -35,7 +35,6 @@ module Admin
     def scoped_by_params(developments)
       if params[:divisionId].present?
         developments.where(division_id: development_params[:divisionId])
-
       elsif params[:developerId].present?
         developments.by_developer_and_developer_divisions(development_params[:developerId])
       else

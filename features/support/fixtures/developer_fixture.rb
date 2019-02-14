@@ -45,7 +45,11 @@ module DeveloperFixture
   ].freeze
 
   def create_default_faqs
-    DEFAULT_FAQS.each { |attrs| FactoryGirl.create(:default_faq, attrs) }
+    countries = CreateFixture.create_countries
+    DEFAULT_FAQS.each do |attrs| 
+      attrs[:country_id] = Country.first.id
+      FactoryGirl.create(:default_faq, attrs)
+    end
   end
 
   def default_faqs

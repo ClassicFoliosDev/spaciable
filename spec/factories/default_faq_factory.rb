@@ -5,5 +5,6 @@ FactoryGirl.define do
     question { Faker::Lorem.sentence }
     answer { Faker::Lorem.paragraph(3) }
     category { :settling }
+    country_id { 1 }
   end
 end

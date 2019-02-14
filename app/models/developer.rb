@@ -22,6 +22,12 @@ class Developer < ApplicationRecord
   has_many :brands, as: :brandable
   has_one :address, as: :addressable, dependent: :destroy
 
+  # A developer belongs to a country - belongs_to adds a number of new helper
+  # methods to the class to allow easy access.  eg. you can call @devloper.country
+  # on a Developer object and it will retrieve the associated country from the Country
+  # table.
+  belongs_to :country
+
   amoeba do
     enable
   end
@@ -38,5 +44,12 @@ class Developer < ApplicationRecord
     find_each do |record|
       record.update_pg_search_document unless record.deleted?
     end
+  end
+
+  def clone_faqs
+    return if development_faqs
+    CloneDefaultFaqsJob.perform_later(faqable_type: "Developer",
+                                      faqable_id: id,
+                                      country_id: country_id)
   end
 end

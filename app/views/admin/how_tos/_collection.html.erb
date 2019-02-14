@@ -1,9 +1,11 @@
 <% if collection.empty? %>
-  <%= render 'components/empty_list', icon_name: "question-circle", type: HowTo, parent: "admin" %>
+  <!-- Give the empty_list the country so it can generate the correct link to a 'new' how_to for the correct country -->
+  <%= render 'components/empty_list', icon_name: "question-circle", type: HowTo, parent: "admin", params: { :country => country.name } %>
 <% else %>
   <% if can_create(HowTo, nil) %>
     <div class="section-actions">
-      <%= link_to new_admin_how_to_path, class: "btn btn-primary" do %>
+      <!-- Set the link for a new how_to including the country -->
+      <%= link_to new_admin_how_to_path(:country => country.name), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
       <% end %>

@@ -7,4 +7,4 @@
   </div>
 </div>
 
-<%= render 'form', faq: @faq, parent: nil %>
+<%= render 'form', faq: @faq, parent: nil, :locals => {:country => @parent.country} %>

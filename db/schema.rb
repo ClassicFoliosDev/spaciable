@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190205100802) do
+ActiveRecord::Schema.define(version: 20190207231105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,12 @@ ActiveRecord::Schema.define(version: 20190205100802) do
     t.index ["deleted_at"], name: "index_contacts_on_deleted_at", using: :btree
   end
 
+  create_table "countries", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "default_faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
@@ -163,6 +169,7 @@ ActiveRecord::Schema.define(version: 20190205100802) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer  "country_id", null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -195,6 +202,7 @@ ActiveRecord::Schema.define(version: 20190205100802) do
     t.boolean  "enable_development_messages", default: false
     t.boolean  "development_faqs",            default: false
     t.boolean  "enable_roomsketcher",         default: true
+    t.integer  "country_id",                                  null: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -375,6 +383,7 @@ ActiveRecord::Schema.define(version: 20190205100802) do
     t.string   "additional_text"
     t.integer  "how_to_sub_category_id"
     t.boolean  "hide",                   default: false
+    t.integer  "country_id",                             null: false
     t.index "lower(description) varchar_pattern_ops", name: "search_index_on_how_to_description", using: :btree
     t.index "lower(summary) varchar_pattern_ops", name: "search_index_on_how_to_summary", using: :btree
     t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree

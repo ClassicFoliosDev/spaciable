@@ -16,7 +16,8 @@ module PhasePlotFixture
   end
 
   def create_developer
-    FactoryGirl.create(:developer, company_name: developer_name)
+    country = FactoryGirl.create(:country)
+    FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
   end
 
   def create_contact(development)

@@ -100,7 +100,8 @@ Then(/^I should see the configured branding$/) do
 end
 
 Given(/^the resident also has an unbranded plot$/) do
-  developer = FactoryGirl.create(:developer)
+  country = FactoryGirl.create(:country)
+  developer = FactoryGirl.create(:developer, country_id: country.id)
   division = FactoryGirl.create(:division, developer: developer)
   development = FactoryGirl.create(:development, division: division)
   phase = FactoryGirl.create(:phase, development: development)

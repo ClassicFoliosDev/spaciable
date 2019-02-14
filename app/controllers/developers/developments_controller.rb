@@ -39,7 +39,8 @@ module Developers
       if @development.save
         if @development.development_faqs
           CloneDefaultFaqsJob.perform_later(faqable_type: "Development",
-                                            faqable_id: @development.id)
+                                            faqable_id: @development.id,
+                                            country_id: @developer.country_id)
         end
         notice = Mailchimp::SegmentService.call(@development)
         notice = t(".success", development_name: @development.name) if notice.nil?

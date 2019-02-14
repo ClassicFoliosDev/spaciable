@@ -29,7 +29,7 @@
           <fieldset>
             <%= f.input :category,
                 as: :select,
-                collection: Faq.categories,
+                collection: Faq.country_categories(locals[:country]),
                 label_method: ->((key, _)) { t_enum(Faq, :category, key) },
                 value_method: ->((key, _)) { key } %>
           </fieldset>

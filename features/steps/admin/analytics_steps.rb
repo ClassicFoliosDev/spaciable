@@ -140,13 +140,15 @@ Then(/^the all developer CSV contents are correct$/) do
 end
 
 Given(/^there is another developer with a division and development$/) do
-  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil)
+  country = FactoryGirl.create(:country)
+  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil, country_id: country.id)
   FactoryGirl.create(:division, division_name: AnalyticsFixture.division_name, developer: developer)
   FactoryGirl.create(:development, name: AnalyticsFixture.development_name, developer: developer)
 end
 
 Given(/^there is another developer with no children$/) do
-  FactoryGirl.create(:developer, company_name: AnalyticsFixture.other_developer_name, house_search: nil)
+  country = FactoryGirl.create(:country)
+  FactoryGirl.create(:developer, company_name: AnalyticsFixture.other_developer_name, house_search: nil, country_id: country.id)
 end
 
 Given(/^there is another development for the division$/) do

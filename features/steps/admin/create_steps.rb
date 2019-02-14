@@ -129,6 +129,7 @@ Given(/^there is an appliance with a guide$/) do
 end
 
 Given(/^I have seeded the database$/) do
+  CreateFixture.create_countries
   load Rails.root.join("db", "seeds.rb")
 end
 

@@ -33,9 +33,7 @@ class DevelopersController < ApplicationController
 
   def create
     if @developer.save
-      unless @developer.development_faqs
-        CloneDefaultFaqsJob.perform_later(faqable_type: "Developer", faqable_id: @developer.id)
-      end
+      @developer.clone_faqs
 
       redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
@@ -66,6 +64,7 @@ class DevelopersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def developer_params
     params.require(:developer).permit(
+      :country_id,
       :company_name, :email,
       :contact_number, :about,
       :api_key, :house_search,

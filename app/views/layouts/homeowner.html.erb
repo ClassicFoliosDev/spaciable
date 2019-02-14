@@ -4,7 +4,8 @@
       <%= render 'cookies_eu/consent_banner', link: '/cookies_policy', target: '_blank' %>
       <div class="content-container">
         <div class="header-container">
-          <%= render 'components/homeowner/header', brand: @brand, unread_count: @unread_count, plot: @plot, plots: @plots %>
+          <!-- pass the country to the header -->
+          <%= render 'components/homeowner/header', brand: @brand, unread_count: @unread_count, plot: @plot, plots: @plots, country: @country %>
         </div>
 
           <%= render "components/flashes" %>

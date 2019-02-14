@@ -7,22 +7,25 @@ module Homeowners
     load_and_authorize_resource :how_to, except: %i[list_how_tos show_how_to]
 
     def index
-      @categories = HowTo.categories.keys
       @category = how_to_params[:category]
       tag_id = how_to_params[:tag]
 
-      @how_tos = if tag_id
-                   @category = nil
-                   @tag = Tag.find(tag_id)
-                   @tag.how_tos.active.includes(:how_to_tags).order(created_at: :desc)
-                 else
-                   @how_tos.active.where(category: @category)
-                           .includes(:how_to_tags).order(created_at: :desc)
-                 end
+      # Populated categories associated with the country.  If there is a tag_id then
+      # show all categories
+      populate_categories(tag_id)
+
+      @how_tos = tag_id ? process_tag(tag_id) : process_category
+
+      # Redirect to next populated if empty && categories available
+      redirect_to homeowner_how_tos_path(@categories.first) if !tag_id &&
+                                                               @categories.any? &&
+                                                               !@categories.include?(@category)
     end
 
     def list_how_tos
-      category = :home
+      # Set the default category according to country in case /homeowner/how_tos gets called
+      # without a category
+      category = @country.uk? ? :home : :buying
       category = params[:category] if params[:category]
 
       how_tos = HowTo.where(category: category).order(created_at: :desc)
@@ -46,6 +49,35 @@ module Homeowners
 
     def how_to_params
       params.permit(:category, :tag)
+    end
+
+    # Calculated the populated categories
+    def populate_categories(tag_id)
+      @categories = []
+      HowTo.country_categories(@country).each do |cat|
+        @categories << cat if tag_id ||
+                              @how_tos.active
+                                      .where(category: cat)
+                                      .includes(:how_to_tags)
+                                      .order(created_at: :desc).any?
+      end
+    end
+
+    # return the how_tos that match country/tags
+    def process_tag(tag_id)
+      @category = nil
+      @tag = Tag.find(tag_id)
+      @tag.how_tos.active
+          .where(country_id: @country.id)
+          .includes(:how_to_tags)
+          .order(created_at: :desc)
+    end
+
+    def process_category
+      @how_tos.active
+              .where(category: @category)
+              .includes(:how_to_tags)
+              .order(created_at: :desc)
     end
   end
 end

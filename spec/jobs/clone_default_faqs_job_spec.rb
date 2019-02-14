@@ -8,14 +8,14 @@ RSpec.describe CloneDefaultFaqsJob do
     default_faqs = create_list(:default_faq, 5)
 
     expect do
-      described_class.perform_now(faqable_type: "Developer", faqable_id: developer.id)
+      described_class.perform_now(faqable_type: "Developer", faqable_id: developer.id, country_id: 1)
     end.to change { developer.faqs.count }.by(default_faqs.count)
   end
 
   describe "to allow user to run the seeds more than once" do
     it "should not create duplicate FAQs on consecutive runs" do
       developer = create(:developer)
-      clone_default_faqs = -> { described_class.perform_now(faqable_type: "Developer", faqable_id: developer.id) }
+      clone_default_faqs = -> { described_class.perform_now(faqable_type: "Developer", faqable_id: developer.id, country_id: 1) }
 
       create_list(:default_faq, 5)
       clone_default_faqs.call

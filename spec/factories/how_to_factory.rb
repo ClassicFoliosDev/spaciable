@@ -6,6 +6,7 @@ FactoryGirl.define do
     summary { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph(3) }
     category { 0 }
+    country_id { 1 }
   end
 
   trait :with_tag do

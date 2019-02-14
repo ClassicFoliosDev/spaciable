@@ -6,6 +6,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     contact_number { "+44 #{Faker::Number.number(9)}" }
     about { Faker::Lorem.paragraph(3) }
+    country_id { 1 }
 
     trait :with_residents do
       after(:create) do |developer|

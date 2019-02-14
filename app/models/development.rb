@@ -45,7 +45,7 @@ class Development < ApplicationRecord
   delegate :building_name, :road_name, :locality,
            :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
-  delegate :development_faqs, to: :parent
+  delegate :development_faqs, :country, to: :parent
 
   enum business: [
     :core, # default

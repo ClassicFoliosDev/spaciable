@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Given(/^I am a (\(\w+\) )?(\w+) Admin and I want to manage FAQs$/) do |parent_type, admin_type|
+  CreateFixture.create_countries
   FaqsFixture.create_developer_division_development_divdevelopment
 
   admin = FaqsFixture.create_admin(admin_type, parent_type)

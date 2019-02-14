@@ -16,6 +16,9 @@
     </div>
   <% end %>
 
+  <!-- Hidden postback field with the country_id in.  -->
+  <%= f.hidden_field :country_id, value: country.id %>
+
   <div class="row how-to">
     <div class="row-item half">
       <fieldset>
@@ -43,7 +46,8 @@
     <div class="row-item half">
       <fieldset>
         <div class="category ui-front select-container">
-          <%= f.input :category, as: :select, collection: how_to_category_collection, include_blank: false %>
+          <!-- Only show the categories for the current country -->
+          <%= f.input :category, as: :select, collection: how_to_category_collection(country), include_blank: false %>
         </div>
         <div class="sub-category ui-front select-container">
           <%= f.association :how_to_sub_category, collection: sub_categories, label: t(".subcategory"), prompt: t(".choose") %>
@@ -72,7 +76,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), admin_how_tos_path, class: "btn" %>
+      <%= link_to t(".back"), admin_how_tos_path(:country  => country.name), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

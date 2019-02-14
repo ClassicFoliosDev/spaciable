@@ -6,4 +6,7 @@
   </div>
 </div>
 
-<%= render_collection @how_tos, path_prefix: "admin" %>
+<!-- Add tabs for countries -->
+<%= render 'components/tabs', tabs: country_tabs(@country) %>
+
+<%= render_collection @how_tos, path_prefix: "admin", country: @country%>

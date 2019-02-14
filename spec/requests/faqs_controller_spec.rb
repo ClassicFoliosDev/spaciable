@@ -80,6 +80,7 @@ RSpec.describe FaqsController do
     context "as a DeveloperAdmin" do
       context "for a developer faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           login_as admin
           get url_for([:new, admin.permission_level, :faq])
@@ -90,6 +91,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
 
@@ -102,6 +104,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
 
@@ -116,6 +119,7 @@ RSpec.describe FaqsController do
     context "as a DivisionAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:division_admin)
           login_as admin
           get url_for([:new, admin.permission_level.developer, :faq])
@@ -126,6 +130,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:division_admin)
 
           login_as admin
@@ -137,6 +142,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
 
@@ -151,6 +157,7 @@ RSpec.describe FaqsController do
     context "as a DevelopmentAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:development_admin)
           login_as admin
           get url_for([:new, admin.permission_level.developer, :faq])
@@ -161,6 +168,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should redirect to the root url" do
+          create(:country)
           division_development = create(:division_development)
           admin = create(:development_admin, permission_level: division_development)
 
@@ -173,6 +181,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:development_admin)
 
           login_as admin
@@ -186,6 +195,7 @@ RSpec.describe FaqsController do
     context "as a SiteAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:site_admin)
           login_as admin
           get url_for([:new, admin.permission_level.developer, :faq])
@@ -225,6 +235,7 @@ RSpec.describe FaqsController do
     context "as a DeveloperAdmin" do
       context "for a developer faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           login_as admin
           post url_for([admin.permission_level, :faqs]), params: params
@@ -235,6 +246,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
 
@@ -247,6 +259,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
 
@@ -261,6 +274,7 @@ RSpec.describe FaqsController do
     context "as a DivisionAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:division_admin)
           login_as admin
           post url_for([admin.permission_level.developer, :faqs]), params: params
@@ -271,6 +285,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:division_admin)
 
           login_as admin
@@ -282,6 +297,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
 
@@ -296,6 +312,7 @@ RSpec.describe FaqsController do
     context "as a DevelopmentAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:development_admin)
           login_as admin
           post url_for([admin.permission_level.developer, :faqs]), params: params
@@ -306,6 +323,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should redirect to the root url" do
+          create(:country)
           division_development = create(:division_development)
           admin = create(:development_admin, permission_level: division_development)
 
@@ -318,6 +336,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:development_admin)
 
           login_as admin
@@ -331,6 +350,7 @@ RSpec.describe FaqsController do
     context "as a SiteAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:site_admin)
           login_as admin
           post url_for([admin.permission_level.developer, :faqs]), params: params
@@ -341,6 +361,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should redirect to the root url" do
+          create(:country)
           division_development = create(:division_development)
           admin = create(:site_admin, permission_level: division_development)
 
@@ -353,6 +374,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:site_admin)
 
           login_as admin
@@ -368,6 +390,7 @@ RSpec.describe FaqsController do
     context "as a DeveloperAdmin" do
       context "for a developer faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           faq = create(:faq, faqable: admin.permission_level)
 
@@ -380,6 +403,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
           faq = create(:faq, faqable: division)
@@ -393,6 +417,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           development = create(:development, developer: admin.permission_level)
           faq = create(:faq, faqable: development)
@@ -408,6 +433,7 @@ RSpec.describe FaqsController do
     context "as a DivisionAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:division_admin)
           faq = create(:faq, faqable: admin.permission_level.developer)
 
@@ -420,6 +446,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:division_admin)
           faq = create(:faq, faqable: admin.permission_level)
 
@@ -432,6 +459,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:division_admin)
           division_development = create(:division_development, division: admin.permission_level)
           faq = create(:faq, faqable: division_development)
@@ -447,6 +475,7 @@ RSpec.describe FaqsController do
     context "as a DevelopmentAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:development_admin)
           faq = create(:faq, faqable: admin.permission_level.developer)
 
@@ -459,6 +488,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should redirect to the root url" do
+          create(:country)
           division_development = create(:division_development)
           admin = create(:development_admin, permission_level: division_development)
           faq = create(:faq, faqable: division_development.division)
@@ -472,6 +502,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:development_admin)
           faq = create(:faq, faqable: admin.permission_level)
 
@@ -486,6 +517,7 @@ RSpec.describe FaqsController do
     context "as a SiteAdmin" do
       context "for a developer faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:site_admin)
           faq = create(:faq, faqable: admin.permission_level.developer)
 
@@ -498,6 +530,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should redirect to the root url" do
+          create(:country)
           division_development = create(:division_development)
           admin = create(:site_admin, permission_level: division_development)
           faq = create(:faq, faqable: division_development.division)
@@ -511,6 +544,7 @@ RSpec.describe FaqsController do
 
       context "for a development faq" do
         it "should redirect to the root url" do
+          create(:country)
           admin = create(:site_admin)
           faq = create(:faq, faqable: admin.permission_level)
 
@@ -529,6 +563,7 @@ RSpec.describe FaqsController do
     context "as a DeveloperAdmin" do
       context "for a developer faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           faq = create(:faq, faqable: admin.permission_level)
 
@@ -541,6 +576,7 @@ RSpec.describe FaqsController do
 
       context "for a division faq" do
         it "should return ok" do
+          create(:country)
           admin = create(:developer_admin)
           division = create(:division, developer: admin.permission_level)
           faq = create(:faq, faqable: division)

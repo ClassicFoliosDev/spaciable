@@ -139,7 +139,8 @@ module CreateFixture
 
   def create_developer
     return if developer
-    FactoryGirl.create(:developer, company_name: developer_name, house_search: true)
+    country = FactoryGirl.create(:country)
+    FactoryGirl.create(:developer, company_name: developer_name, house_search: true, country_id: country.id)
   end
 
   def create_division
@@ -183,6 +184,11 @@ module CreateFixture
     FactoryGirl.create(:appliance_manufacturer,
                        name: appliance_manufacturer_name,
                        link: manufacturer_link)
+  end
+
+  def create_countries
+    FactoryGirl.create(:country, name: "UK")
+    FactoryGirl.create(:country, name: "Spain")
   end
 
   def create_appliance
@@ -315,10 +321,11 @@ module CreateFixture
   end
 
   def create_how_tos
-    FactoryGirl.create(:how_to, :with_tag, category: "diy", title: how_to_name)
-    FactoryGirl.create(:how_to, :with_tag)
-    FactoryGirl.create(:how_to, :with_tag, category: "diy")
-    FactoryGirl.create(:how_to, :with_tag, hide: true, title: "Hidden how to")
+    country = Country.first || FactoryGirl.create(:country)
+    FactoryGirl.create(:how_to, :with_tag, category: "diy", title: how_to_name, country_id: country.id)
+    FactoryGirl.create(:how_to, :with_tag, country_id: country.id)
+    FactoryGirl.create(:how_to, :with_tag, category: "diy", country_id: country.id)
+    FactoryGirl.create(:how_to, :with_tag, hide: true, title: "Hidden how to", country_id: country.id)
   end
 
   def create_contacts

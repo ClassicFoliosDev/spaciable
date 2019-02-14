@@ -3,6 +3,7 @@
 When(/^I create a developer$/) do
   visit "/"
 
+  CreateFixture.create_countries
   within ".navbar" do
     click_on t("components.navigation.developers")
   end

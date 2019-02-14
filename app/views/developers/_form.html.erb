@@ -16,6 +16,9 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :company_name %>
+        <div class="featured ui-front">
+          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: developer.country_id != nil  %>
+        </div>
         <%= f.input :about %>
         <%= f.label t(".enable_house_search") %>
         <%= f.check_box :house_search %>

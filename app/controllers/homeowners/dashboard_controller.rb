@@ -27,7 +27,10 @@ module Homeowners
         how_tos_limit = 3
       end
 
-      @how_tos = HowTo.active.order(featured: :asc).limit(how_tos_limit)
+      # Filter the HowTo records according to the country
+      @how_tos = HowTo.active.order(featured: :asc)
+                      .where(country_id: @country.id)
+                      .limit(how_tos_limit)
     end
   end
 end
