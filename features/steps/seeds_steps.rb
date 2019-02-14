@@ -25,7 +25,7 @@ end
 Then(/^I should find the default FAQs$/) do
   default_faqs = DefaultFaq.all
 
-  expect(default_faqs.length).to eq 36
+  expect(default_faqs.length).to eq 50
   questions = default_faqs.pluck(:question)
   answers = default_faqs.pluck(:answer).join("")
 
@@ -58,5 +58,5 @@ end
 Then(/^I should not see duplicate seed content$/) do
   default_faqs = DefaultFaq.all
 
-  expect(default_faqs.length).to eq 36
+  expect(default_faqs.length).to eq 50
 end
