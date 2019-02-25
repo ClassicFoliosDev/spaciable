@@ -1,0 +1,73 @@
+<% breadcrumb :phase_release_plots, @phase %>
+
+<div class="section-header">
+  <div class="section-title">
+    <div><%= t(".title") %></div>
+    <span class="about"><%= t(".description") %></span>
+  </div>
+</div>
+
+<div class="bulk-edit">
+  <%= simple_form_for(:phase_release_plots, :defaults => {:required => false}) do |f| %>
+  <%= f.hidden_field :phase_id, value: @phase.id %>
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :mixed_list, as: :text, label: t(".mixed_list_label"), hint: t(".mixed_list_input_hint") %>
+      </fieldset>
+      <%= button_tag "Add All Plots", :type => 'button', class: "btn", id: 'add_plots' %>
+    </div>
+
+    <div class="row-item third">
+      <%= f.input :release_type,
+          as: :select,
+          collection: plot_release_types,
+          label_method: ->(release_type) { t( ".actions.#{release_type}") },
+          include_blank: false,
+          required: false,
+          input_html: { id: 'release_type' } %>
+
+
+      <div class="plot-field">
+        <%= f.input :release_date, as: :string,
+                  placeholder: "DD/MM/YYYY",
+                  input_html: { type: :date }
+                  %>
+      </div>
+
+      <div class="plot-field validity">
+        <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0, input_html: {value: 27 } %>
+      </div>
+
+      <div class="plot-field extended_access">
+        <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
+      </div>
+
+    </div>
+
+    <div class="row-item third">
+      <label><%= t(".email_receivers") %></label>
+      <ul>
+        <% @phase.release_users.each do |user| %>
+          <li><%= user[:email] %></li>
+        <% end %>
+      </ul>
+      <div class=send_to_all>
+            <%= f.input :send_to_admins, as: :boolean, label: t(".send_to_admins"), input_html: { checked: true }%>
+          </div>
+    </div>
+  </div>
+
+</div>
+<% end %>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), development_phase_path(@phase.parent, @phase), class: "btn" %>
+    <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit' %>
+  </div>
+</div>
+
+
+
+

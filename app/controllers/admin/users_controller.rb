@@ -68,17 +68,12 @@ module Admin
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(
-        :email, :role,
-        :first_name, :last_name,
-        :developer_id,
-        :division_id,
-        :development_id,
-        :permission_level_id,
-        :permission_level_type,
-        :password, :password_confirmation,
-        :current_password,
-        :picture, :picture_cache,
-        :job_title
+        :email, :role, :first_name, :last_name,
+        :developer_id, :division_id,
+        :development_id, :permission_level_id,
+        :permission_level_type, :password, :password_confirmation,
+        :current_password, :picture, :picture_cache,
+        :job_title, :receive_release_emails
       )
     end
   end

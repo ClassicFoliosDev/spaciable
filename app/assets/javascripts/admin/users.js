@@ -1,7 +1,7 @@
 /* global $, clearFields, setFields */
 
 document.addEventListener('turbolinks:load', function () {
-  var $roleSelect = $('.user_role select')
+  var $roleSelect = $('.user_role select, change')
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')
@@ -19,6 +19,8 @@ document.addEventListener('turbolinks:load', function () {
       showRoleResourcesOnly(role)
     }
   })
+
+  showRoleResourcesOnly ($('#user_role').val())  
 
   function developerSelectmenuCallbacks () {
     return {
@@ -122,15 +124,16 @@ document.addEventListener('turbolinks:load', function () {
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails').hide()
+      $("#plot_check").prop("checked", true);
     } else if (role === 'developer_admin') {
-      $('.user_developer_id').show()
+      $('.user_developer_id, .receive_plot_emails').show()
       $('.user_division_id, .user_development_id').hide()
     } else if (role === 'division_admin') {
-      $('.user_developer_id, .user_division_id').show()
+      $('.user_developer_id, .user_division_id, .receive_plot_emails').show()
       $('.user_development_id').hide()
     } else if ((role === 'development_admin') || (role === 'site_admin')) {
-      $('.user_developer_id, .user_division_id, .user_development_id').show()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails').show()
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };

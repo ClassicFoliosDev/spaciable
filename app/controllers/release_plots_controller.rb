@@ -1,0 +1,138 @@
+# frozen_string_literal: true
+
+class ReleasePlotsController < ApplicationController
+  load_and_authorize_resource :phase
+
+  # just show the base form
+  def index
+    return redirect_to root_path unless current_user.cf_admin?
+  end
+
+  # JSON javascrit handler to service the requests from the browser
+  def callback
+    render json: params[:req] == "validate" ? validate : all_plots
+  end
+
+  # Bulk update request to the specified plots
+  def create
+    map_params
+    plot = Plot.new(number: Plot::DUMMY_PLOT_NAME, phase: @phase)
+    BulkPlots::UpdateService.call(plot, params: @bu_params) do |_service, updated_plots, errors|
+      send_email(updated_plots)
+
+      redirect_to development_phase_path(@phase.parent, @phase),
+                  notice: success_notice(updated_plots), alert: errors
+    end
+  end
+
+  protected
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def r_params
+    params.permit(
+      %i[phase_id
+         mixed_list
+         release_type
+         release_date
+         validity
+         extended
+         plot_numbers
+         send_to_admins]
+    )
+  end
+
+  # Validate the request
+  def validate
+    # check Validity is valid if populated
+    if !r_params[:validity].empty? && r_params[:validity].to_i < 2
+      { valid: false, message: "Validity must be > 1" }
+    else
+      pre_submit_check
+    end
+  end
+
+  # Retrieve all the plots for the phase
+  def all_plots
+    { plots: Plot.where(phase_id: @phase.id).pluck(:number).natural_sort * "," }
+  end
+
+  # Get a success notice detailing the updated plot numbers
+  def success_notice(updated_plots)
+    if updated_plots.count == 1
+      t(".success_one", plot_number: updated_plots.first)
+    else
+      t(".success", plot_numbers: updated_plots.to_sentence)
+    end
+  end
+
+  # We are going to use the BulkPlots::UpdateService to do the actual update.  The requires us to
+  # map our params into an alternative set that will trigger the required functionality in
+  # bulk_update.  Why do I include unit_type_id_check?  There is a nasty hack in bulk update
+  # that reies on it's presence
+  def map_params
+    @bu_params = { list: r_params[:plot_numbers], unit_type_id_check: "0" }
+    map_validity
+    map_extended
+    return if r_params[:release_date].empty?
+    map_date
+    @bu_prams
+  end
+
+  def map_validity
+    return if r_params[:validity].empty?
+    @bu_params[:validity] = r_params[:validity]
+    @bu_params[:validity_check] = "1"
+  end
+
+  def map_extended
+    return if r_params[:extended].empty?
+    @bu_params[:extended_access] = r_params[:extended]
+    @bu_params[:extended_access_check] = "1"
+  end
+
+  def map_date
+    if r_params[:release_type] == "completion_release_date"
+      @bu_params[:completion_release_date] = r_params[:release_date]
+      @bu_params[:completion_release_date_check] = "1"
+    else
+      @bu_params[:reservation_release_date] = r_params[:release_date]
+      @bu_params[:reservation_release_date_check] = "1"
+    end
+  end
+
+  # Use the ReleaseService to check the data and report any erros, including plots that
+  # already have completion/reservation dates set where appropriate
+  def pre_submit_check
+    # if the release date is populated, we need to check the associated plots table column
+    # for non NULL entries
+    db_column = r_params[:release_date].empty? ? nil : r_params[:release_type]
+
+    # Go and service the request.
+    BulkPlots::ReleaseService.process(r_params[:phase_id], r_params[:mixed_list],
+                                      db_column) do |plots, error|
+      sorted_plots = plots.natural_sort * ","
+      release_date = r_params[:release_date].empty? ? nil : uk_date
+      if error
+        { valid: false, message: error }
+      else
+        { valid: true, num_plots: plots.length, plot_numbers: sorted_plots,
+          release_date: release_date }
+      end
+    end
+  end
+
+  # Give me a UK format date
+  def uk_date
+    Date.parse(r_params[:release_date]).strftime("%d/%m/%y")
+  end
+
+  # Use the ReleaseMailer to the email to concerned parties if necessary
+  def send_email(updated_plots)
+    return if r_params[:release_date].empty? # no mail sent for validity/extended updates
+    if r_params[:release_type] == "completion_release_date"
+      ReleaseMailer.completion_release_email(@phase, updated_plots, r_params).deliver
+    else
+      ReleaseMailer.reservation_release_email(@phase, updated_plots, r_params).deliver
+    end
+  end
+end

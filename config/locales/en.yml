@@ -34,6 +34,12 @@
 # ===========================================================
 
 en:
+
+  reservation_email:
+    title: "Your Hoozzi Reservation Plots are Live"
+  completion_email:
+    title: "Your Hoozzi Completion Plots are Live"
+
   date:
     formats:
       digits: "%d.%m.%Y"
@@ -189,6 +195,7 @@ en:
     brand_edit: "Edit %{name}"
     bulk_edit: "Bulk edit"
     production: "Production"
+    release_plots: "Release plots"
 
   pagination:
     per_page_10: "10"
@@ -387,6 +394,8 @@ en:
         confirm_password: "Confirm new password"
         current_password: "Current password"
         current_password2: "Only required for new password"
+        plot_emails: "Plot release and completion emails"
+        receive_plot_emails: "Receive Plot release and completion emails"
       index:
         title: "Admin users"
         add: "Add user"
@@ -1040,6 +1049,7 @@ en:
       progresses: "Phase build progress"
       bulk_edit: "Bulk edit"
       production: "Production"
+      release_plots: "Release plots"
     new:
       title: "New phase"
     update:
@@ -1543,6 +1553,23 @@ en:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
 
+  release_plots:
+    index:
+      title: "Release plots"
+      description: "Select plots to release, then select the fields to update for all selected plots"
+      back: "Back"
+      submit: "Submit"
+      send_to_admins: "Send email to admins and account management"
+      email_receivers: "Email recipients:"
+      actions:
+        reservation_release_date: "Reservation"
+        completion_release_date: "Completion"
+      mixed_list_input_hint: "Seperated by commas and tildas e.g. 'D1,B2,1,2,5,10,15,20~25,30~100"
+      mixed_list_label: "Select plots by list and range"
+    create:
+      success: "Successfully updated plots %{plot_numbers}"
+      success_one: "Successfully updated plot %{plot_number}"
+  
   production:
     index:
       title: "Production overview of plots"

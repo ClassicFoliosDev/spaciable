@@ -35,6 +35,11 @@
             value_method: :first,
             include_blank: t("users.choose"),
             selected: selected_role %>
+          <div class=receive_plot_emails>
+            <%= f.label t(".plot_emails") %>
+            <%= f.check_box :receive_release_emails, id: :plot_check, disabled: current_user.site_admin? %>
+            <p class="checkbox-description"><%= t(".receive_plot_emails") %></p>
+          </div>
       </fieldset>
     </div>
     <div class="row-item third">

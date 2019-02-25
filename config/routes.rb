@@ -76,6 +76,8 @@ Rails.application.routes.draw do
     end
     resources :bulk_edit, only: [:index, :create]
     resources :contacts
+    resources :release_plots, only: [:index, :create]
+    get 'callback', to: 'release_plots#callback', format: :json
   end
 
   resources :plots, only: [] do

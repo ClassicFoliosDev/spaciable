@@ -66,4 +66,6 @@ Rails.application.configure do
 
   config.enable_development_plots = false
   config.enable_thumbnails = true
+
+  config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
 end

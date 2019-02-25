@@ -69,4 +69,22 @@ class User < ApplicationRecord
       email
     end
   end
+
+  # Generate the list of user emails/names that currently will receive release plot updates
+  # for the supplied associations. Return the data in an array of hashes
+  # e.g.
+  # [{email: me@you.com, :first_name peter},
+  #  {email: him@you.com, :first_name john}]
+  def self.users_associated_with(assoiciations)
+    emails = []
+    assoiciations.each do |association|
+      details = User.where(receive_release_emails: true)
+                    .where(permission_level_type: association.class.to_s)
+                    .where(permission_level_id: association.id).pluck(:email, :first_name)
+
+      details.each { |d| emails << { email:  d[0], first_name: d[1] } }
+    end
+
+    emails
+  end
 end

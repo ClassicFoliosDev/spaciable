@@ -41,6 +41,12 @@ module PhaseTabsHelper
         link: [phase, :bulk_edit_index],
         # Only a CF admin can create appliances and make bulk edits
         permissions_on: -> { Appliance.new }
+      },
+      release_plots: {
+        icon: "rocket",
+        link: [phase, :release_plots],
+        # Only a CF admin can create appliances and make bulk edits
+        permissions_on: -> { Appliance.new }
       }
     }
   end

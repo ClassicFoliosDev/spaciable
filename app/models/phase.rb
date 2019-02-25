@@ -9,11 +9,14 @@ class Phase < ApplicationRecord
   multisearchable against: [:name], using: %i[tsearch trigram]
 
   belongs_to :development, optional: false, counter_cache: true
+  delegate :name, to: :development, prefix: true
   alias parent development
   include InheritParentPermissionIds
 
   belongs_to :developer, optional: false
+  delegate :company_name, to: :developer
   belongs_to :division, optional: true
+  delegate :division_name, to: :division
 
   has_many :plots
   has_many :plot_residencies, through: :plots
@@ -74,5 +77,10 @@ class Phase < ApplicationRecord
     find_each do |record|
       record.update_pg_search_document unless record.deleted?
     end
+  end
+
+  # Generate the list of emails that currently will receive release plot updates
+  def release_users
+    User.users_associated_with([developer, division, development])
   end
 end

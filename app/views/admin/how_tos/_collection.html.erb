@@ -15,11 +15,11 @@
   <table class="record-list how-tos">
     <thead>
       <tr>
-        <th><%= sortable(HowTo, :title) %></th>
-        <th><%= sortable(HowTo, :updated_at) %></th>
-        <th><%= sortable(HowTo, :category) %></th>
-        <th><%= sortable(HowTo, :featured) %></th>
-        <th><%= sortable(HowTo, :hide) %></th>
+        <th><%= sortable(HowTo, :title, sort_params: {country: country.name }) %></th>
+        <th><%= sortable(HowTo, :updated_at, sort_params: {country: country.name }) %></th>
+        <th><%= sortable(HowTo, :category, sort_params: {country: country.name }) %></th>
+        <th><%= sortable(HowTo, :featured, sort_params: {country: country.name }) %></th>
+        <th><%= sortable(HowTo, :hide, sort_params: {country: country.name }) %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>

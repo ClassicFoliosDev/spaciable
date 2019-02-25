@@ -195,6 +195,11 @@ crumb :phase_production do |phase|
   parent :phase, phase
 end
 
+crumb :phase_release_plots do |phase|
+  link t("breadcrumbs.release_plots"), phase_path(phase, active_tab: :release_plots)
+  parent :phase, phase
+end
+
 # PROGRESSES
 
 crumb :progresses do |phase|
