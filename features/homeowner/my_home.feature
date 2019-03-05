@@ -22,3 +22,12 @@ Feature: Homeowner MyHome
     Then I should see My Documents
     When I visit the Contacts page
     Then I should see no tabs
+
+  @javascript
+  Scenario:
+    Given I am logged in as a homeowner
+    And there is another tenant on the homeowner plot
+    Then I should see the tenant on my account
+    When I log out as a homeowner
+    And I log in as a tenant
+    Then I should not see the homeowner on my account

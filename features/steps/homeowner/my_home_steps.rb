@@ -83,3 +83,28 @@ Then(/^I should see no tabs$/) do
   expect(page).to_not have_content("Sales")
 end
 
+Then(/^I should see the tenant on my account$/) do
+  visit "/"
+
+  within ".session-inner" do
+    click_on t("homeowners.residents.show.my_account")
+  end
+
+  within ".other-residents" do
+    expect(page).to have_content t("homeowners.residents.show.other_residents")
+    expect(page).to have_content("tenant@example.com")
+  end
+end
+
+Then(/^I should not see the homeowner on my account$/) do
+  visit "/"
+
+  within ".session-inner" do
+    click_on t("homeowners.residents.show.my_account")
+  end
+
+  within ".branded-body" do
+    expect(page).to_not have_content t("homeowners.residents.show.other_residents")
+    expect(page).to_not have_content("homeowner@example.com")
+  end
+end

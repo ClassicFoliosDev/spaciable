@@ -148,8 +148,8 @@ When(/^I assign the same resident to the second plot$/) do
   end
 
   within ".new_resident" do
-    expect(page).to have_content I18n.t("activerecord.attributes.plot_residency.roles.homeowner")
-    expect(page).not_to have_content I18n.t("activerecord.attributes.plot_residency.roles.tenant")
+    expect(page).to have_content I18n.t("residents.form.full_access_description.overview")
+    expect(page).to have_content I18n.t("residents.form.limited_access_description.overview")
     select_from_selectmenu :resident_role, with: I18n.t("activerecord.attributes.plot_residency.roles.tenant")
     fill_in_resident_details(PlotResidencyFixture.attrs)
   end

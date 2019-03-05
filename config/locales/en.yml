@@ -614,8 +614,8 @@ en:
          constitute a contract, or warranty. The dimensions given on plans are subject to minor variations and are not
          intended to be used for carpet sizes, appliance sizes or items of furniture."
       update:
-         not_shared: "%{title} is no longer being shared with Tenant (Limited Access) users of %{address}"
-         shared: "%{title} is now being shared with Tenant (Limited Access) users of %{address}"
+         not_shared: "%{title} is no longer being shared with Limited Access Users of %{address}"
+         shared: "%{title} is now being shared with Limited Access Users of %{address}"
       appliance:
         manual: "Manual"
         guide: "Quick reference guide"
@@ -637,7 +637,7 @@ en:
       sharing_info:
         modal_title: "Hints & tips"
         dismiss: "Dismiss"
-        modal_content: "Tick the circles to select files you wish to share with Tenant (Limited Access) users and other residents of this plot"
+        modal_content: "Tick the circles to select files you wish to share with Limited Access Users and other residents of this plot"
         not_again: "Don't show this again"
     appliances:
       show:
@@ -680,8 +680,8 @@ en:
       edit:
         submit: "Save changes"
       update:
-         not_shared: "%{title} is no longer shared with Tenant (Limited Access) and other residents at %{address}"
-         shared: "%{title} is now shared with Tenant (Limited Access) and other residents at %{address}"
+         not_shared: "%{title} is no longer shared with Limited Access Users and other residents at %{address}"
+         shared: "%{title} is now shared with Limited Access Users and other residents at %{address}"
 
     residents:
       edit:
@@ -970,6 +970,21 @@ en:
       back: "Back"
       submit: "Submit"
       international: "Use international dialling code for non-UK numbers"
+      full_access_description:
+        title_html: "<strong>Full Access User</strong>"
+        overview: "Has access to the issue reporting system (if enabled on your development), can add additional Full or Limited Access Users to their home and can control which documents a Limited Access User can see. Suitable for:"
+        suitable_html: "<ul>
+          <li>Private Sale - The homeowner/purchaser.</li>
+          <li>Build to Rent - The tenant/resident where the property is rented directly from the developer.</li>
+          <li>PRS/Buy to Let - The homeowner or an agent, authorised by the homeowner, to manage the home on behalf of the homeowner.</li>
+          <li>Affordable Rent/Housing Association - The resident renting directly from the Housing Association.</li></ul>"
+      limited_access_description:
+        title_html: "<strong>Limited Access User</strong>"
+        overview: "Cannot access the issue reporting system (if enabled on your development), cannot add additional users and can only view documents designated by a Full Access User. Suitable for:"
+        suitable_html: "<ul>
+          <li>Traditional Sale - A resident of the property who is not the main owner/purchaser.</li>
+          <li>PRS/Buy to Let - A resident/tenant user who is renting the property from the homeowner.</li></ul>"
+
     new:
       title: "New %{plot} resident"
     show:
@@ -1680,8 +1695,8 @@ en:
       plot_residency:
         roles:
           # Homeowner enum roles
-          homeowner: "Homeowner (Full Access)"
-          tenant: "Tenant (Limited Access)"
+          homeowner: "Full Access User"
+          tenant: "Limited Access User"
       room:
         name: "Room name"
         updated_at: "Last edited"

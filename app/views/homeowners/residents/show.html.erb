@@ -45,46 +45,48 @@
 
     <%= link_to t(".intro_video"), about_video_path, class: "btn branded-btn video-link" %>
 
-    <div class="full branded-content branded-border">
-      <div class="other-residents">
-        <h4><%= t(".other_residents") %></h4>
-        <ul>
-          <% @all_residents.each do | resident | %>
-            <li>
-              <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
+    <% if !current_resident.plot_residency_tenant?(@plot) %>
+      <div class="full branded-content branded-border">
+        <div class="other-residents">
+          <h4><%= t(".other_residents") %></h4>
+          <ul>
+            <% @all_residents.each do | resident | %>
+              <li>
+                <%= resident[:name] %> <span class="email"><%= resident[:email] %></span>
 
-              <% if resident[:removeable] %>
-                <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
-                <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
-                <%= button_tag "", class: "btn prompt-remove",
-                  data: { title: t(".destroy"),
-                    cancel: t("destroy.cancel"),
-                    text: t(".confirm_text", name: resident[:name]),
-                    cta: t(".confirm_cta" ),
-                    details: confirm_resident,
-                    email: resident[:email]
-                  } do %>
-                  <i class="fa fa-times"></i>
+                <% if resident[:removeable] %>
+                  <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
+                  <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
+                  <%= button_tag "", class: "btn prompt-remove",
+                    data: { title: t(".destroy"),
+                      cancel: t("destroy.cancel"),
+                      text: t(".confirm_text", name: resident[:name]),
+                      cta: t(".confirm_cta" ),
+                      details: confirm_resident,
+                      email: resident[:email]
+                    } do %>
+                    <i class="fa fa-times"></i>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </li>
-          <% end %>
+              </li>
+            <% end %>
 
-          <% if @all_residents.count.zero? %>
-            <li><%= t(".none", plot: @plot) %></li>
+            <% if @all_residents.count.zero? %>
+              <li><%= t(".none", plot: @plot) %></li>
+            <% end %>
+          </ul>
+          <% if current_resident.plot_residency_homeowner?(@plot) %>
+            <div>
+              <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn branded-btn add-resident",
+              data: { cancel: t("edit.cancel"),
+                    cta: t(".send_invitation"),
+                    title: t(".invite", plot: @plot.to_homeowner_s),
+                    plot: @plot.id } %>
+            </div>
           <% end %>
-        </ul>
-        <% if current_resident.plot_residency_homeowner?(@plot) %>
-          <div>
-            <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn branded-btn add-resident",
-            data: { cancel: t("edit.cancel"),
-                  cta: t(".send_invitation"),
-                  title: t(".invite", plot: @plot.to_homeowner_s),
-                  plot: @plot.id } %>
-          </div>
-        <% end %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="full actions show-actions">
       <%= button_tag t(".deactivate"), class: "btn branded-btn destroy-resident",
