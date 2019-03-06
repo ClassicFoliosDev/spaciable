@@ -30,6 +30,7 @@
 
 .branded-text {
   display: block;
+  color: $type-grey;
 
   h1, h2, h3, h4, h5, h6, p, span {
     color: inherit;
@@ -52,12 +53,8 @@
   }
 }
 
-.invitation .register {
-  background-color: inherit;
-}
-
 .login, .sign-in {
-  background-color: inherit;
+  background-color: $primary-red;
 
   // Need to set defaults here for devise pages
   // They are set again in the branding template for all other pages
@@ -91,7 +88,7 @@
 // These colours will be over-ridden if branding is applied
 
 .top-title {
-  color: $primary-red;
+  color: $type-grey;
 }
 
 .second-title {

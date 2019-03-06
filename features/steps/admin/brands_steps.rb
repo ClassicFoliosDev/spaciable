@@ -198,7 +198,7 @@ When(/^I remove a login image from a brand$/) do
 
   within ".brand_login_image" do
     remove_btn = find(".remove-btn", visible: false)
-    remove_btn.click
+    find('.remove-btn').trigger('click')
   end
 
   click_on t("unit_types.form.submit")

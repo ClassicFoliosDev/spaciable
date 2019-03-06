@@ -39,10 +39,6 @@
 .login {
   color: $ui-white;
   border-color: $ui-white;
-
-  .branded-text {
-    color: $type-grey;
-  }
 }
 
 .login-logo {
@@ -115,7 +111,6 @@ label.login-checkbox {
   .register {
     @include span-columns(5 of 12);
     @include omega();
-    background-color: $primary-background;
     float: right;
     border-radius: ($border-radius * 2);
     padding: 80px $spacing-large 40px $spacing-large;

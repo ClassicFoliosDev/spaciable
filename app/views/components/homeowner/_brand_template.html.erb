@@ -181,4 +181,168 @@
       background-image: url(https://tinyurl.com/j6s6be3);
     }
   <% end %>
+
+
+  <%-# --- External Branding --- -%>
+
+  <%-# --- Branding for box (left/right) colour --- -%>
+
+  <% if brand.branded_login_box_left_color %>
+    .branded-left-box { background-color: <%= brand.branded_login_box_left_color %>; }
+  <% else %>
+    .branded-left-box { background-color: #F4F4F4; // $ui-white; }
+  <% end %>
+
+  <% if brand.branded_login_box_right_color %>
+    .branded-right-box { background-color: <%= brand.branded_login_box_right_color %>; }
+  <% else %>
+    .branded-right-box { background-color: #F7525E; // $primary-red; }
+  <% end %>
+
+
+  <%-# --- Branding for text (left/right) text colour --- -%>
+
+  <% if brand.branded_text_right_color %>
+    .branded-external-text, .branded-external-text a, .branded-external-text label {
+      color: <%= brand.branded_text_right_color %>;
+    }
+  <% else %>
+    .branded-external-text, .branded-external-text a, .branded-external-text label {
+      color: #FFFFFF; // $ui-white;
+    }
+  <% end %>
+
+  <% if brand.branded_text_left_color %>
+  .branded-left-text {
+    color: <%= brand.branded_text_left_color %>;
+  }
+  .branded-left-text h2 {
+    color: <%= brand.branded_text_left_color %>;
+  }
+  .branded-heading-two {
+    color: <%= brand.branded_text_left_color %>;
+  }
+  <% else %>
+  .branded-left-text {
+    color: #67747C; // $type-grey;
+  }
+  .branded-left-text h2 {
+    color: #67747C; // $type-grey;
+  }
+  .branded-heading-two {
+    color: #F7525E; // $primary-red;
+  }
+  <% end %>
+
+
+  <%-# --- Branding for submit / login button --- -%>
+  <%-# --- Both static and hover options need to be defined (or neither defined) in styling due to opposite-colour inheritance --- -%>
+
+  <% if brand.branded_login_button_static_color %>
+    .login .branded-submit, .invitation .branded-submit {
+      background-color: <%= brand.branded_login_button_static_color %>;
+    }
+    .login .branded-submit:hover, .invitation .branded-submit:hover {
+      color: <%= brand.branded_login_button_static_color %>;
+      border-color: <%= brand.branded_login_button_static_color %>;
+    }
+  <% else %>
+    .login .branded-submit, .invitation .branded-submit {
+      background-color: #FFFFFF; // $ui-white;
+    }
+    .login .branded-submit:hover, .invitation .branded-submit:hover {
+      color: #18A895; // $primary-green;
+      border-color: #18A895; // $primary-green;
+    }
+  <% end %>
+
+  <% if brand.branded_login_button_hover_color %>
+    .login .branded-submit, .invitation .branded-submit {
+      color: <%= brand.branded_login_button_hover_color %>;
+      border-color: <%= brand.branded_login_button_hover_color %>;
+    }
+    .login .branded-submit:hover, .invitation .branded-submit:hover {
+      background-color: <%= brand.branded_login_button_hover_color %>
+    }
+  <% else %>
+    .login .branded-submit, .invitation .branded-submit {
+      color: #F93549; // $primary-red;
+      border-color: #F7525E; // $primary-red;
+    }
+    .login .branded-submit:hover, .invitation .branded-submit:hover {
+      background-color: #FFFFFF; // $ui-white;
+    }
+  <% end %>
+
+
+  <%-# --- Branding for input (email, password) box and checkbox --- -%>
+
+  <% if brand.branded_content_box_color %>
+    .branded-content-box input {
+      background-color: <%= brand.branded_content_box_color %>;
+    }
+    .branded-content-box input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px <%= brand.branded_content_box_color %> inset;
+    }
+    .branded-content-box .branded-checkbox {
+      background-color: <%= brand.branded_content_box_color %>;
+      color: <%= brand.branded_content_box_color %>;
+    }
+  <% else %>
+    .branded-content-box input {
+      background-color: #FFFFFF; // $ui-white;
+    }
+    .branded-content-box input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px #FFFFFF inset; // $ui-white;
+    }
+    .branded-content-box .branded-checkbox {
+      background-color: #FFFFFF; // $ui-white;
+      color: #FFFFFF; // $ui-white;
+    }
+  <% end %>
+
+  <% if brand.branded_content_box_text %>
+    <%-# --- Inherit the checkmark colour from the input text colour --- -%>
+    .branded-content-box input[type=checkbox]:checked + i:before {
+      color: <%= brand.branded_content_box_text %>;
+    }
+    .branded-content-box input {
+      color: <%= brand.branded_content_box_text %>;
+    }
+    .branded-content-box input:-webkit-autofill {
+      -webkit-text-fill-color: <%= brand.branded_content_box_text %>;
+    }
+  <% else %>
+    .branded-content-box input[type=checkbox]:checked + i:before {
+      color: #F7525E; // $primary-red;
+    }
+    .branded-content-box input {
+      color: #000000;
+    }
+    .branded-content-box input:-webkit-autofill {
+      -webkit-text-fill-color: #000000;
+    }
+  <% end %>
+
+  <% if brand.branded_content_box_outline_color %>
+    .branded-content-box input {
+      border-color: <%= brand.branded_content_box_outline_color %>
+    }
+    .branded-content-box input:focus {
+      border-color: <%= brand.branded_content_box_outline_color %>
+    }
+    .branded-content-box .branded-checkbox {
+      border-color: <%= brand.branded_content_box_outline_color %>
+    }
+  <% else %>
+    .branded-content-box input {
+      border-color: #F7525E; // $primary-red;
+    }
+    .branded-content-box input:focus {
+      border-color: #F7525E; // $primary-red;
+    }
+    .branded-content-box .branded-checkbox {
+      border-color: #F7525E; // $primary-red;
+    }
+  <% end %>
 </style>

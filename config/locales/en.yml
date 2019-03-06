@@ -1842,7 +1842,8 @@ en:
           rental: "Rental Appeal"
           permanentliving: "Permanent Living in Spain"
       brand:
-        logo: "Logo"
+        logo: "Dashboard Logo"
+        login_image: "Login Background Image"
         banner: "Banner"
         styling: "Styling"
         for: "%{name} styling"
@@ -1854,6 +1855,20 @@ en:
         button_text_color: "Static: Button text/stroke. Hover: Button fill"
         header_color: "Header colour"
         topnav_text_color: "Top nav text colour"
+        login_box_left_color: "Login box colour (left)"
+        login_box_right_color: "Login box colour (right)"
+        login_button_static_color: "Static: Login button fill. Hover: Text colour"
+        login_button_hover_color: "Static: Login text/stroke. Hover: Button fill"
+        content_box_text_color: "Login content box text color"
+        content_box_color: "Login content box colour"
+        content_box_outline_color: "Login content box outline colour"
+        text_left_color: "Text colour (left)"
+        text_right_color: "Text colour (right)"
+        login_logo: "Login Logo"
+        heading_one: "Info heading one"
+        heading_two: "Info heading two"
+        custom_text: "Info text"
+
       resident:
         titles:
           mr: "Mr"

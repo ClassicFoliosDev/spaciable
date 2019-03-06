@@ -24,7 +24,6 @@
     .top-title {
       font-weight: bold;
       margin-bottom: 0;
-      color: $type-grey;
     }
   }
 
@@ -43,6 +42,7 @@
   img {
     @include span-columns(9 of 12);
     @include shift(1.5 of 12);
+    max-height: 250px;
   }
 
   .sign-in, .set-password {
@@ -51,7 +51,6 @@
     float: right;
     padding: 80px $spacing-medium 40px $spacing-medium;
     border-radius: 0 ($border-radius * 2) ($border-radius * 2) 0;
-    background-color: $primary-background;
 
     .notice, .alert {
       display: inline-block;
@@ -78,7 +77,22 @@
   }
 }
 
+.set-password {
+  background-color:  $primary-red;
+}
+
 .branded-input {
+  input[type="email"], input[type="password"] {
+    border-color: $primary-background;
+    white-space: normal;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $ui-white inset;
+  }
+}
+
+.branded-content-box {
   input[type="email"], input[type="password"] {
     border-color: $primary-background;
     white-space: normal;
@@ -114,10 +128,6 @@
 }
 
 .new-password {
-  label, a {
-    color: $ui-white;
-  }
-
   .copyright {
     margin-top: $spacing-medium;
     color: $ui-white;

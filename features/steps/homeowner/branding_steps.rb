@@ -14,18 +14,32 @@ Given(/^I have configured branding$/) do
                              text_color: "#646467",
                              button_color: "#A6A7B2",
                              button_text_color: "#FCFBE3",
-                             topnav_text_color: "#48f442")
+                             topnav_text_color: "#48f442",
+                             text_left_color: "#00FF49",
+                             text_right_color: "#0008FF",
+                             login_button_static_color: "#42697D",
+                             content_box_color: "#000000",
+                             login_button_hover_color: "#000000"
+                             )
 
   FactoryGirl.create(:brand, brandable: CreateFixture.division,
                              bg_color: "#000222",
                              content_bg_color: "#32344E",
                              button_text_color: "#4C4D64",
-                             header_color: "#222000")
+                             header_color: "#222000",
+                             login_box_right_color: "#00FF6C",
+                             content_box_color: "#FF0051",
+                             content_box_outline_color: "#616734",
+                             login_button_hover_color: "#56427D",
+                             login_box_left_color: "#000000",
+                             content_box_text: "#000000")
 
   FactoryGirl.create(:brand, brandable: CreateFixture.division_development,
                              content_text_color: "#446677",
                              button_color: "#776644",
-                             button_text_color: "#698492")
+                             button_text_color: "#698492",
+                             login_box_left_color: "#D800FF",
+                             content_box_text: "#427D56")
 end
 
 And(/^I have logged in as a resident and associated the division development plot$/) do
@@ -78,25 +92,32 @@ Then(/^I should see the configured branding$/) do
   end
 
   within ".preamble" do
-    # Background colour should be content bg color, set on developer and division: should be division
-    expect(page.body).to have_content "branded-content { background-color: #32344E"
-    # Text color should be text color, set on developer only
-    expect(page.body).to have_content "branded-text { color: #646467"
-    # Title color should be button (background) color, set on development and developer: should be development color
-    expect(page.body).to have_content "branded-titles h2 { color: #776644"
-    expect(page.body).to have_content "branded-titles h2:last-child { color: #776644"
+    # Left text color should be left text color, set on developer only
+    expect(page.body).to have_content "branded-left-text { color: #00FF49"
   end
 
-  # Label text should be text color, only set on developer
-  expect(page.body).to have_content "branded-primary-text { color: #646467"
-  # Input field background should be content bg color, set on developer and division: should be division
-  expect(page.body).to have_content ".branded-input input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #32344E"
-  # Input field border should be content border color, set on development only
-  expect(page.body).to have_content ".branded-input input[type=\"email\"] { border-color: #446677"
-  expect(page.body).to have_content ".branded-input input[type=\"password\"] { border-color: #446677"
-  # Link text should be button (background) color as text colour, set on development and developer: should be development color
-  expect(page.body).to have_content ".branded-primary-text label.checkbox { color: #776644"
-  expect(page.body).to have_content ".branded-primary-text a { color: #776644"
+  # Right text color should be branded external text, set on developer only
+  expect(page.body).to have_content "branded-external-text label { color: #0008FF"
+  # Left login box should be login box left color, set on division and development: should be development color
+  expect(page.body).to have_content "branded-left-box { background-color: #D800FF"
+  # Right login box should be login box right color, set on division only
+  expect(page.body).to have_content "branded-right-box { background-color: #00FF6C"
+  # Login content box and checkbox color should be content box color, set on developer and division: should be division color
+  expect(page.body).to have_content "branded-content-box input { background-color: #FF0051"
+  expect(page.body).to have_content "branded-content-box .branded-checkbox { background-color: #FF0051"
+  # Login content box and checkbox outline color should be content box outline color, set on division only
+  expect(page.body).to have_content "branded-content-box input { border-color: #616734"
+  expect(page.body).to have_content "branded-content-box .branded-checkbox { border-color: #616734"
+  # Login content box text and checkmark color should be content box text color, set on development and division: should be development color
+  expect(page.body).to have_content "branded-content-box input { color: #427D56"
+  expect(page.body).to have_content "branded-content-box input[type=checkbox]:checked + i:before { color: #427D56"
+  # Login button background color and hover text color should be login button static color, set on developer only
+  expect(page.body).to have_content "branded-submit { background-color: #42697D"
+  expect(page.body).to have_content "branded-submit:hover { color: #42697D"
+  # Login button hover background color and static text color should be login button hover color, set on division and developer: should be division color
+  expect(page.body).to have_content "branded-submit:hover { background-color: #56427D"
+  expect(page.body).to have_content "branded-submit { color: #56427D"
+
 end
 
 Given(/^the resident also has an unbranded plot$/) do

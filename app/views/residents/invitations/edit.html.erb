@@ -1,35 +1,35 @@
-<div class="invitation branded-content">
-  <div class="register">
+<div class="invitation branded-left-box">
+  <div class="register branded-right-box branded-external-text">
     <div class="login-logo">
-      <%= image_tag brand_or_white_logo(@brand) %>
+      <%= image_tag login_brand_or_white_logo(@brand) %>
     </div>
 
     <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put } do |f| %>
       <%= devise_error_messages! %>
       <%= f.hidden_field :invitation_token %>
 
-      <div class="branded-primary-text">
+      <div class="branded-content-box branded-primary-text branded-external-text">
         <%= f.input :password, autocomplete: "off" %>
         <%= f.input :password_confirmation, autocomplete: "off" %>
 
         <%= f.label :subscribe_emails, class: "login-checkbox" do %>
           <%= f.check_box :subscribe_emails, class: "branded-input subscribe-emails" %>
-          <i class="fa fa-check"></i> <span><%= t(".subscribe_email") %></span>
+          <i class="fa fa-check branded-checkbox"></i> <span><%= t(".subscribe_email") %></span>
         <% end %>
 
         <%= f.label :ts_and_cs_accepted, class: "login-checkbox" do %>
           <%= f.check_box :ts_and_cs_accepted, class: "accept-ts-and-cs", checked: false %>
-          <i class="fa fa-check"></i> <span><%= t(".accept_ts_and_cs") %></span>
+          <i class="fa fa-check branded-checkbox"></i> <span><%= t(".accept_ts_and_cs") %></span>
         <% end %>
       </div>
 
-      <%= f.button :submit, t(".submit_button"), class: "continue branded-btn", disabled: true %>
+      <%= f.button :submit, t(".submit_button"), class: "continue branded-btn branded-submit", disabled: true %>
 
-      <div class="information branded-primary-text">
+      <div class="information branded-primary-text branded-external-text">
         <p><%= t('.policy_instructions', :href1 => link_to(t(".terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t(".policy"), data_policy_path, target: "_blank")).html_safe %></p>
       </div>
 
-      <div class="information branded-primary-text">
+      <div class="information branded-primary-text branded-external-text">
         <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
       </div>
   <% end %>
@@ -37,14 +37,13 @@
 
   <div class="preamble">
     <div class="content">
-      <div class="titles branded-titles">
-        <h2><%= t '.welcome' %></h2>
+      <div class="titles branded-left-text">
         <h2><%= t '.welcome2' %></h2>
       </div>
 
-      <p class="branded-text"><%= t '.welcome3' %></p>
+      <p class="branded-left-text"><%= t '.welcome3' %></p>
 
-      <ul class="branded-text">
+      <ul class="branded-left-text">
         <li><span><%= t '.documents' %></span></li>
         <li><span><%= t '.appliances' %></span></li>
         <li><span><%= t '.contact' %></span></li>

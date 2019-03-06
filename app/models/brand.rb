@@ -1,16 +1,19 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Brand < ApplicationRecord
   include ActiveModel::Validations
 
   mount_uploader :logo, PictureUploader
   mount_uploader :banner, PictureUploader
   mount_uploader :login_image, PictureUploader
-  attr_accessor :logo_cache, :banner_cache, :login_image_cache
+  mount_uploader :login_logo, PictureUploader
+  attr_accessor :logo_cache, :banner_cache, :login_image_cache, :login_logo_cache
 
   delegate :url, to: :banner, prefix: true
   delegate :url, to: :logo, prefix: true
   delegate :url, to: :login_image, prefix: true
+  delegate :url, to: :login_logo, prefix: true
 
   belongs_to :brandable, polymorphic: true
 
@@ -19,7 +22,16 @@ class Brand < ApplicationRecord
                                               content_bg_color
                                               content_text_color
                                               button_color
-                                              button_text_color]
+                                              button_text_color
+                                              login_box_left_color
+                                              login_box_right_color
+                                              login_button_static_color
+                                              login_button_hover_color
+                                              content_box_text
+                                              content_box_color
+                                              content_box_outline_color
+                                              text_left_color
+                                              text_right_color]
 
   def branded_text_color
     branded_param(:text_color)
@@ -53,12 +65,64 @@ class Brand < ApplicationRecord
     branded_param(:topnav_text_color)
   end
 
+  def branded_login_box_left_color
+    branded_param(:login_box_left_color)
+  end
+
+  def branded_login_box_right_color
+    branded_param(:login_box_right_color)
+  end
+
+  def branded_login_button_static_color
+    branded_param(:login_button_static_color)
+  end
+
+  def branded_login_button_hover_color
+    branded_param(:login_button_hover_color)
+  end
+
+  def branded_content_box_color
+    branded_param(:content_box_color)
+  end
+
+  def branded_content_box_outline_color
+    branded_param(:content_box_outline_color)
+  end
+
+  def branded_content_box_text
+    branded_param(:content_box_text)
+  end
+
+  def branded_text_left_color
+    branded_param(:text_left_color)
+  end
+
+  def branded_text_right_color
+    branded_param(:text_right_color)
+  end
+
+  def branded_heading_one
+    branded_param(:heading_one)
+  end
+
+  def branded_heading_two
+    branded_param(:heading_two)
+  end
+
+  def branded_info_text
+    branded_param(:info_text)
+  end
+
   def to_s
     I18n.t("activerecord.attributes.brand.for", name: brandable)
   end
 
   def branded_logo
     branded_image(:logo_url)
+  end
+
+  def branded_login_logo
+    branded_image(:login_logo_url)
   end
 
   def branded_banner
@@ -102,3 +166,4 @@ class Brand < ApplicationRecord
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

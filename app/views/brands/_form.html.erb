@@ -1,25 +1,23 @@
 <%= simple_form_for([parent, brand], url: [parent, :brand]) do |f| %>
   <% if brand.errors.any? %>
-    <div class="submission-errors">
-      <ul>
-        <% brand.errors.full_messages.each do |message| %>
-          <li>
-            <%= fa_icon "exclamation-circle" %>
-            <%= message %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+  <div class="submission-errors">
+    <ul>
+      <% brand.errors.full_messages.each do |message| %>
+      <li>
+        <%= fa_icon "exclamation-circle" %>
+        <%= message %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
   <% end %>
 
   <div class="row brands">
-    <div class="row-item third">
-      <fieldset>
-        <%= f.input :logo, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-      </fieldset>
-    </div>
     <div class="row-item third brand">
       <fieldset>
+        <div class="logo-image">
+          <%= f.input :logo, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
         <div class="banner-image">
           <%= f.input :banner, as: :image_preview, input_html: { preview_version: :thumbnail } %>
           <span><%= t(".banner_size") %></span>
@@ -27,6 +25,9 @@
         </div>
         <div class="login-image">
           <%= f.input :login_image, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+        <div class="login-logo-image">
+          <%= f.input :login_logo, as: :image_preview, input_html: {preview_version: :thumbnail } %>
         </div>
       </fieldset>
     </div>
@@ -66,18 +67,68 @@
         </div>
       </fieldset>
     </div>
-  </div>
+    <div class="row-item third">
+      <fieldset class="form-colors">
+        <div class="login-box-left-color">
+          <%= label_tag t("activerecord.attributes.brand.login_box_left_color") %><%= branded_color_preview(brand.login_box_left_color) if brand.login_box_left_color? %>
+          <%= f.input :login_box_left_color, label: false %>
+        </div>
+        <div class="login-box-right-color">
+          <%= label_tag t("activerecord.attributes.brand.login_box_right_color") %><%= branded_color_preview(brand.login_box_right_color) if brand.login_box_right_color? %>
+          <%= f.input :login_box_right_color, label: false %>
+        </div>
+        <div class="content-box-color">
+          <%= label_tag t("activerecord.attributes.brand.content_box_color") %><%= branded_color_preview(brand.content_box_color) if brand.content_box_color? %>
+          <%= f.input :content_box_color, label: false %>
+        </div>
+        <div class="content-box-outline-color">
+          <%= label_tag t("activerecord.attributes.brand.content_box_outline_color") %>
+          <%= branded_color_preview(brand.content_box_outline_color) if brand.content_box_outline_color? %>
+          <%= f.input :content_box_outline_color, label: false %>
+        </div>
+        <div class="content-box-text">
+          <%= label_tag t("activerecord.attributes.brand.content_box_text_color") %>
+          <%= branded_color_preview(brand.content_box_text) if brand.content_box_text? %>
+          <%= f.input :content_box_text, label: false %>
+        </div>
+        <div class="login-button-static-color">
+          <%= label_tag t("activerecord.attributes.brand.login_button_static_color") %>
+          <%= branded_color_preview(brand.login_button_static_color) if brand.login_button_static_color? %>
+          <%= f.input :login_button_static_color, label: false %>
+        </div>
+        <div class="login-button-hover-color">
+          <%= label_tag t("activerecord.attributes.brand.login_button_hover_color") %>
+          <%= branded_color_preview(brand.login_button_hover_color) if brand.login_button_hover_color? %>
+          <%= f.input :login_button_hover_color, label: false %>
+        </div>
+        <div class="text-left-color">
+          <%= label_tag t("activerecord.attributes.brand.text_left_color") %><%= branded_color_preview(brand.text_left_color) if brand.text_left_color? %>
+          <%= f.input :text_left_color, label: false %>
+        </div>
+        <div class="text-right-color">
+          <%= label_tag t("activerecord.attributes.brand.text_right_color") %><%= branded_color_preview(brand.text_right_color) if brand.text_right_color? %>
+          <%= f.input :text_right_color, label: false %>
+        </div>
+        <div class="custom-text">
+          <%= f.input :heading_one %>
+          <%= f.input :heading_two %>
+          <%= f.input :info_text, as: :ckeditor %>
+        </div>
+      </fieldset>
 
-  <div class="preview-container">
-    <%= submit_tag t(".preview"), type: "button", class: "btn preview" %>
+      <div class="preview-container">
+        <%= submit_tag t(".preview"), type: "button", class: "btn preview" %>
+      </div>
+
+    </div>
   </div>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <% if parent %>
-        <%= link_to t(".back"), [parent, :brands], class: "btn" %>
+      <%= link_to t(".back"), [parent, :brands], class: "btn" %>
       <% else %>
-        <%= link_to t(".back"), brand, class: "btn" %>
+      <%= link_to t(".back"), brand, class: "btn" %>
       <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190214175724) do
+ActiveRecord::Schema.define(version: 20190220123248) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,14 +92,27 @@ ActiveRecord::Schema.define(version: 20190214175724) do
     t.string   "button_color"
     t.string   "button_text_color"
     t.datetime "deleted_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.string   "brandable_type"
     t.integer  "brandable_id"
     t.string   "header_color"
     t.string   "login_image"
     t.string   "topnav_text"
     t.string   "topnav_text_color"
+    t.string   "login_box_left_color"
+    t.string   "login_box_right_color"
+    t.string   "login_button_static_color"
+    t.string   "login_button_hover_color"
+    t.string   "content_box_color"
+    t.string   "content_box_outline_color"
+    t.string   "text_left_color"
+    t.string   "text_right_color"
+    t.string   "login_logo"
+    t.string   "content_box_text"
+    t.string   "heading_one"
+    t.string   "heading_two"
+    t.string   "info_text"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 

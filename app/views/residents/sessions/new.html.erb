@@ -1,37 +1,37 @@
-<div class="login branded-content">
-  <div class="sign-in">
+<div class="login branded-left-box">
+  <div class="sign-in branded-right-box">
     <div class="login-logo">
-      <%= image_tag brand_or_white_logo(@brand) %>
+      <%= image_tag login_brand_or_white_logo(@brand) %>
     </div>
     <%= render "components/flashes" %>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="branded-primary-text">
-        <div class="branded-input">
+        <div class="branded-external-text branded-content-box">
           <%= f.input :email, required: false, autofocus: true %>
           <%= f.input :password, required: false %>
           <%= f.label :remember_me, class: "login-checkbox" do %>
-            <%= f.check_box :remember_me, class: "remember-checkbox", checked: false %>
-            <i class="fa fa-check"></i> <span><%= t(".remember_me") %></span>
+            <%= f.check_box :remember_me, class: "remember-checkbox branded-checkmark", checked: false %>
+            <i class="fa fa-check branded-checkbox"></i> <span><%= t(".remember_me") %></span>
           <% end %>
           <% if cookies[:ts_and_cs_accepted].nil? %>
             <%= f.label :ts_and_cs_accepted_at, class: "login-checkbox" do %>
               <%= f.check_box :ts_and_cs_accepted_at, class: "accept-ts-and-cs" %>
-              <i class="fa fa-check"></i> <span><%= t(".accept_ts_and_cs") %></span>
+              <i class="fa fa-check branded-checkbox"></i> <span><%= t(".accept_ts_and_cs") %></span>
             <% end %>
-            <div class="information branded-primary-text">
+            <div class="information branded-primary-text branded-external-text">
               <p><%= t('.policy_instructions_required', :href1 => link_to(t("residents.invitations.edit.terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t("residents.invitations.edit.policy"), data_policy_path, target: "_blank")).html_safe %></p>
             </div>
           <% else %>
-            <div class="information branded-primary-text">
+            <div class="information branded-primary-text branded-external-text">
               <p><%= t('.policy_instructions', :href1 => link_to(t("residents.invitations.edit.terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t("residents.invitations.edit.policy"), data_policy_path, target: "_blank")).html_safe %></p>
             </div>
           <% end %>
         </div>
 
-        <%= f.submit t(".login_cta"), class: "continue btn", disabled: cookies[:ts_and_cs_accepted].nil? %>
+        <%= f.submit t(".login_cta"), class: "continue btn branded-submit", disabled: cookies[:ts_and_cs_accepted].nil? %>
 
-        <div class="information">
+        <div class="information branded-external-text">
           <p><%= render "residents/shared/links" %></p>
           <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
         </div>
@@ -41,14 +41,24 @@
 
   <div class="preamble">
     <div class="content">
-      <div class="titles branded-titles">
-        <h2 class="top-title"><%= t '.welcome_1' %></h2>
-        <h2 class="second-title"><%= t '.welcome_2' %></h2>
+      <div class="titles">
+        <% if @brand&.branded_heading_one || @brand&.branded_heading_two %>
+          <h2 class="top-title branded-left-text"><%= @brand.branded_heading_one %></h2>
+        <% else %>
+          <h2 class="top-title branded-left-text"><%= t '.welcome_1' %></h2>
+          <h2 class="branded-heading-two second-title"><%= t '.welcome_2' %></h2>
+        <% end %>
+
+        <h2 class="branded-heading-two second-title branded-left-text"><%=@brand.branded_heading_two if @brand&.branded_heading_two %></h2>
       </div>
 
-      <div class="intro branded-text">
-        <p><%= t(".intro_para_1") %></p>
-        <p><%= t(".intro_para_2") %></p>
+      <div class="intro branded-text branded-left-text">
+        <% if @brand&.branded_info_text %>
+          <p><%= @brand.branded_info_text.html_safe %></p>
+        <% else %>
+          <p><%= t(".intro_para_1") %></p>
+          <p><%= t(".intro_para_2") %></p>
+        <% end %>
       </div>
     </div>
   </div>
