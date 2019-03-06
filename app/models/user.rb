@@ -78,6 +78,7 @@ class User < ApplicationRecord
   def self.users_associated_with(assoiciations)
     emails = []
     assoiciations.each do |association|
+      next if association.nil?
       details = User.where(receive_release_emails: true)
                     .where(permission_level_type: association.class.to_s)
                     .where(permission_level_id: association.id).pluck(:email, :first_name)

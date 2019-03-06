@@ -4,7 +4,7 @@ Given(/^There are existing appliances$/) do
   SeedsFixture.create_appliance_manufacturers
 end
 
-Then(/^I should not see the seed appliance updatest$/) do
+Then(/^I should not see the seed appliance updates$/) do
   visit "/appliances"
 
   within ".tabs" do
