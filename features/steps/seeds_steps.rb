@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-Given(/^There are existing DB contents$/) do
+Given(/^There are existing appliances$/) do
   SeedsFixture.create_appliance_manufacturers
 end
 
-Then(/^I should see the created seed content$/) do
+Then(/^I should not see the seed appliance updatest$/) do
   visit "/appliances"
 
   within ".tabs" do
@@ -12,13 +12,13 @@ Then(/^I should see the created seed content$/) do
   end
 
   within ".record-list" do
-    expect(page).to have_content("AEG")
-    expect(page).to have_content("Baumatic")
+    expect(page).to have_content("Aeg")
+    expect(page).to have_content("BauMatic")
     expect(page).to have_content("Beko")
     expect(page).to have_content("Caple")
 
-    expect(page).not_to have_content("BauMatic")
-    expect(page).not_to have_content("Aeg")
+    expect(page).not_to have_content("Baumatic")
+    expect(page).not_to have_content("AEG")
   end
 end
 

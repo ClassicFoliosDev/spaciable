@@ -1,26 +1,30 @@
-STDOUT.puts <<-INFO
-   Creating homeowner services
-INFO
+if Service.none?
 
-financial_services = Service.find_by(name: "Financial services")
-financial_services.update_attributes(name: "Financial Services") if financial_services
+	STDOUT.puts <<-INFO
+	   Creating homeowner services
+	INFO
 
-other_services = Service.find_by(name: "Other services")
-other_services.update_attributes(name: "Other Services", description: "Security systems, smart home system providers, furniture packs, appliances, change of address service") if other_services
+	financial_services = Service.find_by(name: "Financial services")
+	financial_services.update_attributes(name: "Financial Services") if financial_services
 
-maintenance_providers = Service.find_by(name: "Maintenance providers")
-maintenance_providers.update_attributes(name: "Maintenance Providers") if maintenance_providers
+	other_services = Service.find_by(name: "Other services")
+	other_services.update_attributes(name: "Other Services", description: "Security systems, smart home system providers, furniture packs, appliances, change of address service") if other_services
 
-utilities = Service.find_by(name: "Utilities")
-utilities.update_attributes(description: "TV (digital aerial, satellite, cable), broadband, electricity, gas, telephone, residential parking permits") if utilities
+	maintenance_providers = Service.find_by(name: "Maintenance providers")
+	maintenance_providers.update_attributes(name: "Maintenance Providers") if maintenance_providers
 
-Service.find_or_create_by(name: "Financial Services", description: "Mortgage brokers, solicitors")
-Service.find_or_create_by(name: "Utilities", description: "TV (digital aerial, satellite, cable), broadband, electricity, gas, telephone, residential parking permits")
-Service.find_or_create_by(name: "Insurance", description: "Building, content, car, security")
-Service.find_or_create_by(name: "Removals", description: "Removal firms, packing services")
-Service.find_or_create_by(name: "Maintenance Providers", description: "Landscaping, interior designers, electricians, plumbers, builders, conservatory suppliers, gardeners, window cleaners")
-Service.find_or_create_by(name: "Other Services", description: "Security systems, smart home system providers, furniture packs, appliances, change of address service")
+	utilities = Service.find_by(name: "Utilities")
+	utilities.update_attributes(description: "TV (digital aerial, satellite, cable), broadband, electricity, gas, telephone, residential parking permits") if utilities
 
-STDOUT.puts <<-INFO
-   Finished creating homeowner services
-INFO
+	Service.find_or_create_by(name: "Financial Services", description: "Mortgage brokers, solicitors")
+	Service.find_or_create_by(name: "Utilities", description: "TV (digital aerial, satellite, cable), broadband, electricity, gas, telephone, residential parking permits")
+	Service.find_or_create_by(name: "Insurance", description: "Building, content, car, security")
+	Service.find_or_create_by(name: "Removals", description: "Removal firms, packing services")
+	Service.find_or_create_by(name: "Maintenance Providers", description: "Landscaping, interior designers, electricians, plumbers, builders, conservatory suppliers, gardeners, window cleaners")
+	Service.find_or_create_by(name: "Other Services", description: "Security systems, smart home system providers, furniture packs, appliances, change of address service")
+
+	STDOUT.puts <<-INFO
+	   Finished creating homeowner services
+	INFO
+	
+end
