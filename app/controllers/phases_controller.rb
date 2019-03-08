@@ -63,7 +63,7 @@ class PhasesController < ApplicationController
     if @active_tab == "plots" || @active_tab == "production"
       paginate(sort(@phase.plots, default: :number))
     elsif @active_tab == "documents"
-      documents = @phase.documents.accessible_by(current_ability)
+      documents = @phase.documents
       paginate(sort(documents, default: :title))
     end
   end

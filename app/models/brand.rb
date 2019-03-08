@@ -142,6 +142,10 @@ class Brand < ApplicationRecord
     logo.url :thumbnail
   end
 
+  def custom_text?(brand)
+    brand&.branded_heading_one || brand&.branded_heading_two || brand&.branded_info_text
+  end
+
   private
 
   def branded_param(attr_name)

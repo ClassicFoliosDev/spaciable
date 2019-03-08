@@ -79,6 +79,9 @@
 
 .set-password {
   background-color:  $primary-red;
+  label {
+    color: $ui-white;
+  }
 }
 
 .branded-input {
@@ -131,6 +134,17 @@
   .copyright {
     margin-top: $spacing-medium;
     color: $ui-white;
+  }
+  .reset-btn {
+    background-color: $ui-white;
+    color: $primary-red;
+    border-color: $primary-red;
+
+    &:hover {
+      background-color: $ui-white;
+      color: $primary-green;
+      border-color: $primary-green;
+    }
   }
 }
 

@@ -26,8 +26,6 @@ module Divisions
                       paginate(sort(@development.unit_types, default: :name))
                     elsif @active_tab == "phases"
                       paginate(sort(@development.phases, default: :number))
-                    elsif @active_tab == "plots"
-                      paginate(sort(@development.plots, default: :number))
                     elsif @active_tab == "documents"
                       documents = @development.documents.accessible_by(current_ability)
                       paginate(sort(documents, default: :title))

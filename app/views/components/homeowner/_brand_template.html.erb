@@ -334,6 +334,12 @@
     .branded-content-box .branded-checkbox {
       border-color: <%= brand.branded_content_box_outline_color %>
     }
+    .branded-content-box input[type="email"] {
+      border-color: <%= brand.branded_content_box_outline_color %>;
+    }
+    .branded-content-box input[type="password"] {
+      border-color: <%= brand.branded_content_box_outline_color %>;
+    }
   <% else %>
     .branded-content-box input {
       border-color: #F7525E; // $primary-red;

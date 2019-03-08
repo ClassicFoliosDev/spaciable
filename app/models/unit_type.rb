@@ -14,7 +14,7 @@ class UnitType < ApplicationRecord
   has_many :plots, dependent: :destroy
   has_many :phases_unit_types
   has_many :phases, through: :phases_unit_types
-  has_many :documents, as: :documentable
+  has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   amoeba do
@@ -36,5 +36,11 @@ class UnitType < ApplicationRecord
 
   def to_s
     name
+  end
+
+  def self.rebuild_pg_search_documents
+    find_each do |record|
+      record.update_pg_search_document unless record.deleted?
+    end
   end
 end

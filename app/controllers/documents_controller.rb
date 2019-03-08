@@ -119,7 +119,8 @@ class DocumentsController < ApplicationController
   end
 
   def set_parent
-    @parent = @plot || @phase || @development || @division || @developer || @document&.documentable
+    @parent = @plot || @unit_type || @phase ||
+              @development || @division || @developer || @document&.documentable
 
     @document&.documentable = @parent
   end

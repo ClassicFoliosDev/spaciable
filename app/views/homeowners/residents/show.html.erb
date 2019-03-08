@@ -93,7 +93,7 @@
       data: { cancel: t("edit.cancel"),
             cta: t(".confirm_deactivate"),
             title: t(".deactivate"),
-            resident: current_resident.id } %>
+            resident: current_resident.id} %>
       <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "btn branded-btn" %>
     </div>
   </div>
@@ -107,10 +107,14 @@
       </div>
       <%= ff.input :email, required: true %>
       <%= ff.input :phone_number, required: true %>
-    </div>
-    <div class="half">
       <%= ff.input :first_name, required: true %>
       <%= ff.input :last_name, required: true %>
+    </div>
+    <div class="half">
+      <h4><%= t(".full_access_title") %></h4>
+      <p><%= t(".full_access_description") %></p>
+      <h4><%= t(".limited_access_title") %></h4>
+      <p><%= t(".limited_access_description") %></p>
     </div>
   <% end %>
 </div>

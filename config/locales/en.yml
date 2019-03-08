@@ -105,7 +105,7 @@ en:
       nav:
         dashboard: "Dashboard"
         community: "Community"
-        my_home: "My home"
+        my_home: "My Home"
         contacts: "Contacts"
         how_to: "How To"
         faqs: "FAQs"
@@ -240,7 +240,7 @@ en:
         my_plots: "My plots"
       sub_menu:
         about: "About"
-        title: "My home"
+        title: "My Home"
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
@@ -257,7 +257,7 @@ en:
         my_documents: "My documents"
       navigation:
         maintenance: "Issues"
-        house_search: "Area guide"
+        house_search: "Area Guide"
         services: "Services"
     home:
       header:
@@ -366,9 +366,9 @@ en:
         send_to_all_residents: "Send to all %{residents_count} homeowners"
         send_to: "Send to residents of:"
         send_to_role: "Send to residents:"
-        homeowner: "Homeowners"
-        tenant: "Tenants"
-        both: "Homeowners and tenants"
+        homeowner: "Full Access Users"
+        tenant: "Limited Access Users"
+        both: "Full and Limited Access Users"
       index:
         title: "Notifications"
       new:
@@ -724,6 +724,10 @@ en:
         and any documents you have uploaded will be deleted."
         confirm_deactivate: "Confirm deactivate"
         deactivate_password: "Enter your password to confirm"
+        full_access_title: "Full Access User"
+        full_access_description: "Has access to all documents of your home's portal (other than those you have uploaded to the 'My Documents' tab), can invite other users to your home and can access the issue reporting system (if enabled for your development)."
+        limited_access_title: "Limited Access User"
+        limited_access_description: "Cannot invite other users to your home or use the issue reporting system and can only view documents that a Full Access User has shared manually."
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
@@ -974,16 +978,16 @@ en:
         title_html: "<strong>Full Access User</strong>"
         overview: "Has access to the issue reporting system (if enabled on your development), can add additional Full or Limited Access Users to their home and can control which documents a Limited Access User can see. Suitable for:"
         suitable_html: "<ul>
-          <li>Private Sale - The homeowner/purchaser.</li>
-          <li>Build to Rent - The tenant/resident where the property is rented directly from the developer.</li>
-          <li>PRS/Buy to Let - The homeowner or an agent, authorised by the homeowner, to manage the home on behalf of the homeowner.</li>
-          <li>Affordable Rent/Housing Association - The resident renting directly from the Housing Association.</li></ul>"
+          <li>Private Sale - The homeowner/purchaser</li>
+          <li>Build to Rent - The tenant/resident, where the property is rented directly from the developer</li>
+          <li>PRS/Buy to Let - The homeowner or an agent, authorised by the homeowner, to manage the home on behalf of the homeowner</li>
+          <li>Affordable Rent/Housing Association - The resident renting directly from the Housing Association</li></ul>"
       limited_access_description:
         title_html: "<strong>Limited Access User</strong>"
         overview: "Cannot access the issue reporting system (if enabled on your development), cannot add additional users and can only view documents designated by a Full Access User. Suitable for:"
         suitable_html: "<ul>
-          <li>Traditional Sale - A resident of the property who is not the main owner/purchaser.</li>
-          <li>PRS/Buy to Let - A resident/tenant user who is renting the property from the homeowner.</li></ul>"
+          <li>Traditional Sale - A resident of the property who is not the main owner/purchaser</li>
+          <li>PRS/Buy to Let - A resident/tenant user who is renting the property from the homeowner</li></ul>"
 
     new:
       title: "New %{plot} resident"
@@ -1511,13 +1515,13 @@ en:
       back: "Back"
       submit: "Submit"
       preview: "Preview"
+      image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB."
       banner_size: "The banner will be displayed 200px high and full browser width available. For best results in
       desktop view, the recommended image size is above 200 x 1200px"
       svg_information: "There have been some issues with SVG images. Recommended approach: make sure you export the
       svg as <em>embed</em>, not <em><del>link</del></em>, and test thoroughly in Google Chrome"
     show:
       back: "Back"
-      image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB."
     edit:
       title: "Edit styling for %{name}"
     preview:

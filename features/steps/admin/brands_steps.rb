@@ -126,7 +126,7 @@ Then(/^I should see the updated (\w+) brand$/) do |parent_type|
     expect(page).to have_content(name)
   end
 
-  within ".colors" do
+  within ".internal-colors" do
     spans = page.all("span")
 
     expect(spans[0]["title"]).to have_content(BrandFixture.bg_color)
