@@ -110,8 +110,7 @@
 
     .details {
       @include span-columns(8 of 12);
-      overflow: hidden;
-      text-overflow: ellipsis;
+      word-wrap: break-word;
     }
   }
 }

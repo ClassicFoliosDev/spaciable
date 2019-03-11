@@ -164,20 +164,16 @@ Then(/^I am returned to the phases page with a confirmation message$/) do
 end
 
 Then(/^the plot release data has been updated$/) do
-  (185..187).each do |number| 
+  (185..187).each do |number|
     plot = Plot.find_by(number: number)
-    unless plot.extended_access == 24 && plot.validity == 27 && plot.reservation_release_date.to_s == '2019-03-18'
-      raise "Plot #{plot.number} not updated"
-    end
+    expect plot.extended_access == 24 && plot.validity == 27 && plot.reservation_release_date.to_s == '2019-03-18'
   end
 end
 
 Then(/^the plot completion data has been updated$/) do
   (185..187).each do |number| 
     plot = Plot.find_by(number: number)
-    unless  plot.validity == 27 && plot.completion_release_date.to_s == '2019-03-18'
-      raise "Plot #{plot.number} not updated"
-    end
+    expect plot.validity == 27 && plot.completion_release_date.to_s == '2019-03-18'
   end
 end
 
