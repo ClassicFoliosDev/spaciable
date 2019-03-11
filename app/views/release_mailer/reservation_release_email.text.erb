@@ -7,7 +7,7 @@ We are delighted to confirm that the following plots are now live on the Hoozzi 
 
 Developer:   <%= @phase.company_name %>
 
-Division:    <%= @phase.division_name %>
+Division:    <% unless @phase.division.nil? %><%= @phase.division_name %><% end %>
 
 Development: <%= @phase.development_name %>
 

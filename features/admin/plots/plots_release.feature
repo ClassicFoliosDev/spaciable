@@ -1,0 +1,59 @@
+@javascript
+Feature: Documents
+  As a CF Admin
+  I want to release plots in bulk
+  So that I can release a range of plots simultaneously
+
+  Scenario: CF Admin
+    Given I am a CF admin and there are many releasable plots
+    Then I add some released plots
+    Then I add some completed plots
+    When I visit the release plots page
+    When I submit with no parameters
+    Then there is a message to telling me to popudate the data
+    When I add all plots and set a reseravtion release date
+    When I press Submit
+    Then there is a message telling me the released pots
+    When I set a completion date
+    When I press Submit
+    Then there is a message telling me the completed pots
+    When I enter a range of non-existant plots
+    When I press Submit
+    Then there is a message telling me the plots dont match this phase
+    When I enter a range of existant plots
+    When I press Submit
+    Then I get a completion confirmation dialog
+    When I cancel the dialog
+    Then the dialog dissappears and the release plot page remains populated
+    When I set a reservation date and extended period
+    When I press Submit
+    Then I get a reservation confirmation dialog
+    When I confirm the dialog
+    Then I am returned to the phases page with a confirmation message
+    Then the plot release data has been updated
+
+  Scenario: Completion
+    Given I am a CF admin and there are many releasable plots
+    When I visit the release plots page
+    When I enter a range of existant plots
+    When I set a completion date
+    When I press Submit
+    Then I get a completion confirmation dialog
+    When I confirm the dialog
+    Then I am returned to the phases page with a confirmation message
+    Then the plot completion data has been updated
+
+Scenario: Validity and Extended Access
+    Given I am a CF admin and there are many releasable plots
+    When I visit the release plots page
+    When I enter a range of existant plots
+    When I press Submit
+    Then I get a validity confirmation dialog
+    When I cancel the dialog
+    Then I am returned to the release plots page
+    When I enter Validity and Extended periods
+    When I press Submit
+    Then I get a Validity and Extended confirmation dialog
+    When I confirm the dialog
+    Then I am returned to the phases page with a confirmation message
+    Then the plot validity and extended data has been updated

@@ -13,9 +13,11 @@
 <p>
     Developer: <%= @phase.company_name %>
 </p>
-<p>
-    Division: <%= @phase.division_name %>
-</p>
+<% unless @phase.division.nil? %>
+    <p>
+        Division: <%= @phase.division_name %>
+    </p>
+<% end %>
 <p>
     Development: <%= @phase.development_name %>
 </p>

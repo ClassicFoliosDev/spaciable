@@ -74,7 +74,7 @@ document.addEventListener('turbolinks:load', function () {
           '<p>Are you sure you want to update the Extended access to ' + f.extended + ' month(s) and the Valdity to ' + f.validity + ' month(s)?</p>'
     } else if (f.validity && f.validity) {
       dialog_body = dialog_body + 
-          '<p>Are you sure you want to update the Valdity to ' + f.validity + ' month(s)?</p>'
+          '<p>Are you sure you want to update the Validity to ' + f.validity + ' month(s)?</p>'
     } else {
       dialog_body = dialog_body + 
           '<p>Are you sure you want to update the Extended access to ' + f.extended + ' month(s)?</p>'
@@ -87,7 +87,7 @@ document.addEventListener('turbolinks:load', function () {
           '<p>Plots: ' + results.plot_numbers  + '</p>'
 
     if (f.release_date && f.validity) { dialog_body = dialog_body + '<p>Validity: ' + f.validity  + '</p>' }
-    if (f.release_date && f.extended && f.extended != 0) { dialog_body = dialog_body + '<p>Extended ' + f.extended  + '</p>' }
+    if (f.release_date && f.extended && f.extended != 0) { dialog_body = dialog_body + '<p>Extended: ' + f.extended  + '</p>' }
 
     dialog_body = dialog_body +'</div>'
 
