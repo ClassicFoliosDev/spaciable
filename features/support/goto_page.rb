@@ -54,6 +54,17 @@ module GotoPage
     end
   end
 
+  def goto_spanish_development_show_page
+    development = CreateFixture.spanish_development
+    raise "Development does not exist" unless development
+
+    visit "/developers/#{development.developer.id}/developments/#{development.id}"
+
+    within ".development" do
+      expect(page).to have_content(development.to_s)
+    end
+  end
+
   def goto_plot_show_page
     goto_development_show_page
 

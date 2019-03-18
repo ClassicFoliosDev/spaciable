@@ -1,4 +1,6 @@
 <%= simple_form_for(developer) do |f| %>
+  <!-- Load the page specific javascript to handle the UU/Spain formats-->
+  <script type="text/javascript" src="/javascripts/lib/developer_address.js"></script>
   <% if developer.errors.any? %>
     <div class="submission-errors">
       <ul>
@@ -17,7 +19,7 @@
       <fieldset>
         <%= f.input :company_name %>
         <div class="featured ui-front">
-          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: developer.country_id != nil  %>
+          <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
         </div>
         <%= f.input :about %>
         <%= f.label t(".enable_house_search") %>

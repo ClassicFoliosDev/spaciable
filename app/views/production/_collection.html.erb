@@ -13,11 +13,13 @@
     <thead>
       <tr>
         <th><%= sortable(Plot, :number, t(".name")) %></th>
-        <th><%= sortable({Plot => Address}, :prefix, t(".prefix")) %></th>
-        <th><%= sortable(Plot, :house_number) %></th>
-        <th><%= sortable({Plot => Address}, :building_name, t(".building_name")) %></th>
-        <th><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></th>
-        <th><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></th>
+        <% unless parent.developer.country.spain? %>
+          <th><%= sortable({Plot => Address}, :prefix, t(".prefix")) %></th>
+        <% end %>
+        <th><%= sortable(Plot, :house_number, t(".#{parent.developer.country.name}.house_number")) %></th>
+        <th><%= sortable({Plot => Address}, :building_name, t(".#{parent.developer.country.name}.building_name")) %></th>
+        <th><%= sortable({Plot => Address}, :road_name, t(".#{parent.developer.country.name}.road_name")) %></th>
+        <th><%= sortable({Plot => Address}, :postcode, t(".#{parent.developer.country.name}.postcode")) %></th>
         <th><%= sortable({Plot => UnitType}, :id, t(".unit_type")) %></th>
         <th><span class="date"><%= sortable(Plot, :reservation_release_date, t(".date_r")) %></span>
             <span class="date"><%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
@@ -28,7 +30,9 @@
       <% collection.each do |plot| %>
         <tr data-plot="<%= plot.id %>">
           <td><%= link_to plot, url_for(plot), title: plot %></td>
-          <td><%= plot.prefix %></td>
+          <% unless parent.developer.country.spain? %>
+            <td><%= plot.prefix %></td>
+          <% end %>
           <td><%= plot.house_number %></td>
           <td><%= plot.building_name %></td>
           <td><%= plot.road_name %></td>

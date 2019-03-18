@@ -23,7 +23,11 @@
       <fieldset>
         <%= f.simple_fields_for :address do |fields| %>
           <label class="string optional"><%= t(".address") %></label>
-          <%= render "address/fields", fields: fields %>
+          <% if(division.developer.country.uk?) %>
+            <%= render "address/fields", fields: fields %>
+          <% else %>
+            <%= render "address/spanish_fields", fields: fields %>
+          <% end %>
         <% end %>
       </fieldset>
     </div>

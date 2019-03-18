@@ -41,3 +41,8 @@ Feature: Documents
     Given I am logged in as a Site Admin
     And there is a phase plot with a resident
     Then I can not edit bulk plots
+
+  Scenario: CF Admin
+    Given I am a CF admin and there are many spanish plots
+    When I bulk edit the spanish plots
+    Then I should see spanish address options

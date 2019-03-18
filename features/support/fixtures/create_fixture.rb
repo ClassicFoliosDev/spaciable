@@ -9,16 +9,25 @@ module CreateFixture
     appliance: "WAB28161GB",
     appliance_without_manual: "Appliance without manual",
     developer: "Hamble View Developer",
+    spanish_developer: "Madrid Inc",
     development: "Riverside Development",
+    spanish_development: "Barc Development",
     division: "Hamble Riverside Division",
+    spanish_division: "Barca Division",
     division_development: "Hamble East Riverside Division Development",
+    spanish_division_development: "El Capitan Development",
     division_phase: "Beta (Division) Phase",
+    spanish_division_phase: "Beta (Division) Phase",
     division_contact: "John",
     finish: "Fluffy carpet",
     phase: "Alpha Phase",
+    spanish_phase: "Barca Phase",
     plot: "100",
+    spanish_plot: "100",
     phase_plot: "200",
+    spanish_phase_plot: "200",
     division_plot: "300",
+    spanish_division_plot: "300",
     room: "Living Room",
     unit_type: "8 Bedrooms",
     how_to: "How to dig yourself a hole",
@@ -96,6 +105,10 @@ module CreateFixture
     "https://www.example.com/register"
   end
 
+  def spanish_developer_id
+    Developer.find_by(company_name: spanish_developer_name).id
+  end
+
   # FACTORIES
 
   def create_admin(admin_type = :cf, parent = nil)
@@ -132,9 +145,19 @@ module CreateFixture
     create_division
   end
 
+  def create_spanish_developer_with_division
+    create_spanish_developer
+    create_spanish_division
+  end
+
   def create_developer_with_development
     create_developer
     create_development
+  end
+
+  def create_spanish_developer_with_development
+    create_spanish_developer
+    create_spanish_development
   end
 
   def create_developer
@@ -143,9 +166,22 @@ module CreateFixture
     FactoryGirl.create(:developer, company_name: developer_name, house_search: true, country_id: country.id)
   end
 
+  def create_spanish_developer
+    CreateFixture.create_countries if Country.none?
+    FactoryGirl.create(:developer,
+                       company_name: spanish_developer_name, 
+                       house_search: true, 
+                       country_id: Country.find_by(name: "Spain").id)
+  end
+
   def create_division
     return if division
     FactoryGirl.create(:division, division_name: division_name, developer: developer)
+  end
+
+  def create_spanish_division
+    return if spanish_division
+    FactoryGirl.create(:division, division_name: spanish_division_name, developer: spanish_developer)
   end
 
   def create_development
@@ -153,17 +189,35 @@ module CreateFixture
     FactoryGirl.create(:development, name: development_name, developer: developer, maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
   end
 
+  def create_spanish_development
+    return if spanish_development
+    FactoryGirl.create(:development, name: spanish_development_name, developer: spanish_developer, maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
+  end
+
   def create_division_development
     return if division_development
     FactoryGirl.create(:division_development, name: division_development_name, division: division)
+  end
+
+  def create_spanish_division_development
+    return if spanish_division_development
+    FactoryGirl.create(:division_development, name: spanish_division_development_name, division: spanish_division)
   end
 
   def create_unit_type
     FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
   end
 
+  def create_spanish_unit_type
+    FactoryGirl.create(:unit_type, name: unit_type_name, development: spanish_development)
+  end
+
   def create_division_development_unit_type
     FactoryGirl.create(:unit_type, name: unit_type_name, development: division_development)
+  end
+
+  def create_spanish_division_development_unit_type
+    FactoryGirl.create(:unit_type, name: unit_type_name, development: spanish_division_development)
   end
 
   def create_room
@@ -247,8 +301,16 @@ module CreateFixture
     FactoryGirl.create(:phase, name: phase_name, development: development, address: create_address)
   end
 
+  def create_spanish_development_phase
+    FactoryGirl.create(:phase, name: spanish_phase_name, development: spanish_development, address: create_spanish_address)
+  end
+
   def create_division_development_phase
     FactoryGirl.create(:phase, name: division_phase_name, development: division_development)
+  end
+
+  def create_spanish_division_development_phase
+    FactoryGirl.create(:phase, name: spanish_division_phase_name, development:spanish_division_development)
   end
 
   def create_phases
@@ -256,6 +318,10 @@ module CreateFixture
     create_division_development_phase
   end
 
+  def create_spanish_phases
+    create_spanish_development_phase
+    create_spanish_division_development_phase
+  end
   def create_development_plot_depreciated
     FactoryGirl.create(:plot, development: development, unit_type: unit_type, number: plot_name)
   end
@@ -264,13 +330,26 @@ module CreateFixture
     FactoryGirl.create(:plot, development: division_development, number: division_plot_name)
   end
 
+  def create_spanish_division_development_plot
+    FactoryGirl.create(:plot, development: spanish_division_development, number: spanish_division_plot_name)
+  end
+
   def create_address
     FactoryGirl.create(:address, building_name: "Quartz Tower", road_name: "Sapphire Road",
                                  locality: "Pearlville", postcode: "HTTP 404")
   end
 
+  def create_spanish_address
+    FactoryGirl.create(:address, building_name: "casa", road_name: "barca rd",
+                                 locality: "catalonia", postcode: "12211")
+  end
+
   def create_phase_plot
     FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, unit_type: unit_type)
+  end
+
+  def create_spanish_phase_plot
+    FactoryGirl.create(:phase_plot, phase: spanish_phase, number: spanish_phase_plot_name, unit_type: unit_type)
   end
 
   def create_division_phase_plot
@@ -380,20 +459,40 @@ module CreateFixture
     Developer.find_by(company_name: developer_name)
   end
 
+  def spanish_developer
+    Developer.find_by(company_name: spanish_developer_name)
+  end
+
   def division
     Division.find_by(division_name: division_name)
+  end
+
+  def spanish_division
+    Division.find_by(division_name: spanish_division_name)
   end
 
   def development
     Development.find_by(name: development_name)
   end
 
+  def spanish_development
+    Development.find_by(name: spanish_development_name)
+  end
+
   def division_development
     Development.find_by(name: division_development_name)
   end
 
+  def spanish_division_development
+    Development.find_by(name: spanish_division_development_name)
+  end
+
   def phase
     Phase.find_by(name: phase_name)
+  end
+
+   def spanish_phase
+    Phase.find_by(name: spanish_phase_name)
   end
 
   def division_phase

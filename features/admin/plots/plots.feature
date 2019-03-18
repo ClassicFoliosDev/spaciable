@@ -92,3 +92,10 @@ Feature: Plots
     Then I should see the plots have been created
     And the plots should have the postal number configured
 
+  @javascript
+  Scenario: Phase Plots
+    Given I am logged in as an admin
+    And I have a spanish developer with a development with unit types and a phase
+    When I create a plot for the spanish phase
+    Then I should see the spanish plot address format
+

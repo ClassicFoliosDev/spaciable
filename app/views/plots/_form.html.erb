@@ -30,7 +30,12 @@
       </fieldset>
     </div>
 
-    <%= render "components/admin/plot_address_fields", f: f, plot: plot %>
+    <% if plot.spanish? %>
+      <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
+    <% else %>
+      <%= render "components/admin/plot_address_fields", f: f, plot: plot %>
+    <% end %>
+
   </div>
 
   <div class="form-actions-footer-container">

@@ -206,5 +206,13 @@ class Plot < ApplicationRecord
       "#{road_name} (#{self})".strip
     end
   end
+  # rubocop:enable Metrics/ClassLength
+
+  # Is the plot Spanish
+  # rubocop:disable all
+  def spanish?
+    (parent.is_a?(Developer) && parent.country.spain?) ||
+    (parent.is_a?(Phase) && parent.developer.country.spain?)
+  end
+  # rubocop:enable all
 end
-# rubocop:enable Metrics/ClassLength

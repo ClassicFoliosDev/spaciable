@@ -42,6 +42,14 @@ module PhaseFixture
     }
   end
 
+   def spanish_development_address_attrs
+    {
+      locality: "Catalan",
+      city: "Barc",
+      postcode: "211022"
+    }
+  end
+
   def progress
     "Ready for exchange"
   end

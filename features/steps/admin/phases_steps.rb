@@ -4,6 +4,10 @@ Given(/^I have a developer with a development$/) do
   CreateFixture.create_developer_with_development
 end
 
+Given(/^I have a spanish developer with a development$/) do
+  CreateFixture.create_spanish_developer_with_development
+end
+
 Given(/^I have configured the development address$/) do
   goto_development_show_page
 
@@ -14,6 +18,22 @@ Given(/^I have configured the development address$/) do
 
   sleep 0.2
   PhaseFixture.development_address_attrs.each do |attr, value|
+    fill_in "development_address_attributes_#{attr}", with: value
+  end
+
+  click_on t("developments.form.submit")
+end
+
+Given(/^I have configured the spanish development address$/) do
+  goto_spanish_development_show_page
+
+  sleep 0.3
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+
+  sleep 0.2
+  PhaseFixture.spanish_development_address_attrs.each do |attr, value|
     fill_in "development_address_attributes_#{attr}", with: value
   end
 
@@ -152,4 +172,38 @@ end
 When(/^I visit the phase$/) do
   visit "/"
   goto_phase_show_page
+end
+
+When(/^I create a phase for the spanish development$/) do
+  goto_spanish_development_show_page
+  click_on t("phases.collection.add")
+  fill_in "phase_name", with: CreateFixture.phase_name
+end
+
+Then(/^I should see a spanish format phase address$/) do
+
+  ignore = Capybara.ignore_hidden_elements
+  Capybara.ignore_hidden_elements = false
+  
+  expect(page).not_to have_selector('#phase_address_attributes_postal_number')
+  expect(page).not_to have_selector('#dphase_address_attributes_road_name')
+  expect(page).not_to have_selector('#phase_address_attributes_building_name')
+  find_field(:phase_address_attributes_locality).should be_visible
+  find_field(:phase_address_attributes_city).should be_visible
+  expect(page).not_to have_selector('#dphase_address_attributes_county')
+  find_field(:phase_address_attributes_postcode).should be_visible
+
+  Capybara.ignore_hidden_elements = ignore
+end
+
+Then(/^I should see a spanish develper address pre-filled$/) do
+
+  ignore = Capybara.ignore_hidden_elements
+  Capybara.ignore_hidden_elements = false
+  
+  expect(find_field(:phase_address_attributes_locality).value).to eq PhaseFixture.spanish_development_address_attrs[:locality]
+  expect(find_field(:phase_address_attributes_city).value).to eq PhaseFixture.spanish_development_address_attrs[:city]
+  expect(find_field(:phase_address_attributes_postcode).value).to eq PhaseFixture.spanish_development_address_attrs[:postcode]
+
+  Capybara.ignore_hidden_elements = ignore
 end

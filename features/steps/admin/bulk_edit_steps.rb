@@ -379,3 +379,39 @@ def test_plot_fields(plot_number)
     expect(postcode['innerHTML']).to include "SO40 1AB"
   end
 end
+
+Given(/^I am a CF admin and there are many spanish plots$/) do
+
+  ResidentNotificationsFixture.create_spanish_permission_resources
+  login_as CreateFixture.create_cf_admin
+  FactoryGirl.create(:unit_type, name: "Another", development: CreateFixture.spanish_development)
+  FactoryGirl.create(:plot, phase: CreateFixture.spanish_phase, number: 180, postcode: "12345")
+  FactoryGirl.create(:plot, phase: CreateFixture.spanish_phase, number: 181, postcode: "200111")
+  FactoryGirl.create(:plot, unit_type: CreateFixture.unit_type, phase: CreateFixture.spanish_phase, house_number: "18A", postcode: "200200")
+end
+
+When(/^I bulk edit the spanish plots$/) do
+  phase = CreateFixture.spanish_phase
+  visit "/developments/#{phase.development.id}/phases/#{phase.id}"
+
+  within ".tabs" do
+    click_on t("phases.collection.bulk_edit")
+  end
+
+end
+
+Then(/^I should see spanish address options$/) do
+  
+  ignore = Capybara.ignore_hidden_elements
+  Capybara.ignore_hidden_elements = false
+  
+  expect(page).not_to have_selector('#phase_bulk_edit_postal_number')
+  expect(page).not_to have_selector('#phase_bulk_edit_county')
+  find_field(:phase_bulk_edit_house_number).should be_visible
+  find_field(:phase_bulk_edit_building_name).should be_visible
+  find_field(:phase_bulk_edit_road_name).should be_visible
+  find_field(:phase_bulk_edit_postcode).should be_visible
+
+  Capybara.ignore_hidden_elements = ignore
+
+end

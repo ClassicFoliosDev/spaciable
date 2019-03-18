@@ -10,14 +10,15 @@
     </div>
   <% end %>
 
+  <% country = parent.is_a?(Developer) ? parent.country : parent.developer.country %>
   <table class="record-list plots">
     <thead>
       <tr>
         <th><%= sortable(Plot, :number, t(".name")) %></th>
-        <th><%= sortable(Plot, :house_number) %></th>
-        <th><%= sortable({Plot => Address}, :building_name, t(".building_name")) %></th>
-        <th><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></th>
-        <th><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></th>
+        <th><%= sortable(Plot, :house_number, t(".#{country.name}.house_number")) %></th>
+        <th><%= sortable({Plot => Address}, :building_name, t(".#{country.name}.building_name")) %></th>
+        <th><%= sortable({Plot => Address}, :road_name, t(".#{country.name}.road_name")) %></th>
+        <th><%= sortable({Plot => Address}, :postcode, t(".#{country.name}.postcode")) %></th>
         <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
         <th><%= sortable(Plot, :progress, t(".progress")) %></th>
         <th><%= t(".activation") %></th>

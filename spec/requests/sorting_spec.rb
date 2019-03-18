@@ -33,7 +33,8 @@ RSpec.describe "Sorting", type: :feature do
   it "sorts numeric plots correctly" do
     login_as create(:cf_admin)
 
-    developer = create(:developer, company_name: "Alpha")
+    country = create(:country)
+    developer = create(:developer, company_name: "Alpha", country_id: country.id)
     development = create(:development, developer: developer)
     phase = create(:phase, development: development)
     create(:plot, number: "12", phase: phase)
@@ -74,7 +75,8 @@ RSpec.describe "Sorting", type: :feature do
   it "sorts mixed alphanumeric plots correctly" do
     login_as create(:cf_admin)
 
-    developer = create(:developer, company_name: "Alpha")
+    country = create(:country)
+    developer = create(:developer, company_name: "Alpha", country_id: country.id)
     development = create(:development, developer: developer)
     phase = create(:phase, development: development)
     create(:plot, number: "12", phase: phase)
@@ -136,7 +138,8 @@ RSpec.describe "Sorting", type: :feature do
   it "only finds plots in the correct phase and copes with special characters" do
     login_as create(:cf_admin)
 
-    developer = create(:developer, company_name: "Alpha")
+    country = create(:country)
+    developer = create(:developer, company_name: "Alpha", country_id: country.id)
     development = create(:development, developer: developer)
     phase = create(:phase, development: development)
     another_phase = create(:phase, development: development)

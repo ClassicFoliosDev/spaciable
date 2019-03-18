@@ -1,0 +1,29 @@
+<div class="row-item third">
+  <fieldset>
+    <% if plot.nil? || !plot.persisted? %>
+      <div class="plot-field">
+        <%= f.input :copy_plot_numbers, as: :boolean, class: "copy-plot-numbers", label: t(".copy_plot_numbers") %>
+      </div>
+    <% end %>
+    <div class="plot-field">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :house_number_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :house_number, label: false, placeholder: t("spanish_addresses.placeholders.postal_number") %>
+    </div>
+    <div class="plot-field">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :building_name_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :building_name, label: false, placeholder: t("spanish_addresses.placeholders.building_name") %>
+    </div>
+    <div class="plot-field">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :road_name_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :road_name, label: false, placeholder: t("spanish_addresses.placeholders.road_name") %>
+    </div>
+    <div class="plot-field">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :postcode_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :postcode, label: false, placeholder: t("spanish_addresses.placeholders.postcode") %>
+    </div>
+    <% if plot.present? %>
+      <%= f.input :locality, label: false, readonly: true, class: "readonly" %>
+      <%= f.input :city, label: false, readonly: true, class: "readonly" %>
+    <% end %>
+  </fieldset>
+</div>

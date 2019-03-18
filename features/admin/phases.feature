@@ -50,3 +50,12 @@ Feature: Phases
     When I update the progress for the phase
     Then I should see the phase progress has been updated
     And I should not see the production tab
+
+  @javascript
+  Scenario: Spanish Phase
+    Given I am logged in as an admin
+    And I have a spanish developer with a development
+    And I have configured the spanish development address
+    When I create a phase for the spanish development
+    Then I should see a spanish format phase address
+    Then I should see a spanish develper address pre-filled

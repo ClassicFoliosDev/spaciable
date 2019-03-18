@@ -94,3 +94,23 @@ Then(/^I should see that the deletion was successful for the divisions developme
     expect(page).not_to have_content DivisionDevelopmentFixture.updated_development_name
   end
 end
+
+Given(/^there is a Spanish developer with a division$/) do
+  CreateFixture.create_spanish_developer_with_division
+end
+
+Then(/^I see a Spanish format divison address$/) do
+
+  ignore = Capybara.ignore_hidden_elements
+  Capybara.ignore_hidden_elements = false
+  
+  expect(page).not_to have_selector('#division__address_attributes_postal_number')
+  expect(page).not_to have_selector('#division__address_attributes_road_name')
+  expect(page).not_to have_selector('#division__address_attributes_building_name')
+  find_field(:division_address_attributes_locality).should be_visible
+  find_field(:division_address_attributes_city).should be_visible
+  expect(page).not_to have_selector('#developer_address_attributes_county')
+  find_field(:division_address_attributes_postcode).should be_visible
+
+  Capybara.ignore_hidden_elements = ignore
+end

@@ -15,6 +15,13 @@ module AdminUsersFixture
     create_division_development
   end
 
+  def create_spanish_permission_resources
+    create_spanish_developer
+    create_spanish_division
+    create_spanish_development
+    create_spanish_division_development
+  end
+
   def new_password
     "barFoo21"
   end

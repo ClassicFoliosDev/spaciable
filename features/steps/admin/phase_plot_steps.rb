@@ -195,3 +195,50 @@ Then(/^I should see the progress update is not sent to the former resident$/) do
 
   expect(emails.first.subject).to eq I18n.t("devise.mailer.close_account.title")
 end
+
+Given(/^I have a spanish developer with a development with unit types and a phase$/) do
+  PhasePlotFixture.create_spanish_developer_with_development_and_unit_types_and_phase
+end
+
+When(/^I create a plot for the spanish phase$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  within "[data-developer='#{PhasePlotFixture.spanish_developer_id}']" do
+    click_on t("developers.index.developments")
+  end
+
+  within "[data-development='#{PhasePlotFixture.spanish_development_id}']" do
+    click_on t("developments.collection.phases")
+  end
+
+  within "[data-phase='#{PhasePlotFixture.spanish_phase.id}']" do
+    click_on t("phases.collection.plots")
+  end
+
+  click_on t("components.empty_list.add", type_name: "plot")
+  within ".plot_unit_type" do
+    select PhasePlotFixture.unit_type_name, visible: false
+  end
+
+  fill_in "plot_list", with: PhasePlotFixture.plot_number
+end
+
+Then(/^I should see the spanish plot address format$/) do
+
+  ignore = Capybara.ignore_hidden_elements
+  Capybara.ignore_hidden_elements = false
+
+  expect(page).not_to have_selector('#plot_county')
+  find_field(:plot_house_number).should be_visible
+  find_field(:plot_building_name).should be_visible
+  find_field(:plot_road_name).should be_visible
+  find_field(:plot_postcode).should be_visible
+  find_field(:plot_locality).should be_visible
+  find_field(:plot_city).should be_visible
+
+  Capybara.ignore_hidden_elements = ignore
+end

@@ -18,3 +18,12 @@ Feature: Developers
     And default FAQs exist
     When I create a developer
     Then I should see default faqs for the developer
+
+  @javascript
+  Scenario: Create Spanish developer
+    Given I am logged in as an admin
+    When I open the new developer page
+    Then I should see UK address format
+    When I create a new spanish developer and edit it
+    Then I should see Spanish address format
+

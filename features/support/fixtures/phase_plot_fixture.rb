@@ -15,9 +15,26 @@ module PhasePlotFixture
 
   end
 
+  def create_spanish_developer_with_development_and_unit_types_and_phase
+    spanish_development = FactoryGirl.create(
+      :development,
+      developer: create_spanish_developer,
+      name: spanish_development_name
+    )
+    create_unit_types(spanish_development)
+    create_spanish_phase(spanish_development)
+    create_contact(spanish_development)
+
+  end
+
   def create_developer
     country = FactoryGirl.create(:country)
     FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
+  end
+
+  def create_spanish_developer
+    CreateFixture.create_countries
+    FactoryGirl.create(:developer, company_name: spanish_developer_name, country_id: Country.find_by(name: "Spain").id)
   end
 
   def create_contact(development)
@@ -38,6 +55,10 @@ module PhasePlotFixture
     FactoryGirl.create(:phase, name: phase_name, development: development)
   end
 
+  def create_spanish_phase(development)
+    FactoryGirl.create(:phase, name: spanish_phase_name, development: development)
+  end
+
   def create_another_phase_plot
     FactoryGirl.create(:phase_plot,
                        phase: CreateFixture.phase,
@@ -49,8 +70,16 @@ module PhasePlotFixture
     "Alpine"
   end
 
+  def spanish_phase_name
+    "Ola"
+  end
+
   def phase
     Phase.find_by(name: phase_name)
+  end
+
+  def spanish_phase
+    Phase.find_by(name: spanish_phase_name)
   end
 
   def unit_type_name
@@ -65,16 +94,32 @@ module PhasePlotFixture
     "Development Developer Ltd"
   end
 
+  def spanish_developer_name
+    "Madrid Developer Sp"
+  end 
+
   def development_name
     "Riverside Development"
+  end
+
+  def spanish_development_name
+    "Casa Development"
   end
 
   def developer_id
     Developer.find_by(company_name: developer_name).id
   end
 
+  def spanish_developer_id
+    Developer.find_by(company_name: spanish_developer_name).id
+  end
+
   def development_id
     Development.find_by(name: development_name).id
+  end
+
+  def spanish_development_id
+    Development.find_by(name: spanish_development_name).id
   end
 
   def plot_name

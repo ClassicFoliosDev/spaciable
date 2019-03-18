@@ -125,3 +125,19 @@ Then(/^I should see that the deletion was successful for the division$/) do
     expect(page).to have_content(DeveloperDivisionFixture.second_division_name)
   end
 end
+
+When(/^I create a division for the spanish developer$/) do
+  visit "/developers"
+
+  within "[data-developer='#{CreateFixture.spanish_developer_id}']" do
+    click_on t("developers.index.divisions")
+  end
+
+  within ".divisions" do
+    click_on t("divisions.collection.add")
+  end
+
+  within ".new_division" do
+    fill_in "division_division_name", with: CreateFixture.spanish_division_name
+  end
+end

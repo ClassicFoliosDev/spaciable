@@ -231,6 +231,8 @@ en:
         copy_plot_numbers: "Use Plot number for Postal number"
         house_number: "Postal number / name"
         prefix: "Postal Prefix, e.g., Plot, Flat and Apartment"
+      spanish_plot_address_fields:
+        copy_plot_numbers: "Use Plot number for Postal number"
 
     homeowner:
       welcome:
@@ -932,6 +934,15 @@ en:
       locality: "Locality"
       prefix: "Plot, Flat or Apartment"
 
+  spanish_addresses:
+    placeholders:
+      postal_number: "Address Line 1"
+      building_name: "Address Line 2"
+      road_name: "Address Line 3"
+      locality: "Address Line 4"
+      city: "Address Line 5"
+      postcode: "Address Line 6"
+
   residents:
     sessions:
       new:
@@ -1125,9 +1136,16 @@ en:
       residents: "Residents"
       unit_type: "Unit type"
       name: "Plot"
-      building_name: "Building name"
-      road_name: "Road name"
-      postcode: "Postcode"
+      UK:
+        house_number: "Postal number / name"
+        building_name: "Building name"
+        road_name: "Road name"
+        postcode: "Postcode"
+      Spain:
+        house_number: "Address Line 1"
+        building_name: "Address Line 2"
+        road_name: "Address Line 3"
+        postcode: "Address Line 6"
       progress: "Build progress"
       completion: "Completion"
       activation: "Activated Residents"
@@ -1593,15 +1611,22 @@ en:
     index:
       title: "Production overview of plots"
     collection:
-      name: "Plot number"
+      add: "Add plot(s)"
       unit_type: "Unit type"
       date_r: "R"
       date_c: "C"
+      name: "Plot number"
       prefix: "Postal prefix"
-      building_name: "Building name"
-      road_name: "Road name"
-      postcode: "Postcode"
-      add: "Add plot(s)"
+      UK:
+        house_number: "Postal number / name"
+        building_name: "Building name"
+        road_name: "Road name"
+        postcode: "Postcode"
+      Spain:
+        house_number: "Address Line 1"
+        building_name: "Address Line 2"
+        road_name: "Address Line 3"
+        postcode: "Address Line 6"
 
   activerecord:
     models:

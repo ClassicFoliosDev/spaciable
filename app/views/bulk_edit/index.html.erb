@@ -25,7 +25,12 @@
         </fieldset>
       </div>
 
-      <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
+      <% if @phase.developer.country.spain? %>
+        <%= render "components/admin/spanish_plot_address_fields", f: f, plot: nil %>
+      <% else %>
+        <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
+      <% end %>
+
     </div>
 
     <div class="form-actions-footer-container">

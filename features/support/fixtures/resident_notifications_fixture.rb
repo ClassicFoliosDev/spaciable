@@ -67,6 +67,18 @@ module ResidentNotificationsFixture
     create_notification_residents
   end
 
+  def create_spanish_permission_resources
+    create_spanish_developer
+    create_spanish_division
+    create_spanish_development
+    create_spanish_division_development
+    create_spanish_phases
+    create_spanish_unit_type
+    create_spanish_phase_plot
+    create_spanish_division_development_plot
+    create_notification_residents
+  end
+
   def developer_plot
     development_plot
   end

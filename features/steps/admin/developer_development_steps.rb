@@ -102,3 +102,40 @@ end
 Given(/^there is a developer with a development$/) do
   CreateFixture.create_developer_with_development
 end
+
+Given(/^there is Spanish developer$/) do
+  CreateFixture.create_spanish_developer
+end
+
+When(/^I create a development for the spanish developer$/) do
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  within "[data-developer='#{CreateFixture.spanish_developer_id}']" do
+    click_on t("developers.index.developments")
+  end
+
+  click_on t("developments.index.add")
+
+  fill_in "development_name", with: CreateFixture.spanish_development_name
+
+end
+
+Then(/^I see a Spanish format address$/) do
+
+  ignore = Capybara.ignore_hidden_elements
+  Capybara.ignore_hidden_elements = false
+  
+  expect(page).not_to have_selector('#developer_address_attributes_postal_number')
+  expect(page).not_to have_selector('#developer_address_attributes_road_name')
+  expect(page).not_to have_selector('#developer_address_attributes_building_name')
+  find_field(:development_address_attributes_locality).should be_visible
+  find_field(:development_address_attributes_city).should be_visible
+  expect(page).not_to have_selector('#developer_address_attributes_county')
+  find_field(:development_address_attributes_postcode).should be_visible
+
+  Capybara.ignore_hidden_elements = ignore
+end

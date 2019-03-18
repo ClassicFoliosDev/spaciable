@@ -15,3 +15,9 @@ Feature: Divisions
     Then I should see the divisions list
     When I delete the division
     Then I should see that the deletion was successful for the division
+
+  Scenario: Spanish Divisions
+    Given I am logged in as an admin
+    And there is a Spanish developer with a division
+    When I create a division for the spanish developer
+    Then I see a Spanish format divison address

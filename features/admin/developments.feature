@@ -28,3 +28,9 @@ Feature: Developments
     Then I should see the division developments list
     And I delete the divisions development
     Then I should see that the deletion was successful for the divisions development
+
+  Scenario: Spanish Developers
+    Given I am logged in as an admin
+    And there is Spanish developer
+    When I create a development for the spanish developer
+    Then I see a Spanish format address
