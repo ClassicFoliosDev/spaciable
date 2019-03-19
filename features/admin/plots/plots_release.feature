@@ -1,10 +1,10 @@
 @javascript
-Feature: Documents
+Feature: Release Plots
   As a CF Admin
   I want to release plots in bulk
   So that I can release a range of plots simultaneously
 
-  Scenario: CF Admin
+  Scenario: Validation
     Given I am a CF admin and there are many releasable plots
     Then I add some released plots
     Then I add some completed plots
@@ -46,14 +46,17 @@ Feature: Documents
 Scenario: Validity and Extended Access
     Given I am a CF admin and there are many releasable plots
     When I visit the release plots page
-    When I enter a range of existant plots
+    When I enter an existant plot and a date beyond today
     When I press Submit
-    Then I get a validity confirmation dialog
+    Then there is a message to telling me the date is incorrect
+    When I set the date to today and a validity value
+    When I press Submit
+    Then I get a reservation and validity confirmation dialog
     When I cancel the dialog
     Then I am returned to the release plots page
     When I enter Validity and Extended periods
     When I press Submit
-    Then I get a Validity and Extended confirmation dialog
+    Then I get a reservation, validity and extended confirmation dialog
     When I confirm the dialog
-    Then I am returned to the phases page with a confirmation message
+    Then I am returned to the phases page with a single plot confirmation message
     Then the plot validity and extended data has been updated

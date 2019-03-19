@@ -54,8 +54,9 @@ module BulkPlots
     # i.e. the range may be 1-20 but there may only be plots at 1,3,6 etc
     def self.physical_plots(phase, plot_numbers)
       plots = Plot.where(phase_id: phase).where(number: plot_numbers).pluck(:number).natural_sort
-      if plots.empty?
-        raise "Plot(s) #{plot_numbers * ','} do not match plots on this phase. " \
+      unmatched_plots = plot_numbers - plots
+      if unmatched_plots.any?
+        raise "Plot(s) #{unmatched_plots * ','} do not match plots on this phase. " \
               "Please review and update list or range of plots."
       end
       plots

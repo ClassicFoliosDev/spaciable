@@ -44,8 +44,10 @@ class ReleasePlotsController < ApplicationController
   # Validate the request
   def validate
     # check Validity is valid if populated
-    if !r_params[:validity].empty? && r_params[:validity].to_i < 2
+    if r_params[:validity].present? && r_params[:validity].to_i < 2
       { valid: false, message: "Validity must be > 1" }
+    elsif Date.parse(r_params[:release_date]) > Time.zone.today
+      { valid: false, message: "Date must be before or equal to today" }
     else
       pre_submit_check
     end

@@ -45,7 +45,7 @@ end
 
 Then(/^there is a message to telling me to popudate the data$/) do
   within ".alert" do
-    expect(page).to have_content 'Please populate fields'
+    expect(page).to have_content 'Please populate plots and date'
   end
 end
 
@@ -54,7 +54,7 @@ When(/^I add all plots and set a reseravtion release date$/) do
 
   within ".bulk-edit" do
     click_on "Add All Plots"
-    fill_in :phase_release_plots_release_date, with: (Time.zone.now + 10.days)
+    fill_in :phase_release_plots_release_date, with: (Time.zone.today - 10.days)
   end
 
   within ".form-actions-footer" do
@@ -77,7 +77,7 @@ end
 When(/^I set a completion date$/) do
   within ".bulk-edit" do
     select "Completion", :from => :release_type, visible: false
-    fill_in :phase_release_plots_release_date, with: (Time.zone.now + 10.days)
+    fill_in :phase_release_plots_release_date, with: (Time.zone.today - 10.days)
   end
 end
 
@@ -91,13 +91,13 @@ When(/^I enter a range of non-existant plots$/) do
   phase = CreateFixture.phase
 
   within ".bulk-edit" do
-   fill_in :phase_release_plots_mixed_list, with: "D1~D6"
+   fill_in :phase_release_plots_mixed_list, with: "187,D1,D2"
   end
 end
 
 Then(/^there is a message telling me the plots dont match this phase$/) do
   within ".alert" do
-    expect(page).to have_content 'Plot(s) D1,D2,D3,D4,D5,D6 do not match plots on this phase. Please review and update list or range of plots.'
+    expect(page).to have_content 'Plot(s) D1,D2 do not match plots on this phase. Please review and update list or range of plots.'
   end
 end
 
@@ -111,10 +111,9 @@ end
 
 Then(/^I get a completion confirmation dialog$/) do
   within(:xpath, '//div[@id="dialog"]') do
-    now = (Time.zone.now + 10.days).strftime("%d/%m/%y")
+    now = (Time.zone.today - 10.days).strftime("%d/%m/%y")
     expect(page).to have_content "Are you sure you want to send the completion email and update release date to #{now}"
     expect(page).to have_content "Number of plots: 3"
-    expect(page).to have_content "Validity: 27"
   end
 end
 
@@ -129,7 +128,6 @@ end
 
 Then(/^there is a warning that some plots are already have reservation release dates$/) do
   message = I18n.t("activerecord.errors.models.plot.attributes.base.missing")
-  #error_message = I18n.t("activerecord.errors.messages.bulk_edit_not_save", title: "Plot", numbers: "179", messages: message)
   within ".alert" do
     expect(page).to have_content 'Please populate fields'
   end
@@ -144,10 +142,9 @@ end
 
 Then(/^I get a reservation confirmation dialog$/) do
   within(:xpath, '//div[@id="dialog"]') do
-    now = (Time.zone.now + 10.days).strftime("%d/%m/%y")
-    expect(page).to have_content "Are you sure you want to send the reservation email and update release date to #{now}"
+    date = (Time.zone.today - 10.days).strftime("%d/%m/%y")
+    expect(page).to have_content "Are you sure you want to send the reservation email and update release date to #{date}"
     expect(page).to have_content "Number of plots: 3"
-    expect(page).to have_content "Validity: 27"
     expect(page).to have_content "Extended: 24"
   end
 end
@@ -177,12 +174,32 @@ Then(/^the plot completion data has been updated$/) do
   end
 end
 
-Then(/^I get a validity confirmation dialog$/) do
-  within(:xpath, '//div[@id="dialog"]') do
-    now = (Time.zone.now + 10.days).strftime("%d/%m/%y")
-    expect(page).to have_content "Are you sure you want to update the Validity to 27 month(s)"
-    expect(page).to have_content "Number of plots: 3"
+When(/^I enter an existant plot and a date beyond today$/) do
+  within ".bulk-edit" do
+   fill_in :phase_release_plots_mixed_list, with: "D102"
+   fill_in :phase_release_plots_release_date, with: (Time.zone.today + 10.days)
+  end
+end
 
+When(/^I set the date to today and a validity value$/) do
+  within ".bulk-edit" do
+    fill_in :phase_release_plots_validity, with: "12"
+    fill_in :phase_release_plots_release_date, with: (Time.zone.today)
+  end
+end
+
+Then(/^there is a message to telling me the date is incorrect$/) do
+  within ".alert" do
+    expect(page).to have_content 'Date must be before or equal to today'
+  end
+end
+
+Then(/^I get a reservation and validity confirmation dialog$/) do
+  within(:xpath, '//div[@id="dialog"]') do
+    date = (Time.zone.today).strftime("%d/%m/%y")
+    expect(page).to have_content "Are you sure you want to send the reservation email and update release date to #{date}"
+    expect(page).to have_content "Number of plots: 1"
+    expect(page).to have_content "Validity: 12"
   end
 end
 
@@ -196,25 +213,32 @@ end
 
 When(/^I enter Validity and Extended periods/) do
   within ".bulk-edit" do
-    fill_in :phase_release_plots_validity, with: "12"
+    fill_in :phase_release_plots_validity, with: "14"
     fill_in :phase_release_plots_extended_access, with: "24"
   end
 end
 
-Then(/^I get a Validity and Extended confirmation dialog$/) do
+When(/^I get a reservation, validity and extended confirmation dialog$/) do
   within(:xpath, '//div[@id="dialog"]') do
-    now = (Time.zone.now + 10.days).strftime("%d/%m/%y")
-    expect(page).to have_content "Are you sure you want to update the Extended access to 24 month(s) and the Valdity to 12 month(s)? "
-    expect(page).to have_content "Number of plots: 3"
+    date = (Time.zone.today).strftime("%d/%m/%y")
+    expect(page).to have_content "Are you sure you want to send the reservation email and update release date to #{date}"
+    expect(page).to have_content "Number of plots: 1"
+    expect(page).to have_content "Validity: 14"
+    expect(page).to have_content "Extended: 24"
   end
 end
 
+Then(/^I am returned to the phases page with a single plot confirmation message$/) do
+  within ".notice" do
+    expect(page).to have_content 'Successfully updated plot D102'
+  end
+  expect(page).to have_current_path "/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}"
+end
+
 Then(/^the plot validity and extended data has been updated$/) do
-  (185..187).each do |number| 
-    plot = Plot.find_by(number: number)
-    unless  plot.validity == 12 && plot.extended_access == 24
-      raise "Plot #{plot.number} not updated"
-    end
+  plot = Plot.find_by(number: 'D102')
+  unless  plot.validity == 14 && plot.extended_access == 24
+    raise "Plot #{plot.number} not updated"
   end
 end
 

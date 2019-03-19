@@ -35,7 +35,7 @@ module Admin
 
     def update
       if UpdateUserService.call(@user, user_params)
-        if user_params[:password]
+        if user_params[:password] && user_params[:password].present?
           redirect_to new_user_session_url, notice: t(".success_password", user_name: @user.to_s)
         else
           redirect_to %i[admin users], notice: t(".success", user_name: @user.to_s)

@@ -10,13 +10,22 @@ class ReleaseMailer < ApplicationMailer
 
   def completion_release_email(phase, updated_plots, params)
     create_globals(phase, updated_plots, params)
-    expiry_date = @release_date >> params[:validity].to_i >> params[:extended].to_i
-    @expiry_date_s = expiry_date.strftime("%d/%m/%y")
-
+    calc_min_expiry_date(phase, updated_plots)
     send_mail(t("completion_email.title"))
   end
 
   private
+
+  # Calculate the minimum expiry date.  This is the release date plus the minimum
+  # validity + extended date of all the plots being updated
+  def calc_min_expiry_date(phase, updated_plots)
+    minmonths = Plot.where(phase_id: phase.id)
+                    .where(number: updated_plots).pluck(:validity, :extended_access)
+                    .map { |v, e|  v + e }
+                    .min
+
+    @expiry_date_s = (@release_date + minmonths.months).strftime("%d/%m/%y")
+  end
 
   # create the globals to populate the email views
   def create_globals(phase, updated_plots, params)

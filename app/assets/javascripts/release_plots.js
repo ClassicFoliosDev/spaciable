@@ -36,8 +36,8 @@ document.addEventListener('turbolinks:load', function () {
     fd.req = "validate"
 
     // Check that the minimim data set is populated
-    if (fd.mixed_list == "" || (fd.release_date == "" && fd.validity == "" && fd.extended == "")) {
-      $('.flash').append('<p class=alert>' + "Please populate fields" + '</p>')
+    if (fd.mixed_list == "" || fd.release_date == "") {
+      $('.flash').append('<p class=alert>' + "Please populate plots and date" + '</p>')
     } else {
       // Call the controller to do the analysis
       $.getJSON({
@@ -64,30 +64,15 @@ document.addEventListener('turbolinks:load', function () {
 
     // Note: _ in data content names are translated to camelCase automatically
     dialog_body = '<h3>Confirm</h3>' +
-        '<div>'
-
-    if (f.release_date) {
-    dialog_body = dialog_body + 
-          '<p>Are you sure you want to send the ' + f.release_type.match(/^[a-z]+/) + ' email and update release date to ' + results.release_date + '?</p>'
-    } else if (f.validity && f.extended && f.extended != 0) {
-      dialog_body = dialog_body + 
-          '<p>Are you sure you want to update the Extended access to ' + f.extended + ' month(s) and the Valdity to ' + f.validity + ' month(s)?</p>'
-    } else if (f.validity && f.validity) {
-      dialog_body = dialog_body + 
-          '<p>Are you sure you want to update the Validity to ' + f.validity + ' month(s)?</p>'
-    } else {
-      dialog_body = dialog_body + 
-          '<p>Are you sure you want to update the Extended access to ' + f.extended + ' month(s)?</p>'
-    }
-
-    dialog_body = dialog_body + 
-        '</div>' + 
+        '<div>' + 
+          '<p>Are you sure you want to send the ' + f.release_type.match(/^[a-z]+/) + ' email and update release date to ' + results.release_date + '?</p>' + 
+        '</div>' +
         '<div>' + 
           '<p>Number of plots: ' + results.num_plots  + '</p>' + 
           '<p>Plots: ' + results.plot_numbers  + '</p>'
 
-    if (f.release_date && f.validity) { dialog_body = dialog_body + '<p>Validity: ' + f.validity  + '</p>' }
-    if (f.release_date && f.extended && f.extended != 0) { dialog_body = dialog_body + '<p>Extended: ' + f.extended  + '</p>' }
+    if (f.validity) { dialog_body = dialog_body + '<p>Validity: ' + f.validity  + '</p>' }
+    if (f.extended) { dialog_body = dialog_body + '<p>Extended: ' + f.extended  + '</p>' }
 
     dialog_body = dialog_body +'</div>'
 

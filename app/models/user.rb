@@ -88,4 +88,14 @@ class User < ApplicationRecord
 
     emails
   end
+
+  # rubocop:disable all
+  def enable_receive_release_emails?(current_user)
+    current_user.cf_admin? ||
+      (current_user.developer_admin? &&
+       ((self == current_user) || division_admin? || development_admin? || site_admin?)) ||
+      (current_user.division_admin? &&
+        ((self == current_user) || development_admin? || site_admin?))
+  end
+  # rubocop:enable all
 end
