@@ -56,6 +56,13 @@ When(/^I update the brand$/) do
                 visible: false)
   end
 
+  email_logo_path = FileFixture.file_path + FileFixture.email_logo_name
+  within ".brand_email_logo" do
+    attach_file("brand_email_logo",
+                File.absolute_path(email_logo_path),
+                visible: false)
+  end
+
   fill_in "brand[bg_color]", with: BrandFixture.bg_color
   fill_in "brand[button_text_color]", with: BrandFixture.button_text_color
   fill_in "brand[header_color]", with: BrandFixture.header_color
@@ -145,6 +152,9 @@ Then(/^I should see the updated (\w+) brand$/) do |parent_type|
 
     expect(images[2]["src"]).to have_content(FileFixture.login_image_name)
     expect(images[2]["alt"]).to have_content(FileFixture.login_image_alt)
+
+    expect(images[3]["src"]).to have_content(FileFixture.email_logo_name)
+    expect(images[3]["alt"]).to have_content(FileFixture.email_logo_alt)
   end
 end
 

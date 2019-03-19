@@ -48,6 +48,7 @@ class Plot < ApplicationRecord
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, to: :unit_type
   delegate :branded_logo, to: :brand, allow_nil: true
+  delegate :branded_email_logo, to: :brand, allow_nil: true
   delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, :enable_services?, :enable_roomsketcher?, to: :developer, allow_nil: true
   delegate :enable_development_messages?, to: :developer

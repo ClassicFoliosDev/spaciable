@@ -63,7 +63,8 @@ class BrandsController < ApplicationController
       :content_box_color, :content_box_outline_color,
       :content_box_text, :heading_one, :heading_two, :info_text,
       :text_left_color, :text_right_color, :login_logo,
-      :login_image_cache, :remove_login_image, :login_logo_cache, :remove_login_logo
+      :login_image_cache, :remove_login_image, :login_logo_cache, :remove_login_logo,
+      :email_logo, :remove_email_logo, :email_logo_cache
     )
   end
 

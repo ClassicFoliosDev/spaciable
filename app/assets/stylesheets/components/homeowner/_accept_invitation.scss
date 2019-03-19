@@ -108,6 +108,22 @@ label.login-checkbox {
     }
   }
 
+  .branded-right-box {
+    background-color: $primary-red;
+  }
+
+  .branded-submit {
+    color: $primary-red;
+    border-color: $primary-red;
+    background-color: $ui-white;
+  }
+
+  .branded-submit:hover {
+    background-color: $ui-white;
+    color: $primary-green;
+    border-color: $primary-green;
+  }
+
   .register {
     @include span-columns(5 of 12);
     @include omega();

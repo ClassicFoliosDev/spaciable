@@ -49,9 +49,6 @@ end
 Then(/^I should be on the "My Home" dashboard$/) do
   homeowner = HomeownerUserFixture
 
-  sleep 0.5
-  save_and_open_screenshot
-
   within ".header-container" do
     expect(page).to have_content "Hi #{homeowner.first_name}"
     expect(page).to have_link "My Home"

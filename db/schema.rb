@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190220123248) do
+ActiveRecord::Schema.define(version: 20190318081258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,19 @@ ActiveRecord::Schema.define(version: 20190220123248) do
     t.string   "prefix"
     t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id", using: :btree
     t.index ["deleted_at"], name: "index_addresses_on_deleted_at", using: :btree
+  end
+
+  create_table "admin_notifications", force: :cascade do |t|
+    t.string   "subject"
+    t.text     "message"
+    t.datetime "sent_at"
+    t.integer  "author_id"
+    t.integer  "sender_id"
+    t.datetime "created_at",                 null: false
+    t.boolean  "send_to_all", default: true
+    t.datetime "updated_at",                 null: false
+    t.index ["author_id"], name: "index_admin_notifications_on_author_id", using: :btree
+    t.index ["sender_id"], name: "index_admin_notifications_on_sender_id", using: :btree
   end
 
   create_table "appliance_categories", force: :cascade do |t|
@@ -113,6 +126,7 @@ ActiveRecord::Schema.define(version: 20190220123248) do
     t.string   "heading_one"
     t.string   "heading_two"
     t.string   "info_text"
+    t.string   "email_logo"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 

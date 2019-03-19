@@ -1,0 +1,39 @@
+<%= simple_form_for([:admin, admin_notification]) do |f| %>
+  <% if admin_notification.errors.any? %>
+  <div class="row">
+    <div class="row-item">
+      <div class="submission-errors">
+        <ul>
+          <% admin_notification.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div class="row-item third">
+      <%= t(".send_to_all_admins", admins_count: User.where.not(role: "cf_admin").count) %>
+      <hr>
+    </div>
+
+    <div class="row-item two-thirds send-message">
+      <fieldset>
+        <%= f.input :subject %>
+        <%= f.input :message, as: :ckeditor %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), [:admin, :notifications], class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

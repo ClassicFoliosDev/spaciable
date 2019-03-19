@@ -27,6 +27,10 @@
     <div class="brand_login_image">
       <%= image_tag(@brand.login_image.url) if @brand.login_image? %>
     </div>
+    <%= label_tag :email_logo %>
+    <div class="brand_email_logo>">
+      <%= image_tag(@brand.email_logo.url) if @brand.email_logo? %>
+    </div>
   </div>
   <div class="row-item third">
     <%= label_tag :internal_styling %>

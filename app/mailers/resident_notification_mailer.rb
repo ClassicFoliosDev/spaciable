@@ -38,8 +38,7 @@ class ResidentNotificationMailer < ApplicationMailer
 
   def close_account(email, name)
     @name = name
-    @logo = @plot&.branded_logo
-    @logo = "logo.png" if @logo.blank?
+    @logo = email_logo_or_brand_logo
 
     mail to: email, subject: I18n.t("devise.mailer.close_account.title")
   end
@@ -47,8 +46,7 @@ class ResidentNotificationMailer < ApplicationMailer
   def transfer_files(email, name, url, plot_name)
     @name = name
     @url = url
-    @logo = @plot&.branded_logo
-    @logo = "logo.png" if @logo.blank?
+    @logo = email_logo_or_brand_logo
     @plot_name = plot_name
 
     mail to: email, subject: I18n.t("devise.mailer.transfer_files.title")
@@ -56,10 +54,17 @@ class ResidentNotificationMailer < ApplicationMailer
 
   private
 
+  def email_logo_or_brand_logo
+    @plot&.branded_email_logo ? @plot.branded_email_logo : brand_logo_or_default_logo
+  end
+
+  def brand_logo_or_default_logo
+    @plot&.branded_logo ? @plot.branded_logo : "logo.png"
+  end
+
   def template_configuration(plot_residency)
     @resident = plot_residency.resident
     @plot = plot_residency.plot
-    @logo = @plot&.branded_logo
-    @logo = "logo.png" if @logo.blank?
+    @logo = email_logo_or_brand_logo
   end
 end

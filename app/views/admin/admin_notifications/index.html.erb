@@ -1,0 +1,9 @@
+<% breadcrumb :admin_admin_notifications %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render_collection @admin_notifications, path_prefix: "admin" %>

@@ -99,6 +99,14 @@ module FileFixture
     "New home"
   end
 
+  def email_logo_name
+    "Avatar_girl_face.png"
+  end
+
+  def email_logo_alt
+    "vatar girl face"
+  end
+
   def privacy_document_name
     "Hoozzi_Privacy_policy_GDPR_version_May_2018.pdf"
   end

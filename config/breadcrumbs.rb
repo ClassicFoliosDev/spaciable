@@ -32,7 +32,7 @@ crumb :admin_resident do |resident|
   parent :admin_residents
 end
 
-# Admin Notifications
+# Admin Notifications - Notifications sent by Admins to Residents
 crumb :admin_notifications do
   link t("breadcrumbs.admin_notifications"), admin_notifications_path
 end
@@ -45,6 +45,16 @@ end
 crumb :admin_notification do |notification|
   link notification.to_s, admin_notification_path(notification)
   parent :admin_notifications
+end
+
+# Admin Notifications - Notifications sent by CF Admins to other Admins
+crumb :admin_admin_notifications do
+  link t("breadcrumbs.admin_admin_notifications"), admin_admin_notifications_path
+end
+
+crumb :admin_admin_notifications_new do
+  link t("breadcrumbs.admin_admin_notifications_new"), new_admin_admin_notification_path
+  parent :admin_admin_notifications
 end
 
 # Admin HowTos

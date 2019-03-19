@@ -69,6 +69,7 @@ When(/^I press Submit/) do
 end
 
 Then(/^there is a message telling me the released pots$/) do
+  sleep 0.5
   within ".alert" do
     expect(page).to have_content 'Plots 181,A2 already have a reservation release date'
   end
@@ -82,6 +83,7 @@ When(/^I set a completion date$/) do
 end
 
 Then(/^there is a message telling me the completed pots$/) do
+  sleep 0.5
   within ".alert" do
     expect(page).to have_content 'Plots 182,A5 already have a completion release date'
   end

@@ -137,6 +137,8 @@ en:
   breadcrumbs:
     admin_notifications: "Notifications"
     admin_notifications_new: "Send notification"
+    admin_admin_notifications: "Admin notifications"
+    admin_admin_notifications_new: "Send notification"
     admin_residents: "Admin residents"
     admin_users: "Admin users"
     admin_users_add: "Add admin user"
@@ -277,6 +279,7 @@ en:
       finishes: "Finishes"
       profile: "Profile"
       notifications: "Notifications"
+      admin_notifications: "Admin Notifications"
       contacts: "Contacts"
       howtos: "How Tos"
       help: "Hoozzi help"
@@ -341,10 +344,34 @@ en:
       email: "Email address:"
       phone: "Phone number:"
 
+  admin_notification_mailer:
+    admin_notifications:
+      hi: "Hi, "
+      login: "Login to Hoozzi"
+
   forms:
     required: "Required"
 
   admin:
+    admin_notifications:
+      index:
+        title: "Admin Notifications"
+      collection:
+        add: "Send notification"
+        headers:
+          subject: "Notification"
+          sent_at: "Date sent"
+          sender: "Sender"
+      new:
+        title: "Send admin notification"
+      form:
+        send_to_all_admins: "Send notification to %{admins_count} admins"
+        back: "Back"
+        submit: "Send"
+      create:
+        success: "Notification sent to %{admins_count} admins"
+      show:
+        back: "Back"
     notifications:
       collection:
         add: "Send notification"

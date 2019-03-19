@@ -194,7 +194,7 @@
   <% end %>
 
   <% if brand.branded_login_box_right_color %>
-    .branded-right-box { background-color: <%= brand.branded_login_box_right_color %>; }
+    .branded-right-box, .invitation .branded-right-box { background-color: <%= brand.branded_login_box_right_color %>; }
   <% else %>
     .branded-right-box { background-color: #F7525E; // $primary-red; }
   <% end %>

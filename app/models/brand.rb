@@ -8,12 +8,15 @@ class Brand < ApplicationRecord
   mount_uploader :banner, PictureUploader
   mount_uploader :login_image, PictureUploader
   mount_uploader :login_logo, PictureUploader
-  attr_accessor :logo_cache, :banner_cache, :login_image_cache, :login_logo_cache
+  mount_uploader :email_logo, PictureUploader
+  attr_accessor :logo_cache, :banner_cache,
+                :login_image_cache, :login_logo_cache, :email_logo_cache
 
   delegate :url, to: :banner, prefix: true
   delegate :url, to: :logo, prefix: true
   delegate :url, to: :login_image, prefix: true
   delegate :url, to: :login_logo, prefix: true
+  delegate :url, to: :email_logo, prefix: true
 
   belongs_to :brandable, polymorphic: true
 
@@ -131,6 +134,10 @@ class Brand < ApplicationRecord
 
   def branded_login_image
     branded_image(:login_image_url)
+  end
+
+  def branded_email_logo
+    branded_image(:email_logo_url)
   end
 
   def logo_thumb_url
