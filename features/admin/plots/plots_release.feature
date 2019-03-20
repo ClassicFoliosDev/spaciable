@@ -4,13 +4,19 @@ Feature: Release Plots
   I want to release plots in bulk
   So that I can release a range of plots simultaneously
 
-  Scenario: Validation
+  Scenario: Nil Validation
     Given I am a CF admin and there are many releasable plots
     Then I add some released plots
     Then I add some completed plots
     When I visit the release plots page
     When I submit with no parameters
     Then there is a message to telling me to popudate the data
+
+  Scenario: Data Validation
+    Given I am a CF admin and there are many releasable plots
+    Then I add some released plots
+    Then I add some completed plots
+    When I visit the release plots page
     When I add all plots and set a reseravtion release date
     When I press Submit
     Then there is a message telling me the released pots
@@ -31,6 +37,7 @@ Feature: Release Plots
     When I confirm the dialog
     Then I am returned to the phases page with a confirmation message
     Then the plot release data has been updated
+
 
   Scenario: Completion
     Given I am a CF admin and there are many releasable plots

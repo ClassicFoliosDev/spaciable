@@ -50,7 +50,9 @@ Then(/^there is a message to telling me to popudate the data$/) do
 end
 
 When(/^I add all plots and set a reseravtion release date$/) do
-  phase = CreateFixture.phase
+  page.evaluate_script 'window.location.reload()'
+
+  sleep 2
 
   within ".bulk-edit" do
     click_on "Add All Plots"
