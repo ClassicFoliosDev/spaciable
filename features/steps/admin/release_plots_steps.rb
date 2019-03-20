@@ -14,7 +14,7 @@ Given(/^I am a CF admin and there are many releasable plots$/) do
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A4', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A8', road_name: "Bulk Edit Road B", prefix: "Flat")
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'C1', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'D102', road_name: "Bulk Edit Road B", prefix: "Flat")
+  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'D 102', road_name: "Bulk Edit Road B", prefix: "Flat")
   FactoryGirl.create(:plot, unit_type: CreateFixture.unit_type, phase: CreateFixture.phase, number: 188, road_name: "Bulk Edit Road C", prefix: "Flat", house_number: "18A", postcode: "AA 1AB")
 end
 
@@ -25,7 +25,7 @@ end
 
 Then(/^I add some completed plots$/) do
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 182, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/2/2')
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A5', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/3/2')
+  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A 5', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/3/2')
 end
 
 When(/^I visit the release plots page$/) do
@@ -87,7 +87,7 @@ end
 Then(/^there is a message telling me the completed pots$/) do
   sleep 0.5
   within ".alert" do
-    expect(page).to have_content 'Plots 182,A5 already have a completion release date'
+    expect(page).to have_content 'Plots 182,A 5 already have a completion release date'
   end
 end
 
@@ -95,7 +95,7 @@ When(/^I enter a range of non-existant plots$/) do
   phase = CreateFixture.phase
 
   within ".bulk-edit" do
-   fill_in :phase_release_plots_mixed_list, with: "187,D1,D2"
+   fill_in :phase_release_plots_mixed_list, with: "187, D1,D2"
   end
 end
 
@@ -180,7 +180,7 @@ end
 
 When(/^I enter an existant plot and a date beyond today$/) do
   within ".bulk-edit" do
-   fill_in :phase_release_plots_mixed_list, with: "D102"
+   fill_in :phase_release_plots_mixed_list, with: "D 102"
    fill_in :phase_release_plots_release_date, with: (Time.zone.today + 10.days)
   end
 end
@@ -234,13 +234,13 @@ end
 
 Then(/^I am returned to the phases page with a single plot confirmation message$/) do
   within ".notice" do
-    expect(page).to have_content 'Successfully updated plot D102'
+    expect(page).to have_content 'Successfully updated plot D 102'
   end
   expect(page).to have_current_path "/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}"
 end
 
 Then(/^the plot validity and extended data has been updated$/) do
-  plot = Plot.find_by(number: 'D102')
+  plot = Plot.find_by(number: 'D 102')
   unless  plot.validity == 14 && plot.extended_access == 24
     raise "Plot #{plot.number} not updated"
   end

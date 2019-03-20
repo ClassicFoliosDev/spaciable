@@ -37,7 +37,7 @@ document.addEventListener('turbolinks:load', function () {
 
     // Check that the minimim data set is populated
     if (fd.mixed_list == "" || fd.release_date == "") {
-      $('.flash').append('<p class=alert>' + "Please populate plots and date" + '</p>')
+      $('.flash').empty().append('<p class=alert>' + "Please populate plots and date" + '</p>')
     } else {
       // Call the controller to do the analysis
       $.getJSON({
@@ -50,7 +50,7 @@ document.addEventListener('turbolinks:load', function () {
           Confirm(results)
         } else {
           // populate the flash band with the error details
-          $('.flash').append('<p class=alert>' + results.message + '</p>')
+          $('.flash').empty().append('<p class=alert>' + results.message + '</p>')
         }
 
       })

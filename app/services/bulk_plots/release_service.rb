@@ -6,7 +6,7 @@ module BulkPlots
     # release dates when necessary
     def self.process(phase, mixed_plots, db_column = nil, &block)
       begin
-        plot_numbers = split_mixed(mixed_plots.gsub(/\s+/, "")) # chomp spaces
+        plot_numbers = split_mixed(mixed_plots) # chomp spaces
         # only check for popuated plots if a db_column has been specified
         check_populated_plots(phase, plot_numbers, db_column) if db_column
         plot_numbers = physical_plots(phase, plot_numbers)
@@ -20,7 +20,7 @@ module BulkPlots
     # Split the entries initially by commas
     def self.split_mixed(mixed_plots)
       raise "Please supply a list of plots" if mixed_plots.empty?
-      plots = mixed_plots.split(",")
+      plots = mixed_plots.split(",").map(&:strip)
       # Go through all the plots looking for ranges - ie 10~20.  If
       # one is encpuntered then get it processed into a list of seperate entries
       plots.map! { |plot| plot.include?("~") ? split_range(plot) : plot }
