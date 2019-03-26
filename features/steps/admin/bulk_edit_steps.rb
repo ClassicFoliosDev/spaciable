@@ -18,9 +18,7 @@ When(/^I bulk edit the plots$/) do
   end
 
   within ".bulk-edit" do
-    fill_in :phase_bulk_edit_range_from, with: 179
-    fill_in :phase_bulk_edit_range_to, with: 181
-    fill_in :phase_bulk_edit_list, with: CreateFixture.phase_plot_name.to_i
+    fill_in :phase_bulk_edit_list, with: "#{CreateFixture.phase_plot_name.to_i},179~181"
 
     find("#phase_bulk_edit_unit_type_id_check").set true
     select "Another", visible: false

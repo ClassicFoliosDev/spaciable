@@ -95,7 +95,7 @@ When(/^I enter a range of non-existent plots$/) do
   phase = CreateFixture.phase
 
   within ".bulk-edit" do
-   fill_in :phase_release_plots_mixed_list, with: "187, D1,D2"
+   fill_in :phase_release_plots_list, with: "187, D1,D2"
   end
 end
 
@@ -109,7 +109,7 @@ When(/^I enter a range of existent plots$/) do
   phase = CreateFixture.phase
 
   within ".bulk-edit" do
-   fill_in :phase_release_plots_mixed_list, with: "185~187"
+   fill_in :phase_release_plots_list, with: "185~187"
   end
 end
 
@@ -127,7 +127,7 @@ end
 
 Then(/^the dialog disappears and the release plot page remains populated/) do
   expect(page).to have_no_css('.feedback-dialog')
-  expect(find_field(:phase_release_plots_mixed_list).value).to eq '185~187'
+  expect(find_field(:phase_release_plots_list).value).to eq '185~187'
 end
 
 Then(/^there is a warning that some plots are already have reservation release dates$/) do
@@ -180,7 +180,7 @@ end
 
 When(/^I enter an existent plot and a date beyond today$/) do
   within ".bulk-edit" do
-   fill_in :phase_release_plots_mixed_list, with: "D 102"
+   fill_in :phase_release_plots_list, with: "D 102"
    fill_in :phase_release_plots_release_date, with: (Time.zone.today + 10.days)
   end
 end

@@ -1,6 +1,6 @@
 /* global $, clearFields, setFields */
 
-document.addEventListener('turbolinks:load', function () {
+$(document).ready(function() {
 
   // Add on onClick jandler for the submit button
   document.getElementById("submit").addEventListener("click", validate);
@@ -9,7 +9,7 @@ document.addEventListener('turbolinks:load', function () {
   function formData (){
 
     json = {};
-    json.mixed_list = $('#phase_release_plots_mixed_list')[0].value
+    json.list = $('#phase_release_plots_list')[0].value
     json.release_type = $('#release_type')[0].value
     json.release_date = $('#phase_release_plots_release_date')[0].value
     json.validity = $('#phase_release_plots_validity')[0].value
@@ -36,7 +36,7 @@ document.addEventListener('turbolinks:load', function () {
     fd.req = "validate"
 
     // Check that the minimim data set is populated
-    if (fd.mixed_list == "" || fd.release_date == "") {
+    if (fd.list == "" || fd.release_date == "") {
       $('.flash').empty().append('<p class=alert>' + "Please populate plots and date" + '</p>')
     } else {
       // Call the controller to do the analysis
@@ -115,27 +115,6 @@ document.addEventListener('turbolinks:load', function () {
     fd.plot_numbers = plot_numbers
 
     $.post('/phases/' + getPhase() + '/release_plots', fd)
-  }
-
-
-  // Add another click listener for the 'All Plots' button
-  document.getElementById("add_plots").addEventListener("click", addAllPlots);
-
-  // Just ask the controller for all plots for the phase, then
-  // put them in the mixed_list area
-  function addAllPlots() {
-
-    // Remove any alerts and notices
-    $( ".alert" ).remove();
-    $( ".notice" ).remove();
-    
-    $.getJSON({
-    url: '/phases/' + getPhase() + '/callback',
-    data: { req: "all_plots" }
-    }).done(function (plots) {
-      $('#phase_release_plots_mixed_list').val(plots.plots); 
-    })
-
   }
 
 })

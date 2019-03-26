@@ -1,5 +1,7 @@
 <% breadcrumb :phase_release_plots, @phase %>
 
+<script type="text/javascript" src="/javascripts/lib/release_plots.js"></script>
+
 <div class="section-header">
   <div class="section-title">
     <div><%= t(".title") %></div>
@@ -12,10 +14,7 @@
   <%= f.hidden_field :phase_id, value: @phase.id %>
   <div class="row">
     <div class="row-item third">
-      <fieldset>
-        <%= f.input :mixed_list, as: :text, label: t(".mixed_list_label"), hint: t(".mixed_list_input_hint") %>
-      </fieldset>
-      <%= button_tag "Add All Plots", :type => 'button', class: "btn", id: 'add_plots' %>
+      <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
     </div>
 
     <div class="row-item third">

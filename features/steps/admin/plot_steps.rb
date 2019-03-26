@@ -466,8 +466,7 @@ When(/^I create plots for the phase$/) do
 
   within ".new_plot" do
     select PhasePlotFixture.unit_type_name, visible: false
-    fill_in :plot_range_from, with: 1
-    fill_in :plot_range_to, with: 11
+    fill_in :plot_list, with: "1~11"
     check :plot_copy_plot_numbers
 
     click_on t("plots.form.submit")

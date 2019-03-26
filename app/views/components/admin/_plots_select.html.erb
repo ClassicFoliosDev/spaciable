@@ -1,6 +1,12 @@
 <fieldset>
-  <%= f.input :range_from, as: :integer, placeholder: t(".range_from_placeholder"), label: t(".range_label") %>
-  <%= f.input :range_to, as: :integer, placeholder: t(".range_to_placeholder"), label: false %>
-  <%= f.input :list, as: :text, label: t(".list_label"), hint: t(".list_input_hint") %>
+  <%= f.input :list, as: :text, label: t(".list_label"), hint: t(".list_input_hint"), input_html: { list: "selected_plots"} %>
 </fieldset>
+<% if defined?(all_plots) && all_plots %>
+<!-- To add an ALL Plots button - set all_plots true. The plots will be populated
+     by querying the database using the supplied phase_id.  If you do not supply
+     the phase_id then then All Plots will not add any plots -->
+  <script type="text/javascript" src="/javascripts/lib/add_all_plots.js"></script>
+  <%= f.hidden_field :phase_id, id: "phase_id", value: defined?(phase_id) ? phase_id : nil  %>
+  <%= button_tag "Add All Plots", :type => 'button', class: "btn", id: 'add_plots', name: "add_plots_button" %>
+<% end %>
 

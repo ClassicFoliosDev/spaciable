@@ -216,9 +216,9 @@ en:
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
       plots_select:
-        list_input_hint: "Separated by commas e.g. '1,2,5,10,15' or '2.3, 2.4, 2.6'"
+        list_input_hint: "Separated by commas and tildes e.g. 'D1,B2,1,2,5,10,15,20~25,30~100"
         range_label: "Select plots by range"
-        list_label: "Select plots by list"
+        list_label: "Select plots by list and Range"
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
       plot_fields:

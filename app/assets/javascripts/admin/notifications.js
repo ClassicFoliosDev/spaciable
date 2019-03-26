@@ -149,9 +149,35 @@ document.addEventListener('turbolinks:load', function () {
             developerId: developerId
           })
         };
+
+        HideShowPlotList()
+      },
+      select: function (event, ui) {
+        // Set the hidden field if it is there
+        if($('#phase_id')){
+          $('#phase_id').val(ui.item.value)
+        }
+
+        HideShowPlotList()
       }
     }
   };
+
+  function HideShowPlotList(){
+    // Clear out the plots
+    if ($("textarea[name='plots_select']")){
+        $("textarea[list='selected_plots']").val(""); 
+    }
+
+    if($('#phase_id')[0].value == ""){
+      $("#add_plots").hide()
+      $(".notification_list").hide()
+    }
+    else{
+      $("#add_plots").show()
+      $(".notification_list").show()
+    }
+  }
 
   function fetchDivisionResources (data) {
     var $divisionId = $('.notification_division_id')
@@ -183,6 +209,8 @@ document.addEventListener('turbolinks:load', function () {
       var phaseSelect = clearFields($phaseId)
       var url = '/admin/phases'
       setFields(phaseSelect, url, data)
+      $('#phase_id').val("")
+      HideShowPlotList()
     }
   };
 

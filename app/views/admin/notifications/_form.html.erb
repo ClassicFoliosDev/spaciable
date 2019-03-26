@@ -42,7 +42,7 @@
           <%= cascade_select_input f, :phase_id, Phase %>
         </div>
 
-        <%= render "components/admin/plots_select", f: f %>
+        <%= render "components/admin/plots_select", f: f, all_plots: true %>
 
       </fieldset>
       <% if can?(:send_to_all, Notification) %>

@@ -72,10 +72,6 @@ Feature: Resident Notifications
     Then all residents under that (Division) Phase should receive a notification
     And I can see the (Division) Phase notification I sent
 
-    When I send a notification to a resident under a (Division) Plot
-    Then the resident under that (Division) Plot should receive a notification
-    And I can see the (Division) Plot notification I sent to the resident
-
   Scenario: Development Admin
     Given I am Development Admin wanting to send notifications to residents
 

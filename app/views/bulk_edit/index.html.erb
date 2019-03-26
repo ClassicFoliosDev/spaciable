@@ -12,7 +12,7 @@
 
     <div class="row">
       <div class="row-item third">
-        <%= render "components/admin/plots_select", f: f %>
+        <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
       </div>
 
       <div class="row-item third">

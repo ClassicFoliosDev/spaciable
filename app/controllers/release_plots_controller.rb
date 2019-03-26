@@ -30,14 +30,8 @@ class ReleasePlotsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def r_params
     params.permit(
-      %i[phase_id
-         mixed_list
-         release_type
-         release_date
-         validity
-         extended
-         plot_numbers
-         send_to_admins]
+      %i[phase_id list release_type release_date
+         validity extended plot_numbers send_to_admins req]
     )
   end
 
@@ -105,27 +99,19 @@ class ReleasePlotsController < ApplicationController
   # Use the ReleaseService to check the data and report any erros, including plots that
   # already have completion/reservation dates set where appropriate
   def pre_submit_check
-    # if the release date is populated, we need to check the associated plots table column
-    # for non NULL entries
-    db_column = r_params[:release_date].empty? ? nil : r_params[:release_type]
-
     # Go and service the request.
-    BulkPlots::ReleaseService.process(r_params[:phase_id], r_params[:mixed_list],
-                                      db_column) do |plots, error|
-      sorted_plots = plots.natural_sort * ","
-      release_date = r_params[:release_date].empty? ? nil : uk_date
+    BulkPlots::ReleaseService.call(params: r_params) do |_service, plots, error|
       if error
-        { valid: false, message: error }
+        @result = { valid: false, message: error }
       else
-        { valid: true, num_plots: plots.length, plot_numbers: sorted_plots,
-          release_date: release_date }
+        sorted_plots = plots.natural_sort * ","
+        @result = { valid: true, num_plots: plots.length,
+                    plot_numbers: sorted_plots,
+                    release_date: Date.parse(r_params[:release_date])
+                                      .strftime("%d/%m/%y") }
       end
     end
-  end
-
-  # Give me a UK format date
-  def uk_date
-    Date.parse(r_params[:release_date]).strftime("%d/%m/%y")
+    @result
   end
 
   # Use the ReleaseMailer to the email to concerned parties if necessary
