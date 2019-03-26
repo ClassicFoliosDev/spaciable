@@ -243,3 +243,17 @@ Then(/^the document has not been cloned$/) do
     expect(page).to have_content t("components.empty_list.empty", type_names: "documents")
   end
 end
+
+When(/^I delete the unit type associated with a plot$/) do
+  visit "/developers/#{PhasePlotFixture.developer_id}/developments/#{PhasePlotFixture.development_id}?active_tab=unit_types"
+  btn = find(:xpath,"//button[@data-id=#{PhasePlotFixture.unit_type_id}]")
+  sleep 0.1
+  btn.trigger(:click)
+end
+
+Then(/^I should see dialog warning of the associated phase and plot$/) do
+  expect(page).to have_content("Are you sure you wish to delete the #{PhasePlotFixture.unit_type_name}  unit type")
+  expect(page).to have_content("This will delete the following plots: #{PhasePlotFixture.phase_name}: #{PhasePlotFixture.plot_number}")
+end
+
+

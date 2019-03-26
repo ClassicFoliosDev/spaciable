@@ -68,3 +68,14 @@ Feature: UnitTypes
     When there is a unit type
     Then I should not be able to clone a unit type
 
+  @javascript
+  Scenario: Delete unit type for plots
+    Given I am logged in as an admin
+    And I have a developer with a development with unit types and a phase
+    And I have configured the phase address
+    When I create a plot for the phase
+    Then I should see the created phase plot
+    When I delete the unit type associated with a plot
+    Then I should see dialog warning of the associated phase and plot
+
+

@@ -31,7 +31,7 @@
             <% end %>
           <% end %>
           <%= edit_btn edit_development_unit_type_path(unit_type.development, unit_type), element: unit_type %>
-          <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]), element: unit_type %>
+          <%= delete_btn unit_type, path: url_for([unit_type.development, unit_type]), text: unit_type.delete_confirmation, element: unit_type %>
         </td>
       </tr>
       <% end %>

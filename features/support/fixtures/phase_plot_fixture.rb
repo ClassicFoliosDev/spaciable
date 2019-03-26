@@ -122,6 +122,10 @@ module PhasePlotFixture
     Development.find_by(name: spanish_development_name).id
   end
 
+  def unit_type_id
+    UnitType.find_by(name: unit_type_name).id
+  end
+
   def plot_name
     CreateFixture.phase_plot_name
   end

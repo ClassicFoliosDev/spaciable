@@ -43,4 +43,32 @@ class UnitType < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  # All the plots using this unit_type grouped by phase.  The function
+  # returns a hash of {phase_name , [phase plots]}
+  def plots_by_phase
+    plots = Plot.joins(:phase)
+                .select("phases.name", :number)
+                .where(unit_type_id: id)
+                .group("phases.name", :number)
+                .pluck(:name, :number)
+
+    plots.group_by(&:first).map { |p, n| [p, n.map(&:last)] }.to_h
+  end
+
+  # Returns a confirmation message detailing the list of plots effected
+  # by the deletion of the unit_type.
+  def delete_confirmation
+    confirmation = "Are you sure you wish to delete the <b>#{name}</b> unit type?"
+
+    effected_phases = plots_by_phase
+    if effected_phases.present?
+      confirmation += " This will delete the following plots:"
+      effected_phases.each do |phase, plots|
+        confirmation += "<br><br>#{phase}: #{plots.to_sentence}"
+      end
+    end
+
+    confirmation
+  end
 end
