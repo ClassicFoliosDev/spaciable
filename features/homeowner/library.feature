@@ -1,9 +1,9 @@
+@javascript
 Feature: My Home Library
   As a homeowner
   I want to see all the documents related to the home I have purchased
   So that I can efficiently gather the information I need
 
-  @javascript
   Scenario:
     Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide
@@ -27,7 +27,6 @@ Feature: My Home Library
     When I switch to the first plot
     Then I should see recent documents added to my library
 
-  @javascript
   Scenario: Document permissions
     Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide

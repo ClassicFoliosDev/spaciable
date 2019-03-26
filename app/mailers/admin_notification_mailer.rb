@@ -17,11 +17,9 @@ class AdminNotificationMailer < ApplicationMailer
   # Create the arrays of emails and names
   def create_emails
     @emails = []
-    @names = []
     @admins = User.where.not(role: "cf_admin")
     @admins.each do |u|
       @emails << u[:email]
-      @names << u[:first_name]
     end
   end
 end

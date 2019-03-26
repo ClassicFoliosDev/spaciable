@@ -58,4 +58,4 @@ Feature: Phases
     And I have configured the spanish development address
     When I create a phase for the spanish development
     Then I should see a spanish format phase address
-    Then I should see a spanish develper address pre-filled
+    Then I should see a spanish developer address pre-filled

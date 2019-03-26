@@ -9,7 +9,7 @@ Then(/^I see a list of residents$/) do
   end
 end
 
-Then(/^I can see an invidividual resident$/) do
+Then(/^I can see an individual resident$/) do
   resident = CreateFixture.resident
 
   within ".record-list" do

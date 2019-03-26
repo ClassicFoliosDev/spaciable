@@ -1,9 +1,9 @@
+@javascript
 Feature: Notifications
   As a homeowner
   I want to review my notifications
   So that I find out information from my developer, division and development
 
-  @javascript
   Scenario:
     Given I am logged in as a homeowner wanting to read notifications
     And there is a second notification plot
@@ -20,7 +20,6 @@ Feature: Notifications
     Then I should see the notifications list
     And the notification status in my header should be updated
 
-  @javascript
   Scenario: Plot progress notifications
     Given I am logged in as a homeowner wanting to read notifications
     And I log out as a homeowner

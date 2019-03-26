@@ -26,7 +26,7 @@ Feature: Finishes
     When I remove an image from a finish
     Then I should see the updated finish without the image
 
-  @javascript @sow
+  @javascript @slow
   Scenario: Delete
     Given I am logged in as an admin
     And I have created a finish

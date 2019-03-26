@@ -28,7 +28,7 @@ module Homeowners
       category = @country.uk? ? :home : :buying
       category = params[:category] if params[:category]
 
-      how_tos = HowTo.where(category: category).order(created_at: :desc)
+      how_tos = HowTo.where(category: category).order(updated_at: :asc)
 
       render json: how_tos, status: 200
     end
@@ -77,7 +77,7 @@ module Homeowners
       @how_tos.active
               .where(category: @category)
               .includes(:how_to_tags)
-              .order(created_at: :desc)
+              .order(updated_at: :desc)
     end
   end
 end

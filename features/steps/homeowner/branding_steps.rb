@@ -212,12 +212,3 @@ Then(/^The resident receives an invitation with default branding$/) do
 
   ActionMailer::Base.deliveries.clear
 end
-
-Given(/^I have configured developer branding$/) do
-  FactoryGirl.create(:brand, brandable: CreateFixture.developer,
-                     bg_color: "#FFFEEE",
-                     text_color: "#646467",
-                     button_color: "#A6A7B2",
-                     button_text_color: "#FCFBE3",
-                     topnav_text_color: "#48f442")
-end

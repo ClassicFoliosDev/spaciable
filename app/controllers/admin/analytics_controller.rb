@@ -12,7 +12,8 @@ module Admin
       @report = Report.new(report_params)
 
       if @report.valid?
-        send_file build_csv, disposition: :attachment
+        csv_file = build_csv
+        send_file csv_file, disposition: :attachment
       else
         render :new
       end

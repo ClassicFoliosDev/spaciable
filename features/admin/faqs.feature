@@ -2,7 +2,7 @@
 Feature: FAQs
   As an Admin
   I want to CRUD FAQs at different levels in the resource tree
-  So that homeowners can see relevent FAQs for their plot
+  So that homeowners can see relevant FAQs for their plot
 
   Scenario: CF Admin
     Given I am a CF Admin and I want to manage FAQs

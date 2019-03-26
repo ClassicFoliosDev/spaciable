@@ -1,9 +1,9 @@
+@javascript
 Feature: Homeowner MyHome
   As a homeowner
   When I log in
   I want to see the configuration of my home
 
-  @javascript
   Scenario:
     Given I have created a unit_type
     And I have logged in as a resident and associated the plot
@@ -23,7 +23,6 @@ Feature: Homeowner MyHome
     When I visit the Contacts page
     Then I should see no tabs
 
-  @javascript
   Scenario:
     Given I am logged in as a homeowner
     And there is another tenant on the homeowner plot

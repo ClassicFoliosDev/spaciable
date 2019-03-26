@@ -196,7 +196,7 @@ Then(/^I should see a spanish format phase address$/) do
   Capybara.ignore_hidden_elements = ignore
 end
 
-Then(/^I should see a spanish develper address pre-filled$/) do
+Then(/^I should see a spanish developer address pre-filled$/) do
 
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false

@@ -43,13 +43,13 @@ When(/^I submit with no parameters$/) do
   end
 end
 
-Then(/^there is a message to telling me to popudate the data$/) do
+Then(/^there is a message to telling me to populate the data$/) do
   within ".alert" do
     expect(page).to have_content 'Please populate plots and date'
   end
 end
 
-When(/^I add all plots and set a reseravtion release date$/) do
+When(/^I add all plots and set a reservation release date$/) do
   page.evaluate_script 'window.location.reload()'
 
   sleep 2
@@ -91,7 +91,7 @@ Then(/^there is a message telling me the completed pots$/) do
   end
 end
 
-When(/^I enter a range of non-existant plots$/) do
+When(/^I enter a range of non-existent plots$/) do
   phase = CreateFixture.phase
 
   within ".bulk-edit" do
@@ -105,7 +105,7 @@ Then(/^there is a message telling me the plots dont match this phase$/) do
   end
 end
 
-When(/^I enter a range of existant plots$/) do
+When(/^I enter a range of existent plots$/) do
   phase = CreateFixture.phase
 
   within ".bulk-edit" do
@@ -125,7 +125,7 @@ When(/^I cancel the dialog/) do
   click_on "Cancel"
 end
 
-Then(/^the dialog dissappears and the release plot page remains populated/) do
+Then(/^the dialog disappears and the release plot page remains populated/) do
   expect(page).to have_no_css('.feedback-dialog')
   expect(find_field(:phase_release_plots_mixed_list).value).to eq '185~187'
 end
@@ -178,7 +178,7 @@ Then(/^the plot completion data has been updated$/) do
   end
 end
 
-When(/^I enter an existant plot and a date beyond today$/) do
+When(/^I enter an existent plot and a date beyond today$/) do
   within ".bulk-edit" do
    fill_in :phase_release_plots_mixed_list, with: "D 102"
    fill_in :phase_release_plots_release_date, with: (Time.zone.today + 10.days)

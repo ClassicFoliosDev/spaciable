@@ -1,9 +1,9 @@
+@javascript
 Feature: My Home Library Documents
   As a homeowner
   I want to be able to upload documents related to the home I have purchased
   So that I can find all my documents in one place
 
-  @javascript
   Scenario:
     Given I am logged in as a homeowner
     And there is another tenant on the homeowner plot

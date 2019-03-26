@@ -2,7 +2,7 @@
 Feature: FAQs
   As an Admin
   I want to CRUD videos for developments
-  So that homeowners can see relevent videos for their development
+  So that homeowners can see relevant videos for their development
 
   Scenario: CF Admin
     Given I am logged in as a CF Admin
