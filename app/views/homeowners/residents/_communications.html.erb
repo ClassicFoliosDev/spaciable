@@ -8,6 +8,12 @@
     <% end %>
   </div>
   <div>
+    <%= f.label :developer_sms_updates, class: "checkbox developer-sms-updates" do %>
+      <%= f.check_box :developer_sms_updates %>
+      <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:developer_sms_updates) %>
+    <% end %>
+  </div>
+  <div>
     <%= f.label :cf_email_updates, class: "checkbox cf-email-updates" do %>
         <%= f.check_box :cf_email_updates %>
         <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:cf_email_updates) %>

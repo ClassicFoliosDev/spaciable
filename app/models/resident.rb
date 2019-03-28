@@ -3,7 +3,8 @@
 class Resident < ApplicationRecord
   include TitleEnum
 
-  attr_accessor :subscribe_emails, :invitation_plot, :accept_ts_and_cs, :role, :admin_preview
+  attr_accessor :subscribe_emails, :subscribe_sms, :invitation_plot,
+                :accept_ts_and_cs, :role, :admin_preview
   attr_reader :raw_invitation_token
 
   # Include default devise modules. Others available are:
@@ -30,7 +31,8 @@ class Resident < ApplicationRecord
   validates :phone_number, presence: true, on: :create
 
   def subscribed_status
-    if cf_email_updates.to_i.positive? || developer_email_updates.to_i.positive?
+    if cf_email_updates.to_i.positive? || developer_email_updates.to_i.positive? ||
+       developer_sms_updates.to_i.positive?
       return Rails.configuration.mailchimp[:subscribed]
     end
 

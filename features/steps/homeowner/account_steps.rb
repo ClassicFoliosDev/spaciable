@@ -63,6 +63,8 @@ When(/^I update the account details$/) do
     phone_updates.trigger(:click)
     email_updates = find(".cf-email-updates")
     email_updates.trigger(:click)
+    sms_updates = find(".developer-sms-updates")
+    sms_updates.trigger(:click)
   end
 
   within ".actions" do
@@ -83,6 +85,7 @@ Then(/^I should see account details updated successfully$/) do
     selected = page.all(".selected").map(&:text)
     expect(selected).to have_content t("homeowners.residents.show.telephone_updates")
     expect(selected).to have_content t("homeowners.residents.show.cf_email_updates")
+    expect(selected).to have_content t("homeowners.residents.show.developer_sms_updates")
 
     unselected = page.all(".unselected").map(&:text)
     expect(unselected).to have_content t("homeowners.residents.show.post_updates")
@@ -100,6 +103,8 @@ When(/^I remove notification methods from my account$/) do
     phone_updates.trigger(:click)
     email_updates = find(".cf-email-updates")
     email_updates.trigger(:click)
+    sms_updates = find(".developer-sms-updates")
+    sms_updates.trigger(:click)
   end
 
   within ".actions" do

@@ -67,7 +67,7 @@ class DevelopersController < ApplicationController
       :country_id,
       :company_name, :email,
       :contact_number, :about,
-      :api_key, :house_search,
+      :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
       address_attributes: %i[postal_number road_name building_name

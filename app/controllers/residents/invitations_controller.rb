@@ -23,7 +23,8 @@ module Residents
 
       JobManagementService.call(current_resident.id)
       update_resident_ts_and_cs
-      update_resident_subscribe_params
+      update_resident_email_subscribe_params
+      update_resident_sms_subscribe_params
 
       current_resident.plots.each do |plot|
         Mailchimp::MarketingMailService.call(current_resident,
@@ -44,13 +45,21 @@ module Residents
       current_resident.update(ts_and_cs_accepted_at: Time.zone.now)
     end
 
-    def update_resident_subscribe_params
+    def update_resident_email_subscribe_params
       if params[:resident][:subscribe_emails].to_i.positive?
         current_resident.update(cf_email_updates: 1)
         current_resident.update(developer_email_updates: 1)
       else
         current_resident.update(cf_email_updates: 0)
         current_resident.update(developer_email_updates: 0)
+      end
+    end
+
+    def update_resident_sms_subscribe_params
+      if params[:resident][:subscribe_sms].to_i.positive?
+        current_resident.update(developer_sms_updates: 1)
+      else
+        current_resident.update(developer_sms_updates: 0)
       end
     end
   end

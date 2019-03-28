@@ -12,14 +12,21 @@
         <%= f.input :password, autocomplete: "off" %>
         <%= f.input :password_confirmation, autocomplete: "off" %>
 
+        <%= f.label :ts_and_cs_accepted, class: "login-checkbox" do %>
+          <%= f.check_box :ts_and_cs_accepted, class: "accept-ts-and-cs", checked: false %>
+          <i class="fa fa-check branded-checkbox"></i> <span><%= t(".accept_ts_and_cs") %></span>
+        <% end %>
+
+        <div class="information branded-primary-text branded-external-text">
+          <p><%= t(".subscribe_email_sms") %></p>
+        </div>
         <%= f.label :subscribe_emails, class: "login-checkbox" do %>
           <%= f.check_box :subscribe_emails, class: "branded-input subscribe-emails" %>
           <i class="fa fa-check branded-checkbox"></i> <span><%= t(".subscribe_email") %></span>
         <% end %>
-
-        <%= f.label :ts_and_cs_accepted, class: "login-checkbox" do %>
-          <%= f.check_box :ts_and_cs_accepted, class: "accept-ts-and-cs", checked: false %>
-          <i class="fa fa-check branded-checkbox"></i> <span><%= t(".accept_ts_and_cs") %></span>
+        <%= f.label :subscribe_sms, class: "login-checkbox" do %>
+          <%= f.check_box :subscribe_sms, class: "branded-input subscribe-sms" %>
+          <i class="fa fa-check branded-checkbox"></i> <span><%= t(".subscribe_sms") %></span>
         <% end %>
       </div>
 
