@@ -95,4 +95,7 @@ Rails.application.configure do
 
   config.enable_development_plots = false
   config.enable_thumbnails = true
+
+  # Serve static assets
+  config.serve_static_assets = true
 end
