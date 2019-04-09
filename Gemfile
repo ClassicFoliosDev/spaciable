@@ -85,6 +85,7 @@ gem "paranoia", branch: "rails5", git: "https://github.com/rubysherpas/paranoia.
 gem "carrierwave_backgrounder"
 gem "daemons", "~> 1.2"
 gem "delayed_job_active_record", "~> 4.1"
+gem "whenever", "~> 0.10.0"
 
 # Process management
 gem "activerecord-session_store" # Store session data to avoid cookie cache overflow
@@ -104,6 +105,7 @@ gem "cookies_eu", "~> 1.6"
 
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
+  gem "email_spec"
   gem "factory_girl_rails"
   gem "faker"
 end

@@ -1,0 +1,37 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+
+<p>
+  Hello <%= @referee_name %>,
+</p>
+
+<p>
+  <%= @referrer %> believes you may be interested in hearing about properties from <%= @developer %>.
+</p>
+
+<p>
+  If you are happy for us to pass your details to <%= @developer %>, please click on "I Agree" below.
+</p>
+
+<p>
+  By clicking this button, you agree for your contact details to be passed on to <%= @developer %>.
+</p>
+
+<p class="confirm-button" style="text-align: center">
+  <%= link_to "<button style='border-style: solid;border-width: 1px;border-radius: 5px;color: #18A895;border-color: #18A895;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px'>I Agree</button>".html_safe, confirm_referral_url(@referral_token) %>
+</p>
+
+<p>
+  If you ignore this email or do not click "I Agree", your details will not be passed on and will be deleted within 28 days.
+</p>
+
+<p>
+  Kind regards,
+</p>
+
+<p>
+  Hoozzi Admin
+</p>
+
+<footer style="font-size: 12px">
+  Please note this email address is not monitored. Do not reply directly to this email.
+</footer>

@@ -1,0 +1,37 @@
+.dashboard {
+
+  .refer-overlay {
+    height: 100%;
+
+    .card-content {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .refer-summary {
+      padding: $spacing-small;
+      text-align: center;
+
+      .larger {
+        padding: $spacing-small;
+        font-weight: bold;
+      }
+
+      .refer-button {
+      padding: $spacing-medium;
+      }
+    }
+  }
+}
+
+.refer-description {
+  padding: $spacing-small;
+}
+
+.tel {
+  color: #67747C;
+
+  input {
+    color: $ui-black;
+  }
+}

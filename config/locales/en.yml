@@ -691,6 +691,18 @@ en:
         contacts_view_more: "View contacts"
       services:
         services: "See how we can help"
+      referrals:
+        refer_developer: "Refer my Developer to a Friend"
+        refer_description: "Fill in this form with your friends details to refer your developer."
+        refer: "Refer a Friend"
+        send_invitation: "Submit"
+        confirm: "Your referral has been sent"
+      referral_form:
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email address"
+        phone: "Phone number"
+        refer_description: "Fill in your friend's details below to refer your developer."
     about:
       show:
         rooms_description: "View finishes and fittings in each room of your home"
@@ -711,6 +723,10 @@ en:
       update:
          not_shared: "%{title} is no longer shared with Limited Access Users and other residents at %{address}"
          shared: "%{title} is now shared with Limited Access Users and other residents at %{address}"
+
+    referrals:
+      email_subject: "You have been referred by %{referrer}"
+      internal_subject: "New Referral"
 
     residents:
       edit:

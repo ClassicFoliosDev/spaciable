@@ -183,9 +183,11 @@ Rails.application.routes.draw do
     get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
     get :change_plot, to: 'base#change_plot'
     post :create_resident, to: "residents#create", format: :json
+    post :refer_friend, to: "referrals#create", format: :json
     get :remove_resident, to: "residents#remove_resident", format: :json
   end
 
+  get '/:token/confirm_referral', to: "homeowners/referrals#confirm_referral", as: 'confirm_referral'
   get "/ts_and_cs_admin", to: 'home#ts_and_cs_admin'
   get "/ts_and_cs_homeowner", to: 'home#ts_and_cs_homeowner'
   get "/health", to: 'home#health'

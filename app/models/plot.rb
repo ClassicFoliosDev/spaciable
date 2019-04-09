@@ -51,6 +51,7 @@ class Plot < ApplicationRecord
   delegate :branded_email_logo, to: :brand, allow_nil: true
   delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, :enable_services?, :enable_roomsketcher?, to: :developer, allow_nil: true
+  delegate :enable_referrals?, to: :developer, allow_nil: true
   delegate :enable_development_messages?, to: :developer
 
   enum progress: %i[
@@ -207,6 +208,15 @@ class Plot < ApplicationRecord
       "#{road_name} (#{self})".strip
     end
   end
+
+  def referrer_address
+    if division.present?
+      "#{division}, #{development}, #{phase}"
+    else
+      "#{development}, #{phase}"
+    end
+  end
+
   # rubocop:enable Metrics/ClassLength
 
   # Is the plot Spanish

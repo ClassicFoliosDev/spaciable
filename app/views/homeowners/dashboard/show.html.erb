@@ -23,7 +23,13 @@
         <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
         <%= render "homeowners/dashboard/services", services: @services if @services %>
         <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
+        <%= render "homeowners/dashboard/referrals" if @plot.enable_referrals? %>
       </div>
     </div>
   </div>
+</div>
+
+
+<div class="refer-resident-form hidden">
+  <%= render 'referral_form', :referral => @referral, :plot => @plot %>
 </div>

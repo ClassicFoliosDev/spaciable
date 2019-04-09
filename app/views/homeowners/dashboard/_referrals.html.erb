@@ -1,0 +1,14 @@
+<div class="card article branded-border">
+  <div class="refer-overlay">
+    <div class="card-content refer-summary">
+      <p class="larger"><%= t(".refer_developer") %></p>
+      <p><%= t(".refer_description") %></p>
+      <div class="refer-button">
+      <%= button_tag t(".refer"), class: "btn branded-btn refer-resident",
+      data: { cancel: t("edit.cancel"),
+            cta: t(".send_invitation"),
+            title: t(".refer")} %>
+      </div>
+    </div>
+  </div>
+</div>

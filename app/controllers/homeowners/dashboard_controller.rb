@@ -7,6 +7,7 @@ module Homeowners
     def show
       @faqs = Faq.accessible_by(current_ability).order(updated_at: :desc).limit(5)
       @contacts = Contact.accessible_by(current_ability).order(updated_at: :desc).limit(4)
+      @referral = Referral.new
       build_documents
       build_articles
     end
@@ -21,10 +22,10 @@ module Homeowners
     end
 
     def build_articles
-      how_tos_limit = 5
+      how_tos_limit = 4
       if @plot.enable_services?
         @services = Service.where(category: %i[finance legal])
-        how_tos_limit = 3
+        how_tos_limit = 2
       end
 
       # Filter the HowTo records according to the country

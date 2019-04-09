@@ -155,9 +155,82 @@ Then(/^I see the services$/) do
   end
 end
 
-Then(/^I only see three articles$/) do
+Then(/^I only see two articles$/) do
   within ".articles" do
     how_tos = page.all(".how-to-summary")
-    expect(how_tos.count).to eq 3
+    expect(how_tos.count).to eq 2
   end
+end
+
+Given(/^the developer has enabled referrals$/) do
+  developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
+  developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
+
+  developer.update_attributes(enable_referrals: true)
+end
+
+Then(/^I see the referral link$/) do
+  within ".articles" do
+    referral = page.all(".refer-summary")
+    expect(referral.count).to eq 1
+  end
+end
+
+Given(/^the developer has not enabled referrals$/) do
+  developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
+  developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
+
+  developer.update_attributes(enable_referrals: false)
+end
+
+Then(/^I see no referral link$/) do
+  within ".articles" do
+    referral = page.all(".refer-summary")
+    expect(referral.count).to eq 0
+  end
+end
+
+When(/^I refer a friend$/) do
+  visit "/"
+
+  within ".articles" do
+    click_on t("homeowners.dashboard.referrals.refer")
+  end
+
+  within ".ui-dialog" do
+    fill_in :referral_referee_first_name, with: ReferralFixture.referee_first_name
+    fill_in :referral_referee_last_name, with: ReferralFixture.referee_last_name
+    fill_in :referral_referee_email, with: ReferralFixture.referee_email
+    fill_in :referral_referee_phone, with: ReferralFixture.referee_phone
+  end
+
+  send_button = page.find(".btn-send")
+  send_button.trigger("click")
+end
+
+Then(/^I should see the referral has been sent$/) do
+  within ".notice" do
+    expect(page).to have_content t("homeowners.dashboard.referrals.confirm")
+  end
+end
+
+When(/^I accept the referral$/) do
+  email = ActionMailer::Base.deliveries.last
+  email.should deliver_to(ReferralFixture.referee_email)   # Check the email has sent to the correct recipient
+  click_first_link_in_email email   # Click the 'I Agree' link
+end
+
+Then(/^I should see that my details have been confirmed$/) do
+  within ".accept" do
+    image = page.find("img")
+    expect(image["alt"]).to have_content(ReferralFixture.accept_alt)
+  end
+end
+
+Then(/^the Hoozzi Admin should receive an email containing my details$/) do
+  email = ActionMailer::Base.deliveries.last
+  email.should deliver_to("feedback@hoozzi.com")
+  expect(email).to have_subject (/New Referral/)
+  expect(email).to have_body_text(ReferralFixture.referee_email)
+  expect(email).to have_body_text(ReferralFixture.referee_first_name)
 end

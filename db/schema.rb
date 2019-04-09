@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326100911) do
+ActiveRecord::Schema.define(version: 20190327122114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -531,6 +531,22 @@ ActiveRecord::Schema.define(version: 20190326100911) do
     t.integer  "plot_id"
     t.index ["plot_id"], name: "index_private_documents_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_private_documents_on_resident_id", using: :btree
+  end
+
+  create_table "referrals", force: :cascade do |t|
+    t.string   "referrer_name"
+    t.string   "referrer_email"
+    t.string   "referrer_developer"
+    t.string   "referrer_address"
+    t.string   "referee_first_name"
+    t.string   "referee_last_name"
+    t.string   "referee_email"
+    t.string   "referee_phone"
+    t.datetime "referral_date"
+    t.boolean  "email_confirmed",    default: false
+    t.string   "confirm_token"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "resident_notifications", force: :cascade do |t|

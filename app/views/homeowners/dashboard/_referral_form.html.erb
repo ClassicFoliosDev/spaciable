@@ -1,0 +1,18 @@
+<div class="refer-description">
+  <h4><%= t(".refer_description") %> </h4>
+</div>
+
+<%= simple_form_for referral, url: homeowner_dashboard_path, remote: true do |f| %>
+  <%= f.input :referee_first_name, label: t(".first_name"), required: true %>
+  <%= f.input :referee_last_name, label: t(".last_name"), required: true %>
+  <%= f.input :referee_email, label: t(".email"), required: true %>
+  <%= f.input :referee_phone, label: t(".phone") %>
+
+  <% unless current_resident.blank? %>
+    <%= f.hidden_field :referrer_name, value: (current_resident.first_name + " " + current_resident.last_name) %>
+    <%= f.hidden_field :referrer_email, value: current_resident.email %>
+    <%= f.hidden_field :referrer_developer, value: plot.developer %>
+    <%= f.hidden_field :referrer_address, value: plot.referrer_address + ", Plot #{plot.id}: " + plot.to_homeowner_s %>
+    <%= f.hidden_field :referral_date, value: Time.now %>
+  <% end %>
+<% end %>
