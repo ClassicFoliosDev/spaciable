@@ -246,7 +246,9 @@ class Plot < ApplicationRecord
       room_choices.each do |choice|
         csv << attributes.map { |attr| choice.send(attr) }
       end
-      
+    end
+  end
+
   def referrer_address
     if division.present?
       "#{division}, #{development}, #{phase}"

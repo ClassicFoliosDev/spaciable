@@ -5,6 +5,7 @@ class Choice < ApplicationRecord
   belongs_to :room_item, optional: false
   has_many :room_choices
 
+  # delegte detail to choiceable
   delegate :full_name, to: :choiceable
   delegate :short_name, to: :choiceable
   delegate :appliance_category, to: :choiceable
