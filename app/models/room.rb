@@ -13,22 +13,7 @@ class Room < ApplicationRecord
     plot || unit_type
   end
   include InheritParentPermissionIds
-
-  enum icon_name: %i[
-    bedroom
-    bathroom
-    kitchen
-    living_room
-    dining_room
-    study
-    exterior
-    garage
-    cloakroom
-    heating
-    internal_finishes
-    stairway
-    utility
-  ]
+  include RoomEnum
 
   has_many :finish_rooms, inverse_of: :room
   has_many :finishes, through: :finish_rooms

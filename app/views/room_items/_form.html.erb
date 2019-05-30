@@ -1,0 +1,41 @@
+<%= simple_form_for([room_configuration, room_item]) do |f| %>
+  <%= stylesheet_link_tag "chosen.min" %>
+  <script type="text/javascript" src="/javascripts/lib/room_item.js"></script>
+  <input id="operation" type="hidden" value=<%= controller.action_name %> >
+  <% if room_item.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% room_item.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row-item third">
+    <div class="category ui-front select-container">
+          <%= f.input :room_itemable_type, label: 'Item Type', as: :select, collection: item_types, include_blank: false %>
+    </div>
+    <div class="item_category ui-front select-container">
+        <%= f.input :room_itemable_id, label: 'Item Category', as: :select, collection: item_categories %>
+    </div>
+    <fieldset>
+        <%= f.input :name %>
+      </fieldset>
+  </div>
+
+  <div class="row-item third">
+    <div class="item_category ui-front select-container" id="item_selector">
+        <%= f.input :category_item_ids, label: 'Category Items', as: :select, collection: category_items, include_blank: false, input_html: { :multiple => true, :class => 'chosen-select'} %>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), choice_configuration_room_configurations_path(choice_configuration.id, room_configuration), class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

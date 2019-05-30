@@ -1,0 +1,9 @@
+<% breadcrumb :choice_configurations,  @development %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title", development_name: @development.name) %>
+  </div>
+</div>
+
+<%= render_collection @choice_configurations, parent: @development %>

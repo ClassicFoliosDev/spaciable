@@ -1,0 +1,27 @@
+<% if collection.empty? %>
+  <%= render 'empty_list', icon_name: "th-list", type: RoomItem %>
+<% else %>
+  <table class="record-list phases">
+    <thead>
+      <tr>
+        <th><%= sortable(RoomConfiguration, :name, t(".name")) %></th>
+        <th><%= sortable(RoomConfiguration, :archived, t(".archived")) %></th>
+        <th><%= sortable(RoomConfiguration, :updated_at, t(".updated_at")) %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |item| %>
+      <tr data-room="<%= item %>">
+        <td><%= item[:name] %></td>
+        <% archived = item[:archived] ? "green" : "white" %>
+        <td><span class = 'circle <%= archived %>'>&nbsp;</span></td>
+        <td><%= l item[:updated_at].to_date, format: :digits %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+  </div>
+<% end %>

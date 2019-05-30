@@ -12,7 +12,9 @@ module Admin
       @users = paginate(@users)
     end
 
-    def new; end
+    def new
+      @user.receive_choice_emails = true
+    end
 
     def create
       if (@restore_user = User.only_deleted.find_by(email: user_params[:email]))
@@ -73,7 +75,7 @@ module Admin
         :development_id, :permission_level_id,
         :permission_level_type, :password, :password_confirmation,
         :current_password, :picture, :picture_cache,
-        :job_title, :receive_release_emails
+        :job_title, :receive_release_emails, :receive_choice_emails
       )
     end
   end

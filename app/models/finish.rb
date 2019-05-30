@@ -15,7 +15,7 @@ class Finish < ApplicationRecord
 
   has_many :finish_rooms, inverse_of: :finish, dependent: :delete_all
   has_many :rooms, through: :finish_rooms
-
+  has_many :choices, as: :choiceable
   validates :name, presence: true, uniqueness: true
 
   def to_s
@@ -31,5 +31,13 @@ class Finish < ApplicationRecord
   def set_original_filename
     self.original_filename = picture.filename
     save!
+  end
+
+  def full_name
+    "#{finish_manufacturer&.name&.upcase} #{name} #{finish_type&.name&.upcase}".strip
+  end
+
+  def short_name
+    name
   end
 end

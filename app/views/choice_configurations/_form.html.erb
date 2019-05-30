@@ -1,0 +1,48 @@
+<%= simple_form_for([development, choice_configuration]) do |f| %>
+  <%= stylesheet_link_tag "chosen.min" %>
+  <script type="text/javascript" src="/javascripts/lib/config_phases.js"></script>
+  <% if choice_configuration.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% choice_configuration.errors.full_messages.each do |message| %>
+          <li>
+            <%= fa_icon "exclamation-circle" %>
+            <%= message %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :name, required: true %>
+        <% if controller.action_name == 'new' %>
+          <%= f.input :unit_type, as: :select, collection: unit_types, include_blank: true, label: t(".unit_type") %>
+        <% end %>
+      </fieldset>
+    </div>
+
+     <div class="row-item third">
+      <dl class="phases">
+        <% phase_plots.each do |phase| %>
+          <dt id="phase-<%= phase[:id] %>"><h3><%= phase[:name] %></h3></dt>
+          <div class="item_category ui-front select-container" id="item_selector">
+            <%= f.input phase[:tag], label: 'Plots', as: :select, collection: phase[:plots], include_blank: false, input_html: { :multiple => true, :class => 'chosen-select'} %>
+            <%= button_tag "Select All", :type => 'button', class: "btn", id: "Select_all_phase_#{phase[:id]}_plots", :data => {:select => "choice_configuration_phase_#{phase[:id]}_ids"} %>
+         </div>
+        <% end %>
+      </dl>
+    </div>
+
+  </div>
+
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), development_choice_configurations_path(development), class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

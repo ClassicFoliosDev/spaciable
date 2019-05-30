@@ -1,0 +1,12 @@
+<% breadcrumb :room_configuration, @room_configuration %>
+
+<div class="room_configuration">
+  <%= render "room_configurations/room_configuration", room_configuration: @room_configuration, choice_configuration: @choice_configuration %>
+  <%= render_collection @collection, path_prefix: "room_configurations",  parent: @room_configuration %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), choice_configuration_room_configurations_path, class: "btn" %>
+    </div>
+  </div>
+</div>

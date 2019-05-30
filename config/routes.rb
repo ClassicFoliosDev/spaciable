@@ -87,10 +87,13 @@ Rails.application.routes.draw do
     resources :rooms, controller: "plots/rooms"
     resource :preview, only: [:show], controller: "plots/previews"
     get :progress, on: :member, to: "progresses#show"
+    get 'choices', action: :edit , controller: 'choices'
+    post 'choices', action: :update , controller: 'choices'
   end
 
   resources :developments do
     resources :phases
+    resources :choice_configurations
     resources :unit_types, except: :index
     resources :documents, only: [:new, :create]
     resources :plots, shallow: true, except: :index
@@ -103,6 +106,22 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
     resources :videos, shallow: true
   end
+
+  resources :choice_configurations do
+    resources :room_configurations
+  end
+
+  resources :room_configurations do
+    resources :room_items, except: [:index]
+  end
+
+  get :room_item_categories, to: "room_configurations/room_choice#item_categories", format: :json
+  get :room_category_items, to: "room_configurations/room_choice#category_items", format: :json
+  get :room_items, to: "room_configurations/room_choice#room_items", format: :json
+  get :item_choices, to: "room_configurations/room_choice#item_choices", format: :json
+  get :item_images, to: "room_configurations/room_choice#item_images", format: :json
+  get :archive_choice, to: "room_configurations/room_choice#archive_choice", format: :json
+  get :export_choices, to: "room_configurations/room_choice#export_choices"
 
   resources :developers do
     resources :divisions
@@ -134,6 +153,8 @@ Rails.application.routes.draw do
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update, :destroy]
     resources :notifications, only: [:index]
+    get 'choices', action: :edit , controller: 'choices'
+    post 'choices', action: :update , controller: 'choices'
     get 'notification', to: 'notifications#show', format: :json
   end
 

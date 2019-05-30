@@ -1,0 +1,12 @@
+<div class="empty lower">
+  <div><%= fa_icon icon_name %></div>
+  <div><span><%= t(".empty", type_names: type.model_name.human.downcase.pluralize) %></span></div>
+  <div>
+    <% if can_create(type, parent) %>
+      <!-- pass the params to the link associated with the 'New' button so it can supply the room_item when required -->
+      <%= link_to t(".add", type_name: type.model_name.human.downcase), new_room_configuration_room_item_path(parent) , class: "btn btn-primary" %>
+    <% else %>
+      <span><%= t(".request_add", type_names: type.model_name.human.downcase.pluralize) %></span>
+    <% end%>
+  </div>
+</div>

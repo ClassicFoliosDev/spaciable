@@ -1,0 +1,16 @@
+<div class="section-title">
+  <div><%= plot %></div>
+
+  <div class="about">
+    <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count || t(".none") %><br/>
+    <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
+    <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") %><br/>
+    <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %>
+  </div>
+</div>
+
+<div class="section-data">
+  <%= render 'address/address', address: plot %>
+  <span class="strong"><%= plot.unit_type %></span>
+  <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
+</div>

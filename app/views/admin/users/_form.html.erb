@@ -41,6 +41,12 @@
                             disabled: !user.enable_receive_release_emails?(current_user) %>
             <p class="checkbox-description"><%= t(".receive_plot_emails") %></p>
           </div>
+          <div class=receive_choice_emails>
+            <%= f.label t(".choice_emails") %>
+            <%= f.check_box :receive_choice_emails, id: :choice_check,
+                            disabled: !user.enable_choice_emails?(current_user) %>
+            <p class="checkbox-description"><%= t(".receive_choice_emails") %></p>
+          </div>
       </fieldset>
     </div>
     <div class="row-item third">

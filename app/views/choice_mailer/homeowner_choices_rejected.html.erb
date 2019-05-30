@@ -1,0 +1,19 @@
+<p>
+	Dear <%= @plot.homeowners.map(&:first_name).join(',') %>,
+</p>
+<p>
+	Unfortunately, your list of choices has been declined. Please log in to review and amend your selections before submitting them again.
+
+	The following message has been provided by the <%= @plot.company_name %> admin who reviewed your choices.
+
+<% if @notification.present? %>
+	<%= simple_format(@notification) %>
+<% end %>
+
+</p>
+<p>
+
+Kind Regards,
+
+<%= @plot.company_name %>
+</p>

@@ -62,6 +62,34 @@ en:
     share_all: "Private: click to share with tenants and other residents of this plot"
     shared: "Shared: click to disable sharing"
 
+  choices:
+    save: "Save Changes"
+    confirm: "Commit Choices"
+    approve: "Approve"
+    reject: "Reject"
+    homeowner:
+      homeowner_updating: "Choices updated successfully"
+      admin_updating: "Selections for your plot have been made by the administrator"
+      committed_by_homeowner: "Your choices are now awaiting confirmation from the constructor"
+      choices_rejected: "Some of your choices have been declined.  Please reselect the missing items"
+      email_subject:
+        approved: "Plot %{plot_name} Choices approved"
+        rejected: "Plot %{plot_name} choice selections declined"
+    admin:
+      homeowner_updating: "Selections for plot %{plot_name} have been made by the homeowner"
+      committed_by_homeowner: "Plot %{plot_name} choices have been commited by homeowner and are awaiting approval"
+      homeowner_notified_of_rejection: "Plot %{plot_name} homeowner/s notified of rejection"
+      choices_rejected: "Plot %{plot_name} homeowner/s informed of rejection.  Awaiting homeowner choice reselection"
+      choices_approved: "These choices have been approved"
+      email_subject:
+        selected: "Plot %{plot_name} choice selections"
+      update:
+        admin_updating: "Choices updated successfully"
+        choices_approved: "Choices have been approved"    
+    edit:
+      back: "Back"
+    
+
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
   developer_admin: "Developer Admin"
@@ -176,6 +204,12 @@ en:
     finish_type_add: "Add finish type"
     phase_add: "Add phase"
     phase_edit: "Edit %{phase_name}"
+    choice_configuration_add: "Add choice configuration"
+    choice_configuration_edit: "Edit %{choice_configuration_name}"
+    room_configuration_add: "Add room configuration"
+    room_configuration_edit: "Edit %{room_configuration_name}"
+    room_item_add: "Add room item"
+    room_item_edit: "Edit %{room_item_name}"
     plot_add: "Add plot(s)"
     plot_edit: "Edit %{plot_name}"
     residents: "Residents"
@@ -236,6 +270,12 @@ en:
       spanish_plot_address_fields:
         copy_plot_numbers: "Use Plot number for Postal number"
 
+    choices:
+      resident:
+        confirm_message: "Please ensure your choices selections are correct, as it may not be possible to change these later."
+      admin:
+        confirm_message: "Please ensure your choices selections are correct. The homeowner will be informed of these choices"
+
     homeowner:
       welcome:
         hi: "Hi %{first_name}"
@@ -249,6 +289,7 @@ en:
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
+        choices: "Choices"
       footer:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
@@ -307,7 +348,8 @@ en:
   edit:
     cancel: "Cancel"
     title: "Edit document title"
-    submit: "Save changes"
+    submit: "Save Changes"
+
   feedback:
     cancel: "Cancel"
     title: "What do you think of Hoozzi"
@@ -425,6 +467,8 @@ en:
         current_password2: "Only required for new password"
         plot_emails: "Plot release and completion emails"
         receive_plot_emails: "Receive Plot release and completion emails"
+        choice_emails: "Plot choice emails"
+        receive_choice_emails: "Receive Plot choice emails"
       index:
         title: "Admin users"
         add: "Add user"
@@ -603,6 +647,7 @@ en:
       brands: "Styling"
       videos: "Videos"
       services: "Services"
+      choice_configurations: "Choices"
     edit:
       back: "Back"
     form:
@@ -612,6 +657,7 @@ en:
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
       maintenance_tip: "Make sure you use the plugin-friendly version of a URL, for more details see http://www.fixflo.com/tech/plugin-example/"
       business: "Business"
+      choices_email: "Choices Contact Email"
 
     index:
       add: "Add development"
@@ -719,7 +765,7 @@ en:
         file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format"
         new: "Upload file"
       edit:
-        submit: "Save changes"
+        submit: "Save Changes"
       update:
          not_shared: "%{title} is no longer shared with Limited Access Users and other residents at %{address}"
          shared: "%{title} is now shared with Limited Access Users and other residents at %{address}"
@@ -1134,6 +1180,97 @@ en:
     update:
       success: "%{phase_name} was updated successfully"
 
+  choice_configurations:
+    create:
+      success: "%{choice_configuration_name} was created successfully"
+    destroy:
+      success: "%{choice_configuration_name} was deleted successfully"
+    edit:
+      back: "Back"
+      title: "Edit %{choice_configuration_name}"
+    form:
+      submit: "Submit"
+      back: "Back"
+      unit_type: "Clone rooms from unit type"
+    index:
+      title: "%{development_name} choice configurations"
+    show:
+      back: "Back"
+    collection:
+      add: "Add choice configuration"
+      plots: "Plots"
+      documents: "Documents"
+      name: "Configuration"
+    new:
+      title: "New Choice Configuration"
+    update:
+      success: "%{choice_configuration_name} was updated successfully"
+
+  room_items:
+    edit:
+      back: "Back"
+      title: "Edit %{room_item_name}"
+    create:
+      success: "%{room_item_name} was created successfully"
+    update:
+      success: "%{room_item_name} was updated successfully"
+    destroy:
+      success: "%{room_item_name} was deleted successfully"
+    new:
+      title: "New room item"
+    form:
+      submit: "Submit"
+      back: "Back"
+    empty_list:
+      empty: "You have no %{type_names}."
+      add: "Add %{type_name}"
+    collection:
+      name: "Room Items"
+      archived: "Archived"
+      updated_at: "Last Updated"
+
+    show:
+      back: "Back"
+
+  room_configurations:
+    create:
+      success: "%{room_configuration_name} was created successfully"
+    destroy:
+      success: "%{room_configuration_name} was deleted successfully"
+    edit:
+      back: "Back"
+      title: "Edit %{room_configuration_name}"
+    form:
+      submit: "Submit"
+      back: "Back"
+    index:
+      title: "%{choice_configuration_name} room configurations"
+    show:
+      back: "Back"
+    collection:
+      add: "Add room configuration"
+      name: "Configuration"
+    new:
+      title: "New room configuration"
+    update:
+      success: "%{room_configuration_name} was updated successfully"
+    room_items:
+      collection:
+        add: "Add room item"
+        name: "Room Item"
+      create:
+        success: "%{room_configuration_name} was created successfully"
+      edit:
+        back: "Back"
+        title: "Edit %{room_item_name}"
+      new:
+        title: "New room item"
+      form:
+        submit: "Submit"
+        back: "Back"
+      empty_list:
+        empty: "You have no %{type_names}."
+        add: "Add %{type_name}"
   plots:
     rooms:
       index:
@@ -1184,6 +1321,7 @@ en:
       documents: "Documents"
       residents: "Residents"
       unit_type: "Unit type"
+      choices: "Choices"
       name: "Plot"
       UK:
         house_number: "Postal number / name"
@@ -1713,6 +1851,10 @@ en:
         contact_number: "Contact number"
         updated_at: "Last edited"
         api_key: "Mailchimp API key"
+        choice_labels:
+          choices_disabled: "Off"
+          admin_can_choose: "Admin"
+          either_can_choose: "Either"
       division:
         division_name: "Division name"
         address: "Division address"

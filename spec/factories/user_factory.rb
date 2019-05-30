@@ -24,6 +24,7 @@ FactoryGirl.define do
 
     factory :development_admin do
       role { :development_admin }
+      receive_choice_emails { true }
       permission_level { |user| user.association(:development) }
     end
 

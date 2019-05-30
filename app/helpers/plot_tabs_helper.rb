@@ -3,12 +3,13 @@
 module PlotTabsHelper
   include TabsHelper
 
-  def plot_tabs(plot, current_tab)
-    tabs = PLOT_TABS.call(plot)
+  def plot_tabs(plot, current_tab, current_user)
+    tabs = PLOT_TABS.call(plot, current_user)
     Tabs.new(plot, tabs, current_tab, self).all
   end
 
-  PLOT_TABS = lambda do |plot|
+  # rubocop:disable BlockLength
+  PLOT_TABS = lambda do |plot, current_user|
     {
       documents: {
         icon: "file-pdf-o", link: [plot, active_tab: :documents]
@@ -28,7 +29,13 @@ module PlotTabsHelper
       completion: {
         icon: "calendar", link: [plot, active_tab: :completion],
         permissions_on: -> { plot }
+      },
+      choices: {
+        icon: "th-list",
+        permissions_on: -> { plot },
+        hide: !plot.choices?(current_user)
       }
     }
   end
+  # rubocop:enable BlockLength
 end

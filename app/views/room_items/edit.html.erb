@@ -1,0 +1,10 @@
+<% breadcrumb :room_item_edit, @room_item %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= t(".title", room_item_name: @room_item.name) %>
+  </div>
+</div>
+
+<%= render 'form', room_item: @room_item, room_configuration: @room_configuration, choice_configuration: @choice_configuration, item_types: @item_types, item_categories: @item_categories, category_items: @category_items %>

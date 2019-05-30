@@ -29,12 +29,26 @@ module CreateFixture
     division_plot: "300",
     spanish_division_plot: "300",
     room: "Living Room",
+    bedroom: "Bedroom",
+    bedroom2: "Bedroom 2",
+    bathroom: "Bathroom",
+    lounge: "Living Room",
+    kitchen: "Kitchen",
     unit_type: "8 Bedrooms",
     how_to: "How to dig yourself a hole",
     contact: "Jane",
     faq: "How do I dig holes?",
-    notification: "You have dug a hole"
+    notification: "You have dug a hole",
+    choice_configuration: "Appartment Choice Config"
   }.freeze
+
+  APPLIANCERESOURCES ||= [ "Oven" , "Fridge", "Freezer" ]
+
+  FINISHRESOURCES ||= [
+    ["Wallcovering", "Paint", "Crown", ["red", "blue", "purple", "green"]],
+    ["Splashback", "Tiles", "Johnson", ["Morrocco", "Azure", "Clown", "Flowers"]],
+    ["Flooring", "Carpet", "Wilton", ["maize", "sunflower", "bluebell", "grass"]]
+  ]
 
   # Generate methods for each resource, e.g. for 'phase: "Alpha Phase"':
   # ```
@@ -103,6 +117,14 @@ module CreateFixture
 
   def manufacturer_link
     "https://www.example.com/register"
+  end
+
+  def choice_email_contact
+    "choices@developer.com"
+  end
+
+  def rejection_message
+    "The selected appliance is no longer available, please select a replacement"
   end
 
   def spanish_developer_id
@@ -224,6 +246,18 @@ module CreateFixture
     FactoryGirl.create(:room, name: room_name, unit_type: unit_type)
   end
 
+  def unit_type_rooms
+    [ bedroom_name, bathroom_name, lounge_name, kitchen_name ]
+  end
+
+  # create rooms for an eisting unit type
+  def create_unit_type_rooms
+    ut = UnitType.find_by(name: unit_type_name)
+    unit_type_rooms.each do |roomname|
+      FactoryGirl.create(:room, name: roomname, unit_type: ut)
+    end
+  end
+
   def appliance_category
     ApplianceCategory.find_or_create_by(name: appliance_category_name)
   end
@@ -251,6 +285,38 @@ module CreateFixture
                        appliance_manufacturer: appliance_manufacturer,
                        e_rating: energy_rating,
                        model_num: appliance_name)
+  end
+
+  def create_appliances
+    create_appliance_manufacturer
+    APPLIANCERESOURCES.each do |category|
+      appcategory = ApplianceCategory.find_or_create_by(name: category)
+      (1..4).each do |model|
+        FactoryGirl.create(:appliance,
+                       appliance_category: appcategory,
+                       appliance_manufacturer: appliance_manufacturer,
+                       e_rating: energy_rating,
+                       model_num: "#{category}#{model}")
+      end
+    end
+  end
+
+  def create_finishes
+    FINISHRESOURCES.each do |finish|
+      finish_category = FinishCategory.find_or_create_by(name: finish[0])
+      finish_type = FactoryGirl.create(:finish_type,
+                                       name: finish[1],
+                                       finish_categories: [finish_category])
+      manufacturer = FactoryGirl.create(:finish_manufacturer,
+                                        name: finish[2],
+                                        finish_types: [finish_type])
+      finish[3].each do |fname|
+        FactoryGirl.create(:finish, name: fname,
+                            finish_category: finish_category, 
+                            finish_type: finish_type,
+                            finish_manufacturer: manufacturer)
+      end
+    end
   end
 
   def create_notification
@@ -346,6 +412,76 @@ module CreateFixture
 
   def create_phase_plot
     FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, unit_type: unit_type)
+  end
+
+  def create_phase_plots
+    (1..10).each do |plot_number|
+      FactoryGirl.create(:phase_plot, phase: phase, number: plot_number.to_s, unit_type: unit_type)
+    end
+  end
+
+  def create_development_choice_config
+    FactoryGirl.create(:choice_configuration, name: choice_configuration_name, development: development)
+  end
+
+  def create_room_configurations
+    unit_type.rooms.each do |room|
+      FactoryGirl.create(:room_configuration, name: room.name, choice_configuration: choice_configuration)
+    end
+  end
+
+  # Create some choices just for the kitchen and bedroom
+  def create_room_items
+
+    bedroom = RoomConfiguration.find_by(name: bedroom_name)
+    room_item = RoomItem.new(name: FINISHRESOURCES[0][0], room_configuration_id: bedroom.id)
+    room_item.save
+    FINISHRESOURCES[0][3].each do |f|
+      finish = Finish.find_by(name: f)
+      Choice.new(choiceable_type: Finish.to_s, choiceable_id: finish.id, room_item_id: room_item.id).save
+    end
+
+    kitchen = RoomConfiguration.find_by(name: kitchen_name)
+    room_item = RoomItem.new(name: FINISHRESOURCES[1][0], room_configuration_id: kitchen.id)
+    room_item.save
+    FINISHRESOURCES[1][3].each do |f|
+      finish = Finish.find_by(name: f)
+      Choice.new(choiceable_type: Finish.to_s, choiceable_id: finish.id, room_item_id: room_item.id).save
+    end
+    room_item = RoomItem.new(name: APPLIANCERESOURCES[0], room_configuration_id: kitchen.id)
+    room_item.save
+    (1..4).each do |app|
+      appliance = Appliance.find_by(model_num: "#{APPLIANCERESOURCES[0]}#{app.to_s}")
+      Choice.new(choiceable_type: Appliance.to_s, choiceable_id: appliance.id, room_item_id: room_item.id).save
+    end
+  end
+
+  def create_development_with_plots_and_choices
+    resident = create_resident_under_a_phase_plot
+    create_phase_plots
+    create_unit_type_rooms
+    create_development_choice_config
+    create_room_configurations
+    create_appliances
+    create_finishes
+    create_room_items
+    create_development_admin
+  end
+
+  def create_development_with_plot_and_choices_no_resident
+    create_developer
+    create_development
+    create_development_phase
+    create_unit_type
+    create_unit_type_rooms
+    create_phase_plot
+    create_phase_plots
+    create_development_choice_config
+    create_room_configurations
+    create_appliances
+    create_finishes
+    create_room_items
+    create_development_admin
   end
 
   def create_spanish_phase_plot
@@ -475,6 +611,10 @@ module CreateFixture
     Development.find_by(name: development_name)
   end
 
+  def choice_configuration
+    ChoiceConfiguration.find_by(name: choice_configuration_name)
+  end
+
   def spanish_development
     Development.find_by(name: spanish_development_name)
   end
@@ -493,6 +633,10 @@ module CreateFixture
 
    def spanish_phase
     Phase.find_by(name: spanish_phase_name)
+  end
+
+  def room_configurations(choice_configuration)
+    RoomConfiguration.where(choice_configuration_id: choice_configuration.id)
   end
 
   def division_phase

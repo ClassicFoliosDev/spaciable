@@ -1,4 +1,4 @@
-<% breadcrumb :room, @room %>
+<% breadcrumb :plot_room, @room, @plot %>
 
 <div class="room">
   <div class="section-header">
@@ -12,9 +12,13 @@
     </div>
   </div>
 
-  <%= render 'components/tabs', tabs: room_tabs(@room, @active_tab, @plot) %>
+  <%= render 'components/tabs', tabs: plot_room_tabs(@room, @active_tab, @plot) %>
 
-  <%= render_collection @collection, room: @room, plot: @plot %>
+  <% if @active_tab == :finishes.to_s %>
+    <%= render 'finishes', collection: @collection, room: @room, plot: @plot %>
+  <% else %>
+    <%= render 'appliances', collection: @collection, room: @room, plot: @plot %>
+  <% end %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190327122114) do
+ActiveRecord::Schema.define(version: 20190430181321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,6 +128,26 @@ ActiveRecord::Schema.define(version: 20190327122114) do
     t.string   "info_text"
     t.string   "email_logo"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
+  end
+
+  create_table "choice_configurations", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.integer  "development_id"
+    t.boolean  "archived",       default: false
+    t.index ["development_id"], name: "index_choice_configurations_on_development_id", using: :btree
+  end
+
+  create_table "choices", force: :cascade do |t|
+    t.string   "choiceable_type"
+    t.integer  "choiceable_id"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "room_item_id"
+    t.boolean  "archived",        default: false
+    t.index ["choiceable_type", "choiceable_id"], name: "index_choices_on_choiceable_type_and_choiceable_id", using: :btree
+    t.index ["room_item_id"], name: "index_choices_on_room_item_id", using: :btree
   end
 
   create_table "ckeditor_assets", force: :cascade do |t|
@@ -253,14 +273,16 @@ ActiveRecord::Schema.define(version: 20190327122114) do
     t.integer  "developer_id"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "division_id"
     t.datetime "deleted_at"
-    t.integer  "phases_count",     default: 0
+    t.integer  "phases_count",          default: 0
     t.string   "segment_id"
     t.string   "maintenance_link"
-    t.integer  "business",         default: 0
+    t.integer  "business",              default: 0
+    t.integer  "choice_option",         default: 0, null: false
+    t.string   "choices_email_contact"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -504,6 +526,8 @@ ActiveRecord::Schema.define(version: 20190327122114) do
     t.date     "reservation_release_date"
     t.integer  "validity",                 default: 27
     t.integer  "extended_access",          default: 0
+    t.integer  "choice_configuration_id"
+    t.integer  "choice_selection_status",  default: 0,  null: false
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
@@ -608,6 +632,35 @@ ActiveRecord::Schema.define(version: 20190327122114) do
     t.index ["service_id", "resident_id"], name: "index_residents_services_on_service_id_and_resident_id", using: :btree
   end
 
+  create_table "room_choices", force: :cascade do |t|
+    t.integer "plot_id"
+    t.integer "room_item_id"
+    t.integer "choice_id"
+    t.index ["choice_id"], name: "index_room_choices_on_choice_id", using: :btree
+    t.index ["plot_id"], name: "index_room_choices_on_plot_id", using: :btree
+    t.index ["room_item_id"], name: "index_room_choices_on_room_item_id", using: :btree
+  end
+
+  create_table "room_configurations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "icon_name"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "choice_configuration_id"
+    t.index ["choice_configuration_id"], name: "index_room_configurations_on_choice_configuration_id", using: :btree
+  end
+
+  create_table "room_items", force: :cascade do |t|
+    t.string   "name"
+    t.string   "room_itemable_type"
+    t.integer  "room_itemable_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "room_configuration_id"
+    t.index ["room_configuration_id"], name: "index_room_items_on_room_configuration_id", using: :btree
+    t.index ["room_itemable_type", "room_itemable_id"], name: "index_room_items_on_room_itemable_type_and_room_itemable_id", using: :btree
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.integer  "unit_type_id"
@@ -688,14 +741,14 @@ ActiveRecord::Schema.define(version: 20190327122114) do
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "role"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.string   "email",                  default: "",   null: false
-    t.string   "encrypted_password",     default: "",   null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,    null: false
+    t.integer  "sign_in_count",          default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -714,6 +767,7 @@ ActiveRecord::Schema.define(version: 20190327122114) do
     t.string   "picture"
     t.string   "job_title"
     t.boolean  "receive_release_emails", default: true
+    t.boolean  "receive_choice_emails",  default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree

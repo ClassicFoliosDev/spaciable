@@ -1,0 +1,68 @@
+#btn_confirm {
+	background: none;
+}
+
+.choices-title {
+	padding-top: $spacing-medium;
+}
+
+.homeowner-container {
+	@include outer-container();
+	background-color: $ui-white;
+	padding: 20px;
+	border-radius: 10px;
+}
+
+.choices-table {
+  	width: 100%;
+  	padding-top: $spacing-small;
+}
+
+.choices-option {
+	width: 33%;
+	padding-right: 3%;
+}
+
+.choice-items {
+	width: 33%;
+	padding-right: 3%;
+}
+
+.choice-item {
+	margin-bottom: $spacing-large;
+	border-bottom: solid 1px;
+	border-color: $primary-green;
+
+	.item-title {
+		white-space: nowrap;
+		padding-right: 20px;
+	}
+
+	.item-name {
+		width: 100%;
+	}
+
+	.actions {
+		text-align: right;
+	}
+}
+
+
+.image-padding {
+	padding-bottom: $spacing-large * 2;
+}
+
+.dynamicTable {
+	padding-top: $spacing-medium;
+}
+
+.selected-choice {
+	img {
+		border: solid 2px;
+		border-color: #37e548;
+	}
+}
+
+.above-footer {
+	padding-top: $spacing-large;
+}

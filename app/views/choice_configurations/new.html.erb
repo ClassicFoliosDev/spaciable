@@ -1,0 +1,10 @@
+<% breadcrumb :choice_configuration_new, @development %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= fa_icon "vcard" %>
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render 'form', choice_configuration: @choice_configuration, development: @development, phase_plots: @phase_plots, unit_types: @unit_types %>

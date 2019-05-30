@@ -25,16 +25,19 @@ function enableSelect (selectElement) {
   $(selectElement).selectmenu('refresh')
 }
 
-function setFields (selectList, url, data) {
+function setFields (selectList, url, data, prompt, callback) {
+  if (prompt == null){ prompt = true}
   $.getJSON({
     url: url,
     data: data
   }).done(function (results) {
-    var promptOption = document.createElement('option')
-    promptOption.value = ''
-    promptOption.name = ''
-    promptOption.textContent = '<%= I18n.t(".rooms.choose") %>'
-    selectList.appendChild(promptOption)
+    if (prompt){
+      var promptOption = document.createElement('option')
+      promptOption.value = ''
+      promptOption.name = ''
+      promptOption.textContent = '<%= I18n.t(".rooms.choose") %>'
+      selectList.appendChild(promptOption)
+    }
 
     $.each(results, function (key, value) {
       var option = document.createElement('option')
@@ -59,6 +62,10 @@ function setFields (selectList, url, data) {
         noMatches('<%= I18n.t(".appliances.no_match") %>')
       }
     };
+
+    if(callback != null){
+      callback()
+    }
   }).fail(function (response) {
     console.error('Call to ' + url + ' failed')
   })

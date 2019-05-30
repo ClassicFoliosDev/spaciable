@@ -1,0 +1,151 @@
+<div class="plot-choices branded-body">
+  <script type="text/javascript" src="/javascripts/lib/choices.js"></script>
+
+  <%= form_tag  postback_path, name:"choices" do %>
+
+    <%= hidden_field_tag 'choice_selections', room_item_choices.to_json, :data => {:configid => plot.choice_configuration_id, :fullhouse => fullhouse, :fullhouselabel => current_resident&.present? ? t("choices.confirm") : t("choices.approve"), :confirmmessage => resident ? t(".resident.confirm_message") : t(".admin.confirm_message")} %>
+
+    <% room_style = (status == :acceptreject && resident == false) ? "display:inline" : "display:none" %>
+
+    <% if current_resident.present? %>
+      <div class="homeowner-container">
+    <% end %>
+    <div class="row-item, id="choices_panel">
+      <h3 class="choices-title">Choices</h3>
+      <table class="choices-table">
+        <% if status == :edit || status == :acceptreject || status == :approved %>
+          <tr class="choice-selectors">
+            <% if status == :edit || status == :approved %>
+
+              <td class="choices-option">
+                <div class="input select optional room_select">
+                  <table class="choices-option">
+                    <tr><label>Room</label></tr>
+                    <tr>
+                      <select id='room_select'>
+                        <option value=" ">Choose...</option>
+                        <% rooms.each do | room | %>
+                          <option value=<%=room[:id]%>><%=room[:name]%></option>
+                        <% end %>
+                      </select>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+
+              <td class="choices-option">
+                <div id='room_items' class="input select optional select_item">
+                  <table class="choices-option">
+                    <tr><label>Item</label></tr>
+                    <tr>
+                      <select id='select_item'>
+                        <option label=" "></option>
+                      </select>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+
+              <td class="choices-option">
+                <div id='room_item_choices' class="input select optional select_item_choice">
+                  <table>
+                    <tr><label>Choices</label></tr>
+                    <tr>
+                      <select id='select_item_choice'>
+                        <option label=" "></option>
+                      </select>
+                    </tr>
+                  </table>
+                </div>
+              </td>
+
+            <% elsif status == :acceptreject %>
+
+              <tr>
+                <div id="accept-reject">
+                  <input id="Approve" type="button" class="btn-primary" value=<%= t("choices.approve") %> >
+                  <input id="Reject" type="button" class="btn-primary" disabled=true value=<%= t("choices.reject") %> >
+                </div>
+              </tr>
+
+            <%end%>
+          </tr>
+        <%end%>
+      </table>
+    </div>
+
+    <div class="choices-selections">
+      <% choices.each do |choice| %>
+        <div style="<%=room_style%>" id="<%=choice[:name]%>">
+          <% width = case choice[:items].length; when 1; 33; when 2; 66; else; 100; end %>
+          <table class="choices-table" style="width:<%=width%>%">
+            <tr>
+              <td><h3><%=choice[:name]%></h3></td>
+            </tr>
+
+            <% item = 0; while item < choice[:items].length do %>
+              <tr>
+                <% column = 0; while column < 3 && item < choice[:items].length do; c=choice[:items][item] %>
+
+                  <td class="choice-items">
+                    <div class="choice-item">
+                      <table class="choice-item-table">
+
+                        <tr class="selected-choice">
+                          <td class="item-title"><b><%= c[:name] %> :</b></td>
+
+                        <% if status == :acceptreject %>
+                          <td class="item-name", id=<%=c[:id]%>>
+                        <% else %>
+                          <td id=<%=c[:id]%>>
+                        <% end %>
+
+                            <centre>
+                              <%=c[:choice]%>
+                            </centre>
+
+                          <% if status == :acceptreject %>
+                            <td class="actions">
+                              <button type="button" class="btn remove-item" data-archived=<%= c[:archived]%> id=<%=c[:id]%>>
+                                <i  class="fa fa-trash" id=<%=c[:id]%> data-archived=<%= c[:archived]%> >
+                                </i>
+                              </button>
+                            </td>
+                          <% end %>
+
+                          </td>
+                        </tr>
+
+                      </table>
+                    </div>
+                  </td>
+
+                  <% column +=1 ; item += 1 %>
+                <% end %>
+              </tr>
+            <%end%>
+
+          </table>
+        </div>
+      <%end%>
+    </div>
+
+    <div id="images">
+    </div>
+  <% if current_user.present? %>
+    <div class="image-padding"></div>
+  <% end %>
+
+    <% if status == :edit || status == :approved %>
+      <div class="above-footer">
+        <%= submit_tag t("choices.save"), class: "btn-form-submit btn-primary" %>
+        <% if status == :approved %>
+          <a href="<%= export_choices_path plot_id: plot.id %>">
+           <%= button_tag "Export Choices", type: "button", class: "btn"%>
+          </a>
+        <% end %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>

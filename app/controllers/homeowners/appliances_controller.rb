@@ -5,11 +5,15 @@ module Homeowners
     skip_authorization_check
 
     def show
-      @appliances = Appliance.accessible_by(current_ability)
-                             .includes(
-                               :appliance_category,
-                               :appliance_manufacturer
-                             )
+      @appliances = []
+      @appliances << Appliance.accessible_by(current_ability)
+                              .includes(
+                                :appliance_category,
+                                :appliance_manufacturer
+                              ).to_a
+
+      @appliances << @plot.appliance_choices if @plot.choices_approved?
+      @appliances.flatten!
     end
   end
 end

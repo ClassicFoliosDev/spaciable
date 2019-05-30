@@ -16,6 +16,7 @@ class Appliance < ApplicationRecord
   attr_accessor :name
 
   belongs_to :appliance_category, required: true
+  has_many :choices, as: :choiceable
   belongs_to :appliance_manufacturer, required: true
 
   has_many :appliance_rooms, dependent: :delete_all
@@ -50,6 +51,10 @@ class Appliance < ApplicationRecord
     c
     d
   ]
+
+  def short_name
+    full_name
+  end
 
   def full_name
     "#{appliance_manufacturer&.name} #{model_num}".strip

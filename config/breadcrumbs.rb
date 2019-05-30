@@ -210,6 +210,72 @@ crumb :phase_release_plots do |phase|
   parent :phase, phase
 end
 
+# DEVELOPMENT CHOICE CONFIGURATIONS
+
+crumb :choice_configurations do |development|
+  link ChoiceConfiguration.model_name.human.pluralize, development_choice_configurations_path(development)
+  parent :development, development
+end
+
+crumb :choice_configuration_edit do |choice|
+  link t("breadcrumbs.choice_configuration_edit", choice_configuration_name: choice.name), edit_development_choice_configuration_path(choice.development, choice)
+  parent :development, choice.development
+end
+
+crumb :choice_configuration do |choice|
+  link choice.name, development_choice_configuration_path(choice.development, choice)
+  parent :development, choice.development
+end
+
+crumb :choice_configuration_new do |development|
+  link t("breadcrumbs.choice_configuration_add")
+  parent :development, development
+end
+
+# CHOICE CONFIGURATIONS ROOM COBFIGURATIONS
+
+crumb :room_configurations do |choice_configuration|
+  link RoomConfiguration.model_name.human.pluralize, choice_configuration_room_configurations_path(choice_configuration)
+  parent :choice_configuration, choice_configuration
+end
+
+crumb :room_configuration_edit do |room|
+  link t("breadcrumbs.room_configuration_edit", room_configuration_name: room.name), edit_choice_configuration_room_configuration_path(room.choice_configuration, room)
+  parent :choice_configuration, room.choice_configuration
+end
+
+crumb :room_configuration do |room|
+  link room.name, choice_configuration_room_configuration_path(room.choice_configuration, room)
+  parent :choice_configuration, room.choice_configuration
+end
+
+crumb :room_configuration_new do |choice_configuration|
+  link t("breadcrumbs.room_configuration_add")
+  parent :choice_configuration, choice_configuration
+end
+
+# ROOM CONFIGURATIONS ROOM ITEMS
+
+crumb :room_items do |room_configuration|
+  link RoomItem.model_name.human.pluralize, room_configuration_room_items_path(room_configuration)
+  parent :room_configuration, room_configuration
+end
+
+crumb :room_item_edit do |item|
+  link t("breadcrumbs.room_item_edit", room_item_name: item.name), ""
+  parent :room_configuration, item.room_configuration
+end
+
+crumb :room_item do |item|
+  link item, room_configuration_room_items_path(item.room_configuration, item)
+  parent :room_configuration, item.room_configuration
+end
+
+crumb :room_item_new do |room_configuration|
+  link t("breadcrumbs.room_configuration_add")
+  parent :room_configuration, room_configuration
+end
+
 # PROGRESSES
 
 crumb :progresses do |phase|
@@ -320,6 +386,11 @@ end
 crumb :room_edit do |room|
   link t("breadcrumbs.room_edit", room_name: room.name), [:edit, room.parent, room]
   parent :room, room
+end
+
+crumb :plot_room do |room, plot|
+  link room.name, [room.parent, room]
+  parent :plot, plot
 end
 
 crumb :room do |room|

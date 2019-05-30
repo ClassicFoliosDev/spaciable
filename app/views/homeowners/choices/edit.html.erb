@@ -1,0 +1,7 @@
+<% content_for :hero_text_primary do %>
+  <%= render 'address/address', address: @plot %>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "choices", plot: @plot %>
+<%= render "components/choices", plot: @plot, room_item_choices: @room_item_choices, choices: @choices, postback_path: homeowners_choices_path, status: @status, fullhouse: @full_house, rooms: @rooms, resident: true %>
+

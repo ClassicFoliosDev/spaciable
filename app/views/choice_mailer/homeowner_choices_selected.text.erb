@@ -1,0 +1,18 @@
+
+Dear <%= @admins.map(&:first_name).join(',') %>,
+
+Choices have been selected for the following plot. Please log in and confirm or reject this list of choices, as appropriate, by navigating to the plot and clicking the Choices tab.
+
+Plot:        <%= @plot.number %>
+
+Development: <%= @plot.development_name %>
+
+<% if @plot.division.present? %>
+Division:    <%= @plot.division_name %>
+<% end %>
+
+Developer:   <%= @plot.company_name %>
+
+Kind Regards,
+
+The Hoozzi Team.

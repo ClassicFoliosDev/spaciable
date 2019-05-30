@@ -16,7 +16,8 @@
         <% end %>
       <% end %>
 
-      <% if Appliance.accessible_by(current_ability).any? %>
+      <% if Appliance.accessible_by(current_ability).any?  ||
+           (plot&.appliance_choices.present? && plot&.appliance_choices&.length > 0) %>
         <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "branded-primary #{'active' if active_tab == 'appliances' }" do %>
             <li class="navbar-item">
               <%= t(".appliances") %>
@@ -33,6 +34,12 @@
           <li class="navbar-item">
             <%= t('.faqs') %>
           </li>
+      <% end %>
+      <% if plot.choices?(current_resident) && !plot.choices_approved? %>
+        <%= link_to homeowners_choices_path, active_tab: "choices",
+                    class: "branded-primary #{'active' if active_tab == 'choices' }" do %>
+            <li class="navbar-item"><%= t(".choices") %></li>
+        <% end %>
       <% end %>
     </ul>
   </div>

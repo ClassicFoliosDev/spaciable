@@ -1,0 +1,39 @@
+<% if collection.empty? %>
+  <%= render 'components/empty_list', icon_name: "th-list", type: ChoiceConfiguration, parent: parent %>
+<% else %>
+  <% if can_create(ChoiceConfiguration, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_development_choice_configuration_path(parent), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list phases">
+    <thead>
+      <tr>
+        <th><%= sortable(ChoiceConfiguration, :name, t(".name")) %></th>
+        <th><%= sortable(ChoiceConfiguration, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |config| %>
+      <tr data-phase="<%= config.id %>">
+        <td><%= link_to config.name, development_choice_configuration_path(parent, config), title: config.name %></td>
+        <td><%= l config.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= edit_btn edit_development_choice_configuration_path(parent, config), element: config %>
+          <%= delete_btn config, path: url_for([parent, config]), element: config %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

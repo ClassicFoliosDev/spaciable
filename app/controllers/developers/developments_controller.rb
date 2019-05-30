@@ -11,6 +11,7 @@ module Developers
       @developments = paginate(sort(@developments, default: :name))
     end
 
+    # rubocop:disable Metrics/AbcSize
     def show
       @active_tab = params[:active_tab] || "phases"
 
@@ -18,6 +19,8 @@ module Developers
                       paginate(sort(@development.unit_types, default: :name))
                     elsif @active_tab == "phases"
                       paginate(sort(@development.phases, default: :number))
+                    elsif @active_tab == "choice_configurations"
+                      paginate(sort(@development.choice_configurations, default: :name))
                     elsif @active_tab == "documents"
                       documents = @development.documents.accessible_by(current_ability)
                       paginate(sort(documents, default: :title))
@@ -26,6 +29,7 @@ module Developers
                       @development.plots
                     end
     end
+    # rubocop:enable Metrics/AbcSize
 
     def new
       @development.build_address unless @development.address
@@ -75,6 +79,8 @@ module Developers
     def development_params
       params.require(:development).permit(
         :name, :business,
+        :choice_option,
+        :choices_email_contact,
         :developer_id,
         :division_id,
         :email,

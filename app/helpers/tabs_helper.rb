@@ -27,6 +27,7 @@ module TabsHelper
     def display?(association, options)
       permissions_scope = options.delete(:permissions_on)
       return true if options.delete(:always_show) == true
+      return false if options.delete(:hide) == true
 
       model = permissions_scope&.call || build_association(association)
 

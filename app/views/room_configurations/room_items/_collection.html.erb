@@ -1,0 +1,38 @@
+<% if collection.empty? %>
+  <%= render '/room_configurations/room_items/empty_list', icon_name: "th-list", type: RoomItem, parent: parent %>
+<% else %>
+  <% if can_create(RoomItem, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_room_configuration_room_item_path(parent), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list phases">
+    <thead>
+      <tr>
+        <th><%= sortable(RoomConfiguration, :name, t(".name")) %></th>
+        <th><%= sortable(RoomConfiguration, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |item| %>
+      <tr data-room="<%= item.id %>">
+        <td><%= link_to item.name, room_configuration_room_item_path(parent, item), title: item.name %></td>
+        <td><%= l item.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= edit_btn edit_room_configuration_room_item_path(parent, item), element: item %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

@@ -6,6 +6,6 @@
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: plot_tabs(@plot, "rooms") %>
+<%= render 'components/tabs', tabs: plot_tabs(@plot, "rooms", current_user) %>
 
 <%= render_collection @rooms, parent: @plot %>

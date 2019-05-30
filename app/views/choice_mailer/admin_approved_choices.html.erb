@@ -1,0 +1,42 @@
+<p>
+	DearSir/Madam
+</p>
+
+Choices have been submitted and approved for the following plot
+
+<p>
+	Plot: <%= @plot.number %>
+</p>
+<p>
+	Development: <%= @plot.development_name %>
+</p>
+<% if @plot.division.present? %>
+<p>
+	Division: <%= @plot.division_name %>
+</p>
+<% end %>
+<p>
+	Developer: <%= @plot.company_name %>
+</p>
+
+Choices selected:
+
+<% @plot.rooms.each do |room| %>
+
+  <h3><%= room.name %></h3>
+  <% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
+    <% if choice.choiceable.is_a? Appliance %>
+      <%= choice.appliance_category %>
+    <% elsif choice.choiceable.is_a? Finish %>
+      <%= choice.finish_category %>
+    <% end %> :
+    <%= choice.full_name %>
+    <br>
+  <% end %>
+<% end %>
+
+<br>
+Kind Regards,
+
+The Hoozzi Team
+</p>

@@ -4,8 +4,6 @@
 
 <%= render "components/homeowner/sub_header", active_tab: "rooms", plot: @plot %>
 
-
-
 <div class="branded-body">
   <div class="rooms">
     <h4><%= t(".disclaimer") %></h4>
@@ -22,7 +20,8 @@
         </div>
         <div class="two-fifths">
           <span class="branded-text"><%= room %></span>
-          <% room.finishes.each_with_index do | finish, index | %>
+
+           <% room.finishes.each_with_index do | finish, index | %>
             <% if index.even? %>
               <%= render "homeowners/components/finish", finish: finish %>
             <% end %>
@@ -32,9 +31,27 @@
               <%= render "homeowners/components/appliance", appliance: appliance %>
             <% end %>
           <% end %>
+
+          <% if @plot.choices_approved? %>
+            <% plot_choices = RoomChoice.plot_choices(room, @plot) %>
+          <% end %>
+
+          <% if @plot.choices_approved? %>
+            <% plot_choices&.each_with_index do | choice, index | %>
+              <% if index.even? %>
+                <% if choice.choiceable.is_a? Finish %>
+                  <%= render "homeowners/components/finish", finish: choice.choiceable %>
+                <% elsif choice.choiceable.is_a? Appliance %>
+                  <%= render "homeowners/components/appliance", appliance: choice.choiceable %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+
         </div>
 
         <div class="second-column two-fifths">
+
           <% room.finishes.each_with_index do | finish, index | %>
             <% if index.odd? %>
               <%= render "homeowners/components/finish", finish: finish %>
@@ -43,6 +60,18 @@
           <% room.appliances.each_with_index do | appliance, index | %>
             <% if index.odd? %>
               <%= render "homeowners/components/appliance", appliance: appliance %>
+            <% end %>
+          <% end %>
+
+          <% if @plot.choices_approved? %>
+            <% plot_choices&.each_with_index do | choice, index | %>
+              <% if index.odd? %>
+                <% if choice.choiceable.is_a? Finish %>
+                  <%= render "homeowners/components/finish", finish: choice.choiceable %>
+                <% elsif choice.choiceable.is_a? Appliance %>
+                  <%= render "homeowners/components/appliance", appliance: choice.choiceable %>
+                <% end %>
+              <% end %>
             <% end %>
           <% end %>
         </div>

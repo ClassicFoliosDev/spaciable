@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
   acts_as_paranoid
+  require "csv"
 
   attr_accessor :copy_plot_numbers
 
@@ -20,6 +21,10 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
 
+  belongs_to :choice_configuration
+  has_many :room_choices, dependent: :destroy
+
+  has_many :room_choices, dependent: :destroy
   has_many :plot_residencies, dependent: :destroy
   has_many :plot_private_documents, dependent: :destroy
   has_many :private_documents, through: :plot_private_documents
@@ -53,6 +58,10 @@ class Plot < ApplicationRecord
   delegate :house_search, :enable_services?, :enable_roomsketcher?, to: :developer, allow_nil: true
   delegate :enable_referrals?, to: :developer, allow_nil: true
   delegate :enable_development_messages?, to: :developer
+  delegate :choices_email_contact, to: :development
+  delegate :name, to: :development, prefix: true
+  delegate :division_name, to: :division
+  delegate :company_name, to: :developer
 
   enum progress: %i[
     soon
@@ -62,6 +71,15 @@ class Plot < ApplicationRecord
     complete_ready
     completed
     remove
+  ]
+
+  enum choice_selection_status: %i[
+    no_choices_made
+    homeowner_updating
+    admin_updating
+    committed_by_homeowner
+    choices_approved
+    choices_rejected
   ]
 
   def rooms(room_scope = Room.all)
@@ -124,11 +142,13 @@ class Plot < ApplicationRecord
 
   def building_name=(name)
     return if parent_address && name.present? && name == parent_address.building_name
+
     (address || build_address).building_name = name
   end
 
   def road_name=(name)
     return if parent_address && name.present? && name == parent_address.road_name
+
     (address || build_address).road_name = name
   end
 
@@ -140,11 +160,13 @@ class Plot < ApplicationRecord
 
   def postcode=(name)
     return if parent_address && name.present? && name == parent_address.postcode
+
     (address || build_address).postcode = name
   end
 
   def number
     return if self[:number].blank?
+
     BulkPlots::Numbers.Number(self[:number])
   end
 
@@ -178,12 +200,14 @@ class Plot < ApplicationRecord
   def expiry_date
     return if completion_release_date.blank?
     return completion_release_date + validity.months if extended_access.blank?
+
     completion_release_date + validity.months + extended_access.months
   end
 
   def show_maintenance?
     return false if maintenance_link.blank?
     return true if expiry_date.blank?
+
     Time.zone.today < expiry_date
   end
 
@@ -209,6 +233,20 @@ class Plot < ApplicationRecord
     end
   end
 
+  # Are choices available to this user for this plot
+  def choices?(current_user)
+    choice_configuration_id.present? && development.choices?(current_user, self)
+  end
+
+  # Export the choices for this plot as CSV data
+  def export_choices
+    attributes = %w[room name full_name]
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+      room_choices.each do |choice|
+        csv << attributes.map { |attr| choice.send(attr) }
+      end
+      
   def referrer_address
     if division.present?
       "#{division}, #{development}, #{phase}"
@@ -226,4 +264,30 @@ class Plot < ApplicationRecord
     (parent.is_a?(Phase) && parent.developer.country.spain?)
   end
   # rubocop:enable all
+
+  # Generate the list of admins that will receive choice selections
+  def choice_admins
+    User.choice_enabled_admins_associated_with([developer, division, development])
+  end
+
+  # Generate a list of homeowners for the plot
+  def homeowners
+    residents.to_a.select { |resident| resident.plot_residency_homeowner?(self) }
+  end
+
+  # Get the approvd applicance choices made for the plot
+  def appliance_choices
+    return unless choices_approved?
+    choices = Choice.joins(:room_choices)
+                    .where(choices: { choiceable_type: "Appliance" },
+                           room_choices: { plot_id: id }).to_a
+    choices&.map(&:choiceable)
+  end
+
+  # Get the matching room configuration for the plot
+  def room_configuration(room)
+    choice_configuration&.room_configurations
+                        &.where("lower(name) = ?", room.name.downcase)
+                        &.first
+  end
 end

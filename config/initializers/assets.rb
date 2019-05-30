@@ -21,3 +21,6 @@ Rails.application.config.assets.precompile += ["styleguide.html"]
 # WYSIWYG Editor
 Rails.application.config.assets.paths += %w( ckeditor/config.js )
 Rails.application.config.assets.precompile += %w( ckeditor/* )
+
+# Choose JS library
+Rails.application.config.assets.precompile += %w( chosen.min.css )

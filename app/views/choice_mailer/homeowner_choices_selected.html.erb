@@ -1,0 +1,26 @@
+<p>
+	Dear <%= @admins.map(&:first_name).join(',') %>,
+</p>
+<p>
+	Choices have been selected for the following plot. Please log in and confirm or reject this list of choices, as appropriate, by <a href="<%= plot_choices_url @plot %>">navigating to the plot and clicking the Choices tab.</a>
+</p>
+<p>
+	Plot: 			<%= @plot.number %>
+</p>
+<p>
+	Development: 	<%= @plot.development_name %>
+</p>
+<% if @plot.division.present? %>
+<p>
+	Division: 		<%= @plot.division_name %>
+</p>
+<% end %>
+<p>
+	Developer:		<%= @plot.company_name %>
+</p>
+<p>
+
+Kind Regards,
+
+The Hoozzi Team.
+</p>

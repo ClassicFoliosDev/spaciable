@@ -89,6 +89,21 @@ class User < ApplicationRecord
     emails
   end
 
+  # Admin users receiving choice emails
+  def self.choice_enabled_admins_associated_with(assoiciations)
+    admins = []
+    assoiciations.each do |association|
+      next if association.nil?
+      admins << User.all.select do |u|
+        u.receive_choice_emails == true &&
+          u.permission_level_type == association.class.to_s &&
+          u.permission_level_id == association.id
+      end
+    end
+
+    admins.flatten!
+  end
+
   # rubocop:disable all
   def enable_receive_release_emails?(current_user)
     current_user.cf_admin? ||
@@ -96,6 +111,12 @@ class User < ApplicationRecord
        ((self == current_user) || division_admin? || development_admin? || site_admin?)) ||
       (current_user.division_admin? &&
         ((self == current_user) || development_admin? || site_admin?))
+  end
+  # rubocop:enable all
+
+  # rubocop:disable all
+  def enable_choice_emails?(current_user)
+    true
   end
   # rubocop:enable all
 end

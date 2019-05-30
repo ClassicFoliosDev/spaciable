@@ -26,7 +26,12 @@ module DevelopmentTabsHelper
       faqs: { icon: "question-circle" },
       contacts: { icon: :vcard },
       brands: { icon: "css3" },
-      videos: { icon: "file-video-o" }
+      videos: { icon: "file-video-o" },
+      choice_configurations: {
+        icon: "th-list",
+        hide: development.choices_disabled?,
+        link: [development.parent, development, active_tab: :choice_configurations]
+      }
     }
   end
 
