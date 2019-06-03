@@ -74,7 +74,8 @@ module Divisions
         :division_id,
         :email,
         :contact_number,
-        :maintenance_link,
+        :maintenance_link, :enable_snagging,
+        :snag_duration, :snag_name,
         address_attributes: %i[postal_number road_name building_name
                                locality city county postcode]
       )

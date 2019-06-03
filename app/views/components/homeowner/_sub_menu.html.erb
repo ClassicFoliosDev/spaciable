@@ -35,6 +35,15 @@
             <%= t('.faqs') %>
           </li>
       <% end %>
+
+      <% if current_resident&.plot_residency_homeowner?(plot) %>
+        <% if plot.snagging_valid %>
+          <%= link_to snags_path, active_tab: "snagging", class: "branded-primary #{'active' if active_tab == 'snagging' }" do %>
+            <li class="navbar-item"><%= plot.snag_name %></li>
+          <% end %>
+        <% end %>
+      <% end %>
+
       <% if plot.choices?(current_resident) && !plot.choices_approved? %>
         <%= link_to homeowners_choices_path, active_tab: "choices",
                     class: "branded-primary #{'active' if active_tab == 'choices' }" do %>

@@ -40,6 +40,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
   notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
   notice << t("resident_notification_mailer.notify.update_sent", count: Resident.all.count) if action == "updated"
 
+  sleep 0.3
   within ".notice" do
     expect(page).to have_content(notice)
   end

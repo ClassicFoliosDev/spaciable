@@ -42,6 +42,7 @@
 @import 'components/admin/record_list';
 @import 'components/admin/paging';
 @import 'components/admin/empty';
+@import 'components/admin/snagging';
 
 @import 'components/section';
 @import 'components/flashes';
@@ -64,4 +65,5 @@
 @import 'views/reports_view';
 @import 'views/bulk_edit_view';
 @import 'views/production_view';
+@import 'views/snag_view';
 @import 'views/choices_view';

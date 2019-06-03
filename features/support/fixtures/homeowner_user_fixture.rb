@@ -5,12 +5,19 @@ module HomeownerUserFixture
 
   def create
     country = FactoryGirl.create(:country)
-    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
+    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id, )
     division = FactoryGirl.create(:division, division_name: division_name, developer_id: developer.id)
-    development = FactoryGirl.create(:development, name: development_name, division_id: division.id, developer_id: developer.id)
+    development = FactoryGirl.create(:development,
+                                     name: development_name,
+                                     email: development_email,
+                                     division_id: division.id,
+                                     developer_id: developer.id,
+                                     enable_snagging: true,
+                                     snag_duration: "14",
+                                     snag_name: custom_snag_name)
     phase = FactoryGirl.create(:phase, name: phase_name, development_id: development.id)
 
-    plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id, prefix: "Flat")
+    plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id, prefix: "Flat", completion_date: completion_date)
 
     resident = create_without_residency
     FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id, role: :homeowner)
@@ -24,6 +31,7 @@ module HomeownerUserFixture
       email: email,
       password: password,
       first_name: first_name,
+      last_name: last_name,
       ts_and_cs_accepted_at: Time.zone.now,
       phone_number: phone_num
     )
@@ -85,8 +93,16 @@ module HomeownerUserFixture
     "First development"
   end
 
+  def development_email
+    "development@email.com"
+  end
+
   def first_name
     "Jonathan"
+  end
+
+  def last_name
+    "Davies"
   end
 
   def updated_password
@@ -95,5 +111,17 @@ module HomeownerUserFixture
 
   def plot_number
     "63B"
+  end
+
+  def completion_date
+    (Time.zone.now - 12.days).to_date
+  end
+
+  def custom_snag_name
+    "Fixy Breaky"
+  end
+
+  def admin_password
+    "12345678"
   end
 end

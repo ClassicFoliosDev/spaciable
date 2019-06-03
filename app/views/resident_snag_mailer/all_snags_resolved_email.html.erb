@@ -1,0 +1,27 @@
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+
+<p>Hi,</p>
+
+<p><%= t(".all_snags_resolved", tool_name: @tool_name) %></p>
+
+<p style="font-weight: bold;padding-left: 5%;padding-right: 5%"><%= @address %> (<%= @plot %>)</p>
+
+<p>
+  <%= t(".snag_archive", tool_name: @tool_name) %>
+</p>
+
+<p>
+  <%= link_to t("resident_snag_mailer.login"), root_url %>
+</p>
+
+<p>
+  Kind regards,
+</p>
+
+<p>
+  Hoozzi Admin
+</p>
+
+<footer style="font-size: 12px">
+  <%= t("resident_snag_mailer.footer") %>
+</footer>

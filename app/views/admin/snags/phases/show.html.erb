@@ -1,0 +1,43 @@
+<% breadcrumb :admin_plot_snags, @snag %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<table class="record-list phases">
+  <thead>
+  <tr>
+    <th><%= sortable(Plot, :number, t(".plot_number")) %></th>
+    <th><%= sortable({Plot => Address}, :postal_number, t(".postal_number")) %></th>
+    <th><%= sortable({Plot => Address}, :building_name, t(".building_name")) %></th>
+    <th><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></th>
+    <th><%= sortable({Plot => Address}, :postcode, t(".postcode")) %></th>
+    <th><%= sortable(Plot, :completion_date, t(".comp_date")) %></th>
+    <th><%= sortable(Plot, :total_snags, t(".total_snags")) %></th>
+    <th><%= sortable(Plot, :unresolved_snags, t(".unresolved_snags")) %></th>
+    <th><%= t(".days_remaining") %></th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @plots.each do |plot| %>
+    <tr data-plot="<%= plot.id %>">
+      <td><%= plot.number %></td>
+      <td><%= plot.postal_number %></td>
+      <td><%= plot.building_name %></td>
+      <td><%= plot.road_name %></td>
+      <td><%= plot.postcode %></td>
+      <td><%= plot.completion_date.strftime("%B %d, %Y") if plot.completion_date%></td>
+      <td><%= plot.total_snags %></td>
+      <td><%= plot.unresolved_snags %></td>
+      <td><%= plot.snagging_days_remaining %></td>
+      <td class="actions"><%= link_to t(".snags"), admin_snags_plot_path(plot), class: "btn" %></td>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+</div>

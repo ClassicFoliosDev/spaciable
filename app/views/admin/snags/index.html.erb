@@ -1,0 +1,30 @@
+<% breadcrumb :admin_plot_snag, @snag %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<table class="record-list phases">
+  <thead>
+  <tr>
+    <th style="width: 20%;"><%= sortable(Snag, :title, t(".snag_title")) %></th>
+    <th style="width: 60%;"><%= sortable(Snag, :description, t(".snag_description")) %></th>
+    <th style="width: 10%;"><%= sortable(Snag, :status, t(".status")) %></th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @snags.each do |snag| %>
+    <tr data-snag="<%= snag.id %>">
+      <td><%= link_to truncate(snag.title, length: 50, separator: ' '), admin_snag_path(snag) %></td>
+      <td><%= link_to truncate(snag.description, length: 110, separator: ' '), admin_snag_path(snag) %></td>
+      <% status = snag.resolved_visual %>
+      <td><span class="circle-small <%= status %>"></span></td>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+</div>

@@ -8,6 +8,9 @@ module Admin
 
     def index
       @notifications = @notifications.includes(:send_to, :sender)
+      @notifications = @notifications.where
+                                     .not(subject:
+                                     I18n.t("resident_snag_mailer.notify.new_notification"))
       @notifications = paginate(sort(@notifications, default: { sent_at: :desc }))
     end
 

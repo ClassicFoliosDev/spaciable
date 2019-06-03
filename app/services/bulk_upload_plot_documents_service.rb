@@ -36,7 +36,6 @@ module BulkUploadPlotDocumentsService
 
   module_function
 
-  # rubocop:disable MethodLength
   def find_matches(files, plots)
     Rails.logger.debug(">>> Bulk upload plot document service find matches start #{Time.zone.now}")
     unmatched = []
@@ -56,7 +55,6 @@ module BulkUploadPlotDocumentsService
     Rails.logger.debug("<<< Bulk upload plot document service find matches end #{Time.zone.now}")
     [matched, unmatched]
   end
-  # rubocop:enable MethodLength
 
   # rubocop:disable Metrics/AbcSize
   # rubocop:disable MethodLength

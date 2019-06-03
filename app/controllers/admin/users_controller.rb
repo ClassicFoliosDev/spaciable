@@ -75,7 +75,8 @@ module Admin
         :development_id, :permission_level_id,
         :permission_level_type, :password, :password_confirmation,
         :current_password, :picture, :picture_cache,
-        :job_title, :receive_release_emails, :receive_choice_emails
+        :job_title, :receive_release_emails, :snag_notifications,
+        :receive_choice_emails
       )
     end
   end

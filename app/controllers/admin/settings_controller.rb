@@ -29,7 +29,7 @@ module Admin
     # Never trust parameters from the scary internet, only allow the white list through.
     def setting_params
       params.require(:setting).permit(
-        :video_link, :help, :cookie_policy, :privacy_policy
+        :video_link, :help, :cookie_policy, :privacy_policy, :intro_video_enabled
       )
     end
   end

@@ -443,3 +443,11 @@ Given(/^there are services$/) do
     Service.create(category: category.last)
   end
 end
+
+Given(/^a CF admin has disabled the intro video$/) do
+  FactoryGirl.create(:setting, intro_video_enabled: false)
+end
+
+Then(/^I should be redirected to the services page$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end

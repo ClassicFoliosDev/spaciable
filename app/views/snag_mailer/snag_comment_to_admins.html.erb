@@ -1,0 +1,34 @@
+<p>
+  Hi,
+</p>
+
+<p>
+  <%= t("snag_mailer.comment_email_opening", commenter_name: @commenter_name) %>
+</p>
+
+<ul>
+  <li><b><%= @snag_title %></b></li>
+  <br/>
+  <li><%= t("snag_mailer.developer") %><%= @plot.company_name %></li>
+  <% if @plot.division %>
+    <li><%= t("snag_mailer.division") %><%= @plot.division_name %></li>
+  <% end %>
+  <li><%= t("snag_mailer.development") %><%= @plot.development_name %></li>
+  <li><%= t("snag_mailer.phase") %><%= @plot.phase_name %> </li>
+  <li><%= t("snag_mailer.plot") %><%= @plot.number %></li>
+  <br/>
+  <li><%= t("snag_mailer.postal") %><%= @plot.prefix %> <%= @plot.postal_number %></li>
+  <li><%= t("snag_mailer.building") %><%= @plot.building_name %></li>
+  <li><%= t("snag_mailer.street") %><%= @plot.road_name %></li>
+  <li><%= t("snag_mailer.postcode") %><%= @plot.postcode %></li>
+</ul>
+
+<p>
+  <%= t("snag_mailer.view_snag") %>
+</p>
+<p>
+  <em><%= t("snag_mailer.opt_out") %></em>
+</p>
+<p>
+  <%= link_to t("snag_mailer.login"), new_admin_session_url %>
+</p>

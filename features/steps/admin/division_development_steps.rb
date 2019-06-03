@@ -27,6 +27,12 @@ When(/^I update the divisions development$/) do
 
   fill_in "development_name", with: DivisionDevelopmentFixture.updated_development_name
 
+  check "development_enable_snagging"
+
+  DivisionDevelopmentFixture.update_snagging.each do |attr, value|
+    fill_in "development_#{attr}", with: value
+  end
+
   DivisionDevelopmentFixture.update_attrs.each do |attr, value|
     fill_in "development_#{attr}", with: value
   end
@@ -53,6 +59,8 @@ Then(/^I should see the updated divisions development$/) do
   DivisionDevelopmentFixture.development_address_update_attrs.each do |_attr, value|
     expect(page).to have_content(value)
   end
+
+  expect(page).to have_content("Snagging enabled: true")
 end
 
 And(/^I should be able to return to the division$/) do

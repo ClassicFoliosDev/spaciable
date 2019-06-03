@@ -218,7 +218,7 @@ module CreateFixture
 
   def create_division_development
     return if division_development
-    FactoryGirl.create(:division_development, name: division_development_name, division: division)
+    FactoryGirl.create(:division_development, name: division_development_name, division: division, enable_snagging: true, snag_duration: "7")
   end
 
   def create_spanish_division_development
@@ -492,6 +492,15 @@ module CreateFixture
     FactoryGirl.create(:phase_plot, phase: division_phase, number: phase_plot_name, unit_type: unit_type)
   end
 
+  def create_snag_plot
+    FactoryGirl.create(:phase_plot,
+                       phase: division_phase,
+                       number: snag_plot_number,
+                       house_number: snag_house_number,
+                       unit_type: unit_type,
+                       completion_date: completion_date)
+  end
+
   def create_notification_residents
     # A resident with no plots
     attrs = { first_name: "Resident with no", last_name: "Plots", email: "resident@no.plots.com" }
@@ -627,6 +636,14 @@ module CreateFixture
     Development.find_by(name: spanish_division_development_name)
   end
 
+  def snag_plot_number
+    "321"
+  end
+
+  def snag_house_number
+    "555"
+  end
+
   def phase
     Phase.find_by(name: phase_name)
   end
@@ -680,6 +697,10 @@ module CreateFixture
 
   def appliance_manufacturer
     ApplianceManufacturer.find_by(name: appliance_manufacturer_name)
+  end
+
+  def completion_date
+    (Time.zone.now - 12.days).to_date
   end
 end
 # rubocop:enable ModuleLength

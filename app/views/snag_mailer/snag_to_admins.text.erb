@@ -1,0 +1,34 @@
+Hi,
+
+<% if @status == "create" %>
+<%= t("snag_mailer.email_opening", age: "A new", status: "created") %>
+<% elsif @status == "update" %>
+<%= t("snag_mailer.email_opening", age: "An existing", status: "updated") %>
+<% elsif @status == "delete" %>
+<%= t("snag_mailer.email_opening", age: "A", status: "deleted") %>
+<% end %>
+
+<%= t("snag_mailer.snag_title") %><%= @snag_title %>
+
+<%= t("snag_mailer.developer") %><%= @plot.company_name %>
+<% if @plot.division %>
+<%= t("snag_mailer.division") %><%= @plot.division_name %>
+<% end %>
+<%= t("snag_mailer.development") %><%= @plot.development_name %>
+<%= t("snag_mailer.phase") %><%= @plot.phase_name %>
+<%= t("snag_mailer.plot") %><%= @plot.number %>
+
+<%= t("snag_mailer.postal") %><%= @plot.prefix %><% @plot.postal_number %>
+<%= t("snag_mailer.building") %><%= @plot.building_name %>
+<%= t("snag_mailer.street") %><%= @plot.road_name %>
+<%= t("snag_mailer.postcode") %><%= @plot.postcode %>
+
+<% if @status == "create" || @status == "update" %>
+<%= t("snag_mailer.view_snag") %>
+<% elsif @status == "delete" %>
+<%= t("snag_mailer.general_snag") %>
+<% end %>
+
+<%= t("snag_mailer.opt_out") %>
+
+Login to Hoozzi at www.hoozzi.com/admin

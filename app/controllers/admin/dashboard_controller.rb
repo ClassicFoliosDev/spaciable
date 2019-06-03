@@ -20,10 +20,13 @@ module Admin
 
     def notifications_scope
       if current_user.cf_admin?
-        Notification.all.includes(:sender, :send_to)
+        Notification.where.not(subject: I18n.t("resident_snag_mailer.notify.new_notification"))
+                    .includes(:sender, :send_to)
       else
         Notification.accessible_by(current_ability)
-                    .where(sender_id: current_user.id).includes(:sender, :send_to)
+                    .where(sender_id: current_user.id)
+                    .where.not(subject: I18n.t("resident_snag_mailer.notify.new_notification"))
+                    .includes(:sender, :send_to)
       end
     end
 

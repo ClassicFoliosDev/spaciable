@@ -28,7 +28,6 @@ class Development < ApplicationRecord
   has_many :videos, as: :videoable
   has_many :development_messages
   has_many :choice_configurations, dependent: :destroy
-
   has_many :plot_documents, through: :plots, source: :documents
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true

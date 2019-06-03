@@ -23,7 +23,7 @@ class Developer < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
 
   # A developer belongs to a country - belongs_to adds a number of new helper
-  # methods to the class to allow easy access.  eg. you can call @devloper.country
+  # methods to the class to allow easy access.  eg. you can call @developer.country
   # on a Developer object and it will retrieve the associated country from the Country
   # table.
   belongs_to :country
@@ -51,5 +51,15 @@ class Developer < ApplicationRecord
     CloneDefaultFaqsJob.perform_later(faqable_type: "Developer",
                                       faqable_id: id,
                                       country_id: country_id)
+  end
+
+  def all_developments
+    all_developments = []
+    all_developments << developments
+    divisions.each do |div|
+      all_developments << div.developments
+    end
+
+    all_developments.to_a.flatten!
   end
 end

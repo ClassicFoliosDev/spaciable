@@ -6,7 +6,7 @@ module Homeowners
                        unless: -> { current_resident || current_user }
 
     def create
-      configure_referral
+      create_new_referral
     end
 
     def confirm_referral
@@ -17,10 +17,6 @@ module Homeowners
     end
 
     private
-
-    def configure_referral
-      create_new_referral
-    end
 
     def create_new_referral
       @referral = Referral.new(referral_params)

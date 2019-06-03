@@ -1,0 +1,26 @@
+<div class="full branded-content branded-border snag-attachment-form">
+  <%= image_tag snag_attachment.image %>
+  <%= simple_form_for snag_attachment do |f| %>
+    <% if snag_attachment.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% snag_attachment.errors.full_messages.each do |error_msg| %>
+        <li>
+          <%= fa_icon "exclamation-circle" %>
+          <%= error_msg %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  <div class="field">
+      <%= f.file_field :image %>
+    </div>
+    <div class="actions">
+      <%= link_to t(".back"), snag_attachment.snag, class: "btn branded-btn" %>
+      <div class="submit">
+        <%= f.submit t(".submit"), class: "btn-form-submit btn branded-btn snag-attachment-submit" %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,27 @@
+<div class="snag-comment-form">
+  <%= simple_form_for snag_comment, url: admin_snag_path(id: params[:id]) do |f| %>
+  <% if snag_comment.errors.any? %>
+  <div class="submission-errors">
+    <ul>
+      <% snag_comment.errors.full_messages.each do |error_msg| %>
+      <li>
+        <%= fa_icon "exclamation-circle" %>
+        <%= error_msg %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+  <div class="hidden-field">
+    <%= f.hidden_field :snag_id, value: snag.id %>
+  </div>
+  <div class="message">
+    <%= f.input :content, label: false, as: :text, maxlength: 1000, placeholder: t("snag_comments.form.content"), class: "snag-comment-content", input_html: { required: true } %>
+    <%= f.file_field :image %>
+  </div>
+
+  <div class="snag-comment-submit">
+    <%= f.submit t("snag_comments.form.send"), class: "btn send" %>
+  </div>
+  <% end %>
+</div>

@@ -159,7 +159,7 @@ Then(/^I can see my library$/) do
     click_on t("homeowner.dashboard.cards.library.view_more")
   end
 
-  sleep 0.2
+  sleep 0.7
   within_frame("rails_iframe") do
     expect(page).to have_content %r{#{t("components.homeowner.library_hero.title")}}i
 

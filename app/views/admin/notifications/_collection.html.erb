@@ -19,26 +19,26 @@
   </thead>
   <tbody>
     <% collection.each do |notification| %>
-    <tr>
-      <td colspan="2">
-        <%= link_to notification, [:admin, notification], title: notification %>
-      </td>
+        <tr>
+          <td colspan="2">
+            <%= link_to notification, [:admin, notification], title: notification %>
+          </td>
 
-      <td>
-        <% if notification&.sent_at %>
-          <%= l(notification.sent_at.to_date, format: :digits) %>
-        <% end %>
-      </td>
-      <td colspan="2">
-        <%= t(".sent_to_html", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>
-      </td>
-      <td>
-        <%= notification.send_to_role %>
-      </td>
-      <td class="actions">
-        <%= view_btn admin_notification_path(notification) %>
-      </td>
-    </tr>
+          <td>
+            <% if notification&.sent_at %>
+              <%= l(notification.sent_at.to_date, format: :digits) %>
+            <% end %>
+          </td>
+          <td colspan="2">
+            <%= t(".sent_to_html", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>
+          </td>
+          <td>
+            <%= notification.send_to_role %>
+          </td>
+          <td class="actions">
+            <%= view_btn admin_notification_path(notification) %>
+          </td>
+        </tr>
     <% end %>
   </tbody>
 </table>

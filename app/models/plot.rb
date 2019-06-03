@@ -36,6 +36,7 @@ class Plot < ApplicationRecord
   has_many :plot_rooms, class_name: "Room"
   has_many :finishes, through: :rooms
   has_many :documents, as: :documentable
+  has_many :snags, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
 
   attr_accessor :notify
@@ -58,10 +59,13 @@ class Plot < ApplicationRecord
   delegate :house_search, :enable_services?, :enable_roomsketcher?, to: :developer, allow_nil: true
   delegate :enable_referrals?, to: :developer, allow_nil: true
   delegate :enable_development_messages?, to: :developer
-  delegate :choices_email_contact, to: :development
-  delegate :name, to: :development, prefix: true
-  delegate :division_name, to: :division
+  delegate :enable_snagging, to: :development, allow_nil: true
+  delegate :snag_name, to: :development
   delegate :company_name, to: :developer
+  delegate :division_name, to: :division
+  delegate :name, to: :development, prefix: true
+  delegate :name, to: :phase, prefix: true
+  delegate :choices_email_contact, to: :development
 
   enum progress: %i[
     soon
@@ -202,6 +206,45 @@ class Plot < ApplicationRecord
     return completion_release_date + validity.months if extended_access.blank?
 
     completion_release_date + validity.months + extended_access.months
+  end
+
+  # SNAGS
+
+  # Checks whether the Snagging tab under 'My home' is valid/visible for the plot
+  def snagging_valid
+    after_completion_date && snag_link_valid
+  end
+
+  # If today's date is before snagging expiry date but after plot completion date,
+  # or if today's date if after snagging expiry date but there are unresolved snags remaining,
+  # then the snagging link is valid.
+  def snag_link_valid
+    snagging_expiry_date > Time.zone.today ||
+      (snagging_expiry_date < Time.zone.today && unresolved_snags.positive?)
+  end
+
+  # Checks that the plot development has enabled snagging,
+  # and that today's date is after plot completion date
+  def after_completion_date
+    development.enable_snagging? && completion_date < Time.zone.today if completion_date
+  end
+
+  # Checks whether the current date is after plot snagging duration has ended
+  # and there are no unresolved snags for the plot.
+  def snags_fully_resolved
+    development.enable_snagging? &&
+      (snagging_expiry_date < Time.zone.today if completion_date?) && unresolved_snags.zero?
+  end
+
+  def snagging_days_remaining
+    return unless snagging_expiry_date
+    (snagging_expiry_date - Time.zone.today).to_i
+  end
+
+  def snagging_expiry_date
+    return if completion_date.blank?
+    return if development.snag_duration < 1
+    completion_date + development.snag_duration.days
   end
 
   def show_maintenance?

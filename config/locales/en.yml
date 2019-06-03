@@ -174,6 +174,10 @@ en:
     admin_how_tos: "How Tos"
     admin_how_to_new: "New how to"
     admin_how_to_edit: "Edit how to"
+    admin_snag_overview: "Snags"
+    admin_plot_snags: "Phase Overview"
+    admin_plot_snag: "Plot Overview"
+    admin_snag: "Snag Details"
     appliance_edit: "Edit %{name}"
     appliance_add: "Add appliance"
     manufacturer_edit: "Edit %{name}"
@@ -289,6 +293,7 @@ en:
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
+        snagging: "Snagging"
         choices: "Choices"
       footer:
         copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
@@ -326,6 +331,7 @@ en:
       help: "Hoozzi help"
       configuration: "Global settings"
       reports: "Reports"
+      snagging: "Snagging"
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
@@ -391,10 +397,110 @@ en:
       hi: "Hi, "
       login: "Login to Hoozzi"
 
+  snag_mailer:
+    create: "New Snag Reported"
+    update: "A snag report has been updated"
+    delete: "A snag report has been deleted"
+    notify_rejection: "A Resolved Snag has been %{status}"
+    new_snag_comment: "%{commenter_name} has added a comment to a snag"
+    rejected_status: "The following snag has had it's resolved status %{status}: "
+    comment_email_opening: "%{commenter_name} has left a new comment on the following snag:"
+    email_opening: "%{age} snag has been %{status}:"
+    snag_title: "Snag Title: "
+    developer: "Developer: "
+    division: "Division: "
+    development: "Development: "
+    phase: "Phase: "
+    plot: "Plot: "
+    postal: "Postal Number/Name: "
+    building: "Building: "
+    street: "Street: "
+    postcode: "Postcode: "
+    view_snag: "View the full details of this snag under the Snagging menu within Hoozzi."
+    general_snag: "You can view any outstanding snags under the Snagging menu within Hoozzi"
+    opt_out: "If these notifications are not relevant to you, you can opt out in your user profile."
+    login: "Login to Hoozzi"
+
+  resident_snag_mailer:
+    login: "Login to your Account"
+    snag_address: "which was reported for %{address} (%{plot})."
+    footer: "Please note this email address is not monitored. Do not reply directly to this email."
+    snag_comment_email:
+      snag_comment_subject: "%{commenter_name} has commented on your Issue Report"
+      new_snag_comment: "%{commenter_name} has left a new comment on the following issue report: "
+      snag_details: "You can view this comment under your issue report, found under the %{tool_name} menu on your account."
+    snag_status_email:
+      snag_status_subject: "An issue report on your plot has has its resolved status updated"
+      new_snag_status: "The following issue has had it's resolved status updated by %{user}: "
+      confirm_status: "Please login to your account to confirm or reject the resolved status on this issue report, found under the %{tool_name} menu on your account."
+      status_details: "Login to your account to view and comment on this issue report, found under the %{tool_name} menu on your account."
+    all_snags_resolved_email:
+      snags_resolved_subject: "All issues have now been resolved for your home"
+      all_snags_resolved: "%{tool_name} submission has now expired and all issues have been resolved for the following address: "
+      snag_archive: "You can view your archived %{tool_name} reports under the 'My Account' page."
+      resolved: "Issue submission has now expired and all issues have been resolved for %{address} (Plot %{plot}). You can view your archived issue reports under the 'My Account' page."
+    notify:
+      new_notification: "You have a new issue report update"
+      message: "An issue report on %{address} (Plot %{plot}) has %{update}."
+      new_status: "had it's resolved status updated"
+      new_comment: "received a new comment"
+
   forms:
     required: "Required"
 
   admin:
+    snags:
+      index:
+        title: "Snags"
+        snag_title: "Title"
+        snag_description: "Description"
+        status: "Status"
+      phases:
+        index:
+          title: "Snagging Overview"
+        collection:
+          developer_name: "Developer"
+          division_name: "Division"
+          development_name: "Development"
+          phase_name: "Phase"
+          snag_count: "Total Snags"
+          unresolved_snags: "Unresolved Snags"
+          snagging_disabled: "You do not have any developments with snagging enabled."
+          request_enabled: "Please speak to your Classic Folios Account Manager to enable snagging."
+          plots: "View Plots"
+        show:
+          title: "Plot Overview"
+          plot_number: "Plot Number"
+          postal_number: "Postal"
+          building_name: "Building Name"
+          road_name: "Road Name"
+          postcode: "Postcode"
+          comp_date: "Completion Date"
+          days_remaining: "Remaining Days to Submit Snags"
+          total_snags: "Total Snags"
+          unresolved_snags: "Unresolved Snags"
+          snags: "View Snags"
+      show:
+        snag: "%{plot} Snag"
+        summary: "Summary"
+        details: "Full Details"
+        images: "Photo Attachments"
+        date: "Date Reported"
+        status: "Status"
+        snag_comments: "Comments"
+        snag_comments_description: "Use the comments feature to discuss this snag with the residents of the plot (Need text for this description)"
+        mark_as_resolved: "Mark As %{status}"
+        status_update: "Confirm Update"
+        cancel: "Cancel"
+        update_text: "Are you sure you want to update the status of this snag?"
+        confirm_cta: "Confirm"
+        confirm_update: "Yes"
+        awaiting: "This snag has been marked as resolved and is awaiting resident approval. You can mark this snag as unresolved below. Once marked unresolved, the resident will be updated."
+        approved: "The resident has approved this snag as being resolved. The comments feature is now unavailable."
+        unresolved: "This snag is currently unresolved. You can mark this snag as resolved below. Once marked resolved, the resident will be updated and may approve or reject the resolved status."
+      update:
+        status_updated: "This snag has had it's resolved status updated and the resident(s) have been notified"
+
     admin_notifications:
       index:
         title: "Admin Notifications"
@@ -467,6 +573,8 @@ en:
         current_password2: "Only required for new password"
         plot_emails: "Plot release and completion emails"
         receive_plot_emails: "Receive Plot release and completion emails"
+        snag_emails: "Snagging emails"
+        receive_snag_emails: "Receive snagging emails and notifications"
         choice_emails: "Plot choice emails"
         receive_choice_emails: "Receive Plot choice emails"
       index:
@@ -545,6 +653,7 @@ en:
       show:
         title: "Global settings for Hoozzi"
         video_link: "Introductory video link"
+        enable_intro_video: "Introductory video status"
         edit: "Edit"
         help: "Help document"
         cookie: "Cookie policy document"
@@ -555,6 +664,8 @@ en:
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
         load: "Upload"
+        enable_intro_video: "Enable introductory video"
+        enable_intro_video_description: "Enable or disable the intro video for new users on first login."
         help: "Help file"
         cookie: "Cookie policy file"
         privacy: "Privacy policy file"
@@ -657,8 +768,11 @@ en:
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
       maintenance_tip: "Make sure you use the plugin-friendly version of a URL, for more details see http://www.fixflo.com/tech/plugin-example/"
       business: "Business"
+      snagging_description: "A homeowner can report snagging issues for their plot. The duration of snagging can be set below, and will take effect from legal completion date. A custom name can also be set."
+      enable_snagging: "Snagging"
+      snag_duration: "Duration (days)"
+      snag_name: "Name"
       choices_email: "Choices Contact Email"
-
     index:
       add: "Add development"
     development:
@@ -667,6 +781,7 @@ en:
       none: "(not configured)"
       maintenance_link: "Maintenance link: "
       business: "Business: "
+      snagging: "Snagging enabled: "
 
   homeowners:
     faqs:
@@ -681,6 +796,62 @@ en:
       index:
         title: "Useful contacts"
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
+    snags:
+      index:
+        snag_description: "Use the %{snag_name} tool to report any issues such as shrinkage or nail popping to your developer."
+        snag_constraint: "All issues must be reported before %{snag_date}."
+        add_snag: "Report an issue"
+        snag_expiration: "Access to the %{snag_name} submission tool has expired as of %{snag_date}."
+        snag_continuation: "You can still view previous submitted issues, and comment on unresolved issues."
+        snag_archive: "You can view all of your resolved issues below, but are not long able to comment on or edit them."
+      new:
+        details: "Use the form below to describe the issue you would like to report. Please try to include as much detail as possible."
+      edit:
+        details: "Edit your issue below to include any additional information, or remove information that is no longer relevant."
+      form:
+        image: "Upload Images"
+        back: "Back"
+        submit: "Submit"
+        summary: "Summary"
+        details: "Full Details"
+        upload_instructions: "To upload multiple files, hold down the CTRL key on your keyboard while selecting each file."
+      show:
+        edit: "Edit Details"
+        image: "Add Image"
+        snag_gallery: "Image Attachments"
+        remove_snag: "Delete"
+        destroy: "Confirm Delete"
+        back: "Back"
+        cancel: "Cancel"
+        destroy_text: "Are you sure you wish to delete this issue?"
+        confirm_snag: "You will no longer be able to add comments or updates, and it will be removed from your issues list."
+        confirm_cta: "Confirm Delete"
+        delete: "Delete"
+        replace: "Replace Image"
+        remove_image: "Remove Image"
+        confirm_text: "Are you sure you wish to remove this image?"
+        confirm_image: "Your image will be permanently deleted and you will no longer to able to access it on this issue report."
+        snag_comments: "Comments"
+        snag_comments_description: "Discuss additional information about your issue (This text needs changing)"
+        awaiting_approval: "This issue has been marked as resolved. Please confirm or reject the resolved status below."
+        fully_resolved: "This issue has been confirmed resolved. You may no longer make updates or add comments."
+        resident_approved: "Approve Resolved Status"
+        resident_rejected: "Reject Resolved Status"
+      destroy:
+        delete_success: "Your issue has been successfully deleted"
+      update:
+        notify_status: "The issue status has been %{status} and the relevant admins notified."
+    snag_attachments:
+      edit:
+        details: "Choose file with which to replace your current image."
+      form:
+        back: "Back"
+        submit: "Submit"
+      update:
+        update_success: "Your image has been successfully updated"
+      destroy:
+        delete_success: "Your image has been successfully removed"
+
     library:
       index:
         disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
@@ -714,6 +885,18 @@ en:
         dismiss: "Dismiss"
         modal_content: "Tick the circles to select files you wish to share with Limited Access Users and other residents of this plot"
         not_again: "Don't show this again"
+      snag:
+        show: "View Details"
+        edit: "Edit"
+        remove_snag: "Delete"
+        destroy: "Confirm Delete"
+        cancel: "Cancel"
+        destroy_text: "Are you sure you wish to delete this issue?"
+        confirm_snag: "You will no longer be able to add comments or make updates, and it will be removed from you issues list."
+        confirm_cta: "Confirm Delete"
+        reported: "Reported: "
+        updated: "Last edited: "
+        status: "Status: "
     appliances:
       show:
         register: "Register appliance"
@@ -806,6 +989,7 @@ en:
         other_residents: "Other residents who have access to this information in Hoozzi"
         none: "Only you can see the content for %{plot}"
         intro_video: "Hoozzi introduction video"
+        snagging_history: "%{tool_name} History"
         send_invitation: "Invite new resident"
         invite: "Invite new resident to %{plot}"
         destroy: "Confirm remove"
@@ -1814,6 +1998,11 @@ en:
         building_name: "Address Line 2"
         road_name: "Address Line 3"
         postcode: "Address Line 6"
+
+  snag_comments:
+    form:
+      send: "Send"
+      content: "Message (max 1000 characters)"
 
   activerecord:
     models:

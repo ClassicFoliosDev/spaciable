@@ -1,61 +1,68 @@
 <h3><%= t(".title") %></h3>
 
 <%= simple_form_for @setting, url: admin_settings_path do |f| %>
-  <% if @setting.errors.any? %>
-    <div class="submission-errors">
-      <ul>
-        <% @setting.errors.full_messages.each do |message| %>
-          <li>
-            <%= fa_icon "exclamation-circle" %>
-            <%= message %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="row setting">
-    <div class="row-item two-thirds">
-      <fieldset>
-        <%= f.input :video_link %>
-        <span><%= t(".embeddable") %></span><br/>
-        <span><%= t("videos.form.link_example") %></span>
-      </fieldset>
-    </div>
-  </div>
-
-  <div class="row files">
-    <div class="row-item third">
-      <%= f.label t(".help"), class: "text-label" %>
-      <div class="help-file">
-        <span><%= @setting.help_short_name if @setting.help? %></span>
-        <%= f.file_field :help, class: "file-upload" %>
-        <%= label_tag(:setting_help, t("choose"), class: "choose-file") %>
-      </div>
-    </div>
-
-    <div class="row-item third">
-      <%= f.label t(".cookie"), class: "text-label" %>
-      <div class="cookie-file">
-        <span><%= @setting.cookie_short_name if @setting.cookie_policy? %></span>
-        <%= f.file_field :cookie_policy, class: "file-upload" %>
-        <%= label_tag(:setting_cookie_policy, t("choose"), class: "choose-file") %>
-      </div>
-    </div>
-
-    <div class="row-item third">
-      <%= f.label t(".privacy"), class: "text-label" %>
-      <div class="privacy-file">
-        <span><%= @setting.privacy_short_name if @setting.privacy_policy? %></span>
-        <%= f.file_field :privacy_policy, class: "file-upload" %>
-        <%= label_tag(:setting_privacy_policy, t("choose"), class: "choose-file") %>
-      </div>
+<% if @setting.errors.any? %>
+<div class="submission-errors">
+  <ul>
+    <% @setting.errors.full_messages.each do |message| %>
+    <li>
+      <%= fa_icon "exclamation-circle" %>
+      <%= message %>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="row files">
+  <div class="row-item third">
+    <%= f.label t(".help"), class: "text-label" %>
+    <div class="help-file">
+      <span><%= @setting.help_short_name if @setting.help? %></span>
+      <%= f.file_field :help, class: "file-upload" %>
+      <%= label_tag(:setting_help, t("choose"), class: "choose-file") %>
     </div>
   </div>
 
-  <div class="form-actions-footer-container">
-    <div class="form-actions-footer">
-      <%= link_to t(".back"), admin_settings_path, class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+  <div class="row-item third">
+    <%= f.label t(".cookie"), class: "text-label" %>
+    <div class="cookie-file">
+      <span><%= @setting.cookie_short_name if @setting.cookie_policy? %></span>
+      <%= f.file_field :cookie_policy, class: "file-upload" %>
+      <%= label_tag(:setting_cookie_policy, t("choose"), class: "choose-file") %>
     </div>
   </div>
+
+  <div class="row-item third">
+    <%= f.label t(".privacy"), class: "text-label" %>
+    <div class="privacy-file">
+      <span><%= @setting.privacy_short_name if @setting.privacy_policy? %></span>
+      <%= f.file_field :privacy_policy, class: "file-upload" %>
+      <%= label_tag(:setting_privacy_policy, t("choose"), class: "choose-file") %>
+    </div>
+  </div>
+</div>
+
+<div class="row setting">
+  <div class="row-item third">
+    <%= f.label t(".enable_intro_video"), class: "text-label" %>
+    <div class="enable-intro-video">
+      <%= f.check_box :intro_video_enabled %>
+      <p class="checkbox-description"><%= t(".enable_intro_video_description") %></p>
+    </div>
+  </div>
+  <div class="row-item two-thirds">
+    <fieldset>
+      <%= f.input :video_link %>
+      <span><%= t(".embeddable") %></span><br/>
+      <span><%= t("videos.form.link_example") %></span>
+    </fieldset>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), admin_settings_path, class: "btn" %>
+    <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+  </div>
+</div>
 <% end %>

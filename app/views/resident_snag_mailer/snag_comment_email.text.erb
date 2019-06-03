@@ -1,0 +1,17 @@
+Hi,
+
+<%= t(".new_snag_comment", commenter_name: @commenter_name) %>
+
+  <%= @snag_title %>
+
+<%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %>
+
+<%= t(".snag_details", tool_name: @tool_name) %>
+
+Login to your account at www.hoozzi.com
+
+Kind regards,
+
+Hoozzi Admin
+
+<%= t("resident_snag_mailer.footer") %>

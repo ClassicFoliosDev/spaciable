@@ -1,0 +1,230 @@
+.new-snag {
+  margin-top: $spacing-medium;
+
+  p {
+    float: right;
+    text-align: right;
+    margin-right: $spacing-small;
+    font-size: $base-small-font-size;
+  }
+
+  form {
+    float: right;
+  }
+
+  .branded-btn {
+    margin-top: 8px;
+    float: right;
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+.snag-overview {
+  float: left;
+  margin-top: $spacing-large * 2;
+}
+
+.homeowner-snagging {
+  width: 1200px;
+  margin: 0 auto;
+
+  .full {
+    padding: $spacing-small;
+    margin-top: $spacing-small;
+  }
+
+  .snag-description {
+    margin-top: $spacing-small;
+    text-align: center;
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .actions {
+    margin-top: $spacing-medium;
+
+    .submit {
+      float: right;
+    }
+  }
+
+  .snag-submit {
+    float: right;
+  }
+}
+
+.snag-commands {
+  padding-top: $spacing-medium;
+}
+
+.snagging {
+  padding-top: $spacing-medium;
+  padding-bottom: $spacing-medium;
+  margin: $spacing-small auto;
+  @include outer-container(860px);
+
+  .snag {
+    @include row();
+    margin-bottom: 20px;
+
+    span {
+      font-size: $base-font-size;
+    }
+
+    .actions {
+      padding: $spacing-small;
+      float: right;
+    }
+
+    img {
+      width: 100%;
+      margin-top: $spacing-small;
+    }
+
+    .details {
+      @include span-columns(12 of 12);
+      padding: $spacing-small;
+      float: right;
+
+      .updates {
+        padding-left: $spacing-small;
+        padding-top: $spacing-medium;
+        @include span-columns(4 of 12);
+        font-size: 14px;
+        line-height: 25px;
+      }
+
+      .detail {
+        @include span-columns(8 of 12);
+      }
+    }
+  }
+}
+
+.snag-comments {
+  padding: $spacing-small;
+
+  .snag-comment-submit {
+    text-align: right;
+  }
+
+  span {
+    font-size: $base-small-font-size;
+    padding-bottom: $spacing-small;
+  }
+}
+
+.snag-comment-list {
+  padding: $spacing-medium;
+
+  .snag-comment {
+    padding: $spacing-small;
+    border-style: solid;
+    border-width: 1px;
+    margin: $spacing-small;
+
+    img {
+      border-radius: 10px;
+      width: 60%;
+      margin-top: $spacing-small;
+    }
+  }
+}
+
+.snag-container {
+  @include outer-container();
+
+  .snag-article {
+    @include span-columns(8 of 12);
+    border-radius: $border-radius;
+    padding: 20px;
+    margin-bottom: $spacing-medium;
+  }
+
+  .snag-images {
+    @include span-columns(4 of 12);
+    border-radius: $border-radius;
+    padding: 20px;
+
+    .snag-image-container img {
+      width: 100%;
+      margin-bottom: 5px;
+      margin-top: 20px;
+    }
+  }
+
+  .snag-commands {
+    margin-bottom: 20px;
+  }
+}
+
+.snag-attachment-form img {
+  padding-bottom: $spacing-small;
+}
+
+.resolved-status {
+  margin-bottom: 30px;
+
+  .bold {
+    font-weight: 650;
+  }
+
+  .btn {
+    margin: 5px 0
+  }
+
+  .approve-btn:hover {
+    border-color: $primary-green;
+    color: $primary-green;
+    background-color: $ui-white;
+  }
+
+  .approve-btn {
+    border-color: $ui-white;
+    color: $ui-white;
+    background-color: $primary-green;
+  }
+
+  .reject-btn:hover {
+    border-color: $primary-red;
+    color: $primary-red;
+    background-color: $ui-white;
+  }
+
+  .reject-btn {
+    border-color: $ui-white;
+    color: $ui-white;
+    background-color: $primary-red;
+  }
+}
+
+.circle-large {
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+}
+
+.circle-small {
+  border: 1px solid $type-grey;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  margin: 0 14px;
+  display: inline-block;
+}
+
+.green {
+  background-color: $primary-green;
+}
+
+.amber {
+  background-color: $secondary-orange;
+}
+
+.red {
+  background-color: $type-red;
+}

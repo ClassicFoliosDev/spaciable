@@ -1,0 +1,36 @@
+<% content_for :hero_text_primary do %>
+  <%= render 'address/address', address: @plot %>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "snagging", plot: @plot %>
+
+<div class="branded-body">
+  <div class="main-container">
+    <div class="new-snag">
+      <% if @plot.snagging_expiry_date > Time.zone.today %>
+        <%= link_to t(".add_snag"), new_snag_path, class: "service-link", class: 'btn branded-btn new-snag-btn' %>
+        <p class="branded-text">
+          <span><%= t(".snag_description", snag_name: @plot.snag_name) %></span><br/>
+          <span class="constraint"><%= t(".snag_constraint", snag_date: @plot.snagging_expiry_date.strftime("%B %d, %Y")) %></span>
+        </p>
+      <% elsif @plot.snags_fully_resolved %>
+        <p>
+          <span><%= t(".snag_expiration", snag_name: @plot.snag_name, snag_date: @plot.snagging_expiry_date.strftime("%B %d, %Y")) %></span><br/>
+          <span><%= t(".snag_archive") %></span>
+        </p>
+      <% else %>
+        <p>
+          <span><%= t(".snag_expiration", snag_name: @plot.snag_name, snag_date: @plot.snagging_expiry_date.strftime("%B %d, %Y")) %></span><br/>
+          <span class="constraint"><%= t(".snag_continuation") %></span>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="snagging">
+    <% @snags.each_with_index do | snag, index | %>
+      <%= render 'homeowners/components/snag', snag: snag %>
+    <% end %>
+  </div>
+</div>

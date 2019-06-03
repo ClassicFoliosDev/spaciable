@@ -1,0 +1,59 @@
+<% breadcrumb :admin_snag, @snag %>
+
+<div class="section-header">
+  <div class="section-title">
+    <i class="fa fa-chain-broken"></i>
+    <%= t(".snag", plot: @snag.plot) %> (<%= @snag.phase %>, <%= @snag.development %>)<br/>
+  </div>
+</div>
+
+<div class="row snag">
+  <div class="row-item two-thirds">
+    <div class="snag-status">
+      <label><%= t(".status") %></label>
+      <% resolved_visual = @snag.resolved_visual %>
+      <span class="circle-large <%= resolved_visual %>"></span>
+      <div class="status-explanation">
+        <% resolved_status = @snag.resolved_status %>
+        <%= resolved_status %>
+      </div>
+      <% unless @snag.status == "approved" %>
+        <% status = (@snag.status == "unresolved") ? "Resolved" : "Unresolved" %>
+        <% resolved = (@snag.status == "unresolved") ? "awaiting" : "unresolved" %>
+        <span>
+          <%= form_for @snag, url: admin_snag_path(id: params[:id]) do |f| %>
+            <%= f.hidden_field :status, { value: resolved } %>
+            <%= f.submit t(".mark_as_resolved", status: status), class: "btn update-snag" %>
+          <% end %>
+        </span>
+      <% end %>
+    </div>
+    <label><%= t(".date") %></label>
+    <span><%= @snag.created_at.strftime("%d %B %Y") %></span>
+    <label><%= t(".summary") %></label>
+    <span><%= @snag.title %></span>
+    <label><%= t(".details") %></label>
+    <span><%= @snag.description %></span>
+    <div class="snag-comments-container">
+      <div class="snag-comments">
+        <h5><%= t(".snag_comments") %></h5>
+        <% unless @snag.status == "approved" %>
+          <span class="comments-description"><%= t(".snag_comments_description") %></span>
+          <%= render 'admin/snag_comments/form', snag_comment: @snag_comment, snag: @snag %>
+        <% end %>
+        <div class="snag-comment-list">
+          <% @snag_comments.each do |snag_comment| %>
+            <%= render "admin/snag_comments/snag_comment", snag_comment: snag_comment %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row-item third">
+    <h3><%= t(".images") %></h3>
+    <% @snag.snag_attachments.each do |a| %>
+      <%= image_tag a.image_url %>
+      <br/>
+    <% end %>
+  </div>
+</div>

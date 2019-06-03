@@ -1,0 +1,17 @@
+<% content_for :hero_text_primary do %>
+<%= render 'address/address', address: @plot %>
+<% end %>
+
+<%= render "components/homeowner/sub_header", active_tab: "snagging", plot: @plot %>
+
+<div class="branded-body">
+  <div class="main-container">
+    <div class="homeowner-snagging">
+      <div class="snag-description branded-text">
+        <p> <%= t(".details") %> </p>
+      </div>
+
+      <%= render 'form', snag: @snag %>
+    </div>
+  </div>
+</div>

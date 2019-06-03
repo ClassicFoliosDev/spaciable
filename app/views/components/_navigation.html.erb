@@ -1,4 +1,4 @@
-<div class="navbar">
+<nav class="navbar">
   <nav class="navbar-menu">
     <% if current_user %>
       <%= navigation_link(admin_dashboard_path, "tachometer", t(".dashboard"), "navbar-link") %>
@@ -8,6 +8,20 @@
 
       <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
       <%= navigation_link(admin_admin_notifications_path, "envelope", t(".admin_notifications"), "navbar-link") if current_user.cf_admin? %>
+
+      <% unless current_user.site_admin? %>
+        <div class="navbar-item" >
+          <%= link_to admin_snags_phases_path, class: "navbar-link" do %>
+            <%= fa_icon "chain-broken" %>
+            <%= t(".snagging") %>
+            <% unless current_user.cf_admin? %>
+              <% if user_unresolved_snag_count(current_user).positive? %>
+                <sup class="unresolved-count"><%= user_unresolved_snag_count(current_user) %></sup>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
 
       <%= navigation_link(developers_path, "building", t(".developers"), "navbar-link") %>
 
@@ -38,4 +52,4 @@
       </div>
     <% end %>
   </nav>
-</div>
+</nav>

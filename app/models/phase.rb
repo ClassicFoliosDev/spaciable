@@ -23,6 +23,8 @@ class Phase < ApplicationRecord
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
 
+  delegate :enable_snagging, to: :development
+
   has_many :contacts, as: :contactable, dependent: :destroy
 
   has_many :unit_types, through: :development
@@ -77,6 +79,11 @@ class Phase < ApplicationRecord
     find_each do |record|
       record.update_pg_search_document unless record.deleted?
     end
+  end
+
+  # Generate the list of emails that will receive the snag notifications
+  def snag_users
+    User.users_associated_snags([developer, division, development])
   end
 
   # Generate the list of emails that currently will receive release plot updates

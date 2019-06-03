@@ -17,7 +17,7 @@ module Homeowners
     end
 
     def update
-      unless current_resident.plot_residency_homeowner?(@plot)
+      unless current_resident&.plot_residency_homeowner?(@plot)
         render json: {}, status: 401
         return
       end

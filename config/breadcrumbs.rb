@@ -77,6 +77,32 @@ crumb :admin_how_to do |how_to|
   parent :admin_how_tos
 end
 
+# Admin Snags
+crumb :admin_snag_overview do
+  link t("breadcrumbs.admin_snag_overview"), admin_snags_phases_path
+end
+
+crumb :admin_plot_snags do |phase|
+  link t("breadcrumbs.admin_plot_snags"), admin_snags_phase_path
+  parent :admin_snag_overview
+end
+
+
+
+# NOT LINKING TO CORRECT PARENT - USING PLOT ID AS PARAM FOR PHASE
+crumb :admin_plot_snag do
+  link t("breadcrumbs.admin_plot_snag"), admin_snags_plot_path
+  parent :admin_snag_overview
+end
+
+# DITTO WITH SNAG ID
+crumb :admin_snag do
+  link t("breadcrumbs.admin_snag"), admin_snag_path
+  parent :admin_snag_overview
+end
+
+
+
 # DEVELOPERS
 
 crumb :developers do

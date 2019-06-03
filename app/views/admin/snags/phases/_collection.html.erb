@@ -1,0 +1,44 @@
+<% breadcrumb :admin_snag_overview %>
+
+<% if access_to_snagging(current_user) %>
+  <table class="record-list phases">
+    <thead>
+    <tr>
+      <th><%= sortable(Phase, :developer_id, t(".developer_name")) %></th>
+      <th><%= sortable(Phase, :division_id, t(".division_name")) %></th>
+      <th><%= sortable(Phase, :development_id, t(".development_name")) %></th>
+      <th><%= sortable(Phase, :name, t(".phase_name")) %></th>
+      <th><%= sortable(Phase, :total_snags, t(".snag_count")) %></th>
+      <th><%= sortable(Phase, :unresolved_snags, t(".unresolved_snags")) %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |phase| %>
+      <tr data-phase="<%= phase.id %>">
+        <% if phase.enable_snagging %>
+          <td><%= phase.developer %></td>
+          <td><%= phase.division if phase.division %></td>
+          <td><%= phase.development %></td>
+          <td><%= phase.name %></td>
+          <td><%= phase.total_snags %></td>
+          <td><%= phase.unresolved_snags %></td>
+          <td class="actions"><%= link_to t(".plots"), admin_snags_phase_path(phase), class: "btn" %></td>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% else %>
+  <div class="empty lower">
+    <div><%= fa_icon "chain-broken" %></div>
+    <div>
+      <span><%= t(".snagging_disabled") %></span><br/>
+      <span><%= t(".request_enabled") %></span>
+    </div>
+  </div>
+<% end %>

@@ -34,6 +34,26 @@ Feature: Homeowner Account
     And I remove the additional resident
     Then I see the resident has been hard removed
 
+  Scenario: Manage resident account - intro video disabled, services enabled
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    And the developer has enabled services
+    And a CF admin has disabled the intro video
+    When I assign a new resident to a plot
+    And I log out as a an admin
+    When I visit the invitation accept page
+    And I accept the invitation as a homeowner
+    When I select no services
+    Then I should be redirected to the homeowner dashboard
+
+  Scenario: Manage resident account - intro video and services disabled
+    Given I am a Development Admin wanting to assign a new resident to a plot
+    And a CF admin has disabled the intro video
+    When I assign a new resident to a plot
+    And I log out as a an admin
+    When I visit the invitation accept page
+    And I accept the invitation as a homeowner
+    Then I should be redirected to the homeowner dashboard
+
   Scenario: Account update
     Given I am logged in as a homeowner
     And the plot has an address

@@ -1,0 +1,37 @@
+<div class="snag branded-content branded-border">
+  <div class="actions">
+    <%= link_to snag_path(snag), class: "btn branded-btn" do %>
+      <%= t(".show") %>
+    <% end %>
+    <% unless snag.status == "approved" %>
+      <%= link_to edit_snag_path(snag), class: "btn branded-btn" do %>
+        <%= t(".edit") %>
+      <% end %>
+      <%= button_tag t(".remove_snag"), class: "btn branded-btn destroy-snag prompt-delete-snag",
+        data: { title: t(".destroy"),
+        cancel: t(".cancel"),
+        text: t(".destroy_text"),
+        cta: t(".confirm_cta"),
+        details: t(".confirm_snag"),
+        snag: snag.id } %>
+    <% end %>
+  </div>
+
+
+
+  <div class="details branded-text">
+    <div class="updates">
+      <% status = snag.resolved_visual %>
+      <strong><%= t(".status") %></strong><span class="circle-small <%= status %>"></span><br/>
+      <strong><%= t(".reported") %></strong><%= snag.created_at.strftime("%B %d, %Y") %><br/>
+      <strong><%= t(".updated") %></strong><%= snag.updated_at.strftime("%B %d, %Y") %><br/>
+    </div>
+    <div class="detail">
+      <%= label_tag(:summary) %>
+      <span><%= truncate(snag.title, length: 45, separator: ' ') %></span>
+
+      <%= label_tag(:description) %>
+      <span><%= truncate(snag.description, length: 90, separator: ' ') %></span>
+    </div>
+  </div>
+</div>

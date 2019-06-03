@@ -38,7 +38,7 @@ RSpec.describe "Navigation", type: :feature do
       login_as developer_admin
       visit "/"
 
-      within "nav" do
+      within "nav.navbar" do
         click_on I18n.t("components.navigation.developers")
       end
 
@@ -65,7 +65,7 @@ RSpec.describe "Navigation", type: :feature do
       login_as division_admin
       visit "/"
 
-      within "nav" do
+      within "nav.navbar" do
         click_on I18n.t("components.navigation.developers")
       end
 
@@ -92,7 +92,7 @@ RSpec.describe "Navigation", type: :feature do
       login_as development_admin
       visit "/"
 
-      within "nav" do
+      within "nav.navbar" do
         click_on I18n.t("components.navigation.developers")
       end
 
@@ -119,7 +119,7 @@ RSpec.describe "Navigation", type: :feature do
       login_as site_admin
       visit "/"
 
-      within "nav" do
+      within "nav.navbar" do
         click_on I18n.t("components.navigation.developers")
       end
 

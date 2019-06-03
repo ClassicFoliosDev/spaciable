@@ -5,6 +5,7 @@
       <strong><%= t(".segment_id") %></strong><%= development.segment_id || t(".none") %><br/>
       <strong><%= t(".private_documents") %></strong><%= development.private_documents_count %><br/>
       <strong><%= t(".maintenance_link") %></strong><%= development.maintenance_link || t(".none") %><br/>
+      <strong><%= t(".snagging") %></strong><%= development.enable_snagging %><br/>
       <% if current_user.cf_admin? %>
         <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.development.businesses.#{development.business}") %>
       <% end %>

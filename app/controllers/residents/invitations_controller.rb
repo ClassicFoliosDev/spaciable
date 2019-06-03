@@ -34,7 +34,12 @@ module Residents
     end
 
     def after_accept_path_for(_resource)
-      intro_video_path
+      @setting = Setting.first
+      @setting.intro_video_enabled? ? intro_video_path : skip_intro_video
+    end
+
+    def skip_intro_video
+      current_resident.services_enabled? ? services_path : root_path
     end
 
     private

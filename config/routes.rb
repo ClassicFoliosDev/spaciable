@@ -52,6 +52,14 @@ Rails.application.routes.draw do
     get 'divisions', to: 'divisions#index', format: :json
     get 'developments', to: 'developments#index', format: :json
     get 'phases', to: 'phases#index', format: :json
+
+
+    get 'snags/phases', to: 'snags/phases#index', controller: 'snags/phases'
+    get 'snags/phases/:id', to: 'snags/phases#show', controller: 'snags/phases', as: :snags_phase
+    get 'snags/plots/:id', to: 'snags#index', controller: 'snags', as: :snags_plot
+    resources :snags, only: [:index, :show, :update]
+    resources :snag_comments, only: [:new, :create]
+    post "snags/:id", to: "snag_comments#create"
   end
 
   resources :documents, only: [:edit, :show, :update, :destroy]
@@ -168,6 +176,10 @@ Rails.application.routes.draw do
     resource :about_video, only: [:show]
     resources :development_messages, only: [:index, :create]
     resources :library, only: [:update]
+    resources :snags
+    resources :snag_attachments
+    resources :snag_comments, only: [:new, :create]
+    post "snags/:id", to: "snag_comments#create"
 
     get "contacts/:category",
         to: 'contacts#index',
@@ -198,6 +210,7 @@ Rails.application.routes.draw do
         defaults: { category: :my_home }
 
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
+
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
     get :about, to: 'about#show', as: :homeowner_about
     get :rooms, to: 'rooms#show', as: :homeowner_rooms
@@ -206,6 +219,8 @@ Rails.application.routes.draw do
     post :create_resident, to: "residents#create", format: :json
     post :refer_friend, to: "referrals#create", format: :json
     get :remove_resident, to: "residents#remove_resident", format: :json
+    get :remove_snag, to: "snags#destroy", format: :json
+    get :remove_snag_attachment, to: "snag_attachments#destroy", format: :json
   end
 
   get '/:token/confirm_referral', to: "homeowners/referrals#confirm_referral", as: 'confirm_referral'

@@ -98,6 +98,9 @@
             title: t(".deactivate"),
             resident: current_resident.id} %>
       <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "btn branded-btn" %>
+      <% if @plot.snags_fully_resolved %>
+        <%= link_to t(".snagging_history", tool_name: @plot.snag_name), snags_path, class: "btn branded-btn snagging-link" %>
+      <% end %>
     </div>
   </div>
 </div>

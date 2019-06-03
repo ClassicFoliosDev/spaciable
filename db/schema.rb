@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190430181321) do
+ActiveRecord::Schema.define(version: 20190530100007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -273,14 +273,17 @@ ActiveRecord::Schema.define(version: 20190430181321) do
     t.integer  "developer_id"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "division_id"
     t.datetime "deleted_at"
     t.integer  "phases_count",          default: 0
     t.string   "segment_id"
     t.string   "maintenance_link"
-    t.integer  "business",              default: 0
+    t.integer  "business",         default: 0
+    t.boolean  "enable_snagging",  default: false
+    t.integer  "snag_duration",    default: 0
+    t.string   "snag_name",        default: "Snagging", null: false
     t.integer  "choice_option",         default: 0, null: false
     t.string   "choices_email_contact"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
@@ -481,12 +484,14 @@ ActiveRecord::Schema.define(version: 20190430181321) do
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "number"
     t.datetime "deleted_at"
+    t.integer  "total_snags",      default: 0
+    t.integer  "unresolved_snags", default: 0
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree
@@ -526,6 +531,8 @@ ActiveRecord::Schema.define(version: 20190430181321) do
     t.date     "reservation_release_date"
     t.integer  "validity",                 default: 27
     t.integer  "extended_access",          default: 0
+    t.integer  "total_snags",              default: 0
+    t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
     t.integer  "choice_selection_status",  default: 0,  null: false
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
@@ -703,14 +710,44 @@ ActiveRecord::Schema.define(version: 20190430181321) do
 
   create_table "settings", force: :cascade do |t|
     t.string   "video_link"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "cookie_policy"
     t.string   "cookie_short_name"
     t.string   "privacy_policy"
     t.string   "privacy_short_name"
     t.string   "help"
     t.string   "help_short_name"
+    t.boolean  "intro_video_enabled", default: true
+  end
+
+  create_table "snag_attachments", force: :cascade do |t|
+    t.integer  "snag_id"
+    t.string   "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "snag_comments", force: :cascade do |t|
+    t.string   "content"
+    t.string   "image"
+    t.integer  "snag_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "commenter_type"
+    t.integer  "commenter_id"
+    t.index ["commenter_type", "commenter_id"], name: "index_snag_comments_on_commenter_type_and_commenter_id", using: :btree
+    t.index ["snag_id"], name: "index_snag_comments_on_snag_id", using: :btree
+  end
+
+  create_table "snags", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "plot_id"
+    t.integer  "status",      default: 0
+    t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|
@@ -767,6 +804,7 @@ ActiveRecord::Schema.define(version: 20190430181321) do
     t.string   "picture"
     t.string   "job_title"
     t.boolean  "receive_release_emails", default: true
+    t.boolean  "snag_notifications",     default: true
     t.boolean  "receive_choice_emails",  default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
@@ -818,6 +856,8 @@ ActiveRecord::Schema.define(version: 20190430181321) do
   add_foreign_key "rooms", "divisions"
   add_foreign_key "rooms", "plots"
   add_foreign_key "rooms", "unit_types"
+  add_foreign_key "snag_comments", "snags"
+  add_foreign_key "snags", "plots"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"

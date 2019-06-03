@@ -1,0 +1,22 @@
+Hi,
+
+<%= t(".new_snag_status", user: @user, status: @status) %>
+
+  <%= @snag_title %>
+
+<%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %>
+
+<% if @status == "resolved" %>
+<%= t(".confirm_status", tool_name: @tool_name) %>
+<% else %>
+<%= t(".status_details", tool_name: @tool_name) %>
+<% end %>
+
+Login to your account at www.hoozzi.com
+
+
+Kind regards,
+
+Hoozzi Admin
+
+<%= t("resident_snag_mailer.footer") %>

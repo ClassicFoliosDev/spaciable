@@ -19,6 +19,13 @@ $navbar-bg-color-mobile: $ui-white;
   margin-top: 108px;
   // Start hidden, until toggle
   display: none;
+
+  .unresolved-count {
+    background-color: $primary-red;
+    color: $ui-white;
+    border-radius: 50%;
+    padding: 1px 3px;
+  }
 }
 
 // Hamburger

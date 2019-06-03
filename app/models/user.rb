@@ -89,6 +89,19 @@ class User < ApplicationRecord
     emails
   end
 
+  # Generate list of emails for snag notifications
+  def self.users_associated_snags(associations)
+    emails = []
+    associations.each do |association|
+      next if association.nil?
+      details = User.where(snag_notifications: true)
+                    .where(permission_level_type: association.class.to_s)
+                    .where(permission_level_id: association.id).pluck(:email)
+      details.each { |d| emails << { email: d } }
+    end
+    emails
+  end
+
   # Admin users receiving choice emails
   def self.choice_enabled_admins_associated_with(assoiciations)
     admins = []
@@ -100,7 +113,6 @@ class User < ApplicationRecord
           u.permission_level_id == association.id
       end
     end
-
     admins.flatten!
   end
 

@@ -1,0 +1,57 @@
+.snag-status {
+  margin-bottom: 30px;
+}
+
+.snag-comments {
+  padding: $spacing-small;
+  border-style: solid;
+  border-width: 1px;
+  margin: $spacing-medium;
+  border-color: $ui-grey;
+
+  .comments-description {
+    font-size: $base-small-font-size;
+  }
+
+  .snag-comment-submit {
+    text-align: right;
+  }
+
+  .snag-comment-form {
+    padding-top: $spacing-small;
+  }
+}
+
+.snag-comment-list {
+  padding: $spacing-small;
+
+  .snag-comment {
+    padding: $spacing-small;
+    border-style: solid;
+    border-width: 1px;
+    margin: $spacing-small;
+    border-color: $ui-grey;
+
+    .commenter {
+      font-weight: bold;
+      font-size: $base-small-font-size;
+    }
+
+    .comment-date {
+      font-size: $base-small-font-size;
+    }
+
+    .content {
+      font-size: $base-small-font-size;
+    }
+
+    img {
+      border-radius: 10px;
+      width: 60%;
+      margin-top: $spacing-small;
+      vertical-align: left !important;
+      display: block;
+      margin-left: 0px;
+    }
+  }
+}
