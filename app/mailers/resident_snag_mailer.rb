@@ -34,11 +34,13 @@ class ResidentSnagMailer < ApplicationMailer
   end
 
   def get_snag_info(snag)
+    @snag = snag
     @snag_title = snag.title
     @tool_name = snag.snag_name
   end
 
   def get_comment_info(snag_comment)
+    @snag = snag_comment.snag
     @snag_title = snag_comment.snag_title
     @commenter_name = snag_comment.commenter_name
     @tool_name = snag_comment.snag.development.snag_name

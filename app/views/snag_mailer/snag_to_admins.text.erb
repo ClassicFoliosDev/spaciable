@@ -24,11 +24,11 @@ Hi,
 <%= t("snag_mailer.postcode") %><%= @plot.postcode %>
 
 <% if @status == "create" || @status == "update" %>
-<%= t("snag_mailer.view_snag") %>
+<%= t("snag_mailer.view_snag") %> clicking here: <%= admin_snag_url(@snag.id) %>
 <% elsif @status == "delete" %>
 <%= t("snag_mailer.general_snag") %>
 <% end %>
 
 <%= t("snag_mailer.opt_out") %>
 
-Login to Hoozzi at www.hoozzi.com/admin
+<%= t("snag_mailer.login") %>: <%= new_admin_session_url %>

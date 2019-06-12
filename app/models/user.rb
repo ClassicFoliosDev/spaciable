@@ -90,13 +90,15 @@ class User < ApplicationRecord
   end
 
   # Generate list of emails for snag notifications
+  # Site admins do not have access to snagging and so do not receive snagging emails
   def self.users_associated_snags(associations)
     emails = []
     associations.each do |association|
       next if association.nil?
       details = User.where(snag_notifications: true)
                     .where(permission_level_type: association.class.to_s)
-                    .where(permission_level_id: association.id).pluck(:email)
+                    .where(permission_level_id: association.id)
+                    .where.not(role: "site_admin").pluck(:email)
       details.each { |d| emails << { email: d } }
     end
     emails

@@ -58,7 +58,12 @@
 
 .snag-commands {
   padding-top: $spacing-medium;
+  text-align: right;
 }
+
+  .back-btn {
+    float: left;
+  }
 
 .snagging {
   padding-top: $spacing-medium;

@@ -8,7 +8,7 @@
 
 <p><%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %></p>
 
-<p><%= t(".snag_details", tool_name: @tool_name) %></p>
+<p><%= t(".snag_details", tool_name: @tool_name) %> <%= link_to t("snag_mailer.link_to_snag"), snag_url(@snag.id) %>.</p>
 
 <p>
   <%= link_to t("resident_snag_mailer.login"), root_url %>

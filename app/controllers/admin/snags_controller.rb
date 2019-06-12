@@ -3,6 +3,7 @@
 module Admin
   class SnagsController < ApplicationController
     skip_authorization_check
+    before_action :snag_permission
 
     include PaginationConcern
     include SortingConcern
@@ -18,12 +19,12 @@ module Admin
 
     def index
       @snags = Snag.where(plot_id: params[:id])
-      @snags = paginate(sort(@snags))
+      @snags = paginate(sort(@snags)).order(updated_at: :desc)
     end
 
     def show
       @snag_comment = SnagComment.new
-      @snag_comments = @snag.snag_comments
+      @snag_comments = @snag.snag_comments.order(created_at: :desc)
     end
 
     def update
@@ -39,6 +40,10 @@ module Admin
       ResidentSnagMailer.snag_status_email(@snag, current_user).deliver
       ResidentSnagService.call(current_user, update, plot)
       redirect_to admin_snag_path(id: @snag.id), notice: t(".status_updated")
+    end
+
+    def snag_permission
+      redirect_to(admin_dashboard_path) && return if current_user.site_admin?
     end
 
     def snag_params

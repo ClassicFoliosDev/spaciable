@@ -49,12 +49,10 @@
           <p class="checkbox-description"><%= t(".receive_choice_emails") %></p>
         </div>
         <div class="receive-snagging-emails">
-        <% if access_to_snagging(current_user) %>
           <%= f.label t(".snag_emails") %>
-          <%= f.check_box :snag_notifications %>
+          <%= f.check_box :snag_notifications, id: :snag_check %>
 
           <p class="checkbox-description"><%= t(".receive_snag_emails") %></p>
-        <% end %>
         </div>
       </fieldset>
     </div>

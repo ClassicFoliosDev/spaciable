@@ -38,4 +38,9 @@ class Snag < ApplicationRecord
   def user_name(current_user)
     current_user.to_s + " (" + current_user.permission_level.to_s + ")"
   end
+
+  def self.plot_phase(params)
+    plot = Plot.find_by id: params
+    plot.phase_id
+  end
 end

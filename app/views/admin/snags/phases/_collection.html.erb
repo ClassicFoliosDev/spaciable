@@ -15,8 +15,7 @@
     </thead>
     <tbody>
       <% collection.each do |phase| %>
-      <tr data-phase="<%= phase.id %>">
-        <% if phase.enable_snagging %>
+        <tr data-phase="<%= phase.id %>">
           <td><%= phase.developer %></td>
           <td><%= phase.division if phase.division %></td>
           <td><%= phase.development %></td>
@@ -24,7 +23,7 @@
           <td><%= phase.total_snags %></td>
           <td><%= phase.unresolved_snags %></td>
           <td class="actions"><%= link_to t(".plots"), admin_snags_phase_path(phase), class: "btn" %></td>
-        <% end %>
+        </tr>
       <% end %>
     </tbody>
   </table>

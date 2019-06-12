@@ -90,4 +90,10 @@ class Phase < ApplicationRecord
   def release_users
     User.users_associated_with([developer, division, development])
   end
+
+  def self.snagging(current_ability)
+    Phase.joins(:development)
+         .where(developments: { enable_snagging: true })
+         .accessible_by(current_ability)
+  end
 end

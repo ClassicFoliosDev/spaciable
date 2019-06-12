@@ -3,7 +3,7 @@ Hi,
 <%= t("snag_mailer.rejected_status", status: @status) %>
 
 <%= t("snag_mailer.snag_title") %><%= @snag_title %>
-%= t("snag_mailer.developer") %><%= @plot.company_name %>
+<%= t("snag_mailer.developer") %><%= @plot.company_name %>
 <% if @plot.division %>
 <%= t("snag_mailer.division") %><%= @plot.division_name %>
 <% end %>
@@ -16,8 +16,8 @@ Hi,
 <%= t("snag_mailer.street") %><%= @plot.road_name %>
 <%= t("snag_mailer.postcode") %><%= @plot.postcode %>
 
-<%= t("snag_mailer.view_snag") %>
+<%= t("snag_mailer.view_snag") %> clicking here: <%= admin_snag_url(@snag.id) %>
 
 <%= t("snag_mailer.opt_out") %>
 
-<%= link_to t("snag_mailer.login"), new_admin_session_url %>
+<%= t("snag_mailer.login") %>: <%= new_admin_session_url %>

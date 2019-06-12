@@ -89,13 +89,13 @@ end
 
 
 
-# NOT LINKING TO CORRECT PARENT - USING PLOT ID AS PARAM FOR PHASE
+# Current parent snag overview - cannot find phase id to pass to phases
 crumb :admin_plot_snag do
   link t("breadcrumbs.admin_plot_snag"), admin_snags_plot_path
   parent :admin_snag_overview
 end
 
-# DITTO WITH SNAG ID
+# Current parent snag overview - cannot find plot id to pass to plots
 crumb :admin_snag do
   link t("breadcrumbs.admin_snag"), admin_snag_path
   parent :admin_snag_overview

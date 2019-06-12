@@ -7,12 +7,12 @@ Hi,
 <%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %>
 
 <% if @status == "resolved" %>
-<%= t(".confirm_status", tool_name: @tool_name) %>
+<%= t(".confirm_status", tool_name: @tool_name) %>clicking here: <%= snag_url(@snag.id) %>
 <% else %>
-<%= t(".status_details", tool_name: @tool_name) %>
+<%= t(".status_details", tool_name: @tool_name) %>clicking here: <%= snag_url(@snag.id) %>
 <% end %>
 
-Login to your account at www.hoozzi.com
+<%= t("snag_mailer.login") %>: <%= root_url %>
 
 
 Kind regards,

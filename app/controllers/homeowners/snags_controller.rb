@@ -6,6 +6,7 @@ module Homeowners
   class SnagsController < Homeowners::BaseController
     skip_authorization_check
     before_action :set_snag, only: %i[show edit update destroy]
+    before_action :plot_residency
 
     def index
       @snags = Snag.where(plot_id: @plot.id).order(updated_at: :desc)
@@ -14,7 +15,7 @@ module Homeowners
     def show
       @snag_attachments = @snag.snag_attachments
       @snag_comment = SnagComment.new
-      @snag_comments = @snag.snag_comments
+      @snag_comments = @snag.snag_comments.order(created_at: :desc)
     end
 
     def new
@@ -153,6 +154,11 @@ module Homeowners
     def save_counters
       @plot.save!
       @phase.save!
+    end
+
+    def plot_residency
+      @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: current_resident&.id)
+      redirect_to(homeowner_dashboard_path) && return if @plot_residency.tenant?
     end
 
     def snag_params

@@ -30,6 +30,7 @@ class SnagMailer < ApplicationMailer
 
   # Gather the plot details from the snag
   def snag_details(snag)
+    @snag = snag
     @plot = snag.plot
   end
 

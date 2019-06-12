@@ -6,9 +6,9 @@ Hi,
 
 <%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %>
 
-<%= t(".snag_details", tool_name: @tool_name) %>
+<%= t(".snag_details", tool_name: @tool_name) %>clicking here: <%= snag_url(@snag.id) %>
 
-Login to your account at www.hoozzi.com
+<%= t("snag_mailer.login") %>: <%= root_url %>
 
 Kind regards,
 

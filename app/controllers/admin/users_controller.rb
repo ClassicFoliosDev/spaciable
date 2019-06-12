@@ -60,6 +60,9 @@ module Admin
     end
 
     def user_success
+      # rubocop:disable SkipsModelValidations
+      @user.update_attribute(:snag_notifications, false) if @user.site_admin? || @user.cf_admin?
+      # rubocop:enable SkipsModelValidations
       @user.invite!(current_user)
       notice = t(".success", user_email: @user.to_s)
       redirect_to %i[admin users], notice: notice

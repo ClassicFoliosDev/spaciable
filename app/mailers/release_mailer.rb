@@ -58,8 +58,14 @@ class ReleaseMailer < ApplicationMailer
                                                                "assets",
                                                                "images",
                                                                "logo.png"))
-    mail(to: @emails,
-         subject: subject,
-         cc: "hello@hoozzi.com, accountmanagement@classicfolios.com")
+
+    if @send_to_admins == "true"
+      mail(to: @emails,
+           subject: subject,
+           cc: "hello@hoozzi.com, accountmanagement@classicfolios.com")
+    else
+      mail(to: @emails,
+           subject: subject)
+    end
   end
 end

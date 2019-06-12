@@ -28,3 +28,9 @@
 <div class="paging">
   <%= render 'components/page_size' %>
 </div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), admin_snags_phase_path(Snag.plot_phase(params[:id])), class: "btn" %>
+  </div>
+</div>

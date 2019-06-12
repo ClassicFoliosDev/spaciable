@@ -1,5 +1,4 @@
-<div class="full branded-content branded-border snag-form">
-  <%= simple_form_for snag, class: "new-snag" do |f| %>
+<%= simple_form_for snag, class: "new-snag" do |f| %>
   <% if snag.errors.any? %>
   <div class="submission-errors">
     <ul>
@@ -13,22 +12,23 @@
   </div>
   <% end %>
 
-  <div class="field">
-    <label class="branded-text"><%= t(".summary") %></label>
-    <%= f.input :title, label: false, required: true %>
-    <label class="branded-text"><%= t(".details") %></label>
-    <%= f.input :description, label: false, as: :text, input_html: { rows: 10, cols: 10 }, required: true %>
+  <div class="full branded-content branded-border snag-form">
+    <div class="field">
+      <label class="branded-text"><%= t(".summary") %></label>
+      <%= f.input :title, label: false, required: true %>
+      <label class="branded-text"><%= t(".details") %></label>
+      <%= f.input :description, label: false, as: :text, input_html: { rows: 10, cols: 10 }, required: true %>
+    </div>
+    <div class="field">
+      <%= f.simple_fields_for :snag_attachment do |a| %>
+        <%= a.label :image, t(".image"), class: "branded-text" %>
+        <p><%= t(".upload_instructions") %><br/><%= t("homeowners.snags.show.snag_comments_format") %></p>
+        <%= a.file_field :image, :multiple => true, name: "snag_attachments[image][]", class: "branded-text" %>
+      <% end %>
+    </div>
+    <div class="actions">
+      <%= link_to t(".back"), snags_path, class: "btn branded-btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn branded-btn snag-submit" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.simple_fields_for :snag_attachment do |a| %>
-      <%= a.label :image, t(".image"), class: "branded-text" %>
-      <p><%= t(".upload_instructions") %></p>
-      <%= a.file_field :image, :multiple => true, name: "snag_attachments[image][]", class: "branded-text" %>
-    <% end %>
-  </div>
-  <div class="actions">
-    <%= link_to t(".back"), snags_path, class: "btn branded-btn" %>
-    <%= f.submit t(".submit"), class: "btn-form-submit btn branded-btn snag-submit" %>
-  </div>
-  <% end %>
-</div>
+<% end %>

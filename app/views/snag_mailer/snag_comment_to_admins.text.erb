@@ -1,6 +1,6 @@
 Hi,
 
-<%= t("snag_mailer.comment_email_opening") %>
+<%= t("snag_mailer.comment_email_opening", commenter_name: @commenter_name) %>
 
 <%= t("snag_mailer.snag_title") %><%= @snag_title %>
 
@@ -17,12 +17,8 @@ Hi,
 <%= t("snag_mailer.street") %><%= @plot.road_name %>
 <%= t("snag_mailer.postcode") %><%= @plot.postcode %>
 
-<% if @status == "create" || @status == "update" %>
-<%= t("snag_mailer.view_snag") %>
-<% elsif @status == "delete" %>
-<%= t("snag_mailer.general_snag") %>
-<% end %>
+<%= t("snag_mailer.view_snag") %> clicking here: <%= admin_snag_url(@snag.id) %>
 
 <%= t("snag_mailer.opt_out") %>
 
-Login to Hoozzi at www.hoozzi.com/admin
+<%= t("snag_mailer.login") %>: <%= new_admin_session_url %>
