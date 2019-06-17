@@ -151,7 +151,7 @@ Then(/^I should see the new Developer Admin$/) do
 
   within ".record-list" do
     expect(page).to have_content(attrs[:role])
-    expect(page).to have_content(attrs[:developer])
+    expect(page).to have_content(attrs[:email])
   end
 
   click_on attrs[:email_address]
@@ -183,8 +183,8 @@ Then(/^I should see the new Division Admin$/) do
   attrs = AdminUsersFixture.division_admin_attrs
 
   within ".record-list" do
+    expect(page).to have_content(attrs[:email])
     expect(page).to have_content(attrs[:role])
-    expect(page).to have_content(attrs[:division])
   end
 
   click_on attrs[:email_address]
@@ -220,8 +220,8 @@ Then(/^I should see the new Development Admin$/) do
   attrs = AdminUsersFixture.development_admin_attrs
 
   within ".record-list" do
+    expect(page).to have_content(attrs[:email])
     expect(page).to have_content(attrs[:role])
-    expect(page).to have_content(attrs[:development])
   end
 
   click_on attrs[:email_address]
@@ -254,8 +254,8 @@ Then(/^I should see the new \(division\) Development Admin$/) do
   attrs = AdminUsersFixture.division_development_admin_attrs
 
   within ".record-list" do
+    expect(page).to have_content(attrs[:email])
     expect(page).to have_content(attrs[:role])
-    expect(page).to have_content(attrs[:development])
   end
 
   click_on attrs[:email_address]

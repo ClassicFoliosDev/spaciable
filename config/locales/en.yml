@@ -587,8 +587,11 @@ en:
         add: "Add user"
         email: "Email"
         name: "Name"
-        headings:
-          permission_level: "Permission level"
+        role: "Role"
+        developer: "Developer"
+        division: "Division"
+        development: "Development"
+        accepted_at: "Activation Date"
       new:
         add: "Add user"
       show:

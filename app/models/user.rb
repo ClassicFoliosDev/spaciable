@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
@@ -131,6 +132,67 @@ class User < ApplicationRecord
   # rubocop:disable all
   def enable_choice_emails?(current_user)
     true
+  end
+  # rubocop:enable all
+
+  # Get all the  users supplemented with their associated developer/division/development
+  # names as appropriate.  The developer/division and development details have to be
+  # selected from joined tables.  This could be done via a database view but we would
+  # still need an SQL statement to populate it.  The exec_query method returns am
+  # ActiveRecord::Result whereas the ruby 'magic' AcriveRecord statements return
+  # ActiveRecord::Relation objects.  All the view pages are programmed around the Relation
+  # class - in order for them to function for a Result we have to suppliement the class
+  # with accessors that enable the pagination to work.  The way this function works is
+  # not really in line with the other pages but unfortnately it doesn't fit the usualy model
+  # rubocop:disable all
+  def self.full_details(params, current_ability)
+    per = (params[:per] || 25).to_i
+    direction = params[:direction] || "ASC"
+    sort = params[:sort] || "LOWER(users.email)"
+    page = (params[:page] || 1).to_i
+    offset = (page - 1) * per
+
+    # Unfortunately the 'Devise' accessible_by method cannot be applied to a
+    # the SQL statement as it is built around access to single tables.  In order
+    # tp restrict the results to only thise accessible by the current_ability
+    # we get an array of all the accessible users here, then plug them into the
+    # SQL as an 'IN (....)'' parameter to restrict the results to only accessible users
+    visible_users = User.all.accessible_by(current_ability).pluck(:id)
+
+    sql = "SELECT users.*, developers.company_name, divisions.division_name, "\
+          "developments.name as development_name from users LEFT OUTER JOIN developers ON "\
+          "(users.permission_level_type='Developer' AND users.permission_level_id = "\
+          "developers.id) OR (users.permission_level_type='Devision' and developers.id = "\
+          "(SELECT developers.id from developers INNER JOIN divisions ON "\
+          "divisions.developer_id = developers.id and divisions.id = users.permission_level_id) "\
+          "OR (users.permission_level_type='Development' and developers.id = "\
+          "(SELECT developers.id from developers INNER JOIN divisions ON divisions.developer_id= "\
+          "developers.id INNER JOIN developments ON divisions.id = developments.division_id and "\
+          "developments.id = users.permission_level_id ))) OR "\
+          "(users.permission_level_type='Development' and developers.id = (SELECT developers.id "\
+          "from developers INNER JOIN developments ON developments.developer_id = developers.id "\
+          "AND developments.id=users.permission_level_id)) LEFT OUTER JOIN divisions ON "\
+          "(users.permission_level_type='Division' AND users.permission_level_id = divisions.id) "\
+          "OR (users.permission_level_type='Development' AND divisions.id = (SELECT divisions.id "\
+          "from divisions INNER JOIN developments ON developments.division_id = divisions.id AND "\
+          "developments.id = users.permission_level_id)) LEFT OUTER JOIN developments ON "\
+          "users.permission_level_type='Development' AND users.permission_level_id = "\
+          "developments.id where users.deleted_at is NULL and users.id IN "\
+          "(#{visible_users.join(',')}) ORDER BY #{sort} #{direction} "\
+          "LIMIT #{per} OFFSET #{offset}"
+    users = ActiveRecord::Base.connection.exec_query(sql)
+
+    # This data needs to appear like a ActiveRecord::Relation so that pagination can work.
+    # The users variable will be an ActiveRecord::Result and neeeds pagination criterian adding
+    class << users
+      attr_accessor :total_pages
+      attr_accessor :current_page
+      attr_accessor :limit_value
+    end
+    users.current_page = page
+    users.limit_value = per
+    users.total_pages = (visible_users.size.to_f / per).ceil
+    users
   end
   # rubocop:enable all
 end

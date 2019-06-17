@@ -17,25 +17,42 @@
 <table class="record-list users">
   <thead>
     <tr>
-      <th><%= sortable(@users, :email, t(".email")) %></th>
-      <th><%= sortable(@users, :first_name, t(".name")) %></th>
-      <th><%= sortable(@users, :role) %></th>
-      <th><%= sortable(@users, :permission_level_id ,t(".headings.permission_level")) %></th>
-      <th><%= sortable(@users, :invitation_accepted_at) %></th>
+      <th><%= sortable(@users, "LOWER(users.email)", t(".email")) %></th>
+      <th><%= sortable(@users, "LOWER(users.first_name)", t(".name")) %></th>
+      <th><%= sortable(@users, "users.role", t(".role")) %></th>
+      <% if User.roles[current_user.role] < User.roles[:developer_admin] %>
+        <th><%= sortable(@users, "LOWER(developers.company_name)", t(".developer")) %></th>
+      <% end %>
+      <% if User.roles[current_user.role] < User.roles[:division_admin] %>
+        <th><%= sortable(@users, "LOWER(divisions.division_name)", t(".division")) %></th>
+      <% end %>
+      <% if User.roles[current_user.role] < User.roles[:development_admin] %>
+        <th><%= sortable(@users, "LOWER(developments.name)", t(".development")) %></th>
+      <% end %>
+      <th><%= sortable(@users, :invitation_accepted_at, t(".accepted_at")) %></th>
       <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
-    <% @users.each do |user| %>
+    <% @users.each do |fulluser| %>
+    <% user = User.new(fulluser.except("company_name","division_name","development_name")) %>
     <tr data-user="<%= user.id %>">
       <td><%= link_to user.email, admin_user_path(user) %></td>
       <td><%= user.full_name %></td>
       <td><%= t(user.role) %></td>
-      <td><%= user.permission_level %></td>
+      <% if User.roles[current_user.role] < User.roles[:developer_admin] %>
+        <td><%= fulluser["company_name"]  %></td>
+      <% end %>
+      <% if User.roles[current_user.role] < User.roles[:division_admin] %>
+        <td><%= fulluser["division_name"] %></td>
+      <% end %>
+      <% if User.roles[current_user.role] < User.roles[:development_admin] %>
+        <td><%= fulluser["development_name"]  %></td>
+      <% end %>
       <td><%= l user.invitation_accepted_at.to_date, format: :digits if user.invitation_accepted? %></td>
       <td class="actions">
         <%= edit_btn edit_admin_user_path(user), element: user %>
-        <%= delete_btn user, path: url_for([:admin, user]), element: user %>
+        <%= delete_btn user, path: admin_user_path(user), element: user %>
       </td>
     </tr>
     <% end %>
