@@ -225,9 +225,9 @@ class Plot < ApplicationRecord
   end
 
   # Checks that the plot development has enabled snagging,
-  # and that today's date is after plot completion date
+  # and that today's date is after or equal to plot completion date
   def after_completion_date
-    development.enable_snagging? && completion_date < Time.zone.today if completion_date
+    development.enable_snagging? && completion_date <= Time.zone.today if completion_date
   end
 
   # Checks whether the current date is after plot snagging duration has ended
