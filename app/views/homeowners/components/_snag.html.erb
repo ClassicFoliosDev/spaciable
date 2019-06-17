@@ -3,7 +3,7 @@
     <%= link_to snag_path(snag), class: "btn branded-btn" do %>
       <%= t(".show") %>
     <% end %>
-    <% unless snag.status == "approved" %>
+    <% unless snag.approved? %>
       <%= link_to edit_snag_path(snag), class: "btn branded-btn" do %>
         <%= t(".edit") %>
       <% end %>

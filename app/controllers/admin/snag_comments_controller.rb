@@ -13,7 +13,9 @@ module Admin
       if @snag_comment.save
         notify_and_redirect(@snag_comment)
       else
-        render partial: "form"
+        @snag = Snag.find(params[:id])
+        render template: "admin/snags/show",
+               locals: { snag: @snag, snag_comment: @snag_comment }
       end
     end
 

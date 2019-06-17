@@ -8,7 +8,7 @@
   <div class="snag-container">
     <div class="snag-article branded-border branded-content">
       <div class="resolved-status branded-text">
-      <% if @snag.status == "awaiting" %>
+      <% if @snag.awaiting? %>
         <span class="bold"><%= t(".awaiting_approval") %></span>
         <%= form_for @snag, url: snag_path(id: params[:id]) do |f| %>
           <%= f.hidden_field :status, { value: "approved" } %>
@@ -20,13 +20,13 @@
         <% end %>
       <% end %>
 
-        <span class="bold snag-resolved"><%= t(".fully_resolved") if @snag.status == "approved" %></span>
+        <span class="bold snag-resolved"><%= t(".fully_resolved") if @snag.approved? %></span>
       </div>
       <h3 class="branded-text"><%= @snag.title %></h3>
       <p class="branded-text"><%= @snag.description %></p>
         <div class="snag-commands">
           <span class="back-btn"><%= link_to t(".back"), snags_path, class: "btn branded-btn" %></span>
-          <% unless @snag.status == "approved" %>
+          <% unless @snag.approved? %>
             <%= link_to t(".edit"), edit_snag_path, class: "btn branded-btn" %>
             <%= button_tag t(".remove_snag"), class: "btn branded-btn destroy-snag prompt-delete-snag",
               data: { title: t(".destroy"),
@@ -40,12 +40,12 @@
       <div class="snag-comments-container">
         <div class="snag-comments branded-content branded-border">
           <h5 class="branded-text"><%= t(".snag_comments") %></h5>
-          <% unless @snag.status == "approved" %>
+          <% unless @snag.approved? %>
             <span class="branded-text"><%= t(".snag_comments_description") %></span>
             <%= render 'homeowners/snag_comments/form', snag_comment: @snag_comment, snag: @snag %>
           <% end %>
           <div class="snag-comment-list">
-            <% @snag_comments.each do |snag_comment| %>
+            <% @snag.comments.each do |snag_comment| %>
               <%= render "homeowners/snag_comments/snag_comment", snag_comment: snag_comment %>
             <% end %>
           </div>
@@ -56,9 +56,9 @@
     <div class="snag-images branded-content branded-border">
       <h3 class="branded-text"><%= t(".snag_gallery") %></h3>
       <div class="snag-image-container">
-        <% @snag_attachments.each do |a| %>
+        <% @snag.snag_attachments.each do |a| %>
           <%= image_tag a.image_url %>
-          <% unless @snag.status == "approved" %>
+          <% unless @snag.approved? %>
             <%= link_to t(".replace"), edit_snag_attachment_path(a), class: "btn branded-btn" %>
             <%= button_tag t(".remove_image"), class: "btn branded-btn destroy-snag-image prompt-delete-snag-image",
               data: { title: t(".destroy"),

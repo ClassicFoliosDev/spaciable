@@ -13,6 +13,7 @@ class SnagComment < ApplicationRecord
   delegate :last_name, to: :commenter
 
   def commenter_name
+    return commenter.role if commenter.first_name.blank?
     commenter.first_name + " " + commenter.last_name + " " + "(" + commenter_permission + ")"
   end
 

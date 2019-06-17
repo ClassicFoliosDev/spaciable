@@ -219,6 +219,7 @@ class Plot < ApplicationRecord
   # or if today's date if after snagging expiry date but there are unresolved snags remaining,
   # then the snagging link is valid.
   def snag_link_valid
+    return false if snagging_expiry_date.blank?
     snagging_expiry_date > Time.zone.today ||
       (snagging_expiry_date < Time.zone.today && unresolved_snags.positive?)
   end
@@ -226,7 +227,7 @@ class Plot < ApplicationRecord
   # Checks that the plot development has enabled snagging,
   # and that today's date is after plot completion date
   def after_completion_date
-    development.enable_snagging? && completion_date <= Time.zone.today if completion_date
+    development.enable_snagging? && completion_date < Time.zone.today if completion_date
   end
 
   # Checks whether the current date is after plot snagging duration has ended
@@ -238,7 +239,7 @@ class Plot < ApplicationRecord
 
   def snagging_days_remaining
     return unless snagging_expiry_date
-    snags_fully_resolved ? "Closed" : (snagging_expiry_date - Time.zone.today).to_i
+    (snagging_expiry_date - Time.zone.today).to_i
   end
 
   def snagging_expiry_date

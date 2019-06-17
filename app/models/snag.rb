@@ -19,9 +19,9 @@ class Snag < ApplicationRecord
   validates_associated :snag_attachments
 
   def resolved_visual
-    visual_status = if status == "approved"
+    visual_status = if approved?
                       "green"
-                    elsif status == "awaiting"
+                    elsif awaiting?
                       "amber"
                     else
                       "red"
@@ -42,5 +42,17 @@ class Snag < ApplicationRecord
   def self.plot_phase(params)
     plot = Plot.find_by id: params
     plot.phase_id
+  end
+
+  def comments
+    snag_comments.order(created_at: :desc)
+  end
+
+  # When a snag fails validation part way through a creation, it
+  # needs metadata clearing out otherwise Ruby can missidentify
+  # it as an update to a (failed to save) exisitng snag
+  def clear
+    snag_attachments.delete_all
+    self.id = nil
   end
 end

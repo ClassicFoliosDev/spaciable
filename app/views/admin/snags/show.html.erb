@@ -17,9 +17,9 @@
         <% resolved_status = @snag.resolved_status %>
         <%= resolved_status %>
       </div>
-      <% unless @snag.status == "approved" %>
-        <% status = (@snag.status == "unresolved") ? "Resolved" : "Unresolved" %>
-        <% resolved = (@snag.status == "unresolved") ? "awaiting" : "unresolved" %>
+      <% unless @snag.approved? %>
+        <% status = (@snag.unresolved?) ? "Resolved" : "Unresolved" %>
+        <% resolved = (@snag.unresolved?) ? "awaiting" : "unresolved" %>
         <span>
           <%= form_for @snag, url: admin_snag_path(id: params[:id]) do |f| %>
             <%= f.hidden_field :status, { value: resolved } %>
@@ -37,12 +37,12 @@
     <div class="snag-comments-container">
       <div class="snag-comments">
         <h5><%= t(".snag_comments") %></h5>
-        <% unless @snag.status == "approved" %>
+        <% unless @snag.approved? %>
           <span class="comments-description"><%= t(".snag_comments_description") %></span>
           <%= render 'admin/snag_comments/form', snag_comment: @snag_comment, snag: @snag %>
         <% end %>
         <div class="snag-comment-list">
-          <% @snag_comments.each do |snag_comment| %>
+          <% @snag.comments.each do |snag_comment| %>
             <%= render "admin/snag_comments/snag_comment", snag_comment: snag_comment %>
           <% end %>
         </div>
@@ -55,11 +55,5 @@
       <%= image_tag a.image_url %>
       <br/>
     <% end %>
-  </div>
-</div>
-
-<div class="form-actions-footer-container">
-  <div class="form-actions-footer">
-    <%= link_to t(".back"), admin_snags_plot_path(@snag.plot), class: "btn" %>
   </div>
 </div>

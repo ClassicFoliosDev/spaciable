@@ -27,8 +27,11 @@ module Homeowners
     end
 
     def update
-      redirect_to @snag_attachment.snag, notice: t(".update_success") if
-        @snag_attachment.update(snag_attachment_params)
+      if @snag_attachment.update(snag_attachment_params)
+        redirect_to @snag_attachment.snag, notice: t(".update_success")
+      else
+        render :edit
+      end
     end
 
     def destroy

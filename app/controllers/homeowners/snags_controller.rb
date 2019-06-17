@@ -6,56 +6,81 @@ module Homeowners
   class SnagsController < Homeowners::BaseController
     skip_authorization_check
     before_action :set_snag, only: %i[show edit update destroy]
-    before_action :plot_residency
 
     def index
       @snags = Snag.where(plot_id: @plot.id).order(updated_at: :desc)
     end
 
     def show
-      @snag_attachments = @snag.snag_attachments
       @snag_comment = SnagComment.new
-      @snag_comments = @snag.snag_comments.order(created_at: :desc)
     end
 
     def new
       @snag = Snag.new
-      @snag_attachment = @snag.snag_attachments.build
+      @snag.snag_attachments.build
     end
 
     def edit; end
 
+    # rubocop:disable all
     def create
-      @snag = Snag.new(snag_params)
-      if @snag.save
-        @snag.update_attributes(plot_id: @plot.id)
-        if params[:snag_attachments].present?
+      success = true
+      Snag.transaction do
+        @snag = Snag.new(snag_params)
+        success = @snag.update(plot_id: @plot.id)
+        if success && params[:snag_attachments].present?
           params[:snag_attachments]["image"].each do |i|
-            @snag_attachment = @snag.snag_attachments.create!(image: i, snag_id: @snag.id)
+            @snag.snag_attachments.create(image: i, snag_id: @snag.id)
           end
         end
-        increment_snag_counts
-        check_resolved_notification(@plot)
-        notify_and_redirect("create")
-      else
-        render :new
-      end
-    end
 
-    def update
-      if @snag.update(snag_params)
-        if @snag.status == "rejected" || @snag.status == "approved"
-          decrement_unresolved_snag_counts if @snag.status == "approved"
-          notify_response
-          @snag.update_attributes(status: "unresolved") if @snag.status == "rejected"
-        else
-          upload_attachments if params[:snag_attachments].present?
-          notify_and_redirect("update")
+        success = @snag.save
+        if success
+          increment_snag_counts
+          check_resolved_notification(@plot)
+          notify_and_redirect("create")
         end
-      else
-        render :edit
+
+        raise ActiveRecord::Rollback unless success
       end
+
+      return if success
+
+      @snag.clear
+      render :new
     end
+    # rubocop:enable all
+
+    # rubocop:disable all
+    def update
+      success = true
+      Snag.transaction do
+        success = @snag.update(snag_params)
+        if success
+          if @snag.rejected?
+            notify_response
+            @snag.update(status: "unresolved")
+          elsif @snag.approved?
+            decrement_unresolved_snag_counts
+            notify_response
+          else
+            if success && params[:snag_attachments].present?
+              params[:snag_attachments]["image"].each do |i|
+                @snag.snag_attachments.create(image: i, snag_id: params[:id])
+              end
+            end
+
+            success = @snag.save
+            notify_and_redirect("update") if success
+          end
+        end
+
+        raise ActiveRecord::Rollback unless success
+      end
+
+      render :edit unless success
+    end
+    # rubocop:enable all
 
     def destroy
       notify_delete
@@ -78,12 +103,6 @@ module Homeowners
       notification.destroy_all if notification.exists?
     end
 
-    def upload_attachments
-      params[:snag_attachments]["image"].each do |i|
-        @snag_attachment = @snag.snag_attachments.create!(image: i, snag_id: @snag.id)
-      end
-    end
-
     def set_snag
       @snag = Snag.find(params[:id])
     end
@@ -99,7 +118,7 @@ module Homeowners
     end
 
     def notify_response
-      notify_resolved_status if (@snag.status == "approved") && @plot.snags_fully_resolved
+      notify_resolved_status if @snag.approved? && @plot.snags_fully_resolved
       SnagMailer.response_resolved_status(@snag, @snag.status).deliver
       redirect_to snag_path(id: @snag.id), notice: t(".notify_status", status: @snag.status)
     end
@@ -154,11 +173,6 @@ module Homeowners
     def save_counters
       @plot.save!
       @phase.save!
-    end
-
-    def plot_residency
-      @plot_residency = PlotResidency.find_by(plot_id: @plot.id, resident_id: current_resident&.id)
-      redirect_to(homeowner_dashboard_path) && return if @plot_residency.tenant?
     end
 
     def snag_params
