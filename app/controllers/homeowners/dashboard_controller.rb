@@ -22,10 +22,11 @@ module Homeowners
     end
 
     def build_articles
-      how_tos_limit = 4
       if @plot.enable_services?
         @services = Service.where(category: %i[finance legal])
-        how_tos_limit = 2
+        how_tos_limit = @plot.enable_referrals? ? 2 : 3
+      else
+        how_tos_limit = @plot.enable_referrals? ? 4 : 5
       end
 
       # Filter the HowTo records according to the country

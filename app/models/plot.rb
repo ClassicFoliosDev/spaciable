@@ -239,7 +239,7 @@ class Plot < ApplicationRecord
 
   def snagging_days_remaining
     return unless snagging_expiry_date
-    (snagging_expiry_date - Time.zone.today).to_i
+    snags_fully_resolved ? "Closed" : (snagging_expiry_date - Time.zone.today).to_i
   end
 
   def snagging_expiry_date
