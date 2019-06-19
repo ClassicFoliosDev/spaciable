@@ -103,8 +103,8 @@ module RoomConfigurations
       send_data(csv_data,
                 type: "plain/text",
                 filename: "Plot #{plot.number}-#{Time.zone.today.strftime('%d %B %Y')}.csv")
-      ensure
-        temp_file.unlink
+    ensure
+        temp_file.unlink if temp_file.present?
     end
     # rubocop:enable all
 
