@@ -282,17 +282,6 @@ class Plot < ApplicationRecord
     choice_configuration_id.present? && development.choices?(current_user, self)
   end
 
-  # Export the choices for this plot as CSV data
-  def export_choices
-    attributes = %w[room name full_name]
-    CSV.generate(headers: true) do |csv|
-      csv << attributes
-      room_choices.each do |choice|
-        csv << attributes.map { |attr| choice.send(attr) }
-      end
-    end
-  end
-
   def referrer_address
     if division.present?
       "#{division}, #{development}, #{phase}"

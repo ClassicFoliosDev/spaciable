@@ -92,21 +92,11 @@ module RoomConfigurations
       render json: images.to_json
     end
 
-    # rubocop:disable all
     def export_choices
       plot = Plot.find(params[:plot_id])
-      filename =  "#{Rails.root}/public/downloads/plot.csv"
-      temp_file = Tempfile.new(filename)
-      temp_file << plot.export_choices if plot.present?
-      temp_file.close
-      csv_data = File.read(temp_file.path)
-      send_data(csv_data,
-                type: "plain/text",
-                filename: "Plot #{plot.number}-#{Time.zone.today.strftime('%d %B %Y')}.csv")
-    ensure
-        temp_file.unlink if temp_file.present?
+      choices_csv = Csv::ChoicesCsvService.call(plot)
+      send_file(choices_csv, disposition: :attachment)
     end
-    # rubocop:enable all
 
     def archive_choice
       choice = Choice.find(params[:choice_id])
