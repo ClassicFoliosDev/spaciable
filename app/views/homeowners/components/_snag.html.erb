@@ -27,7 +27,7 @@
       <strong><%= t(".updated") %></strong><%= snag.updated_at.strftime("%B %d, %Y") %><br/>
     </div>
     <div class="detail">
-      <%= label_tag(:summary) %>
+      <%= label_tag(:summary, 'Title') %>
       <span><%= truncate(snag.title, length: 45, separator: ' ') %></span>
 
       <%= label_tag(:description) %>

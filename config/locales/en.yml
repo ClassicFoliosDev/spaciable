@@ -485,8 +485,8 @@ en:
           back: "Back"
       show:
         snag: "%{plot} Snag"
-        summary: "Summary"
-        details: "Full Details"
+        summary: "Title"
+        details: "Description"
         images: "Photo Attachments"
         date: "Date Reported"
         status: "Status"
@@ -806,7 +806,7 @@ en:
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
     snags:
       index:
-        snag_description: "Use the %{snag_name} tool to report any issues such as shrinkage or nail popping to your developer."
+        snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
         snag_constraint: "All issues must be reported before %{snag_date}."
         add_snag: "Report an issue"
         snag_expiration: "Access to the %{snag_name} submission tool has expired as of %{snag_date}."
@@ -817,11 +817,11 @@ en:
       edit:
         details: "Edit your issue below to include any additional information, or remove information that is no longer relevant."
       form:
-        image: "Upload Images"
+        image: "Upload Image(s)"
         back: "Back"
         submit: "Submit"
-        summary: "Summary"
-        details: "Full Details"
+        summary: "Title"
+        details: "Description"
         upload_instructions: "To upload multiple files, hold down the CTRL key on your keyboard while selecting each file."
       show:
         edit: "Edit Details"
@@ -829,8 +829,9 @@ en:
         snag_gallery: "Image Attachments"
         remove_snag: "Delete"
         destroy: "Confirm Delete"
-        back: "Back"
+        back: "List of Reported Issues"
         cancel: "Cancel"
+        status: "Status"
         destroy_text: "Are you sure you wish to delete this issue?"
         confirm_snag: "You will no longer be able to add comments or updates, and it will be removed from your issues list."
         confirm_cta: "Confirm Delete"
@@ -842,10 +843,12 @@ en:
         snag_comments: "Comments"
         snag_comments_description: "Add a comment to this issue or discuss additional information. Comments are visible to your developer and other residents of your home."
         snag_comments_format: "Attachments must be in jpg, gif, png or svg format."
-        awaiting_approval: "This issue has been marked as resolved. Please confirm or reject the resolved status below."
-        fully_resolved: "This issue has been confirmed resolved. You may no longer make updates or add comments."
         resident_approved: "Approve Resolved Status"
         resident_rejected: "Reject Resolved Status"
+        resolved_status:
+          unresolved: "This issue is currently unresolved."
+          awaiting: "This issue has been marked as resolved by your developer. Please confirm or reject the resolved status below."
+          approved: "This issue has been confirmed resolved. You may no longer make updates or add comments."
       destroy:
         delete_success: "Your issue has been successfully deleted"
       update:

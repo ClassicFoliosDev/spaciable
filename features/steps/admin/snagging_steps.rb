@@ -156,7 +156,7 @@ Then(/^any resident of the plot can approve the resolved status$/) do
   end
 
   within ".snag-article" do
-    expect(page).to have_content(t("homeowners.snags.show.awaiting_approval"))
+    expect(page).to have_content(t("homeowners.snags.show.resolved_status.awaiting"))
     within ".snag-comment-list" do
       image = page.find("img")
       expect(image["src"]).to have_content(FileFixture.finish_picture_name)
@@ -167,7 +167,7 @@ Then(/^any resident of the plot can approve the resolved status$/) do
 
   within ".snag-article" do
   sleep 0.5
-    expect(page).to have_content(t("homeowners.snags.show.fully_resolved"))
+    expect(page).to have_content(t("homeowners.snags.show.resolved_status.approved"))
     expect(page).to_not have_content(t("admin.snags.show.snag_comments_description"))
   end
 end

@@ -8,19 +8,25 @@
   <div class="snag-container">
     <div class="snag-article branded-border branded-content">
       <div class="resolved-status branded-text">
-      <% if @snag.awaiting? %>
-        <span class="bold"><%= t(".awaiting_approval") %></span>
-        <%= form_for @snag, url: snag_path(id: params[:id]) do |f| %>
-          <%= f.hidden_field :status, { value: "approved" } %>
-          <%= f.submit t(".resident_approved"), class: "btn approve-btn" %>
-        <% end %>
-        <%= form_for @snag do |f| %>
-          <%= f.hidden_field :status, { value: "rejected" } %>
-          <%= f.submit t(".resident_rejected"), class: "btn reject-btn" %>
-        <% end %>
-      <% end %>
+        <div class="snag-status">
+          <label><%= t(".status") %></label>
+          <% resolved_visual = @snag.resolved_visual %>
+          <span class="circle-large <%= resolved_visual %>"></span>
+          <% status = @snag.status %>
+          <p class="resolved-status"><%= t(".resolved_status.#{status}") %></p>
 
-        <span class="bold snag-resolved"><%= t(".fully_resolved") if @snag.approved? %></span>
+          <% if @snag.awaiting? %>
+            <%= form_for @snag, url: snag_path(id: params[:id]) do |f| %>
+              <%= f.hidden_field :status, { value: "approved" } %>
+              <%= f.submit t(".resident_approved"), class: "btn approve-btn" %>
+            <% end %>
+            <%= form_for @snag do |f| %>
+              <%= f.hidden_field :status, { value: "rejected" } %>
+              <%= f.submit t(".resident_rejected"), class: "btn reject-btn" %>
+            <% end %>
+          <% end %>
+        </div>
+
       </div>
       <h3 class="branded-text"><%= @snag.title %></h3>
       <p class="branded-text"><%= @snag.description %></p>

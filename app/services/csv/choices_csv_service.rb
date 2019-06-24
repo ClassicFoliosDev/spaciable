@@ -9,7 +9,7 @@ module Csv
       path = Rails.root.join("tmp/#{filename}.csv")
 
       attributes = %w[room name full_name]
-      CSV.generate(headers: true) do |csv|
+      ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << attributes
         plot.room_choices.each do |choice|
           csv << attributes.map { |attr| choice.send(attr) }
