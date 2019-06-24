@@ -79,12 +79,12 @@ class ChoicesController < ApplicationController
           notice = t("choices.admin.homeowner_notified_of_rejection", plot_name: @plot.number)
         end
 
-        ChoiceMailer.homeowner_choices_rejected(@plot, params[:notification]).deliver
+        ChoiceMailer.homeowner_choices_rejected(@plot, params[:notification]).deliver_later
       end
     end
 
     if update_status == :choices_approved
-      ChoiceMailer.homeowner_choices_approved(@plot).deliver if @plot.homeowners.present?
+      ChoiceMailer.homeowner_choices_approved(@plot).deliver_later if @plot.homeowners.present?
       ChoiceMailer.admin_approved_choices(@plot, current_user.email).deliver
     end
 
