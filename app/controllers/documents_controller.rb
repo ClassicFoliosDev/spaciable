@@ -80,7 +80,7 @@ class DocumentsController < ApplicationController
     document.set_original_filename
 
     document.save
-    @document = document unless document.valid?
+    @document = document if document.valid?
 
     document.update_attributes(user_id: current_user.id, documentable: @parent,
                                category: document_params[:category])

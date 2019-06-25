@@ -154,17 +154,15 @@ Then(/^I should see the phase progress has been updated$/) do
 end
 
 Then(/^Phase residents should have been notified$/) do
-  success_message = t("resident_notification_mailer.notify.update_message",
-                      type: "Plot",
-                      name: "information",
-                      verb: "updated to #{PhaseFixture.progress}")
+  message = t("notify.updated_progress",
+                      state: "#{PhaseFixture.progress}")
 
   in_app_notification = Notification.all.last
-  expect(in_app_notification.message).to eq success_message
-  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident_email
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
 
-  notification = ActionMailer::Base.deliveries.first
-  expect(notification.parts.first.body.raw_source).to include success_message
+  email = ActionMailer::Base.deliveries.first
+  expect(email).to have_body_text(message)
 
   ActionMailer::Base.deliveries.clear
 end

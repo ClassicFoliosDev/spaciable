@@ -58,8 +58,6 @@ Feature: Plots
     When I update the progress for the plot
     Then I should see the plot progress has been updated
     And both residents have been notified
-    When I update the completion date for the plot
-    Then both residents have been notified of the completion date
 
   @javascript
   Scenario: Development Admin
@@ -73,8 +71,6 @@ Feature: Plots
     When I update the progress for the plot
     Then I should see the plot progress has been updated
     And both residents have been notified
-    When I update the completion date for the plot
-    Then both residents have been notified of the completion date
 
   Scenario: Site Admin
     Given I am logged in as a Site Admin

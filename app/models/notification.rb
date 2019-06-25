@@ -59,12 +59,41 @@ class Notification < ApplicationRecord
   end
 
   def sent_to
-    return send_to.to_s if plot_numbers.empty?
-    to_count = plot_numbers.count > 1 ? :plural : :singular
-    plot_title = Plot.model_name.send(to_count).titleize
+    if plot_numbers.empty?
+      full_sent_to
+    else
+      to_count = plot_numbers.count > 1 ? :plural : :singular
+      plot_title = Plot.model_name.send(to_count).titleize
+      parent = full_sent_to
 
-    "#{send_to} (#{plot_title} #{plot_numbers.to_sentence})"
+      "#{parent} (#{plot_title} #{plot_numbers.to_sentence})"
+    end
   end
+
+  def sent_from
+    sender = User.find_by(id: sender_id)
+    "#{sender.email} (#{sender.permission_level_name})"
+  end
+
+  # rubocop:disable MethodLength
+  def full_sent_to
+    sent = send_to.to_s
+    type = send_to_type
+    case type
+    when "Development"
+      development = Development.find_by(id: send_to_id)
+      parent = development.division ? development.division : development.developer
+      return "#{sent} (#{parent})"
+    when "Phase"
+      phase = Phase.find_by(id: send_to_id)
+      development = phase.development
+      division = phase.division
+      return "#{sent} (#{development}, #{division})"
+    else
+      return sent
+    end
+  end
+  # rubocop:enable MethodLength
 
   delegate :role, to: :sender, allow_nil: true
   delegate :job_title, to: :sender, allow_nil: true
@@ -73,4 +102,5 @@ class Notification < ApplicationRecord
   delegate :picture, to: :sender, allow_nil: true
   delegate :to_s, to: :subject
   delegate :to_str, to: :subject
+  delegate :permission_level, to: :sender
 end

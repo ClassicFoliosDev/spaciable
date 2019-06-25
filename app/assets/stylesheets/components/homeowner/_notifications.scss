@@ -93,3 +93,43 @@
     padding-top: $spacing-small;
   }
 }
+
+@include media($tablet-portrait-down) {
+  .notification {
+    height: 170px;
+  }
+  .notification-list {
+    .strong {
+      float: right;
+    }
+  }
+  .notification-truncate {
+    float: right;
+  }
+  .notification-expanded {
+    .header {
+      height: 100px;
+    }
+  }
+}
+
+@include media($mobile-portrait-down) {
+  .notification {
+    height: 190px;
+    padding: 5px 0 0 5px ;
+  }
+
+  .notification-expanded {
+    .header {
+      height: 120px;
+    }
+  }
+}
+
+@include media($desktop-down) {
+  .notification-expanded {
+    .header {
+      height: 80px;
+    }
+  }
+}

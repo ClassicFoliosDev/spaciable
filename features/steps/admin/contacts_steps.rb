@@ -147,10 +147,10 @@ Then(/^I should see the contact resident has been notified$/) do
   expect(in_app_notification.residents.count).to eq 1
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
 
-  email_notification = ActionMailer::Base.deliveries.first
-  message = "Contact #{ContactFixture.updated_name} #{ContactFixture.last_name} has been updated for your home"
-  expect(email_notification.parts.first.body.raw_source).to include message
-
+  email = ActionMailer::Base.deliveries.first
+  name = #{ContactFixture.updated_name} + " " + #{ContactFixture.last_name}
+  expect(email).to have_body_text("The following contact has been updated on your home's online portal:")
+  expect(email).to have_body_text("#{ContactFixture.updated_name} #{ContactFixture.last_name}")
   ActionMailer::Base.deliveries.clear
 end
 

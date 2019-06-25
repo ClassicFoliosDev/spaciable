@@ -273,18 +273,18 @@ ActiveRecord::Schema.define(version: 20190530100007) do
     t.integer  "developer_id"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "division_id"
     t.datetime "deleted_at"
     t.integer  "phases_count",          default: 0
     t.string   "segment_id"
     t.string   "maintenance_link"
-    t.integer  "business",         default: 0
-    t.boolean  "enable_snagging",  default: false
-    t.integer  "snag_duration",    default: 0
-    t.string   "snag_name",        default: "Snagging", null: false
-    t.integer  "choice_option",         default: 0, null: false
+    t.integer  "business",              default: 0
+    t.boolean  "enable_snagging",       default: false
+    t.integer  "snag_duration",         default: 0
+    t.string   "snag_name",             default: "Snagging", null: false
+    t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree

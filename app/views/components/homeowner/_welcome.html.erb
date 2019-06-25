@@ -31,8 +31,22 @@
       <span><%= t('.hi', first_name: current_resident&.first_name) %></span>
       <span>|</span>
       <%= link_to '<i class="fa fa-user"></i>'.html_safe, homeowners_resident_path(current_resident) %>
+      <% if plots.count > 1 %>
+        <span>|</span>
+        <span class="my-plots">
+          <%= fa_icon "home" %>
+        </span>
+      <% end %>
+      <span>|</span>
+      <%= link_to homeowners_notifications_path do %>
+        <i class="fa fa-envelope"></i>
+        <% if unread_count.positive? %>
+          <sup class="unread"><%= unread_count %></sup>
+        <% end %>
+      <% end %>
       <span>|</span>
       <%= link_to '<i class="fa fa-sign-out"></i>'.html_safe, destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
+
     </div>
   </div>
 </div>

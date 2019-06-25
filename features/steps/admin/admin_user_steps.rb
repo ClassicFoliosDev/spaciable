@@ -62,7 +62,6 @@ When(/^I add a new CF Admin$/) do
   end
 
   select "CF Admin", visible: false
-
   click_on t("admin.users.form.submit")
 
   recipient_email = ActionMailer::Base.deliveries.last

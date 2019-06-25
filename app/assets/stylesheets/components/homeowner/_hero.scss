@@ -66,3 +66,9 @@
     font-size: $title-font-size-2;
   }
 }
+
+@include media($mobile-portrait-down) {
+  .filter-hero {
+    padding: 10px;
+  }
+}

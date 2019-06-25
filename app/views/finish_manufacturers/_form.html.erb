@@ -16,10 +16,8 @@
       <fieldset>
         <%= f.input :name %>
       </fieldset>
-    </div>
-    <div class="row-item half">
       <fieldset class="skip-global-selectmenu">
-         <div class="finish_manufacturer_finish_type ui-front select-container">
+        <div class="finish_manufacturer_finish_type ui-front select-container">
           <%= f.association :finish_types, collection: FinishType.order(:name), multiple: true, class: "multiple" %>
         </div>
       </fieldset>

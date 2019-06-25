@@ -90,7 +90,8 @@ Then(/^I should see a notification for the updated plot progress$/) do
   end
 
   within ".notification-expanded" do
-    expect(page).to have_content "has been updated to In progress"
+    expect(page).to have_content("The Build Progress status has been updated to:")
+    expect(page).to have_content("In progress")
   end
 end
 

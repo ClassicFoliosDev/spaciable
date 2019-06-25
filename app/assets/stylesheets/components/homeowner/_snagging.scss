@@ -234,3 +234,27 @@
 .red {
   background-color: $type-red;
 }
+
+@include media($tablet-landscape-down) {
+  .snag-container {
+    @include outer-container();
+
+    .snag-article {
+      @include span-columns(12 of 12);
+    }
+
+    .snag-images {
+      @include span-columns(12 of 12);
+    }
+  }
+
+  .homeowner-snagging {
+     width: 100%;
+  }
+
+  .snag-attachment-form{
+    img {
+      width: 100%;
+    }
+  }
+}

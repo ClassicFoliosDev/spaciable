@@ -58,6 +58,12 @@ table.record-list {
   }
 }
 
+.notification-title {
+  a {
+    font-weight: 620;
+  }
+}
+
 ::-moz-placeholder {
   font-size: $base-small-font-size;
 }

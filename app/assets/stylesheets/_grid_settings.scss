@@ -4,6 +4,7 @@
 $grid-columns: 16;
 
 //screen sizes
+$xx-small: 376px;
 $x-small: 480px;
 $small: 720px;
 $medium: 1023px;;
@@ -18,6 +19,7 @@ $desktop-up: new-breakpoint(min-width $large 16);
 $desktop-large-up: new-breakpoint(min-width $x-large 16);
 
 //smaller than
+$mobile-portrait-down: new-breakpoint(max-width $xx-small 16);
 $mobile-down: new-breakpoint(max-width $x-small 16);
 $tablet-portrait-down: new-breakpoint(max-width $small 16);
 $tablet-landscape-down: new-breakpoint(max-width $medium 16);

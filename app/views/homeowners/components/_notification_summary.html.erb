@@ -13,11 +13,11 @@
     <div class="details branded-text">
       <div id="notification-<%= notification.id %>">
         <h5>
-          <span class="strong"><%= "#{notification.first_name} #{notification.last_name}" %></span>
+          <span class="strong"><%= "#{notification.first_name} #{notification.last_name} (#{notification.permission_level})" %></span>
           <span><%= notification.job_title %></span>
           <span class="right"><%= notification.sent_at.strftime("%d %b") %></span>
         </h5>
-        <span><%= truncate(notification.subject, length: 35) %></span>
+        <span class="notification-truncate"><%= truncate(notification.subject, length: 35) %></span>
       </div>
     </div>
   <% end %>

@@ -144,10 +144,10 @@ Then(/^I should see the faq resident has been notified$/) do
   expect(in_app_notification.residents.count).to eq 1
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
 
-  email_notification = ActionMailer::Base.deliveries.first
+  email = ActionMailer::Base.deliveries.first
   question = FaqsFixture.faq_attrs(:created, under: :division)[:question]
-  message = "FAQ #{question} has been added to your home"
-  expect(email_notification.parts.first.body.raw_source).to include message
+  expect(email).to have_body_text("The following FAQ has been added to your home's online portal:")
+  expect(email).to have_body_text("#{question}")
 
   ActionMailer::Base.deliveries.clear
 end

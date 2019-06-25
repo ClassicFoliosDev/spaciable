@@ -5,7 +5,8 @@ module NotificationHelper
     {
       id: notification.id,
       subject: notification.subject,
-      sendername: "#{notification.first_name} #{notification.last_name}",
+      sendername: "#{notification.first_name} #{notification.last_name}
+                   (#{notification.permission_level})",
       firstname: notification.first_name,
       message: notification.message,
       sent: notification.sent_at,

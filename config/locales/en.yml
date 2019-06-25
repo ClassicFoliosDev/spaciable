@@ -115,9 +115,11 @@ en:
 
   notify:
     information: "information"
-    added: "added to your home"
-    updated: "updated for your home"
+    added: "added to"
+    updated: "updated on"
+    generic_updated: "Your home's details have been updated. If you would like more information, please contact your developer."
     updated_state: "updated to %{state}"
+    updated_progress: "<p>The Build Progress status has been updated to:</p>%{state}"
 
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
@@ -397,6 +399,11 @@ en:
       hi: "Hi, "
       login: "Login to Hoozzi"
 
+  password_change_mailer:
+    content: "We're contacting you to notify you that your %{admin} password for the Hoozzi online portal has been changed."
+    confirm: "If this was you, simply log in with your new password at "
+    deny: "If this wasn't you, your account has been compromised. Please click the following link to reset your password."
+
   snag_mailer:
     create: "New Snag Reported"
     update: "A snag report has been updated"
@@ -529,10 +536,12 @@ en:
       collection:
         add: "Send notification"
         sent_to_html: "<strong>Sent to:</strong> %{sendees}"
+        sender_to_html: "<strong>Sent from:</strong> %{sender}"
         headers:
           subject: "Notification"
           sent_at: "Date sent"
           recipient: "Recipient"
+          sender: "Sender"
           role: "Role"
       create:
         success:
@@ -780,7 +789,7 @@ en:
       enable_snagging: "Snagging"
       snag_duration: "Duration (days)"
       snag_name: "Name"
-      choices_email: "Choices Contact Email"
+      choices_email: "Choices contact email"
     index:
       add: "Add development"
     development:
@@ -1092,15 +1101,15 @@ en:
       back: "Back"
       address: "Postal address"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
-      enable_house_search: "Enable area guide link"
-      house_search_description: "Provides an external link to BestArea4Me from the Hoozzi homeowner site"
-      enable_services: "Enable homeowner to request services"
+      enable_house_search: "Area guide"
+      house_search_description: "Provide residents with an external link to BestArea4Me"
+      enable_services: "Services"
       services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
-      enable_referrals: "Enable referrals module for this developer"
+      enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
-      enable_roomsketcher: "Enable Room Sketcher"
-      roomsketcher_description: "Provide residents with a link to an external Room Sketcher utility"
-      enable_messages: "Enable community messages"
+      enable_roomsketcher: "Room sketcher"
+      roomsketcher_description: "Provide residents with an external link to RoomSketcher"
+      enable_messages: "Community messages"
       messages_description: "Allow development residents to share messages with each other"
       development_faqs: "Development FAQs"
       development_faqs_description: "Create default FAQs for each development, not at developer scope"
@@ -1936,11 +1945,18 @@ en:
   resident_notification_mailer:
     notify:
       new_notification: "You have a new notification from Hoozzi"
-      login: "Login to Hoozzi"
-      welcome: "Dear %{name}"
+      login: "Login to your portal"
+      welcome: "Hello %{name}"
       update_subject: "You have a new update in Hoozzi"
-      update_message: "%{type} %{name} has been %{verb}"
+      update_message: "%{address} %{message}"
       update_sent: " and %{count} residents have been notified"
+      new_plot_message: "<p>We have a message regarding your %{developer} property: %{address} </p>"
+      new_development_message: "<p>We have a message regarding your %{developer} property at %{development}: </p>"
+      new_developer_message: "<p>We have a message regarding your %{developer} property:</p>"
+      address: "Plot %{plot} at %{development} (%{address})"
+      description: "<p>The following %{resource} has been %{verb} your home's online portal: </p>"
+      verb_message_content: "%{verb}"
+      message_content: "%{description} %{details}"
 
   services:
     homeowner_login_content_service:

@@ -39,7 +39,8 @@ class ProgressesController < ApplicationController
     return notice if params[:notify].to_i.zero?
 
     notice << ResidentChangeNotifyService.call(:not_set, current_user,
-                                               t("notify.updated_state", state: new_state), @phase)
+                                               t("notify.updated_progress",
+                                                 state: new_state), @phase)
 
     notice
   end

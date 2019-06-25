@@ -20,7 +20,8 @@
     <% collection.each do |notification| %>
     <tr>
       <td colspan="3">
-          <%= link_to notification, [:admin, notification], title: notification %>
+        <span class="notification-title"><%= link_to notification, [:admin, notification], title: notification %></span><br/>
+        <%= truncate(strip_tags(notification.message).html_safe, length: 120) %>
       </td>
       <td>
         <% if notification&.sent_at %>

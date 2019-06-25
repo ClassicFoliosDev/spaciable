@@ -19,15 +19,19 @@
       <% notifications.each do | notification | %>
         <tr>
           <td colspan="3">
-            <%= link_to notification, [:admin, notification], title: notification %>
+            <span class="notification-title"><%= link_to notification, [:admin, notification], title: notification %></span><br/>
+            <%= truncate(strip_tags(notification.message).html_safe, length: 120) %>
           </td>
-          <td colspan="2">
+          <td>
             <% if notification.sent_at %>
               <%= l(notification.sent_at.to_date, format: :digits) %>
             <% end %>
           </td>
-          <td colspan="3">
-            <%= t("admin.notifications.collection.sent_to_html", sendees: truncate(notification.sent_to.html_safe, length: 80)) %>
+          <td colspan="2">
+            <%= t("admin.notifications.collection.sent_to_html", sendees: truncate(notification.sent_to.html_safe, length: 120)) %>
+          </td>
+          <td colspan="2">
+            <%= t("admin.notifications.collection.sender_to_html", sender: notification.sent_from) %>
           </td>
           <td class="actions">
             <%= link_to [:admin, notification], class: "btn" do %>

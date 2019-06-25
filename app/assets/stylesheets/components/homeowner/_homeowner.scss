@@ -208,3 +208,10 @@ $homeowner-margin: 12px;
     display: none;
   }
 }
+
+// mobile view
+@include media($tablet-portrait-down) {
+  .plot-list {
+    width: 80%;
+  }
+}

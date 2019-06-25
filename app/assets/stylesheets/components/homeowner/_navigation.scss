@@ -95,6 +95,20 @@ nav {
   }
 }
 
+@include media($tablet-landscape-down) {
+  nav {
+    width: 100%;
+
+    .navbar-item {
+      padding: $spacing-small 10px;
+    }
+  }
+
+  .main-navigation {
+    margin-top: 40px;
+  }
+}
+
 @include media($tablet-landscape-up) {
   .search-container {
     display: block;
@@ -111,12 +125,6 @@ nav {
   }
 }
 
-@include media($tablet-landscape-down) {
-  .main-navigation {
-    margin-top: 40px;
-  }
-}
-
 @include media($tablet-portrait-down) {
   .navbar {
     background-color: $ui-white;
@@ -126,11 +134,13 @@ nav {
   }
 
   .sub-navigation-container {
-    height: 74px;
-    white-space: nowrap;
-    overflow-x: scroll;
+    max-height: 140px;
+    display: block;
+    padding: 10px 10px;
 
     .nav-inner {
+      text-align: center;
+
       h3 {
         display: none;
       }
@@ -146,7 +156,7 @@ nav {
       li {
         display: inline-block;
         width: inherit;
-        padding: 6px 10px;
+        padding: 1px 20px;
       }
     }
   }
@@ -197,7 +207,6 @@ nav {
       width: 100%;
       background-color: white;
       border-radius: 0;
-      border-bottom: 1px solid $ui-grey;
 
       a {
         line-height: 36px;

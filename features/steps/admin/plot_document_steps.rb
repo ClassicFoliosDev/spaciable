@@ -118,10 +118,10 @@ Then(/^I should see the document resident has been notified$/) do
   expect(in_app_notification.residents.count).to eq 1
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
 
-  email_notification = ActionMailer::Base.deliveries.first
-  message = "Plot 200 homeowner manual.pdf has been added to your home"
-  expect(email_notification.parts.first.body.raw_source).to include message
-  expect(email_notification.to).to eq [CreateFixture.resident_email]
+  email = ActionMailer::Base.deliveries.first
+  expect(email).to have_body_text("The following document has been added to your home's online portal:")
+  expect(email).to have_body_text("Plot 200 homeowner manual.pdf")
+  expect(email.to).to eq [CreateFixture.resident_email]
 
   ActionMailer::Base.deliveries.clear
 end

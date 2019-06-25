@@ -3,6 +3,8 @@
 module AdminNameHelper
   def admin_permission_level(resource)
     case resource.permission_level_type
+    when nil
+      "Classic Folios"
     when "Developer"
       resource.permission_level_name
     when "Division"

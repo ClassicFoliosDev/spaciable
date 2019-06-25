@@ -16,11 +16,11 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :email, readonly: user.email? %>
+        <%= f.input :first_name %>
+        <%= f.input :last_name %>
         <div class="image-container">
           <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
       </fieldset>
     </div>
     <div class="row-item third">
@@ -56,14 +56,15 @@
         </div>
       </fieldset>
     </div>
-    <div class="row-item third">
-        <% if user == current_user %>
+    <% if user == current_user %>
+      <div class="row-item third">
+        <fieldset>
           <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
           <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>
           <%= f.input :password_confirmation, label: t(".confirm_password") %>
-        <% end %>
-      </fieldset>
-    </div>
+        </fieldset>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-actions-footer-container">

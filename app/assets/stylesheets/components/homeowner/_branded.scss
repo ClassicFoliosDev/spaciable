@@ -94,3 +94,17 @@
 .second-title {
   color: $primary-red;
 }
+
+// Show all of the sub-categories in mobile view
+
+@include media($mobile-down) {
+  .branded-hero {
+    max-height: 180px;
+  }
+}
+
+@include media($mobile-portrait-down) {
+  .branded-hero {
+    height: 170px;
+  }
+}

@@ -96,9 +96,9 @@ class PlotsController < ApplicationController
   def update_verb
     if plot_params[:progress].present?
       new_state = t("activerecord.attributes.plot.progresses.#{plot_params[:progress]}")
-      t("notify.updated_state", state: new_state)
+      t("notify.updated_progress", state: new_state)
     else
-      t("notify.updated")
+      t("notify.generic_updated")
     end
   end
 

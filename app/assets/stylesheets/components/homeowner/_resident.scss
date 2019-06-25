@@ -150,3 +150,17 @@
     margin-right: 0;
   }
 }
+
+// mobile and tablet view
+@include media($tablet-landscape-down) {
+  .resident {
+    @include outer-container(90%);
+  }
+  .branded-btn {
+    margin-bottom: 10px;
+  }
+}
+
+@include media($mobile-up) {
+
+}

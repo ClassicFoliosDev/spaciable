@@ -24,7 +24,7 @@ When(/^I want to create a development for the developer$/) do
 end
 
 Then(/^choice options should be off by default$/) do
-  expect(page).to have_content("Choice Options")
+  expect(page).to have_content("Choice options")
   expect(page).to have_content("Off")
   expect(page).not_to have_content("Choices Contact Email")
 end
@@ -45,7 +45,7 @@ When(/^I enable the Either option on the development$/) do
 end
 
 Then(/^a Choises contact email should become available$/) do
-  expect(page).to have_content("Choices Contact Email")
+  expect(page).to have_content("Choices contact email")
   click_on t("developments.form.submit")
   sleep 2
 end

@@ -270,22 +270,21 @@ Then(/^I should see the plot progress has been updated$/) do
 end
 
 Then(/^both residents have been notified$/) do
-  message = "has been updated to Ready for exchange"
+  message = t("notify.updated_progress", state: "Ready for exchange")
 
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 2
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
   expect(in_app_notification.residents.last.email).to eq PlotResidencyFixture.second_email
-  expect(in_app_notification.message).to include message
 
   expect(ActionMailer::Base.deliveries.count).to eq 2
 
   first_notification = ActionMailer::Base.deliveries.first
-  expect(first_notification.parts.first.body.raw_source).to include message
+  expect(first_notification).to have_body_text(message)
   expect(first_notification.to).to include CreateFixture.resident.email
 
   last_notification = ActionMailer::Base.deliveries.last
-  expect(last_notification.parts.first.body.raw_source).to include message
+  expect(last_notification).to have_body_text(message)
   expect(last_notification.to).to include PlotResidencyFixture.second_email
 
   ActionMailer::Base.deliveries.clear
@@ -323,26 +322,6 @@ Then(/^I should see the expiry date has been updated$/) do
   within ".about" do
     expect(page).to have_content " Expiry date: #{expiry_date}"
   end
-end
-
-Then(/^both residents have been notified of the completion date$/) do
-  message = "has been updated for your home"
-
-  in_app_notification = Notification.all.last
-  expect(in_app_notification.residents.count).to eq 2
-  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
-  expect(in_app_notification.residents.last.email).to eq PlotResidencyFixture.second_email
-  expect(in_app_notification.message).to include message
-
-  first_notification = ActionMailer::Base.deliveries.first
-  expect(first_notification.parts.first.body.raw_source).to include message
-  expect(first_notification.to).to include CreateFixture.resident.email
-
-  last_notification = ActionMailer::Base.deliveries.last
-  expect(last_notification.parts.first.body.raw_source).to include message
-  expect(last_notification.to).to include PlotResidencyFixture.second_email
-
-  ActionMailer::Base.deliveries.clear
 end
 
 Given(/^there is a second resident$/) do
