@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Homeowner Account
   As a homeowner
   I want to manage my account

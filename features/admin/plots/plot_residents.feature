@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Plot Residents
   As an admin
   I want to assign a resident to a plot

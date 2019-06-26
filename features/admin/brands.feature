@@ -1,10 +1,10 @@
-@slow
+@javascript
+
 Feature: Brands
   As a CF Admin
   I want to create brands
   So I can use them to configure a developer's themed pages
 
-  @javascript
   Scenario: Developer
     Given I am logged in as an admin
     And there is a developer
@@ -20,7 +20,6 @@ Feature: Brands
     When I delete the developer brand
     Then I should see the developer brand deletion complete successfully
 
-  @javascript
   Scenario: Division
     Given I am logged in as an admin
     And there is a developer with a division
@@ -34,7 +33,6 @@ Feature: Brands
     When I delete the division brand
     Then I should see the division brand deletion complete successfully
 
-  @javascript
   Scenario: Development
     Given I am logged in as an admin
     And there is a developer with a development

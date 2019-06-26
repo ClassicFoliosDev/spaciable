@@ -1,3 +1,5 @@
+@javascript @slow
+
 Feature: UnitTypes
   As a CF Admin
   I want to add the development unit types
@@ -22,7 +24,6 @@ Feature: UnitTypes
     When I clone a unit type twice
     Then I should see another duplicate unit type created successfully
 
-  @javascript
   Scenario: Clone full unit type
     Given I am logged in as an admin
     And there is a unit type room with finish and appliance
@@ -37,7 +38,6 @@ Feature: UnitTypes
     And I clone the unit type
     Then I should see a duplicate unit type without finish and appliance created successfully
 
-  @javascript
   Scenario: Delete
     Given I am logged in as an admin
     And I have created a unit type
@@ -60,7 +60,6 @@ Feature: UnitTypes
     When there is a division development unit type
     Then I should not be able to clone a unit type
 
-  @javascript
   Scenario: Development Admin
     Given I am a Development Admin
     When I navigate to the development
@@ -68,7 +67,6 @@ Feature: UnitTypes
     When there is a unit type
     Then I should not be able to clone a unit type
 
-  @javascript
   Scenario: Delete unit type for plots
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase

@@ -1,9 +1,10 @@
+@javascript
+
 Feature: Developers
   As a CF Admin
   I want to add finish types
   So that I can use them when I create a new finish
 
-  @javascript @slow
   Scenario: Create finish_type
     Given I am logged in as an admin
     And there is a finish category
@@ -14,7 +15,6 @@ Feature: Developers
     When I create a finish with the new finish type
     Then I should see the finish created successfully
 
-  @javascript @slow
   Scenario: Test using and deleting the finish type
     Given I am logged in as an admin
     And there is a finish type

@@ -1,9 +1,10 @@
+@javascript @slow
+
 Feature: Plots
   As a CF Admin
   I want to add plots to a phase
   So that I can record the homes as they are built and sold
 
-  @javascript
   Scenario: Phase Plots
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
@@ -23,7 +24,6 @@ Feature: Plots
     When I send a notification the phase
     Then I should see the notification is not sent to the former resident
 
-  @javascript
   Scenario: Address Prefix
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
@@ -32,7 +32,6 @@ Feature: Plots
     When I edit a plot with prefix and postal number
     Then the postal number should not inherit from the plot number
 
-  @javascript
   Scenario: Plot preview
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
@@ -46,7 +45,6 @@ Feature: Plots
     And I can see my appliances
     And I can see my contacts
 
-  @javascript
   Scenario: Developer Admin
     Given I am logged in as a Developer Admin
     And there is a phase plot resident
@@ -59,7 +57,6 @@ Feature: Plots
     Then I should see the plot progress has been updated
     And both residents have been notified
 
-  @javascript
   Scenario: Development Admin
     Given I am logged in as a Development Admin
     And there is a phase plot resident
@@ -88,7 +85,6 @@ Feature: Plots
     Then I should see the plots have been created
     And the plots should have the postal number configured
 
-  @javascript
   Scenario: Phase Plots
     Given I am logged in as an admin
     And I have a spanish developer with a development with unit types and a phase

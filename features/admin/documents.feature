@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Documents
   As an Admin
   I want to add our clients documents

@@ -38,12 +38,9 @@ When(/^I update the unit type$/) do
     find("[data-action='edit']").click
   end
 
-  sleep 0.3 # these fields are not found without the sleep :(
+  sleep 2 # these fields are not found without the sleep :(
   fill_in "unit_type[name]", with: UnitTypeFixture.updated_unit_type_name
   fill_in "unit_type_external_link", with: UnitTypeFixture.external_url
-
-  select t("activerecord.attributes.unit_type.build_types.house_detached"),
-         from: "unit_type[build_type]"
 
   click_on t("unit_types.form.submit")
 end
@@ -60,10 +57,6 @@ Then(/^I should see the updated unit type$/) do
   UnitTypeFixture.update_attrs.each do |_attr, value|
     expect(page).to have_content(value)
   end
-
-  expect(page).to have_content(
-    t("activerecord.attributes.unit_type.build_types.house_detached")
-  )
 end
 
 And(/^I have created a unit type$/) do

@@ -1,9 +1,10 @@
+@javascript
+
 Feature: Appliances
   As a CF Admin
   I want to add appliances
   So that I can add them to rooms and the home owner knows what they are getting
 
-  @javascript @slow
   Scenario:
     Given I am logged in as an admin
     And I have seeded the database with appliances
@@ -24,7 +25,6 @@ Feature: Appliances
     When I remove a file
     Then I should see the updated appliance without the file
 
-  @javascript @slow
   Scenario: Delete
     Given I am logged in as an admin
     And there is an appliance manufacturer

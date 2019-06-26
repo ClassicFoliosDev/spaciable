@@ -1,4 +1,5 @@
-@javascript @slow
+@javascript
+
 Feature: FAQs
   As an Admin
   I want to CRUD videos for developments

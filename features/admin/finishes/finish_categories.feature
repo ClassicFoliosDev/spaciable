@@ -1,9 +1,10 @@
+@javascript
+
 Feature: Developers
   As a CF Admin
   I want to add finish_categories
   So that I can use them when I create a new finish
 
-  @javascript @slow
   Scenario: Create finish_category
     Given I am logged in as an admin
     And there is a finish manufacturer
@@ -12,7 +13,6 @@ Feature: Developers
     When I update the finish category
     Then I should see the updated finish category
 
-  @javascript @slow
   Scenario: Test using and deleting the finish category
     Given I am logged in as an admin
     And there is a finish category

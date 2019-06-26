@@ -1,4 +1,5 @@
-@javascript
+@javascript @slow
+
 Feature: Release Plots
   As a CF Admin
   I want to release plots in bulk

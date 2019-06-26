@@ -12,13 +12,10 @@ Feature: FAQs
     Then I should see the updated Developer FAQ
     When I delete the Developer FAQ
     Then I should no longer see the Developer FAQ
-
     When I create a FAQ for a Division
     Then I should see the created Division FAQ
-
     When I create a FAQ for a Development
     Then I should see the created Development FAQ
-
     When I create a FAQ for a (Division) Development
     Then I should see the created (Division) Development FAQ
 
@@ -30,13 +27,10 @@ Feature: FAQs
     Then I should see the updated Developer FAQ
     When I delete the Developer FAQ
     Then I should no longer see the Developer FAQ
-
     When I create a FAQ for a Division
     Then I should see the created Division FAQ
-
     When I create a FAQ for a Development
     Then I should see the created Development FAQ
-
     When I create a FAQ for a (Division) Development
     Then I should see the created (Division) Development FAQ
 
@@ -45,14 +39,11 @@ Feature: FAQs
     And my Divisions Developer has FAQs
     And there is a division resident
     Then I should only be able to see the Developer FAQs for my Division
-
     When I create a FAQ for a Division
     Then I should see the created Division FAQ
     And I should see the faq resident has been notified
-
     When I update the Division FAQ
     Then I should see the updated Division FAQ
-
     When I create a FAQ for a (Division) Development
     Then I should see the created (Division) Development FAQ
 

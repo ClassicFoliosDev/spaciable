@@ -1,9 +1,10 @@
+@javascript @slow
+
 Feature: Contacts
   As a CF Admin
   I want to create contacts
   So that homeowners know who to contact for help
 
-  @javascript
   Scenario: Developer
     Given I am logged in as an admin
     And there is a developer
@@ -18,7 +19,6 @@ Feature: Contacts
     When I delete the contact
     Then I should see the contact deletion complete successfully
 
-  @javascript
   Scenario: Division
     Given I am logged in as an admin
     And there is a developer with a division
@@ -33,7 +33,6 @@ Feature: Contacts
     When I delete the division contact
     Then I should see the contact deletion complete successfully
 
-  @javascript
   Scenario: Development
     Given I am logged in as an admin
     And there is a developer with a development
@@ -50,7 +49,6 @@ Feature: Contacts
     When I delete the development contact
     Then I should see the contact deletion complete successfully
 
-  @javascript
   Scenario: Phase
     Given I am logged in as an admin
     And there is a phase
@@ -65,7 +63,6 @@ Feature: Contacts
     When I delete the phase contact
     Then I should see the contact deletion complete successfully
 
-  @javascript
   Scenario: Developer admin
     Given I am logged in as a Developer Admin
     And there is a phase
@@ -80,7 +77,6 @@ Feature: Contacts
     When I delete the phase contact
     Then I should see the contact deletion complete successfully
 
-  @javascript
   Scenario: Division admin
     Given I am logged in as a Division Admin
     And there is a division phase
@@ -96,7 +92,6 @@ Feature: Contacts
     When I delete the division phase contact
     Then I should see the contact deletion complete successfully
 
-  @javascript
   Scenario: Division Development admin
     Given I am logged in as a Development Admin for a Division
     And there is a division phase

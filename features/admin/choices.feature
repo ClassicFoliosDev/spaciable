@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Developments
   As a CF Admin
   I want to make choices for plots

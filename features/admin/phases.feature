@@ -1,9 +1,10 @@
+@javascript @slow
+
 Feature: Phases
   As a CF Admin
   I want to add the development phases
   So that the I can match the development approach of the client
 
-  @javascript
   Scenario:
     Given I am logged in as an admin
     And I have a developer with a development
@@ -19,7 +20,6 @@ Feature: Phases
     When I delete the phase
     Then I should see the development address has not been changed
 
-  @javascript
   Scenario: Phase plot progress
     Given I am logged in as an admin
     And there is a phase plot with a resident
@@ -27,7 +27,6 @@ Feature: Phases
     Then I should see the phase progress has been updated
     And Phase residents should have been notified
 
-  @javascript
   Scenario: Phase plot progress for deleted plot
     Given I am logged in as an admin
     And there is a phase plot with a resident
@@ -43,7 +42,6 @@ Feature: Phases
     Then I can not update the progress for a plot
     And I should not see the production tab
 
-  @javascript
   Scenario: Development admin
     Given I am logged in as a Development Admin
     And there is a phase plot with a resident
@@ -51,7 +49,6 @@ Feature: Phases
     Then I should see the phase progress has been updated
     And I should not see the production tab
 
-  @javascript
   Scenario: Spanish Phase
     Given I am logged in as an admin
     And I have a spanish developer with a development

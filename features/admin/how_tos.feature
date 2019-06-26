@@ -1,4 +1,5 @@
-@javascript @slow
+@javascript
+
 Feature: HowTos
   As an Admin
   I want to CRUD HowTos
