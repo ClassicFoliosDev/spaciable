@@ -75,6 +75,10 @@ class Notification < ApplicationRecord
     "#{sender.email} (#{sender.permission_level_name})"
   end
 
+  def permission_level_name
+    permission_level || "Hoozzi Admin"
+  end
+
   # rubocop:disable MethodLength
   def full_sent_to
     sent = send_to.to_s
@@ -88,7 +92,11 @@ class Notification < ApplicationRecord
       phase = Phase.find_by(id: send_to_id)
       development = phase.development
       division = phase.division
-      return "#{sent} (#{development}, #{division})"
+      if division.present?
+        "#{sent} (#{development}, #{division})"
+      else
+        "#{sent} (#{development})"
+      end
     else
       return sent
     end

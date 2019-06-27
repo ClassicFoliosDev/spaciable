@@ -13,7 +13,7 @@
     <div class="details branded-text">
       <div id="notification-<%= notification.id %>">
         <h5>
-          <span class="strong"><%= "#{notification.first_name} #{notification.last_name} (#{notification.permission_level})" %></span>
+          <span class="strong"><%= "#{notification.first_name} #{notification.last_name} (#{notification.permission_level_name})" %></span>
           <span><%= notification.job_title %></span>
           <span class="right"><%= notification.sent_at.strftime("%d %b") %></span>
         </h5>
