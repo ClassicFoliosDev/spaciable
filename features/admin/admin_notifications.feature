@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: Admin Notifications
   As a CF Admin
   I want to be able to notify admins in bulk

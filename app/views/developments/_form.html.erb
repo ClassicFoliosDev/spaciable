@@ -17,7 +17,6 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :name %>
-        <%= f.input :business, as: :select, collection: development_businesses_collection, include_blank: false %>
         <%= f.input :email %>
         <%= f.input :contact_number %>
         <%= f.input :maintenance_link, placeholder: t(".maintenance_placeholder") %>

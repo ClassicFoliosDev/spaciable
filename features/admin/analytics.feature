@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Analytics
   As a CF Admin
   I want to export analytics

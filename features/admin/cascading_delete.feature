@@ -1,9 +1,9 @@
+@javascript @poke
 Feature: Cascading delete
   As an admin
   I want to delete a developer
   And see all its children are removed
 
-  @javascript
   Scenario:
     Given I am logged in as a CF Admin wanting to manage plot rooms
     Given there are contacts

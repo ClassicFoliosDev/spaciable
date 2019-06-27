@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Homeowner external links
   As a homeowner
   I want to see links to external sites

@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Developments
   As a CF Admin
   I want to add our clients developments

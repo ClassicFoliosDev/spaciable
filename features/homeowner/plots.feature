@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Plots
   As a homeowner with multiple plots
   I want to be able to switch between plots

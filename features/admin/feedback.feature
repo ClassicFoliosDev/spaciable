@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: Feedback
   As a user
   I want to provide feedback

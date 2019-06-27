@@ -13,14 +13,15 @@ class DocumentUploader < CarrierWave::Uploader::Base
     storage :file
   end
 
-  # def convert_to_image(height, width)
-  #   image = MiniMagick::Image.open(current_path)
-  #   image.resize "#{height}x#{width}"
-  #   image.write(current_path)
-  # end
+  def convert_to_image(height, width)
+    image = MiniMagick::Image.open(current_path)
+    image.resize "#{height}x#{width}"
+    image.alpha "remove"
+    image.write(current_path)
+  end
 
   version :preview, if: :not_svg? do
-    # process convert_to_image: [210, 297]
+    process convert_to_image: [210, 297]
     process convert: :jpg
     process resize_to_fill: [210, 297]
 

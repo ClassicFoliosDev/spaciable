@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Dashboard
   As a homeowner
   I want to see the dashboard

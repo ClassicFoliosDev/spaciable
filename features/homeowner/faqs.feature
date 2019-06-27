@@ -1,3 +1,4 @@
+@poke
 Feature: FAQs
   As a homeowner
   I want to read FAQs related to my home

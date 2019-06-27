@@ -1,3 +1,4 @@
+@poke
 Feature: HowTos
   As a homeowner
   I want to see HowTos

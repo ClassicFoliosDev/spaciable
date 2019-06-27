@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: Finishes
   As a CF Admin
   I want to create finishes

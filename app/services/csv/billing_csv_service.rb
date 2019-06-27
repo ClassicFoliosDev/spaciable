@@ -72,7 +72,7 @@ module Csv
         plot.validity,
         plot.extended_access,
         plot.expiry_date,
-        I18n.t("activerecord.attributes.development.businesses.#{plot.development_business}"),
+        I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),
         plot.house_search,
         plot.enable_services?,
         plot.show_maintenance?

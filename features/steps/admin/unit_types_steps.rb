@@ -38,7 +38,7 @@ When(/^I update the unit type$/) do
     find("[data-action='edit']").click
   end
 
-  sleep 2 # these fields are not found without the sleep :(
+  sleep 0.5 # these fields are not found without the sleep :(
   fill_in "unit_type[name]", with: UnitTypeFixture.updated_unit_type_name
   fill_in "unit_type_external_link", with: UnitTypeFixture.external_url
 

@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Documents
   As a CF Admin
   I want to search for appliances and finishes

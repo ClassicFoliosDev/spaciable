@@ -1,3 +1,4 @@
+@poke
 Feature: Homeowner Branding
   As a homeowner
   When I log in

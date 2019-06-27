@@ -53,7 +53,7 @@ module Csv
         plot.to_s,
         plot.phase.to_s,
         plot.expiry_date,
-        I18n.t("activerecord.attributes.development.businesses.#{plot.development_business}")
+        I18n.t("activerecord.attributes.phase.businesses.#{plot.business}")
       ]
     end
 

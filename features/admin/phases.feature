@@ -1,5 +1,4 @@
-@javascript @slow
-
+@javascript @poke
 Feature: Phases
   As a CF Admin
   I want to add the development phases

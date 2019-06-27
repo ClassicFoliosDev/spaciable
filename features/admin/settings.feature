@@ -1,3 +1,4 @@
+@poke
 Feature: Plots
   As a CF Admin
   I want to add a link to a video

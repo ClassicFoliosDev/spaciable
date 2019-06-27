@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Homeowner MyHome
   As a homeowner
   When I log in

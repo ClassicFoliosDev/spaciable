@@ -784,7 +784,6 @@ en:
       back: "Back"
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
       maintenance_tip: "Make sure you use the plugin-friendly version of a URL, for more details see http://www.fixflo.com/tech/plugin-example/"
-      business: "Business"
       snagging_description: "A homeowner can report snagging issues for their plot. The duration of snagging can be set below, and will take effect from legal completion date. A custom name can also be set."
       enable_snagging: "Snagging"
       snag_duration: "Duration (days)"
@@ -797,7 +796,6 @@ en:
       private_documents: "Documents from all residents: "
       none: "(not configured)"
       maintenance_link: "Maintenance link: "
-      business: "Business: "
       snagging: "Snagging enabled: "
 
   homeowners:
@@ -1359,6 +1357,7 @@ en:
       title: "Edit %{phase_name}"
     form:
       address: "Phase address"
+      business: "Business"
       submit: "Submit"
       back: "Back"
     index:
@@ -1369,6 +1368,7 @@ en:
       name: "Phase %{number}"
       residents: "All residents: "
       subscribed_residents: "Subscribed residents: "
+      business: "Business: "
     collection:
       add: "Add phase"
       plots: "Plots"
@@ -2090,12 +2090,13 @@ en:
         email: "Email address"
         contact_number: "Contact number"
         updated_at: "Last edited"
-        businesses:
-          core: "Core"
-          nhbc: "NHBC"
       phase:
         name: "Name"
         updated_at: "Last edited"
+        businesses:
+          core: "Core"
+          nhbc: "NHBC"
+          mhf: "Migrated"
       unit_type:
         name: "Unit type name"
         picture: "Unit type picture"

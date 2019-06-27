@@ -16,6 +16,7 @@
       <fieldset>
         <%= f.input :name %>
         <%= f.input :number, as: :integer %>
+        <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
       </fieldset>
     </div>
     <div class="row-item third">

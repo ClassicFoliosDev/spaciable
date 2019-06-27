@@ -78,7 +78,7 @@ module Developers
     # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
-        :name, :business,
+        :name,
         :choice_option,
         :choices_email_contact,
         :developer_id,

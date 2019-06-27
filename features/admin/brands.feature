@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: Brands
   As a CF Admin
   I want to create brands

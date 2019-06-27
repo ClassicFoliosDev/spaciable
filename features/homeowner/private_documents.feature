@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: My Home Library Documents
   As a homeowner
   I want to be able to upload documents related to the home I have purchased

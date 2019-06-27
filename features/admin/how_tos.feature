@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: HowTos
   As an Admin
   I want to CRUD HowTos

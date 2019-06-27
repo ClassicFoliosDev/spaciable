@@ -1,3 +1,4 @@
+@poke
 Feature: Production Plots
   As a CF Admin
   I want to see a production view of plots

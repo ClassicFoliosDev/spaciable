@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: Developers
   As a CF Admin
   I want to add manufacturers

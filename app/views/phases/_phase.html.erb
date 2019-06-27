@@ -5,7 +5,10 @@
     </div>
     <span class="about">
       <strong><%= t(".residents") %></strong><%= resident_count %><br/>
-      <strong><%= t(".subscribed_residents") %></strong><%= subscribed_resident_count %>
+      <strong><%= t(".subscribed_residents") %></strong><%= subscribed_resident_count %><br/>
+      <% if current_user.cf_admin? %>
+        <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %>
+      <% end %>
     </span>
   </div>
 

@@ -47,11 +47,6 @@ class Development < ApplicationRecord
   delegate :to_s, to: :name
   delegate :development_faqs, :country, to: :parent
 
-  enum business: [
-    :core, # default
-    :nhbc
-  ]
-
   enum choice_option:
     %i[
       choices_disabled

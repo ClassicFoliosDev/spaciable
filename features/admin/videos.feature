@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: FAQs
   As an Admin
   I want to CRUD videos for developments

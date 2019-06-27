@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190530100007) do
+ActiveRecord::Schema.define(version: 20190626133503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,7 +280,6 @@ ActiveRecord::Schema.define(version: 20190530100007) do
     t.integer  "phases_count",          default: 0
     t.string   "segment_id"
     t.string   "maintenance_link"
-    t.integer  "business",              default: 0
     t.boolean  "enable_snagging",       default: false
     t.integer  "snag_duration",         default: 0
     t.string   "snag_name",             default: "Snagging", null: false
@@ -492,6 +491,7 @@ ActiveRecord::Schema.define(version: 20190530100007) do
     t.datetime "deleted_at"
     t.integer  "total_snags",      default: 0
     t.integer  "unresolved_snags", default: 0
+    t.integer  "business",         default: 0
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree

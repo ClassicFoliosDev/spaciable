@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
-@javascript
-
+@javascript @poke
 Feature: Admin Snagging
   As an admin
   If snagging is enable for my development

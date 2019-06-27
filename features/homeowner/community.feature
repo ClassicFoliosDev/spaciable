@@ -1,9 +1,9 @@
+@javascript @poke
 Feature: Community
   As a homeowner
   When I log in
   I want to see messages from other residents in my development
 
-  @javascript
   Scenario:
     Given there is a phase plot with a resident
     And the developer has enabled development messages

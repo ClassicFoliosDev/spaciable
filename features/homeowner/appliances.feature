@@ -1,9 +1,9 @@
+@javascript @poke
 Feature: Homeowner Appliances
   As a homeowner
   When I log in
   I want to see the configuration of my home appliances
 
-  @javascript
   Scenario:
     Given I am logged in as a homeowner want to download my documents
     And there is an appliance with a guide

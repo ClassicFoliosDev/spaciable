@@ -1,4 +1,4 @@
-@javascript @slow
+@javascript @poke
 Feature: Homeowner Account
   As a homeowner
   I want to manage my account

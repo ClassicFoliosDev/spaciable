@@ -11,7 +11,6 @@ class Plot < ApplicationRecord
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
-  delegate :business, to: :development, prefix: true
   def parent
     phase || development
   end
@@ -66,6 +65,7 @@ class Plot < ApplicationRecord
   delegate :name, to: :development, prefix: true
   delegate :name, to: :phase, prefix: true
   delegate :choices_email_contact, to: :development
+  delegate :business, to: :phase
 
   enum progress: %i[
     soon

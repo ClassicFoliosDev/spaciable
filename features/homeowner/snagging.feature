@@ -1,7 +1,4 @@
-# frozen_string_literal: true
-
-@javascript
-
+@javascript @poke
 Feature: Homeowner Snagging
   As a homeowner
   If snagging is enable for my development

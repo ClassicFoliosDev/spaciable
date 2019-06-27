@@ -1,9 +1,9 @@
+@javascript @poke
 Feature: Homeowner Search
   As a homeowner
   I want to search content
   To find stuff about my home
 
-  @javascript
   Scenario:
     Given I am logged in as a homeowner want to download my documents
     And there are contacts

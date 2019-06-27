@@ -1,5 +1,4 @@
-@javascript
-
+@javascript @poke
 Feature: Appliances
   As a CF Admin
   I want to add appliances

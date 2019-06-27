@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: My Home Library
   As a homeowner
   I want to see all the documents related to the home I have purchased

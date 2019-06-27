@@ -1,5 +1,4 @@
 @javascript @slow
-
 Feature: Plots
   As a CF Admin
   I want to add plots to a phase

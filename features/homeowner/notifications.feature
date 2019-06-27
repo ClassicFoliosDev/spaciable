@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Notifications
   As a homeowner
   I want to review my notifications

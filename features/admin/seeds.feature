@@ -1,3 +1,4 @@
+@poke
 Feature: Seeds
   As an administrator
   I want to be able to run the seeds

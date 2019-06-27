@@ -51,6 +51,12 @@ class Phase < ApplicationRecord
            :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
 
+  enum business: [
+    :core, # default
+    :nhbc,
+    :mhf
+  ]
+
   def build_address_with_defaults
     return if address.present?
     return build_address if !development || !development.address
