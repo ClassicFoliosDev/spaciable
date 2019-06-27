@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Terms and Conditions
   As a site user
   I must see information about cookies

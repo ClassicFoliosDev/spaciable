@@ -36,7 +36,10 @@ module Admin
 
     def notify_and_redirect
       plot = @snag.plot
-      update = I18n.t("resident_snag_mailer.notify.new_status")
+      status = @snag.awaiting? ? "resolved" : @snag.status
+      resolved_text = I18n.t("resident_snag_mailer.notify.resolved", tool_name: @snag.snag_name)
+      resolved = @snag.awaiting? ? resolved_text : ""
+      update = I18n.t("resident_snag_mailer.notify.new_status", status: status, resolved: resolved)
       ResidentSnagMailer.snag_status_email(@snag, current_user).deliver
       ResidentSnagService.call(current_user, update, plot)
       redirect_to admin_snag_path(id: @snag.id), notice: t(".status_updated")

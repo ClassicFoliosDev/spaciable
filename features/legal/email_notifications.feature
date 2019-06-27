@@ -1,4 +1,4 @@
-@javascript
+@javascript @slow
 Feature: Legal emails
   As a homeowner
   I do not want to receive emails unless I have actively subscribed

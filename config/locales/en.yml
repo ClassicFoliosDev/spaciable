@@ -439,8 +439,8 @@ en:
       snag_details: "You can view this comment under your issue report, found under the %{tool_name} menu in My Home, or by "
     snag_status_email:
       snag_status_subject: "An issue report on your plot has has its resolved status updated"
-      new_snag_status: "The following issue has had it's resolved status updated by %{user}: "
-      confirm_status: "Please login to your account to confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by "
+      new_snag_status: "The following issue has been marked as %{status} by %{user}: "
+      confirm_status: "Please login to your account to view the update and confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by "
       status_details: "Login to your account to view and comment on this issue report, found under the %{tool_name} menu in My Home, or by "
     all_snags_resolved_email:
       snags_resolved_subject: "All issues have now been resolved for your home"
@@ -449,9 +449,10 @@ en:
       resolved: "Issue submission has now expired and all issues have been resolved for %{address} (Plot %{plot}). You can view your archived issue reports under the My Account page."
     notify:
       new_notification: "You have a new issue report update"
-      message: "An issue report on %{address} (Plot %{plot}) has %{update}."
-      new_status: "had it's resolved status updated"
+      message: "An issue report on %{address} (Plot %{plot}) has %{update}"
+      new_status: "been marked as %{status}. %{resolved}"
       new_comment: "received a new comment"
+      resolved: "Please check this update under the %{tool_name} menu in My Home to confirm or reject the resolved status."
 
   forms:
     required: "Required"

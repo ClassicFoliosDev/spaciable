@@ -1,4 +1,4 @@
-@javascript
+@javascript @poke
 Feature: Deactivate Resident
   As a homeowner
   I want to be able to close my account

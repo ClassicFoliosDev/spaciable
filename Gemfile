@@ -74,6 +74,7 @@ gem "newrelic_rpm"
 gem "bourbon"
 gem "font-awesome-rails"
 gem "neat", "~> 1"
+gem "rails-timeago"
 
 # Pagination with kaminari: https://github.com/amatsuda/kaminari
 gem "kaminari"

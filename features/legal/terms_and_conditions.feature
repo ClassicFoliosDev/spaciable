@@ -1,3 +1,4 @@
+@slow
 Feature: Terms and Conditions
   As a homeowner
   I want to be able to see terms and conditions and privacy policy

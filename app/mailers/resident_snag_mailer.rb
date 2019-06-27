@@ -12,6 +12,7 @@ class ResidentSnagMailer < ApplicationMailer
 
   def snag_status_email(snag, current_user)
     @user = snag.user_name(current_user)
+    @status = status_to_text(snag)
     get_snag_info(snag)
     mailer_template(snag)
     subject = t(".snag_status_subject")
@@ -26,6 +27,14 @@ class ResidentSnagMailer < ApplicationMailer
   end
 
   private
+
+  def status_to_text(snag)
+    if snag.awaiting?
+      "resolved"
+    else
+      snag.status
+    end
+  end
 
   def mailer_template(info)
     get_plot_info(info)

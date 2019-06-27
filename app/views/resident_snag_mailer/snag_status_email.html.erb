@@ -8,7 +8,7 @@
 
 <p><%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %></p>
 
-<% if @status == "resolved" %>
+<% if @snag.awaiting? %>
   <p><%= t(".confirm_status", tool_name: @tool_name) %><%= link_to t("snag_mailer.link_to_snag"), snag_url(@snag.id) %>.</p>
 <% else %>
   <p><%= t(".status_details", tool_name: @tool_name) %><%= link_to t("snag_mailer.link_to_snag"), snag_url(@snag.id) %>.</p>

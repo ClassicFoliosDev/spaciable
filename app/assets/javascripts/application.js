@@ -19,3 +19,4 @@
 // = require addtohomescreen/addtohomescreen
 // = require cookies_eu
 // = require_tree .
+// = require rails-timeago

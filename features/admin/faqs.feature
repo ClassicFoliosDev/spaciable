@@ -1,4 +1,4 @@
-@javascript @slow
+@javascript @poke
 Feature: FAQs
   As an Admin
   I want to CRUD FAQs at different levels in the resource tree

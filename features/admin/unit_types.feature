@@ -1,4 +1,4 @@
-@poke
+@slow
 Feature: UnitTypes
   As a CF Admin
   I want to add the development unit types
