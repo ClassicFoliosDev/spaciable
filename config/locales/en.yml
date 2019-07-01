@@ -1958,6 +1958,7 @@ en:
       description: "<p>The following %{resource} has been %{verb} your home's online portal: </p>"
       verb_message_content: "%{verb}"
       message_content: "%{description} %{details}"
+      admin_notification: "%{address} %{message}"
 
   services:
     homeowner_login_content_service:
