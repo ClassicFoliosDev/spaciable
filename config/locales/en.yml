@@ -410,7 +410,7 @@ en:
     delete: "A snag report has been deleted"
     notify_rejection: "A Resolved Snag has been %{status}"
     new_snag_comment: "%{commenter_name} has added a comment to a snag"
-    rejected_status: "The following snag has had it's resolved status %{status}: "
+    rejected_status: "The following snag has had its resolved status %{status}: "
     comment_email_opening: "%{commenter_name} has left a new comment on the following snag:"
     email_opening: "%{age} snag has been %{status}:"
     snag_title: "Snag Title: "
@@ -512,7 +512,7 @@ en:
         approved: "The resident has approved this snag as being resolved. The comments feature is now unavailable."
         unresolved: "This snag is currently unresolved. You can mark this snag as resolved below. Once marked resolved, the resident will be updated and may approve or reject the resolved status."
       update:
-        status_updated: "This snag has had it's resolved status updated and the resident(s) have been notified"
+        status_updated: "This snag has had its resolved status updated and the resident(s) have been notified"
 
     admin_notifications:
       index:
