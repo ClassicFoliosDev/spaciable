@@ -76,7 +76,11 @@ class Notification < ApplicationRecord
   end
 
   def permission_level_name
-    permission_level || "Hoozzi Admin"
+    if sender.present?
+      permission_level || "Hoozzi Admin"
+    else
+      "User Deleted"
+    end
   end
 
   # rubocop:disable MethodLength
@@ -110,5 +114,5 @@ class Notification < ApplicationRecord
   delegate :picture, to: :sender, allow_nil: true
   delegate :to_s, to: :subject
   delegate :to_str, to: :subject
-  delegate :permission_level, to: :sender
+  delegate :permission_level, to: :sender, allow_nil: true
 end
