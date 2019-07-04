@@ -72,7 +72,11 @@ class Notification < ApplicationRecord
 
   def sent_from
     sender = User.find_by(id: sender_id)
-    "#{sender.email} (#{sender.permission_level_name})"
+    if sender.present?
+      "#{sender.email} (#{sender.permission_level_name})"
+    else
+      "User Deleted"
+    end
   end
 
   def permission_level_name
