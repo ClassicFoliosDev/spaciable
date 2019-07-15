@@ -12,6 +12,9 @@ class Document < ApplicationRecord
 
   validates :file, presence: true
 
+  delegate :expired?, to: :parent
+  delegate :partially_expired?, to: :parent
+
   enum category: %i[
     my_home
     locality

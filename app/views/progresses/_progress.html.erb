@@ -1,13 +1,14 @@
-
 <div class="plot-progress">
   <%= simple_form_for plot, url: plot_path(plot), html: { method: :put } do |f| %>
     <div class="row">
-      <div class="row-item half">
-        <div class="plot_progress ui-front select-container">
-          <label><%= t(".update_progress") %></label>
-          <%= f.select :progress, options_for_select(progress_collection(plot&.progress)), label: false %>
+      <% unless plot.expired? && !(current_user.cf_admin?) %>
+        <div class="row-item half">
+          <div class="plot_progress ui-front select-container">
+            <label><%= t(".update_progress") %></label>
+            <%= f.select :progress, options_for_select(progress_collection(plot&.progress)), label: false %>
+          </div>
         </div>
-      </div>
+      <% end %>
 
       <div class="row-item half">
         <label><%= t(".previous") %></label>
@@ -15,12 +16,14 @@
       </div>
     </div>
 
-    <div class="above-footer">
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      <div class="notify">
-        <%= label_tag t(".notify") %>
-        <%= f.check_box :notify %>
+    <% unless plot.expired? && !(current_user.cf_admin?) %>
+      <div class="above-footer">
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        <div class="notify">
+          <%= label_tag t(".notify") %>
+          <%= f.check_box :notify %>
+        </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>

@@ -1,4 +1,4 @@
-  <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title"), brand: @brand } %>
+  <%= render partial: 'layouts/homeowner_head', locals: { title: t(".title"), brand: @brand, plot: @plot } %>
   <body class="login-view">
     <% if @brand&.branded_login_image %>
       <div class="login-background" style="background-image: url('<%= image_path(@brand.branded_login_image) %>')" >

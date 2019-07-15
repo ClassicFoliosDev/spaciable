@@ -44,7 +44,9 @@ class ResidentsController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    (redirect_to plot_resident_path unless current_user.cf_admin?) if @plot.expired?
+  end
 
   def destroy
     @resident.plots.delete(@plot)

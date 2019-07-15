@@ -2,12 +2,14 @@
   <%= render 'components/empty_list', icon_name: "vcard", type: Contact, parent: parent %>
 <% else %>
   <% if can_create(Contact, parent) %>
-    <div class="section-actions">
-      <%= link_to [:new, parent, :contact], class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".create") %></span>
-      <% end %>
-    </div>
+    <% unless parent.expired? && !(current_user.cf_admin?) %>
+      <div class="section-actions">
+        <%= link_to [:new, parent, :contact], class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t(".create") %></span>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="contacts">
@@ -31,8 +33,8 @@
           <td colspan="2"><%= l contact.updated_at.to_date, format: :digits %></td>
           <td colspan="2"><%= t("activerecord.attributes.contact.categories.#{contact.category}") if contact.category %></td>
           <td colspan="2" class="actions">
-            <%= edit_btn edit_contact_path(contact), element: contact %>
-            <%= delete_btn contact, path: contact_path(contact), element: contact %>
+            <%= (edit_btn edit_contact_path(contact), element: contact) unless parent.expired? && !(current_user.cf_admin?) %>
+            <%= (delete_btn contact, path: contact_path(contact), element: contact) unless parent.expired? && !(current_user.cf_admin?) %>
           </td>
         </tr>
         <% end %>

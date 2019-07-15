@@ -9,15 +9,17 @@ When(/^I visit the contacts page$/) do
 end
 
 Then(/^I should see the contacts for my plot$/) do
-  # Didn't create any contacts in Sales category, so there will be no contacts to see
+  # There are no contacts in the sales category. Created one contact in the Customer Care category
   within ".full-contacts" do
-    expect(page).not_to have_content(".contact")
+    contacts = page.all(".contact")
+    expect(contacts.count).to eq(1)
   end
 
   within ".hero-links" do
     click_on(t("activerecord.attributes.contact.categories.management"))
   end
 
+  sleep 0.3
   # Created two contacts in Management category
   within ".full-contacts" do
     contacts = page.all(".contact")

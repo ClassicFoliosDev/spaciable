@@ -1,12 +1,14 @@
 <%= simple_form_for edit_phase_path(phase), url: [:bulk_update, phase, :progresses] do |f| %>
 
   <div class="separate row">
-    <div class="row-item third">
-      <div class="progress_all ui-front">
-        <label><%= t(".update_progress") %></label>
-        <%= select_tag "progress_all", options_for_select(all_progress_collection) %>
+    <% unless phase.expired? && !(current_user.cf_admin?) %>
+      <div class="row-item third">
+        <div class="progress_all ui-front">
+          <label><%= t(".update_progress") %></label>
+          <%= select_tag "progress_all", options_for_select(all_progress_collection) %>
+        </div>
       </div>
-    </div>
+    <% end %>
 
     <div class="row-item two-thirds">
       <table class="record-list">
@@ -23,13 +25,14 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), [phase.parent, phase], class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      <div class="notify">
-        <%= label_tag t(".notify") %>
-        <%= check_box_tag :notify %>
-      </div>
+      <% unless phase.expired? && !(current_user.cf_admin?) %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        <div class="notify">
+          <%= label_tag t(".notify") %>
+          <%= check_box_tag :notify %>
+        </div>
+      <% end %>
     </div>
   </div>
 
 <% end %>
-

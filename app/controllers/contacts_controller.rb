@@ -25,10 +25,16 @@ class ContactsController < ApplicationController
   end
 
   def new
+    if @parent.expired?
+      redirect_to root_url unless current_user.cf_admin?
+    end
     authorize! :new, @contact
   end
 
   def edit
+    if @contact.expired?
+      redirect_to contact_path unless current_user.cf_admin?
+    end
     authorize! :edit, @contact
   end
 

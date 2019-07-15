@@ -2,12 +2,14 @@
   <%= render 'components/empty_list', icon_name: "file-pdf-o", type: Document, parent: parent %>
 <% else %>
   <% if parent && can_create(Document, parent) %>
-    <div class="section-actions">
-      <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
-      <% end %>
-    </div>
+    <% unless parent.expired? && !(current_user.cf_admin?) %>
+      <div class="section-actions">
+        <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t(".add") %></span>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class="documents">
@@ -35,8 +37,8 @@
               <%= link_to document&.file&.url, class: "btn",  target: "_blank" do %>
                 <%= icon "cloud-download" %>
               <% end %>
-              <%= edit_btn edit_document_path(document), element: document %>
-              <%= delete_btn document, path: url_for(document), element: document %>
+              <%= (edit_btn edit_document_path(document), element: document) unless parent.expired? && !(current_user.cf_admin?) %>
+              <%= (delete_btn document, path: url_for(document), element: document) unless parent.expired? && !(current_user.cf_admin?) %>
             </td>
           <% end %>
         </tr>

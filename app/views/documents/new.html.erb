@@ -2,6 +2,9 @@
 
 <div class="section-header">
   <div class="section-title">
+    <% if @document&.partially_expired? && !(current_user.cf_admin?) %>
+      <div class="expired"><span class="partial-expired-text"><%= t(".expired", parent: @parent) %></span></div>
+    <% end %>
     <%= fa_icon "file-pdf-o" %>
     <%= t(".title", name: @parent) %>
   </div>

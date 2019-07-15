@@ -18,4 +18,12 @@ module VideoFixture
   def updated_link
     "http://youtube.com/dummy"
   end
+
+  def second_title
+    "Second video"
+  end
+
+  def second_link
+    "http://youtube.com/second"
+  end
 end

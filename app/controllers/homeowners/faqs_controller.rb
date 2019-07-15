@@ -12,6 +12,7 @@ module Homeowners
       populate_categories
 
       @faqs = @faqs.where(category: @category)
+      @faqs = @faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
 
       # Redirect if category empty and others available
       redirect_to homeowner_faqs_path(@categories[0]) if @faqs.none? && @categories.any?
@@ -27,7 +28,9 @@ module Homeowners
     def populate_categories
       @categories = []
       Faq.country_categories(@country).each do |cat|
-        @categories << cat if @faqs.where(category: cat).any?
+        faqs = @faqs.where(category: cat)
+        faqs = faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+        @categories << cat if faqs.any?
       end
     end
   end

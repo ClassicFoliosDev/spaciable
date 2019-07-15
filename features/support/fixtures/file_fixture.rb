@@ -55,6 +55,14 @@ module FileFixture
     "Dummy pdf"
   end
 
+  def second_document_name
+    "unit_type_document.pdf"
+  end
+
+  def second_document_alt
+    "Second pdf"
+  end
+
   def manual_name
     "washing_machine_manual.pdf"
   end
@@ -80,7 +88,7 @@ module FileFixture
   end
 
   def default_banner_name
-    "https://tinyurl.com/j6s6be3"
+    "default_banner.png"
   end
 
   def banner_name

@@ -37,4 +37,20 @@ class Division < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  def expired?
+    expired = true
+    return expired = false if developments.empty?
+    developments.each do |development|
+      return expired = false unless development.expired?
+    end
+  end
+
+  def partially_expired?
+    plot_list = []
+    plots.each do |plot|
+      plot_list << plot if plot.expired?
+    end
+    return true if plot_list.count.positive?
+  end
 end

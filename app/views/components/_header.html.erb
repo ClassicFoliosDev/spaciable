@@ -9,8 +9,10 @@
   <% if current_user&.cf_admin? %>
     <%= render "components/search" %>
   <% elsif current_user %>
-    <div class="feedback-container">
-      <%= button_tag t(".feedback"), data: data_for_feedback(current_user.email), class: "right btn feedback-btn" %>
-    </div>
+    <% unless current_user.expired? %>
+      <div class="feedback-container">
+        <%= button_tag t(".feedback"), data: data_for_feedback(current_user.email), class: "right btn feedback-btn" %>
+      </div>
+    <% end %>
   <% end %>
 </header>

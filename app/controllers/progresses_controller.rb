@@ -20,7 +20,7 @@ class ProgressesController < ApplicationController
   def bulk_update
     state = params[:progress_all]
     result = @phase.plots.each do |plot|
-      plot.update_attributes(progress: state)
+      plot.update_attributes(progress: state) unless plot.expired?
     end
 
     if result

@@ -1,4 +1,4 @@
-@poke
+@javascript @poke
 Feature: Homeowner Contacts
   As a homeowner
   When I log in

@@ -3,8 +3,10 @@
 <% end %>
 <% content_for :hero_text_secondary do %>
   <ul class="hero-links categories">
-
-    <% if Document.accessible_by(current_ability).where(category: "my_home").any? %>
+    <% documents = Document.accessible_by(current_ability)
+                           .where(category: "my_home") %>
+    <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
+    <% if documents.any? %>
       <li>
           <%= link_to t_enum(Document, :category, "my_home"),
                       homeowner_library_path("my_home"),
@@ -12,7 +14,10 @@
       </li>
     <% end %>
 
-    <% if Document.accessible_by(current_ability).where(category: "locality").any? %>
+    <% documents = Document.accessible_by(current_ability)
+                           .where(category: "locality") %>
+    <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
+    <% if documents.any? %>
       <li>
           <%= link_to t_enum(Document, :category, "locality"),
                       homeowner_library_path("locality"),
@@ -20,7 +25,10 @@
       </li>
     <% end %>
 
-    <% if Document.accessible_by(current_ability).where(category: "legal_and_warranty").any? %>
+    <% documents = Document.accessible_by(current_ability)
+                           .where(category: "legal_and_warranty") %>
+    <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
+    <% if documents.any? %>
       <li>
           <%= link_to t_enum(Document, :category, "legal_and_warranty"),
                       homeowner_library_path("legal_and_warranty"),
@@ -36,7 +44,9 @@
       </li>
     <% end %>
 
-    <% if plot&.development&.videos.any? %>
+    <% videos = plot&.development&.videos %>
+    <% videos = videos.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
+    <% if videos.any? %>
       <li>
         <%= link_to t(".videos"),
                     homeowner_videos_path,

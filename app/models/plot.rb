@@ -208,6 +208,18 @@ class Plot < ApplicationRecord
     completion_release_date + validity.months + extended_access.months
   end
 
+  def reduced_expiry_date
+    return if completion_release_date.blank?
+    completion_release_date + validity.months
+  end
+
+  def expired?
+    return if completion_release_date.blank?
+    Time.zone.today > expiry_date
+  end
+
+  def partially_expired?; end
+
   # SNAGS
 
   # Checks whether the Snagging tab under 'My home' is valid/visible for the plot
@@ -250,9 +262,9 @@ class Plot < ApplicationRecord
 
   def show_maintenance?
     return false if maintenance_link.blank?
-    return true if expiry_date.blank?
+    return true if reduced_expiry_date.blank?
 
-    Time.zone.today < expiry_date
+    Time.zone.today < reduced_expiry_date
   end
 
   def to_s

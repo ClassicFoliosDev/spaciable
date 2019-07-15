@@ -9,7 +9,10 @@ module Homeowners
 
     def index
       @category = contact_params[:category]
-      @contacts = @contacts.where(category: @category).order(updated_at: :desc)
+
+      contacts = @contacts.where(category: @category)
+      contacts = contacts.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      @contacts = contacts.order(updated_at: :desc)
 
       redirect_to @contacts_for.values[0] if @contacts.none? && @contacts_for.any?
     end
@@ -26,9 +29,11 @@ module Homeowners
 
       @contacts_for = {}
       @categories.each do |cat|
-        if Contact.accessible_by(current_ability).where(category: cat).any?
-          @contacts_for[cat] = homeowner_contacts_path(cat)
+        contacts = Contact.accessible_by(current_ability).where(category: cat)
+        if @plot.expiry_date.present?
+          contacts = contacts.where("created_at <= ?", @plot.expiry_date)
         end
+        @contacts_for[cat] = homeowner_contacts_path(cat) if contacts.any?
       end
     end
   end

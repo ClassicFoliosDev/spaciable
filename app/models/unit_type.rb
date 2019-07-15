@@ -71,4 +71,19 @@ class UnitType < ApplicationRecord
 
     confirmation
   end
+
+  def expired?
+    expired = true
+    plots.each do |plot|
+      return expired = false unless plot.expired?
+    end
+  end
+
+  def partially_expired?
+    plot_list = []
+    plots.each do |plot|
+      plot_list << plot if plot.expired?
+    end
+    return true if plot_list.count.positive?
+  end
 end

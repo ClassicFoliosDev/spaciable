@@ -1,5 +1,8 @@
 <div class="section-header">
   <div class="section-title">
+    <% if division.expired? && !(current_user.cf_admin?) %>
+      <div class="expired"><span class="expired-text"><%= t(".expiry") %></span></div>
+    <% end %>
     <div><%= division.division_name %></div>
     <span class="about">
       <strong><%= t(".list_id") %></strong><%= division.list_id || t(".none") %>

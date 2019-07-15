@@ -18,6 +18,9 @@ class FaqsController < ApplicationController
   end
 
   def new
+    if @parent.expired?
+      redirect_to root_url unless current_user.cf_admin?
+    end
     authorize! :new, @faq
   end
 
@@ -56,6 +59,9 @@ class FaqsController < ApplicationController
   end
 
   def edit
+    if @parent.expired?
+      redirect_to faq_path unless current_user.cf_admin?
+    end
     authorize! :edit, @faq
   end
 

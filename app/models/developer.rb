@@ -62,4 +62,21 @@ class Developer < ApplicationRecord
 
     all_developments.to_a.flatten!
   end
+
+  def expired?
+    expired = true
+    developments = all_developments
+    return expired = false if developments.empty?
+    developments.each do |development|
+      return expired = false unless development.expired?
+    end
+  end
+
+  def partially_expired?
+    plot_list = []
+    plots.each do |plot|
+      plot_list << plot if plot.expired?
+    end
+    return true if plot_list.count.positive?
+  end
 end

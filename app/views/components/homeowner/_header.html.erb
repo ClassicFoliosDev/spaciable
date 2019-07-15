@@ -7,7 +7,7 @@
     <nav class="main-navigation">
       <div class="nav-inner">
         <div class="logo branded-logo">
-          <%= link_to image_tag(brand&.branded_logo ? brand.branded_logo : "logo.png"), homeowner_dashboard_path %>
+          <%= link_to image_tag(brand_or_red_logo(brand, plot)), homeowner_dashboard_path %>
         </div>
         <div class="navigation">
           <!-- pass the country to the navigation -->

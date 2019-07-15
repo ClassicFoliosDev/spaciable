@@ -9,7 +9,7 @@ module ResidentChangeNotifyService
     is_private_document = resource.is_a?(Document) &&
                           resource.documentable_type != "Developer" &&
                           resource.documentable_type != "Division"
-    send_residents = subscribed_residents(parent, is_private_document)
+    send_residents = subscribed_residents(parent, resource, is_private_document)
     SendResidentNotificationsJob.perform_later(send_residents.pluck(:id), notification)
 
     I18n.t("resident_notification_mailer.notify.update_sent", count: send_residents.count)
@@ -19,8 +19,8 @@ module ResidentChangeNotifyService
 
   module_function
 
-  def subscribed_residents(parent, is_private_document)
-    plot_residencies = PlotResidency.where(plot_id: plots_for(parent).pluck(:id))
+  def subscribed_residents(parent, resource, is_private_document)
+    plot_residencies = PlotResidency.where(plot_id: plots_for(parent, resource).pluck(:id))
     plot_residencies = plot_residencies.where(role: :homeowner) if is_private_document
 
     plot_residents = plot_residencies.map(&:resident)
@@ -40,7 +40,7 @@ module ResidentChangeNotifyService
 
     notification.save!
 
-    all_residents_for(parent).each do |resident|
+    all_residents_for(parent, resource).each do |resident|
       ResidentNotification.create(notification_id: notification.id, resident_id: resident.id)
     end
 
@@ -48,14 +48,23 @@ module ResidentChangeNotifyService
   end
 
   # Includes unsubscribed residents, this call should only be used for in-app notifications
-  def all_residents_for(parent)
-    plots = plots_for(parent)
+  def all_residents_for(parent, resource)
+    plots = plots_for(parent, resource)
     plots.map(&:residents).flatten
   end
 
-  def plots_for(parent)
+  def plots_for(parent, resource)
     return [parent] if parent.is_a?(Plot)
-    parent.plots
+    plots = parent.plots
+    if resource.is_a?(Document)
+      uploader_type = User.find_by(id: resource.user_id)
+      return plots if uploader_type.cf_admin?
+    end
+    active_plots = []
+    plots.each do |plot|
+      active_plots << plot unless plot.expired?
+    end
+    active_plots
   end
 
   # Builds the opening address for the notification depending on the level

@@ -2,9 +2,11 @@
     <%= render 'components/empty_list', icon_name: "user", type: Resident, parent: parent %>
 <% else %>
   <div class="section-actions">
-    <%= link_to [:new, plot, :resident], class: "btn btn-primary", data: { action: "new" } do %>
-      <i class="fa fa-plus"></i>
-      <span class="btn-label"><%= t(".add") %></span>
+    <% unless parent.expired? && !(current_user.cf_admin?) %>
+      <%= link_to [:new, plot, :resident], class: "btn btn-primary", data: { action: "new" } do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
     <% end %>
   </div>
 
@@ -30,8 +32,8 @@
         <td><%= resident.plot_residency_role_name(plot) %>
         <td colspan="2"><%= resident.plot_residency_invited_by(plot) %>
         <td class="actions">
-          <%= edit_btn [:edit, plot, resident], element: resident %>
-          <%= delete_btn resident, path: url_for([plot, resident]), element: resident %>
+          <%= (edit_btn [:edit, plot, resident], element: resident) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn resident, path: url_for([plot, resident]), element: resident) unless parent.expired? && !(current_user.cf_admin?) %>
         </td>
       </tr>
       <% end %>

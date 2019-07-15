@@ -12,9 +12,13 @@ class VideosController < ApplicationController
     @videos = paginate(sort(@videos, default: :title))
   end
 
-  def new; end
+  def new
+    (redirect_to root_url unless current_user.cf_admin?) if @parent.expired?
+  end
 
-  def edit; end
+  def edit
+    (redirect_to video_path unless current_user.cf_admin?) if @parent.expired?
+  end
 
   def show; end
 

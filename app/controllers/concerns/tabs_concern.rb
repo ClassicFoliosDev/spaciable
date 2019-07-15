@@ -16,14 +16,20 @@ module TabsConcern
       case tabs[tab]
       when "locality"
         return homeowner_library_path("locality") if
-          Document.accessible_by(current_ability).where(category: "locality").any?
+          Document.accessible_by(current_ability)
+                  .where(category: "locality")
+                  .where("created_at <= ?", @plot.expiry_date).any?
       when "legal_and_warranty"
         return homeowner_library_path("legal_and_warranty") if
-          Document.accessible_by(current_ability).where(category: "legal_and_warranty").any?
+          Document.accessible_by(current_ability)
+                  .where(category: "legal_and_warranty")
+                  .where("created_at <= ?", @plot.expiry_date).any?
       when "appliances"
         return homeowner_appliance_manuals_path if Appliance.accessible_by(current_ability).any?
       when "videos"
-        return homeowner_videos_path if @plot&.development&.videos&.any?
+        if @plot&.development&.videos&.where("created_at <= ?", @plot.expiry_date)
+          return homeowner_videos_path
+        end
       when "my_documents"
         return private_documents_path
       end

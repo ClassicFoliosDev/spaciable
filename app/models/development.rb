@@ -78,6 +78,27 @@ class Development < ApplicationRecord
     end
   end
 
+  def expired?
+    expired = true
+    # technical debt: a blank phase (all fields nil except development id) is created
+    # when a development is created, have so far not been able to find where this creation
+    # is happening and the record is not saved to database
+    # for expiry to work for development we need to filter out the nil phase for each development
+    live_phases = phases.where.not(id: nil)
+    return expired = false if live_phases.empty?
+    live_phases.each do |phase|
+      return expired = false unless phase.expired?
+    end
+  end
+
+  def partially_expired?
+    plot_list = []
+    plots.each do |plot|
+      plot_list << plot if plot.expired?
+    end
+    return true if plot_list.count.positive?
+  end
+
   # Are choices available for the user and plot.  If they are a resident then they must
   # be a homeowner.  If admin, then as long as they are not a site admin
   def choices?(current_user, plot)

@@ -16,17 +16,25 @@
     </div>
   <% end %>
 
-  <div class="new-document">
-    <%= simple_form_for @private_document, class: "document-form" do | f | %>
-      <%= f.label :file, t(".new"), class: "btn branded-btn" %>
-      <%= f.file_field :file, class: "upload-document hidden" %>
-      <%= f.submit "", class: "hidden" %>
-    <% end %>
-    <p>
-      <span><%= t(".file_description") %></span><br/>
-      <span class="constraint"><%= t(".file_constraint") %></span>
-    </p>
-  </div>
+  <% if @plot.expired? %>
+    <div class="new-document">
+      <p>
+        <span><%= t(".expired") %></span>
+      </p>
+    </div>
+  <% else %>
+    <div class="new-document">
+      <%= simple_form_for @private_document, class: "document-form" do | f | %>
+        <%= f.label :file, t(".new"), class: "btn branded-btn" %>
+        <%= f.file_field :file, class: "upload-document hidden" %>
+        <%= f.submit "", class: "hidden" %>
+      <% end %>
+      <p>
+        <span><%= t(".file_description") %></span><br/>
+        <span class="constraint"><%= t(".file_constraint") %></span>
+      </p>
+    </div>
+  <% end %>
 
   <div class="private-documents">
     <% @private_documents.each do | document | %>

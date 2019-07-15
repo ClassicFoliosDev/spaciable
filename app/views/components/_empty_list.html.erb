@@ -3,8 +3,10 @@
   <div><span><%= t(".empty", type_names: type.model_name.human.downcase.pluralize) %></span></div>
   <div>
     <% if can_create(type, parent) %>
-      <!-- pass the params to the link associated with the 'New' button so it can supply the country when required -->
-      <%= link_to t(".add", type_name: type.model_name.human.downcase), [:new, parent, type.name.underscore.to_sym, plot: @plot, params: params.to_h], class: "btn btn-primary" %>
+      <% unless !(current_user.cf_admin?) && parent&.expired? %>
+        <!-- pass the params to the link associated with the 'New' button so it can supply the country when required -->
+        <%= link_to t(".add", type_name: type.model_name.human.downcase), [:new, parent, type.name.underscore.to_sym, plot: @plot, params: params.to_h], class: "btn btn-primary" %>
+      <% end %>
     <% else %>
       <span><%= t(".request_add", type_names: type.model_name.human.downcase.pluralize) %></span>
     <% end%>

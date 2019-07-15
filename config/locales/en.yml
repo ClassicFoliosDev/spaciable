@@ -726,6 +726,7 @@ en:
       title: "FAQs"
     new:
       title: "Add %{parent} FAQ"
+      expired: "Some plots on %{parent} have expired. New FAQs will not be visible to expired plots."
     show:
       title: "%{parent} FAQ"
       back: "Back"
@@ -733,6 +734,7 @@ en:
   videos:
     new:
       title: "New video link"
+      expired: "Some plots on %{parent} have expired. New videos will not be visible to expired plots."
     form:
       back: "Back"
       submit: "Submit"
@@ -793,6 +795,8 @@ en:
     index:
       add: "Add development"
     development:
+      expiry: "All plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
+      partial_expiry: "Some plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
       segment_id: "Segment id: "
       private_documents: "Documents from all residents: "
       none: "(not configured)"
@@ -967,6 +971,7 @@ en:
         file_description: "You can use this area of Hoozzi to store other documents, photos and files relating to your moving process and home"
         file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format"
         new: "Upload file"
+        expired: "Access to file uploads has now expired for this plot. You can still view your previously uploaded files."
       edit:
         submit: "Save Changes"
       update:
@@ -1147,6 +1152,7 @@ en:
       faq_scope: "FAQ scope: "
       developer: "developer"
       development: "development"
+      expiry: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
 
   divisions:
     destroy:
@@ -1201,6 +1207,7 @@ en:
     division:
       list_id: "List id "
       none: "(not configured)"
+      expiry: "All plots on this division have expired. To extend the access, please contact your Classic Folios account manager."
 
   addresses:
     destroy:
@@ -1366,6 +1373,8 @@ en:
     show:
       back: "Back"
     phase:
+      expiry: "All plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
+      partial_expiry: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       name: "Phase %{number}"
       residents: "All residents: "
       subscribed_residents: "Subscribed residents: "
@@ -1548,6 +1557,7 @@ en:
       completion: "Completion date"
       preview: "Preview"
     plot:
+      expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
       private_documents: "Uploaded documents: "
       none: "(n/a)"
       progress: "Build progress: "
@@ -1867,6 +1877,7 @@ en:
       title: "Documents"
     new:
       title: "New document(s) for %{name}"
+      expired: "Some plots on %{parent} have expired. New documents will not be visible to expired plots."
     show:
       title: "Document name"
       original_name: "Original file name"
@@ -1905,6 +1916,7 @@ en:
        name: "Name"
     new:
       title: "New contact for %{name}"
+      expired: "Some plots on %{parent} have expired. New contacts will not be visible to expired plots."
     form:
       back: "Back"
       submit: "Submit"

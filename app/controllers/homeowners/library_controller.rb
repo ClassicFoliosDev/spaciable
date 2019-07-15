@@ -8,7 +8,11 @@ module Homeowners
 
     def index
       @category = document_params[:category]
-      @documents = Document.accessible_by(current_ability).where(category: @category)
+
+      @documents = Document.accessible_by(current_ability)
+                           .where(category: @category)
+      @documents = remove_expired_plots if @plot.expiry_date.present?
+
       @appliances = []
       @homeowner = current_resident&.plot_residency_homeowner?(@plot)
 
@@ -29,7 +33,10 @@ module Homeowners
 
     def appliance_manuals
       @category = "appliances"
-      @appliances = Appliance.accessible_by(current_ability)
+      @appliances = []
+      @appliances << Appliance.accessible_by(current_ability)
+      @appliances << @plot.appliance_choices if @plot.choices_approved?
+      @appliances.flatten!
 
       if @appliances.any?
         @documents = []
@@ -40,6 +47,16 @@ module Homeowners
     end
 
     private
+
+    def remove_expired_plots
+      @expiry_documents = []
+      @documents.each do |document|
+        uploader = User.find_by(id: document.user_id)
+        @expiry_documents << document && next if uploader.cf_admin?
+        @expiry_documents << document if document.created_at <= @plot.expiry_date
+      end
+      @expiry_documents
+    end
 
     def update_plot_document(document_id)
       document = Document.find(document_id)

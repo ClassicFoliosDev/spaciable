@@ -153,6 +153,132 @@ class Brand < ApplicationRecord
     brand&.branded_heading_one || brand&.branded_heading_two || brand&.branded_info_text
   end
 
+  # DEFAULT BRANDING COLOURS FOR USE IN BRANDED AND EXPIRED STYLING
+
+  # Internal Styling
+
+  def self.branded_body_default
+    "background-color: #FAFAFA; // $ui-superlight-grey;"
+  end
+
+  def self.branded_header_default
+    "background-color: #394F5F; // $secondary-blue;"
+  end
+
+  def self.branded_primary_default
+    "color: #18A895; // $primary-green;"
+  end
+
+  def self.branded_primary_text_default
+    "color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_text_default
+    "color: #67747C; // $type-grey;"
+  end
+
+  def self.branded_content_default
+    "background-color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_border_default
+    "border-color: #EAEAEA; // $ui-grey;"
+  end
+
+  def self.branded_top_header_default
+    "color: #394F5F; // $secondary-blue;"
+  end
+
+  def self.branded_second_header_default
+    "color: #F93549; // $primary-red;"
+  end
+
+  # Buttons
+
+  def self.branded_static_background_default
+    "background-color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_static_text_default
+    "color: #18A895; // $primary-green;"
+  end
+
+  def self.branded_static_border_default
+    "border-color: #18A895; // $primary-green;"
+  end
+
+  def self.branded_hover_background_default
+    "background-color: #18A895; // $primary-green;"
+  end
+
+  def self.branded_hover_text_default
+    "color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_hover_border_default
+    "border-color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_login_text_default
+    "color: #F93549; // $primary-red;"
+  end
+
+  def self.branded_login_border_default
+    "border-color: #F7525E; // $primary-red;"
+  end
+
+  # Input Fields
+
+  def self.branded_autofill_default
+    "-webkit-box-shadow: 0 0 0 30px #FFFFFF inset; // $ui-white;"
+  end
+
+  def self.branded_autofill_text_default
+    "-webkit-text-fill-color: #000000;"
+  end
+
+  def self.branded_input_background_default
+    "background-color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_input_text_default
+    "color: #000000;"
+  end
+
+  def self.branded_input_border_default
+    "border-color: #F7525E; // $primary-red;"
+  end
+
+  def self.branded_checkbox_untick_default
+    "color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_checkbox_tick_default
+    "color: #F7525E; // $primary-red;"
+  end
+
+  # External Styling
+
+  def self.branded_left_box_default
+    "background-color: #F4F4F4; // $ui-white;"
+  end
+
+  def self.branded_right_box_default
+    "background-color: #F7525E; // $primary-red;"
+  end
+
+  def self.branded_external_text_default
+    "color: #FFFFFF; // $ui-white;"
+  end
+
+  def self.branded_left_text_default
+    "color: #67747C; // $type-grey;"
+  end
+
+  def self.branded_second_heading_default
+    "color: #F7525E; // $primary-red;"
+  end
+
   private
 
   def branded_param(attr_name)

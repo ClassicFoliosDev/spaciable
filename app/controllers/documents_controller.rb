@@ -21,11 +21,17 @@ class DocumentsController < ApplicationController
   end
 
   def new
+    if @parent.expired?
+      redirect_to root_url unless current_user.cf_admin?
+    end
     authorize! :new, @document
     @redirect_path = url_for(target)
   end
 
   def edit
+    if @document.expired?
+      redirect_to document_path unless current_user.cf_admin?
+    end
     authorize! :edit, @document
     @redirect_path = url_for(target)
   end

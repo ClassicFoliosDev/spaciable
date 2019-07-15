@@ -2,12 +2,14 @@
   <%= render 'components/empty_list', icon_name: "file-video-o", type: Video, parent: parent %>
 <% else %>
   <% if can_create(Video, parent) %>
-    <div class="section-actions">
-      <%= link_to [:new, parent, :video], class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".create") %></span>
-      <% end %>
-    </div>
+    <% unless parent.expired? && !(current_user.cf_admin?) %>
+      <div class="section-actions">
+        <%= link_to [:new, parent, :video], class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t(".create") %></span>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 
   <table class="record-list">
@@ -24,8 +26,8 @@
         <td><%= link_to video.title, video_path(video) %></td>
         <td><%= video.link %></td>
         <td class="actions">
-          <%= edit_btn edit_video_path(video), element: video %>
-          <%= delete_btn video, path: video_path(video), element: video %>
+          <%= (edit_btn edit_video_path(video), element: video) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn video, path: video_path(video), element: video) unless parent.expired? && !(current_user.cf_admin?) %>
         </td>
       </tr>
       <% end %>

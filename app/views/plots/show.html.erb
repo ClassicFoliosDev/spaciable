@@ -13,7 +13,7 @@
   <% else %>
     <%= render_collection @collection, collection: @collection, parent: @collection_parent, plot: @plot %>
     <div class="above-footer">
-      <%= link_to t(".preview"), plot_preview_path(@plot), class: "btn" %>
+      <%= (link_to t(".preview"), plot_preview_path(@plot), class: "btn") unless @plot.expired? && !(current_user.cf_admin?) %>
     </div>
   <% end %>
 

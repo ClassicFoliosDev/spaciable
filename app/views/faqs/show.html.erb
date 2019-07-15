@@ -6,7 +6,7 @@
     <%= t(".title", parent: @parent) %><br>
   </div>
   <div class="section-data">
-    <%= edit_btn [:edit, @faq], element: @faq %>
+    <%= (edit_btn [:edit, @faq], element: @faq) unless @parent.expired? && !(current_user.cf_admin?) %>
   </div>
 </div>
 

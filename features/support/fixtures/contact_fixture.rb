@@ -15,6 +15,10 @@ module ContactFixture
     "concierge@foo.com"
   end
 
+  def second_email
+    "second@contact.com"
+  end
+
   def updated_email
     "warranty@widgets.com"
   end
@@ -25,6 +29,10 @@ module ContactFixture
 
   def title
     "Ms"
+  end
+
+  def organisation
+    "First Organisation"
   end
 
   def category

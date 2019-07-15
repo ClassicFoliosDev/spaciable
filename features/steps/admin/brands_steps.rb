@@ -72,7 +72,6 @@ Then(/^I should be able to preview the brand$/) do
   within ".preview-container" do
     click_on t("brands.form.preview")
   end
-
   # Header background color has been customised
   header = page.find(".header")
   expect(header[:style]).to have_content("background-color: rgb(137, 0, 51)")

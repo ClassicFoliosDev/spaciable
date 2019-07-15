@@ -81,6 +81,22 @@ class Phase < ApplicationRecord
     self[:number] || set_number
   end
 
+  def expired?
+    expired = true
+    return expired = false if plots.empty?
+    plots.each do |plot|
+      return expired = false unless plot.expired?
+    end
+  end
+
+  def partially_expired?
+    plots_list = []
+    plots.each do |plot|
+      plots_list << plot if plot.expired?
+    end
+    return true if plots_list.count.positive?
+  end
+
   def self.rebuild_pg_search_documents
     find_each do |record|
       record.update_pg_search_document unless record.deleted?

@@ -1,6 +1,18 @@
 <head>
   <%= stylesheet_link_tag 'manifest_homeowner', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= render "components/homeowner/brand_template", brand: brand if brand %>
+
+  <%-# --- If there is a plot (if the homeowner is logged in), check whether the plot is expired --- -%>
+  <%-# --- If expired load expired branding, otherwise load branded branding --- -%>
+  <% if plot %>
+    <% if plot.expired? %>
+      <%= render "components/homeowner/expired_template" %>
+    <% else %>
+      <%= render "components/homeowner/brand_template", brand: brand if brand %>
+    <% end %>
+  <% else %>
+    <%= render "components/homeowner/brand_template", brand: brand if brand %>
+  <% end %>
+
   <%= render "layouts/common_header" %>
 
 </head>

@@ -7,7 +7,7 @@
       <%= t(".title", plot: @plot) %><br>
     </div>
     <div class="section-data">
-      <%= edit_btn [:edit, @plot, @resident], element: @resident %>
+      <%= (edit_btn [:edit, @plot, @resident], element: @resident) unless @plot.expired? && !(current_user.cf_admin?) %>
     </div>
   </div>
 

@@ -9,6 +9,9 @@ class Contact < ApplicationRecord
 
   alias parent contactable
 
+  delegate :expired?, to: :parent
+  delegate :partially_expired?, to: :parent
+
   # ENUMS
   include TitleEnum
 

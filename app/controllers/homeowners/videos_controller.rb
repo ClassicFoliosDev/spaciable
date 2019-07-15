@@ -7,7 +7,8 @@ module Homeowners
     def index
       @category = "videos"
       @categories = Document.categories.keys
-      @videos = @plot&.development&.videos || []
+      @videos = @plot&.development&.videos
+      @videos = @videos.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
 
       redirect_to first_populated_tab_after(@category) if @videos.none?
     end

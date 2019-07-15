@@ -6,7 +6,7 @@
   </div>
 
   <div class="section-data">
-    <%= edit_btn [:edit, @document], element: @document %>
+    <%= (edit_btn [:edit, @document], element: @document) unless @document.expired? && !(current_user.cf_admin?) %>
   </div>
 </div>
 
@@ -35,7 +35,6 @@
       <%= t(".processing") %>
   <% end %>
   </div>
-
 </div>
 
 <div class="form-actions-footer-container">

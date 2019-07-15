@@ -1,4 +1,8 @@
 <div class="section-title">
+  <% if plot.expired? && !(current_user.cf_admin?) %>
+    <div class="expired"><span class="expired-text"><%= t(".expiry") %></span></div>
+  <% end %>
+
   <div><%= plot %></div>
 
   <div class="about">
