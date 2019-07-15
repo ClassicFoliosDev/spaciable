@@ -52,9 +52,9 @@
           <%= f.label t(".original_name") %>
           <span><%= document.original_filename %></span>
           <%= f.label t(".size") %>
-          <span><%= document.file.size %></span>
+          <span><%= number_to_human_size(document.file.size) %></span>
           <%= f.label t(".updated") %>
-          <span><%= document.updated_at %></span>
+          <span><%= document.updated_at.strftime("%e %b %Y, %H:%M %p") %></span>
         </fieldset>
       </div>
     <% end %>

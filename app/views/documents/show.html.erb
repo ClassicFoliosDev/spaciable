@@ -14,21 +14,22 @@
   <div class="row-item third">
     <%= label_tag t(".title") %>
     <span><%= @document.title %></span>
-  </div>
-
-  <div class="row-item third">
     <%= label_tag t(".category") %>
     <span><%= t("activerecord.attributes.document.categories.#{@document.category}") %></span>
+    <% if @document.file? %>
+      <% if @document.original_filename %>
+        <%= label_tag t(".original_name") %>
+        <span><%= @document.original_filename %></span>
+      <% end %>
+      <%= label_tag t(".size") %>
+      <span><%= number_to_human_size(@document.file.size) %></span>
+    <% end %>
   </div>
 
   <div class="row-item third">
     <% if @document.file? %>
-      <%= label_tag t(".original_name") %>
-      <span><%= @document.original_filename %></span>
-      <%= label_tag t(".size") %>
-      <span><%= @document.file.size %></span>
       <%= label_tag t(".updated") %>
-      <span><%= @document.updated_at %></span>
+      <span><%= @document.updated_at.strftime("%e %b %Y, %H:%M %p") %></span>
       <%= label_tag t(".by") %>
       <span><%= @document.user %></span>
     <% else %>

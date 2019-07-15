@@ -61,7 +61,8 @@ module BulkUploadPlotDocumentsService
   def compare_names(plots, file_name)
     Rails.logger
          .debug(">>> Bulk upload plot document service compare names start #{Time.zone.now}")
-    file_name = file_name.sub(".pdf", "")
+    file_extension = "." + file_name.split(".").last
+    file_name = file_name.sub(file_extension, "")
 
     plots.each do |plot|
       return plot[1] if plot[0] == file_name

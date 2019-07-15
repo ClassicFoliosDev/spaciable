@@ -8,9 +8,7 @@ module Admin
 
     def index
       @notifications = @notifications.includes(:send_to, :sender)
-      @notifications = @notifications.where
-                                     .not(subject:
-                                     I18n.t("resident_snag_mailer.notify.new_notification"))
+      @notifications = subject_filter
       @notifications = paginate(sort(@notifications, default: { sent_at: :desc }))
     end
 
@@ -30,6 +28,14 @@ module Admin
     end
 
     private
+
+    def subject_filter
+      @notifications = @notifications.where
+                                     .not(subject:
+                                          I18n.t("resident_snag_mailer.notify.new_notification"))
+      @notifications.where
+                    .not(subject: I18n.t("resident_notification_mailer.notify.update_subject"))
+    end
 
     def notify_and_redirect
       ResidentNotifierService.call(@notification) do |residents, missing_residents|

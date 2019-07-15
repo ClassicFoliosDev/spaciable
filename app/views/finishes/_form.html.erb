@@ -19,6 +19,11 @@
           <%= label_tag :description %>
           <%= f.text_area :description %>
         </fieldset>
+        <fieldset>
+          <div class="image-container">
+            <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+        </fieldset>
       </div>
       <div class="row-item third">
         <fieldset>
@@ -30,13 +35,6 @@
           </div>
           <div class="finish-manufacturer ui-front select-container">
             <%= f.association :finish_manufacturer, collection: [finish&.finish_manufacturer] %>
-          </div>
-        </fieldset>
-      </div>
-      <div class="row-item third">
-        <fieldset>
-          <div class="image-container">
-            <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
           </div>
         </fieldset>
       </div>
