@@ -2,6 +2,7 @@
 
 class AdminNotification < ApplicationRecord
   attr_accessor :read_at
+  attr_accessor :developer_id
 
   belongs_to :author, class_name: "User"
   belongs_to :sender, class_name: "User"
@@ -11,6 +12,8 @@ class AdminNotification < ApplicationRecord
   has_many :users, through: :admin_notifications
 
   validates :subject, :message, :sender, presence: true
+  validate :send_to_conflicts
+  validate :recipients_selected
 
   def with_sender(user)
     self.sender = user
@@ -23,4 +26,23 @@ class AdminNotification < ApplicationRecord
 
   delegate :to_s, to: :subject
   delegate :to_str, to: :subject
+
+  def send_to_conflicts
+    return unless send_to_all? && send_to_id.present?
+    errors.add(:send_to_all, :conflicts)
+  end
+
+  def recipients_selected
+    return if send_to_all? || send_to.present?
+
+    errors.add(:send_to, :select)
+  end
+
+  def sent_to
+    if send_to_all
+      "All"
+    else
+      send_to
+    end
+  end
 end

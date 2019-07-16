@@ -33,6 +33,17 @@ class User < ApplicationRecord
     :site_admin
   ]
 
+  def developer
+    return if permission_level.nil?
+    if permission_level.is_a?(Developer)
+      permission_level_id
+    elsif permission_level.parent.is_a?(Developer)
+      permission_level.developer_id
+    else
+      permission_level.parent.developer_id
+    end
+  end
+
   def self.admin_roles
     roles.reject { |key, _| key == "homeowner" }
   end

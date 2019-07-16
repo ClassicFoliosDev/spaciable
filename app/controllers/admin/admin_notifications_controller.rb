@@ -19,6 +19,8 @@ module Admin
     def show; end
 
     def create
+      @admin_notification = AdminNotificationSendService.call(@admin_notification,
+                                                              admin_notification_params)
       if @admin_notification.with_sender(current_user).valid?
         notify_and_redirect
       else
@@ -40,8 +42,8 @@ module Admin
     end
 
     def success_notice
-      @admin_count = User.where.not(role: "cf_admin").count
-      t(".success", admins_count: @admin_count)
+      @admins = @admin_notification.send_to_all ? "all" : @admin_notification.send_to
+      t(".success", admins: @admins)
     end
 
     # Use the AdminNotificationMailer to send the email
@@ -56,7 +58,9 @@ module Admin
         :subject,
         :message,
         :sent_at,
-        :sender_id
+        :sender_id,
+        :send_to_id, :send_to_type,
+        :send_to_all, :developer_id
       )
     end
   end

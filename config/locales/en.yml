@@ -523,14 +523,16 @@ en:
           subject: "Notification"
           sent_at: "Date sent"
           sender: "Sender"
+          send_to: "Sent to"
       new:
         title: "Send admin notification"
       form:
-        send_to_all_admins: "Send notification to %{admins_count} admins"
+        send_to_all_admins: "Send to all %{admins_count} admins"
+        send_to: "Send to admins of:"
         back: "Back"
         submit: "Send"
       create:
-        success: "Notification sent to %{admins_count} admins"
+        success: "Notification sent to %{admins} admins"
       show:
         back: "Back"
     notifications:
@@ -2403,6 +2405,10 @@ en:
           attributes:
             base:
               invalid_name: "You must not use special characters (for example - or ,) in a development name. You can only use letters, numbers, and spaces"
+        admin_notification:
+          attributes:
+            send_to_all:
+              conflicts: "is conflicting with sending a subset of admins as well."
         notification:
           attributes:
             send_to_all:

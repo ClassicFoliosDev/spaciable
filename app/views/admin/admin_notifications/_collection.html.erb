@@ -12,7 +12,8 @@
     <tr>
       <th colspan="3"><%= sortable(AdminNotification, :subject, t(".headers.subject")) %></th>
       <th><%= sortable(AdminNotification, :sent_at, t(".headers.sent_at")) %></th>
-      <th colspan="2"><%= sortable(AdminNotification, :sender_id, t(".headers.sender")) %></th>
+      <th colspan="1"><%= sortable(AdminNotification, :sender_id, t(".headers.sender")) %></th>
+      <th colspan="1"><%= sortable(AdminNotification, :send_to_id, t(".headers.send_to")) %></th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -28,8 +29,11 @@
           <%= l(notification.sent_at.to_date, format: :digits) %>
         <% end %>
       </td>
-      <td colspan="2">
+      <td colspan="1">
           <%= notification.sender %>
+      </td>
+      <td colspan="1">
+        <%= notification.sent_to %>
       </td>
     <td class="actions">
       <%= view_btn admin_admin_notification_path(notification) %>

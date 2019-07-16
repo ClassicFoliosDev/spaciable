@@ -18,8 +18,14 @@
 
   <div class="row">
     <div class="row-item third">
-      <%= t(".send_to_all_admins", admins_count: User.where.not(role: "cf_admin").count) %>
-      <hr>
+      <fieldset class="skip-global-selectmenu"></fieldset>
+        <%= f.input :send_to_all, label: t(".send_to_all_admins", admins_count: User.where.not(role: "cf_admin").count) %>
+        <hr>
+        <%= f.label :send_to, label: t(".send_to") %>
+        <div class="developer_id ui-front select-container">
+          <%= f.collection_select :developer_id, Developer.order(:company_name), :id, :company_name, include_blank: true %>
+        </div>
+      </fieldset>
     </div>
 
     <div class="row-item two-thirds send-message">
