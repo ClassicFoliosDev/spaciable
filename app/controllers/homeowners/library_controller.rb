@@ -51,8 +51,8 @@ module Homeowners
     def remove_expired_plots
       @expiry_documents = []
       @documents.each do |document|
-        uploader = User.find_by(id: document.user_id)
-        @expiry_documents << document && next if uploader.cf_admin?
+        uploader = User.find_by(id: document&.user_id)
+        @expiry_documents << document && next if uploader&.cf_admin?
         @expiry_documents << document if document.created_at <= @plot.expiry_date
       end
       @expiry_documents

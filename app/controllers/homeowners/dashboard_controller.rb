@@ -24,6 +24,7 @@ module Homeowners
       docs = Document.accessible_by(current_ability)
       docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       docs = docs.order(updated_at: :desc).limit(6)
+
       appliances = Appliance.accessible_by(current_ability)
                             .includes(:appliance_manufacturer).order(updated_at: :desc).limit(6)
       @documents = DocumentLibraryService.call(docs, appliances)
