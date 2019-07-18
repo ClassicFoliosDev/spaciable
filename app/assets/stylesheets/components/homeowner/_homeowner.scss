@@ -3,7 +3,7 @@ $card-size: 150px;
 $homeowner-margin: 12px;
 
 .session-inner {
-  @include outer-container(90%);
+  @include outer-container(92%);
 
   .unread {
     background-color: $primary-background;
@@ -49,6 +49,8 @@ $homeowner-margin: 12px;
   @include span-columns(0);
   @include pad(10px default);
   float: right;
+  padding-right: 40px;
+  margin-right: 0;
 
   i {
     color: white;
@@ -199,7 +201,13 @@ $homeowner-margin: 12px;
   }
 }
 
+// tablet view
 @include media($tablet-portrait-up) {
+  .menu {
+    padding-right: 10px;;
+  }
+
+
   .full-menu, .sub-navigation-container {
     display: block;
   }
@@ -211,6 +219,10 @@ $homeowner-margin: 12px;
 
 // mobile view
 @include media($tablet-portrait-down) {
+  .menu {
+    padding-right: 0;
+  }
+
   .plot-list {
     width: 80%;
   }

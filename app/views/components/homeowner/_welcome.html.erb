@@ -3,17 +3,19 @@
     <div class="menu full-menu">
       <span><%= t('.hi', first_name: current_resident&.first_name) %></span>
       <span>|</span>
+      <%= link_to homeowners_notifications_path do %>
+        <% if unread_count.positive? %>
+          <i class="fa fa-envelope"></i>
+          <sup class="unread"><%= unread_count %></sup>
+        <% else %>
+          <%= t(".messages") %>
+        <% end %>
+      <% end %>
+      <span>|</span>
       <%= link_to t(".account"), homeowners_resident_path(current_resident) %>
       <% if plots.count > 1 %>
         <span>|</span>
         <span class="my-plots"><%= t(".my_plots") %></span>
-      <% end %>
-      <span>|</span>
-      <%= link_to homeowners_notifications_path do %>
-        <i class="fa fa-envelope"></i>
-        <% if unread_count.positive? %>
-          <sup class="unread"><%= unread_count %></sup>
-        <% end %>
       <% end %>
       <span>|</span>
       <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident.email || "") %>

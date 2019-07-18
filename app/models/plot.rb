@@ -66,6 +66,7 @@ class Plot < ApplicationRecord
   delegate :name, to: :phase, prefix: true
   delegate :choices_email_contact, to: :development
   delegate :business, to: :phase
+  delegate :maintenance_auto_populate, to: :development
 
   enum progress: %i[
     soon

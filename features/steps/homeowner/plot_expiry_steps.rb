@@ -72,7 +72,7 @@ Then(/^I should see the expired branding$/) do
   # button-color
   expect(style['outerHTML']).to have_content("branded-btn { background-color: #FFFFFF")
   #banner
-  expect(style['outerHTML']).to have_content("branded-hero { background-image: image-url(\'expiry_banner.png\')")
+  expect(style['outerHTML']).to have_content("branded-hero { background-image: url(\'/assets/expiry_banner.png\')")
 end
 
 Given(/^I have enabled developer emails$/) do

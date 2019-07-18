@@ -86,7 +86,7 @@ module Developers
         :email,
         :contact_number,
         :maintenance_link, :enable_snagging,
-        :snag_duration, :snag_name,
+        :snag_duration, :snag_name, :maintenance_auto_populate,
         address_attributes: %i[postal_number road_name building_name
                                locality city county postcode]
       )

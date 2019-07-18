@@ -21,6 +21,9 @@
         <%= f.input :contact_number %>
         <%= f.input :maintenance_link, placeholder: t(".maintenance_placeholder") %>
         <p><%= t(".maintenance_tip")%></p>
+        <%= f.label t(".maintenance_auto_populate") %>
+        <%= f.check_box :maintenance_auto_populate %>
+        <p class="checkbox-description"><%= t(".maintenance_auto_populate_description") %></p>
       </fieldset>
     </div>
     <div class="row-item third">

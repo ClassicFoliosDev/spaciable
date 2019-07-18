@@ -2,7 +2,7 @@ nav {
   background-color: white;
 
   .nav-inner {
-    @include outer-container();
+    @include outer-container(92%);
 
     h3 {
       display: inline-block;
@@ -109,6 +109,7 @@ nav {
   }
 }
 
+// tablet view
 @include media($tablet-landscape-up) {
   .search-container {
     display: block;
@@ -125,6 +126,13 @@ nav {
   }
 }
 
+.navbar-search {
+  float: right;
+  clear: both;
+  padding: 20px;
+}
+
+// mobile view
 @include media($tablet-portrait-down) {
   .navbar {
     background-color: $ui-white;
@@ -214,9 +222,8 @@ nav {
       }
     }
 
-    .logo,
-    .search {
-      @include span-columns(12 of 12);
+    .navbar-search {
+      padding: 0;
     }
 
     img {

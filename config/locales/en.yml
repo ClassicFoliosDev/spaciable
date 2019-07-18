@@ -284,10 +284,11 @@ en:
 
     homeowner:
       welcome:
-        hi: "Hi %{first_name}"
-        account: "My account"
+        hi: "Hi, %{first_name}"
+        account: "Account"
         feedback: "Feedback"
-        my_plots: "My plots"
+        my_plots: "Plots"
+        messages: "Messages"
       sub_menu:
         about: "About"
         title: "My Home"
@@ -761,7 +762,7 @@ en:
       cards:
         library:
           title: "Library"
-          view_more: "View library"
+          view_more: "View Library"
         faqs:
           title: "FAQs"
           view_more: "View FAQs"
@@ -793,6 +794,8 @@ en:
       enable_snagging: "Snagging"
       snag_duration: "Duration (days)"
       snag_name: "Name"
+      maintenance_auto_populate: "Auto-populate FixFlo details"
+      maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
       choices_email: "Choices contact email"
     index:
       add: "Add development"
@@ -943,7 +946,7 @@ en:
         my_home_title: "My home"
       contacts:
         contacts_title: "Contacts"
-        contacts_view_more: "View contacts"
+        contacts_view_more: "View Contacts"
       services:
         services: "See how we can help"
       referrals:
@@ -1000,7 +1003,7 @@ en:
       services:
         title: "Services"
       show:
-        my_account: "My account"
+        my_account: "Account"
         title: "Title"
         password: "Password"
         email: "Email address"
@@ -1860,7 +1863,7 @@ en:
     choose: "Choose..."
 
   users:
-    sign_out: "Sign out"
+    sign_out: "Sign Out"
     choose_scope: "Select a developer, division, or development to associate this user with."
     choose: "Choose..."
 

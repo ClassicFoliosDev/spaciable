@@ -1,5 +1,5 @@
 <div class="branded-body">
   <div class="maintenance">
-    <iframe scrollbars="no" src=<%= @plot.maintenance_link.html_safe %>></iframe>
+    <iframe scrollbars="no" src=<%= maintenance_auto_populate(@plot, current_resident).html_safe %>></iframe>
   </div>
 </div>
