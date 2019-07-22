@@ -9,11 +9,6 @@ Feature: Feedback
     When I submit feedback
     Then An email should be sent
 
-  Scenario: Send email
-    Given I am logged in as a Developer Admin
-    When I submit feedback with email
-    Then My email should be sent
-
   Scenario: Division Admin
     Given I am logged in as a Division Admin
     When I submit feedback

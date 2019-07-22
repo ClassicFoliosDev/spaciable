@@ -31,7 +31,8 @@ class HomeController < ApplicationController
   end
 
   def feedback
-    FeedbackNotificationJob.perform_later(params[:comments], params[:option], params[:email])
+    FeedbackNotificationJob.perform_later(params[:comments], params[:option],
+                                          params[:email], params[:details])
     render json: ""
   end
 

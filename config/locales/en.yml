@@ -361,21 +361,20 @@ en:
 
   feedback:
     cancel: "Cancel"
-    title: "What do you think of Hoozzi"
+    title: "What do you think of Hoozzi?"
     option1: "Unhappy"
     option2: "Neutral"
     option3: "Happy"
+    disclaimer: "By submitting feedback you consent to your email address being sent to a portal administrator, who may contact you about your comments."
     submit: "Send feedback"
     comments: "Comments"
-    placeholder: "I think Hoozzi is..."
+    placeholder: "Enter feedback..."
     email_title: "You have received feedback from a Hoozzi user"
     email_subject: "Feedback from Hoozzi"
-    option_title: "User happiness level"
-    comment_title: "User comments"
+    option_title: "Happiness level"
+    comment_title: "Comments"
+    details_title: "User Details"
     not_sent: "User did not provide this information"
-    send_email_addr: "Include my email address:"
-    leave_blank: "Leave this unchecked for anonymous feedback"
-    email_addr_title: "User email address"
 
   application_mailer:
     request_services:

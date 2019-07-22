@@ -35,10 +35,8 @@
           '<textarea class="comments" id="comments" placeholder=' + "'" + dataIn.placeholder + "'" + '></textarea>' +
         '</div>' +
 
-        '<div class="include-email">' +
-          '<label>' + dataIn.sendemail + '</label>' +
-          '<input type="checkbox" class="send-email">' +
-          '<p>' + dataIn.leaveblank + '</p>' +
+        '<div class="disclaimer">' +
+          '<p class="disclaimer-text">' + dataIn.disclaimer + '<p>' +
         '</div>'
       )
 
@@ -72,10 +70,8 @@
             }
 
             var data = { comments: commentText, option: optionText }
-            var $sendEmail = $('.send-email:checked')
-            if ($sendEmail.length > 0) {
-              data.email = dataIn.emailaddr
-            }
+            data.email = dataIn.emailaddr
+            data.details = dataIn.details
 
             $.getJSON({
               url: '/feedback',

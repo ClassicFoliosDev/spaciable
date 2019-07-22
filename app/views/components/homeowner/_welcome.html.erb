@@ -18,7 +18,7 @@
         <span class="my-plots"><%= t(".my_plots") %></span>
       <% end %>
       <span>|</span>
-      <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident.email || "") %>
+      <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident) %>
       <span>|</span>
       <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
     </div>
