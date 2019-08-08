@@ -86,7 +86,7 @@
 
   .contact {
     @include span-columns(6 of 12);
-    @include omega(3n);
+    @include omega(2n);
     margin-bottom: $spacing-medium;
     border-radius: $border-radius;
     border-style: solid;

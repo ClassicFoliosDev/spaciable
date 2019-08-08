@@ -156,19 +156,7 @@
 }
 
 .underline {
-  width: 80%;
-  margin: $spacing-small auto;
   text-align: center;
-
-  &:before {
-    content : "";
-    display: block;
-    position: relative;
-    width: 15%;
-    top: 35px;
-    left: 43%;
-    border-bottom: solid 2px $primary-red-left;
-  }
 }
 
 @include media($tablet-landscape-up) {

@@ -1,7 +1,7 @@
 .admin-login-view .admin-login-background {
   height: 976px;
   width: 100%;
-  background-image: url('Spaciable_blue_corner.svg');
+  background-image: url('images/Spaciable_blue_corner.svg');
   background-repeat: no-repeat;
   background-position: left bottom;
   background-size: 30%;
@@ -213,20 +213,134 @@
   }
 }
 
+.admin-login-view .admin-login-background {
+  height: 100%;
+  .main-container {
+    height: 100%;
+    main {
+      height: 100%;
+      .admin-login-panel{
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+  }
+}
+
+
+// Tablet & Mobile View Homeowner Login
+
+@include media($tablet-landscape-down) {
+  .admin-pass-reset {
+    input[type="email"], input[type="password"] {
+      width: 60%;
+    }
+  }
+}
+
+// tablet (small) & mobile
 @include media($tablet-portrait-down) {
-  .login, .new-password, .reset-password {
-    margin-bottom: 100px;
+  .admin-login-view .admin-login-background {
+    .main-container main .admin-login-panel {
+      background: none;
+      top: 0;
+      transform: translate(0, 0);
+    }
 
     .preamble {
       @include span-columns(12 of 12);
+      float: right;
+      clear: both;
+      background-color: $primary-navy;
 
       .content {
-        margin-top: 0;
+        margin-top: $spacing-small;
+        margin-left: 0;
+
+        .login-icon {
+          margin-top: $spacing-small;
+
+          img {
+            margin-top: $spacing-small;
+          }
+        }
       }
     }
 
-    .sign-in, .set-password {
+    .admin-login-form {
       @include span-columns(12 of 12);
+      width: 80%;
+      padding: 25px;
+
+      .admin-login-logo {
+        padding-bottom: $spacing-small;
+        height: 100px;
+
+        img {
+          max-width: 60%;
+        }
+      }
+
+      input[type="submit"] {
+        width: 40%;
+      }
+
+      input[type="email"], input[type="password"] {
+        width: 80%;
+      }
+    }
+  }
+
+  .admin-pass-reset {
+    input[type="email"], input[type="password"] {
+      width: 60%;
+    }
+  }
+}
+
+
+// mobile
+@include media($mobile-down) {
+  .admin-login-background {
+
+    .admin-login-panel {
+
+      .admin-login-form {
+        width: 100%;
+        padding: 20px;
+
+        input[type="submit"] {
+          width: 50%;
+        }
+
+        input[type="email"], input[type="password"] {
+          width: 90%;
+        }
+
+        .information {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+// mobile (small)
+@include media($mobile-portrait-down) {
+  .admin-login-background {
+
+    .admin-login-panel {
+
+      .admin-login-form {
+
+        input[type="submit"] {
+          width: 60%;
+        }
+
+        input[type="email"], input[type="password"] {
+          width: 100%;
+        }
+      }
     }
   }
 }

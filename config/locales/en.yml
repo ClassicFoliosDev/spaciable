@@ -1417,7 +1417,7 @@ en:
         appliances: "Find out how to view your new appliances"
         contact: "Contact your developer"
         home: "Live the lifestyle your new home brings"
-        policy_instructions: "You must confirm that you have read and agreed to our<br/> %{href1} and %{href2} before you can click 'Continue'"
+        policy_instructions: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Continue'"
         first_name: "First name"
         last_name: "Last name"
         password: "Choose a password"

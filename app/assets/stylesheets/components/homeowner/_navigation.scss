@@ -110,7 +110,7 @@ nav {
   }
 }
 
-// tablet view
+// tablet view (large than)
 @include media($tablet-landscape-up) {
   .search-container {
     display: block;
@@ -135,6 +135,14 @@ nav {
 .navbar-search {
   float: right;
   padding-right: 20px;
+}
+
+// tablet view (smaller than)
+@include media($tablet-landscape-down) {
+  nav .navigation {
+    float: right;
+    text-align: right;
+  }
 }
 
 // mobile view
@@ -168,7 +176,7 @@ nav {
       li {
         display: inline-block;
         width: inherit;
-        padding: 1px 20px;
+        padding: 1px 10px;
       }
     }
   }

@@ -270,28 +270,237 @@
 }
 
 .default-login-background {
-  height: 976px;
+  height: 100%;
   width: 100%;
-  background-image: url('Spaciable_pink_corner.svg');
+  background-image: url('images/Spaciable_pink_corner.svg');
   background-repeat: no-repeat;
   background-position: left bottom;
   background-size: 30%;
+
+  .login {
+    top: 50%;
+    transform: translate(0, -50%)
+  }
 }
 
+.default-login-background {
+  height: 100%;
+
+  .branded-left-box, .new-password {
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+}
+
+
+// tablet (large)
+@include media($tablet-landscape-down) {
+  .default-login-background {
+    .information {
+      width: 85%;
+    }
+
+    .login-checkbox {
+      width: 85%;
+    }
+  }
+
+  .invitation .register .welcome-text {
+    width: 85%;
+  }
+
+ .new-password form input[type="submit"] {
+    width: 40%;
+  }
+}
+
+// tablet (small) & mobile
 @include media($tablet-portrait-down) {
-  .login, .new-password, .reset-password {
-    margin-bottom: 100px;
+  .default-login-background {
 
-    .preamble {
-      @include span-columns(12 of 12);
+    .branded-left-box, .new-password {
+      background: none;
+      top: 0;
+      transform: translate(0, 0);
 
-      .content {
-        margin-top: 0;
+      .set-password {
+        width: 80%;
+        padding: 25px;
+      }
+
+      .reset-pass-email input {
+        width: 70%;
       }
     }
 
-    .sign-in, .set-password {
+    .new-password .information .copyright {
+      margin-top: $spacing-large;
+    }
+
+    .new-password .set-password {
+      height: 75%;
+    }
+
+    .preamble {
       @include span-columns(12 of 12);
+      float: right;
+      clear: both;
+      background: linear-gradient(60deg, $primary-red-left, $primary-red-right);
+
+      .content {
+        margin-top: $spacing-small;
+        margin-left: 0;
+
+        .login-icon-password img {
+          margin-top: $spacing-small;
+        }
+      }
+    }
+
+    .branded-right-box {
+      @include span-columns(12 of 12);
+      width: 80%;
+      padding: 25px;
+
+      .login-logo {
+        padding-bottom: $spacing-small;
+        height: 100px;
+
+        img {
+          max-width: 50%;
+        }
+      }
+
+      .second-title {
+        margin-bottom: $spacing-large;
+      }
+
+      input[type="submit"] {
+        width: 40%;
+      }
+    }
+
+    .register form input[type="submit"] {
+      width: 40%;
+    }
+
+    .branded-content-box {
+      input[type="email"], input[type="password"] {
+        width: 70%;
+      }
+    }
+
+    .login-checkbox {
+      width: 70%;
     }
   }
 }
+
+// mobile
+@include media($mobile-down) {
+.default-login-background {
+    .branded-left-box, .new-password {
+      .set-password {
+        width: 100%;
+        padding: 25px;
+      }
+
+      .reset-pass-email input {
+        width: 90%;
+      }
+
+      .reset-pass-input input {
+        width: 90%;
+      }
+    }
+
+    .new-password form input[type="submit"] {
+      width: 50%;
+    }
+
+    .branded-right-box {
+      @include span-columns(12 of 12);
+      width: 100%;
+
+      input[type="submit"] {
+        width: 50%;
+      }
+    }
+
+    .register form input[type="submit"] {
+      width: 50%;
+    }
+
+    .branded-content-box {
+      input[type="email"], input[type="password"] {
+        width: 90%;
+      }
+    }
+
+    .login-checkbox {
+      width: 90%;
+    }
+  }
+}
+
+// mobile (small)
+@include media($mobile-portrait-down) {
+.default-login-background {
+    .branded-left-box, .new-password {
+      .set-password {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .reset-pass-email input {
+        width: 100%;
+      }
+
+      .reset-pass-input input {
+        width: 100%;
+      }
+    }
+
+    .invitation .register .welcome-text {
+      width: 100%;
+    }
+
+    .new-password form input[type="submit"] {
+      width: 60%;
+    }
+
+    .branded-right-box {
+      @include span-columns(12 of 12);
+      width: 100%;
+
+      .login-logo {
+        img {
+          max-width: 70%;
+        }
+      }
+
+      input[type="submit"] {
+        width: 60%;
+      }
+    }
+
+    .new-password .login-logo img {
+      max-width: 70%;
+    }
+
+    .register form input[type="submit"] {
+      width: 60%;
+    }
+
+    .branded-content-box {
+      input[type="email"], input[type="password"] {
+        width: 100%;
+      }
+    }
+
+    .login-checkbox {
+      width: 100%;
+    }
+  }
+}
+

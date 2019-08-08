@@ -212,35 +212,3 @@ label.login-checkbox {
 .error_notification {
   color: $ui-white;
 }
-
-@include media($tablet-landscape-down) {
-  .invitation {
-    margin-bottom: 100px;
-
-    .preamble .content {
-      margin-top: 60px;
-    }
-
-    .register .logo,
-    .register form {
-      @include span-columns(11 of 12);
-      @include shift(0.5 of 12);
-    }
-  }
-}
-
-@include media($tablet-portrait-down) {
-  .invitation {
-    .preamble {
-      @include span-columns(12 of 12);
-
-      .content {
-        margin-top: 0;
-      }
-    }
-
-    .register {
-      @include span-columns(12 of 12);
-    }
-  }
-}

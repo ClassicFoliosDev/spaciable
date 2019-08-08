@@ -132,15 +132,6 @@
   }
 }
 
-.main-container {
-  .how-tos {
-    .article {
-      position: relative;
-      @include span-columns(4 of 12);
-    }
-  }
-}
-
 @include media($tablet-landscape-down) {
   .dashboard, .how-tos {
     .article {

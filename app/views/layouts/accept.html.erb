@@ -3,7 +3,7 @@
   <% if @brand&.branded_login_image %>
     <div class="login-background" style="background-image: url('<%= image_path(@brand.branded_login_image) %>')" >
   <% else %>
-    <div class="default-login-background">
+    <div class="default-login-background" style="background-image: url('<%= asset_path('Spaciable_pink_corner.svg') %>');">
   <% end %>
   <%= yield %>
   </div>
