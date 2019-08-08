@@ -1,19 +1,35 @@
 <div class="admin-login-panel">
-
   <div class="admin-login-form">
-    <%= image_tag "hoozzi-everything-home-logo-white.svg", class: "logo" %>
-    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <div class="form-inputs">
-        <%= f.input :email, required: false, autofocus: true %>
-        <%= f.input :password, required: false %>
-        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-      </div>
+    <div class="admin-login-logo">
+      <%= image_tag "Spaciable_full.svg" %>
+    </div>
 
-      <%= render "devise/shared/links" %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+      <h2 class="primary"><%= t(".title")%></h2>
+
+      <div class="form-inputs">
+        <%= f.input :email, required: false, autofocus: true, label: false, placeholder: "Email" %>
+        <%= f.input :password, required: false, label: false, placeholder: "Password" %>
+        <%= f.input :remember_me, class: "admin-login-checkbox", as: :boolean if devise_mapping.rememberable? %>
+      </div>
 
       <div class="form-actions">
-        <%= f.submit t(".login_cta"), class: "btn-primary" %>
+        <%= f.submit t(".login_cta"), class: "btn-primary btn-admin-login" %>
+      </div>
+
+      <p class="forgotten-password"><%= render "devise/shared/links" %></p>
+
+      <div class="admin-copyright">
+        <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
       </div>
     <% end %>
+  </div>
+  <div class="preamble">
+    <div class="content">
+      <div class="login-icon">
+        <div><%= image_tag "Spaciable_icon_white.svg" %></div>
+      </div>
+    </div>
   </div>
 </div>

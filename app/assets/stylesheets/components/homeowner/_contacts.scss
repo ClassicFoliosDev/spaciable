@@ -20,7 +20,7 @@
         display: block;
         max-width: 100%;
         max-height: 70px;
-        border-radius: 50%;
+        border-radius: 5px;
       }
     }
 
@@ -85,7 +85,7 @@
   @include outer-container();
 
   .contact {
-    @include span-columns(4 of 12);
+    @include span-columns(6 of 12);
     @include omega(3n);
     margin-bottom: $spacing-medium;
     border-radius: $border-radius;
@@ -94,34 +94,45 @@
     height: 200px;
 
     .avatar {
-      @include span-columns(4 of 12);
-      color: $type-grey;
+      @include span-columns(5 of 12);
       font-size: 48px;
       text-align: center;
       hyphens: auto;
 
-      img {
-        max-width: 50px;
-        max-height: 50px;
-        border-radius: 50%;
+      .position {
+        font-weight: $semi-bold-font-weight;
       }
 
+      p {
+        margin: 10px 0 0 0 ;
+      }
+
+      img {
+        max-width: 75%;
+        max-height: 110px;
+        border-radius: 5px;
+      }
     }
 
     .details {
-      @include span-columns(8 of 12);
+      @include span-columns(7 of 12);
       word-wrap: break-word;
+
+      .contact-detail {
+        margin-bottom: 15px;
+      }
     }
   }
 }
 
 @include media($tablet-landscape-down) {
   .full-contacts {
-    @include outer-container(80%);
+    @include outer-container(90%);
 
     .contact {
       @include span-columns(12 of 12);
       @include omega-reset(3n);
+      height: 210px;
     }
   }
 }
@@ -130,4 +141,7 @@
   font-size: $base-font-size;
   text-align: center;
   margin-bottom: $spacing-medium;
+  a {
+    font-weight: $semi-bold-font-weight;
+  }
 }

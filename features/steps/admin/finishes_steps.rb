@@ -87,10 +87,6 @@ Then(/^I should see the updated finish$/) do
     expect(image["src"]).to have_content(FileFixture.finish_picture_name)
     expect(image["alt"]).to have_content(FileFixture.finish_picture_alt)
   end
-
-  within ".filename" do
-    expect(page).to have_content(FileFixture.finish_picture_name)
-  end
 end
 
 When(/^I remove an image from a finish$/) do

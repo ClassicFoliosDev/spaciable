@@ -206,7 +206,7 @@ Then(/^the resident is no longer able to submit snags$/) do
   within ".session-inner" do
     click_on(t("components.homeowner.welcome.account"))
   end
-  within ".show-actions" do
+  within ".snagging-history" do
     click_on("Snagging History")
   end
   within ".main-container" do

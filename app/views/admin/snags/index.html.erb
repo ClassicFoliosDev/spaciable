@@ -18,7 +18,7 @@
     <% @snags.each do |snag| %>
     <tr data-snag="<%= snag.id %>">
       <td><%= link_to truncate(snag.title, length: 50, separator: ' '), admin_snag_path(snag) %></td>
-      <td><%= link_to truncate(snag.description, length: 110, separator: ' '), admin_snag_path(snag) %></td>
+      <td><%= truncate(snag.description, length: 110, separator: ' ') %></td>
       <% status = snag.resolved_visual %>
       <td><span class="circle-small <%= status %>"></span></td>
     <% end %>

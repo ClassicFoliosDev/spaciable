@@ -24,19 +24,19 @@
   <table class="record-list">
     <thead>
       <tr>
-        <th class="icon">&nbsp;</th>
-        <th colspan="2"><%= sortable(Finish, :name) %></th>
+        <th class="icon" style="text-align:center;"><%= t(".image") %></th>
+        <th colspan="2"><%= sortable(Finish, :name, t(".finish")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t(".finish_category")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer")) %></th>
-        <th colspan="2"><%= sortable(Finish, :updated_at) %></th>
+        <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
         <th colspan="2">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
       <% collection.each do |finish| %>
         <tr>
-          <td><%= image_tag finish.picture.url if finish.picture? %></td>
+          <td style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
           <td colspan="2"><%= link_to finish.name, finish_path(finish)%></td>
           <td colspan="2"><%= finish.finish_category %></td>
           <td colspan="2"><%= finish.finish_type %></td>
@@ -46,7 +46,7 @@
             <%= edit_btn edit_finish_path(finish), element: finish %>
             <% if room && can?(:destroy, finish) %>
               <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
-                <%= fa_icon "times" %>
+                <%= fa_icon "trash-o" %>
               <% end %>
             <% else %>
               <%= delete_btn finish, element: finish %>

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ChoiceMailer < ApplicationMailer
-  default from: "no-reply@hoozzi.com"
+  default from: "no-reply@spaciable.com"
   layout "email"
 
   def homeowner_choices_selected(plot, sender)

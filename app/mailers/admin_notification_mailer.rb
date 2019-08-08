@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class AdminNotificationMailer < ApplicationMailer
-  default from: "feedback@hoozzi.com"
+  default from: "feedback@spaciable.com"
 
   def admin_notifications(admin_notification, _admin_notification_params)
     @content = admin_notification.message
     @subject = admin_notification.subject
     create_emails(admin_notification)
 
-    mail to: "feedback@hoozzi.com", subject: @subject, bcc: @emails
+    mail to: "feedback@spaciable.com", subject: @subject, bcc: @emails
     admin_notification.update(sent_at: Time.zone.now)
   end
 

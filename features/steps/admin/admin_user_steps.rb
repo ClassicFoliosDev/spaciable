@@ -293,13 +293,13 @@ When(/^I change my password$/) do
   find("[data-action='edit']").click
 
   within(".user_current_password") do
-    fill_in :password, with: CreateFixture.admin_password
+    fill_in "user[current_password]", with: CreateFixture.admin_password
   end
   within(".user_password") do
-    fill_in :password, with: AdminUsersFixture.new_password
+    fill_in "user[password]", with: AdminUsersFixture.new_password
   end
   within(".user_password_confirmation") do
-    fill_in :password, with: AdminUsersFixture.new_password
+    fill_in "user[password_confirmation]", with: AdminUsersFixture.new_password
   end
 
   click_on t("admin.users.form.submit")
@@ -309,8 +309,7 @@ Then(/^I should be logged out$/) do
   expect(page).to have_content(t("admin.users.update.success_password", user_name: ""))
 
   within ".admin-login-form" do
-    expect(page).to have_content %r{#{t("activerecord.attributes.user.email")}}i
-    expect(page).to have_content %r{#{t("activerecord.attributes.user.password")}}i
+    expect(page).to have_content "You've made it."
   end
 end
 

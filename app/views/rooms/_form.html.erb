@@ -17,13 +17,8 @@
   <div class="row">
     <div class="row-item third">
       <fieldset>
-        <%= f.input :name %>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
-        <%= f.input :icon_name, as: :select, collection: icon_names_collection, include_blank: true %>
+        <%= f.input :name, label: t(".name") %>
+        <%= f.input :icon_name, label: t(".icon"), as: :select, collection: icon_names_collection, include_blank: true %>
       </fieldset>
     </div>
   </div>

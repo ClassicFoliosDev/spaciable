@@ -2,7 +2,7 @@
 
 <div class="section-header">
   <div class="section-title">
-    <%= t(".title", name: @contact) %>
+    <%= @contact&.title&.titleize %> <%= @contact %>
   </div>
 </div>
 

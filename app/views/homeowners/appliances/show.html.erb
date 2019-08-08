@@ -1,5 +1,5 @@
 <% content_for :hero_text_primary do %>
-    <%= render 'address/address', address: @plot %>
+    <%= t(".title") %>
 <% end %>
 
 <%= render "components/homeowner/sub_header", active_tab: "appliances", plot: @plot %>
@@ -9,15 +9,15 @@
     <% @appliances.each do | appliance | %>
       <div class="appliance branded-content branded-border">
         <div class="images">
-          <h2><%= appliance.appliance_category %></h2>
+          <h2 class="branded-text"><%= appliance.appliance_category %></h2>
           <% if appliance.primary_image? %>
-            <%= image_tag(appliance.primary_image.url) %>
+            <%= link_to image_tag(appliance.primary_image.url), appliance.primary_image.url %>
           <% else %>
             <%= fa_icon "image", class: " dummy-image fa-5x" %>
             <span class="branded-text"><%= t("no_image") %></span>
           <% end %>
           <% if appliance.secondary_image? %>
-            <%= image_tag(appliance.secondary_image.url, class: "secondary-image") %>
+            <%= link_to image_tag(appliance.secondary_image.url, class: "secondary-image"), appliance.secondary_image.url %>
           <% end %>
 
           <% if appliance.appliance_manufacturer_link %>
@@ -27,45 +27,49 @@
 
         <div class="details">
           <div class="detail">
-            <%= label_tag(:appliance_manufacturer) %>
-            <span><%= appliance&.appliance_manufacturer %></span>
+            <span class="branded-text"><%= label_tag :manufacturer %></span>
+            <span class="branded-text"><%= appliance&.appliance_manufacturer %></span>
 
-            <%= label_tag(t("appliances.form.model_num")) %>
-            <span><%= appliance.model_num %></span>
+            <span class="branded-text"><%= label_tag(t("appliances.form.model_num")) %></span>
+            <span class="branded-text"><%= appliance.model_num %></span>
 
-            <div class="manual">
-              <%= label_tag t(".manual") %>
-              <% if appliance.manual? %>
-                <%= link_to appliance.manual.url, class: "btn", target: "_blank" do %>
+            <% if appliance.manual? %>
+              <div class="manual">
+                <span class="branded-text"><%= label_tag t(".manual") %></span>
+                <%= link_to appliance.manual.url, class: "branded-btn-inverted", target: "_blank" do %>
                   <%= icon "cloud-download" %>
                   <%= t(".download") %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
 
-            <div class="guide">
-              <%= label_tag t(".guide") %>
-              <% if appliance.guide? %>
-                <%= link_to appliance.guide.url, class: "btn", target: "_blank" do %>
+            <% if appliance.guide? %>
+              <div class="guide">
+                <span class="branded-text"><%= label_tag :guide, t(".guide") %></span>
+                <%= link_to appliance.guide.url, class: "branded-btn-inverted", target: "_blank" do %>
                   <%= icon "cloud-download" %>
                   <%= t(".download") %>
                 <% end %>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
 
-            <%= label_tag(t("appliances.form.warranty_length")) %>
-            <span><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") if appliance.warranty_length? %></span>
+            <% if appliance.warranty_length? %>
+              <span class="branded-text"><%= label_tag :warranty %></span>
+              <span class="branded-text"><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") %></span>
+            <% end %>
 
-            <%= label_tag(t("appliances.form.e_rating")) %>
             <% if appliance.e_rating %>
+              <span class="branded-text"><%= label_tag :energy, t("appliances.form.e_rating") %></span>
               <%= image_tag "Energy Rating #{appliance.e_rating.upcase}.svg", class: "energy-rating" %>
             <% end %>
           </div>
 
-          <div class="detail">
-            <%= label_tag(:description) %>
-            <p><%= appliance.description %></p>
-          </div>
+          <% if appliance.description? %>
+            <div class="detail branded-text">
+              <%= label_tag(:description) %>
+              <p><%= appliance.description %></p>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -4,7 +4,7 @@ module DocumentFixture
   module_function
 
   def document_name
-    "Dummy pdf.pdf"
+    "dummy_pdf.pdf"
   end
 
   def document_name_alt

@@ -1,38 +1,49 @@
+<%= render "components/flashes" %>
 <div class="login branded-left-box">
   <div class="sign-in branded-right-box">
     <div class="login-logo">
       <%= image_tag login_brand_or_white_logo(@brand) %>
     </div>
-    <%= render "components/flashes" %>
 
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="branded-primary-text">
         <div class="branded-external-text branded-content-box">
-          <%= f.input :email, required: false, autofocus: true %>
-          <%= f.input :password, required: false %>
+          <% if @brand&.custom_text?(@brand) %>
+            <h2 class="top-title branded-left-text"><%= @brand.branded_heading_one %></h2>
+            <h3 class="branded-heading-two second-title branded-left-text"><%= @brand.branded_heading_two %></h3>
+          <% else %>
+            <h2 class="top-title branded-left-text"><%= t '.welcome_1' %></h2>
+            <h3 class="branded-heading-two second-title"><%= t '.welcome_2' %></h3>
+          <% end %>
+          <%= f.input :email, required: false, label: false, placeholder: "Email", autofocus: true %>
+          <%= f.input :password, label: false, placeholder: "Password", required: false %>
           <%= f.label :remember_me, class: "login-checkbox" do %>
             <%= f.check_box :remember_me, class: "remember-checkbox branded-checkmark", checked: false %>
             <i class="fa fa-check branded-checkbox"></i> <span><%= t(".remember_me") %></span>
           <% end %>
           <% if cookies[:ts_and_cs_accepted].nil? %>
-            <%= f.label :ts_and_cs_accepted_at, class: "login-checkbox" do %>
+            <%= f.label :ts_and_cs_accepted_at, class: "login-checkbox accept-checkbox" do %>
               <%= f.check_box :ts_and_cs_accepted_at, class: "accept-ts-and-cs" %>
               <i class="fa fa-check branded-checkbox"></i> <span><%= t(".accept_ts_and_cs") %></span>
             <% end %>
             <div class="information branded-primary-text branded-external-text">
               <p><%= t('.policy_instructions_required', :href1 => link_to(t("residents.invitations.edit.terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t("residents.invitations.edit.policy"), data_policy_path, target: "_blank")).html_safe %></p>
             </div>
-          <% else %>
-            <div class="information branded-primary-text branded-external-text">
-              <p><%= t('.policy_instructions', :href1 => link_to(t("residents.invitations.edit.terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t("residents.invitations.edit.policy"), data_policy_path, target: "_blank")).html_safe %></p>
-            </div>
           <% end %>
+
         </div>
 
         <%= f.submit t(".login_cta"), class: "continue btn branded-submit", disabled: cookies[:ts_and_cs_accepted].nil? %>
 
         <div class="information branded-external-text">
-          <p><%= render "residents/shared/links" %></p>
+          <p class="forgotten-password"><%= render "residents/shared/links" %></p>
+
+          <% if !cookies[:ts_and_cs_accepted].nil? %>
+            <div class="information branded-primary-text branded-external-text">
+              <p><%= t('.policy_instructions', :href1 => link_to(t("residents.invitations.edit.terms"), ts_and_cs_homeowner_path, target: "_blank"), :href2 => link_to(t("residents.invitations.edit.policy"), data_policy_path, target: "_blank")).html_safe %></p>
+            </div>
+          <% end %>
+
           <p><%= t(".copyright", year: Time.current.year).html_safe %></p>
         </div>
       </div>
@@ -40,26 +51,22 @@
   </div>
 
   <div class="preamble">
-    <div class="content">
-      <div class="titles">
-        <% if @brand&.custom_text?(@brand) %>
-          <h2 class="top-title branded-left-text"><%= @brand.branded_heading_one %></h2>
-          <h2 class="branded-heading-two second-title branded-left-text"><%= @brand.branded_heading_two %></h2>
-          <div class="intro branded-text branded-left-text">
-            <p><%= @brand.branded_info_text.html_safe if @brand.branded_info_text %></p>
-          </div>
-        <% else %>
-          <h2 class="top-title branded-left-text"><%= t '.welcome_1' %></h2>
-          <h2 class="branded-heading-two second-title"><%= t '.welcome_2' %></h2>
-          <div class="intro branded-text branded-left-text">
-            <p><%= t(".intro_para_1") %></p>
-            <p><%= t(".intro_para_2") %></p>
-          </div>
-        <% end %>
-
-
-      </div>
-
+    <div class="content branded-left-text <%='no-logo' if @brand&.branded_login_logo %>">
+      <% unless @brand&.branded_login_logo %>
+        <div class="login-icon">
+          <div><%= image_tag "Spaciable_icon_white.svg" %></div>
+        </div>
+      <% end %>
+      <% if @brand&.custom_text?(@brand) %>
+        <div class="intro branded-text branded-left-text">
+          <p><%= @brand.branded_info_text.html_safe if @brand.branded_info_text %></p>
+        </div>
+      <% else %>
+        <div class="intro branded-text branded-left-text">
+          <p><%= t(".intro_para_1") %></p>
+          <p><%= t(".intro_para_2") %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

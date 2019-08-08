@@ -1,26 +1,27 @@
 .resident {
-  width: 600px;
+  width: 700px;
   margin: 0 auto;
 
-  .half {
-    padding: $spacing-small;
+  .change {
+    height: 280px;
   }
 
   .last {
     margin-right: 0;
   }
 
+  .resident-details {
+    padding: 10px;
+    border-radius: 5px/5px;
+
+    .account {
+      margin-bottom: 20px;
+    }
+  }
+
   .full {
     padding: $spacing-small;
     margin-top: $spacing-small;
-
-    h3 {
-      color: $ui-black;
-    }
-
-    span {
-      color: $type-grey;
-    }
   }
 
   input.boolean {
@@ -40,7 +41,7 @@
 
     i {
       float: right;
-      border-color: $primary-cta-color;
+      border-color: $primary-red-left;
       background-color: $ui-white;
       border-style: solid;
       border-radius: 2px;
@@ -55,7 +56,7 @@
     }
 
     input[type=checkbox]:checked + i:before {
-      color: $primary-cta-color;
+      color: $primary-red-left;
     }
   }
 
@@ -79,8 +80,9 @@
   }
 }
 
-.snagging-link {
-  float: right;
+
+.add-resident {
+  float: left;
 }
 
 .communications, .services {
@@ -89,14 +91,13 @@
   }
 
   .selected {
-    color: $ui-black;
     i {
       visibility: visible;
     }
   }
 
   .unselected {
-    color: $ui-dark-grey;
+    opacity: 0.5;
     i {
       visibility: hidden;
     }
@@ -109,8 +110,34 @@
   }
 }
 
+.communications {
+  border-radius: 5px/5px;
+
+  h3 {
+    margin: 0 0 10px;
+  }
+
+  p {
+    text-align: center;
+    font-weight: $semi-bold-font-weight;
+  }
+
+  .updates {
+    font-weight: $semi-bold-font-weight;
+  }
+}
+
 .show-actions {
   margin-top: 34px;
+}
+
+.plot-disclaimer {
+  text-align: center;
+  margin: 5px;
+}
+
+.plot-specific {
+  border-radius: 5px/5px;
 }
 
 .other-residents {
@@ -123,7 +150,6 @@
 
     button {
       float: right;
-      color: $type-grey;
       font-size: $title-font-size-4
     }
   }
@@ -141,7 +167,7 @@
     width: 15%;
     top: 35px;
     left: 43%;
-    border-bottom: solid 2px $primary-red;
+    border-bottom: solid 2px $primary-red-left;
   }
 }
 

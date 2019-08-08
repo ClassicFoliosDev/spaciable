@@ -11,114 +11,110 @@
 
 <div class="row brand">
   <div class="row-item third">
-    <%= label_tag :dashboard_logo %>
+    <%= label_tag :dashboard_logo, t("brands.collection.logo") %>
     <div class="brand_logo">
-      <%= image_tag(@brand.logo.url)  if @brand.logo? %>
+      <%= image_tag(@brand.logo.url) if @brand.logo? %>
     </div>
-    <%= label_tag :banner %>
+    <%= label_tag :banner, t("activerecord.attributes.brand.banner") %>
     <div class="brand_banner">
       <%= image_tag(@brand.banner.url) if @brand.banner? %>
     </div>
-    <%= label_tag :login_logo %>
-    <div class="brand_login_logo">
-      <%= image_tag(@brand.login_logo.url) if @brand.login_logo? %>
-    </div>
-    <%= label_tag :login_image %>
+    <%= label_tag :login_image, t("activerecord.attributes.brand.login_image") %>
     <div class="brand_login_image">
       <%= image_tag(@brand.login_image.url) if @brand.login_image? %>
     </div>
-    <%= label_tag :email_logo %>
+    <%= label_tag :login_logo, t("activerecord.attributes.brand.login_logo") %>
+    <div class="brand_login_logo">
+      <%= image_tag(@brand.login_logo.url) if @brand.login_logo? %>
+    </div>
+    <%= label_tag :email_logo, t("brands.form.email_logo") %>
     <div class="brand_email_logo>">
       <%= image_tag(@brand.email_logo.url) if @brand.email_logo? %>
     </div>
   </div>
   <div class="row-item third">
-    <%= label_tag :internal_styling %>
+    <%= label_tag :internal_styling, t(".internal_styling") %>
     <table class="colors internal-colors">
       <tr class="bg_color">
         <td><%= branded_color_preview(@brand.bg_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.bg_color") %></td>
+        <td><%= label_tag :bg_color, t("activerecord.attributes.brand.bg_color") %></td>
       </tr>
       <tr class="text_color">
         <td><%= branded_color_preview(@brand.text_color) %></td>
-
-        <td><%= label_tag t("activerecord.attributes.brand.text_color") %></td>
+        <td><%= label_tag :text_color, t("activerecord.attributes.brand.text_color") %></td>
       </tr>
       <tr class="content_bg_color">
         <td><%= branded_color_preview(@brand.content_bg_color) %></td>
-
-        <td><%= label_tag t("activerecord.attributes.brand.content_bg_color") %></td>
+        <td><%= label_tag :content_bg_color, t("activerecord.attributes.brand.content_bg_color") %></td>
       </tr>
       <tr class="content_text_color">
         <td><%= branded_color_preview(@brand.content_text_color) %></td>
-
-        <td><%= label_tag t("activerecord.attributes.brand.content_text_color") %></td>
+        <td><%= label_tag :content_text_color, t("activerecord.attributes.brand.content_text_color") %></td>
       </tr>
       <tr class="button_color">
         <td><%= branded_color_preview(@brand.button_color) %></td>
-
-        <td><%= label_tag t("activerecord.attributes.brand.button_color") %></td>
+        <td><%= label_tag :button_color, t("activerecord.attributes.brand.button_color") %></td>
       </tr>
       <tr class="button_text_color">
         <td><%= branded_color_preview(@brand.button_text_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.button_text_color") %></td>
+        <td><%= label_tag :button_text_color, t("activerecord.attributes.brand.button_text_color") %></td>
       </tr>
       <tr class="header_color">
         <td><%= branded_color_preview(@brand.header_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.header_color") %></td>
+        <td><%= label_tag :header_color, t("activerecord.attributes.brand.header_color") %></td>
       </tr>
       <tr class="topnav_text_color">
         <td><%= branded_color_preview(@brand.topnav_text_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.topnav_text_color") %></td>
+        <td><%= label_tag :topnav_text_color, t("activerecord.attributes.brand.topnav_text_color") %></td>
       </td>
     </table>
   </div>
   <div class="row-item third">
-    <%= label_tag :external_styling %>
+    <%= label_tag :external_styling, t(".external_styling") %>
     <table class="colors external-colors">
       <tr class="login_box_left_color">
         <td><%= branded_color_preview(@brand.login_box_left_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.login_box_left_color") %></td>
+        <td><%= label_tag :login_box_left_color, t("activerecord.attributes.brand.login_box_left_color") %></td>
       </tr>
       <tr class="login_box_right_color">
         <td><%= branded_color_preview(@brand.login_box_right_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.login_box_right_color") %></td>
+        <td><%= label_tag :login_box_right_color, t("activerecord.attributes.brand.login_box_right_color") %></td>
       </tr>
       <tr class="content_box_color">
         <td><%= branded_color_preview(@brand.content_box_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.content_box_color") %></td>
+        <td><%= label_tag :content_box_color, t("activerecord.attributes.brand.content_box_color") %></td>
       </tr>
       <tr class="content_box_outline_color">
         <td><%= branded_color_preview(@brand.content_box_outline_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.content_box_outline_color") %></td>
+        <td><%= label_tag :content_box_outline_color, t("activerecord.attributes.brand.content_box_outline_color") %></td>
       </tr>
       <tr class="content_box_text">
         <td><%= branded_color_preview(@brand.content_box_text) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.content_box_text_color") %></td>
+        <td><%= label_tag :content_box_text, t("activerecord.attributes.brand.content_box_text_color") %></td>
       </tr>
       <tr class="login_button_static_color">
         <td><%= branded_color_preview(@brand.login_button_static_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.login_button_static_color") %></td>
+        <td><%= label_tag :login_button_static_color, t("activerecord.attributes.brand.login_button_static_color") %></td>
       </tr>
       <tr class="login_button_hover_color">
         <td><%= branded_color_preview(@brand.login_button_hover_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.login_button_hover_color") %></td>
+        <td><%= label_tag :login_button_hover_color, t("activerecord.attributes.brand.login_button_hover_color") %></td>
       </tr>
       <tr class="text_left_color">
         <td><%= branded_color_preview(@brand.text_left_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.text_left_color") %></td>
+        <td><%= label_tag :text_left_color, t("activerecord.attributes.brand.text_left_color") %></td>
       </tr>
       <tr class="text_right_color">
         <td><%= branded_color_preview(@brand.text_right_color) %></td>
-        <td><%= label_tag t("activerecord.attributes.brand.text_right_color") %></td>
+        <td><%= label_tag :text_right_color, t("activerecord.attributes.brand.text_right_color") %></td>
       </tr>
     </table>
     <div class="external_text_preview">
-      <%= label_tag(Brand.human_attribute_name(:heading_one)) %>
+      <%= label_tag :heading_one, t("activerecord.attributes.brand.heading_one_show") %>
       <span><%= @brand.heading_one %></span>
-      <%= label_tag(Brand.human_attribute_name(:heading_two)) %>
+      <%= label_tag :heading_two, t("activerecord.attributes.brand.heading_two_show") %>
       <span><%= @brand.heading_two %></span>
-      <%= label_tag(Brand.human_attribute_name(:info_text)) %>
+      <%= label_tag :info_text, t("activerecord.attributes.brand.custom_text_show")%>
       <span><%= raw @brand.info_text %></span>
     </div>
   </div>

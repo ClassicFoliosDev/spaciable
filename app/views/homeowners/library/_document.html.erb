@@ -1,10 +1,10 @@
-<div class="sixth document" data-document="<%= document.id %>" >
+<div class="sixth document branded-text" data-document="<%= document.id %>" >
   <div class="document-image-container">
     <%= link_to document.file.url, target: "_blank" do %>
       <%= image_tag document_preview_url(document.file) if document.file? %>
     <% end %>
   </div>
-  <h5>
+  <h5 class="branded-text">
     <% if homeowner %>
       <% shared = document.shared?(plot) ? "shared" : "" %>
       <% hover_text = document.shared?(plot) ? I18n.t("buttons.shared") : I18n.t("buttons.share_tenants") %>

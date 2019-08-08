@@ -6,7 +6,19 @@
 .above-footer {
   width: 100%;
   float: left;
-  margin-top: $spacing-medium;
   position: fixed;
   bottom: 100px;
+}
+
+.plot-progress .row-item {
+  margin-top: $spacing-large;
+}
+
+.plot-completion .row-item {
+  margin-top: $spacing-large;
+}
+
+.plot-completion .btn-form-submit {
+  margin-top: $spacing-medium;
+  float: right;
 }

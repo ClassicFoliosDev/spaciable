@@ -23,7 +23,7 @@ Then(/^I can CRUD documents$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -52,7 +52,7 @@ Then(/^I can update the the build progress of that plot$/) do
 
   select_from_selectmenu :plot_progress, with: PlotFixture.progress
 
-  within ".above-footer" do
+  within ".submit" do
     click_on t("progresses.progress.submit")
   end
 end
@@ -66,7 +66,7 @@ Then(/^I can update the completion date of that plot$/) do
     fill_in "plot_completion_date", with: PlotFixture.completion_date
   end
 
-  within ".above-footer" do
+  within ".row-item" do
     click_on t("edit.submit")
   end
 end
@@ -77,7 +77,7 @@ Then(/^I can add a resident to the plot$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Resident.model_name.human.downcase)
+    click_on t("components.empty_list.add", type_name: Resident.model_name.human.titleize)
   end
 
   fill_in "resident_first_name", with: ExpiryFixture.first_name
@@ -261,7 +261,7 @@ Then(/^I can CRUD contacts$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Contact.model_name.human.downcase)
+    click_on t("components.empty_list.add", type_name: Contact.model_name.human.titleize)
   end
 
   within ".contact" do
@@ -360,7 +360,6 @@ Then(/^I can no longer update the build progress of the phase$/) do
   expect(page).to have_content(t("activerecord.attributes.plot.progresses.soon"), count: 2)
 
   expect(page).to have_no_css(".ui-selectmenu-text")
-  expect(page).to_not have_content I18n.t("progresses.collection.update_progress")
   expect(page).to_not have_content I18n.t("progresses.progress.submit")
 end
 
@@ -412,7 +411,7 @@ Then(/^I can CRUD videos$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Video.model_name.human.downcase)
+    click_on t("components.empty_list.add", type_name: Video.model_name.human.titleize)
   end
 
   within ".row" do

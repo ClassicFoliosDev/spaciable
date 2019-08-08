@@ -2,8 +2,7 @@
 
 <div class="section-header">
   <div class="section-title">
-    <i class="fa fa-question-circle"></i>
-    <%= t(".title", parent: @parent) %><br>
+    <%= t(".title", parent: @faq) %><br>
   </div>
   <div class="section-data">
     <%= (edit_btn [:edit, @faq], element: @faq) unless @parent.expired? && !(current_user.cf_admin?) %>
@@ -12,8 +11,6 @@
 
 <div class="row faq">
   <div class="row-item two-thirds">
-    <%= label_tag(Faq.human_attribute_name(:question)) %>
-    <span><%= @faq.question.html_safe %></span>
     <%= label_tag(Faq.human_attribute_name(:answer)) %>
     <%= raw @faq.answer %>
   </div>

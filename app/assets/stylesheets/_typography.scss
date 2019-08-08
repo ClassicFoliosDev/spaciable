@@ -1,12 +1,15 @@
-$base-font-family: 'Open Sans', sans-serif;
-$medium-font-family: 'Open Sans', sans-serif;
-$header-font-family: 'Open Sans', sans-serif;
+$base-font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+$medium-font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+$header-font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
 $base-small-font-size: 12px;
 $base-font-size: 14px;
 $base-font-line-height: 22px;
 $base-small-font-line-height: 18px;
 $base-font-weight: 400;
 $ultra-small-font: 10px;
+
+$bold-font-weight: 700;
+$semi-bold-font-weight: 550;
 
 $icon-font-line-height: 28px;
 
@@ -20,8 +23,8 @@ $title-margin-large:  0 0 $spacing-large;
 $title-margin-medium: 0 0 $spacing-medium;
 $title-margin-small: 0 0 $spacing-small;
 
-$font-title-color: $type-grey;
-$font-copy-color: $type-grey;
+$font-title-color: $primary-navy;
+$font-copy-color: $primary-navy;
 $font-link-color: $primary-background;
 
 $paragraph-padding: 0;
@@ -44,10 +47,10 @@ body {
 // Title Styles
 h1, h2, h3, h4, h5 {
   color: $font-title-color;
-  font-weight: $base-font-weight;
+  font-weight: $bold-font-weight;
 }
 
-h1, h2, h3, .btn, .branded-btn {
+h1, h2, h3, .btn, .branded-btn, .branded-btn-inverted {
   font-family: $header-font-family;
 }
 
@@ -76,6 +79,21 @@ h5 {
   margin: $title-margin-small;
 }
 
+.branded-left-text h2 {
+  color: $primary-red-left;
+  margin-bottom: $spacing-small;
+}
+
+.preamble .content p {
+  color: $ui-white;
+  font-weight: $bold-font-weight;
+}
+
+.preamble .content li {
+  color: $ui-white;
+}
+
+
 //Paragraph Styles
 p {
   padding: $paragraph-padding;
@@ -91,7 +109,6 @@ p {
 ul,
 ol,
 dl {
-  color: $font-copy-color;
   padding: $list-padding;
   margin: $list-margin;
   font-family: $base-font-family;
@@ -103,6 +120,7 @@ li {
   font-size: $base-font-size;
   line-height: $base-font-line-height;
   font-weight: $base-font-weight;
+  list-style-position: inside;
 }
 
 dt {

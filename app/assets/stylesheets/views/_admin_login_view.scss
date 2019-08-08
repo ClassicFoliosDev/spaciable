@@ -1,51 +1,232 @@
-$login-form-bg-color: $ui-white;
-$login-title-left-color: $primary-green;
-$login-title-right-color: $primary-red;
-
-$maximum-logo-size: 400px;
-
-.admin-login-view {
-  @include grad-orange-pink(180deg);
-
-  @include media($tablet-landscape-down) {
-    main {
-      padding: 0;
-      height: 100%;
-    }
-
-    .main-container {
-      padding-top: 0;
-      height: 100%;
-    }
-  }
+.admin-login-view .admin-login-background {
+  height: 976px;
+  width: 100%;
+  background-image: url('Spaciable_blue_corner.svg');
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 30%;
 }
 
 .admin-login-panel {
-  margin: 0 auto;
-  width: 400px;
+  position: relative;
+  background-color: $primary-navy;
+  box-shadow: 0px 0px 20px 8px rgba(34,34,34,0.2);
+  -webkit-box-shadow: 0px 0px 20px 8px rgba(34,34,34,0.2);
+  -moz-box-shadow: 0px 0px 20px 8px rgba(34,34,34,0.2);
+  @include outer-container(1100px);
+  min-height: 1px;
+  top: 100px;
+  height: 760px;
 
-  .logo {
-    margin: $spacing-large 15% $spacing-small;
-  }
-}
+  .preamble {
+    @include span-columns(5 of 12);
+    padding: 40px;
 
-.admin-login-form {
-  .logo {
-    display: block;
-    width: 70%;
-    max-width: $maximum-logo-size;
-    margin: $spacing-large auto $spacing-small;
+    .content {
+      @include span-columns(12 of 12);
+      margin-top: 100px;
+
+      .login-icon {
+        text-align: center;
+        margin-top: 120px;
+
+        img {
+          width: 40%;
+        }
+      }
+    }
   }
 
   form {
-    margin-top: $spacing-large;
-    background-color: $login-form-bg-color;
-    border-radius: $border-radius;
-    overflow: hidden;
-    padding: $spacing-medium;
+    @include span-columns(12 of 12);
+
+    input[type="submit"] {
+      width: 30%;
+      font-weight: bold;
+      padding: 4px;
+      margin-top: $spacing-medium;
+      margin-bottom: $spacing-small;
+    }
+  }
+
+  .admin-login-form {
+    @include span-columns(7 of 12);
+    @include omega();
+    float: left;
+    height: 100%;
+    padding: $spacing-large;
+    background-color: $ui-white;
+
+    .information {
+      margin-top: 197px;
+
+      p {
+        font-size: $ultra-small-font;
+      }
+
+      a {
+        color: $primary-navy;
+        font-size: $ultra-small-font;
+        font-weight: $bold-font-weight;
+      }
+    }
+
+    .form-inputs {
+      input[type="email"], input[type="password"] {
+        border-color: $pale-navy;
+        border-radius: 0;
+        width: 70%;
+        white-space: normal;
+        margin-bottom: -10px;
+
+        &:focus {
+          border-left: 5px solid $primary-red-left;
+        }
+      }
+
+      input:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px $ui-white inset;
+      }
+
+      input[type="checkbox"] {
+        -webkit-appearance:checkbox;
+        margin-top: $spacing-medium;
+        margin-bottom: $spacing-large;
+      }
+
+      label {
+        color: $primary-navy;
+      }
+    }
+
+    .admin-login-logo {
+      display: block;
+      margin-bottom: $spacing-large;
+      @include span-columns(8 of 12);
+      height: 120px;
+
+      img {
+        margin-top: $spacing-small;
+        display: block;
+        max-width: 50%;
+        max-height: 120px;
+      }
+    }
+
+    h2 {
+      color: $primary-red-left;
+      margin-bottom: $spacing-large;
+    }
+
+    .admin-copyright p {
+      margin-top: 150px;
+      font-size: $ultra-small-font;
+    }
+
+    .forgotten-password a {
+      font-size: $ultra-small-font;
+      color: $primary-navy;
+      text-decoration: none;
+      font-weight: $semi-bold-font-weight;
+    }
+
+    .btn-admin-login {
+      border: 1px solid $primary-navy;
+      border-radius: 0;
+      background-color: $ui-white;
+      color: $primary-navy;
+
+      &:hover {
+        background-color: $primary-navy;
+        color: $ui-white;
+      }
+    }
+
+    .btn-new-admin {
+      margin-top: $spacing-large;
+    }
+
+    .notice, .alert {
+      display: inline-block;
+      clear: both;
+      width: 100%;
+      margin-top: $spacing-large;
+      margin-bottom: 0;
+      background: $ui-white;
+    }
+    .alert {
+      color: $primary-background;
+    }
+    .notice {
+      color: $primary-green;
+    }
+
+    .error {
+      color: $ui-white;
+    }
+  }
+
+  input:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.admin-pass-reset {
+  input[type="email"], input[type="password"] {
+    width: 25%;
+    border-radius: 0;
+    border: 1px solid $pale-navy;
+    margin-bottom: -10px;
+
+    &:focus {
+      border-left: 5px solid $primary-red-left;
+    }
+  }
+
+  h2 {
+    color: $primary-red-left;
+    margin-bottom: $spacing-large;
   }
 
   a {
-    color: $primary-cta-color;
+    font-size: $ultra-small-font;
+    font-weight: $semi-bold-font-weight;
+    text-decoration: none;
+    color: $primary-red-left;
+  }
+
+  .login-small {
+    margin-top: $spacing-small;
+  }
+
+  .btn {
+    margin-top: $spacing-large;
+    border: 1px solid $primary-navy;
+    border-radius: 0;
+    background-color: $ui-white;
+    color: $primary-navy;
+
+    &:hover {
+      background-color: $primary-navy;
+      color: $ui-white;
+    }
+  }
+}
+
+@include media($tablet-portrait-down) {
+  .login, .new-password, .reset-password {
+    margin-bottom: 100px;
+
+    .preamble {
+      @include span-columns(12 of 12);
+
+      .content {
+        margin-top: 0;
+      }
+    }
+
+    .sign-in, .set-password {
+      @include span-columns(12 of 12);
+    }
   }
 }

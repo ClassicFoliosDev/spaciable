@@ -4,10 +4,10 @@
   <div class="section-header">
     <div class="section-title">
       <%= @room.name %><br>
+      <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
     </div>
 
     <div class="section-data">
-      <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
       <%= edit_btn [:edit, @plot, @room], element: @room %>
     </div>
   </div>
@@ -22,7 +22,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), [@plot, :rooms], class: "btn" %>
+      <%= link_to t(".back"), [@plot, active_tab: :rooms], class: "btn" %>
     </div>
   </div>
 </div>

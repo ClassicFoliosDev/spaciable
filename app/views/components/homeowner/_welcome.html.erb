@@ -3,21 +3,28 @@
     <div class="menu full-menu">
       <span><%= t('.hi', first_name: current_resident&.first_name) %></span>
       <span>|</span>
-      <%= link_to homeowners_notifications_path do %>
+      <%= link_to homeowners_notifications_path,
+          class: ('active-link' if current_page?(homeowners_notifications_path)) do %>
         <% if unread_count.positive? %>
-          <i class="fa fa-envelope"></i>
+          <i class="fa fa-envelope <%= 'active-link' if current_page?(homeowners_notifications_path) %>"></i>
           <sup class="unread"><%= unread_count %></sup>
         <% else %>
           <%= t(".messages") %>
         <% end %>
       <% end %>
       <span>|</span>
-      <%= link_to t(".account"), homeowners_resident_path(current_resident) %>
+      <%= link_to t(".account"), homeowners_resident_path(current_resident),
+          class: ('active-link' if current_page?(homeowners_resident_path(current_resident))) %>
       <% if plots.count > 1 %>
         <span>|</span>
         <span class="my-plots"><%= t(".my_plots") %></span>
       <% end %>
       <span>|</span>
+      <% if current_resident.letable_plots?(plots) %>
+        <%= link_to t(".lettings"), letting_path(current_resident),
+            class: ('active-link' if current_page?(letting_path(current_resident)))%>
+        <span>|</span>
+      <% end %>
       <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident) %>
       <span>|</span>
       <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>

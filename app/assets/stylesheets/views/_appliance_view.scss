@@ -63,13 +63,39 @@
     display: inline-block;
     border-style: solid;
     padding-left: 38px;
-    border-radius: 0;
+    border-radius: 5px;
   }
 }
 
 .search-appliance-btn, .search-finish-btn {
-  margin-top: -48px;
+  margin-top: -46px;
   margin-left: 2px;
   padding: $spacing-small;
   border: none;
+  color: $primary-navy;
+
+  &:hover {
+    color: $ui-white;
+    background-color: $primary-navy;
+  }
+}
+
+.finish_manufacturer .select2-container {
+  width: 100% !important;
+}
+
+.appliance .guide-container {
+  padding-top: 4px;
+}
+
+.appliance .appliance-actions {
+  float: right;
+}
+
+.appliance .appliance-edit .edit-label {
+  padding-top: $spacing-medium;
+}
+
+.appliance .guide, .appliance .manual {
+  padding-top: $spacing-small;
 }

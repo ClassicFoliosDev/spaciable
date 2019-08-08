@@ -6,8 +6,9 @@
   padding: $spacing-small;
   border-style: solid;
   border-width: 1px;
+  border-radius: 5px/5px;
   margin: $spacing-medium;
-  border-color: $ui-grey;
+  border-color: $pale-navy;
 
   .comments-description {
     font-size: $base-small-font-size;
@@ -29,8 +30,9 @@
     padding: $spacing-small;
     border-style: solid;
     border-width: 1px;
+    border-radius: 5px/5px;
     margin: $spacing-small;
-    border-color: $ui-grey;
+    border-color: $pale-navy;
 
     .commenter {
       font-weight: bold;
@@ -46,7 +48,7 @@
     }
 
     img {
-      border-radius: 10px;
+      border-radius: 5px;
       width: 60%;
       margin-top: $spacing-small;
       vertical-align: left !important;

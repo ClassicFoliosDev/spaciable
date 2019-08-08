@@ -1,6 +1,6 @@
 .appliances {
   margin: $spacing-small auto;
-  @include outer-container(860px);
+  @include outer-container(960px);
 
   .appliance {
     @include row();
@@ -13,12 +13,14 @@
     img {
       width: 100%;
       margin-top: $spacing-small;
+      border-radius: 5px;
     }
 
     .images {
       @include span-columns(4 of 12);
       @include omega();
       padding: $spacing-small;
+      text-align: center;
 
       .secondary-image {
         display: block;
@@ -39,9 +41,7 @@
       }
 
       a {
-        margin-top: $spacing-small;
-        display: table;
-        margin: auto;
+        margin-top: $spacing-medium;
       }
     }
 
@@ -51,21 +51,15 @@
 
       .detail {
         @include span-columns(6 of 12);
-      }
 
-      .file-details {
-        height: 40px;
+        label {
+          margin-top: 12px;
+        }
 
         span {
-          float: left;
-          margin-bottom: $spacing_small;
           width: 80%;
           text-overflow: ellipsis;
           overflow: hidden;
-        }
-
-        a {
-          float: right;
         }
       }
 

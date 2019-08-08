@@ -41,6 +41,7 @@
 
   .ui-accordion-content {
     padding-bottom: $spacing-small;
+    border-radius: 0 0 5px 5px;
     p {
       margin-bottom: $spacing-small;
     }
@@ -50,6 +51,7 @@
 .check-contacts {
   font-size: $base-font-size;
   margin: $spacing-medium 0;
+  text-align: center;
 
   a {
     font-weight: bold;

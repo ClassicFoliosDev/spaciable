@@ -14,8 +14,12 @@
 }
 
 .choices-table {
-  	width: 100%;
-  	padding-top: $spacing-small;
+  width: 100%;
+  padding-top: $spacing-small;
+
+  tr {
+    color: $primary-black;
+  }
 }
 
 .choices-option {
@@ -31,7 +35,7 @@
 .choice-item {
 	margin-bottom: $spacing-large;
 	border-bottom: solid 1px;
-	border-color: $primary-green;
+	border-color: $primary-navy;
 
 	.item-title {
 		white-space: nowrap;
@@ -63,6 +67,27 @@
 	}
 }
 
-.above-footer {
-	padding-top: $spacing-large;
+.plot-choices {
+  .above-footer {
+    width: 85%;
+    padding-top: $spacing-large;
+    margin-top: $spacing-medium;
+  }
+}
+
+.choices-phases {
+  .ui-accordion .ui-accordion-header {
+    padding: 0;
+    padding-left: 10%;
+
+    h3 {
+      font-size: 14px;
+      margin: 8px;
+    }
+  }
+
+  .ui-accordion .ui-state-default {
+    background: none ;
+    background-color: $ui-white;
+  }
 }

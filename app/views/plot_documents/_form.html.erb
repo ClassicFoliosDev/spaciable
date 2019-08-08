@@ -1,23 +1,22 @@
 <%= simple_form_for new_plot_document, url: [:bulk_upload, parent, :plot_documents] do |f| %>
   <div class="row plot_documents">
     <div class="row-item third hint">
-      <h2><%= t(".bulk_upload") %></h2>
+      <p>
+        <%= t(".multiple_files").html_safe %>
+      </p>
+      <p>
+        <%= t(".repeat").html_safe %>
+      </p>
+    </div>
+    <div class="row-item third hint">
       <p>
         <%= t(".filename_requirements").html_safe %>
       </p>
       <p>
         <%= t(".case").html_safe %>
       </p>
-    </div>
-    <div class="row-item third hint">
       <p>
-        <%= t(".unmatched_files")%>
-      </p>
-      <p>
-        <%= t(".multiple_files").html_safe %>
-      </p>
-      <p>
-        <%= t(".repeat").html_safe %>
+        <%= t(".unmatched_files").html_safe %>
       </p>
     </div>
 

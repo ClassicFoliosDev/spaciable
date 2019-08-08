@@ -2,6 +2,9 @@
   <label class="navbar-trigger-label">
     <%= fa_icon "bars" %>
   </label>
+  <div class="navbar-search">
+    <%= render "components/search" %>
+  </div>
   <nav class="navbar-menu">
     <ul>
       <%= link_to dashboard_path, class: "navbar-link branded-primary" do %>
@@ -70,7 +73,4 @@
       <% end %>
     </ul>
   </nav>
-  <div class="navbar-search">
-  <%= render "components/search" %>
-  </div>
 </div>

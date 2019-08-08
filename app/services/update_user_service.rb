@@ -4,7 +4,7 @@ module UpdateUserService
   module_function
 
   def call(user, user_params)
-    result = if user_params[:password]&.present?
+    result = if user_params[:password_confirmation]&.present?
                user.update_with_password(user_params)
              else
                user_params.delete(:current_password)
@@ -12,7 +12,7 @@ module UpdateUserService
              end
 
     if result
-      user.send_password_change_notification if user_params[:password].present?
+      user.send_password_change_notification if user_params[:password_confirmation].present?
     end
 
     result

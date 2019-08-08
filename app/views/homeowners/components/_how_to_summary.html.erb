@@ -1,13 +1,12 @@
 <% collection.each do |how_to| %>
   <div class="card article branded-border" style="background-image: url(<%= image_path(how_to.picture.url) if how_to.picture? %>)">
-    <div class="overlay">
+    <div class="overlay <%= 'blue-overlay' unless how_to.picture? %>">
       <div class="card-content how-to-summary">
         <div id="how_to-<%= how_to.id %>">
           <p class="larger"><%= how_to.title %></p>
         </div>
-        <%= image_tag "logo-small-white.png", class: "logo" %>
-        <span class="how-to-logo">How To</span>
-        <%= link_to t(".article"), how_to_path(how_to), class: "branded-btn view-article" %>
+        <span class="how-to-logo">How To.</span>
+        <%= link_to t(".article"), how_to_path(how_to), class: "branded-btn-inverted view-article" %>
       </div>
     </div>
   </div>

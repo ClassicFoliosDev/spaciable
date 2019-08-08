@@ -1,8 +1,8 @@
-<% breadcrumb :room_edit, @room %>
+<% breadcrumb :room_appliance_edit, @room %>
 
 <div class="section-header add_appliance">
   <div class="section-title">
-    <%= t(".title", room_name: @room.name) %><br>
+    <%= t(".title") %><br>
   </div>
 </div>
 
@@ -20,44 +20,46 @@
     </div>
   <% end %>
 
-  <div class="row appliance-add">
-    <div class="row-item third appliance-category">
-      <fieldset>
-        <div class="appliance_category ui-front select-container">
-          <%= label_tag Appliance.human_attribute_name(:category) %>
-          <%= select_tag :appliance_category, options_from_collection_for_select(@appliance_categories, "id", "name"), prompt: t(".choose") %>
-        </div>
-      </fieldset>
+  <div class="appliance-add">
+    <div class="row-item third">
+      <div class="appliance-category">
+        <fieldset>
+          <div class="appliance_category ui-front select-container">
+            <%= label_tag t(".category") %>
+            <%= select_tag :appliance_category, options_from_collection_for_select(@appliance_categories, "id", "name"), prompt: t(".choose") %>
+          </div>
+        </fieldset>
+      </div>
+      <div class="appliance-manufacturer">
+        <fieldset>
+          <div class="appliance_manufacturer ui-front select-container">
+            <%= label_tag t(".manufacturer") %>
+            <%= select_tag :appliance_manufacturer, options_from_collection_for_select(@appliance_manufacturers, "id", "name"), prompt: t(".choose") %>
+          </div>
+        </fieldset>
+      </div>
+      <div class="appliance">
+        <fieldset>
+          <div class="appliances ui-front select-container">
+            <%= label_tag Appliance.model_name.human %>
+            <%= select_tag :appliances, required: true %>
+            <span class="match-errors"></span>
+          </div>
+        </fieldset>
+      </div>
     </div>
 
-    <div class="row-item third appliance-manufacturer">
-      <fieldset>
-        <div class="appliance_manufacturer ui-front select-container">
-          <%= label_tag :appliance_manufacturer %>
-          <%= select_tag :appliance_manufacturer, options_from_collection_for_select(@appliance_manufacturers, "id", "name"), prompt: t(".choose") %>
-        </div>
-      </fieldset>
-    </div>
-
-    <div class="row-item third appliance">
-      <fieldset>
-        <div class="appliances ui-front select-container">
-          <%= label_tag Appliance.model_name.human %>
-          <%= select_tag :appliances, required: true %>
-          <span class="match-errors"></span>
-        </div>
-      </fieldset>
-    </div>
-  </div>
-
-  <div class="row search-appliance">
-    <div class="row-item two-thirds">
+    <div class="search-appliance">
+      <div class="row-item third">
         <%= f.text_field :search_appliance_text, class: "search-appliance-field", autocomplete: "off", placeholder: t(".search") %>
         <%= link_to "", class: "btn search-appliance-btn" do %>
-          <i class="fa fa-search"></i>
+        <i class="fa fa-search"></i>
         <% end %>
+      </div>
     </div>
   </div>
+
+
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

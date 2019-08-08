@@ -6,15 +6,19 @@
   <div><%= plot %></div>
 
   <div class="about">
-    <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count || t(".none") %><br/>
+    <br/>
     <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
+    <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/>
     <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") %><br/>
-    <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %>
+    <% if current_user&.cf_admin? %>
+      <strong><%= t(".letable") %></strong><%= plot&.letable %><br/>
+    <% end %>
+    <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count || t(".none") %>
   </div>
 </div>
 
 <div class="section-data">
-  <%= render 'address/address', address: plot %>
-  <span class="strong"><%= plot.unit_type %></span>
+  <%= render 'address/address', address: plot %><br/>
+  <strong><%= plot.unit_type %></strong><br/>
   <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
 </div>

@@ -1,20 +1,20 @@
-$base-button-font-color: $type-grey;
+$base-button-font-color: $primary-navy;
 $base-button-font-size: $base-font-size;
 $base-button-padding: $spacing-small;
 $base-button-bg-color: $ui-white;
-$base-button-border-color: $type-grey;
+$base-button-border-color: $primary-navy;
 
 $base-button-bg-color-hover: $ui-white;
 $base-button-font-color-hover: $primary-cta-color;
-$base-button-border-color-hover: $primary-cta-color;
+$base-button-border-color-hover: $primary-red-left;
 
 $primary-button-font-color: $ui-white;
-$primary-button-font-color-hover: $primary-cta-color;
-$primary-button-color: $primary-cta-color;
+$primary-button-font-color-hover: $primary-red-left;
+$primary-button-color: $primary-red-left;
 $primary-button-color-hover: $ui-white;
 
-$primary-button-border-color: $primary-cta-color;
-$primary-button-border-color-hover: $primary-cta-color;
+$primary-button-border-color: $primary-red-left;
+$primary-button-border-color-hover: $primary-red-left;
 $button-line-height: 28px;
 
 .btn {
@@ -23,16 +23,16 @@ $button-line-height: 28px;
   font-size: $base-button-font-size;
   line-height: $button-line-height;
   padding: 0 10px;
-  border: 1px solid $base-button-border-color;
+  border: 1px solid $primary-button-border-color;
   border-radius: $border-radius;
   cursor: pointer;
   white-space: nowrap;
   background-color: $ui-white;
-  color: $default-text-color;
+  color: $primary-button-color;
 
   &:hover {
     color: $ui-white;
-    background-color: $primary-red;
+    background-color: $primary-button-color;
   }
 
   &:focus,
@@ -65,8 +65,8 @@ $button-line-height: 28px;
 
 .btn-primary {
   color: $primary-button-font-color;
-  background-color: $primary-button-color;
-  border-color: $primary-button-color;
+  background-color: $primary-red-left;
+  border-color: $primary-red-left;
   border-width: 1px;
   border-radius:  $border-radius;
   padding: 0 $spacing-small;
@@ -90,10 +90,6 @@ $button-line-height: 28px;
 
 button:focus, button:active {
   outline: none;
-}
-
-.remove {
-  padding: 8px 9px 7px;
 }
 
 input[disabled="disabled"], input[disabled] {

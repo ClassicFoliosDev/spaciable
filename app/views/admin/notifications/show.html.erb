@@ -2,14 +2,16 @@
 
 <div class="section-header">
   <div class="section-title">
-    <i class="fa fa-envelope"></i>
     <%= @notification.subject %><br>
   </div>
 </div>
 
 <div class="row notification">
-  <div class="row-item third">
+  <div class="row-item two-thirds">
+    <p><%= @notification.created_at.strftime("%d %B, %Y") %></p>
     <%= label_tag(t(".sent_to")) %>
+    <span><%= @notification.sent_to_role %></span>
+    <%= label_tag(t(".residents_of")) %>
     <span><%= truncate(@notification.sent_to.html_safe, length: 80) %></span>
     <%= label_tag(t(".numbers")) %>
     <% if @notification.plot_numbers.any? %>
@@ -17,10 +19,6 @@
     <% else %>
       <span><%= t(".all") %></span>
     <% end %>
-  </div>
-  <div class="row-item two-thirds">
-    <%= label_tag(Notification.human_attribute_name(:subject)) %>
-    <span><%= @notification.subject %></span>
     <%= label_tag(Notification.human_attribute_name(:message)) %>
     <span><%= simple_format @notification.message %></span>
   </div>

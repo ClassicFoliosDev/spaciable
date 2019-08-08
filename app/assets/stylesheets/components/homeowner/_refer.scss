@@ -25,18 +25,16 @@
       .refer-button {
       padding: $spacing-medium;
       }
+
+      .refer-friend {
+        font-size: $base-font-size;
+        line-height: $base-font-line-height;
+        font-weight: $base-font-weight;
+      }
     }
   }
 }
 
 .refer-description {
   padding: $spacing-small;
-}
-
-.tel {
-  color: #67747C;
-
-  input {
-    color: $ui-black;
-  }
 }

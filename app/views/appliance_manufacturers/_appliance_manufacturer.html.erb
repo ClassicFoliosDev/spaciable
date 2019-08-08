@@ -1,7 +1,7 @@
 <div class="section-header">
   <div class="section-title">
-    <div><%= appliance_manufacturer.name %></div>
-    <span class="about"><%= appliance_manufacturer.link %></span>
+    <div><%= appliance_manufacturer.name %></div><br/>
+    <span class="about"><strong><%= t(".link") %></strong><%= appliance_manufacturer.link %></span>
   </div>
 
   <div class="section-data">
@@ -13,7 +13,7 @@
 
 <div class="row appliance_manufacturer">
   <div class="row-item half">
-    <%= label_tag t(".appliance_categories") %>
+    <h5><%= t(".appliance_categories") %></h5>
     <% ApplianceCategory.all.each do | category | %>
       <span><%= category %></span><br>
     <% end %>

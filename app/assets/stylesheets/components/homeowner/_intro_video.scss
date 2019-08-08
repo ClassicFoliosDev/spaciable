@@ -34,11 +34,6 @@
   }
 }
 
-.video-link {
-  float: right;
-  margin-top: $spacing-medium;
-}
-
 @include media($tablet-portrait-up) {
   .video-container {
     padding: $spacing-medium $spacing-large;

@@ -19,7 +19,7 @@
   <div class="main-container">
     <dl class="faqs">
       <% @faqs.each do |faq| %>
-        <dt id="faq-<%= faq.id %>"><h3><%= faq.question.html_safe %></h3></dt>
+        <dt id="faq-<%= faq.id %>"><h3 class="branded-text"><%= faq.question.html_safe %></h3></dt>
         <dd class="branded-text"><%= raw faq.answer %></dd>
       <% end %>
     </dl>

@@ -17,11 +17,11 @@
   </ul>
 <% end %>
 
-<%= render "components/homeowner/sub_header", active_tab: "none", plot: @plot %>
+<%= render "components/homeowner/hero" %>
 
 <div class="branded-body outer-container">
   <div class="check-faqs branded-text">
-    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, homeowner_faqs_path, class: "branded-primary")).html_safe %></span>
+    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, homeowner_faqs_path)).html_safe %></span>
   </div>
   <div class="full-contacts">
       <% @contacts.each_with_index do | contact, index | %>

@@ -15,7 +15,6 @@
 
   h2 {
     color: $ui-white;
-    font-weight: 200;
     font-size: $title-font-size-3;
     margin-bottom: $spacing-small;
   }
@@ -49,14 +48,14 @@
 
       &:hover {
         background-color: $ui-white;
-        color: $ui-black;
+        color: $primary-navy;
       }
     }
 
     a.active {
       background-color: $ui-white;
-      color: $ui-black;
-      border-color: $ui-black;
+      color: $primary-navy;
+      border-color: $ui-white;
     }
   }
 }

@@ -28,7 +28,7 @@ Then(/^An email should be sent$/) do
   email_address = emails[0].to
 
   expect(subject_text).to eq t("feedback.email_subject")
-  expect(email_address).to match_array(["feedback@hoozzi.com"])
+  expect(email_address).to match_array(["feedback@spaciable.com"])
 
   body = Capybara.string(emails[0].body.encoded)
   expect(body.native).to have_content t("feedback.option3")

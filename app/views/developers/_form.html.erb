@@ -17,14 +17,14 @@
   <div class="row">
     <div class="row-item third">
       <fieldset>
-        <%= f.input :company_name %>
+        <%= f.input :company_name, label: t(".company_name") %>
         <div class="featured ui-front">
           <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
         </div>
         <%= f.input :about %>
-        <%= f.input :email %>
-        <%= f.input :contact_number %>
-        <%= f.input :api_key, as: :text, placeholder: t(".api_key_info") %>
+        <%= f.input :email, label: t(".email") %>
+        <%= f.input :contact_number, label: t(".contact") %>
+        <%= f.input :api_key, as: :text, placeholder: t(".api_key_info"), label: t(".api_key") %>
       </fieldset>
     </div>
     <div class="row-item third">
@@ -37,21 +37,21 @@
     </div>
     <div class="row-item third">
       <fieldset>
-        <%= f.label t(".enable_roomsketcher") %>
-        <%= f.check_box :enable_roomsketcher %>
-        <p class="checkbox-description"><%= t(".roomsketcher_description") %></p>
-        <%= f.label t(".enable_house_search") %>
+        <%= f.label :house_search, t(".enable_house_search") %>
         <%= f.check_box :house_search %>
         <p class="checkbox-description"><%= t(".house_search_description") %></p>
-        <%= f.label t(".enable_messages") %>
+        <%= f.label :enable_development_messages, t(".enable_messages") %>
         <%= f.check_box :enable_development_messages %>
         <p class="checkbox-description"><%= t(".messages_description") %></p>
-        <%= f.label t(".development_faqs") %>
+        <%= f.label :development_faqs, t(".development_faqs") %>
         <%= f.check_box :development_faqs %>
         <p class="checkbox-description"><%= t(".development_faqs_description") %></p>
         <%= f.label t(".enable_referrals") %>
         <%= f.check_box :enable_referrals %>
         <p class="checkbox-description"><%= t(".referrals_description") %></p>
+        <%= f.label :enable_roomsketcher, t(".enable_roomsketcher") %>
+        <%= f.check_box :enable_roomsketcher %>
+        <p class="checkbox-description"><%= t(".roomsketcher_description") %></p>
         <%= f.label t(".enable_services") %>
         <%= f.check_box :enable_services %>
         <p class="checkbox-description"><%= t(".services_description") %></p>

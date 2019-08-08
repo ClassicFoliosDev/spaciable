@@ -20,7 +20,7 @@ module Csv
         "Development name", "Plot number", "Phase", "Expiry date", "Business", "Resident email",
         "Resident name", "Resident invited on", "Resident invited by", "Resident role",
         "Resident activated", "Resident last sign in", "Lifetime sign in count",
-        "Notifications #{@between}", "Developer updates", "Hoozzi updates", "Telephone updates",
+        "Notifications #{@between}", "Developer updates", "Spaciable updates", "Telephone updates",
         "Post updates", "Terms and conditions accepted", "Services subscribed"
       ]
     end

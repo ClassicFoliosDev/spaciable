@@ -31,7 +31,7 @@ module ButtonsHelper
     content_tag(:button, data: data_to_delete(resource, path: path, text: text),
                          class: "btn archive-btn",
                          title: I18n.t("buttons.trash")) do
-      icon "trash", label
+      icon "trash-o", label
     end
   end
 

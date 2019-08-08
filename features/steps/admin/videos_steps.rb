@@ -8,7 +8,7 @@ When(/^I create a video$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Video.model_name.human.downcase)
+    click_on t("components.empty_list.add", type_name: Video.model_name.human.titleize)
   end
 
   within ".row" do
@@ -27,7 +27,7 @@ When(/^I create a video for the division development$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Video.model_name.human.downcase)
+    click_on t("components.empty_list.add", type_name: Video.model_name.human.titleize)
   end
 
   within ".row" do

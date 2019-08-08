@@ -4,13 +4,14 @@
   <div class="section-header">
     <div class="section-title">
       <div><%= @unit_type.name %></div>
-      <span class="about"><%= @unit_type.external_link %></span>
+      <span class="about">
+        <br/>
+        <strong><%= t(".walkthrough") %></strong><%= @unit_type.external_link %><br/>
+        <strong><%= t(".build_type") %></strong><%= t("activerecord.attributes.unit_type.build_types.#{@unit_type.build_type}") %>
+      </span>
     </div>
 
     <div class="section-data">
-      <span class="strong">
-      <%= t("activerecord.attributes.unit_type.build_types.#{@unit_type.build_type}") %>
-      </span>
       <%= edit_btn [:edit, @unit_type.development, @unit_type], element: @unit_type %>
     </div>
   </div>

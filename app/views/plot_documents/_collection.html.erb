@@ -2,9 +2,9 @@
   <thead>
     <tr>
       <th><%= sortable(Document, :title) %></th>
-      <th><%= t(".plot") %></th>
-      <th><%= sortable(Document, :updated_at) %></th>
+      <th colspan="2"><%= t(".plot") %></th>
       <th><%= sortable(Document, :category) %></th>
+      <th><%= sortable(Document, :updated_at) %></th>
       <th>&nbsp;</th>
     </tr>
   </thead>
@@ -12,7 +12,7 @@
     <% collection.each do |document| %>
     <tr>
       <td><%= link_to document.title, document_path(document) %></td>
-      <td>
+      <td colspan="2" class="plot-select">
         <%= simple_form_for document, remote: true do |f| %>
           <%= f.association :documentable,
             collection: admin_plot_select_options(scope: parent),
@@ -20,14 +20,14 @@
             label: false %>
         <% end %>
       </td>
-      <td><%= l document.updated_at.to_date, format: :digits %></td>
       <td><%= t("activerecord.attributes.document.categories.#{document.category}") %></td>
+      <td><%= l document.updated_at.to_date, format: :digits %></td>
       <td class="actions">
         <% if document.file_tmp %>
           <%= t(".processing") %>
         <% else %>
           <%= link_to document.file.url, class: "btn",  target: "_blank" do %>
-            <%= icon "cloud-download" %>
+            <%= icon "search-plus" %>
           <% end %>
         <% end %>
       </td>

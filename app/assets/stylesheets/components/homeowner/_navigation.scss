@@ -13,7 +13,6 @@ nav {
       margin-bottom: 0;
 
       .active li {
-        color: $type-grey;
         font-weight: bold;
       }
     }
@@ -30,6 +29,7 @@ nav {
 
   .navbar-menu {
     float: right;
+    clear: both;
   }
 
   .navbar-item {
@@ -42,7 +42,7 @@ nav {
     cursor: pointer;
 
     &:hover {
-      background-color: $ui-grey;
+      background-color: $ui-light-grey;
     }
 
     a {
@@ -51,9 +51,12 @@ nav {
     }
 
     .active {
-      color: $default-text-color;
       cursor: none;
     }
+  }
+
+  .navbar-item-secondary {
+    font-weight: $semi-bold-font-weight;
   }
 }
 
@@ -70,6 +73,7 @@ nav {
 .copyright {
   display: block;
   font-size: $ultra-small-font;
+  color: $primary-black;
 
   a {
     font-size: inherit;
@@ -79,13 +83,10 @@ nav {
 .sub-navigation-container {
   border-top: solid 1px $ui-grey;
   padding: 10px 20px;
+  text-align: center;
 
   h3 {
     margin-bottom: 0;
-  }
-
-  ul {
-    margin-left: 40px;
   }
 }
 
@@ -114,6 +115,10 @@ nav {
   .search-container {
     display: block;
   }
+  .main-navigation .nav-inner {
+    display: flex;
+    align-items: center;
+  }
 
   nav .nav-inner .logo {
     display: block;
@@ -122,14 +127,14 @@ nav {
 
     img {
       max-height: 80px;
+      max-width: 220px;
     }
   }
 }
 
 .navbar-search {
   float: right;
-  clear: both;
-  padding: 20px;
+  padding-right: 20px;
 }
 
 // mobile view
@@ -145,10 +150,9 @@ nav {
     max-height: 140px;
     display: block;
     padding: 10px 10px;
+    text-align: center;
 
     .nav-inner {
-      text-align: center;
-
       h3 {
         display: none;
       }

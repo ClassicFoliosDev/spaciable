@@ -2,7 +2,6 @@
 
 <div class="section-header">
   <div class="section-title">
-    <i class="fa fa-question-circle"></i>
     <%= t(".title", title: @how_to.title) %><br>
   </div>
   <div class="section-data">
@@ -16,8 +15,10 @@
 
 <div class="row how-to">
   <div class="row-item third">
-    <%= label_tag(HowTo.human_attribute_name(:title)) %>
-    <span><%= @how_to.title %></span>
+    <% if @how_to&.picture? %>
+      <%= label_tag(HowTo.human_attribute_name(:picture)) %>
+      <%= image_tag @how_to.picture.url if @how_to.picture? %>
+    <% end %>
     <%= label_tag(HowTo.human_attribute_name(:summary)) %>
     <span><%= @how_to.summary %></span>
     <%= label_tag(HowTo.human_attribute_name(:description)) %>
@@ -26,27 +27,30 @@
   <div class="row-item third">
     <%= label_tag(HowTo.human_attribute_name(:category)) %>
     <span><%= t("activerecord.attributes.how_to.categories.#{@how_to.category}") %></span>
-    <%= label_tag(HowTo.human_attribute_name(:sub_category)) %>
-    <span><%= @how_to.how_to_sub_category %></span>
-    <%= label_tag(HowTo.human_attribute_name(:additional_text)) %>
-    <span><%= @how_to.additional_text %></span>
-    <%= label_tag(HowTo.human_attribute_name(:picture)) %>
-    <%= image_tag @how_to.picture.url if @how_to.picture? %>
-  </div>
-  <div class="row-item third">
-    <%= label_tag(HowTo.human_attribute_name(:url)) %>
-    <span><%= @how_to.url %></span>
+    <% if @how_to&.how_to_sub_category %>
+      <%= label_tag :sub_category, t(".sub_category") %>
+      <span><%= @how_to.how_to_sub_category %></span>
+    <% end %>
+    <% if @how_to&.featured %>
+      <%= label_tag(HowTo.human_attribute_name(:featured)) %>
+      <span><%= @how_to.featured %></span>
+    <% end %>
+    <% if @how_to&.url? %>
+      <%= label_tag :url, t(".url") %>
+      <span><%= @how_to.url %></span>
+    <% end %>
+    <% if @how_to&.additional_text? %>
+      <%= label_tag :additional_text, t(".additional_text") %>
+      <span><%= @how_to.additional_text %></span>
+    <% end %>
     <%= label_tag(HowTo.human_attribute_name(:tags)) %>
     <span>
     <% @how_to.tags.each do | tag | %>
       <%= tag %>
     <% end %>
     </span>
-    <%= label_tag(HowTo.human_attribute_name(:featured)) %>
-    <span><%= @how_to.featured %></span>
     <%= label_tag(HowTo.human_attribute_name(:hide)) %>
     <span><%= @how_to.hide? ? t(".hidden") : t(".not_hidden") %></span>
-  </div>
 </div>
 
 <div class="form-actions-footer-container">

@@ -1,6 +1,6 @@
 <% plot = @resource.invitation_plot %>
 <% if plot.branded_logo.blank? %>
-  <%= image_tag("logo.png", style: "display: block;width:120px;margin: 20px auto", alt: plot.development.to_s) %>
+  <%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 20px auto", alt: plot.development.to_s) %>
 <% else %>
   <%= image_tag(plot.branded_logo, style: "display: block;width:120px;margin: 20px auto", alt: plot.development.to_s) %>
 <% end %>

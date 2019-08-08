@@ -18,7 +18,11 @@ module Homeowners
       if UpdateUserService.call(current_resident, resident_params)
         Mailchimp::MarketingMailService.call(current_resident, @plot)
         notice = t(".success")
-        redirect_to root_path, notice: notice
+        if resident_params[:password_confirmation].present?
+          redirect_to root_path
+        else
+          redirect_to homeowners_resident_path(current_resident), notice: notice
+        end
       else
         render :edit
       end
@@ -126,7 +130,7 @@ module Homeowners
 
     def residents_for_my_plot
       @plot.residents.map do |resident|
-        next if resident.email == current_resident.email
+        next if resident&.email == current_resident&.email
 
         {
           email: resident.email,

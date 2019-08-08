@@ -19,7 +19,7 @@
 
       <% if contact.phone? %>
         <span class="contact-detail">
-          <%= link_to 'tel:#{contact.phone}', number: contact.phone, class: 'branded-primary' do %>
+          <%= link_to 'tel:#{contact.phone}', number: contact.phone, class: 'branded-text' do %>
             <%= fa_icon "phone" %> <%= contact.phone %>
           <% end %>
         </span>
@@ -27,7 +27,7 @@
 
       <% if contact.mobile? %>
         <span class="contact-detail">
-          <%= link_to 'tel:#{contact.mobile}', number: contact.mobile, class: 'branded-primary' do %>
+          <%= link_to 'tel:#{contact.mobile}', number: contact.mobile, class: 'branded-text' do %>
             <%= fa_icon "mobile" %> <%= contact.mobile %>
           <% end %>
         </span>
@@ -35,7 +35,7 @@
 
       <% if contact.email? %>
         <span class="contact-detail">
-          <%= mail_to contact.email, class: 'branded-primary' do %>
+          <%= mail_to contact.email, class: 'branded-text' do %>
             <%= fa_icon "envelope" %>
             <%= contact.email %>
           <% end %>

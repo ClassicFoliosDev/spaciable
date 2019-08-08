@@ -20,7 +20,7 @@ When(/^I set the video link$/) do
     find("[data-action='edit']").click
   end
 
-  within ".setting" do
+  within ".intro-video" do
     fill_in :setting_video_link, with: SettingsFixture.video_url
   end
 

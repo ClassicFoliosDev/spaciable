@@ -16,7 +16,7 @@
       <% if f.object.persisted? %>
         <fieldset>
           <%= f.input :number %>
-          <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
+          <%= render "components/admin/plot_fields", f: f, plot: plot %>
         </fieldset>
       <% else %>
         <%= render "components/admin/plots_select", f: f %>
@@ -25,8 +25,10 @@
 
     <div class="row-item third">
       <fieldset>
-        <%= f.association :unit_type, as: :select, collection: unit_type_collection(plot.parent) %>
-        <%= render "components/admin/plot_fields", f: f, plot: plot %>
+        <div class="plot-field">
+          <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent) %>
+        </div>
+        <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
       </fieldset>
     </div>
 
@@ -46,10 +48,12 @@
         <%= link_to t(".back"), [plots.parent.parent, plots.parent, active_tab: :plots], class: "btn" %>
       <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      <div class="notify">
-        <%= label_tag t(".notify") %>
-        <%= f.check_box :notify %>
-      </div>
+      <% if f.object.persisted? %>
+        <div class="notify">
+          <%= label_tag t(".notify") %>
+          <%= f.check_box :notify %>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>

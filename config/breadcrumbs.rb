@@ -2,6 +2,10 @@ crumb :root do
   link "Dashboard", root_path
 end
 
+crumb :help do
+  link "Help", admin_help_path
+end
+
 # Admin Users
 crumb :admin_users do
   link t("breadcrumbs.admin_users"), admin_users_path
@@ -13,7 +17,7 @@ crumb :admin_user_new do
 end
 
 crumb :admin_user_edit do |user|
-  link t("breadcrumbs.admin_user_edit", user_email: user.email), edit_admin_user_path(user)
+  link t("breadcrumbs.admin_user_edit", user: user), edit_admin_user_path(user)
   parent :admin_users
 end
 
@@ -57,6 +61,11 @@ crumb :admin_admin_notifications_new do
   parent :admin_admin_notifications
 end
 
+crumb :admin_admin_notification do |admin_notification|
+  link admin_notification.to_s, admin_admin_notification_path(admin_notification)
+  parent :admin_admin_notifications
+end
+
 # Admin HowTos
 crumb :admin_how_tos do
   link t("breadcrumbs.admin_how_tos"), admin_how_tos_path
@@ -67,8 +76,8 @@ crumb :admin_how_to_new do
   parent :admin_how_tos
 end
 
-crumb :admin_how_to_edit do
-  link t("breadcrumbs.admin_how_to_edit"), edit_admin_how_to_path
+crumb :admin_how_to_edit do |how_to|
+  link t("breadcrumbs.admin_how_to_edit", how_to: how_to), edit_admin_how_to_path
   parent :admin_how_tos
 end
 
@@ -87,6 +96,20 @@ crumb :admin_plot_snags do |phase|
   parent :admin_snag_overview
 end
 
+# Admin global settings
+crumb :admin_settings do
+  link t("breadcrumbs.admin_settings"), admin_settings_path
+end
+
+crumb :admin_settings_edit do
+  link t("breadcrumbs.admin_settings_edit"), edit_admin_settings_path
+  parent :admin_settings
+end
+
+# Analytics
+crumb :reports do
+  link t("breadcrumbs.admin_reports"), new_admin_analytics_path
+end
 
 
 # Current parent snag overview - cannot find phase id to pass to phases
@@ -96,8 +119,8 @@ crumb :admin_plot_snag do
 end
 
 # Current parent snag overview - cannot find plot id to pass to plots
-crumb :admin_snag do
-  link t("breadcrumbs.admin_snag"), admin_snag_path
+crumb :admin_snag do |snag|
+  link t("breadcrumbs.admin_snag", plot: snag.plot, phase: snag.phase, development: snag.development)
   parent :admin_snag_overview
 end
 
@@ -239,7 +262,7 @@ end
 # DEVELOPMENT CHOICE CONFIGURATIONS
 
 crumb :choice_configurations do |development|
-  link ChoiceConfiguration.model_name.human.pluralize, development_choice_configurations_path(development)
+  link t("breadcrumbs.choice_configurations"), development_choice_configurations_path(development)
   parent :development, development
 end
 
@@ -261,7 +284,7 @@ end
 # CHOICE CONFIGURATIONS ROOM COBFIGURATIONS
 
 crumb :room_configurations do |choice_configuration|
-  link RoomConfiguration.model_name.human.pluralize, choice_configuration_room_configurations_path(choice_configuration)
+  link t("breadcrumbs.room_configurations"), choice_configuration_room_configurations_path(choice_configuration)
   parent :choice_configuration, choice_configuration
 end
 
@@ -298,7 +321,7 @@ crumb :room_item do |item|
 end
 
 crumb :room_item_new do |room_configuration|
-  link t("breadcrumbs.room_configuration_add")
+  link t("breadcrumbs.room_item_add")
   parent :room_configuration, room_configuration
 end
 
@@ -361,6 +384,8 @@ crumb :document do |document|
       parent :phase, document.parent
     when :plot
       parent :plot, document.parent
+    when :unit_type
+      parent :unit_type, document.parent
   end
 end
 
@@ -377,6 +402,8 @@ crumb :document_edit do |document|
       parent :phase, document.parent
     when :plot
       parent :plot, document.parent
+    when :unit_type
+      parent :unit_type, document.parent
   end
 end
 
@@ -394,6 +421,8 @@ crumb :document_new do |document_parent|
       parent :phase, document_parent
     when :plot
       parent :plot, document_parent
+    when :unit_type
+      parent :unit_type, document_parent
   end
 end
 
@@ -439,6 +468,16 @@ crumb :room_new do |room_parent|
   when UnitType
     parent :unit_type, room_parent
   end
+end
+
+crumb :room_finish_edit do |room|
+  link t("breadcrumbs.room_finish"), [:edit, room.parent, room]
+  parent :room, room
+end
+
+crumb :room_appliance_edit do |room|
+  link t("breadcrumbs.room_appliance"), [:edit, room.parent, room]
+  parent :room, room
 end
 
 # PLOTS
@@ -513,7 +552,7 @@ end
 # FINISH CATEGORIES
 
 crumb :finish_categories do
-  link FinishCategory.model_name.human.pluralize, finish_categories_path
+  link t("breadcrumbs.finish_categories"), finish_categories_path
   parent :finishes
 end
 
@@ -535,7 +574,7 @@ end
 # FINISH TYPES
 
 crumb :finish_types do
-  link FinishType.model_name.human.pluralize, finish_types_path
+  link t("breadcrumbs.finish_types"), finish_types_path
   parent :finishes
 end
 
@@ -578,7 +617,8 @@ end
 # FINISH MANUFACTURERS
 
 crumb :finish_manufacturers do
-  link FinishManufacturer.model_name.human.pluralize, finish_manufacturers_path
+  link t("breadcrumbs.finish_manufacturers"), finish_manufacturers_path
+  parent :finishes
 end
 
 crumb :finish_manufacturer do | manufacturer |
@@ -599,7 +639,8 @@ end
 # APPLIANCE MANUFACTURERS
 
 crumb :appliance_manufacturers do
-  link ApplianceManufacturer.model_name.human.pluralize, appliance_manufacturers_path
+  link t("breadcrumbs.appliance_manufacturers"), appliance_manufacturers_path
+  parent :appliances
 end
 
 crumb :appliance_manufacturer do | manufacturer |
@@ -613,13 +654,13 @@ crumb :appliance_manufacturer_edit do |manufacturer|
 end
 
 crumb :appliance_manufacturer_new do
-  link t("breadcrumbs.manufacturer_add")
+  link t("breadcrumbs.appliance_manufacturer_add")
   parent :appliance_manufacturers
 end
 
 # APPLIANCE CATEGORIES
 crumb :appliance_categories do
-  link ApplianceCategory.model_name.human.pluralize, appliance_categories_path
+  link t("breadcrumbs.appliance_categories"), appliance_categories_path
   parent :appliances
 end
 
@@ -656,7 +697,7 @@ crumb :contacts do |contact_parent|
 end
 
 crumb :contact do |contact|
-  link contact, contact_path(contact)
+  link t("breadcrumbs.contact_show", contact: contact), contact, contact_path(contact)
   parent :contacts, contact.contactable
 end
 
@@ -696,7 +737,7 @@ crumb :faq do |faq|
 end
 
 crumb :faq_edit do |faq|
-  link t("breadcrumbs.faqs_edit"), [:edit, faq]
+  link t("breadcrumbs.faqs_edit", faq: faq), [:edit, faq]
   parent :faqs, faq.faqable
 end
 
@@ -718,7 +759,7 @@ crumb :video do |video|
 end
 
 crumb :video_edit do |video|
-  link t("breadcrumbs.videos_edit"), [:edit, video]
+  link t("breadcrumbs.videos_edit", video: video.title), [:edit, video]
   parent :videos, video.videoable
 end
 
@@ -760,7 +801,7 @@ crumb :brands do |brand_parent|
 end
 
 crumb :brand_new do |brand_parent|
-  link t("breadcrumbs.brand_add", name: brand_parent), [:new, brand_parent, :brand]
+  link t("breadcrumbs.brand_add"), [:new, brand_parent, :brand]
   parent :brands, brand_parent
 end
 

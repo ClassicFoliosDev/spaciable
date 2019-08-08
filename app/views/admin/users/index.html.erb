@@ -17,7 +17,7 @@
 <table class="record-list users">
   <thead>
     <tr>
-      <th><%= sortable(@users, "LOWER(users.email)", t(".email")) %></th>
+      <th colspan="2"><%= sortable(@users, "LOWER(users.email)", t(".email")) %></th>
       <th><%= sortable(@users, "LOWER(users.first_name)", t(".name")) %></th>
       <th><%= sortable(@users, "users.role", t(".role")) %></th>
       <% if User.roles[current_user.role] < User.roles[:developer_admin] %>
@@ -37,7 +37,7 @@
     <% @users.each do |fulluser| %>
     <% user = User.new(fulluser.except("company_name","division_name","development_name")) %>
     <tr data-user="<%= user.id %>">
-      <td><%= link_to user.email, admin_user_path(user) %></td>
+      <td colspan="2"><%= link_to user.email, admin_user_path(user) %></td>
       <td><%= user.full_name %></td>
       <td><%= t(user.role) %></td>
       <% if User.roles[current_user.role] < User.roles[:developer_admin] %>

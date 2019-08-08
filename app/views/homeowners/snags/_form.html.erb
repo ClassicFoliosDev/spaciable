@@ -19,7 +19,7 @@
       <label class="branded-text"><%= t(".details") %></label>
       <%= f.input :description, label: false, as: :text, input_html: { rows: 10, cols: 10 }, required: true %>
     </div>
-    <div class="field">
+    <div class="field branded-text">
       <%= f.simple_fields_for :snag_attachment do |a| %>
         <%= a.label :image, t(".image"), class: "branded-text" %>
         <p><%= t(".upload_instructions") %><br/><%= t("homeowners.snags.show.snag_comments_format") %></p>

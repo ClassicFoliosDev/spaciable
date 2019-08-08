@@ -1,5 +1,5 @@
 <% content_for :hero_text_primary do %>
-  <%= render 'address/address', address: @plot %>
+  <%= t(".title", name: @plot.snag_name) %>
 <% end %>
 
 <%= render "components/homeowner/sub_header", active_tab: "snagging", plot: @plot %>

@@ -83,14 +83,9 @@ When(/^I change my homeowner password$/) do
 end
 
 Then(/^I should be logged out of homeowner$/) do
-  within ".preamble" do
+  within ".sign-in" do
     expect(page).to have_content(t("residents.sessions.new.welcome_1"))
     expect(page).to have_content(t("residents.sessions.new.welcome_2"))
-  end
-
-  within ".sign-in" do
-    expect(page).to have_content(t("activerecord.attributes.resident.email"))
-    expect(page).to have_content(t("activerecord.attributes.resident.password"))
   end
 end
 
@@ -227,9 +222,9 @@ Then(/^I should see that my details have been confirmed$/) do
   end
 end
 
-Then(/^the Hoozzi Admin should receive an email containing my details$/) do
+Then(/^the Spaciable Admin should receive an email containing my details$/) do
   email = ActionMailer::Base.deliveries.last
-  email.should deliver_to("feedback@hoozzi.com")
+  email.should deliver_to("feedback@spaciable.com")
   expect(email).to have_subject (/New Referral/)
   expect(email).to have_body_text(ReferralFixture.referee_email)
   expect(email).to have_body_text(ReferralFixture.referee_first_name)

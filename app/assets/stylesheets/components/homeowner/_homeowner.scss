@@ -35,8 +35,9 @@ $homeowner-margin: 12px;
 
   img {
     vertical-align: middle;
-    border-radius: 50%;
-    height: 40px;
+    border-radius: 5%;
+    max-height: 40px;
+    max-width: 100%;
   }
 
   .my-plots {
@@ -72,6 +73,27 @@ $homeowner-margin: 12px;
 .full-menu,
 .sub-navigation-container {
   display: none;
+}
+
+.full-menu {
+  float: left;
+  padding-left: 20px;
+
+  .active li {
+          color: $type-grey;
+          font-weight: bold;
+        }
+
+  span {
+    padding: 5px;
+    font-weight: $semi-bold-font-weight;
+  }
+  a {
+    font-weight: $semi-bold-font-weight;
+  }
+  button {
+    font-weight: $semi-bold-font-weight;
+  }
 }
 
 .homeowner-view {
@@ -113,12 +135,13 @@ $homeowner-margin: 12px;
 
 .plot-list {
   position: absolute;
-  top: 46px;
-  right: 46px;
-  width: 320px;
-  border: 1px solid $ui-grey;
+  top: 41px;
+  left: 5%;
+  width: 330px;
+  border: 1px solid $primary-navy;
   border-radius: $border-radius;
   background-color: $ui-white;
+  color: $ui-white;
 
   a {
     font-size: $base-small-font-size;
@@ -129,7 +152,11 @@ $homeowner-margin: 12px;
   }
 
   span {
-    color: $type-grey;
+    color: $primary-navy;
+  }
+
+  .active-plot span {
+    color: $primary-red-left;
   }
 
   h5 {
@@ -144,7 +171,7 @@ $homeowner-margin: 12px;
 
 .plot-summary {
   padding: $spacing-small;
-  border-bottom: 1px solid $type-grey;
+  border-bottom: 1px solid $primary-navy;
 
   &:last-child {
     border-bottom: none;
@@ -199,6 +226,10 @@ $homeowner-margin: 12px;
     margin-left: -16px;
     color: #FF4C4C;
   }
+}
+
+.destroy-resident {
+  float: right;
 }
 
 // tablet view

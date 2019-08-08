@@ -16,19 +16,14 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :name %>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
-        <%= f.input :icon_name, as: :select, collection: icon_names_collection, include_blank: true %>
+        <%= f.input :icon_name, label: t(".icon"), as: :select, collection: icon_names_collection, include_blank: true %>
       </fieldset>
     </div>
   </div>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), choice_configuration_room_configurations_path(choice_configuration), class: "btn" %>
+      <%= link_to t(".back"), development_choice_configuration_path(development_id: choice_configuration.development_id, id: choice_configuration), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

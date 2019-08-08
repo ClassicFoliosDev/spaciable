@@ -10,7 +10,11 @@ $breadcrumb-font-size: 12px;
   line-height: 22px;
 
   a {
-    color: $ui-dark-grey;
+    color: $semi-pale-navy;
     font-size: $breadcrumb-font-size;
+  }
+
+  span {
+    color: $primary-navy;
   }
 }

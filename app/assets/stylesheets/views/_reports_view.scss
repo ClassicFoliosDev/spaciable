@@ -9,6 +9,14 @@
     display: none;
   }
 
+  .date-field {
+    margin-bottom: $spacing-medium;
+  }
+
+  .date {
+    margin-left: 0;
+  }
+
   .ui-selectmenu-button {
     display: inline-block;
     margin-top: 10px;

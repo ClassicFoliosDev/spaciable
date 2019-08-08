@@ -1,5 +1,5 @@
-$font-section-title-color: $ui-black;
-$data-section-color: $type-grey;
+$font-section-title-color: $primary-navy;
+$data-section-color: $primary-navy;
 
 .section-header {
   @include display(flex);
@@ -12,9 +12,9 @@ $data-section-color: $type-grey;
 }
 
 .section-title {
-  @include flex(2);
-  color: $font-section-title-color;
-  padding: 10px;
+  @include flex(1);
+  color: $primary-navy;
+  font-weight: $semi-bold-font-weight;
 
   .expired {
     font-size: 16px;
@@ -42,6 +42,7 @@ $data-section-color: $type-grey;
 
   .about {
     font-size: 12px;
+    font-weight: $base-font-weight;
     color: $data-section-color;
   }
 
@@ -56,19 +57,13 @@ $data-section-color: $type-grey;
   a {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    border-color: $primary-cta-color;
   }
 }
 
 .section-data {
   font-size: 12px;
   color: $data-section-color;
-  padding: 10px;
-
-  a {
-    float: right;
-    margin-left: $spacing-small;
-  }
+  text-align: right;
 
   .strong {
     font-weight: bold;
@@ -77,6 +72,17 @@ $data-section-color: $type-grey;
 
   .right {
     float: right;
+  }
+
+  .btn {
+    background-color: $primary-red-left;
+    color: $ui-white;
+    margin-top: $spacing-small;
+
+    &:hover {
+      background-color: $ui-white;
+      color: $primary-red-left;
+    }
   }
 }
 

@@ -1,8 +1,8 @@
-<% breadcrumb :room_edit, @room %>
+<% breadcrumb :room_finish_edit, @room %>
 
 <div class="section-header add_finish">
   <div class="section-title">
-    <%= t(".title", room_name: @room.name) %><br>
+    <%= t(".title") %><br>
   </div>
 </div>
 
@@ -20,31 +20,21 @@
     </div>
   <% end %>
 
-  <div class="row finish">
+  <div class="finish">
     <div class="row-item third">
       <fieldset>
         <div class="finish_category ui-front select-container">
-          <%= label_tag Finish.human_attribute_name(:category) %>
+          <%= label_tag t(".category") %>
           <%= select_tag "finish_category", options_from_collection_for_select(@finish_categories, "id", "name"), prompt: t(".choose") %>
         </div>
         <div class="finish_type ui-front select-container">
-          <%= label_tag Finish.human_attribute_name(:type) %>
+          <%= label_tag t(".type") %>
           <%= select_tag "finish_type" %>
         </div>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
         <div class="finish-manufacturer ui-front select-container">
           <%= label_tag Finish.human_attribute_name(:manufacturer) %>
           <%= select_tag "manufacturer" %>
         </div>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
         <div class="finishes ui-front select-container">
           <%= label_tag Finish.model_name.human %>
           <%= select_tag "finishes", required: true %>
@@ -52,16 +42,17 @@
         </div>
       </fieldset>
     </div>
-  </div>
-
-  <div class="row search-finish">
-    <div class="row-item two-thirds">
-      <%= f.text_field :search_finish_text, class: "search-finish-field", autocomplete: "off", placeholder: t(".search") %>
-      <%= link_to "", class: "btn search-finish-btn" do %>
+    <div class="search-finish">
+      <div class="row-item third">
+        <%= f.text_field :search_finish_text, class: "search-finish-field", autocomplete: "off", placeholder: t(".search") %>
+        <%= link_to "", class: "btn search-finish-btn" do %>
         <i class="fa fa-search"></i>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
+
+
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

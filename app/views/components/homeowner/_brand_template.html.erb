@@ -14,9 +14,21 @@
     .branded-header {
       background-color: <%= brand.branded_header_color %>;
     }
+    .branded-secondary {
+      color: <%= brand.branded_header_color %>;
+    }
+    .navbar-item-secondary {
+      color: <%= brand.branded_header_color %>
+    }
   <% else %>
     .branded-header {
       <%= Brand.branded_header_default %>
+    }
+    .branded-secondary {
+      <%= Brand.branded_secondary_default %>
+    }
+    .navbar-item-secondary {
+      <%= Brand.branded_secondary_default %>
     }
   <% end %>
 
@@ -24,21 +36,103 @@
     .branded-primary {
       color: <%= brand.branded_topnav_text_color %>;
     }
+    .full-menu .active-link {
+      color: <%= brand.branded_topnav_text_color %>;
+     }
+    .full-menu a:hover {
+      color: <%= brand.branded_topnav_text_color %>;
+    }
+    .full-menu .my-plots:hover {
+      color: <%= brand.branded_topnav_text_color %>;
+    }
+    .full-menu .feedback-btn:hover {
+      color: <%= brand.branded_topnav_text_color %>;
+    }
+    .sub-navigation-container .nav-inner ul .active li {
+      color: <%= brand.branded_topnav_text_color %>;
+    }
   <% else %>
     .branded-primary {
+      <%= Brand.branded_primary_default %>
+    }
+    .full-menu .active-link {
+      <%= Brand.branded_primary_default %>
+     }
+    .full-menu a:hover {
+      <%= Brand.branded_primary_default %>
+    }
+    .full-menu .my-plots:hover {
+      <%= Brand.branded_primary_default %>
+    }
+    .full-menu .feedback-btn:hover {
+      <%= Brand.branded_primary_default %>
+    }
+    .nav-inner ul .active li {
+      <%= Brand.branded_second_header_default %>
+    }
+    .document-permission {
       <%= Brand.branded_primary_default %>
     }
   <% end %>
 
   <% if brand.branded_text_color %>
-   .branded-text {
+    .branded-text {
       color: <%= brand.branded_text_color %>;
-   }
+    }
 
-   .branded-primary-text {
+    .branded-primary-text {
      color: <%= brand.branded_text_color %>;
-   }
+     }
 
+    <%-# --- Specifics elements that need overriding --- -%>
+    .unlet-plot .letable-plot .letting-btn {
+      border-color: <%= brand.branded_text_color %>;
+      color: <%= brand.branded_text_color %>;
+    }
+    .unlet-plot .letable-plot .letting-btn:hover {
+      border-color: <%= brand.branded_text_color %>;
+      background-color: <%= brand.branded_text_color %>;
+    }
+    .snag-comment-form .message textarea {
+      color: <%= brand.branded_text_color %>;
+      border-color: <%= brand.branded_text_color %>;
+    }
+    .snag-form input, .snag-form textarea {
+      color: <%= brand.branded_text_color %>;
+      border-color: <%= brand.branded_text_color %>;
+    }
+    .other-residents .prompt-remove {
+      border-color: <%= brand.branded_text_color %>;
+    }
+    .other-residents .prompt-remove:hover {
+      background-color: <%= brand.branded_text_color %>;
+    }
+    .resident-details input, .resident-details input:focus, .resident-details label,
+    .resident-details .ui-state-default {
+      color: <%= brand.branded_text_color %> !important;
+      border-color: <%= brand.branded_text_color %> !important;
+    }
+    .private-document .actions .btn {
+      color: <%= brand.branded_text_color %>;
+    }
+    .plot-choices .homeowner-container .ui-state-default {
+      color: <%= brand.branded_text_color %> !important;
+      border-color: <%= brand.branded_text_color %> !important;
+    }
+    .plot-choices .homeowner-container h3 {
+      color: <%= brand.branded_text_color %> !important;
+    }
+    .plot-choices .homeowner-container .choice-item {
+      border-color: <%= brand.branded_text_color %> !important;
+    }
+    .nav-inner .search-container input, .nav-inner .search-container .btn {
+      color: <%= brand.branded_text_color %> !important;
+      border-color: <%= brand.branded_text_color %> !important;
+    }
+    .nav-inner .search-container .btn:hover {
+      background-color: <%= brand.branded_text_color %> !important;
+      color: #FFF !important;
+    }
   <% else %>
     .branded-text {
       <%= Brand.branded_text_default %>
@@ -47,15 +141,23 @@
     .branded-primary-text {
       <%= Brand.branded_text_default %>
     }
+    .plot-choices .homeowner-container h3 {
+      <%= Brand.branded_secondary_default %>
+    }
   <% end %>
 
   <% if brand.branded_content_bg_color %>
     .branded-content {
       background-color: <%= brand.branded_content_bg_color %>;
     }
-
     .branded-input input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0 30px <%= brand.branded_content_bg_color %> inset;
+    }
+    .letting-btn {
+      background-color: <%= brand.branded_content_bg_color %>;
+    }
+    .unlet-plot .letable-plot .letting-btn:hover {
+      color: <%= brand.branded_content_bg_color %>;
     }
   <% else %>
     .branded-content {
@@ -79,6 +181,15 @@
     .branded-input input[type="password"] {
       border-color: <%= brand.branded_content_text_color %>;
     }
+
+    .unlet-plot .letable-plot {
+      border-color: <%= brand.branded_content_text_color %>;
+    }
+
+    .faqs dt {
+      border-color: <%= brand.branded_content_text_color %> !important;
+    }
+
   <% else %>
     .branded-border {
       <%= Brand.branded_border_default %>
@@ -152,6 +263,20 @@
     .branded-primary-text label.checkbox {
       color: <%= brand.branded_button_color %>;
     }
+
+    .branded-content label.checkbox i {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .branded-content label.checkbox input[type=checkbox]:checked + i:before {
+      color: <%= brand.branded_button_text_color %>;
+    }
+
+    .document-permission {
+      color: <%= brand.branded_button_text_color %> !important;
+    }
+
   <% else %>
     .branded-btn {
       <%= Brand.branded_static_text_default %>
@@ -169,6 +294,51 @@
 
     .branded-primary-text label.checkbox {
       <%= Brand.branded_input_text_default %>
+    }
+    .document-permission {
+      <%= Brand.branded_primary_default %>
+    }
+  <% end %>
+
+
+  <%-# --- Inverted button colours --- -%>
+
+  <% if brand.branded_button_color %>
+    .branded-btn-inverted {
+      background-color: <%= brand.branded_button_text_color %>;
+   }
+
+    .branded-btn-inverted:hover {
+      color: <%= brand.branded_button_text_color %>;
+    }
+  <% else %>
+    .branded-btn-inverted {
+      <%= Brand.branded_hover_background_default %>
+    }
+
+    .branded-btn-inverted:hover {
+      <%= Brand.branded_static_background_default %>
+    }
+  <% end %>
+
+  <% if brand.branded_button_text_color %>
+    .branded-btn-inverted {
+      color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .branded-btn-inverted:hover {
+      background-color: <%= brand.branded_button_color %>;
+    }
+  <% else %>
+    .branded-btn-inverted {
+      <%= Brand.branded_hover_text_default %>
+      <%= Brand.branded_static_border_default %>
+    }
+
+    .branded-btn-inverted:hover {
+      <%= Brand.branded_static_text_default %>
+      <%= Brand.branded_static_border_default %>
     }
   <% end %>
 
@@ -191,15 +361,22 @@
   <%-# --- Branding for box (left/right) colour --- -%>
 
   <% if brand.branded_login_box_left_color %>
-    .branded-left-box { background-color: <%= brand.branded_login_box_left_color %>; }
+    .branded-left-box {
+      background-image: none;
+      background-color: <%= brand.branded_login_box_left_color %>;
+    }
   <% else %>
     .branded-left-box { <%= Brand.branded_left_box_default %> }
   <% end %>
 
   <% if brand.branded_login_box_right_color %>
-    .branded-right-box, .invitation .branded-right-box { background-color: <%= brand.branded_login_box_right_color %>; }
+    .branded-right-box, .invitation .branded-right-box {
+      background-color: <%= brand.branded_login_box_right_color %>;
+    }
   <% else %>
-    .branded-right-box { <%= Brand.branded_right_box_default %> }
+    .branded-right-box {
+      <%= Brand.branded_right_box_default %>
+    }
   <% end %>
 
 
@@ -225,15 +402,27 @@
   .branded-heading-two {
     color: <%= brand.branded_text_left_color %>;
   }
+  .branded-left-text p {
+    color: <%= brand.branded_text_left_color %> !important;
+  }
+  .branded-left-text li {
+    color: <%= brand.branded_text_left_color %> !important;
+  }
+  .top-title {
+    color: <%= brand.branded_text_left_color %>;
+  }
   <% else %>
   .branded-left-text {
     <%= Brand.branded_left_text_default %>
   }
   .branded-left-text h2 {
-    <%= Brand.branded_left_text_default %>
+    <%= Brand.branded_primary_default %>
   }
   .branded-heading-two {
-    <%= Brand.branded_second_heading_default %>
+    <%= Brand.branded_external_text_default %>
+  }
+  .top-title {
+    <%= Brand.branded_primary_default %>
   }
   <% end %>
 
@@ -251,11 +440,11 @@
     }
   <% else %>
     .login .branded-submit, .invitation .branded-submit {
-      <%= Brand.branded_static_background_default %>
+      background-color: #FFFFFF; // $ui-white;
     }
     .login .branded-submit:hover, .invitation .branded-submit:hover {
-      <%= Brand.branded_static_text_default %>
-      <%= Brand.branded_static_border_default %>
+      color: #FFFFFF; // $ui-white;
+      border-color: #002A3A; // $primary-navy;
     }
   <% end %>
 
@@ -269,11 +458,11 @@
     }
   <% else %>
     .login .branded-submit, .invitation .branded-submit {
-      <%= Brand.branded_login_text_default %>
-      <%= Brand.branded_login_border_default %>
+      color: #002A3A; // $primary-navy;
+      border-color: #002A3A; // $primary-navy;
     }
     .login .branded-submit:hover, .invitation .branded-submit:hover {
-      <%= Brand.branded_static_background_default %>
+      background-color: #002A3A; // $primary-navy;
     }
   <% end %>
 
@@ -315,9 +504,19 @@
     .branded-content-box input:-webkit-autofill {
       -webkit-text-fill-color: <%= brand.branded_content_box_text %>;
     }
+    .branded-content-box input::placeholder {
+      color: <%= brand.branded_content_box_text %> !important;
+    }
+    .branded-content-box input:-ms-input-placeholder {
+      color: <%= brand.branded_content_box_text %> !important;
+    }
+    .branded-content-box input::-ms-input-placeholder {
+      color: <%= brand.branded_content_box_text %> !important;
+    }
+    }
   <% else %>
     .branded-content-box input[type=checkbox]:checked + i:before {
-      <%= Brand.branded_checkbox_tick_default %>
+      color: #002A3A; // $primary-navy
     }
     .branded-content-box input {
       <%= Brand.branded_input_text_default %>
@@ -329,29 +528,35 @@
 
   <% if brand.branded_content_box_outline_color %>
     .branded-content-box input {
-      border-color: <%= brand.branded_content_box_outline_color %>
+      border-color: <%= brand.branded_content_box_outline_color %>;
     }
     .branded-content-box input:focus {
-      border-color: <%= brand.branded_content_box_outline_color %>
+      border-color: <%= brand.branded_content_box_outline_color %>;
     }
     .branded-content-box .branded-checkbox {
-      border-color: <%= brand.branded_content_box_outline_color %>
+      border-color: <%= brand.branded_content_box_outline_color %>;
     }
     .branded-content-box input[type="email"] {
       border-color: <%= brand.branded_content_box_outline_color %>;
     }
+    .branded-content-box input[type="email"]:focus {
+      border-left: 5px solid <%=brand.branded_content_box_outline_color %> !important;
+    }
     .branded-content-box input[type="password"] {
       border-color: <%= brand.branded_content_box_outline_color %>;
+    }
+    .branded-content-box input[type="password"]:focus {
+      border-left: 5px solid <%=brand.branded_content_box_outline_color %> !important;
     }
   <% else %>
     .branded-content-box input {
       <%= Brand.branded_input_border_default %>
     }
     .branded-content-box input:focus {
-      <%= Brand.branded_input_border_default %>
+      border-color: #c5d1d6; // $pale-navy;
     }
     .branded-content-box .branded-checkbox {
-      <%= Brand.branded_input_border_default %>
+      border-color: #002A3A; // $primary-navy;
     }
   <% end %>
 </style>

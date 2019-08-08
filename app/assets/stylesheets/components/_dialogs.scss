@@ -10,6 +10,22 @@
 
 // The sections below here all change various bits and pieces of styling that
 // we have inherited but want to style differently in dialogs
+.ui-dialog-title {
+  color: $ui-white;
+}
+
+.ui-dialog-titlebar {
+  background: none !important;
+  background-color: $primary-navy !important;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  color: $primary-navy !important;
+  border: 1px solid $primary-navy !important;
+}
+
 .ui-dialog.archive-dialog {
   font-family: $base-font-family;
   font-size: $base-font-size;
@@ -31,7 +47,7 @@
 
   label {
     margin-top: $spacing-small;
-    color: $type-grey;
+    color: $primary-navy;
   }
 
   textarea {
@@ -40,19 +56,36 @@
 
   .btn-primary {
     border: solid;
-    border-color: $type-grey;
+    border-color: $primary-navy;
     border-width: 1px;
   }
 
   .btn-secondary {
     border: none;
   }
+
+  // accommodate the different browsers
+  ::placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
+
+  :-ms-input-placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
+
+  ::-ms-input-placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
 }
 
 .ui-button-text {
   font-size: $base-font-size;
   background-color: $ui-white;
-  color: $type-grey;
+  color: $primary-navy;
+  opacity: 0.7;
   border-radius: $border-radius;
 }
 
@@ -104,8 +137,14 @@ input:checked + .feedback {
   border-style: solid;
   border-radius: 50%;
   border-width: 1px;
-  border-color: $ui-grey;
+  border-color: $primary-navy;
   padding: 13px 11px;
+}
+
+.feedback-dialog {
+  p {
+    text-align: center;
+  }
 }
 
 .feedback:before {

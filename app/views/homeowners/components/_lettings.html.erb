@@ -1,0 +1,24 @@
+<% plots.each do |plot| %>
+  <% if plot.letable? %>
+    <% let_status = plot.let ? "let-plot" : "unlet-plot" %>
+    <div class="<%= let_status %>">
+      <div class="letable-plot branded-content branded-border">
+        <div class="plot-address branded-text">
+          <h3>Plot <%= plot.number %></h3>
+          <p>
+            <%= render "components/homeowner/formatted_address", address: plot %>
+          </p>
+        </div>
+        <div class="letable-options">
+          <% if plot.let %>
+          <div class="let-out"><span><%= t(".let_out") %></span></div>
+            <%= link_to t(".dashboard"), "https://en.wikipedia.org/wiki/Cats_(musical)", class: "btn letting-btn" %>
+          <% else %>
+            <%= link_to t(".self_manage"), "https://en.wikipedia.org/wiki/Cats_(2019_film)", class: "btn letting-btn" %>
+            <%= link_to t(".managing"), "https://www.cats.org.uk/", class: "btn letting-btn" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

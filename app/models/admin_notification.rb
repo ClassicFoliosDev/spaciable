@@ -42,7 +42,7 @@ class AdminNotification < ApplicationRecord
     if send_to_all
       "All"
     else
-      send_to
+      send_to.present? ? send_to : "(Removed)"
     end
   end
 end

@@ -171,14 +171,11 @@ end
 
 Then(/^I can see my appliances$/) do
   within_frame("rails_iframe") do
-    click_on t("layouts.homeowner.sub_nav.rooms")
+    click_on t("layouts.homeowner.sub_nav.appliances")
   end
 
-  sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content %r{#{PhaseFixture.address_update_attrs[:building_name]}}i
-    expect(page).to have_content %r{#{PhaseFixture.address_update_attrs[:road_name]}}i
-    expect(page).to have_content PhaseFixture.address_update_attrs[:postcode]
+    expect(page).to have_content(t("homeowners.appliances.show.title"))
   end
 end
 
@@ -240,6 +237,7 @@ end
 
 When(/^I update the progress for the plot$/) do
   goto_phase_plot_show_page
+  sleep 0.5
 
   within ".tabs" do
     click_on t("plots.collection.progress")
@@ -249,7 +247,7 @@ When(/^I update the progress for the plot$/) do
     select_from_selectmenu :plot_progress, with: PhaseFixture.progress
   end
 
-  within ".above-footer" do
+  within ".row-item" do
     check :plot_notify
     click_on t("progresses.progress.submit")
   end
@@ -320,7 +318,7 @@ Then(/^I should see the expiry date has been updated$/) do
   expiry_date = Time.zone.today.advance(months: 20).advance(months: 2).strftime("%d %B %Y")
 
   within ".about" do
-    expect(page).to have_content " Expiry date: #{expiry_date}"
+    expect(page).to have_content " Expiry Date: #{expiry_date}"
   end
 end
 
@@ -364,7 +362,7 @@ Then(/^I can update the completion date for a plot$/) do
     fill_in "plot_completion_date", with: PlotFixture.completion_date
   end
 
-  within ".above-footer" do
+  within ".row-item" do
     click_on t("edit.submit")
   end
 end

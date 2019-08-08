@@ -2,6 +2,7 @@
 .paging {
   @include clearfix();
   clear: both;
+  margin-bottom: $spacing-medium;
 
   ul {
     font-size: 0;
@@ -11,7 +12,7 @@
     background-color: $base-button-bg-color;
     border-width: $border-size $border-size $border-size 0;
     border-style: solid;
-    border-color: $base-button-border-color;
+    border-color: $pale-navy;
     line-height: $button-line-height;
     padding: 0;
     border-radius: 0;
@@ -19,7 +20,7 @@
     list-style-type: none;
 
     &:first-child {
-      border-left: $border-size solid $base-button-border-color;
+      border-left: $border-size solid $pale-navy;
       border-radius: $border-radius 0 0 $border-radius;
     }
 
@@ -30,7 +31,8 @@
     a {
       text-decoration: none;
       padding: $spacing-small;
-      color: $ui-dark-grey;
+      color: $primary-navy;
+      opacity: 0.5;
       line-height: 28px;
     }
   }
@@ -40,8 +42,8 @@
   float: right;
 
   .active a {
-    font-weight: bold;
-    color: $type-grey;
+    font-weight: $semi-bold-font-weight;
+    color: $primary-navy;
   }
 }
 

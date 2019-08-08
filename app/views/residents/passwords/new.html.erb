@@ -1,18 +1,26 @@
+<%= render "components/flashes" %>
 <div class="new-password">
   <div class="set-password">
-    <%= image_tag brand_or_white_logo(@brand) %>
-    <%= render "components/flashes" %>
+    <div class="login-logo">
+      <%= image_tag "Spaciable_full.svg" %>
+    </div>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       <%= f.error_notification %>
 
-      <%= f.input :email, required: true, autofocus: true %>
+      <div class="title">
+        <h2 class="primary"><%= t(".title") %></h2>
+      </div>
+
+      <div class="reset-pass-email">
+      <%= f.input :email, placeholder: "Email", required: true, autofocus: true, label: false %>
+      </div>
+
+      <%= f.button :submit, t(".submit"), class: "reset-btn" %>
 
       <div class="information">
         <p><%= render "residents/shared/links" %></p>
       </div>
-
-      <%= f.button :submit, t(".submit"), class: "reset-btn" %>
 
       <div class="information">
         <p class="copyright"><%= t("residents.invitations.edit.copyright", year: Time.current.year).html_safe %></p>
@@ -22,8 +30,8 @@
 
   <div class="preamble">
     <div class="content">
-      <div class="title">
-        <h2 class="primary"><%= t(".title") %></h2>
+      <div class="login-icon-password">
+        <div><%= image_tag "Spaciable_icon_white.svg" %></div>
       </div>
     </div>
   </div>

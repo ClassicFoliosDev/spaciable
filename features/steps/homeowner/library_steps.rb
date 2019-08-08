@@ -85,7 +85,7 @@ When(/^I filter the documents by appliances$/) do
 end
 
 Then(/^I should only see the appliance manuals to download$/) do
-  within ".branded-body" do
+  within ".library" do
     MyLibraryFixture.appliance_manuals.each do |title|
       expect(page).to have_content %r{#{title}}i
     end
@@ -184,6 +184,6 @@ Then(/^I should see the appliance documents$/) do
 
   within ".documents" do
     expect(page).to have_content FileFixture.manual_name_alt
-    expect(page).to have_content "Washing Machine Quick reference guide"
+    expect(page).to have_content "Washing Machine Quick Reference Guide"
   end
 end

@@ -58,8 +58,11 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
     click_on attrs[:question]
   end
 
-  within ".faq" do
+  within ".section-title" do
     expect(page).to have_content(attrs[:question])
+  end
+
+  within ".faq" do
     expect(page).to have_content(attrs[:answer])
     expect(page).to have_content(category)
   end

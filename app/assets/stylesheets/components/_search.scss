@@ -6,19 +6,36 @@ $search-width: 460px;
   font-size: $base-small-font-size;
   line-height: $base-small-font-size;
 
+  // accommodate the different brousers
+  ::placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
+
+  :-ms-input-placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
+
+  ::-ms-input-placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
+
   ul {
     list-style: none;
 
     li {
       background-color: $ui-white;
-      border: 1px solid $ui-grey;
+      border: 1px solid rgba(0, 42, 58, 0.2);
+      border-radius: 5px/5px;
       padding: 5px;
     }
 
     a {
       text-decoration: none;
       font-size: 12px;
-      color: $ui-dark-grey;
+      color: rgba(0, 42, 58, 0.5);
       padding-left: 5px;
     }
   }
@@ -31,12 +48,17 @@ $search-width: 460px;
 .search-btn {
   padding: $spacing-small;
   border: none;
-  margin-top: -47px;
+  margin-top: -46px;
   margin-left: 2px;
+  color: $primary-navy;
+
+  &:hover {
+    background-color: $primary-navy;
+  }
 }
 
 .search-results-container {
-  width: $search-width;
+  width: $search-width + 40px ;
   margin-top: -10px;
   position: absolute;
   z-index: 20;

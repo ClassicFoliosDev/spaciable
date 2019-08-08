@@ -54,7 +54,7 @@ When(/^I update the account details$/) do
     click_on t("homeowners.residents.show.edit_profile")
   end
 
-  within ".details" do
+  within ".resident-name" do
     fill_in "resident_first_name", with: AccountFixture.first_name
   end
 
@@ -75,10 +75,6 @@ end
 Then(/^I should see account details updated successfully$/) do
   within ".session-inner" do
     click_on I18n.t("homeowners.residents.show.my_account")
-  end
-
-  within ".resident" do
-    expect(page).to have_content AccountFixture.first_name
   end
 
   within ".communications" do
@@ -115,10 +111,6 @@ end
 Then(/^I should see account subscriptions removed successfully$/) do
   within ".session-inner" do
     click_on I18n.t("homeowners.residents.show.my_account")
-  end
-
-  within ".resident" do
-    expect(page).to have_content AccountFixture.first_name
   end
 
   within ".communications" do

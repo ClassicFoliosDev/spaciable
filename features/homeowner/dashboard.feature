@@ -46,5 +46,5 @@ Feature: Dashboard
     Then I should see the referral has been sent
     When I accept the referral
     Then I should see that my details have been confirmed
-    And the Hoozzi Admin should receive an email containing my details
+    And the Spaciable Admin should receive an email containing my details
 

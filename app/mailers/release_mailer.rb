@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ReleaseMailer < ApplicationMailer
-  default from: "hello@hoozzi.com", content_type: "multipart/alternative"
+  default from: "hello@spaciable.com", content_type: "multipart/alternative"
 
   def reservation_release_email(phase, updated_plots, params)
     create_globals(phase, updated_plots, params)
@@ -47,22 +47,22 @@ class ReleaseMailer < ApplicationMailer
         @names << u[:first_name]
       end
     else
-      @emails << "hello@hoozzi.com"
-      @names << "Hoozzi Admin"
+      @emails << "hello@spaciable.com"
+      @names << "Spaciable Admin"
     end
   end
 
   # Send the mail
   def send_mail(subject)
-    attachments.inline["logo.png"] = File.read(Rails.root.join("app",
-                                                               "assets",
-                                                               "images",
-                                                               "logo.png"))
+    attachments.inline["Spaciable_full.svg"] = File.read(Rails.root.join("app",
+                                                                         "assets",
+                                                                         "images",
+                                                                         "Spaciable_full.svg"))
 
     if @send_to_admins == "true"
       mail(to: @emails,
            subject: subject,
-           cc: "hello@hoozzi.com, accountmanagement@classicfolios.com")
+           cc: "hello@spaciable.com, accountmanagement@classicfolios.com")
     else
       mail(to: @emails,
            subject: subject)

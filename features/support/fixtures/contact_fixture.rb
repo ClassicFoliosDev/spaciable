@@ -46,7 +46,6 @@ module ContactFixture
   def updated_attrs
     {
       category: category,
-      title: title,
       phone: phone,
       email: updated_email
     }

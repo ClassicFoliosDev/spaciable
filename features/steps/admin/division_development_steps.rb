@@ -60,7 +60,7 @@ Then(/^I should see the updated divisions development$/) do
     expect(page).to have_content(value)
   end
 
-  expect(page).to have_content("Snagging enabled: true")
+  expect(page).to have_content("Snagging Enabled: true")
 end
 
 And(/^I should be able to return to the division$/) do

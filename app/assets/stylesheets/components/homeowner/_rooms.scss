@@ -5,6 +5,10 @@ $icon-color: #252C31;
     width: 800px;
     margin-left: auto;
     margin-right: auto;
+
+    h4 {
+      text-align: center;
+    }
   }
 
   .room {
@@ -22,7 +26,6 @@ $icon-color: #252C31;
       display: inline-block;
 
       i:before {
-        color: $type-grey;
         font-size: 30px;
         padding: 7px;
       }
@@ -31,10 +34,14 @@ $icon-color: #252C31;
     .finish-image {
       width: 60px;
       float: left;
+      height: 50px;
 
       img {
-        width: 50px;
-        height: 50px;
+        max-width: 50px;
+        max-height: 50px;
+        width: auto;
+        height: auto;
+        border-radius: 5px/5px;
       }
     }
 
@@ -48,7 +55,7 @@ $icon-color: #252C31;
       span {
         width: 80%;
         display: block;
-        color: $type-grey;
+        opacity: 0.5;
       }
     }
 

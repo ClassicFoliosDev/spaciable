@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SnagMailer < ApplicationMailer
-  default from: "no-reply@hoozzi.com"
+  default from: "no-reply@spaciable.com"
 
   def snag_to_admins(snag, status)
     @snag_title = snag.title

@@ -1,7 +1,7 @@
 $input-padding: $spacing-small;
 $input-margin: $spacing-small;
-$input-border-color: $ui-grey;
-$input-border-color-active: $ui-dark-grey;
+$input-border-color: $primary-navy;
+$input-border-color-active: $primary-navy;
 $input-font-size: $base-font-size;
 $input-line-height: $base-font-line-height;
 $input-inline-error-font-color: $primary-background;
@@ -13,6 +13,7 @@ $field-invalid-font-color: $primary-background;
 $label-margin: 4px;
 $label-font-size: 14px;
 $label-font-weight: bold;
+$label-font-color: $primary-navy;
 
 $form-action-footer-bg-color: $ui-white;
 
@@ -33,15 +34,16 @@ input[type="password"] {
   padding: $input-padding;
   margin-bottom: $input-margin;
   border-radius: $border-radius;
-  border: $border-size solid $input-border-color;
+  border: $border-size solid $primary-navy;
   font-family: $base-font-family;
   font-size: $input-font-size;
   width: 100%;
+  color: $primary-navy;
 
   &:active,
   &:focus {
     outline: none;
-    border: $border-size solid $input-border-color-active;
+    border: $border-size solid $primary-navy;
   }
 }
 
@@ -50,18 +52,39 @@ textarea {
   min-height: 80px;
 }
 
+// Accommodate different browsers
+::placeholder {
+  color: $semi-pale-navy;
+}
+
+::-webkit-input-placeholder {
+  color: $semi-pale-navy;
+}
+
+:-ms-input-placeholder {
+  color: $semi-pale-navy;
+}
+
 label {
   display: block;
   font-size: $label-font-size;
   font-weight: $label-font-weight;
-  margin-top: $label-margin * 2;
-  margin-bottom: $label-margin/2;
+  margin-top: $label-margin * 3;
+  margin-bottom: $label-margin;
   clear: left;
+}
+
+hr {
+  margin-top: $label-margin * 2;
+}
+
+.confirm-text {
+  padding: 50px;
 }
 
 .info-span {
   font-size: $base-small-font-size;
-  color: $type-grey;
+  color: $primary-navy;
 }
 
 .checkbox-description {
@@ -70,18 +93,21 @@ label {
 }
 
 // SELECTS
+.ui-state-default {
+  color: $primary-navy
+}
 
 .ui-selectmenu-button {
   width: 100% !important;
-  background: transparent !important;
+  background: $ui-white !important;
   font-size: 14px !important;
-  border: $border-size solid $input-border-color;
+  border: $border-size solid $primary-navy;
   border-radius: $border-radius !important;
 
   &:active,
   &:focus {
     outline: none;
-    border: $border-size solid $input-border-color-active !important;
+    border: $border-size solid $primary-navy !important;
   }
 
   &.ui-corner-top {
@@ -98,7 +124,7 @@ label {
   .ui-menu {
     border-width: 0px $border-size $border-size $border-size !important;
     border-style: solid !important;
-    border-color: $input-border-color-active !important;
+    border-color: $primary-navy !important;
     border-radius: 0 0 $border-radius $border-radius !important;
     max-height: 300px;
     word-wrap: break-word;
@@ -108,10 +134,12 @@ label {
     border: none !important;
     padding: ($spacing-small / 2) $spacing-small !important;
     border: none !important;
+    color: $primary-navy;
 
     &.ui-state-focus {
-      background: $input-border-color !important;
+      background: $ui-grey !important;
       margin: 0 !important;
+      color: $primary-navy;
     }
   }
 }
@@ -150,7 +178,7 @@ fieldset {
     position: fixed;
     bottom: 40px;
     margin-left: -$spacing-large;
-    border-top: $border-size solid $ui-grey;
+    border-top: $border-size solid $pale-navy;
   }
 
   @include media($desktop-large-up) {
@@ -160,8 +188,9 @@ fieldset {
 
 .form-actions-footer {
   @include clearfix();
+  width: 100%;
   background-color: $form-action-footer-bg-color;
-  padding: $spacing-small $spacing-large;
+  padding: $spacing-small $spacing-large * 2;
 
   button {
     display: inline;
@@ -169,9 +198,9 @@ fieldset {
 
   .btn-form-submit {
     float: right;
-    background-color: $primary-cta-color;
+    background-color: $primary-red-left;
     color: $ui-white;
-    border-color: $primary-cta-color;
+    border-color: $primary-red-left;
   }
 
   label {
@@ -182,6 +211,11 @@ fieldset {
   .notify {
     float: right;
     margin-right: $spacing-medium;
+    color: $primary-navy;
+
+    label {
+      margin-top: $label-margin * 2
+    }
   }
 }
 
@@ -190,6 +224,10 @@ fieldset {
   margin-right: $spacing-small;
   margin-top: 4px;
   height: 30px;
+}
+
+.preview-container {
+  margin-bottom: $spacing-large;
 }
 
 // IMAGE file load styling
@@ -212,12 +250,12 @@ fieldset {
   }
 
   .remove-btn {
-    margin-top: -25px;
+    margin-top: -32px;
   }
 }
 
 .file-upload {
-  color: $type-grey;
+  color: $semi-pale-navy;
   font-size: $base-font-size;
   float: right;
   padding-top: 6px;
@@ -267,19 +305,28 @@ fieldset {
 
 .choose-file {
   float: left;
+  position: relative;
+  z-index: 2;
   font-size: $base-font-size;
-  color: $type-grey;
+  color: $primary-red-left;
   border-style: solid;
   border-width: 1px;
   border-radius: 5px;
-  width: 89px;
+  width: 100px;
   padding: 5px;
   cursor: pointer;
   background-color: white;
+  text-align: center;
+
+  &:hover {
+    color: $ui-white;
+    background-color: $primary-red-left;
+  }
 }
 
 .choose-files {
-  width: 98px;
+  text-align: center;
+  width: 105px;
 }
 
 .image_preview.input.field_with_errors {
@@ -295,7 +342,7 @@ fieldset {
 // VALIDATION
 .required {
   label {
-    color: $type-grey;
+    color: $primary-navy;
   }
 }
 
@@ -362,11 +409,11 @@ fieldset {
 }
 
 .readonly {
-  color: $type-grey;
+  color: $primary-navy;
 
   input {
     border-style: none !important;
-    color: $type-grey;
+    color: $semi-pale-navy;
   }
 }
 
@@ -404,7 +451,7 @@ fieldset {
   }
 
   .file-upload {
-    padding-left: 10px;
+    padding-left: 20px;
     width: 100%;
   }
 }

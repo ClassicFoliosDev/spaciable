@@ -29,7 +29,7 @@
       <td><%= plot.building_name %></td>
       <td><%= plot.road_name %></td>
       <td><%= plot.postcode %></td>
-      <td><%= plot.completion_date.strftime("%B %d, %Y") if plot.completion_date%></td>
+      <td><%= l(plot.completion_date.to_date, format: :digits) if plot.completion_date%></td>
       <td><%= plot.total_snags %></td>
       <td><%= plot.unresolved_snags %></td>
       <td><%= plot.snagging_days_remaining %></td>

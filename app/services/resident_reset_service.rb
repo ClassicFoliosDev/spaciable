@@ -110,7 +110,7 @@ module ResidentResetService
   def resident_private_documents(resident, reset_plot)
     return resident.private_documents.where(plot_id: reset_plot.id) if reset_plot
 
-    # If you get here, the resident has no more plots and is being removed from Hoozzi.
+    # If you get here, the resident has no more plots and is being removed from Spaciable.
     # In most valid code paths, there will only be a single plot left by now, but it's
     # still important that we query all private documents here, to cover there case where
     # there are legacy private documents that have no plot id associated

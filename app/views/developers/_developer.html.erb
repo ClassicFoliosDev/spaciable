@@ -6,19 +6,21 @@
     <div><%= developer.company_name %></div>
     <span class="about">
       <%= simple_format developer.about %>
-      <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %><br/>
+      <br/>
       <strong><%= t(".house_search") %></strong><%= developer.house_search? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".services") %></strong><%= developer.enable_services? ? t(".enabled") : t(".disabled") %><br/>
+      <strong><%= t(".messages") %></strong><%= developer.enable_development_messages? ? t(".enabled") : t(".disabled") %><br/>
+      <strong><%= t(".faq_scope") %></strong><%= developer.development_faqs? ? t(".development") : t(".developer") %><br/>
+      <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %><br/>
       <strong><%= t(".referrals") %></strong><%= developer.enable_referrals? ? t(".enabled") : t(".disabled") %><br/>
       <strong><%= t(".roomsketcher") %></strong><%= developer.enable_roomsketcher? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".messages") %></strong><%= developer.enable_development_messages? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".faq_scope") %></strong><%= developer.development_faqs? ? t(".development") : t(".developer") %>
+      <strong><%= t(".services") %></strong><%= developer.enable_services? ? t(".enabled") : t(".disabled") %><br/>
     </span>
   </div>
 
   <div class="section-data">
-    <%= render 'address/address', address: developer.address %>
-    <%= render 'components/contacts', contact: developer %>
+
+    <%= render 'address/address', address: developer.address %><br/>
+    <%= render 'components/contacts', contact: developer %><br/>
     <%= edit_btn [:edit, developer], element: developer %>
   </div>
 </div>

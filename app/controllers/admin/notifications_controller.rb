@@ -33,6 +33,9 @@ module Admin
       @notifications = @notifications.where
                                      .not(subject:
                                           I18n.t("resident_snag_mailer.notify.new_notification"))
+      @notifications = @notifications.where
+                                     .not(subject:
+                                          I18n.t("resident_notification_mailer.notify.old"))
       @notifications.where
                     .not(subject: I18n.t("resident_notification_mailer.notify.update_subject"))
     end

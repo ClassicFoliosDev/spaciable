@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190718101706) do
+ActiveRecord::Schema.define(version: 20190723101123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -487,8 +487,8 @@ ActiveRecord::Schema.define(version: 20190718101706) do
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "number"
@@ -496,6 +496,7 @@ ActiveRecord::Schema.define(version: 20190718101706) do
     t.integer  "total_snags",      default: 0
     t.integer  "unresolved_snags", default: 0
     t.integer  "business",         default: 0
+    t.boolean  "lettings",         default: true
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree
@@ -521,8 +522,8 @@ ActiveRecord::Schema.define(version: 20190718101706) do
   create_table "plots", force: :cascade do |t|
     t.string   "number"
     t.integer  "unit_type_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
@@ -538,7 +539,9 @@ ActiveRecord::Schema.define(version: 20190718101706) do
     t.integer  "total_snags",              default: 0
     t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
-    t.integer  "choice_selection_status",  default: 0,  null: false
+    t.integer  "choice_selection_status",  default: 0,     null: false
+    t.boolean  "letable",                  default: true
+    t.boolean  "let",                      default: false
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree

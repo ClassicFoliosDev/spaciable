@@ -19,20 +19,24 @@ module Admin
     private
 
     # rubocop:disable LineLength
+    # rubocop:disable Metrics/AbcSize
     def notifications_scope
       if current_user.cf_admin?
         Notification.where.not(subject: I18n.t("resident_snag_mailer.notify.new_notification"))
                     .where.not(subject: I18n.t("resident_notification_mailer.notify.update_subject"))
+                    .where.not(subject: I18n.t("resident_notification_mailer.notify.old"))
                     .includes(:sender, :send_to)
       else
         Notification.accessible_by(current_ability)
                     .where(sender_id: current_user.id)
                     .where.not(subject: I18n.t("resident_snag_mailer.notify.new_notification"))
                     .where.not(subject: I18n.t("resident_notification_mailer.notify.update_subject"))
+                    .where.not(subject: I18n.t("resident_notification_mailer.notify.old"))
                     .includes(:sender, :send_to)
       end
     end
     # rubocop:enable LineLength
+    # rubocop:enable Metrics/AbcSize
 
     def documents_scope
       if current_user.cf_admin?

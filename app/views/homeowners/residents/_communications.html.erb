@@ -1,6 +1,7 @@
-<div class="full communications branded-content branded-border">
+<div class="full communications branded-content branded-text branded-border">
   <h3><%= t(".title") %></h3>
-  <span><%= t(".helpful") %></span>
+    <p><%= t(".helpful").html_safe %></p>
+  <label class="updates"><%= t(".maintaining_managing") %></label>
   <div>
     <%= f.label :developer_email_updates, class: "checkbox developer-email-updates" do %>
         <%= f.check_box :developer_email_updates %>
@@ -19,7 +20,7 @@
         <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:cf_email_updates) %>
     <% end %>
   </div>
-  <label><%= t(".updates_by") %></label>
+  <label class="updates"><%= t(".updates_by") %></label>
   <div>
     <%= f.label :telephone_updates, class: "checkbox telephone-updates" do %>
         <%= f.check_box :telephone_updates %>

@@ -16,29 +16,26 @@
     <div class="row-item third">
       <fieldset>
         <div class="image-container">
-          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
-        <div class="ui-front select-container">
-          <%= f.input :title, as: :select, collection: contact_titles_collection, include_blank: false %>
-        </div>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
-      </fieldset>
-    </div>
-    <div class="row-item third">
-      <fieldset>
         <%= f.input :organisation %>
         <%= f.input :position %>
         <div class="ui-front select-container">
-          <%= f.input :category, as: :select, collection: contact_categories_collection, include_blank: false %>
+          <%= f.input :category, label: t(".category"), as: :select, collection: contact_categories_collection, include_blank: false %>
         </div>
       </fieldset>
     </div>
     <div class="row-item third">
       <fieldset>
-        <%= f.input :email %>
-        <%= f.input :phone %>
-        <%= f.input :mobile %>
+        <div class="ui-front select-container">
+          <%= f.input :title, as: :select, collection: contact_titles_collection, include_blank: false %>
+        </div>
+        <%= f.input :first_name, label: t(".first_name") %>
+        <%= f.input :last_name, label: t(".last_name") %>
+        <%= f.input :email, label: t(".email") %>
+        <%= f.input :phone, label: t(".contact") %>
+        <%= f.input :mobile, label: t(".mobile") %>
+
       </fieldset>
     </div>
   </div>

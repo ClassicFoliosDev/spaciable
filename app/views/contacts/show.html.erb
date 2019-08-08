@@ -2,7 +2,7 @@
 
 <div class="section-header">
   <div class="section-title">
-    <%= @contact %><br>
+    <%= @contact.title.titleize %> <%= @contact %><br>
   </div>
   <div class="section-data">
     <%= (edit_btn [:edit, @contact], element: @contact) unless @contact.expired? && !(current_user.cf_admin?) %>
@@ -14,18 +14,17 @@
     <div class="contact-picture">
       <%= image_tag @contact.picture.url :thumbnail if @contact.picture? %>
     </div>
-    <div class="contact-name">
-      <%= label_tag(:name) %>
-      <span><%= t("activerecord.attributes.contact.titles.#{@contact.title}") if @contact.title %>
-            <%= " " + @contact.first_name + " " + @contact.last_name %></span>
-    </div>
     <div class="organisation">
-      <%= label_tag(:organisation) %>
-      <span><%= @contact.organisation %></span>
+      <% if @contact.organisation? %>
+        <%= label_tag(:organisation) %>
+        <span><%= @contact.organisation %></span>
+      <% end %>
     </div>
     <div class="position">
-      <%= label_tag(:position) %>
-      <span><%= @contact.position %></span>
+      <% if @contact.position? %>
+        <%= label_tag(:position) %>
+        <span><%= @contact.position %></span>
+      <% end %>
     </div>
     <div class="category">
       <%= label_tag(:category) %>
@@ -34,16 +33,22 @@
   </div>
   <div class="row-item third">
     <div class="email">
-      <%= label_tag(:email) %>
-      <span><%= @contact.email %></span>
+      <% if @contact.email? %>
+        <%= label_tag(:email) %>
+        <span><%= @contact.email %></span>
+      <% end %>
     </div>
     <div class="phone">
-      <%= label_tag(:phone) %>
-      <span><%= @contact.phone %></span>
+      <% if @contact.phone? %>
+        <%= label_tag(:phone) %>
+        <span><%= @contact.phone %></span>
+      <% end %>
     </div>
     <div class="mobile">
-      <%= label_tag(:mobile) %>
-      <span><%= @contact.mobile %></span>
+      <% if @contact.mobile? %>
+        <%= label_tag(:mobile) %>
+        <span><%= @contact.mobile %></span>
+      <% end %>
     </div>
   </div>
 </div>

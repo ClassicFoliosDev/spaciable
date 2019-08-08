@@ -11,11 +11,11 @@ $darker-grey: #7a8585;
   border-style: solid;
   border-radius: 50%;
   display: inline-block;
-  border-width: 2px;
+  border-width: 1px;
   float: left;
   margin-right: $spacing-small;
   margin-top: 4px;
-  border-color: $darker-grey;
+  border-color: $semi-pale-navy;
   background-color: $ui-light-grey;
 }
 
@@ -42,10 +42,10 @@ $darker-grey: #7a8585;
   &:after {
     content: '';
     position: absolute;
-    width: $circle-size - 1;
+    width: $circle-size - 2;
     height: 8px;
-    background-color: $type-grey;
-    transform: (rotate(45deg) translateX(6px) translateY(8px));
+    background-color: $semi-pale-navy;
+    transform: (rotate(45deg) translateX(8px) translateY(8px));
   }
 }
 
@@ -70,33 +70,57 @@ $darker-grey: #7a8585;
   }
 
   span {
-    margin-top: $spacing-small / 2;
+    margin-top: $spacing-medium;
   }
 }
 
+.internal-colors {
+  color: $primary-navy;
+}
+
+.external-colors {
+  color: $primary-navy;
+}
+
 .logo-image {
-  padding-bottom: 40px;
+  padding-bottom: $spacing-medium;
 }
 
 .banner-image {
-  padding-bottom: 135px;
-}
-
-.brand_banner {
-  margin-bottom: $spacing-small;
+  padding-bottom: $spacing-large * 3;
 }
 
 .login-image {
-  padding-bottom: 40px;
+  padding-bottom: $spacing-medium;
 }
 
 .login-logo-image {
-  padding-bottom: 40px;
+  padding-bottom: $spacing-medium;
+}
+
+.brand_logo {
+  margin-bottom: $spacing-medium;
+}
+
+.brand_banner {
+  margin-bottom: $spacing-medium;
+}
+
+.brand_login_logo {
+  margin-bottom: $spacing-medium;
+}
+
+.brand_login_image {
+  margin-bottom: $spacing-medium;
+}
+
+.brand_email_logo {
+  margin-bottom: $spacing-large * 2;
 }
 
 .external_text_preview {
   label {
-    margin-top: 40px;
+    margin-top: $spacing-medium;
   }
   span {
     margin-top: 0px;

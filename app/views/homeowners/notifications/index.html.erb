@@ -1,3 +1,11 @@
+<% content_for :hero_text_primary do %>
+  <span><%= t("homeowners.notifications.index.messages") %> </span>
+<% end %>
+
+<div class="resident-hero">
+  <%= render "components/homeowner/hero" %>
+</div>
+
 <div class="branded-body">
   <div class="main-container">
     <div class="notification-container">

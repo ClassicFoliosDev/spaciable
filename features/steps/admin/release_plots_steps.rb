@@ -56,6 +56,9 @@ When(/^I add all plots and set a reservation release date$/) do
 
   within ".bulk-edit" do
     click_on "Add All Plots"
+  end
+
+  within ".release-details" do
     fill_in :phase_release_plots_release_date, with: (Time.zone.today - 10.days)
   end
 
@@ -78,7 +81,7 @@ Then(/^there is a message telling me the released pots$/) do
 end
 
 When(/^I set a completion date$/) do
-  within ".bulk-edit" do
+  within ".release-details" do
     select "Completion", :from => :release_type, visible: false
     fill_in :phase_release_plots_release_date, with: (Time.zone.today - 10.days)
   end
@@ -114,7 +117,9 @@ When(/^I enter a range of existent plots$/) do
 end
 
 Then(/^I get a completion confirmation dialog$/) do
-  within(:xpath, '//div[@id="dialog"]') do
+  sleep 2
+
+  within ".feedback-dialog" do
     now = (Time.zone.today - 10.days).strftime("%d/%m/%y")
     expect(page).to have_content "Are you sure you want to send the completion email and update release date to #{now}"
     expect(page).to have_content "Number of plots: 3"
@@ -138,7 +143,7 @@ Then(/^there is a warning that some plots are already have reservation release d
 end
 
 When(/^I set a reservation date and extended period/) do
-  within ".bulk-edit" do
+  within ".release-details" do
     select "Reservation", :from => :release_type, visible: false
     fill_in :phase_release_plots_extended_access, with: "24"
   end
@@ -161,6 +166,8 @@ Then(/^I am returned to the phases page with a confirmation message$/) do
   within ".notice" do
     expect(page).to have_content 'Successfully updated plots 185, 186, and 187'
   end
+
+
   expect(page).to have_current_path "/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}"
 end
 
@@ -181,14 +188,16 @@ end
 When(/^I enter an existent plot and a date beyond today$/) do
   within ".bulk-edit" do
    fill_in :phase_release_plots_list, with: "D 102"
+  end
+  within ".release-details" do
    fill_in :phase_release_plots_release_date, with: (Time.zone.today + 10.days)
   end
 end
 
 When(/^I set the date to today and a validity value$/) do
-  within ".bulk-edit" do
-    fill_in :phase_release_plots_validity, with: "12"
+  within ".release-details" do
     fill_in :phase_release_plots_release_date, with: (Time.zone.today)
+    fill_in :phase_release_plots_validity, with: "12"
   end
 end
 
@@ -216,7 +225,7 @@ Then(/^I am returned to the release plots page$/) do
 end
 
 When(/^I enter Validity and Extended periods/) do
-  within ".bulk-edit" do
+  within ".release-details" do
     fill_in :phase_release_plots_validity, with: "14"
     fill_in :phase_release_plots_extended_access, with: "24"
   end

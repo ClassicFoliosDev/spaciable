@@ -1,0 +1,19 @@
+<span>
+  <% if address %>
+    <%= address.prefix if address.prefix %> <%= address.postal_number %> <%= address.building_name %><br/>
+
+    <% if address.road_name %>
+      <%= address.road_name %><br/>
+    <% end %>
+
+    <% if address&.locality %>
+      <%= address.locality %><br/>
+    <% elsif address.city %>
+      <%= address.city %><br/>
+    <% end %>
+
+    <% if address&.postcode %>
+      <%= address.postcode %>
+    <% end %>
+  <% end %>
+</span>

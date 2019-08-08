@@ -41,7 +41,7 @@ Then(/^I should see the (created|updated) plot residency$/) do |action|
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", name: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
-  expect(recipient_email.parts.second.body.raw_source).to include "assets/logo"
+  expect(recipient_email.parts.second.body.raw_source).to include "assets/Spaciable_full"
 
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 
@@ -148,8 +148,8 @@ When(/^I assign the same resident to the second plot$/) do
   end
 
   within ".new_resident" do
-    expect(page).to have_content I18n.t("residents.form.full_access_description.overview")
-    expect(page).to have_content I18n.t("residents.form.limited_access_description.overview")
+    expect(page).to have_content "Has access to the issue reporting system (if enabled on your development)."
+    expect(page).to have_content "Cannot access the issue reporting system (if enabled on your development)."
     select_from_selectmenu :resident_role, with: I18n.t("activerecord.attributes.plot_residency.roles.tenant")
     fill_in_resident_details(PlotResidencyFixture.attrs)
   end
@@ -171,7 +171,7 @@ Then(/^I should see the resident is a Tenant$/) do
 
   message = t("devise.mailer.invitation_instructions.someone_invited_you", name: PlotResidencyFixture.plot.developer)
   expect(recipient_email.parts.first.body.raw_source).to include message
-  expect(recipient_email.parts.second.body.raw_source).to include "assets/logo"
+  expect(recipient_email.parts.second.body.raw_source).to include "assets/Spaciable_full"
 
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
 

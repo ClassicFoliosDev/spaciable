@@ -15,7 +15,7 @@
         <h5>
           <span class="strong"><%= "#{notification.first_name} #{notification.last_name} (#{notification.permission_level_name})" %></span>
           <span><%= notification.job_title %></span>
-          <span class="right"><%= notification.sent_at.strftime("%d %b") %></span>
+          <span class="right"><%= notification.sent_at.strftime("%d %b '%y") %></span>
         </h5>
         <span class="notification-truncate"><%= truncate(notification.subject, length: 35) %></span>
       </div>

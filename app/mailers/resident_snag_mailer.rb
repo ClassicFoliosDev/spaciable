@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ResidentSnagMailer < ApplicationMailer
-  default from: "no-reply@hoozzi.com"
+  default from: "no-reply@spaciable.com"
 
   def snag_comment_email(snag_comment)
     get_comment_info(snag_comment)
@@ -83,7 +83,7 @@ class ResidentSnagMailer < ApplicationMailer
   end
 
   def brand_logo_or_default_logo
-    @plot&.branded_logo ? @plot.branded_logo : "logo.png"
+    @plot&.branded_logo ? @plot.branded_logo : "Spaciable_full.svg"
   end
 
   def send_notification(subject)

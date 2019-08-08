@@ -17,6 +17,9 @@
         <%= f.input :name %>
         <%= f.input :number, as: :integer %>
         <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
+        <%= f.label t(".lettings") %>
+        <%= f.check_box :lettings %>
+        <p class="checkbox-description"><%= t(".lettings_description") %></p>
       </fieldset>
     </div>
     <div class="row-item third">
@@ -35,7 +38,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), development_phases_path(development), class: "btn" %>
+      <%= link_to t(".back"), ((development.division_id?) ? (division_development_path(division_id: development.division_id, id: development.id)) : (developer_development_path(developer_id: development.developer_id, id: development.id))), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

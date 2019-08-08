@@ -2,7 +2,6 @@
 
 <div class="section-header">
   <div class="section-title">
-    <i class="fa fa-chain-broken"></i>
     <%= t(".snag", plot: @snag.plot) %> (<%= @snag.phase %>, <%= @snag.development %>)<br/>
   </div>
 </div>
@@ -29,7 +28,7 @@
       <% end %>
     </div>
     <label><%= t(".date") %></label>
-    <span><%= @snag.created_at.strftime("%d %B %Y") %></span>
+    <span><%= @snag.created_at.strftime("%d %B, %Y") %></span>
     <label><%= t(".summary") %></label>
     <span><%= @snag.title %></span>
     <label><%= t(".details") %></label>
@@ -52,7 +51,7 @@
   <div class="row-item third">
     <h3><%= t(".images") %></h3>
     <% @snag.snag_attachments.each do |a| %>
-      <%= image_tag a.image_url %>
+      <%= link_to image_tag(a.image_url), a.image_url %>
       <br/>
     <% end %>
   </div>

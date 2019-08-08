@@ -15,21 +15,16 @@
   <div class="row">
     <div class="row-item third">
       <fieldset>
-        <%= f.label t(".picture") %>
         <div class="image-container">
-          <%= f.input :picture, as: :image_preview, label: false, input_html: { preview_version: :thumbnail } %>
+          <%= f.input :picture, as: :image_preview, label: t(".picture"), input_html: { preview_version: :thumbnail } %>
         </div>
-        <%= f.input :name %>
-      </fieldset>
-    </div>
-    <div class="row-item third build-details">
-      <fieldset>
-        <%= f.input :build_type, as: :select, collection: build_types_collection, include_blank: false %>
+        <%= f.input :name, label: t(".name") %>
+        <%= f.input :build_type, label: t(".build_type"), as: :select, collection: build_types_collection, include_blank: false %>
       </fieldset>
     </div>
     <div class="row-item third">
       <fieldset>
-        <%= f.label :external_link %>
+        <%= f.label :external_link, t(".walkthrough") %>
         <%= f.text_area :external_link, placeholder: t(".matterport_example") %>
         <p><%= t("unit_types.form.matterport_tip") %></p>
       </fieldset>

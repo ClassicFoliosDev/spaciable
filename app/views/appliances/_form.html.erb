@@ -15,70 +15,69 @@
   <div class="row appliance">
     <div class="row-item third">
       <fieldset>
-
         <%= f.input :model_num, required: true %>
         <div class="name">
-          <%= f.label :name, required: false %>
-          <span class="readonly">
-            <%= f.input :full_name, required: false, label: false, readonly: true %>
-          </span>
           <%= f.label t(".description") %>
           <%= f.text_area :description %>
+        </div>
+        <div class="appliance_category ui-front select-container">
+          <%= f.association :appliance_category, label: t(".category"), collection: ApplianceCategory.order(:name) %>
+        </div>
+        <div class="manufacturer ui-front select-container">
+          <%= f.association :appliance_manufacturer, label: t(".manufacturer"), collection: ApplianceManufacturer.order(:name) %>
+        </div>
+        <div class="warranty ui-front">
+        <%= f.input :warranty_length, label: t(".warranty_length"), as: :select, collection: warranty_collection, include_blank: true %>
+        </div>
+        <div class="e_rating ui-front">
+        <%= f.input :e_rating, label: t(".e_rating"), as: :select, collection: rating_collection, include_blank: true %>
         </div>
       </fieldset>
     </div>
     <div class="row-item third">
-      <div class="appliance_category ui-front select-container">
-        <%= f.association :appliance_category, collection: ApplianceCategory.order(:name) %>
-      </div>
-      <div class="manufacturer ui-front select-container">
-        <%= f.association :appliance_manufacturer, collection: ApplianceManufacturer.order(:name) %>
-      </div>
-      <div class="warranty ui-front">
-      <%= f.label t(".warranty_length") %>
-      <%= f.input :warranty_length, as: :select, collection: warranty_collection, include_blank: true, label: false %>
-      </div>
-      <div class="e_rating ui-front">
-      <%= f.label t(".e_rating") %>
-      <%= f.input :e_rating, as: :select, collection: rating_collection, include_blank: true, label: false %>
-      </div>
-    </div>
-    <div class="row-item third">
       <div class="image-container">
-        <%= f.input :primary_image, as: :image_preview %>
+        <%= f.input :primary_image, label: t(".primary_image"), as: :image_preview %>
       </div>
       <div class="image-container">
-        <%= f.input :secondary_image, as: :image_preview %>
+        <%= f.input :secondary_image, label: t(".secondary_image"), as: :image_preview %>
       </div>
-      <div class="manual-container">
-        <%= f.label t(".manual") %>
+      <div class="manual-container <%= 'appliance-edit' if appliance.persisted? %>">
+        <%= f.label :manual, t(".manual"), class: "edit-label" %>
         <% if appliance.manual? %>
           <div class="appliance-manual">
             <span class="manual-filename readonly"><%= appliance.manual.file.filename %></span>
-            <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
-              <%= icon "cloud-download" %>
-            <% end %>
-            <label class="btn remove-btn fa fa-trash" for="appliance_remove_manual"></label>
-            <%= f.check_box :remove_manual, class: "hidden remove-document" %>
           </div>
         <% end %>
         <%= f.file_field :manual, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
         <%= label_tag('appliance_manual', t("choose"), class: "choose-file") %>
+        <% if appliance.manual? %>
+          <span class="appliance-actions">
+            <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
+              <%= icon "search-plus" %>
+            <% end %>
+            <label class="btn remove-btn fa fa-trash" for="appliance_remove_manual"></label>
+            <%= f.check_box :remove_manual, class: "hidden remove-document" %>
+          </span>
+        <% end %>
       </div>
-      <div class="guide-container">
-        <%= f.label t(".guide") %>
+      <div class="guide-container <%= 'appliance-edit' if appliance.persisted? %>">
+        <%= f.label :guide, t(".guide"), class: "edit-label" %>
         <% if appliance.guide? %>
           <div class="appliance-guide">
             <span class="guide-filename readonly"><%= appliance.guide.file.filename %></span>
-            <%= link_to appliance.guide.url, class: "btn guide-download",  target: "_blank" do %>
-                <%= icon "cloud-download" %>
-            <% end %>
-            <label class="btn remove-btn fa fa-trash" for="appliance_remove_guide"></label>
-            <%= f.check_box :remove_guide, label: false, class: "hidden remove-document" %>
           </div>
         <% end %>
         <%= f.file_field :guide, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
         <%= label_tag('appliance_guide', t("choose"), class: "choose-file") %>
+        <% if appliance.guide? %>
+          <span class="appliance-actions">
+            <%= link_to appliance.guide.url, class: "btn guide-download",  target: "_blank" do %>
+              <%= icon "search-plus" %>
+            <% end %>
+            <label class="btn remove-btn fa fa-trash" for="appliance_remove_guide"></label>
+            <%= f.check_box :remove_guide, label: false, class: "hidden remove-document" %>
+          </span>
+        <% end %>
       </div>
     </div>
   </div>

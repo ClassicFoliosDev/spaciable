@@ -162,11 +162,15 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_header_default
-    "background-color: #394F5F; // $secondary-blue;"
+    "background-color: #002A3A; // $primary-navy;"
   end
 
   def self.branded_primary_default
-    "color: #18A895; // $primary-green;"
+    "color: #FF293F !important; // $primary-red-left;"
+  end
+
+  def self.branded_secondary_default
+    "color: #002A3A; // $primary-navy;"
   end
 
   def self.branded_primary_text_default
@@ -174,7 +178,7 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_text_default
-    "color: #67747C; // $type-grey;"
+    "color: #002A3A // $primary-navy;"
   end
 
   def self.branded_content_default
@@ -182,15 +186,15 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_border_default
-    "border-color: #EAEAEA; // $ui-grey;"
+    "border-color: #c5d1d6; // $pale-navy;"
   end
 
   def self.branded_top_header_default
-    "color: #394F5F; // $secondary-blue;"
+    "color: #002A3A; // $primary-navy;"
   end
 
   def self.branded_second_header_default
-    "color: #F93549; // $primary-red;"
+    "color: #FF293F; // $primary-red-left;"
   end
 
   # Buttons
@@ -200,15 +204,15 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_static_text_default
-    "color: #18A895; // $primary-green;"
+    "color: #FF293F; // $primary-red-left;"
   end
 
   def self.branded_static_border_default
-    "border-color: #18A895; // $primary-green;"
+    "border-color: #FF293F; // $primary-red-left;"
   end
 
   def self.branded_hover_background_default
-    "background-color: #18A895; // $primary-green;"
+    "background-color: #FF293F; // $primary-red-left;"
   end
 
   def self.branded_hover_text_default
@@ -220,11 +224,11 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_login_text_default
-    "color: #F93549; // $primary-red;"
+    "color: #FF293F; // $primary-red-left;"
   end
 
   def self.branded_login_border_default
-    "border-color: #F7525E; // $primary-red;"
+    "border-color: #FF293F; // $primary-red-left;"
   end
 
   # Input Fields
@@ -246,7 +250,7 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_input_border_default
-    "border-color: #F7525E; // $primary-red;"
+    "border-color: #FF293F; // $primary-red-left;"
   end
 
   def self.branded_checkbox_untick_default
@@ -254,7 +258,7 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_checkbox_tick_default
-    "color: #F7525E; // $primary-red;"
+    "color: #FF293F; // $primary-red-left;"
   end
 
   # External Styling
@@ -264,11 +268,11 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_right_box_default
-    "background-color: #F7525E; // $primary-red;"
+    "background-color: #FFFFFF; // $ui-white;"
   end
 
   def self.branded_external_text_default
-    "color: #FFFFFF; // $ui-white;"
+    "color: #002A3A; // $primary-navy;"
   end
 
   def self.branded_left_text_default
@@ -276,7 +280,7 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_second_heading_default
-    "color: #F7525E; // $primary-red;"
+    "color: #FF293F; // $primary-red-left;"
   end
 
   private

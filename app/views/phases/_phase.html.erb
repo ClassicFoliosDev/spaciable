@@ -9,18 +9,19 @@
       <%= phase.name %><br>
     </div>
     <span class="about">
-      <strong><%= t(".residents") %></strong><%= resident_count %><br/>
-      <strong><%= t(".subscribed_residents") %></strong><%= subscribed_resident_count %><br/>
+      <br/>
       <% if current_user.cf_admin? %>
-        <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %>
+        <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/>
+        <strong><%= t(".lettings") %></strong><%= phase.lettings %><br/>
       <% end %>
+      <strong><%= t(".subscribed_residents") %></strong><%= subscribed_resident_count %><br/>
+      <strong><%= t(".residents") %></strong><%= resident_count %>
     </span>
   </div>
 
   <div class="section-data">
-    <%= render 'address/address', address: phase.address %>
-    <span class="right">
-      <span class="strong"><%= t(".name", number: phase.number) %></span>
+      <%= render 'address/address', address: phase.address %><br/>
+    <strong><%= t(".name", number: phase.number) %></strong><br/>
       <%= edit_btn [:edit, phase.development, phase], element: phase %>
     </span>
   </div>

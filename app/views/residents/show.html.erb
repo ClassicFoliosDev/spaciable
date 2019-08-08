@@ -3,8 +3,7 @@
 <div class="resident">
   <div class="section-header">
     <div class="section-title">
-      <i class="fa fa-user"></i>
-      <%= t(".title", plot: @plot) %><br>
+      <%= t(".title", resident: @resident) %><br>
     </div>
     <div class="section-data">
       <%= (edit_btn [:edit, @plot, @resident], element: @resident) unless @plot.expired? && !(current_user.cf_admin?) %>
@@ -13,12 +12,12 @@
 
   <div class="row">
     <div class="row-item third">
-      <%= label_tag(PlotResidency.human_attribute_name(:full_name)) %>
-      <span><%= @resident %></span>
       <%= label_tag(PlotResidency.human_attribute_name(:email)) %>
       <span><%= @resident.email %></span>
       <%= label_tag(PlotResidency.human_attribute_name(:phone_number)) %>
       <span><%= @resident.phone_number %></span>
+      <%= label_tag :role %>
+      <span><%= @resident.plot_residency_role_name(@plot) %></span>
     </div>
   </div>
 

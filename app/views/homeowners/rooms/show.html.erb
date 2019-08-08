@@ -1,24 +1,24 @@
 <% content_for :hero_text_primary do %>
-  <%= render 'address/address', address: @plot %>
+  <%= t(".title") %>
 <% end %>
 
 <%= render "components/homeowner/sub_header", active_tab: "rooms", plot: @plot %>
 
 <div class="branded-body">
   <div class="rooms">
-    <h4><%= t(".disclaimer") %></h4>
+    <h4 class="branded-text"><%= t(".disclaimer") %></h4>
     <% @rooms.each do | room | %>
       <div class="room branded-content branded-border">
-        <div class="fifth">
+        <div class="fifth branded-text">
           <% if room.icon_name %>
-            <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(room.icon_name)) %>)"></div>
+            <div class="room-icon branded-text", style="background-image: url(<%= image_path(icon_file_name(room.icon_name)) %>)"></div>
           <% else %>
-            <div class="room-icon">
+            <div class="room-icon branded-text">
               <%= fa_icon "image" %>
             </div>
           <% end %>
         </div>
-        <div class="two-fifths">
+        <div class="two-fifths branded-text">
           <span class="branded-text"><%= room %></span>
 
            <% room.finishes.each_with_index do | finish, index | %>
@@ -50,7 +50,7 @@
 
         </div>
 
-        <div class="second-column two-fifths">
+        <div class="second-column two-fifths branded-text">
 
           <% room.finishes.each_with_index do | finish, index | %>
             <% if index.odd? %>

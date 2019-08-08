@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable ClassLength
 class Notification < ApplicationRecord
   attr_accessor :range_from, :range_to, :list
   attr_accessor :read_at
@@ -81,35 +82,53 @@ class Notification < ApplicationRecord
 
   def permission_level_name
     if sender.present?
-      permission_level || "Hoozzi Admin"
+      permission_level || "Spaciable Admin"
     else
       "User Deleted"
     end
   end
 
-  # rubocop:disable MethodLength
+  def sent_to_role
+    if send_to_role == "homeowner"
+      I18n.t("admin.notifications.form.homeowner")
+    elsif send_to_role == "tenant"
+      I18n.t("admin.notifications.form.tenant")
+    else
+      I18n.t("admin.notifications.form.both")
+    end
+  end
+
+  # rubocop:disable all
   def full_sent_to
     sent = send_to.to_s
     type = send_to_type
     case type
     when "Development"
       development = Development.find_by(id: send_to_id)
-      parent = development.division ? development.division : development.developer
-      return "#{sent} (#{parent})"
+      if development.present?
+        parent = development&.division ? development.division : development&.developer
+        return "#{sent} (#{parent})"
+      else
+        return "(Removed)"
+      end
     when "Phase"
       phase = Phase.find_by(id: send_to_id)
-      development = phase.development
-      division = phase.division
-      if division.present?
-        "#{sent} (#{development}, #{division})"
+      if phase.present?
+        development = phase.development
+        division = phase.division
+        if division.present?
+          "#{sent} (#{development}, #{division})"
+        else
+          "#{sent} (#{development})"
+        end
       else
-        "#{sent} (#{development})"
+        return "(Removed)"
       end
     else
-      return sent
+      return sent.present? ? sent : "(Removed)"
     end
   end
-  # rubocop:enable MethodLength
+  # rubocop:enable all
 
   delegate :role, to: :sender, allow_nil: true
   delegate :job_title, to: :sender, allow_nil: true
@@ -120,3 +139,4 @@ class Notification < ApplicationRecord
   delegate :to_str, to: :subject
   delegate :permission_level, to: :sender, allow_nil: true
 end
+# rubocop:enable ClassLength

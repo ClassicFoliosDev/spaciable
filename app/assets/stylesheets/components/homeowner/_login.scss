@@ -1,11 +1,12 @@
 .login, .new-password, .reset-password {
   position: relative;
-  background-color: $ui-light-grey;
-  @include outer-container(1000px);
+  background-image: linear-gradient(60deg, $primary-red-left, $primary-red-right);
+  box-shadow: 0px 0px 20px 8px rgba(34,34,34,0.2);
+  -webkit-box-shadow: 0px 0px 20px 8px rgba(34,34,34,0.2);
+  -moz-box-shadow: 0px 0px 20px 8px rgba(34,34,34,0.2);
+  @include outer-container(1100px);
   min-height: 1px;
   top: 100px;
-  border-radius: ($border-radius * 2);
-  opacity: $base-opacity;
 
   .branded-btn {
     width: 100%;
@@ -13,7 +14,7 @@
   }
 
   .preamble {
-    @include span-columns(6 of 12);
+    @include span-columns(5 of 12);
     padding: 40px;
 
     .content {
@@ -28,29 +29,23 @@
   }
 
   form {
-    @include span-columns(10 of 12);
-    @include shift(1 of 12);
-    margin-top: $spacing-large;
+    @include span-columns(12 of 12);
 
     input[type="submit"] {
-      @include span-columns(12 of 12);
+      width: 30%;
       font-weight: bold;
-      padding: 6px;
+      padding: 4px;
+      margin-top: $spacing-medium;
+      margin-bottom: $spacing-small;
     }
   }
 
-  img {
-    @include span-columns(9 of 12);
-    @include shift(1.5 of 12);
-    max-height: 250px;
-  }
-
   .sign-in, .set-password {
-    @include span-columns(6 of 12);
+    @include span-columns(7 of 12);
     @include omega();
-    float: right;
-    padding: 80px $spacing-medium 40px $spacing-medium;
-    border-radius: 0 ($border-radius * 2) ($border-radius * 2) 0;
+    float: left;
+    height: 100%;
+    padding: $spacing-large;
 
     .notice, .alert {
       display: inline-block;
@@ -78,9 +73,20 @@
 }
 
 .set-password {
-  background-color:  $primary-red;
+  background-color:  $ui-white;
   label {
     color: $ui-white;
+  }
+  .primary {
+    color: $primary-red-left;
+  }
+}
+
+.login-icon-password {
+  text-align: center;
+  img {
+    width: 40%;
+    margin-top: 35%;
   }
 }
 
@@ -95,15 +101,84 @@
   }
 }
 
+.reset-pass-email input {
+  margin-top: $spacing-large;
+  margin-bottom: $spacing-large;
+  border-color: $pale-navy;
+  border-radius: 0;
+  width: 70%;
+  white-space: normal;
+
+  &:focus {
+    border-color: $pale-navy;
+    border-left: 5px solid $primary-red-left;
+  }
+}
+
+.reset-pass-input {
+  margin-top: $spacing-large;
+  margin-bottom: $spacing-large;
+
+  input {
+    border-color: $pale-navy;
+    border-radius: 0;
+    width: 70%;
+    white-space: normal;
+    margin-bottom: -10px;
+
+    &:focus {
+      border-color: $pale-navy;
+      border-left: 5px solid $primary-red-left;
+    }
+  }
+}
+
+.reset-pass-email .input label .required {
+  right: 178px;
+}
+
 .branded-content-box {
   input[type="email"], input[type="password"] {
-    border-color: $primary-background;
+    border-color: $pale-navy;
+    border-radius: 0;
+    width: 70%;
     white-space: normal;
   }
 
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px $ui-white inset;
   }
+}
+
+.invitation .branded-content-box {
+  input[type="email"], input[type="password"] {
+    margin-top: -16px;
+
+    &:focus {
+      border-left: 5px solid $primary-red-left;
+      }
+  }
+}
+
+.login .branded-content-box {
+  input[type="email"], input[type="password"] {
+    margin-top: -10px;
+
+    &:focus {
+      border-left: 5px solid $primary-red-left;
+      }
+  }
+  input[type="password"] {
+    margin-bottom: $spacing-large;
+  }
+}
+
+.login .remember-checkbox {
+  margin-bottom: $spacing-large;
+}
+
+.login .accept-checkbox {
+  margin-top: -$spacing-medium;
 }
 
 .branded-primary-text label.checkbox {
@@ -114,9 +189,14 @@
   background-color: $primary-background;
 }
 
+.information .forgotten-password {
+  margin-bottom: 44px;
+}
+
 .reset-password {
   .set-password {
     @include span-columns(12 of 12);
+    height: 760px;
   }
 
   h2 {
@@ -131,28 +211,71 @@
 }
 
 .new-password {
+  height: 760px;
+
   .copyright {
     margin-top: $spacing-medium;
     color: $ui-white;
   }
   .reset-btn {
     background-color: $ui-white;
-    color: $primary-red;
-    border-color: $primary-red;
+    color: $primary-navy;
+    border-color: $primary-navy;
+    border-radius: 0;
 
     &:hover {
-      background-color: $ui-white;
-      color: $primary-green;
-      border-color: $primary-green;
+      background-color: $primary-navy;
+      color: $ui-white;
+      border-color: $primary-navy;
     }
   }
 }
 
+.new-password {
+  ::placeholder {
+    font-size: $base-small-font-size;
+  }
+  :-ms-input-placeholder {
+    font-size: $base-small-font-size;
+  }
+  ::-ms-input-placeholder {
+    font-size: $base-small-font-size;
+  }
+}
+
+.new-password {
+  .information p {
+    color: $primary-navy;
+  }
+  .information a {
+    color: $primary-red-left;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .information .copyright {
+    margin-top: 236px;
+  }
+  .information .reset-copyright {
+    margin-top: 208px;
+  }
+}
+
 .login-background {
-  height: 100%;
+  height: 976px;
   width: 100%;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.default-login-background {
+  height: 976px;
+  width: 100%;
+  background-image: url('Spaciable_pink_corner.svg');
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 30%;
 }
 
 @include media($tablet-portrait-down) {

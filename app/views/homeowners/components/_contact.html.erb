@@ -6,23 +6,29 @@
       <%= image_tag("user-circle-o.jpg") %>
     <% end %>
     <p title="<%= contact.to_s %>"><%= contact.to_s %></p>
-    <p title="<%= contact.position %>"><%= contact.position %></p>
+    <p class="position branded-text" title="<%= contact.position %>"><%= contact.position %></p>
   </div>
 
-  <div class="details">
+  <div class="details branded-text">
     <% if contact.phone? %>
-      <label><%= fa_icon "phone" %> <%= t(".phone")%></label>
-      <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-primary", title: contact.phone %></span>
+      <div class="contact-detail">
+        <label><%= fa_icon "phone" %> <%= t(".phone")%></label>
+        <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
+      </div>
     <% end %>
 
     <% if contact.mobile? %>
-      <label><%= fa_icon "mobile" %> <%= t(".mobile")%></label>
-      <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-primary", title: contact.mobile %></span>
+      <div class="contact-detail">
+        <label><%= fa_icon "mobile" %> <%= t(".mobile")%></label>
+        <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
+      </div>
     <% end %>
 
     <% if contact.email? %>
-      <label><%= fa_icon "envelope" %> <%= t(".email")%></label>
-      <span><%= mail_to contact.email, contact.email, class: "branded-primary", title: contact.email %></span>
+      <div class="contact-detail">
+        <label><%= fa_icon "envelope" %> <%= t(".email")%></label>
+        <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
+      </div>
     <% end %>
   </div>
 </div>

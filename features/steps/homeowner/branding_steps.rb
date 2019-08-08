@@ -99,7 +99,7 @@ Then(/^I should see the configured branding$/) do
   # Right text color should be branded external text, set on developer only
   expect(page.body).to have_content "branded-external-text label { color: #0008FF"
   # Left login box should be login box left color, set on division and development: should be development color
-  expect(page.body).to have_content "branded-left-box { background-color: #D800FF"
+  expect(page.body).to have_content "branded-left-box { background-image: none; background-color: #D800FF"
   # Right login box should be login box right color, set on division only
   expect(page.body).to have_content "branded-right-box { background-color: #00FF6C"
   # Login content box and checkbox color should be content box color, set on developer and division: should be division color
@@ -140,7 +140,7 @@ Then(/^I should see the branded logos$/) do
     end
 
     expect(image_file_names).to include FileFixture.logo_alt
-    expect(image_file_names).to include FileFixture.default_logo_alt
+    expect(image_file_names).to include FileFixture.default_icon_alt
   end
 end
 
@@ -154,13 +154,13 @@ Then(/^I should see the default branding$/) do
 
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
-  expect(style['outerHTML']).to have_content("branded-header { background-color: #394F5F")
+  expect(style['outerHTML']).to have_content("branded-header { background-color: #002A3A")
   expect(style['outerHTML']).to have_content("branded-body { background-color: #FAFAFA")
-  expect(style['outerHTML']).to have_content("branded-text { color: #67747C")
+  expect(style['outerHTML']).to have_content("branded-text { color: #002A3A")
   expect(style['outerHTML']).to have_content("branded-content { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-border { border-color: #EAEAEA")
+  expect(style['outerHTML']).to have_content("branded-border { border-color: #c5d1d6")
   expect(style['outerHTML']).to have_content("branded-btn { background-color: #FFFFFF")
-  expect(style['outerHTML']).to have_content("branded-btn { color: #18A895")
+  expect(style['outerHTML']).to have_content("branded-btn { color: #FF293F")
 
   expect(style['outerHTML']).not_to have_content("cala_banner.jpg")
 end
@@ -208,7 +208,7 @@ Then(/^The resident receives an invitation with default branding$/) do
   expect(ActionMailer::Base.deliveries.count).to eq 4
   invitation = ActionMailer::Base.deliveries.first
 
-  expect(invitation.parts.second.body.raw_source).to include "assets/logo-"
+  expect(invitation.parts.second.body.raw_source).to include "assets/Spaciable_full"
 
   ActionMailer::Base.deliveries.clear
 end

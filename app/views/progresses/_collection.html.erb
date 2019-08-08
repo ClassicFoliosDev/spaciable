@@ -5,6 +5,7 @@
       <div class="row-item third">
         <div class="progress_all ui-front">
           <label><%= t(".update_progress") %></label>
+          <p><%= t(".progress_description").html_safe %></p>
           <%= select_tag "progress_all", options_for_select(all_progress_collection) %>
         </div>
       </div>
@@ -24,7 +25,6 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), [phase.parent, phase], class: "btn" %>
       <% unless phase.expired? && !(current_user.cf_admin?) %>
         <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
         <div class="notify">

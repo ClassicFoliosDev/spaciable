@@ -14,12 +14,39 @@
     <%= Brand.branded_primary_default %>
   }
 
+  .branded-secondary {
+    <%= Brand.branded_secondary_default %>
+  }
+
   .branded-text {
     <%= Brand.branded_text_default %>
   }
 
   .branded-primary-text {
     <%= Brand.branded_text_default %>
+  }
+
+  .full-menu .active-link {
+    <%= Brand.branded_primary_default %>
+  }
+  .full-menu a:hover {
+    <%= Brand.branded_primary_default %>
+  }
+  .full-menu .my-plots:hover {
+    <%= Brand.branded_primary_default %>
+  }
+  .full-menu .feedback-btn:hover {
+    <%= Brand.branded_primary_default %>
+  }
+
+  .nav-inner ul .active li {
+    <%= Brand.branded_second_header_default %>
+  }
+  .sub-navigation-container .nav-inner ul li {
+    <%= Brand.branded_secondary_default %>
+  }
+  .sub-navigation-container .nav-inner ul .active li {
+    <%= Brand.branded_second_header_default %>
   }
 
   .branded-content {
@@ -54,6 +81,18 @@
     <%= Brand.branded_hover_border_default %>
   }
 
+  .branded-btn-inverted {
+    <%= Brand.branded_hover_background_default %>
+    <%= Brand.branded_hover_text_default %>
+    <%= Brand.branded_static_border_default %>
+  }
+
+  .branded-btn-inverted:hover {
+    <%= Brand.branded_static_background_default %>
+    <%= Brand.branded_static_text_default %>
+    <%= Brand.branded_static_border_default %>
+  }
+
   .branded-titles h2.top-title {
      <%= Brand.branded_top_header_default %>
   }
@@ -70,6 +109,13 @@
     <%= Brand.branded_input_text_default %>
   }
 
+  .plot-choices .homeowner-container h3 {
+    <%= Brand.branded_secondary_default %>
+  }
+
+  .document-permission {
+    <%= Brand.branded_primary_default %>
+  }
 
   <%-# --- Banner --- -%>
 
@@ -92,8 +138,12 @@
     <%= Brand.branded_external_text_default %>
   }
 
-  .branded-left-text, .branded-left-text h2 {
+  .branded-left-text {
     <%= Brand.branded_left_text_default %>
+  }
+
+  .branded-left-text h2 {
+    <%= Brand.branded_primary_default %>
   }
 
   .branded-heading-two {

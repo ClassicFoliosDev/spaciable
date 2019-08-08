@@ -22,7 +22,7 @@ Rails.configuration.mailchimp = {
       }
     },
     {
-      name: "Hoozzi status",
+      name: "Spaciable status",
       tag: "HOOZSTATUS",
       type: "text",
       public: true
@@ -100,7 +100,7 @@ Rails.configuration.mailchimp = {
         public: true
     },
     {
-        name: "Hoozzi email updates",
+        name: "Spaciable email updates",
         tag: "HOOZ_UPD",
         type: "text",
         public: true

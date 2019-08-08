@@ -28,13 +28,11 @@
                 include_blank: false %>
           </div>
 
-          <%= f.input :first_name, required: true %>
-          <%= f.input :last_name, required: true %>
-        </fieldset>
-      </div>
-
-      <div class="row-item third">
-        <fieldset>
+          <%= f.input :first_name, label: t(".first_name"), required: true %>
+          <%= f.input :last_name, label: t(".surname"), required: true %>
+          <%= f.input :email, label: t(".email"), required: true %>
+          <%= f.input :phone_number, label: t(".phone"), required: true %>
+          <span class="info-span"><%= t(".international") %></span>
           <div class="ui-front select-container">
             <%= f.input :role,
             as: :select,
@@ -42,21 +40,19 @@
             include_blank: false,
             selected: locals[:role] %>
           </div>
-
-          <%= f.input :email, required: true %>
-          <%= f.input :phone_number, required: true %>
-          <span class="info-span"><%= t(".international") %></span>
         </fieldset>
       </div>
 
-      <div class="row-item third">
+
+      <div class="row-item two-thirds">
         <fieldset>
-          <p><%= t(".full_access_description.title_html") %></p>
-          <p><%= t(".full_access_description.overview") %></p>
-          <p><%= t(".full_access_description.suitable_html") %></p>
-          <p><%= t(".limited_access_description.title_html") %></p>
-          <p><%= t(".limited_access_description.overview") %></p>
-          <p><%= t(".limited_access_description.suitable_html") %></p>
+          <h4><%= t(".full_access_description.title_html") %></h4>
+          <p><%= t(".full_access_description.overview").html_safe %></p>
+          <p><%= t(".full_access_description.suitable_html").html_safe %></p>
+          <hr><br/>
+          <h4><%= t(".limited_access_description.title_html") %></h4>
+          <p><%= t(".limited_access_description.overview").html_safe %></p>
+          <p><%= t(".limited_access_description.suitable_html").html_safe %></p>
         </fieldset>
       </div>
     </div>

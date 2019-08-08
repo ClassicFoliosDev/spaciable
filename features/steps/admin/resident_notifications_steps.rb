@@ -172,8 +172,11 @@ Then(/^I can see the notification I sent to all residents$/) do
     find("[data-action='view']").click
   end
 
-  within ".notification" do
+  within ".section-title" do
     expect(page).to have_content(subject)
+  end
+
+  within ".notification" do
     expect(page).to have_content("All")
     expect(page).to have_content(contents)
   end

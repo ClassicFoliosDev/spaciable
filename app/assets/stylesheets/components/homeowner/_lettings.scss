@@ -1,0 +1,158 @@
+.lettings {
+  text-align: center;
+
+  .letable {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.letable-plot {
+  @include span-columns(2 of 12);
+  display: inline-block;
+  width: 210px;
+  min-height: 270px;
+  max-height: 300px;
+  border-radius: 10px;
+  text-align: center;
+
+  .plot-address {
+    margin-top: 20px;
+  }
+}
+
+.let-plot {
+  .letable-plot {
+    border: solid 1px #FFF;
+    background-color: $primary-green;
+    margin: 0 50px 50px 0;
+
+    .let-out {
+      width: 80%;
+      margin: auto;
+      border: solid 1px #FFF;
+      border-radius: $border-radius;
+      padding: 0 10px;
+      font-size: $base-button-font-size;
+      line-height: $button-line-height;
+      margin-bottom: 10px;
+      opacity: 0.5;
+      color: #FFF;
+      font-weight: $bold-font-weight;
+    }
+
+    .letting-btn {
+      border: solid 1px #FFF;
+      background-color: $primary-green;
+      color: #FFF;
+    }
+
+    .letting-btn:hover {
+      border: solid 1px $primary-green;
+      background-color: #FFF;
+      color: $primary-green;
+    }
+  }
+
+  .plot-address {
+    h3 {
+      color: #FFF;
+    }
+    p {
+      color: #FFF;
+    }
+  }
+}
+
+.unlet-plot {
+  .letable-plot {
+    border: solid 1px;
+    margin: 0 50px 50px 0;
+
+    .letting-btn {
+      border: solid 1px;
+      color: $primary-navy;
+    }
+
+    .letting-btn:hover {
+      background-color: $primary-navy;
+      color: #FFF;
+    }
+  }
+}
+
+.letable-options {
+  .letting-btn {
+    width: 80%;
+    margin-bottom: 10px;
+    font-weight: $bold-font-weight;
+  }
+}
+
+
+// tablet view
+@include media($tablet-portrait-up) {
+  .let-plot, .unlet-plot {
+    .letable-plot {
+      margin-right: 30px;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+// mobile view
+@include media($tablet-portrait-down) {
+  .lettings {
+    text-align: center;
+  }
+
+  .letable {
+    .let-plot, .unlet-plot {
+      width: 100%;
+
+      .letable-plot {
+        margin-bottom: 20px;
+        width: 100%;
+        height: 200px;
+        display: flex;
+        align-items: center;
+
+        .plot-address {
+          @include span-columns(7 of 12);
+          text-align: left;
+          padding-left: 5%;
+          white-space: normal;
+          word-wrap: break-word;
+        }
+
+        .letable-options {
+          @include span-columns(5 of 12);
+          text-align: right;
+          padding-right: 5%;
+          padding-top: 20px;
+          text-align: center;
+          padding-bottom: 3%;
+
+          .let-out {
+            width: 100%;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .letting-btn {
+            white-space: normal;
+            word-wrap: break-word;
+            width: 100%;
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+}

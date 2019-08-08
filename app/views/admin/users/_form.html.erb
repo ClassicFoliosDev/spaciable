@@ -15,16 +15,18 @@
   <div class="row user">
     <div class="row-item third">
       <fieldset>
-        <%= f.input :email, readonly: user.email? %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
         <div class="image-container">
-          <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
+        <%= f.input :email, label: t(".email"), readonly: user.email? %>
+        <%= f.input :first_name, label: t(".first_name") %>
+        <%= f.input :last_name, label: t(".surname") %>
       </fieldset>
     </div>
+
     <div class="row-item third">
       <fieldset class="skip-global-selectmenu">
+        <%= f.input :job_title, label: t(".job_title") %>
         <%= f.input :role,
           as: :select,
           collection: User::accessible_admin_roles(current_user),
@@ -32,39 +34,37 @@
           value_method: :first,
           include_blank: t("users.choose"),
           selected: selected_role %>
-        <%= f.input :job_title %>
         <%= cascade_select_input f, :developer_id, Developer %>
         <%= cascade_select_input f, :division_id, Division %>
         <%= cascade_select_input f, :development_id, Development %>
-        <div class="receive_plot_emails">
-          <%= f.label t(".plot_emails") %>
-          <%= f.check_box :receive_release_emails, id: :plot_check,
-                          disabled: !user.enable_receive_release_emails?(current_user) %>
-          <p class="checkbox-description"><%= t(".receive_plot_emails") %></p>
-        </div>
-        <div class="receive_choice_emails">
-          <%= f.label t(".choice_emails") %>
-          <%= f.check_box :receive_choice_emails, id: :choice_check,
-                          disabled: !user.enable_choice_emails?(current_user) %>
-          <p class="checkbox-description"><%= t(".receive_choice_emails") %></p>
-        </div>
-        <div class="receive-snagging-emails">
-          <%= f.label t(".snag_emails") %>
-          <%= f.check_box :snag_notifications, id: :snag_check %>
-
-          <p class="checkbox-description"><%= t(".receive_snag_emails") %></p>
-        </div>
       </fieldset>
     </div>
-    <% if user == current_user %>
-      <div class="row-item third">
-        <fieldset>
+
+    <div class="row-item third">
+      <fieldset>
+        <% if user == current_user %>
           <%= f.input :current_password, label: t(".current_password"), autocomplete: "off", placeholder: t(".current_password2") %>
           <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>
           <%= f.input :password_confirmation, label: t(".confirm_password") %>
-        </fieldset>
-      </div>
-    <% end %>
+        <% end %>
+        <div class="receive_plot_emails">
+          <%= f.label :plot_emails, t(".plot_emails") %>
+          <%= f.check_box :receive_release_emails, id: :plot_check,
+          disabled: !user.enable_receive_release_emails?(current_user) %>
+          <p class="checkbox-description"><%= t(".receive_plot_emails") %></p>
+        </div>
+        <div class="receive_choice_emails">
+          <%= f.label :choice_emails, t(".choice_emails") %>
+          <%= f.check_box :receive_choice_emails, id: :choice_check,
+          disabled: !user.enable_choice_emails?(current_user) %>
+          <p class="checkbox-description"><%= t(".receive_choice_emails") %></p>
+        </div>
+        <div class="receive-snagging-emails">
+          <%= f.label :snag_emails, t(".snag_emails") %>
+          <%= f.check_box :snag_notifications, id: :snag_check %>
+          <p class="checkbox-description"><%= t(".receive_snag_emails") %></p>
+      </fieldset>
+    </div>
   </div>
 
   <div class="form-actions-footer-container">

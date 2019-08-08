@@ -13,8 +13,8 @@
   <table class="record-list unit-types">
     <thead>
       <tr>
-        <th><%= sortable(collection, :name) %></th>
-        <th><%= sortable(collection, :updated_at) %></th>
+        <th><%= sortable(collection, :name, t(".name")) %></th>
+        <th><%= sortable(collection, :updated_at, t(".last_edited")) %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>

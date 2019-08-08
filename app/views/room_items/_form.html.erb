@@ -16,25 +16,23 @@
   <% end %>
   <div class="row-item third">
     <div class="category ui-front select-container">
-          <%= f.input :room_itemable_type, label: 'Item Type', as: :select, collection: item_types, include_blank: false %>
+        <%= f.input :room_itemable_type, label: 'Type', as: :select, collection: item_types, include_blank: false %>
     </div>
     <div class="item_category ui-front select-container">
-        <%= f.input :room_itemable_id, label: 'Item Category', as: :select, collection: item_categories %>
+      <%= f.input :room_itemable_id, label: 'Category', as: :select, collection: item_categories %>
     </div>
-    <fieldset>
-        <%= f.input :name %>
-      </fieldset>
+      <%= f.input :name %>
   </div>
 
   <div class="row-item third">
     <div class="item_category ui-front select-container" id="item_selector">
-        <%= f.input :category_item_ids, label: 'Category Items', as: :select, collection: category_items, include_blank: false, input_html: { :multiple => true, :class => 'chosen-select'} %>
+        <%= f.input :category_item_ids, label: 'Choices', as: :select, collection: category_items, include_blank: false, input_html: { :multiple => true, :class => 'chosen-select'} %>
     </div>
   </div>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), choice_configuration_room_configurations_path(choice_configuration.id, room_configuration), class: "btn" %>
+      <%= link_to t(".back"), choice_configuration_room_configuration_path(choice_configuration_id: choice_configuration.id, id: room_configuration.id), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

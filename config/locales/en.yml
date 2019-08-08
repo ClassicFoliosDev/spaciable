@@ -36,9 +36,9 @@
 en:
 
   reservation_email:
-    title: "Your Hoozzi Reservation Plots are Live"
+    title: "Your Spaciable Reservation Plots are Live"
   completion_email:
-    title: "Your Hoozzi Completion Plots are Live"
+    title: "Your Spaciable Completion Plots are Live"
 
   date:
     formats:
@@ -72,6 +72,7 @@ en:
       admin_updating: "Selections for your plot have been made by the administrator"
       committed_by_homeowner: "Your choices are now awaiting confirmation from the constructor"
       choices_rejected: "Some of your choices have been declined.  Please reselect the missing items"
+      title: "Choices."
       email_subject:
         approved: "Plot %{plot_name} Choices approved"
         rejected: "Plot %{plot_name} choice selections declined"
@@ -97,21 +98,21 @@ en:
   development_admin: "Development Admin"
   site_admin: "Site Admin"
 
-  choose: "Choose file"
-  choose_multiple: "Choose files"
+  choose: "Choose File"
+  choose_multiple: "Choose Files"
   no_image: "No image available"
   plot: "Plot %{number}"
 
   manual: "Appliance manual"
   guide: "Appliance guide"
 
-  reminder_title: "%{ordinal} reminder to register with Hoozzi"
-  last_reminder_title: "%{ordinal} and last reminder to register with Hoozzi"
+  reminder_title: "%{ordinal} reminder to register with Spaciable"
+  last_reminder_title: "%{ordinal} and last reminder to register with Spaciable"
   new_plot_title: "Information about your new home"
-  transfer_files_description: "Your Hoozzi account has been deactivated and you no longer have access.
+  transfer_files_description: "Your Spaciable account has been deactivated and you no longer have access.
    Please click below to download the files you uploaded to your online portal."
-  transfer_files_title: "Hoozzi portal deactivated"
-  file_transfer: "Hoozzi file transfers"
+  transfer_files_title: "Spaciable portal deactivated"
+  file_transfer: "Spaciable file transfers"
 
   notify:
     information: "information"
@@ -127,11 +128,11 @@ en:
   # LAYOUTS
   layouts:
     application:
-      title: "Hoozzi"
+      title: "Spaciable"
     home:
-      title: "Hoozzi home"
+      title: "Spaciable home"
     homeowner:
-      title: "My home"
+      title: "My Home"
       nav:
         dashboard: "Dashboard"
         community: "Community"
@@ -146,13 +147,13 @@ en:
         library: "Library"
         faqs: "FAQs"
     admin_login:
-      title: "Admin login to Hoozzi"
+      title: "Admin login to Spaciable"
     login:
-      title: "Login to Hoozzi"
+      title: "Login to Spaciable"
     email:
-      copyright: "Hoozzi &copy; %{year}"
+      copyright: "Spaciable &copy; %{year}"
     common_header:
-      title: "Hoozzi"
+      title: "Spaciable"
 
   controller:
     resource_not_found: "Resource not found"
@@ -166,76 +167,91 @@ en:
 
   breadcrumbs:
     admin_notifications: "Notifications"
-    admin_notifications_new: "Send notification"
-    admin_admin_notifications: "Admin notifications"
-    admin_admin_notifications_new: "Send notification"
-    admin_residents: "Admin residents"
-    admin_users: "Admin users"
-    admin_users_add: "Add admin user"
-    admin_user_edit: "Edit %{user_email}"
+    admin_notifications_new: "Send Notification"
+    admin_admin_notifications: "Admin Notifications"
+    admin_admin_notifications_new: "Send Notification"
+    admin_residents: "Admin Residents"
+    admin_users: "Users"
+    admin_users_add: "New User"
+    admin_user_edit: "Edit %{user}"
     admin_how_tos: "How Tos"
-    admin_how_to_new: "New how to"
-    admin_how_to_edit: "Edit how to"
-    admin_snag_overview: "Snags"
+    admin_how_to_new: "New How To"
+    admin_how_to_edit: "Edit %{how_to}"
+    admin_snag_overview: "Snags Overview"
     admin_plot_snags: "Phase Overview"
     admin_plot_snag: "Plot Overview"
-    admin_snag: "Snag Details"
+    admin_snag: "%{plot} Snag (%{phase}, %{development})"
+    admin_settings_edit: "Edit Global Settings"
+    admin_settings: "Global Settings"
+    admin_reports: "Reports"
     appliance_edit: "Edit %{name}"
-    appliance_add: "Add appliance"
+    appliance_add: "New Appliance"
     manufacturer_edit: "Edit %{name}"
-    manufacturer_add: "Add manufacturer"
+    manufacturer_add: "New Finish Manufacturer"
     appliance_category_edit: "Edit %{name}"
-    appliance_category_add: "Add appliance category"
+    appliance_category_add: "New Appliance Category"
+    appliance_manufacturer_add: "New Appliance Manufacturer"
     developer_edit: "Edit %{developer_name}"
-    developer_add: "Add developer"
+    developer_add: "New Developer"
     development_edit: "Edit %{development_name}"
-    development_new: "New development"
-    development_add: "Add development"
+    development_new: "New Development"
+    development_add: "Add Development"
     division_edit: "Edit %{division_name}"
-    division_add: "Add division"
+    division_add: "New Division"
     faqs: "FAQs"
-    faqs_add: "Add FAQ"
-    faqs_edit: "Edit FAQ"
+    faqs: "FAQs"
+    faqs_add: "New FAQ"
+    faqs_edit: "Edit %{faq}"
     videos: "Videos"
-    videos_add: "New video link"
-    videos_edit: "Edit video link"
+    videos_add: "New Video"
+    videos_edit: "Edit %{video}"
     services: "Services"
-    services_add: "New service"
-    services_edit: "Edit service"
+    services_add: "New Service"
+    services_edit: "Edit Service"
+    finish_categories: "Finish Categories"
     finish_edit: "Edit %{name}"
-    finish_add: "Add finish"
+    finish_add: "New Finish"
     finish_category_edit: "Edit %{name}"
-    finish_category_add: "Add finish category"
+    finish_category_add: "New Finish Category"
     finish_type_edit: "Edit %{name}"
-    finish_type_add: "Add finish type"
-    phase_add: "Add phase"
+    finish_type_add: "New Finish Type"
+    finish_types: "Finish Types"
+    finish_manufacturers: "Finish Manufacturers"
+    appliance_categories: "Appliance Categories"
+    appliance_manufacturers: "Appliance Manufacturers"
+    phase_add: "New Phase"
     phase_edit: "Edit %{phase_name}"
-    choice_configuration_add: "Add choice configuration"
+    choice_configurations: "Choice Configurations"
+    choice_configuration_add: "New Choice Configuration"
     choice_configuration_edit: "Edit %{choice_configuration_name}"
-    room_configuration_add: "Add room configuration"
+    room_configurations: "Room Configurations"
+    room_configuration_add: "New Room Configuration"
     room_configuration_edit: "Edit %{room_configuration_name}"
-    room_item_add: "Add room item"
+    room_item_add: "New Room Item"
     room_item_edit: "Edit %{room_item_name}"
-    plot_add: "Add plot(s)"
+    room_finish: "New Finish"
+    room_appliance: "New Appliance"
+    plot_add: "New Plot"
     plot_edit: "Edit %{plot_name}"
     residents: "Residents"
-    resident: "Resident %{name}"
-    resident_add: "Add resident"
+    resident: "%{name}"
+    resident_add: "New Resident"
     resident_edit: "Edit %{name}"
     room_edit: "Edit %{room_name}"
-    room_add: "Add room"
+    room_add: "New Room"
     unit_type_edit: "Edit %{unit_type_name}"
-    unit_type_new: "New unit type"
-    unit_type_add: "Add unit type"
-    document_add: "Add document"
+    unit_type_new: "New Unit Type"
+    unit_type_add: "New Unit Type"
+    document_add: "New Document"
     document_edit: "Edit %{document_name}"
     contacts: "Contacts"
-    contact_add: "Add contact"
+    contact_add: "New Contact"
     contact_edit: "Edit %{contact_name}"
+    contact_show: "%{contact}"
     brands: "Styling"
-    brand_add: "Add styling for %{name}"
+    brand_add: "New Styling"
     brand_edit: "Edit %{name}"
-    bulk_edit: "Bulk edit"
+    bulk_edit: "Bulk Edit"
     production: "Production"
     release_plots: "Release plots"
 
@@ -256,25 +272,31 @@ en:
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
       plots_select:
-        list_input_hint: "Separated by commas and tildes e.g. 'D1,B2,1,2,5,10,15,20~25,30~100"
-        range_label: "Select plots by range"
-        list_label: "Select plots by list and Range"
+        list_input_hint: "Separated by commas and tildes e.g. 'D1,B2,2,14,15,20~25,30~100"
+        range_label: "Select Plots by Range"
+        list_label: "Select Plots by List and Range"
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
       plot_fields:
-        current_progress: "Current progress"
-        update_progress: "Update progress to"
+        current_progress: "Build Progress"
+        update_progress: "Update Build Progress"
+        comp_date: "Legal Completion Date"
+        letable: "Lettings"
+        letable_description: "Residents are able to let out their plot. This will override the current phase status.
+                              If the phase status is updated, the new phase status will override this plot status."
       plot_date_fields:
-        expiry_date: "Expiry date (calculated from last save)"
+        expiry_date: "Expiry"
         prefix_explanation: "When the prefix is set, postal number will default to the plot number if left blank"
-        validity: "Validity (months)"
-        extended_access: "Extended access (months)"
+        validity: "Validity (Months)"
+        extended_access: "Extended Access (Months)"
+        res_release_date: "Reservation Release Date"
+        comp_release_date: "Completion Release Date"
       plot_address_fields:
-        copy_plot_numbers: "Use Plot number for Postal number"
-        house_number: "Postal number / name"
-        prefix: "Postal Prefix, e.g., Plot, Flat and Apartment"
+        copy_plot_numbers: "Use Plot Number for Postal Number"
+        postal_address: "Postal Address"
+        prefix: "Postal Prefix"
       spanish_plot_address_fields:
-        copy_plot_numbers: "Use Plot number for Postal number"
+        copy_plot_numbers: "Use Plot Number for Postal Number"
 
     choices:
       resident:
@@ -289,6 +311,7 @@ en:
         feedback: "Feedback"
         my_plots: "Plots"
         messages: "Messages"
+        lettings: "Lettings"
       sub_menu:
         about: "About"
         title: "My Home"
@@ -304,10 +327,10 @@ en:
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
       library_hero:
-        title: "Welcome to your digital home library"
+        title: "Library."
         appliances: "Appliances"
         videos: "Videos"
-        my_documents: "My documents"
+        my_documents: "My Documents"
       navigation:
         maintenance: "Issues"
         house_search: "Area Guide"
@@ -331,8 +354,8 @@ en:
       admin_notifications: "Admin Notifications"
       contacts: "Contacts"
       howtos: "How Tos"
-      help: "Hoozzi help"
-      configuration: "Global settings"
+      help: "Help"
+      configuration: "Global Settings"
       reports: "Reports"
       snagging: "Snagging"
     empty_list:
@@ -361,7 +384,7 @@ en:
 
   feedback:
     cancel: "Cancel"
-    title: "What do you think of Hoozzi?"
+    title: "What do you think of Spaciable?"
     option1: "Unhappy"
     option2: "Neutral"
     option3: "Happy"
@@ -369,8 +392,8 @@ en:
     submit: "Send feedback"
     comments: "Comments"
     placeholder: "Enter feedback..."
-    email_title: "You have received feedback from a Hoozzi user"
-    email_subject: "Feedback from Hoozzi"
+    email_title: "You have received feedback from a Spaciable user"
+    email_subject: "Feedback from Spaciable"
     option_title: "Happiness level"
     comment_title: "Comments"
     details_title: "User Details"
@@ -397,10 +420,10 @@ en:
   admin_notification_mailer:
     admin_notifications:
       hi: "Hi, "
-      login: "Login to Hoozzi"
+      login: "Login to Spaciable"
 
   password_change_mailer:
-    content: "We're contacting you to notify you that your %{admin} password for the Hoozzi online portal has been changed."
+    content: "We're contacting you to notify you that your %{admin} password for the Spaciable online portal has been changed."
     confirm: "If this was you, simply log in with your new password at "
     deny: "If this wasn't you, your account has been compromised. Please click the following link to reset your password."
 
@@ -423,11 +446,11 @@ en:
     building: "Building: "
     street: "Street: "
     postcode: "Postcode: "
-    view_snag: "View the full details of this snag under the Snagging menu within Hoozzi, or by"
+    view_snag: "View the full details of this snag under the Snagging menu within Spaciable, or by"
     link_to_snag: "clicking here"
-    general_snag: "You can view any outstanding snags under the Snagging menu within Hoozzi"
+    general_snag: "You can view any outstanding snags under the Snagging menu within Spaciable"
     opt_out: "If these notifications are not relevant to you, you can opt out in your user profile."
-    login: "Login to Hoozzi"
+    login: "Login to Spaciable"
 
   resident_snag_mailer:
     login: "Login to your Account"
@@ -460,14 +483,14 @@ en:
   admin:
     snags:
       index:
-        title: "Snags"
+        title: "Plot Overview."
         snag_title: "Title"
         snag_description: "Description"
         status: "Status"
         back: "Back"
       phases:
         index:
-          title: "Snagging Overview"
+          title: "Snags Overview."
         collection:
           developer_name: "Developer"
           division_name: "Division"
@@ -479,13 +502,13 @@ en:
           request_enabled: "Please speak to your Classic Folios Account Manager to enable snagging."
           plots: "View Plots"
         show:
-          title: "Plot Overview"
-          plot_number: "Plot Number"
+          title: "Phase Overview."
+          plot_number: "Plot"
           postal_number: "Postal"
-          building_name: "Building Name"
-          road_name: "Road Name"
+          building_name: "Building"
+          road_name: "Road"
           postcode: "Postcode"
-          comp_date: "Completion Date"
+          comp_date: "Legal Completion Date"
           days_remaining: "Remaining Days to Submit Snags"
           total_snags: "Total Snags"
           unresolved_snags: "Unresolved Snags"
@@ -496,7 +519,7 @@ en:
         summary: "Title"
         details: "Description"
         images: "Photo Attachments"
-        date: "Date Reported"
+        date: "Reported"
         status: "Status"
         snag_comments: "Comments"
         snag_comments_description: "Add a comment to this snag or discuss additional information. Comments are visible by other admins with access to snagging for this plot, and by all full access residents of the plot."
@@ -516,16 +539,16 @@ en:
 
     admin_notifications:
       index:
-        title: "Admin Notifications"
+        title: "Admin Notifications."
       collection:
-        add: "Send notification"
+        add: "Send Notification"
         headers:
           subject: "Notification"
-          sent_at: "Date sent"
+          sent_at: "Sent"
           sender: "Sender"
-          send_to: "Sent to"
+          recipient: "Recipient"
       new:
-        title: "Send admin notification"
+        title: "Send Notification."
       form:
         send_to_all_admins: "Send to all %{admins_count} admins"
         send_to: "Send to admins of:"
@@ -534,15 +557,16 @@ en:
       create:
         success: "Notification sent to %{admins} admins"
       show:
+        sent_to: "Sent to"
         back: "Back"
     notifications:
       collection:
-        add: "Send notification"
+        add: "Send Notification"
         sent_to_html: "<strong>Sent to:</strong> %{sendees}"
         sender_to_html: "<strong>Sent from:</strong> %{sender}"
         headers:
           subject: "Notification"
-          sent_at: "Date sent"
+          sent_at: "Sent"
           recipient: "Recipient"
           sender: "Sender"
           role: "Role"
@@ -557,21 +581,23 @@ en:
         choose: "Choose..."
         submit: "Send"
         back: "Back"
-        send_to_all_residents: "Send to all %{residents_count} homeowners"
-        send_to: "Send to residents of:"
-        send_to_role: "Send to residents:"
+        send_to_all_residents: "Send to all %{residents_count} residents"
+        send_to: "Residents of:"
+        send_to: "Residents of:"
+        send_to_role: "Send to:"
         homeowner: "Full Access Users"
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
       index:
-        title: "Notifications"
+        title: "Notifications."
       new:
-        title: "Send notification"
+        title: "Send Notification."
       show:
         back: "Back"
         all: "All"
         sent_to: "Sent to"
-        numbers: "Plot numbers"
+        numbers: "Plots"
+        residents_of: "Residents of"
     users:
       create:
         success: "%{user_email} was created successfully"
@@ -579,24 +605,29 @@ en:
         archive:
           success: "%{user_email} was deleted successfully"
       edit:
-        title: "Edit user %{user_email}"
+        title: "Edit %{user}"
         back: "Back"
       form:
+        image: "Image"
         back: "Back"
         submit: "Submit"
-        new_password: "New password"
-        confirm_password: "Confirm new password"
-        current_password: "Current password"
+        new_password: "New Password"
+        confirm_password: "Confirm New Password"
+        current_password: "Current Password"
         current_password2: "Only required for new password"
-        plot_emails: "Plot release and completion emails"
-        receive_plot_emails: "Receive Plot release and completion emails"
-        snag_emails: "Snagging emails"
-        receive_snag_emails: "Receive snagging emails and notifications"
-        choice_emails: "Plot choice emails"
-        receive_choice_emails: "Receive Plot choice emails"
+        plot_emails: "Plot Release Emails"
+        receive_plot_emails: "Receive plot release emails"
+        snag_emails: "Snagging Emails"
+        receive_snag_emails: "Receive snagging emails"
+        choice_emails: "Plot Choice Emails"
+        receive_choice_emails: "Receive plot choice emails"
+        email: "Email"
+        first_name: "First Name"
+        surname: "Surname"
+        job_title: "Job Title"
       index:
-        title: "Admin users"
-        add: "Add user"
+        title: "Users."
+        add: "Add User"
         email: "Email"
         name: "Name"
         role: "Role"
@@ -605,10 +636,11 @@ en:
         development: "Development"
         accepted_at: "Activation Date"
       new:
-        add: "Add user"
+        add: "New User."
       show:
         back: "Back"
         role_at: "%{role} at %{permission_level_name}"
+        job_title: "Job Title"
       update:
         success: "%{user_name} was updated successfully"
         success_password: "%{user_name} password was updated successfully, please log in again."
@@ -617,31 +649,38 @@ en:
         no_recent:
           no_recent: "There are no recent %{type_names}"
         recent_notifications:
-          send: "Send notification"
+          send: "Send Notification"
     how_tos:
       new:
-        title: "New how to"
+        title: "New How To."
       form:
         back: "Back"
         submit: "Submit"
         choose: "Choose..."
-        subcategory: "Sub category"
+        subcategory: "Sub Category"
+        url: "Link"
+        image: "Image"
+        additional_text: "Additional Text"
         youtube: "https://www.youtube.com/embed/xyz123, use the embed version of a youtube URL"
-        new_tag: "Add tag"
         csv: "Enter tag value, use a comma to separate multiple tags"
-        hide_explanation: "If selected: do not show this how to in the homeowner view"
+        hide_explanation: "Do not show this How To in the homeowner view"
       collection:
-        add: "Add how to"
+        how_to: "How To"
+        add: "Add How To"
+        last_edited: "Last Edited"
       show:
-        title: "How To %{title}"
+        title: "%{title}"
         back: "Back"
-        hidden_alert: "This how to will not appear in the homeowner view"
+        hidden_alert: "This How To will not appear in the homeowner view"
         hidden: "True"
         not_hidden: "False"
+        url: "Link"
+        additional_text: "Additional Text"
+        sub_category: "Sub Category"
       edit:
-        title: "How To %{title}"
+        title: "Edit %{title}"
       index:
-        title: "How Tos"
+        title: "How Tos."
       remove_tag:
         success: "Successfully removed %{tag_name} from %{how_to_name}"
     search:
@@ -668,57 +707,65 @@ en:
 
     help:
       show:
-        help_file: "Hoozzi admin interface user guide (PDF)"
+        download: "View Guide"
+        view_guide: "Spaciable Guide (PDF)"
+        new_tab: "Guide opens in a new tab"
+        help_file: "Spaciable Guide."
     settings:
       show:
-        title: "Global settings for Hoozzi"
-        video_link: "Introductory video link"
-        enable_intro_video: "Introductory video status"
+        title: "Global Settings."
+        video_link: "Introductory Video Link"
+        enable_intro_video: "Introductory Video Status"
         edit: "Edit"
-        help: "Help document"
-        cookie: "Cookie policy document"
-        privacy: "Privacy policy document"
+        help: "Help Document"
+        cookie: "Cookie Policy Document"
+        privacy: "Privacy Policy Document"
       edit:
-        title: "Edit global settings for Hoozzi"
+        title: "Edit Global Settings."
         back: "Back"
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
         load: "Upload"
         enable_intro_video: "Enable introductory video"
         enable_intro_video_description: "Enable or disable the intro video for new users on first login."
-        help: "Help file"
-        cookie: "Cookie policy file"
-        privacy: "Privacy policy file"
+        help: "Help Document"
+        cookie: "Cookie Policy Document"
+        privacy: "Privacy Policy Document"
+        url: "Introductory Video Link"
+        enable_intro_video: "Introductory Video Status"
+        video_link_placeholder: "https://player.vimeo.com/video/654321"
       update:
-        success: "The configuration settings for Hoozzi have been updated successfully"
+        success: "The global settings for Spaciable have been updated successfully"
     analytics:
       new:
-        developer: "Download report for developer"
-        development: "Download report for development"
-        all: "Download summary report for all developers"
-        billing: "Download billing report for all plots under all developers"
-        billing_info: "WARNING: This file may be slow and large, use the dates to reduce the content"
+        title: "Reports."
+        developer: "Developer Report"
+        development: "Development Report"
+        all: "Summary Report (All Developers)"
+        billing: "Billing Report (All Plots Under All Developers)"
+        billing_info: "WARNING: Reports may be large, use the dates to reduce the content."
 
   dashboard:
-    header: "Dashboard title for Hoozzi"
+    header: "Dashboard title for Spaciable"
     title: "Dashboard"
     section:
       notifications:
-        title: "Recent notifications"
+        title: "Recent Notifications."
         sent_to: "Sent to "
         new: "New notification"
       documents:
-        title: "Recent documents"
+        title: "Recent Documents."
         new: "New document"
       faqs:
-        title: "Recent FAQs"
+        title: "Recent FAQs."
         new: "New FAQ"
 
   faqs:
     collection:
       add: "Add FAQ"
+      last_edited: "Last Edited"
     edit:
-      title: "%{parent} FAQ"
+      title: "%{parent}"
       back: "Back"
     form:
       submit: "Submit"
@@ -727,24 +774,25 @@ en:
     index:
       title: "FAQs"
     new:
-      title: "Add %{parent} FAQ"
+      title: "New FAQ."
       expired: "Some plots on %{parent} have expired. New FAQs will not be visible to expired plots."
     show:
-      title: "%{parent} FAQ"
+      title: "%{parent}"
       back: "Back"
 
   videos:
     new:
-      title: "New video link"
+      title: "New Video."
       expired: "Some plots on %{parent} have expired. New videos will not be visible to expired plots."
     form:
+      title: "Name"
       back: "Back"
       submit: "Submit"
-      link_example: "For example https://player.vimeo.com/video/654321"
+      link_example: "https://player.vimeo.com/video/654321"
     collection:
-      create: "Add video link"
-      title: "Display title"
-      link: "Link to external site"
+      create: "Add Video"
+      title: "Video"
+      link: "Link"
     show:
       back: "Back"
     edit:
@@ -760,20 +808,20 @@ en:
         brand: "%{id}/brand.css"
       cards:
         library:
-          title: "Library"
+          title: "Library."
           view_more: "View Library"
         faqs:
-          title: "FAQs"
+          title: "FAQs."
           view_more: "View FAQs"
 
   developments:
     collection:
-      plot_documents: "Plot documents"
+      plot_documents: "Plot Documents"
       phases: "Phases"
-      unit_types: "Unit types"
+      unit_types: "Unit Types"
       documents: "Documents"
       plots: "Plots"
-      add: "Add development"
+      add: "Add Development"
       faqs: "FAQs"
       contacts: "Contacts"
       rooms: "Rooms"
@@ -781,56 +829,68 @@ en:
       videos: "Videos"
       services: "Services"
       choice_configurations: "Choices"
+      development: "Development"
     edit:
       back: "Back"
     form:
       submit: "Submit"
-      address: "Development address"
+      address: "Postal Address"
+      back: "Back"
       back: "Back"
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
-      maintenance_tip: "Make sure you use the plugin-friendly version of a URL, for more details see http://www.fixflo.com/tech/plugin-example/"
+      maintenance_link: "Maintenance Link"
+      maintenance_tip: "Make sure to use the plugin-friendly version of a URL. For more details see http://www.fixflo.com/tech/plugin-example/"
       snagging_description: "A homeowner can report snagging issues for their plot. The duration of snagging can be set below, and will take effect from legal completion date. A custom name can also be set."
-      enable_snagging: "Snagging"
-      snag_duration: "Duration (days)"
-      snag_name: "Name"
-      maintenance_auto_populate: "Auto-populate FixFlo details"
+      enable_snagging: "Enable Snagging"
+      snag_duration: "Snagging Duration (Days)"
+      snag_name: "Snagging Name"
+      maintenance_auto_populate: "Auto-Populate FixFlo Details"
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
-      choices_email: "Choices contact email"
+      choices_email: "Choices Contact Email"
     index:
-      add: "Add development"
+      add: "Add Development"
     development:
       expiry: "All plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
       partial_expiry: "Some plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
-      segment_id: "Segment id: "
-      private_documents: "Documents from all residents: "
-      none: "(not configured)"
-      maintenance_link: "Maintenance link: "
-      snagging: "Snagging enabled: "
+      segment_id: "Segment ID: "
+      private_documents: "Documents From All Residents: "
+      none: "not configured"
+      maintenance_link: "Maintenance Link: "
+      snagging: "Snagging Enabled: "
 
   homeowners:
     faqs:
       index:
-        title: "Welcome to Frequently Asked Questions"
+        title: "Frequently Asked Questions."
         try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
     rooms:
       show:
+        title: "Rooms."
         view: "View room"
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
     contacts:
       index:
-        title: "Useful contacts"
+        title: "Contacts."
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
+    lettings:
+      show:
+        my_lettings: "Lettings."
+        lettings: "Lettings"
+        your_plots: "Your Plots."
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
         snag_constraint: "All issues must be reported before %{snag_date}."
-        add_snag: "Report an issue"
+        add_snag: "Report an Issue"
         snag_expiration: "Access to the %{snag_name} submission tool has expired as of %{snag_date}."
         snag_continuation: "You can still view previous submitted issues, and comment on unresolved issues."
-        snag_archive: "You can view all of your resolved issues below, but are not long able to comment on or edit them."
+        snag_archive: "You can view all of your resolved issues below, but are not long able to comment on or edit them."#
+        title: "%{name}."
       new:
+        title: "%{name}."
         details: "Use the form below to describe the issue you would like to report. Please try to include as much detail as possible."
       edit:
+        title: "%{name}."
         details: "Edit your issue below to include any additional information, or remove information that is no longer relevant."
       form:
         image: "Upload Image(s)"
@@ -840,6 +900,7 @@ en:
         details: "Description"
         upload_instructions: "To upload multiple files, hold down the CTRL key on your keyboard while selecting each file."
       show:
+        title: "%{name}."
         edit: "Edit Details"
         image: "Add Image"
         snag_gallery: "Image Attachments"
@@ -884,7 +945,7 @@ en:
       index:
         disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
          of any of the specific matters described by any order under the Consumer Protection from Unfair Trading
-         Regulations 2008 and Business Protection from Misleading Marketing Regulations 2008. This information does not
+         Regulations 2008 and Business Protection from Misleading Marketing Regulations 2008. <br/>This information does not
          constitute a contract, or warranty. The dimensions given on plans are subject to minor variations and are not
          intended to be used for carpet sizes, appliance sizes or items of furniture."
       update:
@@ -892,7 +953,7 @@ en:
          shared: "%{title} is now being shared with Limited Access Users of %{address}"
       appliance:
         manual: "Manual"
-        guide: "Quick reference guide"
+        guide: "Quick Reference Guide"
       appliance_manuals:
         appliances_category: "appliance_manuals"
         manual: "Manual"
@@ -903,16 +964,16 @@ en:
         tel: "tel: %{number}"
         phone: "Phone"
       how_to_summary:
-        article: "View article"
+        article: "View Article"
       notification_summary:
         new: "New"
       address:
-        my_home_view_more: "View my home"
+        my_home_view_more: "View My Home"
       sharing_info:
-        modal_title: "Hints & tips"
+        modal_title: "HINTS & TIPS"
         dismiss: "Dismiss"
-        modal_content: "Tick the circles to select files you wish to share with Limited Access Users and other residents of this plot"
-        not_again: "Don't show this again"
+        modal_content: "Tick the circle to share a file with Tenants (Limited Access Users) of %{plot}.<br/>This will enable you to keep your documents private and confidential."
+        not_again: "DON'T SHOW THIS AGAIN"
       snag:
         show: "View Details"
         edit: "Edit"
@@ -925,26 +986,34 @@ en:
         reported: "Reported: "
         updated: "Last edited: "
         status: "Status: "
+      lettings:
+        let_out: "Let"
+        dashboard: "Lettings Dashboard"
+        self_manage: "Self Manage"
+        managing: "Managing Service"
     appliances:
       show:
-        register: "Register appliance"
+        title: "Appliances."
+        register: "Register Appliance"
         manual: "Manual"
-        guide: "Quick reference guide"
+        guide: "Quick Reference Guide"
         download: "Download"
     how_tos:
       index:
-        title: "Hoozzi How To"
+        title: "How To."
         tagged: "HowTo guides tagged with "
       show:
         tags: "Tags"
+        title: "How To."
+        articles: "How To Guides"
         read: "%{minutes} minute read"
         also: "You may also like"
         featured: "Featured"
     dashboard:
       show:
-        my_home_title: "My home"
+        my_home_title: "My Home."
       contacts:
-        contacts_title: "Contacts"
+        contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
       services:
         services: "See how we can help"
@@ -970,11 +1039,12 @@ en:
     notifications:
       index:
         none: "You have no notifications"
+        messages: "Messages."
     private_documents:
       index:
-        file_description: "You can use this area of Hoozzi to store other documents, photos and files relating to your moving process and home"
-        file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format"
-        new: "Upload file"
+        file_description: "You can use this area of Spaciable to store other documents, photos and files relating to your moving process and home."
+        file_constraint: "Files must be no more than 256MB and in PDF, JPG or PNG format."
+        new: "Upload File"
         expired: "Access to file uploads has now expired for this plot. You can still view your previously uploaded files."
       edit:
         submit: "Save Changes"
@@ -988,58 +1058,64 @@ en:
 
     residents:
       edit:
-        my_account: "My account"
-        change_password: "Change password"
+        change_password: "Change Password."
         current_password: "Current password"
         new_password: "New password"
         confirm_new_password: "Confirm new password"
         submit: "Save"
-        change_details: "Change details"
+        change_details: "Change Details."
+        first_name: "First name"
+        surname: "Surname"
+        account: "Update Account."
       communications:
-        title: "Communication preferences"
+        title: "Communication Preferences."
+        maintaining_managing: "Updates on maintaining and managing my home through Spaciable:"
         updates_by: "Updates on products and services by:"
-        helpful: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click 'Save'."
+        helpful: "We want to stay in touch, but only in ways that you find helpful.<br/> Select from the options below and click Save."
       services:
         title: "Services"
       show:
         my_account: "Account"
-        title: "Title"
         password: "Password"
-        email: "Email address"
-        name: "Full name"
+        email: "Email"
         dummy_password: "********"
-        comms_preferences: "Communication preferences"
+        plot-disclaimer: "The following information is regarding your currently selected plot. <br/> To view and edit the information of an alternative plot, please use the Plots dropdown in the navigation."
+        comms_preferences: "Communication Preferences."
+        account_details: "Account Details."
+        account: "Account."
         edit_profile: "Update preferences"
         developer_email_updates: "Developer emails"
         developer_sms_updates: "Developer text messages"
-        cf_email_updates: "Hoozzi emails"
+        cf_email_updates: "Spaciable emails"
         telephone_updates: "Telephone updates"
         post_updates: "Post updates"
-        other_residents: "Other residents who have access to this information in Hoozzi"
+        other_residents: "Other residents with access to %{plot}."
         none: "Only you can see the content for %{plot}"
-        intro_video: "Hoozzi introduction video"
+        intro_video: "Introduction video"
         snagging_history: "%{tool_name} History"
         send_invitation: "Invite new resident"
         invite: "Invite new resident to %{plot}"
-        destroy: "Confirm remove"
+        invite_title: "Invite New Resident."
+        destroy: "Confirm Remove."
         confirm_cta: "Remove"
         confirm_text: "Are you sure you want to remove %{name}?"
         deactivate: "Deactivate my account"
+        deactivate_header: "Deactivate My Account."
         deactivate_text: "Are you sure you wish to deactivate your account permanently? You cannot reverse this decision
         and any documents you have uploaded will be deleted."
         confirm_deactivate: "Confirm deactivate"
         deactivate_password: "Enter your password to confirm"
-        full_access_title: "Full Access User"
+        full_access_title: "Full Access User."
         full_access_description: "Has access to all documents of your home's portal (other than those you have uploaded to the 'My Documents' tab), can invite other users to your home and can access the issue reporting system (if enabled for your development)."
-        limited_access_title: "Limited Access User"
+        limited_access_title: "Limited Access User."
         limited_access_description: "Cannot invite other users to your home or use the issue reporting system and can only view documents that a Full Access User has shared manually."
       update:
         success: "Your account has been updated successfully"
         updated_services: " and your services have been requested"
       create:
-        new_invitation: "%{email} has been sent an invitation to Hoozzi"
+        new_invitation: "%{email} has been sent an invitation to Spaciable"
         not_created: "It was not possible to invite %{email} because of the following errors: "
-        existing_resident: "User with email %{email} already has access to Hoozzi. They will be able to see details for this plot next time they log in"
+        existing_resident: "User with email %{email} already has access to Spaciable. They will be able to see details for this plot next time they log in"
         already_resident: "A resident with %{email} is already associated with this plot"
       remove_resident:
         success: "Resident %{email} has been removed from this plot"
@@ -1049,9 +1125,9 @@ en:
     services:
       index:
         title: "Congratulations! You're nearly there"
-        subtitle: "Hoozzi has partnered with key providers who can help make your move as stress-free and as competitively priced
-        as possible. By selecting any of the services below, Hoozzi Services will get you moving!"
-        description_html: "<em>Quotations are free, and without obligation, so start saving today with Hoozzi Services.</em>"
+        subtitle: "Spaciable has partnered with key providers who can help make your move as stress-free and as competitively priced
+        as possible. By selecting any of the services below, Spaciable Services will get you moving!"
+        description_html: "<em>Quotations are free, and without obligation, so start saving today with Spaciable Services.</em>"
         submit: "Submit"
       service:
         add: "Yes!"
@@ -1089,9 +1165,9 @@ en:
         title: "Edit %{development_name}"
       index:
         add: "Add development"
-        title: "%{developer_name} developments"
+        title: "Developments."
       new:
-        title: "New development"
+        title: "New Development."
       show:
         back: "Back"
       create:
@@ -1107,30 +1183,35 @@ en:
     form:
       submit: "Submit"
       back: "Back"
-      address: "Postal address"
+      address: "Postal Address"
+      company_name: "Developer Name"
+      email: "Email Address"
+      contact: "Contact Number"
+      api_key: "Mailchimp API Key"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
-      enable_house_search: "Area guide"
+      enable_house_search: "Area Guide"
       house_search_description: "Provide residents with an external link to BestArea4Me"
       enable_services: "Services"
-      services_description: "A homeowner can select moving and other services, Hoozzi will be notified by email about these selections"
+      services_description: "A homeowner can select moving and other services, Spaciable will be notified by email about these selections"
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
-      enable_roomsketcher: "Room sketcher"
+      enable_roomsketcher: "Room Sketcher"
       roomsketcher_description: "Provide residents with an external link to RoomSketcher"
-      enable_messages: "Community messages"
+      enable_messages: "Community Messages"
       messages_description: "Allow development residents to share messages with each other"
       development_faqs: "Development FAQs"
       development_faqs_description: "Create default FAQs for each development, not at developer scope"
     index:
-      add: "Add developer"
+      add: "Add Developer"
       actions: "Actions"
       destroy: "Delete"
       developments: "Developments"
       divisions: "Divisions"
       show: "Show"
-      title: "Developers"
+      title: "Developers."
+      developer: "Developer"
     new:
-      title: "New developer"
+      title: "New Developer."
       back: "Back"
     show:
       back: "Back"
@@ -1144,16 +1225,16 @@ en:
       faqs: "FAQs"
       brands: "Styling"
     developer:
-      list_id: "List id: "
+      list_id: "List ID: "
       none: "(not configured)"
       roomsketcher: "Room Sketcher: "
-      house_search: "Area guide: "
+      house_search: "Area Guide: "
       services: "Services: "
       referrals: "Referrals: "
-      messages: "Community messages: "
+      messages: "Community Messages: "
       enabled: "enabled"
       disabled: "disabled"
-      faq_scope: "FAQ scope: "
+      faq_scope: "FAQ Scope: "
       developer: "developer"
       development: "development"
       expiry: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
@@ -1169,8 +1250,8 @@ en:
       create:
         success: "%{development_name} was created successfully"
       new:
-        add: "Add development"
-        title: "New development"
+        add: "Add Development"
+        title: "New Development."
       update:
         success: "%{development_name} was updated successfully"
       edit:
@@ -1178,7 +1259,7 @@ en:
         edit: "Edit %{development_name}"
       index:
         add: "Add development"
-        title: "%{division_name} developments"
+        title: "Developments."
       show:
         back: "Back"
     edit:
@@ -1187,7 +1268,7 @@ en:
       back: "Back"
     form:
       submit: "Submit"
-      address: "Postal address"
+      address: "Postal Address"
       back: "Back"
     index:
       actions: "Actions"
@@ -1202,15 +1283,16 @@ en:
       contacts: "Contacts"
       brands: "Styling"
       faqs: "FAQs"
-      add: "Add division"
+      add: "Add Division"
+      division: "Division"
     new:
-      title: "New division"
+      title: "New Division."
       back: "Back"
     update:
       success: "%{division_name} was updated successfully"
     division:
-      list_id: "List id "
-      none: "(not configured)"
+      list_id: "List ID: "
+      none: "not configured"
       expiry: "All plots on this division have expired. To extend the access, please contact your Classic Folios account manager."
 
   addresses:
@@ -1256,11 +1338,11 @@ en:
       new:
         login_cta: "Login"
         welcome_1: "Queries about your home?"
-        welcome_2: "Hoozzi has the answers"
+        welcome_2: "Spaciable has the answers."
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
-        intro_para_1: "Your personal home portal – Hoozzi – knows all about your property and can provide downloadable documents, key contacts,
+        intro_para_1: "Your personal home portal – Spaciable – knows all about your property and can provide downloadable documents, key contacts,
         notifications, maintenance advice and much more."
-        intro_para_2: "Hoozzi not only addresses all those niggling property queries, but is also is a constant source of inspiration.
+        intro_para_2: "Spaciable not only addresses all those niggling property queries, but is also is a constant source of inspiration.
         Log in to discover exciting ideas for getting the most out of your home and hobbies."
         remember_me: "Remember me"
         accept_ts_and_cs: "Accept terms and conditions"
@@ -1270,14 +1352,14 @@ en:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
         ts_and_cs_required: "Please review and accept the terms and conditions before you log in. The terms and conditions might have changed since your last review."
     collection:
-      add: "Add resident"
+      add: "Add Resident"
       last_name: "Resident"
       email: "Email"
-      updated_at: "Last edited"
-      status: "Activation status"
+      updated_at: "Last Edited"
+      status: "Status"
       activated: "Activated"
       role: "Role"
-      invited_by: "Invited by"
+      invited_by: "Invited By"
     create:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
@@ -1292,27 +1374,35 @@ en:
     form:
       back: "Back"
       submit: "Submit"
+      first_name: "First Name"
+      surname: "Surname"
+      email: "Email"
+      phone: "Phone"
       international: "Use international dialling code for non-UK numbers"
       full_access_description:
-        title_html: "<strong>Full Access User</strong>"
-        overview: "Has access to the issue reporting system (if enabled on your development), can add additional Full or Limited Access Users to their home and can control which documents a Limited Access User can see. Suitable for:"
+        title_html: "Full Access User"
+        overview: "<p>Has access to the issue reporting system (if enabled on your development).<br/>
+                  Can add additional <i>Full Access Users</i> or <i>Limited Access Users</i> to their home.<br/>
+                  Can control which documents a Limited Access User can see.</p><h5>Suitable for:</h5>"
         suitable_html: "<ul>
-          <li>Private Sale - The homeowner/purchaser</li>
-          <li>Build to Rent - The tenant/resident, where the property is rented directly from the developer</li>
-          <li>PRS/Buy to Let - The homeowner or an agent, authorised by the homeowner, to manage the home on behalf of the homeowner</li>
-          <li>Affordable Rent/Housing Association - The resident renting directly from the Housing Association</li></ul>"
+          <li><strong>Private Sale </strong>- The homeowner/purchaser</li>
+          <li><strong>Build to Rent </strong> - The tenant/resident, where the property is rented directly from the developer</li>
+          <li><strong>PRS/Buy to Let </strong>- The homeowner or an agent, authorised by the homeowner, to manage the home on behalf of the homeowner</li>
+          <li><strong>Affordable Rent/Housing Association </strong>- The resident renting directly from the Housing Association</li></ul>"
       limited_access_description:
-        title_html: "<strong>Limited Access User</strong>"
-        overview: "Cannot access the issue reporting system (if enabled on your development), cannot add additional users and can only view documents designated by a Full Access User. Suitable for:"
+        title_html: "Limited Access User"
+        overview: "<p>Cannot access the issue reporting system (if enabled on your development).<br/>
+                  Cannot add additional users.</br>
+                  Can only view documents designated by a Full Access User.</p><h5>Suitable for:</h5>"
         suitable_html: "<ul>
-          <li>Traditional Sale - A resident of the property who is not the main owner/purchaser</li>
-          <li>PRS/Buy to Let - A resident/tenant user who is renting the property from the homeowner</li></ul>"
+          <li><strong>Traditional Sale</strong> - A resident of the property who is not the main owner/purchaser</li>
+          <li><strong>PRS/Buy to Let</strong> - A resident/tenant user who is renting the property from the homeowner</li></ul>"
 
     new:
-      title: "New %{plot} resident"
+      title: "New Resident."
     show:
       back: "Back"
-      title: "Plot %{plot} resident"
+      title: "%{resident}"
     update:
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
       plot_residency_already_exists: "Resident %{email} was updated successfully"
@@ -1320,30 +1410,30 @@ en:
     invitations:
       edit:
         submit_button: "Continue"
-        welcome: "Welcome to Hoozzi"
-        welcome2: "You're almost there"
+        welcome: "Welcome to Spaciable"
+        welcome2: "You're almost there."
         welcome3: "We just need a few final details, then you'll be in home management heaven. Here you can:"
         documents: "View your home's documents"
         appliances: "Find out how to view your new appliances"
         contact: "Contact your developer"
         home: "Live the lifestyle your new home brings"
-        policy_instructions: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Continue'"
+        policy_instructions: "You must confirm that you have read and agreed to our<br/> %{href1} and %{href2} before you can click 'Continue'"
         first_name: "First name"
         last_name: "Last name"
         password: "Choose a password"
         terms: "Terms & Conditions"
-        policy: "Data policy"
+        policy: "Data Policy"
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         subscribe_email_sms: "Yes! I would like to receive updates, news and information about my new home via:"
-        subscribe_email: "Email"
+        subscribe_email: "Yes! I would like to receive updates, news and information about my new home via email"
         subscribe_sms: "SMS"
         accept_ts_and_cs: "Accept terms and conditions"
     passwords:
       new:
         title: "Forgotten your password?"
-        submit: "Send me reset password instructions"
+        submit: "Send Reset Link"
       edit:
-        title: "Reset your password"
+        title: "Reset your password."
         new: "New password"
         minimum: "Minimum password length is 6"
         confirm: "Confirm password"
@@ -1368,34 +1458,37 @@ en:
       back: "Back"
       title: "Edit %{phase_name}"
     form:
-      address: "Phase address"
+      address: "Postal Address"
       business: "Business"
+      lettings: "Lettings"
+      lettings_description: "Plots on this phase are letable. All plots on this phase inherit this setting, but can be individually overridden. Changing this setting will change the letable setting for all plots on this phase."
       submit: "Submit"
       back: "Back"
     index:
-      title: "%{development_name} phases"
+      title: "Phases."
     show:
       back: "Back"
     phase:
       expiry: "All plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       partial_expiry: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       name: "Phase %{number}"
-      residents: "All residents: "
-      subscribed_residents: "Subscribed residents: "
+      residents: "Total Residents: "
+      subscribed_residents: "Subscribed Residents: "
       business: "Business: "
+      lettings: "Lettings: "
     collection:
-      add: "Add phase"
+      add: "Add Phase"
       plots: "Plots"
       documents: "Documents"
       name: "Phase"
       contacts: "Contacts"
-      plot_documents: "Plot documents"
-      progresses: "Phase build progress"
-      bulk_edit: "Bulk edit"
+      plot_documents: "Plot Documents"
+      progresses: "Build Progress"
+      bulk_edit: "Bulk Edit"
       production: "Production"
-      release_plots: "Release plots"
+      release_plots: "Release Plots"
     new:
-      title: "New phase"
+      title: "New Phase."
     update:
       success: "%{phase_name} was updated successfully"
 
@@ -1410,18 +1503,20 @@ en:
     form:
       submit: "Submit"
       back: "Back"
-      unit_type: "Clone rooms from unit type"
+      unit_type: "Clone Rooms From Unit Type"
+      plots: "Plots"
     index:
-      title: "%{development_name} choice configurations"
+      title: "Choice Configurations."
     show:
       back: "Back"
     collection:
-      add: "Add choice configuration"
+      add: "Add Choice Configuration"
       plots: "Plots"
       documents: "Documents"
-      name: "Configuration"
+      name: "Choice Configuration"
+      last_edited: "Last Edited"
     new:
-      title: "New Choice Configuration"
+      title: "New Choice Configuration."
     update:
       success: "%{choice_configuration_name} was updated successfully"
 
@@ -1436,7 +1531,7 @@ en:
     destroy:
       success: "%{room_item_name} was deleted successfully"
     new:
-      title: "New room item"
+      title: "New Room Item."
     form:
       submit: "Submit"
       back: "Back"
@@ -1444,9 +1539,9 @@ en:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
     collection:
-      name: "Room Items"
+      name: "Room Item"
       archived: "Archived"
-      updated_at: "Last Updated"
+      updated_at: "Last Edited"
 
     show:
       back: "Back"
@@ -1460,23 +1555,26 @@ en:
       back: "Back"
       title: "Edit %{room_configuration_name}"
     form:
+      icon: "Icon"
       submit: "Submit"
       back: "Back"
     index:
-      title: "%{choice_configuration_name} room configurations"
+      title: "%{choice_configuration_name}"
     show:
       back: "Back"
     collection:
-      add: "Add room configuration"
-      name: "Configuration"
+      add: "Add Room Configuration"
+      name: "Room Configuration"
+      last_edited: "Last Edited"
     new:
-      title: "New room configuration"
+      title: "New Room Configuration."
     update:
       success: "%{room_configuration_name} was updated successfully"
     room_items:
       collection:
-        add: "Add room item"
+        add: "Add Room Item"
         name: "Room Item"
+        last_edited: "Last Edited"
       create:
         success: "%{room_configuration_name} was created successfully"
       edit:
@@ -1507,7 +1605,15 @@ en:
       show:
         back: "Back"
       new:
-        add: "Add %{parent_name} room"
+        add: "New Room."
+      finishes:
+        image: "Image"
+        last_edited: "Last Edited"
+      appliances:
+        image: "Image"
+        last_edited: "Last Edited"
+        category: "Category"
+        manufacturer: "Manufacturer"
     bulk:
       succeeded:
         one: "Plot %{plot_numbers}"
@@ -1522,37 +1628,38 @@ en:
       back: "Back"
       title: "Edit %{plot_name}"
     form:
-      address: "Plot address"
+      address: "Postal Address"
+      unit_type: "Unit Type"
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
     index:
       title: "%{parent_name} Plots"
     new:
-      title: "New %{parent} plot"
+      title: "New Plot."
     update:
       success:
         one: "Plot %{plot_name} was updated successfully"
         other: "Plots %{plot_name} were updated successfully"
     collection:
-      add: "Add plot(s)"
+      add: "Add Plot(s)"
       rooms: "Rooms"
       documents: "Documents"
       residents: "Residents"
-      unit_type: "Unit type"
+      unit_type: "Unit Type"
       choices: "Choices"
       name: "Plot"
       UK:
-        house_number: "Postal number / name"
-        building_name: "Building name"
-        road_name: "Road name"
+        house_number: "Postal"
+        building_name: "Building"
+        road_name: "Road"
         postcode: "Postcode"
       Spain:
         house_number: "Address Line 1"
         building_name: "Address Line 2"
         road_name: "Address Line 3"
         postcode: "Address Line 6"
-      progress: "Build progress"
+      progress: "Build Progress"
       completion: "Completion"
       activation: "Activated Residents"
       activated: "%{activated} of %{all}"
@@ -1562,29 +1669,30 @@ en:
       preview: "Preview"
     plot:
       expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
-      private_documents: "Uploaded documents: "
+      letable: "Lettings: "
+      private_documents: "Uploaded Documents: "
       none: "(n/a)"
-      progress: "Build progress: "
-      completion_date: "Legal completion date: "
-      expiry_date: "Expiry date: "
+      progress: "Build Progress: "
+      completion_date: "Legal Completion Date: "
+      expiry_date: "Expiry Date: "
     completion:
-      title: "Legal completion date"
+      title: "Legal Completion Date"
 
   plot_documents:
     form:
       title: "Upload plot documents"
       add: "Upload"
       bulk_upload: "Bulk upload"
-      filename_requirements: "File names must fit a plot prefix and plot number naming convention in order to be
-      associated with a plot. For example: <i>Plot 55.pdf</i>, <i>plot 101 owner manual.pdf</i>,
+      filename_requirements: "<strong>File names must fit a plot prefix and plot number naming convention in order to be
+      associated with a plot.</strong><br/>For example: <i>Plot 55.pdf</i>, <i>plot 101 owner manual.pdf</i>,
       <i>Apartment 6 Manual.pdf</i>, where the plot prefix is either Plot or Apartment."
-      case: "File names do not need to
-      match the case of the prefix (plot and Plot will both match)"
-      unmatched_files: "Files that cannot be matched with a plot prefix and number will not be uploaded.
-      Any unmatched files will be reported as errors. This will not affect other matched files"
-      multiple_files: "In order to upload multiple files, use the <i>SHIFT</i> key with the <i>CTRL</i> or
-      <i>CMD</i> key"
-      repeat: "If you upload the same file successfully more than once, it will appear multiple times against the plot"
+      case: "<strong>File names do not need to
+      match the case of the prefix.</strong><br/>For example: <i>plot</i> and <i>Plot</i> will both match."
+      unmatched_files: "<strong>Files that cannot be matched with a plot prefix and number will not be uploaded.
+      Any unmatched files will be reported as errors.</strong><br/>This will not affect other matched files."
+      multiple_files: "<strong>In order to upload multiple files, use the <i>SHIFT</i> key to select a range, or the <i>CTRL</i> or
+      <i>CMD</i> key to select individual files.<strong>"
+      repeat: "<strong>If you upload the same file successfully more than once, it will appear multiple times against the plot.</strong>"
       choose: "Select files"
       rename: "Rename files to"
       rename_to: "e.g. Homeowner manual"
@@ -1602,7 +1710,8 @@ en:
 
   progresses:
     collection:
-      update_progress: "Update progress for all plots in phase"
+      update_progress: "Build Progress"
+      progress_description: "This will update the build progress for all plots on this phase.<br/>Any expired plots will not have their build progress updated."
       choose: "Choose..."
       back: "Back"
       submit: "Submit"
@@ -1610,8 +1719,8 @@ en:
     bulk_update:
       success: "Progress for all plots in phase was updated to %{progress}"
     progress:
-      update_progress: "Update progress to"
-      previous: "Current progress"
+      update_progress: "Update Build Progress"
+      previous: "Build Progress"
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed resident about this change"
@@ -1623,22 +1732,29 @@ en:
       title: "Edit %{unit_type_name}"
       back: "Back"
     form:
-      picture: "Unit type picture"
+      picture: "Picture"
       upload: "Upload"
       submit: "Submit"
+      name: "Name"
+      build_type: "Build Type"
+      walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
       matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
     new:
-      add: "Add %{development_name} unit type"
+      add: "New Unit Type."
     show:
+      walkthrough: "3D Walkthrough Link: "
+      build_type: "Build Type: "
       back: "Back"
     index:
       title: "%{development_name} unit types"
     collection:
-      add: "Add unit type"
+      add: "Add Unit Type"
       rooms: "Rooms"
       documents: "Documents"
+      name: "Unit Type"
+      last_edited: "Last Edited"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -1649,21 +1765,27 @@ en:
    update:
      success: "%{name} was updated successfully"
    index:
-     title: "Appliances"
+     title: "Appliances."
    collection:
-     create: "Add appliance"
+     create: "Add Appliance"
      appliance_category: "Category"
      remove: "Remove"
      appliances: "Appliances"
-     appliance_manufacturers: "Appliance manufacturers"
-     appliance_categories: "Categories"
-     name: "Name"
+     appliance_manufacturers: "Appliance Manufacturers"
+     appliance_categories: "Appliance Categories"
+     name: "Appliance"
+     image: "Image"
+     category: "Category"
+     manufacturer: "Manufacturer"
+     last_edited: "Last Edited"
    new:
-     title: "New appliance"
+     title: "New Appliance."
    show:
      back: "Back"
      download: "Download manual"
      documents: "Appliance manual"
+     secondary_image: "Secondary Image"
+     primary_image: "Primary Image"
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -1672,52 +1794,56 @@ en:
      back: "Back"
      name: "Name"
      description: "Description"
-     category: "Appliance category"
+     category: "Category"
      manufacturer: "Manufacturer"
      model_num: "Model"
-     warranty_length: "Warranty length"
-     e_rating: "Energy rating"
-     manual: "Appliance manual"
-     remove_manual: "Remove appliance manual"
-     guide: "Quick reference guide"
+     warranty_length: "Warranty Length"
+     e_rating: "Energy Rating"
+     manual: "Appliance Manual"
+     remove_manual: "Remove Appliance Manual"
+     guide: "Quick Reference Guide"
      remove_guide: "Remove appliance quick reference guide"
-     secondary_image: "Secondary image"
+     secondary_image: "Secondary Image"
+     primary_image: "Primary Image"
    no_match: "No matching appliances found"
 
   finish_manufacturers:
    index:
-     title: "Finish manufacturers"
+     title: "Finish Manufacturers."
    collection:
-     add: "Add finish manufacturer"
-     name: "Name"
+     add: "Add Finish Manufacturer"
+     name: "Finish Manufacturer"
      finishes: "Finishes"
+     last_edited: "Last Edited"
    show:
      back: "Back"
    finish_manufacturer:
-     finish_types: "Finish types"
+     finish_category: "Category: "
+     finish_types: "Finish Types"
    new:
-     title: "New finish manufacturer"
+     title: "New Finish Manufacturer."
    edit:
      title: "Edit %{name}"
    form:
      back: "Back"
      submit: "Submit"
-     finish_category: "Finish category"
+     finish_category: "Finish Category"
 
   appliance_manufacturers:
    index:
-     title: "Appliance manufacturers"
+     title: "Appliance Manufacturers."
    collection:
-     add: "Add appliance manufacturer"
-     name: "Name"
+     add: "Add Appliance Manufacturer"
+     name: "Appliance Manufacturer"
      appliances: "Appliances"
+     last_edited: "Last Edited"
    show:
      back: "Back"
    appliance_manufacturer:
-     link: "Manufacturer registration link"
-     appliance_categories: "Appliance categories"
+     link: "Manufacturer Registration Link: "
+     appliance_categories: "Categories"
    new:
-     title: "New appliance manufacturer"
+     title: "New Appliance Manufacturer."
    edit:
      title: "Edit %{name}"
    form:
@@ -1726,12 +1852,13 @@ en:
 
   appliance_categories:
     index:
-      title: "Appliance categories"
+      title: "Appliance Categories."
     collection:
-      add: "Add appliance category"
-      name: "Name"
+      add: "Add Appliance Category"
+      name: "Appliance Category"
+      last_edited: "Last Edited"
     new:
-      title: "New appliance category"
+      title: "New Appliance Category."
     form:
       back: "Back"
       submit: "Submit"
@@ -1750,22 +1877,29 @@ en:
     update:
       success: "%{name} was updated successfully"
     index:
-     title: "Finishes"
+     title: "Finishes."
     collection:
+      finish: "Finish"
       finish_category: "Category"
       finish_type: "Type"
-      create: "Add finish"
+      create: "Add Finish"
       finishes: "Finishes"
-      finish_manufacturers: "Finish manufacturers"
+      image: "Image"
+      finish_manufacturers: "Finish Manufacturers"
       manufacturer: "Manufacturer"
-      finish_types: "Finish types"
-      finish_categories: "Finish categories"
+      finish_types: "Finish Types"
+      finish_categories: "Finish Categories"
+      last_edited: "Last Edited"
     new:
-      title: "New finish"
+      title: "New Finish."
     form:
       name: "Name"
       submit: "Submit"
       back: "Back"
+      category: "Category"
+      image: "Image"
+      type: "Type"
+      manufacturer: "Manufacturer"
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -1776,16 +1910,17 @@ en:
 
   finish_categories:
     index:
-      title: "Finish categories"
+      title: "Finish Categories."
     collection:
-      add: "Add finish category"
-      name: "Name"
+      last_edited: "Last Edited"
+      add: "Add Finish Category"
+      name: "Finish Category"
     show:
       back: "Back"
     finish_category:
-      types: "Finish types"
+      types: "Finish Types"
     new:
-      title: "New finish category"
+      title: "New Finish Category."
     edit:
       title: "Edit %{name}"
     form:
@@ -1794,22 +1929,23 @@ en:
 
   finish_types:
     index:
-      title: "Finish types"
+      title: "Finish Types."
     collection:
-      add: "Add finish type"
-      name: "Name"
-      finish_category: "Finish category"
+      add: "Add Finish Type"
+      name: "Finish Type"
+      finish_category: "Category"
+      last_edited: "Last Edited"
     show:
       back: "Back"
     finish_type:
       manufacturers: "Manufacturers"
-      finish_category: "Finish category"
+      finish_category: "Category:"
     new:
-      title: "New finish type"
+      title: "New Finish Type."
     edit:
       title: "Edit %{name}"
     form:
-      finish_category: "Finish category"
+      category: "Category"
       back: "Back"
       submit: "Submit"
 
@@ -1825,36 +1961,44 @@ en:
       # Add room to Plot 'Plot 1'
       # Add room to Plot 'Apartment 5'
       # Add room to Unit Type 'Kempton'
-      add: "Add room to %{name}"
+      add: "Add Room"
       finishes: "Finishes"
       appliances: "Appliances"
+      name: "Room"
+      last_edited: "Last Edited"
     edit:
       title: "Edit %{room_name}"
     form:
       back: "Back"
       submit: "Submit"
       add: "Add"
-      add_finish: "Add finish"
+      add_finish: "Add Finish"
+      name: "Name"
+      icon: "Icon"
     show:
       back: "Back"
     new:
-      add: "Add %{parent_name} room"
+      add: "New Room."
     update:
       not_updated: "It was not possible to update"
     appliance_rooms:
       new:
         choose: "Choose..."
-        title: "Add appliance to %{room_name}"
+        title: "New Appliance."
         submit: "Submit"
         back: "Back"
         search: "Search"
+        category: "Category"
+        manufacturer: "Manufacturer"
     finish_rooms:
       new:
-        title: "Add finish to %{room_name}"
+        title: "New Finish."
         submit: "Submit"
         back: "Back"
         search: "Search"
         choose: "Choose..."
+        category: "Category"
+        type: "Type"
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:
@@ -1880,35 +2024,38 @@ en:
     index:
       title: "Documents"
     new:
-      title: "New document(s) for %{name}"
+      title: "New Document(s)."
       expired: "Some plots on %{parent} have expired. New documents will not be visible to expired plots."
     show:
-      title: "Document name"
-      original_name: "Original file name"
-      size: "File size"
-      updated: "Upload date"
+      title: "Name"
+      original_name: "Original File Name"
+      size: "File Size"
+      updated: "Last Edited"
       back: "Back"
-      category: "Folder"
+      category: "Category"
       processing: "Processing..."
-      by: "Uploaded by"
+      by: "Uploaded By"
     form:
       load: "File"
       upload: "Upload"
       back: "Back"
       submit: "Submit"
-      original_name: "Original file name"
-      size: "File size"
-      updated: "Upload date"
+      original_name: "Original File Name"
+      size: "File Size"
+      updated: "Last Edited"
       notify: "Notify subscribed residents about this change"
-      title: "Document title"
-      choose_multiple_explanation_html: "Use control or shift to select multiple files. <br> If uploading multiple files, do not use
-      Document Title field below or this name will be applied to all files being uploaded. <br> Files keep their original file names,
-      but special characters, e.g., ( ) _ ' & \", will be removed. <br> After clicking Submit, click the pencil icon on a file to edit the file name"
-      title_explanation: "Only use when uploading a single file, as name will apply to all files"
+      title: "Name"
+      choose_multiple_explanation_html: "<p><strong>In order to upload multiple file, use the <i>SHIFT</i> key to select a range,
+      of the <i>CTRL</i> or <i>CMD</i> key to select individual files.</p><p>If uploading multiple files, do not use the
+      <i>Document Title</i> field below or this name will be applied to all files being uploaded.</p><p>Files keep their original file names.
+      </strong><br/>Special characters such as . , ( ) _ ' & \" will be removed.<br/>
+      After uploading, click the pencil icon on a file to edit the file name.</p>"
+      title_explanation: "Only use when uploading a single file, as name will apply to all files."
     collection:
-      add: "Add document(s)"
+      add: "Add Document(s)"
       processing: "Processing..."
       size: "Size"
+      document: "Document"
     edit:
       title: "Edit %{name}"
 
@@ -1916,15 +2063,24 @@ en:
     index:
       title: "Contacts"
     collection:
-       create: "Add contact"
-       name: "Name"
+       create: "Add Contact"
+       name: "Contact"
+       icon: "Image"
+       last_edited: "Last Edited"
     new:
-      title: "New contact for %{name}"
+      title: "New Contact."
       expired: "Some plots on %{parent} have expired. New contacts will not be visible to expired plots."
     form:
       back: "Back"
       submit: "Submit"
       notify: "Notify subscribed residents about this change"
+      picture: "Image"
+      category: "Category"
+      first_name: "First Name"
+      last_name: "Surname"
+      email: "Email"
+      contact: "Phone"
+      mobile: "Mobile"
     edit:
       title: "Edit %{name}"
     show:
@@ -1934,14 +2090,17 @@ en:
     index:
       title: "Styling for %{name}"
     new:
-      title: "Custom styling for %{name}"
+      title: "New Styling."
     collection:
-      create: "Add styling"
-      name: "Name"
+      create: "Add Styling"
+      name: "Styling"
+      last_edited: "Last Edited"
+      logo: "Primary Logo"
     form:
       back: "Back"
       submit: "Submit"
       preview: "Preview"
+      email_logo: "Email Logo"
       image_constraints: "Image files must be png, gif, jpg, or svg and less than 256MB."
       banner_size: "The banner will be displayed 200px high and full browser width available. For best results in
       desktop view, the recommended image size is above 200 x 1200px"
@@ -1949,6 +2108,8 @@ en:
       svg as <em>embed</em>, not <em><del>link</del></em>, and test thoroughly in Google Chrome"
     show:
       back: "Back"
+      internal_styling: "Internal Styling"
+      external_styling: "External Styling"
     edit:
       title: "Edit styling for %{name}"
     preview:
@@ -1961,10 +2122,11 @@ en:
 
   resident_notification_mailer:
     notify:
-      new_notification: "You have a new notification from Hoozzi"
+      new_notification: "You have a new notification from Spaciable"
       login: "Login to your portal"
       welcome: "Hello %{name}"
-      update_subject: "You have a new update in Hoozzi"
+      update_subject: "You have a new update in Spaciable"
+      old: "You have a new update in Hoozzi"
       update_message: "%{address} %{message}"
       update_sent: " and %{count} residents have been notified"
       new_plot_message: "<p>We have a message regarding your %{developer} property: %{address} </p>"
@@ -1979,7 +2141,7 @@ en:
   services:
     homeowner_login_content_service:
       defaults:
-        title_left: "Hoozzi Homeowner"
+        title_left: "Spaciable Homeowner"
         title_right: "Login"
         blurb_para_1: "Welcome back."
         blurb_para_2: "Login to access your homeowners manual and more."
@@ -1999,8 +2161,10 @@ en:
 
   bulk_edit:
     index:
-      title: "Bulk edit"
-      description: "Select the plots to edit, then select the fields to update for all selected plots"
+      description: "<strong>Select the plots you wish to edit below.</strong>"
+      description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
+                        Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
+      unit_type: "Unit Type"
       back: "Back"
       submit: "Submit"
     create:
@@ -2009,17 +2173,17 @@ en:
 
   release_plots:
     index:
-      title: "Release plots"
-      description: "Select plots to release, then select the fields to update for all selected plots"
       back: "Back"
       submit: "Submit"
-      send_to_admins: "Send email to admins and account management"
-      email_receivers: "Email recipients:"
+      send_to_admins: "Send Email to Admins and Account Management"
+      email_receivers: "Recipients:"
       actions:
         reservation_release_date: "Reservation"
         completion_release_date: "Completion"
-      mixed_list_input_hint: "Seperated by commas and tildas e.g. 'D1,B2,1,2,5,10,15,20~25,30~100"
+      mixed_list_input_hint: "Separated by commas and tildes e.g. 'D1,B2,2,14,15,20~25,30~100"
       mixed_list_label: "Select plots by list and range"
+      release_date: "Release Date"
+      release_type: "Release Type"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
@@ -2028,27 +2192,27 @@ en:
     index:
       title: "Production overview of plots"
     collection:
-      add: "Add plot(s)"
-      unit_type: "Unit type"
+      add: "Add Plot(s)"
+      unit_type: "Unit Type"
       date_r: "R"
       date_c: "C"
-      name: "Plot number"
-      prefix: "Postal prefix"
+      name: "Plot"
+      prefix: "Prefix"
       UK:
-        house_number: "Postal number / name"
-        building_name: "Building name"
-        road_name: "Road name"
+        house_number: "Postal"
+        building_name: "Building"
+        road_name: "Road"
         postcode: "Postcode"
       Spain:
-        house_number: "Address Line 1"
-        building_name: "Address Line 2"
-        road_name: "Address Line 3"
-        postcode: "Address Line 6"
+        house_number: "Address 1"
+        building_name: "Address 2"
+        road_name: "Address 3"
+        postcode: "Address 6"
 
   snag_comments:
     form:
       send: "Send"
-      content: "Message (max 1000 characters)"
+      content: "Enter your message... (max 1000 characters)"
 
   activerecord:
     models:
@@ -2077,40 +2241,40 @@ en:
 
     attributes:
       developer:
-        company_name: "Developer name"
+        company_name: "Developer"
         head_office_address: "Head office address"
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
-        email: "Email address"
-        contact_number: "Contact number"
-        updated_at: "Last edited"
+        email: "Email Address"
+        contact_number: "Contact Number"
+        updated_at: "Last Edited"
         api_key: "Mailchimp API key"
         choice_labels:
           choices_disabled: "Off"
           admin_can_choose: "Admin"
           either_can_choose: "Either"
       division:
-        division_name: "Division name"
+        division_name: "Name"
         address: "Division address"
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
-        email: "Email address"
-        contact_number: "Contact number"
-        updated_at: "Last edited"
+        email: "Email"
+        contact_number: "Phone"
+        updated_at: "Last Edited"
       development:
-        name: "Development name"
+        name: "Name"
         office_address: "Marketing suite address"
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
-        email: "Email address"
-        contact_number: "Contact number"
-        updated_at: "Last edited"
+        email: "Email"
+        contact_number: "Phone"
+        updated_at: "Last Edited"
       phase:
         name: "Name"
-        updated_at: "Last edited"
+        updated_at: "Last Edited"
         businesses:
           core: "Core"
           nhbc: "NHBC"
@@ -2133,13 +2297,13 @@ en:
         title: "Plots"
         one: "Plot"
         prefix: "Postal Prefix, e.g., Plot, Flat and Apartment"
-        number: "Plot number"
-        house_number: "Postal number / name"
-        updated_at: "Last edited"
-        reservation_release_date: "Reservation release date"
-        completion_release_date: "Completion release date"
-        validity: "Validity (months)"
-        extended_access: "Extended access (months)"
+        number: "Plot Number"
+        house_number: "Postal"
+        updated_at: "Last Edited"
+        reservation_release_date: "Reservation Release Date"
+        completion_release_date: "Completion Release Date"
+        validity: "Validity (Months)"
+        extended_access: "Extended Access (Months)"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"
@@ -2174,23 +2338,23 @@ en:
       finish:
         name: "Name"
         type: "Finish type"
-        category: "Finish category"
+        category: "Finish Category"
         manufacturer: "Manufacturer"
         descr: "Description"
-        picture: "Finish picture"
+        picture: "Finish Picture"
         provider: "Provider"
-        updated_at: "Last edited"
+        updated_at: "Last Edited"
       manufacturer:
-        updated_at: "Last edited"
+        updated_at: "Last Edited"
       appliance:
-        primary_image: "Primary image"
-        secondary_image: "Secondary image"
+        primary_image: "Primary Image"
+        secondary_image: "Secondary Image"
         name: "Name"
         model_num: "Model"
-        category: "Appliance category"
+        category: "Appliance Category"
         manufacturer: "Manufacturer"
         manual: "Manual"
-        updated_at: "Last edited"
+        updated_at: "Last Edited"
         warranty_length:
           # Warranty length enums for appliances
           no_warranty: "No warranty"
@@ -2214,14 +2378,14 @@ en:
           c: "C"
           d: "D"
       document:
-        title: "Document name"
+        title: "Name"
         file: "File"
-        updated_at: "Last edited"
+        updated_at: "Last Edited"
         categories:
           # Category enum values for documents
-          my_home: "My home"
+          my_home: "My Home"
           locality: "Locality"
-          legal_and_warranty: "Legal & warranty"
+          legal_and_warranty: "Legal & Warranty"
       user:
         email: "Email address"
         password: "Password"
@@ -2233,11 +2397,11 @@ en:
         password_confirmation: "New password confirmation"
         invitation_accepted_at: "Activation date"
       address:
-        postal_number: "Postal number / name"
-        building_name: "Building name"
+        postal_number: "Postal Number / Name"
+        building_name: "Building Name"
         locality: "Locality"
         road_name: "Road"
-        city: "Town / city"
+        city: "Town / City"
         county: "County"
         postcode: "Postcode"
       contact:
@@ -2245,7 +2409,7 @@ en:
         lname: "Last name"
         title: "Title"
         position: "Position"
-        category: "Folder"
+        category: "Category"
         email: "Email"
         phone: "Contact number"
         mobile: "Mobile number"
@@ -2298,32 +2462,35 @@ en:
           rental: "Rental Appeal"
           permanentliving: "Permanent Living in Spain"
       brand:
-        logo: "Dashboard Logo"
-        login_image: "Login Background Image"
-        banner: "Banner"
+        logo: "Primary Logo"
+        login_image: "External Background Image"
+        banner: "Internal Banner"
         styling: "Styling"
         for: "%{name} styling"
-        bg_color: "Background colour"
-        text_color: "Text colour"
-        content_bg_color: "Content box colour"
-        content_text_color: "Content box outline colour"
-        button_color: "Static: Button fill. Hover: Text colour"
-        button_text_color: "Static: Button text/stroke. Hover: Button fill"
-        header_color: "Header colour"
-        topnav_text_color: "Top nav text colour"
-        login_box_left_color: "Login box colour (left)"
-        login_box_right_color: "Login box colour (right)"
-        login_button_static_color: "Static: Login button fill. Hover: Text colour"
-        login_button_hover_color: "Static: Login text/stroke. Hover: Button fill"
-        content_box_text_color: "Login content box text color"
-        content_box_color: "Login content box colour"
-        content_box_outline_color: "Login content box outline colour"
-        text_left_color: "Text colour (left)"
-        text_right_color: "Text colour (right)"
-        login_logo: "Login Logo"
-        heading_one: "Info heading one"
-        heading_two: "Info heading two"
-        custom_text: "Info text"
+        bg_color: "Internal Background Fill"
+        text_color: "Internal Text"
+        content_bg_color: "Internal Content Box Fill"
+        content_text_color: "Internal Content Box Outline"
+        button_color: "Internal Button: Static Fill / Hover Text"
+        button_text_color: "Internal Button: Static Text / Hover Fill"
+        header_color: "Internal Header Fill"
+        topnav_text_color: "Internal Navigation Text"
+        login_box_left_color: "External Box Fill (Right)"
+        login_box_right_color: "External Box Fill (Left)"
+        login_button_static_color: "External Button: Static Fill / Hover Text"
+        login_button_hover_color: "External Button: Static Text / Hover Fill"
+        content_box_text_color: "External Input Text (Email / Password)"
+        content_box_color: "External Input Fill (Email / Password)"
+        content_box_outline_color: "External Input Outline (Email / Password)"
+        text_left_color: "External Text (Headings / Information)"
+        text_right_color: "External Text (Labels / Links)"
+        login_logo: "External Logo"
+        heading_one: "External Heading One [Text]"
+        heading_one_show: "External Heading One"
+        heading_two: "External Heading Two [Text]"
+        heading_two_show: "External Heading Two"
+        custom_text: "External Information [Text]"
+        custom_text_show: "External Information"
 
       resident:
         titles:
@@ -2340,10 +2507,10 @@ en:
         email: "Email address"
         password: "Password"
         password_confirmation: "Confirm password"
-        developer_email_updates: "Emails from my property developer about managing and maintaining my new home through Hoozzi"
-        developer_sms_updates: "Mobile text messages from my property developer about managing and maintainging my new home through Hoozzi"
-        cf_email_updates: "Home inspiration direct to my inbox with Hoozzi 'How To' updates"
-        telephone_updates: "Telephone call"
+        developer_email_updates: "Emails from my property developer"
+        developer_sms_updates: "Mobile text messages from my property developer"
+        cf_email_updates: "Home inspiration direct to my inbox with Spaciable How To updates"
+        telephone_updates: "Telephone"
         post_updates: "Post"
       residents:
         resident: "Resident"
@@ -2351,8 +2518,8 @@ en:
         email: "Email address"
         phone_number: "Phone number"
       report:
-        report_from: "Resident and notification count from:"
-        report_to: "Resident and notification count to:"
+        report_from: "From"
+        report_to: "Until"
       service:
         categories:
           removals: "Removals & storage"
@@ -2362,12 +2529,12 @@ en:
           estate: "Selling or renting"
           manager: "Moving manager"
         category_descriptions:
-          removals: "Hoozzi Services can assist you with removals, packing or storage facilities."
-          finance: "Hoozzi Services can help find a mortgage or insurance deal that’s right for you."
-          legal: "Do you require a solicitor? Hoozzi Services can help."
-          utilities: "Want the best deals for gas, electricity and other essential services? Hoozzi Services can find your perfect tariff."
-          estate: "Wish to rent out your property? Hoozzi Services has the right package for you."
-          manager: "Looking for someone to organise your entire move? Hoozzi Services can manage it for you."
+          removals: "Spaciable Services can assist you with removals, packing or storage facilities."
+          finance: "Spaciable Services can help find a mortgage or insurance deal that’s right for you."
+          legal: "Do you require a solicitor? Spaciable Services can help."
+          utilities: "Want the best deals for gas, electricity and other essential services? Spaciable Services can find your perfect tariff."
+          estate: "Wish to rent out your property? Spaciable Services has the right package for you."
+          manager: "Looking for someone to organise your entire move? Spaciable Services can manage it for you."
         dashboard_titles:
           finance: "Conveyancing & insurance"
           legal: "Moving & utilities"

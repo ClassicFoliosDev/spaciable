@@ -11,6 +11,8 @@ class ChoiceConfiguration < ApplicationRecord
   validates_with ParameterizableValidator
 
   delegate :to_s, to: :name
+  delegate :division, to: :development
+  delegate :developer, to: :development
 
   # create an (non database) accessor for each phase to bind to the form
   after_initialize do

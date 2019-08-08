@@ -83,8 +83,12 @@ module FileFixture
     "Bovis logo"
   end
 
+  def default_icon_alt
+    "Spaciable icon"
+  end
+
   def default_logo_alt
-    "Logo"
+    "Spaciable full"
   end
 
   def default_banner_name

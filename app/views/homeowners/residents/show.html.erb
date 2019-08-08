@@ -1,15 +1,6 @@
 <% content_for :hero_text_primary do %>
-  <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %> <%= current_resident %></span>
+  <span><%= t("homeowners.residents.show.account") %></span>
 <% end %>
-<% content_for :hero_text_secondary do %>
-  <span><%= render 'address/address', address: @plot %></span>
-<% end %>
-
-<nav class="sub-navigation-container">
-  <div class="nav-inner">
-    <div class="branded-text"><%= t(".my_account") %></div>
-  </div>
-</nav>
 
 <div class="resident-hero">
   <%= render "components/homeowner/hero" %>
@@ -17,41 +8,62 @@
 
 <div class="branded-body outer-container">
   <div class="resident">
-    <div class="half branded-content branded-border">
-      <%= label_tag t(".email") %>
-      <span><%= current_resident.email %></span>
-      <%= label_tag t(".title") %>
-      <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %></span>
-      <%= label_tag t(".name") %>
-      <span><%= current_resident.first_name %> <%= current_resident.last_name %></span>
-      <%= label_tag t(".password") %>
-      <span><%= t(".dummy_password") %></span>
-    </div>
-    <div class="half communications branded-content branded-border last">
-      <h4><%= t(".comms_preferences") %></h4>
-      <label class=<%= current_resident.developer_email_updates? ? "selected" : "unselected" %>> <%= t(".developer_email_updates") %>
-        <i class="fa fa-check"></i>
-      </label>
-      <label class=<%= current_resident.developer_sms_updates? ? "selected" : "unselected" %>> <%= t(".developer_sms_updates") %>
-        <i class="fa fa-check"></i>
-      </label>
-      <label class=<%= current_resident.cf_email_updates? ? "selected" : "unselected" %>> <%= t(".cf_email_updates") %>
-        <i class="fa fa-check"></i>
-      </label>
-      <label class=<%= current_resident.telephone_updates? ? "selected" : "unselected" %>> <%= t(".telephone_updates") %>
-        <i class="fa fa-check"></i>
-      </label>
-      <label class=<%= current_resident.post_updates? ? "selected" : "unselected" %>> <%= t(".post_updates") %>
-        <i class="fa fa-check"></i>
-      </label>
+    <div class=" resident-details branded-content branded-border branded-text">
+      <div class="account branded-text">
+        <h4><%= t(".account_details") %></h4>
+        <%= label_tag t(".email") %>
+        <span><%= current_resident&.email %></span>
+        <%= label_tag t(".password") %>
+        <span><%= t(".dummy_password") %></span>
+      </div>
+      <div class="communications last">
+        <h4><%= t(".comms_preferences") %></h4>
+        <label class=<%= current_resident.developer_email_updates? ? "selected" : "unselected" %>> <%= t(".developer_email_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.developer_sms_updates? ? "selected" : "unselected" %>> <%= t(".developer_sms_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.cf_email_updates? ? "selected" : "unselected" %>> <%= t(".cf_email_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.telephone_updates? ? "selected" : "unselected" %>> <%= t(".telephone_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+        <label class=<%= current_resident.post_updates? ? "selected" : "unselected" %>> <%= t(".post_updates") %>
+          <i class="fa fa-check"></i>
+        </label>
+      </div>
     </div>
 
-    <%= link_to t(".intro_video"), about_video_path, class: "btn branded-btn video-link" %>
+
+    <div class="full actions show-actions">
+      <%= link_to t(".intro_video"), about_video_path, class: "btn branded-btn video-link" %>
+      <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "btn branded-btn" %>
+      <%= button_tag t(".deactivate"), class: "btn branded-btn destroy-resident",
+      data: { cancel: t("edit.cancel"),
+      cta: t(".confirm_deactivate"),
+      title: t(".deactivate_header"),
+      resident: current_resident.id} %>
+    </div>
 
     <% if !current_resident.plot_residency_tenant?(@plot) %>
-      <div class="full branded-content branded-border">
+      <% if current_resident.plots.count > 1 %>
+        <div class="account-disclaimer">
+          <p class="plot-disclaimer branded-text"><%= t(".plot-disclaimer").html_safe %></p>
+        </div>
+      <% end %>
+
+      <% if @plot.snags_fully_resolved %>
+        <div class="full plot-specific branded-content branded-border">
+          <div class="snagging-history">
+            <%= link_to t(".snagging_history", tool_name: @plot.snag_name), snags_path, class: "btn branded-btn-inverted snagging-link" %>
+          </div>
+        </div>
+      <% end %>
+      <div class="full plot-specific branded-content branded-border branded-text">
         <div class="other-residents">
-          <h4><%= t(".other_residents") %></h4>
+          <h4><%= t(".other_residents", plot: @plot.to_homeowner_s) %></h4>
           <ul>
             <% @all_residents.each do | resident | %>
               <li>
@@ -59,7 +71,7 @@
                 <% if resident[:removeable] && !(@plot.expired?) %>
                   <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
                   <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
-                  <%= button_tag "", class: "btn prompt-remove",
+                  <%= button_tag "", class: "btn prompt-remove branded-text",
                     data: { title: t(".destroy"),
                       cancel: t("destroy.cancel"),
                       text: t(".confirm_text", name: resident[:name]),
@@ -79,10 +91,10 @@
           </ul>
           <% if current_resident.plot_residency_homeowner?(@plot) && !(@plot.expired?) %>
             <div>
-              <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn branded-btn add-resident",
+              <%= button_tag t(".invite", plot: @plot.to_homeowner_s), class: "btn branded-btn-inverted add-resident",
               data: { cancel: t("edit.cancel"),
                     cta: t(".send_invitation"),
-                    title: t(".invite", plot: @plot.to_homeowner_s),
+                    title: t(".invite_title", plot: @plot.to_homeowner_s),
                     plot: @plot.id } %>
             </div>
           <% end %>
@@ -90,17 +102,6 @@
       </div>
     <% end %>
 
-    <div class="full actions show-actions">
-      <%= button_tag t(".deactivate"), class: "btn branded-btn destroy-resident",
-      data: { cancel: t("edit.cancel"),
-            cta: t(".confirm_deactivate"),
-            title: t(".deactivate"),
-            resident: current_resident.id} %>
-      <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "btn branded-btn" %>
-      <% if @plot.snags_fully_resolved %>
-        <%= link_to t(".snagging_history", tool_name: @plot.snag_name), snags_path, class: "btn branded-btn snagging-link" %>
-      <% end %>
-    </div>
   </div>
 </div>
 

@@ -1,25 +1,23 @@
 <% breadcrumb :phase_release_plots, @phase %>
 
+<%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
+
+<%= render 'components/tabs', tabs: tabs_for(@phase, "release_plots"), phase: @phase %>
+
 <script type="text/javascript" src="/javascripts/lib/release_plots.js"></script>
 
-<div class="section-header">
-  <div class="section-title">
-    <div><%= t(".title") %></div>
-    <span class="about"><%= t(".description") %></span>
-  </div>
-</div>
-
-<div class="bulk-edit">
+<div class="release-plots">
   <%= simple_form_for(:phase_release_plots, :defaults => {:required => false}) do |f| %>
   <%= f.hidden_field :phase_id, value: @phase.id %>
   <div class="row">
-    <div class="row-item third">
+    <div class="row-item third release-plots bulk-edit">
       <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
     </div>
 
-    <div class="row-item third">
+    <div class="row-item third release-details">
       <%= f.input :release_type,
           as: :select,
+          label: t(".release_type"),
           collection: plot_release_types,
           label_method: ->(release_type) { t( ".actions.#{release_type}") },
           include_blank: false,
@@ -28,7 +26,7 @@
 
 
       <div class="plot-field">
-        <%= f.input :release_date, as: :string,
+        <%= f.input :release_date, as: :string, label: t(".release_date"),
                   placeholder: "DD/MM/YYYY",
                   input_html: { type: :date }
                   %>
@@ -45,15 +43,15 @@
     </div>
 
     <div class="row-item third">
+      <div class=send_to_all>
+        <%= f.input :send_to_admins, as: :boolean, label: t(".send_to_admins"), input_html: { checked: true }%>
+      </div>
       <label><%= t(".email_receivers") %></label>
       <ul>
         <% @phase.release_users.each do |user| %>
           <li><%= user[:email] %></li>
         <% end %>
       </ul>
-      <div class=send_to_all>
-            <%= f.input :send_to_admins, as: :boolean, label: t(".send_to_admins"), input_html: { checked: true }%>
-          </div>
     </div>
   </div>
 
@@ -62,7 +60,6 @@
 
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">
-    <%= link_to t(".back"), development_phase_path(@phase.parent, @phase), class: "btn" %>
     <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit' %>
   </div>
 </div>

@@ -1,26 +1,27 @@
 <% breadcrumb :phase_bulk_edit, @phase %>
 
-<div class="section-header">
-  <div class="section-title">
-    <div><%= t(".title") %></div>
-    <span class="about"><%= t(".description") %></span>
-  </div>
-</div>
+<%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
+
+<%= render 'components/tabs', tabs: tabs_for(@phase, "bulk_edit"), phase: @phase %>
 
 <div class="bulk-edit">
   <%= simple_form_for(:phase_bulk_edit) do |f| %>
 
     <div class="row">
       <div class="row-item third">
+        <p><%= t(".description").html_safe %></p>
+        <p><%= t(".description_two").html_safe %></p>
         <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
       </div>
 
       <div class="row-item third">
         <fieldset>
           <div class="plot-field">
-            <div class="bulk-check fix-checkbox"><%= f.input_field :unit_type_id_check, as: :boolean, label: false %></div>
-            <%= f.input :unit_type_id, as: :select, collection: unit_type_collection(@phase) %>
-          </div><br/>
+            <div class="bulk-check fix-checkbox">
+              <%= f.input_field :unit_type_id_check, as: :boolean, label: false %>
+            </div>
+            <%= f.input :unit_type_id, label: t(".unit_type"), as: :select, collection: unit_type_collection(@phase) %>
+          </div>
           <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
         </fieldset>
       </div>
@@ -35,7 +36,6 @@
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
-        <%= link_to t(".back"), development_phase_path(@phase.parent, @phase), class: "btn" %>
         <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
       </div>
     </div>

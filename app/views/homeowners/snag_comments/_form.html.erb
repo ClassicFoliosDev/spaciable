@@ -15,7 +15,7 @@
     <div class="hidden-field">
       <%= f.hidden_field :snag_id, value: snag.id %>
     </div>
-    <div class="message">
+    <div class="message branded-text ">
       <%= f.input :content, label: false, as: :text, maxlength: 1000, placeholder: t("snag_comments.form.content"), class: "snag-comment-content", input_html: { required: true } %>
       <%= f.file_field :image, class: "snag-comment-image" %>
     </div>

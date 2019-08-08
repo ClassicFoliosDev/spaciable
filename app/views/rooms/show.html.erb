@@ -3,11 +3,11 @@
 <div class="room">
   <div class="section-header">
     <div class="section-title">
-      <%= @room.name %><br>
+      <%= @room.name %><br/>
+      <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
     </div>
 
     <div class="section-data">
-      <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
       <%= edit_btn [:edit, @room.parent, @room], element: @room %>
     </div>
   </div>

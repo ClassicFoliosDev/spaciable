@@ -65,10 +65,10 @@ end
 
 Then(/^I should see My Documents$/) do
   within ".filter-hero" do
-    expect(page).to have_content("My documents")
+    expect(page).to have_content("My Documents")
     expect(page).to_not have_content("Services")
-    expect(page).to_not have_content("Legal & warranty")
-    expect(page).to_not have_content("My home")
+    expect(page).to_not have_content("Legal & Warranty")
+    expect(page).to_not have_content("My Home")
   end
 end
 
@@ -91,7 +91,7 @@ Then(/^I should see the tenant on my account$/) do
   end
 
   within ".other-residents" do
-    expect(page).to have_content t("homeowners.residents.show.other_residents")
+    expect(page).to have_content "Other residents with access to "
     expect(page).to have_content("tenant@example.com")
   end
 end

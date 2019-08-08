@@ -6,7 +6,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), room_configuration_room_items_path, class: "btn" %>
+      <%= link_to t(".back"), choice_configuration_room_configuration_path(choice_configuration_id: @choice_configuration.id, id: @room_configuration.id), class: "btn" %>
     </div>
   </div>
 </div>

@@ -21,7 +21,7 @@ module Csv
         "Residents activated #{@between}", "Notifications #{@between}", "BestArea4Me enabled",
         "Services enabled", "Residents requesting one or more services", "Forum enabled",
         "Fixflo link", "Mailchimp list or segment id", "Developer emails accepted",
-        "Hoozzi emails accepted", "Telephone accepted", "Post accepted", "Date created",
+        "Spaciable emails accepted", "Telephone accepted", "Post accepted", "Date created",
         "Last edited"
       ]
     end

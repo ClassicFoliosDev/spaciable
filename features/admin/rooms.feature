@@ -4,6 +4,7 @@ Feature: Rooms
   I want to add rooms to a unit type
   So that I can provide details about the homes being built
 
+  @javascript
   Scenario:
     Given I am logged in as an admin
     And I have seeded the database

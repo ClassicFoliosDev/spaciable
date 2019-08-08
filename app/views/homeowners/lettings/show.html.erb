@@ -1,0 +1,21 @@
+<% content_for :hero_text_primary do %>
+<span><%= t("homeowners.lettings.show.my_lettings") %></span>
+<% end %>
+
+<div class="resident-hero">
+  <%= render "components/homeowner/hero" %>
+</div>
+
+<div class="branded-body outer-container lettings branded-text">
+  <div class="main-container">
+    <p class="lettings-description">
+      Lettings informtion and stuff text text texte hxdoihsd sdoifsd fsidfoihsdf
+    </p>
+
+
+    <h2 class="letable-header"><%= t(".your_plots") %></h2>
+    <div class="letable">
+      <%= render "homeowners/components/lettings", plots: @plots %>
+    </div>
+  </div>
+</div>

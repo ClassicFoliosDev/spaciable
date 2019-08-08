@@ -16,7 +16,7 @@ When(/^I create a room with no room name$/) do
   end
 
   click_on t("unit_types.collection.rooms")
-  click_on t("components.empty_list.add", type_name: Room.model_name.human.downcase)
+  click_on t("components.empty_list.add", type_name: Room.model_name.human.titleize)
 
   click_on t("rooms.form.submit")
 end
@@ -44,12 +44,13 @@ Then(/^I should see the created room$/) do
 end
 
 When(/^I update the room$/) do
-  find("[data-action='edit']").click
+  within ".record-list" do
+    find("[data-action='edit']").click
+  end
 
   fill_in "room[name]", with: RoomFixture.updated_room_name
 
-  select t("activerecord.attributes.room.icon_names.dining_room"),
-         from: "room[icon_name]"
+  select_from_selectmenu "room_icon_name", with: t("activerecord.attributes.room.icon_names.dining_room")
 
   click_on t("rooms.form.submit")
 end
@@ -64,9 +65,6 @@ Then(/^I should see the updated room$/) do
 
   within ".section-title" do
     expect(page).to have_content(RoomFixture.updated_room_name)
-  end
-
-  within ".section-data" do
     image_div = page.find(".room-icon")
     expect(image_div["style"]).to have_content("icon_dining_room")
   end
@@ -95,7 +93,7 @@ When(/^I add a finish$/) do
     click_on t("rooms.collection.finishes")
   end
 
-  click_on t("components.empty_list.add", type_name: Finish.model_name.human.downcase)
+  click_on t("components.empty_list.add", type_name: Finish.model_name.human.titleize)
 
   select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
   select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
@@ -177,7 +175,7 @@ When(/^I add an appliance$/) do
     click_on t("rooms.collection.appliances")
   end
 
-  click_on t("components.empty_list.add", type_name: Appliance.model_name.human.downcase)
+  click_on t("components.empty_list.add", type_name: Appliance.model_name.human.titleize)
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
   select_from_selectmenu :appliance_manufacturer, with: CreateFixture.appliance_manufacturer_name

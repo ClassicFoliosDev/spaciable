@@ -113,4 +113,12 @@ class Resident < ApplicationRecord
       email
     end
   end
+
+  def letable_plots?(plots)
+    letable = false
+    plots.each do |plot|
+      return letable = true if plot.letable
+    end
+    letable
+  end
 end

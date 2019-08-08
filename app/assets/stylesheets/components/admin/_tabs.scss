@@ -38,12 +38,12 @@
   height: 30px;
 
   a {
-    color: $ui-dark-grey;
+    color: $semi-pale-navy;
     line-height: $button-line-height;
 
     &.active {
       font-weight: bold;
-      color: $type-grey;
+      color: $primary-navy;
     }
   }
 }

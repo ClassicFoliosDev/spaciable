@@ -36,7 +36,7 @@ Then(/^I am no longer subscribed in mailchimp$/) do
 end
 
 Then(/^I see an error$/) do
-  within ".sign-in" do
+  within ".alert" do
     expect(page).to have_content "Invalid email address or password"
   end  
 end

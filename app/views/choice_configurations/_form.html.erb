@@ -24,7 +24,8 @@
       </fieldset>
     </div>
 
-     <div class="row-item third">
+    <div class="row-item third choices-phases">
+      <%= label_tag :plots, t(".plots") %>
       <dl class="phases">
         <% phase_plots.each do |phase| %>
           <dt id="phase-<%= phase[:id] %>"><h3><%= phase[:name] %></h3></dt>
@@ -41,7 +42,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), development_choice_configurations_path(development), class: "btn" %>
+      <%= link_to t(".back"), ((development.division_id?) ? (division_development_path(division_id: development.division_id, id: development.id, active_tab: :choice_configurations)) : (developer_development_path(developer_id: development.developer_id, id: development.id, active_tab: :choice_configurations))), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>

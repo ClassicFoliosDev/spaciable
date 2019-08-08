@@ -6,7 +6,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), development_choice_configurations_path, class: "btn" %>
+      <%= link_to t(".back"), ((@choice_configuration&.division) ? (division_development_path(division_id: @choice_configuration.division.id, id: @choice_configuration.development.id, active_tab: :choice_configurations)) : (developer_development_path(developer_id: @choice_configuration.developer.id, id: @choice_configuration.development.id, active_tab: :choice_configurations))), class: "btn" %>
     </div>
   </div>
 </div>

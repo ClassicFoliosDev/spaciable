@@ -43,6 +43,10 @@
   }
 }
 
+.my-home-address {
+  line-height: 135%;
+}
+
 @include media($tablet-portrait-up) {
   .about-section {
     width: 560px;

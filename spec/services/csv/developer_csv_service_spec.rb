@@ -53,7 +53,7 @@ RSpec.describe Csv::DeveloperCsvService do
       expect(development_row["Plots created #{between_dates}"]).to eq "2"
       expect(development_row["Residents invited #{between_dates}"]).to eq "2"
       expect(development_row["Developer emails accepted"]).to eq "1"
-      expect(development_row["Hoozzi emails accepted"]).to eq "2"
+      expect(development_row["Spaciable emails accepted"]).to eq "2"
       expect(development_row["Telephone accepted"]).to eq "1"
       expect(development_row["Post accepted"]).to eq "0"
 
@@ -66,7 +66,7 @@ RSpec.describe Csv::DeveloperCsvService do
       # Note that mailchimp settings are not filtered by date range, these will include updates for
       # both resident d and resident e 
       expect(division_row["Developer emails accepted"]).to eq "1"
-      expect(division_row["Hoozzi emails accepted"]).to eq "0"
+      expect(division_row["Spaciable emails accepted"]).to eq "0"
       expect(division_row["Telephone accepted"]).to eq "1"
       expect(division_row["Post accepted"]).to eq "2"
 

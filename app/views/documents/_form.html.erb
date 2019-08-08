@@ -16,7 +16,6 @@
     <div class="row-item third">
       <fieldset>
         <div class="document-container">
-          <%= f.label t(".load"), class: "text-label" %>
           <div class="document-file">
             <% if document.persisted? %>
               <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
@@ -24,40 +23,47 @@
             <% else %>
               <%= f.file_field :files, multiple: true, class: "file-upload" %>
               <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
-              <div class="left"><p><%= t(".choose_multiple_explanation_html") %></p></div>
+              <div class="left"><p><%= t(".choose_multiple_explanation_html").html_safe %></p></div>
             <% end %>
           </div>
           <div class="document-title">
-            <%= f.label t(".title") %>
+            <%= f.label :title, t(".title") %>
             <% if !document.persisted? %>
               <p><%= t(".title_explanation") %></p>
             <% end %>
             <%= f.input :title, label: false %>
           </div>
+          <% if document.persisted? %>
+            <fieldset>
+              <div class="ui-front">
+                <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
+              </div>
+            </fieldset>
+          <% end %>
         </div>
       </fieldset>
     </div>
 
     <div class="row-item third">
-      <fieldset>
-        <div class="ui-front">
-          <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
-        </div>
-      </fieldset>
-    </div>
-
-    <% if document.file? && document.errors.none? %>
-      <div class="row-item third">
+      <% if document.file? && document.errors.none? %>
         <fieldset>
-          <%= f.label t(".original_name") %>
-          <span><%= document.original_filename %></span>
-          <%= f.label t(".size") %>
+          <% if document.original_filename? %>
+            <%= f.label :original_filename, t(".original_name") %>
+            <span><%= document.original_filename %></span>
+          <% end %>
+          <%= f.label :size, t(".size") %>
           <span><%= number_to_human_size(document.file.size) %></span>
-          <%= f.label t(".updated") %>
+          <%= f.label :updated, t(".updated") %>
           <span><%= document.updated_at.strftime("%e %b %Y, %H:%M %p") %></span>
         </fieldset>
-      </div>
-    <% end %>
+      <% else %>
+        <fieldset>
+          <div class="ui-front">
+            <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
+          </div>
+        </fieldset>
+      <% end %>
+    </div>
   </div>
 
   <div class="form-actions-footer-container">

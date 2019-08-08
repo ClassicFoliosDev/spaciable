@@ -19,9 +19,9 @@
         <%= f.input :name %>
         <%= f.input :email %>
         <%= f.input :contact_number %>
-        <%= f.input :maintenance_link, placeholder: t(".maintenance_placeholder") %>
+        <%= f.input :maintenance_link, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>
         <p><%= t(".maintenance_tip")%></p>
-        <%= f.label t(".maintenance_auto_populate") %>
+        <%= f.label :maintenance_auto_populate, t(".maintenance_auto_populate") %>
         <%= f.check_box :maintenance_auto_populate %>
         <p class="checkbox-description"><%= t(".maintenance_auto_populate_description") %></p>
       </fieldset>
@@ -40,11 +40,11 @@
     </div>
     <div class="row-item third">
       <fieldset>
-        <%= f.input :choice_option, label: "Choice options", as: :select, collection: choice_options_collection, include_blank: false %>
+        <%= f.input :choice_option, label: "Choices Options", as: :select, collection: choice_options_collection, include_blank: false %>
         <div id="choices_email_contact">
           <%= f.input :choices_email_contact, label: t(".choices_email") %>
         </div>
-        <%= f.label t(".enable_snagging") %>
+        <%= f.label :enable_snagging, t(".enable_snagging") %>
         <%= f.check_box :enable_snagging %>
         <p class="checkbox-description"><%= t(".snagging_description") %></p>
         <%= f.input :snag_duration, label: t(".snag_duration") %>
@@ -55,8 +55,9 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), [parent, development], class: "btn" %>
+      <%= link_to t(".back"), ((parent.is_a?(Division)) ? (developer_division_path(developer_id: parent.developer_id, id: parent.id)) : [parent, active_tab: :developments]), class: "btn" %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>
 <% end %>
+

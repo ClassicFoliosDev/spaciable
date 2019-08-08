@@ -72,7 +72,7 @@ class PhasesController < ApplicationController
   def phase_params
     params.require(:phase).permit(
       :name,
-      :number, :business,
+      :number, :business, :lettings,
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

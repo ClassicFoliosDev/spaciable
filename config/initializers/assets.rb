@@ -15,7 +15,7 @@ Rails.application.config.assets.paths += %w( manifest_admin.css )
 
 Rails.application.config.assets.precompile += %w( manifest_homeowner.css )
 Rails.application.config.assets.precompile += %w( manifest_admin.css )
-Rails.application.config.assets.precompile += %w( logo.png )
+Rails.application.config.assets.precompile += %w( Spaciable_full.svg )
 Rails.application.config.assets.precompile += %w( expiry_banner.png )
 Rails.application.config.assets.precompile += %w( default_banner.png )
 Rails.application.config.assets.precompile += ["styleguide.html"]

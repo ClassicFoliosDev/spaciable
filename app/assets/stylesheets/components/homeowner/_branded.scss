@@ -1,3 +1,7 @@
+.branded-content {
+  border-radius: 5px/5px;
+}
+
 .branded-btn {
   border-style: solid;
   border-width: 1px;
@@ -8,6 +12,19 @@
   &:hover {
     color: $ui-white;
     background-color: $primary-background;
+  }
+}
+
+.branded-btn-inverted {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 0 $spacing-small;
+  display: inline-block;
+
+  &:hover {
+    color: $primary-red-left;
+    background-color: $ui-white;
   }
 }
 
@@ -30,7 +47,7 @@
 
 .branded-text {
   display: block;
-  color: $type-grey;
+  color: $primary-navy;
 
   h1, h2, h3, h4, h5, h6, p, span {
     color: inherit;
@@ -42,7 +59,7 @@
 }
 
 .branded-primary-text {
-  color: $ui-white;
+  color: $primary-navy;
 
   p, a, label {
     color: inherit;
@@ -54,19 +71,21 @@
 }
 
 .login, .sign-in {
-  background-color: $primary-red;
+  background-color: $ui-white;
 
   // Need to set defaults here for devise pages
   // They are set again in the branding template for all other pages
   .btn {
-    border-color: $primary-red;
-    color: $primary-red;
+    border-color: $primary-navy;
+    color: $primary-navy;
     background-color: $ui-white;
+    border-radius: 0;
   }
 
   .btn:hover {
-    color: $primary-green;
-    border-color: $primary-green;
+    color: $ui-white;
+    border-color: $primary-navy;
+    background-color: $primary-navy;
   }
 }
 
@@ -76,23 +95,25 @@
   }
 
   input[type=checkbox]:checked + i:before {
-    color: $primary-background;
+    color: $primary-navy;
   }
 
   i {
     background-color: $ui-white;
-    border-color: $ui-white;
+    border-color: $primary-navy;
   }
 }
 
 // These colours will be over-ridden if branding is applied
 
 .top-title {
-  color: $type-grey;
+  color: $primary-red-left;
+  margin-bottom: $spacing-small;
 }
 
 .second-title {
-  color: $primary-red;
+  color: $primary-navy;
+  margin-bottom: $spacing-large * 2 ;
 }
 
 // Show all of the sub-categories in mobile view

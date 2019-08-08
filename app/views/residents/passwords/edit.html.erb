@@ -1,24 +1,41 @@
-<div class="reset-password" >
+<div class="new-password">
   <div class="set-password">
-
-    <h2><%= t(".title")%></h2>
+    <div class="login-logo">
+      <%= image_tag "Spaciable_full.svg" %>
+    </div>
 
     <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
       <%= f.error_notification %>
 
+      <h2 class="primary"><%= t(".title")%></h2>
+
       <%= f.input :reset_password_token, as: :hidden %>
       <%= f.full_error :reset_password_token %>
 
-      <div class="form-inputs">
-        <%= f.input :password, label: t(".new"), required: true, autofocus: true, hint: t(".minimum") %>
-        <%= f.input :password_confirmation, label: t(".confirm"), required: true %>
+      <div class="form-inputs reset-pass-input">
+        <%= f.input :password, label: false, placeholder: "Password", required: true, autofocus: true %>
+        <%= f.input :password_confirmation, label: false, placeholder: "Confirm password", required: true %>
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, t(".submit") %>
+        <%= f.button :submit, t(".submit"), class: "reset-btn" %>
       </div>
-    <% end %>
 
-    <%= render "residents/shared/links" %>
+      <div class="information">
+        <p><%= render "residents/shared/links" %></p>
+      </div>
+
+    <div class="information">
+      <p class="reset-copyright"><%= t("residents.invitations.edit.copyright", year: Time.current.year).html_safe %></p>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="preamble">
+    <div class="content">
+      <div class="login-icon-password">
+        <div><%= image_tag "Spaciable_icon_white.svg" %></div>
+      </div>
+    </div>
   </div>
 </div>

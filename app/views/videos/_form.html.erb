@@ -13,13 +13,9 @@
   <% end %>
 
   <div class="row videos">
-    <div class="row-item half">
+    <div class="row-item two-thirds">
       <fieldset>
-        <%= f.input :title %>
-      </fieldset>
-    </div>
-    <div class="row-item half">
-      <fieldset>
+        <%= f.input :title, label: t(".title") %>
         <%= f.input :link, placeholder: t(".link_example") %>
       </fieldset>
     </div>

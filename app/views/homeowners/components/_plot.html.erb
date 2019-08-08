@@ -1,13 +1,14 @@
 <div class="row plot-summary">
   <%= link_to change_plot_path(id: plot.id) do %>
     <div class="sixth">
-      <%= image_tag brand_or_red_logo(plot.development.brand_any, plot) %>
+      <%= image_tag brand_or_small_logo(plot.development.brand_any, plot) %>
     </div>
 
-    <div class="five-sixths">
+
+    <div class="five-sixths <%= 'active-plot' if session[:plot_id] == plot.id %>">
       <span><%= plot.developer %></span><br/>
-      <span class="strong"><%= plot.development %></span><br/>
-      <span><%= plot.to_homeowner_s %></span>
+      <span><%= plot.development %></span><br/>
+      <span class="strong"><%= plot.to_homeowner_s %></span>
     </div>
   <% end %>
 </div>

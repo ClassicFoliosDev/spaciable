@@ -3,12 +3,12 @@ en:
   legal:
     ts_and_cs_file: "Downloadable document with detailed terms and conditions"
     ts_and_cs_admin:
-      title: "Hoozzi Terms and Conditions of Use"
+      title: "Spaciable Terms and Conditions of Use"
       welcome: "Welcome to our Terms and Conditions of Use. Please read these carefully before you start to use
-      www.hoozzi.com (referred to as 'the website' or 'our website'). By using our website, you acknowledge that you
+      www.spaciable.com (referred to as 'the website' or 'our website'). By using our website, you acknowledge that you
       have read, understood and accept these Terms and Conditions of Use and that you agree to be bound by them. You
       also accept our <a href=\"/data_policy\" target='_blank'>Privacy Policy</a>. If you do not agree to these terms of use, please
-      stop using our website, any of the products or services. www.hoozzi.com is a website operated by Classic Folios
+      stop using our website, any of the products or services. www.spaciable.com is a website operated by Classic Folios
       Ltd (referred to as 'us', 'we' or 'our')."
       accuracy: "Accuracy and Use of Information on the Website"
       accuracy_para1: "We aim to keep the information on the website up-to-date, but sometimes this may not be possible.
@@ -68,15 +68,15 @@ en:
       privacy_file: "Downloadable privacy policy document"
 
     ts_and_cs_homeowner:
-      title: "Hoozzi Terms and Conditions of Use"
+      title: "Spaciable Terms and Conditions of Use"
       please_read: "PLEASE READ THESE TERMS AND CONDITIONS CAREFULLY BEFORE USING THIS SITE"
       about_us_title: "Who we are and how to contact us"
-      about_us_1: "www.hoozzi.com is a site operated by CLASSIC FOLIOS LIMITED (<strong>We</strong>). We are
+      about_us_1: "www.spaciable.com is a site operated by CLASSIC FOLIOS LIMITED (<strong>We</strong>). We are
       registered in England and Wales under company number 04562237 and have our registered office at Highland House
       Mayflower Close Chandlers Ford  Eastleigh  Hampshire  SO53 4AR Our main trading address is Highland House
       Mayflower Close Chandlers Ford  Eastleigh  Hampshire  SO53 4AR. Our VAT number is GB 675 7084 00."
       limited: "We are a limited company."
-      contact: "To contact us, please email hello@hoozzi.com or telephone our customer service line on 02380626280."
+      contact: "To contact us, please email hello@spaciable.com or telephone our customer service line on 02380626280."
       terms_title: "By using our site you accept these terms"
       terms_1: "By using our site, you confirm that you accept these terms of use and that you agree to comply with
       them."
@@ -119,7 +119,7 @@ en:
       allocated by us, at any time, if in our reasonable opinion you have failed to comply with any of the provisions
       of these terms of use."
       safe_3: "If you know or suspect that anyone other than you knows your user identification code or password, you
-      must promptly notify us at hello@hoozzi.com."
+      must promptly notify us at hello@spaciable.com."
       ip_title: "How you may use material on our site"
       ip_1: "We are the owner or the licensee of all intellectual property rights in our site, and in the material
       published on it.  Those works are protected by copyright laws and treaties around the world. All such rights are
@@ -153,7 +153,7 @@ en:
       including to bulletin boards and chat rooms. This information and these materials have not been verified or
       approved by us. The views expressed by other users on our site do not represent our views or values."
       user_content_2: "If you wish to complain about information and materials uploaded by other users please contact
-      us at hello@hoozzi.com"
+      us at hello@spaciable.com"
       damages_title: "Our responsibility for loss or damage suffered by you"
       damages_title_2: "Whether you are a consumer or a business user:"
       damages_1: "We do not exclude or limit in any way our liability to you where it would be unlawful to do so. This
@@ -233,7 +233,7 @@ en:
       links_6: "The website in which you are linking must comply in all respects with the content standards set out in
       our Acceptable Use Policy in this page"
       links_7: "If you wish to link to or make any use of content on our site other than that set out above, please
-      contact hello@hoozzi.com."
+      contact hello@spaciable.com."
       law_title: "Which country's laws apply to any disputes?"
       law_consumer: "If you are a consumer, please note that these terms of use, their subject matter and their formation, are
       governed by English law. You and we both agree that the courts of England and Wales will have exclusive
@@ -250,12 +250,12 @@ en:
       about_terms_1: "This acceptable use policy sets out the content standards that apply when you upload content to our
       site, make contact with other users on our site, link to our site, or interact with our site in any other way"
       contact_title: "Who we are and how to contact us"
-      contact_1: "www.hoozzi.com is a site operated by CLASSIC FOLIOS LIMITED (<strong>We</strong>). We are registered
+      contact_1: "www.spaciable.com is a site operated by CLASSIC FOLIOS LIMITED (<strong>We</strong>). We are registered
       in England and Wales under company number 04562237 and have our registered office at Highland House  Mayflower
       Close  Chandlers Ford  Eastleigh  Hampshire  SO53 4AR. Our main trading address is Highland House  Mayflower
       Close  Chandlers Ford  Eastleigh  Hampshire  SO53 4AR. Our VAT number is GB675708400"
       contact_2: "We are a limited company."
-      contact_3: "To contact us, please email hello@hoozzi.com or customer service line on 02380626280."
+      contact_3: "To contact us, please email hello@spaciable.com or customer service line on 02380626280."
       terms_title: "By using our site you accept these terms"
       terms_1: "By using our site, you confirm that you accept the terms of this policy and that you agree to comply
       with them."
@@ -333,7 +333,7 @@ en:
       standards_20: "Be likely to harass, upset, embarrass, alarm or annoy any other person."
       standards_21: "Impersonate any person, or misrepresent your identity or affiliation with any person."
       standards_22: "Give the impression that the Contribution emanates from CLASSIC FOLIOS LIMITED (in dealing through
-      its trading name Hoozzi), if this is not the case."
+      its trading name Spaciable), if this is not the case."
       standards_23: "Advocate, promote, incite any party to commit, or assist any unlawful or criminal act such as (by
       way of example only) copyright infringement or computer misuse."
       standards_24: "Contain a statement which you know or believe, or have reasonable grounds for believing, that

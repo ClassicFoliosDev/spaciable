@@ -15,26 +15,26 @@
     <div class="row finish">
       <div class="row-item third">
         <fieldset>
+          <div class="image-container">
+            <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+        </fieldset>
+        <fieldset>
           <%= f.input :name %>
           <%= label_tag :description %>
           <%= f.text_area :description %>
-        </fieldset>
-        <fieldset>
-          <div class="image-container">
-            <%= f.input :picture, as: :image_preview, input_html: { preview_version: :thumbnail } %>
-          </div>
         </fieldset>
       </div>
       <div class="row-item third">
         <fieldset>
           <div class="finish_category ui-front select-container">
-            <%= f.association :finish_category, collection: FinishCategory.order(:name) %>
+            <%= f.association :finish_category, label: t(".category"), collection: FinishCategory.order(:name) %>
           </div>
           <div class="finish_type ui-front select-container">
-            <%= f.association :finish_type, collection: [finish&.finish_type] %>
+            <%= f.association :finish_type, label: t(".type"), collection: [finish&.finish_type] %>
           </div>
           <div class="finish-manufacturer ui-front select-container">
-            <%= f.association :finish_manufacturer, collection: [finish&.finish_manufacturer] %>
+            <%= f.association :finish_manufacturer, label: t(".manufacturer"), collection: [finish&.finish_manufacturer] %>
           </div>
         </fieldset>
       </div>

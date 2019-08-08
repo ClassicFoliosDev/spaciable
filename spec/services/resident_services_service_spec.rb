@@ -25,7 +25,7 @@ RSpec.describe ResidentServicesService do
 
       title = I18n.t("application_mailer.request_services.title", name: resident.to_s)
       expect(services_email.subject).to eq title
-      expect(services_email.to).to include "services@hoozzi.com"
+      expect(services_email.to).to include "services@spaciable.com"
 
       expect(services_email.parts.first.body).to include I18n.t("application_mailer.request_services.subscribed")
       expect(services_email.parts.first.body).to include service1.name
@@ -52,7 +52,7 @@ RSpec.describe ResidentServicesService do
 
       title = I18n.t("application_mailer.request_services.title", name: resident.to_s)
       expect(services_email.subject).to eq title
-      expect(services_email.to).to include "services@hoozzi.com"
+      expect(services_email.to).to include "services@spaciable.com"
 
       email_contents = services_email.parts.first.body.to_s
 

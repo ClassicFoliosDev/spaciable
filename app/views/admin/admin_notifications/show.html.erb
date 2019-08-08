@@ -1,16 +1,15 @@
-<% breadcrumb :admin_admin_notifications, @admin_notification %>
+<% breadcrumb :admin_admin_notification, @admin_notification %>
 
 <div class="section-header">
   <div class="section-title">
-    <i class="fa fa-envelope"></i>
     <%= @admin_notification.subject %><br>
   </div>
 </div>
 
 <div class="row notification">
   <div class="row-item two-thirds">
-    <%= label_tag(AdminNotification.human_attribute_name(:subject)) %>
-    <span><%= @admin_notification.subject %></span>
+    <%= label_tag(t(".sent_to")) %>
+    <span><%= @admin_notification.sent_to %></span>
     <%= label_tag(AdminNotification.human_attribute_name(:message)) %>
     <span><%= simple_format @admin_notification.message %></span>
   </div>

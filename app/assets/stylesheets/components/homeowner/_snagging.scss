@@ -117,9 +117,20 @@
     text-align: right;
   }
 
+  ::placeholder {
+    color: $primary-navy;
+    opacity: 0.5;
+  }
+
   span {
     font-size: $base-small-font-size;
     padding-bottom: $spacing-small;
+  }
+}
+
+.snag-comment-form {
+  span  {
+    margin-top: 5px;
   }
 }
 
@@ -131,9 +142,10 @@
     border-style: solid;
     border-width: 1px;
     margin: $spacing-small;
+    border-radius: $border-radius;
 
     img {
-      border-radius: 10px;
+      border-radius: 5px;
       width: 60%;
       margin-top: $spacing-small;
     }
@@ -159,6 +171,7 @@
       width: 100%;
       margin-bottom: 5px;
       margin-top: 20px;
+      border-radius: 5px;
     }
   }
 
@@ -215,7 +228,7 @@
 }
 
 .circle-small {
-  border: 1px solid $type-grey;
+
   border-radius: 50%;
   width: 12px;
   height: 12px;

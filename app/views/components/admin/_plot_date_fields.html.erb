@@ -1,12 +1,12 @@
 <div class="plot-field">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_release_date_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :reservation_release_date, as: :string,
+  <%= f.input :reservation_release_date, label: t(".res_release_date"), as: :string,
      placeholder: "DD/MM/YYYY",
      input_html: { type: :date } %>
 </div>
 <div class="plot-field">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_release_date_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :completion_release_date, as: :string,
+  <%= f.input :completion_release_date, label: t(".comp_release_date"), as: :string,
              placeholder: "DD/MM/YYYY",
              input_html: { type: :date } %>
 </div>
@@ -18,7 +18,7 @@
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
 </div>
-<% if plot.present? %>
+<% if plot&.persisted? %>
   <div class="plot-field">
     <%= f.label t(".expiry_date") %>
     <span><%= plot&.expiry_date&.strftime("%d %B %Y") %></span>

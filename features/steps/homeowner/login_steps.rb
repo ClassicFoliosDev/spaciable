@@ -74,8 +74,6 @@ end
 
 Then(/^I should be on the "Homeowner Login" page with errors$/) do
   expect(page).to have_content(t("residents.sessions.create.no_plot"))
-  expect(page).to have_content(t("activerecord.attributes.resident.email"))
-  expect(page).to have_content(t("activerecord.attributes.resident.password"))
 end
 
 Then(/^I can request a password reset$/) do

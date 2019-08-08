@@ -179,6 +179,7 @@ Rails.application.routes.draw do
     resources :snags
     resources :snag_attachments
     resources :snag_comments, only: [:new, :create]
+    resources :lettings, only: [:show]
     post "snags/:id", to: "snag_comments#create"
 
     get "contacts/:category",

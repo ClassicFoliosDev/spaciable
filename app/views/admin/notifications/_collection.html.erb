@@ -35,7 +35,7 @@
             <%= truncate(notification.sent_to, length: 120) %>
           </td>
           <td>
-            <%= notification.send_to_role || "both" %>
+            <%= notification.sent_to_role %>
           </td>
           <td colspan="2">
             <%= notification.sent_from %>

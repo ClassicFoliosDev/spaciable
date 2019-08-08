@@ -1,7 +1,12 @@
-<h3><%= t(".title") %></h3>
+<% breadcrumb :admin_settings %>
 
-<div class="section-data">
-  <%= edit_btn edit_admin_settings_path, element: @setting %>
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %><br>
+  </div>
+  <div class="section-data">
+    <%= edit_btn edit_admin_settings_path, element: @setting %>
+  </div>
 </div>
 
 <div class="row configuration">
@@ -18,9 +23,6 @@
       <label><%= t(".privacy") %></label>
       <span><%= @setting.privacy_short_name %></span>
     </div>
-  </div>
-
-  <div class="row-item half">
     <div class="intro-video">
       <label><%= t(".video_link") %></label>
       <span><%= @setting.video_link %></span>

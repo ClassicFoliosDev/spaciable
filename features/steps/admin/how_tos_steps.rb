@@ -17,7 +17,7 @@ When(/^I create a HowTo$/) do
     select_from_selectmenu :how_to_featured, with: HowToFixture.featured
 
     tags = HowToFixture.tag + ", " + HowToFixture.tag1
-    fill_in t("admin.how_tos.form.new_tag"), with: tags
+    fill_in "how_to_tags_attributes_0_name", with: tags
 
     click_on t("faqs.form.submit")
   end
@@ -49,7 +49,7 @@ When(/^I update the HowTo$/) do
   end
 
   within ".how_to_tags_name" do
-    fill_in t("admin.how_tos.form.new_tag"), with: HowToFixture.tags
+    fill_in "how_to_tags_attributes_2_name", with: HowToFixture.tags
   end
 
   within ".sub-category" do

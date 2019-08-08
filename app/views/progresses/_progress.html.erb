@@ -4,26 +4,25 @@
       <% unless plot.expired? && !(current_user.cf_admin?) %>
         <div class="row-item half">
           <div class="plot_progress ui-front select-container">
+            <label><%= t(".previous") %></label>
+            <span class="current-progress"><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") unless plot.remove? %></span>
             <label><%= t(".update_progress") %></label>
             <%= f.select :progress, options_for_select(progress_collection(plot&.progress)), label: false %>
           </div>
+          <% unless plot.expired? && !(current_user.cf_admin?) %>
+          <div class="submit">
+            <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+            <div class="notify">
+              <p class="checkbox-description"><%= t(".notify") %></p>
+              <%= f.check_box :notify, label: false %>
+            </div>
+          </div>
+          <% end %>
         </div>
       <% end %>
-
-      <div class="row-item half">
-        <label><%= t(".previous") %></label>
-        <span><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") unless plot.remove? %></span>
-      </div>
     </div>
 
-    <% unless plot.expired? && !(current_user.cf_admin?) %>
-      <div class="above-footer">
-        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-        <div class="notify">
-          <%= label_tag t(".notify") %>
-          <%= f.check_box :notify %>
-        </div>
-      </div>
-    <% end %>
+
   <% end %>
 </div>
+

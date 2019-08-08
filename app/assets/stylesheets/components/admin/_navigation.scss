@@ -15,7 +15,7 @@ $navbar-link-font-size-mobile: $title-font-size-3;
 $navbar-bg-color-mobile: $ui-white;
 
 .navbar {
-  background-color: $secondary-blue;
+  background-color: $primary-navy;
   margin-top: 108px;
   // Start hidden, until toggle
   display: none;
@@ -72,9 +72,14 @@ $navbar-bg-color-mobile: $ui-white;
   bottom: 0;
   right: 0;
   padding: 0 38px;
+  background-color: $ui-superlight-grey;
+  color: $primary-black;
+  z-index: 20;
 
   a {
     font-size: $base-small-font-size;
+    color: $primary-navy;
+    text-decoration: none;
   }
 }
 
@@ -108,5 +113,17 @@ $navbar-bg-color-mobile: $ui-white;
 
   .admin-trigger-label {
     display: none;
+  }
+}
+
+@include media($tablet-landscape-up) {
+  .copyright-footer {
+    width: 80%;
+  }
+}
+
+@include media($desktop-large-up) {
+  .copyright-footer {
+    width: 85%;
   }
 }

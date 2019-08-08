@@ -24,7 +24,7 @@ When(/^I want to create a development for the developer$/) do
 end
 
 Then(/^choice options should be off by default$/) do
-  expect(page).to have_content("Choice options")
+  expect(page).to have_content("Choices Options")
   expect(page).to have_content("Off")
   expect(page).not_to have_content("Choices Contact Email")
 end
@@ -45,7 +45,7 @@ When(/^I enable the Either option on the development$/) do
 end
 
 Then(/^a Choises contact email should become available$/) do
-  expect(page).to have_content("Choices contact email")
+  expect(page).to have_content("Choices Contact Email")
   click_on t("developments.form.submit")
   sleep 2
 end
@@ -110,7 +110,7 @@ Then(/^it should contain no room items$/) do
 end
 
 When(/^I add a new room item/) do
-  click_on t("room_configurations.room_items.collection.add")
+  click_on "Add room item"
 end
 
 When(/^I associate multiple apliances$/) do
@@ -450,7 +450,7 @@ end
 
 Then(/^I can see a rejection email$/) do
   open_last_email
-  current_email.should be_delivered_from("no-reply@hoozzi.com")
+  current_email.should be_delivered_from("no-reply@spaciable.com")
   current_email.should deliver_to(CreateFixture.resident_email)
   expect(current_email).to have_subject ("Plot #{CreateFixture.phase_plot_name} choice selections declined")
   expect(current_email.default_part_body.to_s).to include(CreateFixture.rejection_message)
@@ -458,7 +458,7 @@ end
 
 Then(/^a confirmation email is sent to the resident$/) do
   email = ActionMailer::Base.deliveries.first
-  email.should be_delivered_from("no-reply@hoozzi.com")
+  email.should be_delivered_from("no-reply@spaciable.com")
   email.should deliver_to(CreateFixture.resident_email)
   expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} Choices approved")
   expect(email.default_part_body.to_s).to include(CreateFixture.phase_plot_name)

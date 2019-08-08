@@ -15,8 +15,8 @@
   <table class="record-list rooms">
     <thead>
       <tr>
-        <th><%= sortable(Room, :name) %></th>
-        <th><%= sortable(Room, :updated_at) %></th>
+        <th><%= sortable(Room, :name, t(".name")) %></th>
+        <th><%= sortable(Room, :updated_at, t(".last_edited")) %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>

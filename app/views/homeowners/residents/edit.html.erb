@@ -1,21 +1,12 @@
 <% content_for :hero_text_primary do %>
-  <span><%= t("activerecord.attributes.resident.titles.#{current_resident.title}") %> <%= current_resident %></span>
+  <span><%= t("homeowners.residents.edit.account") %></span>
 <% end %>
-<% content_for :hero_text_secondary do %>
-  <span><%= render 'address/address', address: @plot %></span>
-<% end %>
-
-<nav class="sub-navigation-container">
-  <div class="nav-inner">
-    <div class="branded-text"><%= t(".my_account") %></div>
-  </div>
-</nav>
 
 <div class="resident-hero">
   <%= render "components/homeowner/hero" %>
 </div>
 
-<div class="branded-body outer-container">
+<div class="branded-body outer-container branded-text">
   <div class="resident">
     <%= simple_form_for ([:homeowners, current_resident]) do |f| %>
       <% if current_resident.errors.any? %>
@@ -31,21 +22,19 @@
         </div>
       <% end %>
 
-      <div class="half details branded-content branded-border">
+      <div class="half change resident-details branded-content branded-border resident-name">
         <h3><%= t(".change_details") %></h3>
-        <%= f.label :email %>
-        <%= f.text_field :email, readonly: true, class: "readonly" %>
         <%= f.input :title,
                     as: :select,
                     collection: Resident.titles,
                     label_method: ->((key, _)) { t_enum(Resident, :title, key) },
                     value_method: ->((key, _)) { key },
                     include_blank: true %>
-        <%= f.input :first_name %>
-        <%= f.input :last_name %>
+        <%= f.input :first_name, label: t(".first_name") %>
+        <%= f.input :last_name, label: t(".surname") %>
       </div>
 
-      <div class="half password last branded-content branded-border">
+      <div class="half change password resident-details last branded-content branded-border resident-password">
         <h3><%= t(".change_password") %></h3>
         <%= f.input :current_password, label: t(".current_password"), autocomplete: "off" %>
         <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>

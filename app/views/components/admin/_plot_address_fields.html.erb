@@ -11,7 +11,7 @@
     </div>
     <div class="plot-field">
       <% if plot.nil? %><span class="bulk-check"><%= f.input_field :house_number_check, as: :boolean, label: false %></span><% end %>
-      <%= f.input :house_number, label: t(".house_number") %>
+      <%= f.input :house_number, label: t(".postal_address"), placeholder: t("addresses.placeholders.postal") %>
     </div>
     <div class="plot-field">
       <% if plot.nil? %><span class="bulk-check"><%= f.input_field :building_name_check, as: :boolean, label: false %></span><% end %>
@@ -26,9 +26,9 @@
       <%= f.input :postcode %>
     </div>
     <% if plot.present? %>
-      <%= f.input :locality, readonly: true, class: "readonly" %>
-      <%= f.input :city, readonly: true, class: "readonly" %>
-      <%= f.input :county, readonly: true, class: "readonly" %>
+      <div class="address-read-only"><%= f.input :locality, readonly: true, class: "readonly" %></div>
+      <div class="address-read-only"><%= f.input :city, readonly: true, class: "readonly" %></div>
+      <div class="address-read-only"><%= f.input :county, readonly: true, class: "readonly" %></div>
     <% end %>
   </fieldset>
 </div>

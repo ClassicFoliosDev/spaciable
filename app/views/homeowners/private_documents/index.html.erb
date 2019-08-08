@@ -23,16 +23,18 @@
       </p>
     </div>
   <% else %>
-    <div class="new-document">
+    <div class="new-document branded-text">
+      <p>
+        <span><%= t(".file_description") %></span><br/>
+        <span class="constraint"><%= t(".file_constraint") %></span>
+      </p>
+      <div class="upload-document">
       <%= simple_form_for @private_document, class: "document-form" do | f | %>
         <%= f.label :file, t(".new"), class: "btn branded-btn" %>
         <%= f.file_field :file, class: "upload-document hidden" %>
         <%= f.submit "", class: "hidden" %>
       <% end %>
-      <p>
-        <span><%= t(".file_description") %></span><br/>
-        <span class="constraint"><%= t(".file_constraint") %></span>
-      </p>
+      </div>
     </div>
   <% end %>
 
@@ -44,5 +46,5 @@
 </div>
 
 <% if current_resident&.plot_residency_homeowner?(@plot) %>
-  <%= render "homeowners/components/sharing_info" %>
+  <%= render "homeowners/components/sharing_info", plot: @plot %>
 <% end %>

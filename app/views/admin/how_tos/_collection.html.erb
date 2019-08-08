@@ -15,11 +15,11 @@
   <table class="record-list how-tos">
     <thead>
       <tr>
-        <th><%= sortable(HowTo, :title, sort_params: {country: country.name }) %></th>
-        <th><%= sortable(HowTo, :updated_at, sort_params: {country: country.name }) %></th>
+        <th><%= sortable(HowTo, :title, t(".how_to"), sort_params: {country: country.name }) %></th>
         <th><%= sortable(HowTo, :category, sort_params: {country: country.name }) %></th>
         <th><%= sortable(HowTo, :featured, sort_params: {country: country.name }) %></th>
         <th><%= sortable(HowTo, :hide, sort_params: {country: country.name }) %></th>
+        <th><%= sortable(HowTo, :updated_at, t(".last_edited"), sort_params: {country: country.name }) %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -27,10 +27,10 @@
       <% collection.each do |how_to| %>
         <tr data-how_to="<%= how_to.id %>">
           <td><%= link_to how_to, admin_how_to_path(how_to), title: how_to %></td>
-          <td><%= l how_to.updated_at.to_date, format: :digits %></td>
           <td><%= content_tag(:span, t_enum(HowTo, :category, how_to.category)) %></td>
           <td><%= how_to.featured %></td>
           <td><%= t("admin.how_tos.show.hidden") if how_to.hide %> </td>
+          <td><%= l how_to.updated_at.to_date, format: :digits %></td>
           <td class="actions">
             <%= edit_btn edit_admin_how_to_path(how_to), element: how_to %>
             <%= delete_btn how_to, path: admin_how_to_path(how_to), element: how_to %>

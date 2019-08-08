@@ -2,7 +2,15 @@
 
 <div class="section-header">
   <div class="section-title">
-    <%= t(".title", parent_name: @parent) %>
+    <div><%= @unit_type.name %></div>
+    <span class="about">
+      <br/>
+      <strong><%= t("unit_types.show.walkthrough") %></strong><%= @unit_type.external_link %><br/>
+      <strong><%= t("unit_types.show.build_type") %></strong><%= t("activerecord.attributes.unit_type.build_types.#{@unit_type.build_type}") %>
+    </span>
+  </div>
+  <div class="section-data">
+    <%= edit_btn [:edit, @unit_type.development, @unit_type], element: @unit_type %>
   </div>
 </div>
 

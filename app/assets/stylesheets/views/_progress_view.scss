@@ -2,6 +2,22 @@
   margin-top: $spacing-large;
 }
 
-.plot-progress .row label {
-  margin: 20px 0;
+.plot-progress .row .current-progress {
+  color: $semi-pale-navy;
+}
+
+.plot-progress {
+  .notify {
+    float: right;
+    padding-right: $spacing-small;
+    margin-top: 5px;
+  }
+
+  .submit {
+    margin-top: $spacing-large;
+  }
+
+  .btn-form-submit {
+    float: right;
+  }
 }

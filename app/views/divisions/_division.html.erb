@@ -5,13 +5,14 @@
     <% end %>
     <div><%= division.division_name %></div>
     <span class="about">
+      <br/>
       <strong><%= t(".list_id") %></strong><%= division.list_id || t(".none") %>
     </span>
   </div>
 
   <div class="section-data">
-    <%= render 'address/address', address: division.address %>
-    <%= render 'components/contacts', contact: division %>
+    <%= render 'address/address', address: division.address %><br/>
+    <%= render 'components/contacts', contact: division %><br/>
     <%= edit_btn [:edit, division.parent, division], element: division %>
   </div>
 </div>

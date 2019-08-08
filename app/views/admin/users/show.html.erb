@@ -2,25 +2,35 @@
 
 <div class="section-header">
   <div class="section-title">
-    <i class="fa fa-user"></i>
-    <%= @user %><br>
+    <div><%= @user %></div><br/>
+  </div>
+  <div class="section-data">
+    <%= edit_btn [:edit, :admin, @user], element: @user %>
+  </div>
+</div>
 
-    <div class="section-data">
-      <div class="user-picture">
+<div class="row contact">
+  <div class="row-item third">
+     <div class="user-picture">
         <%= image_tag @user.picture.url :thumbnail if @user.picture? %>
       </div>
-      <i class="fa fa-envelope"></i>
-      <%= @user.email %>
-      <%= edit_btn [:edit, :admin, @user], element: @user %>
-
-      <i class="fa fa-lock"></i>
-      <% if @user.cf_admin? %>
-        <%= t(@user.role) %>
-      <% else %>
-        <%= t(".role_at", role: t(@user.role), permission_level_name: @user.permission_level) %>
+      <div class="email">
+        <%= label_tag(:email) %>
+        <span><%= @user.email %></span>
+      </div>
+      <% if @user.job_title? %>
+        <div class="job-title">
+          <%= label_tag :job_title, t(".job_title") %>
+          <span><%= @user.job_title %></span>
+        </div>
       <% end %>
-      <i class="fa fa-bolt"></i>
-      <%= @user.job_title %>
+    <div class="role">
+      <%= label_tag :role %>
+      <% if @user.cf_admin? %>
+        <span><%= t(@user.role) %></span>
+      <% else %>
+        <span><%= t(".role_at", role: t(@user.role), permission_level_name: @user.permission_level) %></span>
+      <% end %>
     </div>
   </div>
 </div>

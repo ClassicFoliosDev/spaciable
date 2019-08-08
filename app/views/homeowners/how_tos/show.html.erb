@@ -1,16 +1,29 @@
+<% content_for :hero_text_primary do %>
+  <%= t('.title') %>
+<% end %>
+<% content_for :hero_text_secondary do %>
+<ul class="hero-links categories">
+  <li>
+    <%= link_to t(".articles"), homeowner_how_tos_path %>
+  </li>
+</ul>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
 <div class="branded-body">
   <div class="article-container">
     <div class="article branded-content branded-text branded-border">
       <div class="article-content">
-        <p class="breadcrumb"><%= link_to t_enum(HowTo, :category, @how_to.category), homeowner_how_tos_path(@how_to.category) %></p>
+        <p class="breadcrumb branded-text"><%= link_to t_enum(HowTo, :category, @how_to.category), homeowner_how_tos_path(@how_to.category) %></p>
 
         <h2><%= @how_to.title %></h2>
 
         <p class="strong"><%= t(".featured") if @how_to.featured.present? %></p>
 
-        <p><%= @how_to.summary %></p>
+        <p class="summary"><%= @how_to.summary %></p>
 
-        <p><%= t(".read", minutes: @how_to.read_size) %></p>
+        <p class="read-time"><%= t(".read", minutes: @how_to.read_size) %></p>
 
         <% if @how_to.url? %>
           <iframe height="346" src=<%= @how_to.url %> frameborder="0"></iframe>
@@ -28,7 +41,7 @@
           <h4><%= t(".tags") %></h4>
           <ul>
             <% @how_to.tags.each do |tag| %>
-              <li class="tag">
+              <li class="tag branded-text">
                 <%= link_to tag, homeowner_how_tos_path(tag: tag.id) %>
               </li>
             <% end %>

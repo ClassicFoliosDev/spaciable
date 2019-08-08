@@ -35,7 +35,7 @@
 
     a {
       font-size: $base-small-font-size;
-      color: $type-grey;
+      color: $primary-navy;
     }
   }
 
@@ -66,6 +66,10 @@
   }
 }
 
+.sharing-info {
+  color: $primary-navy;
+}
+
 .library .documents {
   .row {
     margin-left: auto;
@@ -93,14 +97,15 @@
     font-size: 40px;
     display: block;
     margin-bottom: $spacing-small;
-    color: $type-grey;
+    color: primary-navy;
   }
 }
 
 .disclaimer {
   font-size: $ultra-small-font;
   padding: $spacing-small;
-  border-bottom: solid 1px $ui-grey;
+  text-align: center;
+  color: $primary-black;
 }
 
 .document-permission {
@@ -108,7 +113,6 @@
 
   &:after {
     font-size: 14px;
-    color: $secondary-green;
     font-family: FontAwesome;
     content: "\f10c";
   }
@@ -124,6 +128,11 @@
     display: block;
   }
 
+  .hide-sharing-info {
+    font-size: $ultra-small-font;
+    font-weight: $semi-bold-font-weight;
+  }
+
   .ui-dialog-titlebar-close {
     margin-top: -24px;
   }
@@ -135,6 +144,8 @@
   }
 
   .ui-dialog-buttonpane {
+    padding: 1px;
+
     .ui-dialog-buttonset {
       float: none;
     }
@@ -145,10 +156,6 @@
       display: block;
       border: 2px $primary-red solid;
     }
-  }
-
-  .ui-button-text {
-    color: $primary-red;
   }
 
   .ui-dialog-buttonset {

@@ -11,7 +11,7 @@ table.record-list {
   border-collapse: collapse;
   width: 100%;
   margin-bottom: $spacing-small;
-  color: $type-grey;
+  color: $primary-navy;
   font-size: $base-font-size;
 
   th, td {
@@ -31,15 +31,25 @@ table.record-list {
 
   th a {
     font-weight: bold;
-    color: $type-grey;
+    color: $primary-navy;
   }
 
   td a {
-    color: $type-grey;
+    color: $primary-navy;
     text-decoration: none;
+    font-weight: $semi-bold-font-weight;
+  }
 
-    &:hover {
-      text-decoration: underline;
+  td {
+    .btn {
+      color: $primary-red-left;
+      border: 1px solid $primary-red-left;
+      font-weight: $base-font-weight;
+    }
+    .btn:hover {
+      color: $ui-white;
+      border-color: $primary-red-left;
+      background-color: $primary-red-left;
     }
   }
 
@@ -52,9 +62,9 @@ table.record-list {
   }
 
   img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 10%;
   }
 }
 

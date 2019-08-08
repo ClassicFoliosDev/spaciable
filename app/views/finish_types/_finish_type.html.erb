@@ -1,9 +1,8 @@
 <div class="section-header">
   <div class="section-title">
-    <div><%= finish_type.name %></div>
+    <div><%= finish_type.name %></div><br/>
     <span class="about"><strong><%= t(".finish_category") %></strong> <%= finish_type.finish_categories.first %></span>
   </div>
-
   <div class="section-data">
     <span class="right">
       <%= edit_btn edit_finish_type_path, element: finish_type %>
@@ -13,7 +12,7 @@
 
 <div class="row finish_type">
   <div class="row-item third">
-    <label><%= t(".manufacturers") %></label>
+    <h5><%= t(".manufacturers") %></h5>
     <% finish_type.finish_manufacturers.each do | manufacturer | %>
       <span><%= manufacturer %></span><br>
     <% end %>

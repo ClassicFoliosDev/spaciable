@@ -1,22 +1,31 @@
+<% breadcrumb :reports %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %><br>
+  </div>
+</div>
+
 <%= simple_form_for @report, url: admin_analytics_path do |f| %>
   <div class="row">
     <div class="report-date half">
-      <%= f.input :report_from,
-        label: t("activerecord.attributes.report.report_from"),
-        as: :date,
-        order: [:day, :month, :year],
-        start_year: Date.today.year,
-        end_year: 2017,
-        default: Date.parse("2017-1-1") %>
-    </div>
-
-    <div class="report-date half">
+      <div class="date-field">
+        <%= f.input :report_from,
+          label: t("activerecord.attributes.report.report_from"),
+          as: :date,
+          order: [:day, :month, :year],
+          start_year: Date.today.year,
+          end_year: 2017,
+          default: Date.parse("2017-1-1") %>
+      </div>
+      <div class="date-field">
       <%= f.input :report_to,
         label: t("activerecord.attributes.report.report_to"),
         as: :date,
         order: [:day, :month, :year],
         start_year: Date.today.year,
         end_year: 2017 %>
+      </div>
     </div>
   </div>
 
@@ -34,6 +43,13 @@
     </div>
 
     <div class="half report-buttons">
+      <span><%= label_tag :billing_info, t(".billing_info") %></span>
+
+      <%= f.button :submit, t(".billing"),
+        data: { disable_with: false },
+        name: :billing,
+        class: "billing-csv btn-primary" %><br/>
+
       <%= f.button :submit, t(".all"),
           data: { disable_with: false },
           name: :all,
@@ -49,14 +65,7 @@
           data: { disable_with: false },
           name: :development,
           class: "development-csv btn-primary",
-          disabled: true %>
-
-      <%= f.button :submit, t(".billing"),
-          data: { disable_with: false },
-          name: :billing,
-          class: "billing-csv btn-primary" %><br/>
-      <%= f.label t(".billing_info") %>
-
+          disabled: true %><br/>
     </div>
   </div>
 

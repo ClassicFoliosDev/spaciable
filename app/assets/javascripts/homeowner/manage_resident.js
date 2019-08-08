@@ -86,7 +86,7 @@
   $(document).on('click', '.prompt-remove', function (event) {
     var dataIn = $(this).data()
 
-    var $confirmContainer = $('<div>', { id: 'dialog' }).html(dataIn.text + '<p>' + dataIn.details + '</p>')
+    var $confirmContainer = $('<div>', { id: 'dialog' }).html('<h4>' + dataIn.text + '</h4> <p>' + dataIn.details + '</p>')
     $('body').append($confirmContainer)
 
     $confirmContainer.dialog({

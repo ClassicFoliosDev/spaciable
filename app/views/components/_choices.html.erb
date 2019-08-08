@@ -8,10 +8,9 @@
     <% room_style = (status == :acceptreject && resident == false) ? "display:inline" : "display:none" %>
 
     <% if current_resident.present? %>
-      <div class="homeowner-container">
+      <div class="homeowner-container branded-body branded-text">
     <% end %>
     <div class="row-item, id="choices_panel">
-      <h3 class="choices-title">Choices</h3>
       <table class="choices-table">
         <% if status == :edit || status == :acceptreject || status == :approved %>
           <tr class="choice-selectors">
@@ -20,9 +19,9 @@
               <td class="choices-option">
                 <div class="input select optional room_select">
                   <table class="choices-option">
-                    <tr><label>Room</label></tr>
+                    <tr><label class="branded-text">Room</label></tr>
                     <tr>
-                      <select id='room_select'>
+                      <select class="branded-text", id='room_select'>
                         <option value=" ">Choose...</option>
                         <% rooms.each do | room | %>
                           <option value=<%=room[:id]%>><%=room[:name]%></option>
@@ -36,7 +35,7 @@
               <td class="choices-option">
                 <div id='room_items' class="input select optional select_item">
                   <table class="choices-option">
-                    <tr><label>Item</label></tr>
+                    <tr><label class="branded-text">Item</label></tr>
                     <tr>
                       <select id='select_item'>
                         <option label=" "></option>
@@ -49,7 +48,7 @@
               <td class="choices-option">
                 <div id='room_item_choices' class="input select optional select_item_choice">
                   <table>
-                    <tr><label>Choices</label></tr>
+                    <tr><label class="branded-text">Choices</label></tr>
                     <tr>
                       <select id='select_item_choice'>
                         <option label=" "></option>
@@ -138,7 +137,7 @@
 
     <% if status == :edit || status == :approved %>
       <div class="above-footer">
-        <%= submit_tag t("choices.save"), class: "btn-form-submit btn-primary" %>
+        <%= submit_tag t("choices.save"), class: "btn branded-btn" %>
         <% if status == :approved %>
           <a href="<%= export_choices_path plot_id: plot.id %>">
            <%= button_tag "Export Choices", type: "button", class: "btn"%>
