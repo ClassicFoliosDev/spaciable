@@ -119,6 +119,14 @@ hr {
   }
 }
 
+.ui-dialog {
+  z-index: 101 !important;
+}
+
+.ui-selectmenu-open {
+  z-index: 105 !important;
+}
+
 .ui-selectmenu-menu {
 
   .ui-menu {

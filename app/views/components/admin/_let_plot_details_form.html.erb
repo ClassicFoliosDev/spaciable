@@ -1,0 +1,63 @@
+<div class="lettings"-description">
+  <h4><%= t(".let_plot_details") %> </h4>
+  <p><%= t(".let_plot_disclaimer") %></p>
+</div>
+
+<div class="lettings-form">
+  <%= simple_form_for letting, url: phase_lettings_path(phase.id), remote: true do |f| %>
+  <div class="third">
+    <label><%= label_tag :address_1, t(".address_1") %></label>
+    <%= f.input :address_1, label: false, required: true %>
+
+    <label><%= label_tag :address_2, t(".address_2") %></label>
+    <%= f.input :address_2, label: false, required: true %>
+
+    <label><%= label_tag :town, t(".town") %></label>
+    <%= f.input :town, label: false, required: true %>
+
+    <label><%= label_tag :postcode, t(".postcode") %></label>
+    <%= f.input :postcode, label: false, required: true %>
+
+    <label><%= label_tag :bedrooms %></label>
+    <%= f.input :bedrooms, label: false, required: true %>
+
+    <label><%= label_tag :bathrooms %></label>
+    <%= f.input :bathrooms, label: false, required: true %>
+
+    <%= f.input :shared_accommodation, as: :select, options_for_select: [['Yes', true], ['No', false]],
+    label: t(".shared"), include_blank: false %>
+
+    <%= f.input :has_car_parking, as: :select, options_for_select: [['Yes', true], ['No', false]],
+    label: t(".car_parking"), include_blank: false %>
+
+    <%= f.input :has_bike_parking, as: :select, options_for_select: [['Yes', true], ['No', false]],
+    label: t(".bike_parking"), include_blank: false %>
+
+    <%= f.hidden_field :plot_id, required: true %>
+    <%= f.hidden_field :other_ref, required: true %>
+    <%= f.hidden_field :country, required: true %>
+
+    <%= f.hidden_field :lettings_account_id, value: current_user.lettings_account_id %>
+  </div>
+
+  <div class="two-thirds">
+    <label><%= label_tag :price, t(".price") %></label>
+    <%= f.input :price, label: false, required: true %>
+
+    <%= f.input :property_type, as: :select, collection: [['to'], ['be'], ['confirmed']],
+    label: t(".property_type"), include_blank: false %>
+
+    <label><%= label_tag :pets, t(".pets_policy") %></label>
+    <p class="field-description"><%= t(".pets_policy_details") %></p>
+    <%= f.input :landlord_pets_policy, required: true, label: false %>
+
+    <label><%= label_tag :summary, t(".summary") %></label>
+    <p class="field-description"><%= t(".summary_details") %></p>
+    <%= f.input :summary, as: :text, required: true, label: false, class: "summary-field" %>
+
+    <label><%= label_tag :notes, t(".notes") %></label>
+    <p class="field-description"><%= t(".notes_details") %></p>
+    <%= f.input :notes, required: true, label: false, class: "notes-field" %>
+  </div>
+  <% end %>
+</div>

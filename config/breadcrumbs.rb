@@ -259,6 +259,11 @@ crumb :phase_release_plots do |phase|
   parent :phase, phase
 end
 
+crumb :phase_lettings do |phase|
+  link t("breadcrumbs.phase_lettings"), phase_path(phase, active_tab: :lettings)
+  parent :phase, phase
+end
+
 # DEVELOPMENT CHOICE CONFIGURATIONS
 
 crumb :choice_configurations do |development|

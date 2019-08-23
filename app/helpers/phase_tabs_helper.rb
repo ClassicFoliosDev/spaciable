@@ -47,6 +47,11 @@ module PhaseTabsHelper
         link: [phase, :release_plots],
         # Only a CF admin can create appliances and make bulk edits
         permissions_on: -> { Appliance.new }
+      },
+      lettings: {
+        icon: "calendar-o",
+        link: [phase, :lettings],
+        permissions_on: -> { phase }
       }
     }
   end

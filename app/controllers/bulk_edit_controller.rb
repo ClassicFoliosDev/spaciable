@@ -5,6 +5,8 @@ class BulkEditController < ApplicationController
 
   def index
     return redirect_to root_path unless current_user.cf_admin?
+    @resident_count = @phase.plot_residencies.size
+    @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
   end
 
   def create

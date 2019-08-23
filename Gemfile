@@ -94,6 +94,7 @@ gem "foreman" # configuration in the Procfile
 
 # APIs
 gem "gibbon", "~> 3" # Mailchimp API wrapper
+gem "http"
 
 # Postgres search helper
 gem "pg_search"

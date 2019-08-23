@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190723101123) do
+ActiveRecord::Schema.define(version: 20190820151122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -454,6 +454,46 @@ ActiveRecord::Schema.define(version: 20190723101123) do
     t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
   end
 
+  create_table "lettings", force: :cascade do |t|
+    t.integer  "bathrooms"
+    t.integer  "bedrooms"
+    t.string   "landlord_pets_policy"
+    t.boolean  "has_car_parking"
+    t.boolean  "has_bike_parking"
+    t.integer  "property_type"
+    t.integer  "price"
+    t.boolean  "shared_accommodation"
+    t.string   "notes"
+    t.string   "summary"
+    t.string   "access_token"
+    t.integer  "plot_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "other_ref"
+    t.string   "address_1"
+    t.string   "address_2"
+    t.string   "postcode"
+    t.string   "country",              default: "UK"
+    t.string   "town"
+    t.integer  "lettings_account_id"
+    t.index ["lettings_account_id"], name: "index_lettings_on_lettings_account_id", using: :btree
+    t.index ["plot_id"], name: "index_lettings_on_plot_id", using: :btree
+  end
+
+  create_table "lettings_accounts", force: :cascade do |t|
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.integer  "management",    default: 0
+    t.string   "letter_type"
+    t.integer  "letter_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["letter_type", "letter_id"], name: "index_lettings_accounts_on_letter_type_and_letter_id", using: :btree
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "subject"
     t.text     "message"
@@ -487,8 +527,8 @@ ActiveRecord::Schema.define(version: 20190723101123) do
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "number"
@@ -496,7 +536,6 @@ ActiveRecord::Schema.define(version: 20190723101123) do
     t.integer  "total_snags",      default: 0
     t.integer  "unresolved_snags", default: 0
     t.integer  "business",         default: 0
-    t.boolean  "lettings",         default: true
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree
@@ -540,8 +579,10 @@ ActiveRecord::Schema.define(version: 20190723101123) do
     t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
     t.integer  "choice_selection_status",  default: 0,     null: false
-    t.boolean  "letable",                  default: true
+    t.boolean  "letable",                  default: false
     t.boolean  "let",                      default: false
+    t.integer  "letable_type"
+    t.integer  "letter_type"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
@@ -845,6 +886,8 @@ ActiveRecord::Schema.define(version: 20190723101123) do
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
+  add_foreign_key "lettings", "lettings_accounts"
+  add_foreign_key "lettings", "plots"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"

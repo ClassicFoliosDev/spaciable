@@ -57,7 +57,12 @@ class PlotsController < ApplicationController
   def update
     BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
       if updated_plots.any? && @plot.valid?
-        notify_and_redirect(updated_plots, errors)
+        if plot_params[:letter_type].present?
+          notice = t(".lettings_success", plot_name: @plot, type: plot_params[:letter_type])
+          redirect_to phase_lettings_path(@parent.id), notice: notice, alert: errors
+        else
+          notify_and_redirect(updated_plots, errors)
+        end
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
@@ -116,7 +121,8 @@ class PlotsController < ApplicationController
   def plot_attributes
     %i[ prefix number unit_type_id house_number road_name building_name locality city county
         postcode progress notify user_id completion_date reservation_release_date
-        completion_release_date validity extended_access copy_plot_numbers letable let]
+        completion_release_date validity extended_access copy_plot_numbers letable let
+        letter_type letable_type ]
   end
 
   def set_parent

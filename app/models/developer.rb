@@ -22,6 +22,10 @@ class Developer < ApplicationRecord
   has_many :brands, as: :brandable
   has_one :address, as: :addressable, dependent: :destroy
 
+  has_one :lettings_account, as: :letter
+  has_many :lettings, through: :lettings_account
+  delegate :management, to: :lettings_account
+
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
   # on a Developer object and it will retrieve the associated country from the Country
@@ -78,5 +82,9 @@ class Developer < ApplicationRecord
       plot_list << plot if plot.expired?
     end
     return true if plot_list.count.positive?
+  end
+
+  def no_lettings_account?
+    LettingsAccount.find_by(letter_id: id).nil?
   end
 end

@@ -316,9 +316,6 @@ end
 Then(/^I add another resident$/) do
   visit "/"
 
-  sleep 0.5
-  save_and_open_screenshot
-
   within ".session-inner" do
     click_on t("homeowners.residents.show.my_account")
   end

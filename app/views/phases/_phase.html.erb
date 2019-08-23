@@ -12,7 +12,6 @@
       <br/>
       <% if current_user.cf_admin? %>
         <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/>
-        <strong><%= t(".lettings") %></strong><%= phase.lettings %><br/>
       <% end %>
       <strong><%= t(".subscribed_residents") %></strong><%= subscribed_resident_count %><br/>
       <strong><%= t(".residents") %></strong><%= resident_count %>

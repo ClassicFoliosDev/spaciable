@@ -1,0 +1,13 @@
+<div class="hidden <%= plot_id %>">
+  <%= simple_form_for plot, url: phase_lettings_path(phase), remote: true do |f| %>
+    <div>
+      <%= f.hidden_field :letter_type, value: :unlettable %>
+      <%= f.hidden_field :letable_type, value: nil %>
+      <%= f.hidden_field :letable, value: false %>
+    </div>
+    <div>
+      <h3><%= t(".are_you_sure", plot: plot) %></h3>
+      <p><%= t(".confirm_remove") %></p>
+    </div>
+  <% end %>
+</div>

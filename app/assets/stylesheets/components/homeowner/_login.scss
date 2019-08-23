@@ -181,6 +181,11 @@
   margin-top: -$spacing-medium;
 }
 
+.login .preamble .no-logo {
+  margin-top: 50%;
+  margin-bottom: auto;
+}
+
 .branded-primary-text label.checkbox {
   font-size: $base-small-font-size;
 }
@@ -275,7 +280,7 @@
   background-image: url('images/Spaciable_pink_corner.svg');
   background-repeat: no-repeat;
   background-position: left bottom;
-  background-size: 30%;
+  background-size: 20%;
 
   .login {
     top: 50%;
@@ -503,4 +508,3 @@
     }
   }
 }
-

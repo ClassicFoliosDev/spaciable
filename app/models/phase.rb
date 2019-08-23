@@ -8,8 +8,6 @@ class Phase < ApplicationRecord
   include PgSearch
   multisearchable against: [:name], using: %i[tsearch trigram]
 
-  after_update :update_plot_lettings
-
   belongs_to :development, optional: false, counter_cache: true
   delegate :name, to: :development, prefix: true
   alias parent development
@@ -58,12 +56,6 @@ class Phase < ApplicationRecord
     :nhbc,
     :mhf
   ]
-
-  def update_plot_lettings
-    plots.each do |plot|
-      plot.update_attributes(letable: lettings) if lettings_changed? && plots.present?
-    end
-  end
 
   def build_address_with_defaults
     return if address.present?

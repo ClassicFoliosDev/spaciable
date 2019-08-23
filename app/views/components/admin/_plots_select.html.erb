@@ -1,5 +1,5 @@
 <fieldset>
-  <%= f.input :list, as: :text, label: t(".list_label"), hint: t(".list_input_hint"), input_html: { list: "selected_plots"} %>
+  <%= f.input :list, as: :text, label: t(".list_label"), hint: t(".list_input_hint").html_safe, input_html: { list: "selected_plots"} %>
 </fieldset>
 <% if defined?(all_plots) && all_plots %>
 <!-- To add an ALL Plots button - set all_plots true. The plots will be populated
@@ -9,4 +9,3 @@
   <%= f.hidden_field :phase_id, id: "phase_id", value: defined?(phase_id) ? phase_id : nil  %>
   <%= button_tag "Add All Plots", :type => 'button', class: "btn", id: 'add_plots', name: "add_plots_button" %>
 <% end %>
-

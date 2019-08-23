@@ -1,0 +1,107 @@
+.admin-lettings {
+  .row {
+    margin-top: $spacing-large;
+  }
+  .rental-type {
+    color: $semi-pale-navy;
+    font-weight: bold;
+  }
+
+  .default-type {
+    font-weight: bold;
+    color: $semi-pale-navy;
+    padding-top: $spacing-medium;
+  }
+
+  .homeowner-letting-options {
+    display: none;
+  }
+
+  .admin-letting-options {
+    margin-top: $spacing-small + 5px;
+  }
+
+  .not-lettable-letting-options {
+    display: none;
+  }
+
+  .label {
+    font-weight: $semi-bold-font-weight;
+  }
+
+  .add-plots {
+    margin-bottom: $spacing-medium;
+  }
+
+  .submit {
+    .btn-primary {
+      float: right;
+    }
+  }
+
+  .right {
+    text-align: right;
+  }
+
+  .let-out {
+    font-size: $base-button-font-size;
+    line-height: $button-line-height;
+    color: $semi-pale-navy;
+    font-weight: $bold-font-weight;
+  }
+
+  .management-selection {
+    .admin-confirm-letting-type {
+      margin-bottom: $spacing-large + $spacing-small;
+    }
+  }
+}
+
+.admin-view {
+  .lettings-form {
+    input[type="text"], input[type="number"] {
+      font-size: 14px;
+    }
+
+    .ui-selectmenu-open {
+      z-index: 105 !important;
+    }
+    .field-description {
+      font-size: 10px;
+      margin: 0;
+    }
+    .two-thirds {
+      margin-left: spacing-small !important;
+    }
+
+    label {
+      color: $primary-navy;
+    }
+
+    textarea {
+      min-height: 200px;
+      font-size: 14px;
+    }
+  }
+}
+
+.admin-lettings-account-form {
+  label {
+    color: $primary-navy;
+  }
+
+  p {
+    margin-right: $spacing-small;
+  }
+
+  .intro {
+    margin-top: $spacing-small;
+  }
+  .important {
+    font-weight: 700;
+  }
+  .management-type {
+    font-weight: 700;
+    color: $semi-pale-navy;
+  }
+}

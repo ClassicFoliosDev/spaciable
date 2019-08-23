@@ -11,6 +11,8 @@
     <div class=" resident-details branded-content branded-border branded-text">
       <div class="account branded-text">
         <h4><%= t(".account_details") %></h4>
+        <%= label_tag t(".name") %>
+        <span><%= current_resident %></span>
         <%= label_tag t(".email") %>
         <span><%= current_resident&.email %></span>
         <%= label_tag t(".password") %>

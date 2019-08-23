@@ -85,6 +85,7 @@ Rails.application.routes.draw do
     end
     resources :bulk_edit, only: [:index, :create]
     resources :contacts
+    resources :lettings
     resources :release_plots, only: [:index, :create]
     get 'callback', to: 'release_plots#callback', format: :json
   end
@@ -130,6 +131,7 @@ Rails.application.routes.draw do
   get :item_images, to: "room_configurations/room_choice#item_images", format: :json
   get :archive_choice, to: "room_configurations/room_choice#archive_choice", format: :json
   get :export_choices, to: "room_configurations/room_choice#export_choices"
+  post :lettings_account, to: "lettings_accounts#create", format: :json
 
   resources :developers do
     resources :divisions
@@ -179,7 +181,7 @@ Rails.application.routes.draw do
     resources :snags
     resources :snag_attachments
     resources :snag_comments, only: [:new, :create]
-    resources :lettings, only: [:show]
+    resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
 
     get "contacts/:category",
@@ -222,6 +224,7 @@ Rails.application.routes.draw do
     get :remove_resident, to: "residents#remove_resident", format: :json
     get :remove_snag, to: "snags#destroy", format: :json
     get :remove_snag_attachment, to: "snag_attachments#destroy", format: :json
+    post :lettings_account, to: "lettings_accounts#create", format: :json
   end
 
   get '/:token/confirm_referral', to: "homeowners/referrals#confirm_referral", as: 'confirm_referral'

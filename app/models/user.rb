@@ -44,6 +44,11 @@ class User < ApplicationRecord
     end
   end
 
+  def lettings_account_id
+    lettings_account = LettingsAccount.find_by(letter_id: developer)
+    lettings_account.id
+  end
+
   def self.admin_roles
     roles.reject { |key, _| key == "homeowner" }
   end

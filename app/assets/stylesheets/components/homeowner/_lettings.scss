@@ -21,6 +21,48 @@
   }
 }
 
+.other-let-plots {
+  .other-resident-lettings {
+    display: inline-block;
+    width: 100%;
+
+    hr {
+      margin-top: $spacing-large;
+    }
+    .other-residents {
+      padding-top: $spacing-medium;
+    }
+
+    .letable-plot {
+      border: solid 1px #FFF;
+      background-color: $primary-green;
+      margin: 0 50px 50px 0;
+
+      .let-out {
+        width: 80%;
+        margin: auto;
+        border: solid 1px #FFF;
+        border-radius: $border-radius;
+        padding: 0 10px;
+        font-size: $base-button-font-size;
+        line-height: $button-line-height;
+        margin-bottom: 10px;
+        opacity: 0.5;
+        color: #FFF;
+        font-weight: $bold-font-weight;
+      }
+    }
+    .plot-address {
+      h3 {
+        color: #FFF;
+      }
+      p {
+        color: #FFF;
+      }
+    }
+  }
+}
+
 .let-plot {
   .letable-plot {
     border: solid 1px #FFF;
@@ -64,10 +106,31 @@
   }
 }
 
+.plots {
+  hr {
+    margin-top: $spacing-medium;
+    margin-bottom: $spacing-medium;
+  }
+}
+
 .unlet-plot {
   .letable-plot {
     border: solid 1px;
     margin: 0 50px 50px 0;
+
+    .un-let {
+      width: 80%;
+      margin: auto;
+      border: solid 1px $primary-red-left;
+      border-radius: $border-radius;
+      padding: 0 10px;
+      font-size: $base-button-font-size;
+      line-height: $button-line-height;
+      margin-bottom: 10px;
+      opacity: 0.5;
+      color: $primary-red-left;
+      font-weight: $bold-font-weight;
+    }
 
     .letting-btn {
       border: solid 1px;
@@ -89,6 +152,68 @@
   }
 }
 
+.lettings-management {
+  .lettings-description {
+    @include span-columns(12 of 12);
+    margin-bottom: $spacing-medium;
+  }
+  .management-description {
+    .self-managed {
+      @include span-columns(6 of 12);
+      @include omega();
+      padding: $spacing-small;
+      h4 {
+        margin-bottom: $spacing-small;
+      }
+    }
+    .management-service {
+      @include span-columns(6 of 12);
+      @include omega();
+      padding: $spacing-small;
+      margin-left: $spacing-medium;
+      h4 {
+        margin-bottom: $spacing-small;
+      }
+    }
+    .management-selection {
+      @include span-columns(12 of 12);
+      .radio {
+        margin-bottom: $spacing-small;
+      }
+    }
+  }
+  .plots {
+    @include span-columns(12 of 12);
+  }
+}
+
+.lettings-form {
+  .ui-selectmenu-open {
+    z-index: 105 !important;
+  }
+  .field-description {
+    font-size: 10px;
+    margin: 0;
+  }
+  .two-thirds {
+    margin-left: spacing-small !important;
+  }
+
+  label {
+    color: $primary-navy;
+  }
+
+  textarea {
+    min-height: 200px;
+    font-size: 14px;
+  }
+}
+
+.lettings {
+  h4 {
+    margin: 0;
+  }
+}
 
 // tablet view
 @include media($tablet-portrait-up) {

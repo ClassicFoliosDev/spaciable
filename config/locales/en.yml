@@ -254,6 +254,7 @@ en:
     bulk_edit: "Bulk Edit"
     production: "Production"
     release_plots: "Release plots"
+    phase_lettings: "Lettings"
 
   pagination:
     per_page_10: "10"
@@ -272,7 +273,7 @@ en:
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
       plots_select:
-        list_input_hint: "Separated by commas and tildes e.g. 'D1,B2,2,14,15,20~25,30~100"
+        list_input_hint: "Use tilde symbol (~) to add a plot range, and separate plots or ranges using commas, e.g. 'D1,B2,2,14,15,20~25,30~100 <br/> Do not write 'plots', 'and', 'to' or similar."
         range_label: "Select Plots by Range"
         list_label: "Select Plots by List and Range"
         range_from_placeholder: "Range from"
@@ -297,6 +298,34 @@ en:
         prefix: "Postal Prefix"
       spanish_plot_address_fields:
         copy_plot_numbers: "Use Plot Number for Postal Number"
+      let_plot_details_form:
+        let_plot_details: "We just need a few more details about your plot."
+        bedrooms: "Bedrooms"
+        bathrooms: "Bathrooms"
+        pets_policy: "Pets Policy"
+        pets_policy_details: "What is your policy on pets? eg. small pets allowed, cats considered"
+        let_plot_disclaimer: "Please ensure you fill in all of the below information. All fields are required."
+        car_parking: "Car Parking?"
+        bike_parking: "Bike Storage?"
+        property_type: "Property Type"
+        price: "Monthly Rental Price"
+        shared: "Shared Accommodation?"
+        summary: "Property Summary"
+        summary_details: "Briefly describe the property. Provide information such as location and room overviews."
+        notes: "Key Features"
+        notes_details: "What are some key features of the property? eg. off-road parking, feature fireplace"
+        address_1: "Address One"
+        address_2: "Address Two"
+        town: "Town"
+        postcode: "Postcode"
+      admin_lettings_account_form:
+        confirm: "Please confirm you have selected the correct management type before continuing. You cannot change this after your account has been set up."
+        email: "The email you enter here will be used to set up your lettings account, which will be accessible to all admins across your developer."
+        name: "You can edit the First Name and Last Name fields should you wish to set up your lettings account under a different name to the one auto-populated here."
+        first_name: "First Name"
+        last_name: "Last Name"
+        intro: "Please complete the fields to the right to set up your lettings account. All fields are required."
+        management_type: "Management Type"
 
     choices:
       resident:
@@ -322,7 +351,7 @@ en:
         snagging: "Snagging"
         choices: "Choices"
       footer:
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
@@ -335,6 +364,26 @@ en:
         maintenance: "Issues"
         house_search: "Area Guide"
         services: "Services"
+      let_plot_details_form:
+        let_plot_details: "We just need a few more details about your plot."
+        bedrooms: "Bedrooms"
+        bathrooms: "Bathrooms"
+        pets_policy: "Pets Policy"
+        pets_policy_details: "What is your policy on pets? eg. small pets allowed, cats considered"
+        let_plot_disclaimer: "Please ensure you fill in all of the below information. All fields are required."
+        car_parking: "Car Parking?"
+        bike_parking: "Bike Storage?"
+        property_type: "Property Type"
+        price: "Monthly Rental Price"
+        shared: "Shared Accommodation?"
+        summary: "Property Summary"
+        summary_details: "Briefly describe the property. Provide information such as location and room overviews."
+        notes: "Key Features"
+        notes_details: "What are some key features of the property? eg. off-road parking, feature fireplace"
+        address_1: "Address One"
+        address_2: "Address Two"
+        town: "Town"
+        postcode: "Postcode"
     home:
       header:
         nav:
@@ -461,7 +510,7 @@ en:
       new_snag_comment: "%{commenter_name} has left a new comment on the following issue report: "
       snag_details: "You can view this comment under your issue report, found under the %{tool_name} menu in My Home, or by "
     snag_status_email:
-      snag_status_subject: "An issue report on your plot has has its resolved status updated"
+      snag_status_subject: "An issue report on your plot has its status updated"
       new_snag_status: "The following issue has been marked as %{status} by %{user}: "
       confirm_status: "Please login to your account to view the update and confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by "
       status_details: "Login to your account to view and comment on this issue report, found under the %{tool_name} menu in My Home, or by "
@@ -588,6 +637,7 @@ en:
         homeowner: "Full Access Users"
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
+        no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
       index:
         title: "Notifications."
       new:
@@ -644,6 +694,10 @@ en:
       update:
         success: "%{user_name} was updated successfully"
         success_password: "%{user_name} password was updated successfully, please log in again."
+      lettings:
+        confirm: "Your letting for your plot has been set up"
+      lettings_account:
+        confirm: "Your lettings account has been successfully set up"
     dashboard:
       components:
         no_recent:
@@ -873,10 +927,29 @@ en:
         title: "Contacts."
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
     lettings:
+      confirm: "Your letting for your plot has been set up"
       show:
         my_lettings: "Lettings."
         lettings: "Lettings"
         your_plots: "Your Plots."
+        lettings_management: "Your Management Type."
+        self: "Self Managed"
+        service: "Management Service"
+        not_letting: "Not Letting"
+        submit: "Confirm"
+        your_management: "<strong>Your Management Type:</strong> %{type}"
+        self_managed: "Self Managed"
+        management_service: "Management Service"
+        confirm_choice: "Confirm Choice"
+        cancel_choice: "Cancel"
+        confirm_cta: "Confirm Choice"
+        confirm_details: "Once you confirm your choice below, it cannot be changed. If you are unsure, please cancel and review your options."
+        confirm_text: "Are you sure you want to set up your lettings account as %{type}?"
+        self_managed_select: "Select Self Managed"
+        management_service_select: "Select Management Service"
+        confirm_self: "%{type}"
+    lettings_account:
+      confirm: "Your lettings account has been successfully set up"
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
@@ -884,7 +957,7 @@ en:
         add_snag: "Report an Issue"
         snag_expiration: "Access to the %{snag_name} submission tool has expired as of %{snag_date}."
         snag_continuation: "You can still view previous submitted issues, and comment on unresolved issues."
-        snag_archive: "You can view all of your resolved issues below, but are not long able to comment on or edit them."#
+        snag_archive: "You can view all of your resolved issues below, but are no longer able to edit them or add comments."
         title: "%{name}."
       new:
         title: "%{name}."
@@ -988,9 +1061,14 @@ en:
         status: "Status: "
       lettings:
         let_out: "Let"
+        let_out_other: "Letting has been set up by %{other}"
+        un_let: "Not Let"
         dashboard: "Lettings Dashboard"
-        self_manage: "Self Manage"
-        managing: "Managing Service"
+        let_my_plot: "Let My Plot"
+        submit: "Let My Plot"
+        plot_details: "Almost There."
+      other_resident_lettings:
+        let_out_other: "The following lettings have already been set up by other residents."
     appliances:
       show:
         title: "Appliances."
@@ -1018,17 +1096,18 @@ en:
       services:
         services: "See how we can help"
       referrals:
-        refer_developer: "Refer my Developer to a Friend"
-        refer_description: "Fill in this form with your friends details to refer your developer."
+        refer_developer: "Refer a Friend to Your Developer"
+        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer a Friend"
+        refer_title: "Refer A Friend."
         send_invitation: "Submit"
         confirm: "Your referral has been sent"
       referral_form:
-        first_name: "First name"
-        last_name: "Last name"
-        email: "Email address"
-        phone: "Phone number"
-        refer_description: "Fill in your friend's details below to refer your developer."
+        first_name: "First Name"
+        last_name: "Surname"
+        email: "Email"
+        phone: "Phone"
+        refer_description: "Fill in your friend's details to refer them to your developer."
     about:
       show:
         rooms_description: "View finishes and fittings in each room of your home"
@@ -1076,6 +1155,7 @@ en:
         title: "Services"
       show:
         my_account: "Account"
+        name: "Name"
         password: "Password"
         email: "Email"
         dummy_password: "********"
@@ -1083,7 +1163,7 @@ en:
         comms_preferences: "Communication Preferences."
         account_details: "Account Details."
         account: "Account."
-        edit_profile: "Update preferences"
+        edit_profile: "Update Details/Preferences"
         developer_email_updates: "Developer emails"
         developer_sms_updates: "Developer text messages"
         cf_email_updates: "Spaciable emails"
@@ -1091,7 +1171,7 @@ en:
         post_updates: "Post updates"
         other_residents: "Other residents with access to %{plot}."
         none: "Only you can see the content for %{plot}"
-        intro_video: "Introduction video"
+        intro_video: "Introduction Video"
         snagging_history: "%{tool_name} History"
         send_invitation: "Invite new resident"
         invite: "Invite new resident to %{plot}"
@@ -1099,7 +1179,7 @@ en:
         destroy: "Confirm Remove."
         confirm_cta: "Remove"
         confirm_text: "Are you sure you want to remove %{name}?"
-        deactivate: "Deactivate my account"
+        deactivate: "Deactivate My Account"
         deactivate_header: "Deactivate My Account."
         deactivate_text: "Are you sure you wish to deactivate your account permanently? You cannot reverse this decision
         and any documents you have uploaded will be deleted."
@@ -1460,8 +1540,6 @@ en:
     form:
       address: "Postal Address"
       business: "Business"
-      lettings: "Lettings"
-      lettings_description: "Plots on this phase are letable. All plots on this phase inherit this setting, but can be individually overridden. Changing this setting will change the letable setting for all plots on this phase."
       submit: "Submit"
       back: "Back"
     index:
@@ -1475,7 +1553,6 @@ en:
       residents: "Total Residents: "
       subscribed_residents: "Subscribed Residents: "
       business: "Business: "
-      lettings: "Lettings: "
     collection:
       add: "Add Phase"
       plots: "Plots"
@@ -1487,10 +1564,69 @@ en:
       bulk_edit: "Bulk Edit"
       production: "Production"
       release_plots: "Release Plots"
+      lettings: "Lettings"
     new:
       title: "New Phase."
     update:
       success: "%{phase_name} was updated successfully"
+
+  lettings:
+    index:
+      rentals: "Lettings."
+      admin_rentals: "Admin Lettings."
+      homeowner_rentals: "Homeowner Lettings."
+      homeowner_rental_type: "Planet Rent"
+      admin: "Admin"
+      homeowner: "Homeowner"
+      not_lettable: "Not Lettable"
+      remove_lettings: "This will make the selected plots unlettable."
+      submit: "Submit"
+      name: "Plot"
+      address: "Address"
+      set_up: "Set Up"
+      switch: "Switch"
+      remove: "Remove"
+      change: "Switch"
+      confirm_switch: "Confirm Switch"
+      cancel: "Cancel"
+      confirm_cta: "Confirm"
+      letable_type: "Type"
+      confirm_remove: "Confirm Remove"
+    change_letter_type_form:
+      are_you_sure: "Are you sure you want to switch the letter type of %{plot}?"
+      confirm_admin_swap: "This plot will not longer be available for admins to let. The plot will become available for homeowners to let, and the letable type will be updated to <strong>Planet Rent</strong>."
+      confirm_homeowner_swap: "This plot will no longer be available for homeowners to let. The plot will become available to admins to let."
+      lettable_type: "<strong>Select the letting type of this plot below.</strong>"
+    remove_letter_type_form:
+      are_you_sure: "Are you sure you want to remove %{plot} from lettings?"
+      confirm_remove: "The plot will no longer be lettable to admins or homeowners."
+    create:
+      lettings_success: "Successfully updated plots %{plot_numbers}"
+      success: "Successfully updated plots %{plot_numbers}"
+      success_one: "Successfully updated plot %{plot_number}"
+    client_admin_lettings:
+      let_out_other: "Set Up by %{other}"
+      lettings: "Lettings."
+      name: "Plot"
+      set_up: "Set Up?"
+      letable_type: "Letting Account"
+      house_number: "Postal"
+      building_name: "Building"
+      road_name: "Road"
+      let_my_plot: "Set Up"
+      submit: "Let Plot"
+      plot_details: "Almost There"
+      busy_living: "Busy Living"
+      planet_rent: "Planet Rent"
+      self_managed_select: "Select Self Managed"
+      management_service_select: "Select Management Service"
+      confirm_self: "%{type}."
+      cancel_choice: "Cancel"
+      confirm_cta: "Confirm Choice"
+    success:
+      create: "Letting has been successfully created"
+      lettings_account_confirm: "Your lettings account has been successfully set up"
+      letting_confirm: "Your letting for your plot has been set up"
 
   choice_configurations:
     create:
@@ -1638,8 +1774,9 @@ en:
     new:
       title: "New Plot."
     update:
+      lettings_success: "%{plot_name} has been successfully switched to %{type}"
       success:
-        one: "Plot %{plot_name} was updated successfully"
+        one: "%{plot_name} was updated successfully"
         other: "Plots %{plot_name} were updated successfully"
     collection:
       add: "Add Plot(s)"
@@ -2180,7 +2317,7 @@ en:
       actions:
         reservation_release_date: "Reservation"
         completion_release_date: "Completion"
-      mixed_list_input_hint: "Separated by commas and tildes e.g. 'D1,B2,2,14,15,20~25,30~100"
+      mixed_list_input_hint: "Use tilde symbol (~) to add a plot range, and separate plots or ranges using commas, e.g. 'D1,B2,2,14,15,20~25,30~100"
       mixed_list_label: "Select plots by list and range"
       release_date: "Release Date"
       release_type: "Release Type"
@@ -2312,6 +2449,14 @@ en:
           complete_ready: "Ready to complete"
           completed: "Completed"
           remove: "No progress status"
+        letable_types:
+          planet_rent: "Planet Rent"
+          busy_living: "Busy Living"
+          both: "Both"
+        letter_types:
+          homeowner: "homeowner"
+          admin: "admin"
+          unlettable: "unlettable"
       plot_residency:
         roles:
           # Homeowner enum roles
@@ -2522,12 +2667,12 @@ en:
         report_to: "Until"
       service:
         categories:
-          removals: "Removals & storage"
-          finance: "Mortgages & insurance"
-          legal: "Conveyancing & legal services"
+          removals: "Removals & Storage"
+          finance: "Mortgages & Insurance"
+          legal: "Conveyancing & Legal Services"
           utilities: "Utilities"
-          estate: "Selling or renting"
-          manager: "Moving manager"
+          estate: "Selling or Renting"
+          manager: "Moving Manager"
         category_descriptions:
           removals: "Spaciable Services can assist you with removals, packing or storage facilities."
           finance: "Spaciable Services can help find a mortgage or insurance deal that’s right for you."
@@ -2536,8 +2681,8 @@ en:
           estate: "Wish to rent out your property? Spaciable Services has the right package for you."
           manager: "Looking for someone to organise your entire move? Spaciable Services can manage it for you."
         dashboard_titles:
-          finance: "Conveyancing & insurance"
-          legal: "Moving & utilities"
+          finance: "Conveyancing & Insurance"
+          legal: "Moving & Utilities"
         dashboard_descriptions:
           finance: "Need a solicitor to carry out your conveyancing? Wish to arrange insurance for your new home?"
           legal: "Need help with removals, packing or storage facilities? Want the best deals on gas, electricity and other

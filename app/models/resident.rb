@@ -30,6 +30,10 @@ class Resident < ApplicationRecord
   validates :phone_number, phone: true
   validates :phone_number, presence: true, on: :create
 
+  has_one :lettings_account, as: :letter
+  has_many :lettings, through: :lettings_account
+  delegate :management, to: :lettings_account
+
   def subscribed_status
     if cf_email_updates.to_i.positive? || developer_email_updates.to_i.positive? ||
        developer_sms_updates.to_i.positive?
@@ -117,8 +121,12 @@ class Resident < ApplicationRecord
   def letable_plots?(plots)
     letable = false
     plots.each do |plot|
-      return letable = true if plot.letable
+      return letable = true if plot.letable && plot_residency_homeowner?(plot)
     end
     letable
+  end
+
+  def no_lettings_account?
+    LettingsAccount.find_by(letter_id: id).nil?
   end
 end

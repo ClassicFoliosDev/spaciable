@@ -20,6 +20,8 @@ module Homeowners
         notice = t(".success")
         if resident_params[:password_confirmation].present?
           redirect_to root_path
+        elsif resident_params[:lettings_management].present?
+          redirect_to letting_path(current_resident), notice: notice
         else
           redirect_to homeowners_resident_path(current_resident), notice: notice
         end
@@ -165,7 +167,7 @@ module Homeowners
       params.require(:resident).permit(
         :title, :first_name, :last_name, :password, :password_confirmation, :current_password,
         :developer_email_updates, :cf_email_updates, :telephone_updates, :post_updates,
-        :developer_sms_updates, :email, :phone_number, :role
+        :developer_sms_updates, :email, :phone_number, :role, :lettings_management
       )
     end
   end

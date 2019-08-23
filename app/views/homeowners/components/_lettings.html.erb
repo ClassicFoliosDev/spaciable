@@ -1,5 +1,6 @@
-<% plots.each do |plot| %>
-  <% if plot.letable? %>
+<% homeowner_plots = plots.where(letter_type: :homeowner)%>
+<% homeowner_plots.each do |plot| %>
+  <% if plot.letable? && current_resident&.plot_residency_homeowner?(plot)%>
     <% let_status = plot.let ? "let-plot" : "unlet-plot" %>
     <div class="<%= let_status %>">
       <div class="letable-plot branded-content branded-border">
@@ -11,11 +12,24 @@
         </div>
         <div class="letable-options">
           <% if plot.let %>
-          <div class="let-out"><span><%= t(".let_out") %></span></div>
-            <%= link_to t(".dashboard"), "https://en.wikipedia.org/wiki/Cats_(musical)", class: "btn letting-btn" %>
+            <% if Letting.current_resident_letting(current_resident, plot) %>
+              <div class="let-out"><span><%= t(".let_out") %></span></div>
+              <%= link_to t(".dashboard"), "https://en.wikipedia.org/wiki/Cats_(musical)", class: "btn letting-btn" %>
+            <% else %>
+              <div class="let-out"><span><%= t(".let_out_other", other: Letting.resident_letter(plot)) %></span></div>
+            <% end %>
           <% else %>
-            <%= link_to t(".self_manage"), "https://en.wikipedia.org/wiki/Cats_(2019_film)", class: "btn letting-btn" %>
-            <%= link_to t(".managing"), "https://www.cats.org.uk/", class: "btn letting-btn" %>
+            <div class="un-let"><span><%= t(".un_let") %></span></div>
+            <%= button_tag t(".let_my_plot"), class: "btn letting-btn let-plot",
+              data: { cancel: t("edit.cancel"),
+                cta: t(".submit"),
+                title: t(".plot_details"),
+                plot: plot.id,
+                address1: [plot&.postal_number, plot&.building_name].compact.join(" "),
+                address2: plot&.road_name || "",
+                town: plot&.city || "",
+                postcode: plot&.postcode || ""
+              } %>
           <% end %>
         </div>
       </div>

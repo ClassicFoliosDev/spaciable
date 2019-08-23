@@ -2,7 +2,6 @@
 
 class Snag < ApplicationRecord
   belongs_to :plot
-  has_many :plots, through: :plot_snags
   has_one :development, through: :plot
   has_one :phase, through: :plot
 
