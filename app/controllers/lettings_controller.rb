@@ -4,10 +4,11 @@ class LettingsController < ApplicationController
   include PaginationConcern
   include SortingConcern
 
-  load_and_authorize_resource :development
   load_and_authorize_resource :phase
-  load_and_authorize_resource :plot, through: %i[development phase], shallow: true
+  load_and_authorize_resource :plot, through: %i[phase], shallow: true
 
+  # PLANET RENT API
+  # The sorting and pagination aren't working. And I don't know why.
   def index
     @resident_count = @phase.plot_residencies.size
     @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
@@ -15,10 +16,6 @@ class LettingsController < ApplicationController
     @letting = Letting.new
     @lettings_account = LettingsAccount.new
   end
-
-  def show; end
-
-  def update; end
 
   def create
     if current_user.cf_admin?
