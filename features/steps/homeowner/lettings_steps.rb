@@ -59,20 +59,11 @@ Given(/^one of the plots has had lettings set up by another resident$/) do
       fill_in :letting_landlord_pets_policy, with: LettingsFixture.pets_policy
       fill_in :letting_summary, with: LettingsFixture.property_summary
       fill_in :letting_notes, with: LettingsFixture.key_features
-    end
-
-    # Checks that the submit button is disabled when not all fields are completed
-    within ".ui-dialog-buttonset" do
-      expect(page).to have_css(".ui-state-disabled")
-    end
-
-    within ".lettings-form" do
       fill_in :letting_bedrooms, with: "2"
       fill_in :letting_bathrooms, with: "2"
+      fill_in :letting_postcode, with: "SO505TL"
     end
 
-    sleep 1
-    # This can be very temperamental whether or not it registers that the form is completed and enables the submit button before the next step
     within ".ui-dialog" do
       click_on t("homeowners.components.lettings.submit")
     end
@@ -181,19 +172,10 @@ When(/^I set up my letable plot for letting$/) do
     fill_in :letting_town, with: "Town Name"
     fill_in :letting_landlord_pets_policy, with: LettingsFixture.pets_policy
     fill_in :letting_summary, with: LettingsFixture.property_summary
-  end
-
-  # Checks that the submit button is disabled when not all fields are completed
-  within ".ui-dialog-buttonset" do
-    expect(page).to have_css(".ui-state-disabled")
-  end
-
-  within ".lettings-form" do
     fill_in :letting_notes, with: LettingsFixture.key_features
+    fill_in :letting_postcode, with: "SO505TL"
   end
 
-  sleep 0.5
-  # This can be very temperamental whether or not it registers that the form is completed and enables the submit button before the next step
   within ".ui-dialog" do
     click_on t("homeowners.components.lettings.submit")
   end
@@ -242,10 +224,3 @@ Then(/^I cannot see the lettings link$/) do
     expect(page).to_not have_content(t("components.homeowner.welcome.lettings"))
   end
 end
-
-
-
-
-
-
-

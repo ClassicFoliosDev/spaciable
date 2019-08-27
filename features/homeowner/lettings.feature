@@ -1,8 +1,9 @@
-@javascript @poke
+@poke
 Feature: Lettings
   As a homeowner
   I want to manage my letable plots
 
+  @javascript
   Scenario: Letable plots with plot let by other resident
     Given I am logged in as a homeowner
     And I have two letable plots

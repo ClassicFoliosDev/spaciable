@@ -65,7 +65,7 @@
         ($('input#letting_bedrooms').val() > 0) && ($('input#letting_bedrooms').val() < 99) &&
         ($('input#letting_bathrooms').val() > 0) && ($('input#letting_bathrooms').val() < 99) &&
         ($('input#letting_address_1').val().length > 0) && ($('input#letting_address_2').val().length > 0) &&
-        ($('input#letting_town').val().length > 0) && ($('input#letting_postcode').val().length > 5) &&
+        ($('input#letting_town').val().length > 0) && ($('input#letting_postcode').val().length > 4) &&
         ($('input#letting_landlord_pets_policy').val().length > 1) &&
         ($('input#letting_notes').val().length > 0) &&
         ($('textarea#letting_summary').val().length > 0) ){
