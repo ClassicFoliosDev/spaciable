@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190827111137) do
+ActiveRecord::Schema.define(version: 20190828063703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -454,46 +454,6 @@ ActiveRecord::Schema.define(version: 20190827111137) do
     t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
   end
 
-  create_table "lettings", force: :cascade do |t|
-    t.integer  "bathrooms"
-    t.integer  "bedrooms"
-    t.string   "landlord_pets_policy"
-    t.boolean  "has_car_parking"
-    t.boolean  "has_bike_parking"
-    t.integer  "property_type"
-    t.integer  "price"
-    t.boolean  "shared_accommodation"
-    t.string   "notes"
-    t.string   "summary"
-    t.string   "access_token"
-    t.integer  "plot_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "other_ref"
-    t.string   "address_1"
-    t.string   "address_2"
-    t.string   "postcode"
-    t.string   "country",              default: "UK"
-    t.string   "town"
-    t.integer  "lettings_account_id"
-    t.index ["lettings_account_id"], name: "index_lettings_on_lettings_account_id", using: :btree
-    t.index ["plot_id"], name: "index_lettings_on_plot_id", using: :btree
-  end
-
-  create_table "lettings_accounts", force: :cascade do |t|
-    t.string   "access_token"
-    t.string   "refresh_token"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.integer  "management",    default: 0
-    t.string   "letter_type"
-    t.integer  "letter_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index ["letter_type", "letter_id"], name: "index_lettings_accounts_on_letter_type_and_letter_id", using: :btree
-  end
-
   create_table "notifications", force: :cascade do |t|
     t.string   "subject"
     t.text     "message"
@@ -886,8 +846,6 @@ ActiveRecord::Schema.define(version: 20190827111137) do
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
-  add_foreign_key "lettings", "lettings_accounts"
-  add_foreign_key "lettings", "plots"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"
