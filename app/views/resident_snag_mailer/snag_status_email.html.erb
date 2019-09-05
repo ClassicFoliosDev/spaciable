@@ -1,31 +1,29 @@
-<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;") %>
 
-<p>Hi,</p>
+<p style="font-weight: 600;">
+  <%= t("snag_mailer.new_message_resident") %>
+</p>
 
 <p><%= t(".new_snag_status", user: @user, status: @status) %></p>
 
 <p style="font-weight: bold;padding-left: 5%;padding-right: 5%"><%= @snag_title %></p>
 
-<p><%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %></p>
+<p><%= t("resident_snag_mailer.snag_address") %></p>
+(<%= @plot %>)<br/>
+
+<%= @plot.prefix %> <%= @plot.postal_number %> <%= @plot.building_name %><br/>
+<%= @plot.road_name %><br/>
+<%= @plot.postcode %><br/>
 
 <% if @snag.awaiting? %>
-  <p><%= t(".confirm_status", tool_name: @tool_name) %><%= link_to t("snag_mailer.link_to_snag"), snag_url(@snag.id) %>.</p>
+  <p><%= t(".confirm_status", tool_name: @tool_name) %></p>
 <% else %>
-  <p><%= t(".status_details", tool_name: @tool_name) %><%= link_to t("snag_mailer.link_to_snag"), snag_url(@snag.id) %>.</p>
+  <p><%= t(".status_details", tool_name: @tool_name) %></p>
 <% end %>
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Respond to Status</button>".html_safe, snag_url(@snag.id) %>
+</p><br/>
 
-<p>
-  <%= link_to t("resident_snag_mailer.login"), root_url %>
-</p>
-
-<p>
-  Kind regards,
-</p>
-
-<p>
-  Spaciable Admin
-</p>
-
-<footer style="font-size: 12px">
+<footer style="font-size: 12px;font-style: italic">
   <%= t("resident_snag_mailer.footer") %>
 </footer>

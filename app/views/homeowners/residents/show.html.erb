@@ -73,7 +73,7 @@
                 <% if resident[:removeable] && !(@plot.expired?) %>
                   <% confirm_resident = t("destroy.confirm_resident") if resident[:plot_count] > 1 %>
                   <% confirm_resident = t("destroy.confirm_final_resident") if resident[:plot_count] == 1 %>
-                  <%= button_tag "", class: "btn prompt-remove branded-text",
+                  <%= button_tag "", class: "btn branded-text prompt-remove",
                     data: { title: t(".destroy"),
                       cancel: t("destroy.cancel"),
                       text: t(".confirm_text", name: resident[:name]),

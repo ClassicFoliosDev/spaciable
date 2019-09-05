@@ -150,7 +150,13 @@
 
     button {
       float: right;
-      font-size: $title-font-size-4
+      font-size: $title-font-size-4;
+      border-color: $primary-navy;
+    }
+
+    button:hover {
+      color: $ui-white;
+      background-color: $primary-navy;
     }
   }
 }

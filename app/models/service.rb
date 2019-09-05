@@ -29,11 +29,11 @@ class Service < ApplicationRecord
   def to_description_s
     return description if description.present?
 
-    I18n.t("activerecord.attributes.service.category_descriptions.#{category}")
+    I18n.t("activerecord.attributes.service.category_descriptions.#{category}_html")
   end
 
   def to_dashboard_s
-    I18n.t("activerecord.attributes.service.dashboard_descriptions.#{category}")
+    I18n.t("activerecord.attributes.service.dashboard_descriptions.#{category}_html")
   end
 
   def to_dashboard_title_s

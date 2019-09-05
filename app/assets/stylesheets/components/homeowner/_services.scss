@@ -1,6 +1,6 @@
 .service-container {
   position: relative;
-  background-color: $ui-light-grey;
+  background-color: $ui-superlight-grey;
   padding: $spacing-medium;
   width: 100%;
   margin: 0 auto;
@@ -46,6 +46,7 @@
   color: $transparent-white;
   margin-bottom: 20px;
   font-family: $header-font-family;
+  font-weight: 400;
 }
 
 .service-long-text:before {
@@ -57,7 +58,6 @@
   margin: 0 auto;
   text-align: center;
   font-size: $base-font-size;
-  font-weight: bold;
 }
 
 .add-service {

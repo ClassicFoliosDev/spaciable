@@ -193,7 +193,7 @@ Then(/^the resident is no longer able to submit snags$/) do
     card.trigger(:click)
   end
   within ".notification-expanded" do
-    expect(page).to have_content "You can view your archived issue reports under the My Account page."
+    expect(page).to have_content "You can view your archived issue reports under the Account page."
   end
 
   # check nav link and my account link

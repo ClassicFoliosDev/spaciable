@@ -1,309 +1,170 @@
-<p>
-    Hi <%= @names.to_sentence %>
-    <br/>
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p style="font-weight: 600;">
+  <%= t(".plots_live") %>
 </p>
+
 <p>
-    <br/>
-    Your Spaciable Reservation Plots are Live
+  <%= t(".portal_update", date: @release_date_s, number: @plots.length) %>
 </p>
+
 <p>
-    We are delighted to confirm that the following plots are now live on the
-    Spaciable homeowner’s portal.
+  <span style="font-weight: 600;">Developer: </span><%= @phase.company_name %>
 </p>
-<p>
-    Developer: <%= @phase.company_name %>
-</p>
+
 <% unless @phase.division.nil? %>
-    <p>
-        Division: <%= @phase.division_name %>
-    </p>
+<p>
+  <span style="font-weight: 600;">Division: </span><%= @phase.division_name %>
+</p>
 <% end %>
+
 <p>
-    Development: <%= @phase.development_name %>
+  <span style="font-weight: 600;">Development: </span><%= @phase.development_name %>
 </p>
+
 <p>
-    Phase: <%= @phase.name %>
+  <span style="font-weight: 600;">Phase: </span><%= @phase.name %>
 </p>
+
 <p>
-    Plots: <%= @plots.to_sentence %>
+  <span style="font-weight: 600;">Plots: </span><%= @plots.to_sentence %>
 </p>
+<br/>
+
 <p>
-    Number of Plots: <%= @plots.length %>
+  <%= t(".invited_purchasers") %>
 </p>
-<p>
-    These plots were activated on <%= @release_date_s %>
-</p>
-<p>
-    Once you have invited your purchasers to the portal, they will benefit from
-    useful features, such as:
-</p>
+
 <ul>
-    <li>
-        Essential contact information
-    </li>
-    <li>
-        Useful documents, e.g., brochure, consumer code and reservation manual
-        (if applicable)
-    </li>
-    <li>
-        An option to upload their own documents
-    </li>
-    <li>
-        Helpful "how to" articles with advice for their move
-    </li>
-    <li>
-        Ability to request quotes for various moving services, e.g., removal
-        firms, storage, mortgages, etc.
-    </li>
-    <li>
-        Answers to frequently asked questions
-    </li>
-    <li>
-        Local area information (if applicable)
-    </li>
-    <li>
-        A notifications inbox, containing any important messages sent by your
-        staff
-    </li>
+  <li><%= t(".benefit_1") %></li>
+  <li><%= t(".benefit_2") %></li>
+  <li><%= t(".benefit_3") %></li>
+  <li><%= t(".benefit_4") %></li>
+  <li><%= t(".benefit_5") %></li>
+  <li><%= t(".benefit_6") %></li>
+  <li><%= t(".benefit_7") %></li>
+  <li><%= t(".benefit_8") %></li>
 </ul>
+<br/>
+
 <p>
-    Visit <a href="http://www.spaciable.com/admin">www.spaciable.com/admin</a> and
-    enter your email address and password to log in to the Spaciable admin
-    interface.
+  <%= t(".login_link") %><a href="http://www.spaciable.com/admin">www.spaciable.com/admin</a>, <%= t(".link_below") %>
 </p>
+
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
+</p>
+<br/>
+
+<h3>
+  <%= t(".inviting_purchasers") %>
+</h3>
+
 <p>
-    Inviting Purchasers
+  <%= t(".invite") %>
 </p>
-<p>
-    For each plot, an admin will need to invite the purchaser(s) to their
-    personal Spaciable portal:
-</p>
+
 <ul>
-    <li>
-        Visit <a href="http://www.spaciable.com/admin">www.spaciable.com/admin</a>
-        and enter your email address and password
-    </li>
-    <li>
-        Navigate to the development
-    </li>
-    <li>
-        Click the Phase tab and select the correct phase
-    </li>
-    <li>
-        Click on the plot
-    </li>
-    <li>
-        Click the Residents tab and then click Add Resident
-    </li>
-    <li>
-        Input the resident’s name, phone number and email address
-    </li>
-    <li>
-        Click Submit
-    </li>
-    <li>
-        Please note that the resident’s Spaciable invite may be in their Junk Mail
-    </li>
-    <li>
-        You can add more than one resident to a single plot
-    </li>
-    <li>
-        You can add the same resident’s email to multiple plots
-    </li>
+  <li><a href="http://www.spaciable.com/admin">Login to Spaciable</a></li>
+  <li><%= t(".navigate_to_development") %></li>
+  <li><%= t(".navigate_to_phase") %></li>
+  <li><%= t(".navigate_to_plot") %></li>
+  <li><%= t(".add_resident") %></li>
+  <li><%= t(".resident_details") %></li>
 </ul>
-<p>
-    For each plot, you can assign a completion date, which will trigger a
-    series of helpful emails sent to the resident in your company branding.
+
+<p style="font-size: 12px;font-style: italic;">
+  <%= t(".junk") %>
 </p>
+
+<p>
+  <%= t(".resident_condition") %>
+</p>
+
+<p>
+  <%= t(".resident_change") %>
+</p>
+<br/>
+
+<h3>
+  <%= t(".completion_date") %>
+</h3>
+
+<p>
+  <%= t(".adding_completion_date") %>
+</p>
+
+<p>
+  <%= t(".add_completion_date") %>
+</p>
+
 <ul>
-    <li>
-        Navigate to the development
-    </li>
-    <li>
-        Click the Phase tab and select the correct phase
-    </li>
-    <li>
-        Click on the plot
-    </li>
-    <li>
-        Click the Completion tab
-    </li>
-    <li>
-        Enter or edit the completion date, then click Save Changes
-    </li>
+  <li><%= t(".navigate_to_development") %></li>
+  <li><%= t(".navigate_to_phase") %></li>
+  <li><%= t(".navigate_to_plot") %></li>
+  <li><%= t(".completion_tab") %></li>
+  <li><%= t(".add_completion") %></li>
 </ul>
+
 <p>
-    Navigate back to a plot to delete/edit residents or update the completion
-    date at any time.
+  <%= t(".completion_change") %>
 </p>
+<br/>
+
+<h3>
+  <%= t(".admin_benefits") %>
+</h3>
+
 <p>
-    Benefits for Spaciable Admins
+  <%= t(".admins_can") %>
 </p>
-<p>
-    On the Spaciable admin interface, you and the other admins can:
-</p>
+
 <ul>
-    <li>
-        View a list of developments (developer or division admins only)
-    </li>
-    <li>
-        View live plots
-    </li>
-    <li>
-        Invite/delete residents
-    </li>
-    <li>
-        Upload documents or images
-    </li>
-    <li>
-        Embed links to online videos
-    </li>
-    <li>
-        Send notifications to residents’ emails
-    </li>
-    <li>
-        Add/edit FAQs
-    </li>
-    <li>
-        Add/edit contacts
-    </li>
-    <li>
-        Update the build progress status
-    </li>
-    <li>
-        Add other admins, so your colleagues can log in and edit Spaciable
-        information
-    </li>
+  <li><%= t(".list_dev") %></li>
+  <li><%= t(".view_plots") %></li>
+  <li><%= t(".invite_residents") %></li>
+  <li><%= t(".documents_images") %></li>
+  <li><%= t(".videos") %></li>
+  <li><%= t(".send_notifications") %></li>
+  <li><%= t(".faqs") %></li>
+  <li><%= t(".contacts") %></li>
+  <li><%= t(".build_progress") %></li>
+  <li><%= t(".add_other_admins") %></li>
 </ul>
+
 <p>
-For advice on how to use the admin interface, please log in to    <a href="http://www.spaciable.com/admin">www.spaciable.com/admin</a> and select
-    ‘Spaciable Help’ in the left hand menu.
+  <%= t(".help") %>
 </p>
-<p>
-    If you have any questions or issues, please contact the Classic Folios
-    Account Management team.
+
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
 </p>
+<br/>
+
 <p>
-    Email:
-    <a href="mailto:accountmanagement@classicfolios.com">
-        accountmanagement@classicfolios.com
-    </a>
+  <%= t(".cf_account_management") %>
 </p>
+
 <p>
-    Phone: 023 8062 6280
+  Email: <a href="mailto:accountmanagement@classicfolios.com">accountmanagement@classicfolios.com</a><br/>
+  Phone: 023 8062 6280
 </p>
+<br/>
+
 <p>
-    <em>
-        Don’t wish to receive notifications regarding new plots added to the
-        Spaciable portal?
-    </em>
+  Kind Regards,
 </p>
-<p>
-    <em>Log into Spaciable and edit your Profile settings to unsubscribe.</em>
+
+<p style="font-weight: 600;">
+  <%= t(".spaciable_team") %>
 </p>
+
 <p>
-    <em></em>
-    <br/>
+  Email: <a href="mailto:hello@spaciable.com">hello@spaciable.com</a><br/>
+  Phone: 023 8062 6280
 </p>
-<p>
-    Kind Regards,
-</p>
-<table cellspacing="0" cellpadding="0">
-    <tbody>
-        <tr>
-            <td valign="middle">
-                <p>
-                    <strong>The Spaciable Team</strong>
-                </p>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table cellspacing="0" cellpadding="0">
-    <tbody>
-        <tr>
-            <td valign="middle">
-                <p>
-                    <strong>t: </strong>
-                    023 8062 6280
-                </p>
-            </td>
-            <td valign="middle">
-                <p>
-                    <a href="mailto:hello@spaciable.com%253B">
-                        <strong>e: </strong>
-                        hello@spaciable.com
-                    </a>
-                </p>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table cellspacing="0" cellpadding="0">
-    <tbody>
-        <tr>
-            <td valign="middle">
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table cellspacing="0" cellpadding="0">
-    <tbody>
-        <tr>
-            <td valign="middle">
-            </td>
-            <td valign="middle">
-            </td>
-        </tr>
-        <tr>
-            <td valign="middle">
-                <%= image_tag(attachments['Spaciable_full.svg'].url) %>
-                <p>
-                    Spaciable, Woodside Trade Centre, 34 Parham Drive, Eastleigh,
-                    SO50 4NU
-                </p>
-            </td>
-            <td valign="middle">
-            </td>
-        </tr>
-    </tbody>
-</table>
-<table cellspacing="0" cellpadding="0">
-    <tbody>
-        <tr>
-            <td valign="middle">
-                <p>
-                    <strong>
-                        Privacy, Confidentiality and Security Notice:
-                    </strong>
-                    <br/>
-                    This message and any attachments are confidential and
-                    intended solely for the person(s) to whom it is addressed.
-                    It may contain privileged and confidential information. The
-                    views expressed in this email may be the personal views of
-                    the sender and not of the company unless specifically
-                    stated. If you are not the intended recipient you must not
-                    read, copy, distribute, discuss or take any action in
-                    reliance on it. If you have received this information in
-                    error, please notify the sender as soon as possible and
-                    then destroy it. Please note that we are able to, and
-                    reserve the right to, monitor email communications passing
-                    through our network. Whilst this email has been swept using
-                    a ESET NOD 32 Antivirus checker, you should also carry out
-                    your own virus checks before opening any attachment(s). We
-                    accept no liability for any loss or damage that may be
-                    caused by software viruses or interception/interruption of
-                    this mail.
-                    <br/>
-                    <br/>
-                    Registered in England &amp; Wales , Number: 4562237 |
-                    Registered Office: HWB, Highland House , SO53 4AR
-                </p>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<p>
-    <em></em>
-    <br/>
+<br/>
+
+<p style="font-style: italic;font-size: 14px;">
+  <%= t(".unsubscribe") %>
 </p>

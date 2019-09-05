@@ -338,10 +338,8 @@ end
 
 When(/^I accept the invitation as development admin$/) do
   invitation = ActionMailer::Base.deliveries.last
-  sections = invitation.text_part.body.to_s.split("http://localhost")
-  paths = sections[1].split(t("devise.mailer.invitation_instructions.ignore"))
-
-  visit paths[0]
+  open_email('development@cf.com')
+  click_first_link_in_email
 
   within ".admin-login-form" do
     fill_in :user_password, with: AdminUsersFixture.new_password

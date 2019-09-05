@@ -64,8 +64,10 @@ en:
         VAT number is GB675 7084 00."
 
     data_policy:
-      title: "Privacy Policy"
-      privacy_file: "Downloadable privacy policy document"
+      title: "Privacy Policy."
+      privacy_file: "Spaciable Privacy Policy (PDF)"
+      download: "View Privacy Policy"
+      new_tab: "File opens in a new tab"
 
     ts_and_cs_homeowner:
       title: "Spaciable Terms and Conditions of Use"
@@ -367,5 +369,7 @@ en:
       the courts of England and Wales."
 
     cookies_policy:
-      title: "Cookie Policy"
-      cookies_file: "Downloadable cookie policy document"
+      title: "Cookie Policy."
+      cookies_file: "Spaciable Cookie Policy (PDF)"
+      new_tab: "File opens in a new tab"
+      download: "View Cookie Policy"

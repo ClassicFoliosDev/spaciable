@@ -1,26 +1,54 @@
-<p>
-	Dear <%= @admins.map(&:first_name).join(',') %>,
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p style="font-weight: 600;">
+	<%= t(".new_message") %>
 </p>
 <p>
-	Choices have been selected for the following plot. Please log in and confirm or reject this list of choices, as appropriate, by <a href="<%= plot_choices_url @plot %>">navigating to the plot and clicking the Choices tab.</a>
+  <%= t(".selected") %>
 </p>
 <p>
-	Plot: 			<%= @plot.number %>
+  <span style="font-weight: 600">Plot: </span><%= @plot.number %>
 </p>
-<p>
-	Development: 	<%= @plot.development_name %>
-</p>
-<% if @plot.division.present? %>
-<p>
-	Division: 		<%= @plot.division_name %>
-</p>
+
+<% if @plot.phase.present? %>
+  <p>
+    <span style="font-weight: 600;">Phase: </span><%= @plot.phase_name %>
+  </p>
 <% end %>
-<p>
-	Developer:		<%= @plot.company_name %>
-</p>
-<p>
 
-Kind Regards,
-
-The Spaciable Team.
+<p>
+	<span style="font-weight: 600;">Development: </span><%= @plot.development_name %>
 </p>
+
+<% if @plot.division.present? %>
+  <p>
+    <span style="font-weight: 600;">Division: </span><%= @plot.division_name %>
+  </p>
+<% end %>
+
+<p>
+	<span style="font-weight: 600;">Developer: </span><%= @plot.company_name %>
+</p>
+
+<p>
+  <%= t(".confirm") %>
+</p>
+
+<p>
+  <%= t(".navigate") %>
+</p>
+
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>View Choices</button>".html_safe, plot_choices_url(@plot) %>
+</p>
+<br/>
+
+<p style="font-style: italic;font-size: 14px;">
+  <%= t(".opt_out") %>
+</p>
+
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
+</p><br/>
+
+

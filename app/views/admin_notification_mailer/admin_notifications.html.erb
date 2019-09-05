@@ -1,10 +1,11 @@
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
 
-<p>
-  <%= t(".hi") %>
+<p style="font-weight:600;">
+  <%= t(".new_message") %>
 </p>
 
 <%= simple_format @content %>
 
-<p>
-  <%= link_to t(".login"), new_admin_session_url %>
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
 </p>

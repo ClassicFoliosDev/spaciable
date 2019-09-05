@@ -48,11 +48,13 @@ module PhaseTabsHelper
         # Only a CF admin can create appliances and make bulk edits
         permissions_on: -> { Appliance.new }
       },
-      lettings: {
-        icon: "calendar-o",
-        link: [phase, :lettings],
-        permissions_on: -> { phase }
-      }
+      # PLANET RENT API
+      # Hide the lettings tab temporarily
+      # lettings: {
+      #  icon: "calendar-o",
+      #  link: [phase, :lettings],
+      #  permissions_on: -> { phase }
+      # }
     }
   end
   # rubocop:enable BlockLength

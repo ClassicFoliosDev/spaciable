@@ -1,12 +1,12 @@
-<div class="main branded-body">
-
-  <div class="policy branded-border">
+<div class="main">
+  <div class="policy">
     <h2><%= t("layouts.application.title") %> <%= t("legal.cookies_policy.title") %></h2>
 
     <div class="cookies-file">
       <label><%= t(".cookies_file") %></label>
-      <%= link_to @setting.cookie_policy.url, target: "_blank", title: t(".cookies_file") do %>
-        <%= fa_icon "file-pdf-o" %>
+      <p style="font-style:italic;font-size:12px;"><%= t(".new_tab") %></p>
+      <%= link_to @setting.cookie_policy.url, class: "btn", target: "_blank", title: t(".cookies_file") do %>
+        <%= t(".download") %>
       <% end %>
     </div>
   </div>

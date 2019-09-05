@@ -24,7 +24,7 @@ Feature: Homeowner Account
     When I add another resident
     Then I should see a duplicate plot resident error
     When I log out as a homeowner
-    And I visit the invitation accept page
+    And I visit the new invitation accept page
     And I accept the invitation as a homeowner
     And I should see be able to view My Account
     Then I can not add or remove residents

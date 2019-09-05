@@ -188,12 +188,8 @@ end
 
 Then(/^I visit the accept page$/) do
   invitation = ActionMailer::Base.deliveries.first
-
-  sections = invitation.text_part.body.to_s.split("http://")
-  paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
-
-  url = "http://#{paths[0]}"
-  visit url
+  open_email('jo@bloggs.com')
+  click_first_link_in_email
 
   ActionMailer::Base.deliveries.clear
 end

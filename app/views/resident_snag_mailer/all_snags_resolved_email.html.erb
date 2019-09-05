@@ -1,26 +1,24 @@
-<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;") %>
 
-<p>Hi,</p>
+<p style="font-weight: 600;">
+  <%= t("snag_mailer.new_message_resident") %>
+</p>
 
 <p><%= t(".all_snags_resolved", tool_name: @tool_name) %></p>
 
-<p style="font-weight: bold;padding-left: 5%;padding-right: 5%"><%= @address %> (<%= @plot %>)</p>
+(<%= @plot %>)<br/>
+
+<%= @plot.prefix %> <%= @plot.postal_number %> <%= @plot.building_name %><br/>
+<%= @plot.road_name %><br/>
+<%= @plot.postcode %><br/>
 
 <p>
   <%= t(".snag_archive", tool_name: @tool_name) %>
 </p>
 
-<p>
-  <%= link_to t("resident_snag_mailer.login"), root_url %>
-</p>
-
-<p>
-  Kind regards,
-</p>
-
-<p>
-  Spaciable Admin
-</p>
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, root_url %>
+</p><br/>
 
 <footer style="font-size: 12px">
   <%= t("resident_snag_mailer.footer") %>

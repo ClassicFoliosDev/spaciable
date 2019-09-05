@@ -74,22 +74,143 @@ en:
       choices_rejected: "Some of your choices have been declined.  Please reselect the missing items"
       title: "Choices."
       email_subject:
-        approved: "Plot %{plot_name} Choices approved"
-        rejected: "Plot %{plot_name} choice selections declined"
+        approved: "Plot %{plot_name} Choice Selections Approved"
+        rejected: "Plot %{plot_name} Choice Selections Declined"
     admin:
       homeowner_updating: "Selections for plot %{plot_name} have been made by the homeowner"
-      committed_by_homeowner: "Plot %{plot_name} choices have been commited by homeowner and are awaiting approval"
-      homeowner_notified_of_rejection: "Plot %{plot_name} homeowner/s notified of rejection"
-      choices_rejected: "Plot %{plot_name} homeowner/s informed of rejection.  Awaiting homeowner choice reselection"
+      committed_by_homeowner: "Plot %{plot_name} choices have been committed by homeowner and are awaiting approval"
+      homeowner_notified_of_rejection: "Plot %{plot_name} homeowner(s) notified of rejection"
+      choices_rejected: "Plot %{plot_name} homeowner(s) informed of rejection. Awaiting homeowner choice reselection"
       choices_approved: "These choices have been approved"
       email_subject:
-        selected: "Plot %{plot_name} choice selections"
+        selected: "Plot %{plot_name} Choice Selections"
       update:
         admin_updating: "Choices updated successfully"
         choices_approved: "Choices have been approved"    
     edit:
       back: "Back"
-    
+
+  choice_mailer:
+    homeowner_choices_selected:
+      new_message: "You have a new message from Spaciable regarding choices"
+      selected: "Choices have been selected for the following plot:"
+      confirm: "Please log in to confirm or reject the selected choices."
+      navigate: "You can find the choice selections by navigating to the above plot and selecting the Choices tab, or by clicking the following link."
+      login: "Login to Spaciable: "
+      opt_out: "Don't wish to receive notifications regarding choices? You can update your preferences in your Spaciable profile."
+    homeowner_choices_rejected:
+      new_message: "You have a new message from Spaciable regarding choices"
+      declined: "Unfortunately, your selected choices have been declined for Plot %{plot}, %{development}."
+      message: "The following message has been provided by the %{developer} admin who reviewed your selections:"
+      login: "Please log in to review and amend your selections."
+    homeowner_choices_approved:
+      new_message: "You have a new message from Spaciable regarding choices"
+      approved: "Your selected choices have been approved for Plot %{plot}, %{development}."
+      your_selections: "Your Selections"
+      login: "Login to Spaciable: "
+    admin_approved_choices:
+      new_message: "You have a new message from Spaciable regarding choices"
+      approved: "Choices have been submitted and approved for the following plot: "
+      choices: "Approved Choices"
+      login: "Login to Spaciable: "
+      opt_out: "Don't wish to receive notifications regarding choices? You can update your preferences in your Spaciable profile."
+
+  release_mailer:
+    completion_release_email:
+      plots_live: "Your Spaciable Completion plots are now live."
+      portal_update: "We are delighted to confirm that the Spaciable homeowner's portal has been updated with completion information on %{date} for the following %{number} plots:"
+      resident_activated: "Residents who have activated their Spaciable account will benefit from useful features, such as: "
+      benefit_1: "Essential contact information"
+      benefit_2: "Useful documents, such as appliance manuals, warranty policy and homeowner's manual (if applicable)"
+      benefit_3: "An option to upload their own documents"
+      benefit_4: "A list of their home's appliances and finishes (if applicable)"
+      benefit_5: "Appliance efficiency ratings and links to register manufacturers' warranties"
+      benefit_6: "Helpful \"How To\" articles with advice on settling in, lifestyle ideas and maintenance guidance"
+      benefit_7: "The ability to request quotes for various new home services, such as utilities and insurance"
+      benefit_8: "Answers to frequently asked questions"
+      benefit_9: "Local area information (if applicable)"
+      benefit_10: "A notifications inbox, containing any important information sent by your staff"
+      login_link: "Log in to the Spaciable admin interface at "
+      link_below: "or via the link below."
+      inviting_residents: "Inviting Residents"
+      invite: "To invite each resident to their personal Spaciable portal: "
+      navigate_to_development: "Navigate to the relevant development"
+      navigate_to_phase: "Click the Phases tab and select the correct phase"
+      navigate_to_plot: "Click on the plot"
+      add_resident: "Click the Residents tab and then click the Add Resident button"
+      resident_details: "Input the resident's name, phone number and emails address and click Submit*"
+      junk: "* Please note: the resident's Spaciable invite may be in their Junk Mail folder"
+      resident_condition: "You can add more than one resident to a single plot, and you can add the same resident's email to multiple plots."
+      resident_change: "Navigate back to a plot to delete or edit residents at any time."
+      completion_date: "Completion Date"
+      adding_completion_date: "For each plot, you can assign a completion date, which will trigger a series of helpful emails sent to the resident in your company branding."
+      add_completion_date: "To add a completion date:"
+      completion_tab: "Click the Completion tab"
+      add_completion: "Enter or edit the completion date and click Save Changes"
+      completion_change: "Navigate back to a plot to update the completion date at any time."
+      admin_benefits: "Benefits for Spaciable Admins"
+      admins_can: "On the Spaciable admin interface, you and the other admins can: "
+      list_dev: "View a list of developments (developer or division admins only)"
+      view_plots: "View live plots"
+      invite_residents: "Invite and delete residents"
+      documents_images: "Upload documents and images"
+      videos: "Add embedded links to online videos"
+      send_notifications: "Send notifications to residents"
+      faqs: "Add and edit FAQs"
+      contacts: "Add and edit contacts"
+      build_progress: "Update the build progress of individual plots or an entire phase"
+      add_other_admins: "Add other admins, so your colleagues can log in and edit Spaciable information"
+      help: "For advice on how to use the admin interface, log in to Spaciable and select 'Help' from the navigation pane"
+      cf_account_management: "If you have any questions or issues, please contact the Classic Folios Account Management team:"
+      unsubscribe: "Don't wish to receive notifications regarding new plots added to the Spaciable portal? You can update your preferences in your Spaciable profile."
+      spaciable_team: "The Spaciable Team"
+
+    reservation_release_email:
+      plots_live: "You Spaciable Reservation plots are now live."
+      portal_update: "We are delighted to confirm that the Spaciable homeowner's portal has been updated with reservation information on %{date} for the following %{number} plots:"
+      invited_purchasers: "Once you have invited your purchasers to the Spaciable portal they will benefit from useful features, such as: "
+      benefit_1: "Essential contact information"
+      benefit_2: "Useful documents, such as brochure, consumer code and reservation manual (if applicable)"
+      benefit_3: "An option to upload their own documents"
+      benefit_4: "Helpful \"How To\" articles with advice for their move"
+      benefit_5: "The ability to request quotes for various moving services, such as removal firms, storage and mortgages"
+      benefit_6: "Answers to frequently asked questions"
+      benefit_7: "Local area information (if applicable)"
+      benefit_8: "A notifications inbox, containing any important information sent by your staff"
+      login_link: "Log in to the Spaciable admin interface at "
+      link_below: "or via the link below."
+      inviting_purchasers: "Inviting Purchasers"
+      invite: "For each plot, an admin will need to invite the purchaser(s) to their personal Spaciable portal:"
+      navigate_to_development: "Navigate to the relevant development"
+      navigate_to_phase: "Click the Phases tab and select the correct phase"
+      navigate_to_plot: "Click on the plot"
+      add_resident: "Click the Residents tab and then click the Add Resident button"
+      resident_details: "Input the resident's name, phone number and emails address and click Submit*"
+      junk: "* Please note: the resident's Spaciable invite may be in their Junk Mail folder"
+      resident_condition: "You can add more than one resident to a single plot, and you can add the same resident's email to multiple plots."
+      resident_change: "Navigate back to a plot to delete or edit residents at any time."
+      completion_date: "Completion Date"
+      adding_completion_date: "For each plot, you can assign a completion date, which will trigger a series of helpful emails sent to the resident in your company branding."
+      add_completion_date: "To add a completion date:"
+      completion_tab: "Click the Completion tab"
+      add_completion: "Enter or edit the completion date and click Save Changes"
+      completion_change: "Navigate back to a plot to update the completion date at any time."
+      admin_benefits: "Benefits for Spaciable Admins"
+      admins_can: "On the Spaciable admin interface, you and the other admins can: "
+      list_dev: "View a list of developments (developer or division admins only)"
+      view_plots: "View live plots"
+      invite_residents: "Invite and delete residents"
+      documents_images: "Upload documents and images"
+      videos: "Add embedded links to online videos"
+      send_notifications: "Send notifications to residents"
+      faqs: "Add and edit FAQs"
+      contacts: "Add and edit contacts"
+      build_progress: "Update the build progress of individual plots or an entire phase"
+      add_other_admins: "Add other admins, so your colleagues can log in and edit Spaciable information"
+      help: "For advice on how to use the admin interface, log in to Spaciable and select 'Help' from the navigation pane"
+      cf_account_management: "If you have any questions or issues, please contact the Classic Folios Account Management team:"
+      unsubscribe: "Don't wish to receive notifications regarding new plots added to the Spaciable portal? You can update your preferences in your Spaciable profile."
+      spaciable_team: "The Spaciable Team"
 
   # User Enum Roles (enums do not support I18n OOTB)
   cf_admin: "CF Admin"
@@ -392,7 +513,7 @@ en:
     navigation:
       dashboard: "Dashboard"
       my_area: "My %{area}"
-      log_out: "Log out"
+      log_out: "Log Out"
       developers: "Developers"
       documents: "Documents"
       users: "Users"
@@ -438,12 +559,12 @@ en:
     option2: "Neutral"
     option3: "Happy"
     disclaimer: "By submitting feedback you consent to your email address being sent to a portal administrator, who may contact you about your comments."
-    submit: "Send feedback"
+    submit: "Send Feedback"
     comments: "Comments"
-    placeholder: "Enter feedback..."
-    email_title: "You have received feedback from a Spaciable user"
+    placeholder: "Enter feedback (required)"
+    email_title: "You have received feedback from a Spaciable user:"
     email_subject: "Feedback from Spaciable"
-    option_title: "Happiness level"
+    option_title: "Happiness Level"
     comment_title: "Comments"
     details_title: "User Details"
     not_sent: "User did not provide this information"
@@ -468,15 +589,18 @@ en:
 
   admin_notification_mailer:
     admin_notifications:
-      hi: "Hi, "
+      new_message: "You have a new message from the Spaciable team:"
       login: "Login to Spaciable"
 
   password_change_mailer:
     content: "We're contacting you to notify you that your %{admin} password for the Spaciable online portal has been changed."
-    confirm: "If this was you, simply log in with your new password at "
+    confirm: "If this was you, simply log in with your new password."
     deny: "If this wasn't you, your account has been compromised. Please click the following link to reset your password."
+    link: "or by clicking the following link."
 
   snag_mailer:
+    new_message: "You have a new message from Spaciable regarding snagging"
+    new_message_resident: "You have a new message from Spaciable regarding issue reporting"
     create: "New Snag Reported"
     update: "A snag report has been updated"
     delete: "A snag report has been deleted"
@@ -484,7 +608,7 @@ en:
     new_snag_comment: "%{commenter_name} has added a comment to a snag"
     rejected_status: "The following snag has had its resolved status %{status}: "
     comment_email_opening: "%{commenter_name} has left a new comment on the following snag:"
-    email_opening: "%{age} snag has been %{status}:"
+    email_opening: "%{age} snag has been %{status} for the following plot:"
     snag_title: "Snag Title: "
     developer: "Developer: "
     division: "Division: "
@@ -495,30 +619,31 @@ en:
     building: "Building: "
     street: "Street: "
     postcode: "Postcode: "
-    view_snag: "View the full details of this snag under the Snagging menu within Spaciable, or by"
-    link_to_snag: "clicking here"
-    general_snag: "You can view any outstanding snags under the Snagging menu within Spaciable"
-    opt_out: "If these notifications are not relevant to you, you can opt out in your user profile."
-    login: "Login to Spaciable"
+    address: "Address: "
+    view_snag: "You can view the full details of this snag by navigating to the above plot within the Snagging menu, or by clicking the following link."
+    general_snag: "You can view any outstanding snags by navigating to the Snagging menu within Spaciable."
+    opt_out: "Don't wish to receive notifications regarding snagging? You can update your preferences in your Spaciable profile."
+    login: "Login to Spaciable: "
+    link_to_snag: "DELETE"
 
   resident_snag_mailer:
     login: "Login to your Account"
-    snag_address: "which was reported for %{address} (%{plot})."
+    snag_address: "This issue was reported for:"
     footer: "Please note this email address is not monitored. Do not reply directly to this email."
     snag_comment_email:
-      snag_comment_subject: "%{commenter_name} has commented on your Issue Report"
+      snag_comment_subject: "%{commenter_name} has commented on your issue report"
       new_snag_comment: "%{commenter_name} has left a new comment on the following issue report: "
-      snag_details: "You can view this comment under your issue report, found under the %{tool_name} menu in My Home, or by "
+      snag_details: "You can view this comment under your issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
     snag_status_email:
       snag_status_subject: "An issue report on your plot has its status updated"
       new_snag_status: "The following issue has been marked as %{status} by %{user}: "
-      confirm_status: "Please login to your account to view the update and confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by "
-      status_details: "Login to your account to view and comment on this issue report, found under the %{tool_name} menu in My Home, or by "
+      confirm_status: "Please login to your account to view the update and confirm or reject the resolved status on this issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
+      status_details: "Login to your account to view and comment on this issue report, found under the %{tool_name} menu in My Home, or by clicking the following link."
     all_snags_resolved_email:
       snags_resolved_subject: "All issues have now been resolved for your home"
       all_snags_resolved: "%{tool_name} submission has now expired and all issues have been resolved for the following address: "
-      snag_archive: "You can view your archived %{tool_name} reports under the My Account page."
-      resolved: "Issue submission has now expired and all issues have been resolved for %{address} (Plot %{plot}). You can view your archived issue reports under the My Account page."
+      snag_archive: "You can view your archived %{tool_name} reports under the Account page."
+      resolved: "Issue submission has now expired and all issues have been resolved for %{address} (Plot %{plot}). You can view your archived issue reports under the Account page."
     notify:
       new_notification: "You have a new issue report update"
       message: "An issue report on %{address} (Plot %{plot}) has %{update}"
@@ -818,6 +943,7 @@ en:
     collection:
       add: "Add FAQ"
       last_edited: "Last Edited"
+      faq: "FAQ"
     edit:
       title: "%{parent}"
       back: "Back"
@@ -1183,7 +1309,7 @@ en:
         deactivate_header: "Deactivate My Account."
         deactivate_text: "Are you sure you wish to deactivate your account permanently? You cannot reverse this decision
         and any documents you have uploaded will be deleted."
-        confirm_deactivate: "Confirm deactivate"
+        confirm_deactivate: "Confirm Deactivate"
         deactivate_password: "Enter your password to confirm"
         full_access_title: "Full Access User."
         full_access_description: "Has access to all documents of your home's portal (other than those you have uploaded to the 'My Documents' tab), can invite other users to your home and can access the issue reporting system (if enabled for your development)."
@@ -1204,11 +1330,15 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        title: "Congratulations! You're nearly there"
+        title: "You're nearly there!"
         subtitle: "Spaciable has partnered with key providers who can help make your move as stress-free and as competitively priced
         as possible. By selecting any of the services below, Spaciable Services will get you moving!"
         description_html: "<em>Quotations are free, and without obligation, so start saving today with Spaciable Services.</em>"
+        disclaimer: "Please note: when you were invited to Spaciable, an email and phone number were associated with your Spaciable account. If you select YES! to any of the options on this page,
+                    you consent to Spaciable Services using your account details to contact you by email or phone regarding options you have selected on this page. Your details will not be passed
+                    to third parties without your consent. Spaciable Services operates in full compliance with the EU GDPR (General Data Protection Regulation) and the UK DPA (Data Protection Act) 2018."
         submit: "Submit"
+        services_title: "Services."
       service:
         add: "Yes!"
       resident_services:
@@ -1839,6 +1969,7 @@ en:
     collection:
       plot: "Plot"
       processing: "Processing..."
+      document: "Document"
     bulk_upload:
       files_required: "You must select files to upload."
       success: "Uploaded %{matched} plot documents successfully"
@@ -2101,6 +2232,7 @@ en:
       add: "Add Room"
       finishes: "Finishes"
       appliances: "Appliances"
+      choices: "Approved Choices"
       name: "Room"
       last_edited: "Last Edited"
     edit:
@@ -2674,18 +2806,18 @@ en:
           estate: "Selling or Renting"
           manager: "Moving Manager"
         category_descriptions:
-          removals: "Spaciable Services can assist you with removals, packing or storage facilities."
-          finance: "Spaciable Services can help find a mortgage or insurance deal that’s right for you."
-          legal: "Do you require a solicitor? Spaciable Services can help."
-          utilities: "Want the best deals for gas, electricity and other essential services? Spaciable Services can find your perfect tariff."
-          estate: "Wish to rent out your property? Spaciable Services has the right package for you."
-          manager: "Looking for someone to organise your entire move? Spaciable Services can manage it for you."
+          removals_html: "Spaciable Services can assist you with removals, packing or storage facilities."
+          finance_html: "Spaciable Services can help find a mortgage or insurance deal that’s right for you."
+          legal_html: "Do you require a solicitor?<br/>Spaciable Services can help."
+          utilities_html: "Want the best deals for gas, electricity and other essential services?<br/>Spaciable Services can find your perfect tariff."
+          estate_html: "Wish to rent out your property?<br/>Spaciable Services has the right package for you."
+          manager_html: "Looking for someone to organise your entire move?<br/>Spaciable Services can manage it for you."
         dashboard_titles:
           finance: "Conveyancing & Insurance"
           legal: "Moving & Utilities"
         dashboard_descriptions:
-          finance: "Need a solicitor to carry out your conveyancing? Wish to arrange insurance for your new home?"
-          legal: "Need help with removals, packing or storage facilities? Want the best deals on gas, electricity and other
+          finance_html: "Need a solicitor to carry out your conveyancing?<br/>Wish to arrange insurance for your new home?"
+          legal_html: "Need help with removals, packing or storage facilities?<br/>Want the best deals on gas, electricity and other
           essential services?"
     errors:
       messages:

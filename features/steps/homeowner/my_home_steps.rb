@@ -8,6 +8,9 @@ And(/^I have created a unit_type$/) do
   CreateFixture.create_phases
   CreateFixture.create_unit_type
   CreateFixture.create_room
+  CreateFixture.create_appliance_manufacturer
+  CreateFixture.create_appliance
+  CreateFixture.create_appliance_room
 end
 
 And(/^I have logged in as a resident and associated the plot$/) do

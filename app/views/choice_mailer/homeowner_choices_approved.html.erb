@@ -1,42 +1,34 @@
- <p>
-	Dear <%= @plot.homeowners.map(&:first_name).join(',') %>,
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto; padding-bottom: 20px;") %>
+
+<p style="font-weight: 600;">
+  <%= t(".new_message") %>
 </p>
 
-Choices have been submitted and approved for your home.
+<p>
+  <%= t(".approved", plot: @plot.number, development: @plot.development_name) %>
+</p>
+<br/>
+<h3>
+  <%= t(".your_selections") %>
+</h3>
 
 <p>
-	Plot: <%= @plot.number %>
-</p>
-<p>
-	Development: <%= @plot.development_name %>
-</p>
-<% if @plot.division.present? %>
-<p>
-	Division: <%= @plot.division_name %>
-</p>
-<% end %>
-<p>
-	Developer: <%= @plot.company_name %>
-</p>
-
-Choices selected:
-
 <% @plot.rooms.each do |room| %>
-
-  <h3><%= room.name %></h3>
+  <h4 style="text-decoration: underline;"><%= room.name %></h4>
   <% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
+    <span style="font-weight: 600;">
     <% if choice.choiceable.is_a? Appliance %>
       <%= choice.appliance_category %>
     <% elsif choice.choiceable.is_a? Finish %>
       <%= choice.finish_category %>
-    <% end %> :
+    <% end %>:
+    </span>
     <%= choice.short_name %>
-    <br>
+    <br/>
   <% end %>
 <% end %>
+</p>
 
-<br>
-Kind Regards,
-
-<%= @plot.company_name %>
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, root_url %>
 </p>

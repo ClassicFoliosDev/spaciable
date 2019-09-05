@@ -4,17 +4,22 @@
       <% if contact.picture? %>
         <%= image_tag contact.picture.url :thumbnail if contact.picture?%>
       <% else %>
-        <div class="avatar">
-          <%= image_tag("user-circle-o.jpg") %>
+        <div class="initials-avatar">
+          <% if contact.first_name? || contact.last_name? %>
+            <span class="initials"><%= contact&.first_name[0]&.upcase %><%= contact&.last_name[0]&.upcase %></span>
+          <% else %>
+            <span class="initials"><%= contact&.position[0]&.upcase %></span>
+          <% end %>
         </div>
       <% end %>
+
     </div>
 
     <div class="contact-details branded-text">
       <span class="contact-detail" title="<%= contact.to_s %>"><%= contact %></span>
 
       <% if contact.position? %>
-        <span class="contact-detail" title="<%= contact.position %>"><%= contact.position %></span>
+        <span class="contact-detail" style="font-weight: 600;" title="<%= contact.position %>"><%= contact.position %></span>
       <% end %>
 
       <% if contact.phone? %>

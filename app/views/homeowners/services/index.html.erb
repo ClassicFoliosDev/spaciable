@@ -1,3 +1,11 @@
+<% content_for :hero_text_primary do %>
+  <%= t(".services_title") %>
+<% end %>
+
+<div class="resident-hero">
+  <%= render "components/homeowner/hero" %>
+</div>
+
 <div class="service-container">
   <%= simple_form_for :services, url: resident_services_services_path do | f | %>
     <div class="preamble">
@@ -5,6 +13,7 @@
       <p><%= t(".subtitle") %></p>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
       <p><%= t(".description_html") %></p>
+
     </div>
     <div class="services-form">
       <%= f.simple_fields_for :service_ids do %>
@@ -13,5 +22,6 @@
         <% end %>
       <% end %>
     </div>
+    <p class="disclaimer"><%= t(".disclaimer") %></p>
   <% end %>
 </div>

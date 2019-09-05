@@ -16,6 +16,9 @@
     <thead>
       <tr>
         <th><%= sortable(Room, :name, t(".name")) %></th>
+        <th><%= t(".finishes") %></th>
+        <th><%= t(".appliances") %></th>
+        <th><%= t(".choices") %></th>
         <th><%= sortable(Room, :updated_at, t(".last_edited")) %></th>
         <th>&nbsp;</th>
       </tr>
@@ -24,6 +27,18 @@
       <% collection.each do |room| %>
       <tr data-room="<%= room.id %>">
         <td><%= link_to room.name, [parent, room], title: room.name, class: "room-name" %></td>
+        <td><%= room.finishes.count %></td>
+        <td><%= room.appliances.count %></td>
+        <% if parent.is_a?(Plot) && parent.choices_approved? %>
+          <% plot_choices = RoomChoice.plot_choices(room, parent) %>
+        <% end %>
+        <td>
+          <% if parent.is_a?(Plot) && plot_choices.present? %>
+            <%= plot_choices.count %>
+          <% else %>
+            <%= "N/A" %>
+          <% end %>
+        </td>
         <td><%= l room.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= edit_btn url_for([:edit, parent, room]), element: room %>

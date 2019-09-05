@@ -1,17 +1,17 @@
-Hi,
+<%= t("snag_mailer.new_message_resident") %>
 
 <%= t(".new_snag_comment", commenter_name: @commenter_name) %>
 
   <%= @snag_title %>
 
-<%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %>
+<%= t("resident_snag_mailer.snag_address") %>
 
-<%= t(".snag_details", tool_name: @tool_name) %>clicking here: <%= snag_url(@snag.id) %>
+(<%= @plot %>)
+<%= @plot.prefix %> <%= @plot.postal_number %> <%= @plot.building_name %>
+<%= @plot.road_name %>
+<%= @plot.postcode %>
 
-<%= t("snag_mailer.login") %>: <%= root_url %>
-
-Kind regards,
-
-Spaciable Admin
+<%= t(".snag_details", tool_name: @tool_name) %>
+<%= snag_url(@snag.id) %>
 
 <%= t("resident_snag_mailer.footer") %>

@@ -1,10 +1,13 @@
-<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;") %>
 
-<p><%= t("devise.mailer.invitation_instructions.hello", name: @resident.to_s) %></p>
+<p><%= t("devise.mailer.invitation_instructions.hello", name: @resident.first_name) %>,</p>
 
 <h4><%= t("devise.mailer.resident_invitation.new_home", development_name: @plot&.development) %></h4>
 
 <p><%= t("devise.mailer.invitation_instructions.someone_invited_you", name: @invited_by_name) %></p>
+
+<p><%= t("devise.mailer.resident_invitation.welcome_back") %></p>
+<br/>
 
 <p><%= t("devise.mailer.resident_invitation.benefits") %></p>
 <ul>
@@ -14,7 +17,9 @@
   <li><%= t("devise.mailer.resident_invitation.benefit4") %></li>
   <li><%= t("devise.mailer.resident_invitation.benefit5") %></li>
 </ul>
+<br/>
+<p><%= t("devise.mailer.resident_invitation.already_activated") %></p>
 
-<p><%= t("devise.mailer.resident_invitation.welcome_back") %></p>
-
-<p><%= t("devise.mailer.resident_invitation.already_activated") %><%= link_to @plot.development, resident_sign_in_route(@plot) %></p>
+<p style="text-align: center;">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, resident_sign_in_route(@plot) %>
+</p>

@@ -23,7 +23,7 @@ module ResidentResetService
   def transfer_files_and_notify(resident, reset_plot)
     transfer_url = transfer_private_files(resident, reset_plot)
 
-    TransferFilesJob.perform_later(resident.email, resident.to_s,
+    TransferFilesJob.perform_later(resident.email, resident.first_name,
                                    transfer_url, plots_string(resident, reset_plot))
   end
 
@@ -36,7 +36,7 @@ module ResidentResetService
 
   def reset_resident(resident)
     update_resident_params(resident)
-    CloseAccountJob.perform_later(resident.email, resident.to_s)
+    CloseAccountJob.perform_later(resident.email, resident.first_name)
     update_mailchimp(resident)
   end
 

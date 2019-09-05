@@ -54,11 +54,6 @@ class ReleaseMailer < ApplicationMailer
 
   # Send the mail
   def send_mail(subject)
-    attachments.inline["Spaciable_full.svg"] = File.read(Rails.root.join("app",
-                                                                         "assets",
-                                                                         "images",
-                                                                         "Spaciable_full.svg"))
-
     if @send_to_admins == "true"
       mail(to: @emails,
            subject: subject,

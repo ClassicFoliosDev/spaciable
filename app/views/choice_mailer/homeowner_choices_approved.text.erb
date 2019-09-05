@@ -1,34 +1,19 @@
-Dear <%= @plot.homeowners.map(&:first_name).join(',') %>,
+<%= t(".new_message") %>
 
-Choices have been submitted and approved for your home.
+<%= t(".approved", plot: @plot.number, development: @plot.development_name) %>
 
-
-Plot: <%= @plot.number %>
-
-Development: <%= @plot.development_name %>
-
-<% if @plot.division.present? %>
-Division: <%= @plot.division_name %>
-<% end %>
-
-Developer: <%= @plot.company_name %>
-
-Choices selected:
-
+<%= t(".your_selections") %>
 <% @plot.rooms.each do |room| %>
 
-<%=room.name %>
-
-  <% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
-    <% if choice.choiceable.is_a? Appliance %>
-      <% category = choice.appliance_category %>
-    <% elsif choice.choiceable.is_a? Finish %>
-      <% category = choice.finish_category %>
-    <% end %>
-  <%= category%>: <%= choice.short_name %>
-  <% end %>
+<%= room.name %>
+<% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
+<% if choice.choiceable.is_a? Appliance %>
+<% category = choice.appliance_category %>
+<% elsif choice.choiceable.is_a? Finish %>
+<% category = choice.finish_category %>
+<% end %>
+<%= category %>: <%= choice.short_name %>
+<% end %>
 <% end %>
 
-Kind Regards,
-
-<%= @plot.company_name %>
+<%= t(".login") %><%= root_url %>

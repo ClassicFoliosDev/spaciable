@@ -20,6 +20,7 @@ class ChoiceMailer < ApplicationMailer
 
   def homeowner_choices_rejected(plot, notification)
     @plot = plot
+    @logo = email_logo_or_brand_logo
     @notification = notification.dup
     mail to: @plot.homeowners.map(&:email).join(","),
          subject: I18n.t("choices.homeowner.email_subject.rejected", plot_name: @plot.number)
@@ -27,6 +28,7 @@ class ChoiceMailer < ApplicationMailer
 
   def homeowner_choices_approved(plot)
     @plot = plot
+    @logo = email_logo_or_brand_logo
     mail to: @plot.homeowners.map(&:email).join(","),
          subject: I18n.t("choices.homeowner.email_subject.approved", plot_name: @plot.number)
   end
@@ -36,5 +38,15 @@ class ChoiceMailer < ApplicationMailer
     mail to: [plot&.choices_email_contact, sender],
          from: sender,
          subject: I18n.t("choices.admin.email_subject.selected", plot_name: @plot.number)
+  end
+
+  private
+
+  def email_logo_or_brand_logo
+    @plot&.branded_email_logo ? @plot.branded_email_logo : brand_logo_or_default_logo
+  end
+
+  def brand_logo_or_default_logo
+    @plot&.branded_logo ? @plot.branded_logo : "Spaciable_full.svg"
   end
 end

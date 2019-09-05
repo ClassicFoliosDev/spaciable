@@ -1,42 +1,62 @@
-<p>
-	DearSir/Madam
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p style="font-weight: 600;">
+  <%= t(".new_message") %>
 </p>
 
-Choices have been submitted and approved for the following plot
+<p>
+  <%= t(".approved") %>
+</p>
 
 <p>
-	Plot: <%= @plot.number %>
+  <span style="font-weight: 600">Plot: </span><%= @plot.number %>
 </p>
+
+<% if @plot.phase.present? %>
 <p>
-	Development: <%= @plot.development_name %>
-</p>
-<% if @plot.division.present? %>
-<p>
-	Division: <%= @plot.division_name %>
+  <span style="font-weight: 600;">Phase: </span><%= @plot.phase_name %>
 </p>
 <% end %>
+
 <p>
-	Developer: <%= @plot.company_name %>
+  <span style="font-weight: 600;">Development: </span><%= @plot.development_name %>
 </p>
 
-Choices selected:
+<% if @plot.division.present? %>
+<p>
+  <span style="font-weight: 600;">Division: </span><%= @plot.division_name %>
+</p>
+<% end %>
 
+<p>
+  <span style="font-weight: 600;">Developer: </span><%= @plot.company_name %>
+</p>
+<br/>
+<h3>
+  <%= t(".choices") %>
+</h3>
+
+<p>
 <% @plot.rooms.each do |room| %>
-
-  <h3><%= room.name %></h3>
+  <h4 style="text-decoration: underline;"><%= room.name %></h4>
   <% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
+  <span style="font-weight: 600;">
     <% if choice.choiceable.is_a? Appliance %>
       <%= choice.appliance_category %>
     <% elsif choice.choiceable.is_a? Finish %>
       <%= choice.finish_category %>
-    <% end %> :
+    <% end %>:
+  </span>
     <%= choice.full_name %>
     <br>
   <% end %>
 <% end %>
+</p>
 
-<br>
-Kind Regards,
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
+</p><br/>
 
-The Spaciable Team
+<p style="font-style: italic;font-size: 14px;">
+  <%= t(".opt_out") %>
 </p>

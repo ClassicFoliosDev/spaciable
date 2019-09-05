@@ -1,4 +1,4 @@
-<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto") %>
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;") %>
 
 <p>
   Hello <%= @referee_name %>,
@@ -9,7 +9,7 @@
 </p>
 
 <p>
-  If you are happy for us to pass your details to <%= @developer %>, please click on "I Agree" below.
+  If you are happy for us to pass your details to <%= @developer %>, please click on 'I Agree' below.
 </p>
 
 <p>
@@ -17,21 +17,21 @@
 </p>
 
 <p class="confirm-button" style="text-align: center">
-  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #18A895;border-color: #18A895;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px'>I Agree</button>".html_safe, confirm_referral_url(@referral_token) %>
-</p>
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px'>I Agree</button>".html_safe, confirm_referral_url(@referral_token) %>
+</p><br/>
 
 <p>
-  If you ignore this email or do not click "I Agree", your details will not be passed on and will be deleted within 28 days.
-</p>
+  If you ignore this email or do not click 'I Agree', your details will not be passed on and will be deleted within 28 days.
+</p><br/>
 
 <p>
   Kind regards,
 </p>
 
-<p>
-  Spaciable Admin
+<p style="font-weight: 600;">
+  The Spaciable Team
 </p>
 
-<footer style="font-size: 12px">
+<footer style="font-size: 12px;font-style: italic">
   Please note this email address is not monitored. Do not reply directly to this email.
 </footer>

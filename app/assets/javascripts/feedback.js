@@ -31,8 +31,8 @@
         '</div>' +
 
         '<div>' +
-          '<label>' + dataIn.comments + '</label>' +
-          '<textarea class="comments" id="comments" placeholder=' + "'" + dataIn.placeholder + "'" + '></textarea>' +
+          '<label id="commentsLabel">' + dataIn.comments + '</label>' +
+          '<textarea class="comments feedback-comments" id="comments" placeholder=' + "'" + dataIn.placeholder + "'" + '></textarea>' +
         '</div>' +
 
         '<div class="disclaimer">' +
@@ -57,7 +57,7 @@
         },
         {
           text: dataIn.submit,
-          class: 'btn-primary',
+          class: 'btn-primary validate-feedback-btn',
           id: 'btn_confirm',
           click: function () {
             var $comments = $('.comments')
@@ -73,13 +73,19 @@
             data.email = dataIn.emailaddr
             data.details = dataIn.details
 
-            $.getJSON({
-              url: '/feedback',
-              data: data
-            })
+            if ($comments[0].value == "") {
+              document.getElementById('comments').style.borderColor = "#FF293F"
+              document.getElementById('commentsLabel').style.color = "#FF293F"
+              document.getElementById('comments').placeholder = "Please enter a comment or your feedback will not be sent"
+            } else {
+              $.getJSON({
+                url: '/feedback',
+                data: data
+              })
 
-            $(this).dialog('close')
-            $(this).dialog('destroy').remove()
+              $(this).dialog('close')
+              $(this).dialog('destroy').remove()
+            }
           }
         }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button

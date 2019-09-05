@@ -1,7 +1,7 @@
 <table class="record-list">
   <thead>
     <tr>
-      <th><%= sortable(Document, :title) %></th>
+      <th><%= sortable(Document, :title, t(".document")) %></th>
       <th colspan="2"><%= t(".plot") %></th>
       <th><%= sortable(Document, :category) %></th>
       <th><%= sortable(Document, :updated_at) %></th>

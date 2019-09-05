@@ -1,92 +1,106 @@
+<%= t(".plots_live") %>
 
-Hi <%= @names.to_sentence %>
+<%= t(".portal_update", date: @release_date_s, number: @plots.length) %>
 
-Your Spaciable Completion Plots are Live
+Developer: <%= @phase.company_name %>
 
-We are delighted to confirm that the Spaciable homeowner’s portal has been updated with completion information on <%= @release_date_s %> for the following plots.
+<% unless @phase.division.nil? %>
+Division: <%= @phase.division_name %>
 
-Developer:    <%= @phase.company_name %>
+<% end %>
+Development: <%= @phase.development_name %>
 
-Division:     <% unless @phase.division.nil? %><%= @phase.division_name %><% end %>
+Phase: <%= @phase.name %>
 
-Development:  <%= @phase.development_name %>
-
-Phase:        <%= @phase.name %>
-
-Plots:        <%= @plots.to_sentence %>
-
-Number of Plots: <%= @plots.length %>
+Plots: <%= @plots.to_sentence %>
 
 These plots will expire on <%= @expiry_date_s %>*
 
-*Please note: Plots with extended access may expire later than this date.
+* Please note: plots with extended access may expire later than this date.
 
-Residents that have activated their Spaciable portal account will benefit from useful features, such as:
 
-Essential contact information
-Useful documents, e.g., appliance manuals, warranty policy and homeowner’s manual (if applicable)
-An option to upload their own documents
-List of their home’s finishes (if applicable)
-Appliance efficiency ratings and links to register manufacturers' warranties
-Helpful "how to" articles with settling in advice, lifestyle ideas and maintenance guidance
-Ability to request quotes for various new home services, e.g., utilities, insurance, etc.
-Answers to frequently asked questions
-Local area information (if applicable)
-A notifications inbox, containing any important messages sent by your staff
+<%= t(".resident_activated") %>
 
-Visit www.spaciable.com/admin and enter your email address and password to log in to the Spaciable admin interface.
+<%= t(".benefit_1") %>
+<%= t(".benefit_2") %>
+<%= t(".benefit_3") %>
+<%= t(".benefit_4") %>
+<%= t(".benefit_5") %>
+<%= t(".benefit_6") %>
+<%= t(".benefit_7") %>
+<%= t(".benefit_8") %>
+<%= t(".benefit_9") %>
+<%= t(".benefit_10") %>
 
-Inviting Residents
-To invite each resident to their personal Spaciable portal:
-Visit www.apaciable.com/admin and enter your email address and password
-Navigate to the development
-Click the Phase tab and select the correct phase
-Click on the plot
-Click the Residents tab and then click Add Resident
-Input the resident’s name, phone number and email address
-Click Submit
-Please note that the resident’s Spaciable invite may be in their Junk Mail
-You can add more than one resident to a single plot
-You can add the same resident’s email to multiple plots
 
-For each plot, you can assign a completion date, which will trigger a series of helpful emails sent to the resident in your company branding.
-Navigate to the development
-Click the Phase tab and select the correct phase
-Click on the plot
-Click the Completion tab
-Enter or edit the completion date, then click Save Changes
+<%= t(".login_link") %>www.spaciable.com/admin
 
-Navigate back to a plot to delete/edit residents or update the completion date at any time.
 
-Benefits for Spaciable Admins
-On the Spaciable admin interface, you and the other admins can:
+<%= t(".inviting_residents") %>
 
-View a list of developments (developer or division admins only)
-View live plots
-Invite/delete residents
-Upload documents or images
-Embed links to online videos
-Send notifications to residents’ emails
-Add/edit FAQs
-Add/edit contacts
-Update the build progress status
-Add other admins, so your colleagues can log in and edit Spaciable information
+<%= t(".invite") %>
 
-For advice on how to use the admin interface, please log in to www.spaciable.com/admin and select ‘Spaciable Help’ in the left hand menu.
+<%= t(".login_link") %>www.spaciable.com/admin
+<%= t(".navigate_to_development") %>
+<%= t(".navigate_to_phase") %>
+<%= t(".navigate_to_plot") %>
+<%= t(".add_resident") %>
+<%= t(".resident_details") %>
 
-If you have any questions or issues, please contact the Classic Folios Account Management team.
+<%= t(".junk") %>
 
-Email:   accountmanagement@classicfolios.com
-Phone:  023 8062 6280
+<%= t(".resident_condition") %>
 
-Don’t wish to receive notifications regarding new plots added to the Spaciable portal?
-Log into Spaciable and edit your Profile settings to unsubscribe.
+<%= t(".resident_change") %>
+
+
+<%= t(".completion_date") %>
+
+<%= t(".adding_completion_date") %>
+
+<%= t(".add_completion_date") %>
+
+<%= t(".navigate_to_development") %>
+<%= t(".navigate_to_phase") %>
+<%= t(".navigate_to_plot") %>
+<%= t(".completion_tab") %>
+<%= t(".add_completion") %>
+
+<%= t(".completion_change") %>
+
+
+<%= t(".admin_benefits") %>
+
+<%= t(".admins_can") %>
+
+<%= t(".list_dev") %>
+<%= t(".view_plots") %>
+<%= t(".invite_residents") %>
+<%= t(".documents_images") %>
+<%= t(".videos") %>
+<%= t(".send_notifications") %>
+<%= t(".faqs") %>
+<%= t(".contacts") %>
+<%= t(".build_progress") %>
+<%= t(".add_other_admins") %>
+
+<%= t(".help") %>
+
+<%= t(".login_link") %>www.spaciable.com/admin
+
+
+<%= t(".cf_account_management") %>
+
+Email: accountmanagement@classicfolios.com
+Phone: 023 8062 6280
+
 
 Kind Regards,
 
+<%= t(".spaciable_team") %>
+
+Email: hello@spaciable.com
+Phone: 023 8062 6280
 
 
-
-
-
-
+<%= t(".unsubscribe") %>

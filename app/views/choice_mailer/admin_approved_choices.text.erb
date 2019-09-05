@@ -1,33 +1,37 @@
-DearSir/Madam
+<%= t(".new_message") %>
 
-Choices have been submitted and approved for the following plot
+<%= t(".approved") %>
 
 Plot: <%= @plot.number %>
 
-Development: <%= @plot.development_name %>
+<% if @plot.phase.present? %>
+Phase: <%= @plot.phase_name %>
+<% end %>
 
+Development: <%= @plot.development_name %>
 <% if @plot.division.present? %>
-	Division: <%= @plot.division_name %>
+
+Division: <%= @plot.division_name %>
 <% end %>
 
 Developer: <%= @plot.company_name %>
 
-Choices selected:
+
+<%= t(".choices") %>
 
 <% @plot.rooms.each do |room| %>
 
-<%=room.name %>
-
-  <% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
-    <% if choice.choiceable.is_a? Appliance %>
-      <% category = choice.appliance_category %>
-    <% elsif choice.choiceable.is_a? Finish %>
-      <% category = choice.finish_category %>
-    <% end %>
-  <%= category%>: <%= choice.short_name %>
-  <% end %>
+<%= room.name %>
+<% RoomChoice.plot_choices(room, @plot)&.each do | choice | %>
+<% if choice.choiceable.is_a? Appliance %>
+<% category = choice.appliance_category %>
+<% elsif choice.choiceable.is_a? Finish %>
+<% category = choice.finish_category %>
+<% end %>
+<%= category %>: <%= choice.short_name %>
+<% end %>
 <% end %>
 
-Kind Regards,
+<%= t(".login") %><%= new_admin_session_url %>
 
-The Spaciable Team
+<%= t(".opt_out") %>

@@ -239,10 +239,14 @@ end
 
 When(/^I visit the invitation accept page$/) do
   invitation = ActionMailer::Base.deliveries.last
-  sections = invitation.text_part.body.to_s.split("http://")
-  paths = sections[2].split(t("devise.mailer.invitation_instructions.ignore"))
+  open_email('jo@bloggs.com')
+  click_first_link_in_email
+end
 
-  visit "/#{paths[0]}"
+When(/^I visit the new invitation accept page$/) do
+  invitation = ActionMailer::Base.deliveries.last
+  open_email('another_resident@example.com')
+  click_first_link_in_email
 end
 
 When(/^I do not accept terms and conditions$/) do
@@ -390,7 +394,7 @@ Then(/^I should see a duplicate plot resident error$/) do
 end
 
 Then(/^I can not add or remove residents$/) do
-  within ".other-residents" do
+  within ".resident" do
     expect(page).not_to have_content(".remove-resident")
     expect(page).not_to have_content(".add-resident")
   end

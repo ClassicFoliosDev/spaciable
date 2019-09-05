@@ -1,5 +1,5 @@
 <% plot = @resource.invitation_plot %>
-<%= t("devise.mailer.invitation_instructions.hello", name: @resource.to_s) %>
+<%= t("devise.mailer.invitation_instructions.hello", name: @resource.first_name) %>
 
 <%= t("devise.mailer.resident_invitation.new_home", development_name: plot.development) %>
 
@@ -9,6 +9,7 @@
 <%= t("devise.mailer.invitation_instructions.someone_invited_you", name: invited_by_str) %>
 
 <%= t("devise.mailer.resident_invitation.benefits") %>
+
 <%= t("devise.mailer.resident_invitation.benefit1") %>
 <%= t("devise.mailer.resident_invitation.benefit2") %>
 <%= t("devise.mailer.resident_invitation.benefit3") %>
@@ -17,7 +18,9 @@
 
 <%= t("devise.mailer.resident_invitation.activate") %>
 
-<%= t("devise.mailer.resident_invitation.log_in_text") %>
+<%= t("devise.mailer.resident_invitation.confirm") %>
+
+<%= t("devise.mailer.resident_invitation.my_account") %>
 
 <%= resident_invitation_route(plot, @token) %>
 
@@ -25,5 +28,9 @@
   <%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %>
 <% end %>
 
-<%= t("devise.mailer.invitation_instructions.ignore") %>
 <%= t("devise.mailer.invitation_instructions.ignore2") %>
+
+<%= t("devise.mailer.resident_invitation.log_in_text") %>
+
+<%= t("devise.mailer.invitation_instructions.ignore") %>
+

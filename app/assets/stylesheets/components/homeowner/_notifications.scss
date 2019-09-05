@@ -44,7 +44,8 @@
   }
 
   .new {
-    z-index: 10;
+    position: relative;
+    z-index: 101;
     border-radius: 50%;
     background-color: $primary-background;
     color: $ui-white;

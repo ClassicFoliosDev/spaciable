@@ -1,5 +1,7 @@
-<p>
-  Hi,
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p style="font-weight: 600;">
+  <%= t("snag_mailer.new_message") %>
 </p>
 
 <p>
@@ -12,33 +14,57 @@
   <% end %>
 </p>
 
-<ul>
-  <li><%= t("snag_mailer.snag_title") %><%= @snag_title %></li>
-  <br/>
-  <li><%= t("snag_mailer.developer") %><%= @plot.company_name %></li>
-  <% if @plot.division %>
-    <li><%= t("snag_mailer.division") %><%= @plot.division_name %></li>
-  <% end %>
-  <li><%= t("snag_mailer.development") %><%= @plot.development_name %></li>
-  <li><%= t("snag_mailer.phase") %><%= @plot.phase_name %> </li>
-  <li><%= t("snag_mailer.plot") %><%= @plot.number %></li>
-  <br/>
-  <li><%= t("snag_mailer.postal") %><%= @plot.prefix %> <%= @plot.postal_number %></li>
-  <li><%= t("snag_mailer.building") %><%= @plot.building_name %></li>
-  <li><%= t("snag_mailer.street") %><%= @plot.road_name %></li>
-  <li><%= t("snag_mailer.postcode") %><%= @plot.postcode %></li>
-</ul>
+<p>
+  <span style="font-weight: 600;"><%= t("snag_mailer.address") %></span><br/>
+  <%= @plot.prefix %> <%= @plot.postal_number %> <%= @plot.building_name %><br/>
+  <%= @plot.road_name %><br/>
+  <%= @plot.postcode %>
+</p>
+
+<p>
+  <span style="font-weight: 600;"><%= t("snag_mailer.plot") %></span><%= @plot.number %>
+</p>
+
+<p>
+  <span style="font-weight: 600;"><%= t("snag_mailer.phase") %></span><%= @plot.phase_name %>
+</p>
+
+<p>
+  <span style="font-weight: 600;"><%= t("snag_mailer.development") %></span><%= @plot.development_name %>
+</p>
+
+<% if @plot.division %>
+<p>
+  <span style="font-weight: 600;"><%= t("snag_mailer.division") %></span><%= @plot.division_name %>
+</p>
+<% end %>
+
+<p>
+  <span style="font-weight: 600;"><%= t("snag_mailer.developer") %></span><%= @plot.company_name %>
+</p>
+<br/>
+
+<p>
+<span style="font-weight: 600;"><%= t("snag_mailer.snag_title") %></span><%= @snag_title %>
+</p>
+<br/>
 
 <p>
   <% if @status == "create" || @status == "update" %>
-  <%= t("snag_mailer.view_snag") %> <%= link_to t("snag_mailer.link_to_snag"), admin_snag_url(@snag.id) %>.
+    <%= t("snag_mailer.view_snag") %>
+    <p style="text-align: center">
+      <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>View Snag</button>".html_safe, admin_snag_url(@snag.id) %>
+    </p>
   <% elsif @status == "delete" %>
     <%= t("snag_mailer.general_snag") %>
   <% end %>
 </p>
-<p>
-  <em><%= t("snag_mailer.opt_out") %></em>
+<br/>
+
+<p style="font-style: italic;font-size: 14px;">
+  <%= t("snag_mailer.opt_out") %>
 </p>
-<p>
-  <%= link_to t("snag_mailer.login"), new_admin_session_url %>
+
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
 </p>

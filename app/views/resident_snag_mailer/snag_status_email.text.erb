@@ -1,22 +1,21 @@
-Hi,
+<%= t("snag_mailer.new_message_resident") %>
 
 <%= t(".new_snag_status", user: @user, status: @status) %>
 
   <%= @snag_title %>
 
-<%= t("resident_snag_mailer.snag_address", plot: @plot, address: @address) %>
+<%= t("resident_snag_mailer.snag_address") %>
+
+(<%= @plot %>)
+<%= @plot.prefix %> <%= @plot.postal_number %> <%= @plot.building_name %>
+<%= @plot.road_name %>
+<%= @plot.postcode %>
 
 <% if @status == "resolved" %>
-<%= t(".confirm_status", tool_name: @tool_name) %>clicking here: <%= snag_url(@snag.id) %>
+<%= t(".confirm_status", tool_name: @tool_name) %>
 <% else %>
-<%= t(".status_details", tool_name: @tool_name) %>clicking here: <%= snag_url(@snag.id) %>
+<%= t(".status_details", tool_name: @tool_name) %>
 <% end %>
-
-<%= t("snag_mailer.login") %>: <%= root_url %>
-
-
-Kind regards,
-
-Spaciable Admin
+<%= snag_url(@snag.id) %>
 
 <%= t("resident_snag_mailer.footer") %>

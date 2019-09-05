@@ -1,19 +1,24 @@
-<p>
-	Dear <%= @plot.homeowners.map(&:first_name).join(',') %>,
-</p>
-<p>
-	Unfortunately, your list of choices has been declined. Please log in to review and amend your selections before submitting them again.
+<%= image_tag(@logo, style: "display: block;width:120px;margin: 20px auto; padding-bottom: 20px;") %>
 
-	The following message has been provided by the <%= @plot.company_name %> admin who reviewed your choices.
+<p style="font-weight: 600;">
+	<%= t(".new_message") %>
+</p>
+
+<p>
+  <%= t(".declined", plot: @plot.number, development: @plot.development_name) %>
+</p>
 
 <% if @notification.present? %>
-	<%= simple_format(@notification) %>
+  <p style="font-weight: 600;">
+    <%= t(".message", developer: @plot.company_name) %>
+  </p>
+  <%= simple_format(@notification) %>
 <% end %>
 
 </p>
-<p>
+	<%= t(".login") %>
+</p>
 
-Kind Regards,
-
-<%= @plot.company_name %>
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, root_url %>
 </p>

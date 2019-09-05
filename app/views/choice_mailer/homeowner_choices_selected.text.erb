@@ -1,18 +1,27 @@
+<%= t(".new_message") %>
 
-Dear <%= @admins.map(&:first_name).join(',') %>,
+<%= t(".selected") %>
 
-Choices have been selected for the following plot. Please log in and confirm or reject this list of choices, as appropriate, by navigating to the plot and clicking the Choices tab.
+Plot: <%= @plot.number %>
+<% if @plot.phase.present? %>
 
-Plot:        <%= @plot.number %>
-
-Development: <%= @plot.development_name %>
-
-<% if @plot.division.present? %>
-Division:    <%= @plot.division_name %>
+Phase: <%= @plot.phase_name %>
 <% end %>
 
-Developer:   <%= @plot.company_name %>
+Development: <%= @plot.development_name %>
+<% if @plot.division.present? %>
 
-Kind Regards,
+Division: <%= @plot.division_name %>
+<% end %>
 
-The Spaciable Team.
+Developer: <%= @plot.company_name %>
+
+<%= t(".confirm") %>
+
+<%= t(".navigate") %>
+<%= plot_choices_url(@plot) %>
+
+<%= t(".opt_out") %>
+<%= t(".login") %><%= new_admin_session_url %>
+
+

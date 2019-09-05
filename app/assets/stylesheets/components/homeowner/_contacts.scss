@@ -15,6 +15,25 @@
       @include span-columns(3 of 12);
       padding-top: 15px;
 
+      .initials-avatar {
+        text-align: center;
+        width: 85%;
+        height: 70px;
+        margin-right: auto;
+        margin-left: auto;
+        color: $ui-white;
+        top: 50%;
+        background-color: $ui-grey;
+        border-radius: 50%;
+
+        .initials {
+          position: relative;
+          top: 50%;
+          line-height: 5%;
+          font-size: 30px;
+        }
+      }
+
       img {
         margin: 0 auto;
         display: block;
@@ -98,6 +117,23 @@
       font-size: 48px;
       text-align: center;
       hyphens: auto;
+
+      .initials-avatar {
+        width: 50%;
+        height: 110px;
+        margin-right: auto;
+        margin-left: auto;
+        color: $ui-white;
+        top: 50%;
+        background-color: $ui-grey;
+        border-radius: 50%;
+
+        .initials {
+          position: relative;
+          top: 50%;
+          line-height: 5%;
+        }
+      }
 
       .position {
         font-weight: $semi-bold-font-weight;

@@ -442,7 +442,7 @@ Then(/^I can see an email confirming the choices$/) do
   email = ActionMailer::Base.deliveries.last
   email.should be_delivered_from(CreateFixture.resident_email)
   email.should deliver_to(CreateFixture.development_admin.email)
-  expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} choice selections")
+  expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} Choice Selections")
   expect(email.default_part_body.to_s).to include(CreateFixture.phase_plot_name)
   expect(email.default_part_body.to_s).to include(CreateFixture.development_name)
   expect(email.default_part_body.to_s).to include(CreateFixture.developer_name)
@@ -452,7 +452,7 @@ Then(/^I can see a rejection email$/) do
   open_last_email
   current_email.should be_delivered_from("no-reply@spaciable.com")
   current_email.should deliver_to(CreateFixture.resident_email)
-  expect(current_email).to have_subject ("Plot #{CreateFixture.phase_plot_name} choice selections declined")
+  expect(current_email).to have_subject ("Plot #{CreateFixture.phase_plot_name} Choice Selections Declined")
   expect(current_email.default_part_body.to_s).to include(CreateFixture.rejection_message)
 end
 
@@ -460,23 +460,22 @@ Then(/^a confirmation email is sent to the resident$/) do
   email = ActionMailer::Base.deliveries.first
   email.should be_delivered_from("no-reply@spaciable.com")
   email.should deliver_to(CreateFixture.resident_email)
-  expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} Choices approved")
-  expect(email.default_part_body.to_s).to include(CreateFixture.phase_plot_name)
-  expect(email.default_part_body.to_s).to include(CreateFixture.development_name)
-  expect(email.default_part_body.to_s).to include(CreateFixture.developer_name)
-  expect(email.default_part_body.to_s).to include("Choices have been submitted and approved for your home")
-  expect(email.default_part_body.to_s).to include(CreateFixture.kitchen_name)
-  expect(email.default_part_body.to_s).to include("Oven2")
-  expect(email.default_part_body.to_s).to include(CreateFixture::FINISHRESOURCES[1][3][1])
-  expect(email.default_part_body.to_s).to include(CreateFixture.bedroom_name)
-  expect(email.default_part_body.to_s).to include(CreateFixture::FINISHRESOURCES[0][3][1])
+  expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} Choice Selections Approved")
+  expect(email).to have_body_text(CreateFixture.phase_plot_name)
+  expect(email).to have_body_text(CreateFixture.development_name)
+  expect(email).to have_body_text("Your selected choices have been approved for")
+  expect(email).to have_body_text(CreateFixture.kitchen_name)
+  expect(email).to have_body_text("Oven2")
+  expect(email).to have_body_text(CreateFixture::FINISHRESOURCES[1][3][1])
+  expect(email).to have_body_text(CreateFixture.bedroom_name)
+  expect(email).to have_body_text(CreateFixture::FINISHRESOURCES[0][3][1])
 end
 
 Then(/^a confirmation email is sent to the developer admin$/) do
   email = ActionMailer::Base.deliveries.last
   email.should be_delivered_from(CFAdminUserFixture.email)
   email.should deliver_to(CreateFixture.choice_email_contact, CFAdminUserFixture.email)
-  expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} choice selections")
+  expect(email).to have_subject ("Plot #{CreateFixture.phase_plot_name} Choice Selections")
   expect(email.default_part_body.to_s).to include(CreateFixture.phase_plot_name)
   expect(email.default_part_body.to_s).to include(CreateFixture.development_name)
   expect(email.default_part_body.to_s).to include(CreateFixture.developer_name)

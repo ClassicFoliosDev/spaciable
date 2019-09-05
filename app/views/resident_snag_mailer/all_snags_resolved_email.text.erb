@@ -1,15 +1,15 @@
-Hi,
+<%= t("snag_mailer.new_message_resident") %>
 
 <%= t(".all_snags_resolved", tool_name: @tool_name) %>
 
-  <%= @address %> (<%= @plot %>)
+(<%= @plot %>)
+
+<%= @plot.prefix %> <%= @plot.postal_number %> <%= @plot.building_name %>
+<%= @plot.road_name %>
+<%= @plot.postcode %>
 
 <%= t(".snag_archive", tool_name: @tool_name) %>
 
-Login to your account at www.spaciable.com
+Login to Spaciable: <%= root_url %>
 
-Kind regards,
-
-Spaciable Admin
-
-%= t("resident_snag_mailer.footer") %>
+<%= t("resident_snag_mailer.footer") %>
