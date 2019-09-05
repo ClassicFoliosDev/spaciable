@@ -7,7 +7,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), division_developments_path, class: "btn" %>
+      <%= link_to t(".back"), developer_division_path(developer_id: @development.division.developer, id: @development.division), class: "btn" %>
     </div>
   </div>
 </div>

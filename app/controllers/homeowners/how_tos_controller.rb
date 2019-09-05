@@ -54,6 +54,7 @@ module Homeowners
     # Calculated the populated categories
     def populate_categories(tag_id)
       @categories = []
+      @country = Country.find_by(name: "UK") if @country.nil?
       HowTo.country_categories(@country).each do |cat|
         @categories << cat if tag_id ||
                               @how_tos.active

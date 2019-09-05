@@ -21,6 +21,9 @@
   border-radius: 5px;
   padding: 0 $spacing-small;
   display: inline-block;
+  color: $ui-white;
+  background-color: $primary-red-left;
+  border-color: $primary-red-left;
 
   &:hover {
     color: $primary-red-left;

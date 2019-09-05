@@ -12,7 +12,12 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t(".back"), development_phases_path, class: "btn" %>
+      <% if @phase.division.present? %>
+        <% back_button_link = division_development_path(division_id: @phase.division, id: @phase.development) %>
+      <% else %>
+        <% back_button_link = developer_development_path(developer_id: @phase.developer, id: @phase.development) %>
+      <% end %>
+      <%= link_to t(".back"), back_button_link, class: "btn" %>
     </div>
   </div>
 </div>

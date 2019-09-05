@@ -12,13 +12,8 @@ module GotoPage
     developer = CreateFixture.developer
     raise "Developer does not exist" unless developer
 
-    within ".navbar" do
-      click_on t("components.navigation.developers")
-    end
+    visit "/developers/#{developer.id}"
 
-    within ".developers" do
-      click_on developer
-    end
   end
 
   def goto_division_show_page

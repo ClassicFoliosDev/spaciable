@@ -327,10 +327,8 @@ Then(/^I should not be able to see developer brands$/) do
   visit "/"
 
   within ".navbar" do
-    click_on t("components.navigation.developers")
+    click_on t("components.navigation.my_area", area: "Developer")
   end
-
-  click_on CreateFixture.developer_name
 
   expect(page).not_to have_content(t("developers.collection.brands"))
 end
@@ -339,24 +337,21 @@ Then(/^I should not be able to see division brands$/) do
   visit "/"
 
   within ".navbar" do
-    click_on t("components.navigation.developers")
+    click_on t("components.navigation.my_area", area: "Division")
   end
 
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.divisions")
-
-  expect(page).not_to have_content(t("developers.collection.brands"))
+  expect(page).not_to have_content(t("divisions.collection.brands"))
 end
 
 Then(/^I should not be able to see development brands$/) do
   visit "/"
 
   within ".navbar" do
-    click_on t("components.navigation.developers")
+    click_on t("components.navigation.my_area", area: "Development")
   end
 
-  click_on CreateFixture.developer_name
-  click_on t("developers.collection.developments")
+sleep 0.5
+save_and_open_screenshot
 
   expect(page).not_to have_content(t("developers.collection.brands"))
 end

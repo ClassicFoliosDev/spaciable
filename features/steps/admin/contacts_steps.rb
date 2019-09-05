@@ -221,13 +221,10 @@ When(/^I delete the development contact$/) do
 end
 
 Then(/^I should not be able to create a developer contact$/) do
+  developer = CreateFixture.developer
   visit "/"
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  click_on CreateFixture.developer_name
+  visit "/developers/#{developer.id}"
 
   click_on t("developers.collection.contacts")
 
@@ -238,10 +235,9 @@ When(/^I create a developer contact$/) do
   visit "/"
 
   within ".navbar" do
-    click_on t("components.navigation.developers")
+    click_on t("components.navigation.my_area", area: "Developer")
   end
 
-  click_on CreateFixture.developer_name
   click_on t("developers.collection.contacts")
   click_on t("contacts.collection.create")
 
@@ -305,16 +301,10 @@ end
 
 Then(/^I should not be able to create a division contact$/) do
   visit "/"
+  division = CreateFixture.division
 
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
+  visit "/developers/#{division.developer.id}/divisions/#{division.id}"
 
-  within ".record-list" do
-    click_on t("developers.collection.divisions")
-  end
-
-  click_on CreateFixture.division_name
   click_on t("developers.collection.contacts")
 
   expect(page).not_to have_content(t("contacts.collection.create"))

@@ -158,7 +158,7 @@ end
 Given(/^I am a Development Admin$/) do
   CreateFixture.create_developer
   CreateFixture.create_development
-  development_admin = CreateFixture.create_developer_admin
+  development_admin = CreateFixture.create_development_admin
 
   login_as development_admin
 end
