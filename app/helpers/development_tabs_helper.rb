@@ -5,7 +5,6 @@ module DevelopmentTabsHelper
 
   def development_tabs(development, current_tab)
     tabs = DEVELOPMENT_TABS.call(development)
-    add_plot_tabs(tabs, development) if Rails.application.config.enable_development_plots
     Tabs.new(development, tabs, current_tab, self).all
   end
 
@@ -32,18 +31,6 @@ module DevelopmentTabsHelper
         hide: development.choices_disabled?,
         link: [development.parent, development, active_tab: :choice_configurations]
       }
-    }
-  end
-
-  def add_plot_tabs(tabs, development)
-    tabs[:plots] = {
-      icon: :building,
-      link: [development.parent, development, active_tab: :plots]
-    }
-
-    tabs[:plot_documents] = {
-      icon: "files-o",
-      link: [development, :plot_documents]
     }
   end
 end

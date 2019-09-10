@@ -18,6 +18,11 @@ class PlotDocumentsController < ApplicationController
     @plot_documents = paginate(@plot_documents)
     @resident_count = @parent.plot_residencies.size
     @subscribed_resident_count = @parent.residents.where(cf_email_updates: true).size
+
+    @active_plots_count = @phase.active_plots_count
+    @completed_plots_count = @phase.completed_plots_count
+    @expired_plots_count = @phase.expired_plots_count
+    @activated_resident_count = @phase.activated_resident_count
   end
 
   def bulk_upload

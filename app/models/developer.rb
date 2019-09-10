@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Developer < ApplicationRecord
   acts_as_paranoid
 
@@ -87,4 +88,49 @@ class Developer < ApplicationRecord
   def no_lettings_account?
     LettingsAccount.find_by(letter_id: id).nil?
   end
+
+  def active_plots_count
+    active_plots = 0
+    phases.each do |phase|
+      active_plots += phase.active_plots_count
+    end
+    active_plots
+  end
+
+  def completed_plots_count
+    completed_plots = 0
+    phases.each do |phase|
+      completed_plots += phase.completed_plots_count
+    end
+    completed_plots
+  end
+
+  def expired_plots_count
+    expired_plots = 0
+    phases.each do |phase|
+      expired_plots += phase.expired_plots_count
+    end
+    expired_plots
+  end
+
+  def invited_resident_count
+    invited_residents = 0
+    phases.each do |phase|
+      invited_residents += phase.plot_residencies.size
+    end
+    invited_residents
+  end
+
+  def activated_resident_count
+    activated_residents = 0
+    phases.each do |phase|
+      activated_residents += phase.activated_resident_count
+    end
+    activated_residents
+  end
+
+  def developments_count
+    all_developments.count
+  end
 end
+# rubocop:enable Metrics/ClassLength

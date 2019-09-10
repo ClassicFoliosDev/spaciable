@@ -3,11 +3,17 @@
 <div class="section-header">
   <div class="section-title">
     <div><%= @unit_type.name %></div>
-    <span class="about">
-      <br/>
-      <strong><%= t("unit_types.show.walkthrough") %></strong><%= @unit_type.external_link %><br/>
-      <strong><%= t("unit_types.show.build_type") %></strong><%= t("activerecord.attributes.unit_type.build_types.#{@unit_type.build_type}") %>
-    </span>
+    <% if current_user.cf_admin? %>
+      <span class="about">
+        <br/>
+        <strong><%= t("unit_types.show.home_address_image") %></strong><%= @unit_type.picture? ? @unit_type.picture_name : "Not Populated" %><br/>
+        <strong><%= t("unit_types.show.about_page_link") %></strong><%= @unit_type.external_link? ? @unit_type.external_link : "Not Populated" %><br/><br/>
+        <strong><%= t("unit_types.show.plots") %></strong><%= @unit_type.plots.count %><br/>
+        <strong><%= t("unit_types.show.rooms") %></strong><%= @unit_type.rooms.count %><br/>
+        <strong><%= t("unit_types.show.finishes") %></strong><%= @unit_type.finishes_count %><br/>
+        <strong><%= t("unit_types.show.appliances") %></strong><%= @unit_type.appliances_count %><br/>
+      </span>
+    <% end %>
   </div>
   <div class="section-data">
     <%= edit_btn [:edit, @unit_type.development, @unit_type], element: @unit_type %>

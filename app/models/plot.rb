@@ -356,4 +356,20 @@ class Plot < ApplicationRecord
                         &.where("lower(name) = ?", room.name.downcase)
                         &.first
   end
+
+  def finishes_count
+    finishes = 0
+    rooms.each do |room|
+      finishes += room.finishes.count
+    end
+    finishes
+  end
+
+  def appliances_count
+    appliances = 0
+    rooms.each do |room|
+      appliances += room.finishes.count
+    end
+    appliances
+  end
 end

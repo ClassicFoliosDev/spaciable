@@ -53,7 +53,6 @@ When(/^I upload a document (\w+) that does not match a plot$/) do |plot_name|
                 File.absolute_path(plot_document_path),
                 visible: false)
   end
-
   click_on(t("plot_documents.form.upload_all"))
 end
 
@@ -61,7 +60,7 @@ Then(/^I should see a (\w+) plot document error$/) do |plot_name|
   document_number = CreateFixture.send(plot_name)
   document_name = PlotDocumentFixture.send("document#{document_number}10")
   notice = t("plot_documents.bulk_upload.failure", unmatched: document_name)
-
+  sleep 0.5
   within ".alert" do
     expect(page).to have_content(notice)
   end
@@ -100,10 +99,11 @@ When(/^I upload a document and rename it$/) do
     attach_file("document_files",
                 File.absolute_path(plot_document_path),
                 visible: false)
-
-    fill_in "rename_text", with: PlotDocumentFixture.rename_text
   end
 
+  within ".upload" do
+    fill_in "rename_text", with: PlotDocumentFixture.rename_text
+  end
   click_on(t("plot_documents.form.upload_rename"))
 end
 

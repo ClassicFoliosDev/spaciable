@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Development < ApplicationRecord
   acts_as_paranoid
 
@@ -72,12 +73,6 @@ class Development < ApplicationRecord
     end
   end
 
-  def private_documents_count
-    plots.to_a.inject(0) do |result, plot|
-      result + (plot&.private_document_count || 0)
-    end
-  end
-
   def expired?
     expired = true
     # technical debt: a blank phase (all fields nil except development id) is created
@@ -111,4 +106,45 @@ class Development < ApplicationRecord
       false
     end
   end
+
+  def active_plots_count
+    active_plots = 0
+    phases.each do |phase|
+      active_plots += phase.active_plots_count
+    end
+    active_plots
+  end
+
+  def completed_plots_count
+    completed_plots = 0
+    phases.each do |phase|
+      completed_plots += phase.completed_plots_count
+    end
+    completed_plots
+  end
+
+  def expired_plots_count
+    expired_plots = 0
+    phases.each do |phase|
+      expired_plots += phase.expired_plots_count
+    end
+    expired_plots
+  end
+
+  def invited_resident_count
+    invited_residents = 0
+    phases.each do |phase|
+      invited_residents += phase.plot_residencies.size
+    end
+    invited_residents
+  end
+
+  def activated_resident_count
+    activated_residents = 0
+    phases.each do |phase|
+      activated_residents += phase.activated_resident_count
+    end
+    activated_residents
+  end
 end
+# rubocop:enable Metrics/ClassLength

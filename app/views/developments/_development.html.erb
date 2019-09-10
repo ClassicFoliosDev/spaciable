@@ -8,10 +8,13 @@
     <div><%= development.name %></div>
     <span class="about">
       <br/>
-      <strong><%= t(".private_documents") %></strong><%= development.private_documents_count %><br/>
-      <strong><%= t(".maintenance_link") %></strong><%= development.maintenance_link || t(".none") %><br/>
-      <strong><%= t(".segment_id") %></strong><%= development.segment_id || t(".none") %><br/>
-      <strong><%= t(".snagging") %></strong><%= development.enable_snagging %><br/>
+      <strong><%= t(".snagging") %></strong><%= development.enable_snagging? ? "#{development.snag_duration} days" : "Disabled" %><br/><br/>
+      <strong><%= t(".active_plots") %></strong><%= development.active_plots_count %><br/>
+      <strong><%= t(".completed_plots") %></strong><%= development.completed_plots_count %><br/>
+      <strong><%= t(".expired_plots") %></strong><%= development.expired_plots_count %><br/><br/>
+      <strong><%= t(".residents") %></strong><%= development.invited_resident_count %><br/>
+      <strong><%= t(".activated_residents") %></strong><%= development.activated_resident_count %><br/><br/>
+      <strong><%= t(".phases") %></strong><%= development.phases.count %>
     </span>
   </div>
 

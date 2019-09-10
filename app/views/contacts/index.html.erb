@@ -1,7 +1,9 @@
 <% breadcrumb :contacts, @parent %>
 
 <div class="contact-index">
-  <%= render @parent, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count, phase: @parent %>
+  <%= render @parent, active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
+      expired_plots_count: @expired_plots_count, resident_count: @resident_count,
+      activated_resident_count: @activated_resident_count, phase: @parent %>
 
   <%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
 

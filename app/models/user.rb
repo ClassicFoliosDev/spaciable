@@ -26,7 +26,7 @@ class User < ApplicationRecord
   include DeviseInvitable::Admin
 
   enum role: [
-    :cf_admin, # Client Folio Admin
+    :cf_admin, # Classic Folio Admin
     :developer_admin,
     :division_admin,
     :development_admin,

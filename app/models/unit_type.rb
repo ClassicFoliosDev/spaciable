@@ -86,4 +86,26 @@ class UnitType < ApplicationRecord
     end
     return true if plot_list.count.positive?
   end
+
+  def picture_name
+    name = picture.to_s
+    name = name.split("/")
+    name.last
+  end
+
+  def finishes_count
+    finishes = 0
+    rooms.each do |room|
+      finishes += room.finishes.count
+    end
+    finishes
+  end
+
+  def appliances_count
+    appliances = 0
+    rooms.each do |room|
+      appliances += room.finishes.count
+    end
+    appliances
+  end
 end

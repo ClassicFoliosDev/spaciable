@@ -51,16 +51,9 @@ Then(/^I should see the updated divisions development$/) do
   )
   expect(page).to have_content(success_flash)
 
-  # On the show page
-  DivisionDevelopmentFixture.update_attrs.each do |_attr, value|
-    expect(page).to have_content(value)
-  end
-
   DivisionDevelopmentFixture.development_address_update_attrs.each do |_attr, value|
     expect(page).to have_content(value)
   end
-
-  expect(page).to have_content("Snagging Enabled: true")
 end
 
 And(/^I should be able to return to the division$/) do

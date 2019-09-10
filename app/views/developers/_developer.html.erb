@@ -7,13 +7,13 @@
     <span class="about">
       <%= simple_format developer.about %>
       <br/>
-      <strong><%= t(".house_search") %></strong><%= developer.house_search? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".messages") %></strong><%= developer.enable_development_messages? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".faq_scope") %></strong><%= developer.development_faqs? ? t(".development") : t(".developer") %><br/>
-      <strong><%= t(".list_id") %></strong><%= developer.list_id || 0 %><br/>
-      <strong><%= t(".referrals") %></strong><%= developer.enable_referrals? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".roomsketcher") %></strong><%= developer.enable_roomsketcher? ? t(".enabled") : t(".disabled") %><br/>
-      <strong><%= t(".services") %></strong><%= developer.enable_services? ? t(".enabled") : t(".disabled") %><br/>
+      <strong><%= t(".active_plots") %></strong><%= developer.active_plots_count %><br/>
+      <strong><%= t(".completed_plots") %></strong><%= developer.completed_plots_count %><br/>
+      <strong><%= t(".expired_plots") %></strong><%= developer.expired_plots_count %><br/><br/>
+      <strong><%= t(".residents") %></strong><%= developer.invited_resident_count %><br/>
+      <strong><%= t(".activated_residents") %></strong><%= developer.activated_resident_count %><br/><br/>
+      <strong><%= t(".developments") %></strong><%= developer.developments_count %><br/>
+      <strong><%= t(".phases") %></strong><%= developer.phases.count %>
     </span>
   </div>
 

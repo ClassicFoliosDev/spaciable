@@ -1,6 +1,6 @@
 <%= content_for(:title, t("layouts.application.title") + ' ' + t("residents.invitations.edit.terms")) %>
 
-<div class="policy branded-border">
+<div class="policy branded-border" style="text-align: left;">
   <h3><%= t(".title")%></h3>
 
   <p><%= t(".welcome").html_safe %></p>
@@ -38,8 +38,8 @@
 
   <div class="ts-and-cs-file">
     <h4><%= t("legal.ts_and_cs_file") %></h4>
-    <%= link_to asset_path("HoozziTermsOfUse.doc"), target: "_blank", title: t("legal.ts_and_cs_file") do %>
-      <%= fa_icon "file-word-o" %>
+    <%= link_to asset_path("SpaciableTermsOfUse.pdf"), target: "_blank", title: t("legal.ts_and_cs_file") do %>
+      <%= fa_icon "file-pdf-o" %>
     <% end %>
   </div>
 </div>

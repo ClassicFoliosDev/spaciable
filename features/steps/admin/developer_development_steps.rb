@@ -48,11 +48,6 @@ Then(/^I should see the updated developer development$/) do
   )
   expect(page).to have_content(success_flash)
 
-  # On the show page
-  DeveloperDevelopmentFixture.update_attrs.each do |_attr, value|
-    expect(page).to have_content(value)
-  end
-
   DeveloperDevelopmentFixture.development_address_update_attrs.each do |_attr, value|
     expect(page).to have_content(value)
   end

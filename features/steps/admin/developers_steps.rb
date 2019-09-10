@@ -18,13 +18,6 @@ Then(/^I should see the created developer$/) do
   within ".developers" do
     click_on CreateFixture.developer_name
   end
-
-  within ".section-title" do
-    expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.disabled")}")
-    expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.disabled")}")
-    expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.disabled")}")
-    expect(page).to have_content("#{t(".developers.developer.roomsketcher")} #{t("developers.developer.enabled")}")
-  end
 end
 
 When(/^I update the developer$/) do
@@ -56,14 +49,6 @@ Then(/^I should see the updated developer$/) do
     developer_name: DeveloperFixture.updated_company_name
   )
   expect(page).to have_content(success_flash)
-
-  within ".section-title" do
-    expect(page).to have_content(DeveloperFixture.updated_company_name)
-    expect(page).to have_content("#{t(".developers.developer.house_search")} #{t("developers.developer.enabled")}")
-    expect(page).to have_content("#{t(".developers.developer.services")} #{t("developers.developer.enabled")}")
-    expect(page).to have_content("#{t(".developers.developer.messages")} #{t("developers.developer.enabled")}")
-    expect(page).to have_content("#{t(".developers.developer.roomsketcher")} #{t("developers.developer.disabled")}")
-  end
 
   within ".section-data" do
     DeveloperFixture.update_attrs.each do |_attr, value|

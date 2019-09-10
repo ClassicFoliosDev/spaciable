@@ -1,6 +1,8 @@
 <% breadcrumb :phase_release_plots, @phase %>
 
-<%= render @phase, resident_count: @resident_count, subscribed_resident_count: @subscribed_resident_count %>
+<%= render @phase, active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
+    expired_plots_count: @expired_plots_count, resident_count: @resident_count,
+    activated_resident_count: @activated_resident_count %>
 
 <%= render 'components/tabs', tabs: tabs_for(@phase, "release_plots"), phase: @phase %>
 

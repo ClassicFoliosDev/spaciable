@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Phase < ApplicationRecord
   attribute :number, :integer
 
@@ -118,4 +119,40 @@ class Phase < ApplicationRecord
          .where(developments: { enable_snagging: true })
          .accessible_by(current_ability)
   end
+
+  def active_plots_count
+    active_count = 0
+    plots.each do |plot|
+      if !plot.expired? &&
+         !(plot.completion_release_date.nil? && plot.reservation_release_date.nil?)
+        active_count += 1
+      end
+    end
+    active_count
+  end
+
+  def completed_plots_count
+    completed_count = 0
+    plots.each do |plot|
+      completed_count += 1 if plot.completion_release_date?
+    end
+    completed_count
+  end
+
+  def expired_plots_count
+    expired_count = 0
+    plots.each do |plot|
+      expired_count += 1 if plot.expired?
+    end
+    expired_count
+  end
+
+  def activated_resident_count
+    activated_count = 0
+    plots.each do |plot|
+      activated_count += plot.activated_resident_count
+    end
+    activated_count
+  end
 end
+# rubocop:enable Metrics/ClassLength

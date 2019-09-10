@@ -1036,7 +1036,13 @@ en:
       private_documents: "Documents From All Residents: "
       none: "not configured"
       maintenance_link: "Maintenance Link: "
-      snagging: "Snagging Enabled: "
+      snagging: "Snagging: "
+      active_plots: "Active Plots: "
+      completed_plots: "Completed Plots: "
+      expired_plots: "Expired Plots: "
+      residents: "Invited Residents: "
+      activated_residents: "Activated Residents: "
+      phases: "Phases: "
 
   homeowners:
     faqs:
@@ -1442,11 +1448,18 @@ en:
       services: "Services: "
       referrals: "Referrals: "
       messages: "Community Messages: "
-      enabled: "enabled"
-      disabled: "disabled"
+      enabled: "Enabled"
+      disabled: "Disabled"
       faq_scope: "FAQ Scope: "
-      developer: "developer"
-      development: "development"
+      developer: "Developer"
+      development: "Development"
+      active_plots: "Active Plots: "
+      completed_plots: "Completed Plots: "
+      expired_plots: "Expired Plots: "
+      residents: "Invited Residents: "
+      activated_residents: "Activated Residents: "
+      developments: "Developments: "
+      phases: "Phases: "
       expiry: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
 
   divisions:
@@ -1502,6 +1515,13 @@ en:
       success: "%{division_name} was updated successfully"
     division:
       list_id: "List ID: "
+      active_plots: "Active Plots: "
+      completed_plots: "Completed Plots: "
+      expired_plots: "Expired Plots: "
+      residents: "Invited Residents: "
+      activated_residents: "Activated Residents: "
+      developments: "Developments: "
+      phases: "Phases: "
       none: "not configured"
       expiry: "All plots on this division have expired. To extend the access, please contact your Classic Folios account manager."
 
@@ -1680,7 +1700,11 @@ en:
       expiry: "All plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       partial_expiry: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       name: "Phase %{number}"
-      residents: "Total Residents: "
+      active_plots: "Active Plots: "
+      completed_plots: "Completed Plots: "
+      expired_plots: "Expired Plots: "
+      residents: "Invited Residents: "
+      activated_residents: "Activated Residents: "
       subscribed_residents: "Subscribed Residents: "
       business: "Business: "
     collection:
@@ -1937,11 +1961,16 @@ en:
     plot:
       expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
       letable: "Lettings: "
-      private_documents: "Uploaded Documents: "
+      private_documents: "Resident Documents: "
       none: "(n/a)"
       progress: "Build Progress: "
       completion_date: "Legal Completion Date: "
       expiry_date: "Expiry Date: "
+      rooms: "Rooms: "
+      appliances: "Appliances: "
+      finishes: "Finishes: "
+      invited_residents: "Invited Residents: "
+      activated_residents: "Activated Residents: "
     completion:
       title: "Legal Completion Date"
 
@@ -2014,6 +2043,12 @@ en:
     show:
       walkthrough: "3D Walkthrough Link: "
       build_type: "Build Type: "
+      home_address_image: "Home Address Image: "
+      about_page_link: "About Page Link: "
+      plots: "Plots: "
+      rooms: "Rooms: "
+      finishes: "Finishes: "
+      appliances: "Appliances: "
       back: "Back"
     index:
       title: "%{development_name} unit types"
@@ -2808,16 +2843,16 @@ en:
         category_descriptions:
           removals_html: "Spaciable Services can assist you with removals, packing or storage facilities."
           finance_html: "Spaciable Services can help find a mortgage or insurance deal that’s right for you."
-          legal_html: "Do you require a solicitor?<br/>Spaciable Services can help."
-          utilities_html: "Want the best deals for gas, electricity and other essential services?<br/>Spaciable Services can find your perfect tariff."
-          estate_html: "Wish to rent out your property?<br/>Spaciable Services has the right package for you."
-          manager_html: "Looking for someone to organise your entire move?<br/>Spaciable Services can manage it for you."
+          legal_html: "Do you require a solicitor? Spaciable Services can help."
+          utilities_html: "Want the best deals for gas, electricity and other essential services? Spaciable Services can find your perfect tariff."
+          estate_html: "Wish to rent out your property? Spaciable Services has the right package for you."
+          manager_html: "Looking for someone to organise your entire move? Spaciable Services can manage it for you."
         dashboard_titles:
           finance: "Conveyancing & Insurance"
           legal: "Moving & Utilities"
         dashboard_descriptions:
-          finance_html: "Need a solicitor to carry out your conveyancing?<br/>Wish to arrange insurance for your new home?"
-          legal_html: "Need help with removals, packing or storage facilities?<br/>Want the best deals on gas, electricity and other
+          finance_html: "Need a solicitor to carry out your conveyancing? Wish to arrange insurance for your new home?"
+          legal_html: "Need help with removals, packing or storage facilities? Want the best deals on gas, electricity and other
           essential services?"
     errors:
       messages:

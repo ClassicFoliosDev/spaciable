@@ -6,14 +6,24 @@
   <div><%= plot %></div>
 
   <div class="about">
-    <br/>
-    <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
-    <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/>
-    <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") %><br/>
-    <% if current_user&.cf_admin? %>
-      <strong><%= t(".letable") %></strong><%= plot&.letable %><br/>
-    <% end %>
-    <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count || t(".none") %>
+    <div class="half">
+      <br/>
+      <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/><br/>
+      <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
+      <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") %><br/><br/>
+      <strong><%= t(".invited_residents") %></strong><%= plot.residents.count %><br/>
+      <strong><%= t(".activated_residents") %></strong><%= plot.activated_resident_count %><br/><br/>
+      <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count || t(".none") %><br/>
+    </div>
+    <div class="half">
+      <% if current_user&.cf_admin? %>
+        <br/>
+        <strong><%= t(".letable") %></strong><%= plot&.letable? ? plot.letter_type.titleize : "Disabled" %><br/><br/>
+        <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
+        <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
+        <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>
+      <% end %>
+    </div>
   </div>
 </div>
 
