@@ -1,7 +1,7 @@
 <table class="record-list">
   <thead>
     <tr>
-      <th><%= sortable(Document, :title, t(".document")) %></th>
+      <th colspan="2"><%= sortable(Document, :title, t(".document")) %></th>
       <th colspan="2"><%= t(".plot") %></th>
       <th><%= sortable(Document, :category) %></th>
       <th><%= sortable(Document, :updated_at) %></th>
@@ -11,7 +11,7 @@
   <tbody>
     <% collection.each do |document| %>
     <tr>
-      <td><%= link_to document.title, document_path(document) %></td>
+      <td colspan="2"><%= link_to document.title, document_path(document) %></td>
       <td colspan="2" class="plot-select">
         <%= simple_form_for document, remote: true do |f| %>
           <%= f.association :documentable,

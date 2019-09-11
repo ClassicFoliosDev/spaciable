@@ -19,7 +19,7 @@ module Homeowners
         Mailchimp::MarketingMailService.call(current_resident, @plot)
         notice = t(".success")
         if resident_params[:password_confirmation].present?
-          redirect_to root_path
+          redirect_to new_resident_session_path
         elsif resident_params[:lettings_management].present?
           redirect_to letting_path(current_resident), notice: notice
         else
@@ -50,7 +50,7 @@ module Homeowners
       end
 
       ResidentResetService.reset_all_plots_for_resident(current_resident)
-      redirect_to root_url, notice: t(".success") if current_resident.destroy
+      redirect_to new_resident_session_path, notice: t(".success") if current_resident.destroy
     end
 
     def remove_resident

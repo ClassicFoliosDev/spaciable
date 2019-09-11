@@ -104,7 +104,7 @@ class UnitType < ApplicationRecord
   def appliances_count
     appliances = 0
     rooms.each do |room|
-      appliances += room.finishes.count
+      appliances += room.appliances.count
     end
     appliances
   end

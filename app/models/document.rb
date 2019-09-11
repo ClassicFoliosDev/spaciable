@@ -40,4 +40,12 @@ class Document < ApplicationRecord
 
     plot_document.enable_tenant_read
   end
+
+  def user_role(current_user)
+    if current_user.cf_admin?
+      user
+    else
+      user&.role == "cf_admin" ? I18n.t("documents.spaciable_admin") : user
+    end
+  end
 end

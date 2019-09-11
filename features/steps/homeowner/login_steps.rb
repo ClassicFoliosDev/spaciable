@@ -11,7 +11,7 @@ end
 
 When(/^I log in as a homeowner$/) do
   homeowner = HomeownerUserFixture
-  visit "/"
+  visit "/homeowners/sign_in"
 
   within ".sign-in" do
     fill_in :resident_email, with: homeowner.email
@@ -73,11 +73,16 @@ Given(/^I am a homeowner with no plot$/) do
 end
 
 Then(/^I should be on the "Homeowner Login" page with errors$/) do
+  # page redirects to the landing page, so for the purposed of this test we are
+  # physically redirecting to the sign in page
+  # in theory, there should never to a situation in which a plot is deleted
+  # when it has an active resident, so this is in impractical bug
+  visit "/homeowners/sign_in"
   expect(page).to have_content(t("residents.sessions.create.no_plot"))
 end
 
 Then(/^I can request a password reset$/) do
-  visit "/"
+  visit "/homeowners/sign_in"
   click_on t("devise.forgot_password")
 
   fill_in :resident_email, with: HomeownerUserFixture.email

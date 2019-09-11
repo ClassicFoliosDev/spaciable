@@ -20,7 +20,7 @@ end
 
 Then(/^my account no longer exists$/) do
   expect(page).to have_content t(".homeowners.residents.destroy.success")
-  expect(current_path).to eq '/'
+  expect(current_path).to eq '/homeowners/sign_in'
 
   residents = Resident.all
   expect(residents.count).to be_zero

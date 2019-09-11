@@ -115,7 +115,7 @@ Then(/^any resident of the plot can approve the resolved status$/) do
     click_on t("components.navigation.log_out")
   end
 
-  visit "/"
+  visit "/homeowners/sign_in"
 
   # login as second resident
   within ".sign-in" do
@@ -243,7 +243,7 @@ Then(/^a resident can dispute the resolved status$/) do
     click_on t("components.navigation.log_out")
   end
 
-  visit "/"
+  visit "/homeowners/sign_in"
   # login as second resident
   within ".sign-in" do
     fill_in :resident_email, with: @second_resident.email

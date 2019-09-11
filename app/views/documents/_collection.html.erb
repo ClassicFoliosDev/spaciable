@@ -17,7 +17,9 @@
       <thead>
         <tr>
           <th colspan="2"><%= sortable(Document, :title, t(".document")) %></th>
+          <th><%= t(".category") %></th>
           <th><%= t(".size") %></th>
+          <th><%= t(".uploaded_by") %></th>
           <th><%= sortable(Document, :updated_at) %></th>
           <th>&nbsp;</th>
         </tr>
@@ -31,7 +33,9 @@
             <td></td>
             <td class="actions"><%= delete_btn document, path: url_for(document), element: document %></td>
           <% else %>
+            <td><%= t("activerecord.attributes.document.categories.#{document&.category}") %></td>
             <td><%= number_to_human_size(document&.file&.size) %></td>
+            <td><%= document.user_role(current_user) if document&.user %></td>
             <td><%= l document&.updated_at.to_date, format: :digits %></td>
             <td class="actions">
               <%= link_to document&.file&.url, class: "btn",  target: "_blank" do %>

@@ -736,8 +736,8 @@ en:
     notifications:
       collection:
         add: "Send Notification"
-        sent_to_html: "<strong>Sent to:</strong> %{sendees}"
-        sender_to_html: "<strong>Sent from:</strong> %{sender}"
+        sent_to_html: "<strong>Recipient:</strong> %{sendees}"
+        sender_to_html: "<strong>Sender:</strong> %{sender}"
         headers:
           subject: "Notification"
           sent_at: "Sent"
@@ -1962,7 +1962,6 @@ en:
       expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
       letable: "Lettings: "
       private_documents: "Resident Documents: "
-      none: "(n/a)"
       progress: "Build Progress: "
       completion_date: "Legal Completion Date: "
       expiry_date: "Expiry Date: "
@@ -1971,6 +1970,7 @@ en:
       finishes: "Finishes: "
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
+      preview: "Preview"
     completion:
       title: "Legal Completion Date"
 
@@ -2325,6 +2325,7 @@ en:
     not_yet: "You can add documents after this resource has been saved"
     loaded_scope: "Upload scope"
     loaded_name: "Upload parent"
+    spaciable_admin: "Spaciable Admin"
     index:
       title: "Documents"
     new:
@@ -2359,7 +2360,9 @@ en:
       add: "Add Document(s)"
       processing: "Processing..."
       size: "Size"
+      uploaded_by: "Uploader"
       document: "Document"
+      category: "Category"
     edit:
       title: "Edit %{name}"
 

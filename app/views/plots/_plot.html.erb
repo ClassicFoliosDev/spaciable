@@ -10,10 +10,10 @@
       <br/>
       <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/><br/>
       <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
-      <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") %><br/><br/>
+      <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") || "Not set" %><br/><br/>
       <strong><%= t(".invited_residents") %></strong><%= plot.residents.count %><br/>
       <strong><%= t(".activated_residents") %></strong><%= plot.activated_resident_count %><br/><br/>
-      <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count || t(".none") %><br/>
+      <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count %><br/>
     </div>
     <div class="half">
       <% if current_user&.cf_admin? %>
@@ -31,4 +31,5 @@
   <%= render 'address/address', address: plot %><br/>
   <strong><%= plot.unit_type %></strong><br/>
   <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
+  <%= (link_to t(".preview"), plot_preview_path(plot), class: "btn") unless plot.expired? && !(current_user.cf_admin?) %>
 </div>

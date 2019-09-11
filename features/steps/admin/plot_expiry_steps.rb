@@ -100,7 +100,7 @@ Then(/^I can add a resident to the plot$/) do
 end
 
 Then(/^I can preview the plot$/) do
-  within ".above-footer" do
+  within ".section-data" do
     expect(page).to have_content I18n.t("plots.show.preview")
   end
 end
@@ -233,7 +233,7 @@ Then(/^I can no longer preview the plot$/) do
     click_on t("plots.collection.documents")
   end
 
-  within ".above-footer" do
+  within ".section-data" do
     expect(page).to_not have_content I18n.t("plots.show.preview")
   end
 end

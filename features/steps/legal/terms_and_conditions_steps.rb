@@ -196,7 +196,7 @@ Then(/^I should not be prompted for ts and cs$/) do
 end
 
 Then(/^I should be prompted for ts and cs$/) do
-  visit "/"
+  visit "/homeowners/sign_in"
 
   within ".sign-in" do
     expect(page).to have_selector ".accept-ts-and-cs"

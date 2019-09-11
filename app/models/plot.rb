@@ -350,6 +350,15 @@ class Plot < ApplicationRecord
     choices&.map(&:choiceable)
   end
 
+  # Get the approvd applicance choices made for the plot
+  def finish_choices
+    return unless choices_approved?
+    choices = Choice.joins(:room_choices)
+                    .where(choices: { choiceable_type: "Finish" },
+                           room_choices: { plot_id: id }).to_a
+    choices&.map(&:choiceable)
+  end
+
   # Get the matching room configuration for the plot
   def room_configuration(room)
     choice_configuration&.room_configurations
@@ -362,14 +371,16 @@ class Plot < ApplicationRecord
     rooms.each do |room|
       finishes += room.finishes.count
     end
+    finishes += finish_choices.count if finish_choices
     finishes
   end
 
   def appliances_count
     appliances = 0
     rooms.each do |room|
-      appliances += room.finishes.count
+      appliances += room.appliances.count
     end
+    appliances += appliance_choices.count if appliance_choices
     appliances
   end
 end

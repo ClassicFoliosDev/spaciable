@@ -299,7 +299,7 @@ end
 
 Given(/^I log in with cookies$/) do
   homeowner = Resident.find_by(email: HomeownerUserFixture.email)
-  visit "/"
+  visit "/homeowners/sign_in"
 
   within ".sign-in" do
     fill_in :resident_email, with: homeowner.email

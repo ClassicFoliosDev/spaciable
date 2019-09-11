@@ -30,7 +30,7 @@
       <%= label_tag :updated, t(".updated") %>
       <span><%= @document.updated_at.strftime("%e %b %Y, %H:%M %p") %></span>
       <%= label_tag :by, t(".by") %>
-      <span><%= @document.user %></span>
+      <span><%= @document.user_role(current_user) if @document.user %></span>
     <% else %>
       <%= t(".processing") %>
   <% end %>

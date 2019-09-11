@@ -261,6 +261,6 @@ Rails.application.routes.draw do
   end
 
   devise_scope :resident do
-    root 'residents/sessions#new'
+    root 'residents/landing#new'
   end
 end

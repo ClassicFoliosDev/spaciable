@@ -125,7 +125,7 @@ When(/^I preview the plot$/) do
     click_on CreateFixture.phase_plot_name
   end
 
-  within ".above-footer" do
+  within ".section-data" do
     click_on t("plots.show.preview")
   end
 end
