@@ -15,7 +15,7 @@
     <div class="row-item third">
       <% if f.object.persisted? %>
         <fieldset>
-          <%= f.input :number %>
+          <%= f.input :number %><br/>
           <%= render "components/admin/plot_fields", f: f, plot: plot %>
         </fieldset>
       <% else %>
@@ -28,6 +28,7 @@
         <div class="plot-field">
           <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent) %>
         </div>
+        <br/>
         <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
       </fieldset>
     </div>

@@ -31,7 +31,7 @@
         <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
         <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name, t(".manufacturer")) %></th>
         <th colspan="2"><%= sortable(Appliance, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2">&nbsp;</th>
+        <% if current_user&.cf_admin? %><th colspan="2">&nbsp;</th><% end %>
       </tr>
     </thead>
     <tbody>
@@ -43,16 +43,18 @@
           <td colspan="2"><%= appliance.model_num %></td>
           <td colspan="2"><%= appliance.appliance_manufacturer %></td>
           <td colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
-          <td colspan="2" class="actions">
-            <%= edit_btn edit_appliance_path(appliance), element: appliance %>
-            <% if room && can?(:destroy, appliance) %>
-              <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
-                <%= fa_icon "trash-o" %>
+          <% if current_user&.cf_admin? %>
+            <td colspan="2" class="actions">
+              <%= edit_btn edit_appliance_path(appliance), element: appliance %>
+              <% if room && can?(:destroy, appliance) %>
+                <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
+                  <%= fa_icon "trash-o" %>
+                <% end %>
+              <% else %>
+                <%= delete_btn appliance, element: appliance %>
               <% end %>
-            <% else %>
-              <%= delete_btn appliance, element: appliance %>
-            <% end %>
-          </td>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

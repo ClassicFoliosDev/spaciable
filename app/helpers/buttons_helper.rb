@@ -3,7 +3,7 @@
 module ButtonsHelper
   def view_btn(view_path, label = "")
     link_to view_path, class: "btn", data: { action: "view" } do
-      icon "eye", label
+      icon "search-plus", label
     end
   end
 

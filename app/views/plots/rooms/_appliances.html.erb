@@ -32,7 +32,7 @@
         <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name, t(".manufacturer")) %></th>
         <th colspan="2"><%= sortable(Finish, :duplicate) %></th>
         <th colspan="2"><%= sortable(Appliance, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2">&nbsp;</th>
+        <% if current_user&.cf_admin? %><th colspan="2">&nbsp;</th><% end %>
       </tr>
     </thead>
     <tbody>
@@ -46,19 +46,21 @@
           <% duplicate = appliance.duplicate == true ? "green" : "white" %>
           <td colspan="2"><span class = 'circle <%= duplicate %>'>&nbsp;</span></td>
           <td colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
-          <td colspan="2" class="actions">
+          <% if current_user&.cf_admin? %>
+            <td colspan="2" class="actions">
 
-            <% if appliance.choice == false %>
-              <%= edit_btn edit_appliance_path(appliance), element: appliance %>
-              <% if room && can?(:destroy, appliance) %>
-                <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
-                  <%= fa_icon "trash-o" %>
+              <% if appliance.choice == false %>
+                <%= edit_btn edit_appliance_path(appliance), element: appliance %>
+                <% if room && can?(:destroy, appliance) %>
+                  <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
+                    <%= fa_icon "trash-o" %>
+                  <% end %>
+                <% else %>
+                  <%= delete_btn appliance, element: appliance %>
                 <% end %>
-              <% else %>
-                <%= delete_btn appliance, element: appliance %>
               <% end %>
-            <% end %>
-          </td>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

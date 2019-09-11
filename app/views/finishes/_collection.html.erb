@@ -30,7 +30,7 @@
         <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t(".finish_type")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer")) %></th>
         <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2">&nbsp;</th>
+        <% if current_user&.cf_admin? %><th colspan="2">&nbsp;</th><% end %>
       </tr>
     </thead>
     <tbody>
@@ -42,16 +42,18 @@
           <td colspan="2"><%= finish.finish_type %></td>
           <td colspan="2"><%= finish.finish_manufacturer %></td>
           <td colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
-          <td  colspan="2" class="actions">
-            <%= edit_btn edit_finish_path(finish), element: finish %>
-            <% if room && can?(:destroy, finish) %>
-              <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
-                <%= fa_icon "trash-o" %>
+          <% if current_user&.cf_admin? %>
+            <td  colspan="2" class="actions">
+              <%= edit_btn edit_finish_path(finish), element: finish %>
+              <% if room && can?(:destroy, finish) %>
+                <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
+                  <%= fa_icon "trash-o" %>
+                <% end %>
+              <% else %>
+                <%= delete_btn finish, element: finish %>
               <% end %>
-            <% else %>
-              <%= delete_btn finish, element: finish %>
-            <% end %>
-          </td>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

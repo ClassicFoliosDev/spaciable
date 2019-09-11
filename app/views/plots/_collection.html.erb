@@ -22,7 +22,9 @@
         <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
         <th><%= sortable(Plot, :progress, t(".progress")) %></th>
         <th><%= t(".activation") %></th>
-        <th>&nbsp;</th>
+        <% if current_user&.cf_admin? %>
+          <th>&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -36,10 +38,12 @@
           <td><%= plot.unit_type %></td>
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
-          <td class="actions">
-            <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
-            <%= delete_btn plot, path: url_for(plot), element: plot %>
-          </td>
+          <% if current_user&.cf_admin? %>
+            <td class="actions">
+              <%= edit_btn [:edit, plot], element: plot %>
+              <%= delete_btn plot, path: url_for(plot), element: plot %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

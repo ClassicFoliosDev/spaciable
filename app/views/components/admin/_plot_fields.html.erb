@@ -1,9 +1,3 @@
-<div>
-  <%= f.input :completion_date, as: :string, label: t(".comp_date"),
-            placeholder: "DD/MM/YYYY",
-            input_html: { type: :date } %>
-</div>
-
 <% if plot&.persisted? && plot&.progress %>
   <div class="plot-field current-progress">
     <label><%= t(".current_progress") %></label>
@@ -22,4 +16,10 @@
       <%= f.input :progress, as: :select, collection: progress_collection(plot&.progress), label: false %>
     </div>
   </div>
+</div>
+<br/>
+<div>
+  <%= f.input :completion_date, as: :string, label: t(".comp_date"),
+  placeholder: "DD/MM/YYYY",
+  input_html: { type: :date } %>
 </div>

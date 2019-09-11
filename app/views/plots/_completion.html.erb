@@ -10,6 +10,8 @@
     <%= simple_form_for plot, url: plot_path(plot), html: { method: :put } do |f| %>
       <div class="row">
         <div class="row-item half">
+          <p><%= t(".disclaimer_1") %></p>
+          <p style="font-weight: 600;"><%= t(".disclaimer_2") %></p>
           <div class="plot_progress ui-front select-container">
             <label><%= t(".title") %></label>
             <%= f.input :completion_date, as: :string,

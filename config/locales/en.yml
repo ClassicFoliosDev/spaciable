@@ -402,7 +402,7 @@ en:
       plot_fields:
         current_progress: "Build Progress"
         update_progress: "Update Build Progress"
-        comp_date: "Legal Completion Date"
+        comp_date: "Estimated Move In Date"
         letable: "Lettings"
         letable_description: "Residents are able to let out their plot. This will override the current phase status.
                               If the phase status is updated, the new phase status will override this plot status."
@@ -682,12 +682,14 @@ en:
           building_name: "Building"
           road_name: "Road"
           postcode: "Postcode"
-          comp_date: "Legal Completion Date"
+          comp_date: "Estimated Move In Date"
           days_remaining: "Remaining Days to Submit Snags"
           total_snags: "Total Snags"
           unresolved_snags: "Unresolved Snags"
           snags: "View Snags"
           back: "Back"
+          disclaimer: "Plots will gain access to the Snagging tool from the <i>estimated move in date</i>. Only plots with an <i>estimated move in date</i> will show in this list. "
+          set_date: "You can set the <i>estimated move in date</i> by navigating to the plot and selecting the Completion tab."
       show:
         snag: "%{plot} Snag"
         summary: "Title"
@@ -731,7 +733,7 @@ en:
       create:
         success: "Notification sent to %{admins} admins"
       show:
-        sent_to: "Sent to"
+        sent_to: "Recipient"
         back: "Back"
     notifications:
       collection:
@@ -770,9 +772,9 @@ en:
       show:
         back: "Back"
         all: "All"
-        sent_to: "Sent to"
+        sent_to: "Role"
         numbers: "Plots"
-        residents_of: "Residents of"
+        residents_of: "Recipient"
     users:
       create:
         success: "%{user_email} was created successfully"
@@ -1021,12 +1023,12 @@ en:
       maintenance_link: "Maintenance Link"
       maintenance_tip: "Make sure to use the plugin-friendly version of a URL. For more details see http://www.fixflo.com/tech/plugin-example/"
       snagging_description: "A homeowner can report snagging issues for their plot. The duration of snagging can be set below, and will take effect from legal completion date. A custom name can also be set."
-      enable_snagging: "Enable Snagging"
+      enable_snagging: "Snagging"
       snag_duration: "Snagging Duration (Days)"
       snag_name: "Snagging Name"
       maintenance_auto_populate: "Auto-Populate FixFlo Details"
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
-      choices_email: "Choices Contact Email"
+      choices_email: "Choices Email"
     index:
       add: "Add Development"
     development:
@@ -1038,7 +1040,7 @@ en:
       maintenance_link: "Maintenance Link: "
       snagging: "Snagging: "
       active_plots: "Active Plots: "
-      completed_plots: "Completed Plots: "
+      completed_plots: "Called Off Plots: "
       expired_plots: "Expired Plots: "
       residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
@@ -1400,9 +1402,9 @@ en:
       submit: "Submit"
       back: "Back"
       address: "Postal Address"
-      company_name: "Developer Name"
-      email: "Email Address"
-      contact: "Contact Number"
+      company_name: "Name"
+      email: "Email"
+      contact: "Phone"
       api_key: "Mailchimp API Key"
       api_key_info: "Find the API key in MailChimp under Profile -> Extras -> API Keys"
       enable_house_search: "Area Guide"
@@ -1454,7 +1456,7 @@ en:
       developer: "Developer"
       development: "Development"
       active_plots: "Active Plots: "
-      completed_plots: "Completed Plots: "
+      completed_plots: "Called Off Plots: "
       expired_plots: "Expired Plots: "
       residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
@@ -1516,7 +1518,7 @@ en:
     division:
       list_id: "List ID: "
       active_plots: "Active Plots: "
-      completed_plots: "Completed Plots: "
+      completed_plots: "Called Off Plots: "
       expired_plots: "Expired Plots: "
       residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
@@ -1701,7 +1703,7 @@ en:
       partial_expiry: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       name: "Phase %{number}"
       active_plots: "Active Plots: "
-      completed_plots: "Completed Plots: "
+      completed_plots: "Called Off Plots: "
       expired_plots: "Expired Plots: "
       residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
@@ -1963,7 +1965,7 @@ en:
       letable: "Lettings: "
       private_documents: "Resident Documents: "
       progress: "Build Progress: "
-      completion_date: "Legal Completion Date: "
+      completion_date: "Estimated Move In Date: "
       expiry_date: "Expiry Date: "
       rooms: "Rooms: "
       appliances: "Appliances: "
@@ -1972,7 +1974,10 @@ en:
       activated_residents: "Activated Residents: "
       preview: "Preview"
     completion:
-      title: "Legal Completion Date"
+      title: "Estimated Move In Date"
+      disclaimer_1: "Entering this date will allow your buyers to receive moving in emails in your branding to help them with their purchasing journey.
+                    It will also allow your buyers access to the Snagging feature, if enabled for this development."
+      disclaimer_2: "This date can be amended as needed and is not shown to the buyer."
 
   plot_documents:
     form:
@@ -2339,7 +2344,7 @@ en:
       back: "Back"
       category: "Category"
       processing: "Processing..."
-      by: "Uploaded By"
+      by: "Uploader"
     form:
       load: "File"
       upload: "Upload"
@@ -2553,8 +2558,8 @@ en:
         city: "Town / city"
         county: "County"
         postcode: "Postcode"
-        email: "Email Address"
-        contact_number: "Contact Number"
+        email: "Email"
+        contact_number: "Phone"
         updated_at: "Last Edited"
         api_key: "Mailchimp API key"
         choice_labels:

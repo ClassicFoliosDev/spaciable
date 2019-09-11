@@ -8,8 +8,9 @@
 
 <div class="row notification">
   <div class="row-item two-thirds">
+    <p><%= @admin_notification.created_at.strftime("%d %B, %Y") %></p>
     <%= label_tag(t(".sent_to")) %>
-    <span><%= @admin_notification.sent_to %></span>
+    <span><%= @admin_notification.sent_to %></span><br/><br/>
     <%= label_tag(AdminNotification.human_attribute_name(:message)) %>
     <span><%= simple_format @admin_notification.message %></span>
   </div>

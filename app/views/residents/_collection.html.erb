@@ -13,11 +13,11 @@
   <table class="record-list residents">
     <thead>
       <tr>
-        <th colspan="2"><%= sortable(Resident, :last_name, t(".last_name")) %></th>
-        <th colspan="2"><%= sortable(Resident, :email, t(".email")) %></th>
-        <th colspan="2"><%= t(".role") %></th>
+        <th><%= sortable(Resident, :last_name, t(".last_name")) %></th>
+        <th><%= sortable(Resident, :email, t(".email")) %></th>
+        <th><%= t(".role") %></th>
         <th><%= t(".status") %></th>
-        <th colspan="2"><%= t(".invited_by") %></th>
+        <th><%= t(".invited_by") %></th>
         <th><%= sortable(Resident, :updated_at, t(".updated_at")) %></th>
         <th>&nbsp;</th>
       </tr>
@@ -25,11 +25,11 @@
     <tbody>
       <% collection.each do |resident| %>
         <tr data-plot-resident="<%= resident.id %>">
-        <td colspan="2"><%= link_to resident, [plot, resident], title: resident %></td>
-        <td colspan="2"><%= resident.email %></td>
-        <td colspan="2"><%= resident.plot_residency_role_name(plot) %></td>
+        <td><%= link_to resident, [plot, resident], title: resident %></td>
+        <td><%= resident.email %></td>
+        <td><%= resident.plot_residency_role_name(plot) %></td>
         <td><%= t(".activated") if resident.invitation_accepted? %></td>
-        <td colspan="2"><%= resident.plot_residency_invited_by(plot) %></td>
+        <td><%= resident.plot_residency_invited_by(plot) %></td>
         <td><%= l resident.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= (edit_btn [:edit, plot, resident], element: resident) unless parent.expired? && !(current_user.cf_admin?) %>

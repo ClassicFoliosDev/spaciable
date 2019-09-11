@@ -7,7 +7,7 @@ module Residents
     skip_before_action :redirect_residents
 
     def new
-      redirect_to("http://hoozzi.detypedev.com/")
+      redirect_to("http://home.spaciable.com/")
     end
   end
 end

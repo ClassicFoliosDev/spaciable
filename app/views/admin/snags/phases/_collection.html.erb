@@ -4,7 +4,9 @@
   <table class="record-list phases">
     <thead>
     <tr>
-      <th><%= sortable(Phase, :developer_id, t(".developer_name")) %></th>
+      <% if current_user.cf_admin? %>
+        <th><%= sortable(Phase, :developer_id, t(".developer_name")) %></th>
+      <% end %>
       <th><%= sortable(Phase, :division_id, t(".division_name")) %></th>
       <th><%= sortable(Phase, :development_id, t(".development_name")) %></th>
       <th><%= sortable(Phase, :name, t(".phase_name")) %></th>
@@ -16,7 +18,9 @@
     <tbody>
       <% collection.each do |phase| %>
         <tr data-phase="<%= phase.id %>">
-          <td><%= phase.developer %></td>
+          <% if current_user.cf_admin? %>
+            <td><%= phase.developer %></td>
+          <% end %>
           <td><%= phase.division if phase.division %></td>
           <td><%= phase.development %></td>
           <td><%= phase.name %></td>

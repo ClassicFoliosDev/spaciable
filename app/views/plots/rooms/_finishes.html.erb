@@ -31,7 +31,7 @@
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t("finishes.collection.manufacturer")) %></th>
         <th colspan="2"><%= sortable(Finish, :duplicate) %></th>
         <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2">&nbsp;</th>
+        <% if current_user&.cf_admin? %><th colspan="2">&nbsp;</th><% end %>
       </tr>
     </thead>
     <tbody>
@@ -45,19 +45,21 @@
           <% duplicate = finish.duplicate == true ? "green" : "white" %>
           <td colspan="2"><span class = 'circle <%= duplicate %>'>&nbsp;</span></td>
           <td colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
-          <td  colspan="2" class="actions">
+          <% if current_user&.cf_admin? %>
+            <td  colspan="2" class="actions">
 
-          <% if finish.choice == false %>
-            <%= edit_btn edit_finish_path(finish), element: finish %>
-            <% if room && can?(:destroy, finish) %>
-              <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
-                <%= fa_icon "trash-o" %>
+            <% if finish.choice == false %>
+              <%= edit_btn edit_finish_path(finish), element: finish %>
+              <% if room && can?(:destroy, finish) %>
+                <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
+                  <%= fa_icon "trash-o" %>
+                <% end %>
+              <% else %>
+                <%= delete_btn finish, element: finish %>
               <% end %>
-            <% else %>
-              <%= delete_btn finish, element: finish %>
             <% end %>
+            </td>
           <% end %>
-          </td>
         </tr>
       <% end %>
     </tbody>

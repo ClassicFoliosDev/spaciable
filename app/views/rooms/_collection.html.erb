@@ -20,7 +20,9 @@
         <th><%= t(".appliances") %></th>
         <th><%= t(".choices") %></th>
         <th><%= sortable(Room, :updated_at, t(".last_edited")) %></th>
-        <th>&nbsp;</th>
+        <% if current_user&.cf_admin? %>
+          <th>&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -40,10 +42,12 @@
           <% end %>
         </td>
         <td><%= l room.updated_at.to_date, format: :digits %></td>
-        <td class="actions">
-          <%= edit_btn url_for([:edit, parent, room]), element: room %>
-          <%= delete_btn room, path: url_for([parent, room]), element: room %>
-        </td>
+        <% if current_user&.cf_admin? %>
+          <td class="actions">
+            <%= edit_btn url_for([:edit, parent, room]), element: room %>
+            <%= delete_btn room, path: url_for([parent, room]), element: room %>
+          </td>
+        <% end %>
       </tr>
       <% end %>
     </tbody>
