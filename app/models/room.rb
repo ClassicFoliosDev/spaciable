@@ -49,6 +49,32 @@ class Room < ApplicationRecord
     appliances.build if appliances.none?
   end
 
+  def appliances_count
+    total = appliances.count
+    if parent.is_a?(Plot) && parent.choices_approved?
+      choices = Choice.joins(room_choices: { room_item: :room_configuration })
+                      .where("room_choices.plot_id = #{plot.id} AND " \
+                                   "lower(room_configurations.name) = '#{name.downcase}' AND " \
+                                   "choices.choiceable_type = '" + "Appliance" + "'").count
+
+      total += choices
+    end
+    total
+  end
+
+  def finishes_count
+    total = finishes.count
+    if parent.is_a?(Plot) && parent.choices_approved?
+      choices = Choice.joins(room_choices: { room_item: :room_configuration })
+                      .where("room_choices.plot_id = #{plot.id} AND " \
+                                   "lower(room_configurations.name) = '#{name.downcase}' AND " \
+                                   "choices.choiceable_type = '" + "Finish" + "'").count
+
+      total += choices
+    end
+    total
+  end
+
   def to_s
     name
   end

@@ -29,8 +29,8 @@
       <% collection.each do |room| %>
       <tr data-room="<%= room.id %>">
         <td><%= link_to room.name, [parent, room], title: room.name, class: "room-name" %></td>
-        <td><%= room.finishes.count %></td>
-        <td><%= room.appliances.count %></td>
+        <td><%= room.finishes_count %></td>
+        <td><%= room.appliances_count %></td>
         <% if parent.is_a?(Plot) && parent.choices_approved? %>
           <% plot_choices = RoomChoice.plot_choices(room, parent) %>
         <% end %>

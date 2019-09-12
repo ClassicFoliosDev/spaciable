@@ -39,7 +39,7 @@ en:
       updated: "Your password has been changed successfully. You are now signed in"
       updated_not_active: "Your password has been changed successfully"
       new:
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
     registrations:
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon"
       signed_up: "Welcome! You have signed up successfully"
@@ -56,7 +56,7 @@ en:
         title: "You've made it."
         login_cta: "Login"
         remember_me: "Remember me"
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved"
+        copyright: "&copy; %{year} Classic Folios. All rights reserved"
     unlocks:
       send_instructions: "You will receive an email with instructions on how to unlock your account in a few minutes"
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions on how to unlock it in a few minutes"

@@ -16,7 +16,7 @@ en:
         header: "You've made it."
         terms: "Terms & Conditions"
         policy: "Data policy"
-        copyright: "&copy; Copyright %{year} Classic Folios. All rights reserved."
+        copyright: "&copy; %{year} Classic Folios. All rights reserved."
         continue: "Continue"
         policy_instructions: "By clicking 'Continue', you confirm that you have read and agreed to our %{href1} and %{href2}"
     mailer:
