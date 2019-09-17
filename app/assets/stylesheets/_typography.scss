@@ -1,13 +1,15 @@
 @font-face {
-  font-family: 'avant_garde_gothic_book';
-  src: url('fonts/avant_garde_gothic_book.ttf') format('truetype');
+  font-family: 'ITCAvantGardeStd-Bk';
+  src: url(asset-path('fonts/ITCAvantGardeStd-Bk.ttf')) format('truetype');
   font-family: 'Poppins-SemiBold';
-  src: url('fonts/Poppins-SemiBold.ttf') format('truetype');
-}
+  src: url(asset-path('fonts/Poppins-SemiBold.ttf')) format('truetype');
+  font-family: 'ITCAvantGardeGothicMedium';
+  src:font-url(asset-path('fonts/ITCAvantGardeGothicMedium.otf')) format('opentype')
+  }
 
-$base-font-family: 'Avantgarde', 'avant_garde_gothic_book', 'TeX Gyre Adventor', 'URW Gothic L', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
-$medium-font-family: 'Avantgarde', 'avant_garde_gothic_book', 'TeX Gyre Adventor', 'URW Gothic L', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
-$header-font-family: 'Avantgarde', 'avant_garde_gothic_book', 'TeX Gyre Adventor', 'URW Gothic L', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
+$base-font-family: 'ITCAvantGarde', 'ITCAvantGardeStd-Bk', 'ITCAvantGardeGothicMedium', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
+$medium-font-family: 'ITCAvantGarde', 'ITCAvantGardeStd-Bk', 'ITCAvantGardeGothicMedium', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
+$header-font-family: 'ITCAvantGarde', 'ITCAvantGardeStd-Bk', 'ITCAvantGardeGothicMedium', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
 $base-small-font-size: 12px;
 $base-font-size: 14px;
 $base-font-line-height: 22px;

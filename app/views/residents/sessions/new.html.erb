@@ -10,7 +10,7 @@
         <div class="branded-external-text branded-content-box">
           <% if @brand&.custom_text?(@brand) %>
             <h2 class="top-title branded-external-text"><%= @brand.branded_heading_one %></h2>
-            <h3 class="branded-heading-two second-title branded-external-text"><%= @brand.branded_heading_two %></h3>
+            <h3 class="second-title branded-external-text"><%= @brand.branded_heading_two %></h3>
           <% else %>
             <h2 class="top-title branded-external-text"><%= t '.welcome_1' %></h2>
             <h3 class="second-title branded-external-text"><%= t '.welcome_2' %></h3>
