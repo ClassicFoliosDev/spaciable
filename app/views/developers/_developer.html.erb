@@ -1,7 +1,7 @@
 <div class="section-header">
   <div class="section-title">
     <% if developer.expired? && !(current_user.cf_admin?) %>
-      <div class="expired"><span class="expired-text"><%= t(".expiry") %></span></div>
+      <div class="expired"><span class="expired-text"><%= t(".expiry").html_safe %></span></div>
     <% end %>
     <div><%= developer.company_name %></div>
     <span class="about">

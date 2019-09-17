@@ -390,6 +390,9 @@
     .branded-external-text, .branded-external-text a, .branded-external-text label {
       <%= Brand.branded_external_text_default %>
     }
+    .branded-external-text h2 {
+      <%= Brand.branded_primary_default %>
+    }
   <% end %>
 
   <% if brand.branded_text_left_color %>
@@ -408,9 +411,6 @@
   .branded-left-text li {
     color: <%= brand.branded_text_left_color %> !important;
   }
-  .top-title {
-    color: <%= brand.branded_text_left_color %>;
-  }
   <% else %>
   .branded-left-text {
     <%= Brand.branded_left_text_default %>
@@ -420,9 +420,6 @@
   }
   .branded-heading-two {
     <%= Brand.branded_external_text_default %>
-  }
-  .top-title {
-    <%= Brand.branded_primary_default %>
   }
   <% end %>
 

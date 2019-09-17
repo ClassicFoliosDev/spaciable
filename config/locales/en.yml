@@ -1032,8 +1032,10 @@ en:
     index:
       add: "Add Development"
     development:
-      expiry: "All plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
-      partial_expiry: "Some plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots on this development have expired. <br/>To extend the access, please contact your Classic Folios account manager."
+      partial_expiry: "Some plots on this development have expired. <br/>To extend the access, please contact your Classic Folios account manager."
+      expiry_text: "All plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
+      partial_expiry_text: "Some plots on this development have expired. To extend the access, please contact your Classic Folios account manager."
       segment_id: "Segment ID: "
       private_documents: "Documents From All Residents: "
       none: "not configured"
@@ -1462,7 +1464,8 @@ en:
       activated_residents: "Activated Residents: "
       developments: "Developments: "
       phases: "Phases: "
-      expiry: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots have expired. <br/>To extend the access, please contact your Classic Folios account manager."
+      expiry_text: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
 
   divisions:
     destroy:
@@ -1525,7 +1528,8 @@ en:
       developments: "Developments: "
       phases: "Phases: "
       none: "not configured"
-      expiry: "All plots on this division have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots on this division have expired. <br/>To extend the access, please contact your Classic Folios account manager."
+      expiry_text: "All plots on this division have expired. To extend the access, please contact your Classic Folios account manager."
 
   addresses:
     destroy:
@@ -1699,8 +1703,10 @@ en:
     show:
       back: "Back"
     phase:
-      expiry: "All plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
-      partial_expiry: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
+      expiry: "All plots on this phase have expired. <br/>To extend the access, please contact your Classic Folios account manager."
+      partial_expiry: "Some plots on this phase have expired. <br/>To extend the access, please contact your Classic Folios account manager."
+      expiry_text: "All plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
+      partial_expiry_text: "Some plots on this phase have expired. To extend the access, please contact your Classic Folios account manager."
       name: "Phase %{number}"
       active_plots: "Active Plots: "
       completed_plots: "Called Off Plots: "
@@ -2802,8 +2808,8 @@ en:
         content_box_text_color: "External Input Text (Email / Password)"
         content_box_color: "External Input Fill (Email / Password)"
         content_box_outline_color: "External Input Outline (Email / Password)"
-        text_left_color: "External Text (Headings / Information)"
-        text_right_color: "External Text (Labels / Links)"
+        text_left_color: "External Text (Right-hand)"
+        text_right_color: "External Text (Left-hand)"
         login_logo: "External Logo"
         heading_one: "External Heading One [Text]"
         heading_one_show: "External Heading One"

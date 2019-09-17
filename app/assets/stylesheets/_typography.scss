@@ -1,6 +1,13 @@
-$base-font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-$medium-font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-$header-font-family: 'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+@font-face {
+  font-family: 'avant_garde_gothic_book';
+  src: url('fonts/avant_garde_gothic_book.ttf') format('truetype');
+  font-family: 'Poppins-SemiBold';
+  src: url('fonts/Poppins-SemiBold.ttf') format('truetype');
+}
+
+$base-font-family: 'Avantgarde', 'avant_garde_gothic_book', 'TeX Gyre Adventor', 'URW Gothic L', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
+$medium-font-family: 'Avantgarde', 'avant_garde_gothic_book', 'TeX Gyre Adventor', 'URW Gothic L', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
+$header-font-family: 'Avantgarde', 'avant_garde_gothic_book', 'TeX Gyre Adventor', 'URW Gothic L', 'Poppins-SemiBold', CenturyGothic, AppleGothic, sans-serif;
 $base-small-font-size: 12px;
 $base-font-size: 14px;
 $base-font-line-height: 22px;
@@ -10,7 +17,6 @@ $ultra-small-font: 10px;
 
 $bold-font-weight: 700;
 $semi-bold-font-weight: 550;
-
 $icon-font-line-height: 28px;
 
 $title-font-size-1: 38px;

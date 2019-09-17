@@ -250,7 +250,7 @@ end
 
 Then(/^I see a message telling me some plots have expired on the phase$/) do
   within ".section-title" do
-    expect(page).to have_content(t("phases.phase.partial_expiry"))
+    expect(page).to have_content(t("phases.phase.partial_expiry_text"))
   end
 end
 
@@ -307,7 +307,7 @@ end
 
 Then(/^I see a message telling me the phase has expired$/) do
   within ".section-title" do
-    expect(page).to have_content(t("phases.phase.expiry"))
+    expect(page).to have_content(t("phases.phase.expiry_text"))
   end
 end
 
@@ -371,7 +371,7 @@ end
 
 Then(/^I see a message telling me some plots have expired on the development$/) do
   within ".section-title" do
-    expect(page).to have_content(t("developments.development.partial_expiry"))
+    expect(page).to have_content(t("developments.development.partial_expiry_text"))
   end
 end
 
@@ -439,7 +439,7 @@ end
 
 Then(/^I see a message telling me the development has expired$/) do
   within ".section-title" do
-    expect(page).to have_content(t("developments.development.expiry"))
+    expect(page).to have_content(t("developments.development.expiry_text"))
   end
 end
 
@@ -561,7 +561,7 @@ end
 
 Then(/^I see a message telling me the developer has expired$/) do
   within ".section-title" do
-    expect(page).to have_content(t("developers.developer.expiry"))
+    expect(page).to have_content(t("developers.developer.expiry_text"))
   end
 end
 
