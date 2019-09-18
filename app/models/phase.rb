@@ -150,9 +150,21 @@ class Phase < ApplicationRecord
   def activated_resident_count
     activated_count = 0
     plots.each do |plot|
-      activated_count += plot.activated_resident_count
+      if plot.reservation_release_date || plot.completion_release_date
+        activated_count += plot.activated_resident_count
+      end
     end
     activated_count
+  end
+
+  def released_resident_count
+    released_count = 0
+    plots.each do |plot|
+      if plot.reservation_release_date || plot.completion_release_date
+        released_count += plot.plot_residencies.size
+      end
+    end
+    released_count
   end
 end
 # rubocop:enable Metrics/ClassLength

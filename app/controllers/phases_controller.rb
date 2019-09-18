@@ -27,7 +27,7 @@ class PhasesController < ApplicationController
     @expired_plots_count = @phase.expired_plots_count
     @activated_resident_count = @phase.activated_resident_count
 
-    @resident_count = @phase.plot_residencies.size
+    @resident_count = @phase.released_resident_count
     @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
 
     @collection = build_collection

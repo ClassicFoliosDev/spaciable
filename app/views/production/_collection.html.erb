@@ -38,8 +38,15 @@
           <td><%= plot.road_name %></td>
           <td><%= plot.postcode %></td>
           <td><%= plot.unit_type %></td>
-          <% res = plot.reservation_release_date? ? "green" : "white" %>
-          <% comp = plot.completion_release_date? ? "green" : "white" %>
+          <% res = "white" %>
+          <% comp = "white" %>
+          <% if plot.reservation_release_date? %>
+            <% res = plot.expired? ? "red" : "green" %>
+          <% else %>
+          <% end %>
+          <% if plot.completion_release_date? %>
+            <% comp = plot.expired? ? "red" : "green" %>
+          <% end %>
           <td><span class = 'circle <%= res %>'>&nbsp;</span>
               <span class = 'circle <%= comp %>'>&nbsp;</span></td>
           <td class="actions">

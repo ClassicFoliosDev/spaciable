@@ -116,7 +116,7 @@ class Developer < ApplicationRecord
   def invited_resident_count
     invited_residents = 0
     phases.each do |phase|
-      invited_residents += phase.plot_residencies.size
+      invited_residents += phase.released_resident_count
     end
     invited_residents
   end
