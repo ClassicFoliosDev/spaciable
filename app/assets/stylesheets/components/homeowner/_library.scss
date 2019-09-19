@@ -183,6 +183,12 @@
   }
 }
 
+@include media($tablet-landscape-down) {
+  .library-component {
+      height: $card-height - 10px;
+  }
+}
+
 @include media($mobile-down) {
   .ui-dialog {
     max-width: 100%;

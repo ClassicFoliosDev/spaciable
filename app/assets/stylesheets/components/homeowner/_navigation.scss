@@ -143,6 +143,17 @@ nav {
     float: right;
     text-align: right;
   }
+  .main-navigation .nav-inner .logo {
+    display: block;
+    padding: $spacing-medium;
+    margin-top: 8px;
+    @include span-columns(3 of 12);
+
+    img {
+      max-height: 80px;
+      max-width: 220px;
+    }
+  }
 }
 
 // mobile view
@@ -152,6 +163,23 @@ nav {
     position: absolute;
     left: 0;
     top: 60px;
+  }
+
+  .main-navigation .nav-inner {
+
+    .branded-logo {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      padding: $spacing-medium;
+      @include span-columns(12 of 12);
+
+
+      img {
+        max-height: 80px;
+        max-width: 180px;
+      }
+    }
   }
 
   .sub-navigation-container {
