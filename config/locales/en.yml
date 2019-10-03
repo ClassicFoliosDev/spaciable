@@ -1230,11 +1230,14 @@ en:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
       services:
-        services: "See how we can help"
+        services: "See How We Can Help"
+        services_title: "Need A Helping Hand?"
+        services_description: "Spaciable services is a totally free feature that provides quotes (without obligation) for a variety of services and products,
+                              such as removals, insurance and conveyancing, allowing you to focus on the exciting elements of homebuying."
       referrals:
-        refer_developer: "Refer a Friend to Your Developer"
+        refer_developer: "Refer A Friend To Your Developer"
         refer_description: "Fill in this form with your friend's details to recommend them to your developer."
-        refer: "Refer a Friend"
+        refer: "Refer A Friend"
         refer_title: "Refer A Friend."
         send_invitation: "Submit"
         confirm: "Your referral has been sent"
@@ -1327,7 +1330,6 @@ en:
         limited_access_description: "Cannot invite other users to your home or use the issue reporting system and can only view documents that a Full Access User has shared manually."
       update:
         success: "Your account has been updated successfully"
-        updated_services: " and your services have been requested"
       create:
         new_invitation: "%{email} has been sent an invitation to Spaciable"
         not_created: "It was not possible to invite %{email} because of the following errors: "
@@ -1340,23 +1342,22 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        title: "You're nearly there!"
-        subtitle: "Spaciable has partnered with key providers who can help make your move as stress-free and as competitively priced
-        as possible. By selecting any of the services below, Spaciable Services will get you moving!"
-        description_html: "<em>Quotations are free, and without obligation, so start saving today with Spaciable Services.</em>"
+        find_out: "Find Out More"
+        no_thanks: "No Thanks"
+        title: ""
+        subtitle: ""
+        description_html: ""
         disclaimer: "Please note: when you were invited to Spaciable, an email and phone number were associated with your Spaciable account. If you select YES! to any of the options on this page,
                     you consent to Spaciable Services using your account details to contact you by email or phone regarding options you have selected on this page. Your details will not be passed
                     to third parties without your consent. Spaciable Services operates in full compliance with the EU GDPR (General Data Protection Regulation) and the UK DPA (Data Protection Act) 2018."
         submit: "Submit"
         services_title: "Services."
-      service:
-        add: "Yes!"
-      resident_services:
-        success: "Your services have been requested"
+        disclaimer_1: "Selecting 'Find Out More' will open Spaciable services information in a new tab."
+        disclaimer_2: "You can access Spaciable services at any time from your Dashboard."
     intro_videos:
       show:
         welcome_title: "Welcome %{name} and welcome to your new home's online portal"
-        welcome_1: "Check out the video below for a quick introduction to the benefits and services  your portal offers.
+        welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers.
         The content on your portal is personalised to your home."
         welcome_2: "Everything is specific and personalised to your new home."
         next: "Next"
@@ -1412,7 +1413,7 @@ en:
       enable_house_search: "Area Guide"
       house_search_description: "Provide residents with an external link to BestArea4Me"
       enable_services: "Services"
-      services_description: "A homeowner can select moving and other services, Spaciable will be notified by email about these selections"
+      services_description: "A homeowner can select moving and other services via the Spaciable landing page."
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
       enable_roomsketcher: "Room Sketcher"
@@ -2847,28 +2848,6 @@ en:
       report:
         report_from: "From"
         report_to: "Until"
-      service:
-        categories:
-          removals: "Removals & Storage"
-          finance: "Mortgages & Insurance"
-          legal: "Conveyancing & Legal Services"
-          utilities: "Utilities"
-          estate: "Selling or Renting"
-          manager: "Moving Manager"
-        category_descriptions:
-          removals_html: "Spaciable Services can assist you with removals, packing or storage facilities."
-          finance_html: "Spaciable Services can help find a mortgage or insurance deal that’s right for you."
-          legal_html: "Do you require a solicitor? Spaciable Services can help."
-          utilities_html: "Want the best deals for gas, electricity and other essential services? Spaciable Services can find your perfect tariff."
-          estate_html: "Wish to rent out your property? Spaciable Services has the right package for you."
-          manager_html: "Looking for someone to organise your entire move? Spaciable Services can manage it for you."
-        dashboard_titles:
-          finance: "Conveyancing & Insurance"
-          legal: "Moving & Utilities"
-        dashboard_descriptions:
-          finance_html: "Need a solicitor to carry out your conveyancing? Wish to arrange insurance for your new home?"
-          legal_html: "Need help with removals, packing or storage facilities? Want the best deals on gas, electricity and other
-          essential services?"
     errors:
       messages:
         blank: " is required, and must not be blank."

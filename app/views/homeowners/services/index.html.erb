@@ -1,27 +1,32 @@
 <% content_for :hero_text_primary do %>
-  <%= t(".services_title") %>
+<%= t(".services_title") %>
 <% end %>
 
 <div class="resident-hero">
   <%= render "components/homeowner/hero" %>
 </div>
 
-<div class="service-container">
-  <%= simple_form_for :services, url: resident_services_services_path do | f | %>
-    <div class="preamble">
-      <h3><%= t(".title", developer: @plot.developer) %></h3>
-      <p><%= t(".subtitle") %></p>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      <p><%= t(".description_html") %></p>
-
-    </div>
-    <div class="services-form">
-      <%= f.simple_fields_for :service_ids do %>
-        <% @services&.each do | service | %>
-          <%= render 'service', service: service %>
-        <% end %>
-      <% end %>
-    </div>
-    <p class="disclaimer"><%= t(".disclaimer") %></p>
-  <% end %>
+<div class="branded-body outer-container">
+  <div class="branded-text services-container">
+    <h2>
+      <%= t("homeowners.dashboard.services.services_title") %>
+    </h2>
+    <p>
+      <%= t("homeowners.dashboard.services.services_description") %>
+      <div class="services-image">
+        <%= image_tag("spaciable_services.svg") %>
+      </div>
+    </p>
+  </div>
+  <div class="services-actions">
+    <%= link_to t(".find_out"),
+        "https://home.spaciable.com/service/#{@services_params}",
+        target: "_blank",
+        class: "btn branded-btn" %>
+    <%= link_to t(".no_thanks"), root_path, class: "btn branded-btn" %>
+  </div>
+  <div class="services-disclaimer services-container">
+    <span><%= t(".disclaimer_1") %></span><br/>
+    <span><%= t(".disclaimer_2") %></span>
+  </div>
 </div>

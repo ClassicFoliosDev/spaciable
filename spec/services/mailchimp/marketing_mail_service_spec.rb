@@ -72,32 +72,6 @@ RSpec.describe Mailchimp::MarketingMailService do
     end
   end
 
-  context "updating services" do
-    it "builds the services fields" do
-      finance = Service.new(category: :finance)
-      utilities = Service.new(category: :utilities)
-      services = []
-
-      Service.categories.each do |category|
-        service = Service.create(category: category.last)
-        services << service
-        ResidentService.create(resident: resident, service: service)
-      end
-
-      ids = services.pluck(:id)
-
-      service_fields = described_class.build_services_fields(ids)
-
-      expect(service_fields[:UTILITIES]).to eq "true"
-      expect(service_fields[:FINANCE]).to eq "true"
-      expect(service_fields[:LEGAL]).to eq "true"
-      expect(service_fields[:MANAGER]).to eq "true"
-      expect(service_fields[:REMOVALS]).to eq "true"
-      expect(service_fields[:ESTATE]).to eq "true"
-      expect(service_fields.length).to eq 6
-    end
-  end
-
   context "email hash" do
     it "returns the correct hash" do
       email = "lower_case@example.com"

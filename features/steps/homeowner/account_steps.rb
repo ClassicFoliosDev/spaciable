@@ -25,20 +25,10 @@ Given(/^the developer has enabled services$/) do
   developer.update_attributes(enable_services: true)
 end
 
-Then(/^I select my services$/) do
-  within ".services" do
-    check_boxes = page.all(".add-service-checkbox")
-
-    check_boxes.first.set(true)
-    check_boxes.last.trigger("click")
-
-    click_on t("homeowners.services.index.submit")
+Then(/^I can select services$/) do
+  within ".services-actions" do
+    expect(page).to have_content t("homeowners.services.index.find_out")
   end
-end
-
-Then(/^My services have been selected$/) do
-  resident_services = ResidentService.all
-  expect(resident_services.length).to eq 2
 end
 
 Then(/^I should see be able to view My Account$/) do
@@ -160,8 +150,8 @@ Then(/^I should see the resident emails listed in my account$/) do
 end
 
 When(/^I select no services$/) do
-  within ".services" do
-   click_on t("homeowners.services.index.submit")
+  within ".services-actions" do
+   click_on t("homeowners.services.index.no_thanks")
   end
 end
 
@@ -434,16 +424,6 @@ Then(/^I see the resident has been hard removed$/) do
   expect(resident).to be_nil
 end
 
-Given(/^there are services$/) do
-  Service.categories.each do |category|
-    Service.create(category: category.last)
-  end
-end
-
 Given(/^a CF admin has disabled the intro video$/) do
   FactoryGirl.create(:setting, intro_video_enabled: false)
-end
-
-Then(/^I should be redirected to the services page$/) do
-  pending # Write code here that turns the phrase above into concrete actions
 end

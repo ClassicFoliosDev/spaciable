@@ -21,7 +21,7 @@ module Csv
         "Resident name", "Resident invited on", "Resident invited by", "Resident role",
         "Resident activated", "Resident last sign in", "Lifetime sign in count",
         "Notifications #{@between}", "Developer updates", "Spaciable updates", "Telephone updates",
-        "Post updates", "Terms and conditions accepted", "Services subscribed"
+        "Post updates", "Terms and conditions accepted"
       ]
     end
 
@@ -32,7 +32,7 @@ module Csv
 
       plots.each do |plot|
         csv << plot_info(plot) if plot.residents.empty?
-        plot.residents.includes(:services).sort_by(&:email).each do |resident|
+        plot.residents.sort_by(&:email).each do |resident|
           csv << plot_info(plot) + resident_info(resident,
                                                  resident.plot_residency_role_name(plot),
                                                  resident.plot_residency_invited_by(plot)&.email)
@@ -66,7 +66,7 @@ module Csv
         yes_or_no(resident, "developer_email_updates"),
         yes_or_no(resident, "cf_email_updates"),
         yes_or_no(resident, "telephone_updates"), yes_or_no(resident, "post_updates"),
-        build_date(resident, "ts_and_cs_accepted_at"), build_services(resident)
+        build_date(resident, "ts_and_cs_accepted_at")
       ]
     end
 
@@ -78,12 +78,6 @@ module Csv
     def self.yes_or_no(resident, column)
       return "Yes" if resident.send(column).present? && resident.send(column).positive?
       "No"
-    end
-
-    def self.build_services(resident)
-      service_array = resident.services.map(&:name)
-
-      service_array.join(",")
     end
 
     def self.notification_count(resident_id)

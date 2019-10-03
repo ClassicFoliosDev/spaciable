@@ -55,6 +55,5 @@ load(Rails.root + "db/seeds/default_spanish_faqs.rb")
 load(Rails.root + "db/seeds/manufacturers_and_appliance_seeds.rb")
 load(Rails.root + "db/seeds/finishes_seeds.rb")
 load(Rails.root + "db/seeds/how_to_sub_category_seeds.rb")
-load(Rails.root + "db/seeds/services_seeds.rb")
 load(Rails.root + "db/seeds/settings_seeds.rb")
 

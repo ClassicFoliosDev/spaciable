@@ -23,14 +23,4 @@ class ApplicationMailer < ActionMailer::Base
 
     mail to: "feedback@spaciable.com", subject: I18n.t("feedback.email_subject")
   end
-
-  def request_services(resident, new_service_names, plot)
-    @title = I18n.t("application_mailer.request_services.title", name: resident.to_s)
-
-    @resident = resident
-    @new_services = new_service_names
-    @plot = plot
-
-    mail to: "services@spaciable.com", subject: @title
-  end
 end

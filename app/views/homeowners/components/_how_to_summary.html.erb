@@ -1,5 +1,5 @@
 <% collection.each do |how_to| %>
-  <div class="card article branded-border" style="background-image: url(<%= image_path(how_to.picture.url) if how_to.picture? %>)">
+  <div class="card article how-to-dash branded-border" style="background-image: url(<%= image_path(how_to.picture.url) if how_to.picture? %>)">
     <div class="overlay <%= 'blue-overlay' unless how_to.picture? %>">
       <div class="card-content how-to-summary">
         <div id="how_to-<%= how_to.id %>">

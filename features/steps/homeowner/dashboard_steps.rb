@@ -146,14 +146,14 @@ end
 Then(/^I see the services$/) do
   within ".articles" do
     services = page.all(".service-summary")
-    expect(services.count).to eq 2
+    expect(services.count).to eq 1
   end
 end
 
-Then(/^I only see two articles$/) do
+Then(/^I only see three articles$/) do
   within ".articles" do
     how_tos = page.all(".how-to-summary")
-    expect(how_tos.count).to eq 2
+    expect(how_tos.count).to eq 3
   end
 end
 
@@ -188,7 +188,7 @@ end
 When(/^I refer a friend$/) do
   visit "/"
 
-  within ".articles" do
+  within ".refer-article" do
     click_on t("homeowners.dashboard.referrals.refer")
   end
 

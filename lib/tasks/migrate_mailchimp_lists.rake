@@ -1,24 +1,6 @@
 # frozen_string_literal: true
 
 namespace :mailchimp do
-  desc "add service columns for existing mailchimp lists"
-  task migrate_lists_services: :environment do
-    log_file = "log/mailchimp_migration.log"
-    logger = Logger.new log_file
-
-    logger.info(">>>>>>>> Migrate mailchimp lists <<<<<<<<")
-    logger.info "Adding new service columns"
-
-    fields.each do |field|
-      logger.info "#{field[:tag]} #{field[:name]}"
-    end
-    logger.info "=========================="
-
-    migrate_lists(logger)
-
-    logger.info(">>>>>>>> <<<<<<<<")
-  end
-
   def migrate_lists(logger)
     ActiveRecord::Base.transaction do
       Developer.all.each do |developer|
@@ -47,50 +29,5 @@ namespace :mailchimp do
   rescue Gibbon::MailChimpError, Gibbon::GibbonError => e
     logger.warn("Not able to migrate #{resource.to_s}, probable cause is that the list has been deleted in mailchimp")
     logger.info(e.message)
-  end
-
-  def fields
-    [{
-       name: "Conveyancing and legal",
-       tag: "LEGAL",
-       type: "text",
-       public: true
-    },
-    {
-       name: "Moving manager",
-       tag: "MANAGER",
-       type: "text",
-       public: true
-    },
-    {
-       name: "Mortgages and insurance",
-       tag: "FINANCE",
-       type: "text",
-       public: true
-    },
-    {
-       name: "Removals and storage",
-       tag: "REMOVALS",
-       type: "text",
-       public: true
-    },
-    {
-      name: "Utilities",
-      tag: "UTILITIES",
-      type: "text",
-      public: true
-    },
-    {
-      name: "Selling or renting",
-      tag: "ESTATE",
-      type: "text",
-      public: true
-    },
-    {
-      name: "Phone",
-      tag: "PHONE",
-      type: "text",
-      public: true
-    }]
   end
 end
