@@ -13,6 +13,8 @@ Then(/^I should see recent documents added to my library$/) do
     MyLibraryFixture.recent_documents.each do |title, _download_link|
       expect(page).to have_content(title)
     end
+    pinned = page.first(".document")
+    expect(pinned).to have_content("Development Document")
   end
 
   click_on t("homeowner.dashboard.cards.library.view_more")
@@ -36,6 +38,10 @@ Then(/^I should see all of the documents related to my home$/) do
       anchor = first("a[href='#{download_link}']")
       expect(anchor).not_to be_nil
     end
+
+    # the pinned document should display first
+    pinned = page.first(".document")
+    expect(pinned).to have_content("Development Document")
 
     MyLibraryFixture.default_filtered_out_documents.each do |title, download_link|
       expect(page).not_to have_content(title)

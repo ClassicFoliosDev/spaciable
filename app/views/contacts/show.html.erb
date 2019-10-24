@@ -30,6 +30,10 @@
       <%= label_tag(:category) %>
       <span><%= t("activerecord.attributes.contact.categories.#{@contact.category}") if @contact.category %></span>
     </div>
+    <div class="pinned">
+      <%= label_tag(:pinned) %>
+      <span><%= @contact.pinned? ? t("activerecord.attributes.contact.pinned") : t("activerecord.attributes.contact.unpinned") %></span>
+    </div>
   </div>
   <div class="row-item third">
     <div class="email">

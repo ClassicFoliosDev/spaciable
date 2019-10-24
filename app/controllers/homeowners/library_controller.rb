@@ -11,6 +11,7 @@ module Homeowners
 
       @documents = Document.accessible_by(current_ability)
                            .where(category: @category)
+                           .order(pinned: :desc, updated_at: :desc)
       @documents = remove_expired_plots if @plot.expiry_date.present?
 
       @appliances = []

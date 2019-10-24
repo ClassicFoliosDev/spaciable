@@ -8,7 +8,7 @@ module DocumentLibraryService
   def call(documents, appliances)
     alldocuments = documents.map do |d|
       { name: d.title, link: d.file.url, category: d.category, id: d.id,
-        thumb: library_preview_url(d.file), timestamp: d.updated_at }
+        thumb: library_preview_url(d.file), timestamp: d.updated_at, pinned: d.pinned }
     end
     manuals = appliances.map do |a|
       if a.manual?
@@ -23,9 +23,14 @@ module DocumentLibraryService
       end
     end
 
-    documents = alldocuments.concat(manuals.compact)
-                            .concat(guides.compact)
-                            .sort_by { |hash| hash[:timestamp] }.reverse.take(6)
+    # documents are sorted first by pinned and last updated, and then appliance
+    # manuals and guides are added, meaning that recent documents on homeowner and admin dashboard
+    # will not show appliance manuals or guides if there are 5 or more documents
+    alldocuments = alldocuments.sort_by { |hash| [hash[:pinned] ? 1 : 0, hash[:timestamp]] }
+                               .reverse
+    manuals_guides = manuals.compact.concat(guides.compact)
+                            .sort_by { |hash| hash[:timestamp] }.reverse
+    documents = alldocuments.concat(manuals_guides).take(6)
 
     documents.each do |document|
       Rails.logger.debug(document[:thumb])

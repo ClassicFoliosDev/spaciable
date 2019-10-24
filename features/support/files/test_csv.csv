@@ -1,0 +1,8 @@
+Phase Name,Plot Number,Unit Type,Postal Prefix,Postal Number/Name,Building Name,Road Name,Postcode,Legal Comp Date (dd/mm/yyyy),Build Progress
+First,1,Studio,Flat,,,,,,
+Alpine,7,Studio,,,The Glen,,,,
+Alpine,2,Penthouse,,,The Glen,,,,
+Alpine,3,Studio,,,,,,,wrong_progress
+Alpine,4,Studio,Flat,9,The Glen,Cranbury Road,SO50 5TL,12/10/2020,roof_on
+Alpine,5,Studio,,,,,,12/10/2011,
+Alpine,4,,,5,,,,,

@@ -15,6 +15,9 @@ Then(/^I see the recent homeowner contents$/) do
       expect(page).to have_content(title)
     end
 
+    # the pinned document should be the first in the list
+    expect(page.first(".document-name")).to have_content("Development Document")
+
     appliance_docs = page.all("a", text: CreateFixture.full_appliance_name)
     # Two docs for the same appliance, one manual and one quick reference guide
     expect(appliance_docs.count).to eq(2)

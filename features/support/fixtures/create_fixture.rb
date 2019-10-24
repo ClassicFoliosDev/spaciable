@@ -539,8 +539,8 @@ module CreateFixture
   end
 
   def create_division_contacts
-    FactoryGirl.create(:contact, contactable: developer, category: "management")
     FactoryGirl.create(:contact, first_name: division_contact_name, contactable: division, category: "customer_care")
+    FactoryGirl.create(:contact, contactable: developer, category: "management", email: ContactFixture.second_email, pinned: true)
     FactoryGirl.create(:contact, contactable: division_development, category: "management")
   end
 

@@ -376,6 +376,7 @@ en:
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
+    development_csv: "Upload CSV"
 
   pagination:
     per_page_10: "10"
@@ -1012,6 +1013,7 @@ en:
       services: "Services"
       choice_configurations: "Choices"
       development: "Development"
+      development_csv: "Upload CSV"
     edit:
       back: "Back"
     form:
@@ -1047,6 +1049,44 @@ en:
       residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
       phases: "Phases: "
+      csv: "Upload CSV"
+
+  development_csv:
+    index:
+      phases: "Phases"
+      unit_types: "Unit Types"
+      build_progresses: "Build Progresses"
+      download_csv: "Download"
+      select_csv: "Select File"
+      upload_csv: "Submit"
+      title: "Upload CSV"
+      download_label: "Download CSV Template"
+      required: "Phase Name and Plot Number are required fields."
+      required_details: "See the list of valid Phase values below. The phase name entered into the CSV must exactly match the phase name as it is displayed here."
+      format: "Unit Type and Build Progress must be entered in a specific format."
+      format_details: "See the list of valid Unit Types and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
+      file: "Upload a CSV to update multiple plots."
+      file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
+      date: "The Legal Comp Date must be in the format DD/MM/YYYY."
+      date_details: "Ensure the date field is formatted as a date in format DD/MM/YYYY, or alternatively as a text field. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
+    errors:
+      phase_error: "<br/>Invalid Phase(s): %{errors}"
+      plot_error: "<br/>Invalid Plot(s): %{errors}"
+      unit_error: "<br/>Invalid Unit Type(s): %{errors}"
+      progress_error: "<br/>Invalid Build Progress(s): %{errors}"
+      completion_error: "<br/>Invalid legal completion date for plot(s): %{errors}"
+      duplicate_error: "<br/>Duplicate plot(s): %{errors}"
+      overview: "Please check the CSV for invalid input and then re-upload once the following issues have been resolved: %{errors}"
+      success: "The following plots were updated successfully: %{plots}"
+      file_type: "Invalid file type, please upload a valid CSV file. You can download the template by clicking the 'Download CSV Template' button"
+      no_plots: "No plots found, please check CSV and re-upload"
+      no_file: "Please select a valid CSV file to upload. You can download the template by clicking the 'Download CSV Template' button"
+      phase_error_strip: "Invalid Phase(s): %{phase}"
+      plot_error_strip: "Invalid Plot(s): %{plots}"
+      unit_errors_strip: "Invalid Unit Type(s): %{unit}"
+      progress_error_strip: "Invalid Build Progress(s): %{progress}"
+      completion_date_strip: "Invalid legal completion date for plot(s): %{plots}"
+      duplicate_plots_strip: "Duplicate plot(s): %{plots}"
 
   homeowners:
     faqs:
@@ -2353,6 +2393,7 @@ en:
       category: "Category"
       processing: "Processing..."
       by: "Uploader"
+      pinned: "Pinned"
     form:
       load: "File"
       upload: "Upload"
@@ -2369,6 +2410,8 @@ en:
       </strong><br/>Special characters such as . , ( ) _ ' & \" will be removed.<br/>
       After uploading, click the pencil icon on a file to edit the file name.</p>"
       title_explanation: "Only use when uploading a single file, as name will apply to all files."
+      pinned: "Pinned"
+      pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages, ordered by last edited. There is no limit to the number of pinned documents."
     collection:
       add: "Add Document(s)"
       processing: "Processing..."
@@ -2401,6 +2444,8 @@ en:
       email: "Email"
       contact: "Phone"
       mobile: "Mobile"
+      pinned: "Pinned"
+      pinned_description: "Pinned contacts will display before unpinned contacts on the resident dashboard, ordered by last edited. There is no limit to the number of pinned contacts."
     edit:
       title: "Edit %{name}"
     show:
@@ -2709,6 +2754,8 @@ en:
         title: "Name"
         file: "File"
         updated_at: "Last Edited"
+        pinned: "Yes"
+        unpinned: "No"
         categories:
           # Category enum values for documents
           my_home: "My Home"
@@ -2743,6 +2790,8 @@ en:
         mobile: "Mobile number"
         organisation: "Organisation"
         updated_at: "Last edited"
+        pinned: "Yes"
+        unpinned: "No"
         titles:
           mr: "Mr"
           ms: "Ms"

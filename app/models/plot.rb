@@ -384,3 +384,4 @@ class Plot < ApplicationRecord
     appliances
   end
 end
+# rubocop:enable Metrics/ClassLength

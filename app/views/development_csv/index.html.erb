@@ -1,0 +1,90 @@
+<% breadcrumb :development_csv, @development %>
+
+<%= render '/developments/development', development: @development %>
+
+<%= render 'components/tabs', tabs: development_tabs(@development, "development_csv"), parent: @parent %>
+
+<div class="development-csv">
+  <div class="separate row">
+    <div class="row-item third hint">
+      <p>
+        <span class="bold"><%= t(".file") %></span><br/>
+        <span><%= t(".file_details") %></span>
+      </p>
+      <p>
+        <span class="bold"><%= t(".date") %></span><br/>
+        <span><%= t(".date_details") %></span>
+      </p>
+    </div>
+    <div class="row-item third hint">
+      <p>
+        <span class="bold"><%= t(".required") %></span><br/>
+        <span><%= t(".required_details") %></span>
+      </p>
+      <p>
+        <span class="bold"><%= t(".format") %></span><br/>
+        <span><%= t(".format_details") %></span>
+      </p>
+    </div>
+    <div class="row-item third upload">
+
+      <div class="csv-upload">
+        <h4><%= t(".title") %></h4>
+        <%= simple_form_for @plot, url: development_development_csv_index_path do |f| %>
+          <%= f.label :file, t(".select_csv"), class: "btn btn-primary" %>
+          <%= f.file_field :file, multiple: false, class: "file-upload" %><br/>
+          <%= f.submit t(".upload_csv"), class: "btn upload-csv" %>
+        <% end %>
+      </div>
+      <div class="csv-download">
+        <label><%= t(".download_label") %></label>
+        <a href="<%= download_development_csv_path %>" target="_blank">
+          <%= button_tag t(".download_csv"), type: "button", class: "btn" %>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="row attribute-list">
+    <div class="row-item third">
+      <div class="phases-list">
+        <table class="record-list">
+          <th><%= t(".phases") %></th>
+          <% csv_phases = @development.phases.where.not(name: "") %>
+          <% csv_phases.each do |phase| %>
+            <tr>
+              <td><%= phase.name %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+    <div class="row-item third">
+      <div class="unit-types-list">
+        <table class="record-list">
+          <th><%= t(".unit_types") %></th>
+          <% csv_units = @development.unit_types.where.not(name: "") %>
+          <% csv_units.each do |unit_type| %>
+          <tr>
+            <td><%= unit_type.name %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+    <div class="row-item third">
+      <div class="progresses-list">
+        <table class="record-list">
+          <th><%= t(".build_progresses") %></th>
+          <% Plot.progresses.each do |progress| %>
+          <tr>
+            <td><%= progress[0] %></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

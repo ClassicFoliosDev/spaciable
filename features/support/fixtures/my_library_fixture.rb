@@ -13,25 +13,29 @@ module MyLibraryFixture
       title: "Developer Document",
       file: "developer_document.pdf",
       documentable: -> { CreateFixture.developer },
-      category: :my_home
+      category: :my_home,
+      pinned: false
     },
     {
       title: "Development Document",
       file: "development_document.pdf",
       documentable: -> { CreateFixture.development },
-      category: :my_home
+      category: :my_home,
+      pinned: true
     },
     {
       title: "Unit Type Document",
       file: "unit_type_document.pdf",
       documentable: -> { CreateFixture.unit_type },
-      category: :legal_and_warranty
+      category: :legal_and_warranty,
+      pinned: false
     },
     {
       title: "Phase Plot Document",
       file: "phase_plot_document.pdf",
       documentable: -> { CreateFixture.phase_plot },
-      category: :my_home
+      category: :my_home,
+      pinned: false
     }
   ].freeze
 
@@ -54,7 +58,8 @@ module MyLibraryFixture
         title: attrs[:title],
         file: file,
         documentable: attrs[:documentable].call,
-        category: attrs[:category]
+        category: attrs[:category],
+        pinned: attrs[:pinned]
       )
 
       preview_file_name = "preview_#{attrs[:file]}"

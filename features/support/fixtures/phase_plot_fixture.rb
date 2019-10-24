@@ -42,7 +42,7 @@ module PhasePlotFixture
   end
 
   def create_unit_types(development)
-    unit_one= FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
+    unit_one = FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
     FactoryGirl.create(:unit_type, name: updated_unit_type_name, development: development)
     FactoryGirl.create_list(:unit_type, 3, development: development)
 
