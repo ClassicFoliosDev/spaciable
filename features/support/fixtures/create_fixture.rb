@@ -680,6 +680,10 @@ module CreateFixture
     development.plots.first
   end
 
+  def phase_plots
+    phase.plots.order(:id)
+  end
+
   def division_plot
     division_development.plots.first
   end

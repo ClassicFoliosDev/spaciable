@@ -1,0 +1,126 @@
+<% breadcrumb :phase_lettings, @phase %>
+
+<%= render '/phases/phase', phase: @phase %>
+<%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
+
+<div class="admin-lettings">
+  <% if current_user.cf_admin? %>
+  <div class="row">
+    <div class="row-item third">
+      <h3><%= t(".rentals") %></h3>
+        <%= simple_form_for(:phase_lettings, url: listings_path ) do |f| %>
+          <div class="ui-front select-container">
+            <%= f.radio_button :owner, :admin, checked: true, id: "lettings_admin_checked", class: "letting-radio" %> <span class="label"><%= t(".admin") %></span><br/>
+            <%= f.radio_button :owner, :homeowner, id: "lettings_homeowner_checked", class: "letting-radio" %> <span class="label"><%= t(".homeowner") %></span><br/>
+          </div>
+
+          <div class="add-plots">
+            <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
+          </div>
+
+          <div class="submit">
+            <%= f.submit t(".submit"), class: "btn-form-submit btn-primary letting-sub-check" %>
+          </div>
+        <% end %>
+    </div>
+
+    <div class="row-item third admin-lettings-list">
+      <h3><%= t(".admin_rentals") %></h3>
+      <table class="record-list plots">
+        <thead>
+        <tr>
+          <th><%= t(".name") %></th>
+          <th><%= t(".live") %></th>
+          <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @plots.select { |p| p.listing.admin? }.each do |plot| %>
+          <% listing = plot.listing %>
+          <tr data-plot="<%= plot.id %>">
+            <td><%= link_to "Plot #{plot.number}", plot_url(plot.id) %></td>
+            <td><%= listing.live? ? "Yes" : "No" %></td>
+            <td class="right">
+              <% unless listing.live? %>
+                <%= button_tag "", class: "btn change-listing-owner-btn",
+                  data: { title: t(".confirm_switch"),
+                          cancel: t(".cancel"),
+                          cta: t(".confirm_cta"),
+                          listing: listing.id,
+                          owner: :homeowner,
+                          url: listing_path(listing) } do %>
+                  <i class="fa fa-arrows-h"></i>
+                <% end %>
+                <%= button_tag "", class: "btn remove-listing-btn",
+                  data: { title: t(".confirm_remove"),
+                  cancel: t(".cancel"),
+                  cta: t(".confirm_cta"),
+                  listing: listing.id,
+                  url: listing_path(listing) } do %>
+                  <i class="fa fa-trash-o"></i>
+                <% end %>
+              <% end %>
+              <%= render "change_listing_owner_form", listing_id: "change_listing_#{listing.id}", listing: listing, phase: @phase %>
+              <%= render "remove_listing_form", listing_id: "remove_listing_#{listing.id}", listing: listing, phase: @phase %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row-item third homeowner-lettings-list">
+      <h3><%= t(".homeowner_rentals") %></h3>
+      <table class="record-list plots">
+        <thead>
+        <tr>
+          <th><%= t(".name") %></th>
+          <th><%= t(".live") %></th>
+          <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @plots.select { |p| p.listing.homeowner? }.each do |plot| %>
+          <% listing = plot.listing %>
+          <tr data-plot="<%= plot.id %>">
+            <td><%= link_to "Plot #{plot.number}", plot_url(plot.id) %></td>
+            <td><%= listing.live? ? "Yes" : "No" %></td>
+            <td class="right">
+              <% unless listing.live? %>
+                <%= button_tag "", class: "btn change-listing-owner-btn",
+                  data: { title: t(".confirm_switch"),
+                          cancel: t(".cancel"),
+                          cta: t(".confirm_cta"),
+                          listing: listing.id,
+                          owner: :admin,
+                          url: listing_path(listing) } do %>
+                  <i class="fa fa-arrows-h"></i>
+                <% end %>
+                <%= button_tag "", class: "btn remove-listing-btn",
+                  data: { title: t(".confirm_remove"),
+                  cancel: t(".cancel"),
+                  cta: t(".confirm_cta"),
+                  listing: listing.id,
+                  url: listing_path(listing) } do %>
+                  <i class="fa fa-trash-o"></i>
+                <% end %>
+              <% end %>
+              <%= render "change_listing_owner_form", listing_id: "change_listing_#{listing.id}", listing: listing, phase: @phase %>
+              <%= render "remove_listing_form", listing_id: "remove_listing_#{listing.id}", listing: listing, phase: @phase %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <% elsif current_user.lettings_account.pending?%>
+    <div class="row">
+        <%= link_to t(".authorise"), PlanetRent.authorize_url(@state), class: "btn", id: 'authorise'%>
+    </div>
+  <% else %>
+    <%= render "client_admin_listings", plots: @plots, phase: @phase, property_types: @property_types %>
+  <% end %>
+</div>
+
+

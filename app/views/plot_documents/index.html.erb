@@ -10,6 +10,6 @@
   <% end %>
 </div>
 
-<%= render 'components/tabs', tabs: tabs_for(@parent, "plot_documents"), parent: @parent %>
+<%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
 <%= render_collection @plot_documents, path: "plot_documents/collection", parent: @parent %>

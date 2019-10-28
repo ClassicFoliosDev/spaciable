@@ -4,31 +4,52 @@ module Homeowners
   class LettingsController < Homeowners::BaseController
     skip_authorization_check
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def show
       return unless current_resident
 
-      current_resident.plots.each do |plot|
-        @letable = true if plot.letable && current_resident&.plot_residency_homeowner?(plot)
+      @plots_listing_by_homeowner = current_resident.homeowner_listing_plots
+      @plots_listing_by_others = current_resident.plots_listing_by_others
+
+      redirect_to root_url unless @plots_listing_by_homeowner
+
+      if current_resident.lettings_account &&
+         current_resident.lettings_account.authorised?
+        PlanetRent.property_types current_resident do |types, error|
+          flash[:alert] = error if error
+          @property_types = types unless error
+        end
       end
-      redirect_to root_url unless @letable == true
 
-      @plots = current_resident.plots
-      @plots = @plots.order(number: :asc)
+      # return to this paqe if redireced for Planet Rent actions
+      unless session[:landlordlistings]
+        session[:landlordlistings] = PlanetRent::State.new request.original_url
+      end
 
-      @letting = Letting.new
-      @lettings_account = LettingsAccount.new
+      # State will be sent with any authorization request
+      @state = session[:landlordlistings]
     end
 
     def create
-      # PLANET RENT API
-      # We need to send the letting to Planet Rent before saving it, and when the plot is set up
-      # on Planet Rent, we then need a callback from them to tell us the plot is set up.
-      # We then save the letting to the database and update the plot.let field to true
-      # and flash a notice confirming the plot setup
-      # The json is rendering but we need to force a page refresh
-      # to show that the plot now has its letting set up
-      @letting = Letting.new(letting_params)
-      render json: { notice: t("homeowners.lettings.confirm") } if @letting.save
+      PlanetRent.let_property(current_resident, letting_params) do |_, error|
+        if error
+          flash[:alert] = error
+        else
+          Listing.update?(current_resident, letting_params) do |success, uerror|
+            plot = Plot.find(letting_params[:plot_id].to_i).to_s
+            if success
+              flash[:notice] = t("homeowners.lettings.confirm", plot: plot)
+            else
+              flash[:alert] = uerror
+            end
+          end
+        end
+      end
+
+      respond_to do |format|
+        format.html { redirect_to(session[:landlordlistings]) }
+        format.json { render status: 200, json: session[:landlordlistings].redirect_url.to_json }
+      end
     end
 
     private
@@ -37,8 +58,9 @@ module Homeowners
       params.require(:letting).permit(:bathrooms, :bedrooms, :landlord_pets_policy,
                                       :has_car_parking, :has_bike_parking, :property_type,
                                       :price, :shared_accommodation, :notes, :summary,
-                                      :plot_id, :lettings_account_id, :country,
+                                      :plot_id, :country,
                                       :address_1, :address_2, :town, :postcode, :other_ref)
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

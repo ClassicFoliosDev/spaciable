@@ -1,0 +1,51 @@
+<% if current_user.account? %>
+  <table class="record-list plots">
+    <thead>
+      <tr>
+        <th colspan="1"><%= sortable(Plot, :number, t(".name")) %></th>
+        <th colspan="1"><%= sortable(Plot, :house_number, t(".house_number")) %></th>
+        <th colspan="2"><%= sortable({Plot => Address}, :building_name, t(".building_name")) %></th>
+        <th colspan="2"><%= sortable({Plot => Address}, :road_name, t(".road_name")) %></th>
+        <th><%= sortable(Plot, :let, t(".live")) %></th>
+        <th colspan="2"> </th>
+      </tr>
+    </thead>
+    <tbody>
+    <% plots.each do |plot| %>
+      <tr data-plot="<%= plot.id %>">
+        <td colspan="1"><%= link_to_unless (cannot? :read, plot), plot, url_for(plot), title: plot %></td>
+        <td colspan="1"><%= plot.house_number %></td>
+        <td colspan="2"><%= plot.building_name %></td>
+        <td colspan="2"><%= plot.road_name %></td>
+        <td><%= plot.listing.live? ? "Yes" : "No" %></td>
+        <td colspan=2 class="right">
+          <% if plot.listing.live? %>
+            <%= link_to t(".planet_rent"), PlanetRent.get_property_link(plot), class: "btn letting-btn" %>
+          <% else %>
+            <%= button_tag t(".let_my_plot"), class: "btn letting-btn admin-let-plot",
+              id: "letplot#{plot.number}",
+              data: { cancel: t("edit.cancel"),
+              cta: t(".submit"),
+              title: t(".plot_details"),
+              url: phase_lettings_url(phase),
+              plot: plot.id,
+              address1: [plot&.postal_number, plot&.building_name].compact.join(" "),
+              address2: plot&.road_name || "",
+              town: plot&.city || "",
+              postcode: plot&.postcode || "",
+              bedrooms: plot_rooms(plot, Room.icon_names[:bedroom]),
+              bathrooms: plot_rooms(plot, Room.icon_names[:bathroom]),
+              country: plot.developer.country.name} %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="admin-let-plot-details-form hidden">
+    <%= render 'components/let_plot_details_form', property_types: property_types%>
+  </div>
+<% end %>
+
+
+

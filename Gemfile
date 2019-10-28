@@ -104,6 +104,12 @@ gem "amoeba"
 # EU Cookie pop-up
 gem "cookies_eu", "~> 1.6"
 
+# make http requests
+gem "httparty"
+
+# OAuth2 authorization
+gem "oauth2"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"

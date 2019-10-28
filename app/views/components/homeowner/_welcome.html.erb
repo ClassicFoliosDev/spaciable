@@ -20,7 +20,7 @@
         <span class="my-plots"><%= t(".my_plots") %></span>
       <% end %>
       <span>|</span>
-      <% if current_resident.letable_plots?(plots) %>
+      <% if current_resident.listings? %>
         <%= link_to t(".lettings"), letting_path(current_resident),
             class: ('active-link' if current_page?(letting_path(current_resident)))%>
         <span>|</span>

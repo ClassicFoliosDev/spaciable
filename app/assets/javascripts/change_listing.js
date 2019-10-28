@@ -1,10 +1,10 @@
 (function (document, $) {
   'use strict'
 
-  $(document).on('click', '.change-letter-btn', function (event) {
+  $(document).on('click', '.change-listing-owner-btn', function (event) {
     var dataIn = $(this).data()
 
-    var $changeContainer = $('.change_letting_plot_' + dataIn.plot)
+    var $changeContainer = $('.change_listing_' + dataIn.listing)
 
     $('body').append($changeContainer)
     var $form = $('.edit_plot')
@@ -29,7 +29,7 @@
           click: function () {
 
             $.ajax({
-              url: '/plots/' + dataIn.plot,
+              url: dataIn.url + '/?owner=' + dataIn.owner,
               data: $form.serialize(),
               type: 'PUT'
             })
@@ -41,10 +41,10 @@
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
   })
 
-  $(document).on('click', '.remove-letter-btn', function (event) {
+  $(document).on('click', '.remove-listing-btn', function (event) {
     var dataIn = $(this).data()
 
-    var $changeContainer = $('.remove_letting_plot_' + dataIn.plot)
+    var $changeContainer = $('.remove_listing_' + dataIn.listing)
 
     $('body').append($changeContainer)
     var $form = $('.edit_plot')
@@ -69,9 +69,9 @@
           click: function () {
 
             $.ajax({
-              url: '/plots/' + dataIn.plot,
+              url: dataIn.url,
               data: $form.serialize(),
-              type: 'PUT'
+              type: 'DELETE'
             })
 
             $(this).dialog('destroy')

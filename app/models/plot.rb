@@ -36,8 +36,10 @@ class Plot < ApplicationRecord
   has_many :finishes, through: :rooms
   has_many :documents, as: :documentable
   has_many :snags, dependent: :destroy
-  has_one :letting
   has_one :address, as: :addressable, dependent: :destroy
+  has_one :listing, dependent: :destroy
+
+  delegate :other_ref, to: :listing, prefix: true
 
   attr_accessor :notify
 
@@ -83,22 +85,11 @@ class Plot < ApplicationRecord
     no_choices_made
     homeowner_updating
     admin_updating
+
     committed_by_homeowner
     choices_approved
     choices_rejected
   ]
-
-  enum letable_type: %i[
-    planet_rent
-    busy_living
-    both
-  ]
-
-  enum letter_type: {
-    admin: 0,
-    homeowner: 1,
-    unlettable: 2
-  }
 
   def rooms(room_scope = Room.all)
     templated_room_ids = plot_rooms.with_deleted.pluck(:template_room_id).compact
@@ -233,11 +224,6 @@ class Plot < ApplicationRecord
   end
 
   def partially_expired?; end
-
-  def let_by_other
-    letting = Letting.find_by(plot_id: id)
-    return true if letting
-  end
 
   # SNAGS
 
@@ -382,5 +368,15 @@ class Plot < ApplicationRecord
     end
     appliances += appliance_choices.count if appliance_choices
     appliances
+  end
+
+  # Does the plot have a listing
+  def listing?
+    listing.present?
+  end
+
+  # How many rooms of the provided type does this plot have?
+  def rooms?(key)
+    rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }.count
   end
 end

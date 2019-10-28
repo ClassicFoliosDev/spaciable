@@ -32,10 +32,15 @@
             $confirmContainer.hide()
 
             $.post({
-              url: '/homeowners/lettings_account',
+              url: dataIn.url,
               data: $form.serialize(),
-              dataType: 'json'
+              dataType: 'json',
+              success: function (response) {
+                window.location=response
+              }
             })
+
+
           }
         }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button

@@ -7,7 +7,7 @@
     var $lettingContainer = $('.admin-let-plot-details-form')
 
     $('body').append($lettingContainer)
-    var $form = $('.new_letting')
+    var $form = $('.letting')
 
     $lettingContainer.dialog({
       show: 'show',
@@ -29,17 +29,11 @@
           click: function () {
 
             $.post({
-              url: '/phases/' + dataIn.phase + '/lettings',
+              url: dataIn.url,
               data: $form.serialize(),
               dataType: 'json',
               success: function (response) {
-                var $flash = $('.flash')
-                $flash.empty()
-
-                var $notice = document.createElement('p')
-                $notice.className = 'notice'
-                $notice.innerHTML = response.notice
-                $flash.append($notice)
+                window.location=response
               }
             })
             $(this).dialog('destroy')
@@ -53,6 +47,10 @@
     document.getElementById('letting_postcode').value = dataIn.postcode
     document.getElementById('letting_plot_id').value = dataIn.plot
     document.getElementById('letting_other_ref').value = "spaciable" + dataIn.plot
+    document.getElementById('letting_country').value =  dataIn.country
+    document.getElementById('letting_landlord_pets_policy').value =  'No Pets'
+    document.getElementById('letting_bedrooms').value =  dataIn.bedrooms
+    document.getElementById('letting_bathrooms').value =  dataIn.bathrooms
     validateLetting()
   })
 

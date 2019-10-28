@@ -21,15 +21,6 @@ class PhasesController < ApplicationController
   def show
     default_tab = current_user.cf_admin? ? "production" : "plots"
     @active_tab = params[:active_tab] || default_tab
-
-    @active_plots_count = @phase.active_plots_count
-    @completed_plots_count = @phase.completed_plots_count
-    @expired_plots_count = @phase.expired_plots_count
-    @activated_resident_count = @phase.activated_resident_count
-
-    @resident_count = @phase.released_resident_count
-    @subscribed_resident_count = @phase.residents.where(cf_email_updates: true).size
-
     @collection = build_collection
   end
 

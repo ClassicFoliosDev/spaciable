@@ -30,9 +30,9 @@ class Resident < ApplicationRecord
   validates :phone_number, phone: true
   validates :phone_number, presence: true, on: :create
 
-  has_one :lettings_account, as: :letter
-  has_many :lettings, through: :lettings_account
-  delegate :management, to: :lettings_account
+  has_one :lettings_account, as: :accountable, dependent: :destroy
+
+  delegate :authorise, to: :lettings_account
 
   def subscribed_status
     if cf_email_updates.to_i.positive? || developer_email_updates.to_i.positive? ||
@@ -118,15 +118,24 @@ class Resident < ApplicationRecord
     end
   end
 
-  def letable_plots?(plots)
-    letable = false
-    plots.each do |plot|
-      return letable = true if plot.letable && plot_residency_homeowner?(plot)
-    end
-    letable
+  # Are any of this resident's plots listed as homeowner listings?
+  def listings?
+    Listing.homeowner_listings(plots).count.positive?
   end
 
-  def no_lettings_account?
-    LettingsAccount.find_by(letter_id: id).nil?
+  # does the resident have a lettings account
+  def account?
+    lettings_account.present?
+  end
+
+  # All resident plots with homweowner listings
+  def homeowner_listing_plots
+    plots.order(number: :asc)
+         .select { |p| p.listing? && p.listing.homeowner? }
+  end
+
+  # All plots with homweowner listings owned by other residents
+  def plots_listing_by_others
+    homeowner_listing_plots.select { |p| p.listing.live? && !p.listing.belongs_to?(self) }
   end
 end

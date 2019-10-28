@@ -1,11 +1,9 @@
 <% breadcrumb :phase, @phase %>
 
 <div class="phase">
-  <%= render 'phases/phase', active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
-      expired_plots_count: @expired_plots_count, resident_count: @resident_count,
-      activated_resident_count: @activated_resident_count, phase: @phase %>
+  <%= render @phase %>
 
-  <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab), parent: @parent %>
+  <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user), parent: @parent %>
 
   <% if @active_tab == "production" %>
     <%= render_collection @collection, path: "production/collection", parent: @phase %>

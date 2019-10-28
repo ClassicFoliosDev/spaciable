@@ -10,7 +10,7 @@
   <div class="main-container">
     <div class="lettings-management">
 
-      <% if current_resident.no_lettings_account? %>
+      <% if not current_resident.account? %>
 
         <div class="lettings-description">
           Lettings informtion and stuff text text texte hxdoihsd sdoifsd fsidfoihsdf
@@ -22,12 +22,14 @@
               Self managed explanation text to tell people what self managed means and I am on two lines look at me yay.
             </p>
             <div class="management-selection">
-              <%= button_tag t(".self_managed_select"), class: "btn branded-btn confirm-letting-type",
-              data: { title: t(".confirm_self", type: "Self Managed"),
+              <%= button_tag ("Select " + t(".self_managed")), class: "btn branded-btn confirm-letting-type",
+              data: {
+                title: t(".confirm_self", type: t(".self_managed")),
                 cancel: t(".cancel_choice"),
-                text: t(".confirm_text", type: "self managed"),
+                text: t(".confirm_text", type: t(".self_managed")),
                 cta: t(".confirm_cta" ),
                 details: t(".confirm_details"),
+                url: lettings_accounts_url,
                 type: :self_managed } %>
             </div>
           </div>
@@ -37,36 +39,42 @@
               Management text so people can also understand what the management service is and I am also on two lines.
             </p>
             <div class="management-selection">
-              <%= button_tag t(".management_service_select"), class: "btn branded-btn confirm-letting-type",
-              data: { title: t(".confirm_self", type: "Management Service"),
+              <%= button_tag ("Select " + t(".management_service")), class: "btn branded-btn confirm-letting-type",
+              data: { title: t(".confirm_self", type: t(".management_service")),
                 cancel: t(".cancel_choice"),
-                text: t(".confirm_text", type: "a managed service"),
+                text: t(".confirm_text", type: t(".management_service")),
                 cta: t(".confirm_cta" ),
                 details: t(".confirm_details"),
+                url: lettings_accounts_url,
                 type: :management_service } %>
             </div>
           </div>
         </div>
-        <div class="other-let-plots">
-          <%= (render 'homeowners/components/other_resident_lettings', plots: @plots) if Letting.other_resident_lettings(@plots) %>
-        </div>
-          <%= render 'components/homeowner/lettings_account_form', :lettings_account => @lettings_account %>
 
+        <div class="other-let-plots">
+          <%= render 'homeowners/components/other_resident_lettings', plots: @plots_listing_by_others %>
+        </div>
+
+        <%= render 'components/homeowner/lettings_account_form' %>
+
+      <% elsif current_resident.lettings_account.pending?%>
+        <%= link_to t(".authorise"), PlanetRent.authorize_url(@state), class: "btn", id: 'authorise' %>
       <% else %>
 
         <div class="management-type">
-          <% lettings_type = t(".#{current_resident.management}") %>
+          <% lettings_type = t(".#{current_resident.lettings_account.management}") %>
           <%= t(".your_management", type: lettings_type).html_safe %>
         </div>
         <div class="plots">
           <hr>
           <h2 class="letable-header"><%= t(".your_plots") %></h2>
           <div class="letable">
-            <%= render "homeowners/components/lettings", plots: @plots %>
+            <%= render "homeowners/components/lettings", plots: @plots_listing_by_homeowner %>
           </div>
         </div>
+
         <div class="let-plot-details-form hidden">
-          <%= render 'components/homeowner/let_plot_details_form', :letting => @letting, :plot => @plot %>
+          <%= render 'components/let_plot_details_form', property_types: @property_types %>
         </div>
 
       <% end %>

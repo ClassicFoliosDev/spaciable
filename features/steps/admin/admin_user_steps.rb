@@ -11,7 +11,6 @@ end
 Given(/^I am logged in as a Developer Admin$/) do
   AdminUsersFixture.create_permission_resources
   admin = CreateFixture.create_developer_admin
-
   login_as admin
   visit "/"
 end
@@ -49,6 +48,7 @@ Given(/^I am logged in as a Development Admin for a Division$/) do
 end
 
 Given(/^I am on the Admin Users page$/) do
+
   within ".navbar" do
     click_on "Users"
   end
@@ -138,6 +138,8 @@ When(/^I add a new Developer Admin$/) do
   within ".user_email" do
     fill_in "user[email]", with: attrs[:email_address]
   end
+
+  #select attrs[:role], :from => "user_role", visible: false
 
   select_from_selectmenu :user_role, with: attrs[:role]
   select_from_selectmenu :user_developer_id, with: attrs[:developer]
@@ -460,4 +462,106 @@ Then(/^I should see the recreated CF admin$/) do
     expect(page).to have_content "CF Admin"
     expect(page).not_to have_content "Developer Admin"
   end
+end
+
+Given(/^that I have developer, division and development users$/) do
+  LettingsFixture.create_letting_admins
+end
+
+When(/^I edit the developer details$/) do
+  visit "/developers/#{CreateFixture.developer.id}/edit"
+end
+
+Then(/^I can set the primary developer admin$/) do
+  select_from_selectmenu :developer_prime_lettings_admin, 
+                         with: LettingsFixture.developer_admins.first.to_s
+  click_on t("admin.users.form.submit")
+end
+
+When(/^I edit the division details$/) do
+  visit "/developers/#{CreateFixture.developer.id}/divisions/#{CreateFixture.division.id}/edit"
+end
+
+Then(/^I can set the primary division admin$/) do
+  select_from_selectmenu :division_prime_lettings_admin, 
+                         with: LettingsFixture.division_admins.second.to_s
+  click_on t("admin.users.form.submit")
+end
+
+When(/^I log in as the primary developer admin$/) do
+  login_as LettingsFixture.developer_admins.first
+  visit "/admin/users"
+end
+
+Then(/^I can enable my developer development users to perform lettings$/) do
+  # I can see the users
+  LettingsFixture.developer_development_admins.each do |admin|
+    expect(page).to have_content admin.to_s
+  end
+
+  find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.developer_development_admins.first.id}/edit']").click
+  expect(page).to have_content t("admin.users.form.administer_branch")
+  page.check('branch_admin_check')
+
+  # The edit user javascript doesn't work properly - update manually
+  admin = LettingsFixture.developer_development_admins.first
+  admin.update_attributes(lettings_management: User.lettings_managements.key(User.lettings_managements[:branch]))
+  admin.save
+
+  expect(LettingsFixture.developer_development_admins.first.lettings_management).to be == User.lettings_managements.key(User.lettings_managements[:branch])
+end
+
+When(/^I log in as the non primary developer admin$/) do
+  login_as LettingsFixture.developer_admins.second
+  visit "/admin/users"
+end
+
+Then(/^I cannot enable my developer development users to perform lettings$/) do
+  # I can see the users
+  LettingsFixture.developer_development_admins.each do |admin|
+    expect(page).to have_content admin.to_s
+  end
+
+  find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.developer_development_admins.first.id}/edit']").click
+  expect(page).to have_content t("admin.users.form.administer_branch")
+  expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)  
+end
+
+When(/^I log in as the primary division admin$/) do
+  login_as LettingsFixture.division_admins.second
+  visit "/admin/users"
+end
+
+Then(/^I can enable my division development users to perform lettings$/) do
+  # I can see the users
+  LettingsFixture.division_development_admins.each do |admin|
+    expect(page).to have_content admin.to_s
+  end
+
+  find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.division_development_admins.first.id}/edit']").click
+  expect(page).to have_content t("admin.users.form.administer_branch")
+  page.check('branch_admin_check')
+
+    # The edit user javascript doesn't work properly - update manually
+  admin = LettingsFixture.division_development_admins.first
+  admin.update_attributes(lettings_management: User.lettings_managements.key(User.lettings_managements[:branch]))
+  admin.save
+
+  expect(LettingsFixture.division_development_admins.first.lettings_management).to be == User.lettings_managements.key(User.lettings_managements[:branch])
+end
+
+When(/^I log in as the non primary division admin$/) do
+  login_as LettingsFixture.developer_admins.first
+  visit "/admin/users"
+end
+
+Then(/^I cannot enable my division development users to perform lettings$/) do
+  # I can see the users
+  LettingsFixture.division_development_admins.each do |admin|
+    expect(page).to have_content admin.to_s
+  end
+
+  find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.division_development_admins.first.id}/edit']").click
+  expect(page).to have_content t("admin.users.form.administer_branch")
+  expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)  
 end

@@ -63,6 +63,7 @@ Rails.application.routes.draw do
   end
 
   resources :documents, only: [:edit, :show, :update, :destroy]
+  resources :listings, only: [:new, :create, :update, :destroy]
 
   resources :rooms, only: [] do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]
@@ -85,7 +86,7 @@ Rails.application.routes.draw do
     end
     resources :bulk_edit, only: [:index, :create]
     resources :contacts
-    resources :lettings
+    resources :lettings, controller: 'phases/lettings'
     resources :release_plots, only: [:index, :create]
     get 'callback', to: 'release_plots#callback', format: :json
   end
@@ -131,7 +132,6 @@ Rails.application.routes.draw do
   get :item_images, to: "room_configurations/room_choice#item_images", format: :json
   get :archive_choice, to: "room_configurations/room_choice#archive_choice", format: :json
   get :export_choices, to: "room_configurations/room_choice#export_choices"
-  post :lettings_account, to: "lettings_accounts#create", format: :json
 
   resources :developers do
     resources :divisions
@@ -224,7 +224,7 @@ Rails.application.routes.draw do
     get :remove_resident, to: "residents#remove_resident", format: :json
     get :remove_snag, to: "snags#destroy", format: :json
     get :remove_snag_attachment, to: "snag_attachments#destroy", format: :json
-    post :lettings_account, to: "lettings_accounts#create", format: :json
+    post :lettings_accounts, to: "lettings_accounts#create", format: :json
   end
 
   get '/:token/confirm_referral', to: "homeowners/referrals#confirm_referral", as: 'confirm_referral'
@@ -250,6 +250,8 @@ Rails.application.routes.draw do
   get "/how_tos", to: "homeowners/how_tos#list_how_tos", format: :json
   get "/how_tos/:id", to: "homeowners/how_tos#show_how_to", format: :json
   get "/dashboard", to: "homeowners/dashboard#show"
+  get "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
+  post "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
 
   authenticated :resident do
     root "homeowners/dashboard#show", as: :homeowner_dashboard

@@ -32,6 +32,12 @@ When(/^I log out as a an admin$/) do
   end
 end
 
+When(/^I log out as an admin$/) do
+  within ".navbar-menu" do
+    click_on "Log Out"
+  end
+end
+
 Then(/^I should be on the admin dashboard$/) do
   expect(page).to have_link("Dashboard")
 end

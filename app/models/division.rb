@@ -93,4 +93,35 @@ class Division < ApplicationRecord
     end
     activated_residents
   end
+
+  # Any admin of this divsion can potentially be the
+  # prime letting admin
+  def potential_prime_admins
+    User.where(permission_level_type: Division.to_s,
+               permission_level_id: id,
+               role: User.roles[:division_admin])
+  end
+
+  # Any development admin assocaited with a top level developmment for
+  # this developer can potentially be a branch letting admin
+  def potential_branch_admins
+    User.where(permission_level_type: Development.to_s,
+               permission_level_id: developments.pluck(:id),
+               role: User.roles[:development_admin])
+  end
+
+  # Expose prime_lettings_admin as a non model attribute so
+  # as the developer edit page can get/set it.  The
+  # prime_lettings_admin is a user whose lettings_management
+  # status is set to 'prime'
+  def prime_lettings_admin # getter method
+    User.prime_admin(potential_prime_admins.pluck(:id))&.id
+  end
+
+  # This is called by 'update' when it sets the
+  # Developer attributes
+  def prime_lettings_admin=(prime_id) # setter method
+    User.update_prime_admin(potential_prime_admins.pluck(:id),
+                            prime_id&.to_i)
+  end
 end

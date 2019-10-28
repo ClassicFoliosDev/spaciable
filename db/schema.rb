@@ -10,11 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190828093206) do
+ActiveRecord::Schema.define(version: 20190919163524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
+
+  create_table "access_tokens", force: :cascade do |t|
+    t.string  "access_token"
+    t.string  "refresh_token"
+    t.integer "expires_at"
+  end
 
   create_table "addresses", force: :cascade do |t|
     t.string   "postal_number"
@@ -454,45 +460,25 @@ ActiveRecord::Schema.define(version: 20190828093206) do
     t.index ["tag_id", "how_to_id"], name: "tag_how_to_index", using: :btree
   end
 
-  create_table "lettings", force: :cascade do |t|
-    t.integer  "bathrooms"
-    t.integer  "bedrooms"
-    t.string   "landlord_pets_policy"
-    t.boolean  "has_car_parking"
-    t.boolean  "has_bike_parking"
-    t.integer  "property_type"
-    t.integer  "price"
-    t.boolean  "shared_accommodation"
-    t.string   "notes"
-    t.string   "summary"
-    t.string   "address_1"
-    t.string   "address_2"
-    t.string   "town"
-    t.string   "postcode"
-    t.string   "country",              default: "UK"
-    t.string   "string",               default: "UK"
-    t.string   "other_ref"
-    t.string   "access_token"
-    t.integer  "plot_id"
-    t.integer  "lettings_account_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["lettings_account_id"], name: "index_lettings_on_lettings_account_id", using: :btree
-    t.index ["plot_id"], name: "index_lettings_on_plot_id", using: :btree
+  create_table "lettings_accounts", force: :cascade do |t|
+    t.string  "reference"
+    t.integer "access_token_id"
+    t.integer "authorisation_status", default: 0
+    t.integer "management",           default: 0
+    t.string  "accountable_type"
+    t.integer "accountable_id"
+    t.index ["access_token_id"], name: "index_lettings_accounts_on_access_token_id", using: :btree
+    t.index ["accountable_type", "accountable_id"], name: "index_lettings_accounts_on_accountable_type_and_accountable_id", using: :btree
   end
 
-  create_table "lettings_accounts", force: :cascade do |t|
-    t.string   "access_token"
-    t.string   "refresh_token"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.integer  "management",    default: 0
-    t.string   "letter_type"
-    t.integer  "letter_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.index ["letter_type", "letter_id"], name: "index_lettings_accounts_on_letter_type_and_letter_id", using: :btree
+  create_table "listings", force: :cascade do |t|
+    t.string  "reference"
+    t.string  "other_ref"
+    t.integer "owner",               null: false
+    t.integer "lettings_account_id"
+    t.integer "plot_id",             null: false
+    t.index ["lettings_account_id"], name: "index_listings_on_lettings_account_id", using: :btree
+    t.index ["plot_id"], name: "index_listings_on_plot_id", unique: true, using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -562,8 +548,8 @@ ActiveRecord::Schema.define(version: 20190828093206) do
   create_table "plots", force: :cascade do |t|
     t.string   "number"
     t.integer  "unit_type_id"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
@@ -579,11 +565,7 @@ ActiveRecord::Schema.define(version: 20190828093206) do
     t.integer  "total_snags",              default: 0
     t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
-    t.integer  "choice_selection_status",  default: 0,     null: false
-    t.boolean  "letable",                  default: false
-    t.boolean  "let",                      default: false
-    t.integer  "letable_type"
-    t.integer  "letter_type"
+    t.integer  "choice_selection_status",  default: 0,  null: false
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
@@ -855,6 +837,7 @@ ActiveRecord::Schema.define(version: 20190828093206) do
     t.boolean  "receive_release_emails", default: true
     t.boolean  "snag_notifications",     default: true
     t.boolean  "receive_choice_emails",  default: false
+    t.integer  "lettings_management",    default: 0
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -887,8 +870,6 @@ ActiveRecord::Schema.define(version: 20190828093206) do
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
-  add_foreign_key "lettings", "lettings_accounts"
-  add_foreign_key "lettings", "plots"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"

@@ -387,6 +387,26 @@ en:
     truncate: "More..."
 
   components:
+    let_plot_details_form:
+        let_plot_details: "We just need a few more details about your plot."
+        bedrooms: "Bedrooms"
+        bathrooms: "Bathrooms"
+        pets_policy: "Pets Policy"
+        pets_policy_details: "What is your policy on pets? eg. small pets allowed, cats considered"
+        let_plot_disclaimer: "Please ensure you fill in all of the below information. All fields are required."
+        car_parking: "Car Parking?"
+        bike_parking: "Bike Storage?"
+        property_type: "Property Type"
+        price: "Monthly Rental Price"
+        shared: "Shared Accommodation?"
+        summary: "Property Summary"
+        summary_details: "Briefly describe the property. Provide information such as location and room overviews."
+        notes: "Key Features"
+        notes_details: "What are some key features of the property? eg. off-road parking, feature fireplace"
+        address_1: "Address One"
+        address_2: "Address Two"
+        town: "Town"
+        postcode: "Postcode"
     admin:
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
@@ -419,26 +439,6 @@ en:
         prefix: "Postal Prefix"
       spanish_plot_address_fields:
         copy_plot_numbers: "Use Plot Number for Postal Number"
-      let_plot_details_form:
-        let_plot_details: "We just need a few more details about your plot."
-        bedrooms: "Bedrooms"
-        bathrooms: "Bathrooms"
-        pets_policy: "Pets Policy"
-        pets_policy_details: "What is your policy on pets? eg. small pets allowed, cats considered"
-        let_plot_disclaimer: "Please ensure you fill in all of the below information. All fields are required."
-        car_parking: "Car Parking?"
-        bike_parking: "Bike Storage?"
-        property_type: "Property Type"
-        price: "Monthly Rental Price"
-        shared: "Shared Accommodation?"
-        summary: "Property Summary"
-        summary_details: "Briefly describe the property. Provide information such as location and room overviews."
-        notes: "Key Features"
-        notes_details: "What are some key features of the property? eg. off-road parking, feature fireplace"
-        address_1: "Address One"
-        address_2: "Address Two"
-        town: "Town"
-        postcode: "Postcode"
       admin_lettings_account_form:
         confirm: "Please confirm you have selected the correct management type before continuing. You cannot change this after your account has been set up."
         email: "The email you enter here will be used to set up your lettings account, which will be accessible to all admins across your developer."
@@ -798,6 +798,8 @@ en:
         receive_snag_emails: "Receive snagging emails"
         choice_emails: "Plot Choice Emails"
         receive_choice_emails: "Receive plot choice emails"
+        lettings_branch_admin: "Development lettings"
+        administer_branch: "Can administer lettings"
         email: "Email"
         first_name: "First Name"
         surname: "Surname"
@@ -822,9 +824,8 @@ en:
         success: "%{user_name} was updated successfully"
         success_password: "%{user_name} password was updated successfully, please log in again."
       lettings:
-        confirm: "Your letting for your plot has been set up"
-      lettings_account:
-        confirm: "Your lettings account has been successfully set up"
+        confirm: "Your letting for %{plot} has been set up"
+        no_account: "%{user} does not have a lettings account"
     dashboard:
       components:
         no_recent:
@@ -1063,7 +1064,7 @@ en:
         title: "Contacts."
         check_faqs: "If you have an issue, have you tried looking in the %{link} section?"
     lettings:
-      confirm: "Your letting for your plot has been set up"
+      confirm: "Your letting for %{plot} has been set up"
       show:
         my_lettings: "Lettings."
         lettings: "Lettings"
@@ -1081,11 +1082,14 @@ en:
         confirm_cta: "Confirm Choice"
         confirm_details: "Once you confirm your choice below, it cannot be changed. If you are unsure, please cancel and review your options."
         confirm_text: "Are you sure you want to set up your lettings account as %{type}?"
-        self_managed_select: "Select Self Managed"
-        management_service_select: "Select Management Service"
+        self_managed: "Self Managed"
+        management_service: "Management Service"
         confirm_self: "%{type}"
+        authorise: "Authorise your Planet Rent account"
     lettings_account:
-      confirm: "Your lettings account has been successfully set up"
+      created: "Your lettings account has been initialised. Your username is %{username}."
+      pr_failed: "Failed to create PlanetRent user account. %{message}"      
+      failed: "Failed to create a landlord account."    
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
@@ -1166,6 +1170,7 @@ en:
       appliance_manuals:
         appliances_category: "appliance_manuals"
         manual: "Manual"
+        
     components:
       contact:
         mobile: "Mobile"
@@ -1421,6 +1426,7 @@ en:
       messages_description: "Allow development residents to share messages with each other"
       development_faqs: "Development FAQs"
       development_faqs_description: "Create default FAQs for each development, not at developer scope"
+      prime_admin: "Primary lettings administrator"
     index:
       add: "Add Developer"
       actions: "Actions"
@@ -1498,6 +1504,7 @@ en:
       submit: "Submit"
       address: "Postal Address"
       back: "Back"
+      prime_admin: "Primary lettings administrator"
     index:
       actions: "Actions"
       destroy: "Delete"
@@ -1685,6 +1692,18 @@ en:
     img_name: "Picture name"
     not_yet: "You can add pictures after this resource has been saved."
 
+  listings:
+    create:
+      success: "Successfully enabled letting for plots %{plot_numbers}"
+      success_one: "Successfully enabled letting for plot %{plot_number}"
+    update:
+      success: "Successfully changed listing owner for %{plot_number}"
+      live: "The listing for plot %{plot_number} is live and cannot be changed"
+    destroy:
+      success: "Successfully removed listing for plot %{plot_number}"
+      failed: "Failed to locate listing"
+      live: "The listing for plot %{plot_number} is live and cannot be deleted"
+
   phases:
     create:
       success: "%{phase_name} was created successfully"
@@ -1731,64 +1750,55 @@ en:
       title: "New Phase."
     update:
       success: "%{phase_name} was updated successfully"
-
-  lettings:
-    index:
-      rentals: "Lettings."
-      admin_rentals: "Admin Lettings."
-      homeowner_rentals: "Homeowner Lettings."
-      homeowner_rental_type: "Planet Rent"
-      admin: "Admin"
-      homeowner: "Homeowner"
-      not_lettable: "Not Lettable"
-      remove_lettings: "This will make the selected plots unlettable."
-      submit: "Submit"
-      name: "Plot"
-      address: "Address"
-      set_up: "Set Up"
-      switch: "Switch"
-      remove: "Remove"
-      change: "Switch"
-      confirm_switch: "Confirm Switch"
-      cancel: "Cancel"
-      confirm_cta: "Confirm"
-      letable_type: "Type"
-      confirm_remove: "Confirm Remove"
-    change_letter_type_form:
-      are_you_sure: "Are you sure you want to switch the letter type of %{plot}?"
-      confirm_admin_swap: "This plot will not longer be available for admins to let. The plot will become available for homeowners to let, and the letable type will be updated to <strong>Planet Rent</strong>."
-      confirm_homeowner_swap: "This plot will no longer be available for homeowners to let. The plot will become available to admins to let."
-      lettable_type: "<strong>Select the letting type of this plot below.</strong>"
-    remove_letter_type_form:
-      are_you_sure: "Are you sure you want to remove %{plot} from lettings?"
-      confirm_remove: "The plot will no longer be lettable to admins or homeowners."
-    create:
-      lettings_success: "Successfully updated plots %{plot_numbers}"
-      success: "Successfully updated plots %{plot_numbers}"
-      success_one: "Successfully updated plot %{plot_number}"
-    client_admin_lettings:
-      let_out_other: "Set Up by %{other}"
-      lettings: "Lettings."
-      name: "Plot"
-      set_up: "Set Up?"
-      letable_type: "Letting Account"
-      house_number: "Postal"
-      building_name: "Building"
-      road_name: "Road"
-      let_my_plot: "Set Up"
-      submit: "Let Plot"
-      plot_details: "Almost There"
-      busy_living: "Busy Living"
-      planet_rent: "Planet Rent"
-      self_managed_select: "Select Self Managed"
-      management_service_select: "Select Management Service"
-      confirm_self: "%{type}."
-      cancel_choice: "Cancel"
-      confirm_cta: "Confirm Choice"
-    success:
-      create: "Letting has been successfully created"
-      lettings_account_confirm: "Your lettings account has been successfully set up"
-      letting_confirm: "Your letting for your plot has been set up"
+    lettings:
+      index:
+        rentals: "Lettings."
+        admin_rentals: "Admin Lettings."
+        homeowner_rentals: "Homeowner Lettings."
+        admin: "Admin"
+        homeowner: "Homeowner"
+        not_lettable: "Not Lettable"
+        submit: "Submit"
+        name: "Plot"
+        address: "Address"
+        live: "Live"
+        switch: "Switch"
+        remove: "Remove"
+        change: "Switch"
+        confirm_switch: "Confirm Switch"
+        cancel: "Cancel"
+        confirm_cta: "Confirm"
+        letable_type: "Type"
+        confirm_remove: "Confirm Remove"
+        authorise: "Authorise your Planet Rent account"
+      change_listing_owner_form:
+        are_you_sure: "Are you sure you want to switch the listing owner from %{oldowner} to %{newowner} for plot %{plot}?"
+      remove_listing_form:
+        are_you_sure: "Are you sure you want to remove the listing for plot %{plot}?"
+      client_admin_listings:
+        let_out_other: "Set Up by %{other}"
+        lettings: "Lettings."
+        name: "Plot"
+        live: "Live"
+        house_number: "Postal"
+        building_name: "Building"
+        road_name: "Road"
+        let_my_plot: "Let Plot"
+        submit: "Let Plot"
+        plot_details: "Almost There"
+        busy_living: "Busy Living"
+        planet_rent: "Planet Rent"
+        self_managed_select: "Select Self Managed"
+        management_service_select: "Select Management Service"
+        confirm_self: "%{type}."
+        cancel_choice: "Cancel"
+        confirm_cta: "Confirm Choice"
+      success:
+        create: "Letting has been successfully created"
+        lettings_account_confirm: "Your lettings account has been successfully set up"
+        letting_confirm: "Your letting for your plot has been set up"
+      failure:
+        letting_deny: "You do not have authority to create lettings"
 
   choice_configurations:
     create:
@@ -2817,6 +2827,8 @@ en:
         heading_two_show: "External Heading Two"
         custom_text: "External Information [Text]"
         custom_text_show: "External Information"
+      letting:
+        confirm:
 
       resident:
         titles:

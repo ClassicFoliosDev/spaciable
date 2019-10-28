@@ -1,11 +1,9 @@
-<% homeowner_plots = plots.where(letter_type: :homeowner)%>
-
 <div class="other-resident-lettings">
   <hr>
   <h3 class="other-residents"><%= t(".let_out_other") %></h3>
-  <% homeowner_plots.each do |plot| %>
-    <% if plot.let_by_other %>
-      <div class="letable-plot branded-content branded-border">
+  <% if plots %>
+    <% plots.each do |plot| %>
+      <div class="letable-plot branded-content branded-border", id="listing<%= plot.number %>">
         <div class="plot-address branded-text">
           <h3>Plot <%= plot.number %></h3>
           <p>
@@ -13,7 +11,7 @@
           </p>
         </div>
         <div class="letable-options">
-          <div class="let-out"><span><%= t("homeowners.components.lettings.let_out_other", other: Letting.resident_letter(plot)) %></span></div>
+          <div class="let-out"><span><%= t("homeowners.components.lettings.let_out_other", other: plot&.listing.belongs_to) %></span></div>
         </div>
       </div>
     <% end %>

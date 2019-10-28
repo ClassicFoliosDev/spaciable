@@ -17,4 +17,11 @@ module RoomsHelper
   def icon_name_scope
     "activerecord.attributes.room.icon_names"
   end
+
+  # How many room of the specified type does the plot have.  If there are
+  # none then return a space
+  def plot_rooms(plot, key)
+    rooms = plot.rooms?(key)
+    rooms.positive? ? rooms : " "
+  end
 end
