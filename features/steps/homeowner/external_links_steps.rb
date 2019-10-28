@@ -48,3 +48,9 @@ Then(/^I should not see the roomsketcher link$/) do
   visit "/"
   expect(page).not_to have_content(I18n.t("layouts.homeowner.nav.room_sketcher"))
 end
+
+Given(/^the plot does have a completion release date$/) do
+  plot = CreateFixture.development_plot
+  plot.update_attributes(completion_release_date: Time.zone.now)
+  visit "/"
+end

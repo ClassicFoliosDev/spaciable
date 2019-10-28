@@ -280,10 +280,10 @@ class Plot < ApplicationRecord
   end
 
   def show_maintenance?
-    return false if maintenance_link.blank?
+    return false if maintenance_link.blank? || completion_release_date.nil?
     return true if reduced_expiry_date.blank?
 
-    Time.zone.today < reduced_expiry_date
+    Time.zone.today <= reduced_expiry_date
   end
 
   def to_s
