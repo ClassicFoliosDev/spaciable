@@ -19,7 +19,7 @@ module DevelopmentCsvService
   def call(file, development, flash)
     return notify_type_error(flash) unless correct_content_type(file) # check the file type
 
-    # Better to use a hash of arrays than seperate ones
+    # Use a hash of arrays to store error messages
     @errors = { phase: [], plot: [], unit: [], completion: [], progress: [], duplicate: [] }
     @success_plots = []
     import(file, development)
@@ -28,9 +28,11 @@ module DevelopmentCsvService
     notify_flash(flash) # display the relevant errors or notice
   end
 
-  # check the file type is valid - currently only the template csv file type is valid
+  # check the file type is valid
   def correct_content_type(file)
-    acceptable_types = ["text/csv"]
+    acceptable_types = ["text/csv", "text/x-csv", "application/vnd.ms-excel", "application/csv",
+                        "application/x-csv", "text/comma-separated-values",
+                        "text/x-comma-separated-values"]
     acceptable_types.include? file.content_type.chomp
   end
 
