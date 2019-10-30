@@ -1067,15 +1067,15 @@ en:
       format_details: "See the list of valid Unit Types and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
       file: "Upload a CSV to update multiple plots."
       file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
-      date: "The Legal Comp Date must be in the format DD/MM/YYYY."
-      date_details: "Ensure the date field is formatted as a date in format DD/MM/YYYY, or alternatively as a text field. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
+      date: "The Legal Completion Date must be in the format DD/MM/YYYY."
+      date_details: "Ensure the date field is formatted DD/MM/YYYY. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
     errors:
       phase_error: "<br/>Invalid Phase(s): %{errors}"
       plot_error: "<br/>Invalid Plot(s): %{errors}"
       unit_error: "<br/>Invalid Unit Type(s): %{errors}"
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
-      completion_error: "<br/>Invalid legal completion date for plot(s): %{errors}"
-      duplicate_error: "<br/>Duplicate plot(s): %{errors}"
+      completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
+      duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
       overview: "Please check the CSV for invalid input and then re-upload once the following issues have been resolved: %{errors}"
       success: "The following plots were updated successfully: %{plots}"
       file_type: "Invalid file type, please upload a valid CSV file. You can download the template by clicking the 'Download CSV Template' button"
@@ -1085,8 +1085,8 @@ en:
       plot_error_strip: "Invalid Plot(s): %{plots}"
       unit_errors_strip: "Invalid Unit Type(s): %{unit}"
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
-      completion_date_strip: "Invalid legal completion date for plot(s): %{plots}"
-      duplicate_plots_strip: "Duplicate plot(s): %{plots}"
+      completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
+      duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
 
   homeowners:
     faqs:

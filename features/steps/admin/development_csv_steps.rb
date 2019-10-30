@@ -41,19 +41,24 @@ Then(/^I can upload a CSV$/) do
   end
 end
 
+# Since allowed completion release dates are set between a particular range, the test_csv file
+# used in this test will need updating when the date set is outside of the specified range
+# this will be on 12 April 2021
 Then(/^I see the error messages$/) do
   within ".alert" do
+    phase = PhasePlotFixture.phase_name
     expect(page).to have_content(t("development_csv.errors.phase_error_strip", phase: "First"))
-    expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "7"))
-    expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "Penthouse"))
-    expect(page).to have_content(t("development_csv.errors.progress_error_strip", progress: "wrong_progress"))
-    expect(page).to have_content(t("development_csv.errors.duplicate_plots_strip", plots: "4"))
+    expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 7"))
+    expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "#{phase}: Penthouse"))
+    expect(page).to have_content(t("development_csv.errors.progress_error_strip", progress: "#{phase}: wrong_progress"))
+    expect(page).to have_content(t("development_csv.errors.duplicate_plots_strip", plots: "#{phase}: 4"))
   end
 end
 
 Then(/^I see the notify messages$/) do
   within ".notice" do
-    expect(page).to have_content(t("development_csv.errors.success", plots: "4"))
+    phase = PhasePlotFixture.phase_name
+    expect(page).to have_content(t("development_csv.errors.success", plots: "#{phase}: 4"))
   end
 end
 
