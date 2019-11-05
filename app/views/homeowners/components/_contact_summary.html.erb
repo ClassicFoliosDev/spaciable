@@ -24,7 +24,7 @@
 
       <% if contact.phone? %>
         <span class="contact-detail">
-          <%= link_to 'tel:#{contact.phone}', number: contact.phone, class: 'branded-text' do %>
+          <%= link_to t(".tel", number: contact.phone), class: "branded-text", title: contact.phone do %>
             <%= fa_icon "phone" %> <%= contact.phone %>
           <% end %>
         </span>
@@ -32,7 +32,7 @@
 
       <% if contact.mobile? %>
         <span class="contact-detail">
-          <%= link_to 'tel:#{contact.mobile}', number: contact.mobile, class: 'branded-text' do %>
+          <%= link_to t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile do %>
             <%= fa_icon "mobile" %> <%= contact.mobile %>
           <% end %>
         </span>

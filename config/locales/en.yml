@@ -1212,6 +1212,8 @@ en:
         email: "Email"
         tel: "tel: %{number}"
         phone: "Phone"
+      contact_summary:
+        tel: "tel: %{number}"
       how_to_summary:
         article: "View Article"
       notification_summary:
