@@ -119,7 +119,7 @@
         <%= link_to t(".authorise"), PlanetRent.authorize_url(@state), class: "btn", id: 'authorise'%>
     </div>
   <% else %>
-    <%= render "client_admin_listings", plots: @plots, phase: @phase, property_types: @property_types %>
+    <%= render "client_admin_listings", plots: @plots, phase: @phase, property_types: @property_types, landlords: @landlords %>
   <% end %>
 </div>
 

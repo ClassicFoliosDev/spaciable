@@ -182,27 +182,37 @@ module LettingsFixture
     }
   end
 
+  def get_landlords
+    {
+      "data"=>
+      [
+        {"reference"=>"L113", "first_name"=>"Peter", "last_name"=>"Piper"}, 
+        {"reference"=>"L114", "first_name"=>"Derek ", "last_name"=>"Pikey"}
+      ]
+    }
+  end
+
   def plot_fields(plot)
     { 
       "address_1" => (plot.postal_number + " " + plot.building_name),
       "address_2" => plot.road_name,
       "postcode" => plot.postcode,
-      "country" => "UK",   
+      "country" => "GB",   
       "town" => plot.city,
       "bathrooms" => "2",
       "bedrooms" => "3",
-      "landlord_pets_policy" => "No Pets",
-      "has_car_parking" => "true",
-      "has_bike_parking" => "true",
+      "landlord_pets_policy" => "pets allowed",
+      "has_car_parking" => "Yes",
+      "has_bike_parking" => "Yes",
       "property_type" => "0",
       "price" => "1000",
-      "shared_accommodation" => "true",
+      "shared_accommodation" => "Yes",
       "notes" => "off-road parking",
       "summary" => "average"
     }
   end
 
-  def get_property(plot)
+  def get_property(plot, branch=false)
     request = { 
       "access_token" => ACCESS_TOK,
       "property" => [{"other_ref" => "spaciable#{plot.id}"}]
@@ -211,6 +221,10 @@ module LettingsFixture
     plot_fields(plot).map do |k,v|
       request["property"][0][k] = v
     end
+
+    request["property"][0]["landlord_reference"] = branch ? 
+      get_landlords["data"][0]["reference"] :
+      nil
 
     request
   end

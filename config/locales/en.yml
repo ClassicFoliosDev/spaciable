@@ -397,6 +397,7 @@ en:
         car_parking: "Car Parking?"
         bike_parking: "Bike Storage?"
         property_type: "Property Type"
+        landlord: "Landlord"
         price: "Monthly Rental Price"
         shared: "Shared Accommodation?"
         summary: "Property Summary"

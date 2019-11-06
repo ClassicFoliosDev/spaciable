@@ -35,7 +35,7 @@
               postcode: plot&.postcode || "",
               bedrooms: plot_rooms(plot, Room.icon_names[:bedroom]),
               bathrooms: plot_rooms(plot, Room.icon_names[:bathroom]),
-              country: plot.developer.country.name} %>
+              country: plot.developer.country.alpha_code} %>
           <% end %>
         </td>
       </tr>
@@ -43,7 +43,7 @@
     </tbody>
   </table>
   <div class="admin-let-plot-details-form hidden">
-    <%= render 'components/let_plot_details_form', property_types: property_types%>
+    <%= render 'components/let_plot_details_form', property_types: property_types, landlords: landlords %>
   </div>
 <% end %>
 

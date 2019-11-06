@@ -48,7 +48,6 @@
     document.getElementById('letting_plot_id').value = dataIn.plot
     document.getElementById('letting_other_ref').value = "spaciable" + dataIn.plot
     document.getElementById('letting_country').value =  dataIn.country
-    document.getElementById('letting_landlord_pets_policy').value =  'No Pets'
     document.getElementById('letting_bedrooms').value =  dataIn.bedrooms
     document.getElementById('letting_bathrooms').value =  dataIn.bathrooms
  
@@ -65,7 +64,6 @@
         ($('input#letting_bathrooms').val() > 0) && ($('input#letting_bathrooms').val() < 99) &&
         ($('input#letting_address_1').val().length > 0) && ($('input#letting_address_2').val().length > 0) &&
         ($('input#letting_town').val().length > 0) && ($('input#letting_postcode').val().length > 4) &&
-        ($('input#letting_landlord_pets_policy').val().length > 1) &&
         ($('input#letting_notes').val().length > 0) &&
         ($('textarea#letting_summary').val().length > 0) ){
       $('.btn-send').prop('disabled', false)

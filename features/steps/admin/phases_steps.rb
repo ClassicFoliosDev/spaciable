@@ -241,6 +241,7 @@ Then(/^I am informed that Authorisation has been denied$/) do
 end
 
 When(/^I authorise from an incorrect planet rent account$/) do
+  WebMock.reset!
   button = find_by_id('authorise') #find the authorise button
 
   # The authorise link on the button
@@ -255,7 +256,7 @@ When(/^I authorise from an incorrect planet rent account$/) do
             headers:LettingsFixture.response_headers)
 
   # The get_user_info request - return a mismatching email
-  stub_request(:get, "#{LettingsFixture::URL}/api/v3//get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
+  stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
   to_return(:status => 200, 
             :body => {"email" => "floopy@ploppy.com"}.to_json, 
@@ -271,6 +272,7 @@ Then(/^I am informed that the authorisation is incorrect$/) do
 end
 
 When(/^I authorise from the correct planet rent account$/) do
+  WebMock.reset!
   button = find_by_id('authorise') #find the authorise button
 
   # The atuhorise link on the button
@@ -285,7 +287,7 @@ When(/^I authorise from the correct planet rent account$/) do
             headers:LettingsFixture.response_headers)
 
   # The get_user_info request
-  stub_request(:get, "#{LettingsFixture::URL}/api/v3//get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
+  stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
   to_return(:status => 200, 
             :body => {"email" => $current_user.email}.to_json, 
@@ -296,6 +298,13 @@ When(/^I authorise from the correct planet rent account$/) do
   with(:headers => LettingsFixture.oauth2_header).
   to_return(:status => 200, 
             :body => LettingsFixture.get_property_types.to_json, 
+            :headers => LettingsFixture.response_headers)
+
+  # The landlords call when building the lisitngs 
+  stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_all_landlords?access_token=#{LettingsFixture::ACCESS_TOK}").
+  with(:headers => LettingsFixture.oauth2_header).
+  to_return(:status => 200, 
+            :body => LettingsFixture.get_landlords.to_json, 
             :headers => LettingsFixture.response_headers)
 
   button.click #click the button
@@ -321,7 +330,6 @@ Then(/^I should see an autofilled listings form$/) do
   expect(find_field('letting_address_2').value).to eq LettingsFixture.plot_fields(plot)["address_2"]
   expect(find_field('letting_town').value).to eq LettingsFixture.plot_fields(plot)["town"]  
   expect(find_field('letting_postcode').value).to eq LettingsFixture.plot_fields(plot)["postcode"]
-  expect(find_field('letting_landlord_pets_policy').value).to eq LettingsFixture.plot_fields(plot)["landlord_pets_policy"]
 end
 
 Then(/^I should be able complete the listing$/) do
@@ -348,7 +356,7 @@ Then(/^I should be able to list the plot on Planet Rent$/) do
   stub_request(:post, "#{LettingsFixture::URL}/api/v3/let_property").
   with(
     :headers => LettingsFixture.post_header,
-    :body => LettingsFixture.get_property(plot).to_json
+    :body => LettingsFixture.get_property(plot, true).to_json
     ).
   to_return(:status => 200, 
             :body => LettingsFixture.get_property_response(plot).to_json, 
@@ -359,6 +367,13 @@ Then(/^I should be able to list the plot on Planet Rent$/) do
   with(:headers => LettingsFixture.oauth2_header).
   to_return(:status => 200, 
             :body => LettingsFixture.get_property_types.to_json, 
+            :headers => LettingsFixture.response_headers)
+
+  # The landlords call when building the lisitngs 
+  stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_all_landlords?access_token=#{LettingsFixture::ACCESS_TOK}").
+  with(:headers => LettingsFixture.oauth2_header).
+  to_return(:status => 200, 
+            :body => LettingsFixture.get_landlords.to_json, 
             :headers => LettingsFixture.response_headers)
 
   # Click Let Plot

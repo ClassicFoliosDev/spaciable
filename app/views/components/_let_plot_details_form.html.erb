@@ -24,13 +24,13 @@
     <label><%= label_tag :bathrooms %></label>
     <%= f.input :bathrooms, label: false, required: true %>
 
-    <%= f.input :shared_accommodation, as: :select, options_for_select: [['Yes', true], ['No', false]],
+    <%= f.input :shared_accommodation, as: :select, collection: [['Yes', 'Yes'], ['No', 'No']],
     label: t(".shared"), include_blank: false %>
 
-    <%= f.input :has_car_parking, as: :select, options_for_select: [['Yes', true], ['No', false]],
+    <%= f.input :has_car_parking, as: :select, collection: [['Yes', 'Yes'], ['No', 'No']],
     label: t(".car_parking"), include_blank: false %>
 
-    <%= f.input :has_bike_parking, as: :select, options_for_select: [['Yes', true], ['No', false]],
+    <%= f.input :has_bike_parking, as: :select, collection: [['Yes', 'Yes'], ['No', 'No']],
     label: t(".bike_parking"), include_blank: false %>
 
     <%= f.hidden_field :plot_id, required: true %>
@@ -45,9 +45,15 @@
     <%= f.input :property_type, as: :select, collection: property_types,
     label: t(".property_type"), include_blank: false %>
 
+    <% if current_user %>
+        <%= f.input :landlord, as: :select, collection: landlords,
+        label: t(".landlord"), include_blank: false %>
+    <% end %>
+
     <label><%= label_tag :pets, t(".pets_policy") %></label>
     <p class="field-description"><%= t(".pets_policy_details") %></p>
-    <%= f.input :landlord_pets_policy, required: true, label: false %>
+     <%= f.input :landlord_pets_policy, as: :select, collection: [['Allowed', 'pets allowed'], ['Not Allowed', 'pets not allowed']],
+    label: false, include_blank: false %>
 
     <label><%= label_tag :summary, t(".summary") %></label>
     <p class="field-description"><%= t(".summary_details") %></p>

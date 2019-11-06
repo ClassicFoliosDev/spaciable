@@ -18,6 +18,11 @@ module Phases
           flash[:alert] = error if error
           @property_types = types unless error
         end
+
+        PlanetRent.landlords current_user do |landlords, error|
+          flash[:alert] = error if error
+          @landlords = landlords unless error
+        end
       end
 
       # return to this paqe if redireced for Planet Rent actions
@@ -59,7 +64,7 @@ module Phases
       params.require(:letting).permit(:bathrooms, :bedrooms, :landlord_pets_policy,
                                       :has_car_parking, :has_bike_parking, :property_type,
                                       :price, :shared_accommodation, :notes, :summary,
-                                      :plot_id, :country,
+                                      :plot_id, :country, :landlord,
                                       :address_1, :address_2, :town, :postcode, :other_ref)
     end
 

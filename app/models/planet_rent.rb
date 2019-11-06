@@ -109,7 +109,8 @@ class PlanetRent
                 price: params[:price],
                 shared_accommodation: params[:shared_accommodation],
                 notes: params[:notes],
-                summary: params[:summary]
+                summary: params[:summary],
+                landlord_reference: params[:landlord]
               }]
             }.to_json,
             headers:
@@ -145,7 +146,7 @@ class PlanetRent
       data = error = nil
 
       begin
-        response = HTTParty.get("#{URL}#{API}/get_user_info?access_token=#{oauth_token.token}",
+        response = HTTParty.get("#{URL}#{API}get_user_info?access_token=#{oauth_token.token}",
                                 timeout: TIMEOUT)
 
         if response.headers["status"].start_with? ERROR
@@ -183,6 +184,31 @@ class PlanetRent
       end
 
       yield @types, error
+    end
+
+    # Retrieve the branch landlords from PlanetRent.  This requires the
+    # use of the token associated with the supplied users account
+    def landlords(user)
+      error = nil
+
+      if user.account?
+        begin
+          token = user.lettings_account.access_token.refresh!
+          response =
+            HTTParty.get("#{URL}#{API}get_all_landlords?access_token=#{token.access_token}",
+                         timeout: TIMEOUT)
+          @landlords = response.parsed_response["data"].map do |h|
+             ["#{h['first_name']} #{h['last_name']}", h["reference"]]
+          end
+        rescue Net::OpenTimeout
+          error = TIMEOUT_ERROR
+        rescue
+          error = CONNECT_ERROR
+        end
+
+      end
+
+      yield @landlords, error
     end
 
     def get_property_link(plot)

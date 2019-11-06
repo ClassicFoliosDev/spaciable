@@ -31,7 +31,7 @@
                   postcode: plot&.postcode || "",
                   bedrooms: plot_rooms(plot, Room.icon_names[:bedroom]),
                   bathrooms: plot_rooms(plot, Room.icon_names[:bathroom]),
-                  country: plot.developer.country.name
+                  country: plot.developer.country.alpha_code
                 } %>
             <% end %>
           </div>
