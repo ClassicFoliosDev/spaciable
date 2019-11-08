@@ -1,6 +1,6 @@
 <% if plots %>
   <% plots.each do |plot| %>
-      <% let_status = plot&.listing.live? ? "let-plot" : "unlet-plot" %>
+      <% let_status = plot&.listing.live? ? "plot-let" : "unlet-plot" %>
       <div class="<%= let_status %>", id="listing<%= plot.number %>">
         <div class="letable-plot branded-content branded-border">
           <div class="plot-address branded-text">

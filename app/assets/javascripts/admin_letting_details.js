@@ -50,6 +50,8 @@
     document.getElementById('letting_country').value =  dataIn.country
     document.getElementById('letting_bedrooms').value =  dataIn.bedrooms
     document.getElementById('letting_bathrooms').value =  dataIn.bathrooms
+    document.getElementById('letting_notes').value =  "None"
+
     validateLetting()
   })
 

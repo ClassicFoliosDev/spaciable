@@ -8,7 +8,7 @@ When(/I have no lettable plots$/) do
 end
 
 Then(/^I shall not see a lettings button on my dashboard$/) do
-  expect(page).not_to have_content(t('components.homeowner.welcome.lettings'))
+  expect(page).not_to have_content(t('components.homeowner.welcome.rentals'))
 end
 
 Given(/^the homeowner lettable phase plots have multiple occupation$/) do
@@ -21,7 +21,7 @@ When(/^I log in as homeowner "([^"]*)" of lettable multiple occupation plots$/) 
 end
 
 Then(/^I shall see a lettings button on my dashboard$/) do
-  expect(page).to have_content(t('components.homeowner.welcome.lettings'))
+  expect(page).to have_content(t('components.homeowner.welcome.rentals'))
 end
 
 When(/^another resident is listing plots I occupy$/) do
@@ -98,10 +98,16 @@ Then(/^I shall see listings for all my plots$/) do
     container = find(:xpath, ".//h3[text()='Plot #{p.number}']/parent::div/parent::div")
     let = p&.listing.live? && p.listing.belongs_to?($current_user)
     listing = find_by_id("listing#{p.number}")
-    expect(listing).to have_content(t(let ? "homeowners.components.lettings.let_my_plot" : 
-                                            "homeowners.components.lettings.let_out"))
+    if p&.listing.live?
+      if p.listing.belongs_to?($current_user)
+        expect(listing).to have_content(t("homeowners.components.lettings.dashboard"))
+      else
+        expect(listing).to have_content(t("homeowners.components.lettings.let_out_other", other: p&.listing.belongs_to))
+      end
+    else
+        expect(listing).to have_content(t("homeowners.components.lettings.let_my_plot"))
+    end                                          
   end
-
 end
 
 When(/^I choose to list plot "([^"]*)"$/) do |arg1|

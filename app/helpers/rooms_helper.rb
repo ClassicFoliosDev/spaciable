@@ -22,6 +22,6 @@ module RoomsHelper
   # none then return a space
   def plot_rooms(plot, key)
     rooms = plot.rooms?(key)
-    rooms.positive? ? rooms : " "
+    rooms.positive? ? rooms : ""
   end
 end

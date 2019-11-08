@@ -1,5 +1,5 @@
 <% content_for :hero_text_primary do %>
-<span><%= t("homeowners.lettings.show.my_lettings") %></span>
+<span><%= t("homeowners.lettings.show.my_rentals") %></span>
 <% end %>
 
 <div class="resident-hero">
@@ -13,13 +13,15 @@
       <% if not current_resident.account? %>
 
         <div class="lettings-description">
-          Lettings informtion and stuff text text texte hxdoihsd sdoifsd fsidfoihsdf
+Rent out your property quickly and easily with our online tool.
+
+Organise tenants, inventories, viewings and repairs, ensure compliance with regulations and more.
         </div>
         <div class="management-description">
           <div class="self-managed">
             <h4>Self Managed.</h4>
             <p>
-              Self managed explanation text to tell people what self managed means and I am on two lines look at me yay.
+              Want to manage your properties yourself and give your tenants a more personal experience?
             </p>
             <div class="management-selection">
               <%= button_tag ("Select " + t(".self_managed")), class: "btn branded-btn confirm-letting-type",
@@ -36,7 +38,7 @@
           <div class="management-service">
             <h4>Management Service.</h4>
             <p>
-              Management text so people can also understand what the management service is and I am also on two lines.
+              Want to delegate the hard work while ensuring your tenants have a professional experience?
             </p>
             <div class="management-selection">
               <%= button_tag ("Select " + t(".management_service")), class: "btn branded-btn confirm-letting-type",
@@ -51,7 +53,7 @@
           </div>
         </div>
 
-        <div class="other-let-plots">
+        <div class="other-plot-lets">
           <%= render 'homeowners/components/other_resident_lettings', plots: @plots_listing_by_others %>
         </div>
 

@@ -27,7 +27,7 @@ Given(/^one of the plots has had lettings set up by another resident$/) do
 
     # Set up second resident account
     within ".full-menu" do
-      click_on t("components.homeowner.welcome.lettings")
+      click_on t("components.homeowner.welcome.rentals")
     end
     within ".management-service" do
       click_on t("homeowners.lettings.show.management_service_select")
@@ -42,7 +42,7 @@ Given(/^one of the plots has had lettings set up by another resident$/) do
     # For now I have just re-visited the page to continue the testing of the ui.
     visit "/"
     within ".full-menu" do
-      click_on t("components.homeowner.welcome.lettings")
+      click_on t("components.homeowner.welcome.rentals")
     end
 
     # Set up plot letting
@@ -98,7 +98,7 @@ end
 When(/^I navigate to the lettings page$/) do
   visit "/"
   within ".full-menu" do
-    click_on t("components.homeowner.welcome.lettings")
+    click_on t("components.homeowner.welcome.rentals")
   end
 end
 
@@ -107,7 +107,7 @@ Then(/^I can see the plot that has been set up by the other resident$/) do
     resident = LettingsFixture.second_resident_name + " " + LettingsFixture.second_resident_surname
     expect(page).to have_content(t("homeowners.components.lettings.let_out_other", other: resident))
     expect(page).to have_content("Plot #{LettingsFixture.letable_plot_number}")
-    expect(page).to have_content(t("homeowners.components.other_resident_lettings.let_out_other"))
+    expect(page).to have_content(t("homeowners.components.other_resident_lettings.let_out_other", other: LettingsFixture.residents.second.email))
   end
 end
 
@@ -125,7 +125,7 @@ Then(/^I can set up my self managed lettings account$/) do
   # For now I have just re-visited the page to continue the testing of the ui.
   visit "/"
   within ".full-menu" do
-    click_on t("components.homeowner.welcome.lettings")
+    click_on t("components.homeowner.welcome.rentals")
   end
 end
 
@@ -195,7 +195,7 @@ Then(/^I can see that it is set up$/) do
   plot.save!
   visit "/"
   within ".full-menu" do
-    click_on t("components.homeowner.welcome.lettings")
+    click_on t("components.homeowner.welcome.rentals")
   end
 
   within ".letable" do
@@ -221,6 +221,6 @@ end
 Then(/^I cannot see the lettings link$/) do
   visit "/"
   within ".full-menu" do
-    expect(page).to_not have_content(t("components.homeowner.welcome.lettings"))
+    expect(page).to_not have_content(t("components.homeowner.welcome.rentals"))
   end
 end

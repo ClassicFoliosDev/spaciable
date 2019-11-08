@@ -14,12 +14,10 @@ class AuthorisationController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/AbcSize
-
   # Authorise a resident and add a token to their landord account
   def auth_resident
     if !session[:landlordlistings]
-      redirect _to root_url
+      redirect_to root_url
     elsif session[:landlordlistings]&.matches? params[:state]
       error = current_resident.authorise params[:code]
       flash[:alert] = error if error
@@ -40,8 +38,6 @@ class AuthorisationController < ApplicationController
       redirect_to root_url
     end
   end
-
-  # rubocop:enable Metrics/AbcSize
 
   private
 

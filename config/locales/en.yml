@@ -462,7 +462,7 @@ en:
         feedback: "Feedback"
         my_plots: "Plots"
         messages: "Messages"
-        lettings: "Lettings"
+        rentals: "Rent"
       sub_menu:
         about: "About"
         title: "My Home"
@@ -1067,7 +1067,7 @@ en:
     lettings:
       confirm: "Your letting for %{plot} has been set up"
       show:
-        my_lettings: "Lettings."
+        my_rentals: "Rent."
         lettings: "Lettings"
         your_plots: "Your Plots."
         lettings_management: "Your Management Type."
@@ -1202,15 +1202,15 @@ en:
         updated: "Last edited: "
         status: "Status: "
       lettings:
-        let_out: "Let"
-        let_out_other: "Letting has been set up by %{other}"
-        un_let: "Not Let"
+        let_out: "Rented"
+        let_out_other: "Rental has been set up by %{other}"
+        un_let: "Not Rented"
         dashboard: "Lettings Dashboard"
-        let_my_plot: "Let My Plot"
-        submit: "Let My Plot"
+        let_my_plot: "Rent My Plot"
+        submit: "Rent My Plot"
         plot_details: "Almost There."
       other_resident_lettings:
-        let_out_other: "The following lettings have already been set up by other residents."
+        let_out_other: "Other residents have set up the following properties for rent."
     appliances:
       show:
         title: "Appliances."

@@ -21,7 +21,7 @@
       <% end %>
       <span>|</span>
       <% if current_resident.listings? %>
-        <%= link_to t(".lettings"), letting_path(current_resident),
+        <%= link_to t(".rentals"), letting_path(current_resident),
             class: ('active-link' if current_page?(letting_path(current_resident)))%>
         <span>|</span>
       <% end %>
