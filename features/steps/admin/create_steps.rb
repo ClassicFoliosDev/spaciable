@@ -64,6 +64,29 @@ Given(/^there is a phase plot$/) do
   CreateFixture.create_phase_plot
 end
 
+Given(/^there are phase plots$/) do
+  CreateFixture.create_developer_with_development unless CreateFixture.development
+  CreateFixture.create_development_phase
+  CreateFixture.create_unit_type
+  CreateFixture.create_phase_plots
+end
+
+Given(/^there are admin lettable phase plots$/) do
+  CreateFixture.create_developer_with_development unless CreateFixture.development
+  CreateFixture.create_development_phase
+  CreateFixture.create_unit_type
+  CreateFixture.create_phase_plots
+  LettingsFixture.create_plot_listings
+end
+
+Given(/^there are homeowner lettable phase plots$/) do
+  CreateFixture.create_developer_with_development unless CreateFixture.development
+  CreateFixture.create_development_phase
+  CreateFixture.create_unit_type
+  CreateFixture.create_phase_plots
+  LettingsFixture.create_plot_listings(Listing::owners.key(Listing::owners[:homeowner]))
+end
+
 Given(/^there is a division phase plot$/) do
   CreateFixture.create_division_development_phase
   CreateFixture.create_unit_type

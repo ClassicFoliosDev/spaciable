@@ -35,7 +35,7 @@ module Residents
 
     def after_accept_path_for(_resource)
       @setting = Setting.first
-      @setting.intro_video_enabled? ? intro_video_path : skip_intro_video
+      @setting&.intro_video_enabled? ? intro_video_path : skip_intro_video
     end
 
     def skip_intro_video

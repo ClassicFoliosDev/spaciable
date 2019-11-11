@@ -3,13 +3,13 @@
 module PhaseTabsHelper
   include TabsHelper
 
-  def phase_tabs(phase, current_tab)
-    tabs = PHASE_TABS.call(phase)
+  def phase_tabs(phase, current_tab, current_user)
+    tabs = PHASE_TABS.call(phase, current_user)
     Tabs.new(phase, tabs, current_tab, self).all
   end
 
   # rubocop:disable BlockLength
-  PHASE_TABS = lambda do |phase|
+  PHASE_TABS = lambda do |phase, current_user|
     {
       production: {
         icon: :superpowers,
@@ -49,12 +49,12 @@ module PhaseTabsHelper
         permissions_on: -> { Appliance.new }
       },
       # PLANET RENT API
-      # Hide the lettings tab temporarily
-      # lettings: {
-      #  icon: "calendar-o",
-      #  link: [phase, :lettings],
-      #  permissions_on: -> { phase }
-      # }
+      lettings: {
+        icon: "calendar-o",
+        link: [phase, :lettings],
+        permissions_on: -> { phase },
+        hide: !(current_user.cf_admin? || current_user.branch?)
+      }
     }
   end
   # rubocop:enable BlockLength

@@ -1,7 +1,8 @@
-<%= simple_form_for lettings_account, url: letting_path(current_resident), remote: true do |f| %>
+<%= simple_form_for LettingsAccount.new do |f| %>
   <%= f.hidden_field :first_name, value: current_resident.first_name %>
   <%= f.hidden_field :last_name, value: current_resident.last_name %>
   <%= f.hidden_field :email, value: current_resident.email %>
-
+  <%= f.hidden_field :accountable_id, value: current_resident.id %>
+  <%= f.hidden_field :accountable_type, value: Resident.to_s %>
   <%= f.hidden_field :management %>
 <% end %>

@@ -70,6 +70,7 @@ class DevelopersController < ApplicationController
       :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
+      :prime_lettings_admin,
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

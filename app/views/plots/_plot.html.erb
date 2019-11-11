@@ -17,8 +17,6 @@
     </div>
     <div class="half">
       <% if current_user&.cf_admin? %>
-        <br/>
-        <strong><%= t(".letable") %></strong><%= plot&.letable? ? plot.letter_type.titleize : "Disabled" %><br/><br/>
         <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
         <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
         <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>

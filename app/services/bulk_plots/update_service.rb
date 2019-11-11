@@ -18,7 +18,6 @@ module BulkPlots
     def update(plot_params)
       self.params = plot_params.to_h.symbolize_keys
       params[:progress] = base_plot.progress if plot_params[:progress]&.empty?
-      update_lettings(plot_params) if plot_params[:letter_type]&.present?
 
       bulk_or_single_update
 
@@ -192,17 +191,6 @@ module BulkPlots
     def add_error(message)
       base_plot.phase.errors[:base] << message
       @errors << base_plot.phase
-    end
-
-    # For lettings, some attribute values are updated depending on the letter type.
-    def update_lettings(plot_params)
-      params[:letable] = true
-      if plot_params[:letter_type] == "unlettable"
-        params[:letable_type] = nil
-        params[:letable] = false
-      elsif plot_params[:letter_type] == "homeowner"
-        params[:letable_type] == "planet_rent" if plot_params[:letter_type] == "homeowner"
-      end
     end
   end
 end

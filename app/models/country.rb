@@ -9,4 +9,8 @@ class Country < ApplicationRecord
   def spain?
     name == "Spain"
   end
+
+  def alpha_code
+    uk? ? "GB" : "ES"
+  end
 end

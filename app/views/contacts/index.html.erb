@@ -5,7 +5,11 @@
       expired_plots_count: @expired_plots_count, resident_count: @resident_count,
       activated_resident_count: @activated_resident_count, phase: @parent %>
 
-  <%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
+  <% if @parent.is_a? Phase %>
+    <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
+  <% else %>
+    <%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
+  <% end %>
 
   <%= render_collection @contacts, parent: @parent, new_contact: @contact %>
 </div>

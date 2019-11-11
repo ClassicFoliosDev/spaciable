@@ -7,7 +7,7 @@
     var $lettingContainer = $('.let-plot-details-form')
 
     $('body').append($lettingContainer)
-    var $form = $('.new_letting')
+    var $form = $('.letting')
 
     $lettingContainer.dialog({
       show: 'show',
@@ -29,17 +29,11 @@
           click: function () {
 
             $.post({
-              url: '/homeowners/lettings',
+              url: dataIn.url,
               data: $form.serialize(),
               dataType: 'json',
               success: function (response) {
-                var $flash = $('.flash')
-                $flash.empty()
-
-                var $notice = document.createElement('p')
-                $notice.className = 'notice'
-                $notice.innerHTML = response.notice
-                $flash.append($notice)
+                window.location=response
               }
             })
             $(this).dialog('destroy')
@@ -53,6 +47,11 @@
     document.getElementById('letting_postcode').value = dataIn.postcode
     document.getElementById('letting_plot_id').value = dataIn.plot
     document.getElementById('letting_other_ref').value = "spaciable" + dataIn.plot
+    document.getElementById('letting_country').value =  dataIn.country
+    document.getElementById('letting_bedrooms').value =  dataIn.bedrooms
+    document.getElementById('letting_bathrooms').value =  dataIn.bathrooms
+    document.getElementById('letting_notes').value =  "None"
+ 
     validateLetting()
   })
 
@@ -66,7 +65,6 @@
         ($('input#letting_bathrooms').val() > 0) && ($('input#letting_bathrooms').val() < 99) &&
         ($('input#letting_address_1').val().length > 0) && ($('input#letting_address_2').val().length > 0) &&
         ($('input#letting_town').val().length > 0) && ($('input#letting_postcode').val().length > 4) &&
-        ($('input#letting_landlord_pets_policy').val().length > 1) &&
         ($('input#letting_notes').val().length > 0) &&
         ($('textarea#letting_summary').val().length > 0) ){
       $('.btn-send').prop('disabled', false)
@@ -78,3 +76,4 @@
   }
 
 })(document, window.jQuery)
+

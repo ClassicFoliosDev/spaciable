@@ -4,7 +4,7 @@
 </div>
 
 <div class="lettings-form">
-  <%= simple_form_for letting, url: phase_lettings_path(phase.id), remote: true do |f| %>
+  <%= simple_form_for :letting, name: 'new_letting' do |f| %>
   <div class="third">
     <label><%= label_tag :address_1, t(".address_1") %></label>
     <%= f.input :address_1, label: false, required: true %>
@@ -36,8 +36,6 @@
     <%= f.hidden_field :plot_id, required: true %>
     <%= f.hidden_field :other_ref, required: true %>
     <%= f.hidden_field :country, required: true %>
-
-    <%= f.hidden_field :lettings_account_id, value: current_user.lettings_account_id %>
   </div>
 
   <div class="two-thirds">

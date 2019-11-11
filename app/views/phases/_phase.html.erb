@@ -13,11 +13,11 @@
       <% if current_user.cf_admin? %>
         <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/><br/>
       <% end %>
-      <strong><%= t(".active_plots") %></strong><%= active_plots_count %><br/>
-      <strong><%= t(".completed_plots") %></strong><%= completed_plots_count %><br/>
-      <strong><%= t(".expired_plots") %></strong><%= expired_plots_count %><br/><br/>
-      <strong><%= t(".residents") %></strong><%= resident_count %><br/>
-      <strong><%= t(".activated_residents") %></strong><%= activated_resident_count %>
+      <strong><%= t(".active_plots") %></strong><%= phase.active_plots_count %><br/>
+      <strong><%= t(".completed_plots") %></strong><%= phase.completed_plots_count %><br/>
+      <strong><%= t(".expired_plots") %></strong><%= phase.expired_plots_count %><br/><br/>
+      <strong><%= t(".residents") %></strong><%= phase.released_resident_count %><br/>
+      <strong><%= t(".activated_residents") %></strong><%= phase.activated_resident_count %>
     </span>
   </div>
 

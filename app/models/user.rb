@@ -15,6 +15,8 @@ class User < ApplicationRecord
   belongs_to :permission_level, polymorphic: true
   delegate :expired?, to: :permission_level
 
+  has_one :lettings_account, as: :accountable, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :invitable,
@@ -33,6 +35,12 @@ class User < ApplicationRecord
     :site_admin
   ]
 
+  enum lettings_management: %i[
+    zero
+    prime
+    branch
+  ]
+
   def developer
     return if permission_level.nil?
     if permission_level.is_a?(Developer)
@@ -42,11 +50,6 @@ class User < ApplicationRecord
     else
       permission_level.parent.developer_id
     end
-  end
-
-  def lettings_account_id
-    lettings_account = LettingsAccount.find_by(letter_id: developer)
-    lettings_account.id
   end
 
   def self.admin_roles
@@ -211,5 +214,66 @@ class User < ApplicationRecord
     users.total_pages = (visible_users.size.to_f / per).ceil
     users
   end
+
+  # Set the status of the prime user.  This status is unique among a particular
+  # set of user_ids so they must be cleared first
+  def self.update_prime_admin(user_ids, prime_id)
+    User.where(id: user_ids).update_all(lettings_management: lettings_managements[:zero])
+    User.where(id: prime_id).update_all(lettings_management: lettings_managements[:prime]) if prime_id
+  end
+
+  # Get prime user.  This status is unique among a particular set of user_ids
+  def self.prime_admin(user_ids)
+    User.find_by(id: user_ids, lettings_management: lettings_managements[:prime])
+  end
+
+  # Expose prime_lettings_admin as a non model attribute so
+  # as the developer edit page can get/set it.  The
+  # prime_lettings_admin is a user whose lettings_management
+  # status is set to 'prime'
+  def branch_administrator #getter method
+    branch?
+  end
+
+  # This is called by 'update' when it sets the
+  # user attributes
+  def branch_administrator=(branch_admin) #setter method
+    self.lettings_management = ActiveRecord::Type::Boolean.new.cast(branch_admin) ?
+                               User::lettings_managements[:branch] :
+                               User::lettings_managements[:zero]
+  end
+
+  # Is the current user the prime for the supplied user
+  def prime_for?(user)
+    return false unless prime?
+    instance = permission_level_type.constantize.find(permission_level_id)
+    if instance.present? && instance.respond_to?('potential_branch_admins')
+      instance.potential_branch_admins.include?(user)
+    else
+      false
+    end
+  end
+
+  def account?
+    lettings_account.present?
+  end
+
+  def check_account?
+    return true if account?
+    LettingsAccount.create ({:management => LettingsAccount::managements[:agency],
+                             :accountable_type => User.to_s,
+                             :accountable_id => self.id }) do |account, success|
+      self.lettings_account = account
+      return success
+    end
+  end
+
+  # authorise the Resident's letting account using the code provided
+  # by Planet Rent
+  def authorise(code)
+    return "#{first_name} #{last_name}} does not have a Planet Rent account to be authorised" unless account?
+    lettings_account.authorise_admin code, self
+  end
+
   # rubocop:enable all
 end

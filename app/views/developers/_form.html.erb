@@ -55,6 +55,8 @@
         <%= f.label t(".enable_services") %>
         <%= f.check_box :enable_services %>
         <p class="checkbox-description"><%= t(".services_description") %></p>
+        <%= f.input :prime_lettings_admin, as: :select, collection: developer.potential_prime_admins.map { |a| [a.to_s, a.id] },
+            label: t(".prime_admin"), include_blank: true %>
       </fieldset>
     </div>
   </div>

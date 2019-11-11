@@ -84,10 +84,6 @@ class Developer < ApplicationRecord
     return true if plot_list.count.positive?
   end
 
-  def no_lettings_account?
-    LettingsAccount.find_by(letter_id: id).nil?
-  end
-
   def active_plots_count
     active_plots = 0
     phases.each do |phase|
@@ -114,5 +110,36 @@ class Developer < ApplicationRecord
 
   def developments_count
     all_developments.count
+  end
+
+  # If a developer has top level developments, then any admin of this
+  # developer can potentially be the prime letting admin
+  def potential_prime_admins
+    User.where(permission_level_type: Developer.to_s,
+               permission_level_id: id,
+               role: "developer_admin")
+  end
+
+  # Any development admin assocaited with a top level developmment for
+  # this developer can potentially be a branch letting admin
+  def potential_branch_admins
+    User.where(permission_level_type: Development.to_s,
+               permission_level_id: developments.pluck(:id),
+               role: "development_admin")
+  end
+
+  # Expose prime_lettings_admin as a non model attribute so
+  # as the developer edit page can get/set it.  The
+  # prime_lettings_admin is a user whose lettings_management
+  # status is set to 'prime'
+  def prime_lettings_admin # getter method
+    User.prime_admin(potential_prime_admins.pluck(:id))&.id
+  end
+
+  # This is called by 'update' when it sets the
+  # Developer attributes
+  def prime_lettings_admin=(prime_id) # setter method
+    User.update_prime_admin(potential_prime_admins.pluck(:id),
+                            prime_id&.to_i)
   end
 end

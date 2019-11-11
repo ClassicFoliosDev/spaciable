@@ -89,3 +89,23 @@ Feature: Admin Users
     Then I should not see the deleted division development admin
     When I change my password
     Then I should be logged out
+
+  Scenario: Admin lettings
+    Given I am logged in as a CF Admin
+    And that I have developer, division and development users
+    When I edit the developer details
+    Then I can set the primary developer admin
+    When I edit the division details
+    Then I can set the primary division admin
+    When I log out as an admin
+    And I log in as the primary developer admin
+    Then I can enable my developer development users to perform lettings
+    When I log out as an admin
+    And I log in as the non primary developer admin
+    Then I cannot enable my developer development users to perform lettings
+    When I log out as an admin
+    And I log in as the primary division admin
+    Then I can enable my division development users to perform lettings
+    When I log out as an admin
+    And I log in as the non primary division admin
+    Then I cannot enable my division development users to perform lettings

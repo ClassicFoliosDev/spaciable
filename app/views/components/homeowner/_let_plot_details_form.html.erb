@@ -4,7 +4,7 @@
 </div>
 
 <div class="lettings-form">
-  <%= simple_form_for letting, url: letting_path(current_resident), remote: true do |f| %>
+  <%= simple_form_for :letting, name: 'new_letting' do |f| %>
   <div class="third">
     <label><%= label_tag :address_1, t(".address_1") %></label>
     <%= f.input :address_1, label: false, required: true %>
@@ -36,17 +36,13 @@
     <%= f.hidden_field :plot_id, required: true %>
     <%= f.hidden_field :other_ref, required: true %>
     <%= f.hidden_field :country, required: true %>
-
-    <%= f.hidden_field :lettings_account_id, value: current_resident.lettings_account.id %>
   </div>
 
   <div class="two-thirds">
     <label><%= label_tag :price, t(".price") %></label>
     <%= f.input :price, label: false, required: true %>
 
-    <!-- PLANET RENT API -->
-    <!-- The property_type dropdown needs to be populated from the property type api sent to us from Planet Rent -->
-    <%= f.input :property_type, as: :select, collection: [['to'], ['be'], ['confirmed']],
+    <%= f.input :property_type, as: :select, collection: property_types,
     label: t(".property_type"), include_blank: false %>
 
     <label><%= label_tag :pets, t(".pets_policy") %></label>

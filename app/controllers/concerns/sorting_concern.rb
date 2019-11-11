@@ -21,7 +21,7 @@ module SortingConcern
   private
 
   def custom_sort?(resources, params, default, table_name, sort_on)
-    return false unless resources.table_name == table_name
+    return false unless resources&.table_name == table_name
     return true if params[:sort] == sort_on
     return true if params[:sort].nil? && default.to_s == sort_on
     false

@@ -33,7 +33,15 @@
         <% end %>
       </fieldset>
     </div>
+
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :prime_lettings_admin, as: :select, collection: division.potential_prime_admins.map { |a| [a.to_s, a.id] },
+            label: t(".prime_admin"), include_blank: true %>
+      </fieldset>
+    </div>
   </div>
+
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

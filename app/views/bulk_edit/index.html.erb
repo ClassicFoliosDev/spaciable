@@ -4,7 +4,7 @@
     expired_plots_count: @expired_plots_count, resident_count: @resident_count,
     activated_resident_count: @activated_resident_count %>
 
-<%= render 'components/tabs', tabs: tabs_for(@phase, "bulk_edit"), phase: @phase %>
+<%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
 <div class="bulk-edit">
   <%= simple_form_for(:phase_bulk_edit) do |f| %>
