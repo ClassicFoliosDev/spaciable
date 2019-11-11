@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Developer < ApplicationRecord
   acts_as_paranoid
 
@@ -143,3 +144,4 @@ class Developer < ApplicationRecord
                             prime_id&.to_i)
   end
 end
+# rubocop:enable Metrics/ClassLength
