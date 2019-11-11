@@ -8,6 +8,7 @@ module DevelopmentTabsHelper
     Tabs.new(development, tabs, current_tab, self).all
   end
 
+  # rubocop:disable Metrics/BlockLength
   DEVELOPMENT_TABS = lambda do |development|
     {
       unit_types: {
@@ -30,7 +31,13 @@ module DevelopmentTabsHelper
         icon: "th-list",
         hide: development.choices_disabled?,
         link: [development.parent, development, active_tab: :choice_configurations]
+      },
+      development_csv: {
+        icon: "fighter-jet",
+        # Only a CF admin can create appliances and use the csv tab
+        permissions_on: -> { Appliance.new }
       }
     }
   end
+  # rubocop:enable Metrics/BlockLength
 end

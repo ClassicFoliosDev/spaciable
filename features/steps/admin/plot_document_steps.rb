@@ -54,13 +54,13 @@ When(/^I upload a document (\w+) that does not match a plot$/) do |plot_name|
                 visible: false)
   end
   click_on(t("plot_documents.form.upload_all"))
+  sleep 0.5
 end
 
 Then(/^I should see a (\w+) plot document error$/) do |plot_name|
   document_number = CreateFixture.send(plot_name)
   document_name = PlotDocumentFixture.send("document#{document_number}10")
   notice = t("plot_documents.bulk_upload.failure", unmatched: document_name)
-  sleep 0.5
   within ".alert" do
     expect(page).to have_content(notice)
   end

@@ -48,14 +48,6 @@
         </a>
       <% end %>
 
-      <% if plot.enable_services? %>
-        <%= link_to services_path, class: "navbar-link branded-primary" do %>
-          <li class="navbar-item branded-primary">
-            <%= t(".services") %>
-          </li>
-        <% end %>
-      <% end %>
-
       <% if plot.show_maintenance? %>
         <%= link_to homeowner_maintenance_path, class: "navbar-link branded-primary" do %>
           <li class="navbar-item branded-primary">

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class Developer < ApplicationRecord
   acts_as_paranoid
 
@@ -109,22 +108,6 @@ class Developer < ApplicationRecord
     expired_plots
   end
 
-  def invited_resident_count
-    invited_residents = 0
-    phases.each do |phase|
-      invited_residents += phase.released_resident_count
-    end
-    invited_residents
-  end
-
-  def activated_resident_count
-    activated_residents = 0
-    phases.each do |phase|
-      activated_residents += phase.activated_resident_count
-    end
-    activated_residents
-  end
-
   def developments_count
     all_developments.count
   end
@@ -160,4 +143,3 @@ class Developer < ApplicationRecord
                             prime_id&.to_i)
   end
 end
-# rubocop:enable Metrics/ClassLength

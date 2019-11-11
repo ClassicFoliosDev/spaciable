@@ -350,8 +350,5 @@ Then(/^I should not be able to see development brands$/) do
     click_on t("components.navigation.my_area", area: "Development")
   end
 
-sleep 0.5
-save_and_open_screenshot
-
   expect(page).not_to have_content(t("developers.collection.brands"))
 end

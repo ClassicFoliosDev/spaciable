@@ -5,18 +5,18 @@ module Homeowners
     skip_authorization_check
 
     def index
-      @services = Service.where.not(category: nil)
+      @services_params = build_services_params if current_resident
     end
 
-    def resident_services
-      response = ResidentServicesService
-                 .call(current_resident, params[:services], true, @plot)
+    private
 
-      if response.blank?
-        redirect_to root_path, notice: t(".success")
-      else
-        redirect_to root_path, alert: response
-      end
+    def build_services_params
+      # params for referral link
+      name = [current_resident.first_name, current_resident.last_name].compact.join(" ")
+      email = current_resident.email
+      phone = current_resident&.phone_number
+      developer = @plot.developer
+      "?sf_name=#{name}&sf_email=#{email}&sf_telephone=#{phone}&sf_developer=#{developer}"
     end
   end
 end

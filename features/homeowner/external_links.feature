@@ -8,6 +8,8 @@ Feature: Homeowner external links
     Given I have created a unit_type
     And I have logged in as a resident and associated the plot
     Then I should see the bafm link
+    Then I should not see the maintenance link
+    Given the plot does have a completion release date
     When I visit the maintenance page
     Then I should see the fixflo page
     When the expiry date is past

@@ -271,14 +271,14 @@ When(/^I view the plot$/) do
 end
 
 Then(/^I should see the activated resident$/) do
-  within ".residents" do
-    expect(page).to have_content t("residents.collection.activated")
+  within ".about" do
+    expect(page).to have_content "Activated Residents: 1"
   end
 end
 
 Then(/^I should see the resident is not activated$/) do
-  within ".residents" do
-    expect(page).not_to have_content t("residents.collection.activated")
+  within ".about" do
+    expect(page).to have_content "Activated Residents: 0"
   end
 end
 

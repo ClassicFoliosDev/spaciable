@@ -132,11 +132,7 @@ class Phase < ApplicationRecord
   end
 
   def completed_plots_count
-    completed_count = 0
-    plots.each do |plot|
-      completed_count += 1 if plot.completion_release_date?
-    end
-    completed_count
+    plots.where.not(completion_release_date: nil).size
   end
 
   def expired_plots_count

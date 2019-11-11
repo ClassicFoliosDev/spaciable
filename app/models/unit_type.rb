@@ -90,7 +90,9 @@ class UnitType < ApplicationRecord
   def picture_name
     name = picture.to_s
     name = name.split("/")
-    name.last
+    name = name.last.split(".")
+    # splits the file name at the ".", and takes the first three characters of the extension
+    name.first + "." + name.last.split("?").first
   end
 
   def finishes_count

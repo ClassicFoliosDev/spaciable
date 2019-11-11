@@ -361,7 +361,7 @@
   <%-# --- Branding for box (left/right) colour --- -%>
 
   <% if brand.branded_login_box_left_color %>
-    .branded-left-box {
+    .branded-left-box, .branded-left-box .preamble {
       background-image: none;
       background-color: <%= brand.branded_login_box_left_color %>;
     }

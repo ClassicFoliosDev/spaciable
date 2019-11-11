@@ -75,6 +75,7 @@ gem "bourbon"
 gem "font-awesome-rails"
 gem "neat", "~> 1"
 gem "rails-timeago"
+gem "simple_calendar", "~> 2.0"
 
 # Pagination with kaminari: https://github.com/amatsuda/kaminari
 gem "kaminari"

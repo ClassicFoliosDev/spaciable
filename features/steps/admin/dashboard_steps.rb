@@ -23,11 +23,10 @@ Then(/^I see the recent contents$/) do
   within ".faqs" do
     expect(page).to have_content(t("activerecord.attributes.faq.categories.settling"))
   end
-
   within ".documents" do
     expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
-    expect(page).to have_content(t(".manual"))
     expect(page).to have_content(t(".guide"))
+    expect(page).to have_content("Development Document")
   end
 end
 

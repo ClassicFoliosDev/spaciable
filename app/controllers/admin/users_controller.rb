@@ -41,6 +41,9 @@ module Admin
         else
           redirect_to %i[admin users], notice: t(".success", user_name: @user.to_s)
         end
+        if user_params[:role] == "cf_admin"
+          @user.update_attributes(permission_level_type: nil, permission_level_id: nil)
+        end
       else
         render :edit
       end

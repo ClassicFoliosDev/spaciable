@@ -115,6 +115,8 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :videos, shallow: true
+    resources :development_csv, only: [:index, :create]
+    get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
   end
 
   resources :choice_configurations do
@@ -132,6 +134,7 @@ Rails.application.routes.draw do
   get :item_images, to: "room_configurations/room_choice#item_images", format: :json
   get :archive_choice, to: "room_configurations/room_choice#archive_choice", format: :json
   get :export_choices, to: "room_configurations/room_choice#export_choices"
+  get :download_development_csv, to: "development_csv#download_template"
 
   resources :developers do
     resources :divisions

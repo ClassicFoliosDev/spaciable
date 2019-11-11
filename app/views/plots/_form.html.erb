@@ -15,23 +15,23 @@
     <div class="row-item third">
       <% if f.object.persisted? %>
         <fieldset>
-          <%= f.input :number %><br/>
+          <%= f.input :number %>
+          <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent) %><br/>
           <%= render "components/admin/plot_fields", f: f, plot: plot %>
         </fieldset>
       <% else %>
         <%= render "components/admin/plots_select", f: f %>
+        <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent) unless f.object.persisted? %>
       <% end %>
     </div>
 
-    <div class="row-item third">
-      <fieldset>
-        <div class="plot-field">
-          <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent) %>
-        </div>
-        <br/>
-        <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
-      </fieldset>
-    </div>
+    <% if f.object.persisted? %>
+      <div class="row-item third">
+        <fieldset>
+          <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
+        </fieldset>
+      </div>
+    <% end %>
 
     <% if plot.spanish? %>
       <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>

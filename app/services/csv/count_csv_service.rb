@@ -54,14 +54,5 @@ module Csv
 
       count
     end
-
-    def self.count_services(residents_for_resource)
-      count = 0
-      residents_for_resource.each do |resident|
-        count += 1 if ResidentService.find_by(resident_id: resident.id).present?
-      end
-
-      count
-    end
   end
 end

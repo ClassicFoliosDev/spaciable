@@ -156,6 +156,26 @@ $row-bg-color: $ui-white;
   }
 }
 
+@include media($tablet-landscape-down) {
+  .half {
+    margin-bottom: 0;
+  }
+}
+
+.dashboard .ref-or-ser .half {
+  @include media($tablet-landscape-up) {
+    @include span-columns(6 of 12);
+    @include omega(4n);
+  }
+}
+
+.dashboard .ref-or-ser .articles .quarter {
+  @include media($tablet-landscape-up) {
+    @include span-columns(6 of 12);
+    @include omega(2n);
+  }
+}
+
 .third {
   @include media($tablet-landscape-down) {
     @include span-columns(12 of 12);

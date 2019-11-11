@@ -12,7 +12,7 @@ module Homeowners
 
       contacts = @contacts.where(category: @category)
       contacts = contacts.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
-      @contacts = contacts.order(updated_at: :desc)
+      @contacts = contacts.order(pinned: :desc, updated_at: :desc)
 
       redirect_to @contacts_for.values[0] if @contacts.none? && @contacts_for.any?
     end

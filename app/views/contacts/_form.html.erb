@@ -22,7 +22,10 @@
         <%= f.input :position %>
         <div class="ui-front select-container">
           <%= f.input :category, label: t(".category"), as: :select, collection: contact_categories_collection, include_blank: false %>
-        </div>
+        </div><br/>
+        <%= f.label :pinned, t(".pinned") %>
+        <%= f.check_box :pinned %>
+        <p class="checkbox-description"><%= t(".pinned_description") %></p>
       </fieldset>
     </div>
     <div class="row-item third">

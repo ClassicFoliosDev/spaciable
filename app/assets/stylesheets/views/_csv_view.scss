@@ -1,0 +1,36 @@
+.development-csv {
+
+  .attribute-list {
+    background-color: $ui-white;
+    border-radius: 5px;
+    padding: 22px;
+    border: none;
+  }
+
+  .bold {
+    font-weight: $semi-bold-font-weight;
+  }
+
+  .hint {
+    background: none;
+    padding-left: 0;
+  }
+
+  .up-down {
+    padding-bottom: $spacing-large;
+  }
+
+  .csv-download {
+    margin-top: $spacing-medium;
+  }
+
+  .third {
+    margin-bottom: $spacing-small;
+  }
+}
+
+.csv-upload {
+  .file-upload {
+    margin-top: -36px;
+  }
+}

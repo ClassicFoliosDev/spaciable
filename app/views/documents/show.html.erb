@@ -20,7 +20,8 @@
     <% end %>
     <%= label_tag t(".category") %>
     <span><%= t("activerecord.attributes.document.categories.#{@document.category}") %></span>
-
+    <%= label_tag t(".pinned") %>
+    <span><%= @document.pinned? ? t("activerecord.attributes.document.pinned") : t("activerecord.attributes.document.unpinned") %> </span>
   </div>
 
   <div class="row-item third">

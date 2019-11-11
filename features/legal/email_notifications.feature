@@ -33,7 +33,6 @@ Feature: Legal emails
   Scenario: Homeowner accepted services and email notifications
     Given I am a Development Admin wanting to assign a new resident to a plot
     And the developer has enabled services
-    And there are services
     And a CF admin has configured a video link
     When I assign a new resident to a plot
     And I log out as a an admin
@@ -41,6 +40,4 @@ Feature: Legal emails
     And I choose email notifications
     And I accept the invitation as a homeowner
     Then I should be redirected to the video introduction page
-    When I select my services
-    Then My services have been selected
-    And I should receive email notifications
+    And I can select services

@@ -19,7 +19,7 @@ module Csv
       [
         "Parent", "Name", "Plots created #{@between}", "Residents invited #{@between}",
         "Residents activated #{@between}", "Notifications #{@between}", "BestArea4Me enabled",
-        "Services enabled", "Residents requesting one or more services", "Forum enabled",
+        "Services enabled", "Forum enabled",
         "Fixflo link", "Mailchimp list or segment id", "Developer emails accepted",
         "Spaciable emails accepted", "Telephone accepted", "Post accepted", "Date created",
         "Last edited"
@@ -51,8 +51,8 @@ module Csv
       [
         development.parent.to_s, development.to_s, plots_in_range(plots_for_development),
         *count_fields(residents_development),
-        notifications_in_range("Development", development.id), "", "",
-        count_services(residents_development), "", development.maintenance_link,
+        notifications_in_range("Development", development.id), "", "", "",
+        development.maintenance_link,
         development.segment_id, *mailchimp_fields(residents_development), *dates_for(development)
       ]
     end
@@ -63,7 +63,7 @@ module Csv
       [
         division.parent.to_s, division.to_s, plots_in_range(plots_for_division),
         *count_fields(residents_division), notifications_in_range("Division", division.id),
-        house_search(developer), developer.enable_services, count_services(residents_division),
+        house_search(developer), developer.enable_services,
         developer.enable_development_messages, "", division.list_id,
         *mailchimp_fields(residents_division), *dates_for(division)
       ]
@@ -73,7 +73,7 @@ module Csv
       [
         "DEVELOPER", developer.to_s, plots_in_range(@plots_for_developer),
         *count_fields(@residents_developer), notifications_in_range("Developer", developer.id),
-        house_search(developer), developer.enable_services, count_services(@residents_developer),
+        house_search(developer), developer.enable_services,
         developer.enable_development_messages, "", developer.list_id,
         *mailchimp_fields(@residents_developer), *dates_for(developer)
       ]

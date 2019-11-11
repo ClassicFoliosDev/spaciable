@@ -37,7 +37,10 @@
             <fieldset>
               <div class="ui-front">
                 <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
-              </div>
+              </div><br/>
+              <%= f.label :pinned, t(".pinned") %>
+              <%= f.check_box :pinned %>
+              <p class="checkbox-description"><%= t(".pinned_description") %></p>
             </fieldset>
           <% end %>
         </div>
@@ -60,7 +63,10 @@
         <fieldset>
           <div class="ui-front">
             <%= f.input :category, as: :select, collection: category_collection, include_blank: false %>
-          </div>
+          </div><br/>
+          <%= f.label :pinned, t(".pinned") %>
+          <%= f.check_box :pinned %>
+          <p class="checkbox-description"><%= t(".pinned_description") %></p>
         </fieldset>
       <% end %>
     </div>

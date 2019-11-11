@@ -266,10 +266,10 @@ class Plot < ApplicationRecord
   end
 
   def show_maintenance?
-    return false if maintenance_link.blank?
+    return false if maintenance_link.blank? || completion_release_date.nil?
     return true if reduced_expiry_date.blank?
 
-    Time.zone.today < reduced_expiry_date
+    Time.zone.today <= reduced_expiry_date
   end
 
   def to_s
@@ -277,7 +277,7 @@ class Plot < ApplicationRecord
   end
 
   def activated_resident_count
-    residents.where.not(invitation_accepted_at: nil).count
+    residents.where.not(invitation_accepted_at: nil).size
   end
 
   def to_homeowner_s
@@ -380,3 +380,4 @@ class Plot < ApplicationRecord
     rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }.count
   end
 end
+# rubocop:enable Metrics/ClassLength

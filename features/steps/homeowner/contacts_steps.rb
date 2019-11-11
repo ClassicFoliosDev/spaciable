@@ -44,3 +44,21 @@ And(/^I should see contacts on the dashboard$/) do
     expect(contacts.count).to eq(3)
   end
 end
+
+Then(/^the pinned contact should display first$/) do
+  within ".hero-links" do
+    click_on(t("activerecord.attributes.contact.categories.management"))
+  end
+  sleep 0.5
+  within ".full-contacts" do
+    contact = page.first(".contact")
+    expect(contact).to have_content(ContactFixture.second_email)
+  end
+end
+
+Then(/^the pinned contact should list first$/) do
+  within ".contact-list" do
+    contact = page.first(".contact")
+    expect(contact).to have_content(ContactFixture.second_email)
+  end
+end

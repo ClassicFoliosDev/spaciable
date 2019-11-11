@@ -6,9 +6,9 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Fixflo Expiry
     Given I am logged in as a homeowner on a plot that will expire
+    Given the completion release date is set
     And the development has set a maintenance link
     Then I should see the maintenance link
-    Given the completion release date is set
     And the date is after completion release date plus validity
     But the date is before extended access
     Then I should not see the maintenance link

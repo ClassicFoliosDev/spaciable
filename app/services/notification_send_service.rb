@@ -35,6 +35,7 @@ module NotificationSendService
 
   def build_content(notification)
     text = notification.message
+    return text if text.empty?
     address = find_address(notification)
     notification.message = I18n.t("resident_notification_mailer.notify.admin_notification",
                                   address: address,

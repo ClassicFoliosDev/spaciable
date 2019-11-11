@@ -88,7 +88,7 @@ class ContactsController < ApplicationController
       :title, :first_name, :last_name, :position,
       :email, :phone, :category, :mobile, :picture,
       :remove_picture, :picture_cache, :contactable_id,
-      :contactable_type, :organisation, :notify
+      :contactable_type, :organisation, :notify, :pinned
     )
   end
 

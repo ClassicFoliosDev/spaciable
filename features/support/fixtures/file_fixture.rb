@@ -130,4 +130,8 @@ module FileFixture
   def help_document_name
     "dummy_pdf.pdf"
   end
+
+  def csv_file_name
+    "test_csv.csv"
+  end
 end

@@ -6,7 +6,7 @@ module Homeowners
 
     def show
       @setting = Setting.first
-      @next_path = current_resident.services_enabled? ? services_path : root_path
+      @next_path = @plot.enable_services? ? services_path : root_path
     end
   end
 end

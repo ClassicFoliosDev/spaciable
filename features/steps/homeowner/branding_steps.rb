@@ -99,7 +99,7 @@ Then(/^I should see the configured branding$/) do
   # Right text color should be branded external text, set on developer only
   expect(page.body).to have_content "branded-external-text label { color: #0008FF"
   # Left login box should be login box left color, set on division and development: should be development color
-  expect(page.body).to have_content "branded-left-box { background-image: none; background-color: #D800FF"
+  expect(page.body).to have_content "branded-left-box, .branded-left-box .preamble { background-image: none; background-color: #D800FF"
   # Right login box should be login box right color, set on division only
   expect(page.body).to have_content "branded-right-box { background-color: #00FF6C"
   # Login content box and checkbox color should be content box color, set on developer and division: should be division color

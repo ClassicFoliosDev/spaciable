@@ -10,10 +10,8 @@
       <strong><%= t(".active_plots") %></strong><%= developer.active_plots_count %><br/>
       <strong><%= t(".completed_plots") %></strong><%= developer.completed_plots_count %><br/>
       <strong><%= t(".expired_plots") %></strong><%= developer.expired_plots_count %><br/><br/>
-      <strong><%= t(".residents") %></strong><%= developer.invited_resident_count %><br/>
-      <strong><%= t(".activated_residents") %></strong><%= developer.activated_resident_count %><br/><br/>
       <strong><%= t(".developments") %></strong><%= developer.developments_count %><br/>
-      <strong><%= t(".phases") %></strong><%= developer.phases.count %>
+      <strong><%= t(".phases") %></strong><%= developer.phases.size %>
     </span>
   </div>
 
