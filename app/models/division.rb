@@ -29,6 +29,9 @@ class Division < ApplicationRecord
 
   delegate :to_s, to: :division_name
   delegate :api_key, :development_faqs, :country, to: :developer
+  delegate :company_name, to: :developer
+  delegate :enable_roomsketcher, :house_search, :development_faqs, to: :developer
+  delegate :enable_referrals, :enable_services, :enable_development_messages, to: :developer
 
   paginates_per 25
 
@@ -78,20 +81,15 @@ class Division < ApplicationRecord
     expired_plots
   end
 
-  def invited_resident_count
-    invited_residents = 0
-    phases.each do |phase|
-      invited_residents += phase.released_resident_count
-    end
-    invited_residents
-  end
+  def admin_list
+    admins = User.admins(self)
 
-  def activated_resident_count
-    activated_residents = 0
-    phases.each do |phase|
-      activated_residents += phase.activated_resident_count
+    # add development admins
+    developments.each do |development|
+      admins += User.admins(development)
     end
-    activated_residents
+
+    admins
   end
 
   # Any admin of this divsion can potentially be the

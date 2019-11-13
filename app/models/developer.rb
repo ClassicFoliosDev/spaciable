@@ -113,6 +113,19 @@ class Developer < ApplicationRecord
     all_developments.count
   end
 
+  def admin_list
+    admins = User.admins(self)
+
+    # add division and development admins
+    [divisions, developments].each do |levels|
+      levels.each do |level|
+        admins += User.admins(level)
+      end
+    end
+
+    admins
+  end
+
   # If a developer has top level developments, then any admin of this
   # developer can potentially be the prime letting admin
   def potential_prime_admins

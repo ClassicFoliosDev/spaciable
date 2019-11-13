@@ -33,6 +33,7 @@ module Admin
             .permit(
               :report_from,
               :report_to,
+              :plot_type,
               :developer_id,
               :division_id,
               :development_id

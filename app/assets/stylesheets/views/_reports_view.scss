@@ -23,3 +23,13 @@
     width: 120px !important;
   }
 }
+
+.report-description {
+  margin-top: $spacing-medium;
+  .date-ranges, .plot-types {
+    width: 80%;
+  }
+  .bold {
+    font-weight: $bold-font-weight;
+  }
+}

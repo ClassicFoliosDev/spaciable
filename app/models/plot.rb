@@ -370,6 +370,14 @@ class Plot < ApplicationRecord
     appliances
   end
 
+  def all_snags_count
+    snags.count
+  end
+
+  def resolved_snags_count
+    snags.where(status: "approved").count
+  end
+
   # Does the plot have a listing
   def listing?
     listing.present?

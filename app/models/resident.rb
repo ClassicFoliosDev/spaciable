@@ -57,6 +57,10 @@ class Resident < ApplicationRecord
     plots.any?(&:enable_services?)
   end
 
+  def referrals_count
+    Referral.where(referrer_email: email).count
+  end
+
   def plot=(plot_record)
     if new_record?
       PlotResidency.new(resident_id: id, plot_id: plot_record&.id)

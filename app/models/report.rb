@@ -4,7 +4,8 @@ class Report
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment
 
-  attr_accessor :report_from, :report_to, :developer_id, :division_id, :development_id, :csv_type
+  attr_accessor :report_from, :report_to, :plot_type
+  attr_accessor :developer_id, :division_id, :development_id, :csv_type
 
   validates :report_from, :report_to, presence: true
   validate :report_from_not_in_future

@@ -139,6 +139,10 @@ class User < ApplicationRecord
     admins.flatten!
   end
 
+  def self.admins(level)
+    User.where(permission_level_type: level.class.name, permission_level_id: level.id)
+  end
+
   # rubocop:disable all
   def enable_receive_release_emails?(current_user)
     current_user.cf_admin? ||

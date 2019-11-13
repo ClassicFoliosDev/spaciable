@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+Given(/^there is a developer with plots$/) do
+  AnalyticsFixture.create_first_developer
+end
+
+Given(/^there is another developer with plots$/) do
+  AnalyticsFixture.create_second_developer
+end
+
 When(/^I navigate to the analytics page$/) do
   visit "/"
 
@@ -8,109 +16,14 @@ When(/^I navigate to the analytics page$/) do
   end
 end
 
-Then(/^I export all developers CSV$/) do
+When(/^I export the Summary Report$/) do
   within ".report-buttons" do
     click_on t("admin.analytics.new.all")
     click_on t("admin.analytics.new.all")
   end
 end
 
-Then(/^I export a developer CSV$/) do
-  within ".report-buttons" do
-    click_on t("admin.analytics.new.developer")
-  end
-end
-
-Then(/^I export a development CSV$/) do
-  within ".report-buttons" do
-    click_on t("admin.analytics.new.development")
-    click_on t("admin.analytics.new.development")
-  end
-end
-
-Then(/^I can not export a developer CSV$/) do
-  within ".report-buttons" do
-    disabled_btns = page.all("[disabled]").map(&:value)
-
-    expect(disabled_btns).to match_array [t("admin.analytics.new.developer"), t("admin.analytics.new.development")]
-  end
-end
-
-Then(/^I can not export a development CSV$/) do
-  within ".report-buttons" do
-    disabled_btns = page.all("[disabled]").map(&:value)
-
-    expect(disabled_btns).to match_array [t("admin.analytics.new.development")]
-  end
-end
-
-When(/^I select the developer$/) do
-  plot = ResidentNotificationsFixture.development_plot
-
-  within ".report-targets" do
-    select_from_selectmenu :report_developer_id, with: plot.developer
-  end
-end
-
-Then(/^I select the development$/) do
-  plot = ResidentNotificationsFixture.development_plot
-
-  within ".report-targets" do
-    select_from_selectmenu :report_development_id, with: plot.development
-  end
-end
-
-Then(/^the developer CSV contents are correct$/) do
-  header = page.response_headers['Content-Disposition']
-  expect(header).to match /^attachment/
-  expect(header).to include "#{CreateFixture.developer_name.parameterize.underscore}.csv"
-
-  filename = header.partition('filename="').last.chomp('"')
-  path = Rails.root.join("tmp/#{filename}")
-
-  csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq 4
-
-  development_row = csv[0]
-  expect(development_row["Name"]).to eq CreateFixture.development_name
-  expect(development_row["Parent"]).to eq CreateFixture.developer_name
-
-  division_row = csv[1]
-  expect(division_row["Name"]).to eq CreateFixture.division_name
-  expect(division_row["Parent"]).to eq CreateFixture.developer_name
-
-  division_development_row = csv[2]
-  expect(division_development_row["Name"]).to eq CreateFixture.division_development_name
-  expect(division_development_row["Parent"]).to eq CreateFixture.division_name
-
-  development_row = csv[3]
-  expect(development_row["Name"]).to eq AnalyticsFixture.development_name
-  expect(development_row["Parent"]).to eq CreateFixture.division_name
-end
-
-Then(/^the development CSV contents are correct$/) do
-  header = page.response_headers['Content-Disposition']
-  expect(header).to match /^attachment/
-  expect(header).to include "#{CreateFixture.development_name.parameterize.underscore}.csv"
-
-  filename = header.partition('filename="').last.chomp('"')
-  path = Rails.root.join("tmp/#{filename}")
-
-  csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq(4)
-
-  development = Development.find_by(name: CreateFixture.development_name)
-
-  expect(csv[0]["Development name"]).to eq development.to_s
-  expect(csv[1]["Plot number"]).to eq "Plot 200"
-  expect(csv[1]["Resident email"]).to eq "200@residents.com"
-  expect(csv[2]["Plot number"]).to eq "Plot 200"
-  expect(csv[2]["Resident email"]).to eq "multiple_plot@residents.com"
-  expect(csv[3]["Plot number"]).to eq "Plot 200"
-  expect(csv[3]["Resident email"]).to eq "unactivated@resident.com"
-end
-
-Then(/^the all developer CSV contents are correct$/) do
+Then(/^the Summary Report contents are correct$/) do
   header = page.response_headers['Content-Disposition']
   expect(header).to match /^attachment/
   expect(header).to include "all_developers_summary.csv"
@@ -119,57 +32,119 @@ Then(/^the all developer CSV contents are correct$/) do
   path = Rails.root.join("tmp/#{filename}")
 
   csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq 4
 
-  division_row = csv[0]
-  expect(division_row["Name"]).to eq CreateFixture.division_name
-  expect(division_row["Parent"]).to eq CreateFixture.developer_name
-  expect(division_row["BestArea4Me enabled"]).to eq "true"
+  expect(csv.size).to eq 3
 
-  developer_row = csv[1]
-  expect(developer_row["Parent"]).to eq "DEVELOPER"
-  expect(developer_row["BestArea4Me enabled"]).to eq "false"
+  first_row = csv[0]
+  expect(first_row["Developer"]).to eq CreateFixture.developer_name
+  expect(first_row["Division"]).to eq CreateFixture.division_name
+  expect(first_row["Developments Count"]).to eq "1"
+  expect(first_row["BestArea4Me Enabled"]).to eq "Yes"
+  expect(first_row["Services Enabled"]).to eq "No"
+  expect(first_row["Completion Plots"]).to eq "1"
+  expect(first_row["Reservation Plots"]).to eq "0"
 
-  second_developer_row = csv[2]
-  expect(second_developer_row["Parent"]).to eq AnalyticsFixture.developer_name
-  expect(second_developer_row["Name"]).to eq AnalyticsFixture.division_name
-
-  third_developer_row = csv[3]
-  expect(third_developer_row["Name"]).to eq AnalyticsFixture.other_developer_name
-  expect(third_developer_row["Parent"]).to eq "DEVELOPER"
+  third_row = csv[2]
+  expect(third_row["Developer"]).to eq AnalyticsFixture.second_developer_name
+  expect(third_row["Division"]).to eq AnalyticsFixture.second_division_name
+  expect(third_row["Services Enabled"]).to eq "Yes"
+  expect(third_row["BestArea4Me Enabled"]).to eq "No"
+  expect(third_row["Development FAQs"]).to eq "Yes"
 end
 
-Given(/^there is another developer with a division and development$/) do
-  country = FactoryGirl.create(:country)
-  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil, country_id: country.id)
-  FactoryGirl.create(:division, division_name: AnalyticsFixture.division_name, developer: developer)
-  FactoryGirl.create(:development, name: AnalyticsFixture.development_name, developer: developer)
-end
-
-Given(/^there is another developer with no children$/) do
-  country = FactoryGirl.create(:country)
-  FactoryGirl.create(:developer, company_name: AnalyticsFixture.other_developer_name, house_search: nil, country_id: country.id)
-end
-
-Given(/^there is another development for the division$/) do
-  FactoryGirl.create(:development, name: AnalyticsFixture.development_name, division: CreateFixture.division)
-end
-
-Then(/^I export billing CSV$/) do
+Then(/^I cannot export a Developer Report$/) do
   within ".report-buttons" do
-    click_on t("admin.analytics.new.billing")
+    disabled_btns = page.all("[disabled]").map(&:value)
+
+    expect(disabled_btns).to match_array [t("admin.analytics.new.developer"), t("admin.analytics.new.development")]
   end
 end
 
-Then(/^the all billing CSV contents are correct$/) do
+When(/^I select the developer$/) do
+  within ".report-targets" do
+    select_from_selectmenu :report_developer_id, with: AnalyticsFixture.second_developer
+  end
+end
+
+Then(/^I can export the Developer Report$/) do
+  within ".report-buttons" do
+    click_on t("admin.analytics.new.developer")
+  end
+end
+
+Then(/^the Developer Report contents are correct$/) do
   header = page.response_headers['Content-Disposition']
-  expect(header).to include "billing"
+  expect(header).to match /^attachment/
+  expect(header).to include "#{AnalyticsFixture.second_developer_name.parameterize.underscore}.csv"
 
   filename = header.partition('filename="').last.chomp('"')
   path = Rails.root.join("tmp/#{filename}")
 
   csv = CSV.read(path, headers: true)
+  expect(csv.size).to eq 1
 
+  developer_row = csv[0]
+  expect(developer_row["Developer"]).to eq AnalyticsFixture.second_developer_name
+  expect(developer_row["Division"]).to eq AnalyticsFixture.second_division_name
+  expect(developer_row["Phase"]).to eq AnalyticsFixture.second_phase_name
+  expect(developer_row["Plot"]).to eq AnalyticsFixture.second_plot_name
+  expect(developer_row["Completion Release"]).to eq ""
+  expect(developer_row["Validity"]).to eq "27"
+end
+
+Then(/^I cannot export a Development Report$/) do
+  within ".report-targets" do
+    select_from_selectmenu :report_developer_id, with: AnalyticsFixture.second_developer_name
+  end
+  within ".report-buttons" do
+    disabled_btns = page.all("[disabled]").map(&:value)
+
+    expect(disabled_btns).to match_array [t("admin.analytics.new.development")]
+  end
+end
+
+Then(/^I select the development$/) do
+  within ".report-targets" do
+    select_from_selectmenu :report_division_id, with: AnalyticsFixture.second_division_name
+    select_from_selectmenu :report_development_id, with: AnalyticsFixture.second_division_development_name
+  end
+end
+
+Then(/^I can export the Development Report$/) do
+  within ".report-buttons" do
+    click_on t("admin.analytics.new.development")
+  end
+end
+
+Then(/^the Development Report contents are correct$/) do
+  header = page.response_headers['Content-Disposition']
+  expect(header).to match /^attachment/
+  expect(header).to include "#{AnalyticsFixture.second_division_development_name.parameterize.underscore}.csv"
+
+  filename = header.partition('filename="').last.chomp('"')
+  path = Rails.root.join("tmp/#{filename}")
+
+  csv = CSV.read(path, headers: true)
   expect(csv.size).to eq(1)
-  expect(csv[0]["Plot"]).to eq "Plot 200"
+
+  developer_row = csv[0]
+  expect(developer_row["Developer"]).to eq AnalyticsFixture.second_developer_name
+  expect(developer_row["Development"]).to eq AnalyticsFixture.second_division_development_name
+  expect(developer_row["Plot"]).to eq AnalyticsFixture.second_plot_name
+end
+
+Then(/^if I select Completion only plots$/) do
+    select_from_selectmenu :report_plot_type, with: "Completion"
+end
+
+Then(/^the Completion Development Report contents are correct$/) do
+  header = page.response_headers['Content-Disposition']
+  expect(header).to match /^attachment/
+  expect(header).to include "#{AnalyticsFixture.second_division_development_name.parameterize.underscore}.csv"
+
+  filename = header.partition('filename="').last.chomp('"')
+  path = Rails.root.join("tmp/#{filename}")
+
+  csv = CSV.read(path, headers: true)
+  expect(csv.size).to eq(0)
 end
