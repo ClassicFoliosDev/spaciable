@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   before_action :redirect_residents, if: -> { current_resident }
   before_action :authenticate_user!
+  before_action :initialise_callback
 
   check_authorization unless: :devise_controller?
 
@@ -55,5 +56,9 @@ class ApplicationController < ActionController::Base
     path << "/sign_in"
 
     path
+  end
+
+  def initialise_callback
+    PlanetRent.initialize URI.parse(request.url).host
   end
 end

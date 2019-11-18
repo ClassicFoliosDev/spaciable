@@ -7,10 +7,8 @@ module LettingsFixture
   SECRET="67787123d349b23f34bb3a96519a4cfe7848b62e0821c21ec6148a897ec439d5"
   URL="https://staging.deals.planetrent.co.uk"
   CODE="e6b436632d7cef438d15c408ee0d1be40a48f192860b87feee460ecbe928eb42"
-  REDIRECT="https://spaciable.ngrok.io/users/auth/doorkeeper/callback"
   ACCESS_TOK="306abcd0aeca8534a3d0b2ff9631511ee1436671802e4b686d26926595deb274"
   REFRESH_TOK="a14d21a6481105dd5db94b5376541bb37b4a4663e3e72e15ca92eff424baeb28"
-
   OK = "200 OK"
   BAD_REQUEST = "400 Bad Request"
   CREATED = "201 Created"
@@ -75,7 +73,7 @@ module LettingsFixture
       "client_secret"=>"#{SECRET}", 
       "code"=>"#{CODE}", 
       "grant_type"=>"authorization_code", 
-      "redirect_uri"=>"#{REDIRECT}"
+      "redirect_uri"=>PlanetRent.class_variable_get(:@@callback)
     }
   end
 
