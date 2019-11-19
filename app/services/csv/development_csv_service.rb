@@ -19,7 +19,7 @@ module Csv
       plots = development_plots(development)
 
       plots.each do |plot|
-        csv << plot_info(plot) if plot.residents.empty?
+        csv << plot_info(plot) + NO_RESIDENT + summary_info(plot) if plot.residents.empty?
 
         resident_number = 0
         plot.residents.sort_by(&:email).each do |resident|

@@ -2,8 +2,12 @@
 
 require "csv"
 
+# rubocop:disable Metrics/ClassLength
 module Csv
   class DevCsvService
+    # fills in the fields with blank values where no resident is allocated to a plot
+    NO_RESIDENT = (1..12).map { nil }
+
     def self.init(report, filename)
       @from = report.extract_date(report.report_from)
       @to = report.extract_date(report.report_to)
@@ -29,9 +33,9 @@ module Csv
         "Resident Email", "Resident Name", "Resident Invited On", "Resident Invited By",
         "Resident Role", "Resident Activated", "Resident Last Sign In",
         "Lifetime Sign In Count", "Notifications", "Developer Updates", "Spaciable Updates",
-        "Maintenance", "Services Enabled", "Referrals Enabled", "Referrals Count",
-        "Snagging Enabled", "Snags Reported", "Snags Resolved", "Room Sketcher Enabled",
-        "BestArea4Me Enabled", "Development FAQs"
+        "Automated Emails", "Maintenance", "Services Enabled", "Referrals Enabled",
+        "Referrals Count", "Snagging Enabled", "Snags Reported", "Snags Resolved",
+        "Room Sketcher Enabled", "BestArea4Me Enabled", "Development FAQs"
       ]
     end
 
@@ -70,16 +74,22 @@ module Csv
       ]
     end
 
-    def self.summary_info(plot, resident)
+    def self.summary_info(plot, resident = nil)
       [
+        yes_or_no(plot.developer, "api_key"),
         plot.maintenance_link, yes_or_no(plot.developer, "enable_services"),
-        yes_or_no(plot.developer, "enable_referrals"), resident.referrals_count,
+        yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
         yes_or_no(plot.development, "enable_snagging"), plot.all_snags_count,
         plot.resolved_snags_count,
         yes_or_no(plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
         yes_or_no(plot.developer, "development_faqs")
       ]
+    end
+
+    def self.referrals_count(resident)
+      return 0 if resident.nil?
+      resident.referrals_count
     end
 
     def self.get_plot_types(plots)
@@ -121,3 +131,4 @@ module Csv
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

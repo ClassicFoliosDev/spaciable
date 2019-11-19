@@ -23,11 +23,11 @@ module Csv
         "Developer", "Division", "Developments Count", "Phases Count", "Active Plots",
         "Expired Plots", "Reservation Plots", "Completion Plots", "Residents Invited",
         "Residents Activated", "Admins Invited", "Admins Activated", "Notifications Sent",
-        "Developer Emails Accepted", "Spaciable Emails Accepted", "Room Sketcher Enabled",
-        "BestArea4Me Enabled", "Forum Enabled", "Development FAQs", "Referrals Enabled",
-        "Services Enabled", "Maintenance Link Count", "Snagging Enabled Count",
-        "Snags Recorded", "Snags Resolved", "Core Phases", "NHBC Phases", "Migrated Phases",
-        "Date Created", "Last Edited"
+        "Developer Emails Accepted", "Spaciable Emails Accepted", "Automated Emails",
+        "Room Sketcher Enabled", "BestArea4Me Enabled", "Forum Enabled", "Development FAQs",
+        "Referrals Enabled", "Services Enabled", "Maintenance Link Count",
+        "Snagging Enabled Count", "Snags Recorded", "Snags Resolved", "Core Phases",
+        "NHBC Phases", "Migrated Phases", "Date Created", "Last Edited"
       ]
     end
 
@@ -57,6 +57,7 @@ module Csv
     def self.child_info(parent)
       [
         developer_emails_count(parent), spaciable_emails_count(parent),
+        yes_or_no(parent, "api_key"),
         yes_or_no(parent, "enable_roomsketcher"), yes_or_no(parent, "house_search"),
         yes_or_no(parent, "enable_development_messages"),
         yes_or_no(parent, "development_faqs"), yes_or_no(parent, "enable_referrals"),
