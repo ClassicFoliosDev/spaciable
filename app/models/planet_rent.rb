@@ -11,8 +11,6 @@ class PlanetRent
   SUCCESS = "2"
   ERROR = "4"
   API = "/api/v3/"
-  BASE_URL = "https://spaciable.ngrok.io"
-  CALLBACK = "#{BASE_URL}/users/auth/doorkeeper/callback"
   TIMEOUT = 10
   TIMEOUT_ERROR = "#{URL} is currently unavaliable. Please try again later"
   CONNECT_ERROR = "#{URL} cannot be contacted"
@@ -37,6 +35,12 @@ class PlanetRent
   end
 
   class << self
+
+    # Set the callback using the site url as a base
+    def initialize(domain)
+      @@callback = "https://#{domain}/users/auth/doorkeeper/callback"
+    end
+
     # rubocop:disable all
     # Add a landlord account.  These should always return
     # success as long as the connection is available.  A new user is
@@ -218,7 +222,7 @@ class PlanetRent
 
     # Get the planet rent authorizarion url
     def authorize_url(state)
-      oauth2_client.auth_code.authorize_url(redirect_uri: CALLBACK, state: state.nonce)
+      oauth2_client.auth_code.authorize_url(redirect_uri: @@callback, state: state.nonce)
     end
 
     # Use the code to get a token
@@ -226,7 +230,7 @@ class PlanetRent
       token = error = nil
 
       begin
-        token = oauth2_client.auth_code.get_token code, redirect_uri: CALLBACK
+        token = oauth2_client.auth_code.get_token code, redirect_uri: @@callback
       rescue
         error = "Authorisation has been denied"
       end
