@@ -122,7 +122,7 @@ class PlotsController < ApplicationController
     %i[ prefix number unit_type_id house_number road_name building_name locality city county
         postcode progress notify user_id completion_date reservation_release_date
         completion_release_date validity extended_access copy_plot_numbers letable let
-        letter_type letable_type ]
+        letter_type letable_type reservation_order_number completion_order_number ]
   end
 
   def set_parent

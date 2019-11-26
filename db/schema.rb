@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191007071415) do
+ActiveRecord::Schema.define(version: 20191120115542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -568,6 +568,8 @@ ActiveRecord::Schema.define(version: 20191007071415) do
     t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
     t.integer  "choice_selection_status",  default: 0,  null: false
+    t.string   "completion_order_number"
+    t.string   "reservation_order_number"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree

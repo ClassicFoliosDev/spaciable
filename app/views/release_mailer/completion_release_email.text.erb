@@ -2,6 +2,8 @@
 
 <%= t(".portal_update", date: @release_date_s, number: @plots.length) %>
 
+Order: <%= @order_number %>
+
 Developer: <%= @phase.company_name %>
 
 <% unless @phase.division.nil? %>

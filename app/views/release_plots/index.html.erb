@@ -14,6 +14,10 @@
   <div class="row">
     <div class="row-item third release-plots bulk-edit">
       <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
+
+      <div class="plot-field order-number">
+        <%= f.input :order_number, label: t(".order_number") %>
+      </div>
     </div>
 
     <div class="row-item third release-details">
@@ -26,12 +30,10 @@
           required: false,
           input_html: { id: 'release_type' } %>
 
-
       <div class="plot-field">
         <%= f.input :release_date, as: :string, label: t(".release_date"),
                   placeholder: "DD/MM/YYYY",
-                  input_html: { type: :date }
-                  %>
+                  input_html: { type: :date } %>
       </div>
 
       <div class="plot-field validity">
@@ -46,7 +48,7 @@
 
     <div class="row-item third">
       <div class=send_to_all>
-        <%= f.input :send_to_admins, as: :boolean, label: t(".send_to_admins"), input_html: { checked: true }%>
+        <%= f.input :send_to_admins, as: :boolean, label: t(".send_to_admins"), input_html: { checked: true } %>
       </div>
       <label><%= t(".email_receivers") %></label>
       <ul>

@@ -28,10 +28,10 @@ module Csv
     def self.headers
       [
         "Developer", "Division", "Development", "Phase", "Plot", "Business",
-        "Reservation Release", "Completion Release", "Validity", "Extended Access",
-        "Expiry Date", "Legal Completion Date", "Build Progress", "Resident Count",
-        "Resident Email", "Resident Name", "Resident Invited On", "Resident Invited By",
-        "Resident Role", "Resident Activated", "Resident Last Sign In",
+        "Reservation Order", "Completion Order", "Reservation Release", "Completion Release",
+        "Validity", "Extended Access", "Expiry Date", "Legal Completion Date", "Build Progress",
+        "Resident Count", "Resident Email", "Resident Name", "Resident Invited On",
+        "Resident Invited By", "Resident Role", "Resident Activated", "Resident Last Sign In",
         "Lifetime Sign In Count", "Notifications", "Developer Updates", "Spaciable Updates",
         "Automated Emails", "Maintenance", "Services Enabled", "Referrals Enabled",
         "Referrals Count", "Snagging Enabled", "Snags Reported", "Snags Resolved",
@@ -51,6 +51,7 @@ module Csv
         plot.company_name, plot_division(plot), plot.development_name,
         plot.phase.to_s, plot.number,
         I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),
+        plot.reservation_order_number, plot.completion_order_number,
         build_date(plot, "reservation_release_date"),
         build_date(plot, "completion_release_date"),
         plot.validity, plot.extended_access,

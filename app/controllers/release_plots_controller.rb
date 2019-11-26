@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class ReleasePlotsController < ApplicationController
   load_and_authorize_resource :phase
 
@@ -15,7 +16,7 @@ class ReleasePlotsController < ApplicationController
     @activated_resident_count = @phase.activated_resident_count
   end
 
-  # JSON javascrit handler to service the requests from the browser
+  # JSON javascript handler to service the requests from the browser
   def callback
     render json: params[:req] == "validate" ? validate : all_plots
   end
@@ -37,7 +38,7 @@ class ReleasePlotsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def r_params
     params.permit(
-      %i[phase_id list release_type release_date
+      %i[phase_id list release_type release_date order_number
          validity extended plot_numbers send_to_admins req]
     )
   end
@@ -49,6 +50,8 @@ class ReleasePlotsController < ApplicationController
       { valid: false, message: "Validity must be > 1" }
     elsif Date.parse(r_params[:release_date]) > Time.zone.today
       { valid: false, message: "Date must be before or equal to today" }
+    elsif r_params[:order_number].blank?
+      { valid: false, message: "Order number is required" }
     else
       pre_submit_check
     end
@@ -71,13 +74,15 @@ class ReleasePlotsController < ApplicationController
   # We are going to use the BulkPlots::UpdateService to do the actual update.  The requires us to
   # map our params into an alternative set that will trigger the required functionality in
   # bulk_update.  Why do I include unit_type_id_check?  There is a nasty hack in bulk update
-  # that reies on it's presence
+  # that relies on it's presence
   def map_params
     @bu_params = { list: r_params[:plot_numbers], unit_type_id_check: "0" }
     map_validity
     map_extended
     return if r_params[:release_date].empty?
     map_date
+    return if r_params[:order_number].blank?
+    map_order_number
     @bu_prams
   end
 
@@ -85,6 +90,16 @@ class ReleasePlotsController < ApplicationController
     return if r_params[:validity].empty?
     @bu_params[:validity] = r_params[:validity]
     @bu_params[:validity_check] = "1"
+  end
+
+  def map_order_number
+    if r_params[:release_type] == "completion_release_date"
+      @bu_params[:completion_order_number] = r_params[:order_number]
+      @bu_params[:completion_order_number_check] = "1"
+    else
+      @bu_params[:reservation_order_number] = r_params[:order_number]
+      @bu_params[:reservation_order_number_check] = "1"
+    end
   end
 
   def map_extended
@@ -103,7 +118,7 @@ class ReleasePlotsController < ApplicationController
     end
   end
 
-  # Use the ReleaseService to check the data and report any erros, including plots that
+  # Use the ReleaseService to check the data and report any errors, including plots that
   # already have completion/reservation dates set where appropriate
   def pre_submit_check
     # Go and service the request.
@@ -131,3 +146,4 @@ class ReleasePlotsController < ApplicationController
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

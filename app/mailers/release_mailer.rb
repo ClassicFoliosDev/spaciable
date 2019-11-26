@@ -31,6 +31,7 @@ class ReleaseMailer < ApplicationMailer
   def create_globals(phase, updated_plots, params)
     @phase = phase
     @plots = updated_plots
+    @order_number = params[:order_number]
     @release_date = Date.parse(params[:release_date])
     @release_date_s = @release_date.strftime("%d/%m/%y")
     @send_to_admins = params[:send_to_admins]

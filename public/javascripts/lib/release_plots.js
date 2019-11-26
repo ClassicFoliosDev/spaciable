@@ -2,7 +2,7 @@
 
 $(document).ready(function() {
 
-  // Add on onClick jandler for the submit button
+  // Add on onClick handler for the submit button
   document.getElementById("submit").addEventListener("click", validate);
 
   // Extract the data fields from the form
@@ -10,6 +10,7 @@ $(document).ready(function() {
 
     json = {};
     json.list = $('#phase_release_plots_list')[0].value
+    json.order_number = $('#phase_release_plots_order_number')[0].value
     json.release_type = $('#release_type')[0].value
     json.release_date = $('#phase_release_plots_release_date')[0].value
     json.validity = $('#phase_release_plots_validity')[0].value
@@ -35,7 +36,7 @@ $(document).ready(function() {
     fd = formData()
     fd.req = "validate"
 
-    // Check that the minimim data set is populated
+    // Check that the minimum data set is populated
     if (fd.list == "" || fd.release_date == "") {
       $('.flash').empty().append('<p class=alert>' + "Please populate plots and date" + '</p>')
     } else {
@@ -67,7 +68,8 @@ $(document).ready(function() {
         '<div>' + 
           '<p>Are you sure you want to send the ' + f.release_type.match(/^[a-z]+/) + ' email and update release date to ' + results.release_date + '?</p>' + 
         '</div>' +
-        '<div>' + 
+        '<div>' +
+          '<p>Order number: ' + f.order_number + '</p>' +
           '<p>Number of plots: ' + results.num_plots  + '</p>' + 
           '<p>Plots: ' + results.plot_numbers  + '</p>'
 

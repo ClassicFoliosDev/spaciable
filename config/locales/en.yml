@@ -435,6 +435,8 @@ en:
         extended_access: "Extended Access (Months)"
         res_release_date: "Reservation Release Date"
         comp_release_date: "Completion Release Date"
+        res_order_number: "Reservation Order Number"
+        comp_order_number: "Completion Order Number"
       plot_address_fields:
         copy_plot_numbers: "Use Plot Number for Postal Number"
         postal_address: "Postal Address"
@@ -2567,6 +2569,7 @@ en:
       mixed_list_label: "Select plots by list and range"
       release_date: "Release Date"
       release_type: "Release Type"
+      order_number: "Order Number"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"

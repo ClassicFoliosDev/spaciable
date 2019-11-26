@@ -9,13 +9,8 @@ Feature: Release Plots
     Then I add some released plots
     Then I add some completed plots
     When I visit the release plots page
-
-  Scenario: Data Validation
-    Given I am a CF admin and there are many releasable plots
-    Then I add some released plots
-    Then I add some completed plots
-    When I visit the release plots page
     When I add all plots and set a reservation release date
+    And I input the order number
     When I press Submit
     Then there is a message telling me the released pots
     When I set a completion date
@@ -49,6 +44,7 @@ Feature: Release Plots
     When I visit the release plots page
     When I enter a range of existent plots
     When I set a completion date
+    And I input the order number
     When I press Submit
     Then I get a completion confirmation dialog
     When I confirm the dialog
@@ -62,6 +58,7 @@ Scenario: Validity and Extended Access
     When I press Submit
     Then there is a message to telling me the date is incorrect
     When I set the date to today and a validity value
+    And I input the order number
     When I press Submit
     Then I get a reservation and validity confirmation dialog
     When I cancel the dialog

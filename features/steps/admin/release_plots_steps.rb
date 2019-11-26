@@ -19,13 +19,13 @@ Given(/^I am a CF admin and there are many releasable plots$/) do
 end
 
 Then(/^I add some released plots$/) do
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 181, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", reservation_release_date: '2019/2/2')
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A2', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", reservation_release_date: '2019/3/2')
+  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 181, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", reservation_release_date: '2019/2/2', reservation_order_number: "123456789")
+  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A2', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", reservation_release_date: '2019/3/2', reservation_order_number: "123456789")
 end
 
 Then(/^I add some completed plots$/) do
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 182, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/2/2')
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A 5', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/3/2')
+  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 182, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/2/2', reservation_order_number: "123456789")
+  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 'A 5', road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB", completion_release_date: '2019/3/2', reservation_order_number: "123456789")
 end
 
 When(/^I visit the release plots page$/) do
@@ -123,6 +123,7 @@ Then(/^I get a completion confirmation dialog$/) do
     now = (Time.zone.today - 10.days).strftime("%d/%m/%y")
     expect(page).to have_content "Are you sure you want to send the completion email and update release date to #{now}"
     expect(page).to have_content "Number of plots: 3"
+    expect(page).to have_content "Order number: 321654987"
   end
 end
 
@@ -155,6 +156,7 @@ Then(/^I get a reservation confirmation dialog$/) do
     expect(page).to have_content "Are you sure you want to send the reservation email and update release date to #{date}"
     expect(page).to have_content "Number of plots: 3"
     expect(page).to have_content "Extended: 24"
+    expect(page).to have_content "Order number: 321654987"
   end
 end
 
@@ -174,7 +176,7 @@ end
 Then(/^the plot release data has been updated$/) do
   (185..187).each do |number|
     plot = Plot.find_by(number: number)
-    expect plot.extended_access == 24 && plot.validity == 27 && plot.reservation_release_date.to_s == '2019-03-18'
+    expect plot.extended_access == 24 && plot.validity == 27 && plot.reservation_release_date.to_s == '2019-03-18' && plot.reservation_order_number == "321654987"
   end
 end
 
@@ -255,3 +257,8 @@ Then(/^the plot validity and extended data has been updated$/) do
   end
 end
 
+Then(/^I input the order number$/) do
+  within ".order-number" do
+    fill_in :phase_release_plots_order_number, with: "321654987"
+  end
+end

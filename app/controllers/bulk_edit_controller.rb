@@ -18,6 +18,8 @@ class BulkEditController < ApplicationController
     params.require(:phase_bulk_edit).permit(
       %i[range_from range_to list prefix number unit_type_id house_number road_name building_name
          postcode reservation_release_date completion_release_date validity extended_access
+         completion_order_number reservation_order_number
+         completion_order_number_check reservation_order_number_check
          copy_plot_numbers prefix_check number_check unit_type_id_check house_number_check
          road_name_check building_name_check postcode_check reservation_release_date_check
          completion_release_date_check validity_check extended_access_check]
