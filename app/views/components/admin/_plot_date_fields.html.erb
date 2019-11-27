@@ -1,16 +1,11 @@
-<% if plot&.persisted? && plot&.reservation_order_number %>
-  <div class="plot-field res-order-number">
-    <%= f.label :res_order_number, t(".res_order_number") %>
-    <span><%= plot.reservation_order_number %></span>
-  </div>
-<% end %>
-<% if plot&.persisted? && plot&.completion_order_number %>
-  <div class="plot-field res-order-number">
-    <%= f.label :comp_order_number, t(".comp_order_number") %>
-    <span><%= plot.completion_order_number %></span>
-  </div>
-<% end %>
-<% if plot&.reservation_order_number || plot&.completion_order_number %> <br/> <% end %>
+<div class="plot-field res-order-number">
+  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_order_number_check, as: :boolean, label: false %></span><% end %>
+  <%= f.input :reservation_order_number, label: t(".res_order_number") %>
+</div>
+<div class="plot-field res-order-number">
+  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_order_number_check, as: :boolean, label: false %></span><% end %>
+  <%= f.input :completion_order_number, label: t(".comp_order_number") %>
+</div><br/>
 <div class="plot-field">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_release_date_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :reservation_release_date, label: t(".res_release_date"), as: :string,
