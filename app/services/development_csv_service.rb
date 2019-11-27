@@ -71,7 +71,7 @@ module DevelopmentCsvService
   end
 
   # store an error if the plot is unknown
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable all
   def plot_check?(phase_name, row, plot, _)
     @parsed[phase_name][:plot] ||= []
     @parsed[phase_name][:plot] << (row[PLOT]) unless plot
@@ -88,7 +88,7 @@ module DevelopmentCsvService
 
     plot.present?
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable all
 
   # store an error if the plot number is duplicated in the CSV for that phase
   # if a previous instance of the plot was successfully saved then those values will remain
