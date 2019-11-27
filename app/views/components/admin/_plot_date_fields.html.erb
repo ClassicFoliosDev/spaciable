@@ -2,7 +2,7 @@
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_order_number_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :reservation_order_number, label: t(".res_order_number") %>
 </div>
-<div class="plot-field res-order-number">
+<div class="plot-field comp-order-number">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_order_number_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :completion_order_number, label: t(".comp_order_number") %>
 </div><br/>

@@ -15,6 +15,8 @@ Feature: Plots
     And I should see the phase address has not been changed
     When I update the release dates
     Then I should see the expiry date has been updated
+    When I update the order numbers
+    Then I should see the order numbers have been updated
     When I delete the phase plot
     Then I should see that the phase plot deletion completed successfully
     Given I have created a plot for the phase
