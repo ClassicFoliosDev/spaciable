@@ -14,6 +14,8 @@ module DevelopmentCsvService
   POSTCODE = 7
   LEGAL_COMP_DATE = 8
   PROGRESS = 9
+  ORDER_RES = 10
+  ORDER_COMP = 11
 
   require "date"
 
@@ -80,6 +82,8 @@ module DevelopmentCsvService
       plot.building_name = row[BUILDING_NAME] if row[BUILDING_NAME].present?
       plot.road_name = row[ROAD_NAME] if row[ROAD_NAME].present?
       plot.postcode = row[POSTCODE] if row[POSTCODE].present?
+      plot.reservation_order_number = row[ORDER_RES] if row[ORDER_RES].present?
+      plot.completion_order_number = row[ORDER_COMP] if row[ORDER_COMP].present?
     end
 
     plot.present?
