@@ -125,3 +125,51 @@ Then(/^I should see the document resident has been notified$/) do
 
   ActionMailer::Base.deliveries.clear
 end
+
+Given(/^I have selected (\d+) documents per page$/) do |arg1|
+  within ".page-sizes" do
+    click_on "10"
+  end
+end
+
+When(/^I edit a plot document$/) do
+  @this_path = URI.parse(current_url).path
+  within ".actions" do
+    find("[data-action='edit']").click
+  end
+
+  within ".document_title" do
+    fill_in "document_title", with: PlotDocumentFixture.rename_text
+  end
+
+  within ".form-actions-footer" do
+    click_on t("documents.form.submit")
+  end
+end
+
+Then(/^I should be redirected to the plot document page$/) do
+  expect(current_path).to eq(@this_path)
+  expect(page).to have_content t("plot_documents.form.title")
+end
+
+Then(/^the plot document should be updated$/) do
+  within ".record-list" do
+    expect(page).to have_content PlotDocumentFixture.rename_text
+    expect(page).to_not have_content PlotDocumentFixture.document200
+  end
+end
+
+When(/^I delete a plot document$/) do
+  within ".actions" do
+    find("[data-action='delete']").click
+  end
+  within ".ui-dialog-buttonset" do
+    click_on "Delete"
+  end
+end
+
+Then(/^the plot document should be deleted$/) do
+  within ".record-list" do
+    expect(page).to_not have_content PlotDocumentFixture.rename_text
+  end
+end

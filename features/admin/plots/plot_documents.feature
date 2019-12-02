@@ -15,3 +15,10 @@ Feature: Documents
     And I should see the document resident has been notified
     When I upload a document phase_plot_name that does not match a plot
     Then I should see a phase_plot_name plot document error
+    Given I have selected 10 documents per page
+    When I edit a plot document
+    Then I should be redirected to the plot document page
+    And the plot document should be updated
+    When I delete a plot document
+    Then I should be redirected to the plot document page
+    And the plot document should be deleted

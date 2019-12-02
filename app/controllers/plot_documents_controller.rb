@@ -13,6 +13,9 @@ class PlotDocumentsController < ApplicationController
     @new_plot_document = @parent.plots.build.documents.build
     authorize! :index, @new_plot_document
 
+    # store the current path to redirect to plots documents page after edit or delete
+    session[:plot_doc] = request.original_url
+
     @plot_documents = @parent.plot_documents.accessible_by(current_ability)
     @plot_documents = sort(@plot_documents, default: { updated_at: :desc })
     @plot_documents = paginate(@plot_documents)

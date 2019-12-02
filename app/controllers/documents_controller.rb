@@ -70,6 +70,7 @@ class DocumentsController < ApplicationController
     authorize! :destroy, @document
     @document.destroy
     redirect_to target, notice: t("controller.success.destroy", name: @document.title)
+    session.delete(:plot_doc)
   end
 
   private
@@ -101,6 +102,7 @@ class DocumentsController < ApplicationController
                                                    t("notify.updated"), @document.parent)
       end
       redirect_to target, notice: notice
+      session.delete(:plot_doc)
     end
 
     format.json do
@@ -133,8 +135,9 @@ class DocumentsController < ApplicationController
   end
 
   def target
-    if @parent&.model_name&.element&.to_sym == :plot ||
-       @parent&.model_name&.element&.to_sym == :developer
+    if @parent&.model_name&.element&.to_sym == :plot
+      session[:plot_doc]
+    elsif @parent&.model_name&.element&.to_sym == :developer
       [@parent, active_tab: "documents"]
     else
       [@parent&.parent, @parent, active_tab: "documents"].compact

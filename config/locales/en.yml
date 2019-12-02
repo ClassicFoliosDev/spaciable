@@ -2049,7 +2049,7 @@ en:
 
   plot_documents:
     form:
-      title: "Upload plot documents"
+      title: "Upload Plot Documents"
       add: "Upload"
       bulk_upload: "Bulk upload"
       filename_requirements: "<strong>File names must fit a plot prefix and plot number naming convention in order to be

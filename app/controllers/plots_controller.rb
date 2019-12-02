@@ -36,6 +36,9 @@ class PlotsController < ApplicationController
                   end
 
     session[:plot_id] = @plot.id
+
+    # store the current path to redirect to plots page after edit or delete document
+    session[:plot_doc] = request.original_url
   end
 
   def create
