@@ -15,8 +15,8 @@
     <div class="row-item third release-plots bulk-edit">
       <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
 
-      <div class="plot-field order-number">
-        <%= f.input :order_number, label: t(".order_number") %>
+      <div class="order-number">
+        <%= f.input :order_number, label: t(".order_number"), required: true %>
       </div>
     </div>
 
