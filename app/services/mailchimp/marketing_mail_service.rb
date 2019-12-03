@@ -10,9 +10,9 @@ module Mailchimp
 
       # Create a new mailing list if one doesn't already exist, otherwise the MailingListService
       # will just look up the existing mailing list id
-      parent = plot.development.parent
+      parent = plot.developer
       Mailchimp::MailingListService.call(parent) unless parent.list_id
-      list_id = plot.development.parent.list_id
+      list_id = parent.list_id
 
       merge_fields = build_merge_fields(hooz_status, resident, plot)
       call_gibbon(resident, list_id, merge_fields, plot.api_key)

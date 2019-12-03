@@ -3,13 +3,18 @@
 module Mailchimp
   class SegmentService
     def self.call(development)
-      api_key = development.parent.api_key
+      parent = if development.parent.is_a?(Division)
+                 development.parent.developer
+               else
+                 development.developer
+               end
+      api_key = parent.api_key
       return if api_key.blank?
 
       # Create a new mailing list if one doesn't already exist, otherwise the MailingListService
       # will just look up the existing mailing list id
-      Mailchimp::MailingListService.call(development.parent) unless development.parent.list_id
-      list_id = development.parent.list_id
+      Mailchimp::MailingListService.call(parent) unless parent.list_id
+      list_id = parent.list_id
 
       call_gibbon(api_key, list_id, development)
     end
