@@ -14,8 +14,8 @@ UK_id = Country.find_by(name: "UK").id
 unless DefaultFaq.find_by(country_id: UK_id)
 
   [{
-    question: %(There is a white powder on my walls. Is this a defect?),
-    answer: %(<p>No. You may notice a white, chalk-like substance on the exterior brickwork of your new home.&nbsp; This isn&rsquo;t a defect, just the natural salts escaping from the building materials.&nbsp; Efflorescence will be washed away naturally by rainfall and will stop once the salts are exhausted.&nbsp;</p>
+    question: %(There is a white powder on my external walls. Is this a defect?),
+    answer: %(<p>No. You may notice a white chalk-like substance on the exterior brickwork of your new home.&nbsp; This isn&rsquo;t a defect, just the natural salts escaping from the building materials.&nbsp; Efflorescence will be washed away naturally by rainfall and will stop once the salts are exhausted.&nbsp;</p>
   ),
     category: %(settling),
     country_id: UK_id
@@ -31,7 +31,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
   	<li>Nail or screw heads may pop out of plastered finishes. Hammer or screw them down, fill the hole with a suitable product and cover with paint</li>
   </ul>
 
-  <p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>Further advice on the drying out process can be found in the homeowner&rsquo;s manual uploaded to your document library after legal completion &#40;where applicable&#41;.</p>
   ),
     category: %(settling),
     country_id: UK_id
@@ -47,7 +47,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
   	<li>Nail or screw heads may pop out of plastered finishes. Hammer or screw them down, fill the hole with a suitable product and cover with paint</li>
   </ul>
 
-  <p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>Further advice on the drying out process can be found in the homeowner&rsquo;s manual uploaded to your document library after legal completion &#40;where applicable&#41;.</p>
   ),
     category: %(settling),
     country_id: UK_id
@@ -63,7 +63,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
   	<li>Wooden door frames and windows may move. Simply adjust the door or window keep if necessary</li>
   </ul>
 
-  <p>Further advice on the drying out process can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>Further advice on the drying out process can be found in the homeowner&rsquo;s manual uploaded to your document library after legal completion &#40;where applicable&#41;.</p>
   ),
     category: %(settling),
     country_id: UK_id
@@ -79,7 +79,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
   	<li>Leave internal and wardrobe doors (except fire doors) open when possible</li>
   </ul>
 
-  <p>Despite taking these steps, condensation may still occur. Simply wipe the affected surface with a dry cloth to prevent moisture from soaking into finishes. Further information may be available in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>Despite taking these steps, condensation may still occur. Simply wipe the affected surface with a dry cloth to prevent moisture from soaking into finishes. Further information can be found in the homeowner&rsquo;s manual uploaded to your document library after legal completion &#40;where applicable&#41;.</p>
   ),
     category: %(settling),
     country_id: UK_id
@@ -93,13 +93,13 @@ unless DefaultFaq.find_by(country_id: UK_id)
     question: %(Will my new utility companies already have my details?),
     answer: %(<p>We have advised the utility companies supplying your property that we no longer own your home but you will need to call them separately to register your details. You will also need to supply your meter readings from the day you moved in.</p>
 
-  <p>You will find contact details for your utility suppliers in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>After legal completion, you will find contact details for your utility suppliers in the contacts section of this website.</p>
   ),
     category: %(settling),
     country_id: UK_id
   }, {
     question: %(Does my local authority have my details?),
-    answer: %(<p>You will need to contact your local authority to provide your details and set up your council tax payments. You can find their details in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+    answer: %(<p>You will need to contact your local authority to provide your details and set up your council tax payments. After legal completion, you can find their contact information in the contacts section of this website.</p>
   ),
     category: %(settling),
     country_id: UK_id
@@ -110,20 +110,20 @@ unless DefaultFaq.find_by(country_id: UK_id)
   	<li>Don&rsquo;t turn electrical switches on or off, including doorbells and light switches&nbsp;</li>
   	<li>Open doors and windows&nbsp;</li>
   	<li>Turn off the meter at the control valve (unless it is in a confined space and you&rsquo;re putting yourself at risk)</li>
-  	<li>Call the free 24 hour National Gas Emergency helpline on 0800 111 999</li>
+  	<li>Call the free 24 hour national gas emergency helpline on 0800 111 999</li>
   </ul>
   ),
     category: %(urgent),
     country_id: UK_id
   }, {
     question: %(Who should I contact if I have an urgent problem with my new home?),
-    answer: %(<p>Please consult the advice contained in your homeowner&rsquo;s manual and get in touch with any emergency contacts provided. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+    answer: %(<p>Please consult the advice contained in your homeowner&rsquo;s manual (where applicable) and get in touch with any emergency contacts provided. After legal completion, you can find contact information in the contacts section of this website.</p>
   ),
     category: %(urgent),
     country_id: UK_id
   }, {
     question: %(There&rsquo;s damage to my roof. What should I do?),
-    answer: %(<p>If you live in a freehold property, and the damage is as a result of bad weather conditions, please contact your insurance company. If you live in a leasehold property, and the damage is as a result of bad weather conditions, please contact your managing agent or landlord. For other roofing issues, please see the advice contained in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+    answer: %(<p>If you live in a freehold property, and the damage is as a result of bad weather conditions, please contact your insurance company. If you live in a leasehold property, and the damage is as a result of bad weather conditions, please contact your managing agent or landlord. For other roofing issues, please see the advice contained in your homeowner&rsquo;s manual (where applicable).</p>
   ),
     category: %(urgent),
     country_id: UK_id
@@ -140,7 +140,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
 
   <p>If you can&rsquo;t find the fault, please call an electrician.</p>
 
-  <p>It is important to note that some faults are intermittent and everything may work for a short time.&nbsp; In this case, don&rsquo;t keep switching the MCB and instead call a suitably qualified electrician to correct the fault.</p>
+  <p>It is important to note that some faults are intermittent and everything may work for a short time.&nbsp; In this case, don&rsquo;t keep switching the MCB and instead call a suitable qualified electrician to correct the fault.</p>
   ),
     category: %(troubleshooting),
     country_id: UK_id
@@ -151,7 +151,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
     <li>Check with your neighbours to see if they are also affected</li>
     <li>Contact the managing agent (if applicable) to check whether this loss of supply is due to local maintenance works</li>
     <li>If a loss of power is confined to your home, check whether an MCB has tripped on your consumer unit (please see ‘Why has an MCB tripped?&rsquo;)</li>
-    <li>If your home&rsquo;s electrical system or water system fails soon after legal completion, the developer may be liable. Consult your homeowner&rsquo;s manual for details of the developer&rsquo;s liability period and then get in touch with your developer&rsquo;s customer care team. After legal completion, you can view or download a PDF file of this manual in the document library on this website</li>
+    <li>If your home&rsquo;s electrical system or water system fails soon after legal completion, the developer may be liable. Consult your homeowner&rsquo;s manual (where applicable) for details of the developer&rsquo;s liability period and then get in touch with your developer&rsquo;s customer care team.</li>
     <li>If the developer is not liable, contact a qualified electrician or plumber</li>
     <li>Report a local power cut to your area&rsquo;s electricity network operator – dial 105 and you will be put through to the local contact</li>
     <li>Report a loss of water supply to your water supplier – most have a 24 hour line for supply or drainage emergencies</li>
@@ -171,25 +171,25 @@ unless DefaultFaq.find_by(country_id: UK_id)
 
   <p>Please note, during the winter, there may be a warm-up period of at least 60 minutes before the effects of any heating will be noticed.</p>
 
-  <p>In the event of a heating system breakdown, please consult your homeowner&rsquo;s manual for further advice, as the developer may be liable for issues occurring shortly after legal completion. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>In the event of a heating system breakdown, please consult your documentation for further advice, as the developer may be liable for issues occurring shortly after legal completion. Where applicable, this information can be found in the homeowner&rsquo;s manual uploaded to your document library after legal completion.</p>
   ),
     category: %(troubleshooting),
     country_id: UK_id
   }, {
     question: %(My radiator is not heating properly. What should I do?),
-    answer: %(<p>If you experience a radiator failing to heat this could be an indication of air in the system.&nbsp; This is a common problem, particularly in newly installed heating systems.&nbsp; In this instance, you should follow the steps below:</p>
+    answer: %(<p>If you experience a radiator failing to heat this could be an indication of air in the system.&nbsp; This is a common problem, particularly in newly installed heating systems.&nbsp; In this instance you should follow the steps below:</p>
 
   <ul>
   	<li>To release the air, attach a radiator bleeding key to the bleed valve and turn it anticlockwise.&nbsp; This should be done gently to avoid the valve being removed completely</li>
   	<li>Open the valve until a hissing sound can be heard; this will indicate that the air is escaping.&nbsp; Hold a cloth beneath the valve to protect both the floor surface and your hands from any hot water that escapes</li>
-  	<li>When water starts to escape from the radiator, close the bleed valve by turning it clockwise</li>
+  	<li>When water starts to escape from the radiator close the bleed valve by turning it clockwise</li>
   </ul>
   ),
     category: %(troubleshooting),
     country_id: UK_id
   }, {
     question: %(I have heated towel rails – why does my bathroom feel cold?),
-    answer: %(<p>If heated towel rails have been installed, they may be there not only to warm towels but also to heat the room.&nbsp; If your bathroom feels cold, it might be because you&rsquo;ve completely covered your rails with towels.</p>
+    answer: %(<p>If heated towel rails have been installed, they may be there not only to warm towels but also to heat the room.&nbsp; If your bathroom feels cold it might be because you&rsquo;ve completely covered your rails with towels.</p>
   ),
     category: %(troubleshooting),
     country_id: UK_id
@@ -224,15 +224,17 @@ unless DefaultFaq.find_by(country_id: UK_id)
     country_id: UK_id
   }, {
     question: %(I have spotted a water leak. What should I do?),
-    answer: %(<p>Any leak that appears, however small, should be reported to your water supplier at your earliest convenience so that it can be rectified before it escalates into a more serious problem. Details of your water supplier can be found in your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+    answer: %(<p>Any leak that appears, however small, should be reported to your water supplier at your earliest convenience so that it can be rectified before it escalates into a more serious problem. Details of your water supplier can be found in the contacts section of this website.</p>
 
-  <p>If water is leaking within your home, turn off the supply at the stop tap or use buckets or towels to keep the water contained. You may find advice on who to contact within your homeowner&rsquo;s manual. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>If water is leaking within your home, turn off the supply at the stop tap or use buckets or towels to keep the water contained. You will find advice on who to contact in the contacts section of this website.</p>
   ),
     category: %(troubleshooting),
     country_id: UK_id
   }, {
     question: %(Why is water draining slowly in my kitchen/bathroom?),
-    answer: %(<p>Slow draining water, or water that is not draining at all, indicates a blockage. To clear a blockage:</p>
+    answer: %(<p>Slow draining water, or water that is not draining at all, indicates a blockage.</p>
+
+  <p>To clear a blockage:</p>
 
   <ul>
   	<li>Try using a flexible rod or plunger/suction cup to remove it</li>
@@ -266,13 +268,13 @@ unless DefaultFaq.find_by(country_id: UK_id)
     question: %(Where can I find information on how to look after my home&rsquo;s finishes and fittings?),
     answer: %(<p>Some advice on how to care for the finishes that may have been installed within your home has been provided in this section.</p>
 
-  <p>Please see your homeowner&rsquo;s manual for further advice on how to care for your home&rsquo;s finishes and fittings. After legal completion, you can view or download a PDF file of this manual in the document library on this website.</p>
+  <p>Further advice on how to care for your home&rsquo;s finishes and fittings can be found in the homeowner&rsquo;s manual uploaded to your document library after legal completion (where applicable).</p>
   ),
     category: %(home),
     country_id: UK_id
   }, {
     question: %(How can I protect my new carpet?),
-    answer: %(<p>You should vacuum your carpet regularly in order to remove dirt and grit.&nbsp; Any stains should be treated as quickly as possible, blotting the area, not rubbing.&nbsp; For large or persistent stains, you should call a professional carpet cleaner.</p>
+    answer: %(<p>You should vacuum your carpet regularly in order to remove dirt and grit.&nbsp; Any stains should be treated as quickly as possible, blotting the area not rubbing.&nbsp; For large and persistent stains you should call a professional carpet cleaner.</p>
   ),
     category: %(home),
     country_id: UK_id
@@ -308,7 +310,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
     country_id: UK_id
   }, {
     question: %(Can I cover my air bricks?),
-    answer: %(<p>If your home has a suspended ground floor, you will find air bricks outside at low level to provide ventilation.&nbsp; Please ensure that no rubbish, garden material or soil covers the damp-proof course or air bricks.&nbsp; Soil and paving or patio material should be kept a minimum of 150mm or two brick courses below the damp-proof course.</p>
+    answer: %(<p>If your home has a suspended ground floor you will find air bricks outside at low level to provide ventilation.&nbsp; Please ensure that no rubbish, garden material or soil covers the damp proof course or air bricks.&nbsp; Soil and paving or patio material should be kept a minimum of 150mm or two brick courses below the damp proof course.</p>
   ),
     category: %(home),
     country_id: UK_id
@@ -387,7 +389,7 @@ unless DefaultFaq.find_by(country_id: UK_id)
     <li>If buying a new boiler or kitchen appliance in the future, choose one with a higher energy efficiency rating</li>
     <li>Unplug portable devices once they are fully charged</li>
     <li>Run your washing machine at 30°C; most washing detergents are specially designed to work well at low temperatures</li>
-    <li>Match pan size to ring size and cover pans so that the contents heat up more quickly</li>
+    <li>Match pan size to ring size and cover pans so that the contents heat up quicker</li>
   </ul>
 
   <p>To reduce your water consumption:</p>
