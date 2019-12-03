@@ -6,25 +6,25 @@
   </div>
 </div>
 
-<%= simple_form_for @report, url: admin_analytics_path do |f| %>
+<%= simple_form_for Report.new, :html => { :onsubmit => "reportSubmitted()" }, remote: true, url: admin_analytics_path do |f| %>
   <div class="row">
     <div class="report-date half">
       <div class="date-field">
         <%= f.input :report_from,
-          label: t("activerecord.attributes.report.report_from"),
-          as: :date,
-          order: [:day, :month, :year],
-          start_year: Date.today.year,
-          end_year: 2017,
-          default: Date.parse("2017-1-1") %>
+            label: t("activerecord.attributes.report.report_from"),
+            as: :date,
+            order: [:day, :month, :year],
+            start_year: Date.today.year,
+            end_year: 2017,
+            default: Date.parse("2017-1-1") %>
       </div>
       <div class="date-field">
-      <%= f.input :report_to,
-        label: t("activerecord.attributes.report.report_to"),
-        as: :date,
-        order: [:day, :month, :year],
-        start_year: Date.today.year,
-        end_year: 2017 %>
+        <%= f.input :report_to,
+            label: t("activerecord.attributes.report.report_to"),
+            as: :date,
+            order: [:day, :month, :year],
+            start_year: Date.today.year,
+            end_year: 2017 %>
       </div>
       <div class="plot-type ui-front select-container">
         <%= label_tag :plot_type, t("activerecord.attributes.report.plot_type") %>
@@ -64,9 +64,9 @@
 
     <div class="half report-buttons">
       <%= f.button :submit, t(".billing"),
-        data: { disable_with: false },
-        name: :billing,
-        class: "billing-csv btn-primary" %><br/>
+          data: { disable_with: false },
+          name: :billing,
+          class: "billing-csv btn-primary" %><br/>
 
       <%= f.button :submit, t(".all"),
           data: { disable_with: false },
@@ -86,5 +86,4 @@
           disabled: true %><br/>
     </div>
   </div>
-
 <% end %>

@@ -4,28 +4,12 @@ module Admin
   class AnalyticsController < ApplicationController
     load_and_authorize_resource :report
 
-    def new
-      @report = Report.new
-    end
-
     def create
-      @report = Report.new(report_params)
-
-      if @report.valid?
-        csv_file = build_csv
-        send_file csv_file, disposition: :attachment
-      else
-        render :new
-      end
-    end
-
-    private
-
-    def build_csv
-      return Csv::AllDeveloperCsvService.call(@report) if params[:all].present?
-      return Csv::DeveloperCsvService.call(@report) if params[:developer].present?
-      return Csv::BillingCsvService.call(@report) if params[:billing].present?
-      Csv::DevelopmentCsvService.call(@report)
+      ReportJob.perform_later(
+        current_user,
+        params: report_type_params,
+        report_params: report_params
+      )
     end
 
     def report_params
@@ -37,7 +21,15 @@ module Admin
               :developer_id,
               :division_id,
               :development_id
-            )
+            ).to_a
+    end
+
+    def report_type_params
+      params.permit(
+        :all,
+        :developer,
+        :billing
+      ).to_a
     end
   end
 end

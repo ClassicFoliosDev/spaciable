@@ -10,7 +10,8 @@ Feature: Analytics
     And there is another developer with plots
     When I navigate to the analytics page
     And I export the Summary Report
-    Then the Summary Report contents are correct
+    Then I see a notification saying the report is being processed
+    And I get an email telling me to download to report
 
   Scenario: Developer Report
     Given I am logged in as a cf admin
@@ -20,7 +21,8 @@ Feature: Analytics
     Then I cannot export a Developer Report
     When I select the developer
     Then I can export the Developer Report
-    And the Developer Report contents are correct
+    Then I see a notification saying the report is being processed
+    And I get an email telling me to download to report
 
   Scenario: Development Report
     Given I am logged in as a cf admin
@@ -30,7 +32,7 @@ Feature: Analytics
     Then I cannot export a Development Report
     When I select the development
     Then I can export the Development Report
-    And the Development Report contents are correct
     And if I select Completion only plots
     Then I can export the Development Report
-    And the Completion Development Report contents are correct
+    Then I see a notification saying the report is being processed
+    And I get an email telling me to download to report

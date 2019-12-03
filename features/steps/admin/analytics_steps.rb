@@ -72,26 +72,6 @@ Then(/^I can export the Developer Report$/) do
   end
 end
 
-Then(/^the Developer Report contents are correct$/) do
-  header = page.response_headers['Content-Disposition']
-  expect(header).to match /^attachment/
-  expect(header).to include "#{AnalyticsFixture.second_developer_name.parameterize.underscore}.csv"
-
-  filename = header.partition('filename="').last.chomp('"')
-  path = Rails.root.join("tmp/#{filename}")
-
-  csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq 1
-
-  developer_row = csv[0]
-  expect(developer_row["Developer"]).to eq AnalyticsFixture.second_developer_name
-  expect(developer_row["Division"]).to eq AnalyticsFixture.second_division_name
-  expect(developer_row["Phase"]).to eq AnalyticsFixture.second_phase_name
-  expect(developer_row["Plot"]).to eq AnalyticsFixture.second_plot_name
-  expect(developer_row["Completion Release"]).to eq ""
-  expect(developer_row["Validity"]).to eq "27"
-end
-
 Then(/^I cannot export a Development Report$/) do
   within ".report-targets" do
     select_from_selectmenu :report_developer_id, with: AnalyticsFixture.second_developer_name
@@ -116,35 +96,23 @@ Then(/^I can export the Development Report$/) do
   end
 end
 
-Then(/^the Development Report contents are correct$/) do
-  header = page.response_headers['Content-Disposition']
-  expect(header).to match /^attachment/
-  expect(header).to include "#{AnalyticsFixture.second_division_development_name.parameterize.underscore}.csv"
-
-  filename = header.partition('filename="').last.chomp('"')
-  path = Rails.root.join("tmp/#{filename}")
-
-  csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq(1)
-
-  developer_row = csv[0]
-  expect(developer_row["Developer"]).to eq AnalyticsFixture.second_developer_name
-  expect(developer_row["Development"]).to eq AnalyticsFixture.second_division_development_name
-  expect(developer_row["Plot"]).to eq AnalyticsFixture.second_plot_name
-end
-
 Then(/^if I select Completion only plots$/) do
     select_from_selectmenu :report_plot_type, with: "Completion"
 end
 
-Then(/^the Completion Development Report contents are correct$/) do
-  header = page.response_headers['Content-Disposition']
-  expect(header).to match /^attachment/
-  expect(header).to include "#{AnalyticsFixture.second_division_development_name.parameterize.underscore}.csv"
-
-  filename = header.partition('filename="').last.chomp('"')
-  path = Rails.root.join("tmp/#{filename}")
-
-  csv = CSV.read(path, headers: true)
-  expect(csv.size).to eq(0)
+Then(/^I see a notification saying the report is being processed$/) do
+  within ".notice" do
+    expect(page).to have_content("is being processed. You will receive an email shortly.")
+  end
 end
+
+Then(/^I get an email telling me to download to report$/) do
+  sleep 2
+  email = ActionMailer::Base.deliveries.first
+  expect(email.subject).to eq(I18n.t("devise.mailer.transfer_csv.title"))
+  expect(email).to have_body_text(I18n.t("devise.mailer.transfer_csv.description"))
+  expect(email.to).to eq [ExpiryFixture.cf_email]
+
+  ActionMailer::Base.deliveries.clear
+end
+

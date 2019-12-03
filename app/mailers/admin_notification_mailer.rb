@@ -12,6 +12,13 @@ class AdminNotificationMailer < ApplicationMailer
     admin_notification.update(sent_at: Time.zone.now)
   end
 
+  def csv_report_download(email, name, url)
+    @name = name
+    @url = url
+    @logo = "Spaciable_full.svg"
+    mail to: email, subject: I18n.t("devise.mailer.transfer_csv.title")
+  end
+
   private
 
   # Create the arrays of emails and names

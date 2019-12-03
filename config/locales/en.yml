@@ -234,6 +234,8 @@ en:
    Please click below to download the files you uploaded to your online portal."
   transfer_files_title: "Spaciable portal deactivated"
   file_transfer: "Spaciable file transfers"
+  transfer_csv_title: "CSV report download"
+  transfer_csv_description: "Your Spaciable report has been processed and can be downloaded by clicking the link below."
 
   notify:
     information: "information"

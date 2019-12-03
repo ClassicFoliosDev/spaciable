@@ -67,6 +67,9 @@ en:
         title: "Your private files have been transferred"
         for_plot: "Since your Spaciable account has been deactivated, any private files you uploaded to %{plot} have been transferred."
         private_documents: "You can download your documents by following the link below"
+      transfer_csv:
+        title: "Your report is ready for download"
+        description: "You csv report is ready to download by following the link below."
   time:
     formats:
       devise:
