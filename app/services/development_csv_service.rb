@@ -14,6 +14,8 @@ module DevelopmentCsvService
   POSTCODE = 7
   LEGAL_COMP_DATE = 8
   PROGRESS = 9
+  ORDER_RES = 10
+  ORDER_COMP = 11
 
   require "date"
 
@@ -69,7 +71,7 @@ module DevelopmentCsvService
   end
 
   # store an error if the plot is unknown
-  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable all
   def plot_check?(phase_name, row, plot, _)
     @parsed[phase_name][:plot] ||= []
     @parsed[phase_name][:plot] << (row[PLOT]) unless plot
@@ -80,11 +82,13 @@ module DevelopmentCsvService
       plot.building_name = row[BUILDING_NAME] if row[BUILDING_NAME].present?
       plot.road_name = row[ROAD_NAME] if row[ROAD_NAME].present?
       plot.postcode = row[POSTCODE] if row[POSTCODE].present?
+      plot.reservation_order_number = row[ORDER_RES] if row[ORDER_RES].present?
+      plot.completion_order_number = row[ORDER_COMP] if row[ORDER_COMP].present?
     end
 
     plot.present?
   end
-  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable all
 
   # store an error if the plot number is duplicated in the CSV for that phase
   # if a previous instance of the plot was successfully saved then those values will remain

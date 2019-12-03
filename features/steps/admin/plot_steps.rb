@@ -450,7 +450,7 @@ When(/^I create plots for the phase$/) do
   end
 end
 
-Then(/^I should see the plots have been created$/) do
+Then(/^plots have been created$/) do
   success_flash = "Plots 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and 11 were created successfully"
 
   expect(page).to have_content(success_flash)
@@ -463,5 +463,35 @@ Then(/^the plots should have the postal number configured$/) do
 
   within ".section-data" do
     expect(page).to have_content "11"
+  end
+end
+
+When(/^I update the order numbers$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+  within ".res-order-number" do
+    fill_in :plot_reservation_order_number, with: "RES01"
+  end
+  within ".comp-order-number" do
+    fill_in :plot_completion_order_number, with: "COMP01"
+  end
+  within ".form-actions-footer" do
+    click_on t("plots.form.submit")
+  end
+end
+
+Then(/^I should see the order numbers have been updated$/) do
+  within ".section-data" do
+    find("[data-action='edit']").click
+  end
+  within ".res-order-number" do
+    expect(find_field("plot_reservation_order_number").value).to eq "RES01"
+  end
+  within ".comp-order-number" do
+    expect(find_field("plot_completion_order_number").value).to eq "COMP01"
+  end
+  within ".form-actions-footer" do
+    click_on t("plots.form.submit")
   end
 end
