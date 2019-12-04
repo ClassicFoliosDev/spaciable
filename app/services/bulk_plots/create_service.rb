@@ -14,9 +14,8 @@ module BulkPlots
     end
 
     def save
-      return no_numbers_error if bulk_attributes.empty?
-
-      bulk_attributes.map { |attrs| save_new_plot(attrs) }.any?
+      return no_numbers_error if bulk_attributes.blank? || bulk_attributes.empty?
+      bulk_attributes.present? && bulk_attributes.map { |attrs| save_new_plot(attrs) }.any?
     end
 
     def successful_numbers

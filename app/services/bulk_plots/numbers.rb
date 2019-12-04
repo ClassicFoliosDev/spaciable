@@ -44,7 +44,7 @@ module BulkPlots
       if range.match("[0-9]+~[0-9]+").to_s == range
         (range.split("~").first..range.split("~").second).to_a
       # Alphaumeric ranges - D20~D30, F10~F1
-      elsif range.match("[A-Za-z]+[0-9]+~[A-Za-z]+[0-9]+").to_s == range
+      elsif range.match("[A-Za-z]+-?[0-9]+~[A-Za-z]+-?[0-9]+").to_s == range
         AlphaNumericRange.new(range).to_a
       elsif raise "Invalid range #{range}"
       end
@@ -56,8 +56,8 @@ module BulkPlots
   class AlphaNumericRange
     # Analyse and check the range
     def initialize(range)
-      @chars = range.scan(/[A-Za-z]/)
-      raise raise "Invalid range #{range}" if @chars.first != @chars.second
+      @chars = range.scan(/[A-Za-z]+-?/)
+      raise "Invalid range #{range}" if @chars.first != @chars.second
       @nums = range.scan(/[0-9]+/).map!(&:to_i)
       @increment = @nums.first > @nums.second ? -1 : 1
     end

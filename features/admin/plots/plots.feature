@@ -25,6 +25,15 @@ Feature: Plots
     When I send a notification the phase
     Then I should see the notification is not sent to the former resident
 
+  Scenario: Phase Plot Ranges
+    Given I am logged in as an admin
+    And I have a developer with a development with unit types and a phase
+    And I have configured the phase address
+    When I specify "invalid" range of plots
+    Then I see an invalid range message
+    When I specify "valid" range of plots
+    Then I see a range of new plots
+
   Scenario: Address Prefix
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase

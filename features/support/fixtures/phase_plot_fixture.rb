@@ -134,6 +134,22 @@ module PhasePlotFixture
     CreateFixture.phase_plot_name
   end
 
+  def invalid_plot_range_numbers
+    "AC-1~AC2"
+  end
+
+  def valid_plot_range_numbers
+    ["AC-1", "AC-2", "AC-3", "AC-4"]
+  end
+
+  def invalid_plot_range
+    "Invalid range #{invalid_plot_range_numbers}"
+  end
+
+  def valid_plot_range
+    "#{valid_plot_range_numbers.first}~#{valid_plot_range_numbers.last}"
+  end
+
   def another_plot_number
     "50 B"
   end

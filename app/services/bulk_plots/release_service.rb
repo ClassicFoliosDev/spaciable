@@ -9,8 +9,12 @@ module BulkPlots
       service = superclass.call(nil, params: { list: params[:list] }, service: self)
 
       if block_given?
-        service.process(params)
-        block.call(service, service.successfull_numbers, service.release_errors)
+        if service.errors?
+          block.call(service, service.successfull_numbers, service.errors)
+        else
+          service.process(params) unless service.errors?
+          block.call(service, service.successfull_numbers, service.release_errors)
+        end
       end
 
       service

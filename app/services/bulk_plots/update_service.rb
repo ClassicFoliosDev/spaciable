@@ -8,7 +8,7 @@ module BulkPlots
       service.collection.id = plot&.id
 
       if block_given?
-        service.update(params)
+        service.update(params) unless service.errors?
         block.call(service, service.successful_numbers, service.errors)
       end
 
@@ -23,6 +23,8 @@ module BulkPlots
 
       # Dummy plot is for bulk update and does not need validation
       @errors << base_plot if base_plot.invalid? && (base_plot.number != Plot::DUMMY_PLOT_NAME)
+    rescue StandardError => e
+      @param_error = e.message
     end
 
     def bulk_or_single_update
@@ -46,7 +48,7 @@ module BulkPlots
       update_plot_numbers
       return no_numbers_error if numbers.empty?
 
-      bulk_attributes(params).map do |attrs|
+      bulk_attributes(params)&.map do |attrs|
         update_existing_plots(attrs)
       end.any?
     end
@@ -60,7 +62,7 @@ module BulkPlots
         numbers.delete(error.number) if numbers.include?(error.number)
       end
 
-      return [] if @attribute_params.empty?
+      return [] if @attribute_params.blank? || @attribute_params.empty?
 
       numbers
     end

@@ -6,10 +6,13 @@ module BulkPlots
       @base_plot = plot
       @params = params
       @collection = collection_model.new(params)
-      @numbers = numbers || set_numbers
       @errors = []
+      @numbers = numbers || set_numbers
+    rescue StandardError => e
+      @param_error = e.message
     end
-    attr_accessor :collection, :params, :numbers, :errors, :base_plot
+
+    attr_accessor :collection, :params, :numbers, :errors, :base_plot, :param_error
 
     BulkPersistPlotsModel = Class.new(Plot) do
       attr_accessor :range_from, :range_to, :list, :validity
@@ -39,10 +42,11 @@ module BulkPlots
     end
 
     def errors?
-      @errors.any?
+      @errors.any? || @param_error.present?
     end
 
     def errors
+      return @param_error if @param_error.present?
       @errors.group_by { |plot| plot.errors.messages.keys }.map do |_, grouped_plots|
         grouped_error_message(grouped_plots)
       end.join(". ")
@@ -61,7 +65,7 @@ module BulkPlots
 
       bulk_attributes_black_list.each { |attr| attributes.delete(attr) }
 
-      numbers.map { |number| attributes.merge(number: number) }
+      numbers&.map { |number| attributes.merge(number: number) }
     end
 
     def no_numbers_error

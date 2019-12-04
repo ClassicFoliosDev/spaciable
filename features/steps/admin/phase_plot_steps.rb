@@ -32,6 +32,44 @@ When(/^I create a plot for the phase$/) do
   click_on t("plots.form.submit")
 end
 
+When(/^I specify "([^"]*)" range of plots$/) do |validity|
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.developers")
+  end
+
+  within "[data-developer='#{PhasePlotFixture.developer_id}']" do
+    click_on t("developers.index.developments")
+  end
+
+  within "[data-development='#{PhasePlotFixture.development_id}']" do
+    click_on t("developments.collection.phases")
+  end
+
+  within "[data-phase='#{PhasePlotFixture.phase.id}']" do
+    click_on t("phases.collection.plots")
+  end
+
+  click_on t("components.empty_list.add", type_name: "Plot")
+  within ".plot_unit_type" do
+    select PhasePlotFixture.unit_type_name, visible: false
+  end
+
+  fill_in "plot_list", with: validity == "valid" ? PhasePlotFixture.valid_plot_range_numbers : PhasePlotFixture.invalid_plot_range_numbers
+  click_on t("plots.form.submit")
+end
+
+Then(/^I see an invalid range message$/) do
+  expect(page).to have_content(PhasePlotFixture.invalid_plot_range)
+end
+
+Then(/^I see a range of new plots$/) do
+  PhasePlotFixture.valid_plot_range_numbers.each do |plot|
+    expect(page).to have_content(plot)
+  end
+end
+
 Then(/^I should see the created phase plot$/) do
   expect(page).to have_content(PhasePlotFixture.plot_number)
   expect(page).to have_content(PhasePlotFixture.unit_type_name)
