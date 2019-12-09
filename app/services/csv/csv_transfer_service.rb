@@ -17,7 +17,7 @@ module Csv
       transfer_url
     end
 
-    def transfer_csv(csv_file, user, logger)
+    def self.transfer_csv(csv_file, user, logger)
       @file_client = WeTransferClient.new(api_key: Rails.application.secrets.we_transfer_key)
 
       title = I18n.t("transfer_csv_title")

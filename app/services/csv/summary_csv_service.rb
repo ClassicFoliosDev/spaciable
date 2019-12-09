@@ -1,7 +1,6 @@
 # frozen_string_literal: false
 
 require "csv"
-
 module Csv
   class SummaryCsvService
     def self.init(report, filename)
@@ -122,8 +121,8 @@ module Csv
     end
 
     def self.yes_or_no(record, column)
-      return "Yes" if record.send(column) == true
-      return "Yes" if record.send(column).present? && record.send(column).positive?
+      return "No" if record.send(column).nil?
+      return(record.send(column).positive? ? "Yes" : "No") if record.send(column).is_a? Integer
       "No"
     end
 
@@ -134,3 +133,4 @@ module Csv
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
