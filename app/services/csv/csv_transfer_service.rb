@@ -30,5 +30,13 @@ module Csv
 
       transfer.shortened_url
     end
+
+    def tmp_folder(email)
+      hash = Digest::MD5.hexdigest(email)
+      tmp_folder = Rails.root.join("tmp", hash)
+      FileUtils.mkdir_p(tmp_folder) unless File.directory?(tmp_folder)
+
+      hash
+    end
   end
 end
