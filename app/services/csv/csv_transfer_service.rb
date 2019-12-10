@@ -5,7 +5,6 @@ module Csv
     def self.call(csv_file, user)
       log_path = Rails.root.join("log", "csv_file_transfer.log")
       logger = Logger.new(log_path)
-
       if Rails.application.secrets.we_transfer_key.blank?
         logger.error("Unable to transfer file, no API key for transfer")
         return
@@ -39,14 +38,9 @@ module Csv
       hash
     end
 
-    def self.file_path(document, hash, logger)
-      temp_file = MiniMagick::Image.open(document.file.url)
-      cloned_file = temp_file.clone
-      document_long_name = document.file.url.split("file/#{document.id}/").last
-      document_name = document_long_name.split("?X-Amz-Algorithm").first
-
-      save_path = Rails.root.join("tmp", hash, document_name)
-      cloned_file.write(save_path)
+    def self.file_path(csv_file, hash, logger)
+      save_path = Rails.root.join("tmp", hash, csv_file.basename.to_s)
+      FileUtils.cp(csv_file.to_s, save_path)
 
       logger.info("Transferring #{save_path}")
       save_path
