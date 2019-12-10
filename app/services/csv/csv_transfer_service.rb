@@ -38,5 +38,18 @@ module Csv
 
       hash
     end
+
+    def self.file_path(document, hash, logger)
+      temp_file = MiniMagick::Image.open(document.file.url)
+      cloned_file = temp_file.clone
+      document_long_name = document.file.url.split("file/#{document.id}/").last
+      document_name = document_long_name.split("?X-Amz-Algorithm").first
+
+      save_path = Rails.root.join("tmp", hash, document_name)
+      cloned_file.write(save_path)
+
+      logger.info("Transferring #{save_path}")
+      save_path
+    end
   end
 end
