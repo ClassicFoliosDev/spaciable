@@ -1,5 +1,7 @@
 # frozen_string_literal: false
 
+require "we_transfer_client"
+
 module Csv
   class CsvTransferService
     def self.call(csv_file, user)
