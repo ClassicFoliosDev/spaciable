@@ -124,6 +124,7 @@ module Csv
     def self.yes_or_no(record, column)
       return "No" if record.send(column).nil?
       return(record.send(column).positive? ? "Yes" : "No") if record.send(column).is_a? Integer
+      return "Yes" if record.send(column) == true
       "No"
     end
 
