@@ -25,6 +25,10 @@ class VideosController < ApplicationController
   def create
     if @video.save
       notice = t("controller.success.create", name: @video.title)
+      if video_params[:notify].to_i.positive?
+        notice << ResidentChangeNotifyService.call(@video, current_user,
+                                                   t("notify.added"), @parent)
+      end
       redirect_to [@parent, :videos], notice: notice
     else
       render :new
@@ -34,6 +38,10 @@ class VideosController < ApplicationController
   def update
     if @video.update(video_params)
       notice = t("controller.success.update", name: @video.title)
+      if video_params[:notify].to_i.positive?
+        notice << ResidentChangeNotifyService.call(@video, current_user,
+                                                   t("notify.updated"), @parent)
+      end
       redirect_to [@parent, :videos], notice: notice
     else
       render :edit
@@ -55,7 +63,8 @@ class VideosController < ApplicationController
   def video_params
     params.require(:video).permit(
       :title,
-      :link
+      :link,
+      :notify
     )
   end
 

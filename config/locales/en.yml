@@ -983,6 +983,7 @@ en:
       back: "Back"
       submit: "Submit"
       link_example: "https://player.vimeo.com/video/654321"
+      notify: "Notify subscribed residents about this change"
     collection:
       create: "Add Video"
       title: "Video"
