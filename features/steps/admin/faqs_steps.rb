@@ -198,7 +198,7 @@ Then(/^I should not see default faqs for the developer$/) do
   end
 end
 
-When(/^I create a development$/) do
+When(/^development$/) do
   developer = CreateFixture.developer
 
   visit "/developers/#{developer.id}/developments/new"
