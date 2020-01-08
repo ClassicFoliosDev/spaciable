@@ -41,11 +41,11 @@
       <% end %>
 
       <% if plot.enable_roomsketcher? %>
-        <a href="https://planner.roomsketcher.com/?ctxt=classic_folios_en" class="navbar-link branded-primary" target="_blank">
+        <%= link_to home_designer_path, class: "navbar-link branded-primary" do %>
           <li class="navbar-item branded-primary">
-            <%= t("layouts.homeowner.nav.room_sketcher") %>
+            <%= t("layouts.homeowner.nav.home_designer") %>
           </li>
-        </a>
+        <% end %>
       <% end %>
 
       <% if plot.show_maintenance? %>

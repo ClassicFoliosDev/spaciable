@@ -17,10 +17,12 @@ Feature: Homeowner external links
 
   Scenario:
     Given I am logged in as a homeowner
-    And the developer has enabled roomsketcher
-    Then I should see the roomsketcher link
+    And the developer has enabled home designer
+    Then I should see the home designer link
+    And when I visit the home designer page
+    Then I can see the home designer page
 
   Scenario:
     Given I am logged in as a homeowner
-    And the developer has disabled roomsketcher
-    Then I should not see the roomsketcher link
+    And the developer has disabled home designer
+    Then I should not see the home designer link

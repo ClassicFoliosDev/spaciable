@@ -24,7 +24,7 @@ module Csv
         "Expired Plots", "Reservation Plots", "Completion Plots", "Residents Invited",
         "Residents Activated", "Admins Invited", "Admins Activated", "Notifications Sent",
         "Developer Emails Accepted", "Spaciable Emails Accepted", "Automated Emails",
-        "Room Sketcher Enabled", "BestArea4Me Enabled", "Forum Enabled", "Development FAQs",
+        "Home Designer Enabled", "BestArea4Me Enabled", "Forum Enabled", "Development FAQs",
         "Referrals Enabled", "Services Enabled", "Maintenance Link Count",
         "Snagging Enabled Count", "Snags Recorded", "Snags Resolved", "Core Phases",
         "NHBC Phases", "Migrated Phases", "Date Created", "Last Edited"

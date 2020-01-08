@@ -179,6 +179,7 @@ Rails.application.routes.draw do
     end
     resource :intro_video, only: [:show]
     resource :about_video, only: [:show]
+    resource :home_designer, only: [:show]
     resources :development_messages, only: [:index, :create]
     resources :library, only: [:update]
     resources :snags

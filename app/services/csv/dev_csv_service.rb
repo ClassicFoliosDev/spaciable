@@ -35,7 +35,7 @@ module Csv
         "Lifetime Sign In Count", "Notifications", "Developer Updates", "Spaciable Updates",
         "Automated Emails", "Maintenance", "Services Enabled", "Referrals Enabled",
         "Referrals Count", "Snagging Enabled", "Snags Reported", "Snags Resolved",
-        "Room Sketcher Enabled", "BestArea4Me Enabled", "Development FAQs"
+        "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
       ]
     end
 
