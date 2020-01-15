@@ -12,8 +12,19 @@
     </div>
   <% end %>
 
-  <div class="row videos">
-    <div class="row-item two-thirds">
+  <div class="row video">
+    <div class="row-item half">
+      <h3 class="heading"><%= t(".heading") %></h3>
+      <p><%= t(".summary") %></p>
+      <h4><%= t(".youtube") %></h4>
+      <p><%= t(".youtube_description").html_safe %></p>
+      <h4><%= t(".vimeo") %></h4>
+      <p><%= t(".vimeo_description").html_safe %></p>
+      <h4><%= t(".other") %></h4>
+      <p><%= t(".other_description").html_safe %></p>
+    </div>
+
+    <div class="row-item half">
       <fieldset>
         <%= f.input :title, label: t(".title") %>
         <%= f.input :link, placeholder: t(".link_example") %>
