@@ -360,6 +360,11 @@ fieldset {
   float: left;
 }
 
+.edit_resident .readonly {
+  float: none;
+  width: 100%;
+}
+
 .input {
   position: relative;
   margin-bottom: 10px;

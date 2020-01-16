@@ -26,7 +26,6 @@ module PlotResidencyFixture
       title: "Mr",
       first_name: "Joe",
       last_name: "Blogs",
-      email: updated_email,
       phone: "07780 135246"
     }
   }.freeze

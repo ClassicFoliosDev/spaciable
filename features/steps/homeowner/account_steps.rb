@@ -151,7 +151,6 @@ end
 
 When(/^I select no services$/) do
   sleep 0.5
-  save_and_open_screenshot
   within ".services-actions" do
    click_on t("homeowners.services.index.no_thanks")
   end

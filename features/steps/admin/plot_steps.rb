@@ -450,7 +450,7 @@ When(/^I create plots for the phase$/) do
   end
 end
 
-Then(/^plots have been created$/) do
+Then(/^I should see the plots have been created$/) do
   success_flash = "Plots 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, and 11 were created successfully"
 
   expect(page).to have_content(success_flash)
