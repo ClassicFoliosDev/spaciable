@@ -20,8 +20,10 @@ Feature: FAQs
 
   Scenario: Division Admin
     Given I am logged in as a Division Admin
+    And there is a division resident
     When I create a video for the division development
     Then I should see the created video
+    And I should see the video resident has been notified
 
   Scenario: Development Admin
     Given I am logged in as a Development Admin

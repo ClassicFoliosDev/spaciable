@@ -35,6 +35,7 @@ When(/^I create a video for the division development$/) do
     fill_in "video_link", with: VideoFixture.link
   end
 
+  check :video_notify
   click_on t("rooms.form.submit")
 end
 
@@ -51,6 +52,20 @@ Then(/^I should see the created video$/) do
     expect(page).to have_content(VideoFixture.link)
   end
 end
+
+Then(/^I should see the video resident has been notified$/) do
+  in_app_notification = Notification.all.last
+  expect(in_app_notification.residents.count).to eq 1
+  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+
+  email = ActionMailer::Base.deliveries.first
+  video = VideoFixture.title
+  expect(email).to have_body_text("The following video has been added to your home's online portal:")
+  expect(email).to have_body_text("#{video}")
+
+  ActionMailer::Base.deliveries.clear
+end
+
 
 When(/^I update the video$/) do
   within ".record-list" do
