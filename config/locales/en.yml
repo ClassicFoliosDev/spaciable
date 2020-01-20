@@ -982,6 +982,7 @@ en:
       title: "Name"
       back: "Back"
       submit: "Submit"
+      embedded_link: "Embedded Link"
       link_example: "https://player.vimeo.com/video/654321"
       notify: "Notify subscribed residents about this change"
       heading: "Converting Your Online Video URL for Embedding on Spaciable"
@@ -997,7 +998,7 @@ en:
                           <li>Embeddable URL is https://player.vimeo.com/video/121446471</li></ul></p>"
       other: "Other Video Streaming Sites"
       other_description: "<ul><li>Click the 'share' option, found within or below the online video player, then find the 'embed video' option</li>
-                          <li>There should be a long &#60;iframe&#62; code - delete everything except the embed video URL, which will be in quotation marks (do not paste the quotation marks into the 'Link' box in Spaciable)</ul>"
+                          <li>There should be a long &#60;iframe&#62; code - delete everything except the embed video URL, which will be in quotation marks (do not paste the quotation marks into the 'Embedded Link' box in Spaciable)</ul>"
     collection:
       create: "Add Video"
       title: "Video"
