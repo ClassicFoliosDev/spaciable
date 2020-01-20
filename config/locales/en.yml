@@ -982,6 +982,7 @@ en:
       title: "Name"
       back: "Back"
       submit: "Submit"
+      embedded_link: "Embedded Link"
       link_example: "https://player.vimeo.com/video/654321"
       notify: "Notify subscribed residents about this change"
       heading: "Converting Your Online Video URL for Embedding on Spaciable"
