@@ -68,6 +68,7 @@ When(/^I update the plot residency$/) do
   attrs = PlotResidencyFixture.attrs(:updated)
 
   within ".edit_resident" do
+    expect(page).to have_field(readonly: 'resident_email', readonly: true)
     fill_in_resident_details(attrs)
   end
 end
@@ -114,7 +115,7 @@ end
 Then(/^I should see two residents for the plot$/) do
   within ".residents" do
     expect(page).to have_content PlotResidencyFixture.second_email
-    expect(page).to have_content PlotResidencyFixture.updated_email
+    expect(page).to have_content PlotResidencyFixture.original_email
   end
 end
 
@@ -337,7 +338,7 @@ Then(/^I should see the invalid resident errors$/) do
 end
 
 Then(/^the resident should have been deleted$/) do
-  resident = Resident.find_by(email: PlotResidencyFixture.original_email)
+  resident = Resident.find_by(email: PlotResidencyFixture.second_email)
   expect(resident).to be_nil
 end
 

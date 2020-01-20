@@ -1,0 +1,17 @@
+.home-designer {
+  width: 100%;
+  .iframe {
+    border: none;
+    width: 100%;
+    height: 750px;
+  }
+}
+
+.new-tab {
+  margin-top: $spacing-small;
+  text-align: center;
+  a {
+    font-size: $base-small-font-size;
+    color: $primary-navy;
+  }
+}

@@ -263,7 +263,7 @@ en:
         contacts: "Contacts"
         how_to: "How To"
         faqs: "FAQs"
-        room_sketcher: "Home Designer"
+        home_designer: "Home Designer"
       sub_nav:
         rooms: "Rooms"
         appliances: "Appliances"
@@ -1219,6 +1219,10 @@ en:
         update_success: "Your image has been successfully updated"
       destroy:
         delete_success: "Your image has been successfully removed"
+    home_designers:
+      show:
+        title: "Home Designer."
+        new_tab: "Open Planner 5D in a separate tab"
 
     library:
       index:
@@ -1489,8 +1493,8 @@ en:
       services_description: "A homeowner can select moving and other services via the Spaciable landing page."
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
-      enable_roomsketcher: "Room Sketcher"
-      roomsketcher_description: "Provide residents with an external link to RoomSketcher"
+      enable_homedesigner: "Planner 5D"
+      homedesigner_description: "Provide residents with home designer Planner 5D"
       enable_messages: "Community Messages"
       messages_description: "Allow development residents to share messages with each other"
       development_faqs: "Development FAQs"

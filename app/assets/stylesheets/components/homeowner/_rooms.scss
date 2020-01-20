@@ -34,7 +34,6 @@ $icon-color: #252C31;
     .finish-image {
       width: 60px;
       float: left;
-      height: 70px;
 
       img {
         max-width: 50px;
@@ -52,6 +51,10 @@ $icon-color: #252C31;
       margin-top: $spacing-small;
     }
 
+    .appliance-labels {
+      min-height: 50px;
+    }
+
     .label {
       span {
         padding-left: 61px;
@@ -62,9 +65,7 @@ $icon-color: #252C31;
     }
 
     .second-column {
-      .labels {
-        margin-top: $spacing-medium;
-      }
+      margin-top: 20px;
     }
   }
 }
