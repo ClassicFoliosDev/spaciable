@@ -10,8 +10,9 @@ Feature: Homeowner external links
     Then I should see the bafm link
     Then I should not see the maintenance link
     Given the plot does have a completion release date
+    Given the development has maintenance enabled
     When I visit the maintenance page
-    Then I should see the fixflo page
+    Then I should see the maintenance page
     When the expiry date is past
     Then I should not see the maintenance link
 

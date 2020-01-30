@@ -19,10 +19,10 @@ end
 When(/^I export the Summary Report$/) do
   within ".report-buttons" do
     click_on t("admin.analytics.new.all")
-    click_on t("admin.analytics.new.all")
   end
 end
 
+# this is currently not in use
 Then(/^the Summary Report contents are correct$/) do
   header = page.response_headers['Content-Disposition']
   expect(header).to match /^attachment/
@@ -116,3 +116,13 @@ Then(/^I get an email telling me to download to report$/) do
   ActionMailer::Base.deliveries.clear
 end
 
+Given(/^at least one development has maintenance$/) do
+  development = Development.find_by(name: CreateFixture.development_name)
+  FactoryGirl.create(:maintenance, development_id: development.id)
+end
+
+When(/^I export the Billing Report$/) do
+  within ".report-buttons" do
+    click_on t("admin.analytics.new.billing")
+  end
+end

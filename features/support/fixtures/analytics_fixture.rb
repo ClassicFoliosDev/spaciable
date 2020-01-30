@@ -36,7 +36,6 @@ module AnalyticsFixture
                        unit_type: second_unit_type, reservation_release_date: Time.zone.now - 2.days)
   end
 
-
   def second_developer_name
     "Second Developer"
   end

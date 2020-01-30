@@ -57,7 +57,6 @@ class Plot < ApplicationRecord
   delegate :external_link, to: :unit_type
   delegate :branded_logo, to: :brand, allow_nil: true
   delegate :branded_email_logo, to: :brand, allow_nil: true
-  delegate :maintenance_link, to: :development, allow_nil: true
   delegate :house_search, :enable_services?, :enable_roomsketcher?, to: :developer, allow_nil: true
   delegate :enable_referrals?, to: :developer, allow_nil: true
   delegate :enable_development_messages?, to: :developer
@@ -69,8 +68,11 @@ class Plot < ApplicationRecord
   delegate :name, to: :phase, prefix: true
   delegate :choices_email_contact, to: :development
   delegate :business, to: :phase
-  delegate :maintenance_auto_populate, to: :development
   delegate :list_id, to: :developer
+
+  delegate :maintenance_populate, to: :development, allow_nil: true
+  delegate :maintenance_path, to: :development, allow_nil: true
+  delegate :maintenance_account_type, to: :development, allow_nil: true
 
   enum progress: %i[
     soon
@@ -267,7 +269,7 @@ class Plot < ApplicationRecord
   end
 
   def show_maintenance?
-    return false if maintenance_link.blank? || completion_release_date.nil?
+    return false if maintenance_path.blank? || completion_release_date.nil?
     return true if reduced_expiry_date.blank?
 
     Time.zone.today <= reduced_expiry_date

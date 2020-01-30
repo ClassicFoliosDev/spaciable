@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 When(/^I visit the maintenance page$/) do
+  visit "/"
   within ".navbar-menu" do
     click_on I18n.t("components.homeowner.navigation.maintenance")
   end
 end
 
-Then(/^I should see the fixflo page$/) do
+Then(/^I should see the maintenance page$/) do
   expect(page).to have_selector(".maintenance")
 end
 
@@ -63,3 +64,7 @@ Then(/^I should not see the home designer link$/) do
   expect(page).not_to have_content(I18n.t("layouts.homeowner.nav.home_designer"))
 end
 
+Given(/^the development has maintenance enabled$/) do
+  development = CreateFixture.development
+  FactoryGirl.create(:maintenance, development_id: development.id)
+end

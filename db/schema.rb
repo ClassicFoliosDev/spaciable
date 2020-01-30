@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200129095603) do
+ActiveRecord::Schema.define(version: 20200129114517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -292,19 +292,17 @@ ActiveRecord::Schema.define(version: 20200129095603) do
     t.integer  "developer_id"
     t.string   "email"
     t.string   "contact_number"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "division_id"
     t.datetime "deleted_at"
-    t.integer  "phases_count",              default: 0
+    t.integer  "phases_count",          default: 0
     t.string   "segment_id"
-    t.boolean  "enable_snagging",           default: false
-    t.integer  "snag_duration",             default: 0
-    t.string   "snag_name",                 default: "Snagging", null: false
-    t.integer  "choice_option",             default: 0,          null: false
+    t.boolean  "enable_snagging",       default: false
+    t.integer  "snag_duration",         default: 0
+    t.string   "snag_name",             default: "Snagging", null: false
+    t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
-    t.boolean  "maintenance_auto_populate", default: true
-    t.string   "maintenance_link"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -490,6 +488,14 @@ ActiveRecord::Schema.define(version: 20200129095603) do
     t.integer "plot_id",             null: false
     t.index ["lettings_account_id"], name: "index_listings_on_lettings_account_id", using: :btree
     t.index ["plot_id"], name: "index_listings_on_plot_id", unique: true, using: :btree
+  end
+
+  create_table "maintenances", force: :cascade do |t|
+    t.integer "development_id"
+    t.string  "path"
+    t.integer "account_type"
+    t.boolean "populate",       default: true
+    t.index ["development_id"], name: "index_maintenances_on_development_id", using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -865,6 +871,7 @@ ActiveRecord::Schema.define(version: 20200129095603) do
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
+  add_foreign_key "maintenances", "developments"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"

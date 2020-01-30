@@ -4,7 +4,7 @@ Feature: Homeowner Plot Expiry
   When my plot expires
   Then my account is restricted
 
-  Scenario: Fixflo Expiry
+  Scenario: Maintenance Expiry
     Given I am logged in as a homeowner on a plot that will expire
     Given the completion release date is set
     And the development has set a maintenance link

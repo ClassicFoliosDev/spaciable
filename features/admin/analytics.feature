@@ -36,3 +36,12 @@ Feature: Analytics
     Then I can export the Development Report
     Then I see a notification saying the report is being processed
     And I get an email telling me to download to report
+
+  Scenario: Billing Report
+    Given I am logged in as a cf admin
+    And there is a developer with plots
+    And there is another developer with plots
+    And at least one development has maintenance
+    When I navigate to the analytics page
+    And I export the Billing Report
+    Then I see a notification saying the report is being processed

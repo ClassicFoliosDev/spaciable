@@ -7,7 +7,7 @@ end
 
 And(/^the development has set a maintenance link$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
-  development.update_attributes(maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
+  FactoryGirl.create(:maintenance, development_id: development.id, path: "https://dummy.fixflo.com/issue/plugin/")
 end
 
 Then(/^I should see the maintenance link$/) do

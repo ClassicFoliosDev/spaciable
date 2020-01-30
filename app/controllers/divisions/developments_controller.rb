@@ -13,10 +13,13 @@ module Divisions
 
     def new
       @development.build_address unless @development.address
+      @maintenance = Maintenance.new
+      @development.build_maintenance unless @development.maintenance
     end
 
     def edit
       @development.build_address unless @development.address
+      @development.build_maintenance unless @development.maintenance
     end
 
     def show
@@ -74,8 +77,9 @@ module Divisions
         :division_id,
         :email,
         :contact_number,
-        :maintenance_link, :enable_snagging,
-        :snag_duration, :snag_name, :maintenance_auto_populate,
+        :enable_snagging,
+        :snag_duration, :snag_name,
+        maintenance_attributes: %i[id path account_type populate],
         address_attributes: %i[postal_number road_name building_name
                                locality city county postcode]
       )

@@ -208,12 +208,12 @@ module CreateFixture
 
   def create_development
     return if development
-    FactoryGirl.create(:development, name: development_name, developer: developer, maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
+    FactoryGirl.create(:development, name: development_name, developer: developer)
   end
 
   def create_spanish_development
     return if spanish_development
-    FactoryGirl.create(:development, name: spanish_development_name, developer: spanish_developer, maintenance_link: "https://dummy.fixflo.com/issue/plugin/")
+    FactoryGirl.create(:development, name: spanish_development_name, developer: spanish_developer)
   end
 
   def create_division_development

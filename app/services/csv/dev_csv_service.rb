@@ -78,7 +78,8 @@ module Csv
     def self.summary_info(plot, resident = nil)
       [
         yes_or_no(plot.developer, "api_key"),
-        plot.maintenance_link, yes_or_no(plot.developer, "enable_services"),
+        maintenance_type(plot),
+        yes_or_no(plot.developer, "enable_services"),
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
         yes_or_no(plot.development, "enable_snagging"), plot.all_snags_count,
         plot.resolved_snags_count,
@@ -93,6 +94,8 @@ module Csv
       resident.referrals_count
     end
 
+    # An admin uses the Plot Release Type dropdown to return plots with a completion
+    # release date or a reservation release date (or both) between the selected date range
     def self.get_plot_types(plots)
       if @plot_types == "res"
         plots.where(reservation_release_date: @from.beginning_of_day..@to.end_of_day)
@@ -130,6 +133,11 @@ module Csv
 
     def self.plot_division(plot)
       plot.division_name if plot.division
+    end
+
+    def self.maintenance_type(plot)
+      return unless plot.maintenance_account_type
+      I18n.t("activerecord.attributes.maintenance.account_types.#{plot.maintenance_account_type}")
     end
   end
 end

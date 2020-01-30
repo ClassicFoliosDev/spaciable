@@ -13,6 +13,7 @@ module Csv
     def self.init(report, filename)
       @from = report.extract_date(report.report_from)
       @to = report.extract_date(report.report_to)
+      @plot_types = report.plot_type
 
       formatted_from = I18n.l(@from.to_date, format: :digits)
       formatted_to = I18n.l(@to.to_date, format: :digits)
@@ -28,11 +29,50 @@ module Csv
       ]
     end
 
+    # An admin uses the Plot Release Type dropdown to return plots with a completion
+    # release date or a reservation release date (or both) between the selected date range
+    def self.get_plot_types(plots)
+      if @plot_types == "res"
+        plots.where(reservation_release_date: @from.beginning_of_day..@to.end_of_day)
+             .where(completion_release_date: nil)
+      elsif @plot_types == "comp"
+        plots.where(completion_release_date: @from.beginning_of_day..@to.end_of_day)
+      else
+        plots.where('(completion_release_date BETWEEN :start_at AND :end_at) OR
+                    (reservation_release_date BETWEEN :start_at AND :end_at)',
+                    start_at: @from.beginning_of_day, end_at: @to.end_of_day)
+      end
+    end
+
+    def self.grouped_ordered_plots
+      @plots = Plot.none
+
+      developers = Developer.all.order(:company_name)
+      developers.each do |developer|
+        developments_no_division = developer.developments.where(division_id: nil).order(:name)
+        developments_plots(developments_no_division)
+
+        divisions = developer.divisions.order(:division_name)
+        divisions.each do |division|
+          developments = division.developments.order(:name)
+          developments_plots(developments)
+        end
+      end
+
+      @plots
+    end
+
+    def self.developments_plots(developments)
+      developments.each do |development|
+        @plots += development_plots(development)
+      end
+    end
+
     def self.development_plots(development)
       phases = development.phases.order(:name)
       plots = Plot.none
       phases.each do |phase|
-        unsorted_plots = phase.plots.where(created_at: @from.beginning_of_day..@to.end_of_day)
+        unsorted_plots = get_plot_types(phase.plots)
         plots += sort_plot_numbers(unsorted_plots)
       end
 
@@ -44,6 +84,24 @@ module Csv
       ids = plot_array.map(&:id)
 
       Plot.where(id: ids).order("position(id::text in '#{ids.join(',')}')")
+    end
+
+    def self.division_name(plot)
+      plot.division.present? ? plot.division_name : ""
+    end
+
+    def self.build_date(record, column)
+      return "" if record.send(column).nil?
+      record.send(column).strftime("%d/%m/%Y")
+    end
+
+    def self.expired_status(plot)
+      return "" unless plot.completion_release_date
+      plot.expired? ? "Active" : "Expired"
+    end
+
+    def self.expiry_date(plot)
+      plot.expiry_date&.strftime("%d/%m/%Y")
     end
   end
 end

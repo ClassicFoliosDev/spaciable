@@ -1,6 +1,7 @@
 # frozen_string_literal: false
 
 require "csv"
+# rubocop:disable Metrics/ClassLength
 module Csv
   class SummaryCsvService
     def self.init(report, filename)
@@ -86,7 +87,12 @@ module Csv
     end
 
     def self.maintenance_count(parent)
-      parent.developments.where.not(maintenance_link: "").count
+      developments = parent.developments
+      maintenances = 0
+      developments.each do |development|
+        maintenances += 1 if development.maintenance_path
+      end
+      maintenances
     end
 
     def self.snagging_enabled_count(parent)

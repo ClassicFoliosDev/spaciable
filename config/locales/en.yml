@@ -1058,6 +1058,7 @@ en:
       maintenance_auto_populate: "Auto-Populate FixFlo Details"
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
       choices_email: "Choices Email"
+      account_type: "Maintenance Account Type"
     index:
       add: "Add Development"
     development:
@@ -2867,6 +2868,10 @@ en:
           management: "Management"
       send_to_all:
         all: "All"
+      maintenance:
+        account_types:
+          standard: "Standard"
+          full_works: "Full Works Management"
       faq:
         categories:
           general: "General"

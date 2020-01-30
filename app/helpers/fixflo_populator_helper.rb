@@ -4,8 +4,8 @@ module FixfloPopulatorHelper
   require "uri"
 
   def maintenance_auto_populate(plot, current_resident)
-    maintenance_link = plot.maintenance_link
-    return maintenance_link unless plot.maintenance_auto_populate
+    maintenance_link = plot.maintenance_path
+    return maintenance_link unless plot.maintenance_populate
     parameters = { "title" => current_resident.title, "firstname" => current_resident.first_name,
                    "surname" => current_resident.last_name, "email" => current_resident.email,
                    "contactno" => current_resident.phone_number,

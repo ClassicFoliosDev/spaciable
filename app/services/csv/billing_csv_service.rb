@@ -17,36 +17,14 @@ module Csv
       path
     end
 
-    def self.grouped_ordered_plots
-      @plots = Plot.none
-
-      developers = Developer.all.order(:company_name)
-      developers.each do |developer|
-        developments_no_division = developer.developments.where(division_id: nil).order(:name)
-        developments_plots(developments_no_division)
-
-        divisions = developer.divisions.order(:division_name)
-        divisions.each do |division|
-          developments = division.developments.order(:name)
-          developments_plots(developments)
-        end
-      end
-
-      @plots
-    end
-
-    def self.developments_plots(developments)
-      developments.each do |development|
-        @plots += development_plots(development)
-      end
-    end
-
     def self.headers
       [
-        "Developer", "Division", "Development", "Phase", "Plot", "Legal completion date",
-        "Reservation release date", "Completion release date", "Validity (months)",
-        "Extended access (months)", "Expiry date", "Business", "BA4M enabled", "Services enabled",
-        "Defects subscribed", "Residents invited", "Residents accepted", "Build progress"
+        "Developer", "Division", "Development", "Phase", "Plot",
+        "Business Stream", "Reservation Order Number", "Completion Order Number",
+        "Reservation Release Date", "Completion Release Date",
+        "Validity", "Extended Access", "Expiry Date", "Expired",
+        "Fixflo", "Residents Invited", "Residents Accepted"
+
       ]
     end
 
@@ -56,40 +34,39 @@ module Csv
 
     def self.plot_metadata(plot)
       [
-        plot.developer.to_s,
+        plot.company_name,
         division_name(plot),
-        plot.development.to_s,
-        plot.phase.to_s,
-        plot.to_s
+        plot.development_name,
+        plot.phase_name,
+        plot.number
       ]
     end
 
     def self.plot_info(plot)
       [
-        plot.completion_date,
-        plot.reservation_release_date,
-        plot.completion_release_date,
+        I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),
+        plot.reservation_order_number,
+        plot.completion_order_number,
+        build_date(plot, "reservation_release_date"),
+        build_date(plot, "completion_release_date"),
         plot.validity,
         plot.extended_access,
-        plot.expiry_date,
-        I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),
-        plot.house_search,
-        plot.enable_services?,
-        plot.show_maintenance?
+        expiry_date(plot),
+        expired_status(plot),
+        maintenance_type(plot)
       ]
     end
 
     def self.plot_residents(plot)
       [
         plot.residents.count,
-        plot.residents.where.not(invitation_accepted_at: nil).count,
-        I18n.t("activerecord.attributes.plot.progresses.#{plot.progress}")
+        plot.residents.where.not(invitation_accepted_at: nil).count
       ]
     end
 
-    def self.division_name(plot)
-      return plot.division.to_s if plot.division.present?
-      "N/A"
+    def self.maintenance_type(plot)
+      return unless plot.maintenance_account_type
+      I18n.t("activerecord.attributes.maintenance.account_types.#{plot.maintenance_account_type}")
     end
   end
 end

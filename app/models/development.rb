@@ -30,8 +30,10 @@ class Development < ApplicationRecord
   has_many :development_messages
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
+  has_one :maintenance, dependent: :destroy
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true
 
   scope :by_developer_and_developer_divisions, lambda { |developer_id|
     division_ids = Division.where(developer_id: developer_id).pluck(:id)
@@ -47,6 +49,8 @@ class Development < ApplicationRecord
            :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
   delegate :development_faqs, :country, to: :parent
+
+  delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
   enum choice_option:
     %i[
@@ -145,6 +149,13 @@ class Development < ApplicationRecord
       activated_residents += phase.activated_resident_count
     end
     activated_residents
+  end
+
+  def maintenance_blank?(maintenance)
+    return false if maintenance["path"].present?
+    record = Maintenance.find_by(development_id: id)
+    record&.destroy!
+    true
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -19,12 +19,23 @@
         <%= f.input :name %>
         <%= f.input :email %>
         <%= f.input :contact_number %>
-        <br/>
-        <%= f.input :maintenance_link, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>
-        <p><%= t(".maintenance_tip")%></p>
-        <%= f.label :maintenance_auto_populate, t(".maintenance_auto_populate") %>
-        <%= f.check_box :maintenance_auto_populate %>
-        <p class="checkbox-description"><%= t(".maintenance_auto_populate_description") %></p>
+      </fieldset>
+      <br/>
+      <fieldset>
+        <div id="maintenance_url">
+          <%= f.simple_fields_for :maintenance do |m| %>
+            <%= m.input :path, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>
+            <p><%= t(".maintenance_tip")%></p>
+            <div id="maintenance_details">
+              <%= m.label :populate, t(".maintenance_auto_populate") %>
+              <%= m.check_box :populate %>
+              <p class="checkbox-description"><%= t(".maintenance_auto_populate_description") %></p>
+              <div class="ui-front select-container">
+                <%= m.input :account_type, label: t(".account_type"), as: :select, collection: maintenance_account_types_collection, include_blank: true %>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </fieldset>
     </div>
     <div class="row-item third">
