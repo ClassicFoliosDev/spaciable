@@ -88,4 +88,6 @@
   <%= render 'referral_form', :referral => @referral, :plot => @plot %>
 </div>
 
-<script src="https://account.snatchbot.me/script.js"></script><script>window.sntchChat.Init(88725)</script>
+<div id="app-reminder">
+  <%= render "homeowners/components/app_download", plot: @plot %>
+</div>

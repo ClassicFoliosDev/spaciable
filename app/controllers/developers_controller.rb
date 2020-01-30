@@ -34,6 +34,7 @@ class DevelopersController < ApplicationController
   def create
     if @developer.save
       @developer.clone_faqs
+      BrandedAppHelper.create_destroy_actions(developer_params, @developer)
 
       redirect_to developers_path, notice: t(".success", developer_name: @developer.company_name)
     else
@@ -44,6 +45,8 @@ class DevelopersController < ApplicationController
 
   def update
     if @developer.update(developer_params)
+      BrandedAppHelper.create_destroy_actions(developer_params, @developer)
+
       notice = Mailchimp::MailingListService.call(@developer)
       notice = t(".success", developer_name: @developer.company_name) if notice.nil?
       redirect_to developer_path(@developer), notice: notice
@@ -70,7 +73,7 @@ class DevelopersController < ApplicationController
       :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
-      :prime_lettings_admin,
+      :prime_lettings_admin, :personal_app,
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

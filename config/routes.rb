@@ -65,6 +65,7 @@ Rails.application.routes.draw do
   resources :documents, only: [:edit, :show, :update, :destroy]
   resources :listings, only: [:new, :create, :update, :destroy]
 
+
   resources :rooms, only: [] do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]
     resources :finish_rooms, controller: 'rooms/finish_rooms', only: [:new, :create, :edit]
@@ -144,6 +145,7 @@ Rails.application.routes.draw do
     resources :faqs, shallow: true
     resource :brand
     resources :brands, shallow: true, only: [:index]
+    resources :branded_apps, shallow: true
   end
 
   resources :divisions do

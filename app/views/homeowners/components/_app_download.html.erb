@@ -1,0 +1,15 @@
+<div class="app-download hidden">
+  <div class="app-icon"><%= image_tag BrandedApp.relevant_icon(plot.developer) %></div>
+  <h4 class="app-download-title underline branded-text"><%= t(".modal_title").html_safe %></h4>
+
+  <div class="text app-download-text branded-text" style="text-align:center;"><%= t(".modal_content").html_safe %></div>
+
+  <div id="app-download-btn">
+    <!-- TO-DO Add links to relevant apps -->
+    <%= link_to t(".download_app"), BrandedApp.relevant_link(request.user_agent, plot.developer), class: "btn branded-btn", target: "_blank" %>
+  </div>
+</div>
+
+<div class="app-download-footer hidden">
+  <button class="hide-app-download dialog-second-btn "><%= t(".not_again") %></button>
+</div>

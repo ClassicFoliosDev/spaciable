@@ -4,6 +4,8 @@
 class Developer < ApplicationRecord
   acts_as_paranoid
 
+  attr_accessor :personal_app
+
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
 
@@ -22,10 +24,14 @@ class Developer < ApplicationRecord
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
   has_one :address, as: :addressable, dependent: :destroy
+  has_one :branded_app, as: :app_owner, dependent: :destroy
+  has_many :branded_apps, as: :app_owner
 
   has_one :lettings_account, as: :letter
   has_many :lettings, through: :lettings_account
   delegate :management, to: :lettings_account
+
+  delegate :apple_link, :android_link, :app_icon, to: :branded_app, prefix: true
 
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
@@ -155,6 +161,11 @@ class Developer < ApplicationRecord
   def prime_lettings_admin=(prime_id) # setter method
     User.update_prime_admin(potential_prime_admins.pluck(:id),
                             prime_id&.to_i)
+  end
+
+  def branded_app?
+    branded_app = BrandedApp.find_by(app_owner_type: "Developer", app_owner_id: id)
+    branded_app.present?
   end
 end
 # rubocop:enable Metrics/ClassLength

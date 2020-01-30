@@ -824,3 +824,11 @@ crumb :brand_edit do |brand|
   link t("breadcrumbs.brand_edit", name: brand), [:edit, brand.brandable, brand]
   parent :brands, brand.brandable
 end
+
+# BRANDED APP
+crumb :branded_apps do |branded_app_parent|
+  case branded_app_parent.model_name.element.to_sym
+    when :developer
+      parent :developer, branded_app_parent
+  end
+end

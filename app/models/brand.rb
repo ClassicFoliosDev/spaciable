@@ -204,7 +204,7 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_static_text_default
-    "color: #FF293F; // $primary-red-left;"
+    "color: #FF293F !important; // $primary-red-left;"
   end
 
   def self.branded_static_border_default

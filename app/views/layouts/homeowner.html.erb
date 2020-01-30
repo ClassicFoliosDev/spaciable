@@ -1,6 +1,6 @@
  <%= render 'layouts/homeowner_head', title: t(".title"), brand: @brand, plot: @plot %>
   <body class="homeowner-view">
-    <div class="homeowner-main">
+    <div class="homeowner-main" id="homeowner-main">
       <%= render 'cookies_eu/consent_banner', link: '/cookies_policy', target: '_blank' %>
       <div class="content-container">
         <div class="header-container">
@@ -16,14 +16,3 @@
   <%= render 'components/homeowner/footer' %>
   </body>
 </html>
-
-<script>
-  /** Default settings inherited from the gem:
-   * The pop-up is only displayed once every 1440 minutes, ie once per day
-   */
-  addToHomescreen({
-    skipFirstVisit: false, // show on first visit: the user has already accepted a token so we know they are interested
-    maxDisplayCount: 3, // The user will see the pop-up for a further 2 days, then it will stop appearing
-    lifespan: 0 // The pop-up lives indefinitely, until the user closes it
-  });
-</script>

@@ -1,0 +1,22 @@
+<%= simple_form_for branded_app, url: branded_app_path(branded_app), html: { method: :put } do |f| %>
+  <div class="row branded-app-container">
+    <div class="row-item half">
+      <div class="branded-app-form">
+        <fieldset>
+          <div class="image-container">
+            <%= f.input :app_icon, label: t(".app_icon"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+          <%= f.input :android_link, label: t(".android_link") %>
+          <%= f.input :apple_link, label: t(".apple_link") %>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+
+  </div>
+<% end %>

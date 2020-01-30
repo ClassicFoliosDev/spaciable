@@ -1255,6 +1255,12 @@ en:
         new: "New"
       address:
         my_home_view_more: "View My Home"
+      app_download:
+        dismiss: "Dismiss"
+        download_app: "Download the Free App"
+        modal_title: "Take your home wherever you roam."
+        modal_content: "Download our app for quick, convenient access to your home's information."
+        not_again: "DON'T SHOW THIS AGAIN"
       sharing_info:
         modal_title: "HINTS & TIPS"
         dismiss: "Dismiss"
@@ -1490,7 +1496,7 @@ en:
       enable_house_search: "Area Guide"
       house_search_description: "Provide residents with an external link to BestArea4Me"
       enable_services: "Services"
-      services_description: "A homeowner can select moving and other services via the Spaciable landing page."
+      services_description: "A homeowner can select moving and other services via the Spaciable landing page"
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
       enable_homedesigner: "Planner 5D"
@@ -1500,6 +1506,8 @@ en:
       development_faqs: "Development FAQs"
       development_faqs_description: "Create default FAQs for each development, not at developer scope"
       prime_admin: "Primary lettings administrator"
+      branded_app: "Branded App"
+      branded_app_description: "Developer has a branded app"
     index:
       add: "Add Developer"
       actions: "Actions"
@@ -1523,6 +1531,7 @@ en:
       contacts: "Contacts"
       faqs: "FAQs"
       brands: "Styling"
+      branded_apps: "Branded App"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -1777,6 +1786,13 @@ en:
       success: "Successfully removed listing for plot %{plot_number}"
       failed: "Failed to locate listing"
       live: "The listing for plot %{plot_number} is live and cannot be deleted"
+
+  branded_apps:
+    form:
+      android_link: "Play Store Link (Android)"
+      apple_link: "Apple Store Link (iOS)"
+      app_icon: "App Icon"
+      submit: "Submit"
 
   phases:
     create:
@@ -2962,6 +2978,7 @@ en:
         bulk_edit_no_plots: "No plots to update, make sure you set the range or list values"
         bulk_edit_not_save: "%{title} %{numbers} could not be saved: %{messages}"
         bulk_edit_field_blank: "You can not remove %{field_name} from plots, a value must be provided"
+        url_format: "Please check your links are in the correct format"
       models:
         developer:
           attributes:

@@ -26,7 +26,12 @@ module DeveloperTabsHelper
       },
       contacts: { icon: :vcard },
       faqs: { icon: "question-circle" },
-      brands: { icon: "css3" }
+      brands: { icon: "css3" },
+      branded_apps: {
+        icon: "apple",
+        permissions_on: -> { developer },
+        hide: !developer.branded_app?
+      }
     }
   end
 end

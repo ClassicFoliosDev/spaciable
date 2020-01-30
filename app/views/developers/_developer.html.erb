@@ -22,3 +22,8 @@
     <%= edit_btn [:edit, developer], element: developer %>
   </div>
 </div>
+
+<% if developer.branded_app? && BrandedApp.missing_attributes?(developer) %>
+  <!-- Load the page specific javascript to handle the branded app tab-->
+  <script type="text/javascript" src="/javascripts/lib/branded_app.js"></script>
+<% end %>

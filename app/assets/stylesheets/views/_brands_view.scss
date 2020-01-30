@@ -126,3 +126,16 @@ $darker-grey: #7a8585;
     margin-top: 0px;
   }
 }
+
+.branded-app-container {
+  margin-top: $spacing-large;
+
+  .image-container .required label {
+    color: $primary-red;
+  }
+
+  .image-container .image_preview .required {
+    color: $primary-navy;
+  }
+}
+
