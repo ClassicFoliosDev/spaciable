@@ -1,4 +1,4 @@
-@poke
+@poke @javascript
 Feature: Residents
   As an admin user
   I want to see a list / show view for residents

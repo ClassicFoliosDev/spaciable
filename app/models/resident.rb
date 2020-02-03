@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Resident < ApplicationRecord
   include TitleEnum
 
@@ -110,6 +111,12 @@ class Resident < ApplicationRecord
     residency.invited_by
   end
 
+  def plot_residency_invited_date(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+
+    residency.created_at
+  end
+
   def to_s
     full_name = "#{first_name} #{last_name}"
 
@@ -141,3 +148,4 @@ class Resident < ApplicationRecord
     homeowner_listing_plots.select { |p| p.listing.live? && !p.listing.belongs_to?(self) }
   end
 end
+# rubocop:enable Metrics/ClassLength

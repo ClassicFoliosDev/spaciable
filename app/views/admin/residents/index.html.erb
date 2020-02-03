@@ -10,31 +10,27 @@
 <table class="record-list">
   <thead>
     <tr>
-      <th><%= t(".name") %></th>
-      <th><%= t(".email") %></th>
-      <th><%= t(".role") %></th>
+      <th><%= sortable(Resident, :email, t(".email")) %></th>
+      <th><%= sortable(Resident, :first_name, t(".name")) %></th>
+      <th><%= sortable(Resident, :phone_number, t(".phone_number")) %></th>
       <th><%= t(".plot_count") %></th>
-      <th><%= t(".unit_type") %></th>
-      <th><%= t(".development") %></th>
       <th><%= t(".invited_by") %></th>
-      <th><%= t(".phone_number") %></th>
+      <th><%= sortable(Resident, :invitation_accepted_at, t(".accepted_at")) %></th>
     </tr>
   </thead>
   <tbody>
     <% @residents.each do |resident| %>
     <tr data-user="<%= resident.id %>">
-      <td><%= link_to resident, admin_resident_path(resident) %></td>
-      <td><%= resident.email %></td>
-      <% if resident.plots.count.positive? %>
-        <td><%= resident.plot_residencies.first.role %></td>
-        <td><%= resident.plots.count %></td>
-        <td><%= resident.plots.first.unit_type %></td>
-        <td><%= resident.plots.first.development %></td>
-      <% else %>
-        <td colspan="4"><em><%= t(".removed") %></em></td>
-      <% end %>
-      <td><%= resident.plot_residencies.first.invited_by %></td>
+      <td><%= link_to resident.email, admin_resident_path(resident) %></td>
+      <td><%= resident %></td>
       <td><%= resident.phone_number %></td>
+      <% if resident.plots.count.positive? %>
+        <td><%= resident.plots.count %></td>
+        <td><%= resident.plot_residencies.first.invited_by %></td>
+        <td><%= l resident.invitation_accepted_at.to_date, format: :digits %></td>
+      <% else %>
+        <td colspan="3"><em><%= t(".removed") %></em></td>
+      <% end %>
     </tr>
     <% end %>
   </tbody>
