@@ -345,6 +345,11 @@ When(/^I upload a document for the phase plot$/) do
     click_on plots.first
   end
 
+  sleep 0.5
+  within ".tabs" do
+    click_on "Documents"
+  end
+
   within ".empty" do
     click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
   end
@@ -449,6 +454,11 @@ When(/^I upload an image for the phase plot$/) do
   plots = Plot.where(phase_id: CreateFixture.phase.id)
   within ".plots" do
     click_on plots.first
+  end
+
+  sleep 0.5
+  within ".tabs" do
+    click_on "Documents"
   end
 
   within ".empty" do

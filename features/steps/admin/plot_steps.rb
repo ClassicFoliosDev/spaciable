@@ -347,6 +347,12 @@ Then(/^I can not edit a plot$/) do
     click_on CreateFixture.phase_plot_name
   end
 
+  sleep 0.5
+  within ".tabs" do
+    click_on "Documents"
+  end
+  sleep 0.5
+
   within ".plot" do
     edit_links = page.all("[data-action='edit']")
     expect(edit_links.count).to eq 0
