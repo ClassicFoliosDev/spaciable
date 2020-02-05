@@ -27,7 +27,9 @@
       <% if resident.plots.count.positive? %>
         <td><%= resident.plots.count %></td>
         <td><%= resident.plot_residencies.first.invited_by %></td>
-        <td><%= l resident.invitation_accepted_at.to_date, format: :digits %></td>
+        <td><% if resident.invitation_accepted_at %>
+          <%= l resident.invitation_accepted_at.to_date, format: :digits %>
+        <% end %></td>
       <% else %>
         <td colspan="3"><em><%= t(".removed") %></em></td>
       <% end %>

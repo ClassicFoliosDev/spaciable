@@ -8,7 +8,10 @@
     <span class="about">
       <strong><%= t(".email") %></strong><%= @resident.email %><br/>
       <strong><%= t(".phone") %></strong><%= @resident.phone_number %><br/>
-      <strong><%= t(".activated") %></strong><%= l @resident.invitation_accepted_at.to_date, format: :digits %>
+      <strong><%= t(".activated") %></strong>
+      <% if @resident.invitation_accepted_at %>
+          <%= l resident.invitation_accepted_at.to_date, format: :digits %>
+      <% end %></td>
     </span>
   </div>
 </div>
