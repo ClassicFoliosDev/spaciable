@@ -7,9 +7,10 @@ When(/^I create a finish type$/) do
     click_on I18n.t("finish_types.collection.add")
   end
 
+  Capybara.ignore_hidden_elements = false
   within ".finish_type" do
     fill_in "finish_type_name", with: FinishTypeFixture.name
-    select_from_selectmenu "finish-type-finish-category", with: CreateFixture.finish_category_name
+    select CreateFixture.finish_category_name, from: :finish_type_finish_category_ids
   end
 
   click_on I18n.t("finish_types.form.submit")
@@ -82,10 +83,26 @@ Then(/^I should see the finish created successfully$/) do
   expect(page).to have_content(CreateFixture.finish_category_name)
 end
 
-Then(/^I should see the finish type delete complete successfully$/) do
+When(/^I delete the finish type$/) do
+  visit "./finish_types"
+  finish_type = FinishType.find_by(name: CreateFixture.finish_type_name)
+
+  delete_scope = "[data-finish-type='#{finish_type.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+When(/^I delete the (.*) finish type$/) do |type|
+  visit "./finish_types"
+  finish_type = FinishType.find_by(name: eval(type))
+
+  delete_scope = "[data-finish-type='#{finish_type.id}']"
+  delete_and_confirm!(scope: delete_scope)
+end
+
+Then(/^I should see the (.*) finish type delete complete successfully$/) do |type|
   success_flash = t(
     "controller.success.destroy",
-    name: CreateFixture.finish_type_name
+    name: eval(type)
   )
 
   expect(page).to have_content(success_flash)

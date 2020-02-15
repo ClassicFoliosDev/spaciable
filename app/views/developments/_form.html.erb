@@ -62,6 +62,11 @@
         <p class="checkbox-description"><%= t(".snagging_description") %></p>
         <%= f.input :snag_duration, label: t(".snag_duration") %>
         <%= f.input :snag_name, label: t(".snag_name") %>
+        <% if development.parent_developer.cas %>
+          <%= f.label t(".enable_cas") %>
+          <%= f.check_box :cas %>
+          <p class="checkbox-description"><%= t(".cas_description") %></p>
+        <% end %>
       </fieldset>
     </div>
   </div>

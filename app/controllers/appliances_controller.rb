@@ -3,7 +3,8 @@
 class AppliancesController < ApplicationController
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource :appliance
+  load_and_authorize_resource :appliance, except: %i[appliance_manufacturers_list appliance_list]
+  skip_authorization_check only: %i[appliance_manufacturers_list appliance_list]
 
   def index
     @appliances = @appliances.includes(:appliance_category, :appliance_manufacturer)
@@ -36,23 +37,18 @@ class AppliancesController < ApplicationController
   end
 
   def destroy
-    @appliance.destroy
+    @appliance.really_destroy!
     notice = t(".success", name: @appliance.to_s)
     redirect_to appliances_path, notice: notice
   end
 
   def appliance_manufacturers_list
-    appliance_manufacturers = ApplianceManufacturer.all
+    appliance_manufacturers = ApplianceManufacturer.visible_too(current_user).order(:name)
     render json: appliance_manufacturers
   end
 
   def appliance_list
-    appliances = Appliance.joins(:appliance_category, :appliance_manufacturer)
-                          .where(appliance_categories: { name: params[:category_name] },
-                                 appliance_manufacturers: { name: params[:option_name] })
-                          .order(:model_num)
-                          .distinct
-
+    appliances = Appliance.with_cat_man(params, current_user)
     render json: appliances
   end
 

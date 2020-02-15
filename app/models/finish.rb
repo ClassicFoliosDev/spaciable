@@ -4,19 +4,51 @@ class Finish < ApplicationRecord
   acts_as_paranoid
 
   include PgSearch
-  multisearchable against: [:name], using: %i[tsearch trigram]
+  multisearchable against: %i[full_name],
+                  using: %i[tsearch trigram]
 
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
+  attr_accessor :added_by
 
   belongs_to :finish_category, required: true
   belongs_to :finish_type, required: true
   belongs_to :finish_manufacturer
+  belongs_to :developer, optional: true
 
   has_many :finish_rooms, inverse_of: :finish, dependent: :delete_all
   has_many :rooms, through: :finish_rooms
   has_many :choices, as: :choiceable
-  validates :name, presence: true, uniqueness: true
+
+  scope :visible_to,
+        lambda { |user|
+          where("developer_id #{user.developer.nil? ? 'IS NULL' : '=' + user.developer.to_s}")
+        }
+
+  scope :with_cat_type_man,
+        lambda { |params|
+          joins(:finish_category, :finish_type, :finish_manufacturer)
+            .where(finish_types: { id: params[:type] },
+                   finish_categories: { id: params[:category] },
+                   finish_manufacturers: { id: params[:manufacturer] })
+            .order(:name)
+        }
+
+  scope :with_cat_type,
+        lambda { |params|
+          joins(:finish_category, :finish_type)
+            .where(finish_types: { id: params[:type] },
+                   finish_categories: { id: params[:category] })
+            .order(:name)
+        }
+
+  validates :name,
+            presence: true,
+            uniqueness:
+            {
+              scope: %i[finish_category finish_type finish_manufacturer developer],
+              case_sensitive: false
+            }
 
   def to_s
     name
@@ -34,7 +66,7 @@ class Finish < ApplicationRecord
   end
 
   def full_name
-    "#{finish_manufacturer&.name&.upcase} #{name} #{finish_type&.name&.upcase}".strip
+    "#{finish_manufacturer&.name} #{name} #{finish_type&.name}".strip
   end
 
   def short_name

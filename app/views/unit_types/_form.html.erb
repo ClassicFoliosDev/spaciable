@@ -19,7 +19,6 @@
           <%= f.input :picture, as: :image_preview, label: t(".picture"), input_html: { preview_version: :thumbnail } %>
         </div>
         <%= f.input :name, label: t(".name") %>
-        <%= f.input :build_type, label: t(".build_type"), as: :select, collection: build_types_collection, include_blank: false %>
       </fieldset>
     </div>
     <div class="row-item third">

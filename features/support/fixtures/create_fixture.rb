@@ -20,6 +20,7 @@ module CreateFixture
     spanish_division_phase: "Beta (Division) Phase",
     division_contact: "John",
     finish: "Fluffy carpet",
+    finish_dup: "Fluffier carpet",
     phase: "Alpha Phase",
     spanish_phase: "Barca Phase",
     plot: "100",
@@ -35,6 +36,7 @@ module CreateFixture
     lounge: "Living Room",
     kitchen: "Kitchen",
     unit_type: "8 Bedrooms",
+    second_unit_type: "Banjiha",
     how_to: "How to dig yourself a hole",
     contact: "Jane",
     faq: "How do I dig holes?",
@@ -91,12 +93,25 @@ module CreateFixture
     "Washing Machine"
   end
 
+  # Category and type selects for appliances and finishes
+  def developer_appliance_category_name
+    "Vaccuum"
+  end
+
   def appliance_manufacturer_name
     "Bosch"
   end
 
+  def developer_appliance_manufacturer_name
+    "Bish"
+  end
+
   def finish_manufacturer_name
     "Farrow & Ball"
+  end
+
+  def seeded_finish_manufacturer_name
+    "Cormar Carpets"
   end
 
   def finish_category_name
@@ -131,6 +146,10 @@ module CreateFixture
     Developer.find_by(company_name: spanish_developer_name).id
   end
 
+  def another_unit_type_name
+    "Another"
+  end
+
   # FACTORIES
 
   def create_admin(admin_type = :cf, parent = nil)
@@ -142,20 +161,20 @@ module CreateFixture
     FactoryGirl.create(:cf_admin)
   end
 
-  def create_developer_admin
-    FactoryGirl.create(:developer_admin, permission_level: CreateFixture.developer, password: admin_password)
+  def create_developer_admin(cas: false)
+    FactoryGirl.create(:developer_admin, permission_level: CreateFixture.developer, password: admin_password, cas: cas)
   end
 
-  def create_division_admin
-    FactoryGirl.create(:division_admin, permission_level: CreateFixture.division, password: admin_password)
+  def create_division_admin(cas: false)
+    FactoryGirl.create(:division_admin, permission_level: CreateFixture.division, password: admin_password, cas: cas)
   end
 
-  def create_development_admin
-    FactoryGirl.create(:development_admin, permission_level: CreateFixture.development, password: admin_password)
+  def create_development_admin(cas: false)
+    FactoryGirl.create(:development_admin, permission_level: CreateFixture.development, password: admin_password, cas: cas)
   end
 
-  def create_site_admin
-    FactoryGirl.create(:site_admin, permission_level: CreateFixture.development, password: admin_password)
+  def create_site_admin(cas: false)
+    FactoryGirl.create(:site_admin, permission_level: CreateFixture.development, password: admin_password, cas: cas)
   end
 
   def create_division_development_admin
@@ -182,10 +201,10 @@ module CreateFixture
     create_spanish_development
   end
 
-  def create_developer
-    return if developer
+  def create_developer(cas: false)
+    return developer if developer
     country = FactoryGirl.create(:country)
-    FactoryGirl.create(:developer, company_name: developer_name, house_search: true, country_id: country.id)
+    FactoryGirl.create(:developer, company_name: developer_name, house_search: true, country_id: country.id, cas: cas)
   end
 
   def create_spanish_developer
@@ -197,37 +216,37 @@ module CreateFixture
   end
 
   def create_division
-    return if division
+    return division if division
     FactoryGirl.create(:division, division_name: division_name, developer: developer)
   end
 
   def create_spanish_division
-    return if spanish_division
+    return spanish_division if spanish_division
     FactoryGirl.create(:division, division_name: spanish_division_name, developer: spanish_developer)
   end
 
-  def create_development
-    return if development
-    FactoryGirl.create(:development, name: development_name, developer: developer)
+  def create_development(cas: false)
+    return development if development
+    FactoryGirl.create(:development, name: development_name, developer: developer, cas: cas)
   end
 
   def create_spanish_development
-    return if spanish_development
+    return spanish_development if spanish_development
     FactoryGirl.create(:development, name: spanish_development_name, developer: spanish_developer)
   end
 
-  def create_division_development
-    return if division_development
-    FactoryGirl.create(:division_development, name: division_development_name, division: division, enable_snagging: true, snag_duration: "7")
+  def create_division_development(cas: false)
+    return division_development if division_development
+    FactoryGirl.create(:division_development, name: division_development_name, division: division, enable_snagging: true, snag_duration: "7", cas: cas)
   end
 
   def create_spanish_division_development
-    return if spanish_division_development
+    return spanish_division_development if spanish_division_development
     FactoryGirl.create(:division_development, name: spanish_division_development_name, division: spanish_division)
   end
 
-  def create_unit_type
-    FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
+  def create_unit_type(name=unit_type_name)
+    FactoryGirl.create(:unit_type, name: name, development: development)
   end
 
   def create_spanish_unit_type
@@ -242,8 +261,9 @@ module CreateFixture
     FactoryGirl.create(:unit_type, name: unit_type_name, development: spanish_division_development)
   end
 
-  def create_room
-    FactoryGirl.create(:room, name: room_name, unit_type: unit_type)
+  def create_room(name=room_name, ut=unit_type)
+    last_user = cf_admin || create_cf_admin
+    FactoryGirl.create(:room, name: name, unit_type: ut, last_updated_by: last_user.display_name)
   end
 
   def unit_type_rooms
@@ -254,24 +274,30 @@ module CreateFixture
   def create_unit_type_rooms
     ut = UnitType.find_by(name: unit_type_name)
     unit_type_rooms.each do |roomname|
-      FactoryGirl.create(:room, name: roomname, unit_type: ut)
+      FactoryGirl.create(:room, name: roomname, unit_type: ut, last_updated_by: cf_admin.display_name)
     end
   end
 
-  def appliance_category
-    ApplianceCategory.find_or_create_by(name: appliance_category_name)
+  def appliance_category(developer=nil, name=appliance_category_name)
+    ApplianceCategory.find_or_create_by(name: name, developer: developer)
   end
 
-  def create_finish_manufacturer
+  def developer_appliance_category
+    ApplianceCategory.find_or_create_by(name: developer_appliance_category_name, developer: developer)
+  end
+
+  def create_finish_manufacturer(developer=nil)
     FactoryGirl.create(:finish_manufacturer,
                        name: finish_manufacturer_name,
-                       finish_types: [create_finish_type])
+                       finish_types: [create_finish_type],
+                       developer: developer)
   end
 
-  def create_appliance_manufacturer
+  def create_appliance_manufacturer(developer=nil, name=appliance_manufacturer_name)
     FactoryGirl.create(:appliance_manufacturer,
-                       name: appliance_manufacturer_name,
-                       link: manufacturer_link)
+                       name: name,
+                       link: manufacturer_link,
+                       developer: developer)
   end
 
   def create_countries
@@ -279,12 +305,13 @@ module CreateFixture
     FactoryGirl.create(:country, name: "Spain")
   end
 
-  def create_appliance
+  def create_appliance(developer=nil, model_num=appliance_name)
     FactoryGirl.create(:appliance,
                        appliance_category: appliance_category,
                        appliance_manufacturer: appliance_manufacturer,
                        e_rating: energy_rating,
-                       model_num: appliance_name)
+                       model_num: model_num,
+                       developer: developer)
   end
 
   def create_appliances
@@ -341,26 +368,30 @@ module CreateFixture
   end
 
   def create_appliance_room
-    FactoryGirl.create(:appliance_room, room: room, appliance: appliance)
+    FactoryGirl.create(:appliance_room, room: room, appliance: appliance, added_by: "tester")
   end
 
-  def create_finish_category
-    FinishCategory.find_or_create_by(name: finish_category_name)
+  def create_finish_category(developer=nil)
+    FinishCategory.find_or_create_by(name: finish_category_name, developer: developer)
   end
 
-  def create_finish_type
-    finish_category = create_finish_category
+  def create_finish_type(developer=nil)
+    finish_category = create_finish_category(developer)
     FactoryGirl.create(:finish_type,
                        name: finish_type_name,
-                       finish_categories: [finish_category])
+                       finish_categories: [finish_category],
+                       developer: developer)
   end
 
-  def create_finish
-    FactoryGirl.create(:finish, name: finish_name, finish_category: create_finish_category, finish_type: create_finish_type)
+  def create_finish(developer=nil)
+    FactoryGirl.create(:finish, name: finish_name, 
+                       finish_category: create_finish_category(developer), 
+                       finish_type: create_finish_type(developer), 
+                       developer: developer)
   end
 
   def create_finish_room
-    FactoryGirl.create(:finish_room, room: room, finish: create_finish)
+    FactoryGirl.create(:finish_room, room: room, finish: create_finish, added_by: "tester")
   end
 
   def create_development_phase
@@ -410,8 +441,8 @@ module CreateFixture
                                  locality: "catalonia", postcode: "12211")
   end
 
-  def create_phase_plot
-    FactoryGirl.create(:phase_plot, phase: phase, number: phase_plot_name, unit_type: unit_type)
+  def create_phase_plot(p=phase)
+    FactoryGirl.create(:phase_plot, phase: p, number: phase_plot_name, unit_type: unit_type)
   end
 
   def create_phase_plots
@@ -454,6 +485,13 @@ module CreateFixture
       appliance = Appliance.find_by(model_num: "#{APPLIANCERESOURCES[0]}#{app.to_s}")
       Choice.new(choiceable_type: Appliance.to_s, choiceable_id: appliance.id, room_item_id: room_item.id).save
     end
+  end
+
+  def create_many_plots(phase=CreateFixture.phase, development=CreateFixture.development)
+    FactoryGirl.create(:unit_type, name: CreateFixture.another_unit_type_name, development: development)
+    FactoryGirl.create(:plot, phase: phase, number: 180, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")
+    FactoryGirl.create(:plot, phase: phase, number: 181, road_name: "Bulk Edit Road B", prefix: "Flat")
+    FactoryGirl.create(:plot, unit_type: CreateFixture.unit_type, phase: phase, number: 182, road_name: "Bulk Edit Road C", prefix: "Flat", house_number: "18A", postcode: "AA 1AB")
   end
 
   def create_development_with_plots_and_choices
@@ -648,7 +686,7 @@ module CreateFixture
     Phase.find_by(name: phase_name)
   end
 
-   def spanish_phase
+  def spanish_phase
     Phase.find_by(name: spanish_phase_name)
   end
 

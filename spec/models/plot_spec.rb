@@ -15,8 +15,10 @@ RSpec.describe Plot do
   describe "#rooms" do
     context "when there are only unit type rooms" do
       it "should return all unit type rooms" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
-        unit_type_rooms = create_list(:room, 3, unit_type: unit_type)
+        unit_type_rooms = create_list(:room, 3, unit_type: unit_type, last_updated_by: development_admin.display_name)
         plot = create(:plot, unit_type: unit_type)
 
         expect(plot.rooms).to match_array(unit_type_rooms)
@@ -25,11 +27,13 @@ RSpec.describe Plot do
 
     context "when there are plot_rooms as well as unit type rooms" do
       it "should return all plot_rooms and all unit_type rooms" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
 
-        unit_type_room = create(:room, unit_type: unit_type)
-        plot_room = create(:room, plot: plot)
+        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
+        plot_room = create(:room, plot: plot, last_updated_by: development_admin.display_name)
 
         expect(plot.rooms).to match_array([unit_type_room, plot_room])
       end
@@ -37,11 +41,13 @@ RSpec.describe Plot do
 
     context "when plot rooms use a unit type room as a template" do
       it "should not return the unit type rooms that are being used as templates for plot rooms" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
 
-        unit_type_room = create(:room, unit_type: unit_type)
-        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id)
+        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
+        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id, last_updated_by: development_admin.display_name)
 
         expect(plot.rooms).to match_array([plot_room])
       end
@@ -49,11 +55,13 @@ RSpec.describe Plot do
 
     context "when a templated plot room has been deleted" do
       it "should not return the unit type room template" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
+
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
-
-        unit_type_room = create(:room, unit_type: unit_type)
-        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id)
+        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
+        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id, last_updated_by: development_admin.display_name)
         plot_room.destroy
 
         expect(plot.rooms).to match_array([])
@@ -62,11 +70,14 @@ RSpec.describe Plot do
 
     context "when the template unit type room for a plot room has been deleted" do
       it "should still return the templated plot room" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
+
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
 
-        unit_type_room = create(:room, unit_type: unit_type)
-        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id)
+        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
+        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id, last_updated_by: development_admin.display_name)
         unit_type_room.destroy
 
         expect(plot.rooms).to match_array([plot_room])

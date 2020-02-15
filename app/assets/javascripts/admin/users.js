@@ -5,6 +5,7 @@ document.addEventListener('turbolinks:load', function () {
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')
+  var $user_role = $('#cas').attr('data-userrole')
 
   $roleSelect.selectmenu({
     create: function (event, ui) {
@@ -17,10 +18,12 @@ document.addEventListener('turbolinks:load', function () {
       var role = ui.item.value
 
       showRoleResourcesOnly(role)
+
+      setCas()
     }
   })
 
-  showRoleResourcesOnly ($('#user_role').val())  
+  showRoleResourcesOnly ($('#user_role').val())
 
   function developerSelectmenuCallbacks () {
     return {
@@ -41,6 +44,8 @@ document.addEventListener('turbolinks:load', function () {
 
         fetchDivisionResources({ developerId: developerId })
         fetchDevelopmentResources({ developerId: developerId })
+
+        setCasEnabledFromDeveloper(developerId)
       }
     }
   };
@@ -124,7 +129,7 @@ document.addEventListener('turbolinks:load', function () {
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, client_specifications').hide()
       $("#plot_check").prop("checked", true);
       $("#choice_check").prop("checked", true);
       $("#snag_check").prop("checked", true)
@@ -142,5 +147,40 @@ document.addEventListener('turbolinks:load', function () {
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };
+  };
+
+  // Get the CAS enablement from the developer and display the CAS enablement
+  // if necessary
+  function setCasEnabledFromDeveloper(developer)
+  {
+    // development_admins must not be able to see/set CAS
+    if ($user_role != "development_admin") {
+      $.getJSON({
+      url: '/developers/' + developer+ '/cas',
+      data: {}
+      }).done(function (results) {
+        cas = results['cas']
+        if (results['cas']) {
+          $('.client_specifications').show()
+        }
+        else {
+          $('.client_specifications').hide()
+        }
+      })
+    }
+  };
+
+  function setCas()
+  {
+    // development_admins must not be able to set CAS - it should just
+    // maintain it's set state
+    if ($user_role != "development_admin") {
+      role = $('.user_role select').find('option:selected').attr('value')
+      // CAS is always true for developer/division admin and cannot be edited,
+      // otherwise false and can be edited
+      dev_div_admin = (role === 'developer_admin' || role === 'division_admin')
+      $("#cas_check").prop("checked", dev_div_admin)
+      $("#cas_check").prop("disabled", dev_div_admin)
+    }
   };
 })

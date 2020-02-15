@@ -6,5 +6,5 @@
   </div>
 </div>
 
-<%= render 'components/tabs', tabs: appliance_tabs(nil, @active_tab) %>
+<%= render 'components/tabs', tabs: appliance_tabs(nil, @active_tab, current_user.developer) %>
 <%= render_collection @appliances, room: nil %>

@@ -35,6 +35,7 @@ module Developers
       @development.build_address unless @development.address
       @maintenance = Maintenance.new
       @development.build_maintenance unless @development.maintenance
+      @development.cas = @development.parent_developer.cas
     end
 
     def edit
@@ -89,7 +90,7 @@ module Developers
         :email,
         :contact_number,
         :enable_snagging,
-        :snag_duration, :snag_name,
+        :snag_duration, :snag_name, :cas,
         maintenance_attributes: %i[id path account_type populate],
         address_attributes: %i[postal_number road_name building_name
                                locality city county postcode]

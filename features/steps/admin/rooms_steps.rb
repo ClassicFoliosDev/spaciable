@@ -1,19 +1,7 @@
 # frozen_string_literal: true
 
 When(/^I create a room with no room name$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t("developers.index.developments")
-  end
-
-  within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t("developments.collection.unit_types")
-  end
+  navigate_to_unit_type
 
   click_on t("unit_types.collection.rooms")
   click_on t("components.empty_list.add", type_name: Room.model_name.human.titleize)
@@ -70,20 +58,8 @@ Then(/^I should see the updated room$/) do
   end
 end
 
-When(/^I add a finish$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t("developers.index.developments")
-  end
-
-  within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t("developments.collection.unit_types")
-  end
+When(/^I (search for and )*add a finish$/) do |search|
+  navigate_to_unit_type
 
   click_on t("unit_types.collection.rooms")
 
@@ -95,9 +71,24 @@ When(/^I add a finish$/) do
 
   click_on t("components.empty_list.add", type_name: Finish.model_name.human.titleize)
 
-  select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
-  select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
-  select_from_selectmenu :finishes, with: CreateFixture.finish_name
+  if search.present?
+    full_name = Finish.find_by(name: CreateFixture.finish_name).full_name
+
+    [CreateFixture.finish_type_name,
+     CreateFixture.finish_name].each do |search|
+      fill_in 'finish_room_search_finish_text', :with => CreateFixture.finish_type_name
+      find('.search-finish-btn').click
+
+      within "#finishes-button" do
+        find('span', text: "Choose..")
+      end
+      select_from_selectmenu :finishes, with: full_name
+    end
+  else
+    select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
+    select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
+    select_from_selectmenu :finishes, with: CreateFixture.finish_name
+  end
 
   click_on t("rooms.form.submit")
 end
@@ -146,26 +137,15 @@ Then(/^I should see the room with no finish$/) do
   end
 end
 
-And(/^I have created a room$/) do
+And(/^I have created a room$/) do  
   CreateFixture.create_developer_with_development
-  CreateFixture.create_unit_type
-  CreateFixture.create_room
+  CreateFixture.create_unit_type if !$current_user.division_admin?
+  CreateFixture.create_division_development_unit_type if $current_user.division_admin?
+  CreateFixture.create_room  
 end
 
 When(/^I add an appliance$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t("developers.index.developments")
-  end
-
-  within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t("developments.collection.unit_types")
-  end
+  navigate_to_unit_type
 
   click_on Room.model_name.human
 
@@ -242,12 +222,61 @@ Then(/^I should see the room deletion complete successfully$/) do
   expect(page).to have_content(success_flash)
 
   within ".breadcrumbs" do
-    expect(page).to have_content(CreateFixture.development_name)
+    expect(page).to have_content(CreateFixture.development_name) if !$current_user.division_admin?
+    expect(page).to have_content(CreateFixture.division_development_name) if $current_user.division_admin?
   end
 
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
     expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Room.model_name.human)}}i
+  end
+end
+
+def navigate_to_unit_type
+  visit "/"
+
+  development_id = CreateFixture.development.id
+  case $current_user.role
+    when "cf_admin"
+      within ".navbar" do
+        click_on t("components.navigation.developers")
+      end
+      within "[data-developer='#{CreateFixture.developer_id}']" do
+        click_on t("developers.index.developments")
+      end
+    when "developer_admin"
+      within ".navbar" do
+        click_on t("components.navigation.my_developer")
+      end
+
+      within ".tabs" do
+        click_on t("developers.index.developments")
+      end
+    when "division_admin"
+      development_id = CreateFixture.division_development.id
+
+      within ".navbar" do
+        click_on t("components.navigation.my_division")
+      end
+
+      within ".tabs" do
+        click_on t("developers.index.developments")
+      end
+    when "development_admin", "site_admin"
+      within ".navbar" do
+        click_on t("components.navigation.my_development")
+      end
+  end
+
+  case $current_user.role
+    when "cf_admin", "developer_admin", "division_admin"
+      within "[data-development='#{development_id}']" do
+        visit find('a', text: "Unit Types")[:href]
+      end
+    when "development_admin", "site_admin"
+      within ".tabs" do
+        visit find('a', text: "Unit Types")[:href]
+      end
   end
 end

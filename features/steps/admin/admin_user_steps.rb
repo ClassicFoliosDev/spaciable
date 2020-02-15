@@ -8,32 +8,32 @@ Given(/^I am logged in as a CF Admin$/) do
   visit "/"
 end
 
-Given(/^I am logged in as a Developer Admin$/) do
-  AdminUsersFixture.create_permission_resources
-  admin = CreateFixture.create_developer_admin
+Given(/^I am logged in as a Developer Admin( with CAS)*$/) do |cas|
+  AdminUsersFixture.create_permission_resources(cas: cas.present?)
+  admin = CreateFixture.create_developer_admin(cas: cas.present?)
   login_as admin
   visit "/"
 end
 
-Given(/^I am logged in as a Division Admin$/) do
-  AdminUsersFixture.create_permission_resources
-  admin = CreateFixture.create_division_admin
-
-  login_as admin
-  visit "/"
-end
-
-Given(/^I am logged in as a Development Admin$/) do
-  AdminUsersFixture.create_permission_resources
-  admin = CreateFixture.create_development_admin
+Given(/^I am logged in as a Division Admin( with CAS)*$/) do |cas|
+  AdminUsersFixture.create_permission_resources(cas: cas.present?)
+  admin = CreateFixture.create_division_admin(cas: cas.present?)
 
   login_as admin
   visit "/"
 end
 
-Given(/^I am logged in as a Site Admin$/) do
-  AdminUsersFixture.create_permission_resources
-  admin = CreateFixture.create_site_admin
+Given(/^I am logged in as a Development Admin( with CAS)*$/) do |cas|
+  AdminUsersFixture.create_permission_resources(cas: cas.present?)
+  admin = CreateFixture.create_development_admin(cas: cas.present?)
+
+  login_as admin
+  visit "/"
+end
+
+Given(/^I am logged in as a Site Admin( with CAS)*$/) do |cas|
+  AdminUsersFixture.create_permission_resources(cas: cas.present?)
+  admin = CreateFixture.create_site_admin(cas: cas.present?)
 
   login_as admin
   visit "/"
@@ -60,6 +60,8 @@ When(/^I add a new CF Admin$/) do
   within ".user_email" do
     fill_in :user_email, with: AdminUsersFixture.second_cf_admin_attrs[:email_address]
   end
+
+  cas_validate(visible: false, disabled: true, checked: false)
 
   select "CF Admin", visible: false
   click_on t("admin.users.form.submit")
@@ -126,48 +128,24 @@ Then(/^I should not see the deleted CF Admin$/) do
   end
 end
 
-When(/^I add a new Developer Admin$/) do
+When(/^I add a new (.*) user$/) do |role|
   visit "/admin/users"
 
   within ".section-actions" do
     click_on t("admin.users.index.add")
   end
 
-  attrs = AdminUsersFixture.developer_admin_attrs
-
-  within ".user_email" do
-    fill_in "user[email]", with: attrs[:email_address]
+  attrs = nil
+  case role
+    when "Developer Admin"
+      attrs = AdminUsersFixture.developer_admin_attrs
+    when "Division Admin"
+      attrs = AdminUsersFixture.division_admin_attrs
+    when "Development Admin"
+      attrs = AdminUsersFixture.development_admin_attrs
+    when "Division Development Admin"
+      attrs = AdminUsersFixture.division_development_admin_attrs
   end
-
-  #select attrs[:role], :from => "user_role", visible: false
-
-  select_from_selectmenu :user_role, with: attrs[:role]
-  select_from_selectmenu :user_developer_id, with: attrs[:developer]
-
-  click_on t("admin.users.form.submit")
-end
-
-Then(/^I should see the new Developer Admin$/) do
-  attrs = AdminUsersFixture.developer_admin_attrs
-
-  within ".record-list" do
-    expect(page).to have_content(attrs[:role])
-    expect(page).to have_content(attrs[:email])
-  end
-
-  click_on attrs[:email_address]
-
-  expect(page).to have_content(attrs[:email_address])
-  expect(page).to have_content(attrs[:role])
-  expect(page).to have_content(attrs[:developer])
-
-  click_on t("admin.users.show.back")
-end
-
-When(/^I add a new Division Admin$/) do
-  click_on t("admin.users.index.add")
-
-  attrs = AdminUsersFixture.division_admin_attrs
 
   within ".user_email" do
     fill_in "user[email]", with: attrs[:email_address]
@@ -175,95 +153,43 @@ When(/^I add a new Division Admin$/) do
 
   select_from_selectmenu :user_role, with: attrs[:role]
   select_from_selectmenu :user_developer_id, with: attrs[:developer]
-  select_from_selectmenu :user_division_id, with: attrs[:division]
+  select_from_selectmenu :user_division_id, with: attrs[:division] if attrs[:division]
+  select_from_selectmenu :user_development_id, with: attrs[:development] if attrs[:development]
+
+  visible = CreateFixture.developer.cas
+  disabled = (role == "Developer Admin" || role == "Division Admin")
+  checked = (role == "Developer Admin" || role == "Division Admin")
+  cas_validate(visible: visible, disabled: disabled, checked: checked)
 
   click_on t("admin.users.form.submit")
 end
 
-Then(/^I should see the new Division Admin$/) do
-  attrs = AdminUsersFixture.division_admin_attrs
+Then(/^I should see the new (.*) user$/) do |role|
+
+  attrs = nil
+  case role
+    when "Developer Admin"
+      attrs = AdminUsersFixture.developer_admin_attrs
+    when "Division Admin"
+      attrs = AdminUsersFixture.division_admin_attrs
+    when "Development Admin"
+      attrs = AdminUsersFixture.development_admin_attrs
+    when "Division Development Admin"
+      attrs = AdminUsersFixture.division_development_admin_attrs
+  end
 
   within ".record-list" do
-    expect(page).to have_content(attrs[:email])
     expect(page).to have_content(attrs[:role])
+    expect(page).to have_content(attrs[:email_address])
   end
 
   click_on attrs[:email_address]
 
   expect(page).to have_content(attrs[:email_address])
   expect(page).to have_content(attrs[:role])
-  expect(page).to have_content(attrs[:division])
-
-  click_on t("admin.users.show.back")
-end
-
-When(/^I add a Development Admin$/) do
-  visit "/admin/users"
-
-  within ".section-actions" do
-    click_on t("admin.users.index.add")
-  end
-
-  attrs = AdminUsersFixture.development_admin_attrs
-
-  within ".user_email" do
-    fill_in :user_email, with: attrs[:email_address]
-  end
-
-  select_from_selectmenu :user_role, with: attrs[:role]
-  select_from_selectmenu :user_developer_id, with: attrs[:developer]
-  select_from_selectmenu :user_development_id, with: attrs[:development]
-
-  click_on t("admin.users.form.submit")
-end
-
-Then(/^I should see the new Development Admin$/) do
-  attrs = AdminUsersFixture.development_admin_attrs
-
-  within ".record-list" do
-    expect(page).to have_content(attrs[:email])
-    expect(page).to have_content(attrs[:role])
-  end
-
-  click_on attrs[:email_address]
-
-  expect(page).to have_content(attrs[:email_address])
-  expect(page).to have_content(attrs[:role])
-  expect(page).to have_content(attrs[:development])
-
-  click_on t("admin.users.show.back")
-end
-
-When(/^I add a \(division\) Development Admin$/) do
-  click_on t("admin.users.index.add")
-
-  attrs = AdminUsersFixture.division_development_admin_attrs
-
-  within ".user_email" do
-    fill_in :user_email, with: attrs[:email_address]
-  end
-
-  select_from_selectmenu :user_role, with: attrs[:role]
-  select_from_selectmenu :user_developer_id, with: attrs[:developer]
-  select_from_selectmenu :user_division_id, with: attrs[:division]
-  select_from_selectmenu :user_development_id, with: attrs[:development]
-
-  click_on t("admin.users.form.submit")
-end
-
-Then(/^I should see the new \(division\) Development Admin$/) do
-  attrs = AdminUsersFixture.division_development_admin_attrs
-
-  within ".record-list" do
-    expect(page).to have_content(attrs[:email])
-    expect(page).to have_content(attrs[:role])
-  end
-
-  click_on attrs[:email_address]
-
-  expect(page).to have_content(attrs[:email_address])
-  expect(page).to have_content(attrs[:role])
-  expect(page).to have_content(attrs[:development])
+  expect(page).to have_content(attrs[:developer]) unless (attrs[:division] || attrs[:development])
+  expect(page).to have_content(attrs[:division]) if (attrs[:division] && !attrs[:development])
+  expect(page).to have_content(attrs[:development]) if attrs[:development]
 
   click_on t("admin.users.show.back")
 end
@@ -564,4 +490,18 @@ Then(/^I cannot enable my division development users to perform lettings$/) do
   find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.division_development_admins.first.id}/edit']").click
   expect(page).to have_content t("admin.users.form.administer_branch")
   expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)  
+end
+
+When(/the developer has CAS (.*)$/) do |status|
+  Developer.find(CreateFixture.developer.id).update_attributes(cas: status == "enabled")
+end
+
+def cas_validate(visible: false, disabled: true, checked: false)
+
+  if visible
+    expect(page).to have_content(t("admin.users.form.adds_specifications"))
+    expect(page).to have_field 'cas_check', disabled: disabled, checked: checked
+  else
+    expect(page).not_to have_content(t("admin.users.form.adds_specifications"))
+  end
 end

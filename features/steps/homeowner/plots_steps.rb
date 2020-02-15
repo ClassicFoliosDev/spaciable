@@ -12,7 +12,7 @@ When(/^I log in as homeowner$/) do
 end
 
 Then(/^I see all the plots I own$/) do
-  within ".session-inner" do
+  within ".session-inner .full-menu" do
     plot_list_button = page.find(".my-plots")
     plot_list_button.trigger(:click)
   end
@@ -43,7 +43,7 @@ Given(/^there is another division phase plot$/) do
 end
 
 When(/^I show the plots$/) do
-  within ".session-inner" do
+  within ".session-inner .full-menu" do
     plot_list_button = page.find(".my-plots")
     plot_list_button.trigger(:click)
 

@@ -8,6 +8,9 @@
     <div><%= development.name %></div>
     <span class="about">
       <br/>
+      <% if development.cas %>
+        <strong><%= t("cas_enabled") %><br/>
+      <% end %>
       <strong><%= t(".snagging") %></strong><%= development.enable_snagging? ? "#{development.snag_duration} days" : "Disabled" %><br/><br/>
       <strong><%= t(".active_plots") %></strong><%= development.active_plots_count %><br/>
       <strong><%= t(".completed_plots") %></strong><%= development.completed_plots_count %><br/>

@@ -15,7 +15,7 @@ RSpec.describe "Resident Document Abilities" do
   let(:cf_admin) { create(:cf_admin) }
 
   context "a homeowner resident" do
-    subject { Ability.new(current_resident, phase_plot) }
+    subject { Ability.new(current_resident, plot: phase_plot) }
     let(:current_resident) { create(:resident, :with_residency, plot: phase_plot) }
 
     it "cannot read documents for someone else's plot" do
@@ -74,7 +74,7 @@ RSpec.describe "Resident Document Abilities" do
   end
 
   context "a tenant resident" do
-    subject { Ability.new(current_tenant, phase_plot) }
+    subject { Ability.new(current_tenant, plot: phase_plot) }
     let(:current_tenant) { create(:resident, :with_tenancy, plot: phase_plot) }
     let(:another_plot) { create(:plot, phase: phase) }
 

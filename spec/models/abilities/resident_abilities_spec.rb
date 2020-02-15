@@ -5,7 +5,8 @@ require "cancan/matchers"
 
 RSpec.describe "Resident Abilities" do
   context "with a plot residency" do
-    subject { Ability.new(current_resident, plot) }
+    subject { Ability.new(current_resident, plot: plot) }
+    let(:developer_admin) { create(:developer_admin, permission_level: plot.developer) }
     let(:current_resident) { create(:resident, :with_residency) }
     let(:plot) { current_resident.plots.first }
 
@@ -43,45 +44,53 @@ RSpec.describe "Resident Abilities" do
 
     it "has READ access to the plots unit types rooms" do
       unit_type = plot.unit_type
-      room = create(:room, unit_type: unit_type)
+      room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
 
       expect(subject).to be_able_to(:read, room)
     end
 
     it "cannot read unit type rooms used as plot room templates" do
       unit_type = plot.unit_type
-      template_room = create(:room, unit_type: unit_type)
+      template_room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
 
-      create(:room, plot: plot, template_room_id: template_room.id)
+      create(:room, plot: plot, template_room_id: template_room.id, last_updated_by: developer_admin)
 
       expect(subject).not_to be_able_to(:read, template_room)
     end
 
     it "can read plot rooms" do
       unit_type = plot.unit_type
-      template_room = create(:room, unit_type: unit_type)
+      template_room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
 
-      plot_room = create(:room, plot: plot, template_room_id: template_room.id)
+      plot_room = create(:room, plot: plot, template_room_id: template_room.id, last_updated_by: developer_admin)
 
       expect(subject).to be_able_to(:read, plot_room)
     end
 
     it "has READ access to the plots rooms finishes" do
+      other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
+
       unit_type = plot.unit_type
       finish_category = create(:finish_category, name: "Test category")
       finish_type = create(:finish_type, name: "Test type", finish_categories: [finish_category])
       finish = create(:finish, finish_category: finish_category, finish_type: finish_type)
-      create(:room, unit_type: unit_type, finishes: [finish])
+      room = create(:room, unit_type: unit_type, last_updated_by: site_admin)
+      create(:finish_room, finish: finish, room: room, added_by: site_admin)
 
       expect(subject).to be_able_to(:read, finish)
     end
 
     it "has READ access to the plots rooms appliances" do
+      other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
+
       unit_type = plot.unit_type
-      room = create(:room, unit_type: unit_type)
+      room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
       appliance_manufacturer = create(:appliance_manufacturer)
       appliance = create(:appliance, appliance_manufacturer: appliance_manufacturer)
-      room.appliances << appliance
+      room = create(:room, unit_type: unit_type, last_updated_by: site_admin)
+      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin)
 
       expect(subject).to be_able_to(:read, appliance)
     end
@@ -92,7 +101,7 @@ RSpec.describe "Resident Abilities" do
     let(:division_development) { create(:division_development) }
     let(:division_plot) { create(:plot, development: division_development) }
     let(:plot_residency) { create(:plot_residency, plot_id: division_plot.id, resident_id: resident.id) }
-    subject { Ability.new(current_resident, division_plot) }
+    subject { Ability.new(current_resident, plot: division_plot) }
 
     it "has READ access to a plots division" do
       division = division_development.division
@@ -109,7 +118,7 @@ RSpec.describe "Resident Abilities" do
     let(:current_resident) { create(:resident) }
     let(:phase_plot) { create(:phase_plot) }
     let(:plot_residency) { create(:plot_residency, plot_id: phase_plot.id, resident_id: resident.id) }
-    subject { Ability.new(current_resident, phase_plot) }
+    subject { Ability.new(current_resident, plot: phase_plot) }
 
     it "has READ access to a plots developer" do
       developer = phase_plot.developer
@@ -137,7 +146,7 @@ RSpec.describe "Resident Abilities" do
       let(:phase) { create(:phase, development: division_development) }
       let(:division_phase_plot) { create(:phase_plot, phase: phase) }
       let(:plot_residency) { create(:plot_residency, plot_id: division_phase_plot.id, resident_id: resident.id) }
-      subject { Ability.new(current_resident, division_phase_plot) }
+      subject { Ability.new(current_resident, plot: division_phase_plot) }
 
       it "has READ access to a plots division" do
         division = division_development.division
@@ -148,7 +157,7 @@ RSpec.describe "Resident Abilities" do
   end
 
   describe "notifications" do
-    subject { Ability.new(current_resident, plot) }
+    subject { Ability.new(current_resident, plot: plot) }
     let(:current_resident) { create(:resident, :with_residency) }
     let(:plot) { current_resident.plots.first }
 
@@ -172,7 +181,7 @@ RSpec.describe "Resident Abilities" do
   end
 
   describe "contacts and faqs" do
-    subject { Ability.new(current_resident, plot) }
+    subject { Ability.new(current_resident, plot: plot) }
     let(:current_resident) { create(:resident, :with_residency) }
     let(:plot) { current_resident.plots.first }
 
@@ -205,8 +214,8 @@ RSpec.describe "Resident Abilities" do
         readable_contact = create(:contact, contactable: division)
         readable_faq = create(:faq, faqable: division)
 
-        expect(Ability.new(division_resident, division_plot)).to be_able_to(:read, readable_contact)
-        expect(Ability.new(division_resident, division_plot)).to be_able_to(:read, readable_faq)
+        expect(Ability.new(division_resident, plot: division_plot)).to be_able_to(:read, readable_contact)
+        expect(Ability.new(division_resident, plot: division_plot)).to be_able_to(:read, readable_faq)
       end
 
       it "does NOT have read access to other division contacts and faqs" do
@@ -214,8 +223,8 @@ RSpec.describe "Resident Abilities" do
         non_readable_contact = create(:contact, contactable: another_division)
         non_readable_faq = create(:faq, faqable: another_division)
 
-        expect(Ability.new(division_resident, division_plot)).not_to be_able_to(:read, non_readable_contact)
-        expect(Ability.new(division_resident, division_plot)).not_to be_able_to(:read, non_readable_faq)
+        expect(Ability.new(division_resident, plot: division_plot)).not_to be_able_to(:read, non_readable_contact)
+        expect(Ability.new(division_resident, plot: division_plot)).not_to be_able_to(:read, non_readable_faq)
       end
     end
 

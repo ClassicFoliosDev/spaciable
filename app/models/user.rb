@@ -5,6 +5,7 @@ class User < ApplicationRecord
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
+  before_save :update_cas
 
   include PolymorphicPermissionable
   include PolymorphicPermissionable::ByRole
@@ -89,6 +90,10 @@ class User < ApplicationRecord
     else
       email
     end
+  end
+
+  def display_name
+    cf_admin? ? "CF Admin" : full_name
   end
 
   # Generate the list of user emails/names that currently will receive release plot updates
@@ -277,6 +282,22 @@ class User < ApplicationRecord
   def authorise(code)
     return "#{first_name} #{last_name}} does not have a Planet Rent account to be authorised" unless account?
     lettings_account.authorise_admin code, self
+  end
+
+  # Does this user have an associated developer with CAS enabled
+  def developer_cas?
+    developer_id.present? && Developer.find(developer_id).cas
+  end
+
+  # The 'cas' switch is disabled on the user pages for developer and
+  # division admins - and disabled fields are not serialised back to the
+  # server.  This means we cannot set the cas value from the params.
+  # This function is called before a user record is saved and just
+  # defaults the cas to true for these user roles
+  def update_cas
+    if (role == "division_admin" || role == "developer_admin")
+      self.cas = true
+    end
   end
 
   # rubocop:enable all

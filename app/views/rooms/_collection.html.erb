@@ -3,7 +3,7 @@
 <% if collection.empty? %>
     <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent %>
 <% else %>
-  <% if can_create(Room, current_user.permission_level) %>
+  <% if can_create(Room, parent) %>
     <div class="section-actions">
       <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
@@ -12,15 +12,22 @@
     </div>
   <% end %>
 
+  <% showing_icons = current_user&.cf_admin? ||
+                    collection.map { |room| can?(:update, room) || can?(:destroy, room)}.include?(true)
+  %>
+
   <table class="record-list rooms">
     <thead>
       <tr>
         <th><%= sortable(Room, :name, t(".name")) %></th>
         <th><%= t(".finishes") %></th>
         <th><%= t(".appliances") %></th>
-        <th><%= t(".choices") %></th>
+        <% if parent.is_a?(Plot) %>
+          <th><%= t(".belongs_to") %></th>
+        <% end %>
         <th><%= sortable(Room, :updated_at, t(".last_edited")) %></th>
-        <% if current_user&.cf_admin? %>
+        <th><%= t(".last_edited_by") %></th>
+        <% if showing_icons %>
           <th>&nbsp;</th>
         <% end %>
       </tr>
@@ -31,18 +38,16 @@
         <td><%= link_to room.name, [parent, room], title: room.name, class: "room-name" %></td>
         <td><%= room.finishes_count %></td>
         <td><%= room.appliances_count %></td>
+        <% if parent.is_a?(Plot) %>
+          <th><%= room.plot_id.present? ? "Plot" : "Unit Type" %></th>
+        <% end %>
+
         <% if parent.is_a?(Plot) && parent.choices_approved? %>
           <% plot_choices = RoomChoice.plot_choices(room, parent) %>
         <% end %>
-        <td>
-          <% if parent.is_a?(Plot) && plot_choices.present? %>
-            <%= plot_choices.count %>
-          <% else %>
-            <%= "N/A" %>
-          <% end %>
-        </td>
         <td><%= l room.updated_at.to_date, format: :digits %></td>
-        <% if current_user&.cf_admin? %>
+        <td><%= room.last_updated_by %></td>
+        <% if showing_icons %>
           <td class="actions">
             <%= edit_btn url_for([:edit, parent, room]), element: room %>
             <%= delete_btn room, path: url_for([parent, room]), element: room %>

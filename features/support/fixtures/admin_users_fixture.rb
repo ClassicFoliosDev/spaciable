@@ -8,11 +8,11 @@ module AdminUsersFixture
 
   module_function
 
-  def create_permission_resources
-    create_developer
+  def create_permission_resources(cas: false)
+    create_developer(cas: cas)
     create_division
-    create_development
-    create_division_development
+    create_development(cas: cas)
+    create_division_development(cas: cas)
   end
 
   def create_spanish_permission_resources

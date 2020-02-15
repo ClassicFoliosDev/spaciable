@@ -2,45 +2,58 @@
 
 module Abilities
   module DevelopmentAbilities
-    def development_abilities(development, division_id, developer_id)
-      crud_users(role: :development_admin, id: development, model: "Development")
-      crud_users(role: :site_admin, id: development, model: "Development")
+    def development_abilities(developments, division_id, developer_id, user)
+      crud_users(role: :development_admin, id: developments, model: "Development")
+      crud_users(role: :site_admin, id: developments, model: "Development")
 
-      development_notifications(development, division_id, developer_id)
-      development_faqs(development, division_id, developer_id)
-      development_contacts(development, division_id, developer_id)
-      development_documents(development, division_id, developer_id)
-      development_videos(development)
-      crud_residents(development)
-      read_developments(developer_id, division_id, development)
+      development_notifications(developments, division_id, developer_id)
+      development_faqs(developments, division_id, developer_id)
+      development_contacts(developments, division_id, developer_id)
+      development_documents(developments, division_id, developer_id)
+      development_videos(developments)
+      crud_residents(developments)
+      read_developments(developer_id, division_id, developments, user)
     end
 
     private
 
-    def crud_residents(development)
-      can :crud, PlotResidency, plot: { development_id: development }
+    def crud_residents(developments)
+      can :crud, PlotResidency, plot: { development_id: developments }
       can :crud, Resident
     end
 
-    def read_developments(developer_id, division_id, development)
+    def read_developments(developer_id, division_id, developments, user)
       can :read, Developer, id: developer_id
       can :read, Division, id: division_id
-      can :read, Development, id: development
-      can :read, Phase, development_id: development
-      can :read, Room, development_id: development
-      can :read, Plot, development_id: development
-      can :update, Plot, development_id: development
+      can :read, Development, id: developments
+      can :read, Phase, development_id: developments
+      can :read, Room, development_id: developments
+      can :read, Plot, development_id: developments
+      can :update, Plot, development_id: developments
 
-      can :read, UnitType, development_id: development
+      can :read, UnitType, development_id: developments
 
-      unit_type_ids = UnitType.where(development: development).lazy.pluck(:id)
+      unit_type_ids = UnitType.where(development: developments).lazy.pluck(:id)
+
       can :read, Finish, rooms: { unit_type_id: unit_type_ids }
-      can :read, Finish, rooms: { plot: { development_id: development } }
       can :read, Appliance, rooms: { unit_type_id: unit_type_ids }
-      can :read, Appliance, rooms: { plot: { development_id: development } }
+
+      non_cas_developments(developments, user)
     end
 
-    def development_notifications(development, division, developer)
+    # Some users have access to multiple developments, and each development
+    # may optionally have CAS enabled.  CAS security is set elsewhere for enabled
+    # developments but non-enabled developnments have their security set here
+    def non_cas_developments(developments, user)
+      devs = developments.is_a?(Integer) ? [developments] : developments
+      devs.each do |development|
+        next if user.cas && Development.find(development).cas
+        can :read, Finish, rooms: { plot: { development_id: development } }
+        can :read, Appliance, rooms: { plot: { development_id: development } }
+      end
+    end
+
+    def development_notifications(developments, division, developer)
       polymorphic_abilities Notification, :send_to do
         actions :read do
           type "Developer", id: developer
@@ -48,8 +61,8 @@ module Abilities
         end
 
         actions :manage do
-          type "Development", id: development
-          type "Phase", id: Phase.where(development_id: development).pluck(:id)
+          type "Development", id: developments
+          type "Phase", id: Phase.where(development_id: developments).pluck(:id)
         end
       end
 
@@ -57,38 +70,38 @@ module Abilities
       cannot :send_to_all, Notification
     end
 
-    def development_videos(development)
-      can :manage, Video, videoable_id: development
+    def development_videos(developments)
+      can :manage, Video, videoable_id: developments
     end
 
-    def development_faqs(development, division, developer)
+    def development_faqs(developments, division, developer)
       polymorphic_abilities Faq, :faqable do
-        type "Development", id: development, actions: :manage
+        type "Development", id: developments, actions: :manage
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read
       end
     end
 
-    def development_contacts(development, division, developer)
+    def development_contacts(developments, division, developer)
       polymorphic_abilities Contact, :contactable do
-        type "Development", id: development, actions: :manage
+        type "Development", id: developments, actions: :manage
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read
-        type "Phase", id: Phase.where(development_id: development).lazy.pluck(:id),
+        type "Phase", id: Phase.where(development_id: developments).lazy.pluck(:id),
                       actions: :manage
       end
     end
 
-    def development_documents(development, division, developer)
+    def development_documents(developments, division, developer)
       polymorphic_abilities Document, :documentable do
         type "Division", id: division, actions: :read if division
         type "Developer", id: developer, actions: :read
 
         actions :manage do
-          type "Development", id: development
-          type "UnitType", id: UnitType.where(development_id: development).lazy.pluck(:id)
-          type "Phase", id: Phase.where(development_id: development).lazy.pluck(:id)
-          type "Plot", id: Plot.where(development_id: development).lazy.pluck(:id)
+          type "Development", id: developments
+          type "UnitType", id: UnitType.where(development_id: developments).lazy.pluck(:id)
+          type "Phase", id: Phase.where(development_id: developments).lazy.pluck(:id)
+          type "Plot", id: Plot.where(development_id: developments).lazy.pluck(:id)
         end
       end
     end

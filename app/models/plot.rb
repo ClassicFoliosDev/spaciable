@@ -40,6 +40,7 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
+  delegate :cas, to: :development
 
   attr_accessor :notify
 

@@ -30,11 +30,11 @@
         <%= navigation_link(new_admin_analytics_path, "bar-chart", t(".reports"), "navbar-link") %>
       <% end %>
 
-      <% if can? :crud, Finish %>
+      <% if can? :read, Finish.new(developer_id: current_user.developer) %>
         <%= navigation_link(finishes_path, "shower", t(".finishes"), "navbar-link") %>
       <% end %>
 
-      <% if can? :crud, Appliance %>
+      <% if can? :read, Appliance.new(developer_id: current_user.developer) %>
         <%= navigation_link(appliances_path, "coffee", t(".appliances"), "navbar-link") %>
       <% end %>
 

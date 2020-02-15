@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-When(/^I create an appliance category$/) do
+When(/^I create a (.*) appliance category$/) do |category|
   visit "/appliance_categories"
 
-  within ".section-actions" do
-    click_on I18n.t("appliance_categories.collection.add")
-  end
+  find(".section-actions").click_on I18n.t("appliance_categories.collection.add")
 
   within ".appliance_category" do
-    fill_in "appliance_category_name", with: ApplianceCategoryFixture.name
+    fill_in "appliance_category_name", with: eval(category)
   end
 
   click_on I18n.t("appliance_categories.form.submit")

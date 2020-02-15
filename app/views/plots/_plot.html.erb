@@ -5,9 +5,14 @@
 
   <div><%= plot %></div>
 
+  <% cas_update = current_user&.cf_admin? || can?(:cas_update, plot) %>
+
   <div class="about">
     <div class="half">
       <br/>
+      <% if plot.cas %>
+        <strong><%= t("cas_enabled") %><br/>
+      <% end %>
       <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/><br/>
       <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
       <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") || "Not set" %><br/><br/>
@@ -16,7 +21,7 @@
       <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count %><br/>
     </div>
     <div class="half">
-      <% if current_user&.cf_admin? %>
+      <% if cas_update %>
         <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
         <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
         <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>
@@ -28,6 +33,8 @@
 <div class="section-data">
   <%= render 'address/address', address: plot %><br/>
   <strong><%= plot.unit_type %></strong><br/>
-  <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
+  <% if cas_update %>
+    <%= edit_btn [:edit, plot], element: plot %>
+  <% end %>
   <%= (link_to t(".preview"), plot_preview_path(plot), class: "btn") unless plot.expired? && !(current_user.cf_admin?) %>
 </div>

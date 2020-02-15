@@ -153,10 +153,6 @@ Then(/^I should see a duplicate unit type with finish and appliance created succ
     click_on new_name
   end
 
-  within ".unit-type" do
-    click_on t("unit_types.collection.rooms")
-  end
-
   within ".rooms" do
     click_on CreateFixture.room_name
   end
@@ -193,10 +189,6 @@ Then(/^I should not be able to clone a unit type$/) do
   end
 end
 
-When(/^there is a division development unit type$/) do
-  CreateFixture.create_division_development_unit_type
-end
-
 Then(/^I should see a duplicate unit type without finish and appliance created successfully$/) do
   new_name = CreateFixture.unit_type_name + " 2"
 
@@ -231,6 +223,8 @@ Then(/^the document has not been cloned$/) do
     click_on cloned_unit_type_name
   end
 
+  click_on t('unit_types.collection.documents')
+
   within ".unit-type" do
     expect(page).not_to have_content DocumentFixture.document_name
     expect(page).to have_content t("components.empty_list.empty", type_names: "documents")
@@ -245,8 +239,7 @@ When(/^I delete the unit type associated with a plot$/) do
 end
 
 Then(/^I should see dialog warning of the associated phase and plot$/) do
-  expect(page).to have_content("Are you sure you wish to delete the #{PhasePlotFixture.unit_type_name}  unit type")
-  expect(page).to have_content("This will delete the following plots: #{PhasePlotFixture.phase_name}: #{PhasePlotFixture.plot_number}")
+  expect(page).to have_content("This unit type cannot be deleted because it is in use. Please reassign the following plots to other unit types before deleting")
 end
 
 

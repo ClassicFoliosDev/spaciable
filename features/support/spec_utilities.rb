@@ -35,10 +35,10 @@ module SpecUtilities
     expand_selectmenu(field)
     sleep 1
 
-    list, list_text = selectmenu_list_items
+    list, list_text = selectmenu_list_items(field)
     stdout "Options: #{list_text}"
 
-    click_on_item_from_list(list, text: with.to_s)
+    click_on_item_from_list(list, field, text: with.to_s)
 
     sleep 0.5
   rescue => e
@@ -50,8 +50,14 @@ module SpecUtilities
     skip = false
 
     if check == :already_selected
-      within(".#{field}") do
-        skip = text.include?(value)
+      begin
+        within(".#{field} .ui-selectmenu-text") do
+          skip = text == value
+        end
+        rescue
+          within(".#{field}") do
+            skip = text.include?(value)
+        end
       end
     end
 
@@ -71,26 +77,28 @@ module SpecUtilities
     end
   end
 
-  def selectmenu_list_items
-    ul = page.find(".ui-menu", wait: 5)
+  def selectmenu_list_items(field)
+    # Find the parent span for the ui-selectmenu-text beneth the 'field'
+    span = find(:xpath, "//div[contains(concat(' ', @class, ' '), ' #{field} ')]//span[contains(@class, 'ui-selectmenu-text')]/parent::span")
+    # The span and the menu are associated through their names
+    ul = find("##{span[:id].gsub('button', 'menu')}", wait: 5)
     list = ul.all("li")
-
     [list, list.map(&:text).join(", ")]
   end
 
-  def click_on_item_from_list(list, text:)
+  def click_on_item_from_list(list, field, text:)
     item = list.detect(-> { :not_found }) { |node| node.text.strip == text.to_s.strip }
 
-    item = try_clicking_on_selectmenu_item_again(text) if item == :not_found
+    item = try_clicking_on_selectmenu_item_again(field, text) if item == :not_found
 
     item.click
   end
 
-  def try_clicking_on_selectmenu_item_again(text)
+  def try_clicking_on_selectmenu_item_again(field, text)
     stdout "Couldn't find item #{text}, trying again..."
     sleep 0.3
 
-    retry_list, list_text = selectmenu_list_items
+    retry_list, list_text = selectmenu_list_items(field)
     stdout "Retried list options: #{list_text}"
 
     item = retry_list.find(-> { :not_found }) { |node| node.text.strip == text.to_s.strip }

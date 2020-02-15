@@ -35,6 +35,9 @@
 
 en:
 
+  back: "Back"
+  cas_enabled: "Clients Adding Specs: Enabled"
+
   reservation_email:
     title: "Your Spaciable Reservation Plots are Live"
   completion_email:
@@ -58,6 +61,9 @@ en:
   buttons:
     edit: "Edit"
     trash: "Delete"
+    info: 
+      title: "Information"
+      cannot_delete: "Cannot delete %{type}"
     share_tenants: "Private: click to share with tenants of this plot"
     share_all: "Private: click to share with tenants and other residents of this plot"
     shared: "Shared: click to disable sharing"
@@ -453,6 +459,11 @@ en:
         last_name: "Last Name"
         intro: "Please complete the fields to the right to set up your lettings account. All fields are required."
         management_type: "Management Type"
+      unit_type_update_option_form:
+        header1: "You have requested a change in unit type"
+        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change"
+        supplement: "keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
 
     choices:
       resident:
@@ -521,6 +532,9 @@ en:
       my_area: "My %{area}"
       log_out: "Log Out"
       developers: "Developers"
+      my_developer: "My Developer"
+      my_division: "My Division"
+      my_development: "My Development"
       documents: "Documents"
       users: "Users"
       appliances: "Appliances"
@@ -810,6 +824,8 @@ en:
         first_name: "First Name"
         surname: "Surname"
         job_title: "Job Title"
+        client_specifications: "Client Specifications"
+        adds_specifications: "Defines client specifications"
       index:
         title: "Users."
         add: "Add User"
@@ -1059,6 +1075,8 @@ en:
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
       choices_email: "Choices Email"
       account_type: "Maintenance Account Type"
+      enable_cas: "Client Adding Specifications"
+      cas_description: "Allow client admins to edit specifications and rooms"
     index:
       add: "Add Development"
     development:
@@ -1497,7 +1515,7 @@ en:
       enable_house_search: "Area Guide"
       house_search_description: "Provide residents with an external link to BestArea4Me"
       enable_services: "Services"
-      services_description: "A homeowner can select moving and other services via the Spaciable landing page"
+      services_description: "A homeowner can select moving and other services via the Spaciable landing page."
       enable_referrals: "Referrals"
       referrals_description: "A homeowner can refer a friend to their developer"
       enable_homedesigner: "Planner 5D"
@@ -1509,6 +1527,9 @@ en:
       prime_admin: "Primary lettings administrator"
       branded_app: "Branded App"
       branded_app_description: "Developer has a branded app"
+      enable_cas: "Client Specifications"
+      cas_description: "Allow client admins to edit specifications and rooms"
+
     index:
       add: "Add Developer"
       actions: "Actions"
@@ -2008,9 +2029,11 @@ en:
       finishes:
         image: "Image"
         last_edited: "Last Edited"
+        added_by: "Added By"
       appliances:
         image: "Image"
         last_edited: "Last Edited"
+        added_by: "Added By"
         category: "Category"
         manufacturer: "Manufacturer"
     bulk:
@@ -2032,6 +2055,8 @@ en:
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
+      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+
     index:
       title: "%{parent_name} Plots"
     new:
@@ -2145,7 +2170,6 @@ en:
       upload: "Upload"
       submit: "Submit"
       name: "Name"
-      build_type: "Build Type"
       walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
@@ -2193,6 +2217,7 @@ en:
      category: "Category"
      manufacturer: "Manufacturer"
      last_edited: "Last Edited"
+     added_by: "Added By"
    new:
      title: "New Appliance."
    show:
@@ -2305,6 +2330,7 @@ en:
       finish_types: "Finish Types"
       finish_categories: "Finish Categories"
       last_edited: "Last Edited"
+      added_by: "Added By"
     new:
       title: "New Finish."
     form:
@@ -2348,13 +2374,12 @@ en:
     collection:
       add: "Add Finish Type"
       name: "Finish Type"
-      finish_category: "Category"
       last_edited: "Last Edited"
     show:
       back: "Back"
     finish_type:
       manufacturers: "Manufacturers"
-      finish_category: "Category:"
+      finish_category: "Categories"
     new:
       title: "New Finish Type."
     edit:
@@ -2379,9 +2404,10 @@ en:
       add: "Add Room"
       finishes: "Finishes"
       appliances: "Appliances"
-      choices: "Approved Choices"
+      belongs_to: "Belongs To"
       name: "Room"
       last_edited: "Last Edited"
+      last_edited_by: "Last Edited By"
     edit:
       title: "Edit %{room_name}"
     form:
@@ -2589,8 +2615,11 @@ en:
       description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
                         Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
       unit_type: "Unit Type"
+      update_progress: "Update Build Progress"
+      comp_date: "Estimated Move In Date"
       back: "Back"
       submit: "Submit"
+      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"

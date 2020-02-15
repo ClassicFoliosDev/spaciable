@@ -5,8 +5,8 @@ Given(/^I have plots$/) do
 end
 
 When(/^I navigate to the development page$/) do
-  developer = Developer.find_by(company_name: PhasePlotFixture.developer_name)
-  development = Development.find_by(name: PhasePlotFixture.development_name)
+  developer = Developer.find_by(company_name: CreateFixture.developer_name)
+  development = Development.find_by(name: CreateFixture.development_name)
   visit "/developers/#{developer.id}/developments/#{development.id}"
 end
 

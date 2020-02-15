@@ -3,10 +3,6 @@
 module SearchConcern
   extend ActiveSupport::Concern
 
-  def ilike_search(resources, search_term)
-    resources.where("LOWER(name) LIKE LOWER(?)", "%#{search_term}%")
-  end
-
   def appliance_search(search_term)
     search_tokens = search_term.split(" ")
     appliances = []
@@ -23,6 +19,30 @@ module SearchConcern
 
     appliances.flatten.to_set.flatten
   end
+
+  # Full search of finish name/type/manufacturer
+  # rubocop:disable Metrics/MethodLength
+  def finish_full_search(search_term)
+    search_tokens = search_term.split(" ")
+    finishes = []
+
+    search_tokens.each do |token|
+      finishes << Finish.where("LOWER(finishes.name) LIKE LOWER(?)",
+                               "%#{token}%").accessible_by(current_ability, :read)
+
+      manufacturers = FinishManufacturer.where("LOWER(name) LIKE LOWER(?)", "%#{token}%")
+      finishes << Finish.includes(:finish_manufacturer)
+                  .where(finish_manufacturer_id: manufacturers)
+                        .accessible_by(current_ability, :read)
+      types = FinishType.where("LOWER(name) LIKE LOWER(?)", "%#{token}%")
+      finishes << Finish.includes(:finish_type)
+                  .where(finish_type_id: types)
+                        .accessible_by(current_ability, :read)
+    end
+
+    finishes.flatten.to_set.flatten
+  end
+  # rubocop:enable Metrics/MethodLength
 
   def room_search(search_term)
     Room.where("LOWER(name) LIKE LOWER(?)",

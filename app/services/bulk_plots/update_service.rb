@@ -41,7 +41,21 @@ module BulkPlots
         return
       end
       bulk_attr_keys.each { |attr| params.delete(attr) }
-      base_plot.update(params)
+      # Wrap the plot updates in a transaction to ensure data integrity
+      ActiveRecord::Base.transaction do
+        delete_templated_rooms(base_plot) if params[:ut_update_option] == UnitType::RESET.to_s
+        params.delete(:ut_update_option)
+        base_plot.update(params)
+      end
+    end
+
+    # Plots have templated rooms to supplement/replace those dictated by their
+    # associated unit_types.  When a plot is assigned a new unit type and the user
+    # has chosen to replace all 'local' room updates for the plot, then all the
+    # templated rooms need to be removed, including those that have been deleted.
+    def delete_templated_rooms(plot)
+      templated_rooms = Room.where(plot_id: plot.id).with_deleted
+      templated_rooms.each(&:really_destroy!)
     end
 
     def bulk_update
@@ -49,7 +63,7 @@ module BulkPlots
       return no_numbers_error if numbers.empty?
 
       bulk_attributes(params)&.map do |attrs|
-        update_existing_plots(attrs)
+        update_existing_plot(attrs)
       end.any?
     end
 
@@ -104,9 +118,21 @@ module BulkPlots
       set_numbers
     end
 
-    def update_existing_plots(attrs)
-      updated_plots = plots_scope.where(number: attrs[:number].to_s)
-                       &.update(attribute_params(attrs))
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def update_existing_plot(attrs)
+      updates = attribute_params(attrs)
+      updated_plot = plots_scope.where(number: attrs[:number].to_s)
+                       &.update(updates)
+
+      # If there is an updated plot and the unit type is being updated
+      # and the user has selected to reset the rooms to just those for the
+      # new unit type
+      if updated_plot.present? &&
+         params[:ut_update_option] == UnitType::RESET.to_s &&
+         updates.keys.include?(:unit_type_id)
+        # delete all templated rooms for the plot
+        delete_templated_rooms(updated_plot[0])
+      end
 
       if @attribute_params[:copy_plot_numbers] == true
         plots_scope.where(number: attrs[:number].to_s).map do |plot|
@@ -114,10 +140,11 @@ module BulkPlots
           plot.update_attributes(house_number: plot.number)
         end
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-      add_update_error(attrs[:number]) if updated_plots.empty?
+      add_update_error(attrs[:number]) if updated_plot.empty?
 
-      updated_plots
+      updated_plot
     end
 
     def plot_select_params

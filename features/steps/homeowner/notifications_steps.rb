@@ -8,7 +8,7 @@ Given(/^I am logged in as a homeowner wanting to read notifications$/) do
 end
 
 When(/^I read the notifications$/) do
-  within(".session-inner") do
+  within(".session-inner .full-menu") do
     notification_link = page.find(:css, 'a[href="/homeowners/notifications"]')
     notification_link.click
   end

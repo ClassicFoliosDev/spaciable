@@ -69,7 +69,12 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
       end
     else
       within ".developer-id" do
-        select_from_selectmenu(:notification_developer_id, with: instance.developer.to_s)
+        if instance.is_a?(Division)
+          select_from_selectmenu(:notification_developer_id, with: instance.developer.to_s)
+        else
+          developer = instance.developer.nil? ? instance.division.developer : instance.developer
+          select_from_selectmenu(:notification_developer_id, with: developer.to_s)
+        end
       end
 
       sleep 0.3

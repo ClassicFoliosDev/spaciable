@@ -13,6 +13,19 @@ Feature: Documents
     When I set the postal number for plots
     Then the selected plots have the new postal number
 
+  Scenario Outline: CAS Admin bulk edit
+    Given I am a <role> with CAS and there are many plots
+    When I CAS bulk edit the plots
+    Then there is an error for plots that don't exist
+    And the selected plots are CAS updated
+    And the unselected plots are not CAS updated
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
   Scenario: Unset and not set
     Given I am a CF admin and there is a plot with all fields set
     When I bulk edit the plot but do not set checkboxes
@@ -22,24 +35,19 @@ Feature: Documents
     When I bulk edit the plot and set mandatory fields to empty
     Then I see an error for the mandatory fields
 
-  Scenario: Developer Admin
-    Given I am logged in as a Developer Admin
+  Scenario Outline: Non CAS Admins
+    Given I am logged in as a <role>
     And there is a phase plot with a resident
     Then I can not edit bulk plots
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Development Admin |
+      | Site Admin        |
 
   Scenario: Division Admin
     Given I am logged in as a Division Admin
     And there is a division phase plot
-    Then I can not edit bulk plots
-
-  Scenario: Development Admin
-    Given I am logged in as a Development Admin
-    And there is a phase plot with a resident
-    Then I can not edit bulk plots
-
-  Scenario: Site Admin
-    Given I am logged in as a Site Admin
-    And there is a phase plot with a resident
     Then I can not edit bulk plots
 
   Scenario: CF Admin

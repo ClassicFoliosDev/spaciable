@@ -8,6 +8,11 @@
   font-size: $base-font-size;
 }
 
+.fa-info:before {
+  line-height: $icon-font-line-height;
+  font-size: $base-font-size;
+}
+
 // The sections below here all change various bits and pieces of styling that
 // we have inherited but want to style differently in dialogs
 .ui-dialog-title {

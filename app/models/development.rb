@@ -14,6 +14,10 @@ class Development < ApplicationRecord
     division || developer
   end
 
+  def parent_developer
+    developer || division.developer
+  end
+
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :faqs, as: :faqable, dependent: :destroy
   has_many :phases, dependent: :destroy

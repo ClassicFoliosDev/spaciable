@@ -249,7 +249,7 @@ end
 
 When(/^I upload a document for the unit type$/) do
   unit_type = CreateFixture.unit_type
-  visit "/developments/#{unit_type.development.id}/unit_types/#{unit_type.id}"
+  visit "/developments/#{unit_type.development.id}/unit_types/#{unit_type.id}?active_tab=documents"
 
   within ".unit-type" do
     click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)

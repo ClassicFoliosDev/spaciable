@@ -14,7 +14,6 @@
     <thead>
     <tr>
       <th colspan="2"><%= sortable(FinishType, :name, t(".name")) %></th>
-      <th colspan="2"><%= t(".finish_category") %></th>
       <th colspan="2"><%= sortable(FinishType, :updated_at, t(".last_edited")) %></th>
       <th>&nbsp;</th>
     </tr>
@@ -23,7 +22,6 @@
     <% collection.each do |finish_type| %>
       <tr data-finish-type="<%= finish_type.id %>">
         <td colspan="2"><%= link_to finish_type.name, finish_type_path(finish_type), title: finish_type.name %></td>
-        <td colspan="2"><%= finish_type.finish_categories.first %></td>
         <td colspan="2"><%= l finish_type.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= edit_btn edit_finish_type_path(finish_type), element: finish_type %>

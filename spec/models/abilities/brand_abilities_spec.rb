@@ -8,7 +8,7 @@ RSpec.describe "Brand Abilities" do
   let(:resident) { create(:resident, :with_residency) }
 
   context "when a developer has a brand" do
-    subject { Ability.new(resident, resident.plots.first) }
+    subject { Ability.new(resident, plot: resident.plots.first) }
     it "should have READ access to the developers brand" do
       brand = create(:brand, brandable: resident.plots.first.developer)
 
@@ -17,7 +17,7 @@ RSpec.describe "Brand Abilities" do
   end
 
   context "when a division has a brand" do
-    subject { Ability.new(resident, resident.plots.first) }
+    subject { Ability.new(resident, plot: resident.plots.first) }
     let(:resident) do
       plot = create(:plot, development: create(:division_development))
       create(:resident, :with_residency, plot: plot)
@@ -31,7 +31,7 @@ RSpec.describe "Brand Abilities" do
   end
 
   context "when another division has a brand" do
-    subject { Ability.new(resident, resident.plots.first) }
+    subject { Ability.new(resident, plot: resident.plots.first) }
     let(:resident) do
       plot = create(:plot, development: create(:division_development))
       create(:resident, :with_residency, plot: plot)
@@ -53,7 +53,7 @@ RSpec.describe "Brand Abilities" do
   end
 
   context "when a development has a brand" do
-    subject { Ability.new(resident, resident.plots.first) }
+    subject { Ability.new(resident, plot: resident.plots.first) }
     it "should have READ access to the divisions brand" do
       brand = create(:brand, brandable: resident.plots.first.development)
 
@@ -62,7 +62,7 @@ RSpec.describe "Brand Abilities" do
   end
 
   context "when a phase has a brand" do
-    subject { Ability.new(resident, resident.plots.first) }
+    subject { Ability.new(resident, plot: resident.plots.first) }
     let(:resident) { create(:resident, :with_residency, plot: create(:phase_plot)) }
 
     it "should have READ access to the phase brand" do

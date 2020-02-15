@@ -14,8 +14,8 @@ module PhaseTabsHelper
       production: {
         icon: :superpowers,
         link: [phase.parent, phase, active_tab: :production],
-        # Only a CF admin can create appliances and use the production tab
-        permissions_on: -> { Appliance.new }
+        check_assoc: true, # check phase for production permission
+        permissions_on: -> { phase }
       },
       plots: {
         icon: :building,
@@ -39,14 +39,14 @@ module PhaseTabsHelper
       bulk_edit: {
         icon: "pencil-square-o",
         link: [phase, :bulk_edit_index],
-        # Only a CF admin can create appliances and make bulk edits
-        permissions_on: -> { Appliance.new }
+        check_assoc: true, # check phase for bulk_edit permission
+        permissions_on: -> { phase }
       },
       release_plots: {
         icon: "rocket",
         link: [phase, :release_plots],
-        # Only a CF admin can create appliances and make bulk edits
-        permissions_on: -> { Appliance.new }
+        check_assoc: true, # check phase for release_plots permission
+        permissions_on: -> { phase }
       },
       # PLANET RENT API
       lettings: {

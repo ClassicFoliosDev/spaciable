@@ -24,18 +24,27 @@
       </fieldset>
       <br/>
       <fieldset>
+         <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
+         <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
+          <%= f.label :cas_enabled, t(".client_specifications") %>
+          <%= f.check_box :cas, id: :cas_check,
+          disabled: (user.division_admin? || user.developer_admin?) %>,
+          <p class="checkbox-description"><%= t(".adds_specifications") %></p>
+        </div>
         <div class="receive_plot_emails">
           <%= f.label :plot_emails, t(".plot_emails") %>
           <%= f.check_box :receive_release_emails, id: :plot_check,
           disabled: !user.enable_receive_release_emails?(current_user) %>
           <p class="checkbox-description"><%= t(".receive_plot_emails") %></p>
         </div>
+        <!-- @choices
         <div class="receive_choice_emails">
           <%= f.label :choice_emails, t(".choice_emails") %>
           <%= f.check_box :receive_choice_emails, id: :choice_check,
           disabled: !user.enable_choice_emails?(current_user) %>
           <p class="checkbox-description"><%= t(".receive_choice_emails") %></p>
         </div>
+      -->
         <div class="receive-snagging-emails">
           <%= f.label :snag_emails, t(".snag_emails") %>
           <%= f.check_box :snag_notifications, id: :snag_check %>

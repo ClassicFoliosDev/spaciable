@@ -18,6 +18,7 @@ class Phase < ApplicationRecord
   delegate :company_name, to: :developer
   belongs_to :division, optional: true
   delegate :division_name, to: :division
+  delegate :cas, to: :development
 
   has_many :plots
   has_many :plot_residencies, through: :plots
