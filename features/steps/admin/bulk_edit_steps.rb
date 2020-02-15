@@ -115,7 +115,7 @@ Then(/^the unselected plots are not (CAS )*updated$/) do |cas|
     selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
 
     if cas.present?
-      expect(page).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     else
       expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
       expect(selected_unit_type).to have_content plot.unit_type.to_s
