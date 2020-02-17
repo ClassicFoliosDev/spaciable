@@ -19,17 +19,15 @@ module Csv
     end
 
     def self.transfer_csv(csv_file, user, logger)
-      @file_client = WeTransferClient.new(api_key: Rails.application.secrets.we_transfer_key)
-
-      title = I18n.t("transfer_csv_title")
+      client = WeTransfer::Client.new(api_key: Rails.application.secrets.we_transfer_key)
       description = I18n.t("transfer_csv_description")
 
-      transfer = @file_client.create_transfer(name: title, description: description) do |upload|
+      transfer = client.create_transfer_and_upload_files(message: description) do |upload|
         document_file_path = file_path(csv_file, tmp_folder(user.email), logger)
         upload.add_file_at(path: document_file_path)
       end
 
-      transfer.shortened_url
+      transfer.url
     end
 
     def self.tmp_folder(email)
