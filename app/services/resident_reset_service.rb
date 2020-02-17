@@ -81,13 +81,14 @@ module ResidentResetService
     description = I18n.t("transfer_files_description")
 
     transfer = client.create_transfer_and_upload_files(message: description) do |upload|
-        resident_private_documents(resident, reset_plot).each do |document|
+      resident_private_documents(resident, reset_plot).each do |document|
         next unless document.file
         next if document.file.size.zero?
 
         document_file_path = file_path(document, tmp_folder(resident.email), logger)
         upload.add_file_at(path: document_file_path)
         remove_document_from_plot(document, reset_plot)
+      end
     end
 
     transfer.url
