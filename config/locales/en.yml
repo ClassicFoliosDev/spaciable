@@ -2121,6 +2121,8 @@ en:
       upload_rename: "Upload and rename files"
       upload_all: "Upload files"
       notify: "Notify subscribed residents about this change"
+      pinned: "Pinned"
+      pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
     collection:
       plot: "Plot"
       processing: "Processing..."

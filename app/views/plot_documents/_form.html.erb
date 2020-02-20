@@ -30,6 +30,11 @@
       <%= label_tag t(".rename") %>
       <%= text_field_tag :rename_text, nil, placeholder: t(".rename_to") %>
 
+      <%= f.label :pinned, t(".pinned") %>
+      <%= f.check_box :pinned %>
+      <p class="checkbox-description"><%= t(".pinned_description") %></p>
+      <br/><br/>
+
       <%= f.submit t(".upload_rename"), class: "btn-form-submit btn-primary" %>
       <%= f.submit t(".upload_all"), class: "btn-form-submit btn" %>
       <div class="notify">
