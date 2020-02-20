@@ -274,7 +274,8 @@ en:
     login:
       title: "Login to Spaciable"
     email:
-      copyright: "Spaciable &copy; %{year}"
+      copyright: "&reg; Spaciable &copy; %{year} Classic Folios. All rights reserved | <a href=\"https://spaciable.com/data_policy\">Privacy Policy</a> |
+                 <a href=\"https://spaciable.com/ts_and_cs_homeowner\">Terms and Conditions</a>"
     common_header:
       title: "Spaciable"
 
