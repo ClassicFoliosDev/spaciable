@@ -11,7 +11,7 @@
     <div class="half">
       <br/>
       <% if plot.cas %>
-        <strong><%= t("cas_enabled") %><br/>
+        <strong><%= t("cas_enabled") %></strong><br/>
       <% end %>
       <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/><br/>
       <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>

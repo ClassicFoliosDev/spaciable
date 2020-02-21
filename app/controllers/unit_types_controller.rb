@@ -21,7 +21,6 @@ class UnitTypesController < ApplicationController
       redirect_to [@unit_type, :rooms]
     end
 
-    # @active_tab = params[:active_tab] || (cas_active ? "rooms" : "documents")
     @active_tab = params[:active_tab] || "documents"
 
     @collection = if @active_tab == "documents"

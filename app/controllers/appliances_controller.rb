@@ -43,7 +43,7 @@ class AppliancesController < ApplicationController
   end
 
   def appliance_manufacturers_list
-    appliance_manufacturers = ApplianceManufacturer.visible_too(current_user).order(:name)
+    appliance_manufacturers = ApplianceManufacturer.visible_to(current_user).order(:name)
     render json: appliance_manufacturers
   end
 
