@@ -39,9 +39,9 @@ module MyLibraryFixture
     }
   ].freeze
 
-  def create_room_appliance_and_finish(developer=nil)
-    CreateFixture.create_appliance_manufacturer(developer)
-    CreateFixture.create_resident_under_a_phase_plot_with_appliances_and_rooms(developer)
+  def create_room_appliance_and_finish
+    CreateFixture.create_appliance_manufacturer
+    CreateFixture.create_resident_under_a_phase_plot_with_appliances_and_rooms
     CreateFixture.create_finish_room
 
     ApplianceFixture.update_appliance_manual

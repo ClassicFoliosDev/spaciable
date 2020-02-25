@@ -1,10 +1,9 @@
 <% breadcrumb :rooms, parent %>
 
-<% cancreate = can_create(Room, parent, combine: true) %>
 <% if collection.empty? %>
-    <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true%>
+    <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent %>
 <% else %>
-  <% if cancreate %>
+  <% if can_create(Room, parent) %>
     <div class="section-actions">
       <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
@@ -14,8 +13,7 @@
   <% end %>
 
   <% showing_icons = current_user&.cf_admin? ||
-                    (cancreate &&
-                    collection.map { |room| can?(:update, room) || can?(:destroy, room)}.include?(true))
+                    collection.map { |room| can?(:update, room) || can?(:destroy, room)}.include?(true)
   %>
 
   <table class="record-list rooms">

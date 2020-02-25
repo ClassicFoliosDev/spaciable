@@ -33,14 +33,11 @@ class Room < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
-  validates :name, presence: true
   validates :name, uniqueness: { scope: %i[unit_type_id plot_id] }
   validates_associated :finish_rooms
   validates_associated :finishes
   validates_associated :appliance_rooms
   validates_associated :appliances
-
-  delegate :completion_release_date, to: :plot
 
   after_destroy -> { finishes.delete_all }
   after_initialize -> { self.last_updated_by ||= User.find_by(role: :cf_admin).display_name }

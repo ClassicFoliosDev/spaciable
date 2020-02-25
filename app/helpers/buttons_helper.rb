@@ -35,10 +35,8 @@ module ButtonsHelper
     end
   end
 
-  # rubocop:disable Metrics/ParameterLists
-  def info_btn(resource, label = "", title: t("buttons.info.title"),
-               action: :destroy, text: nil, element:)
-    return if element && (cannot? action, element)
+  def info_btn(resource, label = "", title: t("buttons.info.title"), text: nil, element:)
+    return if element && (cannot? :destroy, element)
 
     content_tag(:button, data: data_to_inform(resource, title, text: text),
                          class: "btn info-btn",
@@ -46,7 +44,6 @@ module ButtonsHelper
       icon "info", label
     end
   end
-  # rubocop:enable Metrics/ParameterLists
 
   def icon(icon_name, label = "", classes: "")
     icon_classes = "fa fa-#{icon_name} #{classes}"

@@ -19,10 +19,6 @@
           <%= f.input :picture, as: :image_preview, label: t(".picture"), input_html: { preview_version: :thumbnail } %>
         </div>
         <%= f.input :name, label: t(".name") %>
-        <% if current_user.cf_admin? %>
-          <%= f.label :cas_restricted, t(".restricted") %>
-          <%= f.check_box :restricted %>
-        <% end %>
       </fieldset>
     </div>
     <div class="row-item third">

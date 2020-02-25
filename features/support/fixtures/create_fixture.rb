@@ -355,7 +355,7 @@ module CreateFixture
     FactoryGirl.create(:faq, question: faq_name, faqable: developer)
   end
 
-  def create_appliance_without_manual(developer=nil)
+  def create_appliance_without_manual
     FactoryGirl.create(
       :appliance,
       name: appliance_without_manual_name,
@@ -363,8 +363,7 @@ module CreateFixture
       appliance_manufacturer: appliance_manufacturer,
       rooms: [room],
       manual: nil,
-      guide: nil,
-      developer: developer
+      guide: nil
     )
   end
 
@@ -613,12 +612,12 @@ module CreateFixture
     create_resident_and_phase
   end
 
-  def create_resident_under_a_phase_plot_with_appliances_and_rooms(developer=nil)
+  def create_resident_under_a_phase_plot_with_appliances_and_rooms
     create_resident_under_a_phase_plot
     create_room
-    create_appliance(developer)
+    create_appliance
     create_appliance_room
-    create_appliance_without_manual(developer)
+    create_appliance_without_manual
   end
 
   def create_sub_category

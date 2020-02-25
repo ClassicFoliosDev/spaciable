@@ -8,7 +8,7 @@ RSpec.describe BulkPlots::UpdateService do
       params = { range_from: 1, range_to: 2, house_number: "100" }
       plot = create(:plot, number: 1, house_number: "70")
       more_plots = create(:plot, number: 1, house_number: "70")
-      service = described_class.call(plot, nil)
+      service = described_class.call(plot)
 
       expect { service.update(params) }.not_to change(Plot, :count)
       expect(plot.reload.house_number).to eq(params[:house_number])
@@ -24,7 +24,7 @@ RSpec.describe BulkPlots::UpdateService do
 
       params = { range_from: "1", range_to: "5", list: "2", unit_type_id: unit_type.id }
 
-      described_class.call(plot1, nil).update(params)
+      described_class.call(plot1).update(params)
 
       expect(plot1.reload.unit_type_id).to eq(unit_type.id)
       expect(plot2.reload.unit_type_id).to eq(unit_type.id)
@@ -39,7 +39,7 @@ RSpec.describe BulkPlots::UpdateService do
 
       params = { list: "1.1, 1.2", unit_type_id: unit_type.id }
 
-      described_class.call(plot1, nil).update(params)
+      described_class.call(plot1).update(params)
 
       expect(plot1.reload.unit_type_id).to eq(unit_type.id)
       expect(plot2.reload.unit_type_id).to eq(unit_type.id)
@@ -51,7 +51,7 @@ RSpec.describe BulkPlots::UpdateService do
       plot = create(:plot, number: 5)
       params = { number: 10 }
 
-      described_class.call(plot, nil).update(params)
+      described_class.call(plot).update(params)
 
       expect(plot.reload.number).to eq(params[:number].to_s)
     end
@@ -64,7 +64,7 @@ RSpec.describe BulkPlots::UpdateService do
 
       params = { range_from: "1", range_to: "2", house_number: "100" }
 
-      described_class.call(plot1, nil).update(params)
+      described_class.call(plot1).update(params)
 
       expect(plot1.reload.house_number).to eq("100")
       expect(plot2.reload.house_number).not_to eq("100")
@@ -76,7 +76,7 @@ RSpec.describe BulkPlots::UpdateService do
       params = { range_from: 1, range_to: 5 }
       plot = create(:plot, number: 1)
 
-      described_class.call(plot, nil, params: params) do |service, _, _|
+      described_class.call(plot, params: params) do |service, _, _|
         error = "Plots 2, 3, 4, and 5 could not be saved: Plot not found"
 
         expect(service.errors).to include(error)
@@ -88,7 +88,7 @@ RSpec.describe BulkPlots::UpdateService do
       plot1 = create(:plot, number: 2, )
       create(:plot, number: 3, development: plot1.development)
 
-      described_class.call(plot1, nil, params: params) do |service, _, _|
+      described_class.call(plot1, params: params) do |service, _, _|
         expect(service.succeeded).to eq("Plots 2 and 3")
       end
     end
@@ -101,7 +101,7 @@ RSpec.describe BulkPlots::UpdateService do
       development = create(:development)
       plot = build(:plot, development: development)
 
-      described_class.call(plot, nil, params: params) do |service, _, _|
+      described_class.call(plot, params: params) do |service, _, _|
         expect(service.succeeded).to eq("Plot #{plot.id}")
       end
     end

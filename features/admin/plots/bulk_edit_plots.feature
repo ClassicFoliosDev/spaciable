@@ -15,25 +15,10 @@ Feature: Documents
 
   Scenario Outline: CAS Admin bulk edit
     Given I am a <role> with CAS and there are many plots
-    And all the plots are release completed
     When I CAS bulk edit the plots
     Then there is an error for plots that don't exist
     And the selected plots are CAS updated
     And the unselected plots are not CAS updated
-    Examples:
-      | role              |
-      | Developer Admin   |
-      | Division Admin    |
-      | Development Admin |
-      | Site Admin        |
-
-  Scenario Outline: CAS Admin unreleased bulk edit
-    Given I am a <role> with CAS and there are many plots
-    And the phase plot is release completed
-    When I CAS bulk edit the plots
-    Then there are errors for plots that don't exist and cannot be updated
-    And the released plot is CAS updated
-    And the unreleased plots are not CAS updated
     Examples:
       | role              |
       | Developer Admin   |

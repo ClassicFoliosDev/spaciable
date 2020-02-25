@@ -1,11 +1,11 @@
 <% if collection.empty? %>
   <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "shower", type: Appliance, parent: room, combine: true %>
+    <%= render 'components/empty_list', icon_name: "shower", type: Appliance, parent: room %>
   <% else %>
-    <%= render 'components/empty_list', icon_name: "shower", type: ApplianceRoom, parent: room, combine: true %>
+    <%= render 'components/empty_list', icon_name: "shower", type: ApplianceRoom, parent: room %>
   <% end %>
 <% else %>
-  <% if can_create(ApplianceRoom, room, combine: true) %>
+  <% if can_create(ApplianceRoom, room) %>
     <div class="section-actions">
       <% if room %>
         <%= link_to new_room_appliance_room_path(room, plot: plot), class: "btn btn-primary" do %>

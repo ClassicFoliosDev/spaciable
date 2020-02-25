@@ -12,27 +12,6 @@ Feature: UnitTypes
     When I update the unit type
     Then I should see the updated unit type
 
-  Scenario: restricted unit type
-    Given I am logged in as an admin
-    And I have a developer with a development
-    When I create a restricted unit type for the development
-    Then I should see the created unit type
-    When I update the unit type
-    Then I should see the updated unit type
-
-  Scenario Outline: CAS unit type
-    Given I am logged in as a <role> with CAS
-    And I have a developer with a development
-    When I create a unit type for the development
-    Then I should see the created unit type
-    When I update the unit type
-    Then I should see the updated unit type
-  Examples:
-      | role              |
-      | Developer Admin   |
-      | Development Admin |
-      | Site Admin        |
-
   Scenario: Clone empty unit type
     Given I am logged in as an admin
     And there is a division plot
@@ -66,18 +45,6 @@ Feature: UnitTypes
     When I delete the unit type
     Then I should see the deletion complete successfully
 
-  @javascript
-  Scenario Outline: CAS Delete
-    Given I am logged in as a <role> with CAS
-    And I have created a unit type
-    When I delete the unit type
-    Then I should see the deletion complete successfully
-    Examples:
-      | role              |
-      | Developer Admin   |
-      | Development Admin |
-      | Site Admin        |
-
   Scenario: Developer Admin
     Given I am a Developer Admin
     And there is a development
@@ -108,37 +75,7 @@ Feature: UnitTypes
     And I have configured the phase address
     When I create a plot for the phase
     Then I should see the created phase plot
-    Then the unit type associated with a plot has an information button
-    When I press the information button for the unit type associated with a plot
+    When I delete the unit type associated with a plot
     Then I should see dialog warning of the associated phase and plot
 
-  @javascript
-  Scenario Outline: CAS Delete unit type for plots
-    Given I am logged in as a <role> with CAS
-    And I have a developer with a development with unit types and a phase
-    And I have plots
-    Then the unit type associated with a plot has an information button
-    When I press the information button for the unit type associated with a plot
-    Then I should see dialog warning of the associated phase and plot
-    Examples:
-      | role              |
-      | Developer Admin   |
-      | Development Admin |
-      | Site Admin        |
 
-  @javascript
-  Scenario Outline: CAS restricted unit type
-    Given I am logged in as a <role> with CAS
-    And there is a unit type room with finish and appliance
-    And the unit types are restricted
-    When I navigate to the development
-    Then I cannot edit or delete the unit types
-    When I view the unit type
-    Then I cannot edit or delete the rooms
-    When I view a unit type room
-    Then I cannot edit or delete the finishes or appliances
-    Examples:
-      | role              |
-      | Developer Admin   |
-      | Development Admin |
-      | Site Admin        |
