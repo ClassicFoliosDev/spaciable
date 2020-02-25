@@ -2088,6 +2088,7 @@ en:
       completion: "Completion"
       activation: "Activated Residents"
       activated: "%{activated} of %{all}"
+      not_released: "Plot %{plot} has not been released"
     show:
       back: "Back"
       completion: "Completion date"
@@ -2174,6 +2175,7 @@ en:
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
       matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
+      restricted: "Restrict Specifications to CF Admin"
     new:
       add: "New Unit Type."
     show:
@@ -3046,6 +3048,7 @@ en:
             base:
               missing: "Plot not found"
               number_taken: "Number has already been added."
+              cannot_update_unit_type : "Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
         finish_type:
           attributes:
             finish_categories:

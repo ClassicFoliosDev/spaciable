@@ -27,6 +27,7 @@ Feature: Plot Rooms
 
   Scenario Outline: CAS Admins
     Given I am logged in as a CAS <role> wanting to manage plot rooms
+    And all the plots are release completed
     When I go to review the plot rooms
     Then I should see the plots unit type rooms
     When I add a new plot room

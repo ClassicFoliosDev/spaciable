@@ -30,7 +30,8 @@ class BulkEditController < ApplicationController
 
   def update_plots
     plot = Plot.new(number: Plot::DUMMY_PLOT_NAME, phase: @phase)
-    BulkPlots::UpdateService.call(plot, params: bulk_params) do |_service, updated_plots, errors|
+    BulkPlots::UpdateService.call(plot, self, params: bulk_params) \
+      do |_service, updated_plots, errors|
       if updated_plots.any?
         redirect_to development_phase_path(@phase.parent, @phase),
                     notice: success_notice(updated_plots), alert: errors

@@ -3,7 +3,7 @@
 module PhasePlotFixture
   module_function
 
-  def create_developer_with_development_and_unit_types_and_phase(cas: cas)
+  def create_developer_with_development_and_unit_types_and_phase(cas:)
     CreateFixture.create_developer(cas: cas)
     CreateFixture.create_division
     development = CreateFixture.create_development(cas: cas)
@@ -204,6 +204,6 @@ module PhasePlotFixture
   def create_phase_plot
     phase = Phase.find_by(name: PhasePlotFixture.phase_name)
     unit_type = UnitType.find_by(name: PhasePlotFixture.unit_type_name)
-    FactoryGirl.create(:plot, phase: phase, unit_type: unit_type, number: 1)
+    FactoryGirl.create(:plot, phase: phase, unit_type: unit_type, number: plot_number)
   end
 end

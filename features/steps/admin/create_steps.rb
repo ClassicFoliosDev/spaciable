@@ -274,3 +274,15 @@ Given(/^there is another unit type$/) do
   unit_type = CreateFixture.create_unit_type(CreateFixture.second_unit_type_name)
   CreateFixture.create_room(CreateFixture.lounge_name, unit_type)
 end
+
+Given(/^all the plots are release completed$/) do
+  Plot.update_all completion_release_date: Date.yesterday
+end
+
+Given(/^the unit types are restricted$/) do
+  UnitType.update_all restricted: true
+end
+
+Given(/^the phase plot is release completed$/) do
+  Plot.find_by(number: CreateFixture.phase_plot_name).update_attribute :completion_release_date, Date.yesterday
+end
