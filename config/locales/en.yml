@@ -1329,12 +1329,12 @@ en:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
       services:
-        services: "See How We Can Help"
-        services_title: "Need A Helping Hand?"
-        services_description: "Spaciable services is a totally free feature that provides quotes (without obligation) for a variety of services and products,
-                              such as removals, insurance and conveyancing, allowing you to focus on the exciting elements of homebuying."
+        services_description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
+        services: "Select Services"
+        services_title: "Services"
+        services_description_one: "Benefit from exclusive quotes for a range of services, from utility suppliers to insurance policies, through the Services feature."
+        services_description_two: "Simply select the categories you want quotes for, enter your details, and save time and money!"
       referrals:
-        refer_developer: "Refer A Friend To Your Developer"
         refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer A Friend"
         refer_title: "Refer A Friend."
@@ -1346,6 +1346,30 @@ en:
         email: "Email"
         phone: "Phone"
         refer_description: "Fill in your friend's details to refer them to your developer."
+    communication_preferences:
+      show:
+        communication_preferences: "Communication Preferences"
+        paragraph: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click <strong>save</strong>."
+        spaciable_options: "Updates on offers and services from my portal:"
+        email: "Via email"
+        sms: "Via text"
+        disclaimer: "Please note that your data will be protected by GDPR regulations and will not be passed on to third parties."
+        submit: "Save"
+    welcome_home:
+      show:
+        welcome_home: "Welcome home!"
+        opening_one: "This is your %{developer} portal. Here you can access a wealth of features that will help you enjoy your new home."
+        opening_two: "You will receive updates on new features; however, here are some of the highlights:"
+        library: "Document library - access important documents and certificates relating to your home, such as appliance manuals and warranty policies."
+        contacts: "Contacts - while your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
+                  The Contact feature will point you in the right direction for each type of query, saving you from being passed from pillar to post in search of the right person for any given issue."
+        faqs: "FAQs - it's only natural to have questions about your new home. Your portal's FAQ section provides answers to some of the most common issues faces by homeowners, so you can quickly resolve any items of concern."
+        appliances: "Appliances and finishes - unsure what an error code on your washing machine means or wondering what paint colour has been used in your hallway?
+                    Your portal displays information about the appliances installed in your home, and lists finishes and fittings on a room-by-room basis, so you can easily troubleshoot issues and paint over and scuffs or blemishes."
+        area_guide: "Area Guide - wondering what the Ofsted ratings are for the local schools? Or where the best place to eat is? Area Guide displays a whole host of local information for your postcode,
+                    covering neighbourhood statistics and local amenities, so you can quickly become a part of the community."
+        disclaimer: "Please note that various packages are available for the portal and the actual features may differ."
+        next: "Next"
     about:
       show:
         rooms_description: "View finishes and fittings in each room of your home"
@@ -1380,14 +1404,15 @@ en:
         new_password: "New password"
         confirm_new_password: "Confirm new password"
         submit: "Save"
-        change_details: "Change Details."
+        change_details: "Update Details."
         first_name: "First name"
         surname: "Surname"
         account: "Update Account."
+        phone: "Phone"
+        email: "Email"
       communications:
         title: "Communication Preferences."
-        maintaining_managing: "Updates on maintaining and managing my home through Spaciable:"
-        updates_by: "Updates on products and services by:"
+        updates_by: "Updates on offers and services from your portal:"
         helpful: "We want to stay in touch, but only in ways that you find helpful.<br/> Select from the options below and click Save."
       services:
         title: "Services"
@@ -1396,16 +1421,16 @@ en:
         name: "Name"
         password: "Password"
         email: "Email"
+        phone: "Phone"
         dummy_password: "********"
         plot-disclaimer: "The following information is regarding your currently selected plot. <br/> To view and edit the information of an alternative plot, please use the Plots dropdown in the navigation."
         comms_preferences: "Communication Preferences."
         account_details: "Account Details."
         account: "Account."
         edit_profile: "Update Details/Preferences"
-        developer_email_updates: "Developer emails"
-        developer_sms_updates: "Developer text messages"
-        cf_email_updates: "Spaciable emails"
-        telephone_updates: "Telephone updates"
+        developer_email_updates: "Emails from my property developer"
+        cf_email_updates: "Via email"
+        telephone_updates: "Via text"
         post_updates: "Post updates"
         other_residents: "Other residents with access to %{plot}."
         none: "Only you can see the content for %{plot}"
@@ -1441,8 +1466,9 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        find_out: "Find Out More"
-        no_thanks: "No Thanks"
+        find_out: "Select Categories"
+        no_thanks: "Go to Dashboard"
+        title: ""
         title: ""
         subtitle: ""
         description_html: ""
@@ -1451,16 +1477,14 @@ en:
                     to third parties without your consent. Spaciable Services operates in full compliance with the EU GDPR (General Data Protection Regulation) and the UK DPA (Data Protection Act) 2018."
         submit: "Submit"
         services_title: "Services."
-        disclaimer_1: "Selecting 'Find Out More' will open Spaciable services information in a new tab."
-        disclaimer_2: "You can access Spaciable services at any time from your Dashboard."
+        disclaimer: "You can access the Services feature at any time from your portal dashboard."
     intro_videos:
       show:
-        welcome_title: "Welcome %{name} and welcome to your new home's online portal"
-        welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers.
-        The content on your portal is personalised to your home."
-        welcome_2: "Everything is specific and personalised to your new home."
+        welcome_title: "Intro Video"
+        welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers."
+        welcome_2: "The content on your portal is personalised to your home."
         next: "Next"
-        return: "You can also view this welcome video on your portal’s My account page."
+        return: "You can also view this welcome video on your portal’s Account page."
     development_messages:
       index:
         title: "Community messages for %{development}"
@@ -2968,10 +2992,8 @@ en:
         password: "Password"
         password_confirmation: "Confirm password"
         developer_email_updates: "Emails from my property developer"
-        developer_sms_updates: "Mobile text messages from my property developer"
-        cf_email_updates: "Home inspiration direct to my inbox with Spaciable How To updates"
-        telephone_updates: "Telephone"
-        post_updates: "Post"
+        cf_email_updates: "Via email"
+        telephone_updates: "Via text"
       residents:
         resident: "Resident"
         full_name: "Full name"

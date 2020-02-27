@@ -56,7 +56,6 @@ module ResidentResetService
     resident.developer_email_updates = false
     resident.cf_email_updates = false
     resident.telephone_updates = false
-    resident.post_updates = false
     resident.save(validate: false)
   end
 

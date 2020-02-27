@@ -8,3 +8,18 @@ Then(/^I see a list of residents$/) do
     expect(page).to have_content CreateFixture.resident_email
   end
 end
+
+Then(/^I can see an individual resident$/) do
+  resident = CreateFixture.resident
+
+  within ".record-list" do
+    click_on resident.email
+  end
+
+  within ".resident" do
+    plot = resident.plots.first
+    expect(page).to have_content plot.developer
+    expect(page).to have_content plot.division
+    expect(page).to have_content plot.development
+  end
+end

@@ -47,7 +47,7 @@ Feature: Terms and Conditions
     Then I should not be recorded as accepting ts and cs
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
-    Then I should be redirected to the video introduction page
+    And I complete the onboarding
     And I should have been recorded as accepting ts and cs
     When the ts and cs are reset
     Then I should not be recorded as accepting ts and cs

@@ -6,7 +6,7 @@ require "csv"
 module Csv
   class DevCsvService
     # fills in the fields with blank values where no resident is allocated to a plot
-    NO_RESIDENT = (1..12).map { nil }
+    NO_RESIDENT = (1..13).map { nil }
 
     def self.init(report, filename)
       @from = report.extract_date(report.report_from)
@@ -32,10 +32,10 @@ module Csv
         "Validity", "Extended Access", "Expiry Date", "Legal Completion Date", "Build Progress",
         "Resident Count", "Resident Email", "Resident Name", "Resident Invited On",
         "Resident Invited By", "Resident Role", "Resident Activated", "Resident Last Sign In",
-        "Lifetime Sign In Count", "Notifications", "Developer Updates", "Spaciable Updates",
-        "Automated Emails", "Maintenance", "Services Enabled", "Referrals Enabled",
-        "Referrals Count", "Snagging Enabled", "Snags Reported", "Snags Resolved",
-        "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
+        "Lifetime Sign In Count", "Notifications", "Developer Emails", "Spaciable Emails",
+        "Spaciable Texts", "Automated Emails", "Maintenance", "Services Enabled",
+        "Referrals Enabled", "Referrals Count", "Snagging Enabled", "Snags Reported",
+        "Snags Resolved", "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
       ]
     end
 
@@ -71,7 +71,8 @@ module Csv
         build_date(resident, "last_sign_in_at"),
         resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),
-        yes_or_no(resident, "cf_email_updates")
+        yes_or_no(resident, "cf_email_updates"),
+        yes_or_no(resident, "telephone_updates")
       ]
     end
 

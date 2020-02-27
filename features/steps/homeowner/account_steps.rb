@@ -15,7 +15,7 @@ When(/^I accept the invitation as a homeowner$/) do
 end
 
 Then(/^I should be redirected to the homeowner dashboard$/) do
-  expect(current_path).to eq '/'
+  expect(current_path).to eq '/dashboard'
 end
 
 Given(/^the developer has enabled services$/) do
@@ -23,12 +23,6 @@ Given(/^the developer has enabled services$/) do
   developer = Developer.find_by(company_name: CreateFixture.developer_name) unless developer
 
   developer.update_attributes(enable_services: true)
-end
-
-Then(/^I can select services$/) do
-  within ".services-actions" do
-    expect(page).to have_content t("homeowners.services.index.find_out")
-  end
 end
 
 Then(/^I should see be able to view My Account$/) do
@@ -53,8 +47,6 @@ When(/^I update the account details$/) do
     phone_updates.trigger(:click)
     email_updates = find(".cf-email-updates")
     email_updates.trigger(:click)
-    sms_updates = find(".developer-sms-updates")
-    sms_updates.trigger(:click)
   end
 
   within ".actions" do
@@ -71,10 +63,8 @@ Then(/^I should see account details updated successfully$/) do
     selected = page.all(".selected").map(&:text)
     expect(selected).to have_content t("homeowners.residents.show.telephone_updates")
     expect(selected).to have_content t("homeowners.residents.show.cf_email_updates")
-    expect(selected).to have_content t("homeowners.residents.show.developer_sms_updates")
 
     unselected = page.all(".unselected").map(&:text)
-    expect(unselected).to have_content t("homeowners.residents.show.post_updates")
     expect(unselected).to have_content t("homeowners.residents.show.developer_email_updates")
   end
 end
@@ -89,8 +79,6 @@ When(/^I remove notification methods from my account$/) do
     phone_updates.trigger(:click)
     email_updates = find(".cf-email-updates")
     email_updates.trigger(:click)
-    sms_updates = find(".developer-sms-updates")
-    sms_updates.trigger(:click)
   end
 
   within ".actions" do
@@ -146,13 +134,6 @@ Then(/^I should see the resident emails listed in my account$/) do
     expect(page).not_to have_content "test4@example.com"
     # Should not see my own email address
     expect(page).not_to have_content resident.email
-  end
-end
-
-When(/^I select no services$/) do
-  sleep 0.5
-  within ".services-actions" do
-   click_on t("homeowners.services.index.no_thanks")
   end
 end
 
@@ -250,18 +231,6 @@ end
 Then(/^I can not complete registration$/) do
   disabled_btn = page.find("[disabled]")
   expect(disabled_btn.value).to eq t("residents.invitations.edit.submit_button")
-end
-
-Given(/^a CF admin has configured a video link$/) do
-  FactoryGirl.create(:setting, video_link: SettingsFixture.video_url)
-end
-
-Then(/^I should be redirected to the video introduction page$/) do
-  within ".video-container" do
-    expect(page).to have_content %r{#{t("homeowners.intro_videos.show.welcome_title", name: PlotResidencyFixture.attrs[:first_name])}}i
-
-    click_on t("homeowners.intro_videos.show.next")
-  end
 end
 
 Given(/^the plot has an address$/) do
@@ -427,4 +396,82 @@ end
 
 Given(/^a CF admin has disabled the intro video$/) do
   FactoryGirl.create(:setting, intro_video_enabled: false)
+end
+
+Given(/^a CF admin has configured a video link$/) do
+  FactoryGirl.create(:setting, video_link: SettingsFixture.video_url)
+end
+
+Then(/^I should be redirected to the communication preferences page$/) do
+  within ".title" do
+    expect(page).to have_content(t("homeowners.communication_preferences.show.communication_preferences"))
+  end
+end
+
+Then(/^when I click next$/) do
+  find(".branded-btn").click
+end
+
+Then(/^I am redirected to the welcome home page$/) do
+  within ".title" do
+    expect(page).to have_content(t("homeowners.welcome_home.show.welcome_home"))
+  end
+end
+
+Then(/^I should be redirected to the intro video page$/) do
+  within ".title" do
+    expect(page).to have_content(t("homeowners.intro_videos.show.welcome_title"))
+  end
+end
+
+Then(/^I should be redirected to the services page$/) do
+  within ".title" do
+    expect(page).to have_content(t("homeowners.residents.services.title"))
+  end
+end
+
+When(/^I select no services$/) do
+  find(".branded-btn-inverted").click
+end
+
+Then(/^I should be redirected to the homeowner root page$/) do
+  expect(current_path).to eq '/'
+end
+
+Then(/^I cannot see the intro video link in my account$/) do
+  within ".full-menu" do
+    click_on t("components.homeowner.welcome.account")
+  end
+
+  find(".show-actions")
+  within ".show-actions" do
+    expect(page).to_not have_content(t("homeowners.residents.show.intro_video"))
+  end
+end
+
+Then(/^I can see the intro video link in my account$/) do
+  within ".full-menu" do
+    click_on t("components.homeowner.welcome.account")
+  end
+
+  find(".show-actions")
+  within ".show-actions" do
+    expect(page).to have_content(t("homeowners.residents.show.intro_video"))
+  end
+end
+
+When(/^I complete the onboarding$/) do
+  within ".submit" do
+    click_on "Save"
+  end
+
+  within ".next-page" do
+    click_on "Next"
+  end
+
+  find(".video-container")
+
+  within ".next-page" do
+    click_on "Next"
+  end
 end

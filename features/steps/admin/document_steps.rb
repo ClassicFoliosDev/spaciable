@@ -346,9 +346,7 @@ When(/^I upload a document for the phase plot$/) do
   end
 
   sleep 0.5
-  within ".tabs" do
-    click_on "Documents"
-  end
+  find(".tabs").click_on "Documents"
 
   within ".empty" do
     click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
@@ -457,9 +455,7 @@ When(/^I upload an image for the phase plot$/) do
   end
 
   sleep 0.5
-  within ".tabs" do
-    click_on "Documents"
-  end
+  find(".tabs").click_on "Documents"
 
   within ".empty" do
     click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)

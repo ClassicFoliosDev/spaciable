@@ -220,7 +220,6 @@ Then(/^the resident should still receive notifications$/) do
   expect(resident.developer_email_updates).to eq 1
   expect(resident.cf_email_updates).to eq 1
   expect(resident.telephone_updates).to be_nil
-  expect(resident.post_updates).to be_nil
 end
 
 Given(/^there is a plot in another phase$/) do

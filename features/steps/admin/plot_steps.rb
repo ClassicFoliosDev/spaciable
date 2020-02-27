@@ -348,11 +348,9 @@ Then(/^I can not edit a plot$/) do
   end
 
   sleep 0.5
-  within ".tabs" do
-    click_on "Documents"
-  end
-  sleep 0.5
+  find(".tabs").click_on "Documents"
 
+  sleep 0.5
   within ".plot" do
     edit_links = page.all("[data-action='edit']")
     expect(edit_links.count).to eq 0

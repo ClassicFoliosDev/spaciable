@@ -216,7 +216,7 @@ class Brand < ApplicationRecord
   end
 
   def self.branded_hover_text_default
-    "color: #FFFFFF; // $ui-white;"
+    "color: #FFFFFF !important; // $ui-white;"
   end
 
   def self.branded_hover_border_default

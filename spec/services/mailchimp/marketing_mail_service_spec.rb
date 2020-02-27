@@ -44,17 +44,15 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:DEVLPR_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:HOOZ_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
-      expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:PHONE]).to eq(resident.phone_number)
 
-      expect(merge_fields.length).to eq 21
+      expect(merge_fields.length).to eq 20
     end
   end
 
   context "updating an existing user" do
     it "builds the merge fields for resident only" do
       resident.cf_email_updates = 1
-      resident.post_updates = 1
       merge_fields = described_class.build_merge_fields(Rails.configuration.mailchimp[:unactivated], resident, nil)
 
       expect(resident.subscribed_status).to eq(Rails.configuration.mailchimp[:subscribed])
@@ -66,9 +64,8 @@ RSpec.describe Mailchimp::MarketingMailService do
       expect(merge_fields[:DEVLPR_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
       expect(merge_fields[:HOOZ_UPD]).to eq(Rails.configuration.mailchimp[:subscribed])
       expect(merge_fields[:PHONE_UPD]).to eq(Rails.configuration.mailchimp[:unsubscribed])
-      expect(merge_fields[:POST_UPD]).to eq(Rails.configuration.mailchimp[:subscribed])
       expect(merge_fields[:PHONE]).to eq(resident.phone_number)
-      expect(merge_fields.length).to eq 9
+      expect(merge_fields.length).to eq 8
     end
   end
 

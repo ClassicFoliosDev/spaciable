@@ -1,32 +1,40 @@
 <% content_for :hero_text_primary do %>
-<%= t(".services_title") %>
+  <%= t(".services_title") %>
 <% end %>
 
-<div class="resident-hero">
-  <%= render "components/homeowner/hero" %>
-</div>
+<% if session[:onboarding] %>
+  <div class="branded-hero"></div>
+<% else %>
+  <div class="resident-hero">
+    <%= render "components/homeowner/hero" %>
+  </div>
+<% end %>
 
 <div class="branded-body outer-container">
-  <div class="branded-text services-container">
-    <h2>
+  <div class=" services">
+
+    <div class="branded-text title">
       <%= t("homeowners.dashboard.services.services_title") %>
-    </h2>
-    <p>
-      <%= t("homeowners.dashboard.services.services_description") %>
-      <div class="services-image">
-        <%= image_tag("spaciable_services.svg") %>
-      </div>
-    </p>
-  </div>
-  <div class="services-actions">
-    <%= link_to t(".find_out"),
-        "https://home.spaciable.com/service/#{@services_params}",
-        target: "_blank",
-        class: "btn branded-btn" %>
-    <%= link_to t(".no_thanks"), root_path, class: "btn branded-btn" %>
-  </div>
-  <div class="services-disclaimer services-container">
-    <span><%= t(".disclaimer_1") %></span><br/>
-    <span><%= t(".disclaimer_2") %></span>
+    </div>
+
+    <div class="branded-text services-description">
+      <p>
+        <%= t("homeowners.dashboard.services.services_description_one") %><br/>
+        <span class="bold"><%= t("homeowners.dashboard.services.services_description_two") %></span>
+      </p>
+    </div>
+
+    <div class="branded-text services-disclaimer">
+      <span><%= t(".disclaimer") %></span>
+    </div>
+
+    <div class="services-actions">
+      <%= link_to t(".find_out"),
+      "https://home.spaciable.com/service/#{@services_params}",
+      class: "btn branded-btn services-btn" %>
+
+      <%= link_to t(".no_thanks"), dashboard_path, class: "btn branded-btn-inverted services-btn" %>
+    </div>
+
   </div>
 </div>

@@ -22,19 +22,23 @@
         </div>
       <% end %>
 
-      <div class="half change resident-details branded-content branded-border resident-name">
-        <h3><%= t(".change_details") %></h3>
-        <%= f.input :title,
-                    as: :select,
-                    collection: Resident.titles,
-                    label_method: ->((key, _)) { t_enum(Resident, :title, key) },
-                    value_method: ->((key, _)) { key },
-                    include_blank: true %>
-        <%= f.input :first_name, label: t(".first_name") %>
-        <%= f.input :last_name, label: t(".surname") %>
+      <div class="resident-details branded-content branded-border full">
+        <div class="resident-name">
+          <h3><%= t(".change_details") %></h3>
+          <%= f.input :email, label: t(".email"), readonly: true, class: "readonly" %>
+          <%= f.input :title,
+                      as: :select,
+                      collection: Resident.titles,
+                      label_method: ->((key, _)) { t_enum(Resident, :title, key) },
+                      value_method: ->((key, _)) { key },
+                      include_blank: true %>
+          <%= f.input :first_name, label: t(".first_name") %>
+          <%= f.input :last_name, label: t(".surname") %>
+          <%= f.input :phone_number, label: t(".phone"), required: true %>
+        </div>
       </div>
 
-      <div class="half change password resident-details last branded-content branded-border resident-password">
+      <div class="password resident-details last branded-content branded-border resident-password full">
         <h3><%= t(".change_password") %></h3>
         <%= f.input :current_password, label: t(".current_password"), autocomplete: "off" %>
         <%= f.input :password, label: t(".new_password"), autocomplete: "off" %>

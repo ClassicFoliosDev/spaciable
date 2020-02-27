@@ -35,7 +35,7 @@ class Resident < ApplicationRecord
 
   def subscribed_status
     if cf_email_updates.to_i.positive? || developer_email_updates.to_i.positive? ||
-       developer_sms_updates.to_i.positive?
+       telephone_updates.to_i.positive?
       return Rails.configuration.mailchimp[:subscribed]
     end
 

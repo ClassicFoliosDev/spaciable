@@ -62,7 +62,6 @@ module Mailchimp
         DEVLPR_UPD: resident.developer_email_updates&.positive? ? subscribed : unsubscribed,
         HOOZ_UPD: resident.cf_email_updates&.positive? ? subscribed : unsubscribed,
         PHONE_UPD: resident.telephone_updates&.positive? ? subscribed : unsubscribed,
-        POST_UPD: resident.post_updates&.positive? ? subscribed : unsubscribed,
         PHONE: resident.phone_number
       }.transform_values(&:to_s)
     end

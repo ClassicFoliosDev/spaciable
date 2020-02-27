@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200129114517) do
+ActiveRecord::Schema.define(version: 20200211101304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -668,10 +668,8 @@ ActiveRecord::Schema.define(version: 20200129114517) do
     t.integer  "developer_email_updates"
     t.integer  "cf_email_updates"
     t.integer  "telephone_updates"
-    t.integer  "post_updates"
     t.string   "phone_number"
     t.datetime "ts_and_cs_accepted_at"
-    t.integer  "developer_sms_updates"
     t.index ["email"], name: "index_residents_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_residents_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_residents_on_invitations_count", using: :btree

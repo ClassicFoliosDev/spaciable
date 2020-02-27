@@ -15,6 +15,8 @@ module Residents
     end
 
     def update
+      # add an onboarding session to use for hiding navigation from onboarding process
+      session[:onboarding] = true
       development = DevelopmentFinderService.call(params)
       @brand = development&.brand_any
       super
@@ -23,8 +25,6 @@ module Residents
 
       JobManagementService.call(current_resident.id)
       update_resident_ts_and_cs
-      update_resident_email_subscribe_params
-      update_resident_sms_subscribe_params
 
       current_resident.plots.each do |plot|
         Mailchimp::MarketingMailService.call(current_resident,
@@ -34,12 +34,7 @@ module Residents
     end
 
     def after_accept_path_for(_resource)
-      @setting = Setting.first
-      @setting&.intro_video_enabled? ? intro_video_path : skip_intro_video
-    end
-
-    def skip_intro_video
-      current_resident.services_enabled? ? services_path : root_path
+      communication_preferences_path
     end
 
     private
@@ -48,24 +43,6 @@ module Residents
       return if params[:resident][:ts_and_cs_accepted].blank?
 
       current_resident.update(ts_and_cs_accepted_at: Time.zone.now)
-    end
-
-    def update_resident_email_subscribe_params
-      if params[:resident][:subscribe_emails].to_i.positive?
-        current_resident.update(cf_email_updates: 1)
-        current_resident.update(developer_email_updates: 1)
-      else
-        current_resident.update(cf_email_updates: 0)
-        current_resident.update(developer_email_updates: 0)
-      end
-    end
-
-    def update_resident_sms_subscribe_params
-      if params[:resident][:subscribe_sms].to_i.positive?
-        current_resident.update(developer_sms_updates: 1)
-      else
-        current_resident.update(developer_sms_updates: 0)
-      end
     end
   end
 end

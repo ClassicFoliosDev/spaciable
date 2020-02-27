@@ -1,27 +1,32 @@
-.services-btn {
-  line-height: $base-font-line-height;
-  margin: $spacing-small;
-  cursor: pointer;
-}
-
-.service-summary {
-  margin-top: 0;
-  .larger {
-    padding: $spacing-small;
-  }
-}
-
-.services-container {
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+.services {
+  margin-top: $spacing-large + $spacing-medium;
   text-align: center;
-}
+  padding: $spacing-small;
 
-.services-image {
-  width: 90%;
-  margin: auto;
-  padding-top: $spacing-large;
+  .title {
+    font-weight: $bold-font-weight;
+    font-size: 24px;
+  }
+
+  .services-description {
+    margin-top: $spacing-large;
+
+    .bold {
+      font-weight: $bold-font-weight;
+    }
+  }
+
+  .services-disclaimer {
+    margin-top: $spacing-large;
+    margin-bottom: $spacing-large;
+    font-size: $base-small-font-size;
+  }
+
+  .services-btn {
+    width: 200px;
+    border-radius: 0;
+  }
+
 }
 
 .services-actions {
@@ -32,28 +37,45 @@
   }
 }
 
-.services-disclaimer {
-  text-align: center;
-  font-size: $base-small-font-size;
-}
 
-.service-overlay {
-  padding: $spacing-small;
-  width: 100%;
-  height: 100%;
-  background-color: $transparent-black;
-  border-radius: $border-radius;
-}
+.dashboard {
 
-.service-summary {
-  height: 90%;
-  margin: auto;
-  padding: 5px;
-  padding-top: 12px;
-  text-align: center;
+  .service-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 5px;
+  }
 
-  p:not(.larger) {
-    font-size: $base-small-font-size;
+  .service-summary {
+    padding: $spacing-small;
+
+    .service-content {
+      position: relative;
+      height: 160px;
+      padding: $spacing-small;
+    }
+
+    .service-description {
+      position: absolute;
+      top: 40%;
+      width: 98%;
+      text-align: center;
+      padding-right: $spacing-small;
+    }
+
+    .service-button {
+      position: absolute;
+      right: $spacing-small;
+      bottom: $spacing-small;
+    }
+
+    .service-friend {
+      font-size: $base-font-size;
+      line-height: $base-font-line-height;
+      font-weight: $base-font-weight;
+      cursor: pointer;
+    }
   }
 }
 

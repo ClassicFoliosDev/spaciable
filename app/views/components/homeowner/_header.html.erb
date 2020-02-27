@@ -1,5 +1,5 @@
 <header>
-  <% if current_resident.present? %>
+  <% if current_resident.present? && !session[:onboarding] %>
     <%= render "components/homeowner/welcome", unread_count: unread_count, plots: plots %>
   <% end %>
 
@@ -11,7 +11,9 @@
         </div>
         <div class="navigation">
           <!-- pass the country to the navigation -->
-          <%= render "components/homeowner/navigation", plot: plot, country: country %>
+          <% unless session[:onboarding] %>
+            <%= render "components/homeowner/navigation", plot: plot, country: country %>
+          <% end %>
         </div>
       </div>
     </nav>

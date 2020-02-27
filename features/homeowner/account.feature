@@ -14,9 +14,16 @@ Feature: Homeowner Account
     And I log out as a an admin
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
-    Then I should be redirected to the video introduction page
+    Then I should be redirected to the communication preferences page
+    And when I click next
+    Then I am redirected to the welcome home page
+    And when I click next
+    Then I should be redirected to the intro video page
+    And when I click next
+    Then I should be redirected to the services page
     When I select no services
     Then I should be redirected to the homeowner dashboard
+    And I can see the intro video link in my account
     When I add another resident
     Then I should see the resident has been added
     When I add a homeowner resident
@@ -42,6 +49,11 @@ Feature: Homeowner Account
     And I log out as a an admin
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
+    Then I should be redirected to the communication preferences page
+    And when I click next
+    Then I am redirected to the welcome home page
+    And when I click next
+    Then I should be redirected to the services page
     When I select no services
     Then I should be redirected to the homeowner dashboard
 
@@ -52,7 +64,12 @@ Feature: Homeowner Account
     And I log out as a an admin
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
+    Then I should be redirected to the communication preferences page
+    And when I click next
+    Then I am redirected to the welcome home page
+    And when I click next
     Then I should be redirected to the homeowner dashboard
+    And I cannot see the intro video link in my account
 
   Scenario: Account update
     Given I am logged in as a homeowner
@@ -85,13 +102,18 @@ Feature: Homeowner Account
     And I assign a new resident to a plot
     When I visit the invitation accept page
     And I accept the invitation as a homeowner
-    Then I should be redirected to the video introduction page
-    And I should be redirected to the homeowner dashboard
+    Then I should be redirected to the communication preferences page
+    And when I click next
+    Then I am redirected to the welcome home page
+    And when I click next
+    Then I should be redirected to the intro video page
+    And when I click next
+    Then I should be redirected to the homeowner dashboard
     When I soft delete the plot residency
     And I log in as a Development Admin
     When I assign a new resident to a plot
     When I log in as an existing homeowner
-    Then I should be redirected to the homeowner dashboard
+    Then I should be redirected to the homeowner root page
 
   Scenario: Legacy homeowner
     Given there is a division with a development
