@@ -97,7 +97,7 @@ module Csv
 
     def self.expired_status(plot)
       return "" unless plot.completion_release_date
-      plot.expired? ? "Active" : "Expired"
+      plot.expired? ? "Expired" : "Active"
     end
 
     def self.expiry_date(plot)
