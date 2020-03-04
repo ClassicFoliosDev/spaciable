@@ -1332,8 +1332,8 @@ en:
         services_description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
         services: "Select Services"
         services_title: "Services"
-        services_description_one: "Benefit from exclusive quotes for a range of services, from utility suppliers to insurance policies, through the Services feature."
-        services_description_two: "Simply select the categories you want quotes for, enter your details, and save time and money!"
+        services_description_one: "Benefit from an exclusive range of services, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Services feature."
+        services_description_two: "Simply select the categories you are interested in and start saving money!"
       referrals:
         refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer A Friend"
