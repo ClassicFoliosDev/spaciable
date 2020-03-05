@@ -95,6 +95,7 @@ module Csv
       record.send(column).strftime("%d/%m/%Y")
     end
 
+    # This is being temperamental on Staging, keep an eye on it
     def self.expired_status(plot)
       return "" unless plot.completion_release_date
       plot.expired? ? "Expired" : "Active"
