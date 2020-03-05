@@ -95,8 +95,9 @@ When(/^I add a finish$/) do
 
   click_on t("components.empty_list.add", type_name: Finish.model_name.human.titleize)
 
-  select_from_selectmenu :finish_category, with: CreateFixture.finish_category_name
-  select_from_selectmenu :finish_type, with: CreateFixture.finish_type_name
+  fill_in "finish_room_search_finish_text", with: CreateFixture.finish_name
+  find(".search-finish-btn").click
+
   select_from_selectmenu :finishes, with: CreateFixture.finish_name
 
   click_on t("rooms.form.submit")

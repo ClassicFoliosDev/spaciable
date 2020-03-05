@@ -7,16 +7,16 @@ class ReportJob < ApplicationJob
     @report = Report.new(report_params.to_h)
 
     return unless @report.valid?
-    csv_file = build_csv(params.to_h)
-    transfer_url = Csv::CsvTransferService.call(csv_file, user)
+    csv_files = build_csv(params.to_h)
+    transfer_url = Csv::CsvTransferService.call(csv_files, user)
     TransferCsvJob.perform_later(user.email, user.first_name,
                                  transfer_url)
   end
 
   def build_csv(params)
-    return Csv::AllDeveloperCsvService.call(@report) if params["all"].present?
+    return [Csv::AllDeveloperCsvService.call(@report)] if params["all"].present?
     return Csv::DeveloperCsvService.call(@report) if params["developer"].present?
-    return Csv::BillingCsvService.call(@report) if params["billing"].present?
-    Csv::DevelopmentCsvService.call(@report)
+    return [Csv::BillingCsvService.call(@report)] if params["billing"].present?
+    [Csv::DevelopmentCsvService.call(@report)]
   end
 end

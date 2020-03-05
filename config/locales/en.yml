@@ -35,6 +35,11 @@
 
 en:
 
+  lists:
+    all_value: "*"
+    all_name: "*"
+    all_prompt: "All..."
+    
   reservation_email:
     title: "Your Spaciable Reservation Plots are Live"
   completion_email:

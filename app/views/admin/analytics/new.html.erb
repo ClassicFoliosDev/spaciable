@@ -52,7 +52,7 @@
   <div class="row report-targets">
     <div class="half">
       <div class="developer-id ui-front select-container">
-        <%= cascade_select_input f, :developer_id, Developer %>
+        <%= cascade_select_input f, :developer_id, Developer, show_all: true %>
       </div>
       <div class="division-id ui-front select-container">
         <%= cascade_select_input f, :division_id, Division %>
