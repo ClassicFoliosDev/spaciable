@@ -4,7 +4,7 @@ require "we_transfer_client"
 
 module Csv
   class CsvTransferService
-    def self.call(csv_files, user)
+    def self.call(csv_file, user)
       log_path = Rails.root.join("log", "csv_file_transfer.log")
       logger = Logger.new(log_path)
       if Rails.application.secrets.we_transfer_key.blank?
@@ -12,21 +12,19 @@ module Csv
         return
       end
 
-      transfer_url = transfer_csvs(csv_files, user, logger)
+      transfer_url = transfer_csv(csv_file, user, logger)
       logger.info(transfer_url)
 
       transfer_url
     end
 
-    def self.transfer_csvs(csv_files, user, logger)
+    def self.transfer_csv(csv_file, user, logger)
       client = WeTransfer::Client.new(api_key: Rails.application.secrets.we_transfer_key)
       description = I18n.t("transfer_csv_description")
 
       transfer = client.create_transfer_and_upload_files(message: description) do |upload|
-        csv_files.each do |csv_file|
-          document_file_path = file_path(csv_file, tmp_folder(user.email), logger)
-          upload.add_file_at(path: document_file_path)
-        end
+        document_file_path = file_path(csv_file, tmp_folder(user.email), logger)
+        upload.add_file_at(path: document_file_path)
       end
 
       transfer.url

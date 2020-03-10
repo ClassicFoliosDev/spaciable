@@ -38,7 +38,7 @@ en:
   lists:
     all_value: "*"
     all_name: "*"
-    all_prompt: "All..."
+    all_prompt: "All Developers..."
     
   reservation_email:
     title: "Your Spaciable Reservation Plots are Live"
