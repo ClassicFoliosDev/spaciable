@@ -35,11 +35,14 @@ module Developers
       @development.build_address unless @development.address
       @maintenance = Maintenance.new
       @development.build_maintenance unless @development.maintenance
+      @premium_perk = PremiumPerk.new
+      @development.build_premium_perk unless @development.premium_perk
     end
 
     def edit
       @development.build_address unless @development.address
       @development.build_maintenance unless @development.maintenance
+      @development.build_premium_perk unless @development.premium_perk
     end
 
     def create
@@ -81,16 +84,14 @@ module Developers
     # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
-        :name,
-        :choice_option,
+        :name, :choice_option,
         :choices_email_contact,
-        :developer_id,
-        :division_id,
-        :email,
-        :contact_number,
-        :enable_snagging,
-        :snag_duration, :snag_name,
+        :developer_id, :division_id,
+        :email, :contact_number,
+        :enable_snagging, :snag_duration, :snag_name,
         maintenance_attributes: %i[id path account_type populate],
+        premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
+                                    premium_licence_duration],
         address_attributes: %i[postal_number road_name building_name
                                locality city county postcode]
       )

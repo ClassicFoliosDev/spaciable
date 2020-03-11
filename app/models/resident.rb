@@ -137,13 +137,13 @@ class Resident < ApplicationRecord
     lettings_account.present?
   end
 
-  # All resident plots with homweowner listings
+  # All resident plots with homeowner listings
   def homeowner_listing_plots
     plots.order(number: :asc)
          .select { |p| p.listing? && p.listing.homeowner? }
   end
 
-  # All plots with homweowner listings owned by other residents
+  # All plots with homeowner listings owned by other residents
   def plots_listing_by_others
     homeowner_listing_plots.select { |p| p.listing.live? && !p.listing.belongs_to?(self) }
   end

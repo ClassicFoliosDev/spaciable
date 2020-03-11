@@ -1,0 +1,14 @@
+<%= image_tag("perks_logo_white.png", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p><%= t("devise.mailer.downgrade_perks.hello", name: @name) %></p>
+
+<p><%= t("devise.mailer.downgrade_perks.paragraph_one") %></p>
+<p><%= t("devise.mailer.downgrade_perks.paragraph_two") %></p>
+<p><%= t("devise.mailer.downgrade_perks.paragraph_three") %></p>
+
+<p style="text-align: center;">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Vaboo</button>".html_safe, @perk_login_link %>
+</p>
+
+<p><%= t("devise.mailer.downgrade_perks.goodbye") %></p>
+<p><%= t("devise.mailer.downgrade_perks.team") %></p>

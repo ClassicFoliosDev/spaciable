@@ -33,6 +33,11 @@ class Developer < ApplicationRecord
 
   delegate :apple_link, :android_link, :app_icon, to: :branded_app, prefix: true
 
+  has_one :branded_perk, dependent: :destroy
+  accepts_nested_attributes_for :branded_perk, reject_if: :all_blank, allow_destroy: true
+  delegate :link, :account_number, :tile_image,
+           to: :branded_perk, allow_nil: true, prefix: true
+
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
   # on a Developer object and it will retrieve the associated country from the Country

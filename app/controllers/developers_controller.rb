@@ -11,10 +11,16 @@ class DevelopersController < ApplicationController
 
   def new
     @developer.build_address unless @developer.address
+
+    @branded_perk = BrandedPerk.new
+    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def edit
     @developer.build_address unless @developer.address
+
+    @branded_perk = BrandedPerk.new
+    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def show
@@ -74,6 +80,8 @@ class DevelopersController < ApplicationController
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
       :prime_lettings_admin, :personal_app,
+      :enable_perks,
+      branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

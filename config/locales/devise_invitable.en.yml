@@ -70,6 +70,17 @@ en:
       transfer_csv:
         title: "Your report is ready for download"
         description: "You csv report is ready to download by following the link below."
+      downgrade_perks:
+        title: "Your Premium discounts access has expired"
+        hello: "Hi %{name},"
+        paragraph_one: "We're writing to let you know that your access to Premium discounts on the Vaboo perks platform has now expired.
+                        Your Premium access was initially paid for you by your housing developer to thank you for being a valued customer."
+        paragraph_two: "Don't worry; you can still log in and enjoy access to the Standard version of the Vaboo perks platform,
+                        which is full of opportunities to save money on dining, shopping, travel, entertainment, fitness, utilities and more."
+        paragraph_three: "If you wish to access exclusive Premium perks and earn cashback as you spend, log in to Vaboo and follow the instructions
+                          for how to upgrade and purchase a Premium account."
+        goodbye: "Many thanks,"
+        team: "The Spaciable Team"
   time:
     formats:
       devise:

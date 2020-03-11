@@ -41,6 +41,9 @@
     </div>
     <div class="row-item third">
       <fieldset>
+        <%= f.input :prime_lettings_admin, as: :select, collection: developer.potential_prime_admins.map { |a| [a.to_s, a.id] },
+        label: t(".prime_admin"), include_blank: true %>
+        <br/>
         <%= f.label :house_search, t(".enable_house_search") %>
         <%= f.check_box :house_search %>
         <p class="checkbox-description"><%= t(".house_search_description") %></p>
@@ -59,8 +62,18 @@
         <%= f.label t(".enable_services") %>
         <%= f.check_box :enable_services %>
         <p class="checkbox-description"><%= t(".services_description") %></p>
-        <%= f.input :prime_lettings_admin, as: :select, collection: developer.potential_prime_admins.map { |a| [a.to_s, a.id] },
-            label: t(".prime_admin"), include_blank: true %>
+        <br/><br/>
+        <%= f.label t(".enable_perks") %>
+        <%= f.check_box :enable_perks, id: "enable_perks" %>
+        <p class="checkbox-description"><%= t(".perks_description") %></p>
+        <p class="branded-explanation"><%= t(".branded_explanation") %></p>
+        <%= f.simple_fields_for :branded_perk do |p| %>
+          <%= p.input :account_number, label: t(".account_number") %>
+          <%= p.input :link, label: t(".link") %>
+          <div class="image-container">
+            <%= p.input :tile_image, label: t(".tile_image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+          </div>
+        <% end %>
       </fieldset>
     </div>
   </div>

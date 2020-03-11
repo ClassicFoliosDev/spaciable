@@ -1,0 +1,14 @@
+<%= simple_form_for Perk.new do |f| %>
+  <%= f.hidden_field :developer, value: plot.developer %>
+
+  <%= f.hidden_field :first_name, value: current_resident.first_name %>
+  <%= f.hidden_field :last_name, value: current_resident.last_name %>
+  <%= f.hidden_field :email, value: current_resident.email %>
+  <%= f.hidden_field :postcode, value: plot.postcode || "-" %>
+  <%= f.hidden_field :group, value: plot.development.id %>
+  <%= f.hidden_field :reference, value: plot.id %>
+  <%= f.hidden_field :access_type, value: access_type %>
+  <% if plot.enable_premium_perks %>
+    <%= f.hidden_field :expire_date, value: Vaboo.perk_expire_date(plot.development) %>
+  <% end %>
+<% end %>

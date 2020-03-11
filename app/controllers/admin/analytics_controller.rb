@@ -28,7 +28,8 @@ module Admin
       params.permit(
         :all,
         :developer,
-        :billing
+        :billing,
+        :perks
       ).to_a
     end
   end

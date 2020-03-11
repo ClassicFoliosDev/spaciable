@@ -17,6 +17,7 @@ class ReportJob < ApplicationJob
     return Csv::AllDeveloperCsvService.call(@report) if params["all"].present?
     return Csv::DeveloperCsvService.call(@report) if params["developer"].present?
     return Csv::BillingCsvService.call(@report) if params["billing"].present?
+    return Csv::PerksCsvService.call(@report) if params["perks"].present?
     Csv::DevelopmentCsvService.call(@report)
   end
 end

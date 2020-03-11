@@ -84,6 +84,13 @@
           name: :development,
           class: "development-csv btn-primary",
           disabled: true %><br/>
+
+      <div class="additional-reports">
+        <%= f.button :submit, t(".perks"),
+            data: { disable_with: false },
+            name: :perks,
+            class: "perks-csv btn-primary" %><br/>
+      </div>
     </div>
   </div>
 <% end %>

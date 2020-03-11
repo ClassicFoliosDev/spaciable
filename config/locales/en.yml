@@ -950,7 +950,8 @@ en:
         developer: "Developer Report"
         development: "Development Report"
         all: "Summary Report (All Developers)"
-        billing: "Billing Report (All Plots Under All Developers)"
+        billing: "Billing Report (All Developers)"
+        perks: "Perks Report"
         range_summary: "Reports may be large. Use the date ranges to reduce the content."
         range_dev: "Development and Developer Reports filter plots with reservation and/or completion release dates within the selected date range."
         range_all: "Summary Report filters developers created within the selected date range."
@@ -1079,6 +1080,12 @@ en:
       maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
       choices_email: "Choices Email"
       account_type: "Maintenance Account Type"
+      enable_premium_perks: "Premium Perks"
+      premium_perks_description: "Allow residents to request access to the Premium Perks Portal. Please set the number of licences available below; once this reaches 0 no further requests to the Premium Portal can be made."
+      premium_licences_bought: "Premium Licences Bought"
+      premium_licence_duration: "Premium Licence Duration (Months)"
+      premium_licences_allocated: "Premium Licences Allocated"
+      premium_licences_remaining: "Premium Licences Remaining"
     index:
       add: "Add Development"
     development:
@@ -1351,6 +1358,16 @@ en:
         email: "Email"
         phone: "Phone"
         refer_description: "Fill in your friend's details to refer them to your developer."
+      perks:
+        basic_perks_description: "Sign up to the resident perks platform to enjoy exclusive offers and discounts."
+        premium_perks_description: "Sign up to the premium resident perks platform to enjoy exclusive offers and discounts."
+        perks: "Find Out More"
+        coming_soon_description: "Sign up to the premium resident perks platform to enjoy exclusive offers and discounts."
+        activated_perks: "Log in to Perks"
+        activated_description: "Access your perks platform.<br/><small>(opens in a new tab)</small>"
+        new_tab: "Opens in a new tab"
+        notice: "Your request for perks access has been submitted. You will receive a confirmation email shortly, to the email address associated with your homeowner portal account. Please follow the instructions in the confirmation email to complete setup of your perks account."
+
     communication_preferences:
       show:
         communication_preferences: "Communication Preferences"
@@ -1401,6 +1418,24 @@ en:
     referrals:
       email_subject: "You have been referred by %{referrer}"
       internal_subject: "New Referral"
+    perks:
+      intro_paragraph_one: "We're rewarding our residents with the chance to start saving on everyday essentials, including dining, shopping, travel, entertainment, fitness, utilities and more."
+      sign_up_paragraph_one: "Once you've confirmed below, we'll pass your property portal account details (name, email address and postcode) on to trusted third party Vaboo, who'll set up your perks account."
+      sign_up_paragraph_two: "Once you've activated your account via the email from Vaboo, you'll be able to log in to the online perks platform to view your latest discounts and deals."
+      show:
+        title: "Perks."
+      premium:
+        intro_paragraph_two: "To say thank you for being a valued customer, we've paid for your upgrade to a premium account, so you can enjoy access to exclusive premium perks and earn cashback as you spend."
+        back: "Return to Dashboard"
+        confirm: "Give Me Access"
+      basic:
+        intro_paragraph_two: "Access to these offers is free of charge, but there is also the option to upgrade to a premium account, where you can access further perks and earn cashback as you spend."
+        back: "Return to Dashboard"
+        confirm: "Give Me Access"
+      coming_soon:
+        completion: "Access will be offered from legal completion onwards, so please return to this page after your completion date to confirm you'd like to activate access to the perks platform."
+        back: "Thanks, I've Read This - Back to Dashboard"
+        sign_up_paragraph_one: "Once you've confirmed you'd like access to the perks platform, we'll pass you property portal account details (name, email address and postcode) on to trusted third party Vaboo, who'll set up your perks account."
 
     residents:
       edit:
@@ -1553,6 +1588,12 @@ en:
       prime_admin: "Primary lettings administrator"
       branded_app: "Branded App"
       branded_app_description: "Developer has a branded app"
+      enable_perks: "Perks"
+      perks_description: "Allow residents to request access to the Basic Perks Portal"
+      link: "Branded Perks Link"
+      account_number: "Branded Perks Account Number"
+      tile_image: "Branded Perks Tile Image"
+      branded_explanation: "Complete the following fields only if the Developer has requested a Branded Perks Portal"
     index:
       add: "Add Developer"
       actions: "Actions"

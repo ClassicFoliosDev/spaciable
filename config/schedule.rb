@@ -25,3 +25,7 @@
 every 1.day, at: '3:00 am' do
   runner "Referral.delete_28_days_old"
 end
+
+every 1.day, at: '2:00 am' do
+  runner "Vaboo.check_expired_premium"
+end

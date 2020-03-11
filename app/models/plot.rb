@@ -8,6 +8,7 @@ class Plot < ApplicationRecord
   attr_accessor :copy_plot_numbers
 
   DUMMY_PLOT_NAME = "ZZZ_DUMMY_PLOT_QQQ"
+  DASHBOARD_TILES = 5 # total number of customisable tiles on the homeowner dashboard
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -69,6 +70,10 @@ class Plot < ApplicationRecord
   delegate :choices_email_contact, to: :development
   delegate :business, to: :phase
   delegate :list_id, to: :developer
+
+  delegate :enable_perks?, :perks_branded_link, :branded_perk, to: :developer
+  delegate :enable_premium_perks, :premium_licence_duration, to: :development
+  delegate :premium_licences_bought, to: :development, prefix: true
 
   delegate :maintenance_populate, to: :development, allow_nil: true
   delegate :maintenance_path, to: :development, allow_nil: true
@@ -389,6 +394,22 @@ class Plot < ApplicationRecord
   # How many rooms of the provided type does this plot have?
   def rooms?(key)
     rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }.count
+  end
+
+  # Which tiles should the plot have enabled for the homeowner dashboard?
+  def activated_cards
+    cards = { "perks" => enable_perks?, "referrals" => enable_referrals?,
+              "services" => enable_services? }
+    activated = []
+    cards.each do |card, value|
+      activated << card if value
+    end
+    activated
+  end
+
+  def completed?
+    return false unless completion_date
+    Time.zone.today >= completion_date
   end
 end
 # rubocop:enable Metrics/ClassLength

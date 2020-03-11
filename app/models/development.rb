@@ -14,6 +14,10 @@ class Development < ApplicationRecord
     division || developer
   end
 
+  def parent_developer
+    developer || division.developer
+  end
+
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :faqs, as: :faqable, dependent: :destroy
   has_many :phases, dependent: :destroy
@@ -31,6 +35,11 @@ class Development < ApplicationRecord
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
+
+  has_one :premium_perk
+  accepts_nested_attributes_for :premium_perk
+  delegate :enable_premium_perks, :premium_licences_bought,
+           :premium_licence_duration, to: :premium_perk, allow_nil: true
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true

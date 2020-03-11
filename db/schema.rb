@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200211101304) do
+ActiveRecord::Schema.define(version: 20200225122945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,6 +111,14 @@ ActiveRecord::Schema.define(version: 20200211101304) do
     t.string  "apple_link"
     t.string  "app_icon"
     t.index ["app_owner_type", "app_owner_id"], name: "index_branded_apps_on_app_owner_type_and_app_owner_id", using: :btree
+  end
+
+  create_table "branded_perks", force: :cascade do |t|
+    t.integer "developer_id"
+    t.string  "link"
+    t.string  "account_number"
+    t.string  "tile_image"
+    t.index ["developer_id"], name: "index_branded_perks_on_developer_id", using: :btree
   end
 
   create_table "brands", force: :cascade do |t|
@@ -270,6 +278,7 @@ ActiveRecord::Schema.define(version: 20200211101304) do
     t.boolean  "enable_roomsketcher",         default: true
     t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
+    t.boolean  "enable_perks",                default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -603,6 +612,16 @@ ActiveRecord::Schema.define(version: 20200211101304) do
     t.index ["private_document_id", "plot_id"], name: "private_document_plot_index", using: :btree
   end
 
+  create_table "premium_perks", force: :cascade do |t|
+    t.integer  "development_id"
+    t.boolean  "enable_premium_perks",     default: false
+    t.integer  "premium_licences_bought"
+    t.integer  "premium_licence_duration"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.index ["development_id"], name: "index_premium_perks_on_development_id", using: :btree
+  end
+
   create_table "private_documents", force: :cascade do |t|
     t.string   "title"
     t.string   "file"
@@ -858,6 +877,7 @@ ActiveRecord::Schema.define(version: 20200211101304) do
 
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
+  add_foreign_key "branded_perks", "developers"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
@@ -880,6 +900,7 @@ ActiveRecord::Schema.define(version: 20200211101304) do
   add_foreign_key "plots", "divisions"
   add_foreign_key "plots", "phases"
   add_foreign_key "plots", "unit_types"
+  add_foreign_key "premium_perks", "developments"
   add_foreign_key "private_documents", "plots"
   add_foreign_key "private_documents", "residents"
   add_foreign_key "resident_notifications", "notifications"

@@ -136,7 +136,6 @@ Then(/^the resident should no longer receive notifications$/) do
   expect(resident.developer_email_updates).to be_zero
   expect(resident.cf_email_updates).to be_zero
   expect(resident.telephone_updates).to be_zero
-  expect(resident.post_updates).to be_zero
 end
 
 When(/^I assign the same resident to the second plot$/) do

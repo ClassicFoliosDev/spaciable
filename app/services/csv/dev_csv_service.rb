@@ -35,7 +35,8 @@ module Csv
         "Lifetime Sign In Count", "Notifications", "Developer Emails", "Spaciable Emails",
         "Spaciable Texts", "Automated Emails", "Maintenance", "Services Enabled",
         "Referrals Enabled", "Referrals Count", "Snagging Enabled", "Snags Reported",
-        "Snags Resolved", "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
+        "Snags Resolved", "Licenses Bought", "Licences Remaining", "Perks Requested",
+        "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
       ]
     end
 
@@ -84,6 +85,9 @@ module Csv
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
         yes_or_no(plot.development, "enable_snagging"), plot.all_snags_count,
         plot.resolved_snags_count,
+        plot.development_premium_licences_bought,
+        Vaboo.available_premium_licences(plot.development),
+        Vaboo.perk_type_registered(resident, plot),
         yes_or_no(plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
         yes_or_no(plot.developer, "development_faqs")

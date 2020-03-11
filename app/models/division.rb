@@ -32,6 +32,7 @@ class Division < ApplicationRecord
   delegate :company_name, to: :developer
   delegate :enable_roomsketcher, :house_search, :development_faqs, to: :developer
   delegate :enable_referrals, :enable_services, :enable_development_messages, to: :developer
+  delegate :enable_perks, to: :developer
 
   paginates_per 25
 

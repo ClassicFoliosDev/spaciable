@@ -108,7 +108,6 @@ Then(/^I should receive email notifications$/) do
   expect(resident.cf_email_updates).to eq 1
   expect(resident.developer_email_updates).to eq 1
   expect(resident.telephone_updates).to be_nil
-  expect(resident.post_updates).to be_nil
 end
 
 Then(/^no emails are sent to the activated homeowner$/) do

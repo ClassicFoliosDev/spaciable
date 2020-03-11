@@ -1,0 +1,54 @@
+<div class="card article branded-border <%= plot.branded_perk ? 'branded-perk' : 'unbranded-perk'%>" style="background-image: url('<%= image_path plot&.branded_perk&.tile_image || asset_path('perks_logo.png') %>')" >
+  <div class="card-content <%= 'service-overlay' if plot.branded_perk %>">
+    <div class="perks-summary">
+      <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
+        <% if Vaboo.premium_perks_available?(current_resident, plot) %>
+
+          <% if plot.completed? %>
+
+            <% if Vaboo.premium_perks_activated?(plot) %>
+              <% perk = "basic" %>
+              <p class="perks-content">
+                <p class="perks-description"><%= t(".basic_perks_description") %></p>
+            <% else %>
+              <% perk = "premium" %>
+              <p class="perks-content">
+                <p class="perks-description"><%= t(".premium_perks_description") %></p>
+            <% end %>
+          <% else %>
+            <% perk = "coming_soon" %>
+            <p class="perks-content">
+              <p class="perks-description"><%= t(".coming_soon_description") %></p>
+          <% end %>
+          <span class="perks-button">
+            <%= link_to t(".perks"),
+            perks_path(type: perk),
+            class: "branded-btn-inverted" %>
+          </span>
+        </p>
+
+        <% else %>
+          <% perk = "basic" %>
+          <p class="perks-content">
+            <p class="perks-description"><%= t(".basic_perks_description") %></p>
+            <span class="perks-button">
+              <%= link_to t(".perks"),
+              perks_path(type: perk),
+              class: "branded-btn-inverted" %>
+            </span>
+          </p>
+        <% end %>
+
+      <% else %>
+        <p class="perks-content">
+          <p class="perks-description"><%= t(".activated_description").html_safe %></p>
+          <span class="perks-button">
+          <%= link_to t(".activated_perks"),
+              Vaboo.branded_perks_link(plot.developer),
+              class: "branded-btn-inverted" %>
+          </span>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

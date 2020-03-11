@@ -53,11 +53,7 @@ module Homeowners
     end
 
     def build_articles
-      how_tos_limit = if @plot.enable_services?
-                        @plot.enable_referrals? ? 3 : 4
-                      else
-                        @plot.enable_referrals? ? 4 : 5
-                      end
+      how_tos_limit = Plot::DASHBOARD_TILES - @plot.activated_cards.size
 
       # Filter the HowTo records according to the country
       @how_tos = HowTo.active.order(featured: :asc)
