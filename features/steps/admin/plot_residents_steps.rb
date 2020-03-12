@@ -148,8 +148,6 @@ When(/^I assign the same resident to the second plot$/) do
   end
 
   within ".new_resident" do
-    expect(page).to have_content "Has access to the issue reporting system (if enabled on your development)."
-    expect(page).to have_content "Cannot access the issue reporting system (if enabled on your development)."
     select_from_selectmenu :resident_role, with: I18n.t("activerecord.attributes.plot_residency.roles.tenant")
     fill_in_resident_details(PlotResidencyFixture.attrs)
   end
