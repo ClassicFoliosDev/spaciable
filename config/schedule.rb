@@ -22,6 +22,12 @@
 
 # Destroy unconfirmed referrals after 28 days
 
+# expiry mailers
+every 1.day, at: '12:10 am' do
+  runner "Plot.notify_expiry_plots"
+end
+
+# referrals
 every 1.day, at: '3:00 am' do
   runner "Referral.delete_28_days_old"
 end
