@@ -73,7 +73,7 @@ en:
       file_time: "%Y_%m_%d_%H_%M_%S"
 
   cookies_eu:
-    cookies_text: "Cookies help us deliver our services. By using our services, you agree to our use of cookies."
+    cookies_text: "This site uses cookies. Cookies help us deliver our services. By using our services, you agree to our use of cookies."
     learn_more: "Find out more"
     ok: "OK"
 
