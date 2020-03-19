@@ -29,7 +29,7 @@
           <% end %>
           <%= link_to t(".plots"), [parent, phase, active_tab: :plots], class: "btn" %>
           <%= edit_btn edit_development_phase_path(parent, phase), element: phase %>
-          <%= delete_btn phase, path: url_for([parent, phase]), element: phase %>
+          <%= permissable_delete_btn phase, path: url_for([parent, phase]), element: phase %>
         </td>
       </tr>
       <% end %>

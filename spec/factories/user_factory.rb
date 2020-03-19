@@ -3,7 +3,7 @@
 FactoryGirl.define do
   factory :user do
     email { Faker::Internet.email }
-    password { Faker::Internet.password(8) }
+    password { "fooBar12" }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
     invitation_accepted_at { Date.yesterday }

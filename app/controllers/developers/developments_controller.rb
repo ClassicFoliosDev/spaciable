@@ -73,9 +73,15 @@ module Developers
     end
 
     def destroy
-      notice = t(".success", development_name: @development.name)
+      unless current_user.valid_password?(params[:password])
+        alert = t("admin_permissable_destroy.incorrect_password", record: @development)
+        redirect_to [@developer, :developments], alert: alert
+        return
+      end
 
       @development.destroy
+
+      notice = t(".success", development_name: @development.name)
       redirect_to [@developer, :developments], notice: notice
     end
 

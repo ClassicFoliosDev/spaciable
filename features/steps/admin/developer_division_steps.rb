@@ -106,7 +106,12 @@ When(/^I delete the division$/) do
     click_on t("developers.collection.divisions")
   end
 
-  delete_and_confirm!(finder_options: { match: :first }, scope: ".divisions")
+  within find('tr', text: DeveloperDivisionFixture.updated_division_name) do
+    find(".destroy-permissable").click
+  end
+
+  fill_in "password", with: CreateFixture.admin_password
+  click_on(t("admin_permissable_destroy.confirm"))
 end
 
 Then(/^I should see that the deletion was successful for the division$/) do

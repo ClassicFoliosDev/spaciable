@@ -126,7 +126,7 @@ module Csv
     end
 
     def self.plot_expiry_date(plot)
-      plot.expiry_date ? plot.expiry_date.strftime("%m/%d/%Y") : ""
+      plot.expiry_date ? plot.expiry_date.strftime("%d/%m/%Y") : ""
     end
 
     def self.yes_or_no(record, column)

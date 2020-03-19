@@ -65,10 +65,37 @@ Then(/^I should see the updated developer$/) do
   expect(page).to have_content(DeveloperFixture.about)
 end
 
+When(/^I try to delete the developer with an incorrect password$/) do
+  visit "/developers"
+
+  within ".actions" do
+    find(".destroy-permissable").click
+  end
+
+  fill_in "password", with: "123456"
+  click_on(t("admin_permissable_destroy.confirm"))
+end
+
+Then(/^I see an alert and the developer is not deleted$/) do
+  within ".alert" do
+    expect(page).to have_content(t("admin_permissable_destroy.incorrect_password",
+                                 record: DeveloperFixture.updated_company_name))
+  end
+
+  within ".record-list" do
+    expect(page).to have_content(DeveloperFixture.updated_company_name)
+  end
+end
+
 When(/^I delete the developer$/) do
   visit "/developers"
 
-  delete_and_confirm!
+  within ".actions" do
+    find(".destroy-permissable").click
+  end
+
+  fill_in "password", with: CreateFixture.admin_password
+  click_on(t("admin_permissable_destroy.confirm"))
 end
 
 Then(/^I should see the delete complete successfully$/) do

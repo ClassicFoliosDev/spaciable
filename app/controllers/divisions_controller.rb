@@ -49,6 +49,12 @@ class DivisionsController < ApplicationController
   end
 
   def destroy
+    unless current_user.valid_password?(params[:password])
+      alert = t("admin_permissable_destroy.incorrect_password", record: @division)
+      redirect_to @developer, active_tab: :divisions, alert: alert
+      return
+    end
+
     @division.destroy
     notice = t(
       "controller.success.destroy",

@@ -45,6 +45,12 @@ class PhasesController < ApplicationController
   end
 
   def destroy
+    unless current_user.valid_password?(params[:password])
+      alert = t("admin_permissable_destroy.incorrect_password", record: @phase)
+      redirect_to development_phases_url(@development), alert: alert
+      return
+    end
+
     @phase.destroy
     notice = t(
       ".success",

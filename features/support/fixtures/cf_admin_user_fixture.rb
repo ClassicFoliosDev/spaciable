@@ -12,6 +12,6 @@ module CFAdminUserFixture
   end
 
   def password
-    "12345678"
+    "fooBar12"
   end
 end

@@ -89,7 +89,12 @@ end
 When(/^I delete the phase$/) do
   goto_development_show_page
 
-  delete_and_confirm!
+  within ".actions" do
+    find(".destroy-permissable").click
+  end
+
+  fill_in "password", with: CreateFixture.admin_password
+  click_on(t("admin_permissable_destroy.confirm"))
 end
 
 Then(/^I should see that the deletion completed successfully$/) do

@@ -10,6 +10,8 @@ Feature: Developers
     Then I should see the created developer
     When I update the developer
     Then I should see the updated developer
+    When I try to delete the developer with an incorrect password
+    Then I see an alert and the developer is not deleted
     When I delete the developer
     Then I should see the delete complete successfully
 

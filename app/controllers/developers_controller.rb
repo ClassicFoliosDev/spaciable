@@ -62,6 +62,12 @@ class DevelopersController < ApplicationController
   end
 
   def destroy
+    unless current_user.valid_password?(params[:password])
+      alert = t("admin_permissable_destroy.incorrect_password", record: @developer)
+      redirect_to developers_url, alert: alert
+      return
+    end
+
     @developer.destroy
 
     notice = t(".success", developer_name: @developer.company_name)

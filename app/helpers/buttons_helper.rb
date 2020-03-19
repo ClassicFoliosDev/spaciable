@@ -35,6 +35,15 @@ module ButtonsHelper
     end
   end
 
+  def permissable_delete_btn(resource, path: nil, element:)
+    return if element && (cannot? :destroy, element)
+
+    button_tag "", class: "btn destroy-permissable",
+                   data: permissable_data_to_delete(resource, path: path) do
+      icon "trash-o"
+    end
+  end
+
   def icon(icon_name, label = "", classes: "")
     icon_classes = "fa fa-#{icon_name} #{classes}"
     options = { class: icon_classes }

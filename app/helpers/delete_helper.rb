@@ -14,6 +14,18 @@ module DeleteHelper
     }
   end
 
+  def permissable_data_to_delete(resource, path: nil)
+    {
+      cancel: t("edit.cancel"),
+      cta: t("admin_permissable_destroy.confirm"),
+      title: t("admin_permissable_destroy.warning"),
+      user: current_user.id,
+      path: path || url_for(resource),
+      name: resource.to_s,
+      plots: resource.plots.count
+    }
+  end
+
   # rubocop:disable OutputSafety
   def confirm_text(resource)
     unless resource.is_a? Resident

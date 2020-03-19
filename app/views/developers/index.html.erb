@@ -35,7 +35,7 @@
           <%= link_to t(".divisions"), [developer, active_tab: :divisions], class: "btn" %>
           <%= link_to t(".developments"), [developer, active_tab: :developments], class: "btn" %>
           <%= edit_btn edit_developer_path(developer), element: developer %>
-          <%= delete_btn developer, element: developer %>
+          <%= permissable_delete_btn developer, element: developer %>
         </td>
       </tr>
       <% end %>

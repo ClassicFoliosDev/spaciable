@@ -27,7 +27,7 @@
           <td class="actions">
             <%= link_to t(".developments"), division_developments_path(division), class: "btn" %>
             <%= edit_btn edit_developer_division_path(parent, division), element: division %>
-            <%= delete_btn division, path: url_for([parent, division]), element: division %>
+            <%= permissable_delete_btn division, path: url_for([parent, division]), element: division %>
           </td>
         </tr>
         <% end %>

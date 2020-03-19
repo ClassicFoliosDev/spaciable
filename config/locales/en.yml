@@ -39,6 +39,11 @@ en:
     all_value: "*"
     all_name: "*"
     all_prompt: "All Developers..."
+
+  admin_permissable_destroy:
+    confirm: "Confirm Destroy"
+    warning: "WARNING"
+    incorrect_password: "The password you entered is incorrect. %{record} has not been deleted."
     
   reservation_email:
     title: "Your Spaciable Reservation Plots are Live"

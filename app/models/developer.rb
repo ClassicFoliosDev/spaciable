@@ -44,6 +44,8 @@ class Developer < ApplicationRecord
   # table.
   belongs_to :country
 
+  after_destroy { User.permissable_destroy(self.class.to_s, id) }
+
   amoeba do
     enable
   end

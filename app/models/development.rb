@@ -61,6 +61,8 @@ class Development < ApplicationRecord
 
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
+  after_destroy { User.permissable_destroy(self.class.to_s, id) }
+
   enum choice_option:
     %i[
       choices_disabled
