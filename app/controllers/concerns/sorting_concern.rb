@@ -3,7 +3,7 @@
 module SortingConcern
   extend ActiveSupport::Concern
 
-  def sort(resources, default: :updated_at, dir: :asc)
+  def sort(resources, default: :updated_at)
     return resources if resources&.empty?
 
     direction = params[:direction]
@@ -14,7 +14,7 @@ module SortingConcern
     elsif direction.present? && params[:sort].present?
       sort_resources(resources, params)
     else
-      resources&.order(default => dir)
+      resources&.order(default)
     end
   end
 

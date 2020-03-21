@@ -35,7 +35,7 @@ class PlotsController < ApplicationController
                   elsif @active_tab == "residents"
                     paginate(sort(@plot.residents, default: :last_name))
                   elsif @active_tab == "logs"
-                    paginate(sort(Log.logs(@plot), default: :created_at, dir: :desc))
+                    paginate(sort(Log.logs(@plot), default: { created_at: :desc }))
                   end
 
     session[:plot_id] = @plot.id

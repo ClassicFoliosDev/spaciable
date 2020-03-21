@@ -29,7 +29,7 @@ class UnitTypesController < ApplicationController
       @collection = paginate(sort(documents, default: :title))
     when "logs"
       logs = Log.logs(@unit_type)
-      @collection = paginate(sort(logs, default: :created_at, dir: :desc))
+      @collection = paginate(sort(logs, default: { created_at: :desc }))
     end
   end
 
