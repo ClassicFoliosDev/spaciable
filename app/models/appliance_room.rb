@@ -8,6 +8,10 @@ class ApplianceRoom < ApplicationRecord
 
   after_initialize :set_default_adding_user
 
+  after_create -> { log :added }
+  after_update -> { log :updated }
+  after_destroy -> { log :removed }
+
   scope :appliance_room,
         lambda { |room, appliance|
           find_by(room_id: room, appliance_id: appliance)
@@ -29,5 +33,11 @@ class ApplianceRoom < ApplicationRecord
     appliance_room(room, appliance).added_by
   rescue
     nil
+  end
+
+  private
+
+  def log(action)
+    room.furnish_log(appliance, action)
   end
 end

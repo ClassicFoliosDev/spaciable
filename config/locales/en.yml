@@ -61,7 +61,7 @@ en:
   buttons:
     edit: "Edit"
     trash: "Delete"
-    info: 
+    info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"
     share_tenants: "Private: click to share with tenants of this plot"
@@ -92,7 +92,7 @@ en:
         selected: "Plot %{plot_name} Choice Selections"
       update:
         admin_updating: "Choices updated successfully"
-        choices_approved: "Choices have been approved"    
+        choices_approved: "Choices have been approved"
     edit:
       back: "Back"
 
@@ -1173,8 +1173,8 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"      
-      failed: "Failed to create a landlord account."    
+      pr_failed: "Failed to create PlanetRent user account. %{message}"
+      failed: "Failed to create a landlord account."
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
@@ -1259,7 +1259,7 @@ en:
       appliance_manuals:
         appliances_category: "appliance_manuals"
         manual: "Manual"
-        
+
     components:
       contact:
         mobile: "Mobile"
@@ -2074,6 +2074,8 @@ en:
       unit_type: "Unit Type"
       choices: "Choices"
       name: "Plot"
+      logs: "Change Logs"
+
       UK:
         house_number: "Postal"
         building_name: "Building"
@@ -2196,6 +2198,7 @@ en:
       documents: "Documents"
       name: "Unit Type"
       last_edited: "Last Edited"
+      logs: "Change logs"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2643,7 +2646,7 @@ en:
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
-  
+
   production:
     index:
       title: "Production overview of plots"
@@ -3057,3 +3060,10 @@ en:
           attributes:
             finish_types:
               too_short: " required, at least one must be selected"
+  logs:
+    collection:
+      room: "Room"
+      item: "Item"
+      action: "Action"
+      user: "User"
+      at: "Created At"

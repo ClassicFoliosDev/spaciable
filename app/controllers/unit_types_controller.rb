@@ -23,10 +23,14 @@ class UnitTypesController < ApplicationController
 
     @active_tab = params[:active_tab] || "documents"
 
-    @collection = if @active_tab == "documents"
-                    documents = @unit_type.documents
-                    paginate(sort(documents, default: :title))
-                  end
+    case @active_tab
+    when "documents"
+      documents = @unit_type.documents
+      @collection = paginate(sort(documents, default: :title))
+    when "logs"
+      logs = Log.logs(@unit_type)
+      @collection = paginate(sort(logs, default: :created_at, dir: :desc))
+    end
   end
 
   def create

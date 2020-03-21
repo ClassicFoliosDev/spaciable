@@ -5,8 +5,8 @@ module PlotRoomsFixture
 
   def create_plot_rooms_as_cf_admin(cas:)
     CreateFixture.create_cf_admin
-    CreateFixture.create_developer(cas: cas.present?)
-    CreateFixture.create_development(cas: cas.present?)
+    CreateFixture.create_developer(cas: cas)
+    CreateFixture.create_development(cas: cas)
     CreateFixture.create_unit_type
     CreateFixture.create_development_phase
     CreateFixture.create_phase_plot

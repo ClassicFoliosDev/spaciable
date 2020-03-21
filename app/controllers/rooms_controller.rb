@@ -97,7 +97,7 @@ class RoomsController < ApplicationController
 
     # This will delete all joins between @room and @appliance
     # if there is more than one
-    if @room.appliances.delete(@appliance)
+    if @room.appliances.destroy(@appliance)
       Room.last_edited_by(@room.id, current_user)
       notice = t(".success", room_name: @room.name, appliance_name: @appliance.full_name)
     end
@@ -114,7 +114,7 @@ class RoomsController < ApplicationController
 
     # This will delete all joins between @room and @appliance
     # if there is more than one
-    if @room.finishes.delete(@finish)
+    if @room.finishes.destroy(@finish)
       Room.last_edited_by(@room.id, current_user)
       notice = t(".success", room_name: @room.name, finish_name: @finish.name)
     end

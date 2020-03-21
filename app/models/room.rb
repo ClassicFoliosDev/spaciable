@@ -45,6 +45,13 @@ class Room < ApplicationRecord
   after_destroy -> { finishes.delete_all }
   after_initialize -> { self.last_updated_by ||= User.find_by(role: :cf_admin).display_name }
 
+  before_create -> { @previous_rooms = current_rooms }
+  after_create -> { log :created }
+  before_update -> { @previous_rooms = current_rooms }
+  after_update -> { log :updated if name_changed? }
+  before_destroy -> { @previous_rooms = current_rooms }
+  after_destroy -> { log :deleted }
+
   def cas?
     parent.cas
   end
@@ -93,5 +100,26 @@ class Room < ApplicationRecord
 
   def self.last_edited_by(room, user)
     Room.find(room).update(last_updated_by: user.display_name)
+  end
+
+  # log an update to the finishes/appliances
+  def furnish_log(furnish, action)
+    return unless cas?
+    return PlotLog.furnish_update(self, furnish, action) if plot
+    UnitTypeLog.furnish_update(self, furnish, action)
+  end
+
+  private
+
+  # log the room update
+  def log(action)
+    return unless cas?
+    return PlotLog.process_rooms(plot, @previous_rooms, current_rooms) if plot
+    UnitTypeLog.room_update(self, action)
+  end
+
+  # Get the current rooms against the plot/unit type
+  def current_rooms
+    plot ? plot.rooms.to_a : unit_type.rooms.to_a
   end
 end

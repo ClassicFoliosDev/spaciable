@@ -24,6 +24,7 @@ class PlotsController < ApplicationController
     @progress_id = Plot.progresses[@plot.progress.to_sym]
   end
 
+  # rubocop:disable Metrics/AbcSize
   def show
     @active_tab = params[:active_tab] || "documents"
     @collection_parent = @plot
@@ -33,6 +34,8 @@ class PlotsController < ApplicationController
                     paginate(sort(@plot.rooms, default: :name))
                   elsif @active_tab == "residents"
                     paginate(sort(@plot.residents, default: :last_name))
+                  elsif @active_tab == "logs"
+                    paginate(sort(Log.logs(@plot), default: :created_at, dir: :desc))
                   end
 
     session[:plot_id] = @plot.id
@@ -40,6 +43,7 @@ class PlotsController < ApplicationController
     # store the current path to redirect to plots page after edit or delete document
     session[:plot_doc] = request.original_url
   end
+  # rubocop:enable Metrics/AbcSize
 
   def create
     BulkPlots::CreateService.call(@plot, params: plot_params) do |service, created_plots, errors|

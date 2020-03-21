@@ -157,6 +157,21 @@ Then(/^I should see a duplicate unit type with finish and appliance created succ
   end
 end
 
+When(/^I add a room to the unit type$/) do
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms"
+  click_on t("rooms.collection.add")
+  find("#room_name")
+  fill_in :room_name, with: CreateFixture.room_name
+  click_on t("plots.rooms.form.submit")
+end
+
+When(/^I edit a room for the unit type$/) do
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room.id}/edit"
+  find("#room_name")
+  fill_in :room_name, with: CreateFixture.bedroom_name
+  click_on t("plots.rooms.form.submit")
+end
+
 When(/^I clone a unit type twice$/) do
   within ".record-list" do
     links = page.all(".clone")

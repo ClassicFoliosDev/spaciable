@@ -97,7 +97,7 @@ module PhasePlotFixture
 
   def spanish_developer_name
     "Madrid Developer Sp"
-  end 
+  end
 
   def spanish_development_name
     "Casa Development"

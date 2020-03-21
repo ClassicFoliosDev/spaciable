@@ -3,6 +3,8 @@
 module LoginAs
   def login_as(user, opts = {})
     $current_user = user
+    RequestStore.store[:current_user] = $current_user
+
     opts.reverse_merge!(scope: user&.model_name&.element)
 
     Warden.on_next_request do |proxy|

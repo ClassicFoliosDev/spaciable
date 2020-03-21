@@ -1,0 +1,28 @@
+<table class="record-list">
+  <thead>
+  <tr>
+    <th colspan="2"><%= t(".room") %></th>
+    <th colspan="2"><%= t(".item") %></th>
+    <th colspan="2"><%= t(".action") %></th>
+    <th colspan="2"><%= t(".user") %></th>
+    <th colspan="2"><%= sortable(Log, :created_at, t(".at")) %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% collection.each do |log| %>
+    <tr>
+      <td colspan="2"><%= log&.primary %></td>
+      <td colspan="2"><%= log&.secondary %></td>
+      <td colspan="2"><%= log.action %></td>
+      <td colspan="2"><%= log.display_name %></td>
+      <td colspan="2"><%= log.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<div class="paging">
+  <%= render 'components/page_size' %>
+  <%= paginate collection %>
+</div>
+
