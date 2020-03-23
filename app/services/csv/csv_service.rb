@@ -31,18 +31,25 @@ module Csv
 
     # An admin uses the Plot Release Type dropdown to return plots with a completion
     # release date or a reservation release date (or both) between the selected date range
+    # rubocop:disable Metrics/MethodLength
     def self.get_plot_types(plots)
       if @plot_types == "res"
         plots.where(reservation_release_date: @from.beginning_of_day..@to.end_of_day)
              .where(completion_release_date: nil)
       elsif @plot_types == "comp"
         plots.where(completion_release_date: @from.beginning_of_day..@to.end_of_day)
+      elsif @plot_types == "created"
+        plots.where('(reservation_release_date BETWEEN :start_at AND :end_at) OR
+                    ((completion_release_date BETWEEN :start_at AND :end_at) AND
+                     (reservation_release_date IS NULL))',
+                    start_at: @from.beginning_of_day, end_at: @to.end_of_day)
       else
         plots.where('(completion_release_date BETWEEN :start_at AND :end_at) OR
                     (reservation_release_date BETWEEN :start_at AND :end_at)',
                     start_at: @from.beginning_of_day, end_at: @to.end_of_day)
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.grouped_ordered_plots
       @plots = Plot.none
