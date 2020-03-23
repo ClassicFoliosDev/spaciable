@@ -135,12 +135,12 @@ Then(/^I see the plot preview page$/) do
 
   within_frame("rails_iframe") do
     expect(page).to have_content(t("layouts.homeowner.nav.dashboard"))
-    expect(page).to have_content(t("layouts.homeowner.nav.my_home"))
+    expect(page).to have_content(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
     expect(page).to have_content(t("layouts.homeowner.nav.how_to"))
     expect(page).to have_content(t("layouts.homeowner.nav.contacts"))
 
-    expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))
-    expect(page).to have_content(t("homeowners.components.address.my_home_view_more"))
+    expect(page).to have_content(t("homeowners.my_home_name", construction: t("construction_type.home")))
+    expect(page).to have_content(t("homeowners.components.address.view_more", construction: t("components.homeowner.sub_menu.title")))
 
     expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
     expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])

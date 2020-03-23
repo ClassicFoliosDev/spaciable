@@ -22,6 +22,13 @@
       </fieldset>
       <br/>
       <fieldset>
+        <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
+        <div id="construction_name">
+          <%= f.input :construction_name, label: t(".construction_name") %>
+        </div>
+      </fieldset>
+      <br/>
+      <fieldset>
         <div id="maintenance_url">
           <%= f.simple_fields_for :maintenance do |m| %>
             <%= m.input :path, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>

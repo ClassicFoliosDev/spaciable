@@ -24,7 +24,7 @@ When(/^I visit the My Home page$/) do
   visit "/"
 
   within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.my_home")
+    click_on t("layouts.homeowner.nav.my_home", construction: t("construction_type.home"))
   end
 end
 
@@ -77,7 +77,7 @@ end
 
 When(/^I visit the Contacts page$/) do
   within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.my_home")
+    click_on t("layouts.homeowner.nav.my_home", construction: t("construction_type.home"))
   end
 end
 

@@ -63,6 +63,7 @@ module Developers
 
     def update
       if @development.update(development_params)
+        update_my_home
         notice = Mailchimp::SegmentService.call(@development)
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, @development], notice: notice
@@ -87,6 +88,10 @@ module Developers
 
     private
 
+    def update_my_home
+      @development.update_attributes(construction_name: nil) if @development.residential?
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
@@ -95,6 +100,7 @@ module Developers
         :developer_id, :division_id,
         :email, :contact_number,
         :enable_snagging, :snag_duration, :snag_name,
+        :construction, :construction_name,
         maintenance_attributes: %i[id path account_type populate],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
                                     premium_licence_duration],

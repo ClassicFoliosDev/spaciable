@@ -10,14 +10,14 @@
         <div class="half">
           <div class="row">
             <% if @plot.unit_type_picture.present? %>
-            <div class="card my-home black-show-left branded-border" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" >
-              <% else %>
+              <div class="card my-home black-show-left branded-border" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" >
+            <% else %>
               <div class="card my-home black-show-left branded-border" style="background-image: url('<%= image_path "Sign In Image 3.jpg" %>')" >
-              <% end %>
-              <div class="card-header">
-                <h2 class="card-title-alt"><%= t('.my_home_title') %></h2>
-              </div>
-              <%= render "homeowners/components/address", plot: @plot %>
+            <% end %>
+            <div class="card-header">
+              <h2 class="card-title-alt"><%= t('.my_title', construction: @plot.my_home_name) %></h2>
+            </div>
+            <%= render "homeowners/components/address", plot: @plot %>
             </div>
           </div>
           <div class="row articles">
@@ -45,7 +45,7 @@
           <div class="card half my-home black-show-left branded-border" style="background-image: url('<%= image_path "Sign In Image 3.jpg" %>')" >
           <% end %>
           <div class="card-header">
-            <h2 class="card-title-alt"><%= t('.my_home_title') %></h2>
+            <h2 class="card-title-alt"><%= t('.my_title', construction: @plot.my_home_name) %></h2>
           </div>
           <%= render "homeowners/components/address", plot: @plot %>
         </div>

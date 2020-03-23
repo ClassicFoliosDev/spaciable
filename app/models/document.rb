@@ -15,6 +15,8 @@ class Document < ApplicationRecord
   delegate :expired?, to: :parent
   delegate :partially_expired?, to: :parent
 
+  delegate :construction, :construction_name, to: :parent
+
   enum category: %i[
     my_home
     locality
@@ -47,5 +49,16 @@ class Document < ApplicationRecord
     else
       user&.role == "cf_admin" ? I18n.t("documents.spaciable_admin") : user
     end
+  end
+
+  def construction_type
+    # Developers and divisions will not have a construction type as they are
+    # parents of development; if a document does not have a parent set
+    # then no construction type can be determined
+    return I18n.t("construction_type.home") if parent.nil? ||
+                                               (parent.is_a?(Developer) ||
+                                                parent.is_a?(Division)) ||
+                                               construction == "residential"
+    construction_name
   end
 end

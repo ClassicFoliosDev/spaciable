@@ -2,7 +2,7 @@
 
 Then(/^I see the recent homeowner contents$/) do
   within ".my-home" do
-    expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))
+    expect(page).to have_content(t("homeowners.dashboard.show.my_title", construction: t("components.homeowner.sub_menu.title")))
   end
 
   within ".faq-list" do

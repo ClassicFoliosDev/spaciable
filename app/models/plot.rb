@@ -70,6 +70,7 @@ class Plot < ApplicationRecord
   delegate :choices_email_contact, to: :development
   delegate :business, to: :phase
   delegate :list_id, to: :developer
+  delegate :construction, :construction_name, to: :development, allow_nil: true
 
   delegate :enable_perks?, :perks_branded_link, :branded_perk, to: :developer
   delegate :enable_premium_perks, :premium_licence_duration, to: :development
@@ -423,6 +424,14 @@ class Plot < ApplicationRecord
   def completed?
     return false unless completion_date
     Time.zone.today >= completion_date
+  end
+
+  def my_home_name
+    I18n.t("homeowners.my_home_name", construction: my_construction_name)
+  end
+
+  def my_construction_name
+    construction_name || I18n.t("homeowners.home")
   end
 end
 # rubocop:enable Metrics/ClassLength

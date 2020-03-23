@@ -89,6 +89,10 @@ module PlotFixture
     I18n.l(Time.zone.today.ago(1.month))
   end
 
+  def commercial_name
+    "Big Building"
+  end
+
   def update_attrs
     {
       list: plot_number,

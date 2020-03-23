@@ -22,7 +22,7 @@ end
 
 When(/^I go to download the documents for my home$/) do
   within ".navbar" do
-    click_on t("layouts.homeowner.nav.my_home")
+    click_on t("layouts.homeowner.nav.my_home", construction: t("construction_type.home"))
   end
 
   within ".sub-navigation-container" do

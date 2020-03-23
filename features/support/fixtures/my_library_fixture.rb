@@ -69,7 +69,7 @@ module MyLibraryFixture
   end
 
   def default_category_name
-    I18n.t("activerecord.attributes.document.categories.my_home")
+    I18n.t("activerecord.attributes.document.categories.my_home", construction: I18n.t("construction_type.home"))
   end
 
   def other_category_name

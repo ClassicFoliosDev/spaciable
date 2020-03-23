@@ -25,6 +25,7 @@ class Phase < ApplicationRecord
   has_many :plot_documents, through: :plots, source: :documents
 
   delegate :enable_snagging, to: :development
+  delegate :construction, :construction_name, to: :development, allow_nil: true
 
   has_many :contacts, as: :contactable, dependent: :destroy
 
@@ -55,7 +56,8 @@ class Phase < ApplicationRecord
   enum business: [
     :core, # default
     :nhbc,
-    :mhf
+    :mhf,
+    :commercial
   ]
 
   def build_address_with_defaults

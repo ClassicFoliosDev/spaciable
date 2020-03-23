@@ -54,6 +54,9 @@ class Development < ApplicationRecord
   validate :permissable_id_presence
   validates_with ParameterizableValidator
 
+  validates :construction_name, presence: true, if: :commercial?
+  after_validation :set_business, on: [:update]
+
   delegate :building_name, :road_name, :locality,
            :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
@@ -68,6 +71,12 @@ class Development < ApplicationRecord
       choices_disabled
       admin_can_choose
       either_can_choose
+    ]
+
+  enum construction:
+    %i[
+      residential
+      commercial
     ]
 
   def brand_any
@@ -167,6 +176,14 @@ class Development < ApplicationRecord
     record = Maintenance.find_by(development_id: id)
     record&.destroy!
     true
+  end
+
+  # update existing phases business if development is updated to be commercial
+  def set_business
+    return unless commercial?
+    phases.each do |phase|
+      phase.update_attributes(business: :commercial)
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -20,7 +20,7 @@
             label: false %>
         <% end %>
       </td>
-      <td><%= t("activerecord.attributes.document.categories.#{document.category}") %></td>
+      <td><%= t("activerecord.attributes.document.categories.#{document.category}", construction: document.construction_type) %></td>
       <td><%= l document.updated_at.to_date, format: :digits %></td>
       <td class="actions">
         <% if document.file_tmp %>

@@ -35,6 +35,9 @@
 
 en:
 
+  construction_type:
+    home: "Home"
+
   lists:
     all_value: "*"
     all_name: "*"
@@ -282,15 +285,14 @@ en:
     home:
       title: "Spaciable home"
     homeowner:
-      title: "My Home"
       nav:
         dashboard: "Dashboard"
         community: "Community"
-        my_home: "My Home"
+        my_home: "My %{construction}"
         contacts: "Contacts"
         how_to: "How To"
         faqs: "FAQs"
-        home_designer: "Home Designer"
+        home_designer: "%{construction} Designer"
       sub_nav:
         rooms: "Rooms"
         appliances: "Appliances"
@@ -1108,6 +1110,8 @@ en:
       premium_licence_duration: "Premium Licence Duration (Months)"
       premium_licences_allocated: "Premium Licences Allocated"
       premium_licences_remaining: "Premium Licences Remaining"
+      construction: "Construction Type"
+      construction_name: "Replace My 'Home':"
     index:
       add: "Add Development"
     development:
@@ -1166,6 +1170,8 @@ en:
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
 
   homeowners:
+    my_home_name: "My %{construction}"
+    home: "Home"
     faqs:
       index:
         title: "Frequently Asked Questions."
@@ -1275,6 +1281,7 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
 
     library:
+      my_home: "My %{construction}"
       index:
         disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
          of any of the specific matters described by any order under the Consumer Protection from Unfair Trading
@@ -1304,7 +1311,7 @@ en:
       notification_summary:
         new: "New"
       address:
-        my_home_view_more: "View My Home"
+        view_more: "View %{construction}"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
@@ -1358,7 +1365,7 @@ en:
         featured: "Featured"
     dashboard:
       show:
-        my_home_title: "My Home."
+        my_title: "%{construction}."
       contacts:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
@@ -1416,10 +1423,10 @@ en:
         next: "Next"
     about:
       show:
-        rooms_description: "View finishes and fittings in each room of your home"
-        appliances_description: "View documents and details of appliances your home"
-        library_description: "View and upload documents about your home"
-        faqs_description: "Frequently asked questions about moving into a new home"
+        rooms_description: "View finishes and fittings in each room of your %{construction}"
+        appliances_description: "View documents and details of appliances your %{construction}"
+        library_description: "View and upload documents about your %{construction}"
+        faqs_description: "Frequently asked questions about moving into a new %{construction}"
         progress: "Progress on my home is: "
     notifications:
       index:
@@ -2804,6 +2811,9 @@ en:
         email: "Email"
         contact_number: "Phone"
         updated_at: "Last Edited"
+        construction_labels:
+          residential: "Residential"
+          commercial: "Commercial"
       phase:
         name: "Name"
         updated_at: "Last Edited"
@@ -2811,6 +2821,7 @@ en:
           core: "Core"
           nhbc: "NHBC"
           mhf: "Migrated"
+          commercial: "Commercial"
       unit_type:
         name: "Unit type name"
         picture: "Unit type picture"
@@ -2925,7 +2936,7 @@ en:
         unpinned: "No"
         categories:
           # Category enum values for documents
-          my_home: "My Home"
+          my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
       user:
