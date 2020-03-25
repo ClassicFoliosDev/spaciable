@@ -15,16 +15,36 @@
   .perks-description {
     text-align: center;
     margin-top: $spacing-large;
+    .bold {
+      font-weight: $bold-font-weight;
+    }
+    .perks-content {
+      margin-bottom: $spacing-small;
+    }
+    .perks-half {
+      text-align: left;
+      padding: $spacing-medium;
+    }
   }
 
   .perk-links {
-    margin-top: $spacing-large;
     text-align: center;
 
     .btn {
       min-width: 200px;
       border-radius: 0;
       margin: $spacing-small;
+    }
+  }
+}
+
+@include media($tablet-landscape-down) {
+  .perks {
+    .perks-description {
+      .perks-half {
+        padding: 0;
+        text-align: center;
+      }
     }
   }
 }

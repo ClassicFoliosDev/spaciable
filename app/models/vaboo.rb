@@ -151,7 +151,7 @@ class Vaboo
 
   # What type of perk (basic, premium) does the resident have (on the plot)? Used in analytics.
   def self.perk_type_registered(resident, plot)
-    return unless resident
+    return unless resident && plot.enable_perks?
     account_id = account_number(plot.developer)
 
     # call the API to check the access type that the resident has requested (basic/premium)
@@ -161,8 +161,8 @@ class Vaboo
     response = HTTParty.get(full_url)
     parsed_response = JSON.parse(response)
 
-    # return "N/A" if resident record not found (resident has not signed up for perks)
-    return "N/A" unless parsed_response["data"]["count"].positive?
+    # return "Not Requested" if resident record not found (resident has not signed up for perks)
+    return "Not Requested" unless parsed_response["data"]["count"].positive?
 
     # return perk type
     parsed_response["data"]["users"][0][ACCESS_TYPE]
@@ -174,7 +174,8 @@ class Vaboo
     developer = development.parent_developer
     account_id = account_number(developer)
 
-    full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}?#{GROUP}=#{development.id}"
+    parameters = "?#{GROUP}=#{development.id}&Access Type=Premium Access"
+    full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}#{parameters}"
 
     #  count the number of residents under the development (group)
     #  who have been allocated premium licences

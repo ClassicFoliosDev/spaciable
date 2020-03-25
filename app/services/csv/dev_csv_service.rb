@@ -34,8 +34,9 @@ module Csv
         "Resident Invited By", "Resident Role", "Resident Activated", "Resident Last Sign In",
         "Lifetime Sign In Count", "Notifications", "Developer Emails", "Spaciable Emails",
         "Spaciable Texts", "Automated Emails", "Maintenance", "Services Enabled",
-        "Referrals Enabled", "Referrals Count", "Snagging Enabled", "Snags Reported",
-        "Snags Resolved", "Licenses Bought", "Licences Remaining", "Perks Requested",
+        "Referrals Enabled", "Referrals Count",
+        "Snagging Enabled", "Snags Reported", "Snags Resolved",
+        "Buyers Club Enabled", "Licenses Bought", "Licences Remaining", "Perks Requested",
         "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
       ]
     end
@@ -77,6 +78,7 @@ module Csv
       ]
     end
 
+    # rubocop:disable all
     def self.summary_info(plot, resident = nil)
       [
         yes_or_no(plot.developer, "api_key"),
@@ -85,6 +87,7 @@ module Csv
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
         yes_or_no(plot.development, "enable_snagging"), plot.all_snags_count,
         plot.resolved_snags_count,
+        yes_or_no(plot.developer, "enable_perks"),
         plot.development_premium_licences_bought,
         Vaboo.available_premium_licences(plot.development),
         Vaboo.perk_type_registered(resident, plot),
@@ -93,6 +96,7 @@ module Csv
         yes_or_no(plot.developer, "development_faqs")
       ]
     end
+    # rubocop:enable all
 
     def self.referrals_count(resident)
       return 0 if resident.nil?

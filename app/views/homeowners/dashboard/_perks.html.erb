@@ -1,43 +1,41 @@
-<div class="card article branded-border <%= plot.branded_perk ? 'branded-perk' : 'unbranded-perk'%>" style="background-image: url('<%= image_path plot&.branded_perk&.tile_image || asset_path('perks_logo.png') %>')" >
+<div class="card article branded-border <%= plot.branded_perk ? 'branded-perk' : 'unbranded-perk'%>" style="background-image: url('<%= image_path plot&.branded_perk&.tile_image || asset_path('buyers_logo.png') %>')" >
   <div class="card-content <%= 'service-overlay' if plot.branded_perk %>">
     <div class="perks-summary">
+      <!-- if Vaboo had not been activated by the current resident -->
       <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
+
+        <!-- if Premium is available on the plot -->
         <% if Vaboo.premium_perks_available?(current_resident, plot) %>
 
+          <!-- has the plot reached legal completion? -->
           <% if plot.completed? %>
 
+            <!-- if another resident on the plot has activated Premium -->
             <% if Vaboo.premium_perks_activated?(plot) %>
               <% perk = "basic" %>
-              <p class="perks-content">
-                <p class="perks-description"><%= t(".basic_perks_description") %></p>
+            <!-- if no other resident on the plot has activated Premium -->
             <% else %>
               <% perk = "premium" %>
-              <p class="perks-content">
-                <p class="perks-description"><%= t(".premium_perks_description") %></p>
             <% end %>
+
+          <!-- if Premium is available on the plot but the plot has not reached legal completion -->
           <% else %>
             <% perk = "coming_soon" %>
-            <p class="perks-content">
-              <p class="perks-description"><%= t(".coming_soon_description") %></p>
           <% end %>
-          <span class="perks-button">
-            <%= link_to t(".perks"),
-            perks_path(type: perk),
-            class: "branded-btn-inverted" %>
-          </span>
-        </p>
 
+        <!-- if Premium is not available on the plot regardless if the plot has reached legal completion -->
         <% else %>
           <% perk = "basic" %>
-          <p class="perks-content">
-            <p class="perks-description"><%= t(".basic_perks_description") %></p>
-            <span class="perks-button">
-              <%= link_to t(".perks"),
-              perks_path(type: perk),
-              class: "branded-btn-inverted" %>
-            </span>
-          </p>
         <% end %>
+
+      <p class="perks-content">
+        <p class="perks-description"><%= t(".perks_description") %></p>
+        <span class="perks-button">
+          <%= link_to t(".perks"),
+          perks_path(type: perk),
+          class: "branded-btn-inverted" %>
+        </span>
+      </p>
 
       <% else %>
         <p class="perks-content">
@@ -45,7 +43,8 @@
           <span class="perks-button">
           <%= link_to t(".activated_perks"),
               Vaboo.branded_perks_link(plot.developer),
-              class: "branded-btn-inverted" %>
+              class: "branded-btn-inverted",
+              target: :_blank %>
           </span>
         </p>
       <% end %>

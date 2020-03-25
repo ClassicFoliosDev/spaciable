@@ -8,7 +8,7 @@ end
 
 # call this method before editing a development to check premium licenses available when no perks account are activated
 def check_premium_perks_available(development_id)
-  stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Group=#{development_id}").
+  stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Group=#{development_id}&Access Type=Premium Access").
   to_return(:body => PerkFixture.no_resident_account.to_json)
 end
 
@@ -111,7 +111,7 @@ Then(/^I see the basic perks link$/) do
 
   visit "/dashboard"
   within ".perks-summary" do
-    expect(page).to have_content(I18n.t("homeowners.dashboard.perks.basic_perks_description"))
+    expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=basic")
   end
 end
@@ -246,7 +246,7 @@ Then(/^I see the perks coming soon link$/) do
   call_api_no_user_account
   visit "/"
   within ".perks-summary" do
-    expect(page).to have_content(I18n.t("homeowners.dashboard.perks.coming_soon_description"))
+    expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=coming_soon")
   end
 end
@@ -255,7 +255,7 @@ Then(/^I see the premium perks link$/) do
   call_api_no_user_account
   visit "/"
   within ".perks-summary" do
-    expect(page).to have_content(I18n.t("homeowners.dashboard.perks.premium_perks_description"))
+    expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=premium")
   end
 end

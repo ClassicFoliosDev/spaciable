@@ -1,21 +1,44 @@
 <div class="perks-description branded-text">
-  <p>
-    <%= t("homeowners.perks.intro_paragraph_one") %><br/>
-    <%= t(".intro_paragraph_two") %>
-  </p>
-  <p>
-    <%= t("homeowners.perks.sign_up_paragraph_one") %><br/>
-    <%= t("homeowners.perks.sign_up_paragraph_two") %>
-  </p>
-</div>
 
-<div class="perk-links">
-  <%= link_to t(".back"), dashboard_path, class: "btn branded-btn" %>
+  <!-- the below check determines whether the plot has access to Premium -->
+  <!-- we do not need to directly check if another resident on the plot has activated Premium because -->
+  <!-- the previous page makes this check, and this page cannot be accessed if another resident has not activated Premium -->
+  <% if Vaboo.premium_perks_available?(current_resident, plot) %>
+    <div><p class="bold"><%= t(".another_resident") %></p></div>
+    <div class="row">
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.intro_paragraph_one") %></p>
+        <p><%= t(".intro_paragraph_two") %></p>
+        <p><%= t(".another_resident_description") %></p>
+      </div>
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.sign_up_paragraph_one") %></p>
+        <p><%= t("homeowners.perks.sign_up_paragraph_two") %></p>
+      </div>
+    </div>
+  <% else %>
+    <div><p class="bold"><%= t("homeowners.perks.title") %></p></div>
+    <div class="row">
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.intro_paragraph_one") %></p>
+        <p><%= t(".intro_paragraph_two") %></p>
+      </div>
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.sign_up_paragraph_one") %></p>
+        <p><%= t("homeowners.perks.sign_up_paragraph_two") %></p>
+      </div>
+    </div>
+  <% end %>
+  <div class="row perk-links">
+    <p class="bold"><%= t("homeowners.perks.sub") %></p>
 
-  <%= button_tag t(".confirm"), class: "btn branded-btn-inverted activate-perks-account",
-      data: {
-        url: perks_url
-      } %>
+    <%= link_to t(".back"), dashboard_path, class: "btn branded-btn" %>
 
-  <%= (render 'components/homeowner/perks_form', plot: plot, access_type: Vaboo::BASIC) if current_resident %>
+    <%= button_tag t(".confirm"), class: "btn branded-btn-inverted activate-perks-account",
+    data: {
+    url: perks_url
+    } %>
+
+    <%= (render 'components/homeowner/perks_form', plot: plot, access_type: Vaboo::BASIC) if current_resident %>
+  </div>
 </div>
