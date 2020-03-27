@@ -117,6 +117,7 @@ Then(/^I see the basic perks link$/) do
 end
 
 When(/^I sign up to perks then I see the branded perks link$/) do
+  no_premium_perks_activated
   resident_perks_account
 
   within ".perks-summary" do

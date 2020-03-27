@@ -1449,13 +1449,13 @@ en:
       title: "Join the Buyers' Club now and start saving today!"
       sub: "It pays to be part of a club!"
       intro_paragraph_one: "We're rewarding our residents with membership to the Buyers' Club, so you can start saving on everyday essentials, as well as special treats, with discounts on dining, shopping, travel, entertainment, fitness, utilities and more."
-      sign_up_paragraph_one: "Click Give Me Access below and we'll pass your property portal account details (name, email, address and postcode) on to trusted third party Vaboo, who'll set up your Buyers' Club account"
+      sign_up_paragraph_one: "Click Give Me Access below and we'll pass your property portal account details (name, email, address and postcode) on to trusted third party Vaboo, who'll set up your Buyers' Club account."
       sign_up_paragraph_two: "Once you've activated your account via the email from Vaboo, you'll be able to log in to the online Buyers' Club platform to view your latest discounts and deals."
       show:
         title: "Buyers' Club."
       premium:
         title: "Congratulations - you've been offered free premium access to Buyers' Club discounts!"
-        intro_paragraph_two: "As a 'thank you' for being a valued customer, we've paid for your property to upgrade to a premium Buyers' Club account, so you can enjoy access to exclusive perks and earn cashback as your spend."
+        intro_paragraph_two: "As a 'thank you' for being a valued customer, we've paid for your property to upgrade to a premium Buyers' Club account, so you can enjoy access to exclusive perks and earn cashback as you spend."
         back: "Back"
         confirm: "Give Me Access"
       basic:

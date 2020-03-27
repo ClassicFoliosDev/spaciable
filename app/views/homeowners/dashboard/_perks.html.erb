@@ -4,7 +4,7 @@
       <!-- if Vaboo had not been activated by the current resident -->
       <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
 
-        <!-- if Premium is available on the plot -->
+        <!-- if Premium is available on the plot for the current resident-->
         <% if Vaboo.premium_perks_available?(current_resident, plot) %>
 
           <!-- has the plot reached legal completion? -->

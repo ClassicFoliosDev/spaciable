@@ -1,9 +1,9 @@
 <div class="perks-description branded-text">
 
   <!-- the below check determines whether the plot has access to Premium -->
-  <!-- we do not need to directly check if another resident on the plot has activated Premium because -->
-  <!-- the previous page makes this check, and this page cannot be accessed if another resident has not activated Premium -->
-  <% if Vaboo.premium_perks_available?(current_resident, plot) %>
+  <!-- i.e. if the resident if a full access user and another resident on the plot has activated Premium already -->
+  <!-- this covers all scenarios regardless of whether the Development has any premium licences remaining -->
+  <% if current_resident.plot_residency_homeowner?(plot) && Vaboo.premium_perks_activated?(plot) %>
     <div><p class="bold"><%= t(".another_resident") %></p></div>
     <div class="row">
       <div class="half perks-half">
