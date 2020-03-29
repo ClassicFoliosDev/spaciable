@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Finish < ApplicationRecord
   require "fileutils"
 
@@ -140,3 +141,4 @@ class Finish < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end
+# rubocop:enable Metrics/ClassLength
