@@ -72,10 +72,6 @@ Then(/^I should see the updated finish category delete complete successfully$/) 
 
   expect(page).to have_content(success_flash)
   expect(page).not_to have_content(".record-list")
-
-  within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: FinishCategory.model_name.human)}}i
-  end
 end
 
 Then(/^I should not see finish categories$/) do

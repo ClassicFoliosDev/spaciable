@@ -147,7 +147,7 @@ Given(/^there is an appliance with manual$/) do
   ApplianceFixture.update_appliance_manual
 end
 
-Given(/^there is a finish$/) do 
+Given(/^there is a finish$/) do
   CreateFixture.create_finish
 end
 

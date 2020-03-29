@@ -26,6 +26,8 @@ module CreateFixture
     plot: "100",
     spanish_plot: "100",
     phase_plot: "200",
+    phase_plot2: "101",
+    phase_plot3: "102",
     spanish_phase_plot: "200",
     division_plot: "300",
     spanish_division_plot: "300",
@@ -253,8 +255,8 @@ module CreateFixture
     FactoryGirl.create(:unit_type, name: unit_type_name, development: spanish_development)
   end
 
-  def create_division_development_unit_type
-    FactoryGirl.create(:unit_type, name: unit_type_name, development: division_development)
+  def create_division_development_unit_type(name=unit_type_name, restricted:false)
+    FactoryGirl.create(:unit_type, name: name, development: division_development, restricted: restricted)
   end
 
   def create_spanish_division_development_unit_type
@@ -271,11 +273,13 @@ module CreateFixture
   end
 
   # create rooms for an eisting unit type
-  def create_unit_type_rooms
-    ut = UnitType.find_by(name: unit_type_name)
+  def create_unit_type_rooms(ut_name=unit_type_name)
+    ut = UnitType.find_by(name: ut_name)
+    rooms = []
     unit_type_rooms.each do |roomname|
-      FactoryGirl.create(:room, name: roomname, unit_type: ut, last_updated_by: cf_admin.display_name)
+      rooms << FactoryGirl.create(:room, name: roomname, unit_type: ut, last_updated_by: cf_admin.display_name)
     end
+    rooms
   end
 
   def appliance_category(developer=nil, name=appliance_category_name)
@@ -529,8 +533,8 @@ module CreateFixture
     FactoryGirl.create(:phase_plot, phase: spanish_phase, number: spanish_phase_plot_name, unit_type: unit_type)
   end
 
-  def create_division_phase_plot
-    FactoryGirl.create(:phase_plot, phase: division_phase, number: phase_plot_name, unit_type: unit_type)
+  def create_division_phase_plot(plot_name = phase_plot_name, ut = unit_type)
+    FactoryGirl.create(:phase_plot, phase: division_phase, number: plot_name, unit_type: ut)
   end
 
   def create_snag_plot
@@ -701,16 +705,16 @@ module CreateFixture
     Phase.find_by(name: division_phase_name)
   end
 
-  def unit_type
-    UnitType.find_by(name: unit_type_name)
+  def unit_type(ut_name=unit_type_name)
+    UnitType.find_by(name: ut_name)
   end
 
-  def room(name = room_name)
-    Room.find_by(name: name)
+  def room(name = room_name, ut = unit_type)
+    Room.find_by(name: name, unit_type_id: ut.id)
   end
 
-  def finish(name = finish_name)
-    Finish.find_by(name: finish_name)
+  def finish(fname = finish_name, dev_id=nil)
+    Finish.find_by(name: fname, developer_id: dev_id)
   end
 
   def finish_category
@@ -738,6 +742,10 @@ module CreateFixture
     plot = division_phase&.plots&.first if plot.nil?
 
     plot
+  end
+
+  def plot(plot_number)
+    Plot.find_by(number: plot_number)
   end
 
   def resident

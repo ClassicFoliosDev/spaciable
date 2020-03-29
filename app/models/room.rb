@@ -41,6 +41,7 @@ class Room < ApplicationRecord
   validates_associated :appliances
 
   delegate :completion_release_date, to: :plot
+  delegate :restricted, to: :unit_type, prefix: true
 
   after_destroy -> { finishes.delete_all }
   after_initialize -> { self.last_updated_by ||= User.find_by(role: :cf_admin).display_name }

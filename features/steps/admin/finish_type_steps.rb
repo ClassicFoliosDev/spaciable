@@ -3,9 +3,7 @@
 When(/^I create a finish type$/) do
   visit "/finish_types"
 
-  within ".empty" do
-    click_on I18n.t("finish_types.collection.add")
-  end
+  click_on I18n.t("finish_types.collection.add")
 
   Capybara.ignore_hidden_elements = false
   within ".finish_type" do
@@ -107,10 +105,6 @@ Then(/^I should see the (.*) finish type delete complete successfully$/) do |typ
 
   expect(page).to have_content(success_flash)
   expect(page).not_to have_content(".record-list")
-
-  within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: FinishType.model_name.human)}}i
-  end
 end
 
 Then(/^I should not see finish types$/) do

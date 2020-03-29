@@ -116,7 +116,7 @@ When(/^I open the new developer page$/) do
 end
 
 Then(/^I should see UK address format$/) do
-  
+
   find_field(:developer_address_attributes_postal_number).should be_visible
   find_field(:developer_address_attributes_road_name).should be_visible
   find_field(:developer_address_attributes_building_name).should be_visible
@@ -151,7 +151,8 @@ Then(/^I should see Spanish address format$/) do
 end
 
 Then(/^I should (not )*see CAS visable and enabled at the development$/) do |not_visible|
-  visit "/developers/1/developments/1/edit"
+  development = CreateFixture.development
+  visit "/developers/#{development.developer.id}/developments/#{development.id}/edit"
   expect(page).not_to have_content(t("developments.form.cas_description")) if not_visible.present?
   expect(page).to have_content(t("developments.form.cas_description")) unless not_visible.present?
 end
