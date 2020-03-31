@@ -80,7 +80,7 @@
               <%= p.input :premium_licences_bought, label: t(".premium_licences_bought") %>
               <% if development.premium_licences_bought&.positive? %>
                 <label><%= t(".premium_licences_allocated") %></label>
-                <span class="read-only"><%= Vaboo.allocated_premium_licences(development) %></span>
+                <span class="read-only"><%= development.premium_perk_sign_up_count %></span>
                 <label><%= t(".premium_licences_remaining") %></label>
                 <span class="read-only"><%= Vaboo.available_premium_licences(development) %></span>
               <% end %>

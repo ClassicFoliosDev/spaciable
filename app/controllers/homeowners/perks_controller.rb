@@ -22,9 +22,15 @@ module Homeowners
           end
         end
       end
+      increment_sign_up_count
     end
 
     private
+
+    def increment_sign_up_count
+      PremiumPerk.increment_sign_up(account_params[:group]) if
+        account_params[:access_type] == Vaboo::PREMIUM
+    end
 
     def account_params
       params.require(:perk)

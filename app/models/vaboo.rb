@@ -168,28 +168,9 @@ class Vaboo
     parsed_response["data"]["users"][0][ACCESS_TYPE]
   end
 
-  def self.allocated_premium_licences(development)
-    return unless development.enable_premium_perks
-
-    developer = development.parent_developer
-    account_id = account_number(developer)
-
-    parameters = "?#{GROUP}=#{development.id}&Access Type=Premium Access"
-    full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}#{parameters}"
-
-    #  count the number of residents under the development (group)
-    #  who have been allocated premium licences
-    response = HTTParty.get(full_url)
-    parsed_response = JSON.parse(response)
-
-    # return 0 if the api call fails
-    return 0 unless parsed_response["code"] == 200
-    parsed_response["data"]["count"]
-  end
-
   def self.available_premium_licences(development)
     return unless development.enable_premium_perks
-    development.premium_licences_bought - allocated_premium_licences(development)
+    development.premium_licences_bought - development.premium_perk_sign_up_count
   end
 
   #### LOCAL CALLS ####

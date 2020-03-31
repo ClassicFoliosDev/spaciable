@@ -6,12 +6,6 @@ def call_api_no_user_account
   to_return(:body => PerkFixture.no_resident_account.to_json)
 end
 
-# call this method before editing a development to check premium licenses available when no perks account are activated
-def check_premium_perks_available(development_id)
-  stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Group=#{development_id}&Access Type=Premium Access").
-  to_return(:body => PerkFixture.no_resident_account.to_json)
-end
-
 # call this method when the api is called to check whether premium perks are activated for a plot, when no resident has a premium account
 def no_premium_perks_activated
   stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Reference=#{PerkFixture.plot.id}").
@@ -187,7 +181,7 @@ When(/^I do not enter a premium licence duration$/) do
   # enter a premium licences bought value, but no duration
   fill_in "development_premium_perk_attributes_premium_licences_bought", with: "1"
 
-  check_premium_perks_available(PerkFixture.no_development_id)
+
 
   within ".form-actions-footer" do
     click_on t("developments.form.submit")
@@ -205,7 +199,7 @@ Then(/^I do not enter a premium licence quantity$/) do
   fill_in "development_premium_perk_attributes_premium_licences_bought", with: "0"
   fill_in "development_premium_perk_attributes_premium_licence_duration", with: "12"
 
-  check_premium_perks_available(PerkFixture.no_development_id)
+
 
   within ".form-actions-footer" do
     click_on t("developments.form.submit")
@@ -230,7 +224,7 @@ Then(/^I should see the created perks development$/) do
     click_on PerkFixture.development_name
   end
 
-  check_premium_perks_available(PerkFixture.development.id)
+
 
   within ".section-data" do
     find("[data-action='edit']").click

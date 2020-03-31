@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200312104839) do
+ActiveRecord::Schema.define(version: 20200330061503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -524,7 +524,6 @@ ActiveRecord::Schema.define(version: 20200312104839) do
     t.string   "plot_prefix"
     t.integer  "send_to_role"
     t.index "lower((subject)::text) varchar_pattern_ops", name: "search_index_on_notification_subject", using: :btree
-    t.index "lower(message) varchar_pattern_ops", name: "search_index_on_notification_message", using: :btree
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree
@@ -621,6 +620,7 @@ ActiveRecord::Schema.define(version: 20200312104839) do
     t.integer  "premium_licence_duration"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
+    t.integer  "sign_up_count",            default: 0
     t.index ["development_id"], name: "index_premium_perks_on_development_id", using: :btree
   end
 
