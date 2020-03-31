@@ -431,7 +431,7 @@ class Plot < ApplicationRecord
   end
 
   def my_construction_name
-    construction_name || I18n.t("homeowners.home")
+    construction_name.blank? ? I18n.t("homeowners.home") : construction_name
   end
 end
 # rubocop:enable Metrics/ClassLength
