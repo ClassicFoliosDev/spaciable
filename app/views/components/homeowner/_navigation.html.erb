@@ -1,62 +1,60 @@
 <div class="navbar">
-  <nav class="navbar-menu">
-    <ul>
-      <%= link_to dashboard_path, class: "navbar-link branded-primary" do %>
+  <ul>
+    <%= link_to dashboard_path, class: "navbar-link branded-primary" do %>
+      <li class="navbar-item">
+        <%= t("layouts.homeowner.nav.dashboard") %>
+      </li>
+    <% end %>
+
+    <% if plot.enable_development_messages? %>
+      <%= link_to development_messages_path, class: "navbar-link branded-primary" do %>
         <li class="navbar-item">
-          <%= t("layouts.homeowner.nav.dashboard") %>
+          <%= t("layouts.homeowner.nav.community") %>
         </li>
       <% end %>
+    <% end %>
 
-      <% if plot.enable_development_messages? %>
-        <%= link_to development_messages_path, class: "navbar-link branded-primary" do %>
-          <li class="navbar-item">
-            <%= t("layouts.homeowner.nav.community") %>
-          </li>
-        <% end %>
-      <% end %>
+    <%= link_to homeowner_my_home_path, class: "navbar-link branded-primary" do %>
+      <li class="navbar-item">
+        <%= plot.my_home_name %>
+      </li>
+    <% end %>
 
-      <%= link_to homeowner_my_home_path, class: "navbar-link branded-primary" do %>
-        <li class="navbar-item">
-          <%= plot.my_home_name %>
-        </li>
-      <% end %>
+    <!-- Set the default category for the 'How To' nav entry according to the country -->
+    <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link branded-primary" do %>
+      <li class="navbar-item branded-primary">
+        <%= t("layouts.homeowner.nav.how_to") %>
+      </li>
+    <% end %>
 
-      <!-- Set the default category for the 'How To' nav entry according to the country -->
-      <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link branded-primary" do %>
+    <%= link_to homeowner_contacts_path, class: "navbar-link branded-primary" do %>
+      <li class="navbar-item branded-primary">
+        <%= t("layouts.homeowner.nav.contacts") %>
+      </li>
+    <% end %>
+
+    <% if plot.enable_roomsketcher? %>
+      <%= link_to home_designer_path, class: "navbar-link branded-primary" do %>
         <li class="navbar-item branded-primary">
-          <%= t("layouts.homeowner.nav.how_to") %>
+          <%= t("layouts.homeowner.nav.home_designer", construction: plot.my_construction_name) %>
         </li>
       <% end %>
+    <% end %>
 
-      <%= link_to homeowner_contacts_path, class: "navbar-link branded-primary" do %>
+    <% if plot.show_maintenance? %>
+      <%= link_to homeowner_maintenance_path, class: "navbar-link branded-primary" do %>
         <li class="navbar-item branded-primary">
-          <%= t("layouts.homeowner.nav.contacts") %>
+          <%= t(".maintenance") %>
         </li>
       <% end %>
+    <% end %>
 
-      <% if plot.enable_roomsketcher? %>
-        <%= link_to home_designer_path, class: "navbar-link branded-primary" do %>
-          <li class="navbar-item branded-primary">
-            <%= t("layouts.homeowner.nav.home_designer", construction: plot.my_construction_name) %>
-          </li>
-        <% end %>
-      <% end %>
-
-      <% if plot.show_maintenance? %>
-        <%= link_to homeowner_maintenance_path, class: "navbar-link branded-primary" do %>
-          <li class="navbar-item branded-primary">
-            <%= t(".maintenance") %>
-          </li>
-        <% end %>
-      <% end %>
-
-      <% if plot.house_search %>
-        <a href="https://www.bestarea4me.com/demo" class="navbar-link branded-primary" target="_blank">
-          <li class="navbar-item branded-primary">
-            <%= t(".house_search") %>
-          </li>
-        </a>
-      <% end %>
-    </ul>
-  </nav>
+    <% if plot.house_search %>
+      <a href="https://www.bestarea4me.com/demo" class="navbar-link branded-primary" target="_blank">
+        <li class="navbar-item branded-primary">
+          <%= t(".house_search") %>
+        </li>
+      </a>
+    <% end %>
+  </ul>
 </div>

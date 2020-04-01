@@ -32,9 +32,11 @@
               </div>
             </label>
           </section>
-        <navigation class="navbar-menu">
-          <%= render "components/homeowner/navigation", plot: plot, country: country %>
-        </navigation>
+          <div class="toggle-nav">
+            <aside class="navbar-menu">
+              <%= render "components/homeowner/navigation", plot: plot, country: country %>
+            </aside>
+          </div>
         <% end %>
       </div>
     </nav>

@@ -2,7 +2,7 @@
   'use strict'
 
   $(document).on('click', '.navbar-trigger-label', function (event) {
-    $('.navbar-menu').toggle()
+    $('.navbar-menu').animate({width: 'toggle'})
   })
 
   $(document).on('click', '.admin-trigger-label', function (event) {
