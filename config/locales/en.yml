@@ -293,11 +293,6 @@ en:
         how_to: "How To"
         faqs: "FAQs"
         home_designer: "%{construction} Designer"
-      sub_nav:
-        rooms: "Rooms"
-        appliances: "Appliances"
-        library: "Library"
-        faqs: "FAQs"
     admin_login:
       title: "Admin login to Spaciable"
     login:
@@ -498,15 +493,6 @@ en:
         my_plots: "Plots"
         messages: "Messages"
         rentals: "Rent"
-      sub_menu:
-        about: "About"
-        title: "My Home"
-        rooms: "Rooms"
-        appliances: "Appliances"
-        library: "Library"
-        faqs: "FAQs"
-        snagging: "Snagging"
-        choices: "Choices"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
@@ -518,9 +504,20 @@ en:
         videos: "Videos"
         my_documents: "My Documents"
       navigation:
+        essentials: "Essentials"
+        lifestyle: "Lifestyle"
+        helping_hand: "A Helping Hand"
         maintenance: "Issues"
         house_search: "Area Guide"
         services: "Services"
+        about: "About"
+        rooms: "Rooms"
+        appliances: "Appliances"
+        library: "Library"
+        faqs: "FAQs"
+        services: "Services"
+        area_guide: "Area Guide"
+        buyers_club: "Buyers' Club"
       let_plot_details_form:
         let_plot_details: "We just need a few more details about your plot."
         bedrooms: "Bedrooms"
