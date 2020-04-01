@@ -3,8 +3,6 @@
 <!--    <%= render "components/homeowner/welcome", unread_count: unread_count, plots: plots %>-->
 <!--  <% end %>-->
 
-
-
   <% if plot.present? %>
     <nav class="main-navigation">
       <div class="nav-inner">
@@ -24,8 +22,8 @@
 
         <% if !session[:onboarding] %>
           <section class="burger-navigation">
-            <input type="checkbox" id="menu-burger">
-            <label for="menu-burger" class="burger">
+            <input type="checkbox" id="menuBurger">
+            <label for="menuBurger" class="burger navbar-trigger-label">
               <div class="branded-text menu-text">Menu</div>
               <div class="burger-bars">
                 <span class="burger-bar bar-top"></span>
@@ -34,6 +32,9 @@
               </div>
             </label>
           </section>
+        <navigation class="navbar-menu">
+          <%= render "components/homeowner/navigation", plot: plot, country: country %>
+        </navigation>
         <% end %>
       </div>
     </nav>

@@ -182,6 +182,17 @@ nav {
   }
 }
 
+.navbar-menu {
+  display: none;
+  height: 100%;
+  width: 100%;
+
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+
 // tablet view (smaller than)
 @include media($tablet-landscape-down) {
   nav .navigation {
@@ -266,16 +277,6 @@ nav {
 
     .fa-bars {
       cursor: pointer;
-    }
-  }
-
-  .navbar-menu {
-    display: none;
-    height: 100%;
-    width: 100%;
-
-    ul {
-      margin-bottom: 0;
     }
   }
 
