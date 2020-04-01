@@ -143,6 +143,45 @@ nav {
   }
 }
 
+.burger-navigation {
+  input[type="checkbox"] {
+    display: none;
+  }
+  width: 100px;
+  label.burger {
+    display: inline-block;
+    background-color: transparent;
+    cursor: pointer;
+    margin: 10px;
+    z-index: 3;
+    width: 80px;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .menu-text {
+    float: left;
+  }
+  .burger-bars {
+    float: right;
+  }
+  .burger-bar {
+    display: block;
+    width: 30px;
+    height: 3px;
+    border-radius: 5px;
+    margin: 5px auto;
+    background-color: $primary-navy;
+  }
+  .bar-top {
+    width: 50%;
+    margin: 0;
+  }
+  .bar-bottom {
+    width: 50%;
+    margin-right: 0px;
+  }
+}
+
 // tablet view (smaller than)
 @include media($tablet-landscape-down) {
   nav .navigation {

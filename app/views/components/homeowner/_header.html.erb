@@ -22,6 +22,19 @@
           <%= render "components/search" %>
         </div>
 
+        <% if !session[:onboarding] %>
+          <section class="burger-navigation">
+            <input type="checkbox" id="menu-burger">
+            <label for="menu-burger" class="burger">
+              <div class="branded-text menu-text">Menu</div>
+              <div class="burger-bars">
+                <span class="burger-bar bar-top"></span>
+                <span class="burger-bar bar-middle"></span>
+                <span class="burger-bar bar-bottom"></span>
+              </div>
+            </label>
+          </section>
+        <% end %>
       </div>
     </nav>
   <% end %>
