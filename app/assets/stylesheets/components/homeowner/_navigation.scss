@@ -136,16 +136,19 @@ nav {
     border-radius: 5px;
     margin: 5px auto;
     background-color: $primary-navy;
+    transition-duration: 500ms;
   }
 
   .bar-top {
     width: 50%;
     margin: 0;
+    transition-duration: 500ms;
   }
 
   .bar-bottom {
     width: 50%;
     margin-right: 0px;
+    transition-duration: 500ms;
   }
 
   input[type="checkbox"]:checked ~ label .bar-top {
@@ -155,6 +158,7 @@ nav {
     -ms-transform: translateY(7px) rotateZ(45deg);
     -o-transform: translateY(7px) rotateZ(45deg);
     -transform: translateY(7px) rotateZ(45deg);
+    transition-duration: 500ms;
   }
 
   input[type="checkbox"]:checked ~ label .bar-bottom {
@@ -164,10 +168,12 @@ nav {
     -ms-transform: translateY(-9px) rotateZ(-45deg);
     -o-transform: translateY(-9px) rotateZ(-45deg);
     -transform: translateY(-9px) rotateZ(-45deg);
+    transition-duration: 500ms;
   }
 
   input[type="checkbox"]:checked ~ label .bar-middle {
      opacity: 0;
+     transition-duration: 500ms;
   }
 }
 
@@ -247,12 +253,12 @@ nav {
 
 // mobile view
 @include media($tablet-portrait-down) {
-  .navbar {
-    background-color: $ui-white;
-    position: absolute;
-    left: 0;
-    top: 60px;
-  }
+//   .navbar {
+//     background-color: $ui-white;
+//     position: absolute;
+//     left: 0;
+//     top: 60px;
+//   }
 
   .main-navigation .nav-inner {
 
