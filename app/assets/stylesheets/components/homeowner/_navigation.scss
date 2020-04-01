@@ -133,8 +133,14 @@ nav {
 }
 
 .navbar-search {
-  float: right;
-  padding-right: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  input[type="text"] {
+    border: 2px solid $ui-light-grey;
+  }
+  .btn {
+    font-size: 12px;
+  }
 }
 
 // tablet view (smaller than)

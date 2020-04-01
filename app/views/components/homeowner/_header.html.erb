@@ -1,11 +1,14 @@
 <header>
-  <% if current_resident.present? && !session[:onboarding] %>
-    <%= render "components/homeowner/welcome", unread_count: unread_count, plots: plots %>
-  <% end %>
+<!--  <% if current_resident.present? && !session[:onboarding] %>-->
+<!--    <%= render "components/homeowner/welcome", unread_count: unread_count, plots: plots %>-->
+<!--  <% end %>-->
+
+
 
   <% if plot.present? %>
     <nav class="main-navigation">
       <div class="nav-inner">
+        <!-- logo -->
         <div class="logo branded-logo">
           <% if session[:onboarding] %>
             <%= image_tag(brand_or_red_logo(brand, plot)) %>
@@ -13,12 +16,12 @@
             <%= link_to image_tag(brand_or_red_logo(brand, plot)), homeowner_dashboard_path %>
           <% end %>
         </div>
-        <div class="navigation">
-          <!-- pass the country to the navigation -->
-          <% unless session[:onboarding] %>
-            <%= render "components/homeowner/navigation", plot: plot, country: country %>
-          <% end %>
+
+        <!-- search bar -->
+        <div class="navbar-search">
+          <%= render "components/search" %>
         </div>
+
       </div>
     </nav>
   <% end %>
