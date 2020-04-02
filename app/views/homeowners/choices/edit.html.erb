@@ -2,6 +2,6 @@
   <%= t("choices.homeowner.title") %>
 <% end %>
 
-<%= render "components/homeowner/sub_header", active_tab: "choices", plot: @plot %>
+<%= render "components/homeowner/hero" %>
 <%= render "components/choices", plot: @plot, room_item_choices: @room_item_choices, choices: @choices, postback_path: homeowners_choices_path, status: @status, fullhouse: @full_house, rooms: @rooms, resident: true %>
 

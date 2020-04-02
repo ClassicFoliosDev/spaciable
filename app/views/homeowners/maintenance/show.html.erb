@@ -1,3 +1,9 @@
+<% content_for :hero_text_primary do %>
+  <%= t(".title") %>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
 <div class="branded-body">
   <div class="maintenance">
     <iframe scrollbars="no" src=<%= maintenance_auto_populate(@plot, current_resident).html_safe %>></iframe>
