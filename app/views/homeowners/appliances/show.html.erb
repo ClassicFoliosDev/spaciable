@@ -2,11 +2,12 @@
     <%= t(".title") %>
 <% end %>
 
-<%= render "components/homeowner/sub_header", active_tab: "appliances", plot: @plot %>
+<%= render "components/homeowner/hero" %>
 
 <div class="branded-body">
   <div class="appliances">
     <% @appliances.each do | appliance | %>
+      <% next unless appliance %>
       <div class="appliance branded-content branded-border">
         <div class="images">
           <h2 class="branded-text"><%= appliance.appliance_category %></h2>
