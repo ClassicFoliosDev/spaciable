@@ -69,14 +69,6 @@
           <% end %>
         <% end %>
 
-        <% if plot.house_search %>
-          <a href="https://www.bestarea4me.com/demo" class="navbar-link branded-secondary" target="_blank">
-            <li class="navbar-item">
-              <%= t(".house_search") %>
-            </li>
-          </a>
-        <% end %>
-
         <% if plot.enable_services? %>
           <% services_params = build_services_params(current_resident, plot) %>
           <%= link_to "https://home.spaciable.com/service/#{services_params}",
@@ -86,6 +78,34 @@
             </li>
           <% end %>
         <% end %>
+
+        <% if plot.house_search %>
+          <a href="https://www.bestarea4me.com/demo" class="navbar-link branded-secondary" target="_blank">
+            <li class="navbar-item">
+              <%= t(".house_search") %>
+            </li>
+          </a>
+        <% end %>
+
+        <% if plot.enable_perks? %>
+          <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
+            <% perk = allocate_perk_type(current_resident, plot) %>
+            <%= link_to perks_path(type: perk), class: "navbar-link branded-secondary" do %>
+                <li class="navbar-item">
+                  <%= t(".perks") %>
+                </li>
+            <% end %>
+          <% else %>
+            <%= link_to Vaboo.branded_perks_link(plot.developer),
+                class: "navbar-link branded-secondary", target: :_blank do %>
+              <li class="navbar-item">
+                <%= t(".perks") %>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+
 
       </ul>
     </div>
