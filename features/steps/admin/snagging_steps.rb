@@ -139,7 +139,7 @@ Then(/^any resident of the plot can approve the resolved status$/) do
 
   # navigate to snagging page
   within ".navigation" do
-    click_on (t("layouts.homeowner.nav.my_home"))
+    click_on (t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
   end
 
   within ".sub-navigation-container" do
@@ -198,7 +198,7 @@ Then(/^the resident is no longer able to submit snags$/) do
 
   # check nav link and my account link
   within ".navigation" do
-    click_on(t("layouts.homeowner.nav.my_home"))
+    click_on (t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
   end
   within ".sub-navigation-container" do
     expect(page).to_not have_content("Snagging")
@@ -254,7 +254,7 @@ Then(/^a resident can dispute the resolved status$/) do
   end
 
   within ".navigation" do
-    click_on (t("layouts.homeowner.nav.my_home"))
+    click_on (t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
   end
   within ".sub-navigation-container" do
     click_on "Snagging"

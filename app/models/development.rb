@@ -36,6 +36,12 @@ class Development < ApplicationRecord
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
 
+  has_one :premium_perk
+  accepts_nested_attributes_for :premium_perk, reject_if: :premium_perks_disabled
+  delegate :enable_premium_perks, :premium_licences_bought,
+           :premium_licence_duration, to: :premium_perk, allow_nil: true
+  delegate :sign_up_count, to: :premium_perk, prefix: true
+
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true
 
@@ -49,6 +55,9 @@ class Development < ApplicationRecord
   validate :permissable_id_presence
   validates_with ParameterizableValidator
 
+  validates :construction_name, presence: true, if: :commercial?
+  after_validation :set_business, on: [:update]
+
   delegate :building_name, :road_name, :locality,
            :city, :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
@@ -56,11 +65,19 @@ class Development < ApplicationRecord
 
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
+  after_destroy { User.permissable_destroy(self.class.to_s, id) }
+
   enum choice_option:
     %i[
       choices_disabled
       admin_can_choose
       either_can_choose
+    ]
+
+  enum construction:
+    %i[
+      residential
+      commercial
     ]
 
   def brand_any
@@ -160,6 +177,18 @@ class Development < ApplicationRecord
     record = Maintenance.find_by(development_id: id)
     record&.destroy!
     true
+  end
+
+  # update existing phases business if development is updated to be commercial
+  def set_business
+    return unless commercial?
+    phases.each do |phase|
+      phase.update_attributes(business: :commercial)
+    end
+  end
+
+  def premium_perks_disabled(attr)
+    attr["enable_premium_perks"] == "0"
   end
 end
 # rubocop:enable Metrics/ClassLength

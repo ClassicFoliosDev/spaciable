@@ -1,11 +1,22 @@
-<div class="video-container">
+<div class="branded-hero"></div>
 
-  <h4><%= t(".welcome_title", name: current_resident.first_name) %></h4>
-  <span><%= t(".welcome_1") %></span><br/>
-  <span><%= t(".welcome_2") %></span><br/>
+<div class="outer-container branded-content branded-text intro-video">
+  <div class="video-container">
+    <div class="title">
+      <%= t(".welcome_title", name: current_resident.first_name) %>
+    </div>
+    <p class="intro-text">
+      <span><%= t(".welcome_1") %></span><br/>
+      <span><%= t(".welcome_2") %></span>
+    </p>
+    <%= render "homeowners/about_videos/video", setting: @setting %>
+  </div>
 
-  <%= render "homeowners/about_videos/video", setting: @setting %>
+  <div class="next-page">
+    <%= link_to t(".next"), @next_path, class: "btn branded-btn" %>
+  </div>
 
-  <p><%= link_to t(".next"), @next_path, class: "btn btn-primary right" %></p>
-  <p class="video-footer"><span><%= t(".return") %></span></p>
+  <p class="video-footer">
+    <%= t(".return") %>
+  </p>
 </div>

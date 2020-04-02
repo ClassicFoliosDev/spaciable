@@ -39,6 +39,10 @@
       <% end %>
 
       <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>
+      <% if current_user.cf_admin? %>
+        <%= navigation_link(admin_residents_path, "users", t(".residents"), "navbar-link") %>
+      <% end %>
+
       <%= navigation_link(admin_user_path(current_user), "user", t(".profile"), "navbar-link") %>
       <%= navigation_link(admin_help_path, "question", t(".help"), "navbar-link") %>
 

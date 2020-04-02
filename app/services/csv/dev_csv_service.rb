@@ -6,7 +6,7 @@ require "csv"
 module Csv
   class DevCsvService
     # fills in the fields with blank values where no resident is allocated to a plot
-    NO_RESIDENT = (1..12).map { nil }
+    NO_RESIDENT = (1..13).map { nil }
 
     def self.init(report, filename)
       @from = report.extract_date(report.report_from)
@@ -32,9 +32,11 @@ module Csv
         "Validity", "Extended Access", "Expiry Date", "Legal Completion Date", "Build Progress",
         "Resident Count", "Resident Email", "Resident Name", "Resident Invited On",
         "Resident Invited By", "Resident Role", "Resident Activated", "Resident Last Sign In",
-        "Lifetime Sign In Count", "Notifications", "Developer Updates", "Spaciable Updates",
-        "Automated Emails", "Maintenance", "Services Enabled", "Referrals Enabled",
-        "Referrals Count", "Snagging Enabled", "Snags Reported", "Snags Resolved",
+        "Lifetime Sign In Count", "Notifications", "Developer Emails", "Spaciable Emails",
+        "Spaciable Texts", "Automated Emails", "Maintenance", "Services Enabled",
+        "Referrals Enabled", "Referrals Count",
+        "Snagging Enabled", "Snags Reported", "Snags Resolved",
+        "Buyers Club Enabled", "Licenses Bought", "Licences Remaining", "Perks Requested",
         "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
       ]
     end
@@ -71,10 +73,12 @@ module Csv
         build_date(resident, "last_sign_in_at"),
         resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),
-        yes_or_no(resident, "cf_email_updates")
+        yes_or_no(resident, "cf_email_updates"),
+        yes_or_no(resident, "telephone_updates")
       ]
     end
 
+    # rubocop:disable all
     def self.summary_info(plot, resident = nil)
       [
         yes_or_no(plot.developer, "api_key"),
@@ -83,11 +87,16 @@ module Csv
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
         yes_or_no(plot.development, "enable_snagging"), plot.all_snags_count,
         plot.resolved_snags_count,
+        yes_or_no(plot.developer, "enable_perks"),
+        plot.development_premium_licences_bought,
+        Vaboo.available_premium_licences(plot.development),
+        Vaboo.perk_type_registered(resident, plot),
         yes_or_no(plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
         yes_or_no(plot.developer, "development_faqs")
       ]
     end
+    # rubocop:enable all
 
     def self.referrals_count(resident)
       return 0 if resident.nil?
@@ -96,18 +105,25 @@ module Csv
 
     # An admin uses the Plot Release Type dropdown to return plots with a completion
     # release date or a reservation release date (or both) between the selected date range
+    # rubocop:disable Metrics/MethodLength
     def self.get_plot_types(plots)
       if @plot_types == "res"
         plots.where(reservation_release_date: @from.beginning_of_day..@to.end_of_day)
              .where(completion_release_date: nil)
       elsif @plot_types == "comp"
         plots.where(completion_release_date: @from.beginning_of_day..@to.end_of_day)
+      elsif @plot_types == "created"
+        plots.where('(reservation_release_date BETWEEN :start_at AND :end_at) OR
+                    ((completion_release_date BETWEEN :start_at AND :end_at) AND
+                     (reservation_release_date IS NULL))',
+                    start_at: @from.beginning_of_day, end_at: @to.end_of_day)
       else
         plots.where('(completion_release_date BETWEEN :start_at AND :end_at) OR
                     (reservation_release_date BETWEEN :start_at AND :end_at)',
                     start_at: @from.beginning_of_day, end_at: @to.end_of_day)
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.build_date(record, column)
       return "" if record.send(column).nil?
@@ -121,7 +137,7 @@ module Csv
     end
 
     def self.plot_expiry_date(plot)
-      plot.expiry_date ? plot.expiry_date.strftime("%m/%d/%Y") : ""
+      plot.expiry_date ? plot.expiry_date.strftime("%d/%m/%Y") : ""
     end
 
     def self.yes_or_no(record, column)

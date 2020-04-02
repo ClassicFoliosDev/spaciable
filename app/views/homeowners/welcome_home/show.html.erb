@@ -1,0 +1,42 @@
+<div class="branded-hero"></div>
+
+<div class="outer-container branded-content">
+  <div class="onboarding branded-text">
+    <div class="welcome-home">
+      <div class="title">
+        <%= t(".welcome_home") %>
+      </div>
+      <div class="opening">
+        <p>
+          <%= t(".opening_one", developer: @plot.developer) %><br/>
+          <span class="bold"><%= t(".opening_two") %></span>
+        </p>
+      </div>
+
+      <div class="row highlights">
+        <div class="half">
+          <ul>
+            <li><%= t(".library") %></li><br/>
+            <li><%= t(".contacts") %></li><br/>
+            <li><%= t(".faqs") %></li>
+          </ul>
+        </div>
+        <div class="half">
+          <ul>
+            <li><%= t(".appliances") %></li><br/>
+            <li><%= t(".area_guide") %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <p class="features-disclaimer"><%= t(".disclaimer") %></p>
+      </div>
+
+      <div class="next-page">
+        <p><%= link_to t(".next"), @next_page, class: "btn branded-btn next-page-btn" %></p>
+      </div>
+
+    </div>
+  </div>
+</div>

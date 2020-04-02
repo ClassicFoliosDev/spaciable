@@ -50,7 +50,7 @@ end
 Given(/^I am on the Admin Users page$/) do
 
   within ".navbar" do
-    click_on "Users"
+    click_on t("components.navigation.users")
   end
 end
 

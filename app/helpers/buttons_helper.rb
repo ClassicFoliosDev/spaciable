@@ -35,6 +35,7 @@ module ButtonsHelper
     end
   end
 
+
   def info_btn(resource, label = "", title: t("buttons.info.title"), text: nil, element:)
     return if element && (cannot? :destroy, element)
 
@@ -42,6 +43,15 @@ module ButtonsHelper
                          class: "btn info-btn",
                          title: I18n.t("buttons.info.title")) do
       icon "info", label
+    end
+  end
+
+  def permissable_delete_btn(resource, path: nil, element:)
+    return if element && (cannot? :destroy, element)
+
+    button_tag "", class: "btn destroy-permissable",
+                   data: permissable_data_to_delete(resource, path: path) do
+      icon "trash-o"
     end
   end
 

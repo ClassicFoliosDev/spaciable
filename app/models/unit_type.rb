@@ -16,8 +16,9 @@ class UnitType < ApplicationRecord
   has_many :phases, through: :phases_unit_types
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
-
+  
   delegate :cas, to: :development
+  delegate :construction, :construction_name, to: :development, allow_nil: true
 
   amoeba do
     include_association :rooms

@@ -41,9 +41,7 @@ Rails.application.routes.draw do
     resources :admin_notifications, except: [:edit, :update, :destroy]
     resources :how_tos
     resources :users
-    unless Rails.env.production?
-      resources :residents, only: [:index, :show]
-    end
+    resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
     resource :settings, only: [:show, :edit, :update]
     resource :analytics, only: [:new, :create]
@@ -182,7 +180,10 @@ Rails.application.routes.draw do
     end
     resource :intro_video, only: [:show]
     resource :about_video, only: [:show]
+    resource :communication_preferences, only: [:show]
+    resource :welcome_home, only: [:show], controller: 'welcome_home'
     resource :home_designer, only: [:show]
+    resource :perks, only: [:show, :create]
     resources :development_messages, only: [:index, :create]
     resources :library, only: [:update]
     resources :snags

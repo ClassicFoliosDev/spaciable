@@ -13,7 +13,7 @@ Then(/^I can see an individual resident$/) do
   resident = CreateFixture.resident
 
   within ".record-list" do
-    click_on resident.to_s
+    click_on resident.email
   end
 
   within ".resident" do
@@ -21,7 +21,5 @@ Then(/^I can see an individual resident$/) do
     expect(page).to have_content plot.developer
     expect(page).to have_content plot.division
     expect(page).to have_content plot.development
-    expect(page).to have_content plot.unit_type
   end
 end
-

@@ -14,6 +14,7 @@ module Homeowners
 
     def edit; end
 
+    # rubocop:disable all
     def update
       if UpdateUserService.call(current_resident, resident_params)
         Mailchimp::MarketingMailService.call(current_resident, @plot)
@@ -22,6 +23,8 @@ module Homeowners
           redirect_to new_resident_session_path
         elsif resident_params[:lettings_management].present?
           redirect_to letting_path(current_resident), notice: notice
+        elsif session[:onboarding]
+          redirect_to welcome_home_path, notice: notice
         else
           redirect_to homeowners_resident_path(current_resident), notice: notice
         end
@@ -29,6 +32,7 @@ module Homeowners
         render :edit
       end
     end
+    # rubocop:enable all
 
     def create
       return not_allowed if @plot_residency.tenant?
@@ -166,8 +170,8 @@ module Homeowners
     def resident_params
       params.require(:resident).permit(
         :title, :first_name, :last_name, :password, :password_confirmation, :current_password,
-        :developer_email_updates, :cf_email_updates, :telephone_updates, :post_updates,
-        :developer_sms_updates, :email, :phone_number, :role, :lettings_management
+        :developer_email_updates, :cf_email_updates, :telephone_updates,
+        :email, :phone_number, :role, :lettings_management
       )
     end
   end

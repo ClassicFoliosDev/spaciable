@@ -22,6 +22,13 @@
       </fieldset>
       <br/>
       <fieldset>
+        <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
+        <div id="construction_name">
+          <%= f.input :construction_name, label: t(".construction_name") %>
+        </div>
+      </fieldset>
+      <br/>
+      <fieldset>
         <div id="maintenance_url">
           <%= f.simple_fields_for :maintenance do |m| %>
             <%= m.input :path, placeholder: t(".maintenance_placeholder"), label: t(".maintenance_link") %>
@@ -67,6 +74,24 @@
           <%= f.check_box :cas %>
           <p class="checkbox-description"><%= t(".cas_description") %></p>
         <% end %>
+        <br/>
+        <div id="premium_perks">
+          <div class="<%= parent.enable_perks %>">  <!-- used in css to determine visibility -->
+            <%= f.simple_fields_for :premium_perk do |p| %>
+              <%= p.label :enable_premium_perks, t(".enable_premium_perks") %>
+              <%= p.check_box :enable_premium_perks %>
+              <p class="checkbox-description"><%= t(".premium_perks_description") %></p>
+              <%= p.input :premium_licence_duration, label: t(".premium_licence_duration") %>
+              <%= p.input :premium_licences_bought, label: t(".premium_licences_bought") %>
+              <% if development.premium_licences_bought&.positive? %>
+                <label><%= t(".premium_licences_allocated") %></label>
+                <span class="read-only"><%= development.premium_perk_sign_up_count %></span>
+                <label><%= t(".premium_licences_remaining") %></label>
+                <span class="read-only"><%= Vaboo.available_premium_licences(development) %></span>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </fieldset>
     </div>
   </div>

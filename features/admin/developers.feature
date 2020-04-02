@@ -13,6 +13,10 @@ Feature: Developers
     When I update the developer
     Then I should see the updated developer
     And I should see CAS visable and enabled at the development
+    When I try to delete the developer with an incorrect password
+    Then I see an alert and the developer is not deleted
+    When I delete the developer
+    Then I should see the delete complete successfully
 
   Scenario: Cloned Default FAQs for new Developers
     Given I am logged in as an admin

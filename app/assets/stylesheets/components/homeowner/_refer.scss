@@ -1,40 +1,40 @@
 .dashboard {
 
   .refer-overlay {
-    padding: 10px;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.7);
     border-radius: 5px;
+  }
 
-    .card-content {
-      position: absolute;
-      bottom: 0;
+  .refer-summary {
+    padding: $spacing-small;
+
+    .refer-content {
+      position: relative;
+      height: 160px;
+      padding: $spacing-small;
     }
 
-    .refer-summary {
-      margin: 0% -2%;
-      padding: $spacing-small;
+    .refer-description {
+      position: absolute;
+      top: 40%;
+      width: 98%;
       text-align: center;
+      padding-right: $spacing-small;
+    }
 
-      .larger {
-        padding: $spacing-small;
-      }
+    .refer-button {
+      position: absolute;
+      right: $spacing-small;
+      bottom: $spacing-small;
+    }
 
-      .refer-button {
-      padding: $spacing-medium;
-      }
-
-      .refer-friend {
-        font-size: $base-font-size;
-        line-height: $base-font-line-height;
-        font-weight: $base-font-weight;
-        cursor: pointer;
-      }
+    .refer-friend {
+      font-size: $base-font-size;
+      line-height: $base-font-line-height;
+      font-weight: $base-font-weight;
+      cursor: pointer;
     }
   }
-}
-
-.refer-description {
-  padding: $spacing-small;
 }

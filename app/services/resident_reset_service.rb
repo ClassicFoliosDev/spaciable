@@ -56,7 +56,6 @@ module ResidentResetService
     resident.developer_email_updates = false
     resident.cf_email_updates = false
     resident.telephone_updates = false
-    resident.post_updates = false
     resident.save(validate: false)
   end
 
@@ -77,12 +76,10 @@ module ResidentResetService
   end
 
   def transfer_files(resident, reset_plot, logger)
-    @file_client = WeTransferClient.new(api_key: Rails.application.secrets.we_transfer_key)
-
-    title = I18n.t("transfer_files_title")
+    client = WeTransfer::Client.new(api_key: Rails.application.secrets.we_transfer_key)
     description = I18n.t("transfer_files_description")
 
-    transfer = @file_client.create_transfer(name: title, description: description) do |upload|
+    transfer = client.create_transfer_and_upload_files(message: description) do |upload|
       resident_private_documents(resident, reset_plot).each do |document|
         next unless document.file
         next if document.file.size.zero?
@@ -93,7 +90,7 @@ module ResidentResetService
       end
     end
 
-    transfer.shortened_url
+    transfer.url
   end
 
   # This will happen automatically through the model dependencies if a resident is deleted

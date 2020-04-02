@@ -59,6 +59,15 @@ class ResidentNotificationMailer < ApplicationMailer
     mail to: email, subject: I18n.t("devise.mailer.transfer_files.title")
   end
 
+  def downgrade_perks_account(name, email, id)
+    @name = name
+
+    branded_perk = BrandedPerk.find_by(account_number: id)
+    @perk_login_link = branded_perk&.link || Vaboo::SPACIABLE_LOGIN
+
+    mail to: email, subject: I18n.t("devise.mailer.downgrade_perks.title")
+  end
+
   private
 
   def email_logo_or_brand_logo

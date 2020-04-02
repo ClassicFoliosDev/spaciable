@@ -5,7 +5,6 @@ $(document).on('click', '.finish .ui-menu-item', function (event) {
   var $parentFieldset = $selectContainer.closest('.finish')
 
   var addFinish = $(document).find('.add_finish')
-
   var category = selectMeta('.finish_category')
   var finishType = selectMeta('.finish_type')
   var manufacturer = selectMeta('.finish-manufacturer')
@@ -33,7 +32,6 @@ $(document).on('click', '.finish .ui-menu-item', function (event) {
     // Not when creating a new appliance
   } else if (listClasses.contains('finish-manufacturer') && (addFinish.length > 0)) {
     var finishesSelect = clearFields(finishesDiv)
-
     url = '/finish_list'
     setFields(finishesSelect, url, { category: category.id, type: finishType.id, manufacturer: manufacturer.id })
   }

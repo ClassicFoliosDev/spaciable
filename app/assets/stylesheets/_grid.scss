@@ -162,14 +162,14 @@ $row-bg-color: $ui-white;
   }
 }
 
-.dashboard .ref-or-ser .half {
+.dashboard .one-card .half {
   @include media($tablet-landscape-up) {
     @include span-columns(6 of 12);
     @include omega(4n);
   }
 }
 
-.dashboard .ref-or-ser .articles .quarter {
+.dashboard .one-card .articles .quarter {
   @include media($tablet-landscape-up) {
     @include span-columns(6 of 12);
     @include omega(2n);

@@ -1,0 +1,43 @@
+<div class="perks-description branded-text">
+
+  <!-- the below check determines whether the plot has access to Premium -->
+  <!-- i.e. if the resident if a full access user and another resident on the plot has activated Premium already -->
+  <!-- this covers all scenarios regardless of whether the Development has any premium licences remaining -->
+  <% if current_resident.plot_residency_homeowner?(plot) && Vaboo.premium_perks_activated?(plot) %>
+    <div><p class="bold"><%= t(".another_resident") %></p></div>
+    <div class="row">
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.intro_paragraph_one") %></p>
+        <p><%= t(".another_resident_description") %></p>
+      </div>
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.sign_up_paragraph_one") %></p>
+        <p><%= t("homeowners.perks.sign_up_paragraph_two") %></p>
+      </div>
+    </div>
+  <% else %>
+    <div><p class="bold"><%= t("homeowners.perks.title") %></p></div>
+    <div class="row">
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.intro_paragraph_one") %></p>
+        <p><%= t(".intro_paragraph_two") %></p>
+      </div>
+      <div class="half perks-half">
+        <p><%= t("homeowners.perks.sign_up_paragraph_one") %></p>
+        <p><%= t("homeowners.perks.sign_up_paragraph_two") %></p>
+      </div>
+    </div>
+  <% end %>
+  <div class="row perk-links">
+    <p class="bold"><%= t("homeowners.perks.sub") %></p>
+
+    <%= link_to t(".back"), dashboard_path, class: "btn branded-btn" %>
+
+    <%= button_tag t(".confirm"), class: "btn branded-btn-inverted activate-perks-account",
+    data: {
+    url: perks_url
+    } %>
+
+    <%= (render 'components/homeowner/perks_form', plot: plot, access_type: Vaboo::BASIC) if current_resident %>
+  </div>
+</div>

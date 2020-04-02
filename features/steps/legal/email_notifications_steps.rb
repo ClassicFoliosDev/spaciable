@@ -10,7 +10,6 @@ Then(/^I have not yet activated my account$/) do
   expect(resident.developer_email_updates).to be_nil
   expect(resident.cf_email_updates).to be_nil
   expect(resident.telephone_updates).to be_nil
-  expect(resident.post_updates).to be_nil
 
   ActionMailer::Base.deliveries.clear
 end
@@ -100,15 +99,7 @@ Then(/^I should not receive email notifications$/) do
 
   expect(resident.cf_email_updates).to be_zero
   expect(resident.developer_email_updates).to be_zero
-  expect(resident.telephone_updates).to be_nil
-  expect(resident.post_updates).to be_nil
-end
-
-When(/^I choose email notifications$/) do
-  within ".edit_resident" do
-    check_box = find(".subscribe-emails")
-    check_box.trigger(:click)
-  end
+  expect(resident.telephone_updates).to be_zero
 end
 
 Then(/^I should receive email notifications$/) do
@@ -117,7 +108,6 @@ Then(/^I should receive email notifications$/) do
   expect(resident.cf_email_updates).to eq 1
   expect(resident.developer_email_updates).to eq 1
   expect(resident.telephone_updates).to be_nil
-  expect(resident.post_updates).to be_nil
 end
 
 Then(/^no emails are sent to the activated homeowner$/) do
@@ -126,3 +116,11 @@ Then(/^no emails are sent to the activated homeowner$/) do
   expect(email_notifications.count).to eq 0
 end
 
+Then(/^when I unselect the communication options$/) do
+  within ".cf-email-updates" do
+    find(".fa-check").click
+  end
+  within ".developer-email-updates" do
+    find(".fa-check").click
+  end
+end

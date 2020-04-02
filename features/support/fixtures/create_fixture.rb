@@ -564,7 +564,9 @@ module CreateFixture
   end
 
   def create_resident
-    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email, developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
+    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email,
+                       developer_email_updates: true, invitation_accepted_at: Time.zone.now,
+                       ts_and_cs_accepted_at: Time.zone.now)
   end
 
   def create_division_resident

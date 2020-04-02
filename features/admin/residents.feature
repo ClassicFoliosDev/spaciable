@@ -1,4 +1,4 @@
-@poke
+@poke @javascript
 Feature: Residents
   As an admin user
   I want to see a list / show view for residents
@@ -9,7 +9,6 @@ Feature: Residents
     And there is a phase plot with a resident
     When I navigate to the residents view
     Then I see a list of residents
-    And I can see an individual resident
 
   Scenario: Development Admin
     Given I am logged in as a Development Admin

@@ -57,7 +57,7 @@ gem "fog-aws"
 gem "mini_magick", "~> 4.8"
 
 # File share
-gem "wetransfer"
+gem "wetransfer", "~> 0.9.0.beta2"
 
 # Authentication
 gem "devise", "~> 4.2"

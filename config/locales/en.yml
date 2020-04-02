@@ -38,10 +38,40 @@ en:
   back: "Back"
   cas_enabled: "Clients Adding Specs: Enabled"
 
+  construction_type:
+    home: "Home"
+
+  lists:
+    all_value: "*"
+    all_name: "*"
+    all_prompt: "All Developers..."
+
+  admin_permissable_destroy:
+    confirm: "Confirm Destroy"
+    warning: "WARNING"
+    incorrect_password: "The password you entered is incorrect. %{record} has not been deleted."
+
   reservation_email:
     title: "Your Spaciable Reservation Plots are Live"
   completion_email:
     title: "Your Spaciable Completion Plots are Live"
+  expiry_email:
+    title: "Important Information About Your Spaciable Plot"
+    intro: "Dear %{name},"
+    plot_details: "We have a message regarding your %{developer} property at %{development} (%{address})"
+    expiry: "Please note that your access to the full Spaciable portal has now expired."
+    information: "Not to worry, though - you will still be able to access all information contained within your portal that was populated or uploaded prior to the point of expiry."
+    admin: "You will no longer have the ability to interact with administrators."
+    hope: "We hope you have found your Spaciable portal highly beneficial and continue to use it as a source of information, inspiration and documentation."
+    regards: "Kind regards,"
+    sign_off: "The Spaciable Team"
+  reduced_expiry_email:
+    title: "Change to Your Spaciable Defect Reporting"
+    expiry: "Please note that your access to the Issues feature has now expired."
+    information: "If you believe you are still within the defect liability period (DLP), please contact your aftercare provider to report any defects.
+                  The DLP is the timeframe in which your developer is responsible for rectifying defects within the home.
+                  If you are unsure of the DLP's expiration date, please contact your aftercare provider for clarification."
+    warranty: "If you are outside the DLP, any structural defects should be referred to your warranty provider."
 
   date:
     formats:
@@ -54,7 +84,7 @@ en:
       file_time: "%Y_%m_%d_%H_%M_%S"
 
   cookies_eu:
-    cookies_text: "Cookies help us deliver our services. By using our services, you agree to our use of cookies."
+    cookies_text: "This site uses cookies. Cookies help us deliver our services. By using our services, you agree to our use of cookies."
     learn_more: "Find out more"
     ok: "OK"
 
@@ -261,15 +291,14 @@ en:
     home:
       title: "Spaciable home"
     homeowner:
-      title: "My Home"
       nav:
         dashboard: "Dashboard"
         community: "Community"
-        my_home: "My Home"
+        my_home: "My %{construction}"
         contacts: "Contacts"
         how_to: "How To"
         faqs: "FAQs"
-        home_designer: "Home Designer"
+        home_designer: "%{construction} Designer"
       sub_nav:
         rooms: "Rooms"
         appliances: "Appliances"
@@ -280,7 +309,8 @@ en:
     login:
       title: "Login to Spaciable"
     email:
-      copyright: "Spaciable &copy; %{year}"
+      copyright: "&reg; Spaciable &copy; %{year} Classic Folios. All rights reserved | <a href=\"https://spaciable.com/data_policy\">Privacy Policy</a> |
+                 <a href=\"https://spaciable.com/ts_and_cs_homeowner\">Terms and Conditions</a>"
     common_header:
       title: "Spaciable"
 
@@ -299,8 +329,8 @@ en:
     admin_notifications_new: "Send Notification"
     admin_admin_notifications: "Admin Notifications"
     admin_admin_notifications_new: "Send Notification"
-    admin_residents: "Admin Residents"
-    admin_users: "Users"
+    admin_residents: "Residents"
+    admin_users: "Admins"
     admin_users_add: "New User"
     admin_user_edit: "Edit %{user}"
     admin_how_tos: "How Tos"
@@ -536,7 +566,7 @@ en:
       my_division: "My Division"
       my_development: "My Development"
       documents: "Documents"
-      users: "Users"
+      users: "Admins"
       appliances: "Appliances"
       finishes: "Finishes"
       profile: "Profile"
@@ -548,6 +578,7 @@ en:
       configuration: "Global Settings"
       reports: "Reports"
       snagging: "Snagging"
+      residents: "Residents"
     empty_list:
       empty: "You have no %{type_names}."
       add: "Add %{type_name}"
@@ -827,7 +858,7 @@ en:
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
       index:
-        title: "Users."
+        title: "Admins."
         add: "Add User"
         email: "Email"
         name: "Name"
@@ -892,8 +923,8 @@ en:
         no_match: "No results found"
     residents:
       index:
-        title: "Residents"
-        plot_count: "Plot count"
+        title: "Residents."
+        plot_count: "Plot Count"
         development: "Development"
         division: "Division"
         developer: "Developer"
@@ -901,11 +932,24 @@ en:
         role: "Role"
         name: "Name"
         email: "Email"
-        removed: "Resident has been removed from all plots"
-        invited_by: "Invited by"
-        phone_number: "Phone number"
+        removed: "Removed from all plots"
+        invited_by: "Invited By"
+        accepted_at: "Activated"
+        phone_number: "Phone"
       show:
+        name: "Plot"
+        developer: "Developer"
+        division: "Division"
+        development: "Development"
+        phase: "Phase"
         back: "Back"
+        role: "Role"
+        invited_by: "Invited By"
+        invited_date: "Invited On"
+        email: "Email: "
+        phone: "Phone: "
+        id: "Plot ID"
+        activated: "Activated: "
       plot_details:
         plot: "Plot"
 
@@ -946,7 +990,8 @@ en:
         developer: "Developer Report"
         development: "Development Report"
         all: "Summary Report (All Developers)"
-        billing: "Billing Report (All Plots Under All Developers)"
+        billing: "Billing Report (All Developers)"
+        perks: "Buyers' Club Report"
         range_summary: "Reports may be large. Use the date ranges to reduce the content."
         range_dev: "Development and Developer Reports filter plots with reservation and/or completion release dates within the selected date range."
         range_all: "Summary Report filters developers created within the selected date range."
@@ -1077,6 +1122,14 @@ en:
       account_type: "Maintenance Account Type"
       enable_cas: "Client Adding Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
+      enable_premium_perks: "Premium Buyers' Club"
+      premium_perks_description: "Allow residents to request access to the Premium Buyers' Club portal. Please set the number of licences available below; once this reaches 0 no further requests to the Premium Buyers' Club portal can be made."
+      premium_licences_bought: "Premium Licences Bought"
+      premium_licence_duration: "Premium Licence Duration (Months)"
+      premium_licences_allocated: "Premium Licences Allocated"
+      premium_licences_remaining: "Premium Licences Remaining"
+      construction: "Construction Type"
+      construction_name: "Replace My 'Home':"
     index:
       add: "Add Development"
     development:
@@ -1135,6 +1188,8 @@ en:
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
 
   homeowners:
+    my_home_name: "My %{construction}"
+    home: "Home"
     faqs:
       index:
         title: "Frequently Asked Questions."
@@ -1244,6 +1299,7 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
 
     library:
+      my_home: "My %{construction}"
       index:
         disclaimer: "If you have a floor plan in your library it should not be relied upon as an accurate representation
          of any of the specific matters described by any order under the Consumer Protection from Unfair Trading
@@ -1273,7 +1329,7 @@ en:
       notification_summary:
         new: "New"
       address:
-        my_home_view_more: "View My Home"
+        view_more: "View %{construction}"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
@@ -1327,17 +1383,17 @@ en:
         featured: "Featured"
     dashboard:
       show:
-        my_home_title: "My Home."
+        my_title: "%{construction}."
       contacts:
         contacts_title: "Contacts."
         contacts_view_more: "View Contacts"
       services:
-        services: "See How We Can Help"
-        services_title: "Need A Helping Hand?"
-        services_description: "Spaciable services is a totally free feature that provides quotes (without obligation) for a variety of services and products,
-                              such as removals, insurance and conveyancing, allowing you to focus on the exciting elements of homebuying."
+        services_description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
+        services: "Select Services"
+        services_title: "Services"
+        services_description_one: "Benefit from an exclusive range of services, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Services feature."
+        services_description_two: "Simply select the categories you are interested in and start saving money!"
       referrals:
-        refer_developer: "Refer A Friend To Your Developer"
         refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer A Friend"
         refer_title: "Refer A Friend."
@@ -1349,12 +1405,44 @@ en:
         email: "Email"
         phone: "Phone"
         refer_description: "Fill in your friend's details to refer them to your developer."
+      perks:
+        perks_description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
+        perks: "Find Out More"
+        activated_perks: "Log in to Buyers' Club"
+        activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
+        new_tab: "Opens in a new tab"
+        notice: "Thanks for signing up to exclusive online resident rewards! Please check your email inbox for an invitation from Vaboo to activate your Buyers' Club account."
+
+    communication_preferences:
+      show:
+        communication_preferences: "Communication Preferences"
+        paragraph: "We want to stay in touch, but only in ways that you find helpful. Select from the options below and click <strong>save</strong>."
+        spaciable_options: "Updates on offers and services from my portal:"
+        email: "Via email"
+        sms: "Via text"
+        disclaimer: "Please note that your data will be protected by GDPR regulations and will not be passed on to third parties."
+        submit: "Save"
+    welcome_home:
+      show:
+        welcome_home: "Welcome home!"
+        opening_one: "This is your %{developer} portal. Here you can access a wealth of features that will help you enjoy your new home."
+        opening_two: "You will receive updates on new features; however, here are some of the highlights:"
+        library: "Document library - access important documents and certificates relating to your home, such as appliance manuals and warranty policies."
+        contacts: "Contacts - while your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
+                  The Contact feature will point you in the right direction for each type of query, saving you from being passed from pillar to post in search of the right person for any given issue."
+        faqs: "FAQs - it's only natural to have questions about your new home. Your portal's FAQ section provides answers to some of the most common issues faced by homeowners, so you can quickly resolve any items of concern."
+        appliances: "Appliances and finishes - unsure what an error code on your washing machine means or wondering what paint colour has been used in your hallway?
+                    Your portal displays information about the appliances installed in your home, and lists finishes and fittings on a room-by-room basis, so you can easily troubleshoot issues and paint over any scuffs or blemishes."
+        area_guide: "Area Guide - wondering what the Ofsted ratings are for the local schools? Or where the best place to eat is? Area Guide displays a whole host of local information for your postcode,
+                    covering neighbourhood statistics and local amenities, so you can quickly become a part of the community."
+        disclaimer: "Please note that various packages are available for the portal and the actual features may differ."
+        next: "Next"
     about:
       show:
-        rooms_description: "View finishes and fittings in each room of your home"
-        appliances_description: "View documents and details of appliances your home"
-        library_description: "View and upload documents about your home"
-        faqs_description: "Frequently asked questions about moving into a new home"
+        rooms_description: "View finishes and fittings in each room of your %{construction}"
+        appliances_description: "View documents and details of appliances your %{construction}"
+        library_description: "View and upload documents about your %{construction}"
+        faqs_description: "Frequently asked questions about moving into a new %{construction}"
         progress: "Progress on my home is: "
     notifications:
       index:
@@ -1375,6 +1463,30 @@ en:
     referrals:
       email_subject: "You have been referred by %{referrer}"
       internal_subject: "New Referral"
+    perks:
+      title: "Join the Buyers' Club now and start saving today!"
+      sub: "It pays to be part of a club!"
+      intro_paragraph_one: "We're rewarding our residents with membership to the Buyers' Club, so you can start saving on everyday essentials, as well as special treats, with discounts on dining, shopping, travel, entertainment, fitness, utilities and more."
+      sign_up_paragraph_one: "Click Give Me Access below and we'll pass your property portal account details (name, email, address and postcode) on to trusted third party Vaboo, who'll set up your Buyers' Club account."
+      sign_up_paragraph_two: "Once you've activated your account via the email from Vaboo, you'll be able to log in to the online Buyers' Club platform to view your latest discounts and deals."
+      show:
+        title: "Buyers' Club."
+      premium:
+        title: "Congratulations - you've been offered free premium access to Buyers' Club discounts!"
+        intro_paragraph_two: "As a 'thank you' for being a valued customer, we've paid for your property to upgrade to a premium Buyers' Club account, so you can enjoy access to exclusive perks and earn cashback as you spend."
+        back: "Back"
+        confirm: "Give Me Access"
+      basic:
+        another_resident: "Free premium access to the Buyers' Club has already been claimed for your property, but you can still enjoy great discounts!"
+        another_resident_description: "Another user on your property has already claimed your property's free upgrade to a premium Buyers' Club account, but you can still join the regular Buyers' Club and benefit from selected exclusive offers, free of charge.
+                                       There is also the option to upgrade to a premium Buyers' Club account, where you can access further perks and earn cashback as you spend."
+        intro_paragraph_two: "Access to these offers is free of charge, but there is also the option to upgrade to a premium Buyers' Club account, where you can access further perks and earn cashback as you spend."
+        back: "Back"
+        confirm: "Give Me Access"
+      coming_soon:
+        title: "Coming soon...free premium access to exclusive Buyers' Club discounts!"
+        hang_tight: "Hang tight, though - these offers are only intended for new movers. Please return to this page after legal completion to confirm you'd like access to the Buyers' Club and we'll arrange for your account to be set up."
+        back: "Thanks, I've Read This - Back to Dashboard"
 
     residents:
       edit:
@@ -1383,14 +1495,15 @@ en:
         new_password: "New password"
         confirm_new_password: "Confirm new password"
         submit: "Save"
-        change_details: "Change Details."
+        change_details: "Update Details."
         first_name: "First name"
         surname: "Surname"
         account: "Update Account."
+        phone: "Phone"
+        email: "Email"
       communications:
         title: "Communication Preferences."
-        maintaining_managing: "Updates on maintaining and managing my home through Spaciable:"
-        updates_by: "Updates on products and services by:"
+        updates_by: "Updates on offers and services from your portal:"
         helpful: "We want to stay in touch, but only in ways that you find helpful.<br/> Select from the options below and click Save."
       services:
         title: "Services"
@@ -1399,16 +1512,16 @@ en:
         name: "Name"
         password: "Password"
         email: "Email"
+        phone: "Phone"
         dummy_password: "********"
         plot-disclaimer: "The following information is regarding your currently selected plot. <br/> To view and edit the information of an alternative plot, please use the Plots dropdown in the navigation."
         comms_preferences: "Communication Preferences."
         account_details: "Account Details."
         account: "Account."
         edit_profile: "Update Details/Preferences"
-        developer_email_updates: "Developer emails"
-        developer_sms_updates: "Developer text messages"
-        cf_email_updates: "Spaciable emails"
-        telephone_updates: "Telephone updates"
+        developer_email_updates: "Emails from my property developer"
+        cf_email_updates: "Via email"
+        telephone_updates: "Via text"
         post_updates: "Post updates"
         other_residents: "Other residents with access to %{plot}."
         none: "Only you can see the content for %{plot}"
@@ -1427,9 +1540,9 @@ en:
         confirm_deactivate: "Confirm Deactivate"
         deactivate_password: "Enter your password to confirm"
         full_access_title: "Full Access User."
-        full_access_description: "Has access to all documents of your home's portal (other than those you have uploaded to the 'My Documents' tab), can invite other users to your home and can access the issue reporting system (if enabled for your development)."
+        full_access_description: "Has access to all documents of your home's portal (other than those you have uploaded to the 'My Documents' tab) and can invite other users to your home."
         limited_access_title: "Limited Access User."
-        limited_access_description: "Cannot invite other users to your home or use the issue reporting system and can only view documents that a Full Access User has shared manually."
+        limited_access_description: "Cannot invite other users to your home and can only view documents that a Full Access User has shared manually."
       update:
         success: "Your account has been updated successfully"
       create:
@@ -1444,8 +1557,9 @@ en:
         incorrect_password: "Password not correct, your account is still active"
     services:
       index:
-        find_out: "Find Out More"
-        no_thanks: "No Thanks"
+        find_out: "Select Categories"
+        no_thanks: "Go to Dashboard"
+        title: ""
         title: ""
         subtitle: ""
         description_html: ""
@@ -1454,16 +1568,14 @@ en:
                     to third parties without your consent. Spaciable Services operates in full compliance with the EU GDPR (General Data Protection Regulation) and the UK DPA (Data Protection Act) 2018."
         submit: "Submit"
         services_title: "Services."
-        disclaimer_1: "Selecting 'Find Out More' will open Spaciable services information in a new tab."
-        disclaimer_2: "You can access Spaciable services at any time from your Dashboard."
+        disclaimer: "You can access the Services feature at any time from your portal dashboard."
     intro_videos:
       show:
-        welcome_title: "Welcome %{name} and welcome to your new home's online portal"
-        welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers.
-        The content on your portal is personalised to your home."
-        welcome_2: "Everything is specific and personalised to your new home."
+        welcome_title: "Intro Video"
+        welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers."
+        welcome_2: "The content on your portal is personalised to your home."
         next: "Next"
-        return: "You can also view this welcome video on your portal’s My account page."
+        return: "You can also view this welcome video on your portal’s Account page."
     development_messages:
       index:
         title: "Community messages for %{development}"
@@ -1529,6 +1641,12 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
+      enable_perks: "Buyers' Club"
+      perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
+      link: "Branded Buyers' Club Link"
+      account_number: "Branded Buyers' Club Account Number"
+      tile_image: "Branded Buyers' Club Tile Image"
+      branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
 
     index:
       add: "Add Developer"
@@ -1729,8 +1847,7 @@ en:
       international: "Use international dialling code for non-UK numbers"
       full_access_description:
         title_html: "Full Access User"
-        overview: "<p>Has access to the issue reporting system (if enabled on your development).<br/>
-                  Can add additional <i>Full Access Users</i> or <i>Limited Access Users</i> to their home.<br/>
+        overview: "Can add additional <i>Full Access Users</i> or <i>Limited Access Users</i> to their home.<br/>
                   Can control which documents a Limited Access User can see.</p><h5>Suitable for:</h5>"
         suitable_html: "<ul>
           <li><strong>Private Sale </strong>- The homeowner/purchaser</li>
@@ -1739,8 +1856,7 @@ en:
           <li><strong>Affordable Rent/Housing Association </strong>- The resident renting directly from the Housing Association</li></ul>"
       limited_access_description:
         title_html: "Limited Access User"
-        overview: "<p>Cannot access the issue reporting system (if enabled on your development).<br/>
-                  Cannot add additional users.</br>
+        overview: "Cannot add additional users.</br>
                   Can only view documents designated by a Full Access User.</p><h5>Suitable for:</h5>"
         suitable_html: "<ul>
           <li><strong>Traditional Sale</strong> - A resident of the property who is not the main owner/purchaser</li>
@@ -2132,6 +2248,8 @@ en:
       upload_rename: "Upload and rename files"
       upload_all: "Upload files"
       notify: "Notify subscribed residents about this change"
+      pinned: "Pinned"
+      pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
     collection:
       plot: "Plot"
       processing: "Processing..."
@@ -2726,6 +2844,9 @@ en:
         email: "Email"
         contact_number: "Phone"
         updated_at: "Last Edited"
+        construction_labels:
+          residential: "Residential"
+          commercial: "Commercial"
       phase:
         name: "Name"
         updated_at: "Last Edited"
@@ -2733,6 +2854,7 @@ en:
           core: "Core"
           nhbc: "NHBC"
           mhf: "Migrated"
+          commercial: "Commercial"
       unit_type:
         name: "Unit type name"
         picture: "Unit type picture"
@@ -2847,7 +2969,7 @@ en:
         unpinned: "No"
         categories:
           # Category enum values for documents
-          my_home: "My Home"
+          my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
       user:
@@ -2980,10 +3102,8 @@ en:
         password: "Password"
         password_confirmation: "Confirm password"
         developer_email_updates: "Emails from my property developer"
-        developer_sms_updates: "Mobile text messages from my property developer"
-        cf_email_updates: "Home inspiration direct to my inbox with Spaciable How To updates"
-        telephone_updates: "Telephone"
-        post_updates: "Post"
+        cf_email_updates: "Via email"
+        telephone_updates: "Via text"
       residents:
         resident: "Resident"
         full_name: "Full name"

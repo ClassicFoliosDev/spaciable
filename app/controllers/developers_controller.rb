@@ -12,10 +12,16 @@ class DevelopersController < ApplicationController
 
   def new
     @developer.build_address unless @developer.address
+
+    @branded_perk = BrandedPerk.new
+    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def edit
     @developer.build_address unless @developer.address
+
+    @branded_perk = BrandedPerk.new
+    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def show
@@ -61,6 +67,12 @@ class DevelopersController < ApplicationController
   end
 
   def destroy
+    unless current_user.valid_password?(params[:password])
+      alert = t("admin_permissable_destroy.incorrect_password", record: @developer)
+      redirect_to developers_url, alert: alert
+      return
+    end
+
     @developer.destroy
 
     notice = t(".success", developer_name: @developer.company_name)
@@ -79,6 +91,8 @@ class DevelopersController < ApplicationController
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
       :prime_lettings_admin, :personal_app, :cas,
+      :enable_perks,
+      branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

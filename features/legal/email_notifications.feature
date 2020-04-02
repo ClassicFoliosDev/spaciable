@@ -21,7 +21,13 @@ Feature: Legal emails
     And I do not accept terms and conditions
     Then I can not complete registration
     When I accept the invitation as a homeowner
-    Then I should be redirected to the video introduction page
+    Then I should be redirected to the communication preferences page
+    And when I unselect the communication options
+    And when I click next
+    Then I am redirected to the welcome home page
+    And when I click next
+    Then I should be redirected to the intro video page
+    And when I click next
     And I should be redirected to the homeowner dashboard
     And I should not receive email notifications
     When I log out as a homeowner
@@ -29,15 +35,3 @@ Feature: Legal emails
     When I update the resident plot progress
     And I send a notification to the resident's development
     Then no emails are sent to the activated homeowner
-
-  Scenario: Homeowner accepted services and email notifications
-    Given I am a Development Admin wanting to assign a new resident to a plot
-    And the developer has enabled services
-    And a CF admin has configured a video link
-    When I assign a new resident to a plot
-    And I log out as a an admin
-    When I visit the invitation accept page
-    And I choose email notifications
-    And I accept the invitation as a homeowner
-    Then I should be redirected to the video introduction page
-    And I can select services

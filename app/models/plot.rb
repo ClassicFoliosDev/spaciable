@@ -8,6 +8,7 @@ class Plot < ApplicationRecord
   attr_accessor :copy_plot_numbers
 
   DUMMY_PLOT_NAME = "ZZZ_DUMMY_PLOT_QQQ"
+  DASHBOARD_TILES = 5 # total number of customisable tiles on the homeowner dashboard
 
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
@@ -70,6 +71,11 @@ class Plot < ApplicationRecord
   delegate :choices_email_contact, to: :development
   delegate :business, to: :phase
   delegate :list_id, to: :developer
+  delegate :construction, :construction_name, to: :development, allow_nil: true
+
+  delegate :enable_perks?, :perks_branded_link, :branded_perk, to: :developer
+  delegate :enable_premium_perks, :premium_licence_duration, to: :development
+  delegate :premium_licences_bought, to: :development, prefix: true
 
   delegate :maintenance_populate, to: :development, allow_nil: true
   delegate :maintenance_path, to: :development, allow_nil: true
@@ -228,6 +234,19 @@ class Plot < ApplicationRecord
   end
 
   def partially_expired?; end
+
+  # Scheduled expiry emails
+  def self.notify_expiry_plots
+    expiry_plots = []
+    reduced_expiry_plots = []
+    Plot.find_each do |plot|
+      expiry_plots << plot.id if plot.expiry_date == Time.zone.today - 1.day
+      reduced_expiry_plots << plot.id if plot.reduced_expiry_date == Time.zone.today - 1.day &&
+                                         plot.maintenance_path
+    end
+
+    ExpiryPlotsJob.perform_later(expiry_plots, reduced_expiry_plots)
+  end
 
   # SNAGS
 
@@ -390,6 +409,30 @@ class Plot < ApplicationRecord
   # How many rooms of the provided type does this plot have?
   def rooms?(key)
     rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }.count
+  end
+
+  # Which tiles should the plot have enabled for the homeowner dashboard?
+  def activated_cards
+    cards = { "perks" => enable_perks?, "referrals" => enable_referrals?,
+              "services" => enable_services? }
+    activated = []
+    cards.each do |card, value|
+      activated << card if value
+    end
+    activated
+  end
+
+  def completed?
+    return false unless completion_date
+    Time.zone.today >= completion_date
+  end
+
+  def my_home_name
+    I18n.t("homeowners.my_home_name", construction: my_construction_name)
+  end
+
+  def my_construction_name
+    construction_name.blank? ? I18n.t("homeowners.home") : construction_name
   end
 end
 # rubocop:enable Metrics/ClassLength

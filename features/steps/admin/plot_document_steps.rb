@@ -47,6 +47,7 @@ When(/^I upload a document (\w+) that does not match a plot$/) do |plot_name|
   document_number = CreateFixture.send(plot_name)
   document_name = PlotDocumentFixture.send("document#{document_number}10")
   plot_document_path = FileFixture.file_path + document_name
+  sleep 0.5
 
   within ".upload" do
     attach_file("document_files",
@@ -54,7 +55,6 @@ When(/^I upload a document (\w+) that does not match a plot$/) do |plot_name|
                 visible: false)
   end
   click_on(t("plot_documents.form.upload_all"))
-  sleep 0.5
 end
 
 Then(/^I should see a (\w+) plot document error$/) do |plot_name|

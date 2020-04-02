@@ -132,15 +132,15 @@
   }
 }
 
-.dashboard .ref-or-ser .article {
+.dashboard .one-card .article {
   @include span-columns(6 of 12);
 }
 
-.dashboard .ref-or-ser .how-to-dash {
+.dashboard .one-card .how-to-dash {
   @include omega(2n)
 }
 
-.dashboard .ref-or-ser .library .half {
+.dashboard .one-card .library .half {
   @include span-columns(12 of 12);
 }
 
@@ -203,7 +203,7 @@
 }
 
 @include media($mobile-down) {
-  .dashboard, .how-tos, .ref-or-ser .articles {
+  .dashboard, .how-tos, .one-card .articles {
     .article {
       @include span-columns(12 of 12);
       @include omega-reset(2n);

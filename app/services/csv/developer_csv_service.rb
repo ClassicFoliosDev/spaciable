@@ -2,18 +2,27 @@
 
 module Csv
   class DeveloperCsvService < DevCsvService
+    # rubocop:disable Metrics/MethodLength
     def self.call(report)
-      developer = Developer.find(report.developer_id)
-      filename = build_filename(developer.to_s.parameterize.underscore)
-      path = init(report, filename)
+      if report.developer_id == I18n.t(".lists.all_value")
+        developers = Developer.all
+        filename = build_filename("all_developers")
+      else
+        developers = [Developer.find(report.developer_id)]
+        filename = build_filename(developers[0].to_s.parameterize.underscore)
+      end
 
+      path = init(report, filename)
       ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << headers
-        append_data(csv, developer)
+        developers.each do |developer|
+          append_data(csv, developer)
+        end
       end
 
       path
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.append_data(csv, developer)
       plots = developer_plots(developer)

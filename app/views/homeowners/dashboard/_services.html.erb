@@ -1,13 +1,12 @@
 <div class="card article services-article branded-border" style="background-image: url('<%= image_path "piggybank.jpg" %>')" >
-  <div class="service-overlay">
-    <div class="service-summary">
-      <p class="larger"><%= t(".services_title") %></p>
-      <p><%= t(".services_description") %></p>
-      <div class="refer-button">
-        <%= link_to t(".services"),
-            "https://home.spaciable.com/service/#{services_params}",
-            class: "branded-btn-inverted services-btn" %>
-      </div>
-    </div>
+  <div class="card-content service-summary service-overlay">
+    <p class="service-content">
+      <p class="service-description"><%= t(".services_description") %></p>
+    </p>
+    <span class="service-button">
+      <%= link_to t(".services"),
+          "https://home.spaciable.com/service/#{services_params}",
+          class: "branded-btn-inverted services-btn" %>
+    </span>
   </div>
 </div>

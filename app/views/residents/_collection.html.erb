@@ -33,7 +33,7 @@
         <td><%= l resident.invitation_accepted_at.to_date, format: :digits if resident.invitation_accepted? %></td>
         <td class="actions">
           <%= (edit_btn [:edit, plot, resident], element: resident) unless parent.expired? && !(current_user.cf_admin?) %>
-          <%= (delete_btn resident, path: url_for([plot, resident]), element: resident) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn resident, path: url_for([plot, resident]), element: resident) %>
         </td>
 
       </tr>

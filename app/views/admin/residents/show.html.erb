@@ -3,20 +3,51 @@
 <div class="section-header">
   <div class="section-title">
     <div>
-      <i class="fa fa-user"></i>
-      <%= @resident.to_s %><br>
+      <%= @resident.to_s %><br/><br/>
     </div>
     <span class="about">
-      <i class="fa fa-envelope"></i>
-      <%= @resident.email %>
+      <strong><%= t(".email") %></strong><%= @resident.email %><br/>
+      <strong><%= t(".phone") %></strong><%= @resident.phone_number %><br/>
+      <strong><%= t(".activated") %></strong>
+      <% if @resident.invitation_accepted_at %>
+          <%= l @resident.invitation_accepted_at.to_date, format: :digits %>
+      <% end %></td>
     </span>
   </div>
 </div>
 
 <div class="resident section-data">
-  <% @resident.plots.each do |plot| %>
-    <%= render "admin/residents/plot_details", plot: plot %>
-  <% end %>
+  <table class="record-list plots">
+    <thead>
+      <tr>
+        <th><%= t(".name") %></th>
+        <th><%= t(".developer") %></th>
+        <th><%= t(".division") %></th>
+        <th><%= t(".development") %></th>
+        <th><%= t(".phase") %></th>
+        <th><%= t(".role") %></th>
+        <th><%= t(".invited_by") %></th>
+        <th><%= t(".invited_date") %></th>
+        <th><%= t(".id") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @plots = @resident.plots.order(created_at: :desc) %>
+      <% @plots.each do |plot| %>
+      <tr data-plot="<%= plot.id %>">
+        <td><%= link_to_unless (cannot? :read, plot), plot, url_for(plot), title: plot %></td>
+        <td><%= plot.developer %></td>
+        <td><%= plot&.division %></td>
+        <td><%= plot.development %></td>
+        <td><%= plot.phase %></td>
+        <td><%= @resident.plot_residency_role_name(plot) %></td>
+        <td><%= @resident.plot_residency_invited_by(plot) %></td>
+        <td><%= l @resident.plot_residency_invited_date(plot).to_date, format: :digits %></td>
+        <td><%= plot.id %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <div class="form-actions-footer-container">

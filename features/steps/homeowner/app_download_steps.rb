@@ -31,7 +31,7 @@ end
 
 When(/^I go to another page$/) do
   within ".navbar-menu" do
-    click_on(t("layouts.homeowner.nav.my_home"))
+    click_on(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
   end
 end
 

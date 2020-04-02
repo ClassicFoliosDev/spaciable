@@ -1,0 +1,42 @@
+<div class="branded-hero"></div>
+
+<div class="outer-container branded-content">
+  <div class="onboarding branded-text">
+    <div class="communication-preferences">
+      <p class="title"><%= t(".communication_preferences") %></p>
+      <p><%= t(".paragraph").html_safe %></p>
+    </div>
+    <div class="communication-options">
+      <%= simple_form_for ([:homeowners, current_resident]) do |f| %>
+        <div>
+          <%= f.label :developer_email_updates, class: "checkbox developer-email-updates" do %>
+            <%= f.check_box :developer_email_updates, checked: true %>
+            <i class="fa fa-check"></i> <%= Resident.human_attribute_name(:developer_email_updates) %>
+          <% end %>
+        </div>
+        <div class="spaciable-updates">
+          <%= t(".spaciable_options") %>
+        </div>
+        <div>
+          <%= f.label :cf_email_updates, class: "checkbox cf-email-updates" do %>
+            <%= f.check_box :cf_email_updates, checked: true %>
+            <i class="fa fa-check"></i> <%= t(".email") %>
+          <% end %>
+        </div>
+        <br/>
+        <div>
+          <%= f.label :telephone_updates, class: "checkbox telephone-updates" do %>
+            <%= f.check_box :telephone_updates %>
+            <i class="fa fa-check"></i> <%= t(".sms") %>
+          <% end %>
+        </div>
+        <div class="disclaimer branded-text">
+          <%= t(".disclaimer") %>
+        </div>
+        <div class="submit">
+          <%= f.submit t(".submit"), class: "btn branded-btn onboarding-btn" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

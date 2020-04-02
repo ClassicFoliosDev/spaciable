@@ -41,6 +41,15 @@ function setFields (selectList, url, data, prompt, callback) {
       selectList.appendChild(promptOption)
     }
 
+    if (selectList.hasAttribute('data-all-option') &&
+        selectList.attributes["data-all-option"].value === "true"){
+      var allOption = document.createElement('option')
+      allOption.value = '<%= I18n.t(".lists.all_value") %>'
+      allOption.name = '<%= I18n.t(".lists.all_name") %>'
+      allOption.textContent = '<%= I18n.t(".lists.all_prompt") %>'
+      selectList.appendChild(allOption)
+    }
+
     $.each(results, function (key, value) {
       var option = document.createElement('option')
       option.value = value.id

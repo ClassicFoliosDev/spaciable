@@ -15,6 +15,8 @@
         <span><%= current_resident %></span>
         <%= label_tag t(".email") %>
         <span><%= current_resident&.email %></span>
+        <%= label_tag t(".phone") %>
+        <span><%= current_resident&.phone_number %></span>
         <%= label_tag t(".password") %>
         <span><%= t(".dummy_password") %></span>
       </div>
@@ -23,16 +25,11 @@
         <label class=<%= current_resident.developer_email_updates? ? "selected" : "unselected" %>> <%= t(".developer_email_updates") %>
           <i class="fa fa-check"></i>
         </label>
-        <label class=<%= current_resident.developer_sms_updates? ? "selected" : "unselected" %>> <%= t(".developer_sms_updates") %>
-          <i class="fa fa-check"></i>
-        </label>
+        <label class="updates"><%= t("homeowners.residents.communications.updates_by") %></label>
         <label class=<%= current_resident.cf_email_updates? ? "selected" : "unselected" %>> <%= t(".cf_email_updates") %>
           <i class="fa fa-check"></i>
         </label>
         <label class=<%= current_resident.telephone_updates? ? "selected" : "unselected" %>> <%= t(".telephone_updates") %>
-          <i class="fa fa-check"></i>
-        </label>
-        <label class=<%= current_resident.post_updates? ? "selected" : "unselected" %>> <%= t(".post_updates") %>
           <i class="fa fa-check"></i>
         </label>
       </div>
@@ -40,7 +37,9 @@
 
 
     <div class="full actions show-actions">
-      <%= link_to t(".intro_video"), about_video_path, class: "btn branded-btn video-link" %>
+      <% if Setting.first&.intro_video_enabled %>
+        <%= link_to t(".intro_video"), about_video_path, class: "btn branded-btn video-link" %>
+      <% end %>
       <%= link_to t(".edit_profile"), [:edit, :homeowners, current_resident], class: "btn branded-btn" %>
       <%= button_tag t(".deactivate"), class: "btn branded-btn destroy-resident",
       data: { cancel: t("edit.cancel"),

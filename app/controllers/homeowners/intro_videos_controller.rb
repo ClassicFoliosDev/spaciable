@@ -2,11 +2,9 @@
 
 module Homeowners
   class IntroVideosController < Homeowners::BaseController
-    layout "accept"
-
     def show
       @setting = Setting.first
-      @next_path = @plot.enable_services? ? services_path : root_path
+      @next_path = @plot.enable_services? ? services_path : dashboard_path
     end
   end
 end

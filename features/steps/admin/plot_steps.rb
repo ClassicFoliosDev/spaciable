@@ -135,12 +135,12 @@ Then(/^I see the plot preview page$/) do
 
   within_frame("rails_iframe") do
     expect(page).to have_content(t("layouts.homeowner.nav.dashboard"))
-    expect(page).to have_content(t("layouts.homeowner.nav.my_home"))
+    expect(page).to have_content(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
     expect(page).to have_content(t("layouts.homeowner.nav.how_to"))
     expect(page).to have_content(t("layouts.homeowner.nav.contacts"))
 
-    expect(page).to have_content(t("homeowners.dashboard.show.my_home_title"))
-    expect(page).to have_content(t("homeowners.components.address.my_home_view_more"))
+    expect(page).to have_content(t("homeowners.my_home_name", construction: t("construction_type.home")))
+    expect(page).to have_content(t("homeowners.components.address.view_more", construction: t("components.homeowner.sub_menu.title")))
 
     expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
     expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
@@ -347,6 +347,10 @@ Then(/^I can not edit a plot$/) do
     click_on CreateFixture.phase_plot_name
   end
 
+  sleep 0.5
+  find(".tabs").click_on "Documents"
+
+  sleep 0.5
   within ".plot" do
     edit_links = page.all("[data-action='edit']")
     expect(edit_links.count).to eq 0

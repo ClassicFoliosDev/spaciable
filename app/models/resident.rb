@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Resident < ApplicationRecord
   include TitleEnum
 
@@ -34,7 +35,7 @@ class Resident < ApplicationRecord
 
   def subscribed_status
     if cf_email_updates.to_i.positive? || developer_email_updates.to_i.positive? ||
-       developer_sms_updates.to_i.positive?
+       telephone_updates.to_i.positive?
       return Rails.configuration.mailchimp[:subscribed]
     end
 
@@ -110,6 +111,12 @@ class Resident < ApplicationRecord
     residency.invited_by
   end
 
+  def plot_residency_invited_date(plot)
+    residency = PlotResidency.find_by(resident_id: id, plot_id: plot.id)
+
+    residency.created_at
+  end
+
   def to_s
     full_name = "#{first_name} #{last_name}"
 
@@ -130,14 +137,15 @@ class Resident < ApplicationRecord
     lettings_account.present?
   end
 
-  # All resident plots with homweowner listings
+  # All resident plots with homeowner listings
   def homeowner_listing_plots
     plots.order(number: :asc)
          .select { |p| p.listing? && p.listing.homeowner? }
   end
 
-  # All plots with homweowner listings owned by other residents
+  # All plots with homeowner listings owned by other residents
   def plots_listing_by_others
     homeowner_listing_plots.select { |p| p.listing.live? && !p.listing.belongs_to?(self) }
   end
 end
+# rubocop:enable Metrics/ClassLength

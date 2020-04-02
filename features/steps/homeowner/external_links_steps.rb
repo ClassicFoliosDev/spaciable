@@ -45,12 +45,12 @@ Given(/^the developer has disabled home designer$/) do
 end
 
 Then(/^I should see the home designer link$/) do
-  expect(page).to have_content(I18n.t("layouts.homeowner.nav.home_designer"))
+  expect(page).to have_content(I18n.t("layouts.homeowner.nav.home_designer", construction: t("construction_type.home")))
 end
 
 Then(/^when I visit the home designer page$/) do
   within ".navbar-menu" do
-    click_on I18n.t("layouts.homeowner.nav.home_designer")
+    click_on I18n.t("layouts.homeowner.nav.home_designer", construction: t("construction_type.home"))
   end
 end
 

@@ -25,15 +25,10 @@ class PlotsController < ApplicationController
   end
 
   def show
-    @active_tab = params[:active_tab] || "documents"
+    default_tab = current_user.cf_admin? ? "documents" : "residents"
+    @active_tab = params[:active_tab] || default_tab
     @collection_parent = @plot
-    @collection = if @active_tab == "documents"
-                    paginate(sort(@plot.documents, default: :title))
-                  elsif @active_tab == "rooms"
-                    paginate(sort(@plot.rooms, default: :name))
-                  elsif @active_tab == "residents"
-                    paginate(sort(@plot.residents, default: :last_name))
-                  end
+    @collection = build_collection
 
     session[:plot_id] = @plot.id
 
@@ -137,6 +132,16 @@ class PlotsController < ApplicationController
     return if current_user.cf_admin? || can?(:cas_update, @plot)
 
     render file: "public/401.html", status: :unauthorized
+  end
+
+  def build_collection
+    if @active_tab == "documents"
+      paginate(sort(@plot.documents, default: :title))
+    elsif @active_tab == "rooms"
+      paginate(sort(@plot.rooms, default: :name))
+    elsif @active_tab == "residents"
+      paginate(sort(@plot.residents, default: :last_name))
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength

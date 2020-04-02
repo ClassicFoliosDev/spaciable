@@ -52,7 +52,7 @@
   <div class="row report-targets">
     <div class="half">
       <div class="developer-id ui-front select-container">
-        <%= cascade_select_input f, :developer_id, Developer %>
+        <%= cascade_select_input f, :developer_id, Developer, show_all: true %>
       </div>
       <div class="division-id ui-front select-container">
         <%= cascade_select_input f, :division_id, Division %>
@@ -84,6 +84,13 @@
           name: :development,
           class: "development-csv btn-primary",
           disabled: true %><br/>
+
+      <div class="additional-reports">
+        <%= f.button :submit, t(".perks"),
+            data: { disable_with: false },
+            name: :perks,
+            class: "perks-csv btn-primary" %><br/>
+      </div>
     </div>
   </div>
 <% end %>

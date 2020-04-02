@@ -1,24 +1,39 @@
-.video-container {
-  background-color: $ui-superlight-grey;
-  color: $type-grey;
-  padding: $spacing-small;
-  position: relative;
-  margin: 100px auto;
-  border-radius: $border-radius;
+.intro-video {
+  text-align: center;
 
-  span {
-    font-size: $base-small-font-size;
+  .video-container {
+    text-align: center;
+    padding: $spacing-small;
+    position: relative;
+    margin: $spacing-small auto;
+    border-radius: $border-radius;
   }
 
-  p {
-    width: 100%;
-    height: 30px;
-    margin-bottom: $spacing-small;
+  .title {
+    font-size: 24px;
+    font-weight: $bold-font-weight;
+    margin-bottom: $spacing-large;
+  }
+
+  .intro-text {
+    margin-bottom: $spacing-large;
   }
 
   .centered {
     width: 360px;
     margin: $spacing-small auto;
+  }
+
+  .video-footer {
+    margin-top: $spacing-small;
+    margin-bottom: $spacing-large;
+  }
+
+  .next-page {
+    .btn {
+      width: 200px;
+      border-radius: 0;
+    }
   }
 
   iframe {
@@ -28,11 +43,6 @@
   }
 }
 
-.video-footer {
-  span {
-    float: right;
-  }
-}
 
 @include media($tablet-portrait-up) {
   .video-container {

@@ -300,5 +300,10 @@ class User < ApplicationRecord
     end
   end
 
+  # Destroy a User record if their permission level has been destroyed
+  def self.permissable_destroy(model, permission_id)
+    permissable_users = User.where(permission_level_type: model, permission_level_id: permission_id)
+    permissable_users.destroy_all
+  end
   # rubocop:enable all
 end

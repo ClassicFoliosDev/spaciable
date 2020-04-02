@@ -2,15 +2,16 @@
 
 module Admin
   module SelectOptionsHelper
-    def cascade_select_input(form, attribute, source_model = Developer, blank: -> { true })
+    def cascade_select_input(form, attribute, source_model = Developer, blank: -> { true },
+                             show_all: false)
       selected_id = form.object.send(attribute) || current_user.send(attribute)
-
       form.input attribute do
         form.select(
           attribute,
           selected_option(selected_id, source_model),
-          selected: selected_id,
-          include_blank: blank.call
+          { selected: selected_id,
+            include_blank: blank.call },
+          "data-all-option" => show_all
         )
       end
     end

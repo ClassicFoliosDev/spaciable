@@ -1,0 +1,25 @@
+<div class="perks-description branded-text">
+  <div><p class="bold"><%= t(".title") %></p></div>
+  <div class="row">
+    <div class="half perks-half">
+      <p><%= t("homeowners.perks.intro_paragraph_one") %></p>
+      <p><%= t(".intro_paragraph_two") %></p>
+    </div>
+    <div class="half perks-half">
+      <p><%= t("homeowners.perks.sign_up_paragraph_one") %></p>
+      <p><%= t("homeowners.perks.sign_up_paragraph_two") %></p>
+    </div>
+  </div>
+  <div class="row perk-links">
+    <p class="bold"><%= t("homeowners.perks.sub") %></p>
+
+    <%= link_to t(".back"), dashboard_path, class: "btn branded-btn" %>
+
+    <%= button_tag t(".confirm"), class: "btn branded-btn-inverted activate-perks-account",
+    data: {
+      url: perks_url
+    } %>
+
+    <%= (render 'components/homeowner/perks_form', plot: plot, access_type: Vaboo::PREMIUM) if current_resident %>
+  </div>
+</div>

@@ -33,7 +33,7 @@
             <td></td>
             <td class="actions"><%= delete_btn document, path: url_for(document), element: document %></td>
           <% else %>
-            <td><%= t("activerecord.attributes.document.categories.#{document&.category}") %></td>
+            <td><%= t("activerecord.attributes.document.categories.#{document&.category}", construction: document.construction_type) %></td>
             <td><%= number_to_human_size(document&.file&.size) %></td>
             <td><%= document.user_role(current_user) if document&.user %></td>
             <td><%= l document&.updated_at.to_date, format: :digits %></td>
