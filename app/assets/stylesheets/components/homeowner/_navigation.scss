@@ -77,6 +77,7 @@ nav {
     display: block;
     padding: $spacing-medium;
     @include span-columns(3 of 12);
+    margin-right: 0;
 
     img {
       max-height: 80px;
@@ -96,14 +97,84 @@ nav {
     }
   }
 
+  // ACCOUNT DROPDOWN
+  .account-navigation {
+    position: relative;
+    display: inline-block;
+    margin-right: $spacing-large + $spacing-medium;
+
+    .dropdown {
+      background-color: $ui-white;
+      padding: $spacing-small;
+      border: 2px solid $ui-light-grey;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: $bold-font-weight;
+      font-size: $base-font-size;
+      min-width: 130px;
+
+      .fa {
+        padding-left: $spacing-small;
+      }
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: $ui-white;
+      border: 2px solid $ui-light-grey;
+      border-radius: 5px;
+      font-size: $base-font-size;
+      text-align: center;
+      z-index: 20;
+
+      .dropdown-link {
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+          background-color: $ui-light-grey;
+          cursor: pointer;
+        }
+
+        .feedback-btn {
+          background-color: none;
+          background: none;
+          border: none;
+          font-size: $base-font-size;
+          font-family: $base-font-family;
+
+          &:hover {
+            background-color: $ui-light-grey;
+            cursor: pointer;
+          }
+        }
+
+        .link-item {
+          line-height: $title-font-size-1;
+        }
+      }
+
+      .sign-out {
+        border-top: 2px solid $ui-light-grey;
+      }
+    }
+  }
+
+  .account-navigation:hover .dropdown-content {
+    display: block;
+  }
+
   // MAIN NAVIGATION BURGER
   .burger-navigation {
     z-index: 25;
+    margin-top: 8px;
+    width: 100px;
+
     input[type="checkbox"] {
       display: none;
     }
 
-    width: 100px;
     label.burger {
       display: inline-block;
       background-color: transparent;
@@ -112,6 +183,7 @@ nav {
       width: 80px;
       margin-top: auto;
       margin-bottom: auto;
+      font-size: $base-small-font-size;
     }
 
     .menu-text {
@@ -236,6 +308,7 @@ nav {
 @include media($tablet-landscape-up) {
   // SEARCH BAR
   .search-container {
+    margin-top: 8px;
     display: block;
   }
 }
@@ -276,8 +349,11 @@ nav {
 
     .burger-navigation {
       width: 50px;
+      margin-top: 0;
+
       label.burger {
         width: 40px;
+
         .menu-text {
           display: none;
         }
@@ -285,6 +361,7 @@ nav {
     }
 
     .navbar-menu {
+
       .navbar {
         height: 100vh;
         overflow: auto;
@@ -321,110 +398,3 @@ nav {
     }
   }
 }
-
-// mobile view
-// @include media($tablet-portrait-down) {
-// //   .navbar {
-// //     background-color: $ui-white;
-// //     position: absolute;
-// //     left: 0;
-// //     top: 60px;
-// //   }
-//
-//   .main-navigation .nav-inner {
-//
-//     .branded-logo {
-//       display: block;
-//       margin-left: auto;
-//       margin-right: auto;
-//       padding: $spacing-medium;
-//       @include span-columns(12 of 12);
-//
-//
-//       img {
-//         max-height: 80px;
-//         max-width: 180px;
-//       }
-//     }
-//   }
-//
-//   .sub-navigation-container {
-//     max-height: 140px;
-//     display: block;
-//     padding: 10px 10px;
-//     text-align: center;
-//
-//     .nav-inner {
-//       h3 {
-//         display: none;
-//       }
-//
-//       ul {
-//         display: inline;
-//       }
-//     }
-//
-//     ul {
-//       margin-left: 0;
-//
-//       li {
-//         display: inline-block;
-//         width: inherit;
-//         padding: 1px 10px;
-//       }
-//     }
-//   }
-//
-//   .navbar-trigger-label {
-//     color: $ui-white;
-//     display: block;
-//     position: fixed;
-//     font-size: 25px;
-//     height: 22px;
-//     line-height: 25px;
-//     left: 16px;
-//     top: 2px;
-//
-//     .fa-bars {
-//       cursor: pointer;
-//     }
-//   }
-//
-//   nav {
-//     .navigation {
-//       width: 0;
-//       height: 0;
-//       margin: 0;
-//       padding: 0;
-//
-//       ul {
-//         position: fixed;
-//         top: 43px;
-//         width: 100%;
-//         height: 100%;
-//       }
-//     }
-//
-//     .navbar-item {
-//       display: block;
-//       text-align: center;
-//       width: 100%;
-//       background-color: white;
-//       border-radius: 0;
-//
-//       a {
-//         line-height: 36px;
-//         max-width: 200px;
-//       }
-//     }
-//
-//     .navbar-search {
-//       padding: 0;
-//     }
-//
-//     img {
-//       display: block;
-//       margin: 0 auto;
-//     }
-//   }
-// }

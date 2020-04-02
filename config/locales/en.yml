@@ -486,13 +486,6 @@ en:
         confirm_message: "Please ensure your choices selections are correct. The homeowner will be informed of these choices"
 
     homeowner:
-      welcome:
-        hi: "Hi, %{first_name}"
-        account: "Account"
-        feedback: "Feedback"
-        my_plots: "Plots"
-        messages: "Messages"
-        rentals: "Rent"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
@@ -518,6 +511,11 @@ en:
         services: "Services"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
+      header:
+        account: "My Account"
+        messages: "Messages"
+        lettings: "Lettings"
+        feedback: "Feedback"
       let_plot_details_form:
         let_plot_details: "We just need a few more details about your plot."
         bedrooms: "Bedrooms"

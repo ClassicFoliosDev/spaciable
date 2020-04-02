@@ -1,8 +1,4 @@
 <header>
-<!--  <% if current_resident.present? && !session[:onboarding] %>-->
-<!--    <%= render "components/homeowner/welcome", unread_count: unread_count, plots: plots %>-->
-<!--  <% end %>-->
-
   <% if plot.present? %>
     <nav class="main-navigation">
       <div class="nav-inner">
@@ -19,6 +15,36 @@
         <div class="navbar-search">
           <%= render "components/search" %>
         </div>
+
+        <section>
+          <div class="account-navigation" id="acctNav">
+            <button class="dropdown branded-secondary"><%= current_resident.to_s %><i class="fa fa-angle-down"></i></button>
+              <div class="dropdown-content" id="navList">
+                <div class="branded-secondary dropdown-link">
+                  <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
+                </div>
+                <div class="branded-secondary dropdown-link">
+                  <%= link_to t(".messages"), homeowners_notifications_path, class: "branded-secondary link-item" %>
+                </div>
+                <% if current_resident.listings? %>
+                  <div class="branded-secondary dropdown-link">
+                    <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item"%>
+                  </div>
+                <% end %>
+                <div class="branded-secondary dropdown-link">
+                  <%= button_tag t(".feedback"), class: "feedback-btn branded-secondary link-item", data: data_for_feedback(current_resident) %>
+                </div>
+                <div class="branded-secondary dropdown-link sign-out">
+                  <%= link_to t("users.sign_out"),
+                      destroy_resident_session_path,
+                      method: :delete,
+                      data: { test: "homeowner-sign-out" },
+                      class: "branded-secondary link-item" %>
+                </div>
+              </div>
+            </button>
+          </div>
+        </section>
 
         <% if !session[:onboarding] %>
           <section class="burger-navigation">

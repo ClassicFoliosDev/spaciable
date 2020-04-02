@@ -13,18 +13,22 @@
         <% end %>
       <% end %>
       <span>|</span>
+
       <%= link_to t(".account"), homeowners_resident_path(current_resident),
           class: ('active-link' if current_page?(homeowners_resident_path(current_resident))) %>
       <% if plots.count > 1 %>
         <span>|</span>
+
         <span class="my-plots"><%= t(".my_plots") %></span>
       <% end %>
       <span>|</span>
+
       <% if current_resident.listings? %>
         <%= link_to t(".rentals"), letting_path(current_resident),
             class: ('active-link' if current_page?(letting_path(current_resident)))%>
         <span>|</span>
       <% end %>
+
       <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident) %>
       <span>|</span>
       <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
