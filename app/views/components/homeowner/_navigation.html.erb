@@ -76,6 +76,17 @@
             </li>
           </a>
         <% end %>
+
+        <% if plot.enable_services? %>
+          <% services_params = build_services_params(current_resident, plot) %>
+          <%= link_to "https://home.spaciable.com/service/#{services_params}",
+              class: "navbar-link branded-secondary", target: :_blank do %>
+            <li class="navbar-item">
+              <%= t(".services") %>
+            </li>
+          <% end %>
+        <% end %>
+
       </ul>
     </div>
   </div>
