@@ -156,42 +156,43 @@ nav {
     height: 100%;
     border-right: 2px solid $ui-grey;
     padding: 2%;
+    display: table;
 
     h1 {
       text-align: right;
+      display: table-row;
+      height: 10%;
+    }
+
+    .links {
+      text-align: center;
+      display: table-cell;
+      vertical-align: middle;
+      padding-bottom: 10em;
+
+      .navbar-item {
+        list-style: none;
+        line-height: 44px;
+        margin-bottom: 0;
+        padding: $spacing-small 20px;
+        border-radius: $border-radius;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $ui-light-grey;
+        }
+
+        a {
+          font-weight: bold;
+          text-decoration: none;
+        }
+
+        .active {
+          cursor: none;
+        }
+      }
     }
   }
-
-  .links {
-    text-align: center;
-    padding-top: 10%;
-//     position: absolute;
-//     top: 50%;
-//     transform: translateY(-50%);
-
-    .navbar-item {
-      list-style: none;
-      line-height: 44px;
-      margin-bottom: 0;
-      padding: $spacing-small 20px;
-      border-radius: $border-radius;
-      cursor: pointer;
-
-      &:hover {
-        background-color: $ui-light-grey;
-      }
-
-      a {
-        font-weight: bold;
-        text-decoration: none;
-      }
-
-      .active {
-        cursor: none;
-      }
-    }
-  }
-
 }
 
 .navbar-menu {
