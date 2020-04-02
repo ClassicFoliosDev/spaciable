@@ -1,3 +1,7 @@
+.no-scroll {
+  overflow: hidden;
+}
+
 nav {
   background-color: white;
 
@@ -281,8 +285,38 @@ nav {
     }
 
     .navbar-menu {
-      .third {
-        @include span-columns(12 of 12);
+      .navbar {
+        height: 100vh;
+        overflow: auto;
+        -webkit-overflow-scrolling:touch;
+
+        .third {
+          @include span-columns(12 of 12);
+          display: block;
+          border-right: 0;
+          border-bottom: 2px solid $ui-grey;
+          height: auto;
+          margin: 0;
+
+          h1.menu-heading {
+            display: block;
+            text-align: right;
+            height: auto;
+            margin-bottom: $spacing-small;
+            margin-top: $spacing-small;
+            padding-right: 20px;
+          }
+
+          .links {
+            text-align: right;
+            display: block;
+            padding-bottom: 0;
+
+            .navbar-item {
+              line-height: $title-font-size-3;
+            }
+          }
+        }
       }
     }
   }

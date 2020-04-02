@@ -3,6 +3,7 @@
 
   $(document).on('click', '.navbar-trigger-label', function (event) {
     $('.navbar-menu').animate({width: 'toggle'})
+    $("body").toggleClass("no-scroll")
     if ($(window).innerWidth() < 1025) {
       $('.menu-text').hide()
     } else {
