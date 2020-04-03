@@ -193,7 +193,7 @@ class Development < ApplicationRecord
 
   # Build the specified attribute if it is not already donw
   def build(attribute)
-    self.send "build_#{attribute}".to_sym unless self.send attribute
+    send "build_#{attribute}".to_sym unless send attribute
   end
 end
 # rubocop:enable Metrics/ClassLength
