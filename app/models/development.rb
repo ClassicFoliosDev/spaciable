@@ -190,5 +190,10 @@ class Development < ApplicationRecord
   def premium_perks_disabled(attr)
     attr["enable_premium_perks"] == "0"
   end
+
+  # Build the specified attribute if it is not already donw
+  def build(attribute)
+    self.send "build_#{attribute}".to_sym unless self.send attribute
+  end
 end
 # rubocop:enable Metrics/ClassLength

@@ -12,19 +12,18 @@ module Divisions
     end
 
     def new
-      @development.build_address unless @development.address
+      @development.build(:address)
       @maintenance = Maintenance.new
-      @development.build_maintenance unless @development.maintenance
+      @development.build(:maintenance)
       @development.cas = @development.parent_developer.cas
-
       @premium_perk = PremiumPerk.new
-      @development.build_premium_perk unless @development.premium_perk
+      @development.build(:premium_perk)
     end
 
     def edit
-      @development.build_address unless @development.address
-      @development.build_maintenance unless @development.maintenance
-      @development.build_premium_perk unless @development.premium_perk
+      @development.build(:address)
+      @development.build(:maintenance)
+      @development.build(:premium_perk)
     end
 
     def show
@@ -49,7 +48,7 @@ module Divisions
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, :developments], notice: notice
       else
-        @development.build_address unless @development.address
+        @development.build(:address)
         render :new
       end
     end
@@ -61,7 +60,7 @@ module Divisions
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@division, @development], notice: notice
       else
-        @development.build_address unless @development.address
+        @development.build(:address)
         render :edit
       end
     end
@@ -91,7 +90,7 @@ module Divisions
         :name, :choice_option,
         :division_id,
         :email, :contact_number,
-        :enable_snagging, :snag_duration, :snag_name, :cas, 
+        :enable_snagging, :snag_duration, :snag_name, :cas,
         :construction, :construction_name,
         maintenance_attributes: %i[id path account_type populate],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought

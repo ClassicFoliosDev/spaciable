@@ -35,7 +35,6 @@ module ButtonsHelper
     end
   end
 
-
   def info_btn(resource, label = "", title: t("buttons.info.title"), text: nil, element:)
     return if element && (cannot? :destroy, element)
 
