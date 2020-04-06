@@ -1,14 +1,32 @@
 (function (document, $) {
   'use strict'
 
-document.addEventListener('turbolinks:load', function () {
-  var menuItem = document.getElementById("acctNav")
-  var navList = document.getElementById("navList")
+  // make the dropdown menu the same width as the name element
+  document.addEventListener('turbolinks:load', function () {
+    var menuItem = document.getElementById("acctNav")
+    var navList = document.getElementById("navList")
 
-  var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
-  navList.style.width = menuWidth
-})
+    var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
+    navList.style.width = menuWidth
+  })
 
+  // toggle the dropdown menu open and closed
+  $(document).on('click', '#acctNav', function (event) {
+    $('#navList').toggle()
+    // toggle the fa arrow up or down depending on if the dropdown menu is open or closed
+    var dropdown = document.getElementById("dropdownMenu")
+    dropdown.classList.toggle("active")
+    var arrow = document.getElementById("upDownArrow")
+    if (dropdown.classList.contains("active")) {
+      arrow.classList.add("fa-angle-up")
+      arrow.classList.remove("fa-angle-down")
+    } else {
+      arrow.classList.add("fa-angle-down")
+      arrow.classList.remove("fa-angle-up")
+    }
+  })
+
+  // open the main navigation
   $(document).on('click', '.navbar-trigger-label', function (event) {
     $('.navbar-menu').animate({width: 'toggle'})
     $("body").toggleClass("no-scroll")
