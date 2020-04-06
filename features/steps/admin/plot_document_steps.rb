@@ -61,9 +61,7 @@ Then(/^I should see a (\w+) plot document error$/) do |plot_name|
   document_number = CreateFixture.send(plot_name)
   document_name = PlotDocumentFixture.send("document#{document_number}10")
   notice = t("plot_documents.bulk_upload.failure", unmatched: document_name)
-  within ".alert" do
-    expect(page).to have_content(notice)
-  end
+  find(".alert").has_content?(notice)
 
   within ".record-list" do
     expect(page).not_to have_content(document_name)

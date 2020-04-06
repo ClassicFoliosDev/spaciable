@@ -40,6 +40,11 @@ class Room < ApplicationRecord
   validates_associated :appliances
 
   after_destroy -> { finishes.delete_all }
+  after_initialize -> { self.last_updated_by ||= User.find_by(role: :cf_admin).display_name }
+
+  def cas?
+    parent.cas
+  end
 
   def build_finishes
     finishes.build if finishes.none?
@@ -77,5 +82,13 @@ class Room < ApplicationRecord
 
   def to_s
     name
+  end
+
+  def expired?
+    false
+  end
+
+  def self.last_edited_by(room, user)
+    Room.find(room).update(last_updated_by: user.display_name)
   end
 end

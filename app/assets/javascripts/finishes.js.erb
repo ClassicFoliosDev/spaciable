@@ -1,37 +1,38 @@
 /* global $, clearFields, setFields */
 $(document).on('click', '.finish .ui-menu-item', function (event) {
-  var optionName = this.innerText
   var $selectContainer = $(this).closest('.select-container')
   var listClasses = $selectContainer[0].classList
   var $parentFieldset = $selectContainer.closest('.finish')
 
   var addFinish = $(document).find('.add_finish')
-  var manufacturerDiv = $parentFieldset.find('.finish_manufacturer')
+  var category = selectMeta('.finish_category')
+  var finishType = selectMeta('.finish_type')
+  var manufacturer = selectMeta('.finish_manufacturer')
+  var finishesDiv = $parentFieldset.find('.finishes')
   var url
 
   if (listClasses.contains('finish_category')) {
-    var finishTypeDiv = $parentFieldset.find('.finish_type')
-    var finishTypeSelect = clearFields(finishTypeDiv)
-    clearFields(manufacturerDiv)
+    clearFields(manufacturer.div)
+    clearFields(finishesDiv)
+    var finishTypeSelect = clearFields(finishType.div)
 
     url = '/finish_types_list'
-    setFields(finishTypeSelect, url, { option_name: optionName })
+    setFields(finishTypeSelect, url, { category: category.id })
   } else if (listClasses.contains('finish_type')) {
-    var manufacturerSelect = clearFields(manufacturerDiv)
+    var manufacturerSelect = clearFields(manufacturer.div)
 
     url = '/finish_manufacturers_list'
-    setFields(manufacturerSelect, url, { option_name: optionName })
+    setFields(manufacturerSelect, url, { type: finishType.id })
+
+    var finishesSelect = clearFields(finishesDiv)
+    url = '/finish_list'
+    setFields(finishesSelect, url, { category: category.id, type: finishType.id })
 
     // Only run through this code if adding an appliance to a room
     // Not when creating a new appliance
-  } else if (listClasses.contains('finish_manufacturer') && (addFinish.length > 0)) {
-    var $finishesDiv = $parentFieldset.find('.finishes')
-    var finishesSelect = clearFields($finishesDiv)
-
-    var $typeDiv = $('.finish_type')
-    var typeValue = $typeDiv.find('.ui-selectmenu-text')[0].innerHTML
-
+  } else if (listClasses.contains('finish-manufacturer') && (addFinish.length > 0)) {
+    var finishesSelect = clearFields(finishesDiv)
     url = '/finish_list'
-    setFields(finishesSelect, url, { type_name: typeValue, manufacturer_name: optionName })
+    setFields(finishesSelect, url, { category: category.id, type: finishType.id, manufacturer: manufacturer.id })
   }
 })

@@ -7,5 +7,6 @@ FactoryGirl.define do
     end
     appliance_category
     appliance_manufacturer
+    added_by {"tester"}
   end
 end

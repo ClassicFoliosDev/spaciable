@@ -52,7 +52,8 @@ When(/^I send a notification to a particular developer$/) do
   within ".section-actions" do
     click_on t("admin.notifications.collection.add")
   end
-
+  
+  sleep 1
   select_from_selectmenu :developer_id, with: NamedCreateFixture.developer_name
 
   within ".new_admin_notification" do

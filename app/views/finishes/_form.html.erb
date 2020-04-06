@@ -21,14 +21,14 @@
         </fieldset>
         <fieldset>
           <%= f.input :name %>
-          <%= label_tag :description %>
+          <%= label_tag :notes %>
           <%= f.text_area :description %>
         </fieldset>
       </div>
       <div class="row-item third">
         <fieldset>
           <div class="finish_category ui-front select-container">
-            <%= f.association :finish_category, label: t(".category"), collection: FinishCategory.order(:name) %>
+            <%= f.association :finish_category, label: t(".category"), collection: FinishCategory.visible_to(current_user).order(:name) %>
           </div>
           <div class="finish_type ui-front select-container">
             <%= f.association :finish_type, label: t(".type"), collection: [finish&.finish_type] %>

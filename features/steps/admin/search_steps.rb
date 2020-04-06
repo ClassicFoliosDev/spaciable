@@ -74,7 +74,6 @@ Then(/^I should not see the search widget$/) do
   visit "/"
 
   within ".header-container" do
-    expect(page).not_to have_selector("input")
     expect(page).not_to have_selector(".search-container")
   end
 end

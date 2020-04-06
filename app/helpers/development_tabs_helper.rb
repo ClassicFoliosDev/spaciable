@@ -34,8 +34,8 @@ module DevelopmentTabsHelper
       },
       development_csv: {
         icon: "fighter-jet",
-        # Only a CF admin can create appliances and use the csv tab
-        permissions_on: -> { Appliance.new }
+        check_assoc: true, # check phase for development_csv permission
+        permissions_on: -> { development }
       }
     }
   end

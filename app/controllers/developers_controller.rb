@@ -3,7 +3,8 @@
 class DevelopersController < ApplicationController
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource :developer
+  load_and_authorize_resource :developer, except: %i[cas]
+  skip_authorization_check only: %i[cas]
 
   def index
     @developers = paginate(sort(@developers, default: :company_name))
@@ -35,6 +36,10 @@ class DevelopersController < ApplicationController
                     documents = @developer.documents.accessible_by(current_ability)
                     paginate(sort(documents, default: :title))
                   end
+  end
+
+  def cas
+    render json: { cas: Developer.find(params[:developer_id]).cas }
   end
 
   def create
@@ -85,7 +90,7 @@ class DevelopersController < ApplicationController
       :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
-      :prime_lettings_admin, :personal_app,
+      :prime_lettings_admin, :personal_app, :cas,
       :enable_perks,
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name

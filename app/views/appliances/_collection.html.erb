@@ -5,7 +5,7 @@
     <%= render 'components/empty_list', icon_name: "shower", type: ApplianceRoom, parent: room %>
   <% end %>
 <% else %>
-  <% if can_create(Appliance, current_user.permission_level) %>
+  <% if can_create(ApplianceRoom, room) %>
     <div class="section-actions">
       <% if room %>
         <%= link_to new_room_appliance_room_path(room, plot: plot), class: "btn btn-primary" do %>
@@ -22,6 +22,11 @@
     </div>
   <% end %>
 
+  <% include_added_by = collection.map { |a| a.added_by.present? }.include?(true) %>
+  <% showing_icons = current_user&.cf_admin? ||
+                    collection.map { |app| can?(:update, app) ||
+                                           can?(:destroy, ApplianceRoom.appliance_room(room, app))}.include?(true) %>
+
   <table class="record-list">
     <thead>
       <tr>
@@ -31,7 +36,12 @@
         <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
         <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name, t(".manufacturer")) %></th>
         <th colspan="2"><%= sortable(Appliance, :updated_at, t(".last_edited")) %></th>
-        <% if current_user&.cf_admin? %><th colspan="2">&nbsp;</th><% end %>
+        <% if include_added_by %>
+          <th colspan="2"><%= sortable(Finish, :added_by, t(".added_by")) %></th>
+        <%end%>
+        <% if showing_icons %>
+          <th colspan="2">&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -43,10 +53,13 @@
           <td colspan="2"><%= appliance.model_num %></td>
           <td colspan="2"><%= appliance.appliance_manufacturer %></td>
           <td colspan="2"><%= l appliance.updated_at.to_date, format: :digits %></td>
-          <% if current_user&.cf_admin? %>
+           <% if include_added_by %>
+            <td colspan="2"><%= appliance.added_by %></td>
+          <%end%>
+          <% if showing_icons %>
             <td colspan="2" class="actions">
               <%= edit_btn edit_appliance_path(appliance), element: appliance %>
-              <% if room && can?(:destroy, appliance) %>
+              <% if room && can?(:destroy, ApplianceRoom.appliance_room(room, appliance)) %>
                 <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
                   <%= fa_icon "trash-o" %>
                 <% end %>

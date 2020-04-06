@@ -12,10 +12,10 @@ Feature: Appliances
     When I create an appliance with no category
     Then I should see the appliance category error
     When I create an appliance
-    Then I should see the created appliance
-    When I delete the appliance manufacturer
+    Then I should see the new ApplianceFixture.model_num appliance
+    When I delete the CreateFixture.appliance_manufacturer_name appliance manufacturer
     Then I should see a failed to delete message
-    When I delete the appliance category
+    When I delete the CreateFixture.appliance_category_name appliance category
     Then I should see a failed to delete message
     When I update the appliance
     Then I should see the updated appliance
@@ -24,9 +24,56 @@ Feature: Appliances
     When I remove a file
     Then I should see the updated appliance without the file
 
+  Scenario Outline: CAS admins create/update/delete appliance
+    Given I am logged in as a <role> with CAS
+    And I have seeded the database with appliances
+    When I create an appliance with no name
+    Then I should see the appliance model num error
+    When I create an appliance with no category
+    Then I should see the appliance category error
+    # Create an overriding developer copy of the appliance_manufacturer_name appliance manufacturer
+    And there is a CreateFixture.appliance_manufacturer_name appliance manufacturer for developer CreateFixture.developer
+    # Create an overriding developer copy of the appliance_category_name appliance manufacturer
+    And there is a CreateFixture.appliance_category_name appliance category for developer CreateFixture.developer
+    When I create an appliance
+    Then I should see the new ApplianceFixture.model_num appliance
+    When I delete the CreateFixture.appliance_manufacturer_name appliance manufacturer
+    Then I should see a failed to delete message
+    When I delete the CreateFixture.appliance_category_name appliance category
+    Then I should see a failed to delete message
+    When I update the appliance
+    Then I should see the updated appliance
+    When I remove an image
+    Then I should see the updated appliance without the image
+    When I remove a file
+    Then I should see the updated appliance without the file
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
   Scenario: Delete
     Given I am logged in as an admin
     And there is an appliance manufacturer
-    And there is an appliance
+    And there is a CreateFixture.appliance_name appliance for developer nil
     When I delete the appliance
-    Then I should see the appliance deletion complete successfully
+    Then I should see the CreateFixture.appliance_name appliance deletion complete successfully
+
+  Scenario Outline: CAS Admin Delete
+    Given I am logged in as a <role> with CAS
+    And there is an appliance manufacturer
+    # Can see but not delete a CF admin appliance
+    And there is a CreateFixture.appliance_name appliance for developer nil
+    Then I cannot delete the CreateFixture.appliance_name appliance
+    # Create and delete a duplicate developer appliance
+    And there is a CreateFixture.appliance_name appliance for developer CreateFixture.developer
+    When I delete the appliance
+    Then I should see the CreateFixture.appliance_name appliance deletion complete successfully
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |

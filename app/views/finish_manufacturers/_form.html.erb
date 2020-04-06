@@ -18,7 +18,7 @@
       </fieldset>
       <fieldset class="skip-global-selectmenu">
         <div class="finish_manufacturer_finish_type ui-front select-container">
-          <%= f.association :finish_types, collection: FinishType.order(:name), multiple: true, class: "multiple" %>
+          <%= f.association :finish_types, collection: FinishType.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
         </div>
       </fieldset>
     </div>

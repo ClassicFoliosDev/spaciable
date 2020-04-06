@@ -18,16 +18,52 @@ Feature: Rooms
     Then I should see the updated room
 
   @javascript
+  Scenario Outline: Non CF Admin roles with CAS can CRUD unit type rooms
+    Given I am logged in as a <role> with CAS
+    And there is a <role> unit type
+    And I have seeded the database as a developer
+    When I create a room with no room name
+    Then I should see the room failure message
+    When I create a room
+    Then I should see the created room
+    When I update the room
+    Then I should see the updated room
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
+  @javascript
   Scenario: Finishes
   Given I am logged in as an admin
     And there is a finish
     And I have created a room
     When I add a finish
     Then I should see the room with a finish
+    When I search for and add a finish
+    Then I should see a duplicate finish error
+    When I remove a finish
+    Then I should see the room with no finish
+
+  @javascript
+  Scenario Outline: CAS Finishes
+    Given I am logged in as a <role> with CAS
+    And there is a <role> finish
+    And I have created a room
+    When I search for and add a finish
+    Then I should see the room with a finish
     When I add a finish
     Then I should see a duplicate finish error
     When I remove a finish
     Then I should see the room with no finish
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
 
   @javascript
   Scenario: Appliances
@@ -43,8 +79,40 @@ Feature: Rooms
     Then I should see the room with no appliance
 
   @javascript
+  Scenario Outline: CAS Appliances
+    Given I am logged in as a <role> with CAS
+    And I have created a room
+    And there is an appliance manufacturer
+    And there is an appliance
+    When I add an appliance
+    Then I should see the room with an appliance
+    When I add an appliance
+    Then I should see a duplicate error
+    When I remove an appliance
+    Then I should see the room with no appliance
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
+  @javascript
   Scenario: Delete
     Given I am logged in as an admin
     And I have created a room
     When I delete the room
     Then I should see the room deletion complete successfully
+
+  @javascript
+  Scenario Outline: CAS Delete
+    Given I am logged in as a <role> with CAS
+    And I have created a room
+    When I delete the room
+    Then I should see the room deletion complete successfully
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |

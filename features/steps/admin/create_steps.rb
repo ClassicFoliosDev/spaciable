@@ -25,8 +25,8 @@ Given(/^there is a division development$/) do
   CreateFixture.create_division_development
 end
 
-Given(/^there is a unit type$/) do
-  CreateFixture.create_unit_type
+Given(/^there is a (.*)unit type$/) do |role|
+  role.downcase.include?("division") ? CreateFixture.create_division_development_unit_type :  CreateFixture.create_unit_type
 end
 
 Given(/^there is a plot$/) do
@@ -121,6 +121,10 @@ Given(/^there is a room$/) do
   CreateFixture.create_room
 end
 
+Given(/^there is a ([^ ]*) appliance for developer ([^ ]*)$/) do |model_num, developer|
+  CreateFixture.create_appliance(eval(developer), eval(model_num))
+end
+
 Given(/^there is an appliance$/) do
   CreateFixture.create_appliance
 end
@@ -129,22 +133,46 @@ Given(/^there is an appliance category$/) do
   CreateFixture.appliance_category
 end
 
+Given(/^there is a ([^ ]*) appliance category for developer ([^ ]*)$/) do |name, developer|
+  CreateFixture.appliance_category(eval(developer), eval(name))
+end
+
+Given(/^there is a developer appliance category$/) do
+  CreateFixture.developer_appliance_category
+end
+
 Given(/^there is an appliance with manual$/) do
   CreateFixture.create_appliance
   CreateFixture.create_appliance_room
   ApplianceFixture.update_appliance_manual
 end
 
-Given(/^there is a finish$/) do
+Given(/^there is a finish$/) do 
   CreateFixture.create_finish
+end
+
+Given(/^there is a (.*) finish$/) do |role|
+  CreateFixture.create_finish(CreateFixture.developer)
+end
+
+Given(/^there is a finish for developer (.*)$/) do |developer|
+  CreateFixture.create_finish(developer.empty? ? nil : eval(developer))
 end
 
 Given(/^there is a finish category$/) do
   CreateFixture.create_finish_category
 end
 
+Given(/^there is a (.*) finish category$/) do |role|
+  CreateFixture.create_finish_category(CreateFixture.developer)
+end
+
 Given(/^there is a finish type$/) do
   CreateFixture.create_finish_type
+end
+
+Given(/^there is a (.*) finish type$/) do |role|
+  CreateFixture.create_finish_type(CreateFixture.developer)
 end
 
 Given(/^there is an appliance with a guide$/) do
@@ -154,6 +182,15 @@ end
 Given(/^I have seeded the database$/) do
   CreateFixture.create_countries
   load Rails.root.join("db", "seeds.rb")
+end
+
+Given(/^I have seeded the database as a developer$/) do
+  CreateFixture.create_countries
+  load Rails.root.join("db", "seeds.rb")
+  # Update relevant tables with developer id
+  FinishCategory.update_all developer_id: CreateFixture.developer.id
+  FinishType.update_all developer_id: CreateFixture.developer.id
+  FinishManufacturer.update_all developer_id: CreateFixture.developer.id
 end
 
 Given(/^I have seeded the database with appliances$/) do
@@ -190,6 +227,14 @@ Given(/^there is an appliance manufacturer$/) do
   CreateFixture.create_appliance_manufacturer
 end
 
+Given(/^there is a ([^ ]*) appliance manufacturer for developer ([^ ]*)$/) do |manufacturer, developer|
+  CreateFixture.create_appliance_manufacturer(eval(developer), eval(manufacturer))
+end
+
+Given(/^there is a developer appliance manufacturer$/) do
+  CreateFixture.create_appliance_manufacturer(CreateFixture.developer)
+end
+
 Given(/^there is a finish manufacturer$/) do
   CreateFixture.create_finish_manufacturer
 end
@@ -223,4 +268,9 @@ Given(/^There is a plot with many residents$/) do
 
   other_plot = FactoryGirl.create(:plot, development: plot.development, number: PlotFixture.another_plot_number)
   FactoryGirl.create(:plot_residency, plot_id: other_plot.id, resident_id: resident.id)
+end
+
+Given(/^there is another unit type$/) do
+  unit_type = CreateFixture.create_unit_type(CreateFixture.second_unit_type_name)
+  CreateFixture.create_room(CreateFixture.lounge_name, unit_type)
 end

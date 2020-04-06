@@ -10,7 +10,12 @@
     </div>
   <% end %>
 
-  <% country = parent.is_a?(Developer) ? parent.country : parent.developer.country %>
+  <%
+    country = parent.is_a?(Developer) ? parent.country  : parent.developer.country
+    showing_icons = current_user&.cf_admin? ||
+                    collection.map { |plot| can? :cas_update, plot }.include?(true)
+  %>
+
   <table class="record-list plots">
     <thead>
       <tr>
@@ -22,7 +27,7 @@
         <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
         <th><%= sortable(Plot, :progress, t(".progress")) %></th>
         <th><%= t(".activation") %></th>
-        <% if current_user&.cf_admin? %>
+        <% if showing_icons %>
           <th>&nbsp;</th>
         <% end %>
       </tr>
@@ -38,7 +43,7 @@
           <td><%= plot.unit_type %></td>
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
-          <% if current_user&.cf_admin? %>
+          <% if showing_icons %>
             <td class="actions">
               <%= edit_btn [:edit, plot], element: plot %>
               <%= delete_btn plot, path: url_for(plot), element: plot %>

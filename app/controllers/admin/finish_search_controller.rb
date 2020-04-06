@@ -6,8 +6,14 @@ module Admin
     include SearchConcern
 
     def new
-      results = ilike_search(Finish, params[:search_term])
-      render json: results
+      results = finish_full_search(params[:search_term])
+      # create an array of hashes of id and full_name to return
+      full = results.map do |finish|
+        f = Finish.find(finish.id)
+        { id: f.id, name: f.full_name }
+      end
+
+      render json: full
     end
   end
 end

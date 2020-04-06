@@ -371,7 +371,6 @@ end
 When(/^I remove the additional resident$/) do
   within ".other-residents" do
     expect(page).to have_content( AccountFixture.second_resident_email)
-
     button = page.find("[data-email='#{AccountFixture.second_resident_email}']")
     button.trigger("click")
   end
@@ -382,13 +381,8 @@ When(/^I remove the additional resident$/) do
 end
 
 Then(/^I see the resident has been hard removed$/) do
-  within ".flash" do
-    expect(page).to have_content t("homeowners.residents.remove_resident.success", email: AccountFixture.second_resident_email)
-  end
 
-  within ".other-residents" do
-    expect(page).not_to have_content( AccountFixture.second_resident_email)
-  end
+  find(:xpath,  "//div[contains(@class, 'flash')]/p[contains(text(),'#{t("homeowners.residents.remove_resident.success", email: AccountFixture.second_resident_email)}')]" )
 
   resident = Resident.find_by(email: AccountFixture.second_resident_email)
   expect(resident).to be_nil

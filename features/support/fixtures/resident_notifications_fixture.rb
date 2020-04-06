@@ -55,14 +55,15 @@ module ResidentNotificationsFixture
     }
   }.freeze
 
-  def create_permission_resources
-    create_developer
+  def create_permission_resources(cas: false, division: false)
+    create_developer(cas: cas)
     create_division
-    create_development
-    create_division_development
-    create_phases
+    create_development(cas: cas)
+    create_division_development(cas: cas)
+    dev_phase = create_development_phase
+    div_phase = create_division_development_phase
     create_unit_type
-    create_phase_plot
+    create_phase_plot(division ? div_phase : dev_phase)
     create_division_development_plot
     create_notification_residents
   end

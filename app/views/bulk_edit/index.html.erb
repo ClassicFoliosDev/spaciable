@@ -1,4 +1,5 @@
 <% breadcrumb :phase_bulk_edit, @phase %>
+<script type="text/javascript" src="/javascripts/lib/bulk_edit.js"></script>
 
 <%= render @phase, active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
     expired_plots_count: @expired_plots_count, resident_count: @resident_count,
@@ -20,26 +21,50 @@
         <fieldset>
           <div class="plot-field">
             <div class="bulk-check fix-checkbox">
+              <%= f.hidden_field :ut_update_option, value: UnitType::SUPPLEMENT%>
               <%= f.input_field :unit_type_id_check, as: :boolean, label: false %>
             </div>
             <%= f.input :unit_type_id, label: t(".unit_type"), as: :select, collection: unit_type_collection(@phase) %>
           </div>
-          <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
+
+          <div class="plot-field">
+            <div class="bulk-check fix-checkbox">
+              <%= f.input_field :progress_check, as: :boolean, label: false %>
+            </div>
+            <%= f.input :progress, label: t(".update_progress"), as: :select, collection: progress_collection(' ') %>
+          </div>
+
+          <div class="plot-field">
+            <div class="bulk-check fix-checkbox">
+              <%= f.input_field :completion_date_check, as: :boolean, label: false %>
+            </div>
+            <%= f.input :completion_date, as: :string, label: t(".comp_date"), placeholder: "DD/MM/YYYY", input_html: { type: :date } %>
+          </div>
+
+          <% unless can? :cas_update, @phase %>
+            <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
+          <% end %>
         </fieldset>
       </div>
 
-      <% if @phase.developer.country.spain? %>
-        <%= render "components/admin/spanish_plot_address_fields", f: f, plot: nil %>
-      <% else %>
-        <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
+      <% unless can? :cas_update, @phase %>
+        <% if @phase.developer.country.spain? %>
+          <%= render "components/admin/spanish_plot_address_fields", f: f, plot: nil %>
+        <% else %>
+          <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
+        <% end %>
       <% end %>
 
     </div>
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
-        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+       <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit-bulk-btn' %>
       </div>
     </div>
   <% end %>
+</div>
+
+<div class="ut-update-option-form hidden">
+  <%= render 'components/admin/unit_type_update_option_form', header: t(".update_ut").html_safe %>
 </div>

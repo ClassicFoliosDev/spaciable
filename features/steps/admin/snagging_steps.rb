@@ -128,7 +128,7 @@ Then(/^any resident of the plot can approve the resolved status$/) do
 
   # check notifications
   within(".session-inner") do
-    notification_link = page.find(:css, 'a[href="/homeowners/notifications"]')
+    notification_link = page.find(:css, '.full-menu a[href="/homeowners/notifications"]')
     notification_link.click
   end
 
@@ -183,7 +183,7 @@ end
 Then(/^the resident is no longer able to submit snags$/) do
   # check notifications
   within(".session-inner") do
-    notification_link = page.find(:css, 'a[href="/homeowners/notifications"]')
+    notification_link = page.find(:css, '.full-menu a[href="/homeowners/notifications"]')
     notification_link.click
   end
   within ".notification-list" do

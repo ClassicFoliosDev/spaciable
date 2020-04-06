@@ -32,17 +32,18 @@ module Developers
     # rubocop:enable Metrics/AbcSize
 
     def new
-      @development.build_address unless @development.address
+      @development.build(:address)
       @maintenance = Maintenance.new
-      @development.build_maintenance unless @development.maintenance
+      @development.build(:maintenance)
+      @development.cas = @development.parent_developer.cas
       @premium_perk = PremiumPerk.new
-      @development.build_premium_perk unless @development.premium_perk
+      @development.build(:premium_perk)
     end
 
     def edit
-      @development.build_address unless @development.address
-      @development.build_maintenance unless @development.maintenance
-      @development.build_premium_perk unless @development.premium_perk
+      @development.build(:address)
+      @development.build(:maintenance)
+      @development.build(:premium_perk)
     end
 
     def create
@@ -56,7 +57,7 @@ module Developers
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, :developments], notice: notice
       else
-        @development.build_address unless @development.address
+        @development.build(:address)
         render :new
       end
     end
@@ -68,7 +69,7 @@ module Developers
         notice = t(".success", development_name: @development.name) if notice.nil?
         redirect_to [@developer, @development], notice: notice
       else
-        @development.build_address unless @development.address
+        @development.build(:address)
         render :edit
       end
     end
@@ -99,7 +100,7 @@ module Developers
         :choices_email_contact,
         :developer_id, :division_id,
         :email, :contact_number,
-        :enable_snagging, :snag_duration, :snag_name,
+        :enable_snagging, :snag_duration, :snag_name, :cas,
         :construction, :construction_name,
         maintenance_attributes: %i[id path account_type populate],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought

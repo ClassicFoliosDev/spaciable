@@ -4,7 +4,7 @@ class BulkEditController < ApplicationController
   load_and_authorize_resource :phase
 
   def index
-    return redirect_to root_path unless current_user.cf_admin?
+    return redirect_to root_path unless can? :bulk_edit, @phase
   end
 
   def create
@@ -16,13 +16,15 @@ class BulkEditController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def bulk_params
     params.require(:phase_bulk_edit).permit(
-      %i[range_from range_to list prefix number unit_type_id house_number road_name building_name
+      %i[range_from range_to list prefix number unit_type_id ut_update_option house_number
+         road_name building_name
          postcode reservation_release_date completion_release_date validity extended_access
          completion_order_number reservation_order_number
          completion_order_number_check reservation_order_number_check
          copy_plot_numbers prefix_check number_check unit_type_id_check house_number_check
          road_name_check building_name_check postcode_check reservation_release_date_check
-         completion_release_date_check validity_check extended_access_check]
+         completion_release_date_check validity_check extended_access_check
+         progress progress_check completion_date completion_date_check]
     )
   end
 

@@ -19,7 +19,7 @@ module Homeowners
       else
         @resident = current_resident
       end
-      @ability ||= Ability.new(@resident, @plot)
+      @ability ||= Ability.new(@resident, plot: @plot)
     end
 
     def change_plot

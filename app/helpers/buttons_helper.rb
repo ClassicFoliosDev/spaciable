@@ -35,6 +35,16 @@ module ButtonsHelper
     end
   end
 
+  def info_btn(resource, label = "", title: t("buttons.info.title"), text: nil, element:)
+    return if element && (cannot? :destroy, element)
+
+    content_tag(:button, data: data_to_inform(resource, title, text: text),
+                         class: "btn info-btn",
+                         title: I18n.t("buttons.info.title")) do
+      icon "info", label
+    end
+  end
+
   def permissable_delete_btn(resource, path: nil, element:)
     return if element && (cannot? :destroy, element)
 

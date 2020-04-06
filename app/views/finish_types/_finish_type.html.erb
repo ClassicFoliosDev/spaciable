@@ -1,7 +1,6 @@
 <div class="section-header">
   <div class="section-title">
     <div><%= finish_type.name %></div><br/>
-    <span class="about"><strong><%= t(".finish_category") %></strong> <%= finish_type.finish_categories.first %></span>
   </div>
   <div class="section-data">
     <span class="right">
@@ -11,6 +10,15 @@
 </div>
 
 <div class="row finish_type">
+  <div class="row-item third">
+    <h5><%= t(".finish_category") %></h5>
+    <% finish_type.finish_categories.each do | cagtegory | %>
+      <span><%= cagtegory %></span><br>
+    <% end %>
+  </div>
+</div>
+
+<div class="row manufacturer">
   <div class="row-item third">
     <h5><%= t(".manufacturers") %></h5>
     <% finish_type.finish_manufacturers.each do | manufacturer | %>

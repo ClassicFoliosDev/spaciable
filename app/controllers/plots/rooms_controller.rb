@@ -11,6 +11,8 @@ module Plots
     before_action :find_plot_room, except: :index
     load_and_authorize_resource :room
 
+    before_action :set_editor, only: %i[create edit update]
+
     def index
       @rooms = paginate(sort(@rooms, default: :name))
     end
@@ -40,6 +42,11 @@ module Plots
         build_finishes
       elsif @active_tab == "appliances"
         build_appliances
+      end
+
+      @collection.each do |item|
+        item.added_by =
+          "#{item.class}Room".classify.constantize.author(@room.id, item.id)
       end
     end
 
@@ -155,6 +162,10 @@ module Plots
     def find_plot_room
       @room = @plot.plot_rooms.find_by(id: params[:id])
       @room ||= @plot.unit_type.rooms.find_by(id: params[:id])
+    end
+
+    def set_editor
+      @room.last_updated_by = current_user.display_name
     end
   end
   # rubocop:enable Metrics/ClassLength

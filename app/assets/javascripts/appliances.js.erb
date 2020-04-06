@@ -1,22 +1,24 @@
 /* global $, clearFields, setFields */
 $(document).on('click', '.appliance-add .ui-menu-item', function (event) {
-  var optionName = this.innerText
   var $selectContainer = $(this).closest('.select-container')
 
   if ($selectContainer.length) {
     var listClasses = $selectContainer[0].classList
     var $parentFieldset = $selectContainer.closest('.appliance-add')
 
-    if (listClasses.contains('appliance_manufacturer')) {
-      var $categoryDiv = $('.appliance_category')
-      var categoryValue = $categoryDiv.find('.ui-selectmenu-text').html()
+    if (listClasses.contains('appliance_manufacturer') ||
+        listClasses.contains('appliance_category')) {
 
+      var category = selectMeta('.appliance_category')
+      var manufacturer = selectMeta('.appliance_manufacturer')
       var $applianceDiv = $parentFieldset.find('.appliances')
       var $applianceSelect = clearFields($applianceDiv)
 
-      var url = '/appliance_list'
-      setFields($applianceSelect, url, { option_name: optionName, category_name: categoryValue })
-      updateDefaultName(optionName, null)
+      if(category.id != 0 && manufacturer.id != 0) {
+        var url = '/appliance_list'
+        setFields($applianceSelect, url, { manufacturer: manufacturer.id, category: category.id })
+        updateDefaultName(manufacturer.name, null)
+      }
     }
   }
 })

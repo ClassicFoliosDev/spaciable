@@ -51,12 +51,30 @@ When(/^I create an appliance$/) do
   click_on t("appliances.form.submit")
 end
 
-Then(/^I should see the created appliance$/) do
-  expect(page).to have_content(ApplianceFixture.full_name)
+Then(/^I should see the ([^ ]*) appliance category$/) do |category|
+  visit "/appliance_categories"
+  expect(page).to have_content(eval(category))
 
-  click_on ApplianceFixture.full_name
+  click_on eval(category)
 
   click_on t("appliances.edit.back")
+end
+
+Then(/^I should see the new ([^ ]*) appliance$/) do |appliance|
+  visit "/appliances"
+  expect(page).to have_content(eval(appliance))
+
+  click_on eval(appliance)
+
+  click_on t("appliances.edit.back")
+end
+
+Then(/^I cannot delete the ([^ ]*) appliance category$/) do |category|
+  visit "/appliance_categories"
+  expect(page).to have_content(eval(category))
+  # he category name may be duplicated in the database - find the row by name
+  appliance_row  = find(:xpath, "//a[text()='#{eval(category)}']/parent::td/parent::tr")
+  expect(appliance_row).not_to have_selector("#archive-btn")
 end
 
 When(/^I update the appliance$/) do
@@ -215,44 +233,60 @@ Then(/^I should see the updated appliance without the file$/) do
 end
 
 When(/^I delete the appliance$/) do
-  appliance_path = "/appliances"
-  visit appliance_path
-
-  appliance = Appliance.find_by(model_num: CreateFixture.appliance_name)
-  delete_scope = "[data-appliance='#{appliance.id}']"
+  visit "/appliances"
+  delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
   delete_and_confirm!(scope: delete_scope)
 end
 
-Then(/^I should see the appliance deletion complete successfully$/) do
+Then(/^I should see the ([^ ]*) appliance category delete complete successfully$/) do |category|
   success_flash = t(
     "appliances.destroy.success",
-    name: CreateFixture.full_appliance_name
+    name: eval(category)
   )
   expect(page).to have_content(success_flash)
 
   within ".notice" do
-    expect(page).to have_content(CreateFixture.full_appliance_name)
+    expect(page).to have_content(eval(category))
   end
 
-  expect(page).not_to have_content(".record-list")
-
-  within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Appliance.model_name.human)}}i
-  end
 end
 
-When(/^I delete the appliance category$/) do
+When(/^I delete the ([^ ]*) appliance category$/) do |category|
   visit "./appliance_categories"
-
-  appliance_category = ApplianceCategory.find_by(name: CreateFixture.appliance_category_name)
-  delete_scope = "[data-appliance-category='#{appliance_category.id}']"
+  delete_scope = find(:xpath, "//a[text()='#{eval(category)}']/parent::td/parent::tr")
   delete_and_confirm!(scope: delete_scope)
 end
 
-When(/^I delete the appliance manufacturer$/) do
-  visit "./appliance_manufacturers"
+Then(/^I should see the ([^ ]*) appliance deletion complete successfully$/) do |appliance|
+  success_flash = t(
+    "appliances.destroy.success",
+    name: eval(appliance)
+  )
+  expect(page).to have_content(success_flash)
 
-  manufacturer = ApplianceManufacturer.find_by(name: CreateFixture.appliance_manufacturer_name)
-  delete_scope = "[data-appliance-manufacturer='#{manufacturer.id}']"
+  within ".notice" do
+    expect(page).to have_content(eval(appliance))
+  end
+end
+
+Then(/^I delete the ([^ ]*) appliance manufacturer$/) do |manufacturer|
+  visit "./appliance_manufacturers"
+  delete_scope  = find(:xpath, "//a[text()='#{eval(manufacturer)}']/parent::td/parent::tr")
   delete_and_confirm!(scope: delete_scope)
+end
+
+Then(/^I cannot delete the ([^ ]*) appliance manufacturer$/) do |manufacturer|
+  visit "/appliance_manufacturers"
+  expect(page).to have_content(eval(manufacturer))
+  # the category name may be duplicated in the database - find the row by name
+  manufacturer_row  = find(:xpath, "//a[text()='#{eval(manufacturer)}']/parent::td/parent::tr")
+  expect(manufacturer_row).not_to have_selector("#archive-btn")
+end
+
+Then(/^I cannot delete the ([^ ]*) appliance$/) do |appliance|
+  visit "/appliances"
+  expect(page).to have_content(eval(appliance))
+  # the category name may be duplicated in the database - find the row by name
+  appliance_row  = find(:xpath, "//a[contains(text(),'#{eval(appliance)}')]/parent::td/parent::tr")
+  expect(appliance_row).not_to have_selector("#archive-btn")
 end

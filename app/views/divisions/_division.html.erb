@@ -6,6 +6,9 @@
     <div><%= division.division_name %></div>
     <span class="about">
       <br/>
+      <% if division.cas %>
+        <strong><%= t("cas_enabled") %><br/>
+      <% end %>
       <strong><%= t(".active_plots") %></strong><%= division.active_plots_count %><br/>
       <strong><%= t(".completed_plots") %></strong><%= division.completed_plots_count %><br/>
       <strong><%= t(".expired_plots") %></strong><%= division.expired_plots_count %><br/><br/>

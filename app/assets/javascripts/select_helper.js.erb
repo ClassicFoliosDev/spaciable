@@ -3,12 +3,14 @@
 function clearFields (selectDiv) {
   // Make the options list empty
   var selectList = selectDiv.find('select')[0]
-  selectList.options.length = 0
-  // Remove the previously-selected option name
-  var prevOption = selectDiv.find('.ui-selectmenu-text')[0]
-  if (prevOption != null) {
-    prevOption.innerHTML = '&nbsp'
-    disableSelect($(selectDiv).find('select'))
+  if (typeof selectList !== 'undefined') {
+    selectList.options.length = 0
+    // Remove the previously-selected option name
+    var prevOption = selectDiv.find('.ui-selectmenu-text')[0]
+    if (prevOption != null) {
+      prevOption.innerHTML = '&nbsp'
+      disableSelect($(selectDiv).find('select'))
+    }
   }
 
   return selectList
@@ -63,9 +65,7 @@ function setFields (selectList, url, data, prompt, callback) {
       clearMatchErrors()
     } else {
       disableSelect('#' + selectList.id)
-      if (url === '/finish_manufacturers_list') {
-        noManufacturers()
-      } else if (url === '/finish_list') {
+      if (url === '/finish_list') {
         noMatches('<%= I18n.t(".finishes.no_match") %>')
       } else if (url === '/appliance_list') {
         noMatches('<%= I18n.t(".appliances.no_match") %>')
@@ -89,17 +89,14 @@ function clearMatchErrors () {
   $('.match-errors').html('')
 }
 
-function noManufacturers () {
-  var $parentFieldset = $(document).find('.finish')
-
-  var $finishesDiv = $parentFieldset.find('.finishes')
-  if ($finishesDiv.length > 0) {
-    var finishesSelect = clearFields($finishesDiv)
-
-    var $typeDiv = $('.finish_type')
-    var typeValue = $typeDiv.find('.ui-selectmenu-text')[0].innerHTML
-
-    var url = '/finish_list'
-    setFields(finishesSelect, url, { type_name: typeValue, manufacturer_name: '' })
+function selectMeta(class_name) {
+  json = {};
+  try {
+    json.div = $(class_name)
+    json.text = json.div.find('.ui-selectmenu-text')[0].innerHTML
+    json.id = json.div.find('select option:contains('+json.text+')')[0].value
   }
+  catch(err) {} // ignore unpopulated fields
+  return json
 }
+
