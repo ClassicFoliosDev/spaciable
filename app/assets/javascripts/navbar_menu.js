@@ -8,6 +8,12 @@
 
     var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
     navList.style.width = menuWidth
+
+    // if tablet or mobile view then change the fa
+    if ($(window).innerWidth() < 1025) {
+      var arrow = document.getElementById("upDownArrow")
+      arrow.classList = "fa fa-user-circle-o"
+    }
   })
 
   // toggle the dropdown menu open and closed
@@ -25,6 +31,9 @@
       arrow.classList.remove("fa-angle-up")
     }
   })
+
+  // change the dropdown menu for mobile view
+
 
   // open the main navigation
   $(document).on('click', '.navbar-trigger-label', function (event) {

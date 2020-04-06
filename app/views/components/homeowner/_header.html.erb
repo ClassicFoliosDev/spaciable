@@ -18,7 +18,7 @@
 
         <section>
           <div class="account-navigation" id="acctNav">
-            <button class="dropdown branded-secondary" id="dropdownMenu"><%= current_resident.to_s %><i class="fa fa-angle-down" id="upDownArrow"></i></button>
+            <button class="dropdown branded-secondary" id="dropdownMenu"><span class="name"><%= current_resident.to_s %></span><i class="fa fa-angle-down" id="upDownArrow"></i></button>
               <div class="dropdown-content" id="navList">
                 <div class="branded-secondary dropdown-link">
                   <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
