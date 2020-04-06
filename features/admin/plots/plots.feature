@@ -29,9 +29,25 @@ Feature: Plots
     Given I am logged in as a <role> with CAS
     And I have a CAS developer with a development with unit types and a phase
     And I have a phase plot
+    And all the plots are release completed
     When I CAS update the phase plot
     Then I should see the CAS updated phase plot
     And I cannot delete the phase plot
+    Examples:
+      | role               |
+      | Developer Admin    |
+      | Development Admin  |
+
+  Scenario Outline: CAS Phase restricted Plots
+    Given I am logged in as a <role> with CAS
+    And I have a CAS developer with a development with unit types and a phase
+    And I have a phase plot
+    And the unit types are restricted
+    When I CAS update the phase restricted plot
+    Then I should see the CAS updated restricted phase plot
+    And I cannot delete the phase plot
+    And I cannot update or delete or add to the restricted phase plot rooms
+    And I cannot update or delete or add to the restricted phase plot finishes and appliances
     Examples:
       | role               |
       | Developer Admin    |
@@ -71,6 +87,7 @@ Feature: Plots
     Given I am logged in as a <role>
     And there is a phase plot resident
     And there is a second resident
+    And all the plots are release completed
     Then I can not create a plot
     And I can not edit a plot
     And I can update the completion date for a plot

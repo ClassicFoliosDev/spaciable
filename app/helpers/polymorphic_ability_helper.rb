@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module PolymorphicAbilityHelper
-  def can_create(type, parent)
+  def can_create(type, parent, combine: false)
     # CF admin can do everything
     return true if current_user.cf_admin?
 
-    return true if cas? type, parent
+    return true if cas? type, parent, combine
 
     # Every admin user can add a plot resident
     return true if type == PlotResidency
@@ -23,26 +23,25 @@ module PolymorphicAbilityHelper
   # to instantiate a class that contains the development_id in order for the
   # can? to check permissions.  It is not a straightforward operation and different
   # combinations of type/parent relationships need to be handled differently
-  # rubocop:disable  Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-  def cas?(type, parent)
-    # If the parent is a Development and the 'type' has a development_id column
-    if (parent.is_a? Development) && type.column_names.include?("development_id")
-      return true if can? :create, type.new(development_id: parent.id)
-    # if the parent has a development_id column and the type the 'type'
-    # has a development_id column
-    elsif parent&.has_attribute?(:development_id) &&
-          type.column_names.include?("development_id")
-      return true if can? :create, type.new(development_id: parent.development_id)
+  def cas?(type, parent, combine)
+    params = {}
+
+    # Set development id from parent
+    if type.column_names.include?("development_id") &&
+       (parent&.has_attribute?(:development_id) || parent.is_a?(Development))
+      params[:development_id] = parent.is_a?(Development) ? parent.id : parent.development_id
+    end
+
     # if the type has a [parent_class].id column then it will also have a
     # [paremt] foreign key relationship and so we can set that using the parent object
     # for security testing purposes
-    elsif type.column_names.include?("#{parent.class.to_s.downcase}_id")
-      return true if can? :create, type.new(parent.class.to_s.downcase.to_sym => parent)
-    elsif can? :create, type
-      return true
+    parent_name = parent&.class&.table_name&.singularize
+    if type.column_names.include?("#{parent_name}_id")
+      params[parent_name.to_sym] = parent
     end
 
-    false
+    return can? :create, type if params.empty?
+    action = combine ? "create_#{type}_#{parent.class}".downcase.to_sym : :create
+    can? action, type.new(params)
   end
-  # rubocop:enable  Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
 end

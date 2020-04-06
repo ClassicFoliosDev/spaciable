@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :redirect_residents, if: -> { current_resident }
   before_action :authenticate_user!
   before_action :initialise_callback
+  before_action :set_current_user
 
   check_authorization unless: :devise_controller?
 
@@ -60,5 +61,10 @@ class ApplicationController < ActionController::Base
 
   def initialise_callback
     PlanetRent.initialize URI.parse(request.url).host
+  end
+
+  # Set the current user in a thread safe store so as the models can access it
+  def set_current_user
+    RequestStore.store[:current_user] = current_user
   end
 end

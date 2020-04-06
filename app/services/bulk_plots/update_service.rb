@@ -3,9 +3,12 @@
 # rubocop:disable Metrics/ClassLength
 module BulkPlots
   class UpdateService < BulkPlots::Base
-    def self.call(plot, params: {}, &block)
+    attr_accessor :context
+
+    def self.call(plot, context, params: {}, &block)
       service = superclass.call(plot, service: self)
       service.collection.id = plot&.id
+      service.context = context
 
       if block_given?
         service.update(params) unless service.errors?
@@ -121,17 +124,21 @@ module BulkPlots
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def update_existing_plot(attrs)
       updates = attribute_params(attrs)
-      updated_plot = plots_scope.where(number: attrs[:number].to_s)
-                       &.update(updates)
+      updating_plot = plots_scope.where(number: attrs[:number].to_s).first
+
+      return nil unless validate_plot?(updating_plot, attrs[:number], updates)
+
+      # make the updates
+      updating_plot&.update(updates)
 
       # If there is an updated plot and the unit type is being updated
       # and the user has selected to reset the rooms to just those for the
       # new unit type
-      if updated_plot.present? &&
+      if updating_plot.present? &&
          params[:ut_update_option] == UnitType::RESET.to_s &&
          updates.keys.include?(:unit_type_id)
         # delete all templated rooms for the plot
-        delete_templated_rooms(updated_plot[0])
+        delete_templated_rooms(updating_plot)
       end
 
       if @attribute_params[:copy_plot_numbers] == true
@@ -140,12 +147,10 @@ module BulkPlots
           plot.update_attributes(house_number: plot.number)
         end
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-      add_update_error(attrs[:number]) if updated_plot.empty?
-
-      updated_plot
+      updating_plot
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def plot_select_params
       plot_select_params = {}
@@ -156,6 +161,10 @@ module BulkPlots
       plot_select_params
     end
 
+    # This code is DANGEROUS and very bad.  Be very careful here.  The code has side effects.  This
+    # function is called throughout the process and just leaves @attriute_params however it ends up
+    # after processig the last plot update.  Other code then uses @attriute_params to make
+    # decisions. Its unreliable and can cause problems unless used in a specific way
     def attribute_params(attrs)
       @attribute_params = attrs
       return @attribute_params unless params.keys.include? :unit_type_id_check
@@ -209,17 +218,29 @@ module BulkPlots
       @attribute_params[key_to_keep] = params[key_to_keep]
     end
 
-    def add_update_error(number)
+    def add_update_error(number, error: :missing)
       return if number == Plot::DUMMY_PLOT_NAME
 
       error_plot = Plot.new(number: number)
-      error_plot.errors.add(:base, :missing)
+      error_plot.errors.add(:base, error)
       @errors << error_plot
     end
 
     def add_error(message)
       base_plot.phase.errors[:base] << message
       @errors << base_plot.phase
+    end
+
+    # Validate the plot and return true/false
+    def validate_plot?(plot, number, updates)
+      count = @errors.count
+      add_update_error(number) if plot.nil?
+      if plot.present? && updates.key?(:unit_type_id) &&
+         @context.present? &&
+         (@context.cannot? :update_unit_type, plot)
+        add_update_error(number, error: :cannot_update_unit_type)
+      end
+      count == @errors.count
     end
   end
 end

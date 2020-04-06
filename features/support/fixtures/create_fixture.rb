@@ -191,9 +191,9 @@ module CreateFixture
     create_spanish_division
   end
 
-  def create_developer_with_development
-    create_developer
-    create_development
+  def create_developer_with_development(cas: false)
+    create_developer(cas: cas)
+    create_development(cas: cas)
   end
 
   def create_spanish_developer_with_development
@@ -210,8 +210,8 @@ module CreateFixture
   def create_spanish_developer
     CreateFixture.create_countries if Country.none?
     FactoryGirl.create(:developer,
-                       company_name: spanish_developer_name, 
-                       house_search: true, 
+                       company_name: spanish_developer_name,
+                       house_search: true,
                        country_id: Country.find_by(name: "Spain").id)
   end
 
@@ -294,6 +294,7 @@ module CreateFixture
   end
 
   def create_appliance_manufacturer(developer=nil, name=appliance_manufacturer_name)
+    return ApplianceManufacturer.find_by(name: name, developer: developer) ||
     FactoryGirl.create(:appliance_manufacturer,
                        name: name,
                        link: manufacturer_link,
@@ -306,6 +307,7 @@ module CreateFixture
   end
 
   def create_appliance(developer=nil, model_num=appliance_name)
+    create_appliance_manufacturer
     FactoryGirl.create(:appliance,
                        appliance_category: appliance_category,
                        appliance_manufacturer: appliance_manufacturer,
@@ -339,7 +341,7 @@ module CreateFixture
                                         finish_types: [finish_type])
       finish[3].each do |fname|
         FactoryGirl.create(:finish, name: fname,
-                            finish_category: finish_category, 
+                            finish_category: finish_category,
                             finish_type: finish_type,
                             finish_manufacturer: manufacturer)
       end
@@ -355,7 +357,7 @@ module CreateFixture
     FactoryGirl.create(:faq, question: faq_name, faqable: developer)
   end
 
-  def create_appliance_without_manual
+  def create_appliance_without_manual(developer=nil)
     FactoryGirl.create(
       :appliance,
       name: appliance_without_manual_name,
@@ -363,7 +365,8 @@ module CreateFixture
       appliance_manufacturer: appliance_manufacturer,
       rooms: [room],
       manual: nil,
-      guide: nil
+      guide: nil,
+      developer: developer
     )
   end
 
@@ -384,14 +387,14 @@ module CreateFixture
   end
 
   def create_finish(developer=nil)
-    FactoryGirl.create(:finish, name: finish_name, 
-                       finish_category: create_finish_category(developer), 
-                       finish_type: create_finish_type(developer), 
+    FactoryGirl.create(:finish, name: finish_name,
+                       finish_category: create_finish_category(developer),
+                       finish_type: create_finish_type(developer),
                        developer: developer)
   end
 
-  def create_finish_room
-    FactoryGirl.create(:finish_room, room: room, finish: create_finish, added_by: "tester")
+  def create_finish_room(room = self.room, finish = create_finish)
+    FactoryGirl.create(:finish_room, room: room, finish: finish, added_by: "tester")
   end
 
   def create_development_phase
@@ -614,12 +617,12 @@ module CreateFixture
     create_resident_and_phase
   end
 
-  def create_resident_under_a_phase_plot_with_appliances_and_rooms
+  def create_resident_under_a_phase_plot_with_appliances_and_rooms(developer=nil)
     create_resident_under_a_phase_plot
     create_room
-    create_appliance
+    create_appliance(developer)
     create_appliance_room
-    create_appliance_without_manual
+    create_appliance_without_manual(developer)
   end
 
   def create_sub_category
@@ -704,8 +707,12 @@ module CreateFixture
     UnitType.find_by(name: unit_type_name)
   end
 
-  def room
-    Room.find_by(name: room_name)
+  def room(name = room_name)
+    Room.find_by(name: name)
+  end
+
+  def finish(name = finish_name)
+    Finish.find_by(name: finish_name)
   end
 
   def finish_category
@@ -745,6 +752,10 @@ module CreateFixture
 
   def completion_date
     (Time.zone.now - 12.days).to_date
+  end
+
+  def add_finish_to_room(room_name, finish_name)
+    create_finish_room(room(room_name), finish(finish_name))
   end
 end
 # rubocop:enable ModuleLength

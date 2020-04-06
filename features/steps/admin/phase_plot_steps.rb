@@ -119,6 +119,43 @@ When(/^I (CAS )*update the phase plot$/) do |cas|
   click_on t("plots.form.submit")
 end
 
+When(/^I CAS update the phase restricted plot$/) do
+
+  development = $current_user.division_admin? ? CreateFixture.division_development.id : CreateFixture.development.id
+  phase = $current_user.division_admin? ? PhasePlotFixture.division_phase.id : PhasePlotFixture.phase.id
+
+  visit "/developments/#{development}/phases/#{phase}"
+
+  within ".record-list" do
+    # test browser doesn't always render buttons - so just go to the link
+    # inside the button
+    visit find("[data-action='edit']")[:href]
+  end
+
+  # CAS edits are restricted.
+  %i[plot_reservation_order_number
+     plot_completion_order_number
+     plot_reservation_release_date
+     plot_completion_release_date
+     plot_validity
+     plot_prefix
+     plot_house_number
+     plot_building_name
+     plot_road_name
+     plot_postcode
+     plot_locality
+     plot_city
+     plot_county].each do |selector|
+    expect(page).not_to have_selector "##{selector}"
+  end
+  expect(page).to have_field 'plot_number', disabled: true
+  find('.plot_unit_type').find('.disabled')
+  fill_in :plot_completion_date, with: (Time.zone.now + 20.days)
+  select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
+
+  click_on t("plots.form.submit")
+end
+
 Then(/^I should see the (CAS )*updated phase plot$/) do |cas|
   within ".section-title" do
     expect(page).to have_content(PhasePlotFixture.update_attrs[:number]) unless cas
@@ -141,6 +178,15 @@ Then(/^I should see the (CAS )*updated phase plot$/) do |cas|
 
       expect(page).not_to have_content(PlotFixture.unit_type_name)
     end
+  end
+end
+
+Then(/^I should see the CAS updated restricted phase plot$/) do
+  within ".section-title" do
+    expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.complete_ready"))
+    completion = (Time.zone.now + 20.days).strftime('%d %B %Y')
+    completion_date = page.find(".half", match: :first)
+    expect(completion_date['innerHTML']).to include completion.to_s
   end
 end
 
@@ -317,6 +363,32 @@ end
 Then(/^I cannot delete the phase plot$/) do
   visit "/developments/#{CreateFixture.development.id}/phases/#{PhasePlotFixture.phase.id}"
   expect(page).not_to have_selector(:xpath, ".//tr//button[@data-title='Confirm delete']")
+end
+
+When(/^I cannot update or delete or add to the restricted phase plot rooms$/) do
+  click_on "Plot #{PhasePlotFixture.plot_number}"
+  click_on "Rooms"
+
+  expect(page).not_to have_content "Add Rooms"
+
+  within ".record-list" do
+    expect(page).to have_content Room.first.name
+    expect(page).not_to have_selector(".archive-btn")
+    expect(page).not_to have_selector("[data-action='edit']")
+  end
+end
+
+When(/^I cannot update or delete or add to the restricted phase plot finishes and appliances$/) do
+  click_on Room.first.name
+
+  expect(page).not_to have_content "Add Finish"
+  expect(page).to have_content t('components.empty_list.request_add', type_names: "finishes")
+
+  within ".tabs" do
+    click_on "Appliances"
+  end
+
+  expect(page).not_to have_content "Add Appliances"  
 end
 
 

@@ -3,7 +3,7 @@
 module PlotRoomsFixture
   module_function
 
-  def create_plot_rooms_as_cf_admin(cas: cas)
+  def create_plot_rooms_as_cf_admin(cas: nil)
     CreateFixture.create_cf_admin
     CreateFixture.create_developer(cas: cas.present?)
     CreateFixture.create_development(cas: cas.present?)

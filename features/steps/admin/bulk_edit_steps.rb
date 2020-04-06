@@ -95,6 +95,13 @@ Then(/^there is an error for plots that don't exist$/) do
   end
 end
 
+Then(/^there are errors for plots that don't exist and cannot be updated$/) do
+  message = I18n.t("activerecord.errors.models.plot.attributes.base.missing")
+  within ".alert" do
+    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
+  end
+end
+
 Then(/^the selected plots are (CAS )*updated$/) do |cas|
   message = I18n.t("bulk_edit.create.success", plot_numbers: "180, 181, and #{CreateFixture.phase_plot_name}")
   within ".notice" do
@@ -104,6 +111,15 @@ Then(/^the selected plots are (CAS )*updated$/) do |cas|
   test_plot_fields(180, cas.present?)
   test_plot_fields(181, cas.present?)
   test_plot_fields(CreateFixture.phase_plot_name, cas.present?)
+end
+
+Then(/^the released plot is CAS updated$/) do
+  message = I18n.t("bulk_edit.create.success_one", plot_number: "#{CreateFixture.phase_plot_name}")
+  within ".notice" do
+    expect(page).to have_content message
+  end
+
+  test_plot_fields(CreateFixture.phase_plot_name, true)
 end
 
 Then(/^the unselected plots are not (CAS )*updated$/) do |cas|
@@ -134,6 +150,19 @@ Then(/^the unselected plots are not (CAS )*updated$/) do |cas|
 
       postcode = page.find( ".plot_postcode")
       expect(postcode['innerHTML']).to include "AA 1AB"
+    end
+  end
+end
+
+Then(/^the unreleased plots are not CAS updated$/) do
+  (180..181).each do |plot_number|
+    plot = Plot.find_by(number: plot_number)
+    visit "/plots/#{plot.id}/edit"
+
+    within ".edit_plot" do
+      unit_type = page.find(".plot_unit_type")
+      selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
+      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     end
   end
 end

@@ -305,5 +305,6 @@ class User < ApplicationRecord
     permissable_users = User.where(permission_level_type: model, permission_level_id: permission_id)
     permissable_users.destroy_all
   end
+
   # rubocop:enable all
 end

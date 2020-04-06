@@ -18,6 +18,12 @@ module UnitTypeTabsHelper
         icon: :bath,
         link: [unit_type, :rooms],
         always_show: true
+      },
+      logs: {
+        icon: :pencil,
+        link: [unit_type.parent, unit_type, active_tab: :logs],
+        permissions_on: -> { unit_type },
+        hide: !unit_type.cas
       }
     }
   end

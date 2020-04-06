@@ -35,6 +35,8 @@ class UnitType < ApplicationRecord
     studio
   ]
 
+  after_create -> { UnitTypeLog.create(self) if cas }
+
   # Unit type update options
   UNCHANGED = 0
   RESET = 1
@@ -116,5 +118,12 @@ class UnitType < ApplicationRecord
       appliances += room.appliances.count
     end
     appliances
+  end
+
+  # This function has to exist to satisfy the generic requirement of all
+  # classes that produce logs.  If we want to restrict the logs displayed
+  # to different users then we would do it here
+  def log_threshold
+    :none
   end
 end

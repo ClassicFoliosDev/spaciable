@@ -23,10 +23,14 @@ class UnitTypesController < ApplicationController
 
     @active_tab = params[:active_tab] || "documents"
 
-    @collection = if @active_tab == "documents"
-                    documents = @unit_type.documents
-                    paginate(sort(documents, default: :title))
-                  end
+    case @active_tab
+    when "documents"
+      documents = @unit_type.documents
+      @collection = paginate(sort(documents, default: :title))
+    when "logs"
+      logs = Log.logs(@unit_type)
+      @collection = paginate(sort(logs, default: { created_at: :desc }))
+    end
   end
 
   def create
@@ -80,6 +84,6 @@ class UnitTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def unit_type_params
-    params.require(:unit_type).permit(:name, :picture, :external_link, phase_ids: [])
+    params.require(:unit_type).permit(:name, :picture, :external_link, :restricted, phase_ids: [])
   end
 end

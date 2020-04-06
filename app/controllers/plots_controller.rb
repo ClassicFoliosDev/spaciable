@@ -20,7 +20,7 @@ class PlotsController < ApplicationController
   end
 
   def edit
-    @plots = BulkPlots::UpdateService.call(@plot).collection
+    @plots = BulkPlots::UpdateService.call(@plot, self).collection
     @progress_id = Plot.progresses[@plot.progress.to_sym]
   end
 
@@ -53,13 +53,13 @@ class PlotsController < ApplicationController
   end
 
   def update
-    BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
-      if updated_plots.any? && @plot.valid?
+    BulkPlots::UpdateService.call(@plot, self, params: plot_params) do |service, updated, errors|
+      if updated.any? && @plot.valid?
         if plot_params[:letter_type].present?
           notice = t(".lettings_success", plot_name: @plot, type: plot_params[:letter_type])
           redirect_to phase_lettings_path(@parent.id), notice: notice, alert: errors
         else
-          notify_and_redirect(updated_plots, errors)
+          notify_and_redirect(updated, errors)
         end
       else
         flash.now[:alert] = errors if errors
@@ -141,6 +141,8 @@ class PlotsController < ApplicationController
       paginate(sort(@plot.rooms, default: :name))
     elsif @active_tab == "residents"
       paginate(sort(@plot.residents, default: :last_name))
+    elsif @active_tab == "logs"
+      paginate(sort(Log.logs(@plot), default: { created_at: :desc }))
     end
   end
 end

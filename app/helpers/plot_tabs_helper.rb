@@ -18,6 +18,11 @@ module PlotTabsHelper
         icon: :bath, link: [plot, active_tab: :rooms],
         permissions_on: -> { plot.development.rooms.build }
       },
+      logs: {
+        icon: :pencil, link: [plot, active_tab: :logs],
+        permissions_on: -> { plot },
+        hide: !plot.cas
+      },
       residents: {
         icon: :user, link: [plot, active_tab: :residents],
         permissions_on: -> { PlotResidency.new(plot_id: plot.id) }
