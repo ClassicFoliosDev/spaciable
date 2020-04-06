@@ -29,7 +29,7 @@
         <span>|</span>
       <% end %>
 
-      <%= button_tag t(".feedback"), class: "feedback-btn", data: data_for_feedback(current_resident) %>
+      <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn", data: data_for_feedback(current_resident) %>
       <span>|</span>
       <%= link_to t("users.sign_out"), destroy_resident_session_path, method: :delete, data: { test: "homeowner-sign-out" } %>
     </div>

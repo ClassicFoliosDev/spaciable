@@ -32,7 +32,14 @@
                   </div>
                 <% end %>
                 <div class="branded-secondary dropdown-link">
-                  <%= button_tag t(".feedback"), class: "feedback-btn branded-secondary link-item", data: data_for_feedback(current_resident) %>
+                  <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn branded-secondary link-item",
+                      data: data_for_feedback(current_resident) %>
+                </div>
+                <div class="branded-secondary dropdown-link">
+                  <%= button_tag t(".refer"), class: "refer-resident navigation-btn branded-secondary link-item",
+                      data: { cancel: t("edit.cancel"),
+                              cta: t(".send_invitation"),
+                              title: t(".refer_title")} %>
                 </div>
                 <div class="branded-secondary dropdown-link sign-out">
                   <%= link_to t("users.sign_out"),
@@ -66,3 +73,7 @@
     </nav>
   <% end %>
 </header>
+
+<div class="refer-resident-form hidden">
+  <%= render 'homeowners/dashboard/referral_form', plot: plot %>
+</div>
