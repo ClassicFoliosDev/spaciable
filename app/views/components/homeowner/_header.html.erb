@@ -1,7 +1,7 @@
 <header>
   <% if plot.present? %>
     <nav class="main-navigation">
-      <div class="nav-inner">
+      <div class="nav-inner" id="topNav">
         <!-- logo -->
         <div class="logo branded-logo">
           <% if session[:onboarding] %>
@@ -19,55 +19,55 @@
         <section>
           <div class="account-navigation" id="acctNav">
             <button class="dropdown branded-secondary" id="dropdownMenu"><span class="name"><%= current_resident.to_s %></span><i class="fa fa-angle-down" id="upDownArrow"></i></button>
-              <div class="dropdown-content" id="navList">
-                <div class="branded-secondary dropdown-link">
-                  <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
-                </div>
-                <div class="branded-secondary dropdown-link">
-                  <%= link_to t(".messages"), homeowners_notifications_path, class: "branded-secondary link-item" %>
-                </div>
-                <% if current_resident.listings? %>
-                  <div class="branded-secondary dropdown-link">
-                    <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item"%>
-                  </div>
-                <% end %>
-                <div class="branded-secondary dropdown-link">
-                  <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn branded-secondary link-item",
-                      data: data_for_feedback(current_resident) %>
-                </div>
-                <div class="branded-secondary dropdown-link">
-                  <%= button_tag t(".refer"), class: "refer-resident navigation-btn branded-secondary link-item",
-                      data: { cancel: t("edit.cancel"),
-                              cta: t(".send_invitation"),
-                              title: t(".refer_title")} %>
-                </div>
-                <div class="branded-secondary dropdown-link sign-out">
-                  <%= link_to t("users.sign_out"),
-                      destroy_resident_session_path,
-                      method: :delete,
-                      data: { test: "homeowner-sign-out" },
-                      class: "branded-secondary link-item" %>
-                </div>
+            <div class="dropdown-content" id="navList">
+              <div class="branded-secondary dropdown-link">
+                <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
               </div>
+              <div class="branded-secondary dropdown-link">
+                <%= link_to t(".messages"), homeowners_notifications_path, class: "branded-secondary link-item" %>
+              </div>
+              <% if current_resident.listings? %>
+              <div class="branded-secondary dropdown-link">
+                <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item"%>
+              </div>
+              <% end %>
+              <div class="branded-secondary dropdown-link">
+                <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn branded-secondary link-item",
+                data: data_for_feedback(current_resident) %>
+              </div>
+              <div class="branded-secondary dropdown-link">
+                <%= button_tag t(".refer"), class: "refer-resident navigation-btn branded-secondary link-item",
+                    data: { cancel: t("edit.cancel"),
+                    cta: t(".send_invitation"),
+                    title: t(".refer_title")} %>
+              </div>
+              <div class="branded-secondary dropdown-link sign-out">
+                <%= link_to t("users.sign_out"),
+                    destroy_resident_session_path,
+                    method: :delete,
+                    data: { test: "homeowner-sign-out" },
+                    class: "branded-secondary link-item" %>
+              </div>
+            </div>
             </button>
           </div>
         </section>
 
         <% if !session[:onboarding] %>
-          <section class="burger-navigation">
-            <input type="checkbox" id="menuBurger">
-            <label for="menuBurger" class="burger navbar-trigger-label">
-              <div class="branded-text menu-text">Menu</div>
-              <div class="burger-bars">
-                <span class="burger-bar bar-top"></span>
-                <span class="burger-bar bar-middle"></span>
-                <span class="burger-bar bar-bottom"></span>
-              </div>
-            </label>
-          </section>
-          <aside class="navbar-menu">
-            <%= render "components/homeowner/navigation", plot: plot, country: country %>
-          </aside>
+        <section class="burger-navigation">
+          <input type="checkbox" id="menuBurger">
+          <label for="menuBurger" class="burger navbar-trigger-label">
+            <div class="branded-text menu-text">Menu</div>
+            <div class="burger-bars">
+              <span class="burger-bar bar-top"></span>
+              <span class="burger-bar bar-middle"></span>
+              <span class="burger-bar bar-bottom"></span>
+            </div>
+          </label>
+        </section>
+        <aside class="navbar-menu">
+          <%= render "components/homeowner/navigation", plot: plot, country: country %>
+        </aside>
         <% end %>
       </div>
     </nav>

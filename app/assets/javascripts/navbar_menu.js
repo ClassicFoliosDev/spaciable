@@ -8,12 +8,6 @@
 
     var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
     navList.style.width = menuWidth
-
-    // if tablet or mobile view then change the fa
-    if ($(window).innerWidth() < 1025) {
-      var arrow = document.getElementById("upDownArrow")
-      arrow.classList = "fa fa-user-circle-o"
-    }
   })
 
   // toggle the dropdown menu open and closed
@@ -33,7 +27,26 @@
   })
 
   // change the dropdown menu for mobile view
+  document.addEventListener('turbolinks:load', function () {
+    if ($(window).innerWidth() < 1025) {
+      // change the account navigation icon
+      var arrow = document.getElementById("upDownArrow")
+      arrow.classList = "fa fa-user-circle-o"
+      // set the dropdown width to 100%
+      var navList = document.getElementById("navList")
+      navList.style.width = "100%"
+    }
+  })
 
+  $(document).on('click', '.dropdown', function (event) {
+    if ($(window).innerWidth() < 1025) {
+      // hide the logo and hamburger navigation
+      var nav = document.getElementById("topNav")
+      nav.classList.toggle("dropdown-active")
+      // disable body scrolling
+      $("body").toggleClass("no-scroll")
+    }
+  })
 
   // open the main navigation
   $(document).on('click', '.navbar-trigger-label', function (event) {
@@ -58,4 +71,3 @@
     }
   })
 })(document, window.jQuery)
-

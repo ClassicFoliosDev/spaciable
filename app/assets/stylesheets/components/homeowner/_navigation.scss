@@ -356,10 +356,10 @@ nav {
     .account-navigation {
       position: absolute;
       left: 0;
-      margin-left: 2px;
       right: auto;
       top: 0;
       margin-top: 4px;
+      z-index: 20;
 
       .dropdown {
         min-width: 0;
@@ -380,6 +380,18 @@ nav {
           padding-left: 0;
         }
       }
+      .dropdown-content {
+        background-color: $ui-white;
+        position: fixed;
+        top: 66px;
+        bottom: 0;
+        right: 0;
+        z-index: 20;
+        height: 100vh;
+        overflow: auto;
+        -webkit-overflow-scrolling:touch;
+        z-index: 20;
+      }
     }
 
     .burger-navigation {
@@ -396,7 +408,6 @@ nav {
     }
 
     .navbar-menu {
-
       .navbar {
         height: 100vh;
         overflow: auto;
@@ -430,6 +441,14 @@ nav {
           }
         }
       }
+    }
+  }
+
+  .main-navigation .dropdown-active {
+    height: 60px;
+
+    .burger-navigation, .logo {
+      display:none;
     }
   }
 }
