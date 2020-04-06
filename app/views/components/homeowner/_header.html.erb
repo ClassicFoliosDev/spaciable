@@ -20,28 +20,55 @@
           <div class="account-navigation" id="acctNav">
             <button class="dropdown branded-secondary" id="dropdownMenu"><span class="name"><%= current_resident.to_s %></span><i class="fa fa-angle-down" id="upDownArrow"></i></button>
             <div class="dropdown-content" id="navList">
-              <div class="branded-secondary dropdown-link">
-                <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
+              <div class="hidden-address branded-secondary" id="hiddenAddress">
+                <h4><%= t(".welcome_home", resident: current_resident.first_name) %></h4>
+                <% if plot.prefix.present? %>
+                <%= plot.prefix %>
+                <% end %>
+                <%= plot.postal_number %> <%= plot.building_name %>
+                <% if plot.building_name.present? && plot.road_name.present? %>
+                <br/>
+                <% end %>
+                <% if plot.road_name.present? %>
+                  <%= plot.road_name %><br/>
+                <% end %>
+                <% if plot.locality.present? %>
+                  <%= plot.locality %><br/>
+                <% end %>
+                <% if plot.city.present? %>
+                  <%= plot.city %><br/>
+                <% end %>
+                <% if plot.county.present? %>
+                  <%= plot.county %><br/>
+                <% end %>
+                <% if plot.postcode.present? %>
+                  <%= plot.postcode %><br/>
+                <% end %>
               </div>
-              <div class="branded-secondary dropdown-link">
-                <%= link_to t(".messages"), homeowners_notifications_path, class: "branded-secondary link-item" %>
+              <div class="links-list">
+                <div class="branded-secondary dropdown-link">
+                  <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
+                </div>
+                <div class="branded-secondary dropdown-link">
+                  <%= link_to t(".messages"), homeowners_notifications_path, class: "branded-secondary link-item" %>
+                </div>
+                <% if current_resident.listings? %>
+                <div class="branded-secondary dropdown-link">
+                  <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item"%>
+                </div>
+                <% end %>
+                <div class="branded-secondary dropdown-link">
+                  <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn branded-secondary link-item",
+                  data: data_for_feedback(current_resident) %>
+                </div>
+                <div class="branded-secondary dropdown-link">
+                  <%= button_tag t(".refer"), class: "refer-resident navigation-btn branded-secondary link-item",
+                      data: { cancel: t("edit.cancel"),
+                      cta: t(".send_invitation"),
+                      title: t(".refer_title")} %>
+                </div>
               </div>
-              <% if current_resident.listings? %>
-              <div class="branded-secondary dropdown-link">
-                <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item"%>
-              </div>
-              <% end %>
-              <div class="branded-secondary dropdown-link">
-                <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn branded-secondary link-item",
-                data: data_for_feedback(current_resident) %>
-              </div>
-              <div class="branded-secondary dropdown-link">
-                <%= button_tag t(".refer"), class: "refer-resident navigation-btn branded-secondary link-item",
-                    data: { cancel: t("edit.cancel"),
-                    cta: t(".send_invitation"),
-                    title: t(".refer_title")} %>
-              </div>
-              <div class="branded-secondary dropdown-link sign-out">
+              <div class="branded-secondary dropdown-link sign-out" id="signOut">
                 <%= link_to t("users.sign_out"),
                     destroy_resident_session_path,
                     method: :delete,

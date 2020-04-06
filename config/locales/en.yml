@@ -516,6 +516,7 @@ en:
         messages: "Messages"
         lettings: "Lettings"
         feedback: "Feedback"
+        welcome_home: "Welcome home, %{resident}."
         refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer A Friend"
         refer_title: "Refer A Friend."

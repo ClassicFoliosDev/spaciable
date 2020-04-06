@@ -1,13 +1,17 @@
 (function (document, $) {
   'use strict'
 
-  // make the dropdown menu the same width as the name element
-  document.addEventListener('turbolinks:load', function () {
+    document.addEventListener('turbolinks:load', function () {
+    // make the dropdown menu the same width as the name element (desktop only)
     var menuItem = document.getElementById("acctNav")
     var navList = document.getElementById("navList")
 
     var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
     navList.style.width = menuWidth
+
+    // hide the plot address (desktop only)
+    var address = document.getElementById("hiddenAddress")
+    address.style.display = "none"
   })
 
   // toggle the dropdown menu open and closed
@@ -38,6 +42,7 @@
     }
   })
 
+  // mobile view account dropdown alterations
   $(document).on('click', '.dropdown', function (event) {
     if ($(window).innerWidth() < 1025) {
       // hide the logo and hamburger navigation
@@ -45,6 +50,14 @@
       nav.classList.toggle("dropdown-active")
       // disable body scrolling
       $("body").toggleClass("no-scroll")
+      // show address
+      var address = document.getElementById("hiddenAddress")
+      address.style.display = "block"
+      // add fa to sign out
+      var signOut = document.querySelector("#signOut")
+      var faIcon = document.createElement('i')
+      faIcon.classList = "branded-secondary fa fa-angle-left"
+      signOut.insertBefore(faIcon, signOut.childNodes[0])
     }
   })
 

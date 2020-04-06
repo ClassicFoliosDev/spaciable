@@ -361,6 +361,25 @@ nav {
       margin-top: 4px;
       z-index: 20;
 
+      .hidden-address {
+        padding: $spacing-small;
+        padding-top: 0;
+        border-bottom: 2px solid $ui-light-grey;
+        padding-bottom: $spacing-large;
+        border-right: 2px solid $ui-light-grey;
+
+        h4 {
+          font-size: $base-font-size;
+          font-weight: $bold-font-weight;
+        }
+      }
+
+      .links-list {
+        padding-top: $spacing-medium;
+        padding-bottom: $spacing-medium;
+        border-bottom: 2px solid $ui-light-grey;
+      }
+
       .dropdown {
         min-width: 0;
         width: 60px;
@@ -380,6 +399,7 @@ nav {
           padding-left: 0;
         }
       }
+
       .dropdown-content {
         background-color: $ui-white;
         position: fixed;
@@ -391,6 +411,31 @@ nav {
         overflow: auto;
         -webkit-overflow-scrolling:touch;
         z-index: 20;
+        text-align: left;
+        border-top: none;
+
+        .sign-out {
+          position: absolute;
+          bottom: 80px;
+          border-top: none;
+          text-align: center;
+          right: 0;
+          left: 0;
+
+          .fa-angle-left {
+            padding-right: $spacing-small;
+            font-size: $title-font-size-5;
+            font-weight: $bold-font-weight;
+          }
+        }
+
+        .dropdown-link {
+          padding-left: $spacing-small;
+
+          .link-item {
+            line-height: 48px;
+          }
+        }
       }
     }
 
