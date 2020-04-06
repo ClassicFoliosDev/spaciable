@@ -341,6 +341,16 @@ nav {
 
     .logo {
       padding: 0;
+      position: absolute;
+      right: 38%;
+      left: auto;
+    }
+
+    .account-navigation {
+    position: absolute;
+      left: 4%;
+      right: auto;
+      top: 2%;
     }
 
     .burger-navigation {
