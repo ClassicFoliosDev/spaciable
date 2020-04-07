@@ -257,6 +257,7 @@ Rails.application.routes.draw do
   get "/how_tos", to: "homeowners/how_tos#list_how_tos", format: :json
   get "/how_tos/:id", to: "homeowners/how_tos#show_how_to", format: :json
   get "/dashboard", to: "homeowners/dashboard#show"
+  get "/plots", to: "homeowners/plots#show"
   get "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
   post "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
 
