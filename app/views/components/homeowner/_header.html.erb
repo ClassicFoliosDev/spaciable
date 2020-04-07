@@ -65,7 +65,7 @@
                 </div>
                 <% if current_resident.listings? %>
                 <div class="branded-secondary dropdown-link">
-                  <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item"%>
+                  <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item" %>
                 </div>
                 <% end %>
                 <div class="branded-secondary dropdown-link">
@@ -80,11 +80,12 @@
                 </div>
               </div>
               <div class="branded-secondary dropdown-link sign-out" id="signOut">
-                <%= link_to t("users.sign_out"),
-                    destroy_resident_session_path,
+                <%= link_to destroy_resident_session_path,
                     method: :delete,
                     data: { test: "homeowner-sign-out" },
-                    class: "branded-secondary link-item" %>
+                    class: "branded-secondary link-item" do %>
+                    <i class="fa fa-angle-left sign-out-arrow"></i><span><%= t("users.sign_out") %></span>
+                <% end %>
               </div>
             </div>
             </button>

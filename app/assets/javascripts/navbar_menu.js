@@ -64,11 +64,8 @@
       // show address
       var address = document.getElementById("hiddenAddress")
       address.style.display = "block"
-      // add fa to sign out
-      var signOut = document.querySelector("#signOut")
-      var faIcon = document.createElement('i')
-      faIcon.classList = "branded-secondary fa fa-angle-left"
-      signOut.insertBefore(faIcon, signOut.childNodes[0])
+      // show sign out arrow
+      $('.sign-out-arrow').toggle()
     }
   })
 

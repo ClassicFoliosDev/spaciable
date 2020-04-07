@@ -167,6 +167,10 @@ nav {
 
       .sign-out {
         border-top: 2px solid $ui-light-grey;
+
+        .fa-angle-left {
+          display: none;
+        }
       }
     }
   }
