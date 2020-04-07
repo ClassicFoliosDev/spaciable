@@ -527,6 +527,8 @@ en:
         email: "Email"
         phone: "Phone"
         refer_description: "Fill in your friend's details to refer them to your developer."
+      lower_navigation:
+        dashboard: "Dashboard"
       let_plot_details_form:
         let_plot_details: "We just need a few more details about your plot."
         bedrooms: "Bedrooms"

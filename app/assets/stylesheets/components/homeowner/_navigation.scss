@@ -514,4 +514,37 @@ nav {
       display:none;
     }
   }
+
+  .lower-navigation {
+    .quick-links {
+      position: fixed;
+      height: 50px;
+      width: 100%;
+      background-color: $ui-white;
+      z-index: 19;
+      bottom: 0;
+      border-top: 2px solid $ui-light-grey;
+      display: table;
+      padding: 5px;
+
+      .dashboard-link {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 5px 0;
+
+        .fa-home {
+          display: table-cell;
+          vertical-align: middle;
+          font-size: $title-font-size-3;
+        }
+
+        .text {
+          display: table-cell;
+          vertical-align: middle;
+          font-size: $ultra-small-font;
+          padding-left: $spacing-small;
+        }
+      }
+    }
+  }
 }
