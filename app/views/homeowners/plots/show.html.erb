@@ -1,1 +1,13 @@
-Hello
+<% content_for :hero_text_primary do %>
+<%= t(".title") %>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
+<div class="branded-body outer-container">
+  <div class="plots">
+    <% @plots.each do |plot| %>
+      <%= render "homeowners/components/plot", plot: plot %>
+    <% end %>
+  </div>
+</div>

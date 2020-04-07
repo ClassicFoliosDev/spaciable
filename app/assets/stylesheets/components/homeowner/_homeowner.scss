@@ -40,11 +40,6 @@ $homeowner-margin: 12px;
     max-height: 40px;
     max-width: 100%;
   }
-
-  .my-plots {
-    cursor: pointer;
-    font-size: $base-font-size;
-  }
 }
 
 .menu {
@@ -134,55 +129,6 @@ $homeowner-margin: 12px;
   }
 }
 
-.plot-list {
-  position: absolute;
-  top: 41px;
-  left: 5%;
-  width: 330px;
-  border: 1px solid $primary-navy;
-  border-radius: $border-radius;
-  background-color: $ui-white;
-  color: $ui-white;
-
-  a {
-    font-size: $base-small-font-size;
-  }
-
-  .ui-selectmenu-button {
-    border: none;
-  }
-
-  span {
-    color: $primary-navy;
-  }
-
-  .active-plot span {
-    color: $primary-red-left;
-  }
-
-  h5 {
-    font-size: $base-small-font-size;
-  }
-
-  img {
-    max-width: 40px;
-    margin-top: $spacing-small;
-  }
-}
-
-.plot-summary {
-  padding: $spacing-small;
-  border-bottom: 1px solid $primary-navy;
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  a {
-    cursor: pointer;
-  }
-}
-
 .my-home {
   color: $ui-white;
   background-size: cover;
@@ -245,18 +191,5 @@ $homeowner-margin: 12px;
 
   .small-menu {
     display: none;
-  }
-}
-
-// mobile view
-@include media($tablet-portrait-down) {
-  .menu {
-    padding-right: 0;
-  }
-
-  .plot-list {
-    width: 80%;
-    top: 45px;
-    left: 0;
   }
 }

@@ -1180,6 +1180,9 @@ en:
   homeowners:
     my_home_name: "My %{construction}"
     home: "Home"
+    plots:
+      show:
+        title: "My Plots."
     faqs:
       index:
         title: "Frequently Asked Questions."

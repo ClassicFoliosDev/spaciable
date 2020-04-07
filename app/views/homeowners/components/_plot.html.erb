@@ -1,14 +1,30 @@
-<div class="row plot-summary">
-  <%= link_to change_plot_path(id: plot.id) do %>
-    <div class="sixth">
+<div class="plot-summary">
+  <% if @plot.unit_type_picture.present? %>
+    <div class="row unit-image <%= 'active-plot' if session[:plot_id] == plot.id %>" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" ></div>
+  <% else %>
+    <div class="row unit-image <%= 'active-plot' if session[:plot_id] == plot.id %>" style="background-image: url('<%= image_path "Sign In Image 3.jpg" %>')" ></div>
+  <% end %>
+
+  <div class="row plot-address">
+    <div class="plot-logo">
       <%= image_tag brand_or_small_logo(plot.development.brand_any, plot) %>
     </div>
 
-
-    <div class="five-sixths <%= 'active-plot' if session[:plot_id] == plot.id %>">
+    <div class="address">
       <span><%= plot.developer %></span><br/>
       <span><%= plot.development %></span><br/>
-      <span class="strong"><%= plot.to_homeowner_s %></span>
+      <span><%= plot.to_homeowner_s %></span>
     </div>
+  </div>
+
+  <div class="row switch-plot">
+    Hello
+  </div>
+
+
+
+
+  <%= link_to change_plot_path(id: plot.id) do %>
   <% end %>
 </div>
+
