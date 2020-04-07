@@ -327,6 +327,13 @@ nav {
 
 // tablet view - landscape
 @include media($tablet-landscape-down) {
+
+
+
+}
+
+// mobile view / tablet view - portrait
+@include media($tablet-landscape-down) {
   .navbar-menu {
     // override default tablet styling for third
     .third {
@@ -348,60 +355,6 @@ nav {
     }
   }
 
-  .lower-navigation {
-    .quick-links {
-      display: table;
-      table-layout: fixed;
-      width: 100%;
-      .lower-navbar-search {
-        width: 50%;
-        display: table-cell;
-        .search-container {
-          margin-top: 8px;
-          display: block;
-          width: 100%;
-          input[type="text"] {
-            border: 1px solid $primary-red;
-            color: $primary-red;
-          }
-          // accommodate the different brousers
-          ::placeholder {
-            color: $primary-red;
-            opacity: 0.5;
-          }
-
-          :-ms-input-placeholder {
-            color: $primary-red;
-            opacity: 0.5;
-          }
-
-          ::-ms-input-placeholder {
-            color: $primary-red;
-            opacity: 0.5;
-          }
-          .search-btn {
-            color: $primary-red;
-
-            &:hover {
-              background-color: $primary-red;
-              color: $ui-white;
-            }
-          }
-        }
-      }
-      .notifications-link {
-        width: 30%;
-        text-align: left;
-      }
-      .dashboard-link {
-        width: 20%;
-      }
-    }
-  }
-}
-
-// mobile view / tablet view - portrait
-@include media($tablet-landscape-down) {
   .main-navigation .nav-inner {
      margin-top: $spacing-medium;
      margin-bottom: $spacing-medium;
@@ -570,6 +523,8 @@ nav {
 
   .lower-navigation {
     .quick-links {
+      display: table;
+      table-layout: fixed;
       position: fixed;
       height: 50px;
       width: 100%;
@@ -578,8 +533,10 @@ nav {
       bottom: 0;
       border-top: 2px solid $ui-light-grey;
       padding: 5px 20px;
+      padding-right: 30px;
 
       .dashboard-link {
+        width: 80%;
         display: table-cell;
         vertical-align: middle;
         padding: 5px 0;
@@ -602,6 +559,8 @@ nav {
         display: table-cell;
         vertical-align: middle;
         padding: 5px 0;
+        width: 10%;
+        text-align: right;
 
         .unread {
           background-color: $primary-background;
@@ -615,6 +574,17 @@ nav {
         .fa {
           font-size: $title-font-size-3;
           display: table-cell;
+        }
+      }
+
+      .searchbar-link {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: right;
+        width: 10%;
+
+        .fa {
+        font-size: $title-font-size-3;
         }
       }
     }
@@ -623,58 +593,58 @@ nav {
 
 // mobile view
 @include media($tablet-portrait-down) {
-.lower-navigation {
+  .lower-navigation {
     .quick-links {
-      position: fixed;
-      height: 50px;
-      width: 100%;
-      background-color: $ui-white;
-      z-index: 19;
-      bottom: 0;
-      border-top: 2px solid $ui-light-grey;
-      padding: 5px 15px;
-
       .dashboard-link {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 5px 0;
-
-        .fa-home {
-          display: table-cell;
-          vertical-align: middle;
-          font-size: $title-font-size-3;
-        }
-
-        .text {
-          display: table-cell;
-          vertical-align: middle;
-          font-size: $ultra-small-font;
-          padding-left: $spacing-small;
-        }
+        width: 70%;
       }
 
       .notifications-link {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 5px 0;
-
-        .unread {
-          background-color: $primary-background;
-          color: $ui-white;
-          border-radius: 50%;
-          padding: 1px 4px;
-          font-size: $ultra-small-font;
-          margin-right: -2px;
-        }
-
-        .fa {
-          font-size: $title-font-size-3;
-          display: table-cell;
-        }
+        width: 15%;
       }
-      .lower-navbar-search {
-        display: none;
+
+      .searchbar-link {
+        width: 15%;
       }
     }
   }
 }
+
+
+// .lower-navbar-search {
+//   width: 50%;
+//   display: table-cell;
+//
+//   .search-container {
+//     margin-top: 8px;
+//     display: block;
+//     width: 100%;
+//     input[type="text"] {
+//       border: 1px solid $primary-red;
+//       color: $primary-red;
+//     }
+//     // accommodate the different brousers
+//     ::placeholder {
+//       color: $primary-red;
+//       opacity: 0.5;
+//     }
+//
+//     :-ms-input-placeholder {
+//       color: $primary-red;
+//       opacity: 0.5;
+//     }
+//
+//     ::-ms-input-placeholder {
+//       color: $primary-red;
+//       opacity: 0.5;
+//     }
+//     .search-btn {
+//       color: $primary-red;
+//
+//       &:hover {
+//         background-color: $primary-red;
+//         color: $ui-white;
+//       }
+//     }
+//   }
+// }
