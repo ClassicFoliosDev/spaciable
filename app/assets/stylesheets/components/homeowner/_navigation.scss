@@ -116,6 +116,13 @@ nav {
       .fa {
         padding-left: $spacing-small;
       }
+
+      .unread {
+        background-color: $primary-background;
+        color: $ui-white;
+        border-radius: 50%;
+        padding: 1px 4px;
+      }
     }
 
     .dropdown-content {
@@ -131,6 +138,13 @@ nav {
       .dropdown-link {
         text-decoration: none;
         display: block;
+
+        .unread {
+          background-color: $primary-background;
+          color: $ui-white;
+          border-radius: 50%;
+          padding: 1px 4px;
+        }
 
         &:hover {
           background-color: $ui-light-grey;
@@ -389,6 +403,10 @@ nav {
         border-radius: 50%;
         text-align: center;
         font-size: 36px;
+
+        .unread {
+          display: none;
+        }
 
         .name {
           display: none;
