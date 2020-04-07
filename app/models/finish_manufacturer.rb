@@ -27,4 +27,12 @@ class FinishManufacturer < ApplicationRecord
                    }
 
   delegate :to_s, to: :name
+
+  def self.find_or_create(name, developer, type)
+    return nil if name.blank?
+    man = FinishManufacturer.find_or_initialize_by(name: name, developer_id: developer)
+    man.finish_type_ids |= [type.id] # add if unique
+    man.save!
+    man
+  end
 end

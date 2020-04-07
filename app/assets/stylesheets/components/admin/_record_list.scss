@@ -57,6 +57,10 @@ table.record-list {
     background-color: white;
   }
 
+  tr.view-only {
+    opacity: 0.5;
+  }
+
   .actions {
     text-align: right;
   }
