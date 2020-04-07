@@ -46,6 +46,13 @@
     }
   })
 
+  // open the search bar on tablet and mobile
+  $(document).on('click', '#lowerSearchLink', function (event) {
+    $('#lowerSearch').toggle()
+    // disable body scrolling
+    $("body").toggleClass("no-scroll")
+  })
+
   // mobile view account dropdown alterations
   $(document).on('click', '.dropdown', function (event) {
     if ($(window).innerWidth() < 1025) {

@@ -409,6 +409,7 @@ nav {
         border-radius: 50%;
         text-align: center;
         font-size: 36px;
+        margin-left: 5px;
 
         .unread {
           display: none;
@@ -522,6 +523,62 @@ nav {
   }
 
   .lower-navigation {
+    #lowerSearch {
+      display: none;
+    }
+    .lower-navbar-search {
+      position: fixed;
+      height: 100vh;
+      width: 100%;
+      background-color: $ui-white;
+      z-index: 18;
+      bottom: 0;
+      padding: 5px 20px;
+
+      .search-container {
+        margin-top: 100px;
+        width: 100%;
+        z-index: 18;
+
+        input[type="text"] {
+          border: 1px solid $primary-red;
+          color: $primary-red;
+        }
+        // accommodate the different brousers
+        ::placeholder {
+          color: $primary-red;
+          opacity: 0.5;
+        }
+
+        :-ms-input-placeholder {
+          color: $primary-red;
+          opacity: 0.5;
+        }
+
+        ::-ms-input-placeholder {
+          color: $primary-red;
+          opacity: 0.5;
+        }
+        .search-btn {
+          color: $primary-red;
+
+          &:hover {
+            background-color: $primary-red;
+            color: $ui-white;
+          }
+        }
+        .search-results-container {
+          width: 100%;
+          left: 0;
+          overflow: auto;
+          -webkit-overflow-scrolling:touch;
+          margin-top: 10px;
+          padding: 0 20px;
+          height: 80%;
+        }
+      }
+    }
+
     .quick-links {
       display: table;
       table-layout: fixed;
@@ -576,7 +633,6 @@ nav {
           display: table-cell;
         }
       }
-
       .searchbar-link {
         display: table-cell;
         vertical-align: middle;
@@ -609,42 +665,3 @@ nav {
     }
   }
 }
-
-
-// .lower-navbar-search {
-//   width: 50%;
-//   display: table-cell;
-//
-//   .search-container {
-//     margin-top: 8px;
-//     display: block;
-//     width: 100%;
-//     input[type="text"] {
-//       border: 1px solid $primary-red;
-//       color: $primary-red;
-//     }
-//     // accommodate the different brousers
-//     ::placeholder {
-//       color: $primary-red;
-//       opacity: 0.5;
-//     }
-//
-//     :-ms-input-placeholder {
-//       color: $primary-red;
-//       opacity: 0.5;
-//     }
-//
-//     ::-ms-input-placeholder {
-//       color: $primary-red;
-//       opacity: 0.5;
-//     }
-//     .search-btn {
-//       color: $primary-red;
-//
-//       &:hover {
-//         background-color: $primary-red;
-//         color: $ui-white;
-//       }
-//     }
-//   }
-// }
