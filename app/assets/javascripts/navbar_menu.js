@@ -39,6 +39,10 @@
       // set the dropdown width to 100%
       var navList = document.getElementById("navList")
       navList.style.width = "100%"
+      // remove header search element
+      var topNav = document.getElementById("topNav")
+      var search = topNav.querySelector(".search-container")
+      search.parentNode.removeChild(search)
     }
   })
 

@@ -73,7 +73,9 @@ $search-width: 460px;
 }
 
 @include media($tablet-landscape-down) {
-  .search-container {
-    display: none;
+  .admin-view {
+    .search-container {
+      display: none;
+    }
   }
 }

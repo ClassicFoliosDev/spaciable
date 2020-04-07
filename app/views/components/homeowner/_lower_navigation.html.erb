@@ -4,4 +4,20 @@
     <span class="dashboard-link"><i class="fa fa-home"></i> <span class="text"> <%= t(".dashboard") %></span></span>
     <% end %>
   </div>
+  <div class="notifications-link">
+    <%= link_to homeowners_notifications_path, class: "branded-secondary link-item" do %>
+      <% if unread_count.positive? %>
+        <sup class="unread"><%= unread_count %></sup>
+        <i class="fa fa-envelope-o branded-primary"></i>
+      <% else %>
+        <i class="fa fa-envelope-open-o branded-primary"></i>
+      <% end %>
+    <% end %>
+  </div>
+  <!-- search bar tablet view only -->
+  <div class="lower-navbar-search">
+    <%= render "components/search" %>
+  </div>
+
+
 </div>
