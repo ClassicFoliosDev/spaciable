@@ -1,4 +1,4 @@
-<div class="plot-summary">
+<div class="plot-summary branded-content">
   <% if @plot.unit_type_picture.present? %>
     <div class="row unit-image <%= 'active-plot' if session[:plot_id] == plot.id %>" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" ></div>
   <% else %>
@@ -10,7 +10,7 @@
       <%= image_tag brand_or_small_logo(plot.development.brand_any, plot) %>
     </div>
 
-    <div class="address">
+    <div class="address branded-text">
       <span><%= plot.developer %></span><br/>
       <span><%= plot.development %></span><br/>
       <span><%= plot.to_homeowner_s %></span>

@@ -79,6 +79,7 @@
       background-color: <%= brand.branded_header_color %>;
     }
 
+  <%-# ----------- OVER-RIDE DEFAULTS ------------ -%>
   <% else %>
 
     <%-# ----------- LOWER NAV BUTTON ------------ -%>
@@ -131,33 +132,29 @@
       border-color: <%= brand.branded_topnav_text_color %>;
     }
 
-<%-# ----------- OVER-RIDE DEFAULTS ------------ -%>
-<% else %>
+  <%-# ----------- OVER-RIDE DEFAULTS ------------ -%>
+  <% else %>
 
-  <%-# ----------- LOWER NAV BUTTON ------------ -%>
-  .lower-navigation .lower-nav-button {
-    <%= Brand.branded_hover_background_default %>
-    color: #FFF;
-    border: none;
-  }
+    <%-# ----------- LOWER NAV BUTTON ------------ -%>
+    .lower-navigation .lower-nav-button {
+      <%= Brand.branded_hover_background_default %>
+      color: #FFF;
+      border: none;
+    }
 
-  .lower-navigation .lower-nav-button:hover {
-    <%= Brand.branded_static_border_default %>;
-    <%= Brand.branded_static_text_default %>;
-    background-color: #FFF;
-  }
+    .lower-navigation .lower-nav-button:hover {
+      <%= Brand.branded_static_border_default %>;
+      <%= Brand.branded_static_text_default %>;
+      background-color: #FFF;
+    }
 
-  <%-# ------------ LOWER NAV LINKS ------------ -%>
-  .lower-navigation .quick-links .branded-nav-text {
-    <%= Brand.branded_primary_default %>
-    <%= Brand.branded_static_text_default %>
-  }
+    <%-# ------------ LOWER NAV LINKS ------------ -%>
+    .lower-navigation .quick-links .branded-nav-text {
+      <%= Brand.branded_primary_default %>
+      <%= Brand.branded_static_text_default %>
+    }
 
-<% end %>
-
-
-
-
+  <% end %>
 
   <% if brand.branded_text_color %>
     .branded-text {
@@ -284,6 +281,11 @@
   <% end %>
 
   <% if brand.branded_button_color %>
+
+    .plots .plot-summary .switch-plot .current-plot {
+      color: <%= brand.branded_button_color %>;
+    }
+
     .branded-btn {
       background-color: <%= brand.branded_button_color %>;
    }
@@ -354,6 +356,14 @@
 
     .document-permission {
       color: <%= brand.branded_button_text_color %> !important;
+    }
+
+    .plots .plot-summary .switch-plot .current-plot {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .plots .plot-summary .active-plot {
+      border-color: <%= brand.branded_button_text_color %>;
     }
 
   <% else %>
