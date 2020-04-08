@@ -45,6 +45,7 @@
 
 .my-home-address {
   line-height: 135%;
+  padding-bottom: $spacing-small;
 }
 
 @include media($tablet-portrait-up) {
