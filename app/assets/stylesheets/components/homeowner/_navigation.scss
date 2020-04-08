@@ -7,6 +7,7 @@ nav {
   position: fixed;
   width: 100%;
   z-index: 20;
+  top: 0;
 
   .nav-inner {
     @include outer-container(92%);

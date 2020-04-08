@@ -32,6 +32,7 @@
 }
 
 .branded-hero {
+  margin-top: 110px; // needed to prevent fixed navigation obscuring
   height: 160px;
   background-position: center center;
   background-repeat: no-repeat;
@@ -117,6 +118,14 @@
 .second-title {
   color: $primary-navy;
   margin-bottom: $spacing-large * 2 ;
+}
+
+// ensure hero is positioned correctly in tablet and mobile view
+
+@include media($tablet-landscape-down) {
+  .branded-hero {
+    margin-top: 65px;
+  }
 }
 
 // Show all of the sub-categories in mobile view
