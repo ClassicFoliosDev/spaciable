@@ -18,13 +18,11 @@
   </div>
 
   <div class="row switch-plot">
-    Hello
+    <% if session[:plot_id] == plot.id %>
+      <div class="current-plot"><span><%= t(".current_plot") %></span></div>
+    <% else %>
+      <%= link_to t(".switch"), change_plot_path(id: plot.id), class: "branded-btn-inverted swap-plot-btn" %>
+    <% end %>
   </div>
-
-
-
-
-  <%= link_to change_plot_path(id: plot.id) do %>
-  <% end %>
 </div>
 

@@ -48,7 +48,31 @@
     }
 
     .switch-plot {
+      text-align: right;
       height: 40px;
+
+      .swap-plot-btn {
+        padding: 5px;
+      }
+
+      .current-plot {
+        height: 35px;
+        background-color: $primary-red;
+        color: $ui-white;
+        border-radius: 5px;
+        width: 100px;
+        font-size: $base-font-size;
+        padding: 5px;
+        text-align: center;
+        float: right;
+        opacity: 0.5;
+        display: table;
+
+        span {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
     }
   }
 }

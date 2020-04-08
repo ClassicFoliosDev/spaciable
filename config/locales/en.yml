@@ -1313,6 +1313,9 @@ en:
         manual: "Manual"
         
     components:
+      plot:
+        switch: "Switch Plot"
+        current_plot: "Current Plot"
       contact:
         mobile: "Mobile"
         email: "Email"
