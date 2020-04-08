@@ -10,6 +10,14 @@ Given(/^I am logged in as an admin$/) do
 end
 
 When(/^I log in as an admin$/) do
+  admin_log_in
+end
+
+When(/^I log in as cf_admin$/) do
+  admin_log_in
+end
+
+def admin_log_in
   admin = CFAdminUserFixture
 
   visit "/admin/sign_in"
@@ -26,16 +34,8 @@ When(/^I log in as an admin$/) do
   end
 end
 
-When(/^I log out as a an admin$/) do
-  within ".navbar-menu" do
-    click_on "Log Out"
-  end
-end
-
-When(/^I log out as an admin$/) do
-  within ".navbar-menu" do
-    click_on "Log Out"
-  end
+When(/^I log out as (.*)admin$/) do |_|
+  log_out
 end
 
 Then(/^I should be on the admin dashboard$/) do
@@ -51,4 +51,10 @@ Then(/^I can request an admin password reset$/) do
 
   fill_in :user_email, with: CreateFixture.cf_admin.email
   click_on t("residents.passwords.new.submit")
+end
+
+def log_out
+  within ".navbar-menu" do
+    click_on "Log Out"
+  end
 end

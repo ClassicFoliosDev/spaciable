@@ -22,4 +22,8 @@ class FinishCategory < ApplicationRecord
                    }
 
   delegate :to_s, to: :name
+
+  def self.find_or_create(name, developer)
+    FinishCategory.find_or_create_by(name: name, developer_id: developer)
+  end
 end

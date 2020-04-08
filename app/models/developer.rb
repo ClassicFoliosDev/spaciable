@@ -183,7 +183,11 @@ class Developer < ApplicationRecord
   # rubocop:disable SkipsModelValidations
   def update_development_cas
     return unless cas_changed?
+    # update all developments to have cas on
     all_developments.each { |d| d.update_attribute(:cas, cas) }
+
+    # initilise CAS for the developer
+    Cas.initialise(id) if cas
   end
   # rubocop:enable SkipsModelValidations
 end

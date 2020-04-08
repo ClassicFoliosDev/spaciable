@@ -63,7 +63,7 @@ end
 When(/^I update the finish$/) do
   visit "/finishes"
 
-  within ".record-list" do
+  within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.finish_name}')]]") do
     find("[data-action='edit']").click
   end
 
@@ -110,7 +110,9 @@ end
 When(/^I remove an image from a finish$/) do
   visit "/finishes"
 
-  find("[data-action='edit']").click
+  within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.updated_name}')]]") do
+    find("[data-action='edit']").click
+  end
 
   within ".finish_picture" do
     remove_btn = find(".remove-btn", visible: false)
@@ -143,7 +145,7 @@ end
 
 When(/^I delete the finish$/) do
   visit "/finishes"
-  delete_and_confirm!
+  delete_and_confirm! scope: find(:xpath, ".//tr[td//text()[contains(., '#{CreateFixture.finish_name}')]]")
 end
 
 Then(/^I should see the finish deletion complete successfully$/) do
@@ -158,10 +160,6 @@ Then(/^I should see the finish deletion complete successfully$/) do
   end
 
   expect(page).not_to have_content(".record-list")
-
-  within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Finish.model_name.human)}}i
-  end
 end
 
 When(/^I delete the finish manufacturer$/) do

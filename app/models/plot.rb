@@ -83,6 +83,7 @@ class Plot < ApplicationRecord
 
   after_create :post_create
   after_update :post_update
+  after_save :check_completion
 
   enum progress: %i[
     soon
@@ -444,12 +445,21 @@ class Plot < ApplicationRecord
     PlotLog.process_rooms(self, [], rooms.to_a)
   end
 
+  # perform post update logging
   def post_update
     return unless unit_type_id_changed?
     return unless cas
     old_rooms = UnitType.find(unit_type_id_was).rooms.to_a
     PlotLog.process_rooms(self, old_rooms, rooms.to_a)
     PlotLog.unit_type_update(self)
+  end
+
+  # perform post completion initialisation
+  def check_completion
+    return unless developer.cas
+    return if completion_release_date.blank?
+    return unless unit_type_id_changed? || completion_release_date_changed?
+    Cas::Finishes.initalise_plots([self])
   end
 
   def log_threshold
