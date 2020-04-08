@@ -1,22 +1,22 @@
-<div class="quick-links">
+<div class="quick-links branded-nav-background">
   <div class="dashboard-link">
-    <%= link_to dashboard_path, class: "branded-btn-inverted" do %>
+    <%= link_to dashboard_path, class: "branded-btn-inverted lower-nav-button" do %>
     <span class="dashboard-link"><i class="fa fa-home"></i> <span class="text"> <%= t(".dashboard") %></span></span>
     <% end %>
   </div>
   <div class="notifications-link">
-    <%= link_to homeowners_notifications_path, class: "branded-secondary link-item" do %>
+    <%= link_to homeowners_notifications_path, class: "link-item" do %>
       <% if unread_count.positive? %>
         <sup class="unread"><%= unread_count %></sup>
-        <i class="fa fa-envelope-o branded-primary"></i>
+        <i class="fa fa-envelope-o branded-nav-text"></i>
       <% else %>
-        <i class="fa fa-envelope-open-o branded-primary"></i>
+        <i class="fa fa-envelope-open-o branded-nav-text"></i>
       <% end %>
     <% end %>
   </div>
   <!-- search bar mobile view only -->
   <div class="searchbar-link">
-    <i class="fa fa-search branded-primary" id="lowerSearchLink"></i>
+    <i class="fa fa-search branded-nav-text" id="lowerSearchLink"></i>
   </div>
 </div>
 

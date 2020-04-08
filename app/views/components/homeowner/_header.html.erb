@@ -1,6 +1,6 @@
 <header>
   <% if plot.present? %>
-    <nav class="main-navigation">
+    <nav class="main-navigation branded-nav-background">
       <div class="nav-inner" id="topNav">
         <!-- logo -->
         <div class="logo branded-logo">
@@ -17,17 +17,17 @@
         </div>
 
         <section>
-          <div class="account-navigation" id="acctNav">
-            <button class="dropdown branded-secondary" id="dropdownMenu">
+          <div class="account-navigation branded-nav-background" id="acctNav">
+            <button class="dropdown branded-nav-background branded-nav-text" id="dropdownMenu">
               <% if unread_count.positive? %>
                 <span class="unread"><%= unread_count %></span>
               <% end %>
               <span class="name"><%= current_resident.to_s %></span>
               <i class="fa fa-angle-down" id="upDownArrow"></i>
             </button>
-            <div class="dropdown-content" id="navList">
-              <div class="hidden-address branded-secondary" id="hiddenAddress">
-                <h4><%= t(".welcome_home", resident: current_resident.first_name) %></h4>
+            <div class="dropdown-content branded-nav-text branded-nav-background" id="navList">
+              <div class="hidden-address" id="hiddenAddress">
+                <h4 class="branded-nav-text"><%= t(".welcome_home", resident: current_resident.first_name) %></h4>
                 <% if plot.prefix.present? %>
                   <%= plot.prefix %>
                 <% end %>
@@ -52,14 +52,14 @@
                 <% end %>
               </div>
               <div class="links-list">
-                <div class="branded-secondary dropdown-link">
-                  <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
+                <div class="dropdown-link branded-nav-background">
+                  <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "link-item branded-nav-text" %>
                 </div>
-                <div class="branded-secondary dropdown-link">
-                  <%= link_to t(".plots"), plots_path, class: "branded-secondary link-item" %>
+                <div class="dropdown-link branded-nav-background">
+                  <%= link_to t(".plots"), plots_path, class: "link-item branded-nav-text" %>
                 </div>
-                <div class="branded-secondary dropdown-link">
-                  <%= link_to homeowners_notifications_path, class: "branded-secondary link-item" do %>
+                <div class="dropdown-link branded-nav-background">
+                  <%= link_to homeowners_notifications_path, class: "link-item branded-nav-text" do %>
                   <% if unread_count.positive? %>
                   <span class="unread"><%= unread_count %></span>
                   <% end %>
@@ -67,26 +67,26 @@
                   <% end %>
                 </div>
                 <% if current_resident.listings? %>
-                <div class="branded-secondary dropdown-link">
-                  <%= link_to t(".lettings"), letting_path(current_resident), class: "branded-secondary link-item" %>
+                <div class="dropdown-link branded-nav-background">
+                  <%= link_to t(".lettings"), letting_path(current_resident), class: "link-item branded-nav-text" %>
                 </div>
                 <% end %>
-                <div class="branded-secondary dropdown-link">
-                  <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn branded-secondary link-item",
+                <div class="dropdown-link branded-nav-background">
+                  <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn link-item branded-nav-text",
                   data: data_for_feedback(current_resident) %>
                 </div>
-                <div class="branded-secondary dropdown-link">
-                  <%= button_tag t(".refer"), class: "refer-resident navigation-btn branded-secondary link-item",
+                <div class="dropdown-link branded-nav-background">
+                  <%= button_tag t(".refer"), class: "refer-resident navigation-btn link-item branded-nav-text",
                       data: { cancel: t("edit.cancel"),
                       cta: t(".send_invitation"),
                       title: t(".refer_title")} %>
                 </div>
               </div>
-              <div class="branded-secondary dropdown-link sign-out" id="signOut">
+              <div class="dropdown-link sign-out branded-nav-background" id="signOut">
                 <%= link_to destroy_resident_session_path,
                     method: :delete,
                     data: { test: "homeowner-sign-out" },
-                    class: "branded-secondary link-item" do %>
+                    class: "link-item branded-nav-text" do %>
                     <i class="fa fa-angle-left sign-out-arrow"></i><span><%= t("users.sign_out") %></span>
                 <% end %>
               </div>
@@ -99,7 +99,7 @@
         <section class="burger-navigation">
           <input type="checkbox" id="menuBurger">
           <label for="menuBurger" class="burger navbar-trigger-label">
-            <div class="branded-text menu-text">Menu</div>
+            <div class="menu-text branded-nav-text">Menu</div>
             <div class="burger-bars">
               <span class="burger-bar bar-top"></span>
               <span class="burger-bar bar-middle"></span>

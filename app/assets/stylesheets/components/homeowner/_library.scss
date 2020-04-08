@@ -35,7 +35,6 @@
 
     a {
       font-size: $base-small-font-size;
-      color: $primary-navy;
     }
   }
 
@@ -49,7 +48,7 @@
     font-size: $base-small-font-size;
     padding-top: $spacing-small / 2;
 
-    a {
+    .branded-text a {
       font-size: $base-small-font-size;
       line-height: 17px;
     }

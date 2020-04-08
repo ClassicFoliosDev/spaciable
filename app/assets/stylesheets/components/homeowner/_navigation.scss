@@ -106,7 +106,7 @@ nav {
     .dropdown {
       background-color: $ui-white;
       padding: $spacing-small;
-      border: 2px solid $ui-light-grey;
+      border: 2px solid rgba(234, 234, 234, .7);
       border-radius: 5px;
       cursor: pointer;
       font-weight: $bold-font-weight;
@@ -274,7 +274,7 @@ nav {
 
       .third {
         height: 100%;
-        border-right: 2px solid $ui-grey;
+        border-right: 2px solid rgba(234, 234, 234, .7);
         padding: 2%;
         display: table;
         margin-right: 0;
@@ -400,7 +400,6 @@ nav {
         padding-top: 0;
         border-bottom: 2px solid $ui-light-grey;
         padding-bottom: $spacing-large;
-        border-right: 2px solid $ui-light-grey;
 
         h4 {
           font-size: $base-font-size;
@@ -449,7 +448,7 @@ nav {
         overflow: auto;
         -webkit-overflow-scrolling:touch;
         text-align: left;
-        border-top: none;
+        border: none !important;
 
         .sign-out {
           position: absolute;
@@ -661,7 +660,8 @@ nav {
   }
 
   .footer {
-    margin-bottom: 80px;
+    margin-bottom: 40px;
+    height: 80px;
   }
 }
 

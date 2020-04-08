@@ -1,6 +1,7 @@
 <style data-test="brand-style-overrides">
 
-  <%-# --- BODY BACKGROUND COLOUR --- -%>
+<%-# ------------------------------------------ -%>
+<%-# ------------- BODY BACKGROUND ------------ -%>
 
   <% if brand.branded_bg_color %>
     .branded-body {
@@ -12,69 +13,115 @@
     }
   <% end %>
 
-  <%-# ----------------------------------------- -%>
-  <%-# --- NAVIGATION BARS BACKGROUND COLOUR  --- -%>
+<%-# ------------------------------------------ -%>
+<%-# ------------ NAVIGATION BARS ------------- -%>
 
+  <%-# ---------- NAVIGATION BACKGROUND ---------- -%>
   <% if brand.branded_header_color %>
-    nav {
+    .branded-nav-background {
       background-color: <%= brand.branded_header_color %>;
     }
-    .main-navigation .nav-inner .account-navigation .dropdown {
-      background-color: <%= brand.branded_header_color %>;
-    }
-    .lower-navigation .quick-links {
+
+    <%-# ------------------ LOWER ------------------ -%>
+    .lower-navigation .branded-nav-background {
       background-color: <%= brand.branded_header_color %>;
       border-top: none;
     }
+
+    <%-# ------------ ACCOUNT DROPDOWN ------------- -%>
+    .main-navigation .nav-inner .account-navigation .dropdown,
+    .main-navigation .nav-inner .account-navigation .dropdown-content {
+      background-color: <%= brand.branded_header_color %>;
+    }
+
+    <%-# ----- ACCOUNT DROPDOWN - LINKS HOVER ------ -%>
+    .main-navigation .nav-inner .account-navigation .dropdown-content .dropdown-link:hover,
+    .main-navigation .nav-inner .account-navigation .dropdown-content .dropdown-link .navigation-btn:hover,
+    .main-navigation .nav-inner .navbar-menu .navbar .third .links .navbar-item:hover {
+      background-color: #B3B5B7;
+    }
+
+    <%-# ------- ACCOUNT DROPDOWN - BORDERS -------- -%>
+    .main-navigation .nav-inner .account-navigation .dropdown-content {
+      border: 2px solid #B3B5B7;
+    }
+    .main-navigation .nav-inner .account-navigation .dropdown-content .sign-out {
+      border-top: 2px solid #B3B5B7;
+    }
+
+    .main-navigation .nav-inner .account-navigation .links-list,
+    .main-navigation .nav-inner .account-navigation .hidden-address,
+    .main-navigation .nav-inner .navbar-menu .navbar .third {
+      border-bottom: 2px solid #B3B5B7;
+    }
+
+    <%-# --------------- BURGER MENU --------------- -%>
+    .main-navigation .nav-inner .navbar-menu {
+      background-color: <%= brand.branded_header_color %>;
+    }
+
+    .main-navigation .nav-inner .account-navigation .dropdown-content .sign-out {
+      border-top: none;
+    }
+
+    <%-# ----------------- FOOTER ------------------ -%>
+    .footer {
+      background-color: <%= brand.branded_header_color %>;
+    }
+
+    <%-# ----------- LOWER NAV BUTTON ------------ -%>
+    .lower-navigation .lower-nav-button {
+      color: <%= brand.branded_header_color %>;
+      border-color: <%= brand.branded_header_color %>;
+    }
+
+    .lower-navigation .lower-nav-button:hover {
+      background-color: <%= brand.branded_header_color %>;
+    }
   <% end %>
 
-  <%-# ----------------------------------------- -%>
-  <%-# --- NAVIGATION BARS TEXT COLOUR  --- -%>
-
+  <%-# ------------ NAVIGATION TEXT ------------- -%>
   <% if brand.branded_topnav_text_color %>
-    
+    .branded-nav-text,
+    .branded-nav-text a {
+      color: <%= brand.branded_topnav_text_color %>;
+    }
 
-    .branded-primary {
+    <%-# --------------- BURGER MENU --------------- -%>
+    .main-navigation .nav-inner .burger-navigation .burger-bar {
+      background-color: <%= brand.branded_topnav_text_color %>;
+    }
+
+    <%-# ----------------- FOOTER ------------------ -%>
+    .footer .copyright,
+    .footer a {
       color: <%= brand.branded_topnav_text_color %>;
     }
-    .full-menu .active-link {
+
+    <%-# --------------- SEARCH BAR ---------------- -%>
+    .nav-inner .search-container input,
+    .nav-inner .search-container .btn {
+      color: <%= brand.branded_topnav_text_color %> !important;
+    }
+    .nav-inner .search-container .btn:hover {
+      background-color: <%= brand.branded_topnav_text_color %> !important;
+      color: #FFF !important;
+    }
+
+    <%-# ----------- LOWER NAV BUTTON ------------ -%>
+    .lower-navigation .lower-nav-button {
+      background-color: <%= brand.branded_topnav_text_color %>;
+    }
+
+    .lower-navigation .lower-nav-button:hover {
       color: <%= brand.branded_topnav_text_color %>;
-     }
-    .full-menu a:hover {
-      color: <%= brand.branded_topnav_text_color %>;
-    }
-    .full-menu .my-plots:hover {
-      color: <%= brand.branded_topnav_text_color %>;
-    }
-    .full-menu .feedback-btn:hover {
-      color: <%= brand.branded_topnav_text_color %>;
-    }
-    .sub-navigation-container .nav-inner ul .active li {
-      color: <%= brand.branded_topnav_text_color %>;
-    }
-  <% else %>
-    .branded-primary {
-      <%= Brand.branded_primary_default %>
-    }
-    .full-menu .active-link {
-      <%= Brand.branded_primary_default %>
-     }
-    .full-menu a:hover {
-      <%= Brand.branded_primary_default %>
-    }
-    .full-menu .my-plots:hover {
-      <%= Brand.branded_primary_default %>
-    }
-    .full-menu .feedback-btn:hover {
-      <%= Brand.branded_primary_default %>
-    }
-    .nav-inner ul .active li {
-      <%= Brand.branded_second_header_default %>
-    }
-    .document-permission {
-      <%= Brand.branded_primary_default %>
+      border-color: <%= brand.branded_topnav_text_color %>;
     }
   <% end %>
+
+
+
+
 
   <% if brand.branded_text_color %>
     .branded-text {
@@ -127,14 +174,7 @@
     .plot-choices .homeowner-container .choice-item {
       border-color: <%= brand.branded_text_color %> !important;
     }
-    .nav-inner .search-container input,
-    .nav-inner .search-container .btn {
-      color: <%= brand.branded_text_color %> !important;
-    }
-    .nav-inner .search-container .btn:hover {
-      background-color: <%= brand.branded_text_color %> !important;
-      color: #FFF !important;
-    }
+
 
   <% else %>
     .branded-text {
