@@ -56,6 +56,9 @@
                   <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "branded-secondary link-item" %>
                 </div>
                 <div class="branded-secondary dropdown-link">
+                  <%= link_to t(".plots"), plots_path, class: "branded-secondary link-item" %>
+                </div>
+                <div class="branded-secondary dropdown-link">
                   <%= link_to homeowners_notifications_path, class: "branded-secondary link-item" do %>
                   <% if unread_count.positive? %>
                   <span class="unread"><%= unread_count %></span>
