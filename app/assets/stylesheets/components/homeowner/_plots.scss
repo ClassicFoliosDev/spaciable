@@ -77,6 +77,21 @@
   }
 }
 
+// mobile view / tablet view
+@include media($tablet-portrait-down) {
+  .plots{
+    .plot-summary {
+      @include span-columns(12 of 12);
+      height: 150px;
+      padding-right: 12px;
+
+      .unit-image {
+        display: none;
+      }
+    }
+  }
+}
+
 
 
 

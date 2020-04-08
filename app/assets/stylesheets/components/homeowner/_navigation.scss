@@ -336,7 +336,7 @@ nav {
 
 }
 
-// mobile view / tablet view - portrait
+// mobile view / tablet view
 @include media($tablet-landscape-down) {
   .navbar-menu {
     // override default tablet styling for third
