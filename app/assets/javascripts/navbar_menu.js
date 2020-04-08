@@ -69,10 +69,13 @@
     }
   })
 
-  // show the logo and hamburger navigation when account dropdown closed
+  // repair styling/functionality when account dropdown closed via click anywhere
   $(document).on('click', '#navList', function (event) {
+    // show hamburger navigation
     var nav = document.getElementById("topNav")
     nav.classList.remove("dropdown-active")
+    // allow body scrolling
+    document.body.classList.remove("no-scroll")
   })
 
   // open the main navigation
