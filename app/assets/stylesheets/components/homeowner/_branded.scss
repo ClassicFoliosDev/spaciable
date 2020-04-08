@@ -44,6 +44,13 @@
   padding-bottom: $spacing-medium;
 }
 
+.branded-nav-text,
+.branded-nav-text a {
+  color: $primary-navy;
+}
+
+
+
 .branded-border {
   border-width: 1px;
   border-style: solid;

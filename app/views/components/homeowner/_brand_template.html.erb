@@ -78,10 +78,23 @@
     .lower-navigation .lower-nav-button:hover {
       background-color: <%= brand.branded_header_color %>;
     }
+
+  <% else %>
+
+    <%-# ----------- LOWER NAV BUTTON ------------ -%>
+    .lower-navigation .lower-nav-button {
+      color: #FFF;
+      border-color: #FFF;
+    }
+
+    .lower-navigation .lower-nav-button:hover {
+      background-color: #FFF;
+    }
   <% end %>
 
   <%-# ------------ NAVIGATION TEXT ------------- -%>
   <% if brand.branded_topnav_text_color %>
+
     .branded-nav-text,
     .branded-nav-text a {
       color: <%= brand.branded_topnav_text_color %>;
@@ -117,7 +130,30 @@
       color: <%= brand.branded_topnav_text_color %>;
       border-color: <%= brand.branded_topnav_text_color %>;
     }
-  <% end %>
+
+<%-# ----------- OVER-RIDE DEFAULTS ------------ -%>
+<% else %>
+
+  <%-# ----------- LOWER NAV BUTTON ------------ -%>
+  .lower-navigation .lower-nav-button {
+    <%= Brand.branded_hover_background_default %>
+    color: #FFF;
+    border: none;
+  }
+
+  .lower-navigation .lower-nav-button:hover {
+    <%= Brand.branded_static_border_default %>;
+    <%= Brand.branded_static_text_default %>;
+    background-color: #FFF;
+  }
+
+  <%-# ------------ LOWER NAV LINKS ------------ -%>
+  .lower-navigation .quick-links .branded-nav-text {
+    <%= Brand.branded_primary_default %>
+    <%= Brand.branded_static_text_default %>
+  }
+
+<% end %>
 
 
 
