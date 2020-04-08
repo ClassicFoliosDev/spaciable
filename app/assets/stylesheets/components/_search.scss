@@ -5,6 +5,7 @@ $search-width: 460px;
   width: $search-width + 40px;
   font-size: $base-small-font-size;
   line-height: $base-small-font-size;
+  opacity: 0.7;
 
   // accommodate the different brousers
   ::placeholder {
@@ -76,6 +77,11 @@ $search-width: 460px;
   .admin-view {
     .search-container {
       display: none;
+    }
+  }
+  .homeowner-view {
+    .search-container {
+      opacity: 1;
     }
   }
 }

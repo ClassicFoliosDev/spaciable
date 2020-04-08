@@ -1,5 +1,7 @@
 <style data-test="brand-style-overrides">
 
+  <%-# --- BODY BACKGROUND COLOUR --- -%>
+
   <% if brand.branded_bg_color %>
     .branded-body {
       background-color: <%= brand.branded_bg_color %>;
@@ -10,29 +12,28 @@
     }
   <% end %>
 
+  <%-# ----------------------------------------- -%>
+  <%-# --- NAVIGATION BARS BACKGROUND COLOUR  --- -%>
+
   <% if brand.branded_header_color %>
-    .branded-header {
+    nav {
       background-color: <%= brand.branded_header_color %>;
     }
-    .branded-secondary {
-      color: <%= brand.branded_header_color %>;
+    .main-navigation .nav-inner .account-navigation .dropdown {
+      background-color: <%= brand.branded_header_color %>;
     }
-    .navbar-item-secondary {
-      color: <%= brand.branded_header_color %>
-    }
-  <% else %>
-    .branded-header {
-      <%= Brand.branded_header_default %>
-    }
-    .branded-secondary {
-      <%= Brand.branded_secondary_default %>
-    }
-    .navbar-item-secondary {
-      <%= Brand.branded_secondary_default %>
+    .lower-navigation .quick-links {
+      background-color: <%= brand.branded_header_color %>;
+      border-top: none;
     }
   <% end %>
 
+  <%-# ----------------------------------------- -%>
+  <%-# --- NAVIGATION BARS TEXT COLOUR  --- -%>
+
   <% if brand.branded_topnav_text_color %>
+    
+
     .branded-primary {
       color: <%= brand.branded_topnav_text_color %>;
     }
@@ -84,7 +85,8 @@
      color: <%= brand.branded_text_color %>;
      }
 
-    <%-# --- Specifics elements that need overriding --- -%>
+    <%-# --- Specific elements that need overriding --- -%>
+
     .unlet-plot .letable-plot .letting-btn {
       border-color: <%= brand.branded_text_color %>;
       color: <%= brand.branded_text_color %>;
@@ -125,14 +127,15 @@
     .plot-choices .homeowner-container .choice-item {
       border-color: <%= brand.branded_text_color %> !important;
     }
-    .nav-inner .search-container input, .nav-inner .search-container .btn {
+    .nav-inner .search-container input,
+    .nav-inner .search-container .btn {
       color: <%= brand.branded_text_color %> !important;
-      border-color: <%= brand.branded_text_color %> !important;
     }
     .nav-inner .search-container .btn:hover {
       background-color: <%= brand.branded_text_color %> !important;
       color: #FFF !important;
     }
+
   <% else %>
     .branded-text {
       <%= Brand.branded_text_default %>

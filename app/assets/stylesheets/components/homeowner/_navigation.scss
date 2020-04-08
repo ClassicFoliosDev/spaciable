@@ -90,7 +90,7 @@ nav {
     margin-right: auto;
     margin-left: auto;
     input[type="text"] {
-      border: 2px solid $ui-light-grey;
+      border: 2px solid $ui-grey;
     }
     .btn {
       font-size: 12px;
@@ -324,6 +324,19 @@ nav {
   .search-container {
     margin-top: 8px;
     display: block;
+
+    // placeholder styling - accommodate the different browsers
+    ::placeholder {
+      color: $ui-dark-grey;
+    }
+
+    :-ms-input-placeholder {
+      color: $ui-dark-grey;
+    }
+
+    ::-ms-input-placeholder {
+      color: $ui-dark-grey;
+    }
   }
 
   .homeowner-view {
@@ -410,7 +423,6 @@ nav {
         border-radius: 50%;
         text-align: center;
         font-size: 36px;
-        margin-left: 5px;
 
         .unread {
           display: none;
@@ -544,7 +556,8 @@ nav {
           border: 1px solid $primary-red;
           color: $primary-red;
         }
-        // accommodate the different brousers
+
+        // placeholder styling - accommodate the different browsers
         ::placeholder {
           color: $primary-red;
           opacity: 0.5;
@@ -559,6 +572,7 @@ nav {
           color: $primary-red;
           opacity: 0.5;
         }
+
         .search-btn {
           color: $primary-red;
 
@@ -644,6 +658,10 @@ nav {
         }
       }
     }
+  }
+
+  .footer {
+    margin-bottom: 80px;
   }
 }
 
