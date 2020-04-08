@@ -329,14 +329,7 @@ nav {
   }
 }
 
-// tablet view - landscape
-@include media($tablet-landscape-down) {
-
-
-
-}
-
-// mobile view / tablet view
+// mobile view / tablet view - portrait
 @include media($tablet-landscape-down) {
   .navbar-menu {
     // override default tablet styling for third
@@ -439,7 +432,6 @@ nav {
         height: 100vh;
         overflow: auto;
         -webkit-overflow-scrolling:touch;
-        z-index: 20;
         text-align: left;
         border-top: none;
 

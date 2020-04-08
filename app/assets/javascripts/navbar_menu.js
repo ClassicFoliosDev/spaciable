@@ -69,6 +69,12 @@
     }
   })
 
+  // show the logo and hamburger navigation when account dropdown closed
+  $(document).on('click', '#navList', function (event) {
+    var nav = document.getElementById("topNav")
+    nav.classList.remove("dropdown-active")
+  })
+
   // open the main navigation
   $(document).on('click', '.navbar-trigger-label', function (event) {
     $('.navbar-menu').animate({width: 'toggle'})
