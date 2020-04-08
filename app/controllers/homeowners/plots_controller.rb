@@ -4,9 +4,7 @@ module Homeowners
   class PlotsController < Homeowners::BaseController
     skip_authorization_check
 
-    def show
-
-    end
+    def show; end
 
   end
 end

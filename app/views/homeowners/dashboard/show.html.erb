@@ -17,7 +17,7 @@
             <div class="card-header">
               <h2 class="card-title-alt"><%= t('.my_title', construction: @plot.my_home_name) %></h2>
             </div>
-            <%= render "homeowners/components/address", plot: @plot %>
+            <%= render "homeowners/components/address", plot: @plot, plots: @plots %>
             </div>
           </div>
           <div class="row articles">
@@ -47,7 +47,7 @@
             <div class="card-header">
               <h2 class="card-title-alt"><%= t('.my_title', construction: @plot.my_home_name) %></h2>
             </div>
-            <%= render "homeowners/components/address", plot: @plot %>
+            <%= render "homeowners/components/address", plot: @plot, plots: @plots %>
           </div>
       <%= render "homeowners/dashboard/library", documents: @documents %>
       </div>

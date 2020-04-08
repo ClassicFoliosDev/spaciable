@@ -1329,6 +1329,7 @@ en:
         new: "New"
       address:
         view_more: "View %{construction}"
+        switch_plot: "Switch Plot"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
