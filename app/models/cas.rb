@@ -42,7 +42,7 @@ class Cas
         # would think that this could be achieved some nice joins .. but .. such is the implementation
         # of plot rooms -mixing UT and Plot rooms together using a scope (see rooms in Plot) then this
         # makes it next to impossible so we have to work through it.
-        period = (Time.now.midnight - 100.years)..Time.now.midnight
+        period = (Date.today - 100.years)..Date.today
         # Get all the released plots for the developer
         initalise_plots(Plot.where({ developer_id: developer_id, completion_release_date: period }))
       end

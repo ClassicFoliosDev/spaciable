@@ -30,7 +30,7 @@ $(document).on('click', '.finish .ui-menu-item', function (event) {
 
     // Only run through this code if adding an appliance to a room
     // Not when creating a new appliance
-  } else if (listClasses.contains('finish-manufacturer') && (addFinish.length > 0)) {
+  } else if (listClasses.contains('finish_manufacturer') && (addFinish.length > 0)) {
     var finishesSelect = clearFields(finishesDiv)
     url = '/finish_list'
     setFields(finishesSelect, url, { category: category.id, type: finishType.id, manufacturer: manufacturer.id })
