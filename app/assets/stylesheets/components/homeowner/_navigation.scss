@@ -40,6 +40,55 @@ nav {
   }
 }
 
+.sub-navigation-container {
+  @include outer-container(92%);
+  margin-top: $spacing-small;
+  text-align: center;
+  background-color: $ui-white;
+  border-bottom: 2px solid $ui-light-grey;
+  min-height: 30px;
+
+  .sub-nav-links {
+    display: table;
+    margin: auto;
+    width: 70%;
+    text-align: center;
+    padding-top: auto;
+    padding-bottom: 0;
+  }
+
+  .navbar-item {
+    display: inline-block;
+    list-style-type: none;
+    cursor: pointer;
+    display: table-cell;
+    vertical-align: bottom;
+
+    &:hover .navbar-item-secondary {
+      opacity: 1;
+    }
+  }
+
+  .navbar-item-secondary {
+    width: 200px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    color: $primary-navy;
+    opacity: 0.7;
+    font-weight: $semi-bold-font-weight;
+    line-height: 34px;
+    margin: auto;
+  }
+
+  .active {
+    .navbar-item-secondary {
+      opacity: 1;
+      border-bottom: 2px solid $primary-red-left;
+    }
+  }
+}
+
 .footer {
   height: 40px;
   line-height: 36px;
@@ -55,18 +104,6 @@ nav {
     font-size: inherit;
   }
 }
-
-.sub-navigation-container {
-  border-top: solid 1px $ui-grey;
-  padding: 10px 20px;
-  text-align: center;
-
-  h3 {
-    margin-bottom: 0;
-  }
-}
-
-// RESIDENT NAVIGATION
 
 .main-navigation .nav-inner {
   display: flex;

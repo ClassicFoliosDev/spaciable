@@ -2,6 +2,8 @@
 
 <%= render "components/homeowner/hero" %>
 
+<%= render "components/homeowner/sub_menu", active_tab: "library", plot: @plot %>
+
 <div class="main-container">
   <% if @private_document.errors.any? %>
     <div class="submission-errors">

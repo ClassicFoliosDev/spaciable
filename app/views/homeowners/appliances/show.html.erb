@@ -4,11 +4,13 @@
 
 <%= render "components/homeowner/hero" %>
 
+<%= render "components/homeowner/sub_menu", active_tab: "appliances", plot: @plot %>
+
 <div class="branded-body">
   <div class="appliances">
     <% @appliances.each do | appliance | %>
       <% next unless appliance %>
-      <div class="appliance branded-content branded-border">
+      <div class="appliance branded-content">
         <div class="images">
           <h3 class="branded-text"><%= appliance.appliance_category %></h3>
           <% if appliance.primary_image? %>
