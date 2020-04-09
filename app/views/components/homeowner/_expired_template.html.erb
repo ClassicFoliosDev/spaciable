@@ -10,8 +10,13 @@
     <%= Brand.branded_header_default %>
   }
 
-  .branded-nav-text {
-    <%= Brand.branded_primary_default %>
+  .branded-nav-text,
+  .branded-nav-text a {
+    <%= Brand.branded_secondary_default %>;
+  }
+
+  .lower-navigation .branded-nav-text {
+    <%= Brand.branded_primary_default %>;
   }
 
   .branded-text {
