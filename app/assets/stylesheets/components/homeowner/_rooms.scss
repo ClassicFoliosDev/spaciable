@@ -82,7 +82,7 @@ $icon-color: #252C31;
 @include media($tablet-landscape-down) {
   .branded-body {
     .rooms {
-      width: 480px;
+      width: 90%;
     }
 
     .fifth {
@@ -97,9 +97,6 @@ $icon-color: #252C31;
 
 @include media($mobile-down) {
   .branded-body {
-    .rooms {
-      width: 280px;
-    }
 
     .two-fifths {
       @include span-columns(10 of 10);
