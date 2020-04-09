@@ -32,7 +32,6 @@
   }
 
   .ui-accordion-header {
-    background: $ui-white;
     margin-top: $spacing-small;
     &:focus {
       outline: none;
@@ -46,6 +45,14 @@
       margin-bottom: $spacing-small;
     }
   }
+}
+
+.ui-accordion-header {
+  background: $ui-white;
+}
+
+.ui-widget-content {
+  background: $ui-white;
 }
 
 .check-contacts {

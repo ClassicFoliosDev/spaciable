@@ -14,12 +14,14 @@
       <% end %>
     </div>
   </div>
+
+  <div class="disclaimer">
+    <span><%= t(".disclaimer").html_safe %></span>
+  </div>
 </div>
 
 <% if current_resident&.plot_residency_homeowner?(@plot) %>
   <%= render "homeowners/components/sharing_info", plot: @plot %>
 <% end %>
 
-<div class="disclaimer branded-body">
-  <span><%= t(".disclaimer").html_safe %></span>
-</div>
+

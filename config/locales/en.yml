@@ -1193,6 +1193,9 @@ en:
         title: "Rooms."
         view: "View room"
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
+    about_videos:
+      show:
+        title: "Introductory Video."
     contacts:
       index:
         title: "Contacts."
