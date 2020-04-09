@@ -1,7 +1,5 @@
 <%= render "components/homeowner/library_hero", active_category: @category, categories: @categories, plot: @plot %>
 
-<%= render "components/homeowner/sub_header", active_tab: "library", plot: @plot %>
-
 <div class="main-container">
   <div class="videos">
     <% @videos.each do | video | %>
