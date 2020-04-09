@@ -1,0 +1,34 @@
+<aside>
+  <div class="nav-inner">
+    <ul>
+      <% if plot.unit_type.external_link? %>
+        <%= link_to homeowner_about_path, active_tab: "about",
+            class: "branded-primary #{'active' if active_tab == 'about' }" do %>
+          <li class="navbar-item navbar-item-secondary"><%= t(".about") %></li>
+        <% end %>
+      <% end %>
+
+      <% if plot.rooms.any? %>
+        <%= link_to homeowner_rooms_path, active_tab: "rooms",
+            class: "branded-primary #{'active' if active_tab == 'rooms' }" do %>
+          <li class="navbar-item navbar-item-secondary"><%= t(".rooms") %></li>
+        <% end %>
+      <% end %>
+
+      <% if Appliance.accessible_by(current_ability).any?  ||
+         (plot&.appliance_choices.present? && plot&.appliance_choices&.length > 0) %>
+        <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "branded-primary #{'active' if active_tab == 'appliances' }" do %>
+          <li class="navbar-item navbar-item-secondary">
+            <%= t(".appliances") %>
+          </li>
+        <% end %>
+      <% end %>
+
+      <%= link_to homeowner_library_path, active_tab: "library", class: "branded-primary #{'active' if active_tab == 'library' }" do %>
+        <li class="navbar-item navbar-item-secondary">
+          <%= t('.library') %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</aside>

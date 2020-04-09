@@ -486,6 +486,11 @@ en:
         confirm_message: "Please ensure your choices selections are correct. The homeowner will be informed of these choices"
 
     homeowner:
+      sub_menu:
+        about: "About"
+        rooms: "Rooms"
+        appliances: "Appliances"
+        library: "Library"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"

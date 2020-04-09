@@ -4,6 +4,8 @@
 
 <%= render "components/homeowner/hero" %>
 
+<%= render "components/homeowner/sub_menu", active_tab: "rooms", plot: @plot %>
+
 <div class="branded-body">
   <div class="rooms">
     <span class="branded-text rooms-disclaimer"><%= t(".disclaimer") %></span>
