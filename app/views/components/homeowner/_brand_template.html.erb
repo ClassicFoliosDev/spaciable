@@ -18,30 +18,25 @@
 
   <%-# ---------- NAVIGATION BACKGROUND ---------- -%>
   <% if brand.branded_header_color %>
+
     .branded-nav-background {
       background-color: <%= brand.branded_header_color %>;
     }
 
-    <%-# ------------------ LOWER ------------------ -%>
-    .lower-navigation .branded-nav-background {
-      background-color: <%= brand.branded_header_color %>;
-      border-top: none;
-    }
-
-    <%-# ------------ ACCOUNT DROPDOWN ------------- -%>
+    <%-# -------- ACCOUNT DROPDOWN (DESKTOP)--------- -%>
     .main-navigation .nav-inner .account-navigation .dropdown,
     .main-navigation .nav-inner .account-navigation .dropdown-content {
       background-color: <%= brand.branded_header_color %>;
     }
 
-    <%-# ----- ACCOUNT DROPDOWN - LINKS HOVER ------ -%>
+    <%-# ------ ACCOUNT DROPDOWN - LINKS HOVER ------ -%>
     .main-navigation .nav-inner .account-navigation .dropdown-content .dropdown-link:hover,
     .main-navigation .nav-inner .account-navigation .dropdown-content .dropdown-link .navigation-btn:hover,
     .main-navigation .nav-inner .navbar-menu .navbar .third .links .navbar-item:hover {
       background-color: #B3B5B7;
     }
 
-    <%-# ------- ACCOUNT DROPDOWN - BORDERS -------- -%>
+    <%-# -------- ACCOUNT DROPDOWN - BORDERS -------- -%>
     .main-navigation .nav-inner .account-navigation .dropdown-content {
       border: 2px solid #B3B5B7;
     }
@@ -64,12 +59,13 @@
       border-top: none;
     }
 
-    <%-# ----------------- FOOTER ------------------ -%>
-    .footer {
+    <%-# ---------- LOWER (TABLET/MOBILE) ---------- -%>
+    .lower-navigation .branded-nav-background {
       background-color: <%= brand.branded_header_color %>;
+      border-top: none;
     }
 
-    <%-# ----------- LOWER NAV BUTTON ------------ -%>
+    <%-# --------------- LOWER BUTTON -------------- -%>
     .lower-navigation .lower-nav-button {
       color: <%= brand.branded_header_color %>;
       border-color: <%= brand.branded_header_color %>;
@@ -79,10 +75,15 @@
       background-color: <%= brand.branded_header_color %>;
     }
 
+    <%-# ----------------- FOOTER ------------------ -%>
+    .footer {
+      background-color: <%= brand.branded_header_color %>;
+    }
+
   <%-# ----------- OVER-RIDE DEFAULTS ------------ -%>
   <% else %>
 
-    <%-# ----------- LOWER NAV BUTTON ------------ -%>
+    <%-# -------------- LOWER BUTTON --------------- -%>
     .lower-navigation .lower-nav-button {
       color: #FFF;
       border-color: #FFF;
@@ -91,6 +92,7 @@
     .lower-navigation .lower-nav-button:hover {
       background-color: #FFF;
     }
+
   <% end %>
 
   <%-# ------------ NAVIGATION TEXT ------------- -%>
@@ -101,18 +103,12 @@
       color: <%= brand.branded_topnav_text_color %>;
     }
 
-    <%-# --------------- BURGER MENU --------------- -%>
+    <%-# -------------- BURGER MENU -------------- -%>
     .main-navigation .nav-inner .burger-navigation .burger-bar {
       background-color: <%= brand.branded_topnav_text_color %>;
     }
 
-    <%-# ----------------- FOOTER ------------------ -%>
-    .footer .copyright,
-    .footer a {
-      color: <%= brand.branded_topnav_text_color %>;
-    }
-
-    <%-# --------------- SEARCH BAR ---------------- -%>
+    <%-# -------------- SEARCH BAR --------------- -%>
     .nav-inner .search-container input,
     .nav-inner .search-container .btn {
       color: <%= brand.branded_topnav_text_color %> !important;
@@ -120,6 +116,12 @@
     .nav-inner .search-container .btn:hover {
       background-color: <%= brand.branded_topnav_text_color %> !important;
       color: #FFF !important;
+    }
+
+    <%-# ---------------- FOOTER ----------------- -%>
+    .footer .copyright,
+    .footer a {
+      color: <%= brand.branded_topnav_text_color %>;
     }
 
     <%-# ----------- LOWER NAV BUTTON ------------ -%>
