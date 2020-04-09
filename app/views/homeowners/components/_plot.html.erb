@@ -1,6 +1,6 @@
 <div class="plot-summary branded-content">
-  <% if @plot.unit_type_picture.present? %>
-    <div class="row unit-image <%= 'active-plot' if session[:plot_id] == plot.id %>" style="background-image: url('<%= image_path(@plot.unit_type_picture) %>')" ></div>
+  <% if plot.unit_type_picture.present? %>
+    <div class="row unit-image <%= 'active-plot' if session[:plot_id] == plot.id %>" style="background-image: url('<%= image_path(plot.unit_type_picture) %>')" ></div>
   <% else %>
     <div class="row unit-image <%= 'active-plot' if session[:plot_id] == plot.id %>" style="background-image: url('<%= image_path "Sign In Image 3.jpg" %>')" ></div>
   <% end %>

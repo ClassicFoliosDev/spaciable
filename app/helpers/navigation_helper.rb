@@ -8,7 +8,7 @@ module NavigationHelper
     email = current_resident.email
     phone = current_resident&.phone_number
     developer = plot.developer
-    return "?sf_name=#{name}&sf_email=#{email}&sf_telephone=#{phone}&sf_developer=#{developer}"
+    "?sf_name=#{name}&sf_email=#{email}&sf_telephone=#{phone}&sf_developer=#{developer}"
   end
 
   def allocate_perk_type(current_resident, plot)

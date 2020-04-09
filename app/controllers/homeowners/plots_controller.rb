@@ -5,6 +5,5 @@ module Homeowners
     skip_authorization_check
 
     def show; end
-
   end
 end
