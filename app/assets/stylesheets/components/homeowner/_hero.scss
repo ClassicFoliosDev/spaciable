@@ -1,31 +1,8 @@
 .filter-hero {
-  @include grad-blue-black(135deg, 0.6);
   height: 100%;
   overflow: hidden;
   z-index: 2;
   padding: $spacing-medium;
-}
-
-.hero-text {
-  color: $ui-grey;
-  display: block;
-  text-align: center;
-  opacity: 0.8;
-  margin-top: $spacing-small;
-
-  h2 {
-    color: $ui-white;
-    font-size: $title-font-size-3;
-    margin-bottom: $spacing-small;
-  }
-
-  .secondary {
-    color: $ui-white;
-  }
-}
-
-.hero-header {
-  color: $ui-light-grey;
 }
 
 .hero-links {
