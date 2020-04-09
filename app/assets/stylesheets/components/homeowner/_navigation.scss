@@ -121,7 +121,14 @@ nav {
         background-color: $primary-background;
         color: $ui-white;
         border-radius: 50%;
-        padding: 1px 4px;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+        vertical-align: middle;
+        line-height: 2;
+        font-family: $base-font-family;
+        font-weight: $base-font-weight;
       }
     }
 
@@ -143,7 +150,13 @@ nav {
           background-color: $primary-background;
           color: $ui-white;
           border-radius: 50%;
-          padding: 1px 4px;
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          font-size: 10px;
+          vertical-align: middle;
+          line-height: 2;
+          text-align: center;
         }
 
         &:hover {
@@ -314,6 +327,10 @@ nav {
           }
         }
       }
+
+      .last {
+        border: none;
+      }
     }
   }
 }
@@ -422,6 +439,7 @@ nav {
         border-radius: 50%;
         text-align: center;
         font-size: 36px;
+        padding-left: $spacing-medium;
 
         .unread {
           display: none;
@@ -448,6 +466,7 @@ nav {
         overflow: auto;
         -webkit-overflow-scrolling:touch;
         text-align: left;
+        padding-left: $spacing-small + 2;
         border: none !important;
 
         .sign-out {
@@ -520,6 +539,10 @@ nav {
               line-height: $title-font-size-3;
             }
           }
+        }
+
+        .last {
+          border: none;
         }
       }
     }
@@ -680,6 +703,15 @@ nav {
       .searchbar-link {
         width: 15%;
       }
+    }
+  }
+  .main-navigation .nav-inner .burger-navigation label.burger {
+    padding-right: $spacing-small;
+  }
+
+  .main-navigation .nav-inner .account-navigation {
+    .dropdown, .dropdown-content {
+      padding-left: $spacing-small;
     }
   }
 }
