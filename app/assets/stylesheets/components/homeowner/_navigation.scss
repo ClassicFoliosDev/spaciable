@@ -57,7 +57,6 @@ nav {
   }
 
   .navbar-item {
-    display: inline-block;
     list-style-type: none;
     cursor: pointer;
     display: table-cell;
@@ -84,6 +83,7 @@ nav {
     .navbar-item-secondary {
       opacity: 1;
       border-bottom: 2px solid $primary-red-left;
+      line-height: 2.1;
     }
   }
 }
@@ -422,6 +422,16 @@ nav {
     }
   }
 
+  .sub-navigation-container {
+    .sub-nav-links {
+      width: 90%;
+    }
+
+    .navbar-item-secondary {
+      width: 160px;
+    }
+  }
+
   .main-navigation .nav-inner {
      margin-top: $spacing-medium;
      margin-bottom: $spacing-medium;
@@ -726,6 +736,51 @@ nav {
 
 // mobile view
 @include media($tablet-portrait-down) {
+.sub-navigation-container {
+  padding-top: $spacing-small;
+  text-align: center;
+  background-color: $ui-white;
+  min-height: 30px;
+
+  .sub-nav-links {
+    display: block;
+    width: 100%;
+  }
+
+  .navbar-item {
+    display: inline-block;
+    list-style-type: none;
+    cursor: pointer;
+    vertical-align: bottom;
+
+    &:hover .navbar-item-secondary {
+      opacity: 1;
+    }
+  }
+
+  .navbar-item-secondary {
+    width: 110px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    color: $primary-navy;
+    opacity: 0.7;
+    font-weight: $semi-bold-font-weight;
+    line-height: 34px;
+    margin: auto;
+    line-height: 2.2;
+    padding-top: $spacing-small;
+  }
+
+  .active {
+    .navbar-item-secondary {
+      opacity: 1;
+      border-bottom: 2px solid $primary-red-left;
+      line-height: 1.9;
+    }
+  }
+}
+
   .lower-navigation {
     .quick-links {
       .dashboard-link {
@@ -741,6 +796,7 @@ nav {
       }
     }
   }
+
   .main-navigation .nav-inner .burger-navigation label.burger {
     padding-right: $spacing-small;
   }
