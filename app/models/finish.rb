@@ -98,7 +98,7 @@ class Finish < ApplicationRecord
   # a finish for the CF Admin with the name/category/type/manufacturer combination
   # and we are creating a new 'developer' version, then any image for the finish is
   # copied to the new developer finish
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/BlockNesting
   def self.find_or_create(params, rooms)
     category = FinishCategory.find_or_create(params[:category], params[:developer_id])
     type = FinishType.find_or_create(params[:type], params[:developer_id], category)
@@ -117,21 +117,23 @@ class Finish < ApplicationRecord
     # Is is a new finish?
     if finish.new_record?
       # is there a matching CF finish with the name/cat/type/man and nil developer
-      cf_finish = Finish.with_params(params, nil)
+      cf_finish = Finish.with_params(params, nil)&.first
       if cf_finish.present?
-        # copy attributes
-        cf_finish = cf_finish[0]
-        finish.original_filename = cf_finish.original_filename
-        finish.picture = cf_finish.picture
+        base_folder = Rails.root.join("public", "uploads", "finish", "picture")
 
         # and copy the image if there is one
         if cf_finish.original_filename.present?
-          # create the folder
-          base_folder = Rails.root.join("public", "uploads", "finish", "picture")
-          FileUtils.mkdir_p "#{base_folder}/#{finish.id}"
-          # copy the file
-          FileUtils.cp "#{base_folder}/#{cf_finish.id}/#{cf_finish.original_filename}",
-                       "#{base_folder}/#{finish.id}"
+          original_file = "#{base_folder}/#{cf_finish.id}/#{cf_finish.original_filename}"
+          if File.exist?(original_file)
+            finish.original_filename = cf_finish.original_filename
+            finish.picture = cf_finish.picture
+
+            # create the folder
+            base_folder = Rails.root.join("public", "uploads", "finish", "picture")
+            FileUtils.mkdir_p "#{base_folder}/#{finish.id}"
+            # copy the file
+            FileUtils.cp original_file, "#{base_folder}/#{finish.id}"
+          end
         end
       end
     end
@@ -139,6 +141,6 @@ class Finish < ApplicationRecord
     finish.save!
     finish
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/BlockNesting
 end
 # rubocop:enable Metrics/ClassLength
