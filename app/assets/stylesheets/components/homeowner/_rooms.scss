@@ -10,13 +10,16 @@ $icon-color: #252C31;
       font-size: $base-font-size;
       text-align: center;
       margin-bottom: $spacing-medium;
+      padding-bottom: $spacing-medium;
     }
   }
 
   .room {
     overflow: auto;
     padding: $spacing-small;
-    border-style: solid;
+    margin-bottom: $spacing-medium;
+    border-bottom: 2px solid $ui-light-grey;
+    padding-bottom: $spacing-medium;
     margin-bottom: $spacing-medium;
 
     .room-icon {
@@ -31,6 +34,10 @@ $icon-color: #252C31;
         font-size: 30px;
         padding: 7px;
       }
+    }
+
+    .room-name {
+
     }
 
     .finish-image {

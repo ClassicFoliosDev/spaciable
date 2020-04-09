@@ -4,9 +4,11 @@
 <%-# ------------- BODY BACKGROUND ------------ -%>
 
   <% if brand.branded_bg_color %>
-    .branded-body {
+    .branded-body,
+    .sub-navigation-container {
       background-color: <%= brand.branded_bg_color %>;
     }
+
   <% else %>
     .branded-body {
       <%= Brand.branded_body_default %>
@@ -196,16 +198,18 @@
       color: <%= brand.branded_text_color %> !important;
       border-color: <%= brand.branded_text_color %> !important;
     }
-    .private-document .actions .btn {
-      color: <%= brand.branded_text_color %>;
-    }
+
     .plot-choices .homeowner-container .ui-state-default {
       color: <%= brand.branded_text_color %> !important;
       border-color: <%= brand.branded_text_color %> !important;
     }
+
+    .private-document .actions .btn,
+    .sub-navigation-container .navbar-item-secondary,
     .plot-choices .homeowner-container h3 {
       color: <%= brand.branded_text_color %> !important;
     }
+
     .plot-choices .homeowner-container .choice-item {
       border-color: <%= brand.branded_text_color %> !important;
     }
@@ -266,6 +270,10 @@
 
     .faqs dt {
       border-color: <%= brand.branded_content_text_color %> !important;
+    }
+
+    .sub-navigation-container .active .navbar-item-secondary {
+      border-bottom: 2px solid <%= brand.branded_content_text_color %>;
     }
 
   <% else %>

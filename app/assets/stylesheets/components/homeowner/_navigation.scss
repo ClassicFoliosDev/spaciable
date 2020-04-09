@@ -41,11 +41,9 @@ nav {
 }
 
 .sub-navigation-container {
-  @include outer-container(92%);
-  margin-top: $spacing-small;
+  padding-top: $spacing-small;
   text-align: center;
   background-color: $ui-white;
-  border-bottom: 2px solid $ui-light-grey;
   min-height: 30px;
 
   .sub-nav-links {
@@ -55,6 +53,7 @@ nav {
     text-align: center;
     padding-top: auto;
     padding-bottom: 0;
+    border-bottom: 2px solid $ui-light-grey;
   }
 
   .navbar-item {
