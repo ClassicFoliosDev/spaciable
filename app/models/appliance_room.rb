@@ -5,8 +5,15 @@ class ApplianceRoom < ApplicationRecord
 
   belongs_to :appliance
   belongs_to :room, inverse_of: :appliance_rooms
+  has_one :mark, as: :markable, autosave: true, dependent: :destroy
 
-  after_initialize :set_default_adding_user
+  delegate :marker, to: :mark, allow_nil: true
+
+  amoeba do
+    include_association :mark
+  end
+
+  before_save :make_mark
 
   after_create -> { log :added }
   after_update -> { log :updated }
@@ -23,19 +30,19 @@ class ApplianceRoom < ApplicationRecord
   validates :appliance, presence: true
   validates :room, presence: true
 
-  # set a default adding user - this is for situations where associations
-  # are updated and result in new records being added
-  def set_default_adding_user
-    self.added_by ||= User.find_by(role: :cf_admin).display_name
-  end
-
-  def self.author(room, appliance)
-    appliance_room(room, appliance).added_by
+  def self.marker(room, appliance)
+    appliance_room(room, appliance).marker
   rescue
     nil
   end
 
   private
+
+  # Mark the record with the current user
+  def make_mark
+    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
+                              role: RequestStore.store[:current_user]&.role)
+  end
 
   def log(action)
     room.furnish_log(appliance, action)

@@ -1,8 +1,12 @@
 <% breadcrumb :rooms, parent %>
 
-<% cancreate = can_create(Room, parent, combine: true) %>
+<% cancreate = parent.is_a?(Plot) ?
+               can?(:crud, PlotRoom.new(parent)) :
+               can_create(Room, parent, combine: true)
+%>
+
 <% if collection.empty? %>
-    <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true%>
+    <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate %>
 <% else %>
   <% if cancreate %>
     <div class="section-actions">
@@ -14,8 +18,8 @@
   <% end %>
 
   <% showing_icons = current_user&.cf_admin? ||
-                    (cancreate &&
-                    collection.map { |room| can?(:update, room) || can?(:destroy, room)}.include?(true))
+                    (cancreate && (parent.is_a?(Plot) ||
+                    collection.map { |room| can?(:update, room) || can?(:destroy, room)}.include?(true)))
   %>
 
   <table class="record-list rooms">
@@ -35,6 +39,7 @@
       </tr>
     </thead>
     <tbody>
+      <% override = cancreate && parent.is_a?(Plot) %>
       <% collection.each do |room| %>
       <tr data-room="<%= room.id %>">
         <td><%= link_to room.name, [parent, room], title: room.name, class: "room-name" %></td>
@@ -48,11 +53,11 @@
           <% plot_choices = RoomChoice.plot_choices(room, parent) %>
         <% end %>
         <td><%= l room.updated_at.to_date, format: :digits %></td>
-        <td><%= room.last_updated_by %></td>
+        <td><%= room.marker %></td>
         <% if showing_icons %>
           <td class="actions">
-            <%= edit_btn url_for([:edit, parent, room]), element: room %>
-            <%= delete_btn room, path: url_for([parent, room]), element: room %>
+            <%= edit_btn url_for([:edit, parent, room]), element: room, override: override %>
+            <%= delete_btn room, path: url_for([parent, room]), element: room, override: override %>
           </td>
         <% end %>
       </tr>

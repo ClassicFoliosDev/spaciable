@@ -81,9 +81,9 @@ Then(/^I should see the finish created successfully$/) do
   expect(page).to have_content(CreateFixture.finish_category_name)
 end
 
-When(/^I delete the finish type$/) do
+When(/^I delete the finish (.*) type$/) do |finish_type|
   visit "./finish_types"
-  finish_type = FinishType.find_by(name: CreateFixture.finish_type_name)
+  finish_type = FinishType.find_by(name: eval(finish_type))
 
   delete_scope = "[data-finish-type='#{finish_type.id}']"
   delete_and_confirm!(scope: delete_scope)

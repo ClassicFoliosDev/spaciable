@@ -44,25 +44,25 @@ RSpec.describe "Resident Abilities" do
 
     it "has READ access to the plots unit types rooms" do
       unit_type = plot.unit_type
-      room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
+      room = create(:room, unit_type: unit_type)
 
       expect(subject).to be_able_to(:read, room)
     end
 
     it "cannot read unit type rooms used as plot room templates" do
       unit_type = plot.unit_type
-      template_room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
+      template_room = create(:room, unit_type: unit_type)
 
-      create(:room, plot: plot, template_room_id: template_room.id, last_updated_by: developer_admin)
+      create(:room, plot: plot, template_room_id: template_room.id)
 
       expect(subject).not_to be_able_to(:read, template_room)
     end
 
     it "can read plot rooms" do
       unit_type = plot.unit_type
-      template_room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
+      template_room = create(:room, unit_type: unit_type)
 
-      plot_room = create(:room, plot: plot, template_room_id: template_room.id, last_updated_by: developer_admin)
+      plot_room = create(:room, plot: plot, template_room_id: template_room.id)
 
       expect(subject).to be_able_to(:read, plot_room)
     end
@@ -75,8 +75,8 @@ RSpec.describe "Resident Abilities" do
       finish_category = create(:finish_category, name: "Test category")
       finish_type = create(:finish_type, name: "Test type", finish_categories: [finish_category])
       finish = create(:finish, finish_category: finish_category, finish_type: finish_type)
-      room = create(:room, unit_type: unit_type, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       expect(subject).to be_able_to(:read, finish)
     end
@@ -86,11 +86,11 @@ RSpec.describe "Resident Abilities" do
       site_admin = create(:site_admin, permission_level: other_development)
 
       unit_type = plot.unit_type
-      room = create(:room, unit_type: unit_type, last_updated_by: developer_admin)
+      room = create(:room, unit_type: unit_type)
       appliance_manufacturer = create(:appliance_manufacturer)
       appliance = create(:appliance, appliance_manufacturer: appliance_manufacturer)
-      room = create(:room, unit_type: unit_type, last_updated_by: site_admin)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin)
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
 
       expect(subject).to be_able_to(:read, appliance)
     end

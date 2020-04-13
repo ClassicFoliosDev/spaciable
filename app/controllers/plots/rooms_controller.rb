@@ -9,7 +9,8 @@ module Plots
     load_and_authorize_resource :plot
     before_action :find_plots, only: :index
     before_action :find_plot_room, except: :index
-    load_and_authorize_resource :room
+    load_resource :room, only: %i[edit update destroy]
+    load_and_authorize_resource :room, except: %i[edit update destroy]
 
     before_action :set_editor, only: %i[create edit update]
 
@@ -28,8 +29,10 @@ module Plots
     end
 
     def edit
-      if PlotRoomTemplatingService.template_room?(@room)
-        redirect_to [:new, @plot, :room, template_room_id: @room.id]
+      if can? :edit, PlotRoom.new(@plot)
+        if PlotRoomTemplatingService.template_room?(@room)
+          redirect_to [:new, @plot, :room, template_room_id: @room.id]
+        end
       end
 
       @room.build_finishes
@@ -46,7 +49,7 @@ module Plots
 
       @collection.each do |item|
         item.added_by =
-          "#{item.class}Room".classify.constantize.author(@room.id, item.id)
+          "#{item.class}Room".classify.constantize.marker(@room.id, item.id)
       end
     end
 
@@ -128,7 +131,8 @@ module Plots
     end
 
     def update
-      if @room.update(room_params)
+      if can?(:update, PlotRoom.new(@plot)) &&
+         @room.update(room_params)
         notice = t("controller.success.update", name: @room.name)
         redirect_to [@plot, @room], notice: notice
       else
@@ -138,9 +142,13 @@ module Plots
     end
 
     def destroy
-      PlotRoomTemplatingService.new(@plot).destroy(@room)
+      if can?(:destroy, PlotRoom.new(@plot))
+        PlotRoomTemplatingService.new(@plot).destroy(@room)
+        notice = t("controller.success.destroy", name: @room.name)
+      else
+        alert = t("not_authorised")
+      end
 
-      notice = t("controller.success.destroy", name: @room.name)
       redirect_to [@plot, :rooms], notice: notice, alert: alert
     end
 
@@ -165,7 +173,7 @@ module Plots
     end
 
     def set_editor
-      @room.last_updated_by = current_user.display_name
+      @room.update_mark
     end
   end
   # rubocop:enable Metrics/ClassLength

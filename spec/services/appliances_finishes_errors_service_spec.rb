@@ -11,9 +11,9 @@ RSpec.describe AppliancesFinishesErrorsService do
       finish_type = create(:finish_type, finish_categories: [finish_category])
       finish = create(:finish, finish_type: finish_type, finish_category: finish_category)
       appliance = create(:appliance)
-      room = create(:room, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin)
+      room = create(:room)
+      create(:finish_room, finish: finish, room: room)
+      create(:appliance_room, appliance: appliance, room: room)
 
       finish.delete
       appliance.delete
@@ -30,9 +30,9 @@ RSpec.describe AppliancesFinishesErrorsService do
       finish_type = create(:finish_type, finish_categories: [finish_category])
       finish = create(:finish, finish_type: finish_type, finish_category: finish_category)
       appliance = create(:appliance)
-      room = create(:room, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin)
+      room = create(:room)
+      create(:finish_room, finish: finish, room: room)
+      create(:appliance_room, appliance: appliance, room: room)
 
       room.reload
       stub_room_errors

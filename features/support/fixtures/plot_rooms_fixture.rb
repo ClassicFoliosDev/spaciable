@@ -62,7 +62,7 @@ module PlotRoomsFixture
 
   def create_unit_type_rooms
     UNIT_TYPE_ROOMS.each do |room_name|
-      FactoryGirl.create(:room, name: room_name, unit_type: CreateFixture.unit_type, last_updated_by: CreateFixture.cf_admin.display_name)
+      FactoryGirl.create(:room, name: room_name, unit_type: CreateFixture.unit_type)
     end
   end
 end

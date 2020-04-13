@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200330061503) do
+ActiveRecord::Schema.define(version: 20200410165950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,12 +98,11 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
   end
 
-  create_table "appliances_rooms", id: false, force: :cascade do |t|
-    t.integer  "appliance_id",                      null: false
-    t.integer  "room_id",                           null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.string   "added_by",     default: "CF Admin", null: false
+  create_table "appliances_rooms", force: :cascade do |t|
+    t.integer  "appliance_id", null: false
+    t.integer  "room_id",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["appliance_id", "room_id"], name: "appliance_room_index", using: :btree
     t.index ["room_id", "appliance_id"], name: "room_appliance_index", using: :btree
   end
@@ -444,12 +443,11 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.index ["name", "finish_category_id", "finish_type_id", "finish_manufacturer_id", "developer_id"], name: "index_finishes_on_combo", unique: true, using: :btree
   end
 
-  create_table "finishes_rooms", id: false, force: :cascade do |t|
-    t.integer  "finish_id",                       null: false
-    t.integer  "room_id",                         null: false
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "added_by",   default: "CF Admin", null: false
+  create_table "finishes_rooms", force: :cascade do |t|
+    t.integer  "finish_id",  null: false
+    t.integer  "room_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["finish_id", "room_id"], name: "finish_room_index", using: :btree
     t.index ["room_id", "finish_id"], name: "room_finish_index", using: :btree
   end
@@ -518,8 +516,6 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.string   "primary"
     t.string   "secondary"
     t.integer  "action"
-    t.string   "username"
-    t.integer  "role"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["logable_type", "logable_id"], name: "index_logs_on_logable_type_and_logable_id", using: :btree
@@ -531,6 +527,14 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.integer "account_type"
     t.boolean "populate",       default: true
     t.index ["development_id"], name: "index_maintenances_on_development_id", using: :btree
+  end
+
+  create_table "marks", force: :cascade do |t|
+    t.string  "markable_type"
+    t.integer "markable_id"
+    t.string  "username"
+    t.integer "role"
+    t.index ["markable_type", "markable_id"], name: "index_marks_on_markable_type_and_markable_id", using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -755,8 +759,8 @@ ActiveRecord::Schema.define(version: 20200330061503) do
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.integer  "unit_type_id"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "development_id"
@@ -764,7 +768,6 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.integer  "icon_name"
     t.integer  "plot_id"
     t.integer  "template_room_id"
-    t.string   "last_updated_by",  default: "CF Admin", null: false
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_room_name", using: :btree
     t.index ["deleted_at"], name: "index_rooms_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_rooms_on_developer_id", using: :btree

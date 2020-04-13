@@ -1,29 +1,18 @@
+<% cancrud = can?(:crud, PlotRoom.new(plot)) %>
+
 <% if collection.empty? %>
-  <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room, combine: true %>
-  <% else %>
-    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot, combine: true %>
-  <% end %>
+  <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot, combine: true, override: cancrud %>
 <% else %>
-  <% if can_create(FinishRoom, room, combine: true) %>
+  <% if cancrud %>
     <div class="section-actions">
-      <% if room %>
-        <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
-          <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t("finishes.collection.create") %></span>
-        <% end %>
-      <% else %>
-        <%= link_to new_finish_path, class: "btn btn-primary" do %>
-          <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".create") %></span>
-        <% end %>
+      <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t("finishes.collection.create") %></span>
       <% end %>
     </div>
   <% end %>
 
-  <% showing_icons = current_user&.cf_admin? ||
-                    collection.map { |finish| can?(:update, finish) ||
-                                              can?(:destroy, FinishRoom.room_finish(room,finish))}.include?(true) %>
+  <% showing_icons = current_user&.cf_admin? || cancrud %>
 
   <table class="record-list">
     <thead>
@@ -54,12 +43,10 @@
             <td  colspan="2" class="actions">
             <% if finish.choice == false %>
               <%= edit_btn edit_finish_path(finish), element: finish %>
-              <% if room && can?(:destroy, FinishRoom.room_finish(room,finish)) %>
+              <% if cancrud %>
                 <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
                   <%= fa_icon "trash-o" %>
                 <% end %>
-              <% else %>
-                <%= delete_btn finish, element: finish %>
               <% end %>
             <% end %>
             </td>

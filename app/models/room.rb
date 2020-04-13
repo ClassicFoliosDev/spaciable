@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Room < ApplicationRecord
   acts_as_paranoid
 
@@ -23,6 +24,9 @@ class Room < ApplicationRecord
   has_many :appliances, through: :appliance_rooms
   has_many :appliance_manufacturers, through: :appliances
   has_many :appliance_categories, through: :appliances
+  has_one :mark, as: :markable, dependent: :destroy
+
+  delegate :marker, to: :mark, allow_nil: true
 
   amoeba do
     include_association :finish_rooms
@@ -44,7 +48,7 @@ class Room < ApplicationRecord
   delegate :restricted, to: :unit_type, prefix: true
 
   after_destroy -> { finishes.delete_all }
-  after_initialize -> { self.last_updated_by ||= User.find_by(role: :cf_admin).display_name }
+  before_save :make_mark
 
   before_create -> { @previous_rooms = current_rooms }
   after_create -> { log :created }
@@ -100,7 +104,9 @@ class Room < ApplicationRecord
   end
 
   def self.last_edited_by(room, user)
-    Room.find(room).update(last_updated_by: user.display_name)
+    room = Room.find(room)
+    room.update_mark(user)
+    room.save!
   end
 
   # log an update to the finishes/appliances
@@ -108,6 +114,11 @@ class Room < ApplicationRecord
     return unless cas?
     return PlotLog.furnish_update(self, furnish, action) if plot
     UnitTypeLog.furnish_update(self, furnish, action)
+  end
+
+  def update_mark(user = RequestStore.store[:current_user])
+    mark&.destroy!
+    create_mark(username: user.full_name, role: user.role)
   end
 
   private
@@ -123,4 +134,10 @@ class Room < ApplicationRecord
   def current_rooms
     plot ? plot.rooms.to_a : unit_type.rooms.to_a
   end
+
+  def make_mark
+    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
+                              role: RequestStore.store[:current_user]&.role)
+  end
 end
+# rubocop:enable Metrics/ClassLength

@@ -18,7 +18,7 @@ RSpec.describe Plot do
         development = create(:development)
         development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
-        unit_type_rooms = create_list(:room, 3, unit_type: unit_type, last_updated_by: development_admin.display_name)
+        unit_type_rooms = create_list(:room, 3, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
 
         expect(plot.rooms).to match_array(unit_type_rooms)
@@ -32,8 +32,8 @@ RSpec.describe Plot do
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
 
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
-        plot_room = create(:room, plot: plot, last_updated_by: development_admin.display_name)
+        unit_type_room = create(:room, unit_type: unit_type)
+        plot_room = create(:room, plot: plot)
 
         expect(plot.rooms).to match_array([unit_type_room, plot_room])
       end
@@ -46,8 +46,8 @@ RSpec.describe Plot do
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
 
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
-        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id, last_updated_by: development_admin.display_name)
+        unit_type_room = create(:room, unit_type: unit_type)
+        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id)
 
         expect(plot.rooms).to match_array([plot_room])
       end
@@ -60,8 +60,8 @@ RSpec.describe Plot do
 
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
-        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id, last_updated_by: development_admin.display_name)
+        unit_type_room = create(:room, unit_type: unit_type)
+        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id)
         plot_room.destroy
 
         expect(plot.rooms).to match_array([])
@@ -76,8 +76,8 @@ RSpec.describe Plot do
         unit_type = create(:unit_type)
         plot = create(:plot, unit_type: unit_type)
 
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
-        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id, last_updated_by: development_admin.display_name)
+        unit_type_room = create(:room, unit_type: unit_type)
+        plot_room = create(:room, plot: plot, template_room_id: unit_type_room.id)
         unit_type_room.destroy
 
         expect(plot.rooms).to match_array([plot_room])

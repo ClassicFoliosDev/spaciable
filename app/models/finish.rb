@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class Finish < ApplicationRecord
   require "fileutils"
 
@@ -98,7 +97,7 @@ class Finish < ApplicationRecord
   # a finish for the CF Admin with the name/category/type/manufacturer combination
   # and we are creating a new 'developer' version, then any image for the finish is
   # copied to the new developer finish
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/BlockNesting
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def self.find_or_create(params, rooms)
     category = FinishCategory.find_or_create(params[:category], params[:developer_id])
     type = FinishType.find_or_create(params[:type], params[:developer_id], category)
@@ -118,29 +117,13 @@ class Finish < ApplicationRecord
     if finish.new_record?
       # is there a matching CF finish with the name/cat/type/man and nil developer
       cf_finish = Finish.with_params(params, nil)&.first
-      if cf_finish.present?
-        base_folder = Rails.root.join("public", "uploads", "finish", "picture")
-
-        # and copy the image if there is one
-        if cf_finish.original_filename.present?
-          original_file = "#{base_folder}/#{cf_finish.id}/#{cf_finish.original_filename}"
-          if File.exist?(original_file)
-            finish.original_filename = cf_finish.original_filename
-            finish.picture = cf_finish.picture
-
-            # create the folder
-            base_folder = Rails.root.join("public", "uploads", "finish", "picture")
-            FileUtils.mkdir_p "#{base_folder}/#{finish.id}"
-            # copy the file
-            FileUtils.cp original_file, "#{base_folder}/#{finish.id}"
-          end
-        end
+      if cf_finish.present? && cf_finish.original_filename.present?
+        CopyCarrierwaveFile::CopyFileService.new(cf_finish, finish, :picture).set_file
       end
     end
 
     finish.save!
     finish
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/BlockNesting
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end
-# rubocop:enable Metrics/ClassLength

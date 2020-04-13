@@ -73,7 +73,8 @@ Feature: Plot Rooms
     Given I am logged in as a CAS <role> wanting to manage plot rooms
     And the unit type has an appliance and a finish
     When I go to review the plot rooms
-    Then I cannot edit the applince or finish
+    Then I cannot edit or delete the appliance or finish
+    Given all the plots are release completed
     When I go to review the plot rooms
     And I remove a finish from the plot
     Then I should see the finish remove is successful
