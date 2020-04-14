@@ -1300,7 +1300,7 @@ en:
         delete_success: "Your image has been successfully removed"
     home_designers:
       show:
-        title: "Home Designer."
+        home_designer: "Home Designer"
         new_tab: "Open Planner 5D in a separate tab"
 
     library:
