@@ -1,14 +1,14 @@
 <% content_for :sub_category_navigation do %>
-    <% @categories.each do |category| %>
-      <div class="navbar-item">
-        <%= link_to homeowner_how_tos_path(category),
-            class: ("active" if @category == category) do %>
-          <li class="navbar-item-secondary">
-            <%= t_enum(HowTo, :category, category) %>
-          </li>
-        <% end %>
-      </div>
-    <% end %>
+  <% @categories.each do |category| %>
+    <div class="navbar-item">
+      <%= link_to homeowner_how_tos_path(category),
+          class: ("active" if @category == category) do %>
+        <li class="navbar-item-secondary">
+          <%= t_enum(HowTo, :category, category) %>
+        </li>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 
 <%= render "components/homeowner/hero" %>
