@@ -5,7 +5,8 @@
 
   <% if brand.branded_bg_color %>
     .branded-body,
-    .sub-navigation-container {
+    .sub-navigation-container,
+    .library-navigation {
       background-color: <%= brand.branded_bg_color %>;
     }
 
@@ -422,7 +423,7 @@
     .document-permission {
       <%= Brand.branded_primary_default %>
     }
-    
+
   <% end %>
 
 

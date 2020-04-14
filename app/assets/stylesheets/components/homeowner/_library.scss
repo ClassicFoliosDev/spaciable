@@ -18,9 +18,12 @@
     padding: 0 20px;
 
     .categories {
+      margin-bottom: 0;
+      padding-bottom: $spacing-medium;
+
       li {
         display: inline-block;
-        margin-bottom: 12px;
+        margin-bottom: 0;
 
         a {
           display: block;
