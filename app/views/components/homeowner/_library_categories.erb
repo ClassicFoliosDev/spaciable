@@ -1,8 +1,6 @@
-<% content_for :hero_text_primary do %>
-    <%= t('.title') %>
-<% end %>
-<% content_for :hero_text_secondary do %>
-  <ul class="hero-links categories">
+<div class="library-categories">
+  <h2><%= t(".title") %></h2>
+  <ul class="categories">
     <% documents = Document.accessible_by(current_ability)
                            .where(category: "my_home") %>
     <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
@@ -60,4 +58,4 @@
                   class: ("active" if active_category == "my_documents") %>
     </li>
   </ul>
-<% end %>
+</div>

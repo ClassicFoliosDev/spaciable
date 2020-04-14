@@ -1,6 +1,10 @@
-<%= render "components/homeowner/library_hero", active_category: @category, categories: @categories, plot: @plot %>
-
 <%= render "components/homeowner/hero" %>
+
+<div class="library-navigation">
+  <%= render "components/homeowner/sub_menu", active_tab: "library", plot: @plot %>
+
+  <%= render "components/homeowner/library_categories", active_category: @category, categories: @categories, plot: @plot %>
+</div>
 
 <div class="branded-body">
   <div class="main-container">

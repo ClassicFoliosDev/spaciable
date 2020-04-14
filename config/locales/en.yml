@@ -496,8 +496,8 @@ en:
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
-      library_hero:
-        title: "Library."
+      library_categories:
+        title: "Categories"
         appliances: "Appliances"
         videos: "Videos"
         my_documents: "My Documents"
