@@ -6,10 +6,8 @@ module Rooms
     load_and_authorize_resource :finish_room, through: :room
     include SortingConcern
 
-    before_action :set_editor, only: %i[edit destroy]
-
     def new
-      @finish_room = FinishRoom.new(added_by: current_user.display_name)
+      @finish_room = FinishRoom.new
       @finish_categories = FinishCategory.visible_to(current_user).order(:name)
 
       new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
@@ -22,8 +20,7 @@ module Rooms
     def edit; end
 
     def create
-      @finish_room = FinishRoom.new(added_by: current_user.display_name,
-                                    finish_id: params[:finishes],
+      @finish_room = FinishRoom.new(finish_id: params[:finishes],
                                     room_id: @room.id)
 
       if @finish_room.save
@@ -41,10 +38,6 @@ module Rooms
     # Never trust parameters from the scary internet, only allow the white list through.
     def finish_room_params
       params.require(:finish_room).permit(:search_finish_text)
-    end
-
-    def set_editor
-      @finish_room.last_updated_by = current_user.display_name
     end
   end
 end

@@ -17,23 +17,23 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       appliance2 = create(:appliance)
       unit_type = create(:unit_type, development: development1)
-      room = create(:room, unit_type: unit_type, last_updated_by: developer_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: developer_admin.display_name)
-      create(:appliance_room, appliance: appliance2, room: room, added_by: developer_admin.display_name)
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       ability = Ability.new(developer_admin)
 
       unit_type_a = create(:unit_type, development: development2)
-      room = create(:room, unit_type: unit_type_a, last_updated_by: developer_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: developer_admin.display_name)
-      create(:appliance_room, appliance: appliance2, room: room, added_by: developer_admin.display_name)
+      room = create(:room, unit_type: unit_type_a)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       appliance3 = create(:appliance)
       appliance4 = create(:appliance)
       unit_type_b = create(:unit_type, development: development3)
-      room = create(:room, unit_type: unit_type_b, last_updated_by: developer_admin.display_name)
-      create(:appliance_room, appliance: appliance3, room: room, added_by: developer_admin.display_name)
-      create(:appliance_room, appliance: appliance4, room: room, added_by: developer_admin.display_name)
+      room = create(:room, unit_type: unit_type_b)
+      create(:appliance_room, appliance: appliance3, room: room)
+      create(:appliance_room, appliance: appliance4, room: room)
 
       expect(ability).to be_able_to(:read, appliance)
       expect(ability).to be_able_to(:read, appliance2)
@@ -51,9 +51,9 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       appliance2 = create(:appliance)
       unit_type = create(:unit_type, development: development)
-      room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: development_admin.display_name)
-      create(:appliance_room, appliance: appliance2, room: room, added_by: development_admin.display_name)
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -68,8 +68,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       plot = create(:plot, development: development)
-      room = create(:room, plot: plot, last_updated_by: development_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: development_admin.display_name)
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -84,8 +84,8 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -99,8 +99,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       unit_type = create(:unit_type, development: other_development)
-      room = create(:room, unit_type: unit_type, last_updated_by: development_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: development_admin.display_name)
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -115,8 +115,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       plot = create(:plot, development: other_development)
-      room = create(:plot_room, plot: plot, last_updated_by: development_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: development_admin.display_name)
+      room = create(:plot_room, plot: plot)
+      create(:appliance_room, appliance: appliance)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -132,8 +132,8 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: development_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: development_admin.display_name)
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -151,9 +151,9 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       appliance2 = create(:appliance)
       unit_type = create(:unit_type, development: development)
-      room = create(:room, unit_type: unit_type, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance2, room: room, added_by: site_admin.display_name)
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -168,8 +168,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       plot = create(:plot, development: development)
-      room = create(:room, plot: plot, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -184,8 +184,8 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -199,8 +199,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       unit_type = create(:unit_type, development: other_development)
-      room = create(:room, unit_type: unit_type, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -215,8 +215,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       plot = create(:plot, development: other_development)
-      room = create(:plot_room, plot: plot, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
+      room = create(:plot_room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -232,8 +232,8 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:plot_room, plot: plot, last_updated_by: site_admin.display_name)
-      create(:appliance_room, appliance: appliance, room: room, added_by: site_admin.display_name)
+      room = create(:plot_room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)

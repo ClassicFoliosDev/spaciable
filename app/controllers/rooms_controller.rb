@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
                               only: %i[remove_finish remove_appliance]
 
   before_action :set_parent
-  before_action :set_editor, only: %i[create edit update]
+  before_action :stamp, only: %i[create edit update]
 
   def index
     @rooms = paginate(sort(@rooms, default: :name))
@@ -46,7 +46,7 @@ class RoomsController < ApplicationController
 
     @collection.each do |item|
       item.added_by =
-        "#{item.class}Room".classify.constantize.author(@room.id, item.id)
+        "#{item.class}Room".classify.constantize.marker(@room.id, item.id)
     end
   end
   # rubocop:enable Metrics/AbcSize
@@ -136,8 +136,8 @@ class RoomsController < ApplicationController
     @parent = @unit_type || @room&.parent
   end
 
-  def set_editor
-    @room.last_updated_by = current_user.display_name
+  def stamp
+    @room.update_mark
   end
 end
 # rubocop:enable ClassLength

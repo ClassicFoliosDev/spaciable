@@ -15,8 +15,8 @@ RSpec.describe Room do
         development = create(:development)
         development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
-        create(:room, name: name, unit_type: unit_type, last_updated_by: development_admin.display_name)
-        room = Room.new(name: name, unit_type: unit_type, last_updated_by: development_admin.display_name)
+        create(:room, name: name, unit_type: unit_type)
+        room = Room.new(name: name, unit_type: unit_type)
 
         room.validate
         name_errors = room.errors.details[:name]
@@ -30,7 +30,7 @@ RSpec.describe Room do
         name = "Only room named this"
         development = create(:development)
         development_admin = create(:development_admin, permission_level: development)
-        create(:room, name: name, last_updated_by: development_admin.display_name)
+        create(:room, name: name)
         room = Room.new(name: name)
 
         room.validate

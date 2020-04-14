@@ -9,7 +9,7 @@ RSpec.describe PlotRoomTemplatingService do
         development = create(:development)
         development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin)
+        unit_type_room = create(:room, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
 
         service = described_class.new(plot)
@@ -41,7 +41,7 @@ RSpec.describe PlotRoomTemplatingService do
       development_admin = create(:development_admin, permission_level: development)
 
       unit_type = create(:unit_type)
-      unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin)
+      unit_type_room = create(:room, unit_type: unit_type)
       plot = create(:plot, unit_type: unit_type)
 
       new_room = described_class.clone_room(plot.id, unit_type_room)
@@ -64,7 +64,7 @@ RSpec.describe PlotRoomTemplatingService do
         development_admin = create(:development_admin, permission_level: development)
 
         unit_type = create(:unit_type)
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin)
+        unit_type_room = create(:room, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
 
         described_class.new(plot).destroy(unit_type_room)
@@ -76,7 +76,7 @@ RSpec.describe PlotRoomTemplatingService do
         development = create(:development)
         development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
-        unit_type_room = create(:room, unit_type: unit_type, last_updated_by: development_admin)
+        unit_type_room = create(:room, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
 
         plot_room = described_class.new(plot).destroy(unit_type_room)
@@ -90,7 +90,7 @@ RSpec.describe PlotRoomTemplatingService do
         development = create(:development)
         development_admin = create(:development_admin, permission_level: development)
 
-        room = create(:plot_room, last_updated_by: development_admin)
+        room = create(:plot_room)
 
         described_class.new(room.plot).destroy(room)
 

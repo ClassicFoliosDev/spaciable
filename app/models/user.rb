@@ -92,10 +92,6 @@ class User < ApplicationRecord
     end
   end
 
-  def display_name
-    cf_admin? ? "CF Admin" : full_name
-  end
-
   # Generate the list of user emails/names that currently will receive release plot updates
   # for the supplied associations. Return the data in an array of hashes
   # e.g.

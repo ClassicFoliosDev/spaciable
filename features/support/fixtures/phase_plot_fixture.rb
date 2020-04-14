@@ -43,9 +43,9 @@ module PhasePlotFixture
     FactoryGirl.create(:unit_type, name: updated_unit_type_name, development: development)
     FactoryGirl.create_list(:unit_type, 3, development: development)
 
-    room = FactoryGirl.create(:room, unit_type: unit_one, last_updated_by: updating_user.display_name)
+    room = FactoryGirl.create(:room, unit_type: unit_one)
     appliance = FactoryGirl.create(:appliance)
-    FactoryGirl.create(:appliance_room, appliance: appliance, room: room, added_by: updating_user)
+    FactoryGirl.create(:appliance_room, appliance: appliance, room: room)
   end
 
   def create_phase(development, name=phase_name)

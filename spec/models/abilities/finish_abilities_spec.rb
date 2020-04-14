@@ -14,8 +14,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: development)
-      room = create(:room, unit_type: unit_type, last_updated_by: development_admin)
-      create(:finish_room, finish: finish, room: room, added_by: development_admin)
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -29,8 +29,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: development)
-      room = create(:room, plot: plot, last_updated_by: development_admin)
-      create(:finish_room, finish: finish, room: room, added_by: development_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -45,8 +45,8 @@ RSpec.describe "Finish Abilities" do
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: development_admin)
-      create(:finish_room, finish: finish, room: room, added_by: development_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -60,8 +60,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: other_development)
-      room = create(:room, unit_type: unit_type, last_updated_by: development_admin)
-      create(:finish_room, finish: finish, room: room, added_by: development_admin)
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -76,8 +76,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: other_development)
-      room = create(:room, plot: plot, last_updated_by: development_admin)
-      create(:finish_room, finish: finish, room: room, added_by: development_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -93,8 +93,8 @@ RSpec.describe "Finish Abilities" do
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: development_admin)
-      create(:finish_room, finish: finish, room: room, added_by: development_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -111,8 +111,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: development)
-      room = create(:room, unit_type: unit_type, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -126,8 +126,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: development)
-      room = create(:room, plot: plot, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -142,8 +142,8 @@ RSpec.describe "Finish Abilities" do
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -157,8 +157,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: other_development)
-      room = create(:room, unit_type: unit_type, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -173,8 +173,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: other_development)
-      room = create(:room, plot: plot, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -190,8 +190,8 @@ RSpec.describe "Finish Abilities" do
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      room = create(:room, plot: plot, last_updated_by: site_admin)
-      create(:finish_room, finish: finish, room: room, added_by: site_admin)
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)

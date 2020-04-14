@@ -479,10 +479,10 @@ When(/^I bulk edit the spanish plots$/) do
 end
 
 Then(/^I should see spanish address options$/) do
-  
+
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false
-  
+
   expect(page).not_to have_selector('#phase_bulk_edit_postal_number')
   expect(page).not_to have_selector('#phase_bulk_edit_county')
   find_field(:phase_bulk_edit_house_number).should be_visible

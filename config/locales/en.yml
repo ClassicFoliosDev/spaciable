@@ -37,6 +37,7 @@ en:
 
   back: "Back"
   cas_enabled: "Clients Adding Specs: Enabled"
+  not_authorised: "You are not authorised to access this page"
 
   construction_type:
     home: "Home"
@@ -94,7 +95,7 @@ en:
     info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"
-    info: 
+    info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"
     share_tenants: "Private: click to share with tenants of this plot"
@@ -2158,6 +2159,14 @@ en:
         added_by: "Added By"
         category: "Category"
         manufacturer: "Manufacturer"
+      collection:
+        appliances: "Appliances"
+        finishes: "Finishes"
+        add: "Add Room"
+        name: "Room"
+        belongs_to: "Belongs To"
+        last_edited: "Last Edited"
+        last_edited_by: "Last Edited By"
     bulk:
       succeeded:
         one: "Plot %{plot_numbers}"
@@ -2178,6 +2187,7 @@ en:
       back: "Back"
       notify: "Notify subscribed residents about this change"
       update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+
 
     index:
       title: "%{parent_name} Plots"

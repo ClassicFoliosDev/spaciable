@@ -19,7 +19,7 @@ Feature: Finishes
     Then I should see a failed to delete message
     When I review the finish type
     Then I should see the finish manufacturer shown
-    When I delete the finish type
+    When I delete the CreateFixture.seed_finish_type_name finish type
     Then I should see a failed to delete message
     When I update the finish
     Then I should see the updated finish
@@ -29,14 +29,14 @@ Feature: Finishes
   Scenario: duplicate finish/type/man combos
     Given I am logged in as an admin
     And I have seeded the database
-    And I create a CreateFixture.finish_name finish with category CreateFixture.finish_category_name type CreateFixture.finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
-    Then I create a CreateFixture.finish_dup_name finish with category CreateFixture.finish_category_name type CreateFixture.finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
+    And I create a CreateFixture.finish_name finish with category CreateFixture.finish_category_name type CreateFixture.seed_finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
+    Then I create a CreateFixture.finish_dup_name finish with category CreateFixture.finish_category_name type CreateFixture.seed_finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
 
   Scenario Outline: CAS admin duplicate finish/type/man combos
     Given I am logged in as a <role> with CAS
     And I have seeded the database as a developer
-    And I create a CreateFixture.finish_name finish with category CreateFixture.finish_category_name type CreateFixture.finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
-    Then I create a CreateFixture.finish_dup_name finish with category CreateFixture.finish_category_name type CreateFixture.finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
+    And I create a CreateFixture.finish_name finish with category CreateFixture.finish_category_name type CreateFixture.seed_finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
+    Then I create a CreateFixture.finish_dup_name finish with category CreateFixture.finish_category_name type CreateFixture.seed_finish_type_name and manufacturer CreateFixture.seeded_finish_manufacturer_name
     Examples:
       | role              |
       | Developer Admin   |
@@ -65,7 +65,7 @@ Feature: Finishes
     Then I should see a failed to delete message
     When I review the finish type
     Then I should see the finish manufacturer shown
-    When I delete the finish type
+    When I delete the CreateFixture.seed_finish_type_name finish type
     Then I should see a failed to delete message
     When I update the finish
     Then I should see the updated finish

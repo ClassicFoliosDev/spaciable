@@ -2,7 +2,10 @@
   <div><%= fa_icon icon_name %></div>
   <div><span><%= t(".empty", type_names: type.model_name.human.downcase.pluralize) %></span></div>
   <div>
-    <% if can_create(type, parent, combine: defined?(combine) ? combine : false) %>
+    <% create = defined?(override) ?
+                override :
+                can_create(type, parent, combine: defined?(combine) ? combine : false) %>
+    <% if create %>
       <% unless !(current_user.cf_admin?) && parent&.expired? %>
         <!-- pass the params to the link associated with the 'New' button so it can supply the country when required -->
         <%= link_to t(".add", type_name: type.model_name.human.titleize), [:new, parent, type.name.underscore.to_sym, plot: @plot, params: params.to_h], class: "btn btn-primary" %>

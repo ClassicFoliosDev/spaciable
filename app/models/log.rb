@@ -3,6 +3,11 @@
 class Log < ApplicationRecord
   include RoleEnum
   belongs_to :logable, polymorphic: true
+  has_one :mark, as: :markable, dependent: :destroy
+
+  delegate :marker, to: :mark, allow_nil: true
+
+  before_save :make_mark
 
   enum action: %i[
     created
@@ -12,17 +17,14 @@ class Log < ApplicationRecord
     removed
   ]
 
-  # Only CF Admins can see CF admin user names, Non CF admins see "CF Admin"
-  def display_name
-    return "CF Admin" if cf_admin? && !RequestStore.store[:current_user].cf_admin?
-    username
+  def make_mark
+    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
+                              role: RequestStore.store[:current_user]&.role)
   end
 
   class << self
-    # Enter a log. Username and role supplemented if not present
+    # Enter a log.
     def log(params)
-      params[:username] = RequestStore.store[:current_user]&.full_name unless params[:username]
-      params[:role] = RequestStore.store[:current_user]&.role || :cf_admin
       Log.new(params).save
     end
 

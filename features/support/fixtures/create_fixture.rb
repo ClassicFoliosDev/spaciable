@@ -51,7 +51,7 @@ module CreateFixture
   FINISHRESOURCES ||= [
     ["Wallcovering", "Paint", "Crown", ["red", "blue", "purple", "green"]],
     ["Splashback", "Tiles", "Johnson", ["Morrocco", "Azure", "Clown", "Flowers"]],
-    ["Flooring", "Carpet", "Wilton", ["maize", "sunflower", "bluebell", "grass"]]
+    ["Flooring", "Rug", "Wilton", ["maize", "sunflower", "bluebell", "grass"]]
   ]
 
   # Generate methods for each resource, e.g. for 'phase: "Alpha Phase"':
@@ -121,6 +121,10 @@ module CreateFixture
   end
 
   def finish_type_name
+    "Rug"
+  end
+
+  def seed_finish_type_name
     "Carpet"
   end
 
@@ -265,7 +269,7 @@ module CreateFixture
 
   def create_room(name=room_name, ut=unit_type)
     last_user = cf_admin || create_cf_admin
-    FactoryGirl.create(:room, name: name, unit_type: ut, last_updated_by: last_user.display_name)
+    FactoryGirl.create(:room, name: name, unit_type: ut)
   end
 
   def unit_type_rooms
@@ -277,7 +281,7 @@ module CreateFixture
     ut = UnitType.find_by(name: ut_name)
     rooms = []
     unit_type_rooms.each do |roomname|
-      rooms << FactoryGirl.create(:room, name: roomname, unit_type: ut, last_updated_by: cf_admin.display_name)
+      rooms << FactoryGirl.create(:room, name: roomname, unit_type: ut)
     end
     rooms
   end
@@ -375,7 +379,7 @@ module CreateFixture
   end
 
   def create_appliance_room
-    FactoryGirl.create(:appliance_room, room: room, appliance: appliance, added_by: "tester")
+    FactoryGirl.create(:appliance_room, room: room, appliance: appliance)
   end
 
   def create_finish_category(developer=nil)
@@ -384,10 +388,13 @@ module CreateFixture
 
   def create_finish_type(developer=nil)
     finish_category = create_finish_category(developer)
-    FactoryGirl.create(:finish_type,
-                       name: finish_type_name,
-                       finish_categories: [finish_category],
-                       developer: developer)
+    finish_type = FinishType.find_by(name: finish_type_name, developer: developer)
+    if finish_type.blank?
+      FactoryGirl.create(:finish_type,
+                         name: finish_type_name,
+                         finish_categories: [finish_category],
+                         developer: developer)
+    end
   end
 
   def create_finish(developer=nil)
@@ -398,7 +405,7 @@ module CreateFixture
   end
 
   def create_finish_room(room = self.room, finish = create_finish)
-    FactoryGirl.create(:finish_room, room: room, finish: finish, added_by: "tester")
+    FactoryGirl.create(:finish_room, room: room, finish: finish)
   end
 
   def create_development_phase

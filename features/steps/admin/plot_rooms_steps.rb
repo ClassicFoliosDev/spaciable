@@ -232,7 +232,7 @@ Then(/^I should see the appliance remove is successful$/) do
   expect(page).not_to have_content(".record-list")
 end
 
-Then(/^I cannot edit the applince or finish$/) do
+Then(/^I cannot edit or delete the appliance or finish$/) do
 
   within ".plot" do
     click_on CreateFixture.room_name
@@ -240,11 +240,13 @@ Then(/^I cannot edit the applince or finish$/) do
 
   finish_row = find(:xpath, "//a[text()='#{CreateFixture.finish_name}']/parent::td/parent::tr")
   expect(finish_row).not_to have_selector("#edit-btn")
+  expect(finish_row).not_to have_selector("#delete-btn")
 
   find(".tabs").click_on t("plots.rooms.collection.appliances")
 
   appliance_row = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
   expect(appliance_row).not_to have_selector("#edit-btn")
+  expect(appliance_row).not_to have_selector("#delete-btn")
 end
 
 When(/^I remove a finish from the plot$/) do
@@ -320,7 +322,7 @@ And(/^I update the plot unit type with option (.*)$/) do |option|
   find("#submit-plot-btn").trigger('click')
 
   sleep 1
-  if page.html.include?(success_flash) # 
+  if page.html.include?(success_flash) #
     break # choice dialog didn't appear - capybara fault
   else
     # Choose the required option in the dialog
@@ -339,7 +341,7 @@ And(/^I should see the plot rooms according to (.*)$/) do |option|
     expect(page).to have_content(CreateFixture.lounge_name)
     expect(page).not_to have_content(PlotRoomsFixture.template_room_to_delete)
     expect(page).not_to have_content(PlotRoomsFixture.updated_plot_room_name)
-    expect(page).not_to have_content(PlotRoomsFixture.new_plot_room_name)  
+    expect(page).not_to have_content(PlotRoomsFixture.new_plot_room_name)
     PlotRoomsFixture::UNIT_TYPE_ROOMS.each do |room_name|
       expect(page).not_to have_content(room_name)
     end

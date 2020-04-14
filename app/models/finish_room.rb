@@ -5,9 +5,15 @@ class FinishRoom < ApplicationRecord
 
   belongs_to :finish, inverse_of: :finish_rooms
   belongs_to :room, inverse_of: :finish_rooms
+  has_one :mark, as: :markable, autosave: true, dependent: :destroy
 
-  after_initialize :set_default_adding_user
+  delegate :marker, to: :mark, allow_nil: true
 
+  amoeba do
+    include_association :mark
+  end
+
+  before_save :make_mark
   after_create -> { log :added }
   after_update -> { log :updated }
   after_destroy -> { log :removed }
@@ -23,19 +29,18 @@ class FinishRoom < ApplicationRecord
   validates :finish, presence: true
   validates :room, presence: true
 
-  # set a default adding user - this is for situations where associations
-  # are updated and result in new records being added
-  def set_default_adding_user
-    self.added_by ||= User.find_by(role: :cf_admin).display_name
-  end
-
-  def self.author(room, finish)
-    room_finish(room, finish).added_by
+  def self.marker(room, finish)
+    room_finish(room, finish).marker
   rescue
     nil
   end
 
   private
+
+  def make_mark
+    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
+                              role: RequestStore.store[:current_user]&.role)
+  end
 
   def log(action)
     room.furnish_log(finish, action)

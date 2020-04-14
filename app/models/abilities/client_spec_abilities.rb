@@ -21,6 +21,7 @@ module Abilities
         next unless development.cas
         crud_unit_types(development)
         crud_rooms(development)
+        crud_plot_rooms(development)
         crud_finish_rooms(development)
         crud_appliance_rooms(development)
         crud_plots(development)
@@ -94,7 +95,6 @@ module Abilities
     end
 
     # restrict rooms
-    # rubocop:disable Metrics/MethodLength
     def crud_rooms(development)
       can %i[create read],
           Room, development_id: development.id
@@ -107,18 +107,17 @@ module Abilities
       can :create_room_unittype, Room,
           development_id: development.id,
           unit_type: { restricted: false }
+    end
 
-      can %i[create_room_plot update destroy remove_finish remove_appliance], Room do |room|
-        room.present? &&
-          room.development_id == development.id &&
-          room.plot.present? &&
-          room.completion_release_date.present? &&
-          room.completion_release_date <= Time.zone.today
+    # restrict rooms in plots
+    def crud_plot_rooms(development)
+      can :crud, PlotRoom do |plotroom|
+        plotroom.development_id == development.id &&
+          plotroom.completion_release_date.present? &&
+          plotroom.completion_release_date <= Time.zone.today
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-    # rubocop:disable Metrics/AbcSize
     def crud_finish_rooms(development)
       can %i[create destroy], FinishRoom,
           room: { development_id: development.id,
@@ -127,14 +126,6 @@ module Abilities
       can %i[create destroy], FinishRoom,
           room: { development_id: development.id,
                   unit_type: nil }
-
-      can :create_finishroom_room, FinishRoom do |froom|
-        froom.present? && froom.room.present? &&
-          froom.room.development_id == development.id &&
-          froom.room.plot.present? &&
-          froom.room.plot.completion_release_date.present? &&
-          froom.room.plot.completion_release_date <= Time.zone.today
-      end
     end
 
     def crud_appliance_rooms(development)
@@ -145,32 +136,17 @@ module Abilities
       can %i[create destroy], ApplianceRoom,
           room: { development_id: development.id,
                   unit_type: nil }
-
-      can :create_applianceroom_room, FinishRoom do |aroom|
-        aroom.present? && aroom.room.present? &&
-          aroom.room.development_id == development.id &&
-          aroom.room.plot.present? &&
-          aroom.room.plot.completion_release_date.present? &&
-          aroom.room.plot.completion_release_date <= Time.zone.today
-      end
     end
 
     def crud_plots(development)
       can %i[cas_update update], Plot, development_id: development.id
 
-      can :update_unit_type, Plot do |plot|
+      can %i[update_unit_type inform], Plot do |plot|
         plot.development_id == development.id &&
           plot.completion_release_date.present? &&
           plot.completion_release_date <= Time.zone.today
       end
-
-      can :inform, Plot do |plot|
-        plot.development_id == development.id &&
-          (plot.completion_release_date.nil? ||
-          plot.completion_release_date > Time.zone.today)
-      end
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end
 # rubocop:enable Metrics/ModuleLength

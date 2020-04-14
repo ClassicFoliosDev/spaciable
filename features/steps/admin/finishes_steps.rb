@@ -24,7 +24,7 @@ When(/^I create a ([^ ]*)finish$/) do |name|
   fill_in "finish_name", with: name.empty? ? FinishFixture.finish_name : name.strip!
 
   select_from_selectmenu :finish_finish_category, with: CreateFixture.finish_category_name
-  select_from_selectmenu :finish_finish_type, with: CreateFixture.finish_type_name
+  select_from_selectmenu :finish_finish_type, with: CreateFixture.seed_finish_type_name
 
   click_on t("appliances.form.submit")
 end
@@ -220,13 +220,13 @@ end
 Then(/^I should see the finish type shown$/) do
   sleep 0.5
   within ".finish_category" do
-    expect(page).to have_content(CreateFixture.finish_type_name)
+    expect(page).to have_content(CreateFixture.seed_finish_type_name)
   end
 end
 
 When(/^I review the finish type$/) do
   visit "./finish_types"
-  click_on CreateFixture.finish_type_name
+  click_on CreateFixture.seed_finish_type_name
 end
 
 Then(/^I should see the finish manufacturer shown$/) do

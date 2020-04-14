@@ -7,8 +7,8 @@ module ButtonsHelper
     end
   end
 
-  def edit_btn(edit_path, label = "", element:)
-    return if element && (cannot? :update, element)
+  def edit_btn(edit_path, label = "", element:, override: false)
+    return unless override || (element && (can? :update, element))
 
     link_to edit_path, class: "btn", data: { action: "edit" } do
       icon "pencil", label
@@ -25,8 +25,9 @@ module ButtonsHelper
     end
   end
 
-  def delete_btn(resource, label = "", path: nil, text: nil, element:)
-    return if element && (cannot? :destroy, element)
+  # rubocop:disable Metrics/ParameterLists
+  def delete_btn(resource, label = "", path: nil, text: nil, element:, override: false)
+    return unless override || (element && (can? :destroy, element))
 
     content_tag(:button, data: data_to_delete(resource, path: path, text: text),
                          class: "btn archive-btn",
@@ -34,6 +35,7 @@ module ButtonsHelper
       icon "trash-o", label
     end
   end
+  # rubocop:enable Metrics/ParameterLists
 
   def info_btn(resource, label = "", title: t("buttons.info.title"), text: nil, element:)
     return if element && (cannot? :destroy, element)
