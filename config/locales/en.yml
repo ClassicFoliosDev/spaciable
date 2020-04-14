@@ -1243,12 +1243,12 @@ en:
         snag_expiration: "Access to the %{snag_name} submission tool has expired as of %{snag_date}."
         snag_continuation: "You can still view previous submitted issues, and comment on unresolved issues."
         snag_archive: "You can view all of your resolved issues below, but are no longer able to edit them or add comments."
-        title: "%{name}."
+        title: "%{name}"
       new:
-        title: "%{name}."
+        title: "%{name}"
         details: "Use the form below to describe the issue you would like to report. Please try to include as much detail as possible."
       edit:
-        title: "%{name}."
+        title: "%{name}"
         details: "Edit your issue below to include any additional information, or remove information that is no longer relevant."
       form:
         image: "Upload Image(s)"

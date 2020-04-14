@@ -1,8 +1,18 @@
-<% content_for :hero_text_primary do %>
-  <%= t(".title", name: @plot.snag_name) %>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to snags_path do %>
+      <li class="navbar-item-secondary">
+        <%= t(".title", name: @plot.snag_name) %>
+      </li>
+    <% end %>
+  </div>
 <% end %>
 
 <%= render "components/homeowner/hero" %>
+
+<div class="howto-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
 
 <div class="branded-body">
   <div class="snag-container">
