@@ -1,9 +1,22 @@
-<div class="branded-hero"></div>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to communication_preferences_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t(".title") %>
+    </li>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
+<div class="com-preferences-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
 
 <div class="outer-container branded-content">
   <div class="onboarding branded-text">
     <div class="communication-preferences">
-      <p class="title"><%= t(".communication_preferences") %></p>
       <p><%= t(".paragraph").html_safe %></p>
     </div>
     <div class="communication-options">

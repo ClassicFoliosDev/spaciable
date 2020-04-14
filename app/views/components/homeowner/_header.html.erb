@@ -11,106 +11,114 @@
           <% end %>
         </div>
 
-        <!-- search bar -->
-        <div class="navbar-search">
-          <%= render "components/search" %>
-        </div>
-
-        <section>
-          <div class="account-navigation branded-nav-background" id="acctNav">
-            <button class="dropdown branded-nav-background branded-nav-text" id="dropdownMenu">
-              <% if unread_count.positive? %>
-                <span class="unread"><%= unread_count %></span>
-              <% end %>
-              <span class="name"><%= current_resident.to_s %></span>
-              <i class="fa fa-angle-down" id="upDownArrow"></i>
-            </button>
-            <div class="dropdown-content branded-nav-text branded-nav-background" id="navList">
-              <div class="hidden-address" id="hiddenAddress">
-                <h4 class="branded-nav-text"><%= t(".welcome_home", resident: current_resident.first_name) %></h4>
-                <% if plot.prefix.present? %>
-                  <%= plot.prefix %>
-                <% end %>
-                <%= plot.postal_number %> <%= plot.building_name %>
-                <% if plot.building_name.present? && plot.road_name.present? %>
-                  <br/>
-                <% end %>
-                <% if plot.road_name.present? %>
-                  <%= plot.road_name %><br/>
-                <% end %>
-                <% if plot.locality.present? %>
-                  <%= plot.locality %><br/>
-                <% end %>
-                <% if plot.city.present? %>
-                  <%= plot.city %><br/>
-                <% end %>
-                <% if plot.county.present? %>
-                  <%= plot.county %><br/>
-                <% end %>
-                <% if plot.postcode.present? %>
-                  <%= plot.postcode %><br/>
-                <% end %>
-              </div>
-              <div class="links-list">
-                <div class="dropdown-link branded-nav-background">
-                  <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "link-item branded-nav-text" %>
-                </div>
-                <div class="dropdown-link branded-nav-background">
-                  <%= link_to t(".plots"), plots_path, class: "link-item branded-nav-text" %>
-                </div>
-                <div class="dropdown-link branded-nav-background">
-                  <%= link_to homeowners_notifications_path, class: "link-item branded-nav-text" do %>
-                  <% if unread_count.positive? %>
-                  <span class="unread"><%= unread_count %></span>
-                  <% end %>
-                    <%= t(".messages") %>
-                  <% end %>
-                </div>
-                <% if current_resident.listings? %>
-                <div class="dropdown-link branded-nav-background">
-                  <%= link_to t(".lettings"), letting_path(current_resident), class: "link-item branded-nav-text" %>
-                </div>
-                <% end %>
-                <div class="dropdown-link branded-nav-background">
-                  <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn link-item branded-nav-text",
-                  data: data_for_feedback(current_resident) %>
-                </div>
-                <div class="dropdown-link branded-nav-background">
-                  <%= button_tag t(".refer"), class: "refer-resident navigation-btn link-item branded-nav-text",
-                      data: { cancel: t("edit.cancel"),
-                      cta: t(".send_invitation"),
-                      title: t(".refer_title")} %>
-                </div>
-              </div>
-              <div class="dropdown-link sign-out branded-nav-background" id="signOut">
-                <%= link_to destroy_resident_session_path,
-                    method: :delete,
-                    data: { test: "homeowner-sign-out" },
-                    class: "link-item branded-nav-text" do %>
-                    <i class="fa fa-angle-left sign-out-arrow"></i><span><%= t("users.sign_out") %></span>
-                <% end %>
-              </div>
-            </div>
-            </button>
+        <% unless session[:onboarding] %>
+          <!-- search bar -->
+          <div class="navbar-search">
+            <%= render "components/search" %>
           </div>
-        </section>
-
-        <% if !session[:onboarding] %>
-        <section class="burger-navigation">
-          <input type="checkbox" id="menuBurger">
-          <label for="menuBurger" class="burger navbar-trigger-label">
-            <div class="menu-text branded-nav-text">Menu</div>
-            <div class="burger-bars">
-              <span class="burger-bar bar-top"></span>
-              <span class="burger-bar bar-middle"></span>
-              <span class="burger-bar bar-bottom"></span>
-            </div>
-          </label>
-        </section>
-        <aside class="navbar-menu">
-          <%= render "components/homeowner/navigation", plot: plot, country: country %>
-        </aside>
         <% end %>
+
+          <section>
+            <div class="account-navigation branded-nav-background" id="acctNav">
+              <% unless session[:onboarding] %>
+                <button class="dropdown branded-nav-background branded-nav-text" id="dropdownMenu">
+                  <% if unread_count.positive? %>
+                    <span class="unread"><%= unread_count %></span>
+                  <% end %>
+                  <span class="name"><%= current_resident.to_s %></span>
+                  <i class="fa fa-angle-down" id="upDownArrow"></i>
+                </button>
+                <div class="dropdown-content branded-nav-text branded-nav-background" id="navList">
+                  <div class="hidden-address" id="hiddenAddress">
+                    <h4 class="branded-nav-text"><%= t(".welcome_home", resident: current_resident.first_name) %></h4>
+                    <% if plot.prefix.present? %>
+                      <%= plot.prefix %>
+                    <% end %>
+                    <%= plot.postal_number %> <%= plot.building_name %>
+                    <% if plot.building_name.present? && plot.road_name.present? %>
+                      <br/>
+                    <% end %>
+                    <% if plot.road_name.present? %>
+                      <%= plot.road_name %><br/>
+                    <% end %>
+                    <% if plot.locality.present? %>
+                      <%= plot.locality %><br/>
+                    <% end %>
+                    <% if plot.city.present? %>
+                      <%= plot.city %><br/>
+                    <% end %>
+                    <% if plot.county.present? %>
+                      <%= plot.county %><br/>
+                    <% end %>
+                    <% if plot.postcode.present? %>
+                      <%= plot.postcode %><br/>
+                    <% end %>
+                  </div>
+                  <div class="links-list">
+                    <div class="dropdown-link branded-nav-background">
+                      <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "link-item branded-nav-text" %>
+                    </div>
+                    <div class="dropdown-link branded-nav-background">
+                      <%= link_to t(".plots"), plots_path, class: "link-item branded-nav-text" %>
+                    </div>
+                    <div class="dropdown-link branded-nav-background">
+                      <%= link_to homeowners_notifications_path, class: "link-item branded-nav-text" do %>
+                      <% if unread_count.positive? %>
+                      <span class="unread"><%= unread_count %></span>
+                      <% end %>
+                        <%= t(".messages") %>
+                      <% end %>
+                    </div>
+                    <% if current_resident.listings? %>
+                    <div class="dropdown-link branded-nav-background">
+                      <%= link_to t(".lettings"), letting_path(current_resident), class: "link-item branded-nav-text" %>
+                    </div>
+                    <% end %>
+                    <div class="dropdown-link branded-nav-background">
+                      <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn link-item branded-nav-text",
+                      data: data_for_feedback(current_resident) %>
+                    </div>
+                    <div class="dropdown-link branded-nav-background">
+                      <%= button_tag t(".refer"), class: "refer-resident navigation-btn link-item branded-nav-text",
+                          data: { cancel: t("edit.cancel"),
+                          cta: t(".send_invitation"),
+                          title: t(".refer_title")} %>
+                    </div>
+                  </div>
+                  <div class="dropdown-link sign-out branded-nav-background" id="signOut">
+                    <%= link_to destroy_resident_session_path,
+                        method: :delete,
+                        data: { test: "homeowner-sign-out" },
+                        class: "link-item branded-nav-text" do %>
+                        <i class="fa fa-angle-left sign-out-arrow"></i><span><%= t("users.sign_out") %></span>
+                    <% end %>
+                  </div>
+                </div>
+                </button>
+              <% end %>
+            </div>
+          </section>
+
+        <% if session[:onboarding] %>
+          <div class="burger-placeholder"></div>
+        <% else %>
+          <section class="burger-navigation">
+            <input type="checkbox" id="menuBurger">
+            <label for="menuBurger" class="burger navbar-trigger-label">
+              <div class="menu-text branded-nav-text">Menu</div>
+              <div class="burger-bars">
+                <span class="burger-bar bar-top"></span>
+                <span class="burger-bar bar-middle"></span>
+                <span class="burger-bar bar-bottom"></span>
+              </div>
+            </label>
+          </section>
+        <% end %>
+
+          <aside class="navbar-menu">
+            <%= render "components/homeowner/navigation", plot: plot, country: country %>
+          </aside>
+
       </div>
     </nav>
   <% end %>
