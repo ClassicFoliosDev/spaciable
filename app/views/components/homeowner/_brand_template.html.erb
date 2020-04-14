@@ -290,6 +290,9 @@
     }
   <% end %>
 
+<%-# ------------------------------------------ -%>
+<%-# ---------------- BUTTONS ----------------- -%>
+
   <% if brand.branded_button_color %>
 
     .plots .plot-summary .switch-plot .current-plot {
@@ -298,27 +301,31 @@
 
     .branded-btn {
       background-color: <%= brand.branded_button_color %>;
-   }
+    }
 
     .branded-btn:hover {
       color: <%= brand.branded_button_color %> !important;
     }
 
-    .branded-titles h2 {
-      color: <%= brand.branded_button_color %>;
+    <%-# ---------------- LIBRARY ----------------- -%>
+    .library-navigation .library-categories .categories li a {
+      background-color: <%= brand.branded_button_color %>;
     }
 
-    .branded-titles h2:last-child {
+    .library-navigation .library-categories .categories li a:hover,
+    .library-navigation .library-categories .categories li a.active {
       color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
     }
 
-    .branded-primary-text a {
-      color: <%= brand.branded_button_color %>;
-    }
-
+    <%-# ------------------ TEXT ------------------ -%>
+    .branded-titles h2,
+    .branded-titles h2:last-child,
+    .branded-primary-text a,
     .branded-primary-text label.checkbox {
       color: <%= brand.branded_button_color %>;
     }
+
   <% else %>
     .branded-btn {
       <%= Brand.branded_static_background_default %>
@@ -374,6 +381,20 @@
 
     .plots .plot-summary .active-plot {
       border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    <%-# ---------------- LIBRARY ----------------- -%>
+    .library-navigation .library-categories .categories li a {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .library-navigation .library-categories .categories li a:hover {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .library-navigation .library-categories .categories li a.active {
+      background-color: <%= brand.branded_button_text_color %>;
     }
 
   <% else %>

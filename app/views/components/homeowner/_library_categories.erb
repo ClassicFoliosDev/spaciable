@@ -1,5 +1,5 @@
 <div class="library-categories">
-  <h2><%= t(".title") %></h2>
+  <h2 class="branded-text"><%= t(".title") %></h2>
   <ul class="categories">
     <% documents = Document.accessible_by(current_ability)
                            .where(category: "my_home") %>
