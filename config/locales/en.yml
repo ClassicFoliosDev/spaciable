@@ -97,6 +97,7 @@ en:
     confirm: "Commit Choices"
     approve: "Approve"
     reject: "Reject"
+    title: "Choices"
     homeowner:
       homeowner_updating: "Choices updated successfully"
       admin_updating: "Selections for your plot have been made by the administrator"
@@ -1188,7 +1189,7 @@ en:
     home: "Home"
     plots:
       show:
-        title: "My Plots."
+        title: "My Plots"
     faqs:
       index:
         title: "FAQs."
@@ -1200,7 +1201,7 @@ en:
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
     about_videos:
       show:
-        title: "Introductory Video."
+        title: "Introductory Video"
     contacts:
       index:
         title: "Contacts."
@@ -1457,7 +1458,7 @@ en:
     notifications:
       index:
         none: "You have no notifications"
-        messages: "Messages."
+        title: "Messages"
     private_documents:
       index:
         file_description: "You can use this area of Spaciable to store other documents, photos and files relating to your moving process and home."
@@ -1480,7 +1481,7 @@ en:
       sign_up_paragraph_one: "Click Give Me Access below and we'll pass your property portal account details (name, email, address and postcode) on to trusted third party Vaboo, who'll set up your Buyers' Club account."
       sign_up_paragraph_two: "Once you've activated your account via the email from Vaboo, you'll be able to log in to the online Buyers' Club platform to view your latest discounts and deals."
       show:
-        title: "Buyers' Club."
+        title: "Buyers' Club"
       premium:
         title: "Congratulations - you've been offered free premium access to Buyers' Club discounts!"
         intro_paragraph_two: "As a 'thank you' for being a valued customer, we've paid for your property to upgrade to a premium Buyers' Club account, so you can enjoy access to exclusive perks and earn cashback as you spend."
@@ -1511,6 +1512,7 @@ en:
         account: "Update Account."
         phone: "Phone"
         email: "Email"
+        title: "Account"
       communications:
         title: "Communication Preferences."
         updates_by: "Updates on offers and services from your portal:"
@@ -1518,6 +1520,7 @@ en:
       services:
         title: "Services"
       show:
+        title: "Account"
         my_account: "Account"
         name: "Name"
         password: "Password"
