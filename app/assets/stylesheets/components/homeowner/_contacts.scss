@@ -85,11 +85,11 @@
     }
   }
 
-    .contacts-nav .sub-navigation-container {
-      .navbar-item-secondary {
-        width: 110px;
-      }
+  .contacts-nav .sub-navigation-container {
+    .navbar-item-secondary {
+      width: 110px;
     }
+  }
 }
 
 @include media($tablet-portrait-down) {

@@ -1,22 +1,27 @@
-<% content_for :hero_text_primary do %>
-  <%= t('.title') %>
-<% end %>
-<% content_for :hero_text_secondary do %>
-  <ul class="hero-links categories">
+<% content_for :sub_category_navigation do %>
     <% @categories.each do |category| %>
-      <li>
-        <%= link_to t_enum(HowTo, :category, category),
-          homeowner_how_tos_path(category),
-          class: ("active" if @category == category) %>
-      </li>
+      <div class="navbar-item">
+        <%= link_to homeowner_how_tos_path(category),
+            class: ("active" if @category == category) do %>
+          <li class="navbar-item-secondary">
+            <%= t_enum(HowTo, :category, category) %>
+          </li>
+        <% end %>
+      </div>
     <% end %>
-  </ul>
 <% end %>
 
 <%= render "components/homeowner/hero" %>
 
+<div class="howto-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
+
 <div class="branded-body">
   <div class="main-container">
+    <div class="page-title">
+      <h2 class="branded-text"><%= t(".title") %></h2>
+    </div>
     <% if @tag %>
       <p class="tag-line"><%= t(".tagged", tag: @tag) %><strong><%= @tag.name %></strong></p>
     <% end %>

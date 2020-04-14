@@ -8,6 +8,7 @@ nav {
   width: 100%;
   z-index: 20;
   top: 0;
+  border-bottom: 1px solid $ui-grey;
 
   .nav-inner {
     @include outer-container(92%);
