@@ -327,6 +327,7 @@
     }
 
   <% else %>
+
     .branded-btn {
       <%= Brand.branded_static_background_default %>
     }
@@ -342,9 +343,11 @@
     .branded-titles h2.second-title {
       <%= Brand.branded_second_header_default %>
     }
+
   <% end %>
 
   <% if brand.branded_button_text_color %>
+
     .branded-btn {
       color: <%= brand.branded_button_text_color %> !important;
       border-color: <%= brand.branded_button_text_color %>;
@@ -398,6 +401,7 @@
     }
 
   <% else %>
+
     .branded-btn {
       <%= Brand.branded_static_text_default %>
       <%= Brand.branded_static_border_default %>
@@ -418,6 +422,7 @@
     .document-permission {
       <%= Brand.branded_primary_default %>
     }
+    
   <% end %>
 
 
