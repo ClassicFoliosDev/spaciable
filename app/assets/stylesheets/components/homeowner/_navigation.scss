@@ -88,6 +88,11 @@ nav {
   }
 }
 
+.page-title {
+  @include outer-container;
+  padding: 0 20px
+}
+
 .footer {
   height: 40px;
   line-height: 36px;
