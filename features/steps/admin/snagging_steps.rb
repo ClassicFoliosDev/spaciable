@@ -127,9 +127,9 @@ Then(/^any resident of the plot can approve the resolved status$/) do
   end
 
   # check notifications
-  within(".session-inner") do
-    notification_link = page.find(:css, 'a[href="/homeowners/notifications"]')
-    notification_link.click
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("components.homeowner.header.messages")
   end
 
   within ".notification-list" do
@@ -138,13 +138,11 @@ Then(/^any resident of the plot can approve the resolved status$/) do
   end
 
   # navigate to snagging page
-  within ".navigation" do
-    click_on (t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
-
-  within ".sub-navigation-container" do
-    click_on "Snagging"
-  end
+  click_on (t("components.navigation.snagging"))
 
   within ".main-container" do
     expect(page).to have_content(t("homeowners.snags.index.snag_continuation"))
@@ -182,9 +180,9 @@ end
 
 Then(/^the resident is no longer able to submit snags$/) do
   # check notifications
-  within(".session-inner") do
-    notification_link = page.find(:css, 'a[href="/homeowners/notifications"]')
-    notification_link.click
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("components.homeowner.header.messages")
   end
   within ".notification-list" do
     cards = page.all(".card")
@@ -197,15 +195,17 @@ Then(/^the resident is no longer able to submit snags$/) do
   end
 
   # check nav link and my account link
-  within ".navigation" do
-    click_on (t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
-  within ".sub-navigation-container" do
-    expect(page).to_not have_content("Snagging")
+  expect(page).to_not have_content(t("components.navigation.snagging"))
+
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
-  within ".session-inner" do
-    click_on(t("components.homeowner.welcome.account"))
-  end
+
   within ".snagging-history" do
     click_on("Snagging History")
   end
@@ -253,12 +253,11 @@ Then(/^a resident can dispute the resolved status$/) do
     click_on "Login"
   end
 
-  within ".navigation" do
-    click_on (t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
-  within ".sub-navigation-container" do
-    click_on "Snagging"
-  end
+  click_on (t("components.navigation.snagging"))
   within ".snag" do
     click_on(t("homeowners.components.snag.show"))
   end

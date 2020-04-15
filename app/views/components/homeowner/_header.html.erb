@@ -20,7 +20,7 @@
 
           <section>
             <div class="account-navigation branded-nav-background" id="acctNav">
-              <% unless session[:onboarding] %>
+              <% if !session[:onboarding] && current_resident.present? %>
                 <button class="dropdown branded-nav-background branded-nav-text" id="dropdownMenu">
                   <% if unread_count.positive? %>
                     <span class="unread"><%= unread_count %></span>

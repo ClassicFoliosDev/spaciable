@@ -21,7 +21,7 @@
     <% if session[:plot_id] == plot.id %>
       <div class="current-plot"><span><%= t(".current_plot") %></span></div>
     <% else %>
-      <%= link_to t(".switch"), change_plot_path(id: plot.id), class: "branded-btn swap-plot-btn" %>
+      <%= link_to t(".switch"), change_plot_path(id: plot.id), class: "branded-btn swap-plot-btn #{plot.id}" %>
     <% end %>
   </div>
 </div>

@@ -4,11 +4,6 @@ Feature: Homeowner Login
   I want to log in
   So that I can access content related to my plot
 
-  Scenario:
-    Given I am a homeowner
-    When I log in as a homeowner
-    Then I should be on the "My Home" dashboard
-
   Scenario: Log out
     Given I am logged in as a homeowner
     When I log out as a homeowner

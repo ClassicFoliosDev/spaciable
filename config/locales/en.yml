@@ -488,10 +488,11 @@ en:
 
     homeowner:
       sub_menu:
-        about: "About"
+        about: "Home Tour"
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
+        title: "My Home"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
@@ -509,11 +510,12 @@ en:
         maintenance: "Issues"
         house_search: "Area Guide"
         services: "Services"
-        about: "About"
+        about: "Home Tour"
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
+        choices: "Choices"
         services: "Services"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
@@ -1375,7 +1377,7 @@ en:
         let_out_other: "Other residents have set up the following properties for rent."
     appliances:
       show:
-        title: "Appliances."
+        title: "Appliances"
         register: "Register Appliance"
         manual: "Manual"
         guide: "Quick Reference Guide"

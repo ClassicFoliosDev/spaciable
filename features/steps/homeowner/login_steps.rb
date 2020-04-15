@@ -37,21 +37,11 @@ When(/^I log in as a returning homeowner$/) do
 end
 
 When(/^I log out as a homeowner$/) do
-  within ".session-inner" do
-    first(:css, "[data-test='homeowner-sign-out']").click
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   within ".notice" do
     expect(page).to have_content(t("devise.sessions.signed_out"))
-  end
-end
-
-Then(/^I should be on the "My Home" dashboard$/) do
-  homeowner = HomeownerUserFixture
-
-  within ".header-container" do
-    expect(page).to have_content "Hi, #{homeowner.first_name}"
-    expect(page).to have_link "My Home"
   end
 end
 

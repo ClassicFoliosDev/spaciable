@@ -3,8 +3,8 @@
 When(/^I visit the contacts page$/) do
   visit "/"
 
-  within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.contacts")
+  within ".contacts-component" do
+    click_on(t("homeowners.dashboard.contacts.contacts_view_more"))
   end
 end
 
@@ -15,7 +15,7 @@ Then(/^I should see the contacts for my plot$/) do
     expect(contacts.count).to eq(1)
   end
 
-  within ".hero-links" do
+  within ".sub-navigation-container" do
     click_on(t("activerecord.attributes.contact.categories.management"))
   end
 
@@ -26,7 +26,7 @@ Then(/^I should see the contacts for my plot$/) do
     expect(contacts.count).to eq(2)
   end
 
-  within ".hero-links" do
+  within ".sub-navigation-container" do
     click_on(t("activerecord.attributes.contact.categories.customer_care"))
   end
 
@@ -46,7 +46,7 @@ And(/^I should see contacts on the dashboard$/) do
 end
 
 Then(/^the pinned contact should display first$/) do
-  within ".hero-links" do
+  within ".sub-navigation-container" do
     click_on(t("activerecord.attributes.contact.categories.management"))
   end
   sleep 0.5

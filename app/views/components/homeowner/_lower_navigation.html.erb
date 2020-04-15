@@ -6,7 +6,7 @@
   </div>
   <div class="notifications-link">
     <%= link_to homeowners_notifications_path, class: "link-item" do %>
-      <% if unread_count.positive? %>
+      <% if unread_count&.positive? %>
         <sup class="unread"><%= unread_count %></sup>
         <i class="fa fa-envelope-o branded-nav-text"></i>
       <% else %>
