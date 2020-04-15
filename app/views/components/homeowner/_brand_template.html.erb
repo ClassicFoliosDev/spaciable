@@ -172,6 +172,31 @@
 
     <%-# --- Specific elements that need overriding --- -%>
 
+    <%-# ----------- MOBILE SEARCH BAR ------------ -%>
+    .lower-navigation .lower-navbar-search .search-container input[type="text"] {
+      border-color: <%= brand.branded_text_color %> !important;
+      color: <%= brand.branded_text_color %> !important;
+    }
+
+    .lower-navigation .lower-navbar-search .search-container .search-btn {
+      color: <%= brand.branded_text_color %>;
+    }
+
+    .lower-navigation .lower-navbar-search .search-container .search-btn:hover {
+      background-color: <%= brand.branded_text_color %>;
+      color: #FFFFFF:
+    }
+
+    .lower-navigation .lower-navbar-search .search-container .search-field::placeholder {
+      color: <%= brand.branded_text_color %> !important;
+    }
+    .lower-navigation .lower-navbar-search .search-container .search-field::-ms-input-placeholder {
+      color: <%= brand.branded_text_color %> !important;
+    }
+    .lower-navigation .lower-navbar-search .search-container .search-field:-ms-input-placeholder {
+      color: <%= brand.branded_text_color %> !important;
+    }
+
     .unlet-plot .letable-plot .letting-btn {
       border-color: <%= brand.branded_text_color %>;
       color: <%= brand.branded_text_color %>;
@@ -274,7 +299,7 @@
     }
 
     .sub-navigation-container .active .navbar-item-secondary {
-      border-bottom: 2px solid <%= brand.branded_content_text_color %>;
+      border-color: <%= brand.branded_content_text_color %>;
     }
 
   <% else %>
