@@ -1464,6 +1464,10 @@ en:
           title: "Issues"
           description: "Stuff is wrong and you need help"
           button: "Report Issue"
+        snagging:
+          title: "%{title}"
+          description: "Stuff is minorly wrong and you need help"
+          button: "Report Issue"
 
     communication_preferences:
       show:
