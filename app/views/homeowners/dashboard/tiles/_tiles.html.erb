@@ -1,0 +1,12 @@
+<!-- we already have a list of the plots tiles => tiles -->
+<!-- for each tile => tiles.each do -->
+<!-- check whether it's a feature or not -->
+<!-- if it's a feature, load the relevant feature template -->
+<!-- render '#{tile.sub_category}', plot: plot -->
+<div class="card article dash-tile">
+  <div class="tile-content">
+    <%= render "homeowners/dashboard/tiles/#{tiles[0]}", plot: plot %>
+  </div>
+</div>
+<!-- otherwise, render the default tile template -->
+<!-- render 'tile', plot: plot -->

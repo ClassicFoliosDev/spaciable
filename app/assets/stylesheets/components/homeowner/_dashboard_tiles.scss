@@ -1,0 +1,67 @@
+.dash-tile {
+  border: 1px solid $pale-navy;
+  background: none;
+
+  .tile-content {
+
+    .tile-image {
+      display: block;
+      width: 30%;
+      float: left;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .img-tile-details {
+      display: block;
+      width: 70%;
+      float: right;
+      padding: $spacing-small;
+    }
+
+    .tile-text {
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-medium;
+      }
+
+      .tile-description {
+        color: $primary-navy;
+        font-size: $base-small-font-size;
+      }
+    }
+
+    .tile-button {
+      position: absolute;
+      bottom: 0;
+      padding-bottom: $spacing-small;
+
+      .branded-btn {
+        padding: 3px 10px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+// mobile portrait view
+@include media($mobile-down) {
+.dash-tile {
+  .tile-content {
+    .tile-text {
+      h2 {
+        padding-top: $spacing-small;
+      }
+    }
+    .tile-button {
+      padding-bottom: $spacing-small/2;
+    }
+  }
+}
+}

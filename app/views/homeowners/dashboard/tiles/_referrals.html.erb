@@ -1,0 +1,15 @@
+<div class="tile-image">
+  <%= image_tag "referrals.jpg" %>
+</div>
+<div class="img-tile-details">
+  <div class="tile-text">
+    <h2 class="tile-title branded-text"><%= t(".title") %></h2>
+    <p class="tile-description branded-text"><%= t(".description") %></p>
+  </div>
+  <div class="tile-button">
+    <%= button_tag t(".button"), class: "branded-btn refer-resident",
+    data: { cancel: t("edit.cancel"),
+          cta: t(".send_invitation"),
+          title: t(".title")} %>
+  </div>
+</div>

@@ -1427,12 +1427,6 @@ en:
         services_title: "Services"
         services_description_one: "Benefit from an exclusive range of services, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Services feature."
         services_description_two: "Simply select the categories you are interested in and start saving money!"
-      referrals:
-        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
-        refer: "Refer A Friend"
-        refer_title: "Refer A Friend."
-        send_invitation: "Submit"
-        confirm: "Your referral has been sent"
       referral_form:
         first_name: "First Name"
         last_name: "Surname"
@@ -1446,6 +1440,18 @@ en:
         activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
         new_tab: "Opens in a new tab"
         notice: "Thanks for signing up to exclusive online resident rewards! Please check your email inbox for an invitation from Vaboo to activate your Buyers' Club account."
+
+      tiles:
+        referrals:
+          title: "Refer a Friend"
+          description: "Fill in this form with your friend's details to recommend them to your developer."
+          button: "Refer a Friend"
+          send_invitation: "Submit"
+          confirm: "Your referral has been sent"
+        services:
+          description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
+          button: "Select Services"
+          title: "Services"
 
     communication_preferences:
       show:
