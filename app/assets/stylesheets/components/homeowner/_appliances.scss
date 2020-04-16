@@ -5,6 +5,8 @@
   .appliance {
     @include row();
     margin-bottom: 20px;
+    padding-bottom: $spacing-medium;
+    border-bottom: 2px solid $ui-light-grey;
 
     span {
       font-size: $base-font-size;

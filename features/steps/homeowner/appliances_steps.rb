@@ -3,12 +3,10 @@
 When(/^I visit the appliances page$/) do
   visit "/"
 
-  within ".navbar-menu" do
-    click_on(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
-  end
-
-  within ".sub-navigation-container" do
-    click_on t("layouts.homeowner.sub_nav.appliances")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
+    find(:xpath, "//a[@href='/homeowners/my_appliances']").click
   end
 end
 
@@ -49,24 +47,21 @@ Then(/^I should see the appliances for my plot$/) do
 end
 
 Then(/^I should see no appliances$/) do
-visit "/"
+  visit "/"
 
-  within ".navbar-menu" do
-    click_on(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
+  within ".my-home" do
+    click_on(t("homeowners.components.address.view_more", construction: "My Home"))
   end
 
   within ".sub-navigation-container" do
-    expect(page).not_to have_content("Appliances")
-    expect(page).to have_content("FAQs")
+    expect(page).not_to have_content(t("components.homeowner.sub_menu.appliances"))
+    expect(page).to have_content(t("components.homeowner.sub_menu.library"))
   end
 end
 
 When(/^I switch to the first plot$/) do
-  plot = Plot.find_by(number: CreateFixture.phase_plot_name)
-
-  within ".plot-list" do
-    plot_link = page.find_link(plot.to_homeowner_s)
-    plot_link.trigger(:click)
+  within ".plots" do
+    find(".swap-plot-btn").click
   end
 
   wait_for_branding_to_reload

@@ -1,7 +1,7 @@
 .onboarding {
   @include outer-container();
   text-align: center;
-  margin-top: $spacing-large * 2;
+  margin-top: $spacing-large;
   padding: $spacing-small;
 
   .communication-preferences {
@@ -104,5 +104,23 @@
     input[type=checkbox]:checked + i:before {
       color: $primary-navy;
     }
+  }
+}
+
+.com-preferences-nav .sub-navigation-container {
+  .navbar-item-secondary {
+    width: 240px;
+  }
+}
+
+.burger-placeholder {
+  display: block;
+  height: 20px;
+}
+
+@include media($tablet-portrait-down) {
+  .onboarding,
+  .welcome-home {
+    margin-top: $spacing-large;
   }
 }

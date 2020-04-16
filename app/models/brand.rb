@@ -158,7 +158,7 @@ class Brand < ApplicationRecord
   # Internal Styling
 
   def self.branded_body_default
-    "background-color: #FAFAFA; // $ui-superlight-grey;"
+    "background-color: #FFFFFF; // $ui-white;"
   end
 
   def self.branded_header_default

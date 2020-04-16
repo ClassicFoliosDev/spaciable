@@ -1,6 +1,10 @@
-<%= render "components/homeowner/library_hero", active_category: @category, categories: @categories, plot: @plot %>
+<%= render "components/homeowner/hero" %>
 
-<%= render "components/homeowner/sub_header", active_tab: "my_documents", plot: @plot %>
+<div class="library-navigation">
+  <%= render "components/homeowner/sub_menu", active_tab: "library", plot: @plot %>
+
+  <%= render "components/homeowner/library_categories", active_category: @category, categories: @categories, plot: @plot %>
+</div>
 
 <div class="main-container">
   <% if @private_document.errors.any? %>

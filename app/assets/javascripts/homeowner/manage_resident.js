@@ -62,8 +62,9 @@
   })
 
   function validateSendInvitation () {
-    if (validateEmail() && (validatePhone()) &&
-       ($('input#resident_first_name').val().length > 0) && ($('input#resident_last_name').val().length > 0)) {
+    if ((validateEmail() && validatePhone()) &&
+        ($('input#resident_first_name').val().length > 0) &&
+        ($('input#resident_last_name').val().length > 0)) {
       $('.btn-send').prop('disabled', false)
       $('.btn-send').removeClass('ui-state-disabled')
     } else {
@@ -74,11 +75,11 @@
 
   function validateEmail () {
     var re = /\S+@\S+\.\S+/
-    return re.test($('input.email').val())
+    return re.test($('input#resident_email').val())
   }
 
   function validatePhone () {
-    var phoneNumber = $('input.tel').val()
+    var phoneNumber = $('input#resident_phone_number').val()
     var regex = /^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|#)\d{3,4})?$/
     return phoneNumber.length > 9 && phoneNumber.match(regex)
   }

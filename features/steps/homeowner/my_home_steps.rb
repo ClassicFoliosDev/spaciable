@@ -23,14 +23,14 @@ end
 When(/^I visit the My Home page$/) do
   visit "/"
 
-  within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.my_home", construction: t("construction_type.home"))
+  within ".my-home" do
+    click_on t("homeowners.components.address.view_more", construction: t("components.homeowner.sub_menu.title"))
   end
 end
 
 Then(/^I should see the plot rooms$/) do
   within ".sub-navigation-container" do
-    click_on t("layouts.homeowner.sub_nav.rooms")
+    click_on t("components.homeowner.sub_menu.rooms")
   end
   within ".rooms" do
     expect(page).to have_content(CreateFixture.room_name)
@@ -54,20 +54,19 @@ end
 When(/^I switch back to the development plot$/) do
   plot = Plot.find_by(number: CreateFixture.phase_plot_name)
 
-  within ".session-inner" do
-    plot_link = page.find_link(plot.to_homeowner_s)
-    plot_link.trigger(:click)
+  within ".plots" do
+    find(:xpath, "//a[@href='/homeowners/change_plot?id=#{plot.id}']").click
   end
 end
 
 When(/^I visit the Library page$/) do
   within ".sub-navigation-container" do
-    click_on t("layouts.homeowner.sub_nav.library")
+    click_on t("components.homeowner.sub_menu.library")
   end
 end
 
 Then(/^I should see My Documents$/) do
-  within ".filter-hero" do
+  within ".library-navigation" do
     expect(page).to have_content("My Documents")
     expect(page).to_not have_content("Services")
     expect(page).to_not have_content("Legal & Warranty")
@@ -76,9 +75,11 @@ Then(/^I should see My Documents$/) do
 end
 
 When(/^I visit the Contacts page$/) do
-  within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.my_home", construction: t("construction_type.home"))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("layouts.homeowner.nav.contacts"))
 end
 
 Then(/^I should see no tabs$/) do
@@ -89,9 +90,8 @@ end
 Then(/^I should see the tenant on my account$/) do
   visit "/"
 
-  within ".session-inner" do
-    click_on t("homeowners.residents.show.my_account")
-  end
+  page.find("#dropdownMenu").click
+  click_on t("homeowners.residents.show.my_account")
 
   within ".other-residents" do
     expect(page).to have_content "Other residents with access to "
@@ -102,9 +102,8 @@ end
 Then(/^I should not see the homeowner on my account$/) do
   visit "/"
 
-  within ".session-inner" do
-    click_on t("homeowners.residents.show.my_account")
-  end
+  page.find("#dropdownMenu").click
+  click_on t("homeowners.residents.show.my_account")
 
   within ".branded-body" do
     expect(page).to_not have_content t("homeowners.residents.show.other_residents")

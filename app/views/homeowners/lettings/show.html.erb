@@ -1,9 +1,17 @@
-<% content_for :hero_text_primary do %>
-<span><%= t("homeowners.lettings.show.my_rentals") %></span>
+<% content_for :sub_category_navigation do %>
+<div class="navbar-item">
+  <%= link_to letting_path(current_resident), class: "active" do %>
+  <li class="navbar-item-secondary">
+    <%= t("homeowners.lettings.show.my_rentals") %>
+  </li>
+  <% end %>
+</div>
 <% end %>
 
-<div class="resident-hero">
-  <%= render "components/homeowner/hero" %>
+<%= render "components/homeowner/hero" %>
+
+<div class="intro-video-nav">
+  <%= render "components/homeowner/sub_categories" %>
 </div>
 
 <div class="branded-body outer-container lettings branded-text">

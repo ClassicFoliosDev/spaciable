@@ -1,6 +1,6 @@
 <% content_for :sub_category_navigation do %>
   <div class="navbar-item">
-    <%= link_to homeowner_maintenance_path, class: "active" do %>
+    <%= link_to plots_path, class: "active" do %>
     <li class="navbar-item-secondary">
       <%= t(".title") %>
     </li>
@@ -10,12 +10,14 @@
 
 <%= render "components/homeowner/hero" %>
 
-<div class="maintenance-nav">
+<div class="my-plots-nav">
   <%= render "components/homeowner/sub_categories" %>
 </div>
 
-<div class="branded-body">
-  <div class="maintenance">
-    <iframe scrollbars="no" src=<%= maintenance_auto_populate(@plot, current_resident).html_safe %>></iframe>
+<div class="branded-body outer-container">
+  <div class="plots">
+    <% @plots.each do |plot| %>
+      <%= render "homeowners/components/plot", plot: plot %>
+    <% end %>
   </div>
 </div>

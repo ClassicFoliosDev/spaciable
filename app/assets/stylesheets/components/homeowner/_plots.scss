@@ -1,0 +1,107 @@
+.plots {
+  @include outer-container();
+
+  .plot-summary {
+    @include span-columns(4 of 12);
+    @include omega(3n);
+    margin-bottom: $spacing-medium;
+    padding: $spacing-small;
+    height: 300px;
+
+    .unit-image {
+      width: 100%;
+      height: 150px;
+      border-radius: 5px;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .active-plot {
+      border: solid 3px $primary-red;
+    }
+
+    .plot-address {
+      width: 100%;
+      height: 90px;
+      display: table;
+
+      .plot-logo {
+        padding-left: 0;
+        padding-right: 5px;
+        width: 20%;
+        display: table-cell;
+        vertical-align: middle;
+
+        img {
+          max-height: 80px;
+        }
+      }
+
+      .address {
+        width: 80%;
+        text-align: right;
+        display: table-cell;
+        vertical-align: middle;
+        padding-left: 5px;
+        font-size: $base-font-size;
+      }
+    }
+
+    .switch-plot {
+      text-align: right;
+      height: 40px;
+
+      .swap-plot-btn {
+        padding: 5px;
+      }
+
+      .current-plot {
+        height: 35px;
+        background-color: $primary-red;
+        color: $ui-white;
+        border-radius: 5px;
+        width: 100px;
+        font-size: $base-font-size;
+        padding: 5px;
+        text-align: center;
+        float: right;
+        opacity: 0.5;
+        display: table;
+
+        span {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+.switch-plot-btn {
+  background-color: transparent;
+  color: $ui-white;
+  border-color: $ui-white;
+
+  &:hover {
+    background-color: $ui-dark-grey;
+  }
+}
+
+// mobile view
+@include media($tablet-portrait-down) {
+  .plots{
+    .plot-summary {
+      @include span-columns(12 of 12);
+      height: 150px;
+      padding-right: 12px;
+
+      .unit-image {
+        display: none;
+      }
+    }
+  }
+
+  .switch-plot-btn {
+    display: none;
+  }
+}

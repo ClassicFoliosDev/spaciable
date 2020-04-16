@@ -1,13 +1,35 @@
-.alert {
-  background: $primary-red;
-  color: $ui-white;
-  padding: $spacing-small;
-  text-align: center;
+.homeowner-view{
+  .alert {
+    background: $primary-red;
+    color: $ui-white;
+    padding: $spacing-small;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+  }
+
+  .notice {
+    background: $primary-green;
+    color: $ui-white;
+    padding: $spacing-small;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+  }
 }
 
-.notice {
-  background: $primary-green;
-  color: $ui-white;
-  padding: $spacing-small;
-  text-align: center;
+.admin-view {
+  .alert {
+    background: $primary-red;
+    color: $ui-white;
+    padding: $spacing-small;
+    text-align: center;
+  }
+
+  .notice {
+    background: $primary-green;
+    color: $ui-white;
+    padding: $spacing-small;
+    text-align: center;
+  }
 }

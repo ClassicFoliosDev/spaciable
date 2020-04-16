@@ -1,68 +1,146 @@
 <div class="navbar">
-  <label class="navbar-trigger-label">
-    <%= fa_icon "bars" %>
-  </label>
-  <div class="navbar-search">
-    <%= render "components/search" %>
-  </div>
-  <nav class="navbar-menu">
-    <ul>
-      <%= link_to dashboard_path, class: "navbar-link branded-primary" do %>
-        <li class="navbar-item">
-          <%= t("layouts.homeowner.nav.dashboard") %>
-        </li>
-      <% end %>
-
-      <% if plot.enable_development_messages? %>
-        <%= link_to development_messages_path, class: "navbar-link branded-primary" do %>
+  <div class="third">
+    <h1 class="menu-heading branded-nav-text">
+      <%= t(".essentials") %>
+    </h1>
+    <div class="links branded-nav-text">
+      <ul>
+        <%= link_to dashboard_path, class: "navbar-link" do %>
           <li class="navbar-item">
-            <%= t("layouts.homeowner.nav.community") %>
+            <%= t("layouts.homeowner.nav.dashboard") %>
           </li>
         <% end %>
-      <% end %>
 
-      <%= link_to homeowner_my_home_path, class: "navbar-link branded-primary" do %>
-        <li class="navbar-item">
-          <%= plot.my_home_name %>
-        </li>
-      <% end %>
+        <% if plot.unit_type.external_link? %>
+          <%= link_to homeowner_about_path, active_tab: "about", class: "navbar-link" do %>
+            <li class="navbar-item"><%= t(".about") %></li>
+          <% end %>
+        <% end %>
 
-      <!-- Set the default category for the 'How To' nav entry according to the country -->
-      <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link branded-primary" do %>
-        <li class="navbar-item branded-primary">
-          <%= t("layouts.homeowner.nav.how_to") %>
-        </li>
-      <% end %>
+        <% if plot.rooms.any? %>
+          <%= link_to homeowner_rooms_path, active_tab: "rooms", class: "navbar-link" do %>
+          <li class="navbar-item"><%= t(".rooms") %></li>
+          <% end %>
+        <% end %>
 
-      <%= link_to homeowner_contacts_path, class: "navbar-link branded-primary" do %>
-        <li class="navbar-item branded-primary">
-          <%= t("layouts.homeowner.nav.contacts") %>
-        </li>
-      <% end %>
+        <% if Appliance.accessible_by(current_ability).any?  ||
+        (plot&.appliance_choices.present? && plot&.appliance_choices&.length > 0) %>
+          <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "navbar-link" do %>
+          <li class="navbar-item">
+            <%= t(".appliances") %>
+          </li>
+          <% end %>
+        <% end %>
 
-      <% if plot.enable_roomsketcher? %>
-        <%= link_to home_designer_path, class: "navbar-link branded-primary" do %>
-          <li class="navbar-item branded-primary">
-            <%= t("layouts.homeowner.nav.home_designer", construction: plot.my_construction_name) %>
+        <%= link_to homeowner_contacts_path, class: "navbar-link" do %>
+          <li class="navbar-item">
+            <%= t("layouts.homeowner.nav.contacts") %>
           </li>
         <% end %>
-      <% end %>
 
-      <% if plot.show_maintenance? %>
-        <%= link_to homeowner_maintenance_path, class: "navbar-link branded-primary" do %>
-          <li class="navbar-item branded-primary">
-            <%= t(".maintenance") %>
+        <%= link_to homeowner_library_path, active_tab: "library", class: "navbar-link" do %>
+          <li class="navbar-item">
+            <%= t('.library') %>
           </li>
         <% end %>
-      <% end %>
+      </ul>
+    </div>
 
-      <% if plot.house_search %>
-        <a href="https://www.bestarea4me.com/demo" class="navbar-link branded-primary" target="_blank">
-          <li class="navbar-item branded-primary">
-            <%= t(".house_search") %>
+  </div>
+  <div class="third">
+    <h1 class="menu-heading branded-nav-text">
+      <%= t(".lifestyle") %>
+    </h1>
+    <div class="links branded-nav-text">
+      <ul>
+        <!-- Set the default category for the 'How To' nav entry according to the country -->
+        <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link" do %>
+          <li class="navbar-item">
+            <%= t("layouts.homeowner.nav.how_to") %>
           </li>
-        </a>
-      <% end %>
-    </ul>
-  </nav>
+        <% end %>
+
+        <% if plot.enable_roomsketcher? %>
+          <%= link_to home_designer_path, class: "navbar-link" do %>
+            <li class="navbar-item">
+              <%= t("layouts.homeowner.nav.home_designer", construction: plot.my_construction_name) %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% if plot.enable_services? %>
+          <% services_params = build_services_params(current_resident, plot) %>
+          <%= link_to "https://home.spaciable.com/service/#{services_params}",
+              class: "navbar-linK", target: :_blank do %>
+            <li class="navbar-item">
+              <%= t(".services") %>
+            </li>
+          <% end %>
+        <% end %>
+
+        <% if plot.house_search %>
+          <a href="https://www.bestarea4me.com/demo" class="navbar-link" target="_blank">
+            <li class="navbar-item">
+              <%= t(".house_search") %>
+            </li>
+          </a>
+        <% end %>
+
+        <% if plot.enable_perks? %>
+          <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
+            <% perk = allocate_perk_type(current_resident, plot) %>
+            <%= link_to perks_path(type: perk), class: "navbar-link" do %>
+                <li class="navbar-item">
+                  <%= t(".perks") %>
+                </li>
+            <% end %>
+          <% else %>
+            <%= link_to Vaboo.branded_perks_link(plot.developer),
+                class: "navbar-link", target: :_blank do %>
+              <li class="navbar-item">
+                <%= t(".perks") %>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="third last">
+    <h1 class="menu-heading branded-nav-text">
+      <%= t(".helping_hand") %>
+    </h1>
+    <div class="links branded-nav-text">
+      <ul>
+        <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "navbar-link" do %>
+          <li class="navbar-item">
+            <%= t('.faqs') %>
+          </li>
+        <% end %>
+
+        <% if plot.choices?(current_resident) && !plot.choices_approved? %>
+          <%= link_to homeowners_choices_path, active_tab: "choices", class: "navbar-link" do %>
+            <li class="navbar-item"><%= t(".choices") %></li>
+          <% end %>
+        <% end %>
+
+        <% if current_resident&.plot_residency_homeowner?(plot) %>
+          <% if plot.snagging_valid %>
+            <%= link_to snags_path, active_tab: "snagging", class: "navbar-link" do %>
+            <li class="navbar-item"><%= plot.snag_name %></li>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if plot.show_maintenance? %>
+          <%= link_to homeowner_maintenance_path, class: "navbar-link" do %>
+            <li class="navbar-item">
+              <%= t(".maintenance") %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

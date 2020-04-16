@@ -8,6 +8,10 @@
           <%= render 'components/homeowner/header', brand: @brand, unread_count: @unread_count, plot: @plot, plots: @plots, country: @country %>
         </div>
 
+        <div class="lower-navigation branded-nav-background">
+          <!-- mobile and tablet only -->
+          <%= render 'components/homeowner/lower_navigation', brand: @brand, unread_count: @unread_count, plot: @plot, plots: @plots, country: @country %>
+        </div>
           <%= render "components/flashes" %>
           <%= yield %>
         </div>

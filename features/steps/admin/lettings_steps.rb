@@ -8,7 +8,10 @@ When(/I have no lettable plots$/) do
 end
 
 Then(/^I shall not see a lettings button on my dashboard$/) do
-  expect(page).not_to have_content(t('components.homeowner.welcome.rentals'))
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    expect(page).not_to have_content(t('components.homeowner.header.lettings'))
+  end
 end
 
 Given(/^the homeowner lettable phase plots have multiple occupation$/) do
@@ -21,7 +24,10 @@ When(/^I log in as homeowner "([^"]*)" of lettable multiple occupation plots$/) 
 end
 
 Then(/^I shall see a lettings button on my dashboard$/) do
-  expect(page).to have_content(t('components.homeowner.welcome.rentals'))
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    expect(page).to have_content(t('components.homeowner.header.lettings'))
+  end
 end
 
 When(/^another resident is listing plots I occupy$/) do
@@ -30,7 +36,9 @@ When(/^another resident is listing plots I occupy$/) do
 end
 
 When(/^I press my lettings button$/) do
-  find_link(nil, href: "/homeowners/lettings/#{$current_user.id}").click
+  visit "/"
+  page.find("#acctNav").click
+  click_on(t('components.homeowner.header.lettings'))
 end
 
 Then(/^I shall see two options to set up a Planet Rent account$/) do

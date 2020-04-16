@@ -11,8 +11,6 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @referral = Referral.new
-
       @services_params = build_services_params if current_resident
 
       build_documents
