@@ -1460,6 +1460,10 @@ en:
           title: "%{construction} Designer"
           description: "Design stuff"
           button: "Start Designing"
+        issues:
+          title: "Issues"
+          description: "Stuff is wrong and you need help"
+          button: "Report Issue"
 
     communication_preferences:
       show:
