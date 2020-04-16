@@ -5,7 +5,7 @@
 <!-- render '#{tile.sub_category}', plot: plot -->
 <div class="card article dash-tile branded-border">
   <div class="tile-content">
-    <%= render "homeowners/dashboard/tiles/snagging", plot: plot %>
+    <%= render "homeowners/dashboard/tiles/#{tiles[0]}", plot: plot %>
   </div>
 </div>
 <!-- otherwise, render the default tile template -->
