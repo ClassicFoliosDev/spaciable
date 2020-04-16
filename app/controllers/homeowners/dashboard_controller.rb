@@ -11,8 +11,6 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @services_params = build_services_params if current_resident
-
       build_documents
       build_articles
     end
@@ -29,15 +27,6 @@ module Homeowners
       contacts = Contact.accessible_by(current_ability)
       contacts = contacts.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       @contacts = contacts.order(pinned: :desc, updated_at: :desc).limit(4)
-    end
-
-    def build_services_params
-      # params for referral link
-      name = [current_resident.first_name, current_resident.last_name].compact.join(" ")
-      email = current_resident.email
-      phone = current_resident&.phone_number
-      developer = @plot.developer
-      "?sf_name=#{name}&sf_email=#{email}&sf_telephone=#{phone}&sf_developer=#{developer}"
     end
 
     def build_documents

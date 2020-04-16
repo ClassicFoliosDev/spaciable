@@ -57,17 +57,17 @@
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-          <% cards.each do | card | %>
-            <%= render "homeowners/dashboard/#{card}", services_params: @services_params, plot: @plot %>
+          <% tiles.each do | tile | %>
+            <%= render "homeowners/dashboard/#{tile}", plot: @plot %>
           <% end %>
         <% elsif tiles.size == 2 %>
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
-          <% cards.each do | card | %>
-            <%= render "homeowners/dashboard/#{card}", services_params: @services_params, plot: @plot %>
+          <% tiles.each do | tile | %>
+            <%= render "homeowners/dashboard/#{tile}", plot: @plot %>
           <% end %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-        <% else %> <!-- if no cards are activated -->
+        <% else %> <!-- if no tiles are activated -->
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
