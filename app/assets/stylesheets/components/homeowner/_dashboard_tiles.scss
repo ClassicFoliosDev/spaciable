@@ -31,7 +31,6 @@
       }
 
       .tile-description {
-        color: $primary-navy;
         font-size: $base-small-font-size;
       }
     }
@@ -42,7 +41,9 @@
       padding-bottom: $spacing-small;
 
       .branded-btn {
-        padding: 3px 10px;
+        line-height: $base-font-line-height;
+        font-size: $base-font-size;
+        padding: 0px 10px;
         &:hover {
           cursor: pointer;
         }
