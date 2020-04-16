@@ -1,12 +1,21 @@
 <% collection.each do |how_to| %>
-  <div class="card article how-to-dash branded-border" style="background-image: url(<%= image_path(how_to.picture.url) if how_to.picture? %>)">
-    <div class="overlay <%= 'blue-overlay' unless how_to.picture? %>">
-      <div class="card-content how-to-summary">
-        <div id="how_to-<%= how_to.id %>">
-          <p class="larger"><%= how_to.title %></p>
+  <div class="card article dash-tile how-to-dash branded-border">
+    <div class="tile-content">
+      <div class="tile-image">
+        <% if how_to.picture? %>
+          <%= image_tag(image_path(how_to.picture.url)) %>
+        <% else %>
+          <%= image_tag "services.jpg" %>
+        <% end %>
+      </div>
+      <div class="img-tile-details">
+        <div class="tile-text">
+          <h2 class="tile-title branded-text"><%= how_to.title %></h2>
+          <p class="tile-description branded-text"><%= how_to.summary %></p>
         </div>
-        <span class="how-to-logo">How To.</span>
-        <%= link_to t(".article"), how_to_path(how_to), class: "branded-btn-inverted view-article" %>
+        <div class="tile-button">
+          <%= link_to t(".article"), how_to_path(how_to), class: "branded-btn" %>
+        </div>
       </div>
     </div>
   </div>

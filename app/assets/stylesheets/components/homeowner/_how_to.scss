@@ -131,6 +131,14 @@
   }
 }
 
+.main-container .how-tos .article {
+  @include span-columns(4 of 12);
+
+  &:nth-child(3n) {
+    @include omega();
+  }
+}
+
 .dashboard .one-card .article {
   @include span-columns(6 of 12);
 }
