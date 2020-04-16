@@ -1452,6 +1452,10 @@ en:
           description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
           button: "Select Services"
           title: "Services"
+        area_guide:
+          title: "Area Guide"
+          description: "Area guide description."
+          button: "View Page"
 
     communication_preferences:
       show:
