@@ -3,10 +3,12 @@
 <!-- check whether it's a feature or not -->
 <!-- if it's a feature, load the relevant feature template -->
 <!-- render '#{tile.sub_category}', plot: plot -->
-<div class="card article dash-tile branded-border">
-  <div class="tile-content">
-    <%= render "homeowners/dashboard/tiles/#{tiles[0]}", plot: plot %>
+<% tiles.each do | tile | %>
+  <div class="card article dash-tile branded-border">
+    <div class="tile-content">
+      <%= render "homeowners/dashboard/tiles/#{tile}", plot: plot %>
+    </div>
   </div>
-</div>
+<% end %>
 <!-- otherwise, render the default tile template -->
 <!-- render 'tile', plot: plot -->

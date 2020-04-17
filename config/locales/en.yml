@@ -1468,6 +1468,12 @@ en:
           title: "%{title}"
           description: "Stuff is minorly wrong and you need help"
           button: "Report Issue"
+        perks:
+          title: "Buyers' Club"
+          description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
+          button: "Find Out More"
+          activated_button: "Login"
+          activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
 
     communication_preferences:
       show:

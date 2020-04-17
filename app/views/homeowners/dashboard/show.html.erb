@@ -57,15 +57,11 @@
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-          <% tiles.each do | tile | %>
-            <%= render "homeowners/dashboard/#{tile}", plot: @plot %>
-          <% end %>
+          <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles %>
         <% elsif tiles.size == 2 %>
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
-          <% tiles.each do | tile | %>
-            <%= render "homeowners/dashboard/#{tile}", plot: @plot %>
-          <% end %>
+          <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
         <% else %> <!-- if no tiles are activated -->
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
