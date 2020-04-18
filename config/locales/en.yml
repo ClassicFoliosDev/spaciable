@@ -288,7 +288,7 @@ en:
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
 
-  # LAYOUTS
+  #
   layouts:
     application:
       title: "Spaciable"
@@ -296,6 +296,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
+        timeline: "My Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -1301,6 +1302,9 @@ en:
       show:
         title: "Home Designer."
         new_tab: "Open Planner 5D in a separate tab"
+    timeline:
+      continue: "Continue"
+      next: "Next"
 
     library:
       my_home: "My %{construction}"

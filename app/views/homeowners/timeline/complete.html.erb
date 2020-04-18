@@ -1,0 +1,16 @@
+
+<h3> Completed <%= @plot_timeline.complete %> </h3>
+
+<h3> Stages </h3>
+<ul>
+  <% @timeline.stages.each do |stage| %>
+  <li><%= stage.title %></li>
+   <ul>
+   <% @timeline.stage_tasks(stage)&.each do |task| %>
+      <li> <a href=<%="#{timeline_task_path(task)}"%>><%= task.title %> </a> <%= @logs.find_by(timeline_task_id: task.id)&.response %> <%= "** current **" if task == @task %></li>
+   <% end %>
+   </ul>
+  <% end %>
+</ul>
+
+<H1>FINISHED</H1>

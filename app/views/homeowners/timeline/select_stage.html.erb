@@ -1,0 +1,18 @@
+<div class="section-header">
+  <div class="section-title">
+    <p> Congratuilations on buying a new home</p>
+    <p> Which stage of the buying process are you on?</p>
+  </div>
+</div>
+
+<form action=<%="#{timeline_path}"%>>
+  <input type="hidden" name="page" value="timeline_task">
+
+  <% @timeline.stages.each do |stage| %>
+    <input type="radio" id=<%= stage.id %> name="stage" value=<%= stage.id %> <%= "checked" if stage == @timeline.stages.first %>>
+    <label for=<%= stage.id %>><%= stage.title %></label><br>
+  <% end %>
+
+  <input type="submit" value=<%="#{t("homeowners.timeline.next")}"%>>
+</form>
+

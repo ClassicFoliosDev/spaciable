@@ -7,6 +7,11 @@
   </div>
   <nav class="navbar-menu">
     <ul>
+      <%= link_to timeline_path, class: "navbar-link branded-primary" do %>
+        <li class="navbar-item">
+          <%= t("layouts.homeowner.nav.timeline") %>
+        </li>
+      <% end %>
       <%= link_to dashboard_path, class: "navbar-link branded-primary" do %>
         <li class="navbar-item">
           <%= t("layouts.homeowner.nav.dashboard") %>

@@ -191,6 +191,14 @@ Rails.application.routes.draw do
     resources :snag_comments, only: [:new, :create]
     resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
+    resource :timeline, only: [:show], controller: 'timeline'
+    resources :timeline_tasks do
+      member do
+        get :show, controller: 'timeline'
+        get :viewed, controller: 'timeline'
+        post :viewed , controller: 'timeline', format: :json
+      end
+    end
 
     get "contacts/:category",
         to: 'contacts#index',

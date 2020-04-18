@@ -1,0 +1,13 @@
+<div class="section-header">
+  <div class="section-title">
+    <p> Welcome to</p>
+    <p> My Journey</p>
+  </div>
+</div>
+
+<div class="section-actions">
+    <%= link_to timeline_path(:page => "select_stage"), class: "btn btn-primary" do %>
+      <i class="fa fa-plus"></i>
+      <span class="btn-label"><%= t("homeowners.timeline.continue") %></span>
+    <% end %>
+</div>
