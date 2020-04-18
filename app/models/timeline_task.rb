@@ -80,5 +80,4 @@ class TimelineTask < ApplicationRecord
   def features
     task.actions.where(action_type: :feature)
   end
-
 end
