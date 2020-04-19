@@ -7,6 +7,9 @@
     <span class="about">
       <%= simple_format developer.about %>
       <br/>
+      <% if developer.cas %>
+        <strong><%= t("cas_enabled") %><br/>
+      <% end %>
       <strong><%= t(".active_plots") %></strong><%= developer.active_plots_count %><br/>
       <strong><%= t(".completed_plots") %></strong><%= developer.completed_plots_count %><br/>
       <strong><%= t(".expired_plots") %></strong><%= developer.expired_plots_count %><br/><br/>

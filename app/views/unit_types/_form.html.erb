@@ -18,6 +18,7 @@
         <div class="image-container">
           <%= f.input :picture, as: :image_preview, label: t(".picture"), input_html: { preview_version: :thumbnail } %>
         </div>
+        <p> <%= t(".picture_tip") %> </p>
         <%= f.input :name, label: t(".name") %>
         <% if current_user.cf_admin? %>
           <%= f.label :cas_restricted, t(".restricted") %>

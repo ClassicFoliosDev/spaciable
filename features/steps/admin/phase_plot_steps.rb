@@ -96,14 +96,7 @@ When(/^I (CAS )*update the phase plot$/) do |cas|
        plot_reservation_release_date
        plot_completion_release_date
        plot_validity
-       plot_prefix
-       plot_house_number
-       plot_building_name
-       plot_road_name
-       plot_postcode
-       plot_locality
-       plot_city
-       plot_county].each do |selector|
+       ].each do |selector|
       expect(page).not_to have_selector "##{selector}"
     end
   else
@@ -138,14 +131,7 @@ When(/^I CAS update the phase restricted plot$/) do
      plot_reservation_release_date
      plot_completion_release_date
      plot_validity
-     plot_prefix
-     plot_house_number
-     plot_building_name
-     plot_road_name
-     plot_postcode
-     plot_locality
-     plot_city
-     plot_county].each do |selector|
+     ].each do |selector|
     expect(page).not_to have_selector "##{selector}"
   end
   expect(page).to have_field 'plot_number', disabled: true
@@ -388,7 +374,7 @@ When(/^I cannot update or delete or add to the restricted phase plot finishes an
     click_on "Appliances"
   end
 
-  expect(page).not_to have_content "Add Appliances"  
+  expect(page).not_to have_content "Add Appliances"
 end
 
 

@@ -29,7 +29,7 @@ class PlotLog < Log
     def furnish_update(room, furnish, action)
       log(logable_type: Plot,
           logable_id: room.plot.id,
-          primary: "#{room} P",
+          primary: "#{room} (Plot)",
           secondary: "#{furnish.class} #{furnish}",
           action: action)
     end
@@ -38,7 +38,7 @@ class PlotLog < Log
     def unit_type_update(plot)
       log(logable_type: Plot,
           logable_id: plot.id,
-          secondary: "UT #{plot.unit_type}",
+          secondary: "(Unit Type) #{plot.unit_type}",
           action: Log.actions[:updated])
     end
 
@@ -56,7 +56,7 @@ class PlotLog < Log
       rooms.each do |room|
         log(logable_type: Plot,
             logable_id: plot.id,
-            primary: "#{room} #{room.plot ? 'P' : 'UT'}",
+            primary: "#{room} #{room.plot ? '(Plot)' : '(Unit Type)'}",
             action: action)
       end
     end
