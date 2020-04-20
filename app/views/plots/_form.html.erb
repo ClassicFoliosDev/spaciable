@@ -43,12 +43,10 @@
       <% end %>
     <% end %>
 
-    <% unless cas_update %>
-      <% if plot.spanish? %>
-        <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
-      <% else %>
-        <%= render "components/admin/plot_address_fields", f: f, plot: plot %>
-      <% end %>
+    <% if plot.spanish? %>
+      <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
+    <% else %>
+      <%= render "components/admin/plot_address_fields", f: f, plot: plot, disabled: cas_update %>
     <% end %>
 
   </div>
