@@ -412,7 +412,9 @@ Then(/^I should be redirected to the services page$/) do
 end
 
 When(/^I select no services$/) do
-  find(".branded-btn-inverted").click
+  within ".services" do
+    find(:xpath, "//a[@href='/dashboard']").click
+  end
 end
 
 Then(/^I should be redirected to the homeowner root page$/) do

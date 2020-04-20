@@ -124,7 +124,7 @@ Then(/^I will receive a notification$/) do
   login_as resident
   visit "/"
   within "#acctNav" do
-    sup = page.find(".unread")
+    sup = page.first(".unread")
     expect(sup).to have_content("1")
   end
 end
@@ -287,7 +287,7 @@ end
 
 Then(/^I can see a notification$/) do
   within "#acctNav" do
-    sup = page.find(".unread")
+    sup = page.first(".unread")
     expect(sup).to have_content("1")
   end
 end

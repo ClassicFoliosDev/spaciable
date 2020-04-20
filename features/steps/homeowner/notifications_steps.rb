@@ -27,7 +27,7 @@ end
 
 Then(/^All my notifications should be unread$/) do
   within "#acctNav" do
-    sup = page.find(".unread")
+    sup = page.first(".unread")
     expect(sup).to have_content("3")
   end
 
