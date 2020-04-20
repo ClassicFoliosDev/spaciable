@@ -26,13 +26,13 @@
     res.classList = "fa fa-check"
 
     var exc = document.getElementById("iconExchange")
-    exc.classList = "fa fa-key"
+    exc.classList = "fas fa-key"
 
     var mov = document.getElementById("iconMoving")
     mov.classList = "fa fa-truck"
 
     var liv = document.getElementById("iconLiving")
-    liv.classList = "fa fa-male"
+    liv.classList = "fas fa-male"
   })
 
 })(document, window.jQuery)
