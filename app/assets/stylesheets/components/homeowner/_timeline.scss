@@ -1,0 +1,63 @@
+.timeline-splash {
+
+  .timeline-header {
+    text-align: center;
+
+    .timeline-title {
+      padding: $spacing-large;
+
+      .welcome {
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 40px;
+      }
+
+      .welcome-journey {
+        text-transform: uppercase;
+        font-size: $title-font-size-2;
+        letter-spacing: $base-small-font-size;
+        font-weight: $bold-font-weight;
+      }
+    }
+  }
+
+  .timeline-content {
+    text-align: center;
+  }
+
+  .timeline-actions {
+    text-align: center;
+    padding: $spacing-large;
+
+    .timeline-btn {
+      width: 140px;
+      border-radius: 0;
+      color: $primary-navy ;
+      border-color: $ui-grey;
+      font-weight: $bold-font-weight;
+
+      &:hover {
+        background-color: $ui-grey;
+        color: $primary-navy;
+      }
+    }
+  }
+}
+
+@include media($tablet-portrait-down) {
+  .timeline-splash {
+    .timeline-header {
+      .timeline-title {
+
+        .welcome {
+          font-size: $title-font-size-3;
+        }
+
+        .welcome-journey {
+          font-size: 24px;
+          letter-spacing: 6px;
+        }
+      }
+    }
+  }
+}

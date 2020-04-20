@@ -1332,6 +1332,12 @@ en:
     timeline:
       continue: "Continue"
       next: "Next"
+      splash:
+        welcome: "Welcome To"
+        your_journey: "Your Journey"
+        paragraph_1: "This timeline is designed to help you track your progress and learn more about the process each step of the way."
+        paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
+        continue: "Continue"
 
     library:
       my_home: "My %{construction}"
