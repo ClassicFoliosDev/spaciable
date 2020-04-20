@@ -145,6 +145,13 @@
   }
 }
 
+@include media($tablet-landscape-down) {
+  .timeline-step .step-options .stages .stage {
+    width: 330px;
+    margin: 10px 10px;
+  }
+}
+
 @include media($tablet-portrait-down) {
   .timeline-splash {
     .timeline-header {
@@ -157,6 +164,30 @@
         .welcome-journey {
           font-size: 24px;
           letter-spacing: 6px;
+        }
+      }
+    }
+  }
+
+  .timeline-step {
+
+    .timeline-header {
+
+      .timeline-title {
+        padding: 0;
+        padding-top: $spacing-small;
+      }
+    }
+
+    .step-options {
+
+      .next {
+        margin-top: $spacing-large;
+      }
+
+      .stages {
+        .stage {
+          width: 90%;
         }
       }
     }
