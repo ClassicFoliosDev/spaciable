@@ -173,7 +173,7 @@ Then(/^I will not receive a notification$/) do
   visit "/"
   # The unread notification count should still be one, as per the previous notification sent
   within "#acctNav" do
-    sup = page.find(".unread")
+    sup = page.first(".unread")
     expect(sup).to have_content("1")
   end
 end

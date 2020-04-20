@@ -412,8 +412,8 @@ Then(/^I should be redirected to the services page$/) do
 end
 
 When(/^I select no services$/) do
-  within ".services" do
-    find(:xpath, "//a[@href='/dashboard']").click
+  within ".services-actions" do
+    page.first(".branded-btn-inverted").click
   end
 end
 

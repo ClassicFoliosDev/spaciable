@@ -59,7 +59,7 @@ end
 
 Then(/^the notification status in my header should be updated$/) do
   within "#acctNav" do
-    sup = page.find(".unread")
+    sup = page.first(".unread")
     expect(sup).to have_content("2")
   end
 end
