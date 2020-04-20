@@ -10,7 +10,7 @@ When(/^I search for a finish$/) do
 end
 
 Then(/^I see the matching finish$/) do
-  within ".search-results" do
+  within page.first(".search-results") do
     expect(page).to have_link("Finish", href: "/homeowners/my_home")
   end
 end
