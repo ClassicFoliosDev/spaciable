@@ -3,9 +3,13 @@
 <div class="section-header">
   <div class="section-title">
     <div><%= @unit_type.name %></div>
-    <% if current_user.cf_admin? %>
+    <% if current_user.cf_admin? ||
+          (current_user.cas || @unit_type.cas) %>
       <span class="about">
         <br/>
+        <% if @unit_type.cas %>
+            <strong><%= t("cas_enabled") %><br/>
+          <% end %>
         <strong><%= t("unit_types.show.home_address_image") %></strong><%= @unit_type.picture? ? @unit_type.picture_name : "Not Populated" %><br/>
         <strong><%= t("unit_types.show.about_page_link") %></strong><%= @unit_type.external_link? ? @unit_type.external_link : "Not Populated" %><br/><br/>
         <strong><%= t("unit_types.show.plots") %></strong><%= @unit_type.plots.count %><br/>
@@ -23,3 +27,9 @@
 <%= render 'components/tabs', tabs: unit_type_tabs(@unit_type, "rooms") %>
 
 <%= render_collection @rooms, parent: @parent %>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t("back"), @back, class: "btn" %>
+  </div>
+</div>

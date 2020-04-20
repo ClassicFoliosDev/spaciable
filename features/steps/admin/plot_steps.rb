@@ -214,7 +214,7 @@ When(/^I send a notification the phase$/) do
 
   within ".send-targets" do
     within ".developer-id" do
-      select_from_selectmenu(:notification_developer_id, with: PhasePlotFixture.developer_name)
+      select_from_selectmenu(:notification_developer_id, with: CreateFixture.developer_name)
     end
 
     sleep 0.3

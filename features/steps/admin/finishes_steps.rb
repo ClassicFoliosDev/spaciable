@@ -20,11 +20,11 @@ Then(/^I should see the category failure message$/) do
   expect(page).to have_content(failure_flash_finish_category)
 end
 
-When(/^I create a finish$/) do
-  fill_in "finish_name", with: FinishFixture.finish_name
+When(/^I create a ([^ ]*)finish$/) do |name|
+  fill_in "finish_name", with: name.empty? ? FinishFixture.finish_name : name.strip!
 
   select_from_selectmenu :finish_finish_category, with: CreateFixture.finish_category_name
-  select_from_selectmenu :finish_finish_type, with: CreateFixture.finish_type_name
+  select_from_selectmenu :finish_finish_type, with: CreateFixture.seed_finish_type_name
 
   click_on t("appliances.form.submit")
 end
@@ -42,10 +42,28 @@ Then(/^I should see the created finish$/) do
   end
 end
 
+
+When(/^I create a ([^ ]*) finish with category ([^ ]*) type ([^ ]*) and manufacturer ([^ ]*)$/) do |name, category, type, manufacturer|
+  visit "/"
+
+  within ".navbar" do
+    click_on t("components.navigation.finishes")
+  end
+
+  click_on t("finishes.collection.create")
+
+  fill_in "finish_name", with: eval(name)
+  select_from_selectmenu :finish_finish_category, with: eval(category)
+  select_from_selectmenu :finish_finish_type, with: eval(type)
+  select_from_selectmenu :finish_finish_manufacturer, with: eval(manufacturer)
+
+  click_on t("appliances.form.submit")
+end
+
 When(/^I update the finish$/) do
   visit "/finishes"
 
-  within ".record-list" do
+  within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.finish_name}')]]") do
     find("[data-action='edit']").click
   end
 
@@ -92,7 +110,9 @@ end
 When(/^I remove an image from a finish$/) do
   visit "/finishes"
 
-  find("[data-action='edit']").click
+  within find(:xpath, ".//tr[td//text()[contains(., '#{FinishFixture.updated_name}')]]") do
+    find("[data-action='edit']").click
+  end
 
   within ".finish_picture" do
     remove_btn = find(".remove-btn", visible: false)
@@ -119,11 +139,13 @@ Given(/^I have created a finish$/) do
   CreateFixture.create_finish
 end
 
-When(/^I delete the finish$/) do
-  finish_path = "/finishes"
-  visit finish_path
+Given(/^I have created a developer finish$/) do
+  CreateFixture.create_finish(CreateFixture.developer)
+end
 
-  delete_and_confirm!
+When(/^I delete the finish$/) do
+  visit "/finishes"
+  delete_and_confirm! scope: find(:xpath, ".//tr[td//text()[contains(., '#{CreateFixture.finish_name}')]]")
 end
 
 Then(/^I should see the finish deletion complete successfully$/) do
@@ -138,10 +160,6 @@ Then(/^I should see the finish deletion complete successfully$/) do
   end
 
   expect(page).not_to have_content(".record-list")
-
-  within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Finish.model_name.human)}}i
-  end
 end
 
 When(/^I delete the finish manufacturer$/) do
@@ -153,9 +171,29 @@ When(/^I delete the finish manufacturer$/) do
   delete_and_confirm!(scope: delete_scope)
 end
 
+When(/^I delete the updated finish manufacturer$/) do
+  visit "/finish_manufacturers"
+
+  manufacturer = FinishManufacturer.find_by(name: FinishManufacturerFixture.updated_name)
+  delete_scope = "[data-finish-manufacturer='#{manufacturer.id}']"
+
+  delete_and_confirm!(scope: delete_scope)
+end
+
+
 Then(/^I should see a failed to delete message$/) do
   error_flash = "It is not possible to delete"
   expect(page).to have_content(error_flash)
+end
+
+Then(/^I should see successfully deleted message$/) do
+  notice_flash = "#{CreateFixture.finish_manufacturer_name} was deleted successfully"
+  expect(page).to have_content(notice_flash)
+end
+
+Then(/^I should see successfully deleted updated manufacturer message$/) do
+  notice_flash = "#{FinishManufacturerFixture.updated_name} was deleted successfully"
+  expect(page).to have_content(notice_flash)
 end
 
 When(/^I delete the finish category$/) do
@@ -166,11 +204,11 @@ When(/^I delete the finish category$/) do
   delete_and_confirm!(scope: delete_scope)
 end
 
-When(/^I delete the finish type$/) do
-  visit "./finish_types"
-  finish_type = FinishType.find_by(name: CreateFixture.finish_type_name)
+When(/^I delete the updated finish category$/) do
+  visit "./finish_categories"
+  finish_category = FinishCategory.find_by(name: FinishCategoryFixture.updated_name)
 
-  delete_scope = "[data-finish-type='#{finish_type.id}']"
+  delete_scope = "[data-finish-category='#{finish_category.id}']"
   delete_and_confirm!(scope: delete_scope)
 end
 
@@ -182,18 +220,18 @@ end
 Then(/^I should see the finish type shown$/) do
   sleep 0.5
   within ".finish_category" do
-    expect(page).to have_content(CreateFixture.finish_type_name)
+    expect(page).to have_content(CreateFixture.seed_finish_type_name)
   end
 end
 
 When(/^I review the finish type$/) do
   visit "./finish_types"
-  click_on CreateFixture.finish_type_name
+  click_on CreateFixture.seed_finish_type_name
 end
 
 Then(/^I should see the finish manufacturer shown$/) do
   sleep 0.5
-  within ".finish_type" do
+  within ".manufacturer" do
     expect(page).to have_content("Victoria Carpets")
     expect(page).to have_content("Cormar Carpets")
   end

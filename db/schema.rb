@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200330061503) do
+ActiveRecord::Schema.define(version: 20200410165950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,16 +59,18 @@ ActiveRecord::Schema.define(version: 20200330061503) do
   create_table "appliance_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "developer_id"
   end
 
   create_table "appliance_manufacturers", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
     t.string   "link"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "developer_id"
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_appliance_manufacturer_name", using: :btree
   end
 
@@ -89,13 +91,14 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.integer  "appliance_category_id"
     t.string   "guide"
     t.integer  "appliance_manufacturer_id"
+    t.integer  "developer_id"
     t.index "lower((model_num)::text) varchar_pattern_ops", name: "search_index_on_appliance_model_num", using: :btree
     t.index ["appliance_category_id"], name: "index_appliances_on_appliance_category_id", using: :btree
     t.index ["appliance_manufacturer_id"], name: "index_appliances_on_appliance_manufacturer_id", using: :btree
     t.index ["deleted_at"], name: "index_appliances_on_deleted_at", using: :btree
   end
 
-  create_table "appliances_rooms", id: false, force: :cascade do |t|
+  create_table "appliances_rooms", force: :cascade do |t|
     t.integer  "appliance_id", null: false
     t.integer  "room_id",      null: false
     t.datetime "created_at",   null: false
@@ -278,6 +281,7 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.boolean  "enable_roomsketcher",         default: true
     t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
+    t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
@@ -312,6 +316,7 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.string   "snag_name",             default: "Snagging", null: false
     t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
+    t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
@@ -378,8 +383,9 @@ ActiveRecord::Schema.define(version: 20200330061503) do
   create_table "finish_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "developer_id"
   end
 
   create_table "finish_categories_types", id: false, force: :cascade do |t|
@@ -394,15 +400,17 @@ ActiveRecord::Schema.define(version: 20200330061503) do
   create_table "finish_manufacturers", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "developer_id"
   end
 
   create_table "finish_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "developer_id"
   end
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
@@ -426,15 +434,16 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.integer  "finish_type_id"
     t.integer  "finish_manufacturer_id"
     t.string   "original_filename"
+    t.integer  "developer_id"
     t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_name", using: :btree
     t.index ["deleted_at"], name: "index_finishes_on_deleted_at", using: :btree
     t.index ["finish_category_id"], name: "index_finishes_on_finish_category_id", using: :btree
     t.index ["finish_manufacturer_id"], name: "index_finishes_on_finish_manufacturer_id", using: :btree
     t.index ["finish_type_id"], name: "index_finishes_on_finish_type_id", using: :btree
-    t.index ["name"], name: "index_finishes_on_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
+    t.index ["name", "finish_category_id", "finish_type_id", "finish_manufacturer_id", "developer_id"], name: "index_finishes_on_combo", unique: true, using: :btree
   end
 
-  create_table "finishes_rooms", id: false, force: :cascade do |t|
+  create_table "finishes_rooms", force: :cascade do |t|
     t.integer  "finish_id",  null: false
     t.integer  "room_id",    null: false
     t.datetime "created_at", null: false
@@ -501,12 +510,31 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.index ["plot_id"], name: "index_listings_on_plot_id", unique: true, using: :btree
   end
 
+  create_table "logs", force: :cascade do |t|
+    t.string   "logable_type"
+    t.integer  "logable_id"
+    t.string   "primary"
+    t.string   "secondary"
+    t.integer  "action"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["logable_type", "logable_id"], name: "index_logs_on_logable_type_and_logable_id", using: :btree
+  end
+
   create_table "maintenances", force: :cascade do |t|
     t.integer "development_id"
     t.string  "path"
     t.integer "account_type"
     t.boolean "populate",       default: true
     t.index ["development_id"], name: "index_maintenances_on_development_id", using: :btree
+  end
+
+  create_table "marks", force: :cascade do |t|
+    t.string  "markable_type"
+    t.integer "markable_id"
+    t.string  "username"
+    t.integer "role"
+    t.index ["markable_type", "markable_id"], name: "index_marks_on_markable_type_and_markable_id", using: :btree
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -810,8 +838,8 @@ ActiveRecord::Schema.define(version: 20200330061503) do
 
   create_table "unit_types", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.datetime "deleted_at"
     t.integer  "developer_id"
     t.integer  "division_id"
@@ -819,6 +847,7 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.integer  "build_type",     default: 0
     t.string   "picture"
     t.string   "external_link"
+    t.boolean  "restricted",     default: false
     t.index ["developer_id"], name: "index_unit_types_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_unit_types_on_development_id", using: :btree
     t.index ["division_id"], name: "index_unit_types_on_division_id", using: :btree
@@ -858,6 +887,7 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.boolean  "snag_notifications",     default: true
     t.boolean  "receive_choice_emails",  default: false
     t.integer  "lettings_management",    default: 0
+    t.boolean  "cas",                    default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -877,8 +907,11 @@ ActiveRecord::Schema.define(version: 20200330061503) do
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
+  add_foreign_key "appliance_categories", "developers"
+  add_foreign_key "appliance_manufacturers", "developers"
   add_foreign_key "appliances", "appliance_categories"
   add_foreign_key "appliances", "appliance_manufacturers"
+  add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
@@ -886,7 +919,11 @@ ActiveRecord::Schema.define(version: 20200330061503) do
   add_foreign_key "developments", "divisions"
   add_foreign_key "divisions", "developers"
   add_foreign_key "documents", "users"
+  add_foreign_key "finish_categories", "developers"
+  add_foreign_key "finish_manufacturers", "developers"
+  add_foreign_key "finish_types", "developers"
   add_foreign_key "finish_types_manufacturers", "finish_manufacturers"
+  add_foreign_key "finishes", "developers"
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"

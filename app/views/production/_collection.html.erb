@@ -9,6 +9,10 @@
     </div>
   <% end %>
 
+  <% showing_icons = current_user&.cf_admin? ||
+                     collection.map { |plot| can? :cas_update, plot }
+                     .include?(true) %>
+
   <table class="record-list plots">
     <thead>
       <tr>
@@ -23,7 +27,9 @@
         <th><%= sortable({Plot => UnitType}, :id, t(".unit_type")) %></th>
         <th><span class="date"><%= sortable(Plot, :reservation_release_date, t(".date_r")) %></span>
             <span class="date"><%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
-        <th>&nbsp;</th>
+       <% if showing_icons %>
+          <th>&nbsp;</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -49,10 +55,12 @@
           <% end %>
           <td><span class = 'circle <%= res %>'>&nbsp;</span>
               <span class = 'circle <%= comp %>'>&nbsp;</span></td>
-          <td class="actions">
-            <%= edit_btn [:edit, plot], element: plot if current_user&.cf_admin? %>
-            <%= delete_btn plot, path: url_for(plot), element: plot %>
-          </td>
+          <% if showing_icons %>
+            <td class="actions">
+              <%= edit_btn [:edit, plot], element: plot %>
+              <%= delete_btn plot, path: url_for(plot), element: plot %>
+            </td>
+          <% end %>
         </tr>
       <% end %>
     </tbody>

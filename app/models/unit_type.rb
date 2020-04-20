@@ -17,6 +17,7 @@ class UnitType < ApplicationRecord
   has_many :documents, as: :documentable, dependent: :destroy
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
+  delegate :cas, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
 
   amoeba do
@@ -33,6 +34,13 @@ class UnitType < ApplicationRecord
     penthouse
     studio
   ]
+
+  after_create -> { UnitTypeLog.create(self) if cas }
+
+  # Unit type update options
+  UNCHANGED = 0
+  RESET = 1
+  SUPPLEMENT = 2
 
   validates :name, presence: true, uniqueness: { scope: :development_id }
 
@@ -65,7 +73,9 @@ class UnitType < ApplicationRecord
 
     effected_phases = plots_by_phase
     if effected_phases.present?
-      confirmation += " This will delete the following plots:"
+      confirmation = " This unit type cannot be deleted because it is in use. " \
+                      "Please reassign the following plots to other unit types " \
+                      "before deleting"
       effected_phases.each do |phase, plots|
         confirmation += "<br><br>#{phase}: #{plots.to_sentence}"
       end
@@ -75,10 +85,7 @@ class UnitType < ApplicationRecord
   end
 
   def expired?
-    expired = true
-    plots.each do |plot|
-      return expired = false unless plot.expired?
-    end
+    plots.map(&:expired?).include?(true)
   end
 
   def partially_expired?
@@ -111,5 +118,12 @@ class UnitType < ApplicationRecord
       appliances += room.appliances.count
     end
     appliances
+  end
+
+  # This function has to exist to satisfy the generic requirement of all
+  # classes that produce logs.  If we want to restrict the logs displayed
+  # to different users then we would do it here
+  def log_threshold
+    :none
   end
 end

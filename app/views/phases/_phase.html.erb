@@ -10,6 +10,9 @@
     </div>
     <span class="about">
       <br/>
+      <% if phase.cas %>
+        <strong><%= t("cas_enabled") %><br/>
+      <% end %>
       <% if current_user.cf_admin? %>
         <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/><br/>
       <% end %>

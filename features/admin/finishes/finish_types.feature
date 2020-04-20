@@ -17,9 +17,58 @@ Feature: Developers
   Scenario: Test using and deleting the finish type
     Given I am logged in as an admin
     And there is a finish type
-    When I delete the finish type
-    Then I should see the finish type delete complete successfully
+    When I delete the CreateFixture.finish_type_name finish type
+    Then I should see the CreateFixture.finish_type_name finish type delete complete successfully
 
-  Scenario: Developer
-    Given I am logged in as a Developer Admin
-    Then I should not see finish categories
+  Scenario Outline: Non CF Admins should not see Finish types
+    Given I am logged in as a <role>
+    Then I should not see finish types
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
+  Scenario Outline: CAS Admins Create and use finish_type
+    Given I am logged in as a <role> with CAS
+    And there is a <role> finish category
+    When I create a finish type
+    Then I should see the created finish type
+    When I update the finish type
+    Then I should see the updated finish type
+    When I create a finish with the new finish type
+    Then I should see the finish created successfully
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
+  Scenario Outline: CAS Admins Create and delete finish_type
+    Given I am logged in as a Developer Admin with CAS
+    And there is a <role> finish category
+    When I create a finish type
+    Then I should see the created finish type
+    When I delete the FinishTypeFixture.name finish type
+    Then I should see the FinishTypeFixture.name finish type delete complete successfully
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |
+
+
+  Scenario Outline: CAS Admins using and deleting finish type
+    Given I am logged in as a <role> with CAS
+    And there is a <role> finish type
+    When I delete the CreateFixture.finish_type_name finish type
+    Then I should see the CreateFixture.finish_type_name finish type delete complete successfully
+    Examples:
+      | role              |
+      | Developer Admin   |
+      | Division Admin    |
+      | Development Admin |
+      | Site Admin        |

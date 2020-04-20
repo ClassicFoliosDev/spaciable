@@ -15,8 +15,10 @@
     <div class="row-item half">
       <fieldset>
         <%= f.input :name %>
-        <div class="finish-type-finish-category ui-front select-container">
-          <%= f.association :finish_categories, collection: FinishCategory.order(:name), label: t(".category") %>
+      </fieldset>
+      <fieldset class="skip-global-selectmenu">
+        <div class="finish_type_finish_category ui-front select-container">
+          <%= f.association :finish_categories, collection: FinishCategory.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
         </div>
       </fieldset>
     </div>

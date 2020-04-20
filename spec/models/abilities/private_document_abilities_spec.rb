@@ -96,7 +96,7 @@ RSpec.describe "Private document abilities" do
         resident = create(:resident, plot: plot)
         private_document = create(:private_document, resident: resident, plot_id: plot.id)
 
-        ability = Ability.new(resident, plot)
+        ability = Ability.new(resident, plot: plot)
 
         expect(ability).to be_able_to(:manage, private_document)
       end
@@ -125,7 +125,7 @@ RSpec.describe "Private document abilities" do
         resident = create(:resident, plot: plot)
         private_document = create(:private_document, resident: resident, plot_id: nil)
 
-        ability = Ability.new(resident, plot)
+        ability = Ability.new(resident, plot: plot)
 
         expect(ability).to be_able_to(:manage, private_document)
       end
@@ -139,7 +139,7 @@ RSpec.describe "Private document abilities" do
 
         other_resident = create(:resident, :with_residency, plot: plot)
 
-        ability = Ability.new(other_resident, plot)
+        ability = Ability.new(other_resident, plot: plot)
 
         expect(ability).not_to be_able_to(:manage, private_document)
         expect(ability).not_to be_able_to(:read, private_document)
@@ -155,7 +155,7 @@ RSpec.describe "Private document abilities" do
         tenant = create(:resident, :with_tenancy, plot: plot,)
         private_document = create(:private_document, resident: resident, plot_id: plot.id)
 
-        ability = Ability.new(tenant, plot)
+        ability = Ability.new(tenant, plot: plot)
 
         expect(ability).not_to be_able_to(:manage, private_document)
         expect(ability).not_to be_able_to(:read, private_document)
@@ -172,7 +172,7 @@ RSpec.describe "Private document abilities" do
         private_document = create(:private_document, resident: resident, plot_id: plot.id)
         plot_private_document = create(:plot_private_document, plot: plot, private_document: private_document, enable_tenant_read: true)
 
-        ability = Ability.new(tenant, plot)
+        ability = Ability.new(tenant, plot: plot)
 
         expect(ability).not_to be_able_to(:manage, private_document)
         expect(ability).to be_able_to(:read, private_document)
@@ -189,7 +189,7 @@ RSpec.describe "Private document abilities" do
         private_document = create(:private_document, resident: resident, plot_id: plot.id)
         plot_private_document = create(:plot_private_document, plot: plot, private_document: private_document, enable_tenant_read: false)
 
-        ability = Ability.new(tenant, plot)
+        ability = Ability.new(tenant, plot: plot)
 
         expect(ability).not_to be_able_to(:manage, private_document)
         expect(ability).not_to be_able_to(:read, private_document)

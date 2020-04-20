@@ -14,17 +14,37 @@ class Appliance < ApplicationRecord
   attr_accessor :primary_image_cache
   attr_accessor :secondary_image_cache
   attr_accessor :name
+  attr_accessor :added_by
 
   belongs_to :appliance_category, required: true
   has_many :choices, as: :choiceable
   belongs_to :appliance_manufacturer, required: true
+  belongs_to :developer, optional: true
 
   has_many :appliance_rooms, dependent: :delete_all
   has_many :rooms, through: :appliance_rooms
 
   paginates_per 10
 
-  validates :model_num, presence: true, uniqueness: true
+  scope :with_cat_man,
+        lambda { |params, user|
+          joins(:appliance_category, :appliance_manufacturer)
+            .where(appliance_categories: { id: params[:category] },
+                   appliance_manufacturers: { id: params[:manufacturer] })
+            .where("(appliances.developer_id IS NULL AND (select count(*) from appliances a " \
+                   "where a.model_num = appliances.model_num AND a.developer_id = ?) = 0) OR " \
+                   "(appliances.developer_id IS NOT NULL AND appliances.developer_id = ?)",
+                   user.developer,
+                   user.developer)
+            .order(:model_num)
+        }
+
+  validates :model_num, presence: true,
+                        uniqueness:
+                        {
+                          scope: %i[developer],
+                          case_sensitive: false
+                        }
 
   delegate :link, :name, to: :appliance_manufacturer, prefix: true
 

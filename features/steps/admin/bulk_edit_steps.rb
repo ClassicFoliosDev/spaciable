@@ -3,45 +3,87 @@
 Given(/^I am a CF admin and there are many plots$/) do
   ResidentNotificationsFixture.create_permission_resources
   login_as CreateFixture.create_cf_admin
-  FactoryGirl.create(:unit_type, name: "Another", development: CreateFixture.development)
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 180, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")
-  FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 181, road_name: "Bulk Edit Road B", prefix: "Flat")
-  FactoryGirl.create(:plot, unit_type: CreateFixture.unit_type, phase: CreateFixture.phase, number: 182, road_name: "Bulk Edit Road C", prefix: "Flat", house_number: "18A", postcode: "AA 1AB")
+  CreateFixture.create_many_plots
 end
 
-When(/^I bulk edit the plots$/) do
-  phase = CreateFixture.phase
+Given(/^I am a Developer Admin (with CAS)* and there are many plots$/) do |cas|
+  ResidentNotificationsFixture.create_permission_resources(cas: cas.present?)
+  login_as CreateFixture.create_developer_admin(cas: cas.present?)
+  CreateFixture.create_many_plots
+end
+
+Given(/^I am a Division Admin (with CAS)* and there are many plots$/) do |cas|
+  ResidentNotificationsFixture.create_permission_resources(cas: cas.present?, division: true)
+  login_as CreateFixture.create_division_admin(cas: cas.present?)
+  CreateFixture.create_many_plots(CreateFixture.division_phase, CreateFixture.division_development)
+end
+
+Given(/^I am a Development Admin (with CAS)* and there are many plots$/) do |cas|
+  ResidentNotificationsFixture.create_permission_resources(cas: cas.present?)
+  login_as CreateFixture.create_development_admin(cas: cas.present?)
+  CreateFixture.create_many_plots
+end
+
+Given(/^I am a Site Admin (with CAS)* and there are many plots$/) do |cas|
+  ResidentNotificationsFixture.create_permission_resources(cas: cas.present?)
+  login_as CreateFixture.create_site_admin(cas: cas.present?)
+  CreateFixture.create_many_plots
+end
+
+When(/^I (CAS )*bulk edit the plots$/) do |cas|
+  phase = $current_user.division_admin? ? CreateFixture.division_phase : CreateFixture.phase
   visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 
   within ".tabs" do
     click_on t("phases.collection.bulk_edit")
   end
 
+
   within ".bulk-edit" do
     fill_in :phase_bulk_edit_list, with: "#{CreateFixture.phase_plot_name.to_i},179~181"
-
     find("#phase_bulk_edit_unit_type_id_check").set true
-    select "Another", visible: false
-    find("#phase_bulk_edit_reservation_release_date_check").set true
-    fill_in :phase_bulk_edit_reservation_release_date, with: (Time.zone.now + 10.days)
-    find("#phase_bulk_edit_completion_release_date_check").set true
-    fill_in :phase_bulk_edit_completion_release_date, with: (Time.zone.now + 20.days)
-    find("#phase_bulk_edit_validity_check").set true
-    fill_in :phase_bulk_edit_validity, with: 23
-    find("#phase_bulk_edit_extended_access_check").set true
-    fill_in :phase_bulk_edit_extended_access, with: 6
+    select CreateFixture.another_unit_type_name, visible: false
 
-    find("#phase_bulk_edit_prefix_check").set true
-    fill_in :phase_bulk_edit_prefix, with: "Bulk edit"
-    find("#phase_bulk_edit_copy_plot_numbers").set true
-    find("#phase_bulk_edit_building_name_check").set true
-    fill_in :phase_bulk_edit_building_name, with: "Bulky Building"
-    find("#phase_bulk_edit_road_name_check").set true
-    fill_in :phase_bulk_edit_road_name, with: "New Bulky Road"
-    find("#phase_bulk_edit_postcode_check").set true
-    fill_in :phase_bulk_edit_postcode, with: "SO40 1AB"
+    if(cas.present?)
+      %i[phase_bulk_edit_reservation_release_date
+         phase_bulk_edit_completion_release_date
+         phase_bulk_edit_validity
+         phase_bulk_edit_extended_access
+         phase_bulk_edit_prefix
+         phase_bulk_edit_building_name
+         phase_bulk_edit_road_name
+         phase_bulk_edit_postcode].each do |selector|
+        expect(page).not_to have_selector "##{selector}"
+
+        find("#phase_bulk_edit_progress_check").set true
+        select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
+        find("#phase_bulk_edit_completion_date_check").set true
+        fill_in :phase_bulk_edit_completion_date, with: (Time.zone.now + 10.days)
+      end
+    else
+      find("#phase_bulk_edit_reservation_release_date_check").set true
+      fill_in :phase_bulk_edit_reservation_release_date, with: (Time.zone.now + 10.days)
+      find("#phase_bulk_edit_completion_release_date_check").set true
+      fill_in :phase_bulk_edit_completion_release_date, with: (Time.zone.now + 20.days)
+      find("#phase_bulk_edit_validity_check").set true
+      fill_in :phase_bulk_edit_validity, with: 23
+      find("#phase_bulk_edit_extended_access_check").trigger('click')
+      fill_in :phase_bulk_edit_extended_access, with: 6
+      find("#phase_bulk_edit_prefix_check").set true
+      fill_in :phase_bulk_edit_prefix, with: "Bulk edit"
+      find("#phase_bulk_edit_copy_plot_numbers").set true
+      find("#phase_bulk_edit_building_name_check").set true
+      fill_in :phase_bulk_edit_building_name, with: "Bulky Building"
+      find("#phase_bulk_edit_road_name_check").set true
+      fill_in :phase_bulk_edit_road_name, with: "New Bulky Road"
+      find("#phase_bulk_edit_postcode_check").set true
+      fill_in :phase_bulk_edit_postcode, with: "SO40 1AB"
+    end
 
     click_on t("bulk_edit.index.submit")
+    # Unit type is being updated - confirm the unit type dialog
+    find(:xpath, "//button[@id='btn_confirm']").click
+
   end
 end
 
@@ -53,18 +95,34 @@ Then(/^there is an error for plots that don't exist$/) do
   end
 end
 
-Then(/^the selected plots are updated$/) do
+Then(/^there are errors for plots that don't exist and cannot be updated$/) do
+  message = I18n.t("activerecord.errors.models.plot.attributes.base.missing")
+  within ".alert" do
+    expect(page).to have_content "Plots 179, 180, and 181 could not be saved: Plot not found and Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
+  end
+end
+
+Then(/^the selected plots are (CAS )*updated$/) do |cas|
   message = I18n.t("bulk_edit.create.success", plot_numbers: "180, 181, and #{CreateFixture.phase_plot_name}")
   within ".notice" do
     expect(page).to have_content message
   end
 
-  test_plot_fields(180)
-  test_plot_fields(181)
-  test_plot_fields(CreateFixture.phase_plot_name)
+  test_plot_fields(180, cas.present?)
+  test_plot_fields(181, cas.present?)
+  test_plot_fields(CreateFixture.phase_plot_name, cas.present?)
 end
 
-Then(/^the unselected plots are not updated$/) do
+Then(/^the released plot is CAS updated$/) do
+  message = I18n.t("bulk_edit.create.success_one", plot_number: "#{CreateFixture.phase_plot_name}")
+  within ".notice" do
+    expect(page).to have_content message
+  end
+
+  test_plot_fields(CreateFixture.phase_plot_name, true)
+end
+
+Then(/^the unselected plots are not (CAS )*updated$/) do |cas|
   plot = Plot.find_by(number: 182)
   visit "/plots/#{plot.id}/edit"
 
@@ -72,31 +130,45 @@ Then(/^the unselected plots are not updated$/) do
     unit_type = page.find(".plot_unit_type")
     selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
 
-    expect(selected_unit_type).not_to have_content "Another"
-    expect(selected_unit_type).to have_content plot.unit_type.to_s
+    if cas.present?
+      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+    else
+      expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
+      expect(selected_unit_type).to have_content plot.unit_type.to_s
 
-    validity = page.find(".validity")
-    expect(validity['innerHTML']).to include "27"
+      validity = page.find(".validity")
+      expect(validity['innerHTML']).to include "27"
 
-    prefix = page.find(".plot_prefix")
-    expect(prefix['innerHTML']).not_to include "Bulk edit"
+      prefix = page.find(".plot_prefix")
+      expect(prefix['innerHTML']).not_to include "Bulk edit"
 
-    house_number = page.find(".plot_house_number")
-    expect(house_number['innerHTML']).to include "18A"
+      house_number = page.find(".plot_house_number")
+      expect(house_number['innerHTML']).to include "18A"
 
-    road_name = page.find(".plot_road_name")
-    expect(road_name['innerHTML']).to include "Bulk Edit Road C"
+      road_name = page.find(".plot_road_name")
+      expect(road_name['innerHTML']).to include "Bulk Edit Road C"
 
-    postcode = page.find( ".plot_postcode")
-    expect(postcode['innerHTML']).to include "AA 1AB"
+      postcode = page.find( ".plot_postcode")
+      expect(postcode['innerHTML']).to include "AA 1AB"
+    end
+  end
+end
+
+Then(/^the unreleased plots are not CAS updated$/) do
+  (180..181).each do |plot_number|
+    plot = Plot.find_by(number: plot_number)
+    visit "/plots/#{plot.id}/edit"
+
+    within ".edit_plot" do
+      unit_type = page.find(".plot_unit_type")
+      selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
+      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+    end
   end
 end
 
 Then(/^I can not edit bulk plots$/) do
-  phase = CreateFixture.phase
-
-  phase = CreateFixture.division_phase if phase.nil?
-
+  phase = $current_user.division_admin? ?  CreateFixture.division_phase : CreateFixture.phase
   visit "/developments/#{phase.development.id}/phases/#{phase.id}"
 
   within ".tabs" do
@@ -195,7 +267,7 @@ Then(/^the plot fields are all unchanged$/) do
   within ".edit_plot" do
     unit_type = page.find(".plot_unit_type")
     selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
-    expect(selected_unit_type).not_to have_content "Another"
+    expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
     expect(selected_unit_type).to have_content plot.unit_type.to_s
 
     reservation_date = Time.zone.now.to_date
@@ -241,25 +313,25 @@ When(/^I bulk edit the plot and set optional fields to empty$/) do
   within ".bulk-edit" do
     fill_in :phase_bulk_edit_list, with: 17
 
-    find("#phase_bulk_edit_reservation_release_date_check").set true
+    find("#phase_bulk_edit_reservation_release_date_check").trigger('click')
     fill_in :phase_bulk_edit_reservation_release_date, with: ""
-    find("#phase_bulk_edit_completion_release_date_check").set true
+    find("#phase_bulk_edit_completion_release_date_check").trigger('click')
     fill_in :phase_bulk_edit_completion_release_date, with: ""
     # Not possible to set blank validity and extended access, use 0 instead
-    find("#phase_bulk_edit_validity_check").set true
+    find("#phase_bulk_edit_validity_check").trigger('click')
     fill_in :phase_bulk_edit_validity, with: 0
-    find("#phase_bulk_edit_extended_access_check").set true
+    find("#phase_bulk_edit_extended_access_check").trigger('click')
     fill_in :phase_bulk_edit_extended_access, with: 0
 
     find("#phase_bulk_edit_prefix_check").set true
     fill_in :phase_bulk_edit_prefix, with: ""
-    find("#phase_bulk_edit_house_number_check").set true
+    find("#phase_bulk_edit_house_number_check").trigger('click')
     fill_in :phase_bulk_edit_house_number, with: ""
-    find("#phase_bulk_edit_building_name_check").set true
+    find("#phase_bulk_edit_building_name_check").trigger('click')
     fill_in :phase_bulk_edit_building_name, with: ""
-    find("#phase_bulk_edit_road_name_check").set true
+    find("#phase_bulk_edit_road_name_check").trigger('click')
     fill_in :phase_bulk_edit_road_name, with: ""
-    find("#phase_bulk_edit_postcode_check").set true
+    find("#phase_bulk_edit_postcode_check").trigger('click')
     fill_in :phase_bulk_edit_postcode, with: ""
 
     click_on t("bulk_edit.index.submit")
@@ -277,11 +349,12 @@ When(/^I bulk edit the plot and set mandatory fields to empty$/) do
   within ".bulk-edit" do
     fill_in :phase_bulk_edit_list, with: 17
 
-    find("#phase_bulk_edit_unit_type_id_check").set true
-    find("#phase_bulk_edit_validity_check").set true
-    find("#phase_bulk_edit_extended_access_check").set true
+    find("#phase_bulk_edit_unit_type_id_check").trigger('click')
+    find("#phase_bulk_edit_validity_check").trigger('click')
+    find("#phase_bulk_edit_extended_access_check").trigger('click')
 
     click_on t("bulk_edit.index.submit")
+    find(:xpath, "//button[@id='btn_confirm']").click
   end
 end
 
@@ -335,8 +408,8 @@ Then(/^the optional plot fields are unset$/) do
 
 end
 
-def test_plot_fields(plot_number)
-  phase = CreateFixture.phase
+def test_plot_fields(plot_number, cas)
+  phase = $current_user.division_admin?  ? CreateFixture.division_phase : CreateFixture.phase
   plot = Plot.find_by(number: plot_number, phase: phase)
   visit "/plots/#{plot.id}/edit"
 
@@ -344,37 +417,44 @@ def test_plot_fields(plot_number)
     unit_type = page.find(".plot_unit_type")
     selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
 
-    expect(selected_unit_type).to have_content "Another"
+    expect(selected_unit_type).to have_content CreateFixture.another_unit_type_name
     expect(selected_unit_type).not_to have_content CreateFixture.unit_type_name
 
-    reservation_date = (Time.zone.now + 10.days).to_date
-    res_rel_date = page.find(".plot_reservation_release_date")
-    expect(res_rel_date['innerHTML']).to include reservation_date.to_s
+    if cas
+      mode_in_date = (Time.zone.now + 10.days).to_date
+      res_move_in_date = page.find(".plot_completion_date")
+      expect(res_move_in_date['innerHTML']).to include mode_in_date.to_s
+      expect(page).to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+    else
+      reservation_date = (Time.zone.now + 10.days).to_date
+      res_rel_date = page.find(".plot_reservation_release_date")
+      expect(res_rel_date['innerHTML']).to include reservation_date.to_s
 
-    completion_date = (Time.zone.now + 20.days).to_date
-    comp_rel_date = page.find(".plot_completion_release_date")
-    expect(comp_rel_date['innerHTML']).to include completion_date.to_s
+      completion_date = (Time.zone.now + 20.days).to_date
+      comp_rel_date = page.find(".plot_completion_release_date")
+      expect(comp_rel_date['innerHTML']).to include completion_date.to_s
 
-    validity = page.find(".validity")
-    expect(validity['innerHTML']).to include "23"
+      validity = page.find(".validity")
+      expect(validity['innerHTML']).to include "23"
 
-    extension = page.find(".extended_access")
-    expect(extension['innerHTML']).to include "6"
+      extension = page.find(".extended_access")
+      expect(extension['innerHTML']).to include "6"
 
-    prefix = page.find(".plot_prefix")
-    expect(prefix['innerHTML']).to include "Bulk edit"
+      prefix = page.find(".plot_prefix")
+      expect(prefix['innerHTML']).to include "Bulk edit"
 
-    house_number = page.find(".plot_house_number")
-    expect(house_number['innerHTML']).to include plot_number.to_s
+      house_number = page.find(".plot_house_number")
+      expect(house_number['innerHTML']).to include plot_number.to_s
 
-    building_name = page.find(".plot_building_name")
-    expect(building_name['innerHTML']).to include "Bulky Building"
+      building_name = page.find(".plot_building_name")
+      expect(building_name['innerHTML']).to include "Bulky Building"
 
-    road_name = page.find(".plot_road_name")
-    expect(road_name['innerHTML']).to include "New Bulky Road"
+      road_name = page.find(".plot_road_name")
+      expect(road_name['innerHTML']).to include "New Bulky Road"
 
-    postcode = page.find( ".plot_postcode")
-    expect(postcode['innerHTML']).to include "SO40 1AB"
+      postcode = page.find( ".plot_postcode")
+      expect(postcode['innerHTML']).to include "SO40 1AB"
+    end
   end
 end
 
@@ -382,7 +462,7 @@ Given(/^I am a CF admin and there are many spanish plots$/) do
 
   ResidentNotificationsFixture.create_spanish_permission_resources
   login_as CreateFixture.create_cf_admin
-  FactoryGirl.create(:unit_type, name: "Another", development: CreateFixture.spanish_development)
+  FactoryGirl.create(:unit_type, name: CreateFixture.another_unit_type_name, development: CreateFixture.spanish_development)
   FactoryGirl.create(:plot, phase: CreateFixture.spanish_phase, number: 180, postcode: "12345")
   FactoryGirl.create(:plot, phase: CreateFixture.spanish_phase, number: 181, postcode: "200111")
   FactoryGirl.create(:plot, unit_type: CreateFixture.unit_type, phase: CreateFixture.spanish_phase, house_number: "18A", postcode: "200200")
@@ -399,10 +479,10 @@ When(/^I bulk edit the spanish plots$/) do
 end
 
 Then(/^I should see spanish address options$/) do
-  
+
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false
-  
+
   expect(page).not_to have_selector('#phase_bulk_edit_postal_number')
   expect(page).not_to have_selector('#phase_bulk_edit_county')
   find_field(:phase_bulk_edit_house_number).should be_visible

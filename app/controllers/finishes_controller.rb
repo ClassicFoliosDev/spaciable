@@ -3,7 +3,8 @@
 class FinishesController < ApplicationController
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource :finish
+  load_and_authorize_resource :finish, except: %i[finish_types_list manufacturers_list finish_list]
+  skip_authorization_check only: %i[finish_types_list manufacturers_list finish_list]
 
   def index
     @finishes = @finishes.includes(:finish_category, :finish_type, :finish_manufacturer)
@@ -36,7 +37,7 @@ class FinishesController < ApplicationController
   end
 
   def destroy
-    @finish.destroy
+    @finish.really_destroy!
     notice = t(
       "controller.success.destroy",
       name: @finish.name
@@ -45,36 +46,22 @@ class FinishesController < ApplicationController
   end
 
   def finish_types_list
-    finish_types = FinishType.joins(:finish_categories)
-                             .where(finish_categories: { name: params[:option_name] })
-                             .distinct
-                             .order(:name)
-
+    finish_types = FinishType.with_category(params[:category])
     render json: finish_types
   end
 
   def manufacturers_list
-    manufacturers = FinishManufacturer
-                    .joins(:finish_types)
-                    .where(finish_types: { name: params[:option_name] })
-                    .order(:name)
-                    .distinct
-
+    manufacturers = FinishManufacturer.with_type(params[:type])
     render json: manufacturers
   end
 
   def finish_list
-    finishes = if params[:manufacturer_name].present?
-                 Finish.joins(:finish_type, :finish_manufacturer)
-                       .where(finish_types: { name: params[:type_name] },
-                              finish_manufacturers: { name: params[:manufacturer_name] })
-                       .order(:name)
-                       .distinct
+    finishes = if params[:manufacturer].present?
+                 Finish.with_cat_type_man(params)
                else
-                 Finish.joins(:finish_type)
-                       .where(finish_types: { name: params[:type_name] })
-                       .order(:name)
-                       .distinct
+                 Finish.with_cat_type(params)
+                       .each { |f| f.name = "#{f.finish_manufacturer&.name} #{f.name}" }
+
                end
 
     render json: finishes
@@ -95,5 +82,11 @@ class FinishesController < ApplicationController
       :picture_cache,
       documents_attributes: %i[id title file _destroy]
     )
+  end
+
+  # Override the current_ability - supplying the non_development value
+  # tailors the security and avoids problems perculiar to this controller
+  def current_ability
+    @current_ability ||= ::Ability.new(current_user, non_development: true)
   end
 end

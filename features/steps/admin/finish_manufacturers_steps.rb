@@ -32,7 +32,7 @@ end
 When(/^I update the finish manufacturer$/) do
   visit "/finish_manufacturers"
 
-  within ".record-list" do
+  within find(:xpath, ".//tr[td//text()[contains(., '#{FinishManufacturerFixture.name}')]]") do
     find("[data-action='edit']").click
   end
 

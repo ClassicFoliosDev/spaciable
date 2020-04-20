@@ -15,12 +15,22 @@ class UnitTypesController < ApplicationController
   def edit; end
 
   def show
+    # If no tab has been specified and CAS is active
+    if params[:active_tab].nil? &&
+       (current_user.cf_admin? || (current_user.cas && @development.cas))
+      redirect_to [@unit_type, :rooms]
+    end
+
     @active_tab = params[:active_tab] || "documents"
 
-    @collection = if @active_tab == "documents"
-                    documents = @unit_type.documents
-                    paginate(sort(documents, default: :title))
-                  end
+    case @active_tab
+    when "documents"
+      documents = @unit_type.documents
+      @collection = paginate(sort(documents, default: :title))
+    when "logs"
+      logs = Log.logs(@unit_type)
+      @collection = paginate(sort(logs, default: { created_at: :desc }))
+    end
   end
 
   def create
@@ -74,6 +84,6 @@ class UnitTypesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def unit_type_params
-    params.require(:unit_type).permit(:name, :picture, :build_type, :external_link, phase_ids: [])
+    params.require(:unit_type).permit(:name, :picture, :external_link, :restricted, phase_ids: [])
   end
 end

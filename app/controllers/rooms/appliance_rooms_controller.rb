@@ -7,8 +7,9 @@ module Rooms
     include SortingConcern
 
     def new
-      @appliance_categories = sort(ApplianceCategory.all, default: :name)
-      @appliance_manufacturers = sort(ApplianceManufacturer.all, default: :name)
+      @appliance_categories = sort(ApplianceCategory.visible_to(current_user), default: :name)
+      @appliance_manufacturers = sort(ApplianceManufacturer.visible_to(current_user),
+                                      default: :name)
 
       new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
       return unless new_room
@@ -20,10 +21,11 @@ module Rooms
     def edit; end
 
     def create
-      appliance_id = params[:appliances]
-      @appliance_room = ApplianceRoom.new(appliance_id: appliance_id, room_id: @room.id)
+      @appliance_room = ApplianceRoom.new(appliance_id: params[:appliances],
+                                          room_id: @room.id)
 
       if @appliance_room.save
+        Room.last_edited_by(@appliance_room.room_id, current_user)
         notice = t("controller.success.update", name: @room.name)
         redirect_to [@room.parent, @room, active_tab: "appliances"], notice: notice
       else

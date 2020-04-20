@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Given(/^I have a developer with a development with unit types and a phase$/) do
-  PhasePlotFixture.create_developer_with_development_and_unit_types_and_phase
+Given(/^I have a (CAS )*developer with a development with unit types and a phase$/) do |cas|
+  PhasePlotFixture.create_developer_with_development_and_unit_types_and_phase(cas: cas.present?)
 end
 
 When(/^I create a plot for the phase$/) do
@@ -75,14 +75,41 @@ Then(/^I should see the created phase plot$/) do
   expect(page).to have_content(PhasePlotFixture.unit_type_name)
 end
 
-When(/^I update the phase plot$/) do
+When(/^I (CAS )*update the phase plot$/) do |cas|
+
+  development = $current_user.division_admin? ? CreateFixture.division_development.id : CreateFixture.development.id
+  phase = $current_user.division_admin? ? PhasePlotFixture.division_phase.id : PhasePlotFixture.phase.id
+
+  visit "/developments/#{development}/phases/#{phase}"
+
   within ".record-list" do
-    find("[data-action='edit']").click
+    # test browser doesn't always render buttons - so just go to the link
+    # inside the button
+    visit find("[data-action='edit']")[:href]
   end
 
-  sleep 0.3 # these fields do not get filled in without the sleep :(
-  PhasePlotFixture.update_attrs.each do |attr, value|
-    fill_in "plot_#{attr}", with: value
+  find('.plot_number') # ensures page has loaded
+  if cas.present?
+    # CAS edits are restricted.
+    %i[plot_reservation_order_number
+       plot_completion_order_number
+       plot_reservation_release_date
+       plot_completion_release_date
+       plot_validity
+       plot_prefix
+       plot_house_number
+       plot_building_name
+       plot_road_name
+       plot_postcode
+       plot_locality
+       plot_city
+       plot_county].each do |selector|
+      expect(page).not_to have_selector "##{selector}"
+    end
+  else
+    PhasePlotFixture.update_attrs.each do |attr, value|
+      fill_in "plot_#{attr}", with: value
+    end
   end
 
   within ".plot_unit_type" do
@@ -92,26 +119,74 @@ When(/^I update the phase plot$/) do
   click_on t("plots.form.submit")
 end
 
-Then(/^I should see the updated phase plot$/) do
+When(/^I CAS update the phase restricted plot$/) do
+
+  development = $current_user.division_admin? ? CreateFixture.division_development.id : CreateFixture.development.id
+  phase = $current_user.division_admin? ? PhasePlotFixture.division_phase.id : PhasePlotFixture.phase.id
+
+  visit "/developments/#{development}/phases/#{phase}"
+
+  within ".record-list" do
+    # test browser doesn't always render buttons - so just go to the link
+    # inside the button
+    visit find("[data-action='edit']")[:href]
+  end
+
+  # CAS edits are restricted.
+  %i[plot_reservation_order_number
+     plot_completion_order_number
+     plot_reservation_release_date
+     plot_completion_release_date
+     plot_validity
+     plot_prefix
+     plot_house_number
+     plot_building_name
+     plot_road_name
+     plot_postcode
+     plot_locality
+     plot_city
+     plot_county].each do |selector|
+    expect(page).not_to have_selector "##{selector}"
+  end
+  expect(page).to have_field 'plot_number', disabled: true
+  find('.plot_unit_type').find('.disabled')
+  fill_in :plot_completion_date, with: (Time.zone.now + 20.days)
+  select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
+
+  click_on t("plots.form.submit")
+end
+
+Then(/^I should see the (CAS )*updated phase plot$/) do |cas|
   within ".section-title" do
-    expect(page).to have_content(PhasePlotFixture.update_attrs[:number])
+    expect(page).to have_content(PhasePlotFixture.update_attrs[:number]) unless cas
     expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.soon"))
     expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.complete_ready"))
     expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.completed"))
     expect(page).not_to have_content(I18n.t("activerecord.attributes.plot.progresses.roof_on"))
   end
 
-  within ".section-data" do
-    expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
-    expect(page).to have_content(PhasePlotFixture.updated_house_number)
-    expect(page).to have_content(PhasePlotFixture.plot_building_name)
-    expect(page).to have_content(PhasePlotFixture.plot_road_name)
-    expect(page).to have_content(PhasePlotFixture.plot_postcode)
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:locality])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:city_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:county_name])
+  unless cas.present?
+    within ".section-data" do
+      expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
+      expect(page).to have_content(PhasePlotFixture.updated_house_number)
+      expect(page).to have_content(PhasePlotFixture.plot_building_name)
+      expect(page).to have_content(PhasePlotFixture.plot_road_name)
+      expect(page).to have_content(PhasePlotFixture.plot_postcode)
+      expect(page).to have_content(PhaseFixture.address_update_attrs[:locality])
+      expect(page).to have_content(PhaseFixture.address_update_attrs[:city_name])
+      expect(page).to have_content(PhaseFixture.address_update_attrs[:county_name])
 
-    expect(page).not_to have_content(PlotFixture.unit_type_name)
+      expect(page).not_to have_content(PlotFixture.unit_type_name)
+    end
+  end
+end
+
+Then(/^I should see the CAS updated restricted phase plot$/) do
+  within ".section-title" do
+    expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.complete_ready"))
+    completion = (Time.zone.now + 20.days).strftime('%d %B %Y')
+    completion_date = page.find(".half", match: :first)
+    expect(completion_date['innerHTML']).to include completion.to_s
   end
 end
 
@@ -144,7 +219,7 @@ Given(/^I have configured the phase address$/) do
   visit "/developers"
 
   within ".record-list" do
-    click_on PhasePlotFixture.developer_name
+    click_on CreateFixture.developer_name
   end
 
   within ".tabs" do
@@ -152,7 +227,7 @@ Given(/^I have configured the phase address$/) do
   end
 
   within ".record-list" do
-    click_on PhasePlotFixture.development_name
+    click_on CreateFixture.development_name
   end
 
   within ".tabs" do
@@ -185,7 +260,7 @@ Then(/^I should see the phase address has not been changed$/) do
   visit "/developers"
 
   within ".record-list" do
-    click_on PhasePlotFixture.developer_name
+    click_on CreateFixture.developer_name
   end
 
   within ".tabs" do
@@ -193,7 +268,7 @@ Then(/^I should see the phase address has not been changed$/) do
   end
 
   within ".record-list" do
-    click_on PhasePlotFixture.development_name
+    click_on CreateFixture.development_name
   end
 
   within ".tabs" do
@@ -280,3 +355,40 @@ Then(/^I should see the spanish plot address format$/) do
 
   Capybara.ignore_hidden_elements = ignore
 end
+
+Given(/^I have a phase plot$/) do
+  PhasePlotFixture.create_phase_plot
+end
+
+Then(/^I cannot delete the phase plot$/) do
+  visit "/developments/#{CreateFixture.development.id}/phases/#{PhasePlotFixture.phase.id}"
+  expect(page).not_to have_selector(:xpath, ".//tr//button[@data-title='Confirm delete']")
+end
+
+When(/^I cannot update or delete or add to the restricted phase plot rooms$/) do
+  click_on "Plot #{PhasePlotFixture.plot_number}"
+  click_on "Rooms"
+
+  expect(page).not_to have_content "Add Rooms"
+
+  within ".record-list" do
+    expect(page).to have_content Room.first.name
+    expect(page).not_to have_selector(".archive-btn")
+    expect(page).not_to have_selector("[data-action='edit']")
+  end
+end
+
+When(/^I cannot update or delete or add to the restricted phase plot finishes and appliances$/) do
+  click_on Room.first.name
+
+  expect(page).not_to have_content "Add Finish"
+  expect(page).to have_content t('components.empty_list.request_add', type_names: "finishes")
+
+  within ".tabs" do
+    click_on "Appliances"
+  end
+
+  expect(page).not_to have_content "Add Appliances"  
+end
+
+

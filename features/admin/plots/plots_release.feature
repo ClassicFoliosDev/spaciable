@@ -31,6 +31,16 @@ Feature: Release Plots
     Then I am returned to the phases page with a confirmation message
     Then the plot release data has been updated
 
+  Scenario Outline: CAS Release plots
+    Given I am a CAS <role> and there are many releasable plots
+    Then I do not have access to release plots
+    Examples:
+      | role               |
+      | Developer Admin    |
+      | Division Admin     |
+      | Development Admin  |
+      | Site Admin         |
+
   Scenario: Nil Validation
     Given I am a CF admin and there are many releasable plots
     Then I add some released plots

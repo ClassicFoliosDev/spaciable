@@ -30,6 +30,7 @@ class Division < ApplicationRecord
   delegate :to_s, to: :division_name
   delegate :api_key, :development_faqs, :country, to: :developer
   delegate :company_name, to: :developer
+  delegate :cas, to: :developer
   delegate :enable_roomsketcher, :house_search, :development_faqs, to: :developer
   delegate :enable_referrals, :enable_services, :enable_development_messages, to: :developer
   delegate :enable_perks, to: :developer

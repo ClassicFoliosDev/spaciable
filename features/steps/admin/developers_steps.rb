@@ -15,6 +15,7 @@ When(/^I create a developer$/) do
 end
 
 Then(/^I should see the created developer$/) do
+  visit "/developers"
   within ".developers" do
     click_on CreateFixture.developer_name
   end
@@ -38,7 +39,7 @@ When(/^I update the developer$/) do
   check "developer_enable_services"
   check "developer_enable_development_messages"
   uncheck "developer_enable_roomsketcher"
-
+  check "developer_cas"
 
   click_on t("developers.form.submit")
 end
@@ -142,7 +143,7 @@ When(/^I open the new developer page$/) do
 end
 
 Then(/^I should see UK address format$/) do
-  
+
   find_field(:developer_address_attributes_postal_number).should be_visible
   find_field(:developer_address_attributes_road_name).should be_visible
   find_field(:developer_address_attributes_building_name).should be_visible
@@ -174,6 +175,13 @@ Then(/^I should see Spanish address format$/) do
   find_field(:developer_address_attributes_postcode).should be_visible
 
   Capybara.ignore_hidden_elements = ignore
+end
+
+Then(/^I should (not )*see CAS visable and enabled at the development$/) do |not_visible|
+  development = CreateFixture.development
+  visit "/developers/#{development.developer.id}/developments/#{development.id}/edit"
+  expect(page).not_to have_content(t("developments.form.cas_description")) if not_visible.present?
+  expect(page).to have_content(t("developments.form.cas_description")) unless not_visible.present?
 end
 
 

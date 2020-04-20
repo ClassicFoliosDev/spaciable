@@ -4,24 +4,14 @@ Given(/^I have a I have a developer with a development and a unit type$/) do
   CreateFixture.create_developer_with_development_and_unit_type
 end
 
-When(/^I create a unit type for the development$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.developers")
-  end
-
-  within "[data-developer='#{CreateFixture.developer_id}']" do
-    click_on t("developers.index.developments")
-  end
-
-  within "[data-development='#{CreateFixture.development_id}']" do
-    click_on t("developments.collection.unit_types")
-  end
+When(/^I create a (restricted )*unit type for the development$/) do |restricted|
+  navigate_to_unit_type
 
   click_on t("unit_types.collection.add")
 
   fill_in "unit_type_name", with: CreateFixture.unit_type_name
+  find("#unit_type_restricted").set true if restricted.present?
+
   click_on t("unit_types.form.submit")
 end
 
@@ -38,7 +28,7 @@ When(/^I update the unit type$/) do
     find("[data-action='edit']").click
   end
 
-  sleep 0.5 # these fields are not found without the sleep :(
+  find("#unit_type_name")
   fill_in "unit_type[name]", with: UnitTypeFixture.updated_unit_type_name
   fill_in "unit_type_external_link", with: UnitTypeFixture.external_url
 
@@ -141,8 +131,8 @@ Then(/^I should see another duplicate unit type created successfully$/) do
   end
 end
 
-Given(/^there is a unit type room with finish and appliance$/) do
-  MyLibraryFixture.create_room_appliance_and_finish
+Given(/^there is a unit type room with (CAS )*finish and appliance$/) do |cas|
+  MyLibraryFixture.create_room_appliance_and_finish(cas.present? ? CreateFixture.developer : nil)
   MyLibraryFixture.create_documents
 end
 
@@ -151,10 +141,6 @@ Then(/^I should see a duplicate unit type with finish and appliance created succ
 
   within ".unit-types" do
     click_on new_name
-  end
-
-  within ".unit-type" do
-    click_on t("unit_types.collection.rooms")
   end
 
   within ".rooms" do
@@ -169,6 +155,21 @@ Then(/^I should see a duplicate unit type with finish and appliance created succ
   within ".record-list" do
     expect(page).to have_content(CreateFixture.full_appliance_name)
   end
+end
+
+When(/^I add a room to the unit type$/) do
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms"
+  click_on t("rooms.collection.add")
+  find("#room_name")
+  fill_in :room_name, with: CreateFixture.room_name
+  click_on t("plots.rooms.form.submit")
+end
+
+When(/^I edit a room for the unit type$/) do
+  visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room.id}/edit"
+  find("#room_name")
+  fill_in :room_name, with: CreateFixture.bedroom_name
+  click_on t("plots.rooms.form.submit")
 end
 
 When(/^I clone a unit type twice$/) do
@@ -191,10 +192,6 @@ Then(/^I should not be able to clone a unit type$/) do
   within ".record-list" do
     expect(page).to have_no_css(".clone")
   end
-end
-
-When(/^there is a division development unit type$/) do
-  CreateFixture.create_division_development_unit_type
 end
 
 Then(/^I should see a duplicate unit type without finish and appliance created successfully$/) do
@@ -231,13 +228,21 @@ Then(/^the document has not been cloned$/) do
     click_on cloned_unit_type_name
   end
 
+  click_on t('unit_types.collection.documents')
+
   within ".unit-type" do
     expect(page).not_to have_content DocumentFixture.document_name
     expect(page).to have_content t("components.empty_list.empty", type_names: "documents")
   end
 end
 
-When(/^I delete the unit type associated with a plot$/) do
+When(/^the unit type associated with a plot has an information button$/) do
+  visit "/developers/#{PhasePlotFixture.developer_id}/developments/#{PhasePlotFixture.development_id}?active_tab=unit_types"
+  btn = find(:xpath,"//button[@data-id=#{PhasePlotFixture.unit_type_id}]")
+  expect(btn[:title]).to eq(t("buttons.info.title"))
+end
+
+When(/^I press the information button for the unit type associated with a plot$/) do
   visit "/developers/#{PhasePlotFixture.developer_id}/developments/#{PhasePlotFixture.development_id}?active_tab=unit_types"
   btn = find(:xpath,"//button[@data-id=#{PhasePlotFixture.unit_type_id}]")
   sleep 0.1
@@ -245,8 +250,35 @@ When(/^I delete the unit type associated with a plot$/) do
 end
 
 Then(/^I should see dialog warning of the associated phase and plot$/) do
-  expect(page).to have_content("Are you sure you wish to delete the #{PhasePlotFixture.unit_type_name}  unit type")
-  expect(page).to have_content("This will delete the following plots: #{PhasePlotFixture.phase_name}: #{PhasePlotFixture.plot_number}")
+  expect(page).to have_content("This unit type cannot be deleted because it is in use. Please reassign the following plots to other unit types before deleting")
 end
+
+Then(/^I view the unit type$/) do
+  click_on CreateFixture.unit_type_name
+end
+
+Then(/^I view a unit type room$/) do
+  click_on CreateFixture.room_name
+end
+
+Then(/^I cannot edit or delete the unit types$/) do
+  no_edit_or_delete
+end
+
+Then(/^I cannot edit or delete the rooms$/) do
+  no_edit_or_delete
+end
+
+Then(/^I cannot edit or delete the finishes or appliances$/) do
+  no_edit_or_delete
+  click_on "Appliances"
+  no_edit_or_delete
+end
+
+def no_edit_or_delete
+  expect(page).not_to have_selector(".archive-btn")
+  expect(page).not_to have_selector("[data-action='edit']")
+end
+
 
 

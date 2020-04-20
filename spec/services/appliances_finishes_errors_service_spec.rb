@@ -4,6 +4,9 @@ require "rails_helper"
 RSpec.describe AppliancesFinishesErrorsService do
   context "creates errors for invalid entities" do
     it "should not report errors for room with appliance and finish deleted" do
+      development = create(:development)
+      site_admin = create(:site_admin, permission_level: development)
+
       finish_category = create(:finish_category)
       finish_type = create(:finish_type, finish_categories: [finish_category])
       finish = create(:finish, finish_type: finish_type, finish_category: finish_category)
@@ -20,12 +23,14 @@ RSpec.describe AppliancesFinishesErrorsService do
     end
 
     it "should report errors for invalid room" do
+      development = create(:development)
+      site_admin = create(:site_admin, permission_level: development)
+
       finish_category = create(:finish_category)
       finish_type = create(:finish_type, finish_categories: [finish_category])
       finish = create(:finish, finish_type: finish_type, finish_category: finish_category)
       appliance = create(:appliance)
       room = create(:room)
-
       create(:finish_room, finish: finish, room: room)
       create(:appliance_room, appliance: appliance, room: room)
 

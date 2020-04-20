@@ -6,6 +6,8 @@ RSpec.describe PlotRoomTemplatingService do
   describe "#build_room" do
     context "with a template_room_id" do
       it "should build a plot room linked to the template room" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
         unit_type_room = create(:room, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
@@ -35,6 +37,9 @@ RSpec.describe PlotRoomTemplatingService do
 
   describe "#clone_room" do
     it "should clone a room for a plot, but only once" do
+      development = create(:development)
+      development_admin = create(:development_admin, permission_level: development)
+
       unit_type = create(:unit_type)
       unit_type_room = create(:room, unit_type: unit_type)
       plot = create(:plot, unit_type: unit_type)
@@ -55,6 +60,9 @@ RSpec.describe PlotRoomTemplatingService do
   describe "#destroy" do
     context "when the room is a template room" do
       it "should not delete the template room" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
+
         unit_type = create(:unit_type)
         unit_type_room = create(:room, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
@@ -65,6 +73,8 @@ RSpec.describe PlotRoomTemplatingService do
       end
 
       it "should create a deleted plot room" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
         unit_type = create(:unit_type)
         unit_type_room = create(:room, unit_type: unit_type)
         plot = create(:plot, unit_type: unit_type)
@@ -77,6 +87,9 @@ RSpec.describe PlotRoomTemplatingService do
 
     context "when the room is a plot room" do
       it "should destroy the plot room" do
+        development = create(:development)
+        development_admin = create(:development_admin, permission_level: development)
+
         room = create(:plot_room)
 
         described_class.new(room.plot).destroy(room)

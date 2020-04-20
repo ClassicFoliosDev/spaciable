@@ -111,6 +111,12 @@ gem "httparty"
 # OAuth2 authorization
 gem "oauth2"
 
+# thread safe global variable store
+gem "request_store"
+
+# Copy carrierwave images
+gem "copy_carrierwave_file"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"

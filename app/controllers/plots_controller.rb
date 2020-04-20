@@ -11,7 +11,7 @@ class PlotsController < ApplicationController
   load_and_authorize_resource :plot, through: %i[development phase], shallow: true
 
   before_action :set_parent
-  before_action :only_cf_admins, except: %i[show update]
+  before_action :check_access, except: %i[show update]
 
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
@@ -20,7 +20,7 @@ class PlotsController < ApplicationController
   end
 
   def edit
-    @plots = BulkPlots::UpdateService.call(@plot).collection
+    @plots = BulkPlots::UpdateService.call(@plot, self).collection
     @progress_id = Plot.progresses[@plot.progress.to_sym]
   end
 
@@ -53,13 +53,13 @@ class PlotsController < ApplicationController
   end
 
   def update
-    BulkPlots::UpdateService.call(@plot, params: plot_params) do |service, updated_plots, errors|
-      if updated_plots.any? && @plot.valid?
+    BulkPlots::UpdateService.call(@plot, self, params: plot_params) do |service, updated, errors|
+      if updated.any? && @plot.valid?
         if plot_params[:letter_type].present?
           notice = t(".lettings_success", plot_name: @plot, type: plot_params[:letter_type])
           redirect_to phase_lettings_path(@parent.id), notice: notice, alert: errors
         else
-          notify_and_redirect(updated_plots, errors)
+          notify_and_redirect(updated, errors)
         end
       else
         flash.now[:alert] = errors if errors
@@ -117,7 +117,8 @@ class PlotsController < ApplicationController
   end
 
   def plot_attributes
-    %i[ prefix number unit_type_id house_number road_name building_name locality city county
+    %i[ prefix number ut_update_option unit_type_id house_number road_name
+        building_name locality city county
         postcode progress notify user_id completion_date reservation_release_date
         completion_release_date validity extended_access copy_plot_numbers letable let
         letter_type letable_type reservation_order_number completion_order_number ]
@@ -127,8 +128,8 @@ class PlotsController < ApplicationController
     @parent ||= @phase || @development || @plot&.parent
   end
 
-  def only_cf_admins
-    return if current_user.cf_admin?
+  def check_access
+    return if current_user.cf_admin? || can?(:cas_update, @plot)
 
     render file: "public/401.html", status: :unauthorized
   end
@@ -140,6 +141,8 @@ class PlotsController < ApplicationController
       paginate(sort(@plot.rooms, default: :name))
     elsif @active_tab == "residents"
       paginate(sort(@plot.residents, default: :last_name))
+    elsif @active_tab == "logs"
+      paginate(sort(Log.logs(@plot), default: { created_at: :desc }))
     end
   end
 end

@@ -7,10 +7,10 @@ RSpec.describe Finish do
   let(:finish_type) { create(:finish_type, name: "Test type", finish_categories: [finish_category]) }
 
   describe "#name=" do
-    it "should not allow duplicate names" do
+    it "should not allow duplicate name/cat/type combos" do
       name = "Only finish named this"
-      create(:finish, name: name, finish_type: finish_type)
-      finish = Finish.new(name: name)
+      create(:finish, name: name, finish_type: finish_type, finish_category: finish_category)
+      finish = Finish.new(name: name, finish_type: finish_type, finish_category: finish_category)
 
       finish.validate
       name_errors = finish.errors.details[:name]

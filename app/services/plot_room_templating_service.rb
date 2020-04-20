@@ -44,7 +44,7 @@ class PlotRoomTemplatingService
 
   def destroy(room)
     if template_room?(room)
-      create_deleted_plot_room(template_room_id: room.id)
+      create_deleted_plot_room(template_room: room)
     else
       room.destroy
     end
@@ -68,9 +68,9 @@ class PlotRoomTemplatingService
   #
   # By creating a deleted plot room, with the `template_room_id` of the unit type room, the
   # plot will exclude this unit type room from its list of rooms
-  def create_deleted_plot_room(template_room_id:)
+  def create_deleted_plot_room(template_room:)
     plot_room = plot.plot_rooms.build(
-      template_room_id: template_room_id,
+      template_room_id: template_room.id,
       deleted_at: Time.zone.now
     )
 

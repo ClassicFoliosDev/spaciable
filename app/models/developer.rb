@@ -5,6 +5,7 @@ class Developer < ApplicationRecord
   acts_as_paranoid
 
   attr_accessor :personal_app
+  after_save :update_development_cas
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -174,5 +175,20 @@ class Developer < ApplicationRecord
     branded_app = BrandedApp.find_by(app_owner_type: "Developer", app_owner_id: id)
     branded_app.present?
   end
+
+  private
+
+  # Use the 'dirty' attribute to check for change to the CAS enablement and
+  # proliferate through to all child developments
+  # rubocop:disable SkipsModelValidations
+  def update_development_cas
+    return unless cas_changed?
+    # update all developments to have cas on
+    all_developments.each { |d| d.update_attribute(:cas, cas) }
+
+    # initilise CAS for the developer
+    Cas.initialise(id) if cas
+  end
+  # rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength

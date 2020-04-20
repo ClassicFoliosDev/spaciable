@@ -25,7 +25,8 @@ class ReleasePlotsController < ApplicationController
   def create
     map_params
     plot = Plot.new(number: Plot::DUMMY_PLOT_NAME, phase: @phase)
-    BulkPlots::UpdateService.call(plot, params: @bu_params) do |_service, updated_plots, errors|
+    BulkPlots::UpdateService.call(plot, self, params: @bu_params) \
+      do |_service, updated_plots, errors|
       send_email(updated_plots)
 
       redirect_to development_phase_path(@phase.parent, @phase),

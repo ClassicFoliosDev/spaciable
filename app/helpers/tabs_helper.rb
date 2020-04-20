@@ -25,6 +25,7 @@ module TabsHelper
     end
 
     def display?(association, options)
+      check_assoc = options.delete(:check_assoc)
       permissions_scope = options.delete(:permissions_on)
       return true if options.delete(:always_show) == true
       return false if options.delete(:hide) == true
@@ -34,6 +35,9 @@ module TabsHelper
       if %i[completion progress progresses].include? association
         return view_context.can? :update, model
       end
+
+      # check association specific permission if required
+      return view_context.can? association, model if check_assoc
 
       view_context.can? :read, model
     end

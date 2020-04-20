@@ -14,7 +14,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: development)
-      create(:room, unit_type: unit_type, finishes: [finish])
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -28,7 +29,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: development)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -43,7 +45,8 @@ RSpec.describe "Finish Abilities" do
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -53,10 +56,12 @@ RSpec.describe "Finish Abilities" do
 
     specify "cannot read finishes not used under the development" do
       other_development = create(:development)
+      development_admin = create(:development_admin, permission_level: other_development)
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: other_development)
-      create(:room, unit_type: unit_type, finishes: [finish])
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -67,10 +72,12 @@ RSpec.describe "Finish Abilities" do
 
     specify "cannot read finishes not used under the developments plots" do
       other_development = create(:development)
+      development_admin = create(:development_admin, permission_level: other_development)
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: other_development)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -81,11 +88,13 @@ RSpec.describe "Finish Abilities" do
 
     specify "cannot read finishes not used under the developments phase plots" do
       other_development = create(:development)
+      development_admin = create(:development_admin, permission_level: other_development)
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -102,7 +111,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: development)
-      create(:room, unit_type: unit_type, finishes: [finish])
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -116,7 +126,8 @@ RSpec.describe "Finish Abilities" do
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: development)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -131,7 +142,8 @@ RSpec.describe "Finish Abilities" do
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -141,10 +153,12 @@ RSpec.describe "Finish Abilities" do
 
     specify "cannot read finishes not used under the development" do
       other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       unit_type = create(:unit_type, development: other_development)
-      create(:room, unit_type: unit_type, finishes: [finish])
+      room = create(:room, unit_type: unit_type)
+      create(:finish_room, finish: finish, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -155,10 +169,12 @@ RSpec.describe "Finish Abilities" do
 
     specify "cannot read finishes not used under the developments plots" do
       other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       plot = create(:plot, development: other_development)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -169,11 +185,13 @@ RSpec.describe "Finish Abilities" do
 
     specify "cannot read finishes not used under the developments phase plots" do
       other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
 
       finish = create(:finish, name: "Test finish", finish_type: finish_type)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, finishes: [finish])
+      room = create(:room, plot: plot)
+      create(:finish_room, finish: finish, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)

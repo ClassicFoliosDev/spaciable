@@ -14,6 +14,10 @@ class Development < ApplicationRecord
     division || developer
   end
 
+  def parent_developer
+    developer || division.developer
+  end
+
   has_many :documents, as: :documentable, dependent: :destroy
   has_many :faqs, as: :faqable, dependent: :destroy
   has_many :phases, dependent: :destroy
@@ -185,6 +189,11 @@ class Development < ApplicationRecord
 
   def premium_perks_disabled(attr)
     attr["enable_premium_perks"] == "0"
+  end
+
+  # Build the specified attribute if it is not already donw
+  def build(attribute)
+    send "build_#{attribute}".to_sym unless send attribute
   end
 end
 # rubocop:enable Metrics/ClassLength

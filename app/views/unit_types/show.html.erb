@@ -4,9 +4,13 @@
   <div class="section-header">
     <div class="section-title">
       <div><%= @unit_type.name %></div>
-      <% if current_user.cf_admin? %>
+      <% if current_user.cf_admin? ||
+            (current_user.cas || @unit_type.cas) %>
         <span class="about">
           <br/>
+          <% if @unit_type.cas %>
+            <strong><%= t("cas_enabled") %><br/>
+          <% end %>
           <strong><%= t(".home_address_image") %></strong><%= @unit_type.picture? ? @unit_type.picture_name : "Not Populated" %><br/>
           <strong><%= t(".about_page_link") %></strong><%= @unit_type.external_link? ? @unit_type.external_link : "Not Populated" %><br/><br/>
           <strong><%= t(".plots") %></strong><%= @unit_type.plots.count %><br/>

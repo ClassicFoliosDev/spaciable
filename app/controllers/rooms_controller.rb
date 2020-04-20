@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable ClassLength
 class RoomsController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -14,9 +15,11 @@ class RoomsController < ApplicationController
                               only: %i[remove_finish remove_appliance]
 
   before_action :set_parent
+  before_action :stamp, only: %i[create edit update]
 
   def index
     @rooms = paginate(sort(@rooms, default: :name))
+    @back = previous_url
   end
 
   def new
@@ -29,6 +32,7 @@ class RoomsController < ApplicationController
     @room.build_appliances
   end
 
+  # rubocop:disable Metrics/AbcSize
   def show
     @active_tab = params[:active_tab] || "finishes"
     @plot = Plot.find(params[:plot]) if params[:plot]
@@ -39,7 +43,13 @@ class RoomsController < ApplicationController
                     paginate(sort(@room.appliances.includes(:appliance_manufacturer),
                                   default: :model_num))
                   end
+
+    @collection.each do |item|
+      item.added_by =
+        "#{item.class}Room".classify.constantize.marker(@room.id, item.id)
+    end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def create
     if @room.save
@@ -87,7 +97,8 @@ class RoomsController < ApplicationController
 
     # This will delete all joins between @room and @appliance
     # if there is more than one
-    if @room.appliances.delete(@appliance)
+    if @room.appliances.destroy(@appliance)
+      Room.last_edited_by(@room.id, current_user)
       notice = t(".success", room_name: @room.name, appliance_name: @appliance.full_name)
     end
 
@@ -103,7 +114,8 @@ class RoomsController < ApplicationController
 
     # This will delete all joins between @room and @appliance
     # if there is more than one
-    if @room.finishes.delete(@finish)
+    if @room.finishes.destroy(@finish)
+      Room.last_edited_by(@room.id, current_user)
       notice = t(".success", room_name: @room.name, finish_name: @finish.name)
     end
 
@@ -123,4 +135,9 @@ class RoomsController < ApplicationController
   def set_parent
     @parent = @unit_type || @room&.parent
   end
+
+  def stamp
+    @room.update_mark
+  end
 end
+# rubocop:enable ClassLength

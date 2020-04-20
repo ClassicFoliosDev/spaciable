@@ -1,25 +1,18 @@
+<% cancrud = can?(:crud, PlotRoom.new(plot)) %>
+
 <% if collection.empty? %>
-  <% if room.nil? %>
-    <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room %>
-  <% else %>
-    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot %>
-  <% end %>
+  <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot, combine: true, override: cancrud %>
 <% else %>
-  <% if can_create(Finish, current_user.permission_level) %>
+  <% if cancrud %>
     <div class="section-actions">
-      <% if room %>
-        <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
-          <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t("finishes.collection.create") %></span>
-        <% end %>
-      <% else %>
-        <%= link_to new_finish_path, class: "btn btn-primary" do %>
-          <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".create") %></span>
-        <% end %>
+      <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t("finishes.collection.create") %></span>
       <% end %>
     </div>
   <% end %>
+
+  <% showing_icons = current_user&.cf_admin? || cancrud %>
 
   <table class="record-list">
     <thead>
@@ -29,33 +22,31 @@
         <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t("finishes.collection.finish_category")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t("finishes.collection.finish_type")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t("finishes.collection.manufacturer")) %></th>
-        <th colspan="2"><%= sortable(Finish, :duplicate) %></th>
         <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
-        <% if current_user&.cf_admin? %><th colspan="2">&nbsp;</th><% end %>
-      </tr>
+        <th colspan="2"><%= sortable(Finish, :added_by, t(".added_by")) %></th>
+        <% if showing_icons %>
+          <th colspan="2">&nbsp;</th>
+        <% end %>
     </thead>
     <tbody>
       <% collection.each do |finish| %>
-        <tr>
+        <tr <%="class=view-only" if cannot?(:update, finish) %>>
           <td style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
           <td colspan="2"><%= link_to finish.name, finish_path(finish)%></td>
           <td colspan="2"><%= finish.finish_category %></td>
           <td colspan="2"><%= finish.finish_type %></td>
           <td colspan="2"><%= finish.finish_manufacturer %></td>
-          <% duplicate = finish.duplicate == true ? "green" : "white" %>
-          <td colspan="2"><span class = 'circle <%= duplicate %>'>&nbsp;</span></td>
           <td colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
-          <% if current_user&.cf_admin? %>
-            <td  colspan="2" class="actions">
+          <td colspan="2"><%= finish.added_by %></td>
 
+          <% if showing_icons %>
+            <td  colspan="2" class="actions">
             <% if finish.choice == false %>
               <%= edit_btn edit_finish_path(finish), element: finish %>
-              <% if room && can?(:destroy, finish) %>
+              <% if cancrud %>
                 <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
                   <%= fa_icon "trash-o" %>
                 <% end %>
-              <% else %>
-                <%= delete_btn finish, element: finish %>
               <% end %>
             <% end %>
             </td>

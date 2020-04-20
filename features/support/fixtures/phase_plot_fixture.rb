@@ -3,16 +3,18 @@
 module PhasePlotFixture
   module_function
 
-  def create_developer_with_development_and_unit_types_and_phase
-    development = FactoryGirl.create(
-      :development,
-      developer: create_developer,
-      name: development_name
-    )
-    create_unit_types(development)
+  def create_developer_with_development_and_unit_types_and_phase(cas: nil)
+    CreateFixture.create_developer(cas: cas)
+    CreateFixture.create_division
+    development = CreateFixture.create_development(cas: nil)
+    create_unit_types(development, updating_user: $current_user)
     create_phase(development)
     create_contact(development)
 
+    development = CreateFixture.create_division_development(cas: cas)
+    create_unit_types(development, updating_user: $current_user)
+    create_phase(development, division_phase_name)
+    create_contact(development)
   end
 
   def create_spanish_developer_with_development_and_unit_types_and_phase
@@ -27,11 +29,6 @@ module PhasePlotFixture
 
   end
 
-  def create_developer
-    country = FactoryGirl.create(:country)
-    FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
-  end
-
   def create_spanish_developer
     CreateFixture.create_countries
     FactoryGirl.create(:developer, company_name: spanish_developer_name, country_id: Country.find_by(name: "Spain").id)
@@ -41,7 +38,7 @@ module PhasePlotFixture
     FactoryGirl.create(:contact, contactable: development)
   end
 
-  def create_unit_types(development)
+  def create_unit_types(development, updating_user: CreateFixture.cf_admin)
     unit_one = FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
     FactoryGirl.create(:unit_type, name: updated_unit_type_name, development: development)
     FactoryGirl.create_list(:unit_type, 3, development: development)
@@ -51,8 +48,8 @@ module PhasePlotFixture
     FactoryGirl.create(:appliance_room, appliance: appliance, room: room)
   end
 
-  def create_phase(development)
-    FactoryGirl.create(:phase, name: phase_name, development: development)
+  def create_phase(development, name=phase_name)
+    FactoryGirl.create(:phase, name: name, development: development)
   end
 
   def create_spanish_phase(development)
@@ -70,12 +67,20 @@ module PhasePlotFixture
     "Alpine"
   end
 
+  def division_phase_name
+    "Lupine"
+  end
+
   def spanish_phase_name
     "Ola"
   end
 
   def phase
     Phase.find_by(name: phase_name)
+  end
+
+  def division_phase
+    Phase.find_by(name: division_phase_name)
   end
 
   def spanish_phase
@@ -90,16 +95,8 @@ module PhasePlotFixture
     "Studio"
   end
 
-  def developer_name
-    "Development Developer Ltd"
-  end
-
   def spanish_developer_name
     "Madrid Developer Sp"
-  end 
-
-  def development_name
-    "Riverside Development"
   end
 
   def spanish_development_name
@@ -107,7 +104,7 @@ module PhasePlotFixture
   end
 
   def developer_id
-    Developer.find_by(company_name: developer_name).id
+    Developer.find_by(company_name: CreateFixture.developer_name).id
   end
 
   def spanish_developer_id
@@ -115,7 +112,7 @@ module PhasePlotFixture
   end
 
   def development_id
-    Development.find_by(name: development_name).id
+    Development.find_by(name: CreateFixture.development_name).id
   end
 
   def spanish_development_id
@@ -202,5 +199,11 @@ module PhasePlotFixture
       road_name: plot_road_name,
       postcode: plot_postcode
     }
+  end
+
+  def create_phase_plot
+    phase = Phase.find_by(name: PhasePlotFixture.phase_name)
+    unit_type = UnitType.find_by(name: PhasePlotFixture.unit_type_name)
+    FactoryGirl.create(:plot, phase: phase, unit_type: unit_type, number: plot_number)
   end
 end

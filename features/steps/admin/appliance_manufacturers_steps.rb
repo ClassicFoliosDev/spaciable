@@ -114,6 +114,15 @@ Then(/^I should see the appliance manufacturer delete complete successfully$/) d
   end
 end
 
+Then(/^I should see the (.*) appliance manufacturer delete complete successfully$/) do |manufacturer|
+  success_flash = t(
+    "controller.success.destroy",
+    name: eval(manufacturer)
+  )
+
+  expect(page).to have_content(success_flash)
+end
+
 Then(/^I should not see appliance manufacturers$/) do
   visit "/appliance_manufacturers"
 

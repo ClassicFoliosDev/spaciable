@@ -3,6 +3,9 @@
 <div class="room">
   <div class="section-header">
     <div class="section-title">
+      <% if @room.cas? %>
+        <strong><%= t("cas_enabled") %></strong><br/>
+      <% end %>
       <%= @room.name %><br/>
       <div class="room-icon", style="background-image: url(<%= image_path(icon_file_name(@room.icon_name)) if @room.icon_name? %>)"></div>
     </div>

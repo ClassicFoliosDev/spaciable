@@ -25,6 +25,34 @@ Feature: Plots
     When I send a notification the phase
     Then I should see the notification is not sent to the former resident
 
+  Scenario Outline: CAS Phase Plots
+    Given I am logged in as a <role> with CAS
+    And I have a CAS developer with a development with unit types and a phase
+    And I have a phase plot
+    And all the plots are release completed
+    When I CAS update the phase plot
+    Then I should see the CAS updated phase plot
+    And I cannot delete the phase plot
+    Examples:
+      | role               |
+      | Developer Admin    |
+      | Development Admin  |
+
+  Scenario Outline: CAS Phase restricted Plots
+    Given I am logged in as a <role> with CAS
+    And I have a CAS developer with a development with unit types and a phase
+    And I have a phase plot
+    And the unit types are restricted
+    When I CAS update the phase restricted plot
+    Then I should see the CAS updated restricted phase plot
+    And I cannot delete the phase plot
+    And I cannot update or delete or add to the restricted phase plot rooms
+    And I cannot update or delete or add to the restricted phase plot finishes and appliances
+    Examples:
+      | role               |
+      | Developer Admin    |
+      | Development Admin  |
+
   Scenario: Phase Plot Ranges
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
@@ -55,10 +83,11 @@ Feature: Plots
     And I can see my appliances
     And I can see my contacts
 
-  Scenario: Developer Admin
-    Given I am logged in as a Developer Admin
+  Scenario Outline: Developer/Development Admin
+    Given I am logged in as a <role>
     And there is a phase plot resident
     And there is a second resident
+    And all the plots are release completed
     Then I can not create a plot
     And I can not edit a plot
     And I can update the completion date for a plot
@@ -66,18 +95,10 @@ Feature: Plots
     When I update the progress for the plot
     Then I should see the plot progress has been updated
     And both residents have been notified
-
-  Scenario: Development Admin
-    Given I am logged in as a Development Admin
-    And there is a phase plot resident
-    And there is a second resident
-    Then I can not create a plot
-    And I can not edit a plot
-    And I can update the completion date for a plot
-    And the completion date has been set
-    When I update the progress for the plot
-    Then I should see the plot progress has been updated
-    And both residents have been notified
+    Examples:
+      | role               |
+      | Developer Admin    |
+      | Development Admin  |
 
   Scenario: Site Admin
     Given I am logged in as a Site Admin

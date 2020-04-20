@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-Given(/^I have a developer with a development$/) do
-  CreateFixture.create_developer_with_development
+Given(/^I have a developer with a (CAS )*development$/) do |cas|
+  CreateFixture.create_developer_with_development(cas: cas.present?)
 end
 
 Given(/^I have a spanish developer with a development$/) do
@@ -187,7 +187,7 @@ Then(/^I should see a spanish format phase address$/) do
 
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false
-  
+
   expect(page).not_to have_selector('#phase_address_attributes_postal_number')
   expect(page).not_to have_selector('#dphase_address_attributes_road_name')
   expect(page).not_to have_selector('#phase_address_attributes_building_name')
@@ -203,7 +203,7 @@ Then(/^I should see a spanish developer address pre-filled$/) do
 
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false
-  
+
   expect(find_field(:phase_address_attributes_locality).value).to eq PhaseFixture.spanish_development_address_attrs[:locality]
   expect(find_field(:phase_address_attributes_city).value).to eq PhaseFixture.spanish_development_address_attrs[:city]
   expect(find_field(:phase_address_attributes_postcode).value).to eq PhaseFixture.spanish_development_address_attrs[:postcode]
@@ -256,15 +256,15 @@ When(/^I authorise from an incorrect planet rent account$/) do
   stub_request(:post, "#{LettingsFixture::URL}/oauth/token").
   with(:body => LettingsFixture.token_request,
        :headers => LettingsFixture.token_headers).
-  to_return(status: 200, 
+  to_return(status: 200,
             body: LettingsFixture.token_body.to_json,
             headers:LettingsFixture.response_headers)
 
   # The get_user_info request - return a mismatching email
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => 200, 
-            :body => {"email" => "floopy@ploppy.com"}.to_json, 
+  to_return(:status => 200,
+            :body => {"email" => "floopy@ploppy.com"}.to_json,
             :headers => LettingsFixture.response_headers)
 
   button.click #click the button
@@ -287,29 +287,29 @@ When(/^I authorise from the correct planet rent account$/) do
   stub_request(:post, "#{LettingsFixture::URL}/oauth/token").
   with(:body => LettingsFixture.token_request,
        :headers => LettingsFixture.token_headers).
-  to_return(status: 200, 
+  to_return(status: 200,
             body: LettingsFixture.token_body.to_json,
             headers:LettingsFixture.response_headers)
 
   # The get_user_info request
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_user_info?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => 200, 
-            :body => {"email" => $current_user.email}.to_json, 
+  to_return(:status => 200,
+            :body => {"email" => $current_user.email}.to_json,
             :headers => LettingsFixture.response_headers)
 
-  # The get_property call when building the lisitngs 
+  # The get_property call when building the lisitngs
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/property_types?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => 200, 
-            :body => LettingsFixture.get_property_types.to_json, 
+  to_return(:status => 200,
+            :body => LettingsFixture.get_property_types.to_json,
             :headers => LettingsFixture.response_headers)
 
-  # The landlords call when building the lisitngs 
+  # The landlords call when building the lisitngs
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_all_landlords?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => 200, 
-            :body => LettingsFixture.get_landlords.to_json, 
+  to_return(:status => 200,
+            :body => LettingsFixture.get_landlords.to_json,
             :headers => LettingsFixture.response_headers)
 
   button.click #click the button
@@ -333,7 +333,7 @@ Then(/^I should see an autofilled listings form$/) do
   expect(page).to have_css('div.lettings-form')
   expect(find_field('letting_address_1').value).to eq LettingsFixture.plot_fields(plot)["address_1"]
   expect(find_field('letting_address_2').value).to eq LettingsFixture.plot_fields(plot)["address_2"]
-  expect(find_field('letting_town').value).to eq LettingsFixture.plot_fields(plot)["town"]  
+  expect(find_field('letting_town').value).to eq LettingsFixture.plot_fields(plot)["town"]
   expect(find_field('letting_postcode').value).to eq LettingsFixture.plot_fields(plot)["postcode"]
 end
 
@@ -363,22 +363,22 @@ Then(/^I should be able to list the plot on Planet Rent$/) do
     :headers => LettingsFixture.post_header,
     :body => LettingsFixture.get_property(plot, true).to_json
     ).
-  to_return(:status => 200, 
-            :body => LettingsFixture.get_property_response(plot).to_json, 
+  to_return(:status => 200,
+            :body => LettingsFixture.get_property_response(plot).to_json,
             :headers => LettingsFixture.response_headers(LettingsFixture::CREATED))
 
-  # The get_property call when building the lisitngs 
+  # The get_property call when building the lisitngs
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/property_types?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => 200, 
-            :body => LettingsFixture.get_property_types.to_json, 
+  to_return(:status => 200,
+            :body => LettingsFixture.get_property_types.to_json,
             :headers => LettingsFixture.response_headers)
 
-  # The landlords call when building the lisitngs 
+  # The landlords call when building the lisitngs
   stub_request(:get, "#{LettingsFixture::URL}/api/v3/get_all_landlords?access_token=#{LettingsFixture::ACCESS_TOK}").
   with(:headers => LettingsFixture.oauth2_header).
-  to_return(:status => 200, 
-            :body => LettingsFixture.get_landlords.to_json, 
+  to_return(:status => 200,
+            :body => LettingsFixture.get_landlords.to_json,
             :headers => LettingsFixture.response_headers)
 
   # Click Let Plot

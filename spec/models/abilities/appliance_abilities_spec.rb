@@ -17,17 +17,23 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       appliance2 = create(:appliance)
       unit_type = create(:unit_type, development: development1)
-      create(:room, unit_type: unit_type, appliances: [appliance, appliance2])
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       ability = Ability.new(developer_admin)
 
       unit_type_a = create(:unit_type, development: development2)
-      create(:room, unit_type: unit_type_a, appliances: [appliance, appliance2])
+      room = create(:room, unit_type: unit_type_a)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       appliance3 = create(:appliance)
       appliance4 = create(:appliance)
       unit_type_b = create(:unit_type, development: development3)
-      create(:room, unit_type: unit_type_b, appliances: [appliance3, appliance4])
+      room = create(:room, unit_type: unit_type_b)
+      create(:appliance_room, appliance: appliance3, room: room)
+      create(:appliance_room, appliance: appliance4, room: room)
 
       expect(ability).to be_able_to(:read, appliance)
       expect(ability).to be_able_to(:read, appliance2)
@@ -45,7 +51,9 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       appliance2 = create(:appliance)
       unit_type = create(:unit_type, development: development)
-      create(:room, unit_type: unit_type, appliances: [appliance, appliance2])
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -60,7 +68,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       plot = create(:plot, development: development)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(development_admin)
 
@@ -70,14 +79,15 @@ RSpec.describe "Appliance Abilities" do
 
     specify "can read appliances used under the developments phase plots" do
       development = create(:development)
-      development_admin = create(:development_admin, permission_level: development)
+      site_admin = create(:site_admin, permission_level: development)
 
       appliance = create(:appliance)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
-      ability = Ability.new(development_admin)
+      ability = Ability.new(site_admin)
 
       expect(ability).to be_able_to(:read, appliance)
       expect(ability).not_to be_able_to(:crud, appliance)
@@ -85,10 +95,12 @@ RSpec.describe "Appliance Abilities" do
 
     specify "cannot read appliances not used under the development" do
       other_development = create(:development)
+      development_admin = create(:development_admin, permission_level: other_development)
 
       appliance = create(:appliance)
       unit_type = create(:unit_type, development: other_development)
-      create(:room, unit_type: unit_type, appliances: [appliance])
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -99,10 +111,12 @@ RSpec.describe "Appliance Abilities" do
 
     specify "cannot read appliances not used under the developments plots" do
       other_development = create(:development)
+      development_admin = create(:development_admin, permission_level: other_development)
 
       appliance = create(:appliance)
       plot = create(:plot, development: other_development)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:plot_room, plot: plot)
+      create(:appliance_room, appliance: appliance)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -113,11 +127,13 @@ RSpec.describe "Appliance Abilities" do
 
     specify "cannot read appliances not used under the developments phase plots" do
       other_development = create(:development)
+      development_admin = create(:development_admin, permission_level: other_development)
 
       appliance = create(:appliance)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance)
 
       development_admin = create(:development_admin)
       ability = Ability.new(development_admin)
@@ -135,7 +151,9 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       appliance2 = create(:appliance)
       unit_type = create(:unit_type, development: development)
-      create(:room, unit_type: unit_type, appliances: [appliance, appliance2])
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
+      create(:appliance_room, appliance: appliance2, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -150,7 +168,8 @@ RSpec.describe "Appliance Abilities" do
 
       appliance = create(:appliance)
       plot = create(:plot, development: development)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -165,7 +184,8 @@ RSpec.describe "Appliance Abilities" do
       appliance = create(:appliance)
       phase = create(:phase, development: development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       ability = Ability.new(site_admin)
 
@@ -175,10 +195,12 @@ RSpec.describe "Appliance Abilities" do
 
     specify "cannot read appliances not used under the development" do
       other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
 
       appliance = create(:appliance)
       unit_type = create(:unit_type, development: other_development)
-      create(:room, unit_type: unit_type, appliances: [appliance])
+      room = create(:room, unit_type: unit_type)
+      create(:appliance_room, appliance: appliance, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -189,10 +211,12 @@ RSpec.describe "Appliance Abilities" do
 
     specify "cannot read appliances not used under the developments plots" do
       other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
 
       appliance = create(:appliance)
       plot = create(:plot, development: other_development)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:plot_room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)
@@ -203,11 +227,13 @@ RSpec.describe "Appliance Abilities" do
 
     specify "cannot read appliances not used under the developments phase plots" do
       other_development = create(:development)
+      site_admin = create(:site_admin, permission_level: other_development)
 
       appliance = create(:appliance)
       phase = create(:phase, development: other_development)
       plot = create(:phase_plot, phase: phase)
-      create(:plot_room, plot: plot, appliances: [appliance])
+      room = create(:plot_room, plot: plot)
+      create(:appliance_room, appliance: appliance, room: room)
 
       site_admin = create(:site_admin)
       ability = Ability.new(site_admin)

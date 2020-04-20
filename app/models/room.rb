@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Room < ApplicationRecord
   acts_as_paranoid
 
@@ -23,6 +24,9 @@ class Room < ApplicationRecord
   has_many :appliances, through: :appliance_rooms
   has_many :appliance_manufacturers, through: :appliances
   has_many :appliance_categories, through: :appliances
+  has_one :mark, as: :markable, dependent: :destroy
+
+  delegate :marker, to: :mark, allow_nil: true
 
   amoeba do
     include_association :finish_rooms
@@ -33,13 +37,29 @@ class Room < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
 
   validates :name, presence: true
+  validates :name, presence: true
   validates :name, uniqueness: { scope: %i[unit_type_id plot_id] }
   validates_associated :finish_rooms
   validates_associated :finishes
   validates_associated :appliance_rooms
   validates_associated :appliances
 
+  delegate :completion_release_date, to: :plot
+  delegate :restricted, to: :unit_type, prefix: true
+
   after_destroy -> { finishes.delete_all }
+  before_save :make_mark
+
+  before_create -> { @previous_rooms = current_rooms }
+  after_create -> { log :created }
+  before_update -> { @previous_rooms = current_rooms }
+  after_update -> { log :updated if name_changed? }
+  before_destroy -> { @previous_rooms = current_rooms }
+  after_destroy -> { log :deleted }
+
+  def cas?
+    parent.cas
+  end
 
   def build_finishes
     finishes.build if finishes.none?
@@ -78,4 +98,46 @@ class Room < ApplicationRecord
   def to_s
     name
   end
+
+  def expired?
+    false
+  end
+
+  def self.last_edited_by(room, user)
+    room = Room.find(room)
+    room.update_mark(user)
+    room.save!
+  end
+
+  # log an update to the finishes/appliances
+  def furnish_log(furnish, action)
+    return unless cas?
+    return PlotLog.furnish_update(self, furnish, action) if plot
+    UnitTypeLog.furnish_update(self, furnish, action)
+  end
+
+  def update_mark(user = RequestStore.store[:current_user])
+    mark&.destroy!
+    create_mark(username: user.full_name, role: user.role)
+  end
+
+  private
+
+  # log the room update
+  def log(action)
+    return unless cas?
+    return PlotLog.process_rooms(plot, @previous_rooms, current_rooms) if plot
+    UnitTypeLog.room_update(self, action)
+  end
+
+  # Get the current rooms against the plot/unit type
+  def current_rooms
+    plot ? plot.rooms.to_a : unit_type.rooms.to_a
+  end
+
+  def make_mark
+    self.mark ||= create_mark(username: RequestStore.store[:current_user]&.full_name,
+                              role: RequestStore.store[:current_user]&.role)
+  end
 end
+# rubocop:enable Metrics/ClassLength

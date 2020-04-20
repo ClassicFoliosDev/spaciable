@@ -1,10 +1,20 @@
 # frozen_string_literal: true
 
-Given(/^I am a CF admin and there are many releasable plots$/) do
-  ResidentNotificationsFixture.create_permission_resources
-  login_as CreateFixture.create_cf_admin
-  FactoryGirl.create(:unit_type, name: "Another", development: CreateFixture.development)
+Given(/^I am a (CAS )*(.*) and there are many releasable plots$/) do |cas, role|
+  ResidentNotificationsFixture.create_permission_resources(cas: cas.present?)
 
+  case role
+    when "CF admin"
+      login_as CreateFixture.create_cf_admin
+    when "Developer Admin"
+      login_as CreateFixture.create_developer_admin(cas: cas.present?)
+    when "Development Admin"
+      login_as CreateFixture.create_development_admin(cas: cas.present?)
+    when "Site Admin"
+      login_as CreateFixture.create_site_admin(cas: cas.present?)
+  end
+
+  FactoryGirl.create(:unit_type, name: CreateFixture.another_unit_type_name, development: CreateFixture.development)
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 180, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 185, road_name: "Bulk Edit Road B", prefix: "Flat")
   FactoryGirl.create(:plot, phase: CreateFixture.phase, number: 186, road_name: "Bulk Edit Road A", prefix: "Apartment", postcode: "AA 1AB")
@@ -261,4 +271,9 @@ Then(/^I input the order number$/) do
   within ".order-number" do
     fill_in :phase_release_plots_order_number, with: "321654987"
   end
+end
+
+Then(/^I do not have access to release plots$/) do
+  visit "/developments/#{CreateFixture.phase.development.id}/phases/#{CreateFixture.phase.id}"
+  expect(page).not_to have_selector ".fa-rocket"
 end
