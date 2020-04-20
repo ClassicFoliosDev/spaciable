@@ -108,8 +108,10 @@ Then(/^I see no matches$/) do
 end
 
 def search_for(search_term)
-  within ".search-container" do
-    fill_in :search_search_text, with: search_term
-    find(".search-btn").click
+  within "#topNav" do
+    within ".search-container" do
+      fill_in :search_search_text, with: search_term
+      find(".search-btn").click
+    end
   end
 end
