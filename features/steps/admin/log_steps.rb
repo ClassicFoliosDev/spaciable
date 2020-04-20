@@ -15,7 +15,7 @@ end
 And(/^I should see a (.*) (.*) log entry created by (.*)/) do |item, action, user|
   goto_ut_logs
   within ".record-list" do
-   find(:xpath, ".//tr[td//text()[contains(., '#{eval(item)}')] and contains(., '#{action}') and contains(., '#{eval(user)}')]")
+   find(:xpath, ".//tr[td//text()[contains(., '#{eval(item)}')] and contains(., '#{action.capitalize()}') and contains(., '#{eval(user)}')]")
   end
 end
 
