@@ -62,7 +62,8 @@ end
 When(/^I change my homeowner password$/) do
   visit "/"
 
-  within ".session-inner" do
+  page.find("#dropdownMenu").click
+  within ".links-list" do
     click_on t("homeowners.residents.show.my_account")
   end
 

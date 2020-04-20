@@ -1,0 +1,7 @@
+<% if content_for?(:sub_category_navigation) %>
+  <aside class="sub-navigation-container">
+    <ul class="sub-nav-links">
+        <%= yield(:sub_category_navigation) %>
+    </ul>
+  </aside>
+<% end %>

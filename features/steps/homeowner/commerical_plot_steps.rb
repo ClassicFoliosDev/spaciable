@@ -20,11 +20,12 @@ Then(/^I should see references to my commercial name$/) do
                                    construction: "My #{PlotFixture.commercial_name}"))
   end
 
-  within ".navigation" do
-    # 'My Home' navigation
-    expect(page).to have_content(t("homeowners.my_home_name",
-                                   construction: PlotFixture.commercial_name))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
+  end
 
+  within ".navbar-menu" do
     # 'Home Designer' navigation
     expect(page).to have_content(t("layouts.homeowner.nav.home_designer",
                                    construction: PlotFixture.commercial_name))
@@ -38,11 +39,13 @@ When(/^I navigate to my documents$/) do
 end
 
 Then(/^I do not see the category my home$/) do
-  expect(page).to_not have_content(t("construction_type.home"))
+  within ".library-categories" do
+    expect(page).to_not have_content(t("construction_type.home"))
+  end
 end
 
 Then(/^I see a category named after my commercial name$/) do
-  within ".hero-links" do
+  within ".library-categories" do
     expect(page).to have_content(t("homeowners.library.my_home", construction: PlotFixture.commercial_name))
   end
 end

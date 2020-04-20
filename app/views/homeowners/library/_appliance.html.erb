@@ -1,4 +1,4 @@
-<% if appliance.manual? %>
+<% if appliance&.manual? %>
   <div class="sixth document">
     <div class="document-image-container branded-text">
       <%= link_to appliance.manual.url, target: "_blank" do %>
@@ -10,7 +10,7 @@
     </div>
   </div>
 <% end %>
-<% if appliance.guide? %>
+<% if appliance&.guide? %>
   <div class="sixth document">
     <div class="document-image-container branded-text">
       <%= link_to appliance.guide.url, target: "_blank" do %>

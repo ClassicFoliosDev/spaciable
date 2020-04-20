@@ -1,38 +1,11 @@
+<%= render "components/homeowner/hero" %>
+
 <%= render "components/homeowner/sub_menu", active_tab: "about", plot: @plot %>
 
 <div class="branded-body">
-
   <% if @plot.unit_type.external_link? %>
     <div class="about-section">
       <iframe src=<%= @plot.external_link %> frameborder="0" allowfullscreen></iframe>
-    </div>
-
-
-    <div class="about-section">
-      <%= link_to homeowner_my_home_path, active_tab: "rooms", class: "about-card branded-content branded-border" do %>
-        <div>
-          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.rooms") %></h5>
-          <span><%= t(".rooms_description", construction: @plot.my_construction_name.downcase) %></span>
-        </div>
-      <% end %>
-      <%= link_to homeowner_appliances_path, active_tab: "appliances", class: "about-card branded-content branded-border" do %>
-        <div>
-          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.appliances") %></h5>
-          <span><%= t(".appliances_description", construction: @plot.my_construction_name.downcase) %></span>
-        </div>
-      <% end %>
-      <%= link_to homeowner_library_path, active_tab: "library", class: "about-card branded-content branded-border" do %>
-        <div>
-          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.library") %></h5>
-          <span><%= t(".library_description", construction: @plot.my_construction_name.downcase) %></span>
-        </div>
-      <% end %>
-      <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "about-card branded-content branded-border" do %>
-        <div>
-          <h5 class="branded-primary"><%= t("components.homeowner.sub_menu.faqs") %></h5>
-          <span><%= t(".faqs_description", construction: @plot.my_construction_name.downcase) %></span>
-        </div>
-      <% end %>
     </div>
   <% end %>
 </div>

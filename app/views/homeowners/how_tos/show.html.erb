@@ -1,15 +1,18 @@
-<% content_for :hero_text_primary do %>
-  <%= t('.title') %>
-<% end %>
-<% content_for :hero_text_secondary do %>
-<ul class="hero-links categories">
-  <li>
-    <%= link_to t(".articles"), homeowner_how_tos_path %>
-  </li>
-</ul>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to homeowner_how_tos_path do %>
+    <li class="navbar-item-secondary">
+      <%= t(".articles") %>
+    </li>
+    <% end %>
+  </div>
 <% end %>
 
 <%= render "components/homeowner/hero" %>
+
+<div class="howto-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
 
 <div class="branded-body">
   <div class="article-container">

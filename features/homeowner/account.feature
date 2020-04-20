@@ -80,11 +80,6 @@ Feature: Homeowner Account
     When I remove notification methods from my account
     Then I should see account subscriptions removed successfully
 
-  Scenario: Without services
-    Given I am logged in as a homeowner
-    Then I should not see services in my account
-    And I should not see services when I edit my account
-
   Scenario: Multiple residents
     Given I am logged in as a homeowner
     And There is a plot with many residents
@@ -120,5 +115,4 @@ Feature: Homeowner Account
     And there is a plot for the division development
     And I am a legacy homeowner
     When I log in with cookies
-    Then I should be on the "My Home" dashboard
-    And the cookie should be set correctly
+    Then the cookie should be set correctly

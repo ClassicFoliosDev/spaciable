@@ -5,7 +5,7 @@
     text-align: center;
     padding: $spacing-small;
     position: relative;
-    margin: $spacing-small auto;
+    margin: $spacing-large auto;
     border-radius: $border-radius;
   }
 
@@ -48,7 +48,6 @@
   .video-container {
     padding: $spacing-medium $spacing-large;
     width: 800px;
-    height: 685px;
 
     iframe {
       height: 480px;

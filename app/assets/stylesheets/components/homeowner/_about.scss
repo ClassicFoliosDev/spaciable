@@ -24,7 +24,6 @@
 
   span {
     font-size: $base-small-font-size;
-    color: $type-grey;
   }
 }
 
@@ -45,6 +44,7 @@
 
 .my-home-address {
   line-height: 135%;
+  padding-bottom: $spacing-small;
 }
 
 @include media($tablet-portrait-up) {

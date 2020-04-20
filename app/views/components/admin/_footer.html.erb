@@ -1,7 +1,7 @@
 <div class="copyright-footer">
   <span class="copyright"><%= t(".copyright", year: Time.current.year).html_safe %> |
-    <%= link_to t(".privacy"), data_policy_path, class: "branded-primary", target: "_blank" %> |
-    <%= link_to t(".ts_and_cs"), ts_and_cs_admin_path, class: "branded-primary", target: "_blank" %> |
-    <%= link_to t(".cookies"), cookies_policy_path, class: "branded-primary", target: "_blank" %>
+    <%= link_to t(".privacy"), data_policy_path, target: "_blank" %> |
+    <%= link_to t(".ts_and_cs"), ts_and_cs_admin_path, target: "_blank" %> |
+    <%= link_to t(".cookies"), cookies_policy_path, target: "_blank" %>
   </span>
 </div>

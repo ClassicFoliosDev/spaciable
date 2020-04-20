@@ -1,7 +1,11 @@
+<%= render "components/homeowner/hero" %>
 
-<%= render "components/homeowner/library_hero", active_category: @category, categories: @categories, plot: @plot %>
+<div class="library-navigation">
+  <%= render "components/homeowner/sub_menu", active_tab: "library", plot: @plot %>
 
-<%= render "components/homeowner/sub_header", active_tab: "library", plot: @plot %>
+  <%= render "components/homeowner/library_categories", active_category: @category, categories: @categories, plot: @plot %>
+</div>
+
 
 <div class="branded-body library">
   <div class="main-container documents branded-background branded-text">
@@ -15,12 +19,14 @@
       <% end %>
     </div>
   </div>
+
+  <div class="disclaimer">
+    <span><%= t(".disclaimer").html_safe %></span>
+  </div>
 </div>
 
 <% if current_resident&.plot_residency_homeowner?(@plot) %>
   <%= render "homeowners/components/sharing_info", plot: @plot %>
 <% end %>
 
-<div class="disclaimer branded-body">
-  <span><%= t(".disclaimer").html_safe %></span>
-</div>
+

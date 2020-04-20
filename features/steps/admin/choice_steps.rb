@@ -227,9 +227,12 @@ When(/^I log in as the plot resident$/) do
 end
 
 Then(/^I have choices available$/) do
-  visit("homeowners/rooms")
-  expect(page).to have_content("Choices")
-  click_on "Choices"
+  visit "/"
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
+  end
+  click_on(t("components.homeowner.navigation.choices"))
 end
 
 Then(/^I can see the choice made by the administrator$/) do

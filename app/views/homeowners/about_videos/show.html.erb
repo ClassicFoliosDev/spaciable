@@ -1,5 +1,23 @@
-<div class="video-container">
-  <% if @setting&.video_link? %>
-    <%= render "homeowners/about_videos/video", setting: @setting %>
-  <% end %>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to homeowners_notifications_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t(".title") %>
+    </li>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
+<div class="intro-video-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
+
+<div class="branded-body">
+  <div class="video-container">
+    <% if @setting&.video_link? %>
+      <%= render "homeowners/about_videos/video", setting: @setting %>
+    <% end %>
+  </div>
 </div>

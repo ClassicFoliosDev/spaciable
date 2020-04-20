@@ -107,6 +107,7 @@ en:
     confirm: "Commit Choices"
     approve: "Approve"
     reject: "Reject"
+    title: "Choices"
     homeowner:
       homeowner_updating: "Choices updated successfully"
       admin_updating: "Selections for your plot have been made by the administrator"
@@ -304,11 +305,6 @@ en:
         how_to: "How To"
         faqs: "FAQs"
         home_designer: "%{construction} Designer"
-      sub_nav:
-        rooms: "Rooms"
-        appliances: "Appliances"
-        library: "Library"
-        faqs: "FAQs"
     admin_login:
       title: "Admin login to Spaciable"
     login:
@@ -507,36 +503,57 @@ en:
         confirm_message: "Please ensure your choices selections are correct. The homeowner will be informed of these choices"
 
     homeowner:
-      welcome:
-        hi: "Hi, %{first_name}"
-        account: "Account"
-        feedback: "Feedback"
-        my_plots: "Plots"
-        messages: "Messages"
-        rentals: "Rent"
       sub_menu:
-        about: "About"
-        title: "My Home"
+        about: "Home Tour"
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
-        faqs: "FAQs"
-        snagging: "Snagging"
-        choices: "Choices"
+        title: "My Home"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         privacy: "Privacy Policy"
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
-      library_hero:
-        title: "Library."
+      library_categories:
+        title: "Categories"
         appliances: "Appliances"
         videos: "Videos"
         my_documents: "My Documents"
       navigation:
+        essentials: "Essentials"
+        lifestyle: "Lifestyle"
+        helping_hand: "A Helping Hand"
         maintenance: "Issues"
         house_search: "Area Guide"
         services: "Services"
+        about: "Home Tour"
+        rooms: "Rooms"
+        appliances: "Appliances"
+        library: "Library"
+        faqs: "FAQs"
+        choices: "Choices"
+        services: "Services"
+        area_guide: "Area Guide"
+        perks: "Buyers' Club"
+      header:
+        account: "My Account"
+        plots: "My Plots"
+        messages: "Messages"
+        lettings: "Lettings"
+        feedback: "Feedback"
+        welcome_home: "Welcome home, %{resident}."
+        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
+        refer: "Refer A Friend"
+        refer_title: "Refer A Friend."
+        send_invitation: "Submit"
+        confirm: "Your referral has been sent"
+        first_name: "First Name"
+        last_name: "Surname"
+        email: "Email"
+        phone: "Phone"
+        refer_description: "Fill in your friend's details to refer them to your developer."
+      lower_navigation:
+        dashboard: "Dashboard"
       let_plot_details_form:
         let_plot_details: "We just need a few more details about your plot."
         bedrooms: "Bedrooms"
@@ -1195,15 +1212,21 @@ en:
   homeowners:
     my_home_name: "My %{construction}"
     home: "Home"
+    plots:
+      show:
+        title: "My Plots"
     faqs:
       index:
-        title: "Frequently Asked Questions."
+        title: "FAQs."
         try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
     rooms:
       show:
         title: "Rooms."
         view: "View room"
         disclaimer: "Any specifications shown are subject to change, particularly in the period before legal completion."
+    about_videos:
+      show:
+        title: "Introductory Video"
     contacts:
       index:
         title: "Contacts."
@@ -1233,8 +1256,12 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"
+      pr_failed: "Failed to create PlanetRent user account. %{message}"      
       failed: "Failed to create a landlord account."
+    maintenance:
+      show:
+        title: "Issues."
+
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
@@ -1243,12 +1270,12 @@ en:
         snag_expiration: "Access to the %{snag_name} submission tool has expired as of %{snag_date}."
         snag_continuation: "You can still view previous submitted issues, and comment on unresolved issues."
         snag_archive: "You can view all of your resolved issues below, but are no longer able to edit them or add comments."
-        title: "%{name}."
+        title: "%{name}"
       new:
-        title: "%{name}."
+        title: "%{name}"
         details: "Use the form below to describe the issue you would like to report. Please try to include as much detail as possible."
       edit:
-        title: "%{name}."
+        title: "%{name}"
         details: "Edit your issue below to include any additional information, or remove information that is no longer relevant."
       form:
         image: "Upload Image(s)"
@@ -1300,7 +1327,7 @@ en:
         delete_success: "Your image has been successfully removed"
     home_designers:
       show:
-        title: "Home Designer."
+        home_designer: "Home Designer"
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
@@ -1325,6 +1352,9 @@ en:
         manual: "Manual"
 
     components:
+      plot:
+        switch: "Switch Plot"
+        current_plot: "Current Plot"
       contact:
         mobile: "Mobile"
         email: "Email"
@@ -1338,6 +1368,7 @@ en:
         new: "New"
       address:
         view_more: "View %{construction}"
+        switch_plot: "Switch Plot"
       app_download:
         dismiss: "Dismiss"
         download_app: "Download the Free App"
@@ -1373,7 +1404,7 @@ en:
         let_out_other: "Other residents have set up the following properties for rent."
     appliances:
       show:
-        title: "Appliances."
+        title: "Appliances"
         register: "Register Appliance"
         manual: "Manual"
         guide: "Quick Reference Guide"
@@ -1385,7 +1416,7 @@ en:
       show:
         tags: "Tags"
         title: "How To."
-        articles: "How To Guides"
+        articles: "How To Categories"
         read: "%{minutes} minute read"
         also: "You may also like"
         featured: "Featured"
@@ -1430,9 +1461,10 @@ en:
         sms: "Via text"
         disclaimer: "Please note that your data will be protected by GDPR regulations and will not be passed on to third parties."
         submit: "Save"
+        title: "Communication Preferences"
     welcome_home:
       show:
-        welcome_home: "Welcome home!"
+        title: "Welcome home!"
         opening_one: "This is your %{developer} portal. Here you can access a wealth of features that will help you enjoy your new home."
         opening_two: "You will receive updates on new features; however, here are some of the highlights:"
         library: "Document library - access important documents and certificates relating to your home, such as appliance manuals and warranty policies."
@@ -1447,6 +1479,7 @@ en:
         next: "Next"
     about:
       show:
+        title: "About."
         rooms_description: "View finishes and fittings in each room of your %{construction}"
         appliances_description: "View documents and details of appliances your %{construction}"
         library_description: "View and upload documents about your %{construction}"
@@ -1455,7 +1488,7 @@ en:
     notifications:
       index:
         none: "You have no notifications"
-        messages: "Messages."
+        title: "Messages"
     private_documents:
       index:
         file_description: "You can use this area of Spaciable to store other documents, photos and files relating to your moving process and home."
@@ -1478,7 +1511,7 @@ en:
       sign_up_paragraph_one: "Click Give Me Access below and we'll pass your property portal account details (name, email, address and postcode) on to trusted third party Vaboo, who'll set up your Buyers' Club account."
       sign_up_paragraph_two: "Once you've activated your account via the email from Vaboo, you'll be able to log in to the online Buyers' Club platform to view your latest discounts and deals."
       show:
-        title: "Buyers' Club."
+        title: "Buyers' Club"
       premium:
         title: "Congratulations - you've been offered free premium access to Buyers' Club discounts!"
         intro_paragraph_two: "As a 'thank you' for being a valued customer, we've paid for your property to upgrade to a premium Buyers' Club account, so you can enjoy access to exclusive perks and earn cashback as you spend."
@@ -1509,6 +1542,7 @@ en:
         account: "Update Account."
         phone: "Phone"
         email: "Email"
+        title: "Account"
       communications:
         title: "Communication Preferences."
         updates_by: "Updates on offers and services from your portal:"
@@ -1516,6 +1550,7 @@ en:
       services:
         title: "Services"
       show:
+        title: "Account"
         my_account: "Account"
         name: "Name"
         password: "Password"
@@ -1579,7 +1614,7 @@ en:
         disclaimer: "You can access the Services feature at any time from your portal dashboard."
     intro_videos:
       show:
-        welcome_title: "Intro Video"
+        title: "Intro Video"
         welcome_1: "Check out the video below for a quick introduction to the benefits and services your portal offers."
         welcome_2: "The content on your portal is personalised to your home."
         next: "Next"

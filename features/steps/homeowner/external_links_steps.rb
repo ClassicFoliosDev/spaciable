@@ -2,9 +2,11 @@
 
 When(/^I visit the maintenance page$/) do
   visit "/"
-  within ".navbar-menu" do
-    click_on I18n.t("components.homeowner.navigation.maintenance")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on I18n.t("components.homeowner.navigation.maintenance")
 end
 
 Then(/^I should see the maintenance page$/) do
@@ -13,20 +15,25 @@ end
 
 Then(/^I should see the bafm link$/) do
   visit "/"
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
+  end
   expect(page).to have_content(I18n.t("components.homeowner.navigation.house_search"))
 end
 
 When(/^the expiry date is past$/) do
   plot = CreateFixture.development_plot
-  plot.update_attributes(completion_release_date: Time.zone.now.ago(2.years))
+  plot.update_attributes(completion_release_date: Time.zone.now.ago(3.years))
 end
 
 Then(/^I should not see the maintenance link$/) do
   visit "/"
-
-  within ".branded-header" do
-    expect(page).not_to have_content(I18n.t("components.homeowner.navigation.maintenance"))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  expect(page).not_to have_content(I18n.t("components.homeowner.navigation.maintenance"))
 end
 
 Given(/^the plot does have a completion release date$/) do
@@ -45,6 +52,11 @@ Given(/^the developer has disabled home designer$/) do
 end
 
 Then(/^I should see the home designer link$/) do
+  visit "/"
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
+  end
   expect(page).to have_content(I18n.t("layouts.homeowner.nav.home_designer", construction: t("construction_type.home")))
 end
 

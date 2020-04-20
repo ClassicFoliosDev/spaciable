@@ -1,7 +1,18 @@
-<% content_for :hero_text_primary do %>
-  <%= t("choices.homeowner.title") %>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to homeowners_choices_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t("choices.title") %>
+    </li>
+    <% end %>
+  </div>
 <% end %>
 
-<%= render "components/homeowner/sub_header", active_tab: "choices", plot: @plot %>
+<%= render "components/homeowner/hero" %>
+
+<div class="choices-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
+
 <%= render "components/choices", plot: @plot, room_item_choices: @room_item_choices, choices: @choices, postback_path: homeowners_choices_path, status: @status, fullhouse: @full_house, rooms: @rooms, resident: true %>
 

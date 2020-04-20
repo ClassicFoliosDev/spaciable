@@ -32,6 +32,7 @@
   .full {
     padding: $spacing-small;
     margin-top: $spacing-small;
+    margin-bottom: $spacing-large*2;
   }
 
   .snag-description {
@@ -39,7 +40,7 @@
     text-align: center;
 
     p {
-      font-size: 18px;
+      font-size: $base-font-size;
     }
   }
 
@@ -202,7 +203,7 @@
   }
 
   .approve-btn {
-    border-color: $ui-white;
+    border-color: $primary-green;
     color: $ui-white;
     background-color: $primary-green;
   }
@@ -214,7 +215,7 @@
   }
 
   .reject-btn {
-    border-color: $ui-white;
+    border-color: $primary-red;
     color: $ui-white;
     background-color: $primary-red;
   }

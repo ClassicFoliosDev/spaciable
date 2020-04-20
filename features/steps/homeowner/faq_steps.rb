@@ -33,7 +33,7 @@ Then(/^I should see the FAQs related to settling in$/) do
     end
   end
 
-  within ".categories" do
+  within ".sub-navigation-container" do
     active_category = find(".active").text
     expect(active_category).to eq(MyHomeFaqsFixture.default_category_name)
   end
@@ -56,7 +56,7 @@ Then(/^I should only see the FAQs in the other category$/) do
     end
   end
 
-  within ".categories" do
+  within ".sub-navigation-container" do
     active_category = find(".active").text
     expect(active_category).to eq(MyHomeFaqsFixture.other_category_name)
   end

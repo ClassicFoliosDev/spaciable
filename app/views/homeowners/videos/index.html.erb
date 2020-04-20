@@ -1,14 +1,20 @@
-<%= render "components/homeowner/library_hero", active_category: @category, categories: @categories, plot: @plot %>
+<%= render "components/homeowner/hero" %>
 
-<%= render "components/homeowner/sub_header", active_tab: "library", plot: @plot %>
+<div class="library-navigation">
+  <%= render "components/homeowner/sub_menu", active_tab: "library", plot: @plot %>
 
-<div class="main-container">
-  <div class="videos">
-    <% @videos.each do | video | %>
-      <div class="video branded-text">
-        <iframe height="245" width="420" src=<%= video.link %> frameborder="0"></iframe>
-        <h5><%= video.title %></h5>
-      </div>
-    <% end %>
+  <%= render "components/homeowner/library_categories", active_category: @category, categories: @categories, plot: @plot %>
+</div>
+
+<div class="branded-body">
+  <div class="main-container">
+    <div class="videos">
+      <% @videos.each do | video | %>
+        <div class="video branded-text">
+          <iframe height="245" width="420" src=<%= video.link %> frameborder="0"></iframe>
+          <h5><%= video.title %></h5>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

@@ -1,15 +1,14 @@
-<% content_for :hero_text_primary do %>
-    <%= t(".title") %>
-<% end %>
+<%= render "components/homeowner/hero" %>
 
-<%= render "components/homeowner/sub_header", active_tab: "appliances", plot: @plot %>
+<%= render "components/homeowner/sub_menu", active_tab: "appliances", plot: @plot %>
 
 <div class="branded-body">
   <div class="appliances">
     <% @appliances.each do | appliance | %>
-      <div class="appliance branded-content branded-border">
+      <% next unless appliance %>
+      <div class="appliance ">
         <div class="images">
-          <h2 class="branded-text"><%= appliance.appliance_category %></h2>
+          <h3 class="branded-text"><%= appliance.appliance_category %></h3>
           <% if appliance.primary_image? %>
             <%= link_to image_tag(appliance.primary_image.url), appliance.primary_image.url %>
           <% else %>

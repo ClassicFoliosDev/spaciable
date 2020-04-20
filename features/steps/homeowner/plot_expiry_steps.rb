@@ -12,9 +12,11 @@ end
 
 Then(/^I should see the maintenance link$/) do
   visit "/"
-  within ".navigation" do
-    expect(page).to have_content I18n.t("components.homeowner.navigation.maintenance")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  expect(page).to have_content I18n.t("components.homeowner.navigation.maintenance")
 end
 
 Given(/^the completion release date is set$/) do
@@ -49,7 +51,7 @@ Then(/^I should see the development branding$/) do
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
   # bg-color
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #446677")
+  expect(style['outerHTML']).to have_content("library-navigation { background-color: #446677")
   # button-color
   expect(style['outerHTML']).to have_content("branded-btn { background-color: #776644")
   # button-text-color
@@ -68,7 +70,7 @@ Then(/^I should see the expired branding$/) do
   style = page.find("head [data-test='expired-style']", visible: false)
 
   # bg-color
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #FAFAFA")
+  expect(style['outerHTML']).to have_content("branded-body { background-color: #FFFFFF")
   # button-color
   expect(style['outerHTML']).to have_content("branded-btn { background-color: #FFFFFF")
   #banner
@@ -81,9 +83,8 @@ Given(/^I have enabled developer emails$/) do
 end
 
 Then(/^when a cf admin sends a notification$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   cf_admin = FactoryGirl.create(:cf_admin, email: ExpiryFixture.cf_email, password: ExpiryFixture.cf_password)
   login_as cf_admin
@@ -122,16 +123,15 @@ Then(/^I will receive a notification$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
   login_as resident
   visit "/"
-  within ".full-menu" do
-    sup = page.find(".unread")
+  within "#acctNav" do
+    sup = page.first(".unread")
     expect(sup).to have_content("1")
   end
 end
 
 Then(/^when a non cf admin sends a notification$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   div_admin = FactoryGirl.create(:division_admin,
                                  permission_level: Division.find_by(division_name: HomeownerUserFixture.division_name),
@@ -172,16 +172,15 @@ Then(/^I will not receive a notification$/) do
   login_as resident
   visit "/"
   # The unread notification count should still be one, as per the previous notification sent
-  within ".full-menu" do
-    sup = page.find(".unread")
+  within "#acctNav" do
+    sup = page.first(".unread")
     expect(sup).to have_content("1")
   end
 end
 
 Then(/^when a cf admin creates a document$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   cf_admin = FactoryGirl.create(:cf_admin, email: ExpiryFixture.cf_email, password: ExpiryFixture.cf_password)
   login_as cf_admin
@@ -210,11 +209,13 @@ Then(/^when a cf admin creates a document$/) do
 end
 
 Then(/^I can see the document$/) do
-  within ".navigation" do
-    click_on I18n.t("components.homeowner.sub_menu.title")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".main-container" do
+  within find(".main-container") do
     expect(page).to have_content(ExpiryFixture.doc_name)
   end
 end
@@ -224,9 +225,8 @@ Given(/^there is another plot on my phase that is not expired$/) do
 end
 
 Then(/^when a non cf admin creates a document$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   div_admin = FactoryGirl.create(:division_admin,
                                  permission_level: Division.find_by(division_name: HomeownerUserFixture.division_name),
@@ -264,9 +264,11 @@ Then(/^I cannot see the new document$/) do
   end
 
   # The document will not be visible on the library page
-  within ".navigation" do
-    click_on I18n.t("components.homeowner.sub_menu.title")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.homeowner.sub_menu.library"))
 
   within ".main-container" do
     expect(page).to_not have_content(ExpiryFixture.second_doc_name)
@@ -274,9 +276,8 @@ Then(/^I cannot see the new document$/) do
 end
 
 When(/^I log in as a resident on the live plot$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   second_resident = Resident.find_by(email: ExpiryFixture.resident_email)
   login_as second_resident
@@ -285,27 +286,28 @@ When(/^I log in as a resident on the live plot$/) do
 end
 
 Then(/^I can see a notification$/) do
-  within ".full-menu" do
-    sup = page.find(".unread")
+  within "#acctNav" do
+    sup = page.first(".unread")
     expect(sup).to have_content("1")
   end
 end
 
 Then(/^I can see both documents$/) do
-  within ".navigation" do
-    click_on I18n.t("components.homeowner.sub_menu.title")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".main-container" do
+  within find(".main-container") do
     expect(page).to have_content(ExpiryFixture.second_doc_name)
     expect(page).to have_content(ExpiryFixture.doc_name)
   end
 end
 
 Then(/^when a cf admin creates a contact$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   cf_admin = FactoryGirl.create(:cf_admin, email: ExpiryFixture.cf_email, password: ExpiryFixture.cf_password)
   login_as cf_admin
@@ -341,19 +343,21 @@ Then(/^I will not have any notifications$/) do
 end
 
 Then(/^I cannot see the contact$/) do
-  within ".navigation" do
-    click_on I18n.t("layouts.homeowner.nav.contacts")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.navigation.contacts"))
 
-  within ".full-contacts" do
+
+  within find(".full-contacts") do
     expect(page).to_not have_content(ContactFixture.email)
   end
 end
 
 When(/^a non cf admin creates a contact$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   div_admin = FactoryGirl.create(:division_admin,
                                  permission_level: Division.find_by(division_name: HomeownerUserFixture.division_name),
@@ -389,11 +393,13 @@ Then(/^I can see both contacts$/) do
   end
 
   # Are the contacts visible on the contacts page
-   within ".navigation" do
-    click_on I18n.t("layouts.homeowner.nav.contacts")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.navigation.contacts"))
 
-  within ".full-contacts" do
+  within find(".full-contacts") do
     expect(page).to have_content(ContactFixture.email)
     expect(page).to have_content(ContactFixture.second_email)
   end
@@ -412,9 +418,8 @@ Then(/^I will have received an email$/) do
 end
 
 Then(/^when a cf admin creates a FAQ$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   cf_admin = FactoryGirl.create(:cf_admin, email: ExpiryFixture.cf_email, password: ExpiryFixture.cf_password)
   login_as cf_admin
@@ -453,9 +458,8 @@ Then(/^I cannot see the FAQ$/) do
 end
 
 Then(/^when a non cf admin creates an FAQ$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   div_admin = FactoryGirl.create(:division_admin,
                                  permission_level: Division.find_by(division_name: HomeownerUserFixture.division_name),
@@ -512,9 +516,8 @@ Then(/^I can see both FAQs$/) do
 end
 
 Then(/^when a cf admin creates a video$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   cf_admin = FactoryGirl.create(:cf_admin, email: ExpiryFixture.cf_email, password: ExpiryFixture.cf_password)
   login_as cf_admin
@@ -543,19 +546,20 @@ Then(/^I cannot see the video$/) do
   login_as resident
   visit "/"
 
-  within ".navigation" do
-    click_on I18n.t("components.homeowner.sub_menu.title")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".hero-links" do
-    expect(page).to_not have_content I18n.t("components.homeowner.library_hero.videos")
+  within ".sub-navigation-container" do
+    expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
 end
 
 Then(/^when a non cf admin creates a video$/) do
-  within ".session-inner" do
-   click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   div_admin = FactoryGirl.create(:division_admin,
                                  permission_level: Division.find_by(division_name: HomeownerUserFixture.division_name),
@@ -592,18 +596,20 @@ Then(/^I cannot see the new video$/) do
 
   sleep 0.5
 
-  within ".hero-links" do
-    expect(page).to_not have_content I18n.t("components.homeowner.library_hero.videos")
+  within ".library-categories" do
+    expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
 end
 
 Then(/^I can see both videos$/) do
-  within ".navigation" do
-    click_on I18n.t("components.homeowner.sub_menu.title")
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".hero-links" do
-    click_on I18n.t("components.homeowner.library_hero.videos")
+  within ".library-categories" do
+    click_on I18n.t("components.homeowner.library_categories.videos")
   end
 
   within ".videos" do
@@ -624,8 +630,9 @@ Then(/^I can no longer upload private documents$/) do
 end
 
 Then(/^when I am on the my account page$/) do
-  within ".session-inner" do
-    click_on I18n.t("components.homeowner.welcome.account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 end
 
@@ -640,8 +647,9 @@ Given(/^there is another resident on my plot$/) do
   ExpiryFixture.create_second_resident
   ExpiryFixture.create_second_residency
 
-  within ".session-inner" do
-    click_on I18n.t("components.homeowner.welcome.account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 
   within ".other-residents" do
