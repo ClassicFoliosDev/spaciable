@@ -44,6 +44,107 @@
   }
 }
 
+.timeline-step {
+
+  .timeline-header {
+    text-align: center;
+
+    .timeline-title {
+      padding: $spacing-large;
+
+      h1 {
+        font-size: $title-font-size-2;
+        font-weight: $bold-font-weight;
+        margin-bottom: $spacing-small;
+      }
+
+      h2 {
+        font-size: $title-font-size-5;
+        font-weight: $base-font-weight;
+        color: $primary-red-left;
+      }
+    }
+  }
+
+  .step-options {
+    display: block;
+    width: 100%;
+
+    .stages {
+      display: inline-block;
+      text-align: center;
+
+      .stage {
+        display: inline-block;
+        width: 350px;
+        height: 110px;
+        border: 2px solid $ui-grey;
+        border-left: 2px solid $primary-red-left;
+        padding: $spacing-small;
+        padding-left: $spacing-medium;
+        margin: $spacing-small $spacing-medium;
+        text-align: left;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        label {
+          margin-top: 8px;
+          margin-bottom: 0;
+        }
+
+        label:hover {
+          cursor: pointer;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+        }
+
+        /* hide the radio button */
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+
+        .fa {
+          font-size: $title-font-size-3;
+          color: $primary-red-left;
+        }
+      }
+
+      .selected {
+        border: 2px solid $ui-selected;
+        border-left: 2px solid $primary-red-left;
+      }
+    }
+
+    .next {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: $spacing-large + $spacing-medium;
+
+      input {
+        width: 140px;
+        border-radius: 0;
+        color: $primary-navy ;
+        border-color: $ui-grey;
+        font-weight: $bold-font-weight;
+
+        &:hover {
+          background-color: $ui-grey;
+          color: $primary-navy;
+        }
+      }
+    }
+  }
+}
+
 @include media($tablet-portrait-down) {
   .timeline-splash {
     .timeline-header {

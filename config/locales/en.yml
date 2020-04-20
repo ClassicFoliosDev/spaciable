@@ -1338,6 +1338,13 @@ en:
         paragraph_1: "This timeline is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
+      select_stage:
+        congratulations: "Congratulations on buying a new home!"
+        which_step: "Which step of the buying process are you at?"
+        reservation: "Reservation information"
+        exchange: "Exchange information"
+        moving: "Moving information"
+        living: "Living information"
 
     library:
       my_home: "My %{construction}"

@@ -161,6 +161,8 @@
 
   <% end %>
 
+  <%-# ----------- BRANDED TEXT COLOUR ----------- -%>
+
   <% if brand.branded_text_color %>
     .branded-text {
       color: <%= brand.branded_text_color %>;
@@ -169,8 +171,6 @@
     .branded-primary-text {
      color: <%= brand.branded_text_color %>;
      }
-
-    <%-# --- Specific elements that need overriding --- -%>
 
     <%-# ----------- MOBILE SEARCH BAR ------------ -%>
     .lower-navigation .lower-navbar-search .search-container input[type="text"] {
@@ -187,16 +187,18 @@
       color: #FFFFFF:
     }
 
-    .lower-navigation .lower-navbar-search .search-container .search-field::placeholder {
-      color: <%= brand.branded_text_color %> !important;
-    }
-    .lower-navigation .lower-navbar-search .search-container .search-field::-ms-input-placeholder {
-      color: <%= brand.branded_text_color %> !important;
-    }
+    .lower-navigation .lower-navbar-search .search-container .search-field::placeholder.
+    .lower-navigation .lower-navbar-search .search-container .search-field::-ms-input-placeholder,
     .lower-navigation .lower-navbar-search .search-container .search-field:-ms-input-placeholder {
       color: <%= brand.branded_text_color %> !important;
     }
 
+    <%-# ----------------- TIMELINE ----------------- -%>
+    .timeline-step .timeline-header .timeline-title h2 {
+      color: <%= brand.branded_text_color %>;
+    }
+
+    <%-# ----------------- LETTINGS ----------------- -%>
     .unlet-plot .letable-plot .letting-btn {
       border-color: <%= brand.branded_text_color %>;
       color: <%= brand.branded_text_color %>;
@@ -205,6 +207,8 @@
       border-color: <%= brand.branded_text_color %>;
       background-color: <%= brand.branded_text_color %>;
     }
+
+    <%-# ----------------- SNAGGING ----------------- -%>
     .snag-comment-form .message textarea {
       color: <%= brand.branded_text_color %>;
       border-color: <%= brand.branded_text_color %>;
@@ -213,6 +217,8 @@
       color: <%= brand.branded_text_color %>;
       border-color: <%= brand.branded_text_color %>;
     }
+
+    <%-# ----------------- ACCOUNT ------------------ -%>
     .other-residents .prompt-remove {
       border-color: <%= brand.branded_text_color %>;
     }
@@ -277,6 +283,9 @@
     }
   <% end %>
 
+
+  <%-# -------------- BRANDED BORDER --------------- -%>
+
   <% if brand.branded_content_text_color %>
     .branded-border {
       border-color: <%= brand.branded_content_text_color %>;
@@ -300,6 +309,15 @@
 
     .sub-navigation-container .active .navbar-item-secondary {
       border-color: <%= brand.branded_content_text_color %>;
+    }
+
+    <%-# ----------------- TIMELINE ------------------ -%>
+    .timeline-step .step-options .stages .stage .fa {
+      color: <%= brand.branded_content_text_color %>;
+    }
+
+    .timeline-step .step-options .stages .stage {
+      border-left-color: <%= brand.branded_content_text_color %>;
     }
 
   <% else %>
@@ -427,11 +445,13 @@
     }
 
     <%-# --------------- TIMELINE ----------------- -%>
-    .timeline-splash .timeline-actions .timeline-btn:hover {
+    .timeline-splash .timeline-actions .timeline-btn:hover,
+    .timeline-step .step-options .next .branded-btn:hover {
       background-color: <%= brand.branded_button_text_color %>;
     }
 
-    .timeline-splash .timeline-actions .timeline-btn {
+    .timeline-splash .timeline-actions .timeline-btn,
+    .timeline-step .step-options .next .branded-btn {
       border-color: <%= brand.branded_button_text_color %>;
     }
 

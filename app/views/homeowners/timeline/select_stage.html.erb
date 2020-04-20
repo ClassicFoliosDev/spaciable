@@ -1,18 +1,38 @@
-<div class="section-header">
-  <div class="section-title">
-    <p> Congratuilations on buying a new home</p>
-    <p> Which stage of the buying process are you on?</p>
+<%= render "components/homeowner/hero" %>
+
+<div class="branded-body outer-container">
+  <div class="main-container timeline-step">
+
+    <div class="timeline-header">
+      <div class="timeline-title">
+        <h1 class="branded-text"><%= t(".congratulations") %></h1>
+        <h2 class="branded-text"><%= t(".which_step") %></h2>
+      </div>
+    </div>
+
+    <div class="step-options">
+      <form action="<%= timeline_path %>">
+        <input type="hidden" name="page" value="timeline_task">
+
+        <div class="stages">
+          <% @timeline.stages.each do |stage| %>
+            <div class="stage timeline-stage-option <%= 'selected' if stage == @timeline.stages.first %>">
+              <input type="radio" id=<%= stage.id %> name="stage" value=<%= stage.id %> <%= "checked = checked" if stage == @timeline.stages.first %>>
+              <i id="icon<%=stage.title%>"></i>
+              <label for="<%= stage.id %>" class="stage-label branded-text"><%= stage.title %></label>
+              <div class="stage-description">
+                <p class="branded-text"><%= t(".#{stage.title.downcase}") %></p>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="next">
+          <input type="submit" value="<%= t('homeowners.timeline.next') %>" class="btn branded-btn">
+        </div>
+
+      </form>
+    </div>
+
   </div>
 </div>
-
-<form action=<%="#{timeline_path}"%>>
-  <input type="hidden" name="page" value="timeline_task">
-
-  <% @timeline.stages.each do |stage| %>
-    <input type="radio" id=<%= stage.id %> name="stage" value=<%= stage.id %> <%= "checked" if stage == @timeline.stages.first %>>
-    <label for=<%= stage.id %>><%= stage.title %></label><br>
-  <% end %>
-
-  <input type="submit" value=<%="#{t("homeowners.timeline.next")}"%>>
-</form>
-
