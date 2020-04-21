@@ -169,8 +169,8 @@
     }
 
     .branded-primary-text {
-     color: <%= brand.branded_text_color %>;
-     }
+      color: <%= brand.branded_text_color %>;
+    }
 
     <%-# ----------- MOBILE SEARCH BAR ------------ -%>
     .lower-navigation .lower-navbar-search .search-container input[type="text"] {
@@ -194,8 +194,19 @@
     }
 
     <%-# ----------------- TIMELINE ----------------- -%>
-    .timeline-step .timeline-header .timeline-title h2 {
+    .timeline-step .timeline-header .timeline-title h2,
+    .timeline-task .timeline-sidebar .list-stages .sub-stage .active a,
+    .timeline-task .timeline-sidebar .list-stages .stage-title span {
       color: <%= brand.branded_text_color %>;
+    }
+
+    .timeline-task .timeline-sidebar .list-stages .stage-title span:before,
+    .timeline-task .timeline-sidebar .list-stages .stage-title span:after {
+      border-color: <%= brand.branded_text_color %>;
+    }
+
+    .timeline-task .timeline-sidebar .timeline-header {
+      background-color: <%= brand.branded_text_color %>;
     }
 
     <%-# ----------------- LETTINGS ----------------- -%>
@@ -371,6 +382,16 @@
       color: <%= brand.branded_button_color %>;
     }
 
+    <%-# ----------------- TIMELINE ----------------- -%>
+    .timeline-task .timeline-content #question .actions .branded-btn {
+      background-color: <%= brand.branded_button_color %>;
+    }
+
+    .timeline-task .timeline-content #question .actions .branded-btn:hover {
+      color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
+    }
+
   <% else %>
 
     .branded-btn {
@@ -447,13 +468,19 @@
 
     <%-# --------------- TIMELINE ----------------- -%>
     .timeline-splash .timeline-actions .timeline-btn:hover,
-    .timeline-step .step-options .next .branded-btn:hover {
+    .timeline-step .step-options .next .branded-btn:hover,
+    .timeline-task .timeline-content #question .actions .branded-btn:hover {
       background-color: <%= brand.branded_button_text_color %>;
     }
 
     .timeline-splash .timeline-actions .timeline-btn,
-    .timeline-step .step-options .next .branded-btn {
+    .timeline-step .step-options .next .branded-btn,
+    .timeline-task .timeline-content #question .actions .branded-btn {
       border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .timeline-task .timeline-content #question .actions .branded-btn {
+      border-width: 1px;
     }
 
   <% else %>

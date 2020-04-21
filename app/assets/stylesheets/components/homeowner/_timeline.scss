@@ -149,6 +149,7 @@
 }
 
 .timeline-task {
+  display: flex;
   background-color: $ui-grey !important;
   padding-top: 0;
   position: relative;
@@ -263,6 +264,7 @@
           padding: 6px;
           padding-left: $spacing-medium;
           list-style: none;
+          border-radius: 5px;
 
           /* custom list bullets */
           &:before {
@@ -302,14 +304,53 @@
           }
         }
       }
-
-
     }
   }
 
   .timeline-content {
-    margin-left: 300px;
+    position: relative;
+    left: 300px;
+    right: 0;
+    margin: auto;
     padding: $spacing-large;
+
+    form {
+      width: 100%;
+      margin-right: 300px;
+    }
+
+    #question {
+      text-align: center;
+      margin-top: auto;
+      margin-bottom: auto;
+      display: table-cell;
+
+      .content {
+        p {
+          font-size: $title-font-size-4;
+        }
+      }
+
+      .actions {
+        .branded-btn {
+          width: 120px;
+          margin: $spacing-medium;
+          background-color: $ui-grey;
+          border: 2px solid $ui-dark-grey;
+          color: $primary-navy;
+
+          &:hover {
+            background-color: $ui-light-grey;
+            font-weight: $bold-font-weight;
+          }
+
+          &:visited {
+            background-color: $ui-light-grey;
+            font-weight: $bold-font-weight;
+          }
+        }
+      }
+    }
   }
 }
 

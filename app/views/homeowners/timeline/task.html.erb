@@ -19,34 +19,34 @@
         <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
          <ul class="sub-stage">
          <% @timeline.stage_tasks(stage)&.each do |task| %>
-            <li class="sub-stage-container branded-text <%= 'active' if task == @task %> <%= 'complete' if @logs.find_by(timeline_task_id: task.id)&.response == 'positive' %>">
+            <li class="sub-stage-container branded-text
+                       <%= 'active' if task == @task %>
+                       <%= 'complete' if @logs.find_by(timeline_task_id: task.id)&.response == 'positive' %>">
               <a href=<%="#{timeline_task_path(task)}"%>><%= task.title %></a>
-
             </li>
          <% end %>
          </ul>
         <% end %>
       </ul>
     </div>
-
   </div>
 
   <div class="timeline-content">
     <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
-
       <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
 
       <div id="question">
-        <p> <%= @task.question %> </p>
+        <div class="content">
+          <p class="branded-text"> <%= @task.question %> </p>
+        </div>
+        <div class="actions">
+          <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
+          <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
-        <%= button_tag @task.positive, :type => 'button', class: "btn btn-primary btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
-
-        <%= button_tag @task.negative, :type => 'button', class: "btn btn-primary btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
-
-        <% if @task.not_applicable %>
-          <%= button_tag "Not Applicable", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
-        <% end %>
-
+          <% if @task.not_applicable %>
+            <%= button_tag "Not Applicable", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
+          <% end %>
+        </div>
       </div>
 
       <div id="answer" style="display:none">
