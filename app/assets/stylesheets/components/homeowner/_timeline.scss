@@ -153,17 +153,162 @@
   padding-top: 0;
   position: relative;
 
+  /* custom scrollbar -> styling does not display in Firefox or IE/Edge */
+  ::-webkit-scrollbar {
+    width: 8px;
+    border: 1px solid $ui-grey;
+  }
+  ::-webkit-scrollbar-track {
+    background: $ui-grey;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $ui-grey;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: $ui-dark-grey;
+  }
+
   .timeline-sidebar {
     position: absolute;
     display: inline-block;
-    width: 220px;
+    width: 300px;
     background-color: $ui-white;
     float: left;
     height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .timeline-header {
+      background-color: $primary-red-left;
+      padding: $spacing-small;
+      display: table;
+      width: 100%;
+
+      .title {
+        width: 60%;
+        display: table-cell;
+
+        .fa, .fas {
+          font-size: $title-font-size-3;
+          color: $ui-white;
+          padding-bottom: $spacing-small;
+        }
+
+        h2 {
+          color: $ui-white;
+          font-size: $title-font-size-3;
+          margin: 0;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+          color: $ui-white;
+          margin: 0;
+        }
+      }
+
+      .igloo {
+        width: 40%;
+        display: table-cell;
+      }
+    }
+
+    .list-stages {
+
+      .vertical {
+        border-left: 5px solid $ui-grey;
+        margin-left: 10px;
+      }
+
+      .stage-title {
+        font-size: $base-small-font-size;
+        padding: 10px;
+        line-height: 0.5;
+        text-align: center;
+        list-style: none;
+        margin-left: -$spacing-small;
+
+        span {
+          color: $primary-red-left;
+          display: inline-block;
+          position: relative;
+          padding: 0 6px;
+        }
+
+        /* create the dashed lines either side of the stage headings */
+        span:before,
+        span:after {
+          content: "";
+          position: absolute;
+          height: 5px;
+          border-bottom: 2px dashed $primary-red-left;
+          top: 0;
+          width: 300px;
+        }
+
+        span:before {
+          right: 100%;
+        }
+
+        span:after {
+          left: 100%;
+        }
+      }
+
+      .sub-stage {
+        .sub-stage-container {
+          border: 1px solid $ui-light-grey;
+          margin: $spacing-medium;
+          margin-left: $spacing-small;
+          padding: 6px;
+          padding-left: $spacing-medium;
+          list-style: none;
+
+          /* custom list bullets */
+          &:before {
+            display: inline-block;
+            font-size: 22px;
+            content: '\25CF';
+            color: $primary-red-left;
+            position: relative;
+            right:42px;
+            line-height: 0;
+            top: 2px;
+          }
+
+          a {
+            font-size: $base-small-font-size;
+            color: $ui-dark-grey;
+          }
+        }
+
+        .active {
+          border: 2px solid $ui-grey;
+
+          /* custom list bullet -> add one pixel to take into account the 2px border of .active */
+          &:before {
+            right: 43px;
+          }
+
+          a {
+            color: $primary-navy;
+          }
+        }
+
+        /* change the colour of the custom list bullet if stage is complete */
+        .complete {
+          &:before {
+            color: #00cc00;
+          }
+        }
+      }
+
+
+    }
   }
 
   .timeline-content {
-    margin-left: 220px;
+    margin-left: 300px;
     padding: $spacing-large;
   }
 }

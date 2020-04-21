@@ -1345,6 +1345,8 @@ en:
         exchange: "Exchange information"
         moving: "Moving information"
         living: "Living information"
+      task:
+        header: "Your Journey"
 
     library:
       my_home: "My %{construction}"
