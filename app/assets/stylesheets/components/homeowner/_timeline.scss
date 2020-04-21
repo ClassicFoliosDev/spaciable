@@ -1,3 +1,4 @@
+/* splash page */
 .timeline-splash {
 
   .timeline-header {
@@ -44,6 +45,7 @@
   }
 }
 
+/* select step page */
 .timeline-step {
 
   .timeline-header {
@@ -74,6 +76,7 @@
       display: inline-block;
       text-align: center;
 
+      /* radio button container div */
       .stage {
         display: inline-block;
         width: 350px;
@@ -145,6 +148,25 @@
   }
 }
 
+.timeline-task {
+  background-color: $ui-grey !important;
+  padding-top: 0;
+
+  .timeline-sidebar {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    width: 200px;
+    background-color: $ui-white;
+    float: left;
+  }
+
+  .timeline-content {
+    position: relative;
+
+  }
+}
+
 @include media($tablet-landscape-down) {
   .timeline-step .step-options .stages .stage {
     width: 330px;
@@ -153,26 +175,19 @@
 }
 
 @include media($tablet-portrait-down) {
-  .timeline-splash {
-    .timeline-header {
-      .timeline-title {
+  .timeline-splash .timeline-header .timeline-title {
+    .welcome {
+      font-size: $title-font-size-3;
+    }
 
-        .welcome {
-          font-size: $title-font-size-3;
-        }
-
-        .welcome-journey {
-          font-size: 24px;
-          letter-spacing: 6px;
-        }
-      }
+    .welcome-journey {
+      font-size: 24px;
+      letter-spacing: 6px;
     }
   }
 
   .timeline-step {
-
     .timeline-header {
-
       .timeline-title {
         padding: 0;
         padding-top: $spacing-small;
@@ -180,11 +195,9 @@
     }
 
     .step-options {
-
       .next {
         margin-top: $spacing-large;
       }
-
       .stages {
         .stage {
           width: 90%;

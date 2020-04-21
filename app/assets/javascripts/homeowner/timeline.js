@@ -1,7 +1,7 @@
 (function (document, $) {
   'use strict'
 
-  // select the radio button when clicking on the stage div
+  // select the radio button when clicking on the stage div and add the border
   $(document).on('click', '.timeline-stage-option', function (event) {
     this.firstElementChild.checked = true
     borderSelected()
