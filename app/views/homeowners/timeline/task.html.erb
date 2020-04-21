@@ -35,7 +35,7 @@
     <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
       <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
 
-      <div id="question">
+      <div id="question" >
         <div class="content">
           <p class="branded-text"> <%= @task.question %> </p>
         </div>
@@ -44,40 +44,50 @@
           <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
           <% if @task.not_applicable %>
-            <%= button_tag "Not Applicable", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
+            <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
           <% end %>
         </div>
       </div>
 
-      <div id="answer" style="display:none">
-        <p> <%= @task.answer %> </p>
-        <p> <%= @task.response %> </p>
-        <%if @task.actions %>
-          <p> Actions </p>
+      <div id="answer" style="display: none">
+        <div class="answer-container">
+          <h2 class="branded-text"> <%= @task.answer %> </h2>
+          <p class="branded-text"> <%= @task.response %> </p>
 
-          <% @task.actions.each do |action| %>
-            <button onclick="location.href='<%=action.link%>'" type="button"><%= action.title %></button>
-          <% end %>
-        <% end %>
+          <aside class="useful-extras">
+            <div class="actions-container">
+              <%if @task.actions %>
+                <% @task.actions.each do |action| %>
+                  <button onclick="location.href='<%=action.link%>'" type="button" class="btn branded-btn-inverted"><%= action.title %></button>
+                <% end %>
+              <% end %>
+            </div>
 
-        <% if @task.features %>
-          <p> Features </p>
+            <div class="features-container">
+              <% if @task.features %>
+                <% @task.features.each do |feature| %>
+                  <button onclick="location.href='<%=feature.link%>'" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
+                <% end %>
+              <% end %>
+            </div>
+          </aside>
+        </div>
 
-          <% @task.features.each do |feature| %>
-            <button onclick="location.href='<%=feature.link%>'" type="button"><%= feature.title %></button>
-          <% end %>
-        <% end %>
+        <div class="timeline-footer">
+          <aside class="shortcuts-container">
+            <% if @task.shortcuts %>
+              <p> Shortcuts </p>
 
-        <% if @task.shortcuts %>
-          <p> Shortcuts </p>
-          <table><tr>
-            <% @task.shortcuts.each do |shortcut| %>
-              <td><button onclick="location.href='<%=eval(shortcut.link)%>'" type="button"><%= shortcut.shortcut_type %></button></td>
+              <% @task.shortcuts.each do |shortcut| %>
+                <button onclick="location.href='<%=eval(shortcut.link)%>'" type="button"><%= shortcut.shortcut_type %></button>
+              <% end %>
             <% end %>
-          </tr></table>
-        <% end %>
+          </aside>
 
-        <input type="submit" value=<%="#{t('homeowners.timeline.next')}"%>, class: "btn-form-submit btn-primary">
+          <div class="next">
+            <input type="submit" value=<%="#{t('homeowners.timeline.next')}"%> class: "btn-form-submit btn branded-btn">
+          </div>
+        </div>
       </div>
     </form>
   </div>

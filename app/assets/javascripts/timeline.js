@@ -15,6 +15,12 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
     $('#question').hide()
     $('#answer').show()
 
+    // change the styling properties of timeline-content
+    var content = document.querySelector(".timeline-content")
+    content.style.margin = "0"
+    content.style.left = "0"
+    content.style.marginLeft = "300px"
+
     // record the negative response
     $.post({
       url: $form.attr('action'),

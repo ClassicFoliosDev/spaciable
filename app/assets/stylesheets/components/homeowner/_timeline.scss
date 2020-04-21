@@ -333,7 +333,7 @@
 
       .actions {
         .branded-btn {
-          width: 120px;
+          width: 130px;
           margin: $spacing-medium;
           background-color: $ui-grey;
           border: 2px solid $ui-dark-grey;
@@ -347,6 +347,92 @@
           &:visited {
             background-color: $ui-light-grey;
             font-weight: $bold-font-weight;
+          }
+        }
+      }
+    }
+
+    #answer {
+      @include span-columns(12 of 12);
+      margin-top: $spacing-medium;
+      margin-left: $spacing-large;
+      text-align: left;
+
+      .answer-container {
+        @include span-columns(7 of 12);
+        @include omega(2n);
+
+
+        h2 {
+          font-size: $title-font-size-3;
+        }
+      }
+
+      .useful-extras {
+        .actions-container {
+          display: inline-block;
+          float: left;
+
+          .branded-btn-inverted {
+            min-width: 130px;
+            color: $ui-white;
+            border: 1px solid $primary-navy;
+            background-color: $primary-navy;
+            margin-right: $spacing-large;
+
+            &:hover {
+              background-color: $ui-dark-grey;
+              color: $primary-navy;
+            }
+          }
+        }
+
+        .features-container {
+          display: inline-block;
+          float: left;
+
+          .branded-btn-inverted {
+            min-width: 130px;
+            color: $ui-white;
+            border: 1px solid $primary-navy;
+            background-color: $primary-navy;
+
+            &:hover {
+              background-color: $ui-dark-grey;
+              color: $primary-navy;
+            }
+          }
+        }
+      }
+
+      .timeline-footer {
+        .shortcuts-container {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+          text-align: center;
+        }
+
+        .next {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+          text-align: center;
+
+          input {
+            width: 130px;
+            color: $primary-navy;
+            background-color: $ui-grey;
+            border: 2px solid $ui-dark-grey;
+            padding: 0px 10px;
+            border-radius: 5px;
+            font-size: $base-font-size;
+            font-family: $base-font-family;
+            line-height: $icon-font-line-height;
+
+            &:hover {
+              background-color: $ui-light-grey;
+              cursor: pointer;
+              font-weight: $bold-font-weight;
+            }
           }
         }
       }
