@@ -151,19 +151,20 @@
 .timeline-task {
   background-color: $ui-grey !important;
   padding-top: 0;
+  position: relative;
 
   .timeline-sidebar {
-    position: relative;
-    top: 0;
+    position: absolute;
     display: inline-block;
-    width: 200px;
+    width: 220px;
     background-color: $ui-white;
     float: left;
+    height: 100%;
   }
 
   .timeline-content {
-    position: relative;
-
+    margin-left: 220px;
+    padding: $spacing-large;
   }
 }
 
