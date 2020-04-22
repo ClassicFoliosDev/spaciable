@@ -22,10 +22,11 @@
 
   // show the shortcut links
   $(document).on('click', '#timelineShortcuts', function (event) {
-    $(".shortcut-links").toggle()
-
     // style the open/close button
     $(".shortcut-button").toggleClass("close")
+
+    $(".shortcuts-question").toggleClass("shortcuts-grid")
+    $(".shortcut-links").toggle()
 
     // toggle the fa icon when the button is opened/closed
     var shortcuts = document.getElementById("timelineShortcuts")
@@ -64,6 +65,22 @@
     if (exc) exc.classList = "fas fa-key"
     if (mov) mov.classList = "fa fa-truck"
     if (liv) liv.classList = "fas fa-male"
+  })
+
+  // display timeline in mobile view
+  document.addEventListener('turbolinks:load', function () {
+    if ($(window).innerWidth() < 1025) {
+      var desktop = document.getElementById("timelineContentDesktop")
+      var mobile = document.getElementById("timelineContentMobile")
+
+      // add the 'timeline-content' class in mobile
+      mobile.classList.add("timeline-content")
+
+      // move all child nodes of desktop to mobile
+      while(desktop.hasChildNodes()) {
+        mobile.appendChild(desktop.firstChild)
+      }
+    }
   })
 
 })(document, window.jQuery)

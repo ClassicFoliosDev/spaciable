@@ -160,21 +160,6 @@
   padding-top: 0;
   position: relative;
 
-  /* custom scrollbar -> styling does not display in Firefox or IE/Edge */
-  ::-webkit-scrollbar {
-    width: 8px;
-    border: 1px solid $ui-light-grey;
-  }
-  ::-webkit-scrollbar-track {
-    background: $ui-light-grey;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: $ui-light-grey;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: $ui-grey;
-  }
-
   .timeline-sidebar {
     position: absolute;
     display: inline-block;
@@ -358,11 +343,12 @@
       margin-top: $spacing-medium;
       margin-left: $spacing-large;
       text-align: left;
+      display: none;
 
       .answer-container {
         @include span-columns(7 of 12);
         @include omega(2n);
-
+        padding-bottom: $spacing-large;
 
         h2 {
           font-size: $title-font-size-3;
@@ -412,6 +398,48 @@
           padding: $spacing-small;
           text-align: center;
 
+          .shortcuts-question {
+            display: grid;
+            height: 70px;
+            width: 70px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px;
+            grid-template-rows: 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 1 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+            }
+
+            .shortcut-links {
+              display: none;
+            }
+          }
+
           .shortcuts-grid {
             display: grid;
             height: 210px;
@@ -458,7 +486,6 @@
             }
 
             .shortcut-links {
-              display: none;
               padding-top: 14px;
 
               .shortcut-link {
@@ -543,6 +570,26 @@
   }
 }
 
+// only show the scrollbar on desktop
+@include media($tablet-landscape-up) {
+  .timeline-task {
+    /* custom scrollbar -> styling does not display in Firefox or IE/Edge */
+    ::-webkit-scrollbar {
+      width: 8px;
+      border: 1px solid $ui-light-grey;
+    }
+    ::-webkit-scrollbar-track {
+      background: $ui-light-grey;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: $ui-light-grey;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: $ui-grey;
+    }
+  }
+}
+
 @include media($tablet-landscape-down) {
   .timeline-step .step-options .stages .stage {
     width: 330px;
@@ -577,6 +624,71 @@
       .stages {
         .stage {
           width: 90%;
+        }
+      }
+    }
+  }
+
+  #timelineContentDesktop {
+    display: none;
+  }
+
+  .timeline-task {
+    .timeline-sidebar {
+      width: 100%;
+    }
+
+    .timeline-content {
+      position: relative;
+      left: 0;
+      margin: auto;
+      padding: $spacing-small 0;
+      margin-right: $spacing-small;
+      margin-left: -6px;
+      margin-top: 6px;
+      border-top: 2px solid $ui-grey;
+
+      #question {
+
+        .actions {
+          .branded-btn {
+           width: 100px;
+           margin: $spacing-small;
+          }
+          .not-applicable {
+            width: 130px;
+          }
+        }
+      }
+
+      #answer {
+        float: none;
+
+        .answer-container {
+          width: 100%;
+        }
+
+        .timeline-footer {
+
+          .shortcuts-container {
+            .shortcuts-question {
+              height: 60px;
+              width: 60px;
+              grid-template-columns: 60px;
+              grid-template-rows: 60px;
+            }
+
+            .shortcuts-grid {
+              height: 210px;
+              width: 210px;
+              grid-template-columns: 70px 70px 70px;
+              grid-template-rows: 70px 70px 70px;
+            }
+          }
+
+          .next {
+            padding: $spacing-small;
+          }
         }
       }
     }

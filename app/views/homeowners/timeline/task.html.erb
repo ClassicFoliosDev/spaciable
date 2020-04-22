@@ -25,6 +25,12 @@
                          <%= 'active' if task == @task %>
                          <%= 'complete' if @logs.find_by(timeline_task_id: task.id)&.response == 'positive' %>">
                 <a href=<%="#{timeline_task_path(task)}"%>><%= task.title %></a>
+                <!-- this is where i want the timeline content to go in mobile view -->
+                <% if task == @task %>
+                  <div id="timelineContentMobile">
+                    <!-- use javascript to migrate all of the timeline-content children to here -->
+                  </div>
+                <% end %>
               </li>
            <% end %>
            </ul>
@@ -33,7 +39,7 @@
       </div>
     </div>
 
-    <div class="timeline-content">
+    <div id="timelineContentDesktop" class="timeline-content">
       <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
         <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
 
@@ -46,12 +52,12 @@
             <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
             <% if @task.not_applicable %>
-              <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
+            <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
             <% end %>
           </div>
         </div>
 
-        <div id="answer" style="display: none">
+        <div id="answer">
           <div class="answer-container">
             <h2 class="branded-text"> <%= @task.answer %> </h2>
             <p class="branded-text"> <%= @task.response %> </p>
@@ -59,17 +65,17 @@
             <aside class="useful-extras">
               <div class="actions-container">
                 <%if @task.actions %>
-                  <% @task.actions.each do |action| %>
-                    <button onclick="location.href='<%=action.link%>'" type="button" class="btn branded-btn-inverted"><%= action.title %></button>
-                  <% end %>
+                <% @task.actions.each do |action| %>
+                <button onclick="location.href='<%=action.link%>'" type="button" class="btn branded-btn-inverted"><%= action.title %></button>
+                <% end %>
                 <% end %>
               </div>
 
               <div class="features-container">
                 <% if @task.features %>
-                  <% @task.features.each do |feature| %>
-                    <button onclick="location.href='<%=feature.link%>'" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
-                  <% end %>
+                <% @task.features.each do |feature| %>
+                <button onclick="location.href='<%=feature.link%>'" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
+                <% end %>
                 <% end %>
               </div>
             </aside>
@@ -78,24 +84,21 @@
           <div class="timeline-footer">
             <aside class="shortcuts-container">
               <% if @task.shortcuts %>
-                <div class="shortcuts-grid">
-                  <div class="shortcuts">
-                    <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
-                  </div>
-
-                  <% @task.shortcuts.each do |shortcut| %>
-                    <div class="shortcut-links link_<%=shortcut.shortcut_type%>">
-                      <button onclick="location.href='<%=eval(shortcut.link)%>'" type="button" id="shortcut<%=shortcut.shortcut_type.camelize%>" class="shortcut-link">
-                        <!-- icons are adding via javascript -->
-                        <i class=""></i>
-
-                      </button>
-                      <span class="shortcut-label branded-text">
-                        <%= t(".#{shortcut.shortcut_type}") %>
-                      </span>
-                    </div>
-                  <% end %>
+              <div class="shortcuts-question">
+                <div class="shortcuts">
+                  <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
                 </div>
+
+                <% @task.shortcuts.each do |shortcut| %>
+                <div class="shortcut-links link_<%=shortcut.shortcut_type%>">
+                  <button onclick="location.href='<%=eval(shortcut.link)%>'" type="button" id="shortcut<%=shortcut.shortcut_type.camelize%>" class="shortcut-link">
+                    <!-- icons are adding via javascript -->
+                    <i class=""></i>
+                  </button>
+                  <span class="shortcut-label branded-text"><%= t(".#{shortcut.shortcut_type}") %></span>
+                </div>
+                <% end %>
+              </div>
               <% end %>
             </aside>
 
