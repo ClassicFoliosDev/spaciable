@@ -3202,7 +3202,7 @@ en:
         finish:
           attributes:
             name:
-              taken: "This item already exists in the database and can be added directly to plot(s)"
+              taken: "combination already exists in the database and can be added directly to plot(s)"
 
   logs:
     collection:
