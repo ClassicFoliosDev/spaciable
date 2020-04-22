@@ -78,14 +78,22 @@
           <div class="timeline-footer">
             <aside class="shortcuts-container">
               <% if @task.shortcuts %>
-                <p> Shortcuts </p>
-                <div class="shortcuts">
-                  <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
-                </div>
+                <div class="shortcuts-grid">
+                  <div class="shortcuts">
+                    <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
+                  </div>
 
-                <div class="shortcut-links">
                   <% @task.shortcuts.each do |shortcut| %>
-                    <button onclick="location.href='<%=eval(shortcut.link)%>'" type="button"><%= shortcut.shortcut_type %></button>
+                    <div class="shortcut-links link_<%=shortcut.shortcut_type%>">
+                      <button onclick="location.href='<%=eval(shortcut.link)%>'" type="button" id="shortcut<%=shortcut.shortcut_type.camelize%>" class="shortcut-link">
+                        <!-- icons are adding via javascript -->
+                        <i class=""></i>
+
+                      </button>
+                      <span class="shortcut-label branded-text">
+                        <%= t(".#{shortcut.shortcut_type}") %>
+                      </span>
+                    </div>
                   <% end %>
                 </div>
               <% end %>

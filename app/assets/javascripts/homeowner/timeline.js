@@ -40,21 +40,30 @@
       button.classList.remove("fa-times")
       button.style.paddingLeft = "0"
     }
+
+    // add the icons to the shortcut links
+    var areaGuide = document.getElementById("shortcutAreaGuide")
+    var faqs = document.getElementById("shortcutFaqs")
+    var howTos = document.getElementById("shortcutHowTos")
+    var services = document.getElementById("shortcutServices")
+
+    if (areaGuide) areaGuide.firstElementChild.classList = ("icon fas fa-laptop-house")
+    if (faqs) faqs.firstElementChild.classList = ("icon fa fa-question")
+    if (howTos) howTos.firstElementChild.classList = ("icon fa fa-book")
+    if (services) services.firstElementChild.classList = ("icon fas fa-shipping-fast")
   })
 
   // add the fa icons to the stage tiles
   document.addEventListener('turbolinks:load', function () {
     var res = document.getElementById("iconReservation")
-    res.classList = "fa fa-check"
-
     var exc = document.getElementById("iconExchange")
-    exc.classList = "fas fa-key"
-
     var mov = document.getElementById("iconMoving")
-    mov.classList = "fa fa-truck"
-
     var liv = document.getElementById("iconLiving")
-    liv.classList = "fas fa-male"
+
+    if (res) res.classList = "fa fa-check"
+    if (exc) exc.classList = "fas fa-key"
+    if (mov) mov.classList = "fa fa-truck"
+    if (liv) liv.classList = "fas fa-male"
   })
 
 })(document, window.jQuery)

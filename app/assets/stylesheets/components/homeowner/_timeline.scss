@@ -409,49 +409,115 @@
       .timeline-footer {
         .shortcuts-container {
           @include span-columns(12 of 12);
-          padding: $spacing-large;
+          padding: $spacing-small;
           text-align: center;
 
-          .shortcuts {
+          .shortcuts-grid {
+            display: grid;
+            height: 210px;
+            width: 210px;
             text-align: center;
-            display: inline-block;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px 70px 70px;
+            grid-template-rows: 70px 70px 70px;
+            justify-items: center;
+            align-items: center;
 
-            .shortcut-button {
-              width: 40px;
-              height: 40px;
-              background-color: $primary-navy;
-              border-radius: 50% 50%;
-              display: table;
+            .shortcuts {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 2 / span 1;
 
-              &:hover {
-                cursor: pointer;
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                .fa {
+                  font: normal normal normal normal;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
               }
 
-              .fa {
-                font: normal normal normal normal;
+              .close {
+                opacity: 0.6;
               }
+            }
 
-              i {
-                display: table-cell;
-                vertical-align: middle;
-                font-size: 23px;
+            .shortcut-links {
+              display: none;
+              padding-top: 14px;
+
+              .shortcut-link {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: $primary-navy;
+                border: none;
                 color: $ui-light-grey;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                i {
+                  font-size: 20px;
+                  color: $ui-light-grey;
+                  width: 100%;
+                  text-align: center;
+                }
+              }
+
+              .shortcut-label {
+                font-size: $ultra-small-font;
+                padding-top: 2px;
               }
             }
 
-            .close {
-              opacity: 0.6;
+            // position the links in the grid
+            .link_how_tos {
+              text-align: center;
+              grid-column: 3 / span 1;
+              grid-row: 2 / span 1;
             }
-          }
 
-          .shortcut-links {
-            display: none;
+            .link_services {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_faqs {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 1 / span 1;
+            }
+
+            .link_area_guide {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 3 / span 1;
+            }
           }
         }
 
         .next {
           @include span-columns(12 of 12);
           padding: $spacing-large;
+          padding-top: 0;
           text-align: center;
 
           input {

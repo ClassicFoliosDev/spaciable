@@ -1347,6 +1347,10 @@ en:
         living: "Living information"
       task:
         header: "Your Journey"
+        how_tos: "How To"
+        faqs: "FAQs"
+        area_guide: "Area Guide"
+        services: "Services"
 
     library:
       my_home: "My %{construction}"
