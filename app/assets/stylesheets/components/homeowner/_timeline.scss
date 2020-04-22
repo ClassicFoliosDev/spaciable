@@ -1,3 +1,7 @@
+.timeline-container .branded-body {
+  background-color: $ui-light-grey;
+}
+
 /* splash page */
 .timeline-splash {
 
@@ -32,10 +36,11 @@
 
     .timeline-btn {
       width: 140px;
-      border-radius: 0;
       color: $primary-navy ;
-      border-color: $ui-grey;
+      background-color: $ui-light-grey;
       font-weight: $bold-font-weight;
+      border-radius: 5px;
+      border: 2px solid $ui-grey;
 
       &:hover {
         background-color: $ui-grey;
@@ -134,9 +139,10 @@
 
       input {
         width: 140px;
-        border-radius: 0;
+        border-radius: 5px;
         color: $primary-navy ;
-        border-color: $ui-grey;
+        border: 2px solid $ui-grey;
+        background-color: $ui-light-grey;
         font-weight: $bold-font-weight;
 
         &:hover {
@@ -150,23 +156,23 @@
 
 .timeline-task {
   display: flex;
-  background-color: $ui-grey !important;
+  background-color: $ui-grey;
   padding-top: 0;
   position: relative;
 
   /* custom scrollbar -> styling does not display in Firefox or IE/Edge */
   ::-webkit-scrollbar {
     width: 8px;
-    border: 1px solid $ui-grey;
+    border: 1px solid $ui-light-grey;
   }
   ::-webkit-scrollbar-track {
-    background: $ui-grey;
+    background: $ui-light-grey;
   }
   ::-webkit-scrollbar-thumb {
-    background: $ui-grey;
+    background: $ui-light-grey;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: $ui-dark-grey;
+    background: $ui-grey;
   }
 
   .timeline-sidebar {
@@ -335,17 +341,12 @@
         .branded-btn {
           width: 130px;
           margin: $spacing-medium;
-          background-color: $ui-grey;
-          border: 2px solid $ui-dark-grey;
+          background-color: $ui-light-grey;
+          border: 2px solid $ui-grey;
           color: $primary-navy;
 
           &:hover {
-            background-color: $ui-light-grey;
-            font-weight: $bold-font-weight;
-          }
-
-          &:visited {
-            background-color: $ui-light-grey;
+            background-color: $ui-grey;
             font-weight: $bold-font-weight;
           }
         }
@@ -410,6 +411,42 @@
           @include span-columns(12 of 12);
           padding: $spacing-large;
           text-align: center;
+
+          .shortcuts {
+            text-align: center;
+            display: inline-block;
+
+            .shortcut-button {
+              width: 40px;
+              height: 40px;
+              background-color: $primary-navy;
+              border-radius: 50% 50%;
+              display: table;
+
+              &:hover {
+                cursor: pointer;
+              }
+
+              .fa {
+                font: normal normal normal normal;
+              }
+
+              i {
+                display: table-cell;
+                vertical-align: middle;
+                font-size: 23px;
+                color: $ui-light-grey;
+              }
+            }
+
+            .close {
+              opacity: 0.6;
+            }
+          }
+
+          .shortcut-links {
+            display: none;
+          }
         }
 
         .next {
@@ -420,8 +457,8 @@
           input {
             width: 130px;
             color: $primary-navy;
-            background-color: $ui-grey;
-            border: 2px solid $ui-dark-grey;
+            background-color: $ui-light-grey;
+            border: 2px solid $ui-grey;
             padding: 0px 10px;
             border-radius: 5px;
             font-size: $base-font-size;
@@ -429,7 +466,7 @@
             line-height: $icon-font-line-height;
 
             &:hover {
-              background-color: $ui-light-grey;
+              background-color: $ui-grey;
               cursor: pointer;
               font-weight: $bold-font-weight;
             }

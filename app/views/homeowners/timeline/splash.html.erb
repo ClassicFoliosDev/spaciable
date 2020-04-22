@@ -1,23 +1,25 @@
 <%= render "components/homeowner/hero" %>
 
-<div class="branded-body outer-container">
-  <div class="main-container timeline-splash">
-    <div class="timeline-header">
-      <div class="timeline-title">
-        <h2>
-          <span class="welcome branded-text"><%= t(".welcome") %><br/>
-          <span class="welcome-journey branded-text"><%= t(".your_journey") %></span>
-        </h2>
+<div class="timeline-container">
+  <div class="branded-body outer-container">
+    <div class="main-container timeline-splash">
+      <div class="timeline-header">
+        <div class="timeline-title">
+          <h2>
+            <span class="welcome branded-text"><%= t(".welcome") %><br/>
+            <span class="welcome-journey branded-text"><%= t(".your_journey") %></span>
+          </h2>
+        </div>
       </div>
-    </div>
 
-    <div class="timeline-content">
-      <p class="branded-text"><%= t(".paragraph_1") %></p>
-      <p class="branded-text"><%= t(".paragraph_2") %></p>
-    </div>
+      <div class="timeline-content">
+        <p class="branded-text"><%= t(".paragraph_1") %></p>
+        <p class="branded-text"><%= t(".paragraph_2") %></p>
+      </div>
 
-    <div class="timeline-actions">
-        <%= link_to t(".continue"), timeline_path(:page => "select_stage"), class: " btn branded-btn timeline-btn" %>
+      <div class="timeline-actions">
+          <%= link_to t(".continue"), timeline_path(:page => "select_stage"), class: " btn branded-btn timeline-btn" %>
+      </div>
     </div>
   </div>
 </div>
