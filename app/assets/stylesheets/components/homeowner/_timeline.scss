@@ -590,7 +590,7 @@
   }
 }
 
-// large tablet landscape view
+// large tablet landscape
 @include media($desktop-down) {
   .timeline-task {
     .timeline-content {
@@ -615,10 +615,19 @@
   }
 }
 
+// small tablet landscape
 @include media($tablet-landscape-down) {
   .timeline-step .step-options .stages .stage {
     width: 330px;
     margin: 10px 10px;
+  }
+
+  .timeline-task .timeline-content {
+    form #answer {
+      .answer-container {
+        width: 90%;
+      }
+    }
   }
 }
 
@@ -631,6 +640,12 @@
     .welcome-journey {
       font-size: 24px;
       letter-spacing: 6px;
+    }
+  }
+
+  .timeline-task {
+    .timeline-content {
+      margin: 0;
     }
   }
 
