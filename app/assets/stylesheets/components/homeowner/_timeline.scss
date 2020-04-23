@@ -590,6 +590,31 @@
   }
 }
 
+// large tablet landscape view
+@include media($desktop-down) {
+  .timeline-task {
+    .timeline-content {
+      left: 0;
+      margin-left: 300px;
+      width: 100%;
+
+      form {
+        display: grid;
+        text-align: center;
+        margin: auto;
+
+        #answer {
+          margin-left: 0;
+
+          .answer-container {
+            width: 80%;
+          }
+        }
+      }
+    }
+  }
+}
+
 @include media($tablet-landscape-down) {
   .timeline-step .step-options .stages .stage {
     width: 330px;

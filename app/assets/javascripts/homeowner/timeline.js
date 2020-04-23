@@ -69,7 +69,7 @@
 
   // display timeline in mobile view
   document.addEventListener('turbolinks:load', function () {
-    if ($(window).innerWidth() < 1025) {
+    if ($(window).innerWidth() < 1000) {
       var desktop = document.getElementById("timelineContentDesktop")
       var mobile = document.getElementById("timelineContentMobile")
 
