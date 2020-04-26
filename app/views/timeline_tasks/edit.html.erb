@@ -1,0 +1,9 @@
+<% breadcrumb :timeline, @timeline %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= @timeline.title %><br>
+  </div>
+</div>
+
+<%= render "form", timeline: @timeline, timeline_task: @timeline_task, mode: :edit %>

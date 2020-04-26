@@ -163,6 +163,10 @@ Rails.application.routes.draw do
   resources :finish_categories
   resources :finish_types
   resources :finish_manufacturers
+  resources :timelines do
+    get 'empty', action: :empty , controller: 'timeline_tasks'
+    resources :timeline_tasks
+  end
 
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update, :destroy]
@@ -191,7 +195,7 @@ Rails.application.routes.draw do
     resources :snag_comments, only: [:new, :create]
     resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
-    resource :timeline, only: [:show], controller: 'timeline'
+    resource :timeline, only: [:show], controller: 'timeline', as: :homeowner_timeline
     resources :timeline_tasks do
       member do
         get :show, controller: 'timeline'

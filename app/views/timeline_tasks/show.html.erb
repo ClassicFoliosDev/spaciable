@@ -1,0 +1,142 @@
+<% breadcrumb :timeline, @timeline %>
+
+<%= render "timeline", timeline: @timeline, editable: true %>
+
+<style>
+div.scrollmenu {
+  background-color: #d0d0e1;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu a {
+  display: inline-block;
+  color: black;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+  background-color: #777;
+}
+
+group + group {
+  margin-top: 20px;
+}
+
+.inline-radio {
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid #b6b6b6;
+}
+
+.btn-group button {
+  background-color: red; /* Green background */
+  border: 1px grey; /* Green border */
+  color: White; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+</style>
+
+<div class="section-title">
+  Your Journey
+  <p style="color:red"><%= @timeline_task&.stage&.title %></p>
+</div>
+
+<% def action?(option) action_name.to_sym == option; end %>
+
+<% if action?(:show) %>
+  <div class="btn-group">
+     <%= link_to "Edit", edit_timeline_timeline_task_path, class: "btn"%>
+     <%= link_to "Insert Before", new_timeline_timeline_task_path(task: @timeline_task.id, insert: :before), class: "btn"%>
+     <%= link_to "Insert After", new_timeline_timeline_task_path(task: @timeline_task.id, insert: :after), class: "btn"%>
+     <%= link_to "Delete", timeline_timeline_task_path, method: :delete, class: "btn"%>
+  </div>
+<% end %>
+
+<% if action?(:empty) %>
+  <div class="btn-group">
+     <%= link_to "Add Task", new_timeline_timeline_task_path(insert: :first), class: "btn"%>
+  </div>
+<% end %>
+
+<% unless action?(:empty) %>
+
+  <div class="scrollmenu">
+    <% @timeline.ttasks&.each do |tt| %>
+      <a <%= "style=font-weight:bold" if @timeline_task.present? && @timeline_task == tt %>  href="<%= timeline_timeline_task_path @timeline, tt %>"><%= tt.title %></a>
+    <% end %>
+  </div>
+
+  <label for="stage">Stage</label>
+  <p id="stage"><%= @timeline_task.stage.title %>
+
+  <label for="title"><%= t(".heading") %></label>
+  <p id="title"><%= @timeline_task.title %>
+  <label for="question"><%= t(".question") %></label>
+  <p id="question"><%= @timeline_task.question %>
+  <label for="answer"><%= t(".answer") %></label>
+  <p id="answer"><%= @timeline_task.answer %>
+  <label for="response"><%= t(".response") %></label>
+  <%= simple_format @timeline_task.response %>
+
+  <label for="positive"><%= t(".positive") %></label>
+  <p id="positive"><%= @timeline_task.positive %>
+  <label for="negative"><%= t(".negative") %></label>
+  <p id="negative"><%= @timeline_task.negative %>
+
+  <!--
+  <input type="checkbox" value=<%= t(".not_applicable") %>>
+  -->
+  <br>
+  <input type="checkbox" id="not_applicable" name="not_applicable" <%= 'checked' if @timeline_task.not_applicable%> >
+  <label for="not_applicable"><%= t(".not_applicable") %></label><br>
+
+  <label for="feature_title"><%= t(".feature.title") %></label>
+  <p id="feature_title"><%= @timeline_task.feature&.title %>
+  <label for="feature_description"><%= t(".feature.description") %></label>
+  <p id="feature_description"><%= @timeline_task.feature&.description %>
+  <label for="feature_link"><%= t(".feature.link") %></label>
+  <p id="feature_link"><%= @timeline_task.feature&.link %>
+
+  <label for="action_title"><%= t(".action.title") %></label>
+  <p id="action_title"><%= @timeline_task.action&.title %>
+  <label for="action_description"><%= t(".action.description") %></label>
+  <p id="action_description"><%= @timeline_task.action&.description %>
+  <label for="action_link"><%= t(".action.link") %></label>
+  <p id="action_link"><%= @timeline_task.action&.link %>
+
+  <p>Circle Shortcuts</p>
+  <% @timeline.shortcuts.each do |ts| %>
+    <input type="checkbox" id="<%= ts.shortcut_type %>" name="<%= ts.shortcut_type %>" <%= 'checked' if @timeline_task.timeline_task_shortcuts.find_by(shortcut_type: ts.shortcut_type).live%> >
+    <label for="<%= ts.shortcut_type %>"><%= ts.shortcut_type %></label><br>
+  <% end %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+        <%= link_to t("back"), timelines_path, class: "btn" %>
+    </div>
+  </div>
+<% end %>
+

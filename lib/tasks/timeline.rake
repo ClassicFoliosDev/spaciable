@@ -6,30 +6,27 @@ namespace :timeline do
 
     TaskLog.delete_all
     PlotTimeline.delete_all
-    TaskShortcut.delete_all
+    TimelineShortcut.delete_all
+    TimelineTaskShortcut.delete_all
     Shortcut.delete_all
-    Action.delete_all
+    Callout.delete_all
     TimelineTask.delete_all
     Task.delete_all
     TimelineStage.delete_all
     Stage.delete_all
     Timeline.delete_all
 
-    how_to = Shortcut.create(shortcut_type: :how_tos, link: "homeowner_how_tos_path")
+    how_tos = Shortcut.create(shortcut_type: :how_tos, link: "homeowner_how_tos_path")
     faqs = Shortcut.create(shortcut_type: :faqs, link: "homeowner_faqs_path")
     services = Shortcut.create(shortcut_type: :services, link: "services_path")
     area_guide = Shortcut.create(shortcut_type: :area_guide, link: "services_path")
 
-    timeline = Timeline.create(title: 'England')
     reservation = Stage.create(title: 'Reservation', description: 'A reservation description')
     exchange = Stage.create(title: 'Exchange', description: 'A exchange description')
     moving = Stage.create(title: 'Moving', description: 'A moving description')
     living = Stage.create(title: 'Living', description: 'A living description')
 
-    TimelineStage.create(timeline: timeline, stage: reservation, order: 1)
-    TimelineStage.create(timeline: timeline, stage: exchange, order: 2)
-    TimelineStage.create(timeline: timeline, stage: moving, order: 3)
-    TimelineStage.create(timeline: timeline, stage: living, order: 4)
+    timeline = Timeline.create(title: 'England')
 
     ##############################################################
 
@@ -48,10 +45,10 @@ Once you have paid the reservation fee, you can begin the 21 day countdown to ex
                                                  task: task,
                                                  head: true)
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :area_guide, live:true)
 
     ##############################################################
 
@@ -75,11 +72,13 @@ After appointing your legal representatives, please let your Sales Negotiator kn
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
-    Action.create(task: task,
-                  action_type: :feature,
+    Callout.create(task: task,
+                  callout_type: :feature,
                   title: "Find Solicitors",
                   description: "Spaciable services can help youfind a solicitor if you have not found one at this stage",
                   link: "https://www.thelawsuperstore.co.uk/?gclid=EAIaIQobChMI0OnG86vv6AIVSbTtCh07qAPbEAAYASAAEgIjgvD_BwE&ef_id=EAIaIQobChMI0OnG86vv6AIVSbTtCh07qAPbEAAYASAAEgIjgvD_BwE:G:s&refId=ggle_zso")
@@ -113,11 +112,13 @@ Once you have received confirmation of your mortgage offer, your Solicitor will 
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
-    Action.create(task: task,
-                  action_type: :action,
+    Callout.create(task: task,
+                  callout_type: :action,
                   title: "Get Quote",
                   link: "https://www.localadvisors.co.uk/find-mortgage-advisors/?gclid=EAIaIQobChMIiIDIi6zv6AIVw7HtCh0XkAUyEAAYAyAAEgJ07PD_BwE")
 
@@ -148,8 +149,10 @@ If you have any questions about the forms, contact your Solicitor.")
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     task = Task.create(title: 'Draft Contract',
                        question: "Have you read through your draft contract and submitted any queries to your Solicitor?",
@@ -168,11 +171,14 @@ If you're moving to a new area, now is a good time to start thinking about the l
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
 
-    Action.create(task: task,
-                  action_type: :action,
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+
+    Callout.create(task: task,
+                  callout_type: :action,
                   title: "Area Guide",
                   link: "https://www.placebuzz.com/area-guides")
 
@@ -193,13 +199,13 @@ You can also use the Services feature to find exclusive rates for home furnishin
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
-    Action.create(task: task,
-                  action_type: :action,
+    Callout.create(task: task,
+                  callout_type: :action,
                   title: "Virtual tour",
                   link: "https://go.matterport.com/PPC-FY20-EMEA-Architecture_RRE.html?utm_source=google&utm_medium=ppc&utm_campaign=EN_EMEA_UK_PRM&utm_content=419586209250&utm_term=virtual%20home%20tours&matchtype=e&device=c&gclid=EAIaIQobChMI-tv3tqzv6AIVBbDtCh2wowb-EAAYASAAEgLThPD_BwE")
 
@@ -230,6 +236,13 @@ And there you have it!  Time to flaunt the news on social media - if ever an Ins
 
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
+
+
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+
 
     ##############################################################
 
@@ -265,6 +278,11 @@ To upgrade your home to include an integrated smart home package, please click h
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+
     ##############################################################
 
     task = Task.create(title: 'Contracts',
@@ -289,10 +307,10 @@ Why not use this time to get the wheels in motion for the big day?  Have a look 
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     ##############################################################
 
@@ -318,6 +336,13 @@ Please bear in mind that your Home Demonstration presents an ideal opportunity t
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
+
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+
+
     ##############################################################
 
     task = Task.create(title: 'Home Insurance',
@@ -338,10 +363,10 @@ Our partnered insurance providers can help ensure (no pun intended) you are cove
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     ##############################################################
 
@@ -362,10 +387,10 @@ Likewise, take the meter readings upon arrival at your new home, then enter your
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     ##############################################################
 
@@ -392,10 +417,10 @@ If you haven’t been provided with refuse and recycling bins at your new home, 
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     ##############################################################
 
@@ -419,10 +444,10 @@ Familiarise yourself with your new surroundings here and become a fully-fledged 
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     ##############################################################
 
@@ -441,10 +466,10 @@ These items can be submitted here. ")
     previous_timeline_task.update_attribute(:next, this_timeline_task)
     previous_timeline_task = this_timeline_task
 
-    TaskShortcut.create(task: task, shortcut: how_to)
-    TaskShortcut.create(task: task, shortcut: faqs)
-    TaskShortcut.create(task: task, shortcut: services)
-    TaskShortcut.create(task: task, shortcut: area_guide)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
+    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
 
     ######################### plot timeline ######################
 

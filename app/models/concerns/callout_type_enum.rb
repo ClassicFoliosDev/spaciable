@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module ActionTypeEnum
+module CalloutTypeEnum
   extend ActiveSupport::Concern
 
   included do
-    enum action_type: %i[
+    enum callout_type: %i[
       action
       feature
     ]

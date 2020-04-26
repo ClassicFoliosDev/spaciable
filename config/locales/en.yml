@@ -416,6 +416,8 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
+    timeline_add: "Add Timeline"
+    timeline_edit: "Edit Timeline"
 
   pagination:
     per_page_10: "10"
@@ -599,6 +601,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       reports: "Reports"
+      timeline: "Timeline"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1256,7 +1259,7 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"      
+      pr_failed: "Failed to create PlanetRent user account. %{message}"
       failed: "Failed to create a landlord account."
     maintenance:
       show:
@@ -3261,3 +3264,56 @@ en:
       action: "Action"
       user: "User"
       at: "Created At"
+
+  timelines:
+    index:
+      title: "Timelines"
+    collection:
+      create: "Add Timeline"
+      timeline: "Timeline"
+      last_edited: "Last Edited"
+    new:
+      title: "Name"
+    edit:
+      title: "Name"
+    form:
+      submit: "Submit"
+  timeline_tasks:
+    show:
+      heading: "Main Heading"
+      question: "Question"
+      answer: "Answer"
+      response: "Response"
+      positive: "Positive"
+      negative: "Negative"
+      not_applicable: "Not Applicable"
+      feature:
+        title: "Feature Button"
+        description: "Description"
+        link: "Link"
+      action:
+        title: "Action Button"
+        description: "Description"
+        link: "Link"
+    form:
+      heading: "Main Heading"
+      question: "Question"
+      answer: "Answer"
+      response: "Response"
+      positive: "Positive"
+      negative: "Negative"
+      not_applicable: "Not Applicable"
+      cancel: "Cancel"
+      submit: "Submit"
+      feature:
+        title: "Feature Button"
+        description: "Description"
+        link: "Link"
+      action:
+        title: "Action Button"
+        description: "Description"
+        link: "Link"
+    destroy:
+      success: "%{title} was deleted successfully"
+
+
