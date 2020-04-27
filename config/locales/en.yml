@@ -3280,13 +3280,14 @@ en:
       submit: "Submit"
   timeline_tasks:
     show:
-      heading: "Main Heading"
-      question: "Question"
-      answer: "Answer"
-      response: "Response"
-      positive: "Positive"
-      negative: "Negative"
+      how_tos: "How Tos"
+      faqs: "FAQs"
+      area_guide: "Area Guide"
+      services: "Services"
+      positive: "Yes"
+      negative: "No"
       not_applicable: "Not Applicable"
+      view_answer: "Click 'No' in preview to vew answer"
       feature:
         title: "Feature Button"
         description: "Description"

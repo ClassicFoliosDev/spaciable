@@ -52,7 +52,7 @@
             <%= button_tag @ttask.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
             <% if @ttask.not_applicable %>
-            <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
+              <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
             <% end %>
           </div>
         </div>
@@ -65,17 +65,19 @@
             <aside class="useful-extras">
               <div class="actions-container">
                 <%if @ttask.actions %>
-                <% @ttask.actions.each do |action| %>
-                <button onclick="location.href='<%=action.link%>'" type="button" class="btn branded-btn-inverted"><%= action.title %></button>
-                <% end %>
+                  <% @ttask.actions.each do |action| %>
+                    <p class="branded-text"><%= action&.description %></p>
+                    <button onclick="location.href='<%=action.link%>'" type="button" class="btn branded-btn-inverted"><%= action.title %></button>
+                  <% end %>
                 <% end %>
               </div>
 
               <div class="features-container">
                 <% if @ttask.features %>
-                <% @ttask.features.each do |feature| %>
-                <button onclick="location.href='<%=feature.link%>'" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
-                <% end %>
+                  <% @ttask.features.each do |feature| %>
+                    <p class="branded-text"><%= feature&.description %></p>
+                    <button onclick="location.href='<%=feature.link%>'" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
+                  <% end %>
                 <% end %>
               </div>
             </aside>

@@ -357,15 +357,13 @@
 
       .useful-extras {
         .actions-container {
-          display: inline-block;
-          float: left;
 
           .branded-btn-inverted {
             min-width: 140px;
             color: $ui-white;
             border: 1px solid $primary-navy;
             background-color: $primary-navy;
-            margin-right: $spacing-large;
+            margin-bottom: $spacing-medium;
 
             &:hover {
               background-color: $ui-grey;
@@ -383,6 +381,7 @@
             color: $ui-white;
             border: 1px solid $primary-navy;
             background-color: $primary-navy;
+            margin-bottom: $spacing-medium;
 
             &:hover {
               background-color: $ui-grey;

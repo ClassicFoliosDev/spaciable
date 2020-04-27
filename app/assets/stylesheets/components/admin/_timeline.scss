@@ -4,6 +4,10 @@
     overflow: auto;
     white-space: nowrap;
     width: 100%;
+    padding-bottom: 5px;
+    padding-top: $spacing-small;
+    border: 1px solid $ui-white;
+    border-radius: 5px 5px 0px 0px;
 
     a {
       display: inline-block;
@@ -14,6 +18,7 @@
       display: inline-block;
       text-align: center;
       padding: $spacing-small;
+      min-width: 140px;
 
       p {
         color: $primary-red-left;
@@ -25,18 +30,445 @@
         border-radius: 5px;
         padding: 5px $spacing-small;
         color: $primary-navy;
+        background-color: $ui-white;
 
         &:hover {
-          background-color: $ui-white;
+          background-color: $ui-light-grey;
         }
       }
 
       .active {
         font-weight: $bold-font-weight;
-        background-color: $ui-white;
         border-color: $ui-dark-grey;
+        background-color: $ui-light-grey;
+      }
+    }
+  }
+
+  .admin-timeline-preview {
+    background-color: $ui-white;
+    border-radius: 0px 0px 5px 5px;
+
+    padding-bottom: $spacing-large;
+    margin-bottom: $spacing-large;
+
+    .heading {
+      width: 90%;
+      margin: auto;
+      padding: $spacing-large 0;
+
+      .btn-group {
+        display: inline-block;
+        width: 70%;
+        float: left;
       }
 
+      .view-answer {
+        text-align: right;
+        display: inline-block;
+        width: 30%;
+
+        span {
+          color: $primary-navy;
+          font-size: $base-small-font-size;
+        }
+      }
+
+      #stage {
+        margin-bottom: 5px;
+      }
+
+      #title {
+        font-size: $title-font-size-4;
+        font-weight: $bold-font-weight;
+      }
+
+      .btn {
+        width: 75px;
+        text-align: center;
+      }
+
+      .insert {
+        width: 150px;
+      }
+    }
+
+    .preview {
+      width: 90%;
+      background-color: $ui-light-grey;
+      margin: auto;
+      height: 640px;
+      border: 1px solid $ui-light-grey;
+    }
+  }
+}
+
+.admin-timeline .admin-timeline-preview .preview {
+  .timeline-sidebar {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    float: left;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: $ui-white;
+
+    .timeline-header {
+      background-color: $primary-red-left;
+      padding: $spacing-small;
+      display: table;
+      width: 100%;
+
+      .title {
+        width: 60%;
+        display: table-cell;
+
+        .fa, .fas {
+          font-size: $title-font-size-3;
+          color: $ui-white;
+          padding-bottom: $spacing-small;
+        }
+
+        h2 {
+          color: $ui-white;
+          font-size: $title-font-size-3;
+          margin: 0;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+          color: $ui-white;
+          margin: 0;
+        }
+      }
+    }
+
+    .list-stages {
+      .vertical {
+        border-left: 5px solid $ui-grey;
+        margin-left: 10px;
+      }
+
+      .stage-title {
+        font-size: $base-small-font-size;
+        padding: 10px;
+        line-height: 0.5;
+        text-align: center;
+        list-style: none;
+        margin-left: -$spacing-small;
+
+        span {
+          color: $primary-red-left;
+          display: inline-block;
+          position: relative;
+          padding: 0 6px;
+        }
+
+        /* create the dashed lines either side of the stage headings */
+        span:before,
+        span:after {
+          content: "";
+          position: absolute;
+          height: 5px;
+          border-bottom: 2px dashed $primary-red-left;
+          top: 0;
+          width: 300px;
+        }
+
+        span:before {
+          right: 100%;
+        }
+
+        span:after {
+          left: 100%;
+        }
+      }
+    }
+
+    .sub-stage {
+      .sub-stage-container {
+        border: 1px solid $ui-light-grey;
+        margin: $spacing-medium;
+        margin-left: $spacing-small;
+        padding: 6px;
+        padding-left: $spacing-medium;
+        list-style: none;
+        border-radius: 5px;
+
+        /* custom list bullets */
+        &:before {
+          display: inline-block;
+          font-size: 22px;
+          content: '\25CF';
+          color: $primary-red-left;
+          position: relative;
+          right:42px;
+          line-height: 0;
+          top: 2px;
+        }
+
+        a {
+          text-decoration: none;
+          font-size: $base-small-font-size;
+          color: $ui-dark-grey;
+        }
+      }
+
+      .active {
+        border: 2px solid $ui-grey;
+
+        /* custom list bullet -> add one pixel to take into account the 2px border of .active */
+        &:before {
+          right: 43px;
+        }
+
+        a {
+          color: $primary-navy;
+        }
+      }
+    }
+  }
+
+  .timeline-content {
+    position: relative;
+    height: 100%;
+    margin: auto;
+    padding: $spacing-large;
+    overflow-y: scroll;
+
+    #question {
+      vertical-align: middle;
+      text-align: center;
+      height: 100%;
+      display: grid;
+
+      .content {
+        align-self: end;
+
+        p {
+          font-size: $title-font-size-4;
+        }
+      }
+
+      .actions {
+        .timeline-btn {
+          width: 140px;
+          margin: $spacing-medium;
+          background-color: $ui-light-grey;
+          border: 2px solid $ui-grey;
+          color: $primary-navy;
+          display: inline-block;
+          font-size: $base-font-size;
+          padding: 5px;
+          cursor: default;
+        }
+
+        #viewAnswer:hover {
+          background-color: $ui-grey;
+          font-weight: $bold-font-weight;
+          cursor: pointer;
+        }
+      }
+    }
+
+    #answer {
+      @include span-columns(12 of 12);
+      margin-top: $spacing-medium;
+      margin-left: $spacing-large;
+      text-align: left;
+      display: none;
+
+      .answer-container {
+        @include span-columns(7 of 12);
+        @include omega(2n);
+        padding-bottom: $spacing-large;
+
+        h2 {
+          font-size: $title-font-size-3;
+        }
+
+        .useful-extras {
+          .timeline-btn {
+            min-width: 140px;
+            color: $ui-white;
+            background-color: $primary-navy;
+            border: 1px solid $primary-navy;
+            margin-bottom: $spacing-medium;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .timeline-footer {
+        .shortcuts-container {
+          @include span-columns(12 of 12);
+          padding: $spacing-small;
+          text-align: center;
+
+          .shortcuts-question {
+            display: grid;
+            height: 70px;
+            width: 70px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px;
+            grid-template-rows: 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 1 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+            }
+
+            .shortcut-links {
+              display: none;
+            }
+          }
+
+          .shortcuts-grid {
+            display: grid;
+            height: 210px;
+            width: 210px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px 70px 70px;
+            grid-template-rows: 70px 70px 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 2 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                .fa {
+                  font: normal normal normal normal;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+
+              .close {
+                opacity: 0.6;
+              }
+            }
+
+            .shortcut-links {
+              padding-top: 14px;
+
+              .shortcut-link {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: $primary-navy;
+                border: none;
+                color: $ui-light-grey;
+
+                i {
+                  font-size: 20px;
+                  color: $ui-light-grey;
+                  width: 100%;
+                  text-align: center;
+                }
+              }
+
+              .shortcut-label {
+                font-size: $ultra-small-font;
+                padding-top: 2px;
+                display: block;
+                color: $primary-navy;
+              }
+            }
+
+            // position the links in the grid
+            .link_how_tos {
+              text-align: center;
+              grid-column: 3 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_services {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_faqs {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 1 / span 1;
+            }
+
+            .link_area_guide {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 3 / span 1;
+            }
+          }
+        }
+
+        .next {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+          padding-top: 0;
+          text-align: center;
+
+          .timeline-btn {
+            width: 140px;
+            margin: $spacing-medium;
+            background-color: $ui-light-grey;
+            border: 2px solid $ui-grey;
+            color: $primary-navy;
+            display: inline-block;
+            font-size: $base-font-size;
+            padding: 5px;
+            cursor: default;
+          }
+        }
+      }
     }
   }
 }
