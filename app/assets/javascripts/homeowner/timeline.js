@@ -71,4 +71,10 @@
     }
   })
 
+  document.addEventListener('turbolinks:load', function () {
+    $('#timelineSidebar').animate({
+      scrollTop: $('#activeTaskScroll').offset().top - 420
+    }, 1000)
+  })
+
 })(document, window.jQuery)

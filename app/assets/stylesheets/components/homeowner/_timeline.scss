@@ -167,7 +167,7 @@
     background-color: $ui-white;
     float: left;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: hidden;
     overflow-x: hidden;
 
     .timeline-header {
@@ -206,6 +206,9 @@
     }
 
     .list-stages {
+      height: 100%;
+      overflow-y: scroll;
+      padding-bottom: $spacing-large * 2;
 
       .vertical {
         border-left: 5px solid $ui-grey;
