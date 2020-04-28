@@ -14,7 +14,7 @@
   <% unless action?(:empty) %>
 
     <div class="scrollmenu">
-      <% @timeline.timeline_stages.each do |tstage| %>
+      <% @timeline.timeline_stages&.each do |tstage| %>
         <div class="timeline-stage">
           <p class="stage-title"><%= tstage.stage.title %></p>
           <% @timeline.ttasks&.each do |tt| %>
@@ -29,9 +29,6 @@
     <div class="admin-timeline-preview">
 
       <div class="heading">
-<!--        <p id="stage"><%= @timeline_task.stage.title %>-->
-<!--        <p id="title"><%= @timeline_task.title %>-->
-
         <% if action?(:show) %>
           <div class="btn-group">
             <%= link_to "Edit", edit_timeline_timeline_task_path, class: "btn"%>
@@ -78,8 +75,8 @@
               <p><%= @timeline_task.question %></p>
             </div>
             <div class="actions">
-              <div class="timeline-btn"><%= t(".positive") %></div>
-              <div class="timeline-btn" id="viewAnswer"><%= t(".negative") %></div>
+              <div class="timeline-btn"><%= @timeline_task.positive %></div>
+              <div class="timeline-btn" id="viewAnswer"><%= @timeline_task.negative %></div>
               <% if @timeline_task.not_applicable %>
                 <div class="timeline-btn"><%= t(".not_applicable") %></div>
               <% end %>
