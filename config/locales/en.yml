@@ -3280,12 +3280,14 @@ en:
       submit: "Submit"
   timeline_tasks:
     show:
+      empty: "You timeline is currently empty. Add a page to start creating your timeline."
+      add_page: "Add a Page"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
       services: "Services"
       not_applicable: "Not Applicable"
-      view_answer: "Click negative response button in preview to vew answer"
+      view_answer: "Click negative button in preview to view answer"
       feature:
         title: "Feature Button"
         description: "Description"

@@ -6,12 +6,16 @@
 
 <div class="admin-timeline">
   <% if action?(:empty) %>
-    <div class="btn-group">
-      <%= link_to "Add Task", new_timeline_timeline_task_path(insert: :first), class: "btn"%>
+    <div class="empty">
+      <div class="empty-text">
+        <p><%= t(".empty") %></p>
+      </div>
+      <div class="btn-group">
+        <%= link_to t(".add_page"), new_timeline_timeline_task_path(insert: :first), class: "btn" %>
+      </div>
     </div>
-  <% end %>
 
-  <% unless action?(:empty) %>
+  <% else %>
 
     <div class="scrollmenu">
       <% @timeline.timeline_stages&.each do |tstage| %>

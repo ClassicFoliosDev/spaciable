@@ -1,4 +1,14 @@
 .admin-timeline {
+  .empty {
+    padding-top: $spacing-large;
+
+    .btn-group {
+      .btn {
+        width: 140px;
+      }
+    }
+  }
+
   .scrollmenu {
     margin: auto;
     overflow: auto;
@@ -53,7 +63,7 @@
     margin-bottom: $spacing-large;
 
     .heading {
-      width: 90%;
+      width: 95%;
       margin: auto;
       padding: $spacing-large 0;
 
@@ -94,7 +104,7 @@
     }
 
     .preview {
-      width: 90%;
+      width: 95%;
       background-color: $ui-light-grey;
       margin: auto;
       height: 640px;
@@ -484,6 +494,7 @@
   .timeline-sidebar {
     grid-column-start: 1;
     grid-column-end: 1;
+    max-height: 1200px;
     .sub-stage {
       .active .stage {
         color: $primary-navy;
@@ -509,9 +520,8 @@
 
   .timeline-form {
     grid-column-start: 2;
-    grid-column-end: 2;
+    grid-column-end: 3;
     padding: $spacing-medium;
-    @include span-columns(12 of 12);
     position: relative;
 
     .stages {
