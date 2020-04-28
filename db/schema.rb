@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200410165950) do
+ActiveRecord::Schema.define(version: 20200417153146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -157,6 +157,15 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.string   "info_text"
     t.string   "email_logo"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
+  end
+
+  create_table "callouts", force: :cascade do |t|
+    t.integer "task_id"
+    t.integer "callout_type"
+    t.string  "title"
+    t.text    "description"
+    t.string  "link"
+    t.index ["task_id"], name: "index_callouts_on_task_id", using: :btree
   end
 
   create_table "choice_configurations", force: :cascade do |t|
@@ -597,9 +606,21 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.integer  "role"
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
+    t.integer  "timeline_task_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_plot_residencies_on_invited_by_type_and_invited_by_id", using: :btree
     t.index ["plot_id"], name: "index_plot_residencies_on_plot_id", using: :btree
     t.index ["resident_id"], name: "index_plot_residencies_on_resident_id", using: :btree
+    t.index ["timeline_task_id"], name: "index_plot_residencies_on_timeline_task_id", using: :btree
+  end
+
+  create_table "plot_timelines", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "plot_id"
+    t.integer "timeline_task_id"
+    t.boolean "complete",         default: false
+    t.index ["plot_id"], name: "index_plot_timelines_on_plot_id", using: :btree
+    t.index ["timeline_id"], name: "index_plot_timelines_on_timeline_id", using: :btree
+    t.index ["timeline_task_id"], name: "index_plot_timelines_on_timeline_task_id", using: :btree
   end
 
   create_table "plots", force: :cascade do |t|
@@ -802,6 +823,14 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.boolean  "intro_video_enabled", default: true
   end
 
+  create_table "shortcuts", force: :cascade do |t|
+    t.integer  "shortcut_type"
+    t.string   "icon"
+    t.string   "link"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "snag_attachments", force: :cascade do |t|
     t.integer  "snag_id"
     t.string   "image"
@@ -831,9 +860,78 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
+  create_table "stages", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "tags", force: :cascade do |t|
     t.text     "name"
     t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "task_logs", force: :cascade do |t|
+    t.integer  "plot_timeline_id"
+    t.integer  "timeline_task_id"
+    t.integer  "response"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["plot_timeline_id"], name: "index_task_logs_on_plot_timeline_id", using: :btree
+    t.index ["timeline_task_id"], name: "index_task_logs_on_timeline_task_id", using: :btree
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "title"
+    t.string   "question"
+    t.string   "answer"
+    t.boolean  "not_applicable", default: false
+    t.text     "response"
+    t.string   "positive",       default: "Yes"
+    t.string   "negative",       default: "No"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  create_table "timeline_shortcuts", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "shortcut_id"
+    t.integer "order"
+    t.index ["shortcut_id"], name: "index_timeline_shortcuts_on_shortcut_id", using: :btree
+    t.index ["timeline_id"], name: "index_timeline_shortcuts_on_timeline_id", using: :btree
+  end
+
+  create_table "timeline_stages", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "stage_id"
+    t.integer "order"
+    t.index ["stage_id"], name: "index_timeline_stages_on_stage_id", using: :btree
+    t.index ["timeline_id"], name: "index_timeline_stages_on_timeline_id", using: :btree
+  end
+
+  create_table "timeline_task_shortcuts", force: :cascade do |t|
+    t.integer "timeline_task_id"
+    t.integer "shortcut_type"
+    t.boolean "live"
+    t.index ["timeline_task_id"], name: "index_timeline_task_shortcuts_on_timeline_task_id", using: :btree
+  end
+
+  create_table "timeline_tasks", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "stage_id"
+    t.integer "task_id"
+    t.boolean "head",        default: false
+    t.integer "next_id"
+    t.index ["stage_id"], name: "index_timeline_tasks_on_stage_id", using: :btree
+    t.index ["task_id"], name: "index_timeline_tasks_on_task_id", using: :btree
+    t.index ["timeline_id"], name: "index_timeline_tasks_on_timeline_id", using: :btree
+  end
+
+  create_table "timelines", force: :cascade do |t|
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -915,6 +1013,7 @@ ActiveRecord::Schema.define(version: 20200410165950) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
+  add_foreign_key "callouts", "tasks"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
@@ -936,6 +1035,10 @@ ActiveRecord::Schema.define(version: 20200410165950) do
   add_foreign_key "phases", "divisions"
   add_foreign_key "plot_residencies", "plots"
   add_foreign_key "plot_residencies", "residents"
+  add_foreign_key "plot_residencies", "timeline_tasks"
+  add_foreign_key "plot_timelines", "plots"
+  add_foreign_key "plot_timelines", "timeline_tasks"
+  add_foreign_key "plot_timelines", "timelines"
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"
@@ -952,6 +1055,16 @@ ActiveRecord::Schema.define(version: 20200410165950) do
   add_foreign_key "rooms", "unit_types"
   add_foreign_key "snag_comments", "snags"
   add_foreign_key "snags", "plots"
+  add_foreign_key "task_logs", "plot_timelines"
+  add_foreign_key "task_logs", "timeline_tasks"
+  add_foreign_key "timeline_shortcuts", "shortcuts"
+  add_foreign_key "timeline_shortcuts", "timelines"
+  add_foreign_key "timeline_stages", "stages"
+  add_foreign_key "timeline_stages", "timelines"
+  add_foreign_key "timeline_task_shortcuts", "timeline_tasks"
+  add_foreign_key "timeline_tasks", "stages"
+  add_foreign_key "timeline_tasks", "tasks"
+  add_foreign_key "timeline_tasks", "timelines"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"

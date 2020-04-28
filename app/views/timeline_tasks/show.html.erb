@@ -1,0 +1,155 @@
+<% breadcrumb :timeline, @timeline %>
+
+<%= render "timeline", timeline: @timeline, editable: true %>
+
+<% def action?(option) action_name.to_sym == option; end %>
+
+<div class="admin-timeline">
+  <% if action?(:empty) %>
+    <div class="empty">
+      <div class="empty-text">
+        <p><%= t(".empty") %></p>
+      </div>
+      <div class="btn-group">
+        <%= link_to t(".add_page"), new_timeline_timeline_task_path(insert: :first), class: "btn" %>
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="scrollmenu">
+      <% @timeline.timeline_stages&.each do |tstage| %>
+        <div class="timeline-stage">
+          <p class="stage-title"><%= tstage.stage.title %></p>
+          <% @timeline.ttasks&.each do |tt| %>
+            <% if tt.stage.title == tstage.stage.title %>
+              <a class="stage <%= 'active' if @timeline_task.present? && @timeline_task == tt %>" href="<%= timeline_timeline_task_path @timeline, tt %>"><%= tt.title %></a>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="admin-timeline-preview">
+
+      <div class="heading">
+        <% if action?(:show) %>
+          <div class="btn-group">
+            <%= link_to "Edit", edit_timeline_timeline_task_path, class: "btn"%>
+            <%= link_to "Delete", timeline_timeline_task_path, method: :delete, class: "btn"%>
+            <%= link_to "Insert Page Before", new_timeline_timeline_task_path(task: @timeline_task.id, insert: :before), class: "btn insert" %>
+            <%= link_to "Insert Page After", new_timeline_timeline_task_path(task: @timeline_task.id, insert: :after), class: "btn insert" %>
+          </div>
+
+        <div class="view-answer"><span><%= t(".view_answer") %></span></div>
+        <% end %>
+      </div>
+
+      <div class="preview">
+        <div class="timeline-sidebar">
+          <div class="timeline-header">
+            <div class="title">
+              <i id="icon<%=@timeline_task.stage.title%>"></i>
+              <h2><%= t("homeowners.timeline.task.header") %></h2>
+              <p><%= @timeline_task.stage.title %></p>
+            </div>
+          </div>
+
+          <div class="list-stages">
+            <ul class="vertical">
+              <% @timeline.timeline_stages.each do |tstage| %>
+              <li class="stage-title"><span class="branded-text"><%= tstage.stage.title %></span></li>
+              <ul class="sub-stage">
+                <% @timeline.ttasks&.each do |tt| %>
+                  <% if tt.stage.title == tstage.stage.title %>
+                <li class="sub-stage-container branded-text <%= 'active' if @timeline_task.present? && @timeline_task == tt %>">
+                  <a class="stage" href="<%= timeline_timeline_task_path @timeline, tt %>"><%= tt.title %></a>
+                </li>
+                  <% end %>
+                <% end %>
+              </ul>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-content">
+          <div id="question">
+            <div class="content">
+              <p><%= @timeline_task.question %></p>
+            </div>
+            <div class="actions">
+              <div class="timeline-btn"><%= @timeline_task.positive %></div>
+              <div class="timeline-btn" id="viewAnswer"><%= @timeline_task.negative %></div>
+              <% if @timeline_task.not_applicable %>
+                <div class="timeline-btn"><%= t(".not_applicable") %></div>
+              <% end %>
+            </div>
+          </div>
+
+          <div id="answer">
+            <div class="answer-container">
+              <h2><%= @timeline_task.answer %></h2>
+              <p><%= simple_format @timeline_task.response %></p>
+
+              <aside class="useful-extras">
+                <div class="actions-container">
+                  <%if @timeline_task.action %>
+                    <% @timeline_task.actions.each do |action| %>
+                      <p><%= action.description %></p>
+                      <button onclick="window.open('<%= action.link %>', '_blank')" type="button" class="btn timeline-btn"><%= action.title %></button>
+                    <% end %>
+                  <% end %>
+                </div>
+
+                <div class="features-container">
+                  <% if @timeline_task.feature %>
+                    <% @timeline_task.features.each do |feature| %>
+                      <p><%= feature.description %></p>
+                      <button onclick="window.open('<%= feature.link %>', '_blank')" type="button" class="btn timeline-btn"><%= feature.title %></button>
+                    <% end %>
+                  <% end %>
+                </div>
+              </aside>
+            </div>
+
+            <div class="timeline-footer">
+              <aside class="shortcuts-container">
+                <% if @timeline_task.timeline_task_shortcuts %>
+                <div class="shortcuts-question">
+                  <div class="shortcuts">
+                    <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
+                  </div>
+
+                  <% @timeline_task.timeline_task_shortcuts.each do |shortcut| %>
+                  <% if shortcut.live %>
+                  <div class="shortcut-links link_<%=shortcut.shortcut_type%>">
+                    <button type="button" id="shortcut<%=shortcut.shortcut_type.camelize%>" class="shortcut-link" disabled="disabled">
+                      <!-- icons are adding via javascript -->
+                      <i class=""></i>
+                    </button>
+                    <span class="shortcut-label branded-text"><%= t(".#{shortcut.shortcut_type}") %></span>
+                  </div>
+                  <% end%>
+                  <% end %>
+                </div>
+                <% end %>
+              </aside>
+
+              <div class="next">
+                <div class="timeline-btn">Next</div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t("back"), timelines_path, class: "btn" %>
+    </div>
+  </div>
+
+</div>
+

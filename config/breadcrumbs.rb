@@ -832,3 +832,24 @@ crumb :branded_apps do |branded_app_parent|
       parent :developer, branded_app_parent
   end
 end
+
+# TIMELINE
+
+crumb :timelines do
+  link Timeline.model_name.human.pluralize, timelines_path
+end
+
+crumb :timeline_new do
+  link t("breadcrumbs.timeline_add")
+  parent :timelines
+end
+
+crumb :timeline do | timeline |
+  link timeline.title, timeline_path(timeline)
+  parent :timelines
+end
+
+crumb :timeline_edit do | timeline |
+  link t("breadcrumbs.timeline_edit", name: timeline.title)
+  parent :timelines
+end

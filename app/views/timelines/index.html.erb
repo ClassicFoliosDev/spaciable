@@ -1,0 +1,9 @@
+<% breadcrumb :timelines %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render_collection @timelines, room: nil %>

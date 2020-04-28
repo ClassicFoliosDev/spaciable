@@ -44,3 +44,10 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
   }
 
 })
+
+// admin preview (timeline task show page)
+
+$(document).on('click', '#viewAnswer', function (event) {
+  $('#answer').show()
+  $('#question').hide()
+})

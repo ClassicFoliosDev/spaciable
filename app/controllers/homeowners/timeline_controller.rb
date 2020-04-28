@@ -14,16 +14,16 @@ module Homeowners
       return not_allowed unless current_resident&.plot_residency_homeowner?(@plot)
 
       # If they have specified a start stage
-      @task = @timeline.stage_head(params[:stage]) if params[:stage]
+      @ttask = @timeline.stage_head(params[:stage]) if params[:stage]
       # If the have selected an individual task
-      @task = @timeline.task(params[:id]) if params[:id]
+      @ttask = @timeline.ttask(params[:id]) if params[:id]
 
       record_progress
 
-      render task || @complete || params[:page] || :splash
+      render ttask || @complete || params[:page] || :splash
     end
 
-    # viewed is called on submit of a task page.  It records the
+    # viewed is called on submit of a TimelineTask page.  It records the
     # response and moves to the next page.  viewed also gets called
     # via a js postback when No is pressed on a task.  This ensures
     # the action is recorded even if the page isn't submitted
@@ -31,14 +31,14 @@ module Homeowners
       return unless current_resident
       return not_allowed unless current_resident&.plot_residency_homeowner?(@plot)
 
-      @task = @timeline.task(params[:id])
-      @plot_timeline.log(@task, params[:response].to_sym)
+      @ttask = @timeline.ttask(params[:id])
+      @plot_timeline.log(@ttask, params[:response].to_sym)
 
       respond_to do |format|
         format.html do
-          @task = @task.next
-          record_progress(@task.nil?)
-          render task || :complete
+          @ttask = @ttask.next
+          record_progress(@ttask.nil?)
+          render ttask || :complete
         end
         format.json { render json: { status: 200 } }
       end
@@ -46,23 +46,23 @@ module Homeowners
 
     private
 
-    # The plotTimeline is the root
+    # PlotTimeline is the homeowner reference into a timeline
     def build_timeline
       @plot_timeline = PlotTimeline.find_by(plot_id: @plot.id)
       @timeline = @plot_timeline.timeline # the timeline
-      @task = @plot_timeline.timeline_task # the last recorded task
+      @ttask = @plot_timeline.timeline_task # the last recorded Timeline task
       @logs = @plot_timeline.task_logs # all recorded logs
       @complete = :complete if @plot_timeline.complete
     end
 
     # record the current task and if the timeline is complete
     def record_progress(complete = false)
-      @plot_timeline.update(timeline_task_id: @task&.id,
+      @plot_timeline.update(timeline_task_id: @ttask&.id,
                             complete: complete)
     end
 
-    def task
-      :task if @task
+    def ttask
+      :task if @ttask
     end
   end
 end

@@ -1,0 +1,12 @@
+<% breadcrumb :timeline, @timeline %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= @timeline.title %><br>
+  </div>
+  <div class="section-data">
+    <% if editable %>
+      <%= edit_btn [:edit, @timeline], element: @timeline %>
+    <% end %>
+  </div>
+</div>

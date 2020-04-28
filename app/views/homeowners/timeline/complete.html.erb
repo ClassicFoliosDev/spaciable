@@ -19,13 +19,13 @@
           <% @timeline.stages.each do |stage| %>
           <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
           <ul class="sub-stage">
-            <% @timeline.stage_tasks(stage)&.each do |task| %>
+            <% @timeline.stage_ttasks(stage)&.each do |ttask| %>
             <li class="sub-stage-container branded-text
-                         <%= 'active' if task == @task %>
-                         <%= 'complete' if @logs.find_by(timeline_task_id: task.id)&.response == 'positive' %>">
-              <a href=<%="#{timeline_task_path(task)}"%>><%= task.title %></a>
+                         <%= 'active' if ttask == @ttask %>
+                         <%= 'complete' if @logs.find_by(timeline_task_id: ttask.id)&.response == 'positive' %>">
+              <a href=<%="#{timeline_task_path(ttask)}"%>><%= ttask.title %></a>
               <!-- this is where i want the timeline content to go in mobile view -->
-              <% if task == @task %>
+              <% if ttask == @ttask %>
               <div id="timelineContentMobile">
                 <!-- use javascript to migrate all of the timeline-content children to here -->
               </div>

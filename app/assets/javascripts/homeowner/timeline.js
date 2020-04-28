@@ -24,14 +24,12 @@
   $(document).on('click', '#timelineShortcuts', function (event) {
     // style the open/close button
     $(".shortcut-button").toggleClass("close")
-
     $(".shortcuts-question").toggleClass("shortcuts-grid")
     $(".shortcut-links").toggle()
 
     // toggle the fa icon when the button is opened/closed
-    var shortcuts = document.getElementById("timelineShortcuts")
     var button = document.getElementById("shortcutButton")
-    if (shortcuts.classList.contains("close")) {
+    if (this.classList.contains("close")) {
       button.classList.add("fa-times")
       button.classList.remove("fa-question")
       // center the icon
@@ -43,28 +41,18 @@
     }
 
     // add the icons to the shortcut links
-    var areaGuide = document.getElementById("shortcutAreaGuide")
-    var faqs = document.getElementById("shortcutFaqs")
-    var howTos = document.getElementById("shortcutHowTos")
-    var services = document.getElementById("shortcutServices")
-
-    if (areaGuide) areaGuide.firstElementChild.classList = ("icon fas fa-laptop-house")
-    if (faqs) faqs.firstElementChild.classList = ("icon fa fa-question")
-    if (howTos) howTos.firstElementChild.classList = ("icon fa fa-book")
-    if (services) services.firstElementChild.classList = ("icon fas fa-shipping-fast")
+    $('#shortcutAreaGuide').addClass("icon fas fa-laptop-house")
+    $('#shortcutFaqs').addClass("icon fa fa-question")
+    $('#shortcutHowTos').addClass("icon fa fa-book")
+    $('#shortcutServices').addClass("icon fas fa-shipping-fast")
   })
 
   // add the fa icons to the stage tiles
   document.addEventListener('turbolinks:load', function () {
-    var res = document.getElementById("iconReservation")
-    var exc = document.getElementById("iconExchange")
-    var mov = document.getElementById("iconMoving")
-    var liv = document.getElementById("iconLiving")
-
-    if (res) res.classList = "fa fa-check"
-    if (exc) exc.classList = "fas fa-key"
-    if (mov) mov.classList = "fa fa-truck"
-    if (liv) liv.classList = "fas fa-male"
+    $('#iconReservation').addClass("fa fa-check")
+    $('#iconExchange').addClass("fas fa-key")
+    $('#iconMoving').addClass("fa fa-truck")
+    $('#iconLiving').addClass("fas fa-male")
   })
 
   // display timeline in mobile view

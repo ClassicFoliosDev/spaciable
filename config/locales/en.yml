@@ -416,6 +416,8 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
+    timeline_add: "Add Timeline"
+    timeline_edit: "Edit Timeline"
 
   pagination:
     per_page_10: "10"
@@ -599,6 +601,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       reports: "Reports"
+      timeline: "Timeline"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1256,7 +1259,7 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"      
+      pr_failed: "Failed to create PlanetRent user account. %{message}"
       failed: "Failed to create a landlord account."
     maintenance:
       show:
@@ -3261,3 +3264,67 @@ en:
       action: "Action"
       user: "User"
       at: "Created At"
+
+  timelines:
+    index:
+      title: "Timelines"
+    collection:
+      create: "Add Timeline"
+      timeline: "Timeline"
+      last_edited: "Last Edited"
+    new:
+      title: "Name"
+    edit:
+      title: "Name"
+    form:
+      submit: "Submit"
+  timeline_tasks:
+    show:
+      empty: "You timeline is currently empty. Add a page to start creating your timeline."
+      add_page: "Add a Page"
+      how_tos: "How Tos"
+      faqs: "FAQs"
+      area_guide: "Area Guide"
+      services: "Services"
+      not_applicable: "Not Applicable"
+      view_answer: "Click negative button in preview to view answer"
+      feature:
+        title: "Feature Button"
+        description: "Description"
+        link: "Link"
+      action:
+        title: "Action Button"
+        description: "Description"
+        link: "Link"
+    edit:
+      edit: "Edit %{task}"
+    form:
+      new: "New Page"
+      heading: "Page Heading"
+      question: "Question"
+      answer: "Response Heading"
+      response: "Response Content"
+      positive: "Affirmative Button Text"
+      negative: "Negative Button Text"
+      not_applicable: "Not Applicable"
+      not_applicable_text: "Show the Not Applicable button"
+      cancel: "Cancel"
+      submit: "Submit"
+      shortcuts: "Shortcut Links"
+      shortcuts_text: "Show links to the following pages in Spaciable"
+      how_tos: "How Tos"
+      area_guide: "Area Guide"
+      services: "Services"
+      faqs: "FAQs"
+      feature:
+        title: "Feature Button Text"
+        description: "Description"
+        link: "Link"
+      action:
+        title: "Action Button Text"
+        description: "Description"
+        link: "Link"
+    destroy:
+      success: "%{title} was deleted successfully"
+
+
