@@ -1,5 +1,5 @@
-class Timeline < ActiveRecord::Migration[5.0]
-  def change
+class AddTimeline < ActiveRecord::Migration[5.0]
+  def up
 
     # admin --------
 
@@ -81,5 +81,35 @@ class Timeline < ActiveRecord::Migration[5.0]
 
     add_reference :plot_residencies, :task, foreign_key: true
 
+  end
+
+  def down
+    remove_reference :plot_residencies, :timeline_task, index: true, foreign_key: true
+    remove_reference :callouts, :task, index: true, foreign_key: true
+    remove_reference :plot_timelines, :plot, index: true, foreign_key: true
+    remove_reference :plot_timelines, :timeline, index: true, foreign_key: true
+    remove_reference :plot_timelines, :timeline_task, index: true, foreign_key: true
+    remove_reference :task_logs, :plot_timeline, index: true, foreign_key: true
+    remove_reference :task_logs, :timeline_task, index: true, foreign_key: true
+    remove_reference :timeline_shortcuts, :shortcut, index: true, foreign_key: true
+    remove_reference :timeline_shortcuts, :timeline, index: true, foreign_key: true
+    remove_reference :timeline_stages, :stage, index: true, foreign_key: true
+    remove_reference :timeline_stages, :timeline, index: true, foreign_key: true
+    remove_reference :timeline_task_shortcuts, :timeline_task, index: true, foreign_key: true
+    remove_reference :timeline_tasks, :stage, index: true, foreign_key: true
+    remove_reference :timeline_tasks, :task, index: true, foreign_key: true
+    remove_reference :timeline_tasks, :timeline, index: true, foreign_key: true
+
+    drop_table :timelines
+    drop_table :tasks
+    drop_table :stages
+    drop_table :shortcuts
+    drop_table :callouts
+    drop_table :timeline_stages
+    drop_table :timeline_tasks
+    drop_table :timeline_task_shortcuts
+    drop_table :timeline_shortcuts
+    drop_table :task_logs
+    drop_table :plot_timelines
   end
 end
