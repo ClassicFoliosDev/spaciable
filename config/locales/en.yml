@@ -3278,10 +3278,17 @@ en:
       title: "Name"
     form:
       submit: "Submit"
-  timeline_tasks:
+  tasks:
     show:
       empty: "You timeline is currently empty. Add a page to start creating your timeline."
-      add_page: "Add a Page"
+      add_task: "Add a Task"
+      heading: "Main Heading"
+      question: "Question"
+      answer: "Answer"
+      response: "Response"
+      positive: "Positive"
+      negative: "Negative"
+      not_applicable: "Not Applicable"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"

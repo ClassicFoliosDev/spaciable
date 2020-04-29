@@ -1,0 +1,127 @@
+<% def action?(option) action_name.to_sym == option; end %>
+
+<div class="admin-timeline-edit">
+
+  <div id = "timelineSidebar" class="timeline-sidebar">
+    <div class="timeline-header">
+      <div class="title">
+        <i id="icon<%=@task.stage.title%>"></i>
+        <h2><%= t("homeowners.timeline.task.header") %></h2>
+        <p><%= @task.stage.title %></p>
+      </div>
+    </div>
+
+    <div class="list-stages">
+      <ul class="vertical">
+        <% @timeline.stages.each do |stage| %>
+          <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
+          <ul class="sub-stage">
+            <% @timeline.tasks&.each do |tt| %>
+              <% if tt.stage.title == stage.title %>
+                <% if action?(:new) && @insert_mode == :before && tt.id == @insertion_task.id %>
+                <li class="sub-stage-container new">
+                  <span class="stage"><%= t(".new") %></span>
+                </li>
+                <% end %>
+                <li id = "<%= 'activeTaskScroll' if tt == @task %>" class="sub-stage-container branded-text <%= 'active' if @task.present? && @task == tt %>">
+                  <span class="stage"><%= tt.title %></span>
+                </li>
+                <% if action?(:new) && @insert_mode == :after && tt.id == @insertion_task.id %>
+                <li class="sub-stage-container new">
+                  <span class="stage"><%= t(".new") %></span>
+                </li>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="timeline-form">
+    <%= simple_form_for ([@timeline, @task]) do |f| %>
+      <div class="stages">
+        <group class="inline-radio" >
+          <%= f.collection_radio_buttons :stage_id, @stages, :first, :last, checked: @task.stage.id, disabled: @disabled_stages %>
+        </group>
+      </div>
+
+      <% if action?(:new) ||  action?(:create) %>
+        <%= f.hidden_field :timeline_id, value: @timeline&.id %>
+      <% end %>
+
+      <div class="text-content">
+        <div class="question">
+          <%= f.input :title, label: t(".heading") %>
+          <%= f.input :question, label: t(".question") %>
+          <%= f.input :answer, label: t(".answer") %>
+        </div>
+        <div class="buttons">
+          <%= f.input :positive, label: t(".positive") %>
+          <%= f.input :negative, label: t(".negative") %>
+          <%= f.label :not_applicable, t(".not_applicable") %>
+          <p><%= t(".not_applicable_text") %></p>
+          <%= f.check_box :not_applicable %>
+        </div>
+        <div class="response">
+          <%= f.input :response, label: t(".response"), as: :ckeditor%>
+        </div>
+      </div>
+
+      <div class="link-content">
+        <div class="feature">
+        <%= f.fields_for :feature do |ft| %>
+          <%= ft.input :title, label: t(".feature.title") %>
+          <%= ft.input :description, label: t(".feature.description")%>
+          <%= ft.input :link, label: t(".feature.link") %>
+        <% end %>
+        </div>
+
+        <div class="action">
+        <%= f.fields_for :action do |ft| %>
+          <%= ft.input :title, label: t(".action.title") %>
+          <%= ft.input :description, label: t(".action.description") %>
+          <%= ft.input :link, label: t(".feature.link") %>
+        <% end %>
+        </div>
+
+        <div class="shortcuts">
+          <p><%= t(".shortcuts_text") %></p>
+            <div class="shortcut-options">
+            <%= f.fields_for :task_shortcuts do |s| %>
+              <%= s.check_box :live %>
+              <%= s.label :live, s.object.shortcut_type %>
+              <%= s.hidden_field :order %>
+              <%= s.hidden_field :shortcut_id, value: s.object.shortcut_id %>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+      <% if  action?(:new) || action?(:create) %>
+        <%= f.fields_for :donor do |d| %>
+          <%= d.hidden_field :task_id, value: @insertion_task&.id %>
+          <%= d.hidden_field :mode, value: @insert_mode %>
+        <% end %>
+      <% end %>
+
+      <div class="form-actions-footer-container">
+        <div >
+          <% if action?(:new) || action?(:create) %>
+            <% if insert_task %>
+              <%= link_to t(".cancel"), timeline_task_path(timeline, insert_task), class: "btn" %>
+            <% else %>
+              <%= link_to t(".cancel"), timeline_empty_path(@timeline), class: "btn" %>
+            <% end %>
+          <% else %>
+            <%= link_to t(".cancel"), timeline_task_path , class: "btn" %>
+          <% end %>
+          <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

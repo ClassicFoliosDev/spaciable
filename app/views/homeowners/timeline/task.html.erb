@@ -3,12 +3,12 @@
 <div class="timeline-container">
   <div class="branded-body outer-container timeline-task">
 
-    <div class="timeline-sidebar">
+    <div id = "timelineSidebar" class="timeline-sidebar">
       <div class="timeline-header">
         <div class="title">
-          <i id="icon<%=@ttask.stage.title%>"></i>
+          <i id="icon<%=@task.stage.title%>"></i>
           <h2><%= t(".header") %></h2>
-          <p><%= @ttask.stage.title %></p>
+          <p> <%= @task.stage.title %></p>
         </div>
         <div class="progress">
           <!-- igloo progress image goes here -->
@@ -20,14 +20,14 @@
           <% @timeline.stages.each do |stage| %>
           <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
            <ul class="sub-stage">
-           <% @timeline.stage_ttasks(stage)&.each do |ttask| %>
-              <li id = "<%= 'activeTaskScroll' if ttask == @ttask %>"
+           <% @timeline.stage_tasks(stage)&.each do |task| %>
+              <li id = "<%= 'activeTaskScroll' if task == @task %>"
                   class="sub-stage-container branded-text
-                         <%= 'active' if ttask == @ttask %>
-                         <%= 'complete' if @logs.find_by(timeline_task_id: ttask.id)&.response == 'positive' %>">
-                <a href=<%="#{timeline_task_path(ttask)}"%>><%= ttask.title %></a>
+                         <%= 'active' if task == @task %>
+                         <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'positive' %>">
+                <a href=<%="#{show_timeline_task_path(task)}"%>><%= task.title %></a>
                 <!-- this is where i want the timeline content to go in mobile view -->
-                <% if ttask == @ttask %>
+                <% if task == @task %>
                   <div id="timelineContentMobile">
                     <!-- use javascript to migrate all of the timeline-content children to here -->
                   </div>
@@ -41,44 +41,38 @@
     </div>
 
     <div id="timelineContentDesktop" class="timeline-content">
-      <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@ttask)}"%>>
+      <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
         <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
 
         <div id="question" >
           <div class="content">
-            <p class="branded-text"> <%= @ttask.question %> </p>
+            <p class="branded-text"> <%= @task.question %> </p>
           </div>
           <div class="actions">
-            <%= button_tag @ttask.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
-            <%= button_tag @ttask.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
+            <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
+            <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
-            <% if @ttask.not_applicable %>
-              <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
+            <% if @task.not_applicable %>
+            <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
             <% end %>
           </div>
         </div>
 
         <div id="answer">
           <div class="answer-container">
-            <h2 class="branded-text"> <%= @ttask.answer %> </h2>
-            <p class="branded-text"> <%= simple_format @ttask.response %> </p>
+            <h2 class="branded-text"> <%= @task.answer %> </h2>
+            <p class="branded-text"> <%= simple_format @task.response %> </p>
 
             <aside class="useful-extras">
               <div class="actions-container">
-                <%if @ttask.actions %>
-                  <% @ttask.actions.each do |action| %>
-                    <p class="branded-text"><%= action&.description %></p>
-                    <button onclick="location.href='<%=action.link%>'" type="button" class="btn branded-btn-inverted"><%= action.title %></button>
-                  <% end %>
+                <%if @task.action %>
+                  <button onclick="location.href='<%=@task.action.link%>'" type="button" class="btn branded-btn-inverted"><%= @task.action.title %></button>
                 <% end %>
               </div>
 
               <div class="features-container">
-                <% if @ttask.features %>
-                  <% @ttask.features.each do |feature| %>
-                    <p class="branded-text"><%= feature&.description %></p>
-                    <button onclick="location.href='<%=feature.link%>'" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
-                  <% end %>
+                <% if @task.feature %>
+                  <button onclick="location.href='<%=@task.feature.link%>'" type="button" class="btn branded-btn-inverted"><%= @task.feature.title %></button>
                 <% end %>
               </div>
             </aside>
@@ -86,20 +80,20 @@
 
           <div class="timeline-footer">
             <aside class="shortcuts-container">
-              <% if @ttask.timeline_task_shortcuts %>
+              <% if @task.task_shortcuts %>
                 <div class="shortcuts-question">
                   <div class="shortcuts">
                     <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
                   </div>
 
-                  <% @ttask.timeline_task_shortcuts.each do |shortcut| %>
-                    <% if shortcut.live %>
-                      <div class="shortcut-links link_<%=shortcut.shortcut_type%>">
-                        <button onclick="location.href='<%=eval(@timeline.shortcuts.find_by(shortcut_type: shortcut.shortcut_type).link)%>'" type="button" id="shortcut<%=shortcut.shortcut_type.camelize%>" class="shortcut-link">
+                  <% @task.task_shortcuts.each do |ts| %>
+                    <% if ts.live %>
+                      <div class="shortcut-links link_<%=ts.shortcut.shortcut_type%>">
+                        <button onclick="location.href='<%=eval(ts.shortcut.link)%>'" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
                           <!-- icons are adding via javascript -->
                           <i class=""></i>
                         </button>
-                        <span class="shortcut-label branded-text"><%= t(".#{shortcut.shortcut_type}") %></span>
+                        <span class="shortcut-label branded-text"><%= t(".#{ts.shortcut.shortcut_type}") %></span>
                       </div>
                     <% end%>
                   <% end %>
@@ -116,5 +110,3 @@
     </div>
   </div>
 </div>
-
-

@@ -16,7 +16,7 @@ class TimelinesController < ApplicationController
   def show;
     if @timeline.head
       # view the head task
-      redirect_to timeline_timeline_task_path @timeline, @timeline.head
+      redirect_to timeline_task_path @timeline, @timeline.head
     else
       # no tasks to view
       redirect_to timeline_empty_path @timeline
@@ -48,6 +48,18 @@ class TimelinesController < ApplicationController
     redirect_to timelines_url, notice: notice
   end
 
+  def clone
+    new_timeline = Timeline.find(params[:tid])&.clone
+
+    if new_timeline.save
+      notice = t("controller.success.create", name: new_timeline.title)
+    else
+      alert = t("activerecord.errors.messages.clone_not_possible", name: @new_timeline.title)
+      alert << TimelineErrorsService.timeline_errors(new_timeline)
+    end
+    redirect_to timelines_url, alert: alert, notice: notice
+  end
+
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -56,5 +68,4 @@ class TimelinesController < ApplicationController
       :title
     )
   end
-
 end

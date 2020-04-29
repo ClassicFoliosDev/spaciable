@@ -6,11 +6,10 @@ namespace :timeline do
 
     TaskLog.delete_all
     PlotTimeline.delete_all
-    TimelineShortcut.delete_all
-    TimelineTaskShortcut.delete_all
+    TaskShortcut.delete_all
+    Feature.delete_all
+    Action.delete_all
     Shortcut.delete_all
-    Callout.delete_all
-    TimelineTask.delete_all
     Task.delete_all
     TimelineStage.delete_all
     Stage.delete_all
@@ -30,7 +29,7 @@ namespace :timeline do
 
     ##############################################################
 
-    task = Task.create(title: 'Reservation Fees',
+    prevtask = Task.create(title: 'Reservation Fees',
                        question: "Nice easy question to start – have you paid your reservation fee?",
                        answer: "Pay the reservation fee to start your home buying journey...",
                        response:
@@ -38,21 +37,19 @@ namespace :timeline do
 
 If you have any questions at this stage, please don’t hesitate to contact our Sales Negotiator, who will be more than happy to guide you through the process.
 
-Once you have paid the reservation fee, you can begin the 21 day countdown to exchange of contracts!")
+Once you have paid the reservation fee, you can begin the 21 day countdown to exchange of contracts!",
+                       timeline: timeline,
+                       stage: reservation,
+                       head: true)
 
-    previous_timeline_task = TimelineTask.create(timeline: timeline,
-                                                 stage: reservation,
-                                                 task: task,
-                                                 head: true)
-
-    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: previous_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: prevtask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: prevtask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: prevtask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: prevtask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Solicitor/Conveyencer',
+    thistask = Task.create(title: 'Solicitor/Conveyencer',
                        question: "The first thing you will need to do now is appoint a Solicitor/Conveyencer.  Have you done this yet?",
                        answer: "Appointing a Solicitor/Conveyancer ",
                        response:
@@ -63,22 +60,19 @@ More important, however, is that you appoint your Solicitor or Conveyancer to ki
 
 For the more exotically inclined, who see the buying process as an adventure, they are also your tour guide, safely steering you through the buying process, across the jungle of jargon and out of the contract caverns, while prioritising your best interests.
 
-After appointing your legal representatives, please let your Sales Negotiator know, so they can get the exciting part underway!")
+After appointing your legal representatives, please let your Sales Negotiator know, so they can get the exciting part underway!",
+                       timeline: timeline,
+                       stage: reservation)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: reservation,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
-
-    Callout.create(task: task,
-                  callout_type: :feature,
+    Feature.create(task: thistask,
                   title: "Find Solicitors",
                   description: "Spaciable services can help youfind a solicitor if you have not found one at this stage",
                   link: "https://www.thelawsuperstore.co.uk/?gclid=EAIaIQobChMI0OnG86vv6AIVSbTtCh07qAPbEAAYASAAEgIjgvD_BwE&ef_id=EAIaIQobChMI0OnG86vv6AIVSbTtCh07qAPbEAAYASAAEgIjgvD_BwE:G:s&refId=ggle_zso")
@@ -86,7 +80,7 @@ After appointing your legal representatives, please let your Sales Negotiator kn
 
     ##############################################################
 
-    task = Task.create(title: 'Mortgage Offer',
+    thistask = Task.create(title: 'Mortgage Offer',
                        question: "Have you got a mortgage in principle?",
                        answer: "Arranging your mortgage",
                        not_applicable: true,
@@ -103,28 +97,25 @@ Between selecting a mortgage, submitting supporting documents and receiving appr
 
 Depending on your filing efficiency, you may also need to start frantically emptying drawers, pulling up floorboards, digging under the shed, etc., to find the payslips, proof of residence, ID and loan details required by the lender.
 
-Once you have received confirmation of your mortgage offer, your Solicitor will be advised so they can shout from the rooftops* that you are in a position to exchange contracts.")
+Once you have received confirmation of your mortgage offer, your Solicitor will be advised so they can shout from the rooftops* that you are in a position to exchange contracts.",
+                       timeline: timeline,
+                       stage: reservation)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: reservation,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
-
-    Callout.create(task: task,
-                  callout_type: :action,
+    Action.create(task: thistask,
                   title: "Get Quote",
                   link: "https://www.localadvisors.co.uk/find-mortgage-advisors/?gclid=EAIaIQobChMIiIDIi6zv6AIVw7HtCh0XkAUyEAAYAyAAEgJ07PD_BwE")
 
     ##############################################################
 
-    task = Task.create(title: 'Fees',
+    thistask = Task.create(title: 'Fees',
                        question: "Have you completed the initial forms from your Solicitor and paid any necessary fees?",
                        answer: "Initial legal paperwork and fees",
                        response:
@@ -140,21 +131,19 @@ At this point, you should also make sure you have paid any outstanding fees, inc
 
 If you are expecting any documents from the developer, they may be uploaded to your  Library, which you can find here.  You can sign these electronically, using DocuSign.
 
-If you have any questions about the forms, contact your Solicitor.")
+If you have any questions about the forms, contact your Solicitor.",
+                       timeline: timeline,
+                       stage: reservation)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: reservation,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
-
-    task = Task.create(title: 'Draft Contract',
+    thistask = Task.create(title: 'Draft Contract',
                        question: "Have you read through your draft contract and submitted any queries to your Solicitor?",
                        answer: "Reviewing your draft contract and submitting queries",
                        response:
@@ -162,56 +151,49 @@ If you have any questions about the forms, contact your Solicitor.")
 
 Our Solicitor will have provided your Solicitor with a draft of the contract, so the terms and wording can be thrashed out.  Hopefully it won’t be quite that dramatic but this is the ideal opportunity to ask your legal representative for clarification on any points, if for no other reason but to make sure you are getting your money’s worth from the legal fees, and to give your Solicitor a chance to wear their new suit to a meeting.
 
-If you're moving to a new area, now is a good time to start thinking about the local schools.  There's much to consider - the Ofsted ratings, the sports teams, whether the uniform matches the colour scheme in your new lounge.  Luckily, you can find this information using the Area Guide feature - if only they did GCSEs in moving home!")
+If you're moving to a new area, now is a good time to start thinking about the local schools.  There's much to consider - the Ofsted ratings, the sports teams, whether the uniform matches the colour scheme in your new lounge.  Luckily, you can find this information using the Area Guide feature - if only they did GCSEs in moving home!",
+                       timeline: timeline,
+                       stage: reservation)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: reservation,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
-
-    Callout.create(task: task,
-                  callout_type: :action,
+    Action.create(task: thistask,
                   title: "Area Guide",
                   link: "https://www.placebuzz.com/area-guides")
 
     ##############################################################
 
-    task = Task.create(title: 'Home Tour',
+    thistask = Task.create(title: 'Home Tour',
                        question: "Have you been given a tour of your home?",
                        answer: "Taking a home tour",
                        response:
 "Even if your home isn’t built yet, we can still give you a sneak preview of what to expect.  Not only that but you can show your friends, family, pets, barista, et al.
 
-You can also use the Services feature to find exclusive rates for home furnishings and electrical goods!")
+You can also use the Services feature to find exclusive rates for home furnishings and electrical goods!",
+                       timeline: timeline,
+                       stage: reservation)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: reservation,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
-
-    Callout.create(task: task,
-                  callout_type: :action,
+    Action.create(task: thistask,
                   title: "Virtual tour",
                   link: "https://go.matterport.com/PPC-FY20-EMEA-Architecture_RRE.html?utm_source=google&utm_medium=ppc&utm_campaign=EN_EMEA_UK_PRM&utm_content=419586209250&utm_term=virtual%20home%20tours&matchtype=e&device=c&gclid=EAIaIQobChMI-tv3tqzv6AIVBbDtCh2wowb-EAAYASAAEgLThPD_BwE")
 
     ##############################################################
 
-    task = Task.create(title: 'Deposit Fees',
+    thistask = Task.create(title: 'Deposit Fees',
                        question: "Have you signed your contract and payed your deposit?",
                        answer: "Time to sign on the dotted line... ",
                        response:
@@ -227,26 +209,23 @@ Before putting pen to paper, just remember that this contract is a legally bindi
 
 If you are expecting any documents from the developer, they may be uploaded to your  Library, which you can find here.  You can sign these electronically, using DocuSign.
 
-And there you have it!  Time to flaunt the news on social media - if ever an Insta-brag was justified, this is it.  Remember to hashtag your developer, Spaciable, your dog and all of the Insta Influencers who have been spamming you with #lifegoals (now is your opportunity for revenge)!")
+And there you have it!  Time to flaunt the news on social media - if ever an Insta-brag was justified, this is it.  Remember to hashtag your developer, Spaciable, your dog and all of the Insta Influencers who have been spamming you with #lifegoals (now is your opportunity for revenge)!",
+                       timeline: timeline,
+                       stage: exchange,
+                       head: true)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: exchange,
-                                             task: task,
-                                             head: true)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
 
     ##############################################################
 
-    task = Task.create(title: 'Choices/Finishes',
+    thistask = Task.create(title: 'Choices/Finishes',
                        not_applicable: true,
                        question: "Have you made any available choices and options on the finishes in your home?",
                        answer: "Making your home your own",
@@ -269,23 +248,21 @@ Please note that once you click submit, your choices are final.  If you need to 
 SMART HOME UPGRADE POP-UP
 You can also add a touch of sci-fi to your home with an incredible smart home package, allowing you to control your lighting, heating, AV system and security from your smartphone – any time, anywhere.
 
-To upgrade your home to include an integrated smart home package, please click here (link to Services).")
+To upgrade your home to include an integrated smart home package, please click here (link to Services).",
+                       timeline: timeline,
+                       stage: exchange)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: exchange,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Contracts',
+    thistask = Task.create(title: 'Contracts',
                        question: "Has your Solicitor exchanged contracts?",
                        answer: "Awaiting exchange contracts",
                        response:
@@ -298,23 +275,21 @@ It’s not the most thrilling part of the process and you should be grateful tha
 
 Remember to make use of the glossary, if necessary!
 
-Why not use this time to get the wheels in motion for the big day?  Have a look at the Services feature to find exclusive offers from recommended service suppliers, such as removals, insurance, will writing, home care packages and utility suppliers.  You can even find property management companies, if you're planning on letting out your home!")
+Why not use this time to get the wheels in motion for the big day?  Have a look at the Services feature to find exclusive offers from recommended service suppliers, such as removals, insurance, will writing, home care packages and utility suppliers.  You can even find property management companies, if you're planning on letting out your home!",
+                       timeline: timeline,
+                       stage: exchange)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: exchange,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Home Demonstration',
+    thistask = Task.create(title: 'Home Demonstration',
                        question: "Has your Sales Negotiator contacted you to arrange a Home Demonstration?",
                        answer: "Arranging your Home Demonstration",
                        response:
@@ -327,25 +302,21 @@ Much like a city tour, except instead of historic bridges and murals, you will b
 Don't worry if you miss anything, as <<developer name>> has kindly provided you with access to an on-demand virtual tour of your home, with embedded videos demonstrating how various appliances as work.  Simply look at your oven and an instructional video will appear before your very eyes.  Sorcery at its absolute finest.
 
 Pop-up Message
-Please bear in mind that your Home Demonstration presents an ideal opportunity to ask any questions you may have about your home’s fixtures, fittings and systems.  It may be an idea to write down any questions beforehand, so you don’t miss anything!")
+Please bear in mind that your Home Demonstration presents an ideal opportunity to ask any questions you may have about your home’s fixtures, fittings and systems.  It may be an idea to write down any questions beforehand, so you don’t miss anything!",
+                       timeline: timeline,
+                       stage: exchange)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: exchange,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
-
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Home Insurance',
+    thistask = Task.create(title: 'Home Insurance',
                        question: "Have you arranged home insurance?",
                        answer: "Ensure you're insured!",
                        response:
@@ -353,24 +324,22 @@ Please bear in mind that your Home Demonstration presents an ideal opportunity t
 
 We’ve heard some horror stories of disaster striking during even the briefest of windows in which a property is uninsured.  Don’t let this happen to you and make sure you are insured at your current abode and your new home for the entirety of the time you are legally recognised as the owner.
 
-Our partnered insurance providers can help ensure (no pun intended) you are covered at all times.")
+Our partnered insurance providers can help ensure (no pun intended) you are covered at all times.",
+                       timeline: timeline,
+                       stage: moving,
+                       head: true)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: moving,
-                                             task: task,
-                                             head: true)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Utilities',
+    thistask = Task.create(title: 'Utilities',
                        question: "Have you taken meter readings at your old (where applicable) and new properties?",
                        answer: "Remember to take your meter readings",
                        response:
@@ -378,23 +347,21 @@ Our partnered insurance providers can help ensure (no pun intended) you are cove
 
 So, here is your friendly reminder to take your meter readings when you move out of your old home.  It might also be an idea to take a photograph, so you have something tangible to refer back to if any issues arise.  Contact your existing providers with the reading to close the account.
 
-Likewise, take the meter readings upon arrival at your new home, then enter your details in each of the following form.  By clicking Submit, these will be automatically forwarded to your utility provider, saving you the unenviable task of listening to high pitched hold music for 22 minutes.")
+Likewise, take the meter readings upon arrival at your new home, then enter your details in each of the following form.  By clicking Submit, these will be automatically forwarded to your utility provider, saving you the unenviable task of listening to high pitched hold music for 22 minutes.",
+                       timeline: timeline,
+                       stage: moving)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: moving,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Council',
+    thistask = Task.create(title: 'Council',
                        question: "Have you contacted the Local Authority to arrange council tax and register to vote?",
                        answer: "Registering with the local council",
                        response:
@@ -408,23 +375,21 @@ If you’re moving to a new area, don’t forget to let your current council kno
 
 You will also need to register to vote in the local elections in order to have any right to complain about the outcomes.
 
-If you haven’t been provided with refuse and recycling bins at your new home, these can be requested from the council, here.")
+If you haven’t been provided with refuse and recycling bins at your new home, these can be requested from the council, here.",
+                       timeline: timeline,
+                       stage: moving)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: moving,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Local Area',
+    thistask = Task.create(title: 'Local Area',
                        question: "It’s been quite the journey, hasn’t it?  Why not celebrate with a drink at your local pub?",
                        answer: "Finding your new local haunts",
                        response:
@@ -434,42 +399,39 @@ It may feel like a minor thing to consider at this stage but don't discount the 
 
 And then there's the small matter of your first meal in your new home!  Beans on toast is no way to celebrate - check out your nearest supermarket and go for something a bit more gourmet!
 
-Familiarise yourself with your new surroundings here and become a fully-fledged member of the community!")
+Familiarise yourself with your new surroundings here and become a fully-fledged member of the community!",
+                       timeline: timeline,
+                       stage: living,
+                       head: true)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: living,
-                                             task: task,
-                                             head: true)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ##############################################################
 
-    task = Task.create(title: 'Snags',
+    thistask = Task.create(title: 'Snags',
                        question: "Don't forget to submit your Cosmetic Inspection form!",
                        answer: "Searching for any snags",
                        response:
 "Although we will have endeavoured to make sure your home meets the pristine standard we set, some minor issues might have sneaked past us, with ninja-like powers of evasion.  The Cosmetic Inspection is your opportunity to flag any such cosmetic damage, including marks, scratches, chips and dents.
 
-These items can be submitted here. ")
+These items can be submitted here. ",
+                       timeline: timeline,
+                       stage: living,
+                       head: true)
 
-    this_timeline_task = TimelineTask.create(timeline: timeline,
-                                             stage: living,
-                                             task: task)
+    prevtask.update_attribute(:next, thistask)
+    prevtask = thistask
 
-    previous_timeline_task.update_attribute(:next, this_timeline_task)
-    previous_timeline_task = this_timeline_task
-
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :how_tos, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :faqs, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :services, live:true)
-    TimelineTaskShortcut.create(timeline_task: this_timeline_task, shortcut_type: :area_guide, live:true)
+    TaskShortcut.create(task: thistask, shortcut: how_tos, live:true, order: 1)
+    TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
+    TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
+    TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
 
     ######################### plot timeline ######################
 

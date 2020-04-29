@@ -1,46 +1,109 @@
 # frozen_string_literal: true
 
-# A task is the main component of a Timeline. it provides all the
-# detail.  A Task can be shared amongst different Timelines
+# The Task is the ordered container for Tasks.  Timeline_Tasks
+# are linked together in a list through their 'next' attribute.  The
+# 'Head' attribute indicates the Task is the first in the list
+# for the associated Stage
 class Task < ApplicationRecord
-  include CalloutTypeEnum
-  has_many :callouts
+  belongs_to :timeline, optional: false
+  belongs_to :stage, optional: false
 
-  attr_accessor :actions
-  attr_accessor :features
+  belongs_to :next, class_name: "Task", foreign_key: "next_id"
+  has_many :task_shortcuts, -> { order "task_shortcuts.order" }, dependent: :destroy
+  accepts_nested_attributes_for :task_shortcuts
+  has_many :shortcuts, through: :task_shortcuts
 
-  # Get the :action actions
-  def actions
-    callouts.where(callout_type: :action)
+  has_one :action, dependent: :destroy
+  accepts_nested_attributes_for :action, reject_if: :all_blank, allow_destroy: true
+  has_one :feature, dependent: :destroy
+  accepts_nested_attributes_for :feature, reject_if: :all_blank, allow_destroy: true
+
+  validates :title, presence: true
+  validates :question, presence: true
+  validates :answer, presence: true
+  validates :positive, presence: true
+  validates :negative, presence: true
+  validates_presence_of :stage
+
+  # Get the task at the head of the specified stage
+  def self.head(timeline, stage)
+    find_by(timeline_id: timeline.id, stage_id: stage.id, head: true)
   end
 
-  # Get the first action
-  def action
-    actions&.first
+  # Get the task at the tail
+  def self.tail(timeline)
+    find_by(timeline_id: timeline.id, next_id: nil)
   end
 
-  # Get the :feature actions
-  def features
-    callouts.where(callout_type: :feature)
+  # Retrive the list of tasks for the timeline, starting at the head of
+  # the specified stage
+  def self.tasks(timeline, stage, exclusive: false)
+    # form the recursive query
+    tasks_query = task_list(timeline, stage, exclusive)
+    # execute the query to get the ids of the timeline  tasks in list order
+    tasks = ActiveRecord::Base.connection.execute(tasks_query).values
+    return nil if tasks.blank?
+
+    tasks = tasks.flatten.join(",")
+
+    # retrieve the timeline tasks in the order retreieved by the
+    # recursive query .. i.e. 'list order'
+    where("#{table_name}.id IN (#{tasks})")
+      .order("array_position(array[#{tasks}], #{table_name}.id)")
   end
 
-  # Get the first feature
-  def feature
-    features&.first
+  # The timeline tasks are held in a linked list.  Each timeline task
+  # has a next_id.  The timeline tasks are linked from beginning to end
+  # through all the stages, exactly as they are inteded to be presented
+  # to the homeowner.  The SQL to retrieve the timeline tasks has to be
+  # recursive. Recursion follows the list until the next_id is null. In
+  # the case of 'exclusive' searches, the recursion will stop as soon as
+  # a timeline task for a different stage is met.  This is not simple
+  # to understand so I suggest reading further before changiging this
+  #
+  # The results of this query will be in 'list order'
+  def self.task_list(instance, stage, exclusive = false)
+    where_stage = " AND #{table_name}.stage_id = #{stage.id} " if exclusive
+    <<-SQL
+      WITH RECURSIVE task_list(id, next_id, N) AS (
+          SELECT id, next_id, 1
+          FROM #{table_name}
+          WHERE timeline_id = #{instance.id} AND
+                stage_id = #{stage.id} AND
+                head IS TRUE
+        UNION ALL
+          SELECT #{table_name}.id, #{table_name}.next_id, N+1
+          FROM task_list
+          JOIN #{table_name} ON #{table_name}.id = task_list.next_id #{where_stage}
+      )
+      SELECT id FROM task_list ORDER BY N
+    SQL
   end
 
-  def update_from(params)
-    update(params[:task])
-    update_callouts(params)
-  end
+  def remove
+    Task.transaction do
+      # link prev to following timeline_task
+      prev = Task.find_by(next_id: id) # get prev
+      following = Task.find_by(id: next_id) # and next
+      # set prev->next to following
+      prev&.update_attributes(next_id: following&.id)
+      # set following->head true if the stages change between tasks
+      following&.update_attributes(
+        head: prev.blank? || prev.stage != following&.stage)
 
-  def update_callouts(params)
-    callouts.destroy_all
-    Callout.callout_types.each do |name,_|
-      if params[name]
-        callout = Callout.new(params[name].merge(callout_type: name))
-        callouts.create(callout.attributes) if callout.populated?
-      end
+      # destroy any logs for this task
+      TaskLog.where(task_id: id).destroy_all
+
+      # update any PlotTimeline referencing this Task
+      PlotTimeline.where(task_id: id)
+                  .update_all(task_id: following&.id || prev&.id)
+      # finally destroy the Task
+      destroy
     end
+  end
+
+  def reset_head
+    prev = timeline.before(self)
+    update_attributes(head: prev.blank? || prev.stage != stage)
   end
 end

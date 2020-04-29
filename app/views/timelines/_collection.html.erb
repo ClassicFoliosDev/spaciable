@@ -25,6 +25,9 @@
           <td colspan="2"><%= l timeline.updated_at.to_date, format: :digits %></td>
           <td  colspan="2" class="actions">
             <%= edit_btn edit_timeline_path(timeline), element: timeline %>
+            <%= link_to clone_timeline_path(tid: timeline.id), class: "btn clone" do %>
+              <i class="fa fa-files-o"></i>
+            <% end %>
             <%= delete_btn timeline, element: timeline %>
           </td>
         </tr>

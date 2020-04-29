@@ -164,8 +164,8 @@ Rails.application.routes.draw do
   resources :finish_types
   resources :finish_manufacturers
   resources :timelines do
-    get 'empty', action: :empty , controller: 'timeline_tasks'
-    resources :timeline_tasks
+    get 'empty', action: :empty , controller: 'tasks'
+    resources :tasks
   end
 
   namespace :homeowners do
@@ -198,7 +198,7 @@ Rails.application.routes.draw do
     resource :timeline, only: [:show], controller: 'timeline', as: :homeowner_timeline
     resources :timeline_tasks do
       member do
-        get :show, controller: 'timeline'
+        get :show, controller: 'timeline', as: :show
         get :viewed, controller: 'timeline'
         post :viewed , controller: 'timeline', format: :json
       end
@@ -260,6 +260,7 @@ Rails.application.routes.draw do
   get "/remove_appliance", to: "rooms#remove_appliance"
   get "/remove_finish", to: "rooms#remove_finish"
   get "/clone_unit_type", to: "unit_types#clone"
+  get "/clone_timeline", to: "timelines#clone"
   get "/remove_tag", to: "admin/how_tos#remove_tag"
   get "/search", to: "admin/search#new", as: :admin_search, format: :json
   get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json

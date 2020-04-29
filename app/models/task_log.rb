@@ -4,7 +4,7 @@
 # Timeline_Task on a Plot_Timeline
 class TaskLog < ApplicationRecord
   belongs_to :plot_timeline
-  has_one :timeline_task
+  has_one :task
 
   enum response: %i[
     positive
