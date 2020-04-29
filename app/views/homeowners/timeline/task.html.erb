@@ -23,8 +23,10 @@
            <% @timeline.stage_tasks(stage)&.each do |task| %>
               <li id = "<%= 'activeTaskScroll' if task == @task %>"
                   class="sub-stage-container branded-text
-                         <%= 'active' if task == @task %>
-                         <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'positive' %>">
+                        <%= 'active' if task == @task %>
+                        <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'positive' %>
+                        <%= 'negative' if @logs.find_by(task_id: task.id)&.response == 'negative' %>
+                        <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'not_applicable' %>">
                 <a href=<%="#{show_timeline_task_path(task)}"%>><%= task.title %></a>
                 <!-- this is where i want the timeline content to go in mobile view -->
                 <% if task == @task %>

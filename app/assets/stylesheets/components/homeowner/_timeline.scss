@@ -265,7 +265,7 @@
             display: inline-block;
             font-size: 22px;
             content: '\25CF';
-            color: $primary-red-left;
+            color: #e60000;
             position: relative;
             right:42px;
             line-height: 0;
@@ -291,10 +291,16 @@
           }
         }
 
-        /* change the colour of the custom list bullet if stage is complete */
+        /* change the colour of the custom list bullet when stage is completed / skipped */
         .complete {
           &:before {
-            color: #00cc00;
+            color: #00b300;
+          }
+        }
+
+        .negative {
+          &:before {
+            color: #ff6600;
           }
         }
       }
