@@ -151,7 +151,7 @@
 
     .sub-stage {
       .sub-stage-container {
-        border: 1px solid $ui-light-grey;
+        border: 1px solid $ui-grey;
         margin: $spacing-medium;
         margin-left: $spacing-small;
         padding: 6px;
@@ -174,12 +174,17 @@
         a {
           text-decoration: none;
           font-size: $base-small-font-size;
-          color: $ui-dark-grey;
+          color: $semi-pale-navy;
+
+          &:hover {
+            color: $primary-navy;
+          }
         }
       }
 
       .active {
         border: 2px solid $ui-grey;
+        background-color: $ui-superlight-grey;
 
         /* custom list bullet -> add one pixel to take into account the 2px border of .active */
         &:before {

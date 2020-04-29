@@ -51,3 +51,9 @@ $(document).on('click', '#viewAnswer', function (event) {
   $('#answer').show()
   $('#question').hide()
 })
+
+document.addEventListener('turbolinks:load', function () {
+  $('#timelineAdminSidebar').animate({
+    scrollTop: $('#activeTaskScroll').offset().top - 420
+  }, 1000)
+})
