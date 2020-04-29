@@ -9,55 +9,9 @@
     }
   }
 
-  .scrollmenu {
-    margin: auto;
-    overflow: auto;
-    white-space: nowrap;
-    width: 100%;
-    padding-bottom: 5px;
-    padding-top: $spacing-small;
-    border: 1px solid $ui-white;
-    border-radius: 5px 5px 0px 0px;
-
-    a {
-      display: inline-block;
-      text-decoration: none;
-    }
-
-    .timeline-stage {
-      display: inline-block;
-      text-align: center;
-      padding: $spacing-small;
-      min-width: 140px;
-
-      p {
-        color: $primary-red-left;
-        border-bottom: 1px dashed $primary-red-left;
-      }
-
-      .stage {
-        border: 2px solid $ui-grey;
-        border-radius: 5px;
-        padding: 5px $spacing-small;
-        color: $primary-navy;
-        background-color: $ui-white;
-
-        &:hover {
-          background-color: $ui-light-grey;
-        }
-      }
-
-      .active {
-        font-weight: $bold-font-weight;
-        border-color: $ui-dark-grey;
-        background-color: $ui-light-grey;
-      }
-    }
-  }
-
   .admin-timeline-preview {
     background-color: $ui-white;
-    border-radius: 0px 0px 5px 5px;
+    border-radius: 5px;
 
     padding-bottom: $spacing-large;
     margin-bottom: $spacing-large;
@@ -67,21 +21,19 @@
       margin: auto;
       padding: $spacing-large 0;
 
-      .btn-group {
-        display: inline-block;
-        width: 70%;
-        float: left;
+      .actions {
+        width: 100%;
+
+        h2 {
+          font-size: $title-font-size-3;
+          margin-bottom: $spacing-medium;
+        }
+
       }
 
-      .view-answer {
-        text-align: right;
+      .btn-group {
         display: inline-block;
-        width: 30%;
-
-        span {
-          color: $primary-navy;
-          font-size: $base-small-font-size;
-        }
+        padding-bottom: $spacing-small;
       }
 
       #stage {
@@ -94,12 +46,12 @@
       }
 
       .btn {
-        width: 75px;
+        min-width: 80px;
         text-align: center;
       }
 
       .insert {
-        width: 150px;
+        min-width: 200px;
       }
     }
 
@@ -245,8 +197,9 @@
     position: relative;
     height: 100%;
     margin: auto;
-    padding: $spacing-large;
+    padding: $spacing-small;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     #question {
       vertical-align: middle;
@@ -284,15 +237,13 @@
     }
 
     #answer {
-      @include span-columns(12 of 12);
       margin-top: $spacing-medium;
       margin-left: $spacing-large;
       text-align: left;
       display: none;
 
       .answer-container {
-        @include span-columns(7 of 12);
-        @include omega(2n);
+        width: 60%;
         padding-bottom: $spacing-large;
 
         h2 {

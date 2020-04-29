@@ -3280,6 +3280,10 @@ en:
       submit: "Submit"
   tasks:
     show:
+      edit: "Edit"
+      delete: "Delete"
+      insert_before: "Insert Page Before %{page}"
+      insert_after: "Insert Page After %{page}"
       empty: "You timeline is currently empty. Add a page to start creating your timeline."
       add_task: "Add a Task"
       heading: "Main Heading"
@@ -3293,8 +3297,6 @@ en:
       faqs: "FAQs"
       area_guide: "Area Guide"
       services: "Services"
-      not_applicable: "Not Applicable"
-      view_answer: "Click negative button in preview to view answer"
       feature:
         title: "Feature Button"
         description: "Description"

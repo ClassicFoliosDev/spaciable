@@ -19,27 +19,21 @@
 
       <div class="heading">
         <% if action?(:show) %>
-          <div class="btn-group">
-            <%= link_to "Edit", edit_timeline_task_path, class: "btn"%>
-            <%= link_to "Delete", timeline_task_path, method: :delete, class: "btn"%>
-            <%= link_to "Insert Before", new_timeline_task_path(task_id: @task.id, insert: :before), class: "btn insert" %>
-            <%= link_to "Insert After", new_timeline_task_path(task_id: @task.id, insert: :after), class: "btn insert" %>
+          <div class="actions">
+            <h2 class="page-name"><%= @task.title %></h2>
+            <div class="btn-group">
+              <%= link_to t(".edit"), edit_timeline_task_path, class: "btn"%>
+              <%= link_to t(".delete"), timeline_task_path, method: :delete, class: "btn"%>
+              <%= link_to t(".insert_before", page: @task.title), new_timeline_task_path(task_id: @task.id, insert: :before), class: "btn insert" %>
+              <%= link_to t(".insert_after", page: @task.title), new_timeline_task_path(task_id: @task.id, insert: :after), class: "btn insert" %>
+            </div>
           </div>
 
-        <div class="view-answer"><span><%= t(".view_answer") %></span></div>
         <% end %>
       </div>
 
       <div class="preview">
         <div class="timeline-sidebar">
-          <div class="timeline-header">
-            <div class="title">
-              <i id="icon<%=@task.stage.title%>"></i>
-              <h2><%= t("homeowners.timeline.task.header") %></h2>
-              <p><%= @task.stage.title %></p>
-            </div>
-          </div>
-
           <div class="list-stages">
             <ul class="vertical">
               <% @timeline.timeline_stages.each do |tstage| %>
