@@ -578,13 +578,13 @@
     /* custom scrollbar -> styling does not display in Firefox or IE/Edge */
     ::-webkit-scrollbar {
       width: 8px;
-      border: 1px solid $ui-light-grey;
+      border: 1px solid $ui-white;
     }
     ::-webkit-scrollbar-track {
-      background: $ui-light-grey;
+      background: $ui-white;
     }
     ::-webkit-scrollbar-thumb {
-      background: $ui-light-grey;
+      background: $ui-white;
     }
     ::-webkit-scrollbar-thumb:hover {
       background: $ui-grey;
