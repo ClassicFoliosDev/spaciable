@@ -9,7 +9,7 @@
 
   // add or remove the 'selected' class from a timeline stage option
   function borderSelected() {
-    var allStages = document.querySelectorAll('.timeline-stage-option')
+    var allStages = $(".timeline-stage-option")
 
     for (var i = 0; i < allStages.length; ++i) {
       if (allStages[i].firstElementChild.checked) {

@@ -3,7 +3,7 @@
 <div class="timeline-container">
   <div class="branded-body outer-container timeline-task">
 
-    <div id = "timelineSidebar" class="timeline-sidebar">
+    <div class="timeline-sidebar">
       <div class="timeline-header">
         <div class="title">
           <i id="icon<%=@task.stage.title%>"></i>
@@ -66,13 +66,13 @@
             <aside class="useful-extras">
               <div class="actions-container">
                 <%if @task.action %>
-                  <button onclick="location.href='<%=@task.action.link%>'" type="button" class="btn branded-btn-inverted"><%= @task.action.title %></button>
+                  <button onclick="window.open('<%=@task.action.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.action.title %></button>
                 <% end %>
               </div>
 
               <div class="features-container">
                 <% if @task.feature %>
-                  <button onclick="location.href='<%=@task.feature.link%>'" type="button" class="btn branded-btn-inverted"><%= @task.feature.title %></button>
+                  <button onclick="window.open('<%=@task.feature.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.feature.title %></button>
                 <% end %>
               </div>
             </aside>
@@ -89,7 +89,7 @@
                   <% @task.task_shortcuts.each do |ts| %>
                     <% if ts.live %>
                       <div class="shortcut-links link_<%=ts.shortcut.shortcut_type%>">
-                        <button onclick="location.href='<%=eval(ts.shortcut.link)%>'" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
+                        <button onclick="window.open('<%=eval(ts.shortcut.link)%>', '_blank')" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
                           <!-- icons are adding via javascript -->
                           <i class=""></i>
                         </button>

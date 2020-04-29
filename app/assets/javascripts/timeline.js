@@ -45,12 +45,6 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
 
 })
 
-document.addEventListener('turbolinks:load', function () {
-  $('#timelineSidebar').animate({
-    scrollTop: $('#activeTaskScroll').offset().top - 350
-  }, 1000)
-})
-
 // admin preview (timeline task show page)
 
 $(document).on('click', '#viewAnswer', function (event) {
