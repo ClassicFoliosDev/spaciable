@@ -34,6 +34,11 @@
 
   <div class="timeline-form">
     <%= simple_form_for ([@timeline, @task]) do |f| %>
+
+     <div class="image-container">
+          <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+      </div>
+
       <div class="stages">
         <group class="inline-radio" id="stageRadio">
           <%= f.collection_radio_buttons :stage_id, @stages, :first, :last, checked: @task.stage.id, disabled: @disabled_stages %>
@@ -69,6 +74,7 @@
           <div id="featureInput" style="<%= 'display: none' unless @task.feature.title %>"> <!-- update this when know more about how actions are defined -->
             <div id="deleteFeatureBtn"><%= t(".feature.delete") %></div>
             <%= f.fields_for :feature do |ft| %>
+              <%= ft.hidden_field :id %>
               <%= ft.input :title, label: t(".feature.title") %>
               <%= ft.input :description, label: t(".feature.description")%>
               <%= ft.input :link, label: t(".feature.link") %>
@@ -82,6 +88,7 @@
           <div id="actionInput" style="<%= 'display: none' unless @task.action.title %>"> <!-- update this when know more about how actions are defined -->
             <div id="deleteActionBtn"><%= t(".action.delete") %></div>
             <%= f.fields_for :action do |ft| %>
+              <%= ft.hidden_field :id %>
               <%= ft.input :title, label: t(".action.title") %>
               <%= ft.input :description, label: t(".action.description") %>
               <%= ft.input :link, label: t(".feature.link") %>
@@ -94,6 +101,7 @@
           <p><%= t(".shortcuts_text") %></p>
             <div class="shortcut-options">
             <%= f.fields_for :task_shortcuts do |s| %>
+              <%= s.hidden_field :id %>
               <%= s.check_box :live %>
               <%= s.label :live, t(".#{s.object.shortcut_type}") %>
               <%= s.hidden_field :order %>
@@ -101,6 +109,12 @@
             <% end %>
           </div>
         </div>
+
+        <%= f.fields_for :task_contacts do |tc| %>
+          <div class="ui-front select-container">
+            <%= tc.input :contact_type, label: t(".contact_type"), as: :select, collection: contact_types_collection, include_blank: true %>
+          </div>
+        <% end %>
 
       </div>
 

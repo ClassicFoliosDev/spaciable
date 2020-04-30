@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Contact < ApplicationRecord
+  include ContactTypeEnum
+
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
   attr_accessor :notify
@@ -26,6 +28,15 @@ class Contact < ApplicationRecord
   validates :contactable_id, presence: true
   validate :email_or_phone
   validate :name_or_organisation
+
+  scope :of_types,
+        lambda { |plot, types|
+            where("contact_type IN (#{types&.join(',')}) AND " \
+                  "((contactable_type = 'Developer' and contactable_id = #{plot.developer.id}) " \
+                  "or (contactable_type = 'Development' and contactable_id = #{plot.development.id}) " \
+                  "or (contactable_type = 'Phase' and contactable_id = #{plot.phase.id}) " \
+                  "or (contactable_type = 'Division' and contactable_id = #{plot.division&.id || 0}))")
+        }
 
   def email_or_phone
     return unless email.blank? && phone.blank?

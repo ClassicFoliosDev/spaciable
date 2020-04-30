@@ -5,6 +5,9 @@
 # 'Head' attribute indicates the Task is the first in the list
 # for the associated Stage
 class Task < ApplicationRecord
+  mount_uploader :picture, PictureUploader
+  attr_accessor :picture_cache
+
   belongs_to :timeline, optional: false
   belongs_to :stage, optional: false
 
@@ -12,10 +15,12 @@ class Task < ApplicationRecord
   has_many :task_shortcuts, -> { order "task_shortcuts.order" }, dependent: :destroy
   accepts_nested_attributes_for :task_shortcuts
   has_many :shortcuts, through: :task_shortcuts
+  has_many :task_contacts,  dependent: :destroy
+  accepts_nested_attributes_for :task_contacts, reject_if: :all_blank, allow_destroy: true
 
-  has_one :action, dependent: :destroy
+  has_one :action, required: false, dependent: :destroy
   accepts_nested_attributes_for :action, reject_if: :all_blank, allow_destroy: true
-  has_one :feature, dependent: :destroy
+  has_one :feature, required: false, dependent: :destroy
   accepts_nested_attributes_for :feature, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
@@ -24,6 +29,13 @@ class Task < ApplicationRecord
   validates :positive, presence: true
   validates :negative, presence: true
   validates_presence_of :stage
+
+  amoeba do
+    include_association :task_shortcuts
+    include_association :action
+    include_association :feature
+    include_association :task_contacts
+  end
 
   # Get the task at the head of the specified stage
   def self.head(timeline, stage)
@@ -106,4 +118,30 @@ class Task < ApplicationRecord
     prev = timeline.before(self)
     update_attributes(head: prev.blank? || prev.stage != stage)
   end
+
+  # Get the tasks contact types as integers
+  def contact_types
+    task_contacts&.pluck(:contact_type).map { |ct| Contact.contact_types[ct]}
+  end
+
+  # Get all the contact types relevant to the plot
+  def contacts(plot)
+    types = contact_types
+    return nil if types.empty?
+    Contact.of_types(plot, types)
+  end
+
+  def build
+    build_action unless action
+    build_feature unless feature
+
+    if task_shortcuts.empty?
+      Shortcut.list.each_with_index do |s, index|
+        task_shortcuts.build(shortcut: s, order: index, live: true)
+      end
+    end
+
+    (0..1).each { |i| task_contacts.build unless task_contacts[i] }
+  end
+
 end

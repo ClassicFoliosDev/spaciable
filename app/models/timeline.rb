@@ -64,9 +64,35 @@ class Timeline < ApplicationRecord
   end
 
   def clone
-    new_timeline = amoeba_dup
-    new_timeline.title = CloneNameService.call(title)
-    new_timeline
+    new_timeline = error = nil
+    Timeline.transaction do
+      begin
+        new_timeline = amoeba_dup
+        new_timeline.title = CloneNameService.call(title)
+        new_timeline.save!
+
+        # The tasks are a linked list - with ids to the next
+        # task.  A normal clone would copy all the next_ids and
+        # link to the records of the donor, so we have to go through
+        # and link the new cloned tasks together manually
+        prev_task = nil
+        tasks.each do |task|
+          new_task = task.amoeba_dup # duplicate the task
+          new_task.timeline = new_timeline # assign the timeline
+          if task.picture.present?
+            CopyCarrierwaveFile::CopyFileService.new(task, new_task, :picture).set_file
+          end
+          new_task.save! # save it
+          # link previous task to new task
+          prev_task&.update_attributes!(next_id: new_task.id)
+          prev_task = new_task
+        end
+      rescue ActiveRecord::RecordInvalid => invalid
+        error = invalid.message
+        raise ActiveRecord::Rollback
+      end
+    end
+    yield new_timeline, error
   end
 
   def to_s

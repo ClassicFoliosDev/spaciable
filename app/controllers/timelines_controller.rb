@@ -49,14 +49,17 @@ class TimelinesController < ApplicationController
   end
 
   def clone
-    new_timeline = Timeline.find(params[:tid])&.clone
-
-    if new_timeline.save
-      notice = t("controller.success.create", name: new_timeline.title)
-    else
-      alert = t("activerecord.errors.messages.clone_not_possible", name: @new_timeline.title)
-      alert << TimelineErrorsService.timeline_errors(new_timeline)
+    alert = notice = nil
+    Timeline.find(params[:tid])&.clone do |new_timeline, error|
+      if error.present?
+        alert = t("activerecord.errors.messages.timeline_bad_clone",
+                  name: Timeline.find(params[:tid])&.title,
+                  error: error)
+      else
+        notice = t("controller.success.create", name: new_timeline.title)
+      end
     end
+
     redirect_to timelines_url, alert: alert, notice: notice
   end
 

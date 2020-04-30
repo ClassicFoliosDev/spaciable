@@ -2,7 +2,7 @@
 
 # Timeline Task actions.
 class Action < ApplicationRecord
-  belongs_to :task, required: true
+  belongs_to :task
 
   validates :title, presence: true
   validates :link, presence: true

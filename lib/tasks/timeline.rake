@@ -10,6 +10,7 @@ namespace :timeline do
     Feature.delete_all
     Action.delete_all
     Shortcut.delete_all
+    TaskContact.delete_all
     Task.delete_all
     TimelineStage.delete_all
     Stage.delete_all
@@ -42,10 +43,16 @@ Once you have paid the reservation fee, you can begin the 21 day countdown to ex
                        stage: reservation,
                        head: true)
 
+    prevtask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    prevtask.save!
+
     TaskShortcut.create(task: prevtask, shortcut: how_tos, live:true, order: 1)
     TaskShortcut.create(task: prevtask, shortcut: faqs, live:true, order: 2)
     TaskShortcut.create(task: prevtask, shortcut: services, live:true, order: 3)
     TaskShortcut.create(task: prevtask, shortcut: area_guide, live:true, order: 4)
+
+    TaskContact.create(task: prevtask, contact_type: :available_IFA)
+    TaskContact.create(task: prevtask, contact_type: :available_Solicitor)
 
     ##############################################################
 
@@ -64,6 +71,9 @@ After appointing your legal representatives, please let your Sales Negotiator kn
                        timeline: timeline,
                        stage: reservation)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -71,6 +81,9 @@ After appointing your legal representatives, please let your Sales Negotiator kn
     TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
     TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
     TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
+
+    TaskContact.create(task: thistask, contact_type: :local_authority)
+    TaskContact.create(task: thistask, contact_type: :available_Solicitor)
 
     Feature.create(task: thistask,
                   title: "Find Solicitors",
@@ -101,6 +114,11 @@ Once you have received confirmation of your mortgage offer, your Solicitor will 
                        timeline: timeline,
                        stage: reservation)
 
+    TaskContact.create(task: thistask, contact_type: :utility_supplier)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -108,6 +126,10 @@ Once you have received confirmation of your mortgage offer, your Solicitor will 
     TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
     TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
     TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
 
     Action.create(task: thistask,
                   title: "Get Quote",
@@ -134,6 +156,9 @@ If you are expecting any documents from the developer, they may be uploaded to y
 If you have any questions about the forms, contact your Solicitor.",
                        timeline: timeline,
                        stage: reservation)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
 
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
@@ -179,6 +204,9 @@ You can also use the Services feature to find exclusive rates for home furnishin
                        timeline: timeline,
                        stage: reservation)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -213,6 +241,9 @@ And there you have it!  Time to flaunt the news on social media - if ever an Ins
                        timeline: timeline,
                        stage: exchange,
                        head: true)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
 
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
@@ -252,6 +283,9 @@ To upgrade your home to include an integrated smart home package, please click h
                        timeline: timeline,
                        stage: exchange)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -278,6 +312,9 @@ Remember to make use of the glossary, if necessary!
 Why not use this time to get the wheels in motion for the big day?  Have a look at the Services feature to find exclusive offers from recommended service suppliers, such as removals, insurance, will writing, home care packages and utility suppliers.  You can even find property management companies, if you're planning on letting out your home!",
                        timeline: timeline,
                        stage: exchange)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
 
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
@@ -306,6 +343,9 @@ Please bear in mind that your Home Demonstration presents an ideal opportunity t
                        timeline: timeline,
                        stage: exchange)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -329,6 +369,9 @@ Our partnered insurance providers can help ensure (no pun intended) you are cove
                        stage: moving,
                        head: true)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -350,6 +393,9 @@ So, here is your friendly reminder to take your meter readings when you move out
 Likewise, take the meter readings upon arrival at your new home, then enter your details in each of the following form.  By clicking Submit, these will be automatically forwarded to your utility provider, saving you the unenviable task of listening to high pitched hold music for 22 minutes.",
                        timeline: timeline,
                        stage: moving)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
 
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
@@ -379,6 +425,9 @@ If you haven’t been provided with refuse and recycling bins at your new home, 
                        timeline: timeline,
                        stage: moving)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -404,6 +453,12 @@ Familiarise yourself with your new surroundings here and become a fully-fledged 
                        stage: living,
                        head: true)
 
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
+
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask
 
@@ -424,6 +479,9 @@ These items can be submitted here. ",
                        timeline: timeline,
                        stage: living,
                        head: true)
+
+    thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
+    thistask.save!
 
     prevtask.update_attribute(:next, thistask)
     prevtask = thistask

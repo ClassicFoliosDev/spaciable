@@ -31,8 +31,7 @@ class TasksController < ApplicationController
   def edit
     @disabled_stages = disabled_stages(@task)
     @checked_stage = @task&.stage_id
-    @task.build_action unless @task.action
-    @task.build_feature unless @task.feature
+    @task.build
   end
 
   def update
@@ -108,12 +107,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(
-      :stage_id, :timeline_id,
+      :stage_id, :timeline_id, :picture,
       :title, :question, :answer, :response, :positive,
       :negative, :not_applicable,
-      feature_attributes: %i[title description link],
-      action_attributes: %i[title description link],
-      task_shortcuts_attributes: %i[live order shortcut_id]
+      feature_attributes: %i[id title description link],
+      action_attributes: %i[id title description link],
+      task_shortcuts_attributes: %i[id live order shortcut_id],
+      task_contacts_attributes: %i[contact_type id]
     )
   end
 
@@ -129,13 +129,6 @@ class TasksController < ApplicationController
     @task.stage = @insertion_task ? @insertion_task.stage :
                                              @timeline.stages.first
 
-    @task.build_action unless @task.action
-    @task.build_feature unless @task.feature
-
-    return unless @task.task_shortcuts.empty?
-
-    Shortcut.list.each_with_index do |s, index|
-      @task.task_shortcuts.build(shortcut: s, order: index)
-    end
+    @task.build
   end
 end
