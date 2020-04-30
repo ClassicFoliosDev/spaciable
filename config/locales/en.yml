@@ -3282,6 +3282,7 @@ en:
     show:
       edit: "Edit"
       delete: "Delete"
+      next: "Next"
       insert_before: "Insert Page Before %{page}"
       insert_after: "Insert Page After %{page}"
       empty: "You timeline is currently empty. Add a page to start creating your timeline."

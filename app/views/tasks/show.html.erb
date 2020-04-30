@@ -41,10 +41,11 @@
               <ul class="sub-stage">
                 <% @timeline.tasks&.each do |tt| %>
                   <% if tt.stage.title == tstage.stage.title %>
-                <li id = "<%= 'activeTaskScroll' if tt == @task %>"
-                    class="sub-stage-container branded-text <%= 'active' if @task.present? && @task == tt %>">
-                  <a class="stage" href="<%= timeline_task_path @timeline, tt %>"><%= tt.title %></a>
-                </li>
+                    <a class="stage" id = "<%= 'activeTaskScroll' if tt == @task %>" href="<%= timeline_task_path @timeline, tt %>">
+                      <li class="sub-stage-container branded-text <%= 'active' if @task.present? && @task == tt %>">
+                        <span><%= tt.title %></span>
+                      </li>
+                    </a>
                   <% end %>
                 <% end %>
               </ul>
@@ -59,12 +60,14 @@
               <p><%= @task.question %></p>
             </div>
             <div class="actions">
-              <div class="timeline-btn">
-                <%= @task.positive %>
-              </div>
+              <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                  <%= @task.positive %>
+              </a>
               <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
               <% if @task.not_applicable %>
-                <div class="timeline-btn"><%= t(".not_applicable") %></div>
+                <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                  <%= t(".not_applicable") %>
+                </a>
               <% end %>
             </div>
           </div>
@@ -116,10 +119,12 @@
 
               <div class="next">
                 <% if @task.next %>
-                  <a href="<%= timeline_task_path @timeline, @task.next %>">
+                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                    <%= t(".next") %>
+                  </a>
                 <% end %>
-                Next</div>
               </div>
+            </div>
           </div>
         </div>
       </div>

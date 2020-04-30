@@ -150,49 +150,49 @@
     }
 
     .sub-stage {
-      .sub-stage-container {
-        border: 1px solid $ui-grey;
-        margin: $spacing-medium;
-        margin-left: $spacing-small;
-        padding: 6px;
-        padding-left: $spacing-medium;
-        list-style: none;
-        border-radius: 5px;
+      .stage {
+        text-decoration: none;
+        color: $semi-pale-navy;
 
-        /* custom list bullets */
-        &:before {
-          display: inline-block;
-          font-size: 22px;
-          content: '\25CF';
-          color: $primary-red-left;
-          position: relative;
-          right:42px;
-          line-height: 0;
-          top: 2px;
-        }
-
-        a {
-          text-decoration: none;
-          font-size: $base-small-font-size;
-          color: $semi-pale-navy;
+        .sub-stage-container {
+          border: 1px solid $ui-grey;
+          margin: $spacing-medium;
+          margin-left: $spacing-small;
+          padding: 6px;
+          padding-left: $spacing-medium;
+          list-style: none;
+          border-radius: 5px;
 
           &:hover {
             color: $primary-navy;
           }
+
+          /* custom list bullets */
+          &:before {
+            display: inline-block;
+            font-size: 22px;
+            content: '\25CF';
+            color: $primary-red-left;
+            position: relative;
+            right:42px;
+            line-height: 0;
+            top: 2px;
+          }
+
+          span {
+            font-size: $base-small-font-size;
+          }
         }
-      }
 
-      .active {
-        border: 2px solid $ui-grey;
-        background-color: $ui-superlight-grey;
-
-        /* custom list bullet -> add one pixel to take into account the 2px border of .active */
-        &:before {
-          right: 43px;
-        }
-
-        a {
+        .active {
+          border: 2px solid $ui-grey;
+          background-color: $ui-superlight-grey;
           color: $primary-navy;
+
+          /* custom list bullet -> add one pixel to take into account the 2px border of .active */
+          &:before {
+            right: 43px;
+          }
         }
       }
     }
@@ -222,6 +222,7 @@
 
       .actions {
         .timeline-btn {
+          text-decoration: none;
           width: 140px;
           margin: $spacing-medium;
           background-color: $ui-light-grey;
@@ -231,12 +232,12 @@
           font-size: $base-font-size;
           padding: 5px;
           cursor: default;
-        }
 
-        #viewAnswer:hover {
-          background-color: $ui-grey;
-          font-weight: $bold-font-weight;
-          cursor: pointer;
+          &:hover {
+            background-color: $ui-grey;
+            font-weight: $bold-font-weight;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -424,6 +425,7 @@
           text-align: center;
 
           .timeline-btn {
+            text-decoration: none;
             width: 140px;
             margin: $spacing-medium;
             background-color: $ui-light-grey;
@@ -433,6 +435,12 @@
             font-size: $base-font-size;
             padding: 5px;
             cursor: default;
+
+            &:hover {
+              background-color: $ui-grey;
+              font-weight: $bold-font-weight;
+              cursor: pointer;
+            }
           }
         }
       }
@@ -452,15 +460,39 @@
     grid-column-end: 1;
     max-height: 1200px;
     .sub-stage {
-      .active .stage {
-        color: $primary-navy;
-      }
-
       .sub-stage-container {
+        border: 1px solid $ui-grey;
+        margin: $spacing-medium;
+        margin-left: $spacing-small;
+        padding: 6px;
+        padding-left: $spacing-medium;
+        list-style: none;
+        border-radius: 5px;
+
+        /* custom list bullets */
+        &:before {
+          display: inline-block;
+          font-size: 22px;
+          content: '\25CF';
+          color: $primary-red-left;
+          position: relative;
+          right:42px;
+          line-height: 0;
+          top: 2px;
+        }
+
         span {
           text-decoration: none;
           font-size: $base-small-font-size;
           color: $ui-dark-grey;
+        }
+      }
+
+      .active {
+        border: 2px solid $ui-grey;
+
+        .stage {
+          color: $primary-navy;
         }
       }
 
