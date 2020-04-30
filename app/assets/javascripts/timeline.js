@@ -52,7 +52,7 @@ $(document).on('click', '#viewAnswer', function (event) {
 })
 
 document.addEventListener('turbolinks:load', function () {
-  // auto scroll down to the active task
+  // show page - sidebar auto scroll to active task
   // if the element does not exist then subsequent code will not run, so check it exists using length property
   if ($('#timelineAdminSidebar').length) {
     $('#timelineAdminSidebar').animate({
@@ -60,7 +60,31 @@ document.addEventListener('turbolinks:load', function () {
     }, 1000)
   }
 
-  // add disabled class to disabled stage radio buttons
+  // task form - add disabled class to disabled stage radio buttons
   var stageRadio = $('#stageRadio').find("input[disabled='disabled']")
   stageRadio.parents("label").addClass("disabled")
+})
+
+// task form - show the action fields on clicking add action button
+$(document).on('click', '#addActionBtn', function (event) {
+  $(this).hide()
+  $('#actionInput').show()
+})
+
+// task form - hide the action fields on clicking delete action button
+$(document).on('click', '#deleteActionBtn', function (event) {
+  $('#actionInput').hide()
+  $('#addActionBtn').show()
+})
+
+// task form - show the feature fields on clicking add feature button
+$(document).on('click', '#addFeatureBtn', function (event) {
+  $(this).hide()
+  $('#featureInput').show()
+})
+
+// task form - hide the feature fields on clicking delete feature button
+$(document).on('click', '#deleteFeatureBtn', function (event) {
+  $('#featureInput').hide()
+  $('#addFeatureBtn').show()
 })

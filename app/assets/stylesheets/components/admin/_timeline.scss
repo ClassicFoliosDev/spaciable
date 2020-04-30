@@ -266,6 +266,9 @@
 
             &:hover {
               cursor: pointer;
+              background-color: $ui-light-grey;
+              color: $primary-navy;
+              border: 1px solid $primary-navy;
             }
           }
         }
@@ -458,7 +461,9 @@
   .timeline-sidebar {
     grid-column-start: 1;
     grid-column-end: 1;
-    max-height: 1200px;
+    max-height: 1300px;
+    border-radius: 5px;
+
     .sub-stage {
       .sub-stage-container {
         border: 1px solid $ui-grey;
@@ -584,6 +589,25 @@
         grid-column-end: 2;
         grid-row-start: 1;
         grid-row-end: 2;
+
+        #addFeatureBtn,
+        #deleteFeatureBtn {
+          margin: $spacing-small 0;
+          padding: 5px;
+          width: 100px;
+          border-radius: 5px;
+          background-color: $primary-red-left;
+          color: $ui-white;
+          border: 1px solid $primary-red-left;
+          font-size: $base-small-font-size;
+          text-align: center;
+
+          &:hover {
+            background-color: $ui-white;
+            color: $primary-red-left;
+            cursor: pointer;
+          }
+        }
       }
 
       .action {
@@ -592,6 +616,25 @@
         grid-column-end: 3;
         grid-row-start: 1;
         grid-row-end: 2;
+
+        #addActionBtn,
+        #deleteActionBtn {
+          margin: $spacing-small 0;
+          padding: 5px;
+          width: 100px;
+          border-radius: 5px;
+          background-color: $primary-red-left;
+          color: $ui-white;
+          border: 1px solid $primary-red-left;
+          font-size: $base-small-font-size;
+          text-align: center;
+
+          &:hover {
+            background-color: $ui-white;
+            color: $primary-red-left;
+            cursor: pointer;
+          }
+        }
       }
 
       .shortcuts {

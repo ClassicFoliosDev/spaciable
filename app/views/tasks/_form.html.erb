@@ -64,19 +64,29 @@
 
       <div class="link-content">
         <div class="feature">
-        <%= f.fields_for :feature do |ft| %>
-          <%= ft.input :title, label: t(".feature.title") %>
-          <%= ft.input :description, label: t(".feature.description")%>
-          <%= ft.input :link, label: t(".feature.link") %>
-        <% end %>
+          <label><%= t(".feature.label") %></label>
+          <div id="addFeatureBtn" style="<%= 'display: none' if @task.feature.title %>"><%= t(".feature.add") %></div> <!-- update this when know more about how features are defined -->
+          <div id="featureInput" style="<%= 'display: none' unless @task.feature.title %>"> <!-- update this when know more about how actions are defined -->
+            <div id="deleteFeatureBtn"><%= t(".feature.delete") %></div>
+            <%= f.fields_for :feature do |ft| %>
+              <%= ft.input :title, label: t(".feature.title") %>
+              <%= ft.input :description, label: t(".feature.description")%>
+              <%= ft.input :link, label: t(".feature.link") %>
+            <% end %>
+          </div>
         </div>
 
         <div class="action">
-        <%= f.fields_for :action do |ft| %>
-          <%= ft.input :title, label: t(".action.title") %>
-          <%= ft.input :description, label: t(".action.description") %>
-          <%= ft.input :link, label: t(".feature.link") %>
-        <% end %>
+          <label><%= t(".action.label") %></label>
+          <div id="addActionBtn" style="<%= 'display: none' if @task.action.title %>"><%= t(".action.add") %></div> <!-- update this when know more about how actions are defined -->
+          <div id="actionInput" style="<%= 'display: none' unless @task.action.title %>"> <!-- update this when know more about how actions are defined -->
+            <div id="deleteActionBtn"><%= t(".action.delete") %></div>
+            <%= f.fields_for :action do |ft| %>
+              <%= ft.input :title, label: t(".action.title") %>
+              <%= ft.input :description, label: t(".action.description") %>
+              <%= ft.input :link, label: t(".feature.link") %>
+            <% end %>
+          </div>
         </div>
 
         <div class="shortcuts">

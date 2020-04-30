@@ -3327,11 +3327,17 @@ en:
       services: "Services"
       faqs: "FAQs"
       feature:
-        title: "Feature Button Text"
+        label: "Feature"
+        add: "Add Feature"
+        delete: "Delete Feature"
+        title: "Button Text"
         description: "Description"
         link: "Link"
       action:
-        title: "Action Button Text"
+        label: "Action"
+        add: "Add Action"
+        delete: "Delete Action"
+        title: "Button Text"
         description: "Description"
         link: "Link"
     destroy:
