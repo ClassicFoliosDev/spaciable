@@ -594,7 +594,7 @@
         #deleteFeatureBtn {
           margin: $spacing-small 0;
           padding: 5px;
-          width: 100px;
+          width: 110px;
           border-radius: 5px;
           background-color: $primary-red-left;
           color: $ui-white;
@@ -621,7 +621,7 @@
         #deleteActionBtn {
           margin: $spacing-small 0;
           padding: 5px;
-          width: 100px;
+          width: 110px;
           border-radius: 5px;
           background-color: $primary-red-left;
           color: $ui-white;
@@ -669,6 +669,11 @@
       padding: $spacing-small;
       padding-left: $spacing-large;
       border-top: 2px solid $ui-grey;
+
+      .btn {
+        width: 100px;
+        text-align: center;
+      }
 
       .btn-form-submit {
         margin-left: $spacing-small;
