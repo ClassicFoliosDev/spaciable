@@ -664,13 +664,15 @@
       }
     }
 
+    .form-actions-footer-container {
+      background-color: $ui-light-grey;
+      padding: $spacing-small;
+      padding-left: $spacing-large;
+      border-top: 2px solid $ui-grey;
 
-
-    .feature {
-
-    }
-
-    .action {
+      .btn-form-submit {
+        margin-left: $spacing-small;
+      }
 
     }
   }
