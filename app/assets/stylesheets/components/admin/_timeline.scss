@@ -513,13 +513,7 @@
     position: relative;
 
     .stages {
-      padding-bottom: $spacing-large;
-
-      .disabled {
-        color: $semi-pale-navy;
-        font-size: $base-font-size;
-        padding-top: $spacing-small;
-      }
+      padding-bottom: $spacing-medium;
 
       .inline-radio {
         label {
@@ -530,6 +524,10 @@
           .collection_radio_buttons {
             padding-left: $spacing-small;
           }
+        }
+
+        .disabled label {
+          color: $semi-pale-navy;
         }
       }
     }

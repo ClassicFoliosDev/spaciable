@@ -35,7 +35,7 @@
   <div class="timeline-form">
     <%= simple_form_for ([@timeline, @task]) do |f| %>
       <div class="stages">
-        <group class="inline-radio" >
+        <group class="inline-radio" id="stageRadio">
           <%= f.collection_radio_buttons :stage_id, @stages, :first, :last, checked: @task.stage.id, disabled: @disabled_stages %>
         </group>
       </div>
@@ -80,11 +80,12 @@
         </div>
 
         <div class="shortcuts">
+          <label><%= t(".shortcuts") %></label>
           <p><%= t(".shortcuts_text") %></p>
             <div class="shortcut-options">
             <%= f.fields_for :task_shortcuts do |s| %>
               <%= s.check_box :live %>
-              <%= s.label :live, s.object.shortcut_type %>
+              <%= s.label :live, t(".#{s.object.shortcut_type}") %>
               <%= s.hidden_field :order %>
               <%= s.hidden_field :shortcut_id, value: s.object.shortcut_id %>
             <% end %>

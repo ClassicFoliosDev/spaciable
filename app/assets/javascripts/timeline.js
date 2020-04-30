@@ -45,15 +45,22 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
 
 })
 
-// admin preview (timeline task show page)
-
+// show/hide answer on admin preview (timeline task show page)
 $(document).on('click', '#viewAnswer', function (event) {
   $('#answer').show()
   $('#question').hide()
 })
 
 document.addEventListener('turbolinks:load', function () {
-  $('#timelineAdminSidebar').animate({
-    scrollTop: $('#activeTaskScroll').offset().top - 420
-  }, 1000)
+  // auto scroll down to the active task
+  // if the element does not exist then subsequent code will not run, so check it exists using length property
+  if ($('#timelineAdminSidebar').length) {
+    $('#timelineAdminSidebar').animate({
+      scrollTop: $('#activeTaskScroll').offset().top - 420
+    }, 1000)
+  }
+
+  // add disabled class to disabled stage radio buttons
+  var stageRadio = $('#stageRadio').find("input[disabled='disabled']")
+  stageRadio.parents("label").addClass("disabled")
 })
