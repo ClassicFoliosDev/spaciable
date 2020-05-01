@@ -3319,8 +3319,8 @@ en:
       edit: "Edit %{task}"
     form:
       new: "New Page"
-      picture: "Image"
-      heading: "Page Heading"
+      picture: "Page Image"
+      heading: "Page Title"
       question: "Question"
       answer: "Response Heading"
       response: "Response Content"
@@ -3336,7 +3336,7 @@ en:
       area_guide: "Area Guide"
       services: "Services"
       faqs: "FAQs"
-      contact_type: "Position Tag"
+      contact_type: "Contact Tag"
       feature:
         label: "Feature"
         add: "Add Feature"

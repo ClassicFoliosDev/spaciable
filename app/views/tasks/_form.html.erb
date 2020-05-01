@@ -35,10 +35,6 @@
   <div class="timeline-form">
     <%= simple_form_for ([@timeline, @task]) do |f| %>
 
-     <div class="image-container">
-          <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
-      </div>
-
       <div class="stages">
         <group class="inline-radio" id="stageRadio">
           <%= f.collection_radio_buttons :stage_id, @stages, :first, :last, checked: @task.stage.id, disabled: @disabled_stages %>
@@ -48,6 +44,12 @@
       <% if action?(:new) ||  action?(:create) %>
         <%= f.hidden_field :timeline_id, value: @timeline&.id %>
       <% end %>
+
+      <div class="image-content">
+        <div class="image-container">
+          <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+      </div>
 
       <div class="text-content">
         <div class="question">
@@ -66,6 +68,15 @@
           <%= f.input :response, label: t(".response"), as: :ckeditor%>
         </div>
       </div>
+
+      <div class="contact-content">
+        <%= f.fields_for :task_contacts do |tc| %>
+          <div class="ui-front select-container contact-container">
+            <%= tc.input :contact_type, label: t(".contact_type"), as: :select, collection: contact_types_collection, include_blank: true %>
+          </div>
+        <% end %>
+      </div>
+
 
       <div class="link-content">
         <div class="feature">
@@ -109,12 +120,6 @@
             <% end %>
           </div>
         </div>
-
-        <%= f.fields_for :task_contacts do |tc| %>
-          <div class="ui-front select-container">
-            <%= tc.input :contact_type, label: t(".contact_type"), as: :select, collection: contact_types_collection, include_blank: true %>
-          </div>
-        <% end %>
 
       </div>
 

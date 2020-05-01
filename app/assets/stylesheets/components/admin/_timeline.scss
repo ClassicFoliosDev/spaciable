@@ -461,7 +461,7 @@
   .timeline-sidebar {
     grid-column-start: 1;
     grid-column-end: 1;
-    max-height: 1300px;
+    max-height: 1650px;
     border-radius: 5px;
 
     .sub-stage {
@@ -573,6 +573,48 @@
 
       label {
         padding-top: $spacing-small;
+        color: $primary-navy;
+      }
+    }
+
+    .image-content {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+
+      .image-container {
+        padding-right: $spacing-medium;
+        margin-bottom: $spacing-medium;
+        padding-top: $spacing-small;
+
+        .btn {
+          line-height: 1.7;
+
+        }
+      }
+
+      .image_preview {
+        margin: 0;
+        color: $primary-navy;
+      }
+    }
+
+    .contact-content {
+      padding-top: $spacing-medium;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+
+      .contact-container:nth-child(odd) {
+        padding-left: $spacing-medium;
+      }
+
+      .contact-container:nth-child(1) {
+        padding-right: $spacing-medium;
+        padding-left: 0;
+      }
+
+      label {
         color: $primary-navy;
       }
     }
