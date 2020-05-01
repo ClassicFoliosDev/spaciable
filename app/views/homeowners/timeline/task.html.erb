@@ -1,8 +1,5 @@
 <%= render "components/homeowner/hero" %>
 
-<!--move this where ever you need it Robyn -->
-<%= contacts = @task.contacts(@plot) %>
-
 <div class="timeline-container">
   <div class="branded-body outer-container timeline-task">
 
@@ -50,17 +47,20 @@
         <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
 
         <div id="question" >
-          <div class="content">
-            <p class="branded-text"> <%= @task.question %> </p>
-          </div>
-          <div class="actions">
-            <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
-            <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
+          <div class="question-content">
+            <div class="content">
+              <p class="branded-text"> <%= @task.question %> </p>
+            </div>
+            <div class="actions">
+              <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
+              <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
-            <% if @task.not_applicable %>
-            <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
-            <% end %>
+              <% if @task.not_applicable %>
+              <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
+              <% end %>
+            </div>
           </div>
+          <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
         </div>
 
         <div id="answer">
@@ -82,6 +82,8 @@
               </div>
             </aside>
           </div>
+
+          <%= contacts = @task.contacts(@plot) %>
 
           <div class="timeline-footer">
             <aside class="shortcuts-container">

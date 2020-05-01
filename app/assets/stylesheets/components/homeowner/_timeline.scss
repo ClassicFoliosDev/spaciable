@@ -158,6 +158,7 @@
   display: flex;
   background-color: $ui-grey;
   padding-top: 0;
+  padding-bottom: 0;
   position: relative;
 
   .timeline-sidebar {
@@ -169,6 +170,7 @@
     height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
+    z-index: 10;
 
     .timeline-header {
       background-color: $primary-red-left;
@@ -309,35 +311,60 @@
 
   .timeline-content {
     position: relative;
-    left: 300px;
+    width: 100%;
     right: 0;
-    margin: auto;
-    padding: $spacing-large;
+    display: flex;
 
     form {
       width: 100%;
-      margin-right: 300px;
+      margin-left: 300px;
     }
 
     #question {
-      text-align: center;
-      margin-top: auto;
-      margin-bottom: auto;
-      display: table-cell;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      height: 100%;
+      width: 100%;
 
-      .content {
-        p {
-          font-size: $title-font-size-4;
+      .question-content {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding: $spacing-large;
+        padding-left: $spacing-large * 3;
+        display: table;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        .content {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+
+          p {
+            font-size: $title-font-size-2;
+            line-height: $title-font-size-1;
+          }
         }
       }
 
+      .image {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
       .actions {
+        width: 100%;
+        position: relative;
+
         .branded-btn {
           width: 140px;
-          margin: $spacing-medium;
+          margin: $spacing-medium $spacing-large $spacing-medium 0;
           background-color: $ui-light-grey;
-          border: 2px solid $ui-grey;
+          border: 1px solid $primary-navy;
           color: $primary-navy;
+          border-radius: 5px;
 
           &:hover {
             background-color: $ui-grey;
@@ -602,15 +629,13 @@
 @include media($desktop-down) {
   .timeline-task {
     .timeline-content {
-      left: 0;
-      margin-left: 300px;
-      width: 100%;
+      #question {
+        .question-content {
+          padding-left: $spacing-large * 2;
+        }
+      }
 
       form {
-        display: grid;
-        text-align: center;
-        margin: auto;
-
         #answer {
           margin-left: 0;
 

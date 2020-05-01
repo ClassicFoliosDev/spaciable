@@ -15,14 +15,6 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
     $('#question').hide()
     $('#answer').show()
 
-    // change the styling properties of timeline-content if on desktop
-    var content = document.querySelector(".timeline-content")
-    if ($(window).innerWidth() >= 1025) {
-      content.style.margin = "0"
-      content.style.left = "0"
-      content.style.marginLeft = "300px"
-    }
-
     // change the answer element to correct display type if on mobile
     if ($(window).innerWidth() < 1025) {
       var answer = document.getElementById("answer")
