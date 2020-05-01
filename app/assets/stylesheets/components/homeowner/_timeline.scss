@@ -411,6 +411,7 @@
         .features-container {
           display: inline-block;
           float: left;
+          padding-top: $spacing-medium;
 
           .branded-btn-inverted {
             min-width: 140px;
@@ -579,14 +580,15 @@
         .next {
           @include span-columns(12 of 12);
           padding: $spacing-large;
-          padding-top: 0;
+          padding-top: $spacing-small;
           text-align: center;
 
-          input {
+          input,
+          .btn {
             width: 140px;
             color: $primary-navy;
             background-color: $ui-light-grey;
-            border: 2px solid $ui-grey;
+            border: 1px solid $primary-navy;
             padding: 0px 10px;
             border-radius: 5px;
             font-size: $base-font-size;
@@ -598,6 +600,10 @@
               cursor: pointer;
               font-weight: $bold-font-weight;
             }
+          }
+
+          .btn {
+            margin-right: $spacing-large;
           }
         }
       }

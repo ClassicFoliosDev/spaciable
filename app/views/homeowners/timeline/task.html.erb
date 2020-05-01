@@ -69,14 +69,9 @@
             <p class="branded-text"> <%= simple_format @task.response %> </p>
 
             <aside class="useful-extras">
-              <div class="actions-container">
-                <%if @task.action %>
-                  <button onclick="window.open('<%=@task.action.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.action.title %></button>
-                <% end %>
-              </div>
-
               <div class="features-container">
                 <% if @task.feature %>
+                  <p><%= @task.feature.description %></p>
                   <button onclick="window.open('<%=@task.feature.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.feature.title %></button>
                 <% end %>
               </div>
@@ -109,6 +104,12 @@
             </aside>
 
             <div class="next">
+              <%if @task.action %>
+                <% if @task.action.description.present? %>
+                  <p><%= @task.action.description %></p>
+                <% end %>
+                <button onclick="window.open('<%=@task.action.link%>', '_blank')" type="button" class="btn branded-btn"><%= @task.action.title %></button>
+              <% end %>
               <input type="submit" value=<%="#{t('homeowners.timeline.next')}"%> class: "btn-form-submit btn branded-btn">
             </div>
           </div>
