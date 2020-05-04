@@ -410,10 +410,13 @@
 
           .avatar {
             width: 70px;
+            width: 70px;
             height: 70px;
             position: relative;
             display: inline-block;
             float: left;
+            border-radius: 5px;
+            border: 1px solid $ui-light-grey;
 
             img {
               max-width: 100%;

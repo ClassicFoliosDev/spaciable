@@ -56,20 +56,23 @@
 
         <div class="timeline-content">
           <div id="question">
-            <div class="content">
-              <p><%= @task.question %></p>
-            </div>
-            <div class="actions">
-              <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
-                  <%= @task.positive %>
-              </a>
-              <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
-              <% if @task.not_applicable %>
+            <div class="question-content">
+              <div class="content">
+                <p><%= @task.question %></p>
+              </div>
+              <div class="actions">
                 <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
-                  <%= t(".not_applicable") %>
+                    <%= @task.positive %>
                 </a>
-              <% end %>
+                <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
+                <% if @task.not_applicable %>
+                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                    <%= t(".not_applicable") %>
+                  </a>
+                <% end %>
+              </div>
             </div>
+            <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
           </div>
 
           <div id="answer">
@@ -78,13 +81,6 @@
               <p><%= simple_format @task.response %></p>
 
               <aside class="useful-extras">
-                <div class="actions-container">
-                  <%if @task.action %>
-                    <p><%= @task.action.description %></p>
-                    <button onclick="window.open('<%= @task.action.link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.action.title %></button>
-                  <% end %>
-                </div>
-
                 <div class="features-container">
                   <% if @task.feature %>
                     <p><%= @task.feature.description %></p>
@@ -93,6 +89,27 @@
                 </div>
               </aside>
             </div>
+
+            <!-- can't show contact info because preview isn't associated with a plot -->
+            <aside class="contact-container">
+              <p class="disclaimer">If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes.</p>
+              <div class="contact">
+                <div class="avatar" style="background-image: url('<%= asset_path('example_contact.png') %>')">
+
+                </div>
+                <div class="contact-info">
+                  <p class="name">Joe Harvey</p>
+                  <p class="position">Independent Financial Advisor</p>
+
+                  <p class="contact-detail">
+                    <span>01202 511234</span>
+                  </p>
+
+                  <p class="contact-detail">
+                    <span>jharvey@harveysfinancial.com</span>
+                  </p>
+              </div>
+            </aside>
 
             <div class="timeline-footer">
               <aside class="shortcuts-container">
@@ -118,6 +135,12 @@
               </aside>
 
               <div class="next">
+                <%if @task.action %>
+                  <% if @task.action.description.present? %>
+                    <p><%= @task.action.description %></p>
+                  <% end %>
+                  <button onclick="window.open('<%= @task.action.link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.action.title %></button>
+                <% end %>
                 <% if @task.next %>
                   <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
                     <%= t(".next") %>

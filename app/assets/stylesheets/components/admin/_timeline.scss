@@ -202,43 +202,65 @@
     position: relative;
     height: 100%;
     margin: auto;
-    padding: $spacing-small;
     overflow-y: scroll;
     overflow-x: hidden;
 
     #question {
-      vertical-align: middle;
-      text-align: center;
-      height: 100%;
       display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      height: 100%;
+      width: 100%;
 
-      .content {
-        align-self: end;
+      .question-content {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding: $spacing-large;
+        padding-left: $spacing-large * 2;
+        display: table;
+        margin-top: auto;
+        margin-bottom: auto;
 
-        p {
-          font-size: $title-font-size-4;
+        .content {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+
+          p {
+            font-size: $title-font-size-2;
+            line-height: $title-font-size-1;
+          }
+        }
+
+        .actions {
+          .timeline-btn {
+            text-align: center;
+            text-decoration: none;
+            width: 140px;
+            margin: $spacing-medium $spacing-large $spacing-medium 0;
+            background-color: $ui-light-grey;
+            border: 1px solid $primary-navy;
+            border-radius: 5px;
+            color: $primary-navy;
+            display: inline-block;
+            font-size: $base-font-size;
+            padding: 5px;
+            cursor: default;
+            line-height: 22px;
+
+            &:hover {
+              background-color: $ui-grey;
+              font-weight: $bold-font-weight;
+              cursor: pointer;
+            }
+          }
         }
       }
 
-      .actions {
-        .timeline-btn {
-          text-decoration: none;
-          width: 140px;
-          margin: $spacing-medium;
-          background-color: $ui-light-grey;
-          border: 2px solid $ui-grey;
-          color: $primary-navy;
-          display: inline-block;
-          font-size: $base-font-size;
-          padding: 5px;
-          cursor: default;
-
-          &:hover {
-            background-color: $ui-grey;
-            font-weight: $bold-font-weight;
-            cursor: pointer;
-          }
-        }
+      .image {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
       }
     }
 
@@ -249,8 +271,9 @@
       display: none;
 
       .answer-container {
-        width: 60%;
-        padding-bottom: $spacing-large;
+        @include span-columns(7 of 12);
+        margin-right: 0;
+        padding-right: $spacing-small;
 
         h2 {
           font-size: $title-font-size-3;
@@ -271,6 +294,38 @@
               border: 1px solid $primary-navy;
             }
           }
+        }
+      }
+
+      .contact-container {
+        @include span-columns(5 of 12);
+        padding-left: $spacing-medium;
+
+        .disclaimer {
+          font-size: $base-small-font-size;
+          font-style: italic;
+          padding-bottom: $spacing-large;
+        }
+
+        .avatar {
+          width: 70px;
+          height: 70px;
+          position: relative;
+          display: inline-block;
+          float: left;
+          border-radius: 5px;
+          border: 1px solid $ui-light-grey;
+          background-repeat: no-repeat;
+          background-size: contain;
+          margin-right: $spacing-small;
+        }
+
+        .name, .position {
+          font-weight: $bold-font-weight;
+        }
+
+        p {
+          margin-bottom: 0;
         }
       }
 
@@ -432,7 +487,8 @@
             width: 140px;
             margin: $spacing-medium;
             background-color: $ui-light-grey;
-            border: 2px solid $ui-grey;
+            border: 1px solid $primary-navy;
+            border-radius: 5px;
             color: $primary-navy;
             display: inline-block;
             font-size: $base-font-size;
