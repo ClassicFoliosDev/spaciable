@@ -53,6 +53,11 @@
     $('#iconExchange').addClass("fas fa-key")
     $('#iconMoving').addClass("fa fa-truck")
     $('#iconLiving').addClass("fas fa-male")
+
+    $('#iconMobileReservation').addClass("fa fa-check")
+    $('#iconMobileExchange').addClass("fas fa-key")
+    $('#iconMobileMoving').addClass("fa fa-truck")
+    $('#iconMobileLiving').addClass("fas fa-male")
   })
 
   // display timeline in mobile view
