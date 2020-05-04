@@ -1,0 +1,31 @@
+
+
+<div class="section-header clone-timeline">
+  <div class="section-title">
+    <%= t(".title") %><br>
+  </div>
+</div>
+
+<%= simple_form_for @developer do |f| %>
+
+  <%= f.hidden_field :developer_id, value: @developer.id %>
+  <div class="timeline">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :timeline_id,
+            as: :select,
+            collection: Global.timelines,
+            label_method: ->(timeline) { timeline.title },
+            selected: :first %>
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t("back"), developer_timelines_path, class: "btn" %>
+      <!-- button handled by javascript -->
+      <%= button_tag t(".import"), :type => 'button', class: "btn btn-primary import-timeline", id: 'import-btn' %>
+    </div>
+  </div>
+<% end %>

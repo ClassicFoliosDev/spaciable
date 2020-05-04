@@ -7,29 +7,38 @@
 <div class="admin-timeline">
   <% if action?(:empty) %>
     <div class="empty">
-      <div class="empty-text">
-        <p><%= t(".empty") %></p>
-      </div>
-      <div class="btn-group">
-        <%= link_to t(".add_task"), new_timeline_task_path(insert: :first), class: "btn" %>
-      </div>
+      <% if current_user&.cf_admin? %>
+        <div class="empty-text">
+          <p><%= t(".empty_cf") %></p>
+        </div>
+        <div class="btn-group">
+          <%= link_to t(".add_task"), new_timeline_task_path(insert: :first), class: "btn" %>
+        </div>
+      <% else %>
+        <div class="empty-text">
+          <p><%= t(".empty") %></p>
+        </div>
+      <% end %>
     </div>
   <% else %>
     <div class="admin-timeline-preview">
-
       <div class="heading">
-        <% if action?(:show) %>
-          <div class="actions">
-            <h2 class="page-name"><%= @task.title %></h2>
+        <div class="actions">
+          <h2 class="page-name"><%= @task.title %></h2>
+          <% if current_user&.cf_admin? %>
             <div class="btn-group">
               <%= link_to t(".edit"), edit_timeline_task_path, class: "btn"%>
               <%= link_to t(".delete"), timeline_task_path, method: :delete, class: "btn"%>
               <%= link_to t(".insert_before", page: @task.title), new_timeline_task_path(task_id: @task.id, insert: :before), class: "btn insert" %>
               <%= link_to t(".insert_after", page: @task.title), new_timeline_task_path(task_id: @task.id, insert: :after), class: "btn insert" %>
             </div>
-          </div>
-
-        <% end %>
+            <% if @timeline.finale %>
+              <%= link_to t(".edit_finale"), edit_timeline_finale_path(@timeline, @timeline.finale, task_id: @task.id), class: "btn insert" %>
+            <% else %>
+              <%= link_to t(".add_finale"), new_timeline_finale_path(@timeline, task_id: @task.id), class: "btn insert" %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
 
       <div class="preview">
@@ -50,6 +59,23 @@
                 <% end %>
               </ul>
               <% end %>
+              <% if @timeline.finale %>
+                <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
+                <ul class="sub-stage">
+                  <a class="stage" href="<%= timeline_finale_path @timeline, @timeline.finale, complete:true %>">
+                      <li class="sub-stage-container branded-text">
+                        <span><%= t("tasks.complete") %></span>
+                      </li>
+                    </a>
+                </ul>
+                <ul class="sub-stage">
+                  <a class="stage" href="<%= timeline_finale_path @timeline, @timeline.finale, complete:false %>">
+                      <li class="sub-stage-container branded-text">
+                        <span><%= t("tasks.incomplete") %></span>
+                      </li>
+                    </a>
+                </ul>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -61,9 +87,19 @@
                 <p><%= @task.question %></p>
               </div>
               <div class="actions">
-                <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                <% if @task.next %>
+                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
                     <%= @task.positive %>
-                </a>
+                  </a>
+                <% elsif @timeline.finale %>
+                  <a href="<%= timeline_finale_path @timeline, @timeline.finale  %>" class="timeline-btn">
+                    <%= @task.positive %>
+                  </a>
+                <% else %>
+                  <a href="<%= timeline_task_path @timeline, @task %>" class="timeline-btn">
+                    <%= @task.positive %>
+                  </a>
+                <% end %>
                 <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
                 <% if @task.not_applicable %>
                   <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
@@ -145,6 +181,10 @@
                   <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
                     <%= t(".next") %>
                   </a>
+                <% elsif @timeline.finale %>
+                  <a href="<%= timeline_finale_path @timeline, @timeline.finale  %>" class="timeline-btn">
+                    <%= t(".next") %>
+                  </a>
                 <% end %>
               </div>
             </div>
@@ -156,7 +196,7 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t("back"), timelines_path, class: "btn" %>
+      <%= link_to t("back"), [@timeline.timelineable, :timelines], class: "btn" %>
     </div>
   </div>
 

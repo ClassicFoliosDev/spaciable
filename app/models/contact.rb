@@ -31,20 +31,25 @@ class Contact < ApplicationRecord
 
   scope :of_types,
         lambda { |plot, types|
-            where("contact_type IN (#{types&.join(',')}) AND " \
-                  "((contactable_type = 'Developer' and contactable_id = #{plot.developer.id}) " \
-                  "or (contactable_type = 'Development' and contactable_id = #{plot.development.id}) " \
-                  "or (contactable_type = 'Phase' and contactable_id = #{plot.phase.id}) " \
-                  "or (contactable_type = 'Division' and contactable_id = #{plot.division&.id || 0}))")
+          contacts = Contact.where(contact_type: types)
+          contacts.where(contactable_type: "Developer", contactable_id: plot.developer.id)
+                  .or(contacts.where(contactable_type: "Development",
+                                     contactable_id: plot.development.id))
+                  .or(contacts.where(contactable_type: "Phase",
+                                     contactable_id: plot.phase.id))
+                  .or(contacts.where(contactable_type: "Division",
+                                     contactable_id: plot.division&.id || 0))
         }
 
   def email_or_phone
     return unless email.blank? && phone.blank?
+
     errors.add(:base, :email_or_phone_required)
   end
 
   def name_or_organisation
     return if organisation.present? || first_name.present? || last_name.present?
+
     errors.add(:base, :name_or_organisation_required)
   end
 

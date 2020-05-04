@@ -39,8 +39,7 @@
                   class="sub-stage-container branded-text
                         <%= 'active' if task == @task %>
                         <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'positive' %>
-                        <%= 'negative' if @logs.find_by(task_id: task.id)&.response == 'negative' %>
-                        <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'not_applicable' %>">
+                        <%= 'negative' if @logs.find_by(task_id: task.id)&.response == 'negative' %>">
                 <a href=<%="#{show_timeline_task_path(task)}"%>><%= task.title %></a>
                 <% if task == @task %>
                   <div id="timelineContentMobile">
@@ -68,10 +67,9 @@
               <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
               <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
 
-              <% if @task.not_applicable %>
-              <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :not_applicable }%>
-              <% end %>
-            </div>
+            <% if @task.not_applicable %>
+            <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :positive }%>
+            <% end %>
           </div>
           <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
         </div>

@@ -135,11 +135,27 @@ Rails.application.routes.draw do
   get :export_choices, to: "room_configurations/room_choice#export_choices"
   get :download_development_csv, to: "development_csv#download_template"
 
+  resources :global do
+    resources :timelines, shallow: true
+  end
+
+  resources :timelines do
+    get :clone, on: :member
+    get 'empty', action: :empty , controller: 'tasks'
+    resources :tasks
+    resources :finales, except: [:index, :destroy]
+  end
+
   resources :developers do
     resources :divisions
     resources :developments, controller: 'developers/developments'
     resources :documents, only: [:new, :create]
     resources :contacts, shallow: true
+    resources :timelines, shallow: true
+    resources :timelines do
+      get :clone, on: :member
+    end
+    resources :import, only: [:new], controller: 'developers/timelines'
     resources :faqs, shallow: true
     resource :brand
     resources :brands, shallow: true, only: [:index]
@@ -163,10 +179,6 @@ Rails.application.routes.draw do
   resources :finish_categories
   resources :finish_types
   resources :finish_manufacturers
-  resources :timelines do
-    get 'empty', action: :empty , controller: 'tasks'
-    resources :tasks
-  end
 
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update, :destroy]
@@ -260,7 +272,6 @@ Rails.application.routes.draw do
   get "/remove_appliance", to: "rooms#remove_appliance"
   get "/remove_finish", to: "rooms#remove_finish"
   get "/clone_unit_type", to: "unit_types#clone"
-  get "/clone_timeline", to: "timelines#clone"
   get "/remove_tag", to: "admin/how_tos#remove_tag"
   get "/search", to: "admin/search#new", as: :admin_search, format: :json
   get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json

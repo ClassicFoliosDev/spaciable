@@ -8,6 +8,7 @@ module DeveloperTabsHelper
     Tabs.new(developer, tabs, current_tab, self).all
   end
 
+  # rubocop:disable Metrics/BlockLength
   DEVELOPER_TABS = lambda do |developer|
     {
       divisions: {
@@ -31,7 +32,13 @@ module DeveloperTabsHelper
         icon: "apple",
         permissions_on: -> { developer },
         hide: !developer.branded_app?
+      },
+      timelines: {
+        icon: "clock-o",
+        permissions_on: -> { developer },
+        hide: !developer.timeline?
       }
     }
   end
+  # rubocop:enable Metrics/BlockLength
 end

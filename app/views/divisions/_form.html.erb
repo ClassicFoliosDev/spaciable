@@ -38,6 +38,15 @@
       <fieldset>
         <%= f.input :prime_lettings_admin, as: :select, collection: division.potential_prime_admins.map { |a| [a.to_s, a.id] },
             label: t(".prime_admin"), include_blank: true %>
+        <% if division.developer.timeline %>
+          <%= f.input :timeline_id,
+            as: :select,
+            collection: division.developer.timelines,
+            label_method: ->(timeline) { timeline.title },
+            include_blank: t("timelines.turned_off"),
+            selected: division.timeline_id %>
+          <p><%= t("timelines.default") %></p>
+        <% end %>
       </fieldset>
     </div>
   </div>

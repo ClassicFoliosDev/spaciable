@@ -11,6 +11,7 @@ module Abilities
       developer_faqs(developer)
       developer_contacts(developer)
       developer_documents(developer)
+      developer_timelines(developer)
       read_developers(developer)
     end
 
@@ -53,6 +54,14 @@ module Abilities
       can :read, Development, developer_id: developer_id
       can :read, Development, developer_id: developer_id
       can :read, Division, developer_id: developer_id
+    end
+
+    def developer_timelines(developer_id)
+      polymorphic_abilities Timeline, :timelineable do
+        type "Developer", id: developer_id, actions: :read
+      end
+      can [:read, :show, :empty], Task
+      can [:show], Finale
     end
   end
 end

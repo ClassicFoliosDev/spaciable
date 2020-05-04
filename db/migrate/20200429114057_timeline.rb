@@ -3,14 +3,18 @@ class Timeline < ActiveRecord::Migration[5.0]
 
     # admin --------
 
+    create_table :globals do |t|
+      t.string :name
+    end
+
     create_table :timelines do |t|
       t.string :title
+      t.references :timelineable, polymorphic: true, index: true
       t.timestamps
     end
 
     create_table :stages do |t|
       t.string :title
-      t.text :description
       t.timestamps
     end
 
@@ -34,6 +38,14 @@ class Timeline < ActiveRecord::Migration[5.0]
       t.boolean :head, default: false
       t.integer :next_id
       t.timestamps
+    end
+
+    create_table :finales do |t|
+      t.references :timeline, foreign_key: true
+      t.string :complete_picture
+      t.text :complete_message
+      t.string :incomplete_picture
+      t.text :incomplete_message
     end
 
     create_table :task_contacts do |t|
@@ -86,10 +98,33 @@ class Timeline < ActiveRecord::Migration[5.0]
     # admin -----------
 
     add_column :contacts, :contact_type, :integer, default: 0
+    add_column :developers, :timeline, :boolean, default: false
+
+    add_reference :divisions, :timeline, foreign_key: true
+    add_reference :developments, :timeline, foreign_key: true
 
     # homeowner -------
 
     add_reference :plot_residencies, :task, foreign_key: true
 
+    # Data ------------
+
+    # Timelines can be global, or associated with developers. In order
+    # for generic form handling to be possible, each timeline
+    # needs to identify a parent.  This single global record acts
+    # as the parent to all 'global' Timelines
+    Global.create(name: "CFAdmin")
+
+    # Add the timeline stages
+    Stage.create(title: 'Reservation')
+    Stage.create(title: 'Exchange')
+    Stage.create(title: 'Moving')
+    Stage.create(title: 'Living')
+
+    # Add the shortcuts
+    Shortcut.create(shortcut_type: :how_tos, link: "homeowner_how_tos_path")
+    Shortcut.create(shortcut_type: :faqs, link: "homeowner_faqs_path")
+    Shortcut.create(shortcut_type: :services, link: "services_path")
+    Shortcut.create(shortcut_type: :area_guide, link: "services_path")
   end
 end

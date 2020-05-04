@@ -15,7 +15,7 @@ class Task < ApplicationRecord
   has_many :task_shortcuts, -> { order "task_shortcuts.order" }, dependent: :destroy
   accepts_nested_attributes_for :task_shortcuts
   has_many :shortcuts, through: :task_shortcuts
-  has_many :task_contacts,  dependent: :destroy
+  has_many :task_contacts, dependent: :destroy
   accepts_nested_attributes_for :task_contacts, reject_if: :all_blank, allow_destroy: true
 
   has_one :action, required: false, dependent: :destroy
@@ -35,6 +35,13 @@ class Task < ApplicationRecord
     include_association :action
     include_association :feature
     include_association :task_contacts
+
+    customize(lambda { |original_task, new_task|
+      if original_task.picture.present?
+        CopyCarrierwaveFile::CopyFileService
+          .new(original_task, new_task, :picture).set_file
+      end
+    })
   end
 
   # Get the task at the head of the specified stage
@@ -114,6 +121,7 @@ class Task < ApplicationRecord
     end
   end
 
+  # Reset the head true/false based on previous task
   def reset_head
     prev = timeline.before(self)
     update_attributes(head: prev.blank? || prev.stage != stage)
@@ -121,16 +129,18 @@ class Task < ApplicationRecord
 
   # Get the tasks contact types as integers
   def contact_types
-    task_contacts&.pluck(:contact_type).map { |ct| Contact.contact_types[ct]}
+    task_contacts&.pluck(:contact_type)&.map { |ct| Contact.contact_types[ct] }
   end
 
-  # Get all the contact types relevant to the plot
+  # Get all the contacts relevant to the plot
   def contacts(plot)
     types = contact_types
     return nil if types.empty?
+
     Contact.of_types(plot, types)
   end
 
+  # build the dependent associations for a Task
   def build
     build_action unless action
     build_feature unless feature
@@ -141,7 +151,7 @@ class Task < ApplicationRecord
       end
     end
 
+    # max 2 task_contacts
     (0..1).each { |i| task_contacts.build unless task_contacts[i] }
   end
-
 end

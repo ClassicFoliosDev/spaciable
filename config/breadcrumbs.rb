@@ -841,7 +841,6 @@ end
 
 crumb :timeline_new do
   link t("breadcrumbs.timeline_add")
-  parent :timelines
 end
 
 crumb :timeline do | timeline |

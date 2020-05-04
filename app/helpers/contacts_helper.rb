@@ -32,5 +32,4 @@ module ContactsHelper
   def cat_type_scope
     "activerecord.attributes.contact.contact_types"
   end
-
 end

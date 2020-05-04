@@ -1,9 +1,16 @@
-<% breadcrumb :timelines %>
 
 <div class="section-header">
   <div class="section-title">
     <%= t(".title") %>
   </div>
 </div>
+
+<% if !@parent.is_a? Global %>
+  <%= render @parent, active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
+      expired_plots_count: @expired_plots_count, resident_count: @resident_count,
+      activated_resident_count: @activated_resident_count, phase: @parent %>
+
+  <%= render 'components/tabs', tabs: tabs_for(@parent, "timelines"), parent: @parent %>
+<% end %>
 
 <%= render_collection @timelines, room: nil %>

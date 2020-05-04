@@ -6,14 +6,18 @@
 # The Timeline has a set of associated stages e.g. Reservation,
 # Exchange etc.
 class Timeline < ApplicationRecord
+  belongs_to :timelineable, polymorphic: true
   has_many :timeline_stages, -> { order "timeline_stages.order" }, dependent: :destroy
   has_many :stages, through: :timeline_stages
   has_many :tasks, dependent: :destroy
+  has_one :finale, dependent: :destroy
 
   after_create :add_stages
 
   amoeba do
     include_association :timeline_stages
+    include_association :finale
+    # tasks have to be duplicated manually as they are a linked list
   end
 
   # Retrieve a specific Task
@@ -63,6 +67,7 @@ class Timeline < ApplicationRecord
     Task.find_by(id: task.next_id)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def clone
     new_timeline = error = nil
     Timeline.transaction do
@@ -76,24 +81,22 @@ class Timeline < ApplicationRecord
         # link to the records of the donor, so we have to go through
         # and link the new cloned tasks together manually
         prev_task = nil
-        tasks.each do |task|
+        tasks&.each do |task|
           new_task = task.amoeba_dup # duplicate the task
           new_task.timeline = new_timeline # assign the timeline
-          if task.picture.present?
-            CopyCarrierwaveFile::CopyFileService.new(task, new_task, :picture).set_file
-          end
           new_task.save! # save it
           # link previous task to new task
           prev_task&.update_attributes!(next_id: new_task.id)
           prev_task = new_task
         end
-      rescue ActiveRecord::RecordInvalid => invalid
-        error = invalid.message
+      rescue ActiveRecord::RecordInvalid => e
+        error = e.message
         raise ActiveRecord::Rollback
       end
     end
     yield new_timeline, error
   end
+  # rubocop:enable Metrics/MethodLength
 
   def to_s
     title

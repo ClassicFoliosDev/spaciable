@@ -28,6 +28,17 @@
             <% end %>
           </ul>
         <% end %>
+        <% if @timeline.finale %>
+          <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
+          <ul class="sub-stage">
+            <li class="sub-stage-container">
+               <span class="stage"><%= t("tasks.complete") %></span>
+            </li>
+            <li class="sub-stage-container">
+               <span class="stage"><%= t("tasks.incomplete") %></span>
+            </li>
+          </ul>
+        <% end %>
       </ul>
     </div>
   </div>

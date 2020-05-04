@@ -1660,6 +1660,11 @@ en:
         failure: "It was not possible to send your message, please correct the errors shown:"
 
   developers:
+    timelines:
+      import:
+        title: "Import Timeline"
+        search: "Search"
+        import: "Import"
     destroy:
       success: "%{developer_name} was deleted successfully"
     create:
@@ -1710,9 +1715,8 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-
-      enable_cas: "Client Specifications"
-      cas_description: "Allow client admins to edit specifications and rooms"
+      timeline: "My Journey"
+      timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
       link: "Branded Buyers' Club Link"
@@ -1744,6 +1748,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
+      timelines: "My Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -3279,12 +3284,16 @@ en:
       at: "Created At"
 
   timelines:
+    default: "Developments will default to this timeline when created."
+    turned_off: "Turned Off"
+    import: "Import Timeline"
     index:
       title: "Timelines"
     collection:
       create: "Add Timeline"
       timeline: "Timeline"
       last_edited: "Last Edited"
+      created_at: "Created At"
     new:
       title: "Name"
     edit:
@@ -3292,13 +3301,19 @@ en:
     form:
       submit: "Submit"
   tasks:
+    finale: "Finale"
+    complete: "Complete"
+    incomplete: "Incomplete"
     show:
       edit: "Edit"
       delete: "Delete"
       insert_before: "Insert Page Before %{page}"
       insert_after: "Insert Page After %{page}"
-      empty: "You timeline is currently empty. Add a page to start creating your timeline."
+      empty_cf: "You timeline is currently empty. Add a page to start creating your timeline."
+      empty: "You timeline is currently empty"
       add_task: "Add a Task"
+      add_finale: "Add Finale"
+      edit_finale: "Edit Finale"
       heading: "Main Heading"
       question: "Question"
       answer: "Answer"
@@ -3355,6 +3370,20 @@ en:
         title: "Button Text"
         description: "Description"
         link: "Link"
+  finales:
+    create:
+      finale_created: "%{name} finale successfully created"
+    update:
+      finale_updated: "%{name} finale updated"
+    show:
+      edit: "Edit"
+    form:
+      complete_picture: "Completed Image"
+      complete_message: "Completed Message"
+      incomplete_picture: "Incomplete Image"
+      incomplete_message: "Incomplete Message"
+      cancel: "Cancel"
+      submit: "Submit"
     destroy:
       success: "%{title} was deleted successfully"
 

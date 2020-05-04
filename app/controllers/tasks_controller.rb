@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class TasksController < ApplicationController
   include PaginationConcern
   include SortingConcern
@@ -42,6 +43,7 @@ class TasksController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create
     # Get the tasks before and after
     case donor_params[:donor][:mode].to_sym
@@ -68,6 +70,7 @@ class TasksController < ApplicationController
       render :new
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def destroy
     @task.remove
@@ -79,6 +82,7 @@ class TasksController < ApplicationController
 
   # When editing or adding a task, only particular stages can be selected
   # based on the previous and next
+  # rubocop:disable Metrics/MethodLength
   def disabled_stages(task, position: :at)
     case position
     when :first
@@ -104,6 +108,7 @@ class TasksController < ApplicationController
 
     @timeline.stages.pluck(:id) - enabled_stages
   end
+  # rubocop:enable Metrics/MethodLength
 
   def task_params
     params.require(:task).permit(
@@ -132,3 +137,4 @@ class TasksController < ApplicationController
     @task.build
   end
 end
+# rubocop:enable Metrics/ClassLength

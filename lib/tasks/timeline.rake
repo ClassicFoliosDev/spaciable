@@ -4,32 +4,33 @@ namespace :timeline do
   desc "Reset the ts and cs status for all residents"
   task load: :environment do
 
+    Finale.delete_all
     TaskLog.delete_all
     PlotTimeline.delete_all
     TaskShortcut.delete_all
     Feature.delete_all
     Action.delete_all
-    Shortcut.delete_all
     TaskContact.delete_all
     Task.delete_all
     TimelineStage.delete_all
-    Stage.delete_all
     Timeline.delete_all
 
-    how_tos = Shortcut.create(shortcut_type: :how_tos, link: "homeowner_how_tos_path")
-    faqs = Shortcut.create(shortcut_type: :faqs, link: "homeowner_faqs_path")
-    services = Shortcut.create(shortcut_type: :services, link: "services_path")
-    area_guide = Shortcut.create(shortcut_type: :area_guide, link: "services_path")
+    global = Global.find_by(name: "CFAdmin")
 
-    reservation = Stage.create(title: 'Reservation', description: 'A reservation description')
-    exchange = Stage.create(title: 'Exchange', description: 'A exchange description')
-    moving = Stage.create(title: 'Moving', description: 'A moving description')
-    living = Stage.create(title: 'Living', description: 'A living description')
+    how_tos = Shortcut.find_by(shortcut_type: :how_tos)
+    faqs = Shortcut.find_by(shortcut_type: :faqs)
+    services = Shortcut.find_by(shortcut_type: :services)
+    area_guide = Shortcut.find_by(shortcut_type: :area_guide)
 
-    timeline = Timeline.create(title: 'England')
+    reservation = Stage.find_by(title: 'Reservation')
+    exchange = Stage.find_by(title: 'Exchange')
+    moving = Stage.find_by(title: 'Moving')
+    living = Stage.find_by(title: 'Living')
+
+    timeline = Timeline.create(timelineable: global,
+                               title: 'England')
 
     ##############################################################
-
     prevtask = Task.create(title: 'Reservation Fees',
                        question: "Nice easy question to start – have you paid your reservation fee?",
                        answer: "Pay the reservation fee to start your home buying journey...",
@@ -477,8 +478,7 @@ Familiarise yourself with your new surroundings here and become a fully-fledged 
 
 These items can be submitted here. ",
                        timeline: timeline,
-                       stage: living,
-                       head: true)
+                       stage: living)
 
     thistask.picture = Pathname.new(Rails.root.join("lib/tasks/couple.jpg")).open
     thistask.save!
@@ -490,6 +490,16 @@ These items can be submitted here. ",
     TaskShortcut.create(task: thistask, shortcut: faqs, live:true, order: 2)
     TaskShortcut.create(task: thistask, shortcut: services, live:true, order: 3)
     TaskShortcut.create(task: thistask, shortcut: area_guide, live:true, order: 4)
+
+    #########################  Finale       ######################
+
+    finale = Finale.create(timeline: timeline,
+                           complete_message: "completed",
+                           incomplete_message: "incomplete")
+
+    finale.complete_picture = Pathname.new(Rails.root.join("lib/tasks/Completion.png")).open
+    finale.incomplete_picture = Pathname.new(Rails.root.join("lib/tasks/NotCompleted.png")).open
+    finale.save!
 
     ######################### plot timeline ######################
 

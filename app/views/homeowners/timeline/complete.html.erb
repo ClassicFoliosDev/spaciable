@@ -38,6 +38,8 @@
       </div>
     </div>
 
+    <% complete = @timeline.tasks.count == @plot_timeline.task_logs.count %>
+
     <div id="timelineContentDesktop" class="timeline-content">
       <div class="compelete-content">
         Timeline Complete - some content here.
