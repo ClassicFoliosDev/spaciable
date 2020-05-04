@@ -154,6 +154,9 @@
   }
 }
 
+
+/* task page */
+
 .timeline-task {
   display: flex;
   background-color: $ui-grey;
@@ -171,6 +174,10 @@
     overflow-y: hidden;
     overflow-x: hidden;
     z-index: 10;
+
+    .timeline-header-mobile {
+      display: none;
+    }
 
     .timeline-header {
       background-color: $primary-red-left;
@@ -678,8 +685,6 @@
           padding-left: $spacing-large * 2;
         }
       }
-
-
     }
   }
 }
@@ -691,14 +696,39 @@
     margin: 10px 10px;
   }
 
-  .timeline-task .timeline-content {
-    form #answer {
-      .answer-container {
+  .timeline-task {
+    .timeline-content {
+      #question {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 400px auto;
 
+        .image {
+          grid-row-start: 1;
+          grid-row-end: 2;
+          max-height: 400px;
+        }
+
+        .question-content {
+          grid-row-start: 2;
+          grid-row-end: 3;
+        }
+      }
+
+      #answer {
+        .answer-container {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+        }
+
+        .contact-container {
+          @include span-columns(12 or 12)
+        }
       }
     }
   }
 }
+
 
 @include media($tablet-portrait-down) {
   .timeline-splash .timeline-header .timeline-title {
@@ -720,6 +750,7 @@
 
   .timeline-step {
     .timeline-header {
+
       .timeline-title {
         padding: 0;
         padding-top: $spacing-small;
@@ -745,6 +776,61 @@
   .timeline-task {
     .timeline-sidebar {
       width: 100%;
+      z-index: 5;
+      background-color: $ui-light-grey;
+
+      .timeline-header {
+        display: none;
+      }
+
+      .timeline-header-mobile {
+        height: 200px;
+        width: 100%;
+        display: block;
+        position: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        z-index: 5;
+        top: 60px;
+        border-radius: 0 0 14px 14px;
+
+        .overlay {
+          background-color: rgba(0, 0, 0, 0.3);
+          height: 100%;
+          width: 100%;
+          border-radius: 0 0 14px 14px;
+          padding: $spacing-small;
+
+          .progress-container {
+            position: absolute;
+            bottom: 0;
+
+            .title {
+              color: $ui-white;
+
+              p {
+                color: $ui-white;
+                margin-bottom: $spacing-small;
+              }
+            }
+          }
+        }
+      }
+
+      .list-stages {
+        padding-top: $spacing-small + 5px;
+
+        .sub-stage {
+          .sub-stage-container {
+            border: 1px solid $ui-grey;
+          }
+
+          .active {
+
+          }
+        }
+      }
     }
 
     .timeline-content {
@@ -757,12 +843,32 @@
       margin-top: 6px;
       border-top: 2px solid $ui-grey;
 
+      form {
+        margin-left: 0;
+      }
+
       #question {
+        display: inline-block;
+
+        .question-content {
+          padding: 0;
+
+          .content {
+            .branded-text {
+              font-size: $title-font-size-4;
+              line-height: $title-font-size-2;
+            }
+          }
+        }
+
+        .image {
+          display: none;
+        }
 
         .actions {
           .branded-btn {
            width: 100px;
-           margin: $spacing-small;
+           margin: $spacing-small $spacing-medium $spacing-small 0;
           }
           .not-applicable {
             width: 130px;
@@ -775,6 +881,16 @@
 
         .answer-container {
           width: 100%;
+          padding: 0;
+
+          h2 {
+            font-size: $title-font-size-4;
+          }
+        }
+
+        .contact-container {
+          width: 100%;
+          padding: $spacing-medium 0;
         }
 
         .timeline-footer {
@@ -797,8 +913,22 @@
 
           .next {
             padding: $spacing-small;
+
+            .branded-btn {
+              margin: $spacing-small;
+            }
           }
         }
+      }
+    }
+  }
+}
+
+@include media($mobile-down) {
+  .timeline-task {
+    .timeline-sidebar {
+      .timeline-header-mobile {
+        height: 190px;
       }
     }
   }

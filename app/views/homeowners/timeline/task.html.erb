@@ -4,6 +4,19 @@
   <div class="branded-body outer-container timeline-task">
 
     <div class="timeline-sidebar">
+      <div class="timeline-header-mobile" style="background-image: url('<%= @task.picture %>')">
+        <div class="overlay">
+          <div class="progress-container">
+            <div class="title">
+              <i id="icon<%=@task.stage.title%>"></i>
+              <p> <%= @task.stage.title %></p>
+            </div>
+            <div class="progress">
+              <!-- igloo progress image goes here -->
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="timeline-header">
         <div class="title">
           <i id="icon<%=@task.stage.title%>"></i>
@@ -12,6 +25,7 @@
         </div>
         <div class="progress">
           <!-- igloo progress image goes here -->
+          <!-- DOES ELLIS UNDERSTAND THAT WE CAN'T ACTUALLY IMPLEMENT HIS DESIGNS IF HE DOESN'T SEND THEM TO US -->
         </div>
       </div>
 
@@ -28,7 +42,6 @@
                         <%= 'negative' if @logs.find_by(task_id: task.id)&.response == 'negative' %>
                         <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'not_applicable' %>">
                 <a href=<%="#{show_timeline_task_path(task)}"%>><%= task.title %></a>
-                <!-- this is where i want the timeline content to go in mobile view -->
                 <% if task == @task %>
                   <div id="timelineContentMobile">
                     <!-- use javascript to migrate all of the timeline-content children to here -->
@@ -78,43 +91,42 @@
             </aside>
           </div>
 
-          <aside class="contact-container">
-            <% contacts = @task.contacts(@plot) %>
-            <% contacts.each do |contact| %>
-              <div class="contact">
-                <div class="avatar">
-                  <% if contact.picture? %>
-                    <%= image_tag contact.picture.url :thumbnail if contact.picture? %>
-                  <% end %>
+          <% contacts = @task.contacts(@plot) %>
+          <% if contacts %>
+            <aside class="contact-container">
+              <% contacts.each do |contact| %>
+                <div class="contact">
+                  <div class="avatar">
+                    <% if contact.picture? %>
+                      <%= image_tag contact.picture.url :thumbnail if contact.picture? %>
+                    <% end %>
+                  </div>
+                  <div class="contact-info">
+                    <p class="name"><%= contact.to_s %></p>
+                    <p class="position"><%= contact.position %></p>
+
+                    <% if contact.phone? %>
+                      <p class="contact-detail">
+                        <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
+                      </p>
+                    <% end %>
+
+                    <% if contact.mobile? %>
+                      <p class="contact-detail">
+                        <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
+                      </p>
+                    <% end %>
+
+                    <% if contact.email? %>
+                      <p class="contact-detail">
+                        <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
+                      </p>
+                    <% end %>
+                  </div>
                 </div>
-                <div class="contact-info">
-                  <p class="name"><%= contact.to_s %></p>
-                  <p class="position"><%= contact.position %></p>
-
-                  <% if contact.phone? %>
-                    <p class="contact-detail">
-                      <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
-                    </p>
-                  <% end %>
-
-                  <% if contact.mobile? %>
-                    <p class="contact-detail">
-                      <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
-                    </p>
-                  <% end %>
-
-                  <% if contact.email? %>
-                    <p class="contact-detail">
-                      <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
-                    </p>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
-          </aside>
-          <!-- create a div for the contact info (the other half of the page from answer) -->
-          <!-- create a div for each contact -->
-          <!-- display the contact info - image, name, role, email, phone -->
+              <% end %>
+            </aside>
+          <% end %>
 
           <div class="timeline-footer">
             <aside class="shortcuts-container">

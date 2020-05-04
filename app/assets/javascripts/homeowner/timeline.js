@@ -72,9 +72,15 @@
   })
 
   document.addEventListener('turbolinks:load', function () {
-    $('#timelineSidebar').animate({
-      scrollTop: $('#activeTaskScroll').offset().top - 420
-    }, 1000)
+    if ($(window).innerWidth() < 760) {
+      $('#timelineSidebar').animate({
+        scrollTop: $('#activeTaskScroll').offset().top - 280
+      }, 1000)
+    } else {
+      $('#timelineSidebar').animate({
+        scrollTop: $('#activeTaskScroll').offset().top - 420
+      }, 1000)
+    }
   })
 
 })(document, window.jQuery)
