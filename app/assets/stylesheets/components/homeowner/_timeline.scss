@@ -929,13 +929,3 @@
     }
   }
 }
-
-@include media($mobile-down) {
-  .timeline-task {
-    .timeline-sidebar {
-      .timeline-header-mobile {
-        height: 190px;
-      }
-    }
-  }
-}
