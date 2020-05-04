@@ -78,7 +78,43 @@
             </aside>
           </div>
 
-          <%= contacts = @task.contacts(@plot) %>
+          <aside class="contact-container">
+            <% contacts = @task.contacts(@plot) %>
+            <% contacts.each do |contact| %>
+              <div class="contact">
+                <div class="avatar">
+                  <% if contact.picture? %>
+                    <%= image_tag contact.picture.url :thumbnail if contact.picture? %>
+                  <% end %>
+                </div>
+                <div class="contact-info">
+                  <p class="name"><%= contact.to_s %></p>
+                  <p class="position"><%= contact.position %></p>
+
+                  <% if contact.phone? %>
+                    <p class="contact-detail">
+                      <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
+                    </p>
+                  <% end %>
+
+                  <% if contact.mobile? %>
+                    <p class="contact-detail">
+                      <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
+                    </p>
+                  <% end %>
+
+                  <% if contact.email? %>
+                    <p class="contact-detail">
+                      <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </aside>
+          <!-- create a div for the contact info (the other half of the page from answer) -->
+          <!-- create a div for each contact -->
+          <!-- display the contact info - image, name, role, email, phone -->
 
           <div class="timeline-footer">
             <aside class="shortcuts-container">

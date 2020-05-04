@@ -375,19 +375,57 @@
     }
 
     #answer {
-      @include span-columns(12 of 12);
-      margin-top: $spacing-medium;
+      margin-top: $spacing-large;
       margin-left: $spacing-large;
       text-align: left;
       display: none;
 
       .answer-container {
         @include span-columns(7 of 12);
-        @include omega(2n);
+        @include omega(n);
         padding-bottom: $spacing-large;
+        padding-right: $spacing-large;
 
         h2 {
           font-size: $title-font-size-3;
+        }
+      }
+
+      .contact-container {
+        @include span-columns(5 of 12);
+        padding-left: $spacing-large;
+        padding-top: $spacing-small;
+        margin-right: 0;
+
+        .contact {
+          min-height: 70px;
+          padding-bottom: $spacing-medium;
+
+          .avatar {
+            width: 70px;
+            height: 70px;
+            position: relative;
+            display: inline-block;
+            float: left;
+
+            img {
+              max-width: 100%;
+              max-height: 100%;
+            }
+          }
+
+          .contact-info {
+            display: inline-block;
+            padding-left: $spacing-small;
+
+            p {
+              margin-bottom: 0;
+            }
+
+            .name, .position {
+              font-weight: $bold-font-weight;
+            }
+          }
         }
       }
 
@@ -641,15 +679,7 @@
         }
       }
 
-      form {
-        #answer {
-          margin-left: 0;
 
-          .answer-container {
-            width: 80%;
-          }
-        }
-      }
     }
   }
 }
@@ -664,7 +694,7 @@
   .timeline-task .timeline-content {
     form #answer {
       .answer-container {
-        width: 90%;
+
       }
     }
   }
