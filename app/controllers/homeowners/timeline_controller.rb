@@ -37,7 +37,6 @@ module Homeowners
       respond_to do |format|
         format.html do
           @task = @task.next
-          byebug
           record_progress(@task.nil?)
           render task || :complete
         end

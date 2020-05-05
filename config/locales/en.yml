@@ -1358,6 +1358,15 @@ en:
         tel: "Tel"
         email: "Email"
         mobile: "Mobile"
+      complete:
+        hoora: "Hoora..."
+        incomplete_1: "Oh wait, it looks like you haven't completed all of the tasks."
+        incomplete_2: "Be sure to go back and complete each task to receive that fanfare you deserve!"
+        dashboard: "Dashboard"
+        last: "Last Opened"
+        hooray: "Hooray!"
+        complete_1: "You did it!"
+        complete_2: "Now you've mastered moving house, be sure to utilise your portal."
 
     library:
       my_home: "My %{construction}"

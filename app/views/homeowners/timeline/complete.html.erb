@@ -39,8 +39,47 @@
     </div>
 
     <div id="timelineContentDesktop" class="timeline-content">
-      <div class="compelete-content">
-        Timeline Complete - some content here.
+      <div class="complete-content">
+        <!-- I'm sure there's a much simpler way to do this? -->
+        <% complete = true %>
+        <% @timeline.stages.each do |stage| %>
+          <% @timeline.stage_tasks(stage).each do |ttask| %>
+            <% (complete = false) && break if @logs.find_by(task_id: ttask.id)&.response != 'positive' %>
+          <% end %>
+        <% end %>
+
+        <% if complete == true %>
+        <div class="complete">
+          <div class="text">
+            <h2 class="branded-text"><%= t(".hooray") %></h2>
+            <p class="branded-text"><%= t(".complete_1") %></p>
+            <p class="branded-text"><%= t(".complete_2") %></p>
+          </div>
+
+          <div class="image">
+            <div class="image-container" style="background-image: url('<%= asset_path('timeline_complete.png') %>')"></div>
+          </div>
+        </div>
+        <% else %>
+        <div class="incomplete">
+          <div class="text">
+            <h2 class="branded-text"><%= t(".hoora") %></h2>
+            <p class="branded-text"><%= t(".incomplete_1") %></p>
+            <p class="branded-text"><%= t(".incomplete_2") %></p>
+
+            <div class="actions">
+              <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
+
+              <!-- How to we find out / link to the last accessed task? -->
+              <%= link_to t('.last'), dashboard_path, class: "btn branded-btn" %>
+            </div>
+          </div>
+
+          <div class="image">
+            <div class="image-container" style="background-image: url('<%= asset_path('timeline_incomplete.png') %>')"></div>
+          </div>
+        </div>
+        <% end %>
       </div>
     </div>
 

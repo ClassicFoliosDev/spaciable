@@ -656,6 +656,82 @@
         }
       }
     }
+
+    .complete-content {
+      width: 100%;
+      margin-left: 300px;
+
+      .incomplete, .complete {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+        height: 100%;
+        width: 100%;
+
+        .text {
+          grid-column-start: 1;
+          grid-column-end: 1;
+          padding: $spacing-small;
+          padding-left: $spacing-large * 3;
+          display: table;
+          margin-top: auto;
+          margin-bottom: auto;
+          text-align: center;
+
+          h2 {
+            font-size: $title-font-size-1;
+          }
+
+          p {
+            margin-bottom: 0;
+          }
+
+          .actions {
+            padding-top: $spacing-large;
+
+            .btn {
+              width: 140px;
+            }
+
+            .branded-btn-inverted {
+              color: $ui-white;
+              background-color: $primary-navy;
+              border: 1px solid $primary-navy;
+              margin: $spacing-small;
+
+              &:hover {
+                background-color: $ui-grey;
+                color: $primary-navy;
+              }
+            }
+
+            .branded-btn {
+              color: $primary-navy;
+              background-color: $ui-light-grey;
+              border: 1px solid $primary-navy;
+              margin: $spacing-small;
+
+              &:hover {
+                background-color: $ui-grey;
+              }
+            }
+          }
+        }
+
+        .image {
+          grid-column-start: 2;
+          grid-column-end: 2;
+
+          .image-container {
+            height: 100%;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+          }
+        }
+      }
+    }
   }
 }
 
