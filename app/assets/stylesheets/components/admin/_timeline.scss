@@ -507,6 +507,43 @@
   }
 }
 
+.timeline-content {
+  .complete-content {
+
+    .incomplete, .complete {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      height: 100%;
+      width: 100%;
+
+      .text {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        padding: $spacing-small;
+        display: table;
+        margin-top: auto;
+        margin-bottom: auto;
+        text-align: center;
+      }
+
+      .image {
+        grid-column-start: 2;
+        grid-column-end: 2;
+
+        .image-container {
+          height: 100%;
+          width: 100%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
 .admin-timeline-edit {
   background-color: $ui-white;
   border-radius: 5px;
@@ -653,6 +690,10 @@
         margin: 0;
         color: $primary-navy;
       }
+    }
+
+    .incomplete-content {
+      margin-top: $spacing-medium;
     }
 
     .contact-content {

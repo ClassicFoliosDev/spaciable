@@ -28,6 +28,7 @@
             <% end %>
           </ul>
         <% end %>
+
         <% if @timeline.finale %>
           <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
           <ul class="sub-stage">
@@ -142,7 +143,7 @@
       <% end %>
 
       <div class="form-actions-footer-container">
-        <div >
+        <div>
           <% if action?(:new) || action?(:create) %>
             <% if insert_task %>
               <%= link_to t(".cancel"), timeline_task_path(timeline, insert_task), class: "btn" %>

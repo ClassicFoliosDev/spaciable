@@ -676,19 +676,10 @@
           grid-column-start: 1;
           grid-column-end: 1;
           padding: $spacing-small;
-          padding-left: $spacing-large * 3;
           display: table;
           margin-top: auto;
           margin-bottom: auto;
           text-align: center;
-
-          h2 {
-            font-size: $title-font-size-1;
-          }
-
-          p {
-            margin-bottom: 0;
-          }
 
           .actions {
             padding-top: $spacing-large;
@@ -834,7 +825,6 @@
           .image {
             grid-column-start: 1;
             grid-column-end: 1;
-            padding-top: $spacing-medium;
 
             .image-container {
               min-height: 250px;
@@ -1041,7 +1031,7 @@
 
       .complete-content {
         margin: 0;
-        padding: $spacing-small;
+        padding: 0;
 
         .header {
           display: table;

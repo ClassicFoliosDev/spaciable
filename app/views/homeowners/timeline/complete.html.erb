@@ -59,9 +59,7 @@
 
         <div class="complete" id="activeTaskScroll">
           <div class="text">
-            <h2 class="branded-text"><%= t(".hooray") %></h2>
-            <p class="branded-text"><%= t(".complete_1") %></p>
-            <p class="branded-text"><%= t(".complete_2") %></p>
+            <div><%= simple_format @timeline.finale.complete_message %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
@@ -80,9 +78,7 @@
 
         <div class="incomplete" id="activeTaskScroll">
           <div class="text">
-            <h2 class="branded-text"><%= t(".hoora") %></h2>
-            <p class="branded-text"><%= t(".incomplete_1") %></p>
-            <p class="branded-text"><%= t(".incomplete_2") %></p>
+            <div class=""><%= simple_format @timeline.finale.incomplete_message %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>

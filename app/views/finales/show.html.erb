@@ -1,66 +1,90 @@
+<% breadcrumb :timeline, @timeline %>
 
 <%= render "tasks/timeline", timeline: @timeline, editable: true %>
 
-<% complete = @complete == true%>
+<% complete = @complete == true %>
 
-<div class="heading">
-  <div class="actions">
-    <h2 class="page-name"><%= t("tasks.finale") %> <%= complete ? t("tasks.complete") : t("tasks.incomplete") %></h2>
-    <div class="btn-group">
-      <%= link_to t(".edit"), edit_timeline_finale_path(@timeline, @timeline.finale), class: "btn"%>
+<div class="admin-timeline">
+  <div class="admin-timeline-preview">
+    <div class="heading">
+      <div class="actions">
+        <h2 class="page-name"><%= t("tasks.finale") %> <%= complete ? t("tasks.complete") : t("tasks.incomplete") %></h2>
+        <div class="btn-group">
+          <%= link_to t(".edit"), edit_timeline_finale_path(@timeline, @timeline.finale), class: "btn"%>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="admin-timeline-edit">
-
-  <div class="timeline-sidebar" id="timelineAdminSidebar">
-    <div class="list-stages">
-      <ul class="vertical">
-        <% @timeline.timeline_stages.each do |tstage| %>
-        <li class="stage-title"><span class="branded-text"><%= tstage.stage.title %></span></li>
-        <ul class="sub-stage">
-          <% @timeline.tasks&.each do |tt| %>
-            <% if tt.stage.title == tstage.stage.title %>
+    <div class="preview">
+      <div class="timeline-sidebar" id="timelineAdminSidebar">
+        <div class="list-stages">
+          <ul class="vertical">
+            <% @timeline.timeline_stages.each do |tstage| %>
+            <li class="stage-title"><span class="branded-text"><%= tstage.stage.title %></span></li>
+            <ul class="sub-stage">
+              <% @timeline.tasks&.each do |tt| %>
+              <% if tt.stage.title == tstage.stage.title %>
               <a class="stage" href="<%= timeline_task_path @timeline, tt %>">
                 <li class="sub-stage-container branded-text ">
                   <span><%= tt.title %></span>
                 </li>
               </a>
+              <% end %>
+              <% end %>
+            </ul>
             <% end %>
-          <% end %>
-        </ul>
+            <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
+            <ul class="sub-stage">
+              <a class="stage" href="<%= timeline_finale_path complete:true %>">
+                <li class="sub-stage-container branded-text <%= 'active' if @complete %>">
+                  <span><%= t("tasks.complete") %></span>
+                </li>
+              </a>
+              <a class="stage" href="<%= timeline_finale_path complete:false %>">
+                <li class="sub-stage-container branded-text <%= 'active' if !@complete %>">
+                  <span><%= t("tasks.incomplete") %></span>
+                </li>
+              </a>
+            </ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-content">
+        <% if complete %>
+
+          <div class="complete-content">
+            <div class="complete">
+              <div class="text">
+                <div><%= simple_format @finale.complete_message %></div>
+              </div>
+              <div class="image">
+                <div class="image-container" style="background-image: url('<%= @finale.complete_picture %>')"></div>
+              </div>
+            </div>
+          </div>
+
+        <% else %>
+
+          <div class="complete-content">
+            <div class="complete">
+              <div class="text">
+                <div><%= simple_format @finale.incomplete_message %></div>
+              </div>
+              <div class="image">
+                <div class="image-container" style="background-image: url('<%= @finale.incomplete_picture %>')"></div>
+              </div>
+            </div>
+          </div>
+
         <% end %>
-        <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
-        <ul class="sub-stage">
-          <a class="stage" href="<%= timeline_finale_path complete:true %>">
-            <li class="sub-stage-container branded-text <%= 'active' if @complete %>">
-              <span><%= t("tasks.complete") %></span>
-            </li>
-          </a>
-          <a class="stage" href="<%= timeline_finale_path complete:false %>">
-            <li class="sub-stage-container branded-text <%= 'active' if !@complete %>">
-              <span><%= t("tasks.incomplete") %></span>
-            </li>
-          </a>
-        </ul>
-      </ul>
+      </div>
     </div>
   </div>
 
-<div class="timeline-content">
 
-  <% if complete %>
-    <div class="finish-picture">
-      <%= image_tag @finale.complete_picture.url %>
-    </div>
-    <p><%= simple_format @finale.complete_message %></p>
-  <% else %>
-    <div class="finish-picture">
-      <%= image_tag @finale.incomplete_picture.url %>
-    </div>
-    <p><%= simple_format @finale.incomplete_message %></p>
-  <% end %>
-</div>
+
+
+
 
 </div>

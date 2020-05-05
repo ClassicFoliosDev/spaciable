@@ -1,6 +1,7 @@
 <div class="admin-timeline-edit">
 
   <div class="timeline-sidebar">
+
     <div class="list-stages">
       <ul class="vertical">
         <% @timeline.stages.each do |stage| %>
@@ -25,6 +26,7 @@
             <% end %>
           </ul>
         <% end %>
+
         <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
         <ul class="sub-stage">
           <li class="sub-stage-container active">
@@ -38,36 +40,46 @@
     </div>
   </div>
 
-  <%= simple_form_for ([timeline, finale]) do |f| %>
+  <div class="timeline-form">
+    <%= simple_form_for ([timeline, finale]) do |f| %>
 
-    <div class="image-container">
-      <%= f.input :complete_picture, label: t(".complete_picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
-    </div>
-
-    <div class="response">
-      <%= f.input :complete_message, label: t(".complete_message"), as: :ckeditor%>
-    </div>
-
-    <div class="image-container">
-      <%= f.input :incomplete_picture, label: t(".incomplete_picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
-    </div>
-
-    <div class="response">
-      <%= f.input :incomplete_message, label: t(".incomplete_message"), as: :ckeditor%>
-    </div>
-
-     <%= f.hidden_field :timeline_id, value: timeline.id %>
-
-    <div class="form-actions-footer-container">
-      <div >
-        <% if task %>
-          <%= link_to t(".cancel"), timeline_task_path(timeline, task), class: "btn" %>
-        <% else %>
-          <%= link_to t(".cancel"), timeline_finale_path(timeline, finale), class: "btn" %>
-        <% end %>
-        <%= f.submit t(".submit"), class: "btn btn-form-submit btn-primary" %>
+      <div class="image-content">
+        <div class="image-container">
+          <%= f.input :complete_picture, label: t(".complete_picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
       </div>
-    </div>
 
-  <% end %>
+      <div class="text-content">
+        <div class="response">
+          <%= f.input :complete_message, label: t(".complete_message"), as: :ckeditor%>
+        </div>
+      </div>
+
+      <div class="image-content incomplete-content">
+        <div class="image-container">
+          <%= f.input :incomplete_picture, label: t(".incomplete_picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+      </div>
+
+      <div class="text-content">
+        <div class="response">
+          <%= f.input :incomplete_message, label: t(".incomplete_message"), as: :ckeditor%>
+        </div>
+      </div>
+
+      <%= f.hidden_field :timeline_id, value: timeline.id %>
+
+      <div class="form-actions-footer-container">
+        <div>
+          <% if task %>
+            <%= link_to t(".cancel"), timeline_task_path(timeline, task), class: "btn" %>
+          <% else %>
+            <%= link_to t(".cancel"), timeline_finale_path(timeline, finale), class: "btn" %>
+          <% end %>
+          <%= f.submit t(".submit"), class: "btn btn-form-submit btn-primary" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
 </div>
