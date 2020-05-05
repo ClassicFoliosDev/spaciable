@@ -730,7 +730,7 @@
             height: 100%;
             width: 100%;
             background-repeat: no-repeat;
-            background-size: contain;
+            background-size: cover;
             background-position: center;
           }
         }
@@ -837,7 +837,7 @@
             padding-top: $spacing-medium;
 
             .image-container {
-              min-height: 200px;
+              min-height: 250px;
               margin-bottom: 0;
             }
           }
