@@ -46,7 +46,7 @@ $(document).on('click', '#viewAnswer', function (event) {
 document.addEventListener('turbolinks:load', function () {
   // show page - sidebar auto scroll to active task
   // if the element does not exist then subsequent code will not run, so check it exists using length property
-  if ($('#timelineAdminSidebar').length) {
+  if ($('#activeTaskScroll').length) {
     $('#timelineAdminSidebar').animate({
       scrollTop: $('#activeTaskScroll').offset().top - 420
     }, 1000)

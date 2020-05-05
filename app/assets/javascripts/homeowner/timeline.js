@@ -77,14 +77,16 @@
   })
 
   document.addEventListener('turbolinks:load', function () {
-    if ($(window).innerWidth() < 760) {
-      $('#timelineSidebar').animate({
-        scrollTop: $('#activeTaskScroll').offset().top - 520
-      }, 1000)
-    } else {
-      $('#timelineSidebar').animate({
-        scrollTop: $('#activeTaskScroll').offset().top - 420
-      }, 1000)
+    if ($('#activeTaskScroll').length) {
+      if ($(window).innerWidth() < 760) {
+        $('#timelineSidebar').animate({
+          scrollTop: $('#activeTaskScroll').offset().top - 520
+        }, 1000)
+      } else {
+        $('#timelineSidebar').animate({
+          scrollTop: $('#activeTaskScroll').offset().top - 420
+        }, 1000)
+      }
     }
 
     // remove the hero for mobile view
