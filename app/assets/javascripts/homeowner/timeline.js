@@ -79,11 +79,28 @@
   document.addEventListener('turbolinks:load', function () {
     if ($(window).innerWidth() < 760) {
       $('#timelineSidebar').animate({
-        scrollTop: $('#activeTaskScroll').offset().top - 280
+        scrollTop: $('#activeTaskScroll').offset().top - 520
       }, 1000)
     } else {
       $('#timelineSidebar').animate({
         scrollTop: $('#activeTaskScroll').offset().top - 420
+      }, 1000)
+    }
+
+    // remove the hero for mobile view
+    if ($('#timelineContentMobile').children().length) {
+      $('.branded-hero').hide()
+      $('.branded-body').css('min-height', $(document).height() - $('.brande-nav-background').height())
+    }
+
+    // change the styling on the completed page
+    if ($('#timelineComplete').length) {
+      $('.list-stages').css('padding-top', 80)
+      $('.timeline-content').css('border', 'none')
+
+      // scroll to the bottom of the timeline
+      $('#timelineSidebar').animate({
+        scrollTop: $('li').last().offset().top - 1
       }, 1000)
     }
   })

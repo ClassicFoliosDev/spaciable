@@ -1367,6 +1367,8 @@ en:
         hooray: "Hooray!"
         complete_1: "You did it!"
         complete_2: "Now you've mastered moving house, be sure to utilise your portal."
+        finale: "Finale"
+        restart: "Restart"
 
     library:
       my_home: "My %{construction}"

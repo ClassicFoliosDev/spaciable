@@ -14,32 +14,39 @@
         </div>
       </div>
 
-      <div class="list-stages">
+      <div class="list-stages" id="timelineSidebar">
+
         <ul class="vertical">
           <% @timeline.stages.each do |stage| %>
           <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
           <ul class="sub-stage">
-            <% @timeline.stage_tasks(stage)&.each do |ttask| %>
+            <% @timeline.stage_tasks(stage)&.each do |task| %>
             <li class="sub-stage-container branded-text
-                         <%= 'active' if ttask == @task %>
-                         <%= 'complete' if @logs.find_by(task_id: ttask.id)&.response == 'positive' %>">
-              <a href=<%="#{show_timeline_task_path(ttask)}"%>><%= ttask.title %></a>
-              <!-- this is where i want the timeline content to go in mobile view -->
-              <% if ttask == @ttask %>
-              <div id="timelineContentMobile">
-                <!-- use javascript to migrate all of the timeline-content children to here -->
-              </div>
-              <% end %>
+                         <%= 'active' if task == @task %>
+                         <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'positive' %>">
+              <a href=<%="#{show_timeline_task_path(task)}"%>><%= task.title %></a>
             </li>
             <% end %>
           </ul>
           <% end %>
         </ul>
+        <div id="timelineContentMobile">
+          <!-- use javascript to migrate all of the timeline-content children to here -->
+        </div>
       </div>
     </div>
 
     <div id="timelineContentDesktop" class="timeline-content">
-      <div class="complete-content">
+      <div class="complete-content" id="timelineComplete">
+        <div class="header">
+          <div class="title">
+            <i class="fa fa-check branded-text"></i>
+            <p class="branded-text"><%= t(".finale") %></p>
+          </div>
+          <div class="progress">
+            <!-- igloo progress image goes here -->
+          </div>
+        </div>
         <!-- I'm sure there's a much simpler way to do this? -->
         <% complete = true %>
         <% @timeline.stages.each do |stage| %>
@@ -49,19 +56,29 @@
         <% end %>
 
         <% if complete == true %>
-        <div class="complete">
+
+        <div class="complete" id="activeTaskScroll">
           <div class="text">
             <h2 class="branded-text"><%= t(".hooray") %></h2>
             <p class="branded-text"><%= t(".complete_1") %></p>
             <p class="branded-text"><%= t(".complete_2") %></p>
+
+            <div class="actions">
+              <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
+
+              <!-- How to we restart? Why would we want to restart? -->
+              <%= link_to t('.restart'), dashboard_path, class: "btn branded-btn" %>
+            </div>
           </div>
 
           <div class="image">
             <div class="image-container" style="background-image: url('<%= asset_path('timeline_complete.png') %>')"></div>
           </div>
         </div>
+
         <% else %>
-        <div class="incomplete">
+
+        <div class="incomplete" id="activeTaskScroll">
           <div class="text">
             <h2 class="branded-text"><%= t(".hoora") %></h2>
             <p class="branded-text"><%= t(".incomplete_1") %></p>
@@ -79,6 +96,7 @@
             <div class="image-container" style="background-image: url('<%= asset_path('timeline_incomplete.png') %>')"></div>
           </div>
         </div>
+
         <% end %>
       </div>
     </div>
