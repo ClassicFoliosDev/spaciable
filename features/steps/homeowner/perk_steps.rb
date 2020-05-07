@@ -189,7 +189,7 @@ When(/^I do not enter a premium licence duration$/) do
 end
 
 Then(/^I see an error telling me to enter a premium licence duration$/) do
-  within ".submission-errors" do
+  within find(".submission-errors") do
     expect(page).to have_content("Premium perk premium licence duration is not a number")
   end
 end
