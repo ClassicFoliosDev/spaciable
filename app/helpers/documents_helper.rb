@@ -8,9 +8,19 @@ module DocumentsHelper
     end
   end
 
+  def guide_collection(document)
+    Document.guides.map do |(guide_name, _guide_int)|
+      [t(guide_name, scope: guide_scope), guide_name]
+    end
+  end
+
   private
 
   def category_scope
     "activerecord.attributes.document.categories"
+  end
+
+  def guide_scope
+    "activerecord.attributes.document.guides"
   end
 end

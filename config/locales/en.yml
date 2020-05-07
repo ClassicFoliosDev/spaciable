@@ -3055,6 +3055,10 @@ en:
           my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
+        guides:
+          # Guide enum values
+          reservation: "Reservation"
+          completion: "Completion"
       user:
         email: "Email address"
         password: "Password"

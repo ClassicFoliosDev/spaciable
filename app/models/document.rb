@@ -23,6 +23,11 @@ class Document < ApplicationRecord
     legal_and_warranty
   ]
 
+  enum guide: %i[
+    reservation
+    completion
+  ]
+
   def to_s
     title
   end

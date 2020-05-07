@@ -90,7 +90,8 @@ class DocumentsController < ApplicationController
 
     document.update_attributes(user_id: current_user.id, documentable: @parent,
                                category: document_params[:category],
-                               pinned: document_params[:pinned])
+                               pinned: document_params[:pinned],
+                               guide: document_params[:guide])
   end
 
   def build_response(format)
@@ -122,7 +123,7 @@ class DocumentsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
     params.require(:document).permit(:title, :category, :documentable_id, :notify, :file,
-                                     :pinned, files: [])
+                                     :pinned, :guide, files: [])
   end
 
   def set_parent
