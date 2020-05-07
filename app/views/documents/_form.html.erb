@@ -18,7 +18,7 @@
         <div class="document-container">
           <div class="document-file">
             <% if document.persisted? %>
-              <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
+              <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload"%>
               <%= label_tag('document_file', t("choose"), class: "choose-file") %>
             <% else %>
               <%= f.file_field :files, multiple: true, class: "file-upload" %>
