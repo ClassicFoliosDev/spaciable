@@ -2680,6 +2680,7 @@ en:
       processing: "Processing..."
       by: "Uploader"
       pinned: "Pinned"
+      guide: "Guide"
     form:
       load: "File"
       upload: "Upload"
