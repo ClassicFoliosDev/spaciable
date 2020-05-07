@@ -1,5 +1,5 @@
 if Rails.env.development?
-  Bullet.enable = true
+  Bullet.enable = false
   # Turn off alerts temporarily, while we have prototype code that is not optimised
   # Bullet.alert = true
   Bullet.bullet_logger = true
