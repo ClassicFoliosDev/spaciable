@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200410165950) do
+ActiveRecord::Schema.define(version: 20200507064806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -239,6 +239,22 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "custom_tiles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "button"
+    t.string   "image"
+    t.integer  "category"
+    t.string   "link"
+    t.integer  "feature"
+    t.integer  "guide"
+    t.string   "file"
+    t.integer  "document_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
+  end
+
   create_table "default_faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
@@ -281,8 +297,8 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.boolean  "enable_roomsketcher",         default: true
     t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
-    t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
+    t.boolean  "cas",                         default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -316,9 +332,9 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.string   "snag_name",             default: "Snagging", null: false
     t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
-    t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
+    t.boolean  "cas",                   default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -353,6 +369,7 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.string   "file_tmp"
     t.integer  "user_id"
     t.boolean  "pinned",            default: false
+    t.integer  "guide"
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
     t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
@@ -403,6 +420,7 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_manufacturer_name", using: :btree
   end
 
   create_table "finish_types", force: :cascade do |t|
@@ -411,6 +429,7 @@ ActiveRecord::Schema.define(version: 20200410165950) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_type_name", using: :btree
   end
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
@@ -913,6 +932,7 @@ ActiveRecord::Schema.define(version: 20200410165950) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
+  add_foreign_key "custom_tiles", "documents"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
