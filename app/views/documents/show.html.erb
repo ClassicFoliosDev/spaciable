@@ -19,7 +19,7 @@
       <% end %>
     <% end %>
     <%= label_tag t(".category") %>
-    <span><%= t("activerecord.attributes.document.categories.#{@document.category}") %></span>
+    <span><%= t("activerecord.attributes.document.categories.#{@document.category}", construction: @document.construction_type) %></span>
     <%= label_tag t(".pinned") %>
     <span><%= @document.pinned? ? t("activerecord.attributes.document.pinned") : t("activerecord.attributes.document.unpinned") %> </span>
   </div>
