@@ -68,10 +68,12 @@
           <div class="ui-front" id="documentCategorySelector">
             <%= f.input :category, as: :select, collection: category_collection(document), include_blank: false %>
           </div><br/>
-          <div class="ui-front" id="documentGuideSelector">
-            <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
-            <br/>
-          </div>
+          <% unless document.parent.is_a?(Developer) || document.parent.is_a?(Division) %>
+            <div class="ui-front" id="documentGuideSelector">
+              <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
+              <br/>
+            </div>
+          <% end %>
           <%= f.label :pinned, t(".pinned") %>
           <%= f.check_box :pinned %>
           <p class="checkbox-description"><%= t(".pinned_description") %></p>
