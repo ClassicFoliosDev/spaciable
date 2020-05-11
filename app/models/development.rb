@@ -197,7 +197,7 @@ class Development < ApplicationRecord
   end
 
   def descendants
-    [phases, plots]
+    [phases, plots].flatten!
   end
 end
 # rubocop:enable Metrics/ClassLength

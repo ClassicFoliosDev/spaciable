@@ -58,7 +58,7 @@ module DocumentsHelper
 
     # descendant documents
     unless document.parent.is_a?(Plot)
-      descendants = document.parent.descendants.flatten!
+      descendants = document.parent.descendants
 
       descendants.each do |descendant|
         documents << descendant.documents
