@@ -8,11 +8,24 @@ class CustomTilesController < ApplicationController
 
   def index; end
 
-  def new; end
+  def new
+    (redirect_to root_url unless current_user.cf_admin?) if @parent.expired?
+  end
 
-  def edit; end
+  def edit
+    (redirect_to video_path unless current_user.cf_admin?) if @parent.expired?
+  end
 
   def show; end
+
+  def create
+    if @custom_tile.save
+      notice = t("controller.success.create", name: @custom_tile.title)
+      redirect_to [@parent, :custom_tiles], notice: notice
+    else
+      render :new
+    end
+  end
 
   private
 
@@ -21,7 +34,7 @@ class CustomTilesController < ApplicationController
   end
 
   def custom_tile_params
-    params.require(:document).permit(:title, :description, :button, :image, :category, :link,
+    params.require(:custom_tile).permit(:title, :description, :button, :image, :category, :link,
                                      :feature, :guide, :file, :document_id, :development_id)
   end
 
