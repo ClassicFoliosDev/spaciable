@@ -67,6 +67,7 @@ class Development < ApplicationRecord
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
+  after_create :set_default_tiles
 
   enum choice_option:
     %i[
@@ -199,6 +200,23 @@ class Development < ApplicationRecord
 
   def descendants
     [phases, plots].flatten!
+  end
+
+  # Create up to three default tiles
+  def set_default_tiles
+    category = 'feature'
+    CustomTile.create(development_id: id,
+                      title: I18n.t("developers.form.enable_referrals"),
+                      category: category,
+                      feature: 'referrals') if parent_developer.enable_referrals
+    CustomTile.create(development_id: id,
+                      title: I18n.t("developers.form.enable_services"),
+                      category: category,
+                      feature: 'services') if parent_developer.enable_services
+    CustomTile.create(development_id: id,
+                      title: I18n.t("developers.form.enable_perks"),
+                      category: category,
+                      feature: 'perks') if parent_developer.enable_perks
   end
 end
 # rubocop:enable Metrics/ClassLength

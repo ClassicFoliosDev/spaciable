@@ -1091,6 +1091,12 @@ en:
     edit:
       title: "Edit %{name}"
 
+  custom_tiles:
+    collection:
+      create: "New Custom Shortcut"
+      title: "Title"
+      category: "Category"
+
   home:
     show:
      home: "Home"

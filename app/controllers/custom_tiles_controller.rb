@@ -19,4 +19,10 @@ class CustomTilesController < ApplicationController
   def set_parent
     @parent = @development
   end
+
+  def custom_tile_params
+    params.require(:document).permit(:title, :description, :button, :image, :category, :link,
+                                     :feature, :guide, :file, :document_id, :development_id)
+  end
+
 end
