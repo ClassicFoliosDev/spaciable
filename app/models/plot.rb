@@ -466,5 +466,9 @@ class Plot < ApplicationRecord
     return :none if RequestStore.store[:current_user].cf_admin?
     completion_release_date.nil? ? Time.zone.now : completion_release_date
   end
+
+  def children
+    false
+  end
 end
 # rubocop:enable Metrics/ClassLength

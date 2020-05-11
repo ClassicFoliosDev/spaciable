@@ -165,5 +165,9 @@ class Phase < ApplicationRecord
     end
     released_count
   end
+
+  def children
+    plots
+  end
 end
 # rubocop:enable Metrics/ClassLength

@@ -195,5 +195,9 @@ class Development < ApplicationRecord
   def build(attribute)
     send "build_#{attribute}".to_sym unless send attribute
   end
+
+  def children
+    phases
+  end
 end
 # rubocop:enable Metrics/ClassLength
