@@ -56,21 +56,12 @@ module DocumentsHelper
       break if (parent.is_a? Developer) || (parent.is_a? Division)
     end
 
-    # child documents
-    # the highest starting level is development
-    # therefore we need to check two generations at most to reach plot level
+    # descendant documents
     unless document.parent.is_a?(Plot)
-      children = document.parent.children
+      descendants = document.parent.descendants.flatten!
 
-      # first generation
-      children.each do |child|
-        documents << child.documents
-        # second generation
-        if child.children
-          child.children.each do |cchild|
-            documents << cchild.documents
-          end
-        end
+      descendants.each do |descendant|
+        documents << descendant.documents
       end
     end
 

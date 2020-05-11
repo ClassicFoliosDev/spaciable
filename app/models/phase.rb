@@ -166,7 +166,7 @@ class Phase < ApplicationRecord
     released_count
   end
 
-  def children
+  def descendants
     plots
   end
 end
