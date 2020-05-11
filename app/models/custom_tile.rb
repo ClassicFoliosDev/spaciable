@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class CustomTile < ApplicationRecord
-  belongs_to :development, optional: true
+  belongs_to :development
+
+  mount_uploader :file, DocumentUploader
+  mount_uploader :image, PictureUploader
+  attr_accessor :image_cache
 
   enum category: %i[
     feature
@@ -24,4 +28,24 @@ class CustomTile < ApplicationRecord
     completion
   ]
 
+  def snag_name
+    development.snag_name
+  end
+
+  def documents_in_scope
+    documents = []
+    documents << Document.where(documentable_id: development_id,
+                                documentable_type: 'Development')
+
+    documents << Document.where(documentable_type: development.parent.id,
+                               documentable_type: development.parent.model_name.human)
+
+    if development.parent.is_a?(Division)
+      documents << Document.where(documentable_id: development.parent_developer.id,
+                                  documentable_type: 'Developer')
+    end
+
+    # return the list of documents in alphabetical order
+    documents.flatten!.sort_by { |doc| doc.title.downcase }
+  end
 end

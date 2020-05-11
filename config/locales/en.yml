@@ -416,6 +416,7 @@ en:
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
     custom_tiles: "Custom Shortcuts"
+    custom_tile_add: "New Custom Shortcut"
 
   pagination:
     per_page_10: "10"
@@ -1096,6 +1097,19 @@ en:
       create: "New Custom Shortcut"
       title: "Title"
       category: "Category"
+    new:
+      title: "New Custom Shortcut"
+    form:
+      link: "Link URL"
+      title: "Title"
+      description: "Description"
+      button: "Button Text"
+      image: "Image"
+      file: "Upload Document"
+      document: "Select Document"
+      guide: "Select Manual"
+      back: "Back"
+      submit: "Submit"
 
   home:
     show:
@@ -3068,6 +3082,24 @@ en:
           # Guide enum values
           reservation: "Reservation"
           completion: "Completion"
+
+      custom_tiles:
+        categories:
+          feature: "Feature"
+          link: "Link"
+          document: "Document"
+        features:
+          area_guide: "Area Guide"
+          home_designer: "Home Designer"
+          referrals: "Referrals"
+          services: "Services"
+          perks: "Buyers' Club"
+          issues: "Issue Reporting"
+          snagging: "%{snag_name}"
+        guides:
+          reservation: "Reservation"
+          completion: "Completion"
+
       user:
         email: "Email address"
         password: "Password"

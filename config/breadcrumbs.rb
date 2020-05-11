@@ -780,6 +780,11 @@ crumb :custom_tiles do |custom_tile_parent|
   parent :development, custom_tile_parent
 end
 
+crumb :custom_tile_add do |custom_tile_parent|
+  link t("breadcrumbs.custom_tile_add"), [:new, custom_tile_parent, :custom_tile]
+  parent :custom_tiles, custom_tile_parent
+end
+
 # SERVICES
 
 crumb :services do |development|
