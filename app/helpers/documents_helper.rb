@@ -14,6 +14,21 @@ module DocumentsHelper
     end
   end
 
+  def manual_exists(document)
+    disabled = []
+    documents = []
+    parent = document.parent
+    while parent do
+      documents << parent.documents
+      parent = parent.parent
+      break if (parent.is_a? Developer) || (parent.is_a? Division)
+    end
+    documents.flatten!.each do |document|
+      disabled << document.guide if document.guide
+    end
+    disabled
+  end
+
   private
 
   def category_scope

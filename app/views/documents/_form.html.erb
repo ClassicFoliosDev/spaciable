@@ -69,7 +69,7 @@
             <%= f.input :category, as: :select, collection: category_collection(document), include_blank: false %>
           </div><br/>
           <div class="ui-front" id="documentGuideSelector">
-            <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true %>
+            <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
             <br/>
           </div>
           <%= f.label :pinned, t(".pinned") %>
