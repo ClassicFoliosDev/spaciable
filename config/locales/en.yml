@@ -415,6 +415,7 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
+    custom_tiles: "Custom Shortcuts"
 
   pagination:
     per_page_10: "10"
@@ -1123,6 +1124,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
+      custom_tiles: "Custom Shortcuts"
     edit:
       back: "Back"
     form:

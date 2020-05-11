@@ -35,6 +35,7 @@ class Development < ApplicationRecord
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
+  has_many :custom_tiles, dependent: :destroy
 
   has_one :premium_perk
   accepts_nested_attributes_for :premium_perk, reject_if: :premium_perks_disabled

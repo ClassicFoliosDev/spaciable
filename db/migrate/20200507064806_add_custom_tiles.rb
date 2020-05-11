@@ -12,6 +12,7 @@ class AddCustomTiles < ActiveRecord::Migration[5.0]
       t.integer :guide
       t.string :file
       t.references :document, foreign_key: true
+      t.references :development, foreign_key: true
 
       t.timestamps
     end

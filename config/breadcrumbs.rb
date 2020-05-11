@@ -773,6 +773,13 @@ crumb :video_edit do |video|
   parent :videos, video.videoable
 end
 
+# CUSTOM TILES
+
+crumb :custom_tiles do |custom_tile_parent|
+  link t("breadcrumbs.custom_tiles"), ([custom_tile_parent, :custom_tiles])
+  parent :development, custom_tile_parent
+end
+
 # SERVICES
 
 crumb :services do |development|

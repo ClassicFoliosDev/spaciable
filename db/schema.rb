@@ -250,8 +250,10 @@ ActiveRecord::Schema.define(version: 20200507064806) do
     t.integer  "guide"
     t.string   "file"
     t.integer  "document_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "development_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
   end
 
@@ -932,6 +934,7 @@ ActiveRecord::Schema.define(version: 20200507064806) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
+  add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
