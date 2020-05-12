@@ -28,11 +28,11 @@
       } else if ($val == doc) {
         $(featSection).hide()
         $(linkSection).hide()
-        $(contentSection).hide()
+        $(contentSection).show()
       } else if ($val == link) {
         $(featSection).hide()
         $(docSection).hide()
-        $(contentSection).hide()
+        $(contentSection).show()
       }
     }
   })
@@ -93,7 +93,7 @@
 
   // show or hide document selections when a document is selected
   $(document).on('click', '#custom_tile_document_id-menu', function (event) {
-    if ($("#guideSelector select").val()) {
+    if ($("#documentSelector select").val()) {
       $(guideSelect).hide()
       resetDocGuide()
       $(fileSelect).hide()
