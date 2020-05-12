@@ -15,24 +15,24 @@
   <div class="row custom-tile">
     <div class="row-item two-thirds">
       <div class="half">
-        <div class="ui-front">
+        <div class="ui-front" id="categorySelector">
           <%= f.input :category, as: :select, collection: tile_category_collection(custom_tile), include_blank: false %><br/>
         </div>
 
-        <fieldset class="custom-tile-feature">
+        <fieldset id="customTileFeature">
           <div class="ui-front" id="featureSelector">
             <%= f.input :feature, as: :select, collection: tile_feature_collection(custom_tile), include_blank: true %><br/>
           </div>
         </fieldset>
 
-        <fieldset class="custom-tile-document">
-          <div class="ui-front">
+        <fieldset id="customTileDocument">
+          <div class="ui-front" id="documentSelector">
             <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %><br/>
           </div><br/>
-          <div class="ui-front">
+          <div class="ui-front" id="guideSelector">
             <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true %><br/>
           </div>
-          <div class="document-file">
+          <div class="document-file" id="fileSelector">
             <%= label_tag :file, t(".file") %>
             <% if custom_tile.persisted? %>
               <%= f.file_field :file, label: t(".file"), as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload" %>
@@ -41,24 +41,23 @@
             <% end %>
             <%= label_tag('custom_tile_file', t("choose"), class: "choose-file") %>
           </div>
-
         </fieldset>
 
-        <fieldset class="custom-tile-link">
+        <fieldset id="customTileLink">
           <%= f.input :link, label: t(".link") %>
         </fieldset>
 
 
       </div>
       <div class="half">
-        <fieldset class="custom-tile-content">
+        <fieldset id="customTileContent">
           <div class="image-container">
             <%= f.input :image, label: t(".image"), as: :image_preview %>
           </div><br/>
 
           <%= f.input :title, label: t(".title") %>
-          <%= f.input :title, label: t(".description") %>
-          <%= f.input :title, label: t(".button") %>
+          <%= f.input :description, label: t(".description") %>
+          <%= f.input :button, label: t(".button") %>
         </fieldset>
       </div>
 
