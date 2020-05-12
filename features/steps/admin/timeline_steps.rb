@@ -241,7 +241,6 @@ Then(/^I can answer (.*) to tasks (.*)$/) do |answer, task_titles|
 end
 
 Then(/^I should see the (.*) timeline message$/) do |message|
-  byebug
   find(:xpath, "//div[contains(@class,'#{message}')]/div/div/p")
   expect(page).to have_content TimelineFixture.finale[:content]["#{message}_message".to_sym]
 end
