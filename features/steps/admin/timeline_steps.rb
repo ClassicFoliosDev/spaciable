@@ -132,7 +132,6 @@ end
 
 When(/^I can see the (.*) (.*) finale in the timeline$/) do |state, content|
   find(:xpath, "//span[text()='#{state.capitalize()}']/parent::li/parent::a").click()
-  find(:xpath, "//h2[text()='Finale #{state.capitalize()}']", wait: 10)# check loaded
   expect(page).to have_content(TimelineFixture.finale[content.to_sym]["#{state}_message".to_sym])
 end
 
@@ -241,7 +240,7 @@ Then(/^I can answer (.*) to tasks (.*)$/) do |answer, task_titles|
 end
 
 Then(/^I should see the (.*) timeline message$/) do |message|
-  find(:xpath, "//div[contains(@class,'#{message}')]/div/div/p")
+  find(:xpath,"//div[contains(@class,'#{message}') and @id='activeTaskScroll']")
   expect(page).to have_content TimelineFixture.finale[:content]["#{message}_message".to_sym]
 end
 
