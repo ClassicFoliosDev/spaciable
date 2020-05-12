@@ -7,6 +7,10 @@ class CustomTile < ApplicationRecord
   mount_uploader :image, PictureUploader
   attr_accessor :image_cache
 
+  def parent
+    development
+  end
+
   enum category: %i[
     feature
     document

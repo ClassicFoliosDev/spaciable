@@ -2,8 +2,7 @@
 
 class CustomTilesController < ApplicationController
   load_and_authorize_resource :development
-  load_and_authorize_resource :custom_tile, through: [:development]
-
+  load_and_authorize_resource :custom_tile, through: :development, shallow: true
   before_action :set_parent
 
   def index; end
@@ -27,10 +26,16 @@ class CustomTilesController < ApplicationController
     end
   end
 
+  def destroy
+    @custom_tile.destroy
+    notice = t("controller.success.destroy", name: @custom_tile.title)
+    redirect_to [@parent, :custom_tiles], notice: notice
+  end
+
   private
 
   def set_parent
-    @parent = @development
+    @parent = @development || @custom_tile&.parent
   end
 
   def custom_tile_params
