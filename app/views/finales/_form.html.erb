@@ -1,44 +1,7 @@
+
 <div class="admin-timeline-edit">
 
-  <div class="timeline-sidebar">
-
-    <div class="list-stages">
-      <ul class="vertical">
-        <% @timeline.stages.each do |stage| %>
-          <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
-          <ul class="sub-stage">
-            <% @timeline.tasks&.each do |tt| %>
-              <% if tt.stage.title == stage.title %>
-                <% if action?(:new) && @insert_mode == :before && tt.id == @insertion_task.id %>
-                <li class="sub-stage-container new">
-                  <span class="stage"><%= t(".new") %></span>
-                </li>
-                <% end %>
-                <li class="sub-stage-container branded-text">
-                  <span class="stage"><%= tt.title %></span>
-                </li>
-                <% if action?(:new) && @insert_mode == :after && tt.id == @insertion_task.id %>
-                <li class="sub-stage-container new">
-                  <span class="stage"><%= t(".new") %></span>
-                </li>
-                <% end %>
-              <% end %>
-            <% end %>
-          </ul>
-        <% end %>
-
-        <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
-        <ul class="sub-stage">
-          <li class="sub-stage-container active">
-             <span class="stage"><%= t("tasks.complete") %></span>
-          </li>
-          <li class="sub-stage-container active">
-             <span class="stage"><%= t("tasks.incomplete") %></span>
-          </li>
-        </ul>
-      </ul>
-    </div>
-  </div>
+  <%= render "timelines/components/timeline", timeline: timeline, task: nil, links: false, parent: :finale %>
 
   <div class="timeline-form">
     <%= simple_form_for ([timeline, finale]) do |f| %>
@@ -71,11 +34,16 @@
 
       <div class="form-actions-footer-container">
         <div>
-          <% if task %>
-            <%= link_to t(".cancel"), timeline_task_path(timeline, task), class: "btn" %>
+          <% if action?(:new) || action?(:create) %>
+            <% title = t("tasks.finale.cancel_insert") %>
+            <% text = t("tasks.finale.cancel_insert_text") %>
           <% else %>
-            <%= link_to t(".cancel"), timeline_finale_path(timeline, finale), class: "btn" %>
+            <% title = t("tasks.finale.cancel_update") %>
+            <% text = t("tasks.finale.cancel_update_text") %>
           <% end %>
+          <% path = task ? timeline_task_path(timeline, task) : timeline_finale_path(timeline, finale) %>
+
+          <%= cancel_btn t("tasks.cancel"), path: path,  title: title, text: text %>
           <%= f.submit t(".submit"), class: "btn btn-form-submit btn-primary" %>
         </div>
       </div>

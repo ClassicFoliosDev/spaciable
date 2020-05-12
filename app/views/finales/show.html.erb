@@ -1,14 +1,12 @@
-<% breadcrumb :timeline, @timeline %>
+<% breadcrumb :finale, @timeline, @finale %>
 
 <%= render "tasks/timeline", timeline: @timeline, editable: true %>
-
-<% complete = @complete == true %>
 
 <div class="admin-timeline">
   <div class="admin-timeline-preview">
     <div class="heading">
       <div class="actions">
-        <h2 class="page-name"><%= t("tasks.finale") %> <%= complete ? t("tasks.complete") : t("tasks.incomplete") %></h2>
+        <h2 class="page-name"><%= t("tasks.finale.title") %> <%= @complete ? t("tasks.complete") : t("tasks.incomplete") %></h2>
         <div class="btn-group">
           <%= link_to t(".edit"), edit_timeline_finale_path(@timeline, @timeline.finale), class: "btn"%>
         </div>
@@ -16,42 +14,11 @@
     </div>
 
     <div class="preview">
-      <div class="timeline-sidebar" id="timelineAdminSidebar">
-        <div class="list-stages">
-          <ul class="vertical">
-            <% @timeline.timeline_stages.each do |tstage| %>
-            <li class="stage-title"><span class="branded-text"><%= tstage.stage.title %></span></li>
-            <ul class="sub-stage">
-              <% @timeline.tasks&.each do |tt| %>
-              <% if tt.stage.title == tstage.stage.title %>
-              <a class="stage" href="<%= timeline_task_path @timeline, tt %>">
-                <li class="sub-stage-container branded-text ">
-                  <span><%= tt.title %></span>
-                </li>
-              </a>
-              <% end %>
-              <% end %>
-            </ul>
-            <% end %>
-            <li class="stage-title"><span class="branded-text"><%= t("tasks.finale") %></span></li>
-            <ul class="sub-stage">
-              <a class="stage" href="<%= timeline_finale_path complete:true %>">
-                <li class="sub-stage-container branded-text <%= 'active' if @complete %>">
-                  <span><%= t("tasks.complete") %></span>
-                </li>
-              </a>
-              <a class="stage" href="<%= timeline_finale_path complete:false %>">
-                <li class="sub-stage-container branded-text <%= 'active' if !@complete %>">
-                  <span><%= t("tasks.incomplete") %></span>
-                </li>
-              </a>
-            </ul>
-          </ul>
-        </div>
-      </div>
+
+      <%= render "timelines/components/timeline", timeline: @timeline, task: nil, links: true, parent: :finale, complete: @complete %>
 
       <div class="timeline-content">
-        <% if complete %>
+        <% if @complete %>
 
           <div class="complete-content">
             <div class="complete">
@@ -81,10 +48,4 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
 </div>

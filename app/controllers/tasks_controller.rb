@@ -39,6 +39,7 @@ class TasksController < ApplicationController
     if @task.update(task_params)
       redirect_to timeline_task_path, notice: t("controller.success.update", name: @task.title)
     else
+      create_new
       render :edit
     end
   end
@@ -74,7 +75,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.remove
-    notice = t(".success", title: @task.title)
+    notice = t(".success", name: @task.title)
     redirect_to [@timeline, (@task.next || @timeline.tail)], notice: notice
   end
 
@@ -115,8 +116,8 @@ class TasksController < ApplicationController
       :stage_id, :timeline_id, :picture,
       :title, :question, :answer, :response, :positive,
       :negative, :not_applicable,
-      feature_attributes: %i[id title description link],
-      action_attributes: %i[id title description link],
+      feature_attributes: %i[id title description link _destroy],
+      action_attributes: %i[id title description link _destroy],
       task_shortcuts_attributes: %i[id live order shortcut_id],
       task_contacts_attributes: %i[contact_type id]
     )
@@ -131,8 +132,7 @@ class TasksController < ApplicationController
   def create_new
     @disabled_stages = disabled_stages(@insertion_task, position: @insert_mode)
     # initialise with stage of the task
-    @task.stage = @insertion_task ? @insertion_task.stage :
-                                             @timeline.stages.first
+    @task.stage = @insertion_task ? @insertion_task.stage : @timeline.stages.first
 
     @task.build
   end

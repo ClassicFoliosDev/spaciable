@@ -4,6 +4,7 @@
 # are linked together in a list through their 'next' attribute.  The
 # 'Head' attribute indicates the Task is the first in the list
 # for the associated Stage
+# rubocop:disable Metrics/ClassLength
 class Task < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -28,7 +29,11 @@ class Task < ApplicationRecord
   validates :answer, presence: true
   validates :positive, presence: true
   validates :negative, presence: true
-  validates_presence_of :stage
+  validates :stage_id, presence: true
+
+  delegate :title, to: :stage, prefix: true
+  delegate :description, :link, :title, to: :feature, prefix: true
+  delegate :description, :link, :title, to: :action, prefix: true
 
   amoeba do
     include_association :task_shortcuts
@@ -99,6 +104,7 @@ class Task < ApplicationRecord
     SQL
   end
 
+  # rubocop:disable SkipsModelValidations
   def remove
     Task.transaction do
       # link prev to following timeline_task
@@ -120,6 +126,7 @@ class Task < ApplicationRecord
       destroy
     end
   end
+  # rubocop:enable SkipsModelValidations
 
   # Reset the head true/false based on previous task
   def reset_head
@@ -155,3 +162,4 @@ class Task < ApplicationRecord
     (0..1).each { |i| task_contacts.build unless task_contacts[i] }
   end
 end
+# rubocop:enable Metrics/ClassLength

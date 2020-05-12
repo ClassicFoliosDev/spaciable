@@ -9,10 +9,17 @@ class PlotTimeline < ApplicationRecord
   belongs_to :task
   has_many :task_logs, dependent: :destroy
 
+  delegate :live?, to: :timeline
+
   # Log non not_applicable responses for a Task.
   def log(task, response)
     log = task_logs.find_by(task_id: task.id) ||
           task_logs.create(task_id: task.id)
     log.update_attributes(response: response)
+  end
+
+  def complete?
+    timeline.tasks.count ==
+      task_logs.where(response: :positive).count
   end
 end

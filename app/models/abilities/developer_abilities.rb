@@ -60,8 +60,8 @@ module Abilities
       polymorphic_abilities Timeline, :timelineable do
         type "Developer", id: developer_id, actions: :read
       end
-      can [:read, :show, :empty], Task
-      can [:show], Finale
+      can %i[read show empty], Task
+      can %i[show], Finale
     end
   end
 end

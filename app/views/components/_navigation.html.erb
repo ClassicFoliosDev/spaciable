@@ -28,7 +28,9 @@
         <%= navigation_link(admin_how_tos_path, "question-circle", t(".howtos"), "navbar-link") %>
         <%= navigation_link(admin_settings_path, "wrench", t(".configuration"), "navbar-link") %>
         <%= navigation_link(new_admin_analytics_path, "bar-chart", t(".reports"), "navbar-link") %>
-        <%= navigation_link(global_timelines_path(Global.root.id), "clock-o", t(".timeline"), "navbar-link") %>
+        <% if Global.root&.id %>
+          <%= navigation_link(global_timelines_path(Global.root&.id), "clock-o", t(".timeline"), "navbar-link") %>
+        <% end %>
       <% end %>
 
       <% if can? :read, Finish.new(developer_id: current_user.developer) %>

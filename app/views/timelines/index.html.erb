@@ -1,3 +1,4 @@
+<% breadcrumb :timelines, @parent %>
 
 <div class="section-header">
   <div class="section-title">
@@ -13,4 +14,4 @@
   <%= render 'components/tabs', tabs: tabs_for(@parent, "timelines"), parent: @parent %>
 <% end %>
 
-<%= render_collection @timelines, room: nil %>
+<%= render_collection @timelines, parent: @parent %>

@@ -14,11 +14,22 @@ class Timeline < ApplicationRecord
 
   after_create :add_stages
 
+  delegate :complete_message, :complete_picture,
+           :incomplete_message, :incomplete_picture, to: :finale
+
   amoeba do
     include_association :timeline_stages
     include_association :finale
     # tasks have to be duplicated manually as they are a linked list
   end
+
+  validates :title,
+            presence: true,
+            uniqueness:
+            {
+              scope: %i[timelineable],
+              case_sensitive: false
+            }
 
   # Retrieve a specific Task
   def task(task_id)
@@ -73,7 +84,7 @@ class Timeline < ApplicationRecord
     Timeline.transaction do
       begin
         new_timeline = amoeba_dup
-        new_timeline.title = CloneNameService.call(title)
+        new_timeline.title += " (copy)"
         new_timeline.save!
 
         # The tasks are a linked list - with ids to the next
@@ -100,6 +111,12 @@ class Timeline < ApplicationRecord
 
   def to_s
     title
+  end
+
+  def live?
+    # Are there any tasks and a finale?  Use a
+    # quick an efficient Task query
+    finale && Task.find_by(timeline_id: id)
   end
 
   private

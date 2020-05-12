@@ -61,22 +61,49 @@ document.addEventListener('turbolinks:load', function () {
 $(document).on('click', '#addActionBtn', function (event) {
   $(this).hide()
   $('#actionInput').show()
+  // the _destroy attribute marks a nested record for destruction
+  $('#task_action_attributes__destroy').val(false)
 })
 
 // task form - hide the action fields on clicking delete action button
 $(document).on('click', '#deleteActionBtn', function (event) {
   $('#actionInput').hide()
   $('#addActionBtn').show()
+  // the _destroy attribute marks a nested record for destruction
+  $('#task_action_attributes__destroy').val(true)
 })
 
 // task form - show the feature fields on clicking add feature button
 $(document).on('click', '#addFeatureBtn', function (event) {
   $(this).hide()
   $('#featureInput').show()
+  // the _destroy attribute marks a nested record for destruction
+  $('#task_feature_attributes__destroy').val(false)
 })
 
 // task form - hide the feature fields on clicking delete feature button
 $(document).on('click', '#deleteFeatureBtn', function (event) {
   $('#featureInput').hide()
   $('#addFeatureBtn').show()
+  // the _destroy attribute marks a nested record for destruction
+  $('#task_feature_attributes__destroy').val(true)
+})
+
+// Set the visibility of the Add/Remove Feature/Action buttons
+// based on content
+$( document ).on('turbolinks:load', function() {
+  if ($('#featureInput').length) {
+    featuretext = $('#task_feature_attributes_title').val() +
+                  $('#task_feature_attributes_description').val() +
+                  $('#task_feature_attributes_link').val()
+
+    featuretext.length ? $('#addFeatureBtn').hide() : $('#featureInput').hide()
+
+    actiontext = $('#task_action_attributes_title').val() +
+                 $('#task_action_attributes_description').val() +
+                 $('#task_action_attributes_link').val()
+
+    actiontext.length ? $('#addActionBtn').hide() : $('#actionInput').hide()
+  }
+
 })

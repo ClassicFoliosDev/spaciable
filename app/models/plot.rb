@@ -21,6 +21,7 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
   has_one :plot_timeline, dependent: :destroy
+  accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :choice_configuration
   has_many :room_choices, dependent: :destroy
@@ -155,6 +156,10 @@ class Plot < ApplicationRecord
     end
   end
 
+  def timeline
+    plot_timeline&.timeline_id
+  end
+
   def prefix
     address.prefix if address&.prefix?
   end
@@ -187,6 +192,20 @@ class Plot < ApplicationRecord
     return if parent_address && name.present? && name == parent_address.postcode
 
     (address || build_address).postcode = name
+  end
+
+  # Temporary solution to allow allocation of a timeline to
+  # a plot.  Phase 2 will replace
+  def timeline=(timeline)
+    if timeline.empty?
+      plot_timeline&.destroy
+    else
+      pt = (plot_timeline || build_plot_timeline)
+      pt.timeline_id = timeline
+      pt.task_id = nil
+      pt.complete = false
+      pt&.task_logs&.destroy_all
+    end
   end
 
   def number

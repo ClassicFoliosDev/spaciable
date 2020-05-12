@@ -104,10 +104,12 @@
           <% end %>
         <% end %>
 
-        <%= link_to homeowner_timeline_path, class: "navbar-link" do %>
-          <li class="navbar-item">
-            <%= t("layouts.homeowner.nav.timeline") %>
-          </li>
+        <% if plot&.plot_timeline&.live? %>
+          <%= link_to homeowner_timeline_path, class: "navbar-link" do %>
+            <li class="navbar-item">
+              <%= t("layouts.homeowner.nav.timeline") %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </div>

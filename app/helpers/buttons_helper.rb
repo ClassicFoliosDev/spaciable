@@ -47,6 +47,12 @@ module ButtonsHelper
     end
   end
 
+  def cancel_btn(label, path:, text:, title:)
+    content_tag(:a, label,
+                data: data_to_cancel(title, path: path, text: text),
+                class: "btn cancel-btn")
+  end
+
   def permissable_delete_btn(resource, path: nil, element:)
     return if element && (cannot? :destroy, element)
 

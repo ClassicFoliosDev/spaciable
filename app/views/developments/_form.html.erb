@@ -59,6 +59,10 @@
     </div>
     <div class="row-item third">
       <fieldset>
+         <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>
+        <div id="choices_email_contact">
+          <%= f.input :choices_email_contact, label: t(".choices_email") %>
+        </div>
         <% if development.parent_developer.timeline %>
           <%= f.input :timeline_id,
             as: :select,

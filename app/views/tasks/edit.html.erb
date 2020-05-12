@@ -1,4 +1,4 @@
-<% breadcrumb :timeline, @timeline %>
+<% breadcrumb :task_edit, @timeline, @task %>
 
 <%= render "timeline", timeline: @timeline, editable: false %>
-<%= render "form", timeline: @timeline, task: @task %>
+<%= render "form", timeline: @timeline, task: @task, stages: @stages, disabled_stages: @disabled_stages %>

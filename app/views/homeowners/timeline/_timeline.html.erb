@@ -1,0 +1,30 @@
+      <div class="list-stages" id="timelineSidebar">
+        <ul class="vertical">
+          <% timeline.stages.each do |stage| %>
+          <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
+           <ul class="sub-stage">
+           <% timeline.stage_tasks(stage)&.each do |t| %>
+              <li id = "<%= 'activeTaskScroll' if t == task %>"
+                  class="sub-stage-container branded-text
+                        <%= 'active' if t == task %>
+                        <%= 'complete' if logs.find_by(task_id: t.id)&.response == 'positive' %>
+                        <%= 'negative' if logs.find_by(task_id: t.id)&.response == 'negative' %>
+                        <%= 'complete' if logs.find_by(task_id: t.id)&.response == 'not_applicable' %>">
+                <a href=<%="#{show_timeline_task_path(t)}"%>><%= t.title %></a>
+                <% if parent == :task && t == task %>
+                  <div id="timelineContentMobile">
+                    <!-- use javascript to migrate all of the timeline-content children to here -->
+                  </div>
+                <% end %>
+              </li>
+           <% end %>
+           </ul>
+          <% end %>
+        </ul>
+
+        <% if parent == :complete %>
+          <div id="timelineContentMobile">
+                  <!-- use javascript to migrate all of the timeline-content children to here -->
+          </div>
+        <% end %>
+      </div>

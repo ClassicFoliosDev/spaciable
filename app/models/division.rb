@@ -33,7 +33,7 @@ class Division < ApplicationRecord
   delegate :cas, to: :developer
   delegate :enable_roomsketcher, :house_search, :development_faqs, to: :developer
   delegate :enable_referrals, :enable_services, :enable_development_messages, to: :developer
-  delegate :enable_perks, to: :developer
+  delegate :enable_perks, :timeline, to: :developer
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
 

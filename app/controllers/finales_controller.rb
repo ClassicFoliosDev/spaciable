@@ -42,6 +42,7 @@ class FinalesController < ApplicationController
   private
 
   def set_complete
-    @complete ||= params[:complete] || true
+    @complete ||= params[:complete] || "true"
+    @complete = @complete == "true"
   end
 end

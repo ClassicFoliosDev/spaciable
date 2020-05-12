@@ -8,8 +8,8 @@
         <div class="overlay">
           <div class="progress-container">
             <div class="title">
-              <i id="iconMobile<%=@task.stage.title%>"></i>
-              <p> <%= @task.stage.title %></p>
+              <i id="iconMobile<%=@task.stage_title%>"></i>
+              <p> <%= @task.stage_title %></p>
             </div>
             <div class="progress">
               <!-- igloo progress image goes here -->
@@ -19,9 +19,9 @@
       </div>
       <div class="timeline-header">
         <div class="title">
-          <i id="icon<%=@task.stage.title%>"></i>
+          <i id="icon<%=@task.stage_title%>"></i>
           <h2><%= t(".header") %></h2>
-          <p> <%= @task.stage.title %></p>
+          <p> <%= @task.stage_title %></p>
         </div>
         <div class="progress">
           <!-- igloo progress image goes here -->
@@ -29,30 +29,8 @@
         </div>
       </div>
 
-      <div class="list-stages" id="timelineSidebar">
-        <ul class="vertical">
-          <% @timeline.stages.each do |stage| %>
-          <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
-           <ul class="sub-stage">
-           <% @timeline.stage_tasks(stage)&.each do |task| %>
-              <li id = "<%= 'activeTaskScroll' if task == @task %>"
-                  class="sub-stage-container branded-text
-                        <%= 'active' if task == @task %>
-                        <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'positive' %>
-                        <%= 'negative' if @logs.find_by(task_id: task.id)&.response == 'negative' %>
-                        <%= 'complete' if @logs.find_by(task_id: task.id)&.response == 'not_applicable' %>">
-                <a href=<%="#{show_timeline_task_path(task)}"%>><%= task.title %></a>
-                <% if task == @task %>
-                  <div id="timelineContentMobile">
-                    <!-- use javascript to migrate all of the timeline-content children to here -->
-                  </div>
-                <% end %>
-              </li>
-           <% end %>
-           </ul>
-          <% end %>
-        </ul>
-      </div>
+      <%= render "homeowners/timeline/timeline", parent: :task, timeline: @timeline, task: @task, logs: @logs %>
+
     </div>
 
     <div id="timelineContentDesktop" class="timeline-content">
@@ -84,8 +62,8 @@
             <aside class="useful-extras">
               <div class="features-container">
                 <% if @task.feature %>
-                  <p><%= @task.feature.description %></p>
-                  <button onclick="window.open('<%=@task.feature.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.feature.title %></button>
+                  <p><%= @task.feature_description %></p>
+                  <button onclick="window.open('<%=@task.feature_link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.feature_title %></button>
                 <% end %>
               </div>
             </aside>
@@ -139,7 +117,8 @@
                   <% @task.task_shortcuts.each do |ts| %>
                     <% if ts.live %>
                       <div class="shortcut-links link_<%=ts.shortcut.shortcut_type%>">
-                        <button onclick="window.open('<%=eval(ts.shortcut.link)%>', '_blank')" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
+                        <% url = ts.shortcut.link.start_with?("http") ? ts.shortcut.link : eval(ts.shortcut.link) %>
+                        <button onclick="window.open('<%= url %>', '_blank')" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
                           <!-- icons are adding via javascript -->
                           <i class=""></i>
                         </button>
@@ -153,10 +132,10 @@
 
             <div class="next">
               <%if @task.action %>
-                <% if @task.action.description.present? %>
-                  <p><%= @task.action.description %></p>
+                <% if @task.action_description.present? %>
+                  <p><%= @task.action_description %></p>
                 <% end %>
-                <button onclick="window.open('<%=@task.action.link%>', '_blank')" type="button" class="btn branded-btn"><%= @task.action.title %></button>
+                <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn"><%= @task.action_title %></button>
               <% end %>
               <input type="submit" value=<%="#{t('homeowners.timeline.next')}"%> class: "btn-form-submit btn branded-btn">
             </div>

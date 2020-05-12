@@ -101,6 +101,8 @@ en:
     share_tenants: "Private: click to share with tenants of this plot"
     share_all: "Private: click to share with tenants and other residents of this plot"
     shared: "Shared: click to disable sharing"
+    cancel:
+      confirm: "Confirm Cancel"
 
   choices:
     save: "Save Changes"
@@ -417,7 +419,17 @@ en:
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
     timeline_add: "Add Timeline"
-    timeline_edit: "Edit Timeline"
+    timelines: "Timelines"
+    timeline_show: "%{timeline}"
+    timeline_edit: "Edit %{timeline}"
+    timeline_import: "Import Timeline"
+    tasks: "Timelines"
+    task_show: "%{task}"
+    task_edit: "Edit %{task}"
+    task_add: "Add Task"
+    finale_show: "Finale"
+    finale_edit: "Edit Finale"
+    finale_add: "Add Finale"
 
   pagination:
     per_page_10: "10"
@@ -3305,10 +3317,30 @@ en:
       title: "Name"
     form:
       submit: "Submit"
+    components:
+      timeline:
+        new: "New Task"
   tasks:
-    finale: "Finale"
+    delete: "Delete"
+    delete_task: "Delete Task"
+    cancel_delete: "Cancel"
+    delete_text: "Are you sure you wish to delete Task?"
+    confirm_delete: "Confirm Delete"
+    finale:
+      title: "Finale"
+      cancel_insert: "Cancel Add"
+      cancel_insert_text: "Are you sure you want to cancel creating this finale? The changes will be lost and the finale will not be created."
+      cancel_update: "Cancel Update"
+      cancel_update_text: "Are you sure you want to cancel editing this finale? The changes will be lost and the finale will not be saved."
     complete: "Complete"
     incomplete: "Incomplete"
+    cancel: "Cancel"
+    cancel_insert: "Cancel Insert"
+    cancel_insert_text: "Are you sure you want to cancel creating this task? The changes will be lost and the task will not be created."
+    cancel_update: "Cancel Update"
+    cancel_update_text: "Are you sure you want to cancel editing this task? The changes will be lost and the task will not be saved."
+    destroy:
+      success: "%{name} deleted successfully"
     show:
       edit: "Edit"
       delete: "Delete"

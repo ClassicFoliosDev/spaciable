@@ -54,7 +54,7 @@ class TimelinesController < ApplicationController
     @timeline.destroy!
     notice = t("controller.success.destroy", name: @timeline.title)
     redirect_to [@parent, :timelines], notice: notice
-  rescue ActiveRecord::InvalidForeignKey => e
+  rescue ActiveRecord::InvalidForeignKey
     notice = t("activerecord.errors.messages.delete_not_possible",
                name: @timeline.title,
                types: "records")

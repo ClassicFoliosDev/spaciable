@@ -37,6 +37,10 @@ module HomeownerUserFixture
     )
   end
 
+  def associate_timeline(timeline)
+    plot_timeline = FactoryGirl.create(:plot_timeline, plot: plot, timeline: Timeline.find_by(title: timeline))
+  end
+
   def create_more_plot_residencies
     phase = Phase.find_by(name: phase_name)
     second_plot = FactoryGirl.create(:plot, phase_id: phase.id)
@@ -111,6 +115,10 @@ module HomeownerUserFixture
 
   def plot_number
     "63B"
+  end
+
+  def plot
+    Plot.find_by(number: plot_number)
   end
 
   def completion_date

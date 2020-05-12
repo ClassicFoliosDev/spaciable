@@ -107,24 +107,8 @@ class Timeline < ActiveRecord::Migration[5.0]
 
     add_reference :plot_residencies, :task, foreign_key: true
 
-    # Data ------------
+    # Data --
 
-    # Timelines can be global, or associated with developers. In order
-    # for generic form handling to be possible, each timeline
-    # needs to identify a parent.  This single global record acts
-    # as the parent to all 'global' Timelines
-    Global.create(name: "CFAdmin")
-
-    # Add the timeline stages
-    Stage.create(title: 'Reservation')
-    Stage.create(title: 'Exchange')
-    Stage.create(title: 'Moving')
-    Stage.create(title: 'Living')
-
-    # Add the shortcuts
-    Shortcut.create(shortcut_type: :how_tos, link: "homeowner_how_tos_path")
-    Shortcut.create(shortcut_type: :faqs, link: "homeowner_faqs_path")
-    Shortcut.create(shortcut_type: :services, link: "services_path")
-    Shortcut.create(shortcut_type: :area_guide, link: "services_path")
+    load Rails.root.join("db/seeds", "timeline.rb")
   end
 end

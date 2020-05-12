@@ -1,0 +1,67 @@
+<!-- template for displaying all admin timelines -->
+<% def action?(option) action_name.to_sym == option; end %>
+
+<!-- make sure all options are defined if they haven't been passed in -->
+<% insert_mode = defined?(insert_mode) ? insert_mode : nil %>
+<% insertion_task = defined?(insertion_task) ? insertion_task : nil %>
+<% complete = defined?(complete) ? complete : false %>
+
+<div class="timeline-sidebar" id="timelineAdminSidebar">
+  <div class="list-stages">
+    <ul class="vertical">
+      <% timeline.timeline_stages.each do |tstage| %>
+      <li class="stage-title"><span class="branded-text"><%= tstage.stage.title %></span></li>
+      <ul class="sub-stage">
+        <% timeline.tasks&.each do |tt| %>
+          <% if tt.stage.title == tstage.stage.title %>
+            <% if action?(:new) && insert_mode == :before && tt.id == insertion_task.id %>
+              <li class="sub-stage-container new">
+                <span class="stage"><%= t(".new") %></span>
+              </li>
+            <% end %>
+            <% if links %>
+            <a class="stage" id = "<%= 'activeTaskScroll' if tt == task %>" href="<%= timeline_task_path timeline, tt %>">
+            <% end %>
+              <li class="sub-stage-container branded-text <%= 'active' if task.present? && task == tt %>">
+                <span class=<%= "stage" if !links%>><%= tt.title %></span>
+              </li>
+            <% if links %>
+            </a>
+            <% end %>
+            <% if action?(:new) && insert_mode == :after && tt.id == insertion_task.id %>
+              <li class="sub-stage-container new">
+                <span class="stage"><%= t(".new") %></span>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+      <% end %>
+      <% if parent == :finale || timeline.finale %>
+        <li class="stage-title"><span class="branded-text"><%= t("tasks.finale.title") %></span></li>
+        <ul class="sub-stage">
+          <% if links %>
+          <a class="stage" href="<%= timeline_finale_path timeline, timeline.finale, complete:true %>">
+          <% end %>
+            <li class="sub-stage-container branded-text <%= 'active' if parent == :finale && complete %>">
+              <span><%= t("tasks.complete") %></span>
+            </li>
+          <% if links %>
+          </a>
+          <% end %>
+        </ul>
+        <ul class="sub-stage">
+          <% if links %>
+          <a class="stage" href="<%= timeline_finale_path timeline, timeline.finale, complete:false %>">
+          <% end %>
+            <li class="sub-stage-container branded-text <%= 'active' if parent == :finale && !complete %>">
+              <span <%= "stage" if !links%>><%= t("tasks.incomplete") %></span>
+            </li>
+          <% if links %>
+          </a>
+          <% end %>
+        </ul>
+      <% end %>
+    </ul>
+  </div>
+</div>
