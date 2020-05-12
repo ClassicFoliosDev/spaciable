@@ -41,7 +41,7 @@ Feature: Timeline
     And tasks First to Tenth should link together negative
     When I t("tasks.show.add_finale") finale content
     Then I can see the complete content finale in the timeline
-    And I can see the complete content finale in the timeline
+    And I can see the incomplete content finale in the timeline
 
   @javascript
   Scenario: CF Admin Clone a Timeline
