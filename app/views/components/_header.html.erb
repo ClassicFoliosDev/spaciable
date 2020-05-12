@@ -11,7 +11,8 @@
   <% elsif current_user %>
     <% unless current_user.expired? %>
       <div class="feedback-container">
-        <%= button_tag t(".feedback"), data: data_for_feedback(current_user), class: "right btn feedback-btn" %>
+        <%= button_tag t(".feedback"), data: data_for_feedback(current_user),
+            class: "right btn feedback-btn navigation-btn" %>
       </div>
     <% end %>
   <% end %>

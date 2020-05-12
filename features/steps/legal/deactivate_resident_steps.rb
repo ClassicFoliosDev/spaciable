@@ -1,8 +1,9 @@
 When(/^I deactivate my account$/) do
   visit "/"
 
-  within ".branded-header" do
-    click_on t(".components.homeowner.welcome.account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 
   within ".show-actions" do

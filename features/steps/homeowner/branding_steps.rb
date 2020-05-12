@@ -58,9 +58,9 @@ Then(/^I should see the branding for my page$/) do
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
   # header-color set on division only
-  expect(style['outerHTML']).to have_content("branded-header { background-color: #222000")
+  expect(style['outerHTML']).to have_content("branded-nav-background { background-color: #222000")
   # bg-color set on developer and division: should be the division color
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #000222")
+  expect(style['outerHTML']).to have_content("library-navigation { background-color: #000222")
   # text-color set on developer only
   expect(style['outerHTML']).to have_content("branded-text { color: #646467")
   # content bg-color set on developer and division: should be the division color
@@ -71,7 +71,7 @@ Then(/^I should see the branding for my page$/) do
   expect(style['outerHTML']).to have_content("branded-btn { background-color: #776644")
   # button text color set on development, division, and developer: should be development color
   expect(style['outerHTML']).to have_content("branded-btn { color: #698492")
-  expect(style['outerHTML']).to have_content("branded-primary { color: #48f442")
+  expect(style['outerHTML']).to have_content("branded-nav-text a { color: #48f442")
 
   # banner set on development, division, and developer: should be development image
   expect(style['outerHTML']).to have_content("cala_banner.jpg")
@@ -131,7 +131,7 @@ Given(/^the resident also has an unbranded plot$/) do
 end
 
 Then(/^I should see the branded logos$/) do
-  within ".plot-list" do
+  within ".plots" do
     images = page.all("img")
     expect(images.count).to eq 3
 
@@ -154,8 +154,7 @@ Then(/^I should see the default branding$/) do
 
   style = page.find("head [data-test='brand-style-overrides']", visible: false)
 
-  expect(style['outerHTML']).to have_content("branded-header { background-color: #002A3A")
-  expect(style['outerHTML']).to have_content("branded-body { background-color: #FAFAFA")
+  expect(style['outerHTML']).to have_content("branded-body { background-color: #FFFFFF")
   expect(style['outerHTML']).to have_content("branded-text { color: #002A3A")
   expect(style['outerHTML']).to have_content("branded-content { background-color: #FFFFFF")
   expect(style['outerHTML']).to have_content("branded-border { border-color: #c5d1d6")
@@ -166,9 +165,10 @@ Then(/^I should see the default branding$/) do
 end
 
 When(/^I switch back to the first plot$/) do
-  within ".plot-list" do
-    plot_link = page.find_link(CreateFixture.division_development_name)
-    plot_link.trigger(:click)
+  first_plot = Plot.find_by(number: CreateFixture.phase_plot_name)
+
+  within ".plots" do
+    find(:xpath, "//a[@href='/homeowners/change_plot?id=#{first_plot.id}']").click
   end
 
   wait_for_branding_to_reload

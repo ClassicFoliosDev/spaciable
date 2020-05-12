@@ -1,10 +1,21 @@
-<div class="branded-hero"></div>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to intro_video_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t(".title") %>
+    </li>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
+<div class="intro-video-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
 
 <div class="outer-container branded-content branded-text intro-video">
   <div class="video-container">
-    <div class="title">
-      <%= t(".welcome_title", name: current_resident.first_name) %>
-    </div>
     <p class="intro-text">
       <span><%= t(".welcome_1") %></span><br/>
       <span><%= t(".welcome_2") %></span>

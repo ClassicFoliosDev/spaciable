@@ -134,11 +134,6 @@ Then(/^I see the plot preview page$/) do
   sleep 0.3
 
   within_frame("rails_iframe") do
-    expect(page).to have_content(t("layouts.homeowner.nav.dashboard"))
-    expect(page).to have_content(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
-    expect(page).to have_content(t("layouts.homeowner.nav.how_to"))
-    expect(page).to have_content(t("layouts.homeowner.nav.contacts"))
-
     expect(page).to have_content(t("homeowners.my_home_name", construction: t("construction_type.home")))
     expect(page).to have_content(t("homeowners.components.address.view_more", construction: t("components.homeowner.sub_menu.title")))
 
@@ -161,7 +156,7 @@ Then(/^I can see my library$/) do
 
   sleep 0.7
   within_frame("rails_iframe") do
-    expect(page).to have_content %r{#{t("components.homeowner.library_hero.title")}}i
+    expect(page).to have_content %r{#{t("components.homeowner.sub_menu.library")}}i
 
     expect(page).to have_content "Development Document"
     anchor = page.first("a[href='/uploads/document/file/2/development_document.pdf']")
@@ -171,7 +166,11 @@ end
 
 Then(/^I can see my appliances$/) do
   within_frame("rails_iframe") do
-    click_on t("layouts.homeowner.sub_nav.appliances")
+    within ".burger-navigation" do
+      check_box = find(".burger")
+      check_box.trigger(:click)
+    end
+    find(:xpath, "//a[@href='/homeowners/my_appliances']").click
   end
 
   within_frame("rails_iframe") do
@@ -181,7 +180,11 @@ end
 
 Then(/^I can see my contacts$/) do
   within_frame("rails_iframe") do
-    click_on t("layouts.homeowner.nav.contacts")
+    within ".burger-navigation" do
+      check_box = find(".burger")
+      check_box.trigger(:click)
+    end
+    click_on(t("layouts.homeowner.nav.contacts"))
   end
 
   sleep 0.2
@@ -192,7 +195,11 @@ end
 
 Then(/^I can see my faqs$/) do
   within_frame("rails_iframe") do
-    click_on t("layouts.homeowner.sub_nav.faqs")
+    within ".burger-navigation" do
+      check_box = find(".burger")
+      check_box.trigger(:click)
+    end
+    click_on(t("components.homeowner.navigation.faqs"))
   end
 
   sleep 0.2

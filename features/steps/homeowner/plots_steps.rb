@@ -12,17 +12,17 @@ When(/^I log in as homeowner$/) do
 end
 
 Then(/^I see all the plots I own$/) do
-  within ".session-inner .full-menu" do
-    plot_list_button = page.find(".my-plots")
-    plot_list_button.trigger(:click)
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("components.homeowner.header.plots")
   end
 
-  within ".plot-list" do
+  within ".plots" do
     plots = page.all(".plot-summary")
     expect(plots.count).to eq 5
     Plot.all.each do |plot|
       expect(page).to have_content plot.to_homeowner_s
-    end
+  end
 
     expect(page).to have_content HomeownerUserFixture.development_name
     expect(page).to have_content HomeownerUserFixture.developer_name
@@ -43,27 +43,17 @@ Given(/^there is another division phase plot$/) do
 end
 
 When(/^I show the plots$/) do
-  within ".session-inner .full-menu" do
-    plot_list_button = page.find(".my-plots")
-    plot_list_button.trigger(:click)
-
-    # Wait for the javascript to trigger
-    sleep 0.3
-
-    plot_lists = page.all(".plot-list")
-    if plot_lists.count < 1
-      plot_list_button = page.find(".my-plots")
-      plot_list_button.trigger(:click)
-    end
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("components.homeowner.header.plots")
   end
 end
 
 When(/^I switch to the second plot$/) do
   second_plot = Plot.find_by(number: PlotFixture.another_plot_number)
 
-  within ".session-inner" do
-    plot_link = page.find_link(second_plot.to_homeowner_s)
-    plot_link.trigger(:click)
+  within ".plots" do
+    find(:xpath, "//a[@href='/homeowners/change_plot?id=#{second_plot.id}']").click
   end
 
   within ".my-home-address" do

@@ -28,7 +28,8 @@ end
 Then(/^I should see be able to view My Account$/) do
   visit "/"
 
-  within ".session-inner" do
+  page.find("#dropdownMenu").click
+  within ".links-list" do
     click_on t("homeowners.residents.show.my_account")
   end
 end
@@ -55,8 +56,9 @@ When(/^I update the account details$/) do
 end
 
 Then(/^I should see account details updated successfully$/) do
-  within ".session-inner" do
-    click_on I18n.t("homeowners.residents.show.my_account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 
   within ".communications" do
@@ -87,8 +89,9 @@ When(/^I remove notification methods from my account$/) do
 end
 
 Then(/^I should see account subscriptions removed successfully$/) do
-  within ".session-inner" do
-    click_on I18n.t("homeowners.residents.show.my_account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 
   within ".communications" do
@@ -98,26 +101,6 @@ Then(/^I should see account subscriptions removed successfully$/) do
     unselected = page.all(".unselected").map(&:text)
     expect(unselected).to have_content t("homeowners.residents.show.telephone_updates")
     expect(unselected).to have_content t("homeowners.residents.show.cf_email_updates")
-  end
-end
-
-Then(/^I should not see services in my account$/) do
-  within ".session-inner" do
-    click_on t("homeowners.residents.show.my_account")
-  end
-
-  within ".outer-container" do
-    expect(page).not_to have_content(".services")
-  end
-end
-
-Then(/^I should not see services when I edit my account$/) do
-  within ".resident" do
-    click_on t("homeowners.residents.show.edit_profile")
-  end
-
-  within ".outer-container" do
-    expect(page).not_to have_content(".services")
   end
 end
 
@@ -153,20 +136,16 @@ Then(/^I should not see other resident emails listed in my account$/) do
 end
 
 When(/^I switch to the homeowner plot$/) do
-  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
-
-  within ".plot-list" do
-    plot_link = page.find_link(plot.to_homeowner_s)
-    plot_link.trigger(:click)
+  within ".plots" do
+    find(".swap-plot-btn").click
   end
 
   wait_for_branding_to_reload
 end
 
 When(/^I soft delete the plot residency$/) do
-  within ".session-inner" do
-    click_on t("users.sign_out")
-  end
+  page.find("#dropdownMenu").click
+  find("#signOut").click
 
   resident = Resident.find_by(email: PlotResidencyFixture.original_email)
   plot = resident.plots.first
@@ -280,7 +259,8 @@ end
 Then(/^I add another resident$/) do
   visit "/"
 
-  within ".session-inner" do
+  page.find("#dropdownMenu").click
+  within ".links-list" do
     click_on t("homeowners.residents.show.my_account")
   end
 
@@ -314,7 +294,8 @@ end
 Then(/^I add a homeowner resident$/) do
   visit "/"
 
-  within ".session-inner" do
+  page.find("#dropdownMenu").click
+  within ".links-list" do
     click_on t("homeowners.residents.show.my_account")
   end
 
@@ -397,7 +378,7 @@ Given(/^a CF admin has configured a video link$/) do
 end
 
 Then(/^I should be redirected to the communication preferences page$/) do
-  within ".title" do
+  within ".navbar-item-secondary" do
     expect(page).to have_content(t("homeowners.communication_preferences.show.communication_preferences"))
   end
 end
@@ -407,25 +388,27 @@ Then(/^when I click next$/) do
 end
 
 Then(/^I am redirected to the welcome home page$/) do
-  within ".title" do
-    expect(page).to have_content(t("homeowners.welcome_home.show.welcome_home"))
+  within ".navbar-item-secondary" do
+    expect(page).to have_content(t("homeowners.welcome_home.show.title"))
   end
 end
 
 Then(/^I should be redirected to the intro video page$/) do
-  within ".title" do
-    expect(page).to have_content(t("homeowners.intro_videos.show.welcome_title"))
+  within ".navbar-item-secondary" do
+    expect(page).to have_content(t("homeowners.intro_videos.show.title"))
   end
 end
 
 Then(/^I should be redirected to the services page$/) do
-  within ".title" do
+  within ".navbar-item-secondary" do
     expect(page).to have_content(t("homeowners.residents.services.title"))
   end
 end
 
 When(/^I select no services$/) do
-  find(".branded-btn-inverted").click
+  within ".services-actions" do
+    page.first(".branded-btn-inverted").click
+  end
 end
 
 Then(/^I should be redirected to the homeowner root page$/) do
@@ -433,8 +416,9 @@ Then(/^I should be redirected to the homeowner root page$/) do
 end
 
 Then(/^I cannot see the intro video link in my account$/) do
-  within ".full-menu" do
-    click_on t("components.homeowner.welcome.account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 
   find(".show-actions")
@@ -444,8 +428,9 @@ Then(/^I cannot see the intro video link in my account$/) do
 end
 
 Then(/^I can see the intro video link in my account$/) do
-  within ".full-menu" do
-    click_on t("components.homeowner.welcome.account")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("components.homeowner.header.account")
   end
 
   find(".show-actions")

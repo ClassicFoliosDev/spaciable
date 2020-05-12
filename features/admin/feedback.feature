@@ -21,5 +21,5 @@ Feature: Feedback
 
   Scenario: Homeowner
     Given I am logged in as a homeowner
-    When I submit feedback
+    When I submit homeowner feedback
     Then An email should be sent

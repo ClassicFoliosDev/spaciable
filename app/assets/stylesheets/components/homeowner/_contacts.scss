@@ -84,6 +84,12 @@
       @include span-columns(10 of 12);
     }
   }
+
+  .contacts-nav .sub-navigation-container {
+    .navbar-item-secondary {
+      width: 110px;
+    }
+  }
 }
 
 @include media($tablet-portrait-down) {
@@ -169,7 +175,6 @@
     .contact {
       @include span-columns(12 of 12);
       @include omega-reset(3n);
-      height: 210px;
     }
   }
 }

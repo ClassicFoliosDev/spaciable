@@ -13,9 +13,11 @@ end
 
 
 Then(/^I should see the Snagging page$/) do
-  within ".sub-navigation-container" do
-    click_on HomeownerUserFixture.custom_snag_name
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
+  click_on HomeownerUserFixture.custom_snag_name
   within ".main-container" do
     expect(page).to have_content(t"homeowners.snags.index.snag_description", snag_name: HomeownerUserFixture.custom_snag_name)
   end

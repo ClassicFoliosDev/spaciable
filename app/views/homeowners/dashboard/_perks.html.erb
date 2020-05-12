@@ -3,40 +3,15 @@
     <div class="perks-summary">
       <!-- if Vaboo had not been activated by the current resident -->
       <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
-
-        <!-- if Premium is available on the plot for the current resident-->
-        <% if Vaboo.premium_perks_available?(current_resident, plot) %>
-
-          <!-- has the plot reached legal completion? -->
-          <% if plot.completed? %>
-
-            <!-- if another resident on the plot has activated Premium -->
-            <% if Vaboo.premium_perks_activated?(plot) %>
-              <% perk = "basic" %>
-            <!-- if no other resident on the plot has activated Premium -->
-            <% else %>
-              <% perk = "premium" %>
-            <% end %>
-
-          <!-- if Premium is available on the plot but the plot has not reached legal completion -->
-          <% else %>
-            <% perk = "coming_soon" %>
-          <% end %>
-
-        <!-- if Premium is not available on the plot regardless if the plot has reached legal completion -->
-        <% else %>
-          <% perk = "basic" %>
-        <% end %>
-
-      <p class="perks-content">
-        <p class="perks-description"><%= t(".perks_description") %></p>
-        <span class="perks-button">
-          <%= link_to t(".perks"),
-          perks_path(type: perk),
-          class: "branded-btn-inverted" %>
-        </span>
-      </p>
-
+        <% perk = allocate_perk_type(current_resident, plot) %>
+        <p class="perks-content">
+          <p class="perks-description"><%= t(".perks_description") %></p>
+          <span class="perks-button">
+            <%= link_to t(".perks"),
+            perks_path(type: perk),
+            class: "branded-btn-inverted" %>
+          </span>
+        </p>
       <% else %>
         <p class="perks-content">
           <p class="perks-description"><%= t(".activated_description").html_safe %></p>

@@ -207,8 +207,9 @@ Then(/^I should be prompted for ts and cs$/) do
 end
 
 Then(/^I should be prompted for ts and cs on next action$/) do
-  within ".navbar-menu" do
-    click_on t("layouts.homeowner.nav.contacts")
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("homeowners.residents.show.my_account")
   end
 
   within ".sign-in" do

@@ -1,11 +1,22 @@
-<div class="branded-hero"></div>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to welcome_home_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t(".title") %>
+    </li>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
+<div class="welcome-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
 
 <div class="outer-container branded-content">
   <div class="onboarding branded-text">
     <div class="welcome-home">
-      <div class="title">
-        <%= t(".welcome_home") %>
-      </div>
       <div class="opening">
         <p>
           <%= t(".opening_one", developer: @plot.developer) %><br/>

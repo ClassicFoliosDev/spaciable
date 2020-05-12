@@ -8,9 +8,9 @@ Given(/^I am logged in as a homeowner wanting to read notifications$/) do
 end
 
 When(/^I read the notifications$/) do
-  within(".session-inner .full-menu") do
-    notification_link = page.find(:css, 'a[href="/homeowners/notifications"]')
-    notification_link.click
+  page.find("#dropdownMenu").click
+  within ".links-list" do
+    click_on t("components.homeowner.header.messages")
   end
 end
 
@@ -26,8 +26,8 @@ Then(/^I should see the notifications list$/) do
 end
 
 Then(/^All my notifications should be unread$/) do
-  within ".full-menu" do
-    sup = page.find(".unread")
+  within "#acctNav" do
+    sup = page.first(".unread")
     expect(sup).to have_content("3")
   end
 
@@ -58,8 +58,8 @@ Then(/^I should see the expanded notification$/) do
 end
 
 Then(/^the notification status in my header should be updated$/) do
-  within ".full-menu" do
-    sup = page.find(".unread")
+  within "#acctNav" do
+    sup = page.first(".unread")
     expect(sup).to have_content("2")
   end
 end

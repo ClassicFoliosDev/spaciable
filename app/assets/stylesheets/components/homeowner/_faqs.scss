@@ -32,7 +32,6 @@
   }
 
   .ui-accordion-header {
-    background: $ui-white;
     margin-top: $spacing-small;
     &:focus {
       outline: none;
@@ -48,6 +47,14 @@
   }
 }
 
+.ui-accordion-header {
+  background: $ui-white;
+}
+
+.ui-widget-content {
+  background: $ui-white;
+}
+
 .check-contacts {
   font-size: $base-font-size;
   margin: $spacing-medium 0;
@@ -56,5 +63,33 @@
   a {
     font-weight: bold;
     color: inherit
+  }
+}
+
+@include media($tablet-landscape-down) {
+  .faq-nav .sub-navigation-container {
+    .sub-nav-links {
+      display: block;
+      width: 100%;
+    }
+
+    .navbar-item {
+      display: inline-block;
+      list-style-type: none;
+      cursor: pointer;
+      vertical-align: bottom;
+    }
+
+    .navbar-item-secondary {
+      width: 140px;
+    }
+  }
+}
+
+@include media($mobile-down) {
+  .faq-nav .sub-navigation-container {
+    .navbar-item-secondary {
+      width: 110px;
+    }
   }
 }

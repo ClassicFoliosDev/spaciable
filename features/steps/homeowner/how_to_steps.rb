@@ -14,7 +14,7 @@ When(/^I go to read the HowTos$/) do
 end
 
 Then(/^I should see the HowTos for Around the home$/) do
-  active_category = find(".categories .active").text
+  active_category = find(".sub-navigation-container .active").text
   expect(active_category).to eq(HowToFixture.category)
 
   within ".how-tos" do
@@ -28,7 +28,7 @@ When(/^I filter my HowTos by a different category$/) do
 end
 
 Then(/^I should only see the HowTos in the other category$/) do
-  active_category = find(".categories .active").text
+  active_category = find(".sub-navigation-container .active").text
   expect(active_category).to eq(t("activerecord.attributes.how_to.categories.diy"))
 
   within ".how-tos" do
@@ -72,7 +72,7 @@ Then(/^I should see a list of matching HowTos$/) do
     expect(page).to have_content(CreateFixture.how_to_name)
   end
 
-  within ".categories" do
+  within ".sub-navigation-container" do
     active_categories = page.all(".active")
     expect(active_categories.length).to be_zero
   end

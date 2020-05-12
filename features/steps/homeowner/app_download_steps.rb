@@ -30,8 +30,10 @@ When(/^I exit the modal$/) do
 end
 
 When(/^I go to another page$/) do
-  within ".navbar-menu" do
-    click_on(t("layouts.homeowner.nav.my_home", construction: t("construction_type.home")))
+  within ".nav-inner" do
+    find(".burger-navigation").click
+    sleep 0.2
+    click_on(t("components.homeowner.sub_menu.library"))
   end
 end
 

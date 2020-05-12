@@ -21,13 +21,11 @@ Then(/^I should see recent documents added to my library$/) do
 end
 
 When(/^I go to download the documents for my home$/) do
-  within ".navbar" do
-    click_on t("layouts.homeowner.nav.my_home", construction: t("construction_type.home"))
+  within ".burger-navigation" do
+    check_box = find(".burger")
+    check_box.trigger(:click)
   end
-
-  within ".sub-navigation-container" do
-    click_on t("layouts.homeowner.sub_nav.library")
-  end
+  click_on(t("components.homeowner.sub_menu.library"))
 end
 
 Then(/^I should see all of the documents related to my home$/) do
@@ -51,8 +49,8 @@ Then(/^I should see all of the documents related to my home$/) do
     end
   end
 
-  within ".branded-hero" do
-    active_category = find(".categories .active").text
+  within ".library-categories" do
+    active_category = find(".active").text
     expect(active_category).to eq(MyLibraryFixture.default_category_name)
   end
 end
@@ -78,8 +76,8 @@ Then(/^I should only see the documents for the other category$/) do
     end
   end
 
-  within ".branded-hero" do
-    active_category = find(".categories .active").text
+  within ".library-categories" do
+    active_category = find(".active").text
     expect(active_category).to eq(MyLibraryFixture.other_category_name)
   end
 end
@@ -107,8 +105,8 @@ Then(/^I should only see the appliance manuals to download$/) do
     end
   end
 
-  within ".hero-text" do
-    active_category = find(".categories .active").text
+  within ".library-categories" do
+    active_category = find(" .active").text
     expect(active_category).to eq(MyLibraryFixture.appliances_category_name)
   end
 end

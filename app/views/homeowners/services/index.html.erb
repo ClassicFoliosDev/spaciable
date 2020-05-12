@@ -1,21 +1,21 @@
-<% content_for :hero_text_primary do %>
-  <%= t(".services_title") %>
-<% end %>
-
-<% if session[:onboarding] %>
-  <div class="branded-hero"></div>
-<% else %>
-  <div class="resident-hero">
-    <%= render "components/homeowner/hero" %>
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to services_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t("homeowners.residents.services.title") %>
+    </li>
+    <% end %>
   </div>
 <% end %>
 
-<div class="branded-body outer-container">
-  <div class=" services">
+<%= render "components/homeowner/hero" %>
 
-    <div class="branded-text title">
-      <%= t("homeowners.dashboard.services.services_title") %>
-    </div>
+<div class="my-plots-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
+
+<div class="outer-container">
+  <div class=" services">
 
     <div class="branded-text services-description">
       <p>

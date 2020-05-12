@@ -168,6 +168,20 @@
       }
     }
   }
+
+  .howto-nav .sub-navigation-container {
+    .sub-nav-links {
+      display: block;
+      width: 100%;
+    }
+
+    .navbar-item {
+      display: inline-block;
+      list-style-type: none;
+      cursor: pointer;
+      vertical-align: bottom;
+    }
+  }
 }
 
 @include media($tablet-portrait-down) {
@@ -215,6 +229,12 @@
       .recommended-article {
         @include span-columns(12 of 12);
       }
+    }
+  }
+
+  .howto-nav .sub-navigation-container {
+    .navbar-item-secondary {
+      width: 140px;
     }
   }
 }

@@ -7,7 +7,6 @@ Feature: Homeowner Snagging
   Scenario: Homeowner with Snagging
     Given I am logged in as a homeowner
     And my development has an admin with snagging notifications enabled
-    When I visit the My Home page
     Then I should see the Snagging page
     And I can add a snag to my plot
     And the relevant admins are notified

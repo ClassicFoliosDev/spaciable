@@ -1,7 +1,3 @@
-.branded-content {
-  border-radius: 5px/5px;
-}
-
 .branded-btn {
   border-style: solid;
   border-width: 1px;
@@ -32,7 +28,9 @@
 }
 
 .branded-hero {
-  height: 160px;
+  top: 0;
+  margin-top: 120px; // needed to prevent fixed navigation obscuring
+  height: 195px;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -41,7 +39,16 @@
 .branded-body {
   padding-top: $spacing-medium;
   padding-bottom: $spacing-medium;
+  min-height: 100%;
+  background-color: $ui-white;
 }
+
+.branded-nav-text,
+.branded-nav-text a {
+  color: $primary-navy;
+}
+
+
 
 .branded-border {
   border-width: 1px;
@@ -117,6 +124,14 @@
 .second-title {
   color: $primary-navy;
   margin-bottom: $spacing-large * 2 ;
+}
+
+// ensure hero is positioned correctly in tablet and mobile view
+
+@include media($tablet-landscape-down) {
+  .branded-hero {
+    margin-top: 65px;
+  }
 }
 
 // Show all of the sub-categories in mobile view
