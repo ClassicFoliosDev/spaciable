@@ -64,6 +64,9 @@ class Development < ApplicationRecord
   delegate :to_s, to: :name
   delegate :development_faqs, :country, to: :parent
 
+  delegate :house_search, :enable_referrals, :enable_services,
+           :enable_roomsketcher, :enable_perks, to: :parent_developer
+
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }

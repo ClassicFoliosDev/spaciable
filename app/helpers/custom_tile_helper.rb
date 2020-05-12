@@ -20,6 +20,20 @@ module CustomTileHelper
     end
   end
 
+  def feature_disabled(custom_tile)
+    disabled = []
+    p = custom_tile.parent
+
+    { 'area_guide' => p.house_search, 'services' => p.enable_services,
+      'home_designer' => p.enable_roomsketcher, 'issues' => p.maintenance,
+      'referrals' => p.enable_referrals, 'perks' => p.enable_perks,
+      'snagging' => p.enable_snagging }.each do |name, feature|
+      disabled << name unless feature
+    end
+
+    disabled
+  end
+
   private
 
   def tile_category_scope

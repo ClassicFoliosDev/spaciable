@@ -1,0 +1,32 @@
+.custom-tile {
+  input, select {
+    margin-bottom: $spacing-medium;
+  }
+  #documentSelector {
+    margin-bottom: $spacing-medium - 2px;
+  }
+
+  #guideSelector {
+    margin-top: 0;
+  }
+}
+
+#customTileContent {
+  .image-container {
+    margin-top: $spacing-large;
+
+    .file-upload {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#customTileDocument {
+  #fileSelector {
+    margin-top: $spacing-large;
+
+    .file-upload {
+      margin-bottom: 0;
+    }
+  }
+}

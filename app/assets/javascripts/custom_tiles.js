@@ -130,7 +130,6 @@
   // document resets
 
   function resetDocSelect() {
-    $(docSelect).hide()
     $(docSelect).find("select")[0].selectedIndex = 0
     $(docSelect).find(".ui-selectmenu-text")[0].innerHTML = "&nbsp;"
   }

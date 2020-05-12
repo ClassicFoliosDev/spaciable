@@ -16,21 +16,21 @@
     <div class="row-item two-thirds">
       <div class="half">
         <div class="ui-front" id="categorySelector">
-          <%= f.input :category, as: :select, collection: tile_category_collection(custom_tile), include_blank: false %><br/>
+          <%= f.input :category, as: :select, collection: tile_category_collection(custom_tile), include_blank: false %>
         </div>
 
         <fieldset id="customTileFeature">
           <div class="ui-front" id="featureSelector">
-            <%= f.input :feature, as: :select, collection: tile_feature_collection(custom_tile), include_blank: true %><br/>
+            <%= f.input :feature, as: :select, collection: tile_feature_collection(custom_tile), include_blank: true, disabled: feature_disabled(custom_tile) %>
           </div>
         </fieldset>
 
         <fieldset id="customTileDocument">
           <div class="ui-front" id="documentSelector">
-            <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %><br/>
-          </div><br/>
+            <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %>
+          </div>
           <div class="ui-front" id="guideSelector">
-            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true %><br/>
+            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true %>
           </div>
           <div class="document-file" id="fileSelector">
             <%= label_tag :file, t(".file") %>
@@ -51,13 +51,13 @@
       </div>
       <div class="half">
         <fieldset id="customTileContent">
-          <div class="image-container">
-            <%= f.input :image, label: t(".image"), as: :image_preview %>
-          </div><br/>
-
           <%= f.input :title, label: t(".title") %>
           <%= f.input :description, label: t(".description") %>
           <%= f.input :button, label: t(".button") %>
+
+          <div class="image-container">
+            <%= f.input :image, label: t(".image"), as: :image_preview %>
+          </div><br/>
         </fieldset>
       </div>
 

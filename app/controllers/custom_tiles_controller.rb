@@ -19,7 +19,7 @@ class CustomTilesController < ApplicationController
 
   def create
     if @custom_tile.save
-      notice = t("controller.success.create", name: @custom_tile.title)
+      notice = t("controller.success.create", name: "Shortcut")
       redirect_to [@parent, :custom_tiles], notice: notice
     else
       render :new
@@ -28,7 +28,7 @@ class CustomTilesController < ApplicationController
 
   def destroy
     @custom_tile.destroy
-    notice = t("controller.success.destroy", name: @custom_tile.title)
+    notice = t("controller.success.destroy", name: "Shortcut")
     redirect_to [@parent, :custom_tiles], notice: notice
   end
 
