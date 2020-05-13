@@ -10,6 +10,7 @@ class CustomTile < ApplicationRecord
   validates :title, :description, :button, presence: true, unless: :feature?
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?
+  validates :feature, presence: true, if: :feature?
 
   def parent
     development
