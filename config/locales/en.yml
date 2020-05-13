@@ -1481,7 +1481,7 @@ en:
           title: "Area Guide"
           description: "Area guide description."
           button: "View Page"
-        designer:
+        home_designer:
           title: "%{construction} Designer"
           description: "Design stuff"
           button: "Start Designing"

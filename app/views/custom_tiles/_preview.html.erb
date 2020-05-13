@@ -1,0 +1,24 @@
+<!-- feature tile partials -->
+<div id="featurePartials" style="display: none">
+  <div id="area_guide" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/area_guide' %>
+  </div>
+  <div id="home_designer" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/home_designer', plot: custom_tile.parent %>
+  </div>
+  <div id="issues" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/issues' %>
+  </div>
+  <div id="perks" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/perks', plot: custom_tile.parent %>
+  </div>
+  <div id="referrals" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/referrals' %>
+  </div>
+  <div id="services" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/services' %>
+  </div>
+  <div id="snagging" style="display: none">
+    <%= render 'homeowners/dashboard/tiles/snagging', plot: custom_tile.parent %>
+  </div>
+</div>

@@ -42,6 +42,7 @@ class Development < ApplicationRecord
   delegate :enable_premium_perks, :premium_licences_bought,
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
+  delegate :branded_perk, to: :parent_developer
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true
@@ -220,6 +221,10 @@ class Development < ApplicationRecord
                       title: I18n.t("developers.form.enable_perks"),
                       category: category,
                       feature: 'perks') if parent_developer.enable_perks
+  end
+
+  def my_construction_name
+    construction_name.blank? ? I18n.t("homeowners.home") : construction_name
   end
 end
 # rubocop:enable Metrics/ClassLength

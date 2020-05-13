@@ -25,14 +25,21 @@
         $(docSection).hide()
         $(linkSection).hide()
         $(contentSection).hide()
+        // show the preview
+        $("#featurePartials").show()
+        if ($("#featureSelector select").val()) { $("#" + $("#featureSelector select").val()).show() }
       } else if ($val == doc) {
         $(featSection).hide()
         $(linkSection).hide()
         $(contentSection).show()
+        // show the preview
+
       } else if ($val == link) {
         $(featSection).hide()
         $(docSection).hide()
         $(contentSection).show()
+        // show the preview
+
       }
     }
   })
@@ -101,6 +108,17 @@
     } else {
       $(guideSelect).show()
       $(fileSelect).show()
+    }
+  })
+
+  // show preview of feature tile when feature option is changed
+  $(document).on('click', '#custom_tile_feature-menu', function (event) {
+    $("#featureSelector select option").each(function () {
+      $("#" + $(this).val()).hide()
+    })
+
+    if ($("#featureSelector select").val()) {
+      $("#" + $("#featureSelector select").val()).show()
     }
   })
 
