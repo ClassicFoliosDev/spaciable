@@ -323,7 +323,7 @@
     .sub-navigation-container .active .navbar-item-secondary {
       border-color: <%= brand.branded_content_text_color %>;
     }
-
+  
     <%-# ----------------- TIMELINE ------------------ -%>
     .timeline-step .step-options .stages .stage .fa,
     .timeline-step .step-options .stages .stage .fas {
@@ -398,8 +398,11 @@
       border-color: <%= brand.branded_button_color %>;
     }
 
-    .timeline-task .timeline-content #answer .useful-extras .features-container .branded-btn-inverted,
-    .timeline-task .timeline-content #answer .useful-extras .actions-container .branded-btn-inverted {
+    <%-# ------------------ TEXT ------------------ -%>
+    .branded-titles h2,
+    .branded-titles h2:last-child,
+    .branded-primary-text a,
+    .branded-primary-text label.checkbox {
       color: <%= brand.branded_button_color %>;
       border-color: <%= brand.branded_button_color %>;
     }

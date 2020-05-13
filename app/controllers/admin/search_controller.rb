@@ -9,6 +9,11 @@ module Admin
       result_list = PgSearchService.call(self, params[:search_term])
                                    .select { |match| readable?(match) }
 
+      if params[:search_term].include?("\"")
+        searchterm = params[:search_term].downcase.tr("\"", "")
+        result_list.select! { |r| r[:name].downcase.include?(searchterm) }
+      end
+
       render json: result_list
     end
 

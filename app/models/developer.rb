@@ -188,7 +188,9 @@ class Developer < ApplicationRecord
     all_developments.each { |d| d.update_attribute(:cas, cas) }
 
     # initilise CAS for the developer
-    Cas.initialise(id) if cas
+    return unless cas
+
+    CasInitialisationJob.perform_later(id)
   end
   # rubocop:enable SkipsModelValidations
 end

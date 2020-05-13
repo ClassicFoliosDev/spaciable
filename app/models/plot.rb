@@ -498,5 +498,11 @@ class Plot < ApplicationRecord
 
     completion_release_date.nil? ? Time.zone.now : completion_release_date
   end
+
+  def hide_logs?
+    return true unless cas
+    return false if RequestStore.store[:current_user].cf_admin?
+    completion_release_date.blank? || completion_release_date > Time.zone.today
+  end
 end
 # rubocop:enable Metrics/ClassLength

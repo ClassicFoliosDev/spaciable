@@ -506,9 +506,9 @@ en:
         management_type: "Management Type"
       unit_type_update_option_form:
         header1: "You have requested a change in unit type"
-        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below"
-        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change"
-        supplement: "keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
+        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
+        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
+        supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
 
     choices:
       resident:
@@ -1271,7 +1271,7 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"
+      pr_failed: "Failed to create PlanetRent user account. %{message}"      
       failed: "Failed to create a landlord account."
     maintenance:
       show:
@@ -2273,7 +2273,7 @@ en:
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
-      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
 
 
     index:
@@ -2399,6 +2399,7 @@ en:
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
       matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
       restricted: "Restrict Specifications to CF Admin"
+      picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels"
     new:
       add: "New Unit Type."
     show:
@@ -2567,6 +2568,7 @@ en:
       image: "Image"
       type: "Type"
       manufacturer: "Manufacturer"
+      notes: "Notes (this is not visible to residents)"
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -2643,6 +2645,7 @@ en:
       add_finish: "Add Finish"
       name: "Name"
       icon: "Icon"
+      icon_tip: "Please select an icon that residents will see alongside the room name."
     show:
       back: "Back"
     new:
@@ -2847,7 +2850,7 @@ en:
       comp_date: "Estimated Move In Date"
       back: "Back"
       submit: "Submit"
-      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
@@ -3292,6 +3295,11 @@ en:
           attributes:
             finish_types:
               too_short: " required, at least one must be selected"
+        finish:
+          attributes:
+            name:
+              taken: "combination already exists in the database and can be added directly to plot(s)"
+
   logs:
     collection:
       room: "Room"

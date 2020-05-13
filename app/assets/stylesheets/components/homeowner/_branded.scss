@@ -39,6 +39,7 @@
 .branded-body {
   padding-top: $spacing-medium;
   padding-bottom: $spacing-medium;
+  min-height: 100%;
   background-color: $ui-white;
 }
 
@@ -46,6 +47,8 @@
 .branded-nav-text a {
   color: $primary-navy;
 }
+
+
 
 .branded-border {
   border-width: 1px;

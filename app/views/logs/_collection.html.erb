@@ -13,7 +13,7 @@
     <tr>
       <td colspan="2"><%= log&.primary %></td>
       <td colspan="2"><%= log&.secondary %></td>
-      <td colspan="2"><%= log.action %></td>
+      <td colspan="2"><%= log.action.to_s.capitalize()  %></td>
       <td colspan="2"><%= log.marker %></td>
       <td colspan="2"><%= log.created_at.in_time_zone("London").strftime("%d.%m.%Y %H:%M") %></td>
     </tr>
