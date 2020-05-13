@@ -50,8 +50,8 @@ class CustomTile < ApplicationRecord
     documents << Document.where(documentable_id: development_id,
                                 documentable_type: 'Development')
 
-    documents << Document.where(documentable_type: development.parent.id,
-                               documentable_type: development.parent.model_name.human)
+    documents << Document.where(documentable_id: development.parent.id,
+                                documentable_type: development.parent.model_name.human)
 
     if development.parent.is_a?(Division)
       documents << Document.where(documentable_id: development.parent_developer.id,

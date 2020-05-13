@@ -417,6 +417,7 @@ en:
     development_csv: "Upload CSV"
     custom_tiles: "Custom Shortcuts"
     custom_tile_add: "New Custom Shortcut"
+    custom_tile_edit: "Edit %{tile}"
 
   pagination:
     per_page_10: "10"
@@ -1099,6 +1100,8 @@ en:
       category: "Category"
     new:
       title: "New Custom Shortcut"
+    edit:
+      title: "Edit %{tile}"
     form:
       link: "Link URL"
       title: "Title"

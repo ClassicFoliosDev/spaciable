@@ -12,7 +12,7 @@ class CustomTilesController < ApplicationController
   end
 
   def edit
-    (redirect_to video_path unless current_user.cf_admin?) if @parent.expired?
+    (redirect_to custom_tile_path unless current_user.cf_admin?) if @parent.expired?
   end
 
   def show; end

@@ -46,9 +46,8 @@
         <fieldset id="customTileLink">
           <%= f.input :link, label: t(".link") %>
         </fieldset>
-
-
       </div>
+
       <div class="half">
         <fieldset id="customTileContent">
           <%= f.input :title, label: t(".title") %>
@@ -63,8 +62,6 @@
 
     </div>
 
-
-
     <div class="row-item third">
 
     </div>
@@ -72,11 +69,8 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <% if parent %>
+      <% parent ||= custom_tile.parent %>
       <%= link_to t(".back"), [parent, :custom_tiles], class: "btn" %>
-      <% else %>
-      <%= link_to t(".back"), video, class: "btn" %>
-      <% end %>
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
     </div>
   </div>
