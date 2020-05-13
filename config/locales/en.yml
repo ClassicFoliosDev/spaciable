@@ -3289,6 +3289,10 @@ en:
             base:
               email_or_phone_required: "You must provide either an email address or a contact number."
               name_or_organisation_required: "You must provide either a contact name or an organisation name."
+        custom_tile:
+          attributes:
+            base:
+              document_sub_category_required: "You must upload a document, or select an existing document or manual."
         plot:
           attributes:
             base:

@@ -7,9 +7,9 @@ class CustomTile < ApplicationRecord
   mount_uploader :image, PictureUploader
   attr_accessor :image_cache
 
-  validates :title, :description, :button, presence: true, unless: :feature
+  validates :title, :description, :button, presence: true, unless: :feature?
   validates :link, presence: true, if: :link?
-  # validates one of file, guide or document_id is present if: :guide
+  validate :document_sub_category, if: :document?
 
   def parent
     development
@@ -40,8 +40,9 @@ class CustomTile < ApplicationRecord
     development.snag_name
   end
 
-  def not_feature
-
+  def document_sub_category
+    return if guide.present? || file.present? || document_id.present?
+    errors.add(:base, :document_sub_category_required)
   end
 
   def documents_in_scope
