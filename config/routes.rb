@@ -135,11 +135,27 @@ Rails.application.routes.draw do
   get :export_choices, to: "room_configurations/room_choice#export_choices"
   get :download_development_csv, to: "development_csv#download_template"
 
+  resources :global do
+    resources :timelines, shallow: true
+  end
+
+  resources :timelines do
+    get :clone, on: :member
+    get 'empty', action: :empty , controller: 'tasks'
+    resources :tasks
+    resources :finales, except: [:index, :destroy]
+  end
+
   resources :developers do
     resources :divisions
     resources :developments, controller: 'developers/developments'
     resources :documents, only: [:new, :create]
     resources :contacts, shallow: true
+    resources :timelines, shallow: true
+    resources :timelines do
+      get :clone, on: :member
+    end
+    resources :import, only: [:new], controller: 'developers/timelines'
     resources :faqs, shallow: true
     resource :brand
     resources :brands, shallow: true, only: [:index]
@@ -191,6 +207,14 @@ Rails.application.routes.draw do
     resources :snag_comments, only: [:new, :create]
     resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
+    resource :timeline, only: [:show], controller: 'timeline', as: :homeowner_timeline
+    resources :timeline_tasks do
+      member do
+        get :show, controller: 'timeline', as: :show
+        get :viewed, controller: 'timeline'
+        post :viewed , controller: 'timeline', format: :json
+      end
+    end
 
     get "contacts/:category",
         to: 'contacts#index',

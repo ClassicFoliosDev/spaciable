@@ -1,0 +1,53 @@
+
+<div class="admin-timeline-edit">
+
+  <%= render "timelines/components/timeline", timeline: timeline, task: nil, links: false, parent: :finale %>
+
+  <div class="timeline-form">
+    <%= simple_form_for ([timeline, finale]) do |f| %>
+
+      <div class="image-content">
+        <div class="image-container">
+          <%= f.input :complete_picture, label: t(".complete_picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+      </div>
+
+      <div class="text-content">
+        <div class="response">
+          <%= f.input :complete_message, label: t(".complete_message"), as: :ckeditor%>
+        </div>
+      </div>
+
+      <div class="image-content incomplete-content">
+        <div class="image-container">
+          <%= f.input :incomplete_picture, label: t(".incomplete_picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
+        </div>
+      </div>
+
+      <div class="text-content">
+        <div class="response">
+          <%= f.input :incomplete_message, label: t(".incomplete_message"), as: :ckeditor%>
+        </div>
+      </div>
+
+      <%= f.hidden_field :timeline_id, value: timeline.id %>
+
+      <div class="form-actions-footer-container">
+        <div>
+          <% if action?(:new) || action?(:create) %>
+            <% title = t("tasks.finale.cancel_insert") %>
+            <% text = t("tasks.finale.cancel_insert_text") %>
+          <% else %>
+            <% title = t("tasks.finale.cancel_update") %>
+            <% text = t("tasks.finale.cancel_update_text") %>
+          <% end %>
+          <% path = task ? timeline_task_path(timeline, task) : timeline_finale_path(timeline, finale) %>
+
+          <%= cancel_btn t("tasks.cancel"), path: path,  title: title, text: text %>
+          <%= f.submit t(".submit"), class: "btn btn-form-submit btn-primary" %>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+</div>

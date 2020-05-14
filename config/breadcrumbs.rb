@@ -832,3 +832,68 @@ crumb :branded_apps do |branded_app_parent|
       parent :developer, branded_app_parent
   end
 end
+
+# TIMELINE
+
+crumb :timelines do |timeline_parent|
+  link t("breadcrumbs.timelines"), ([timeline_parent, :timelines])
+
+  case timeline_parent.model_name.element.to_sym
+    when :developer
+      parent :developer, timeline_parent
+  end
+end
+
+crumb :timeline do |timeline|
+  link t("breadcrumbs.timeline_show", timeline: timeline), timeline, timeline_path(timeline)
+  parent :timelines, timeline.timelineable
+end
+
+crumb :timeline_edit do |timeline|
+  link t("breadcrumbs.timeline_edit", timeline: timeline), edit_timeline_path(timeline)
+  parent :timelines, timeline.timelineable
+end
+
+crumb :timeline_new do |timeline|
+  link t("breadcrumbs.timeline_add"), new_timeline_path(timeline)
+  parent :timelines, timeline.timelineable
+end
+
+crumb :timeline_import do |developer|
+  link t("breadcrumbs.timeline_import"), developer_path(developer)
+  parent :developer, developer
+end
+
+# TASK
+
+crumb :task do |timeline, task|
+  link t("breadcrumbs.task_show", task: task.title), timeline_task_path(timeline, task)
+  parent :timeline, task.timeline
+end
+
+crumb :task_edit do |timeline, task|
+  link t("breadcrumbs.task_edit", task: task.title), edit_timeline_task_path(timeline, task)
+  parent :task, timeline, task
+end
+
+crumb :task_new do |timeline|
+  link t("breadcrumbs.task_add"), timeline_path(timeline)
+  parent :timeline, timeline
+end
+
+# FINALE
+
+crumb :finale do |timeline, finale|
+  link t("breadcrumbs.finale_show"), timeline_finale_path(timeline, finale)
+  parent :timeline, timeline
+end
+
+crumb :finale_edit do |timeline, finale|
+  link t("breadcrumbs.finale_edit"), edit_timeline_finale_path(timeline, finale)
+  parent :timeline, timeline, finale
+end
+
+crumb :finale_add do |timeline|
+  link t("breadcrumbs.finale_add"), timeline_path(timeline)
+  parent :timeline, timeline
+end

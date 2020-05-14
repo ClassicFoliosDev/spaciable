@@ -1,0 +1,147 @@
+<%= render "components/homeowner/hero" %>
+
+<div class="timeline-container">
+  <div class="branded-body outer-container timeline-task">
+
+    <div class="timeline-sidebar">
+      <div class="timeline-header-mobile" style="background-image: url('<%= @task.picture %>')">
+        <div class="overlay">
+          <div class="progress-container">
+            <div class="title">
+              <i id="iconMobile<%=@task.stage_title%>"></i>
+              <p> <%= @task.stage_title %></p>
+            </div>
+            <div class="progress">
+              <!-- igloo progress image goes here -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="timeline-header">
+        <div class="title">
+          <i id="icon<%=@task.stage_title%>"></i>
+          <h2><%= t(".header") %></h2>
+          <p> <%= @task.stage_title %></p>
+        </div>
+        <div class="progress">
+          <!-- igloo progress image goes here -->
+          <!-- DOES ELLIS UNDERSTAND THAT WE CAN'T ACTUALLY IMPLEMENT HIS DESIGNS IF HE DOESN'T SEND THEM TO US -->
+        </div>
+      </div>
+
+      <%= render "homeowners/timeline/timeline", parent: :task, timeline: @timeline, task: @task, logs: @logs %>
+
+    </div>
+
+    <div id="timelineContentDesktop" class="timeline-content">
+      <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
+        <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
+
+        <div id="question" >
+          <div class="question-content">
+            <div class="content">
+              <p class="branded-text"> <%= @task.question %> </p>
+            </div>
+            <div class="actions">
+              <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
+              <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
+
+              <% if @task.not_applicable %>
+              <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :positive }%>
+              <% end %>
+            </div>
+          </div>
+          <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
+        </div>
+
+        <div id="answer">
+          <div class="answer-container">
+            <h2 class="branded-text"> <%= @task.answer %> </h2>
+            <p class="branded-text"> <%= simple_format @task.response %> </p>
+
+            <aside class="useful-extras">
+              <div class="features-container">
+                <% if @task.feature %>
+                  <p><%= @task.feature_description %></p>
+                  <button onclick="window.open('<%=@task.feature_link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.feature_title %></button>
+                <% end %>
+              </div>
+            </aside>
+          </div>
+
+          <% contacts = @task.contacts(@plot) %>
+          <% if contacts %>
+            <aside class="contact-container">
+              <% contacts.each do |contact| %>
+                <div class="contact">
+                  <div class="avatar">
+                    <% if contact.picture? %>
+                      <%= image_tag contact.picture.url :thumbnail if contact.picture? %>
+                    <% end %>
+                  </div>
+                  <div class="contact-info">
+                    <p class="name"><%= contact.to_s %></p>
+                    <p class="position"><%= contact.position %></p>
+
+                    <% if contact.phone? %>
+                      <p class="contact-detail">
+                        <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
+                      </p>
+                    <% end %>
+
+                    <% if contact.mobile? %>
+                      <p class="contact-detail">
+                        <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
+                      </p>
+                    <% end %>
+
+                    <% if contact.email? %>
+                      <p class="contact-detail">
+                        <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
+                      </p>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </aside>
+          <% end %>
+
+          <div class="timeline-footer">
+            <aside class="shortcuts-container">
+              <% if @task.task_shortcuts %>
+                <div class="shortcuts-question">
+                  <div class="shortcuts">
+                    <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
+                  </div>
+
+                  <% @task.task_shortcuts.each do |ts| %>
+                    <% if ts.live %>
+                      <div class="shortcut-links link_<%=ts.shortcut.shortcut_type%>">
+                        <% url = ts.shortcut.link.start_with?("http") ? ts.shortcut.link : eval(ts.shortcut.link) %>
+                        <button onclick="window.open('<%= url %>', '_blank')" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
+                          <!-- icons are adding via javascript -->
+                          <i class=""></i>
+                        </button>
+                        <span class="shortcut-label branded-text"><%= t(".#{ts.shortcut.shortcut_type}") %></span>
+                      </div>
+                    <% end%>
+                  <% end %>
+                </div>
+              <% end %>
+            </aside>
+
+            <div class="next">
+              <%if @task.action %>
+                <% if @task.action_description.present? %>
+                  <p><%= @task.action_description %></p>
+                <% end %>
+                <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn"><%= @task.action_title %></button>
+              <% end %>
+              <input type="submit" value=<%="#{t('homeowners.timeline.next')}"%> class: "btn-form-submit btn branded-btn">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

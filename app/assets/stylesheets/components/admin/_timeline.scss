@@ -1,0 +1,823 @@
+.admin-timeline {
+  .empty {
+    padding-top: $spacing-large;
+
+    .btn-group {
+      .btn {
+        width: 140px;
+      }
+    }
+  }
+
+  .admin-timeline-preview {
+    background-color: $ui-white;
+    border-radius: 5px;
+
+    padding-bottom: $spacing-large;
+    margin-bottom: $spacing-large;
+
+    .heading {
+      width: 95%;
+      margin: auto;
+      padding: $spacing-large 0;
+
+      .actions {
+        width: 100%;
+
+        h2 {
+          font-size: $title-font-size-3;
+          margin-bottom: $spacing-medium;
+        }
+
+      }
+
+      .btn-group {
+        display: inline-block;
+        padding-bottom: $spacing-small;
+      }
+
+      #stage {
+        margin-bottom: 5px;
+      }
+
+      #title {
+        font-size: $title-font-size-4;
+        font-weight: $bold-font-weight;
+      }
+
+      .btn {
+        min-width: 80px;
+        text-align: center;
+      }
+
+      .insert {
+        min-width: 200px;
+      }
+    }
+
+    .preview {
+      width: 95%;
+      background-color: $ui-light-grey;
+      margin: auto;
+      height: 640px;
+      border: 1px solid $ui-light-grey;
+    }
+  }
+}
+
+.admin-timeline .admin-timeline-preview .preview,
+.admin-timeline-edit {
+  .timeline-sidebar {
+    position: relative;
+    display: inline-block;
+    width: 300px;
+    float: left;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: $ui-white;
+
+    .timeline-header {
+      background-color: $primary-red-left;
+      padding: $spacing-small;
+      display: table;
+      width: 100%;
+
+      .title {
+        width: 60%;
+        display: table-cell;
+
+        .fa, .fas {
+          font-size: $title-font-size-3;
+          color: $ui-white;
+          padding-bottom: $spacing-small;
+        }
+
+        h2 {
+          color: $ui-white;
+          font-size: $title-font-size-3;
+          margin: 0;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+          color: $ui-white;
+          margin: 0;
+        }
+      }
+    }
+
+    .list-stages {
+      .vertical {
+        border-left: 5px solid $ui-grey;
+        margin-left: 10px;
+      }
+
+      .stage-title {
+        font-size: $base-small-font-size;
+        padding: 10px;
+        line-height: 0.5;
+        text-align: center;
+        list-style: none;
+        margin-left: -$spacing-small;
+
+        span {
+          color: $primary-red-left;
+          display: inline-block;
+          position: relative;
+          padding: 0 6px;
+        }
+
+        /* create the dashed lines either side of the stage headings */
+        span:before,
+        span:after {
+          content: "";
+          position: absolute;
+          height: 5px;
+          border-bottom: 2px dashed $primary-red-left;
+          top: 0;
+          width: 300px;
+        }
+
+        span:before {
+          right: 100%;
+        }
+
+        span:after {
+          left: 100%;
+        }
+      }
+    }
+
+    .sub-stage {
+      .stage {
+        text-decoration: none;
+        color: $semi-pale-navy;
+
+        .sub-stage-container {
+          border: 1px solid $ui-grey;
+          margin: $spacing-medium;
+          margin-left: $spacing-small;
+          padding: 6px;
+          padding-left: $spacing-medium;
+          list-style: none;
+          border-radius: 5px;
+
+          &:hover {
+            color: $primary-navy;
+          }
+
+          /* custom list bullets */
+          &:before {
+            display: inline-block;
+            font-size: 22px;
+            content: '\25CF';
+            color: $primary-red-left;
+            position: relative;
+            right:42px;
+            line-height: 0;
+            top: 2px;
+          }
+
+          span {
+            font-size: $base-small-font-size;
+          }
+        }
+
+        .active {
+          border: 2px solid $ui-grey;
+          background-color: $ui-superlight-grey;
+          color: $primary-navy;
+
+          /* custom list bullet -> add one pixel to take into account the 2px border of .active */
+          &:before {
+            right: 43px;
+          }
+        }
+      }
+    }
+  }
+
+  .timeline-content {
+    position: relative;
+    height: 100%;
+    margin: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    #question {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      height: 100%;
+      width: 100%;
+
+      .question-content {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding: $spacing-large;
+        padding-left: $spacing-large * 2;
+        display: table;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        .content {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+
+          p {
+            font-size: $title-font-size-2;
+            line-height: $title-font-size-1;
+          }
+        }
+
+        .actions {
+          .timeline-btn {
+            text-align: center;
+            text-decoration: none;
+            width: 140px;
+            margin: $spacing-medium $spacing-large $spacing-medium 0;
+            background-color: $ui-light-grey;
+            border: 1px solid $primary-navy;
+            border-radius: 5px;
+            color: $primary-navy;
+            display: inline-block;
+            font-size: $base-font-size;
+            padding: 5px;
+            cursor: default;
+            line-height: 22px;
+
+            &:hover {
+              background-color: $ui-grey;
+              font-weight: $bold-font-weight;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .image {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+    }
+
+    #answer {
+      margin-top: $spacing-medium;
+      margin-left: $spacing-large;
+      text-align: left;
+      display: none;
+
+      .answer-container {
+        @include span-columns(7 of 12);
+        margin-right: 0;
+        padding-right: $spacing-small;
+
+        h2 {
+          font-size: $title-font-size-3;
+        }
+
+        .useful-extras {
+          .timeline-btn {
+            min-width: 140px;
+            color: $ui-white;
+            background-color: $primary-navy;
+            border: 1px solid $primary-navy;
+            margin-bottom: $spacing-medium;
+
+            &:hover {
+              cursor: pointer;
+              background-color: $ui-light-grey;
+              color: $primary-navy;
+              border: 1px solid $primary-navy;
+            }
+          }
+        }
+      }
+
+      .contact-container {
+        @include span-columns(5 of 12);
+        padding-left: $spacing-medium;
+
+        .disclaimer {
+          font-size: $base-small-font-size;
+          font-style: italic;
+          padding-bottom: $spacing-large;
+        }
+
+        .avatar {
+          width: 70px;
+          height: 70px;
+          position: relative;
+          display: inline-block;
+          float: left;
+          border-radius: 5px;
+          border: 1px solid $ui-light-grey;
+          background-repeat: no-repeat;
+          background-size: contain;
+          margin-right: $spacing-small;
+        }
+
+        .name, .position {
+          font-weight: $bold-font-weight;
+        }
+
+        p {
+          margin-bottom: 0;
+        }
+      }
+
+      .timeline-footer {
+        .shortcuts-container {
+          @include span-columns(12 of 12);
+          padding: $spacing-small;
+          text-align: center;
+
+          .shortcuts-question {
+            display: grid;
+            height: 70px;
+            width: 70px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px;
+            grid-template-rows: 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 1 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+            }
+
+            .shortcut-links {
+              display: none;
+            }
+          }
+
+          .shortcuts-grid {
+            display: grid;
+            height: 210px;
+            width: 210px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px 70px 70px;
+            grid-template-rows: 70px 70px 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 2 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                .fa {
+                  font: normal normal normal normal;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+
+              .close {
+                opacity: 0.6;
+              }
+            }
+
+            .shortcut-links {
+              padding-top: 14px;
+
+              .shortcut-link {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: $primary-navy;
+                border: none;
+                color: $ui-light-grey;
+
+                i {
+                  font-size: 20px;
+                  color: $ui-light-grey;
+                  width: 100%;
+                  text-align: center;
+                }
+              }
+
+              .shortcut-label {
+                font-size: $ultra-small-font;
+                padding-top: 2px;
+                display: block;
+                color: $primary-navy;
+              }
+            }
+
+            // position the links in the grid
+            .link_how_tos {
+              text-align: center;
+              grid-column: 3 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_services {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_faqs {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 1 / span 1;
+            }
+
+            .link_area_guide {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 3 / span 1;
+            }
+          }
+        }
+
+        .next {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+          padding-top: 0;
+          text-align: center;
+
+          .timeline-btn {
+            text-decoration: none;
+            width: 140px;
+            margin: $spacing-medium;
+            background-color: $ui-light-grey;
+            border: 1px solid $primary-navy;
+            border-radius: 5px;
+            color: $primary-navy;
+            display: inline-block;
+            font-size: $base-font-size;
+            padding: 5px;
+            cursor: default;
+
+            &:hover {
+              background-color: $ui-grey;
+              font-weight: $bold-font-weight;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.timeline-content {
+  .complete-content {
+
+    .incomplete, .complete {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      height: 100%;
+      width: 100%;
+
+      .text {
+        grid-column-start: 1;
+        grid-column-end: 1;
+        padding: $spacing-small;
+        display: table;
+        margin-top: auto;
+        margin-bottom: auto;
+        text-align: center;
+      }
+
+      .image {
+        grid-column-start: 2;
+        grid-column-end: 2;
+
+        .image-container {
+          height: 100%;
+          width: 100%;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-position: center;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+.admin-timeline-edit {
+  background-color: $ui-white;
+  border-radius: 5px;
+  margin-bottom: $spacing-large;
+  display: grid;
+  grid-template-columns: 300px auto;
+
+  .timeline-sidebar {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    max-height: 1650px;
+    border-radius: 5px;
+
+    .sub-stage {
+      .sub-stage-container {
+        border: 1px solid $ui-grey;
+        margin: $spacing-medium;
+        margin-left: $spacing-small;
+        padding: 6px;
+        padding-left: $spacing-medium;
+        list-style: none;
+        border-radius: 5px;
+
+        /* custom list bullets */
+        &:before {
+          display: inline-block;
+          font-size: 22px;
+          content: '\25CF';
+          color: $primary-red-left;
+          position: relative;
+          right:42px;
+          line-height: 0;
+          top: 2px;
+        }
+
+        span {
+          text-decoration: none;
+          font-size: $base-small-font-size;
+          color: $ui-dark-grey;
+        }
+      }
+
+      .active {
+        border: 2px solid $ui-grey;
+
+        .stage {
+          color: $primary-navy;
+        }
+      }
+
+      .new {
+        border-width: 2px;
+
+        span {
+          color: $primary-navy;
+        }
+      }
+    }
+  }
+
+  .timeline-form {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    padding: $spacing-medium;
+    position: relative;
+
+    .stages {
+      padding-bottom: $spacing-medium;
+
+      .inline-radio {
+        label {
+          display: inline-block;
+          color: $primary-navy;
+          padding-right: $spacing-medium;
+
+          .collection_radio_buttons {
+            padding-left: $spacing-small;
+          }
+        }
+
+        .disabled label {
+          color: $semi-pale-navy;
+        }
+      }
+    }
+
+    .text-content {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+
+      .question {
+        padding-right: $spacing-medium;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+      }
+
+      .buttons {
+        padding-left: $spacing-medium;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+
+        p {
+          font-size: $base-small-font-size;
+          color: $primary-navy;
+          margin-bottom: 6px;
+        }
+      }
+
+      .response {
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+      }
+
+      label {
+        padding-top: $spacing-small;
+        color: $primary-navy;
+      }
+    }
+
+    .image-content {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+
+      .image-container {
+        padding-right: $spacing-medium;
+        margin-bottom: $spacing-medium;
+        padding-top: $spacing-small;
+
+        .btn {
+          line-height: 1.7;
+
+        }
+      }
+
+      .image_preview {
+        margin: 0;
+        color: $primary-navy;
+      }
+    }
+
+    .incomplete-content {
+      margin-top: $spacing-medium;
+    }
+
+    .contact-content {
+      padding-top: $spacing-medium;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+
+      .contact-container:nth-child(odd) {
+        padding-left: $spacing-medium;
+      }
+
+      .contact-container:nth-child(1) {
+        padding-right: $spacing-medium;
+        padding-left: 0;
+      }
+
+      label {
+        color: $primary-navy;
+      }
+    }
+
+    .link-content {
+      padding-top: $spacing-medium;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto auto;
+
+      .feature {
+        padding-right: $spacing-medium;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+
+        #addFeatureBtn,
+        #deleteFeatureBtn {
+          margin: $spacing-small 0;
+          padding: 5px;
+          width: 110px;
+          border-radius: 5px;
+          background-color: $primary-red-left;
+          color: $ui-white;
+          border: 1px solid $primary-red-left;
+          font-size: $base-small-font-size;
+          text-align: center;
+
+          &:hover {
+            background-color: $ui-white;
+            color: $primary-red-left;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .action {
+        padding-left: $spacing-medium;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+
+        #addActionBtn,
+        #deleteActionBtn {
+          margin: $spacing-small 0;
+          padding: 5px;
+          width: 110px;
+          border-radius: 5px;
+          background-color: $primary-red-left;
+          color: $ui-white;
+          border: 1px solid $primary-red-left;
+          font-size: $base-small-font-size;
+          text-align: center;
+
+          &:hover {
+            background-color: $ui-white;
+            color: $primary-red-left;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .shortcuts {
+        padding-top: $spacing-medium;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+
+        p {
+          font-size: $base-small-font-size;
+          margin-bottom: 0;
+        }
+
+        .shortcut-options {
+          label {
+            display: inline-block;
+            color: $primary-navy;
+            padding-right: $spacing-medium;
+          }
+        }
+      }
+
+      label {
+        padding-top: $spacing-small;
+        color: $primary-navy;
+      }
+    }
+
+    .form-actions-footer-container {
+      background-color: $ui-light-grey;
+      padding: $spacing-small;
+      padding-left: $spacing-large;
+      border-top: 2px solid $ui-grey;
+
+      .btn {
+        width: 100px;
+        text-align: center;
+      }
+
+      .btn-form-submit {
+        margin-left: $spacing-small;
+      }
+
+    }
+  }
+}

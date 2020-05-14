@@ -1,0 +1,174 @@
+<% breadcrumb :timeline, @timeline %>
+
+<%= render "timeline", timeline: @timeline, editable: true %>
+
+<% def action?(option) action_name.to_sym == option; end %>
+
+<div class="admin-timeline">
+  <% if action?(:empty) %>
+    <div class="empty">
+      <% if current_user&.cf_admin? %>
+        <div class="empty-text">
+          <p><%= t(".empty_cf") %></p>
+        </div>
+        <div class="btn-group">
+          <%= link_to t(".add_task"), new_timeline_task_path(insert: :first), class: "btn" %>
+        </div>
+      <% else %>
+        <div class="empty-text">
+          <p><%= t(".empty") %></p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="admin-timeline-preview">
+      <div class="heading">
+        <div class="actions">
+          <h2 class="page-name"><%= @task.title %></h2>
+          <% if current_user&.cf_admin? %>
+            <div class="btn-group">
+              <%= link_to t(".edit"), edit_timeline_task_path, class: "btn"%>
+              <%= button_tag t(".delete"), class: "btn archive-btn",
+                  data: { title: t("tasks.delete_task"),
+                  name: @task.title,
+                  url: timeline_task_path,
+                  cancel: t("tasks.cancel_delete"),
+                  text: t("tasks.delete_text"),
+                  cta: t("tasks.confirm_delete")} %>
+              <%= link_to t(".insert_before", page: @task.title), new_timeline_task_path(task_id: @task.id, insert: :before), class: "btn insert" %>
+              <%= link_to t(".insert_after", page: @task.title), new_timeline_task_path(task_id: @task.id, insert: :after), class: "btn insert" %>
+            </div>
+            <% if @timeline.finale %>
+              <%= link_to t(".edit_finale"), edit_timeline_finale_path(@timeline, @timeline.finale, task_id: @task.id), class: "btn insert" %>
+            <% else %>
+              <%= link_to t(".add_finale"), new_timeline_finale_path(@timeline, task_id: @task.id), class: "btn insert" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="preview">
+
+        <%= render "timelines/components/timeline", timeline: @timeline, task: @task, links: true, parent: :show %>
+
+        <div class="timeline-content">
+          <div id="question">
+            <div class="question-content">
+              <div class="content">
+                <p><%= @task.question %></p>
+              </div>
+              <div class="actions">
+                <% if @task.next %>
+                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                    <%= @task.positive %>
+                  </a>
+                <% elsif @timeline.finale %>
+                  <a href="<%= timeline_finale_path @timeline, @timeline.finale  %>" class="timeline-btn">
+                    <%= @task.positive %>
+                  </a>
+                <% else %>
+                  <a href="<%= timeline_task_path @timeline, @task %>" class="timeline-btn">
+                    <%= @task.positive %>
+                  </a>
+                <% end %>
+                <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
+                <% if @task.not_applicable %>
+                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                    <%= t(".not_applicable") %>
+                  </a>
+                <% end %>
+              </div>
+            </div>
+            <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
+          </div>
+
+          <div id="answer">
+            <div class="answer-container">
+              <h2><%= @task.answer %></h2>
+              <p><%= simple_format @task.response %></p>
+
+              <aside class="useful-extras">
+                <div class="features-container">
+                  <% if @task.feature %>
+                    <p><%= @task.feature_description %></p>
+                    <button onclick="window.open('<%= @task.feature_link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.feature_title %></button>
+                  <% end %>
+                </div>
+              </aside>
+            </div>
+
+            <!-- can't show contact info because preview isn't associated with a plot -->
+            <aside class="contact-container">
+              <p class="disclaimer">If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes.</p>
+              <div class="contact">
+                <div class="avatar" style="background-image: url('<%= asset_path('example_contact.png') %>')">
+
+                </div>
+                <div class="contact-info">
+                  <p class="name">Joe Harvey</p>
+                  <p class="position">Independent Financial Advisor</p>
+
+                  <p class="contact-detail">
+                    <span>01202 511234</span>
+                  </p>
+
+                  <p class="contact-detail">
+                    <span>jharvey@harveysfinancial.com</span>
+                  </p>
+              </div>
+            </aside>
+
+            <div class="timeline-footer">
+              <aside class="shortcuts-container">
+                <% if @task.task_shortcuts %>
+                <div class="shortcuts-question">
+                  <div class="shortcuts">
+                    <div id="timelineShortcuts" class="shortcut-button"><i id="shortcutButton" class="fa fa-question"></i></div>
+                  </div>
+
+                  <% @task.task_shortcuts.each do |shortcut| %>
+                  <% if shortcut.live %>
+                  <div class="shortcut-links link_<%=shortcut.shortcut_type%>">
+                    <button type="button" id="shortcut<%=shortcut.shortcut_type.camelize%>" class="shortcut-link" disabled="disabled">
+                      <!-- icons are adding via javascript -->
+                      <i class=""></i>
+                    </button>
+                    <span class="shortcut-label branded-text"><%= t(".#{shortcut.shortcut_type}") %></span>
+                  </div>
+                  <% end%>
+                  <% end %>
+                </div>
+                <% end %>
+              </aside>
+
+              <div class="next">
+                <%if @task.action %>
+                  <% if @task.action_description.present? %>
+                    <p><%= @task.action_description %></p>
+                  <% end %>
+                  <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.action_title %></button>
+                <% end %>
+                <% if @task.next %>
+                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
+                    <%= t(".next") %>
+                  </a>
+                <% elsif @timeline.finale %>
+                  <a href="<%= timeline_finale_path @timeline, @timeline.finale %>" class="timeline-btn">
+                    <%= t(".next") %>
+                  </a>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t("back"), [@timeline.timelineable, :timelines], class: "btn" %>
+    </div>
+  </div>
+
+</div>

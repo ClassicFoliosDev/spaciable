@@ -19,6 +19,9 @@
           <%= f.input :picture, label: t(".picture"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
         <%= f.input :organisation %>
+        <div class="ui-front select-container">
+          <%= f.input :contact_type, label: t(".contact_type"), as: :select, collection: contact_types_collection, include_blank: true %>
+        </div>
         <%= f.input :position %>
         <div class="ui-front select-container">
           <%= f.input :category, label: t(".category"), as: :select, collection: contact_categories_collection, include_blank: false %>

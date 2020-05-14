@@ -20,6 +20,8 @@ class Plot < ApplicationRecord
   belongs_to :unit_type, optional: true
   belongs_to :developer, optional: false
   belongs_to :division, optional: true
+  has_one :plot_timeline, dependent: :destroy
+  accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :choice_configuration
   has_many :room_choices, dependent: :destroy
@@ -154,12 +156,17 @@ class Plot < ApplicationRecord
     end
   end
 
+  def timeline
+    plot_timeline&.timeline_id
+  end
+
   def prefix
     address.prefix if address&.prefix?
   end
 
   def prefix=(name)
     return if parent_address && name.present? && name == parent_address.building_name
+
     (address || build_address).prefix = name
   end
 
@@ -185,6 +192,20 @@ class Plot < ApplicationRecord
     return if parent_address && name.present? && name == parent_address.postcode
 
     (address || build_address).postcode = name
+  end
+
+  # Temporary solution to allow allocation of a timeline to
+  # a plot.  Phase 2 will replace
+  def timeline=(timeline)
+    if timeline.empty?
+      plot_timeline&.destroy
+    else
+      pt = (plot_timeline || build_plot_timeline)
+      pt.timeline_id = timeline
+      pt.task_id = nil
+      pt.complete = false
+      pt&.task_logs&.destroy_all
+    end
   end
 
   def number
@@ -229,11 +250,13 @@ class Plot < ApplicationRecord
 
   def reduced_expiry_date
     return if completion_release_date.blank?
+
     completion_release_date + validity.months
   end
 
   def expired?
     return if completion_release_date.blank?
+
     Time.zone.today > expiry_date
   end
 
@@ -264,6 +287,7 @@ class Plot < ApplicationRecord
   # then the snagging link is valid.
   def snag_link_valid
     return false if snagging_expiry_date.blank?
+
     snagging_expiry_date > Time.zone.today ||
       (snagging_expiry_date < Time.zone.today && unresolved_snags.positive?)
   end
@@ -283,12 +307,15 @@ class Plot < ApplicationRecord
 
   def snagging_days_remaining
     return unless snagging_expiry_date
+
     snags_fully_resolved ? "Closed" : (snagging_expiry_date - Time.zone.today).to_i
   end
 
   def snagging_expiry_date
     return if completion_date.blank?
+
     return if development.snag_duration < 1
+
     completion_date + development.snag_duration.days
   end
 
@@ -334,8 +361,6 @@ class Plot < ApplicationRecord
     end
   end
 
-  # rubocop:enable Metrics/ClassLength
-
   # Is the plot Spanish
   # rubocop:disable all
   def spanish?
@@ -357,6 +382,7 @@ class Plot < ApplicationRecord
   # Get the approvd applicance choices made for the plot
   def appliance_choices
     return unless choices_approved?
+
     choices = Choice.joins(:room_choices)
                     .where(choices: { choiceable_type: "Appliance" },
                            room_choices: { plot_id: id }).to_a
@@ -366,6 +392,7 @@ class Plot < ApplicationRecord
   # Get the approvd applicance choices made for the plot
   def finish_choices
     return unless choices_approved?
+
     choices = Choice.joins(:room_choices)
                     .where(choices: { choiceable_type: "Finish" },
                            room_choices: { plot_id: id }).to_a
@@ -412,7 +439,7 @@ class Plot < ApplicationRecord
 
   # How many rooms of the provided type does this plot have?
   def rooms?(key)
-    rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }.count
+    rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }&.count
   end
 
   # Which tiles should the plot have enabled for the homeowner dashboard?
@@ -428,6 +455,7 @@ class Plot < ApplicationRecord
 
   def completed?
     return false unless completion_date
+
     Time.zone.today >= completion_date
   end
 
@@ -436,12 +464,13 @@ class Plot < ApplicationRecord
   end
 
   def my_construction_name
-    construction_name.blank? ? I18n.t("homeowners.home") : construction_name
+    construction_name.presence ? construction_name : I18n.t("homeowners.home")
   end
 
   def post_create
     # log the initial set of rooms for the plot
     return unless cas
+
     PlotLog.process_rooms(self, [], rooms.to_a)
   end
 
@@ -449,6 +478,7 @@ class Plot < ApplicationRecord
   def post_update
     return unless unit_type_id_changed?
     return unless cas
+
     old_rooms = UnitType.find(unit_type_id_was).rooms.to_a
     PlotLog.process_rooms(self, old_rooms, rooms.to_a)
     PlotLog.unit_type_update(self)
@@ -459,11 +489,13 @@ class Plot < ApplicationRecord
     return unless developer.cas
     return if completion_release_date.blank?
     return unless unit_type_id_changed? || completion_release_date_changed?
+
     Cas::Finishes.initalise_plots([self])
   end
 
   def log_threshold
     return :none if RequestStore.store[:current_user].cf_admin?
+
     completion_release_date.nil? ? Time.zone.now : completion_release_date
   end
 
