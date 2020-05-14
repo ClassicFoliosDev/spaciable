@@ -41,6 +41,10 @@ class CustomTile < ApplicationRecord
     development.snag_name
   end
 
+  def document
+    Document.find_by(id: document_id)
+  end
+
   def document_sub_category
     return if guide.present? || file.present? || document_id.present?
     errors.add(:base, :document_sub_category_required)

@@ -1102,6 +1102,8 @@ en:
       title: "New Custom Shortcut"
     edit:
       title: "Edit %{tile}"
+    show:
+      back: "Back"
     form:
       link: "Link URL"
       title: "Title"
