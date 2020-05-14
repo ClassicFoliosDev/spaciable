@@ -184,6 +184,16 @@ Then(/^I should (not )*see CAS visable and enabled at the development$/) do |not
   expect(page).to have_content(t("developments.form.cas_description")) unless not_visible.present?
 end
 
+Given(/^I am logged in as a Developer with no divisons$/) do
+  CreateFixture.create_developer
+  admin = CreateFixture.create_developer_admin
+  login_as admin
+end
+
+Then(/^I do not see a Divisions tab$/) do
+  visit "/developers/#{CreateFixture.developer.id}"
+  expect(page).not_to have_content t("developers.index.divisons")
+end
 
 
 

@@ -7,6 +7,8 @@ Feature: Developments
   Scenario: Developers
     Given I am logged in as an admin
     And there is a developer
+    And the developer has no divisions or developments
+    Then I see Divisions as the default developer tab
     When I create a development for the developer
     Then I should see the created developer development
     When I update the developers development
@@ -15,10 +17,12 @@ Feature: Developments
     Then I should see the developments list
     When I delete the developers development
     Then I should see that the deletion was successful for the developer development
+    And I see Developments as the default developer tab
 
   Scenario: Divisions
     Given I am logged in as an admin
     And there is a developer with a division
+    Then I see Divisions as the default developer tab
     When I create a development for the division
     Then I should see the created division development
     When I update the divisions development

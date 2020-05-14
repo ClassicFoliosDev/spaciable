@@ -14,7 +14,9 @@ module DeveloperTabsHelper
       divisions: {
         icon: :building,
         link: [developer, active_tab: :divisions],
-        permissions_on: -> { developer }
+        permissions_on: -> { developer },
+        hide: !RequestStore.store[:current_user].cf_admin? &&
+          developer.divisions.empty?
       },
       developments: {
         icon: :building,

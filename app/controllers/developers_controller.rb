@@ -25,7 +25,7 @@ class DevelopersController < ApplicationController
   end
 
   def show
-    @active_tab = params[:active_tab] || "divisions"
+    @active_tab = params[:active_tab] || default_tab
     @collection = if @active_tab == "divisions"
                     divisions = @developer.divisions.accessible_by(current_ability)
                     paginate(sort(divisions, default: :division_name))
@@ -96,5 +96,13 @@ class DevelopersController < ApplicationController
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )
+  end
+
+  def default_tab
+    return "developments" if !current_user.cf_admin? &&
+                             @developer.divisions.empty?
+    return "developments" if @developer.developments.present? &&
+                             @developer.divisions.empty?
+    "divisions"
   end
 end
