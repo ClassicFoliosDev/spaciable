@@ -173,6 +173,10 @@
       }
     }
 
+    .placeholder {
+      background-color: $semi-pale-navy;
+    }
+
     .content {
       display: grid;
       grid-template-rows: 60% 40%;

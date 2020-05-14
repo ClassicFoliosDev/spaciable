@@ -140,12 +140,6 @@
     }
   })
 
-  // change preview when image is removed
-  $(document).on('click', '#customTileContent .remove-btn', function (event) {
-    $(".image-preview").attr("src", null)
-    customTilePreview()
-  })
-
   // previews
 
   // show preview of feature tile when feature option is changed
@@ -163,20 +157,42 @@
     event.preventDefault()
   })
 
-  // update the preview on title change
+  // update preview on content input
   $(document).on('keyup', '#customTileContent', function (event) {
+    // update preview on title change
     $('#custom_tile_title').keyup(function () {
       $('#customTilePreview .title').text($(this).val())
     })
 
-  // update the preview on description change
+    // update preview on description change
     $('#custom_tile_description').keyup(function () {
       $('#customTilePreview .description').text($(this).val())
     })
 
+    // update preview on button text change
     $('#custom_tile_button').keyup(function () {
       $('#customTilePreview .button-text').text($(this).val())
     })
+  })
+
+  // image
+
+  // change preview when image is removed
+  $(document).on('click', '#customTileContent .remove-btn', function (event) {
+    $(".image-preview").removeAttr("src")
+    customTilePreview()
+  })
+
+  // change preview when image is added
+  $(document).on('change', '#imageSelector input', function (event) {
+    if ($('#custom_tile_image').prop("files").length) {
+      imageTilePreview()
+      $(imgTile).find("img").hide()
+      $(imgTile).find(".image").addClass("placeholder")
+      // hide the image preview and delete buttons, since their presence causes clarity issues and bugs
+      $(".image-preview").hide()
+      $(".remove-btn").hide()
+    }
   })
 
 
@@ -263,18 +279,26 @@
 
     // show the image or icon preview
     if ($(".image-preview").attr("src")) {
-      $(iconTile).hide()
-      $(imgTile).show()
-      $(imgTile).find("img").prop("src", $(".image-preview").attr("src"))
+      imageTilePreview()
     } else {
-      $(imgTile).hide()
-      if ($("#categorySelector select").val() == doc) {
-        $(iconPreview).addClass("fa-file-pdf-o")
-      } else {
-        $(iconPreview).addClass("fa-external-link")
-      }
-      $(iconTile).show()
+      iconTilePreview()
     }
+  }
+
+  function imageTilePreview() {
+    $(iconTile).hide()
+    $(imgTile).find("img").prop("src", $(".image-preview").attr("src"))
+    $(imgTile).show()
+  }
+
+  function iconTilePreview() {
+    $(imgTile).hide()
+    if ($("#categorySelector select").val() == doc) {
+      $(iconPreview).addClass("fa-file-pdf-o")
+    } else {
+      $(iconPreview).addClass("fa-external-link")
+    }
+    $(iconTile).show()
   }
 
 })(document, window.jQuery)
