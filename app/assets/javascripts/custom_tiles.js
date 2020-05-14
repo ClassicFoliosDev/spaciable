@@ -20,6 +20,14 @@
   var fileSelect = "#fileSelector"
   var imageSelect = "#imageSelector"
 
+  // previews
+  var iconTile = "#customTileIcon"
+  var imgTile = "#customTileImage"
+  var titlePreview = "#customTilePreview .title"
+  var descPreview = "#customTilePreview .description"
+  var btnPreview = "#customTilePreview .button-text"
+  var iconPreview = "#customTileIcon i"
+
 
   // --- EVENTS ---
 
@@ -137,7 +145,7 @@
   // show preview of feature tile when feature option is changed
   $(document).on('click', '#custom_tile_feature-menu', function (event) {
     // we don't know which feature was previously selected, so hide all
-    hideFeaturePreviews()
+    hideFeaturePreview()
     // show the preview of the selected feature
     if ($("#featureSelector select").val()) {
       $("#" + $("#featureSelector select").val()).show()
@@ -178,7 +186,7 @@
     $featSelect.find(".ui-selectmenu-text")[0].innerHTML = "&nbsp;"
     // reset preview
     $("#featurePartials").hide()
-    hideFeaturePreviews()
+    hideFeaturePreview()
   }
 
   function resetDoc() {
@@ -220,7 +228,7 @@
 
   // previews
 
-  function hideFeaturePreviews() {
+  function hideFeaturePreview() {
     $("#featurePartials").children().each(function () {
       $(this).hide()
     })
@@ -232,33 +240,32 @@
   }
 
   function hideCustomTilePreview() {
-    $("#customTileImage").hide()
-    $("#customTileIcon").hide()
+    $(imgTile).hide()
+    $(iconTile).hide()
     // reset preview
-    $('#customTilePreview .title').text("")
-    $('#customTilePreview .description').text("")
-    $('#customTilePreview .button-text').text("")
-    $("#customTileIcon i").removeClass("fa-file-pdf-o fa-external-link")
+    $(titlePreview).text("")
+    $(descPreview).text("")
+    $(btnPreview).text("")
+    $(iconPreview).removeClass("fa-file-pdf-o fa-external-link")
   }
 
   function customTilePreview() {
     // show the text
-    $('#customTilePreview .title').text($("#custom_tile_title").val())
-    $('#customTilePreview .description').text($("#custom_tile_description").val())
-    $('#customTilePreview .button-text').text($("#custom_tile_button").val())
+    $(titlePreview).text($("#custom_tile_title").val())
+    $(descPreview).text($("#custom_tile_description").val())
+    $(btnPreview).text($("#custom_tile_button").val())
 
-    // show the image or icon
+    // show the image or icon preview
     if ($(".image-preview").attr("src")) {
-      $("#customTileImage").show()
-      $("#customTileImage img").prop("src", $(".image-preview").attr("src"))
+      $(imgTile).show()
+      $(imgTile).find("img").prop("src", $(".image-preview").attr("src"))
     } else {
-      var $val = $("#categorySelector select").val()
-      if ($val == doc) {
-        $("#customTileIcon i").addClass("fa-file-pdf-o")
+      if ($("#categorySelector select").val() == doc) {
+        $(iconPreview).addClass("fa-file-pdf-o")
       } else {
-        $("#customTileIcon i").addClass("fa-external-link")
+        $(iconPreview).addClass("fa-external-link")
       }
-      $("#customTileIcon").show()
+      $(iconTile).show()
     }
   }
 
