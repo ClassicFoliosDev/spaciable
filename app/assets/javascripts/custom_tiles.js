@@ -140,6 +140,12 @@
     }
   })
 
+  // change preview when image is removed
+  $(document).on('click', '#customTileContent .remove-btn', function (event) {
+    $(".image-preview").attr("src", null)
+    customTilePreview()
+  })
+
   // previews
 
   // show preview of feature tile when feature option is changed
@@ -257,9 +263,11 @@
 
     // show the image or icon preview
     if ($(".image-preview").attr("src")) {
+      $(iconTile).hide()
       $(imgTile).show()
       $(imgTile).find("img").prop("src", $(".image-preview").attr("src"))
     } else {
+      $(imgTile).hide()
       if ($("#categorySelector select").val() == doc) {
         $(iconPreview).addClass("fa-file-pdf-o")
       } else {
