@@ -132,6 +132,8 @@
     }
   })
 
+  // previews
+
   // show preview of feature tile when feature option is changed
   $(document).on('click', '#custom_tile_feature-menu', function (event) {
     // we don't know which feature was previously selected, so hide all
@@ -140,6 +142,27 @@
     if ($("#featureSelector select").val()) {
       $("#" + $("#featureSelector select").val()).show()
     }
+  })
+
+  // prevent the preview buttons from functioning
+  $(document).on('click', '#featurePartials .branded-btn', function (event) {
+    event.preventDefault()
+  })
+
+  // update the preview on title change
+  $(document).on('keyup', '#customTileContent', function (event) {
+    $('#custom_tile_title').keyup(function () {
+      $('#customTilePreview .title').text($(this).val())
+    })
+
+  // update the preview on description change
+    $('#custom_tile_description').keyup(function () {
+      $('#customTilePreview .description').text($(this).val())
+    })
+
+    $('#custom_tile_button').keyup(function () {
+      $('#customTilePreview .button-text').text($(this).val())
+    })
   })
 
 
@@ -211,14 +234,23 @@
   function hideCustomTilePreview() {
     $("#customTileImage").hide()
     $("#customTileIcon").hide()
+    // reset preview
+    $('#customTilePreview .title').text("")
+    $('#customTilePreview .description').text("")
+    $('#customTilePreview .button-text').text("")
+    $("#customTileIcon i").removeClass("fa-file-pdf-o fa-external-link")
   }
 
   function customTilePreview() {
     if ($(".image-preview").attr("src")) {
-      // show image template
       $("#customTileImage").show()
     } else {
-      // show icon template
+      var $val = $("#categorySelector select").val()
+      if ($val == doc) {
+        $("#customTileIcon i").addClass("fa-file-pdf-o")
+      } else {
+        $("#customTileIcon i").addClass("fa-external-link")
+      }
       $("#customTileIcon").show()
     }
   }
