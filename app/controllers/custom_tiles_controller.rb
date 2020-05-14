@@ -26,6 +26,15 @@ class CustomTilesController < ApplicationController
     end
   end
 
+  def update
+    if @custom_tile.update(custom_tile_params)
+      notice = t("controller.success.update", name: "Shortcut")
+      redirect_to [@parent, :custom_tiles], notice: notice
+    else
+      render :edit
+    end
+  end
+
   def destroy
     @custom_tile.destroy
     notice = t("controller.success.destroy", name: "Shortcut")
