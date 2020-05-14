@@ -242,8 +242,15 @@
   }
 
   function customTilePreview() {
+    // show the text
+    $('#customTilePreview .title').text($("#custom_tile_title").val())
+    $('#customTilePreview .description').text($("#custom_tile_description").val())
+    $('#customTilePreview .button-text').text($("#custom_tile_button").val())
+
+    // show the image or icon
     if ($(".image-preview").attr("src")) {
       $("#customTileImage").show()
+      $("#customTileImage img").prop("src", $(".image-preview").attr("src"))
     } else {
       var $val = $("#categorySelector select").val()
       if ($val == doc) {
