@@ -50,9 +50,9 @@
 
       <div class="half">
         <fieldset id="customTileContent">
-          <%= f.input :title, label: t(".title") %>
-          <%= f.input :description, label: t(".description") %>
-          <%= f.input :button, label: t(".button") %>
+          <%= f.input :title, label: t(".title"), input_html: { maxlength: 20 } %>
+          <%= f.input :description, label: t(".description"), input_html: { maxlength: 100 } %>
+          <%= f.input :button, label: t(".button"), input_html: { maxlength: 15 } %>
 
           <div class="image-container" id="imageSelector">
             <%= f.input :image, label: t(".image"), as: :image_preview %>

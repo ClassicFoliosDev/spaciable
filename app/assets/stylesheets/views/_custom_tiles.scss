@@ -129,6 +129,10 @@
         padding-top: $spacing-medium;
         margin-bottom: $spacing-small;
       }
+
+      p {
+        font-size: $base-small-font-size;
+      }
     }
 
     .button {
@@ -182,6 +186,16 @@
       grid-template-rows: 60% 40%;
       padding: $spacing-small;
 
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-medium;
+        margin-bottom: $spacing-small;
+      }
+
+      p {
+        font-size: $base-small-font-size;
+      }
+
       .button {
         align-self: end;
 
@@ -191,12 +205,12 @@
           font-size: $base-font-size;
           display: block;
           width: 130px;
-          padding: 3px 10px;
+          padding: 0px 10px;
           color: $primary-red-left;
           background-color: $ui-white;
           border: 1px solid $primary-red-left;
           border-radius: 5px;
-          height: 30px;
+          height: 24px;
 
           &:hover {
             cursor: default;
