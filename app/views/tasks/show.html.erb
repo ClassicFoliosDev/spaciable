@@ -58,25 +58,12 @@
                 <p><%= @task.question %></p>
               </div>
               <div class="actions">
-                <% if @task.next %>
-                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
-                    <%= @task.positive %>
-                  </a>
-                <% elsif @timeline.finale %>
-                  <a href="<%= timeline_finale_path @timeline, @timeline.finale  %>" class="timeline-btn">
-                    <%= @task.positive %>
-                  </a>
-                <% else %>
-                  <a href="<%= timeline_task_path @timeline, @task %>" class="timeline-btn">
-                    <%= @task.positive %>
-                  </a>
-                <% end %>
+                <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive %>
                 <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
                 <% if @task.not_applicable %>
-                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
-                    <%= t(".not_applicable") %>
-                  </a>
+                  <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable") %>
                 <% end %>
+
               </div>
             </div>
             <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
@@ -148,15 +135,7 @@
                   <% end %>
                   <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.action_title %></button>
                 <% end %>
-                <% if @task.next %>
-                  <a href="<%= timeline_task_path @timeline, @task.next %>" class="timeline-btn">
-                    <%= t(".next") %>
-                  </a>
-                <% elsif @timeline.finale %>
-                  <a href="<%= timeline_finale_path @timeline, @timeline.finale %>" class="timeline-btn">
-                    <%= t(".next") %>
-                  </a>
-                <% end %>
+                <%= render "next", timeline: @timeline, task: @task, button_text: t(".next") %>
               </div>
             </div>
           </div>
