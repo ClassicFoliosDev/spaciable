@@ -11,6 +11,7 @@ class Document < ApplicationRecord
   alias parent documentable
 
   validates :file, presence: true
+  validates :guide, uniqueness: { scope: :documentable }, if: -> { guide.present? }
 
   delegate :expired?, to: :parent
   delegate :partially_expired?, to: :parent
