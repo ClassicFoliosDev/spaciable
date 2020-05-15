@@ -1271,7 +1271,7 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"      
+      pr_failed: "Failed to create PlanetRent user account. %{message}"
       failed: "Failed to create a landlord account."
     maintenance:
       show:
@@ -2485,7 +2485,7 @@ en:
    show:
      back: "Back"
    finish_manufacturer:
-     finish_category: "Category: "
+     finish_categories: "Categories: "
      finish_types: "Finish Types"
    new:
      title: "New Finish Manufacturer."

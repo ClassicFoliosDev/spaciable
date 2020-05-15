@@ -30,6 +30,6 @@
 
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">
-    <%= link_to t("back"), @back, class: "btn" %>
+    <%= link_to t("back"), [@unit_type.development.parent, @unit_type.development, active_tab: :unit_types], class: "btn" %>
   </div>
 </div>
