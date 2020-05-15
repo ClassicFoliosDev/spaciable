@@ -21,3 +21,19 @@ document.addEventListener('turbolinks:load', function () {
     })()
   }
 })
+
+// show or hide the guide selector on category change
+$(document).on('click', '#document_category-menu', function (event) {
+  if ($('#docCategorySelector').find('option[value=my_home]')[0].selected) {
+    $('#docGuideSelector').show()
+  } else {
+    $('#docGuideSelector').hide()
+    resetGuide()
+  }
+})
+
+// reset the guide and dropdown value
+function resetGuide () {
+  $('#docGuideSelector select')[0].selectedIndex = 0
+  $('#docGuideSelector .ui-selectmenu-text')[0].innerHTML = "&nbsp;"
+}

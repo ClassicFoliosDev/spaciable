@@ -23,8 +23,12 @@
     <div class="row-item third upload">
       <h4><%= t(".title") %></h4>
 
-      <%= f.input :category, as: :select, collection: category_collection(new_plot_document), include_blank: false %>
-      <%= f.input :guide, as: :select, collection: guide_collection(new_plot_document), include_blank: true %>
+      <div id="docCategorySelector">
+        <%= f.input :category, as: :select, collection: category_collection(new_plot_document), include_blank: false %>
+      </div>
+      <div id="docGuideSelector">
+        <%= f.input :guide, as: :select, collection: guide_collection(new_plot_document), include_blank: true %>
+      </div>
 
       <%= label_tag('document_files', t(".choose"), class: "btn") %>
       <%= f.file_field :files, multiple: true, class: "hidden" %>
