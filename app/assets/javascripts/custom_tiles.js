@@ -46,6 +46,7 @@
         // hide sections
         $(featSection).hide()
         $(linkSection).hide()
+        hideDocSections()
         customTilePreview()  // show preview
       } else if ($val == link) {
         // hide sections
@@ -246,6 +247,19 @@
 
   function resetDocUpload() {
     $(fileSelect).find("input").val(null)
+  }
+
+  function hideDocSections() {
+    if ($("#documentSelector select").val()) {
+      $(guideSelect).hide()
+      $(fileSelect).hide()
+    } else if ($("#guideSelector select").val()){
+      $(docSelect).hide()
+      $(fileSelect).hide()
+    } else {
+      $(docSelect).hide()
+      $(guideSelect).hide()
+    }
   }
 
   // previews

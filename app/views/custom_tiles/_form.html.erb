@@ -30,9 +30,15 @@
             <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %>
           </div>
           <div class="ui-front" id="guideSelector">
-            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true %>
+            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true, disabled: manual_unassigned(custom_tile) %>
           </div>
           <div class="document-file" id="fileSelector">
+            <% if @custom_tile.file? %>
+              <div>
+                <%= label_tag :file, t(".current_file") %>
+                <p><%= File.basename(@custom_tile.file.to_s) %></p> <!-- SORT OUT NAME -->
+              </div>
+            <% end %>
             <%= label_tag :file, t(".file") %>
             <% if custom_tile.persisted? %>
               <%= f.file_field :file, label: t(".file"), as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload" %>

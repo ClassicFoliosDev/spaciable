@@ -418,6 +418,7 @@ en:
     custom_tiles: "Custom Shortcuts"
     custom_tile_add: "New Custom Shortcut"
     custom_tile_edit: "Edit %{tile}"
+    custom_tile_edit: "Edit %{tile}"
 
   pagination:
     per_page_10: "10"
@@ -1115,6 +1116,7 @@ en:
       guide: "Select Manual"
       back: "Back"
       submit: "Submit"
+      current_file: "Current File"
 
   home:
     show:

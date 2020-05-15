@@ -34,6 +34,20 @@ module CustomTileHelper
     disabled
   end
 
+  def manual_unassigned(custom_tile)
+    documents = collect_documents(custom_tile.parent)
+
+    unassigned = ['reservation', 'completion']
+    if documents.size.positive?
+      documents.flatten!.each do |document|
+        unassigned.delete(document.guide) if document.guide
+        # stop checking documents if array is empty
+        break if unassigned.size == 0
+      end
+    end
+    unassigned
+  end
+
   private
 
   def tile_category_scope
@@ -46,6 +60,20 @@ module CustomTileHelper
 
   def tile_guide_scope
     "activerecord.attributes.custom_tiles.guides"
+  end
+
+  def collect_documents(parent)
+    documents = []
+
+    # descendant documents
+    parent.descendants.each do |descendant|
+      documents << descendant.documents
+    end
+
+    # parent documents
+    documents << parent.documents
+
+    documents
   end
 
 end

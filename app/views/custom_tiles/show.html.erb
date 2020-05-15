@@ -57,7 +57,7 @@
         <% end %>
         <% if @custom_tile.file %>
           <%= label_tag(:file) %>
-          <p><%= @custom_tile.file %></p> <!-- SORT OUT NAME -->
+          <p><%= File.basename(@custom_tile.file.to_s) %></p>
         <% end %>
         <% if @custom_tile.guide %>
           <%= label_tag(:guide) %>
