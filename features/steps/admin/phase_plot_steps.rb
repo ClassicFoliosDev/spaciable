@@ -135,7 +135,7 @@ When(/^I CAS update the phase restricted plot$/) do
     expect(page).not_to have_selector "##{selector}"
   end
   expect(page).to have_field 'plot_number', disabled: true
-  find('.plot_unit_type').find('.disabled')
+  find(".plot_unit_type select.disabled")
   fill_in :plot_completion_date, with: (Time.zone.now + 20.days)
   select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
 
