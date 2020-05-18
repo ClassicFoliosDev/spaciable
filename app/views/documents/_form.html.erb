@@ -78,7 +78,7 @@
       <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
       <div class="notify">
         <%= label_tag t(".notify") %>
-        <%= f.check_box :notify %>
+        <%= f.check_box :notify, checked: action_name == "new" %>
       </div>
     </div>
   </div>
