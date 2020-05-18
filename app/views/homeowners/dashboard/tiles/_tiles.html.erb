@@ -1,8 +1,3 @@
-<!-- we already have a list of the plots tiles => tiles -->
-<!-- for each tile => tiles.each do -->
-<!-- check whether it's a feature or not -->
-<!-- if it's a feature, load the relevant feature template -->
-<!-- render '#{tile.sub_category}', plot: plot -->
 <% tiles.each do | tile | %>
   <div class="card article dash-tile branded-border">
     <div class="tile-content">
@@ -11,11 +6,8 @@
       <% elsif tile.image? %>
         <%= render "homeowners/dashboard/tiles/image_tile", tile: tile, documents: documents %>
       <% else %>
-      <%= render "homeowners/dashboard/tiles/icon_tile", tile: tile, documents: documents %>
+        <%= render "homeowners/dashboard/tiles/icon_tile", tile: tile, documents: documents %>
       <% end %>
     </div>
   </div>
-
 <% end %>
-<!-- otherwise, render the default tile template -->
-<!-- render 'tile', plot: plot -->
