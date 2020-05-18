@@ -471,7 +471,7 @@ class Plot < ApplicationRecord
   end
 
   def active_feature(tile)
-    return true unless tile.snagging? || tile.feature.issues?
+    return true unless tile&.snagging? || tile&.issues?
     return true if tile.snagging? && snagging_valid
     return true if tile.issues? && show_maintenance?
     false

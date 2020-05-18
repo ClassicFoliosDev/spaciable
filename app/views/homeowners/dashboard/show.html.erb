@@ -1,11 +1,10 @@
 <div class="branded-hero"></div>
 <div class="branded-body">
   <div class="outer-container dashboard">
-
-    <!-- how many custom tiles does the plot have? -->
+    <!-- find out how many active custom tiles the plot has -->
     <% tiles = @custom_tiles %>
 
-    <% if tiles.size == 1 %>
+    <% if tiles.size == 1 || tiles.size == 4 %>
     <!-- if one or four tiles is activated then the page styling is different -->
       <div class="one-card">
         <div class="half">
@@ -24,17 +23,19 @@
           <div class="row articles">
             <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
             <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
-            <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
+            <div class="single-card">
+              <%= (render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs) if tiles.size == 1 %>
+              <%= (render "homeowners/components/how_to_summary", collection: @how_tos) if tiles.size == 4 %>
+            </div>
           </div>
         </div>
         <div class="half">
           <div class="row library">
             <%= render "homeowners/dashboard/library", documents: @documents %>
           </div>
-          <div class="row articles">
-            <div class="how-to-dash">
-              <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-            </div>
+          <div class="row articles multi-card">
+            <%= (render "homeowners/components/how_to_summary", collection: @how_tos) if tiles.size == 1 %>
+            <%= (render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs) if tiles.size == 4 %>
           </div>
         </div>
       </div>
@@ -63,10 +64,11 @@
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
           <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-        <% else %> <!-- if zero tiles are assigned -->
+        <% else %> <!-- if zero or five tiles are assigned -->
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
-          <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
+          <%= (render "homeowners/components/how_to_summary", collection: @how_tos) if tiles.size == 0 %>
+          <%= (render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs) if tiles.size == 5 %>
         <% end %>
       </div>
     <% end %>

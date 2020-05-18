@@ -3,6 +3,7 @@
 module Homeowners
   class CustomLinksController < Homeowners::BaseController
     def show
+      redirect_to root_url unless params[:title]
       @formatted_link = format_link(params[:page])
     end
 

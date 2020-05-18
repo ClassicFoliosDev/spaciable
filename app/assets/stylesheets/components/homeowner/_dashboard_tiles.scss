@@ -89,25 +89,20 @@
 
     .tile-button {
       align-self: end;
-
-//       .button-text {
-//         text-align: center;
-//         line-height: $base-font-line-height;
-//         font-size: $base-font-size;
-//         display: block;
-//         width: 130px;
-//         padding: 3px 10px;
-//         color: $primary-red-left;
-//         background-color: $ui-white;
-//         border: 1px solid $primary-red-left;
-//         border-radius: 5px;
-//         height: 30px;
-//
-//         &:hover {
-//           cursor: default;
-//         }
-//       }
     }
+  }
+}
+
+.dashboard .one-card .single-card {
+  .how-to-dash {
+    float: left;
+    clear: none;
+  }
+}
+
+.dashboard .one-card .multi-card {
+  .article {
+    @include omega(2n);
   }
 }
 
