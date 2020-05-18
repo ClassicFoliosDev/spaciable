@@ -1,0 +1,14 @@
+<div class="tile-icon"><i class="branded-text fa <%= tile.document? ? 'fa-file-pdf-o' : 'fa-external-link' %>"></i></div>
+<div class="icon-tile-details">
+  <div class="tile-text">
+    <h2 class="tile-title branded-text"><%= tile.title %></h2>
+    <p class="tile-description branded-text"><%= tile.description %></p>
+  </div>
+  <div class="tile-button">
+    <% if tile.document? %>
+      <%= link_to tile.button, tile.document_location(documents), target: '_blank', class: "branded-btn" %>
+    <% else %>
+      <%= link_to tile.button, tile.link, target: '_blank', class: "branded-btn" %>
+    <% end %>
+  </div>
+</div>

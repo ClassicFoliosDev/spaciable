@@ -66,4 +66,15 @@ class CustomTile < ApplicationRecord
     # return the list of documents in alphabetical order
     documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
+
+  def document_location(documents)
+    if document_id
+      document.file.url
+    elsif guide
+      doc = documents.find_by(guide: guide)
+      doc.file.url
+    elsif file
+      file.url
+    end
+  end
 end

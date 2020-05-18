@@ -2,11 +2,11 @@
 <div class="branded-body">
   <div class="outer-container dashboard">
 
-    <!-- change the below to return how many custom tiles the plot has => @plot.custom_tiles -->
-    <% tiles = @plot.activated_cards %>
+    <!-- how many custom tiles does the plot have? -->
+    <% tiles = @plot.custom_tiles %>
 
     <% if tiles.size == 1 %>
-    <!-- if only one card is activated then the page styling is different, so separate this condition from the rest -->
+    <!-- if one or four tiles is activated then the page styling is different -->
       <div class="one-card">
         <div class="half">
           <div class="row">
@@ -24,7 +24,7 @@
           <div class="row articles">
             <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
             <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
-            <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles %>
+            <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
           </div>
         </div>
         <div class="half">
@@ -57,13 +57,13 @@
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-          <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles %>
+          <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
         <% elsif tiles.size == 2 %>
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
-          <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles %>
+          <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
-        <% else %> <!-- if no tiles are activated -->
+        <% else %> <!-- if zero tiles are assigned -->
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
           <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
