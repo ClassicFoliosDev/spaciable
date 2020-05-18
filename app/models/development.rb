@@ -210,15 +210,12 @@ class Development < ApplicationRecord
   def set_default_tiles
     category = 'feature'
     CustomTile.create(development_id: id,
-                      title: I18n.t("developers.form.enable_referrals"),
                       category: category,
                       feature: 'referrals') if parent_developer.enable_referrals
     CustomTile.create(development_id: id,
-                      title: I18n.t("developers.form.enable_services"),
                       category: category,
                       feature: 'services') if parent_developer.enable_services
     CustomTile.create(development_id: id,
-                      title: I18n.t("developers.form.enable_perks"),
                       category: category,
                       feature: 'perks') if parent_developer.enable_perks
   end
