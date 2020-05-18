@@ -100,6 +100,7 @@ end
 
 def goto_ut_logs
   visit "/developments/#{CreateFixture.development.id}/unit_types/#{CreateFixture.unit_type.id}?active_tab=logs"
+  page.find("a.active").should have_content(t("unit_types.collection.logs"))
 end
 
 def goto_plot_logs(plot)
