@@ -37,6 +37,8 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
+      @task.reset_head
+      @task&.next&.reset_head
       redirect_to timeline_task_path, notice: t("controller.success.update", name: @task.title)
     else
       create_new
