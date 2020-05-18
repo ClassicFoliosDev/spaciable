@@ -457,5 +457,41 @@ class Plot < ApplicationRecord
     return :none if RequestStore.store[:current_user].cf_admin?
     completion_release_date.nil? ? Time.zone.now : completion_release_date
   end
+
+  def active_tiles(documents)
+    active_tiles = []
+
+    custom_tiles.each do |tile|
+      active_tiles << tile if tile.feature? && active_feature(tile)
+      active_tiles << tile if tile.document? && active_document(tile, documents)
+      active_tiles << tile if tile.link?
+    end
+
+    active_tiles
+  end
+
+  def active_feature(tile)
+    return true unless tile.snagging? || tile.feature.issues?
+    return true if tile.snagging? && snagging_valid
+    return true if tile.issues? && show_maintenance?
+    false
+  end
+
+  def active_document(tile, documents)
+    return true if tile.file? || tile.document_id?
+    if tile.guide?
+      return true if tile.completion? && completion_guide(documents)
+      return true if tile.reservation? && reservation_guide(documents)
+    end
+    false
+  end
+
+  def completion_guide(documents)
+    documents.find_by(guide: 'completion')
+  end
+
+  def reservation_guide(documents)
+    documents.find_by(guide: 'reservation')
+  end
 end
 # rubocop:enable Metrics/ClassLength

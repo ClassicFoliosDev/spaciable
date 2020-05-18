@@ -11,6 +11,9 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
+      @all_docs = Document.accessible_by(current_ability)
+      @custom_tiles = @plot.active_tiles(@all_docs)
+
       build_documents
       build_articles
     end
@@ -30,9 +33,8 @@ module Homeowners
     end
 
     def build_documents
-      @all_docs = Document.accessible_by(current_ability)
-      @all_docs = @all_docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
-      docs = @all_docs.order(pinned: :desc, updated_at: :desc).limit(6)
+      docs = @all_docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 
       appliances = Appliance.accessible_by(current_ability)
                             .includes(:appliance_manufacturer).order(updated_at: :desc).limit(6)
@@ -40,7 +42,7 @@ module Homeowners
     end
 
     def build_articles
-      how_tos_limit = Plot::DASHBOARD_TILES - @plot.custom_tiles.size
+      how_tos_limit = Plot::DASHBOARD_TILES - @custom_tiles.size
 
       # Filter the HowTo records according to the country
       @how_tos = HowTo.active.order(featured: :asc)
