@@ -3,7 +3,7 @@
 # A Mark is applied to a record to record who made the last change to it
 class Mark < ApplicationRecord
   include RoleEnum
-  belongs_to :choiceable, polymorphic: true
+  belongs_to :markable, polymorphic: true
 
   # If this mark was made my a CF Admin and the current user is NOT a
   # CF Admin, then show "CF Admin", otherwise show the full name of the

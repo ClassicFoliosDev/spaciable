@@ -11,7 +11,9 @@
     </div>
 
     <div class="section-data">
-      <%= edit_btn [:edit, @plot, @room], element: @room %>
+      <% if can?(:update, PlotRoom.new(@plot)) %>
+        <%= edit_btn [:edit, @plot, @room], element: @room %>
+      <% end %>
     </div>
   </div>
 

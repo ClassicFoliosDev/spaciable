@@ -7,9 +7,8 @@ module Rooms
     include SortingConcern
 
     def new
-      @appliance_categories = sort(ApplianceCategory.visible_to(current_user), default: :name)
-      @appliance_manufacturers = sort(ApplianceManufacturer.visible_to(current_user),
-                                      default: :name)
+      @appliance_categories = appliance_categories
+      @appliance_manufacturers = appliance_manufacturers
 
       new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
       return unless new_room
@@ -29,8 +28,8 @@ module Rooms
         notice = t("controller.success.update", name: @room.name)
         redirect_to [@room.parent, @room, active_tab: "appliances"], notice: notice
       else
-        @appliance_categories = sort(ApplianceCategory.all, default: :name)
-        @appliance_manufacturers = sort(ApplianceManufacturer.all, default: :name)
+        @appliance_categories = appliance_categories
+        @appliance_manufacturers = appliance_manufacturers
         render :new
       end
     end
@@ -40,6 +39,14 @@ module Rooms
     # Never trust parameters from the scary internet, only allow the white list through.
     def appliance_room_params
       params.require(:appliance_room).permit(:search_appliance_text)
+    end
+
+    def appliance_categories
+      sort(ApplianceCategory.visible_to(current_user), default: :name)
+    end
+
+    def appliance_manufacturers
+      sort(ApplianceManufacturer.visible_to(current_user), default: :name)
     end
   end
 end

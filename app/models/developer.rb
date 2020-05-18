@@ -187,10 +187,14 @@ class Developer < ApplicationRecord
     # update all developments to have cas on
     all_developments.each { |d| d.update_attribute(:cas, cas) }
 
-    # initilise CAS for the developer
+    # Migrate finishes for the developer if CAS
     return unless cas
 
-    CasInitialisationJob.perform_later(id)
+    MigrateFinishesJob.perform_later(
+      id,
+      RequestStore.store[:current_user]&.full_name,
+      RequestStore.store[:current_user]&.role
+    )
   end
   # rubocop:enable SkipsModelValidations
 end

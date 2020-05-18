@@ -132,6 +132,7 @@ end
 
 When(/^I can see the (.*) (.*) finale in the timeline$/) do |state, content|
   find(:xpath, "//span[text()='#{state.capitalize()}']/parent::li/parent::a").click()
+  find(:xpath, "//h2[text()='Finale #{state.capitalize()}']", wait: 10)# check loaded
   expect(page).to have_content(TimelineFixture.finale[content.to_sym]["#{state}_message".to_sym])
 end
 
