@@ -184,6 +184,7 @@ Rails.application.routes.draw do
     resource :communication_preferences, only: [:show]
     resource :welcome_home, only: [:show], controller: 'welcome_home'
     resource :home_designer, only: [:show]
+    resource :custom_link, only: [:show]
     resource :perks, only: [:show, :create]
     resources :development_messages, only: [:index, :create]
     resources :library, only: [:update]

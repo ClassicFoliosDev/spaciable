@@ -1,0 +1,21 @@
+<% content_for :sub_category_navigation do %>
+<div class="navbar-item">
+  <%= link_to custom_link_path, class: "active" do %>
+  <li class="navbar-item-secondary">
+    <%= params[:title] %>
+  </li>
+  <% end %>
+</div>
+<% end %>
+
+<%= render "components/homeowner/hero" %>
+
+<div class="custom-link-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
+
+<div class="branded-body">
+  <div class="home-designer">
+    <iframe src="<%= @formatted_link %>" class="iframe" mozallowfullscreen webkitallowfullscreen allowfullscreen></iframe>
+  </div>
+</div>
