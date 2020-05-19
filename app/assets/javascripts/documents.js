@@ -25,12 +25,14 @@ document.addEventListener('turbolinks:load', function (event) {
 
 // check for multiple documents and selected category
 function multipleFilesCategorySelection () {
-  if ($(category).find('option[value=my_home]')[0].selected &&
-     (($('.single-file-upload').length) || ($('#document_files.file-upload')[0].files.length <= 1))) {
-    $(guide).show()
-  } else {
-    $(guide).hide()
-    resetGuide()
+  if ($(guide).length) {
+    if ($(category).find('option[value=my_home]')[0].selected &&
+       (($('.single-file-upload').length) || ($('#document_files.file-upload')[0].files.length <= 1))) {
+      $(guide).show()
+    } else {
+      $(guide).hide()
+      resetGuide()
+    }
   }
 }
 
