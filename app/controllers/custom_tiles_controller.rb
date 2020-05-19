@@ -52,5 +52,4 @@ class CustomTilesController < ApplicationController
                                         :image, :remove_image, :image_cache, :category, :link,
                                         :feature, :guide, :file, :document_id, :development_id)
   end
-
 end

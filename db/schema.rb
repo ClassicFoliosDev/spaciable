@@ -240,19 +240,17 @@ ActiveRecord::Schema.define(version: 20200507064806) do
   end
 
   create_table "custom_tiles", force: :cascade do |t|
-    t.string   "title"
-    t.string   "description"
-    t.string   "button"
-    t.string   "image"
-    t.integer  "category"
-    t.string   "link"
-    t.integer  "feature"
-    t.integer  "guide"
-    t.string   "file"
-    t.integer  "document_id"
-    t.integer  "development_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string  "title"
+    t.string  "description"
+    t.string  "button"
+    t.string  "image"
+    t.integer "category"
+    t.string  "link"
+    t.integer "feature"
+    t.integer "guide"
+    t.string  "file"
+    t.integer "document_id"
+    t.integer "development_id"
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
   end

@@ -22,24 +22,22 @@ class CustomTile < ApplicationRecord
     link
   ]
 
-  enum feature: %i[
-    area_guide
-    home_designer
-    referrals
-    services
-    perks
-    issues
-    snagging
-  ]
+  enum feature: {
+    area_guide: 0,
+    home_designer: 1,
+    referrals: 2,
+    services: 3,
+    perks: 4,
+    issues: 5,
+    snagging: 6
+  }
 
   enum guide: %i[
     reservation
     completion
   ]
 
-  def snag_name
-    development.snag_name
-  end
+  delegate :snag_name, to: :development
 
   def document
     Document.find_by(id: document_id)
@@ -50,22 +48,24 @@ class CustomTile < ApplicationRecord
     errors.add(:base, :document_sub_category_required)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def documents_in_scope
     documents = []
     documents << Document.where(documentable_id: development_id,
-                                documentable_type: 'Development')
+                                documentable_type: "Development")
 
     documents << Document.where(documentable_id: development.parent.id,
                                 documentable_type: development.parent.model_name.human)
 
     if development.parent.is_a?(Division)
       documents << Document.where(documentable_id: development.parent_developer.id,
-                                  documentable_type: 'Developer')
+                                  documentable_type: "Developer")
     end
 
     # return the list of documents in alphabetical order
     documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
+  # rubocop:enable Metrics/AbcSize
 
   def document_location(documents)
     if document_id

@@ -207,18 +207,18 @@ class Development < ApplicationRecord
   end
 
   # Create up to three default tiles
+  # rubocop:disable all
   def set_default_tiles
-    category = 'feature'
-    CustomTile.create(development_id: id,
-                      category: category,
-                      feature: 'referrals') if parent_developer.enable_referrals
-    CustomTile.create(development_id: id,
-                      category: category,
-                      feature: 'services') if parent_developer.enable_services
-    CustomTile.create(development_id: id,
-                      category: category,
-                      feature: 'perks') if parent_developer.enable_perks
+    category = "feature"
+
+    CustomTile.create(development_id: id, category: category,
+                      feature: "referrals") if parent_developer.enable_referrals
+    CustomTile.create(development_id: id, category: category,
+                      feature: "services") if parent_developer.enable_services
+    CustomTile.create(development_id: id, category: category,
+                      feature: "perks") if parent_developer.enable_perks
   end
+  # rubocop:enable all
 
   def my_construction_name
     construction_name.blank? ? I18n.t("homeowners.home") : construction_name

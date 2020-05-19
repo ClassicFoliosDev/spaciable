@@ -487,11 +487,11 @@ class Plot < ApplicationRecord
   end
 
   def completion_guide(documents)
-    documents.find_by(guide: 'completion')
+    documents.find_by(guide: "completion")
   end
 
   def reservation_guide(documents)
-    documents.find_by(guide: 'reservation')
+    documents.find_by(guide: "reservation")
   end
 end
 # rubocop:enable Metrics/ClassLength

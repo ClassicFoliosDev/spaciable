@@ -8,14 +8,15 @@ module DocumentsHelper
     end
   end
 
-  def guide_collection(document)
+  def guide_collection(_document)
     Document.guides.map do |(guide_name, _guide_int)|
       [t(guide_name, scope: guide_scope), guide_name]
     end
   end
 
   def guide_selector_valid?(document)
-    document.parent.is_a?(Plot) || document.parent.is_a?(Phase) || document.parent.is_a?(Development)
+    document.parent.is_a?(Plot) || document.parent.is_a?(Phase) ||
+      document.parent.is_a?(Development)
   end
 
   def manual_exists(document)
@@ -25,8 +26,8 @@ module DocumentsHelper
 
     disabled = []
     if documents.size.positive?
-      documents.flatten!.each do |document|
-        disabled << document.guide if document.guide
+      documents.flatten!.each do |doc|
+        disabled << doc.guide if doc.guide
         # guide has two potential values (reservation, completion)
         # stop checking documents if both values are present in disabled array
         break if disabled.uniq.size == 2
@@ -50,7 +51,7 @@ module DocumentsHelper
 
     # parent documents
     parent = document.parent
-    while parent do
+    while parent
       documents << parent.documents
       parent = parent.parent
       break if (parent.is_a? Developer) || (parent.is_a? Division)

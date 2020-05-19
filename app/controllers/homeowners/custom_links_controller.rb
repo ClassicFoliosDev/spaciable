@@ -12,7 +12,7 @@ module Homeowners
     # iframe throws a routing error if the url does not begin with http:// or https://
     # add https:// to the beginning of the link if it does not have it
     def format_link(link)
-      return "https://#{link}" if !(link =~ /\A(http)/)
+      return "https://#{link}" if link !~ /\A(http)/
       link
     end
   end

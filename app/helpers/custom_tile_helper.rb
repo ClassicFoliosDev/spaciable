@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CustomTileHelper
-  def tile_category_collection(custom_tile)
+  def tile_category_collection(_custom_tile)
     CustomTile.categories.map do |(category_name, _category_int)|
       [t(category_name, scope: tile_category_scope), category_name]
     end
@@ -14,7 +14,7 @@ module CustomTileHelper
     end
   end
 
-  def tile_guide_collection(custom_tile)
+  def tile_guide_collection(_custom_tile)
     CustomTile.guides.map do |(guide_name, _guide_int)|
       [t(guide_name, scope: tile_guide_scope), guide_name]
     end
@@ -24,10 +24,10 @@ module CustomTileHelper
     disabled = []
     p = custom_tile.parent
 
-    { 'area_guide' => p.house_search, 'services' => p.enable_services,
-      'home_designer' => p.enable_roomsketcher, 'issues' => p.maintenance,
-      'referrals' => p.enable_referrals, 'perks' => p.enable_perks,
-      'snagging' => p.enable_snagging }.each do |name, feature|
+    { "area_guide" => p.house_search, "services" => p.enable_services,
+      "home_designer" => p.enable_roomsketcher, "issues" => p.maintenance,
+      "referrals" => p.enable_referrals, "perks" => p.enable_perks,
+      "snagging" => p.enable_snagging }.each do |name, feature|
       disabled << name unless feature
     end
 
@@ -37,12 +37,12 @@ module CustomTileHelper
   def manual_unassigned(custom_tile)
     documents = collect_documents(custom_tile.parent)
 
-    unassigned = ['reservation', 'completion']
+    unassigned = %w[reservation completion]
     if documents.size.positive?
       documents.flatten!.each do |document|
         unassigned.delete(document.guide) if document.guide
         # stop checking documents if array is empty
-        break if unassigned.size == 0
+        break if unassigned.empty?
       end
     end
     unassigned
@@ -75,5 +75,4 @@ module CustomTileHelper
 
     documents
   end
-
 end

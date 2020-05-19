@@ -96,6 +96,7 @@ module BulkUploadPlotDocumentsService
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable MethodLength
+  # rubocop:disable Metrics/ParameterLists
   def save_matches(matches, category, rename, rename_text, pinned, guide)
     Rails.logger
          .debug(">>> Bulk upload plot document service save matches start #{Time.zone.now}")
@@ -105,7 +106,8 @@ module BulkUploadPlotDocumentsService
     matches.each do |(plot, file)|
       title = file.original_filename
       title = rename_text if rename
-      doc = plot.documents.build(file: file, title: title, category: category, pinned: pinned, guide: guide)
+      doc = plot.documents.build(file: file, title: title, category: category,
+                                 pinned: pinned, guide: guide)
 
       if doc.save then saved << doc
       else errors << doc.errors.full_messages
@@ -117,6 +119,7 @@ module BulkUploadPlotDocumentsService
 
     [saved, errors.flatten!]
   end
+  # rubocop:enable Metrics/ParameterLists
   # rubocop:enable MethodLength
 
   def rename_params(params)

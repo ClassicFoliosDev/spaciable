@@ -22,7 +22,7 @@ module PlotDocumentsHelper
     documents = []
 
     # parent documents
-    while parent do
+    while parent
       documents << parent.documents
       parent = parent.parent
       break if (parent.is_a? Developer) || (parent.is_a? Division)

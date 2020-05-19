@@ -33,10 +33,10 @@
             <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true, disabled: manual_unassigned(custom_tile) %>
           </div>
           <div class="document-file" id="fileSelector">
-            <% if @custom_tile.file? %>
+            <% if custom_tile.file? %>
               <div>
                 <%= label_tag :file, t(".current_file") %>
-                <p><%= File.basename(@custom_tile.file.to_s) %></p> <!-- SORT OUT NAME -->
+                <p><%= File.basename(custom_tile.file.to_s) %></p> <!-- SORT OUT NAME -->
               </div>
             <% end %>
             <%= label_tag :file, t(".file") %>
