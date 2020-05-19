@@ -114,3 +114,75 @@ Then(/^I see the document shortcut$/) do
     expect(page).to have_content "Development Document"
   end
 end
+
+When(/^I edit the existing shortcut$/) do
+  within ".actions" do
+    find(".fa-pencil").click
+  end
+end
+
+When(/^I change the category to a link$/) do
+  select_from_selectmenu :custom_tile_category, with: "Link"
+end
+
+When(/^I enter a link$/) do
+  fill_in "custom_tile[link]", with: "www.ducks.com"
+end
+
+When(/^I enter content$/) do
+  fill_in "custom_tile[title]", with: "Title"
+  fill_in "custom_tile[description]", with: "Description"
+  fill_in "custom_tile[button]", with: "Button"
+end
+
+Then(/^I see the link tile shortcut$/) do
+  within ".record-list" do
+    click_on "Title"
+  end
+
+  within ".custom-tile-show" do
+    expect(page).to have_content "Title"
+    expect(page).to have_content "www.ducks.com"
+  end
+end
+
+Then(/^the link tile has been updated$/) do
+  expect(CustomTile.where(development_id: CreateFixture.development.id).count).to eq 1
+  tile = CustomTile.find_by(link: 'www.ducks.com')
+  expect(tile.title).to eq "Title"
+  expect(tile.category).to eq "link"
+  expect(tile.feature).to eq nil
+end
+
+Given(/^there are five custom shortcuts for my development$/) do
+  id = CreateFixture.development.id
+
+  # there is one created on development creation, so add four more
+  4.times do
+    CustomTile.create(development_id: id, category: 'feature', feature: 'referrals')
+  end
+end
+
+Then(/^I cannot add another shortcut$/) do
+  expect(page).to_not have_content ("Button " + I18n.t("activerecord.errors.messages.blank"))
+end
+
+When(/^I delete a shortcut$/) do
+  within ".record-list" do
+    page.first(".actions").find(".fa-trash-o").click
+  end
+
+  find(".ui-dialog-buttonpane")
+  within ".ui-dialog-buttonpane" do
+    click_on "Delete"
+  end
+end
+
+Then(/^I can add another shortcut$/) do
+  within find(".notice") do
+    expect(page).to have_content I18n.t("controller.success.destroy", name: "Shortcut")
+  end
+
+  find(".section-actions")
+  expect(page).to have_content I18n.t("breadcrumbs.custom_tile_add")
+end

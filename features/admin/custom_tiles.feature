@@ -42,3 +42,24 @@ Feature: Custom Tiles
     When I enter button text
     And I save the tile
     Then I see the document shortcut
+
+  Scenario: Edit shortcut link
+    Given I am logged in as a Division Admin
+    When I navigate to a development
+    And I visit the custom shortcuts tab
+    When I edit the existing shortcut
+    And I change the category to a link
+    And I enter a link
+    And I enter content
+    When I save the tile
+    Then I see the link tile shortcut
+    And the link tile has been updated
+
+  Scenario: Maximum shortcuts
+    Given I am logged in as a Development Admin
+    And there are five custom shortcuts for my development
+    When I navigate to my development
+    And I visit the custom shortcuts tab
+    Then I cannot add another shortcut
+    When I delete a shortcut
+    Then I can add another shortcut
