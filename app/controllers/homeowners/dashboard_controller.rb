@@ -33,7 +33,8 @@ module Homeowners
     end
 
     def build_documents
-      docs = @all_docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      docs = Document.accessible_by(current_ability)
+      docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 
       appliances = Appliance.accessible_by(current_ability)

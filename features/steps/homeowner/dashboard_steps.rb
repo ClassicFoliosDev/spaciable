@@ -233,3 +233,62 @@ Then(/^the Spaciable Admin should receive an email containing my details$/) do
   expect(email).to have_body_text(ReferralFixture.referee_email)
   expect(email).to have_body_text(ReferralFixture.referee_first_name)
 end
+
+Given(/^the development has a custom link tile$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+
+  CustomTile.create(development_id: development.id, category: "link", link: "www.ducks.com",
+                    title: "Title", description: "Description", button: "Button")
+end
+
+Then(/^I can see the custom link tile$/) do
+  visit "/"
+
+  within ".dash-tile" do
+    expect(page).to have_content ("Title")
+    expect(page).to have_content ("Description")
+    expect(page).to have_content ("Button")
+  end
+end
+
+Given(/^the development has enabled snagging/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  development.enable_snagging = true
+  development.snag_duration = 10
+  development.save!
+end
+
+Given(/^the development has set a snagging tile$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+
+  CustomTile.create(development_id: development.id, category: "feature", feature: "snagging")
+end
+
+Then(/^I should not see the snagging tile$/) do
+  visit "/"
+  within ".dashboard" do
+    expect(page).to_not have_content I18n.t("homeowners.dashboard.tiles.snagging.title")
+    expect(page).to_not have_content I18n.t("homeowners.dashboard.tiles.snagging.description")
+  end
+end
+
+Given(/^there is a estimated move in date in the past$/) do
+  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
+  plot.completion_date = Time.zone.today - 9.days
+  plot.save!
+end
+
+Then(/^I should see the snagging tile$/) do
+  visit "/"
+
+  within ".dashboard" do
+    expect(page).to have_content I18n.t("homeowners.dashboard.tiles.snagging.description")
+  end
+end
+
+When(/^the snagging duration is past$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  development.snag_duration = 5
+  development.save!
+end
+

@@ -47,3 +47,19 @@ Feature: Dashboard
     Then I should see that my details have been confirmed
     And the Spaciable Admin should receive an email containing my details
 
+  Scenario: Custom link
+    Given I have created and logged in as a homeowner user
+    And the development has a custom link tile
+    Then I can see the custom link tile
+
+  Scenario: Inactive Feature
+    Given I have created and logged in as a homeowner user
+    And the development has enabled snagging
+    And the development has set a snagging tile
+    Then I should not see the snagging tile
+    Given there is a estimated move in date in the past
+    Then I should see the snagging tile
+    When the snagging duration is past
+    Then I should not see the snagging tile
+
+
