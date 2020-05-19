@@ -2,9 +2,6 @@
 
 <div class="section-header">
   <div class="section-title">
-    <% if @parent.partially_expired? && !(current_user.cf_admin?) %>
-      <div class="expired"><span class="partial-expired-text"><%= t(".expired", parent: @parent) %></span></div>
-    <% end %>
     <%= t(".title") %>
   </div>
 </div>

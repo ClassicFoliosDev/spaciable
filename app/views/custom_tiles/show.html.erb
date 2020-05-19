@@ -51,15 +51,15 @@
         <%= label_tag(:link) %>
         <p><%= @custom_tile.link %></p>
       <% else %>
-        <% if @custom_tile.document_id %>
+        <% if @custom_tile.document_id? %>
           <%= label_tag(:document) %>
           <p><%= @custom_tile.document.to_s %></p>
         <% end %>
-        <% if @custom_tile.file %>
+        <% if @custom_tile.file? %>
           <%= label_tag(:file) %>
           <p><%= File.basename(@custom_tile.file.to_s) %></p>
         <% end %>
-        <% if @custom_tile.guide %>
+        <% if @custom_tile.guide? %>
           <%= label_tag(:guide) %>
           <p><%= @custom_tile.guide.titleize %></p>
         <% end %>

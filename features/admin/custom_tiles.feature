@@ -11,9 +11,34 @@ Feature: Custom Tiles
     And I cannot crud the shortcuts
     And I can preview the referrals the shortcut
 
-  Scenario: New Shortcut
+  Scenario: Shortcut creation on development creation
     Given I am logged in as a Development Admin
     When I navigate to my development
     And I visit the custom shortcuts tab
     Then I see the referrals shortcut
-    And I can add a new shortcut
+
+  Scenario: Feature shortcuts
+    Given I am logged in as a Division Admin
+    When I navigate to a development
+    And I visit the custom shortcuts tab
+    Then I can add a new shortcut
+    And I can only select features that are turned on for the development
+    When I select a feature
+    And I save the tile
+    Then I see the feature tile in my custom tiles collection
+
+  Scenario: Document shortcuts
+    Given I am logged in as a Development Admin
+    And there is a phase plot with a resident
+    And there are documents
+    When I navigate to my development
+    And I visit the custom shortcuts tab
+    Then I can add a new shortcut
+    When I select the document category
+    Then there is a list of documents associated with my development
+    When I enter a title and description
+    And I save the tile
+    Then I see an error message
+    When I enter button text
+    And I save the tile
+    Then I see the document shortcut
