@@ -23,7 +23,7 @@
         <th colspan="2"><%= sortable(Appliance, :model_num) %></th>
         <th colspan="2"><%= sortable({ Appliance => ApplianceManufacturer }, :name, t(".manufacturer")) %></th>
         <th colspan="2"><%= sortable(Appliance, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2"><%= sortable(Appliance, :added_by, t(".added_by")) %></th>
+        <th colspan="2"><%= t(".added_by") %></th>
         <% if showing_icons %>
           <th colspan="2">&nbsp;</th>
         <% end %>
