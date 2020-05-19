@@ -10,6 +10,7 @@ module Abilities
       division_contacts(division, developer_id)
       division_documents(division, developer_id)
       read_divisions(developer_id, division)
+      division_custom_tiles(division)
     end
 
     private
@@ -54,6 +55,13 @@ module Abilities
           type "Phase", id: Phase.where(division_id: division).lazy.pluck(:id)
           type "Plot", id: Plot.where(division_id: division).lazy.pluck(:id)
         end
+      end
+    end
+
+    def division_custom_tiles(division_id)
+      division = Division.find(division_id)
+      division.developments.each do |dev|
+         can :manage, CustomTile, development_id: dev.id
       end
     end
   end
