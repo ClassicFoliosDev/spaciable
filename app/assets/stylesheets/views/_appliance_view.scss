@@ -33,6 +33,13 @@
   }
 }
 
+.finish {
+  .fa-trash-o {
+    font-size: $base-font-size;
+    line-height: 2;
+  }
+}
+
 .manual-container {
   padding-top: $spacing-small;
 }

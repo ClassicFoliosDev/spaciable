@@ -19,6 +19,13 @@ $darker-grey: #7a8585;
   background-color: $ui-light-grey;
 }
 
+.brands {
+  .fa-trash-o {
+    font-size: $base-font-size;
+    line-height: 2;
+  }
+}
+
 .brand {
   span {
     font-size: $base-small-font-size;
