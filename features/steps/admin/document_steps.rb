@@ -39,7 +39,7 @@ And(/^I should see the original filename$/) do
   within ".document" do
     expect(page).to have_content(DocumentFixture.document_name)
     # Wasn't set explicitly, but current behaviour will default it
-    expect(page).to have_content(t("activerecord.attributes.document.categories.my_home"))
+    expect(page).to have_content(t("activerecord.attributes.document.categories.my_home", construction: "Home"))
   end
 end
 

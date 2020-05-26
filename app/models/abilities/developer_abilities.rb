@@ -11,7 +11,6 @@ module Abilities
       developer_faqs(developer)
       developer_contacts(developer)
       developer_documents(developer)
-      developer_custom_tiles(developer)
       read_developers(developer)
     end
 
@@ -54,13 +53,6 @@ module Abilities
       can :read, Development, developer_id: developer_id
       can :read, Development, developer_id: developer_id
       can :read, Division, developer_id: developer_id
-    end
-
-    def developer_custom_tiles(developer_id)
-      developer = Developer.find(id: developer_id)
-      developer.all_developments.each do |dev|
-        can :manage, CustomTile, development_id: dev.id
-      end
     end
   end
 end

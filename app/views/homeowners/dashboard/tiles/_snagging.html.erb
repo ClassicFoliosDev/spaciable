@@ -1,10 +1,10 @@
 <div class="tile-image">
   <%= image_tag "tile_snagging.png" %>
 </div>
-<div class="img-tile-details">
+<div class="img-tile-details snagging-summary">
   <div class="tile-text">
     <h2 class="tile-title branded-text"><%= t(".title", title: plot.snag_name) %></h2>
-    <p class="tile-description branded-text"><%= t(".description") %></p>
+    <p class="tile-description branded-text"><%= t(".description", title: plot.snag_name) %></p>
   </div>
   <div class="tile-button">
     <%= link_to t(".button"), snags_path, class: "branded-btn" %>

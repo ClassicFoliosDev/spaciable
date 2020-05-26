@@ -28,6 +28,11 @@ Feature: Dashboard
     And the developer has enabled referrals
     And there are how-tos
     When I navigate to the dashboard
+    Then I see no referral link
+    And I see no services link
+    Given the developer has a custom tile for services
+    And the developer has a custom tile for referrals
+    When I navigate to the dashboard
     Then I see the services
     And I see the referral link
     And I only see three articles

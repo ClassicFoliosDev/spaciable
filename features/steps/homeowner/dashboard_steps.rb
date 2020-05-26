@@ -29,7 +29,7 @@ Then(/^I see the recent homeowner contents$/) do
   end
 
   within ".dashboard" do
-    howtos = page.all(".article")
+    howtos = page.all(".how-to-dash")
     expect(howtos.count).to eq(3)
   end
 
@@ -149,14 +149,14 @@ end
 
 Then(/^I see the services$/) do
   within ".articles" do
-    services = page.all(".service-summary")
+    services = page.all(".services-summary")
     expect(services.count).to eq 1
   end
 end
 
 Then(/^I only see three articles$/) do
   within ".articles" do
-    how_tos = page.all(".how-to-summary")
+    how_tos = page.all(".how-to-dash")
     expect(how_tos.count).to eq 3
   end
 end
@@ -188,6 +188,24 @@ Then(/^I see no referral link$/) do
     expect(referral.count).to eq 0
   end
 end
+
+Then(/^I see no services link$/) do
+  within ".articles" do
+    services = page.all(".services-summary")
+    expect(services.count).to eq 0
+  end
+end
+
+Given(/^the developer has a custom tile for services$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'services')
+end
+
+Given(/^the developer has a custom tile for referrals$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'referrals')
+end
+
 
 When(/^I refer a friend$/) do
   visit "/"
@@ -261,7 +279,7 @@ end
 Given(/^the development has set a snagging tile$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
 
-  CustomTile.create(development_id: development.id, category: "feature", feature: "snagging")
+  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'snagging')
 end
 
 Then(/^I should not see the snagging tile$/) do

@@ -1465,7 +1465,7 @@ en:
       perks:
         perks_description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
         perks: "Find Out More"
-        activated_perks: "Log in to Buyers' Club"
+        activated_perks: "Login to Buyers' Club"
         activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
         new_tab: "Opens in a new tab"
         notice: "Thanks for signing up to exclusive online resident rewards! Please check your email inbox for an invitation from Vaboo to activate your Buyers' Club account."
@@ -1483,25 +1483,25 @@ en:
           title: "Services"
         area_guide:
           title: "Area Guide"
-          description: "Area guide description."
-          button: "View Page"
+          description: "Discover local amenities and learn more about your surroundings."
+          button: "Explore My Area"
         home_designer:
           title: "%{construction} Designer"
-          description: "Design stuff"
-          button: "Start Designing"
+          description: "Trial layout and decor options before making your home your own."
+          button: "Design My Home"
         issues:
-          title: "Issues"
-          description: "Stuff is wrong and you need help"
-          button: "Report Issue"
+          title: "Defect Management"
+          description: "Detail any home defects for repair with this easy-to-use online form."
+          button: "Report a Defecy"
         snagging:
           title: "%{title}"
-          description: "Stuff is minorly wrong and you need help"
-          button: "Report Issue"
+          description: "Advise us of minor home faults during the %{title} period after your move."
+          button: "Submit an Issue"
         perks:
           title: "Buyers' Club"
           description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
           button: "Find Out More"
-          activated_button: "Login"
+          activated_button: "Login to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
 
     communication_preferences:

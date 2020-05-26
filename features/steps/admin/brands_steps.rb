@@ -325,6 +325,8 @@ end
 
 Then(/^I should not be able to see developer brands$/) do
   visit "/"
+  sleep 0.5
+  save_and_open_screenshot
 
   within ".navbar" do
     click_on t("components.navigation.my_area", area: "Developer")
