@@ -48,7 +48,7 @@ class ImagePreviewInput < SimpleForm::Inputs::FileInput
   def build_remove_button(out, _image)
     out << template.label_tag("#{object.model_name.param_key}_remove_#{attribute_name}",
                               "",
-                              class: "btn remove-btn fa fa-trash")
+                              class: "btn remove-btn fa fa-trash-o")
     out << @builder.check_box("remove_#{attribute_name}",
                               label: false, class: "hidden remove-image")
   end
