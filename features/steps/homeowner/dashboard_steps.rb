@@ -209,9 +209,11 @@ end
 
 When(/^I refer a friend$/) do
   visit "/"
+  sleep 0.5
+  save_and_open_screenshot
 
-  within ".refer-article" do
-    click_on t("homeowners.dashboard.referrals.refer")
+  within ".refer-summary" do
+    click_on t("homeowners.dashboard.tiles.referrals.title")
   end
 
   within ".ui-dialog" do
@@ -227,7 +229,7 @@ end
 
 Then(/^I should see the referral has been sent$/) do
   within ".notice" do
-    expect(page).to have_content t("homeowners.dashboard.referrals.confirm")
+    expect(page).to have_content t("homeowners.dashboard.tiles.referrals.confirm")
   end
 end
 
@@ -300,7 +302,8 @@ Then(/^I should see the snagging tile$/) do
   visit "/"
 
   within ".dashboard" do
-    expect(page).to have_content I18n.t("homeowners.dashboard.tiles.snagging.description")
+    expect(page).to have_content I18n.t("homeowners.dashboard.tiles.snagging.description",
+                                         title: HomeownerUserFixture.custom_snag_name)
   end
 end
 

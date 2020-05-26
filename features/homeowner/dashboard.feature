@@ -46,6 +46,7 @@ Feature: Dashboard
   Scenario: Refer a Friend
     Given I have created and logged in as a homeowner user
     And the developer has enabled referrals
+    And the developer has a custom tile for referrals
     When I refer a friend
     Then I should see the referral has been sent
     When I accept the referral
