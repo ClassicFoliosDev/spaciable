@@ -9,7 +9,7 @@
       <% if tile.document? %>
         <%= link_to tile.button, tile.document_location(documents), target: '_blank', class: "branded-btn" %>
       <% else %>
-        <%= link_to tile.button, tile.link, target: '_blank', class: "branded-btn" %>
+        <%= link_to tile.button, custom_link_path(title: tile.title, page: tile.link), class: "branded-btn" %>
       <% end %>
     </div>
   </div>
