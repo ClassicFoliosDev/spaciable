@@ -1,0 +1,62 @@
+<% if collection.empty? %>
+  <% if current_user&.cf_admin? %>
+    <% if parent.is_a? Developer %>
+      <div class="section-actions">
+        <%= link_to new_developer_import_path(parent), class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t("timelines.import") %></span>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render 'components/empty_list', icon_name: "clock-o", type: Timeline, parent: parent %>
+<% else %>
+  <div class="section-actions">
+    <% if current_user&.cf_admin? %>
+      <% if parent.is_a? Developer %>
+      <%= link_to new_developer_import_path(parent), class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t("timelines.import") %></span>
+        <% end %>
+      <% end %>
+      <%= link_to [:new, parent, :timeline], class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".create") %></span>
+      <% end %>
+    <% end %>
+  </div>
+
+  <table class="record-list">
+    <thead>
+      <tr>
+        <th colspan="2"><%= sortable(Timeline, :name, t(".timeline")) %></th>
+        <th colspan="2"><%= sortable(Timeline, :created_at, t(".created_at")) %></th>
+        <th colspan="2"><%= sortable(Timeline, :updated_at, t(".last_edited")) %></th>
+        <th colspan="2">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |timeline| %>
+        <tr>
+          <td colspan="2"><%= link_to timeline.title, timeline_path(timeline)%></td>
+          <td colspan="2"><%= l timeline.updated_at.to_date, format: :digits %></td>
+          <td colspan="2"><%= l timeline.created_at.to_date, format: :digits %></td>
+          <td  colspan="2" class="actions">
+            <%= edit_btn edit_timeline_path(timeline), element: timeline %>
+            <% if current_user&.cf_admin? %>
+              <%= link_to clone_timeline_path(timeline), class: "btn clone" do %>
+                <i class="fa fa-files-o"></i>
+              <% end %>
+            <% end %>
+            <%= delete_btn timeline, path: timeline_path(timeline), element: timeline %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

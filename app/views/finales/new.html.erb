@@ -1,0 +1,5 @@
+<% breadcrumb :finale_add, @timeline %>
+
+<%= render "tasks/timeline", timeline: @timeline, editable: false %>
+<%= render "form", timeline: @timeline, finale: @finale, task: @task,
+insert_mode: @insert_mode,  insertion_task: @insertion_task%>

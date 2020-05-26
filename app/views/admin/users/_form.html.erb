@@ -28,7 +28,7 @@
          <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
           <%= f.label :cas_enabled, t(".client_specifications") %>
           <%= f.check_box :cas, id: :cas_check,
-          disabled: (user.division_admin? || user.developer_admin?) %>,
+          disabled: (user.division_admin? || user.developer_admin?) %>
           <p class="checkbox-description"><%= t(".adds_specifications") %></p>
         </div>
         <div class="receive_plot_emails">

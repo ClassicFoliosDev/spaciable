@@ -101,6 +101,8 @@ en:
     share_tenants: "Private: click to share with tenants of this plot"
     share_all: "Private: click to share with tenants and other residents of this plot"
     shared: "Shared: click to disable sharing"
+    cancel:
+      confirm: "Confirm Cancel"
 
   choices:
     save: "Save Changes"
@@ -289,7 +291,7 @@ en:
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
 
-  # LAYOUTS
+  #
   layouts:
     application:
       title: "Spaciable"
@@ -297,6 +299,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
+        timeline: "My Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -418,7 +421,18 @@ en:
     custom_tiles: "Custom Shortcuts"
     custom_tile_add: "New Custom Shortcut"
     custom_tile_edit: "Edit %{tile}"
-    custom_tile_edit: "Edit %{tile}"
+    timeline_add: "Add Timeline"
+    timelines: "Timelines"
+    timeline_show: "%{timeline}"
+    timeline_edit: "Edit %{timeline}"
+    timeline_import: "Import Timeline"
+    tasks: "Timelines"
+    task_show: "%{task}"
+    task_edit: "Edit %{task}"
+    task_add: "Add Task"
+    finale_show: "Finale"
+    finale_edit: "Edit Finale"
+    finale_add: "Add Finale"
 
   pagination:
     per_page_10: "10"
@@ -495,9 +509,9 @@ en:
         management_type: "Management Type"
       unit_type_update_option_form:
         header1: "You have requested a change in unit type"
-        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below"
-        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change"
-        supplement: "keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
+        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
+        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
+        supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
 
     choices:
       resident:
@@ -602,6 +616,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       reports: "Reports"
+      timeline: "Timeline"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1356,6 +1371,37 @@ en:
       show:
         home_designer: "Home Designer"
         new_tab: "Open Planner 5D in a separate tab"
+    timeline:
+      continue: "Continue"
+      next: "Next"
+      splash:
+        welcome: "Welcome To"
+        your_journey: "Your Journey"
+        paragraph_1: "This timeline is designed to help you track your progress and learn more about the process each step of the way."
+        paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
+        continue: "Continue"
+      select_stage:
+        congratulations: "Congratulations on buying a new home!"
+        which_step: "Which step of the buying process are you at?"
+        reservation: "Reservation information"
+        exchange: "Exchange information"
+        moving: "Moving information"
+        living: "Living information"
+      task:
+        header: "Your Journey"
+        how_tos: "How To"
+        faqs: "FAQs"
+        area_guide: "Area Guide"
+        services: "Services"
+        phone: "Phone"
+        tel: "Tel"
+        email: "Email"
+        mobile: "Mobile"
+      complete:
+        dashboard: "Dashboard"
+        last: "Last Opened"
+        finale: "Finale"
+        restart: "Restart"
 
     library:
       my_home: "My %{construction}"
@@ -1686,6 +1732,11 @@ en:
         failure: "It was not possible to send your message, please correct the errors shown:"
 
   developers:
+    timelines:
+      import:
+        title: "Import Timeline"
+        search: "Search"
+        import: "Import"
     destroy:
       success: "%{developer_name} was deleted successfully"
     create:
@@ -1736,9 +1787,8 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-
-      enable_cas: "Client Specifications"
-      cas_description: "Allow client admins to edit specifications and rooms"
+      timeline: "My Journey"
+      timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
       link: "Branded Buyers' Club Link"
@@ -1770,6 +1820,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
+      timelines: "My Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -2277,7 +2328,7 @@ en:
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
-      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
 
 
     index:
@@ -2403,6 +2454,7 @@ en:
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
       matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
       restricted: "Restrict Specifications to CF Admin"
+      picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels"
     new:
       add: "New Unit Type."
     show:
@@ -2488,7 +2540,7 @@ en:
    show:
      back: "Back"
    finish_manufacturer:
-     finish_category: "Category: "
+     finish_categories: "Categories: "
      finish_types: "Finish Types"
    new:
      title: "New Finish Manufacturer."
@@ -2571,6 +2623,7 @@ en:
       image: "Image"
       type: "Type"
       manufacturer: "Manufacturer"
+      notes: "Notes (this is not visible to residents)"
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -2647,6 +2700,7 @@ en:
       add_finish: "Add Finish"
       name: "Name"
       icon: "Icon"
+      icon_tip: "Please select an icon that residents will see alongside the room name."
     show:
       back: "Back"
     new:
@@ -2754,6 +2808,7 @@ en:
       submit: "Submit"
       notify: "Notify subscribed residents about this change"
       picture: "Image"
+      contact_type: "Position Tag"
       category: "Category"
       first_name: "First Name"
       last_name: "Surname"
@@ -2766,6 +2821,7 @@ en:
       title: "Edit %{name}"
     show:
       back: "Back"
+      contact_type: "Position Tag"
 
   brands:
     index:
@@ -2850,7 +2906,7 @@ en:
       comp_date: "Estimated Move In Date"
       back: "Back"
       submit: "Submit"
-      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below"
+      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
@@ -3152,6 +3208,12 @@ en:
           services: "Services"
           emergency: "Emergency"
           management: "Management"
+        contact_types:
+          available_IFA: "Available IFA"
+          available_Solicitor: "Available Solicitor"
+          local_authority: "Local Authority"
+          sales_team: "Sales Team"
+          utility_supplier: "Utility Supplier"
       send_to_all:
         all: "All"
       maintenance:
@@ -3260,6 +3322,7 @@ en:
         mailchimp_failure: "WARNING %{name} was created or updated or deleted, but %{type} could not be updated for MailChimp, details: %{message}"
         delete_not_possible: "It is not possible to delete %{name} because other %{types} depend on it"
         clone_not_possible: "It is not possible to clone %{name}: it might have references to invalid appliances or finishes"
+        timeline_bad_clone: "It is not possible to clone %{name}: %{error}"
         must_have_subject: "You must provide a topic for your new message"
         already_resident: "A resident with this email address is already associated with this plot"
         not_save_documents: "Document upload failed, make sure all documents are valid PDF files, %{message}"
@@ -3314,6 +3377,11 @@ en:
           attributes:
             finish_types:
               too_short: " required, at least one must be selected"
+        finish:
+          attributes:
+            name:
+              taken: "combination already exists in the database and can be added directly to plot(s)"
+
   logs:
     collection:
       room: "Room"
@@ -3321,3 +3389,129 @@ en:
       action: "Action"
       user: "User"
       at: "Created At"
+
+  timelines:
+    default: "Developments will default to this timeline when created."
+    turned_off: "Turned Off"
+    import: "Import Timeline"
+    index:
+      title: "Timelines"
+    collection:
+      create: "Add Timeline"
+      timeline: "Timeline"
+      last_edited: "Last Edited"
+      created_at: "Created At"
+    new:
+      title: "Name"
+    edit:
+      title: "Name"
+    form:
+      submit: "Submit"
+    components:
+      timeline:
+        new: "New Task"
+  tasks:
+    delete: "Delete"
+    delete_task: "Delete Task"
+    cancel_delete: "Cancel"
+    delete_text: "Are you sure you wish to delete Task?"
+    confirm_delete: "Confirm Delete"
+    finale:
+      title: "Finale"
+      cancel_insert: "Cancel Add"
+      cancel_insert_text: "Are you sure you want to cancel creating this finale? The changes will be lost and the finale will not be created."
+      cancel_update: "Cancel Update"
+      cancel_update_text: "Are you sure you want to cancel editing this finale? The changes will be lost and the finale will not be saved."
+    complete: "Complete"
+    incomplete: "Incomplete"
+    cancel: "Cancel"
+    cancel_insert: "Cancel Insert"
+    cancel_insert_text: "Are you sure you want to cancel creating this task? The changes will be lost and the task will not be created."
+    cancel_update: "Cancel Update"
+    cancel_update_text: "Are you sure you want to cancel editing this task? The changes will be lost and the task will not be saved."
+    destroy:
+      success: "%{name} deleted successfully"
+    show:
+      edit: "Edit"
+      delete: "Delete"
+      insert_before: "Insert Page Before %{page}"
+      insert_after: "Insert Page After %{page}"
+      empty_cf: "You timeline is currently empty. Add a page to start creating your timeline."
+      empty: "You timeline is currently empty"
+      add_task: "Add a Task"
+      add_finale: "Add Finale"
+      edit_finale: "Edit Finale"
+      heading: "Main Heading"
+      question: "Question"
+      answer: "Answer"
+      response: "Response"
+      positive: "Positive"
+      negative: "Negative"
+      not_applicable: "Not Applicable"
+      next: "Next"
+      how_tos: "How Tos"
+      faqs: "FAQs"
+      area_guide: "Area Guide"
+      services: "Services"
+      feature:
+        title: "Feature Button"
+        description: "Description"
+        link: "Link"
+      action:
+        title: "Action Button"
+        description: "Description"
+        link: "Link"
+    edit:
+      edit: "Edit %{task}"
+    form:
+      new: "New Page"
+      picture: "Page Image"
+      heading: "Page Title"
+      question: "Question"
+      answer: "Response Heading"
+      response: "Response Content"
+      positive: "Affirmative Button Text"
+      negative: "Negative Button Text"
+      not_applicable: "Not Applicable"
+      not_applicable_text: "Show the Not Applicable button"
+      cancel: "Cancel"
+      submit: "Submit"
+      shortcuts: "Shortcut Links"
+      shortcuts_text: "Show shortcut links to the following Spaciable pages"
+      how_tos: "How Tos"
+      area_guide: "Area Guide"
+      services: "Services"
+      faqs: "FAQs"
+      contact_type: "Contact Tag"
+      feature:
+        label: "Feature"
+        add: "Add Feature"
+        delete: "Delete Feature"
+        title: "Button Text"
+        description: "Description"
+        link: "Link"
+      action:
+        label: "Action"
+        add: "Add Action"
+        delete: "Delete Action"
+        title: "Button Text"
+        description: "Description"
+        link: "Link"
+  finales:
+    create:
+      finale_created: "%{name} finale successfully created"
+    update:
+      finale_updated: "%{name} finale updated"
+    show:
+      edit: "Edit"
+    form:
+      complete_picture: "Completed Image"
+      complete_message: "Completed Message"
+      incomplete_picture: "Incomplete Image"
+      incomplete_message: "Incomplete Message"
+      cancel: "Cancel"
+      submit: "Submit"
+    destroy:
+      success: "%{title} was deleted successfully"
+
+

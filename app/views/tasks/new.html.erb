@@ -1,0 +1,4 @@
+<% breadcrumb :task_new, @timeline %>
+
+<%= render "timeline", timeline: @timeline, editable: false %>
+<%= render "form", timeline: @timeline, task: @task, insert_mode: @insert_mode.to_sym, insertion_task: @insertion_task, stages: @stages, disabled_stages: @disabled_stages %>

@@ -1,17 +1,19 @@
 (function (document, $) {
   'use strict'
 
-    document.addEventListener('turbolinks:load', function () {
-    // make the dropdown menu the same width as the name element (desktop only)
-    var menuItem = document.getElementById("acctNav")
-    var navList = document.getElementById("navList")
+  document.addEventListener('turbolinks:load', function () {
+    if ($('#navList').length) {
+      // make the dropdown menu the same width as the name element (desktop only)
+      var menuItem = document.getElementById("acctNav")
+      var navList = document.getElementById("navList")
 
-    var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
-    navList.style.width = menuWidth
+      var menuWidth = window.getComputedStyle(menuItem, null).getPropertyValue("width")
+      navList.style.width = menuWidth
 
-    // hide the plot address (desktop only)
-    var address = document.getElementById("hiddenAddress")
-    address.style.display = "none"
+      // hide the plot address (desktop only)
+      var address = document.getElementById("hiddenAddress")
+      address.style.display = "none"
+    }
   })
 
   // toggle the dropdown menu open and closed

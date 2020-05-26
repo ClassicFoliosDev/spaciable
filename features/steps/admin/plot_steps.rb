@@ -170,7 +170,7 @@ Then(/^I can see my appliances$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-    find(:xpath, "//a[@href='/homeowners/my_appliances']").click
+    find(:xpath, "//a[@href='/homeowners/my_appliances']", visible: true).click
   end
 
   within_frame("rails_iframe") do
@@ -199,7 +199,14 @@ Then(/^I can see my faqs$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
+<<<<<<< HEAD
     click_on(t("components.homeowner.navigation.faqs"))
+=======
+
+    find("div .last").should have_content(t("components.homeowner.navigation.faqs"))
+    click_on(t("components.homeowner.navigation.faqs"))
+
+>>>>>>> master
   end
 
   sleep 0.2

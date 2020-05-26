@@ -18,7 +18,9 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :name, label: t(".name") %>
-        <%= f.input :icon_name, label: t(".icon"), as: :select, collection: icon_names_collection, include_blank: true %>
+        <%= f.label :external_link, t(".icon") %>
+        <p><%= t(".icon_tip") %></p>
+        <%= f.input :icon_name, label: false, as: :select, collection: icon_names_collection, include_blank: true %>
       </fieldset>
     </div>
   </div>

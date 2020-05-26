@@ -64,6 +64,7 @@ Then(/^when I visit the home designer page$/) do
   within ".navbar-menu" do
     click_on I18n.t("layouts.homeowner.nav.home_designer", construction: t("construction_type.home"))
   end
+  page.find(".home-designer")
 end
 
 Then(/^I can see the home designer page$/) do

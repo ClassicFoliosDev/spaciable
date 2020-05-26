@@ -20,6 +20,12 @@
         <span><%= @contact.organisation %></span>
       <% end %>
     </div>
+    <% if @contact.contact_type.present? %>
+      <div class="category">
+        <%= label_tag(t(".contact_type")) %>
+        <span><%= t("activerecord.attributes.contact.contact_types.#{@contact.contact_type}") %></span>
+      </div>
+    <% end %>
     <div class="position">
       <% if @contact.position? %>
         <%= label_tag(:position) %>

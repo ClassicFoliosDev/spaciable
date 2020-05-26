@@ -13,6 +13,12 @@ module ContactsHelper
     end
   end
 
+  def contact_types_collection
+    Contact.contact_types.map do |(cat_type_name, _cat_type_int)|
+      [t(cat_type_name, scope: cat_type_scope), cat_type_name]
+    end
+  end
+
   private
 
   def titles_scope
@@ -21,5 +27,9 @@ module ContactsHelper
 
   def categories_scope
     "activerecord.attributes.contact.categories"
+  end
+
+  def cat_type_scope
+    "activerecord.attributes.contact.contact_types"
   end
 end

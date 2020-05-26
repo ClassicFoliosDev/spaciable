@@ -1,0 +1,33 @@
+<%= simple_form_for([parent, timeline]) do |f| %>
+  <% if timeline.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% timeline.errors.full_messages.each do |message| %>
+            <li>
+              <%= fa_icon "exclamation-circle" %>
+              <%= message %>
+            </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row finish">
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :title %>
+      </fieldset>
+    </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% if parent %>
+        <%= link_to t("back"), [parent, :timelines], class: "btn" %>
+      <% else %>
+        <%= link_to t("back"), timeline, class: "btn" %>
+      <% end %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>
+

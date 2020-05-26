@@ -109,7 +109,6 @@ class Cas
           Finishes.initialise developer_id
         rescue => e
           ActiveRecord::Rollback
-          puts "*************************** error #{e.message}"
           result = {result: :fail, message: e.message}
         end
       end

@@ -78,6 +78,8 @@ module GotoPage
     within ".phases" do
       click_on CreateFixture.phase_name
     end
+    page.find(".section-title").should have_content(CreateFixture.phase_name)
+
   end
 
   def goto_phase_plot_show_page

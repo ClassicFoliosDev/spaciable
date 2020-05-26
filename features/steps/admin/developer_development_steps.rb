@@ -4,6 +4,21 @@ Given(/^there is a developer$/) do
   CreateFixture.create_developer
 end
 
+Given(/^the developer has no divisions or developments$/) do
+  expect(CreateFixture.developer.divisions.empty? &&
+         CreateFixture.developer.developments.empty?).to eq(true)
+end
+
+Given(/^the developer has divisions and developments$/) do
+  expect(CreateFixture.developer.divisions.present?).to eq(true)
+  expect(CreateFixture.developer.developments.present?).to eq(true)
+end
+
+Given(/^I see (.*) as the default developer tab$/) do |tab|
+  visit "/developers/#{CreateFixture.developer.id}"
+  expect(find(["li.tab a.active"]).text).to eq(tab)
+end
+
 When(/^I create a development for the developer$/) do
   visit "/"
 
@@ -128,7 +143,7 @@ Then(/^I see a Spanish format address$/) do
 
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false
-  
+
   expect(page).not_to have_selector('#developer_address_attributes_postal_number')
   expect(page).not_to have_selector('#developer_address_attributes_road_name')
   expect(page).not_to have_selector('#developer_address_attributes_building_name')

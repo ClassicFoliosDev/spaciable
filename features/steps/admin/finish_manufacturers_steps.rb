@@ -24,7 +24,7 @@ Then(/^I should see the created finish manufacturer$/) do
     click_on FinishManufacturerFixture.name
   end
 
-  within ".finish_manufacturer" do
+  within ".finish_type" do
     expect(page).to have_content(CreateFixture.finish_type_name)
   end
 end

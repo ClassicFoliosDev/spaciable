@@ -1,0 +1,1073 @@
+.timeline-container .branded-body {
+  background-color: $ui-light-grey;
+}
+
+/* splash page */
+.timeline-splash {
+
+  .timeline-header {
+    text-align: center;
+
+    .timeline-title {
+      padding: $spacing-large;
+
+      .welcome {
+        font-weight: normal;
+        font-size: 24px;
+        line-height: 40px;
+      }
+
+      .welcome-journey {
+        text-transform: uppercase;
+        font-size: $title-font-size-2;
+        letter-spacing: $base-small-font-size;
+        font-weight: $bold-font-weight;
+      }
+    }
+  }
+
+  .timeline-content {
+    text-align: center;
+  }
+
+  .timeline-actions {
+    text-align: center;
+    padding: $spacing-large;
+
+    .timeline-btn {
+      width: 140px;
+      color: $primary-navy ;
+      background-color: $ui-light-grey;
+      font-weight: $bold-font-weight;
+      border-radius: 5px;
+      border: 2px solid $ui-grey;
+
+      &:hover {
+        background-color: $ui-grey;
+        color: $primary-navy;
+      }
+    }
+  }
+}
+
+/* select step page */
+.timeline-step {
+
+  .timeline-header {
+    text-align: center;
+
+    .timeline-title {
+      padding: $spacing-large;
+
+      h1 {
+        font-size: $title-font-size-2;
+        font-weight: $bold-font-weight;
+        margin-bottom: $spacing-small;
+      }
+
+      h2 {
+        font-size: $title-font-size-5;
+        font-weight: $base-font-weight;
+        color: $primary-red-left;
+      }
+    }
+  }
+
+  .step-options {
+    display: block;
+    width: 100%;
+
+    .stages {
+      display: inline-block;
+      text-align: center;
+
+      /* radio button container div */
+      .stage {
+        display: inline-block;
+        width: 350px;
+        height: 110px;
+        border: 2px solid $ui-grey;
+        border-left: 2px solid $primary-red-left;
+        padding: $spacing-small;
+        padding-left: $spacing-medium;
+        margin: $spacing-small $spacing-medium;
+        text-align: left;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        label {
+          margin-top: 8px;
+          margin-bottom: 0;
+        }
+
+        label:hover {
+          cursor: pointer;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+        }
+
+        /* hide the radio button */
+        input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+        }
+
+        .fa, .fas {
+          font-size: $title-font-size-3;
+          color: $primary-red-left;
+        }
+      }
+
+      .selected {
+        border: 2px solid $ui-selected;
+        border-left: 2px solid $primary-red-left;
+      }
+    }
+
+    .next {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: $spacing-large + $spacing-medium;
+
+      input {
+        width: 140px;
+        border-radius: 5px;
+        color: $primary-navy ;
+        border: 2px solid $ui-grey;
+        background-color: $ui-light-grey;
+        font-weight: $bold-font-weight;
+
+        &:hover {
+          background-color: $ui-grey;
+          color: $primary-navy;
+        }
+      }
+    }
+  }
+}
+
+
+/* task page */
+
+.timeline-task {
+  display: flex;
+  background-color: $ui-grey;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: relative;
+
+  .timeline-sidebar {
+    position: absolute;
+    display: inline-block;
+    width: 300px;
+    background-color: $ui-white;
+    float: left;
+    height: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    z-index: 10;
+
+    .timeline-header-mobile {
+      display: none;
+    }
+
+    .timeline-header {
+      background-color: $primary-red-left;
+      padding: $spacing-small;
+      display: table;
+      width: 100%;
+
+      .title {
+        width: 60%;
+        display: table-cell;
+
+        .fa, .fas {
+          font-size: $title-font-size-3;
+          color: $ui-white;
+          padding-bottom: $spacing-small;
+        }
+
+        h2 {
+          color: $ui-white;
+          font-size: $title-font-size-3;
+          margin: 0;
+        }
+
+        p {
+          font-size: $base-small-font-size;
+          color: $ui-white;
+          margin: 0;
+        }
+      }
+
+      .igloo {
+        width: 40%;
+        display: table-cell;
+      }
+    }
+
+    .list-stages {
+      height: 100%;
+      overflow-y: scroll;
+      padding-bottom: $spacing-large * 2;
+
+      .vertical {
+        border-left: 5px solid $ui-grey;
+        margin-left: 10px;
+      }
+
+      .stage-title {
+        font-size: $base-small-font-size;
+        padding: 10px;
+        line-height: 0.5;
+        text-align: center;
+        list-style: none;
+        margin-left: -$spacing-small;
+
+        span {
+          color: $primary-red-left;
+          display: inline-block;
+          position: relative;
+          padding: 0 6px;
+        }
+
+        /* create the dashed lines either side of the stage headings */
+        span:before,
+        span:after {
+          content: "";
+          position: absolute;
+          height: 5px;
+          border-bottom: 2px dashed $primary-red-left;
+          top: 0;
+          width: 300px;
+        }
+
+        span:before {
+          right: 100%;
+        }
+
+        span:after {
+          left: 100%;
+        }
+      }
+
+      .sub-stage {
+        .sub-stage-container {
+          border: 1px solid $ui-light-grey;
+          margin: $spacing-medium;
+          margin-left: $spacing-small;
+          padding: 6px;
+          padding-left: $spacing-medium;
+          list-style: none;
+          border-radius: 5px;
+
+          /* custom list bullets */
+          &:before {
+            display: inline-block;
+            font-size: 22px;
+            content: '\25CF';
+            color: #e60000;
+            position: relative;
+            right:42px;
+            line-height: 0;
+            top: 2px;
+          }
+
+          a {
+            font-size: $base-small-font-size;
+            color: $ui-dark-grey;
+          }
+        }
+
+        .active {
+          border: 2px solid $ui-grey;
+
+          /* custom list bullet -> add one pixel to take into account the 2px border of .active */
+          &:before {
+            right: 43px;
+          }
+
+          a {
+            color: $primary-navy;
+          }
+        }
+
+        /* change the colour of the custom list bullet when stage is completed / skipped */
+        .complete {
+          &:before {
+            color: #00b300;
+          }
+        }
+
+        .negative {
+          &:before {
+            color: #ff6600;
+          }
+        }
+      }
+    }
+  }
+
+  .timeline-content {
+    position: relative;
+    width: 100%;
+    right: 0;
+    display: flex;
+
+    form {
+      width: 100%;
+      margin-left: 300px;
+    }
+
+    #question {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-template-rows: auto;
+      height: 100%;
+      width: 100%;
+
+      .question-content {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding: $spacing-large;
+        padding-left: $spacing-large * 3;
+        display: table;
+        margin-top: auto;
+        margin-bottom: auto;
+
+        .content {
+          display: inline-block;
+          position: relative;
+          width: 100%;
+
+          p {
+            font-size: $title-font-size-2;
+            line-height: $title-font-size-1;
+          }
+        }
+      }
+
+      .image {
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .actions {
+        width: 100%;
+        position: relative;
+
+        .branded-btn {
+          width: 140px;
+          margin: $spacing-medium $spacing-large $spacing-medium 0;
+          background-color: $ui-light-grey;
+          border: 1px solid $primary-navy;
+          color: $primary-navy;
+          border-radius: 5px;
+
+          &:hover {
+            background-color: $ui-grey;
+            font-weight: $bold-font-weight;
+          }
+        }
+      }
+    }
+
+    #answer {
+      margin-top: $spacing-large;
+      margin-left: $spacing-large;
+      text-align: left;
+      display: none;
+
+      .answer-container {
+        @include span-columns(7 of 12);
+        @include omega(n);
+        padding-bottom: $spacing-large;
+        padding-right: $spacing-large;
+
+        h2 {
+          font-size: $title-font-size-3;
+        }
+      }
+
+      .contact-container {
+        @include span-columns(5 of 12);
+        padding-left: $spacing-large;
+        padding-top: $spacing-small;
+        margin-right: 0;
+
+        .contact {
+          min-height: 70px;
+          padding-bottom: $spacing-medium;
+
+          .avatar {
+            width: 70px;
+            width: 70px;
+            height: 70px;
+            position: relative;
+            display: inline-block;
+            float: left;
+            border-radius: 5px;
+            border: 1px solid $ui-light-grey;
+
+            img {
+              max-width: 100%;
+              max-height: 100%;
+            }
+          }
+
+          .contact-info {
+            display: inline-block;
+            padding-left: $spacing-small;
+
+            p {
+              margin-bottom: 0;
+            }
+
+            .name, .position {
+              font-weight: $bold-font-weight;
+            }
+          }
+        }
+      }
+
+      .useful-extras {
+        .actions-container {
+
+          .branded-btn-inverted {
+            min-width: 140px;
+            color: $ui-white;
+            border: 1px solid $primary-navy;
+            background-color: $primary-navy;
+            margin-bottom: $spacing-medium;
+
+            &:hover {
+              background-color: $ui-grey;
+              color: $primary-navy;
+            }
+          }
+        }
+
+        .features-container {
+          display: inline-block;
+          float: left;
+          padding-top: $spacing-medium;
+
+          .branded-btn-inverted {
+            min-width: 140px;
+            color: $ui-white;
+            border: 1px solid $primary-navy;
+            background-color: $primary-navy;
+            margin-bottom: $spacing-medium;
+
+            &:hover {
+              background-color: $ui-grey;
+              color: $primary-navy;
+            }
+          }
+        }
+      }
+
+      .timeline-footer {
+        .shortcuts-container {
+          @include span-columns(12 of 12);
+          padding: $spacing-small;
+          text-align: center;
+
+          .shortcuts-question {
+            display: grid;
+            height: 70px;
+            width: 70px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px;
+            grid-template-rows: 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 1 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+            }
+
+            .shortcut-links {
+              display: none;
+            }
+          }
+
+          .shortcuts-grid {
+            display: grid;
+            height: 210px;
+            width: 210px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            grid-template-columns: 70px 70px 70px;
+            grid-template-rows: 70px 70px 70px;
+            justify-items: center;
+            align-items: center;
+
+            .shortcuts {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 2 / span 1;
+
+              .shortcut-button {
+                width: 40px;
+                height: 40px;
+                background-color: $primary-navy;
+                border-radius: 50% 50%;
+                display: table;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                .fa {
+                  font: normal normal normal normal;
+                }
+
+                i {
+                  display: table-cell;
+                  vertical-align: middle;
+                  font-size: 23px;
+                  color: $ui-light-grey;
+                }
+              }
+
+              .close {
+                opacity: 0.6;
+              }
+            }
+
+            .shortcut-links {
+              padding-top: 14px;
+
+              .shortcut-link {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: $primary-navy;
+                border: none;
+                color: $ui-light-grey;
+
+                &:hover {
+                  cursor: pointer;
+                }
+
+                i {
+                  font-size: 20px;
+                  color: $ui-light-grey;
+                  width: 100%;
+                  text-align: center;
+                }
+              }
+
+              .shortcut-label {
+                font-size: $ultra-small-font;
+                padding-top: 2px;
+              }
+            }
+
+            // position the links in the grid
+            .link_how_tos {
+              text-align: center;
+              grid-column: 3 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_services {
+              text-align: center;
+              grid-column: 1 / span 1;
+              grid-row: 2 / span 1;
+            }
+
+            .link_faqs {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 1 / span 1;
+            }
+
+            .link_area_guide {
+              text-align: center;
+              grid-column: 2 / span 1;
+              grid-row: 3 / span 1;
+            }
+          }
+        }
+
+        .next {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+          padding-top: $spacing-small;
+          text-align: center;
+
+          input,
+          .btn {
+            width: 140px;
+            color: $primary-navy;
+            background-color: $ui-light-grey;
+            border: 1px solid $primary-navy;
+            padding: 0px 10px;
+            border-radius: 5px;
+            font-size: $base-font-size;
+            font-family: $base-font-family;
+            line-height: $icon-font-line-height;
+
+            &:hover {
+              background-color: $ui-grey;
+              cursor: pointer;
+              font-weight: $bold-font-weight;
+            }
+          }
+
+          .btn {
+            margin-right: $spacing-large;
+          }
+        }
+      }
+    }
+
+    .complete-content {
+      width: 100%;
+      margin-left: 300px;
+
+      .header {
+        display: none;
+      }
+
+      .incomplete, .complete {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+        height: 100%;
+        width: 100%;
+
+        .text {
+          grid-column-start: 1;
+          grid-column-end: 1;
+          padding: $spacing-small;
+          display: table;
+          margin-top: auto;
+          margin-bottom: auto;
+          text-align: center;
+
+          .actions {
+            padding-top: $spacing-large;
+
+            .btn {
+              width: 140px;
+            }
+
+            .branded-btn-inverted {
+              color: $ui-white;
+              background-color: $primary-navy;
+              border: 1px solid $primary-navy;
+              margin: $spacing-small;
+
+              &:hover {
+                background-color: $ui-grey;
+                color: $primary-navy;
+              }
+            }
+
+            .branded-btn {
+              color: $primary-navy;
+              background-color: $ui-light-grey;
+              border: 1px solid $primary-navy;
+              margin: $spacing-small;
+
+              &:hover {
+                background-color: $ui-grey;
+              }
+            }
+          }
+        }
+
+        .image {
+          grid-column-start: 2;
+          grid-column-end: 2;
+
+          .image-container {
+            height: 100%;
+            width: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+// only show the scrollbar on desktop
+@include media($tablet-landscape-up) {
+  .timeline-task {
+    /* custom scrollbar -> styling does not display in Firefox or IE/Edge */
+    ::-webkit-scrollbar {
+      width: 8px;
+      border: 1px solid $ui-white;
+    }
+    ::-webkit-scrollbar-track {
+      background: $ui-white;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: $ui-white;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: $ui-grey;
+    }
+  }
+}
+
+// large tablet landscape
+@include media($desktop-down) {
+  .timeline-task {
+    .timeline-content {
+      #question {
+        .question-content {
+          padding-left: $spacing-large * 2;
+        }
+      }
+    }
+  }
+}
+
+// small tablet landscape
+@include media($tablet-landscape-down) {
+  .timeline-step .step-options .stages .stage {
+    width: 330px;
+    margin: 10px 10px;
+  }
+
+  .timeline-task {
+    .timeline-content {
+      #question {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 400px auto;
+
+        .image {
+          grid-row-start: 1;
+          grid-row-end: 2;
+          max-height: 400px;
+        }
+
+        .question-content {
+          grid-row-start: 2;
+          grid-row-end: 3;
+        }
+
+        .actions {
+          .branded-btn {
+            margin: 0 $spacing-medium $spacing-medium 0;
+          }
+        }
+      }
+
+      #answer {
+        .answer-container {
+          @include span-columns(12 of 12);
+          padding: $spacing-large;
+        }
+
+        .contact-container {
+          @include span-columns(12 or 12)
+        }
+      }
+
+      .complete-content {
+
+        .incomplete, .complete {
+          display: grid;
+          grid-template-columns: auto;
+          grid-template-rows: auto auto;
+          height: 100%;
+          width: 100%;
+
+          .text {
+            grid-row-start: 2;
+            grid-row-end: 2;
+            padding: $spacing-medium;
+            padding-bottom: $spacing-large;
+          }
+
+          .image {
+            grid-column-start: 1;
+            grid-column-end: 1;
+
+            .image-container {
+              min-height: 250px;
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@include media($tablet-portrait-down) {
+  .timeline-splash .timeline-header .timeline-title {
+    .welcome {
+      font-size: $title-font-size-3;
+    }
+
+    .welcome-journey {
+      font-size: 24px;
+      letter-spacing: 6px;
+    }
+  }
+
+  .timeline-task {
+    .timeline-content {
+      margin: 0;
+    }
+  }
+
+  .timeline-step {
+    .timeline-header {
+
+      .timeline-title {
+        padding: 0;
+        padding-top: $spacing-small;
+      }
+    }
+
+    .step-options {
+      .next {
+        margin-top: $spacing-large;
+      }
+      .stages {
+        .stage {
+          width: 90%;
+        }
+      }
+    }
+  }
+
+  #timelineContentDesktop {
+    display: none;
+  }
+
+  .timeline-task {
+    .timeline-sidebar {
+      width: 100%;
+      z-index: 5;
+      background-color: $ui-light-grey;
+
+      .timeline-header {
+        display: none;
+      }
+
+      .timeline-header-mobile {
+        height: 200px;
+        width: 100%;
+        display: block;
+        position: fixed;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        z-index: 5;
+        top: 60px;
+        border-radius: 0 0 14px 14px;
+
+        .overlay {
+          background-color: rgba(0, 0, 0, 0.3);
+          height: 100%;
+          width: 100%;
+          border-radius: 0 0 14px 14px;
+          padding: $spacing-small;
+
+          .progress-container {
+            position: absolute;
+            bottom: 0;
+
+            .title {
+              color: $ui-white;
+
+              p {
+                color: $ui-white;
+                margin-bottom: $spacing-small;
+              }
+            }
+          }
+        }
+      }
+
+      .list-stages {
+        padding-top: 260px;
+
+        .sub-stage {
+          .sub-stage-container {
+            border: 1px solid $ui-grey;
+          }
+
+          .active {
+
+          }
+        }
+      }
+    }
+
+    .timeline-content {
+      position: relative;
+      left: 0;
+      margin: auto;
+      padding: $spacing-small 0;
+      margin-right: $spacing-small;
+      margin-left: -6px;
+      margin-top: 6px;
+      border-top: 2px solid $ui-grey;
+
+      form {
+        margin-left: 0;
+      }
+
+      #question {
+        display: inline-block;
+
+        .question-content {
+          padding: 0;
+
+          .content {
+            .branded-text {
+              font-size: $title-font-size-4;
+              line-height: $title-font-size-2;
+            }
+          }
+        }
+
+        .image {
+          display: none;
+        }
+
+        .actions {
+          .branded-btn {
+           width: 100px;
+           margin: $spacing-small $spacing-medium $spacing-small 0;
+          }
+          .not-applicable {
+            width: 130px;
+          }
+        }
+      }
+
+      #answer {
+        float: none;
+
+        .answer-container {
+          width: 100%;
+          padding: 0;
+
+          h2 {
+            font-size: $title-font-size-4;
+          }
+        }
+
+        .contact-container {
+          width: 100%;
+          padding: $spacing-medium 0;
+        }
+
+        .timeline-footer {
+
+          .shortcuts-container {
+            .shortcuts-question {
+              height: 60px;
+              width: 60px;
+              grid-template-columns: 60px;
+              grid-template-rows: 60px;
+            }
+
+            .shortcuts-grid {
+              height: 210px;
+              width: 210px;
+              grid-template-columns: 70px 70px 70px;
+              grid-template-rows: 70px 70px 70px;
+            }
+          }
+
+          .next {
+            padding: $spacing-small;
+
+            .branded-btn {
+              margin: $spacing-small;
+            }
+          }
+        }
+      }
+
+      .complete-content {
+        margin: 0;
+        padding: 0;
+
+        .header {
+          display: table;
+          width: 100%;
+          padding: $spacing-small;
+
+          .title {
+            width: 60%;
+            display: table-cell;
+
+            .fa, .fas {
+              font-size: $title-font-size-3;
+              padding-bottom: 0;
+
+            }
+
+            p {
+              font-size: $base-font-size;
+              margin: 0;
+            }
+          }
+
+          .igloo {
+            width: 40%;
+            display: table-cell;
+          }
+        }
+
+        .complete, .incomplete {
+          .text .actions {
+            .btn {
+              width: 120px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

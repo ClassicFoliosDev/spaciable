@@ -161,16 +161,16 @@
 
   <% end %>
 
+  <%-# ----------- BRANDED TEXT COLOUR ----------- -%>
+
   <% if brand.branded_text_color %>
     .branded-text {
       color: <%= brand.branded_text_color %>;
     }
 
     .branded-primary-text {
-     color: <%= brand.branded_text_color %>;
-     }
-
-    <%-# --- Specific elements that need overriding --- -%>
+      color: <%= brand.branded_text_color %>;
+    }
 
     <%-# ----------- MOBILE SEARCH BAR ------------ -%>
     .lower-navigation .lower-navbar-search .search-container input[type="text"] {
@@ -187,16 +187,32 @@
       color: #FFFFFF:
     }
 
-    .lower-navigation .lower-navbar-search .search-container .search-field::placeholder {
-      color: <%= brand.branded_text_color %> !important;
-    }
-    .lower-navigation .lower-navbar-search .search-container .search-field::-ms-input-placeholder {
-      color: <%= brand.branded_text_color %> !important;
-    }
+    .lower-navigation .lower-navbar-search .search-container .search-field::placeholder.
+    .lower-navigation .lower-navbar-search .search-container .search-field::-ms-input-placeholder,
     .lower-navigation .lower-navbar-search .search-container .search-field:-ms-input-placeholder {
       color: <%= brand.branded_text_color %> !important;
     }
 
+    <%-# ----------------- TIMELINE ----------------- -%>
+    .timeline-step .timeline-header .timeline-title h2,
+    .timeline-task .timeline-sidebar .list-stages .sub-stage .active a,
+    .timeline-task .timeline-sidebar .list-stages .stage-title span {
+      color: <%= brand.branded_text_color %>;
+    }
+
+    .timeline-task .timeline-sidebar .list-stages .stage-title span:before,
+    .timeline-task .timeline-sidebar .list-stages .stage-title span:after {
+      border-color: <%= brand.branded_text_color %>;
+    }
+
+    .timeline-task .timeline-sidebar .timeline-header,
+    .timeline-task .timeline-content #answer .timeline-footer .shortcuts-container .shortcuts-grid .shortcuts .shortcut-button,
+    .timeline-task .timeline-content #answer .timeline-footer .shortcuts-container .shortcuts-grid .shortcut-links .shortcut-link,
+    .timeline-task .timeline-content #answer .timeline-footer .shortcuts-container .shortcuts-question .shortcuts .shortcut-button {
+      background-color: <%= brand.branded_text_color %>;
+    }
+
+    <%-# ----------------- LETTINGS ----------------- -%>
     .unlet-plot .letable-plot .letting-btn {
       border-color: <%= brand.branded_text_color %>;
       color: <%= brand.branded_text_color %>;
@@ -205,6 +221,8 @@
       border-color: <%= brand.branded_text_color %>;
       background-color: <%= brand.branded_text_color %>;
     }
+
+    <%-# ----------------- SNAGGING ----------------- -%>
     .snag-comment-form .message textarea {
       color: <%= brand.branded_text_color %>;
       border-color: <%= brand.branded_text_color %>;
@@ -213,6 +231,8 @@
       color: <%= brand.branded_text_color %>;
       border-color: <%= brand.branded_text_color %>;
     }
+
+    <%-# ----------------- ACCOUNT ------------------ -%>
     .other-residents .prompt-remove {
       border-color: <%= brand.branded_text_color %>;
     }
@@ -239,7 +259,6 @@
     .plot-choices .homeowner-container .choice-item {
       border-color: <%= brand.branded_text_color %> !important;
     }
-
 
   <% else %>
     .branded-text {
@@ -277,6 +296,9 @@
     }
   <% end %>
 
+
+  <%-# -------------- BRANDED BORDER --------------- -%>
+
   <% if brand.branded_content_text_color %>
     .branded-border {
       border-color: <%= brand.branded_content_text_color %>;
@@ -300,6 +322,16 @@
 
     .sub-navigation-container .active .navbar-item-secondary {
       border-color: <%= brand.branded_content_text_color %>;
+    }
+
+    <%-# ----------------- TIMELINE ------------------ -%>
+    .timeline-step .step-options .stages .stage .fa,
+    .timeline-step .step-options .stages .stage .fas {
+      color: <%= brand.branded_content_text_color %>;
+    }
+
+    .timeline-step .step-options .stages .stage {
+      border-left-color: <%= brand.branded_content_text_color %>;
     }
 
   <% else %>
@@ -350,6 +382,34 @@
     .branded-primary-text a,
     .branded-primary-text label.checkbox {
       color: <%= brand.branded_button_color %>;
+    }
+
+    <%-# ----------------- TIMELINE ----------------- -%>
+    .timeline-task .timeline-content #question .actions .branded-btn,
+    .timeline-task .timeline-content #answer .timeline-footer .next input,
+    .timeline-splash .timeline-actions .timeline-btn,
+    .timeline-step .step-options .next input {
+      background-color: <%= brand.branded_button_color %>;
+    }
+
+    .timeline-task .timeline-content #question .actions .branded-btn:hover,
+    .timeline-task .timeline-content #answer .timeline-footer .next input:hover {
+      color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
+    }
+
+    <%-# ------------------ TEXT ------------------ -%>
+    .branded-titles h2,
+    .branded-titles h2:last-child,
+    .branded-primary-text a,
+    .branded-primary-text label.checkbox {
+      color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
+    }
+
+    .timeline-task .timeline-content #answer .useful-extras .features-container .branded-btn-inverted:hover,
+    .timeline-task .timeline-content #answer .useful-extras .actions-container .branded-btn-inverted:hover {
+      background-color: <%= brand.branded_button_color %>;
     }
 
   <% else %>
@@ -424,6 +484,44 @@
 
     .library-navigation .library-categories .categories li a.active {
       background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    <%-# --------------- TIMELINE ----------------- -%>
+    .timeline-splash .timeline-actions .timeline-btn:hover,
+    .timeline-step .step-options .next .branded-btn:hover,
+    .timeline-task .timeline-content #question .actions .branded-btn:hover,
+    .timeline-task .timeline-content #answer .timeline-footer .next input:hover {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .timeline-splash .timeline-actions .timeline-btn,
+    .timeline-step .step-options .next .branded-btn,
+    .timeline-task .timeline-content #question .actions .branded-btn,
+    .timeline-task .timeline-content #answer .timeline-footer .next input {
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .timeline-task .timeline-content #answer .timeline-footer .next input {
+      color: <%= brand.branded_button_text_color %>;
+    }
+
+
+    .timeline-task .timeline-content #question .actions .branded-btn,
+    .timeline-task .timeline-content #answer .timeline-footer .next input,
+    .timeline-splash .timeline-actions .timeline-btn,
+    .timeline-step .step-options .next input {
+      border-width: 1px;
+    }
+
+    .timeline-task .timeline-content #answer .useful-extras .features-container .branded-btn-inverted,
+    .timeline-task .timeline-content #answer .useful-extras .actions-container .branded-btn-inverted{
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .timeline-task .timeline-content #answer .useful-extras .features-container .branded-btn-inverted:hover,
+    .timeline-task .timeline-content #answer .useful-extras .actions-container .branded-btn-inverted:hover {
+      border-color: <%= brand.branded_button_text_color %>;
+      color: <%= brand.branded_button_text_color %>;
     }
 
   <% else %>

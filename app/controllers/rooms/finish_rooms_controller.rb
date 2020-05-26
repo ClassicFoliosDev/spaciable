@@ -8,7 +8,7 @@ module Rooms
 
     def new
       @finish_room = FinishRoom.new
-      @finish_categories = FinishCategory.visible_to(current_user).order(:name)
+      @finish_categories = finish_categories
 
       new_room = PlotRoomTemplatingService.clone_room(params[:plot], @room)
       return unless new_room
@@ -28,7 +28,7 @@ module Rooms
         notice = t("controller.success.update", name: @room.name)
         redirect_to [@room.parent, @room, active_tab: "finishes"], notice: notice
       else
-        @finish_categories = FinishCategory.all
+        @finish_categories = finish_categories
         render :new
       end
     end
@@ -38,6 +38,10 @@ module Rooms
     # Never trust parameters from the scary internet, only allow the white list through.
     def finish_room_params
       params.require(:finish_room).permit(:search_finish_text)
+    end
+
+    def finish_categories
+      FinishCategory.visible_to(current_user).order(:name)
     end
   end
 end

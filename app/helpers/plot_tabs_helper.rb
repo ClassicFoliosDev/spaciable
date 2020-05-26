@@ -21,7 +21,7 @@ module PlotTabsHelper
       logs: {
         icon: :pencil, link: [plot, active_tab: :logs],
         permissions_on: -> { plot },
-        hide: !plot.cas
+        hide: plot.hide_logs?
       },
       residents: {
         icon: :user, link: [plot, active_tab: :residents],

@@ -25,7 +25,7 @@ class DevelopersController < ApplicationController
   end
 
   def show
-    @active_tab = params[:active_tab] || "divisions"
+    @active_tab = params[:active_tab] || default_tab
     @collection = if @active_tab == "divisions"
                     divisions = @developer.divisions.accessible_by(current_ability)
                     paginate(sort(divisions, default: :division_name))
@@ -86,15 +86,23 @@ class DevelopersController < ApplicationController
     params.require(:developer).permit(
       :country_id,
       :company_name, :email,
-      :contact_number, :about,
+      :contact_number, :about, :timeline_id,
       :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,
-      :prime_lettings_admin, :personal_app, :cas,
+      :prime_lettings_admin, :personal_app, :cas, :timeline,
       :enable_perks,
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )
+  end
+
+  def default_tab
+    return "developments" if !current_user.cf_admin? &&
+                             @developer.divisions.empty?
+    return "developments" if @developer.developments.present? &&
+                             @developer.divisions.empty?
+    "divisions"
   end
 end

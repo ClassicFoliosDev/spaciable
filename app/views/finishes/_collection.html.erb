@@ -38,7 +38,7 @@
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t(".manufacturer")) %></th>
         <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
         <% if include_added_by %>
-          <th colspan="2"><%= sortable(Finish, :added_by, t(".added_by")) %></th>
+          <th colspan="2"><%=t(".added_by")%></th>
         <%end%>
         <% if showing_icons %>
           <th colspan="2">&nbsp;</th>

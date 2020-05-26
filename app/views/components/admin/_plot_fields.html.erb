@@ -23,3 +23,12 @@
   placeholder: "DD/MM/YYYY",
   input_html: { type: :date } %>
 </div>
+
+<% if current_user.cf_admin? %>
+  <%= f.input :timeline,
+              as: :select,
+              collection: Timeline.all,
+              label_method: ->(timeline) { timeline.title },
+              include_blank: true,
+              selected: plot&.timeline %>
+<% end %>

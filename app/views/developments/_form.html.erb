@@ -59,11 +59,19 @@
     </div>
     <div class="row-item third">
       <fieldset>
-        <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>
+         <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>
         <div id="choices_email_contact">
           <%= f.input :choices_email_contact, label: t(".choices_email") %>
         </div>
-        <br/>
+        <% if development.parent_developer.timeline %>
+          <%= f.input :timeline_id,
+            as: :select,
+            collection: development.parent_developer.timelines,
+            label_method: ->(timeline) { timeline.title },
+            include_blank: t("timelines.turned_off"),
+            selected: development.timeline_id %>
+          <p><%= t("timelines.default") %></p>
+        <% end %>
         <%= f.label :enable_snagging, t(".enable_snagging") %>
         <%= f.check_box :enable_snagging %>
         <p class="checkbox-description"><%= t(".snagging_description") %></p>
