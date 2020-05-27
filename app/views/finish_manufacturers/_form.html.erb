@@ -11,14 +11,17 @@
       </ul>
     </div>
   <% end %>
+
   <div class="row finish_manufacturer">
+    <p><%= t(".description").html_safe %></p>
     <div class="row-item half">
       <fieldset>
         <%= f.input :name %>
       </fieldset>
       <fieldset class="skip-global-selectmenu">
         <div class="finish_manufacturer_finish_type ui-front select-container">
-          <%= f.association :finish_types, collection: FinishType.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
+          <%= f.association :finish_types, label: t(".types"), collection: FinishType.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
+          <p class="help"><%= t(".type_help").html_safe %></p>
         </div>
       </fieldset>
     </div>

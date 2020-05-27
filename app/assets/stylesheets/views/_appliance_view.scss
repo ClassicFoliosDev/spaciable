@@ -80,8 +80,10 @@
   }
 }
 
-.finish_manufacturer .select2-container {
-  width: 100% !important;
+.finish_manufacturer, .finish_type_finish_category {
+  .select2-container {
+    width: 100% !important;
+  }
 }
 
 .appliance .guide-container {
@@ -151,5 +153,40 @@
         font-style: normal;
       }
     }
+  }
+}
+
+.finish_category,
+.finish_type_finish_category,
+.finish_manufacturer_finish_type,
+.new_finish_room,
+.new_appliance_room
+ {
+  .help {
+    font-size: $base-small-font-size;
+  }
+}
+
+.new_finish_room,
+.new_appliance_room {
+  label {
+    color: $primary-navy;
+  }
+}
+
+.new_appliance_room {
+  .appliance_manufacturer {
+    padding-top: $spacing-small;
+    padding-bottom: $spacing-small;
+  }
+}
+
+.new_finish_room {
+  .finish_type {
+    padding-top: $spacing-small;
+    padding-bottom: $spacing-small;
+  }
+  .finish_manufacturer {
+    padding-bottom: $spacing-small;
   }
 }

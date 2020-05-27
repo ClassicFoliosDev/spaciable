@@ -2492,6 +2492,12 @@ en:
    edit:
      title: "Edit %{name}"
    form:
+     description: "A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes.<br/>
+                   A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
+                   A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
+     types: "Associated Finish Types"
+     type_help: "The <strong>Manufacturer</strong> drop-down list found when creating finishes on the database or assigning finishes to plots relies on making associations with Finish Types.<br/>
+                 Populate the Associated Finish Types field with any Types this Manufacturer should feature under."
      back: "Back"
      submit: "Submit"
      finish_category: "Finish Category"
@@ -2599,6 +2605,10 @@ en:
     edit:
       title: "Edit %{name}"
     form:
+      description: "A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes.<br/>
+                    A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
+                    A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
+      category_help: "To associate this category with a new Finish Type, visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add this Category to the Associated Finish Categories list."
       back: "Back"
       submit: "Submit"
 
@@ -2619,7 +2629,12 @@ en:
     edit:
       title: "Edit %{name}"
     form:
-      category: "Category"
+      description: "A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes.<br/>
+                    A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
+                    A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
+      categories: "Associated Finish Categories"
+      category_help: "The <strong>Type</strong> drop-down list found when creating finishes on the database or assigning finishes to plots relies on making associations with Finish Categories.<br/>
+                      Populate the Associated Finish Categories field with any Categories this Type should feature under."
       back: "Back"
       submit: "Submit"
 
@@ -2665,6 +2680,9 @@ en:
         submit: "Submit"
         back: "Back"
         search: "Search"
+        search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances database.
+                      Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/>
+                      Narrow results by using quotations marks to return only exact matches."
         category: "Category"
         manufacturer: "Manufacturer"
     finish_rooms:
@@ -2673,6 +2691,9 @@ en:
         submit: "Submit"
         back: "Back"
         search: "Search"
+        search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes database.
+                      Click the <strong>Finish</strong> drop-down field on this page to select from the results.<br/>
+                      Narrow results by searching for product codes or using quotation marks, e.g., \"White Oak\", to return only exact matches."
         choose: "Choose..."
         category: "Category"
         type: "Type"
