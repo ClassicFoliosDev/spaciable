@@ -7,7 +7,7 @@
     <div class="section-actions">
       <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t("finishes.collection.create") %></span>
+        <span class="btn-label"><%= t("finishes.collection.assign") %></span>
       <% end %>
     </div>
   <% end %>
@@ -18,7 +18,7 @@
     <thead>
       <tr>
         <th class="icon" style="text-align:center;"><%= t(".image") %></th>
-        <th colspan="2"><%= sortable(Finish, :name) %></th>
+        <th colspan="2"><%= sortable(Finish, :name, t(".finish")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t("finishes.collection.finish_category")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t("finishes.collection.finish_type")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t("finishes.collection.manufacturer")) %></th>

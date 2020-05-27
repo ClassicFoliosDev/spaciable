@@ -1,3 +1,5 @@
+/* PLOTS */
+
 .range-hint {
     display: block;
     margin: $spacing-medium 0;
@@ -26,5 +28,45 @@
 .release-plots {
   .order-number {
     margin-top: $spacing-small * 5;
+  }
+}
+
+
+/* UNIT TYPES */
+
+.new_unit_type, .edit_unit_type {
+  .explanation {
+    padding-top: $spacing-medium;
+  }
+
+  p {
+    font-size: $base-small-font-size;
+  }
+
+  li {
+    font-size: $base-small-font-size;
+  }
+
+  .explanation a {
+    font-size: $base-small-font-size;
+    text-decoration: none;
+    font-weight: $bold-font-weight;
+    color: $primary-black;
+  }
+}
+
+.ut-update-option-form {
+  h4 {
+    font-size: $title-font-size-5;
+  }
+}
+
+.unit-type-update-form {
+  font-size: $base-font-size;
+
+  span {
+    display: block;
+    padding-left: $spacing-medium;
+    margin-top: -15px;
   }
 }

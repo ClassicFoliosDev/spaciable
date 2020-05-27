@@ -36,7 +36,7 @@
           <%= select_tag "manufacturer" %>
         </div>
         <div class="finishes ui-front select-container">
-          <%= label_tag Finish.model_name.human %>
+          <%= label_tag Finish.model_name.human, t(".finish") %>
           <%= select_tag "finishes", required: true %>
           <span class="match-errors"></span>
         </div>

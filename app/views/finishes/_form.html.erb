@@ -21,7 +21,7 @@
           </div>
         </fieldset>
         <fieldset>
-          <%= f.input :name %>
+          <%= f.input :name, label: t(".name") %>
           <%= label_tag t(".notes") %>
           <p class="notes-disclaimer"><%= t(".notes_disclaimer") %></p>
           <%= f.text_area :description %>

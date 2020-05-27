@@ -26,7 +26,7 @@
         <td class="actions">
           <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
           <% if can? :update, unit_type %>
-            <%= link_to clone_unit_type_path(id: unit_type.id), class: "btn clone" do %>
+            <%= link_to clone_unit_type_path(id: unit_type.id), class: "btn clone", title: "Clone" do %>
               <i class="fa fa-files-o"></i>
             <% end %>
           <% end %>
