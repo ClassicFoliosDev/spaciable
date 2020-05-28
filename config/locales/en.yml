@@ -2395,12 +2395,11 @@ en:
       walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
-      matterport_tip: "Make sure you use the plugin-friendly version of a URL. <br/>See more details <a href=\"https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-\", target=\"_blank\">here.</a>"
       tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Unit Type."
       tip_2: "For example <strong>https://my.matterport.com/show/?m=8qpReuQhuEE</strong>"
       tip_3: "Make sure you use the plugin-friendly version of the URL, so that your 3D walkthrough or video can be embedded in an 'iframe':
-              <ul><li>You can find out more details regarding the Matterport 3D walkthrough </li>
-              <li>For YouTube links, edit the URL to replace <strong>watch?v=</strong> with <strong>embed\/</strong></li>
+              <ul><li>You can find out more details regarding the Matterport 3D walkthrough <a href='https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-', target='_blank'>here.</a></li>
+              <li>For YouTube links, edit the URL to replace <strong>watch?v=</strong> with <strong>embed/</strong></li>
               <li>For Vimeo links, edit the URL to replace <strong>vimeo.com</strong> with <strong>player.vimeo.com/video</strong></li>
               <li>For other video links, click 'share' on the online video player, then find 'embed video'. There should be a long &#60;iframe&#62; code - delete everything except the embed video URL, which will be in quotation marks (do not paste quotation marks into Spaciable)</li></ul>"
       restricted: "Restrict Specifications to CF Admin"
