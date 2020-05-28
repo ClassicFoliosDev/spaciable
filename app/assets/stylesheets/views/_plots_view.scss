@@ -70,3 +70,9 @@
     margin-top: -15px;
   }
 }
+
+#unitTypeHelp, #roomBelongsHelp {
+  &:hover {
+    cursor: pointer;
+  }
+}
