@@ -132,7 +132,7 @@ When(/^I add a finish to one of the default unit type rooms$/) do
   end
 
   within ".empty" do
-    click_on t("rooms.form.add_finish")
+    click_on t("finishes.collection.assign")
   end
 
   within ".search-finish" do

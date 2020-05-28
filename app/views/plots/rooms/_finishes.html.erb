@@ -1,7 +1,7 @@
 <% cancrud = can?(:crud, PlotRoom.new(plot)) %>
 
 <% if collection.empty? %>
-  <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot, combine: true, override: cancrud %>
+  <%= render 'components/empty_list', icon_name: "shower", action: "Assign", type: FinishRoom, parent: room, plot: plot, combine: true, override: cancrud %>
 <% else %>
   <% if cancrud %>
     <div class="section-actions">

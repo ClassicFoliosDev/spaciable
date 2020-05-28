@@ -615,7 +615,7 @@ en:
       residents: "Residents"
     empty_list:
       empty: "You have no %{type_names}."
-      add: "Add %{type_name}"
+      add: "%{action} %{type_name}"
       request_add: "You do not have permission. Please contact the Classic Folios team and ask them to create %{type_names}"
     header:
       feedback: "Feedback"
