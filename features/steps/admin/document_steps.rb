@@ -12,7 +12,7 @@ When(/^I upload a document for the developer$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -165,7 +165,7 @@ Then(/^I should see that the deletion was successful for the document$/) do
   expect(page).not_to have_content(".documents")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Document.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Document.model_name.human)}}i
   end
 end
 
@@ -174,7 +174,7 @@ When(/^I upload a document for the division$/) do
   visit "/developers/#{division.developer.id}/divisions/#{division.id}?active_tab=documents"
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -195,7 +195,7 @@ When(/^I upload a document for the development$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -213,7 +213,7 @@ When(/^I upload a document for the division development$/) do
   visit "/divisions/#{development.division.id}/developments/#{development.id}?active_tab=documents"
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -234,7 +234,7 @@ When(/^I upload a document for the phase$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -252,7 +252,7 @@ When(/^I upload a document for the unit type$/) do
   visit "/developments/#{unit_type.development.id}/unit_types/#{unit_type.id}?active_tab=documents"
 
   within ".unit-type" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -277,7 +277,7 @@ When(/^I upload a document for the division phase$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -302,7 +302,7 @@ When(/^I upload a document for the division plot$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.downcase)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.downcase)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -320,7 +320,7 @@ When(/^I upload a document for the division phase plot$/) do
   visit "/plots/#{plot.id}?active_tab=documents"
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -349,7 +349,7 @@ When(/^I upload a document for the phase plot$/) do
   find(".tabs").click_on "Documents"
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -455,7 +455,7 @@ When(/^I upload an image for the phase plot$/) do
   find(".tabs").click_on "Documents"
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   image_full_path = FileFixture.file_path + FileFixture.finish_picture_name
@@ -500,7 +500,7 @@ When(/^I upload an svg image for the division phase plot$/) do
   visit "/plots/#{plot.id}?active_tab=documents"
 
   within ".plot" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.svg_picture_name
@@ -539,7 +539,7 @@ When(/^I upload documents for the development$/) do
   visit url
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name

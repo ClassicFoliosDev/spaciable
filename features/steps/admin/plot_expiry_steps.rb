@@ -23,7 +23,7 @@ Then(/^I can CRUD documents$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name
@@ -77,7 +77,7 @@ Then(/^I can add a resident to the plot$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Resident.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Resident.model_name.human.titleize)
   end
 
   fill_in "resident_first_name", with: ExpiryFixture.first_name
@@ -159,7 +159,7 @@ Then(/^I can no longer CRUD documents$/) do
 
   within ".main-container" do
     expect(page).to have_content("You have no documents.")
-    expect(page).to_not have_content(t("components.empty_list.add", type_name: Document.model_name.human.downcase))
+    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.downcase))
   end
 end
 
@@ -224,7 +224,7 @@ Then(/^I can no longer add a resident to the plot$/) do
 
   within ".main-container" do
     expect(page).to have_content("You have no residents.")
-    expect(page).to_not have_content(t("components.empty_list.add", type_name: Resident.model_name.human.downcase))
+    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Resident.model_name.human.downcase))
   end
 end
 
@@ -261,7 +261,7 @@ Then(/^I can CRUD contacts$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Contact.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Contact.model_name.human.titleize)
   end
 
   within ".contact" do
@@ -347,7 +347,7 @@ Then(/^I can no longer CRUD contacts$/) do
 
   within ".main-container" do
     expect(page).to have_content("You have no contacts.")
-    expect(page).to_not have_content(t("components.empty_list.add", type_name: Video.model_name.human.downcase))
+    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Video.model_name.human.downcase))
   end
 end
 
@@ -382,7 +382,7 @@ Then(/^I can CRUD faqs$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Faq.model_name.human.upcase)
+    click_on t("components.empty_list.add", action: "Add", type_name: Faq.model_name.human.upcase)
   end
 
   within ".new_faq" do
@@ -411,7 +411,7 @@ Then(/^I can CRUD videos$/) do
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Video.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Video.model_name.human.titleize)
   end
 
   within ".row" do
@@ -479,7 +479,7 @@ When(/^I can no longer CRUD faqs$/) do
 
   within ".main-container" do
     expect(page).to have_content("You have no FAQs.")
-    expect(page).to_not have_content(t("components.empty_list.add", type_name: Faq.model_name.human.upcase))
+    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Faq.model_name.human.upcase))
   end
 end
 
@@ -519,7 +519,7 @@ When(/^I can no longer CRUD videos$/) do
 
   within ".main-container" do
     expect(page).to have_content("You have no videos.")
-    expect(page).to_not have_content(t("components.empty_list.add", type_name: Video.model_name.human.upcase))
+    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Video.model_name.human.upcase))
   end
 end
 

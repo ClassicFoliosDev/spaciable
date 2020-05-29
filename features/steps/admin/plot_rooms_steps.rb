@@ -166,7 +166,7 @@ When(/^I add an appliance to one of the default unit type rooms$/) do
   end
 
   within ".empty" do
-    click_on t("appliances.collection.create")
+    click_on t("components.empty_list.add", action: "Assign", type_name: "Appliance")
   end
 
   within ".search-appliance" do
