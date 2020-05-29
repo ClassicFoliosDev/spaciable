@@ -12,7 +12,7 @@ module Homeowners
       session[:onboarding] = nil
 
       @all_docs = Document.accessible_by(current_ability)
-      @custom_tiles = @plot.active_tiles(@all_docs)
+      @custom_tiles = CustomTile.active_tiles(@plot, @all_docs)
 
       build_documents
       build_articles
@@ -33,7 +33,7 @@ module Homeowners
     end
 
     def build_documents
-      docs = Document.accessible_by(current_ability)
+      docs = @all_docs
       docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 

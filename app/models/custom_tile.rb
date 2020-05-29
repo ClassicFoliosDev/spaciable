@@ -48,24 +48,18 @@ class CustomTile < ApplicationRecord
     errors.add(:base, :document_sub_category_required)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def documents_in_scope
     documents = []
-    documents << Document.where(documentable_id: development_id,
-                                documentable_type: "Development")
-
-    documents << Document.where(documentable_id: development.parent.id,
-                                documentable_type: development.parent.model_name.human)
+    documents << development.documents
+    documents << development.parent.documents
 
     if development.parent.is_a?(Division)
-      documents << Document.where(documentable_id: development.parent_developer.id,
-                                  documentable_type: "Developer")
+      documents << development.parent_developer.documents
     end
 
     # return the list of documents in alphabetical order
     documents.flatten!.sort_by { |doc| doc.title.downcase }
   end
-  # rubocop:enable Metrics/AbcSize
 
   def document_location(documents)
     if document_id
@@ -76,5 +70,44 @@ class CustomTile < ApplicationRecord
     elsif file
       file.url
     end
+  end
+
+  ## code revire
+
+  def self.active_tiles(plot, documents)
+    custom_tiles = CustomTile.where(development_id: plot.development)
+    active_tiles = []
+
+    custom_tiles.each do |tile|
+      active_tiles << tile if tile.feature? && tile.active_feature(plot)
+      active_tiles << tile if tile.document? && tile.active_document(documents)
+      active_tiles << tile if tile.link?
+    end
+
+    active_tiles
+  end
+
+  def active_feature(plot)
+    return true unless snagging? || issues?
+    return true if snagging? && plot.snagging_valid
+    return true if issues? && plot.show_maintenance?
+    false
+  end
+
+  def active_document(documents)
+    return true if file? || document_id?
+    if guide?
+      return true if completion? && completion_guide(documents)
+      return true if reservation? && reservation_guide(documents)
+    end
+    false
+  end
+
+  def completion_guide(documents)
+    documents.find_by(guide: "completion")
+  end
+
+  def reservation_guide(documents)
+    documents.find_by(guide: "reservation")
   end
 end

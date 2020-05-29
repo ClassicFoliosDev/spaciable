@@ -22,10 +22,9 @@ module PlotDocumentsHelper
     documents = []
 
     # parent documents
-    while parent
+    while parent && ![Developer, Division].member?(parent.class)
       documents << parent.documents
       parent = parent.parent
-      break if (parent.is_a? Developer) || (parent.is_a? Division)
     end
 
     documents

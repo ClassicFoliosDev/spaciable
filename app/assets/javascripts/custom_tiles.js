@@ -158,22 +158,19 @@
     event.preventDefault()
   })
 
-  // update preview on content input
-  $(document).on('keyup', '#customTileContent', function (event) {
-    // update preview on title change
-    $('#custom_tile_title').keyup(function () {
+  // update preview on title input
+  $(document).on('change keyup paste', '#custom_tile_title', function (event) {
       $('#customTilePreview .title').text($(this).val())
-    })
+  })
 
-    // update preview on description change
-    $('#custom_tile_description').keyup(function () {
+  // update preview on description change
+  $(document).on('change keyup paste', '#custom_tile_description', function (event) {
       $('#customTilePreview .description').text($(this).val())
-    })
+  })
 
-    // update preview on button text change
-    $('#custom_tile_button').keyup(function () {
+  // update preview on description change
+  $(document).on('change keyup paste', '#custom_tile_button', function (event) {
       $('#customTilePreview .button-text').text($(this).val())
-    })
   })
 
   // image

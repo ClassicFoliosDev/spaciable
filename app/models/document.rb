@@ -7,6 +7,8 @@ class Document < ApplicationRecord
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
+  belongs_to :custom_tile, optional: true
+
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
 

@@ -3,14 +3,14 @@
 module DocumentsHelper
   def category_collection(document)
     Document.categories.map do |(category_name, _category_int)|
-      [t(category_name, scope: category_scope,
+      [t(category_name, scope: "activerecord.attributes.document.categories",
                         construction: document.construction_type), category_name]
     end
   end
 
   def guide_collection(_document)
     Document.guides.map do |(guide_name, _guide_int)|
-      [t(guide_name, scope: guide_scope), guide_name]
+      [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
     end
   end
 
@@ -38,26 +38,19 @@ module DocumentsHelper
 
   private
 
-  def category_scope
-    "activerecord.attributes.document.categories"
-  end
-
-  def guide_scope
-    "activerecord.attributes.document.guides"
-  end
-
   def gather_documents(document)
     documents = []
 
     # parent documents
     parent = document.parent
-    while parent
+    while parent && ![Developer, Division].member?(parent.class)
       documents << parent.documents
       parent = parent.parent
-      break if (parent.is_a? Developer) || (parent.is_a? Division)
     end
 
-    # descendant documents
+    # gather documents for all descendants under the parent
+    # e.g. if parent is a development, descendants will be all phases under the development,
+    # and all plots under each of the phases
     unless document.parent.is_a?(Plot)
       descendants = document.parent.descendants
 

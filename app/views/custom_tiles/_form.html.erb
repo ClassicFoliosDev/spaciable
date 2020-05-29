@@ -16,12 +16,12 @@
     <div class="row-item two-thirds">
       <div class="half">
         <div class="ui-front" id="categorySelector">
-          <%= f.input :category, as: :select, collection: tile_category_collection(custom_tile), include_blank: false %>
+          <%= f.input :category, as: :select, collection: tile_collection(:categories), include_blank: false %>
         </div>
 
         <fieldset id="customTileFeature">
           <div class="ui-front" id="featureSelector">
-            <%= f.input :feature, as: :select, collection: tile_feature_collection(custom_tile), include_blank: true, disabled: feature_disabled(custom_tile) %>
+            <%= f.input :feature, as: :select, collection: tile_collection(:features, meta: :snag_name, meta_val: custom_tile.snag_name), include_blank: true, disabled: feature_disabled(custom_tile) %>
           </div>
         </fieldset>
 
@@ -30,7 +30,7 @@
             <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %>
           </div>
           <div class="ui-front" id="guideSelector">
-            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_guide_collection(custom_tile), include_blank: true, disabled: manual_unassigned(custom_tile) %>
+            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_collection(:guides), include_blank: true, disabled: manual_unassigned(custom_tile) %>
           </div>
           <div class="document-file" id="fileSelector">
             <% if custom_tile.file? %>
