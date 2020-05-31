@@ -19,6 +19,7 @@ class Plot < ApplicationRecord
 
   belongs_to :unit_type, optional: true
   belongs_to :developer, optional: false
+  has_one :crm, through: :developer
   belongs_to :division, optional: true
   has_one :plot_timeline, dependent: :destroy
   accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
@@ -502,7 +503,33 @@ class Plot < ApplicationRecord
   def hide_logs?
     return true unless cas
     return false if RequestStore.store[:current_user].cf_admin?
+
     completion_release_date.blank? || completion_release_date > Time.zone.today
+  end
+
+  # get the doc from the crm
+  def download_doc(params)
+    raise "#{name} does not have an associated CRM" unless crm
+
+    Crms::Zoho.new(self).download_doc(params)
+  end
+
+  # update the supplied plots with the new Completion Dates
+  def self.update_cds(plots)
+    Plot.transaction do
+      begin
+        plots.each do |p|
+          Plot.find(p.id.to_i)
+              .update_attributes(completion_date: p.completion_date.to_date)
+        end
+        updates = plots.count
+      rescue ActiveRecord::RecordInvalid => e
+        error = e.message
+        raise ActiveRecord::Rollback
+      end
+
+      yield updates, error
+    end
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -1,0 +1,70 @@
+<% breadcrumb :phase_sync_residents, @phase %>
+
+<% back = phase_import_index_path(@phase) %>
+
+<% if @collection&.plots.empty? %>
+  <%= render 'phases/import/up_to_date', message: t(".empty"), back: back %>
+<% else %>
+
+  <%= simple_form_for @collection, url: phase_import_residents_path  do |c| %>
+
+    <table class="record-list">
+      <thead>
+        <tr>
+          <th><%= t(".number") %></th>
+          <th><%= t(".title") %></th>
+          <th><%= t(".first_name") %></th>
+          <th><%= t(".last_name") %></th>
+          <th><%= t(".email") %></th>
+          <th><%= t(".phone") %></th>
+          <th><%= t(".role") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--In order to get the rowspan to work, the plot (p) and
+            resident (r) values are interleaved -->
+        <%= c.fields_for :plots do |p| %>
+          <% new_plot = true %>
+          <%= p.fields_for :residents do |r| %>
+            <tr>
+              <% if new_plot %>
+                <td <%= "rowspan=#{p.object.residents.count}"%>>
+                  <%= label_tag p.object.number  %> </td>
+                  <%= p.hidden_field :number %>
+                  <%= p.hidden_field :id %>
+                  <% new_plot = false %>
+              <% end %>
+              <td ><%= r.input :title,
+                               as: :select,
+                               collection: Resident.titles,
+                               label_method: ->((key, _)) { t_enum(Resident, :title, key) },
+                               value_method: ->((key, _)) { key },
+                               include_blank: false,
+                               label: false %></td>
+              <td><%= r.input :first_name, required: true, label: false %></td>
+              <td><%= r.input :last_name, required: true, label: false %></td>
+              <td><%= r.input :email, required: true, label: false %></td>
+              <td><%= r.input :phone_number, required: true, label: false %></td>
+              <td><%= r.input :role,
+                              as: :select,
+                              collection: roles_collection,
+                              include_blank: false,
+                              label: false,
+                              selected: r.object.role
+                                %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t("back"), back, class: "btn" %>
+        <% residents = 0; @collection.plots.each { |p| residents += p.residents.count } %>
+        <%= submit_confirm_btn title: t(".sync"),
+            text: t(".residents",residents:residents, plots: @collection.plots.count) %>
+        </div>
+    </div>
+  <% end %>
+<% end %>

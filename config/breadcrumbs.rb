@@ -175,6 +175,11 @@ end
 
 # DEVELOPMENTS
 
+crumb :sync_development_docs do |development|
+  link t("breadcrumbs.sync_docs")
+  parent :development, development
+end
+
 crumb :development_edit do |development|
   title = t("breadcrumbs.development_edit", development_name: development.name)
 
@@ -266,6 +271,31 @@ end
 
 crumb :phase_lettings do |phase|
   link t("breadcrumbs.phase_lettings"), phase_path(phase, active_tab: :lettings)
+  parent :phase, phase
+end
+
+crumb :phase_plots_sync do |phase|
+  link t("breadcrumbs.crm_sync"), phase_path(phase, active_tab: :bulk_edit)
+  parent :phase, phase
+end
+
+crumb :phase_select_plot_docs do |phase|
+  link t("breadcrumbs.crm_sync"), phase_path(phase, active_tab: :bulk_edit)
+  parent :phase, phase
+end
+
+crumb :phase_crm_import do |phase|
+  link t("breadcrumbs.crm_import"), phase_path(phase, active_tab: :bulk_edit)
+  parent :phase, phase
+end
+
+crumb :phase_sync_completion do |phase|
+  link t("breadcrumbs.sync_completion"), phase_path(phase, active_tab: :bulk_edit)
+  parent :phase, phase
+end
+
+crumb :phase_sync_residents do |phase|
+  link t("breadcrumbs.sync_residents"), phase_path(phase, active_tab: :bulk_edit)
   parent :phase, phase
 end
 

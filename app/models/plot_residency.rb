@@ -33,6 +33,42 @@ class PlotResidency < ApplicationRecord
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 
+  # create residents and plots - this code smells bad and would need to
+  # be done properly on a proper implementation
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def self.create_residents(plots)
+    error = nil
+    PlotResidency.transaction do
+      begin
+        plots.each do |p|
+          plot = Plot.find(p.id.to_i)
+          p.residents&.each do |resident|
+            res = Resident.new(resident.attributes)
+            res.create_without_password
+            pr = PlotResidency.create!(
+              resident: res,
+              plot: plot,
+              role: resident.role,
+              invited_by: RequestStore.store[:current_user]
+            )
+            ResidentInvitationService.call(
+              pr,
+              RequestStore.store[:current_user], plot.developer.to_s
+            )
+            res.developer_email_updates = true
+            Mailchimp::MarketingMailService.call(res, plot,
+                                                 res.activation_status)
+          end
+        end
+      rescue ActiveRecord::RecordInvalid => e
+        error = e.message
+      end
+
+      yield error
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
   private
 
   def set_resident
