@@ -529,7 +529,7 @@ en:
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
       library_categories:
-        title: "Categories"
+        title: "Categories."
         appliances: "Appliances"
         videos: "Videos"
         my_documents: "My Documents"
@@ -1275,7 +1275,7 @@ en:
       failed: "Failed to create a landlord account."
     maintenance:
       show:
-        title: "Issues."
+        title: "Issues"
 
     snags:
       index:
@@ -1585,7 +1585,7 @@ en:
         account: "Update Account."
         phone: "Phone"
         email: "Email"
-        title: "Account"
+        title: "My Account"
       communications:
         title: "Communication Preferences."
         updates_by: "Updates on offers and services from your portal:"
@@ -1593,8 +1593,8 @@ en:
       services:
         title: "Services"
       show:
-        title: "Account"
-        my_account: "Account"
+        title: "My Account"
+        my_account: "My Account"
         name: "Name"
         password: "Password"
         email: "Email"

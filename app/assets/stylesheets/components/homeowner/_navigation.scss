@@ -321,8 +321,6 @@ nav {
   // MAIN NAVIGATION MENU
   .navbar-menu {
     display: none;
-    height: 100%;
-    width: 100%;
     background-color: $ui-white;
     position: fixed;
     top: 0;
@@ -415,6 +413,9 @@ nav {
 // mobile view / tablet view - portrait
 @include media($tablet-landscape-down) {
   .navbar-menu {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
     // override default tablet styling for third
     .third {
       @include span-columns(4 of 12);
@@ -520,24 +521,21 @@ nav {
       .dropdown-content {
         background-color: $ui-white;
         position: fixed;
-        top: 66px;
+        top: 70px;
         bottom: 0;
         right: 0;
         z-index: 20;
-        height: 100vh;
         overflow: auto;
-        -webkit-overflow-scrolling:touch;
+        -webkit-overflow-scrolling: touch;
         text-align: left;
         padding-left: $spacing-small + 2;
         border: none !important;
 
         .sign-out {
-          position: absolute;
-          bottom: 80px;
-          border-top: none;
+          border: none;
           text-align: center;
-          right: 0;
-          left: 0;
+          padding-top: $spacing-small;
+          padding-bottom: $spacing-small;
 
           .fa-angle-left {
             padding-right: $spacing-small;
@@ -571,10 +569,6 @@ nav {
 
     .navbar-menu {
       .navbar {
-        height: 100vh;
-        overflow: auto;
-        -webkit-overflow-scrolling:touch;
-
         .third {
           @include span-columns(12 of 12);
           display: block;
@@ -624,15 +618,16 @@ nav {
     }
     .lower-navbar-search {
       position: fixed;
-      height: 100vh;
-      width: 100%;
+      top: 0;
+      left: 0;
+      right: 0;
       background-color: $ui-white;
       z-index: 18;
       bottom: 0;
       padding: 5px 20px;
 
       .search-container {
-        margin-top: 150px;
+        margin-top: 130px;
         width: 100%;
         z-index: 18;
 
@@ -775,7 +770,7 @@ nav {
   }
 
   .navbar-item-secondary {
-    width: 110px;
+    width: 130px;
     text-align: center;
     font-weight: bold;
     text-decoration: none;
