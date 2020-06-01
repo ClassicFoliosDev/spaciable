@@ -11,7 +11,7 @@ module ApplianceTabsHelper
   APPLIANCE_TABS = lambda do |developer_id|
     {
       appliances: {
-        icon: :coffee,
+        icon: :plug,
         link: ["appliances", active_tab: :appliances],
         permissions_on: -> { Appliance.new(developer_id: developer_id) }
       },
