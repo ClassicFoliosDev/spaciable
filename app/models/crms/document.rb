@@ -5,6 +5,8 @@
 # create CMS document entries in the documents table
 module Crms
   class Document < ::ApplicationRecord
+    include CategoryEnum
+
     self.table_name = "documents"
   end
 end
