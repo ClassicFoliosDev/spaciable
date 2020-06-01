@@ -35,6 +35,14 @@ module ButtonsHelper
       icon "trash-o", label
     end
   end
+
+  def delete_lnk(delete_path, text:, element: nil, confirm: false, override: false)
+    return unless override || (element && (can? :destroy, element))
+
+    link_to delete_path, class: "btn remove #{'archive-lnk' if confirm}", data: { text: text } do
+      icon "trash-o", ""
+    end
+  end
   # rubocop:enable Metrics/ParameterLists
 
   def info_btn(resource, label = "", title: t("buttons.info.title"), text: nil, element:)

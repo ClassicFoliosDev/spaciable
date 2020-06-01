@@ -2450,6 +2450,8 @@ en:
      manufacturer: "Manufacturer"
      last_edited: "Last Edited"
      added_by: "Added By"
+     delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
+
    new:
      title: "New Appliance."
    show:
@@ -2570,6 +2572,7 @@ en:
       finish_categories: "Finish Categories"
       last_edited: "Last Edited"
       added_by: "Added By"
+      delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
     new:
       title: "New Finish."
     form:

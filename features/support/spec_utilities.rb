@@ -111,20 +111,26 @@ module SpecUtilities
     STDOUT.puts "DEBUG:   #{text}" if show
   end
 
-  def delete_and_confirm!(scope: "", finder_options: { wait: 0.4, visible: true })
+  def delete_and_confirm_lnk!(scope: "")
+    delete_and_confirm!(scope: scope, is_link: true)
+  end
+
+  def delete_and_confirm!(scope: "", finder_options: { wait: 0.4, visible: true }, is_link: false)
+    target = ".archive-#{is_link ? 'lnk' : 'btn'}"
+
     # Launches the confirmation dialog
     if scope.blank?
       within ".record-list" do
-        click_archive_btn(finder_options)
+        click_archive(target, finder_options)
       end
     else
       within scope do
-        click_archive_btn(finder_options)
+        click_archive(target, finder_options)
       end
     end
 
     # Click the "real" delete in the confirmation dialog
-    within ".archive-dialog" do
+    within find(:xpath, "//div[contains(@class, 'archive-dialog')]") do
       find(".btn-delete").trigger(:click)
     end
   end
@@ -135,8 +141,8 @@ module SpecUtilities
 
   private
 
-  def click_archive_btn(finder_options)
-    btn = find(".archive-btn", finder_options)
+  def click_archive(target, finder_options)
+    btn = find(target, finder_options)
     sleep 0.1
     btn.trigger(:click)
   end

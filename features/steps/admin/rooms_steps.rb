@@ -116,8 +116,10 @@ end
 When(/^I remove a finish$/) do
   click_on t("rooms.form.back")
 
-  within ".record-list" do
-    find(".remove").click
+  if page.has_css?('.record-list .archive-lnk')
+    delete_and_confirm_lnk!(scope: '.record-list')
+  else
+    find(".record-list .remove").click
   end
 end
 
@@ -137,11 +139,11 @@ Then(/^I should see the room with no finish$/) do
   end
 end
 
-And(/^I have created a room$/) do  
+And(/^I have created a room$/) do
   CreateFixture.create_developer_with_development
   CreateFixture.create_unit_type if !$current_user.division_admin?
   CreateFixture.create_division_development_unit_type if $current_user.division_admin?
-  CreateFixture.create_room  
+  CreateFixture.create_room
 end
 
 When(/^I add an appliance$/) do
@@ -187,8 +189,10 @@ end
 When(/^I remove an appliance$/) do
   click_on t("rooms.form.back")
 
-  within ".record-list" do
-    find(".remove").click
+  if page.has_css?('.record-list .archive-lnk')
+    delete_and_confirm_lnk!(scope: '.record-list')
+  else
+    find(".record-list .remove").click
   end
 end
 

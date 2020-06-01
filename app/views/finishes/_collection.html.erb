@@ -61,9 +61,7 @@
             <td  colspan="2" class="actions">
               <%= edit_btn edit_finish_path(finish), element: finish %>
               <% if room && can?(:destroy, FinishRoom.room_finish(room,finish)) %>
-                <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
-                  <%= fa_icon "trash-o" %>
-                <% end %>
+                <%= delete_lnk remove_finish_path(room: room, finish: finish, plot: plot), text: t(".delete_finish_from_room", finish: finish.name, room: room.name), confirm: !current_user.cf_admin?, override: true %>
               <% else %>
                 <%= delete_btn finish, element: finish %>
               <% end %>
