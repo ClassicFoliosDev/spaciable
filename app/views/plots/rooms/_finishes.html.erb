@@ -23,7 +23,7 @@
         <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t("finishes.collection.finish_type")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t("finishes.collection.manufacturer")) %></th>
         <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2"><%= sortable(Finish, :added_by, t(".added_by")) %></th>
+        <th colspan="2"><%= t(".added_by") %></th>
         <% if showing_icons %>
           <th colspan="2">&nbsp;</th>
         <% end %>

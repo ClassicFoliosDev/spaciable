@@ -188,24 +188,11 @@ When(/^I upload a document for the division$/) do
 end
 
 When(/^I upload a document for the development$/) do
-  goto_development_show_page
+  upload_development_doc
+end
 
-  within ".tabs" do
-    click_on t("developments.collection.documents")
-  end
-
-  within ".empty" do
-    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
-  end
-
-  document_full_path = FileFixture.file_path + FileFixture.document_name
-  within ".new_document" do
-    attach_file(:document_files,
-                File.absolute_path(document_full_path),
-                visible: false)
-
-    click_on t("documents.form.submit")
-  end
+When(/^I upload a document for the development with notifications off$/) do
+  upload_development_doc(notify: false)
 end
 
 When(/^I upload a document for the division development$/) do
@@ -533,6 +520,12 @@ Then(/^both homeowner and tenant should receive a notification$/) do
   ActionMailer::Base.deliveries.clear
 end
 
+Then(/^nobody should receive a notification$/) do
+  emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
+  expect(emailed_addresses.count).to eq 0
+  ActionMailer::Base.deliveries.clear
+end
+
 When(/^I upload documents for the development$/) do
   development = CreateFixture.development
   url = "/developers/#{development.developer_id}/developments/#{development.id}?active_tab=documents"
@@ -571,4 +564,28 @@ Then(/^I should see that the document has been deleted$/) do
     expect(page).not_to have_content FileFixture.document_name.humanize
     expect(page).to have_content FileFixture.manual_name_downcase
   end
+end
+
+def upload_development_doc(notify: true)
+  goto_development_show_page
+
+  within ".tabs" do
+    click_on t("developments.collection.documents")
+  end
+
+  within ".empty" do
+    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+  end
+
+  document_full_path = FileFixture.file_path + FileFixture.document_name
+  within ".new_document" do
+    attach_file(:document_files,
+                File.absolute_path(document_full_path),
+                visible: false)
+
+  end
+
+  uncheck :document_notify unless notify
+
+  click_on t("documents.form.submit")
 end

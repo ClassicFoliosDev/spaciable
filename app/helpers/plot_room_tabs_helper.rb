@@ -16,7 +16,7 @@ module PlotRoomTabsHelper
         always_show: true
       },
       appliances: {
-        icon: :coffee,
+        icon: :plug,
         link: [plot, room, active_tab: :appliances, plot: plot],
         always_show: true
       }

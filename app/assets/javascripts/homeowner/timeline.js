@@ -66,12 +66,14 @@
       var desktop = document.getElementById("timelineContentDesktop")
       var mobile = document.getElementById("timelineContentMobile")
 
-      // add the 'timeline-content' class in mobile
-      mobile.classList.add("timeline-content")
+      if(mobile) {
+        // add the 'timeline-content' class in mobile
+        mobile.classList.add("timeline-content")
 
-      // move all child nodes of desktop to mobile
-      while(desktop.hasChildNodes()) {
-        mobile.appendChild(desktop.firstChild)
+        // move all child nodes of desktop to mobile
+        while(desktop.hasChildNodes()) {
+          mobile.appendChild(desktop.firstChild)
+        }
       }
     }
   })

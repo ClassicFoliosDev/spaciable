@@ -40,10 +40,6 @@ module ResidentChangeNotifyService
 
     notification.save!
 
-    all_residents_for(parent, resource).each do |resident|
-      ResidentNotification.create(notification_id: notification.id, resident_id: resident.id)
-    end
-
     notification
   end
 
