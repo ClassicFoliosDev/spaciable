@@ -773,6 +773,29 @@ crumb :video_edit do |video|
   parent :videos, video.videoable
 end
 
+# CUSTOM TILES
+
+crumb :custom_tiles do |custom_tile_parent|
+  link t("breadcrumbs.custom_tiles"), ([custom_tile_parent, :custom_tiles])
+  parent :development, custom_tile_parent
+end
+
+crumb :custom_tile_add do |custom_tile_parent|
+  link t("breadcrumbs.custom_tile_add"), [:new, custom_tile_parent, :custom_tile]
+  parent :custom_tiles, custom_tile_parent
+end
+
+crumb :custom_tile do |custom_tile|
+  link custom_tile.title? ? custom_tile.title : I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}")
+  parent :custom_tiles, custom_tile.parent
+end
+
+crumb :custom_tile_edit do |custom_tile|
+  link t("breadcrumbs.custom_tile_edit",
+         tile: custom_tile.title? ? custom_tile.title : I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}")), [:edit, custom_tile]
+  parent :custom_tiles, custom_tile.parent
+end
+
 # SERVICES
 
 crumb :services do |development|

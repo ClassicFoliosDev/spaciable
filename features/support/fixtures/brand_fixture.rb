@@ -28,7 +28,7 @@ module BrandFixture
   end
 
   def app_icon
-    "piggybank.jpg"
+    "services.jpg"
   end
 
   def default_android_link

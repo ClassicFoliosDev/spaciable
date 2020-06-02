@@ -28,6 +28,11 @@ Feature: Dashboard
     And the developer has enabled referrals
     And there are how-tos
     When I navigate to the dashboard
+    Then I see no referral link
+    And I see no services link
+    Given the developer has a custom tile for services
+    And the developer has a custom tile for referrals
+    When I navigate to the dashboard
     Then I see the services
     And I see the referral link
     And I only see three articles
@@ -41,9 +46,26 @@ Feature: Dashboard
   Scenario: Refer a Friend
     Given I have created and logged in as a homeowner user
     And the developer has enabled referrals
+    And the developer has a custom tile for referrals
     When I refer a friend
     Then I should see the referral has been sent
     When I accept the referral
     Then I should see that my details have been confirmed
     And the Spaciable Admin should receive an email containing my details
+
+  Scenario: Custom link
+    Given I have created and logged in as a homeowner user
+    And the development has a custom link tile
+    Then I can see the custom link tile
+
+  Scenario: Inactive Feature
+    Given I have created and logged in as a homeowner user
+    And the development has enabled snagging
+    And the development has set a snagging tile
+    Then I should not see the snagging tile
+    Given there is a estimated move in date in the past
+    Then I should see the snagging tile
+    When the snagging duration is past
+    Then I should not see the snagging tile
+
 

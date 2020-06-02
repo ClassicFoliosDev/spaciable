@@ -159,7 +159,7 @@ end
 
 When(/^I delete a plot document$/) do
   within ".actions" do
-    find("[data-action='delete']").click
+    find("[data-action='delete']").trigger('click')
   end
   within ".ui-dialog-buttonset" do
     click_on "Delete"

@@ -165,7 +165,7 @@ $row-bg-color: $ui-white;
 .dashboard .one-card .half {
   @include media($tablet-landscape-up) {
     @include span-columns(6 of 12);
-    @include omega(4n);
+    @include omega(2n);
   }
 }
 

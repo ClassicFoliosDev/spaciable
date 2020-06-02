@@ -92,7 +92,7 @@ end
 
 When(/^I navigate to my development$/) do
   within ".navbar" do
-    click_on("My Development")
+    click_on I18n.t("components.navigation.my_development")
   end
 end
 

@@ -1,0 +1,75 @@
+<% breadcrumb :custom_tile, @custom_tile %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= @custom_tile.title? ? @custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{@custom_tile.feature}") %><br>
+  </div>
+  <div class="section-data">
+    <%= (edit_btn [:edit, @custom_tile], element: @custom_tile) unless @parent.expired? && !(current_user.cf_admin?) %>
+  </div>
+</div>
+
+<div class="row custom-tile-show">
+  <div class="row-item third">
+    <div id="tilePreview">
+      <% if @custom_tile.feature? %>
+        <div class="feature">
+          <%= render "homeowners/dashboard/tiles/#{@custom_tile.feature}", plot: @custom_tile.parent %>
+        </div>
+      <% else %>
+        <% if @custom_tile.image? %>
+          <div id="customTileImage">
+            <div class="image" ><%= image_tag(@custom_tile.image) %></div>
+            <div class="content">
+              <div class="text">
+                <h2 class="title"><%= @custom_tile.title %></h2>
+                <p class="description"><%= @custom_tile.description %></p>
+              </div>
+              <div class="button">
+                <div class="button-text"><%= @custom_tile.button %></div>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <div id="customTileIcon">
+            <div class="icon"><i class="fa <%= @custom_tile.link? ? 'fa-external-link' : 'fa-file-pdf-o' %> "></i></div>
+            <div class="content">
+              <h2 class="title"><%= @custom_tile.title %></h2>
+              <p class="description"> <%= @custom_tile.description %></p>
+            </div>
+            <div class="button">
+              <div class="button-text"><%= @custom_tile.button %></div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <% unless @custom_tile.feature? %>
+    <div class="row-item two-thirds">
+      <% if @custom_tile.link? %>
+        <%= label_tag(:link) %>
+        <p><%= @custom_tile.link %></p>
+      <% else %>
+        <% if @custom_tile.document_id? %>
+          <%= label_tag(:document) %>
+          <p><%= @custom_tile.document.to_s %></p>
+        <% end %>
+        <% if @custom_tile.file? %>
+          <%= label_tag(:file) %>
+          <p><%= File.basename(@custom_tile.file.to_s) %></p>
+        <% end %>
+        <% if @custom_tile.guide? %>
+          <%= label_tag(:guide) %>
+          <p><%= @custom_tile.guide.titleize %></p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), [@parent, :custom_tiles], class: "btn" %>
+  </div>
+</div>

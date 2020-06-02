@@ -199,10 +199,7 @@ Then(/^I can see my faqs$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-
-    find("div .last").should have_content(t("components.homeowner.navigation.faqs"))
     click_on(t("components.homeowner.navigation.faqs"))
-
   end
 
   sleep 0.2

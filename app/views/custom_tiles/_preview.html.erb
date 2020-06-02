@@ -1,0 +1,54 @@
+<div id="tilePreview">
+<!-- feature tile partials -->
+  <div id="featurePartials" style="display: none">
+    <div class="feature" id="area_guide" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/area_guide' %>
+    </div>
+    <div class="feature" id="home_designer" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/home_designer', plot: custom_tile.parent %>
+    </div>
+    <div class="feature" id="issues" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/issues' %>
+    </div>
+    <div class="feature" id="perks" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/perks', plot: custom_tile.parent %>
+    </div>
+    <div class="feature" id="referrals" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/referrals' %>
+    </div>
+    <div class="feature" id="services" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/services' %>
+    </div>
+    <div class="feature" id="snagging" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/snagging', plot: custom_tile.parent %>
+    </div>
+  </div>
+
+  <!-- custom tile templates -->
+  <div id="customTilePreview">
+    <div id="customTileIcon" style="display: none">
+      <div class="icon"><i class="fa"></i></div>
+      <div class="content">
+        <h2 class="title"></h2>
+        <p class="description"></p>
+      </div>
+      <div class="button">
+        <div class="button-text"></div>
+      </div>
+    </div>
+
+    <div id="customTileImage" style="display: none">
+      <div class="image"><img src=""></div>
+      <div class="content">
+        <div class="text">
+          <h2 class="title"></h2>
+          <p class="description"></p>
+        </div>
+        <div class="button">
+          <div class="button-text"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

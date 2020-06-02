@@ -55,7 +55,7 @@
             <%= link_to appliance.manual.url, class: "btn manual-download",  target: "_blank" do %>
               <%= icon "search-plus" %>
             <% end %>
-            <label class="btn remove-btn fa fa-trash" for="appliance_remove_manual"></label>
+            <label class="btn remove-btn fa fa-trash-o" for="appliance_remove_manual"></label>
             <%= f.check_box :remove_manual, class: "hidden remove-document" %>
           </span>
         <% end %>
@@ -74,7 +74,7 @@
             <%= link_to appliance.guide.url, class: "btn guide-download",  target: "_blank" do %>
               <%= icon "search-plus" %>
             <% end %>
-            <label class="btn remove-btn fa fa-trash" for="appliance_remove_guide"></label>
+            <label class="btn remove-btn fa fa-trash-o" for="appliance_remove_guide"></label>
             <%= f.check_box :remove_guide, label: false, class: "hidden remove-document" %>
           </span>
         <% end %>

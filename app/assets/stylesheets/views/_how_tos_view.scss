@@ -8,6 +8,13 @@
   }
 }
 
+.how-to {
+  .fa-trash-o {
+    font-size: $base-font-size;
+    line-height: 2;
+  }
+}
+
 .how-to ul {
   margin-left: $spacing-medium;
 }

@@ -1,0 +1,83 @@
+<%= simple_form_for([parent, custom_tile]) do |f| %>
+  <% if custom_tile.errors.any? %>
+    <div class="submission-errors">
+      <ul>
+        <% custom_tile.errors.full_messages.each do |message| %>
+        <li>
+          <%= fa_icon "exclamation-circle" %>
+          <%= message %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row custom-tile">
+    <div class="row-item two-thirds">
+      <div class="half">
+        <div class="ui-front" id="categorySelector">
+          <%= f.input :category, as: :select, collection: tile_collection(:categories), include_blank: false %>
+        </div>
+
+        <fieldset id="customTileFeature">
+          <div class="ui-front" id="featureSelector">
+            <%= f.input :feature, as: :select, collection: tile_collection(:features, meta: :snag_name, meta_val: custom_tile.snag_name), include_blank: true, disabled: feature_disabled(custom_tile) %>
+          </div>
+        </fieldset>
+
+        <fieldset id="customTileDocument">
+          <div class="ui-front" id="documentSelector">
+            <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %>
+          </div>
+          <div class="ui-front" id="guideSelector">
+            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_collection(:guides), include_blank: true, disabled: manual_unassigned(custom_tile) %>
+          </div>
+          <div class="document-file" id="fileSelector">
+            <% if custom_tile.file? %>
+              <div>
+                <%= label_tag :file, t(".current_file") %>
+                <p><%= File.basename(custom_tile.file.to_s) %></p> <!-- SORT OUT NAME -->
+              </div>
+            <% end %>
+            <%= label_tag :file, t(".file") %>
+            <% if custom_tile.persisted? %>
+              <%= f.file_field :file, label: t(".file"), as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload" %>
+            <% else %>
+              <%= f.file_field :file, class: "file-upload" %>
+            <% end %>
+            <%= label_tag('custom_tile_file', t("choose"), class: "choose-file") %>
+          </div>
+        </fieldset>
+
+        <fieldset id="customTileLink">
+          <%= f.input :link, label: t(".link") %>
+        </fieldset>
+      </div>
+
+      <div class="half">
+        <fieldset id="customTileContent">
+          <%= f.input :title, label: t(".title"), input_html: { maxlength: 20 } %>
+          <%= f.input :description, label: t(".description"), input_html: { maxlength: 100 } %>
+          <%= f.input :button, label: t(".button"), input_html: { maxlength: 15 } %>
+
+          <div class="image-container" id="imageSelector">
+            <%= f.input :image, label: t(".image"), as: :image_preview %>
+          </div><br/>
+        </fieldset>
+      </div>
+
+    </div>
+
+    <div class="row-item third">
+      <%= render 'preview', custom_tile: custom_tile %>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% parent ||= custom_tile.parent %>
+      <%= link_to t(".back"), [parent, :custom_tiles], class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

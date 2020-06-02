@@ -1,0 +1,228 @@
+/* form */
+
+.custom-tile {
+  input, select {
+    margin-bottom: $spacing-medium;
+  }
+  #documentSelector {
+    margin-bottom: $spacing-medium - 2px;
+  }
+
+  #guideSelector {
+    margin-top: 0;
+  }
+
+  .fa-trash-o {
+    font-size: $base-font-size;
+    line-height: 2;
+  }
+}
+
+#customTileContent {
+  .image-container {
+    margin-top: $spacing-large;
+
+    .image-preview {
+      max-height: 100px;
+    }
+
+    .file-upload {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#customTileDocument {
+  #fileSelector {
+    margin-top: $spacing-large;
+
+    .file-upload {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* preview */
+
+#tilePreview {
+  height: 230px;
+  border: 1px solid $pale-navy;
+  border-radius: 5px;
+  background: none;
+
+  .feature {
+    .tile-image {
+      display: block;
+      width: 30%;
+      float: left;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 5px 0 0 5px;
+      }
+    }
+
+    .img-tile-details {
+      height: 100%;
+      display: grid;
+      grid-template-rows: 60% 40%;
+      width: 70%;
+      float: right;
+      padding: $spacing-small;
+    }
+
+    .tile-text {
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-medium;
+        margin-bottom: $spacing-small;
+      }
+
+      .tile-description {
+        font-size: $base-small-font-size;
+      }
+    }
+
+    .tile-button {
+      align-self: end;
+
+      .branded-btn, a {
+        line-height: $base-font-line-height;
+        font-size: $base-font-size;
+        width: 140px;
+        text-align: center;
+        padding: 0px 10px;
+        color: $primary-red-left;
+        background-color: $ui-white;
+        border: 1px solid $primary-red-left;
+        border-radius: 5px;
+        text-decoration: none;
+
+        &:hover {
+          cursor: default;
+        }
+      }
+
+      a.branded-btn {
+        display: block;
+      }
+    }
+  }
+
+  #customTileIcon {
+    display: grid;
+    height: 100%;
+    grid-template-rows: 20% 55% 25%;
+
+    .icon {
+      padding: $spacing-small;
+      padding-top: $spacing-medium;
+
+      i {
+        font-size: $title-font-size-1;
+        opacity: 0.5;
+      }
+    }
+
+    .content {
+      padding: $spacing-small;
+
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-medium;
+        margin-bottom: $spacing-small;
+      }
+
+      p {
+        font-size: $base-small-font-size;
+      }
+    }
+
+    .button {
+      padding: $spacing-small;
+      align-self: end;
+
+      .button-text {
+        text-align: center;
+        line-height: $base-font-line-height;
+        font-size: $base-font-size;
+        display: block;
+        width: 130px;
+        padding: 3px 10px;
+        color: $primary-red-left;
+        background-color: $ui-white;
+        border: 1px solid $primary-red-left;
+        border-radius: 5px;
+        height: 30px;
+
+        &:hover {
+          cursor: default;
+        }
+      }
+    }
+  }
+
+  #customTileImage {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-temple-rows: auto;
+    height: 100%;
+
+    .image {
+      display: block;
+      float: left;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 5px 0 0 5px;
+      }
+    }
+
+    .placeholder {
+      background-color: $semi-pale-navy;
+    }
+
+    .content {
+      display: grid;
+      grid-template-rows: 60% 40%;
+      padding: $spacing-small;
+
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-medium;
+        margin-bottom: $spacing-small;
+      }
+
+      p {
+        font-size: $base-small-font-size;
+      }
+
+      .button {
+        align-self: end;
+
+        .button-text {
+          text-align: center;
+          line-height: $base-font-line-height;
+          font-size: $base-font-size;
+          display: block;
+          width: 130px;
+          padding: 0px 10px;
+          color: $primary-red-left;
+          background-color: $ui-white;
+          border: 1px solid $primary-red-left;
+          border-radius: 5px;
+          height: 24px;
+
+          &:hover {
+            cursor: default;
+          }
+        }
+      }
+    }
+  }
+}
+

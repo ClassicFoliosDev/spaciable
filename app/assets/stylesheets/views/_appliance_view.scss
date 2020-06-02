@@ -3,12 +3,49 @@
     margin-right: 0;
   }
 
+  .file-upload {
+    width: 90%;
+    float: left;
+  }
+
+  .fa {
+    font-size: $base-font-size;
+  }
+
+  .fa-trash-o {
+    line-height: 2;
+    margin: 4px;
+  }
+
+  .image-container {
+    .remove-btn {
+      display: block;
+      float: right;
+      margin-top: -35px;
+    }
+  }
+
   .name {
     .readonly {
       width: 100%;
       float: none;
     }
   }
+}
+
+.finish {
+  .fa-trash-o {
+    font-size: $base-font-size;
+    line-height: 2;
+  }
+}
+
+.manual-container {
+  padding-top: $spacing-small;
+}
+
+.appliance_secondary_image {
+  padding-top: $spacing-medium;
 }
 
 .appliance-manual, .appliance-guide {
@@ -92,6 +129,7 @@
 
 .appliance .appliance-actions {
   float: right;
+  margin-top: -30px;
 }
 
 .appliance .appliance-edit .edit-label {

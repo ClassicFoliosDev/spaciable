@@ -11,6 +11,7 @@ module Abilities
       development_contacts(developments, division_id, developer_id)
       development_documents(developments, division_id, developer_id)
       development_videos(developments)
+      development_custom_tiles(developments)
       crud_residents(developments)
       read_developments(developer_id, division_id, developments, user)
     end
@@ -72,6 +73,10 @@ module Abilities
 
     def development_videos(developments)
       can :manage, Video, videoable_id: developments
+    end
+
+    def development_custom_tiles(developments)
+      can :manage, CustomTile, development_id: developments
     end
 
     def development_faqs(developments, division, developer)

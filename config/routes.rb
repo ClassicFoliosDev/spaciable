@@ -115,6 +115,7 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
     resources :videos, shallow: true
     resources :development_csv, only: [:index, :create]
+    resources :custom_tiles, shallow: true
     get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
   end
 
@@ -199,6 +200,7 @@ Rails.application.routes.draw do
     resource :communication_preferences, only: [:show]
     resource :welcome_home, only: [:show], controller: 'welcome_home'
     resource :home_designer, only: [:show]
+    resource :custom_link, only: [:show]
     resource :perks, only: [:show, :create]
     resources :development_messages, only: [:index, :create]
     resources :library, only: [:update]

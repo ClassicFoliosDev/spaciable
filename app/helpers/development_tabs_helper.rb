@@ -36,7 +36,8 @@ module DevelopmentTabsHelper
         icon: "fighter-jet",
         check_assoc: true, # check phase for development_csv permission
         permissions_on: -> { development }
-      }
+      },
+      custom_tiles: { icon: "external-link-square" }
     }
   end
   # rubocop:enable Metrics/BlockLength

@@ -10,6 +10,7 @@ module Abilities
       site_faqs(development_id, division_id, developer_id)
       site_contacts(development_id, division_id, developer_id)
       site_documents(development_id, division_id, developer_id)
+      custom_tiles(development_id)
     end
 
     private
@@ -75,6 +76,10 @@ module Abilities
           type "Plot", id: Plot.where(development_id: development).lazy.pluck(:id)
         end
       end
+    end
+
+    def custom_tiles(development)
+      can :read, CustomTile, development_id: development
     end
   end
 end

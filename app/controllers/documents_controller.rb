@@ -118,7 +118,7 @@ class DocumentsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
     params.require(:document).permit(:title, :category, :documentable_id, :notify, :file,
-                                     :pinned, files: [])
+                                     :pinned, :guide, files: [])
   end
 
   def set_parent

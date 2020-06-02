@@ -18,7 +18,7 @@
         <div class="document-container">
           <div class="document-file">
             <% if document.persisted? %>
-              <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload" %>
+              <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload"%>
               <%= label_tag('document_file', t("choose"), class: "choose-file") %>
             <% else %>
               <%= f.file_field :files, multiple: true, class: "file-upload" %>
@@ -35,9 +35,15 @@
           </div>
           <% if document.persisted? %>
             <fieldset>
-              <div class="ui-front">
+              <div class="ui-front" id="documentCategorySelector">
                 <%= f.input :category, as: :select, collection: category_collection(document), include_blank: false %>
               </div><br/>
+              <% if guide_selector_valid?(document) %>
+                <div class="ui-front" id="documentGuideSelector">
+                  <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
+                  <br/>
+                </div>
+              <% end %>
               <%= f.label :pinned, t(".pinned") %>
               <%= f.check_box :pinned %>
               <p class="checkbox-description"><%= t(".pinned_description") %></p>
@@ -61,9 +67,15 @@
         </fieldset>
       <% else %>
         <fieldset>
-          <div class="ui-front">
+          <div class="ui-front" id="documentCategorySelector">
             <%= f.input :category, as: :select, collection: category_collection(document), include_blank: false %>
           </div><br/>
+          <% if guide_selector_valid?(document) %>
+            <div class="ui-front" id="documentGuideSelector">
+              <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
+              <br/>
+            </div>
+          <% end %>
           <%= f.label :pinned, t(".pinned") %>
           <%= f.check_box :pinned %>
           <p class="checkbox-description"><%= t(".pinned_description") %></p>

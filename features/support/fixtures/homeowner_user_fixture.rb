@@ -5,7 +5,7 @@ module HomeownerUserFixture
 
   def create
     country = FactoryGirl.create(:country)
-    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id, )
+    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
     division = FactoryGirl.create(:division, division_name: division_name, developer_id: developer.id)
     development = FactoryGirl.create(:development,
                                      name: development_name,

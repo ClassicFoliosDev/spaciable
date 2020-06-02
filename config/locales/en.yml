@@ -415,6 +415,9 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
+    custom_tiles: "Custom Shortcuts"
+    custom_tile_add: "New Custom Shortcut"
+    custom_tile_edit: "Edit %{tile}"
     timeline_add: "Add Timeline"
     timelines: "Timelines"
     timeline_show: "%{timeline}"
@@ -1103,6 +1106,30 @@ en:
     edit:
       title: "Edit %{name}"
 
+  custom_tiles:
+    collection:
+      create: "New Custom Shortcut"
+      title: "Title"
+      category: "Category"
+    new:
+      title: "New Custom Shortcut"
+    edit:
+      title: "Edit %{tile}"
+    show:
+      back: "Back"
+    form:
+      link: "Link URL"
+      title: "Title"
+      description: "Description"
+      button: "Button Text"
+      image: "Image"
+      file: "Upload Document"
+      document: "Select Document"
+      guide: "Select Manual"
+      back: "Back"
+      submit: "Submit"
+      current_file: "Current File"
+
   home:
     show:
      home: "Home"
@@ -1136,6 +1163,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
+      custom_tiles: "Custom Shortcuts"
     edit:
       back: "Back"
     form:
@@ -1268,12 +1296,11 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"
+      pr_failed: "Failed to create PlanetRent user account. %{message}"      
       failed: "Failed to create a landlord account."
     maintenance:
       show:
         title: "Issues"
-
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
@@ -1472,12 +1499,6 @@ en:
         services_title: "Services"
         services_description_one: "Benefit from an exclusive range of services, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Services feature."
         services_description_two: "Simply select the categories you are interested in and start saving money!"
-      referrals:
-        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
-        refer: "Refer A Friend"
-        refer_title: "Refer A Friend."
-        send_invitation: "Submit"
-        confirm: "Your referral has been sent"
       referral_form:
         first_name: "First Name"
         last_name: "Surname"
@@ -1487,10 +1508,44 @@ en:
       perks:
         perks_description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
         perks: "Find Out More"
-        activated_perks: "Log in to Buyers' Club"
+        activated_perks: "Login to Buyers' Club"
         activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
         new_tab: "Opens in a new tab"
         notice: "Thanks for signing up to exclusive online resident rewards! Please check your email inbox for an invitation from Vaboo to activate your Buyers' Club account."
+
+      tiles:
+        referrals:
+          title: "Refer a Friend"
+          description: "Fill in this form with your friend's details to recommend them to your developer."
+          button: "Refer a Friend"
+          send_invitation: "Submit"
+          confirm: "Your referral has been sent"
+        services:
+          description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
+          button: "Select Services"
+          title: "Services"
+        area_guide:
+          title: "Area Guide"
+          description: "Discover local amenities and learn more about your surroundings."
+          button: "Explore My Area"
+        home_designer:
+          title: "%{construction} Designer"
+          description: "Trial layout and decor options before making your home your own."
+          button: "Design My Home"
+        issues:
+          title: "Defect Management"
+          description: "Detail any home defects for repair with this easy-to-use online form."
+          button: "Report a Defecy"
+        snagging:
+          title: "%{title}"
+          description: "Advise us of minor home faults during the %{title} period after your move."
+          button: "Submit an Issue"
+        perks:
+          title: "Buyers' Club"
+          description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
+          button: "Find Out More"
+          activated_button: "Login to Buyers' Club"
+          activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
 
     communication_preferences:
       show:
@@ -2745,6 +2800,7 @@ en:
       processing: "Processing..."
       by: "Uploader"
       pinned: "Pinned"
+      guide: "Guide"
     form:
       load: "File"
       upload: "Upload"
@@ -3122,6 +3178,28 @@ en:
           my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
+        guides:
+          # Guide enum values
+          reservation: "Reservation"
+          completion: "Completion"
+
+      custom_tiles:
+        categories:
+          feature: "Feature"
+          link: "Link"
+          document: "Document"
+        features:
+          area_guide: "Area Guide"
+          home_designer: "Home Designer"
+          referrals: "Referrals"
+          services: "Services"
+          perks: "Buyers' Club"
+          issues: "Issue Reporting"
+          snagging: "%{snag_name}"
+        guides:
+          reservation: "Reservation"
+          completion: "Completion"
+
       user:
         email: "Email address"
         password: "Password"
@@ -3318,6 +3396,10 @@ en:
             base:
               email_or_phone_required: "You must provide either an email address or a contact number."
               name_or_organisation_required: "You must provide either a contact name or an organisation name."
+        custom_tile:
+          attributes:
+            base:
+              document_sub_category_required: "You must upload a document, or select an existing document or manual."
         plot:
           attributes:
             base:

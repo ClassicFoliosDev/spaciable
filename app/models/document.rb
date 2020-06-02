@@ -7,10 +7,13 @@ class Document < ApplicationRecord
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
+  belongs_to :custom_tile, optional: true
+
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
 
   validates :file, presence: true
+  validates :guide, uniqueness: { scope: :documentable }, if: -> { guide.present? }
 
   delegate :expired?, to: :parent
   delegate :partially_expired?, to: :parent
@@ -21,6 +24,11 @@ class Document < ApplicationRecord
     my_home
     locality
     legal_and_warranty
+  ]
+
+  enum guide: %i[
+    reservation
+    completion
   ]
 
   def to_s
