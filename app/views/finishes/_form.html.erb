@@ -13,6 +13,7 @@
   <% end %>
 
     <div class="row finish">
+      <p><%= t(".finish_description") %></p>
       <div class="row-item third">
         <fieldset>
           <div class="image-container">
@@ -20,21 +21,45 @@
           </div>
         </fieldset>
         <fieldset>
-          <%= f.input :name %>
+          <%= f.input :name, label: t(".name") %>
           <%= label_tag t(".notes") %>
+          <p class="notes-disclaimer"><%= t(".notes_disclaimer") %></p>
           <%= f.text_area :description %>
         </fieldset>
       </div>
       <div class="row-item third">
         <fieldset>
           <div class="finish_category ui-front select-container">
-            <%= f.association :finish_category, label: t(".category"), collection: FinishCategory.visible_to(current_user).order(:name) %>
+            <%= f.association :finish_category, label: t(".category"),
+                collection: FinishCategory.visible_to(current_user).order(:name) %>
+            <div class="category-disclaimer">
+              <p><%= t(".disclaimer", item: "category") %></p>
+              <i class="fa fa-question-circle" id="categoryHelp"></i>
+              <div class="category-help">
+                <p class="help-description"><%= t(".category_help").html_safe %></p>
+              </div>
+            </div>
           </div>
+
           <div class="finish_type ui-front select-container">
             <%= f.association :finish_type, label: t(".type"), collection: [finish&.finish_type] %>
+            <div class="type-disclaimer">
+              <p><%= t(".disclaimer", item: "type") %></p>
+              <i class="fa fa-question-circle" id="typeHelp"></i>
+              <div class="type-help">
+                <p class="help-description"><%= t(".type_help").html_safe %></p>
+              </div>
+            </div>
           </div>
           <div class="finish_manufacturer ui-front select-container">
             <%= f.association :finish_manufacturer, label: t(".manufacturer"), collection: [finish&.finish_manufacturer] %>
+            <div class="manufacturer-disclaimer">
+              <p><%= t(".disclaimer", item: "manufacturer") %></p>
+              <i class="fa fa-question-circle" id="manufacturerHelp"></i>
+              <div class="manufacturer-help">
+                <p class="help-description"><%= t(".manufacturer_help").html_safe %></p>
+              </div>
+            </div>
           </div>
         </fieldset>
       </div>

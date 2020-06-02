@@ -1,13 +1,13 @@
 <% cancrud = can?(:crud, PlotRoom.new(plot)) %>
 
 <% if collection.empty? %>
-  <%= render 'components/empty_list', icon_name: "shower", type: ApplianceRoom, parent: room, combine: true,  override: cancrud %>
+  <%= render 'components/empty_list', icon_name: "shower", action: "Assign", type: ApplianceRoom, parent: room, combine: true,  override: cancrud %>
 <% else %>
   <% if cancrud %>
     <div class="section-actions">
       <%= link_to new_room_appliance_room_path(room, plot: plot), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t("appliances.collection.create") %></span>
+        <span class="btn-label"><%= t("appliances.collection.assign") %></span>
       <% end %>
     </div>
   <% end %>

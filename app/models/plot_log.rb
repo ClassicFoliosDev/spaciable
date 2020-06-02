@@ -30,7 +30,7 @@ class PlotLog < Log
       log(logable_type: Plot,
           logable_id: room.plot.id,
           primary: "#{room} (Plot)",
-          secondary: "#{furnish.class} #{furnish}",
+          secondary: "#{furnish.class}: #{furnish}",
           action: action)
     end
 
@@ -38,7 +38,7 @@ class PlotLog < Log
     def unit_type_update(plot)
       log(logable_type: Plot,
           logable_id: plot.id,
-          secondary: "(Unit Type) #{plot.unit_type}",
+          secondary: "Unit Type: #{plot.unit_type}",
           action: Log.actions[:updated])
     end
 

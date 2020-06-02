@@ -23,7 +23,7 @@ When(/^I create a plot for the phase$/) do
     click_on t("phases.collection.plots")
   end
 
-  click_on t("components.empty_list.add", type_name: "Plot")
+  click_on t("components.empty_list.add", action: "Add", type_name: "Plot")
   within ".plot_unit_type" do
     select PhasePlotFixture.unit_type_name, visible: false
   end
@@ -51,7 +51,7 @@ When(/^I specify "([^"]*)" range of plots$/) do |validity|
     click_on t("phases.collection.plots")
   end
 
-  click_on t("components.empty_list.add", type_name: "Plot")
+  click_on t("components.empty_list.add", action: "Add", type_name: "Plot")
   within ".plot_unit_type" do
     select PhasePlotFixture.unit_type_name, visible: false
   end
@@ -232,7 +232,7 @@ Given(/^I have configured the phase address$/) do
 end
 
 Given(/^I have created a plot for the phase$/) do
-  click_on t("components.empty_list.add", type_name: "Plot")
+  click_on t("components.empty_list.add", action: "Add", type_name: "Plot")
 
   fill_in "plot_list", with: PhasePlotFixture.update_attrs[:number]
   within ".plot_unit_type" do
@@ -318,7 +318,7 @@ When(/^I create a plot for the spanish phase$/) do
     click_on t("phases.collection.plots")
   end
 
-  click_on t("components.empty_list.add", type_name: "Plot")
+  click_on t("components.empty_list.add", action: "Add", type_name: "Plot")
   within ".plot_unit_type" do
     select PhasePlotFixture.unit_type_name, visible: false
   end
@@ -368,7 +368,7 @@ When(/^I cannot update or delete or add to the restricted phase plot finishes an
   click_on Room.first.name
 
   expect(page).not_to have_content "Add Finish"
-  expect(page).to have_content t('components.empty_list.request_add', type_names: "finishes")
+  expect(page).to have_content t('components.empty_list.request_add', action: "Add", type_names: "finishes")
 
   within ".tabs" do
     click_on "Appliances"

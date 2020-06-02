@@ -526,7 +526,7 @@ Then(/^when a cf admin creates a video$/) do
   visit "/developments/#{development.id}/videos"
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Video.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Video.model_name.human.titleize)
   end
 
   within ".row" do

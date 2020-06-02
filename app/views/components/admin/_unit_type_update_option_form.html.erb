@@ -1,8 +1,8 @@
-<div class="ut-update-option"-description">
+<div class="ut-update-option">
   <h4 id=ut_header><%= header %> </h4>
 </div>
 
 <div class="unit-type-update-form">
-  <input type="radio" name="ut_option" value=<%=UnitType::RESET%> ><%=t(".reset")%><br>
-  <input type="radio" name="ut_option" value=<%=UnitType::SUPPLEMENT%> checked><%=t(".supplement")%><br>
+  <input type="radio" name="ut_option" value=<%=UnitType::SUPPLEMENT%> checked><span><%=t(".supplement")%></span><br/>
+  <input type="radio" name="ut_option" value=<%=UnitType::RESET%> ><span><%=t(".reset")%></span><br/>
 </div>

@@ -153,7 +153,7 @@ Then(/^I should see the how-to deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: HowTo.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: HowTo.model_name.human)}}i
   end
 end
 

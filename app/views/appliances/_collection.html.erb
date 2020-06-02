@@ -61,9 +61,7 @@
             <td colspan="2" class="actions">
               <%= edit_btn edit_appliance_path(appliance), element: appliance %>
               <% if room && can?(:destroy, ApplianceRoom.appliance_room(room, appliance)) %>
-                <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
-                  <%= fa_icon "trash-o" %>
-                <% end %>
+                <%= delete_lnk remove_appliance_path(room: room, appliance: appliance, plot: plot), text: t(".delete_app_from_room", app: appliance.model_num, room: room.name), confirm: !current_user.cf_admin?, override: true %>
               <% else %>
                 <%= delete_btn appliance, element: appliance %>
               <% end %>
