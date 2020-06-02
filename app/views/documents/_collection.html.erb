@@ -15,7 +15,6 @@
   <% end %>
   <% if current_user.cf_admin? && parent.respond_to?(:crm) && parent&.crm && parent.respond_to?(:sync_docs_path)%>
     <%= link_to parent.sync_docs_path, class: "btn btn-primary" do %>
-        <i ></i>
         <span class="btn-label"><%= t(".sync") %></span>
     <% end %>
   <% end %>

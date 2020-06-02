@@ -34,7 +34,7 @@ function upload_doc(doc) {
    // enable upload buton
    return
   }
-  scope = "tr input[id$='documents_document_key'][value$='" + doc.document_key + "']"
+  scope = "tr input[id='documents_document_key'][value='" + doc.document_key + "']"
   loader = $('tbody').find(scope).parent().find('#loader').addClass("loader")
 
   $.post({
