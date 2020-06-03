@@ -172,10 +172,18 @@ Feature: Documents
     And there is a phase plot with a resident
     And there is a tenant
     When I upload a document for the development
+    Then only the homeowner should receive a notification
     Then I should see the created document
     And I should see the original filename
     When I update the document
     Then only the homeowner should receive a notification
+
+  Scenario: Tenant no notifications for private documents
+    Given I am logged in as a Development Admin
+    And there is a phase plot with a resident
+    And there is a tenant
+    When I upload a document for the development with notifications off
+    Then nobody should receive a notification
 
   Scenario: Tenant notifications for public documents
     Given I am logged in as a Developer Admin
@@ -183,6 +191,7 @@ Feature: Documents
     And there is a tenant
     When I upload a document for the developer
     Then I should see the created document
+    And both homeowner and tenant should receive a notification
     And I should see the original filename
     When I update the document
     Then both homeowner and tenant should receive a notification

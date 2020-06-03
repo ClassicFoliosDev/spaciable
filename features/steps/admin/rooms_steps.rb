@@ -4,7 +4,7 @@ When(/^I create a room with no room name$/) do
   navigate_to_unit_type
 
   click_on t("unit_types.collection.rooms")
-  click_on t("components.empty_list.add", type_name: Room.model_name.human.titleize)
+  click_on t("components.empty_list.add", action: "Add", type_name: Room.model_name.human.titleize)
 
   click_on t("rooms.form.submit")
 end
@@ -69,7 +69,7 @@ When(/^I (search for and )*add a finish$/) do |search|
     click_on t("rooms.collection.finishes")
   end
 
-  click_on t("components.empty_list.add", type_name: Finish.model_name.human.titleize)
+  click_on t("components.empty_list.add", action: "Add", type_name: Finish.model_name.human.titleize)
 
   if search.present?
     full_name = Finish.find_by(name: CreateFixture.finish_name).full_name
@@ -116,8 +116,10 @@ end
 When(/^I remove a finish$/) do
   click_on t("rooms.form.back")
 
-  within ".record-list" do
-    find(".remove").click
+  if page.has_css?('.record-list .archive-lnk')
+    delete_and_confirm_lnk!(scope: '.record-list')
+  else
+    find(".record-list .remove").click
   end
 end
 
@@ -133,15 +135,15 @@ Then(/^I should see the room with no finish$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Finish.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Finish.model_name.human)}}i
   end
 end
 
-And(/^I have created a room$/) do  
+And(/^I have created a room$/) do
   CreateFixture.create_developer_with_development
   CreateFixture.create_unit_type if !$current_user.division_admin?
   CreateFixture.create_division_development_unit_type if $current_user.division_admin?
-  CreateFixture.create_room  
+  CreateFixture.create_room
 end
 
 When(/^I add an appliance$/) do
@@ -155,7 +157,7 @@ When(/^I add an appliance$/) do
     click_on t("rooms.collection.appliances")
   end
 
-  click_on t("components.empty_list.add", type_name: Appliance.model_name.human.titleize)
+  click_on t("components.empty_list.add", action: "Add", type_name: Appliance.model_name.human.titleize)
 
   select_from_selectmenu :appliance_category, with: CreateFixture.appliance_category_name
   select_from_selectmenu :appliance_manufacturer, with: CreateFixture.appliance_manufacturer_name
@@ -187,8 +189,10 @@ end
 When(/^I remove an appliance$/) do
   click_on t("rooms.form.back")
 
-  within ".record-list" do
-    find(".remove").click
+  if page.has_css?('.record-list .archive-lnk')
+    delete_and_confirm_lnk!(scope: '.record-list')
+  else
+    find(".record-list .remove").click
   end
 end
 
@@ -203,7 +207,7 @@ Then(/^I should see the room with no appliance$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Appliance.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Appliance.model_name.human)}}i
   end
 end
 
@@ -229,7 +233,7 @@ Then(/^I should see the room deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Room.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Room.model_name.human)}}i
   end
 end
 

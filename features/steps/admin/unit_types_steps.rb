@@ -79,7 +79,7 @@ Then(/^I should see the deletion complete successfully$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: UnitType.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: UnitType.model_name.human)}}i
   end
 end
 
@@ -95,8 +95,8 @@ Then(/^I should not be able to create a unit type$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content t("components.empty_list.request_add", type_names: UnitType.model_name.human.downcase.pluralize)
-    expect(page).not_to have_content t("components.empty_list.add", type_name: UnitType.model_name.human.downcase)
+    expect(page).to have_content t("components.empty_list.request_add", action: "Add", type_names: UnitType.model_name.human.downcase.pluralize)
+    expect(page).not_to have_content t("components.empty_list.add", action: "Add", type_name: UnitType.model_name.human.downcase)
   end
 end
 
@@ -232,7 +232,7 @@ Then(/^the document has not been cloned$/) do
 
   within ".unit-type" do
     expect(page).not_to have_content DocumentFixture.document_name
-    expect(page).to have_content t("components.empty_list.empty", type_names: "documents")
+    expect(page).to have_content t("components.empty_list.empty", action: "Add", type_names: "documents")
   end
 end
 

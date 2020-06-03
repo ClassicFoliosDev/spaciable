@@ -80,18 +80,13 @@ class DocumentsController < ApplicationController
   end
 
   def create_document(file)
-    document = Document.new(file: file)
-
-    document.title = document_params[:title]
-    document.set_original_filename
-
-    document.save
-    @document = document if document.valid?
-
-    document.update_attributes(user_id: current_user.id, documentable: @parent,
-                               category: document_params[:category],
-                               pinned: document_params[:pinned],
-                               guide: document_params[:guide])
+    @document = Document.new(file: file, user_id: current_user.id,
+                             title: document_params[:title],
+                             documentable: @parent,
+                             category: document_params[:category],
+                             pinned: document_params[:pinned])
+    @document.set_original_filename
+    @document.save
   end
 
   def build_response(format)

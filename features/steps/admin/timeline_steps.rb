@@ -249,7 +249,9 @@ def add_update_task(task_title, action)
   task = TimelineFixture.timeline_task(task_title)
 
   expect(page).to have_content(action)
-  click_on action
+  within ".btn-group" do
+    click_on action
+  end
 
   expect(page).to have_content(t("tasks.form.area_guide"))
 

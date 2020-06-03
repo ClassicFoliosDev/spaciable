@@ -26,11 +26,15 @@
         <% end %>
       </fieldset>
     </div>
-    <div class="row-item third">
+    <div class="row-item two-thirds">
       <fieldset>
         <%= f.label :external_link, t(".walkthrough") %>
-        <%= f.text_area :external_link, placeholder: t(".matterport_example") %>
-        <p><%= t("unit_types.form.matterport_tip") %></p>
+        <%= f.input :external_link, placeholder: t(".matterport_example"), label: false %>
+        <div class="explanation">
+          <p><%= t("unit_types.form.tip_1") %></p>
+          <p><%= t("unit_types.form.tip_2").html_safe %></p>
+          <p><%= t("unit_types.form.tip_3").html_safe %></p>
+        </div>
       </fieldset>
     </div>
   </div>

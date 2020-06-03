@@ -113,7 +113,7 @@ Then(/^I should no longer see the Developer FAQ$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Faq.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Faq.model_name.human)}}i
   end
 end
 

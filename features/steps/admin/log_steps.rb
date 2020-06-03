@@ -49,7 +49,11 @@ When(/^I delete a finish from the unit type room$/) do
   visit "/unit_types/#{CreateFixture.unit_type.id}/rooms/#{CreateFixture.room(CreateFixture.bedroom_name).id}?active_tab=finishes"
   delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.finish_name}')]/parent::td/parent::tr")
   within delete_scope do
-    find(".remove").trigger(:click)
+    if delete_scope.has_css?('.archive-lnk')
+      delete_and_confirm_lnk!(scope: delete_scope)
+    else
+      find(".remove").click
+    end
   end
 end
 

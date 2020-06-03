@@ -12,13 +12,15 @@
     </div>
   <% end %>
   <div class="row finish_type">
+    <p><%= t(".description").html_safe %></p>
     <div class="row-item half">
       <fieldset>
         <%= f.input :name %>
       </fieldset>
       <fieldset class="skip-global-selectmenu">
         <div class="finish_type_finish_category ui-front select-container">
-          <%= f.association :finish_categories, collection: FinishCategory.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
+          <%= f.association :finish_categories, label: t(".categories"), collection: FinishCategory.visible_to(current_user).order(:name), multiple: true, class: "multiple" %>
+          <p class="help"><%= t(".category_help").html_safe %></p>
         </div>
       </fieldset>
     </div>

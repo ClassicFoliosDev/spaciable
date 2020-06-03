@@ -5,7 +5,7 @@ class UnitTypeLog < Log
     def create(unit_type)
       log(logable_type: UnitType,
           logable_id: unit_type.id,
-          secondary: "UT #{unit_type.name}",
+          secondary: "Unit Type: #{unit_type.name}",
           action: :created)
     end
 
@@ -23,7 +23,7 @@ class UnitTypeLog < Log
       log(logable_type: UnitType,
           logable_id: room.unit_type.id,
           primary: room,
-          secondary: "#{furnish.class} #{furnish}",
+          secondary: "#{furnish.class}: #{furnish}",
           action: action)
     end
   end

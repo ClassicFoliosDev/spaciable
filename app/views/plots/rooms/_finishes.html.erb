@@ -1,13 +1,13 @@
 <% cancrud = can?(:crud, PlotRoom.new(plot)) %>
 
 <% if collection.empty? %>
-  <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot, combine: true, override: cancrud %>
+  <%= render 'components/empty_list', icon_name: "shower", action: "Assign", type: FinishRoom, parent: room, plot: plot, combine: true, override: cancrud %>
 <% else %>
   <% if cancrud %>
     <div class="section-actions">
       <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t("finishes.collection.create") %></span>
+        <span class="btn-label"><%= t("finishes.collection.assign") %></span>
       <% end %>
     </div>
   <% end %>
@@ -18,12 +18,12 @@
     <thead>
       <tr>
         <th class="icon" style="text-align:center;"><%= t(".image") %></th>
-        <th colspan="2"><%= sortable(Finish, :name) %></th>
+        <th colspan="2"><%= sortable(Finish, :name, t(".finish")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishCategory }, :name, t("finishes.collection.finish_category")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishType }, :name, t("finishes.collection.finish_type")) %></th>
         <th colspan="2"><%= sortable({ Finish => FinishManufacturer }, :name, t("finishes.collection.manufacturer")) %></th>
         <th colspan="2"><%= sortable(Finish, :updated_at, t(".last_edited")) %></th>
-        <th colspan="2"><%= sortable(Finish, :added_by, t(".added_by")) %></th>
+        <th colspan="2"><%= t(".added_by") %></th>
         <% if showing_icons %>
           <th colspan="2">&nbsp;</th>
         <% end %>
