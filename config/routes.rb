@@ -294,7 +294,8 @@ Rails.application.routes.draw do
   end
 
   authenticated :user do
-    root "admin/dashboard#show", as: :admin_dashboard
+    root "admin/dashboard#show"
+    get "/admin/dashboard", to: "admin/dashboard#show", as: :admin_dashboard
   end
 
   devise_scope :resident do
