@@ -13,8 +13,5 @@ class Zoho < ActiveRecord::Migration[5.0]
       t.string :token_persistence_path
     end
 
-    # Data --
-    load Rails.root.join("db/seeds", "zoho.rb")
-
   end
 end
