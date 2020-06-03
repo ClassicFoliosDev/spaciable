@@ -11,7 +11,6 @@ module Developers
       @developments = paginate(sort(@developments, default: :name))
     end
 
-    # rubocop:disable Metrics/AbcSize
     def show
       @active_tab = params[:active_tab] || "phases"
 
@@ -29,7 +28,6 @@ module Developers
                       @development.plots
                     end
     end
-    # rubocop:enable Metrics/AbcSize
 
     def new
       @development.build(:address)
