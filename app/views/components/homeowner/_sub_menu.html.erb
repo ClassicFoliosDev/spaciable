@@ -3,7 +3,7 @@
 
       <% if plot.unit_type.external_link? %>
         <div class="navbar-item">
-            <%= link_to homeowner_about_path, active_tab: "about",
+            <%= link_to homeowner_home_tour_path, active_tab: "about",
                 class: "branded-primary #{'active' if active_tab == 'about' }" do %>
               <li class="navbar-item-secondary"><%= t(".about") %></li>
             <% end %>

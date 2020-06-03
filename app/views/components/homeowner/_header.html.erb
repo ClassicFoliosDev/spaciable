@@ -7,7 +7,7 @@
           <% if session[:onboarding] %>
             <%= image_tag(brand_or_red_logo(brand, plot)) %>
           <% else %>
-            <%= link_to image_tag(brand_or_red_logo(brand, plot)), homeowner_dashboard_path %>
+            <%= link_to image_tag(brand_or_red_logo(brand, plot)), dashboard_path %>
           <% end %>
         </div>
 

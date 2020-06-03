@@ -249,7 +249,7 @@ Rails.application.routes.draw do
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
 
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
-    get :about, to: 'about#show', as: :homeowner_about
+    get :home_tour, to: 'home_tour#show', as: :homeowner_home_tour
     get :rooms, to: 'rooms#show', as: :homeowner_rooms
     get :maintenance, to: 'maintenance#show', as: :homeowner_maintenance
     get :change_plot, to: 'base#change_plot'
