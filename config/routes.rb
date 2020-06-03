@@ -197,6 +197,7 @@ Rails.application.routes.draw do
     end
     resource :intro_video, only: [:show]
     resource :about_video, only: [:show]
+    resource :area_guide, only: [:show]
     resource :communication_preferences, only: [:show]
     resource :welcome_home, only: [:show], controller: 'welcome_home'
     resource :home_designer, only: [:show]

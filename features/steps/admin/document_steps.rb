@@ -574,7 +574,7 @@ def upload_development_doc(notify: true)
   end
 
   within ".empty" do
-    click_on t("components.empty_list.add", type_name: Document.model_name.human.titleize)
+    click_on t("components.empty_list.add", action: "Add", type_name: Document.model_name.human.titleize)
   end
 
   document_full_path = FileFixture.file_path + FileFixture.document_name

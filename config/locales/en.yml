@@ -1267,6 +1267,10 @@ en:
     about_videos:
       show:
         title: "Introductory Video"
+    area_guides:
+      show:
+        area_guide: "Area Guide"
+        new_tab: "Open in a new tab"
     contacts:
       index:
         title: "Contacts."
