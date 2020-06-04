@@ -38,7 +38,7 @@
       <% end %>
 
       <% if can? :read, Appliance.new(developer_id: current_user.developer) %>
-        <%= navigation_link(appliances_path, "coffee", t(".appliances"), "navbar-link") %>
+        <%= navigation_link(appliances_path, "plug", t(".appliances"), "navbar-link") %>
       <% end %>
 
       <%= navigation_link(admin_users_path, "users", t(".users"), "navbar-link") %>

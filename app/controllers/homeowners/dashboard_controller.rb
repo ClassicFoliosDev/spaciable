@@ -11,7 +11,8 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @services_params = build_services_params if current_resident
+      @all_docs = Document.accessible_by(current_ability)
+      @custom_tiles = CustomTile.active_tiles(@plot, @all_docs)
 
       build_documents
       build_articles
@@ -31,17 +32,8 @@ module Homeowners
       @contacts = contacts.order(pinned: :desc, updated_at: :desc).limit(4)
     end
 
-    def build_services_params
-      # params for referral link
-      name = [current_resident.first_name, current_resident.last_name].compact.join(" ")
-      email = current_resident.email
-      phone = current_resident&.phone_number
-      developer = @plot.developer
-      "?sf_name=#{name}&sf_email=#{email}&sf_telephone=#{phone}&sf_developer=#{developer}"
-    end
-
     def build_documents
-      docs = Document.accessible_by(current_ability)
+      docs = @all_docs
       docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 
@@ -51,7 +43,7 @@ module Homeowners
     end
 
     def build_articles
-      how_tos_limit = Plot::DASHBOARD_TILES - @plot.activated_cards.size
+      how_tos_limit = Plot::DASHBOARD_TILES - @custom_tiles.size
 
       # Filter the HowTo records according to the country
       @how_tos = HowTo.active.order(featured: :asc)

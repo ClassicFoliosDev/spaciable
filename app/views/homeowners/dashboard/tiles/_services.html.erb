@@ -1,0 +1,16 @@
+<% services_params = build_services_params(current_resident, plot) if current_resident %>
+
+<div class="tile-image">
+  <%= image_tag "services.jpg" %>
+</div>
+<div class="img-tile-details services-summary">
+  <div class="tile-text">
+    <h2 class="tile-title branded-text"><%= t(".title") %></h2>
+    <p class="tile-description branded-text"><%= t(".description") %></p>
+  </div>
+  <div class="tile-button">
+    <%= link_to t(".button"),
+        "https://home.spaciable.com/service/#{services_params}",
+        class: "branded-btn" %>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<% breadcrumb :custom_tile_edit, @custom_tile %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title", tile: @custom_tile.title? ? @custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{@custom_tile.feature}")) %>
+  </div>
+</div>
+
+<%= render 'form', custom_tile: @custom_tile, parent: nil %>

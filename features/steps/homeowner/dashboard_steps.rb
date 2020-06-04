@@ -29,7 +29,7 @@ Then(/^I see the recent homeowner contents$/) do
   end
 
   within ".dashboard" do
-    howtos = page.all(".article")
+    howtos = page.all(".how-to-dash")
     expect(howtos.count).to eq(3)
   end
 
@@ -149,14 +149,14 @@ end
 
 Then(/^I see the services$/) do
   within ".articles" do
-    services = page.all(".service-summary")
+    services = page.all(".services-summary")
     expect(services.count).to eq 1
   end
 end
 
 Then(/^I only see three articles$/) do
   within ".articles" do
-    how_tos = page.all(".how-to-summary")
+    how_tos = page.all(".how-to-dash")
     expect(how_tos.count).to eq 3
   end
 end
@@ -189,11 +189,31 @@ Then(/^I see no referral link$/) do
   end
 end
 
+Then(/^I see no services link$/) do
+  within ".articles" do
+    services = page.all(".services-summary")
+    expect(services.count).to eq 0
+  end
+end
+
+Given(/^the developer has a custom tile for services$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'services')
+end
+
+Given(/^the developer has a custom tile for referrals$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'referrals')
+end
+
+
 When(/^I refer a friend$/) do
   visit "/"
+  sleep 0.5
+  save_and_open_screenshot
 
-  within ".refer-article" do
-    click_on t("homeowners.dashboard.referrals.refer")
+  within ".refer-summary" do
+    click_on t("homeowners.dashboard.tiles.referrals.title")
   end
 
   within ".ui-dialog" do
@@ -209,7 +229,7 @@ end
 
 Then(/^I should see the referral has been sent$/) do
   within ".notice" do
-    expect(page).to have_content t("homeowners.dashboard.referrals.confirm")
+    expect(page).to have_content t("homeowners.dashboard.tiles.referrals.confirm")
   end
 end
 
@@ -233,3 +253,63 @@ Then(/^the Spaciable Admin should receive an email containing my details$/) do
   expect(email).to have_body_text(ReferralFixture.referee_email)
   expect(email).to have_body_text(ReferralFixture.referee_first_name)
 end
+
+Given(/^the development has a custom link tile$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+
+  CustomTile.create(development_id: development.id, category: "link", link: "www.ducks.com",
+                    title: "Title", description: "Description", button: "Button")
+end
+
+Then(/^I can see the custom link tile$/) do
+  visit "/"
+
+  within ".dash-tile" do
+    expect(page).to have_content ("Title")
+    expect(page).to have_content ("Description")
+    expect(page).to have_content ("Button")
+  end
+end
+
+Given(/^the development has enabled snagging/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  development.enable_snagging = true
+  development.snag_duration = 10
+  development.save!
+end
+
+Given(/^the development has set a snagging tile$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+
+  FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'snagging')
+end
+
+Then(/^I should not see the snagging tile$/) do
+  visit "/"
+  within ".dashboard" do
+    expect(page).to_not have_content I18n.t("homeowners.dashboard.tiles.snagging.title")
+    expect(page).to_not have_content I18n.t("homeowners.dashboard.tiles.snagging.description")
+  end
+end
+
+Given(/^there is a estimated move in date in the past$/) do
+  plot = Plot.find_by(number: HomeownerUserFixture.plot_number)
+  plot.completion_date = Time.zone.today - 9.days
+  plot.save!
+end
+
+Then(/^I should see the snagging tile$/) do
+  visit "/"
+
+  within ".dashboard" do
+    expect(page).to have_content I18n.t("homeowners.dashboard.tiles.snagging.description",
+                                         title: HomeownerUserFixture.custom_snag_name)
+  end
+end
+
+When(/^the snagging duration is past$/) do
+  development = Development.find_by(name: HomeownerUserFixture.development_name)
+  development.snag_duration = 5
+  development.save!
+end
+

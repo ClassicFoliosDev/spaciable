@@ -260,6 +260,22 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.string  "token_persistence_path"
     t.index ["developer_id"], name: "index_crms_on_developer_id", using: :btree
   end
+    
+  create_table "custom_tiles", force: :cascade do |t|
+    t.string  "title"
+    t.string  "description"
+    t.string  "button"
+    t.string  "image"
+    t.integer "category",       default: 0
+    t.string  "link"
+    t.integer "feature"
+    t.integer "guide"
+    t.string  "file"
+    t.integer "document_id"
+    t.integer "development_id"
+    t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
+    t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
+  end
 
   create_table "default_faqs", force: :cascade do |t|
     t.text     "question"
@@ -380,6 +396,7 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.string   "file_tmp"
     t.integer  "user_id"
     t.boolean  "pinned",            default: false
+    t.integer  "guide"
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
     t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
@@ -1050,6 +1067,8 @@ ActiveRecord::Schema.define(version: 20200521094314) do
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
   add_foreign_key "crms", "developers"
+  add_foreign_key "custom_tiles", "developments"
+  add_foreign_key "custom_tiles", "documents"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"

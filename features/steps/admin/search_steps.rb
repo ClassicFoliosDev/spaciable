@@ -5,7 +5,7 @@ When(/^I search for a search term$/) do
 
   within ".search-container" do
     fill_in "search_search_text", with: CreateFixture.finish_name
-    find(".search-btn").click
+    find(".search-btn").trigger('click')
   end
 end
 
@@ -38,7 +38,7 @@ end
 When(/^I search for a partial search term$/) do
   within ".search-container" do
     fill_in "search_search_text", with: "WAB281"
-    find(".search-btn").click
+    find(".search-btn").trigger('click')
   end
 end
 
@@ -60,7 +60,7 @@ end
 When(/^there are no matches$/) do
   within ".search-container" do
     fill_in "search_search_text", with: "wordnotindb"
-    find(".search-btn").click
+    find(".search-btn").trigger('click')
   end
 end
 

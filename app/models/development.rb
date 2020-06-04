@@ -36,12 +36,14 @@ class Development < ApplicationRecord
   has_many :choice_configurations, dependent: :destroy
   has_many :plot_documents, through: :plots, source: :documents
   has_one :maintenance, dependent: :destroy
+  has_many :custom_tiles, dependent: :destroy
 
   has_one :premium_perk
   accepts_nested_attributes_for :premium_perk, reject_if: :premium_perks_disabled
   delegate :enable_premium_perks, :premium_licences_bought,
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
+  delegate :branded_perk, to: :parent_developer
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true
@@ -64,9 +66,13 @@ class Development < ApplicationRecord
   delegate :to_s, to: :name
   delegate :development_faqs, :country, to: :parent
 
+  delegate :house_search, :enable_referrals, :enable_services,
+           :enable_roomsketcher, :enable_perks, to: :parent_developer
+
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
+  after_create :set_default_tiles
 
   enum choice_option:
     %i[
@@ -214,6 +220,23 @@ class Development < ApplicationRecord
   # Build the specified attribute if it is not already donw
   def build(attribute)
     send "build_#{attribute}".to_sym unless send attribute
+  end
+
+  def descendants
+    [phases, plots].flatten!
+  end
+
+  # Create up to three default tiles
+  # rubocop:disable LineLength
+  def set_default_tiles
+    %w[referrals services perks].each do |tile|
+      CustomTile.create(development_id: id, feature: tile) if parent_developer.send("enable_#{tile}")
+    end
+  end
+  # rubocop:enable LineLength
+
+  def my_construction_name
+    construction_name.blank? ? I18n.t("homeowners.home") : construction_name
   end
 end
 # rubocop:enable Metrics/ClassLength

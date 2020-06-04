@@ -1,0 +1,9 @@
+<% breadcrumb :custom_tile_add, @parent %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<%= render 'form', parent: @parent, custom_tile: @custom_tile %>

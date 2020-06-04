@@ -11,10 +11,14 @@
       </ul>
     </div>
   <% end %>
+
+
   <div class="row finish_category">
+    <p><%= t(".description").html_safe %></p>
     <div class="row-item half">
       <fieldset>
         <%= f.input :name %>
+        <p class="help"><%= t(".category_help").html_safe %></p>
       </fieldset>
     </div>
   </div>

@@ -84,6 +84,8 @@ class Plot < ApplicationRecord
   delegate :maintenance_path, to: :development, allow_nil: true
   delegate :maintenance_account_type, to: :development, allow_nil: true
 
+  delegate :custom_tiles, to: :development
+
   after_create :post_create
   after_update :post_update
   after_save :check_completion
@@ -441,17 +443,6 @@ class Plot < ApplicationRecord
   # How many rooms of the provided type does this plot have?
   def rooms?(key)
     rooms&.select { |r| r.icon_name == Room.icon_names.key(key.to_i) }&.count
-  end
-
-  # Which tiles should the plot have enabled for the homeowner dashboard?
-  def activated_cards
-    cards = { "perks" => enable_perks?, "referrals" => enable_referrals?,
-              "services" => enable_services? }
-    activated = []
-    cards.each do |card, value|
-      activated << card if value
-    end
-    activated
   end
 
   def completed?

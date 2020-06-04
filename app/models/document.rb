@@ -9,15 +9,23 @@ class Document < ApplicationRecord
 
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
+  belongs_to :custom_tile, optional: true
+
   has_many :plot_documents, dependent: :destroy
   alias parent documentable
 
   validates :file, presence: true
+  validates :guide, uniqueness: { scope: :documentable }, if: -> { guide.present? }
 
   delegate :expired?, to: :parent
   delegate :partially_expired?, to: :parent
 
   delegate :construction, :construction_name, to: :parent
+
+  enum guide: %i[
+    reservation
+    completion
+  ]
 
   def to_s
     title

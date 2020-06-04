@@ -24,7 +24,7 @@ module Homeowners
       @referral.set_confirmation_token
       @referral.save(validate: false)
       send_email
-      render json: { notice: t("homeowners.dashboard.referrals.confirm") }
+      render json: { notice: t("homeowners.dashboard.tiles.referrals.confirm") }
     end
 
     def send_email

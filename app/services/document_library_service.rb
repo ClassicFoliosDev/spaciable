@@ -8,7 +8,8 @@ module DocumentLibraryService
   def call(documents, appliances)
     alldocuments = documents.map do |d|
       { name: d.title, link: d.file.url, category: d.category, id: d.id,
-        thumb: library_preview_url(d.file), timestamp: d.updated_at, pinned: d.pinned }
+        thumb: library_preview_url(d.file), timestamp: d.updated_at, pinned: d.pinned,
+        construction: d.construction_type }
     end
     manuals = appliances.map do |a|
       if a.manual?

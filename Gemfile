@@ -72,7 +72,8 @@ gem "newrelic_rpm"
 
 # Frontend
 gem "bourbon"
-gem "font-awesome-rails"
+gem "font-awesome-rails", "~> 4.7.0.5"
+gem "font-awesome-sass", "~> 5.12.0"
 gem "neat", "~> 1"
 gem "rails-timeago"
 gem "simple_calendar", "~> 2.0"

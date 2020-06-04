@@ -1,0 +1,125 @@
+.dash-tile {
+  border: 1px solid $pale-navy;
+  background: none;
+
+  .tile-content {
+
+    .tile-image {
+      display: block;
+      width: 30%;
+      float: left;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .img-tile-details {
+      display: block;
+      width: 70%;
+      float: right;
+      padding: $spacing-small;
+    }
+
+    .tile-text {
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-medium;
+        margin-bottom: $spacing-small;
+      }
+
+      .tile-description {
+        font-size: $base-small-font-size;
+      }
+    }
+
+    .tile-button {
+      position: absolute;
+      bottom: 0;
+      padding-bottom: $spacing-small;
+
+      .branded-btn {
+        line-height: $base-font-line-height;
+        font-size: $base-font-size;
+        width: 140px;
+        text-align: center;
+        padding: 0px 10px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.dash-tile {
+  .tile-content .icon-tile {
+    padding: $spacing-small;
+
+    display: grid;
+    height: 100%;
+    grid-template-rows: 20% 55% 25%;
+
+    .tile-icon {
+      padding: 0;
+      padding-top: $spacing-small;
+
+      i {
+        font-size: $title-font-size-1;
+        opacity: 0.5;
+      }
+    }
+
+    .icon-tile-details {
+      padding: $spacing-small;
+      padding-left: 0;
+
+      h2 {
+        font-size: $title-font-size-4;
+        padding-top: $spacing-small;
+        margin-bottom: $spacing-small;
+      }
+
+      p {
+        font-size: $base-small-font-size;
+      }
+    }
+
+    .tile-button {
+      align-self: end;
+    }
+  }
+}
+
+.dashboard .one-card .single-card {
+  .how-to-dash {
+    float: left;
+    clear: none;
+  }
+}
+
+.dashboard .one-card .multi-card {
+  .article {
+    @include omega(2n);
+  }
+}
+
+// mobile portrait view
+@include media($mobile-down) {
+  .dash-tile {
+    .tile-content {
+      .tile-text {
+        h2 {
+          padding-top: $spacing-small;
+        }
+      }
+      .tile-button {
+        padding-bottom: $spacing-small/2;
+      }
+    }
+  }
+}
+
+

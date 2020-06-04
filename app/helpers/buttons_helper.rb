@@ -10,7 +10,7 @@ module ButtonsHelper
   def edit_btn(edit_path, label = "", element:, override: false)
     return unless override || (element && (can? :update, element))
 
-    link_to edit_path, class: "btn", data: { action: "edit" } do
+    link_to edit_path, class: "btn", data: { action: "edit" }, title: I18n.t("buttons.edit") do
       icon "pencil", label
     end
   end
@@ -33,6 +33,14 @@ module ButtonsHelper
                          class: "btn archive-btn",
                          title: I18n.t("buttons.trash")) do
       icon "trash-o", label
+    end
+  end
+
+  def delete_lnk(delete_path, text:, element: nil, confirm: false, override: false)
+    return unless override || (element && (can? :destroy, element))
+
+    link_to delete_path, class: "btn remove #{'archive-lnk' if confirm}", data: { text: text } do
+      icon "trash-o", ""
     end
   end
   # rubocop:enable Metrics/ParameterLists

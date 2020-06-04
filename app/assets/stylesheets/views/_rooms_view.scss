@@ -6,3 +6,10 @@
   display: inline-block;
   margin-top: $spacing-small;
 }
+
+.unit-type {
+  .fa-trash-o {
+    font-size: $base-font-size;
+    line-height: 2;
+  }
+}

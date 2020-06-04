@@ -210,7 +210,8 @@ module CreateFixture
   def create_developer(cas: false)
     return developer if developer
     country = FactoryGirl.create(:country)
-    FactoryGirl.create(:developer, company_name: developer_name, house_search: true, country_id: country.id, cas: cas)
+    FactoryGirl.create(:developer, company_name: developer_name, house_search: true,
+                       enable_referrals: true, country_id: country.id, cas: cas)
   end
 
   def create_spanish_developer

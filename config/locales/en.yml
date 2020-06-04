@@ -95,9 +95,6 @@ en:
     info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"
-    info:
-      title: "Information"
-      cannot_delete: "Cannot delete %{type}"
     share_tenants: "Private: click to share with tenants of this plot"
     share_all: "Private: click to share with tenants and other residents of this plot"
     shared: "Shared: click to disable sharing"
@@ -437,6 +434,9 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     development_csv: "Upload CSV"
+    custom_tiles: "Custom Shortcuts"
+    custom_tile_add: "New Custom Shortcut"
+    custom_tile_edit: "Edit %{tile}"
     timeline_add: "Add Timeline"
     timelines: "Timelines"
     timeline_show: "%{timeline}"
@@ -549,7 +549,7 @@ en:
         ts_and_cs: "Terms and Conditions"
         cookies: "Cookie Policy"
       library_categories:
-        title: "Categories"
+        title: "Categories."
         appliances: "Appliances"
         videos: "Videos"
         my_documents: "My Documents"
@@ -638,7 +638,7 @@ en:
       residents: "Residents"
     empty_list:
       empty: "You have no %{type_names}."
-      add: "Add %{type_name}"
+      add: "%{action} %{type_name}"
       request_add: "You do not have permission. Please contact the Classic Folios team and ask them to create %{type_names}"
     header:
       feedback: "Feedback"
@@ -1126,6 +1126,30 @@ en:
     edit:
       title: "Edit %{name}"
 
+  custom_tiles:
+    collection:
+      create: "New Custom Shortcut"
+      title: "Title"
+      category: "Category"
+    new:
+      title: "New Custom Shortcut"
+    edit:
+      title: "Edit %{tile}"
+    show:
+      back: "Back"
+    form:
+      link: "Link URL"
+      title: "Title"
+      description: "Description"
+      button: "Button Text"
+      image: "Image"
+      file: "Upload Document"
+      document: "Select Document"
+      guide: "Select Manual"
+      back: "Back"
+      submit: "Submit"
+      current_file: "Current File"
+
   home:
     show:
      home: "Home"
@@ -1159,6 +1183,7 @@ en:
       choice_configurations: "Choices"
       development: "Development"
       development_csv: "Upload CSV"
+      custom_tiles: "Custom Shortcuts"
     edit:
       back: "Back"
     form:
@@ -1299,12 +1324,11 @@ en:
         authorise: "Authorise your Planet Rent account"
     lettings_account:
       created: "Your lettings account has been initialised. Your username is %{username}."
-      pr_failed: "Failed to create PlanetRent user account. %{message}"
+      pr_failed: "Failed to create PlanetRent user account. %{message}"      
       failed: "Failed to create a landlord account."
     maintenance:
       show:
-        title: "Issues."
-
+        title: "Issues"
     snags:
       index:
         snag_description: "Use the %{snag_name} tool to report any issues such as damaged tiles or nail popping to your developer."
@@ -1503,12 +1527,6 @@ en:
         services_title: "Services"
         services_description_one: "Benefit from an exclusive range of services, from utility suppliers and insurance policies to home furnishings and lifestyle, through the Services feature."
         services_description_two: "Simply select the categories you are interested in and start saving money!"
-      referrals:
-        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
-        refer: "Refer A Friend"
-        refer_title: "Refer A Friend."
-        send_invitation: "Submit"
-        confirm: "Your referral has been sent"
       referral_form:
         first_name: "First Name"
         last_name: "Surname"
@@ -1518,10 +1536,44 @@ en:
       perks:
         perks_description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
         perks: "Find Out More"
-        activated_perks: "Log in to Buyers' Club"
+        activated_perks: "Login to Buyers' Club"
         activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
         new_tab: "Opens in a new tab"
         notice: "Thanks for signing up to exclusive online resident rewards! Please check your email inbox for an invitation from Vaboo to activate your Buyers' Club account."
+
+      tiles:
+        referrals:
+          title: "Refer a Friend"
+          description: "Fill in this form with your friend's details to recommend them to your developer."
+          button: "Refer a Friend"
+          send_invitation: "Submit"
+          confirm: "Your referral has been sent"
+        services:
+          description: "Benefit from an exclusive range of services, from utility and insurance to home furnishings and lifestyle."
+          button: "Select Services"
+          title: "Services"
+        area_guide:
+          title: "Area Guide"
+          description: "Discover local amenities and learn more about your surroundings."
+          button: "Explore My Area"
+        home_designer:
+          title: "%{construction} Designer"
+          description: "Trial layout and decor options before making your home your own."
+          button: "Design My Home"
+        issues:
+          title: "Defect Management"
+          description: "Detail any home defects for repair with this easy-to-use online form."
+          button: "Report a Defecy"
+        snagging:
+          title: "%{title}"
+          description: "Advise us of minor home faults during the %{title} period after your move."
+          button: "Submit an Issue"
+        perks:
+          title: "Buyers' Club"
+          description: "Sign up to the Buyers' Club to enjoy exclusive offers and discounts."
+          button: "Find Out More"
+          activated_button: "Login to Buyers' Club"
+          activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
 
     communication_preferences:
       show:
@@ -1613,7 +1665,7 @@ en:
         account: "Update Account."
         phone: "Phone"
         email: "Email"
-        title: "Account"
+        title: "My Account"
       communications:
         title: "Communication Preferences."
         updates_by: "Updates on offers and services from your portal:"
@@ -1621,8 +1673,8 @@ en:
       services:
         title: "Services"
       show:
-        title: "Account"
-        my_account: "Account"
+        title: "My Account"
+        my_account: "My Account"
         name: "Name"
         password: "Password"
         email: "Email"
@@ -2302,6 +2354,7 @@ en:
         image: "Image"
         last_edited: "Last Edited"
         added_by: "Added By"
+        finish: "Finish Name"
       appliances:
         image: "Image"
         last_edited: "Last Edited"
@@ -2460,9 +2513,15 @@ en:
       walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
-      matterport_tip: "Make sure you use the plugin-friendly version of a URL, for more details see https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-"
+      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Unit Type."
+      tip_2: "For example <strong>https://my.matterport.com/show/?m=8qpReuQhuEE</strong>"
+      tip_3: "Make sure you use the plugin-friendly version of the URL, so that your 3D walkthrough or video can be embedded in an 'iframe':
+              <ul><li>You can find out more details regarding the Matterport 3D walkthrough <a href='https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-', target='_blank'>here.</a></li>
+              <li>For YouTube links, edit the URL to replace <strong>watch?v=</strong> with <strong>embed/</strong></li>
+              <li>For Vimeo links, edit the URL to replace <strong>vimeo.com</strong> with <strong>player.vimeo.com/video</strong></li>
+              <li>For other video links, click 'share' on the online video player, then find 'embed video'. There should be a long &#60;iframe&#62; code - delete everything except the embed video URL, which will be in quotation marks (do not paste quotation marks into Spaciable)</li></ul>"
       restricted: "Restrict Specifications to CF Admin"
-      picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels"
+      picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels."
     new:
       add: "New Unit Type."
     show:
@@ -2483,7 +2542,7 @@ en:
       documents: "Documents"
       name: "Unit Type"
       last_edited: "Last Edited"
-      logs: "Change logs"
+      logs: "Change Logs"
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2497,6 +2556,7 @@ en:
      title: "Appliances."
    collection:
      create: "Add Appliance"
+     assign: "Assign Appliance"
      appliance_category: "Category"
      remove: "Remove"
      appliances: "Appliances"
@@ -2508,6 +2568,8 @@ en:
      manufacturer: "Manufacturer"
      last_edited: "Last Edited"
      added_by: "Added By"
+     delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
+
    new:
      title: "New Appliance."
    show:
@@ -2555,6 +2617,12 @@ en:
    edit:
      title: "Edit %{name}"
    form:
+     description: "A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes.<br/>
+                   A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
+                   A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
+     types: "Associated Finish Types"
+     type_help: "The <strong>Manufacturer</strong> drop-down list found when creating finishes on the database or assigning finishes to plots relies on making associations with Finish Types.<br/>
+                 Populate the Associated Finish Types field with any Types this Manufacturer should feature under."
      back: "Back"
      submit: "Submit"
      finish_category: "Finish Category"
@@ -2609,10 +2677,11 @@ en:
     index:
      title: "Finishes."
     collection:
-      finish: "Finish"
+      finish: "Finish Name"
       finish_category: "Category"
       finish_type: "Type"
       create: "Add Finish"
+      assign: "Assign Finish"
       finishes: "Finishes"
       image: "Image"
       finish_manufacturers: "Finish Manufacturers"
@@ -2621,17 +2690,24 @@ en:
       finish_categories: "Finish Categories"
       last_edited: "Last Edited"
       added_by: "Added By"
+      delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
     new:
       title: "New Finish."
     form:
-      name: "Name"
+      name: "Finish Name"
       submit: "Submit"
       back: "Back"
       category: "Category"
       image: "Image"
       type: "Type"
       manufacturer: "Manufacturer"
-      notes: "Notes (this is not visible to residents)"
+      notes: "Notes"
+      notes_disclaimer: "This is not visible to residents"
+      finish_description: "Use this page to update the database with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
+      disclaimer: "Can't find the %{item} you're looking for?"
+      category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
+      type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit and existing Type and add a new associated Category to the list."
+      manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -2656,6 +2732,10 @@ en:
     edit:
       title: "Edit %{name}"
     form:
+      description: "A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes.<br/>
+                    A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
+                    A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
+      category_help: "To associate this category with a new Finish Type, visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add this Category to the Associated Finish Categories list."
       back: "Back"
       submit: "Submit"
 
@@ -2676,7 +2756,12 @@ en:
     edit:
       title: "Edit %{name}"
     form:
-      category: "Category"
+      description: "A <strong>Finish Category</strong>, e.g., Flooring or Worktop, is used to broadly group types of finishes.<br/>
+                    A <strong>Finish Type</strong> is a more specific description of the finish, e.g., Carpet or Granite, linked to one or more <strong>Finish Categories</strong>.<br/>
+                    A <strong>Finish Manufacturer</strong> can be linked to one or more <strong>Finish Types</strong>."
+      categories: "Associated Finish Categories"
+      category_help: "The <strong>Type</strong> drop-down list found when creating finishes on the database or assigning finishes to plots relies on making associations with Finish Categories.<br/>
+                      Populate the Associated Finish Categories field with any Categories this Type should feature under."
       back: "Back"
       submit: "Submit"
 
@@ -2722,6 +2807,9 @@ en:
         submit: "Submit"
         back: "Back"
         search: "Search"
+        search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances database.
+                      Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/>
+                      Narrow results by using quotations marks to return only exact matches."
         category: "Category"
         manufacturer: "Manufacturer"
     finish_rooms:
@@ -2730,9 +2818,13 @@ en:
         submit: "Submit"
         back: "Back"
         search: "Search"
+        search_help: "This search bar will look for matching words/product codes in the Finish Name, Type and Manufacturer fields of the Finishes database.
+                      Click the <strong>Finish Name</strong> drop-down field on this page to select from the results.<br/>
+                      Narrow results by searching for product codes or using quotation marks, e.g., \"White Oak\", to return only exact matches."
         choose: "Choose..."
         category: "Category"
         type: "Type"
+        finish: "Finish Name"
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:
@@ -2771,6 +2863,7 @@ en:
       processing: "Processing..."
       by: "Uploader"
       pinned: "Pinned"
+      guide: "Guide"
     form:
       load: "File"
       upload: "Upload"
@@ -3098,8 +3191,8 @@ en:
            stairway: "Landing / hall / stairway"
            utility: "Utility room"
       finish:
-        name: "Name"
-        type: "Finish type"
+        name: "Finish Name"
+        type: "Finish Type"
         category: "Finish Category"
         manufacturer: "Manufacturer"
         descr: "Description"
@@ -3150,6 +3243,28 @@ en:
           my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
+        guides:
+          # Guide enum values
+          reservation: "Reservation"
+          completion: "Completion"
+
+      custom_tiles:
+        categories:
+          feature: "Feature"
+          link: "Link"
+          document: "Document"
+        features:
+          area_guide: "Area Guide"
+          home_designer: "Home Designer"
+          referrals: "Referrals"
+          services: "Services"
+          perks: "Buyers' Club"
+          issues: "Issue Reporting"
+          snagging: "%{snag_name}"
+        guides:
+          reservation: "Reservation"
+          completion: "Completion"
+
       user:
         email: "Email address"
         password: "Password"
@@ -3346,6 +3461,10 @@ en:
             base:
               email_or_phone_required: "You must provide either an email address or a contact number."
               name_or_organisation_required: "You must provide either a contact name or an organisation name."
+        custom_tile:
+          attributes:
+            base:
+              document_sub_category_required: "You must upload a document, or select an existing document or manual."
         plot:
           attributes:
             base:
@@ -3367,7 +3486,7 @@ en:
 
   logs:
     collection:
-      room: "Room"
+      room: "Room (Belongs to)"
       item: "Item"
       action: "Action"
       user: "User"

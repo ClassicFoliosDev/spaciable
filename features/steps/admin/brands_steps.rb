@@ -264,7 +264,7 @@ Then(/^I should see the (\w+) brand deletion complete successfully$/) do |parent
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", type_name: Brand.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Brand.model_name.human)}}i
   end
 end
 
@@ -325,6 +325,8 @@ end
 
 Then(/^I should not be able to see developer brands$/) do
   visit "/"
+  sleep 0.5
+  save_and_open_screenshot
 
   within ".navbar" do
     click_on t("components.navigation.my_area", area: "Developer")

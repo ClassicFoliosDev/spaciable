@@ -14,7 +14,7 @@
               <%= link_to document[:name], document_path(document) %>
             </td>
             <td colspan="2">
-              <%= icon "folder" %> <%= t("activerecord.attributes.document.categories.#{document[:category]}") %>
+              <%= icon "folder" %> <%= t("activerecord.attributes.document.categories.#{document[:category]}", construction: document[:construction]) %>
             </td>
             <td class="actions">
               <%= link_to document[:link], class: "btn guide-download",  target: "_blank" do %>

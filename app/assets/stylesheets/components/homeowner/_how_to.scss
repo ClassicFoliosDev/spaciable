@@ -119,7 +119,6 @@
     }
 
     p {
-      color: $ui-white;
       margin-bottom: $spacing-small / 2;
     }
   }
@@ -129,6 +128,14 @@
     font-size: $base-small-font-size;
     position: relative;
     top: 4px;
+  }
+}
+
+.main-container .how-tos .article {
+  @include span-columns(4 of 12);
+
+  &:nth-child(3n) {
+    @include omega();
   }
 }
 
@@ -234,7 +241,7 @@
 
   .howto-nav .sub-navigation-container {
     .navbar-item-secondary {
-      width: 140px;
+      width: 150px;
     }
   }
 }
