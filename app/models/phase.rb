@@ -198,7 +198,7 @@ class Phase < ApplicationRecord
   def filtered_plots(plot_numbers)
     yield plots.where(number: plot_numbers.split(","))
   end
-  
+
   def descendants
     plots
   end
