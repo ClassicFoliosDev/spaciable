@@ -5,6 +5,7 @@ class Development < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :developer, optional: true
+  has_one :crm, through: :developer
   belongs_to :division, optional: true
 
   include PgSearch
@@ -183,6 +184,25 @@ class Development < ApplicationRecord
     record = Maintenance.find_by(development_id: id)
     record&.destroy!
     true
+  end
+
+  # document sync operations need a path to the relevant controller
+  # for 'self' development.  Developments have either a developer or
+  # division centric controller depending on their parent
+  def sync_docs_path
+    [:sync_docs, parent, self]
+  end
+
+  # get the docs from the crm
+  def sync_docs
+    raise "#{name} does not have an associated CRM" unless crm
+    Crms::Zoho.new(self).documents
+  end
+
+  # get the docs from the crm
+  def download_doc(params)
+    raise "#{name} does not have an associated CRM" unless crm
+    Crms::Zoho.new(self).download_doc(params)
   end
 
   # update existing phases business if development is updated to be commercial

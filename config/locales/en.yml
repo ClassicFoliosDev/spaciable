@@ -100,6 +100,21 @@ en:
     shared: "Shared: click to disable sharing"
     cancel:
       confirm: "Confirm Cancel"
+    confirm_dialog:
+      title: "Confirm"
+
+  crms:
+    documents:
+      empty_list:
+        empty: "No new documents found.  You are up to date."
+      collection:
+        title: "CRM Sync"
+        filename: "Filename"
+        new_filename: "Display name"
+        category: "Category"
+        sync: "Sync?"
+        back: "Back"
+        upload: "Upload Documents"
 
   choices:
     save: "Save Changes"
@@ -411,6 +426,10 @@ en:
     brand_add: "New Styling"
     brand_edit: "Edit %{name}"
     bulk_edit: "Bulk Edit"
+    crm_sync: "Sync plots"
+    crm_import: "CRM Import"
+    sync_completion: "Sync completion dates"
+    sync_residents: "Sync residents"
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
@@ -430,6 +449,7 @@ en:
     finale_show: "Finale"
     finale_edit: "Edit Finale"
     finale_add: "Add Finale"
+    sync_docs: "Synhronise Documents"
 
   pagination:
     per_page_10: "10"
@@ -1211,6 +1231,14 @@ en:
       activated_residents: "Activated Residents: "
       phases: "Phases: "
       csv: "Upload CSV"
+    sync_docs:
+      title: "Synhronise Documents"
+      filename: "Filename"
+      new_filename: "Display name"
+      category: "Category"
+      sync: "Sync?"
+      back: "Back"
+      upload: "Upload Documents"
 
   development_csv:
     index:
@@ -1754,6 +1782,8 @@ en:
         success: "%{development_name} was updated successfully"
       destroy:
         success: "%{development_name} was deleted successfully"
+      sync:
+        back: "Back"
     edit:
       title: "Edit %{developer_name}"
       show: "Show"
@@ -2120,6 +2150,7 @@ en:
       production: "Production"
       release_plots: "Release Plots"
       lettings: "Lettings"
+      import: "Import CRM"
     new:
       title: "New Phase."
     update:
@@ -2173,6 +2204,37 @@ en:
         letting_confirm: "Your letting for your plot has been set up"
       failure:
         letting_deny: "You do not have authority to create lettings"
+    import:
+      index:
+        sync_dates: "Sync Completion Dates"
+        sync_residents: "Sync Residents"
+        sync_plot_docs: "Sync Plot Documents"
+        description: "<strong>Select the plots you wish to synchronize below.</strong>"
+        sync_plots: "Sync Plots"
+      completions_index:
+        number: "Plot"
+        crm_completion: "CRM Completion"
+        s_completion: "Spaciable Completion"
+        sync: "Synchronise"
+        empty: "No new completion dates."
+      up_to_date:
+        empty: "%{message} You are up to date"
+      residents_index:
+        number: "Plot"
+        title: "Title"
+        first_name: "First Name"
+        last_name: "Last Name"
+        email: "Email"
+        phone: "Phone"
+        role: "Role"
+        sync: "Synchronise"
+        empty: "No new Residents found."
+        residents: "These %{residents} resident/s will be assigned to %{plots} plot/s. Are you sure you want to continue?"
+      docs_index:
+        plot: "Plot Number"
+    import_completion_dates:
+      create:
+          updated: "Completion Dates have successfully been updated for %{plots} plots."
 
   choice_configurations:
     create:
@@ -2347,6 +2409,7 @@ en:
       choices: "Choices"
       name: "Plot"
       logs: "Change Logs"
+      sync: "CRM Sync"
 
       UK:
         house_number: "Postal"
@@ -2826,6 +2889,7 @@ en:
       uploaded_by: "Uploader"
       document: "Document"
       category: "Category"
+      sync: "CRM Sync"
     edit:
       title: "Edit %{name}"
 
@@ -2976,6 +3040,7 @@ en:
       date_c: "C"
       name: "Plot"
       prefix: "Prefix"
+      sync: "CRM Sync"
       UK:
         house_number: "Postal"
         building_name: "Building"
@@ -3550,5 +3615,6 @@ en:
       submit: "Submit"
     destroy:
       success: "%{title} was deleted successfully"
+
 
 

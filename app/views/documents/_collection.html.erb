@@ -1,17 +1,26 @@
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "file-pdf-o", type: Document, parent: parent %>
-<% else %>
-  <% if parent && can_create(Document, parent) %>
-    <% unless parent.expired? && !(current_user.cf_admin?) %>
-      <div class="section-actions">
+<% end %>
+
+<div class="section-actions">
+  <% if collection.present? %>
+    <% if parent && can_create(Document, parent) %>
+      <% unless parent.expired? && !(current_user.cf_admin?) %>
         <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
           <span class="btn-label"><%= t(".add") %></span>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
+  <% if current_user.cf_admin? && parent.respond_to?(:crm) && parent&.crm && parent.respond_to?(:sync_docs_path)%>
+    <%= link_to parent.sync_docs_path, class: "btn btn-primary" do %>
+        <span class="btn-label"><%= t(".sync") %></span>
+    <% end %>
+  <% end %>
+</div>
 
+<% if collection.present? %>
   <div class="documents">
     <table class="record-list">
       <thead>
