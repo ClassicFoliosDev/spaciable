@@ -13,7 +13,7 @@
   <table class="record-list unit-types">
     <thead>
       <tr>
-        <th><i class="fa fa-question-circle-o" id="unitTypeHelp"></i> <%= sortable(collection, :name, t(".name")) %></th>
+        <th><% if can_create(UnitType, parent) %><i class="fa fa-question-circle-o" id="unitTypeHelp"></i><% end %> <%= sortable(collection, :name, t(".name")) %></th>
         <th><%= sortable(collection, :updated_at, t(".last_edited")) %></th>
         <th>&nbsp;</th>
       </tr>
@@ -25,7 +25,7 @@
         <td><%= l unit_type.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= link_to t(".rooms"), unit_type_rooms_path(unit_type), class: "btn" %>
-          <% if unit_type.restricted? %>
+          <% if unit_type.restricted? && !current_user.cf_admin? %>
             <div class="btn" id="restrictedHelp"><i class="fa fa-info"></i></div>
           <% end %>
           <% if can? :update, unit_type %>
