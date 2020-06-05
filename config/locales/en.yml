@@ -2643,7 +2643,7 @@ en:
       finish_description: "Use this page to update the database with finishes used across your developments. If you can, upload a suitable image that will illustrate the finish."
       disclaimer: "Can't find the %{item} you're looking for?"
       category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
-      type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit and existing Type and add a new associated Category to the list."
+      type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
       manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
     edit:
       title: "Edit %{name}"
@@ -2746,7 +2746,7 @@ en:
         search: "Search"
         search_help: "This search bar will look for matching words/product codes in the Model and Manufacturer fields of the Appliances database.
                       Click the <strong>Appliance</strong> drop-down field on this page to select from the results.<br/>
-                      Narrow results by using quotations marks to return only exact matches."
+                      Narrow results by using quotation marks to return only exact matches."
         category: "Category"
         manufacturer: "Manufacturer"
     finish_rooms:
