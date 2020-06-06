@@ -202,13 +202,18 @@ When(/^I remove an appliance from the plot$/) do
     click_on t("rooms.collection.appliances")
   end
 
-  within ".record-list" do
-    remove_btn = page.find ".remove", wait: 5
-    remove_btn.click
+  if page.has_css?('.record-list .archive-lnk')
+    delete_and_confirm_lnk!(scope: '.record-list')
+  else
+    find(".record-list .remove").click
   end
+
 end
 
 Then(/^I should see the finish remove is successful$/) do
+  notice = find(".notice")
+  expect(notice.text).to eq "Successfully removed #{CreateFixture.finish_name} from #{CreateFixture.lounge_name}."
+
   within ".breadcrumbs" do
     expect(page).to have_content(CreateFixture.phase_plot_name)
   end
@@ -253,12 +258,19 @@ When(/^I remove a finish from the plot$/) do
   within ".plot" do
     click_on CreateFixture.room_name
   end
+  page.find('.section-title', text: CreateFixture.lounge_name)
+  find(".record-list .remove").click
 
-  within ".room" do
-    remove_btn = page.find ".remove"
-    remove_btn.click
-  end
 end
+
+When(/^I CAS remove a finish from the plot$/) do
+  within ".plot" do
+    click_on CreateFixture.room_name
+  end
+  page.find('.section-title', text: CreateFixture.lounge_name)
+  delete_and_confirm_lnk!(scope: '.record-list')
+end
+
 
 Then(/^I should see the unit type still has appliance and finish$/) do
   goto_development_show_page

@@ -260,7 +260,7 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.string  "token_persistence_path"
     t.index ["developer_id"], name: "index_crms_on_developer_id", using: :btree
   end
-    
+
   create_table "custom_tiles", force: :cascade do |t|
     t.string  "title"
     t.string  "description"
