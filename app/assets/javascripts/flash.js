@@ -6,6 +6,11 @@ function flash_alert(message) {
   flash(message,'alert')
 };
 
+function flash_clear() {
+  var $flash = $('.flash')
+  $flash.empty()
+};
+
 function flash(message, className) {
   var $flash = $('.flash')
   $flash.empty()

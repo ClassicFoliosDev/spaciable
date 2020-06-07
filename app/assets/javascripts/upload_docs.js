@@ -4,7 +4,8 @@
   'use strict'
 
   $(document).on('click', '#upload-btn', function (event) {
-    // disable upload button
+    $('.form-actions-footer').hide()
+    flash_clear()
     upload_doc(extract_document())
   })
 
@@ -12,7 +13,7 @@
 
 function extract_document(){
   // get the first checked (synced) row.
-  row = $(".documents tbody tr td input:checked").first().closest('tr')
+  row = first_checked().closest('tr')
   if (row.length == 0) { return }
 
   // extract data
@@ -31,11 +32,11 @@ function extract_document(){
 // Upload the document - then recurse until finished
 function upload_doc(doc) {
   if (typeof doc == "undefined") {
-   // enable upload buton
-   return
+    $('.form-actions-footer').show()
+    return
   }
-  scope = "tr input[id='documents_document_key'][value='" + doc.document_key + "']"
-  loader = $('tbody').find(scope).parent().find('#loader').addClass("loader")
+
+  add_remove_loader(doc.document_key, true)
 
   $.post({
     url: $('#documents').attr('action'),
@@ -50,7 +51,28 @@ function upload_doc(doc) {
       upload_doc(extract_document())
     }
   }).fail(function() {
-      flash_alert('Unable to download document ' + extract_document().documents_display_name)
+      doc = extract_document()
+      first_checked().prop('checked', false);
+      add_remove_loader(doc.document_key, false)
+      flash_alert('Unable to download document ' + doc.display_name)
+      upload_doc(extract_document())
   })
 }
+
+function first_checked(){
+  return $(".documents tbody tr td input:checked").first()
+}
+
+// Add/remove loader gif
+function add_remove_loader(key, add){
+  scope = "tr input[id='documents_document_key'][value='" + key + "']"
+  loader = $('tbody').find(scope).parent().find('#loader')
+  if (add){
+    loader.addClass("loader")
+  }
+  else {
+    loader.removeClass("loader")
+  }
+}
+
 
