@@ -60,24 +60,6 @@
   background-size: cover;
 }
 
-.perks-summary {
-  margin: 0% -2%;
-  padding: $spacing-small;
-  position: relative;
-
-  .perks-content {
-    height: 160px;
-  }
-
-  .perks-description {
-    position: absolute;
-    top: 40%;
-    width: 98%;
-    text-align: center;
-    padding-right: $spacing-small;
-  }
-}
-
 .branded-perk {
   .perks-summary {
     padding-top: $spacing-medium + $spacing-small;

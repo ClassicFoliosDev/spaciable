@@ -114,8 +114,15 @@ class CustomTile < ApplicationRecord
   end
 
   def iframeable?
-    response = HTTParty.get(link, :verify => false)
-    return false if response.headers.has_key?("x-frame-options")
+    response = HTTParty.get(link, verify: false)
+    return false if response.headers.key?("x-frame-options")
     true
+  rescue
+    false
+  end
+
+  def self.delete_disabled(features, developments)
+    tiles = CustomTile.where(development_id: developments, feature: features)
+    tiles.destroy_all
   end
 end
