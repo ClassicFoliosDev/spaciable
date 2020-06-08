@@ -44,8 +44,12 @@
               <% if appliance.choice == false %>
                 <%= edit_btn edit_appliance_path(appliance), element: appliance %>
                 <% if cancrud %>
-                  <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
-                    <%= fa_icon "trash-o" %>
+                  <% if current_user.cf_admin? %>
+                    <%= link_to remove_appliance_path(room: room, appliance: appliance, plot: plot), class: "btn remove" do %>
+                      <%= fa_icon "trash-o" %>
+                    <% end %>
+                  <% else %>
+                    <%= delete_lnk remove_appliance_path(room: room, appliance: appliance, plot: plot), text: t(".delete_app_from_room", app: appliance.model_num, room: room.name), confirm: true, override: true %>
                   <% end %>
                 <% end %>
               <% end %>

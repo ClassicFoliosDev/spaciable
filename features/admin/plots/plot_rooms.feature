@@ -76,7 +76,7 @@ Feature: Plot Rooms
     Then I cannot edit or delete the appliance or finish
     Given all the plots are release completed
     When I go to review the plot rooms
-    And I remove a finish from the plot
+    And I CAS remove a finish from the plot
     Then I should see the finish remove is successful
     When I remove an appliance from the plot
     Then I should see the appliance remove is successful
