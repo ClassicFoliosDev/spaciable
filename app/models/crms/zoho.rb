@@ -5,6 +5,7 @@ module Crms
   class Zoho < Crms::Root
     include ActiveModel::Model
     require "fileutils"
+    require "tempfile"
 
     require "ZCRMSDK"
     include HTTParty
@@ -50,7 +51,7 @@ module Crms
 
       # Get the matching z (zoho) and (s) spaciable records
       matching_records(parent, s_children, c_ident) do |_, s|
-        Crms::Zoho.new(s).documents.each { |doc| docs << doc }
+        Crms::Zoho.new(s).documents&.each { |doc| docs << doc }
       end
 
       docs
@@ -88,7 +89,7 @@ module Crms
         next unless residents
 
         plot = Crms::Root::Plot.new(id: s.id, number: s.number)
-        residents.each do |resident|
+        residents&.each do |resident|
           plot.residents << Crms::Root::Resident.new(
             title: resident.field_data["Title"].downcase,
             first_name: resident.field_data["Name"],
@@ -109,19 +110,21 @@ module Crms
 
     # download an individual document
     def download_doc(params)
-      Crms::Document.transaction do
+      file = nil
+      ::Document.transaction do
         # create a document record
-        doc = Crms::Document.create(title: params[:display_name],
-                                    file: params[:file_name],
-                                    original_filename: params[:file_name],
-                                    category: params[:category],
-                                    user_id: RequestStore.store[:current_user].id,
-                                    documentable_type: @parent.class,
-                                    documentable_id: @parent.id,
-                                    updated_at: params[:updated_at].to_datetime)
-
-        download(Crms::Root::Document.new(params), doc.id)
+        file = download(params) # download to /tmp
+        doc = ::Document.new(file: file,
+                             title: params[:display_name],
+                             original_filename: params[:file_name],
+                             category: params[:category],
+                             user_id: RequestStore.store[:current_user].id,
+                             documentable: @parent,
+                             updated_at: params[:updated_at].to_datetime)
+        doc.save! # save will copy file from tmp to file/aws storage
       end
+    ensure
+      file&.tempfile&.unlink if file
     end
 
     # get the records in the supplied list (module) that are related to 'this'
@@ -190,13 +193,20 @@ module Crms
       nil
     end
 
-    # Dowwload and save a single attached document
-    def download(document, id)
-      record = ZCRMSDK::Operations::ZCRMRecord.get_instance(@mod[:name], document.record_key)
-      res = record.download_attachment(document.document_key)
-      path = FileUtils.mkdir_p "#{DOCS_FOLDER}/#{id}"
-      filepath = "#{path[0]}/#{res.filename}"
-      File.write(filepath, res.response.force_encoding("UTF-8"))
+    # Download document to /tmp an give it a random filename
+    def download(params)
+      record = ZCRMSDK::Operations::ZCRMRecord.get_instance(@mod[:name], params[:record_key])
+      res = record.download_attachment(params[:document_key])
+
+      # Create a tempfile - this generates a unique temp name
+      temp = Tempfile.new([res.filename, File.extname(res.filename)])
+      temp.write(res.response.force_encoding("UTF-8"))
+      temp.close
+
+      # Uploaded file ensures temp file name converts to original filename
+      file = ActionDispatch::Http::UploadedFile.new(tempfile: temp)
+      file.original_filename = res.filename
+      file
     end
 
     # Identify the parent (ie Developments) related records (ie Plots)
@@ -209,7 +219,7 @@ module Crms
       z_recs = Crms::Zoho.new(parent).related(@mod[:name], filter: identities)
 
       # go through each matching Zoho record
-      z_recs.each do |zr|
+      z_recs&.each do |zr|
         # get the matching Spaciable child
         child = s_children.find_by(c_ident => zr.field_data["Name"])
         next unless child

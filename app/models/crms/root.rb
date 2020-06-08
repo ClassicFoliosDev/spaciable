@@ -123,7 +123,7 @@ module Crms
     # filename and updated_at match
     def rationalise!(documents)
       documents.delete_if do |d|
-        parent.documents.where(file: d.file_name,
+        parent.documents.where(original_filename: d.file_name,
                                updated_at: d.updated_at).present?
       end
     end
