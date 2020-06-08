@@ -113,9 +113,8 @@ class CustomTile < ApplicationRecord
     documents.find_by(guide: "reservation")
   end
 
-  def iframeable?
-    response = HTTParty.get(link, verify: false)
-    return false if response.headers.key?("x-frame-options")
+  def iframeable?(link)
+    return false if HTTParty.get(link, verify: false).headers.key?("x-frame-options")
     true
   rescue
     false
