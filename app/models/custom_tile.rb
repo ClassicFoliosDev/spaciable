@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CustomTile < ApplicationRecord
+  include HTTParty
+
   belongs_to :development
 
   mount_uploader :file, DocumentUploader
@@ -109,5 +111,11 @@ class CustomTile < ApplicationRecord
 
   def reservation_guide(documents)
     documents.find_by(guide: "reservation")
+  end
+
+  def iframeable?
+    response = HTTParty.get(link, :verify => false)
+    return false if response.headers.has_key?("x-frame-options")
+    true
   end
 end
