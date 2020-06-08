@@ -10,7 +10,12 @@
     <% if tile.document? %>
       <%= link_to tile.button, tile.document_location(documents), target: '_blank', class: "branded-btn" %>
     <% else %>
-      <%= link_to tile.button, custom_link_path(title: tile.title, page: tile.link), class: "branded-btn" %> <!-- we need to create a new page and iframe this link -->
+      <% link = tile.formatted_link %>
+      <% if tile.iframeable?(link) %>
+        <%= link_to tile.button, custom_link_path(title: tile.title, page: link), class: "branded-btn" %>
+      <% else %>
+        <%= link_to tile.button, link, class: "branded-btn" %>
+      <% end %>
     <% end %>
   </div>
 </div>

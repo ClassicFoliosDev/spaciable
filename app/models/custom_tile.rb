@@ -124,4 +124,8 @@ class CustomTile < ApplicationRecord
     tiles = CustomTile.where(development_id: developments, feature: features)
     tiles.destroy_all
   end
+
+  def formatted_link
+    link !~ /\A(http)/ ? "https://#{link}" : link
+  end
 end
