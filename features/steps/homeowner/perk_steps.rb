@@ -21,7 +21,7 @@ end
 def resident_perks_account
  # check the sign up page and button are accessible
   within ".perks-button" do
-    find(".branded-btn-inverted").trigger('click')
+    find(".branded-btn").trigger('click')
   end
 
   find(".activate-perks-account")
@@ -239,7 +239,7 @@ end
 
 Then(/^I see the perks coming soon link$/) do
   call_api_no_user_account
-  visit "/"
+  visit "/dashboard"
   within ".perks-summary" do
     expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=coming_soon")

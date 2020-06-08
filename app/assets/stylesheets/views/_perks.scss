@@ -38,17 +38,6 @@
   }
 }
 
-@include media($tablet-landscape-down) {
-  .perks {
-    .perks-description {
-      .perks-half {
-        padding: 0;
-        text-align: center;
-      }
-    }
-  }
-}
-
 .unbranded-perk {
   background: $primary-navy;
   background-size: 100%;
@@ -69,4 +58,15 @@
 .branded-explanation {
   margin-top: $spacing-small * 2;
   font-style: italic;
+}
+
+@include media($tablet-landscape-down) {
+  .perks {
+    .perks-description {
+      .perks-half {
+        padding: 0;
+        text-align: center;
+      }
+    }
+  }
 }
