@@ -79,7 +79,7 @@
         <% end %>
 
         <% if plot.house_search %>
-          <a href="https://www.bestarea4me.com/demo" class="navbar-link" target="_blank">
+          <a href="<%= ENV.fetch('BA4M_URL') %>" class="navbar-link" target="_blank">
             <li class="navbar-item">
               <%= t(".house_search") %>
             </li>

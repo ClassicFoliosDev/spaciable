@@ -7,6 +7,6 @@
     <p class="tile-description branded-text"><%= t(".description") %></p>
   </div>
   <div class="tile-button">
-    <%= link_to t(".button"), "https://www.bestarea4me.com/demo", target: "_blank", class: "branded-btn" %>
+    <%= link_to t(".button"), ENV.fetch('BA4M_URL'), target: "_blank", class: "branded-btn" %>
   </div>
 </div>
