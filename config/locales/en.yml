@@ -1052,9 +1052,9 @@ en:
         range_summary: "Reports may be large. Use the date ranges to reduce the content."
         range_dev: "Development and Developer Reports filter plots with reservation and/or completion release dates within the selected date range."
         range_all: "Summary Report filters developers created within the selected date range."
-        type_summary: "Use Plot Release Type to select the type of plots you want content for."
+        type_summary: "Use Filter to select the type of plots you want content for."
         type_dev: "Development and Developer reports filter plots by reservation or completion release date, as selected."
-        type_all: "Summary Report and Billing Report are not affected by the Plot Release Type selection."
+        type_all: "Summary Report and Billing Report are not affected by the Filter selection."
 
   dashboard:
     header: "Dashboard title for Spaciable"
@@ -3416,7 +3416,7 @@ en:
       report:
         report_from: "From"
         report_to: "Until"
-        plot_type: "Plot Release Type"
+        plot_type: "Filter"
     errors:
       messages:
         blank: " is required, and must not be blank."

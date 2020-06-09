@@ -23,7 +23,7 @@
             label: t("activerecord.attributes.report.report_to"),
             as: :date,
             order: [:day, :month, :year],
-            start_year: Date.today.year,
+            start_year: Date.today.year + 1,
             end_year: 2017 %>
       </div>
       <div class="plot-type ui-front select-container">

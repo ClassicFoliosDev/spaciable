@@ -3,7 +3,7 @@
 module Admin
   module AnalyticsHelper
     def plot_type_collection
-      [%w[All all], %w[Reservation res], %w[Completion comp], %w[Created created]]
+      [%w[Res&Comp all], %w[Reservation res], %w[Completion comp], %w[Created created], %w[Expired expired]]
     end
   end
 end
