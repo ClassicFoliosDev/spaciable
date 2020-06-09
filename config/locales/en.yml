@@ -1050,11 +1050,11 @@ en:
         billing: "Billing Report (All Developers)"
         perks: "Buyers' Club Report"
         range_summary: "Reports may be large. Use the date ranges to reduce the content."
-        range_dev: "Development and Developer Reports filter plots with reservation and/or completion release dates within the selected date range."
-        range_all: "Summary Report filters developers created within the selected date range."
+        range_perk: "Buyers' Club reports will return accounts created within the selected range."
+        range_all: "Development, Developer and Billing reports return plots matching the Filter option, within the selected range."
         type_summary: "Use Filter to select the type of plots you want content for."
-        type_dev: "Development and Developer reports filter plots by reservation or completion release date, as selected."
-        type_all: "Summary Report and Billing Report are not affected by the Filter selection."
+        type_dev: "Development, Developer and Billing reports filter plots by all Filter options, as selected."
+        type_all: "Summary and Buyers' Club reports are not affected by the Filter selection."
 
   dashboard:
     header: "Dashboard title for Spaciable"
