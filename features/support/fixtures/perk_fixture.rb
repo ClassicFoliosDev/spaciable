@@ -103,6 +103,7 @@ module PerkFixture
 
   def create_perk_resident
     FactoryGirl.create(:development, name: development_name, developer: developer) unless development
+    FactoryGirl.create(:custom_tile, development_id: development.id, feature: "perks")
     FactoryGirl.create(:phase, name: phase_name, development: development)
     FactoryGirl.create(:unit_type, name: unit_type_name, development: development)
     FactoryGirl.create(:phase_plot, phase: phase, number: plot_name, unit_type: unit_type)

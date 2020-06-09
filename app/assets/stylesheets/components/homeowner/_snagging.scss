@@ -271,6 +271,12 @@
       width: 100%;
     }
   }
+
+  .new-snag {
+    p {
+      font-size: $base-small-font-size;
+    }
+  }
 }
 
 @include media($tablet-portrait-down) {
@@ -282,6 +288,7 @@
     float: none;
     text-align: center;
     margin-right: 0;
+    font-size: $base-small-font-size;
   }
 
   .new-snag .branded-btn {
