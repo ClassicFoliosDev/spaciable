@@ -20,7 +20,7 @@ end
 
 def resident_perks_account
  # check the sign up page and button are accessible
-  within ".perks-button" do
+  within first(".perks-button") do
     find(".branded-btn").trigger('click')
   end
 
