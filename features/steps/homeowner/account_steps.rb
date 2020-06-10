@@ -412,7 +412,7 @@ When(/^I select no services$/) do
 end
 
 Then(/^I should be redirected to the homeowner root page$/) do
-  expect(current_path).to eq '/'
+  expect(current_path).to eq '/dashboard'
 end
 
 Then(/^I cannot see the intro video link in my account$/) do
