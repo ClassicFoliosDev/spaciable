@@ -160,6 +160,11 @@
     }
   }
 
+  .main-container .how-tos .article {
+    @include span-columns(6 of 12);
+    @include omega(2n);
+  }
+
   .article-container {
     .article, .recommended-articles  {
       @include span-columns(12 of 12);
@@ -229,6 +234,11 @@
       @include span-columns(12 of 12);
       @include omega-reset(2n);
     }
+  }
+
+  .main-container .how-tos .article {
+    @include span-columns(12 of 12);
+    @include omega-reset(2n);
   }
 
   .article-container {
