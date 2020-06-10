@@ -14,7 +14,7 @@
       <% if tile.iframeable?(link) %>
         <%= link_to tile.button, custom_link_path(title: tile.title, page: link), class: "branded-btn" %>
       <% else %>
-        <%= link_to tile.button, link, class: "branded-btn" %>
+        <%= link_to tile.button, link, target: '_blank', class: "branded-btn" %>
       <% end %>
     <% end %>
   </div>
