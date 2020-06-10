@@ -209,8 +209,6 @@ end
 
 When(/^I refer a friend$/) do
   visit "/"
-  sleep 0.5
-  save_and_open_screenshot
 
   within ".refer-summary" do
     click_on t("homeowners.dashboard.tiles.referrals.title")
