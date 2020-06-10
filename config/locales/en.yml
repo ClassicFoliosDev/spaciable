@@ -914,6 +914,8 @@ en:
         job_title: "Job Title"
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
+        invitation_emails: "Resident Invitation Emails" 
+        receive_invitation_emails: "Receive resident invitation emails"
       index:
         title: "Admins."
         add: "Add User"

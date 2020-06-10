@@ -81,7 +81,8 @@ module Admin
         :permission_level_type, :password, :password_confirmation,
         :current_password, :picture, :picture_cache,
         :job_title, :receive_release_emails, :snag_notifications,
-        :receive_choice_emails, :branch_administrator, :cas
+        :receive_choice_emails, :branch_administrator, :cas,
+        :receive_invitation_emails
       )
     end
   end
