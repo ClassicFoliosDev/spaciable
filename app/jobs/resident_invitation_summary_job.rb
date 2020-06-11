@@ -3,7 +3,8 @@
 class ResidentInvitationSummaryJob < ApplicationJob
   queue_as :mailer
 
-  def perform(users)
+  def perform
+    users = User.where(receive_invitation_emails: true).where.not(permission_level_id: nil)
     users.each { |user| build_report(user) }
   end
 
@@ -14,6 +15,6 @@ class ResidentInvitationSummaryJob < ApplicationJob
     residencies = PlotResidency.where(plot_id: plots,
                                       created_at: ((Time.zone.now - 300.days)..Time.zone.now))
 
-    InvitationSummaryMailer.resident_summary(user, residencies).deliver_later
+    InvitationSummaryMailer.resident_summary(user, residencies.to_a).deliver_later if residencies
   end
 end
