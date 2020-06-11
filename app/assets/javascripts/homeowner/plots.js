@@ -5,11 +5,8 @@
     $('.plot-list').toggleClass('hidden')
   })
 
-  $(document).on('click', '.plot-summary', function (event) {
+  $(document).on('click', '.plot-summary, .branded-logo, .library-component .branded-btn, .my-home .branded-btn, .navbar-item', function (event) {
     $("[data-test='brand-style-overrides']").remove()
   })
 })(document, window.jQuery)
 
-document.addEventListener("turbolinks:before-cache", () => {
-  $("[data-test='brand-style-overrides']").remove()
-})
