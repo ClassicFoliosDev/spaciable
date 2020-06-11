@@ -9,3 +9,7 @@
     $("[data-test='brand-style-overrides']").remove()
   })
 })(document, window.jQuery)
+
+document.addEventListener("turbolinks:before-cache", () => {
+  $("[data-test='brand-style-overrides']").remove()
+})
