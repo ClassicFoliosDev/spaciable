@@ -1398,7 +1398,9 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
-      next: "Next"
+      skip: "Skip"
+      done: "Done"
+
       splash:
         welcome: "Welcome To"
         your_journey: "Your Journey"
@@ -3319,6 +3321,10 @@ en:
           local_authority: "Local Authority"
           sales_team: "Sales Team"
           utility_supplier: "Utility Supplier"
+          managing_agent: "Managing Agent"
+          warranty_provider: "Warranty Provider"
+          concierge: "Concierge"
+          cust_care: "Customer Care"
       send_to_all:
         all: "All"
       maintenance:
@@ -3553,7 +3559,8 @@ en:
       positive: "Positive"
       negative: "Negative"
       not_applicable: "Not Applicable"
-      next: "Next"
+      done: "Done"
+      skip: "Skip"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
@@ -3575,8 +3582,8 @@ en:
       question: "Question"
       answer: "Response Heading"
       response: "Response Content"
-      positive: "Affirmative Button Text"
-      negative: "Negative Button Text"
+      positive: "Button Text: Task Completed"
+      negative: "Button Text: Reveal Response"
       not_applicable: "Not Applicable"
       not_applicable_text: "Show the Not Applicable button"
       cancel: "Cancel"
@@ -3593,6 +3600,7 @@ en:
         add: "Add Feature"
         delete: "Delete Feature"
         title: "Button Text"
+        precis: "Precis"
         description: "Description"
         link: "Link"
       action:
