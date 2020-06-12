@@ -1,0 +1,20 @@
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p><%= t("invitation_summary_mailer.resident_summary.hello", name: @user.first_name) %></p>
+
+<p><%= t("invitation_summary_mailer.resident_summary.report") %></p>
+
+<p><%= t("invitation_summary_mailer.resident_summary.summary", permission: @user.permission_level,
+                                                               invitations: @invitations_count,
+                                                               active: @invitations_count - @inactive_residencies.size,
+                                                               inactive: @inactive_residencies.size) %></p>
+
+<% if @inactive_residencies.size.positive? %>
+  <p><%= t("invitation_summary_mailer.resident_summary.inactive") %></p>
+
+  <%= @developments %>
+<% end %>
+
+<p style="text-align: center">
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
+</p>

@@ -15,6 +15,7 @@ class ResidentInvitationSummaryJob < ApplicationJob
     residencies = PlotResidency.where(plot_id: plots,
                                       created_at: ((Time.zone.now - 300.days)..Time.zone.now))
 
-    InvitationSummaryMailer.resident_summary(user, residencies.to_a).deliver_later if residencies
+    InvitationSummaryMailer.resident_summary(user, residencies.to_a)
+                           .deliver_later if residencies.size.positive?
   end
 end

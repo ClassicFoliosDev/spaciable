@@ -2965,6 +2965,15 @@ en:
       header: "Header"
       text: "Content text paragraph"
 
+  invitation_summary_mailer:
+    resident_summary:
+      subject: "Spaciable Activation Report"
+      hello: "Hi %{name},"
+      report: "This is your weekly Spaciable activation report."
+      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents having not accepted the invitation email."
+      inactive: "Below is a list of residents who are yet to activate."
+
   resident_notification_mailer:
     notify:
       new_notification: "You have a new notification from Spaciable"
