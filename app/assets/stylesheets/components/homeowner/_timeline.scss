@@ -342,8 +342,8 @@
           border-radius: 5px;
 
           &:hover {
-            background-color: $ui-grey;
-            font-weight: $bold-font-weight;
+            background-color: $primary-navy;
+            color: $ui-light-grey;
           }
         }
       }
@@ -360,10 +360,6 @@
         @include omega(n);
         padding-bottom: $spacing-large;
         padding-right: $spacing-large;
-
-        h2 {
-          font-size: $title-font-size-3;
-        }
       }
 
       .contact-container {
@@ -430,7 +426,6 @@
           padding-top: $spacing-medium;
 
           .branded-btn-inverted {
-            min-width: 140px;
             color: $ui-white;
             border: 1px solid $primary-navy;
             background-color: $primary-navy;
@@ -610,6 +605,7 @@
             font-size: $base-font-size;
             font-family: $base-font-family;
             line-height: $icon-font-line-height;
+            margin: 0 $spacing-small 0 $spacing-small;
 
             &:hover {
               background-color: $ui-grey;
@@ -619,7 +615,7 @@
           }
 
           .btn {
-            margin-right: $spacing-large;
+            margin: 0 $spacing-small 0 $spacing-small;
           }
         }
       }

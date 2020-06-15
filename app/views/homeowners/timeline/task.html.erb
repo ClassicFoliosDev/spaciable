@@ -74,6 +74,7 @@
           <% contacts = @task.contacts(@plot) %>
           <% if contacts %>
             <aside class="contact-container">
+              <h4><%= t("homeowners.timeline.contacts") %></h4>
               <% contacts.each do |contact| %>
                 <div class="contact">
                   <div class="avatar">

@@ -87,7 +87,8 @@
 
             <!-- can't show contact info because preview isn't associated with a plot -->
             <aside class="contact-container">
-              <p class="disclaimer">If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes.</p>
+              <h4><%= t(".contacts") %></h4>
+              <p class="disclaimer"> <%= t(".contacts_disclaimer") %></p>
               <div class="contact">
                 <div class="avatar" style="background-image: url('<%= asset_path('example_contact.png') %>')">
 

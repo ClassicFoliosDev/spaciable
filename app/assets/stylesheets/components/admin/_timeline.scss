@@ -230,6 +230,7 @@
           p {
             font-size: $title-font-size-2;
             line-height: $title-font-size-1;
+            font-weight: $bold-font-weight;
           }
         }
 
@@ -276,13 +277,8 @@
         margin-right: 0;
         padding-right: $spacing-small;
 
-        h2 {
-          font-size: $title-font-size-3;
-        }
-
         .useful-extras {
           .timeline-btn {
-            min-width: 140px;
             color: $ui-white;
             background-color: $primary-navy;
             border: 1px solid $primary-navy;
