@@ -12,7 +12,15 @@
 <% if @inactive_residencies.size.positive? %>
   <p><%= t("invitation_summary_mailer.resident_summary.inactive") %></p>
 
-  <%= @developments %>
+  <% @inactive_residencies.each do |div, dp| %>
+    <h3><%= div if @user.permission_level.is_a?(Developer)%> </h3>
+    <% dp.each do |dp, res| %>
+      <h4><%= dp %></h4>
+      <% res.each do |r| %>
+        <span><%= "#{r[:invitation_date]}, Plot #{r[:plot]}: #{r[:email]}" %></span><br/>
+      <% end %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <p style="text-align: center">

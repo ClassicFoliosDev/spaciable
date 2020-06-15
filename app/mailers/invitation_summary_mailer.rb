@@ -14,30 +14,23 @@ class InvitationSummaryMailer < ApplicationMailer
       plot = Plot.find(r.plot_id)
       residency = {
         email: Resident.find(r.resident_id).email,
-        invitation_date: r.created_at.strftime("%d %B"),
+        invitation_date: r.created_at.strftime("%d-%m-%Y"),
         plot: plot.number,
-        phase: Phase.find(plot.phase_id).name,
-        development: Development.find(plot.development_id).name,
+        dev_phase: [Development.find(plot.development_id).name, Phase.find(plot.phase_id).name].compact.join(", "),
         division: Division.find_by(id: plot.division_id)&.division_name
       }
 
       inactive << residency
     end
 
-    @inactive_residencies = inactive
+    inactive.sort_by! { |r| [ r[:development], r[:phase], r[:invitation_date] ] }
 
+    @inactive_residencies = {}
     divisions = inactive.group_by { |r| r[:division] }
-#     developments = divisions.group_by { |div, arr| arr[:development] }
 
-#     divisions.each { |d, v| puts "######################### #{v}" }
-    @developments = divisions.each do |d, v|
-      v.group_by { |r| r[:development] }
-#       puts "################################ #{x}"
+    divisions.each do |d, v|
+      @inactive_residencies[d] = v.group_by { |r| r[:dev_phase] }
     end
-
-#     puts "#################### #{developments}"
-
-#     @inactive_residencies.sort_by! { |r| [ r[:development], r[:phase], r[:plot] ] }
 
     mail to: @user.email,
          subject: I18n.t("invitation_summary_mailer.resident_summary.subject")
