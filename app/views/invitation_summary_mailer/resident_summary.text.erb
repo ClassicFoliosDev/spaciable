@@ -1,0 +1,26 @@
+<%= t("invitation_summary_mailer.resident_summary.hello", name: @user.first_name) %>
+
+<%= t("invitation_summary_mailer.resident_summary.report") %>
+
+<%= t("invitation_summary_mailer.resident_summary.summary", permission: @user.permission_level,
+                                                            invitations: @invitations_count,
+                                                            active: @invitations_count - @inactive_residencies.size,
+                                                            inactive: @inactive_residencies.size) %>
+
+<% if @inactive_residencies.size.positive? %>
+<%= t("invitation_summary_mailer.resident_summary.inactive") %>
+
+<% @inactive_residencies.each do |div, dp| %>
+<%= div if @user.permission_level.is_a?(Developer)%>
+
+<% dp.each do |dp, res| %>
+<%= dp %>
+
+<% res.each do |r| %>
+<%= "#{r[:invitation_date]}, Plot #{r[:plot]}: #{r[:email]} \n" %>
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+
+<%= t(".login") %> <%= new_admin_session_url %>

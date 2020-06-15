@@ -36,6 +36,6 @@ every 1.day, at: '2:00 am' do
 end
 
 # admin resident invitation email report
-every :monday, at: '9:00am' do
+every :monday, at: '8:00am' do
   runner "Invitation.resident_invitation_summary"
 end
