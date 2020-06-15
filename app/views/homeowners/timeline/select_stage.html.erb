@@ -14,12 +14,10 @@
       <div class="step-options">
         <div class="stages">
           <% @timeline.stages.each do |stage| %>
-            <div class="stage timeline-stage-option">
-              <%= link_to homeowner_timeline_path(:page => "timeline_task", :stage => stage.id), class: "btn" do %>
-                <i id="icon<%=stage.title%>"></i>
-                <span class="btn-label"><%= t(".#{stage.title.downcase}") %></span>
-              <% end %>
-            </div>
+            <%= link_to homeowner_timeline_path(:page => "timeline_task", :stage => stage.id), class: "stage timeline-stage-option" do %>
+              <i id="icon<%=stage.title%>"></i>
+              <p class="timeline-btn-label"><%= stage.title %></p>
+            <% end %>
           <% end %>
         </div>
       </div>

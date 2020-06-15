@@ -311,7 +311,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
-        timeline: "My Journey"
+        timeline: "Your Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -1816,7 +1816,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey"
+      timeline: "Your Journey"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -1849,7 +1849,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "My Journey"
+      timelines: "Your Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
