@@ -10,6 +10,13 @@
 
     .timeline-title {
       padding: $spacing-large;
+      text-align: center;
+
+      .timeline-graphic {
+        display: inline-block;
+        width: 40%;
+        padding-bottom: $spacing-large;
+      }
 
       .welcome {
         font-weight: normal;
@@ -763,6 +770,14 @@
   }
 }
 
+@include media(new-breakpoint(max-width 770px)) {
+  .timeline-splash .timeline-header .timeline-title {
+    .timeline-graphic {
+      width: 60%;
+    }
+  }
+}
+
 // small tablet landscape
 @include media($tablet-landscape-down) {
   .timeline-step .step-options .stages .stage {
@@ -840,6 +855,10 @@
 
 @include media($tablet-portrait-down) {
   .timeline-splash .timeline-header .timeline-title {
+    .timeline-graphic {
+      width: 90%;
+    }
+
     .welcome {
       font-size: $title-font-size-3;
     }
