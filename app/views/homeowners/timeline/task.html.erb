@@ -12,7 +12,7 @@
               <p> <%= @task.stage_title %></p>
             </div>
             <div class="progress">
-              <!-- igloo progress image goes here -->
+              <%= image_tag @plot_timeline.progress_icon %>
             </div>
           </div>
         </div>
@@ -24,8 +24,9 @@
           <p> <%= @task.stage_title %></p>
         </div>
         <div class="progress">
-          <!-- igloo progress image goes here -->
-          <!-- DOES ELLIS UNDERSTAND THAT WE CAN'T ACTUALLY IMPLEMENT HIS DESIGNS IF HE DOESN'T SEND THEM TO US -->
+          <span class="progress-icon">
+            <%= image_tag @plot_timeline.progress_icon %>
+          </span>
         </div>
       </div>
 

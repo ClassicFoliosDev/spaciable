@@ -152,8 +152,8 @@
       width: 100%;
 
       .title {
-        width: 60%;
         display: table-cell;
+        float: left;
 
         .fa, .fas {
           font-size: $title-font-size-3;
@@ -174,8 +174,8 @@
         }
       }
 
-      .igloo {
-        width: 40%;
+      .progress {
+        width: 30%;
         display: table-cell;
       }
     }
@@ -903,14 +903,24 @@
           .progress-container {
             position: absolute;
             bottom: 0;
+            width: 100%;
 
             .title {
               color: $ui-white;
+              padding-top: 40px;
+              float: left;
 
               p {
                 color: $ui-white;
                 margin-bottom: $spacing-small;
               }
+            }
+
+            .progress {
+              width: 110px;
+              display: inline-block;
+              float: right;
+              padding-right: $spacing-medium;
             }
           }
         }
@@ -1054,7 +1064,7 @@
           padding: $spacing-small;
 
           .title {
-            width: 60%;
+            float: left;
             display: table-cell;
 
             .fa, .fas {
@@ -1069,8 +1079,8 @@
             }
           }
 
-          .igloo {
-            width: 40%;
+          .progress {
+            width: 30%;
             display: table-cell;
           }
         }
@@ -1083,6 +1093,17 @@
           }
         }
       }
+    }
+  }
+}
+
+@include media($mobile-down) {
+  .timeline-task .timeline-content #question .actions {
+    text-indent: 0;
+    padding-left: 12px;
+
+    .not-applicable {
+      margin-left: 0;
     }
   }
 }

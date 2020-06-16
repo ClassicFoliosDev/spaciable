@@ -22,4 +22,20 @@ class PlotTimeline < ApplicationRecord
     timeline.tasks.count ==
       task_logs.where(response: :positive).count
   end
+
+  def progress_icon
+    percent = task_logs.where(response: "positive").count.to_f / task_logs.count
+    case percent
+    when 0...0.1
+      "igloo_2.svg"
+    when 0.1...0.4
+      "igloo_2.svg"
+    when 0.4...0.7
+      "igloo_3.svg"
+    when 0.7...1
+      "igloo_4.svg"
+    when 1
+      "igloo_comp.svg"
+    end
+  end
 end
