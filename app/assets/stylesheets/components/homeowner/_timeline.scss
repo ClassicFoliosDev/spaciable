@@ -183,6 +183,7 @@
     .list-stages {
       height: 100%;
       overflow-y: scroll;
+      overflow-x: hidden;
       padding-bottom: $spacing-large * 2;
 
       .vertical {
@@ -359,12 +360,18 @@
         @include span-columns(7 of 12);
         @include omega(n);
         padding-bottom: $spacing-large;
-        padding-right: $spacing-large;
+        padding-right: $spacing-large * 2;
+        padding-left: $spacing-large * 2;
+
+        h2 {
+          padding-bottom: $spacing-large;
+        }
       }
 
       .contact-container {
         @include span-columns(5 of 12);
-        padding-left: $spacing-large;
+        padding-left: $spacing-large * 2;
+        padding-right: $spacing-large;
         padding-top: $spacing-small;
         margin-right: 0;
 
@@ -723,6 +730,11 @@
           padding-left: $spacing-large * 2;
         }
       }
+      #answer {
+        .answer_container {
+          padding-left: $spacing-large * 2;
+        }
+      }
     }
   }
 }
@@ -771,10 +783,12 @@
         .answer-container {
           @include span-columns(12 of 12);
           padding: $spacing-large;
+          padding-left: $spacing-large * 2;
         }
 
         .contact-container {
-          @include span-columns(12 or 12)
+          @include span-columns(12 of 12);
+          padding-bottom: $spacing-large;
         }
       }
 
@@ -936,11 +950,14 @@
 
         .question-content {
           padding: 0;
+          text-indent: 12px;
 
           .content {
+            text-indent: 0;
             .branded-text {
               font-size: $title-font-size-4;
               line-height: $title-font-size-2;
+
             }
           }
         }
@@ -956,6 +973,7 @@
           }
           .not-applicable {
             width: 130px;
+            margin-left: 12px;
           }
         }
       }
@@ -966,15 +984,30 @@
         .answer-container {
           width: 100%;
           padding: 0;
+          padding-left: 6px;
+          text-indent: 0;
 
           h2 {
             font-size: $title-font-size-4;
+            padding-bottom: $spacing-medium;
           }
         }
 
         .contact-container {
           width: 100%;
           padding: $spacing-medium 0;
+          text-indent: 6px;
+
+          .contact {
+            .avatar {
+              margin-right: 4px;
+            }
+            .contact-info {
+              padding-left: 6px;
+              text-indent: 0;
+            }
+          }
+
         }
 
         .timeline-footer {
@@ -992,11 +1025,17 @@
               width: 210px;
               grid-template-columns: 70px 70px 70px;
               grid-template-rows: 70px 70px 70px;
+              text-indent: 0;
+            }
+
+            #shortcutButton {
+              text-indent: 0;
             }
           }
 
           .next {
             padding: $spacing-small;
+            text-indent: 0;
 
             .branded-btn {
               margin: $spacing-small;

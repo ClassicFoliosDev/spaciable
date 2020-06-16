@@ -63,9 +63,8 @@
               <% @task.features&.each do |feature| %>
                 <div class="features-container">
                   <p><%= Lookup.parse(feature.precis, @plot, current_resident) %></p>
-
-                  <p><%= Lookup.parse(feature.description, @plot, current_resident) %></p>
                   <button onclick="window.open('<%=feature.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
+                  <p><%= Lookup.parse(feature.description, @plot, current_resident) %></p>
                 </div>
               <% end %>
             </aside>
