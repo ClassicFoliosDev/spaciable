@@ -9,9 +9,6 @@
           <h2><%= t("homeowners.timeline.task.header") %></h2>
           <p>Welcome Home</p>
         </div>
-        <div class="progress">
-          <%= image_tag "igloo_comp" %>
-        </div>
       </div>
 
       <%= render "homeowners/timeline/timeline", parent: :complete, timeline: @timeline, task: nil, logs: @logs %>
@@ -23,10 +20,8 @@
         <div class="header">
           <div class="title">
             <i class="fa fa-check branded-text"></i>
-            <p class="branded-text"><%= t(".finale") %></p>
-          </div>
-          <div class="progress">
-            <%= image_tag "igloo_comp" %>
+            <h2><%= t("homeowners.timeline.task.header") %></h2>
+            <p>Welcome Home</p>
           </div>
         </div>
 

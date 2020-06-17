@@ -196,7 +196,11 @@
     <%-# ----------------- TIMELINE ----------------- -%>
     .timeline-step .timeline-header .timeline-title h2,
     .timeline-task .timeline-sidebar .list-stages .sub-stage .active a,
-    .timeline-task .timeline-sidebar .list-stages .stage-title span {
+    .timeline-task .timeline-sidebar .list-stages .stage-title span,
+    .timeline-task .timeline-content .answer-container p,
+    .timeline-task .timeline-content .complete-content .complete .text p,
+    #timelineContentMobile .complete-content .header h2,
+    #timelineContentMobile .complete-content .header p {
       color: <%= brand.branded_text_color %>;
     }
 
@@ -388,12 +392,17 @@
     .timeline-task .timeline-content #question .actions .branded-btn,
     .timeline-task .timeline-content #answer .timeline-footer .next input,
     .timeline-splash .timeline-actions .timeline-btn,
-    .timeline-step .step-options .next input {
+    .timeline-step .step-options .next input,
+    .timeline-task .timeline-content #answer .timeline-footer .next .branded-btn,
+    .timeline-task .timeline-content .complete-content .complete .text .actions .branded-btn-inverted:hover {
       background-color: <%= brand.branded_button_color %>;
     }
 
     .timeline-task .timeline-content #question .actions .branded-btn:hover,
-    .timeline-task .timeline-content #answer .timeline-footer .next input:hover {
+    .timeline-task .timeline-content #answer .timeline-footer .next input:hover,
+    .timeline-task .timeline-content #answer .useful-extras .features-container .branded-btn-inverted,
+    .timeline-task .timeline-content #answer .timeline-footer .next .branded-btn:hover,
+    .timeline-task .timeline-content .complete-content .complete .text .actions .branded-btn-inverted {
       color: <%= brand.branded_button_color %>;
       border-color: <%= brand.branded_button_color %>;
     }
@@ -490,18 +499,24 @@
     .timeline-splash .timeline-actions .timeline-btn:hover,
     .timeline-step .step-options .next .branded-btn:hover,
     .timeline-task .timeline-content #question .actions .branded-btn:hover,
-    .timeline-task .timeline-content #answer .timeline-footer .next input:hover {
+    .timeline-task .timeline-content #answer .timeline-footer .next input:hover,
+    .timeline-task .timeline-content #answer .timeline-footer .next .branded-btn:hover,
+    .timeline-task .timeline-content .complete-content .complete .text .actions .branded-btn-inverted {
       background-color: <%= brand.branded_button_text_color %>;
     }
 
     .timeline-splash .timeline-actions .timeline-btn,
     .timeline-step .step-options .next .branded-btn,
     .timeline-task .timeline-content #question .actions .branded-btn,
-    .timeline-task .timeline-content #answer .timeline-footer .next input {
+    .timeline-task .timeline-content #answer .timeline-footer .next input,
+    .timeline-task .timeline-content #answer .timeline-footer .next .branded-btn,
+    .timeline-task .timeline-content .complete-content .complete .text .actions .branded-btn-inverted:hover {
       border-color: <%= brand.branded_button_text_color %>;
     }
 
-    .timeline-task .timeline-content #answer .timeline-footer .next input {
+    .timeline-task .timeline-content #answer .timeline-footer .next input,
+    .timeline-task .timeline-content #answer .timeline-footer .next .branded-btn,
+    .timeline-task .timeline-content .complete-content .complete .text .actions .branded-btn-inverted:hover {
       color: <%= brand.branded_button_text_color %>;
     }
 

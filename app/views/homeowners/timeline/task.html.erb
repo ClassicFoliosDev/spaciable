@@ -12,7 +12,12 @@
               <p> <%= @task.stage_title %></p>
             </div>
             <div class="progress">
-              <%= image_tag @plot_timeline.progress_icon %>
+              <span class="progress-count">
+                <%= "#{@plot_timeline.progress_percent}%" %>
+              </span>
+              <span class="progress-icon">
+                <%= image_tag "#{@task.stage_title}_igloo.svg" %>
+              </span>
             </div>
           </div>
         </div>
@@ -24,8 +29,11 @@
           <p> <%= @task.stage_title %></p>
         </div>
         <div class="progress">
+          <span class="progress-count">
+            <%= "#{@plot_timeline.progress_percent}%" %>
+          </span>
           <span class="progress-icon">
-            <%= image_tag @plot_timeline.progress_icon %>
+            <%= image_tag "#{@task.stage_title}_igloo.svg" %>
           </span>
         </div>
       </div>
@@ -74,7 +82,7 @@
           <% contacts = @task.contacts(@plot) %>
           <% if contacts %>
             <aside class="contact-container">
-              <h4><%= t("homeowners.timeline.contacts") %></h4>
+              <h4 class="branded-text"><%= t("homeowners.timeline.contacts") %></h4>
               <% contacts.each do |contact| %>
                 <div class="contact">
                   <div class="avatar">
@@ -83,8 +91,8 @@
                     <% end %>
                   </div>
                   <div class="contact-info">
-                    <p class="name"><%= contact.to_s %></p>
-                    <p class="position"><%= contact.position %></p>
+                    <p class="name branded-text"><%= contact.to_s %></p>
+                    <p class="position branded-text"><%= contact.position %></p>
 
                     <% if contact.phone? %>
                       <p class="contact-detail">
