@@ -33,4 +33,10 @@ module NavigationHelper
       "basic"
     end
   end
+
+  # external links
+
+  def area_guide_url
+    ENV.fetch("BA4M_URL")
+  end
 end
