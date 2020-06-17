@@ -10,6 +10,6 @@ RSpec.describe "Admin Redirect" do
 
     get developers_path
 
-    expect(subject).to redirect_to(homeowner_dashboard_path)
+    expect(subject).to redirect_to(dashboard_path)
   end
 end
