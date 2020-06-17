@@ -15,6 +15,7 @@ class Phase < ApplicationRecord
   include InheritParentPermissionIds
 
   belongs_to :developer, optional: false
+  has_one :crm, through: :developer
   delegate :company_name, to: :developer
   belongs_to :division, optional: true
   delegate :division_name, to: :division
@@ -88,6 +89,7 @@ class Phase < ApplicationRecord
   def expired?
     expired = true
     return expired = false if plots.empty?
+
     plots.each do |plot|
       return expired = false unless plot.expired?
     end
@@ -164,6 +166,37 @@ class Phase < ApplicationRecord
       end
     end
     released_count
+  end
+
+  # get the phase plot docs from the crm
+  def sync_docs(plot_numbers)
+    raise "#{name} does not have an associated CRM" unless crm
+
+    filtered_plots(plot_numbers) do |fplots|
+      Crms::Zoho.new(self).documents_for(development, fplots, :number)
+    end
+  end
+
+  # get the phase plot docs from the crm
+  def completion_dates(plot_numbers)
+    raise "#{name} does not have an associated CRM" unless crm
+
+    filtered_plots(plot_numbers) do |fplots|
+      Crms::Zoho.new(self).completion_dates(development, fplots)
+    end
+  end
+
+  # get plot residents
+  def plot_residents(plot_numbers)
+    raise "#{name} does not have an associated CRM" unless crm
+
+    filtered_plots(plot_numbers) do |fplots|
+      Crms::Zoho.new(self).residents(development, fplots)
+    end
+  end
+
+  def filtered_plots(plot_numbers)
+    yield plots.where(number: plot_numbers.split(","))
   end
 
   def descendants

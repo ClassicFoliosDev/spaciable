@@ -58,6 +58,8 @@ class Room < ApplicationRecord
   after_destroy -> { log :deleted }
 
   def cas?
+    return false unless parent
+
     parent.cas
   end
 
@@ -132,6 +134,8 @@ class Room < ApplicationRecord
 
   # Get the current rooms against the plot/unit type
   def current_rooms
+    return nil unless plot
+
     plot ? plot.rooms.to_a : unit_type.rooms.to_a
   end
 

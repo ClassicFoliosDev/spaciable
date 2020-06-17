@@ -1,0 +1,11 @@
+<% breadcrumb :phase_select_plot_docs, @phase %>
+
+<div class="phase">
+  <%= render 'phases/phase', phase: @phase %>
+
+  <%= render partial: 'crms/documents/collection',
+      locals: { path: phase_import_plot_docs_download_path,
+                back: phase_import_index_path(@phase),
+                meta_title: t(".plot"),
+                collection: @collection} %>
+</div>

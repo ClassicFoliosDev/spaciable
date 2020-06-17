@@ -6,6 +6,12 @@
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
       <% end %>
+      <% if parent.crm %>
+        <%= link_to phase_import_index_path(parent), class: "btn btn-primary" do %>
+          <i ></i>
+          <span class="btn-label"><%= t(".sync") %></span>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
 

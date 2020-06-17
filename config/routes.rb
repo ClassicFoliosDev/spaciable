@@ -74,6 +74,26 @@ Rails.application.routes.draw do
     resources :documents, only: [:new, :create]
   end
 
+  # phase import
+  resources :phases do
+    resources :import, only: [:index], controller: 'phases/import'
+  end
+
+  resources :phases do
+    resources :import_completion_dates, only: [:create], controller: 'phases/import_completion_dates'
+    post 'import_completion_dates/index', to: 'phases/import_completion_dates#index'
+  end
+
+  resources :phases do
+    resources :import_residents, only: [:create], controller: 'phases/import_residents'
+    post 'import_residents/index', to: 'phases/import_residents#index'
+  end
+
+  resources :phases do
+    post 'import_plot_docs/index', to: 'phases/import_plot_docs#index'
+    post 'import_plot_docs/download', format: :json, to: 'phases/import_plot_docs#download'
+  end
+
   resources :phases do
     resources :plots, except: :index
     resources :documents, only: [:new, :create]
@@ -147,9 +167,18 @@ Rails.application.routes.draw do
     resources :finales, except: [:index, :destroy]
   end
 
+  # These need to be specified seperately as otherwise best
+  # practices incorrectly calculates the number of customised
+  # routes
+  resources :developers do
+    resources :developments, controller: 'developers/developments' do
+      get :sync_docs, on: :member
+      post :download_doc, on: :member, format: :json
+    end
+  end
+
   resources :developers do
     resources :divisions
-    resources :developments, controller: 'developers/developments'
     resources :documents, only: [:new, :create]
     resources :contacts, shallow: true
     resources :timelines, shallow: true
@@ -165,7 +194,10 @@ Rails.application.routes.draw do
   end
 
   resources :divisions do
-    resources :developments, controller: 'divisions/developments'
+    resources :developments, controller: 'divisions/developments' do
+      get 'sync_docs', on: :member
+      post 'upload_doc', on: :member, format: :json
+    end
     resources :documents, only: [:new, :create]
     resources :contacts, shallow: true
     resources :faqs, shallow: true
@@ -287,6 +319,7 @@ Rails.application.routes.draw do
   get "/dashboard", to: "homeowners/dashboard#show"
   get "/plots", to: "homeowners/plots#show"
   get "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
+  get "/zoho/callback", to: 'authorisation#oauth_callback'
   post "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
 
   authenticated :resident do

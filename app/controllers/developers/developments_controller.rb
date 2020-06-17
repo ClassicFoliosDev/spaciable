@@ -87,6 +87,17 @@ module Developers
       redirect_to [@developer, :developments], notice: notice
     end
 
+    def sync_docs
+      @collection = @development.sync_docs
+      render :sync
+    end
+
+    def download_doc
+      @development.download_doc(params)
+
+      render json: { key: params[:document_key] }
+    end
+
     private
 
     def update_my_home
