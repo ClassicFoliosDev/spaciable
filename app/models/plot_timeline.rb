@@ -24,7 +24,7 @@ class PlotTimeline < ApplicationRecord
   end
 
   def progress_percent
-    return unless task_logs.count.positive?
-    ((task_logs.where(response: "positive").count.to_f / task_logs.count) * 100).to_i
+    return 0 unless timeline.tasks.count.positive?
+    ((task_logs.where(response: "positive").count.to_f / timeline.tasks.count) * 100).to_i
   end
 end

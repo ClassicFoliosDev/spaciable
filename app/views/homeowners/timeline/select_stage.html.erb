@@ -15,8 +15,8 @@
         <div class="stages">
           <% @timeline.stages.each do |stage| %>
             <%= link_to homeowner_timeline_path(:page => "timeline_task", :stage => stage.id), class: "stage timeline-stage-option" do %>
-              <i id="icon<%=stage.title%>"></i>
-              <p class="timeline-btn-label"><%= stage.title %></p>
+              <i id="icon<%=stage.title%>" class="branded-text"></i>
+              <p class="timeline-btn-label branded-text"><%= stage.title %></p>
             <% end %>
           <% end %>
         </div>
