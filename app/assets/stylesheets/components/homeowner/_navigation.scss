@@ -208,9 +208,9 @@ nav {
           text-align: center;
         }
 
-        &:hover {
-          background-color: $ui-light-grey;
+        a:hover {
           cursor: pointer;
+          font-weight: $bold-font-weight;
         }
 
         .navigation-btn {
@@ -221,8 +221,8 @@ nav {
           font-family: $base-font-family;
 
           &:hover {
-            background-color: $ui-light-grey;
             cursor: pointer;
+            font-weight: $bold-font-weight;
           }
         }
 
@@ -360,7 +360,8 @@ nav {
             cursor: pointer;
 
             &:hover {
-              background-color: $ui-light-grey;
+              font-weight: $bold-font-weight;
+              filter: brightness(150%);
             }
 
             a {
