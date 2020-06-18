@@ -456,6 +456,14 @@ nav {
     }
   }
 
+  #acctNav .dropdown-content .links-list button {
+    text-align: left;
+
+    .dropdown-link {
+      padding-left: 10px;
+    }
+  }
+
   .sub-navigation-container {
     .sub-nav-links {
       width: 90%;
@@ -767,50 +775,50 @@ nav {
 
 // mobile view
 @include media($tablet-portrait-down) {
-.sub-navigation-container {
-  padding-top: $spacing-small;
-  text-align: center;
-  background-color: $ui-white;
-  min-height: 30px;
-
-  .sub-nav-links {
-    display: block;
-    width: 100%;
-  }
-
-  .navbar-item {
-    display: inline-block;
-    list-style-type: none;
-    cursor: pointer;
-    vertical-align: bottom;
-
-    &:hover .navbar-item-secondary {
-      opacity: 1;
-    }
-  }
-
-  .navbar-item-secondary {
-    width: 130px;
-    text-align: center;
-    font-weight: bold;
-    text-decoration: none;
-    color: $primary-navy;
-    opacity: 0.7;
-    font-weight: $semi-bold-font-weight;
-    line-height: 34px;
-    margin: auto;
-    line-height: 2.2;
+  .sub-navigation-container {
     padding-top: $spacing-small;
-  }
+    text-align: center;
+    background-color: $ui-white;
+    min-height: 30px;
 
-  .active {
+    .sub-nav-links {
+      display: block;
+      width: 100%;
+    }
+
+    .navbar-item {
+      display: inline-block;
+      list-style-type: none;
+      cursor: pointer;
+      vertical-align: bottom;
+
+      &:hover .navbar-item-secondary {
+        opacity: 1;
+      }
+    }
+
     .navbar-item-secondary {
-      opacity: 1;
-      border-bottom: 2px solid $primary-red-left;
-      line-height: 1.9;
+      width: 130px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      color: $primary-navy;
+      opacity: 0.7;
+      font-weight: $semi-bold-font-weight;
+      line-height: 34px;
+      margin: auto;
+      line-height: 2.2;
+      padding-top: $spacing-small;
+    }
+
+    .active {
+      .navbar-item-secondary {
+        opacity: 1;
+        border-bottom: 2px solid $primary-red-left;
+        line-height: 1.9;
+      }
     }
   }
-}
 
   .lower-navigation {
     .quick-links {
@@ -834,7 +842,7 @@ nav {
 
   .main-navigation .nav-inner .account-navigation {
     .dropdown, .dropdown-content {
-      padding-left: $spacing-small;
+      padding-left: 0;
     }
   }
 }
