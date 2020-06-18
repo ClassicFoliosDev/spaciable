@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Document < ApplicationRecord
+  include CategoryEnum
+
   mount_uploader :file, DocumentUploader
 
   attr_accessor :notify, :files
@@ -19,12 +21,6 @@ class Document < ApplicationRecord
   delegate :partially_expired?, to: :parent
 
   delegate :construction, :construction_name, to: :parent
-
-  enum category: %i[
-    my_home
-    locality
-    legal_and_warranty
-  ]
 
   enum guide: %i[
     reservation
@@ -67,6 +63,7 @@ class Document < ApplicationRecord
                                                (parent.is_a?(Developer) ||
                                                 parent.is_a?(Division)) ||
                                                construction == "residential"
+
     construction_name
   end
 end

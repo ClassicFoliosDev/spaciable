@@ -1,0 +1,37 @@
+<% breadcrumb :phase_crm_import, @phase %>
+
+<div class="phase">
+  <%= render partial: 'phases/phase', locals: { phase: @phase } %>
+
+  <div class="bulk-edit">
+    <%= simple_form_for :select_import_plots, url: phase_import_plot_docs_index_path do |f| %>
+
+      <div class="row">
+        <div class="row-item third">
+          <p><%= t(".description").html_safe %></p>
+          <%= render "components/admin/plots_select", f: f, all_plots: true, phase_id: @phase.id %>
+        </div>
+
+        <div class="row-item third plot-buttons">
+          <div class="plot-field">
+            <%= f.button :submit, t(".sync_plot_docs"), formaction: phase_import_plot_docs_index_path ,disabled: true %>
+          </div>
+          <br/>
+          <div class="plot-field">
+            <%= f.button :submit, t(".sync_dates"), formaction: phase_import_completion_dates_index_path, disabled: true%>
+          </div>
+          <br/>
+          <div class="plot-field">
+            <%= f.button :submit, t(".sync_residents"), formaction: phase_import_residents_index_path, disabled: true %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t("back"), [@phase.development, @phase], class: "btn" %>
+    </div>
+  </div>
+</div>

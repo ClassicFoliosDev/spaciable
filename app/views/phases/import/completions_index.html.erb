@@ -1,0 +1,40 @@
+<% breadcrumb :phase_sync_completion, @phase %>
+
+<% back = phase_import_index_path(@phase) %>
+
+<% if @collection.plots&.empty? %>
+  <%= render 'phases/import/up_to_date', message: t(".empty"), back: back %>
+<% else %>
+  <%= simple_form_for @collection, url: phase_import_completion_dates_path do |f| %>
+    <table class="record-list">
+      <thead>
+        <tr>
+          <th><%= t(".number") %></th>
+          <th><%= t(".crm_completion") %></th>
+          <th><%= t(".s_completion") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :plots do |p| %>
+          <tr>
+            <%= p.hidden_field :id %>
+            <td> <%= label_tag p.object.s_plot.number  %> </td>
+            <td>
+
+              <%= p.input :completion_date, as: :string, placeholder: "DD/MM/YYYY", input_html: { type: :date }, label: false %>
+            </td>
+            <td> <%= label_tag p.object.s_plot.completion_date&.strftime("%d/%m/%Y")  %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t("back"), back, class: "btn" %>
+        <%= f.submit t(".sync"), class: "btn-form-submit btn-primary" %>
+        </div>
+    </div>
+  <% end %>
+<% end %>
+

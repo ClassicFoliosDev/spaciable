@@ -5,6 +5,7 @@ class Development < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :developer, optional: true
+  has_one :crm, through: :developer
   belongs_to :division, optional: true
 
   include PgSearch
@@ -72,6 +73,7 @@ class Development < ApplicationRecord
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_tiles
+  after_save :update_custom_tiles
 
   enum choice_option:
     %i[
@@ -185,6 +187,25 @@ class Development < ApplicationRecord
     true
   end
 
+  # document sync operations need a path to the relevant controller
+  # for 'self' development.  Developments have either a developer or
+  # division centric controller depending on their parent
+  def sync_docs_path
+    [:sync_docs, parent, self]
+  end
+
+  # get the docs from the crm
+  def sync_docs
+    raise "#{name} does not have an associated CRM" unless crm
+    Crms::Zoho.new(self).documents
+  end
+
+  # get the docs from the crm
+  def download_doc(params)
+    raise "#{name} does not have an associated CRM" unless crm
+    Crms::Zoho.new(self).download_doc(params)
+  end
+
   # update existing phases business if development is updated to be commercial
   def set_business
     return unless commercial?
@@ -214,6 +235,18 @@ class Development < ApplicationRecord
     end
   end
   # rubocop:enable LineLength
+
+  # check whether any features have been disabled and delete any relevant custom tiles
+  def update_custom_tiles
+    changed = []
+
+    { "issues" => !Maintenance.exists?(development_id: id),
+      "snagging" => enable_snagging_changed? && !enable_snagging? }.each do |name, disabled|
+      changed << name if disabled
+    end
+
+    CustomTile.delete_disabled(changed, self) unless changed.empty?
+  end
 
   def my_construction_name
     construction_name.blank? ? I18n.t("homeowners.home") : construction_name

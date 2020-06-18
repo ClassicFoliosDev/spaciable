@@ -1,0 +1,11 @@
+<% breadcrumb :sync_development_docs, @development %>
+
+<div class="development">
+
+  <%= render '/developments/development', development: @development %>
+  <%= render partial: 'crms/documents/collection',
+      locals: { path: [:download_doc, @developer, @development],
+                back: [@development.developer, @development, active_tab: :documents],
+                collection: @collection} %>
+
+</div>

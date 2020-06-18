@@ -20,8 +20,8 @@ end
 
 def resident_perks_account
  # check the sign up page and button are accessible
-  within ".perks-button" do
-    find(".branded-btn-inverted").trigger('click')
+  within first(".perks-button") do
+    find(".branded-btn").trigger('click')
   end
 
   find(".activate-perks-account")
@@ -104,7 +104,7 @@ Then(/^I see the basic perks link$/) do
   call_api_no_user_account
 
   visit "/dashboard"
-  within ".perks-summary" do
+  within first(".perks-summary")do
     expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=basic")
   end
@@ -114,7 +114,7 @@ When(/^I sign up to perks then I see the branded perks link$/) do
   no_premium_perks_activated
   resident_perks_account
 
-  within ".perks-summary" do
+  within first(".perks-summary") do
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.activated_perks"), href: PerkFixture.branded_perks_link)
   end
 end
@@ -122,7 +122,7 @@ end
 When(/^I sign up to perks then I see the default perks link$/) do
   resident_perks_account
 
-  within ".perks-summary" do
+  within first(".perks-summary") do
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.activated_perks"), href: PerkFixture.default_perks_link)
   end
 end
@@ -239,8 +239,8 @@ end
 
 Then(/^I see the perks coming soon link$/) do
   call_api_no_user_account
-  visit "/"
-  within ".perks-summary" do
+  visit "/dashboard"
+  within first(".perks-summary") do
     expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=coming_soon")
   end
@@ -249,7 +249,7 @@ end
 Then(/^I see the premium perks link$/) do
   call_api_no_user_account
   visit "/"
-  within ".perks-summary" do
+  within first(".perks-summary") do
     expect(page).to have_content(I18n.t("homeowners.dashboard.perks.perks_description"))
     expect(page).to have_link(I18n.t("homeowners.dashboard.perks.perks"), href: "/homeowners/perks?type=premium")
   end

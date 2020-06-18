@@ -44,8 +44,12 @@
             <% if finish.choice == false %>
               <%= edit_btn edit_finish_path(finish), element: finish %>
               <% if cancrud %>
-                <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
-                  <%= fa_icon "trash-o" %>
+                <% if current_user.cf_admin? %>
+                  <%= link_to remove_finish_path(room: room, finish: finish, plot: plot), class: "btn remove" do %>
+                    <%= fa_icon "trash-o" %>
+                  <% end %>
+                <% else %>
+                  <%= delete_lnk remove_finish_path(room: room, finish: finish, plot: plot), text: t(".delete_finish_from_room", finish: finish.name, room: room.name), confirm: true, override: true %>
                 <% end %>
               <% end %>
             <% end %>
