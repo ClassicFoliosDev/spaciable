@@ -194,6 +194,7 @@ nav {
       .dropdown-link {
         text-decoration: none;
         display: block;
+        padding: 5px;
 
         .unread {
           background-color: $primary-background;
@@ -208,7 +209,7 @@ nav {
           text-align: center;
         }
 
-        a:hover {
+        &:hover {
           cursor: pointer;
           font-weight: $bold-font-weight;
         }
@@ -225,9 +226,27 @@ nav {
             font-weight: $bold-font-weight;
           }
         }
+      }
 
-        .link-item {
-          line-height: $title-font-size-1;
+      button {
+        border: none;
+        width: 100%;
+        font-size: $base-font-size;
+        font-family: $base-font-family;
+
+        .dropdown-link {
+          text-decoration: none;
+          display: block;
+          padding: 5px;
+        }
+
+        .nav-refer {
+          padding-bottom: 10px;
+        }
+
+        span {
+          display: block;
+          padding: 2px;
         }
       }
 
