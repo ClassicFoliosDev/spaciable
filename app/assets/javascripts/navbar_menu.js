@@ -12,18 +12,11 @@
     }
   })
 
-  // toggle the dropdown menu open and closed
-  $(document).on('click', '#acctNav', function (event) {
-    $('#navList').toggle()
-    // toggle the fa arrow up or down depending on if the dropdown menu is open or closed
-    $("#dropdownMenu").toggleClass("active")
-    if ($("#dropdownMenu").hasClass("active")) {
-      $("#upDownArrow").addClass("fa-angle-up")
-      $("#upDownArrow").removeClass("fa-angle-down")
-    } else {
-      $("#upDownArrow").removeClass("fa-angle-up")
-      $("#upDownArrow").addClass("fa-angle-down")
-    }
+  // open the search bar on tablet and mobile
+  $(document).on('click', '#lowerSearchLink', function (event) {
+    $('#lowerSearch').toggle()
+    // disable body scrolling
+    $("body").toggleClass("no-scroll")
   })
 
   // change the dropdown menu for mobile view
@@ -41,11 +34,18 @@
     }
   })
 
-  // open the search bar on tablet and mobile
-  $(document).on('click', '#lowerSearchLink', function (event) {
-    $('#lowerSearch').toggle()
-    // disable body scrolling
-    $("body").toggleClass("no-scroll")
+  // toggle the dropdown menu open and closed
+  $(document).on('click', '#acctNav', function (event) {
+    $('#navList').toggle()
+    // toggle the fa arrow up or down depending on if the dropdown menu is open or closed
+    $("#dropdownMenu").toggleClass("active")
+    if ($("#dropdownMenu").hasClass("active")) {
+      $("#upDownArrow").addClass("fa-angle-up")
+      $("#upDownArrow").removeClass("fa-angle-down")
+    } else {
+      $("#upDownArrow").removeClass("fa-angle-up")
+      $("#upDownArrow").addClass("fa-angle-down")
+    }
   })
 
   // mobile view account dropdown alterations
