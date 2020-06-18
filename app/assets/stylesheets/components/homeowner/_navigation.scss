@@ -644,6 +644,7 @@ nav {
     #lowerSearch {
       display: none;
     }
+
     .lower-navbar-search {
       position: fixed;
       top: 0;
@@ -666,17 +667,17 @@ nav {
 
         // placeholder styling - accommodate the different browsers
         ::placeholder {
-          color: $primary-red;
+          color: $ui-dark-grey;
           opacity: 0.5;
         }
 
         :-ms-input-placeholder {
-          color: $primary-red;
+          color: $ui-dark-grey;
           opacity: 0.5;
         }
 
         ::-ms-input-placeholder {
-          color: $primary-red;
+          color: $ui-dark-grey;
           opacity: 0.5;
         }
 
