@@ -16,6 +16,17 @@
       }
     }
 
+    .spaciable-buyers {
+      height: 100%;
+      width: 100%;
+      background-color: $primary-navy;
+
+      img {
+        object-fit: contain;
+        padding: 10px;
+      }
+    }
+
     .img-tile-details {
       display: block;
       width: 70%;
