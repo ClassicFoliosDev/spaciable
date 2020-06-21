@@ -53,6 +53,7 @@ Feature: Admin Plot Expiry
 
   Scenario: Some development plots expired
     Given there are plots that have expired
+    And FAQ metadata is available
     And there are plots that have not expired
     Given I am logged in as a development admin
     Given I am on the development page
@@ -68,6 +69,7 @@ Feature: Admin Plot Expiry
 
   Scenario: All development plots expired
     Given there are plots that have expired
+    And FAQ metadata is available
     And I am logged in as a cf admin
     Given I am on the development page
     Then I do not see a message telling me the development is expired
@@ -85,6 +87,7 @@ Feature: Admin Plot Expiry
 
   Scenario: Some division plots are expired
     Given there are plots that have expired
+    And FAQ metadata is available
     And there are plots that have not expired
     Given I am logged in as a developer admin
     Given I am on the division page
@@ -98,6 +101,7 @@ Feature: Admin Plot Expiry
 
   Scenario: All division plots expired
     Given there are plots that have expired
+    And FAQ metadata is available
     And I am logged in as a cf admin
     Given I am on the division page
     Then I do not see a message telling me the division is expired
@@ -112,6 +116,7 @@ Feature: Admin Plot Expiry
 
   Scenario: Some developer plots are expired
     Given there are plots that have expired
+    And FAQ metadata is available
     And there are plots that have not expired
     Given I am logged in as a developer admin
     Given I am on the developer page
@@ -125,6 +130,7 @@ Feature: Admin Plot Expiry
 
   Scenario: All developer plots expired
     Given there are plots that have expired
+    And FAQ metadata is available
     And I am logged in as a cf admin
     Given I am on the developer page
     Then I do not see a message telling me the developer is expired

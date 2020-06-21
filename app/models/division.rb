@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
@@ -126,4 +127,13 @@ class Division < ApplicationRecord
     User.update_prime_admin(potential_prime_admins.pluck(:id),
                             prime_id&.to_i)
   end
+
+  def faq_types
+    faq_types = FaqType.for_country(developer.country).to_a
+    if developments.select(&:commercial?).count.zero?
+      faq_types.delete_if { |t| t.construction_type.commercial? }
+    end
+    faq_types
+  end
 end
+# rubocop:enable Metrics/ClassLength

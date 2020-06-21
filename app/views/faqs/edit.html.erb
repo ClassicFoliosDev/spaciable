@@ -1,4 +1,4 @@
-<% breadcrumb :faq_edit, @faq %>
+<% breadcrumb :faq_edit, @faq, @faq_type %>
 
 <div class="section-header">
   <div class="section-title">
@@ -6,4 +6,4 @@
   </div>
 </div>
 
-<%= render 'form', faq: @faq, parent: nil, :locals => {:country => @parent.country} %>
+<%= render 'form', faq: @faq, parent: nil, faq_type: @faq_type %>

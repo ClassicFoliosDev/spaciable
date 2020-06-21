@@ -1,10 +1,10 @@
 <% content_for :sub_category_navigation do %>
   <% @categories.each do |category| %>
     <div class="navbar-item">
-      <%= link_to homeowner_faqs_path(category),
-          class: ("active" if @category == category) do %>
+      <%= link_to homeowner_faqs_path(@faq_type, category),
+          class: ("active" if @faq_category == category) do %>
         <li class="navbar-item-secondary">
-          <%= t_enum(Faq, :category, category) %>
+          <%= category.name %>
         </li>
       <% end %>
     </div>

@@ -372,10 +372,12 @@ en:
     development_add: "Add Development"
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
-    faqs: "FAQs"
-    faqs: "FAQs"
+    faqs: "%{type} FAQs"
     faqs_add: "New FAQ"
     faqs_edit: "Edit %{faq}"
+    default_faqs: "Default %{country} %{type} FAQs"
+    default_faqs_edit: "Edit %{default_faq}"
+    default_faqs_add: "New Default FAQ"
     videos: "Videos"
     videos_add: "New Video"
     videos_edit: "Edit %{video}"
@@ -564,7 +566,7 @@ en:
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
-        faqs: "FAQs"
+        faqs: "%{type} FAQs"
         choices: "Choices"
         services: "Services"
         area_guide: "Area Guide"
@@ -1018,6 +1020,11 @@ en:
         help_file: "Spaciable Guide."
     settings:
       show:
+        uploads: "Global Uploads"
+        title: "Global Settings."
+        faqs:
+          country: "Global %{country} FAQs"
+      uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
         enable_intro_video: "Introductory Video Status"
@@ -1055,6 +1062,22 @@ en:
         type_summary: "Use Plot Release Type to select the type of plots you want content for."
         type_dev: "Development and Developer reports filter plots by reservation or completion release date, as selected."
         type_all: "Summary Report and Billing Report are not affected by the Plot Release Type selection."
+    default_faqs:
+      collection:
+        add: "Add %{type} FAQ"
+        faq: "FAQ"
+        last_edited: "Last Edited"
+      show:
+        title: "%{parent}"
+        type: "Type"
+        category: "Category"
+      edit:
+        title: "%{parent}"
+      new:
+        title: "%{parent}"
+      form:
+        submit: "Submit"
+        category: "Category"
 
   dashboard:
     header: "Dashboard title for Spaciable"
@@ -1073,7 +1096,7 @@ en:
 
   faqs:
     collection:
-      add: "Add FAQ"
+      add: "Add %{type} FAQ"
       last_edited: "Last Edited"
       faq: "FAQ"
     edit:
@@ -1082,6 +1105,7 @@ en:
     form:
       submit: "Submit"
       back: "Back"
+      category: "Category"
       notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
@@ -1091,6 +1115,8 @@ en:
     show:
       title: "%{parent}"
       back: "Back"
+      category: "Category"
+      type: "Type"
 
   videos:
     new:
@@ -3322,14 +3348,6 @@ en:
         account_types:
           standard: "Standard"
           full_works: "Full Works Management"
-      faq:
-        categories:
-          general: "General"
-          home: "Home Care"
-          settling: "Settling In"
-          troubleshooting: "Troubleshooting"
-          urgent: "Urgent"
-          purchasing: "Purchasing Process"
       how_to:
         title: "Title"
         summary: "Summary"

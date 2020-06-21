@@ -121,10 +121,12 @@
     </h1>
     <div class="links branded-nav-text">
       <ul>
-        <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "navbar-link" do %>
-          <li class="navbar-item">
-            <%= t('.faqs') %>
-          </li>
+        <% plot.development.faq_types.each do |faq_type| %>
+          <%= link_to homeowner_faqs_path(faq_type, faq_type.categories.first), active_tab: "faqs", class: "navbar-link" do %>
+            <li class="navbar-item">
+            <%= t('.faqs', type: faq_type.name) %>
+            </li>
+          <% end %>
         <% end %>
 
         <% if plot.choices?(current_resident) && !plot.choices_approved? %>

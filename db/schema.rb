@@ -217,6 +217,10 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "construction_types", force: :cascade do |t|
+    t.integer "construction"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -281,10 +285,14 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.text     "question"
     t.text     "answer"
     t.string   "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.datetime "deleted_at"
-    t.integer  "country_id", null: false
+    t.integer  "country_id",      null: false
+    t.integer  "faq_type_id"
+    t.integer  "faq_category_id"
+    t.index ["faq_category_id"], name: "index_default_faqs_on_faq_category_id", using: :btree
+    t.index ["faq_type_id"], name: "index_default_faqs_on_faq_type_id", using: :btree
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -412,15 +420,40 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
   end
 
+  create_table "faq_categories", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "faq_type_categories", force: :cascade do |t|
+    t.integer "faq_type_id"
+    t.integer "faq_category_id"
+    t.index ["faq_category_id"], name: "index_faq_type_categories_on_faq_category_id", using: :btree
+    t.index ["faq_type_id"], name: "index_faq_type_categories_on_faq_type_id", using: :btree
+  end
+
+  create_table "faq_types", force: :cascade do |t|
+    t.string  "name"
+    t.string  "icon"
+    t.boolean "default_type",         default: false
+    t.integer "country_id"
+    t.integer "construction_type_id"
+    t.index ["construction_type_id"], name: "index_faq_types_on_construction_type_id", using: :btree
+    t.index ["country_id"], name: "index_faq_types_on_country_id", using: :btree
+  end
+
   create_table "faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
+    t.integer  "faq_type_id"
+    t.integer  "faq_category_id"
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
+    t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id", using: :btree
+    t.index ["faq_type_id"], name: "index_faqs_on_faq_type_id", using: :btree
     t.index ["faqable_type", "faqable_id"], name: "index_faqs_on_faqable_type_and_faqable_id", using: :btree
   end
 
@@ -1077,6 +1110,10 @@ ActiveRecord::Schema.define(version: 20200521094314) do
   add_foreign_key "divisions", "developers"
   add_foreign_key "divisions", "timelines"
   add_foreign_key "documents", "users"
+  add_foreign_key "faq_type_categories", "faq_categories"
+  add_foreign_key "faq_type_categories", "faq_types"
+  add_foreign_key "faq_types", "construction_types"
+  add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
   add_foreign_key "finish_categories", "developers"

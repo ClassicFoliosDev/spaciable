@@ -11,25 +11,10 @@
 
 <div class="row configuration">
   <div class="row-item half">
-    <div class="help">
-      <label><%= t(".help") %></label>
-      <span><%= @setting.help_short_name %></span>
-    </div>
-    <div class="cookie">
-      <label><%= t(".cookie") %></label>
-      <span><%= @setting.cookie_short_name %></span>
-    </div>
-    <div class="privacy">
-      <label><%= t(".privacy") %></label>
-      <span><%= @setting.privacy_short_name %></span>
-    </div>
-    <div class="intro-video">
-      <label><%= t(".video_link") %></label>
-      <span><%= @setting.video_link %></span>
-    </div>
-    <div class="enable-intro-video">
-      <label><%= t(".enable_intro_video") %></label>
-      <span><%= @setting.intro_video_enabled? ? "Enabled" : "Disabled" %></span>
-    </div>
+    <%= link_to t(".uploads"), admin_uploads_path, class: "btn" %>
+    <% Country.all.each do |country| %>
+      <%= link_to t(".faqs.country", country: country.name), (admin_settings_default_faqs_path ({country: country.id})) , class: "btn" %>
+    <% end %>
+
   </div>
 </div>

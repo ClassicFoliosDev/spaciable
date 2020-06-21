@@ -1,0 +1,14 @@
+<% breadcrumb :default_faqs, @faq_type %>
+
+<div class="default_faq">
+
+  <%= render 'components/tabs', tabs: default_faq_tabs(@faq_type) %>
+
+  <%= render "collection", collection: @faqs, type: @faq_type %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% back_button_link = admin_settings_path%>
+    </div>
+  </div>
+</div>

@@ -43,7 +43,11 @@ Rails.application.routes.draw do
     resources :users
     resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
-    resource :settings, only: [:show, :edit, :update]
+    resource :settings, only: [:show, :edit, :update] do
+      resources :default_faqs
+    end
+    get 'uploads', action: :uploads , controller: 'settings'
+
     resource :analytics, only: [:new, :create]
 
     get 'developers', to: 'developers#index', format: :json
@@ -255,10 +259,9 @@ Rails.application.routes.draw do
         as: :homeowner_contacts,
         defaults: { category: :sales }
 
-    get "faqs/:category",
+    get "faqs/:faq_type/:faq_category",
         to: "faqs#index",
-        as: :homeowner_faqs,
-        defaults: { category: :settling }
+        as: :homeowner_faqs
 
     get "how_tos/category/:category",
         to: "how_tos#index",

@@ -5,10 +5,10 @@
     <div>
       <% if can_create(Faq, parent) %>
         <% unless parent.expired? && !(current_user.cf_admin?) %>
-          <%= link_to t(".add", type_name: Faq.model_name.human), [:new, parent, Faq.name.underscore.to_sym], class: "btn btn-primary" %>
+          <%= link_to t(".add", type: type.name), [:new, parent, Faq.name.underscore.to_sym, active_tab: type.id], class: "btn btn-primary" %>
         <% end %>
       <% else %>
-          <span><%= t("components.empty_list.request_add", type_names: Faq.model_name.human.pluralize) %></span>
+          <span><%= t("components.empty_list.request_add", type_names: type.name) %></span>
       <% end%>
     </div>
   </div>
@@ -16,9 +16,9 @@
   <% if can_create(Faq, parent) %>
     <% unless parent.expired? && !(current_user.cf_admin?) %>
       <div class="section-actions">
-        <%= link_to [:new, parent, :faq], class: "btn btn-primary" do %>
+        <%= link_to [:new, parent, :faq, active_tab: type.id], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".add") %></span>
+          <span class="btn-label"><%= t(".add", type: type.name) %></span>
         <% end %>
       </div>
     <% end %>
@@ -37,7 +37,7 @@
       <% collection.each do |faq| %>
       <tr data-faq="<%= faq.id %>">
         <td colspan="3"><%= link_to faq.question.html_safe, faq_path(faq), title: faq.question.html_safe %></td>
-        <td><%= content_tag(:span, t_enum(Faq, :category, faq.category)) %></td>
+        <td><%= content_tag(:span, faq.category_name) %></td>
         <td><%= l faq.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= (edit_btn edit_faq_path(faq), element: faq) unless parent.expired? && !(current_user.cf_admin?) %>
