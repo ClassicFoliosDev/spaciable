@@ -66,6 +66,36 @@
   }
 }
 
+.faqs {
+  .faq-feedback {
+    padding-top: $spacing-small;
+    p {
+      font-weight: $bold-font-weight;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-family: $base-font-family;
+      padding: 0 $spacing-small 0 ;
+      color: $primary-navy;
+
+      &:hover {
+        cursor: pointer;
+        font-weight: $bold-font-weight;
+      }
+    }
+
+    #positiveFAQ {
+      padding-left: $spacing-medium;
+    }
+  }
+
+  .positive-response {
+    display: none;
+  }
+}
+
 @include media($tablet-landscape-down) {
   .faq-nav .sub-navigation-container {
     .sub-nav-links {

@@ -260,6 +260,11 @@
       border-color: <%= brand.branded_text_color %> !important;
     }
 
+    <%-# ----------------- FAQS ------------------ -%>
+    .faqs .faq-feedback button {
+      color: <%= brand.branded_text_color %>
+    }
+
   <% else %>
     .branded-text {
       <%= Brand.branded_text_default %>

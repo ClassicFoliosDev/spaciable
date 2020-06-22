@@ -18,6 +18,13 @@ module Homeowners
       redirect_to homeowner_faqs_path(@categories[0]) if @faqs.none? && @categories.any?
     end
 
+    def feedback
+      puts "#############################"
+      byebug
+      FaqFeedbackJob.perform_later(params[:question])
+      render json: ""
+    end
+
     private
 
     def faq_params

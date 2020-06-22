@@ -1287,6 +1287,10 @@ en:
       index:
         title: "FAQs."
         try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
+        feedback: "Is this FAQ useful?"
+        pos: "Yes"
+        positive: "Thank you for your feedback."
+        neg: "No"
     rooms:
       show:
         title: "Rooms."
