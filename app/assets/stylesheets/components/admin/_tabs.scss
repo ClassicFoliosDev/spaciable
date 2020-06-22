@@ -79,6 +79,11 @@
         padding-top: 3px;
         color: $semi-pale-navy;
       }
+
+      .active {
+        color: $primary-navy;
+        font-weight: $bold-font-weight;
+      }
     }
   }
 }
@@ -99,13 +104,3 @@
     display: block;
   }
 }
-
-// .dropbtn {
-//   background-color: #4CAF50;
-//   color: white;
-//   padding: 16px;
-//   font-size: 16px;
-//   border: none;
-// }
-
-// .dropdown:hover .dropbtn {background-color: #3e8e41;}

@@ -6,9 +6,9 @@
           <%= link_to link, class: ("active" if active) do %><i class="fa fa-<%= icon %>"></i> <%= title %><% end %>
         <% else %>
           <div class="dropdown">
-            <div class="content">
+            <div class="content <%= "active" if active %>">
               <i class="fa fa-<%= icon %>"></i>
-              <span <%= "class=active" if active %>> <%= title %> </span>
+              <span> <%= title %> </span>
               <div class="dropdown-content">
                 <% menus.each do |menu| %>
                   <%= link_to menu[:link] do %>
