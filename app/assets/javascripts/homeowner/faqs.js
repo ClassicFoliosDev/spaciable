@@ -16,3 +16,16 @@ document.addEventListener('turbolinks:load', function () {
     }
   }
 })
+
+$(document).on('click', '#positiveFAQ', function (event) {
+  dataIn = $(this).data()
+  var data = { question: dataIn.question }
+
+  $("#feedback-" + dataIn.id).hide()
+  $("#positive-" + dataIn.id).show()
+
+  $.getJSON({
+    url: '/faq_feedback',
+    data: data
+  })
+})

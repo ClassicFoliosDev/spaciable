@@ -25,7 +25,23 @@
     <dl class="faqs">
       <% @faqs.each do |faq| %>
         <dt class="branded-content" id="faq-<%= faq.id %>"><h3 class="branded-text"><%= faq.question.html_safe %></h3></dt>
-        <dd class="branded-text branded-content"><%= raw faq.answer %></dd>
+        <dd class="branded-text branded-content">
+          <%= raw faq.answer %>
+
+          <div class="faq-feedback" id="feedback-<%=faq.id%>">
+            <p>
+              <%= t(".feedback") %>
+
+              <%= button_tag t(".pos"), class: "faq-button", id: "positiveFAQ",
+                  data: { id: faq.id, question: faq.question } %>
+
+              <%= button_tag t(".neg"), type: 'button', class: "faq-button", id: "negativeFAQ" %>
+            </p>
+          </div>
+          <div class="faq-feedback positive-response" id="positive-<%=faq.id%>">
+            <p><%= t(".positive") %></p>
+          </div>
+        </dd>
       <% end %>
     </dl>
 

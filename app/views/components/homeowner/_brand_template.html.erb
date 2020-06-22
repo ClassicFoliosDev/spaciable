@@ -1,4 +1,4 @@
-<style data-test="brand-style-overrides">
+<style data-test="brand-style-overrides" data-turbolinks-track="reload">
 
 <%-# ------------------------------------------ -%>
 <%-# ------------- BODY BACKGROUND ------------ -%>
@@ -258,6 +258,11 @@
 
     .plot-choices .homeowner-container .choice-item {
       border-color: <%= brand.branded_text_color %> !important;
+    }
+
+    <%-# ----------------- FAQS ------------------ -%>
+    .faqs .faq-feedback button {
+      color: <%= brand.branded_text_color %>
     }
 
   <% else %>

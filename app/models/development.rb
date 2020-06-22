@@ -74,6 +74,7 @@ class Development < ApplicationRecord
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_tiles
+  after_save :update_custom_tiles
 
   enum choice_option:
     %i[
@@ -235,6 +236,18 @@ class Development < ApplicationRecord
     end
   end
   # rubocop:enable LineLength
+
+  # check whether any features have been disabled and delete any relevant custom tiles
+  def update_custom_tiles
+    changed = []
+
+    { "issues" => !Maintenance.exists?(development_id: id),
+      "snagging" => enable_snagging_changed? && !enable_snagging? }.each do |name, disabled|
+      changed << name if disabled
+    end
+
+    CustomTile.delete_disabled(changed, self) unless changed.empty?
+  end
 
   def my_construction_name
     construction_name.blank? ? I18n.t("homeowners.home") : construction_name

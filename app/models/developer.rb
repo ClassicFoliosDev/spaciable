@@ -6,6 +6,7 @@ class Developer < ApplicationRecord
 
   attr_accessor :personal_app
   after_save :update_development_cas
+  after_save :update_custom_tiles
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -208,5 +209,20 @@ class Developer < ApplicationRecord
     )
   end
   # rubocop:enable SkipsModelValidations
+
+  # check whether any features have been disabled and delete any relevant custom tiles
+  def update_custom_tiles
+    changed = []
+
+    { "area_guide" => house_search_changed? && !house_search?,
+      "services" => enable_services_changed? && !enable_services?,
+      "home_designer" => enable_roomsketcher_changed? && !enable_roomsketcher?,
+      "referrals" => enable_referrals_changed? && !enable_referrals?,
+      "perks" => enable_perks_changed? && !enable_perks? }.each do |name, disabled|
+      changed << name if disabled
+    end
+
+    CustomTile.delete_disabled(changed, all_developments) unless changed.empty?
+  end
 end
 # rubocop:enable Metrics/ClassLength
