@@ -13,17 +13,20 @@ module Homeowners
       # identify all the populated categories
       populate_categories
 
+      @category = faq_params[:category]
+
       # filter FAQs by category
       @faqs = @faqs.where(faq_type: @faq_type, faq_category: @faq_category)
       @faqs = @faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
 
       # Redirect if category empty and others available
-      redirect_to faq_type_homeowner_faqs_path(@faq_type, @categories.first) if @faqs.none? && @categories.any?
+      redirect_to homeowner_faqs_path(@faq_type, @categories.first) if @faqs.none? && @categories.any?
     end
 
     def feedback
       puts "#############################"
-      byebug
+      puts "#############################"
+      puts "#############################"
       FaqFeedbackJob.perform_later(params[:question])
       render json: ""
     end
@@ -48,7 +51,7 @@ module Homeowners
       authorize! :index, FaqType
       @faq_type = FaqType.find(params[:faq_type])
       authorize! :index, FaqCategory
-      @faq_category = FaqType.find(params[:faq_category])
+      @faq_category = FaqCategory.find(params[:faq_category])
     end
   end
 end

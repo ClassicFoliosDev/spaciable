@@ -66,6 +66,50 @@
   }
 }
 
+.faq-navigation {
+  .faq-categories {
+    margin-top: 22px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+
+    .categories {
+      margin-bottom: 0;
+      padding-bottom: 22px;
+
+      li {
+        display: inline-block;
+        margin-bottom: 0;
+
+        a {
+          display: block;
+          min-width: 122px;
+          text-align: center;
+          border: 1px solid $primary-navy;
+          border-radius: 3px;
+          padding: 2px 10px;
+          font-size: 12px;
+          color: $primary-navy;
+          background-color: $ui-white;
+          cursor: pointer;
+          margin-right: $spacing-medium;
+
+          &:hover {
+            color: $ui-white;
+            background-color: $primary-navy;
+          }
+        }
+
+        .active {
+          color: $ui-white;
+          background-color: $primary-navy;
+        }
+      }
+    }
+  }
+}
+
 .faqs {
   .faq-feedback {
     padding-top: $spacing-small;
