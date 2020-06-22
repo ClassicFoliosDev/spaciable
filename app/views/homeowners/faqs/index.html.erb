@@ -1,10 +1,9 @@
 <% content_for :sub_category_navigation do %>
-  <% @categories.each do |category| %>
+  <% @plot.development.faq_types.each do |faq_type| %>
     <div class="navbar-item">
-      <%= link_to homeowner_faqs_path(@faq_type, category),
-          class: ("active" if @faq_category == category) do %>
-        <li class="navbar-item-secondary">
-          <%= category.name %>
+      <%= link_to homeowner_faqs_path(faq_type, faq_type.categories.first) do %>
+        <li class="navbar-item-secondary <%= 'active' if @faqs.first.faq_type == faq_type %>">
+          <%= t('.faqs', type: faq_type.name) %>
         </li>
       <% end %>
     </div>
@@ -13,7 +12,7 @@
 
 <%= render "components/homeowner/hero" %>
 
-<div class="faq-nav">
+<div class="faq-navigation">
   <%= render "components/homeowner/sub_categories" %>
 </div>
 

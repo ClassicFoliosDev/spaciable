@@ -1324,6 +1324,7 @@ en:
         pos: "Yes"
         positive: "Thank you for your feedback."
         neg: "No"
+        faqs: "%{type} FAQs"
     rooms:
       show:
         title: "Rooms."
