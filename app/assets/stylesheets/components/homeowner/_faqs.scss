@@ -158,6 +158,18 @@
       width: 140px;
     }
   }
+
+  .faq-navigation .faq-categories {
+    .categories {
+      .category {
+        margin-bottom: $spacing-small;
+
+        a {
+          margin-right: $spacing-small;
+        }
+      }
+    }
+  }
 }
 
 @include media($mobile-down) {
