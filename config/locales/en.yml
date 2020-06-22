@@ -1020,10 +1020,14 @@ en:
         help_file: "Spaciable Guide."
     settings:
       show:
-        uploads: "Global Uploads"
+        uploads: "Uploads"
+        uploads_btn: "Modify Uploads"
+        uploads_description: "Global documents and introductory video"
         title: "Global Settings."
+        faq: "FAQs"
+        faq_description: "Global FAQs"
         faqs:
-          country: "Global %{country} FAQs"
+          country: "Modify %{country} FAQs"
       uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
@@ -1032,6 +1036,7 @@ en:
         help: "Help Document"
         cookie: "Cookie Policy Document"
         privacy: "Privacy Policy Document"
+        back: "Back"
       edit:
         title: "Edit Global Settings."
         back: "Back"
@@ -1078,6 +1083,8 @@ en:
       form:
         submit: "Submit"
         category: "Category"
+      index:
+        back: "Back"
 
   dashboard:
     header: "Dashboard title for Spaciable"
