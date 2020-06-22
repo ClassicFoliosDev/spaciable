@@ -27,6 +27,6 @@ class ApplicationMailer < ActionMailer::Base
   def faq_feedback(question)
     @question = question
 
-     mail to: "feedback@spaciable.com", subject: I18n.t("feedback.email_subject")
+    mail to: "feedback@spaciable.com", subject: I18n.t("feedback.email_subject")
   end
 end

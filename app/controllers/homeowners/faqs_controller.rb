@@ -5,7 +5,7 @@ module Homeowners
     skip_authorization_check
     load_and_authorize_resource :faq_type
     load_and_authorize_resource :faq_category
-    load_and_authorize_resource :faq
+    load_and_authorize_resource :faq, except: %i[feedback]
 
     before_action :authorise, only: %[index]
 
@@ -24,9 +24,6 @@ module Homeowners
     end
 
     def feedback
-      puts "#############################"
-      puts "#############################"
-      puts "#############################"
       FaqFeedbackJob.perform_later(params[:question])
       render json: ""
     end
