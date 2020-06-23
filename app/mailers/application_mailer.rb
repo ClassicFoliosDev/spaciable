@@ -29,11 +29,27 @@ class ApplicationMailer < ActionMailer::Base
     @plot = Plot.find(data[:plot])
     @development = @plot.development
     @phase = @plot.phase
+    @admin_emails = faq_feedback_emails(@plot)
 
     @question = data[:question]
     @response = data[:response].to_i
     @feedback = data[:feedback]
 
-    mail to: "", bcc: "feedback@spaciable.com", subject: I18n.t("feedback.email_subject")
+    mail to: @admin_emails, bcc: "feedback@spaciable.com", subject: I18n.t("feedback.email_subject")
+  end
+
+  def faq_feedback_emails(plot)
+    # user role enums
+    developer = 1
+    division = 2
+    development = 3
+
+    users = User.where(receive_faq_emails: true).where("(role = #{developer} AND permission_level_id = #{plot.developer_id}) OR
+                                                        (role = #{division} AND permission_level_id = #{plot.division_id}) OR
+                                                        (role = #{development} AND permission_level_id = #{plot.development_id})")
+
+    emails = []
+    users.each { |user| emails << user.email}
+    emails
   end
 end

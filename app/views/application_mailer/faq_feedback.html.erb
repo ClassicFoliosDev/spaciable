@@ -6,7 +6,7 @@
 <p><%= @question %></p>
 
 <h5><%= t(".useful") %></h5>
-<p><%= @response ? "Yes" : "No" %></p>
+<p><%= @response.positive? ? "Yes" : "No" %></p>
 
 <% unless @response.positive? %>
   <h5><%= t(".comments") %></h5>
