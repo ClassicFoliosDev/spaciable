@@ -21,7 +21,7 @@ document.addEventListener('turbolinks:load', function () {
 $(document).on('click', '#positiveFAQ', function (event) {
   var dataIn = $(this).data()
   var data = { question: dataIn.question, email: dataIn.email,
-               plot: dataIn.plot, response: 1, feedback: $("#feedbackInput").val() }
+               plot: dataIn.plot, response: 1 }
 
   $("#feedback-" + dataIn.id).hide()
   $("#positive-" + dataIn.id).show()

@@ -50,6 +50,11 @@
           <%= f.check_box :snag_notifications, id: :snag_check %>
           <p class="checkbox-description"><%= t(".receive_snag_emails") %></p>
         </div>
+        <div class="receive-faq-emails">
+          <%= f.label :faq_emails, t(".faq_emails") %>
+          <%= f.check_box :receive_faq_emails, id: :faq_check %>
+          <p class="checkbox-description"><%= t(".receive_faq_emails") %></p>
+        </div>
         <div class="administer_lettings">
           <%= f.label :branch_admin, t(".lettings_branch_admin") %>
           <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>

@@ -925,6 +925,8 @@ en:
         job_title: "Job Title"
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
+        faq_emails: "FAQ Feedback Emails"
+        receive_faq_emails: "Receive FAQ feedback emails"
       index:
         title: "Admins."
         add: "Add User"

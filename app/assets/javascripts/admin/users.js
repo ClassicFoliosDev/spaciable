@@ -129,21 +129,21 @@ document.addEventListener('turbolinks:load', function () {
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, client_specifications').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, .client_specifications, .receive-faq-emails').hide()
       $("#plot_check").prop("checked", true);
       $("#choice_check").prop("checked", true);
       $("#snag_check").prop("checked", true)
     } else if (role === 'developer_admin') {
-      $('.user_developer_id, .receive_plot_emails, .receive-snagging-emails').show()
+      $('.user_developer_id, .receive_plot_emails, .receive-snagging-emails, .receive-faq-emails').show()
       $('.user_division_id, .user_development_id, .administer_lettings').hide()
     } else if (role === 'division_admin') {
-      $('.user_developer_id, .user_division_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails').show()
+      $('.user_developer_id, .user_division_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, .receive-faq-emails').show()
       $('.user_development_id, .administer_lettings').hide()
     } else if (role === 'development_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .administer_lettings').show()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .administer_lettings, .receive-faq-emails').show()
     } else if (role === 'site_admin') {
       $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails').show()
-      $('.receive-snagging-emails, .administer_lettings').hide()
+      $('.receive-snagging-emails, .administer_lettings, .receive-faq-emails').hide()
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };

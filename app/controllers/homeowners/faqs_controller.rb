@@ -29,9 +29,6 @@ module Homeowners
       params.each { |k,v| data[k.to_sym] = v }
 
       FaqFeedbackJob.perform_later(data)
-      puts "########################"
-      puts "########################"
-      puts "######################## #{data}"
       render json: ""
     end
 
