@@ -24,7 +24,14 @@ module Homeowners
     end
 
     def feedback
-      FaqFeedbackJob.perform_later(params[:question])
+      # convert params to hash to pass to job
+      data = {}
+      params.each { |k,v| data[k.to_sym] = v }
+
+      FaqFeedbackJob.perform_later(data)
+      puts "########################"
+      puts "########################"
+      puts "######################## #{data}"
       render json: ""
     end
 

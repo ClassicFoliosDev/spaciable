@@ -113,11 +113,12 @@
 .faqs {
   .faq-feedback {
     padding-top: $spacing-small;
+
     p {
       font-weight: $bold-font-weight;
     }
 
-    button {
+    .faq-button {
       background: none;
       border: none;
       font-family: $base-font-family;
@@ -133,10 +134,41 @@
     #positiveFAQ {
       padding-left: $spacing-medium;
     }
+
+    #faqFeedback {
+      width: 50%;
+    }
   }
 
   .positive-response {
     display: none;
+  }
+
+  .negative-response {
+    display: none;
+
+    .disclaimer {
+      display: block;
+      text-align: left;
+      padding-left: 0;
+    }
+
+    .faq-input {
+      width: 50%;
+    }
+
+    .faq-alert {
+      color: $primary-red-left;
+      display: block;
+      padding-top: $spacing-small;
+      font-size: $base-small-font-size;
+    }
+
+    .branded-btn {
+      font-size: $base-small-font-size;
+      line-height: $base-small-font-line-height;
+      padding: 2px $spacing-small 2px $spacing-small;
+    }
   }
 }
 

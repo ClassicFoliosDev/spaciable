@@ -698,6 +698,13 @@ en:
       last: "Last name:"
       email: "Email address:"
       phone: "Phone number:"
+    faq_feedback:
+      new_feedback: "You have received feedback on an FAQ from a Spaciable user"
+      faq: "FAQ"
+      useful: "Is this FAQ useful?"
+      comments: "Comments"
+      user: "User Details"
+      plot: "%{plot} at %{development}, %{phase}"
 
   admin_notification_mailer:
     admin_notifications:
@@ -1324,8 +1331,11 @@ en:
         feedback: "Is this FAQ useful?"
         pos: "Yes"
         positive: "Thank you for your feedback."
+        negative: "What could we do to improve this FAQ?"
         neg: "No"
         faqs: "%{type} FAQs"
+        submit: "Submit"
+        disclaimer: "By submitting feedback you consent to your email address being sent to a portal administrator, who may contact you about your comments."
     rooms:
       show:
         title: "Rooms."
