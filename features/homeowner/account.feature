@@ -8,6 +8,7 @@ Feature: Homeowner Account
 
   Scenario: Manage resident account
     Given I am a Development Admin wanting to assign a new resident to a plot
+    And FAQ metadata is available
     And the developer has enabled services
     And a CF admin has configured a video link
     When I assign a new resident to a plot
@@ -43,6 +44,7 @@ Feature: Homeowner Account
 
   Scenario: Manage resident account - intro video disabled, services enabled
     Given I am a Development Admin wanting to assign a new resident to a plot
+    And FAQ metadata is available
     And the developer has enabled services
     And a CF admin has disabled the intro video
     When I assign a new resident to a plot
@@ -59,6 +61,7 @@ Feature: Homeowner Account
 
   Scenario: Manage resident account - intro video and services disabled
     Given I am a Development Admin wanting to assign a new resident to a plot
+    And FAQ metadata is available
     And a CF admin has disabled the intro video
     When I assign a new resident to a plot
     And I log out as a an admin
@@ -73,6 +76,7 @@ Feature: Homeowner Account
 
   Scenario: Account update
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And the plot has an address
     Then I should see be able to view My Account
     When I update the account details
@@ -82,6 +86,7 @@ Feature: Homeowner Account
 
   Scenario: Multiple residents
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And There is a plot with many residents
     Then I should see the resident emails listed in my account
     When I show the plots
@@ -93,6 +98,7 @@ Feature: Homeowner Account
 
   Scenario: Delete and recreate with soft delete (legacy)
     Given I am a Development Admin wanting to assign a new resident to a plot
+    And FAQ metadata is available
     And a CF admin has configured a video link
     And I assign a new resident to a plot
     When I visit the invitation accept page
@@ -112,6 +118,7 @@ Feature: Homeowner Account
 
   Scenario: Legacy homeowner
     Given there is a division with a development
+    And FAQ metadata is available
     And there is a plot for the division development
     And I am a legacy homeowner
     When I log in with cookies

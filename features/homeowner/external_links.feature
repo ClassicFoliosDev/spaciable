@@ -6,6 +6,7 @@ Feature: Homeowner external links
 
   Scenario:
     Given I have created a unit_type
+    And FAQ metadata is available
     And I have logged in as a resident and associated the plot
     Then I should see the bafm link
     Then I should not see the maintenance link
@@ -18,6 +19,7 @@ Feature: Homeowner external links
 
   Scenario:
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And the developer has enabled home designer
     Then I should see the home designer link
     And when I visit the home designer page
@@ -25,5 +27,6 @@ Feature: Homeowner external links
 
   Scenario:
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And the developer has disabled home designer
     Then I should not see the home designer link

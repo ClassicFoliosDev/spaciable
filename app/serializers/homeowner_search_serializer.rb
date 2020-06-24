@@ -34,7 +34,7 @@ class HomeownerSearchSerializer
     when :Document
       context.homeowner_library_path(result.category)
     when :Faq
-      context.homeowner_faqs_path(result.category)
+      context.homeowner_faqs_path(result.faq_type_id, result.faq_category_id)
     when :Contact
       context.homeowner_contacts_path(result.category)
     when :HowTo

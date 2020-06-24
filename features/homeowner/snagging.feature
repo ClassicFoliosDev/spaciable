@@ -6,6 +6,7 @@ Feature: Homeowner Snagging
 
   Scenario: Homeowner with Snagging
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And my development has an admin with snagging notifications enabled
     Then I should see the Snagging page
     And I can add a snag to my plot

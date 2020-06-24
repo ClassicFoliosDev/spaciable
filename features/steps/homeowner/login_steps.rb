@@ -6,7 +6,6 @@ end
 
 Given(/^I am logged in as a homeowner$/) do
   login_as HomeownerUserFixture.create
-  visit "/"
 end
 
 When(/^I log in as a homeowner$/) do

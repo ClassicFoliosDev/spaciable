@@ -6,8 +6,10 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Maintenance Expiry
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     Given the completion release date is set
     And the development has set a maintenance link
+    When I navigate to the dashboard
     Then I should see the maintenance link
     And the date is after completion release date plus validity
     But the date is before extended access
@@ -15,7 +17,9 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Expired Branding
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     And the development has branding
+    When I navigate to the dashboard
     Then I should see the development branding
     Given the completion release date has been set
     And the date is after completion release date plus validity
@@ -24,10 +28,12 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Notifications and Emails
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     And I have enabled developer emails
     Given the completion release date has been set
     And the date is after completion release date plus validity
     And the date is after extended access
+    When I navigate to the dashboard
     Then when a cf admin sends a notification
     Then I will receive an email
     And I will receive a notification
@@ -37,10 +43,12 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Contacts
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     And I have enabled developer emails
     Given the completion release date has been set
     And the date is after completion release date plus validity
     And the date is after extended access
+    When I navigate to the dashboard
     Then when a cf admin creates a contact
     Then I will not receive an email
     And I will not have any notifications
@@ -57,10 +65,12 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Documents
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     And I have enabled developer emails
     Given the completion release date has been set
     And the date is after completion release date plus validity
     And the date is after extended access
+    When I navigate to the dashboard
     Then when a cf admin creates a document
     Then I will receive an email
     And I will receive a notification
@@ -77,6 +87,7 @@ Feature: Homeowner Plot Expiry
 
   Scenario: FAQs
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     And I have enabled developer emails
     Given the completion release date has been set
     And the date is after completion release date plus validity
@@ -97,10 +108,12 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Videos
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     And I have enabled developer emails
     Given the completion release date has been set
     And the date is after completion release date plus validity
     And the date is after extended access
+    When I navigate to the dashboard
     Then when a cf admin creates a video
     Then I cannot see the video
     Given there is another plot on my phase that is not expired
@@ -111,6 +124,7 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Private documents
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     Given the completion release date has been set
     And the date is after completion release date plus validity
     And the date is after extended access
@@ -119,9 +133,11 @@ Feature: Homeowner Plot Expiry
 
   Scenario: Invite residents
     Given I am logged in as a homeowner on a plot that will expire
+    And FAQ metadata is available
     Given the completion release date has been set
     And the date is after completion release date plus validity
     And the date is after extended access
+    When I navigate to the dashboard
     Then when I am on the my account page
     Then I can no longer invite other residents to my plot
     Given there is another resident on my plot

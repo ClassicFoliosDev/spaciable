@@ -7,6 +7,7 @@ Feature: Homeowner Branding
   @javascript
   Scenario:
     Given I have a developer with a development with unit type and plot
+    And FAQ metadata is available
     And I have configured branding
     And I have logged in as a resident and associated the division development plot
     And the resident also has an unbranded plot

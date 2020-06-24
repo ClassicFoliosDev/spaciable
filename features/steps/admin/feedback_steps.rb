@@ -20,6 +20,7 @@ When(/^I submit feedback$/) do
 end
 
 When(/^I submit homeowner feedback$/) do
+  visit "/"
   page.find("#dropdownMenu").click
   within ".links-list" do
     click_on t("components.header.feedback")

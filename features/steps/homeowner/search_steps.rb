@@ -6,6 +6,7 @@ Given(/^I am logged in as a homeowner with populated content$/) do
 end
 
 When(/^I search for a finish$/) do
+  visit "/"
   search_for(CreateFixture.finish_name)
 end
 
@@ -47,7 +48,7 @@ end
 Then(/^I see the matching FAQ$/) do
   faq = Faq.all.first
   within page.first(".search-results") do
-    expect(page).to have_link("Faq", href: "/homeowners/faqs/#{faq.category}")
+    expect(page).to have_link("Faq", href: "/homeowners/faqs/#{faq.faq_type_id}/#{faq.faq_category_id}")
   end
 end
 

@@ -6,6 +6,7 @@ Feature: My Home Library Documents
 
   Scenario:
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And there is another tenant on the homeowner plot
     When I upload private documents
     Then I should see my private documents

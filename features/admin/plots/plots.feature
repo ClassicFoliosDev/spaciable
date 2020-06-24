@@ -73,6 +73,7 @@ Feature: Plots
   Scenario: Plot preview
     Given I am logged in as an admin
     And I have a developer with a development with unit types and a phase
+    And FAQ metadata is available
     And I have configured the phase address
     When I create a plot for the phase
     And there are documents

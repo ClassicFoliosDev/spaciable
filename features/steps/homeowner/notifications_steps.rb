@@ -4,7 +4,6 @@ Given(/^I am logged in as a homeowner wanting to read notifications$/) do
   HomeownerNotificationsFixture.create_homeowner_notifications
 
   login_as HomeownerNotificationsFixture.resident
-  visit "/"
 end
 
 When(/^I read the notifications$/) do

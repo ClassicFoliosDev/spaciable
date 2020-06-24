@@ -199,12 +199,12 @@ Then(/^I can see my faqs$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-    click_on(t("components.homeowner.navigation.faqs"))
+    click_on(t("components.homeowner.navigation.faqs", type: "Homeowner"))
   end
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content %r{#{t("homeowners.faqs.index.title")}}i
+    expect(page).to have_content %r{#{t("homeowners.faqs.index.faqs", type: "Homeowner")}}i
   end
 end
 

@@ -5,12 +5,14 @@ Feature: Lettings
 
   Scenario: No Lettings
     Given I am a homeowner with multiple plots
+    And FAQ metadata is available
     When I log in as homeowner
     When I have no lettable plots
     Then I shall not see a lettings button on my dashboard
 
   Scenario: Resident Lettings
     Given there are homeowner lettable phase plots
+    And FAQ metadata is available
     Given the homeowner lettable phase plots have multiple occupation
     When I log in as homeowner "1" of lettable multiple occupation plots
     Then I shall see a lettings button on my dashboard
@@ -44,6 +46,7 @@ Feature: Lettings
 
     Scenario: Failures
     Given there are homeowner lettable phase plots
+    And FAQ metadata is available
     Given the homeowner lettable phase plots have multiple occupation
     When I log in as homeowner "1" of lettable multiple occupation plots
     When I press my lettings button

@@ -6,6 +6,7 @@ Feature: Homeowner Appliances
 
   Scenario:
     Given I am logged in as a homeowner want to download my documents
+    And FAQ metadata is available
     And there is an appliance with a guide
     And there is a second appliance
     And there is another phase plot

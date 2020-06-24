@@ -4,10 +4,10 @@ Given(/^I am logged in as a homeowner wanting to read FAQs$/) do
   MyHomeFaqsFixture.create_homeowner_faqs
 
   login_as MyHomeFaqsFixture.resident
-  visit "/"
 end
 
 Then(/^I should see recent FAQs on my dashboard$/) do
+  visit "/"
   within "[data-test='dashboard-faqs']" do
     MyHomeFaqsFixture.recent_faqs.each do |question, _answer|
       expect(page).to have_content(question)

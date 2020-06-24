@@ -6,6 +6,7 @@ Feature: Homeowner Contacts
 
   Scenario:
     Given I have a developer with a development with unit type and plot
+    And FAQ metadata is available
     And there are division contacts
     And I have logged in as a resident and associated the division development plot
     When I visit the contacts page

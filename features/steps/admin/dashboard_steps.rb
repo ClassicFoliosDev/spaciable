@@ -47,6 +47,10 @@ Given(/^there are documents$/) do
 end
 
 When(/^I upload a help file$/) do
+  within ".global-option" do
+    click_on(t("admin.settings.show.uploads_btn"))
+  end
+
   within ".section-data" do
     find("[data-action='edit']").click
   end
