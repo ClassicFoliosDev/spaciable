@@ -914,6 +914,8 @@ en:
         job_title: "Job Title"
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
+        invitation_emails: "Resident Invitation Emails" 
+        receive_invitation_emails: "Receive resident invitation emails"
       index:
         title: "Admins."
         add: "Add User"
@@ -2966,6 +2968,16 @@ en:
       content_button: "Content button"
       header: "Header"
       text: "Content text paragraph"
+
+  invitation_summary_mailer:
+    resident_summary:
+      subject: "Spaciable Activation Report"
+      hello: "Hi %{name},"
+      report: "This is your weekly Spaciable activation report."
+      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents having not accepted the invitation email."
+      inactive: "Below is a list of residents who are yet to activate."
+      login: "Login to Spaciable: "
 
   resident_notification_mailer:
     notify:
