@@ -70,6 +70,14 @@ module ButtonsHelper
     end
   end
 
+  def submit_confirm_btn(title: t("buttons.submit.title"),
+                         header: I18n.t("buttons.confirm_dialog.title"),
+                         text: nil)
+    submit_tag title,
+               data: { header: header, text: text },
+               class: "btn-form-submit-confirm btn-form-submit btn-primary"
+  end
+
   def icon(icon_name, label = "", classes: "")
     icon_classes = "fa fa-#{icon_name} #{classes}"
     options = { class: icon_classes }

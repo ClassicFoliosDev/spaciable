@@ -30,7 +30,7 @@
             <%= f.input :document_id, label: t(".document"), as: :select, collection: custom_tile.documents_in_scope, include_blank: true %>
           </div>
           <div class="ui-front" id="guideSelector">
-            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_collection(:guides), include_blank: true, disabled: manual_unassigned(custom_tile) %>
+            <%= f.input :guide, label: t(".guide"), as: :select, collection: tile_collection(:guides), include_blank: true %>
           </div>
           <div class="document-file" id="fileSelector">
             <% if custom_tile.file? %>
@@ -56,9 +56,9 @@
 
       <div class="half">
         <fieldset id="customTileContent">
-          <%= f.input :title, label: t(".title"), input_html: { maxlength: 20 } %>
-          <%= f.input :description, label: t(".description"), input_html: { maxlength: 100 } %>
-          <%= f.input :button, label: t(".button"), input_html: { maxlength: 15 } %>
+          <%= f.input :title, label: t(".title"), placeholder: "Character limit: 30", input_html: { maxlength: 30 } %>
+          <%= f.input :description, placeholder: "Character limit: 100", label: t(".description"), input_html: { maxlength: 100 } %>
+          <%= f.input :button, label: t(".button"), placeholder: "Character limit: 15", input_html: { maxlength: 15 } %>
 
           <div class="image-container" id="imageSelector">
             <%= f.input :image, label: t(".image"), as: :image_preview %>

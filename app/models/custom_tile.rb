@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CustomTile < ApplicationRecord
+  include HTTParty
+
   belongs_to :development
 
   mount_uploader :file, DocumentUploader
@@ -109,5 +111,21 @@ class CustomTile < ApplicationRecord
 
   def reservation_guide(documents)
     documents.find_by(guide: "reservation")
+  end
+
+  def iframeable?(link)
+    return false if HTTParty.get(link, verify: false).headers.key?("x-frame-options")
+    true
+  rescue
+    false
+  end
+
+  def self.delete_disabled(features, developments)
+    tiles = CustomTile.where(development_id: developments, feature: features)
+    tiles.destroy_all
+  end
+
+  def formatted_link
+    link !~ /\A(http)/ ? "https://#{link}" : link
   end
 end

@@ -79,7 +79,6 @@ Then(/^the configuration should be created successfully$/) do
 end
 
 When(/^I go to the view the configuration$/) do
-  #save_and_open_page
   click_on CreateFixture.choice_configuration_name
   sleep 4
 end

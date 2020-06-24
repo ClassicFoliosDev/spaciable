@@ -112,6 +112,9 @@ gem "httparty"
 # OAuth2 authorization
 gem "oauth2"
 
+# Zoho API
+gem "ZCRMSDK", ">= 1.0.1"
+
 # thread safe global variable store
 gem "request_store"
 

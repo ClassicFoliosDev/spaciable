@@ -1,0 +1,1 @@
+[o:*ZCRMSDK::OAuthClient::ZohoOAuthTokens	:@refresh_tokenI"K1000.ec8ebddd1e63ea2b5b727e6b13bb5084.dd264f527ebed4877ff60e57d1ee57f3:ET:@access_tokenI"K1000.b722e0394c110bfae2d078a7e54c9bae.3908a7a0727624cb9f7e7cd35a8f1ee4;T:@expiry_timel+r-äp:@user_identifierI"Accounts@classicfolios.com;T

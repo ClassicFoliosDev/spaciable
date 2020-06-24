@@ -34,7 +34,7 @@ end
 
 When(/^I navigate to my documents$/) do
   library = find(:xpath, "//a[contains(text(),'#{t("homeowner.dashboard.cards.library.view_more")}')]")
-  library.click()
+  library.trigger(:click)
 end
 
 Then(/^I do not see the category my home$/) do

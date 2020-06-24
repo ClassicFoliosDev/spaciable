@@ -1,0 +1,78 @@
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+<style>
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 70%;
+  border-top: 2px solid #A7B5BE;
+  width: 25px;
+  height: 25px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+
+<% if collection&.empty? %>
+  <%= render 'crms/documents/empty_list', back: back %>
+<% else %>
+  <%= simple_form_for collection, :url => path,  html: { id: :documents } do |f| %>
+    <table class="record-list documents">
+      <thead>
+        <tr>
+          <% if defined?(meta_title) %>
+            <th><%= meta_title %></th>
+          <% end %>
+          <th><%= t(".filename") %></th>
+          <th><%= t(".new_filename") %></th>
+          <th><%= t(".category") %></th>
+          <th><%= t(".sync") %></th>
+          <th width="40"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% collection.each do |doc| %>
+          <tr>
+            <%= simple_fields_for :documents do |d| %>
+              <%= d.hidden_field :record_key, value: doc.record_key %>
+              <%= d.hidden_field :document_key, value: doc.document_key %>
+              <%= d.hidden_field :updated_at, value: doc.updated_at %>
+              <%= d.hidden_field :file_name, value: doc.file_name %>
+              <%= d.hidden_field :meta, value: doc&.meta %>
+              <% if defined?(meta_title) %>
+               <th><%= label_tag doc.meta %></th>
+              <% end %>
+              <td> <%= label_tag doc.file_name  %> </td>
+              <td> <%= d.text_field :display_name, placeholder: doc.file_name %> </td
+                  >
+              <td><%= d.input :category, as: :select, collection: category_collection, include_blank: false,  label: false %></td>
+              <td><%= d.input_field :sync, as: :boolean, label: true, checked: true %></td>
+              <td><div id="loader"></div></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t(".back"), back, class: "btn" %>
+        <%= button_tag t(".upload"), :type => 'button', class: "btn btn-primary btn-form-submit", id: 'upload-btn' %>
+        </div>
+    </div>
+  <% end %>
+<% end %>
+

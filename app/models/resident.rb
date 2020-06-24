@@ -147,5 +147,13 @@ class Resident < ApplicationRecord
   def plots_listing_by_others
     homeowner_listing_plots.select { |p| p.listing.live? && !p.listing.belongs_to?(self) }
   end
+
+  def activation_status
+    if invitation_accepted?
+      Rails.configuration.mailchimp[:activated]
+    else
+      Rails.configuration.mailchimp[:unactivated]
+    end
+  end
 end
 # rubocop:enable Metrics/ClassLength
