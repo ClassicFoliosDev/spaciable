@@ -4,8 +4,6 @@ module Admin
   class FinishSearchController < ApplicationController
     skip_authorization_check
     include SearchConcern
-
-    # rubocop:disable Metrics/AbcSize
     def new
       searchterm = params[:search_term].downcase.tr("\"", "")
 
@@ -23,6 +21,5 @@ module Admin
 
       render json: full
     end
-    # rubocop:enable Metrics/AbcSize
   end
 end
