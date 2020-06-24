@@ -79,11 +79,11 @@
         <% end %>
 
         <% if plot.house_search %>
-          <a href="<%= area_guide_url %>" class="navbar-link" target="_blank">
+          <%= link_to area_guide_path, class: "navbar-link" do %>
             <li class="navbar-item">
               <%= t(".house_search") %>
             </li>
-          </a>
+          <% end %>
         <% end %>
 
         <% if plot.enable_perks? %>

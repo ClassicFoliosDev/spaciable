@@ -1,0 +1,22 @@
+<% content_for :sub_category_navigation do %>
+  <div class="navbar-item">
+    <%= link_to area_guide_path, class: "active" do %>
+    <li class="navbar-item-secondary">
+      <%= t(".area_guide") %>
+    </li>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="area-guide-nav">
+  <%= render "components/homeowner/sub_categories" %>
+</div>
+
+<div class="branded-body">
+  <div class="area-guide">
+    <iframe src="<%= area_guide_url %>" class="iframe" mozallowfullscreen webkitallowfullscreen allowfullscreen></iframe>
+    <div class="new-tab">
+      <a href="<%= area_guide_url %>" target="_blank"><%= t(".new_tab") %></a>
+    </div>
+  </div>
+</div>
