@@ -24,7 +24,9 @@
     <h2 class="branded-text"><%= t(".title") %></h2>
   </div>
   <div class="check-faqs branded-text">
-    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, homeowner_faqs_path)).html_safe %></span>
+    <% default_faq_type = @plot.development.faq_types.first %>
+    <% default_faq_category = default_faq_type.categories.first %>
+    <span><%= t(".check_faqs", link: link_to(Faq.model_name.human.pluralize, homeowner_faqs_path(default_faq_type, default_faq_category))).html_safe %></span>
   </div>
   <div class="full-contacts">
       <% @contacts.each_with_index do | contact, index | %>
