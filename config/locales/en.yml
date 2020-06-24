@@ -1563,7 +1563,7 @@ en:
         issues:
           title: "Defect Management"
           description: "Detail any home defects for repair with this easy-to-use online form."
-          button: "Report a Defecy"
+          button: "Report a Defect"
         snagging:
           title: "%{title}"
           description: "Advise us of minor home faults during the %{title} period after your move."
