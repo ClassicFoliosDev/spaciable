@@ -9,9 +9,6 @@ module BulkUploadPlotDocumentsService
     Rails.logger
          .debug(">> Bulk upload plot document service call START #{Time.zone.now}")
 
-    category = plot_document_params[:category]
-    pinned = plot_document_params[:pinned]
-    guide = plot_document_params[:guide]
     raw_files = plot_document_params[:files]
 
     rename, rename_text = rename_params(params)
@@ -25,7 +22,7 @@ module BulkUploadPlotDocumentsService
     end
 
     matches, unmatched = find_matches(files, plots)
-    saved, _errors = save_matches(matches, category, rename, rename_text, pinned, guide)
+    saved, _errors = save_matches(matches, rename, rename_text, plot_document_params)
 
     Rails.logger
          .debug("<< Bulk upload plot document service call END #{Time.zone.now}")
@@ -96,8 +93,7 @@ module BulkUploadPlotDocumentsService
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable MethodLength
-  # rubocop:disable Metrics/ParameterLists
-  def save_matches(matches, category, rename, rename_text, pinned, guide)
+  def save_matches(matches, rename, rename_text, plot_document_params)
     Rails.logger
          .debug(">>> Bulk upload plot document service save matches start #{Time.zone.now}")
     saved = []
@@ -106,8 +102,11 @@ module BulkUploadPlotDocumentsService
     matches.each do |(plot, file)|
       title = file.original_filename
       title = rename_text if rename
-      doc = plot.documents.build(file: file, title: title, category: category,
-                                 pinned: pinned, guide: guide)
+      doc = plot.documents.build(file: file, title: title,
+                                 category: plot_document_params[:category],
+                                 pinned: plot_document_params[:pinned],
+                                 guide: plot_document_params[:guide],
+                                 user_id: plot_document_params[:user_id])
 
       if doc.save then saved << doc
       else errors << doc.errors.full_messages
@@ -119,7 +118,6 @@ module BulkUploadPlotDocumentsService
 
     [saved, errors.flatten!]
   end
-  # rubocop:enable Metrics/ParameterLists
   # rubocop:enable MethodLength
 
   def rename_params(params)

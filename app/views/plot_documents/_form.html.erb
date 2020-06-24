@@ -41,6 +41,8 @@
       <p class="checkbox-description"><%= t(".pinned_description") %></p>
       <br/><br/>
 
+      <%= f.hidden_field :user_id, value: current_user.id %>
+
       <%= f.submit t(".upload_rename"), class: "btn-form-submit btn-primary" %>
       <%= f.submit t(".upload_all"), class: "btn-form-submit btn" %>
       <div class="notify">
