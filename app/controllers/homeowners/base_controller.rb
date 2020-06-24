@@ -26,7 +26,7 @@ module Homeowners
       @plot = Plot.find(params[:id])
       @brand = @plot&.brand
       session[:plot_id] = @plot.id
-      redirect_to homeowner_dashboard_path
+      redirect_to dashboard_path
     end
 
     protected
