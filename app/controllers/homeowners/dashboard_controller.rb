@@ -18,7 +18,7 @@ module Homeowners
       build_articles
     end
 
-  private
+    private
 
     def fetch_faqs
       faqs = Faq.accessible_by(current_ability)

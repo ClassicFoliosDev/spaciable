@@ -16,4 +16,9 @@ class Faq < ApplicationRecord
   delegate :name, to: :faq_type, prefix: :type
   delegate :name, to: :faq_category, prefix: :category
   delegate :categories, to: :faq_type
+
+  scope :visible_to,
+        lambda { |user, type|
+          accessible_by(user).where(faq_type: type)
+        }
 end

@@ -71,12 +71,10 @@ module Abilities
       can :read, Faq, faqable_id: plot.development_id, faqable_type: "Development"
       can :read, Faq, faqable_id: plot.developer_id, faqable_type: "Developer",
                       faq_type: { construction_type:
-                                  { construction: plot.development.construction}
-                                }
+                                  { construction: plot.construction } }
       can :read, Faq, faqable_id: plot.division_id, faqable_type: "Division",
                       faq_type: { construction_type:
-                                  { construction: plot.development.construction}
-                                }
+                                  { construction: plot.construction } }
       can :read, FaqType
       can :read, FaqCategory
     end

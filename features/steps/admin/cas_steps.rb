@@ -73,7 +73,6 @@ When(/^(.*) has a (.*) room with a (.*) finish$/) do |plot_number, room_name, fi
   end
 
   sleep 0.5
-  save_and_open_screenshot
   # add the finish
   find(:xpath, ".//a[contains(text(), '#{t("plots.rooms.collection.finishes")}')]")
   click_on t("finishes.collection.assign")

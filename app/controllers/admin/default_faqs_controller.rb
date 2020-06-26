@@ -26,7 +26,8 @@ module Admin
 
       if @default_faq.save
         notice = t("controller.success.create", name: @default_faq)
-        redirect_to [:admin_settings, :default_faqs, active_tab: @default_faq.faq_type.id], notice: notice
+        redirect_to [:admin_settings, :default_faqs, active_tab: @default_faq.faq_type.id],
+                    notice: notice
       else
         render :new
       end

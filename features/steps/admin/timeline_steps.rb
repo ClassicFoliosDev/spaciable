@@ -229,7 +229,6 @@ Then(/^I can begin My Journey$/) do
   # select stage
   find(:xpath, "//input[@type='submit']").click() # find waits ..
         sleep 0.5
-        save_and_open_screenshot
 end
 
 Then(/^I can answer (.*) to task (.*)$/) do |answer, task_title|

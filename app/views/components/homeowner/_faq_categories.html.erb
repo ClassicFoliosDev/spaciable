@@ -4,7 +4,7 @@
   <ul class="categories">
     <% categories.each do |category| %>
       <li class="category">
-        <%= link_to homeowner_faqs_path(@faq_type, category), class: ('active' if category == faq_category) do %>
+        <%= link_to homeowner_faqs_path(faq_type, category), class: ('active' if category == faq_category) do %>
           <%= category.name %>
         <% end %>
       </li>

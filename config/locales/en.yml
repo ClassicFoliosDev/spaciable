@@ -566,7 +566,7 @@ en:
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
-        faqs: "%{type} FAQs"
+        faqs: "FAQs"
         choices: "Choices"
         services: "Services"
         area_guide: "Area Guide"

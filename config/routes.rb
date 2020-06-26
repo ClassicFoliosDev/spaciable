@@ -263,7 +263,7 @@ Rails.application.routes.draw do
 
     get "faqs/:faq_type/:faq_category",
         to: "faqs#index",
-        as: :homeowner_faqs
+        as: :homeowner_faqs, defaults: { faq_type: 0, faq_category: 0 }
 
     get "how_tos/category/:category",
         to: "how_tos#index",

@@ -1,12 +1,17 @@
 <% content_for :sub_category_navigation do %>
   <% @plot.development.faq_types.each do |faq_type| %>
-    <div class="navbar-item <%= 'active' if @faqs.first.faq_type == faq_type %>">
-      <%= link_to homeowner_faqs_path(faq_type, faq_type.categories.first) do %>
-        <li class="navbar-item-secondary">
-          <%= t('.faqs', type: faq_type.name) %>
-        </li>
-      <% end %>
-    </div>
+    <% if @faqs.where(faq_type: faq_type).count.positive? ||
+      (faq_type == @plot.development&.faq_types.first &&
+      @faqs.where(faq_type:faq_type).count == @faqs.count) %>
+
+      <div class="navbar-item <%= 'active' if @faq_type == faq_type %>">
+        <%= link_to homeowner_faqs_path(faq_type: faq_type) do %>
+          <li class="navbar-item-secondary">
+            <%= t('.faqs', type: faq_type.name) %>
+          </li>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 
@@ -15,13 +20,13 @@
 <div class="faq-navigation">
   <%= render "components/homeowner/sub_categories" %>
 
-  <%= render "components/homeowner/faq_categories", categories: @categories, plot: @plot, faqs: @faqs, faq_category: @faq_category %>
+  <%= render "components/homeowner/faq_categories", categories: @categories, plot: @plot, faqs: @category_faqs, faq_category: @faq_category, faq_type: @faq_type%>
 </div>
 
 <div class="branded-body">
   <div class="main-container">
     <dl class="faqs">
-      <% @faqs.each do |faq| %>
+      <% @category_faqs.each do |faq| %>
         <dt class="branded-content" id="faq-<%= faq.id %>"><h3 class="branded-text"><%= faq.question.html_safe %></h3></dt>
         <dd class="branded-text branded-content">
           <%= raw faq.answer %>
