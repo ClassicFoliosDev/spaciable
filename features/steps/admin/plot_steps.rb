@@ -199,7 +199,8 @@ Then(/^I can see my faqs$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-    click_on(t("components.homeowner.navigation.faqs", type: "Homeowner"))
+    faqs = find(:xpath, "//a/li[contains(text(),'#{t("components.homeowner.navigation.faqs")}')]/parent::a")
+    faqs.trigger(:click)
   end
 
   sleep 0.2
