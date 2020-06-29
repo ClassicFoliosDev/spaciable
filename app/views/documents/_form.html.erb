@@ -72,7 +72,7 @@
           </div><br/>
           <% if guide_selector_valid?(document) %>
             <div class="ui-front" id="documentGuideSelector">
-              <%= f.input :guide, as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
+              <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(document), include_blank: true, disabled: manual_exists(document) %>
               <br/>
             </div>
           <% end %>

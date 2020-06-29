@@ -48,4 +48,10 @@ module NavigationHelper
     eval(shortcut) + query_params
   end
   # rubocop:enable Security/Eval
+
+  # external links
+
+  def area_guide_url
+    ENV.fetch("BA4M_URL")
+  end
 end

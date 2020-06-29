@@ -23,7 +23,7 @@
             label: t("activerecord.attributes.report.report_to"),
             as: :date,
             order: [:day, :month, :year],
-            start_year: Date.today.year,
+            start_year: Date.today.year + 1,
             end_year: 2017 %>
       </div>
       <div class="plot-type ui-front select-container">
@@ -36,15 +36,15 @@
       </div>
     </div>
     <div class="half report-description">
-      <p class="date-ranges">
-        <span class="bold"><%= t(".range_summary") %></span><br/>
-        <span><%= t(".range_dev") %></span><br/>
-        <span><%= t(".range_all") %></span>
-      </p>
       <p class="plot-types">
         <span class="bold"><%= t(".type_summary") %></span><br/>
         <span><%= t(".type_dev") %></span><br/>
         <span><%= t(".type_all") %></span>
+      </p>
+      <p class="date-ranges">
+        <span class="bold"><%= t(".range_summary") %></span><br/>
+        <span><%= t(".range_perk") %></span><br/>
+        <span><%= t(".range_all") %></span>
       </p>
     </div>
   </div>

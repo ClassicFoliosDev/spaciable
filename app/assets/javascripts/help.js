@@ -107,6 +107,7 @@ function unitTypeHelp() {
         class: 'btn',
         click: function () {
           $(this).dialog('destroy')
+          $(".unit-type-help").hide()
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
@@ -123,13 +124,13 @@ function roomBelongsHelp() {
     '<div>' +
       '<p>' +
         'If a room belongs to its Unit Type, then any change made on the Unit Type will be reflected on the plot. ' +
-        'This means you can add or remove one specification and affect all relevant plot at once!' +
+        'This means you can add or remove one specification and affect all relevant plots at once!' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
         'Once a room is edited at plot level, you\'ll notice the room now belongs to the plot. ' +
-        'This means any changes made to the same room in the Unit Type will no longer be reflected' +
+        'This means any changes made to the same room in the Unit Type will no longer be reflected.' +
       '</p>' +
     '</div>'
   )

@@ -7,7 +7,7 @@
           <% if session[:onboarding] %>
             <%= image_tag(brand_or_red_logo(brand, plot)) %>
           <% else %>
-            <%= link_to image_tag(brand_or_red_logo(brand, plot)), homeowner_dashboard_path %>
+            <%= link_to image_tag(brand_or_red_logo(brand, plot)), dashboard_path %>
           <% end %>
         </div>
 
@@ -55,44 +55,60 @@
                     <% end %>
                   </div>
                   <div class="links-list">
-                    <div class="dropdown-link branded-nav-background">
-                      <%= link_to t(".account"), homeowners_resident_path(current_resident), class: "link-item branded-nav-text" %>
-                    </div>
-                    <div class="dropdown-link branded-nav-background">
-                      <%= link_to t(".plots"), plots_path, class: "link-item branded-nav-text" %>
-                    </div>
-                    <div class="dropdown-link branded-nav-background">
-                      <%= link_to homeowners_notifications_path, class: "link-item branded-nav-text" do %>
-                      <% if unread_count.positive? %>
-                      <span class="unread"><%= unread_count %></span>
-                      <% end %>
-                        <%= t(".messages") %>
-                      <% end %>
-                    </div>
-                    <% if current_resident.listings? %>
-                    <div class="dropdown-link branded-nav-background">
-                      <%= link_to t(".lettings"), letting_path(current_resident), class: "link-item branded-nav-text" %>
-                    </div>
+                    <%= link_to homeowners_resident_path(current_resident), class: "link-item branded-nav-text" do %>
+                      <div class="dropdown-link branded-nav-background">
+                        <%= t(".account") %>
+                      </div>
                     <% end %>
-                    <div class="dropdown-link branded-nav-background">
-                      <%= button_tag t(".feedback"), class: "feedback-btn navigation-btn link-item branded-nav-text",
-                      data: data_for_feedback(current_resident) %>
-                    </div>
-                    <div class="dropdown-link branded-nav-background">
-                      <%= button_tag t(".refer"), class: "refer-resident navigation-btn link-item branded-nav-text",
-                          data: { cancel: t("edit.cancel"),
-                          cta: t(".send_invitation"),
-                          title: t(".refer_title")} %>
-                    </div>
+
+                    <%= link_to plots_path, class: "link-item branded-nav-text" do %>
+                      <div class="dropdown-link branded-nav-background">
+                        <%= t(".plots") %>
+                      </div>
+                    <% end %>
+
+                    <%= link_to homeowners_notifications_path, class: "link-item branded-nav-text" do %>
+                      <div class="dropdown-link branded-nav-background">
+                        <% if unread_count.positive? %>
+                        <span class="unread"><%= unread_count %></span>
+                        <% end %>
+                        <%= t(".messages") %>
+                      </div>
+                    <% end %>
+
+                    <% if current_resident.listings? %>
+                      <%= link_to letting_path(current_resident), class: "link-item branded-nav-text" do %>
+                        <div class="dropdown-link branded-nav-background">
+                          <%= t(".lettings") %>
+                        </div>
+                      <% end %>
+                    <% end %>
+
+                    <%= button_tag class: "feedback-btn navigation-btn link-item branded-nav-text",
+                        data: data_for_feedback(current_resident) do %>
+                      <div class="dropdown-link branded-nav-background">
+                          <span><%= t(".feedback") %></span>
+                      </div>
+                    <% end %>
+
+                    <%= button_tag class: "refer-resident navigation-btn link-item branded-nav-text",
+                        data: { cancel: t("edit.cancel"),
+                        cta: t(".send_invitation"),
+                        title: t(".refer_title")} do %>
+                      <div class="dropdown-link branded-nav-background nav-refer">
+                          <span><%= t(".refer") %></span>
+                      </div>
+                    <% end %>
                   </div>
-                  <div class="dropdown-link sign-out branded-nav-background" id="signOut">
+
                     <%= link_to destroy_resident_session_path,
                         method: :delete,
                         data: { test: "homeowner-sign-out" },
                         class: "link-item branded-nav-text" do %>
+                      <div class="dropdown-link sign-out branded-nav-background" id="signOut">
                         <i class="fa fa-angle-left sign-out-arrow"></i><span><%= t("users.sign_out") %></span>
+                      </div>
                     <% end %>
-                  </div>
                 </div>
               <% end %>
             </div>

@@ -2,7 +2,7 @@
   <h4><%= t(".refer_description") %> </h4>
 </div>
 
-<%= simple_form_for Referral.new, url: homeowner_dashboard_path, remote: true do |f| %>
+<%= simple_form_for Referral.new, url: dashboard_path, remote: true do |f| %>
   <%= f.input :referee_first_name, label: t(".first_name"), required: true %>
   <%= f.input :referee_last_name, label: t(".last_name"), required: true %>
   <%= f.input :referee_email, label: t(".email"), required: true %>

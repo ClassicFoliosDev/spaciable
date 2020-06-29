@@ -154,7 +154,7 @@
   })
 
   // prevent the preview buttons from functioning
-  $(document).on('click', '#featurePartials .branded-btn', function (event) {
+  $(document).on('click', '#tilePreview .branded-btn', function (event) {
     event.preventDefault()
   })
 

@@ -209,8 +209,6 @@ end
 
 When(/^I refer a friend$/) do
   visit "/"
-  sleep 0.5
-  save_and_open_screenshot
 
   within ".refer-summary" do
     click_on t("homeowners.dashboard.tiles.referrals.title")
@@ -257,8 +255,11 @@ end
 Given(/^the development has a custom link tile$/) do
   development = Development.find_by(name: HomeownerUserFixture.development_name)
 
-  CustomTile.create(development_id: development.id, category: "link", link: "www.ducks.com",
+  CustomTile.create(development_id: development.id, category: "link", link: "https://ducks.com",
                     title: "Title", description: "Description", button: "Button")
+
+  stub_request(:get, "https://ducks.com").
+  to_return(:headers => {})
 end
 
 Then(/^I can see the custom link tile$/) do

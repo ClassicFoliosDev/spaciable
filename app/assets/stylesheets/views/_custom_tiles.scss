@@ -62,6 +62,18 @@
         object-fit: cover;
         border-radius: 5px 0 0 5px;
       }
+
+      .spaciable-buyers {
+        height: 100%;
+        width: 100%;
+        background-color: $primary-navy;
+        border-radius: 5px 0 0 5px;
+
+        img {
+          object-fit: contain;
+          padding: 10px;
+        }
+      }
     }
 
     .img-tile-details {

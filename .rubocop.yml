@@ -60,4 +60,9 @@ Style/ClassAndModuleChildren:
   Exclude:
     - app/controllers/users/**
 
-# Exclude line lengths for format.html
+# Exclude sessions controllers for after_sign_in_path_for(resource)
+# Used to define the dashboard/home path for analytical purposes
+Lint/UnusedMethodArgument:
+  Exclude:
+    - app/controllers/residents/sessions_controller.rb
+    - app/controllers/users/sessions_controller.rb

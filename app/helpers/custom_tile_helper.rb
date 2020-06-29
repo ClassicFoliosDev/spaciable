@@ -21,36 +21,4 @@ module CustomTileHelper
 
     disabled
   end
-
-  def manual_unassigned(custom_tile)
-    documents = collect_documents(custom_tile.parent)
-
-    unassigned = %w[reservation completion]
-    if documents.size.positive?
-      documents.flatten!.each do |document|
-        unassigned.delete(document.guide) if document.guide
-        # stop checking documents if array is empty
-        break if unassigned.empty?
-      end
-    end
-    unassigned
-  end
-
-  private
-
-  def collect_documents(parent)
-    documents = []
-
-    # gather documents for all descendants under the parent
-    # e.g. if parent is a development, descendants will be all phases under the development,
-    # and all plots under each of the phases
-    parent.descendants.each do |descendant|
-      documents << descendant.documents
-    end
-
-    # parent documents
-    documents << parent.documents
-
-    documents
-  end
 end
