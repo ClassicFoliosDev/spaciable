@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200521094314) do
+ActiveRecord::Schema.define(version: 20200623084553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -217,6 +217,10 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "construction_types", force: :cascade do |t|
+    t.integer "construction"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -281,10 +285,14 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.text     "question"
     t.text     "answer"
     t.string   "category"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.datetime "deleted_at"
-    t.integer  "country_id", null: false
+    t.integer  "country_id",      null: false
+    t.integer  "faq_type_id"
+    t.integer  "faq_category_id"
+    t.index ["faq_category_id"], name: "index_default_faqs_on_faq_category_id", using: :btree
+    t.index ["faq_type_id"], name: "index_default_faqs_on_faq_type_id", using: :btree
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -412,15 +420,40 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
   end
 
+  create_table "faq_categories", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "faq_type_categories", force: :cascade do |t|
+    t.integer "faq_type_id"
+    t.integer "faq_category_id"
+    t.index ["faq_category_id"], name: "index_faq_type_categories_on_faq_category_id", using: :btree
+    t.index ["faq_type_id"], name: "index_faq_type_categories_on_faq_type_id", using: :btree
+  end
+
+  create_table "faq_types", force: :cascade do |t|
+    t.string  "name"
+    t.string  "icon"
+    t.boolean "default_type",         default: false
+    t.integer "country_id"
+    t.integer "construction_type_id"
+    t.index ["construction_type_id"], name: "index_faq_types_on_construction_type_id", using: :btree
+    t.index ["country_id"], name: "index_faq_types_on_country_id", using: :btree
+  end
+
   create_table "faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
+    t.integer  "faq_type_id"
+    t.integer  "faq_category_id"
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
+    t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id", using: :btree
+    t.index ["faq_type_id"], name: "index_faqs_on_faq_type_id", using: :btree
     t.index ["faqable_type", "faqable_id"], name: "index_faqs_on_faqable_type_and_faqable_id", using: :btree
   end
 
@@ -429,6 +462,7 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.string  "title"
     t.text    "description"
     t.string  "link"
+    t.string  "precis"
     t.index ["task_id"], name: "index_features_on_task_id", using: :btree
   end
 
@@ -586,6 +620,12 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["logable_type", "logable_id"], name: "index_logs_on_logable_type_and_logable_id", using: :btree
+  end
+
+  create_table "lookups", force: :cascade do |t|
+    t.string "code"
+    t.string "column"
+    t.string "translation"
   end
 
   create_table "maintenances", force: :cascade do |t|
@@ -1012,14 +1052,14 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.string   "first_name"
     t.string   "last_name"
     t.integer  "role"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "email",                  default: "",    null: false
-    t.string   "encrypted_password",     default: "",    null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.string   "email",                     default: "",    null: false
+    t.string   "encrypted_password",        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,     null: false
+    t.integer  "sign_in_count",             default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -1031,17 +1071,19 @@ ActiveRecord::Schema.define(version: 20200521094314) do
     t.integer  "invitation_limit"
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",         default: 0
     t.datetime "deleted_at"
     t.string   "permission_level_type"
     t.integer  "permission_level_id"
     t.string   "picture"
     t.string   "job_title"
-    t.boolean  "receive_release_emails", default: true
-    t.boolean  "snag_notifications",     default: true
-    t.boolean  "receive_choice_emails",  default: false
-    t.integer  "lettings_management",    default: 0
-    t.boolean  "cas",                    default: false
+    t.boolean  "receive_release_emails",    default: true
+    t.boolean  "snag_notifications",        default: true
+    t.boolean  "receive_choice_emails",     default: false
+    t.integer  "lettings_management",       default: 0
+    t.boolean  "cas",                       default: false
+    t.boolean  "receive_invitation_emails", default: true
+    t.boolean  "receive_faq_emails",        default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -1079,6 +1121,10 @@ ActiveRecord::Schema.define(version: 20200521094314) do
   add_foreign_key "divisions", "developers"
   add_foreign_key "divisions", "timelines"
   add_foreign_key "documents", "users"
+  add_foreign_key "faq_type_categories", "faq_categories"
+  add_foreign_key "faq_type_categories", "faq_types"
+  add_foreign_key "faq_types", "construction_types"
+  add_foreign_key "faq_types", "countries"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
   add_foreign_key "finish_categories", "developers"
