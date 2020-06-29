@@ -2,7 +2,9 @@
   <% if plot&.branded_perk&.tile_image %>
     <%= image_tag "#{plot&.branded_perk&.tile_image}" %>
   <% else %>
-    <%= image_tag "buyers_logo.png" %>
+    <div class="spaciable-buyers">
+      <%= image_tag "buyers_logo.png" %>
+    </div>
   <% end %>
 </div>
 

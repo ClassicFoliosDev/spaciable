@@ -1,4 +1,4 @@
-.homeowner-view{
+.homeowner-view, .login-view {
   .alert {
     background: $primary-red;
     color: $ui-white;
@@ -18,7 +18,7 @@
   }
 }
 
-.admin-view {
+.admin-view, .admin-login-view {
   .alert {
     background: $primary-red;
     color: $ui-white;
