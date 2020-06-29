@@ -604,7 +604,7 @@ Then(/^I cannot see the new video$/) do
 
   sleep 0.5
 
-  within find(".library-categories") do
+  within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
 end
@@ -616,7 +616,7 @@ Then(/^I can see both videos$/) do
   end
   click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".library-categories" do
+  within find(".library-categories") do
     click_on I18n.t("components.homeowner.library_categories.videos")
   end
 
