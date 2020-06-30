@@ -311,7 +311,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
-        timeline: "My Journey"
+        timeline: "Your Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -1408,7 +1408,10 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
-      next: "Next"
+      skip: "Skip"
+      done: "Complete"
+      contacts: "Useful Contacts"
+
       splash:
         welcome: "Welcome To"
         your_journey: "Your Journey"
@@ -1824,7 +1827,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey"
+      timeline: "Your Journey"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -1857,7 +1860,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "My Journey"
+      timelines: "Your Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -3341,6 +3344,10 @@ en:
           local_authority: "Local Authority"
           sales_team: "Sales Team"
           utility_supplier: "Utility Supplier"
+          managing_agent: "Managing Agent"
+          warranty_provider: "Warranty Provider"
+          concierge: "Concierge"
+          cust_care: "Customer Care"
       send_to_all:
         all: "All"
       maintenance:
@@ -3575,11 +3582,14 @@ en:
       positive: "Positive"
       negative: "Negative"
       not_applicable: "Not Applicable"
-      next: "Next"
+      done: "Complete"
+      skip: "Skip"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
       services: "Services"
+      contacts: "Useful Contacts"
+      contacts_disclaimer: "If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes."
       feature:
         title: "Feature Button"
         description: "Description"
@@ -3597,8 +3607,8 @@ en:
       question: "Question"
       answer: "Response Heading"
       response: "Response Content"
-      positive: "Affirmative Button Text"
-      negative: "Negative Button Text"
+      positive: "Button Text: Task Completed"
+      negative: "Button Text: Reveal Response"
       not_applicable: "Not Applicable"
       not_applicable_text: "Show the Not Applicable button"
       cancel: "Cancel"
@@ -3615,6 +3625,7 @@ en:
         add: "Add Feature"
         delete: "Delete Feature"
         title: "Button Text"
+        precis: "Precis"
         description: "Description"
         link: "Link"
       action:

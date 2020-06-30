@@ -1,5 +1,6 @@
 /* global $ */
 var $body = $('body')
+var $num_features = 0
 
 $(document).on('click', '#timeline-submit-btn', function (event) {
 
@@ -75,35 +76,68 @@ $(document).on('click', '#deleteActionBtn', function (event) {
 
 // task form - show the feature fields on clicking add feature button
 $(document).on('click', '#addFeatureBtn', function (event) {
-  $(this).hide()
-  $('#featureInput').show()
-  // the _destroy attribute marks a nested record for destruction
-  $('#task_feature_attributes__destroy').val(false)
+
+  if ($num_features == 1 && $('#featureInput').is(":hidden")) {
+    $('#featureInput').show()
+    // the _destroy attribute marks a nested record for destruction
+    $('#featureInput').find("input[deletefield='true']").val(false)
+  }
+  else{
+    addNewFeature()
+  }
+
 })
 
 // task form - hide the feature fields on clicking delete feature button
 $(document).on('click', '#deleteFeatureBtn', function (event) {
-  $('#featureInput').hide()
-  $('#addFeatureBtn').show()
-  // the _destroy attribute marks a nested record for destruction
-  $('#task_feature_attributes__destroy').val(true)
+  feature = $(this).closest('#featureInput')
+  feature.hide()
+  feature.find("input[deletefield='true']").val(true)
 })
 
 // Set the visibility of the Add/Remove Feature/Action buttons
 // based on content
 $( document ).on('turbolinks:load', function() {
-  if ($('#featureInput').length) {
-    featuretext = $('#task_feature_attributes_title').val() +
-                  $('#task_feature_attributes_description').val() +
-                  $('#task_feature_attributes_link').val()
 
-    featuretext.length ? $('#addFeatureBtn').hide() : $('#featureInput').hide()
+  $num_features = $('#featureInput').length
+  $('#featureInput').each(function( index ) {
+    featuretext = ""
+    $(this).find("input").each(function( index ) {
+      if($(this).is(":visible")) {
+        featuretext += $(this).val()
+      }
+    })
+    if (featuretext.length == 0){
+      $(this).hide()
+    }
+  })
 
+  if ($('#actionInput').length) {
     actiontext = $('#task_action_attributes_title').val() +
-                 $('#task_action_attributes_description').val() +
                  $('#task_action_attributes_link').val()
 
     actiontext.length ? $('#addActionBtn').hide() : $('#actionInput').hide()
   }
 
 })
+
+// Add a new feature into the DOM. Make a copy of the html for the
+// first feature on the page.  Features are streamed as
+// arrays e.g. name=task[features_attributes][0][description] and
+// id = task_features_attributes_0_description.  This function
+// clones the first feature and resets all the indices then clears
+// out the text.  Finally it prepends itself itself before the addFeatureBtn
+function addNewFeature(){
+  newfeature = $('#featureInput').first().clone()
+  newfeature.find("input").each(function( index ) { initialse_feature($(this)) })
+  newfeature.find("textarea").each(function( index ) { initialse_feature($(this)) })
+  $('#addFeatureBtn').before(newfeature)
+  $num_features += 1
+}
+
+function initialse_feature(feature){
+  feature.prop('name', feature.prop('name').replace(/0/g, $num_features))
+  feature.prop('id', feature.prop('id').replace(/0/g, $num_features))
+  feature.val("")
+}
+

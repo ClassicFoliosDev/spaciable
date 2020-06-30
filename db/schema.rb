@@ -429,6 +429,7 @@ ActiveRecord::Schema.define(version: 20200610100637) do
     t.string  "title"
     t.text    "description"
     t.string  "link"
+    t.string  "precis"
     t.index ["task_id"], name: "index_features_on_task_id", using: :btree
   end
 
@@ -586,6 +587,12 @@ ActiveRecord::Schema.define(version: 20200610100637) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["logable_type", "logable_id"], name: "index_logs_on_logable_type_and_logable_id", using: :btree
+  end
+
+  create_table "lookups", force: :cascade do |t|
+    t.string "code"
+    t.string "column"
+    t.string "translation"
   end
 
   create_table "maintenances", force: :cascade do |t|

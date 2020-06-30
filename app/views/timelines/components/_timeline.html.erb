@@ -6,7 +6,7 @@
 <% insertion_task = defined?(insertion_task) ? insertion_task : nil %>
 <% complete = defined?(complete) ? complete : false %>
 
-<div class="timeline-sidebar" id="timelineAdminSidebar">
+<div class="timeline-sidebar" id="timelineAdminSidebar" data-no-turbolink>
   <div class="list-stages">
     <ul class="vertical">
       <% timeline.timeline_stages.each do |tstage| %>

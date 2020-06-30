@@ -12,7 +12,12 @@
               <p> <%= @task.stage_title %></p>
             </div>
             <div class="progress">
-              <!-- igloo progress image goes here -->
+              <span class="progress-count">
+                <%= "#{@plot_timeline.progress_percent}%" %>
+              </span>
+              <span class="progress-icon">
+                <%= image_tag "#{@task.stage_title}_igloo.svg" %>
+              </span>
             </div>
           </div>
         </div>
@@ -24,8 +29,12 @@
           <p> <%= @task.stage_title %></p>
         </div>
         <div class="progress">
-          <!-- igloo progress image goes here -->
-          <!-- DOES ELLIS UNDERSTAND THAT WE CAN'T ACTUALLY IMPLEMENT HIS DESIGNS IF HE DOESN'T SEND THEM TO US -->
+          <span class="progress-count">
+            <%= "#{@plot_timeline.progress_percent}%" %>
+          </span>
+          <span class="progress-icon">
+            <%= image_tag "#{@task.stage_title}_igloo.svg" %>
+          </span>
         </div>
       </div>
 
@@ -57,21 +66,23 @@
         <div id="answer">
           <div class="answer-container">
             <h2 class="branded-text"> <%= @task.answer %> </h2>
-            <p class="branded-text"> <%= simple_format @task.response %> </p>
+            <p class="branded-text"> <%= simple_format Lookup.parse(@task.response, @plot, current_resident) %> </p>
 
             <aside class="useful-extras">
-              <div class="features-container">
-                <% if @task.feature %>
-                  <p><%= @task.feature_description %></p>
-                  <button onclick="window.open('<%=@task.feature_link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= @task.feature_title %></button>
-                <% end %>
-              </div>
+              <% @task.features&.each do |feature| %>
+                <div class="features-container">
+                  <p><%= Lookup.parse(feature.precis, @plot, current_resident) %></p>
+                  <button onclick="window.open('<%=feature.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
+                  <p><%= Lookup.parse(feature.description, @plot, current_resident) %></p>
+                </div>
+              <% end %>
             </aside>
           </div>
 
           <% contacts = @task.contacts(@plot) %>
           <% if contacts %>
             <aside class="contact-container">
+              <h4 class="branded-text"><%= t("homeowners.timeline.contacts") %></h4>
               <% contacts.each do |contact| %>
                 <div class="contact">
                   <div class="avatar">
@@ -80,8 +91,8 @@
                     <% end %>
                   </div>
                   <div class="contact-info">
-                    <p class="name"><%= contact.to_s %></p>
-                    <p class="position"><%= contact.position %></p>
+                    <p class="name branded-text"><%= contact.to_s %></p>
+                    <p class="position branded-text"><%= contact.position %></p>
 
                     <% if contact.phone? %>
                       <p class="contact-detail">
@@ -117,7 +128,7 @@
                   <% @task.task_shortcuts.each do |ts| %>
                     <% if ts.live %>
                       <div class="shortcut-links link_<%=ts.shortcut.shortcut_type%>">
-                        <% url = ts.shortcut.link.start_with?("http") ? ts.shortcut.link : eval(ts.shortcut.link) %>
+                        <% url = build_shortcut(ts.shortcut.link, current_resident, @plot) %>
                         <button onclick="window.open('<%= url %>', '_blank')" type="button" id="shortcut<%=ts.shortcut.shortcut_type.camelize%>" class="shortcut-link">
                           <!-- icons are adding via javascript -->
                           <i class=""></i>
@@ -137,7 +148,8 @@
                 <% end %>
                 <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn"><%= @task.action_title %></button>
               <% end %>
-              <input type="submit" value=<%="#{t('homeowners.timeline.next')}"%> class: "btn-form-submit btn branded-btn">
+              <input type="submit" value=<%="#{t('homeowners.timeline.skip')}"%> class: "btn-form-submit btn branded-btn">
+              <%= button_tag t('homeowners.timeline.done'), :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
             </div>
           </div>
         </div>

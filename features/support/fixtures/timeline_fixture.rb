@@ -26,10 +26,11 @@ module TimelineFixture
      },
      {title: "Second", question: "Do you want to go Second?",
       answer: "ok", stage_id: 1, positive: "oui", negative: "non",
-      response: "or something like that",
+      response: "&lt;developer&gt; &lt;development&gt; &lt;phase&gt;",
       feature: {
       title: "Featured",
-      description: "umm",
+      precis: "<house_number>",
+      description: "<first_name> <last_name>",
       link: "http://thebombles.com"}
      },
      {title: "Third", question: "Do you want me to go third?",
@@ -37,7 +38,6 @@ module TimelineFixture
       response: "have you thought of doing something else",
       action: {
       title: "Time for Action",
-      description: "make some toast",
       link: "http://hovis.com"}
      },
      {title: "Forth", question: "What it all 4?",
@@ -73,11 +73,11 @@ module TimelineFixture
       response: "Dont fool yourself",
       feature: {
       title: "Featured",
+      precis: "hello",
       description: "who really cares",
       link: "http://thewombles.com"},
       action: {
       title: "Time for Action",
-      description: "make some toast",
       link: "http://hovis.com"}
     }]
   end
@@ -118,14 +118,18 @@ module TimelineFixture
       TaskShortcut.create(task: this_task, shortcut: services, live:true, order: 3)
       TaskShortcut.create(task: this_task, shortcut: area_guide, live:true, order: 4)
 
-      %i[feature action].each do |action|
-        if task[action]
-          action.to_s.capitalize().classify.constantize.create(
-                      task: this_task,
-                      title: task[action][:title],
-                      description: task[action][:description],
-                      link: task[action][:link])
-        end
+      if task[:action]
+        Action.create(task: this_task,
+                      title: task[:action][:title],
+                      link: task[:action][:link])
+      end
+
+      if task[:feature]
+        Feature.create(task: this_task,
+                       title: task[:feature][:title],
+                       precis: task[:feature][:precis],
+                       description: task[:feature][:description],
+                       link: task[:feature][:link])
       end
 
 
@@ -143,6 +147,7 @@ module TimelineFixture
 
   def seed_timeline
     load Rails.root.join("db/seeds", "timeline.rb")
+    load Rails.root.join("db/seeds", "lookups.rb")
   end
 
 end
