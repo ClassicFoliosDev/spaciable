@@ -1,0 +1,15 @@
+<%= render "components/homeowner/hero" %>
+
+<div class="library-navigation">
+  <%= render "components/homeowner/sub_menu", active_tab: "calendar", plot: @plot %>
+</div>
+
+<div class="branded-body library">
+  <%= render "homeowners/calendar/events", source: current_resident %>
+</div>
+
+<% if current_resident&.plot_residency_homeowner?(@plot) %>
+  <%= render "homeowners/components/sharing_info", plot: @plot %>
+<% end %>
+
+

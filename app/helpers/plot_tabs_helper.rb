@@ -39,6 +39,10 @@ module PlotTabsHelper
         icon: "th-list",
         permissions_on: -> { plot },
         hide: !plot.choices?(current_user)
+      },
+      calendar: {
+        icon: "calendar", link: [plot, active_tab: :calendar],
+        permissions_on: -> { plot }
       }
     }
   end

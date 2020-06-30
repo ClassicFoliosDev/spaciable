@@ -7,6 +7,7 @@ module Abilities
 
       can :manage, Resident, id: resident.id
       can :read, HowTo
+      can :crud, Event
 
       resident_abilities_for_plot(plot.id)
       resident_abilities_via_development(plot.development_id)

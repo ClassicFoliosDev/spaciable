@@ -542,6 +542,7 @@ en:
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
+        calendar: "Calendar"
         title: "My Home"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
@@ -565,6 +566,7 @@ en:
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
+        calendar: "Calendar"
         choices: "Choices"
         services: "Services"
         area_guide: "Area Guide"
@@ -914,7 +916,7 @@ en:
         job_title: "Job Title"
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
-        invitation_emails: "Resident Invitation Emails" 
+        invitation_emails: "Resident Invitation Emails"
         receive_invitation_emails: "Receive resident invitation emails"
       index:
         title: "Admins."
@@ -2419,6 +2421,7 @@ en:
       name: "Plot"
       logs: "Change Logs"
       sync: "CRM Sync"
+      calendar: "Calendar"
 
       UK:
         house_number: "Postal"

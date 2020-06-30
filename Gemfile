@@ -121,6 +121,10 @@ gem "request_store"
 # Copy carrierwave images
 gem "copy_carrierwave_file"
 
+# full callendar
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"

@@ -193,6 +193,9 @@ Rails.application.routes.draw do
     get 'cas', to: 'developers#cas', format: :json
   end
 
+  resources :events, only: [:index, :create], format: :json
+  put 'events', to: 'events#update'
+
   resources :divisions do
     resources :developments, controller: 'divisions/developments' do
       get 'sync_docs', on: :member
@@ -219,6 +222,8 @@ Rails.application.routes.draw do
     get 'choices', action: :edit , controller: 'choices'
     post 'choices', action: :update , controller: 'choices'
     get 'notification', to: 'notifications#show', format: :json
+    resources :events, only: [:index, :create], format: :json
+    put 'events', to: 'events#update'
   end
 
   scope :homeowners, module: :homeowners do
@@ -278,6 +283,10 @@ Rails.application.routes.draw do
         to: 'library#index',
         as: :homeowner_library,
         defaults: { category: :my_home }
+
+    get "calendar",
+        to: 'calendar#index',
+        as: :homeowner_calendar
 
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
 
