@@ -873,6 +873,10 @@ en:
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
         no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
+        confirm_notification: "Confirm Send"
+        confirm_plots: "Are you sure you want to send this notification to the following plots?"
+        empty_plots: "No plots have been selected. This notification will be sent to all plots that meet the following criteria. Are you sure you want to send this notification?"
+        all_residents: "Are you sure you want to send this notification to all Spaciable residents?"
       index:
         title: "Notifications."
       new:

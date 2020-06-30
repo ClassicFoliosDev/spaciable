@@ -231,6 +231,10 @@ When(/^I send a notification the phase$/) do
   within ".form-actions-footer" do
     click_on t("admin.notifications.form.submit")
   end
+
+  within find(".submit-dialog") do
+    click_on "Confirm"
+  end
 end
 
 Then(/^I should see the notification is not sent to the former resident$/) do
