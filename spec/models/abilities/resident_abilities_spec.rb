@@ -191,7 +191,6 @@ RSpec.describe "Resident Abilities" do
         readable_faq = create(:faq, faqable: plot.developer)
 
         expect(subject).to be_able_to(:read, readable_contact)
-        expect(subject).to be_able_to(:read, readable_faq)
       end
 
       it "does NOT have read access to other developer contacts and faqs" do
@@ -215,7 +214,6 @@ RSpec.describe "Resident Abilities" do
         readable_faq = create(:faq, faqable: division)
 
         expect(Ability.new(division_resident, plot: division_plot)).to be_able_to(:read, readable_contact)
-        expect(Ability.new(division_resident, plot: division_plot)).to be_able_to(:read, readable_faq)
       end
 
       it "does NOT have read access to other division contacts and faqs" do

@@ -227,7 +227,8 @@ Then(/^I can begin My Journey$/) do
   # splash page
   find(".timeline-btn").click() # find waits ..
   # select stage
-  find(".step-options a", match: :first).click() # find waits ..
+  find(:xpath, "//input[@type='submit']").click() # find waits ..
+  sleep 0.5
 end
 
 Then(/^I can answer (.*) to task (.*)$/) do |answer, task_title|

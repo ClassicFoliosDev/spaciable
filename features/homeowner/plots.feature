@@ -6,5 +6,6 @@ Feature: Plots
 
   Scenario: Multiple plots
     Given I am logged in as a homeowner with multiple plots
+    And FAQ metadata is available
     When I log in as homeowner
     Then I see all the plots I own

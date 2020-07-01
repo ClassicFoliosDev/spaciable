@@ -1,0 +1,29 @@
+<% breadcrumb :default_faq, @default_faq %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title", parent: @default_faq) %><br>
+  </div>
+  <div class="section-data">
+    <%= (edit_btn edit_admin_settings_default_faq_path(@default_faq), element: @default_faq) if (can? :edit, @default_faq) %>
+  </div>
+</div>
+
+<div class="row faq">
+  <div class="row-item two-thirds">
+    <%= label_tag(DefaultFaq.human_attribute_name(:answer)) %>
+    <%= raw @default_faq.answer %>
+  </div>
+  <div class="row-item third">
+    <%= label_tag t(".type") %>
+    <span><%= @default_faq.type_name %></span>
+    <%= label_tag t(".category") %>
+    <span><%= @default_faq.category_name %></span>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t("back"), [:admin_settings,:default_faqs, active_tab: @default_faq.faq_type.id], class: "btn" %>
+  </div>
+</div>

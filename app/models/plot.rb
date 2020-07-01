@@ -45,6 +45,7 @@ class Plot < ApplicationRecord
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, to: :development
+  delegate :construction, to: :development
 
   attr_accessor :notify
 

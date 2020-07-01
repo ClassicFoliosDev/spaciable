@@ -6,6 +6,7 @@ Feature: FAQs
 
   Scenario: CF Admin
     Given I am a CF Admin and I want to manage FAQs
+    And FAQ metadata is available
     When I create a FAQ for a Developer
     Then I should see the created Developer FAQ
     When I update the Developer FAQ
@@ -21,6 +22,7 @@ Feature: FAQs
 
   Scenario: Developer Admin
     Given I am a Developer Admin and I want to manage FAQs
+    And FAQ metadata is available
     When I create a FAQ for a Developer
     Then I should see the created Developer FAQ
     When I update the Developer FAQ
@@ -36,6 +38,7 @@ Feature: FAQs
 
   Scenario: Division Admin
     Given I am a Division Admin and I want to manage FAQs
+    And FAQ metadata is available
     And my Divisions Developer has FAQs
     And there is a division resident
     Then I should only be able to see the Developer FAQs for my Division
@@ -49,6 +52,7 @@ Feature: FAQs
 
   Scenario: Development Admin
     Given I am a Development Admin and I want to manage FAQs
+    And FAQ metadata is available
     And my Developments Developer has FAQs
     Then I should only be able to see the Developer FAQs for my Development
     When I create a FAQ for a Development
@@ -58,6 +62,7 @@ Feature: FAQs
 
   Scenario: (Division) Development Admin
     Given I am a (Division) Development Admin and I want to manage FAQs
+    And FAQ metadata is available
     And my (Division) Developments Developer has FAQs
     And my (Division) Developments Division has FAQs
     Then I should only be able to see the Developer FAQs for my (Division) Development
@@ -69,6 +74,7 @@ Feature: FAQs
 
   Scenario: Cloned Default FAQs for new Developments
     Given I am logged in as an admin
+    And FAQ metadata is available
     And default FAQs exist
     When I create a developer with development level FAQs
     Then I should not see default faqs for the developer
@@ -77,6 +83,7 @@ Feature: FAQs
 
   Scenario: Cloned Default FAQs for existing developer new Developments
     Given I am logged in as an admin
+    And FAQ metadata is available
     And default FAQs exist
     When I create a developer
     Then I should see default faqs for the developer

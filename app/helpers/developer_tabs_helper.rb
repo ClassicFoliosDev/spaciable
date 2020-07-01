@@ -2,14 +2,15 @@
 
 module DeveloperTabsHelper
   include TabsHelper
+  include FaqTabsHelper
 
   def developer_tabs(developer, current_tab)
-    tabs = DEVELOPER_TABS.call(developer)
+    tabs = DEVELOPER_TABS.call(developer, FaqMenuBuilder.new)
     Tabs.new(developer, tabs, current_tab, self).all
   end
 
   # rubocop:disable Metrics/BlockLength
-  DEVELOPER_TABS = lambda do |developer|
+  DEVELOPER_TABS = lambda do |developer, faqmenubuilder|
     {
       divisions: {
         icon: :building,
@@ -28,7 +29,10 @@ module DeveloperTabsHelper
         link: [developer, active_tab: :documents]
       },
       contacts: { icon: :vcard },
-      faqs: { icon: "question-circle" },
+      faqs: {
+        icon: "question-circle",
+        menus: faqmenubuilder.menus_for(developer)
+      },
       brands: { icon: "css3" },
       branded_apps: {
         icon: "apple",

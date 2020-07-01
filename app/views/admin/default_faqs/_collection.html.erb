@@ -1,0 +1,52 @@
+
+<% if collection.empty? %>
+  <div class="empty lower">
+    <div><%= fa_icon "question-circle" %></div>
+    <div><span><%= t("components.empty_list.empty", type_names: DefaultFaq.model_name.human.pluralize) %></span></div>
+    <div>
+      <% if can? :create, DefaultFaq %>
+        <%= link_to t(".add", type: type.name), (new_admin_settings_default_faq_path({active_tab: type.id})), class: "btn btn-primary" %>
+      <% else %>
+          <span><%= t("components.empty_list.request_add", type_names: type.name) %></span>
+      <% end%>
+    </div>
+  </div>
+<% else %>
+  <% if can? :create, DefaultFaq %>
+    <div class="section-actions">
+      <%= link_to (new_admin_settings_default_faq_path({active_tab: type.id})), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add",type: type.name) %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list faqs">
+    <thead>
+      <tr>
+        <th colspan="3"><%= sortable(Faq, :question, t(".faq")) %></th>
+        <th><%= sortable(Faq, :category) %></th>
+        <th><%= sortable(Faq, :updated_at, t(".last_edited")) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% collection.each do |faq| %>
+      <tr data-faq="<%= faq.id %>">
+        <td colspan="3"><%= link_to faq.question.html_safe, admin_settings_default_faq_path(faq), title: faq.question.html_safe %></td>
+        <td><%= content_tag(:span, faq.category_name) %></td>
+        <td><%= l faq.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= (edit_btn edit_admin_settings_default_faq_path(faq), element: faq) %>
+          <%= (delete_btn faq, path: admin_settings_default_faq_path(faq), element: faq) %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate collection %>
+  </div>
+<% end %>

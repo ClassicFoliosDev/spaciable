@@ -7,6 +7,7 @@ Feature: Commercial Plots
   @javascript
   Scenario:
     Given I am logged in as a homeowner want to download my documents
+    And FAQ metadata is available
     And my plot has been marked as commercial
     Then I should not see any reference to my home on the dashboard
     And I should see references to my commercial name

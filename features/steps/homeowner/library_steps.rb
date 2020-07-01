@@ -5,10 +5,10 @@ Given(/^I am logged in as a homeowner want to download my documents$/) do
   MyLibraryFixture.create_documents
 
   login_as CreateFixture.resident
-  visit "/"
 end
 
 Then(/^I should see recent documents added to my library$/) do
+  visit "/"
   within ".library-component" do
     MyLibraryFixture.recent_documents.each do |title, _download_link|
       expect(page).to have_content(title)

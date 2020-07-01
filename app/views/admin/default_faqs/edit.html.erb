@@ -1,0 +1,11 @@
+<% breadcrumb :default_faq_edit, @default_faq, @faq_type %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title", parent: @default_faq) %>
+  </div>
+</div>
+
+
+
+<%= render 'form', default_faq: @default_faq, faq_type: @faq_type %>

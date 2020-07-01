@@ -82,7 +82,7 @@ module Admin
         :current_password, :picture, :picture_cache,
         :job_title, :receive_release_emails, :snag_notifications,
         :receive_choice_emails, :branch_administrator, :cas,
-        :receive_invitation_emails
+        :receive_invitation_emails, :receive_faq_emails
       )
     end
   end

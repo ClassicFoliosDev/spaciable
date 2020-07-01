@@ -6,6 +6,8 @@ Feature: Homeowner Login
 
   Scenario: Log out
     Given I am logged in as a homeowner
+    And FAQ metadata is available
+    When I navigate to the dashboard
     When I log out as a homeowner
     Then I should be on the branded homeowner login page
 

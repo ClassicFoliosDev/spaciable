@@ -69,8 +69,14 @@ module Abilities
 
     def resident_abilities_for_faqs(plot)
       can :read, Faq, faqable_id: plot.development_id, faqable_type: "Development"
-      can :read, Faq, faqable_id: plot.developer_id, faqable_type: "Developer"
-      can :read, Faq, faqable_id: plot.division_id, faqable_type: "Division"
+      can :read, Faq, faqable_id: plot.developer_id, faqable_type: "Developer",
+                      faq_type: { construction_type:
+                                  { construction: plot.construction } }
+      can :read, Faq, faqable_id: plot.division_id, faqable_type: "Division",
+                      faq_type: { construction_type:
+                                  { construction: plot.construction } }
+      can :read, FaqType
+      can :read, FaqCategory
     end
 
     def resident_abilities_for_notifications(plot)

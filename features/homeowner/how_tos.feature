@@ -6,6 +6,7 @@ Feature: HowTos
 
   Scenario:
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     And there are how-tos
     And there is another phase plot for the homeowner
     Then I should see recent HowTos on my dashboard
