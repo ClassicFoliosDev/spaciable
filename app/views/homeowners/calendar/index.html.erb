@@ -5,7 +5,7 @@
 </div>
 
 <div class="branded-body library">
-  <%= render "homeowners/calendar/events", source: current_resident %>
+  <%= render "homeowners/calendar/events", source: @plot %>
 </div>
 
 <% if current_resident&.plot_residency_homeowner?(@plot) %>

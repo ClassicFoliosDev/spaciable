@@ -3640,5 +3640,10 @@ en:
     destroy:
       success: "%{title} was deleted successfully"
 
+  events:
+    acknowledged: "Acknowledge"
+    cancelled: "Cancel"
+
+
 
 

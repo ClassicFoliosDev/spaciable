@@ -4,30 +4,42 @@
 class EventsController < ApplicationController
   skip_authorization_check
 
+  before_action :split_params, except: %i[index]
+
   def index
-    events = Event.within_range(params)
-    render json: events.map(&:attributes)
+    events = []
+    Event.within_range(params).each do |event|
+      attrs = event.attributes
+      attrs[:resources] = event.event_resources.map(&:attributes)
+      events << attrs
+    end
+
+    render json: events
   end
 
   def create
-    event = Event.create(create_params)
+    event = Event.build(@event_params, @residents)
     render json: event.attributes
   end
 
   def update
-    event = Event.find(update_params[:id])
-    event.update_attributes(update_params)
+    event = Event.find(@event_params[:id])
+    event.update(@event_params, @residents)
     render json: event.attributes
   end
 
-  def update_params
-    params.require(:event).permit(:eventable_type, :eventable_id, :title, :location, :start, :end, :id)
+  def permitted_params
+    params.require(:event).permit(:eventable_type, :eventable_id,
+                                  :title, :location, :start,
+                                  :end, :id, residents: [])
           .merge(userable: current_user)
   end
 
-  def create_params
-    params.require(:event).permit(:eventable_type, :eventable_id, :title, :location, :start, :end)
-          .merge(userable: current_user)
+  # The params need to be split into Event and Reseident specifics
+  def split_params
+    @event_params = permitted_params
+    @residents = @event_params.extract!(:residents)[:residents]
   end
+
 
 end

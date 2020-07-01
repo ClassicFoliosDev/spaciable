@@ -8,14 +8,14 @@ class Calendar < ActiveRecord::Migration[5.0]
       t.string   :location
       t.datetime :start
       t.datetime :end
-      t.integer :repeat
-      t.integer :reminder
+      t.integer  :repeat
+      t.integer  :reminder
     end
 
-    create_table :resource_events do |t|
+    create_table   :event_resources do |t|
       t.references :event, index: true
       t.references :resourceable, polymorphic: true, index: true
-      t.boolean   :acknowledged, default: :false
+      t.integer    :status
     end
 
   end

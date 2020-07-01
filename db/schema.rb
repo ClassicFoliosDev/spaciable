@@ -412,6 +412,15 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
   end
 
+  create_table "event_resources", force: :cascade do |t|
+    t.integer "event_id"
+    t.string  "resourceable_type"
+    t.integer "resourceable_id"
+    t.integer "status"
+    t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
+    t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
+  end
+
   create_table "events", force: :cascade do |t|
     t.string   "eventable_type"
     t.integer  "eventable_id"
@@ -819,15 +828,6 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.index ["invited_by_id"], name: "index_residents_on_invited_by_id", using: :btree
     t.index ["invited_by_type"], name: "index_residents_on_invited_by_type", using: :btree
     t.index ["reset_password_token"], name: "index_residents_on_reset_password_token", unique: true, using: :btree
-  end
-
-  create_table "resource_events", force: :cascade do |t|
-    t.integer "event_id"
-    t.string  "resourceable_type"
-    t.integer "resourceable_id"
-    t.boolean "acknowledged",      default: false
-    t.index ["event_id"], name: "index_resource_events_on_event_id", using: :btree
-    t.index ["resourceable_type", "resourceable_id"], name: "index_resource_events_on_resourceable_type_and_resourceable_id", using: :btree
   end
 
   create_table "room_choices", force: :cascade do |t|

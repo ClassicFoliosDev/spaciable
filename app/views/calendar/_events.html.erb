@@ -3,7 +3,9 @@
     <tbody></tbody>
 </table>
 
-<div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= events_path %>" ></div>
+<% editable = true %>
+
+<div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= events_path %>" data-editable=<%=editable%> ></div>
 
 <div class="event_details_form hidden">
     <%= simple_form_for :event do |f| %>
@@ -11,9 +13,12 @@
       <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
       <%= f.hidden_field :eventable_id,{ value: source.id } %>
       <label><%= label_tag :title, "Title" %></label>
-      <%= f.input :title, label: false, required: true %>
+      <%= f.input :title, label: false, required: true%>
       <label><%= label_tag :location, "Location" %></label>
       <%= f.input :location, label: false, required: true %>
+      <div id="residents">
+        <%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false%>
+      </div>
       <label><%= label_tag :start, "Start" %></label>
       <%= f.input :start, label: false, required: true %>
       <label><%= label_tag :end, "End" %></label>

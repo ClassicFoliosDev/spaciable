@@ -5,29 +5,26 @@ module Homeowners
     skip_authorization_check
 
     def index
-      events = Event.within_range(params)
+      events = Event.for_resource_within_range(current_resident, params)
       render json: events.map(&:attributes)
     end
 
     def create
-      event = Event.create(create_params)
+      event = Event.build(event_params)
       render json: event.attributes
     end
 
     def update
-      event = Event.find(update_params[:id])
-      event.update_attributes(update_params)
+      event = Event.find(event_params[:id])
+      event.update(event_params)
       render json: event.attributes
     end
 
-    def update_params
-      params.require(:event).permit(:eventable_type, :eventable_id, :title, :location,:start, :end, :id)
-            .merge(userable: current_user)
-    end
-
-    def create_params
-      params.require(:event).permit(:eventable_type, :eventable_id, :title, :location, :start, :end)
-            .merge(userable: current_user)
+    def event_params
+      params.require(:event).permit(:eventable_type, :eventable_id,
+                                  :title, :location, :start,
+                                  :end, :id)
+          .merge(userable: current_resident)
     end
 
   end
