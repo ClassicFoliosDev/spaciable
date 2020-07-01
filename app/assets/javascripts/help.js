@@ -107,6 +107,7 @@ function unitTypeHelp() {
         class: 'btn',
         click: function () {
           $(this).dialog('destroy')
+          $(".unit-type-help").hide()
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button

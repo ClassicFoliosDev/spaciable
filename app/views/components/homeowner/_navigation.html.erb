@@ -12,7 +12,7 @@
         <% end %>
 
         <% if plot.unit_type.external_link? %>
-          <%= link_to homeowner_about_path, active_tab: "about", class: "navbar-link" do %>
+          <%= link_to homeowner_home_tour_path, active_tab: "about", class: "navbar-link" do %>
             <li class="navbar-item"><%= t(".about") %></li>
           <% end %>
         <% end %>
@@ -79,11 +79,11 @@
         <% end %>
 
         <% if plot.house_search %>
-          <a href="<%= area_guide_url %>" class="navbar-link" target="_blank">
+          <%= link_to area_guide_path, class: "navbar-link" do %>
             <li class="navbar-item">
               <%= t(".house_search") %>
             </li>
-          </a>
+          <% end %>
         <% end %>
 
         <% if plot.enable_perks? %>

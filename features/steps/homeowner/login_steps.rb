@@ -63,11 +63,6 @@ Given(/^I am a homeowner with no plot$/) do
 end
 
 Then(/^I should be on the "Homeowner Login" page with errors$/) do
-  # page redirects to the landing page, so for the purposed of this test we are
-  # physically redirecting to the sign in page
-  # in theory, there should never to a situation in which a plot is deleted
-  # when it has an active resident, so this is in impractical bug
-  visit "/homeowners/sign_in"
   expect(page).to have_content(t("residents.sessions.create.no_plot"))
 end
 

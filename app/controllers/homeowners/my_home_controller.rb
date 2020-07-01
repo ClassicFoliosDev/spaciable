@@ -6,7 +6,7 @@ module Homeowners
 
     def show
       if @plot.unit_type.external_link?
-        redirect_to homeowner_about_path
+        redirect_to homeowner_home_tour_path
       elsif @plot.rooms.any?
         redirect_to homeowner_rooms_path
       else

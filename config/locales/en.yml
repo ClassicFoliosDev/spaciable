@@ -311,7 +311,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
-        timeline: "My Journey"
+        timeline: "Your Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -884,6 +884,10 @@ en:
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
         no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
+        confirm_notification: "Confirm Send"
+        confirm_plots: "Are you sure you want to send this notification to the following plots?"
+        empty_plots: "No plots have been selected. This notification will be sent to all plots that meet the following criteria. Are you sure you want to send this notification?"
+        all_residents: "Are you sure you want to send this notification to all Spaciable residents?"
       index:
         title: "Notifications."
       new:
@@ -927,6 +931,8 @@ en:
         adds_specifications: "Defines client specifications"
         faq_emails: "FAQ Feedback Emails"
         receive_faq_emails: "Receive FAQ feedback emails"
+        invitation_emails: "Resident Invitation Emails" 
+        receive_invitation_emails: "Receive resident invitation emails"
       index:
         title: "Admins."
         add: "Add User"
@@ -1054,7 +1060,6 @@ en:
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
         load: "Upload"
-        enable_intro_video: "Enable introductory video"
         enable_intro_video_description: "Enable or disable the intro video for new users on first login."
         help: "Help Document"
         cookie: "Cookie Policy Document"
@@ -1073,11 +1078,11 @@ en:
         billing: "Billing Report (All Developers)"
         perks: "Buyers' Club Report"
         range_summary: "Reports may be large. Use the date ranges to reduce the content."
-        range_dev: "Development and Developer Reports filter plots with reservation and/or completion release dates within the selected date range."
-        range_all: "Summary Report filters developers created within the selected date range."
-        type_summary: "Use Plot Release Type to select the type of plots you want content for."
-        type_dev: "Development and Developer reports filter plots by reservation or completion release date, as selected."
-        type_all: "Summary Report and Billing Report are not affected by the Plot Release Type selection."
+        range_perk: "Buyers' Club reports will return accounts created within the selected range."
+        range_all: "Development, Developer and Billing reports return plots matching the Filter option, within the selected range."
+        type_summary: "Use Filter to select the type of plots you want content for."
+        type_dev: "Development, Developer and Billing reports filter plots by all Filter options, as selected."
+        type_all: "Summary and Buyers' Club reports are not affected by the Filter selection."
     default_faqs:
       collection:
         add: "Add %{type} FAQ"
@@ -1346,6 +1351,10 @@ en:
     about_videos:
       show:
         title: "Introductory Video"
+    area_guides:
+      show:
+        area_guide: "Area Guide"
+        new_tab: "Open in a new tab"
     contacts:
       index:
         title: "Contacts."
@@ -1449,7 +1458,10 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
-      next: "Next"
+      skip: "Skip"
+      done: "Complete"
+      contacts: "Useful Contacts"
+
       splash:
         welcome: "Welcome To"
         your_journey: "Your Journey"
@@ -1614,7 +1626,7 @@ en:
         issues:
           title: "Defect Management"
           description: "Detail any home defects for repair with this easy-to-use online form."
-          button: "Report a Defecy"
+          button: "Report a Defect"
         snagging:
           title: "%{title}"
           description: "Advise us of minor home faults during the %{title} period after your move."
@@ -1865,7 +1877,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey"
+      timeline: "Your Journey"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -1898,7 +1910,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "My Journey"
+      timelines: "Your Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -3014,6 +3026,16 @@ en:
       header: "Header"
       text: "Content text paragraph"
 
+  invitation_summary_mailer:
+    resident_summary:
+      subject: "Spaciable Activation Report"
+      hello: "Hi %{name},"
+      report: "This is your weekly Spaciable activation report."
+      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents having not accepted the invitation email."
+      inactive: "Below is a list of residents who are yet to activate."
+      login: "Login to Spaciable: "
+
   resident_notification_mailer:
     notify:
       new_notification: "You have a new notification from Spaciable"
@@ -3372,6 +3394,10 @@ en:
           local_authority: "Local Authority"
           sales_team: "Sales Team"
           utility_supplier: "Utility Supplier"
+          managing_agent: "Managing Agent"
+          warranty_provider: "Warranty Provider"
+          concierge: "Concierge"
+          cust_care: "Customer Care"
       send_to_all:
         all: "All"
       maintenance:
@@ -3459,7 +3485,7 @@ en:
       report:
         report_from: "From"
         report_to: "Until"
-        plot_type: "Plot Release Type"
+        plot_type: "Filter"
     errors:
       messages:
         blank: " is required, and must not be blank."
@@ -3598,11 +3624,14 @@ en:
       positive: "Positive"
       negative: "Negative"
       not_applicable: "Not Applicable"
-      next: "Next"
+      done: "Complete"
+      skip: "Skip"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
       services: "Services"
+      contacts: "Useful Contacts"
+      contacts_disclaimer: "If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes."
       feature:
         title: "Feature Button"
         description: "Description"
@@ -3620,8 +3649,8 @@ en:
       question: "Question"
       answer: "Response Heading"
       response: "Response Content"
-      positive: "Affirmative Button Text"
-      negative: "Negative Button Text"
+      positive: "Button Text: Task Completed"
+      negative: "Button Text: Reveal Response"
       not_applicable: "Not Applicable"
       not_applicable_text: "Show the Not Applicable button"
       cancel: "Cancel"
@@ -3638,6 +3667,7 @@ en:
         add: "Add Feature"
         delete: "Delete Feature"
         title: "Button Text"
+        precis: "Precis"
         description: "Description"
         link: "Link"
       action:

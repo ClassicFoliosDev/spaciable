@@ -8,7 +8,7 @@ class HomeController < ApplicationController
                                                    ts_and_cs_homeowner feedback health]
 
   def show
-    redirect_to(homeowner_dashboard_path) && return if current_resident
+    redirect_to(dashboard_path) && return if current_resident
     redirect_to(admin_dashboard_path) && return if current_user
   end
 

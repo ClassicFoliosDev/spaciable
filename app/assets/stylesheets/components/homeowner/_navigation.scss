@@ -194,6 +194,7 @@ nav {
       .dropdown-link {
         text-decoration: none;
         display: block;
+        padding: 5px;
 
         .unread {
           background-color: $primary-background;
@@ -209,8 +210,8 @@ nav {
         }
 
         &:hover {
-          background-color: $ui-light-grey;
           cursor: pointer;
+          font-weight: $bold-font-weight;
         }
 
         .navigation-btn {
@@ -221,13 +222,31 @@ nav {
           font-family: $base-font-family;
 
           &:hover {
-            background-color: $ui-light-grey;
             cursor: pointer;
+            font-weight: $bold-font-weight;
           }
         }
+      }
 
-        .link-item {
-          line-height: $title-font-size-1;
+      button {
+        border: none;
+        width: 100%;
+        font-size: $base-font-size;
+        font-family: $base-font-family;
+
+        .dropdown-link {
+          text-decoration: none;
+          display: block;
+          padding: 5px;
+        }
+
+        .nav-refer {
+          padding-bottom: 10px;
+        }
+
+        span {
+          display: block;
+          padding: 2px;
         }
       }
 
@@ -360,7 +379,8 @@ nav {
             cursor: pointer;
 
             &:hover {
-              background-color: $ui-light-grey;
+              font-weight: $bold-font-weight;
+              filter: brightness(150%);
             }
 
             a {
@@ -433,6 +453,14 @@ nav {
           line-height: $title-font-size-2
         }
       }
+    }
+  }
+
+  #acctNav .dropdown-content .links-list button {
+    text-align: left;
+
+    .dropdown-link {
+      padding-left: 10px;
     }
   }
 
@@ -616,6 +644,7 @@ nav {
     #lowerSearch {
       display: none;
     }
+
     .lower-navbar-search {
       position: fixed;
       top: 0;
@@ -638,17 +667,17 @@ nav {
 
         // placeholder styling - accommodate the different browsers
         ::placeholder {
-          color: $primary-red;
+          color: $ui-dark-grey;
           opacity: 0.5;
         }
 
         :-ms-input-placeholder {
-          color: $primary-red;
+          color: $ui-dark-grey;
           opacity: 0.5;
         }
 
         ::-ms-input-placeholder {
-          color: $primary-red;
+          color: $ui-dark-grey;
           opacity: 0.5;
         }
 
@@ -747,50 +776,50 @@ nav {
 
 // mobile view
 @include media($tablet-portrait-down) {
-.sub-navigation-container {
-  padding-top: $spacing-small;
-  text-align: center;
-  background-color: $ui-white;
-  min-height: 30px;
-
-  .sub-nav-links {
-    display: block;
-    width: 100%;
-  }
-
-  .navbar-item {
-    display: inline-block;
-    list-style-type: none;
-    cursor: pointer;
-    vertical-align: bottom;
-
-    &:hover .navbar-item-secondary {
-      opacity: 1;
-    }
-  }
-
-  .navbar-item-secondary {
-    width: 130px;
-    text-align: center;
-    font-weight: bold;
-    text-decoration: none;
-    color: $primary-navy;
-    opacity: 0.7;
-    font-weight: $semi-bold-font-weight;
-    line-height: 34px;
-    margin: auto;
-    line-height: 2.2;
+  .sub-navigation-container {
     padding-top: $spacing-small;
-  }
+    text-align: center;
+    background-color: $ui-white;
+    min-height: 30px;
 
-  .active {
+    .sub-nav-links {
+      display: block;
+      width: 100%;
+    }
+
+    .navbar-item {
+      display: inline-block;
+      list-style-type: none;
+      cursor: pointer;
+      vertical-align: bottom;
+
+      &:hover .navbar-item-secondary {
+        opacity: 1;
+      }
+    }
+
     .navbar-item-secondary {
-      opacity: 1;
-      border-bottom: 2px solid $primary-red-left;
-      line-height: 1.9;
+      width: 130px;
+      text-align: center;
+      font-weight: bold;
+      text-decoration: none;
+      color: $primary-navy;
+      opacity: 0.7;
+      font-weight: $semi-bold-font-weight;
+      line-height: 34px;
+      margin: auto;
+      line-height: 2.2;
+      padding-top: $spacing-small;
+    }
+
+    .active {
+      .navbar-item-secondary {
+        opacity: 1;
+        border-bottom: 2px solid $primary-red-left;
+        line-height: 1.9;
+      }
     }
   }
-}
 
   .lower-navigation {
     .quick-links {
@@ -814,7 +843,7 @@ nav {
 
   .main-navigation .nav-inner .account-navigation {
     .dropdown, .dropdown-content {
-      padding-left: $spacing-small;
+      padding-left: 0;
     }
   }
 }

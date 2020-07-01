@@ -22,4 +22,9 @@ class PlotTimeline < ApplicationRecord
     timeline.tasks.count ==
       task_logs.where(response: :positive).count
   end
+
+  def progress_percent
+    return 0 unless timeline.tasks.count.positive?
+    ((task_logs.where(response: "positive").count.to_f / timeline.tasks.count) * 100).to_i
+  end
 end

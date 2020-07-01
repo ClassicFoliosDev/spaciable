@@ -7,3 +7,9 @@
 .send-to-role hr {
   margin-top: 5px;
 }
+
+.confirm-send-all, .confirm-plots, .confirm-no-plots {
+  span {
+    font-weight: $semi-bold-font-weight;
+  }
+}

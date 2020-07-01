@@ -29,7 +29,7 @@
         <th><%= t(".finishes") %></th>
         <th><%= t(".appliances") %></th>
         <% if parent.is_a?(Plot) %>
-          <th><% if cancreate %><i class="fa fa-question-circle-o" id="roomBelongsHelp"></i><% end %> <%= t(".belongs_to") %></th>
+          <th><% if current_user.cas? %><i class="fa fa-question-circle-o" id="roomBelongsHelp"></i><% end %> <%= t(".belongs_to") %></th>
         <% end %>
         <th><%= sortable(Room, :updated_at, t(".last_edited")) %></th>
         <th><%= t(".last_edited_by") %></th>

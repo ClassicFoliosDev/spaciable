@@ -107,6 +107,10 @@ Then(/^when a cf admin sends a notification$/) do
     click_on t("admin.notifications.form.submit")
   end
 
+  within find(".submit-dialog") do
+    click_on "Confirm"
+  end
+
   within ".navbar" do
     click_on t("components.navigation.log_out")
   end
@@ -153,6 +157,10 @@ Then(/^when a non cf admin sends a notification$/) do
 
   within ".form-actions-footer" do
     click_on t("admin.notifications.form.submit")
+  end
+
+  within find(".submit-dialog") do
+    click_on "Confirm"
   end
 
   within ".navbar" do
@@ -540,7 +548,7 @@ Then(/^I cannot see the video$/) do
   end
   click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".sub-navigation-container" do
+  within find(".sub-navigation-container") do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
 end
@@ -596,7 +604,7 @@ Then(/^I can see both videos$/) do
   end
   click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".library-categories" do
+  within find(".library-categories") do
     click_on I18n.t("components.homeowner.library_categories.videos")
   end
 

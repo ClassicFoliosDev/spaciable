@@ -117,7 +117,7 @@ Then(/^tasks ([A-z]*) to ([A-z]*) should link together (.*)$/) do |first_task, l
       click_on task[:positive]
     elsif response == "negative"
       find(:xpath, "//div[@id='viewAnswer']").click()
-      click_on t("tasks.show.next")
+      click_on t("tasks.show.done")
     end
   end
 end
@@ -228,7 +228,7 @@ Then(/^I can begin My Journey$/) do
   find(".timeline-btn").click() # find waits ..
   # select stage
   find(:xpath, "//input[@type='submit']").click() # find waits ..
-        sleep 0.5
+  sleep 0.5
 end
 
 Then(/^I can answer (.*) to task (.*)$/) do |answer, task_title|
@@ -263,21 +263,34 @@ def add_update_task(task_title, action)
 
   fill_in_ckeditor(:task_response, with: task[:response])
 
-  # Add/delete feature/action
-  %i[feature action].each do |action|
-    addbtn = find_by_id("add#{action.to_s.capitalize()}Btn",wait: false, visible: :all)
-    if addbtn.visible? &&task[action]
+  # Add/delete action
+  addbtn = find_by_id("addActionBtn",wait: false, visible: :all)
+  if addbtn.visible? &&task[:action]
 
-      # add it
-      addbtn.click()
+    # add it
+    addbtn.click()
 
-      %i[title description link].each do |field|
-        fill_in "task_#{action}_attributes_#{field}", with: task[action][field]
-      end
-    elsif task[action]
-      # delete it
-      find_by_id("#{action.to_s.capitalize()}Input",wait: false).click()
+    %i[title link].each do |field|
+      fill_in "task_action_attributes_#{field}", with: task[:action][field]
     end
+  elsif task[:action]
+    # delete it
+    find_by_id("actionInput",wait: false).click()
+  end
+
+  # Add/delete feature/action
+  addbtn = find_by_id("addFeatureBtn",wait: false, visible: :all)
+  if addbtn.visible? &&task[:feature]
+
+    # add it
+    addbtn.click()
+
+    %i[title description precis link].each do |field|
+      fill_in "task_features_attributes_0_#{field}", with: task[:feature][field]
+    end
+  elsif task[:feature]
+    # delete it
+    find_by_id("FeatureInput",wait: false).click()
   end
 
   click_on t("tasks.form.submit")
@@ -297,17 +310,26 @@ def check_active(task_title, homeowner = false, negative = true)
     homeowner ? click_on(task[:negative]) :
                 find(:xpath, "//div[@id='viewAnswer']").click()
 
-    expect(page).to have_content(task[:response])
+    expect(page).to have_content(parsed(task[:response]))
 
-    %i[feature action].each do |action|
-      if task[action]
-        expect(page).to have_content(task[action][:title])
-        expect(page).to have_content(task[action][:description])
-        find(:xpath, "//button[contains(@onclick,'#{task[action][:link]}')]")
-      end
+    if task[:action]
+      expect(page).to have_content(task[:action][:title])
+      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]")
+    end
+
+    if task[:feature]
+      expect(page).to have_content(task[:feature][:title])
+      expect(page).to have_content(parsed(task[:feature][:precis]))
+      expect(page).to have_content(parsed(task[:feature][:description]))
+      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]")
     end
   end
 
+end
+
+def parsed(source)
+  return source.dup.gsub("&lt;", "<").gsub("&gt;", ">") if $current_user.is_a? User
+  Lookup.parse(source.dup, $current_user.plots[0], $current_user)
 end
 
 def check_success_add(component)
@@ -332,7 +354,7 @@ def check_task(task_title, homeowner, answer)
   click_on task_title
   check_active(task_title, homeowner, answer.downcase == "no")
   if answer.downcase == "no"
-    click_on t("tasks.show.next") #move to the next
+    click_on t("tasks.show.skip") #move to the next
   else
     click_on task[:positive]
   end

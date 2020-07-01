@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_residents
-    redirect_to(homeowner_dashboard_path) && return if current_resident
+    redirect_to(dashboard_path) && return if current_resident
   end
 
   def after_sign_out_path_for(resource_or_scope)

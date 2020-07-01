@@ -12,29 +12,15 @@
       </div>
 
       <div class="step-options">
-        <form action="<%= homeowner_timeline_path %>">
-          <input type="hidden" name="page" value="timeline_task">
-
-          <div class="stages">
-            <% @timeline.stages.each do |stage| %>
-              <div class="stage timeline-stage-option <%= 'selected' if stage == @timeline.stages.first %>">
-                <input type="radio" id=<%= stage.id %> name="stage" value=<%= stage.id %> <%= "checked = checked" if stage == @timeline.stages.first %>>
-                <i id="icon<%=stage.title%>"></i>
-                <label for="<%= stage.id %>" class="stage-label branded-text"><%= stage.title %></label>
-                <div class="stage-description">
-                  <p class="branded-text"><%= t(".#{stage.title.downcase}") %></p>
-                </div>
-              </div>
+        <div class="stages">
+          <% @timeline.stages.each do |stage| %>
+            <%= link_to homeowner_timeline_path(:page => "timeline_task", :stage => stage.id), class: "stage timeline-stage-option" do %>
+              <i id="icon<%=stage.title%>" class="branded-text"></i>
+              <p class="timeline-btn-label branded-text"><%= stage.title %></p>
             <% end %>
-          </div>
-
-          <div class="next">
-            <input type="submit" value="<%= t('homeowners.timeline.next') %>" class="btn branded-btn">
-          </div>
-
-        </form>
+          <% end %>
+        </div>
       </div>
-
     </div>
   </div>
 </div>

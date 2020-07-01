@@ -54,17 +54,20 @@
       <div class="link-content">
         <div class="feature">
           <label><%= t(".feature.label") %></label>
+          <%= f.fields_for :features do |ft| %>
+            <div id="featureInput">
+              <fieldset>
+                <div id="deleteFeatureBtn"><%= t(".feature.delete") %></div>
+                  <%= ft.hidden_field :id %>
+                  <%= ft.input :title, label: t(".feature.title") %>
+                  <%= ft.input :precis, label: t(".feature.precis")%>
+                  <%= ft.input :description, label: t(".feature.description")%>
+                  <%= ft.input :link, label: t(".feature.link") %>
+                  <%= ft.hidden_field :_destroy, value: false, deletefield: true %>
+              </fieldset>
+            </div>
+          <% end %>
           <div id="addFeatureBtn"><%= t(".feature.add") %></div>
-          <div id="featureInput">
-            <div id="deleteFeatureBtn"><%= t(".feature.delete") %></div>
-            <%= f.fields_for :feature do |ft| %>
-              <%= ft.hidden_field :id %>
-              <%= ft.input :title, label: t(".feature.title") %>
-              <%= ft.input :description, label: t(".feature.description")%>
-              <%= ft.input :link, label: t(".feature.link") %>
-              <%= ft.hidden_field :_destroy, value: false %>
-            <% end %>
-          </div>
         </div>
 
         <div class="action">
@@ -75,8 +78,7 @@
             <%= f.fields_for :action do |ft| %>
               <%= ft.hidden_field :id %>
               <%= ft.input :title, label: t(".action.title") %>
-              <%= ft.input :description, label: t(".action.description") %>
-              <%= ft.input :link, label: t(".feature.link") %>
+              <%= ft.input :link, label: t(".action.link") %>
               <%= ft.hidden_field :_destroy, value: false %>
             <% end %>
           </div>

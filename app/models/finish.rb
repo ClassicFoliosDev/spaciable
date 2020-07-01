@@ -117,7 +117,7 @@ class Finish < ApplicationRecord
     if finish.new_record?
       # is there a matching CF finish with the name/cat/type/man and nil developer
       cf_finish = Finish.with_params(params, nil)&.first
-      if cf_finish.present? && cf_finish.original_filename.present?
+      if cf_finish.present? && cf_finish.picture.present?
         CopyCarrierwaveFile::CopyFileService.new(cf_finish, finish, :picture).set_file
       end
     end

@@ -43,6 +43,10 @@ module Csv
                     ((completion_release_date BETWEEN :start_at AND :end_at) AND
                      (reservation_release_date IS NULL))',
                     start_at: @from.beginning_of_day, end_at: @to.end_of_day)
+      elsif @plot_types == "expired"
+        expired = []
+        plots.each { |p| expired << p if p.expiry_date && (@from..@to).cover?(p.expiry_date) }
+        expired
       else
         plots.where('(completion_release_date BETWEEN :start_at AND :end_at) OR
                     (reservation_release_date BETWEEN :start_at AND :end_at)',

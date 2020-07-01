@@ -4,7 +4,6 @@
 # are linked together in a list through their 'next' attribute.  The
 # 'Head' attribute indicates the Task is the first in the list
 # for the associated Stage
-# rubocop:disable Metrics/ClassLength
 class Task < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -21,8 +20,8 @@ class Task < ApplicationRecord
 
   has_one :action, required: false, dependent: :destroy
   accepts_nested_attributes_for :action, reject_if: :all_blank, allow_destroy: true
-  has_one :feature, required: false, dependent: :destroy
-  accepts_nested_attributes_for :feature, reject_if: :all_blank, allow_destroy: true
+  has_many :features, dependent: :destroy
+  accepts_nested_attributes_for :features, reject_if: :all_blank, allow_destroy: true
 
   validates :title, presence: true
   validates :question, presence: true
@@ -32,13 +31,12 @@ class Task < ApplicationRecord
   validates :stage_id, presence: true
 
   delegate :title, to: :stage, prefix: true
-  delegate :description, :link, :title, to: :feature, prefix: true
   delegate :description, :link, :title, to: :action, prefix: true
 
   amoeba do
     include_association :task_shortcuts
     include_association :action
-    include_association :feature
+    include_association :features
     include_association :task_contacts
 
     customize(lambda { |original_task, new_task|
@@ -150,7 +148,7 @@ class Task < ApplicationRecord
   # build the dependent associations for a Task
   def build
     build_action unless action
-    build_feature unless feature
+    features.build if features.empty?
 
     if task_shortcuts.empty?
       Shortcut.list.each_with_index do |s, index|
@@ -162,4 +160,3 @@ class Task < ApplicationRecord
     (0..1).each { |i| task_contacts.build unless task_contacts[i] }
   end
 end
-# rubocop:enable Metrics/ClassLength
