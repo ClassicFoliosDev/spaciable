@@ -13,7 +13,7 @@
   })
 
   // open the search bar on tablet and mobile
-  $(document).on('click', '#lowerSearchLink', function (event) {
+  $(document).on('click touchstart', '#lowerSearchLink', function (event) {
     $('#lowerSearch').toggle()
     // disable body scrolling
     $("body").toggleClass("no-scroll")
