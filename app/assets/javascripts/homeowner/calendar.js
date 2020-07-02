@@ -18,12 +18,34 @@ var homeowner = {
           }
         },
         header:{
-          left: 'prev, next, today',
-          right: 'month, agendaWeek, agendaDay'
+          left: 'today, prev, next',
+          center: 'month, agendaWeek, agendaDay',
+          right: 'title',
+          title: 'MMMM YYYY'
+        },
+        buttonText: {
+          today: 'Today',
+          month: 'Month',
+          week: 'Week',
+          day: 'Day'
         },
         views: {
+          month: {
+            timeFormat: 'H:mm'
+          },
           week: {
-            columnHeaderFormat: 'DD/MM'
+            columnHeaderFormat: 'ddd \n D',
+            allDayText: 'All Day',
+            slotLabelFormat: 'h A',
+            agendaEventMinHeight: 15,
+            displayEventTime: false
+          },
+          day: {
+            columnHeaderFormat: 'dddd \n D',
+            allDayText: 'All Day',
+            slotLabelFormat: 'h A',
+            agendaEventMinHeight: 15,
+            displayEventTime: false
           }
         },
         plugins: [ 'dayGrid', 'interaction' ],
@@ -31,12 +53,12 @@ var homeowner = {
         selectable: true,
         selectHelper: true,
         eventClick: function(event, jsEvent, view) {
-            homeowner.populate(event, dataIn.editable)
-            homeowner.showEvent(dataIn.path, "Edit Event", "Update", "PUT", dataIn.editable)
+          homeowner.populate(event, dataIn.editable)
+          homeowner.showEvent(dataIn.path, "Edit Event", "Update", "PUT", dataIn.editable)
         }
       }
 
-    // If the calendar is ediable then add extras to support editing
+    // If the calendar is editable then add extras to support editing
     if (dataIn.editable) {
       calendarConfig.select = function(start, end, allday){
           homeowner.addEvent(dataIn.path, start)
@@ -125,3 +147,10 @@ var homeowner = {
 
 $(document).on('turbolinks:load', homeowner.eventCalendar);
 $(document).on('turbolinks:before-cache', homeowner.clearCalendar)
+
+$(document).on('turbolinks:load', function () {
+  if ($(window).innerWidth() < 760) {
+    $(".fc-left").contents().appendTo($(".fc-center"))
+    $(".fc-month-button, .fc-agendaWeek-button, .fc-agendaDay-button").appendTo($(".fc-left"))
+  }
+})
