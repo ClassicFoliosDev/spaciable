@@ -19,11 +19,33 @@ var admin = {
         },
         header:{
           left: 'prev, next, today',
-          right: 'month, agendaWeek, agendaDay'
+          center: 'month, agendaWeek, agendaDay',
+          right: 'title',
+          title: 'MMMM YYYY'
+        },
+        buttonText: {
+          today: 'Today',
+          month: 'Month',
+          week: 'Week',
+          day: 'Day'
         },
         views: {
+          month: {
+            timeFormat: 'H:mm'
+          },
           week: {
-            columnHeaderFormat: 'DD/MM'
+            columnHeaderFormat: 'ddd \n D',
+            allDayText: 'All Day',
+            slotLabelFormat: 'h A',
+            agendaEventMinHeight: 15,
+            displayEventTime: false
+          },
+          day: {
+            columnHeaderFormat: 'dddd \n D',
+            allDayText: 'All Day',
+            slotLabelFormat: 'h A',
+            agendaEventMinHeight: 15,
+            displayEventTime: false
           }
         },
         plugins: [ 'dayGrid', 'interaction' ],
@@ -41,7 +63,7 @@ var admin = {
       calendarConfig.select = function(start, end, allday){
           admin.addEvent(dataIn.path, start)
         },
-      calendarConfig.header.center = "addEvent"
+      calendarConfig.header.center = "addEvent, month, agendaWeek, agendaDay"
     }
 
     calendar = calendarEl.fullCalendar(calendarConfig)

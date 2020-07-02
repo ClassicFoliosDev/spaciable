@@ -1,11 +1,12 @@
-
-<table class="record-list">
-    <tbody></tbody>
-</table>
-
 <% editable = true %>
 
-<div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= events_path %>" data-editable=<%=editable%> ></div>
+<div class="row">
+  <div class="row-item">
+    <div class="calendar">
+      <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= events_path %>" data-editable=<%=editable%>></div>
+    </div>
+  </div>
+</div>
 
 <div class="event_details_form hidden">
     <%= simple_form_for :event do |f| %>
@@ -24,4 +25,4 @@
       <label><%= label_tag :end, "End" %></label>
       <%= f.input :end, label: false, required: true %>
     <% end %>
-<end>
+</div>

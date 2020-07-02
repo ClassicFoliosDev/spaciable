@@ -1,0 +1,124 @@
+#admin_calendar {
+  .fc-toolbar {
+    padding-top: $spacing-medium;
+  }
+
+  button {
+    color: $primary-navy;
+    border: 1px solid $primary-navy;
+    background-color: $ui-white;
+    background: none;
+    font-size: $base-font-size;
+
+    &:hover {
+      color: $ui-white;
+      background-color: $primary-navy;
+    }
+  }
+
+  .fc-center {
+    width: 100%;
+    display: inline-block;
+    clear: both;
+    float: left;
+    padding-top: $spacing-small;
+
+    .fc-month-button, .fc-agendaWeek-button, .fc-agendaDay-button {
+      float: right !important;
+    }
+  }
+
+  .fc-month-button {
+    margin-right: 0;
+  }
+
+  .fc-scroller {
+    height: auto !important;
+  }
+
+  .fc-state-disabled, .fc-state-active {
+    background-color: $primary-navy;
+    color: $ui-white;
+    opacity: 1;
+  }
+
+  .fc-bg .fc-today {
+    background-color: $primary-navy;
+    opacity: 0.1;
+  }
+
+  .fc-day-header {
+    font-family: $base-font-family;
+    color: $primary-navy;
+    font-size: $base-font-size;
+  }
+
+  .fc-day-number {
+    color: $primary-navy;
+    opacity: 0.5;
+    padding-top: 4px;
+    padding-right: 5px;
+  }
+
+  .fc-toolbar {
+    padding-bottom: $spacing-small;
+  }
+
+  .fc-axis span {
+    font-size: $base-small-font-size;
+    color: $primary-navy;
+  }
+
+  .fc-day-grid {
+    .fc-event {
+      border: 1px solid $primary-navy;
+      background-color: $primary-navy;
+    }
+  }
+
+  .fc-content-col {
+    .fc-time-grid-event {
+      border: 1px solid $primary-navy;
+      background-color: $primary-navy;
+    }
+
+    .fc-event .fc-bg {
+      opacity: 0;
+    }
+  }
+
+  .fc-more {
+    font-family: $base-font-family;
+    font-size: $base-small-font-size;
+    color: $primary-navy;
+  }
+
+  .fc-popover {
+    .fc-content, .fc-event {
+      background-color: $primary-navy;
+      border: 1px solid $primary-navy;
+    }
+  }
+
+  .fc-icon-left-single-arrow, .fc-icon-right-single-arrow {
+    &:after {
+      top: 1px;
+    }
+  }
+
+  .fc-agendaDay-view {
+    td {
+      background-color: $ui-white !important;
+    }
+  }
+
+  .fc-popover {
+    .fc-header {
+      background: none;
+    }
+    .fc-close {
+      color: $primary-navy;
+      margin-top: 4px;
+    }
+  }
+}
