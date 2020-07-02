@@ -93,12 +93,13 @@ var admin = {
     $('#event_id').val(event.id).prop("disabled", !editable);
     $('#event_title').val(event.title).prop("disabled", !editable);
     $('#event_location').val(event.location).prop("disabled", !editable);
-    $('#event_start').val($.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss")).prop("disabled", !editable);
-    $('#event_end').val($.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss")).prop("disabled", !editable);
+    $('#event_start').val(event.start.toDate().toJSON().slice(0, 19)).prop("disabled", !editable);
+    $('#event_end').val(event.end.toDate().toJSON().slice(0, 19)).prop("disabled", !editable);
     // clear out the resident selections
     $("#residents input[type='checkbox']").each(function() {
       this.checked = false
-      // #Robyn we would need to remove any special styling classes here
+      // remove styling class
+      $(this).parent().removeClass("checked")
     });
     // set checked for associated event residents
     if (event.hasOwnProperty('resources')) {
@@ -114,6 +115,22 @@ var admin = {
     var $eventContainer = $('.event_details_form')
     $('body').append($eventContainer)
     var $form = $('.event')
+
+    // add class to checked residents
+    $("#residents input[type='checkbox']").each(function() {
+      $(this).parent().addClass("resident-label")
+      if (this.checked == true) {
+        $(this).parent().addClass("checked")
+      }
+
+      $(this).click(function () {
+        if (this.checked == true) {
+          $(this).parent().addClass("checked")
+        } else {
+          $(this).parent().removeClass("checked")
+        }
+      })
+    });
 
     var buttons = [
       {

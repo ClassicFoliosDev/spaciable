@@ -17,12 +17,11 @@
       <%= f.input :title, label: false, required: true%>
       <label><%= label_tag :location, "Location" %></label>
       <%= f.input :location, label: false, required: true %>
-      <div id="residents">
-        <%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false%>
-      </div>
+      <label><%= label_tag :residents, "Residents" %></label>
+      <div id="residents"><%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false %></div>
       <label><%= label_tag :start, "Start" %></label>
-      <%= f.input :start, label: false, required: true %>
+      <%= f.input :start, as: :datetime, html5: true, label: false, required: true %>
       <label><%= label_tag :end, "End" %></label>
-      <%= f.input :end, label: false, required: true %>
+      <%= f.input :end, as: :datetime, html5: true, label: false, required: true %>
     <% end %>
 </div>
