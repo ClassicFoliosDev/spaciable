@@ -93,8 +93,12 @@ var admin = {
     $('#event_id').val(event.id).prop("disabled", !editable);
     $('#event_title').val(event.title).prop("disabled", !editable);
     $('#event_location').val(event.location).prop("disabled", !editable);
+
     $('#event_start').val(event.start.toDate().toJSON().slice(0, 19)).prop("disabled", !editable);
+    $('#event_start').flatpickr({enableTime: true, defaultDate: $('#event_start').val()})
     $('#event_end').val(event.end.toDate().toJSON().slice(0, 19)).prop("disabled", !editable);
+    $('#event_end').flatpickr({enableTime: true, defaultDate: $('#event_end').val()})
+
     // clear out the resident selections
     $("#residents input[type='checkbox']").each(function() {
       this.checked = false

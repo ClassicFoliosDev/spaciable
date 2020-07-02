@@ -46,6 +46,8 @@ gem "ckeditor"
 gem "simple_form"
 # Validation for phone numbers
 gem "phonelib"
+# Date/Time input cross-browser support
+gem 'flatpickr'
 
 gem "cancancan", "~> 1"
 gem "gretel" # breadcrumbs
