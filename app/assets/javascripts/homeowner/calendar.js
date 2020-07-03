@@ -93,8 +93,8 @@ var homeowner = {
     $('#event_id').val(event.id).prop("disabled", !editable);
     $('#event_title').val(event.title).prop("disabled", !editable);
     $('#event_location').val(event.location).prop("disabled", !editable);
-    $('#event_start').val($.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss")).prop("disabled", !editable);
-    $('#event_end').val($.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss")).prop("disabled", !editable);
+    $('#event_start').val($.fullCalendar.formatDate(event.start, "DD-MM-Y  HH:mm")).prop("disabled", !editable);
+    $('#event_end').val($.fullCalendar.formatDate(event.end, "DD-MM-Y  HH:mm")).prop("disabled", !editable);
   },
 
   showEvent: function(path, title, confirm, verb, confirmable = true) {

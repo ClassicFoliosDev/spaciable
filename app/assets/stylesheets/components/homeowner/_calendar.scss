@@ -28,6 +28,12 @@
           }
         }
 
+        .fc-event-container {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
         .fc-month-button {
           margin-right: 0;
         }
@@ -130,14 +136,11 @@
   }
 }
 
-// .event_details_form {
-//   .multiselectusers {
-//     display: block;
-//     height: 200px;
-//     overflow-y: scroll;
-//     overflow-x: hidden;
-//   }
-// }
+.homeowner-view {
+  .event_details_form {
+    color: $primary-navy;
+  }
+}
 
 @include media($tablet-portrait-up) {
   .fc-center {

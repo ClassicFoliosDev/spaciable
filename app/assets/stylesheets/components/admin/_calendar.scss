@@ -124,8 +124,6 @@
 }
 
 .event_details_form {
-  width: 600px;
-
   label {
     color: $primary-navy;
   }
@@ -135,11 +133,7 @@
   }
 
   input.datetime {
-    font-size: $base-font-size;
-    color: $primary-navy;
-    padding: 5px;
-    border: 1px solid $primary-navy;
-    border-radius: 5px;
+    padding: 5px 10px;
   }
 
   #residents {
