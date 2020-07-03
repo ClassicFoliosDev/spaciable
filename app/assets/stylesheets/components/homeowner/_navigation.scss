@@ -850,4 +850,13 @@ nav {
       padding-left: 0;
     }
   }
+
+  .footer {
+    margin-bottom: 140px;
+    height: 80px;
+
+    .copyright {
+      padding-bottom: $spacing-large;
+    }
+  }
 }
