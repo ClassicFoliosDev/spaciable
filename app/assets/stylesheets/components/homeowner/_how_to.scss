@@ -131,11 +131,13 @@
   }
 }
 
-.main-container .how-tos .article {
-  @include span-columns(4 of 12);
+@include media($tablet-landscape-up) {
+  .main-container .how-tos .article {
+    @include span-columns(4 of 12);
 
-  &:nth-child(3n) {
-    @include omega();
+    &:nth-child(3n) {
+      @include omega();
+    }
   }
 }
 
@@ -152,17 +154,20 @@
 }
 
 @include media($tablet-landscape-down) {
+  .main-container .how-tos .article {
+    @include span-columns(6 of 12);
+
+    &:nth-child(2n) {
+      @include omega();
+    }
+  }
+
   .dashboard, .how-tos {
     .article {
       @include span-columns(6 of 12);
       @include omega-reset(4n);
       @include omega(2n);
     }
-  }
-
-  .main-container .how-tos .article {
-    @include span-columns(6 of 12);
-    @include omega(2n);
   }
 
   .article-container {
