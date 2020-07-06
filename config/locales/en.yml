@@ -2456,7 +2456,6 @@ en:
       notify: "Notify subscribed residents about this change"
       update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
 
-
     index:
       title: "%{parent_name} Plots"
     new:
@@ -2472,6 +2471,7 @@ en:
       documents: "Documents"
       residents: "Residents"
       unit_type: "Unit Type"
+      date_c: "Status"
       choices: "Choices"
       name: "Plot"
       logs: "Change Logs"
@@ -2489,7 +2489,7 @@ en:
         postcode: "Address Line 6"
       progress: "Build Progress"
       completion: "Completion"
-      activation: "Activated Residents"
+      activation: "Activated"
       activated: "%{activated} of %{all}"
       not_released: "Plot %{plot} has not been released"
     show:
