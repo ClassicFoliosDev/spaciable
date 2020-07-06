@@ -146,10 +146,10 @@
                 <% if @task.action_description.present? %>
                   <p><%= @task.action_description %></p>
                 <% end %>
-                <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn"><%= @task.action_title %></button>
+                <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn action-btn"><%= @task.action_title %></button>
               <% end %>
-              <input type="submit" value=<%="#{t('homeowners.timeline.skip')}"%> class: "btn-form-submit btn branded-btn">
-              <%= button_tag t('homeowners.timeline.done'), :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
+              <input type="submit" value=<%="#{t('homeowners.timeline.skip')}"%> class: "btn-form-submit btn branded-btn navigation-btn">
+              <%= button_tag t('homeowners.timeline.done'), :type => 'button', class: "btn branded-btn btn-form-submit navigation-btn", id: 'timeline-submit-btn', data: { response: :positive } %>
             </div>
           </div>
         </div>

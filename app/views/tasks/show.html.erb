@@ -135,7 +135,7 @@
                   <% if @task.action_description.present? %>
                     <p><%= @task.action_description %></p>
                   <% end %>
-                  <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.action_title %></button>
+                  <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn action-btn"><%= @task.action_title %></button>
                 <% end %>
                 <%= render "next", timeline: @timeline, task: @task, button_text: t(".skip") %>
                 <%= render "next", timeline: @timeline, task: @task, button_text: t(".done") %>

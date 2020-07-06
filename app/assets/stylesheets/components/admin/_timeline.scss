@@ -481,7 +481,6 @@
 
           .timeline-btn {
             text-decoration: none;
-            width: 140px;
             margin: $spacing-medium;
             background-color: $ui-light-grey;
             border: 1px solid $primary-navy;
@@ -491,12 +490,21 @@
             font-size: $base-font-size;
             padding: 5px;
             cursor: default;
+            line-height: 22px;
 
             &:hover {
               background-color: $ui-grey;
               font-weight: $bold-font-weight;
               cursor: pointer;
             }
+          }
+
+          .navigation-btn {
+            width: 140px;
+          }
+
+          .action-btn {
+            padding: 5px 10px;
           }
         }
       }
