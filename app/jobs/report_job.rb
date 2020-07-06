@@ -8,7 +8,6 @@ class ReportJob < ApplicationJob
     @report = Report.new(report_params.to_h)
     return unless @report.valid?
     csv_file = build_csv(params.to_h)
-    return if csv_file.readlines.size <= 1 # return if no plots listed, first line is header
     transfer_url = Csv::CsvTransferService.call(csv_file, user)
     TransferCsvJob.perform_later(user.email, user.first_name,
                                  transfer_url)
