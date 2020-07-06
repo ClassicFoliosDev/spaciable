@@ -568,7 +568,6 @@ en:
         library: "Library"
         faqs: "FAQs"
         choices: "Choices"
-        services: "Services"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
       header:
@@ -578,7 +577,6 @@ en:
         lettings: "Lettings"
         feedback: "Feedback"
         welcome_home: "Welcome home, %{resident}."
-        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer A Friend"
         refer_title: "Refer A Friend."
         send_invitation: "Submit"
@@ -877,7 +875,6 @@ en:
         submit: "Send"
         back: "Back"
         send_to_all_residents: "Send to all %{residents_count} residents"
-        send_to: "Residents of:"
         send_to: "Residents of:"
         send_to_role: "Send to:"
         homeowner: "Full Access Users"
@@ -1239,7 +1236,6 @@ en:
       submit: "Submit"
       address: "Postal Address"
       back: "Back"
-      back: "Back"
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
       maintenance_link: "Maintenance Link"
       maintenance_tip: "Make sure to use the plugin-friendly version of a URL. For more details see http://www.fixflo.com/tech/plugin-example/"
@@ -1378,8 +1374,6 @@ en:
         confirm_cta: "Confirm Choice"
         confirm_details: "Once you confirm your choice below, it cannot be changed. If you are unsure, please cancel and review your options."
         confirm_text: "Are you sure you want to set up your lettings account as %{type}?"
-        self_managed: "Self Managed"
-        management_service: "Management Service"
         confirm_self: "%{type}"
         authorise: "Authorise your Planet Rent account"
     lettings_account:
@@ -1789,12 +1783,8 @@ en:
         find_out: "Select Categories"
         no_thanks: "Go to Dashboard"
         title: ""
-        title: ""
         subtitle: ""
         description_html: ""
-        disclaimer: "Please note: when you were invited to Spaciable, an email and phone number were associated with your Spaciable account. If you select YES! to any of the options on this page,
-                    you consent to Spaciable Services using your account details to contact you by email or phone regarding options you have selected on this page. Your details will not be passed
-                    to third parties without your consent. Spaciable Services operates in full compliance with the EU GDPR (General Data Protection Regulation) and the UK DPA (Data Protection Act) 2018."
         submit: "Submit"
         services_title: "Services."
         disclaimer: "You can access the Services feature at any time from your portal dashboard."
@@ -2399,9 +2389,6 @@ en:
     rooms:
       index:
         title: "%{parent_name} rooms"
-      collection:
-        finishes: "Finishes"
-        appliances: "Appliances"
       edit:
         title: "Edit %{room_name}"
       form:
@@ -2426,7 +2413,6 @@ en:
         category: "Category"
         manufacturer: "Manufacturer"
         delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
-
       collection:
         appliances: "Appliances"
         finishes: "Finishes"
@@ -3071,7 +3057,6 @@ en:
       create: "Add service"
       description: "Description"
     edit:
-      title: "Edit %{name}"
       title: "Edit %{name}"
     show:
       back: "Back"
