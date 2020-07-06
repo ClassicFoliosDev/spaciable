@@ -2,13 +2,14 @@
 
 module DivisionTabsHelper
   include TabsHelper
+  include FaqTabsHelper
 
   def division_tabs(division, current_tab)
-    tabs = DIVISION_TABS.call(division)
+    tabs = DIVISION_TABS.call(division, FaqMenuBuilder.new)
     Tabs.new(division, tabs, current_tab, self).all
   end
 
-  DIVISION_TABS = lambda do |division|
+  DIVISION_TABS = lambda do |division, faqmenubuilder|
     {
       developments: {
         icon: :building,
@@ -20,7 +21,10 @@ module DivisionTabsHelper
         link: [division.parent, division, active_tab: :documents]
       },
       contacts: { icon: :vcard },
-      faqs: { icon: "question-circle" },
+      faqs: {
+        icon: "question-circle",
+        menus: faqmenubuilder.menus_for(division)
+      },
       brands: { icon: "css3" }
     }
   end

@@ -21,5 +21,6 @@ Feature: Feedback
 
   Scenario: Homeowner
     Given I am logged in as a homeowner
+    And FAQ metadata is available
     When I submit homeowner feedback
     Then An email should be sent

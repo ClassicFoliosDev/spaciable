@@ -6,7 +6,9 @@ Feature: Notifications
 
   Scenario:
     Given I am logged in as a homeowner wanting to read notifications
+    And FAQ metadata is available
     And there is a second notification plot
+    When I navigate to the dashboard
     When I read the notifications
     Then I should see the notifications list
     And All my notifications should be unread
@@ -22,6 +24,8 @@ Feature: Notifications
 
   Scenario: Plot progress notifications
     Given I am logged in as a homeowner wanting to read notifications
+    And FAQ metadata is available
+    When I navigate to the dashboard
     And I log out as a homeowner
     And I am logged in as an admin
     And I update the notification plot progress

@@ -120,13 +120,13 @@ end
 Then(/^I should see default faqs for the developer$/) do
   click_on CreateFixture.developer_name
 
-  within ".tabs" do
-    click_on t("developers.collection.faqs")
-  end
+  CreateFixture.developer.faq_types.each do |faq_type|
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
 
-  DeveloperFixture.default_faqs.each do |question, category|
-    expect(page).to have_content(question)
-    expect(page).to have_content(category)
+    DeveloperFixture.default_faqs.select{ |faq| faq[:faq_type] == faq_type }.each do |faq|
+      expect(page).to have_content(faq[:question])
+      expect(page).to have_content(faq[:faq_category].name)
+    end
   end
 end
 

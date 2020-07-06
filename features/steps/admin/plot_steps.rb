@@ -199,12 +199,13 @@ Then(/^I can see my faqs$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-    click_on(t("components.homeowner.navigation.faqs"))
+    faqs = find(:xpath, "//a/li[contains(text(),'#{t("components.homeowner.navigation.faqs")}')]/parent::a")
+    faqs.trigger(:click)
   end
 
   sleep 0.2
   within_frame("rails_iframe") do
-    expect(page).to have_content %r{#{t("homeowners.faqs.index.title")}}i
+    expect(page).to have_content %r{#{t("homeowners.faqs.index.faqs", type: "Homeowner")}}i
   end
 end
 
@@ -230,6 +231,10 @@ When(/^I send a notification the phase$/) do
 
   within ".form-actions-footer" do
     click_on t("admin.notifications.form.submit")
+  end
+
+  within find(".submit-dialog") do
+    click_on "Confirm"
   end
 end
 

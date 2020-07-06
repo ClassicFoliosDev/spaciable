@@ -372,10 +372,12 @@ en:
     development_add: "Add Development"
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
-    faqs: "FAQs"
-    faqs: "FAQs"
+    faqs: "%{type} FAQs"
     faqs_add: "New FAQ"
     faqs_edit: "Edit %{faq}"
+    default_faqs: "Default %{country} %{type} FAQs"
+    default_faqs_edit: "Edit %{default_faq}"
+    default_faqs_add: "New Default FAQ"
     videos: "Videos"
     videos_add: "New Video"
     videos_edit: "Edit %{video}"
@@ -608,6 +610,8 @@ en:
         address_2: "Address Two"
         town: "Town"
         postcode: "Postcode"
+      faq_categories:
+        categories: "Categories."
     home:
       header:
         nav:
@@ -694,6 +698,13 @@ en:
       last: "Last name:"
       email: "Email address:"
       phone: "Phone number:"
+    faq_feedback:
+      new_feedback: "You have received feedback on an FAQ from a Spaciable user"
+      faq: "FAQ"
+      useful: "Is this FAQ useful?"
+      comments: "Comments"
+      user: "User Details"
+      plot: "%{plot} at %{development}, %{phase}"
 
   admin_notification_mailer:
     admin_notifications:
@@ -873,6 +884,10 @@ en:
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
         no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
+        confirm_notification: "Confirm Send"
+        confirm_plots: "Are you sure you want to send this notification to the following plots?"
+        empty_plots: "No plots have been selected. This notification will be sent to all plots that meet the following criteria. Are you sure you want to send this notification?"
+        all_residents: "Are you sure you want to send this notification to all Spaciable residents?"
       index:
         title: "Notifications."
       new:
@@ -914,6 +929,8 @@ en:
         job_title: "Job Title"
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
+        faq_emails: "FAQ Feedback Emails"
+        receive_faq_emails: "Receive FAQ feedback emails"
         invitation_emails: "Resident Invitation Emails" 
         receive_invitation_emails: "Receive resident invitation emails"
       index:
@@ -1020,6 +1037,15 @@ en:
         help_file: "Spaciable Guide."
     settings:
       show:
+        uploads: "Uploads"
+        uploads_btn: "Modify Uploads"
+        uploads_description: "Global documents and introductory video"
+        title: "Global Settings."
+        faq: "FAQs"
+        faq_description: "Global FAQs"
+        faqs:
+          country: "Modify %{country} FAQs"
+      uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
         enable_intro_video: "Introductory Video Status"
@@ -1027,13 +1053,13 @@ en:
         help: "Help Document"
         cookie: "Cookie Policy Document"
         privacy: "Privacy Policy Document"
+        back: "Back"
       edit:
         title: "Edit Global Settings."
         back: "Back"
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
         load: "Upload"
-        enable_intro_video: "Enable introductory video"
         enable_intro_video_description: "Enable or disable the intro video for new users on first login."
         help: "Help Document"
         cookie: "Cookie Policy Document"
@@ -1057,6 +1083,24 @@ en:
         type_summary: "Use Filter to select the type of plots you want content for."
         type_dev: "Development, Developer and Billing reports filter plots by all Filter options, as selected."
         type_all: "Summary and Buyers' Club reports are not affected by the Filter selection."
+    default_faqs:
+      collection:
+        add: "Add %{type} FAQ"
+        faq: "FAQ"
+        last_edited: "Last Edited"
+      show:
+        title: "%{parent}"
+        type: "Type"
+        category: "Category"
+      edit:
+        title: "%{parent}"
+      new:
+        title: "%{parent}"
+      form:
+        submit: "Submit"
+        category: "Category"
+      index:
+        back: "Back"
 
   dashboard:
     header: "Dashboard title for Spaciable"
@@ -1075,15 +1119,16 @@ en:
 
   faqs:
     collection:
-      add: "Add FAQ"
+      add: "Add %{type} FAQ"
       last_edited: "Last Edited"
-      faq: "FAQ"
+      faq: "%{type} FAQ"
     edit:
       title: "%{parent}"
       back: "Back"
     form:
       submit: "Submit"
       back: "Back"
+      category: "Category"
       notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
@@ -1093,6 +1138,8 @@ en:
     show:
       title: "%{parent}"
       back: "Back"
+      category: "Category"
+      type: "Type"
 
   videos:
     new:
@@ -1287,8 +1334,15 @@ en:
         title: "My Plots"
     faqs:
       index:
-        title: "FAQs."
         try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
+        feedback: "Is this FAQ useful?"
+        pos: "Yes"
+        positive: "Thank you for your feedback."
+        negative: "What could we do to improve this FAQ?"
+        neg: "No"
+        faqs: "%{type} FAQs"
+        submit: "Submit"
+        disclaimer: "By submitting feedback you consent to your email address being sent to a portal administrator, who may contact you about your comments."
     rooms:
       show:
         title: "Rooms."
@@ -3350,14 +3404,6 @@ en:
         account_types:
           standard: "Standard"
           full_works: "Full Works Management"
-      faq:
-        categories:
-          general: "General"
-          home: "Home Care"
-          settling: "Settling In"
-          troubleshooting: "Troubleshooting"
-          urgent: "Urgent"
-          purchasing: "Purchasing Process"
       how_to:
         title: "Title"
         summary: "Summary"

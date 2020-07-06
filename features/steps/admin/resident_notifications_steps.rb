@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+def send_notification
+  within ".form-actions-footer" do
+    click_on t("admin.notifications.form.submit")
+  end
+
+  within find(".submit-dialog") do
+    click_on "Confirm"
+  end
+end
+
 Given(/^I am CF Admin wanting to send notifications to residents$/) do
   ResidentNotificationsFixture.create_permission_resources
   admin = CreateFixture.create_cf_admin
@@ -49,9 +59,7 @@ When(/^I send a notification to all residents$/) do
     fill_in_ckeditor(:notification_message, with: attrs[:message])
   end
 
-  within ".form-actions-footer" do
-    click_on t("admin.notifications.form.submit")
-  end
+  send_notification
 end
 
 When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
@@ -89,9 +97,7 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
     fill_in_ckeditor(:notification_message, with: attrs[:message])
   end
 
-  within ".form-actions-footer" do
-    click_on t("admin.notifications.form.submit")
-  end
+  send_notification
 end
 
 When(/^I send a notification to a resident under a (\(\w+\) )?(\w+)$/) do |parent, plot_class|
@@ -122,9 +128,7 @@ When(/^I send a notification to a resident under a (\(\w+\) )?(\w+)$/) do |paren
     fill_in :notification_list, with: plot.number
   end
 
-  within ".form-actions-footer" do
-    click_on t("admin.notifications.form.submit")
-  end
+  send_notification
 end
 
 Then(/^the resident under that (\(\w+\) )?(\w+) should receive a notification$/) do |parent, plot_class|
@@ -252,9 +256,7 @@ When(/^I send a notification to homeowner residents under my Developer$/) do
     fill_in_ckeditor(:notification_message, with: attrs[:message])
   end
 
-  within ".form-actions-footer" do
-    click_on t("admin.notifications.form.submit")
-  end
+  send_notification
 end
 
 Then(/^all homeowner residents under my Developer should receive a notification$/) do
@@ -314,9 +316,7 @@ When(/^I send a notification to tenant residents under my Developer$/) do
     fill_in_ckeditor(:notification_message, with: attrs[:message])
   end
 
-  within ".form-actions-footer" do
-    click_on t("admin.notifications.form.submit")
-  end
+  send_notification
 end
 
 Then(/^all tenant residents under my Developer should receive a notification$/) do
@@ -382,7 +382,5 @@ When(/^I send a notification to homeowner and tenant residents under my Develope
     fill_in_ckeditor(:notification_message, with: attrs[:message])
   end
 
-  within ".form-actions-footer" do
-    click_on t("admin.notifications.form.submit")
-  end
+  send_notification
 end

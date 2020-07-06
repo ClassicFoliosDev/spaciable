@@ -6,34 +6,48 @@ module MyHomeFaqsFixture
 
   module_function
 
-  FAQS = [
-    {
-      question: "How do I unlock the front door?",
-      answer: "Your doorman will do this for you.",
-      faqable: -> { developer },
-      category: :urgent
-    },
-    {
-      question: "Where do you keep the chauffeurs?",
-      answer: "Simply use the chauffeur app on you phone to locate them.",
-      faqable: -> { developer },
-      category: :settling
-    },
-    {
-      question: "What day is pancake day?",
-      answer: "Everyday if you wish.",
-      faqable: -> { development },
-      category: :urgent
-    },
-    {
-      question: "Was it the butler in the garage with the frying pan?",
-      answer: "Cluedo!",
-      faqable: -> { development },
-      category: :settling
-    }
-  ].freeze
+  def faqs
+    [
+      {
+        question: "How do I unlock the front door?",
+        answer: "Your doorman will do this for you.",
+        faqable: -> { developer },
+        type: FaqsFixture.homeowner,
+        category: FaqsFixture.urgent
+      },
+      {
+        question: "Where do you keep the chauffeurs?",
+        answer: "Simply use the chauffeur app on you phone to locate them.",
+        faqable: -> { developer },
+        type: FaqsFixture.homeowner,
+        category: FaqsFixture.settling
+      },
+      {
+        question: "What day is pancake day?",
+        answer: "Everyday if you wish.",
+        faqable: -> { development },
+        type: FaqsFixture.tenant,
+        category: FaqsFixture.troubleshooting
+      },
+      {
+        question: "Was it the butler in the garage with the frying pan?",
+        answer: "Cluedo!",
+        faqable: -> { development },
+        type: FaqsFixture.tenant,
+        category: FaqsFixture.general
+      },
+      {
+        question: "Can we get settled?",
+        answer: "Yes we can.",
+        faqable: -> { developer },
+        type: FaqsFixture.homeowner,
+        category: FaqsFixture.settling
+      }
+    ]
+  end
 
   def create_homeowner_faqs
+    FaqsFixture.create_faq_ref
     create_developer
     create_development
     create_resident_and_phase
@@ -53,23 +67,28 @@ module MyHomeFaqsFixture
   end
 
   def create_faqs
-    FAQS.each do |attrs|
+    faqs.each do |attrs|
       FactoryGirl.create(
         :faq,
         question: attrs[:question],
         answer: attrs[:answer],
         faqable: attrs[:faqable].call,
-        category: attrs[:category]
+        faq_type: attrs[:type],
+        faq_category: attrs[:category]
       )
     end
   end
 
+   def default_type_name
+    FaqsFixture.homeowner.name
+  end
+
   def default_category_name
-    I18n.t("activerecord.attributes.faq.categories.settling")
+    FaqsFixture.settling.name
   end
 
   def other_category_name
-    I18n.t("activerecord.attributes.faq.categories.urgent")
+    FaqsFixture.urgent.name
   end
 
   def recent_faqs
@@ -77,7 +96,7 @@ module MyHomeFaqsFixture
   end
 
   def default_filtered_faqs
-    FAQS.select { |attrs| attrs[:category] == :settling }.map(&method(:front_end_attrs))
+    faqs.select { |attrs| attrs[:category] == FaqsFixture.settling }.map(&method(:front_end_attrs))
   end
 
   def default_filtered_out_faqs
@@ -85,7 +104,7 @@ module MyHomeFaqsFixture
   end
 
   def filtered_faqs
-    FAQS.select { |attrs| attrs[:category] == :urgent }.map(&method(:front_end_attrs))
+    faqs.select { |attrs| attrs[:category] == FaqsFixture.urgent }.map(&method(:front_end_attrs))
   end
 
   def filtered_out_faqs
@@ -97,7 +116,7 @@ module MyHomeFaqsFixture
   module_function
 
   def all_faqs
-    FAQS.map(&method(:front_end_attrs))
+    faqs.map(&method(:front_end_attrs))
   end
 
   def front_end_attrs(attrs)

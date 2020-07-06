@@ -8,6 +8,7 @@ Feature: Admin Snagging
     # This test has been set up so that the snagging duration has ended
     # so the functionality after snag duration ending is tested
     Given I am logged in as a development admin with snagging enabled
+    And FAQ metadata is available
     And there are unresolved snags for a plot on my development
     Then I should see the snagging notification checkbox on my profile
     And I should see a notification next to the snagging link
@@ -31,6 +32,7 @@ Feature: Admin Snagging
 
   Scenario: Admin with snagging, resident disputed
     Given I am logged in as a development admin with snagging enabled
+    And FAQ metadata is available
     And there are unresolved snags for a plot on my development
     When I visit the snagging page
     Then I can see the snags that have been submitted

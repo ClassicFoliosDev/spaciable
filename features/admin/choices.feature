@@ -34,6 +34,7 @@ Scenario: DevelopmentChoices
 
 Scenario: HomeownerChoiceSelection
     Given I am logged in as an admin
+    And FAQ metadata is available
     Given there is development where either can make choices
     Then I can associate plots with the choice configuration
     Then I can view choices for a plot

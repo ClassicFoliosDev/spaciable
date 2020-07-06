@@ -8,6 +8,7 @@ When(/^I visit the settings page$/) do
 end
 
 When(/^I upload a data privacy file$/) do
+  click_on t("admin.settings.show.uploads_btn")
   within ".section-data" do
     find("[data-action='edit']").click
   end
@@ -25,6 +26,7 @@ When(/^I upload a data privacy file$/) do
 end
 
 Then(/^I should see the data privacy file has been uploaded$/) do
+  click_on t("admin.settings.show.uploads_btn")
   within ".privacy" do
     expect(page).to have_content FileFixture.privacy_document_name
   end
@@ -48,6 +50,7 @@ Then(/^I upload a cookies information file$/) do
 end
 
 Then(/^I should see the cookies information file has been uploaded$/) do
+  click_on t("admin.settings.show.uploads_btn")
   within ".cookie" do
     expect(page).to have_content FileFixture.cookies_document_name
   end

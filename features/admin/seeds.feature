@@ -9,7 +9,4 @@ Feature: Seeds
     And There are existing appliances
     When I have seeded the database
     Then I should not see the seed appliance updates
-    And I should find the default FAQs
     When I have seeded the database
-    Then I should not see duplicate seed content
-    

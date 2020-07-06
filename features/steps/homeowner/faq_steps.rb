@@ -4,10 +4,10 @@ Given(/^I am logged in as a homeowner wanting to read FAQs$/) do
   MyHomeFaqsFixture.create_homeowner_faqs
 
   login_as MyHomeFaqsFixture.resident
-  visit "/"
 end
 
 Then(/^I should see recent FAQs on my dashboard$/) do
+  visit "/"
   within "[data-test='dashboard-faqs']" do
     MyHomeFaqsFixture.recent_faqs.each do |question, _answer|
       expect(page).to have_content(question)
@@ -35,6 +35,11 @@ Then(/^I should see the FAQs related to settling in$/) do
 
   within ".sub-navigation-container" do
     active_category = find(".active").text
+    expect(active_category).to eq("#{MyHomeFaqsFixture.default_type_name} FAQs")
+  end
+
+  within ".faq-categories" do
+    active_category = find(".active").text
     expect(active_category).to eq(MyHomeFaqsFixture.default_category_name)
   end
 end
@@ -57,6 +62,11 @@ Then(/^I should only see the FAQs in the other category$/) do
   end
 
   within ".sub-navigation-container" do
+    active_category = find(".active").text
+    expect(active_category).to eq("#{MyHomeFaqsFixture.default_type_name} FAQs")
+  end
+
+  within ".faq-categories" do
     active_category = find(".active").text
     expect(active_category).to eq(MyHomeFaqsFixture.other_category_name)
   end

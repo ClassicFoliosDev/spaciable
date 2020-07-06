@@ -8,8 +8,9 @@ RSpec.describe FaqsController do
       context "for a developer faq" do
         it "should return ok" do
           admin = create(:developer_admin)
+          create(:faq_type)
           login_as admin
-          get url_for([admin.permission_level, :faqs])
+          get url_for([admin.permission_level, :faqs, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -18,10 +19,11 @@ RSpec.describe FaqsController do
       context "for a division faq" do
         it "should return ok" do
           admin = create(:developer_admin)
+          create(:faq_type)
           division = create(:division, developer: admin.permission_level)
 
           login_as admin
-          get url_for([division, :faqs])
+          get url_for([division, :faqs, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -30,10 +32,11 @@ RSpec.describe FaqsController do
       context "for a development faq" do
         it "should return ok" do
           admin = create(:developer_admin)
+          create(:faq_type)
           development = create(:development, developer: admin.permission_level)
 
           login_as admin
-          get url_for([development, :faqs])
+          get url_for([development, :faqs, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -44,8 +47,9 @@ RSpec.describe FaqsController do
       context "for a developer faq" do
         it "should redirect to the root url" do
           admin = create(:division_admin)
+          create(:faq_type)
           login_as admin
-          get url_for([admin.permission_level.developer, :faqs])
+          get url_for([admin.permission_level.developer, :faqs, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -54,9 +58,10 @@ RSpec.describe FaqsController do
       context "for a division faq" do
         it "should return ok" do
           admin = create(:division_admin)
+          create(:faq_type)
 
           login_as admin
-          get url_for([admin.permission_level, :faqs])
+          get url_for([admin.permission_level, :faqs, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -65,10 +70,11 @@ RSpec.describe FaqsController do
       context "for a development faq" do
         it "should return ok" do
           admin = create(:division_admin)
+          create(:faq_type)
           division_development = create(:division_development, division: admin.permission_level)
 
           login_as admin
-          get url_for([division_development, :faqs])
+          get url_for([division_development, :faqs, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -82,8 +88,9 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:developer_admin)
+          create(:faq_type)
           login_as admin
-          get url_for([:new, admin.permission_level, :faq])
+          get url_for([:new, admin.permission_level, :faq, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -93,10 +100,11 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:developer_admin)
+          create(:faq_type)
           division = create(:division, developer: admin.permission_level)
 
           login_as admin
-          get url_for([:new, division, :faq])
+          get url_for([:new, division, :faq, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -106,10 +114,11 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:developer_admin)
+          create(:faq_type)
           development = create(:development, developer: admin.permission_level)
 
           login_as admin
-          get url_for([:new, development, :faq])
+          get url_for([:new, development, :faq, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -121,8 +130,9 @@ RSpec.describe FaqsController do
         it "should redirect to the root url" do
           create(:country)
           admin = create(:division_admin)
+          create(:faq_type)
           login_as admin
-          get url_for([:new, admin.permission_level.developer, :faq])
+          get url_for([:new, admin.permission_level.developer, :faq, active_tab: 1])
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -132,9 +142,10 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:division_admin)
+          create(:faq_type)
 
           login_as admin
-          get url_for([:new, admin.permission_level, :faq])
+          get url_for([:new, admin.permission_level, :faq, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -144,10 +155,11 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:division_admin)
+          create(:faq_type)
           division_development = create(:division_development, division: admin.permission_level)
 
           login_as admin
-          get url_for([:new, division_development, :faq])
+          get url_for([:new, division_development, :faq,  active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -159,8 +171,9 @@ RSpec.describe FaqsController do
         it "should redirect to the root url" do
           create(:country)
           admin = create(:development_admin)
+          create(:faq_type)
           login_as admin
-          get url_for([:new, admin.permission_level.developer, :faq])
+          get url_for([:new, admin.permission_level.developer, :faq, active_tab: 1])
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -170,10 +183,11 @@ RSpec.describe FaqsController do
         it "should redirect to the root url" do
           create(:country)
           division_development = create(:division_development)
+          create(:faq_type)
           admin = create(:development_admin, permission_level: division_development)
 
           login_as admin
-          get url_for([:new, admin.permission_level.division, :faq])
+          get url_for([:new, admin.permission_level.division, :faq, active_tab: 1])
 
           expect(response.redirect_url).to eq(root_url)
         end
@@ -183,9 +197,10 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:development_admin)
+          create(:faq_type)
 
           login_as admin
-          get url_for([:new, admin.permission_level, :faq])
+          get url_for([:new, admin.permission_level, :faq, active_tab: 1])
 
           expect(response.status).to eq(200)
         end
@@ -230,13 +245,15 @@ RSpec.describe FaqsController do
   end
 
   describe "#create" do
-    let(:params) { { faq: { name: "" } } }
+    let(:params) { { faq: { name: "", faq_type_id: 1, faq_category_id: 1 } } }
 
     context "as a DeveloperAdmin" do
       context "for a developer faq" do
         it "should return ok" do
           create(:country)
           admin = create(:developer_admin)
+          create(:faq_type)
+          create(:faq_category)
           login_as admin
           post url_for([admin.permission_level, :faqs]), params: params
 
@@ -248,6 +265,8 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:developer_admin)
+          create(:faq_type)
+          create(:faq_category)
           division = create(:division, developer: admin.permission_level)
 
           login_as admin
@@ -261,6 +280,8 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:developer_admin)
+          create(:faq_type)
+          create(:faq_category)
           development = create(:development, developer: admin.permission_level)
 
           login_as admin
@@ -287,6 +308,8 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:division_admin)
+          create(:faq_type)
+          create(:faq_category)
 
           login_as admin
           post url_for([admin.permission_level, :faqs]), params: params
@@ -299,6 +322,8 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:division_admin)
+          create(:faq_type)
+          create(:faq_category)
           division_development = create(:division_development, division: admin.permission_level)
 
           login_as admin
@@ -338,6 +363,8 @@ RSpec.describe FaqsController do
         it "should return ok" do
           create(:country)
           admin = create(:development_admin)
+          create(:faq_type)
+          create(:faq_category)
 
           login_as admin
           post url_for([admin.permission_level, :faqs]), params: params

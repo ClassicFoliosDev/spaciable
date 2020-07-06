@@ -2,14 +2,15 @@
 
 module DevelopmentTabsHelper
   include TabsHelper
+  include FaqTabsHelper
 
   def development_tabs(development, current_tab)
-    tabs = DEVELOPMENT_TABS.call(development)
+    tabs = DEVELOPMENT_TABS.call(development, FaqMenuBuilder.new)
     Tabs.new(development, tabs, current_tab, self).all
   end
 
   # rubocop:disable Metrics/BlockLength
-  DEVELOPMENT_TABS = lambda do |development|
+  DEVELOPMENT_TABS = lambda do |development, faqmenubuilder|
     {
       unit_types: {
         icon: :building,
@@ -23,7 +24,10 @@ module DevelopmentTabsHelper
         icon: "file-pdf-o",
         link: [development.parent, development, active_tab: :documents]
       },
-      faqs: { icon: "question-circle" },
+      faqs: {
+        icon: "question-circle",
+        menus: faqmenubuilder.menus_for(development)
+      },
       contacts: { icon: :vcard },
       brands: { icon: "css3" },
       videos: { icon: "file-video-o" },

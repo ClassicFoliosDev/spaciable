@@ -1,8 +1,25 @@
 <div class="tabs">
   <ul>
-    <% tabs.each do |title, icon, link, active| %>
+    <% tabs.each do |title, icon, link, active, menus| %>
       <li class="tab">
-        <%= link_to link, class: ("active" if active) do %><i class="fa fa-<%= icon %>"></i> <%= title %><% end %>
+        <% if menus.nil? || menus.empty? %>
+          <%= link_to link, class: ("active" if active) do %><i class="fa fa-<%= icon %>"></i> <%= title %><% end %>
+        <% else %>
+          <div class="dropdown">
+            <div class="content <%= "active" if active %>">
+              <i class="fa fa-<%= icon %>"></i>
+              <span> <%= title %> </span>
+              <div class="dropdown-content">
+                <% menus.each do |menu| %>
+                  <%= link_to menu[:link] do %>
+                    <i class="fa fa-<%= menu[:icon] %>"></i>
+                    <%= menu[:title] %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </li>
     <% end %>
   </ul>

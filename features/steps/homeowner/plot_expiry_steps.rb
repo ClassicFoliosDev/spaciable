@@ -2,7 +2,6 @@
 
 Given(/^I am logged in as a homeowner on a plot that will expire$/) do
   login_as HomeownerUserFixture.create
-  visit "/"
 end
 
 And(/^the development has set a maintenance link$/) do
@@ -108,6 +107,10 @@ Then(/^when a cf admin sends a notification$/) do
     click_on t("admin.notifications.form.submit")
   end
 
+  within find(".submit-dialog") do
+    click_on "Confirm"
+  end
+
   within ".navbar" do
     click_on t("components.navigation.log_out")
   end
@@ -154,6 +157,10 @@ Then(/^when a non cf admin sends a notification$/) do
 
   within ".form-actions-footer" do
     click_on t("admin.notifications.form.submit")
+  end
+
+  within find(".submit-dialog") do
+    click_on "Confirm"
   end
 
   within ".navbar" do
@@ -418,6 +425,7 @@ Then(/^I will have received an email$/) do
 end
 
 Then(/^when a cf admin creates a FAQ$/) do
+  visit "/"
   page.find("#dropdownMenu").click
   find("#signOut").click
 
@@ -427,13 +435,13 @@ Then(/^when a cf admin creates a FAQ$/) do
   ActionMailer::Base.deliveries.clear
 
   developer = Developer.find_by(company_name: HomeownerUserFixture.developer_name)
-  visit "/developers/#{developer.id}/faqs/new"
+  visit "/developers/#{developer.id}/faqs/new?active_tab=1"
 
   within ".new_faq" do
     fill_in :faq_question, with: ExpiryFixture.faq_title
     fill_in_ckeditor(:faq_answer, with: ExpiryFixture.faq_content)
 
-    select_from_selectmenu :faq_category, with: I18n.t("activerecord.attributes.faq.categories.settling")
+    select_from_selectmenu :faq_faq_category, with: "Settling In"
     check :faq_notify
     click_on t("faqs.form.submit")
   end
@@ -447,12 +455,6 @@ Then(/^I cannot see the FAQ$/) do
   visit "/"
   # The FAQ will not be visible on the dashboard
   within ".faq-list" do
-    expect(page).to_not have_content(ExpiryFixture.faq_title)
-  end
-
-  # The FAQ will not be visible on the FAQ page
-  visit "/homeowners/faqs/settling"
-  within ".main-container" do
     expect(page).to_not have_content(ExpiryFixture.faq_title)
   end
 end
@@ -469,13 +471,13 @@ Then(/^when a non cf admin creates an FAQ$/) do
   ActionMailer::Base.deliveries.clear
 
   division = Division.find_by(division_name: HomeownerUserFixture.division_name)
-  visit "/divisions/#{division.id}/faqs/new"
+  visit "/divisions/#{division.id}/faqs/new?active_tab=1"
 
   within ".new_faq" do
     fill_in :faq_question, with: ExpiryFixture.second_faq_title
     fill_in_ckeditor(:faq_answer, with: ExpiryFixture.second_faq_content)
 
-    select_from_selectmenu :faq_category, with: I18n.t("activerecord.attributes.faq.categories.settling")
+    select_from_selectmenu :faq_faq_category, with: "Settling In"
     check :faq_notify
     click_on t("faqs.form.submit")
   end
@@ -491,12 +493,6 @@ Then(/^I cannot see the new FAQ$/) do
   within ".faq-list" do
     expect(page).to_not have_content(ExpiryFixture.second_faq_title)
   end
-
-  # The FAQ will not be visible on the FAQ page
-  visit "/homeowners/faqs/settling"
-  within ".main-container" do
-    expect(page).to_not have_content(ExpiryFixture.second_faq_title)
-  end
 end
 
 Then(/^I can see both FAQs$/) do
@@ -508,7 +504,7 @@ Then(/^I can see both FAQs$/) do
   end
 
   # Both FAQs will be visible on the FAQ page
-  visit "/homeowners/faqs/settling"
+  visit "/homeowners/faqs/1/1"
   within ".main-container" do
    expect(page).to have_content(ExpiryFixture.faq_title)
    expect(page).to have_content(ExpiryFixture.second_faq_title)
@@ -552,7 +548,7 @@ Then(/^I cannot see the video$/) do
   end
   click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".sub-navigation-container" do
+  within find(".sub-navigation-container") do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
 end
@@ -608,7 +604,7 @@ Then(/^I can see both videos$/) do
   end
   click_on(t("components.homeowner.sub_menu.library"))
 
-  within ".library-categories" do
+  within find(".library-categories") do
     click_on I18n.t("components.homeowner.library_categories.videos")
   end
 

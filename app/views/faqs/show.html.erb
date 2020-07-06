@@ -15,13 +15,15 @@
     <%= raw @faq.answer %>
   </div>
   <div class="row-item third">
-    <%= label_tag(Faq.human_attribute_name(:category)) %>
-    <span><%= t_enum(Faq, :category, @faq.category) %></span>
+    <%= label_tag t(".type") %>
+    <span><%= @faq.type_name %></span>
+    <%= label_tag t(".category") %>
+    <span><%= @faq.category_name %></span>
   </div>
 </div>
 
 <div class="form-actions-footer-container">
   <div class="form-actions-footer">
-    <%= link_to t(".back"), [@parent, :faqs], class: "btn" %>
+    <%= link_to t(".back"), [@parent, :faqs, active_tab: @faq.faq_type.id], class: "btn" %>
   </div>
 </div>
