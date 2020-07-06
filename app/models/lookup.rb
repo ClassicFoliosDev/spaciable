@@ -24,9 +24,10 @@ class Lookup < ApplicationRecord
               .pluck(:column, :translation).each do |lookup, translation|
         fields = lookup.split(":") # split the lookup into Class and methods
         response = response_to(i, fields[1], translation) # Get the value of Plot.method/s
-        next if (fields[0] != "*" && i.class.to_s != fields[0]) || response.nil?
+        next if fields[0] != "*" && i.class.to_s != fields[0]
 
-        parsed.gsub!(code, response) # substitute the code with the value
+        # substitute the code with the value or "" if no value available
+        parsed.gsub!(code, response || "")
       end
     end
 
