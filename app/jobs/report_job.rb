@@ -2,7 +2,7 @@
 
 class ReportJob < ApplicationJob
   queue_as :admin
-  require 'csv'
+  require "csv"
 
   def perform(user, params:, report_params:)
     @report = Report.new(report_params.to_h)
