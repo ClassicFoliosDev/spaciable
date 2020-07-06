@@ -2,12 +2,13 @@
 
 class ReportJob < ApplicationJob
   queue_as :admin
+  require 'csv'
 
   def perform(user, params:, report_params:)
     @report = Report.new(report_params.to_h)
-
     return unless @report.valid?
     csv_file = build_csv(params.to_h)
+    return if no_data(csv_file)
     transfer_url = Csv::CsvTransferService.call(csv_file, user)
     TransferCsvJob.perform_later(user.email, user.first_name,
                                  transfer_url)
@@ -19,5 +20,12 @@ class ReportJob < ApplicationJob
     return Csv::BillingCsvService.call(@report) if params["billing"].present?
     return Csv::PerksCsvService.call(@report) if params["perks"].present?
     Csv::DevelopmentCsvService.call(@report)
+  end
+
+  def no_data(csv_file)
+#     csv = CSV.open(csv_file, 'wb', headers: true)
+    csv_table = CSV.table(csv_file)
+    puts ("#################################### #{csv_file.readlines.size}")
+    !csv_table.count.positive?
   end
 end
