@@ -149,6 +149,7 @@ function roomBelongsHelp() {
         class: 'btn',
         click: function () {
           $(this).dialog('destroy')
+          $(".room-belongs-help").hide()
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
@@ -184,6 +185,7 @@ function restrictedHelp() {
         class: 'btn',
         click: function () {
           $(this).dialog('destroy')
+          $(".unit-restricted-help").hide()
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
