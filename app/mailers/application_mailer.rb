@@ -41,13 +41,7 @@ class ApplicationMailer < ActionMailer::Base
   end
 
   def faq_feedback_emails(plot)
-    users = User.where(receive_faq_emails: true)
-                .where("(role = #{User.roles[:developer_admin]} AND " \
-                       "permission_level_id = #{plot.developer_id}) " \
-                       "OR (role = #{User.roles[:division_admin]} AND " \
-                       "(permission_level_id = #{plot.division_id}) " \
-                       "OR (role = #{User.roles[:development_admin]} " \
-                       "AND permission_level_id = #{plot.development_id})")
+    users = User.receives_faqs(plot)
 
     emails = []
     users.each { |user| emails << user.email }
