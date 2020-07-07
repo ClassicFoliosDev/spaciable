@@ -8,23 +8,37 @@
 <div id='homeowner_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= homeowners_events_path %>" data-editable=<%=editable%> ></div>
 
 <div class="event_details_form hidden">
-    <%= simple_form_for :event do |f| %>
-      <%= f.hidden_field :id %>
-      <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
-      <%= f.hidden_field :eventable_id,{ value: source.id } %>
-      <label><%= label_tag :title, "Title" %></label>
+  <%= simple_form_for :event do |f| %>
+    <%= f.hidden_field :id %>
+    <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
+    <%= f.hidden_field :eventable_id,{ value: source.id } %>
+
+    <div class="event-title">
+      <!--<label><%= label_tag :title, "Title" %></label>-->
       <%= f.input :title, label: false, required: true %>
-      <label><%= label_tag :location, "Location" %></label>
+    </div>
+    <div class="event-location">
+      <!--<label><%= label_tag :location, "Location" %></label>-->
       <%= f.input :location, label: false, required: true %>
-      <label><%= label_tag :start, "Start" %></label>
-      <%= f.input :start, label: false, required: true %>
-      <label><%= label_tag :end, "End" %></label>
-      <%= f.input :end, label: false, required: true %>
+    </div>
+    <div class="event-time">
+      <div class="event-start half">
+        <label><%= label_tag :start, "Start" %></label>
+        <%= f.input :start, label: false, required: true %>
+      </div>
+      <div class="event-end half">
+        <label><%= label_tag :end, "End" %></label>
+        <%= f.input :end, label: false, required: true %>
+      </div>
+    </div>
+
+    <div class="event-status half">
       <%= f.input :status,
-          as: :select,
-          collection: EventResource.assigned_statuses(),
-          label_method: ->(status) { t("events.#{status.first}") },
-          value_method: :first,
-          include_blank: false %>
-    <% end %>
+        as: :select,
+        collection: EventResource.assigned_statuses(),
+        label_method: ->(status) { t("events.#{status.first}") },
+        value_method: :first,
+        include_blank: false %>
+    </div>
+  <% end %>
 </div>

@@ -139,6 +139,34 @@
 .homeowner-view {
   .event_details_form {
     color: $primary-navy;
+
+    input:disabled {
+      opacity: 1;
+      cursor: default;
+      background-color: $ui-white;
+      border: none;
+      padding: 0;
+    }
+
+    .event-title input:disabled {
+      padding-top: $spacing-small;
+      font-weight: $bold-font-weight;
+      font-size: $title-font-size-5;
+    }
+
+    .event-status {
+      .input {
+        position: static;
+      }
+
+      span.required {
+        display: none;
+      }
+    }
+
+    .half {
+      margin-bottom: 0;
+    }
   }
 }
 

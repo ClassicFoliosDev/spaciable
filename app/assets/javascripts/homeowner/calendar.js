@@ -138,7 +138,7 @@ var homeowner = {
     $eventContainer.dialog({
       show: 'show',
       modal: true,
-      width: 600,
+      width: 500,
       title: title,
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
