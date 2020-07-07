@@ -129,6 +129,21 @@
   }
 }
 
+.admin-view {
+  #btn_event_delete {
+    float: right;
+    border: none;
+    background-color: $primary-navy;
+    background: none;
+    font-size: 18px;
+    padding: 0;
+
+    .fa {
+      color: $ui-white;
+    }
+  }
+}
+
 .event_details_form {
   label {
     color: $primary-navy;

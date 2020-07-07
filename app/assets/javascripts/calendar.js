@@ -195,6 +195,16 @@ var admin = {
           $(this).dialog('destroy')
           $eventContainer.hide()
         }
+      },
+      {
+        text: '',
+        class: 'btn delete-btn',
+        id: 'btn_event_delete',
+        click: function () {
+
+        $(this).dialog('destroy')
+        $eventContainer.hide()
+        }
       })
     }
 
@@ -205,6 +215,9 @@ var admin = {
       title: title,
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
+
+    $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+    $('.ui-dialog-title').css('line-height', '28px')
   },
 
   initDates: function(){
