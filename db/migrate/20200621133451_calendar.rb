@@ -9,6 +9,7 @@ class Calendar < ActiveRecord::Migration[5.0]
       t.datetime :start
       t.datetime :end
       t.integer  :repeat
+      t.datetime :repeat_until
       t.integer  :reminder
     end
 

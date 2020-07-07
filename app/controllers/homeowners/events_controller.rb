@@ -22,10 +22,9 @@ module Homeowners
 
     def event_params
       params.require(:event).permit(:eventable_type, :eventable_id,
-                                  :title, :location, :start,
-                                  :end, :id)
-          .merge(userable: current_resident)
+                                    :title, :location, :start,
+                                    :end, :id)
+            .merge(userable: current_resident)
     end
-
   end
 end

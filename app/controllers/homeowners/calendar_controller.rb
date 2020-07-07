@@ -5,8 +5,5 @@ module Homeowners
     skip_authorization_check
 
     def index; end
-
-    private
-
   end
 end

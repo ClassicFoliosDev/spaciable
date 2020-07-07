@@ -19,9 +19,29 @@
       <%= f.input :location, label: false, required: true %>
       <label><%= label_tag :residents, "Residents" %></label>
       <div id="residents"><%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false %></div>
-      <label><%= label_tag :start, "Start" %></label>
-      <%= f.input :start, as: :datetime, html5: true, label: false, required: true %>
-      <label><%= label_tag :end, "End" %></label>
-      <%= f.input :end, as: :datetime, html5: true, label: false, required: true %>
+      <label><%= label_tag :start_date, "Start" %></label>
+      <%= f.input :start_date, label: false, required: true %>
+      <label><%= label_tag :start_time, "From" %></label>
+      <%= f.input :start_time, label: false, required: true %>
+      <label><%= label_tag :end_time, "Until" %></label>
+      <%= f.input :end_time, label: false, required: true %>
+      <label><%= label_tag :end_date, "End" %></label>
+      <%= f.input :end_date, label: false, required: true %>
+
+      <%= f.input :repeat,
+          as: :select,
+          collection: Event.repeats,
+          label_method: ->(repeat) { t("events.repeat.#{repeat.first}") },
+          value_method: :first,
+          include_blank: false %>
+      <div id="repeat_until">
+        <%= f.input :repeat_until, label: false, required: true %>
+      </div>
+      <%= f.input :reminder,
+          as: :select,
+          collection: Event.reminders,
+          label_method: ->(remind) { t("events.remind.#{remind.first}") },
+          value_method: :first,
+          include_blank: false %>
     <% end %>
 </div>

@@ -5,10 +5,10 @@ module RepeatEnum
 
   included do
     enum repeat: %i[
-      none,
-      daily,
-      weekly,
-      biweekly,
+      never
+      daily
+      weekly
+      biweekly
       monthly
       yearly
     ]

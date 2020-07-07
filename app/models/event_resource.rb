@@ -12,7 +12,6 @@ class EventResource < ApplicationRecord
   ]
 
   def self.assigned_statuses
-    statuses.reject { |key, _| ["unassigned", "awaiting_acknowledgement"].include?(key) }
+    statuses.reject { |key, _| %w[unassigned awaiting_acknowledgement].include?(key) }
   end
-
 end

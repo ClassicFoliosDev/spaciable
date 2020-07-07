@@ -3643,6 +3643,19 @@ en:
   events:
     acknowledged: "Acknowledge"
     cancelled: "Cancel"
+    repeat:
+      never: "Does not repeat"
+      daily: "Daily"
+      weekly: "Weekly"
+      biweekly: "Biweekly"
+      monthly: "Monthly"
+      yearly: "Yearly"
+    remind:
+      nix: "Never"
+      at: "At"
+      hour: "Hour"
+      day: "Day"
+      week: "Week"
 
 
 
