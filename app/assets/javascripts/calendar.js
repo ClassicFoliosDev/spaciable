@@ -201,7 +201,7 @@ var admin = {
     $eventContainer.dialog({
       show: 'show',
       modal: true,
-      width: 400,
+      width: 650,
       title: title,
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
@@ -214,7 +214,8 @@ var admin = {
       altInput: true,
       altFormat: "d-m-Y",
       utc: true,
-      enableTime: false
+      enableTime: false,
+      monthSelectorType: "static"
     }
 
     var timeFormat = {
@@ -274,3 +275,19 @@ var admin = {
 
 $(document).on('turbolinks:load', admin.eventCalendar);
 $(document).on('turbolinks:before-cache', admin.clearCalendar)
+
+$(document).on('turbolinks:load', function () {
+  if ($("#event_repeat").length) {
+    if ($("#event_repeat")[0].value == "never") {
+      $("#repeat_until").hide()
+    }
+  }
+})
+
+$(document).on('click', '#event_repeat-menu', function (event) {
+  if ($("#event_repeat")[0].value == "never") {
+    $("#repeat_until").hide()
+  } else {
+    $("#repeat_until").show()
+  }
+})
