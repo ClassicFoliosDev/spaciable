@@ -5,7 +5,9 @@ class User < ApplicationRecord
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
+
   before_save :update_cas
+  before_save :downcase_email
 
   include PolymorphicPermissionable
   include PolymorphicPermissionable::ByRole
@@ -300,6 +302,10 @@ class User < ApplicationRecord
   def self.permissable_destroy(model, permission_id)
     permissable_users = User.where(permission_level_type: model, permission_level_id: permission_id)
     permissable_users.destroy_all
+  end
+
+  def downcase_email
+    self.email.downcase!
   end
 
   # rubocop:enable all
