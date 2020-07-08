@@ -187,8 +187,12 @@ class Vaboo
     developer.branded_perk_link || SPACIABLE_LOGIN
   end
 
-  def self.perk_expire_date(development)
-    Time.zone.today + development.premium_licence_duration.months
+  def self.perk_expire_date(plot)
+    if plot.enable_premium_perks
+      Time.zone.today + plot.development.premium_licence_duration.months
+    else
+      plot.expiry_date
+    end
   end
 
   # Does the Developer have a branded account number?
