@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200623084553) do
+ActiveRecord::Schema.define(version: 20200611124035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -418,31 +418,6 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.datetime "updated_at",                         null: false
     t.index ["document_id", "plot_id"], name: "document_plot_index", using: :btree
     t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
-  end
-
-  create_table "event_resources", force: :cascade do |t|
-    t.integer "event_id"
-    t.string  "resourceable_type"
-    t.integer "resourceable_id"
-    t.integer "status"
-    t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
-    t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
-  end
-
-  create_table "events", force: :cascade do |t|
-    t.string   "eventable_type"
-    t.integer  "eventable_id"
-    t.string   "userable_type"
-    t.integer  "userable_id"
-    t.string   "title"
-    t.string   "location"
-    t.datetime "start"
-    t.datetime "end"
-    t.integer  "repeat"
-    t.datetime "repeat_until"
-    t.integer  "reminder"
-    t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
-    t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -1108,7 +1083,6 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
     t.boolean  "receive_invitation_emails", default: true
-    t.boolean  "receive_faq_emails",        default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
