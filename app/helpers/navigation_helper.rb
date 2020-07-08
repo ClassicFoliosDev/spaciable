@@ -45,7 +45,8 @@ module NavigationHelper
 
     build = "build_#{shortcut.chomp('_path')}_params"
     query_params = (send(build, resident, plot) if respond_to?(build)) || ""
-    eval(shortcut) + query_params
+
+    (ENV[shortcut.upcase] || eval(shortcut)) + query_params
   end
   # rubocop:enable Security/Eval
 
