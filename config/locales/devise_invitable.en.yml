@@ -68,8 +68,10 @@ en:
         for_plot: "Since your Spaciable account has been deactivated, any private files you uploaded to %{plot} have been transferred."
         private_documents: "You can download your documents by following the link below"
       transfer_csv:
-        title: "Your report is ready for download"
+        success: "Your report is ready for download"
+        no_data: "Your report returned no data"
         description: "You csv report is ready to download by following the link below."
+        no_data_description: "No plots matched the filters applied to your report. Please review your selections."
       downgrade_perks:
         title: "Your Premium discounts access has expired"
         hello: "Hi %{name},"
