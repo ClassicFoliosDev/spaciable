@@ -77,8 +77,6 @@ module Admin
       invitee = User.find(params[:invitee])
 
       user.invite!(invitee)
-
-      render json: ""
     end
 
     private

@@ -190,8 +190,44 @@ $(document).on('click', '#resendInvitation', function (event) {
   var dataIn = $(this).data()
   var data = { user: dataIn.user, invitee: dataIn.invitee }
 
-  $.getJSON({
-    url: '/resend_invitation',
-    data: data
-  })
+  var $invitationContainer = $('<div>', { class: 'resend-invitation-confirm' })
+  .html(
+    '<div>' +
+      '<p>' +
+        'Are you sure you want to send another Spaciable Admin invitation to ' + dataIn.email + '?' +
+      '</p>' +
+    '</div>'
+  )
+
+  $('body').append($invitationContainer)
+
+  $invitationContainer.dialog({
+    show: 'show',
+    modal: true,
+    width: 600,
+    title: "Send Invitation",
+
+    buttons: [
+      {
+        text: "Back",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $(".resend-invitation-confirm").hide()
+        }
+      },
+      {
+        text: "Send",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $(".resend-invitation-confirm").hide()
+
+          $.getJSON({
+            url: '/resend_invitation',
+            data: data
+          })
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 })
