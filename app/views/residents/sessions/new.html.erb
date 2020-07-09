@@ -10,10 +10,10 @@
         <div class="branded-external-text branded-content-box">
           <% if @brand&.custom_text?(@brand) %>
             <h2 class="top-title branded-external-text"><%= @brand.branded_heading_one %></h2>
-            <h3 class="second-title branded-external-text"><%= @brand.branded_heading_two %></h3>
+            <h4 class="second-title branded-external-text"><%= @brand.branded_heading_two %></h4>
           <% else %>
             <h2 class="top-title branded-external-text"><%= t '.welcome_1' %></h2>
-            <h3 class="second-title branded-external-text"><%= t '.welcome_2' %></h3>
+            <h4 class="second-title branded-external-text"><%= t '.welcome_2' %></h4>
           <% end %>
           <%= f.input :email, required: false, label: false, placeholder: "Email", autofocus: true %>
           <%= f.input :password, label: false, placeholder: "Password", required: false %>
@@ -51,6 +51,10 @@
   </div>
 
   <div class="preamble">
+    <div class="login-redirect">
+      <span class="homeowner-login"><%= link_to t(".homeowner_login"), new_resident_session_path, id: 'homeowner-login-link' %></span>
+      <span class="admin-login"><%= link_to t(".admin_login"), new_user_session_path, id: 'admin-login-link' %></span>
+    </div>
     <div class="content branded-left-text <%='no-logo' if @brand&.branded_login_logo %>">
       <% unless @brand&.branded_login_logo %>
         <div class="login-icon">
