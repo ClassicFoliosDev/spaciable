@@ -72,6 +72,15 @@ module Admin
       redirect_to %i[admin users], notice: notice
     end
 
+    def resend_invitation
+      user = User.find(params[:user])
+      invitee = User.find(params[:invitee])
+
+      user.invite!(invitee)
+
+      render json: ""
+    end
+
     private
 
     # Never trust parameters from the scary internet, only allow the white list through.

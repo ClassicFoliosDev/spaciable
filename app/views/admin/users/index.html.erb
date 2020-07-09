@@ -51,6 +51,12 @@
       <% end %>
       <td><%= l user.invitation_accepted_at.to_date, format: :digits if user.invitation_accepted? %></td>
       <td class="actions">
+        <% unless user.invitation_accepted? %>
+          <%= button_tag "", class: "btn resend-invitation", id: "resendInvitation",
+            data: { user: user.id, invitee: current_user.id } do %>
+            <i class="fa fa-envelope-o"></i>
+          <% end %>
+        <% end %>
         <%= edit_btn edit_admin_user_path(user), element: user %>
         <%= delete_btn user, path: admin_user_path(user), element: user %>
       </td>
