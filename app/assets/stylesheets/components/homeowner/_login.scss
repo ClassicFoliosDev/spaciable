@@ -387,6 +387,36 @@
 
 // tablet (small) & mobile
 @include media($tablet-portrait-down) {
+  .login .preamble {
+    .login-redirect {
+      position: relative;
+      bottom: 100px;
+      padding-left: 0;
+
+      .homeowner-login {
+        padding: 0 $spacing-medium;
+
+        a {
+          color: $primary-navy;
+        }
+
+        #homeowner-login-link {
+          &:before {
+            border: 1px solid $primary-navy;
+          }
+        }
+      }
+
+      .admin-login {
+        padding: 0 $spacing-medium;
+
+        a {
+          color: $primary-navy;
+        }
+      }
+    }
+  }
+
   .default-login-background, .login-background {
 
     .branded-left-box, .new-password {
@@ -534,7 +564,7 @@
 
 // mobile (small)
 @include media($mobile-portrait-down) {
-.default-login-background {
+  .default-login-background {
     .branded-left-box, .new-password {
       .set-password {
         width: 100%;
@@ -589,6 +619,18 @@
 
     .login-checkbox {
       width: 100%;
+    }
+  }
+
+  .login .preamble {
+    .login-redirect {
+      .homeowner-login {
+        padding: $spacing-small;
+      }
+
+      .admin-login {
+        padding: $spacing-small;
+      }
     }
   }
 }

@@ -23,12 +23,14 @@
   document.addEventListener('turbolinks:load', function () {
     if ($(window).innerWidth() < 1025) {
       // change the account navigation icon
-      var arrow = document.querySelector("#upDownArrow")
-      arrow.classList = "fa fa-user-circle-o"
-      // set the dropdown width to 100%
-      $("#navList").css("width", "100%")
-      // remove header search element
-      $(".navbar-search .search-container").remove()
+      if($("#upDownArrow").length) {
+        var arrow = document.querySelector("#upDownArrow")
+        arrow.classList = "fa fa-user-circle-o"
+        // set the dropdown width to 100%
+        $("#navList").css("width", "100%")
+        // remove header search element
+        $(".navbar-search .search-container").remove()
+      }
     } else {
       $(".lower-navigation .lower-navbar-search").remove()
     }
@@ -92,6 +94,4 @@
       $('.main-container').toggle()
     }
   })
-
-  
 })(document, window.jQuery)
