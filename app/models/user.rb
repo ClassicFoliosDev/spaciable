@@ -302,5 +302,18 @@ class User < ApplicationRecord
     permissable_users.destroy_all
   end
 
+  scope :receives_faqs,
+    lambda { |p|
+      users = User.where(receive_faq_emails: true)
+      users.where(role: :development_admin,
+                         permission_level_id: p.development_id)
+         .or(users.where(role: :developer_admin,
+                        permission_level_id: p.developer_id))
+         .or(users.where(role: :development_admin,
+                        permission_level_id: p.development_id))
+         .or(users.where(role: :division_admin,
+                        permission_level_id: p.division&.id || 0))
+  }
+
   # rubocop:enable all
 end

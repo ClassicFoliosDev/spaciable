@@ -5,7 +5,6 @@ class ReportJob < ApplicationJob
 
   def perform(user, params:, report_params:)
     @report = Report.new(report_params.to_h)
-
     return unless @report.valid?
     csv_file = build_csv(params.to_h)
     transfer_url = Csv::CsvTransferService.call(csv_file, user)
