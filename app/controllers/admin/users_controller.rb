@@ -19,7 +19,9 @@ module Admin
       if (@restore_user = User.only_deleted.find_by(email: user_params[:email].downcase!))
         @restore_user.restore!
         @user = @restore_user
-        UpdateUserService.call(@user, user_params)
+        # remove blank params so the user can be re-added by email only
+        params = user_params.delete_if {|k, v| v.blank?}
+        UpdateUserService.call(@user, params)
         user_success
       elsif @user.create_without_password
         user_success

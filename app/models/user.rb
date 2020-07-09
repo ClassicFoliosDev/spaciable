@@ -189,7 +189,7 @@ class User < ApplicationRecord
     sql = "SELECT users.*, developers.company_name, divisions.division_name, "\
           "developments.name as development_name from users LEFT OUTER JOIN developers ON "\
           "(users.permission_level_type='Developer' AND users.permission_level_id = "\
-          "developers.id) OR (users.permission_level_type='Devision' and developers.id = "\
+          "developers.id) OR (users.permission_level_type='Division' and developers.id = "\
           "(SELECT developers.id from developers INNER JOIN divisions ON "\
           "divisions.developer_id = developers.id and divisions.id = users.permission_level_id) "\
           "OR (users.permission_level_type='Development' and developers.id = "\
