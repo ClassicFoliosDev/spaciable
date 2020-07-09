@@ -227,6 +227,13 @@ $(document).on('click', '#resendInvitation', function (event) {
             url: '/resend_invitation',
             data: data
           })
+
+//          var $flash = $('.flash')
+//          $flash.empty()
+//          var $notice = document.createElement('p')
+//          $notice.className = 'notice'
+//          $notice.innerHTML = "An invitation has been sent to " + dataIn.email
+//          $flash.append($notice)
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
