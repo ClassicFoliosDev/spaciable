@@ -2,8 +2,12 @@
 
 <p><%= t("devise.mailer.invitation_instructions.hello", name: @name) %>,</p>
 
-<p><%= t("devise.mailer.transfer_csv.description") %></p>
+<% if @url.nil? %>
+  <p><%= t("devise.mailer.transfer_csv.no_data_description") %></p>
+<% else %>
+  <p><%= t("devise.mailer.transfer_csv.description") %></p>
 
-<p style="text-align: center;">
-  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Download my Files</button>".html_safe, "#{@url}" %>
-</p>
+  <p style="text-align: center;">
+    <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Download my Files</button>".html_safe, "#{@url}" %>
+  </p>
+<% end %>
