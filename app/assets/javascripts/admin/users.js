@@ -226,15 +226,26 @@ $(document).on('click', '#resendInvitation', function (event) {
           $.getJSON({
             url: '/resend_invitation',
             data: data
+          }).done(function () {
+            buildNotice('notice', dataIn.email)
+          }).fail(function () {
+            buildNotice('alert', dataIn.email)
           })
-
-//          var $flash = $('.flash')
-//          $flash.empty()
-//          var $notice = document.createElement('p')
-//          $notice.className = 'notice'
-//          $notice.innerHTML = "An invitation has been sent to " + dataIn.email
-//          $flash.append($notice)
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 })
+
+function buildNotice(status, email) {
+  var $flash = $('.flash')
+  $flash.empty()
+  var $notice = document.createElement('p')
+  if (status == 'notice') {
+    $notice.className = 'notice'
+    $notice.innerHTML = "An invitation has been sent to " + email
+  } else {
+    $notice.className = 'alert'
+    $notice.innerHTML = "Failed to send invitation to " + email + ", please try again later."
+  }
+  $flash.append($notice)
+}
