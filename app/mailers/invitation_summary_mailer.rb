@@ -30,10 +30,10 @@ class InvitationSummaryMailer < ApplicationMailer
   # rubocop:enable all
 
   def group_records_and_send(inactive)
-    inactive.sort_by! { |r| [r[:dev_phase], r[:invitation_date]] }
+    @inactive = inactive.sort_by { |r| [r[:dev_phase], r[:invitation_date]] }
 
     @inactive_residencies = {}
-    divisions = inactive.group_by { |r| r[:division] }
+    divisions = @inactive.group_by { |r| r[:division] }
 
     divisions.each do |d, v|
       @inactive_residencies[d] = v.group_by { |r| r[:dev_phase] }
