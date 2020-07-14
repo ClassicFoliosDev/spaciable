@@ -181,6 +181,11 @@
         .progress-icon {
           display: inline-block;
           width: 70%;
+
+          img {
+            position: relative;
+            bottom: -10px;
+          }
         }
 
         .progress-count {
@@ -442,8 +447,6 @@
         }
 
         .features-container {
-          display: inline-block;
-          float: left;
           padding-top: $spacing-medium;
 
           .branded-btn-inverted {
@@ -626,6 +629,7 @@
             font-family: $base-font-family;
             line-height: $icon-font-line-height;
             margin: 0 $spacing-small 0 $spacing-small;
+            min-width: 140px;
 
             &:hover {
               background-color: $ui-grey;
@@ -762,6 +766,10 @@
       width: 60%;
     }
   }
+
+  .timeline-task .timeline-content #answer .timeline-footer .next .branded-btn {
+    margin: 10px;
+  }
 }
 
 // small tablet landscape
@@ -830,7 +838,7 @@
             grid-column-end: 1;
 
             .image-container {
-              min-height: 250px;
+              height: 250px;
               margin-bottom: 0;
             }
           }
@@ -1089,6 +1097,7 @@
 
             .branded-btn {
               margin: $spacing-small;
+              min-width: 140px;
             }
           }
         }
@@ -1102,6 +1111,7 @@
           display: table;
           width: 100%;
           padding: $spacing-small;
+          padding-left: $spacing-medium;
 
           .title {
             float: left;
@@ -1204,7 +1214,7 @@
       img {
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: -10px;
       }
     }
   }
