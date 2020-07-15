@@ -5,6 +5,7 @@ var admin = {
     if ($('#admin_calendar').length == 0) { return }
 
     admin.initDates();
+    admin.initControls();
 
     calendarEl = $('#admin_calendar')
     var dataIn = calendarEl.data()
@@ -16,7 +17,7 @@ var admin = {
           addEvent: {
             text: 'Add Event',
             click: function() {
-              admin.addEvent(dataIn.path, moment())
+              admin.newEvent(dataIn, moment())
             }
           }
         },
@@ -51,8 +52,9 @@ var admin = {
         selectable: true,
         selectHelper: true,
         eventClick: function(event, jsEvent, view) {
-            admin.showEvent(dataIn.path, "Edit Event", "Update", "PUT", dataIn.editable)
-            admin.populate(event, dataIn.editable)
+            event.new = false
+            if (!event.hasOwnProperty('editable')) { event.editable = true }
+            admin.updateEvent(event, dataIn)
         },
         eventTimeFormat: 'H:mm'
       }
@@ -60,7 +62,7 @@ var admin = {
     // If the calendar is ediable then add extras to support editing
     if (dataIn.editable) {
       calendarConfig.select = function(start, end, allday){
-          admin.addEvent(dataIn.path, start)
+          admin.newEvent(dataIn, start)
         },
       calendarConfig.header.center = "addEvent, month, agendaWeek, agendaDay"
     }
@@ -77,27 +79,112 @@ var admin = {
     $('#admin_calendar').html('');
   },
 
-  addEvent: function(path, start){
+  newEvent: function(dataIn, start){
     var event = {
            start: start,
            end: moment(start).add(15, 'm'),
            location: "",
-           title: ""
+           title: "",
+           new: true,
+           editable: true,
+           repeater: false,
+           master_id: null
          }
 
-    admin.showEvent(path, "Add Event", "Add", "POST")
+    admin.addEvent(event, dataIn)
+  },
+
+  addEvent(event, dataIn)
+  {
+   admin.showEvent(event, dataIn)
+  },
+
+  updateEvent(event, dataIn)
+  {
+    admin.showEvent(event, dataIn)
+  },
+
+  showEvent: function(event, dataIn) {
+    var $eventContainer = $('.event_details_form')
+    $('body').append($eventContainer)
+    var $form = $('.event')
+
+    var buttons = [
+      {
+        text: "Cancel",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+        }
+      }
+    ]
+
+    // If it is editable add the confirmation button
+    if (event.editable) {
+      buttons.push(
+      {
+        text: (event.new ? "Add" : "Update"),
+        class: 'btn-send btn',
+        id: 'btn_submit',
+        click: function () {
+          $eventContainer.hide()
+
+          if (event.repeater) {
+            admin.confirm(event, dataIn, $(this))
+          }
+          else {
+            $(this).dialog('destroy')
+
+            $.ajax({
+              url:dataIn.path,
+              type: (event.new ? "POST" : "PUT"),
+              data: $form.serialize(),
+              success: function() {
+                  admin.refreshEvents()
+              }
+            })
+          }
+        }
+      })
+    }
+
+    // If its not new - add the delete option
+    if (!event.new) {
+      buttons.push(
+      {
+        text: '',
+        class: 'btn delete-btn',
+        id: 'btn_event_delete',
+        click: function () {
+          admin.confirm(event, dataIn, $(this), false)
+        }
+      })
+    }
+
+    $eventContainer.dialog({
+      show: 'show',
+      modal: true,
+      width: 650,
+      title: (event.new? "Add" : "Edit") + " Event",
+      buttons: buttons
+    }).prev().find('.ui-dialog-titlebar-close').hide()
+
+    $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+    $('.ui-dialog-title').css('line-height', '28px')
+
     admin.populate(event)
   },
 
   // Populate the form with event data.  Ideally this would be
   // done when the form is invisible but some SimpleForms controls
   // must be visible for them to be controllable through JS
-  populate: function(event, editable = true){
+  populate: function(event){
     currentEvent = event
 
-    $('#event_id').val(event.id).prop("disabled", !editable);
-    $('#event_title').val(event.title).prop("disabled", !editable);
-    $('#event_location').val(event.location).prop("disabled", !editable);
+    $('#event_id').val(event.id)
+    $('#event_master_id').val(event.master_id)
+    $('#event_title').val(event.title).prop("disabled", !event.editable);
+    $('#event_location').val(event.location).prop("disabled", !event.editable);
 
     e_start_date.setDate(event.start.toDate())
     e_start_time.setDate(event.start.toDate())
@@ -109,23 +196,10 @@ var admin = {
       e_repeat_until.setDate(event.repeat_until)
     }
     else {
-      e_repeat_until.setDate(moment().add(1, 'Y').toDate())
+      e_repeat_until.setDate(moment().add(1, 'M').toDate())
     }
 
-    // clear out the resident selections
-    $("#residents input[type='checkbox']").each(function() {
-      this.checked = false
-      // remove styling class
-      $(this).parent().removeClass("checked")
-    });
-    // set checked for associated event residents
-    if (event.hasOwnProperty('resources')) {
-      $.each( event.resources, function( index, resource ){
-        $("#event_residents_" + resource['resourceable_id']).prop('checked', true)
-        // # Robyn - we can add class here for styling their ack status
-        // that will be held in resource['status']
-      });
-    }
+    admin.populateResidents(event)
 
     // Populate the pulldowns.  Simple Forms builds a complex structure of
     // related controls to support pulldowns.  The only way to set their
@@ -144,80 +218,99 @@ var admin = {
     control.trigger( "click" )
   },
 
-  showEvent: function(path, title, confirm, verb, confirmable = true) {
-    var $eventContainer = $('.event_details_form')
-    $('body').append($eventContainer)
-    var $form = $('.event')
+  populateResidents(event) {
 
-    // add class to checked residents
+    // clear out any resident selections
     $("#residents input[type='checkbox']").each(function() {
-      $(this).parent().addClass("resident-label")
-      if (this.checked == true) {
-        $(this).parent().addClass("checked")
+      if (this.checked) {
+        $(this).trigger( "click" )
       }
-
-      $(this).click(function () {
-        if (this.checked == true) {
-          $(this).parent().addClass("checked")
-        } else {
-          $(this).parent().removeClass("checked")
-        }
-      })
     });
 
-    var buttons = [
-      {
-        text: "Cancel",
-        class: 'btn',
-        click: function () {
-          $(this).dialog('destroy')
-        }
-      }
-    ]
-
-    // If it is confirmable add the confirmation button
-    if (confirmable) {
-      buttons.push(
-      {
-        text: confirm,
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $.ajax({
-            url:path,
-            type: verb,
-            data: $form.serialize(),
-            success: function() {
-                calendar.fullCalendar('refetchEvents')
-            }
-          });
-
-          $(this).dialog('destroy')
-          $eventContainer.hide()
-        }
-      },
-      {
-        text: '',
-        class: 'btn delete-btn',
-        id: 'btn_event_delete',
-        click: function () {
-
-        $(this).dialog('destroy')
-        $eventContainer.hide()
-        }
-      })
+    // set checked for associated event residents
+    if (event.hasOwnProperty('resources')) {
+      $.each( event.resources, function( index, resource ){
+        $("#event_residents_" + resource['resourceable_id']).trigger( "click" )
+      });
     }
+  },
 
-    $eventContainer.dialog({
+  // Show the relevant confirmation dialog
+  confirm: function(event, dataIn, parent, edit=true){
+
+    parent.dialog('close') // close the parent
+
+    var $confirmContainer = (event.repeater ? $('.repeat_event_form') : $('.confirm_event_delete_form'))
+    $('body').append($confirmContainer)
+    admin.initRepeatDialog(event)
+
+    $confirmContainer.dialog({
       show: 'show',
       modal: true,
-      width: 650,
-      title: title,
-      buttons: buttons
-    }).prev().find('.ui-dialog-titlebar-close').hide()
+      width: 300,
+      title: (edit ? "Edit" : "Delete") + (event.repeater ? " Repeating" : "") + " Event",
+      buttons: [
+        {
+          text: "Cancel",
+          class: 'btn',
+          click: function () {
+            $(this).dialog('destroy')
+            parent.dialog('open') // reopent the parent
+          }
+        },
+        {
+          text: "Ok",
+          class: 'btn-send btn',
+          id: 'btn_submit',
+          click: function () {
+            parent.dialog('destroy')
+            $(this).dialog('destroy')
 
-    $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
-    $('.ui-dialog-title').css('line-height', '28px')
+            if (edit) {
+              $.ajax({
+                url:dataIn.path + '?repeat_opt=' + $('#repeat_event_form').find("input:checked").val(),
+                type: "PUT",
+                data: parent.find('form').serialize(),
+                success: function() {
+                    admin.refreshEvents()
+                }
+              })
+            } else {
+              $.ajax({
+                url:dataIn.path + '/' + $("#event_id").val() + '?repeat_opt=' + $('#repeat_event_form').find("input:checked").val(),
+                type: "DELETE",
+                success: function() {
+                    admin.refreshEvents()
+                }
+              })
+            }
+          }
+        }]
+    }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  },
+
+  // The reapeat event form options are dependent upon if the event has had a change
+  // of repeat options.
+  initRepeatDialog: function(event){
+
+    $('#repeat_event_form input').each(function() {
+      $(this).show()
+      $('label[for=' + $(this).prop('id') + ']').show()
+      $(this).prop('checked', false)
+    })
+
+    if ($('#event_repeat').val() == event.repeat &&
+        $('#event_repeat_until').val() == event.repeat_until) {
+      $('#this_event').prop('checked', true)
+    } else {
+      $('#this_and_following').prop('checked', true)
+      $('#this_event').hide()
+      $('label[for=this_event]').hide()
+    }
+  },
+
+  refreshEvents: function(){
+    calendar.fullCalendar('refetchEvents')
   },
 
   initDates: function(){
@@ -242,6 +335,8 @@ var admin = {
       noCalendar: true
     }
 
+    // Adjust dependent date times.  i.e. when start date/time is changed, then move the
+    // end date/time to preserve the duration.
     e_start_date = flatpickr('#event_start_date', dateFormat)
     e_start_date.config.onValueUpdate.push(function(selectedDates, dateStr, instance)
     {
@@ -277,6 +372,17 @@ var admin = {
     e_repeat_until = flatpickr('#event_repeat_until', dateFormat)
   },
 
+  // Add click handlers to all the resident entries.
+  initControls: function() {
+    $("#residents input[type='checkbox']").each(function() {
+      $(this).parent().addClass("resident-label")
+      $(this).change(function () {
+        this.checked ? $(this).parent().addClass("checked") :
+                       $(this).parent().removeClass("checked")
+      })
+    });
+  },
+
   syncDates: function(){
     e_start_date.setDate(currentEvent.start.toDate(), false)
     e_start_time.setDate(currentEvent.start.toDate(), false)
@@ -298,9 +404,7 @@ $(document).on('turbolinks:load', function () {
 })
 
 $(document).on('click', '#event_repeat-menu', function (event) {
-  if ($("#event_repeat")[0].value == "never") {
-    $("#repeat_until").hide()
-  } else {
+  ($("#event_repeat")[0].value == "never") ?
+    $("#repeat_until").hide() :
     $("#repeat_until").show()
-  }
 })

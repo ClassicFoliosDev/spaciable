@@ -13,4 +13,21 @@ module RepeatEnum
       yearly
     ]
   end
+
+  def repeat_interval(repeat)
+    case repeat
+    when "never"
+      0
+    when "daily"
+      1.day
+    when "weekly"
+      1.week
+    when "biweekly"
+      2.weeks
+    when "monthly"
+      1.month
+    when "yearly"
+      1.year
+    end
+  end
 end

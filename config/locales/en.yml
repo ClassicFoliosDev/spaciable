@@ -3656,6 +3656,12 @@ en:
       hour: "Hour"
       day: "Day"
       week: "Week"
+    edit:
+      repeat:
+        this_event: "This event"
+        this_and_following: "This and following events"
+        all_events: "All Events"
+
 
 
 

@@ -193,7 +193,7 @@ Rails.application.routes.draw do
     get 'cas', to: 'developers#cas', format: :json
   end
 
-  resources :events, only: [:index, :create], format: :json
+  resources :events, only: [:index, :create, :destroy], format: :json
   put 'events', to: 'events#update'
 
   resources :divisions do

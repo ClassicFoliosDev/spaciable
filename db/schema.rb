@@ -217,10 +217,6 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true, using: :btree
   end
 
-  create_table "construction_types", force: :cascade do |t|
-    t.integer "construction"
-  end
-
   create_table "contacts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -285,14 +281,10 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.text     "question"
     t.text     "answer"
     t.string   "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.integer  "country_id",      null: false
-    t.integer  "faq_type_id"
-    t.integer  "faq_category_id"
-    t.index ["faq_category_id"], name: "index_default_faqs_on_faq_category_id", using: :btree
-    t.index ["faq_type_id"], name: "index_default_faqs_on_faq_type_id", using: :btree
+    t.integer  "country_id", null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -320,15 +312,15 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.text     "about"
     t.string   "api_key"
     t.string   "list_id"
+    t.integer  "country_id",                                  null: false
     t.boolean  "house_search"
     t.boolean  "enable_services",             default: false
     t.boolean  "enable_development_messages", default: false
     t.boolean  "development_faqs",            default: false
     t.boolean  "enable_roomsketcher",         default: true
-    t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
-    t.boolean  "enable_perks",                default: false
     t.boolean  "cas",                         default: false
+    t.boolean  "enable_perks",                default: false
     t.boolean  "timeline",                    default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
@@ -358,14 +350,14 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.datetime "deleted_at"
     t.integer  "phases_count",          default: 0
     t.string   "segment_id"
+    t.integer  "choice_option",         default: 0,          null: false
+    t.string   "choices_email_contact"
     t.boolean  "enable_snagging",       default: false
     t.integer  "snag_duration",         default: 0
     t.string   "snag_name",             default: "Snagging", null: false
-    t.integer  "choice_option",         default: 0,          null: false
-    t.string   "choices_email_contact"
+    t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
-    t.boolean  "cas",                   default: false
     t.integer  "timeline_id"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
@@ -401,9 +393,9 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.string   "file"
     t.string   "original_filename"
     t.integer  "category"
+    t.boolean  "pinned",            default: false
     t.string   "file_tmp"
     t.integer  "user_id"
-    t.boolean  "pinned",            default: false
     t.integer  "guide"
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
@@ -434,6 +426,7 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.integer  "eventable_id"
     t.string   "userable_type"
     t.integer  "userable_id"
+    t.integer  "master_id"
     t.string   "title"
     t.string   "location"
     t.datetime "start"
@@ -441,44 +434,21 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.integer  "repeat"
     t.datetime "repeat_until"
     t.integer  "reminder"
+    t.integer  "reminder_id"
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
+    t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
-  end
-
-  create_table "faq_categories", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "faq_type_categories", force: :cascade do |t|
-    t.integer "faq_type_id"
-    t.integer "faq_category_id"
-    t.index ["faq_category_id"], name: "index_faq_type_categories_on_faq_category_id", using: :btree
-    t.index ["faq_type_id"], name: "index_faq_type_categories_on_faq_type_id", using: :btree
-  end
-
-  create_table "faq_types", force: :cascade do |t|
-    t.string  "name"
-    t.string  "icon"
-    t.boolean "default_type",         default: false
-    t.integer "country_id"
-    t.integer "construction_type_id"
-    t.index ["construction_type_id"], name: "index_faq_types_on_construction_type_id", using: :btree
-    t.index ["country_id"], name: "index_faq_types_on_country_id", using: :btree
   end
 
   create_table "faqs", force: :cascade do |t|
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
-    t.integer  "faq_type_id"
-    t.integer  "faq_category_id"
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
-    t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id", using: :btree
-    t.index ["faq_type_id"], name: "index_faqs_on_faq_type_id", using: :btree
     t.index ["faqable_type", "faqable_id"], name: "index_faqs_on_faqable_type_and_faqable_id", using: :btree
   end
 
@@ -599,8 +569,8 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.string   "url"
     t.string   "additional_text"
     t.integer  "how_to_sub_category_id"
-    t.boolean  "hide",                   default: false
     t.integer  "country_id",                             null: false
+    t.boolean  "hide",                   default: false
     t.index "lower(summary) varchar_pattern_ops", name: "search_index_on_how_to_summary", using: :btree
     t.index "lower(title) varchar_pattern_ops", name: "search_index_on_how_to_title", using: :btree
     t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree
@@ -761,10 +731,10 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.date     "reservation_release_date"
     t.integer  "validity",                 default: 27
     t.integer  "extended_access",          default: 0
-    t.integer  "total_snags",              default: 0
-    t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
     t.integer  "choice_selection_status",  default: 0,  null: false
+    t.integer  "total_snags",              default: 0
+    t.integer  "unresolved_snags",         default: 0
     t.string   "completion_order_number"
     t.string   "reservation_order_number"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
@@ -963,10 +933,10 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.string   "content"
     t.string   "image"
     t.integer  "snag_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
     t.string   "commenter_type"
     t.integer  "commenter_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["commenter_type", "commenter_id"], name: "index_snag_comments_on_commenter_type_and_commenter_id", using: :btree
     t.index ["snag_id"], name: "index_snag_comments_on_snag_id", using: :btree
   end
@@ -974,10 +944,10 @@ ActiveRecord::Schema.define(version: 20200621133451) do
   create_table "snags", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
+    t.integer  "status",      default: 0
+    t.integer  "plot_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "plot_id"
-    t.integer  "status",      default: 0
     t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
@@ -1103,8 +1073,8 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.string   "picture"
     t.string   "job_title"
     t.boolean  "receive_release_emails",    default: true
-    t.boolean  "snag_notifications",        default: true
     t.boolean  "receive_choice_emails",     default: false
+    t.boolean  "snag_notifications",        default: true
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
     t.boolean  "receive_invitation_emails", default: true
@@ -1145,10 +1115,7 @@ ActiveRecord::Schema.define(version: 20200621133451) do
   add_foreign_key "divisions", "developers"
   add_foreign_key "divisions", "timelines"
   add_foreign_key "documents", "users"
-  add_foreign_key "faq_type_categories", "faq_categories"
-  add_foreign_key "faq_type_categories", "faq_types"
-  add_foreign_key "faq_types", "construction_types"
-  add_foreign_key "faq_types", "countries"
+  add_foreign_key "events", "events", column: "master_id"
   add_foreign_key "features", "tasks"
   add_foreign_key "finales", "timelines"
   add_foreign_key "finish_categories", "developers"

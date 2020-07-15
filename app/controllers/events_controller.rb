@@ -3,12 +3,14 @@
 class EventsController < ApplicationController
   skip_authorization_check
 
-  before_action :split_params, except: %i[index]
+  before_action :split_params, except: %i[index destroy]
+  load_and_authorize_resource :event, only: %i[destroy]
 
   def index
     events = []
     Event.within_range(params).each do |event|
       attrs = event.attributes
+      attrs[:repeater] = event.repeater?
       attrs[:resources] = event.event_resources.map(&:attributes)
       events << attrs
     end
@@ -23,15 +25,23 @@ class EventsController < ApplicationController
 
   def update
     event = Event.find(@event_params[:id])
-    event.update(@event_params, @residents)
+    event.update(@event_params,
+                 @residents,
+                 params[:repeat_opt] || Event.repeat_edits[:this_event])
     render json: event.attributes
   end
 
+  def destroy
+    @event.remove(params[:repeat_opt])
+    render json: { status: 200 }
+  end
+
   def permitted_params
-    params.require(:event).permit(:eventable_type, :eventable_id,
+    params.require(:event).permit(:id, :master_id,
+                                  :eventable_type, :eventable_id,
                                   :title, :location, :start_date,
                                   :start_time, :end_date, :end_time,
-                                  :id, :reminder, :repeat, :repeat_until,
+                                  :reminder, :repeat, :repeat_until,
                                   residents: [])
           .merge(userable: current_user)
   end
@@ -50,6 +60,7 @@ class EventsController < ApplicationController
     e_params[:start] = permitted_params[:start_time]
     e_params[:end] = permitted_params[:end_time]
     e_params.extract!(:start_date, :start_time, :end_date, :end_time)
+    e_params[:master_id] = nil if e_params[:master_id] == "0"
     e_params
   end
 end

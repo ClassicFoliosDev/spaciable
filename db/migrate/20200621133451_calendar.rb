@@ -4,6 +4,7 @@ class Calendar < ActiveRecord::Migration[5.0]
     create_table :events do |t|
       t.references :eventable, polymorphic: true, index: true
       t.references :userable, polymorphic: true, index: true
+      t.references :master, index: true, foreign_key: { to_table: :events }
       t.string   :title
       t.string   :location
       t.datetime :start
@@ -11,6 +12,7 @@ class Calendar < ActiveRecord::Migration[5.0]
       t.integer  :repeat
       t.datetime :repeat_until
       t.integer  :reminder
+      t.integer  :reminder_id
     end
 
     create_table   :event_resources do |t|
