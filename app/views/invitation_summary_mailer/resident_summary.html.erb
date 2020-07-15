@@ -6,8 +6,8 @@
 
 <p><%= t("invitation_summary_mailer.resident_summary.summary", permission: @user.permission_level,
                                                                invitations: @invitations_count,
-                                                               active: @invitations_count - @inactive_residencies.size,
-                                                               inactive: @inactive_residencies.size) %></p>
+                                                               active: @invitations_count - @inactive.size,
+                                                               inactive: @inactive.size) %></p>
 
 <% if @inactive_residencies.size.positive? %>
   <p><%= t("invitation_summary_mailer.resident_summary.inactive") %></p>
