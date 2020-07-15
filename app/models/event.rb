@@ -172,7 +172,7 @@ class Event < ApplicationRecord
 
   def remove_this_and_following
     remove_from(Event.where("start >= ?", start))
-    update_repeat(repeating_events.last.start)
+    update_repeat(repeating_events&.last&.start)
   end
 
   def update_repeat(repeat_until = repeating_events.last.start)
