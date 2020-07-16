@@ -2,10 +2,40 @@
 
 .cookies-eu {
   margin-top: 46px;
+  line-height: 22px;
+
+  .cookies-eu-button-holder {
+    padding: 5px;
+
+    .cookies-eu-ok {
+      border-radius: 5px;
+      background-color: $primary-navy;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .cookies-eu-link {
+      font-size: 11px;
+      line-height: 20px;
+      padding: 4px 11px;
+      cursor: pointer;
+      text-align: center;
+      white-space: nowrap;
+      color: $ui-white;
+      background-color: $primary-navy;
+      border: 0;
+      outline: none;
+      border-radius: 5px;
+      margin-top: 2px;
+    }
+  }
 }
+
+
 
 .cookies-eu-content-holder {
   font-size: 12px;
+  color: $primary-navy;
 }
 
 .cookies-eu-link {
@@ -83,5 +113,12 @@
   a {
     color: #FFFFFF; // $ui-white;
     text-decoration: none;
+  }
+}
+
+@include media($mobile-down) {
+  .cookies-eu {
+    margin-top: 68px;
+    margin-bottom: -65;
   }
 }
