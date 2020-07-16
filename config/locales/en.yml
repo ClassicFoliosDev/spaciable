@@ -2622,6 +2622,7 @@ en:
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
+     cannot_delete: "Cannot delete %{appliance}"
 
    new:
      title: "New Appliance."
@@ -2744,6 +2745,7 @@ en:
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
+      cannot_delete: "Cannot delete %{finish}"
     new:
       title: "New Finish."
     form:
