@@ -74,12 +74,20 @@
       border: 1px solid $primary-navy;
       background-color: $primary-navy;
     }
+
+    .past-event {
+      opacity: 0.7;
+    }
   }
 
   .fc-content-col {
     .fc-time-grid-event {
       border: 1px solid $primary-navy;
       background-color: $primary-navy;
+    }
+
+    .past-event {
+      opacity: 0.7;
     }
 
     .fc-event .fc-bg {

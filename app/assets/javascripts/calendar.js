@@ -56,10 +56,17 @@ var admin = {
             if (!event.hasOwnProperty('editable')) { event.editable = true }
             admin.updateEvent(event, dataIn)
         },
-        eventTimeFormat: 'H:mm'
+        eventTimeFormat: 'H:mm',
+        eventRender: function(event, element, view) {
+          var eventEnd = moment(event.end)
+          var now = moment()
+          if (eventEnd.diff(now, 'seconds') <= 0) {
+            element.addClass("past-event")
+          }
+        }
       }
 
-    // If the calendar is ediable then add extras to support editing
+    // If the calendar is editable then add extras to support editing
     if (dataIn.editable) {
       calendarConfig.select = function(start, end, allday){
           admin.newEvent(dataIn, start)
@@ -290,7 +297,7 @@ var admin = {
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
   },
 
-  // The reapeat event form options are dependent upon if the event has had a change
+  // The repeat event form options are dependent upon if the event has had a change
   // of repeat options.
   initRepeatDialog: function(event){
 
