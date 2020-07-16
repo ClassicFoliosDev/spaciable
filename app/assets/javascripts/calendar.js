@@ -63,6 +63,10 @@ var admin = {
           if (eventEnd.diff(now, 'seconds') <= 0) {
             element.addClass("past-event")
           }
+
+          if (event.repeater) {
+            element.addClass("repeat-event")
+          }
         }
       }
 

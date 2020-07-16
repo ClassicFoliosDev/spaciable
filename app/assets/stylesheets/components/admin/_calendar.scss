@@ -76,7 +76,12 @@
     }
 
     .past-event {
-      opacity: 0.7;
+      opacity: 0.6;
+    }
+
+    .repeat-event {
+      border: 1px solid #075473;
+      background-color: #075473;
     }
   }
 
@@ -87,7 +92,12 @@
     }
 
     .past-event {
-      opacity: 0.7;
+      opacity: 0.6;
+    }
+
+    .repeat-event {
+      border: 1px solid #075473;
+      background-color: #075473;
     }
 
     .fc-event .fc-bg {
