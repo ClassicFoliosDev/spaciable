@@ -237,3 +237,16 @@
     }
   }
 }
+
+#repeat_event_form {
+  label {
+    display: inline;
+    color: $primary-navy;
+    padding-left: 5px;
+    font-family: $base-font-family;
+  }
+
+  .event-delete-type {
+    padding: 5px 0;
+  }
+}

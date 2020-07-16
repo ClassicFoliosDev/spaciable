@@ -157,6 +157,7 @@ var admin = {
         id: 'btn_event_delete',
         click: function () {
           admin.confirm(event, dataIn, $(this), false)
+          $(".ui-widget-overlay").css({'background': 'none', 'background-color': '#000', 'opacity': '0.5'})
         }
       })
     }
@@ -247,7 +248,7 @@ var admin = {
     $confirmContainer.dialog({
       show: 'show',
       modal: true,
-      width: 300,
+      width: 400,
       title: (edit ? "Edit" : "Delete") + (event.repeater ? " Repeating" : "") + " Event",
       buttons: [
         {
@@ -255,11 +256,11 @@ var admin = {
           class: 'btn',
           click: function () {
             $(this).dialog('destroy')
-            parent.dialog('open') // reopent the parent
+            parent.dialog('open') // reopen the parent
           }
         },
         {
-          text: "Ok",
+          text: "Confirm",
           class: 'btn-send btn',
           id: 'btn_submit',
           click: function () {

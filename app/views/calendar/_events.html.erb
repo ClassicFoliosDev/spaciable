@@ -10,16 +10,19 @@
 
 <div class="repeat_event_form hidden">
   <form id="repeat_event_form">
+    <p><%= t("events.edit.repeat.confirm") %></p>
     <% Event.repeat_edits.each do |text, val| %>
-      <input type="radio" id="<%=text%>" name="option" value="<%=val%>">
-      <label for="<%=text%>"><%=t("events.edit.repeat.#{text}")%></label><br>
+      <div class="event-delete-type">
+        <input type="radio" id="<%=text%>" name="option" value="<%=val%>">
+        <label for="<%=text%>"><%=t("events.edit.repeat.#{text}")%></label><br>
+      </div>
     <% end %>
   </form>
 </div>
 
 <div class="confirm_event_delete_form hidden">
   <form id="confirm_event_delete_form">
-    <p> Delete? </p>
+    <p><%= t("events.edit.single.confirm") %></p>
   </form>
 </div>
 
