@@ -2,7 +2,7 @@
 <% if collection.empty? %>
   <div class="empty lower">
     <div><%= fa_icon "question-circle" %></div>
-    <div><span><%= t(".empty", type: @faq_type.name) %></span></div>
+    <div><span><%= t(".empty", type: type.name) %></span></div>
     <div>
       <% if can? :create, DefaultFaq %>
         <%= link_to t(".add", type: type.name), (new_admin_settings_default_faq_path({active_tab: type.id})), class: "btn btn-primary" %>
@@ -38,7 +38,7 @@
         <td><%= l faq.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= (edit_btn edit_admin_settings_default_faq_path(faq), element: faq) %>
-          <%= (delete_btn faq, path: admin_settings_default_faq_path(faq), text: t(".confirm_delete", type: @faq_type.name), element: faq) %>
+          <%= (delete_btn faq, path: admin_settings_default_faq_path(faq), text: t(".confirm_delete", type: type.name), element: faq) %>
         </td>
       </tr>
       <% end %>
