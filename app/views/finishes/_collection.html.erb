@@ -60,8 +60,8 @@
           <% if showing_icons %>
             <td  colspan="2" class="actions">
               <%= edit_btn edit_finish_path(finish), element: finish %>
-              <% if finish.in_use? %>
-                 <%= info_btn finish, text: t('.cannot_delete', finish: finish.name), element: finish, title: t('buttons.info.cannot_delete', type: "Finish")%>
+              <% if action_name.to_sym == :index && finish.in_use? %>
+                 <%= info_btn finish, text: t('.cannot_delete', finish: finish), element: finish, title: t('buttons.info.cannot_delete', type: "Finish")%>
               <% elsif room && can?(:destroy, FinishRoom.room_finish(room,finish)) %>
                 <%= delete_lnk remove_finish_path(room: room, finish: finish, plot: plot), text: t(".delete_finish_from_room", finish: finish.name, room: room.name), confirm: !current_user.cf_admin?, override: true %>
               <% else %>

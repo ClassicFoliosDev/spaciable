@@ -80,7 +80,7 @@ When(/^I update the finish$/) do
                 visible: false)
   end
 
-  click_on t("rooms.form.submit")
+  submit_confirm
 end
 
 Then(/^I should see the updated finish$/) do
@@ -119,7 +119,7 @@ When(/^I remove an image from a finish$/) do
     remove_btn.trigger("click")
   end
 
-  click_on t("unit_types.form.submit")
+  submit_confirm
 end
 
 Then(/^I should see the updated finish without the image$/) do
