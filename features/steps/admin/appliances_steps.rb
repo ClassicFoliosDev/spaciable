@@ -239,6 +239,16 @@ When(/^I delete the appliance$/) do
   delete_and_confirm!(scope: delete_scope)
 end
 
+When(/^I cannot delete the appliance$/) do
+  visit "/appliances"
+  appliance_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
+  within appliance_scope do
+    find(".info-btn").trigger(:click)
+  end
+  expect(page).to have_content(t("appliances.collection.cannot_delete", appliance: CreateFixture.appliance_name))
+  click_on t("back")
+end
+
 Then(/^I should see the ([^ ]*) appliance category delete complete successfully$/) do |category|
   success_flash = t(
     "appliances.destroy.success",

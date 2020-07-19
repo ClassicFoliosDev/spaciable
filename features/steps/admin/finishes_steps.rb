@@ -148,6 +148,16 @@ When(/^I delete the finish$/) do
   delete_and_confirm! scope: find(:xpath, ".//tr[td//text()[contains(., '#{CreateFixture.finish_name}')]]")
 end
 
+When(/^I cannot delete the finish$/) do
+  visit "/finishes"
+  finish_scope = find(:xpath, ".//tr[td//text()[contains(., '#{CreateFixture.finish_name}')]]")
+  within finish_scope do
+    find(".info-btn").trigger(:click)
+  end
+  expect(page).to have_content(t("finishes.collection.cannot_delete", finish: CreateFixture.finish_name))
+  click_on t("back")
+end
+
 Then(/^I should see the finish deletion complete successfully$/) do
   success_flash = t(
     "finishes.destroy.success",
