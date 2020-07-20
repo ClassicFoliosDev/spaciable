@@ -1,7 +1,7 @@
 <% if collection.empty? %>
   <div class="empty lower">
     <div><%= fa_icon "question-circle" %></div>
-    <div><span><%= t("components.empty_list.empty", type_names: Faq.model_name.human.pluralize) %></span></div>
+    <div><span><%= t(".empty_list", type: type.name) %></span></div>
     <div>
       <% if can_create(Faq, parent) %>
         <% unless parent.expired? && !(current_user.cf_admin?) %>
@@ -41,7 +41,7 @@
         <td><%= l faq.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= (edit_btn edit_faq_path(faq), element: faq) unless parent.expired? && !(current_user.cf_admin?) %>
-          <%= (delete_btn faq, path: faq_path(faq), element: faq) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn faq, path: faq_path(faq), text: t(".confirm_delete", type: type.name), element: faq) unless parent.expired? && !(current_user.cf_admin?) %>
         </td>
       </tr>
       <% end %>

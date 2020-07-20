@@ -96,6 +96,7 @@ cat_nums = { 0 => cat_names["settling"],
                    "Building Maintenance",
                    "Management",
                    "Troubleshooting",
+                   "Urgent",
                    "General"],
     :default_type => false
   },
@@ -107,6 +108,7 @@ cat_nums = { 0 => cat_names["settling"],
                    "Building Maintenance",
                    "Management",
                    "Troubleshooting",
+                   "Urgent",
                    "General"],
     :default_type => false
   }
