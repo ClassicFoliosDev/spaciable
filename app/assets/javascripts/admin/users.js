@@ -200,5 +200,17 @@ $(document).on('click', '.admin-filter-selections .collapse .fa', function () {
 })
 
 function displayFilterSelections() {
-
+  if ($("#user_search_developer_id").val()) {
+    $(".filter-selections").html(
+      "<label>Developer: </label> <span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
+      "<label>Division: </label> <span>" + $("#user_search_division_id-button")[0].innerText + "</span><br/>" +
+      "<label>Development: </label> <span>" +$("#user_search_development_id-button")[0].innerText + "</span><br/>" +
+      "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
+    )
+  } else {
+    $(".filter-selections").html(
+      "<label>Developer: </label><span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
+      "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
+    )
+  }
 }

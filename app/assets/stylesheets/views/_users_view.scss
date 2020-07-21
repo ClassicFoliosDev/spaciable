@@ -10,11 +10,6 @@
 }
 
 .search {
-
-  .user-search {
-    height: 110px;
-  }
-
   .admin-filter {
     padding-top: $spacing-small;
   }
@@ -35,6 +30,17 @@
   .admin-filter-selections {
     display: none;
     padding-top: $spacing-small;
+  }
+
+  .filter-selections {
+    label {
+      display: inline;
+    }
+
+    span {
+      display: inline;
+      color: $primary-navy;
+    }
   }
 
   .collapse {
