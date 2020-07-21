@@ -186,3 +186,19 @@ document.addEventListener('turbolinks:load', function () {
     }
   };
 })
+
+$(document).on('click', '.admin-filter .collapse .fa', function () {
+  $(".admin-filter").hide()
+  $(".admin-filter-selections").show()
+
+  displayFilterSelections()
+})
+
+$(document).on('click', '.admin-filter-selections .collapse .fa', function () {
+  $(".admin-filter").show()
+  $(".admin-filter-selections").hide()
+})
+
+function displayFilterSelections() {
+
+}
