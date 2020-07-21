@@ -3,11 +3,6 @@
 class UserSearch < User
   attr_accessor :role
 
-  def initialze(params)
-    @role = params[:role] || nil
-    super(params.except(:role))
-  end
-
   scope :residents,
         lambda { |search|
           if search.populated?
