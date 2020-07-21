@@ -119,7 +119,11 @@ class Vaboo
     full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}?#{EMAIL}=#{resident.email}"
 
     # call the API to find out whether the current resident has a perks account
-    response = HTTParty.get(full_url)
+    begin
+      response = HTTParty.get(full_url)
+    rescue HTTParty::Error, SocketError, Net::OpenTimeout
+      return
+    end
     parsed_response = JSON.parse(response)
 
     # will return false if api call throws an error (or else page breaks)
@@ -137,7 +141,11 @@ class Vaboo
 
     #  call the API to find out whether another resident of the plot
     #  has been allocated a premium licence
-    response = HTTParty.get(full_url)
+    begin
+      response = HTTParty.get(full_url)
+    rescue HTTParty::Error, SocketError, Net::OpenTimeout
+      return
+    end
     parsed_response = JSON.parse(response)
 
     # will return false if api call throws an error (or else page breaks)
