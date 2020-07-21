@@ -2,6 +2,8 @@
 
 document.addEventListener('turbolinks:load', function () {
   var $roleSelect = $('.user_role select, change')
+  if ($roleSelect.length == 0) { return }
+
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')

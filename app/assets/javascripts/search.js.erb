@@ -8,6 +8,7 @@ $document.on('keypress', 'form', function (event) {
     var $searchField = $('.search-field')
     var $searchApplianceField = $('.search-appliance-field')
     var $searchFinishField = $('.search-finish-field')
+    var $searchUserField = $('.search-user-field')
     // If there is a search value, process the search
     if ($searchField.val()) {
       searchGlobal()
@@ -15,6 +16,8 @@ $document.on('keypress', 'form', function (event) {
       searchAppliance()
     } else if ($searchFinishField.val()) {
       searchFinish()
+    } else if ($searchUserField.val()) {
+      searchUser()
     }
 
     // Whether or not there is a search value, don't allow the user
@@ -88,6 +91,18 @@ function searchFinish () {
   var $applianceResultsDiv = $('.finishes')
   var $applianceSelect = clearFields($applianceResultsDiv)
   setFields($applianceSelect, url, data)
+}
+
+$document.on('click', '.search-user-btn', function (event) {
+  searchUser()
+})
+
+function searchUser () {
+  var $searchField = $('.search-user-field')
+  var searchText = $searchField[0].value
+  var data = { search_term: searchText.trim() }
+  var $searchList = $('.user-search-results')
+  setSearchFields($searchList, $searchField.data('path') , data)
 }
 
 function setSearchFields ($searchList, url, data) {

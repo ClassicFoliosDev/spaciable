@@ -531,6 +531,8 @@ en:
         header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
         reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
+      search:
+        all: "All"
 
     choices:
       resident:
@@ -646,6 +648,7 @@ en:
       feedback: "Feedback"
     search:
       search: "Search"
+      all: "All"
 
   destroy:
     cancel: "Cancel"
@@ -940,6 +943,7 @@ en:
         division: "Division"
         development: "Development"
         accepted_at: "Activation Date"
+        search: "Admin users search"
       new:
         add: "New User."
       show:
@@ -1009,6 +1013,7 @@ en:
         invited_by: "Invited By"
         accepted_at: "Activated"
         phone_number: "Phone"
+        search: "Search Residents"
       show:
         name: "Plot"
         developer: "Developer"
