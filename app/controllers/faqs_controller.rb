@@ -79,8 +79,10 @@ class FaqsController < ApplicationController
   end
 
   def sync_faqs
-    faq_type = FaqType.find(active_tab)
-    @faqs = DefaultFaq.where(faq_type_id: faq_type)
+    @faq_type = FaqType.find(active_tab)
+    @faqs = DefaultFaq.where(faq_type_id: @faq_type)
+    # group by category
+    @faqs = @faqs.group_by { |faq| FaqCategory.find(faq[:faq_category_id]).name }
   end
 
   private

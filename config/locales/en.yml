@@ -373,6 +373,7 @@ en:
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
     faqs: "%{type} FAQs"
+    sync_faqs: "Sync %{type} FAQs"
     faqs_add: "New FAQ"
     faqs_edit: "Edit %{faq}"
     default_faqs: "Default %{country} %{type} FAQs"
@@ -1142,6 +1143,8 @@ en:
       back: "Back"
       category: "Category"
       type: "Type"
+    sync_faqs:
+      title: "Sync %{type} FAQs to %{parent}"
 
   videos:
     new:

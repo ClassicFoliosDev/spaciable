@@ -1,1 +1,21 @@
-<%= @faqs.count %>
+<% breadcrumb :faqs_sync, @parent, @faq_type %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title", type: @faq_type.name, parent: @parent) %>
+  </div>
+</div>
+
+<div class="faq-sync">
+  <div class="faq-collection row">
+    <% @faqs.each do |cat, faqs| %>
+      <h3><%= cat %></h3>
+      <% faqs.each do |faq| %>
+        <div class="row-item faq">
+          <%= faq %>
+        </div>
+      <% end %>
+      <br/><br/>
+    <% end %>
+  </div>
+</div>

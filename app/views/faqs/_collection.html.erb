@@ -21,7 +21,7 @@
           <span class="btn-label"><%= t(".add", type: type.name) %></span>
         <% end %>
         <% if current_user.cf_admin? %>
-          <%= link_to developer_sync_faqs_path(active_tab: type.id), class: "btn btn-primary" do %>
+          <%= link_to [parent, :sync_faqs, active_tab: type.id], class: "btn btn-primary" do %>
             <i class="fa fa-plus"></i>
             <span class="btn-label"><%= t(".import", type: type.name) %></span>
           <% end %>
