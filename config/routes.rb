@@ -195,6 +195,7 @@ Rails.application.routes.draw do
     resources :brands, shallow: true, only: [:index]
     resources :branded_apps, shallow: true
     get 'cas', to: 'developers#cas', format: :json
+    get "sync_faqs", to: "faqs#sync_faqs", as: :sync_faqs
   end
 
   resources :divisions do

@@ -1122,7 +1122,8 @@ en:
       last_edited: "Last Edited"
       faq: "%{type} FAQ"
       empty_list: "You have no %{type} FAQs"
-      confirm_delete: Are you sure you wish to delete this %{type} FAQ?
+      confirm_delete: "Are you sure you wish to delete this %{type} FAQ?"
+      import: "Import %{type} FAQ"
     edit:
       title: "%{parent}"
       back: "Back"

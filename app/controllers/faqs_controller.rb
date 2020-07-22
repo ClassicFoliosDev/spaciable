@@ -78,6 +78,11 @@ class FaqsController < ApplicationController
     redirect_to [@parent, :faqs, active_tab: type.id], notice: notice
   end
 
+  def sync_faqs
+    faq_type = FaqType.find(active_tab)
+    @faqs = DefaultFaq.where(faq_type_id: faq_type)
+  end
+
   private
 
   def faq_params

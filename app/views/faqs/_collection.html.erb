@@ -8,7 +8,7 @@
           <%= link_to t(".add", type: type.name), [:new, parent, Faq.name.underscore.to_sym, active_tab: type.id], class: "btn btn-primary" %>
         <% end %>
       <% else %>
-          <span><%= t("components.empty_list.request_add", type_names: type.name) %></span>
+        <span><%= t("components.empty_list.request_add", type_names: type.name) %></span>
       <% end%>
     </div>
   </div>
@@ -19,6 +19,12 @@
         <%= link_to [:new, parent, :faq, active_tab: type.id], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
           <span class="btn-label"><%= t(".add", type: type.name) %></span>
+        <% end %>
+        <% if current_user.cf_admin? %>
+          <%= link_to developer_sync_faqs_path(active_tab: type.id), class: "btn btn-primary" do %>
+            <i class="fa fa-plus"></i>
+            <span class="btn-label"><%= t(".import", type: type.name) %></span>
+          <% end %>
         <% end %>
       </div>
     <% end %>
