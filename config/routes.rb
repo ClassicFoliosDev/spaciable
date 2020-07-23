@@ -224,6 +224,7 @@ Rails.application.routes.draw do
     get 'notification', to: 'notifications#show', format: :json
     resources :events, only: [:index, :create], format: :json
     put 'events', to: 'events#update'
+    put 'response', to: 'events#response'
   end
 
   scope :homeowners, module: :homeowners do

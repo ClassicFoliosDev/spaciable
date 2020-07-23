@@ -92,7 +92,7 @@ var admin = {
 
   newEvent: function(dataIn, start){
     var event = {
-           start: start,
+           start: start.startOf('minute').local(),
            end: moment(start).add(15, 'm'),
            location: "",
            title: "",
@@ -400,6 +400,11 @@ var admin = {
     e_start_time.setDate(currentEvent.start.toDate(), false)
     e_end_date.setDate(currentEvent.end.toDate(), false)
     e_end_time.setDate(currentEvent.end.toDate(), false)
+    admin.validate()
+  },
+
+  validate: function(){
+    $('#btn_submit').prop("disabled", (currentEvent.end < currentEvent.start));
   }
 
 }

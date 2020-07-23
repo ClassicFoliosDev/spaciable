@@ -92,7 +92,7 @@ class Event < ApplicationRecord
       event.event_resources
            .build(resourceable_type: Resident,
                   resourceable_id: resource_id.to_i,
-                  status: EventResource.statuses[:awaiting_acknowledgement])
+                  status: EventResource.statuses[:invited])
     end
     event.save!
     event.process_repeats
@@ -134,7 +134,7 @@ class Event < ApplicationRecord
       event.update_repeat(repeating_events.reject { |e| e.id == event.id }.last.start)
       event.update_column(:master_id, nil)
       event.process_repeats
-    when "all_event"
+    when "all_events"
       event.delete_following
       event.process_repeats
     end
@@ -144,7 +144,9 @@ class Event < ApplicationRecord
   def update_resources(old_res, new_res)
     # Add resourses
     (new_res - old_res).each do |res|
-      event_resources.build(resourceable_type: "Resident", resourceable_id: res)
+      event_resources.build(resourceable_type: "Resident",
+                            resourceable_id: res,
+                            status: EventResource.statuses[:invited])
     end
 
     # remove deleted resources
@@ -175,7 +177,7 @@ class Event < ApplicationRecord
     update_repeat(repeating_events&.last&.start)
   end
 
-  def update_repeat(repeat_until = repeating_events.last.start)
+  def update_repeat(repeat_until = repeating_events&.last&.start)
     return unless repeat_until
 
     # update preceding events 'repeat_until' date

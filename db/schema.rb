@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200621133451) do
+ActiveRecord::Schema.define(version: 20200623084553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -327,8 +327,8 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.boolean  "enable_roomsketcher",         default: true
     t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
-    t.boolean  "enable_perks",                default: false
     t.boolean  "cas",                         default: false
+    t.boolean  "enable_perks",                default: false
     t.boolean  "timeline",                    default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
@@ -363,9 +363,9 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.string   "snag_name",             default: "Snagging", null: false
     t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
+    t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
-    t.boolean  "cas",                   default: false
     t.integer  "timeline_id"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
@@ -421,10 +421,13 @@ ActiveRecord::Schema.define(version: 20200621133451) do
   end
 
   create_table "event_resources", force: :cascade do |t|
-    t.integer "event_id"
-    t.string  "resourceable_type"
-    t.integer "resourceable_id"
-    t.integer "status"
+    t.integer  "event_id"
+    t.string   "resourceable_type"
+    t.integer  "resourceable_id"
+    t.integer  "status"
+    t.datetime "status_updated_at"
+    t.datetime "proposed_start"
+    t.datetime "proposed_end"
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
     t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
   end
@@ -526,7 +529,6 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
-    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_manufacturer_name", using: :btree
   end
 
   create_table "finish_types", force: :cascade do |t|
@@ -535,7 +537,6 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
-    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_type_name", using: :btree
   end
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
@@ -1111,6 +1112,7 @@ ActiveRecord::Schema.define(version: 20200621133451) do
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
     t.boolean  "receive_invitation_emails", default: true
+    t.boolean  "receive_faq_emails",        default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree

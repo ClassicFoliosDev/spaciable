@@ -19,6 +19,9 @@ class Calendar < ActiveRecord::Migration[5.0]
       t.references :event, index: true
       t.references :resourceable, polymorphic: true, index: true
       t.integer    :status
+      t.datetime   :status_updated_at, default: -> { 'CURRENT_TIMESTAMP' }
+      t.datetime   :proposed_start
+      t.datetime   :proposed_end
     end
 
   end

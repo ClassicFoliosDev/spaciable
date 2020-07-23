@@ -9,6 +9,7 @@ var homeowner = {
 
     calendarConfig = {
         displayEventEnd: true,
+        timezone:"local",
         customButtons: {
           addEvent: {
             text: 'Add Event',
@@ -67,6 +68,7 @@ var homeowner = {
     }
 
     calendar = calendarEl.fullCalendar(calendarConfig)
+    homeowner.initialise()
   },
 
   index_url: function(data){
@@ -142,13 +144,18 @@ var homeowner = {
       title: title,
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
+  },
+
+  initialise: function(){
+
   }
 }
 
-$(document).on('turbolinks:load', homeowner.eventCalendar);
 $(document).on('turbolinks:before-cache', homeowner.clearCalendar)
 
 $(document).on('turbolinks:load', function () {
+  homeowner.eventCalendar()
+
   if ($(window).innerWidth() < 760) {
     $(".fc-left").contents().appendTo($(".fc-center"))
     $(".fc-month-button, .fc-agendaWeek-button, .fc-agendaDay-button").appendTo($(".fc-left"))

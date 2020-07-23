@@ -3641,8 +3641,11 @@ en:
       success: "%{title} was deleted successfully"
 
   events:
-    acknowledged: "Acknowledge"
-    cancelled: "Cancel"
+    invited: "Invited"
+    accepted: "Accept"
+    declined: "Decline"
+    changed: "Change"
+
     repeat:
       never: "Does not repeat"
       daily: "Daily"

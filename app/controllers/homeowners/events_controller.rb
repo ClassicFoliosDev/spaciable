@@ -5,8 +5,14 @@ module Homeowners
     skip_authorization_check
 
     def index
-      events = Event.for_resource_within_range(current_resident, params)
-      render json: events.map(&:attributes)
+      events = []
+      Event.for_resource_within_range(current_resident, params).each do |event|
+        attrs = event.attributes
+        attrs[:homeowner] = event.event_resources.where(resourceable: current_resident).map(&:attributes)
+        events << attrs
+      end
+
+      render json: events
     end
 
     def create

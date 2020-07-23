@@ -6,13 +6,10 @@ class EventResource < ApplicationRecord
   belongs_to :resourceable, polymorphic: true, required: true
 
   enum status: %i[
-    unassigned
-    awaiting_acknowledgement
-    acknowledged
-    cancelled
+    invited
+    accepted
+    declined
+    updated
   ]
 
-  def self.assigned_statuses
-    statuses.reject { |key, _| %w[unassigned awaiting_acknowledgement].include?(key) }
-  end
 end
