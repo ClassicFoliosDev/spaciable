@@ -676,6 +676,13 @@
   .branded-left-text li {
     color: <%= brand.branded_text_left_color %> !important;
   }
+  .login #homeowner-login-link, .login #admin-login-link {
+    color: <%= brand.branded_text_left_color %>;
+  }
+  .login #homeowner-login-link:before {
+    border-color: <%= brand.branded_text_left_color %> !important;
+  }
+
   <% else %>
   .branded-left-text {
     <%= Brand.branded_left_text_default %>

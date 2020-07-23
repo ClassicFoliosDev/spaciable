@@ -26,6 +26,10 @@
     <% end %>
   </div>
   <div class="preamble">
+    <div class="login-redirect">
+      <span class="homeowner-login"><%= link_to t(".homeowner_login"), new_resident_session_path, id: 'homeowner-login-link' %></span>
+      <span class="admin-login"><%= link_to t(".admin_login"), new_user_session_path, id: 'admin-login-link' %></span>
+    </div>
     <div class="content">
       <div class="login-icon">
         <div><%= image_tag "Spaciable_icon_white.svg" %></div>

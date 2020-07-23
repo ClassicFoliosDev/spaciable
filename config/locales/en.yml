@@ -2046,6 +2046,8 @@ en:
         accept_ts_and_cs: "Accept terms and conditions"
         policy_instructions_required: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Login'"
         policy_instructions: "%{href1} and %{href2}"
+        homeowner_login: "User Login"
+        admin_login: "Admin Login"
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
         ts_and_cs_required: "Please review and accept the terms and conditions before you log in. The terms and conditions might have changed since your last review."
