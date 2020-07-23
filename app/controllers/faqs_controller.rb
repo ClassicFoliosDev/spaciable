@@ -82,7 +82,7 @@ class FaqsController < ApplicationController
     @faq_type = FaqType.find(active_tab)
     @faqs = DefaultFaq.where(faq_type_id: @faq_type)
     # group by category
-    @faqs = @faqs.group_by { |faq| FaqCategory.find(faq[:faq_category_id]).name }
+    @grouped_faqs = @faqs.group_by { |faq| FaqCategory.find(faq[:faq_category_id]).name }
   end
 
   private

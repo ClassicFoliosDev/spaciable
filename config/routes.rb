@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
   resources :documents, only: [:edit, :show, :update, :destroy]
   resources :listings, only: [:new, :create, :update, :destroy]
-
+  resource :sync_faqs, only: [:create]
 
   resources :rooms, only: [] do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]

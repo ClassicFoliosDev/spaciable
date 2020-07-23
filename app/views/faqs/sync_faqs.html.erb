@@ -6,16 +6,21 @@
   </div>
 </div>
 
-<div class="faq-sync">
-  <div class="faq-collection row">
-    <% @faqs.each do |cat, faqs| %>
-      <h3><%= cat %></h3>
-      <% faqs.each do |faq| %>
-        <div class="row-item faq">
-          <%= faq %>
-        </div>
+<%= simple_form_for SyncFaq.new, remote: true, url: sync_faqs_path do |f| %>
+  <div class="faq-sync">
+    <div class="faq-collection row">
+      <% @grouped_faqs.each do |cat, faqs| %>
+        <!-- category checkbox functions only to select all faqs in the category, it is not submitted with the form -->
+        <!-- replace checkbox with a button -->
+        <h3><%= cat %></h3>
+        <%= button_tag "Select All", class: "select-all btn", data: { category: cat.downcase.delete(' ') } %>
+        <%= button_tag "Deselect All", class: "deselect-all btn", data: { category: cat.downcase.delete(' ') } %>
+        <%= f.input :faqs, as: :check_boxes, collection: faqs, label: false, item_wrapper_class: "faq_#{cat.downcase.delete(' ')}" %>
+      <br/>
       <% end %>
-      <br/><br/>
-    <% end %>
+    </div>
   </div>
-</div>
+    <%= f.submit "Submit", class: "btn-form-submit btn-primary" %>
+<% end %>
+
+<!-- form will submit an array of faqs to be updated -->
