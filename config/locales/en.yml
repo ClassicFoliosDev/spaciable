@@ -1145,6 +1145,10 @@ en:
       type: "Type"
     sync_faqs:
       title: "Sync %{type} FAQs to %{parent}"
+      select: "Select All %{type} FAQs"
+      deselect: "Deselect All %{type} FAQs"
+      submit: "Sync FAQs"
+      back: "Back"
 
   videos:
     new:

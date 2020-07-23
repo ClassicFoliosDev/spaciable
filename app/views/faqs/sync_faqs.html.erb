@@ -1,26 +1,36 @@
 <% breadcrumb :faqs_sync, @parent, @faq_type %>
 
 <div class="section-header">
-  <div class="section-title">
+  <div class="section-title sync-faqs">
     <%= t(".title", type: @faq_type.name, parent: @parent) %>
   </div>
+</div>
+
+<div class="select-buttons">
+  <%= button_tag t(".select", type: @faq_type.name), class: "select-all btn" %>
+  <%= button_tag t(".deselect", type: @faq_type.name), class: "deselect-all btn" %>
 </div>
 
 <%= simple_form_for SyncFaq.new, remote: true, url: sync_faqs_path do |f| %>
   <div class="faq-sync">
     <div class="faq-collection row">
       <% @grouped_faqs.each do |cat, faqs| %>
-        <!-- category checkbox functions only to select all faqs in the category, it is not submitted with the form -->
-        <!-- replace checkbox with a button -->
-        <h3><%= cat %></h3>
-        <%= button_tag "Select All", class: "select-all btn", data: { category: cat.downcase.delete(' ') } %>
-        <%= button_tag "Deselect All", class: "deselect-all btn", data: { category: cat.downcase.delete(' ') } %>
-        <%= f.input :faqs, as: :check_boxes, collection: faqs, label: false, item_wrapper_class: "faq_#{cat.downcase.delete(' ')}" %>
+        <div class="faq-category-header">
+          <h3><%= cat %></h3>
+          <%= button_tag "Select All", class: "category-select-all btn", data: { category: cat.downcase.delete(' ') } %>
+          <%= button_tag "Deselect All", class: "category-deselect-all btn", data: { category: cat.downcase.delete(' ') } %>
+        </div>
+        <%= f.input :faqs, as: :check_boxes, collection: faqs, label: false, item_wrapper_class: "faq_#{cat.downcase.delete(' ')} faq-selector" %>
       <br/>
       <% end %>
     </div>
   </div>
-    <%= f.submit "Submit", class: "btn-form-submit btn-primary" %>
-<% end %>
+  <%= f.submit "Submit", class: "btn-form-submit btn-primary" %>
 
-<!-- form will submit an array of faqs to be updated -->
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <%= link_to t(".back"), [@parent, :faqs, active_tab: @faq_type.id], class: "btn" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+    </div>
+  </div>
+<% end %>

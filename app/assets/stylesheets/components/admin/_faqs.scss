@@ -1,0 +1,20 @@
+.faq-selector {
+  display: block;
+  width: 100%;
+  background-color: $ui-white;
+  padding: 5px;
+  margin: 5px 0;
+  border-radius: 5px;
+
+  label {
+    margin: 6px 0;
+  }
+}
+
+.faq-category-header {
+  padding: $spacing-small 0;
+}
+
+.select-buttons {
+  padding-bottom: $spacing-large;
+}
