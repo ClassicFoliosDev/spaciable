@@ -4,6 +4,6 @@ class SyncFaq
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment
 
-  attr_accessor :faqs
+  attr_accessor :parent, :faqs
 
 end

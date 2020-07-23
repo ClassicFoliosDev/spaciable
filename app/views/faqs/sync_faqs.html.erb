@@ -12,13 +12,14 @@
 </div>
 
 <%= simple_form_for SyncFaq.new, remote: true, url: sync_faqs_path do |f| %>
+  <%= f.hidden_field :parent, value: @parent %>
   <div class="faq-sync">
     <div class="faq-collection row">
       <% @grouped_faqs.each do |cat, faqs| %>
         <div class="faq-category-header">
           <h3><%= cat %></h3>
-          <%= button_tag "Select All", class: "category-select-all btn", data: { category: cat.downcase.delete(' ') } %>
-          <%= button_tag "Deselect All", class: "category-deselect-all btn", data: { category: cat.downcase.delete(' ') } %>
+          <%= button_tag "Select All", type: "button", class: "category-select-all btn", data: { category: cat.downcase.delete(' ') } %>
+          <%= button_tag "Deselect All", type: "button", class: "category-deselect-all btn", data: { category: cat.downcase.delete(' ') } %>
         </div>
         <%= f.input :faqs, as: :check_boxes, collection: faqs, label: false, item_wrapper_class: "faq_#{cat.downcase.delete(' ')} faq-selector" %>
       <br/>
