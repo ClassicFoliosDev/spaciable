@@ -392,6 +392,13 @@ nav {
               cursor: none;
             }
           }
+
+          .unavailable {
+            &:hover {
+              font-weight: $base-font-weight;
+              filter: brightness(100%);
+            }
+          }
         }
       }
 

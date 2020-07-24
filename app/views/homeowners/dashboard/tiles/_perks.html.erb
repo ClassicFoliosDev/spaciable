@@ -8,35 +8,43 @@
   <% end %>
 </div>
 
-<!-- if Vaboo had not been activated by the current resident -->
-<% if !Vaboo.perks_account_activated?(current_resident, plot) %>
-  <% perk = allocate_perk_type(current_resident, plot) %>
-
-  <div class="img-tile-details perks-summary">
-    <div class="tile-text">
-      <h2 class="tile-title branded-text"><%= t(".title") %></h2>
-      <p class="tile-description branded-text"><%= t(".description") %></p>
+<!-- if Vaboo had been activated by the current resident -->
+<% Vaboo.perks_account_activated?(current_resident, plot) do |response, error| %>
+  <% if error == true %>
+    <div class="img-tile-details perks-summary">
+      <div class="tile-text">
+        <h2 class="tile-title branded-text"><%= t(".title") %></h2>
+        <p class="tile-description branded-text"><%= t(".error") %></p>
+      </div>
     </div>
-    <div class="tile-button perks-button">
-      <%= link_to t(".button"),
-          perks_path(type: perk),
-          class: "branded-btn" %>
-    </div>
-  </div>
+  <% end %>
 
-<% else %>
-
-  <div class="img-tile-details perks-summary">
-    <div class="tile-text">
-      <h2 class="tile-title branded-text"><%= t(".title") %></h2>
-      <p class="tile-description branded-text"><%= t(".activated_description").html_safe %></p>
+  <% if response == true %>
+    <div class="img-tile-details perks-summary">
+      <div class="tile-text">
+        <h2 class="tile-title branded-text"><%= t(".title") %></h2>
+        <p class="tile-description branded-text"><%= t(".activated_description").html_safe %></p>
+      </div>
+      <div class="tile-button perks-button">
+        <%= link_to t(".activated_button"),
+        Vaboo.branded_perks_link(plot.developer),
+        class: "branded-btn",
+        target: :_blank %>
+      </div>
     </div>
-    <div class="tile-button perks-button">
-      <%= link_to t(".activated_button"),
-          Vaboo.branded_perks_link(plot.developer),
-          class: "branded-btn",
-          target: :_blank %>
-    </div>
-  </div>
+  <% elsif response == false %>
+    <% perk = allocate_perk_type(current_resident, plot) %>
 
+    <div class="img-tile-details perks-summary">
+      <div class="tile-text">
+        <h2 class="tile-title branded-text"><%= t(".title") %></h2>
+        <p class="tile-description branded-text"><%= t(".description") %></p>
+      </div>
+      <div class="tile-button perks-button">
+        <%= link_to t(".button"),
+        perks_path(type: perk),
+        class: "branded-btn" %>
+      </div>
+    </div>
+  <% end %>
 <% end %>

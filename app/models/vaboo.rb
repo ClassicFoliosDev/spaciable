@@ -121,16 +121,12 @@ class Vaboo
     # call the API to find out whether the current resident has a perks account
     begin
       response = HTTParty.get(full_url)
-    rescue HTTParty::Error, SocketError, Net::OpenTimeout
-      return
+      parsed_response = JSON.parse(response)
+      response = parsed_response["data"]["count"] == 1
+    rescue
+      error = true
     end
-    parsed_response = JSON.parse(response)
-
-    # will return false if api call throws an error (or else page breaks)
-    return false unless parsed_response["code"] == 200
-
-    # if the resident has a perks account the API will respond with one record
-    parsed_response["data"]["count"] == 1
+    yield response, error
   end
 
   # Has another resident on the plot registered for premium perks?
@@ -143,7 +139,7 @@ class Vaboo
     #  has been allocated a premium licence
     begin
       response = HTTParty.get(full_url)
-    rescue HTTParty::Error, SocketError, Net::OpenTimeout
+    rescue
       return
     end
     parsed_response = JSON.parse(response)
