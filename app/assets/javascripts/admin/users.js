@@ -188,7 +188,7 @@ document.addEventListener('turbolinks:load', function () {
 // send the positive feedback on positive response
 $(document).on('click', '#resendInvitation', function (event) {
   var dataIn = $(this).data()
-  var data = { user: dataIn.user, invitee: dataIn.invitee }
+  var data = { user: dataIn.invite, invitee: dataIn.invitee }
 
   var $invitationContainer = $('<div>', { class: 'resend-invitation-confirm' })
   .html(

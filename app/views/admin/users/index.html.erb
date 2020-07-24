@@ -53,7 +53,7 @@
       <td class="actions">
         <% unless user.invitation_accepted? %>
           <%= button_tag "", class: "btn", id: "resendInvitation", title: 'Resend Invitation',
-            data: { user: user.id, invitee: current_user.id, email: user.email } do %>
+            data: { invite: user.id, invitee: current_user.id, email: user.email } do %>
             <i class="fa fa-envelope-o"></i>
           <% end %>
         <% end %>

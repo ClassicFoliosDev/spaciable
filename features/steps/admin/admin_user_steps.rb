@@ -295,8 +295,8 @@ Then(/^I should not see the deleted developer admin$/) do
   end
 
   developer_admin = User.with_deleted.find_by(email: AdminUsersFixture.developer_admin_attrs[:email_address] )
-  expect(developer_admin.permission_level_type).to be_nil
-  expect(developer_admin.permission_level_id).to be_nil
+  expect(developer_admin.permission_level_type).to have_content("Developer")
+  expect(developer_admin.permission_level_id).to have_content(Developer.find_by(company_name: AdminUsersFixture.developer_admin_attrs[:developer]).id)
 end
 
 When(/^I delete the division admin$/) do
@@ -315,8 +315,8 @@ Then(/^I should not see the deleted division admin$/) do
   end
 
   division_admin = User.with_deleted.find_by(email: AdminUsersFixture.division_admin_attrs[:email_address] )
-  expect(division_admin.permission_level_type).to be_nil
-  expect(division_admin.permission_level_id).to be_nil
+  expect(division_admin.permission_level_type).to have_content("Division")
+  expect(division_admin.permission_level_id).to have_content(Division.find_by(division_name: AdminUsersFixture.division_admin_attrs[:division]).id)
 end
 
 When(/^I delete the division development admin$/) do
@@ -335,8 +335,8 @@ Then(/^I should not see the deleted division development admin$/) do
   end
 
   division_development_admin = User.with_deleted.find_by(email: AdminUsersFixture.division_development_admin_attrs[:email_address] )
-  expect(division_development_admin.permission_level_type).to be_nil
-  expect(division_development_admin.permission_level_id).to be_nil
+  expect(division_development_admin.permission_level_type).to have_content("Development")
+  expect(division_development_admin.permission_level_id).to have_content(Development.find_by(name: AdminUsersFixture.division_development_admin_attrs[:development]).id)
 end
 
 
@@ -356,8 +356,8 @@ Then(/^I should not see the deleted development admin$/) do
   end
 
   development_admin = User.with_deleted.find_by(email: AdminUsersFixture.development_admin_attrs[:email_address] )
-  expect(development_admin.permission_level_type).to be_nil
-  expect(development_admin.permission_level_id).to be_nil
+  expect(development_admin.permission_level_type).to have_content("Development")
+  expect(development_admin.permission_level_id).to have_content(Development.find_by(name: AdminUsersFixture.development_admin_attrs[:development]).id)
 end
 
 When(/^I restore the deleted developer admin as CF admin$/) do
@@ -370,8 +370,6 @@ When(/^I restore the deleted developer admin as CF admin$/) do
   within ".user_email" do
     fill_in :user_email, with: AdminUsersFixture.developer_admin_attrs[:email_address]
   end
-
-  select_from_selectmenu :user_role, with: "CF Admin"
 
   click_on t("admin.users.form.submit")
 end
@@ -504,4 +502,27 @@ def cas_validate(visible: false, disabled: true, checked: false)
   else
     expect(page).not_to have_content(t("admin.users.form.adds_specifications"))
   end
+end
+
+Then(/^I should see the restored developer admin$/) do
+  within ".record-list" do
+    expect(page).to have_content(AdminUsersFixture.developer_admin_attrs[:email_address])
+    expect(page).to have_content(AdminUsersFixture.development_admin_attrs[:developer])
+  end
+end
+
+Then(/^I can resend an invitation to the unactivated developer admin$/) do
+  developer_admin = User.with_deleted.find_by(email: AdminUsersFixture.developer_admin_attrs[:email_address] )
+  within "[data-invite=\"#{developer_admin.id}\"]" do
+    find(".fa-envelope-o").click
+  end
+
+  within ".ui-dialog-buttonset" do
+    click_on "Send"
+  end
+
+  sleep 0.5
+
+  email = ActionMailer::Base.deliveries.last
+  expect(email.to).to eq [AdminUsersFixture.developer_admin_attrs[:email_address]]
 end
