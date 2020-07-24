@@ -237,15 +237,10 @@ $(document).on('click', '#resendInvitation', function (event) {
 })
 
 function buildNotice(status, email) {
-  var $flash = $('.flash')
-  $flash.empty()
-  var $notice = document.createElement('p')
+  flash_clear()
   if (status == 'notice') {
-    $notice.className = 'notice'
-    $notice.innerHTML = "An invitation has been sent to " + email
+    flash_notice("An invitation has been sent to " + email)
   } else {
-    $notice.className = 'alert'
-    $notice.innerHTML = "Failed to send invitation to " + email + ", please try again later."
+    flash_alert("Failed to send invitation to " + email + ", please try again later.")
   }
-  $flash.append($notice)
 }
