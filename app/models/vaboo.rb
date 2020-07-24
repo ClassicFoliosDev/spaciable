@@ -130,6 +130,8 @@ class Vaboo
   end
 
   # Has another resident on the plot registered for premium perks?
+  # This check is only made after perks_account_activated has succeeded,
+  # so does not require a rescue
   def self.premium_perks_activated?(plot)
     account_id = account_number(plot.developer)
 
@@ -137,14 +139,10 @@ class Vaboo
 
     #  call the API to find out whether another resident of the plot
     #  has been allocated a premium licence
-    begin
-      response = HTTParty.get(full_url)
-    rescue
-      return
-    end
+    response = HTTParty.get(full_url)
     parsed_response = JSON.parse(response)
 
-    # will return false if api call throws an error (or else page breaks)
+    # will return false if api call throws an error
     return false unless parsed_response["code"] == 200
 
     parsed_response["data"]["users"].each do |user|
