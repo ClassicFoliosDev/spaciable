@@ -87,7 +87,7 @@ class UnitType < ApplicationRecord
   def expired?
     return false if plots.empty?
 
-    plots.all? { |p| p.expired? }
+    plots.all?(&:expired?)
   end
 
   def partially_expired?
