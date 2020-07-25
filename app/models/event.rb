@@ -101,7 +101,7 @@ class Event < ApplicationRecord
   end
 
   # Update an event record, and associated resources
-  # rubocop:disable TimeZone
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, TimeZone
   def update(params, resources, repeat_edit)
     params.delete(:master_id)
     params.delete(:id)
@@ -139,7 +139,7 @@ class Event < ApplicationRecord
       event.process_repeats
     end
   end
-  # rubocop:enable TimeZone
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Timezone
 
   def update_resources(old_res, new_res)
     # Add resourses

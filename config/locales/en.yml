@@ -3645,6 +3645,7 @@ en:
     accepted: "Accept"
     declined: "Decline"
     changed: "Change"
+    save_change: "Save"
 
     repeat:
       never: "Does not repeat"

@@ -11,6 +11,7 @@ class EventsController < ApplicationController
     Event.within_range(params).each do |event|
       attrs = event.attributes
       attrs[:repeater] = event.repeater?
+      attrs[:editable] = true
       attrs[:resources] = event.event_resources.map(&:attributes)
       events << attrs
     end

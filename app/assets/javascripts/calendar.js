@@ -67,6 +67,9 @@ var admin = {
           if (event.repeater) {
             element.addClass("repeat-event")
           }
+        },
+        eventAfterAllRender: function(){
+          admin.preloadEvent()
         }
       }
 
@@ -79,6 +82,31 @@ var admin = {
     }
 
     calendar = calendarEl.fullCalendar(calendarConfig)
+  },
+
+  // If there is preload event specified then display it.  This runs in
+  // 2 stages.  This function is called whenever the calendar rerenders
+  // so it has to be controlled.  Firstly check if the event in in the
+  // current dataset and if not, then go the preload date and try again
+  preloadEvent: function()
+  {
+    if (typeof hasRun !== 'undefined') { return }
+
+    var preload_id = $('#admin_calendar').data('preload_id')
+    var preload_date = $('#admin_calendar').data('preload_date')
+
+    if (typeof preload_id == 'undefined' || typeof preload_date == 'undefined') { return }
+
+    event = calendarEl.fullCalendar('clientEvents', preload_id)[0]
+    if (typeof event !== 'undefined') {
+      admin.showEvent(event, calendarEl.data())
+    } else if (typeof hasGoneToDate == 'undefined'){
+      calendarEl.fullCalendar('gotoDate', preload_date)
+      hasGoneToDate = true
+      return
+    }
+
+    hasRun = true
   },
 
   index_url: function(data){

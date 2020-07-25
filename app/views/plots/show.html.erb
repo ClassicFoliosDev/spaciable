@@ -11,7 +11,7 @@
   <% elsif @active_tab == "completion" %>
     <%= render "plots/completion", plot: @plot %>
   <% elsif @active_tab == "calendar" %>
-    <%= render "calendar/events", source: @plot %>
+    <%= render "calendar/events", source: @plot, preload: @preload %>
   <% else %>
     <%= render_collection @collection, collection: @collection, parent: @collection_parent, plot: @plot %>
   <% end %>

@@ -36,4 +36,8 @@ module EventNotificationService
   def cancel(event, resource_ids)
     EventCancellationJob.perform_now(event, resource_ids)
   end
+
+  def feedback(resource)
+    EventFeedbackJob.perform_now(resource)
+  end
 end

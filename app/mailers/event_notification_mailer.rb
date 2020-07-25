@@ -39,6 +39,15 @@ class EventNotificationMailer < ApplicationMailer
          subject: "Homeowner Event cancellation"
   end
 
+  def feedback(resource)
+    @content = "Event #{resource.status} by #{resource.resourceable}"
+    @link = plot_url(resource.event.eventable.id,
+                     active_tab: "calendar",
+                     event: resource.event.id)
+    mail to: resource.event.userable.email,
+         subject: "Event #{resource.status}"
+  end
+
   # Get the emails for the resources.  The event may
   # be a cancellation in which case it will
   # be a 'duplicate' (ie the event before the cancellation)

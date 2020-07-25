@@ -7,7 +7,7 @@
 
 <div id='homeowner_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= homeowners_events_path %>" data-editable=<%=editable%> ></div>
 
-<div class="event_details_form hidden" data-response=<%= homeowners_response_path %>>
+<div class="event_details_form hidden" data-response=<%= homeowners_feedback_path %>>
   <%= simple_form_for :event do |f| %>
     <%= f.hidden_field :id %>
     <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
@@ -22,20 +22,44 @@
       <%= f.input :location, label: false, required: true %>
     </div>
     <div class="event-time">
-      <div class="event-start half">
-        <label><%= label_tag :start, "Start" %></label>
-        <%= f.input :start, label: false, required: true %>
+      <div class="quarter">
+        <label><%= label_tag :start_date, "Start" %></label>
+        <%= f.input :start_date, label: false, required: true %>
       </div>
-      <div class="event-end half">
-        <label><%= label_tag :end, "End" %></label>
-        <%= f.input :end, label: false, required: true %>
+      <div class="quarter">
+        <label><%= label_tag :start_time, "From" %></label>
+        <%= f.input :start_time, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :end_time, "Until" %></label>
+        <%= f.input :end_time, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :end_date, "End" %></label>
+        <%= f.input :end_date, label: false, required: true %>
+      </div>
+    </div>
+
+    <div class="event-time proposed_datetime">
+      <div class="quarter">
+        <p id="proposed_start_date"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_start_time"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_end_time"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_end_date"/>
       </div>
     </div>
 
     <div class="event-status half">
-      <button id="accept_event" type="button" data-status=<%=EventResource.statuses[:accepted]%>><%=t("events.accepted")%></button>
-      <button id="decline_event" type="button" data-status=<%=EventResource.statuses[:declined]%>><%=t("events.declined")%></button>
-      <button id="change_event" type="button" data-status=<%=EventResource.statuses[:changed]%>><%=t("events.changed")%></button>
+      <button id="accept_event" type="button" data-status=<%=:accepted%>><%=t("events.accepted")%></button>
+      <button id="decline_event" type="button" data-status=<%=:declined%>><%=t("events.declined")%></button>
+      <button id="change_event" type="button"><%=t("events.changed")%></button>
+      <button id="save_change" type="button" data-status=<%=:reproposed%>><%=t("events.save_change")%></button>
     </div>
   <% end %>
 </div>
