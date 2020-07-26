@@ -57,6 +57,9 @@ var homeowner = {
         selectHelper: true,
         eventClick: function(event, jsEvent, view) {
           homeowner.showEvent(event, dataIn)
+        },
+        eventAfterAllRender: function(){
+          homeowner.preloadEvent()
         }
       }
 
@@ -70,6 +73,31 @@ var homeowner = {
 
     calendar = calendarEl.fullCalendar(calendarConfig)
     homeowner.initialise()
+  },
+
+  // If there is preload event specified then display it.  This runs in
+  // 2 stages.  This function is called whenever the calendar rerenders
+  // so it has to be controlled.  Firstly check if the event in in the
+  // current dataset and if not, then go the preload date and try again
+  preloadEvent: function()
+  {
+    if (typeof hasRun !== 'undefined') { return }
+
+    var preload_id = $('#homeowner_calendar').data('preload_id')
+    var preload_date = $('#homeowner_calendar').data('preload_date')
+
+    if (typeof preload_id == 'undefined' || typeof preload_date == 'undefined') { return }
+
+    event = calendarEl.fullCalendar('clientEvents', preload_id)[0]
+    if (typeof event !== 'undefined') {
+      homeowner.showEvent(event, calendarEl.data())
+    } else if (typeof hasGoneToDate == 'undefined'){
+      calendarEl.fullCalendar('gotoDate', preload_date)
+      hasGoneToDate = true
+      return
+    }
+
+    hasRun = true
   },
 
   index_url: function(data){
@@ -269,7 +297,7 @@ var homeowner = {
       admin.syncDates()
     })
 
-    e_repeat_until = flatpickr('#event_repeat_until', dateFormat)
+    //e_repeat_until = flatpickr('#event_repeat_until', dateFormat)
   },
 
   // When usign AltFormats, FlatPickr dates create new fields

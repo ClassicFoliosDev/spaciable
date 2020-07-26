@@ -3,6 +3,7 @@
 class EventNotificationMailer < ApplicationMailer
   def remind_sender(event)
     @content = "Event alert"
+    admin_link(event)
     mail to: event.userable.email, subject: "Sender Event Alert"
   end
 
@@ -10,29 +11,31 @@ class EventNotificationMailer < ApplicationMailer
     return if event.event_resources.empty?
 
     @content = "Event alert"
+    @link = resource_link(event)
     mail to: event.event_resources.map { |r| r.resourceable.email },
          subject: "Homeowner Event Alert"
   end
 
   def invite_resources(event, resource_ids)
-    return if resource_ids.empty?
+    return if resource_ids&.empty?
 
     @content = "Event invite"
-
+    @link = resource_link(event)
     mail to: resource_emails(event, resource_ids),
          subject: "Homeowner Event invite"
   end
 
   def update_resources(event, resource_ids)
-    return if resource_ids.empty?
+    return if resource_ids&.empty?
 
     @content = "Event update"
+    @link = resource_link(event)
     mail to: resource_emails(event, resource_ids),
          subject: "Homeowner Event update"
   end
 
   def cancel(event, resource_ids)
-    return if resource_ids.empty?
+    return if resource_ids&.empty?
 
     @content = "Event cancelled"
     mail to: resource_emails(event, resource_ids),
@@ -41,9 +44,7 @@ class EventNotificationMailer < ApplicationMailer
 
   def feedback(resource)
     @content = "Event #{resource.status} by #{resource.resourceable}"
-    @link = plot_url(resource.event.eventable.id,
-                     active_tab: "calendar",
-                     event: resource.event.id)
+    @link = admin_link(resource.event)
     mail to: resource.event.userable.email,
          subject: "Event #{resource.status}"
   end
@@ -60,4 +61,15 @@ class EventNotificationMailer < ApplicationMailer
     end
     emails
   end
+
+  def resource_link(event)
+    homeowner_calendar_url(event: event.id)
+  end
+
+  def admin_link(event)
+    plot_url(event.eventable.id,
+             active_tab: "calendar",
+             event: event.id)
+  end
+
 end

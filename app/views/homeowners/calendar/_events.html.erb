@@ -5,7 +5,7 @@
 
 <% editable = false %>
 
-<div id='homeowner_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= homeowners_events_path %>" data-editable=<%=editable%> ></div>
+<div id='homeowner_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= homeowners_events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
 
 <div class="event_details_form hidden" data-response=<%= homeowners_feedback_path %>>
   <%= simple_form_for :event do |f| %>

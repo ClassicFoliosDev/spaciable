@@ -10,6 +10,7 @@ class Event < ApplicationRecord
   has_many :event_resources, inverse_of: :event, dependent: :delete_all
   accepts_nested_attributes_for :event_resources, allow_destroy: true
 
+  before_destroy :note, prepend: true
   before_destroy :cleanup
   before_update :note
   after_save :notify
@@ -296,8 +297,8 @@ class Event < ApplicationRecord
 
     return unless master?
 
-    EventNotificationService.cancel(self,
-                                    event_resources&.map(&:resourceable_id))
+    EventNotificationService.cancel(@pre_event,
+                                    @pre_resources&.map(&:resourceable_id))
   end
 end
 # rubocop:enable Metrics/ClassLength, SkipsModelValidations
