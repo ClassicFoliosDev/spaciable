@@ -162,6 +162,13 @@
   }
 }
 
+#btn_submit {
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
 .event_details_form {
   label {
     color: $primary-navy;
@@ -190,6 +197,11 @@
 
     .event-time {
       display: block;
+
+      .invalid input {
+        border: 1px solid $primary-red-left;
+        border-radius: 5px;
+      }
     }
 
     .event_repeat, .event_reminder {

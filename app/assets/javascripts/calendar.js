@@ -433,6 +433,12 @@ var admin = {
 
   validate: function(){
     $('#btn_submit').prop("disabled", (currentEvent.end < currentEvent.start));
+    // add class to date fields
+    if ($('#btn_submit').prop("disabled")) {
+      $(".event_end_date, .event_start_date").addClass("invalid")
+    } else {
+      $(".event_end_date, .event_start_date").removeClass("invalid")
+    }
   }
 
 }
