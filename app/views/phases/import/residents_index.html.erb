@@ -34,17 +34,27 @@
                   <%= p.hidden_field :id %>
                   <% new_plot = false %>
               <% end %>
-              <td ><%= r.input :title,
-                               as: :select,
-                               collection: Resident.titles,
-                               label_method: ->((key, _)) { t_enum(Resident, :title, key) },
-                               value_method: ->((key, _)) { key },
-                               include_blank: false,
-                               label: false %></td>
-              <td><%= r.input :first_name, required: true, label: false %></td>
-              <td><%= r.input :last_name, required: true, label: false %></td>
-              <td><%= r.input :email, required: true, label: false %></td>
-              <td><%= r.input :phone_number, required: true, label: false %></td>
+
+              <td >
+                <%= r.hidden_field :title %>
+                <%= label_tag r.object.title %>
+              </td>
+              <td>
+                <%= r.hidden_field :first_name %>
+                <%= label_tag r.object.first_name %>
+              </td>
+              <td>
+                <%= r.hidden_field :last_name %>
+                <%= label_tag r.object.last_name %>
+              </td>
+              <td>
+                <%= r.hidden_field :email %>
+                <%= label_tag r.object.email %>
+              </td>
+              <td>
+                <%= r.hidden_field :phone_number %>
+                <%= label_tag r.object.phone_number %>
+              </td>
               <td><%= r.input :role,
                               as: :select,
                               collection: roles_collection,
