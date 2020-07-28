@@ -155,17 +155,41 @@
     }
 
     .event-status {
-      .input {
-        position: static;
+      display: inline-block;
+      width: 100%;
+
+      .btn {
+        font-size: $base-small-font-size;
+        font-family: $base-font-family;
       }
 
-      span.required {
-        display: none;
+      #accept_event, #save_change {
+        border: 1px solid $secondary-green;
+        color: $secondary-green;
+
+        &:hover {
+          color: $ui-white;
+          background-color: $secondary-green;
+        }
+      }
+
+      #change_event {
+        border: 1px solid $secondary-orange;
+        color: $secondary-orange;
+
+        &:hover {
+          color: $ui-white;
+          background-color: $secondary-orange;
+        }
       }
     }
 
     .half {
       margin-bottom: 0;
+    }
+
+    .proposed_datetime {
+
     }
   }
 }
