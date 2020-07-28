@@ -3,6 +3,34 @@
     padding-top: $spacing-medium;
   }
 
+  .circle {
+    width: 8px;
+    height: 8px;
+    margin: 1px;
+    display: inline-block;
+    float: right;
+  }
+
+  .fill-reproposed {
+    background-color: $secondary-orange;
+    border-color: $secondary-orange;
+  }
+
+  .fill-invited {
+    background-color: $ui-white;
+    border-color: $ui-white;
+  }
+
+  .fill-accepted {
+    background-color: $secondary-green;
+    border-color: $secondary-green;
+  }
+
+  .fill-declined {
+    background-color: $primary-red-left;
+    border-color: $primary-red-left;
+  }
+
   button {
     color: $primary-navy;
     border: 1px solid $primary-navy;
@@ -85,8 +113,8 @@
     }
 
     .reproposed-datetime {
-      background-color: $primary-red-left;
-      border-color: $primary-red-left;
+      background-color: $secondary-orange;
+      border-color: $secondary-orange;
     }
   }
 
@@ -106,8 +134,8 @@
     }
 
     .reproposed-datetime {
-      background-color: $primary-red-left;
-      border-color: $primary-red-left;
+      background-color: $secondary-orange;
+      border-color: $secondary-orange;
     }
 
     .fc-event .fc-bg {
@@ -196,12 +224,12 @@
 
     label {
       padding-top: 1px;
-      color: $primary-red-left;
+      color: $secondary-orange;
     }
 
     .quarter p {
       margin-top: -$spacing-small;
-      color: $primary-red-left;
+      color: $secondary-orange;
       padding-left: $spacing-small;
     }
   }
@@ -288,6 +316,14 @@
 
     .checked {
       background-color: $pale-navy;
+    }
+
+    .reproposed {
+      background-color: #ff9752;
+    }
+
+    .accepted {
+      background-color: #6cba6c;
     }
   }
 }

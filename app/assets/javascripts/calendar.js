@@ -72,6 +72,7 @@ var admin = {
             if(resource.status == "reproposed") {
               element.addClass("reproposed-datetime")
             }
+            element.children(".fc-content").append("<span class='circle fill-" + resource.status + "'></span>")
           })
         },
         eventAfterAllRender: function(){
@@ -236,6 +237,7 @@ var admin = {
 
     event.resources.forEach(function (resource) {
       if(resource.status == "reproposed") {
+        // show the reproposed timedate
         $(".proposed_datetime").show()
 
         p_start = moment(resource.proposed_start)
@@ -291,7 +293,7 @@ var admin = {
     // set checked for associated event residents
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
-        $("#event_residents_" + resource['resourceable_id']).trigger( "click" )
+        $("#event_residents_" + resource['resourceable_id']).trigger( "click" ).parent().addClass(resource.status)
       });
     }
   },
