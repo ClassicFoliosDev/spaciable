@@ -67,6 +67,12 @@ var admin = {
           if (event.repeater) {
             element.addClass("repeat-event")
           }
+
+          event.resources.forEach(function(resource) {
+            if(resource.status == "reproposed") {
+              element.addClass("reproposed-datetime")
+            }
+          })
         },
         eventAfterAllRender: function(){
           admin.preloadEvent()
@@ -144,6 +150,8 @@ var admin = {
   },
 
   showEvent: function(event, dataIn) {
+    $(".proposed_datetime").hide()
+
     var $eventContainer = $('.event_details_form')
     $('body').append($eventContainer)
     var $form = $('.event')
@@ -225,6 +233,19 @@ var admin = {
     $('#event_master_id').val(event.master_id)
     $('#event_title').val(event.title).prop("disabled", !event.editable);
     $('#event_location').val(event.location).prop("disabled", !event.editable);
+
+    event.resources.forEach(function (resource) {
+      if(resource.status == "reproposed") {
+        $(".proposed_datetime").show()
+
+        p_start = moment(resource.proposed_start)
+        p_end = moment(resource.proposed_end)
+        $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
+        $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
+        $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
+        $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
+      }
+    })
 
     e_start_date.setDate(event.start.toDate())
     e_start_time.setDate(event.start.toDate())

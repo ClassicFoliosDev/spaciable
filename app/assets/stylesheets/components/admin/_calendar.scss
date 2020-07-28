@@ -83,6 +83,11 @@
       border: 1px solid #075473;
       background-color: #075473;
     }
+
+    .reproposed-datetime {
+      background-color: $primary-red-left;
+      border-color: $primary-red-left;
+    }
   }
 
   .fc-content-col {
@@ -98,6 +103,11 @@
     .repeat-event {
       border: 1px solid #075473;
       background-color: #075473;
+    }
+
+    .reproposed-datetime {
+      background-color: $primary-red-left;
+      border-color: $primary-red-left;
     }
 
     .fc-event .fc-bg {
@@ -180,6 +190,20 @@
 
   .event-time {
     padding-top: 11px;;
+  }
+
+  .proposed_datetime {
+
+    label {
+      padding-top: 1px;
+      color: $primary-red-left;
+    }
+
+    .quarter p {
+      margin-top: -$spacing-small;
+      color: $primary-red-left;
+      padding-left: $spacing-small;
+    }
   }
 
   .input {

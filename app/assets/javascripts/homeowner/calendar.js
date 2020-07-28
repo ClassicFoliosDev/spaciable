@@ -132,8 +132,8 @@ var homeowner = {
     p_end = moment(event.homeowner.proposed_end)
     $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
     $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
-    $('#proposed_end_date').text(p_end.local().format('hh:mm A'))
-    $('#proposed_end_time').text(p_end.local().format('DD-MM-YYYY'))
+    $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
+    $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
 
     e_start_date.setDate(event.start.toDate())
     e_start_time.setDate(event.start.toDate())
