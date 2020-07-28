@@ -1635,6 +1635,7 @@ en:
           button: "Find Out More"
           activated_button: "Login to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
+          error: "Currently unavailable. Please try again later."
 
     communication_preferences:
       show:
