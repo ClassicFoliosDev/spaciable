@@ -293,6 +293,9 @@ var admin = {
     // set checked for associated event residents
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
+        // remove all styling classes (otherwise they inherit across events)
+        // then re-apply styling class for this event
+        $("#event_residents_" + resource['resourceable_id']).parent().removeClass("accepted declined invited reproposed")
         $("#event_residents_" + resource['resourceable_id']).trigger( "click" ).parent().addClass(resource.status)
       });
     }
