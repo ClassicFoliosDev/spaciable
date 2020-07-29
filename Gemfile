@@ -121,6 +121,9 @@ gem "request_store"
 # Copy carrierwave images
 gem "copy_carrierwave_file"
 
+# Analytics
+gem 'ahoy_matey'
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"

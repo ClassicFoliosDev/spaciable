@@ -2,14 +2,19 @@
 
 module Homeowners
   class FaqsController < Homeowners::BaseController
+    include Ahoy::AnalyticsHelper
     skip_authorization_check
     load_and_authorize_resource :faq_type
     load_and_authorize_resource :faq_category
     load_and_authorize_resource :faq, except: %i[feedback]
 
     before_action :authorise, only: %i[index]
+    before_action do
+      record_action("FAQ", action: action_name, plot_id: @plot.id)
+    end
 
     def index
+
       populate
 
       # filter FAQs by category
