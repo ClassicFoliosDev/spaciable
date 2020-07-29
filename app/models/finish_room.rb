@@ -23,6 +23,11 @@ class FinishRoom < ApplicationRecord
           find_by(room_id: room, finish_id: finish)
         }
 
+  scope :with_finish,
+        lambda { |finish_id|
+          where(finish_id: finish_id)
+        }
+
   attr_accessor :search_finish_text
 
   validates :finish, uniqueness: { scope: :room }, on: :create

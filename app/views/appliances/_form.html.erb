@@ -85,7 +85,12 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), appliances_path, class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <% if action_name.to_sym == :edit %>
+        <%= submit_confirm_btn title: t(".submit"),
+              text: t(".update", appliance: appliance) %>
+      <% else %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <% end %>
     </div>
   </div>
 <% end %>

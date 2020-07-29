@@ -60,7 +60,9 @@
           <% if showing_icons %>
             <td colspan="2" class="actions">
               <%= edit_btn edit_appliance_path(appliance), element: appliance %>
-              <% if room && can?(:destroy, ApplianceRoom.appliance_room(room, appliance)) %>
+              <% if action_name.to_sym == :index && appliance.in_use? %>
+                 <%= info_btn appliance, text: t('.cannot_delete', appliance: appliance), element: appliance, title: t('buttons.info.cannot_delete', type: "Appliance")%>
+              <% elsif room && can?(:destroy, ApplianceRoom.appliance_room(room, appliance)) %>
                 <%= delete_lnk remove_appliance_path(room: room, appliance: appliance, plot: plot), text: t(".delete_app_from_room", app: appliance.model_num, room: room.name), confirm: !current_user.cf_admin?, override: true %>
               <% else %>
                 <%= delete_btn appliance, element: appliance %>
