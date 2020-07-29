@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200611124035) do
+ActiveRecord::Schema.define(version: 20200621133451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -418,6 +418,37 @@ ActiveRecord::Schema.define(version: 20200611124035) do
     t.datetime "updated_at",                         null: false
     t.index ["document_id", "plot_id"], name: "document_plot_index", using: :btree
     t.index ["plot_id", "document_id"], name: "plot_document_index", using: :btree
+  end
+
+  create_table "event_resources", force: :cascade do |t|
+    t.integer  "event_id"
+    t.string   "resourceable_type"
+    t.integer  "resourceable_id"
+    t.integer  "status"
+    t.datetime "status_updated_at", default: -> { "now()" }
+    t.datetime "proposed_start"
+    t.datetime "proposed_end"
+    t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
+    t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "eventable_type"
+    t.integer  "eventable_id"
+    t.string   "userable_type"
+    t.integer  "userable_id"
+    t.integer  "master_id"
+    t.string   "title"
+    t.string   "location"
+    t.datetime "start"
+    t.datetime "end"
+    t.integer  "repeat"
+    t.datetime "repeat_until"
+    t.integer  "reminder"
+    t.integer  "reminder_id"
+    t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
+    t.index ["master_id"], name: "index_events_on_master_id", using: :btree
+    t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
   end
 
   create_table "faq_categories", force: :cascade do |t|
@@ -1120,6 +1151,7 @@ ActiveRecord::Schema.define(version: 20200611124035) do
   add_foreign_key "divisions", "developers"
   add_foreign_key "divisions", "timelines"
   add_foreign_key "documents", "users"
+  add_foreign_key "events", "events", column: "master_id"
   add_foreign_key "faq_type_categories", "faq_categories"
   add_foreign_key "faq_type_categories", "faq_types"
   add_foreign_key "faq_types", "construction_types"
