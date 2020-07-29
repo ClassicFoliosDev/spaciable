@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# UserSearch is a worker class derived from User and supports
+# user and resident filtering
 class UserSearch < User
   attr_accessor :role
 
@@ -61,6 +63,9 @@ class UserSearch < User
     end
   end
 
+  # If a page needs to reuse the search parmaeters and so maintain
+  # the filtered display then the same search parameters need to
+  # be reapplied
   def query_params
     params = { user_search: {} }
     params[:user_search][:developer_id] = developer_id if developer_id.present?
