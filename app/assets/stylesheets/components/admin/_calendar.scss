@@ -224,13 +224,30 @@
 
     label {
       padding-top: 1px;
-      color: $secondary-orange;
+      color: $primary-red-left;
     }
 
-    .quarter p {
-      margin-top: -$spacing-small;
-      color: $secondary-orange;
-      padding-left: $spacing-small;
+    .quarter {
+      p {
+        margin-top: -$spacing-small;
+        color: $primary-red-left;
+        padding-left: $spacing-small;
+        margin-bottom: 10px;
+      }
+    }
+
+    .end-date {
+      margin-right: 0;
+    }
+
+    .accept-change {
+      margin-top: $spacing-small;
+      padding-bottom: $spacing-medium;
+
+      #accept_reschedule {
+        font-size: $base-font-size;
+        font-family: $base-font-family;
+      }
     }
   }
 

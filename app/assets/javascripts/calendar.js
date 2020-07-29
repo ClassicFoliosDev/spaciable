@@ -235,6 +235,10 @@ var admin = {
     $('#event_title').val(event.title).prop("disabled", !event.editable);
     $('#event_location').val(event.location).prop("disabled", !event.editable);
 
+    // this checks each resource for a reschedule request
+    // but returns after the first one found - if multiple requests to reschedule
+    // have been made only that for the first resource will show
+    // should probably be moved into its own function ?
     event.resources.forEach(function (resource) {
       if(resource.status == "reproposed") {
         // show the reproposed timedate
@@ -246,6 +250,21 @@ var admin = {
         $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
         $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
         $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
+
+        // if the reproposed datetime is approve then update the event datetime,
+        // reset the resource statuses and submit the form
+        $("#accept_reschedule").click(function() {
+          e_start_date.setDate(p_start.toDate())
+          e_start_time.setDate(p_start.toDate())
+          e_end_time.setDate(p_end.toDate())
+          e_end_date.setDate(p_end.toDate())
+
+          // how to we update the resource status to invited?
+        })
+
+        console.log(event)
+
+        return false
       }
     })
 
@@ -466,7 +485,6 @@ var admin = {
       $(".event_end_date, .event_start_date").removeClass("invalid")
     }
   }
-
 }
 
 $(document).on('turbolinks:load', admin.eventCalendar);

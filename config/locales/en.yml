@@ -3646,6 +3646,7 @@ en:
     declined: "Decline"
     changed: "Change"
     save_change: "Save"
+    accept_proposal: "Accept Proposed Time"
 
     repeat:
       never: "Does not repeat"
