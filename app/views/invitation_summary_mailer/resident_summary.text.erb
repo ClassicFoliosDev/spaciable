@@ -9,6 +9,7 @@
 
 <% if @inactive_residencies.size.positive? %>
 <%= t("invitation_summary_mailer.resident_summary.inactive") %>
+<%= t("invitation_summary_mailer.resident_summary.inactive_2") %>
 
 <% @inactive_residencies.each do |div, dp| %>
 <%= div if @user.permission_level.is_a?(Developer)%>
