@@ -239,34 +239,36 @@ var admin = {
     // but returns after the first one found - if multiple requests to reschedule
     // have been made only that for the first resource will show
     // should probably be moved into its own function ?
-    event.resources.forEach(function (resource) {
-      if(resource.status == "reproposed") {
-        // show the reproposed timedate
-        $(".proposed_datetime").show()
+    if (event.resources) {
+      event.resources.forEach(function (resource) {
+        if(resource.status == "reproposed") {
+          // show the reproposed datetime
+          $(".proposed_datetime").show()
 
-        p_start = moment(resource.proposed_start)
-        p_end = moment(resource.proposed_end)
-        $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
-        $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
-        $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
-        $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
+          p_start = moment(resource.proposed_start)
+          p_end = moment(resource.proposed_end)
+          $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
+          $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
+          $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
+          $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
 
-        // if the reproposed datetime is approve then update the event datetime,
-        // reset the resource statuses and submit the form
-        $("#accept_reschedule").click(function() {
-          e_start_date.setDate(p_start.toDate())
-          e_start_time.setDate(p_start.toDate())
-          e_end_time.setDate(p_end.toDate())
-          e_end_date.setDate(p_end.toDate())
+          // if the reproposed datetime is approve then update the event datetime,
+          $("#accept_reschedule").click(function() {
+            e_start_date.setDate(p_start.toDate())
+            e_start_time.setDate(p_start.toDate())
+            e_end_time.setDate(p_end.toDate())
+            e_end_date.setDate(p_end.toDate())
 
-          // how to we update the resource status to invited?
-        })
+            // reset the resource statuses to 'invited'
+            // how to we update and save the resource statuses via this form?
+          })
 
-        console.log(event)
+          console.log(event)
 
-        return false
-      }
-    })
+          return false
+        }
+      })
+    }
 
     e_start_date.setDate(event.start.toDate())
     e_start_time.setDate(event.start.toDate())
