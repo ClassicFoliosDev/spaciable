@@ -8,8 +8,13 @@ var tour = introJs()
     disableInteraction: true,
     steps: [
       {
+        element: ".burger-navigation",
+        intro: "Welcome to your home's personalised portal. You'll find the main menu here, where you can explore all of the features your personal home portal has to offer. You can also access key features from your dashboard, which we'll show you next.",
+        position: "bottom"
+      },
+      {
         element: ".my-home",
-        intro: "Welcome home! Here's your new address. Click the 'View My Home' button to see detailed information about your home, such as your finishes and fittings.",
+        intro: "Here's your new address. Click the 'View My Home' button to see detailed information about your home, such as your finishes and fittings.",
         position: "bottom"
       },
       {
@@ -30,11 +35,6 @@ var tour = introJs()
       {
         element: ".library-component",
         intro: "Useful documents and appliance guides have been uploaded to your library. You can also upload your own documents to keep everything together in one place.",
-        position: "bottom"
-      },
-      {
-        element: ".burger-navigation",
-        intro: "You can find the main menu here, where you can explore all of the features your personal home portal has to offer.",
         position: "bottom"
       },
     ].filter(function (obj) {
