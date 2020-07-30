@@ -2,6 +2,7 @@
 
 module Admin
   class SearchController < ApplicationController
+    include SearchConcern
     skip_authorization_check
 
     def new
@@ -15,6 +16,36 @@ module Admin
       end
 
       render json: result_list
+    end
+
+    def residents
+      searchterm = params[:search_term].downcase
+
+      residents = resident_search(searchterm)
+      # create an array of hashes of id and full_name to return
+      full = residents.map do |resident|
+        { id: resident.id,
+          type: "",
+          name: "#{resident} #{resident.email}",
+          path: admin_resident_path(resident) }
+      end
+
+      render json: full
+    end
+
+    def admin_users
+      searchterm = params[:search_term].downcase
+
+      admins = admin_search(searchterm)
+      # create an array of hashes of id and full_name to return
+      full = admins.map do |admin|
+        { id: admin.id,
+          type: "",
+          name: "#{admin} #{admin.email}",
+          path: admin_user_path(admin) }
+      end
+
+      render json: full
     end
 
     private

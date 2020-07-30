@@ -44,6 +44,20 @@ module SearchConcern
   end
   # rubocop:enable Metrics/MethodLength
 
+  # Full search of resident name/email
+  def resident_search(term)
+    Resident.where("CONCAT_WS(' ', LOWER(first_name), LOWER(last_name)) LIKE ?",
+                   "%#{term}%")
+            .or(Resident.where("LOWER(email) LIKE LOWER(?)", "%#{term}%"))
+  end
+
+  # Full search of admins name/email
+  def admin_search(term)
+    User.where("CONCAT_WS(' ', LOWER(first_name), LOWER(last_name)) LIKE ?",
+               "%#{term}%")
+        .or(User.where("LOWER(email) LIKE LOWER(?)", "%#{term}%"))
+  end
+
   def room_search(search_term)
     Room.where("LOWER(name) LIKE LOWER(?)",
                "%#{search_term}%").accessible_by(current_ability, :read)

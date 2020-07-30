@@ -7,15 +7,17 @@
   </div>
 </div>
 
+<%= render 'components/admin/search', usearch: @usearch, path: admin_residents_path, user_search_path: resident_search_path, search: t(".search"), roles: PlotResidency.role_call %>
+
 <table class="record-list">
   <thead>
     <tr>
-      <th><%= sortable(Resident, :email, t(".email")) %></th>
-      <th><%= sortable(Resident, :first_name, t(".name")) %></th>
-      <th><%= sortable(Resident, :phone_number, t(".phone_number")) %></th>
+      <th><%= sortable(Resident, :email, t(".email"), sort_params: @usearch.query_params) %></th>
+      <th><%= sortable(Resident, :first_name, t(".name"), sort_params: @usearch.query_params) %></th>
+      <th><%= sortable(Resident, :phone_number, t(".phone_number"), sort_params: @usearch.query_params) %></th>
       <th><%= t(".plot_count") %></th>
       <th><%= t(".invited_by") %></th>
-      <th><%= sortable(Resident, :invitation_accepted_at, t(".accepted_at")) %></th>
+      <th><%= sortable(Resident, :invitation_accepted_at, t(".accepted_at"), sort_params: @usearch.query_params) %></th>
     </tr>
   </thead>
   <tbody>

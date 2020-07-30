@@ -2,6 +2,8 @@
 
 document.addEventListener('turbolinks:load', function () {
   var $roleSelect = $('.user_role select, change')
+  if ($roleSelect.length == 0) { return }
+
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')
@@ -184,3 +186,31 @@ document.addEventListener('turbolinks:load', function () {
     }
   };
 })
+
+$(document).on('click', '.admin-filter .collapse .fa', function () {
+  $(".admin-filter").hide()
+  $(".admin-filter-selections").show()
+
+  displayFilterSelections()
+})
+
+$(document).on('click', '.admin-filter-selections .collapse .fa', function () {
+  $(".admin-filter").show()
+  $(".admin-filter-selections").hide()
+})
+
+function displayFilterSelections() {
+  if ($("#user_search_developer_id").val()) {
+    $(".filter-selections").html(
+      "<label>Developer: </label> <span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
+      "<label>Division: </label> <span>" + $("#user_search_division_id-button")[0].innerText + "</span><br/>" +
+      "<label>Development: </label> <span>" +$("#user_search_development_id-button")[0].innerText + "</span><br/>" +
+      "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
+    )
+  } else {
+    $(".filter-selections").html(
+      "<label>Developer: </label><span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
+      "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
+    )
+  }
+}

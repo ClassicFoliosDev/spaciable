@@ -1,0 +1,53 @@
+<div class="search">
+  <%= simple_form_for usearch, url: path do |f| %>
+    <div class="row-item third admin-filter">
+      <div class="collapse"><i class="fa fa-angle-up"></i></div>
+      <fieldset>
+        <%= f.input :developer_id,
+          as: :select,
+          collection: Developer.all.order(:company_name),
+          selected: usearch.developer_id,
+          include_blank: t(".all") %>
+        <%= f.input :division_id,
+          as: :select,
+          collection: Developer.find_by(id: usearch.developer_id)&.divisions,
+          selected: usearch.division_id,
+          include_blank: t(".all") %>
+        <%= f.input :development_id,
+          as: :select,
+          collection: (usearch.division_id.present? ? Division.find_by(id: usearch.division_id)&.developments : Developer.find_by(id: usearch.developer_id)&.developments),
+          selected: usearch.development_id,
+          include_blank: t(".all") %>
+        <%= f.input :role,
+          as: :select,
+          collection: roles,
+          label_method: :second,
+          value_method: :first,
+          include_blank: t(".all"),
+          selected: usearch.role %>
+      </fieldset>
+    </div>
+    <div class="row-item third admin-filter-selections">
+      <div class="collapse"><i class="fa fa-angle-down"></i></div>
+      <div class="filter-selections">
+
+      </div>
+    </div>
+    <div class="row-item third user-search">
+      <div class="search-container">
+        <%= label_tag "Search" %>
+        <%= simple_fields_for :search do |s| %>
+        <span>
+              <%= s.text_field :search_user_text, class: "search-user-field", autocomplete: "off", placeholder: search, data: {path: user_search_path}  %>
+              <%= link_to "", class: "btn search-user-btn" do %>
+                <i class="fa fa-search"></i>
+              <% end %>
+            </span>
+        <div class="search-results-container">
+          <ul class="user-search-results"></ul>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
