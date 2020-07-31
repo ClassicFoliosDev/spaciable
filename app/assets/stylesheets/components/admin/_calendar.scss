@@ -347,10 +347,10 @@
 
     .resident-label {
       margin: 0;
-      padding: 5px 0;
+      padding: 0;
 
       .collection_check_boxes {
-        padding-left: $spacing-small;
+        padding: 5px 0 5px $spacing-small;
         margin: 0;
         font-weight: normal;
       }

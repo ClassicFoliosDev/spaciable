@@ -514,6 +514,11 @@ $(document).on('click', '.uninvite-resident-btn', function(event) {
   $(this).addClass('invite-resident-btn').removeClass('uninvite-resident-btn').text("Invite")
 })
 
+// prevent checkbox being checked when clicking resident name (checkbox label)
+$(document).on('click', '.resident-label label', function(event) {
+  event.preventDefault()
+})
+
 $(document).on('turbolinks:load', admin.eventCalendar);
 $(document).on('turbolinks:before-cache', admin.clearCalendar)
 
