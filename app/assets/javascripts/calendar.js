@@ -316,10 +316,21 @@ var admin = {
       $.each( event.resources, function( index, resource ){
         // remove all styling classes (otherwise they inherit across events)
         // then re-apply styling class for this event
-        $("#event_residents_" + resource['resourceable_id']).parent().removeClass("accepted declined invited reproposed")
-        $("#event_residents_" + resource['resourceable_id']).trigger( "click" ).parent().addClass(resource.status)
+        $("#event_residents_" + resource['resourceable_id']).closest("span").removeClass("accepted declined invited reproposed")
+        $("#event_residents_" + resource['resourceable_id']).parent().children("input[type='checkbox']").trigger('click')
+        $("#event_residents_" + resource['resourceable_id']).closest("span").addClass(resource.status)
       });
     }
+
+    // add the invite/uninvite buttons
+    $("#residents span").each(function () {
+      $(this).children(".btn").remove()
+      if($(this).hasClass("checked")) {
+        $(this).append("<button class='btn uninvite-resident-btn'>Uninvite</button>")
+      } else {
+        $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+      }
+    })
   },
 
   // Show the relevant confirmation dialog
@@ -489,25 +500,18 @@ var admin = {
   }
 }
 
-$(document).on('mouseover', '#residents span', function (event) {
-  $("#residents span").each(function () {
-    $(this).children(".btn").remove()
-  })
-  var checkbox = $(this).find("input[type='checkbox']")[0]
-  if(checkbox.checked) {
-    $(this).append("<button class='btn uninvite-resident-btn'>Uninvite</button>")
-  } else {
-    $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
-  }
+// check checkbox on click invite button
+$(document).on('click', '.invite-resident-btn', function(event) {
+  event.preventDefault()
+  $(this).parent().find("input[type='checkbox']").trigger('click')
+  $(this).addClass('uninvite-resident-btn').removeClass('invite-resident-btn').text("Uninvite")
 })
 
-// not working?
-$(document).on('click', '.invite-resident-btn', function(event) {
-  console.log(this)
-  var checkbox = $(this).parent().find("input[type='checkbox']")[0]
-  console.log(checkbox)
-  checkbox.checked = true
-  console.log(checkbox)
+// uncheck checkbox on click uninvite button
+$(document).on('click', '.uninvite-resident-btn', function(event) {
+  event.preventDefault()
+  $(this).parent().find("input[type='checkbox']").trigger('click')
+  $(this).addClass('invite-resident-btn').removeClass('uninvite-resident-btn').text("Invite")
 })
 
 $(document).on('turbolinks:load', admin.eventCalendar);
