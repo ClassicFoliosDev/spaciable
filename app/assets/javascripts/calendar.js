@@ -464,8 +464,8 @@ var admin = {
     $("#residents input[type='checkbox']").each(function() {
       $(this).parent().addClass("resident-label")
       $(this).change(function () {
-        this.checked ? $(this).parent().addClass("checked") :
-                       $(this).parent().removeClass("checked")
+        this.checked ? $(this).parent().parent().addClass("checked") :
+                       $(this).parent().parent().removeClass("checked")
       })
     });
   },
@@ -488,6 +488,27 @@ var admin = {
     }
   }
 }
+
+$(document).on('mouseover', '#residents span', function (event) {
+  $("#residents span").each(function () {
+    $(this).children(".btn").remove()
+  })
+  var checkbox = $(this).find("input[type='checkbox']")[0]
+  if(checkbox.checked) {
+    $(this).append("<button class='btn uninvite-resident-btn'>Uninvite</button>")
+  } else {
+    $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+  }
+})
+
+// not working?
+$(document).on('click', '.invite-resident-btn', function(event) {
+  console.log(this)
+  var checkbox = $(this).parent().find("input[type='checkbox']")[0]
+  console.log(checkbox)
+  checkbox.checked = true
+  console.log(checkbox)
+})
 
 $(document).on('turbolinks:load', admin.eventCalendar);
 $(document).on('turbolinks:before-cache', admin.clearCalendar)

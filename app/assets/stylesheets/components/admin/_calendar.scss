@@ -316,6 +316,35 @@
     border: 1px solid $primary-navy;
     border-radius: 5px;
 
+    span {
+      display: block;
+
+      label {
+        display: inline-block;
+      }
+
+      .btn {
+        display: inline-block;
+        float: right;
+        margin-right: $spacing-small;
+        margin-top: 3px;
+
+        font-size: $base-small-font-size;
+        line-height: 1.5;
+      }
+
+      .invite-resident-btn {
+        color: $secondary-green;
+        border-color: $secondary-green;
+
+        // this doesn't seem to be working, so force css in js
+        &:hover {
+          color: $ui-white;
+          background-color: $secondary-green;
+        }
+      }
+    }
+
     .resident-label {
       margin: 0;
       padding: 5px 0;
