@@ -235,41 +235,6 @@ var admin = {
     $('#event_title').val(event.title).prop("disabled", !event.editable);
     $('#event_location').val(event.location).prop("disabled", !event.editable);
 
-    // this checks each resource for a reschedule request
-    // but returns after the first one found - if multiple requests to reschedule
-    // have been made only that for the first resource will show
-    // should probably be moved into its own function ?
-    if (event.resources) {
-      event.resources.forEach(function (resource) {
-        if(resource.status == "reproposed") {
-          // show the reproposed datetime
-          $(".proposed_datetime").show()
-
-          p_start = moment(resource.proposed_start)
-          p_end = moment(resource.proposed_end)
-          $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
-          $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
-          $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
-          $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
-
-          // if the reproposed datetime is approve then update the event datetime,
-          $("#accept_reschedule").click(function() {
-            e_start_date.setDate(p_start.toDate())
-            e_start_time.setDate(p_start.toDate())
-            e_end_time.setDate(p_end.toDate())
-            e_end_date.setDate(p_end.toDate())
-
-            // reset the resource statuses to 'invited'
-            // how to we update and save the resource statuses via this form?
-          })
-
-          console.log(event)
-
-          return false
-        }
-      })
-    }
-
     e_start_date.setDate(event.start.toDate())
     e_start_time.setDate(event.start.toDate())
     e_end_time.setDate(event.end.toDate())
@@ -314,21 +279,29 @@ var admin = {
     // set checked for associated event residents
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
-        // remove all styling classes (otherwise they inherit across events)
-        // then re-apply styling class for this event
-        $("#event_residents_" + resource['resourceable_id']).closest("span").removeClass("accepted declined invited reproposed")
         $("#event_residents_" + resource['resourceable_id']).parent().children("input[type='checkbox']").trigger('click')
+
+        // remove all styling classes (otherwise they inherit across events)
+        $("#event_residents_" + resource['resourceable_id']).closest("span").removeClass("accepted declined invited reproposed")
+        // re-apply styling class for this event
         $("#event_residents_" + resource['resourceable_id']).closest("span").addClass(resource.status)
       });
     }
 
-    // add the invite/uninvite buttons
+    // add the buttons for each resident
     $("#residents span").each(function () {
       $(this).children(".btn").remove()
+
+      // add invite/uninvite buttons
       if($(this).hasClass("checked")) {
-        $(this).append("<button class='btn uninvite-resident-btn'>Uninvite</button>")
+        $(this).append("<button class='btn uninvite-resident-btn'>Remove</button>")
       } else {
         $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+      }
+
+      // add time button if event datetime has been reproposed
+      if($(this).hasClass("reproposed")) {
+        $(this).append("<button class='btn fa fa-clock-o view-proposed-datetime'></button>")
       }
     })
   },
@@ -504,7 +477,7 @@ var admin = {
 $(document).on('click', '.invite-resident-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
-  $(this).addClass('uninvite-resident-btn').removeClass('invite-resident-btn').text("Uninvite")
+  $(this).addClass('uninvite-resident-btn').removeClass('invite-resident-btn').text("Remove")
 })
 
 // uncheck checkbox on click uninvite button
@@ -518,6 +491,28 @@ $(document).on('click', '.uninvite-resident-btn', function(event) {
 $(document).on('click', '.resident-label label', function(event) {
   event.preventDefault()
 })
+
+//// show the proposed datetime change
+//$(document).on('click', '.view-proposed-datetime', function(event) {
+//  event.preventDefault()
+//  $(".proposed_datetime").show()
+//  console.log(event)
+//
+//  p_start = moment(resource.proposed_start)
+//  p_end = moment(resource.proposed_end)
+//  $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
+//  $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
+//  $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
+//  $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
+//
+//  // if the reproposed datetime is approve then update the event datetime,
+//  $("#accept_reschedule").click(function() {
+//    e_start_date.setDate(p_start.toDate())
+//    e_start_time.setDate(p_start.toDate())
+//    e_end_time.setDate(p_end.toDate())
+//    e_end_date.setDate(p_end.toDate())
+//  })
+//})
 
 $(document).on('turbolinks:load', admin.eventCalendar);
 $(document).on('turbolinks:before-cache', admin.clearCalendar)
