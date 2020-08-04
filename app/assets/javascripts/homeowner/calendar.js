@@ -60,8 +60,31 @@ var homeowner = {
         },
         eventAfterAllRender: function(){
           homeowner.preloadEvent()
+        },
+        eventRender: function(event, element) {
+          // make the first two colour stops transparent so the background colour can be seen
+          element.css({"background-image": "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0), " + statusColor(event) + ")"})
+//          console.log(statusColor(event))
         }
       }
+
+    function statusColor(event) {
+      var status = event.homeowner.status
+
+      switch(status) {
+        case "accepted":
+          return "#248F24"
+          break
+        case "declined":
+          return "#FF293F"
+          break
+        case "reproposed":
+          return "#ff6600"
+          break
+        default:
+          return "#EAEAEA"
+      }
+    }
 
     // If the calendar is editable then add extras to support editing
     if (dataIn.editable) {
@@ -99,6 +122,15 @@ var homeowner = {
 
     hasRun = true
   },
+//
+//  displayStatus: function(event) {
+//    var accepted = "#248F24"
+//    var declined = "#FF293F"
+//    var reproposed = "#ff6600"
+//    var invited = "#FFFFFF"
+//
+//    console.log(event)
+//  },
 
   index_url: function(data){
     return data.path + '?eventable_type=' + data.type + '&eventable_id=' + data.id;
