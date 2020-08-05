@@ -261,8 +261,13 @@
     }
 
     <%-# ----------------- FAQS ------------------ -%>
-    .faqs .faq-feedback button {
+    .faqs .faq-feedback .faq-button {
       color: <%= brand.branded_text_color %>
+    }
+
+    .faqs .negative-response .faq-input {
+      border-color: <%= brand.branded_text_color %>;
+      color: <%= brand.branded_text_color %>;
     }
 
   <% else %>
@@ -381,6 +386,17 @@
       border-color: <%= brand.branded_button_color %>;
     }
 
+    <%-# ---------------- FAQs ----------------- -%>
+    .faq-navigation .faq-categories .categories li a {
+      background-color: <%= brand.branded_button_color %>;
+    }
+
+    .faq-navigation .faq-categories .categories li a:hover,
+    .faq-navigation .faq-categories .categories li a.active {
+      color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
+    }
+
     <%-# ------------------ TEXT ------------------ -%>
     .branded-titles h2,
     .branded-titles h2:last-child,
@@ -493,6 +509,20 @@
     }
 
     .library-navigation .library-categories .categories li a.active {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    <%-# ---------------- FAQs ----------------- -%>
+    .faq-navigation .faq-categories .categories li a {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .faq-navigation .faq-categories .categories li a:hover {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .faq-navigation .faq-categories .categories li a.active {
       background-color: <%= brand.branded_button_text_color %>;
     }
 
