@@ -478,7 +478,7 @@ When(/^I can no longer CRUD faqs$/) do
   end
 
   within ".main-container" do
-    expect(page).to have_content("You have no FAQs.")
+    expect(page).to have_content(t("faqs.collection.empty_list", type: development.faq_types.first.name))
     expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: development.faq_types.first.name))
   end
 end

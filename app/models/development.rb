@@ -40,7 +40,7 @@ class Development < ApplicationRecord
   has_many :custom_tiles, dependent: :destroy
 
   has_one :premium_perk
-  accepts_nested_attributes_for :premium_perk, reject_if: :premium_perks_disabled
+  accepts_nested_attributes_for :premium_perk
   delegate :enable_premium_perks, :premium_licences_bought,
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
@@ -213,10 +213,6 @@ class Development < ApplicationRecord
     phases.each do |phase|
       phase.update_attributes(business: :commercial)
     end
-  end
-
-  def premium_perks_disabled(attr)
-    attr["enable_premium_perks"] == "0"
   end
 
   # Build the specified attribute if it is not already donw

@@ -93,7 +93,7 @@
   }
 }
 
-.search-appliance, .search-finish {
+.search-appliance, .search-finish, .search-user {
   margin-top: 30px;
 
   input[type="text"] {
@@ -104,7 +104,7 @@
   }
 }
 
-.search-appliance-btn, .search-finish-btn {
+.search-appliance-btn, .search-finish-btn, .search-user-btn {
   margin-top: -46px;
   margin-left: 2px;
   padding: $spacing-small;

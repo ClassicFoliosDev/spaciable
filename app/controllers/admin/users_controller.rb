@@ -7,7 +7,8 @@ module Admin
     load_and_authorize_resource :user
 
     def index
-      @users = User.full_details(params, current_ability)
+      @usearch = UserSearch.new(search_params)
+      @users = User.full_details(params, current_ability, @usearch)
       @per_page = @users.limit_value
     end
 
@@ -98,6 +99,12 @@ module Admin
         :receive_choice_emails, :branch_administrator, :cas,
         :receive_invitation_emails, :receive_faq_emails
       )
+    end
+
+    def search_params
+      return unless params.include?("user_search")
+
+      params.require("user_search").permit(:developer_id, :division_id, :development_id, :role)
     end
   end
 end

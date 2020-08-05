@@ -4,7 +4,7 @@
 
   <%= render 'components/tabs', tabs: default_faq_tabs(@faq_type) %>
 
-  <%= render "collection", collection: @faqs, type: @faq_type %>
+  <%= render "collection", collection: @faqs, type: @faq_type, qp: @qp %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">

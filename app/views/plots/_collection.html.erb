@@ -33,6 +33,7 @@
         <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
         <th><%= sortable(Plot, :progress, t(".progress")) %></th>
         <th><%= t(".activation") %></th>
+        <th><span class="date"><i class="fa fa-question-circle-o" id="plotStatusHelp"></i> <%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
         <% if showing_icons %>
           <th>&nbsp;</th>
         <% end %>
@@ -49,6 +50,11 @@
           <td><%= plot.unit_type %></td>
           <td><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
+          <% comp = "white" %>
+          <% if plot.completion_release_date? %>
+            <% comp = plot.expired? ? "red" : "green" %>
+          <% end %>
+          <td><span class = 'circle <%= comp %>'>&nbsp;</span></td>
           <% if showing_icons %>
             <td class="actions">
               <%= edit_btn [:edit, plot], element: plot %>

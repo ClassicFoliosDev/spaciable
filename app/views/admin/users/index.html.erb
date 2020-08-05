@@ -14,6 +14,10 @@
   <% end %>
 </div>
 
+<% if current_user.cf_admin? %>
+  <%= render 'components/admin/search', usearch: @usearch, path: admin_users_path, user_search_path: admin_user_search_path, search: t(".search"), roles: User.role_call %>
+<% end %>
+
 <table class="record-list users">
   <thead>
     <tr>

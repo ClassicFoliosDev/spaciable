@@ -59,6 +59,12 @@ class User < ApplicationRecord
     roles.reject { |key, _| key == "homeowner" }
   end
 
+  def self.role_call
+    roles.map do |name, _|
+      [name, I18n.t(".#{name}")]
+    end
+  end
+
   def permission_level_name
     return "Classic Folios" if permission_level.nil?
     permission_level
@@ -172,7 +178,7 @@ class User < ApplicationRecord
   # with accessors that enable the pagination to work.  The way this function works is
   # not really in line with the other pages but unfortnately it doesn't fit the usualy model
   # rubocop:disable all
-  def self.full_details(params, current_ability)
+  def self.full_details(params, current_ability, filter)
     per = (params[:per] || 25).to_i
     direction = params[:direction] || "ASC"
     sort = params[:sort] || "LOWER(users.email)"
@@ -187,7 +193,8 @@ class User < ApplicationRecord
     visible_users = User.all.accessible_by(current_ability).pluck(:id)
 
     sql = "SELECT users.*, developers.company_name, divisions.division_name, "\
-          "developments.name as development_name from users LEFT OUTER JOIN developers ON "\
+          "developments.name as development_name "\
+          "from users LEFT OUTER JOIN developers ON "\
           "(users.permission_level_type='Developer' AND users.permission_level_id = "\
           "developers.id) OR (users.permission_level_type='Division' and developers.id = "\
           "(SELECT developers.id from developers INNER JOIN divisions ON "\
@@ -204,10 +211,15 @@ class User < ApplicationRecord
           "from divisions INNER JOIN developments ON developments.division_id = divisions.id AND "\
           "developments.id = users.permission_level_id)) LEFT OUTER JOIN developments ON "\
           "users.permission_level_type='Development' AND users.permission_level_id = "\
-          "developments.id where users.deleted_at is NULL and users.id IN "\
-          "(#{visible_users.join(',')}) ORDER BY #{sort} #{direction} "\
-          "LIMIT #{per} OFFSET #{offset}"
+          "developments.id where users.deleted_at is NULL "
+
+    sql += filter.admin_criteria || ''
+
+    sql += " AND users.id IN (#{visible_users.join(',')}) ORDER BY #{sort} #{direction} "\
+           "LIMIT #{per} OFFSET #{offset}"
     users = ActiveRecord::Base.connection.exec_query(sql)
+
+    # sql += filter.admin_criteria || ''
 
     # This data needs to appear like a ActiveRecord::Relation so that pagination can work.
     # The users variable will be an ActiveRecord::Result and neeeds pagination criterian adding
@@ -307,6 +319,19 @@ class User < ApplicationRecord
   def downcase_email
     self.email.downcase!
   end
+
+  scope :receives_faqs,
+    lambda { |p|
+      users = User.where(receive_faq_emails: true)
+      users.where(role: :development_admin,
+                         permission_level_id: p.development_id)
+         .or(users.where(role: :developer_admin,
+                        permission_level_id: p.developer_id))
+         .or(users.where(role: :development_admin,
+                        permission_level_id: p.development_id))
+         .or(users.where(role: :division_admin,
+                        permission_level_id: p.division&.id || 0))
+  }
 
   # rubocop:enable all
 end

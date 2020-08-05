@@ -1,0 +1,8 @@
+<%= t("devise.mailer.invitation_instructions.hello", name: @name) %>,
+
+<% if @url.nil? %>
+<%= t("devise.mailer.transfer_csv.no_data_description") %>
+<% else %><%= t("devise.mailer.transfer_csv.description") %>
+
+<%= @url %>
+<% end %>

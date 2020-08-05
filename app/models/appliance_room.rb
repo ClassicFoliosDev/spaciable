@@ -24,6 +24,11 @@ class ApplianceRoom < ApplicationRecord
           find_by(room_id: room, appliance_id: appliance)
         }
 
+  scope :with_appliance,
+        lambda { |appliance_id|
+          where(appliance_id: appliance_id)
+        }
+
   attr_accessor :search_appliance_text
 
   validates :appliance, uniqueness: { scope: :room }, on: :create

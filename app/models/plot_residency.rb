@@ -69,6 +69,12 @@ class PlotResidency < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  def self.role_call
+    roles.map do |name, _|
+      [name, I18n.t("activerecord.attributes.plot_residency.roles.#{name}")]
+    end
+  end
+
   private
 
   def set_resident

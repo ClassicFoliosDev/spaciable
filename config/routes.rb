@@ -318,6 +318,8 @@ Rails.application.routes.draw do
   get "/search", to: "admin/search#new", as: :admin_search, format: :json
   get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json
   get "/finish_search", to: "admin/finish_search#new", as: :admin_finish_search, format: :json
+  get "/resident_search", to: "admin/search#residents", as: :resident_search, format: :json
+  get "/admin_search", to: "admin/search#admin_users", as: :admin_user_search, format: :json
   get "/finish_manufacturers_list", to: 'finishes#manufacturers_list', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types_list", to: 'finishes#finish_types_list', format: :json

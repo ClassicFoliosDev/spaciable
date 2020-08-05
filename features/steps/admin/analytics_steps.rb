@@ -109,8 +109,7 @@ end
 Then(/^I get an email telling me to download to report$/) do
   sleep 2
   email = ActionMailer::Base.deliveries.first
-  expect(email.subject).to eq(I18n.t("devise.mailer.transfer_csv.title"))
-  expect(email).to have_body_text(I18n.t("devise.mailer.transfer_csv.description"))
+  expect(email).to have_body_text("report")
   expect(email.to).to eq [ExpiryFixture.cf_email]
 
   ActionMailer::Base.deliveries.clear
