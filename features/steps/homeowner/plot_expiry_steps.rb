@@ -265,6 +265,7 @@ end
 
 Then(/^I cannot see the new document$/) do
   # The document will not be visible on the dashboard
+  sleep 0.5
   visit "/"
   within ".document-images" do
     expect(page).to_not have_content(ExpiryFixture.second_doc_name)
@@ -300,6 +301,7 @@ Then(/^I can see a notification$/) do
 end
 
 Then(/^I can see both documents$/) do
+  sleep 0.5
   within ".burger-navigation" do
     check_box = find(".burger")
     check_box.trigger(:click)
@@ -604,6 +606,7 @@ Then(/^I can see both videos$/) do
   end
   click_on(t("components.homeowner.sub_menu.library"))
 
+  sleep 0.5
   within find(".library-categories") do
     click_on I18n.t("components.homeowner.library_categories.videos")
   end

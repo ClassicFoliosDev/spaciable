@@ -11,17 +11,17 @@ module TabsConcern
     (tabs.index(@category) + 1..tabs.size).each do |tab|
       case tabs[tab]
       when "appliances"
-        homeowner_appliance_manuals_path if Appliance.accessible_by(current_ability).any?
+        return homeowner_appliance_manuals_path if Appliance.accessible_by(current_ability).any?
       when "videos"
         if @plot&.development&.videos&.where("created_at <= ?", @plot.expiry_date)
-          homeowner_videos_path
+          return homeowner_videos_path
         end
       when "my_documents"
-        private_documents_path
+        return private_documents_path
       else
-        homeowner_library_path(tabs[tab]) if
+        return homeowner_library_path(tabs[tab]) if
           Document.accessible_by(current_ability)
-                  .where(category: tabs[teb])
+                  .where(category: tabs[tab])
                   .where("created_at <= ?", @plot.expiry_date).any?
       end
     end
