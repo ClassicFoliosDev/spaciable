@@ -127,8 +127,7 @@ module DevelopmentCsvService
     passed = true
 
     if row[UPRN].present?
-      passed = row[UPRN].length <= 12
-      passed = row[UPRN] =~ /\A\d*\z/ ? true : false
+      passed = row[UPRN].length <= 12 && (row[UPRN] =~ /\A\d*\z/ ? true : false)
       plot.uprn = row[UPRN] if passed
     end
 

@@ -1333,6 +1333,7 @@ en:
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
+      uprn_error_strip: "Invalid UPRN(s): %{uprns}"
 
   homeowners:
     my_home_name: "My %{construction}"

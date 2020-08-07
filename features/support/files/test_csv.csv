@@ -1,8 +1,10 @@
-Phase Name,Plot Number,Unit Type,Postal Prefix,Postal Number/Name,Building Name,Road Name,Postcode,Legal Comp Date (dd/mm/yyyy),Build Progress
-First,1,Studio,Flat,,,,,,
-Alpine,7,Studio,,,The Glen,,,,
-Alpine,2,Penthouse,,,The Glen,,,,
-Alpine,3,Studio,,,,,,,wrong_progress
-Alpine,4,Studio,Flat,9,The Glen,Cranbury Road,SO50 5TL,12/10/2020,roof_on
-Alpine,5,Studio,,,,,,12/10/2011,
-Alpine,4,,,5,,,,,
+Phase Name,Plot Number,Unit Type,UPRN,Postal Prefix,Postal Number/Name,Building Name,Road Name,Postcode,Legal Comp Date (dd/mm/yyyy),Build Progress
+First,1,Studio,123456,Flat,,,,,,
+Alpine,9,Studio,,,,The Glen,,,,
+Alpine,2,Penthouse,,,,The Glen,,,,
+Alpine,3,Studio,,,,,,,,wrong_progress
+Alpine,4,Studio,1248951445,Flat,9,The Glen,Cranbury Road,SO50 5TL,12/10/2020,roof_on
+Alpine,5,Studio,,,,,,,12/10/2011,
+Alpine,4,,,,5,,,,,
+Alpine,6,Studio,aaa,,,,,,,
+Alpine,7,Studio,1234567890123,,,,,,,
