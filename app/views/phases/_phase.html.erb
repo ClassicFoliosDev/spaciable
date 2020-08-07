@@ -10,11 +10,11 @@
     </div>
     <span class="about">
       <br/>
-      <% if phase.cas %>
-        <strong><%= t("cas_enabled") %><br/>
-      <% end %>
       <% if current_user.cf_admin? %>
-        <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/><br/>
+        <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/>
+      <% end %>
+      <% if current_user.cf_admin? || phase.cas %>
+        <strong><%= t("cas_enabled") %></strong><%= phase.cas ? t("enabled") : t("disabled") %><br/><br/>
       <% end %>
       <strong><%= t(".active_plots") %></strong><%= phase.active_plots_count %><br/>
       <strong><%= t(".completed_plots") %></strong><%= phase.completed_plots_count %><br/>

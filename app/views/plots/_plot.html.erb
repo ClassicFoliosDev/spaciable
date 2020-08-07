@@ -10,9 +10,7 @@
   <div class="about">
     <div class="half">
       <br/>
-      <% if plot.cas %>
-        <strong><%= t("cas_enabled") %></strong><br/>
-      <% end %>
+      <strong><%= t(".uprn") %></strong><%= plot.uprn ? plot.uprn : "Not set" %><br/>
       <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/><br/>
       <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
       <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") || "Not set" %><br/><br/>
@@ -22,6 +20,8 @@
     </div>
     <div class="half">
       <% if cas_update %>
+        <br/><strong><%= t("cas_enabled") %></strong><%= plot.cas ? t("enabled") : t("disabled") %><br/><br/>
+
         <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
         <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
         <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>

@@ -52,6 +52,9 @@ class Plot < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
+  validates :uprn, length: { maximum: 12, too_long: " should be up to 12 digits long and only contain numbers." }
+  validates :uprn, format: { with: /\A\d*\z/, message: " should be up to 12 digits long and only contain numbers." }
+
   validates :number, presence: true
   validates :unit_type, presence: true
   validates :validity, :extended_access, numericality: {

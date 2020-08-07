@@ -7,15 +7,16 @@ module DevelopmentCsvService
   PHASE = 0
   PLOT = 1
   UNIT = 2
-  PREFIX = 3
-  HOUSE_NUMBER = 4
-  BUILDING_NAME = 5
-  ROAD_NAME = 6
-  POSTCODE = 7
-  LEGAL_COMP_DATE = 8
-  PROGRESS = 9
-  ORDER_RES = 10
-  ORDER_COMP = 11
+  UPRN = 3
+  PREFIX = 4
+  HOUSE_NUMBER = 5
+  BUILDING_NAME = 6
+  ROAD_NAME = 7
+  POSTCODE = 8
+  LEGAL_COMP_DATE = 9
+  PROGRESS = 10
+  ORDER_RES = 11
+  ORDER_COMP = 12
 
   require "date"
 
@@ -53,7 +54,7 @@ module DevelopmentCsvService
         plot = Plot.find_by(phase_id: phase.id, number: row[PLOT])
 
         # go through the checks
-        %i[plot duplicate unit completion progress].each do |stage|
+        %i[plot duplicate unit completion progress uprn].each do |stage|
           throw(:next_row, true) unless send("#{stage}_check?", phase_name, row, plot, development)
         end
 
@@ -117,6 +118,21 @@ module DevelopmentCsvService
     end
 
     @parsed[phase_name][:unit] << row[UNIT] unless passed
+    passed
+  end
+
+  # check the uprn is in the correct format and store an error if it is not
+  def uprn_check?(phase_name, row, plot, _)
+    @parsed[phase_name][:uprn] ||= []
+    passed = true
+
+    if row[UPRN].present?
+      passed = row[UPRN].length <= 12
+      passed = row[UPRN] =~ /\A\d*\z/ ? true : false
+      plot.uprn = row[UPRN] if passed
+    end
+
+    @parsed[phase_name][:uprn] << row[UPRN] unless passed
     passed
   end
 

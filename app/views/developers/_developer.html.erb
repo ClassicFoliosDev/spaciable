@@ -7,8 +7,8 @@
     <span class="about">
       <%= simple_format developer.about %>
       <br/>
-      <% if developer.cas %>
-        <strong><%= t("cas_enabled") %><br/>
+      <% if current_user.cf_admin? || developer.cas %>
+        <strong><%= t("cas_enabled") %></strong><%= developer.cas ? t("enabled") : t("disabled") %><br/><br/>
       <% end %>
       <strong><%= t(".active_plots") %></strong><%= developer.active_plots_count %><br/>
       <strong><%= t(".completed_plots") %></strong><%= developer.completed_plots_count %><br/>
