@@ -13,9 +13,11 @@ Feature: Custom Tiles
 
   Scenario: Shortcut creation on development creation
     Given I am logged in as a Development Admin
+    And there are uneditable shortcuts
     When I navigate to my development
     And I visit the custom shortcuts tab
     Then I see the referrals shortcut
+    And the services shortcut is uneditable
 
   Scenario: Feature shortcuts
     Given I am logged in as a Division Admin

@@ -1187,7 +1187,7 @@ en:
       title: "Title"
       category: "Category"
       editable: "Editable"
-      uneditable_title: "Edit shortcut not available"
+      uneditable_title: "Edit for %{tile} not available"
       uneditable_text: "NO"
     new:
       title: "New Custom Shortcut"
