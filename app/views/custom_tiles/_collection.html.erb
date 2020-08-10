@@ -17,6 +17,7 @@
     <tr>
       <th><%= t(".title") %></th>
       <th><%= t(".category") %></th>
+      <th><%= t(".editable") %></th>
       <th>&nbsp;</th>
     </tr>
     </thead>
@@ -26,9 +27,15 @@
       <td><%= link_to (custom_tile.title? ? custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}",
                                                                            snag_name: parent.snag_name)), custom_tile_path(custom_tile) %></td>
       <td><%= custom_tile.category.titleize %></td>
+      <td><%= custom_tile.editable? ? "Yes" : "No" %></td>
+      </td>
       <td class="actions">
-        <%= (edit_btn edit_custom_tile_path(custom_tile), element: custom_tile) unless parent.expired? && !(current_user.cf_admin?) %>
-        <%= (delete_btn custom_tile, path: custom_tile_path(custom_tile), element: custom_tile) unless parent.expired? && !(current_user.cf_admin?) %>
+        <% if current_user.cf_admin? || custom_tile.editable? %>
+          <%= (edit_btn edit_custom_tile_path(custom_tile), element: custom_tile) unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= (delete_btn custom_tile, path: custom_tile_path(custom_tile), element: custom_tile) unless parent.expired? && !(current_user.cf_admin?) %>
+        <% else %>
+          <%= info_btn custom_tile, text: t(".uneditable_text"), element: custom_tile, title: t(".uneditable_title") %>
+        <% end %>
       </td>
     </tr>
     <% end %>

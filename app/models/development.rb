@@ -227,7 +227,11 @@ class Development < ApplicationRecord
   # Create up to three default tiles
   # rubocop:disable LineLength
   def set_default_tiles
-    %w[referrals services perks].each do |tile|
+    %w[services perks].each do |tile|
+      CustomTile.create(development_id: id, feature: tile, editable: false) if parent_developer.send("enable_#{tile}")
+    end
+
+    %w[referrals].each do |tile|
       CustomTile.create(development_id: id, feature: tile) if parent_developer.send("enable_#{tile}")
     end
   end
