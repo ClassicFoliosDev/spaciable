@@ -3033,9 +3033,10 @@ en:
       subject: "Spaciable Activation Report"
       hello: "Hi %{name},"
       report: "This is your weekly Spaciable activation report."
-      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
-                leaving %{inactive} residents having not accepted the invitation email."
-      inactive: "Below is a list of residents who are yet to activate."
+      summary: "In the last week, %{invitations} residents were invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents who have not accepted the invitation email."
+      inactive: "To ensure you and your customers get the most out of your investment in Spaciable, please see below the customers who need a gentle reminder to accept their invitation."
+      inactive_2: "Don't forget: once they have activated, your customers will gain access to valuable, timesaving information, designed to support their journey and help them enjoy their new home. They'll also receive essential communications that you send through the portal."
       login: "Login to Spaciable: "
       unsubscribe: "Don't wish to receive a weekly resident activation report? You can update your preferences in your Spaciable profile."
 
