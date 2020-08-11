@@ -17,11 +17,14 @@ module Admin
     end
 
     def create
-      if (@restore_user = User.only_deleted.find_by(email: user_params[:email]))
+      email = user_params[:email].downcase
+      if (@restore_user = User.only_deleted.find_by(email: email))
         @restore_user.restore!
         @user = @restore_user
-        UpdateUserService.call(@user, user_params)
-        user_success
+        # remove blank params so the user can be re-added by email only
+        params = user_params.delete_if { |_k, v| v.blank? }
+        UpdateUserService.call(@user, params)
+        validate_user
       elsif @user.create_without_password
         user_success
       else
@@ -51,12 +54,6 @@ module Admin
     end
 
     def destroy
-      # Update whether or not the user is valid:
-      # validation will be checked if the user is resumed
-      # rubocop:disable SkipsModelValidations
-      @user.update_attribute(:permission_level_id, nil)
-      @user.update_attribute(:permission_level_type, nil)
-      # rubocop:enable SkipsModelValidations
       @user.destroy
       notice = t(".archive.success", user_email: @user.email)
       redirect_to admin_users_path, notice: notice
@@ -71,7 +68,24 @@ module Admin
       redirect_to %i[admin users], notice: notice
     end
 
+    def resend_invitation
+      user = User.find(params[:user])
+      invitee = User.find(params[:invitee])
+
+      user.invite!(invitee)
+    end
+
     private
+
+    def validate_user
+      # check that the restored user has a valid permission level
+      if !@user.cf_admin? && (@user.permission_level_id.nil? || !@user.permission_level.valid?)
+        @user.destroy
+        render :new
+      else
+        user_success
+      end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

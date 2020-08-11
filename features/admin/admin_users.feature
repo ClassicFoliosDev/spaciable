@@ -33,7 +33,7 @@ Feature: Admin Users
     When I delete the developer admin
     Then I should not see the deleted developer admin
     When I restore the deleted developer admin as CF admin
-    Then I should see the recreated CF admin
+    Then I should see the restored developer admin
     Examples:
       | status   |
       | enabled  |
@@ -44,6 +44,7 @@ Feature: Admin Users
     And I add a new Developer Admin user
     And I add a new Division Admin user
     And I add a new Development Admin user
+    Then I can resend an invitation to the unactivated developer admin
     And I log out as a an admin
     Given I accept the invitation as development admin
     And I log out as a an admin
