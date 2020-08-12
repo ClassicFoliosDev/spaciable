@@ -6,15 +6,157 @@
   margin: 5px 0;
   border-radius: 5px;
 
-  label {
+  .faq-question {
     margin: 6px 0;
+    padding-left: $spacing-small;
+  }
+
+  .compare {
+    display: inline-block;
+    float: right;
+    padding-right: $spacing-small;
+
+    .compare-btn, .hide-btn {
+      font-size: $base-small-font-size;
+      font-family: $base-font-family;
+      color: $primary-navy;
+      background-color: none;
+      background: none;
+      border: none;
+      text-decoration: underline;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .hide-btn {
+      display: none;
+    }
+  }
+
+  .faq-comparison {
+    padding: $spacing-small;
+    display: none;
+
+    .pfaq-answer {
+      display: table-cell;
+    }
+
+    .gfaq-answer {
+      display: table-cell;
+    }
+
+    .faq-answer {
+      font-weight: $base-font-weight;
+      padding-right: $spacing-large;
+    }
+
+    h3 {
+      font-size: $title-font-size-4;
+      padding-top: $spacing-medium;
+    }
+  }
+}
+
+.faq-key {
+  width: 100%;
+  padding-bottom: $spacing-medium;
+
+  .key {
+    border-radius: 5px;
+    span {
+      display: block;
+      font-size: $base-font-size;
+      font-weight: $bold-font-weight;
+      padding: 6px;
+    }
+  }
+
+  .exact-match {
+    background-color: $ui-grey;
+
+    span {
+      opacity: 0.5;
+    }
+  }
+
+  .no-match {
+    background-color: $ui-white;
+  }
+
+  .answer-updated {
+    background-color: $faded-red;
+  }
+
+  .answer-legacy {
+    background-color: $pale-navy;
   }
 }
 
 .faq-category-header {
   padding: $spacing-small 0;
+
+  h3 {
+    font-size: 18px;
+  }
+
+  .btn {
+    color: $primary-navy;
+    border-color: $primary-navy;
+
+    &:hover {
+      background-color: $primary-navy;
+      color: $ui-white;
+    }
+  }
 }
 
 .select-buttons {
-  padding-bottom: $spacing-large;
+  padding-bottom: $spacing-medium;
+
+  .btn {
+    color: $ui-white;
+    background-color: $primary-navy;
+    border-color: $primary-navy;
+
+    &:hover {
+      background-color: $ui-white;
+      color: $primary-navy;
+    }
+  }
+}
+
+.page-separator {
+  width: 100%;
+  border: 1px solid $primary-navy;
+  margin: $spacing-small 0;
+}
+
+.select-faqs {
+  padding-top: $spacing-small;
+}
+
+.faq-collection {
+  span {
+    .exact_match {
+      background-color: $ui-grey;
+
+      .faq-question {
+        opacity: 0.5;
+      }
+
+      input[disabled="disabled"], input[disabled] {
+        cursor: default;
+      }
+    }
+
+    .answer_legacy {
+      background-color: $pale-navy;
+    }
+
+    .answer_updated {
+      background-color: $faded-red;
+    }
+  }
 }

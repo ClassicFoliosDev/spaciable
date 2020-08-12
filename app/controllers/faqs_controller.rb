@@ -83,6 +83,8 @@ class FaqsController < ApplicationController
     @faqs = DefaultFaq.where(faq_type_id: @faq_type)
     # group by category
     @grouped_faqs = @faqs.group_by { |faq| FaqCategory.find(faq[:faq_category_id]).name }
+
+    @parent_faqs = Faq.where(faqable: @parent)
   end
 
   private

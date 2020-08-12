@@ -141,6 +141,7 @@ Rails.application.routes.draw do
     resources :development_csv, only: [:index, :create]
     resources :custom_tiles, shallow: true
     get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
+    get "sync_faqs", to: "faqs#sync_faqs", as: :sync_faqs
   end
 
   resources :choice_configurations do
@@ -208,6 +209,7 @@ Rails.application.routes.draw do
     resources :faqs, shallow: true
     resource :brand
     resources :brands, shallow: true, only: [:index]
+    get "sync_faqs", to: "faqs#sync_faqs", as: :sync_faqs
   end
 
   resources :appliances
