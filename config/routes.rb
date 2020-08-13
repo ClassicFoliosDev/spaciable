@@ -66,7 +66,6 @@ Rails.application.routes.draw do
 
   resources :documents, only: [:edit, :show, :update, :destroy]
   resources :listings, only: [:new, :create, :update, :destroy]
-  resource :sync_faqs, only: [:create]
 
   resources :rooms, only: [] do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]
@@ -140,8 +139,8 @@ Rails.application.routes.draw do
     resources :videos, shallow: true
     resources :development_csv, only: [:index, :create]
     resources :custom_tiles, shallow: true
+    resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
-    get "sync_faqs", to: "faqs#sync_faqs", as: :sync_faqs
   end
 
   resources :choice_configurations do
@@ -195,8 +194,8 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :branded_apps, shallow: true
+    resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'cas', to: 'developers#cas', format: :json
-    get "sync_faqs", to: "faqs#sync_faqs", as: :sync_faqs
   end
 
   resources :divisions do
@@ -209,7 +208,7 @@ Rails.application.routes.draw do
     resources :faqs, shallow: true
     resource :brand
     resources :brands, shallow: true, only: [:index]
-    get "sync_faqs", to: "faqs#sync_faqs", as: :sync_faqs
+    resources :sync_faqs, shallow: true, only: [:index, :create]
   end
 
   resources :appliances

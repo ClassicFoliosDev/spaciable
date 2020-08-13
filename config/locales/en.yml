@@ -1157,6 +1157,21 @@ en:
       exact_match: "This Global FAQ exactly matches the title and answer of a %{parent} FAQ, so does not need to be replaced."
       answer_legacy: "This Global FAQ answer does not match the corresponding %{parent} answer, but the %{parent} answer <u>has never</u> been updated since creation."
       answer_updated: "This Global FAQ answer does not match the corresponding %{parent} answer, and the %{parent} answer <u>has</u> been updated since creation."
+  sync_faqs:
+    index:
+      title: "Sync Global %{type} FAQs to %{parent}"
+      select: "Select All %{type} FAQs"
+      deselect: "Deselect All %{type} FAQs"
+      submit: "Sync FAQs"
+      back: "Back"
+      parent_answer: "%{parent}"
+      global_answer: "Global"
+      compare: "Compare"
+      hide: "Hide"
+      no_match: "This Global FAQ title does not match the title of any %{parent} FAQ."
+      exact_match: "This Global FAQ exactly matches the title and answer of a %{parent} FAQ, so does not need to be replaced."
+      answer_legacy: "This Global FAQ answer does not match the corresponding %{parent} answer, but the %{parent} answer <u>has never</u> been updated since creation."
+      answer_updated: "This Global FAQ answer does not match the corresponding %{parent} answer, and the %{parent} answer <u>has</u> been updated since creation."
 
   videos:
     new:
