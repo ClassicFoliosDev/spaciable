@@ -1,3 +1,4 @@
+// select all checkboxes in the specified category, excluding disabled ones
 $(document).on('click', '.category-select-all', function (event) {
   var category = $(this).data().category
   $(".faq_" + category).each(function() {
@@ -10,6 +11,7 @@ $(document).on('click', '.category-select-all', function (event) {
   })
 })
 
+// deselect all checkboxes in the specified category
 $(document).on('click', '.category-deselect-all', function (event) {
   var category = $(this).data().category
   $(".faq_" + category).each(function() {
@@ -20,6 +22,7 @@ $(document).on('click', '.category-deselect-all', function (event) {
   })
 })
 
+// select all checkboxes on form, excluding disabled ones
 $(document).on('click', '.select-all', function (event) {
   $(".faq-selector").each(function() {
     var faq = ($(this).find("input"))
@@ -31,6 +34,7 @@ $(document).on('click', '.select-all', function (event) {
   })
 })
 
+// deselect all checkboxes on form
 $(document).on('click', '.deselect-all', function (event) {
   $(".faq-selector").each(function() {
     var faq = ($(this).find("input"))
@@ -40,6 +44,7 @@ $(document).on('click', '.deselect-all', function (event) {
   })
 })
 
+// show the faq answer comparison div
 $(document).on('click', '.compare-btn', function (event) {
   event.preventDefault()
   var faq = $(this).data().id
@@ -48,6 +53,7 @@ $(document).on('click', '.compare-btn', function (event) {
   $(".hide_" + faq).show()
 })
 
+// hide the faq answer comparison div
 $(document).on('click', '.hide-btn', function (event) {
   event.preventDefault()
   var faq = $(this).data().id
@@ -55,3 +61,25 @@ $(document).on('click', '.hide-btn', function (event) {
   $(".hide_" + faq).hide()
   $(".compare_" + faq).show()
 })
+
+// check submit button status on checkbox click
+$(document).on('change', '.faq-collection input', function () {
+  enableDisableSubmit()
+})
+
+// check submit button status on button click
+$(document).on('click', '.faq-sync .btn, .sync-faqs-select-buttons .btn', function () {
+  enableDisableSubmit()
+})
+
+// enable the submit button if at least one checkbox is selected
+// if no checkboxes are selected then disable the submit button
+function enableDisableSubmit() {
+  $(".sync-faqs-btn")[0].disabled = true
+  $(".faq-selector input").each(function() {
+    if (this.checked) {
+      $(".sync-faqs-btn")[0].disabled = false
+      return false
+    }
+  })
+}

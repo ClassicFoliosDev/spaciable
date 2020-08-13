@@ -116,7 +116,7 @@
   }
 }
 
-.select-buttons {
+.sync-faqs-select-buttons {
   padding-bottom: $spacing-medium;
 
   .btn {
@@ -155,6 +155,15 @@
 
     .answer_updated {
       background-color: $faded-red;
+    }
+  }
+}
+
+.sync-faqs-btn {
+  &:disabled {
+    &:hover {
+      background-color: $primary-red-left;
+      color: $ui-white;
     }
   }
 }

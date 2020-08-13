@@ -15,7 +15,7 @@
 
 <h3 class="select-faqs">Select FAQs</h3>
 
-<div class="select-buttons">
+<div class="sync-faqs-select-buttons">
   <%= button_tag t(".select", type: @faq_type.name), class: "select-all btn" %>
   <%= button_tag t(".deselect", type: @faq_type.name), class: "deselect-all btn" %>
 </div>
@@ -70,7 +70,7 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), [@parent, :faqs, active_tab: @faq_type.id], class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary sync-faqs-btn" %>
+      <%= f.submit t(".submit"), disabled: true, class: "btn-form-submit btn-primary sync-faqs-btn" %>
     </div>
   </div>
 

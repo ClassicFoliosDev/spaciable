@@ -4,15 +4,15 @@ class SyncFaq
   include ActiveModel::Model
   include ActiveRecord::AttributeAssignment
 
-  attr_accessor :parent_id, :parent_type, :faqs
+  attr_accessor :faqs
 
   def self.sync_parent_faqs(faq_id, parent)
     faq = DefaultFaq.find_by(id: faq_id)
 
-    # if the faq (title) exists for the parent then update
+    # if the global faq (title) exists for the parent then update the parent faq answer
     # otherwise create a new faq for the parent
     if (pfaq = Faq.find_by(faqable: parent, question: faq.question))
-      pfaq.update_attribute(:answer, faq.answer)
+      pfaq.update_attributes(answer: faq.answer)
     else
       Faq.create(question: faq.question,
                  answer: faq.answer,
