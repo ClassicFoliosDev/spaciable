@@ -83,3 +83,47 @@ function enableDisableSubmit() {
     }
   })
 }
+
+$(document).on('click', '.sync-faqs-btn', function (event) {
+  event.preventDefault()
+  var form = $(this).closest('form')
+  var dataIn = $(this).data()
+  var text = syncConfirmText(dataIn.parent)
+  var $dialogContainer = $('<div>', { id: 'dialog' }).html('<p>' + text + '</p>')
+
+  $body.append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    width: '500px',
+    modal: true,
+    dialogClass: 'submit-dialog',
+    title: dataIn.header,
+    buttons: [
+      {
+        text: "Cancel",
+        class: 'btn-cancel',
+        click: function () {
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
+        }
+      },
+      {
+        text: "Confirm",
+        class: 'btn-confirm',
+        id: 'btn_confirm',
+        click: function () {
+          $('.btn-confirm').button('disable')
+          $('.btn-cancel').button('disable')
+          form.submit(); // Form submission
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+})
+
+function syncConfirmText(parent) {
+  var create = $(".no_match input:checked").length
+  var update = $(".answer_legacy input:checked").length + $(".answer_updated input:checked").length
+
+  return "Are you sure you want to create " + create + " and update " + update + " " + parent + " FAQs?"
+}

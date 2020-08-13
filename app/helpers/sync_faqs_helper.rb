@@ -7,7 +7,7 @@ module SyncFaqsHelper
 
   def sync_faq_status(faq, parent_faqs)
     pfaq = parent_faq(faq, parent_faqs)
-    return unless pfaq
+    return :no_match unless pfaq
 
     faq_match_type(faq, pfaq)
   end

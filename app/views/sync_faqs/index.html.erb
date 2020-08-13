@@ -70,7 +70,12 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), [@parent, :faqs, active_tab: @faq_type.id], class: "btn" %>
-      <%= f.submit t(".submit"), disabled: true, class: "btn-form-submit btn-primary sync-faqs-btn" %>
+
+      <%= button_tag t(".submit"), type: 'button',
+                                   disabled: true,
+                                   class: "btn-form-submit btn-primary sync-faqs-btn",
+                                   data: { header: t(".confirm_header", parent: @parent),
+                                           parent: @parent.to_s } %>
     </div>
   </div>
 
