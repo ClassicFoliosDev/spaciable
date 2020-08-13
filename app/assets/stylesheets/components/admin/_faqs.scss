@@ -38,13 +38,16 @@
   .faq-comparison {
     padding: $spacing-small;
     display: none;
+    width: 100%;
 
     .pfaq-answer {
       display: table-cell;
+      width: 50%;
     }
 
     .gfaq-answer {
       display: table-cell;
+      width: 50%;
     }
 
     .faq-answer {

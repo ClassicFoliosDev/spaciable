@@ -21,7 +21,9 @@
 </div>
 
 <%= simple_form_for SyncFaq.new, remote: true, url: sync_faqs_path do |f| %>
-  <%= f.hidden_field :parent, value: @parent %>
+  <%= f.hidden_field :parent_id, value: @parent.id %>
+  <%= f.hidden_field :parent_type, value: @parent.class.name %>
+
   <div class="faq-sync">
     <div class="faq-collection row">
       <% @grouped_faqs.each do |cat, faqs| %>
@@ -63,12 +65,13 @@
       <% end %>
     </div>
   </div>
+
   <%= f.submit "Submit", class: "btn-form-submit btn-primary" %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), [@parent, :faqs, active_tab: @faq_type.id], class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary sync-faqs-btn" %>
     </div>
   </div>
 <% end %>
