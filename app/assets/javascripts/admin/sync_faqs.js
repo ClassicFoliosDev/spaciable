@@ -131,12 +131,12 @@ function syncConfirmText(parent) {
 
 document.addEventListener('turbolinks:load', function () {
   if( $(".info_answer_updated").length ) {
-    $(".info_answer_updated").attr("title", "Local FAQ has been updated/modified since creation. Check this FAQ to overwrite local version with global version.")
+    $(".info_answer_updated").attr("title", "Local FAQ has been updated/modified since creation. Select this FAQ to overwrite local answer with global answer.")
   }
   if( $(".info_no_match").length ) {
-    $(".info_no_match").attr("title", "No local match. Check this FAQ to import it (creates new local FAQ).")
+    $(".info_no_match").attr("title", "No local match. Select this FAQ to import it (creates new local FAQ).")
   }
   if( $(".info_answer_legacy").length ) {
-    $(".info_answer_legacy").attr("title", "Local FAQ has never been updated. Check this FAQ to overwrite local version with global version.")
+    $(".info_answer_legacy").attr("title", "Local FAQ has never been updated. Select this FAQ to overwrite local answer with global answer.")
   }
 })
