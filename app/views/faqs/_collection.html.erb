@@ -6,6 +6,9 @@
       <% if can_create(Faq, parent) %>
         <% unless parent.expired? && !(current_user.cf_admin?) %>
           <%= link_to t(".add", type: type.name), [:new, parent, Faq.name.underscore.to_sym, active_tab: type.id], class: "btn btn-primary" %>
+          <% if current_user.cf_admin? %>
+            <%= link_to t(".import", type: type.name), [parent, :sync_faqs, active_tab: type.id], class: "btn btn-primary" %>
+          <% end %>
         <% end %>
       <% else %>
         <span><%= t("components.empty_list.request_add", type_names: type.name) %></span>

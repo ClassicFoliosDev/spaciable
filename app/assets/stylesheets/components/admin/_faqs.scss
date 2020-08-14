@@ -35,6 +35,22 @@
     }
   }
 
+  .sync_info {
+    display: inline-block;
+    float: right;
+    margin-right: $spacing-small;
+    margin-top: 2px;
+
+    .fa {
+      font-weight: normal;
+      font-size: $base-small-font-size;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
   .faq-comparison {
     padding: $spacing-small;
     display: none;
@@ -168,5 +184,11 @@
       background-color: $primary-red-left;
       color: $ui-white;
     }
+  }
+}
+
+.faq-answer {
+  ul, ol {
+    padding-left: $spacing-small + 6px;
   }
 }

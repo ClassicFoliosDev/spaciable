@@ -49,14 +49,19 @@
                 <div class="faq-comparison faq_compare_<%= faq.object.id %>">
                   <div class="pfaq-answer">
                     <h3 class="answer"><%= t(".parent_answer", parent: @parent) %></h3>
-                    <div class="faq-answer"><%= raw pfaq.answer %></div>
+                    <div class="faq-answer"><%= raw(pfaq.answer) %></div>
                   </div>
                   <div class="gfaq-answer">
                     <h3 class="answer"><%= t(".global_answer") %></h3>
-                    <div class="faq-answer"><%= raw gfaq.answer %></div>
+                    <div class="faq-answer"><%= raw(gfaq.answer) %></div>
                   </div>
                 </div>
               <% end %>
+            <% end %>
+            <% unless sync_faq_status(gfaq, @parent_faqs) == :exact_match %>
+              <span class="sync_info">
+                <i class="fa fa-question-circle-o info_<%= sync_faq_status(gfaq, @parent_faqs) %>"></i>
+              </span>
             <% end %>
           </div>
         <% end %>
@@ -64,8 +69,6 @@
       <% end %>
     </div>
   </div>
-
-  <%= f.submit "Submit", class: "btn-form-submit btn-primary" %>
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
