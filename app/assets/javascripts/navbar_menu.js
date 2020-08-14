@@ -24,6 +24,7 @@
     if ($(window).innerWidth() < 1025) {
       // change the account navigation icon
       var arrow = document.querySelector("#upDownArrow")
+      if (arrow == null) { return }
       arrow.classList = "fa fa-user-circle-o"
       // set the dropdown width to 100%
       $("#navList").css("width", "100%")

@@ -1,7 +1,20 @@
 <%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
 
-<p style="font-weight: 600;">
-  <%= @content %>
 
-  <%= link_to "Event", @link, class: "btn" %>
-</p>
+<p>Hi,</p>
+
+<p>The following appointment for plot <%= @plot.number %> at <%= @plot.development_name%> has been <%= @resource.status %> by <%= @resource.resourceable %></p>
+
+<p>Title: <% @event.title %></p>
+<% if @event.location? %>
+<p>Location: <%= @event.location %></p>
+<% end %>
+<p>Start Time: <%= @event.start %></p>
+<p>End Time: <%= @event.end %></p>
+
+<% if @resource.reproposed? %>
+<p>Reproposed Start Time: <%= @resource.proposed_start %></p>
+<p>Reproposed End Time: <%= @resource.proposed_end %></p>
+<% end %>
+
+<%= link_to "Go To Appointment", @link, class: "btn" %></p>

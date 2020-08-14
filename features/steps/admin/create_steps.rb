@@ -249,6 +249,11 @@ Given(/^there is a phase plot with a resident$/) do
   CreateFixture.create_resident_under_a_phase_plot
 end
 
+Given(/^there is a phase plot with residents$/) do
+  CreateFixture.create_residents_under_a_phase_plot([CreateFixture.resident_email,
+                                                     CreateFixture.tenant_email])
+end
+
 Given(/^there is a phase plot resident$/) do
   CreateFixture.create_resident_and_phase
 end

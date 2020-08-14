@@ -151,6 +151,7 @@ When(/^I add a new (.*) user$/) do |role|
     fill_in "user[email]", with: attrs[:email_address]
   end
 
+
   select_from_selectmenu :user_role, with: attrs[:role]
   select_from_selectmenu :user_developer_id, with: attrs[:developer]
   select_from_selectmenu :user_division_id, with: attrs[:division] if attrs[:division]
@@ -399,7 +400,7 @@ When(/^I edit the developer details$/) do
 end
 
 Then(/^I can set the primary developer admin$/) do
-  select_from_selectmenu :developer_prime_lettings_admin, 
+  select_from_selectmenu :developer_prime_lettings_admin,
                          with: LettingsFixture.developer_admins.first.to_s
   click_on t("admin.users.form.submit")
 end
@@ -409,7 +410,7 @@ When(/^I edit the division details$/) do
 end
 
 Then(/^I can set the primary division admin$/) do
-  select_from_selectmenu :division_prime_lettings_admin, 
+  select_from_selectmenu :division_prime_lettings_admin,
                          with: LettingsFixture.division_admins.second.to_s
   click_on t("admin.users.form.submit")
 end
@@ -450,7 +451,7 @@ Then(/^I cannot enable my developer development users to perform lettings$/) do
 
   find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.developer_development_admins.first.id}/edit']").click
   expect(page).to have_content t("admin.users.form.administer_branch")
-  expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)  
+  expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)
 end
 
 When(/^I log in as the primary division admin$/) do
@@ -489,7 +490,7 @@ Then(/^I cannot enable my division development users to perform lettings$/) do
 
   find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.division_development_admins.first.id}/edit']").click
   expect(page).to have_content t("admin.users.form.administer_branch")
-  expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)  
+  expect(page).to have_field('branch_admin_check', type: 'checkbox', disabled: true)
 end
 
 When(/the developer has CAS (.*)$/) do |status|

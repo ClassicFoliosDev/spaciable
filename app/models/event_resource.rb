@@ -14,9 +14,11 @@ class EventResource < ApplicationRecord
     reproposed
   ]
 
+  # rubocop:disable SkipsModelValidations
   def check_status
     return unless status_changed? || proposed_start_changed? || proposed_end_changed?
 
     update_column(:status_updated_at, Time.zone.now)
   end
+  # rubocop:enable SkipsModelValidations
 end

@@ -42,7 +42,8 @@ module PlotTabsHelper
       },
       calendar: {
         icon: "calendar", link: [plot, active_tab: :calendar],
-        permissions_on: -> { plot }
+        permissions_on: -> { plot },
+        hide: !plot.development_calendar
       }
     }
   end

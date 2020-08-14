@@ -170,7 +170,7 @@ Then(/^I can associate plots with the choice configuration$/) do
     # edit it
     find("[data-action='edit']").click
   end
-  
+
   expect(page).to have_content(CreateFixture.phase_name)
   # We  really want to use 'Select All' but the 'chosen' javascript doesn't seem to work inside capybara
   # Have to go through and set all options - this will confirm that all the required plots are there

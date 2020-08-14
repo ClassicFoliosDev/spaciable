@@ -1216,6 +1216,8 @@ en:
       premium_licences_remaining: "Premium Licences Remaining"
       construction: "Construction Type"
       construction_name: "Replace My 'Home':"
+      calendar: "Calendar"
+      calendar_description: "Enable Plot Calendars for this Development"
     index:
       add: "Add Development"
     development:
@@ -3646,7 +3648,7 @@ en:
     declined: "Decline"
     changed: "Change"
     save_change: "Save"
-    accept_proposal: "Update Time"
+    accept_proposal: "Accept Proposal"
 
     repeat:
       never: "Does not repeat"

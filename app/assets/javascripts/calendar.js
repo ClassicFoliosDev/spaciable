@@ -53,7 +53,7 @@ var admin = {
         selectHelper: true,
         eventClick: function(event, jsEvent, view) {
             event.new = false
-            if (!event.hasOwnProperty('editable')) { event.editable = true }
+            if (!event.hasOwnProperty('writable')) { event.writable = true }
             admin.updateEvent(event, dataIn)
         },
         eventTimeFormat: 'H:mm',
@@ -132,7 +132,7 @@ var admin = {
            location: "",
            title: "",
            new: true,
-           editable: true,
+           writable: true,
            repeater: false,
            master_id: null
          }
@@ -140,12 +140,12 @@ var admin = {
     admin.addEvent(event, dataIn)
   },
 
-  addEvent(event, dataIn)
+  addEvent: function(event, dataIn)
   {
    admin.showEvent(event, dataIn)
   },
 
-  updateEvent(event, dataIn)
+  updateEvent: function(event, dataIn)
   {
     admin.showEvent(event, dataIn)
   },
@@ -167,8 +167,8 @@ var admin = {
       }
     ]
 
-    // If it is editable add the confirmation button
-    if (event.editable) {
+    // If it is writable add the confirmation button
+    if (event.writable) {
       buttons.push(
       {
         text: (event.new ? "Add" : "Update"),
@@ -178,7 +178,7 @@ var admin = {
           $eventContainer.hide()
 
           if (event.repeater) {
-            admin.confirm(event, dataIn, $(this))
+            admin.confirm(event, dataIn, $(this), true)
           }
           else {
             $(this).dialog('destroy')
@@ -232,13 +232,17 @@ var admin = {
 
     $('#event_id').val(event.id)
     $('#event_master_id').val(event.master_id)
-    $('#event_title').val(event.title).prop("disabled", !event.editable);
-    $('#event_location').val(event.location).prop("disabled", !event.editable);
+    $('#event_title').val(event.title).prop("disabled", !event.writable);
+    $('#event_location').val(event.location).prop("disabled", !event.writable);
 
     e_start_date.setDate(event.start.toDate())
     e_start_time.setDate(event.start.toDate())
     e_end_time.setDate(event.end.toDate())
     e_end_date.setDate(event.end.toDate())
+    $('#event_start_date').next().prop("disabled", !event.writable)
+    $('#event_start_time').next().prop("disabled", !event.writable)
+    $('#event_end_date').next().prop("disabled", !event.writable)
+    $('#event_end_time').next().prop("disabled", !event.writable)
 
     if (event.hasOwnProperty('repeat_until') &&
         event.repeat_until != null) {
@@ -247,6 +251,7 @@ var admin = {
     else {
       e_repeat_until.setDate(moment().add(1, 'M').toDate())
     }
+    $('#event_repeat_until').next().prop("disabled", !event.writable)
 
     admin.populateResidents(event)
 
@@ -259,15 +264,19 @@ var admin = {
     var control = $('#event_repeat-menu li:contains(' + opt + ')')
     control.trigger( "mouseover" )
     control.trigger( "click" )
+    admin.disablePulldown($('#event_repeat-button'), !event.writable)
+
+    $('#event_repeat-button').prop("disabled", !event.writable);
 
     $('.event_reminder > span > span.ui-selectmenu-text').trigger( "click" )
     opt = $('#event_reminder [value=' + (event.hasOwnProperty('reminder') ? event.reminder : "nix") + ']').text()
     control = $('#event_reminder-menu li:contains(' + opt + ')')
     control.trigger( "mouseover" )
     control.trigger( "click" )
+    admin.disablePulldown($('#event_reminder-button'), !event.writable)
   },
 
-  populateResidents(event) {
+  populateResidents: function(event) {
 
     // clear out any resident selections
     $("#residents input[type='checkbox']").each(function() {
@@ -279,12 +288,9 @@ var admin = {
     // set checked for associated event residents
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
-        $("#event_residents_" + resource['resourceable_id']).parent().children("input[type='checkbox']").trigger('click')
-
-        // remove all styling classes (otherwise they inherit across events)
-        $("#event_residents_" + resource['resourceable_id']).closest("span").removeClass("accepted declined invited reproposed")
-        // re-apply styling class for this event
-        $("#event_residents_" + resource['resourceable_id']).closest("span").addClass(resource.status)
+        resident = admin.resident(resource['resourceable_id'])
+        resident.parent().children("input[type='checkbox']").trigger('click')
+        admin.setResidentStatus(resident, resource.status)
       });
     }
 
@@ -292,22 +298,54 @@ var admin = {
     $("#residents span").each(function () {
       $(this).children(".btn").remove()
 
-      // add invite/uninvite buttons
-      if($(this).hasClass("checked")) {
-        $(this).append("<button class='btn uninvite-resident-btn'>Remove</button>")
-      } else {
-        $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+      if (event.writable) {
+        // add invite/uninvite buttons
+        if($(this).hasClass("checked")) {
+          $(this).append("<button class='btn uninvite-resident-btn'>Remove</button>")
+        } else {
+          $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+        }
       }
 
       // add time button if event datetime has been reproposed
       if($(this).hasClass("reproposed")) {
-        $(this).append("<button class='btn fa fa-clock-o view-proposed-datetime'></button>")
+        $(this).append("<button class='btn fa fa-clock-o view-proposed-datetime' data-resident=" + $(this).find('input').val() + "></button>")
       }
     })
+
+    $('.view-proposed-datetime').click(function(e) {
+      e.preventDefault()
+      for (var i = 0; i < currentEvent.resources.length; i++) {
+        if ($(this).data('resident') == currentEvent.resources[i]['resourceable_id']) {
+          admin.showProposed(currentEvent.resources[i])
+        }
+      }
+    })
+    if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
+  },
+
+  setResidentStatus: function(resident, status){
+    // remove all styling classes (otherwise they inherit across events)
+    resident.closest("span").removeClass("accepted declined invited reproposed")
+    // re-apply styling class for this event
+    resident.closest("span").addClass(status)
+  },
+
+  resident: function(id){
+    return $("#event_residents_" + id)
+  },
+
+  disablePulldown: function(pulldown, disable) {
+    var classes = "ui-selectmenu-disabled ui-state-disabled"
+    if (disable) {
+      pulldown.addClass(classes)
+    } else {
+      pulldown.removeClass(classes)
+    }
   },
 
   // Show the relevant confirmation dialog
-  confirm: function(event, dataIn, parent, edit=true){
+  confirm: function(event, dataIn, parent, edit){
 
     parent.dialog('close') // close the parent
 
@@ -371,7 +409,8 @@ var admin = {
     })
 
     if ($('#event_repeat').val() == event.repeat &&
-        $('#event_repeat_until').val() == event.repeat_until) {
+        moment(event.repeat_until).local().format() ==
+        moment($('#event_repeat_until').val()).local().format()) {
       $('#this_event').prop('checked', true)
     } else {
       $('#this_and_following').prop('checked', true)
@@ -470,8 +509,37 @@ var admin = {
     } else {
       $(".event_end_date, .event_start_date").removeClass("invalid")
     }
+  },
+
+  showProposed: function(resource){
+    $(".proposed_datetime").show()
+    $(".proposed_datetime").data('proposer', resource.resourceable_id)
+
+    p_start = moment(resource.proposed_start)
+    p_end = moment(resource.proposed_end)
+    $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
+    $('#proposed_start_time').text(p_start.local().format('h:mm A'))
+    $('#proposed_end_time').text(p_end.local().format('h:mm A'))
+    $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
+
+    // if the reproposed datetime is approve then update the event datetime,
+    $("#accept_reschedule").click(function() {
+      admin.acceptReschedule()
+    })
+  },
+
+  acceptReschedule: function() {
+    e_start_date.setDate(p_start.toDate())
+    e_start_time.setDate(p_start.toDate())
+    e_end_time.setDate(p_end.toDate())
+    e_end_date.setDate(p_end.toDate())
+    $(".proposed_datetime").hide()
+    proposer = $(".proposed_datetime").data('proposer')
+    admin.setResidentStatus(admin.resident(proposer), 'invited')
+    $("button[data-resident='" + proposer + "']").remove()
   }
 }
+
 
 // check checkbox on click invite button
 $(document).on('click', '.invite-resident-btn', function(event) {
@@ -491,28 +559,6 @@ $(document).on('click', '.uninvite-resident-btn', function(event) {
 $(document).on('click', '.resident-label label', function(event) {
   event.preventDefault()
 })
-
-//// show the proposed datetime change
-//$(document).on('click', '.view-proposed-datetime', function(event) {
-//  event.preventDefault()
-//  $(".proposed_datetime").show()
-//  console.log(event)
-//
-//  p_start = moment(resource.proposed_start)
-//  p_end = moment(resource.proposed_end)
-//  $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
-//  $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
-//  $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
-//  $('#proposed_end_date').text(p_end.local().format('DD-MM-YYYY'))
-//
-//  // if the reproposed datetime is approve then update the event datetime,
-//  $("#accept_reschedule").click(function() {
-//    e_start_date.setDate(p_start.toDate())
-//    e_start_time.setDate(p_start.toDate())
-//    e_end_time.setDate(p_end.toDate())
-//    e_end_date.setDate(p_end.toDate())
-//  })
-//})
 
 $(document).on('turbolinks:load', admin.eventCalendar);
 $(document).on('turbolinks:before-cache', admin.clearCalendar)

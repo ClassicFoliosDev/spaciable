@@ -1,52 +1,59 @@
 # frozen_string_literal: true
 
 class EventNotificationMailer < ApplicationMailer
+  default from: "hello@spaciable.com", content_type: "multipart/alternative"
+
   def remind_sender(event)
-    @content = "Event alert"
-    admin_link(event)
-    mail to: event.userable.email, subject: "Sender Event Alert"
+    @plot = event.eventable if event.eventable.is_a? Plot
+    init_timezone(@plot)
+    @event = event
+    @link = admin_link(event)
+    mail to: event.email,
+         subject: "Calendar event at #{@plot&.development_name} " \
+                  "is happening #{ReminderEnum.reminder(@event.reminder)}"
   end
 
   def remind_resources(event)
     return if event.event_resources.empty?
 
-    @content = "Event alert"
-    @link = resource_link(event)
+    init(event)
     mail to: event.event_resources.map { |r| r.resourceable.email },
-         subject: "Homeowner Event Alert"
+         subject: "Calendar event at #{@plot&.development_name} " \
+                  "is happening #{ReminderEnum.reminder(@event.reminder)}"
   end
 
   def invite_resources(event, resource_ids)
     return if resource_ids&.empty?
 
-    @content = "Event invite"
-    @link = resource_link(event)
+    init(event)
     mail to: resource_emails(event, resource_ids),
-         subject: "Homeowner Event invite"
+         subject: "New calendar Event at #{@plot&.development_name}"
   end
 
   def update_resources(event, resource_ids)
     return if resource_ids&.empty?
 
-    @content = "Event update"
-    @link = resource_link(event)
+    init(event)
     mail to: resource_emails(event, resource_ids),
-         subject: "Homeowner Event update"
+         subject: "Calendar event updated at #{@plot&.development_name}"
   end
 
   def cancel(event, resource_ids)
     return if resource_ids&.empty?
 
-    @content = "Event cancelled"
+    init(event)
     mail to: resource_emails(event, resource_ids),
-         subject: "Homeowner Event cancellation"
+         subject: "Calendar event cancellation: #{@event&.title}"
   end
 
   def feedback(resource)
-    @content = "Event #{resource.status} by #{resource.resourceable}"
+    @resource = resource
+    @event = @resource.event
+    @plot = @event.eventable if @event.eventable.is_a? Plot
+    init_timezone(@plot)
     @link = admin_link(resource.event)
     mail to: resource.event.userable.email,
-         subject: "Event #{resource.status}"
+         subject: "Calendar event #{resource.status} by #{resource.resourceable}"
   end
 
   # Get the emails for the resources.  The event may
@@ -67,9 +74,20 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def admin_link(event)
-    plot_url(event.eventable.id,
+    plot_url(event.eventable_id,
              active_tab: "calendar",
              event: event.id)
   end
 
+  def init(event)
+    @plot = event.eventable if event.eventable.is_a? Plot
+    @event = event
+    @link = resource_link(event)
+    init_timezone(@plot)
+  end
+
+  def init_timezone(plot)
+    # This sets the time zone for the current thread only
+    Time.zone = plot.time_zone
+  end
 end

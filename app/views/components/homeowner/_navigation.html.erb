@@ -126,10 +126,13 @@
             <%= t('.faqs') %>
           </li>
         <% end %>
-        <%= link_to homeowner_calendar_path, active_tab: "faqs", class: "navbar-link" do %>
-          <li class="navbar-item">
-            <%= t('.calendar') %>
-          </li>
+
+        <% if plot.development_calendar %>
+          <%= link_to homeowner_calendar_path, active_tab: "faqs", class: "navbar-link" do %>
+            <li class="navbar-item">
+              <%= t('.calendar') %>
+            </li>
+          <% end %>
         <% end %>
 
         <% if plot.choices?(current_resident) && !plot.choices_approved? %>

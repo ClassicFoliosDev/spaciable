@@ -148,7 +148,7 @@ var homeowner = {
            location: "",
            title: "",
            new: true,
-           editable: true
+           writable: true
          }
 
     homeowner.showEvent(event, dataIn)
@@ -156,9 +156,9 @@ var homeowner = {
 
   populate: function(event){
     currentEvent = event
-    $('#event_id').val(event.id).prop("disabled", !event.editable);
-    $('#event_title').val(event.title).prop("disabled", !event.editable);
-    $('#event_location').val(event.location).prop("disabled", !event.editable);
+    $('#event_id').val(event.id).prop("disabled", !event.writable);
+    $('#event_title').val(event.title).prop("disabled", !event.writable);
+    $('#event_location').val(event.location).prop("disabled", !event.writable);
 
     p_start = moment(event.homeowner.proposed_start)
     p_end = moment(event.homeowner.proposed_end)
@@ -172,7 +172,7 @@ var homeowner = {
     e_end_time.setDate(event.end.toDate())
     e_end_date.setDate(event.end.toDate())
 
-    homeowner.disableDates(!event.editable)
+    homeowner.disableDates(!event.writable)
     homeowner.setResponses(event.homeowner.status)
   },
 
@@ -194,7 +194,7 @@ var homeowner = {
     ]
 
     // If it is confirmable add the confirmation button
-    if (event.editable) {
+    if (event.writable) {
       buttons.push(
       {
         text: confirm,
@@ -215,8 +215,8 @@ var homeowner = {
       })
     }
 
-    // If it is editable add the confirmation button
-    if (event.editable) {
+    // If it is writable add the confirmation button
+    if (event.writable) {
       buttons.push(
       {
         text: (event.new ? "Add" : "Update"),

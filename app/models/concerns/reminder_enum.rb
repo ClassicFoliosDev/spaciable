@@ -15,14 +15,27 @@ module ReminderEnum
 
   def remind(reminder, datetime)
     case reminder
-    when "at"
+    when :at.to_s
       datetime
-    when "hour"
+    when :hour.to_s
       datetime - 1.hour
-    when "day"
+    when :day.to_s
       datetime - 1.day
-    when "week"
+    when :week.to_s
       datetime - 1.week
+    end
+  end
+
+  def self.reminder(reminder)
+    case reminder
+    when :at.to_s
+      "immediately"
+    when :hour.to_s
+      "in one hour"
+    when :day.to_s
+      "in one day"
+    when :week.to_s
+      "in a week"
     end
   end
 end

@@ -47,6 +47,7 @@ class Developer < ApplicationRecord
   # on a Developer object and it will retrieve the associated country from the Country
   # table.
   belongs_to :country
+  delegate :time_zone, to: :country
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
 
