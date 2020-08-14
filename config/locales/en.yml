@@ -1159,6 +1159,8 @@ en:
       answer_legacy: "This Global FAQ answer does not match the corresponding %{parent} answer, but the %{parent} answer <u>has never</u> been updated since creation."
       answer_updated: "This Global FAQ answer does not match the corresponding %{parent} answer, and the %{parent} answer <u>has</u> been updated since creation."
       confirm_header: "Confirm FAQ Sync to %{parent}"
+    create:
+      notice: "%{count} FAQs imported to %{parent}"
 
   videos:
     new:

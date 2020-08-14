@@ -21,11 +21,13 @@ class SyncFaqsController < ApplicationController
   def create
     @faq_type = sync_faq_params[:faq_type]
 
-    sync_faq_params[:faqs].reject!(&:empty?).each do |f|
+    faqs = sync_faq_params[:faqs].reject(&:empty?)
+    faqs.each do |f|
       SyncFaq.sync_parent_faqs(f, @parent)
     end
 
-    redirect_to [@parent, :faqs, active_tab: @faq_type]
+    notice = I18n.t("sync_faqs.create.notice", count: faqs.size, parent: @parent)
+    redirect_to [@parent, :faqs, active_tab: @faq_type], notice: notice
   end
 
   private
