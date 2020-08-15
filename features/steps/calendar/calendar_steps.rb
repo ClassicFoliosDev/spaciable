@@ -468,20 +468,13 @@ def check_datetimes(event = CalendarFixture.event)
   # they just display as a date or a time to the user.  Remember to
   # ensure all in the correct timezone as calendar displays in
   # 'local' time
-  start = event.start.in_time_zone(timezone).change(:sec => 0)
-  expect(start).to eql(Time.parse(find('#event_start_date', visible:all).value)
-                           .in_time_zone(timezone).change(:sec => 0))
+  start = tz(event.start).change(:sec => 0)
+  expect(start).to eql(tz(Time.parse(find('#event_start_date', visible:all).value)).change(:sec => 0))
+  expect(start).to eql(tz(Time.parse(find('#event_start_time', visible:all).value)).change(:sec => 0))
 
-  expect(start).to eql(Time.parse(find('#event_start_time', visible:all).value)
-                           .in_time_zone(timezone).change(:sec => 0))
-
-  finish = event.end.in_time_zone(timezone).change(:sec => 0)
-  expect(finish).to eql(Time.parse(find('#event_end_date', visible:all).value)
-                           .in_time_zone(timezone).change(:sec => 0))
-
-  expect(finish).to eql(Time.parse(find('#event_end_time', visible:all).value)
-                           .in_time_zone(timezone).change(:sec => 0))
-
+  finish = tz(event.end).change(:sec => 0)
+  expect(finish).to eql(tz(Time.parse(find('#event_end_date', visible:all).value)).change(:sec => 0))
+  expect(finish).to eql(tz(Time.parse(find('#event_end_time', visible:all).value)).change(:sec => 0))
 end
 
 # Create an event in the first day on the calendar.  This allows us to know
