@@ -404,17 +404,17 @@ def check_homeowner_event(e = CalendarFixture.event, status: "invite")
 
   within find(".event_details_form", visible: all) do
     if status == "invite"
-      expect(page).to have_content(t("events.accepted"))
-      expect(page).to have_content(t("events.declined"))
-      expect(page).to have_content(t("events.changed"))
+      expect(find("#accept_event", visible: all).visible?).to eq(true)
+      expect(find("#decline_event", visible: all).visible?).to eq(true)
+      expect(find("#change_event", visible: all).visible?).to eq(true)
     elsif status == "accept"
-      expect(page).not_to have_content(t("events.accepted"))
-      expect(page).to have_content(t("events.declined"))
-      expect(page).to have_content(t("events.changed"))
+      expect(find("#accept_event", visible: all).visible?).to eq(false)
+      expect(find("#decline_event", visible: all).visible?).to eq(true)
+      expect(find("#change_event", visible: all).visible?).to eq(true)
     elsif status == "decline" || status == "change"
-      expect(page).not_to have_content(t("events.accepted"))
-      expect(page).not_to have_content(t("events.declined"))
-      expect(page).to have_content(t("events.changed"))
+      expect(find("#accept_event", visible: all).visible?).to eq(false)
+      expect(find("#decline_event", visible: all).visible?).to eq(false)
+      expect(find("#change_event", visible: all).visible?).to eq(true)
     end
   end
 
