@@ -8,20 +8,20 @@ class String
   #
   # It includes the "&" as an allowable character
   def parameterize_amp
-      parameterized_string = self.dup
+    parameterized_string = dup
 
-      # Turn unwanted chars into the separator.
-      parameterized_string.gsub!(/[^a-zA-Z0-9&\-_]+/, "-")
+    # Turn unwanted chars into the separator.
+    parameterized_string.gsub!(/[^a-zA-Z0-9&\-_]+/, "-")
 
-      re_duplicate_separator        = /-{2,}/
-      re_leading_trailing_separator = /^-|-$/
+    re_duplicate_separator        = /-{2,}/
+    re_leading_trailing_separator = /^-|-$/
 
-      # No more than one of the separator in a row.
-      parameterized_string.gsub!(re_duplicate_separator, "-")
-      # Remove leading/trailing separator.
-      parameterized_string.gsub!(re_leading_trailing_separator, "".freeze)
+    # No more than one of the separator in a row.
+    parameterized_string.gsub!(re_duplicate_separator, "-")
+    # Remove leading/trailing separator.
+    parameterized_string.gsub!(re_leading_trailing_separator, "")
 
-      parameterized_string.downcase!
-      parameterized_string
+    parameterized_string.downcase!
+    parameterized_string
   end
 end
