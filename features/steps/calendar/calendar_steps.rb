@@ -259,7 +259,7 @@ end
 Then (/^I can (.*) the event$/) do |status|
   open_event
   find("##{status}_event").trigger('click')
-  sleep 5
+  sleep 4
   open_event
   check_homeowner_event(status: status)
 end
