@@ -27,5 +27,8 @@ module Hoozzi
 
     # Load lib
     config.autoload_paths += %W(#{config.root}/lib)
+    # Load ext
+    config.autoload_paths += %W(#{config.root}/lib/ext)
+    require "ext/string"
   end
 end

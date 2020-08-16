@@ -32,8 +32,8 @@ RSpec.describe ResidentNotifierService do
       end
 
       it "should include a link to login" do
-        developer_name = developer_with_residents.company_name.parameterize
-        development_name = developer_with_residents.developments.first.name.parameterize
+        developer_name = developer_with_residents.company_name.parameterize_amp
+        development_name = developer_with_residents.developments.first.name.parameterize_amp
         login_url = "http://localhost/#{developer_name}/#{development_name}"
 
         subject.notify_residents

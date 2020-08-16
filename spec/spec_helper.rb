@@ -2,6 +2,7 @@
 
 require "pry"
 require "webmock/rspec"
+require "ext/string"
 
 $LOAD_PATH.unshift("app/errors")
 $LOAD_PATH.unshift("app/services")
