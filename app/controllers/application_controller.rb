@@ -55,7 +55,6 @@ class ApplicationController < ActionController::Base
     path << "/#{plot.division.to_s.parameterize_amp}" if plot.division
     path << "/#{plot.development.to_s.parameterize_amp}"
     path << "/sign_in"
-    byebug
   end
 
   def initialise_callback
