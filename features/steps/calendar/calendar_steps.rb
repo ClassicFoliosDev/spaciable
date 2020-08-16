@@ -29,7 +29,7 @@ When (/^I can add a calendar event using the Add Event button$/) do
 
   populate_event
   click_on "Add"
-  sleep 3
+  sleep 5
   check_event
 end
 
@@ -42,7 +42,7 @@ Then (/^I can update a calendar event$/) do
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
   populate_event
   click_on "Update"
-  sleep 3
+  sleep 5
   check_event
 end
 
@@ -72,7 +72,7 @@ Then (/^I can create an event by clicking on the calendar$/) do
   CalendarFixture.event.end = nil # auto populated to 12:15am
   populate_event
   click_on "Add"
-  sleep 3
+  sleep 5
 
   CalendarFixture.event.start = (CalendarFixture.now-24.hours).change(:hour => 0)
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
@@ -98,7 +98,7 @@ Then (/^I can add a (.*)repeating calendar event$/) do |repeat|
   create_event_for_first_day
   populate_event
   click_on "Add"
-  sleep 4
+  sleep 5
   check_events(((last_date_time - first_date_time) / 86400) + 1)
 
   # repeat until is changed by following delete/edit tests
@@ -132,7 +132,7 @@ Then (/^I can update and delete a single calendar event$/) do
     find(".btn.delete-btn").trigger('click')
   end
   click_on "Confirm" # default 'this event only'
-  sleep 2
+  sleep 5
 
   num_events = Event.all.count
   expect(num_events).to eq(prev_num_events - 1)
@@ -163,7 +163,7 @@ Then (/^I can update and delete this and following calendar events$/) do
   click_on "Update"
   page.choose("this_and_following")
   click_on "Confirm" # this and following
-  sleep 2
+  sleep 5
   expect(events.count).to eq(CalendarFixture::MONTHVIEWDAYS - updating_day)
 
   # this and following creates a new sequence
@@ -174,7 +174,7 @@ Then (/^I can update and delete this and following calendar events$/) do
   end
   page.choose("this_and_following")
   click_on "Confirm" # default 'this event only'
-  sleep 2
+  sleep 5
   # check only 2 left
   expect(events.count).to eq(deleteoccurance)
 
@@ -203,7 +203,7 @@ Then (/^I can update and delete all events$/) do
   click_on "Update"
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 2
+  sleep 5
 
   expect(events.count).to eq(num_events)
 
@@ -216,7 +216,7 @@ Then (/^I can update and delete all events$/) do
   end
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 2
+  sleep 5
   # check all gone
   expect(events.count).to eq(0)
 
@@ -233,7 +233,7 @@ Then (/^I can update to (.*) repeating$/) do |repeat|
   click_on "Update"
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  sleep 5
 
   expect(events.count).to eq((CalendarFixture::MONTHVIEWDAYS.days / CalendarFixture.event.repeat_interval(repeat).to_f).ceil)
 end
@@ -259,7 +259,7 @@ end
 Then (/^I can (.*) the event$/) do |status|
   open_event
   find("##{status}_event").trigger('click')
-  sleep 3
+  sleep 5
   open_event
   check_homeowner_event(status: status)
 end
@@ -273,7 +273,7 @@ Then (/^I can propose an amendment to the date and time$/) do
 
   populate_event(repropose)
   click_on "Save"
-  sleep 3
+  sleep 5
   open_event
   check_homeowner_event(status: "change")
 end
@@ -296,7 +296,7 @@ Then (/^I can accept the reproposed date and time$/) do
   expect(find(:xpath, "//label[contains(@class, 'resident-label')][contains(@for,'event_residents_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("checked invited")
 
   click_on "Update"
-  sleep 3
+  sleep 5
 
   CalendarFixture.event.start = CalendarFixture.reproposed_start
   CalendarFixture.event.end = CalendarFixture.reproposed_end
