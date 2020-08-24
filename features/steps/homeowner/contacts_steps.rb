@@ -19,7 +19,8 @@ Then(/^I should see the contacts for my plot$/) do
     click_on(t("activerecord.attributes.contact.categories.management"))
   end
 
-  sleep 0.3
+  find(:xpath,"//a[@class='active']/li[contains(text(),'Management')]")
+
   # Created two contacts in Management category
   within ".full-contacts" do
     contacts = page.all(".contact")

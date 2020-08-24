@@ -58,6 +58,20 @@ $(document).on('mouseout', '#roomBelongsHelp', function (event) {
   questionMouseOut($(this))
 })
 
+// plots
+
+$(document).on('click', '#plotStatusHelp', function (event) {
+  plotStatusHelp()
+})
+
+$(document).on('mouseover', '#plotStatusHelp', function (event) {
+  questionMouseOver($(this))
+})
+
+$(document).on('mouseout', '#plotStatusHelp', function (event) {
+  questionMouseOut($(this))
+})
+
 // FUNCTIONS
 
 function questionMouseOver(question) {
@@ -186,6 +200,47 @@ function restrictedHelp() {
         click: function () {
           $(this).dialog('destroy')
           $(".unit-restricted-help").hide()
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+}
+
+function plotStatusHelp() {
+  var $statusHelpContainer = $('<div>', { class: 'plot-status-help' })
+  .html(
+    '<div>' +
+      '<p>' +
+        'A green circle in this column indicates that the completion information has been populated by Classic Folios.' +
+      '</p>' +
+    '</div>' +
+    '<div>' +
+      '<p>' +
+        'If your package includes the ability for admins to configure finishes and appliances, then the green circle also signifies that you are able to edit that plot.' +
+      '</p>' +
+    '</div>' +
+    '<div>' +
+      '<p>' +
+        'A red circle in this column indicates that the plot has expired. This means that residents will not see any new documents or notifications, ' +
+        'but they do not lose access to the portal. To renew plot(s), please contact your Classic Folios Account Manager.' +
+      '</p>' +
+    '</div>'
+  )
+
+  $('body').append($statusHelpContainer)
+
+  $statusHelpContainer.dialog({
+    show: 'show',
+    modal: true,
+    width: 700,
+    title: "Completion Information Added",
+
+    buttons: [
+      {
+        text: "Back",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $(".plot-status-help").hide()
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button

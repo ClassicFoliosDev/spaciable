@@ -188,7 +188,7 @@ Then(/^I should not see default faqs for the developer$/) do
     find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
 
     within ".empty" do
-      expect(page).to have_content "You have no FAQs"
+      expect(page).to have_content t("faqs.collection.empty_list", type: faq_type.name)
     end
   end
 end
@@ -261,7 +261,7 @@ Then(/^I should see no faqs for the development$/) do
     find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
 
     within ".empty" do
-      expect(page).to have_content "You have no FAQs"
+      expect(page).to have_content t("faqs.collection.empty_list", type: faq_type.name)
     end
   end
 end

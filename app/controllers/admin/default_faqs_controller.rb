@@ -13,6 +13,11 @@ module Admin
       @faq_type = (FaqType.find(active_tab) if index_params[:active_tab]) ||
                   FaqType.default(Country.find(index_params[:country]))
       @faqs = paginate(sort(DefaultFaq.of_type(@faq_type)))
+
+      # FAQ relies on active_tab and country query parameters.  The
+      # sort and paginate callbacks need to supply these in order for
+      # the current page selections to be maintained.
+      @qp = index_params.to_h
     end
 
     def new

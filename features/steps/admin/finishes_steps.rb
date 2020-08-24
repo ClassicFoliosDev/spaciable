@@ -80,7 +80,7 @@ When(/^I update the finish$/) do
                 visible: false)
   end
 
-  click_on t("rooms.form.submit")
+  submit_confirm
 end
 
 Then(/^I should see the updated finish$/) do
@@ -119,7 +119,7 @@ When(/^I remove an image from a finish$/) do
     remove_btn.trigger("click")
   end
 
-  click_on t("unit_types.form.submit")
+  submit_confirm
 end
 
 Then(/^I should see the updated finish without the image$/) do
@@ -146,6 +146,16 @@ end
 When(/^I delete the finish$/) do
   visit "/finishes"
   delete_and_confirm! scope: find(:xpath, ".//tr[td//text()[contains(., '#{CreateFixture.finish_name}')]]")
+end
+
+When(/^I cannot delete the finish$/) do
+  visit "/finishes"
+  finish_scope = find(:xpath, ".//tr[td//text()[contains(., '#{CreateFixture.finish_name}')]]")
+  within finish_scope do
+    find(".info-btn").trigger(:click)
+  end
+  expect(page).to have_content(t("finishes.collection.cannot_delete", finish: CreateFixture.finish_name))
+  click_on t("back")
 end
 
 Then(/^I should see the finish deletion complete successfully$/) do

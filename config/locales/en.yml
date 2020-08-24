@@ -1090,6 +1090,8 @@ en:
         add: "Add %{type} FAQ"
         faq: "FAQ"
         last_edited: "Last Edited"
+        empty: "You have no default %{type} FAQs"
+        confirm_delete: Are you sure you wish to delete this %{type} FAQ?
       show:
         title: "%{parent}"
         type: "Type"
@@ -1097,7 +1099,7 @@ en:
       edit:
         title: "%{parent}"
       new:
-        title: "%{parent}"
+        title: "New %{parent} FAQ"
       form:
         submit: "Submit"
         category: "Category"
@@ -1124,6 +1126,8 @@ en:
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
       faq: "%{type} FAQ"
+      empty_list: "You have no %{type} FAQs"
+      confirm_delete: Are you sure you wish to delete this %{type} FAQ?
     edit:
       title: "%{parent}"
       back: "Back"
@@ -1135,7 +1139,7 @@ en:
     index:
       title: "FAQs"
     new:
-      title: "New FAQ."
+      title: "New %{type} FAQ."
       expired: "Some plots on %{parent} have expired. New FAQs will not be visible to expired plots."
     show:
       title: "%{parent}"
@@ -1636,6 +1640,7 @@ en:
           button: "Find Out More"
           activated_button: "Login to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
+          error: "Currently unavailable. Please try again later."
 
     communication_preferences:
       show:
@@ -2047,6 +2052,8 @@ en:
         accept_ts_and_cs: "Accept terms and conditions"
         policy_instructions_required: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Login'"
         policy_instructions: "%{href1} and %{href2}"
+        homeowner_login: "User Login"
+        admin_login: "Admin Login"
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
         ts_and_cs_required: "Please review and accept the terms and conditions before you log in. The terms and conditions might have changed since your last review."
@@ -2447,7 +2454,6 @@ en:
       notify: "Notify subscribed residents about this change"
       update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
 
-
     index:
       title: "%{parent_name} Plots"
     new:
@@ -2463,6 +2469,7 @@ en:
       documents: "Documents"
       residents: "Residents"
       unit_type: "Unit Type"
+      date_c: "Status"
       choices: "Choices"
       name: "Plot"
       logs: "Change Logs"
@@ -2480,7 +2487,7 @@ en:
         postcode: "Address Line 6"
       progress: "Build Progress"
       completion: "Completion"
-      activation: "Activated Residents"
+      activation: "Activated"
       activated: "%{activated} of %{all}"
       not_released: "Plot %{plot} has not been released"
     show:
@@ -2627,6 +2634,7 @@ en:
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
+     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this appliance would remove it from all plots."
 
    new:
      title: "New Appliance."
@@ -2655,6 +2663,7 @@ en:
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
+     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and unit types containing this appliance."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -2749,6 +2758,7 @@ en:
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
+      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this finish would remove it from all plots."
     new:
       title: "New Finish."
     form:
@@ -2766,6 +2776,7 @@ en:
       category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
       type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
       manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
+      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and unit types containing this finish."
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -3022,9 +3033,10 @@ en:
       subject: "Spaciable Activation Report"
       hello: "Hi %{name},"
       report: "This is your weekly Spaciable activation report."
-      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
-                leaving %{inactive} residents having not accepted the invitation email."
-      inactive: "Below is a list of residents who are yet to activate."
+      summary: "In the last week, %{invitations} residents were invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents who have not accepted the invitation email."
+      inactive: "To ensure you and your customers get the most out of your investment in Spaciable, please see below the customers who need a gentle reminder to accept their invitation."
+      inactive_2: "Don't forget: once they have activated, your customers will gain access to valuable, timesaving information, designed to support their journey and help them enjoy their new home. They'll also receive essential communications that you send through the portal."
       login: "Login to Spaciable: "
       unsubscribe: "Don't wish to receive a weekly resident activation report? You can update your preferences in your Spaciable profile."
 
