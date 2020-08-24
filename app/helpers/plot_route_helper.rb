@@ -19,12 +19,6 @@ module PlotRouteHelper
   end
 
   def build_path(plot)
-    path = root_url
-
-    path << plot.developer.to_s.parameterize_amp
-    path << "/#{plot.division.to_s.parameterize_amp}" if plot.division
-    path << "/#{plot.development.to_s.parameterize_amp}"
-
-    path
+    root_url << plot.development.id.to_s
   end
 end

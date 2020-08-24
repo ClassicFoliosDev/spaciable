@@ -50,12 +50,7 @@ Then(/^I should be on the branded homeowner login page$/) do
 
   # Should be safe, we only created one plot
   plot = homeowner.plots.first
-
-  expected_path = "/#{plot.developer.to_s.parameterize_amp}"
-  expected_path << "/#{plot.division.to_s.parameterize_amp}" if plot.division
-  expected_path << "/#{plot.development.to_s.parameterize_amp}/sign_in"
-
-  expect(current_path).to eq(expected_path)
+  expect(current_path).to eq("/#{plot.development.id}/sign_in")
 end
 
 Given(/^I am a homeowner with no plot$/) do
