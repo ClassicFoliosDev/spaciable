@@ -1187,8 +1187,8 @@ en:
       title: "Title"
       category: "Category"
       editable: "Editable"
-      uneditable_title: "Edit for %{tile} not available"
-      uneditable_text: "NO"
+      uneditable_title: "%{tile}"
+      uneditable_text: "You do not have permission to edit this shortcut. Please speak to your account manager for more details."
     new:
       title: "New Custom Shortcut"
     edit:
