@@ -4,11 +4,13 @@
 
 <%= t("invitation_summary_mailer.resident_summary.summary", permission: @user.permission_level,
                                                             invitations: @invitations_count,
-                                                            active: @invitations_count - @inactive_residencies.size,
-                                                            inactive: @inactive_residencies.size) %>
+                                                            active: @invitations_count - @inactive.size,
+                                                            inactive: @inactive.size) %>
 
 <% if @inactive_residencies.size.positive? %>
 <%= t("invitation_summary_mailer.resident_summary.inactive") %>
+
+<%= t("invitation_summary_mailer.resident_summary.inactive_2") %>
 
 <% @inactive_residencies.each do |div, dp| %>
 <%= div if @user.permission_level.is_a?(Developer)%>
@@ -24,3 +26,5 @@
 <% end %>
 
 <%= t(".login") %> <%= new_admin_session_url %>
+
+<%= t(".unsubscribe") %>

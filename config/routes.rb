@@ -43,7 +43,11 @@ Rails.application.routes.draw do
     resources :users
     resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
-    resource :settings, only: [:show, :edit, :update]
+    resource :settings, only: [:show, :edit, :update] do
+      resources :default_faqs
+    end
+    get 'uploads', action: :uploads , controller: 'settings'
+
     resource :analytics, only: [:new, :create]
 
     get 'developers', to: 'developers#index', format: :json
@@ -257,15 +261,16 @@ Rails.application.routes.draw do
       end
     end
 
+
+
     get "contacts/:category",
         to: 'contacts#index',
         as: :homeowner_contacts,
         defaults: { category: :sales }
 
-    get "faqs/:category",
+    get "faqs/:faq_type/:faq_category",
         to: "faqs#index",
-        as: :homeowner_faqs,
-        defaults: { category: :settling }
+        as: :homeowner_faqs, defaults: { faq_type: 0, faq_category: 0 }
 
     get "how_tos/category/:category",
         to: "how_tos#index",
@@ -311,6 +316,8 @@ Rails.application.routes.draw do
   get "/data_policy", to: 'home#data_policy'
   get "/cookies_policy", to: 'home#cookies_policy'
   get "/feedback", to: 'home#feedback'
+  get "/faq_feedback", to: "homeowners/faqs#feedback"
+  get "/resend_invitation", to: "admin/users#resend_invitation"
   get "/appliance_manufacturers_list", to: 'appliances#appliance_manufacturers_list'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/how_to_sub_category_list", to: 'how_to_sub_category#list'
@@ -321,6 +328,8 @@ Rails.application.routes.draw do
   get "/search", to: "admin/search#new", as: :admin_search, format: :json
   get "/appliance_search", to: "admin/appliance_search#new", as: :admin_appliance_search, format: :json
   get "/finish_search", to: "admin/finish_search#new", as: :admin_finish_search, format: :json
+  get "/resident_search", to: "admin/search#residents", as: :resident_search, format: :json
+  get "/admin_search", to: "admin/search#admin_users", as: :admin_user_search, format: :json
   get "/finish_manufacturers_list", to: 'finishes#manufacturers_list', format: :json
   get "/finish_list", to: 'finishes#finish_list', format: :json
   get "/finish_types_list", to: 'finishes#finish_types_list', format: :json

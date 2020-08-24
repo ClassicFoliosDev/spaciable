@@ -1,12 +1,12 @@
-<% breadcrumb :faq_add, @parent %>
+<% breadcrumb :faq_add, @parent, @faq_type %>
 
 <div class="section-header">
   <div class="section-title">
     <% if @parent.partially_expired? && !(current_user.cf_admin?) %>
       <div class="expired"><span class="partial-expired-text"><%= t(".expired", parent: @parent) %></span></div>
     <% end %>
-    <%= t(".title") %>
+    <%= t(".title", type: @faq_type.name) %>
   </div>
 </div>
 
-<%= render 'form', faq: @faq, parent: @parent , :locals => {:country => @parent.country} %>
+<%= render 'form', faq: @faq, parent: @parent , faq_type: @faq_type %>

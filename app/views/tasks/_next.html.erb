@@ -1,9 +1,9 @@
  <% if task.next %>
-  <a href="<%= timeline_task_path timeline, task.next %>" class="timeline-btn">
+  <a href="<%= timeline_task_path timeline, task.next %>" class="timeline-btn navigation-btn">
     <%= button_text %>
   </a>
 <% elsif timeline.finale %>
-  <a href="<%= timeline_finale_path timeline, timeline.finale %>" class="timeline-btn">
+  <a href="<%= timeline_finale_path timeline, timeline.finale %>" class="timeline-btn navigation-btn">
     <%= button_text %>
   </a>
 <% else %>

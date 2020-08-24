@@ -11,6 +11,7 @@ Feature: Perk
     When I update the perks developer with branded perks
     Then I should see the updated branded perks developer
     Given I am logged in as a homeowner on a perks plot
+    And FAQ metadata is available
     Given my plot does not have a legal completion date
     Then I see the basic perks link
     Given my plot has a legal completion date in the future
@@ -32,6 +33,7 @@ Feature: Perk
     And I enter a valid premium licence duration and quantity
     Then I should see the created perks development
     Given I am logged in as a homeowner on a perks plot
+    And FAQ metadata is available
     Given my plot does not have a legal completion date
     Then I see the perks coming soon link
     Given my plot has a legal completion date in the future

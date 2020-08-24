@@ -22,7 +22,7 @@
           </div>
           <div class="row articles">
             <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
-            <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
+            <%= render "homeowners/dashboard/faqs", faqs: @faqs, plot: @plot %>
             <div class="single-card">
               <%= (render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs) if tiles.size == 1 %>
               <%= (render "homeowners/components/how_to_summary", collection: @how_tos) if tiles.size == 4 %>
@@ -56,17 +56,17 @@
       <div class="row articles">
         <% if tiles.size == 3 %>
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
-          <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
+          <%= render "homeowners/dashboard/faqs", faqs: @faqs, plot: @plot %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
           <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
         <% elsif tiles.size == 2 %>
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
-          <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
+          <%= render "homeowners/dashboard/faqs", faqs: @faqs, plot: @plot %>
           <%= render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs %>
           <%= render "homeowners/components/how_to_summary", collection: @how_tos %>
         <% else %> <!-- if zero or five tiles are assigned -->
           <%= render "homeowners/dashboard/contacts", contacts: @contacts %>
-          <%= render "homeowners/dashboard/faqs", faqs: @faqs %>
+          <%= render "homeowners/dashboard/faqs", faqs: @faqs, plot: @plot %>
           <%= (render "homeowners/components/how_to_summary", collection: @how_tos) if tiles.size == 0 %>
           <%= (render "homeowners/dashboard/tiles/tiles", plot: @plot, tiles: tiles, documents: @all_docs) if tiles.size == 5 %>
         <% end %>

@@ -32,31 +32,38 @@ module DeveloperFixture
     "Hamble View LTD"
   end
 
-  DEFAULT_FAQS = [
-    {
+  def default_faqs
+    [{
       question: "What does FAQ stand for?",
       answer: "Forgo armadillo quilts.",
-      category: "urgent"
+      faq_type: ::FaqsFixture.homeowner,
+      faq_category: FaqsFixture.urgent
     }, {
       question: "How long is a pomodoro?",
       answer: "25 minutes.",
-      category: "troubleshooting"
-    }
-  ].freeze
-
-  def create_default_faqs
-    countries = CreateFixture.create_countries
-    DEFAULT_FAQS.each do |attrs| 
-      attrs[:country_id] = Country.first.id
-      FactoryGirl.create(:default_faq, attrs)
-    end
+      faq_type: FaqsFixture.homeowner,
+      faq_category: FaqsFixture.troubleshooting
+    },
+    {
+      question: "When can I leave?",
+      answer: "6 months",
+      faq_type: FaqsFixture.tenant,
+      faq_category: FaqsFixture.general
+    },
+    {
+      question: "Can I leave in 6 months?",
+      answer: "Don't you listen?",
+      faq_type: FaqsFixture.tenant,
+      faq_category: FaqsFixture.home
+    }]
   end
 
-  def default_faqs
-    category_scope = "activerecord.attributes.faq.categories"
-
-    DEFAULT_FAQS.map do |faq|
-      [faq[:question], I18n.t(".#{faq[:category]}", scope: category_scope)]
+  def create_default_faqs
+    FaqsFixture.create_faq_ref
+    default_faqs.each do |attrs|
+      attrs[:country_id] = CreateFixture.uk.id #remove
+      attrs[:category] = 0 #remove
+      FactoryGirl.create(:default_faq, attrs)
     end
   end
 end

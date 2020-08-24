@@ -1,0 +1,42 @@
+<% breadcrumb :admin_settings %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %><br>
+  </div>
+  <div class="section-data">
+    <%= edit_btn edit_admin_settings_path, element: @setting %>
+  </div>
+</div>
+
+<div class="row configuration global-uploads-view">
+  <div class="row-item half">
+    <div class="help">
+      <label><%= t(".help") %></label>
+      <span><%= @setting.help_short_name %></span>
+    </div>
+    <div class="cookie">
+      <label><%= t(".cookie") %></label>
+      <span><%= @setting.cookie_short_name %></span>
+    </div>
+    <div class="privacy">
+      <label><%= t(".privacy") %></label>
+      <span><%= @setting.privacy_short_name %></span>
+    </div>
+    <div class="intro-video">
+      <label><%= t(".video_link") %></label>
+      <span><%= @setting.video_link %></span>
+    </div>
+    <div class="enable-intro-video">
+      <label><%= t(".enable_intro_video") %></label>
+      <span><%= @setting.intro_video_enabled? ? "Enabled" : "Disabled" %></span>
+    </div>
+  </div>
+</div>
+
+<div class="form-actions-footer-container">
+  <div class="form-actions-footer">
+    <%= link_to t(".back"), admin_settings_path, class: "btn" %>
+  </div>
+</div>
+

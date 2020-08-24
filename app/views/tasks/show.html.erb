@@ -76,9 +76,10 @@
 
               <aside class="useful-extras">
                 <div class="features-container">
-                  <% if @task.feature %>
-                    <p><%= @task.feature_description %></p>
-                    <button onclick="window.open('<%= @task.feature_link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.feature_title %></button>
+                  <% @task.features&.each do |feature| %>
+                    <p><%= feature.precis %></p>
+                    <p><%= feature.description %></p>
+                    <button onclick="window.open('<%= feature.link %>', '_blank')" type="button" class="btn timeline-btn"><%= feature.title %></button>
                   <% end %>
                 </div>
               </aside>
@@ -86,7 +87,8 @@
 
             <!-- can't show contact info because preview isn't associated with a plot -->
             <aside class="contact-container">
-              <p class="disclaimer">If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes.</p>
+              <h4><%= t(".contacts") %></h4>
+              <p class="disclaimer"> <%= t(".contacts_disclaimer") %></p>
               <div class="contact">
                 <div class="avatar" style="background-image: url('<%= asset_path('example_contact.png') %>')">
 
@@ -133,9 +135,10 @@
                   <% if @task.action_description.present? %>
                     <p><%= @task.action_description %></p>
                   <% end %>
-                  <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn"><%= @task.action_title %></button>
+                  <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn action-btn"><%= @task.action_title %></button>
                 <% end %>
-                <%= render "next", timeline: @timeline, task: @task, button_text: t(".next") %>
+                <%= render "next", timeline: @timeline, task: @task, button_text: t(".skip") %>
+                <%= render "next", timeline: @timeline, task: @task, button_text: t(".done") %>
               </div>
             </div>
           </div>

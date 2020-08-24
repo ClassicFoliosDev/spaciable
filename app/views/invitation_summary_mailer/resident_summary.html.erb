@@ -6,11 +6,12 @@
 
 <p><%= t("invitation_summary_mailer.resident_summary.summary", permission: @user.permission_level,
                                                                invitations: @invitations_count,
-                                                               active: @invitations_count - @inactive_residencies.size,
-                                                               inactive: @inactive_residencies.size) %></p>
+                                                               active: @invitations_count - @inactive.size,
+                                                               inactive: @inactive.size) %></p>
 
 <% if @inactive_residencies.size.positive? %>
   <p><%= t("invitation_summary_mailer.resident_summary.inactive") %></p>
+  <p><%= t("invitation_summary_mailer.resident_summary.inactive_2") %></p>
 
   <% @inactive_residencies.each do |div, dp| %>
     <h3><%= div if @user.permission_level.is_a?(Developer)%> </h3>
@@ -25,4 +26,8 @@
 
 <p style="text-align: center">
   <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, new_admin_session_url %>
+</p>
+
+<p style="font-style: italic;font-size: 14px;">
+  <%= t(".unsubscribe") %>
 </p>

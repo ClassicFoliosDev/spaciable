@@ -376,31 +376,32 @@ Then(/^I see a message telling me some plots have expired on the development$/) 
 end
 
 Then(/^I can CRUD faqs$/) do
-  # Add a faq
-  within ".tabs" do
-    click_on t("developments.collection.faqs")
-  end
+  development = Development.find_by(name: ExpiryFixture.development_name)
 
-  within ".empty" do
-    click_on t("components.empty_list.add", action: "Add", type_name: Faq.model_name.human.upcase)
-  end
+  development.faq_types.each do |faq_type|
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
 
-  within ".new_faq" do
-    fill_in :faq_question, with: ExpiryFixture.faq_title
-    fill_in_ckeditor(:faq_answer, with: ExpiryFixture.faq_content)
+    within ".empty" do
+      click_on t("components.empty_list.add", action: "Add", type_name: faq_type.name)
+    end
 
-    select_from_selectmenu :faq_category, with: I18n.t("activerecord.attributes.faq.categories.settling")
-    check :faq_notify
-    click_on t("faqs.form.submit")
-  end
+    within ".new_faq" do
+      fill_in :faq_question, with: ExpiryFixture.faq_title
+      fill_in_ckeditor(:faq_answer, with: ExpiryFixture.faq_content)
 
-  # Delete is available
-  page.find(".actions").has_css?(".fa-trash")
-  # Edit is available
-  page.find(".actions").has_css?(".fa-pencil")
-  # Add faq is available
-  within ".section-actions" do
-    expect(page).to have_content I18n.t("faqs.collection.add")
+      select_from_selectmenu :faq_faq_category, with: faq_type.categories.first.name
+      check :faq_notify
+      click_on t("faqs.form.submit")
+    end
+
+    # Delete is available
+    page.find(".actions").has_css?(".fa-trash")
+    # Edit is available
+    page.find(".actions").has_css?(".fa-pencil")
+    # Add faq is available
+    within ".section-actions" do
+      expect(page).to have_content I18n.t("faqs.collection.add", type: faq_type.name)
+    end
   end
 end
 
@@ -444,9 +445,8 @@ Then(/^I see a message telling me the development has expired$/) do
 end
 
 When(/^I can no longer CRUD faqs$/) do
-  within ".tabs" do
-    click_on t("developments.collection.faqs")
-  end
+  development = Development.find_by(name: ExpiryFixture.development_name)
+  find(:xpath,"//a[contains(., '#{development.faq_types.first.name}')]", visible: all).trigger('click')
 
   # When there are legacy faqs, no new faqs can be created
   within ".main-container" do
@@ -478,8 +478,8 @@ When(/^I can no longer CRUD faqs$/) do
   end
 
   within ".main-container" do
-    expect(page).to have_content("You have no FAQs.")
-    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Faq.model_name.human.upcase))
+    expect(page).to have_content(t("faqs.collection.empty_list", type: development.faq_types.first.name))
+    expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: development.faq_types.first.name))
   end
 end
 
@@ -607,7 +607,8 @@ end
 
 Then(/^there is a message saying faqs will not be visible on expired plots$/) do
   within ".section-actions" do
-    click_on I18n.t("faqs.collection.add")
+    development = Development.find_by(name: ExpiryFixture.development_name)
+    click_on I18n.t("faqs.collection.add", type: development.faq_types.last.name)
   end
 
   within ".partial-expired-text" do

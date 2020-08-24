@@ -90,6 +90,7 @@ class Developer < ApplicationRecord
     expired = true
     developments = all_developments
     return expired = false if developments.empty?
+
     developments.each do |development|
       return expired = false unless development.expired?
     end
@@ -180,6 +181,14 @@ class Developer < ApplicationRecord
     branded_app.present?
   end
 
+  def faq_types
+    faq_types = FaqType.for_country(country).to_a
+    if all_developments.select(&:commercial?).count.zero?
+      faq_types.delete_if { |t| t.construction_type.commercial? }
+    end
+    faq_types
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and
@@ -187,6 +196,7 @@ class Developer < ApplicationRecord
   # rubocop:disable SkipsModelValidations
   def update_development_cas
     return unless cas_changed?
+
     # update all developments to have cas on
     all_developments.each { |d| d.update_attribute(:cas, cas) }
 

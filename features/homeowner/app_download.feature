@@ -6,12 +6,14 @@ Feature: Add Download Reminder
 
   Scenario: Windows User
     Given I have created and logged in as a homeowner user
+    And FAQ metadata is available
     When I navigate to the dashboard
     Then I do not see an app download reminder
 
     @android_mobile
     Scenario: Android User
       Given I have created and logged in as a homeowner user
+      And FAQ metadata is available
       When I navigate to the dashboard
       Then I see an app download reminder
       And the download button links to the default android app
@@ -40,6 +42,7 @@ Feature: Add Download Reminder
     @apple_mobile
     Scenario: Apple User
       Given I have created and logged in as a homeowner user
+      And FAQ metadata is available
       When I navigate to the dashboard
       Then I see an app download reminder
       And the download button links to the default apple app

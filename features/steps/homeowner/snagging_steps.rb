@@ -13,6 +13,7 @@ end
 
 
 Then(/^I should see the Snagging page$/) do
+  visit "/"
   within ".burger-navigation" do
     check_box = find(".burger")
     check_box.trigger(:click)

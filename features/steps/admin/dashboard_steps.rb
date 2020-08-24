@@ -21,7 +21,7 @@ Then(/^I see the recent contents$/) do
     expect(page).to have_content(t("admin.notifications.collection.add"))
   end
   within ".faqs" do
-    expect(page).to have_content(t("activerecord.attributes.faq.categories.settling"))
+    expect(page).to have_content(FaqsFixture.settling_name)
   end
   within ".documents" do
     expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
@@ -47,6 +47,10 @@ Given(/^there are documents$/) do
 end
 
 When(/^I upload a help file$/) do
+  within ".global-option" do
+    click_on(t("admin.settings.show.uploads_btn"))
+  end
+
   within ".section-data" do
     find("[data-action='edit']").click
   end
@@ -64,6 +68,9 @@ When(/^I upload a help file$/) do
 end
 
 Then(/^I see the help file has been uploaded$/) do
+  click_on t("admin.settings.show.uploads")
+  find(".help")
+
   within ".help" do
     expect(page).to have_content FileFixture.help_document_name
   end

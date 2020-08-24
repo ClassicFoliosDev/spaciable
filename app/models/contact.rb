@@ -39,6 +39,7 @@ class Contact < ApplicationRecord
                                      contactable_id: plot.phase.id))
                   .or(contacts.where(contactable_type: "Division",
                                      contactable_id: plot.division&.id || 0))
+                  .group(:contactable_type, :id)
         }
 
   def email_or_phone

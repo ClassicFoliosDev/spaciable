@@ -245,3 +245,67 @@ document.addEventListener('turbolinks:load', function () {
     setFields(developerSelect, url, data)
   };
 })
+
+$(document).on('click', '#plotNotificationBtn', function (event) {
+  var form = $(".new_notification")
+  var dataIn = $(this).data()
+
+  var developer = $("#notification_developer_id-button .ui-selectmenu-text").text()
+  var division = $("#notification_division_id-button .ui-selectmenu-text").text()
+  var development = $("#notification_development_id-button .ui-selectmenu-text").text()
+  var phase = $("#notification_phase_id-button .ui-selectmenu-text").text()
+  var plots = $("#notification_list")[0].value
+
+  if($("#notification_developer_id")[0].value == 0) {
+    var $dialogContainer = $('<div>', { class: 'confirm-send-all' }).html('<p>' + dataIn.all + '</p>')
+  } else if ($("#notification_list")[0].textLength > 0) {
+    var $dialogContainer = $('<div>', { class: 'confirm-plots' }).html(
+      '<p>' + dataIn.plots + '</p>' +
+      '<p><span>' + 'Development: ' + '</span>' + development + '</p>' +
+      '<p><span>' + 'Phase: ' + '</span>' + phase + '</p>' +
+      '<p><span>' + 'Plots: ' + '</span>' + plots + '</p>'
+      )
+  } else {
+    var $dialogContainer = $('<div>', { class: 'confirm-no-plots' }).html('<p>' + dataIn.noplots + '</p>')
+
+    $dialogContainer.append('<p><span>' + 'Developer: ' + '</span>' + developer + '</p>')
+
+    if($("#notification_division_id")[0].value > 0) {
+      $dialogContainer.append('<p><span>' + 'Division: ' + '</span>' + division + '</p>')
+    }
+    if($("#notification_development_id")[0].value > 0) {
+      $dialogContainer.append('<p><span>' + 'Development: ' + '</span>' + development + '</p>')
+    }
+    if($("#notification_phase_id")[0].value > 0) {
+      $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
+    }
+  }
+
+  $body.append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    modal: true,
+    dialogClass: 'submit-dialog',
+    title: dataIn.header,
+    buttons: [
+      {
+        text: "Cancel",
+        class: 'btn-cancel',
+        click: function () {
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
+        }
+      },
+      {
+        text: "Confirm",
+        class: 'btn-confirm',
+        id: 'btn_confirm',
+        click: function () {
+          $('.btn-confirm').button('disable')
+          $('.btn-cancel').button('disable')
+          form.submit(); // Form submission
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+})

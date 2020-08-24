@@ -1,0 +1,17 @@
+.global-settings {
+  .global-option {
+    padding: $spacing-small 0 $spacing-small 0;
+  }
+
+  .global-faqs {
+    padding-top: $spacing-large;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  h4 {
+    margin-bottom: $spacing-small;
+  }
+}

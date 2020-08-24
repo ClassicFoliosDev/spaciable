@@ -106,7 +106,7 @@ Given(/^there is a phase contact$/) do
 end
 
 Given(/^there are faqs$/) do
-  CreateFixture.create_faq
+  FaqsFixture.create_faq
 end
 
 Given(/^there are notifications$/) do
@@ -181,12 +181,12 @@ end
 
 Given(/^I have seeded the database$/) do
   CreateFixture.create_countries
-  load Rails.root.join("db", "seeds.rb")
+  seed
 end
 
 Given(/^I have seeded the database as a developer$/) do
   CreateFixture.create_countries
-  load Rails.root.join("db", "seeds.rb")
+  seed
   # Update relevant tables with developer id
   FinishCategory.update_all developer_id: CreateFixture.developer.id
   FinishType.update_all developer_id: CreateFixture.developer.id
@@ -290,4 +290,11 @@ end
 
 Given(/^the phase plot is release completed$/) do
   Plot.find_by(number: CreateFixture.phase_plot_name).update_attribute :completion_release_date, Date.yesterday
+end
+
+def seed
+  load(Rails.root + "db/seeds/manufacturers_and_appliance_seeds.rb")
+  load(Rails.root + "db/seeds/finishes_seeds.rb")
+  load(Rails.root + "db/seeds/how_to_sub_category_seeds.rb")
+  load(Rails.root + "db/seeds/settings_seeds.rb")
 end

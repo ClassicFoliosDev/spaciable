@@ -16,7 +16,8 @@ class AdminNotificationMailer < ApplicationMailer
     @name = name
     @url = url
     @logo = "Spaciable_full.svg"
-    mail to: email, subject: I18n.t("devise.mailer.transfer_csv.title")
+    mail to: email,
+         subject: I18n.t("devise.mailer.transfer_csv.#{@url.nil? ? 'no_data' : 'success'}")
   end
 
   private

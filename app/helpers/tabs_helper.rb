@@ -44,6 +44,7 @@ module TabsHelper
 
     def build_association(association)
       return scope.send(association).build unless one_to_one_association?(association)
+
       raise BuildHasOneAssociationPermissionsError, build_has_one_error
     end
 
@@ -79,13 +80,20 @@ module TabsHelper
   # rubocop:enable BlockLength
 
   class Tab
-    attr_reader :title, :icon, :link, :active
+    attr_reader :title, :icon, :link, :active, :menus
 
-    def initialize(title:, icon:, link:, active:)
+    def initialize(title:, icon:, link:, active:, menus: nil)
       @title = title
-      @icon = icon
-      @link = link
-      @active = active
+      if menus.present? && menus.one?
+        @icon = menus.first[:icon]
+        @link = menus.first[:link]
+        @active = active
+      else
+        @icon = icon
+        @link = link
+        @active = active
+        @menus = menus
+      end
     end
 
     def active?
@@ -93,7 +101,7 @@ module TabsHelper
     end
 
     def to_a
-      [title, icon, link, active?]
+      [title, icon, link, active?, menus]
     end
   end
 end

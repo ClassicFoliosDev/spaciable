@@ -13,8 +13,8 @@ class FaqsController < ApplicationController
 
   def index
     authorize! :index, Faq
-
-    @faqs = paginate(sort(@faqs, default: :question))
+    @faq_type = FaqType.find(active_tab)
+    @faqs = paginate(sort(@faqs.where(faq_type: @faq_type), default: :question))
   end
 
   def new
@@ -22,10 +22,12 @@ class FaqsController < ApplicationController
       redirect_to root_url unless current_user.cf_admin?
     end
     authorize! :new, @faq
+    @faq_type = FaqType.find(active_tab)
   end
 
   def create
     authorize! :create, @faq
+    @faq_type = FaqType.find(faq_type_param)
 
     if @faq.save
       notice = t("controller.success.create", name: @faq)
@@ -33,7 +35,7 @@ class FaqsController < ApplicationController
         notice << ResidentChangeNotifyService.call(@faq, current_user,
                                                    t("notify.added"), @faq.parent)
       end
-      redirect_to [@parent, :faqs], notice: notice
+      redirect_to [@parent, :faqs, active_tab: @faq_type.id], notice: notice
     else
       render :new
     end
@@ -48,8 +50,9 @@ class FaqsController < ApplicationController
         notice << ResidentChangeNotifyService.call(@faq, current_user,
                                                    t("notify.updated"), @faq.parent)
       end
-      redirect_to [@parent, :faqs], notice: notice
+      redirect_to [@parent, :faqs, active_tab: @faq.faq_type.id], notice: notice
     else
+      @faq_type = FaqType.find(faq_type_param)
       render :edit
     end
   end
@@ -63,14 +66,16 @@ class FaqsController < ApplicationController
       redirect_to faq_path unless current_user.cf_admin?
     end
     authorize! :edit, @faq
+    @faq_type = @faq.faq_type
   end
 
   def destroy
     authorize! :destroy, @faq
 
+    type = @faq.faq_type
     @faq.destroy
     notice = t("controller.success.destroy", name: @faq)
-    redirect_to [@parent, :faqs], notice: notice
+    redirect_to [@parent, :faqs, active_tab: type.id], notice: notice
   end
 
   private
@@ -79,10 +84,19 @@ class FaqsController < ApplicationController
     params.require(:faq).permit(
       :question,
       :answer,
-      :category,
+      :faq_type_id,
+      :faq_category_id,
       :division_id,
       :notify
     )
+  end
+
+  def faq_type_param
+    params.require(:faq).permit(:faq_type_id)[:faq_type_id]
+  end
+
+  def active_tab
+    params.permit(:active_tab)[:active_tab]
   end
 
   def set_parent

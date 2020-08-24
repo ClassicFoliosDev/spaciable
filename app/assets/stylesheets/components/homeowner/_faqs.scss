@@ -66,6 +66,112 @@
   }
 }
 
+.faq-navigation {
+  .faq-categories {
+    margin-top: 22px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+
+    .categories {
+      margin-bottom: 0;
+      padding-bottom: 22px;
+
+      li {
+        display: inline-block;
+        margin-bottom: 0;
+
+        a {
+          display: block;
+          min-width: 122px;
+          text-align: center;
+          border: 1px solid $primary-navy;
+          border-radius: 3px;
+          padding: 2px 10px;
+          font-size: 12px;
+          color: $primary-navy;
+          background-color: $ui-white;
+          cursor: pointer;
+          margin-right: $spacing-medium;
+
+          &:hover {
+            color: $ui-white;
+            background-color: $primary-navy;
+          }
+        }
+
+        .active {
+          color: $ui-white;
+          background-color: $primary-navy;
+        }
+      }
+    }
+  }
+}
+
+.faqs {
+  .faq-feedback {
+    padding-top: $spacing-small;
+
+    p {
+      font-weight: $bold-font-weight;
+    }
+
+    .faq-button {
+      background: none;
+      border: none;
+      font-family: $base-font-family;
+      padding: 0 $spacing-small 0 ;
+      color: $primary-navy;
+
+      &:hover {
+        cursor: pointer;
+        font-weight: $bold-font-weight;
+      }
+    }
+
+    #positiveFAQ {
+      padding-left: $spacing-medium;
+    }
+
+    #faqFeedback {
+      width: 50%;
+    }
+  }
+
+  .positive-response {
+    display: none;
+  }
+
+  .negative-response {
+    display: none;
+
+    .disclaimer {
+      display: block;
+      text-align: left;
+      padding-left: 0;
+    }
+
+    .faq-input {
+      width: 50%;
+    }
+
+    .faq-alert {
+      color: $primary-red-left;
+      display: block;
+      padding-top: $spacing-small;
+      font-size: $base-small-font-size;
+    }
+
+    .branded-btn {
+      font-size: $base-small-font-size;
+      line-height: $base-small-font-line-height;
+      padding: 2px $spacing-small 2px $spacing-small;
+    }
+  }
+}
+
 @include media($tablet-landscape-down) {
   .faq-nav .sub-navigation-container {
     .sub-nav-links {
@@ -82,6 +188,18 @@
 
     .navbar-item-secondary {
       width: 140px;
+    }
+  }
+
+  .faq-navigation .faq-categories {
+    .categories {
+      .category {
+        margin-bottom: $spacing-small;
+
+        a {
+          margin-right: $spacing-small;
+        }
+      }
     }
   }
 }

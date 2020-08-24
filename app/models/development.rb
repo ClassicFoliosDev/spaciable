@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Development < ApplicationRecord
+  include ConstructionEnum
   acts_as_paranoid
 
   belongs_to :developer, optional: true
@@ -39,7 +40,7 @@ class Development < ApplicationRecord
   has_many :custom_tiles, dependent: :destroy
 
   has_one :premium_perk
-  accepts_nested_attributes_for :premium_perk, reject_if: :premium_perks_disabled
+  accepts_nested_attributes_for :premium_perk
   delegate :enable_premium_perks, :premium_licences_bought,
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
@@ -82,12 +83,6 @@ class Development < ApplicationRecord
       either_can_choose
     ]
 
-  enum construction:
-    %i[
-      residential
-      commercial
-    ]
-
   def brand_any
     return brand if brand
     return parent.brand if parent&.brand
@@ -114,6 +109,7 @@ class Development < ApplicationRecord
     # for expiry to work for development we need to filter out the nil phase for each development
     live_phases = phases.where.not(id: nil)
     return expired = false if live_phases.empty?
+
     live_phases.each do |phase|
       return expired = false unless phase.expired?
     end
@@ -131,6 +127,7 @@ class Development < ApplicationRecord
   # be a homeowner.  If admin, then as long as they are not a site admin
   def choices?(current_user, plot)
     return false if choices_disabled?
+
     if current_user.is_a?(Resident) && current_user.plot_residency_homeowner?(plot)
       either_can_choose?
     elsif current_user.is_a? User
@@ -182,6 +179,7 @@ class Development < ApplicationRecord
 
   def maintenance_blank?(maintenance)
     return false if maintenance["path"].present?
+
     record = Maintenance.find_by(development_id: id)
     record&.destroy!
     true
@@ -197,25 +195,24 @@ class Development < ApplicationRecord
   # get the docs from the crm
   def sync_docs
     raise "#{name} does not have an associated CRM" unless crm
+
     Crms::Zoho.new(self).documents
   end
 
   # get the docs from the crm
   def download_doc(params)
     raise "#{name} does not have an associated CRM" unless crm
+
     Crms::Zoho.new(self).download_doc(params)
   end
 
   # update existing phases business if development is updated to be commercial
   def set_business
     return unless commercial?
+
     phases.each do |phase|
       phase.update_attributes(business: :commercial)
     end
-  end
-
-  def premium_perks_disabled(attr)
-    attr["enable_premium_perks"] == "0"
   end
 
   # Build the specified attribute if it is not already donw
@@ -250,6 +247,16 @@ class Development < ApplicationRecord
 
   def my_construction_name
     construction_name.blank? ? I18n.t("homeowners.home") : construction_name
+  end
+
+  def faq_types
+    faq_types = FaqType.for_country(parent.country).to_a
+    if commercial?
+      faq_types.delete_if { |t| t.construction_type.residential? }
+    else
+      faq_types.delete_if { |t| t.construction_type.commercial? }
+    end
+    faq_types
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -8,3 +8,54 @@
     line-height: 2;
   }
 }
+
+.search {
+  .admin-filter {
+    padding-top: $spacing-small;
+  }
+
+  .search-container {
+    width: 100%;
+
+    label {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+  }
+
+  label {
+    color: $primary-navy;
+  }
+
+  .admin-filter-selections {
+    display: none;
+    padding-top: $spacing-small;
+  }
+
+  .filter-selections {
+    label {
+      display: inline;
+    }
+
+    span {
+      display: inline;
+      color: $primary-navy;
+    }
+  }
+
+  .collapse {
+    width: 100%;
+    text-align: right;
+    height: 20px;
+
+    .fa {
+      font-size: 32px;
+      color: $primary-navy;
+
+      &:hover {
+        opacity: 0.6;
+        cursor: pointer;
+      }
+    }
+  }
+}

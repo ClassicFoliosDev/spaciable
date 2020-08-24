@@ -13,7 +13,7 @@
             <%= link_to faq.question.html_safe, faq_path(faq), title: faq.question.html_safe %>
           </td>
           <td colspan="2">
-            <%= icon "folder" %> <%= t("activerecord.attributes.faq.categories.#{faq.category}") %>
+            <%= icon "folder" %> <%= faq.category_name %>
           </td>
           <td class="actions">
             <%= link_to faq_path(faq), class: "btn" do %>

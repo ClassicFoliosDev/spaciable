@@ -1,6 +1,6 @@
-<% breadcrumb :faqs, @parent %>
+<% breadcrumb :faqs, @parent, @faq_type %>
 
 <%= render @parent %>
 
 <%= render 'components/tabs', tabs: tabs_for(@parent, "faqs"), parent: @parent %>
-<%= render_collection @faqs, parent: @parent, new_faq: @faq %>
+<%= render_collection @faqs, parent: @parent, type: @faq_type, new_faq: @faq %>

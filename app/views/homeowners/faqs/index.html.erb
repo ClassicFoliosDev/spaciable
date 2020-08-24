@@ -1,31 +1,63 @@
 <% content_for :sub_category_navigation do %>
-  <% @categories.each do |category| %>
-    <div class="navbar-item">
-      <%= link_to homeowner_faqs_path(category),
-          class: ("active" if @category == category) do %>
-        <li class="navbar-item-secondary">
-          <%= t_enum(Faq, :category, category) %>
-        </li>
-      <% end %>
-    </div>
+  <% @plot.development.faq_types.each do |faq_type| %>
+    <% if @faqs.where(faq_type: faq_type).count.positive? ||
+      (faq_type == @plot.development&.faq_types.first &&
+      @faqs.where(faq_type:faq_type).count == @faqs.count) %>
+
+      <div class="navbar-item <%= 'active' if @faq_type == faq_type %>">
+        <%= link_to homeowner_faqs_path(faq_type: faq_type) do %>
+          <li class="navbar-item-secondary">
+            <%= t('.faqs', type: faq_type.name) %>
+          </li>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
 
 <%= render "components/homeowner/hero" %>
 
-<div class="faq-nav">
+<div class="faq-navigation">
   <%= render "components/homeowner/sub_categories" %>
+
+  <%= render "components/homeowner/faq_categories", categories: @categories, plot: @plot, faqs: @category_faqs, faq_category: @faq_category, faq_type: @faq_type%>
 </div>
 
 <div class="branded-body">
   <div class="main-container">
-    <div class="page-title">
-      <h2 class="branded-text"><%= t(".title") %></h2>
-    </div>
     <dl class="faqs">
-      <% @faqs.each do |faq| %>
+      <% @category_faqs.each do |faq| %>
         <dt class="branded-content" id="faq-<%= faq.id %>"><h3 class="branded-text"><%= faq.question.html_safe %></h3></dt>
-        <dd class="branded-text branded-content"><%= raw faq.answer %></dd>
+        <dd class="branded-text branded-content">
+          <%= raw faq.answer %>
+
+          <div class="faq-feedback" id="feedback-<%=faq.id%>">
+            <p>
+              <%= t(".feedback") %>
+
+              <%= button_tag t(".pos"), class: "faq-button", id: "positiveFAQ",
+                                        data: { id: faq.id, question: faq.question, email: current_resident.email,
+                                                plot: @plot.id } %>
+              <%= button_tag t(".neg"), type: 'button', class: "faq-button", id: "negativeFAQ",
+                                        data: { id: faq.id } %>
+            </p>
+          </div>
+
+          <!-- positive feedback confirmation-->
+          <div class="faq-feedback positive-response" id="positive-<%=faq.id%>">
+            <p><%= t(".positive") %></p>
+          </div>
+
+          <!-- negative feedback form -->
+          <div class="faq-feedback negative-response" id="negative-<%=faq.id%>">
+            <p><%= t(".negative") %></p>
+            <textarea id="input-<%=faq.id%>" class="faq-input"></textarea>
+            <span class="disclaimer"><%= t(".disclaimer") %></span>
+            <%= button_tag t(".submit"), type: 'button', class: "btn branded-btn", id: "faqFeedbackSend",
+                                      data: { id: faq.id, question: faq.question, email: current_resident.email,
+                                              plot: @plot.id } %>
+          </div>
+        </dd>
       <% end %>
     </dl>
 

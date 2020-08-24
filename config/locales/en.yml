@@ -311,7 +311,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
-        timeline: "My Journey"
+        timeline: "Your Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -372,10 +372,12 @@ en:
     development_add: "Add Development"
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
-    faqs: "FAQs"
-    faqs: "FAQs"
+    faqs: "%{type} FAQs"
     faqs_add: "New FAQ"
     faqs_edit: "Edit %{faq}"
+    default_faqs: "Default %{country} %{type} FAQs"
+    default_faqs_edit: "Edit %{default_faq}"
+    default_faqs_add: "New Default FAQ"
     videos: "Videos"
     videos_add: "New Video"
     videos_edit: "Edit %{video}"
@@ -529,6 +531,8 @@ en:
         header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
         reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
+      search:
+        all: "All"
 
     choices:
       resident:
@@ -568,7 +572,6 @@ en:
         faqs: "FAQs"
         calendar: "Calendar"
         choices: "Choices"
-        services: "Services"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
       header:
@@ -578,7 +581,6 @@ en:
         lettings: "Lettings"
         feedback: "Feedback"
         welcome_home: "Welcome home, %{resident}."
-        refer_description: "Fill in this form with your friend's details to recommend them to your developer."
         refer: "Refer A Friend"
         refer_title: "Refer A Friend."
         send_invitation: "Submit"
@@ -610,6 +612,8 @@ en:
         address_2: "Address Two"
         town: "Town"
         postcode: "Postcode"
+      faq_categories:
+        categories: "Categories."
     home:
       header:
         nav:
@@ -646,6 +650,7 @@ en:
       feedback: "Feedback"
     search:
       search: "Search"
+      all: "All"
 
   destroy:
     cancel: "Cancel"
@@ -696,6 +701,13 @@ en:
       last: "Last name:"
       email: "Email address:"
       phone: "Phone number:"
+    faq_feedback:
+      new_feedback: "You have received feedback on an FAQ from a Spaciable user"
+      faq: "FAQ"
+      useful: "Is this FAQ useful?"
+      comments: "Comments"
+      user: "User Details"
+      plot: "%{plot} at %{development}, %{phase}"
 
   admin_notification_mailer:
     admin_notifications:
@@ -869,12 +881,15 @@ en:
         back: "Back"
         send_to_all_residents: "Send to all %{residents_count} residents"
         send_to: "Residents of:"
-        send_to: "Residents of:"
         send_to_role: "Send to:"
         homeowner: "Full Access Users"
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
         no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
+        confirm_notification: "Confirm Send"
+        confirm_plots: "Are you sure you want to send this notification to the following plots?"
+        empty_plots: "No plots have been selected. This notification will be sent to all plots that meet the following criteria. Are you sure you want to send this notification?"
+        all_residents: "Are you sure you want to send this notification to all Spaciable residents?"
       index:
         title: "Notifications."
       new:
@@ -916,8 +931,10 @@ en:
         job_title: "Job Title"
         client_specifications: "Client Specifications"
         adds_specifications: "Defines client specifications"
-        invitation_emails: "Resident Invitation Emails"
-        receive_invitation_emails: "Receive resident invitation emails"
+        faq_emails: "FAQ Feedback Emails"
+        receive_faq_emails: "Receive FAQ feedback emails"
+        invitation_emails: "Resident Activation Report"
+        receive_invitation_emails: "Receive a weekly summary of resident activations"
       index:
         title: "Admins."
         add: "Add User"
@@ -928,6 +945,7 @@ en:
         division: "Division"
         development: "Development"
         accepted_at: "Activation Date"
+        search: "Admin users search"
       new:
         add: "New User."
       show:
@@ -997,6 +1015,7 @@ en:
         invited_by: "Invited By"
         accepted_at: "Activated"
         phone_number: "Phone"
+        search: "Search Residents"
       show:
         name: "Plot"
         developer: "Developer"
@@ -1022,6 +1041,15 @@ en:
         help_file: "Spaciable Guide."
     settings:
       show:
+        uploads: "Uploads"
+        uploads_btn: "Modify Uploads"
+        uploads_description: "Global documents and introductory video"
+        title: "Global Settings."
+        faq: "FAQs"
+        faq_description: "Global FAQs"
+        faqs:
+          country: "Modify %{country} FAQs"
+      uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
         enable_intro_video: "Introductory Video Status"
@@ -1029,13 +1057,13 @@ en:
         help: "Help Document"
         cookie: "Cookie Policy Document"
         privacy: "Privacy Policy Document"
+        back: "Back"
       edit:
         title: "Edit Global Settings."
         back: "Back"
         submit: "Submit"
         embeddable: "Make sure you use an embeddable version of a vimeo or third party video"
         load: "Upload"
-        enable_intro_video: "Enable introductory video"
         enable_intro_video_description: "Enable or disable the intro video for new users on first login."
         help: "Help Document"
         cookie: "Cookie Policy Document"
@@ -1059,6 +1087,26 @@ en:
         type_summary: "Use Filter to select the type of plots you want content for."
         type_dev: "Development, Developer and Billing reports filter plots by all Filter options, as selected."
         type_all: "Summary and Buyers' Club reports are not affected by the Filter selection."
+    default_faqs:
+      collection:
+        add: "Add %{type} FAQ"
+        faq: "FAQ"
+        last_edited: "Last Edited"
+        empty: "You have no default %{type} FAQs"
+        confirm_delete: Are you sure you wish to delete this %{type} FAQ?
+      show:
+        title: "%{parent}"
+        type: "Type"
+        category: "Category"
+      edit:
+        title: "%{parent}"
+      new:
+        title: "New %{parent} FAQ"
+      form:
+        submit: "Submit"
+        category: "Category"
+      index:
+        back: "Back"
 
   dashboard:
     header: "Dashboard title for Spaciable"
@@ -1077,24 +1125,29 @@ en:
 
   faqs:
     collection:
-      add: "Add FAQ"
+      add: "Add %{type} FAQ"
       last_edited: "Last Edited"
-      faq: "FAQ"
+      faq: "%{type} FAQ"
+      empty_list: "You have no %{type} FAQs"
+      confirm_delete: Are you sure you wish to delete this %{type} FAQ?
     edit:
       title: "%{parent}"
       back: "Back"
     form:
       submit: "Submit"
       back: "Back"
+      category: "Category"
       notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
     new:
-      title: "New FAQ."
+      title: "New %{type} FAQ."
       expired: "Some plots on %{parent} have expired. New FAQs will not be visible to expired plots."
     show:
       title: "%{parent}"
       back: "Back"
+      category: "Category"
+      type: "Type"
 
   videos:
     new:
@@ -1194,7 +1247,6 @@ en:
       submit: "Submit"
       address: "Postal Address"
       back: "Back"
-      back: "Back"
       maintenance_placeholder: "e.g. https://classicfolios.fixflo.com/issue/plugin/"
       maintenance_link: "Maintenance Link"
       maintenance_tip: "Make sure to use the plugin-friendly version of a URL. For more details see http://www.fixflo.com/tech/plugin-example/"
@@ -1291,8 +1343,15 @@ en:
         title: "My Plots"
     faqs:
       index:
-        title: "FAQs."
         try_contacts: "Can't find what you were after? Try the %{contacts_link} page to speak to someone."
+        feedback: "Is this FAQ useful?"
+        pos: "Yes"
+        positive: "Thank you for your feedback."
+        negative: "What could we do to improve this FAQ?"
+        neg: "No"
+        faqs: "%{type} FAQs"
+        submit: "Submit"
+        disclaimer: "By submitting feedback you consent to your email address being sent to a portal administrator, who may contact you about your comments."
     rooms:
       show:
         title: "Rooms."
@@ -1328,8 +1387,6 @@ en:
         confirm_cta: "Confirm Choice"
         confirm_details: "Once you confirm your choice below, it cannot be changed. If you are unsure, please cancel and review your options."
         confirm_text: "Are you sure you want to set up your lettings account as %{type}?"
-        self_managed: "Self Managed"
-        management_service: "Management Service"
         confirm_self: "%{type}"
         authorise: "Authorise your Planet Rent account"
     lettings_account:
@@ -1408,7 +1465,10 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
-      next: "Next"
+      skip: "Skip"
+      done: "Complete"
+      contacts: "Useful Contacts"
+
       splash:
         welcome: "Welcome To"
         your_journey: "Your Journey"
@@ -1584,6 +1644,7 @@ en:
           button: "Find Out More"
           activated_button: "Login to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
+          error: "Currently unavailable. Please try again later."
 
     communication_preferences:
       show:
@@ -1736,12 +1797,8 @@ en:
         find_out: "Select Categories"
         no_thanks: "Go to Dashboard"
         title: ""
-        title: ""
         subtitle: ""
         description_html: ""
-        disclaimer: "Please note: when you were invited to Spaciable, an email and phone number were associated with your Spaciable account. If you select YES! to any of the options on this page,
-                    you consent to Spaciable Services using your account details to contact you by email or phone regarding options you have selected on this page. Your details will not be passed
-                    to third parties without your consent. Spaciable Services operates in full compliance with the EU GDPR (General Data Protection Regulation) and the UK DPA (Data Protection Act) 2018."
         submit: "Submit"
         services_title: "Services."
         disclaimer: "You can access the Services feature at any time from your portal dashboard."
@@ -1824,7 +1881,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey"
+      timeline: "Your Journey"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -1857,7 +1914,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "My Journey"
+      timelines: "Your Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -1999,6 +2056,8 @@ en:
         accept_ts_and_cs: "Accept terms and conditions"
         policy_instructions_required: "You must confirm that you have read and agreed to our %{href1} and %{href2} before you can click 'Login'"
         policy_instructions: "%{href1} and %{href2}"
+        homeowner_login: "User Login"
+        admin_login: "Admin Login"
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
         ts_and_cs_required: "Please review and accept the terms and conditions before you log in. The terms and conditions might have changed since your last review."
@@ -2346,9 +2405,6 @@ en:
     rooms:
       index:
         title: "%{parent_name} rooms"
-      collection:
-        finishes: "Finishes"
-        appliances: "Appliances"
       edit:
         title: "Edit %{room_name}"
       form:
@@ -2373,7 +2429,6 @@ en:
         category: "Category"
         manufacturer: "Manufacturer"
         delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
-
       collection:
         appliances: "Appliances"
         finishes: "Finishes"
@@ -2403,7 +2458,6 @@ en:
       notify: "Notify subscribed residents about this change"
       update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
 
-
     index:
       title: "%{parent_name} Plots"
     new:
@@ -2419,6 +2473,7 @@ en:
       documents: "Documents"
       residents: "Residents"
       unit_type: "Unit Type"
+      date_c: "Status"
       choices: "Choices"
       name: "Plot"
       logs: "Change Logs"
@@ -2437,7 +2492,7 @@ en:
         postcode: "Address Line 6"
       progress: "Build Progress"
       completion: "Completion"
-      activation: "Activated Residents"
+      activation: "Activated"
       activated: "%{activated} of %{all}"
       not_released: "Plot %{plot} has not been released"
     show:
@@ -2584,6 +2639,7 @@ en:
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
+     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this appliance would remove it from all plots."
 
    new:
      title: "New Appliance."
@@ -2612,6 +2668,7 @@ en:
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
+     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and unit types containing this appliance."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -2706,6 +2763,7 @@ en:
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
+      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this finish would remove it from all plots."
     new:
       title: "New Finish."
     form:
@@ -2723,6 +2781,7 @@ en:
       category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
       type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
       manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
+      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and unit types containing this finish."
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -2979,10 +3038,12 @@ en:
       subject: "Spaciable Activation Report"
       hello: "Hi %{name},"
       report: "This is your weekly Spaciable activation report."
-      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
-                leaving %{inactive} residents having not accepted the invitation email."
-      inactive: "Below is a list of residents who are yet to activate."
+      summary: "In the last week, %{invitations} residents were invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents who have not accepted the invitation email."
+      inactive: "To ensure you and your customers get the most out of your investment in Spaciable, please see below the customers who need a gentle reminder to accept their invitation."
+      inactive_2: "Don't forget: once they have activated, your customers will gain access to valuable, timesaving information, designed to support their journey and help them enjoy their new home. They'll also receive essential communications that you send through the portal."
       login: "Login to Spaciable: "
+      unsubscribe: "Don't wish to receive a weekly resident activation report? You can update your preferences in your Spaciable profile."
 
   resident_notification_mailer:
     notify:
@@ -3018,7 +3079,6 @@ en:
       create: "Add service"
       description: "Description"
     edit:
-      title: "Edit %{name}"
       title: "Edit %{name}"
     show:
       back: "Back"
@@ -3342,20 +3402,16 @@ en:
           local_authority: "Local Authority"
           sales_team: "Sales Team"
           utility_supplier: "Utility Supplier"
+          managing_agent: "Managing Agent"
+          warranty_provider: "Warranty Provider"
+          concierge: "Concierge"
+          cust_care: "Customer Care"
       send_to_all:
         all: "All"
       maintenance:
         account_types:
           standard: "Standard"
           full_works: "Full Works Management"
-      faq:
-        categories:
-          general: "General"
-          home: "Home Care"
-          settling: "Settling In"
-          troubleshooting: "Troubleshooting"
-          urgent: "Urgent"
-          purchasing: "Purchasing Process"
       how_to:
         title: "Title"
         summary: "Summary"
@@ -3576,11 +3632,14 @@ en:
       positive: "Positive"
       negative: "Negative"
       not_applicable: "Not Applicable"
-      next: "Next"
+      done: "Complete"
+      skip: "Skip"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
       services: "Services"
+      contacts: "Useful Contacts"
+      contacts_disclaimer: "If there are contacts to show on the page, this is where they will be displayed. Below is an example contact for demonstration purposes."
       feature:
         title: "Feature Button"
         description: "Description"
@@ -3598,8 +3657,8 @@ en:
       question: "Question"
       answer: "Response Heading"
       response: "Response Content"
-      positive: "Affirmative Button Text"
-      negative: "Negative Button Text"
+      positive: "Button Text: Task Completed"
+      negative: "Button Text: Reveal Response"
       not_applicable: "Not Applicable"
       not_applicable_text: "Show the Not Applicable button"
       cancel: "Cancel"
@@ -3616,6 +3675,7 @@ en:
         add: "Add Feature"
         delete: "Delete Feature"
         title: "Button Text"
+        precis: "Precis"
         description: "Description"
         link: "Link"
       action:

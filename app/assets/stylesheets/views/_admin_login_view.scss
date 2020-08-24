@@ -24,7 +24,7 @@
 
     .content {
       @include span-columns(12 of 12);
-      margin-top: 100px;
+      margin-top: 80px;
 
       .login-icon {
         text-align: center;
@@ -32,6 +32,56 @@
 
         img {
           width: 40%;
+        }
+      }
+    }
+
+    .login-redirect {
+      text-align: center;
+      padding-left: $spacing-medium;
+
+      .homeowner-login {
+        display: inline-block;
+        padding: 0 $spacing-large;
+
+        a {
+          color: $ui-white;
+          text-decoration: none;
+        }
+
+        #homeowner-login-link {
+          opacity: 0.6;
+          font-weight: $bold-font-weight;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+
+      .admin-login {
+        display: inline-block;
+        padding: 0 $spacing-large;
+
+        a {
+          color: $ui-white;
+          text-decoration: none;
+        }
+
+        #admin-login-link {
+          font-weight: $bold-font-weight;
+          padding: $spacing-small / 2;
+          position: relative;
+
+          &:before {
+            content: "";
+            position: absolute;
+            width: 40%;
+            height: 1px;
+            bottom: 0;
+            left: 30%;
+            border: 1px solid $ui-white;
+          }
         }
       }
     }

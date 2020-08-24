@@ -119,17 +119,19 @@ class Vaboo
     full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}?#{EMAIL}=#{resident.email}"
 
     # call the API to find out whether the current resident has a perks account
-    response = HTTParty.get(full_url)
-    parsed_response = JSON.parse(response)
-
-    # will return false if api call throws an error (or else page breaks)
-    return false unless parsed_response["code"] == 200
-
-    # if the resident has a perks account the API will respond with one record
-    parsed_response["data"]["count"] == 1
+    begin
+      response = HTTParty.get(full_url)
+      parsed_response = JSON.parse(response)
+      response = parsed_response["data"]["count"] == 1
+    rescue
+      error = true
+    end
+    yield response, error
   end
 
   # Has another resident on the plot registered for premium perks?
+  # This check is only made after perks_account_activated has succeeded,
+  # so does not require a rescue
   def self.premium_perks_activated?(plot)
     account_id = account_number(plot.developer)
 
@@ -140,7 +142,7 @@ class Vaboo
     response = HTTParty.get(full_url)
     parsed_response = JSON.parse(response)
 
-    # will return false if api call throws an error (or else page breaks)
+    # will return false if api call throws an error
     return false unless parsed_response["code"] == 200
 
     parsed_response["data"]["users"].each do |user|
@@ -187,8 +189,12 @@ class Vaboo
     developer.branded_perk_link || SPACIABLE_LOGIN
   end
 
-  def self.perk_expire_date(development)
-    Time.zone.today + development.premium_licence_duration.months
+  def self.perk_expire_date(plot)
+    if plot.enable_premium_perks
+      Time.zone.today + plot.development.premium_licence_duration.months
+    else
+      plot.expiry_date
+    end
   end
 
   # Does the Developer have a branded account number?

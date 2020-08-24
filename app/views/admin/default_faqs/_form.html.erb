@@ -1,0 +1,48 @@
+<%= simple_form_for [:admin_settings, default_faq] do |f| %>
+    <% if default_faq.errors.any? %>
+        <div class="row">
+          <div class="row-item">
+            <div class="submission-errors">
+              <ul>
+                <% default_faq.errors.full_messages.each do |message| %>
+                    <li>
+                      <%= fa_icon "exclamation-circle" %>
+                      <%= message %>
+                    </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="row faq">
+      <div class="row-item two-thirds">
+        <fieldset>
+          <%= f.input :question, as: :string %>
+          <%= f.input :answer, as: :ckeditor %>
+        </fieldset>
+      </div>
+
+      <div class="row-item third">
+        <div class="faq-category ui-front select-container">
+          <fieldset>
+            <!-- #remove after successful migration -->
+            <%= f.hidden_field :category, value: 0 %>
+            <%= f.hidden_field :country_id, value: faq_type.country.id %>
+
+            <%= f.hidden_field :faq_type_id, value: faq_type.id %>
+            <%= f.association :faq_category, label: t(".category"), collection: faq_type.categories %>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <%= link_to t("back"), admin_settings_default_faqs_path(active_tab: faq_type.id), class: "btn" %>
+        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      </div>
+    </div>
+<% end %>
+

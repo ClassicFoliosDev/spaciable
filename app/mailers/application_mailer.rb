@@ -23,4 +23,28 @@ class ApplicationMailer < ActionMailer::Base
 
     mail to: "feedback@spaciable.com", subject: I18n.t("feedback.email_subject")
   end
+
+  def faq_feedback(data)
+    @email = data[:email]
+    @plot = Plot.find(data[:plot])
+    @development = @plot.development
+    @phase = @plot.phase
+    @admin_emails = faq_feedback_emails(@plot)
+
+    @question = data[:question]
+    @response = data[:response].to_i
+    @feedback = data[:feedback]
+
+    mail to: @admin_emails,
+         bcc: "feedback@spaciable.com",
+         subject: I18n.t("feedback.email_subject")
+  end
+
+  def faq_feedback_emails(plot)
+    users = User.receives_faqs(plot)
+
+    emails = []
+    users.each { |user| emails << user.email }
+    emails
+  end
 end

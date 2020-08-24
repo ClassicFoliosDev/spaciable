@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+Given(/^FAQ metadata is available$/) do
+  FaqsFixture.create_faq_ref
+end
 
 Given(/^I am a (\(\w+\) )?(\w+) Admin and I want to manage FAQs$/) do |parent_type, admin_type|
   CreateFixture.create_countries
@@ -13,30 +16,25 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
   goto_resource_show_page(parent, resource)
   sleep 0.4
 
-  within ".tabs" do
-    click_on t("developers.collection.faqs")
-  end
+  attrs = FaqsFixture.attrs(:created, parent, under: resource)
+  find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: all).trigger('click')
 
   within ".main-container" do
-    click_on t("faqs.collection.add")
+    click_on t("faqs.collection.add", type: attrs[:faq_type].name)
   end
-
-  attrs = FaqsFixture.faq_attrs(:created, parent, under: resource)
-  category = FaqsFixture.t_category(attrs[:category])
 
   within ".new_faq" do
     fill_in :faq_question, with: attrs[:question]
     fill_in_ckeditor(:faq_answer, with: attrs[:answer])
 
-    select_from_selectmenu :faq_category, with: category
+    select_from_selectmenu :faq_faq_category, with: attrs[:faq_category].name
     check :faq_notify
     click_on t("faqs.form.submit")
   end
 end
 
 Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, parent, resource|
-  attrs = FaqsFixture.faq_attrs(action, parent, under: resource)
-  category = FaqsFixture.t_category(attrs[:category])
+  attrs = FaqsFixture.attrs(action, parent, under: resource)
   notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
   notice << t("resident_notification_mailer.notify.update_sent", count: Resident.all.count) if action == "updated"
 
@@ -47,7 +45,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
 
   within ".faqs" do
     expect(page).to have_content(attrs[:question])
-    expect(page).to have_content(category)
+    expect(page).to have_content(attrs[:faq_category].name)
   end
 
   within ".breadcrumbs" do
@@ -64,7 +62,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
 
   within ".faq" do
     expect(page).to have_content(attrs[:answer])
-    expect(page).to have_content(category)
+    expect(page).to have_content(attrs[:faq_category].name)
   end
 
   within ".form-actions-footer-container" do
@@ -79,13 +77,12 @@ When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
     find("[data-action='edit']").trigger("click")
   end
 
-  attrs = FaqsFixture.faq_attrs(:updated, parent, under: resource)
-  category = FaqsFixture.t_category(attrs[:category])
+  attrs = FaqsFixture.attrs(:updated, parent, under: resource)
 
   within ".faq" do
     fill_in :faq_question, with: attrs[:question]
     fill_in_ckeditor(:faq_answer, with: attrs[:answer])
-    select_from_selectmenu :faq_category, with: category
+    select_from_selectmenu :faq_faq_category, with: attrs[:faq_category].name
   end
 
   within ".form-actions-footer-container" do
@@ -101,7 +98,7 @@ When(/^I delete the Developer FAQ$/) do
 end
 
 Then(/^I should no longer see the Developer FAQ$/) do
-  attrs = FaqsFixture.faq_attrs(:updated, under: :developer)
+  attrs = FaqsFixture.attrs(:updated, under: :developer)
   notice = t("controller.success.destroy", name: attrs[:subject])
 
   expect(page).to have_content(notice)
@@ -113,7 +110,7 @@ Then(/^I should no longer see the Developer FAQ$/) do
   expect(page).not_to have_content(".record-list")
 
   within ".empty" do
-    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: Faq.model_name.human)}}i
+    expect(page).to have_content %r{#{t("components.empty_list.add", action: "Add", type_name: attrs[:faq_type].name)}}i
   end
 end
 
@@ -122,14 +119,12 @@ Given(/^my .+ (\w+) has FAQs$/) do |resource|
 end
 
 Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resource|
-  attrs = FaqsFixture.faq_attrs(:created, under: parent_resource)
+  attrs = FaqsFixture.attrs(:created, under: parent_resource)
 
   goto_resource_show_page(nil, parent_resource)
 
   sleep 0.2
-  within ".tabs" do
-    click_on t("developers.collection.faqs")
-  end
+  find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: all).trigger('click')
 
   within ".main-container" do
     expect(page).not_to have_link(t("faqs.collection.add"))
@@ -148,7 +143,7 @@ Then(/^I should see the faq resident has been notified$/) do
   expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
 
   email = ActionMailer::Base.deliveries.first
-  question = FaqsFixture.faq_attrs(:created, under: :division)[:question]
+  question = FaqsFixture.attrs(:created, under: :division)[:question]
   expect(email).to have_body_text("The following FAQ has been added to your home's online portal:")
   expect(email).to have_body_text("#{question}")
 
@@ -189,12 +184,12 @@ end
 Then(/^I should not see default faqs for the developer$/) do
   click_on CreateFixture.developer_name
 
-  within ".tabs" do
-    click_on t("developers.collection.faqs")
-  end
+  CreateFixture.developer.faq_types.each do |faq_type|
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
 
-  within ".empty" do
-    expect(page).to have_content "You have no FAQs"
+    within ".empty" do
+      expect(page).to have_content t("faqs.collection.empty_list", type: faq_type.name)
+    end
   end
 end
 
@@ -221,15 +216,14 @@ Then(/^I should see default faqs for the development$/) do
     click_on CreateFixture.development_name
   end
 
-  within ".tabs" do
-    click_on t("developments.collection.faqs")
-  end
+  CreateFixture.developer.faq_types.each do |faq_type|
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
 
-  DeveloperFixture.default_faqs.each do |question, category|
-    expect(page).to have_content(question)
-    expect(page).to have_content(category)
+    DeveloperFixture.default_faqs.select {|faq| faq[:faq_type] == faq_type }.each do |faq|
+      expect(page).to have_content(faq[:question])
+      expect(page).to have_content(faq[:faq_category].name)
+    end
   end
-
 end
 
 When(/^I create a developer with development level FAQs$/) do
@@ -248,6 +242,8 @@ When(/^I edit a developer faq$/) do
   faq_params = DeveloperFixture.default_faqs.first
   faq = Faq.find_by(question: faq_params.first)
 
+  find(:xpath,"//a[contains(., '#{faq_params[:faq_type].name}')]", visible: all).trigger('click')
+
   within "[data-faq='#{faq.id}']" do
     find("[data-action='edit']").trigger("click")
   end
@@ -260,25 +256,27 @@ When(/^I edit a developer faq$/) do
 end
 
 Then(/^I should see no faqs for the development$/) do
-  within ".tabs" do
-    click_on t("developments.collection.faqs")
-  end
 
-  within ".empty" do
-    expect(page).to have_content "You have no FAQs"
+  CreateFixture.development.faq_types.each do |faq_type|
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+
+    within ".empty" do
+      expect(page).to have_content t("faqs.collection.empty_list", type: faq_type.name)
+    end
   end
 end
 
 Then(/^I should not see the edited faq in the development faqs$/) do
-  within ".tabs" do
-    click_on t("developments.collection.faqs")
-  end
 
-  within ".faqs" do
-    expect(page).not_to have_content FaqsFixture.edited_question
-    DeveloperFixture.default_faqs.each do |question, category|
-      expect(page).to have_content(question)
-      expect(page).to have_content(category)
+  CreateFixture.development.faq_types.each do |faq_type|
+    find(:xpath,"//a[contains(., '#{faq_type.name}')]", visible: all).trigger('click')
+
+    within ".faqs" do
+      expect(page).not_to have_content FaqsFixture.edited_question
+      DeveloperFixture.default_faqs.select {|faq| faq[:faq_type] == faq_type }.each do |faq|
+        expect(page).to have_content(faq[:question])
+        expect(page).to have_content(faq[:faq_category].name)
+      end
     end
   end
 end

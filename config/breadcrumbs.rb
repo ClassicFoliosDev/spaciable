@@ -111,7 +111,6 @@ crumb :reports do
   link t("breadcrumbs.admin_reports"), new_admin_analytics_path
 end
 
-
 # Current parent snag overview - cannot find phase id to pass to phases
 crumb :admin_plot_snag do
   link t("breadcrumbs.admin_plot_snag"), admin_snags_plot_path
@@ -124,7 +123,25 @@ crumb :admin_snag do |snag|
   parent :admin_snag_overview
 end
 
+crumb :default_faqs do |type|
+  link t("breadcrumbs.default_faqs", country: type.country.name, type: type.name), (admin_settings_default_faqs_path ({active_tab: type.id}))
+  parent :admin_settings
+end
 
+crumb :default_faq do |default_faq|
+  link default_faq.question.html_safe
+  parent :default_faqs, default_faq.faq_type
+end
+
+crumb :default_faq_edit do |default_faq, faq_type|
+  link t("breadcrumbs.default_faqs_edit", default_faq: default_faq)
+  parent :default_faqs, faq_type
+end
+
+crumb :default_faq_add do |faq_type|
+  link t("breadcrumbs.default_faqs_add")
+  parent :default_faqs, faq_type
+end
 
 # DEVELOPERS
 
@@ -753,8 +770,8 @@ end
 
 # FAQs
 
-crumb :faqs do |faq_parent|
-  link t("breadcrumbs.faqs"), ([faq_parent, :faqs])
+crumb :faqs do |faq_parent, faq_type|
+  link t("breadcrumbs.faqs", type: faq_type.name), ([faq_parent, :faqs, active_tab: faq_type.id])
 
   case faq_parent.model_name.element.to_sym
   when :developer
@@ -766,19 +783,19 @@ crumb :faqs do |faq_parent|
   end
 end
 
-crumb :faq_add do |faq_parent|
+crumb :faq_add do |faq_parent, faq_type|
   link t("breadcrumbs.faqs_add"), [:new, faq_parent, :faq]
-  parent :faqs, faq_parent
+  parent :faqs, faq_parent, faq_type
 end
 
 crumb :faq do |faq|
   link faq.question.html_safe, faq_path(faq)
-  parent :faqs, faq.faqable
+  parent :faqs, faq.faqable, faq.faq_type
 end
 
 crumb :faq_edit do |faq|
   link t("breadcrumbs.faqs_edit", faq: faq), [:edit, faq]
-  parent :faqs, faq.faqable
+  parent :faqs, faq.faqable, faq.faq_type
 end
 
 # VIDEOS

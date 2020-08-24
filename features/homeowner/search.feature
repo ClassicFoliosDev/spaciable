@@ -13,6 +13,7 @@ Feature: Homeowner Search
     And there are faqs
     And there are notifications
     And there are how-tos
+    And FAQ metadata is available
     When I search for a finish
     Then I see the matching finish
     When I search for a room

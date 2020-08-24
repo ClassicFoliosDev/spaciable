@@ -1,7 +1,5 @@
 <% breadcrumb :admin_users %>
 
-<% Invitation.resident_invitation_summary %>
-
 <div class="section-header">
   <div class="section-title">
     <i class="fa fa-person"></i>
@@ -15,6 +13,10 @@
     <span class="btn-label"><%= t(".add") %></span>
   <% end %>
 </div>
+
+<% if current_user.cf_admin? %>
+  <%= render 'components/admin/search', usearch: @usearch, path: admin_users_path, user_search_path: admin_user_search_path, search: t(".search"), roles: User.role_call %>
+<% end %>
 
 <table class="record-list users">
   <thead>
@@ -53,6 +55,12 @@
       <% end %>
       <td><%= l user.invitation_accepted_at.to_date, format: :digits if user.invitation_accepted? %></td>
       <td class="actions">
+        <% unless user.invitation_accepted? %>
+          <%= button_tag "", class: "btn", id: "resendInvitation", title: 'Resend Invitation',
+            data: { invite: user.id, invitee: current_user.id, email: user.email } do %>
+            <i class="fa fa-envelope-o"></i>
+          <% end %>
+        <% end %>
         <%= edit_btn edit_admin_user_path(user), element: user %>
         <%= delete_btn user, path: admin_user_path(user), element: user %>
       </td>

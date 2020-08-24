@@ -47,6 +47,7 @@ class Plot < ApplicationRecord
   delegate :cas, to: :development
   delegate :time_zone, to: :developer
   delegate :calendar, to: :development, prefix: true
+  delegate :construction, to: :development
 
   attr_accessor :notify
 

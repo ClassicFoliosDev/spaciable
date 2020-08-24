@@ -87,19 +87,26 @@
         <% end %>
 
         <% if plot.enable_perks? %>
-          <% if !Vaboo.perks_account_activated?(current_resident, plot) %>
-            <% perk = allocate_perk_type(current_resident, plot) %>
-            <%= link_to perks_path(type: perk), class: "navbar-link" do %>
+          <% Vaboo.perks_account_activated?(current_resident, plot) do |response, error| %>
+            <% if error == true %>
+              <li class="navbar-item unavailable">
+                <%= t(".perks") %> (Currently Unavailable)
+              </li>
+            <% end %>
+            <% if response == true%>
+              <% perk = allocate_perk_type(current_resident, plot) %>
+              <%= link_to perks_path(type: perk), class: "navbar-link" do %>
+                  <li class="navbar-item">
+                    <%= t(".perks") %>
+                  </li>
+              <% end %>
+            <% elsif response == false %>
+              <%= link_to Vaboo.branded_perks_link(plot.developer),
+                  class: "navbar-link", target: :_blank do %>
                 <li class="navbar-item">
                   <%= t(".perks") %>
                 </li>
-            <% end %>
-          <% else %>
-            <%= link_to Vaboo.branded_perks_link(plot.developer),
-                class: "navbar-link", target: :_blank do %>
-              <li class="navbar-item">
-                <%= t(".perks") %>
-              </li>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
@@ -123,7 +130,7 @@
       <ul>
         <%= link_to homeowner_faqs_path, active_tab: "faqs", class: "navbar-link" do %>
           <li class="navbar-item">
-            <%= t('.faqs') %>
+          <%= t('.faqs') %>
           </li>
         <% end %>
 

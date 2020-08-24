@@ -6,6 +6,7 @@ Feature: My Home Library
 
   Scenario:
     Given I am logged in as a homeowner want to download my documents
+    And FAQ metadata is available
     And there is an appliance with a guide
     And there is another phase plot
     Then I should see recent documents added to my library
@@ -29,6 +30,7 @@ Feature: My Home Library
 
   Scenario: Document permissions
     Given I am logged in as a homeowner want to download my documents
+    And FAQ metadata is available
     And there is an appliance with a guide
     And there is another tenant on the plot
     Then I should see recent documents added to my library

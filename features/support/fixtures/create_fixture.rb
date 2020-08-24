@@ -213,9 +213,9 @@ module CreateFixture
 
   def create_developer(cas: false)
     return developer if developer
-    country = FactoryGirl.create(:country)
+    create_countries
     FactoryGirl.create(:developer, company_name: developer_name, house_search: true,
-                       enable_referrals: true, country_id: country.id, cas: cas)
+                       enable_referrals: true, country_id: uk.id, cas: cas)
   end
 
   def create_spanish_developer
@@ -223,7 +223,7 @@ module CreateFixture
     FactoryGirl.create(:developer,
                        company_name: spanish_developer_name,
                        house_search: true,
-                       country_id: Country.find_by(name: "Spain").id)
+                       country_id: spain.id)
   end
 
   def create_division
@@ -364,10 +364,6 @@ module CreateFixture
   def create_notification
     notification = FactoryGirl.create(:notification, subject: notification_name, send_to_type: "Phase", send_to_id: phase.id)
     FactoryGirl.create(:resident_notification, resident_id: resident.id, notification_id: notification.id)
-  end
-
-  def create_faq
-    FactoryGirl.create(:faq, question: faq_name, faqable: developer)
   end
 
   def create_appliance_without_manual(developer=nil)
@@ -790,5 +786,14 @@ module CreateFixture
   def add_finish_to_room(room_name, finish_name)
     create_finish_room(room(room_name), finish(finish_name))
   end
+
+  def uk
+    Country.find_by(name: "UK")
+  end
+
+  def spain
+    Country.find_by(name: "Spain")
+  end
+
 end
 # rubocop:enable ModuleLength
