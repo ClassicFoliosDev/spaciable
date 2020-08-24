@@ -219,7 +219,7 @@ module CreateFixture
   end
 
   def create_spanish_developer
-    CreateFixture.create_countries if Country.none?
+    create_countries
     FactoryGirl.create(:developer,
                        company_name: spanish_developer_name,
                        house_search: true,
@@ -315,6 +315,8 @@ module CreateFixture
   end
 
   def create_countries
+    return unless Country.none?
+
     FactoryGirl.create(:country, name: "UK", time_zone: "London")
     FactoryGirl.create(:country, name: "Spain", time_zone: "Paris")
   end
