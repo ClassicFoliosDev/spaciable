@@ -1,0 +1,17 @@
+Hi,
+
+The following appointment for plot <%= @plot.number %> at <%= @plot.development_name%> has been <%= @resource.status %> by <%= @resource.resourceable %>
+
+Title: <% @event.title %>
+<% if @event.location? %>
+Location: <%= @event.location %>
+<% end %>
+Start Time: <%= @event.start %>
+End Time: <%= @event.end %>
+
+<% if @resource.reproposed? %>
+Reproposed Start Time: <%= @resource.proposed_start %>
+Reproposed End Time: <%= @resource.proposed_end %>
+<% end %>
+
+"Go To Appointment" <%= @link %>

@@ -29,6 +29,7 @@ class PlotsController < ApplicationController
     @active_tab = params[:active_tab] || default_tab
     @collection_parent = @plot
     @collection = build_collection
+    @preload = Event.find(params[:event]) if params[:event]
 
     session[:plot_id] = @plot.id
 

@@ -14,6 +14,8 @@
  *= require jquery-ui
  *= require cookies_eu
  *= require_self
+ *= require fullcalendar
+ *= require flatpickr
  */
 
 @import 'geometry';
@@ -72,3 +74,4 @@
 @import 'components/homeowner/plots';
 @import 'components/homeowner/dashboard_tiles';
 @import 'components/homeowner/timeline';
+@import 'components/homeowner/calendar';

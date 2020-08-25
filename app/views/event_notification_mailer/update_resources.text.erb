@@ -1,0 +1,30 @@
+Hi,
+
+The time for an event has been updated in your calendar for plot <%= @plot.number %> at <%= @plot.development_name%>.
+
+New Time Set by: <%= @event.full_name %>
+<%= @event.title %>
+<% if @event.location? %>
+Location: <%= @event.location %>
+<% end %>
+Start Time: <%= @event.start %>
+End Time: <%= @event.end %>
+
+<% unless @event.never? %>
+This event has been set to repeat <%= @event.repeat %> until <%= @event.repeat_until %>.
+<% end %>
+
+<% unless @event.nix? %>
+You will be sent an email reminder for this meeting
+    <% if @event.at? %>
+      at the time of the event
+    <% elsif @event.hour? %>
+      an hour before the event
+    <% else %>
+      a <%= @event.reminder %> before the event
+    <% end %>
+<% end %>
+
+Login to your portal at <%= root_url %> to review this event and propose a new time if necessary.
+
+Go To Appointment <%= @link %>
