@@ -1188,7 +1188,7 @@ en:
       category: "Category"
       editable: "Editable"
       uneditable_title: "%{tile}"
-      uneditable_text: "You do not have permission to edit this shortcut. Please speak to your account manager for more details."
+      uneditable_text: "You do not have permission to edit this shortcut tile. Please contact your Classic Folios Account Manager for more details."
     new:
       title: "New Custom Shortcut"
     edit:
