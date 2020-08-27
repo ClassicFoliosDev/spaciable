@@ -23,14 +23,13 @@
   document.addEventListener('turbolinks:load', function () {
     if ($(window).innerWidth() < 1025) {
       // change the account navigation icon
-      if($("#upDownArrow").length) {
-        var arrow = document.querySelector("#upDownArrow")
-        arrow.classList = "fa fa-user-circle-o"
-        // set the dropdown width to 100%
-        $("#navList").css("width", "100%")
-        // remove header search element
-        $(".navbar-search .search-container").remove()
-      }
+      var arrow = document.querySelector("#upDownArrow")
+      if (arrow == null) { return }
+      arrow.classList = "fa fa-user-circle-o"
+      // set the dropdown width to 100%
+      $("#navList").css("width", "100%")
+      // remove header search element
+      $(".navbar-search .search-container").remove()
     } else {
       $(".lower-navigation .lower-navbar-search").remove()
     }

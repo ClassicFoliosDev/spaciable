@@ -122,10 +122,11 @@ When(/^I update the appliance$/) do
     end
   end
 
-  click_on t("unit_types.form.submit")
+  submit_confirm
 end
 
 Then(/^I should see the updated appliance$/) do
+
   success_flash = t(
     "appliances.update.success",
     name: ApplianceFixture.updated_full_name
@@ -176,7 +177,7 @@ When(/^I remove an image$/) do
     remove_btn.click
   end
 
-  click_on t("unit_types.form.submit")
+  submit_confirm
 end
 
 Then(/^I should see the updated appliance without the image$/) do
@@ -209,8 +210,8 @@ When(/^I remove a file$/) do
     remove_btn.click
   end
 
-  click_on t("unit_types.form.submit")
-end
+  submit_confirm
+ end
 
 Then(/^I should see the updated appliance without the file$/) do
   success_flash = t(
@@ -236,6 +237,16 @@ When(/^I delete the appliance$/) do
   visit "/appliances"
   delete_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
   delete_and_confirm!(scope: delete_scope)
+end
+
+When(/^I cannot delete the appliance$/) do
+  visit "/appliances"
+  appliance_scope = find(:xpath, "//a[contains(text(),'#{CreateFixture.appliance_name}')]/parent::td/parent::tr")
+  within appliance_scope do
+    find(".info-btn").trigger(:click)
+  end
+  expect(page).to have_content(t("appliances.collection.cannot_delete", appliance: CreateFixture.appliance_name))
+  click_on t("back")
 end
 
 Then(/^I should see the ([^ ]*) appliance category delete complete successfully$/) do |category|
@@ -289,4 +300,9 @@ Then(/^I cannot delete the ([^ ]*) appliance$/) do |appliance|
   # the category name may be duplicated in the database - find the row by name
   appliance_row  = find(:xpath, "//a[contains(text(),'#{eval(appliance)}')]/parent::td/parent::tr")
   expect(appliance_row).not_to have_selector("#archive-btn")
+end
+
+def submit_confirm
+  click_on t("unit_types.form.submit")
+  click_on t("buttons.confirm_dialog.title")
 end

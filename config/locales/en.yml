@@ -531,6 +531,8 @@ en:
         header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
         reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
+      search:
+        all: "All"
 
     choices:
       resident:
@@ -544,6 +546,7 @@ en:
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
+        calendar: "Calendar"
         title: "My Home"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
@@ -567,6 +570,7 @@ en:
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
+        calendar: "Calendar"
         choices: "Choices"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
@@ -646,6 +650,7 @@ en:
       feedback: "Feedback"
     search:
       search: "Search"
+      all: "All"
 
   destroy:
     cancel: "Cancel"
@@ -940,6 +945,7 @@ en:
         division: "Division"
         development: "Development"
         accepted_at: "Activation Date"
+        search: "Admin users search"
       new:
         add: "New User."
       show:
@@ -1009,6 +1015,7 @@ en:
         invited_by: "Invited By"
         accepted_at: "Activated"
         phone_number: "Phone"
+        search: "Search Residents"
       show:
         name: "Plot"
         developer: "Developer"
@@ -1261,6 +1268,8 @@ en:
       premium_licences_remaining: "Premium Licences Remaining"
       construction: "Construction Type"
       construction_name: "Replace My 'Home':"
+      calendar: "Calendar"
+      calendar_description: "Enable Plot Calendars for this Development"
     index:
       add: "Add Development"
     development:
@@ -2041,7 +2050,7 @@ en:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         intro_para_1: "Your personal home portal – Spaciable – knows all about your property and can provide downloadable documents, key contacts,
         notifications, maintenance advice and much more."
-        intro_para_2: "Spaciable not only addresses all those niggling property queries, but is also is a constant source of inspiration.
+        intro_para_2: "Spaciable not only addresses all those niggling property queries, but is also a constant source of inspiration.
         Log in to discover exciting ideas for getting the most out of your home and hobbies."
         remember_me: "Remember me"
         accept_ts_and_cs: "Accept terms and conditions"
@@ -2469,6 +2478,7 @@ en:
       name: "Plot"
       logs: "Change Logs"
       sync: "CRM Sync"
+      calendar: "Calendar"
 
       UK:
         house_number: "Postal"
@@ -2629,6 +2639,7 @@ en:
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
+     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this appliance would remove it from all plots."
 
    new:
      title: "New Appliance."
@@ -2657,6 +2668,7 @@ en:
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
+     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and unit types containing this appliance."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -2751,6 +2763,7 @@ en:
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
+      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this finish would remove it from all plots."
     new:
       title: "New Finish."
     form:
@@ -2768,6 +2781,7 @@ en:
       category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
       type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
       manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
+      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and unit types containing this finish."
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -3024,9 +3038,10 @@ en:
       subject: "Spaciable Activation Report"
       hello: "Hi %{name},"
       report: "This is your weekly Spaciable activation report."
-      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
-                leaving %{inactive} residents having not accepted the invitation email."
-      inactive: "Below is a list of residents who are yet to activate."
+      summary: "In the last week, %{invitations} residents were invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents who have not accepted the invitation email."
+      inactive: "To ensure you and your customers get the most out of your investment in Spaciable, please see below the customers who need a gentle reminder to accept their invitation."
+      inactive_2: "Don't forget: once they have activated, your customers will gain access to valuable, timesaving information, designed to support their journey and help them enjoy their new home. They'll also receive essential communications that you send through the portal."
       login: "Login to Spaciable: "
       unsubscribe: "Don't wish to receive a weekly resident activation report? You can update your preferences in your Spaciable profile."
 
@@ -3686,6 +3701,38 @@ en:
       submit: "Submit"
     destroy:
       success: "%{title} was deleted successfully"
+
+  events:
+    invited: "Invited"
+    accepted: "Accept"
+    declined: "Decline"
+    changed: "Change"
+    save_change: "Save"
+    accept_proposal: "Accept Proposal"
+
+    repeat:
+      never: "Does not repeat"
+      daily: "Daily"
+      weekly: "Weekly"
+      biweekly: "Biweekly"
+      monthly: "Monthly"
+      yearly: "Yearly"
+    remind:
+      nix: "Never"
+      at: "At"
+      hour: "Hour"
+      day: "Day"
+      week: "Week"
+    edit:
+      repeat:
+        this_event: "This event only"
+        this_and_following: "This and future events"
+        all_events: "All events (past and future)"
+        confirm: "Please confirm the event(s) you wish to modify."
+      single:
+        confirm: "Are you sure you want to delete this event?"
+
+
 
 
 

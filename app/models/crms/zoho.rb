@@ -83,25 +83,29 @@ module Crms
       collection = PlotCollection.new
 
       # Get the matching z (zoho) and (s) spaciable records
-      matching_records(parent, s_plots, :number) do |_, s|
-        residents = Crms::Zoho.new(s).related("Residents")
+      matching_records(parent, s_plots, :number) do |zp, s|
+        begin
+          residents = zp.get_relatedlist_records("Residents").data
 
-        next unless residents
+          next unless residents
 
-        plot = Crms::Root::Plot.new(id: s.id, number: s.number)
-        residents&.each do |resident|
-          plot.residents << Crms::Root::Resident.new(
-            title: resident.field_data["Title"].downcase,
-            first_name: resident.field_data["Name"],
-            last_name: resident.field_data["LastName"],
-            email: resident.field_data["Email"],
-            phone_number: resident.field_data["Phone"]
-          )
+          plot = Crms::Root::Plot.new(id: s.id, number: s.number)
+          residents&.each do |resident|
+            plot.residents << Crms::Root::Resident.new(
+              title: resident.field_data["Title"].downcase,
+              first_name: resident.field_data["Name"],
+              last_name: resident.field_data["LastName"],
+              email: resident.field_data["Email"],
+              phone_number: resident.field_data["Phone"]
+            )
+          end
+
+          plot.rationalise
+
+          collection.plots << plot if plot.residents.present?
+        rescue ZCRMSDK::Utility::ZCRMException
+          next # standard nil related records response
         end
-
-        plot.rationalise
-
-        collection.plots << plot if plot.residents.present?
       end
 
       collection

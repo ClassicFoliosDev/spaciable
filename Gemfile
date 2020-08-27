@@ -46,6 +46,8 @@ gem "ckeditor"
 gem "simple_form"
 # Validation for phone numbers
 gem "phonelib"
+# Date/Time input cross-browser support
+gem "flatpickr"
 
 gem "cancancan", "~> 1"
 gem "gretel" # breadcrumbs
@@ -123,6 +125,10 @@ gem "copy_carrierwave_file"
 
 # Analytics
 gem 'ahoy_matey'
+
+# full callendar
+gem "fullcalendar-rails"
+gem "momentjs-rails"
 
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories

@@ -90,6 +90,10 @@ class Finish < ApplicationRecord
     name
   end
 
+  def in_use?
+    FinishRoom.with_finish(id).present?
+  end
+
   # This function looks to find or create a finish using the names for a
   # finish/category/type/manufacturer.  It has to cover a number of scenarios
   # depending if the finish, category, type and manufacturer already exists

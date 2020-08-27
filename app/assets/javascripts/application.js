@@ -19,3 +19,7 @@
 // = require cookies_eu
 // = require_tree .
 // = require rails-timeago
+//= require moment
+//= require fullcalendar
+//= require fullcalendar/locale-all
+//= require flatpickr
