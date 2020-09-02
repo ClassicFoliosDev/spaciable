@@ -45,5 +45,4 @@ $(document).on('click', '#document_guide-menu', function (event) {
 function resetPlotGuide () {
   $('#plotDocGuideSelector select')[0].selectedIndex = 0
   $('#plotDocGuideSelector .ui-selectmenu-text')[0].innerHTML = "&nbsp;"
-  $('input#document_pinned')[0].checked = false
 }
