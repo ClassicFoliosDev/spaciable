@@ -4,7 +4,7 @@
   // Trigger the browser support popup on page load (dashboard only)
   // Check for support div and browder type
   document.addEventListener('turbolinks:load', function (event) {
-    if (($("#browserSupport").length) && (/Chrome/.test(navigator.userAgent))) {
+    if (($("#browserSupport").length) && (/Trident|MSIE/.test(navigator.userAgent))) {
       showBrowserSupport()
     }
   })
@@ -30,7 +30,7 @@
         dialogClass: 'browser-support-dialog',
         buttons: [
           {
-            class: 'dialog-btn dialog-dismiss',
+            class: 'dialog-btn support-dismiss',
             id: "browserDismissBtn",
             click: function () {
               $(this).dialog('close')
