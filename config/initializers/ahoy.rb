@@ -27,7 +27,6 @@ class Ahoy::Store < Ahoy::DatabaseStore
   def transfer!(data)
     Ahoy::Event.new().attributes.each do |property, _|
       property_sym = property.to_sym
-      puts property_sym
       next unless data[:properties][property_sym]
 
       data[property_sym] = data[:properties][property_sym]
@@ -47,3 +46,5 @@ Ahoy.user_agent_parser = :device_detector
 Ahoy.bot_detection_version = 2
 
 #Ahoy.user_method = ->(controller) { controller.ahoy_user }
+
+Ahoy.visit_duration = 30.minutes

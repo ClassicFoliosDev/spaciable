@@ -7,6 +7,12 @@ module Homeowners
     before_action :fetch_faqs, only: [:show]
     before_action :fetch_contacts, only: [:show]
 
+    after_action only: %i[show] do
+      record_event(session[:sign_in] ? :homeowner_sign_in : :view_main_menu,
+                   category1: session[:sign_in] ? I18n.t("ahoy.#{Ahoy::Event::LOG_IN}") : nil)
+      session[:sign_in] = false
+    end
+
     def show
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil

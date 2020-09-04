@@ -9,12 +9,18 @@ module Homeowners
     load_and_authorize_resource :faq, except: %i[feedback]
 
     before_action :authorise, only: %i[index]
-    before_action do
-      record_action("FAQ", action: action_name, plot_id: @plot.id)
+
+    after_action only: %i[index] do
+      record_event(:view_FAQs, type: @faq_type.name, category1: @faq_category.name)
+    end
+
+    before_action only: %i[feedback] do
+      record_event(:view_FAQs_feedback,
+                   category1: params[:question],
+                   category2: params[:response] == "0" ? "No" : "Yes")
     end
 
     def index
-
       populate
 
       # filter FAQs by category

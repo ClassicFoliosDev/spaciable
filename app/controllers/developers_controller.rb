@@ -8,7 +8,7 @@ class DevelopersController < ApplicationController
   skip_authorization_check only: %i[cas]
 
   before_action do
-    record_action("Developers", action_name)
+    record_action("Developers", action: action_name)
   end
 
   def index

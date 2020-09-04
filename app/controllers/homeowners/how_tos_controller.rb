@@ -6,6 +6,14 @@ module Homeowners
                        unless: -> { current_resident || current_user }
     load_and_authorize_resource :how_to, except: %i[list_how_tos show_how_to]
 
+    after_action only: %i[index] do
+      record_event(:view_how_to, category1: @category)
+    end
+
+    after_action only: %i[show] do
+      record_event(:view_how_to, category1: @how_to.category, category2: @how_to.title)
+    end
+
     def index
       @category = how_to_params[:category]
       tag_id = how_to_params[:tag]

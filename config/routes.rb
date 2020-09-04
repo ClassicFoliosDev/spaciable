@@ -48,7 +48,9 @@ Rails.application.routes.draw do
     end
     get 'uploads', action: :uploads , controller: 'settings'
 
-    resource :analytics, only: [:new, :create]
+    resource :reports, only: [:new, :create]
+    resource :analytics, only: [:show]
+    resource :visits, only: [:show, :create]
 
     get 'developers', to: 'developers#index', format: :json
     get 'divisions', to: 'divisions#index', format: :json

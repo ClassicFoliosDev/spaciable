@@ -4,6 +4,14 @@ module Homeowners
   class TimelineController < Homeowners::BaseController
     before_action :build_timeline
 
+    after_action only: %i[show] do
+      record_event(:view_your_journey, category1: @task&.title)
+    end
+
+    after_action only: %i[viewed] do
+      record_event(:view_your_journey, category1: @task&.title, category2: params[:response])
+    end
+
     # show is expected to service any of the timeline
     # views depending on the state.  Splash at the start,
     # select_stage, click on a task in the timeline,

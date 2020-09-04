@@ -4,7 +4,7 @@
   <div class="branded-body outer-container timeline-task">
 
     <div class="timeline-sidebar">
-      <div class="timeline-header-mobile" style="background-image: url('<%= @task.picture %>')">
+      <div class="timeline-header-mobile" style="background-image: url('<%= image_path(@task.picture) %>')">
         <div class="overlay">
           <div class="progress-container">
             <div class="title">
@@ -60,7 +60,7 @@
               <% end %>
             </div>
           </div>
-          <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
+          <div class="image" style="background-image: url('<%= image_path(@task.picture) %>')"></div>
         </div>
 
         <div id="answer">

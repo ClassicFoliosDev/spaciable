@@ -124,7 +124,7 @@ gem "request_store"
 gem "copy_carrierwave_file"
 
 # Analytics
-gem 'ahoy_matey'
+gem "ahoy_matey"
 
 # full callendar
 gem "fullcalendar-rails"

@@ -16,7 +16,6 @@ class CreateAhoyVisitsAndEvents < ActiveRecord::Migration[5.0]
           t.string :browser
           t.string :os
           t.string :device_type
-
           t.timestamp :started_at
         end
 
@@ -25,7 +24,6 @@ class CreateAhoyVisitsAndEvents < ActiveRecord::Migration[5.0]
         create_table :ahoy_events do |t|
           t.references :visit
           t.references :userable, polymorphic: true, index: true
-
           t.string :name
           t.integer :plot_id
           t.jsonb :properties

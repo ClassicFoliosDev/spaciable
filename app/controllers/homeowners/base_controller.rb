@@ -2,6 +2,7 @@
 
 module Homeowners
   class BaseController < ApplicationController
+    include Ahoy::AnalyticsHelper
     skip_before_action :authenticate_user!
     skip_before_action :redirect_residents
     skip_authorization_check
@@ -82,6 +83,12 @@ module Homeowners
     # Set the current user in a thread safe store so as the models can access it
     def set_current_resident
       RequestStore.store[:current_resident] = current_resident
+    end
+
+    def record_event(action, *params)
+      event_params = params.present? ? params[0] : {}
+      event_params[:plot_id] = @plot.id
+      record_action(t("ahoy.#{action}"), event_params)
     end
   end
 end
