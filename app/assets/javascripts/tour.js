@@ -19,7 +19,7 @@ var tour = introJs()
       {
         element: ".view-my-home-btn",
         intro: "Need to know what the RAL code is for your hallway wall paint? Or the range of the wall tiles in the bathroom? Or do you just need to check the program settings for your oven? You'll find all of this here, along with a range of other documents relating to your home.",
-        position: "right"
+        position: "top"
       },
       {
         element: ".faqs-component",
@@ -34,7 +34,7 @@ var tour = introJs()
       {
         element: ".library-component",
         intro: "<strong>*Whispering*</strong> The library is home to some of the greatest works of modern literature - no, not The Great Gatsby or To Kill a Mockingbird, but your oven's user manual, your home's structural warranty policy and your Electrical Performance Certificate. Separated by <del>genre</del> category, you will be able to quickly and easily find any of the downloadable documents relating to your home.",
-        position: "bottom"
+        position: "top"
       },
       {
         element: ".perks-component",
