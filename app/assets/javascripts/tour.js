@@ -6,11 +6,15 @@ var tour = introJs()
     keyboardNavigation: true,
     scrollToElement: true,
     disableInteraction: true,
+    exitOnEsc: true,
+    nextLabel: "Next",
+    prevLabel: "Back",
+    skipLabel: "Skip Tour",
     steps: [
       {
         element: ".burger-navigation",
-        intro: "Welcome to your home's personalised portal. You'll find the main menu here, where you can explore all of the features your personal home portal has to offer. You can also access key features from your dashboard, which we'll show you next.",
-        position: "bottom"
+        intro: "Behold the wonders of your portal! Click on the Menu to view links to all the fantastic features available to you, helpfully split up into three sections: Essentials, Lifestyle and A Helping Hand. The perfect place to start if you're not quite sure what you're looking for.",
+        position: "left"
       },
       {
         element: ".my-home",
