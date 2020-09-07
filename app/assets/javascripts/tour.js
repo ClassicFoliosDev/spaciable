@@ -17,29 +17,59 @@ var tour = introJs()
         position: "left"
       },
       {
-        element: ".my-home",
-        intro: "Here's your new address. Click the 'View My Home' button to see detailed information about your home, such as your finishes and fittings.",
-        position: "bottom"
-      },
-      {
-        element: ".switch-plot-btn",
-        intro: "You can view all of your plots and swap between them by clicking here.",
+        element: ".view-my-home-btn",
+        intro: "Need to know what the RAL code is for your hallway wall paint? Or the range of the wall tiles in the bathroom? Or do you just need to check the program settings for your oven? You'll find all of this here, along with a range of other documents relating to your home.",
         position: "right"
       },
       {
         element: ".faqs-component",
-        intro: "Find answers to common questions in your FAQs.",
+        intro: "If you've got any questions about your home, you're probably not alone! Head over to the FAQs section to expand your knowledge and level up as a homeowner. Answers to a range of questions can be sorted by category, placing quick and easy explanations at your fingertips!",
         position: "top"
       },
       {
         element: ".contacts-component",
-        intro: "If you can't find what you're looking for in the FAQs, a selection of useful contacts is available.",
+        intro: "Occasionally, you may need to pick up the phone to get to the bottom of an issue. But not many things are more annoying than getting passed from person to person like a game of phone tennis, in search of an answer. In fact, sometimes, just finding a number can be a bit of a mission! Contacts displays customer care, service, sales, management and emergency contacts, so you don't have to listen to (as many) crackly covers of pop songs while on hold!",
         position: "top"
       },
       {
         element: ".library-component",
-        intro: "Useful documents and appliance guides have been uploaded to your library. You can also upload your own documents to keep everything together in one place.",
+        intro: "<strong>*Whispering*</strong> The library is home to some of the greatest works of modern literature - no, not The Great Gatsby or To Kill a Mockingbird, but your oven's user manual, your home's structural warranty policy and your Electrical Performance Certificate. Separated by <del>genre</del> category, you will be able to quickly and easily find any of the downloadable documents relating to your home.",
         position: "bottom"
+      },
+      {
+        element: ".perks-component",
+        intro: "It pays to be part of a club. Quite literally in the case of Buyers' Club. Here, you'll have access to exiting exclusive offers and discounts, so you can grab some great bargains for your new home, while walking around with the swagger that comes with being a VIP!",
+        position: "top"
+      },
+      {
+        element: ".services-component",
+        intro: "The money saving doesn’t stop there, either!  Services offers exclusive quotes for a range of services and products, including utility suppliers, landscapers and insurance providers, so you can start saving for a luxury spa trip to relax after a busy few months – oh, wait – Services can offer discounts on spa trips, too!",
+        position: "top"
+      },
+      {
+        element: ".area_guide-component",
+        intro: "After moving into your new home, you’ll need to celebrate!  Why not take the opportunity to check out your local bars and restaurants?!  Area Guide displays your closest amenities and services, including retailers, health services, schools and bus stops, so you can quickly integrate yourself into the local community.",
+        position: "top"
+      },
+      {
+        element: ".referrals-component",
+        intro: "Have you been bowled over by an incredible buying experience?  Well, sharing is caring!  Just fill in this quick and easy form to share your friend’s contact details with your developer, and they may just become your new neighbour!",
+        position: "top"
+      },
+      {
+        element: ".home_designer-component",
+        intro: "Unleash your inner interior designer!  Simply upload or recreate your home’s floor plans and use your digital canvas to experiment with layout and colour schemes!  No longer do you have to risk whether a paisley sofa will go with navy blue carpets and salmon pink curtains!",
+        position: "top"
+      },
+      {
+        element: ".issues-component",
+        intro: "Sometimes defects occur in new builds – it’s just one of those things.  For any defects that aren’t emergencies, you can report them here, creating a ticket with the developer, so you can monitor progress until it’s rectified.  If the defect is an emergency, e.g., you find yourself wading through waist-height water to get to the fridge freezer, you’re best off calling your emergency contact!",
+        position: "top"
+      },
+      {
+        element: ".snagging-component",
+        intro: "You will likely have been told about a snagging period: a window during which you can report any cosmetic defects that you have spotted since moving in that were missed during the inspection, such as scuffed paintwork or damage to skirting boards.  Use this feature to report any items and, like magic*, they’ll be sorted!  Just like voting on The X Factor, the window is open for a limited time only, after which, you’ll be unable to report snagging items.<br/><br/>* An appointment will likely be made to determine a suitable course of action",
+        position: "top"
       },
     ].filter(function (obj) {
       return $(obj.element).length
@@ -47,4 +77,6 @@ var tour = introJs()
   })
 
   tour.start()
+
+
 })

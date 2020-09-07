@@ -1,5 +1,5 @@
 <% tiles.each do | tile | %>
-  <div class="card article dash-tile branded-border">
+  <div class="card article dash-tile branded-border <%= "#{tile&.feature}-component" if tile.feature %>">
     <div class="tile-content">
       <% if tile.feature? %>
         <%= render "homeowners/dashboard/tiles/#{tile.feature}", plot: plot %>
