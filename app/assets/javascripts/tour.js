@@ -71,12 +71,20 @@ var tour = introJs()
         intro: "You will likely have been told about a snagging period: a window during which you can report any cosmetic defects that you have spotted since moving in that were missed during the inspection, such as scuffed paintwork or damage to skirting boards.  Use this feature to report any items and, like magic*, they’ll be sorted!  Just like voting on The X Factor, the window is open for a limited time only, after which, you’ll be unable to report snagging items.<br/><br/>* An appointment will likely be made to determine a suitable course of action",
         position: "top"
       },
+      {
+        element: ".reservation-component",
+        intro: "Your reservation manual is an expertly written guide to the buying process, ensuring you know what to expect at each stage, keeping things running along smoothly.",
+        position: "top"
+      },
+      {
+        element: ".completion-component",
+        intro: "You are bound to have plenty of questions after moving into your new home.  Whether it’s to do with ventilating your new home or caring for your worktops (even if that does make them sound a bit like pets), your completion manual will give you the low-down on how to make the most of your new home, report defects and emergencies, and keep it looking spick-and-span for years to come!",
+        position: "top"
+      },
     ].filter(function (obj) {
       return $(obj.element).length
     })
   })
 
   tour.start()
-
-
 })
