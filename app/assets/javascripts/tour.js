@@ -1,11 +1,35 @@
-$(document).on('click', '.branded-hero', function() {
-var tour = introJs()
+document.addEventListener('turbolinks:load', function () {
+  // check the relevant cookie value
+  var tourCookie = document.cookie.split('; ')
+                                  .find(row => row.startsWith('dashboard_tour'))
+  if (tourCookie) { var tourCookieValue = tourCookie.split('=')[1] }
+
+  if ( $("#homeownerDashboard").length && tourCookieValue == "show" ) {
+    loadDashboardTour()
+  }
+})
+
+$(document).on('click', '.introjs-skipbutton', function () {
+  // set the cookie to false with an expiry date in the past
+  document.cookie = "dashboard_tour=hide; expires=" + new Date(Date.now() - 86400000)
+  console.log(document.cookie)
+})
+
+$(document).on('click', '.dashboard-tour-link', function () {
+  // set the cookie to false with an expiry date in the past
+  document.cookie = "dashboard_tour=show; expires=" + new Date(Date.now() + 86400000)
+  console.log(document.cookie)
+})
+
+function loadDashboardTour() {
+  var tour = introJs()
 
   tour.setOptions({
     showStepNumbers: false,
     keyboardNavigation: true,
     scrollToElement: true,
     disableInteraction: true,
+    exitOnOverlayClick: false,
     exitOnEsc: true,
     nextLabel: "Next",
     prevLabel: "Back",
@@ -87,4 +111,5 @@ var tour = introJs()
   })
 
   tour.start()
-})
+}
+
