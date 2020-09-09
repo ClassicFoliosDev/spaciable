@@ -1,6 +1,41 @@
-<div class="search">
+<div class="visit-report row-item three-quarters">
+  <table>
+    <thead>
+      <tr>
+        <th><%= t(".title") %></th>
+        <th><%= t(".unique") %></th>
+        <th><%= t(".total") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @visits.stats.each do |_, stat| %>
+        <tr>
+          <td><%= stat.title %></td>
+          <td><%= stat.unique %></td>
+          <td><%= stat.total %></td>
+        </tr>
+        <% stat.visits.each do |cat1| %>
+          <tr>
+            <td><div style="padding-left:1.00em;"><%= cat1.title %></div></td>
+            <td>  <%= cat1.unique %></td>
+            <td>  <%= cat1.total %></td>
+          </tr>
+          <% cat1.visits.each do |cat2| %>
+            <tr>
+              <td><div style="padding-left:2.00em;"><%= cat2.title %></div></td>
+              <td><%= cat2.unique %></td>
+              <td><%= cat2.total %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="search row-item quarter">
   <%= simple_form_for :visits, :html => { :onsubmit => "reportSubmitted()" }, url: admin_visits_path, remote: true do |f| %>
-    <div class="row-item third admin-filter">
+    <div class="admin-filter">
       <fieldset>
         <%= f.input :start_date, label: t(".start_date"), as: :string,
           placeholder: "DD/MM/YYYY", required: false,
@@ -27,49 +62,19 @@
           include_blank: t(".all") %>
       </fieldset>
       <fieldset>
-        <strong><%= t(".plots") %> </strong><%= @visits.plots.count %><br/>
-        <strong><%= t(".residents") %> </strong><%= @visits.residents.count %><br/>
+        <div class="count">
+          <span>
+            <strong><%= t(".plots") %> </strong><%= @visits.plots.count %>
+          </span>
+            <span>
+            <strong><%= t(".residents") %> </strong><%= @visits.residents.count %>
+          </span>
+        </div>
         <div class="global-option">
-          <%= f.button :submit, t(".report_btn"),
-          class: "billing-csv btn-primary" %><br/>
-      </div>
+          <%= f.button :submit, t(".report_btn"), class: "btn-primary" %><br/>
+        </div>
       </fieldset>
-
     </div>
   <% end %>
 </div>
 
-<div>
-<table>
-  <thead>
-    <tr>
-      <th><%= t(".title") %></th>
-      <th><%= t(".unique") %></th>
-      <th><%= t(".total") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @visits.stats.each do |_, stat| %>
-      <tr>
-        <td><%= stat.title %></td>
-        <td><%= stat.unique %></td>
-        <td><%= stat.total %></td>
-      </tr>
-      <% stat.visits.each do |cat1| %>
-        <tr>
-          <td><div style="padding-left:1.00em;"><%= cat1.title %></div></td>
-          <td>  <%= cat1.unique %></td>
-          <td>  <%= cat1.total %></td>
-        </tr>
-        <% cat1.visits.each do |cat2| %>
-          <tr>
-            <td><div style="padding-left:2.00em;"><%= cat2.title %></div></td>
-            <td><%= cat2.unique %></td>
-            <td><%= cat2.total %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-</div>
