@@ -48,7 +48,7 @@ module MyLibraryFixture
     ApplianceFixture.update_appliance_guide
   end
 
-  def create_documents
+  def create_documents(documentable: nil)
     DOCUMENTS.each do |attrs|
       path = Rails.root.join("features", "support", "files", attrs[:file])
       file = Rack::Test::UploadedFile.new(path)
@@ -57,7 +57,7 @@ module MyLibraryFixture
         :document,
         title: attrs[:title],
         file: file,
-        documentable: attrs[:documentable].call,
+        documentable: documentable || attrs[:documentable].call,
         category: attrs[:category],
         pinned: attrs[:pinned]
       )

@@ -4,7 +4,11 @@
   <div class="branded-body outer-container timeline-task">
 
     <div class="timeline-sidebar">
+      <% if image_path(@task.picture).empty? %>
+      <div class="timeline-header-mobile">
+      <% else %>
       <div class="timeline-header-mobile" style="background-image: url('<%= image_path(@task.picture) %>')">
+      <% end %>
         <div class="overlay">
           <div class="progress-container">
             <div class="title">
@@ -60,7 +64,11 @@
               <% end %>
             </div>
           </div>
+          <% if image_path(@task.picture).empty? %>
+          <div class="image"></div>
+          <% else %>
           <div class="image" style="background-image: url('<%= image_path(@task.picture) %>')"></div>
+          <% end %>
         </div>
 
         <div id="answer">

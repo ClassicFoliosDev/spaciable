@@ -66,13 +66,13 @@ module MyHomeFaqsFixture
     Resident.find_by(email: resident_email)
   end
 
-  def create_faqs
+  def create_faqs(faqable: nil)
     faqs.each do |attrs|
       FactoryGirl.create(
         :faq,
         question: attrs[:question],
         answer: attrs[:answer],
-        faqable: attrs[:faqable].call,
+        faqable: faqable || attrs[:faqable].call,
         faq_type: attrs[:type],
         faq_category: attrs[:category]
       )

@@ -1,7 +1,7 @@
 <div class="visit-report row-item three-quarters">
   <table>
     <thead>
-      <tr>
+      <tr >
         <th><%= t(".title") %></th>
         <th><%= t(".unique") %></th>
         <th><%= t(".total") %></th>
@@ -9,22 +9,22 @@
     </thead>
     <tbody>
       <% @visits.stats.each do |_, stat| %>
-        <tr>
+        <tr <%="id=#{stat.hash}" if Rails.env.test?%>>
           <td><%= stat.title %></td>
-          <td><%= stat.unique %></td>
-          <td><%= stat.total %></td>
+          <td <%="id=u" if Rails.env.test?%>><%= stat.unique %></td>
+          <td <%="id=t" if Rails.env.test?%>><%= stat.total %></td>
         </tr>
         <% stat.visits.each do |cat1| %>
-          <tr>
+          <tr <%="id=#{cat1.hash}" if Rails.env.test?%>>
             <td><div style="padding-left:1.00em;"><%= cat1.title %></div></td>
-            <td>  <%= cat1.unique %></td>
-            <td>  <%= cat1.total %></td>
+            <td <%="id=u" if Rails.env.test?%>><%= cat1.unique %></td>
+            <td <%="id=t" if Rails.env.test?%>><%= cat1.total %></td>
           </tr>
           <% cat1.visits.each do |cat2| %>
-            <tr>
+            <tr <%="id=#{cat2.hash}" if Rails.env.test?%>>
               <td><div style="padding-left:2.00em;"><%= cat2.title %></div></td>
-              <td><%= cat2.unique %></td>
-              <td><%= cat2.total %></td>
+              <td <%="id=u" if Rails.env.test?%>><%= cat2.unique %></td>
+              <td <%="id=t" if Rails.env.test?%>><%= cat2.total %></td>
             </tr>
           <% end %>
         <% end %>
@@ -58,7 +58,7 @@
           collection: (@visits.division_id.present? ? Division.find_by(id: @visits.division_id)&.developments : Developer.find_by(id: @visits.developer_id)&.developments),
           selected: @visits.development_id,
           include_blank: t(".all") %>
-        <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false, selected: @visits.business,
+        <%= f.input :business, as: :select, collection: phase_businesses_collection, selected: @visits.business,
           include_blank: t(".all") %>
       </fieldset>
       <fieldset>
@@ -71,10 +71,13 @@
           </span>
         </div>
         <div class="global-option">
-          <%= f.button :submit, t(".report_btn"), class: "btn-primary" %><br/>
+          <%= f.button :submit, t(".report_btn"), id: "report" ,
+          class: "billing-csv btn-primary" %><br/>
         </div>
+        <% if Rails.env.test? %>
+          <input onclick="this.value='Dirty'" type="button" value="Clean" id="reload_check" />
+        <% end %>
       </fieldset>
     </div>
   <% end %>
 </div>
-

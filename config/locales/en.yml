@@ -3736,12 +3736,12 @@ en:
     view_library: "Library"
     view_how_to: "How To"
     view_home_designer: "Home Designer"
-    view_services: "Services"
     view_area_guide: "Area Guide"
     view_buyers_club: "Buyers Club"
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
     view_your_journey: "Your Journey"
+    task_viewed: "Viewed"
     view_FAQs: "FAQs"
     view_FAQs_feedback: "FAQs Feedback"
     view_choices: "Choices"
@@ -3753,6 +3753,7 @@ en:
     homeowner_sign_in: "Sign In"
     homeowner_log_in: "Log in"
     homeowner_accept_invite: "Accept Invitation"
+    root: "Main"
 
   events:
     invited: "Invited"

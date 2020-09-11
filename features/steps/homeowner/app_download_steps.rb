@@ -3,6 +3,7 @@ Then(/^I do not see an app download reminder$/) do
 end
 
 Then(/^I see an app download reminder$/) do
+  byebug
   within ".app-download-dialog" do
     expect(page).to have_content(t("homeowners.components.app_download.modal_title"))
   end
