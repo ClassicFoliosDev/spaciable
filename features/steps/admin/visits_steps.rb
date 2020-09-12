@@ -84,7 +84,7 @@ Then(/^I navigate through the homeowner site$/) do
       find(:xpath,"//dt/h3[contains(text(),'#{faq[:question]}')]/parent::dt").trigger('click')
 
       if rand(2) == 0
-       click_on "Yes"
+       find(:xpath, "//button[contains(text(),'Yes')]", visible: true).trigger('click')
        VisitsFixture.visited(meta, :view_FAQs_feedback, faq[:question], "Yes")
       else
         click_on "No"
