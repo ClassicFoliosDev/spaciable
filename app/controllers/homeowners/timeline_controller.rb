@@ -5,11 +5,14 @@ module Homeowners
     before_action :build_timeline
 
     after_action only: %i[show] do
-      record_event(:view_your_journey, category1: @task&.title)
-    end
-
-    after_action only: %i[viewed] do
-      record_event(:view_your_journey, category1: @task&.title, category2: params[:response])
+      if @task
+        record_event(:view_your_journey,
+                     category1: @task&.title,
+                     category2: I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
+      else
+        record_event(:view_your_journey,
+                     category1: @task&.title || complete || page_name || "Splash")
+      end
     end
 
     # show is expected to service any of the timeline
@@ -35,22 +38,37 @@ module Homeowners
     # response and moves to the next page.  viewed also gets called
     # via a js postback when No is pressed on a task.  This ensures
     # the action is recorded even if the page isn't submitted
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def viewed
       return unless current_resident
       return not_allowed unless current_resident&.plot_residency_homeowner?(@plot)
 
-      @task = @timeline.task(params[:id])
+      @task = @viewed_task = @timeline.task(params[:id])
       @plot_timeline.log(@task, params[:response].to_sym)
 
       respond_to do |format|
         format.html do
+          record_event(:view_your_journey,
+                       category1: @task&.title, category2: params[:response])
+
           @task = @task.next
           record_progress(@task.nil?)
+
+          if @task
+            record_event(:view_your_journey,
+                         category1: @task&.title,
+                         category2: I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
+          else
+            record_event(:view_your_journey,
+                         category1: complete)
+          end
+
           render task || :complete
         end
         format.json { render json: { status: 200 } }
       end
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     private
 
@@ -65,12 +83,25 @@ module Homeowners
 
     # record the current task and if the timeline is complete
     def record_progress(complete = false)
+      @complete = complete
       @plot_timeline.update(task_id: @task&.id,
                             complete: complete)
     end
 
     def task
       :task if @task
+    end
+
+    def page_name
+      return unless params[:page]
+
+      params[:page].split("_").map(&:capitalize).join(" ")
+    end
+
+    def complete
+      return unless @complete
+
+      I18n.t("homeowners.timeline.done")
     end
   end
 end

@@ -117,9 +117,11 @@ class Resident < ApplicationRecord
     residency.created_at
   end
 
-  def to_s
-    full_name = "#{first_name} #{last_name}"
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
+  def to_s
     if full_name.strip.present?
       full_name
     else

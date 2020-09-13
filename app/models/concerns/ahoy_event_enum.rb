@@ -10,6 +10,8 @@ module AhoyEventEnum
   SNAGS_REJECTED = :snags_rejected
   BC_FIND_OUT_MORE = :bc_find_out_more
   BC_GIVE_ME_ACCESS = :bc_give_me_access
+  ROOT = :root
+  TASK_VIEWED = :task_viewed
 
   included do
     enum ahoy_event_name: %i[
@@ -19,11 +21,9 @@ module AhoyEventEnum
       view_home_tour view_rooms
       view_appliances view_library
       view_how_to view_home_designer
-      view_services view_area_guide
-      view_buyers_club
-      view_your_journey
+      view_area_guide view_buyers_club
+      view_your_journey view_snagging
       view_FAQs view_FAQs_feedback
-      view_snagging
       view_issues homeowner_sign_in
     ]
   end

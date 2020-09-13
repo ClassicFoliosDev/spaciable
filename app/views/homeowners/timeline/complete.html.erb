@@ -37,7 +37,11 @@
           </div>
 
           <div class="image">
-            <div class="image-container" style="background-image: url('<%= @timeline.complete_picture %>')"></div>
+            <%if image_path(@timeline.complete_picture).empty? %>
+              <div class="image-container"></div>
+            <% else %>
+              <div class="image-container" style="background-image: url('<%= @timeline.complete_picture %>')"></div>
+            <% end %>
           </div>
         </div>
 
@@ -53,7 +57,11 @@
           </div>
 
           <div class="image">
-            <div class="image-container" style="background-image: url('<%= @timeline.incomplete_picture %>')"></div>
+            <%if image_path(@timeline.incomplete_picture).empty? %>
+              <div class="image-container"></div>
+            <% else %>
+              <div class="image-container" style="background-image: url('<%= @timeline.incomplete_picture %>')"></div>
+            <% end %>
           </div>
         </div>
 

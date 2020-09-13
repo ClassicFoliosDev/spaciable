@@ -24,11 +24,16 @@ class VisitorFilter
     attr_accessor :total
     attr_accessor :visits
 
+    # Testing needs to identify rows using a UID constructed
+    # from the heirarchical names of a Visit
+    attr_accessor :hash if Rails.env.test?
+
     def initialize(*params)
       @visits = []
       @name, @filter, @categories = params
       @categories ||= []
       @title = @categories&.last || @name
+      @hash = VisitorFilter.hash(@name, @categories) if Rails.env.test?
       populate
     end
 
@@ -126,8 +131,9 @@ class VisitorFilter
     sql += " AND plots.developer_id=#{developer_id}" if developer_id
     sql += " AND plots.division_id=#{division_id}" if division_id
     sql += " AND plots.development_id=#{development_id}" if development_id
-    sql += " AND ((plots.reservation_release_date BETWEEN '#{start_date}' AND '#{end_date}') "\
-          "OR (plots.completion_release_date BETWEEN '#{start_date}' AND '#{end_date}'))"
+    sql += " AND (plots.reservation_release_date IS NOT NULL OR "\
+           "      plots.completion_release_date IS NOT NULL)"
+    sql += " AND plots.created_at < '#{end_date + 1.day}'"
     @plots = ActiveRecord::Base.connection.exec_query(sql)
   end
 
@@ -140,13 +146,26 @@ class VisitorFilter
 
   # Calculate all the stats
   def calculate_stats
+    potential_plots = @plots.pluck("id")
     Ahoy::Event.ahoy_event_names.each do |event, _|
-      # Get the matches once for each event
+      uniq_event_plts = Ahoy::Event.where(name: I18n.t("ahoy.#{event}"),
+                                          time: range).pluck(:plot_id).uniq
+
+      # Get the matches once for each event.  Restrict by the plots meeting the
+      # filter criteria
       @events = Ahoy::Event.where(name: I18n.t("ahoy.#{event}"),
-                                  plot_id: @plots.pluck("id"),
-                                  time: range)
+                                  time: range,
+                                  plot_id: potential_plots & uniq_event_plts)
+
       # start the process
       @stats[event.to_sym] = Visits.new(I18n.t("ahoy.#{event}"), self)
+    end
+  end
+
+  # Create a hash from an array of string params
+  if Rails.env.test?
+    def self.hash(*params)
+      "h#{params.flatten.join('').hash}"
     end
   end
 end
