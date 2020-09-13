@@ -89,7 +89,7 @@ Then(/^I navigate through the homeowner site$/) do
       else
         find(:xpath, "//button[contains(text(),'No')]", visible: true).trigger('click')
         find('.faq-input', visible: true).native.send_keys("just because it doesn't")
-        click_on "Submit"
+        find(:xpath, "//button[contains(text(),'Submit')]", visible: true).trigger('click')
         VisitsFixture.visited(meta, :view_FAQs_feedback, faq[:question], "No")
       end
     end
