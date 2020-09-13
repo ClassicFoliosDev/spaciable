@@ -134,7 +134,7 @@ class VisitorFilter
     sql += " AND plots.development_id=#{development_id}" if development_id
     sql += " AND (plots.reservation_release_date IS NOT NULL OR "\
            "      plots.completion_release_date IS NOT NULL)"
-    sql += " AND plots.created_at <= '#{end_date + 23.hours + 59.minutes}'"
+    sql += " AND plots.created_at < '#{end_date + 1.day}'"
     @plots = ActiveRecord::Base.connection.exec_query(sql)
   end
   # rubocop:enable Metrics/AbcSize
