@@ -124,7 +124,6 @@ class VisitorFilter
   end
 
   # Filter the plots according to the parameters
-  # rubocop:disable Metrics/AbcSize
   def filter_plots
     sql = "SELECT plots.* FROM plots INNER JOIN phases ON phases.id = plots.phase_id AND "\
           "phases.deleted_at IS NULL WHERE plots.deleted_at IS NULL AND"
@@ -137,7 +136,6 @@ class VisitorFilter
     sql += " AND plots.created_at < '#{end_date + 1.day}'"
     @plots = ActiveRecord::Base.connection.exec_query(sql)
   end
-  # rubocop:enable Metrics/AbcSize
 
   # Find the number of unique residents of the plots
   def filter_residents
