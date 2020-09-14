@@ -12,15 +12,38 @@
     </div>
   <% end %>
 
+  <div class="row user-form">
+    <div class="user-details form-row">
+      <fieldset class="form-column contact-details">
+        <%= f.input :email, label: t(".email"), readonly: user.email? %>
+        <%= f.input :first_name, label: t(".first_name") %>
+        <%= f.input :last_name, label: t(".surname") %>
+      </fieldset>
+      <fieldset class="form-column permission-level skip-global-selectmenu">
+        <%= f.input :job_title, label: t(".job_title") %>
+        <%= f.input :role,
+        as: :select,
+        collection: User::accessible_admin_roles(current_user),
+        label_method: ->(role) { t(role.first) },
+        value_method: :first,
+        include_blank: t("users.choose"),
+        selected: selected_role %>
+        <%= cascade_select_input f, :developer_id, Developer %>
+        <%= cascade_select_input f, :division_id, Division %>
+        <%= cascade_select_input f, :development_id, Development %>
+      </fieldset>
+    </div>
+  </div>
+
+
+
   <div class="row user">
     <div class="row-item third">
       <fieldset>
         <div class="image-container">
           <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
-        <%= f.input :email, label: t(".email"), readonly: user.email? %>
-        <%= f.input :first_name, label: t(".first_name") %>
-        <%= f.input :last_name, label: t(".surname") %>
+
       </fieldset>
       <br/>
       <fieldset>
@@ -65,22 +88,6 @@
           <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
           <p class="checkbox-description"><%= t(".administer_branch") %></p>
         </div>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset class="skip-global-selectmenu">
-        <%= f.input :job_title, label: t(".job_title") %>
-        <%= f.input :role,
-          as: :select,
-          collection: User::accessible_admin_roles(current_user),
-          label_method: ->(role) { t(role.first) },
-          value_method: :first,
-          include_blank: t("users.choose"),
-          selected: selected_role %>
-        <%= cascade_select_input f, :developer_id, Developer %>
-        <%= cascade_select_input f, :division_id, Division %>
-        <%= cascade_select_input f, :development_id, Development %>
       </fieldset>
     </div>
 

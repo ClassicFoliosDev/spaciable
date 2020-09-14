@@ -1,0 +1,29 @@
+// ****** globals ******
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  .input {
+    margin-bottom: $spacing-medium;
+  }
+}
+
+.form-column {
+  padding: $spacing-medium;
+}
+
+// ****** specific forms ******
+
+// user form
+
+.user-form {
+  background-color: $ui-white;
+  border-radius: 5px;
+
+  .readonly {
+    margin-bottom: 13px;
+    width: 100%;
+    padding-left: 0;
+  }
+}
