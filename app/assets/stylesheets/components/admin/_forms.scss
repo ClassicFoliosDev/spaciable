@@ -10,7 +10,7 @@
 }
 
 .form-column {
-  padding: $spacing-medium;
+  padding: $spacing-medium $spacing-large;
 }
 
 // ****** specific forms ******
@@ -25,5 +25,9 @@
     margin-bottom: 13px;
     width: 100%;
     padding-left: 0;
+  }
+
+  .fa-trash-o {
+    padding-top: 5px;
   }
 }

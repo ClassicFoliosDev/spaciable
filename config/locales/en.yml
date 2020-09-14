@@ -910,7 +910,7 @@ en:
         title: "Edit %{user}"
         back: "Back"
       form:
-        image: "Image"
+        image: "Profile Image"
         back: "Back"
         submit: "Submit"
         new_password: "New Password"

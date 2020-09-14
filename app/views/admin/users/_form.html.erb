@@ -32,28 +32,28 @@
         <%= cascade_select_input f, :division_id, Division %>
         <%= cascade_select_input f, :development_id, Development %>
       </fieldset>
-    </div>
-  </div>
-
-
-
-  <div class="row user">
-    <div class="row-item third">
-      <fieldset>
+      <fieldset class="form-column user-image">
         <div class="image-container">
           <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
-
       </fieldset>
-      <br/>
-      <fieldset>
-         <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
-         <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
+    </div>
+    <div class="form-row">
+      <fieldset class="form-column features">
+        <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
+        <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
           <%= f.label :cas_enabled, t(".client_specifications") %>
           <%= f.check_box :cas, id: :cas_check,
           disabled: (user.division_admin? || user.developer_admin?) %>
           <p class="checkbox-description"><%= t(".adds_specifications") %></p>
         </div>
+        <div class="administer_lettings">
+          <%= f.label :branch_admin, t(".lettings_branch_admin") %>
+          <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
+          <p class="checkbox-description"><%= t(".administer_branch") %></p>
+        </div>
+      </fieldset>
+      <fieldset class="form-column emails">
         <div class="receive_plot_emails">
           <%= f.label :plot_emails, t(".plot_emails") %>
           <%= f.check_box :receive_release_emails, id: :plot_check,
@@ -83,13 +83,14 @@
           <%= f.check_box :receive_invitation_emails, id: :invitations_check %>
           <p class="checkbox-description"><%= t(".receive_invitation_emails") %></p>
         </div>
-        <div class="administer_lettings">
-          <%= f.label :branch_admin, t(".lettings_branch_admin") %>
-          <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
-          <p class="checkbox-description"><%= t(".administer_branch") %></p>
-        </div>
       </fieldset>
     </div>
+  </div>
+
+
+
+  <div class="row user">
+
 
     <% if user == current_user %>
     <div class="row-item third">
