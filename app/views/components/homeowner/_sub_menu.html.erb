@@ -38,14 +38,12 @@
         <% end %>
       </div>
 
-      <% if plot.development_calendar %>
-        <div class="navbar-item">
-          <%= link_to homeowner_calendar_path, active_tab: "calendar", class: "branded-primary #{'active' if active_tab == 'calendar' }" do %>
-            <li class="navbar-item-secondary">
-              <%= t('.calendar') %>
-            </li>
-          <% end %>
-        </div>
-      <% end %>
+      <div class="navbar-item">
+        <%= link_to homeowner_calendar_path, active_tab: "calendar", class: "branded-primary #{'active' if active_tab == 'calendar' }" do %>
+          <li class="navbar-item-secondary">
+            <%= t('.calendar') %>
+          </li>
+        <% end %>
+      </div>
     </ul>
 </aside>
