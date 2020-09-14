@@ -2512,6 +2512,7 @@ en:
       activated_residents: "Activated Residents: "
       preview: "Preview"
       uprn: "UPRN: "
+      uprn_error: " should be up to 12 digits long and only contain numbers."
     completion:
       title: "Estimated Move In Date"
       disclaimer_1: "Entering this date will allow your buyers to receive moving in emails in your branding to help them with their purchasing journey.
