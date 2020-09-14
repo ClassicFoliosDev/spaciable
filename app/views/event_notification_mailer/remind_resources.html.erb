@@ -1,0 +1,15 @@
+<%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
+
+<p>Hi,<p>
+
+<p><%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.</p>
+
+<p>Title: <%= @event.title %></p>
+<% if @event.location? %>
+<p>Location: <%= @event.location %></p>
+<% end %>
+<!-- This cannot use default date format as it runs in a seperate exe -->
+<p>Start Time: <%= @event.start.strftime("%d/%m/%Y %H:%M") %></p>
+<p>End Time: <%= @event.end.strftime("%d/%m/%Y %H:%M") %></p>
+
+<%= link_to "Go To Appointment", @link, class: "btn" %>

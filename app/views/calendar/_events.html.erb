@@ -1,0 +1,113 @@
+<% editable = !current_user.site_admin? %>
+
+<div class="row">
+  <div class="row-item">
+    <div class="calendar">
+      <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
+    </div>
+  </div>
+</div>
+
+<div class="repeat_event_form hidden">
+  <form id="repeat_event_form">
+    <p><%= t("events.edit.repeat.confirm") %></p>
+    <% Event.repeat_edits.each do |text, val| %>
+      <div class="event-delete-type">
+        <input type="radio" id="<%=text%>" name="option" value="<%=val%>">
+        <label for="<%=text%>"><%=t("events.edit.repeat.#{text}")%></label><br>
+      </div>
+    <% end %>
+  </form>
+</div>
+
+<div class="confirm_event_delete_form hidden">
+  <form id="confirm_event_delete_form">
+    <p><%= t("events.edit.single.confirm") %></p>
+  </form>
+</div>
+
+<div class="event_details_form hidden">
+  <%= simple_form_for :event do |f| %>
+
+    <%= f.hidden_field :id %>
+    <%= f.hidden_field :master_id %>
+
+    <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
+    <%= f.hidden_field :eventable_id,{ value: source.id } %>
+
+    <div class="title">
+      <label><%= label_tag :title, "Title" %></label>
+      <%= f.input :title, label: false, required: true%>
+    </div>
+    <div class="location">
+      <label><%= label_tag :location, "Location" %></label>
+      <%= f.input :location, label: false, required: true %>
+    </div>
+    <div class="attendees">
+      <label><%= label_tag :residents, "Select Attendees" %></label>
+      <div id="residents"><%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false %></div>
+    </div>
+
+    <div class="event-time">
+      <div class="quarter">
+        <label><%= label_tag :start_date, "Start" %></label>
+        <%= f.input :start_date, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :start_time, "From" %></label>
+        <%= f.input :start_time, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :end_time, "Until" %></label>
+        <%= f.input :end_time, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :end_date, "End" %></label>
+        <%= f.input :end_date, label: false, required: true %>
+      </div>
+    </div>
+
+    <div class="event-time proposed_datetime">
+      <label><%= label_tag :proposed, "Proposed Rescheduling" %></label><br/>
+      <div class="quarter">
+        <p id="proposed_start_date"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_start_time"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_end_time"/>
+      </div>
+      <div class="quarter end-date">
+        <p id="proposed_end_date"/>
+      </div><br/>
+      <div class="accept-change">
+        <button id="accept_reschedule" type="button" class="btn"><%=t("events.accept_proposal")%></button>
+      </div>
+    </div>
+
+    <div class="repeat">
+      <div class="repeat-input half">
+        <%= f.input :repeat,
+          as: :select,
+          collection: Event.repeats,
+          label_method: ->(repeat) { t("events.repeat.#{repeat.first}") },
+          value_method: :first,
+          include_blank: false %>
+      </div>
+      <div id="repeat_until" class="half">
+        <label><%= label_tag :repeat_until, "Repeat Until" %></label>
+        <%= f.input :repeat_until, label: false, required: true %>
+      </div>
+    </div>
+
+    <div class="reminder half">
+      <%= f.input :reminder,
+      as: :select,
+      collection: Event.reminders,
+      label_method: ->(remind) { t("events.remind.#{remind.first}") },
+      value_method: :first,
+      include_blank: false %>
+    </div>
+  <% end %>
+</div>

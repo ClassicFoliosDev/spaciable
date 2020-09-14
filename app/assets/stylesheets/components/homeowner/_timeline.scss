@@ -354,7 +354,7 @@
         position: relative;
 
         .branded-btn {
-          width: 140px;
+          min-width: 140px;
           margin: $spacing-medium $spacing-large $spacing-medium 0;
           background-color: $ui-light-grey;
           border: 1px solid $primary-navy;
@@ -966,7 +966,7 @@
                 img {
                   position: absolute;
                   left: 0;
-                  bottom: 0;
+                  bottom: -14px;
                 }
               }
             }
@@ -1026,7 +1026,7 @@
 
         .actions {
           .branded-btn {
-           width: 100px;
+           min-width: 100px;
            margin: $spacing-small $spacing-medium $spacing-small 0;
           }
           .not-applicable {

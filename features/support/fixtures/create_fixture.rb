@@ -136,6 +136,10 @@ module CreateFixture
     "resident@example.com"
   end
 
+  def tenant_email
+    "tenant@example.com"
+  end
+
   def manufacturer_link
     "https://www.example.com/register"
   end
@@ -215,7 +219,7 @@ module CreateFixture
   end
 
   def create_spanish_developer
-    CreateFixture.create_countries if Country.none?
+    create_countries
     FactoryGirl.create(:developer,
                        company_name: spanish_developer_name,
                        house_search: true,
@@ -311,9 +315,10 @@ module CreateFixture
   end
 
   def create_countries
-    return if Country.count.positive?
-    FactoryGirl.create(:country, name: "UK")
-    FactoryGirl.create(:country, name: "Spain")
+    return unless Country.none?
+
+    FactoryGirl.create(:country, name: "UK", time_zone: "London")
+    FactoryGirl.create(:country, name: "Spain", time_zone: "Paris")
   end
 
   def create_appliance(developer=nil, model_num=appliance_name)
@@ -575,8 +580,8 @@ module CreateFixture
     end
   end
 
-  def create_resident
-    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: resident_email,
+  def create_resident(email = resident_email)
+    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: email,
                        developer_email_updates: true, invitation_accepted_at: Time.zone.now,
                        ts_and_cs_accepted_at: Time.zone.now)
   end
@@ -624,6 +629,19 @@ module CreateFixture
     create_developer
     create_development
     create_resident_and_phase
+  end
+
+  def create_residents_under_a_phase_plot(emails)
+    create_developer
+    create_development
+    create_resident_and_phase
+  end
+
+   def create_residents_and_phase(emails)
+    create_development_phase
+    create_unit_type
+    create_phase_plot
+    emails.each { |email| create_resident(email) }
   end
 
   def create_resident_under_a_phase_plot_with_appliances_and_rooms(developer=nil)

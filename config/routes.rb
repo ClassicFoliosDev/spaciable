@@ -197,6 +197,9 @@ Rails.application.routes.draw do
     get 'cas', to: 'developers#cas', format: :json
   end
 
+  resources :events, only: [:index, :create, :destroy], format: :json
+  put 'events', to: 'events#update'
+
   resources :divisions do
     resources :developments, controller: 'divisions/developments' do
       get 'sync_docs', on: :member
@@ -223,6 +226,9 @@ Rails.application.routes.draw do
     get 'choices', action: :edit , controller: 'choices'
     post 'choices', action: :update , controller: 'choices'
     get 'notification', to: 'notifications#show', format: :json
+    resources :events, only: [:index, :create], format: :json
+    put 'events', to: 'events#update'
+    post 'feedback', to: 'events#feedback'
   end
 
   scope :homeowners, module: :homeowners do
@@ -284,6 +290,10 @@ Rails.application.routes.draw do
         as: :homeowner_library,
         defaults: { category: :my_home }
 
+    get "calendar",
+        to: 'calendar#index',
+        as: :homeowner_calendar
+
     get :my_appliances, to: 'appliances#show', as: :homeowner_appliances
 
     get :my_home, to: 'my_home#show', as: :homeowner_my_home
@@ -307,6 +317,7 @@ Rails.application.routes.draw do
   get "/cookies_policy", to: 'home#cookies_policy'
   get "/feedback", to: 'home#feedback'
   get "/faq_feedback", to: "homeowners/faqs#feedback"
+  get "/resend_invitation", to: "admin/users#resend_invitation"
   get "/appliance_manufacturers_list", to: 'appliances#appliance_manufacturers_list'
   get "/appliance_list", to: 'appliances#appliance_list'
   get "/how_to_sub_category_list", to: 'how_to_sub_category#list'

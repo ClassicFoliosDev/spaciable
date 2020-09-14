@@ -1,0 +1,12 @@
+Hi,
+
+<%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> has been cancelled.
+
+Title: <%= @event.title %>
+<% if @event.location? %>
+Location: <%= @event.location %>
+<% end %>
+Start Time: <%= @event.start %>
+End Time: <%= @event.end %>
+
+Login to your portal at <%= root_url %> to review your calendar
