@@ -474,7 +474,8 @@ end
 
 Then(/^the plots should have the postal number configured$/) do
   within ".plots" do
-    click_on "Plot 11"
+    plot = Plot.find_by(number: "11")
+    find("[href='/plots/#{plot.id}']").trigger('click')
   end
 
   within ".section-data" do
