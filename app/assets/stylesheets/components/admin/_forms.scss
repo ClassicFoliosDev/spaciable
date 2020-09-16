@@ -49,6 +49,10 @@
 // user form
 
 .user-form {
+  .user-permissions {
+    display: none;
+  }
+
   background-color: $ui-white;
   border-radius: 5px;
   margin-bottom: $spacing-large * 2;

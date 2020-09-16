@@ -126,6 +126,12 @@ document.addEventListener('turbolinks:load', function () {
   };
 
   function showRoleResourcesOnly (role) {
+    if (role !== '') {
+      $(".user-permissions").css("display", "grid")
+    } else {
+      $(".user-permissions").hide()
+    }
+
     if (role !== 'cf_admin' && role !== '') {
       $developerSelect.selectmenu(developerSelectmenuCallbacks())
     };
