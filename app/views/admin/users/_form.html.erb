@@ -89,37 +89,15 @@
             <span class="checkbox-description"><%= t(".receive_invitation_emails") %></span>
           </div>
 
-          <div class="cc-plot-emails">
-            <%= f.fields_for :cc_emails do |e| %>
-              <%= e.input :user, as: :hidden, input_html: { value: @user.id } %>
-              <%= e.input :email_type, as: :hidden, input_html: { value: :receive_release_emails } %>
-              <%= e.input :email_list, as: :text, placeholder: t(".cc_list", type: "plot release"), label: t(".email_list", type: "Plot Release"), required: false %>
-            <% end %>
-          </div>
-          <!-- @choices
-            cc fields for choices emails
-          -->
-          <div class="cc-snagging-emails">
-            <%= f.fields_for :cc_emails do |e| %>
-              <%= e.input :user, as: :hidden, input_html: { value: @user.id } %>
-              <%= e.input :email_type, as: :hidden, input_html: { value: :snag_notifications } %>
-              <%= e.input :email_list, as: :text, placeholder: t(".cc_list", type: "snagging"), label: t(".email_list", type: "Snagging"), required: false %>
-            <% end %>
-          </div>
-          <div class="cc-faq-emails">
-            <%= f.fields_for :cc_emails do |e| %>
-              <%= e.input :user, as: :hidden, input_html: { value: @user.id } %>
-              <%= e.input :email_type, as: :hidden, input_html: { value: :receive_faq_emails } %>
-              <%= e.input :email_list, as: :text, placeholder: t(".cc_list", type: "FAQ feedback"), label: t(".email_list", type: "FAQ Feedback"), required: false %>
-            <% end %>
-          </div>
-          <div class="cc-invitation-emails">
-            <%= f.fields_for :cc_emails do |e| %>
-              <%= e.input :user, as: :hidden, input_html: { value: @user.id } %>
-              <%= e.input :email_type, as: :hidden, input_html: { value: :receive_invitation_emails } %>
-              <%= e.input :email_list, as: :text, placeholder: t(".cc_list", type: "resident activation"), label: t(".email_list", type: "Resident Activation"), required: false %>
-            <% end %>
-          </div>
+          <% CcEmail.email_types.each do |etype, index| %>
+            <div class="cc-<%= etype %>">
+              <%= f.fields_for :cc_emails do |e| %>
+                <%= e.input :user, as: :hidden, input_html: { value: @user.id } %>
+                <%= e.input :email_type, as: :hidden, input_html: { value: etype } %>
+                <%= e.input :email_list, as: :text, placeholder: t(".cc_list", type: t("admin.cc_email.#{etype}")), label: t(".email_list", type: t("admin.cc_email.#{etype}")), required: false %>
+              <% end %>
+            </div>
+          <% end %>
 
         </div>
       </fieldset>

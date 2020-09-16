@@ -37,7 +37,6 @@ module Admin
 
     def edit
       @user.assign_permissionable_ids
-      @user.cc_emails.build
     end
 
     def update

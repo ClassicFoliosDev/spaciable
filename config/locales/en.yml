@@ -960,6 +960,13 @@ en:
       lettings:
         confirm: "Your letting for %{plot} has been set up"
         no_account: "%{user} does not have a lettings account"
+
+    cc_email:
+      receive_faq_emails: "FAQ Feedback"
+      receive_release_emails: "Plot Release"
+      receive_invitation_emails: "Activation Report"
+      snag_notifications: "Snagging"
+
     dashboard:
       components:
         no_recent:
