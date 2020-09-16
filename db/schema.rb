@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200623084553) do
+ActiveRecord::Schema.define(version: 20200916072256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,13 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 
+  create_table "cc_emails", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "email_type"
+    t.string  "email_list"
+    t.index ["user_id"], name: "index_cc_emails_on_user_id", using: :btree
+  end
+
   create_table "choice_configurations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                     null: false
@@ -278,6 +285,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.string  "file"
     t.integer "document_id"
     t.integer "development_id"
+    t.boolean "editable",       default: true
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
   end
@@ -328,8 +336,8 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.boolean  "enable_roomsketcher",         default: true
     t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
-    t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
+    t.boolean  "cas",                         default: false
     t.boolean  "timeline",                    default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
@@ -364,9 +372,9 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.string   "snag_name",             default: "Snagging", null: false
     t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
-    t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
+    t.boolean  "cas",                   default: false
     t.integer  "timeline_id"
     t.boolean  "calendar",              default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
@@ -427,7 +435,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.string   "resourceable_type"
     t.integer  "resourceable_id"
     t.integer  "status"
-    t.datetime "status_updated_at"
+    t.datetime "status_updated_at", default: -> { "now()" }
     t.datetime "proposed_start"
     t.datetime "proposed_end"
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
@@ -531,6 +539,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_manufacturer_name", using: :btree
   end
 
   create_table "finish_types", force: :cascade do |t|
@@ -539,6 +548,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_type_name", using: :btree
   end
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
@@ -773,6 +783,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.integer  "choice_selection_status",  default: 0,  null: false
     t.string   "completion_order_number"
     t.string   "reservation_order_number"
+    t.string   "uprn"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
@@ -1113,8 +1124,8 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.boolean  "receive_choice_emails",     default: false
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
-    t.boolean  "receive_faq_emails",     default: false
     t.boolean  "receive_invitation_emails", default: true
+    t.boolean  "receive_faq_emails",        default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -1141,6 +1152,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
+  add_foreign_key "cc_emails", "users"
   add_foreign_key "crms", "developers"
   add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"

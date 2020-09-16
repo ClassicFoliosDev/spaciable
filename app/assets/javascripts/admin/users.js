@@ -131,21 +131,27 @@ document.addEventListener('turbolinks:load', function () {
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, .receive-invitation-emails, .client_specifications, .receive-faq-emails').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .cc-plot-emails, \
+         .receive_choice_emails, .cc-choice-emails, .receive-snagging-emails, .cc-snagging-emails, \
+         .receive-invitation-emails, .cc-invitation-emails, .client_specifications, .receive-faq-emails, .cc-faq-emails').hide()
       $("#plot_check").prop("checked", true);
       $("#choice_check").prop("checked", true);
       $("#snag_check").prop("checked", true)
     } else if (role === 'developer_admin') {
-      $('.user_developer_id, .receive_plot_emails, .receive-snagging-emails, .receive-faq-emails, .receive-invitation-emails').show()
+      $('.user_developer_id, .receive_plot_emails, .cc-plot-emails, .receive-snagging-emails, .cc-snagging-emails, \
+         .receive-faq-emails, .cc-faq-emails, .receive-invitation-emails, .cc-invitation-emails').show()
       $('.user_division_id, .user_development_id, .administer_lettings').hide()
     } else if (role === 'division_admin') {
-      $('.user_developer_id, .user_division_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, .receive-faq-emails, .receive-invitation-emails').show()
+      $('.user_developer_id, .user_division_id, .receive_plot_emails, .cc-plot-emails, .receive_choice_emails, .cc-choice-emails, \
+         .receive-snagging-emails, .cc-snagging-emails, .receive-faq-emails, .cc-faq-emails, .receive-invitation-emails, .cc-invitation-emails').show()
       $('.user_development_id, .administer_lettings').hide()
     } else if (role === 'development_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .administer_lettings, .receive-faq-emails, .receive-invitation-emails').show()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .cc-plot-emails, .receive_choice_emails, .cc-choice-emails, \
+         .administer_lettings, .receive-faq-emails, .cc-faq-emails, .receive-invitation-emails, .cc-invitation-emails').show()
     } else if (role === 'site_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, receive-invitation-emails').show()
-      $('.receive-snagging-emails, .administer_lettings').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .cc-plot-emails, .receive_choice_emails, .cc-choice-emails, \
+         .receive-faq-emails, .cc-faq-emails, .receive-invitation-emails, .cc-invitation-emails').show()
+      $('.receive-snagging-emails, .cc-snagging-emails, .administer_lettings').hide()
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };

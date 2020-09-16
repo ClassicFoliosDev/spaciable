@@ -935,6 +935,8 @@ en:
         receive_faq_emails: "Receive emails regarding resident FAQ feedback."
         invitation_emails: "Resident Activation Report"
         receive_invitation_emails: "Receive a weekly summary of resident activations"
+        email_list: "CC %{type} Emails"
+        cc_list: "Add any email addresses you want to CC %{type} emails to. Separate multiple email addresses with a space, comma or semi-colon."
       index:
         title: "Admins."
         add: "Add User"
