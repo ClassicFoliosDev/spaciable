@@ -28,7 +28,9 @@ Rails.application.routes.draw do
              }
 
   devise_scope :resident do
+    get "/:development_id/sign_in", to: "residents/sessions#new"
     get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
+    get "/:development_id/accept", to: "residents/invitations#edit"
     get "/:developer_name(/:division_name)/:development_name/accept", to: "residents/invitations#edit"
   end
 

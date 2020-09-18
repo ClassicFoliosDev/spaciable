@@ -49,14 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_sign_in_path(plot)
-    path = root_url
-
-    path << plot.developer.to_s.parameterize
-    path << "/#{plot.division.to_s.parameterize}" if plot.division
-    path << "/#{plot.development.to_s.parameterize}"
-    path << "/sign_in"
-
-    path
+    root_url << "#{plot.development.id}/sign_in"
   end
 
   def initialise_callback
