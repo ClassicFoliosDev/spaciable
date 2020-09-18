@@ -1,4 +1,3 @@
-<% byebug%>
 <div class="plot-field res-order-number">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_order_number_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :reservation_order_number, label: t(".res_order_number") %>
