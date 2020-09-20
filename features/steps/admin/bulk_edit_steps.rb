@@ -428,11 +428,11 @@ def test_plot_fields(plot_number, cas)
     else
       reservation_date = (Time.zone.now + 10.days).to_date
       res_rel_date = page.find(".plot_reservation_release_date")
-      expect(res_rel_date['innerHTML']).to include reservation_date.to_s
+      expect(res_rel_date['innerHTML']).to include reservation_date.html
 
       completion_date = (Time.zone.now + 20.days).to_date
       comp_rel_date = page.find(".plot_completion_release_date")
-      expect(comp_rel_date['innerHTML']).to include completion_date.to_s
+      expect(comp_rel_date['innerHTML']).to include completion_date.html
 
       validity = page.find(".validity")
       expect(validity['innerHTML']).to include "23"
