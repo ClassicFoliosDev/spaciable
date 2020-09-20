@@ -273,14 +273,14 @@ Then(/^the plot fields are all unchanged$/) do
     reservation_date = Time.zone.now.to_date
     wrong_reservation_date = (Time.zone.now + 10.days).to_date
     res_rel_date = page.find(".plot_reservation_release_date")
-    expect(res_rel_date['innerHTML']).to include reservation_date.to_s
-    expect(res_rel_date['innerHTML']).not_to include wrong_reservation_date.to_s
+    expect(res_rel_date['innerHTML']).to include reservation_date.html
+    expect(res_rel_date['innerHTML']).not_to include wrong_reservation_date.html
 
     completion_date = (Time.zone.now + 12.days).to_date
     wrong_completion_date = (Time.zone.now + 20.days).to_date
     comp_rel_date = page.find(".plot_completion_release_date")
-    expect(comp_rel_date['innerHTML']).to include completion_date.to_s
-    expect(comp_rel_date['innerHTML']).not_to include wrong_completion_date.to_s
+    expect(comp_rel_date['innerHTML']).to include completion_date.html
+    expect(comp_rel_date['innerHTML']).not_to include wrong_completion_date.html
 
     validity = page.find(".validity")
     expect(validity['innerHTML']).to include "20"
@@ -423,7 +423,7 @@ def test_plot_fields(plot_number, cas)
     if cas
       mode_in_date = (Time.zone.now + 10.days).to_date
       res_move_in_date = page.find(".plot_completion_date")
-      expect(res_move_in_date['innerHTML']).to include mode_in_date.to_s
+      expect(res_move_in_date['innerHTML']).to include mode_in_date.html
       expect(page).to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     else
       reservation_date = (Time.zone.now + 10.days).to_date
