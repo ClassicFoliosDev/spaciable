@@ -10,13 +10,13 @@
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_release_date_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :reservation_release_date, label: t(".res_release_date"), as: :string,
      placeholder: "DD/MM/YYYY",
-     input_html: { type: :date, :value => f.object.reservation_release_date.html } %>
+     input_html: { type: :date, :value => f.object.reservation_release_date&.html } %>
 </div>
 <div class="plot-field">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_release_date_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :completion_release_date, label: t(".comp_release_date"), as: :string,
              placeholder: "DD/MM/YYYY",
-             input_html: { type: :date, :value => f.object.completion_release_date.html } %>
+             input_html: { type: :date, :value => f.object.completion_release_date&.html } %>
 </div>
 <div class="plot-field validity">
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :validity_check, as: :boolean, label: false %></span><% end %>
