@@ -16,7 +16,7 @@
             <label><%= t(".title") %></label>
             <%= f.input :completion_date, as: :string,
                       placeholder: "DD/MM/YYYY",
-                      input_html: { type: :date, :value => f.object.completion_date&.html }, label: false %>
+                      input_html: { type: :date, :value => f.object&.completion_date&.html }, label: false %>
           </div>
           <%= f.submit t("edit.submit"), class: "btn-form-submit btn-primary" %>
         </div>
