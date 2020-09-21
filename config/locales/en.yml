@@ -36,8 +36,11 @@
 en:
 
   back: "Back"
-  cas_enabled: "Clients Adding Specs: Enabled"
+  cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
   not_authorised: "You are not authorised to access this page"
+  administered_by: "Administered by:"
+  enabled: "Enabled"
+  disabled: "Disabled"
 
   construction_type:
     home: "Home"
