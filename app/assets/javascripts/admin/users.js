@@ -4,6 +4,8 @@ document.addEventListener('turbolinks:load', function () {
   var $roleSelect = $('.user_role select, change')
   if ($roleSelect.length == 0) { return }
 
+  setCcLabels()
+
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')
@@ -22,6 +24,7 @@ document.addEventListener('turbolinks:load', function () {
       showRoleResourcesOnly(role)
 
       setCas()
+
     }
   })
 
@@ -197,6 +200,17 @@ document.addEventListener('turbolinks:load', function () {
       $("#cas_check").prop("disabled", dev_div_admin)
     }
   };
+
+  function setCcLabels() {
+    $(".cc-email-fields .user_cc_emails_email_type input").each(function() {
+      var emailType = $(this)[0].value
+      if(!emailType) { return }
+      var emailTitle = $("." + emailType + " label")[0].innerText
+      $(this).parents($(".cc-email-fields")).addClass("cc-" + emailType)
+      $(this).parent().parent().find(".user_cc_emails_email_list label")[0].innerText = "CC " + emailTitle
+      $(this).parent().parent().find(".user_cc_emails_email_list textarea").attr("placeholder", "Add any CC email addresses for " + emailTitle + ". Separate multiple email addresses with a space, comma or semi-colon.")
+    })
+  }
 })
 
 // send the positive feedback on positive response

@@ -92,7 +92,7 @@
       grid-template-rows: auto auto auto auto;
       grid-template-columns: 1fr 1fr;
 
-      .receive_plot_emails {
+      .receive_release_emails {
         grid-column-start: 1;
         grid-column-end: 2;
         grid-row-start: 1;
@@ -106,7 +106,7 @@
         grid-row-end: 2;
       }
 
-      .receive-snagging-emails {
+      .snag_notifications {
         grid-column-start: 1;
         grid-column-end: 2;
         grid-row-start: 2;
@@ -120,7 +120,7 @@
         grid-row-end: 3;
       }
 
-      .receive-faq-emails {
+      .receive_faq_emails {
         grid-column-start: 1;
         grid-column-end: 2;
         grid-row-start: 3;
@@ -134,7 +134,7 @@
         grid-row-end: 4;
       }
 
-      .receive-invitation-emails {
+      .receive_invitation_emails {
         grid-column-start: 1;
         grid-column-end: 2;
         grid-row-start: 4;

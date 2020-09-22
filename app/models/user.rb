@@ -21,7 +21,7 @@ class User < ApplicationRecord
   has_one :lettings_account, as: :accountable, dependent: :destroy
 
   has_many :cc_emails, dependent: :destroy
-  accepts_nested_attributes_for :cc_emails, reject_if: :cc_email_blank?, allow_destroy: true
+  accepts_nested_attributes_for :cc_emails, reject_if: :all_blank, allow_destroy: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -310,14 +310,6 @@ class User < ApplicationRecord
     if (role == "division_admin" || role == "developer_admin")
       self.cas = true
     end
-  end
-
-  def cc_email_blank?(cc_email)
-    return false if cc_email["email_list"].present?
-
-    record = CcEmail.find_by(user_id: id, email_type: cc_email["email_type"])
-    record&.destroy!
-    true
   end
 
   # Destroy a User record if their permission level has been destroyed
