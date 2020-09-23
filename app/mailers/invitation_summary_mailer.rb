@@ -39,7 +39,9 @@ class InvitationSummaryMailer < ApplicationMailer
       @inactive_residencies[d] = v.group_by { |r| r[:dev_phase] }
     end
 
+    # CcEmail function expects to receive array of emails
     mail to: @user.email,
+         cc: CcEmail.emails_list([@user.email], :receive_invitation_emails),
          subject: I18n.t("invitation_summary_mailer.resident_summary.subject")
   end
 end

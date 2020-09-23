@@ -1,9 +1,20 @@
 class CreateCcEmails < ActiveRecord::Migration[5.0]
-  def change
+  def up
     create_table :cc_emails do |t|
       t.references :user, foreign_key: true
       t.integer :email_type
       t.string :email_list
     end
+
+    User.all.each do |user|
+      CcEmail.email_types.each do |type, index|
+        CcEmail.create(user_id: user.id, email_type: type)
+      end
+    end
+  end
+
+  def down
+    CcEmail.destroy_all
+    drop_table :cc_emails
   end
 end
