@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   before_save :update_cas
   before_save :downcase_email
+  after_save :format_cc_emails
 
   include PolymorphicPermissionable
   include PolymorphicPermissionable::ByRole
@@ -309,6 +310,13 @@ class User < ApplicationRecord
   def update_cas
     if (role == "division_admin" || role == "developer_admin")
       self.cas = true
+    end
+  end
+
+  def format_cc_emails
+    self.cc_emails.each do |cc|
+      com_sep = (cc.email_list.split(/\s|,|;/).reject { |e| e.empty? }).join(", ")
+      cc.update_attributes(email_list: com_sep)
     end
   end
 
