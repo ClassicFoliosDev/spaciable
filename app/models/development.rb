@@ -57,7 +57,6 @@ class Development < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: %i[developer_id division_id] }
   validate :permissable_id_presence
-  validates_with ParameterizableValidator
 
   validates :construction_name, presence: true, if: :commercial?
   after_validation :set_business, on: [:update]

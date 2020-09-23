@@ -36,8 +36,11 @@
 en:
 
   back: "Back"
-  cas_enabled: "Clients Adding Specs: Enabled"
+  cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
   not_authorised: "You are not authorised to access this page"
+  administered_by: "Administered by:"
+  enabled: "Enabled"
+  disabled: "Disabled"
 
   construction_type:
     home: "Home"
@@ -546,6 +549,7 @@ en:
         rooms: "Rooms"
         appliances: "Appliances"
         library: "Library"
+        calendar: "Calendar"
         title: "My Home"
       footer:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
@@ -569,6 +573,7 @@ en:
         appliances: "Appliances"
         library: "Library"
         faqs: "FAQs"
+        calendar: "Calendar"
         choices: "Choices"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
@@ -1270,6 +1275,8 @@ en:
       premium_licences_remaining: "Premium Licences Remaining"
       construction: "Construction Type"
       construction_name: "Replace My 'Home':"
+      calendar: "Calendar"
+      calendar_description: "Enable Plot Calendars for this Development"
     index:
       add: "Add Development"
     development:
@@ -2050,7 +2057,7 @@ en:
         copyright: "&copy; %{year} Classic Folios. All rights reserved"
         intro_para_1: "Your personal home portal – Spaciable – knows all about your property and can provide downloadable documents, key contacts,
         notifications, maintenance advice and much more."
-        intro_para_2: "Spaciable not only addresses all those niggling property queries, but is also is a constant source of inspiration.
+        intro_para_2: "Spaciable not only addresses all those niggling property queries, but is also a constant source of inspiration.
         Log in to discover exciting ideas for getting the most out of your home and hobbies."
         remember_me: "Remember me"
         accept_ts_and_cs: "Accept terms and conditions"
@@ -2478,6 +2485,7 @@ en:
       name: "Plot"
       logs: "Change Logs"
       sync: "CRM Sync"
+      calendar: "Calendar"
 
       UK:
         house_number: "Postal"
@@ -3037,9 +3045,10 @@ en:
       subject: "Spaciable Activation Report"
       hello: "Hi %{name},"
       report: "This is your weekly Spaciable activation report."
-      summary: "In the last week %{invitations} residents have been invited to %{permission}. %{active} have activated,
-                leaving %{inactive} residents having not accepted the invitation email."
-      inactive: "Below is a list of residents who are yet to activate."
+      summary: "In the last week, %{invitations} residents were invited to %{permission}. %{active} have activated,
+                leaving %{inactive} residents who have not accepted the invitation email."
+      inactive: "To ensure you and your customers get the most out of your investment in Spaciable, please see below the customers who need a gentle reminder to accept their invitation."
+      inactive_2: "Don't forget: once they have activated, your customers will gain access to valuable, timesaving information, designed to support their journey and help them enjoy their new home. They'll also receive essential communications that you send through the portal."
       login: "Login to Spaciable: "
       unsubscribe: "Don't wish to receive a weekly resident activation report? You can update your preferences in your Spaciable profile."
 
@@ -3699,6 +3708,38 @@ en:
       submit: "Submit"
     destroy:
       success: "%{title} was deleted successfully"
+
+  events:
+    invited: "Invited"
+    accepted: "Accept"
+    declined: "Decline"
+    changed: "Change"
+    save_change: "Save"
+    accept_proposal: "Accept Proposal"
+
+    repeat:
+      never: "Does not repeat"
+      daily: "Daily"
+      weekly: "Weekly"
+      biweekly: "Biweekly"
+      monthly: "Monthly"
+      yearly: "Yearly"
+    remind:
+      nix: "Never"
+      at: "At"
+      hour: "Hour"
+      day: "Day"
+      week: "Week"
+    edit:
+      repeat:
+        this_event: "This event only"
+        this_and_following: "This and future events"
+        all_events: "All events (past and future)"
+        confirm: "Please confirm the event(s) you wish to modify."
+      single:
+        confirm: "Are you sure you want to delete this event?"
+
+
 
 
 

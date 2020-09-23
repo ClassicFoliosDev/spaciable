@@ -10,7 +10,7 @@ RSpec.describe PlotRouteHelper do
       plot = create(:plot, development: development)
 
       result = resident_sign_in_route(plot)
-      expect(result).to eq("http://test.host/developer-name/development-name/sign_in")
+      expect(result).to eq("http://test.host/#{development.id}/sign_in")
     end
   end
 
@@ -22,7 +22,7 @@ RSpec.describe PlotRouteHelper do
       plot = create(:plot, development: development)
 
       result = resident_sign_in_route(plot)
-      expect(result).to eq("http://test.host/developer-name/division-name/development-name/sign_in")
+      expect(result).to eq("http://test.host/#{development.id}/sign_in")
     end
   end
 end

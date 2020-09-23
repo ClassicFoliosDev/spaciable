@@ -4,17 +4,26 @@
       <div class="expired"><span class="expired-text"><%= t(".expiry").html_safe %></span></div>
     <% end %>
     <div><%= division.division_name %></div>
-    <span class="about">
+    <div class="about">
       <br/>
-      <% if division.cas %>
-        <strong><%= t("cas_enabled") %><br/>
-      <% end %>
-      <strong><%= t(".active_plots") %></strong><%= division.active_plots_count %><br/>
-      <strong><%= t(".completed_plots") %></strong><%= division.completed_plots_count %><br/>
-      <strong><%= t(".expired_plots") %></strong><%= division.expired_plots_count %><br/><br/>
-      <strong><%= t(".developments") %></strong><%= division.developments.count %><br/>
-      <strong><%= t(".phases") %></strong><%= division.phases.count %>
-    </span>
+      <span class="overview">
+        <% if current_user.cf_admin? || division.cas %>
+          <%= t("cas_enabled", status: division.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
+        <% end %>
+        <strong><%= t(".active_plots") %></strong><%= division.active_plots_count %><br/>
+        <strong><%= t(".completed_plots") %></strong><%= division.completed_plots_count %><br/>
+        <strong><%= t(".expired_plots") %></strong><%= division.expired_plots_count %><br/><br/>
+        <strong><%= t(".developments") %></strong><%= division.developments.count %><br/>
+        <strong><%= t(".phases") %></strong><%= division.phases.count %>
+      </span>
+      <span class="admins">
+        <strong><%= t("administered_by") %></strong><br/><br/>
+        <% administering_admins(division).each do |a| %>
+          <%= "#{a.first_name} #{a.last_name}" %>
+          <span class="inactive"><%= " (not activated)" unless a.invitation_accepted_at %></span><br/>
+        <% end %>
+      </span>
+    </div>
   </div>
 
   <div class="section-data">

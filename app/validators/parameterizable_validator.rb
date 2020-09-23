@@ -8,7 +8,7 @@ class ParameterizableValidator < ActiveModel::Validator
     return unless name
 
     compare_with = name.downcase.split(" ").join("-")
-    if name.parameterize == compare_with
+    if name.parameterize_amp == compare_with
       # The test above should find all invalid characters except a dash,
       # so check dash explicitly
       index_dash = name.index("-")

@@ -1,0 +1,66 @@
+
+<table class="record-list">
+    <tbody></tbody>
+</table>
+
+<% editable = false %>
+
+<div id='homeowner_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= homeowners_events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
+
+<div class="event_details_form hidden" data-response=<%= homeowners_feedback_path %>>
+  <%= simple_form_for :event do |f| %>
+    <%= f.hidden_field :id %>
+    <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
+    <%= f.hidden_field :eventable_id,{ value: source.id } %>
+
+    <div class="event-title">
+      <!--<label><%= label_tag :title, "Title" %></label>-->
+      <%= f.input :title, label: false, required: true %>
+    </div>
+    <div class="event-location">
+      <!--<label><%= label_tag :location, "Location" %></label>-->
+      <%= f.input :location, label: false, required: true %>
+    </div>
+    <div class="event-time">
+      <div class="quarter">
+        <label><%= label_tag :start_date, "Start" %></label>
+        <%= f.input :start_date, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :start_time, "From" %></label>
+        <%= f.input :start_time, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :end_time, "Until" %></label>
+        <%= f.input :end_time, label: false, required: true %>
+      </div>
+      <div class="quarter">
+        <label><%= label_tag :end_date, "End" %></label>
+        <%= f.input :end_date, label: false, required: true %>
+      </div>
+    </div>
+
+    <div class="event-time proposed_datetime">
+      <label><%= label_tag :proposed, "Proposed Rescheduling" %></label><br/>
+      <div class="quarter">
+        <p id="proposed_start_date"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_start_time"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_end_time"/>
+      </div>
+      <div class="quarter">
+        <p id="proposed_end_date"/>
+      </div>
+    </div>
+
+    <div class="event-status">
+      <button id="accept_event" type="button" class="btn" data-status=<%=:accepted%>><%=t("events.accepted")%></button>
+      <button id="decline_event" type="button" class="btn" data-status=<%=:declined%>><%=t("events.declined")%></button>
+      <button id="change_event" type="button" class="btn"><%=t("events.changed")%></button>
+      <button id="save_change" type="button" class="btn" data-status=<%=:reproposed%>><%=t("events.save_change")%></button>
+    </div>
+  <% end %>
+</div>

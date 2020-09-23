@@ -47,6 +47,7 @@ class Developer < ApplicationRecord
   # on a Developer object and it will retrieve the associated country from the Country
   # table.
   belongs_to :country
+  delegate :time_zone, to: :country
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
 
@@ -56,7 +57,6 @@ class Developer < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
-  validates_with ParameterizableValidator
 
   delegate :to_s, to: :company_name
 

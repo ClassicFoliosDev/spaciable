@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-Given(/^I have a developer with a development with unit type and plot$/) do
-  CreateFixture.create_developer_with_division
-  CreateFixture.create_division_development
-  CreateFixture.create_division_development_unit_type
-  CreateFixture.create_division_development_phase
+Given(/^I have a (.*)developer with a development with unit type and plot$/) do |branded|
+  CreateFixture.create_developer_with_division(branded: branded.present?)
+  CreateFixture.create_division_development(branded: branded.present?)
+  CreateFixture.create_division_development_unit_type(branded: branded.present?)
+  CreateFixture.create_division_development_phase(branded: branded.present?)
   CreateFixture.create_division_phase_plot
 end
 
 Given(/^I have configured branding$/) do
-  FactoryGirl.create(:brand, brandable: CreateFixture.developer,
+  FactoryGirl.create(:brand, brandable: CreateFixture.developer(branded: true),
                              bg_color: "#FFFEEE",
                              text_color: "#646467",
                              button_color: "#A6A7B2",
@@ -22,7 +22,7 @@ Given(/^I have configured branding$/) do
                              login_button_hover_color: "#000000"
                              )
 
-  FactoryGirl.create(:brand, brandable: CreateFixture.division,
+  FactoryGirl.create(:brand, brandable: CreateFixture.division(branded: true),
                              bg_color: "#000222",
                              content_bg_color: "#32344E",
                              button_text_color: "#4C4D64",
@@ -34,7 +34,7 @@ Given(/^I have configured branding$/) do
                              login_box_left_color: "#000000",
                              content_box_text: "#000000")
 
-  FactoryGirl.create(:brand, brandable: CreateFixture.division_development,
+  FactoryGirl.create(:brand, brandable: CreateFixture.division_development(branded: true),
                              content_text_color: "#446677",
                              button_color: "#776644",
                              button_text_color: "#698492",

@@ -5,7 +5,9 @@ class User < ApplicationRecord
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
+
   before_save :update_cas
+  before_save :downcase_email
 
   include PolymorphicPermissionable
   include PolymorphicPermissionable::ByRole
@@ -194,7 +196,7 @@ class User < ApplicationRecord
           "developments.name as development_name "\
           "from users LEFT OUTER JOIN developers ON "\
           "(users.permission_level_type='Developer' AND users.permission_level_id = "\
-          "developers.id) OR (users.permission_level_type='Devision' and developers.id = "\
+          "developers.id) OR (users.permission_level_type='Division' and developers.id = "\
           "(SELECT developers.id from developers INNER JOIN divisions ON "\
           "divisions.developer_id = developers.id and divisions.id = users.permission_level_id) "\
           "OR (users.permission_level_type='Development' and developers.id = "\
@@ -211,25 +213,24 @@ class User < ApplicationRecord
           "users.permission_level_type='Development' AND users.permission_level_id = "\
           "developments.id where users.deleted_at is NULL "
 
-    sql += filter.admin_criteria || ''
+    sql += (filter.admin_criteria || '') + " AND users.id IN (#{visible_users.join(',')})"
+    filtered_users = ActiveRecord::Base.connection.exec_query(sql)
 
-    sql += " AND users.id IN (#{visible_users.join(',')}) ORDER BY #{sort} #{direction} "\
-           "LIMIT #{per} OFFSET #{offset}"
-    users = ActiveRecord::Base.connection.exec_query(sql)
-
-    # sql += filter.admin_criteria || ''
+    sql += " ORDER BY #{sort} #{direction} LIMIT #{per} OFFSET #{offset}"
+    page_users = ActiveRecord::Base.connection.exec_query(sql)
 
     # This data needs to appear like a ActiveRecord::Relation so that pagination can work.
     # The users variable will be an ActiveRecord::Result and neeeds pagination criterian adding
-    class << users
+
+    class << page_users
       attr_accessor :total_pages
       attr_accessor :current_page
       attr_accessor :limit_value
     end
-    users.current_page = page
-    users.limit_value = per
-    users.total_pages = (visible_users.size.to_f / per).ceil
-    users
+    page_users.current_page = page
+    page_users.limit_value = per
+    page_users.total_pages = (filtered_users.count.to_f / per).ceil
+    page_users
   end
 
   # Set the status of the prime user.  This status is unique among a particular
@@ -312,6 +313,10 @@ class User < ApplicationRecord
   def self.permissable_destroy(model, permission_id)
     permissable_users = User.where(permission_level_type: model, permission_level_id: permission_id)
     permissable_users.destroy_all
+  end
+
+  def downcase_email
+    self.email.downcase!
   end
 
   scope :receives_faqs,

@@ -260,9 +260,37 @@
       border-color: <%= brand.branded_text_color %> !important;
     }
 
+    <%-# ----------------- CALENDAR ------------------ -%>
+    .fc-toolbar h2,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-day-header,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-axis span,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-day-number,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-more,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-popover .fc-close,
+    .fc-ltr .fc-popover .fc-header .fc-title {
+      color: <%= brand.branded_text_color %>;
+    }
+
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-day-grid .fc-event,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-content-col .fc-time-grid-event,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-popover .fc-content,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-popover .fc-event {
+      background-color: <%= brand.branded_text_color %>;
+      border-color: <%= brand.branded_text_color %>;
+    }
+
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-bg .fc-today {
+      background-color: <%= brand.branded_text_color %>;
+    }
+
     <%-# ----------------- FAQS ------------------ -%>
-    .faqs .faq-feedback button {
+    .faqs .faq-feedback .faq-button {
       color: <%= brand.branded_text_color %>
+    }
+
+    .faqs .negative-response .faq-input {
+      border-color: <%= brand.branded_text_color %>;
+      color: <%= brand.branded_text_color %>;
     }
 
   <% else %>
@@ -381,6 +409,17 @@
       border-color: <%= brand.branded_button_color %>;
     }
 
+    <%-# ---------------- FAQs ----------------- -%>
+    .faq-navigation .faq-categories .categories li a {
+      background-color: <%= brand.branded_button_color %>;
+    }
+
+    .faq-navigation .faq-categories .categories li a:hover,
+    .faq-navigation .faq-categories .categories li a.active {
+      color: <%= brand.branded_button_color %>;
+      border-color: <%= brand.branded_button_color %>;
+    }
+
     <%-# ------------------ TEXT ------------------ -%>
     .branded-titles h2,
     .branded-titles h2:last-child,
@@ -420,6 +459,19 @@
     .timeline-task .timeline-content #answer .useful-extras .features-container .branded-btn-inverted:hover,
     .timeline-task .timeline-content #answer .useful-extras .actions-container .branded-btn-inverted:hover {
       background-color: <%= brand.branded_button_color %>;
+    }
+
+    <%-# ------------------ CALENDAR ------------------ -%>
+    .homeowner-main .branded-body .calendar #homeowner_calendar button,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-disabled:hover,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-active:hover {
+      background-color: <%= brand.branded_button_color %>;
+    }
+
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-disabled,
+    .homeowner-main .branded-body .calendar #homeowner_calendar button:hover,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-active {
+      color: <%= brand.branded_button_color %>;
     }
 
   <% else %>
@@ -496,6 +548,20 @@
       background-color: <%= brand.branded_button_text_color %>;
     }
 
+    <%-# ---------------- FAQs ----------------- -%>
+    .faq-navigation .faq-categories .categories li a {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .faq-navigation .faq-categories .categories li a:hover {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .faq-navigation .faq-categories .categories li a.active {
+      background-color: <%= brand.branded_button_text_color %>;
+    }
+
     <%-# --------------- TIMELINE ----------------- -%>
     .timeline-splash .timeline-actions .timeline-btn:hover,
     .timeline-step .step-options .next .branded-btn:hover,
@@ -538,6 +604,21 @@
     .timeline-task .timeline-content #answer .useful-extras .actions-container .branded-btn-inverted:hover {
       border-color: <%= brand.branded_button_text_color %>;
       color: <%= brand.branded_button_text_color %>;
+    }
+
+    <%-# ------------------ CALENDAR ------------------ -%>
+    .homeowner-main .branded-body .calendar #homeowner_calendar button,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-disabled:hover,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-active:hover {
+      color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
+    }
+
+    .homeowner-main .branded-body .calendar #homeowner_calendar button:hover,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-disabled,
+    .homeowner-main .branded-body .calendar #homeowner_calendar .fc-state-active {
+      background-color: <%= brand.branded_button_text_color %>;
+      border-color: <%= brand.branded_button_text_color %>;
     }
 
   <% else %>

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
@@ -26,7 +25,6 @@ class Division < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: { scope: :developer_id }
-  validates_with ParameterizableValidator
 
   delegate :to_s, to: :division_name
   delegate :api_key, :development_faqs, :country, to: :developer
@@ -136,4 +134,3 @@ class Division < ApplicationRecord
     faq_types
   end
 end
-# rubocop:enable Metrics/ClassLength

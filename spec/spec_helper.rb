@@ -2,6 +2,7 @@
 
 require "pry"
 require "webmock/rspec"
+require "ext/string"
 
 $LOAD_PATH.unshift("app/errors")
 $LOAD_PATH.unshift("app/services")
@@ -34,4 +35,6 @@ RSpec.configure do |config|
   config.order = :random
 
   Kernel.srand config.seed
+
+  ENV['TZ'] = 'Europe/London'
 end
