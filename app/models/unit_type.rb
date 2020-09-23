@@ -85,7 +85,9 @@ class UnitType < ApplicationRecord
   end
 
   def expired?
-    plots.map(&:expired?).include?(true)
+    return false if plots.empty?
+
+    plots.all?(&:expired?)
   end
 
   def partially_expired?

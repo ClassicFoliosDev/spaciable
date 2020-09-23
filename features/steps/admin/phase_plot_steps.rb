@@ -171,7 +171,7 @@ Then(/^I should see the CAS updated restricted phase plot$/) do
   within ".section-title" do
     expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.complete_ready"))
     completion = (Time.zone.now + 20.days).strftime('%d %B %Y')
-    completion_date = page.find(".half", match: :first)
+    completion_date = page.find(".overview", match: :first)
     expect(completion_date['innerHTML']).to include completion.to_s
   end
 end

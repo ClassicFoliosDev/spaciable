@@ -6,7 +6,7 @@ Feature: Homeowner Branding
 
   @javascript
   Scenario:
-    Given I have a developer with a development with unit type and plot
+    Given I have a branded developer with a development with unit type and plot
     And FAQ metadata is available
     And I have configured branding
     And I have logged in as a resident and associated the division development plot
@@ -24,7 +24,7 @@ Feature: Homeowner Branding
     Then I should see the configured branding
 
   Scenario: Branded invitation
-    Given I have a developer with a development with unit type and plot
+    Given I have a branded developer with a development with unit type and plot
     And I have configured branding
     And I log in as CF Admin
     When I assign a new resident to a plot
@@ -33,7 +33,7 @@ Feature: Homeowner Branding
     Then I should see the configured branding
 
   Scenario: Empty brand
-    Given I have a developer with a development with unit type and plot
+    Given I have a branded developer with a development with unit type and plot
     And I have configured blank branding
     And I log in as CF Admin
     When I assign a new resident to a plot

@@ -1,0 +1,13 @@
+Hi,
+
+<%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.
+
+Title: <%= @event.title %>
+<% if @event.location? %>
+Location: <%= @event.location %>
+<% end %>
+<!-- This cannot use default date format as it runs in a seperate exe -->
+Start Time: <%= @event.start.strftime("%d/%m/%Y %H:%M") %>
+End Time: <%= @event.end.strftime("%d/%m/%Y %H:%M") %>
+
+Go To Appointment <%= @link %>

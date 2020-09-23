@@ -55,6 +55,9 @@ Documentation:
 Metrics/MethodLength:
   Enabled: true
 
+Style/RedundantReturn:
+  AllowMultipleReturnValues: true
+
 # Exclude auto-generated devise controllers
 Style/ClassAndModuleChildren:
   Exclude:

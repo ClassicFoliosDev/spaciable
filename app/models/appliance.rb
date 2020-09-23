@@ -84,6 +84,10 @@ class Appliance < ApplicationRecord
     full_name
   end
 
+  def in_use?
+    ApplianceRoom.with_appliance(id).present?
+  end
+
   def as_json(options = {})
     h = super(options)
     h[:name] = full_name

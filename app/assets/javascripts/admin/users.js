@@ -2,6 +2,8 @@
 
 document.addEventListener('turbolinks:load', function () {
   var $roleSelect = $('.user_role select, change')
+  if ($roleSelect.length == 0) { return }
+
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')
@@ -184,3 +186,91 @@ document.addEventListener('turbolinks:load', function () {
     }
   };
 })
+
+// send the positive feedback on positive response
+$(document).on('click', '#resendInvitation', function (event) {
+  var dataIn = $(this).data()
+  var data = { user: dataIn.invite, invitee: dataIn.invitee }
+
+  var $invitationContainer = $('<div>', { class: 'resend-invitation-confirm' })
+  .html(
+    '<div>' +
+      '<p>' +
+        'Are you sure you want to send another Spaciable Admin invitation to ' + dataIn.email + '?' +
+      '</p>' +
+    '</div>'
+  )
+
+  $('body').append($invitationContainer)
+
+  $invitationContainer.dialog({
+    show: 'show',
+    modal: true,
+    width: 600,
+    title: "Send Invitation",
+
+    buttons: [
+      {
+        text: "Back",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $(".resend-invitation-confirm").hide()
+        }
+      },
+      {
+        text: "Send",
+        class: 'btn',
+        click: function () {
+          $(this).dialog('destroy')
+          $(".resend-invitation-confirm").hide()
+
+          $.getJSON({
+            url: '/resend_invitation',
+            data: data
+          }).done(function () {
+            buildNotice('notice', dataIn.email)
+          }).fail(function () {
+            buildNotice('alert', dataIn.email)
+          })
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+})
+
+function buildNotice(status, email) {
+  flash_clear()
+  if (status == 'notice') {
+    flash_notice("An invitation has been sent to " + email)
+  } else {
+    flash_alert("Failed to send invitation to " + email + ", please try again later.")
+  }
+}
+      
+$(document).on('click', '.admin-filter .collapse .fa', function () {
+  $(".admin-filter").hide()
+  $(".admin-filter-selections").show()
+
+  displayFilterSelections()
+})
+
+$(document).on('click', '.admin-filter-selections .collapse .fa', function () {
+  $(".admin-filter").show()
+  $(".admin-filter-selections").hide()
+})
+
+function displayFilterSelections() {
+  if ($("#user_search_developer_id").val()) {
+    $(".filter-selections").html(
+      "<label>Developer: </label> <span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
+      "<label>Division: </label> <span>" + $("#user_search_division_id-button")[0].innerText + "</span><br/>" +
+      "<label>Development: </label> <span>" +$("#user_search_development_id-button")[0].innerText + "</span><br/>" +
+      "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
+    )
+  } else {
+    $(".filter-selections").html(
+      "<label>Developer: </label><span>" + $("#user_search_developer_id-button")[0].innerText + "</span><br/>" +
+      "<label>Role: </label> <span>" + $("#user_search_role-button")[0].innerText + "</span>"
+    )
+  }
+}

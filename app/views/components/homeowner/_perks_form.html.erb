@@ -8,7 +8,5 @@
   <%= f.hidden_field :group, value: plot.development.id %>
   <%= f.hidden_field :reference, value: plot.id %>
   <%= f.hidden_field :access_type, value: access_type %>
-  <% if plot.enable_premium_perks %>
-    <%= f.hidden_field :expire_date, value: Vaboo.perk_expire_date(plot.development) %>
-  <% end %>
+  <%= f.hidden_field :expire_date, value: Vaboo.perk_expire_date(plot) %>
 <% end %>

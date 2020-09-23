@@ -1,0 +1,392 @@
+#admin_calendar {
+  .fc-toolbar {
+    padding-top: $spacing-medium;
+  }
+
+  .circle {
+    width: 8px;
+    height: 8px;
+    margin: 1px;
+    display: inline-block;
+    float: right;
+  }
+
+  .fill-reproposed {
+    background-color: $secondary-orange;
+    border-color: $secondary-orange;
+  }
+
+  .fill-invited {
+    background-color: $ui-white;
+    border-color: $ui-white;
+  }
+
+  .fill-accepted {
+    background-color: $secondary-green;
+    border-color: $secondary-green;
+  }
+
+  .fill-declined {
+    background-color: $primary-red-left;
+    border-color: $primary-red-left;
+  }
+
+  button {
+    color: $primary-navy;
+    border: 1px solid $primary-navy;
+    background-color: $ui-white;
+    background: none;
+    font-size: $base-font-size;
+
+    &:hover {
+      color: $ui-white;
+      background-color: $primary-navy;
+    }
+  }
+
+  .fc-center {
+    width: 100%;
+    display: inline-block;
+    clear: both;
+    float: left;
+    padding-top: $spacing-small;
+
+    .fc-month-button, .fc-agendaWeek-button, .fc-agendaDay-button {
+      float: right !important;
+    }
+  }
+
+  .fc-month-button {
+    margin-right: 0;
+  }
+
+  .fc-scroller {
+    height: auto !important;
+  }
+
+  .fc-state-disabled, .fc-state-active {
+    background-color: $primary-navy;
+    color: $ui-white;
+    opacity: 1;
+  }
+
+  .fc-bg .fc-today {
+    background-color: $primary-navy;
+    opacity: 0.1;
+  }
+
+  .fc-day-header {
+    font-family: $base-font-family;
+    color: $primary-navy;
+    font-size: $base-font-size;
+  }
+
+  .fc-day-number {
+    color: $primary-navy;
+    opacity: 0.5;
+    padding-top: 4px;
+    padding-right: 5px;
+  }
+
+  .fc-toolbar {
+    padding-bottom: $spacing-small;
+  }
+
+  .fc-axis span {
+    font-size: $base-small-font-size;
+    color: $primary-navy;
+  }
+
+  .fc-day-grid {
+    .fc-event {
+      border: 1px solid $primary-navy;
+      background-color: $primary-navy;
+    }
+
+    .past-event {
+      opacity: 0.6;
+    }
+
+    .repeat-event {
+      border: 1px solid #075473;
+      background-color: #075473;
+    }
+
+    .reproposed-datetime {
+      background-color: $secondary-orange;
+      border-color: $secondary-orange;
+    }
+  }
+
+  .fc-content-col {
+    .fc-time-grid-event {
+      border: 1px solid $primary-navy;
+      background-color: $primary-navy;
+    }
+
+    .past-event {
+      opacity: 0.6;
+    }
+
+    .repeat-event {
+      border: 1px solid #075473;
+      background-color: #075473;
+    }
+
+    .reproposed-datetime {
+      background-color: $secondary-orange;
+      border-color: $secondary-orange;
+    }
+
+    .fc-event .fc-bg {
+      opacity: 0;
+    }
+  }
+
+  .fc-more {
+    font-family: $base-font-family;
+    font-size: $base-small-font-size;
+    color: $primary-navy;
+  }
+
+  .fc-popover {
+    .fc-content, .fc-event {
+      background-color: $primary-navy;
+      border: 1px solid $primary-navy;
+    }
+  }
+
+  .fc-content {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .fc-icon-left-single-arrow, .fc-icon-right-single-arrow {
+    &:after {
+      top: 1px;
+    }
+  }
+
+  .fc-agendaDay-view {
+    td {
+      background-color: $ui-white !important;
+    }
+  }
+
+  .fc-popover {
+    .fc-header {
+      background: none;
+    }
+    .fc-close {
+      color: $primary-navy;
+      margin-top: 4px;
+    }
+  }
+}
+
+.admin-view {
+  #btn_event_delete {
+    float: right;
+    border: none;
+    background-color: $primary-navy;
+    background: none;
+    font-size: 18px;
+    padding: 0;
+
+    .fa {
+      color: $ui-white;
+    }
+  }
+}
+
+#btn_submit {
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+.event_details_form {
+  label {
+    color: $primary-navy;
+  }
+
+  .title, .location, .attendees {
+    padding-top: 1px;
+  }
+
+  .event-time {
+    padding-top: 11px;;
+  }
+
+  .proposed_datetime {
+
+    label {
+      padding-top: 1px;
+      color: $primary-red-left;
+    }
+
+    .quarter {
+      p {
+        margin-top: -$spacing-small;
+        color: $primary-red-left;
+        padding-left: $spacing-small;
+        margin-bottom: 10px;
+      }
+    }
+
+    .end-date {
+      margin-right: 0;
+    }
+
+    .accept-change {
+      margin-top: $spacing-small;
+      padding-bottom: $spacing-medium;
+
+      #accept_reschedule {
+        font-size: $base-font-size;
+        font-family: $base-font-family;
+      }
+    }
+  }
+
+  .input {
+    font-size: $base-font-size;
+  }
+
+  input.datetime {
+    padding: 5px 10px;
+  }
+
+  .event {
+    input {
+      margin-bottom: 0;
+    }
+
+    .event-time {
+      display: block;
+
+      .invalid input {
+        border: 1px solid $primary-red-left;
+        border-radius: 5px;
+      }
+    }
+
+    .event_repeat, .event_reminder {
+      position: static;
+      display: inline;
+    }
+
+    #repeat_until {
+      .input {
+        margin-bottom: 0;
+      }
+    }
+
+    .event_repeat_until {
+      .form-control{
+        height: 39px;
+      }
+    }
+
+    span.required {
+      display: none;
+    }
+
+    .half, .quarter {
+      margin-bottom: 0;
+    }
+
+    .reminder {
+      display: inline-block;
+      clear: both;
+      padding-top: 10px;
+    }
+
+    .ui-selectmenu-button .ui-selectmenu-text {
+        padding: 9px !important;
+    }
+  }
+
+  #residents {
+    height: 106px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: 1px solid $primary-navy;
+    border-radius: 5px;
+
+    span {
+      display: block;
+
+      label {
+        display: inline-block;
+      }
+
+      .btn {
+        display: inline-block;
+        float: right;
+        margin-right: $spacing-small;
+        margin-top: 3px;
+
+        font-size: $base-small-font-size;
+        line-height: 1.5;
+      }
+
+      .invite-resident-btn {
+        color: $secondary-green;
+        border-color: $secondary-green;
+
+        // this doesn't seem to be working, so force css in js
+        &:hover {
+          color: $ui-white;
+          background-color: $secondary-green;
+        }
+      }
+    }
+
+    .resident-label {
+      margin: 0;
+      padding: 0;
+
+      .collection_check_boxes {
+        padding: 5px 0 5px $spacing-small;
+        margin: 0;
+        font-weight: normal;
+      }
+    }
+
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .checked {
+      background-color: $pale-navy;
+    }
+
+    .reproposed {
+      background-color: #fcb788;
+    }
+
+    .accepted {
+      background-color: #ADEBAD;
+    }
+
+    .declined {
+      background-color: #FFB2B2;
+    }
+  }
+}
+
+#repeat_event_form {
+  label {
+    display: inline;
+    color: $primary-navy;
+    padding-left: 5px;
+    font-family: $base-font-family;
+  }
+
+  .event-delete-type {
+    padding: 5px 0;
+  }
+}

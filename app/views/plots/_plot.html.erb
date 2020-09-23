@@ -8,25 +8,25 @@
   <% cas_update = current_user&.cf_admin? || can?(:cas_update, plot) %>
 
   <div class="about">
-    <div class="half">
-      <br/>
-      <% if plot.cas %>
-        <strong><%= t("cas_enabled") %></strong><br/>
-      <% end %>
+    <br/>
+    <span class="overview">
       <strong><%= t(".expiry_date") %></strong><%= plot&.expiry_date&.strftime("%d %B %Y") %><br/><br/>
       <strong><%= t(".progress") %></strong><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %><br/>
       <strong><%= t(".completion_date") %></strong><%= plot&.completion_date&.strftime("%d %B %Y") || "Not set" %><br/><br/>
       <strong><%= t(".invited_residents") %></strong><%= plot.residents.count %><br/>
       <strong><%= t(".activated_residents") %></strong><%= plot.activated_resident_count %><br/><br/>
       <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count %><br/>
-    </div>
-    <div class="half">
+    </span>
+    <span class="cas-overview">
+      <% if current_user.cf_admin? || plot.cas %>
+        <%= t("cas_enabled", status: plot.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
+      <% end %>
       <% if cas_update %>
         <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
         <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
         <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>
       <% end %>
-    </div>
+    </span>
   </div>
 </div>
 

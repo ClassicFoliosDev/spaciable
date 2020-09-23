@@ -82,6 +82,9 @@
           <%= f.check_box :cas %>
           <p class="checkbox-description"><%= t(".cas_description") %></p>
         <% end %>
+        <%= f.label t(".calendar") %>
+        <%= f.check_box :calendar %>
+        <p class="checkbox-description"><%= t(".calendar_description") %></p>
         <br/>
         <div id="premium_perks">
           <div class="<%= parent.enable_perks %>">  <!-- used in css to determine visibility -->

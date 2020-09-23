@@ -24,9 +24,9 @@
   <table class="record-list faqs">
     <thead>
       <tr>
-        <th colspan="3"><%= sortable(Faq, :question, t(".faq")) %></th>
-        <th><%= sortable(Faq, :category) %></th>
-        <th><%= sortable(Faq, :updated_at, t(".last_edited")) %></th>
+        <th colspan="3"><%= sortable(Faq, :question, t(".faq"), sort_params: qp) %></th>
+        <th><%= sortable({ DefaultFaq => FaqCategory }, :name, sort_params: qp) %></th>
+        <th><%= sortable(Faq, :updated_at, t(".last_edited"), sort_params: qp) %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
