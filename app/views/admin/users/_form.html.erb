@@ -89,7 +89,7 @@
             <span class="checkbox-description"><%= t(".receive_invitation_emails") %></span>
           </div>
 
-          <% if @user.persisted? %>
+          <% if user.persisted? %>
             <%= f.fields_for :cc_emails do |e| %>
               <div class="cc-email-fields">
                 <%= e.input :user, as: :hidden %>
@@ -101,7 +101,7 @@
             <% CcEmail.email_types.each do |etype, index| %>
               <div class="cc-<%= etype %>">
                 <%= f.fields_for :cc_emails do |e| %>
-                  <%= e.input :user, as: :hidden, input_html: { value: @user.id } %>
+                  <%= e.input :user, as: :hidden, input_html: { value: user.id } %>
                   <%= e.input :email_type, as: :hidden, input_html: { value: etype } %>
                   <%= e.input :email_list, as: :text, placeholder: t(".cc_list", type: t("admin.cc_email.#{etype}")), label: t(".email_list", type: t("admin.cc_email.#{etype}")), required: false %>
                 <% end %>

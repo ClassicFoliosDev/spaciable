@@ -315,6 +315,7 @@ class User < ApplicationRecord
 
   def format_cc_emails
     self.cc_emails.each do |cc|
+      return unless cc.email_list.present?
       com_sep = (cc.email_list.split(/\s|,|;/).reject { |e| e.empty? }).join(", ")
       cc.update_attributes(email_list: com_sep)
     end

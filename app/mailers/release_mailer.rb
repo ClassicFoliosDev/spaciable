@@ -59,7 +59,7 @@ class ReleaseMailer < ApplicationMailer
       mail(to: @emails,
            subject: subject,
            cc: ["hello@spaciable.com, accountmanagement@classicfolios.com",
-                 CcEmail.emails_list(@emails, :receive_release_emails)])
+                CcEmail.emails_list(@emails, :receive_release_emails)])
     else
       mail(to: @emails,
            cc: CcEmail.emails_list(@emails, :receive_release_emails),

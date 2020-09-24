@@ -71,3 +71,23 @@ Then(/^I should only see the FAQs in the other category$/) do
     expect(active_category).to eq(MyHomeFaqsFixture.other_category_name)
   end
 end
+
+Given(/^I am a homeowner wanting to feedback FAQs$/) do
+  MyHomeFaqsFixture.create_homeowner_faqs
+end
+
+Given(/^the developer admin has enabled FAQ CC emails$/) do
+  login_as CreateFixture.create_developer_admin
+  visit "/"
+
+  within ".navbar" do
+    click_on "Profile"
+  end
+
+  find("[data-action='edit']").trigger("click")
+
+  find("#faq_check").trigger('click')
+
+  # BREAKS HERE - user form doesn't load cc_email nested form
+  fill_in "user_cc_emails_attributes_1_email_list", with: FaqsFixture.cc_emails
+end

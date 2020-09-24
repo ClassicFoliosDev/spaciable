@@ -6,11 +6,8 @@ class CreateCcEmails < ActiveRecord::Migration[5.0]
       t.string :email_list
     end
 
-    User.all.each do |user|
-      CcEmail.email_types.each do |type, index|
-        CcEmail.create(user_id: user.id, email_type: type)
-      end
-    end
+    # create the cc_email records for existing users
+    load Rails.root.join("db/seeds", "cc_emails.rb")
   end
 
   def down

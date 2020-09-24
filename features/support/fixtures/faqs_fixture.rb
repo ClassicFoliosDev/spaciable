@@ -333,4 +333,8 @@ module FaqsFixture
   def commercial_c
     ConstructionType.find_by(construction: ConstructionType.constructions[:commercial])
   end
+
+  def cc_emails
+    "cc@first.com cc@second.com; cc@third.com, cc@forth.com"
+  end
 end
