@@ -50,7 +50,7 @@
 
 .user-form {
   .user-permissions {
-    display: none;
+    display: grid;
   }
 
   background-color: $ui-white;
@@ -97,6 +97,7 @@
         grid-column-end: 2;
         grid-row-start: 1;
         grid-row-end: 2;
+        display: none;
       }
 
       .cc-receive_release_emails {
@@ -104,6 +105,7 @@
         grid-column-end: 3;
         grid-row-start: 1;
         grid-row-end: 2;
+        display: none;
       }
 
       .snag_notifications {
@@ -111,6 +113,7 @@
         grid-column-end: 2;
         grid-row-start: 2;
         grid-row-end: 3;
+        display: none;
       }
 
       .cc-snag_notifications {
@@ -118,6 +121,7 @@
         grid-column-end: 3;
         grid-row-start: 2;
         grid-row-end: 3;
+        display: none;
       }
 
       .receive_faq_emails {
@@ -125,6 +129,7 @@
         grid-column-end: 2;
         grid-row-start: 3;
         grid-row-end: 4;
+        display: none;
       }
 
       .cc-receive_faq_emails {
@@ -132,6 +137,7 @@
         grid-column-end: 3;
         grid-row-start: 3;
         grid-row-end: 4;
+        display: none;
       }
 
       .receive_invitation_emails {
@@ -139,6 +145,7 @@
         grid-column-end: 2;
         grid-row-start: 4;
         grid-row-end: 5;
+        display: none;
       }
 
       .cc-receive_invitation_emails {
@@ -146,6 +153,7 @@
         grid-column-end: 3;
         grid-row-start: 4;
         grid-row-end: 5;
+        display: none;
       }
 
       textarea {

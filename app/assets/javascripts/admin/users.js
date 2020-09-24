@@ -128,7 +128,6 @@ document.addEventListener('turbolinks:load', function () {
   function showRoleResourcesOnly (role) {
     if (role !== 'cf_admin' && role !== '') {
       $developerSelect.selectmenu(developerSelectmenuCallbacks())
-      $(".user-permissions").css("display", "grid")
     };
 
     if (role === 'cf_admin') {

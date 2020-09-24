@@ -181,7 +181,7 @@ Then(/^I should see the new (.*) user$/) do |role|
       attrs = AdminUsersFixture.division_development_admin_attrs
   end
 
-  within ".record-list" do
+  within find(".record-list") do
     expect(page).to have_content(attrs[:role])
     expect(page).to have_content(attrs[:email_address])
   end
