@@ -63,6 +63,9 @@ When(/^I add a new CF Admin$/) do
 
   cas_validate(visible: false, disabled: true, checked: false)
 
+  sleep 0.5
+  save_and_open_screenshot
+
   select "CF Admin", visible: false
   click_on t("admin.users.form.submit")
 
@@ -150,7 +153,6 @@ When(/^I add a new (.*) user$/) do |role|
   within ".user_email" do
     fill_in "user[email]", with: attrs[:email_address]
   end
-
 
   select_from_selectmenu :user_role, with: attrs[:role]
   select_from_selectmenu :user_developer_id, with: attrs[:developer]
@@ -426,7 +428,8 @@ Then(/^I can enable my developer development users to perform lettings$/) do
 
   find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.developer_development_admins.first.id}/edit']").click
   expect(page).to have_content t("admin.users.form.administer_branch")
-  page.check('branch_admin_check')
+
+  find('#branch_admin_check').trigger('click')
 
   # The edit user javascript doesn't work properly - update manually
   admin = LettingsFixture.developer_development_admins.first
@@ -465,7 +468,7 @@ Then(/^I can enable my division development users to perform lettings$/) do
 
   find(:xpath, ".//a[@href='/admin/users/#{LettingsFixture.division_development_admins.first.id}/edit']").click
   expect(page).to have_content t("admin.users.form.administer_branch")
-  page.check('branch_admin_check')
+  find('#branch_admin_check').trigger('click')
 
     # The edit user javascript doesn't work properly - update manually
   admin = LettingsFixture.division_development_admins.first
@@ -496,7 +499,6 @@ When(/the developer has CAS (.*)$/) do |status|
 end
 
 def cas_validate(visible: false, disabled: true, checked: false)
-
   if visible
     expect(page).to have_content(t("admin.users.form.adds_specifications"))
     expect(page).to have_field 'cas_check', disabled: disabled, checked: checked

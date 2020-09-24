@@ -25,7 +25,7 @@ Then(/^I should see the snagging notification checkbox on my profile$/) do
 
   find("[data-action='edit']").click
 
-  within ".user" do
+  within ".user-permissions" do
     expect(page).to have_content t("admin.users.form.receive_snag_emails")
   end
 end

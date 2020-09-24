@@ -4,8 +4,6 @@ document.addEventListener('turbolinks:load', function () {
   var $roleSelect = $('.user_role select, change')
   if ($roleSelect.length == 0) { return }
 
-  setCcLabels()
-
   var $developerSelect = $('.user_developer_id select')
   var $divisionSelect = $('.user_division_id select')
   var $developmentSelect = $('.user_development_id select')
@@ -24,7 +22,6 @@ document.addEventListener('turbolinks:load', function () {
       showRoleResourcesOnly(role)
 
       setCas()
-
     }
   })
 
@@ -129,14 +126,9 @@ document.addEventListener('turbolinks:load', function () {
   };
 
   function showRoleResourcesOnly (role) {
-    if (role !== '') {
-      $(".user-permissions").css("display", "grid")
-    } else {
-      $(".user-permissions").hide()
-    }
-
     if (role !== 'cf_admin' && role !== '') {
       $developerSelect.selectmenu(developerSelectmenuCallbacks())
+      $(".user-permissions").css("display", "grid")
     };
 
     if (role === 'cf_admin') {
@@ -164,6 +156,8 @@ document.addEventListener('turbolinks:load', function () {
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };
+
+    setCcLabels()
   };
 
   // Get the CAS enablement from the developer and display the CAS enablement
@@ -206,11 +200,12 @@ document.addEventListener('turbolinks:load', function () {
       var emailType = $(this)[0].value
       if(!emailType) { return }
       var emailTitle = $("." + emailType + " label")[0].innerText
-      $(this).parents($(".cc-email-fields")).addClass("cc-" + emailType)
+
+      $(this).parent().parent($(".cc-email-fields")).addClass("cc-" + emailType)
       $(this).parent().parent().find(".user_cc_emails_email_list label")[0].innerText = "CC " + emailTitle
       $(this).parent().parent().find(".user_cc_emails_email_list textarea").attr("placeholder", "Add any CC email addresses for " + emailTitle + ". Separate multiple email addresses with a space, comma or semi-colon.")
     })
-  }
+  };
 })
 
 // send the positive feedback on positive response
