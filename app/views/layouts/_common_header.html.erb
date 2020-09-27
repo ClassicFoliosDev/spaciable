@@ -1,4 +1,7 @@
-<title><%= t(".title") %></title>
+<title><%= t(".title") %><%= (" - " + yield(:title) unless yield(:title).blank?).to_s %></title>
+<% unless yield(:description).blank? %>
+  <meta name="description" content="<%= yield(:description) %>">
+<% end %>
 
 <% if Rails.env.test? %>
   <meta name="turbolinks-cache-control" content="no-cache">
