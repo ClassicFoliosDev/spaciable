@@ -9,6 +9,11 @@ Given(/^I am logged in as a homeowner$/) do
   visit "/"
 end
 
+Given(/^I am logged in as a homeowner with associated timeline (.*)$/) do |timeline|
+  login_as HomeownerUserFixture.create(timeline: eval(timeline))
+  visit "/"
+end
+
 When(/^I log in as a homeowner$/) do
   homeowner = HomeownerUserFixture
   visit "/homeowners/sign_in"

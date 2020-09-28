@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200623084553) do
+ActiveRecord::Schema.define(version: 20200921094247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,13 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.string   "info_text"
     t.string   "email_logo"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
+  end
+
+  create_table "cc_emails", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "email_type"
+    t.string  "email_list"
+    t.index ["user_id"], name: "index_cc_emails_on_user_id", using: :btree
   end
 
   create_table "choice_configurations", force: :cascade do |t|
@@ -704,6 +711,13 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
+  create_table "phase_timelines", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "phase_id"
+    t.index ["phase_id"], name: "index_phase_timelines_on_phase_id", using: :btree
+    t.index ["timeline_id"], name: "index_phase_timelines_on_timeline_id", using: :btree
+  end
+
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
@@ -741,13 +755,13 @@ ActiveRecord::Schema.define(version: 20200623084553) do
   end
 
   create_table "plot_timelines", force: :cascade do |t|
-    t.integer "timeline_id"
+    t.integer "phase_timeline_id"
     t.integer "plot_id"
     t.integer "task_id"
-    t.boolean "complete",    default: false
+    t.boolean "complete",          default: false
+    t.index ["phase_timeline_id"], name: "index_plot_timelines_on_phase_timeline_id", using: :btree
     t.index ["plot_id"], name: "index_plot_timelines_on_plot_id", using: :btree
     t.index ["task_id"], name: "index_plot_timelines_on_task_id", using: :btree
-    t.index ["timeline_id"], name: "index_plot_timelines_on_timeline_id", using: :btree
   end
 
   create_table "plots", force: :cascade do |t|
@@ -1113,8 +1127,8 @@ ActiveRecord::Schema.define(version: 20200623084553) do
     t.boolean  "receive_choice_emails",     default: false
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
-    t.boolean  "receive_faq_emails",     default: false
     t.boolean  "receive_invitation_emails", default: true
+    t.boolean  "receive_faq_emails",        default: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
@@ -1141,6 +1155,7 @@ ActiveRecord::Schema.define(version: 20200623084553) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
+  add_foreign_key "cc_emails", "users"
   add_foreign_key "crms", "developers"
   add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"
@@ -1169,15 +1184,17 @@ ActiveRecord::Schema.define(version: 20200623084553) do
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
+  add_foreign_key "phase_timelines", "phases"
+  add_foreign_key "phase_timelines", "timelines"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"
   add_foreign_key "plot_residencies", "plots"
   add_foreign_key "plot_residencies", "residents"
   add_foreign_key "plot_residencies", "tasks"
+  add_foreign_key "plot_timelines", "phase_timelines"
   add_foreign_key "plot_timelines", "plots"
   add_foreign_key "plot_timelines", "tasks"
-  add_foreign_key "plot_timelines", "timelines"
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"
