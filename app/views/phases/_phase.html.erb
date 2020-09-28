@@ -6,22 +6,31 @@
       <div class="expired"><span class="partial-expired-text"><%= t(".partial_expiry").html_safe %></span></div>
     <% end %>
     <div>
-      <%= phase.name %><br>
+      <%= phase.name %><br/>
     </div>
-    <span class="about">
+    <div class="about">
       <br/>
-      <% if current_user.cf_admin? %>
-        <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/>
-      <% end %>
-      <% if current_user.cf_admin? || phase.cas %>
-        <strong><%= t("cas_enabled") %></strong><%= phase.cas ? t("enabled") : t("disabled") %><br/><br/>
-      <% end %>
-      <strong><%= t(".active_plots") %></strong><%= phase.active_plots_count %><br/>
-      <strong><%= t(".completed_plots") %></strong><%= phase.completed_plots_count %><br/>
-      <strong><%= t(".expired_plots") %></strong><%= phase.expired_plots_count %><br/><br/>
-      <strong><%= t(".residents") %></strong><%= phase.released_resident_count %><br/>
-      <strong><%= t(".activated_residents") %></strong><%= phase.activated_resident_count %>
-    </span>
+      <span class="overview">
+        <% if current_user.cf_admin? %>
+          <strong><%= t(".business") %></strong><%= I18n.t("activerecord.attributes.phase.businesses.#{phase.business}") %><br/>
+        <% end %>
+        <% if current_user.cf_admin? || phase.cas %>
+          <%= t("cas_enabled", status: phase.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
+        <% end %>
+        <strong><%= t(".active_plots") %></strong><%= phase.active_plots_count %><br/>
+        <strong><%= t(".completed_plots") %></strong><%= phase.completed_plots_count %><br/>
+        <strong><%= t(".expired_plots") %></strong><%= phase.expired_plots_count %><br/><br/>
+        <strong><%= t(".residents") %></strong><%= phase.released_resident_count %><br/>
+        <strong><%= t(".activated_residents") %></strong><%= phase.activated_resident_count %>
+      </span>
+      <span class="admins">
+        <strong><%= t("administered_by") %></strong><br/><br/>
+        <% administering_admins(phase.development).each do |a| %>
+          <%= "#{a.first_name} #{a.last_name}" %>
+          <span class="inactive"><%= " (not activated)" unless a.invitation_accepted_at %></span><br/>
+        <% end %>
+      </span>
+    </div>
   </div>
 
   <div class="section-data">

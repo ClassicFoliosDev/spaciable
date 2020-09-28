@@ -4,18 +4,29 @@
       <div class="expired"><span class="expired-text"><%= t(".expiry").html_safe %></span></div>
     <% end %>
     <div><%= developer.company_name %></div>
-    <span class="about">
-      <%= simple_format developer.about %>
-      <br/>
-      <% if current_user.cf_admin? || developer.cas %>
-        <strong><%= t("cas_enabled") %></strong><%= developer.cas ? t("enabled") : t("disabled") %><br/><br/>
-      <% end %>
-      <strong><%= t(".active_plots") %></strong><%= developer.active_plots_count %><br/>
-      <strong><%= t(".completed_plots") %></strong><%= developer.completed_plots_count %><br/>
-      <strong><%= t(".expired_plots") %></strong><%= developer.expired_plots_count %><br/><br/>
-      <strong><%= t(".developments") %></strong><%= developer.developments_count %><br/>
-      <strong><%= t(".phases") %></strong><%= developer.phases.size %>
-    </span>
+    <div class="about">
+      <span class="about-text">
+        <%= simple_format developer.about %>
+        <br/>
+      </span>
+      <span class="overview">
+        <% if current_user.cf_admin? || developer.cas %>
+          <%= t("cas_enabled", status: developer.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
+        <% end %>
+        <strong><%= t(".active_plots") %></strong><%= developer.active_plots_count %><br/>
+        <strong><%= t(".completed_plots") %></strong><%= developer.completed_plots_count %><br/>
+        <strong><%= t(".expired_plots") %></strong><%= developer.expired_plots_count %><br/><br/>
+        <strong><%= t(".developments") %></strong><%= developer.developments_count %><br/>
+        <strong><%= t(".phases") %></strong><%= developer.phases.size %>
+      </span>
+      <span class="admins">
+        <strong><%= t("administered_by") %></strong><br/><br/>
+        <% administering_admins(developer).each do |a| %>
+          <%= "#{a.first_name} #{a.last_name}" %>
+          <span class="inactive"><%= " (not activated)" unless a.invitation_accepted_at %></span><br/>
+        <% end %>
+      </span>
+    </div>
   </div>
 
   <div class="section-data">

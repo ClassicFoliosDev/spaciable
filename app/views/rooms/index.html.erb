@@ -5,16 +5,20 @@
     <div><%= @unit_type.name %></div>
     <% if current_user.cf_admin? ||
           (current_user.cas || @unit_type.cas) %>
-      <span class="about">
+      <div class="about">
         <br/>
-        <strong><%= t("cas_enabled") %></strong><%= @unit_type.cas ? t("enabled") : t("disabled") %><br/>
+        <span class="overview">
+        <%= t("cas_enabled", status: @unit_type.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
         <strong><%= t("unit_types.show.home_address_image") %></strong><%= @unit_type.picture? ? @unit_type.picture_name : "Not Populated" %><br/>
         <strong><%= t("unit_types.show.about_page_link") %></strong><%= @unit_type.external_link? ? @unit_type.external_link : "Not Populated" %><br/><br/>
         <strong><%= t("unit_types.show.plots") %></strong><%= @unit_type.plots.count %><br/>
         <strong><%= t("unit_types.show.rooms") %></strong><%= @unit_type.rooms.count %><br/>
         <strong><%= t("unit_types.show.finishes") %></strong><%= @unit_type.finishes_count %><br/>
         <strong><%= t("unit_types.show.appliances") %></strong><%= @unit_type.appliances_count %><br/>
-      </span>
+
+        </span>
+
+      </div>
     <% end %>
   </div>
   <div class="section-data">

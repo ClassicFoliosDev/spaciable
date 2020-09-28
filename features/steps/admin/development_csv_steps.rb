@@ -77,7 +77,7 @@ Then(/^the valid plot has been updated$/) do
   expect(find_field("plot_building_name").value).to eq "The Glen"
   expect(find_field("plot_road_name").value).to eq "Cranbury Road"
   expect(find_field("plot_postcode").value).to eq "SO50 5TL"
-  expect(find_field("plot_completion_date").value).to eq "12/10/2020"
+  expect(find_field("plot_completion_date").value).to eq "2020-10-12"
 end
 
 Then(/^the invalid plot has not been updated$/) do

@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(version: 20200806122239) do
     t.string  "file"
     t.integer "document_id"
     t.integer "development_id"
+    t.boolean "editable",       default: true
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
   end

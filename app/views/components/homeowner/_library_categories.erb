@@ -1,37 +1,19 @@
 <div class="library-categories">
   <h2 class="branded-text"><%= t(".title") %></h2>
   <ul class="categories">
-    <% documents = Document.accessible_by(current_ability)
-                           .where(category: "my_home") %>
-    <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
-    <% if documents.any? %>
-      <li>
-          <%= link_to plot.my_home_name,
-                      homeowner_library_path("my_home"),
-                      class: ("active" if active_category == "my_home") %>
-      </li>
-    <% end %>
-
-    <% documents = Document.accessible_by(current_ability)
-                           .where(category: "locality") %>
-    <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
-    <% if documents.any? %>
-      <li>
-          <%= link_to t_enum(Document, :category, "locality"),
-                      homeowner_library_path("locality"),
-                      class: ("active" if active_category == "locality") %>
-      </li>
-    <% end %>
-
-    <% documents = Document.accessible_by(current_ability)
-                           .where(category: "legal_and_warranty") %>
-    <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
-    <% if documents.any? %>
-      <li>
-          <%= link_to t_enum(Document, :category, "legal_and_warranty"),
-                      homeowner_library_path("legal_and_warranty"),
-                      class: ("active" if active_category == "legal_and_warranty") %>
-      </li>
+    <!-- document enum categories -->
+    <% categories = Document.categories %>
+    <% categories.each do |cat, num| %>
+      <% documents = Document.accessible_by(current_ability)
+                             .where(category: cat) %>
+      <% documents = documents.where("created_at <= ?", plot.expiry_date) if plot.expiry_date.present? %>
+      <% if documents.any? %>
+        <li>
+          <%= link_to (cat == "my_home" ? plot.my_home_name : t_enum(Document, :category, cat)),
+          homeowner_library_path(cat.to_sym),
+          class: ("active" if active_category == cat) %>
+        </li>
+      <% end %>
     <% end %>
 
     <% if Appliance.accessible_by(current_ability).any? %>

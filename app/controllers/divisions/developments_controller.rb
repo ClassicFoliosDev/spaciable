@@ -90,7 +90,7 @@ module Divisions
         :name, :choice_option,
         :division_id,
         :email, :contact_number, :timeline_id,
-        :enable_snagging, :snag_duration, :snag_name, :cas,
+        :enable_snagging, :snag_duration, :snag_name, :cas, :calendar,
         :construction, :construction_name,
         maintenance_attributes: %i[id path account_type populate],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought
