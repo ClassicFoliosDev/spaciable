@@ -10,6 +10,23 @@ Then(/^I see the referrals shortcut$/) do
   end
 end
 
+Given(/^there are uneditable shortcuts$/) do
+  developer = CreateFixture.developer
+  development = CreateFixture.development
+
+  developer.update_attribute(:enable_services, true)
+  CustomTile.create(development_id: development.id, category: 'feature', feature: 'services', editable: false)
+end
+
+Then(/^the services shortcut is uneditable$/) do
+  tile = CustomTile.last
+  expect(page).not_to have_selector("[data-url='/custom_tiles/#{tile.id}']")
+  find("[data-id='#{tile.id}']").trigger("click")
+  within ".ui-dialog-titlebar" do
+    expect(page).to have_content(t("custom_tiles.collection.uneditable_title", tile: "Services"))
+  end
+end
+
 Then(/^I cannot crud the shortcuts$/) do
   within ".main-container" do
     expect(page).to have_no_css(".section-actions")
