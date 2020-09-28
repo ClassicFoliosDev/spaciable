@@ -48,10 +48,11 @@ Then(/^I see the error messages$/) do
   within ".alert" do
     phase = PhasePlotFixture.phase_name
     expect(page).to have_content(t("development_csv.errors.phase_error_strip", phase: "First"))
-    expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 7"))
+    expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 9"))
     expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "#{phase}: Penthouse"))
     expect(page).to have_content(t("development_csv.errors.progress_error_strip", progress: "#{phase}: wrong_progress"))
     expect(page).to have_content(t("development_csv.errors.duplicate_plots_strip", plots: "#{phase}: 4"))
+    expect(page).to have_content(t("development_csv.errors.uprn_error_strip", uprns: "#{phase}: aaa, 1234567890123"))
   end
 end
 

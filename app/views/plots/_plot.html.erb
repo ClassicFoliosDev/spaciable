@@ -22,6 +22,8 @@
         <%= t("cas_enabled", status: plot.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
       <% end %>
       <% if cas_update %>
+        <br/><strong><%= t("cas_enabled") %></strong><%= plot.cas ? t("enabled") : t("disabled") %><br/><br/>
+
         <strong><%= t(".rooms") %></strong><%= plot.rooms.count %><br/>
         <strong><%= t(".appliances") %></strong><%= plot.appliances_count %><br/>
         <strong><%= t(".finishes") %></strong><%= plot.finishes_count %><br/>

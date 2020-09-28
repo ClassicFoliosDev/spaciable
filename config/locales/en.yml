@@ -37,6 +37,8 @@ en:
 
   back: "Back"
   cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
+  enabled: "Enabled"
+  disabled: "Disabled"
   not_authorised: "You are not authorised to access this page"
   administered_by: "Administered by:"
   enabled: "Enabled"
@@ -1350,6 +1352,7 @@ en:
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
       completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
       duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
+      uprn_error: "<br/>Invalid UPRN(s): %{errors}"
       overview: "Please check the CSV for invalid input and then re-upload once the following issues have been resolved: %{errors}"
       success: "The following plots were updated successfully: %{plots}"
       file_type: "Invalid file type, please upload a valid CSV file. You can download the template by clicking the 'Download CSV Template' button"
@@ -1361,6 +1364,7 @@ en:
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
+      uprn_error_strip: "Invalid UPRN(s): %{uprns}"
 
   homeowners:
     my_home_name: "My %{construction}"
@@ -2539,6 +2543,8 @@ en:
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
       preview: "Preview"
+      uprn: "UPRN: "
+      uprn_error: " should be up to 12 digits long and only contain numbers."
     completion:
       title: "Estimated Move In Date"
       disclaimer_1: "Entering this date will allow your buyers to receive moving in emails in your branding to help them with their purchasing journey.
@@ -3264,6 +3270,7 @@ en:
         completion_release_date: "Completion Release Date"
         validity: "Validity (Months)"
         extended_access: "Extended Access (Months)"
+        uprn: "UPRN"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"

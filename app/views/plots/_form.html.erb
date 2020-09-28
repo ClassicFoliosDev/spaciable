@@ -24,8 +24,10 @@
         <fieldset>
           <%= f.input :number, disabled: cas_update %>
           <%= f.hidden_field :ut_update_option, value: UnitType::UNCHANGED%>
-          <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent), disabled: (cannot? :update_unit_type, plot) %><br/>
+          <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent), disabled: (cannot? :update_unit_type, plot) %>
+          <%= f.input :uprn, label: t("activerecord.attributes.plot.uprn") %><br/>
           <%= render "components/admin/plot_fields", f: f, plot: plot %>
+
         </fieldset>
       <% else %>
         <%= render "components/admin/plots_select", f: f %>
