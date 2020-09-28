@@ -3332,6 +3332,7 @@ en:
           my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
+          fire_safety: "Fire Safety"
         guides:
           # Guide enum values
           reservation: "Reservation"
