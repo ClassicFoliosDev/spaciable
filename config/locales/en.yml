@@ -3734,13 +3734,4 @@ en:
       single:
         confirm: "Are you sure you want to delete this event?"
 
-  devise:
-    sessions:
-      new:
-        title: "Admin Sign In"
-        description: "Access your dashboard"
-
-
-
-
 
