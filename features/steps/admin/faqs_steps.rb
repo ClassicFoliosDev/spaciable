@@ -316,3 +316,110 @@ When(/^I create a third development$/) do
     click_on FaqsFixture.development3_name
   end
 end
+
+When(/^I sync the FAQs$/) do
+  within ".main-container" do
+    click_on I18n.t(".faqs.collection.import", type: "Tenant")
+  end
+end
+
+When(/^I edit a developer tenant faq$/) do
+  faq_params = DeveloperFixture.default_faqs.last
+  faq = Faq.find_by(question: faq_params.first)
+
+  within "[data-faq='#{faq.id}']" do
+    find("[data-action='edit']").trigger("click")
+  end
+
+  within ".faq" do
+    fill_in_ckeditor(:faq_answer, with: FaqsFixture.edited_answer)
+  end
+
+  click_on t("faqs.form.submit")
+end
+
+Then(/^I see the edited FAQ$/) do
+  faq_params = DeveloperFixture.default_faqs.last
+  faq = Faq.find_by(question: faq_params.first)
+
+  within ".faq-collection" do
+    page.find(".answer_updated") do
+      expect(page).to have_content faq.question
+    end
+  end
+end
+
+Then(/^I see the identical FAQ$/) do
+  within ".faq-collection" do
+    page.find(".exact_match")
+  end
+end
+
+Then(/^I can add a development tenant FAQ$/) do
+  within ".lower" do
+    click_on I18n.t(".faqs.collection.add", type: "Tenant")
+  end
+
+  within ".faq" do
+    fill_in :faq_question, with: "Can I leave in 6 months?"
+    fill_in_ckeditor(:faq_answer, with: FaqsFixture.edited_answer)
+    select_from_selectmenu :faq_faq_category, with: "General"
+  end
+
+  click_on t("faqs.form.submit")
+end
+
+Then(/^I see the altered FAQ$/) do
+  faq = Faq.last
+
+  within ".faq-collection" do
+    page.find(".answer_legacy") do
+      expect(page).to have_content faq.question
+    end
+  end
+end
+
+Then(/^I see the new FAQ$/) do
+  within ".faq-collection" do
+    page.find(".no_match")
+  end
+end
+
+When(/^I select the FAQs to sync$/) do
+  within ".sync-faqs-select-buttons" do
+    click_on I18n.t(".sync_faqs.index.select", type: "Tenant")
+  end
+
+  within ".form-actions-footer" do
+    click_on I18n.t(".sync_faqs.index.submit")
+  end
+
+  within ".ui-dialog-buttonpane" do
+    click_on "Confirm"
+  end
+end
+
+Then(/^the edited FAQ is updated$/) do
+  faq_params = DeveloperFixture.default_faqs.last
+  faq = Faq.find_by(question: faq_params.first)
+
+  within ".record-list" do
+    click_on faq.question
+  end
+
+  expect(page).to have_content faq.answer
+  expect(page).to_not have_content FaqsFixture.edited_answer
+
+  within ".form-actions-footer" do
+    click_on "Back"
+  end
+end
+
+Then(/^the new FAQ has been created$/) do
+  faq = DefaultFaq.find_by(question: "When can I leave?")
+
+  within ".record-list" do
+    click_on faq.question
+  end
+  expect(page).to have_content faq.answer
+end

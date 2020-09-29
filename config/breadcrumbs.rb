@@ -804,6 +804,11 @@ crumb :faq_edit do |faq|
   parent :faqs, faq.faqable, faq.faq_type
 end
 
+crumb :faqs_sync do |faq_parent, faq_type|
+  link t("breadcrumbs.sync_faqs", type: faq_type.name), ([faq_parent, :sync_faqs, active_tab: faq_type.id])
+  parent :faqs, faq_parent, faq_type
+end
+
 # VIDEOS
 
 crumb :videos do |video_parent|

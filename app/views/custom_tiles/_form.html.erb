@@ -15,6 +15,13 @@
   <div class="row custom-tile">
     <div class="row-item two-thirds">
       <div class="half">
+        <div class="editable">
+          <% if current_user.cf_admin? %>
+            <%= label_tag :editable, t(".editable") %>
+            <%= f.check_box :editable %>
+            <p class="checkbox-description"><%= t(".editable_description") %></p>
+          <% end %>
+        </div>
         <div class="ui-front" id="categorySelector">
           <%= f.input :category, as: :select, collection: tile_collection(:categories), include_blank: false %>
         </div>
