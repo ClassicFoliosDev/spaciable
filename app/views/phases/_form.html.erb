@@ -17,6 +17,7 @@
         <%= f.input :name %>
         <%= f.input :number, as: :integer %>
         <% if development.commercial? %>
+          <%= f.hidden_field :business, value: "commercial" %>
           <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false, selected: 'commercial', disabled: true %>
         <% else %>
           <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>

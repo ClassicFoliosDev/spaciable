@@ -2,6 +2,17 @@
 
 module Homeowners
   class PerksController < Homeowners::BaseController
+    after_action only: %i[show] do
+      record_event(:view_buyers_club,
+                   category1: I18n.t("ahoy.#{Ahoy::Event::BC_FIND_OUT_MORE}"))
+    end
+
+    before_action only: %i[create] do
+      record_event(:view_buyers_club,
+                   category1: I18n.t("ahoy.#{Ahoy::Event::BC_GIVE_ME_ACCESS}"),
+                   category2: account_params[:access_type])
+    end
+
     def show
       redirect_to dashboard_path if params[:type].blank? || !@plot.enable_perks?
     end

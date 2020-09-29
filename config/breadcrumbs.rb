@@ -96,6 +96,12 @@ crumb :admin_plot_snags do |phase|
   parent :admin_snag_overview
 end
 
+# Admin Analytics
+crumb :analytics do
+  link t("breadcrumbs.admin_analytics"), admin_analytics_path
+end
+
+
 # Admin global settings
 crumb :admin_settings do
   link t("breadcrumbs.admin_settings"), admin_settings_path
@@ -108,7 +114,7 @@ end
 
 # Analytics
 crumb :reports do
-  link t("breadcrumbs.admin_reports"), new_admin_analytics_path
+  link t("breadcrumbs.admin_reports"), new_admin_reports_path
 end
 
 # Current parent snag overview - cannot find phase id to pass to phases

@@ -29,6 +29,7 @@ class Vaboo
   START = "Start Date"
   # spaciable default vaboo link
   SPACIABLE_LOGIN = "https://spaciable.vaboo.co.uk/login"
+  VERIFY = true
 
   # when a resident submits their details to Vaboo their resident record is created
   # email is unique; creation will fail if there is already a user with the given email address
@@ -54,7 +55,10 @@ class Vaboo
                                  {
                                    "Content-Type" => "application/json"
                                  },
-                               timeout: TIMEOUT)
+                               timeout: TIMEOUT,
+                               verify: VERIFY)
+      yield error unless response.code == 200
+
       parsed_response = JSON.parse(response)
 
       error = nil
@@ -85,7 +89,7 @@ class Vaboo
       # (adding expire date as a parameter does not return correctly)
       full_url = "#{URL}#{API}users/#{id}/#{ACCESS_KEY}?#{ACCESS_TYPE}=#{PREMIUM}"
 
-      response = HTTParty.get(full_url)
+      response = HTTParty.get(full_url, verify: VERIFY)
       parsed_response = JSON.parse(response)
 
       parsed_response["data"]["users"].each do |user|
@@ -113,6 +117,8 @@ class Vaboo
 
   # Does the resident have a perks account?
   def self.perks_account_activated?(resident, plot)
+    activated = error = false
+
     return unless resident
     account_id = account_number(plot.developer)
 
@@ -120,13 +126,15 @@ class Vaboo
 
     # call the API to find out whether the current resident has a perks account
     begin
-      response = HTTParty.get(full_url)
-      parsed_response = JSON.parse(response)
-      response = parsed_response["data"]["count"] == 1
+      response = HTTParty.get(full_url, verify: VERIFY)
+      if response.code == 200
+        parsed_response = JSON.parse(response)
+        activated = parsed_response["data"]["count"] == 1
+      end
     rescue
       error = true
     end
-    yield response, error
+    yield activated, error
   end
 
   # Has another resident on the plot registered for premium perks?
@@ -139,12 +147,11 @@ class Vaboo
 
     #  call the API to find out whether another resident of the plot
     #  has been allocated a premium licence
-    response = HTTParty.get(full_url)
-    parsed_response = JSON.parse(response)
+    response = HTTParty.get(full_url, verify: VERIFY)
+    return false unless response.code == 200
 
     # will return false if api call throws an error
-    return false unless parsed_response["code"] == 200
-
+    parsed_response = JSON.parse(response)
     parsed_response["data"]["users"].each do |user|
       return true if user[ACCESS_TYPE] == PREMIUM
     end
@@ -160,14 +167,20 @@ class Vaboo
     url_params = "?#{EMAIL}=#{resident.email}&#{REFERENCE}=#{plot.id}"
 
     full_url = "#{URL}#{API}users/#{account_id}/#{ACCESS_KEY}#{url_params}"
-    response = HTTParty.get(full_url)
-    parsed_response = JSON.parse(response)
 
-    # return "Not Requested" if resident record not found (resident has not signed up for perks)
-    return "Not Requested" unless parsed_response["data"]["count"].positive?
+    begin
+      response = HTTParty.get(full_url, verify: VERIFY)
+      return "Not Requested" unless response.code == 200
 
-    # return perk type
-    parsed_response["data"]["users"][0][ACCESS_TYPE]
+      parsed_response = JSON.parse(response)
+      # return "Not Requested" if resident record not found (resident has not signed up for perks)
+      return "Not Requested" unless parsed_response["data"]["count"].positive?
+
+      # return perk type
+      parsed_response["data"]["users"][0][ACCESS_TYPE]
+    rescue
+      return "Unknown"
+    end
   end
 
   def self.available_premium_licences(development)

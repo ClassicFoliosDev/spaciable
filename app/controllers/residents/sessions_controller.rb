@@ -48,6 +48,7 @@ module Residents
     end
 
     def after_sign_in_path_for(resource)
+      session[:sign_in] = true
       dashboard_path
     end
 

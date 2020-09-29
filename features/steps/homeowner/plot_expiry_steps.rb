@@ -406,7 +406,7 @@ Then(/^I can see both contacts$/) do
   end
   click_on(t("components.navigation.contacts"))
 
-  within find(".full-contacts") do
+  within find(".full-contacts", wait: 5) do
     expect(page).to have_content(ContactFixture.email)
     expect(page).to have_content(ContactFixture.second_email)
   end

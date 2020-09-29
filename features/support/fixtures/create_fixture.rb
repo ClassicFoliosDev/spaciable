@@ -215,10 +215,10 @@ module CreateFixture
     create_spanish_development
   end
 
-  def create_developer(cas: false, branded: false)
+  def create_developer(cas: false,  branded: false, name: developer_name)
     return developer if developer
     create_countries
-    dname = branded ? branded_developer_name : developer_name
+    dname = branded ? branded_developer_name : name
     FactoryGirl.create(:developer, company_name: dname, house_search: true,
                        enable_referrals: true, country_id: uk.id, cas: cas)
   end
@@ -242,10 +242,11 @@ module CreateFixture
     FactoryGirl.create(:division, division_name: spanish_division_name, developer: spanish_developer)
   end
 
-  def create_development(cas: false, branded: false)
+  def create_development(cas: false, name: development_name, dev: developer, branded: false)
     return development if development
+    dev = branded ? developer(branded: branded) : dev
     dname = branded ? branded_development_name : development_name
-    FactoryGirl.create(:development, name: development_name, developer: developer(branded: branded), cas: cas)
+    FactoryGirl.create(:development, name: name, developer: dev, cas: cas)
   end
 
   def create_spanish_development
@@ -264,8 +265,8 @@ module CreateFixture
     FactoryGirl.create(:division_development, name: spanish_division_development_name, division: spanish_division)
   end
 
-  def create_unit_type(name=unit_type_name)
-    FactoryGirl.create(:unit_type, name: name, development: development)
+  def create_unit_type(name=unit_type_name, dev: development, link: nil)
+    FactoryGirl.create(:unit_type, name: name, development: dev, external_link: link)
   end
 
   def create_spanish_unit_type
@@ -419,8 +420,9 @@ module CreateFixture
     FactoryGirl.create(:finish_room, room: room, finish: finish)
   end
 
-  def create_development_phase
-    FactoryGirl.create(:phase, name: phase_name, development: development, address: create_address)
+  def create_development_phase(name: phase_name, dev: development, business: 0)
+    FactoryGirl.create(:phase, name: name, business: business,
+                       development: dev, address: create_address)
   end
 
   def create_spanish_development_phase
@@ -466,8 +468,8 @@ module CreateFixture
                                  locality: "catalonia", postcode: "12211")
   end
 
-  def create_phase_plot(p=phase)
-    FactoryGirl.create(:phase_plot, phase: p, number: phase_plot_name, unit_type: unit_type)
+  def create_phase_plot(p=phase, number: phase_plot_name)
+    FactoryGirl.create(:phase_plot, phase: p, number: number, unit_type: unit_type)
   end
 
   def create_phase_plots
@@ -588,8 +590,8 @@ module CreateFixture
     end
   end
 
-  def create_resident(email = resident_email)
-    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: email,
+  def create_resident(email = resident_email, plot: phase_plot)
+    FactoryGirl.create(:resident, :with_residency, plot: plot, email: email,
                        developer_email_updates: true, invitation_accepted_at: Time.zone.now,
                        ts_and_cs_accepted_at: Time.zone.now)
   end

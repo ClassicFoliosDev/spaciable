@@ -31,7 +31,8 @@
 
     var $appReminder = $('.app-download')
 
-    if (downloadCookie === ('app_download=show') && $appReminder.length > 0) {
+    // just check cookie is present.  May be multiple cookies listed
+    if (downloadCookie.indexOf('app_download=show') != -1 && $appReminder.length > 0) {
       var $footer = $('.app-download-footer')
 
       $appReminder.dialog({

@@ -19,7 +19,7 @@
   <div class="main-container">
     <div class="new-snag">
       <% if @plot.snagging_expiry_date > Time.zone.today %>
-        <%= link_to t(".add_snag"), new_snag_path, class: "service-link", class: 'btn branded-btn new-snag-btn' %>
+        <%= link_to t(".add_snag"), new_snag_path, class: 'btn branded-btn new-snag-btn' %>
         <p class="branded-text">
           <span><%= t(".snag_description", snag_name: @plot.snag_name) %></span><br/>
           <span class="constraint"><%= t(".snag_constraint", snag_date: @plot.snagging_expiry_date.strftime("%B %d, %Y")) %></span>

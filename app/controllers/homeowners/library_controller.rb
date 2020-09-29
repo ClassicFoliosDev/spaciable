@@ -6,6 +6,18 @@ module Homeowners
     skip_authorization_check
     before_action :set_categories
 
+    after_action only: %i[index] do
+      unless @documents.none?
+        record_event(:view_library,
+                     category1: t("activerecord.attributes.document.categories.#{@category}",
+                                  construction: @plot.my_construction_name))
+      end
+    end
+
+    after_action only: %i[appliance_manuals] do
+      record_event(:view_library, category1: "Appliances")
+    end
+
     def index
       @category = document_params[:category]
 

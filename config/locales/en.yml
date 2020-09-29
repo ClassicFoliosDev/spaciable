@@ -458,6 +458,7 @@ en:
     finale_edit: "Edit Finale"
     finale_add: "Add Finale"
     sync_docs: "Synhronise Documents"
+    admin_analytics: "Analytics"
 
   pagination:
     per_page_10: "10"
@@ -644,7 +645,7 @@ en:
       howtos: "How Tos"
       help: "Help"
       configuration: "Global Settings"
-      reports: "Reports"
+      analytics: "Analytics"
       timeline: "Timeline"
       snagging: "Snagging"
       residents: "Residents"
@@ -783,6 +784,17 @@ en:
     required: "Required"
 
   admin:
+    visits:
+      show:
+        all: "All"
+        start_date: "From"
+        end_date: "To"
+        plots: "Plots"
+        residents: "Residents"
+        title: "Title"
+        unique: "Unique Resident Visits"
+        total: "Total Resident Visits"
+        report_btn: "Report"
     snags:
       index:
         title: "Plot Overview."
@@ -1045,6 +1057,15 @@ en:
         view_guide: "Spaciable Guide (PDF)"
         new_tab: "Guide opens in a new tab"
         help_file: "Spaciable Guide."
+    analytics:
+      show:
+        title: "Analytics"
+        reports: "Reports"
+        reports_description: "Export CSV files on developments and plots"
+        reports_btn: "Access Reports"
+        visits: "Visits"
+        visits_description: "Configure a report on a page vists for a given focus"
+        visits_btn: "Access Page Visit Report"
     settings:
       show:
         uploads: "Uploads"
@@ -1079,7 +1100,7 @@ en:
         video_link_placeholder: "https://player.vimeo.com/video/654321"
       update:
         success: "The global settings for Spaciable have been updated successfully"
-    analytics:
+    reports:
       new:
         title: "Reports."
         developer: "Developer Report"
@@ -3736,6 +3757,38 @@ en:
       submit: "Submit"
     destroy:
       success: "%{title} was deleted successfully"
+
+  ahoy:
+    view_my_home: "My Home"
+    view_contacts: "Contacts"
+    view_account: "Account"
+    view_messages: "Messages"
+    refer_a_friend: "Refer a Friend"
+    view_main_menu: "Main Menu"
+    view_home_tour: "Home Tour"
+    view_rooms: "Rooms"
+    view_appliances: "Appliances"
+    view_library: "Library"
+    view_how_to: "How To"
+    view_home_designer: "Home Designer"
+    view_area_guide: "Area Guide"
+    view_buyers_club: "Buyers Club"
+    bc_find_out_more: "Find out more"
+    bc_give_me_access: "Give me access"
+    view_your_journey: "Your Journey"
+    task_viewed: "Viewed"
+    view_FAQs: "FAQs"
+    view_FAQs_feedback: "FAQs Feedback"
+    view_choices: "Choices"
+    view_snagging: "Snagging"
+    snags_created: "Snags Created"
+    snags_resolved: "Snags Resolved"
+    snags_rejected: "Snags Rejected"
+    view_issues: "Issues"
+    homeowner_sign_in: "Sign In"
+    homeowner_log_in: "Log in"
+    homeowner_accept_invite: "Accept Invitation"
+    root: "Main"
 
   events:
     invited: "Invited"
