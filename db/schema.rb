@@ -64,6 +64,38 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.index ["sender_id"], name: "index_admin_notifications_on_sender_id", using: :btree
   end
 
+  create_table "ahoy_events", force: :cascade do |t|
+    t.integer  "visit_id"
+    t.string   "userable_type"
+    t.integer  "userable_id"
+    t.string   "name"
+    t.integer  "plot_id"
+    t.jsonb    "properties"
+    t.datetime "time"
+    t.index "properties jsonb_path_ops", name: "index_ahoy_events_on_properties_jsonb_path_ops", using: :gin
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
+    t.index ["userable_type", "userable_id"], name: "index_ahoy_events_on_userable_type_and_userable_id", using: :btree
+    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id", using: :btree
+  end
+
+  create_table "ahoy_visits", force: :cascade do |t|
+    t.string   "visit_token"
+    t.string   "visitor_token"
+    t.string   "userable_type"
+    t.integer  "userable_id"
+    t.string   "ip"
+    t.text     "user_agent"
+    t.text     "referrer"
+    t.string   "referring_domain"
+    t.text     "landing_page"
+    t.string   "browser"
+    t.string   "os"
+    t.string   "device_type"
+    t.datetime "started_at"
+    t.index ["userable_type", "userable_id"], name: "index_ahoy_visits_on_userable_type_and_userable_id", using: :btree
+    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true, using: :btree
+  end
+
   create_table "appliance_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"

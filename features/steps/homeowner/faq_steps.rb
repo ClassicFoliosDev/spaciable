@@ -23,8 +23,10 @@ end
 Then(/^I should see the FAQs related to settling in$/) do
   within ".faqs" do
     MyHomeFaqsFixture.default_filtered_faqs.each do |question, answer|
+      Capybara.ignore_hidden_elements = false
       expect(page).to have_content(question)
       expect(page).to have_content(answer)
+      Capybara.ignore_hidden_elements = true
     end
 
     MyHomeFaqsFixture.default_filtered_out_faqs.each do |question, answer|
@@ -87,7 +89,48 @@ Given(/^the developer admin has enabled FAQ CC emails$/) do
   find("[data-action='edit']").trigger("click")
 
   find("#faq_check").trigger('click')
-
-  # BREAKS HERE - user form doesn't load cc_email nested form
   fill_in "user_cc_emails_attributes_1_email_list", with: FaqsFixture.cc_emails
+
+  within ".form-actions-footer" do
+    click_on t(".admin.users.form.submit")
+  end
+
+  admin = CreateFixture.developer_admin
+  within find(".notice") do
+    expect(page).to have_content t(".admin.users.update.success", user_name: admin.to_s)
+  end
+
+  within ".navbar" do
+    click_on t(".components.navigation.log_out")
+  end
+end
+
+When(/^I submit feedback the FAQs for my home$/) do
+  login_as MyHomeFaqsFixture.resident
+
+  visit "/"
+  within find(".faqs-component") do
+    click_on t(".homeowner.dashboard.cards.faqs.view_more")
+  end
+
+  within ".faq-feedback" do
+    click_on "Yes"
+  end
+end
+
+Then(/^the feedback is sent to the developer admin$/) do
+  within find(".positive-response") do
+    expect(page).to have_content t(".homeowners.faqs.index.positive")
+  end
+
+  sleep 1
+  admin = CreateFixture.developer_admin
+  email = ActionMailer::Base.deliveries.last
+  email.should deliver_to(admin.email)
+end
+
+Then(/^the feedback is CCd to the CC emails$/) do
+  email = ActionMailer::Base.deliveries.last
+  cc_emails = CcEmail.first
+  email.should cc_to(cc_emails.email_list.split(", "))
 end

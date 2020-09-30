@@ -14,7 +14,7 @@ module Admin
 
     def new
       @user.receive_choice_emails = true
-      @user.cc_emails.build
+      @user.build
     end
 
     def create
@@ -37,6 +37,7 @@ module Admin
 
     def edit
       @user.assign_permissionable_ids
+      @user.build
     end
 
     def update

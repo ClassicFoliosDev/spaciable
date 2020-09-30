@@ -22,7 +22,7 @@ class User < ApplicationRecord
   has_one :lettings_account, as: :accountable, dependent: :destroy
 
   has_many :cc_emails, dependent: :destroy
-  accepts_nested_attributes_for :cc_emails, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :cc_emails, reject_if: :cc_emails_blank, allow_destroy: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -321,6 +321,14 @@ class User < ApplicationRecord
     end
   end
 
+  def cc_emails_blank(cc_email)
+    return false if cc_email["email_list"].present?
+
+    record = CcEmail.find_by(user_id: id, email_type: cc_email["email_type"])
+    record&.destroy!
+    true
+  end
+
   # Destroy a User record if their permission level has been destroyed
   def self.permissable_destroy(model, permission_id)
     permissable_users = User.where(permission_level_type: model, permission_level_id: permission_id)
@@ -329,6 +337,12 @@ class User < ApplicationRecord
 
   def downcase_email
     self.email.downcase!
+  end
+
+  def build
+    CcEmail.email_types.each do |type, index|
+      cc_emails.build(email_type: type) unless CcEmail.find_by(user_id: id, email_type: type)
+    end
   end
 
   scope :receives_faqs,

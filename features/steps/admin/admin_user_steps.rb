@@ -63,9 +63,6 @@ When(/^I add a new CF Admin$/) do
 
   cas_validate(visible: false, disabled: true, checked: false)
 
-  sleep 0.5
-  save_and_open_screenshot
-
   select "CF Admin", visible: false
   click_on t("admin.users.form.submit")
 
