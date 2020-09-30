@@ -9,11 +9,11 @@ When(/^I deactivate my account$/) do
   within ".show-actions" do
     click_on t(".homeowners.residents.show.deactivate")
   end
-  
+
   within ".remove-resident-form" do
     fill_in :password, with: HomeownerUserFixture.password
   end
-  
+
   within ".ui-dialog-buttonset" do
     click_on t(".homeowners.residents.show.confirm_deactivate")
   end
@@ -21,7 +21,7 @@ end
 
 Then(/^my account no longer exists$/) do
 #   expect(page).to have_content t(".homeowners.residents.destroy.success")
-  sleep 0.5
+  find("input.email")
   expect(current_path).to eq '/homeowners/sign_in'
 
   residents = Resident.all
@@ -40,5 +40,5 @@ end
 Then(/^I see an error$/) do
   within ".alert" do
     expect(page).to have_content "Invalid email address or password"
-  end  
+  end
 end
