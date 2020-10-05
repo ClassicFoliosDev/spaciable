@@ -586,12 +586,12 @@ Then(/^I cannot see the new video$/) do
   login_as resident
   visit "/"
 
-  within ".library-component" do
+
+  within find(".library-component", visible: all) do
     click_on I18n.t("homeowner.dashboard.cards.library.view_more")
   end
 
-  sleep 0.5
-
+  find(".library-categories", visible: all, wait: 5)
   within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end

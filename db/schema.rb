@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200810055933) do
+ActiveRecord::Schema.define(version: 20200929131412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -364,6 +364,7 @@ ActiveRecord::Schema.define(version: 20200810055933) do
     t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
     t.boolean  "timeline",                    default: false
+    t.string   "custom_url"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end

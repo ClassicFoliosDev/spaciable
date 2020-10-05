@@ -28,9 +28,9 @@ Rails.application.routes.draw do
              }
 
   devise_scope :resident do
-    get "/:development_id/sign_in", to: "residents/sessions#new"
+    get "/:custom_url/sign_in", to: "residents/sessions#new"
     get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
-    get "/:development_id/accept", to: "residents/invitations#edit"
+    get "/:custom_url/accept", to: "residents/invitations#edit"
     get "/:developer_name(/:division_name)/:development_name/accept", to: "residents/invitations#edit"
   end
 
@@ -201,6 +201,8 @@ Rails.application.routes.draw do
     resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'cas', to: 'developers#cas', format: :json
   end
+
+  get 'developers/custom/parameterize', to: 'developers#parameterize', format: :json
 
   resources :events, only: [:index, :create, :destroy], format: :json
   put 'events', to: 'events#update'

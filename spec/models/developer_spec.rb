@@ -7,7 +7,7 @@ RSpec.describe Developer do
     it "should not allow duplicate company names" do
       company_name = "Only company named this"
       create(:developer, company_name: company_name)
-      developer = Developer.new(company_name: company_name)
+      developer = Developer.new(company_name: company_name, custom_url: company_name.parameterize)
 
       developer.validate
       name_errors = developer.errors.details[:company_name]

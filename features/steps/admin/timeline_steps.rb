@@ -313,14 +313,14 @@ def check_active(task_title, homeowner = false, negative = true)
 
     if task[:action]
       expect(page).to have_content(task[:action][:title])
-      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]")
+      find(:xpath, "//button[contains(@onclick,'#{task[:action][:link]}')]", visible: all)
     end
 
     if task[:feature]
       expect(page).to have_content(task[:feature][:title])
       expect(page).to have_content(parsed(task[:feature][:precis]))
       expect(page).to have_content(parsed(task[:feature][:description]))
-      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]")
+      find(:xpath, "//button[contains(@onclick,'#{task[:feature][:link]}')]", visible: all)
     end
   end
 
@@ -351,9 +351,10 @@ def check_task(task_title, homeowner, answer)
 
   # select task
   click_on task_title
+  find(:xpath, "//li[@id='activeTaskScroll']/a[contains(text(),'#{task_title}')]", visible:all)
   check_active(task_title, homeowner, answer.downcase == "no")
   if answer.downcase == "no"
-    click_on t("tasks.show.skip") #move to the next
+    find(:xpath, "//input[@value='#{t("tasks.show.skip")}']", visible: all).trigger('click')
   else
     click_on task[:positive]
   end

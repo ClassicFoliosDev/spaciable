@@ -57,6 +57,11 @@ class Developer < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
+  validates :custom_url, presence: true,
+                         uniqueness: true,
+                         format: { with: /\A[a-z0-9\-_]+\z/,
+                                   message: "%<value> can only contain lowercase letters, "\
+                                            "digits, dashes and underscores" }
 
   delegate :to_s, to: :company_name
 

@@ -1912,6 +1912,7 @@ en:
       back: "Back"
       address: "Postal Address"
       company_name: "Name"
+      custom_url: "Custom URL"
       email: "Email"
       contact: "Phone"
       api_key: "Mailchimp API Key"

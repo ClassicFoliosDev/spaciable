@@ -19,6 +19,6 @@ module PlotRouteHelper
   end
 
   def build_path(plot)
-    root_url << plot.development.id.to_s
+    root_url << plot.custom_url
   end
 end
