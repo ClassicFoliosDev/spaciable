@@ -131,12 +131,12 @@ namespace :crest do
         }
       ].each do |m|
         to = Division.find_by(division_name: m[:to_division], developer: developer)
-        raise StandardError.new "Cannot find division #{m[:to_division]}" unless to
         from = Division.find_by(division_name: m[:from_division], developer: developer)
-        raise StandardError.new "Cannot find division #{m[:from_division]}" unless from
+        next unless to && from
+
         development = Development.find_by(name: m[:development_name],
                                            division: from)
-        raise StandardError.new "Cannot find development #{m[:development_name]}" unless development
+        next unless development
 
         Room.where(division: from, development: development).update_all(division_id: to.id)
         UnitType.where(division: from, development: development).update_all(division_id: to.id)
