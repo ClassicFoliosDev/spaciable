@@ -5,8 +5,6 @@ namespace :crest do
   task load: :environment do
 
     #delete then load test data for crest division migration
-
-    #delete first
     developer = Developer.find_by(company_name: "Crest Nicholson")
     developer&.destroy
 
