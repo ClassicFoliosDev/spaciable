@@ -184,7 +184,7 @@ Then(/^I can see my contacts$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-    click_on(t("layouts.homeowner.nav.contacts"))
+    find(:xpath, "//li[contains(text(),'#{t("layouts.homeowner.nav.contacts")}')]").trigger('click')
   end
 
   sleep 0.2
