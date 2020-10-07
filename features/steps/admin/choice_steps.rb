@@ -323,7 +323,7 @@ Then(/^I can see a notification containing the rejection reason$/) do
 end
 
 Then(/^I see a message telling me the choices have been rejected$/) do
- find(".alert")
+ find(".notice")
  expect(page).to have_content(t("choices.homeowner.choices_rejected", plot_name: CreateFixture.phase_plot_name))
 end
 
