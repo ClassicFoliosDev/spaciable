@@ -21,18 +21,17 @@ namespace :crest do
       case division_name
       when "Regeneration"
         create(developer, division,
-          ["Brightwells Yard",
-           "West Village at Upper Longcross",
-           "Leave Development 1",
-           "Centenary Quay",
-           "Wells Park Place",
-           "Leave Development 1",
+          ["Arborfield Green",
+           "Bath Riverside",
            "Brandon House",
+           "Campbell Wharf",
+           "Centenary Quay",
+           "Leave Development 1",
            "Dylon Works",
            "The Picturehouse",
-           "Arborfield Green",
-           "Campbell Wharf",
-           "Bath Riverside"
+           "Wells Park Place",
+           "The Apex Apartments",
+           "Oakgrove Village"
           ])
       when "Chiltern"
         create(developer, division,
@@ -60,47 +59,12 @@ namespace :crest do
 
       [
         {
-          development_name: "Brightwells Yard",
-          from_division: "Regeneration",
-          to_division: "South"
-        },
-        {
-          development_name: "West Village at Upper Longcross",
-          from_division: "Regeneration",
-          to_division: "South"
-        },
-        {
-          development_name: "Centenary Quay",
-          from_division: "Regeneration",
-          to_division: "South"
-        },
-        {
-          development_name: "Wells Park Place",
-          from_division: "Regeneration",
-          to_division: "South"
-        },
-        {
-          development_name: "Brandon House",
-          from_division: "Regeneration",
-          to_division: "South"
-        },
-        {
-          development_name: "Dylon Works",
-          from_division: "Regeneration",
-          to_division: "South"
-        },
-        {
-          development_name: "The Picturehouse",
-          from_division: "Regeneration",
-          to_division: "South"
+          development_name: "Alconbury Weald",
+          from_division: "Chiltern",
+          to_division: "Eastern"
         },
         {
           development_name: "Arborfield Green",
-          from_division: "Regeneration",
-          to_division: "Chiltern"
-        },
-        {
-          development_name: "Campbell Wharf",
           from_division: "Regeneration",
           to_division: "Chiltern"
         },
@@ -110,14 +74,29 @@ namespace :crest do
           to_division: "South West"
         },
         {
+          development_name: "Brandon House",
+          from_division: "Regeneration",
+          to_division: "South"
+        },
+        {
+          development_name: "Campbell Wharf",
+          from_division: "Regeneration",
+          to_division: "Chiltern"
+        },
+        {
+          development_name: "Centenary Quay",
+          from_division: "Regeneration",
+          to_division: "South"
+        },
+        {
+          development_name: "Dylon Works",
+          from_division: "Regeneration",
+          to_division: "South"
+        },
+        {
           development_name: "Monksmoor Park",
           from_division: "Chiltern",
           to_division: "Midlands"
-        },
-        {
-          development_name: "Nightingale Fields at Arborfield Green",
-          from_division: "South",
-          to_division: "Chiltern"
         },
         {
           development_name: "Mulberry View",
@@ -125,9 +104,29 @@ namespace :crest do
           to_division: "Chiltern"
         },
         {
-          development_name: "Alconbury Weald",
-          from_division: "Chiltern",
-          to_division: "Eastern"
+          development_name: "Nightingale Fields at Arborfield Green",
+          from_division: "South",
+          to_division: "Chiltern"
+        },
+        {
+          development_name: "The Picturehouse",
+          from_division: "Regeneration",
+          to_division: "South"
+        },
+        {
+          development_name: "Wells Park Place",
+          from_division: "Regeneration",
+          to_division: "South"
+        },
+        {
+          development_name: "The Apex Apartments",
+          from_division: "Regeneration",
+          to_division: "South"
+        },
+        {
+          development_name: "Oakgrove Village",
+          from_division: "Regeneration",
+          to_division: "Chiltern"
         }
       ].each do |m|
         to = Division.find_by(division_name: m[:to_division], developer: developer)
