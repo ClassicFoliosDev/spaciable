@@ -62,7 +62,7 @@ Then(/^I can CRUD default FAQs for all countries$/) do
         click_on t("admin.default_faqs.collection.add", type: faq_type.name)
 
         # add new
-        find (".new_default_faq", visible:all)
+        find(".new_default_faq", visible: all)
 
         within ".new_default_faq" do
           fill_in :default_faq_question, with: faq[:created][:question]
