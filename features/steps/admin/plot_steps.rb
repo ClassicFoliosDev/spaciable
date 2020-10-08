@@ -357,10 +357,11 @@ Then(/^I can not edit a plot$/) do
 
   within ".record-list" do
     click_on CreateFixture.phase_plot_name
+    find(:xpath, "//div[contains(text(),'Plot #{CreateFixture.phase_plot_name}')]")
   end
 
   find(".tabs").click_on "Documents"
-  find(".plot", visible: all)
+  find(:xpath, "//a[@class='active'][text()[contains(.,'Documents')]]")
   within ".plot" do
     edit_links = page.all("[data-action='edit']")
     expect(edit_links.count).to eq 0
