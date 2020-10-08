@@ -360,7 +360,8 @@ Then(/^I can not edit a plot$/) do
   end
 
   find(".tabs").click_on "Documents"
-  within find(".plot") do
+  find(".plot", visible: all)
+  within ".plot" do
     edit_links = page.all("[data-action='edit']")
     expect(edit_links.count).to eq 0
   end
