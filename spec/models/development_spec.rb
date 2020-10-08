@@ -16,38 +16,6 @@ RSpec.describe Development do
 
         expect(name_errors).to include(error: :taken, value: name)
       end
-
-      it "should not allow development name with dash" do
-        development_name = "Development with-dash"
-        development = Development.new(name: development_name)
-
-        development.validate
-        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
-      end
-
-      it "should not allow development name with comma" do
-        development_name = "Development with,comma"
-        development = Development.new(name: development_name)
-
-        development.validate
-        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
-      end
-
-      it "should not allow development name with apostrophe" do
-        development_name = "Development with'apostrophe"
-        development = Development.new(name: development_name)
-
-        development.validate
-        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
-      end
-
-      it "should not allow development name with at_sign" do
-        development_name = "Development with @at_sign"
-        development = Development.new(name: development_name)
-
-        development.validate
-        expect(development.errors.details[:base]).to include(error: :invalid_name, value: development_name)
-      end
     end
 
     context "under different developers" do

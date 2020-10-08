@@ -4,6 +4,10 @@ module Homeowners
   class RoomsController < Homeowners::BaseController
     skip_authorization_check
 
+    after_action only: %i[show] do
+      record_event(:view_rooms)
+    end
+
     def show
       @rooms = @plot.rooms
                     .includes(:finish_rooms,

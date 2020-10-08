@@ -54,6 +54,11 @@ class Plot < ApplicationRecord
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
+  validates :uprn, length: { maximum: 12,
+                             too_long: I18n.t("plots.plot.uprn_error") }
+  validates :uprn, format: { with: /\A\d*\z/,
+                             message: I18n.t("plots.plot.uprn_error") }
+
   validates :number, presence: true
   validates :unit_type, presence: true
   validates :validity, :extended_access, numericality: {

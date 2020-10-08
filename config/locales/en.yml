@@ -36,8 +36,13 @@
 en:
 
   back: "Back"
-  cas_enabled: "Clients Adding Specs: Enabled"
+  cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
+  enabled: "Enabled"
+  disabled: "Disabled"
   not_authorised: "You are not authorised to access this page"
+  administered_by: "Administered by:"
+  enabled: "Enabled"
+  disabled: "Disabled"
 
   construction_type:
     home: "Home"
@@ -373,6 +378,7 @@ en:
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
     faqs: "%{type} FAQs"
+    sync_faqs: "Import %{type} FAQs"
     faqs_add: "New FAQ"
     faqs_edit: "Edit %{faq}"
     default_faqs: "Default %{country} %{type} FAQs"
@@ -452,6 +458,7 @@ en:
     finale_edit: "Edit Finale"
     finale_add: "Add Finale"
     sync_docs: "Synhronise Documents"
+    admin_analytics: "Analytics"
 
   pagination:
     per_page_10: "10"
@@ -638,7 +645,7 @@ en:
       howtos: "How Tos"
       help: "Help"
       configuration: "Global Settings"
-      reports: "Reports"
+      analytics: "Analytics"
       timeline: "Timeline"
       snagging: "Snagging"
       residents: "Residents"
@@ -777,6 +784,17 @@ en:
     required: "Required"
 
   admin:
+    visits:
+      show:
+        all: "All"
+        start_date: "From"
+        end_date: "To"
+        plots: "Plots"
+        residents: "Residents"
+        title: "Title"
+        unique: "Unique Resident Visits"
+        total: "Total Resident Visits"
+        report_btn: "Report"
     snags:
       index:
         title: "Plot Overview."
@@ -1039,6 +1057,15 @@ en:
         view_guide: "Spaciable Guide (PDF)"
         new_tab: "Guide opens in a new tab"
         help_file: "Spaciable Guide."
+    analytics:
+      show:
+        title: "Analytics"
+        reports: "Reports"
+        reports_description: "Export CSV files on developments and plots"
+        reports_btn: "Access Reports"
+        visits: "Visits"
+        visits_description: "Configure a report on a page vists for a given focus"
+        visits_btn: "Access Page Visit Report"
     settings:
       show:
         uploads: "Uploads"
@@ -1073,7 +1100,7 @@ en:
         video_link_placeholder: "https://player.vimeo.com/video/654321"
       update:
         success: "The global settings for Spaciable have been updated successfully"
-    analytics:
+    reports:
       new:
         title: "Reports."
         developer: "Developer Report"
@@ -1129,7 +1156,8 @@ en:
       last_edited: "Last Edited"
       faq: "%{type} FAQ"
       empty_list: "You have no %{type} FAQs"
-      confirm_delete: Are you sure you wish to delete this %{type} FAQ?
+      confirm_delete: "Are you sure you wish to delete this %{type} FAQ?"
+      import: "Import %{type} FAQ"
     edit:
       title: "%{parent}"
       back: "Back"
@@ -1148,6 +1176,24 @@ en:
       back: "Back"
       category: "Category"
       type: "Type"
+  sync_faqs:
+    index:
+      title: "Import Global %{type} FAQs to %{parent}"
+      select: "Select All %{type} FAQs"
+      deselect: "Deselect All %{type} FAQs"
+      submit: "Sync FAQs"
+      back: "Back"
+      parent_answer: "%{parent}"
+      global_answer: "Global"
+      compare: "Compare"
+      hide: "Hide"
+      no_match: "This Global FAQ title does not match the title of any %{parent} FAQ."
+      exact_match: "This Global FAQ exactly matches the title and answer of a %{parent} FAQ, so does not need to be replaced."
+      answer_legacy: "This Global FAQ answer does not match the corresponding %{parent} answer, but the %{parent} answer <u>has never</u> been updated since creation."
+      answer_updated: "This Global FAQ answer does not match the corresponding %{parent} answer, and the %{parent} answer <u>has</u> been updated since creation."
+      confirm_header: "Confirm FAQ Sync to %{parent}"
+    create:
+      notice: "%{count} FAQs imported to %{parent}"
 
   videos:
     new:
@@ -1188,6 +1234,9 @@ en:
       create: "New Custom Shortcut"
       title: "Title"
       category: "Category"
+      editable: "Editable"
+      uneditable_title: "%{tile}"
+      uneditable_text: "You do not have permission to edit this shortcut tile. Please contact your Classic Folios Account Manager for more details."
     new:
       title: "New Custom Shortcut"
     edit:
@@ -1205,8 +1254,9 @@ en:
       guide: "Select Manual"
       back: "Back"
       submit: "Submit"
+      editable: "Editable"
+      editable_description: "Client admins can edit or delete this shortcut"
       current_file: "Current File"
-
   home:
     show:
      home: "Home"
@@ -1323,6 +1373,7 @@ en:
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
       completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
       duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
+      uprn_error: "<br/>Invalid UPRN(s): %{errors}"
       overview: "Please check the CSV for invalid input and then re-upload once the following issues have been resolved: %{errors}"
       success: "The following plots were updated successfully: %{plots}"
       file_type: "Invalid file type, please upload a valid CSV file. You can download the template by clicking the 'Download CSV Template' button"
@@ -1334,6 +1385,7 @@ en:
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
+      uprn_error_strip: "Invalid UPRN(s): %{uprns}"
 
   homeowners:
     my_home_name: "My %{construction}"
@@ -2512,6 +2564,8 @@ en:
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
       preview: "Preview"
+      uprn: "UPRN: "
+      uprn_error: " should be up to 12 digits long and only contain numbers."
     completion:
       title: "Estimated Move In Date"
       disclaimer_1: "Entering this date will allow your buyers to receive moving in emails in your branding to help them with their purchasing journey.
@@ -3237,6 +3291,7 @@ en:
         completion_release_date: "Completion Release Date"
         validity: "Validity (Months)"
         extended_access: "Extended Access (Months)"
+        uprn: "UPRN"
         progresses:
           soon: "Building soon"
           in_progress: "In progress"
@@ -3329,6 +3384,7 @@ en:
           my_home: "My %{construction}"
           locality: "Locality"
           legal_and_warranty: "Legal & Warranty"
+          fire_safety: "Fire Safety"
         guides:
           # Guide enum values
           reservation: "Reservation"
@@ -3701,6 +3757,38 @@ en:
       submit: "Submit"
     destroy:
       success: "%{title} was deleted successfully"
+
+  ahoy:
+    view_my_home: "My Home"
+    view_contacts: "Contacts"
+    view_account: "Account"
+    view_messages: "Messages"
+    refer_a_friend: "Refer a Friend"
+    view_main_menu: "Main Menu"
+    view_home_tour: "Home Tour"
+    view_rooms: "Rooms"
+    view_appliances: "Appliances"
+    view_library: "Library"
+    view_how_to: "How To"
+    view_home_designer: "Home Designer"
+    view_area_guide: "Area Guide"
+    view_buyers_club: "Buyers Club"
+    bc_find_out_more: "Find out more"
+    bc_give_me_access: "Give me access"
+    view_your_journey: "Your Journey"
+    task_viewed: "Viewed"
+    view_FAQs: "FAQs"
+    view_FAQs_feedback: "FAQs Feedback"
+    view_choices: "Choices"
+    view_snagging: "Snagging"
+    snags_created: "Snags Created"
+    snags_resolved: "Snags Resolved"
+    snags_rejected: "Snags Rejected"
+    view_issues: "Issues"
+    homeowner_sign_in: "Sign In"
+    homeowner_log_in: "Log in"
+    homeowner_accept_invite: "Accept Invitation"
+    root: "Main"
 
   events:
     invited: "Invited"

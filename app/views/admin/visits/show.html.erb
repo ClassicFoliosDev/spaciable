@@ -1,0 +1,83 @@
+<div class="visit-report row-item three-quarters">
+  <table>
+    <thead>
+      <tr >
+        <th><%= t(".title") %></th>
+        <th><%= t(".unique") %></th>
+        <th><%= t(".total") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @visits.stats.each do |_, stat| %>
+        <tr <%="id=#{stat.hash}" if Rails.env.test?%>>
+          <td><%= stat.title %></td>
+          <td <%="id=u" if Rails.env.test?%>><%= stat.unique %></td>
+          <td <%="id=t" if Rails.env.test?%>><%= stat.total %></td>
+        </tr>
+        <% stat.visits.each do |cat1| %>
+          <tr <%="id=#{cat1.hash}" if Rails.env.test?%>>
+            <td><div style="padding-left:1.00em;"><%= cat1.title %></div></td>
+            <td <%="id=u" if Rails.env.test?%>><%= cat1.unique %></td>
+            <td <%="id=t" if Rails.env.test?%>><%= cat1.total %></td>
+          </tr>
+          <% cat1.visits.each do |cat2| %>
+            <tr <%="id=#{cat2.hash}" if Rails.env.test?%>>
+              <td><div style="padding-left:2.00em;"><%= cat2.title %></div></td>
+              <td <%="id=u" if Rails.env.test?%>><%= cat2.unique %></td>
+              <td <%="id=t" if Rails.env.test?%>><%= cat2.total %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="search row-item quarter">
+  <%= simple_form_for :visits, :html => { :onsubmit => "reportSubmitted()" }, url: admin_visits_path, remote: true do |f| %>
+    <div class="admin-filter">
+      <fieldset>
+        <%= f.input :start_date, label: t(".start_date"), as: :string,
+          placeholder: "DD/MM/YYYY", required: false,
+          input_html: { type: :date, value: @visits.start_date.strftime("%Y-%m-%d") } %>
+        <%= f.input :end_date, label: t(".end_date"), as: :string,
+          placeholder: "DD/MM/YYYY", required: false,
+          input_html: { type: :date, value: @visits.end_date.strftime("%Y-%m-%d") } %>
+        <%= f.input :developer_id,
+          as: :select,
+          collection: Developer.all.order(:company_name),
+          selected: @visits.developer_id,
+          include_blank: t(".all") %>
+        <%= f.input :division_id,
+          as: :select,
+          collection: Developer.find_by(id: @visits.developer_id)&.divisions,
+          selected: @visits.division_id,
+          include_blank: t(".all") %>
+        <%= f.input :development_id,
+          as: :select,
+          collection: (@visits.division_id.present? ? Division.find_by(id: @visits.division_id)&.developments : Developer.find_by(id: @visits.developer_id)&.developments),
+          selected: @visits.development_id,
+          include_blank: t(".all") %>
+        <%= f.input :business, as: :select, collection: phase_businesses_collection, selected: @visits.business,
+          include_blank: t(".all") %>
+      </fieldset>
+      <fieldset>
+        <div class="count">
+          <span>
+            <strong><%= t(".plots") %> </strong><%= @visits.plots.count %>
+          </span>
+            <span>
+            <strong><%= t(".residents") %> </strong><%= @visits.residents.count %>
+          </span>
+        </div>
+        <div class="global-option">
+          <%= f.button :submit, t(".report_btn"), id: "report" ,
+          class: "billing-csv btn-primary" %><br/>
+        </div>
+        <% if Rails.env.test? %>
+          <input onclick="this.value='Dirty'" type="button" value="Clean" id="reload_check" />
+        <% end %>
+      </fieldset>
+    </div>
+  <% end %>
+</div>

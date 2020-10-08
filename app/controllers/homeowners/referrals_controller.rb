@@ -5,6 +5,10 @@ module Homeowners
     skip_before_action :validate_ts_and_cs, :set_plot, :set_brand,
                        unless: -> { current_resident || current_user }
 
+    after_action only: %i[create] do
+      record_event(:refer_a_friend)
+    end
+
     def create
       create_new_referral
     end

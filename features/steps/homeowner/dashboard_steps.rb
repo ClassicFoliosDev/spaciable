@@ -206,24 +206,9 @@ Given(/^the developer has a custom tile for referrals$/) do
   FactoryGirl.create(:custom_tile, development_id: development.id, feature: 'referrals')
 end
 
-
 When(/^I refer a friend$/) do
   visit "/"
-  sleep 0.5
-
-  within ".refer-summary" do
-    click_on t("homeowners.dashboard.tiles.referrals.title")
-  end
-
-  within ".ui-dialog" do
-    fill_in :referral_referee_first_name, with: ReferralFixture.referee_first_name
-    fill_in :referral_referee_last_name, with: ReferralFixture.referee_last_name
-    fill_in :referral_referee_email, with: ReferralFixture.referee_email
-    fill_in :referral_referee_phone, with: ReferralFixture.referee_phone
-  end
-
-  send_button = page.find(".btn-send")
-  send_button.trigger("click")
+  referafriend
 end
 
 Then(/^I should see the referral has been sent$/) do
@@ -315,3 +300,20 @@ When(/^the snagging duration is past$/) do
   development.save!
 end
 
+def referafriend
+  sleep 0.5
+
+  within ".refer-summary" do
+    click_on t("homeowners.dashboard.tiles.referrals.title")
+  end
+
+  within ".ui-dialog" do
+    fill_in :referral_referee_first_name, with: ReferralFixture.referee_first_name
+    fill_in :referral_referee_last_name, with: ReferralFixture.referee_last_name
+    fill_in :referral_referee_email, with: ReferralFixture.referee_email
+    fill_in :referral_referee_phone, with: ReferralFixture.referee_phone
+  end
+
+  send_button = page.find(".btn-send")
+  send_button.trigger("click")
+end
