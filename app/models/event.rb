@@ -305,11 +305,25 @@ class Event < ApplicationRecord
   # rubocop:enable Metrics/CyclomaticComplexity
 
   # Process the repeat option
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def process_repeats
     return if never?
 
+    # The repeats may run over time zone changes. ie 9am on the
+    # 23rd Oct could be 8am (UTC+1), so 8am in the database and
+    # converted to 9am (local) for display.  However.. on the 24th
+    # after the clocks go back an hour and we are at UTC+0, then
+    # 9am is 9am in the database (UTC) and 9am (local) displayed
+    # This has to be taken into account when calculating repeats
+    zone = eventable.time_zone
+    prev_offset = start.in_time_zone(zone).utc_offset
+
     interval = repeat_interval(repeat)
     e_start = start + interval
+    this_offset = e_start.in_time_zone(zone).utc_offset
+    e_start += (prev_offset - this_offset) # adjust
+    prev_offset = this_offset
+
     # duplicate the master, update the dates and save to
     # create each repeating event
     while e_start <= repeat_until.localtime.end_of_day
@@ -319,8 +333,12 @@ class Event < ApplicationRecord
       repeat_event.master_id = id
       repeat_event.save!
       e_start += interval
+      this_offset = e_start.in_time_zone(zone).utc_offset
+      e_start += (prev_offset - this_offset) # adjust
+      prev_offset = this_offset
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def delete_following(m_id = id)
     # delete repeating events after

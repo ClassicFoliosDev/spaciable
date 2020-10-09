@@ -99,7 +99,7 @@ Then (/^I can add a (.*)repeating calendar event$/) do |repeat|
   populate_event
   click_on "Add"
   sleep 4
-  check_events(((last_date_time - first_date_time) / 86400) + 1)
+  check_events(((last_date_time - first_date_time) / 86400).round + 1)
 
   # repeat until is changed by following delete/edit tests
   CalendarFixture.event.repeat_until = nil
