@@ -184,7 +184,7 @@ Then(/^I can see my contacts$/) do
       check_box = find(".burger")
       check_box.trigger(:click)
     end
-    click_on(t("layouts.homeowner.nav.contacts"))
+    find(:xpath, "//li[contains(text(),'#{t("layouts.homeowner.nav.contacts")}')]").trigger('click')
   end
 
   sleep 0.2
@@ -357,12 +357,11 @@ Then(/^I can not edit a plot$/) do
 
   within ".record-list" do
     click_on CreateFixture.phase_plot_name
+    find(:xpath, "//div[contains(text(),'Plot #{CreateFixture.phase_plot_name}')]")
   end
 
-  sleep 0.5
   find(".tabs").click_on "Documents"
-
-  sleep 0.5
+  find(:xpath, "//a[@class='active'][text()[contains(.,'Documents')]]")
   within ".plot" do
     edit_links = page.all("[data-action='edit']")
     expect(edit_links.count).to eq 0
