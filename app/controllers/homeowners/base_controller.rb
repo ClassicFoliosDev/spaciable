@@ -2,9 +2,11 @@
 
 module Homeowners
   class BaseController < ApplicationController
+    include Ahoy::AnalyticsHelper
     skip_before_action :authenticate_user!
     skip_before_action :redirect_residents
     skip_authorization_check
+    before_action :set_current_resident
 
     before_action :authenticate_resident!, :set_unread, if: -> { current_resident }
     # set_country to enable all country specific filtering in derived
@@ -76,6 +78,19 @@ module Homeowners
       cookies.delete :ts_and_cs_accepted
       sign_out_all_scopes
       flash[:alert] = t("residents.sessions.create.ts_and_cs_required")
+    end
+
+    # Set the current user in a thread safe store so as the models can access it
+    def set_current_resident
+      RequestStore.store[:current_resident] = current_resident
+    end
+
+    def record_event(action, *params)
+      return unless @plot
+
+      event_params = params.present? ? params[0] : {}
+      event_params[:plot_id] = @plot.id
+      record_action(t("ahoy.#{action}"), event_params)
     end
   end
 end

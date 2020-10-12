@@ -4,6 +4,10 @@ module Homeowners
   class PrivateDocumentsController < Homeowners::BaseController
     load_and_authorize_resource :private_document
 
+    after_action only: %i[index] do
+      record_event(:view_library, category1: "My Documents")
+    end
+
     def index
       @categories = Document.categories.keys
       @category = "my_documents"

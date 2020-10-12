@@ -232,6 +232,10 @@ module FaqsFixture
     "How do you change an FAQ?"
   end
 
+  def edited_answer
+    "You're here forever"
+  end
+
   def development2_name
     "Water Meadows"
   end

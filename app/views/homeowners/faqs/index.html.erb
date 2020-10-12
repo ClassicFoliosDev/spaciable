@@ -36,7 +36,7 @@
               <%= t(".feedback") %>
 
               <%= button_tag t(".pos"), class: "faq-button", id: "positiveFAQ",
-                                        data: { id: faq.id, question: faq.question, email: current_resident.email,
+                                        data: { id: faq.id, question: faq.question, email: current_resident&.email,
                                                 plot: @plot.id } %>
               <%= button_tag t(".neg"), type: 'button', class: "faq-button", id: "negativeFAQ",
                                         data: { id: faq.id } %>
@@ -54,7 +54,7 @@
             <textarea id="input-<%=faq.id%>" class="faq-input"></textarea>
             <span class="disclaimer"><%= t(".disclaimer") %></span>
             <%= button_tag t(".submit"), type: 'button', class: "btn branded-btn", id: "faqFeedbackSend",
-                                      data: { id: faq.id, question: faq.question, email: current_resident.email,
+                                      data: { id: faq.id, question: faq.question, email: current_resident&.email,
                                               plot: @plot.id } %>
           </div>
         </dd>

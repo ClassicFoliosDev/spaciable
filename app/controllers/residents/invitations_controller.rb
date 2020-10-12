@@ -9,7 +9,11 @@ module Residents
     end
 
     def edit
-      development = DevelopmentFinderService.call(params)
+      development = if params[:development_id]
+                      Development.find(params[:development_id])
+                    else
+                      DevelopmentFinderService.call(params)
+                    end
       @brand = development&.brand_any
       super
     end

@@ -74,7 +74,7 @@ module Admin
       user = User.find(params[:user])
       invitee = User.find(params[:invitee])
 
-      user.invite!(invitee)
+      user.invite!(invitee, bcc: ENV["BCC_MAIL"])
     end
 
     private

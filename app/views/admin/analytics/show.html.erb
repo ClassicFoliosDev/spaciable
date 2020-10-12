@@ -1,0 +1,27 @@
+<% breadcrumb :analytics %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %><br>
+  </div>
+</div>
+
+<div class="row configuration global-settings">
+  <div class="row-item half">
+    <div class="global-uploads">
+      <h4><%= t(".reports") %></h4>
+      <p><%= t(".reports_description") %></p>
+      <div class="global-option">
+        <%= link_to t(".reports_btn"), new_admin_reports_path, class: "btn" %>
+      </div>
+    </div>
+
+    <div class="page-visits">
+      <h4><%= t(".visits") %></h4>
+      <p><%= t(".visits_description") %></p>
+      <div class="global-option">
+        <%= link_to t(".visits_btn"), admin_visits_path, class: "btn" %>
+      </div>
+    </div>
+  </div>
+</div>
