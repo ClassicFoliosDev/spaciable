@@ -57,7 +57,6 @@ class Development < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: %i[developer_id division_id] }
   validate :permissable_id_presence
-  validates_with ParameterizableValidator
 
   validates :construction_name, presence: true, if: :commercial?
   after_validation :set_business, on: [:update]
@@ -227,7 +226,11 @@ class Development < ApplicationRecord
   # Create up to three default tiles
   # rubocop:disable LineLength
   def set_default_tiles
-    %w[referrals services perks].each do |tile|
+    %w[services perks].each do |tile|
+      CustomTile.create(development_id: id, feature: tile, editable: false) if parent_developer.send("enable_#{tile}")
+    end
+
+    %w[referrals].each do |tile|
       CustomTile.create(development_id: id, feature: tile) if parent_developer.send("enable_#{tile}")
     end
   end

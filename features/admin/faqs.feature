@@ -97,3 +97,29 @@ Feature: FAQs
     When I deselect development level FAQs
     And I create a third development
     Then I should see no faqs for the development
+
+  Scenario: CF Admin FAQ Sync update FAQs (Development)
+    Given I am logged in as an admin
+    And FAQ metadata is available
+    And default FAQs exist
+    When I create a developer
+    Then I should see default faqs for the developer
+    When I edit a developer tenant faq
+    When I sync the FAQs
+    Then I see the edited FAQ
+    And I see the identical FAQ
+    When I select the FAQs to sync
+    Then the edited FAQ is updated
+    And I create a development
+    When I select development level FAQs
+    Then I should see no faqs for the development
+    And I can add a development tenant FAQ
+    When I sync the FAQs
+    Then I see the altered FAQ
+    And I see the new FAQ
+    When I select the FAQs to sync
+    Then the edited FAQ is updated
+    And the new FAQ has been created
+
+
+

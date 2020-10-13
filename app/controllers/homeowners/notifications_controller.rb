@@ -5,6 +5,10 @@ module Homeowners
     include SortingConcern
     skip_authorization_check
 
+    after_action only: %i[index] do
+      record_event(:view_messages)
+    end
+
     def index
       @notifications = []
       return unless current_resident

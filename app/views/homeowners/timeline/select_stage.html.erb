@@ -14,7 +14,7 @@
       <div class="step-options">
         <div class="stages">
           <% @timeline.stages.each do |stage| %>
-            <%= link_to homeowner_timeline_path(:page => "timeline_task", :stage => stage.id), class: "stage timeline-stage-option" do %>
+            <%= link_to homeowner_timeline_path(:page => "timeline_task", :stage => stage.id), class: "stage timeline-stage-option",:'data-turbolinks-track' => false do %>
               <i id="icon<%=stage.title%>" class="branded-text"></i>
               <p class="timeline-btn-label branded-text"><%= stage.title %></p>
             <% end %>

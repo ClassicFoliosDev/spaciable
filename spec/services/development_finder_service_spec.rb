@@ -30,8 +30,8 @@ RSpec.describe DevelopmentFinderService do
   context "with a single development in a developer" do
     it "should find the development" do
       sign_in_params = {
-        developer_name: developer.to_s.parameterize,
-        development_name: development_with_unique_name.to_s.parameterize
+        developer_name: developer.to_s.parameterize_amp,
+        development_name: development_with_unique_name.to_s.parameterize_amp
       }
       result = described_class.call(sign_in_params)
 
@@ -46,8 +46,8 @@ RSpec.describe DevelopmentFinderService do
       development_with_same_name3
 
       sign_in_params = {
-        developer_name: developer.to_s.parameterize,
-        development_name: development_with_same_name1.to_s.parameterize
+        developer_name: developer.to_s.parameterize_amp,
+        development_name: development_with_same_name1.to_s.parameterize_amp
       }
       development = described_class.call(sign_in_params)
 

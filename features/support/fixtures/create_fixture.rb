@@ -8,13 +8,17 @@ module CreateFixture
   RESOURCES ||= {
     appliance: "WAB28161GB",
     appliance_without_manual: "Appliance without manual",
-    developer: "Hamble View Developer",
+    developer: "Hamble & Rice Developer",
+    branded_developer: "_-+':,&%Developer",
     spanish_developer: "Madrid Inc",
-    development: "Riverside Development",
+    development: "R&B Development",
+    branded_development: "R&B_D'V_+%{}[],",
     spanish_development: "Barc Development",
-    division: "Hamble Riverside Division",
+    division: "Hamble&Gamble Division",
+    branded_division: "A_-&G*^+,:.Division",
     spanish_division: "Barca Division",
     division_development: "Hamble East Riverside Division Development",
+    branded_division_development: ")({}*%+:,&) Development",
     spanish_division_development: "El Capitan Development",
     division_phase: "Beta (Division) Phase",
     spanish_division_phase: "Beta (Division) Phase",
@@ -191,9 +195,9 @@ module CreateFixture
     FactoryGirl.create(:development_admin, permission_level: CreateFixture.division_development, password: admin_password)
   end
 
-  def create_developer_with_division
-    create_developer
-    create_division
+  def create_developer_with_division(branded: false)
+    create_developer(branded: branded)
+    create_division(branded: branded)
   end
 
   def create_spanish_developer_with_division
@@ -211,10 +215,11 @@ module CreateFixture
     create_spanish_development
   end
 
-  def create_developer(cas: false)
+  def create_developer(cas: false,  branded: false, name: developer_name)
     return developer if developer
     create_countries
-    FactoryGirl.create(:developer, company_name: developer_name, house_search: true,
+    dname = branded ? branded_developer_name : name
+    FactoryGirl.create(:developer, company_name: dname, house_search: true,
                        enable_referrals: true, country_id: uk.id, cas: cas)
   end
 
@@ -226,9 +231,10 @@ module CreateFixture
                        country_id: spain.id)
   end
 
-  def create_division
+  def create_division(branded: false)
     return division if division
-    FactoryGirl.create(:division, division_name: division_name, developer: developer)
+    dname = branded ? branded_division_name : division_name
+    FactoryGirl.create(:division, division_name: dname, developer: developer(branded: branded))
   end
 
   def create_spanish_division
@@ -236,9 +242,11 @@ module CreateFixture
     FactoryGirl.create(:division, division_name: spanish_division_name, developer: spanish_developer)
   end
 
-  def create_development(cas: false)
+  def create_development(cas: false, name: development_name, dev: developer, branded: false)
     return development if development
-    FactoryGirl.create(:development, name: development_name, developer: developer, cas: cas)
+    dev = branded ? developer(branded: branded) : dev
+    dname = branded ? branded_development_name : development_name
+    FactoryGirl.create(:development, name: name, developer: dev, cas: cas)
   end
 
   def create_spanish_development
@@ -246,9 +254,10 @@ module CreateFixture
     FactoryGirl.create(:development, name: spanish_development_name, developer: spanish_developer)
   end
 
-  def create_division_development(cas: false)
+  def create_division_development(cas: false, branded: false)
     return division_development if division_development
-    FactoryGirl.create(:division_development, name: division_development_name, division: division, enable_snagging: true, snag_duration: "7", cas: cas)
+    dname = branded ? branded_division_development_name : division_development_name
+    FactoryGirl.create(:division_development, name: dname, division: division(branded: branded), enable_snagging: true, snag_duration: "7", cas: cas)
   end
 
   def create_spanish_division_development
@@ -256,16 +265,16 @@ module CreateFixture
     FactoryGirl.create(:division_development, name: spanish_division_development_name, division: spanish_division)
   end
 
-  def create_unit_type(name=unit_type_name)
-    FactoryGirl.create(:unit_type, name: name, development: development)
+  def create_unit_type(name=unit_type_name, dev: development, link: nil)
+    FactoryGirl.create(:unit_type, name: name, development: dev, external_link: link)
   end
 
   def create_spanish_unit_type
     FactoryGirl.create(:unit_type, name: unit_type_name, development: spanish_development)
   end
 
-  def create_division_development_unit_type(name=unit_type_name, restricted:false)
-    FactoryGirl.create(:unit_type, name: name, development: division_development, restricted: restricted)
+  def create_division_development_unit_type(name=unit_type_name, restricted:false, branded: false)
+    FactoryGirl.create(:unit_type, name: name, development: division_development(branded: branded), restricted: restricted)
   end
 
   def create_spanish_division_development_unit_type
@@ -411,16 +420,17 @@ module CreateFixture
     FactoryGirl.create(:finish_room, room: room, finish: finish)
   end
 
-  def create_development_phase
-    FactoryGirl.create(:phase, name: phase_name, development: development, address: create_address)
+  def create_development_phase(name: phase_name, dev: development, business: 0)
+    FactoryGirl.create(:phase, name: name, business: business,
+                       development: dev, address: create_address)
   end
 
   def create_spanish_development_phase
     FactoryGirl.create(:phase, name: spanish_phase_name, development: spanish_development, address: create_spanish_address)
   end
 
-  def create_division_development_phase
-    FactoryGirl.create(:phase, name: division_phase_name, development: division_development)
+  def create_division_development_phase(branded: false)
+    FactoryGirl.create(:phase, name: division_phase_name, development: division_development(branded: branded))
   end
 
   def create_spanish_division_development_phase
@@ -458,8 +468,8 @@ module CreateFixture
                                  locality: "catalonia", postcode: "12211")
   end
 
-  def create_phase_plot(p=phase)
-    FactoryGirl.create(:phase_plot, phase: p, number: phase_plot_name, unit_type: unit_type)
+  def create_phase_plot(p=phase, number: phase_plot_name)
+    FactoryGirl.create(:phase_plot, phase: p, number: number, unit_type: unit_type)
   end
 
   def create_phase_plots
@@ -580,8 +590,8 @@ module CreateFixture
     end
   end
 
-  def create_resident(email = resident_email)
-    FactoryGirl.create(:resident, :with_residency, plot: phase_plot, email: email,
+  def create_resident(email = resident_email, plot: phase_plot)
+    FactoryGirl.create(:resident, :with_residency, plot: plot, email: email,
                        developer_email_updates: true, invitation_accepted_at: Time.zone.now,
                        ts_and_cs_accepted_at: Time.zone.now)
   end
@@ -670,23 +680,26 @@ module CreateFixture
     User.find_by(role: :development_admin)
   end
 
-  def developer
-    Developer.find_by(company_name: developer_name)
+  def developer(branded: false)
+    dname = branded ? branded_developer_name : developer_name
+    Developer.find_by(company_name: dname)
   end
 
   def spanish_developer
     Developer.find_by(company_name: spanish_developer_name)
   end
 
-  def division
-    Division.find_by(division_name: division_name)
+  def division(branded: false)
+    dname = branded ? branded_division_name : division_name
+    Division.find_by(division_name: dname)
   end
 
   def spanish_division
     Division.find_by(division_name: spanish_division_name)
   end
 
-  def development
+  def development(branded: false)
+    dname = branded ? branded_development_name : development_name
     Development.find_by(name: development_name)
   end
 
@@ -698,8 +711,9 @@ module CreateFixture
     Development.find_by(name: spanish_development_name)
   end
 
-  def division_development
-    Development.find_by(name: division_development_name)
+  def division_development(branded: false)
+    dname = branded ? branded_division_development_name : division_development_name
+    Development.find_by(name: dname)
   end
 
   def spanish_division_development

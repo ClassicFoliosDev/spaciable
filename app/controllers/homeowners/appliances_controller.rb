@@ -4,6 +4,10 @@ module Homeowners
   class AppliancesController < Homeowners::BaseController
     skip_authorization_check
 
+    after_action only: %i[show] do
+      record_event(:view_appliances)
+    end
+
     def show
       @appliances = []
       @appliances << Appliance.accessible_by(current_ability)

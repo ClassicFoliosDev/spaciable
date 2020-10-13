@@ -1,0 +1,96 @@
+<% breadcrumb :reports %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %><br>
+  </div>
+</div>
+
+<%= simple_form_for Report.new, :html => { :onsubmit => "reportSubmitted()" }, remote: true, url: admin_reports_path do |f| %>
+  <div class="row">
+    <div class="report-date half">
+      <div class="date-field">
+        <%= f.input :report_from,
+            label: t("activerecord.attributes.report.report_from"),
+            as: :date,
+            order: [:day, :month, :year],
+            start_year: Date.today.year,
+            end_year: 2017,
+            default: Date.parse("2017-1-1") %>
+      </div>
+      <div class="date-field">
+        <%= f.input :report_to,
+            label: t("activerecord.attributes.report.report_to"),
+            as: :date,
+            order: [:day, :month, :year],
+            start_year: Date.today.year + 1,
+            end_year: 2017 %>
+      </div>
+      <div class="plot-type ui-front select-container">
+        <%= label_tag :plot_type, t("activerecord.attributes.report.plot_type") %>
+        <%= f.input :plot_type,
+            as: :select,
+            collection: plot_type_collection,
+            label: false,
+            include_blank: false %>
+      </div>
+    </div>
+    <div class="half report-description">
+      <p class="plot-types">
+        <span class="bold"><%= t(".type_summary") %></span><br/>
+        <span><%= t(".type_dev") %></span><br/>
+        <span><%= t(".type_all") %></span>
+      </p>
+      <p class="date-ranges">
+        <span class="bold"><%= t(".range_summary") %></span><br/>
+        <span><%= t(".range_perk") %></span><br/>
+        <span><%= t(".range_all") %></span>
+      </p>
+    </div>
+  </div>
+
+  <div class="row report-targets">
+    <div class="half">
+      <div class="developer-id ui-front select-container">
+        <%= cascade_select_input f, :developer_id, Developer, show_all: true %>
+      </div>
+      <div class="division-id ui-front select-container">
+        <%= cascade_select_input f, :division_id, Division %>
+      </div>
+      <div class="development-id ui-front select-container">
+        <%= cascade_select_input f, :development_id, Development %>
+      </div>
+    </div>
+
+    <div class="half report-buttons">
+      <%= f.button :submit, t(".billing"),
+          data: { disable_with: false },
+          name: :billing,
+          class: "billing-csv btn-primary" %><br/>
+
+      <%= f.button :submit, t(".all"),
+          data: { disable_with: false },
+          name: :all,
+          class: "all-csv btn-primary" %><br/>
+
+      <%= f.button :submit, t(".developer"),
+          data: { disable_with: false },
+          name: :developer,
+          class: "developer-csv btn-primary",
+          disabled: true %><br/>
+
+      <%= f.button :submit, t(".development"),
+          data: { disable_with: false },
+          name: :development,
+          class: "development-csv btn-primary",
+          disabled: true %><br/>
+
+      <div class="additional-reports">
+        <%= f.button :submit, t(".perks"),
+            data: { disable_with: false },
+            name: :perks,
+            class: "perks-csv btn-primary" %><br/>
+      </div>
+    </div>
+  </div>
+<% end %>

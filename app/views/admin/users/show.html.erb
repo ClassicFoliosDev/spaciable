@@ -5,7 +5,14 @@
     <div><%= @user %></div><br/>
   </div>
   <div class="section-data">
+    <% unless @user.invitation_accepted? %>
+      <%= button_tag "", class: "btn", id: "resendInvitation", title: 'Resend Invitation',
+         data: { invite: @user.id, invitee: current_user.id, email: @user.email } do %>
+        <i class="fa fa-envelope-o"></i>
+      <% end %>
+    <% end %>
     <%= edit_btn [:edit, :admin, @user], element: @user %>
+    <%= delete_btn @user, path: admin_user_path(@user), element: @user %>
   </div>
 </div>
 
