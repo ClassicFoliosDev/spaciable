@@ -123,6 +123,9 @@ gem "request_store"
 # Copy carrierwave images
 gem "copy_carrierwave_file"
 
+# Analytics
+gem "ahoy_matey"
+
 # full callendar
 gem "fullcalendar-rails"
 gem "momentjs-rails"

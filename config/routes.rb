@@ -28,7 +28,9 @@ Rails.application.routes.draw do
              }
 
   devise_scope :resident do
+    get "/:development_id/sign_in", to: "residents/sessions#new"
     get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
+    get "/:development_id/accept", to: "residents/invitations#edit"
     get "/:developer_name(/:division_name)/:development_name/accept", to: "residents/invitations#edit"
   end
 
@@ -48,7 +50,9 @@ Rails.application.routes.draw do
     end
     get 'uploads', action: :uploads , controller: 'settings'
 
-    resource :analytics, only: [:new, :create]
+    resource :reports, only: [:new, :create]
+    resource :analytics, only: [:show]
+    resource :visits, only: [:show, :create]
 
     get 'developers', to: 'developers#index', format: :json
     get 'divisions', to: 'divisions#index', format: :json
@@ -66,7 +70,6 @@ Rails.application.routes.draw do
 
   resources :documents, only: [:edit, :show, :update, :destroy]
   resources :listings, only: [:new, :create, :update, :destroy]
-
 
   resources :rooms, only: [] do
     resources :appliance_rooms, controller: 'rooms/appliance_rooms', only: [:new, :create, :edit]
@@ -140,6 +143,7 @@ Rails.application.routes.draw do
     resources :videos, shallow: true
     resources :development_csv, only: [:index, :create]
     resources :custom_tiles, shallow: true
+    resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
   end
 
@@ -194,6 +198,7 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :branded_apps, shallow: true
+    resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'cas', to: 'developers#cas', format: :json
   end
 
@@ -210,6 +215,7 @@ Rails.application.routes.draw do
     resources :faqs, shallow: true
     resource :brand
     resources :brands, shallow: true, only: [:index]
+    resources :sync_faqs, shallow: true, only: [:index, :create]
   end
 
   resources :appliances

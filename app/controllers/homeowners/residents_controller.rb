@@ -6,6 +6,10 @@ module Homeowners
   class ResidentsController < Homeowners::BaseController
     before_action :plot_residency, only: %i[show create remove_resident]
 
+    after_action only: %i[show] do
+      record_event(:view_account)
+    end
+
     def show
       @all_residents = residents_for_my_plot.compact
       @resident = Resident.new

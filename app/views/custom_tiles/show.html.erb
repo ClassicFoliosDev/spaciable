@@ -5,7 +5,9 @@
     <%= @custom_tile.title? ? @custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{@custom_tile.feature}") %><br>
   </div>
   <div class="section-data">
-    <%= (edit_btn [:edit, @custom_tile], element: @custom_tile) unless @parent.expired? && !(current_user.cf_admin?) %>
+    <% if @custom_tile.editable? || current_user.cf_admin? %>
+      <%= (edit_btn [:edit, @custom_tile], element: @custom_tile) unless @parent.expired? && !(current_user.cf_admin?) %>
+    <% end %>
   </div>
 </div>
 

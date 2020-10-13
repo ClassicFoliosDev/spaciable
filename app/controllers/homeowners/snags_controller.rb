@@ -7,6 +7,11 @@ module Homeowners
     skip_authorization_check
     before_action :set_snag, only: %i[show edit update destroy]
 
+    after_action only: %i[create] do
+      record_event(:view_snagging, category1:
+                   I18n.t("ahoy.#{Ahoy::Event::SNAGS_CREATED}"))
+    end
+
     def index
       @snags = Snag.where(plot_id: @plot.id).order(updated_at: :desc)
     end
@@ -58,9 +63,13 @@ module Homeowners
         success = @snag.update(snag_params)
         if success
           if @snag.rejected?
+            record_event(:view_snagging, category1:
+                   I18n.t("ahoy.#{Ahoy::Event::SNAGS_REJECTED}"))
             notify_response
             @snag.update(status: "unresolved")
           elsif @snag.approved?
+            record_event(:view_snagging, category1:
+                   I18n.t("ahoy.#{Ahoy::Event::SNAGS_RESOLVED}"))
             decrement_unresolved_snag_counts
             notify_response
           else
