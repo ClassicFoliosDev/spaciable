@@ -581,6 +581,7 @@ en:
         choices: "Choices"
         area_guide: "Area Guide"
         perks: "Buyers' Club"
+        dashboard_tour: "Tour"
       header:
         account: "My Account"
         plots: "My Plots"

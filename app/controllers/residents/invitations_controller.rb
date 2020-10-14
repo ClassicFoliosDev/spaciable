@@ -21,6 +21,8 @@ module Residents
     def update
       # add an onboarding session to use for hiding navigation from onboarding process
       session[:onboarding] = true
+      # add a dashboard tour cookie
+      cookies[:dashboard_tour] = true
       development = DevelopmentFinderService.call(params)
       @brand = development&.brand_any
       super

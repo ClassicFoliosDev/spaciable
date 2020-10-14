@@ -163,6 +163,12 @@
             </li>
           <% end %>
         <% end %>
+
+        <%= link_to dashboard_path, class: "navbar-link" do %>
+          <li class="navbar-item dashboard-tour-link">
+            <%= t('.dashboard_tour') %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>

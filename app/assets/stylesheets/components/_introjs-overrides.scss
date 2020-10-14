@@ -1,0 +1,61 @@
+.homeowner-view {
+  .introjs-tooltip {
+    background-color: $ui-light-grey;
+    opacity: 0.9;
+  }
+
+  .introjs-helpLayer {
+    background-color: $ui-light-grey;
+    opacity: 0.9;
+  }
+
+  .introjs-tooltiptext {
+    color: $primary-black;
+    font-size: $base-font-size;
+    font-family: $base-font-family;
+  }
+
+  .introjs-tooltipButtons {
+    text-align: center;
+  }
+
+  .introjs-button {
+    font-family: $base-font-family;
+    font-size: $base-small-font-size;
+    border: none;
+    color: #444;
+    background: none;
+    background-color: none;
+  }
+
+  .introjs-nextButton {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .introjs-nextButton, .introjs-prevButton, .introjs-skipButton {
+    &:hover {
+      border: none;
+      background-color: none;
+      background: none;
+      font-weight: $bold-font-weight;
+      color: #444;
+      box-shadow: none;
+    }
+
+    &:focus {
+      background: none;
+      text-decoration: underline;
+    }
+  }
+
+  .introjs-disabled {
+    color: $ui-dark-grey;
+
+    &:hover {
+      color: $ui-dark-grey;
+      font-weight: $base-font-weight;
+    }
+  }
+}
