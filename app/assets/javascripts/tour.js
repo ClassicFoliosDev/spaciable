@@ -1,11 +1,13 @@
 document.addEventListener('turbolinks:load', function () {
   // check the relevant cookie value
-  var tourCookie = document.cookie.split('; ')
-                                  .find(row => row.startsWith('dashboard_tour'))
-  if (tourCookie) { var tourCookieValue = tourCookie.split('=')[1] }
-
-  if ( $("#homeownerDashboard").length && tourCookieValue == "show" ) {
-    loadDashboardTour()
+  if ($("#homeownerDashboard").length) {
+    $.each(document.cookie.split('; '), function(index, value) {
+      if (value.startsWith('dashboard_tour')) {
+        if (value.split('=')[1] == "show") {
+          loadDashboardTour()
+        }
+      }
+    })
   }
 })
 

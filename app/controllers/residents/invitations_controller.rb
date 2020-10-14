@@ -22,7 +22,7 @@ module Residents
       # add an onboarding session to use for hiding navigation from onboarding process
       session[:onboarding] = true
       # add a dashboard tour cookie
-      cookies[:dashboard_tour] = true
+      cookies[:dashboard_tour] = "show"
       development = DevelopmentFinderService.call(params)
       @brand = development&.brand_any
       super
