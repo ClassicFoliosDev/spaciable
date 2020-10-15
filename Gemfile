@@ -76,10 +76,10 @@ gem "newrelic_rpm"
 gem "bourbon"
 gem "font-awesome-rails", "~> 4.7.0.5"
 gem "font-awesome-sass", "~> 5.12.0"
+gem "introjs-rails"
 gem "neat", "~> 1"
 gem "rails-timeago"
 gem "simple_calendar", "~> 2.0"
-gem "introjs-rails"
 
 # Pagination with kaminari: https://github.com/amatsuda/kaminari
 gem "kaminari"
