@@ -586,12 +586,6 @@ Then(/^I cannot see the new video$/) do
   login_as resident
   visit "/"
 
-  # without this sleep & open screenshot here, and it has to be exactly here,
-  # the 'find library-categories' further below consistently fails.
-  # this is the only thing that make it work. i have no idea why.
-  sleep 0.3
-  save_and_open_screenshot
-
   within find(".library-component", wait: 5) do
     click_on I18n.t("homeowner.dashboard.cards.library.view_more")
   end
