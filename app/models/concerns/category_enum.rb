@@ -8,6 +8,7 @@ module CategoryEnum
       my_home
       locality
       legal_and_warranty
+      fire_safety
     ]
   end
 end

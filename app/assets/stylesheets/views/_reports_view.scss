@@ -1,3 +1,9 @@
+.global-settings {
+  .global-uploads {
+    padding-bottom: $spacing-medium;
+  }
+}
+
 .report-buttons {
   .btn {
     margin-top: 30px;
@@ -37,4 +43,56 @@
 .additional-reports {
   border-top: 1px solid $primary-navy;
   margin-top: $spacing-medium;
+}
+
+.visit-report {
+  height: 80%;
+  margin-bottom: 0;
+  overflow-y: scroll;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    color: $primary-navy;
+    font-size: $base-font-size;
+
+    thead {
+      tr {
+        text-align: left;
+
+        th:first-of-type {
+          width: 65%;
+        }
+
+        th {
+          padding-bottom: $spacing-small;
+        }
+      }
+    }
+
+    tbody {
+      tr:nth-child(even) {
+        background-color: $ui-light-grey;
+      }
+
+      td {
+        padding: 3px 0;
+      }
+    }
+  }
+}
+
+.admin-filter {
+  .count {
+    padding-top: $spacing-small/2;
+
+    span {
+      display: block;
+      padding: 3px 0;
+      color: $primary-navy;
+    }
+  }
+  .global-option {
+    padding-top: $spacing-medium;
+  }
 }

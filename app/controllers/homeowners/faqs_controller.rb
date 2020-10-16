@@ -2,12 +2,23 @@
 
 module Homeowners
   class FaqsController < Homeowners::BaseController
+    include Ahoy::AnalyticsHelper
     skip_authorization_check
     load_and_authorize_resource :faq_type
     load_and_authorize_resource :faq_category
     load_and_authorize_resource :faq, except: %i[feedback]
 
     before_action :authorise, only: %i[index]
+
+    after_action only: %i[index] do
+      record_event(:view_FAQs, type: @faq_type.name, category1: @faq_category.name)
+    end
+
+    before_action only: %i[feedback] do
+      record_event(:view_FAQs_feedback,
+                   category1: params[:question],
+                   category2: params[:response] == "0" ? "No" : "Yes")
+    end
 
     def index
       populate

@@ -8,16 +8,25 @@
     <div><%= development.name %></div>
     <span class="about">
       <br/>
-      <% if development.cas %>
-        <strong><%= t("cas_enabled") %><br/>
-      <% end %>
-      <strong><%= t(".snagging") %></strong><%= development.enable_snagging? ? "#{development.snag_duration} days" : "Disabled" %><br/><br/>
-      <strong><%= t(".active_plots") %></strong><%= development.active_plots_count %><br/>
-      <strong><%= t(".completed_plots") %></strong><%= development.completed_plots_count %><br/>
-      <strong><%= t(".expired_plots") %></strong><%= development.expired_plots_count %><br/><br/>
-      <strong><%= t(".residents") %></strong><%= development.invited_resident_count %><br/>
-      <strong><%= t(".activated_residents") %></strong><%= development.activated_resident_count %><br/><br/>
-      <strong><%= t(".phases") %></strong><%= development.phases.count %>
+      <span class="overview">
+        <% if current_user.cf_admin? || development.cas %>
+          <%= t("cas_enabled", status: development.cas ? t("enabled") : t("disabled")).html_safe %><br/>
+        <% end %>
+        <strong><%= t(".snagging") %></strong><%= development.enable_snagging? ? "#{development.snag_duration} days" : "Disabled" %><br/><br/>
+        <strong><%= t(".active_plots") %></strong><%= development.active_plots_count %><br/>
+        <strong><%= t(".completed_plots") %></strong><%= development.completed_plots_count %><br/>
+        <strong><%= t(".expired_plots") %></strong><%= development.expired_plots_count %><br/><br/>
+        <strong><%= t(".residents") %></strong><%= development.invited_resident_count %><br/>
+        <strong><%= t(".activated_residents") %></strong><%= development.activated_resident_count %><br/><br/>
+        <strong><%= t(".phases") %></strong><%= development.phases.count %>
+      </span>
+      <span class="admins">
+        <strong><%= t("administered_by") %></strong><br/><br/>
+        <% administering_admins(development).each do |a| %>
+          <%= "#{a.first_name} #{a.last_name}" %>
+          <span class="inactive"><%= " (not activated)" unless a.invitation_accepted_at %></span><br/>
+        <% end %>
+      </span>
     </span>
   </div>
 

@@ -12,13 +12,14 @@ When(/^I navigate to the analytics page$/) do
   visit "/"
 
   within ".navbar-menu" do
-    click_on t("components.navigation.reports")
+    click_on t("components.navigation.analytics")
+    find(:xpath, "//a[contains(text(),'#{t("admin.analytics.show.reports_btn")}')]").trigger('click')
   end
 end
 
 When(/^I export the Summary Report$/) do
   within ".report-buttons" do
-    click_on t("admin.analytics.new.all")
+    click_on t("admin.reports.new.all")
   end
 end
 
@@ -56,7 +57,7 @@ Then(/^I cannot export a Developer Report$/) do
   within ".report-buttons" do
     disabled_btns = page.all("[disabled]").map(&:value)
 
-    expect(disabled_btns).to match_array [t("admin.analytics.new.developer"), t("admin.analytics.new.development")]
+    expect(disabled_btns).to match_array [t("admin.reports.new.developer"), t("admin.reports.new.development")]
   end
 end
 
@@ -68,7 +69,7 @@ end
 
 Then(/^I can export the Developer Report$/) do
   within ".report-buttons" do
-    click_on t("admin.analytics.new.developer")
+    click_on t("admin.reports.new.developer")
   end
 end
 
@@ -79,7 +80,7 @@ Then(/^I cannot export a Development Report$/) do
   within ".report-buttons" do
     disabled_btns = page.all("[disabled]").map(&:value)
 
-    expect(disabled_btns).to match_array [t("admin.analytics.new.development")]
+    expect(disabled_btns).to match_array [t("admin.reports.new.development")]
   end
 end
 
@@ -92,7 +93,7 @@ end
 
 Then(/^I can export the Development Report$/) do
   within ".report-buttons" do
-    click_on t("admin.analytics.new.development")
+    click_on t("admin.reports.new.development")
   end
 end
 
@@ -107,7 +108,7 @@ Then(/^I see a notification saying the report is being processed$/) do
 end
 
 Then(/^I get an email telling me to download to report$/) do
-  sleep 2
+  sleep 3
   email = ActionMailer::Base.deliveries.first
   expect(email).to have_body_text("report")
   expect(email.to).to eq [ExpiryFixture.cf_email]
@@ -122,6 +123,6 @@ end
 
 When(/^I export the Billing Report$/) do
   within ".report-buttons" do
-    click_on t("admin.analytics.new.billing")
+    click_on t("admin.reports.new.billing")
   end
 end

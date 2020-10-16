@@ -48,10 +48,11 @@ Then(/^I see the error messages$/) do
   within ".alert" do
     phase = PhasePlotFixture.phase_name
     expect(page).to have_content(t("development_csv.errors.phase_error_strip", phase: "First"))
-    expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 7"))
+    expect(page).to have_content(t("development_csv.errors.plot_error_strip", plots: "#{phase}: 9"))
     expect(page).to have_content(t("development_csv.errors.unit_errors_strip", unit: "#{phase}: Penthouse"))
     expect(page).to have_content(t("development_csv.errors.progress_error_strip", progress: "#{phase}: wrong_progress"))
     expect(page).to have_content(t("development_csv.errors.duplicate_plots_strip", plots: "#{phase}: 4"))
+    expect(page).to have_content(t("development_csv.errors.uprn_error_strip", uprns: "#{phase}: aaa, 1234567890123"))
   end
 end
 
@@ -76,7 +77,7 @@ Then(/^the valid plot has been updated$/) do
   expect(find_field("plot_building_name").value).to eq "The Glen"
   expect(find_field("plot_road_name").value).to eq "Cranbury Road"
   expect(find_field("plot_postcode").value).to eq "SO50 5TL"
-  expect(find_field("plot_completion_date").value).to eq "12/10/2020"
+  expect(find_field("plot_completion_date").value).to eq "2020-10-12"
 end
 
 Then(/^the invalid plot has not been updated$/) do

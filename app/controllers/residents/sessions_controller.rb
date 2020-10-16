@@ -11,7 +11,11 @@ module Residents
     # GET /resource/sign_in
     def new
       self.resource = resource_class.new(sign_in_params)
-      development = DevelopmentFinderService.call(params)
+      development = if params[:development_id]
+                      Development.find(params[:development_id])
+                    else
+                      DevelopmentFinderService.call(params)
+                    end
       @brand = development&.brand_any
       clean_up_passwords(resource)
 
@@ -44,6 +48,7 @@ module Residents
     end
 
     def after_sign_in_path_for(resource)
+      session[:sign_in] = true
       dashboard_path
     end
 

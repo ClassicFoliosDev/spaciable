@@ -64,6 +64,38 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.index ["sender_id"], name: "index_admin_notifications_on_sender_id", using: :btree
   end
 
+  create_table "ahoy_events", force: :cascade do |t|
+    t.integer  "visit_id"
+    t.string   "userable_type"
+    t.integer  "userable_id"
+    t.string   "name"
+    t.integer  "plot_id"
+    t.jsonb    "properties"
+    t.datetime "time"
+    t.index "properties jsonb_path_ops", name: "index_ahoy_events_on_properties_jsonb_path_ops", using: :gin
+    t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time", using: :btree
+    t.index ["userable_type", "userable_id"], name: "index_ahoy_events_on_userable_type_and_userable_id", using: :btree
+    t.index ["visit_id"], name: "index_ahoy_events_on_visit_id", using: :btree
+  end
+
+  create_table "ahoy_visits", force: :cascade do |t|
+    t.string   "visit_token"
+    t.string   "visitor_token"
+    t.string   "userable_type"
+    t.integer  "userable_id"
+    t.string   "ip"
+    t.text     "user_agent"
+    t.text     "referrer"
+    t.string   "referring_domain"
+    t.text     "landing_page"
+    t.string   "browser"
+    t.string   "os"
+    t.string   "device_type"
+    t.datetime "started_at"
+    t.index ["userable_type", "userable_id"], name: "index_ahoy_visits_on_userable_type_and_userable_id", using: :btree
+    t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true, using: :btree
+  end
+
   create_table "appliance_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "deleted_at"
@@ -285,6 +317,7 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string  "file"
     t.integer "document_id"
     t.integer "development_id"
+    t.boolean "editable",       default: true
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
   end
@@ -328,12 +361,12 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.text     "about"
     t.string   "api_key"
     t.string   "list_id"
+    t.integer  "country_id",                                  null: false
     t.boolean  "house_search"
     t.boolean  "enable_services",             default: false
     t.boolean  "enable_development_messages", default: false
     t.boolean  "development_faqs",            default: false
     t.boolean  "enable_roomsketcher",         default: true
-    t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
     t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
@@ -366,11 +399,11 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.datetime "deleted_at"
     t.integer  "phases_count",          default: 0
     t.string   "segment_id"
+    t.integer  "choice_option",         default: 0,          null: false
+    t.string   "choices_email_contact"
     t.boolean  "enable_snagging",       default: false
     t.integer  "snag_duration",         default: 0
     t.string   "snag_name",             default: "Snagging", null: false
-    t.integer  "choice_option",         default: 0,          null: false
-    t.string   "choices_email_contact"
     t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
@@ -410,9 +443,9 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string   "file"
     t.string   "original_filename"
     t.integer  "category"
+    t.boolean  "pinned",            default: false
     t.string   "file_tmp"
     t.integer  "user_id"
-    t.boolean  "pinned",            default: false
     t.integer  "guide"
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
@@ -538,6 +571,7 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_manufacturer_name", using: :btree
   end
 
   create_table "finish_types", force: :cascade do |t|
@@ -546,6 +580,7 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "developer_id"
+    t.index "lower((name)::text) varchar_pattern_ops", name: "search_index_on_finish_type_name", using: :btree
   end
 
   create_table "finish_types_manufacturers", id: false, force: :cascade do |t|
@@ -612,8 +647,8 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string   "url"
     t.string   "additional_text"
     t.integer  "how_to_sub_category_id"
-    t.boolean  "hide",                   default: false
     t.integer  "country_id",                             null: false
+    t.boolean  "hide",                   default: false
     t.index "lower(summary) varchar_pattern_ops", name: "search_index_on_how_to_summary", using: :btree
     t.index "lower(title) varchar_pattern_ops", name: "search_index_on_how_to_title", using: :btree
     t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree
@@ -781,12 +816,13 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.date     "reservation_release_date"
     t.integer  "validity",                 default: 27
     t.integer  "extended_access",          default: 0
-    t.integer  "total_snags",              default: 0
-    t.integer  "unresolved_snags",         default: 0
     t.integer  "choice_configuration_id"
     t.integer  "choice_selection_status",  default: 0,  null: false
+    t.integer  "total_snags",              default: 0
+    t.integer  "unresolved_snags",         default: 0
     t.string   "completion_order_number"
     t.string   "reservation_order_number"
+    t.string   "uprn"
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
@@ -983,10 +1019,10 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string   "content"
     t.string   "image"
     t.integer  "snag_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
     t.string   "commenter_type"
     t.integer  "commenter_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.index ["commenter_type", "commenter_id"], name: "index_snag_comments_on_commenter_type_and_commenter_id", using: :btree
     t.index ["snag_id"], name: "index_snag_comments_on_snag_id", using: :btree
   end
@@ -994,10 +1030,10 @@ ActiveRecord::Schema.define(version: 20200921094247) do
   create_table "snags", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
+    t.integer  "status",      default: 0
+    t.integer  "plot_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "plot_id"
-    t.integer  "status",      default: 0
     t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
@@ -1123,8 +1159,8 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string   "picture"
     t.string   "job_title"
     t.boolean  "receive_release_emails",    default: true
-    t.boolean  "snag_notifications",        default: true
     t.boolean  "receive_choice_emails",     default: false
+    t.boolean  "snag_notifications",        default: true
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
     t.boolean  "receive_invitation_emails", default: true
