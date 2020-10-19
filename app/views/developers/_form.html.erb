@@ -15,7 +15,7 @@
     </div>
   <% end %>
 
-  <div class="row developer-form">
+  <div class="form-row developer-form">
     <fieldset class="about">
       <%= f.input :company_name, label: t(".company_name") %>
       <div class="featured ui-front country">
@@ -40,54 +40,54 @@
     <fieldset class="admin-features">
       <%= f.label :personal_app, t(".branded_app"), class: "checkbox-label" %>
       <%= f.check_box :personal_app, checked: developer.branded_app? %>
-      <span class="description"><%= t(".branded_app_description") %></span>
+      <span class="checkbox-description"><%= t(".branded_app_description") %></span>
 
       <%= f.label :enable_cas, t(".enable_cas"), class: "checkbox-label" %>
       <%= f.check_box :cas, disabled: developer.cas %>
-      <span class="description"><%= t(".cas_description") %></span>
+      <span class="checkbox-description"><%= t(".cas_description") %></span>
 
       <%= f.label :development_faqs, t(".development_faqs"), class: "checkbox-label" %>
       <%= f.check_box :development_faqs %>
-      <span class="description"><%= t(".development_faqs_description") %></span>
+      <span class="checkbox-description"><%= t(".development_faqs_description") %></span>
 
       <%= f.label :timeline, t(".timeline"), class: "checkbox-label" %>
       <%= f.check_box :timeline %>
-      <span class="description"><%= t(".timeline_description") %></span>
+      <span class="checkbox-description"><%= t(".timeline_description") %></span>
     </fieldset>
 
     <fieldset class="resident-links">
       <%= f.label :house_search, t(".enable_house_search"), class: "checkbox-label" %>
       <%= f.check_box :house_search %>
-      <span class="description"><%= t(".house_search_description") %></span>
+      <span class="checkbox-description"><%= t(".house_search_description") %></span>
 
       <%= f.label :enable_services, t(".enable_services"), class: "checkbox-label" %>
       <%= f.check_box :enable_services %>
-      <span class="description"><%= t(".services_description") %></span>
+      <span class="checkbox-description"><%= t(".services_description") %></span>
 
       <%= f.label :enable_perks, t(".enable_perks"), class: "checkbox-label" %>
       <%= f.check_box :enable_perks %>
-      <span class="description"><%= t(".perks_description") %></span>
+      <span class="checkbox-description"><%= t(".perks_description") %></span>
     </fieldset>
 
     <fieldset class="resident-features">
       <%= f.label :enable_roomsketcher, t(".enable_homedesigner"), class: "checkbox-label" %>
       <%= f.check_box :enable_roomsketcher %>
-      <span class="description"><%= t(".homedesigner_description") %></span>
+      <span class="checkbox-description"><%= t(".homedesigner_description") %></span>
 
       <%= f.label :enable_referrals, t(".enable_referrals"), class: "checkbox-label" %>
       <%= f.check_box :enable_referrals %>
-      <span class="description"><%= t(".referrals_description") %></span>
+      <span class="checkbox-description"><%= t(".referrals_description") %></span>
 
       <%= f.label :enable_development_messages, t(".enable_messages"), class: "checkbox-label" %>
       <%= f.check_box :enable_development_messages %>
-      <span class="description"><%= t(".messages_description") %></span>
+      <span class="checkbox-description"><%= t(".messages_description") %></span>
     </fieldset>
 
     <div class="separator"></div>
 
     <fieldset class="branded-buyers-club">
       <%= f.label :branded_buyers_club, t(".branded_perks"), class: "header-label" %>
-      <span class="description"><%= t(".branded_perks_description") %></span>
+      <span class="checkbox-description"><%= t(".branded_perks_description") %></span>
 
       <div class="branded-perk-fields">
         <%= f.simple_fields_for :branded_perk do |p| %>
@@ -102,7 +102,7 @@
 
     <fieldset class="planet-rent">
       <%= f.label :planet_rent, t(".planet_rent"), class: "header-label" %>
-      <span class="description"><%= t(".planet_rent_description") %></span>
+      <span class="checkbox-description"><%= t(".planet_rent_description") %></span>
       <%= f.input :prime_lettings_admin, as: :select, collection: developer.potential_prime_admins.map { |a| [a.to_s, a.id] },
       label: t(".prime_admin"), include_blank: true %>
     </fieldset>
