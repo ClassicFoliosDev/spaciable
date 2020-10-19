@@ -45,6 +45,7 @@ class Development < ApplicationRecord
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
   delegate :branded_perk, to: :parent_developer
+  delegate :timeline, to: :parent_developer
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true

@@ -1699,6 +1699,10 @@ en:
           activated_button: "Login to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
           error: "Currently unavailable. Please try again later."
+        timeline:
+          title: "Your Journey"
+          description: "This is your timeline, need description text."
+          button: "Your Journey"
 
     communication_preferences:
       show:
@@ -3417,6 +3421,7 @@ en:
           perks: "Buyers' Club"
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
+          timeline: "Timeline"
         guides:
           reservation: "Reservation"
           completion: "Completion"
