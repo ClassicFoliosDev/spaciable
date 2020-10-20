@@ -36,7 +36,7 @@ class ApplicationMailer < ActionMailer::Base
     @feedback = data[:feedback]
 
     mail to: @admin_emails,
-         bcc: "feedback@spaciable.com",
+         bcc: @response.positive? ? "" : "feedback@spaciable.com",
          subject: I18n.t("feedback.email_subject")
   end
 
