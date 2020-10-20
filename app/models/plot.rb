@@ -88,9 +88,7 @@ class Plot < ApplicationRecord
   delegate :enable_premium_perks, :premium_licence_duration, to: :development
   delegate :premium_licences_bought, to: :development, prefix: true
 
-  delegate :maintenance_populate, to: :development, allow_nil: true
-  delegate :maintenance_path, to: :development, allow_nil: true
-  delegate :maintenance_account_type, to: :development, allow_nil: true
+  delegate :maintenance, to: :development, allow_nil: true
 
   delegate :custom_tiles, to: :development
 
@@ -294,7 +292,7 @@ class Plot < ApplicationRecord
     Plot.find_each do |plot|
       expiry_plots << plot.id if plot.expiry_date == Time.zone.today - 1.day
       reduced_expiry_plots << plot.id if plot.reduced_expiry_date == Time.zone.today - 1.day &&
-                                         plot.maintenance_path
+                                         plot.maintenance.path
     end
 
     ExpiryPlotsJob.perform_later(expiry_plots, reduced_expiry_plots)
@@ -345,7 +343,7 @@ class Plot < ApplicationRecord
   end
 
   def show_maintenance?
-    return false if maintenance_path.blank? || completion_release_date.nil?
+    return false if !maintenance&.path? || completion_release_date.nil?
     return true if reduced_expiry_date.blank?
 
     Time.zone.today <= reduced_expiry_date
