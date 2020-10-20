@@ -2029,9 +2029,11 @@ en:
       back: "Back"
     form:
       submit: "Submit"
-      address: "Postal Address"
       back: "Back"
-      prime_admin: "Primary lettings administrator"
+      planet_rent: "Planet Rent"
+      timeline_description: "Plots under this division will default to the specified timeline on creation."
+      planet_rent_description: "Allocating the Primary Lettings Administrator below will do something concerning Planet Rent. How do we even turn lettings on?"
+      prime_admin: "Primary Lettings Administrator"
     index:
       actions: "Actions"
       destroy: "Delete"
