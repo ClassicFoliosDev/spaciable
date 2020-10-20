@@ -3,6 +3,10 @@
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  color: $primary-navy;
+  background-color: $ui-white;
+  border-radius: 5px;
+  margin-bottom: $spacing-large * 2;
 
   .input {
     margin-bottom: $spacing-medium;
@@ -47,10 +51,9 @@
 // ****** specific forms ******
 
 // developer form
+
 .developer-form {
-  background-color: $ui-white;
-  border-radius: 5px;
-  margin-bottom: $spacing-large * 2;
+  color: $primary-navy;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(5, auto);
@@ -125,16 +128,96 @@
   }
 }
 
+// development form
+
+#development_timeline_id-menu li {
+  font-size: $base-small-font-size;
+}
+
+.development-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+
+  fieldset {
+    padding: 0 $spacing-medium;
+    padding-top: $spacing-small;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .maintenance {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    .maintenance-type {
+      width: 45%;
+    }
+
+    li {
+      font-size: $base-small-font-size;
+    }
+
+    .checkbox-description {
+      li {
+        font-size: $base-small-font-size;
+        list-style: inside square;
+      }
+    }
+
+    .development_maintenance_path {
+      margin-bottom: $spacing-small;
+    }
+  }
+
+  .separator {
+    margin-bottom: 6px;
+  }
+
+  .toggles {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+
+  .snagging {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+
+  .premium-perks {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    padding-bottom: $spacing-medium;
+
+    .half {
+      margin-bottom: $spacing-small;
+    }
+
+    .development_premium_perk_premium_licences_bought {
+      margin-bottom: $spacing-small;
+    }
+  }
+}
+
 // user form
 
 .user-form {
   .user-permissions {
     display: grid;
   }
-
-  background-color: $ui-white;
-  border-radius: 5px;
-  margin-bottom: $spacing-large * 2;
 
   .header-label {
     padding-left: $spacing-large;
