@@ -36,12 +36,13 @@
 en:
 
   back: "Back"
-  submit: "Submit"
   cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
   enabled: "Enabled"
   disabled: "Disabled"
   not_authorised: "You are not authorised to access this page"
   administered_by: "Administered by:"
+  enabled: "Enabled"
+  disabled: "Disabled"
 
   construction_type:
     home: "Home"
@@ -440,9 +441,6 @@ en:
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
-    phase_timelines: "Timelines"
-    phase_timelines_add: "New Phase Timeline"
-    phase_timelines_edit: "Edit Phase Timeline"
     development_csv: "Upload CSV"
     custom_tiles: "Custom Shortcuts"
     custom_tile_add: "New Custom Shortcut"
@@ -2274,7 +2272,6 @@ en:
       release_plots: "Release Plots"
       lettings: "Lettings"
       import: "Import CRM"
-      phase_timelines: "Timelines"
     new:
       title: "New Phase."
     update:
@@ -2359,17 +2356,6 @@ en:
     import_completion_dates:
       create:
           updated: "Completion Dates have successfully been updated for %{plots} plots."
-    phase_timelines:
-      new:
-        title: "Timeline Allocations"
-      edit:
-        title: "Timeline Allocations"
-      form:
-        description: "Use this page to associate timelines with plots on this phase. The Your Journey page will only show on plots that are listed in an Allocated Plots field below."
-        plots: "Associated plots"
-        warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
-        add_all_plots: "Add All Plots"
-        clear_all_plots: "Clear All Plots"
 
   choice_configurations:
     create:
@@ -3833,11 +3819,6 @@ en:
         confirm: "Please confirm the event(s) you wish to modify."
       single:
         confirm: "Are you sure you want to delete this event?"
-  phase_timelines:
-    collection:
-      name: "Timeline"
-      add: "Add Plot Timeline associations"
-      empty: "You have no Timeline Plot associations"
 
 
 

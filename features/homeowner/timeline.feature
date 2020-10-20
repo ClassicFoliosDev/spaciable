@@ -7,8 +7,9 @@ Feature: Homeowner Timeline
   Scenario: Homeowner with Timeline
     Given I have seeded the timeline
     And I have a TimelineFixture.england timeline
-    Given I am logged in as a homeowner with associated timeline TimelineFixture.england
+    Given I am logged in as a homeowner
     And FAQ metadata is available
+    And my home is associated with the TimelineFixture.england timeline
     Then I can begin My Journey
     And I can answer yes to task First
     And I can answer no to task Second

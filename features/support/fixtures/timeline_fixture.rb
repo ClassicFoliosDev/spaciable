@@ -150,17 +150,4 @@ module TimelineFixture
     load Rails.root.join("db/seeds", "lookups.rb")
   end
 
-  def enable_developer_timeline
-    CreateFixture.developer.update_attribute(:timeline, true)
-  end
-
-  def on_journey(plot, timeline)
-    p = Plot.find_by(number: plot)
-    t = Timeline.find_by(title: timeline)
-    pht = PhaseTimeline.find_by(phase: p.phase, timeline: t)
-    pt = PlotTimeline.create(plot: p, phase_timeline: pht, task: t.tasks.to_a.last)
-    TaskLog.create(plot_timeline: pt)
-  end
-
-
 end

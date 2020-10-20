@@ -66,23 +66,3 @@ Feature: Timeline
     And I should see a TimelineFixture.england_copy timeline
     When I select the TimelineFixture.england_copy timeline
     Then tasks First to Tenth should appear in order for TimelineFixture.england_copy
-
-@javascript
-Scenario: Allocate Timelines
-  Given I am logged in as an admin
-  And there are phase plots
-  And the developer has timelines enabled
-  And I have seeded the timeline
-  And I have a TimelineFixture.england timeline
-  And I have a TimelineFixture.scotland timeline
-  Then I see a Timelines tab at phase level
-  And I see no allocated timelines for the phase
-  And I can allocate plots 1,2,3 to TimelineFixture.england
-  And I can use Add All Plots to allocate plots 4,5,6,7,8,9,10 to TimelineFixture.scotland. TimelineFixture.england and plots 1,2,3 are't available for selection
-  And I can delete plots 5,7,9 Clear All Plots and allocate plots 4,10 on TimelineFixture.scotland
-  Given plots 1,2 have started along TimelineFixture.england
-  And plots 5,9 have started along TimelineFixture.scotland
-  And I delete the phase timeline for TimelineFixture.england
-  And I delete the TimelineFixture.scotland timeline
-  Then all timeline dependencies are deleted
-

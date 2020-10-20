@@ -4,13 +4,12 @@
 # A PlotTimeline records progress along a Timeline and
 # homeowner responses via Task_Logs
 class PlotTimeline < ApplicationRecord
-  belongs_to :phase_timeline, required: true
+  belongs_to :timeline, required: true
   belongs_to :plot, required: true
   belongs_to :task
   has_many :task_logs, dependent: :destroy
 
-  delegate :live?, to: :phase_timeline
-  delegate :timeline, to: :phase_timeline
+  delegate :live?, to: :timeline
 
   # Log non not_applicable responses for a Task.
   def log(task, response)
@@ -27,13 +26,5 @@ class PlotTimeline < ApplicationRecord
   def progress_percent
     return 0 unless timeline.tasks.count.positive?
     ((task_logs.where(response: "positive").count.to_f / timeline.tasks.count) * 100).to_i
-  end
-
-  # Reset to the start
-  def reset
-    task_logs.destroy
-    self.task_id = nil
-    self.complete = false
-    save
   end
 end

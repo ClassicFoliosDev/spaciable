@@ -3,7 +3,7 @@
 module HomeownerUserFixture
   module_function
 
-  def create(timeline: nil)
+  def create
     country = FactoryGirl.create(:country)
     developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
     division = FactoryGirl.create(:division, division_name: division_name, developer_id: developer.id)
@@ -18,8 +18,6 @@ module HomeownerUserFixture
     phase = FactoryGirl.create(:phase, name: phase_name, development_id: development.id)
 
     plot = FactoryGirl.create(:phase_plot, number: plot_number, phase_id: phase.id, prefix: "Flat", completion_date: completion_date)
-
-    associate_timeline(timeline) if timeline
 
     resident = create_without_residency
     FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id, role: :homeowner)
@@ -40,8 +38,7 @@ module HomeownerUserFixture
   end
 
   def associate_timeline(timeline)
-    phase_timeline = PhaseTimeline.create(timeline: Timeline.find_by(title: timeline), phase: plot.phase)
-    plot_timeline = FactoryGirl.create(:plot_timeline, plot: plot, phase_timeline: phase_timeline)
+    plot_timeline = FactoryGirl.create(:plot_timeline, plot: plot, timeline: Timeline.find_by(title: timeline))
   end
 
   def create_more_plot_residencies

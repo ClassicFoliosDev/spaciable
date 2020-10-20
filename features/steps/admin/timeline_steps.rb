@@ -195,6 +195,10 @@ When(/^I import the TimelineFixture.england timeline$/) do
   click_on t("developers.form.timeline")
 end
 
+When(/^my home is associated with the (.*) timeline$/) do |timeline|
+  HomeownerUserFixture.associate_timeline(eval(timeline))
+end
+
 When(/^my home is not associated with the (.*) timeline$/) do |timeline|
   expect PlotTimeline.count == 0
 end
@@ -359,114 +363,3 @@ end
 def check_status(task_title, positive = true)
   find(:xpath, "//li[contains(@class,'#{positive ? :complete : :negative}')]/a[text()='#{task_title}']")
 end
-
-Then(/^the developer has timelines enabled$/) do
-  TimelineFixture.enable_developer_timeline
-end
-
-Then(/^I see a Timelines tab at phase level$/) do
-  visit "/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}"
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
-  expect(page).to have_content(t("phases.collection.phase_timelines"))
-end
-
-Then(/^I see no allocated timelines for the phase$/) do
-  click_on t("phases.collection.phase_timelines")
-  expect(page).to have_content(t("phase_timelines.collection.empty"))
-end
-
-Then(/^I can allocate plots (.*) to (.*)$/) do |plots, timeline|
-  click_on t("phase_timelines.collection.add")
-  find(".phase_timeline_timeline_id")
-  select_from_selectmenu :phase_timeline_timeline_id, with: eval(timeline)
-  plots.split(",").each do |plot|
-    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: all
-  end
-
-  click_on "Submit"
-
-  # page loaded
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
-
-  expect(page).to have_content(plots)
-  expect(page).to have_content(eval(timeline))
-end
-
-Then(/^I can use Add All Plots to allocate plots (.*) to (.*). (.*) and plots (.*) are't available for selection$/) do |add_plots, to_timeline, unavailable_plots, unavailable_timeline|
-  click_on t("phase_timelines.collection.add")
-  find(".phase_timeline_timeline_id")
-
-  expect(page).not_to have_selector(:xpath, "//option[contains(text(),'#{unavailable_timeline}')]")
-  unavailable_plots.split(",").each do |plot|
-    expect(page).not_to have_selector(:xpath, "//option[contains(text(),'Plot #{plot}')]")
-  end
-
-  click_on t("phases.phase_timelines.form.add_all_plots")
-  click_on "Submit"
-
-  # page loaded
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
-  expect(page).to have_content(add_plots)
-  expect(page).to have_content(eval(to_timeline))
-end
-
-Then(/^I can delete plots ([\d+,?]*) Clear All Plots and allocate plots ([\d+,?]*) on (.*)$/) do |delete_plots, add_plots, timeline|
-  scope = find(:xpath, "//a[text()='#{eval(timeline)}']/parent::td/parent::tr")
-  within scope do
-    find("[data-action='edit']").click
-  end
-
-  delete_plots.split(",").each do |plot|
-    selector = "//li[contains(@title,'Plot #{plot}')]/span"
-    find(:xpath, selector).trigger('click')
-    expect(page).not_to have_selector(:xpath, selector)
-  end
-
-  find("#clear_timeline_plots").trigger('click')
-
-  add_plots.split(",").each do |plot|
-    select "Plot #{plot}", from: :phase_timeline_plot_ids, visible: all
-  end
-
-  click_on "Submit"
-
-  # page loaded
-  find(:xpath,"//div/a/i[contains(@class, 'fa-clock-o')]")
-  expect(page).to have_content(add_plots)
-  expect(page).to have_content(eval(timeline))
-end
-
-Then(/^plots ([\d+,?]*) have started along (.*)$/) do |plots, timeline|
-  plots.split(",").each do |plot|
-    TimelineFixture.on_journey(plot, eval(timeline))
-  end
-end
-
-Then(/^I delete the phase timeline for (.*)$/) do |timeline|
-  find("[data-name='#{eval(timeline)}']").trigger('click')
-  find(".btn-delete").trigger('click')
-  success_flash = t("controller.success.destroy",name: eval(timeline))
-
-  expect(page).to have_content(success_flash)
-end
-
-Then(/^I delete the (.*) timeline$/) do |timeline|
-  t = Timeline.find_by(title: eval(timeline))
-  visit "/global/1/timelines"
-  find("[data-name='#{eval(timeline)}']").trigger('click')
-  find(".btn-delete").trigger('click')
-  success_flash = t("controller.success.destroy",name: eval(timeline))
-
-  expect(page).to have_content(success_flash)
-end
-
-Then(/^all timeline dependencies are deleted$/) do
-  expect(PlotTimeline.all.count).to eql 0
-  expect(TaskLog.all.count).to eql 0
-  expect(PhaseTimeline.all.count).to eql 0
-end
-
-
-
-
-
