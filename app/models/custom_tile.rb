@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+#rubocop:disable all
 class CustomTile < ApplicationRecord
   include HTTParty
 
@@ -131,3 +132,4 @@ class CustomTile < ApplicationRecord
     link !~ /\A(http)/ ? "https://#{link}" : link
   end
 end
+#rubocop:enable all
