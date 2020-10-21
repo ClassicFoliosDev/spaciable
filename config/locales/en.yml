@@ -1701,7 +1701,7 @@ en:
           error: "Currently unavailable. Please try again later."
         timeline:
           title: "Your Journey"
-          description: "This is your timeline, need description text."
+          description: "Track your progress towards your move and pick up plenty of tips along the way."
           button: "Your Journey"
 
     communication_preferences:
