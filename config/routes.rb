@@ -346,6 +346,7 @@ Rails.application.routes.draw do
   get "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
   get "/zoho/callback", to: 'authorisation#oauth_callback'
   post "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
+  get "/salesforce/callback", to: 'salesforce_authorisation#oauth_callback'
 
   authenticated :resident do
     root "homeowners/dashboard#show", as: :homeowner_dashboard

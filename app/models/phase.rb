@@ -173,7 +173,8 @@ class Phase < ApplicationRecord
     raise "#{name} does not have an associated CRM" unless crm
 
     filtered_plots(plot_numbers) do |fplots|
-      Crms::Zoho.new(self).documents_for(development, fplots, :number)
+      "Crms::#{crm.name}".classify.constantize.new(self)
+                         .documents_for(development, fplots, :number)
     end
   end
 
@@ -182,7 +183,7 @@ class Phase < ApplicationRecord
     raise "#{name} does not have an associated CRM" unless crm
 
     filtered_plots(plot_numbers) do |fplots|
-      Crms::Zoho.new(self).completion_dates(development, fplots)
+      "Crms::#{crm.name}".classify.constantize.new(self).completion_dates(development, fplots)
     end
   end
 
@@ -191,7 +192,7 @@ class Phase < ApplicationRecord
     raise "#{name} does not have an associated CRM" unless crm
 
     filtered_plots(plot_numbers) do |fplots|
-      Crms::Zoho.new(self).residents(development, fplots)
+      "Crms::#{crm.name}".classify.constantize.new(self).residents(development, fplots)
     end
   end
 

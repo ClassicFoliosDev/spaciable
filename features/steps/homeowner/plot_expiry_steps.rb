@@ -584,14 +584,9 @@ end
 Then(/^I cannot see the new video$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
   login_as resident
-  visit "/"
+  visit "/homeowners/library/my_home"
 
-  within ".library-component" do
-    click_on I18n.t("homeowner.dashboard.cards.library.view_more")
-  end
-
-  sleep 0.5
-
+  find(".library-categories", visible: all, wait: 5)
   within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
