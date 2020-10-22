@@ -32,13 +32,9 @@ module PhaseFixture
 
   def development_address_attrs
     {
-      postal_number: "Langosh Fort",
-      building_name: "Mega Building",
-      road_name: "Swampy Road",
       locality: "Local Ity",
       city: "Wadeland",
       county: "Gibsonton",
-      postcode: "RG13 5HY"
     }
   end
 
@@ -46,7 +42,6 @@ module PhaseFixture
     {
       locality: "Catalan",
       city: "Barc",
-      postcode: "211022"
     }
   end
 

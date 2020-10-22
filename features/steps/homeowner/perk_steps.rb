@@ -43,7 +43,7 @@ When(/^I create a perks developer$/) do
 
   click_on t("developers.index.add")
   fill_in "developer_company_name", with: PerkFixture.developer_name
-  check "enable_perks"
+  find("#developer_enable_perks").trigger(:click)
 
   click_on t("developers.form.submit")
 end
@@ -57,7 +57,7 @@ Then(/^I should see the created perks developer$/) do
     find("[data-action='edit']").click
   end
 
-  expect(find_field("enable_perks").value).to eq "1"
+  expect(find_field("developer_enable_perks").value).to eq "1"
 end
 
 When(/^I update the perks developer with branded perks$/) do
@@ -189,7 +189,7 @@ When(/^I do not enter a premium licence duration$/) do
 end
 
 Then(/^I see an error telling me to enter a premium licence duration$/) do
-  within find(".submission-errors") do
+  within find(".submission-errors", wait: 5) do
     expect(page).to have_content("Premium perk premium licence duration is not a number")
   end
 end
@@ -198,8 +198,6 @@ Then(/^I do not enter a premium licence quantity$/) do
   # enter a premium licence duration, but change premium licences bought to 0
   fill_in "development_premium_perk_attributes_premium_licences_bought", with: "0"
   fill_in "development_premium_perk_attributes_premium_licence_duration", with: "12"
-
-
 
   within ".form-actions-footer" do
     click_on t("developments.form.submit")

@@ -29,6 +29,7 @@
           <%= fields.input :city %>
           <%= fields.input :county %>
         <% else %>
+          <%= fields.input :locality, label: false, placeholder: t("spanish_addresses.placeholders.locality")  %>
           <%= fields.input :city, label: false, placeholder: t("spanish_addresses.placeholders.city") %>
         <% end %>
       <% end %>

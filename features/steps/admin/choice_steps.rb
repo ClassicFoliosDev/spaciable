@@ -18,9 +18,6 @@ When(/^I want to create a development for the developer$/) do
   click_on t("developments.index.add")
 
   fill_in "development_name", with: CreateFixture.development_name
-  DeveloperDevelopmentFixture.update_attrs.each do |attr, value|
-    fill_in "development_#{attr}", with: value
-  end
 end
 
 Then(/^choice options should be off by default$/) do

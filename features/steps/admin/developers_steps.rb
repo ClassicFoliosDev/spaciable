@@ -31,11 +31,7 @@ When(/^I update the developer$/) do
     fill_in "developer_#{attr}", with: value
   end
 
-  DeveloperFixture.developer_address_attrs.each do |attr, value|
-    fill_in "developer_address_attributes_#{attr}", with: value
-  end
-
-  check "developer_house_search"
+  find("#developer_house_search").trigger(:click)
   check "developer_enable_services"
   check "developer_enable_development_messages"
   uncheck "developer_enable_roomsketcher"
@@ -53,10 +49,6 @@ Then(/^I should see the updated developer$/) do
 
   within ".section-data" do
     DeveloperFixture.update_attrs.each do |_attr, value|
-      expect(page).to have_content(value)
-    end
-
-    DeveloperFixture.developer_address_attrs.each do |_attr, value|
       expect(page).to have_content(value)
     end
 
@@ -140,41 +132,6 @@ When(/^I open the new developer page$/) do
 
   click_on t("developers.index.add")
 
-end
-
-Then(/^I should see UK address format$/) do
-
-  find_field(:developer_address_attributes_postal_number).should be_visible
-  find_field(:developer_address_attributes_road_name).should be_visible
-  find_field(:developer_address_attributes_building_name).should be_visible
-  find_field(:developer_address_attributes_locality).should be_visible
-  find_field(:developer_address_attributes_city).should be_visible
-  find_field(:developer_address_attributes_county).should be_visible
-  find_field(:developer_address_attributes_postcode).should be_visible
-
-end
-
-When(/^I create a new spanish developer and edit it$/) do
-  CreateFixture.create_spanish_developer
-end
-
-Then(/^I should see Spanish address format$/) do
-
-  developer = Developer.find_by(company_name: CreateFixture.spanish_developer_name)
-  visit "/developers/#{developer.id}/edit"
-
-  ignore = Capybara.ignore_hidden_elements
-  Capybara.ignore_hidden_elements = false
-
-  find_field(:developer_address_attributes_postal_number).should_not be_visible
-  find_field(:developer_address_attributes_road_name).should_not be_visible
-  find_field(:developer_address_attributes_building_name).should_not be_visible
-  find_field(:developer_address_attributes_locality).should be_visible
-  find_field(:developer_address_attributes_city).should be_visible
-  find_field(:developer_address_attributes_county).should_not be_visible
-  find_field(:developer_address_attributes_postcode).should be_visible
-
-  Capybara.ignore_hidden_elements = ignore
 end
 
 Then(/^I should (not )*see CAS visable and enabled at the development$/) do |not_visible|

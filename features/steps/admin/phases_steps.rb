@@ -206,7 +206,6 @@ Then(/^I should see a spanish developer address pre-filled$/) do
 
   expect(find_field(:phase_address_attributes_locality).value).to eq PhaseFixture.spanish_development_address_attrs[:locality]
   expect(find_field(:phase_address_attributes_city).value).to eq PhaseFixture.spanish_development_address_attrs[:city]
-  expect(find_field(:phase_address_attributes_postcode).value).to eq PhaseFixture.spanish_development_address_attrs[:postcode]
 
   Capybara.ignore_hidden_elements = ignore
 end

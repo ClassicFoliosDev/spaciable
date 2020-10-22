@@ -45,10 +45,6 @@ When(/^I update the developers development$/) do
 
   fill_in "development_name", with: DeveloperDevelopmentFixture.updated_development_name
 
-  DeveloperDevelopmentFixture.update_attrs.each do |attr, value|
-    fill_in "development_#{attr}", with: value
-  end
-
   DeveloperDevelopmentFixture.development_address_update_attrs.each do |attr, value|
     fill_in "development_address_attributes_#{attr}", with: value
   end
@@ -150,7 +146,6 @@ Then(/^I see a Spanish format address$/) do
   find_field(:development_address_attributes_locality).should be_visible
   find_field(:development_address_attributes_city).should be_visible
   expect(page).not_to have_selector('#developer_address_attributes_county')
-  find_field(:development_address_attributes_postcode).should be_visible
 
   Capybara.ignore_hidden_elements = ignore
 end

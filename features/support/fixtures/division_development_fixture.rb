@@ -11,13 +11,6 @@ module DivisionDevelopmentFixture
     "Forest View"
   end
 
-  def update_attrs
-    {
-      email: "hamble.developers@example.com",
-      contact_number: "07713538572",
-    }
-  end
-
   def update_snagging
     {
       snag_duration: "56",
@@ -27,12 +20,8 @@ module DivisionDevelopmentFixture
 
   def development_address_update_attrs
     {
-      postal_number: "Langosh Fort",
-      building_name: "Mega Building",
-      road_name: "Swampy Road",
       city: "Wadeland",
       county: "Gibsonton",
-      postcode: "RG13 5HY"
     }
   end
 end
