@@ -183,7 +183,7 @@
 .development-form {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(3, auto);
+  grid-template-rows: repeat(5, auto);
 
   fieldset {
     padding: 0 $spacing-medium;
@@ -197,11 +197,19 @@
     grid-row-end: 2;
   }
 
+  .address {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding-bottom: $spacing-small;
+  }
+
   .maintenance {
     grid-column-start: 2;
     grid-column-end: 4;
-    grid-row-start: 1;
-    grid-row-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
 
     .maintenance-type {
       width: 45%;
@@ -232,20 +240,24 @@
     grid-column-end: 2;
     grid-row-start: 3;
     grid-row-end: 4;
+
+    .timeline-label {
+      padding-top: 34px;
+    }
   }
 
   .snagging {
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 6;
   }
 
   .premium-perks {
     grid-column-start: 3;
     grid-column-end: 4;
-    grid-row-start: 3;
-    grid-row-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
     padding-bottom: $spacing-medium;
 
     .half {
@@ -254,6 +266,17 @@
 
     .development_premium_perk_premium_licences_bought {
       margin-bottom: $spacing-small;
+    }
+  }
+
+  .choices {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 6;
+
+    .checkbox-description {
+      padding-bottom: $spacing-large - 1px;
     }
   }
 }

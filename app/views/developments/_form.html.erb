@@ -16,20 +16,22 @@
   <div class="form-row development-form">
     <fieldset class="about">
       <%= f.input :name, label: t(".name") %>
+            <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
+      <div id="construction_name">
+        <%= f.input :construction_name, label: t(".construction_name") %>
+      </div>
+    </fieldset>
 
+    <fieldset class="address">
       <%= f.simple_fields_for :address do |fields| %>
         <% if(development.country.uk?) %>
+          <%= fields.input :locality %>
           <%= fields.input :city %>
           <%= fields.input :county %>
         <% else %>
           <%= fields.input :city, label: false, placeholder: t("spanish_addresses.placeholders.city") %>
         <% end %>
       <% end %>
-
-      <%= f.input :construction, label: t(".construction"), as: :select, collection: construction_collection, include_blank: false %>
-      <div id="construction_name">
-        <%= f.input :construction_name, label: t(".construction_name") %>
-      </div>
     </fieldset>
 
     <fieldset class="maintenance">
@@ -64,8 +66,7 @@
       <% end %>
 
       <% if development.parent_developer.timeline %>
-        <br/>
-        <%= f.label :timeline %>
+        <%= f.label :timeline, class: "timeline-label" %>
         <span class="checkbox-description"><%= t("timelines.default") %></span>
         <%= f.input :timeline_id,
             as: :select,
@@ -75,12 +76,9 @@
             include_blank: t("timelines.turned_off"),
             selected: development.timeline_id %>
         <% end %>
-
-<!--      <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>-->
-<!--      <div id="choices_email_contact">-->
-<!--        <%= f.input :choices_email_contact, label: t(".choices_email") %>-->
-<!--      </div>-->
     </fieldset>
+
+    <div class="separator"></div>
 
     <fieldset class="snagging">
       <%= f.label :enable_snagging, t(".snagging"), class: "header-label" %>
@@ -117,6 +115,15 @@
             <% end %>
           <% end %>
         </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="choices">
+      <%= f.label :choices, t(".choices"), class: "header-label" %>
+      <span class="checkbox-description"><%= t(".choices_description") %></span>
+      <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>
+      <div id="choices_email_contact">
+        <%= f.input :choices_email_contact, label: t(".choices_email") %>
       </div>
     </fieldset>
   </div>

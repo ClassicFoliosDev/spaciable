@@ -1326,6 +1326,8 @@ en:
       construction_name: "Replace My 'Home':"
       calendar: "Calendar"
       calendar_description: "Enable plot level Calendar for all plots under this development."
+      choices: "Choices"
+      choices_description: "Choices for finishes and appliances can be selected by client admins or end residents. The selected options are sent to the email specified. This feature is currently an MVP and under development."
     index:
       add: "Add Development"
     development:
