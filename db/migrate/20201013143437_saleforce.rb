@@ -1,7 +1,4 @@
 class Saleforce < ActiveRecord::Migration[5.0]
-  def change
-    add_reference :access_tokens, :crm, foreign_key: true
-  end
 
   def change
    reversible do |direction|
@@ -16,6 +13,5 @@ class Saleforce < ActiveRecord::Migration[5.0]
       }
     end
   end
-
 
 end

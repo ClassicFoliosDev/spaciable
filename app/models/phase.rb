@@ -25,9 +25,11 @@ class Phase < ApplicationRecord
   has_many :plot_residencies, through: :plots
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
+  has_many :phase_timelines, dependent: :destroy
 
   delegate :enable_snagging, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
+  delegate :timeline, to: :developer
 
   has_many :contacts, as: :contactable, dependent: :destroy
 

@@ -741,6 +741,13 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
+  create_table "phase_timelines", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "phase_id"
+    t.index ["phase_id"], name: "index_phase_timelines_on_phase_id", using: :btree
+    t.index ["timeline_id"], name: "index_phase_timelines_on_timeline_id", using: :btree
+  end
+
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
@@ -778,13 +785,13 @@ ActiveRecord::Schema.define(version: 20201013143437) do
   end
 
   create_table "plot_timelines", force: :cascade do |t|
-    t.integer "timeline_id"
+    t.integer "phase_timeline_id"
     t.integer "plot_id"
     t.integer "task_id"
-    t.boolean "complete",    default: false
+    t.boolean "complete",          default: false
+    t.index ["phase_timeline_id"], name: "index_plot_timelines_on_phase_timeline_id", using: :btree
     t.index ["plot_id"], name: "index_plot_timelines_on_plot_id", using: :btree
     t.index ["task_id"], name: "index_plot_timelines_on_task_id", using: :btree
-    t.index ["timeline_id"], name: "index_plot_timelines_on_timeline_id", using: :btree
   end
 
   create_table "plots", force: :cascade do |t|
@@ -1208,15 +1215,17 @@ ActiveRecord::Schema.define(version: 20201013143437) do
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
+  add_foreign_key "phase_timelines", "phases"
+  add_foreign_key "phase_timelines", "timelines"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"
   add_foreign_key "plot_residencies", "plots"
   add_foreign_key "plot_residencies", "residents"
   add_foreign_key "plot_residencies", "tasks"
+  add_foreign_key "plot_timelines", "phase_timelines"
   add_foreign_key "plot_timelines", "plots"
   add_foreign_key "plot_timelines", "tasks"
-  add_foreign_key "plot_timelines", "timelines"
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"

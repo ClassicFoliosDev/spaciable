@@ -3,7 +3,10 @@
 namespace :saleforce do
   desc "Load Saleforce connection config data - assume Developer 'Marvelous Homes'"
   task initialise: :environment do
+    init_salesforce
+  end
 
+  def init_salesforce
     developer = Developer.find_by(company_name: "Marvelous Homes")
     return unless developer
     return if Crm.find_by(developer_id: developer.id)

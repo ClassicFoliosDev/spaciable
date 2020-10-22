@@ -1,0 +1,10 @@
+<% breadcrumb :phase_timelines, @phase %>
+
+<%= render "/phases/phase", phase: @phase %>
+
+<div class="phase-timelines-index">
+  <%= render 'components/tabs', tabs: phase_tabs(@phase, nil, current_user) %>
+
+<%= render "/phase_timelines/collection", collection: @phase_timelines, parent: @phase %>
+
+</div>
