@@ -522,7 +522,8 @@ en:
         res_order_number: "Reservation Order Number"
         comp_order_number: "Completion Order Number"
       plot_address_fields:
-        copy_plot_numbers: "Use Plot Number for Postal Number"
+        copy_plot_numbers: "Plot Number is Postal Number"
+        copy_plot_numbers_description: "Plots will inherit their plot number as their postal number."
         postal_address: "Postal Address"
         prefix: "Postal Prefix"
       spanish_plot_address_fields:
