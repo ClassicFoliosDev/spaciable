@@ -1,35 +1,41 @@
 <% readonly = defined?(disabled) ? disabled : false %>
-<div class="row-item third">
-  <fieldset>
-    <% if plot.nil? || !plot.persisted? %>
-      <div class="plot-field">
-        <%= f.input :copy_plot_numbers, as: :boolean, class: "copy-plot-numbers", label: t(".copy_plot_numbers"), disabled: readonly %>
-      </div>
-    <% end %>
+<div class="copy-plot-numbers">
+  <% if plot.nil? || !plot.persisted? %>
     <div class="plot-field">
-      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :prefix_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
-      <%= f.input :prefix, placeholder: t("addresses.placeholders.prefix"), label: t(".prefix"), disabled: readonly %>
+      <%= f.label :copy_plot_numbers, t(".copy_plot_numbers"), class: "checkbox-label" %>
+      <%= f.check_box :copy_plot_numbers, class: "copy-plot-numbers", label: false, disabled: readonly %>
+      <span class="checkbox-description"><%= t(".copy_plot_numbers_description") %></span>
     </div>
-    <div class="plot-field">
-      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :house_number_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
-      <%= f.input :house_number, label: t(".postal_address"), placeholder: t("addresses.placeholders.postal"), disabled: readonly %>
-    </div>
-    <div class="plot-field">
-      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :building_name_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
-      <%= f.input :building_name, label: false, placeholder: t("addresses.placeholders.building"), disabled: readonly %>
-    </div>
-    <div class="plot-field">
-      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :road_name_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
-      <%= f.input :road_name, label: false, placeholder: t("addresses.placeholders.road"), disabled: readonly %>
-    </div>
-    <div class="plot-field">
-      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :postcode_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
-      <%= f.input :postcode, disabled: readonly %>
-    </div>
-    <% if plot.present? %>
-      <div class="address-read-only"><%= f.input :locality, readonly: true, class: "readonly" %></div>
-      <div class="address-read-only"><%= f.input :city, readonly: true, class: "readonly" %></div>
-      <div class="address-read-only"><%= f.input :county, readonly: true, class: "readonly" %></div>
-    <% end %>
-  </fieldset>
+  <% end %>
+</div>
+
+<div class="local-address">
+  <div class="plot-field">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :prefix_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
+    <%= f.input :prefix, placeholder: t("addresses.placeholders.prefix"), label: t(".prefix"), disabled: readonly %>
+  </div>
+  <div class="plot-field">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :house_number_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
+    <%= f.input :house_number, label: t(".postal_address"), placeholder: t("addresses.placeholders.postal"), disabled: readonly %>
+  </div>
+  <div class="plot-field">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :building_name_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
+    <%= f.input :building_name, label: false, placeholder: t("addresses.placeholders.building"), disabled: readonly %>
+  </div>
+  <div class="plot-field">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :road_name_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
+    <%= f.input :road_name, label: false, placeholder: t("addresses.placeholders.road"), disabled: readonly %>
+  </div>
+  <div class="plot-field">
+    <% if plot.nil? %><span class="bulk-check"><%= f.input_field :postcode_check, as: :boolean, label: false, disabled: readonly %></span><% end %>
+    <%= f.input :postcode, disabled: readonly %>
+  </div>
+</div>
+
+<div class="read-only-address">
+  <% if plot.present? %>
+    <div class="address-read-only"><%= f.input :locality, readonly: true, class: "readonly" %></div>
+    <div class="address-read-only"><%= f.input :city, readonly: true, class: "readonly" %></div>
+    <div class="address-read-only"><%= f.input :county, readonly: true, class: "readonly" %></div>
+  <% end %>
 </div>

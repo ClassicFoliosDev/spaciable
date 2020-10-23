@@ -1,34 +1,49 @@
-<div class="plot-field res-order-number">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_order_number_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :reservation_order_number, label: t(".res_order_number") %>
-</div>
-<div class="plot-field comp-order-number">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_order_number_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :completion_order_number, label: t(".comp_order_number") %>
-</div>
-<div class="plot-field">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_release_date_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :reservation_release_date, label: t(".res_release_date"), as: :string,
-     placeholder: "DD/MM/YYYY",
-     input_html: { type: :date, :value => f.object&.reservation_release_date&.html } %>
-</div>
-<div class="plot-field">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_release_date_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :completion_release_date, label: t(".comp_release_date"), as: :string,
-             placeholder: "DD/MM/YYYY",
-             input_html: { type: :date, :value => f.object&.completion_release_date&.html } %>
-</div>
-<div class="plot-field validity">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :validity_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
-</div>
-<div class="plot-field extended_access">
-  <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
-  <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
-</div>
-<% if plot&.persisted? && plot&.completion_release_date %>
-  <div class="plot-field">
-    <%= f.label t(".expiry_date") %>
-    <span><%= plot&.expiry_date&.strftime("%d %B %Y") %></span>
+<div class="plot-date-fields">
+  <div class="order-number">
+    <div class="plot-field res-order-number">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_order_number_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :reservation_order_number, label: t(".res_order_number") %>
+    </div>
+    <div class="plot-field comp-order-number">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_order_number_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :completion_order_number, label: t(".comp_order_number") %>
+    </div>
   </div>
-<% end %>
+
+  <div class="release-date">
+    <div class="plot-field">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :reservation_release_date_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :reservation_release_date, label: t(".res_release_date"), as: :string,
+      placeholder: "DD/MM/YYYY",
+      input_html: { type: :date, :value => f.object&.reservation_release_date&.html } %>
+    </div>
+    <div class="plot-field">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :completion_release_date_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :completion_release_date, label: t(".comp_release_date"), as: :string,
+      placeholder: "DD/MM/YYYY",
+      input_html: { type: :date, :value => f.object&.completion_release_date&.html } %>
+    </div>
+  </div>
+
+  <div class="plot-validity">
+    <div class="plot-field validity">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :validity_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :validity, label: t("activerecord.attributes.plot.validity"), min: 0 %>
+    </div>
+    <div class="plot-field extended_access">
+      <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
+      <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
+    </div>
+    <% if plot&.persisted? && plot&.completion_release_date %>
+    <div class="plot-field">
+      <%= f.label :expiry_date, t(".expiry_date") %>
+      <span class="expiry-date"><%= plot&.expiry_date&.strftime("%d %B %Y") %></span>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+

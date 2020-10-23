@@ -1,0 +1,780 @@
+// ****** globals ******
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  color: $primary-navy;
+  background-color: $ui-white;
+  border-radius: 5px;
+  margin-bottom: $spacing-large * 2;
+
+  .input {
+    margin-bottom: $spacing-medium;
+  }
+
+  .separator {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: 1px;
+    background-color: $ui-grey;
+    margin: 0 $spacing-large;
+  }
+
+  .checkbox-label {
+    display: inline-block;
+    padding-left: 5px;
+  }
+
+  .header-label {
+    font-size: $title-font-size-5;
+    margin-top: $spacing-small;
+  }
+
+  input[type="checkbox"] {
+    display: inline-block;
+    float: left;
+    margin-top: 14px;
+  }
+
+  span.checkbox-description {
+    display: block;
+    font-size: $base-small-font-size;
+    padding-bottom: $label-margin;
+    margin-left: 0;
+  }
+}
+
+.form-column {
+  padding: $spacing-medium $spacing-large;
+}
+
+// ****** specific forms ******
+
+// developer form
+
+.developer-form {
+  color: $primary-navy;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+
+  fieldset {
+    padding: 0 $spacing-medium;
+    padding-top: $spacing-small;
+  }
+
+  .separator {
+    margin: $spacing-small $spacing-large;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+  }
+
+  .mailchimp {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+
+    textarea {
+      min-height: 90px;
+    }
+  }
+
+  .notes {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    align-self: end;
+
+    textarea {
+      min-height: 124px;
+    }
+  }
+
+  .admin-features {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 4;
+    padding-bottom: 16px;
+  }
+
+  .resident-links {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 4;
+  }
+
+  .resident-features {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 4;
+  }
+
+  .planet-rent {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 6;
+  }
+
+  .branded-buyers-club {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 6;
+    padding-bottom: $spacing-medium;
+  }
+}
+
+#developer_prime_lettings_admin-menu li {
+  font-size: $base-small-font-size;
+}
+
+// division form
+
+.division-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+
+  fieldset {
+    padding: 0 $spacing-medium;
+    padding-top: $spacing-small;
+  }
+
+  .separator {
+    margin: $spacing-small $spacing-large;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .planet-rent {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+
+  .timeline {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+}
+
+#division_prime_lettings_admin-menu li {
+  font-size: $base-small-font-size;
+}
+
+// development form
+
+#development_timeline_id-menu li {
+  font-size: $base-small-font-size;
+}
+
+.development-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+
+  fieldset {
+    padding: 0 $spacing-medium;
+    padding-top: $spacing-small;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+  }
+
+  .address {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding-bottom: $spacing-small;
+  }
+
+  .maintenance {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+
+    .maintenance-type {
+      width: 45%;
+    }
+
+    li {
+      font-size: $base-small-font-size;
+    }
+
+    .checkbox-description {
+      li {
+        font-size: $base-small-font-size;
+        list-style: inside square;
+      }
+    }
+
+    .development_maintenance_path {
+      margin-bottom: $spacing-small;
+    }
+  }
+
+  .separator {
+    margin-bottom: 6px;
+  }
+
+  .toggles {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+
+    .timeline-label {
+      padding-top: 34px;
+    }
+  }
+
+  .snagging {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 5;
+    grid-row-end: 6;
+  }
+
+  .premium-perks {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    padding-bottom: $spacing-medium;
+
+    .half {
+      margin-bottom: $spacing-small;
+    }
+
+    .development_premium_perk_premium_licences_bought {
+      margin-bottom: $spacing-small;
+    }
+  }
+
+  .choices {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 5;
+    grid-row-end: 6;
+
+    .checkbox-description {
+      padding-bottom: $spacing-large - 1px;
+    }
+  }
+}
+
+// plot form
+
+.plot-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(6, auto);
+  margin-bottom: $spacing-large * 5;
+
+  input[disabled="disabled"], input[disabled] {
+    background-color: $pale-navy;
+    color: $primary-navy;
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  fieldset {
+    padding: 0 $spacing-medium;
+    padding-top: $spacing-small;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    .bulk-plot-select {
+      padding: 0;
+
+      span {
+        font-size: $base-small-font-size;
+      }
+    }
+  }
+
+  .address {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding-bottom: $spacing-medium;
+
+    .standard-address-format {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+
+      .copy-plot-numbers {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        padding: 0 $spacing-medium;
+        padding-top: $spacing-medium + 2px;
+      }
+
+      .local-address {
+        padding: 0 $spacing-medium;
+        padding-left: 0;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 3;
+      }
+
+      .read-only-address {
+        padding: 0 $spacing-medium;
+        padding-bottom: $spacing-small;
+        padding-right: 0;
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        align-self: end;
+
+        .readonly input {
+          border: 1px solid $primary-navy !important;
+          background-color: $pale-navy;
+          color: $primary-navy;
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .build-progress-section {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    padding-bottom: $spacing-medium;
+    padding-top: 4px;
+
+    .plot-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+
+      .plot-progress-fields {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        padding-right: $spacing-medium;
+      }
+
+      .move-in-date {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        padding-left: $spacing-medium;
+        align-self: end;
+      }
+
+      .plot_completion_date {
+        margin-bottom: 0;
+      }
+
+      .current-plot-progress {
+        font-size: $base-font-size;
+        color: $primary-navy;
+        opacity: 0.9;
+      }
+
+      .ui-selectmenu-menu .ui-menu {
+        max-height: 164px;
+      }
+    }
+  }
+
+  .plot-date-section {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    padding-top: $spacing-small + 4px;
+    padding-bottom: $spacing-medium;
+
+    .plot-date-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      .order-number {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding-right: $spacing-medium + 6px;
+      }
+
+      .release-date {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        padding: 0 14px;
+
+        input[type="date"] {
+          padding: 8px 10px 9px 10px ;
+        }
+      }
+
+      .plot-validity {
+        grid-column-start: 3;
+        grid-column-end: 4;
+        padding-right: $spacing-medium;
+        padding-left: $spacing-medium + 4px;
+
+        .expiry-date {
+          font-size: $base-font-size;
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+}
+
+#plot_unit_type_id-menu li {
+  font-size: $base-small-font-size;
+}
+
+#plot_progress-menu li {
+  font-size: $base-small-font-size;
+}
+
+// bulk edit form
+
+.bulk-edit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(6, auto);
+  padding-top: $spacing-large;
+
+  .bulk-plot-select {
+    padding: 0;
+
+    .hint {
+      font-size: $base-small-font-size;
+    }
+  }
+
+  fieldset {
+    padding: 0 $spacing-medium;
+    padding-top: $spacing-small;
+  }
+
+  .separator {
+    margin-top: $spacing-medium + $spacing-small;
+  }
+
+  .about {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    .select-plots-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+
+      .plots-select {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding-right: $spacing-large;
+      }
+
+      .instructions {
+        grid-column-start: 2;
+        grid-column-end: 4;
+        padding: 26px $spacing-large;
+        padding-left: $spacing-medium;
+
+        li {
+          list-style: inside square;
+          font-weight: $bold-font-weight;
+          padding-bottom: 14px;
+        }
+      }
+    }
+  }
+
+  .plot-date-section {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    padding-top: $spacing-small + 4px;
+    padding-bottom: $spacing-medium;
+
+    input[type="checkbox"] {
+      align-self: center;
+      margin-top: 36px;
+    }
+
+    .plot-date-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+
+      .order-number {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        padding-right: 36px;
+      }
+
+      .release-date {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        padding: 0 14px;
+        padding-right: 24px;
+
+        input[type="date"] {
+          padding: 8px 10px 9px 10px ;
+        }
+      }
+
+      .plot-validity {
+        grid-column-start: 3;
+        grid-column-end: 4;
+        padding-right: $spacing-medium;
+        padding-left: $spacing-medium;
+
+        .expiry-date {
+          font-size: $base-font-size;
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  .about-plot-fields {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    padding-right: 32px;
+  }
+
+  .address {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    padding-right: 32px;
+
+    .copy-plot-numbers {
+      display: grid;
+      grid-template-columns: 1fr;
+
+      .plot-field {
+        display: block;
+
+        .checkbox-label {
+          padding-left: 30px;
+        }
+
+        .checkbox-description {
+          padding-left: 43px;
+          padding-bottom: $spacing-small;
+        }
+      }
+    }
+
+    #phase_bulk_edit_road_name_check, #phase_bulk_edit_building_name_check {
+      margin-top: 2px;
+    }
+
+    #phase_bulk_edit_house_number_check, #phase_bulk_edit_prefix_check, #phase_bulk_edit_postcode_check {
+      margin-top: 36px;
+    }
+
+    #phase_bulk_edit_copy_plot_numbers {
+      margin-top: 24px;
+    }
+  }
+
+  .plot-field {
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+
+    .fix-checkbox {
+      align-self: center;
+      padding: 0;
+    }
+  }
+}
+
+#phase_bulk_edit_progress-menu li, #phase_bulk_edit_unit_type_id-menu li {
+  font-size: $base-small-font-size;
+}
+
+// user form
+
+.user-form {
+  .user-permissions {
+    display: grid;
+  }
+
+  .header-label {
+    padding-left: $spacing-large;
+    padding-top: $spacing-medium;
+    margin-bottom: 0;
+  }
+
+  .readonly {
+    margin-bottom: 13px;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .fa-trash-o {
+    padding-top: 5px;
+  }
+
+  .user-image {
+    .hidden {
+      display: none;
+    }
+  }
+
+  // email checkbox fields
+
+  .emails {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    .email-fields {
+      display: grid;
+      grid-template-rows: auto auto auto auto;
+      grid-template-columns: 1fr 1fr;
+
+      .receive_release_emails {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        display: none;
+      }
+
+      .cc-receive_release_emails {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        display: none;
+      }
+
+      .snag_notifications {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        display: none;
+      }
+
+      .cc-snag_notifications {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        display: none;
+      }
+
+      .receive_faq_emails {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        display: none;
+      }
+
+      .cc-receive_faq_emails {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        display: none;
+      }
+
+      .receive_invitation_emails {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        display: none;
+      }
+
+      .cc-receive_invitation_emails {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        display: none;
+      }
+
+      textarea {
+        min-height: 50px;
+      }
+    }
+  }
+
+  // -------------------
+
+  .update-password {
+    display: block;
+  }
+
+  .edit-password {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .header-label {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 2;
+    }
+
+    .current-password {
+      grid-row-start: 2;
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+
+    .new-password {
+      grid-row-start: 2;
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+
+    .confirm-new-password {
+      grid-row-start: 2;
+      grid-column-start: 3;
+      grid-column-end: 4;
+    }
+  }
+}

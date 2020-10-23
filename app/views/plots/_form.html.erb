@@ -18,59 +18,67 @@
 
   <% cas_update = can? :cas_update, plot %>
 
-  <div class="row">
-    <div class="row-item third">
+  <div class="form-row plot-form">
+    <fieldset class="about">
       <% if f.object.persisted? %>
-        <fieldset>
-          <%= f.input :number, disabled: cas_update %>
-          <%= f.hidden_field :ut_update_option, value: UnitType::UNCHANGED%>
-          <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent), disabled: (cannot? :update_unit_type, plot) %>
-          <%= f.input :uprn, label: t("activerecord.attributes.plot.uprn") %><br/>
-          <%= render "components/admin/plot_fields", f: f, plot: plot %>
-
-        </fieldset>
+        <%= f.input :number, disabled: cas_update %>
+        <%= f.hidden_field :ut_update_option, value: UnitType::UNCHANGED%>
+        <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent), disabled: (cannot? :update_unit_type, plot) %>
+        <%= f.input :uprn, label: t("activerecord.attributes.plot.uprn") %><br/>
       <% else %>
         <%= render "components/admin/plots_select", f: f %>
         <%= f.association :unit_type, label: t(".unit_type"), as: :select, collection: unit_type_collection(plot.parent) unless f.object.persisted? %>
       <% end %>
-    </div>
+    </fieldset>
+
+    <fieldset class="address">
+      <% if plot.spanish? %>
+        <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
+      <% else %>
+        <div class="standard-address-format">
+          <%= render "components/admin/plot_address_fields", f: f, plot: plot, disabled: cas_update %>
+        </div>
+      <% end %>
+    </fieldset>
+
+    <% if f.object.persisted? %>
+      <div class="separator"></div>
+      <fieldset class="build-progress-section">
+        <%= render "components/admin/plot_fields", f: f, plot: plot %>
+      </fieldset>
+    <% end %>
 
     <% unless cas_update %>
       <% if f.object.persisted? %>
-        <div class="row-item third">
-          <fieldset>
+        <div class="separator"></div>
+          <fieldset class="plot-date-section">
             <%= render "components/admin/plot_date_fields", f: f, plot: plot %>
           </fieldset>
         </div>
       <% end %>
     <% end %>
 
-    <% if plot.spanish? %>
-      <%= render "components/admin/spanish_plot_address_fields", f: f, plot: plot %>
-    <% else %>
-      <%= render "components/admin/plot_address_fields", f: f, plot: plot, disabled: cas_update %>
-    <% end %>
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+        <% if parent %>
+          <%= link_to t(".back"), [parent.parent, parent, active_tab: :plots], class: "btn" %>
+        <% else %>
+          <%= link_to t(".back"), [plots.parent.parent, plots.parent, active_tab: :plots], class: "btn" %>
+        <% end %>
 
-  </div>
+        <% if params[:action] == "edit" %>
+          <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit-plot-btn' %>
+        <% else %>
+          <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        <% end %>
 
-  <div class="form-actions-footer-container">
-    <div class="form-actions-footer">
-      <% if parent %>
-        <%= link_to t(".back"), [parent.parent, parent, active_tab: :plots], class: "btn" %>
-      <% else %>
-        <%= link_to t(".back"), [plots.parent.parent, plots.parent, active_tab: :plots], class: "btn" %>
-      <% end %>
-      <% if params[:action] == "edit" %>
-        <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit-plot-btn' %>
-      <% else %>
-        <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
-      <% end %>
-      <% if f.object.persisted? %>
-        <div class="notify">
-          <%= label_tag t(".notify") %>
-          <%= f.check_box :notify %>
-        </div>
-      <% end %>
+        <% if f.object.persisted? %>
+          <div class="notify">
+            <%= label_tag t(".notify") %>
+            <%= f.check_box :notify %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>
