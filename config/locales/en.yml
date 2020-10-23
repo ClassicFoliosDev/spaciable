@@ -3165,9 +3165,9 @@ en:
 
   bulk_edit:
     index:
-      description: "<strong>Select the plots you wish to edit below.</strong>"
-      description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
-                        Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
+      description: "Specify the plots you wish to edit in the field to the left."
+      description_two: "Edit the fields you wish to update below after inputting your plots."
+      description_three: "Ensure the checkbox to the left of fields you wish to change is selected, or the value will not be updated."
       unit_type: "Unit Type"
       update_progress: "Update Build Progress"
       comp_date: "Estimated Move In Date"
