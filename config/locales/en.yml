@@ -2365,8 +2365,8 @@ en:
       edit:
         title: "Timeline Allocations"
       form:
-        description: "Use this page to associate timelines with plots on this phase. The Your Journey page will only show on plots that are listed in an Allocated Plots field below."
-        plots: "Associated plots"
+        description: "Use this page to associate timelines with plots on this phase. The Your Journey page will only show on plots that are listed in the Associated Plots below."
+        plots: "Associated Plots"
         warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
         add_all_plots: "Add All Plots"
         clear_all_plots: "Clear All Plots"
@@ -2577,6 +2577,7 @@ en:
       finishes: "Finishes: "
       invited_residents: "Invited Residents: "
       activated_residents: "Activated Residents: "
+      timeline: "Timeline: "
       preview: "Preview"
       uprn: "UPRN: "
       uprn_error: " should be up to 12 digits long and only contain numbers."
@@ -3836,8 +3837,8 @@ en:
   phase_timelines:
     collection:
       name: "Timeline"
-      add: "Add Plot Timeline associations"
-      empty: "You have no Timeline Plot associations"
+      add: "Add Timeline Associations"
+      empty: "You have no Timeline Plot Associations"
 
 
 

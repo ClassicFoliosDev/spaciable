@@ -24,6 +24,8 @@ class Plot < ApplicationRecord
   has_one :plot_timeline, dependent: :destroy
   accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
 
+  delegate :timeline_title, to: :plot_timeline, allow_nil: true
+
   belongs_to :choice_configuration
   has_many :room_choices, dependent: :destroy
 

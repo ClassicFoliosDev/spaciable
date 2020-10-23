@@ -9,8 +9,7 @@ class PlotTimeline < ApplicationRecord
   belongs_to :task
   has_many :task_logs, dependent: :destroy
 
-  delegate :live?, to: :phase_timeline
-  delegate :timeline, to: :phase_timeline
+  delegate :live?, :timeline, :timeline_title, to: :phase_timeline
 
   # Log non not_applicable responses for a Task.
   def log(task, response)

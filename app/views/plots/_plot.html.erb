@@ -18,6 +18,7 @@
       <strong><%= t(".private_documents") %></strong><%= plot&.private_document_count %><br/>
     </span>
     <span class="cas-overview">
+      <strong><%= t(".timeline") %></strong><%= plot&.timeline_title || "Not set" %><br/>
       <% if current_user.cf_admin? || plot.cas %>
         <%= t("cas_enabled", status: plot.cas ? t("enabled") : t("disabled")).html_safe %><br/><br/>
       <% end %>
