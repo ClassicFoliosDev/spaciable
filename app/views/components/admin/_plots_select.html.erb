@@ -1,4 +1,4 @@
-<fieldset>
+<fieldset class="bulk-plot-select">
   <%= f.input :list, as: :text, label: t(".list_label"), hint: t(".list_input_hint").html_safe, input_html: { list: "selected_plots"} %>
 </fieldset>
 <% if defined?(all_plots) && all_plots %>
