@@ -113,6 +113,7 @@ Rails.application.routes.draw do
     resources :bulk_edit, only: [:index, :create]
     resources :contacts
     resources :lettings, controller: 'phases/lettings'
+    resources :phase_timelines, except: [:show], controller: 'phases/phase_timelines'
     resources :release_plots, only: [:index, :create]
     get 'callback', to: 'release_plots#callback', format: :json
   end
@@ -346,6 +347,7 @@ Rails.application.routes.draw do
   get "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
   get "/zoho/callback", to: 'authorisation#oauth_callback'
   post "/users/auth/doorkeeper/callback", to: 'authorisation#oauth_callback'
+  get "/salesforce/callback", to: 'salesforce_authorisation#oauth_callback'
 
   authenticated :resident do
     root "homeowners/dashboard#show", as: :homeowner_dashboard

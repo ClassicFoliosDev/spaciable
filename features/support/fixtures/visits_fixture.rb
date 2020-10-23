@@ -61,7 +61,8 @@ module VisitsFixture
         send("development#{d}_#{v}").update_attributes(enable_snagging: true,
                                                        snag_duration: 300)
         MyLibraryFixture.create_documents(documentable: send("development#{d}_#{v}"))
-        CreateFixture.create_development_phase(name: send("phase#{d}_#{v}_name"),
+
+        phase = CreateFixture.create_development_phase(name: send("phase#{d}_#{v}_name"),
                                                dev: send("development#{d}_#{v}"),
                                                business: v)
         CreateFixture.create_unit_type(dev: send("development#{d}_#{v}"), link: "http://youtube")
@@ -70,7 +71,9 @@ module VisitsFixture
         CreateFixture.create_resident(send("resident#{d}_#{v}_name"),
                                       plot: send("plot#{d}_#{v}"))
 
-        PlotTimeline.create(timeline: Timeline.first, plot: send("plot#{d}_#{v}"))
+        phase_timeline = PhaseTimeline.create(phase: phase, timeline: Timeline.first)
+
+        PlotTimeline.create(phase_timeline: phase_timeline, plot: send("plot#{d}_#{v}"))
 
         # ensure the plots are completed
         send("plot#{d}_#{v}").update_attributes(completion_release_date: Time.zone.now - 1.week,

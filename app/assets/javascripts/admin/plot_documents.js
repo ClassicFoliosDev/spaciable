@@ -37,6 +37,11 @@ $(document).on('click', '#document_category-menu', function (event) {
   }
 })
 
+//// check or uncheck pinned when manual type is updated
+$(document).on('click', '#document_guide-menu', function (event) {
+  $('input#document_pinned')[0].checked = $('#document_guide')[0].value ? true : false
+})
+
 function resetPlotGuide () {
   $('#plotDocGuideSelector select')[0].selectedIndex = 0
   $('#plotDocGuideSelector .ui-selectmenu-text')[0].innerHTML = "&nbsp;"

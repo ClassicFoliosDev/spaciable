@@ -584,19 +584,10 @@ end
 Then(/^I cannot see the new video$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
   login_as resident
-  visit "/"
+  visit "/homeowners/library/my_home"
 
-  # without this sleep & open screenshot here, and it has to be exactly here,
-  # the 'find library-categories' further below consistently fails.
-  # this is the only thing that make it work. i have no idea why.
-  sleep 0.3
-  save_and_open_screenshot
-
-  within find(".library-component", wait: 5) do
-    click_on I18n.t("homeowner.dashboard.cards.library.view_more")
-  end
-
-  within find(".library-categories", wait: 5) do
+  find(".library-categories", visible: all, wait: 5)
+  within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
 

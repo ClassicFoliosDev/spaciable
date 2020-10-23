@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200916072256) do
+ActiveRecord::Schema.define(version: 20201013143437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.string  "access_token"
     t.string  "refresh_token"
     t.integer "expires_at"
+    t.integer "crm_id"
+    t.index ["crm_id"], name: "index_access_tokens_on_crm_id", using: :btree
   end
 
   create_table "actions", force: :cascade do |t|
@@ -368,8 +370,8 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.boolean  "development_faqs",            default: false
     t.boolean  "enable_roomsketcher",         default: true
     t.boolean  "enable_referrals",            default: false
-    t.boolean  "enable_perks",                default: false
     t.boolean  "cas",                         default: false
+    t.boolean  "enable_perks",                default: false
     t.boolean  "timeline",                    default: false
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
@@ -404,9 +406,9 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.boolean  "enable_snagging",       default: false
     t.integer  "snag_duration",         default: 0
     t.string   "snag_name",             default: "Snagging", null: false
+    t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
-    t.boolean  "cas",                   default: false
     t.integer  "timeline_id"
     t.boolean  "calendar",              default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
@@ -467,7 +469,7 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.string   "resourceable_type"
     t.integer  "resourceable_id"
     t.integer  "status"
-    t.datetime "status_updated_at", default: -> { "now()" }
+    t.datetime "status_updated_at"
     t.datetime "proposed_start"
     t.datetime "proposed_end"
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
@@ -746,6 +748,13 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
+  create_table "phase_timelines", force: :cascade do |t|
+    t.integer "timeline_id"
+    t.integer "phase_id"
+    t.index ["phase_id"], name: "index_phase_timelines_on_phase_id", using: :btree
+    t.index ["timeline_id"], name: "index_phase_timelines_on_timeline_id", using: :btree
+  end
+
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
@@ -783,13 +792,13 @@ ActiveRecord::Schema.define(version: 20200916072256) do
   end
 
   create_table "plot_timelines", force: :cascade do |t|
-    t.integer "timeline_id"
+    t.integer "phase_timeline_id"
     t.integer "plot_id"
     t.integer "task_id"
-    t.boolean "complete",    default: false
+    t.boolean "complete",          default: false
+    t.index ["phase_timeline_id"], name: "index_plot_timelines_on_phase_timeline_id", using: :btree
     t.index ["plot_id"], name: "index_plot_timelines_on_plot_id", using: :btree
     t.index ["task_id"], name: "index_plot_timelines_on_task_id", using: :btree
-    t.index ["timeline_id"], name: "index_plot_timelines_on_timeline_id", using: :btree
   end
 
   create_table "plots", force: :cascade do |t|
@@ -1177,6 +1186,7 @@ ActiveRecord::Schema.define(version: 20200916072256) do
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
+  add_foreign_key "access_tokens", "crms"
   add_foreign_key "actions", "tasks"
   add_foreign_key "appliance_categories", "developers"
   add_foreign_key "appliance_manufacturers", "developers"
@@ -1213,15 +1223,17 @@ ActiveRecord::Schema.define(version: 20200916072256) do
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
+  add_foreign_key "phase_timelines", "phases"
+  add_foreign_key "phase_timelines", "timelines"
   add_foreign_key "phases", "developers"
   add_foreign_key "phases", "developments"
   add_foreign_key "phases", "divisions"
   add_foreign_key "plot_residencies", "plots"
   add_foreign_key "plot_residencies", "residents"
   add_foreign_key "plot_residencies", "tasks"
+  add_foreign_key "plot_timelines", "phase_timelines"
   add_foreign_key "plot_timelines", "plots"
   add_foreign_key "plot_timelines", "tasks"
-  add_foreign_key "plot_timelines", "timelines"
   add_foreign_key "plots", "developers"
   add_foreign_key "plots", "developments"
   add_foreign_key "plots", "divisions"
