@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200921094247) do
+ActiveRecord::Schema.define(version: 20201013143437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string  "access_token"
     t.string  "refresh_token"
     t.integer "expires_at"
+    t.integer "crm_id"
+    t.index ["crm_id"], name: "index_access_tokens_on_crm_id", using: :btree
   end
 
   create_table "actions", force: :cascade do |t|
@@ -197,13 +199,6 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string   "info_text"
     t.string   "email_logo"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
-  end
-
-  create_table "cc_emails", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "email_type"
-    t.string  "email_list"
-    t.index ["user_id"], name: "index_cc_emails_on_user_id", using: :btree
   end
 
   create_table "choice_configurations", force: :cascade do |t|
@@ -1184,6 +1179,7 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
+  add_foreign_key "access_tokens", "crms"
   add_foreign_key "actions", "tasks"
   add_foreign_key "appliance_categories", "developers"
   add_foreign_key "appliance_manufacturers", "developers"
@@ -1191,7 +1187,6 @@ ActiveRecord::Schema.define(version: 20200921094247) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
-  add_foreign_key "cc_emails", "users"
   add_foreign_key "crms", "developers"
   add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"

@@ -51,6 +51,8 @@ class Plot < ApplicationRecord
   delegate :calendar, to: :development, prefix: true
   delegate :construction, to: :development
 
+  alias_attribute :identity, :number
+
   attr_accessor :notify
 
   accepts_nested_attributes_for :documents, reject_if: :all_blank, allow_destroy: true
@@ -526,7 +528,7 @@ class Plot < ApplicationRecord
   def download_doc(params)
     raise "#{name} does not have an associated CRM" unless crm
 
-    Crms::Zoho.new(self).download_doc(params)
+    "Crms::#{crm.name}".classify.constantize.new(self).download_doc(params)
   end
 
   # update the supplied plots with the new Completion Dates
