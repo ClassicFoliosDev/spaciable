@@ -2126,6 +2126,8 @@ en:
         policy_instructions: "%{href1} and %{href2}"
         homeowner_login: "User Login"
         admin_login: "Admin Login"
+        title: "Resident Sign In"
+        description: "Sign in to Spaciable to access your home portal"
       create:
         no_plot: "This email address has not been registered as a homeowner, please contact the Classic Folios support team."
         ts_and_cs_required: "Please review and accept the terms and conditions before you log in. The terms and conditions might have changed since your last review."
@@ -3852,8 +3854,5 @@ en:
       name: "Timeline"
       add: "Add Plot Timeline associations"
       empty: "You have no Timeline Plot associations"
-
-
-
 
 
