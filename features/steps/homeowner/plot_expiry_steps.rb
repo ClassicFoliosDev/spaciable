@@ -584,6 +584,7 @@ end
 Then(/^I cannot see the new video$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
   login_as resident
+
   visit "/homeowners/library/my_home"
 
   find(".library-categories", visible: all, wait: 5)

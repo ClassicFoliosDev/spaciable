@@ -23,7 +23,7 @@
       <%= plot.postcode %><br/>
     <% end %>
   </div>
-  <%= link_to t(".view_more", construction: plot.my_home_name), homeowner_my_home_path, class: "btn branded-btn-inverted" %>
+  <%= link_to t(".view_more", construction: plot.my_home_name), homeowner_my_home_path, class: "btn branded-btn-inverted view-my-home-btn" %>
   <% if plots.count > 1 %>
     <%= link_to t(".switch_plot"), plots_path, class: "btn switch-plot-btn" %>
   <% end %>

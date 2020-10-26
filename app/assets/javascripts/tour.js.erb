@@ -1,0 +1,117 @@
+document.addEventListener('turbolinks:load', function () {
+  // check the relevant cookie value
+  if ($("#homeownerDashboard").length) {
+    $.each(document.cookie.split('; '), function(index, value) {
+      if (value.startsWith('dashboard_tour')) {
+        if (value.split('=')[1] == "show") {
+          loadDashboardTour()
+        }
+      }
+    })
+  }
+})
+
+$(document).on('click', '.introjs-skipbutton', function () {
+  // set the cookie to false with an expiry date in the past
+  document.cookie = "dashboard_tour=hide; expires=" + new Date(Date.now() - 86400000)
+  console.log(document.cookie)
+})
+
+$(document).on('click', '.dashboard-tour-link', function () {
+  // set the cookie to false with an expiry date in the past
+  document.cookie = "dashboard_tour=show; expires=" + new Date(Date.now() + 86400000)
+  console.log(document.cookie)
+})
+
+function loadDashboardTour() {
+  var tour = introJs()
+
+  tour.setOptions({
+    showStepNumbers: false,
+    keyboardNavigation: true,
+    scrollToElement: true,
+    disableInteraction: true,
+    exitOnOverlayClick: false,
+    exitOnEsc: true,
+    nextLabel: "Next",
+    prevLabel: "Back",
+    skipLabel: "Skip Tour",
+    steps: [
+      {
+        element: ".burger-navigation",
+        intro: "<%= ENV['INTRO_NAV'] %>",
+        position: "left"
+      },
+      {
+        element: ".view-my-home-btn",
+        intro: "<%= ENV['INTRO_HOME'] %>",
+        position: "top"
+      },
+      {
+        element: ".faqs-component",
+        intro: "<%= ENV['INTRO_FAQ'] %>",
+        position: "top"
+      },
+      {
+        element: ".contacts-component",
+        intro: "<%= ENV['INTRO_CONTACT'] %>",
+        position: "top"
+      },
+      {
+        element: ".library-component",
+        intro: "<%= ENV['INTRO_LIBRARY'] %>",
+        position: "top"
+      },
+      {
+        element: ".perks-component",
+        intro: "<%= ENV['INTRO_PERKS'] %>",
+        position: "top"
+      },
+      {
+        element: ".services-component",
+        intro: "<%= ENV['INTRO_SERVICES'] %>",
+        position: "top"
+      },
+      {
+        element: ".area_guide-component",
+        intro: "<%= ENV['INTRO_AREA_GUIDE'] %>",
+        position: "top"
+      },
+      {
+        element: ".referrals-component",
+        intro: "<%= ENV['INTRO_REFERRALS'] %>",
+        position: "top"
+      },
+      {
+        element: ".home_designer-component",
+        intro: "<%= ENV['INTRO_HOME_DESIGNER'] %>",
+        position: "top"
+      },
+      {
+        element: ".issues-component",
+        intro: "<%= ENV['INTRO_ISSUES'] %>",
+        position: "top"
+      },
+      {
+        element: ".snagging-component",
+        intro: "<%= ENV['INTRO_SNAGGING'] %>",
+        position: "top"
+      },
+      {
+        element: ".reservation-component",
+        intro: "<%= ENV['INTRO_RESERVATION'] %>",
+        position: "top"
+      },
+      {
+        element: ".completion-component",
+        intro: "<%= ENV['INTRO_COMPLETION'] %>",
+        position: "top"
+      },
+    ].filter(function (obj) {
+      return $(obj.element).length
+    })
+  })
+
+  tour.start()
+}
+
