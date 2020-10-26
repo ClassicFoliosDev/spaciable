@@ -116,6 +116,10 @@ module Crms
       no_implemenation_error __method__
     end
 
+    def crm
+      @parent.crm
+    end
+
     private
 
     # Rationalise the documents against those retrieved

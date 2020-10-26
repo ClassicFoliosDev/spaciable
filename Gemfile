@@ -131,6 +131,9 @@ gem "ahoy_matey"
 gem "fullcalendar-rails"
 gem "momentjs-rails"
 
+# salesforce
+gem "restforce", "<= 3.2.0"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"

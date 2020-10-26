@@ -1,0 +1,201 @@
+// ****** globals ******
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  .input {
+    margin-bottom: $spacing-medium;
+  }
+
+  .separator {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    height: 1px;
+    background-color: $ui-grey;
+    margin: 0 $spacing-large;
+  }
+
+  .checkbox-label {
+    display: inline-block;
+    padding-left: 5px;
+  }
+
+  .header-label {
+    font-size: $title-font-size-5;
+    margin-top: $spacing-small;
+  }
+
+  input[type="checkbox"] {
+    display: inline-block;
+    float: left;
+    margin-top: 14px;
+  }
+
+  span.checkbox-description {
+    display: block;
+    font-size: $base-small-font-size;
+    padding-bottom: $label-margin;
+    margin-left: 0;
+  }
+}
+
+.form-column {
+  padding: $spacing-medium $spacing-large;
+}
+
+// ****** specific forms ******
+
+// user form
+
+.user-form {
+  .user-permissions {
+    display: grid;
+  }
+
+  background-color: $ui-white;
+  border-radius: 5px;
+  margin-bottom: $spacing-large * 2;
+
+  .header-label {
+    padding-left: $spacing-large;
+    padding-top: $spacing-medium;
+    margin-bottom: 0;
+  }
+
+  .readonly {
+    margin-bottom: 13px;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .fa-trash-o {
+    padding-top: 5px;
+  }
+
+  .user-image {
+    .hidden {
+      display: none;
+    }
+  }
+
+  // email checkbox fields
+
+  .emails {
+    grid-column-start: 2;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+
+    .email-fields {
+      display: grid;
+      grid-template-rows: auto auto auto auto;
+      grid-template-columns: 1fr 1fr;
+
+      .receive_release_emails {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        display: none;
+      }
+
+      .cc-receive_release_emails {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        display: none;
+      }
+
+      .snag_notifications {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        display: none;
+      }
+
+      .cc-snag_notifications {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 2;
+        grid-row-end: 3;
+        display: none;
+      }
+
+      .receive_faq_emails {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        display: none;
+      }
+
+      .cc-receive_faq_emails {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 3;
+        grid-row-end: 4;
+        display: none;
+      }
+
+      .receive_invitation_emails {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        display: none;
+      }
+
+      .cc-receive_invitation_emails {
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 4;
+        grid-row-end: 5;
+        display: none;
+      }
+
+      textarea {
+        min-height: 50px;
+      }
+    }
+  }
+
+  // -------------------
+
+  .update-password {
+    display: block;
+  }
+
+  .edit-password {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
+
+    .header-label {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      grid-row-start: 1;
+      grid-row-end: 2;
+    }
+
+    .current-password {
+      grid-row-start: 2;
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+
+    .new-password {
+      grid-row-start: 2;
+      grid-column-start: 2;
+      grid-column-end: 3;
+    }
+
+    .confirm-new-password {
+      grid-row-start: 2;
+      grid-column-start: 3;
+      grid-column-end: 4;
+    }
+  }
+}

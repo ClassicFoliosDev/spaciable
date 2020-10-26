@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
   before_save :update_cas
   before_save :downcase_email
+  after_save :format_cc_emails
 
   include PolymorphicPermissionable
   include PolymorphicPermissionable::ByRole
@@ -19,6 +20,9 @@ class User < ApplicationRecord
   delegate :expired?, to: :permission_level
 
   has_one :lettings_account, as: :accountable, dependent: :destroy
+
+  has_many :cc_emails, dependent: :destroy
+  accepts_nested_attributes_for :cc_emails, reject_if: :cc_emails_blank, allow_destroy: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -309,6 +313,22 @@ class User < ApplicationRecord
     end
   end
 
+  def format_cc_emails
+    self.cc_emails.each do |cc|
+      return unless cc.email_list.present?
+      com_sep = (cc.email_list.split(/\s|,|;/).reject { |e| e.empty? }).join(", ")
+      cc.update_attributes(email_list: com_sep)
+    end
+  end
+
+  def cc_emails_blank(cc_email)
+    return false if cc_email["email_list"].present?
+
+    record = CcEmail.find_by(user_id: id, email_type: cc_email["email_type"])
+    record&.destroy!
+    true
+  end
+
   # Destroy a User record if their permission level has been destroyed
   def self.permissable_destroy(model, permission_id)
     permissable_users = User.where(permission_level_type: model, permission_level_id: permission_id)
@@ -317,6 +337,12 @@ class User < ApplicationRecord
 
   def downcase_email
     self.email.downcase!
+  end
+
+  def build
+    CcEmail.email_types.each do |type, index|
+      cc_emails.build(email_type: type) unless CcEmail.find_by(user_id: id, email_type: type)
+    end
   end
 
   scope :receives_faqs,

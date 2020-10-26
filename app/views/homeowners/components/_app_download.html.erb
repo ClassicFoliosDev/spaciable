@@ -5,7 +5,6 @@
   <div class="text app-download-text branded-text" style="text-align:center;"><%= t(".modal_content").html_safe %></div>
 
   <div id="app-download-btn">
-    <!-- TO-DO Add links to relevant apps -->
     <%= link_to t(".download_app"), BrandedApp.relevant_link(request.user_agent, plot.developer), class: "btn branded-btn", target: "_blank" %>
   </div>
 </div>

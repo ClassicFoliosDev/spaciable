@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class AccessToken < ApplicationRecord
+  belongs_to :crm, optional: true
+  alias_attribute :token, :access_token
+
   # Create and save an AccessToken.
   def self.create(instance, &block)
     error = nil

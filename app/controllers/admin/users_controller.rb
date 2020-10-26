@@ -14,6 +14,7 @@ module Admin
 
     def new
       @user.receive_choice_emails = true
+      @user.build
     end
 
     def create
@@ -36,6 +37,7 @@ module Admin
 
     def edit
       @user.assign_permissionable_ids
+      @user.build
     end
 
     def update
@@ -97,7 +99,8 @@ module Admin
         :current_password, :picture, :picture_cache,
         :job_title, :receive_release_emails, :snag_notifications,
         :receive_choice_emails, :branch_administrator, :cas,
-        :receive_invitation_emails, :receive_faq_emails
+        :receive_invitation_emails, :receive_faq_emails,
+        cc_emails_attributes: %i[user_id email_type email_list id _destroy]
       )
     end
 
