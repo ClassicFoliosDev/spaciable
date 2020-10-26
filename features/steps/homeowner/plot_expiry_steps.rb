@@ -584,17 +584,13 @@ end
 Then(/^I cannot see the new video$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
   login_as resident
-  visit "/"
-
-
-  within find(".library-component", visible: all) do
-    click_on I18n.t("homeowner.dashboard.cards.library.view_more")
-  end
+  visit "/homeowners/library/my_home"
 
   find(".library-categories", visible: all, wait: 5)
   within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
+
 end
 
 Then(/^I can see both videos$/) do

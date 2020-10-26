@@ -36,13 +36,12 @@
 en:
 
   back: "Back"
+  submit: "Submit"
   cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
   enabled: "Enabled"
   disabled: "Disabled"
   not_authorised: "You are not authorised to access this page"
   administered_by: "Administered by:"
-  enabled: "Enabled"
-  disabled: "Disabled"
 
   construction_type:
     home: "Home"
@@ -441,6 +440,9 @@ en:
     production: "Production"
     release_plots: "Release plots"
     phase_lettings: "Lettings"
+    phase_timelines: "Timelines"
+    phase_timelines_add: "New Phase Timeline"
+    phase_timelines_edit: "Edit Phase Timeline"
     development_csv: "Upload CSV"
     custom_tiles: "Custom Shortcuts"
     custom_tile_add: "New Custom Shortcut"
@@ -658,6 +660,11 @@ en:
     search:
       search: "Search"
       all: "All"
+    browser_support:
+      title: "Your browser is not fully supported!"
+      text: "Some features may be limited while using Internet Explorer. <br/>To ensure you're able to experience Spaciable to the fullest, please use a different Internet browser, such as Chrome, Firefox or Safari."
+      text_microsoft: "Please note that Microsoft will be <a href='https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666', target='_blank'>ending updates and support for Internet Explorer</a> in 2021."
+      not_again: "Don't show this again"
 
   destroy:
     cancel: "Cancel"
@@ -928,31 +935,33 @@ en:
         title: "Edit %{user}"
         back: "Back"
       form:
-        image: "Image"
+        image: "Profile Image"
         back: "Back"
         submit: "Submit"
         new_password: "New Password"
         confirm_password: "Confirm New Password"
         current_password: "Current Password"
-        current_password2: "Only required for new password"
+        update_password: "Change Password"
         plot_emails: "Plot Release Emails"
-        receive_plot_emails: "Receive plot release emails"
+        receive_plot_emails: "Receive emails when plots are released by Classic Folios."
         snag_emails: "Snagging Emails"
-        receive_snag_emails: "Receive snagging emails"
+        receive_snag_emails: "Receive emails regarding resident snagging issues."
         choice_emails: "Plot Choice Emails"
-        receive_choice_emails: "Receive plot choice emails"
-        lettings_branch_admin: "Development lettings"
-        administer_branch: "Can administer lettings"
+        receive_choice_emails: "Receive emails regarding resident plot choices."
+        lettings_branch_admin: "Lettings Administrator"
+        administer_branch: "Ability to administer plot lettings."
         email: "Email"
         first_name: "First Name"
         surname: "Surname"
         job_title: "Job Title"
         client_specifications: "Client Specifications"
-        adds_specifications: "Defines client specifications"
+        adds_specifications: "Ability to modify unit types, rooms, finishes and appliances."
         faq_emails: "FAQ Feedback Emails"
-        receive_faq_emails: "Receive FAQ feedback emails"
+        receive_faq_emails: "Receive emails regarding resident FAQ feedback."
         invitation_emails: "Resident Activation Report"
         receive_invitation_emails: "Receive a weekly summary of resident activations"
+        email_list: "CC %{type} Emails"
+        cc_list: "Add any email addresses to CC %{type} emails. Separate multiple email addresses with a space, comma or semi-colon."
       index:
         title: "Admins."
         add: "Add User"
@@ -976,6 +985,13 @@ en:
       lettings:
         confirm: "Your letting for %{plot} has been set up"
         no_account: "%{user} does not have a lettings account"
+
+    cc_email:
+      receive_faq_emails: "FAQ Feedback"
+      receive_release_emails: "Plot Release"
+      receive_invitation_emails: "Activation Report"
+      snag_notifications: "Snagging"
+
     dashboard:
       components:
         no_recent:
@@ -2273,6 +2289,7 @@ en:
       release_plots: "Release Plots"
       lettings: "Lettings"
       import: "Import CRM"
+      phase_timelines: "Timelines"
     new:
       title: "New Phase."
     update:
@@ -2357,6 +2374,17 @@ en:
     import_completion_dates:
       create:
           updated: "Completion Dates have successfully been updated for %{plots} plots."
+    phase_timelines:
+      new:
+        title: "Timeline Allocations"
+      edit:
+        title: "Timeline Allocations"
+      form:
+        description: "Use this page to associate timelines with plots on this phase. The Your Journey page will only show on plots that are listed in an Allocated Plots field below."
+        plots: "Associated plots"
+        warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
+        add_all_plots: "Add All Plots"
+        clear_all_plots: "Clear All Plots"
 
   choice_configurations:
     create:
@@ -3820,6 +3848,11 @@ en:
         confirm: "Please confirm the event(s) you wish to modify."
       single:
         confirm: "Are you sure you want to delete this event?"
+  phase_timelines:
+    collection:
+      name: "Timeline"
+      add: "Add Plot Timeline associations"
+      empty: "You have no Timeline Plot associations"
 
 
 

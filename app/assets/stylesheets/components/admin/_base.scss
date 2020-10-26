@@ -1,3 +1,9 @@
 .admin-view {
   background-color: $ui-light-grey;  
 }
+
+.is-blurred {
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+  overflow: hidden;
+}

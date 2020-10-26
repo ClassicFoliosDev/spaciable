@@ -394,8 +394,8 @@ Then(/^I should see the updated document for the phase plot$/) do
     "controller.success.update",
     name: DocumentFixture.updated_document_name
   )
-  page.find(".notice").should have_content(success_flash)
   page.find(".breadcrumbs").should have_content(CreateFixture.phase_plot_name)
+  page.find(".notice").should have_content(success_flash)
 
   # On the list page
   within ".documents" do

@@ -25,9 +25,11 @@ class Phase < ApplicationRecord
   has_many :plot_residencies, through: :plots
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
+  has_many :phase_timelines, dependent: :destroy
 
   delegate :enable_snagging, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
+  delegate :timeline, to: :developer
 
   has_many :contacts, as: :contactable, dependent: :destroy
 
@@ -173,7 +175,8 @@ class Phase < ApplicationRecord
     raise "#{name} does not have an associated CRM" unless crm
 
     filtered_plots(plot_numbers) do |fplots|
-      Crms::Zoho.new(self).documents_for(development, fplots, :number)
+      "Crms::#{crm.name}".classify.constantize.new(self)
+                         .documents_for(development, fplots, :number)
     end
   end
 
@@ -182,7 +185,7 @@ class Phase < ApplicationRecord
     raise "#{name} does not have an associated CRM" unless crm
 
     filtered_plots(plot_numbers) do |fplots|
-      Crms::Zoho.new(self).completion_dates(development, fplots)
+      "Crms::#{crm.name}".classify.constantize.new(self).completion_dates(development, fplots)
     end
   end
 
@@ -191,7 +194,7 @@ class Phase < ApplicationRecord
     raise "#{name} does not have an associated CRM" unless crm
 
     filtered_plots(plot_numbers) do |fplots|
-      Crms::Zoho.new(self).residents(development, fplots)
+      "Crms::#{crm.name}".classify.constantize.new(self).residents(development, fplots)
     end
   end
 

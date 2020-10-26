@@ -42,6 +42,8 @@ class Developer < ApplicationRecord
   delegate :link, :account_number, :tile_image,
            to: :branded_perk, allow_nil: true, prefix: true
 
+  alias_attribute :identity, :company_name
+
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
   # on a Developer object and it will retrieve the associated country from the Country

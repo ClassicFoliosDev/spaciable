@@ -7,10 +7,11 @@
 # Exchange etc.
 class Timeline < ApplicationRecord
   belongs_to :timelineable, polymorphic: true
+  has_many :phase_timelines, dependent: :destroy
   has_many :timeline_stages, -> { order "timeline_stages.order" }, dependent: :destroy
   has_many :stages, through: :timeline_stages
-  has_many :tasks, dependent: :destroy
   has_one :finale, dependent: :destroy
+  has_many :tasks, dependent: :destroy
 
   after_create :add_stages
 
@@ -30,6 +31,18 @@ class Timeline < ApplicationRecord
               scope: %i[timelineable],
               case_sensitive: false
             }
+
+  scope :in_phase,
+        lambda { |phase|
+          joins(phase_timelines: { plot_timelines: :plot })
+            .where(plots: { phase_id: phase.id }).distinct
+        }
+
+  scope :not_used_in_phase,
+        lambda { |phase|
+          where(timelineable_type: "Global").or(where(timelineable: phase.developer))
+          where.not(id: in_phase(phase))
+        }
 
   # Retrieve a specific Task
   def task(task_id)

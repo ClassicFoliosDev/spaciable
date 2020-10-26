@@ -4,6 +4,7 @@
 # are linked together in a list through their 'next' attribute.  The
 # 'Head' attribute indicates the Task is the first in the list
 # for the associated Stage
+# rubocop:disable Metrics/ClassLength
 class Task < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
@@ -16,6 +17,7 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :task_shortcuts
   has_many :shortcuts, through: :task_shortcuts
   has_many :task_contacts, dependent: :destroy
+  has_many :task_logs, dependent: :destroy
   accepts_nested_attributes_for :task_contacts, reject_if: :all_blank, allow_destroy: true
 
   has_one :action, required: false, dependent: :destroy
@@ -160,3 +162,4 @@ class Task < ApplicationRecord
     (0..1).each { |i| task_contacts.build unless task_contacts[i] }
   end
 end
+# rubocop:enable Metrics/ClassLength

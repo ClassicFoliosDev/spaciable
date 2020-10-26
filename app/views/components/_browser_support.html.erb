@@ -1,0 +1,26 @@
+<div class="browser-support hidden">
+  <div class="browser-support-content">
+    <h2 class="browser-support-title underline branded-text"><%= t(".title") %></h2>
+
+    <div class="text browser-support-text branded-text">
+      <p><%= t(".text").html_safe %></p>
+      <p><%= t(".text_microsoft").html_safe %></p>
+    </div>
+
+    <div class="browser-download-links">
+      <div class="download-image chrome">
+        <%= link_to image_tag(asset_path("chrome_logo.svg")), "https://www.google.com/intl/en_uk/chrome/", target: "_blank" %>
+      </div>
+      <div class="download-image firefox">
+        <%= link_to image_tag(asset_path("firefox_logo.svg")), "https://www.mozilla.org/en-GB/firefox/browsers/", target: "_blank" %>
+      </div>
+      <div class="download-image safari">
+        <%= link_to image_tag(asset_path("safari_logo.svg")), "https://www.apple.com/uk/safari/", target: "_blank" %>
+      </div>
+    </div>
+
+    <div class="browser-support-footer">
+      <button class="hide-browser-support dialog-second-btn "><%= t(".not_again") %></button>
+    </div>
+  </div>
+</div>

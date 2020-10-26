@@ -297,6 +297,21 @@ crumb :phase_lettings do |phase|
   parent :phase, phase
 end
 
+crumb :phase_timelines do |phase|
+  link t("breadcrumbs.phase_timelines"), phase_path(phase)
+  parent :phase, phase
+end
+
+crumb :phase_timeline_new do |phase|
+  link t("breadcrumbs.phase_timelines_add")
+  parent :phase, phase
+end
+
+crumb :phase_timeline_edit do |phase|
+  link t("breadcrumbs.phase_timelines_edit")
+  parent :phase, phase
+end
+
 crumb :phase_plots_sync do |phase|
   link t("breadcrumbs.crm_sync"), phase_path(phase, active_tab: :bulk_edit)
   parent :phase, phase

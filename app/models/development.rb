@@ -76,6 +76,8 @@ class Development < ApplicationRecord
   after_create :set_default_tiles
   after_save :update_custom_tiles
 
+  alias_attribute :identity, :name
+
   enum choice_option:
     %i[
       choices_disabled
@@ -196,14 +198,14 @@ class Development < ApplicationRecord
   def sync_docs
     raise "#{name} does not have an associated CRM" unless crm
 
-    Crms::Zoho.new(self).documents
+    "Crms::#{crm.name}".classify.constantize.new(self).documents
   end
 
   # get the docs from the crm
   def download_doc(params)
     raise "#{name} does not have an associated CRM" unless crm
 
-    Crms::Zoho.new(self).download_doc(params)
+    "Crms::#{crm.name}".classify.constantize.new(self).download_doc(params)
   end
 
   # update existing phases business if development is updated to be commercial
