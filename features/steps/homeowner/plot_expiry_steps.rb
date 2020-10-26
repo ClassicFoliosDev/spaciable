@@ -590,6 +590,7 @@ Then(/^I cannot see the new video$/) do
   within ".library-categories" do
     expect(page).to_not have_content I18n.t("components.homeowner.library_categories.videos")
   end
+
 end
 
 Then(/^I can see both videos$/) do

@@ -47,6 +47,6 @@ class SnagMailer < ApplicationMailer
   def send_notification(subject, status = nil)
     @status = status
     return if @emails.empty?
-    mail to: @emails, subject: subject
+    mail to: @emails, cc: CcEmail.emails_list(@emails, :snag_notifications), subject: subject
   end
 end

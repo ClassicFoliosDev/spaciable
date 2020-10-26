@@ -201,6 +201,13 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 
+  create_table "cc_emails", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "email_type"
+    t.string  "email_list"
+    t.index ["user_id"], name: "index_cc_emails_on_user_id", using: :btree
+  end
+
   create_table "choice_configurations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                     null: false
@@ -1187,6 +1194,7 @@ ActiveRecord::Schema.define(version: 20201013143437) do
   add_foreign_key "appliances", "appliance_manufacturers"
   add_foreign_key "appliances", "developers"
   add_foreign_key "branded_perks", "developers"
+  add_foreign_key "cc_emails", "users"
   add_foreign_key "crms", "developers"
   add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"

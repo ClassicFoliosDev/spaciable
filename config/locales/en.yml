@@ -930,31 +930,33 @@ en:
         title: "Edit %{user}"
         back: "Back"
       form:
-        image: "Image"
+        image: "Profile Image"
         back: "Back"
         submit: "Submit"
         new_password: "New Password"
         confirm_password: "Confirm New Password"
         current_password: "Current Password"
-        current_password2: "Only required for new password"
+        update_password: "Change Password"
         plot_emails: "Plot Release Emails"
-        receive_plot_emails: "Receive plot release emails"
+        receive_plot_emails: "Receive emails when plots are released by Classic Folios."
         snag_emails: "Snagging Emails"
-        receive_snag_emails: "Receive snagging emails"
+        receive_snag_emails: "Receive emails regarding resident snagging issues."
         choice_emails: "Plot Choice Emails"
-        receive_choice_emails: "Receive plot choice emails"
-        lettings_branch_admin: "Development lettings"
-        administer_branch: "Can administer lettings"
+        receive_choice_emails: "Receive emails regarding resident plot choices."
+        lettings_branch_admin: "Lettings Administrator"
+        administer_branch: "Ability to administer plot lettings."
         email: "Email"
         first_name: "First Name"
         surname: "Surname"
         job_title: "Job Title"
         client_specifications: "Client Specifications"
-        adds_specifications: "Defines client specifications"
+        adds_specifications: "Ability to modify unit types, rooms, finishes and appliances."
         faq_emails: "FAQ Feedback Emails"
-        receive_faq_emails: "Receive FAQ feedback emails"
+        receive_faq_emails: "Receive emails regarding resident FAQ feedback."
         invitation_emails: "Resident Activation Report"
         receive_invitation_emails: "Receive a weekly summary of resident activations"
+        email_list: "CC %{type} Emails"
+        cc_list: "Add any email addresses to CC %{type} emails. Separate multiple email addresses with a space, comma or semi-colon."
       index:
         title: "Admins."
         add: "Add User"
@@ -978,6 +980,13 @@ en:
       lettings:
         confirm: "Your letting for %{plot} has been set up"
         no_account: "%{user} does not have a lettings account"
+
+    cc_email:
+      receive_faq_emails: "FAQ Feedback"
+      receive_release_emails: "Plot Release"
+      receive_invitation_emails: "Activation Report"
+      snag_notifications: "Snagging"
+
     dashboard:
       components:
         no_recent:
