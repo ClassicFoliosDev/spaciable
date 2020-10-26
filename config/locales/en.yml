@@ -660,6 +660,11 @@ en:
     search:
       search: "Search"
       all: "All"
+    browser_support:
+      title: "Your browser is not fully supported!"
+      text: "Some features may be limited while using Internet Explorer. <br/>To ensure you're able to experience Spaciable to the fullest, please use a different Internet browser, such as Chrome, Firefox or Safari."
+      text_microsoft: "Please note that Microsoft will be <a href='https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666', target='_blank'>ending updates and support for Internet Explorer</a> in 2021."
+      not_again: "Don't show this again"
 
   destroy:
     cancel: "Cancel"
