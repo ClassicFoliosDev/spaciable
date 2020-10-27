@@ -50,6 +50,7 @@ class Plot < ApplicationRecord
   delegate :time_zone, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, to: :development
+  delegate :custom_url, to: :developer
 
   alias_attribute :identity, :number
 

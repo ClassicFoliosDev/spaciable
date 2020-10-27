@@ -21,7 +21,7 @@ Feature: Homeowner Branding
     And I switch back to the first plot
     Then I should see the branding for my page
     When I log out as a homeowner
-    Then I should see the configured branding
+    Then I should see the developer level configured branding
 
   Scenario: Branded invitation
     Given I have a branded developer with a development with unit type and plot
@@ -30,7 +30,7 @@ Feature: Homeowner Branding
     When I assign a new resident to a plot
     Then The resident receives a branded invitation
     And I visit the accept page
-    Then I should see the configured branding
+    Then I should see the developer level configured branding
 
   Scenario: Empty brand
     Given I have a branded developer with a development with unit type and plot

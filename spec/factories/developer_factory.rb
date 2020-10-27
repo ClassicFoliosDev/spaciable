@@ -3,6 +3,7 @@
 FactoryGirl.define do
   factory :developer do
     company_name { Faker::Company.name.delete("-").delete(",").delete("'") }
+    custom_url { company_name.parameterize }
     email { Faker::Internet.email }
     contact_number { "+44 #{Faker::Number.number(9)}" }
     about { Faker::Lorem.paragraph(3) }

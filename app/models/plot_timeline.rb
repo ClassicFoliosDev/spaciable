@@ -13,6 +13,8 @@ class PlotTimeline < ApplicationRecord
 
   # Log non not_applicable responses for a Task.
   def log(task, response)
+    return if response == :not_applicable
+
     log = task_logs.find_by(task_id: task.id) ||
           task_logs.create(task_id: task.id)
     log.update_attributes(response: response)

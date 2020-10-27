@@ -6,13 +6,17 @@ module NamedCreateFixture
   def create_developer
     return if developer
     country = FactoryGirl.create(:country)
-    FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
+    FactoryGirl.create(:developer, company_name: developer_name,
+                       custom_url: developer_name.parameterize,
+                       country_id: country.id)
   end
 
   def create_second_developer
     return if second_developer
     country = FactoryGirl.create(:country)
-    FactoryGirl.create(:developer, company_name: second_developer_name, country_id: country.id)
+    FactoryGirl.create(:developer, company_name: second_developer_name,
+                        custom_url: second_developer_name.parameterize,
+                        country_id: country.id)
   end
 
   def create_division

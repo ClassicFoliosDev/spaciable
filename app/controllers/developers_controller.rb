@@ -4,8 +4,8 @@ class DevelopersController < ApplicationController
   include Ahoy::AnalyticsHelper
   include PaginationConcern
   include SortingConcern
-  load_and_authorize_resource :developer, except: %i[cas]
-  skip_authorization_check only: %i[cas]
+  load_and_authorize_resource :developer, except: %i[cas parameterize]
+  skip_authorization_check only: %i[cas parameterize]
 
   before_action do
     record_action("Developers", action: action_name)
@@ -45,6 +45,10 @@ class DevelopersController < ApplicationController
 
   def cas
     render json: { cas: Developer.find(params[:developer_id]).cas }
+  end
+
+  def parameterize
+    render json: { custom_url: params[:company_name].parameterize }
   end
 
   def create
@@ -90,7 +94,7 @@ class DevelopersController < ApplicationController
   def developer_params
     params.require(:developer).permit(
       :country_id,
-      :company_name, :email,
+      :company_name, :custom_url, :email,
       :contact_number, :about, :timeline_id,
       :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
