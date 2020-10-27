@@ -7,10 +7,6 @@ class DevelopersController < ApplicationController
   load_and_authorize_resource :developer, except: %i[cas]
   skip_authorization_check only: %i[cas]
 
-  before_action do
-    record_action("Developers", action: action_name)
-  end
-
   def index
     @developers = paginate(sort(@developers, default: :company_name))
   end
