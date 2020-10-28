@@ -3,8 +3,6 @@
     text-align: center;
     font-family: $base-font-family;
     height: 100%;
-    display: grid;
-    grid-template-rows: auto auto auto auto;
 
     h2 {
       font-size: $title-font-size-4;
@@ -19,11 +17,14 @@
     }
 
     .browser-download-links {
-      display: grid;
-      grid-template-columns: 33% 33% 33%;
 
-      .download-image img {
-        max-height: 70px;
+      .download-image {
+        display: inline-block;
+        padding: $spacing-small $spacing-large;
+
+        img {
+          max-height: 70px;
+        }
       }
     }
 

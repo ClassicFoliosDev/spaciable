@@ -4,7 +4,11 @@
   /* Trigger the app download reminder on page load (dashboard only) */
   document.addEventListener('turbolinks:load', function (event) {
     var element = document.getElementById("app-reminder");
-      if (element !== null) {
+    // get the value of the tour cookie to prevent the popup if it is active
+    var tourCookie = document.cookie.match(("(^|[^;]+)\\s*" + "dashboard_tour" + "\\s*=\\s*([^;]+)"))
+    var tourValue = tourCookie ? tourCookie.pop() : ""
+
+      if (element !== null && tourValue !== "show") {
         var osCheck = navigator.userAgent.toLowerCase();
         // check whether user is using gonative, if not check for android or iphone (covers ipad)
         if (osCheck.indexOf("gonative") === -1 &&
