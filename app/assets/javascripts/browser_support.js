@@ -4,7 +4,7 @@
   // Trigger the browser support popup on page load (dashboard only)
   // Check for support div and browder type
   document.addEventListener('turbolinks:load', function (event) {
-    if ($("#browserSupport").length)  {  // && (/Trident|MSIE/.test(navigator.userAgent)))
+    if (($("#browserSupport").length) && (/Trident|MSIE/.test(navigator.userAgent))) {
       showBrowserSupport()
     }
   })
