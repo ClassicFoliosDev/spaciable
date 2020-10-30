@@ -147,7 +147,7 @@ document.addEventListener('turbolinks:load', function () {
       $('.user_development_id, .administer_lettings').hide()
     } else if (role === 'development_admin') {
       $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+         .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, .cc-snag_notifications').show()
     } else if (role === 'site_admin') {
       $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
          .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
