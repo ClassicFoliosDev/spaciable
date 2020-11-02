@@ -153,15 +153,17 @@ Then(/^I navigate through the homeowner site$/) do
                         I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
 
   click_on tasks.first.negative
+  VisitsFixture.visited(meta, :view_your_journey, tasks.first.title, I18n.t("homeowners.timeline.task.viewed_content_negative"))
+
   click_on "Skip"
-  VisitsFixture.visited(meta, :view_your_journey, tasks.first.title, "negative")
+  VisitsFixture.visited(meta, :view_your_journey, tasks.first.title, I18n.t("homeowners.timeline.task.skipped_on_content"))
 
   (1..(tasks.count-1)).each do |task|
     find(:xpath, "//div[@class='question-content']/div/p[contains(text(),'#{tasks[task].question}')]")
     VisitsFixture.visited(meta, :view_your_journey, tasks[task].title,
                         I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
     click_on tasks[task].positive
-    VisitsFixture.visited(meta, :view_your_journey, tasks[task].title, "positive")
+    VisitsFixture.visited(meta, :view_your_journey, tasks[task].title, I18n.t("homeowners.timeline.task.answered_positive"))
   end
 
   VisitsFixture.visited(meta, :view_your_journey, I18n.t("homeowners.timeline.done"))
