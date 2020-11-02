@@ -62,9 +62,7 @@ Then(/^I can CRUD default FAQs for all countries$/) do
         click_on t("admin.default_faqs.collection.add", type: faq_type.name)
 
         # add new
-        find(".new_default_faq", visible: all)
-
-        within ".new_default_faq" do
+        within find(".new_default_faq", visible: all) do
           fill_in :default_faq_question, with: faq[:created][:question]
           fill_in_ckeditor(:default_faq_answer, with: faq[:created][:answer])
 

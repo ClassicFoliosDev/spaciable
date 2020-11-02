@@ -194,6 +194,8 @@ GEM
       i18n (~> 0.5)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.14.0)
+      faraday (>= 0.7.4, < 1.0)
     ffi (1.9.14)
     ffi (1.9.14-x64-mingw32)
     ffi (1.9.14-x86-mingw32)
@@ -249,6 +251,7 @@ GEM
       guard (>= 2.8.0)
       sass (>= 3.1)
     hashdiff (0.3.0)
+    hashie (3.6.0)
     htmlentities (4.3.4)
     http-accept (1.7.0)
     http-cookie (1.0.3)
@@ -257,6 +260,9 @@ GEM
       mime-types (~> 3.0)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
+    introjs-rails (1.0.0)
+      sass-rails (>= 3.2)
+      thor (~> 0.14)
     ipaddress (0.8.3)
     jmespath (1.3.1)
     jquery-rails (4.2.1)
@@ -418,6 +424,11 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    restforce (3.2.0)
+      faraday (>= 0.9.0, <= 1.0)
+      faraday_middleware (>= 0.8.8, <= 1.0)
+      hashie (>= 1.2.0, < 4.0)
+      json (>= 1.7.5)
     rollbar (2.13.3)
       multi_json
     rspec-core (3.5.3)
@@ -572,6 +583,7 @@ DEPENDENCIES
   guard-rake
   guard-sass
   httparty
+  introjs-rails
   jquery-rails
   jquery-ui-rails
   kaminari
@@ -597,6 +609,7 @@ DEPENDENCIES
   rails-timeago
   rails_best_practices (~> 1.17)
   request_store
+  restforce (<= 3.2.0)
   rollbar
   rspec-rails
   rubocop (~> 0.49)

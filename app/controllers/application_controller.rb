@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   end
 
   def build_sign_in_path(plot)
-    root_url << "#{plot.development.id}/sign_in"
+    root_url << "#{plot.custom_url}/sign_in"
   end
 
   def initialise_callback

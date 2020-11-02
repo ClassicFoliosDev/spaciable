@@ -10,6 +10,7 @@ When(/^I create a developer$/) do
 
   click_on t("developers.index.add")
   fill_in "developer_company_name", with: CreateFixture.developer_name
+  fill_in "developer_custom_url", with: CreateFixture.developer_name.parameterize
 
   click_on t("developers.form.submit")
 end

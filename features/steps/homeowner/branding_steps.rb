@@ -82,6 +82,13 @@ Then(/^I should see the branding for my page$/) do
   expect(style['outerHTML']).not_to have_content("branded-btn { color: #4C4D64")
 end
 
+Then(/^I should see the developer level configured branding$/) do
+  within ".login-logo" do
+    image = page.find("img")
+    expect(image["alt"]).to have_content FileFixture.logo_alt
+  end
+end
+
 # Specification for sign_in page branding can be referenced here:
 # https://alliants.atlassian.net/browse/HOOZ-539
 
@@ -165,8 +172,8 @@ Then(/^I should see the default branding$/) do
 end
 
 When(/^I switch back to the first plot$/) do
-  first_plot = Plot.find_by(number: CreateFixture.phase_plot_name,
-                            phase_id: CreateFixture.division_phase.id)
+  first_plot = Plot.find_by!(number: CreateFixture.phase_plot_name,
+                             phase_id: CreateFixture.division_phase.id)
 
   within ".plots" do
     find(:xpath, "//a[@href='/homeowners/change_plot?id=#{first_plot.id}']").click

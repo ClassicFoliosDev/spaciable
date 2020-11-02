@@ -24,6 +24,8 @@ class Plot < ApplicationRecord
   has_one :plot_timeline, dependent: :destroy
   accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
 
+  delegate :timeline_title, to: :plot_timeline, allow_nil: true
+
   belongs_to :choice_configuration
   has_many :room_choices, dependent: :destroy
 
@@ -48,6 +50,9 @@ class Plot < ApplicationRecord
   delegate :time_zone, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, to: :development
+  delegate :custom_url, to: :developer
+
+  alias_attribute :identity, :number
 
   attr_accessor :notify
 
@@ -524,7 +529,7 @@ class Plot < ApplicationRecord
   def download_doc(params)
     raise "#{name} does not have an associated CRM" unless crm
 
-    Crms::Zoho.new(self).download_doc(params)
+    "Crms::#{crm.name}".classify.constantize.new(self).download_doc(params)
   end
 
   # update the supplied plots with the new Completion Dates

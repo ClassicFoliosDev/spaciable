@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+#rubocop:disable all
 class CustomTile < ApplicationRecord
   include HTTParty
 
@@ -31,7 +32,8 @@ class CustomTile < ApplicationRecord
     services: 3,
     perks: 4,
     issues: 5,
-    snagging: 6
+    snagging: 6,
+    timeline: 7
   }
 
   enum guide: %i[
@@ -90,9 +92,10 @@ class CustomTile < ApplicationRecord
   end
 
   def active_feature(plot)
-    return true unless snagging? || issues?
+    return true unless snagging? || issues? || timeline?
     return true if snagging? && plot.snagging_valid
     return true if issues? && plot.show_maintenance?
+    return true if timeline? && plot&.plot_timeline&.live?
     false
   end
 
@@ -129,3 +132,4 @@ class CustomTile < ApplicationRecord
     link !~ /\A(http)/ ? "https://#{link}" : link
   end
 end
+#rubocop:enable all

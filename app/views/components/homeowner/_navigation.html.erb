@@ -92,17 +92,16 @@
               <li class="navbar-item unavailable">
                 <%= t(".perks") %> (Currently Unavailable)
               </li>
-            <% end %>
-            <% if response == true%>
-              <% perk = allocate_perk_type(current_resident, plot) %>
-              <%= link_to perks_path(type: perk), class: "navbar-link" do %>
+            <% elsif response == true %>
+              <%= link_to Vaboo.branded_perks_link(plot.developer),
+                class: "navbar-link", target: :_blank do %>
                   <li class="navbar-item">
                     <%= t(".perks") %>
                   </li>
               <% end %>
             <% elsif response == false %>
-              <%= link_to Vaboo.branded_perks_link(plot.developer),
-                  class: "navbar-link", target: :_blank do %>
+              <% perk = allocate_perk_type(current_resident, plot) %>
+              <%= link_to perks_path(type: perk), class: "navbar-link" do %>
                 <li class="navbar-item">
                   <%= t(".perks") %>
                 </li>
@@ -162,6 +161,12 @@
               <%= t(".maintenance") %>
             </li>
           <% end %>
+        <% end %>
+
+        <%= link_to dashboard_path, class: "navbar-link" do %>
+          <li class="navbar-item dashboard-tour-link">
+            <%= t('.dashboard_tour') %>
+          </li>
         <% end %>
       </ul>
     </div>

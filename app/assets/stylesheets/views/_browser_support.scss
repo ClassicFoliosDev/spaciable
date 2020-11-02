@@ -1,0 +1,85 @@
+.browser-support {
+  .browser-support-content {
+    text-align: center;
+    font-family: $base-font-family;
+    height: 100%;
+
+    h2 {
+      font-size: $title-font-size-4;
+    }
+
+    .browser-support-text p {
+      font-size: $base-font-size;
+
+      a {
+        color: $primary-navy;
+      }
+    }
+
+    .browser-download-links {
+
+      .download-image {
+        display: inline-block;
+        padding: $spacing-small $spacing-large;
+
+        img {
+          max-height: 70px;
+        }
+      }
+    }
+
+    .browser-support-footer {
+      align-self: end;
+
+      .hide-browser-support {
+        background: none;
+        border: none;
+        color: $ui-black;
+        text-transform: uppercase;
+        font-size: $base-small-font-size;
+        font-weight: $semi-bold-font-weight;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.browser-support-dialog {
+  .ui-dialog-buttonpane {
+    padding: 0 !important;
+
+    .ui-dialog-buttonset {
+      float: none;
+    }
+
+    .support-dismiss {
+      text-align: center;
+      border: 0;
+      width: 35px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      border: 0 !important;
+      background: none;
+
+      .ui-button-text {
+        font-family: FontAwesome;
+      }
+
+      .fa-times {
+        padding: 5px;
+        color: $primary-black;
+        font-size: $title-font-size-3;
+      }
+    }
+  }
+
+  img:focus, img:active, a:focus, a:active {
+    outline: none;
+  }
+}
+

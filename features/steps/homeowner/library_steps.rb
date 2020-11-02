@@ -29,7 +29,7 @@ When(/^I go to download the documents for my home$/) do
 end
 
 Then(/^I should see all of the documents related to my home$/) do
-  within ".documents" do
+  within find(".documents", visible: all)  do
     MyLibraryFixture.default_filtered_documents.each do |title, download_link|
       expect(page).to have_content %r{#{title}}i
 

@@ -40,8 +40,8 @@ class Timeline < ApplicationRecord
 
   scope :not_used_in_phase,
         lambda { |phase|
-          where(timelineable_type: "Global").or(where(timelineable: phase.developer))
-          where.not(id: in_phase(phase))
+          available = where(timelineable_type: "Global").or(where(timelineable: phase.developer))
+          available.where.not(id: in_phase(phase))
         }
 
   # Retrieve a specific Task

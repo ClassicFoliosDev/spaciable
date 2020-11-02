@@ -45,6 +45,8 @@ class Development < ApplicationRecord
            :premium_licence_duration, to: :premium_perk, allow_nil: true
   delegate :sign_up_count, to: :premium_perk, prefix: true
   delegate :branded_perk, to: :parent_developer
+  delegate :custom_url, to: :developer
+  delegate :timeline, to: :parent_developer
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true
@@ -74,6 +76,8 @@ class Development < ApplicationRecord
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_tiles
   after_save :update_custom_tiles
+
+  alias_attribute :identity, :name
 
   enum choice_option:
     %i[
@@ -195,14 +199,14 @@ class Development < ApplicationRecord
   def sync_docs
     raise "#{name} does not have an associated CRM" unless crm
 
-    Crms::Zoho.new(self).documents
+    "Crms::#{crm.name}".classify.constantize.new(self).documents
   end
 
   # get the docs from the crm
   def download_doc(params)
     raise "#{name} does not have an associated CRM" unless crm
 
-    Crms::Zoho.new(self).download_doc(params)
+    "Crms::#{crm.name}".classify.constantize.new(self).download_doc(params)
   end
 
   # update existing phases business if development is updated to be commercial

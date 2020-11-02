@@ -43,6 +43,7 @@ When(/^I create a perks developer$/) do
 
   click_on t("developers.index.add")
   fill_in "developer_company_name", with: PerkFixture.developer_name
+  fill_in "developer_custom_url", with: PerkFixture.developer_name.parameterize
   check "enable_perks"
 
   click_on t("developers.form.submit")

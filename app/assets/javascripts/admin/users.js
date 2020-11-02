@@ -131,24 +131,32 @@ document.addEventListener('turbolinks:load', function () {
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, .receive-invitation-emails, .client_specifications, .receive-faq-emails').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
+         .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
+         .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, .cc-receive_faq_emails').hide()
       $("#plot_check").prop("checked", true);
       $("#choice_check").prop("checked", true);
       $("#snag_check").prop("checked", true)
     } else if (role === 'developer_admin') {
-      $('.user_developer_id, .receive_plot_emails, .receive-snagging-emails, .receive-faq-emails, .receive-invitation-emails').show()
+      $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
+         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
       $('.user_division_id, .user_development_id, .administer_lettings').hide()
     } else if (role === 'division_admin') {
-      $('.user_developer_id, .user_division_id, .receive_plot_emails, .receive_choice_emails, .receive-snagging-emails, .receive-faq-emails, .receive-invitation-emails').show()
+      $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+         .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
       $('.user_development_id, .administer_lettings').hide()
     } else if (role === 'development_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, .administer_lettings, .receive-faq-emails, .receive-invitation-emails').show()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+         .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, .cc-snag_notifications').show()
     } else if (role === 'site_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_plot_emails, .receive_choice_emails, receive-invitation-emails').show()
-      $('.receive-snagging-emails, .administer_lettings').hide()
+      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+      $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };
+
+    setCcLabels()
   };
 
   // Get the CAS enablement from the developer and display the CAS enablement
@@ -184,6 +192,18 @@ document.addEventListener('turbolinks:load', function () {
       $("#cas_check").prop("checked", dev_div_admin)
       $("#cas_check").prop("disabled", dev_div_admin)
     }
+  };
+
+  function setCcLabels() {
+    $(".cc-email-fields .user_cc_emails_email_type input").each(function() {
+      var emailType = $(this)[0].value
+      if(!emailType) { return }
+      var emailTitle = $("." + emailType + " label")[0].innerText
+
+      $(this).parent().parent($(".cc-email-fields")).addClass("cc-" + emailType)
+      $(this).parent().parent().find(".user_cc_emails_email_list label")[0].innerText = "CC " + emailTitle
+      $(this).parent().parent().find(".user_cc_emails_email_list textarea").attr("placeholder", "Add any CC email addresses for " + emailTitle + ". Separate multiple email addresses with a space, comma or semi-colon.")
+    })
   };
 })
 

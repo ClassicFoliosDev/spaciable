@@ -3,7 +3,7 @@ $data-section-color: $primary-navy;
 
 .section-header {
   @include display(flex);
-  margin-top: $spacing-large;
+  margin-top: $spacing-medium;
   margin-bottom: $spacing-large;
 
   & > * {

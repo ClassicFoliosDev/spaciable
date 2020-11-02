@@ -37,6 +37,7 @@ class ApplicationMailer < ActionMailer::Base
 
     mail to: @admin_emails,
          bcc: @response.positive? ? "" : "feedback@spaciable.com",
+         cc: CcEmail.emails_list(@admin_emails, :receive_faq_emails),
          subject: I18n.t("feedback.email_subject")
   end
 

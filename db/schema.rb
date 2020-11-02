@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200921094247) do
+ActiveRecord::Schema.define(version: 20201013143437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.string  "access_token"
     t.string  "refresh_token"
     t.integer "expires_at"
+    t.integer "crm_id"
+    t.index ["crm_id"], name: "index_access_tokens_on_crm_id", using: :btree
   end
 
   create_table "actions", force: :cascade do |t|
@@ -371,6 +373,7 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
     t.boolean  "timeline",                    default: false
+    t.string   "custom_url"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -1184,6 +1187,7 @@ ActiveRecord::Schema.define(version: 20200921094247) do
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
+  add_foreign_key "access_tokens", "crms"
   add_foreign_key "actions", "tasks"
   add_foreign_key "appliance_categories", "developers"
   add_foreign_key "appliance_manufacturers", "developers"

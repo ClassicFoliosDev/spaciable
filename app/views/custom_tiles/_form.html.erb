@@ -17,7 +17,7 @@
       <div class="half">
         <div class="editable">
           <% if current_user.cf_admin? %>
-            <%= label_tag :editable, t(".editable") %>
+            <%= label_tag :editable, t(".editable"), class: "checkbox-label" %>
             <%= f.check_box :editable %>
             <p class="checkbox-description"><%= t(".editable_description") %></p>
           <% end %>

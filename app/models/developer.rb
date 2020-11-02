@@ -42,6 +42,8 @@ class Developer < ApplicationRecord
   delegate :link, :account_number, :tile_image,
            to: :branded_perk, allow_nil: true, prefix: true
 
+  alias_attribute :identity, :company_name
+
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
   # on a Developer object and it will retrieve the associated country from the Country
@@ -57,6 +59,11 @@ class Developer < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
+  validates :custom_url, presence: true,
+                         uniqueness: true,
+                         format: { with: /\A[a-z0-9\-_]+\z/,
+                                   message: "%<value> can only contain lowercase letters, "\
+                                            "digits, dashes and underscores" }
 
   delegate :to_s, to: :company_name
 

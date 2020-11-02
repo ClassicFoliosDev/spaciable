@@ -23,3 +23,4 @@
 //= require fullcalendar
 //= require fullcalendar/locale-all
 //= require flatpickr
+// = require introjs
