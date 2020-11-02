@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201013143437) do
+ActiveRecord::Schema.define(version: 20201101171205) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -410,13 +410,11 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
-    t.integer  "timeline_id"
     t.boolean  "calendar",              default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
     t.index ["name", "developer_id", "division_id"], name: "index_developments_on_name_and_developer_id_and_division_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["timeline_id"], name: "index_developments_on_timeline_id", using: :btree
   end
 
   create_table "divisions", force: :cascade do |t|
@@ -428,12 +426,10 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "list_id"
-    t.integer  "timeline_id"
     t.index ["created_at"], name: "index_divisions_on_created_at", using: :btree
     t.index ["deleted_at"], name: "index_divisions_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_divisions_on_developer_id", using: :btree
     t.index ["division_name", "developer_id"], name: "index_divisions_on_division_name_and_developer_id", unique: true, where: "(deleted_at IS NULL)", using: :btree
-    t.index ["timeline_id"], name: "index_divisions_on_timeline_id", using: :btree
     t.index ["updated_at"], name: "index_divisions_on_updated_at", using: :btree
   end
 
@@ -1203,9 +1199,7 @@ ActiveRecord::Schema.define(version: 20201013143437) do
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
-  add_foreign_key "developments", "timelines"
   add_foreign_key "divisions", "developers"
-  add_foreign_key "divisions", "timelines"
   add_foreign_key "documents", "users"
   add_foreign_key "events", "events", column: "master_id"
   add_foreign_key "faq_type_categories", "faq_categories"

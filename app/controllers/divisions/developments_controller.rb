@@ -89,7 +89,7 @@ module Divisions
       params.require(:development).permit(
         :name, :choice_option,
         :division_id,
-        :email, :contact_number, :timeline_id,
+        :email, :contact_number,
         :enable_snagging, :snag_duration, :snag_name, :cas, :calendar,
         :construction, :construction_name,
         maintenance_attributes: %i[id path account_type populate],
