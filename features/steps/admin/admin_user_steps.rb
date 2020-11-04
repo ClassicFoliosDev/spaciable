@@ -367,10 +367,9 @@ When(/^I restore the deleted developer admin as CF admin$/) do
     click_on t("admin.users.index.add")
   end
 
-  within find(".user_email") do
+  within ".user_email" do
     fill_in :user_email, with: AdminUsersFixture.developer_admin_attrs[:email_address]
   end
-  select "CF Admin", visible: false
 
   click_on t("admin.users.form.submit")
 end
