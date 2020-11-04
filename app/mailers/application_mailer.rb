@@ -35,9 +35,11 @@ class ApplicationMailer < ActionMailer::Base
     @response = data[:response].to_i
     @feedback = data[:feedback]
 
+    return if @admin_emails.empty?
+
     mail to: @admin_emails,
+         bcc: @response.positive? ? "" : "feedback@spaciable.com",
          cc: CcEmail.emails_list(@admin_emails, :receive_faq_emails),
-         bcc: "feedback@spaciable.com",
          subject: I18n.t("feedback.email_subject")
   end
 
