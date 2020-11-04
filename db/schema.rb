@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201026150005) do
+ActiveRecord::Schema.define(version: 20201028115438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -683,6 +683,11 @@ ActiveRecord::Schema.define(version: 20201026150005) do
     t.integer "plot_id",             null: false
     t.index ["lettings_account_id"], name: "index_listings_on_lettings_account_id", using: :btree
     t.index ["plot_id"], name: "index_listings_on_plot_id", unique: true, using: :btree
+  end
+
+  create_table "locks", force: :cascade do |t|
+    t.integer "job", null: false
+    t.index ["job"], name: "index_locks_on_job", unique: true, using: :btree
   end
 
   create_table "logs", force: :cascade do |t|
