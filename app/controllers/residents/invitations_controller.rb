@@ -9,12 +9,11 @@ module Residents
     end
 
     def edit
-      development = if params[:development_id]
-                      Development.find(params[:development_id])
-                    else
-                      DevelopmentFinderService.call(params)
-                    end
-      @brand = development&.brand_any
+      @brand = if params[:custom_url]
+                 Developer.find_by!(custom_url: params[:custom_url])&.brand
+               else
+                 DevelopmentFinderService.call(params)&.brand_any
+               end
       super
     end
 

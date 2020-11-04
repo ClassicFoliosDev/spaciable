@@ -219,8 +219,9 @@ module CreateFixture
     return developer if developer
     create_countries
     dname = branded ? branded_developer_name : name
-    FactoryGirl.create(:developer, company_name: dname, house_search: true,
-                       enable_referrals: true, country_id: uk.id, cas: cas)
+    FactoryGirl.create(:developer, company_name: dname, custom_url: dname.parameterize,
+                       house_search: true, enable_referrals: true, country_id: uk.id,
+                       cas: cas)
   end
 
   def create_spanish_developer

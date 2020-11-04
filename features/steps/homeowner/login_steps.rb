@@ -48,6 +48,7 @@ When(/^I log out as a homeowner$/) do
   within ".notice" do
     expect(page).to have_content(t("devise.sessions.signed_out"))
   end
+
 end
 
 Then(/^I should be on the branded homeowner login page$/) do
@@ -55,7 +56,7 @@ Then(/^I should be on the branded homeowner login page$/) do
 
   # Should be safe, we only created one plot
   plot = homeowner.plots.first
-  expect(current_path).to eq("/#{plot.development.id}/sign_in")
+  expect(current_path).to eq("/#{plot.developer.custom_url}/sign_in")
 end
 
 Given(/^I am a homeowner with no plot$/) do

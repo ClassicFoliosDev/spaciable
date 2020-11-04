@@ -41,6 +41,10 @@ nav {
   }
 }
 
+#homeownerNav {
+  position: fixed !important;
+}
+
 .sub-navigation-container {
   padding-top: $spacing-small;
   text-align: center;

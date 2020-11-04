@@ -11,12 +11,13 @@ module Residents
     # GET /resource/sign_in
     def new
       self.resource = resource_class.new(sign_in_params)
-      development = if params[:development_id]
-                      Development.find(params[:development_id])
-                    else
-                      DevelopmentFinderService.call(params)
-                    end
-      @brand = development&.brand_any
+
+      @brand = if params[:custom_url]
+                 Developer.find_by!(custom_url: params[:custom_url])&.brand
+               else
+                 DevelopmentFinderService.call(params)&.brand_any
+               end
+
       clean_up_passwords(resource)
 
       yield resource if block_given?

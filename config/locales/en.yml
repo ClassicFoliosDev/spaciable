@@ -1715,6 +1715,10 @@ en:
           activated_button: "Login to Buyers' Club"
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
           error: "Currently unavailable. Please try again later."
+        timeline:
+          title: "Your Journey"
+          description: "Track your progress towards your move and pick up plenty of tips along the way."
+          button: "Your Journey"
 
     communication_preferences:
       show:
@@ -1930,6 +1934,7 @@ en:
       back: "Back"
       address: "Postal Address"
       company_name: "Name"
+      custom_url: "Custom URL"
       email: "Email"
       contact: "Phone"
       api_key: "Mailchimp API Key"
@@ -3436,6 +3441,7 @@ en:
           perks: "Buyers' Club"
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
+          timeline: "Timeline"
         guides:
           reservation: "Reservation"
           completion: "Completion"
