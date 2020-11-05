@@ -281,18 +281,6 @@ Then(/^I can CRUD contacts$/) do
   end
 end
 
-Then(/^I can update the build progress of the phase$/) do
-  within ".tabs" do
-    click_on t("phases.collection.progresses")
-  end
-
-  select_from_selectmenu :progress_all, with: PlotFixture.progress
-
-  within ".form-actions-footer" do
-    click_on t("progresses.progress.submit")
-  end
-end
-
 Then(/^only the live plot will have its build progress updated$/) do
   within ".record-list" do
     expect(page).to have_content(PlotFixture.progress, count: 1)
@@ -349,18 +337,6 @@ Then(/^I can no longer CRUD contacts$/) do
     expect(page).to have_content("You have no contacts.")
     expect(page).to_not have_content(t("components.empty_list.add", action: "Add", type_name: Video.model_name.human.downcase))
   end
-end
-
-Then(/^I can no longer update the build progress of the phase$/) do
-  within ".tabs" do
-    click_on t("phases.collection.progresses")
-  end
-
-  # The page will the show progress of two plots, both of which are the default progress
-  expect(page).to have_content(t("activerecord.attributes.plot.progresses.soon"), count: 2)
-
-  expect(page).to have_no_css(".ui-selectmenu-text")
-  expect(page).to_not have_content I18n.t("progresses.progress.submit")
 end
 
 Given(/^I am on the development page$/) do
