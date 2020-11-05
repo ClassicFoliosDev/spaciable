@@ -1322,7 +1322,7 @@ en:
       snag_duration: "Snagging Duration (Days)"
       snag_name: "Snagging Name"
       maintenance_auto_populate: "Auto-Populate FixFlo Details"
-      maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
+      maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo or Clixifix."
       choices_email: "Choices Email"
       account_type: "Maintenance Account Type"
       enable_cas: "Client Adding Specifications"
@@ -3504,8 +3504,9 @@ en:
         all: "All"
       maintenance:
         account_types:
-          standard: "Standard"
-          full_works: "Full Works Management"
+          standard: "Fixflo Standard"
+          full_works: "Fixflo Full Works Management"
+          clixifix: "Clixifix"
       how_to:
         title: "Title"
         summary: "Summary"
