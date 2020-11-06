@@ -97,18 +97,20 @@ Then(/^I navigate through the homeowner site$/) do
 
   (1..rand(1..2)).each do |i|
     HowTo.where(hide: false).each do |how_to|
+      category = I18n.t("activerecord.attributes.how_to.categories.#{how_to.category}")
       visit "homeowners/how_tos/category/#{how_to.category}"
-      VisitsFixture.visited(meta, :view_how_to, how_to.category, I18n.t("ahoy.#{Ahoy::Event::ROOT}"))
+      VisitsFixture.visited(meta, :view_how_to, category, I18n.t("ahoy.#{Ahoy::Event::ROOT}", category: category))
 
       visit "homeowners/how_tos/#{how_to.id}"
-      VisitsFixture.visited(meta, :view_how_to, how_to.category, how_to.title)
+      VisitsFixture.visited(meta, :view_how_to, I18n.t("activerecord.attributes.how_to.categories." \
+                                     "#{how_to.category}"), how_to.title)
     end
   end
 
   (1..rand(1..2)).each do |i|
     Contact.categories.each do |name,_|
       visit "/homeowners/contacts/#{name}"
-      VisitsFixture.visited(meta, :view_contacts, name)
+      VisitsFixture.visited(meta, :view_contacts, I18n.t("activerecord.attributes.contact.categories.#{name}"))
     end
   end
 
@@ -140,7 +142,7 @@ Then(/^I navigate through the homeowner site$/) do
 
   # ---------- Timelines ------------
   visit "/homeowners/timeline"
-  VisitsFixture.visited(meta, :view_your_journey, "Splash")
+  VisitsFixture.visited(meta, :view_your_journey, "Welcome Page")
 
   click_on t("homeowners.timeline.splash.continue")
   VisitsFixture.visited(meta, :view_your_journey, "Select Stage")
@@ -195,6 +197,7 @@ Then(/^I can filter by developer (developer\d)$/) do |developer|
   #  page has been refreshed (i.e. Press the 'Clean' button (goes 'Dirty') then
   # make the change that refreshed the page and wait for 'Clean' to reappear
   click_on 'Clean'
+
   select_from_selectmenu :visits_developer_id, with: VisitsFixture.send(developer + "_name")
   find(:xpath,"//input[@id='reload_check'][@value='Clean']")
   check_visits(VisitsFixture.expected, filter: {developer_id: VisitsFixture.send(developer).id})
