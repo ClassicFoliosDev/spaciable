@@ -8,5 +8,6 @@ class Maintenance < ApplicationRecord
   enum account_type: %i[
     standard
     full_works
+    clixifix
   ]
 end
