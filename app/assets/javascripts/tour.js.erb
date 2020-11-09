@@ -39,72 +39,77 @@ function loadDashboardTour() {
     steps: [
       {
         element: ".burger-navigation",
-        intro: "<%= ENV['INTRO_NAV'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.navigation") %>",
         position: "left"
       },
       {
         element: ".view-my-home-btn",
-        intro: "<%= ENV['INTRO_HOME'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.home") %>",
         position: "top"
       },
       {
         element: ".faqs-component",
-        intro: "<%= ENV['INTRO_FAQ'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.faq") %>",
         position: "top"
       },
       {
         element: ".contacts-component",
-        intro: "<%= ENV['INTRO_CONTACT'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.contact") %>",
         position: "top"
       },
       {
         element: ".library-component",
-        intro: "<%= ENV['INTRO_LIBRARY'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.library").html_safe %>",
         position: "top"
       },
       {
         element: ".perks-component",
-        intro: "<%= ENV['INTRO_PERKS'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.perks") %>",
         position: "top"
       },
       {
         element: ".services-component",
-        intro: "<%= ENV['INTRO_SERVICES'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.services") %>",
         position: "top"
       },
       {
         element: ".area_guide-component",
-        intro: "<%= ENV['INTRO_AREA_GUIDE'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.area_guide") %>",
         position: "top"
       },
       {
         element: ".referrals-component",
-        intro: "<%= ENV['INTRO_REFERRALS'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.referrals") %>",
         position: "top"
       },
       {
         element: ".home_designer-component",
-        intro: "<%= ENV['INTRO_HOME_DESIGNER'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.home_designer") %>",
         position: "top"
       },
       {
         element: ".issues-component",
-        intro: "<%= ENV['INTRO_ISSUES'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.issues") %>",
         position: "top"
       },
       {
         element: ".snagging-component",
-        intro: "<%= ENV['INTRO_SNAGGING'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.snagging").html_safe %>",
+        position: "top"
+      },
+      {
+        element: ".timeline-component",
+        intro: "<%= I18n.t("tours.intro_tour.timeline") %>",
         position: "top"
       },
       {
         element: ".reservation-component",
-        intro: "<%= ENV['INTRO_RESERVATION'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.reservation") %>",
         position: "top"
       },
       {
         element: ".completion-component",
-        intro: "<%= ENV['INTRO_COMPLETION'] %>",
+        intro: "<%= I18n.t("tours.intro_tour.completion") %>",
         position: "top"
       },
     ].filter(function (obj) {
