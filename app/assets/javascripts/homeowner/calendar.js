@@ -160,8 +160,8 @@ var homeowner = {
     $('#event_title').val(event.title).prop("disabled", !event.writable);
     $('#event_location').val(event.location).prop("disabled", !event.writable);
 
-    p_start = moment(event.homeowner.proposed_start)
-    p_end = moment(event.homeowner.proposed_end)
+    p_start = moment(event.proposed_start)
+    p_end = moment(event.proposed_end)
     $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
     $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
     $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
@@ -173,7 +173,7 @@ var homeowner = {
     e_end_date.setDate(event.end.toDate())
 
     homeowner.disableDates(!event.writable)
-    homeowner.setResponses(event.homeowner.status)
+    homeowner.setResponses(event.homeowner.status, event)
   },
 
   showEvent: function(event, dataIn) {
@@ -343,12 +343,22 @@ var homeowner = {
     $('#event_end_time').next().prop("disabled", disabled);
   },
 
-  setResponses: function(status){
+  setResponses: function(status, event = null){
     $("#accept_event").show()
     $("#decline_event").show()
     $("#change_event").show()
     $("#save_change").hide()
-    $(".proposed_datetime").hide()
+    if (event == null || event.proposed_start == null) {
+      $(".proposed_datetime").hide()
+      $("#change_event").show()
+    } else {
+      $(".proposed_datetime").show()
+      if (status == 'reproposed') {
+        $("#change_event").show()
+      } else {
+        $("#change_event").hide()
+      }
+    }
 
     if (status == 'accepted') {
       $("#accept_event").hide()

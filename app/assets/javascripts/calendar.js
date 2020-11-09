@@ -72,7 +72,9 @@ var admin = {
             if(resource.status == "reproposed") {
               element.addClass("reproposed-datetime")
             }
-            element.children(".fc-content").append("<span class='circle fill-" + resource.status + "'></span>")
+            if(event.eventable_type == "Plot") {
+              element.children(".fc-content").append("<span class='circle fill-" + resource.status + "'></span>")
+            }
           })
         },
         eventAfterAllRender: function(){
@@ -152,6 +154,7 @@ var admin = {
 
   showEvent: function(event, dataIn) {
     $(".proposed_datetime").hide()
+    admin.scrub()
 
     var $eventContainer = $('.event_details_form')
     $('body').append($eventContainer)
@@ -175,6 +178,10 @@ var admin = {
         class: 'btn-send btn',
         id: 'btn_submit',
         click: function () {
+          if (!admin.validate()) {
+            return
+          }
+
           $eventContainer.hide()
 
           if (event.repeater) {
@@ -221,13 +228,13 @@ var admin = {
     $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
     $('.ui-dialog-title').css('line-height', '28px')
 
-    admin.populate(event)
+    admin.populate(event, dataIn)
   },
 
   // Populate the form with event data.  Ideally this would be
   // done when the form is invisible but some SimpleForms controls
   // must be visible for them to be controllable through JS
-  populate: function(event){
+  populate: function(event, dataIn){
     currentEvent = event
 
     $('#event_id').val(event.id)
@@ -253,7 +260,12 @@ var admin = {
     }
     $('#event_repeat_until').next().prop("disabled", !event.writable)
 
-    admin.populateResidents(event)
+    // Plot events show residents, all others show plots
+    if (event.hasOwnProperty('eventable_type') && event.eventable_type == 'Plot') {
+      admin.populateResidents(event)
+    } else {
+      admin.populatePlots(event)
+    }
 
     // Populate the pulldowns.  Simple Forms builds a complex structure of
     // related controls to support pulldowns.  The only way to set their
@@ -278,32 +290,40 @@ var admin = {
 
   populateResidents: function(event) {
 
-    // clear out any resident selections
-    $("#residents input[type='checkbox']").each(function() {
+    // remove any dynamic styling before reinitialising
+
+    // clear out any resident selections - ie unclick any checked boxes
+    $("#resources input[type='checkbox']").each(function() {
       if (this.checked) {
         $(this).trigger( "click" )
       }
     });
 
+    // remove styling and buttons from residents
+    $("#resources span").each(function () {
+      $(this).removeClass("accepted declined invited reproposed")
+      $(this).children(".btn").remove()
+    })
+
+    // Now reintialise from scratch
+
     // set checked for associated event residents
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
-        resident = admin.resident(resource['resourceable_id'])
-        resident.parent().children("input[type='checkbox']").trigger('click')
-        admin.setResidentStatus(resident, resource.status)
+        resource = admin.resource(resource['resourceable_id'])
+        resource.parent().children("input[type='checkbox']").trigger('click')
+        resource.closest("span").addClass(resource.status)
       });
     }
 
     // add the buttons for each resident
-    $("#residents span").each(function () {
-      $(this).children(".btn").remove()
-
+    $("#resources span").each(function () {
       if (event.writable) {
         // add invite/uninvite buttons
         if($(this).hasClass("checked")) {
-          $(this).append("<button class='btn uninvite-resident-btn'>Remove</button>")
+          $(this).append("<button class='btn uninvite-resource-btn'>Remove</button>")
         } else {
-          $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+          $(this).append("<button class='btn invite-resource-btn'>Invite</button>")
         }
       }
 
@@ -315,24 +335,65 @@ var admin = {
 
     $('.view-proposed-datetime').click(function(e) {
       e.preventDefault()
-      for (var i = 0; i < currentEvent.resources.length; i++) {
-        if ($(this).data('resident') == currentEvent.resources[i]['resourceable_id']) {
-          admin.showProposed(currentEvent.resources[i])
-        }
-      }
+      admin.showProposed(currentEvent)
     })
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
   },
 
-  setResidentStatus: function(resident, status){
-    // remove all styling classes (otherwise they inherit across events)
-    resident.closest("span").removeClass("accepted declined invited reproposed")
-    // re-apply styling class for this event
-    resident.closest("span").addClass(status)
+  populatePlots: function(event) {
+
+    // remove any dynamic styling before reinitialising
+
+    // clear out any resident selections - ie unclick any checked boxes
+    $("#resources input[type='checkbox']").each(function() {
+      if (this.checked) {
+        $(this).trigger( "click" )
+      }
+    });
+
+    // remove styling and buttons from residents
+    $("#resources span").each(function () {
+      $(this).removeClass("accepted declined invited reproposed")
+      $(this).children(".btn").remove()
+    })
+
+    // Now reintialise from scratch
+
+    // set checked for associated event plots
+    if (event.hasOwnProperty('resources')) {
+      $.each( event.resources, function( index, resource ){
+        resource = admin.resource(resource['resourceable_id'])
+        resource.parent().children("input[type='checkbox']").trigger('click')
+        resource.closest("span").addClass(resource.status)
+      });
+    }
+
+    // add the buttons for each plot
+    $("#resources span").each(function () {
+      if (event.writable) {
+        // add invite/uninvite buttons
+        if($(this).hasClass("checked")) {
+          $(this).append("<button class='btn uninvite-resource-btn'>Remove</button>")
+        } else {
+          $(this).append("<button class='btn invite-resource-btn'>Invite</button>")
+        }
+      }
+
+      // add time button if event datetime has been reproposed
+      if($(this).hasClass("reproposed")) {
+        $(this).append("<button class='btn fa fa-clock-o view-proposed-datetime' data-resident=" + $(this).find('input').val() + "></button>")
+      }
+    })
+
+    $('.view-proposed-datetime').click(function(e) {
+      e.preventDefault()
+      admin.showProposed(currentEvent)
+    })
+    if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
   },
 
-  resident: function(id){
-    return $("#event_residents_" + id)
+  resource: function(id){
+    return $("#event_resources_" + id)
   },
 
   disablePulldown: function(pulldown, disable) {
@@ -484,7 +545,7 @@ var admin = {
 
   // Add click handlers to all the resident entries.
   initControls: function() {
-    $("#residents input[type='checkbox']").each(function() {
+    $("#resources input[type='checkbox']").each(function() {
       $(this).parent().addClass("resident-label")
       $(this).change(function () {
         this.checked ? $(this).parent().parent().addClass("checked") :
@@ -537,22 +598,41 @@ var admin = {
     proposer = $(".proposed_datetime").data('proposer')
     admin.setResidentStatus(admin.resident(proposer), 'invited')
     $("button[data-resident='" + proposer + "']").remove()
+  },
+
+  validate: function() {
+    title = $("#event_title")
+    if( !title.val() ) {
+      if (!$('#title_error').length) {
+        title.parents('div').addClass('field_with_errors');
+        title.after( "<span id='title_error' class='error'>is required, and must not be blank.</span>")
+      }
+      return false
+    }
+
+    return true
+  },
+
+  // Remove any error formatting from validated fields
+  scrub: function() {
+    $("#event_title").parents('div').removeClass('field_with_errors')
+    $("#title_error").remove()
   }
 }
 
 
 // check checkbox on click invite button
-$(document).on('click', '.invite-resident-btn', function(event) {
+$(document).on('click', '.invite-resource-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
-  $(this).addClass('uninvite-resident-btn').removeClass('invite-resident-btn').text("Remove")
+  $(this).addClass('uninvite-resource-btn').removeClass('invite-resource-btn').text("Remove")
 })
 
 // uncheck checkbox on click uninvite button
-$(document).on('click', '.uninvite-resident-btn', function(event) {
+$(document).on('click', '.uninvite-resource-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
-  $(this).addClass('invite-resident-btn').removeClass('uninvite-resident-btn').text("Invite")
+  $(this).addClass('invite-resource-btn').removeClass('uninvite-resource-btn').text("Invite")
 })
 
 // prevent checkbox being checked when clicking resident name (checkbox label)

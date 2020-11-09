@@ -31,12 +31,16 @@ module Homeowners
 
     # Homeowner response to a proposed event
     def feedback
+      event = Event.find(params[:event_id])
       resource = EventResource.find_by(event_id: params[:event_id],
                                        resourceable_id: params[:resourceable_id],
                                        resourceable_type: params[:resourceable_type])
       if resource
+        # update resource before event - post save
+        # events depend on order
         resource.update_attributes(resource_params)
-        EventNotificationService.feedback(resource)
+        event.update_attributes(repropose_params)
+        EventNotificationService.feedback(resource.reload)
       end
 
       render json: { status: 200 }
@@ -50,8 +54,11 @@ module Homeowners
     end
 
     def resource_params
-      params.permit(:id, :resourceable_id, :resourceable_type, :status,
-                    :proposed_start, :proposed_end)
+      params.permit(:id, :resourceable_id, :resourceable_type, :status)
+    end
+
+    def repropose_params
+      params.permit(:proposed_start, :proposed_end)
     end
   end
 end

@@ -212,7 +212,7 @@
     color: $primary-navy;
   }
 
-  .title, .location, .attendees {
+  .title, .location, .resources {
     padding-top: 1px;
   }
 
@@ -290,10 +290,6 @@
       }
     }
 
-    span.required {
-      display: none;
-    }
-
     .half, .quarter {
       margin-bottom: 0;
     }
@@ -309,7 +305,7 @@
     }
   }
 
-  #residents {
+  #resources {
     height: 106px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -333,7 +329,7 @@
         line-height: 1.5;
       }
 
-      .invite-resident-btn {
+      .invite-resource-btn {
         color: $secondary-green;
         border-color: $secondary-green;
 
@@ -345,7 +341,7 @@
       }
     }
 
-    .resident-label {
+    .resident-label, .plot-label {
       margin: 0;
       padding: 0;
 

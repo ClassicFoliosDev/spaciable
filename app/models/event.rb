@@ -13,7 +13,7 @@ class Event < ApplicationRecord
   before_destroy :note, prepend: true
   before_destroy :cleanup
   before_update :note
-  after_save :notify
+  after_save :notify, :reset_reproposed
 
   delegate :email, to: :userable
   delegate :id, to: :eventable, prefix: true
@@ -24,13 +24,30 @@ class Event < ApplicationRecord
     include_association :event_resources
   end
 
+  # Get events of eventable_type 'e_type' with ids in 'e_ids'
+  # and date/times between 'start' and 'end'
   scope :within_range,
-        lambda { |params|
-          where(eventable_type: params[:eventable_type],
-                eventable_id: params[:eventable_id])
+        lambda { |e_type, e_ids, start, finish|
+          where(eventable_type: e_type, eventable_id: e_ids)
             .where("events.start <= ? AND ? <= events.end",
-                   Event.utc(params[:end]), Event.utc(params[:start]))
+                   Event.utc(finish), Event.utc(start))
         }
+
+  # Get events of eventable_type 'e_type' with id 'e_id'
+  # and associated resources of type 'r_type' with ids in 'r_ids'
+  # and date/times between 'start' and 'end'
+  # rubocop:disable Metrics/ParameterLists
+  scope :resources_within_range,
+        lambda { |e_type, e_id, r_type, r_ids, start, finish|
+          joins(:event_resources)
+            .where(eventable_type: e_type,
+                   eventable_id: e_id,
+                   event_resources: { resourceable_type: r_type,
+                                      resourceable_id: r_ids })
+            .where("events.start <= ? AND ? <= events.end",
+                   Event.utc(finish), Event.utc(start))
+        }
+  # rubocop:enable Metrics/ParameterLists
 
   scope :for_resource_within_range,
         lambda { |resource, params|
@@ -97,7 +114,7 @@ class Event < ApplicationRecord
   # Build an event.  This involves creating the event itself and
   # any associated event resources and saving them all together as
   # a single operation
-  def self.build(event_params, event_resources = nil)
+  def self.build(event_params, event_resources, resource_type)
     # create the event
     event = Event.new(event_params)
     # and associated resources
@@ -105,7 +122,7 @@ class Event < ApplicationRecord
       next if resource_id.empty?
 
       event.event_resources
-           .build(resourceable_type: Resident,
+           .build(resourceable_type: resource_type,
                   resourceable_id: resource_id.to_i,
                   status: EventResource.statuses[:invited])
     end
@@ -117,7 +134,7 @@ class Event < ApplicationRecord
 
   # Update an event record, and associated resources
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, TimeZone
-  def update(params, resources, repeat_edit)
+  def update(params, resources, resource_type, repeat_edit)
     params = params.except(:id, :master_id)
 
     case repeat_edit.to_i
@@ -137,7 +154,7 @@ class Event < ApplicationRecord
 
     # update resoures
     old_res, new_res = compare_resources(resources)
-    event.update_resources(old_res, new_res)
+    event.update_resources(old_res, new_res, resource_type)
     event.save!
 
     # process repeats
@@ -156,22 +173,6 @@ class Event < ApplicationRecord
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Timezone
-
-  def update_resources(old_res, new_res)
-    # Add new resourses
-    (new_res - old_res).each do |res|
-      event_resources.build(resourceable_type: "Resident",
-                            resourceable_id: res,
-                            status: EventResource.statuses[:invited])
-    end
-
-    event_resources.each do |r|
-      # remove deleted resources
-      r.mark_for_destruction if (old_res - new_res).include?(r.resourceable_id)
-      # set exsiting users back to invited
-      r.status = :invited if (old_res & new_res).include?(r.resourceable_id)
-    end
-  end
 
   # Remove an event.  Event removal is complicated by the
   # 'repeat' option.  When the event is a repeater the
@@ -194,6 +195,67 @@ class Event < ApplicationRecord
     remove_from(Event.where("start >= ?", start))
     update_repeat(repeating_events&.last&.start)
   end
+
+  # Calculate the date/time to notify the event
+  def notify_at
+    return if nix?
+
+    remind(reminder, start)
+  end
+
+  # Process the repeat option
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  def process_repeats
+    return if never?
+
+    # The repeats may run over time zone changes. ie 9am on the
+    # 23rd Oct could be 8am (UTC+1), so 8am in the database and
+    # converted to 9am (local) for display.  However.. on the 24th
+    # after the clocks go back an hour and we are at UTC+0, then
+    # 9am is 9am in the database (UTC) and 9am (local) displayed
+    # This has to be taken into account when calculating repeats
+    zone = eventable.time_zone
+    prev_offset = start.in_time_zone(zone).utc_offset
+
+    interval = repeat_interval(repeat)
+    e_start = start + interval
+    this_offset = e_start.in_time_zone(zone).utc_offset
+    e_start += (prev_offset - this_offset) # adjust
+    prev_offset = this_offset
+
+    # duplicate the master, update the dates and save to
+    # create each repeating event
+    while e_start <= repeat_until.localtime.end_of_day
+      repeat_event = amoeba_dup
+      repeat_event.start = e_start
+      repeat_event.end = e_start + duration
+      repeat_event.master_id = id
+      repeat_event.save!
+      e_start += interval
+      this_offset = e_start.in_time_zone(zone).utc_offset
+      e_start += (prev_offset - this_offset) # adjust
+      prev_offset = this_offset
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  def update_resources(old_res, new_res, resource_type)
+    # Add new resourses
+    (new_res - old_res).each do |res|
+      event_resources.build(resourceable_type: resource_type,
+                            resourceable_id: res,
+                            status: EventResource.statuses[:invited])
+    end
+
+    event_resources.each do |r|
+      # remove deleted resources
+      r.mark_for_destruction if (old_res - new_res).include?(r.resourceable_id)
+      # set exsiting users back to invited
+      r.status = :invited if (old_res & new_res).include?(r.resourceable_id)
+    end
+  end
+
+  private
 
   # update preceding events 'repeat_until' date.  e.g. If an event was
   # repeating daily until 10/5 then all the events in the repeat have
@@ -238,18 +300,10 @@ class Event < ApplicationRecord
   # Compare the supplied resources with the current resources
   # of the event.
   def compare_resources(resource_ids)
-    set1 = event_resources.where(resourceable_type: "Resident")
-                          .pluck(:resourceable_id)
+    set1 = event_resources.pluck(:resourceable_id)
     set2 = (resource_ids - [""]).map(&:to_i)
 
     return set1, set2
-  end
-
-  # Calculate the date/time to notify the event
-  def notify_at
-    return if nix?
-
-    remind(reminder, start)
   end
 
   # Remember the event detals before an update is made so as
@@ -269,8 +323,8 @@ class Event < ApplicationRecord
 
   # Identify the changes in resources. Added/Removed/Remain. Resources
   # need to receive different messages depending on the context of
-  # the event. i.e If an event is updated with one resident being added
-  # another removed and one remaining, then the added resident needs an
+  # the event. i.e If an event is updated with one resource being added
+  # another removed and one remaining, then the added resource needs an
   # invite, the removed one needs a cancellation, and the remainer needs
   # an update
   def resource_changes
@@ -292,53 +346,17 @@ class Event < ApplicationRecord
     # edited - signified by the id not having changed
     return unless master? || !id_changed?
 
-    # identify new/removed/remaining residents
+    # identify new/removed/remaining resources
     added, deleted, remain = resource_changes
 
-    EventNotificationService.invite(self, added)
-    EventNotificationService.cancel(@pre_event, deleted)
+    EventNotificationService.invite(self, resources(added))
+    EventNotificationService.cancel(@pre_event, pre_resources(deleted))
 
     return unless start_changed? || end_changed? || location_changed?
 
-    EventNotificationService.update(self, remain)
+    EventNotificationService.update(self, resources(remain))
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  # Process the repeat option
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  def process_repeats
-    return if never?
-
-    # The repeats may run over time zone changes. ie 9am on the
-    # 23rd Oct could be 8am (UTC+1), so 8am in the database and
-    # converted to 9am (local) for display.  However.. on the 24th
-    # after the clocks go back an hour and we are at UTC+0, then
-    # 9am is 9am in the database (UTC) and 9am (local) displayed
-    # This has to be taken into account when calculating repeats
-    zone = eventable.time_zone
-    prev_offset = start.in_time_zone(zone).utc_offset
-
-    interval = repeat_interval(repeat)
-    e_start = start + interval
-    this_offset = e_start.in_time_zone(zone).utc_offset
-    e_start += (prev_offset - this_offset) # adjust
-    prev_offset = this_offset
-
-    # duplicate the master, update the dates and save to
-    # create each repeating event
-    while e_start <= repeat_until.localtime.end_of_day
-      repeat_event = amoeba_dup
-      repeat_event.start = e_start
-      repeat_event.end = e_start + duration
-      repeat_event.master_id = id
-      repeat_event.save!
-      e_start += interval
-      this_offset = e_start.in_time_zone(zone).utc_offset
-      e_start += (prev_offset - this_offset) # adjust
-      prev_offset = this_offset
-    end
-  end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def delete_following(m_id = id)
     # delete repeating events after
@@ -352,8 +370,26 @@ class Event < ApplicationRecord
 
     return unless master?
 
-    EventNotificationService.cancel(@pre_event,
-                                    @pre_resources&.map(&:resourceable_id))
+    EventNotificationService.cancel(@pre_event, @pre_resources)
+  end
+
+  # As long as none of the related resources have a a status of
+  # reproposed then remove any propsed start/end dates from the event
+  def reset_reproposed
+    return if event_resources.find_by(status: :reproposed)
+
+    # clear out the proposed dates if they are present
+    return unless proposed_start.present? || proposed_end.present?
+
+    update_columns(proposed_start: nil, proposed_end: nil)
+  end
+
+  def resources(resource_ids)
+    event_resources.where(resourceable_id: resource_ids)
+  end
+
+  def pre_resources(resource_ids)
+    @pre_resources&.select { |r| resource_ids.include? r.resourceable_id }
   end
 end
 # rubocop:enable Metrics/ClassLength, SkipsModelValidations

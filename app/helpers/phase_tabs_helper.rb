@@ -60,6 +60,11 @@ module PhaseTabsHelper
         link: [phase, :phase_timelines],
         permissions_on: -> { phase },
         hide: !phase.timeline
+      },
+      calendar: {
+        icon: "calendar", link: [phase, :calendars],
+        permissions_on: -> { phase },
+        hide: !phase.development_calendar
       }
     }
   end

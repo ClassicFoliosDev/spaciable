@@ -157,5 +157,11 @@ class Resident < ApplicationRecord
       Rails.configuration.mailchimp[:unactivated]
     end
   end
+
+  # All resources that can be added to a calendar event
+  # require an emails function
+  def emails
+    [email]
+  end
 end
 # rubocop:enable Metrics/ClassLength

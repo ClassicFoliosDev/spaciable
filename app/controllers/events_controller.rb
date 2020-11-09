@@ -8,7 +8,9 @@ class EventsController < ApplicationController
 
   def index
     events = []
-    Event.within_range(params).each do |event|
+    parent = params[:eventable_type].classify.constantize
+                                    .find(params[:eventable_id])
+    parent.events(params).each do |event|
       attrs = event.attributes
       attrs[:repeater] = event.repeater?
       attrs[:writable] = !current_user.site_admin?
@@ -20,14 +22,15 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.build(@event_params, @residents)
+    event = Event.build(@event_params, @resources, @resource_type)
     render json: event.attributes
   end
 
   def update
     event = Event.find(@event_params[:id])
     event.update(@event_params,
-                 @residents,
+                 @resources,
+                 @resource_type,
                  params[:repeat_opt] || Event.repeat_edits[:this_event])
     render json: event.attributes
   end
@@ -43,14 +46,15 @@ class EventsController < ApplicationController
                                   :title, :location, :start_date,
                                   :start_time, :end_date, :end_time,
                                   :reminder, :repeat, :repeat_until,
-                                  residents: [])
+                                  :resource_type, resources: [])
           .merge(userable: current_user)
   end
 
   # The params need to be split into Event and Reseident specifics
   def split_params
     @event_params = event_params
-    @residents = @event_params.extract!(:residents)[:residents]
+    @resource_type = @event_params.extract!(:resource_type)[:resource_type]
+    @resources = @event_params.extract!(:resources)[:resources]
   end
 
   # Process the event parameters to match the Event record format

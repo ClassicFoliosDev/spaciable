@@ -374,6 +374,7 @@ en:
     development_edit: "Edit %{development_name}"
     development_new: "New Development"
     development_add: "Add Development"
+    development_calendar: "Calendar"
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
     faqs: "%{type} FAQs"
@@ -441,6 +442,7 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     phase_timelines: "Timelines"
+    phase_calendar: "Calendar"
     phase_timelines_add: "New Phase Timeline"
     phase_timelines_edit: "Edit Phase Timeline"
     development_csv: "Upload CSV"
@@ -1308,6 +1310,7 @@ en:
       development: "Development"
       development_csv: "Upload CSV"
       custom_tiles: "Custom Shortcuts"
+      calendar: "Calendar"
     edit:
       back: "Back"
     form:
@@ -2297,6 +2300,7 @@ en:
       lettings: "Lettings"
       import: "Import CRM"
       phase_timelines: "Timelines"
+      calendar: "Calendar"
     new:
       title: "New Phase."
     update:

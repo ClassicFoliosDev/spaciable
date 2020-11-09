@@ -115,6 +115,7 @@ Rails.application.routes.draw do
     resources :lettings, controller: 'phases/lettings'
     resources :phase_timelines, except: [:show], controller: 'phases/phase_timelines'
     resources :release_plots, only: [:index, :create]
+    resources :calendars, only: [:index], controller: 'phases/calendar'
     get 'callback', to: 'release_plots#callback', format: :json
   end
 
@@ -146,6 +147,7 @@ Rails.application.routes.draw do
     resources :custom_tiles, shallow: true
     resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
+    resources :calendars, only: [:index], controller: 'developments/calendar'
   end
 
   resources :choice_configurations do

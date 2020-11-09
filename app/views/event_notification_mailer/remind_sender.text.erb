@@ -1,6 +1,6 @@
 Hi,
 
-<%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.
+<%= @event&.title%> for <%= @parent.class.to_s %> <%= @parent.identity %> at <%= @parent.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.
 
 Title: <%= @event.title %>
 <% if @event.present? %>

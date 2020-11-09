@@ -14,29 +14,27 @@
     <%= f.hidden_field :eventable_id,{ value: source.id } %>
 
     <div class="event-title">
-      <!--<label><%= label_tag :title, "Title" %></label>-->
-      <%= f.input :title, label: false, required: true %>
+      <%= f.input :title, label: false %>
     </div>
     <div class="event-location">
-      <!--<label><%= label_tag :location, "Location" %></label>-->
-      <%= f.input :location, label: false, required: true %>
+      <%= f.input :location, label: false %>
     </div>
     <div class="event-time">
       <div class="quarter">
         <label><%= label_tag :start_date, "Start" %></label>
-        <%= f.input :start_date, label: false, required: true %>
+        <%= f.input :start_date, label: false %>
       </div>
       <div class="quarter">
         <label><%= label_tag :start_time, "From" %></label>
-        <%= f.input :start_time, label: false, required: true %>
+        <%= f.input :start_time, label: false %>
       </div>
       <div class="quarter">
         <label><%= label_tag :end_time, "Until" %></label>
-        <%= f.input :end_time, label: false, required: true %>
+        <%= f.input :end_time, label: false %>
       </div>
       <div class="quarter">
         <label><%= label_tag :end_date, "End" %></label>
-        <%= f.input :end_date, label: false, required: true %>
+        <%= f.input :end_date, label: false %>
       </div>
     </div>
 

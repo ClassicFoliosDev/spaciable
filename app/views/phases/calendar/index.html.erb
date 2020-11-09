@@ -1,0 +1,11 @@
+<% breadcrumb :phase_calendar, @phase %>
+
+<div class="contact-index">
+  <%= render '/phases/phase', active_plots_count: @active_plots_count, completed_plots_count: @completed_plots_count,
+      expired_plots_count: @expired_plots_count, resident_count: @resident_count,
+      activated_resident_count: @activated_resident_count, phase: @phase %>
+
+    <%= render 'components/tabs', tabs: phase_tabs(@phase, I18n.t("phases.collection.calendar"), current_user) %>
+
+    <%= render "calendar/events", source: @phase, preload: @preload %>
+</div>

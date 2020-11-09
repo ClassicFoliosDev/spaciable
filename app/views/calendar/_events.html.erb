@@ -36,34 +36,30 @@
     <%= f.hidden_field :eventable_id,{ value: source.id } %>
 
     <div class="title">
-      <label><%= label_tag :title, "Title" %></label>
-      <%= f.input :title, label: false, required: true%>
+      <%= f.input :title, label: "Title", required: true%>
     </div>
     <div class="location">
-      <label><%= label_tag :location, "Location" %></label>
-      <%= f.input :location, label: false, required: true %>
+      <%= f.input :location, label: "Location", required: false %>
     </div>
-    <div class="attendees">
-      <label><%= label_tag :residents, "Select Attendees" %></label>
-      <div id="residents"><%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false %></div>
+    <div class="resources">
+      <% resources = event_resource(source) %>
+      <%= f.hidden_field :resource_type, { value: resources[:type] } %>
+      <label><%= label_tag :resources, resources[:tag] %></label>
+      <div id="resources"><%= f.collection_check_boxes :resources, resources[:data], :id, :to_s, include_blank: false %></div>
     </div>
 
     <div class="event-time">
       <div class="quarter">
-        <label><%= label_tag :start_date, "Start" %></label>
-        <%= f.input :start_date, label: false, required: true %>
+        <%= f.input :start_date, label: "Start", required: true %>
       </div>
       <div class="quarter">
-        <label><%= label_tag :start_time, "From" %></label>
-        <%= f.input :start_time, label: false, required: true %>
+        <%= f.input :start_time, label: "From", required: true %>
       </div>
       <div class="quarter">
-        <label><%= label_tag :end_time, "Until" %></label>
-        <%= f.input :end_time, label: false, required: true %>
+        <%= f.input :end_time, label: "Until", required: true %>
       </div>
       <div class="quarter">
-        <label><%= label_tag :end_date, "End" %></label>
-        <%= f.input :end_date, label: false, required: true %>
+        <%= f.input :end_date, label: "End", required: true %>
       </div>
     </div>
 
@@ -93,7 +89,8 @@
           collection: Event.repeats,
           label_method: ->(repeat) { t("events.repeat.#{repeat.first}") },
           value_method: :first,
-          include_blank: false %>
+          include_blank: false,
+          required: false %>
       </div>
       <div id="repeat_until" class="half">
         <label><%= label_tag :repeat_until, "Repeat Until" %></label>
@@ -107,7 +104,8 @@
       collection: Event.reminders,
       label_method: ->(remind) { t("events.remind.#{remind.first}") },
       value_method: :first,
-      include_blank: false %>
+      include_blank: false,
+      required: false %>
     </div>
   <% end %>
 </div>
