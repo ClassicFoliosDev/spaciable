@@ -3671,7 +3671,6 @@ en:
       at: "Created At"
 
   timelines:
-    default: "Developments will default to this timeline when created."
     turned_off: "Turned Off"
     import: "Import Timeline"
     index:
