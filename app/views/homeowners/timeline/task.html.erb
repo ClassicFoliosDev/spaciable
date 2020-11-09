@@ -49,6 +49,7 @@
     <div id="timelineContentDesktop" class="timeline-content">
       <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
         <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
+        <input type="hidden" id="response_action" name="response_action" value=<%= :not_applicable %>>
 
         <div id="question" >
           <div class="question-content">
@@ -56,8 +57,8 @@
               <p class="branded-text"> <%= @task.question %> </p>
             </div>
             <div class="actions">
-              <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :positive } %>
-              <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", id: 'timeline-submit-btn', data: { response: :negative }%>
+              <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", action: :answered_positive, id: 'timeline-submit-btn', data: { response: :positive } %>
+              <%= button_tag @task.negative, :type => 'button', class: "btn branded-btn btn-form-submit", action: :viewed_content_negative, id: 'timeline-submit-btn', data: { response: :negative }%>
 
               <% if @task.not_applicable %>
               <%= button_tag "Not Applicable", :type => 'button', class: "btn branded-btn btn-form-submit not-applicable", id: 'timeline-submit-btn', data: { response: :positive }%>
@@ -156,8 +157,8 @@
                 <% end %>
                 <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn action-btn"><%= @task.action_title %></button>
               <% end %>
-              <input type="submit" value=<%="#{t('homeowners.timeline.skip')}"%> class: "btn-form-submit btn branded-btn navigation-btn">
-              <%= button_tag t('homeowners.timeline.done'), :type => 'button', class: "btn branded-btn btn-form-submit navigation-btn", id: 'timeline-submit-btn', data: { response: :positive } %>
+              <%= button_tag t('homeowners.timeline.skip'), :type => 'button', class: "btn branded-btn btn-form-submit navigation-btn", action: :skipped_on_content, id: 'timeline-submit-btn', data: { response: :negative } %>
+              <%= button_tag t('homeowners.timeline.done'), :type => 'button', class: "btn branded-btn btn-form-submit navigation-btn", action: :completed_on_content, id: 'timeline-submit-btn', data: { response: :positive } %>
             </div>
           </div>
         </div>

@@ -1562,6 +1562,10 @@ en:
         tel: "Tel"
         email: "Email"
         mobile: "Mobile"
+        answered_positive: "Answered Positive"
+        viewed_content_negative: "Viewed Content (Negative)"
+        skipped_on_content: "Skipped On Content"
+        completed_on_content: "Completed On Content"
       complete:
         dashboard: "Dashboard"
         last: "Last Opened"
