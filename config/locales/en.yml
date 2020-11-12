@@ -120,6 +120,24 @@ en:
         back: "Back"
         upload: "Upload Documents"
 
+  tours:
+    intro_tour:
+      navigation: "Behold! Click on the Menu to view links to all the fantastic features available to you."
+      home: "Want to dive deeper into your home's specifics? This area is for your important documents and key details about your property."
+      faq: "If you've got any questions about your home, you're probably not alone! Head over to the FAQs section to expand your knowledge and level up as a homeowner."
+      contact: "Here you'll find details of any contact you might need, so you don't have to listen to (as many) crackly covers of pop songs while on hold!"
+      library: "The library is home to some of the greatest works of modern literature - no, not The Great Gatsby, but your oven's user manual and your Energy Performance Certificate."
+      perks: "It pays to be part of a club. Here at Buyers' Club, you'll have access to exiting exclusive offers and discounts, so you can grab some great bargains for your new home."
+      services: "Services offers exclusive quotes for a range of services and products, including utility suppliers, landscapers and insurance providers."
+      area_guide: "Area Guide displays your closest amenities and services, so you can quickly integrate yourself into the local community."
+      referrals: "Sharing is caring!  Fill in this quick and easy form to share your friend’s contact details with your developer."
+      home_designer: "Simply upload or recreate your home's floor plans and use your digital canvas to experiment with layout and colour schemes!"
+      issues: "For any defects that aren't emergencies, you can report them here, creating a ticket with the developer, so you can monitor progress until it's rectified."
+      snagging: "You will likely have been told about a snagging period: a window during which you can report any cosmetic defects that you have spotted since moving in that were missed during the inspection, such as scuffed paintwork or damage to skirting boards."
+      timeline: "This is your visual tour guide from reservation to completion and beyond."
+      reservation: "Your reservation manual is an expertly written guide to the buying process, ensuring you know what to expect at each stage."
+      completion: "Your completion manual will give you the low-down on how to make the most of your new home, report defects and emergencies, and keep it looking spick-and-span for years to come!"
+
   choices:
     save: "Save Changes"
     confirm: "Commit Choices"
@@ -1322,7 +1340,7 @@ en:
       snag_duration: "Snagging Duration (Days)"
       snag_name: "Snagging Name"
       maintenance_auto_populate: "Auto-Populate FixFlo Details"
-      maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo."
+      maintenance_auto_populate_description: "Un-check this if the maintenance link is not directed to FixFlo or Clixifix."
       choices_email: "Choices Email"
       account_type: "Maintenance Account Type"
       enable_cas: "Client Adding Specifications"
@@ -1561,6 +1579,10 @@ en:
         tel: "Tel"
         email: "Email"
         mobile: "Mobile"
+        answered_positive: "Answered Positive"
+        viewed_content_negative: "Viewed Content (Negative)"
+        skipped_on_content: "Skipped On Content"
+        completed_on_content: "Completed On Content"
       complete:
         dashboard: "Dashboard"
         last: "Last Opened"
@@ -3513,8 +3535,9 @@ en:
         all: "All"
       maintenance:
         account_types:
-          standard: "Standard"
-          full_works: "Full Works Management"
+          standard: "Fixflo Standard"
+          full_works: "Fixflo Full Works Management"
+          clixifix: "Clixifix"
       how_to:
         title: "Title"
         summary: "Summary"
@@ -3678,7 +3701,6 @@ en:
       at: "Created At"
 
   timelines:
-    default: "Developments will default to this timeline when created."
     turned_off: "Turned Off"
     import: "Import Timeline"
     index:
