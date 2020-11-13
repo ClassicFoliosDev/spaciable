@@ -52,8 +52,6 @@ function filter_visits() {
   if (moment($("#visits_end_date").val()) <
       moment($("#visits_start_date").val())) {
     flash_alert("End date must be after start date")
-  } else if (moment($("#visits_start_date").val()) < moment("2020-10-02")){
-    flash_alert("Earliest available start date is 02/10/2020")
   } else {
     var form = $('.simple_form.visits')
     window.location =  form.attr('action') + '?' + form.serialize()

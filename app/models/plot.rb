@@ -119,6 +119,15 @@ class Plot < ApplicationRecord
     soon
     in_progress
     roof_on
+    first_fix
+    second_fix
+    kitchen
+    sanitaryware
+    decoration
+    tiling
+    flooring
+    driveway
+    landscaping
     exchange_ready
     complete_ready
     completed

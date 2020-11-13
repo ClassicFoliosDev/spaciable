@@ -34,10 +34,9 @@ module Csv
         csv << ["Starting Date", visits.start_date, "Plots", visits.plots.count]
         csv << ["Ending Date", visits.end_date, "Residents", visits.residents.count]
         csv << ["Focus", focus(visits), "Activated Residents in Period",
-                visits.stats[:homeowner_sign_in]
-                      .visit(Ahoy::Event::ACCEPT_INVITATION)&.unique || 0]
+                visits.stats[:homeowner_sign_in].visit(Ahoy::Event::ACCEPT_INVITATION)&.total || 0]
         csv << ["Business", visits.business || "All", "Unique Sign Ins",
-                visits.stats[:homeowner_sign_in].unique || 0]
+                visits.stats[:homeowner_sign_in].visit(Ahoy::Event::LOG_IN)&.total || 0]
         csv << [nil, nil, "Sign Ins", visits.stats[:homeowner_sign_in]&.total || 0]
       end
       # rubocop:enable Metrics/AbcSize

@@ -93,7 +93,7 @@ class VisitorFilter
   # default dates are given defaults but can overwritten
   def initialize(params)
     @end_date = Time.zone.today
-    @start_date = [(@end_date - 1.month), Date.parse("2020-10-02")].max
+    @start_date = @end_date - 1.month
     @stats = {}
 
     # set the parameters

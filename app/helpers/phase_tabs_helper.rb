@@ -31,11 +31,6 @@ module PhaseTabsHelper
         link: [phase.parent, phase, active_tab: :documents]
       },
       contacts: { icon: :vcard },
-      progresses: {
-        icon: "cogs",
-        link: [phase, :progresses],
-        permissions_on: -> { Plot.new(development_id: phase.development.id) }
-      },
       bulk_edit: {
         icon: "pencil-square-o",
         link: [phase, :bulk_edit_index],

@@ -128,36 +128,6 @@ Then(/^I should see the development address has not been changed$/) do
   end
 end
 
-When(/^I update the progress for the phase$/) do
-  ActionMailer::Base.deliveries.clear
-  visit "/"
-  goto_phase_show_page
-
-  within ".tabs" do
-    click_on t("phases.collection.progresses")
-  end
-
-  select_from_selectmenu :progress_all, with: PhaseFixture.progress
-
-  within ".form-actions-footer" do
-    check :notify
-    click_on t("progresses.collection.submit")
-  end
-end
-
-Then(/^I should see the phase progress has been updated$/) do
-  success_message = t(
-    "progresses.bulk_update.success",
-    progress: PhaseFixture.progress
-  )
-  residents = Resident.where(developer_email_updates: true)
-  success_flash = success_message + t("resident_notification_mailer.notify.update_sent", count: residents.count)
-
-  within ".notice" do
-    expect(page).to have_content(success_flash)
-  end
-end
-
 Then(/^Phase residents should have been notified$/) do
   message = t("notify.updated_progress",
                       state: "#{PhaseFixture.progress}")
