@@ -743,7 +743,7 @@ en:
       plot: "%{plot} at %{development}, %{phase}"
 
   admin_notification_mailer:
-    admin_notifications:
+    admin_notification:
       new_message: "You have a new message from the Spaciable team:"
       login: "Login to Spaciable"
 
