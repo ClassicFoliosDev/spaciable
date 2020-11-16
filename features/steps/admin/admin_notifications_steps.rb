@@ -39,12 +39,13 @@ Then(/^I can see the notification I sent to all admins$/) do
 end
 
 Then(/^an email is sent to all admins$/) do
-  email = ActionMailer::Base.deliveries.last
-  email.should bcc_to(NamedCreateFixture.developer_email, NamedCreateFixture.second_developer_email,
-                      NamedCreateFixture.division_email, NamedCreateFixture.development_email,
-                      NamedCreateFixture.second_division_development_email)
+  emails = ActionMailer::Base.deliveries.last(5).map(&:to).flatten
+  [NamedCreateFixture.developer_email,
+   NamedCreateFixture.second_developer_email,
+   NamedCreateFixture.division_email,
+   NamedCreateFixture.development_email,
+   NamedCreateFixture.second_division_development_email].each { |email| expect(emails.include?(email)).to be true }
 end
-
 
 When(/^I send a notification to a particular developer$/) do
   ActionMailer::Base.deliveries.clear
@@ -52,7 +53,7 @@ When(/^I send a notification to a particular developer$/) do
   within ".section-actions" do
     click_on t("admin.notifications.collection.add")
   end
-  
+
   sleep 1
   select_from_selectmenu :developer_id, with: NamedCreateFixture.developer_name
 
@@ -75,7 +76,8 @@ Then(/^I can see the notification I sent to the developer$/) do
 end
 
 Then(/^an email is sent to the developer admins$/) do
-  email = ActionMailer::Base.deliveries.last
-  email.should bcc_to(NamedCreateFixture.developer_email, NamedCreateFixture.division_email,
-                      NamedCreateFixture.development_email)
+  emails = ActionMailer::Base.deliveries.last(3).map(&:to).flatten
+  [NamedCreateFixture.developer_email,
+   NamedCreateFixture.division_email,
+   NamedCreateFixture.development_email].each { |email| expect(emails.include?(email)).to be true }
 end
