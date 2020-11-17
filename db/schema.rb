@@ -683,6 +683,11 @@ ActiveRecord::Schema.define(version: 20201102153500) do
     t.index ["plot_id"], name: "index_listings_on_plot_id", unique: true, using: :btree
   end
 
+  create_table "locks", force: :cascade do |t|
+    t.integer "job", null: false
+    t.index ["job"], name: "index_locks_on_job", unique: true, using: :btree
+  end
+
   create_table "logs", force: :cascade do |t|
     t.string   "logable_type"
     t.integer  "logable_id"
