@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Lock to prevent multiple identical cron jobs
 class Lock < ApplicationRecord
   enum job: %i[
     activation_report

@@ -1,4 +1,5 @@
 class Lock < ActiveRecord::Migration[5.0]
+  # lock
   def change
     reversible do |direction|
 
