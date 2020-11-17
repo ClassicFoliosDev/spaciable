@@ -33,8 +33,6 @@ Feature: Admin Plot Expiry
     And there is a message saying documents will not be visible on expired plots
     And I can CRUD contacts
     And there is a message saying contacts will not be visible on expired plots
-    And I can update the build progress of the phase
-    And only the live plot will have its build progress updated
 
   Scenario: All phase plots expired
     Given there are plots that have expired
@@ -43,13 +41,11 @@ Feature: Admin Plot Expiry
     Then I do not see a message telling me the phase is expired
     And I can CRUD documents
     And I can CRUD contacts
-    And I can update the build progress of the phase
     Given I am logged in as a development admin
     Given I am on the phase page
     Then I see a message telling me the phase has expired
     And I can no longer CRUD documents
     And I can no longer CRUD contacts
-    And I can no longer update the build progress of the phase
 
   Scenario: Some development plots expired
     Given there are plots that have expired

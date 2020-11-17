@@ -9,9 +9,10 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
   // set the reponse according to the data content of the button
   response = event.currentTarget.getAttribute('data-response')
   $("[name='response']").val(response)
+  $("[name='response_action']").val(event.currentTarget.getAttribute('action'))
 
   // if the response is negative
-  if (response == 'negative') {
+  if ($("[name='response_action']").val() == 'viewed_content_negative') {
     // reveal the answer
     $('#question').hide()
     $('#answer').show()

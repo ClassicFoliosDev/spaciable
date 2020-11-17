@@ -62,7 +62,6 @@ class ReleaseMailer < ApplicationMailer
                 CcEmail.emails_list(@emails, :receive_release_emails)])
     else
       mail(to: @emails,
-           cc: CcEmail.emails_list(@emails, :receive_release_emails),
            subject: subject)
     end
   end

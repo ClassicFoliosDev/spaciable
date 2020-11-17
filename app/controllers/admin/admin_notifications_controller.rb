@@ -48,8 +48,13 @@ module Admin
 
     # Use the AdminNotificationMailer to send the email
     def send_email
-      AdminNotificationMailer.admin_notifications(@admin_notification,
-                                                  admin_notification_params).deliver
+      admin_emails.each do |email|
+        AdminNotificationMailer.admin_notification(email,
+                                                   @admin_notification,
+                                                   admin_notification_params).deliver
+      end
+
+      @admin_notification.update(sent_at: Time.zone.now)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -62,6 +67,19 @@ module Admin
         :send_to_id, :send_to_type,
         :send_to_all, :developer_id
       )
+    end
+
+    # Create the arrays of emails and names
+    def admin_emails
+      admins = User.where.not(role: "cf_admin")
+      admins = filtered_admins(admins) unless @admin_notification.send_to_all
+      emails = ["feedback@spaciable.com"]
+      admins.each { |admin| emails << admin[:email] }
+      emails
+    end
+
+    def filtered_admins(admins)
+      admins.select { |admin| admin.developer == @admin_notification.send_to_id }
     end
   end
 end

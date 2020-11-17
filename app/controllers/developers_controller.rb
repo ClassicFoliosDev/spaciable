@@ -95,7 +95,7 @@ class DevelopersController < ApplicationController
     params.require(:developer).permit(
       :country_id,
       :company_name, :custom_url, :email,
-      :contact_number, :about, :timeline_id,
+      :contact_number, :about,
       :api_key, :house_search, :enable_referrals,
       :enable_services, :development_faqs,
       :enable_roomsketcher, :enable_development_messages,

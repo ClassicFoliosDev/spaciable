@@ -25,5 +25,6 @@ class CcEmail < ApplicationRecord
     end
 
     emails.flatten!
+    emails.uniq
   end
 end
