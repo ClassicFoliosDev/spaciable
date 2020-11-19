@@ -38,7 +38,8 @@ module MaintenancePopulatorHelper
       "Contact.FirstName" => current_resident.first_name,
       "Contact.Surname" => current_resident.last_name,
       "Contact.Telephone" => current_resident.phone_number,
-      "Contact.Title" => current_resident.title, "development" => plot.development
+      "Contact.Title" => current_resident.title, "development" => plot.development,
+      "portal" => "spaciable"
     }
   end
 
