@@ -15,7 +15,7 @@
   <div class="row user-form">
     <div class="user-details form-row">
       <fieldset class="form-column contact-details">
-        <%= f.input :email, label: t(".email"), readonly: user.email? %>
+        <%= f.input :email, label: t(".email"), readonly: user.id.present? %>
         <%= f.input :first_name, label: t(".first_name") %>
         <%= f.input :last_name, label: t(".surname") %>
       </fieldset>
