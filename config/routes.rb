@@ -128,6 +128,8 @@ Rails.application.routes.draw do
     post 'choices', action: :update , controller: 'choices'
   end
 
+  post 'plots/:plot_id/residents/:id/reinvite', action: :reinvite, controller: 'residents'
+
   resources :developments do
     resources :phases
     resources :choice_configurations
@@ -313,6 +315,7 @@ Rails.application.routes.draw do
     post :create_resident, to: "residents#create", format: :json
     post :refer_friend, to: "referrals#create", format: :json
     get :remove_resident, to: "residents#remove_resident", format: :json
+
     get :remove_snag, to: "snags#destroy", format: :json
     get :remove_snag_attachment, to: "snag_attachments#destroy", format: :json
     post :lettings_accounts, to: "lettings_accounts#create", format: :json

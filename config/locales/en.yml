@@ -695,6 +695,12 @@ en:
     confirm_final_resident: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed."
     confirm_resident: "This resident will be removed from this plot, but their account will still exist and they will continue to have access to their other plots."
 
+  reinvite:
+    cancel: "Cancel"
+    confirm_title: "Confirm reinvite"
+    reinvite: "Reinvite"
+    confirm_text: "Are you sure you really want to reinvite?"
+
   edit:
     cancel: "Cancel"
     title: "Edit document title"
@@ -3893,5 +3899,7 @@ en:
       name: "Timeline"
       add: "Add Timeline Associations"
       empty: "You have no Timeline Plot Associations"
+
+  resident_reinvited: "A new invitation has successfully been sent to %{resident}."
 
 
