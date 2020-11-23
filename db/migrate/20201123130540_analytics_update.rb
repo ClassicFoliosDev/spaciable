@@ -1,5 +1,5 @@
-class UpdateAnalyticsTitles < ActiveRecord::Migration[5.0]
-  def change
+class AnalyticsUpdate < ActiveRecord::Migration[5.0]
+    def change
 
     # "Main Menu" -> "Dashboard"
     Ahoy::Event.where(name: "Main Menu").update_all(name: "Dashboard")
