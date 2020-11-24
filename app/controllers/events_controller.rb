@@ -56,7 +56,7 @@ class EventsController < ApplicationController
                                   :title, :location, :start_date,
                                   :start_time, :end_date, :end_time,
                                   :reminder, :repeat, :repeat_until,
-                                  :resource_type, resources: [])
+                                  :resource_type, :notify, resources: [])
           .merge(userable: current_user)
   end
 

@@ -8,7 +8,11 @@
 
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
-      <%= link_to t("back"), [@development.developer, active_tab: :developments], class: "btn" %>
+      <% if @development.parent.is_a? Developer %>
+        <%= link_to t("back"), [@development.developer, @development], class: "btn" %>
+      <% else %>
+        <%= link_to t("back"), [@development.division, @development], class: "btn" %>
+      <% end %>
     </div>
   </div>
 

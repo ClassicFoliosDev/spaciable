@@ -305,6 +305,8 @@ var admin = {
     }
     $('#event_repeat_until').next().prop("disabled", !event.writable)
 
+    $('#event_notify').prop('checked', event.notify)
+
     // Populate the pulldowns.  Simple Forms builds a complex structure of
     // related controls to support pulldowns.  The only way to set their
     // content dynamically is to mimic the click/hover/click operation that
@@ -568,16 +570,17 @@ var admin = {
     e_start_time.setDate(currentEvent.start.toDate(), false)
     e_end_date.setDate(currentEvent.end.toDate(), false)
     e_end_time.setDate(currentEvent.end.toDate(), false)
-    admin.validate()
+    admin.checkDates()
   },
 
-  validate: function(){
-    $('#btn_submit').prop("disabled", (currentEvent.end < currentEvent.start));
+  checkDates: function(){
     // add styling class to date fields if invalid
-    if (currentEvent.end < currentEvent.start) {
-      $(".event_end_date, .event_start_date").addClass("invalid")
-    } else {
-      $(".event_end_date, .event_start_date").removeClass("invalid")
+    if (currentEvent.end > currentEvent.start) {
+      $(".event_end_date, .event_start_date").removeClass('field_with_errors');
+      $("#date_error").remove()
+    } else if ($(".event_end_date").hasClass("field_with_errors") == false ) {
+      $(".event_end_date, .event_start_date").addClass('field_with_errors');
+      $(".event_start_date").append( "<span id='date_error' class='error'>must be before end date.</span>")
     }
   },
 
@@ -613,22 +616,42 @@ var admin = {
   },
 
   validate: function() {
+    admin.scrub()
+    valid = true
+
     title = $("#event_title")
     if( !title.val() ) {
       if (!$('#title_error').length) {
         title.parents('div').addClass('field_with_errors');
         title.after( "<span id='title_error' class='error'>is required, and must not be blank.</span>")
       }
-      return false
+      valid = false
     }
 
-    return true
+    if ($("#resources span.invited").length == 0){
+      valid = false
+      $("#resources").addClass('field_with_errors')
+      $(".resources").append( "<span id='resource_error' class='error'>At least 1 must be invited.</span>")
+    }
+
+    admin.checkDates()
+    valid = valid && (currentEvent.start < currentEvent.end);
+
+    return valid
   },
 
   // Remove any error formatting from validated fields
   scrub: function() {
     $("#event_title").parents('div').removeClass('field_with_errors')
     $("#title_error").remove()
+
+    // Remove any date invalidations
+    $(".event_end_date, .event_start_date").removeClass('field_with_errors');
+    $("#date_error").remove()
+
+    // resource invalidations
+    $("#resources").removeClass("field_with_errors")
+    $("#resource_error").remove()
   },
 
   inviteAll: function() {

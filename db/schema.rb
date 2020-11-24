@@ -486,6 +486,7 @@ ActiveRecord::Schema.define(version: 20201030145745) do
     t.integer  "reminder_id"
     t.datetime "proposed_start"
     t.datetime "proposed_end"
+    t.boolean  "notify",         default: true
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
@@ -680,6 +681,11 @@ ActiveRecord::Schema.define(version: 20201030145745) do
     t.integer "plot_id",             null: false
     t.index ["lettings_account_id"], name: "index_listings_on_lettings_account_id", using: :btree
     t.index ["plot_id"], name: "index_listings_on_plot_id", unique: true, using: :btree
+  end
+
+  create_table "locks", force: :cascade do |t|
+    t.integer "job", null: false
+    t.index ["job"], name: "index_locks_on_job", unique: true, using: :btree
   end
 
   create_table "logs", force: :cascade do |t|

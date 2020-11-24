@@ -38,6 +38,8 @@ module EventNotificationService
   end
 
   def feedback(resource)
+    return unless resource.notify
+
     EventFeedbackJob.perform_now(resource)
   end
 end

@@ -13,7 +13,7 @@ class Event < ApplicationRecord
   before_destroy :note, prepend: true
   before_destroy :cleanup
   before_update :note
-  after_save :notify, :reset_reproposed
+  after_save :notify_reminder, :reset_reproposed
 
   delegate :email, to: :userable
   delegate :id, to: :eventable, prefix: true
@@ -261,7 +261,10 @@ class Event < ApplicationRecord
     end
   end
 
-  private
+  def delete_following(m_id = id)
+    # delete repeating events after
+    Event.where("id > ? AND master_id = ?", id, m_id).destroy_all
+  end
 
   # update preceding events 'repeat_until' date.  e.g. If an event was
   # repeating daily until 10/5 then all the events in the repeat have
@@ -284,6 +287,8 @@ class Event < ApplicationRecord
       e.update_column(:repeat_until, repeat_until)
     end
   end
+
+  private
 
   # Remove any master or repeating events from the supplied list
   # of events
@@ -341,7 +346,7 @@ class Event < ApplicationRecord
 
   # Make the necessary notifications.
   # rubocop:disable Metrics/CyclomaticComplexity
-  def notify
+  def notify_reminder
     if id_changed? || start_changed? || reminder_changed?
       # new record or start/reminder added.  Calculate/update event reminder
       update_column(:reminder_id, EventNotificationService.remind(self))
@@ -363,11 +368,6 @@ class Event < ApplicationRecord
     EventNotificationService.update(self, resources(remain))
   end
   # rubocop:enable Metrics/CyclomaticComplexity
-
-  def delete_following(m_id = id)
-    # delete repeating events after
-    Event.where("id > ? AND master_id = ?", id, m_id).destroy_all
-  end
 
   # send cancellations and remove any queued event notofications
   def cleanup

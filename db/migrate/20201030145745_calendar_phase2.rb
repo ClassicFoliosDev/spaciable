@@ -10,6 +10,7 @@ class CalendarPhase2 < ActiveRecord::Migration[5.0]
         remove_column :event_resources, :proposed_end
         add_column :events, :proposed_start, :datetime
         add_column :events, :proposed_end, :datetime
+        add_column :events, :notify, :boolean, default: true
       }
 
       direction.down {
@@ -17,6 +18,7 @@ class CalendarPhase2 < ActiveRecord::Migration[5.0]
         add_column :event_resources, :proposed_end, :datetime
         remove_column :events, :proposed_start
         remove_column :events, :proposed_end
+        remove_column :events, :notify
       }
     end
   end

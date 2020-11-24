@@ -3867,4 +3867,9 @@ en:
       add: "Add Timeline Associations"
       empty: "You have no Timeline Plot Associations"
 
+  calendar:
+    events:
+      notify: "Notify me of responses"
+
+
 

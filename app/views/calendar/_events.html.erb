@@ -87,6 +87,21 @@
       </div>
     </div>
 
+    <div class="remind">
+      <div class="reminder half">
+        <%= f.input :reminder,
+        as: :select,
+        collection: Event.reminders,
+        label_method: ->(remind) { t("events.remind.#{remind.first}") },
+        value_method: :first,
+        include_blank: false,
+        required: false %>
+      </div>
+      <div class="half select-all" style="display:block;">
+        <%= f.input :notify, as: :boolean, label: t(".notify") %>
+      </div>
+    </div>
+
     <div class="repeat">
       <div class="repeat-input half">
         <%= f.input :repeat,
@@ -103,14 +118,5 @@
       </div>
     </div>
 
-    <div class="reminder half">
-      <%= f.input :reminder,
-      as: :select,
-      collection: Event.reminders,
-      label_method: ->(remind) { t("events.remind.#{remind.first}") },
-      value_method: :first,
-      include_blank: false,
-      required: false %>
-    </div>
   <% end %>
 </div>

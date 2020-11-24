@@ -232,10 +232,6 @@
     color: $primary-navy;
   }
 
-  .title, .location, .resources {
-    padding-top: 1px;
-  }
-
   .event-time {
     padding-top: 11px;;
   }
@@ -277,6 +273,11 @@
 
   input.datetime {
     padding: 5px 10px;
+  }
+
+  div.select-all {
+    position: relative;
+    top: 40;
   }
 
   .event {
@@ -325,15 +326,25 @@
     }
   }
 
-  #resources {
-    height: 106px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    border: 1px solid $primary-navy;
-    border-radius: 5px;
-  }
-
   .resources {
+
+    #resources {
+      height: 106px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      border: 1px solid $primary-navy;
+      border-radius: 5px;
+
+      &.field_with_errors {
+        border: 2px solid $field-invalid-border-color
+      }
+    }
+
+    .error {
+      font-size: $input-small-font-size;
+      color: $input-inline-error-font-color;
+      display: block;
+    }
 
     span {
       display: block;

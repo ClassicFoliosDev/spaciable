@@ -4,7 +4,7 @@ class EventResource < ApplicationRecord
   validates :event, presence: true
   belongs_to :event, required: true
   belongs_to :resourceable, polymorphic: true, required: true
-  delegate :proposed_start, :proposed_end, to: :event
+  delegate :proposed_start, :proposed_end, :notify, to: :event
 
   after_save :check_status
 

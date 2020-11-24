@@ -19,7 +19,6 @@ module Admin
     def show; end
 
     def create
-      byebug
       @admin_notification = AdminNotificationSendService.call(@admin_notification,
                                                               admin_notification_params)
       if @admin_notification.with_sender(current_user).valid?
