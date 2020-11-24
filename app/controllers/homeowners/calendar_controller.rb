@@ -6,7 +6,7 @@ module Homeowners
 
     after_action only: %i[index] do
       record_event(:view_calendar,
-        category1: I18n.t("ahoy.calendar.calendar_viewed"))
+                   category1: I18n.t("ahoy.calendar.calendar_viewed"))
     end
 
     def index

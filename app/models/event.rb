@@ -17,6 +17,7 @@ class Event < ApplicationRecord
 
   delegate :email, to: :userable
   delegate :id, to: :eventable, prefix: true
+  delegate :time_zone, to: :eventable
   delegate :full_name, to: :userable
 
   # include event_resources in duplications

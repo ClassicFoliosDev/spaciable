@@ -229,7 +229,6 @@ class Phase < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
-
   def resources
     plots.pluck(:id, :number)
   end

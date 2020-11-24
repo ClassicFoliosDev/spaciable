@@ -71,7 +71,7 @@ class Developer < ApplicationRecord
 
   def check_unique
     developer = Developer.find_by(custom_url: custom_url)
-    return if developer.blank?
+    return if developer.blank? || developer == self
 
     errors[:custom_url] << "is in use for #{developer.company_name}. Please use something unique."
   end

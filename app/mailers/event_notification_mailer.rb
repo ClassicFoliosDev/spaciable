@@ -54,7 +54,7 @@ class EventNotificationMailer < ApplicationMailer
             else
               @resource.resourceable
             end
-    Time.zone = @event.eventable.time_zone
+    Time.zone = @event.time_zone
     @link = admin_link(resource.event)
     mail to: resource.event.userable.email,
          subject: "Calendar event #{resource.status} by #{resource.resourceable}"
@@ -80,13 +80,14 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def init(event, resource)
-    @plot = if event.eventable.is_a?(Plot)
+    eventable = event.eventable # otherwise rails_best_practices errors :(
+    @plot = if eventable.is_a?(Plot)
               event.eventable
             elsif resource.resourceable.is_a?(Plot)
               resource.resourceable
             end
     @event = event
     @link = resource_link(event)
-    Time.zone = event.eventable.time_zone # for this thread only
+    Time.zone = event.time_zone # for this thread only
   end
 end
