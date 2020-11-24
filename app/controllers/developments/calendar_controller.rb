@@ -7,6 +7,8 @@ module Developments
 
     load_and_authorize_resource :development
 
-    def index; end
+    def index
+      @preload = Event.find(params[:event]) if params[:event]
+    end
   end
 end

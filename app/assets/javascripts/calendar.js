@@ -170,7 +170,9 @@ var admin = {
         var arrayLength = response.length;
         for (var i = 0; i < arrayLength; i++) {
           invited = false
-          event.resources.forEach(function(r) { invited = invited || (r['resourceable_id'] == response[i].id) } )
+          if (event.resources != undefined) {
+            event.resources.forEach(function(r) { invited = invited || (r['resourceable_id'] == response[i].id) } )
+          }
 
           resource_id = response[i]["id"]
 
@@ -348,8 +350,8 @@ var admin = {
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
         res = admin.resource(resource['resourceable_id'])
-        $("#status_label_" + resource['resourceable_id']).addClass(resource.status)
-        $("#status_label_" + resource['resourceable_id']).text(resource.status)
+        label = $("#status_label_" + resource['resourceable_id'])
+        label.addClass(resource.status).text(resource.status).data("status", resource.status)
         res.parent().children("input[type='checkbox']").trigger('click')
       });
     }
@@ -364,17 +366,10 @@ var admin = {
           $(this).append("<button class='btn invite-resource-btn'>Invite</button>")
         }
       }
-
-      // add time button if event datetime has been reproposed
-      if($(this).hasClass("reproposed")) {
-        $(this).append("<button class='btn fa fa-clock-o view-proposed-datetime' data-resident=" + $(this).find('input').val() + "></button>")
-      }
     })
 
-    $('.view-proposed-datetime').click(function(e) {
-      e.preventDefault()
-      admin.showProposed(currentEvent)
-    })
+    admin.showProposed(event)
+
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
   },
 
@@ -535,10 +530,19 @@ var admin = {
       $(this).change(function () {
         if (this.checked) {
           $(this).parent().parent().addClass("invited")
-          $("#status_label_" + this.value).text('invited').addClass("invited")
+          label = $("#status_label_" + this.value)
+          if (label.data("status") == undefined){
+            $("#status_label_" + this.value).text('invited').addClass("invited")
+          } else {
+            label.text(label.data("status")).addClass(label.data("status"))
+          }
+          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').show() }
         } else {
           $(this).parent().parent().removeClass("invited")
+          // If this resource was re-proposing, then remove the reproposed date
+          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').hide() }
           $("#status_label_" + this.value).html("&nbsp;").removeClass("invited reproposed accepted declined")
+
         }
       })
     });
@@ -562,12 +566,15 @@ var admin = {
     }
   },
 
-  showProposed: function(resource){
-    $(".proposed_datetime").show()
-    $(".proposed_datetime").data('proposer', resource.resourceable_id)
+  showProposed: function(event){
 
-    p_start = moment(resource.proposed_start)
-    p_end = moment(resource.proposed_end)
+    if (event.proposed_start == null) { return }
+
+    $(".proposed_datetime").show()
+    $(".proposed_datetime").data('proposer', event.resourceable_id)
+
+    p_start = moment(event.proposed_start)
+    p_end = moment(event.proposed_end)
     $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
     $('#proposed_start_time').text(p_start.local().format('h:mm A'))
     $('#proposed_end_time').text(p_end.local().format('h:mm A'))

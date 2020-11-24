@@ -65,9 +65,18 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def admin_link(event)
-    plot_url(event.eventable_id,
-             active_tab: "calendar",
-             event: event.id)
+    case event.eventable_type
+    when "Plot"
+      plot_url(event.eventable_id,
+               active_tab: "calendar",
+               event: event.id)
+    when "Development"
+      development_calendars_url(event.eventable_id,
+                                event: event.id)
+    when "Phase"
+      phase_calendars_url(event.eventable_id,
+                          event: event.id)
+    end
   end
 
   def init(event, resource)

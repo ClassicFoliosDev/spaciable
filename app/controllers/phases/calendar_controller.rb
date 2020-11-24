@@ -7,6 +7,8 @@ module Phases
 
     load_and_authorize_resource :phase
 
-    def index; end
+    def index
+      @preload = Event.find(params[:event]) if params[:event]
+    end
   end
 end
