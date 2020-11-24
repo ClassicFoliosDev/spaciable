@@ -57,6 +57,10 @@ var admin = {
         },
         eventTimeFormat: 'H:mm',
         eventRender: function(event, element, view) {
+          if (!$("#" + event.eventable_type.toLowerCase()).prop('checked')) {
+            return false
+          }
+
           element.children(".fc-content").append("<span class='" + event.eventable_type + "'></span>")
 
           var eventEnd = moment(event.end)
@@ -91,7 +95,23 @@ var admin = {
     }
 
     calendar = calendarEl.fullCalendar(calendarConfig)
-  },
+
+    admin.loadFilter()
+ },
+
+ loadFilter: function()
+ {
+    $(".fc-center").append("<span id='filter'/>")
+
+    filters = ["Development", "Phase", "Plot"]
+    filters.forEach(function(filter){
+      lower = filter.toLowerCase()
+      $("#filter").append("<div><div class='"+ lower + "'><input type='checkbox' id='" + lower + "' checked></div><label for='" + lower + "'>" + filter + "</label></div>")
+      $("#" + lower).click(function(){
+        calendar.fullCalendar('refetchEvents')
+      })
+    })
+ },
 
   // If there is preload event specified then display it.  This runs in
   // 2 stages.  This function is called whenever the calendar rerenders
@@ -381,6 +401,7 @@ var admin = {
       // invite all uninvited resources
       $("#resources input[type='checkbox']:not(:checked)").each(function() {
         $("#status_label_" + this.value).text("invited").addClass('invited').prop("checked", true)
+        $("#status_label_" + this.value).closest('span').addClass('invited')
       })
     }
 
@@ -541,7 +562,6 @@ var admin = {
     e_repeat_until = flatpickr('#event_repeat_until', dateFormat)
   },
 
-  // Add click handlers to all the resident entries.
   initControls: function() {
     $("#resources input[type='checkbox']").each(function() {
       $(this).change(function () {
