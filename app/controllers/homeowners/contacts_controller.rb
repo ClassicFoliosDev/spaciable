@@ -8,7 +8,8 @@ module Homeowners
     before_action :set_populated_categories, only: %i[index]
 
     after_action only: %i[index] do
-      record_event(:view_contacts, category1: @category)
+      record_event(:view_contacts,
+                   category1: I18n.t("activerecord.attributes.contact.categories.#{@category}"))
     end
 
     def index
