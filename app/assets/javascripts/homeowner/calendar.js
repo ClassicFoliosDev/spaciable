@@ -193,52 +193,6 @@ var homeowner = {
       }
     ]
 
-    // If it is confirmable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: confirm,
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $.ajax({
-            url:path,
-            type: verb,
-            data: $form.serialize(),
-            success: function() {
-                admin.refreshEvents()
-            }
-          });
-
-          $(this).dialog('destroy')
-        }
-      })
-    }
-
-    // If it is writable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: (event.new ? "Add" : "Update"),
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $eventContainer.hide()
-
-          $(this).dialog('destroy')
-
-          $.ajax({
-            url:dataIn.path,
-            type: (event.new ? "POST" : "PUT"),
-            data: $form.serialize(),
-            success: function() {
-                homeowner.refreshEvents()
-            }
-          })
-        }
-      })
-    }
-
     $eventContainer.dialog({
       show: 'show',
       modal: true,
@@ -246,6 +200,8 @@ var homeowner = {
       title: homeowner.title(event),
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
+
+    homeowner.viewed(event)
   },
 
   title: function(event){
@@ -384,9 +340,8 @@ var homeowner = {
     homeowner.removeDialog(response.closest(".ui-dialog"))
 
     $.post({
-      url: $('.event_details_form').data('response'),
-      data: {event_id: currentEvent.id,
-             resourceable_type: currentEvent.homeowner.resourceable_type,
+      url: "/homeowners/events/" + currentEvent.id + "/feedback",
+      data: {resourceable_type: currentEvent.homeowner.resourceable_type,
              resourceable_id: currentEvent.homeowner.resourceable_id,
              status: response.data('status'),
              proposed_start: currentEvent.start.toDate(),
@@ -397,6 +352,14 @@ var homeowner = {
       admin.refreshEvents()
     }).fail(function (response) {
       flash("Failed", 'alert')
+    })
+  },
+
+  viewed: function(event) {
+    $.post({
+      url: "/homeowners/events/" + event.id + "/viewed",
+      data: {status: 'viewed' },
+      dataType: 'json'
     })
   },
 

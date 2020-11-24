@@ -4,6 +4,11 @@ module Homeowners
   class EventsController < Homeowners::BaseController
     skip_authorization_check
 
+    before_action only: %i[feedback viewed] do
+      record_event(:view_calendar,
+                   category1: I18n.t("ahoy.calendar.#{params[:status]}"))
+    end
+
     def index
       events = []
       parent = params[:eventable_type]
@@ -25,23 +30,13 @@ module Homeowners
       render json: events
     end
 
-    def create
-      event = Event.build(event_params)
-      render json: event.attributes
-    end
-
-    def update
-      event = Event.find(event_params[:id])
-      event.update(event_params)
-      render json: event.attributes
-    end
+    def viewed; end
 
     # Homeowner response to a proposed event
     def feedback
       event = Event.find(params[:event_id])
-      resource = EventResource.find_by(event_id: params[:event_id],
-                                       resourceable_id: params[:resourceable_id],
-                                       resourceable_type: params[:resourceable_type])
+      resource = event.event_resources.find_by(resourceable_id: params[:resourceable_id],
+                                               resourceable_type: params[:resourceable_type])
       if resource
         # update resource before event - post save
         # events depend on order

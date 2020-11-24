@@ -238,9 +238,10 @@ Rails.application.routes.draw do
     get 'choices', action: :edit , controller: 'choices'
     post 'choices', action: :update , controller: 'choices'
     get 'notification', to: 'notifications#show', format: :json
-    resources :events, only: [:index, :create], format: :json
-    put 'events', to: 'events#update'
-    post 'feedback', to: 'events#feedback'
+    resources :events, only: [:index ], format: :json do
+      post 'feedback'
+      post 'viewed'
+    end
   end
 
   scope :homeowners, module: :homeowners do

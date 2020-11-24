@@ -3814,6 +3814,7 @@ en:
     view_how_to: "How To"
     view_home_designer: "Home Designer"
     view_area_guide: "Area Guide"
+    view_calendar: "Calendar"
     view_buyers_club: "Buyers Club"
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
@@ -3831,6 +3832,12 @@ en:
     homeowner_log_in: "Log in"
     homeowner_accept_invite: "Accept Invitation"
     root: "Main"
+    calendar:
+      calendar_viewed: "Calendar Viewed"
+      viewed: "Events Viewed"
+      declined: "Events Declined"
+      accepted: "Events Accepted"
+      reproposed: "Events Reproposed"
 
   events:
     invited: "Invited"
