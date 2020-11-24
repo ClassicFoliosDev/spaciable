@@ -106,7 +106,7 @@ var admin = {
     filters = ["Development", "Phase", "Plot"]
     filters.forEach(function(filter){
       lower = filter.toLowerCase()
-      $("#filter").append("<div><div class='"+ lower + "'><input type='checkbox' id='" + lower + "' checked></div><label for='" + lower + "'>" + filter + "</label></div>")
+      $("#filter").append("<label class='container'>" + filter + "<input id='" + lower + "' type='checkbox' checked='checked'><span class='checkmark " + filter + "'></span></label>")
       $("#" + lower).click(function(){
         calendar.fullCalendar('refetchEvents')
       })
