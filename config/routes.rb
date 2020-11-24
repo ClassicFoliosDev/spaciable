@@ -209,6 +209,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:index, :create, :destroy], format: :json
   put 'events', to: 'events#update'
+  post 'event_resources/:type/:id', to: 'events#resources', format: :json
 
   resources :divisions do
     resources :developments, controller: 'divisions/developments' do

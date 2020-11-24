@@ -254,6 +254,7 @@ var homeowner = {
            moment(homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
   },
 
+  // initialise the button handlers
   initialise: function(){
     $("#accept_event").click(function() {
       homeowner.respond($(this))
@@ -264,7 +265,7 @@ var homeowner = {
     })
 
     $("#change_event").click(function() {
-      homeowner.setResponses('changing')
+      homeowner.setResponses('changing', $(this))
       homeowner.disableDates(false)
     })
 
@@ -343,22 +344,14 @@ var homeowner = {
     $('#event_end_time').next().prop("disabled", disabled);
   },
 
-  setResponses: function(status, event = null){
+  setResponses: function(status, event){
     $("#accept_event").show()
     $("#decline_event").show()
     $("#change_event").show()
     $("#save_change").hide()
-    if (event == null || event.proposed_start == null) {
-      $(".proposed_datetime").hide()
-      $("#change_event").show()
-    } else {
-      $(".proposed_datetime").show()
-      if (status == 'reproposed') {
-        $("#change_event").show()
-      } else {
-        $("#change_event").hide()
-      }
-    }
+    $(".proposed_datetime").hide()
+
+    if(event.eventable_type != "Plot") { $("#change_event").hide() }
 
     if (status == 'accepted') {
       $("#accept_event").hide()
@@ -374,8 +367,14 @@ var homeowner = {
     } else if (status == 'reproposed') {
       $("#accept_event").hide()
       $("#decline_event").hide()
-      $("#change_event").show()
-      $("#save_change").hide()
+    }
+
+    if(event.eventable_type != "Plot" ||
+       event.proposed_start != null) {
+     $("#change_event").hide()
+    }
+
+    if(event.proposed_start != null) {
       $(".proposed_datetime").show()
     }
 

@@ -49,15 +49,17 @@ class Event < ApplicationRecord
         }
   # rubocop:enable Metrics/ParameterLists
 
+  # Get the events of a specified type with associated resources
+  # of a specified type within a range of ids.  This would be used
+  # for residents that reside at multiple properties
   scope :for_resource_within_range,
-        lambda { |resource, params|
+        lambda { |e_type, r_type, r_ids, start, finish|
           joins(:event_resources)
-            .where(eventable_type: params[:eventable_type],
-                   eventable_id: params[:eventable_id],
-                   event_resources: { resourceable_type: resource.class.to_s,
-                                      resourceable_id: resource.id })
+            .where(eventable_type: e_type,
+                   event_resources: { resourceable_type: r_type,
+                                      resourceable_id: r_ids })
             .where("events.start <= ? AND ? <= events.end",
-                   Event.utc(params[:end]), Event.utc(params[:start]))
+                   Event.utc(finish), Event.utc(start))
         }
 
   scope :events,
@@ -136,6 +138,7 @@ class Event < ApplicationRecord
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, TimeZone
   def update(params, resources, resource_type, repeat_edit)
     params = params.except(:id, :master_id)
+    dt_changed = dt_changed?(params)
 
     case repeat_edit.to_i
     when Event.repeat_edits[:this_event]
@@ -154,7 +157,7 @@ class Event < ApplicationRecord
 
     # update resoures
     old_res, new_res = compare_resources(resources)
-    event.update_resources(old_res, new_res, resource_type)
+    event.update_resources(old_res, new_res, resource_type, dt_changed)
     event.save!
 
     # process repeats
@@ -239,7 +242,7 @@ class Event < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-  def update_resources(old_res, new_res, resource_type)
+  def update_resources(old_res, new_res, resource_type, dt_changed)
     # Add new resourses
     (new_res - old_res).each do |res|
       event_resources.build(resourceable_type: resource_type,
@@ -250,7 +253,10 @@ class Event < ApplicationRecord
     event_resources.each do |r|
       # remove deleted resources
       r.mark_for_destruction if (old_res - new_res).include?(r.resourceable_id)
-      # set exsiting users back to invited
+
+      next unless dt_changed
+
+      # set exsiting users back to invited if the date/times have changed
       r.status = :invited if (old_res & new_res).include?(r.resourceable_id)
     end
   end
@@ -390,6 +396,11 @@ class Event < ApplicationRecord
 
   def pre_resources(resource_ids)
     @pre_resources&.select { |r| resource_ids.include? r.resourceable_id }
+  end
+
+  # have the date times changed?
+  def dt_changed?(params)
+    start != Time.parse(params[:start]) || self.end != Time.parse(params[:end])
   end
 end
 # rubocop:enable Metrics/ClassLength, SkipsModelValidations

@@ -6,13 +6,20 @@ module Homeowners
 
     def index
       events = []
-      Event.for_resource_within_range(current_resident, params).each do |event|
-        attrs = event.attributes
-        attrs[:editable] = false
-        attrs[:homeowner] =
-          event.event_resources
-               .find_by(resourceable: current_resident)&.attributes
-        events << attrs
+      parent = params[:eventable_type]
+               .classify.constantize
+      parent&.resident_events(current_resident, params)&.each do |event|
+        # It is possible that a resident has multiple resources
+        # for a single event. e.g. if the resident has multiple plots. This
+        # needs a seperate event for each plot to be made
+        event.event_resources.each do |resource|
+          next unless current_resident.related?(resource)
+
+          attrs = event.attributes
+          attrs[:editable] = false
+          attrs[:homeowner] = resource.attributes
+          events << attrs
+        end
       end
 
       render json: events

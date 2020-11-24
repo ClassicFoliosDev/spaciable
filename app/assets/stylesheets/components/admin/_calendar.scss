@@ -1,34 +1,61 @@
-#admin_calendar {
+  #admin_calendar {
   .fc-toolbar {
     padding-top: $spacing-medium;
   }
 
-  .circle {
+  .status {
+    border-radius: 50%;
     width: 8px;
     height: 8px;
-    margin: 1px;
+    margin: 0 1px;
     display: inline-block;
-    float: right;
   }
 
-  .fill-reproposed {
-    background-color: $secondary-orange;
-    border-color: $secondary-orange;
+  .event_type {
+    @extend .status;
+    float: left;
+    width: 12px;
+    height: 12px;
   }
 
-  .fill-invited {
+  .status_type {
+    @extend .status;
+    border: 1px solid black;
+  }
+
+  .development {
+    @extend .event_type;
+    background-color: royalblue;
+  }
+
+  .phase {
+    @extend .event_type;
+    background-color: forestgreen;
+  }
+
+  .plot {
+    @extend .event_type;
+    background-color: orangered;
+  }
+
+  .reproposed {
+    @extend .status_type;
+    background-color: #db7b2b;
+  }
+
+  .invited {
+    @extend .status_type;
     background-color: $ui-white;
-    border-color: $ui-white;
   }
 
-  .fill-accepted {
-    background-color: $secondary-green;
-    border-color: $secondary-green;
+  .accepted {
+    @extend .status_type;
+    background-color: #2dc937;
   }
 
-  .fill-declined {
-    background-color: $primary-red-left;
-    border-color: $primary-red-left;
+  .declined {
+    @extend .status_type;
+    background-color: #cc3232;
   }
 
   button {
@@ -98,13 +125,10 @@
   }
 
   .fc-day-grid {
-    .fc-event {
-      border: 1px solid $primary-navy;
-      background-color: $primary-navy;
-    }
-
-    .past-event {
-      opacity: 0.6;
+    .fc-event{
+      color: black;
+      background-color: unset;
+      border: unset;
     }
 
     .repeat-event {
@@ -136,10 +160,6 @@
     .reproposed-datetime {
       background-color: $secondary-orange;
       border-color: $secondary-orange;
-    }
-
-    .fc-event .fc-bg {
-      opacity: 0;
     }
   }
 
@@ -319,6 +339,7 @@
         display: inline-block;
       }
 
+
       .btn {
         display: inline-block;
         float: right;
@@ -341,7 +362,9 @@
       }
     }
 
-    .resident-label, .plot-label {
+    .resource-label{
+      float:left;
+      width:34%;
       margin: 0;
       padding: 0;
 
@@ -352,24 +375,31 @@
       }
     }
 
+    .status-label {
+      @extend .resource-label;
+      padding: 5px 0 5px $spacing-small;
+      float: unset;
+    }
+
+
     input[type="checkbox"] {
       display: none;
     }
 
-    .checked {
-      background-color: $pale-navy;
+    .invited {
+      color: #99A3A4;
     }
 
     .reproposed {
-      background-color: #fcb788;
+      color: #fcb788;
     }
 
     .accepted {
-      background-color: #ADEBAD;
+      color: #ADEBAD;
     }
 
     .declined {
-      background-color: #FFB2B2;
+      color: red;
     }
   }
 }

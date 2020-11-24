@@ -574,5 +574,33 @@ class Plot < ApplicationRecord
     evts.flatten
   end
   # rubocop:enable Metrics/AbcSize
+
+  # Retrieve relevant resident calendar events.  Remember that
+  # a resident may have events on many different plots
+  # rubocop:disable Metrics/AbcSize
+  def self.resident_events(resident, params)
+    # parent development events
+    evts = Event.for_resource_within_range(
+      Development.to_s, name, resident.plots.pluck(:id),
+      params[:start], params[:end]
+    ).to_a
+    # Phase
+    evts << Event.for_resource_within_range(
+      Phase.to_s, name, resident.plots.pluck(:id),
+      params[:start], params[:end]
+    ).to_a
+    # add plots
+    evts << Event.for_resource_within_range(
+      name, resident.class.to_s, [resident.id],
+      params[:start], params[:end]
+    ).to_a
+
+    evts.flatten
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def resources
+    residents.map { |r| [r.id, r.to_s] }
+  end
 end
 # rubocop:enable Metrics/ClassLength

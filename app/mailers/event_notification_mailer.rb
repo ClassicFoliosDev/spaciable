@@ -49,8 +49,12 @@ class EventNotificationMailer < ApplicationMailer
   def feedback(resource)
     @resource = resource
     @event = @resource.event
-    @plot = @event.eventable if @event.eventable.is_a? Plot
-    init_timezone(@plot)
+    @plot = if @event.eventable.is_a? Plot
+              @event.eventable
+            else
+              @resource.resourceable
+            end
+    Time.zone = @event.eventable.time_zone
     @link = admin_link(resource.event)
     mail to: resource.event.userable.email,
          subject: "Calendar event #{resource.status} by #{resource.resourceable}"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201013143437) do
+ActiveRecord::Schema.define(version: 20201030145745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,8 +20,6 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.string  "access_token"
     t.string  "refresh_token"
     t.integer "expires_at"
-    t.integer "crm_id"
-    t.index ["crm_id"], name: "index_access_tokens_on_crm_id", using: :btree
   end
 
   create_table "actions", force: :cascade do |t|
@@ -469,8 +467,6 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.integer  "resourceable_id"
     t.integer  "status"
     t.datetime "status_updated_at"
-    t.datetime "proposed_start"
-    t.datetime "proposed_end"
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
     t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
   end
@@ -489,6 +485,8 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.datetime "repeat_until"
     t.integer  "reminder"
     t.integer  "reminder_id"
+    t.datetime "proposed_start"
+    t.datetime "proposed_end"
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
@@ -1185,7 +1183,6 @@ ActiveRecord::Schema.define(version: 20201013143437) do
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
   end
 
-  add_foreign_key "access_tokens", "crms"
   add_foreign_key "actions", "tasks"
   add_foreign_key "appliance_categories", "developers"
   add_foreign_key "appliance_manufacturers", "developers"

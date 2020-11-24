@@ -270,6 +270,7 @@ class Development < ApplicationRecord
   end
 
   # Retrieve relevant calendar events
+  # rubocop:disable Metrics/AbcSize
   def events(params)
     # development events
     evts = Event.within_range(self.class.name, [id],
@@ -282,6 +283,11 @@ class Development < ApplicationRecord
                                params[:start], params[:end]).to_a
 
     evts.flatten
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def resources
+    plots.pluck(:id, :number)
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -3,14 +3,15 @@
 class EventsController < ApplicationController
   skip_authorization_check
 
-  before_action :split_params, except: %i[index destroy]
+  before_action :split_params, except: %i[index destroy resources]
   load_and_authorize_resource :event, only: %i[destroy]
 
   def index
     events = []
-    parent = params[:eventable_type].classify.constantize
-                                    .find(params[:eventable_id])
-    parent.events(params).each do |event|
+    parent = params[:eventable_type]
+             .classify.constantize
+             .find_by(id: params[:eventable_id])
+    parent&.events(params)&.each do |event|
       attrs = event.attributes
       attrs[:repeater] = event.repeater?
       attrs[:writable] = !current_user.site_admin?
@@ -38,6 +39,15 @@ class EventsController < ApplicationController
   def destroy
     @event.remove(params[:repeat_opt])
     render json: { status: 200 }
+  end
+
+  def resources
+    res = []
+    parent = params[:type]
+             .classify.constantize
+             .find_by(id: params[:id])
+    parent&.resources&.each { |r| res << { id: r[0], ident: r[1] } }
+    render json: res
   end
 
   def permitted_params
