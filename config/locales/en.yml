@@ -813,6 +813,7 @@ en:
     visits:
       show:
         all: "All"
+        info: "Please note that no data on page visits exists before 02/10/2020."
         start_date: "From"
         end_date: "To"
         plots: "Plots"
@@ -1099,7 +1100,7 @@ en:
         reports_description: "Export CSV files on developments and plots"
         reports_btn: "Access Reports"
         visits: "Visits"
-        visits_description: "Configure a report on a page vists for a given focus"
+        visits_description: "Configure a report on page visits"
         visits_btn: "Access Page Visit Report"
     settings:
       show:
@@ -3832,8 +3833,8 @@ en:
     view_contacts: "Contacts"
     view_account: "Account"
     view_messages: "Messages"
-    refer_a_friend: "Refer a Friend"
-    view_main_menu: "Main Menu"
+    refer_a_friend: "Referrals Submitted"
+    view_main_menu: "Dashboard"
     view_home_tour: "Home Tour"
     view_rooms: "Rooms"
     view_appliances: "Appliances"
@@ -3855,9 +3856,9 @@ en:
     snags_rejected: "Snags Rejected"
     view_issues: "Issues"
     homeowner_sign_in: "Sign In"
-    homeowner_log_in: "Log in"
-    homeowner_accept_invite: "Accept Invitation"
-    root: "Main"
+    homeowner_log_in: "Returning User"
+    homeowner_accept_invite: "New User"
+    root: "%{category} Menu"
 
   events:
     invited: "Invited"
@@ -3893,5 +3894,3 @@ en:
       name: "Timeline"
       add: "Add Timeline Associations"
       empty: "You have no Timeline Plot Associations"
-
-
