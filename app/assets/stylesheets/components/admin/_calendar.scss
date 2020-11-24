@@ -331,6 +331,9 @@
     overflow-y: scroll;
     border: 1px solid $primary-navy;
     border-radius: 5px;
+  }
+
+  .resources {
 
     span {
       display: block;
@@ -339,8 +342,8 @@
         display: inline-block;
       }
 
-
-      .btn {
+      .invite-btn {
+        @extend .btn;
         display: inline-block;
         float: right;
         margin-right: $spacing-small;
@@ -348,6 +351,11 @@
 
         font-size: $base-small-font-size;
         line-height: 1.5;
+      }
+
+      .select-all-resources {
+        @extend .invite-btn;
+        float: unset;
       }
 
       .invite-resource-btn {

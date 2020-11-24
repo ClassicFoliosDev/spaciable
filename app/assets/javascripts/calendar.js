@@ -157,25 +157,27 @@ var admin = {
     admin.scrub()
 
     $.post({
+      // Get all the POSSIBLE resources for this event
       url: '/event_resources/' +
            (event.hasOwnProperty('eventable_type') ? event.eventable_type : $("#admin_calendar").data("type")) + '/' +
            (event.hasOwnProperty('eventable_id') ? event.eventable_id : $("#admin_calendar").data("id")),
       dataType: 'json',
       success: function (response) {
 
-        // Clear out the resources
+        // The resources are dynaically created within the #resouces span
         $('#resources span').remove()
 
-        // create resources for event
+        // go through all the resources
         var arrayLength = response.length;
         for (var i = 0; i < arrayLength; i++) {
+          // has this resource been invited already?
           invited = false
           if (event.resources != undefined) {
             event.resources.forEach(function(r) { invited = invited || (r['resourceable_id'] == response[i].id) } )
           }
 
+          // build the resource entry
           resource_id = response[i]["id"]
-
           $('#resources').append(
             "<span>" +
               "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
@@ -192,6 +194,7 @@ var admin = {
           }
         }
 
+        // add the form
         var $eventContainer = $('.event_details_form')
         $('body').append($eventContainer)
         var $form = $('.event')
@@ -253,6 +256,7 @@ var admin = {
           })
         }
 
+        // display the form
         $eventContainer.dialog({
           show: 'show',
           modal: true,
@@ -264,6 +268,7 @@ var admin = {
         $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
         $('.ui-dialog-title').css('line-height', '28px')
 
+        // populate the form with the data from this event
         admin.populate(event, dataIn)
         admin.initControls();
       }
@@ -300,8 +305,6 @@ var admin = {
     }
     $('#event_repeat_until').next().prop("disabled", !event.writable)
 
-    admin.populateResources(event)
-
     // Populate the pulldowns.  Simple Forms builds a complex structure of
     // related controls to support pulldowns.  The only way to set their
     // content dynamically is to mimic the click/hover/click operation that
@@ -333,11 +336,13 @@ var admin = {
     $("#event_id").val(event.id)
     $("#event_master_id").val(event.master_id)
     $("#event_resource_type").val($("#event_eventable_type").val() == "Plot" ? "Resident" : "Plot")
+    $('#resources_label').text("Select " + ($("#event_eventable_type").val() == "Plot" ? 'Attendees' : 'Plots'))
+
+    admin.populateResources(event)
   },
 
+  // populate the resources using the event.
   populateResources: function(event) {
-
-    // remove any dynamic styling before reinitialising
 
     // clear out any resident selections - ie unclick any checked boxes
     $("#resources input[type='checkbox']").each(function() {
@@ -346,7 +351,7 @@ var admin = {
       }
     });
 
-    // set checked for associated event resources
+    // set status for associated event resources
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
         res = admin.resource(resource['resourceable_id'])
@@ -357,17 +362,27 @@ var admin = {
     }
 
     // add the buttons for each resource
-    $("#resources span").each(function () {
-      if (event.writable) {
-        // add invite/uninvite buttons
-        if($(this).hasClass("invited")) {
-          $(this).append("<button class='btn uninvite-resource-btn'>Remove</button>")
-        } else {
-          $(this).append("<button class='btn invite-resource-btn'>Invite</button>")
+    if ($("#event_eventable_type").val() != "Development") {
+      $(".select-all-resources").show().prop( "enabled", true );
+      $("#resources span").each(function () {
+        if (event.writable) {
+          // add invite/uninvite buttons
+          if($(this).hasClass("invited")) {
+            $(this).append("<button class='invite-btn uninvite-resource-btn'>Remove</button>")
+          } else {
+            $(this).append("<button class='invite-btn invite-resource-btn'>Invite</button>")
+          }
         }
-      }
-    })
+      })
+    } else {
+      $(".select-all-resources").hide()
+      // invite all uninvited resources
+      $("#resources input[type='checkbox']:not(:checked)").each(function() {
+        $("#status_label_" + this.value).text("invited").addClass('invited').prop("checked", true)
+      })
+    }
 
+    admin.showSelectAll()
     admin.showProposed(event)
 
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
@@ -614,14 +629,34 @@ var admin = {
   scrub: function() {
     $("#event_title").parents('div').removeClass('field_with_errors')
     $("#title_error").remove()
+  },
+
+  inviteAll: function() {
+    $(".invite-resource-btn").each(function() { $(this).trigger( "click" ) })
+  },
+
+  showSelectAll: function ()
+  {
+    if ($(".invite-resource-btn").length == 0) {
+      $(".select-all-resources").hide()
+    } else {
+      $(".select-all-resources").show()
+    }
   }
 }
+
+// check checkbox on click invite button
+$(document).on('click', '.select-all-resources', function(event) {
+  event.preventDefault()
+  admin.inviteAll()
+})
 
 // check checkbox on click invite button
 $(document).on('click', '.invite-resource-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
   $(this).addClass('uninvite-resource-btn').removeClass('invite-resource-btn').text("Remove")
+  admin.showSelectAll()
 })
 
 // uncheck checkbox on click uninvite button
@@ -629,6 +664,7 @@ $(document).on('click', '.uninvite-resource-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
   $(this).addClass('invite-resource-btn').removeClass('uninvite-resource-btn').text("Invite")
+  admin.showSelectAll()
 })
 
 // prevent checkbox being checked when clicking resident name (checkbox label)

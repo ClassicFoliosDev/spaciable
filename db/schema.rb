@@ -409,7 +409,6 @@ ActiveRecord::Schema.define(version: 20201030145745) do
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
     t.boolean  "calendar",              default: false
-    t.integer  "timeline_id"
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
