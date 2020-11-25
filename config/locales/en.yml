@@ -3889,6 +3889,7 @@ en:
         confirm: "Please confirm the event(s) you wish to modify."
       single:
         confirm: "Are you sure you want to delete this event?"
+
   phase_timelines:
     collection:
       name: "Timeline"
