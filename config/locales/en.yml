@@ -1986,6 +1986,7 @@ en:
       account_number: "Branded Buyers' Club Account Number"
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
+      is_demo: "Exclude from global reports"
 
     index:
       add: "Add Developer"
