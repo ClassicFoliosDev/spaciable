@@ -34,14 +34,6 @@ When(/^I update the developer's division$/) do
   within ".edit_division" do
     fill_in "division_division_name", with: DeveloperDivisionFixture.updated_division_name
 
-    DeveloperDivisionFixture.update_attrs.each do |attr, value|
-      fill_in "division_#{attr}", with: value
-    end
-
-    DeveloperDivisionFixture.division_address_attrs.each do |attr, value|
-      fill_in "division_address_attributes_#{attr}", with: value
-    end
-
     click_on t("developers.form.submit")
   end
 end
@@ -64,14 +56,6 @@ Then(/^I should see the updated developer division$/) do
   within ".section-header" do
     expect(page).to have_content(DeveloperDivisionFixture.updated_division_name)
     expect(page).not_to have_content CreateFixture.division_name
-
-    DeveloperDivisionFixture.update_attrs.each do |_attr, value|
-      expect(page).to have_content(value)
-    end
-
-    DeveloperDivisionFixture.division_address_attrs.each do |_attr, value|
-      expect(page).to have_content(value)
-    end
   end
 end
 

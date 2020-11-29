@@ -97,6 +97,7 @@ class DevelopersController < ApplicationController
       :enable_roomsketcher, :enable_development_messages,
       :prime_lettings_admin, :personal_app, :cas, :timeline,
       :enable_perks,
+      :account_manager_name, :account_manager_email, :account_manager_contact,
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]

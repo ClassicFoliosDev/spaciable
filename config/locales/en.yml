@@ -1986,6 +1986,12 @@ en:
       account_number: "Branded Buyers' Club Account Number"
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
+      account_manager:
+        title: "Account manager"
+        name: "Name"
+        email: "Email"
+        contact: "Contact"
+
 
     index:
       add: "Add Developer"
@@ -2034,6 +2040,9 @@ en:
       phases: "Phases: "
       expiry: "All plots have expired. <br/>To extend the access, please contact your Classic Folios account manager."
       expiry_text: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
+      account_manager_name: "Account Manager:"
+      account_manager_email: "Email Address:"
+      account_manager_contact: "Direct Dial:"
 
   divisions:
     destroy:

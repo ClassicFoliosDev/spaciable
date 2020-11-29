@@ -45,14 +45,6 @@ When(/^I update the developers development$/) do
 
   fill_in "development_name", with: DeveloperDevelopmentFixture.updated_development_name
 
-  DeveloperDevelopmentFixture.update_attrs.each do |attr, value|
-    fill_in "development_#{attr}", with: value
-  end
-
-  DeveloperDevelopmentFixture.development_address_update_attrs.each do |attr, value|
-    fill_in "development_address_attributes_#{attr}", with: value
-  end
-
   click_on t("developments.form.submit")
 end
 
@@ -62,10 +54,6 @@ Then(/^I should see the updated developer development$/) do
     development_name: DeveloperDevelopmentFixture.updated_development_name
   )
   expect(page).to have_content(success_flash)
-
-  DeveloperDevelopmentFixture.development_address_update_attrs.each do |_attr, value|
-    expect(page).to have_content(value)
-  end
 end
 
 When(/^I create another development$/) do

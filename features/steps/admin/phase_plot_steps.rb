@@ -158,9 +158,9 @@ Then(/^I should see the (CAS )*updated phase plot$/) do |cas|
       expect(page).to have_content(PhasePlotFixture.plot_building_name)
       expect(page).to have_content(PhasePlotFixture.plot_road_name)
       expect(page).to have_content(PhasePlotFixture.plot_postcode)
-      expect(page).to have_content(PhaseFixture.address_update_attrs[:locality])
-      expect(page).to have_content(PhaseFixture.address_update_attrs[:city_name])
-      expect(page).to have_content(PhaseFixture.address_update_attrs[:county_name])
+      expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:locality])
+      expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:city_name])
+      expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:county_name])
 
       expect(page).not_to have_content(PlotFixture.unit_type_name)
     end
@@ -224,7 +224,7 @@ Given(/^I have configured the phase address$/) do
     find("[data-action='edit']").click
   end
 
-  PhaseFixture.address_update_attrs.each do |attr, value|
+  PhaseFixture.phase_address_update_attrs.each do |attr, value|
     fill_in "phase_address_attributes_#{attr}", with: value
   end
 
@@ -266,7 +266,7 @@ Then(/^I should see the phase address has not been changed$/) do
   end
 
   within ".section-data" do
-    PhaseFixture.address_update_attrs.each do |_attr, value|
+    PhaseFixture.phase_address_update_attrs.each do |_attr, value|
       expect(page).to have_content(value)
     end
   end

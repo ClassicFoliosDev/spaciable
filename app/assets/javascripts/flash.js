@@ -20,3 +20,7 @@ function flash(message, className) {
   $notice.innerHTML = message
   $flash.append($notice)
 };
+
+$(document).on('turbolinks:load', function () {
+  $(".submission-errors li:contains('please populate')").each(function() { $(this).hide() });
+})
