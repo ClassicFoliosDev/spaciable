@@ -44,8 +44,22 @@
     <div class="resources">
       <% resources = event_resource(source) %>
       <%= f.hidden_field :resource_type, { value: resources[:type] } %>
-      <span>
-        <label><%= label_tag :resources, resources[:tag], id: 'resources_label' %></label>
+      <span id="dev_counts">
+        <div class='dev_invited'>
+          <label>Invited:</label>
+          <p id='dev_invited'class='resource_count'>50</p>
+        </div>
+        <div class='dev_accepted'>
+          <label>Accepted:</label>
+          <p id='dev_accepted'class='resource_count'>20</p>
+        </div>
+        <div class='dev_declined'>
+          <label>Declined:</label>
+          <p id='dev_declined'class='resource_count'>0</p>
+        </div>
+      </span>
+      <span id="resources_label">
+        <label><%= label_tag :resources, resources[:tag], id: 'resources_type' %></label>
         <button class="select-all-resources">Select All</button>
       </span>
       <div id="resources">

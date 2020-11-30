@@ -9,16 +9,21 @@ module Homeowners
                    category1: I18n.t("ahoy.calendar.#{params[:status]}"))
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def index
       events = []
       parent = params[:eventable_type]
                .classify.constantize
+      plots = current_resident.plots.pluck(:id)
       parent&.resident_events(current_resident, params)&.each do |event|
         # It is possible that a resident has multiple resources
         # for a single event. e.g. if the resident has multiple plots. This
         # needs a seperate event for each plot to be made
         event.event_resources.each do |resource|
-          next unless current_resident.related?(resource)
+          next unless (resource.resourceable_type == "Resident" &&
+                       resource.resourceable_id == current_resident.id) ||
+                      (resource.resourceable_type == "Plot" &&
+                       plots.include?(resource.resourceable_id))
 
           attrs = event.attributes
           attrs[:editable] = false
@@ -29,6 +34,7 @@ module Homeowners
 
       render json: events
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def viewed; end
 

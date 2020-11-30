@@ -2,6 +2,15 @@
   $phase: forestgreen;
   $plot: orangered;
 
+  //$development: #BEFDFE;
+  //$phase: #EDFEC4;
+  //$plot: #FCD7D4;
+
+  $development: #265D87;
+  $phase: #4D6F12;
+  $plot: #972F18;
+
+
   #admin_calendar {
   .fc-toolbar {
     padding-top: $spacing-medium;
@@ -25,6 +34,7 @@
   .status_type {
     @extend .status;
     border: 1px solid black;
+    float: right;
   }
 
   .development {
@@ -211,7 +221,7 @@
 
   .fc-day-grid {
     .fc-event{
-      color: black;
+      //color: black;
       background-color: unset;
       border: unset;
     }
@@ -264,6 +274,26 @@
   .fc-content {
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .fc-bg {
+    opacity: 1;
+  }
+
+  .fc-content, .fc-bg {
+    // color: black;
+
+    &.development_bg {
+      background-color: $development;
+    }
+
+    &.phase_bg {
+      background-color: $phase;
+    }
+
+    &.plot_bg {
+      background-color: $plot;
     }
   }
 
@@ -409,6 +439,10 @@
     .ui-selectmenu-button .ui-selectmenu-text {
         padding: 9px !important;
     }
+  }
+
+  .resource_count, .dev_invited, .dev_accepted, .dev_declined {
+      display: inline;
   }
 
   .resources {

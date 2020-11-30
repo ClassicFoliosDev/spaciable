@@ -61,7 +61,9 @@ var admin = {
             return false
           }
 
-          element.children(".fc-content").append("<span class='" + event.eventable_type + "'></span>")
+          // Event type indicator
+          element.children(".fc-content").addClass(event.eventable_type + "_bg")
+          element.children(".fc-bg").addClass(event.eventable_type + "_bg")
 
           var eventEnd = moment(event.end)
           var now = moment()
@@ -358,7 +360,7 @@ var admin = {
     $("#event_id").val(event.id)
     $("#event_master_id").val(event.master_id)
     $("#event_resource_type").val($("#event_eventable_type").val() == "Plot" ? "Resident" : "Plot")
-    $('#resources_label').text("Select " + ($("#event_eventable_type").val() == "Plot" ? 'Attendees' : 'Plots'))
+    $('#resources_type').text("Select " + ($("#event_eventable_type").val() == "Plot" ? 'Attendees' : 'Plots'))
 
     admin.populateResources(event)
   },
@@ -400,6 +402,7 @@ var admin = {
       $(".select-all-resources").hide()
       // invite all uninvited resources
       $("#resources input[type='checkbox']:not(:checked)").each(function() {
+        this.checked = true
         $("#status_label_" + this.value).text("invited").addClass('invited').prop("checked", true)
         $("#status_label_" + this.value).closest('span').addClass('invited')
       })
@@ -407,8 +410,31 @@ var admin = {
 
     admin.showSelectAll()
     admin.showProposed(event)
+    admin.showResources(event)
 
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
+  },
+
+  // The display of the resources is dependant upon the event and the source
+  showResources: function(event){
+
+    if ($("#event_eventable_type").val() == "Development") {
+      $("#resources_label").hide()
+      if (event.new) {
+        $(".resources").hide()
+      } else {
+        $("#dev_invited").text($("#resources span").length)
+        $("#dev_accepted").text($("#resources .accepted").length)
+        $("#dev_declined").text($("#resources .declined").length)
+        $("#resources label.invited").each(function() { $(this).closest("span").hide() })
+        $(".resources").show()
+        $("#dev_counts").show()
+      }
+    } else {
+      $("#dev_counts").hide()
+      $("#resources_label").show()
+      $(".resources").show()
+    }
   },
 
   resource: function(id){
@@ -631,7 +657,7 @@ var admin = {
     e_end_date.setDate(p_end.toDate())
     $(".proposed_datetime").hide()
     proposer = $(".proposed_datetime").data('proposer')
-    admin.setResidentStatus(admin.resident(proposer), 'invited')
+    //admin.setResidentStatus(admin.resident(proposer), 'invited')
     $("button[data-resident='" + proposer + "']").remove()
   },
 

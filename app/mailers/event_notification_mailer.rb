@@ -14,7 +14,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def remind_resource(event, resource)
-    return if resource&.blank? || resource&.resourceable&.emails&.empty?
+    return unless resource&.resourceable&.emails&.present?
 
     init(event, resource)
     mail to: resource.resourceable.emails,
@@ -23,7 +23,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def invite_resource(event, resource)
-    return if resource&.blank? || resource&.resourceable&.emails&.empty?
+    return unless resource&.resourceable&.emails&.present?
 
     init(event, resource)
     mail to: resource.resourceable.emails,
@@ -31,7 +31,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def update_resource(event, resource)
-    return if resource&.blank? || resource&.resourceable&.emails&.empty?
+    return unless resource&.resourceable&.emails&.present?
 
     init(event, resource)
     mail to: resource.resourceable.emails,
@@ -39,7 +39,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def cancel(event, resource)
-    return if resource&.blank? || resource&.resourceable&.emails&.empty?
+    return unless resource&.resourceable&.emails&.present?
 
     init(event, resource)
     mail to: resource.resourceable.emails,
