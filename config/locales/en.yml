@@ -993,6 +993,7 @@ en:
         development: "Development"
         accepted_at: "Activation Date"
         search: "Admin users search"
+        export_csv: "Export to CSV"
       new:
         add: "New User."
       show:

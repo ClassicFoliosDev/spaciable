@@ -42,7 +42,9 @@ Rails.application.routes.draw do
     resources :notifications, except: [:edit, :update, :destroy]
     resources :admin_notifications, except: [:edit, :update, :destroy]
     resources :how_tos
-    resources :users
+    resources :users do
+      post 'export_csv', on: :collection, format: :json
+    end
     resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
     resource :settings, only: [:show, :edit, :update] do

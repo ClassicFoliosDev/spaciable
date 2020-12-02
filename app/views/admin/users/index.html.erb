@@ -8,6 +8,7 @@
 </div>
 
 <div class="section-actions">
+  <button class='btn', id='users_export_csv' data-href=<%= export_csv_admin_users_path %>><%= t(".export_csv") %></button>
   <%= link_to new_admin_user_path, class: "btn btn-primary" do %>
     <i class="fa fa-plus"></i>
     <span class="btn-label"><%= t(".add") %></span>
