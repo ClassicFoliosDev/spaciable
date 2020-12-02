@@ -21,9 +21,9 @@ module MaintenancePopulatorHelper
 
   def fixflo_auto_populate(plot, current_resident)
     {
-      "title" => current_resident.title, "firstname" => current_resident.first_name,
-      "surname" => current_resident.last_name, "email" => current_resident.email,
-      "contactno" => current_resident.phone_number,
+      "title" => current_resident&.title, "firstname" => current_resident&.first_name,
+      "surname" => current_resident&.last_name, "email" => current_resident&.email,
+      "contactno" => current_resident&.phone_number,
       "address.postcode" => plot.postcode, "address.town" => plot.city,
       "address.addressline2" => plot.road_name,
       "address.addressline1" => get_address(plot)
@@ -35,10 +35,10 @@ module MaintenancePopulatorHelper
       "Address.AddressLine1" => get_address(plot), "Address.AddressLine2" => plot.road_name,
       "Address.PostCode" => plot.postcode, "Address.Town" => plot.city,
       "ClientId" => clixifix_client_id(maintenance_link),
-      "Contact.FirstName" => current_resident.first_name,
-      "Contact.Surname" => current_resident.last_name,
-      "Contact.Telephone" => current_resident.phone_number,
-      "Contact.Title" => current_resident.title.capitalize, "development" => plot.development,
+      "Contact.FirstName" => current_resident&.first_name,
+      "Contact.Surname" => current_resident&.last_name,
+      "Contact.Telephone" => current_resident&.phone_number,
+      "Contact.Title" => current_resident&.title&.capitalize, "development" => plot.development,
       "portal" => "spaciable"
     }
   end
