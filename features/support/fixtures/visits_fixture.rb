@@ -5,11 +5,11 @@
 module VisitsFixture
   module_function
 
-  DEVELOPER = ["Bovis Region ", :company_name]
-  DEVELOPMENT = ["Alpha ", :name]
-  PHASE = ["Phase ", :name]
-  PLOT = ["Flat ", :number]
-  RESIDENT = ["res@gmail", :email]
+  DEVELOPER = ["Bovis Region #", :company_name]
+  DEVELOPMENT = ["Alpha #", :name]
+  PHASE = ["Phase #", :name]
+  PLOT = ["Flat #", :number]
+  RESIDENT = ["res@gmail#.com", :email]
   NUM_DEVELOPERS = 2
   NUM_DEVELOPMENTS = 2
 
@@ -33,7 +33,7 @@ module VisitsFixture
       ["development", "phase", "plot", "resident"].each do |t|
         # create accessor for name e.g. developer1_name
         define_method "#{t}#{dev}_#{dvmt}_name" do
-          "#{const_get(t.upcase)[0]}#{dev}_#{dvmt}"
+          const_get(t.upcase)[0].dup.sub! "#", "#{dev}#{dvmt}"
         end
 
         # create accessor for instance e.g. developer1_1
