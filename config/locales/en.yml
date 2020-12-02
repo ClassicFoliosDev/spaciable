@@ -333,7 +333,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
-        timeline: "Your Journey"
+        timeline: "My Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -667,7 +667,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       analytics: "Analytics"
-      timeline: "Timeline"
+      timeline: "Timelines"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -1559,7 +1559,7 @@ en:
 
       splash:
         welcome: "Welcome To"
-        your_journey: "Your Journey"
+        your_journey: "My Journey"
         paragraph_1: "This timeline is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
@@ -1571,7 +1571,7 @@ en:
         moving: "Moving information"
         living: "Living information"
       task:
-        header: "Your Journey"
+        header: "My Journey"
         how_tos: "How To"
         faqs: "FAQs"
         area_guide: "Area Guide"
@@ -1738,9 +1738,9 @@ en:
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
           error: "Currently unavailable. Please try again later."
         timeline:
-          title: "Your Journey"
+          title: "My Journey"
           description: "Track your progress towards your move and pick up plenty of tips along the way."
-          button: "Your Journey"
+          button: "My Journey"
 
     communication_preferences:
       show:
@@ -1978,7 +1978,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "Your Journey"
+      timeline: "My Journey"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -2012,7 +2012,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "Your Journey"
+      timelines: "My Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -2411,7 +2411,7 @@ en:
       edit:
         title: "Timeline Allocations"
       form:
-        description: "Use this page to associate timelines with plots on this phase. The Your Journey page will only show on plots that are listed in the Associated Plots below."
+        description: "Use this page to associate timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
         plots: "Associated Plots"
         warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
         add_all_plots: "Add All Plots"
@@ -3846,7 +3846,7 @@ en:
     view_buyers_club: "Buyers Club"
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
-    view_your_journey: "Your Journey"
+    view_your_journey: "My Journey"
     task_viewed: "Viewed"
     view_FAQs: "FAQs"
     view_FAQs_feedback: "FAQs Feedback"
