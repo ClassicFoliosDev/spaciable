@@ -163,10 +163,5 @@ class Resident < ApplicationRecord
   def emails
     [email]
   end
-
-  # Is the resource 'me' or one of my plots?
-  def related?(resource)
-    resource.resourceable == self || plots.include?(resource.resourceable)
-  end
 end
 # rubocop:enable Metrics/ClassLength
