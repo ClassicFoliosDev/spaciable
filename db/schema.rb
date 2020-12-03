@@ -468,8 +468,6 @@ ActiveRecord::Schema.define(version: 20201126090406) do
     t.integer  "resourceable_id"
     t.integer  "status"
     t.datetime "status_updated_at"
-    t.datetime "proposed_start"
-    t.datetime "proposed_end"
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
     t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
   end
@@ -488,6 +486,9 @@ ActiveRecord::Schema.define(version: 20201126090406) do
     t.datetime "repeat_until"
     t.integer  "reminder"
     t.integer  "reminder_id"
+    t.datetime "proposed_start"
+    t.datetime "proposed_end"
+    t.boolean  "notify",         default: true
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree

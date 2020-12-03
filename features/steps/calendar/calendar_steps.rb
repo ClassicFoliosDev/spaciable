@@ -164,6 +164,7 @@ Then (/^I can update and delete this and following calendar events$/) do
   page.choose("this_and_following")
   click_on "Confirm" # this and following
   sleep 4
+
   expect(events.count).to eq(CalendarFixture::MONTHVIEWDAYS - updating_day)
 
   # this and following creates a new sequence
@@ -243,9 +244,6 @@ Then (/^I can add a calendar event and invite the resident$/) do
   find(".ui-dialog", visible: true)
 
   populate_event
-  within find(:xpath, "//label[contains(@class, 'resident-label')][contains(@for,'event_residents_#{CreateFixture.resident.id}')]//parent::span") do
-    find(".invite-resident-btn").trigger('click')
-  end
 
   click_on "Add"
   check_event
@@ -280,7 +278,6 @@ end
 
 Then (/^I can accept the reproposed date and time$/) do
   open_event
-  find(".view-proposed-datetime").trigger('click')
 
   within find(".ui-dialog", visible: true) do
     expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y"))
@@ -293,7 +290,7 @@ Then (/^I can accept the reproposed date and time$/) do
 
   find("#accept_reschedule").trigger('click')
   find(".proposed_datetime", visible: all).visible?
-  expect(find(:xpath, "//label[contains(@class, 'resident-label')][contains(@for,'event_residents_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("checked invited")
+  expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("invited")
 
   click_on "Update"
   sleep 4
@@ -301,12 +298,11 @@ Then (/^I can accept the reproposed date and time$/) do
   CalendarFixture.event.start = CalendarFixture.reproposed_start
   CalendarFixture.event.end = CalendarFixture.reproposed_end
   check_event
-
 end
 
 Then (/^I can see the event has been (.*)$/) do |status|
   within find_event do
-    find(".circle.fill-#{status}")
+    find(".#{status}")
   end
 end
 
@@ -322,7 +318,6 @@ Then (/^I can view but not update the reproposed event$/) do
   expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
   expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
 
-  find(".view-proposed-datetime").trigger('click')
   expect(page).to have_content("Proposed Rescheduling")
 
   click_on "Cancel"
@@ -339,6 +334,9 @@ def populate_event(event = CalendarFixture.event)
     fill_in :event_title, with: event.title if event.title
     fill_in :event_location, with: event.location if event.location
   end
+
+  invites = find_all(".resources .invite-resource-btn")
+  invites&.first&.trigger('click')
 
   setDateTime('start', event) if event.start
   setDateTime('end', event) if event.end
@@ -414,7 +412,11 @@ def check_homeowner_event(e = CalendarFixture.event, status: "invite")
     elsif status == "decline" || status == "change"
       expect(find("#accept_event", visible: all).visible?).to eq(false)
       expect(find("#decline_event", visible: all).visible?).to eq(false)
-      expect(find("#change_event", visible: all).visible?).to eq(true)
+      if status == "change"
+        expect(find("#change_event", visible: all).visible?).to eq(false)
+      else
+        expect(find("#change_event", visible: all).visible?).to eq(true)
+      end
     end
   end
 

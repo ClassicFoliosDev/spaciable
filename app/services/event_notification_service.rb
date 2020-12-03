@@ -25,19 +25,21 @@ module EventNotificationService
     EventReminderJob.set(wait_until: event.notify_at).perform_later(event)
   end
 
-  def invite(event, resource_ids)
-    EventInvitationJob.perform_now(event, resource_ids)
+  def invite(event, resources)
+    resources&.each { |resource| EventInvitationJob.perform_now(event, resource) }
   end
 
-  def update(event, resource_ids)
-    EventUpdateJob.perform_now(event, resource_ids)
+  def update(event, resources)
+    resources&.each { |resource| EventUpdateJob.perform_now(event, resource) }
   end
 
-  def cancel(event, resource_ids)
-    EventCancellationJob.perform_now(event, resource_ids)
+  def cancel(event, resources)
+    resources&.each { |resource| EventCancellationJob.perform_now(event, resource) }
   end
 
   def feedback(resource)
+    return unless resource.notify
+
     EventFeedbackJob.perform_now(resource)
   end
 end

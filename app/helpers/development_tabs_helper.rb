@@ -41,7 +41,12 @@ module DevelopmentTabsHelper
         check_assoc: true, # check phase for development_csv permission
         permissions_on: -> { development }
       },
-      custom_tiles: { icon: "external-link-square" }
+      custom_tiles: { icon: "external-link-square" },
+      calendar: {
+        icon: "calendar", link: [development, :calendars],
+        permissions_on: -> { development },
+        hide: !development.calendar
+      }
     }
   end
   # rubocop:enable Metrics/BlockLength
