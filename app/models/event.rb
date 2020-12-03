@@ -289,6 +289,16 @@ class Event < ApplicationRecord
     end
   end
 
+  # Dates and times are a nightmare.  In order for event times to
+  # be correct in emails and messages, then they need to be converted
+  # into the correct time zone
+  def time_in_zone(attrib)
+    raise(StandardError.new, "unrecognised or invalid parameter") \
+      unless respond_to?(attrib) && (send(attrib).is_a? Time)
+
+    send(attrib).in_time_zone(eventable.time_zone)
+  end
+
   private
 
   # Remove any master or repeating events from the supplied list

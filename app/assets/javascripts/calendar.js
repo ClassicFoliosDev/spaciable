@@ -283,7 +283,7 @@ var admin = {
           show: 'show',
           modal: true,
           width: 650,
-          title: (event.new? "Add" : "Edit") + " Event",
+          title: (event.new? "Add " : "Edit ") + (event.hasOwnProperty('eventable_type') ? event.eventable_type : $("#admin_calendar").data("type")) + " Event",
           buttons: buttons
         }).prev().find('.ui-dialog-titlebar-close').hide()
 
@@ -411,6 +411,11 @@ var admin = {
     admin.showSelectAll()
     admin.showProposed(event)
     admin.showResources(event)
+
+    // Select all for new Plot events
+    if ($("#event_eventable_type").val() == "Plot" && event.new) {
+       $(".select-all-resources").trigger('click')
+    }
 
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
   },

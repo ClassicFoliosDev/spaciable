@@ -8,7 +8,7 @@
 <% if @event.location? %>
 <p>Location: <%= @event.location %></p>
 <% end %>
-<p>Start Time: <%= @event.start %></p>
-<p>End Time: <%= @event.end %></p>
+<p>Start Time: <%= @event.time_in_zone(:start) %></p>
+<p>End Time: <%= @event.time_in_zone(:end) %></p>
 
 <p><%= link_to "Login to your portal", root_url %> to review your calendar.</p>
