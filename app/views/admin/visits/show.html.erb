@@ -10,19 +10,19 @@
     <tbody>
       <% @visits.stats.each do |_, stat| %>
         <tr <%="id=#{stat.hash}" if Rails.env.test?%>>
-          <td><%= stat.title %></td>
+          <td><%= stat.title.html_safe %></td>
           <td <%="id=u" if Rails.env.test?%>><%= stat.unique %></td>
           <td <%="id=t" if Rails.env.test?%>><%= stat.total %></td>
         </tr>
         <% stat.visits.each do |cat1| %>
           <tr <%="id=#{cat1.hash}" if Rails.env.test?%>>
-            <td><div style="padding-left:1.00em;"><%= cat1.title %></div></td>
+            <td><div style="padding-left:1.00em;"><%= cat1.title.html_safe %></div></td>
             <td <%="id=u" if Rails.env.test?%>><%= cat1.unique %></td>
             <td <%="id=t" if Rails.env.test?%>><%= cat1.total %></td>
           </tr>
           <% cat1.visits.each do |cat2| %>
             <tr <%="id=#{cat2.hash}" if Rails.env.test?%>>
-              <td><div style="padding-left:2.00em;"><%= cat2.title %></div></td>
+              <td><div style="padding-left:2.00em;"><%= cat2.title.html_safe %></div></td>
               <td <%="id=u" if Rails.env.test?%>><%= cat2.unique %></td>
               <td <%="id=t" if Rails.env.test?%>><%= cat2.total %></td>
             </tr>
@@ -37,6 +37,7 @@
   <%= simple_form_for :visits, :html => { :onsubmit => "reportSubmitted()" }, url: admin_visits_path, remote: true do |f| %>
     <div class="admin-filter">
       <fieldset>
+        <p><%= t(".info") %></p>
         <%= f.input :start_date, label: t(".start_date"), as: :string,
           placeholder: "DD/MM/YYYY", required: false,
           input_html: { type: :date, value: @visits.start_date.strftime("%Y-%m-%d") } %>

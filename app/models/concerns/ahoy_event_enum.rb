@@ -15,17 +15,18 @@ module AhoyEventEnum
 
   included do
     enum ahoy_event_name: %i[
+      homeowner_sign_in
+      view_main_menu
       view_my_home view_contacts
       view_account view_messages
-      refer_a_friend view_main_menu
+      refer_a_friend
       view_home_tour view_rooms
-      view_appliances view_library
-      view_how_to view_home_designer
-      view_area_guide view_calendar
-      view_buyers_club
-      view_your_journey view_snagging
-      view_FAQs view_FAQs_feedback
-      view_issues homeowner_sign_in
+      view_appliances
+      view_home_designer
+      view_area_guide view_buyers_club
+      view_your_journey view_library
+      view_how_to view_issues
+      view_snagging view_FAQs view_FAQs_feedback
     ]
   end
 end

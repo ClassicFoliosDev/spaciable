@@ -350,7 +350,7 @@ def check_task(task_title, homeowner, answer)
   find(:xpath, "//li[@id='activeTaskScroll']/a[contains(text(),'#{task_title}')]", visible:all)
   check_active(task_title, homeowner, answer.downcase == "no")
   if answer.downcase == "no"
-    find(:xpath, "//input[@value='#{t("tasks.show.skip")}']", visible: all).trigger('click')
+    find(:xpath, "//button[@action='skipped_on_content']", visible: all).trigger('click')
   else
     click_on task[:positive]
   end

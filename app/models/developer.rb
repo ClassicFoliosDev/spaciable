@@ -43,6 +43,7 @@ class Developer < ApplicationRecord
            to: :branded_perk, allow_nil: true, prefix: true
 
   alias_attribute :identity, :company_name
+  delegate :to_s, to: :company_name
 
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
@@ -75,8 +76,6 @@ class Developer < ApplicationRecord
 
     errors[:custom_url] << "is in use for #{developer.company_name}. Please use something unique."
   end
-
-  delegate :to_s, to: :company_name
 
   paginates_per 10
 

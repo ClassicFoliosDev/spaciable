@@ -156,8 +156,8 @@ module Csv
     end
 
     def self.maintenance_type(plot)
-      return unless plot.maintenance_account_type
-      I18n.t("activerecord.attributes.maintenance.account_types.#{plot.maintenance_account_type}")
+      return unless plot&.maintenance&.account_type
+      I18n.t("activerecord.attributes.maintenance.account_types.#{plot.maintenance.account_type}")
     end
   end
 end

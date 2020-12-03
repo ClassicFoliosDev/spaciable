@@ -11,7 +11,7 @@ module Homeowners
                      category2: I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
       else
         record_event(:view_your_journey,
-                     category1: @task&.title || complete || page_name || "Splash")
+                     category1: @task&.title || complete || page_name || "Welcome Page")
       end
     end
 
@@ -46,11 +46,16 @@ module Homeowners
       @task = @viewed_task = @timeline.task(params[:id])
       @plot_timeline.log(@task, params[:response].to_sym)
 
+      if @task
+        record_event(
+          :view_your_journey,
+          category1: @task&.title,
+          category2: I18n.t("homeowners.timeline.task.#{params[:response_action]}")
+        )
+      end
+
       respond_to do |format|
         format.html do
-          record_event(:view_your_journey,
-                       category1: @task&.title, category2: params[:response])
-
           @task = @task.next
           record_progress(@task.nil?)
 
