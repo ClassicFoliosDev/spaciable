@@ -9,6 +9,7 @@ module Developments
 
     def index
       @preload = Event.find(params[:event]) if params[:event]
+      @active_tab = "calendar"
     end
   end
 end

@@ -439,6 +439,7 @@ end
 
 def open_event(e = CalendarFixture.event, occurance: 0)
   find_event(e,  occurance: occurance).trigger('click')
+  find("#event_title", visible: true) # ensure dialog open
 end
 
 def find_event(e = CalendarFixture.event, occurance: 0)
