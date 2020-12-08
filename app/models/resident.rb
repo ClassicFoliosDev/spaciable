@@ -29,6 +29,11 @@ class Resident < ApplicationRecord
   validates :phone_number, phone: true
   validates :phone_number, presence: true, on: :create
 
+  validates :email,
+            format: { with: Devise.email_regexp },
+            uniqueness: { case_sensitive: false },
+            length: { minimum: 4, maximum: 254 }
+
   has_one :lettings_account, as: :accountable, dependent: :destroy
 
   delegate :authorise, to: :lettings_account
@@ -156,6 +161,12 @@ class Resident < ApplicationRecord
     else
       Rails.configuration.mailchimp[:unactivated]
     end
+  end
+
+  # All resources that can be added to a calendar event
+  # require an emails function
+  def emails
+    [email]
   end
 end
 # rubocop:enable Metrics/ClassLength

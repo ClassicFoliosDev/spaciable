@@ -30,7 +30,7 @@
 
           <%= f.input :first_name, label: t(".first_name"), required: true %>
           <%= f.input :last_name, label: t(".surname"), required: true %>
-          <%= f.input :email, label: t(".email"), required: true, readonly: resident.email?  %>
+          <%= f.input :email, label: t(".email"), required: true, readonly: resident.id.present?  %>
           <%= f.input :phone_number, label: t(".phone"), required: true %>
           <span class="info-span"><%= t(".international") %></span>
           <div class="ui-front select-container">

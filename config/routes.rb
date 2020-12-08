@@ -115,6 +115,7 @@ Rails.application.routes.draw do
     resources :lettings, controller: 'phases/lettings'
     resources :phase_timelines, except: [:show], controller: 'phases/phase_timelines'
     resources :release_plots, only: [:index, :create]
+    resources :calendars, only: [:index], controller: 'phases/calendar'
     get 'callback', to: 'release_plots#callback', format: :json
   end
 
@@ -148,6 +149,7 @@ Rails.application.routes.draw do
     resources :custom_tiles, shallow: true
     resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
+    resources :calendars, only: [:index], controller: 'developments/calendar'
   end
 
   resources :choice_configurations do
@@ -209,6 +211,7 @@ Rails.application.routes.draw do
 
   resources :events, only: [:index, :create, :destroy], format: :json
   put 'events', to: 'events#update'
+  post 'event_resources/:type/:id', to: 'events#resources', format: :json
 
   resources :divisions do
     resources :developments, controller: 'divisions/developments' do
@@ -237,9 +240,10 @@ Rails.application.routes.draw do
     get 'choices', action: :edit , controller: 'choices'
     post 'choices', action: :update , controller: 'choices'
     get 'notification', to: 'notifications#show', format: :json
-    resources :events, only: [:index, :create], format: :json
-    put 'events', to: 'events#update'
-    post 'feedback', to: 'events#feedback'
+    resources :events, only: [:index ], format: :json do
+      post 'feedback'
+      post 'viewed'
+    end
   end
 
   scope :homeowners, module: :homeowners do

@@ -18,7 +18,7 @@ module Admin
     end
 
     def create
-      email = user_params[:email].downcase
+      email = user_params[:email].downcase.strip
       if (@restore_user = User.only_deleted.find_by(email: email))
         @restore_user.restore!
         @user = @restore_user

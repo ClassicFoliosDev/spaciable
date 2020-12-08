@@ -79,6 +79,10 @@ class User < ApplicationRecord
   end
 
   validates :role, :email, presence: true
+  validates :email,
+            format: { with: Devise.email_regexp },
+            uniqueness: { case_sensitive: false },
+            length: { minimum: 4, maximum: 254 }
 
   def create_without_password(**params)
     extend User::NoPasswordRequired

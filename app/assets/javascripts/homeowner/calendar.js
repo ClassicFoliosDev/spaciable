@@ -160,8 +160,8 @@ var homeowner = {
     $('#event_title').val(event.title).prop("disabled", !event.writable);
     $('#event_location').val(event.location).prop("disabled", !event.writable);
 
-    p_start = moment(event.homeowner.proposed_start)
-    p_end = moment(event.homeowner.proposed_end)
+    p_start = moment(event.proposed_start)
+    p_end = moment(event.proposed_end)
     $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
     $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
     $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
@@ -173,7 +173,7 @@ var homeowner = {
     e_end_date.setDate(event.end.toDate())
 
     homeowner.disableDates(!event.writable)
-    homeowner.setResponses(event.homeowner.status)
+    homeowner.setResponses(event.homeowner.status, event)
   },
 
   showEvent: function(event, dataIn) {
@@ -193,52 +193,6 @@ var homeowner = {
       }
     ]
 
-    // If it is confirmable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: confirm,
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $.ajax({
-            url:path,
-            type: verb,
-            data: $form.serialize(),
-            success: function() {
-                admin.refreshEvents()
-            }
-          });
-
-          $(this).dialog('destroy')
-        }
-      })
-    }
-
-    // If it is writable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: (event.new ? "Add" : "Update"),
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $eventContainer.hide()
-
-          $(this).dialog('destroy')
-
-          $.ajax({
-            url:dataIn.path,
-            type: (event.new ? "POST" : "PUT"),
-            data: $form.serialize(),
-            success: function() {
-                homeowner.refreshEvents()
-            }
-          })
-        }
-      })
-    }
-
     $eventContainer.dialog({
       show: 'show',
       modal: true,
@@ -246,6 +200,8 @@ var homeowner = {
       title: homeowner.title(event),
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
+
+    homeowner.viewed(event)
   },
 
   title: function(event){
@@ -254,6 +210,7 @@ var homeowner = {
            moment(homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
   },
 
+  // initialise the button handlers
   initialise: function(){
     $("#accept_event").click(function() {
       homeowner.respond($(this))
@@ -264,7 +221,7 @@ var homeowner = {
     })
 
     $("#change_event").click(function() {
-      homeowner.setResponses('changing')
+      homeowner.setResponses('changing', $(this))
       homeowner.disableDates(false)
     })
 
@@ -343,12 +300,14 @@ var homeowner = {
     $('#event_end_time').next().prop("disabled", disabled);
   },
 
-  setResponses: function(status){
+  setResponses: function(status, event){
     $("#accept_event").show()
     $("#decline_event").show()
     $("#change_event").show()
     $("#save_change").hide()
     $(".proposed_datetime").hide()
+
+    if(event.eventable_type != "Plot") { $("#change_event").hide() }
 
     if (status == 'accepted') {
       $("#accept_event").hide()
@@ -364,8 +323,14 @@ var homeowner = {
     } else if (status == 'reproposed') {
       $("#accept_event").hide()
       $("#decline_event").hide()
-      $("#change_event").show()
-      $("#save_change").hide()
+    }
+
+    if(event.eventable_type != "Plot" ||
+       event.proposed_start != null) {
+     $("#change_event").hide()
+    }
+
+    if(event.proposed_start != null) {
       $(".proposed_datetime").show()
     }
 
@@ -375,9 +340,8 @@ var homeowner = {
     homeowner.removeDialog(response.closest(".ui-dialog"))
 
     $.post({
-      url: $('.event_details_form').data('response'),
-      data: {event_id: currentEvent.id,
-             resourceable_type: currentEvent.homeowner.resourceable_type,
+      url: "/homeowners/events/" + currentEvent.id + "/feedback",
+      data: {resourceable_type: currentEvent.homeowner.resourceable_type,
              resourceable_id: currentEvent.homeowner.resourceable_id,
              status: response.data('status'),
              proposed_start: currentEvent.start.toDate(),
@@ -388,6 +352,14 @@ var homeowner = {
       admin.refreshEvents()
     }).fail(function (response) {
       flash("Failed", 'alert')
+    })
+  },
+
+  viewed: function(event) {
+    $.post({
+      url: "/homeowners/events/" + event.id + "/viewed",
+      data: {status: 'viewed' },
+      dataType: 'json'
     })
   },
 
