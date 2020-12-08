@@ -61,6 +61,11 @@ module Admin
       redirect_to admin_users_path, notice: notice
     end
 
+    def export_csv
+      ExportAdminsJob.perform_later(current_user, search_params.to_h)
+      render json: { status: 200 }
+    end
+
     def user_success
       # rubocop:disable SkipsModelValidations
       @user.update_attribute(:snag_notifications, false) if @user.site_admin? || @user.cf_admin?
