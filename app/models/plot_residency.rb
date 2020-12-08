@@ -33,6 +33,7 @@ class PlotResidency < ApplicationRecord
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 
+  # CRM SYNC CODE
   # create residents and plots - this code smells bad and would need to
   # be done properly on a proper implementation
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
