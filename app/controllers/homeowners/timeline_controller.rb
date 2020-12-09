@@ -22,7 +22,7 @@ module Homeowners
     # the timeline is complete
     def show
       return unless current_resident
-      return not_allowed unless current_resident&.plot_residency_homeowner?(@plot)
+      return unless current_resident&.plot_residency_homeowner?(@plot)
 
       # If they have specified a start stage
       @task = @timeline.stage_head(params[:stage]) if params[:stage]
@@ -41,7 +41,7 @@ module Homeowners
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def viewed
       return unless current_resident
-      return not_allowed unless current_resident&.plot_residency_homeowner?(@plot)
+      return unless current_resident&.plot_residency_homeowner?(@plot)
 
       @task = @viewed_task = @timeline.task(params[:id])
       @plot_timeline.log(@task, params[:response].to_sym)
