@@ -5,7 +5,7 @@
       expired_plots_count: @expired_plots_count, resident_count: @resident_count,
       activated_resident_count: @activated_resident_count, phase: @phase %>
 
-  <%= render 'components/tabs', tabs: phase_tabs(@phase, I18n.t("phases.collection.calendar"), current_user) %>
+  <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
   <%= render "calendar/events", source: @phase, preload: @preload %>
 

@@ -609,5 +609,9 @@ class Plot < ApplicationRecord
   def resources
     residents.map { |r| [r.id, r.to_s] }
   end
+
+  def signature
+    "#{development.identity} #{number} #{postal_number} #{road_name} #{building_name}"
+  end
 end
 # rubocop:enable Metrics/ClassLength

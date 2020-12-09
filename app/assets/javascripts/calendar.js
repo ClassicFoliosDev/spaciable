@@ -14,7 +14,7 @@ var admin = {
         timezone:"local",
         customButtons: {
           addEvent: {
-            text: 'Add Event',
+            text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
             click: function() {
               admin.newEvent(dataIn, moment())
             }
@@ -293,6 +293,11 @@ var admin = {
         // populate the form with the data from this event
         admin.populate(event, dataIn)
         admin.initControls();
+
+        // Select all for new Plot events
+        if ($("#event_eventable_type").val() == "Plot" && event.new) {
+           $(".select-all-resources").trigger('click')
+        }
       }
     })
 
@@ -411,11 +416,6 @@ var admin = {
     admin.showSelectAll()
     admin.showProposed(event)
     admin.showResources(event)
-
-    // Select all for new Plot events
-    if ($("#event_eventable_type").val() == "Plot" && event.new) {
-       $(".select-all-resources").trigger('click')
-    }
 
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
   },
