@@ -13,6 +13,9 @@
     <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
     <%= f.hidden_field :eventable_id,{ value: source.id } %>
 
+    <div>
+      <label class="event-identity"></label>
+    </div>
     <div class="event-title">
       <%= f.input :title, label: false %>
     </div>

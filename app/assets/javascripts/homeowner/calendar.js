@@ -157,8 +157,10 @@ var homeowner = {
   populate: function(event){
     currentEvent = event
     $('#event_id').val(event.id).prop("disabled", !event.writable);
+    $('.event-identity').text(event.homeowner.identity)
     $('#event_title').val(event.title).prop("disabled", !event.writable);
     $('#event_location').val(event.location).prop("disabled", !event.writable);
+    homeowner.showHide($('#event_location'),event.location)
 
     p_start = moment(event.proposed_start)
     p_end = moment(event.proposed_end)
@@ -370,7 +372,12 @@ var homeowner = {
   removeDialog: function(dialog){
     dialog.empty();
     dialog.remove();
+  },
+
+  showHide(node, value) {
+    node.addClass(value == "" ? "hide" : "show")
   }
+
 }
 
 $(document).on('turbolinks:before-cache', homeowner.clearCalendar)

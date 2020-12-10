@@ -610,8 +610,22 @@ class Plot < ApplicationRecord
     residents.map { |r| [r.id, r.to_s] }
   end
 
-  def signature
-    "#{development.identity} #{number} #{postal_number} #{road_name} #{building_name}"
+  # rubocop:disable Metrics/AbcSize
+  def signature(admin = true)
+    compnt = ""
+
+    if admin
+      compnt = "#{phase.name}: "
+    elsif road_name.blank? && building_name.blank?
+      compnt = "#{development.identity}: "
+    end
+
+    compnt +
+      (prefix.blank? ? "" : "#{prefix} ") +
+      (postal_number.blank? ? "" : "#{postal_number} ") +
+      (building_name.blank? ? "" : "#{building_name} ") +
+      (road_name.blank? ? "" : road_name)
   end
+  # rubocop:enable Metrics/AbcSize
 end
 # rubocop:enable Metrics/ClassLength

@@ -283,7 +283,10 @@ var admin = {
           show: 'show',
           modal: true,
           width: 650,
-          title: (event.new? "Add " : "Edit ") + (event.hasOwnProperty('eventable_type') ? event.eventable_type : $("#admin_calendar").data("type")) + " Event",
+          title: (event.new ? "Add " : "Edit ") +
+                 (event.hasOwnProperty('eventable_type') ? event.eventable_type : $("#admin_calendar").data("type")) +
+                 " Event " +
+                 (event.signature == "" || event.new ? "" : (" for " + event.signature)),
           buttons: buttons
         }).prev().find('.ui-dialog-titlebar-close').hide()
 

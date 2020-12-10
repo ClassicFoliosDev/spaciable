@@ -299,6 +299,10 @@ class Event < ApplicationRecord
     send(attrib).in_time_zone(eventable.time_zone)
   end
 
+  def attributes
+    super.merge(signature: eventable.signature)
+  end
+
   private
 
   # Remove any master or repeating events from the supplied list

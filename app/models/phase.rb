@@ -232,5 +232,9 @@ class Phase < ApplicationRecord
   def resources
     plots.pluck(:id, :number)
   end
+
+  def signature
+    identity
+  end
 end
 # rubocop:enable Metrics/ClassLength

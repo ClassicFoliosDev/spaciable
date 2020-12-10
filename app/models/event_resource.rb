@@ -30,6 +30,6 @@ class EventResource < ApplicationRecord
   end
 
   def identity
-    (resourceable.is_a?(Plot) ? resourceable : event.eventable).signature
+    (resourceable.is_a?(Plot) ? resourceable : event.eventable).signature(false)
   end
 end
