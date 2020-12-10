@@ -339,7 +339,43 @@ var homeowner = {
   },
 
   respond: function(response){
-    homeowner.removeDialog(response.closest(".ui-dialog"))
+    $(".event_details_form").dialog('close')
+
+    if (currentEvent.homeowner.confirm_multiple) {
+      var $confirmContainer = $('.confirm_feedback_form')
+      $('body').append($confirmContainer)
+
+      $confirmContainer.dialog({
+      show: 'show',
+      modal: true,
+      width: 400,
+      title: response.text() + " Event",
+      buttons: [
+        {
+          text: "Cancel",
+          class: 'btn',
+          click: function () {
+            $(this).dialog('destroy')
+            $(".event_details_form").dialog('open')
+          }
+        },
+        {
+          text: "Confirm",
+          class: 'btn-send btn',
+          id: 'btn_submit',
+          click: function () {
+            $(this).dialog('destroy')
+            homeowner.feedback(response)
+          }
+        }]
+      }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+    } else {
+      homeowner.feedback(response)
+    }
+  },
+
+  feedback: function(response){
+    $(".event_details_form").dialog('destroy')
 
     $.post({
       url: "/homeowners/events/" + currentEvent.id + "/feedback",

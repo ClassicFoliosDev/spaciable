@@ -53,7 +53,7 @@ class Event < ApplicationRecord
   # Get the events of a specified type with associated resources
   # of a specified type within a range of ids.  This would be used
   # for residents that reside at multiple properties
-  scope :for_resource_within_range,
+  scope :for_resources_within_range,
         lambda { |e_type, r_type, r_ids, start, finish|
           joins(:event_resources)
             .where(eventable_type: e_type,
@@ -61,6 +61,7 @@ class Event < ApplicationRecord
                                       resourceable_id: r_ids })
             .where("events.start <= ? AND ? <= events.end",
                    Event.utc(finish), Event.utc(start))
+            .uniq
         }
 
   scope :events,
