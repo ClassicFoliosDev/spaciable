@@ -33,14 +33,6 @@ When(/^I update the divisions development$/) do
     fill_in "development_#{attr}", with: value
   end
 
-  DivisionDevelopmentFixture.update_attrs.each do |attr, value|
-    fill_in "development_#{attr}", with: value
-  end
-
-  DivisionDevelopmentFixture.development_address_update_attrs.each do |attr, value|
-    fill_in "development_address_attributes_#{attr}", with: value
-  end
-
   click_on t("developments.form.submit")
 end
 
@@ -50,10 +42,6 @@ Then(/^I should see the updated divisions development$/) do
     development_name: DivisionDevelopmentFixture.updated_development_name
   )
   expect(page).to have_content(success_flash)
-
-  DivisionDevelopmentFixture.development_address_update_attrs.each do |_attr, value|
-    expect(page).to have_content(value)
-  end
 end
 
 And(/^I should be able to return to the division$/) do
@@ -109,14 +97,10 @@ Then(/^I see a Spanish format divison address$/) do
 
   ignore = Capybara.ignore_hidden_elements
   Capybara.ignore_hidden_elements = false
-  
+
   expect(page).not_to have_selector('#division__address_attributes_postal_number')
   expect(page).not_to have_selector('#division__address_attributes_road_name')
   expect(page).not_to have_selector('#division__address_attributes_building_name')
-  find_field(:division_address_attributes_locality).should be_visible
-  find_field(:division_address_attributes_city).should be_visible
-  expect(page).not_to have_selector('#developer_address_attributes_county')
-  find_field(:division_address_attributes_postcode).should be_visible
 
   Capybara.ignore_hidden_elements = ignore
 end

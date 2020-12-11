@@ -137,9 +137,9 @@ Then(/^I see the plot preview page$/) do
     expect(page).to have_content(t("homeowners.my_home_name", construction: t("construction_type.home")))
     expect(page).to have_content(t("homeowners.components.address.view_more", construction: t("components.homeowner.sub_menu.title")))
 
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:postcode])
+    expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:building_name])
+    expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:road_name])
+    expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:postcode])
 
     expect(page).to have_content(t("homeowners.dashboard.contacts.contacts_title"))
     expect(page).to have_content(t("homeowners.dashboard.contacts.contacts_view_more"))

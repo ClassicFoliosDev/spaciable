@@ -17,8 +17,6 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :name %>
-        <%= f.input :email %>
-        <%= f.input :contact_number %>
       </fieldset>
       <br/>
       <fieldset>
@@ -48,15 +46,17 @@
     <div class="row-item third">
       <fieldset>
         <%= f.simple_fields_for :address do |fields| %>
-          <label class="string optional"><%= t(".address") %></label>
+
           <% if(development.country.uk?) %>
-            <%= render "address/fields", fields: fields %>
+            <%= render "address/short_fields", fields: fields %>
           <% else %>
+            <label class="string optional"><%= t(".address") %></label>
             <%= render "address/spanish_fields", fields: fields %>
           <% end %>
         <% end %>
       </fieldset>
     </div>
+
     <div class="row-item third">
       <fieldset>
          <%= f.input :choice_option, label: "Choices", as: :select, collection: choice_options_collection, include_blank: false %>

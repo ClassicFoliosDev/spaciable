@@ -17,7 +17,7 @@ Given(/^I have configured the development address$/) do
   end
 
   sleep 0.2
-  PhaseFixture.development_address_attrs.each do |attr, value|
+  PhaseFixture.phase_address_attrs.each do |attr, value|
     fill_in "development_address_attributes_#{attr}", with: value
   end
 
@@ -53,7 +53,7 @@ Then(/^I should see the created phase$/) do
   click_on CreateFixture.phase_name
 
   # Address fields should be inherited from the development
-  PhaseFixture.development_address_attrs.each do |_attr, value|
+  PhaseFixture.phase_address_attrs.each do |_attr, value|
     expect(page).to have_content(value)
   end
 end
@@ -65,7 +65,7 @@ When(/^I update the phase$/) do
   fill_in "phase[number]", with: PhaseFixture.updated_phase_number
   fill_in "phase[name]", with: PhaseFixture.updated_phase_name
 
-  PhaseFixture.address_update_attrs.each do |attr, value|
+  PhaseFixture.phase_address_update_attrs.each do |attr, value|
     fill_in "phase_address_attributes_#{attr}", with: value
   end
 
@@ -81,7 +81,7 @@ Then(/^I should see the updated phase$/) do
     expect(page).to have_content(value)
   end
 
-  PhaseFixture.address_update_attrs.each do |_attr, value|
+  PhaseFixture.phase_address_update_attrs.each do |_attr, value|
     expect(page).to have_content(value)
   end
 end
@@ -122,7 +122,7 @@ Then(/^I should see the development address has not been changed$/) do
   goto_development_show_page
 
   within ".section-data" do
-    PhaseFixture.development_address_attrs.each do |_attr, value|
+    PhaseFixture.phase_address_attrs.each do |_attr, value|
       expect(page).to have_content(value)
     end
   end

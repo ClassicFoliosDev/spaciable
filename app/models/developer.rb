@@ -64,6 +64,31 @@ class Developer < ApplicationRecord
 
   validate :check_custom_url_format, :check_unique
 
+  validates :account_manager_contact, phone: true, allow_blank: true
+  validate :account_manager
+  validates :account_manager_email,
+            allow_blank: true,
+            format: { with: Devise.email_regexp }
+
+  # Account manager fields need to be 'all' or 'none'
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def account_manager
+    return unless account_manager_name.present? ||
+                  account_manager_email.present? ||
+                  account_manager_contact.present?
+
+    unless account_manager_name.present? &&
+           account_manager_email.present? &&
+           account_manager_contact.present?
+      errors.add(:account_manager, "Please populate all or none of name, email and contact")
+    end
+
+    errors.add(:account_manager_name, "please populate") if account_manager_name.blank?
+    errors.add(:account_manager_email, "please populate") if account_manager_email.blank?
+    errors.add(:account_manager_contact, "please populate") if account_manager_contact.blank?
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
   def check_custom_url_format
     return if custom_url.match(/\A[a-z0-9\-_]+\z/)&.present?
 

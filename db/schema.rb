@@ -375,6 +375,9 @@ ActiveRecord::Schema.define(version: 20201202133735) do
     t.boolean  "timeline",                    default: false
     t.string   "custom_url"
     t.boolean  "is_demo",                     default: false
+    t.string   "account_manager_name"
+    t.string   "account_manager_email"
+    t.string   "account_manager_contact"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end

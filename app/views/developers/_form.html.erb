@@ -32,14 +32,16 @@
         <p class="checkbox-description"><%= t(".branded_app_description") %></p>
       </fieldset>
     </div>
+
     <div class="row-item third">
       <fieldset>
-        <%= f.simple_fields_for :address do |fields| %>
-          <label class="string optional"><%= t(".address") %></label>
-          <%= render "address/fields", fields: fields %>
-        <% end %>
+        <label class="string optional"><%= t(".account_manager.title") %></label>
+         <%= f.input :account_manager_name, label: t(".account_manager.name") %>
+         <%= f.input :account_manager_email, label: t(".account_manager.email") %>
+         <%= f.input :account_manager_contact, label: t(".account_manager.contact") %>
       </fieldset>
     </div>
+
     <div class="row-item third">
       <fieldset>
         <%= f.input :prime_lettings_admin, as: :select, collection: developer.potential_prime_admins.map { |a| [a.to_s, a.id] },
