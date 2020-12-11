@@ -25,7 +25,7 @@ module ResidentInvitationService
     JobManagementService.call(resident.id)
 
     resident.invitation_plot = plot_residency.plot
-    resident.invite!(from_user)
+    resident.invite!(from_user, bcc: ENV["BCC_MAIL"])
 
     send_reminders(plot_residency, invited_by_name)
   end

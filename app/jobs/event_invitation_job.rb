@@ -3,7 +3,7 @@
 class EventInvitationJob < ApplicationJob
   queue_as :mailer
 
-  def perform(event, resource_ids)
-    EventNotificationMailer.invite_resources(event, resource_ids).deliver_now
+  def perform(event, resource)
+    EventNotificationMailer.invite_resource(event, resource).deliver_now
   end
 end

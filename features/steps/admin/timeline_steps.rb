@@ -372,7 +372,7 @@ Then(/^I see a Timelines tab at phase level$/) do
 end
 
 Then(/^I see no allocated timelines for the phase$/) do
-  click_on t("phases.collection.phase_timelines")
+  find("li a i.fa-clock-o").trigger('click')
   expect(page).to have_content(t("phase_timelines.collection.empty"))
 end
 

@@ -2,7 +2,7 @@
 
 <p>Hi,<p>
 
-<p><%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.</p>
+<p><%= @event&.title%> for <%= @parent.class.to_s %> <%= @parent.identity %> at <%= @parent.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.</p>
 
 <p>Title: <%= @event.title %></p>
 <% if @event.present? %>

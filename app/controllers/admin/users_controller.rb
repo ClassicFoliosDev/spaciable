@@ -18,7 +18,7 @@ module Admin
     end
 
     def create
-      email = user_params[:email].downcase
+      email = user_params[:email].downcase.strip
       if (@restore_user = User.only_deleted.find_by(email: email))
         @restore_user.restore!
         @user = @restore_user
@@ -59,6 +59,11 @@ module Admin
       @user.destroy
       notice = t(".archive.success", user_email: @user.email)
       redirect_to admin_users_path, notice: notice
+    end
+
+    def export_csv
+      ExportAdminsJob.perform_later(current_user, search_params.to_h)
+      render json: { status: 200 }
     end
 
     def user_success

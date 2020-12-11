@@ -5,7 +5,6 @@ var admin = {
     if ($('#admin_calendar').length == 0) { return }
 
     admin.initDates();
-    admin.initControls();
 
     calendarEl = $('#admin_calendar')
     var dataIn = calendarEl.data()
@@ -58,11 +57,16 @@ var admin = {
         },
         eventTimeFormat: 'H:mm',
         eventRender: function(event, element, view) {
+          if (!$("#" + event.eventable_type.toLowerCase()).prop('checked')) {
+            return false
+          }
+
+          // Event type indicator
+          element.children(".fc-content").addClass(event.eventable_type + "_bg")
+          element.children(".fc-bg").addClass(event.eventable_type + "_bg")
+
           var eventEnd = moment(event.end)
           var now = moment()
-          if (eventEnd.diff(now, 'seconds') <= 0) {
-            element.addClass("past-event")
-          }
 
           if (event.repeater) {
             element.addClass("repeat-event")
@@ -72,7 +76,11 @@ var admin = {
             if(resource.status == "reproposed") {
               element.addClass("reproposed-datetime")
             }
-            element.children(".fc-content").append("<span class='circle fill-" + resource.status + "'></span>")
+            if(event.eventable_type == "Plot" ||
+              ($("#admin_calendar").data("type") == "Plot" &&
+               $("#admin_calendar").data("id") == resource.resourceable_id)) {
+              element.children(".fc-content").append("<span class='" + resource.status + "'></span>")
+            }
           })
         },
         eventAfterAllRender: function(){
@@ -89,7 +97,23 @@ var admin = {
     }
 
     calendar = calendarEl.fullCalendar(calendarConfig)
-  },
+
+    admin.loadFilter()
+ },
+
+ loadFilter: function()
+ {
+    $(".fc-center").append("<span id='filter'/>")
+
+    filters = ["Development", "Phase", "Plot"]
+    filters.forEach(function(filter){
+      lower = filter.toLowerCase()
+      $("#filter").append("<label class='container'>" + filter + "<input id='" + lower + "' type='checkbox' checked='checked'><span class='checkmark " + filter + "'></span></label>")
+      $("#" + lower).click(function(){
+        calendar.fullCalendar('refetchEvents')
+      })
+    })
+ },
 
   // If there is preload event specified then display it.  This runs in
   // 2 stages.  This function is called whenever the calendar rerenders
@@ -152,82 +176,132 @@ var admin = {
 
   showEvent: function(event, dataIn) {
     $(".proposed_datetime").hide()
+    admin.scrub()
 
-    var $eventContainer = $('.event_details_form')
-    $('body').append($eventContainer)
-    var $form = $('.event')
+    $.post({
+      // Get all the POSSIBLE resources for this event
+      url: '/event_resources/' +
+           (event.hasOwnProperty('eventable_type') ? event.eventable_type : $("#admin_calendar").data("type")) + '/' +
+           (event.hasOwnProperty('eventable_id') ? event.eventable_id : $("#admin_calendar").data("id")),
+      dataType: 'json',
+      success: function (response) {
 
-    var buttons = [
-      {
-        text: "Cancel",
-        class: 'btn',
-        click: function () {
-          $(this).dialog('destroy')
-        }
-      }
-    ]
+        // The resources are dynaically created within the #resouces span
+        $('#resources span').remove()
 
-    // If it is writable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: (event.new ? "Add" : "Update"),
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $eventContainer.hide()
-
-          if (event.repeater) {
-            admin.confirm(event, dataIn, $(this), true)
+        // go through all the resources
+        var arrayLength = response.length;
+        for (var i = 0; i < arrayLength; i++) {
+          // has this resource been invited already?
+          invited = false
+          if (event.resources != undefined) {
+            event.resources.forEach(function(r) { invited = invited || (r['resourceable_id'] == response[i].id) } )
           }
-          else {
-            $(this).dialog('destroy')
 
-            $.ajax({
-              url:dataIn.path,
-              type: (event.new ? "POST" : "PUT"),
-              data: $form.serialize(),
-              success: function() {
-                  admin.refreshEvents()
+          // build the resource entry
+          resource_id = response[i]["id"]
+          $('#resources').append(
+            "<span>" +
+              "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
+                "<input type='checkbox' value='" + resource_id + "' name='event[resources][]' id='event_resources_" + resource_id + "'>" +
+                "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + response[i]["ident"] + "</label>" +
+              "</label>" +
+              "<center style='display:inline'>" +
+              "<label id='status_label_" + resource_id + "' class='status-label'>&nbsp;</label>" +
+              "</center>" +
+            "</span>")
+
+          if (invited) {
+            $('#resources').children('span').last().addClass('invited')
+          }
+        }
+
+        // add the form
+        var $eventContainer = $('.event_details_form')
+        $('body').append($eventContainer)
+        var $form = $('.event')
+
+        var buttons = [
+          {
+            text: "Cancel",
+            class: 'btn',
+            click: function () {
+              $(this).dialog('destroy')
+            }
+          }
+        ]
+
+        // If it is writable add the confirmation button
+        if (event.writable) {
+          buttons.push(
+          {
+            text: (event.new ? "Add" : "Update"),
+            class: 'btn-send btn',
+            id: 'btn_submit',
+            click: function () {
+              if (!admin.validate()) {
+                return
               }
-            })
-          }
+
+              $eventContainer.hide()
+
+              if (event.repeater) {
+                admin.confirm(event, dataIn, $(this), true)
+              }
+              else {
+                $(this).dialog('destroy')
+
+                $.ajax({
+                  url:dataIn.path,
+                  type: (event.new ? "POST" : "PUT"),
+                  data: $form.serialize(),
+                  success: function() {
+                      admin.refreshEvents()
+                  }
+                })
+              }
+            }
+          })
         }
-      })
-    }
 
-    // If its not new - add the delete option
-    if (!event.new) {
-      buttons.push(
-      {
-        text: '',
-        class: 'btn delete-btn',
-        id: 'btn_event_delete',
-        click: function () {
-          admin.confirm(event, dataIn, $(this), false)
-          $(".ui-widget-overlay").css({'background': 'none', 'background-color': '#000', 'opacity': '0.5'})
+        // If its not new - add the delete option
+        if (!event.new) {
+          buttons.push(
+          {
+            text: '',
+            class: 'btn delete-btn',
+            id: 'btn_event_delete',
+            click: function () {
+              admin.confirm(event, dataIn, $(this), false)
+              $(".ui-widget-overlay").css({'background': 'none', 'background-color': '#000', 'opacity': '0.5'})
+            }
+          })
         }
-      })
-    }
 
-    $eventContainer.dialog({
-      show: 'show',
-      modal: true,
-      width: 650,
-      title: (event.new? "Add" : "Edit") + " Event",
-      buttons: buttons
-    }).prev().find('.ui-dialog-titlebar-close').hide()
+        // display the form
+        $eventContainer.dialog({
+          show: 'show',
+          modal: true,
+          width: 650,
+          title: (event.new? "Add" : "Edit") + " Event",
+          buttons: buttons
+        }).prev().find('.ui-dialog-titlebar-close').hide()
 
-    $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
-    $('.ui-dialog-title').css('line-height', '28px')
+        $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+        $('.ui-dialog-title').css('line-height', '28px')
 
-    admin.populate(event)
+        // populate the form with the data from this event
+        admin.populate(event, dataIn)
+        admin.initControls();
+      }
+    })
+
   },
 
   // Populate the form with event data.  Ideally this would be
   // done when the form is invisible but some SimpleForms controls
   // must be visible for them to be controllable through JS
-  populate: function(event){
+  populate: function(event, dataIn){
     currentEvent = event
 
     $('#event_id').val(event.id)
@@ -253,7 +327,7 @@ var admin = {
     }
     $('#event_repeat_until').next().prop("disabled", !event.writable)
 
-    admin.populateResidents(event)
+    $('#event_notify').prop('checked', event.notify)
 
     // Populate the pulldowns.  Simple Forms builds a complex structure of
     // related controls to support pulldowns.  The only way to set their
@@ -274,65 +348,97 @@ var admin = {
     control.trigger( "mouseover" )
     control.trigger( "click" )
     admin.disablePulldown($('#event_reminder-button'), !event.writable)
+
+    if (event.new) {
+      $("#event_eventable_type").val($("#admin_calendar").data("type"))
+      $("#event_eventable_id").val($("#admin_calendar").data("id"))
+    } else {
+      $("#event_eventable_type").val(event.eventable_type)
+      $("#event_eventable_id").val(event.eventable_id)
+    }
+
+    $("#event_id").val(event.id)
+    $("#event_master_id").val(event.master_id)
+    $("#event_resource_type").val($("#event_eventable_type").val() == "Plot" ? "Resident" : "Plot")
+    $('#resources_type').text("Select " + ($("#event_eventable_type").val() == "Plot" ? 'Attendees' : 'Plots'))
+
+    admin.populateResources(event)
   },
 
-  populateResidents: function(event) {
+  // populate the resources using the event.
+  populateResources: function(event) {
 
-    // clear out any resident selections
-    $("#residents input[type='checkbox']").each(function() {
+    // clear out any resident selections - ie unclick any checked boxes
+    $("#resources input[type='checkbox']").each(function() {
       if (this.checked) {
         $(this).trigger( "click" )
       }
     });
 
-    // set checked for associated event residents
+    // set status for associated event resources
     if (event.hasOwnProperty('resources')) {
       $.each( event.resources, function( index, resource ){
-        resident = admin.resident(resource['resourceable_id'])
-        resident.parent().children("input[type='checkbox']").trigger('click')
-        admin.setResidentStatus(resident, resource.status)
+        res = admin.resource(resource['resourceable_id'])
+        label = $("#status_label_" + resource['resourceable_id'])
+        label.addClass(resource.status).text(resource.status).data("status", resource.status)
+        res.parent().children("input[type='checkbox']").trigger('click')
       });
     }
 
-    // add the buttons for each resident
-    $("#residents span").each(function () {
-      $(this).children(".btn").remove()
-
-      if (event.writable) {
-        // add invite/uninvite buttons
-        if($(this).hasClass("checked")) {
-          $(this).append("<button class='btn uninvite-resident-btn'>Remove</button>")
-        } else {
-          $(this).append("<button class='btn invite-resident-btn'>Invite</button>")
+    // add the buttons for each resource
+    if ($("#event_eventable_type").val() != "Development") {
+      $(".select-all-resources").show().prop( "enabled", true );
+      $("#resources span").each(function () {
+        if (event.writable) {
+          // add invite/uninvite buttons
+          if($(this).hasClass("invited")) {
+            $(this).append("<button class='invite-btn uninvite-resource-btn'>Remove</button>")
+          } else {
+            $(this).append("<button class='invite-btn invite-resource-btn'>Invite</button>")
+          }
         }
-      }
+      })
+    } else {
+      $(".select-all-resources").hide()
+      // invite all uninvited resources
+      $("#resources input[type='checkbox']:not(:checked)").each(function() {
+        this.checked = true
+        $("#status_label_" + this.value).text("invited").addClass('invited').prop("checked", true)
+        $("#status_label_" + this.value).closest('span').addClass('invited')
+      })
+    }
 
-      // add time button if event datetime has been reproposed
-      if($(this).hasClass("reproposed")) {
-        $(this).append("<button class='btn fa fa-clock-o view-proposed-datetime' data-resident=" + $(this).find('input').val() + "></button>")
-      }
-    })
+    admin.showSelectAll()
+    admin.showProposed(event)
+    admin.showResources(event)
 
-    $('.view-proposed-datetime').click(function(e) {
-      e.preventDefault()
-      for (var i = 0; i < currentEvent.resources.length; i++) {
-        if ($(this).data('resident') == currentEvent.resources[i]['resourceable_id']) {
-          admin.showProposed(currentEvent.resources[i])
-        }
-      }
-    })
     if (event.writable) {$("#accept_reschedule").show()} else {$("#accept_reschedule").hide()}
   },
 
-  setResidentStatus: function(resident, status){
-    // remove all styling classes (otherwise they inherit across events)
-    resident.closest("span").removeClass("accepted declined invited reproposed")
-    // re-apply styling class for this event
-    resident.closest("span").addClass(status)
+  // The display of the resources is dependant upon the event and the source
+  showResources: function(event){
+
+    if ($("#event_eventable_type").val() == "Development") {
+      $("#resources_label").hide()
+      if (event.new) {
+        $(".resources").hide()
+      } else {
+        $("#dev_invited").text($("#resources span").length)
+        $("#dev_accepted").text($("#resources .accepted").length)
+        $("#dev_declined").text($("#resources .declined").length)
+        $("#resources label.invited").each(function() { $(this).closest("span").hide() })
+        $(".resources").show()
+        $("#dev_counts").show()
+      }
+    } else {
+      $("#dev_counts").hide()
+      $("#resources_label").show()
+      $(".resources").show()
+    }
   },
 
-  resident: function(id){
-    return $("#event_residents_" + id)
+  resource: function(id){
+    return $("#event_resources_" + id)
   },
 
   disablePulldown: function(pulldown, disable) {
@@ -482,13 +588,25 @@ var admin = {
     e_repeat_until = flatpickr('#event_repeat_until', dateFormat)
   },
 
-  // Add click handlers to all the resident entries.
   initControls: function() {
-    $("#residents input[type='checkbox']").each(function() {
-      $(this).parent().addClass("resident-label")
+    $("#resources input[type='checkbox']").each(function() {
       $(this).change(function () {
-        this.checked ? $(this).parent().parent().addClass("checked") :
-                       $(this).parent().parent().removeClass("checked")
+        if (this.checked) {
+          $(this).parent().parent().addClass("invited")
+          label = $("#status_label_" + this.value)
+          if (label.data("status") == undefined){
+            $("#status_label_" + this.value).text('invited').addClass("invited")
+          } else {
+            label.text(label.data("status")).addClass(label.data("status"))
+          }
+          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').show() }
+        } else {
+          $(this).parent().parent().removeClass("invited")
+          // If this resource was re-proposing, then remove the reproposed date
+          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').hide() }
+          $("#status_label_" + this.value).html("&nbsp;").removeClass("invited reproposed accepted declined")
+
+        }
       })
     });
   },
@@ -498,25 +616,29 @@ var admin = {
     e_start_time.setDate(currentEvent.start.toDate(), false)
     e_end_date.setDate(currentEvent.end.toDate(), false)
     e_end_time.setDate(currentEvent.end.toDate(), false)
-    admin.validate()
+    admin.checkDates()
   },
 
-  validate: function(){
-    $('#btn_submit').prop("disabled", (currentEvent.end < currentEvent.start));
+  checkDates: function(){
     // add styling class to date fields if invalid
-    if (currentEvent.end < currentEvent.start) {
-      $(".event_end_date, .event_start_date").addClass("invalid")
-    } else {
-      $(".event_end_date, .event_start_date").removeClass("invalid")
+    if (currentEvent.end > currentEvent.start) {
+      $(".event_end_date, .event_start_date").removeClass('field_with_errors');
+      $("#date_error").remove()
+    } else if ($(".event_end_date").hasClass("field_with_errors") == false ) {
+      $(".event_end_date, .event_start_date").addClass('field_with_errors');
+      $(".event_start_date").append( "<span id='date_error' class='error'>must be before end date.</span>")
     }
   },
 
-  showProposed: function(resource){
-    $(".proposed_datetime").show()
-    $(".proposed_datetime").data('proposer', resource.resourceable_id)
+  showProposed: function(event){
 
-    p_start = moment(resource.proposed_start)
-    p_end = moment(resource.proposed_end)
+    if (event.proposed_start == null) { return }
+
+    $(".proposed_datetime").show()
+    $(".proposed_datetime").data('proposer', event.resourceable_id)
+
+    p_start = moment(event.proposed_start)
+    p_end = moment(event.proposed_end)
     $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
     $('#proposed_start_time').text(p_start.local().format('h:mm A'))
     $('#proposed_end_time').text(p_end.local().format('h:mm A'))
@@ -535,24 +657,83 @@ var admin = {
     e_end_date.setDate(p_end.toDate())
     $(".proposed_datetime").hide()
     proposer = $(".proposed_datetime").data('proposer')
-    admin.setResidentStatus(admin.resident(proposer), 'invited')
+    //admin.setResidentStatus(admin.resident(proposer), 'invited')
     $("button[data-resident='" + proposer + "']").remove()
+  },
+
+  validate: function() {
+    admin.scrub()
+    valid = true
+
+    title = $("#event_title")
+    if( !title.val() ) {
+      if (!$('#title_error').length) {
+        title.parents('div').addClass('field_with_errors');
+        title.after( "<span id='title_error' class='error'>is required, and must not be blank.</span>")
+      }
+      valid = false
+    }
+
+    if ($("#resources span.invited").length == 0){
+      valid = false
+      $("#resources").addClass('field_with_errors')
+      $(".resources").append( "<span id='resource_error' class='error'>At least 1 must be invited.</span>")
+    }
+
+    admin.checkDates()
+    valid = valid && (currentEvent.start < currentEvent.end);
+
+    return valid
+  },
+
+  // Remove any error formatting from validated fields
+  scrub: function() {
+    $("#event_title").parents('div').removeClass('field_with_errors')
+    $("#title_error").remove()
+
+    // Remove any date invalidations
+    $(".event_end_date, .event_start_date").removeClass('field_with_errors');
+    $("#date_error").remove()
+
+    // resource invalidations
+    $("#resources").removeClass("field_with_errors")
+    $("#resource_error").remove()
+  },
+
+  inviteAll: function() {
+    $(".invite-resource-btn").each(function() { $(this).trigger( "click" ) })
+  },
+
+  showSelectAll: function ()
+  {
+    if ($(".invite-resource-btn").length == 0) {
+      $(".select-all-resources").hide()
+    } else {
+      $(".select-all-resources").show()
+    }
   }
 }
 
+// check checkbox on click invite button
+$(document).on('click', '.select-all-resources', function(event) {
+  event.preventDefault()
+  admin.inviteAll()
+})
 
 // check checkbox on click invite button
-$(document).on('click', '.invite-resident-btn', function(event) {
+$(document).on('click', '.invite-resource-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
-  $(this).addClass('uninvite-resident-btn').removeClass('invite-resident-btn').text("Remove")
+  $(this).addClass('uninvite-resource-btn').removeClass('invite-resource-btn').text("Remove")
+  admin.showSelectAll()
 })
 
 // uncheck checkbox on click uninvite button
-$(document).on('click', '.uninvite-resident-btn', function(event) {
+$(document).on('click', '.uninvite-resource-btn', function(event) {
   event.preventDefault()
   $(this).parent().find("input[type='checkbox']").trigger('click')
-  $(this).addClass('invite-resident-btn').removeClass('uninvite-resident-btn').text("Invite")
+  $(this).addClass('invite-resource-btn').removeClass('uninvite-resource-btn').text("Invite")
+  admin.showSelectAll()
 })
 
 // prevent checkbox being checked when clicking resident name (checkbox label)

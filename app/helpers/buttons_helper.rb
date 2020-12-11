@@ -84,4 +84,11 @@ module ButtonsHelper
 
     content_tag(:i, label, options)
   end
+
+  def reinvite_btn(resource, path)
+    content_tag(:button, data: resident_to_reinvite(resource, path),
+                         class: "btn reinvite-btn") do
+      icon "envelope-o"
+    end
+  end
 end

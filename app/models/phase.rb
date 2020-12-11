@@ -20,6 +20,7 @@ class Phase < ApplicationRecord
   belongs_to :division, optional: true
   delegate :division_name, to: :division
   delegate :cas, to: :development
+  delegate :name, to: :development, prefix: true
 
   has_many :plots
   has_many :plot_residencies, through: :plots
@@ -29,6 +30,9 @@ class Phase < ApplicationRecord
 
   delegate :enable_snagging, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
+  delegate :calendar, to: :development, prefix: true
+  delegate :time_zone, to: :developer
+
   delegate :timeline, to: :developer
 
   has_many :contacts, as: :contactable, dependent: :destroy
@@ -36,6 +40,8 @@ class Phase < ApplicationRecord
   has_many :unit_types, through: :development
   has_many :documents, as: :documentable
   has_one :address, as: :addressable, dependent: :destroy
+
+  alias_attribute :identity, :name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
 
@@ -204,6 +210,27 @@ class Phase < ApplicationRecord
 
   def descendants
     plots
+  end
+
+  # Retrieve relevant calendar events
+  # rubocop:disable Metrics/AbcSize
+  def events(params)
+    # parent development events
+    evts = Event.within_range(Development.to_s, [development.id],
+                              params[:start], params[:end]).to_a
+    # Phase
+    evts << Event.within_range(self.class.to_s, [id],
+                               params[:start], params[:end]).to_a
+    # add plots
+    evts << Event.within_range(Plot.to_s, plots.map(&:id),
+                               params[:start], params[:end]).to_a
+
+    evts.flatten
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def resources
+    plots.pluck(:id, :number)
   end
 end
 # rubocop:enable Metrics/ClassLength

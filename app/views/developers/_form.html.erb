@@ -83,6 +83,7 @@
             <%= p.input :tile_image, label: t(".tile_image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
           </div>
         <% end %>
+        <%= f.input :is_demo, as: :boolean, label: t(".is_demo") %>
       </fieldset>
     </div>
   </div>

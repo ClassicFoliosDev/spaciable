@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201126134926) do
+ActiveRecord::Schema.define(version: 20201202133735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -374,6 +374,7 @@ ActiveRecord::Schema.define(version: 20201126134926) do
     t.boolean  "enable_perks",                default: false
     t.boolean  "timeline",                    default: false
     t.string   "custom_url"
+    t.boolean  "is_demo",                     default: false
     t.string   "account_manager_name"
     t.string   "account_manager_email"
     t.string   "account_manager_contact"
@@ -470,8 +471,6 @@ ActiveRecord::Schema.define(version: 20201126134926) do
     t.integer  "resourceable_id"
     t.integer  "status"
     t.datetime "status_updated_at"
-    t.datetime "proposed_start"
-    t.datetime "proposed_end"
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
     t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
   end
@@ -490,6 +489,9 @@ ActiveRecord::Schema.define(version: 20201126134926) do
     t.datetime "repeat_until"
     t.integer  "reminder"
     t.integer  "reminder_id"
+    t.datetime "proposed_start"
+    t.datetime "proposed_end"
+    t.boolean  "notify",         default: true
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree

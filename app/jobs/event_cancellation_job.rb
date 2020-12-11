@@ -3,7 +3,7 @@
 class EventCancellationJob < ApplicationJob
   queue_as :mailer
 
-  def perform(event, resource_ids)
-    EventNotificationMailer.cancel(event, resource_ids).deliver_now
+  def perform(event, resource)
+    EventNotificationMailer.cancel(event, resource).deliver_now
   end
 end
