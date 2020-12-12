@@ -10,7 +10,6 @@
   $phase: #4D6F12;
   $plot: #972F18;
 
-
   #admin_calendar {
   .fc-toolbar {
     padding-top: $spacing-medium;
@@ -447,6 +446,26 @@
 
   .resources {
 
+    .status {
+      @extend .circle;
+      vertical-align: middle;
+    }
+
+    .none {
+      @extend .status;
+      background-colour: white;
+    }
+
+    .released {
+      @extend .status;
+      @extend .green;
+    }
+
+    .complete {
+      @extend .status;
+      @extend .red;
+    }
+
     #resources {
       height: 106px;
       overflow-x: hidden;
@@ -518,7 +537,19 @@
       @extend .resource-label;
       padding: 5px 0 5px $spacing-small;
       float: unset;
+      text-align: center;
     }
+
+    .developer-status-label, .plot-status-label {
+      @extend .status-label;
+    }
+
+    .phase-status-label {
+      @extend .status-label;
+      width: 90;
+      padding-right: 150px;
+    }
+
 
 
     input[type="checkbox"] {

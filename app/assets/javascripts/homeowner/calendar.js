@@ -410,7 +410,7 @@ var homeowner = {
     dialog.remove();
   },
 
-  showHide(node, value) {
+  showHide: function(node, value) {
     node.addClass(value == "" ? "hide" : "show")
   }
 

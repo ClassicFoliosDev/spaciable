@@ -200,19 +200,23 @@ var admin = {
 
           // build the resource entry
           resource_id = response[i]["id"]
-          $('#resources').append(
-            "<span>" +
+          var span = "<span id='r" + resource_id + "' class='resource'>" +
               "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
                 "<input type='checkbox' value='" + resource_id + "' name='event[resources][]' id='event_resources_" + resource_id + "'>" +
                 "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + response[i]["ident"] + "</label>" +
               "</label>" +
-              "<center style='display:inline'>" +
-              "<label id='status_label_" + resource_id + "' class='status-label'>&nbsp;</label>" +
-              "</center>" +
-            "</span>")
+              "<label id='status_label_" + resource_id + "' class='" + event.eventable_type + "-status-label'>&nbsp;</label>"
+
+          if (event.eventable_type == "Phase") {
+            span = span + "<span class='" + response[i]["status"] + "'>&nbsp</span>"
+          }
+
+          span = span + "</span>"
+
+          $('#resources').append(span)
 
           if (invited) {
-            $('#resources').children('span').last().addClass('invited')
+            $('#resources').children('span#r' + resource_id).addClass('invited')
           }
         }
 
@@ -388,7 +392,7 @@ var admin = {
       $.each( event.resources, function( index, resource ){
         res = admin.resource(resource['resourceable_id'])
         label = $("#status_label_" + resource['resourceable_id'])
-        label.addClass(resource.status).text(resource.status).data("status", resource.status)
+        label.addClass(resource.status).text(resource.status.charAt(0).toUpperCase() + resource.status.slice(1) ).data("status", resource.status)
         res.parent().children("input[type='checkbox']").trigger('click')
       });
     }
@@ -396,7 +400,7 @@ var admin = {
     // add the buttons for each resource
     if ($("#event_eventable_type").val() != "Development") {
       $(".select-all-resources").show().prop( "enabled", true );
-      $("#resources span").each(function () {
+      $("#resources span.resource").each(function () {
         if (event.writable) {
           // add invite/uninvite buttons
           if($(this).hasClass("invited")) {

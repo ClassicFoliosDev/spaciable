@@ -627,5 +627,15 @@ class Plot < ApplicationRecord
       (road_name.blank? ? "" : road_name)
   end
   # rubocop:enable Metrics/AbcSize
+
+  def comp_rel
+    if completion_release_date
+      :released
+    elsif completion_date
+      :complete
+    else
+      :none
+    end
+  end
 end
 # rubocop:enable Metrics/ClassLength

@@ -61,7 +61,7 @@ class Event < ApplicationRecord
                                       resourceable_id: r_ids })
             .where("events.start <= ? AND ? <= events.end",
                    Event.utc(finish), Event.utc(start))
-            .uniq
+            .distinct
         }
 
   scope :events,
