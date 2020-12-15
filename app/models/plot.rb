@@ -629,13 +629,9 @@ class Plot < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def comp_rel
-    if completion_release_date
-      :released
-    elsif completion_date
-      :complete
-    else
-      :none
-    end
+    return if completion_date.blank?
+    return I18n.t("calendar.events.select_all_res") if completion_date < Time.zone.now
+    I18n.t("calendar.events.select_all_comp")
   end
 end
 # rubocop:enable Metrics/ClassLength

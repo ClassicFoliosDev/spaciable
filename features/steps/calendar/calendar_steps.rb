@@ -41,11 +41,11 @@ When (/^I can add a (.*) event using the Add Event button$/) do |type|
   case type
     when "plot"
       page.assert_selector('.select-all-resources', visible: true, count: 0)
-      page.assert_selector('center', visible: true, count: Resident.all.count)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
       page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
     when "phase"
       page.assert_selector('.select-all-resources', visible: true, count: 1)
-      page.assert_selector('center', visible: true, count: Resident.all.count)
+      page.assert_selector('phase-status-label', visible: true, count: Resident.all.count)
       page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
     when "development"
       page.assert_selector('.resources', visible: true, count: 0)
@@ -65,7 +65,7 @@ Then (/^I can update a (.*) event$/) do |type|
   case type
     when "plot"
       page.assert_selector('.select-all-resources', visible: true, count: 0)
-      page.assert_selector('center', visible: true, count: Resident.all.count)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
       page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
     when "phase"
     when "development"
@@ -107,11 +107,11 @@ Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
   case type
     when "plot"
       page.assert_selector('.select-all-resources', visible: true, count: 0)
-      page.assert_selector('center', visible: true, count: Resident.all.count)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
       page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
     when "phase"
       page.assert_selector('.select-all-resources', visible: true, count: 1)
-      page.assert_selector('center', visible: true, count: Resident.all.count)
+      page.assert_selector('.phase-status-label', visible: true, count: Resident.all.count)
       page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
     when "development"
       page.assert_selector('.resources', visible: true, count: 0)
@@ -352,6 +352,7 @@ Then (/^I can accept the reproposed date and time$/) do
 
   find("#accept_reschedule").trigger('click')
   find(".proposed_datetime", visible: all).visible?
+  byebug
   expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("invited")
 
   click_on "Update"
@@ -380,19 +381,19 @@ Then (/^I can see the (.*) event has been (.*)$/) do |type, status|
     when "accepted"
       expect(find(".dev_accepted p").text()).to eq("1")
       expect(find(".dev_declined p").text()).to eq("0")
-      page.assert_selector('center .status-label.accepted', visible: true, count: 1)
+      page.assert_selector('label.accepted', visible: true, count: 1)
     when "declined"
       expect(find(".dev_accepted p").text()).to eq("0")
       expect(find(".dev_declined p").text()).to eq("1")
-      page.assert_selector('center .status-label.declined', visible: true, count: 1)
+      page.assert_selector('label.declined', visible: true, count: 1)
     end
   when "phase"
     page.assert_selector('.uninvite-resource-btn', visible: true, count: 1)
     case status
     when "accepted"
-      page.assert_selector('center .status-label.accepted', visible: true, count: 1)
+      page.assert_selector('label.accepted', visible: true, count: 1)
     when "declined"
-      page.assert_selector('center .status-label.declined', visible: true, count: 1)
+      page.assert_selector('label.declined', visible: true, count: 1)
     end
   end
 

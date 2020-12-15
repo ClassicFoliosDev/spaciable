@@ -412,6 +412,7 @@ var homeowner = {
 
   showHide: function(node, value) {
     node.addClass(value == "" ? "hide" : "show")
+    var i=1
   }
 
 }

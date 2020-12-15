@@ -3914,6 +3914,10 @@ en:
   calendar:
     events:
       notify: "Notify me of responses"
+      select_all: "Select All"
+      select_all_res: "Reservation"
+      select_all_comp: "Completed"
+
 
 
 

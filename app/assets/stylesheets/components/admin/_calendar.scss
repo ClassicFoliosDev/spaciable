@@ -451,17 +451,11 @@
       vertical-align: middle;
     }
 
-    .none {
+    .reservation {
       @extend .status;
-      background-colour: white;
     }
 
-    .released {
-      @extend .status;
-      @extend .green;
-    }
-
-    .complete {
+    .completed {
       @extend .status;
       @extend .red;
     }
@@ -476,6 +470,18 @@
       &.field_with_errors {
         border: 2px solid $field-invalid-border-color
       }
+
+      table {
+        width: 100%
+      }
+
+      .plot-col, .development-col {
+        width: 33%;
+      }
+
+      .phase-col {
+        width: 25%;
+      }
     }
 
     .error {
@@ -484,14 +490,7 @@
       display: block;
     }
 
-    span {
-      display: block;
-
-      label {
-        display: inline-block;
-      }
-
-      .invite-btn {
+    .invite-btn {
         @extend .btn;
         display: inline-block;
         float: right;
@@ -502,26 +501,50 @@
         line-height: 1.5;
       }
 
-      .select-all-resources {
-        @extend .invite-btn;
-        float: unset;
+    .select-all-resources, .select-all-comp, .select-all-res {
+      @extend .invite-btn;
+      float: unset;
+    }
+
+    .invite-resource-btn {
+      color: $secondary-green;
+      border-color: $secondary-green;
+
+      // this doesn't seem to be working, so force css in js
+      &:hover {
+        color: $ui-white;
+        background-color: $secondary-green;
       }
+    }
 
-      .invite-resource-btn {
-        color: $secondary-green;
-        border-color: $secondary-green;
+    input[type="checkbox"] {
+      display: none;
+    }
 
-        // this doesn't seem to be working, so force css in js
-        &:hover {
-          color: $ui-white;
-          background-color: $secondary-green;
-        }
+    .invited {
+      color: #99A3A4;
+    }
+
+    .reproposed {
+      color: #fcb788;
+    }
+
+    .accepted {
+      color: #ADEBAD;
+    }
+
+    .declined {
+      color: red;
+    }
+
+    span {
+      label {
+        display: inline-block;
       }
     }
 
     .resource-label{
       float:left;
-      width:34%;
       margin: 0;
       padding: 0;
       pointer-events: none;
@@ -540,7 +563,7 @@
       text-align: center;
     }
 
-    .developer-status-label, .plot-status-label {
+    .development-status-label, .plot-status-label {
       @extend .status-label;
     }
 
@@ -549,8 +572,6 @@
       width: 90;
       padding-right: 150px;
     }
-
-
 
     input[type="checkbox"] {
       display: none;
