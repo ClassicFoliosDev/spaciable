@@ -45,7 +45,7 @@ When (/^I can add a (.*) event using the Add Event button$/) do |type|
       page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
     when "phase"
       page.assert_selector('.select-all-resources', visible: true, count: 1)
-      page.assert_selector('phase-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.phase-status-label', visible: true, count: Resident.all.count)
       page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
     when "development"
       page.assert_selector('.resources', visible: true, count: 0)
@@ -352,8 +352,7 @@ Then (/^I can accept the reproposed date and time$/) do
 
   find("#accept_reschedule").trigger('click')
   find(".proposed_datetime", visible: all).visible?
-  byebug
-  expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("invited")
+  expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::td//parent::tr")['class']).to eq("invited")
 
   click_on "Update"
   sleep 4

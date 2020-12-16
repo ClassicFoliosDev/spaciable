@@ -4,25 +4,25 @@
 .event_details_form .resources .select-all-comp,
 .event_details_form .resources .select-all-res
 {
-    border-color: <%= @brand.button_color.blank? ? '#0B2C3E' : @brand.button_color %>;
+    border-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
 }
 .event_details_form .resources .completed {
-    background-color: <%= @brand.button_color.blank? ? '#0B2C3E' : @brand.button_color %>;
+    background-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
 }
 .event_details_form .resources .select-all-comp {
-    background-color: <%= @brand.button_color.blank? ? '#0B2C3E' : @brand.button_color %>;
+    background-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
     color: white;
 }
 .event_details_form .resources .select-all-comp:hover {
     background-color: white;
-    color: <%= @brand.button_color.blank? ? '#0B2C3E' : @brand.button_color %>;
+    color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
 }
 .event_details_form .resources .select-all-res {
     background-color: white;
-    color: <%= @brand.button_color.blank? ? '#0B2C3E' : @brand.button_color %>;
+    color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
 }
 .event_details_form .resources .select-all-res:hover {
-    background-color: <%= @brand.button_color.blank? ? '#0B2C3E' : @brand.button_color %>;
+    background-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
     color: white;
 }
 </style>
