@@ -1,0 +1,38 @@
+<!-- dynamically build the tour javascript -->
+<script>
+
+function loadDashboardTour() {
+  var tour = introJs()
+
+  tour.setOptions({
+    showStepNumbers: false,
+    keyboardNavigation: true,
+    scrollToElement: true,
+    disableInteraction: true,
+    exitOnOverlayClick: false,
+    exitOnEsc: true,
+    nextLabel: "Next",
+    prevLabel: "Back",
+    skipLabel: "Skip Tour",
+    steps: [
+    <% steps = TourStep.all.order(:sequence) %>
+    <% steps.each do |step| %>
+      {
+        element: "<%= step.selector %>",
+        intro: "<%= step.intro %>",
+        position: "<%= step.position %>"
+      <% if step == steps.last %>
+      }
+      <% else %>
+      },
+      <% end %>
+    <% end %>
+    ].filter(function (obj) {
+      return $(obj.element).length
+    })
+  })
+
+  tour.start()
+}
+
+</script>

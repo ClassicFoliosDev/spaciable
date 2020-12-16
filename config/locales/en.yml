@@ -120,24 +120,6 @@ en:
         back: "Back"
         upload: "Upload Documents"
 
-  tours:
-    intro_tour:
-      navigation: "Behold! Click on the Menu to view links to all the fantastic features available to you."
-      home: "Want to dive deeper into your home's specifics? This area is for your important documents and key details about your property."
-      faq: "If you've got any questions about your home, you're probably not alone! Head over to the FAQs section to expand your knowledge and level up as a homeowner."
-      contact: "Here you'll find details of any contact you might need, so you don't have to listen to (as many) crackly covers of pop songs while on hold!"
-      library: "The library is home to some of the greatest works of modern literature - no, not The Great Gatsby, but your oven's user manual and your Energy Performance Certificate."
-      perks: "It pays to be part of a club. Here at Buyers' Club, you'll have access to exciting exclusive offers and discounts, so you can grab some great bargains for your new home."
-      services: "Services offers exclusive quotes for a range of services and products, including utility suppliers, landscapers and insurance providers."
-      area_guide: "Area Guide displays your closest amenities and services, so you can quickly integrate yourself into the local community."
-      referrals: "Sharing is caring!  Fill in this quick and easy form to share your friend’s contact details with your developer."
-      home_designer: "Simply upload or recreate your home's floor plans and use your digital canvas to experiment with layout and colour schemes!"
-      issues: "For any defects that aren't emergencies, you can report them here, creating a ticket with the developer, so you can monitor progress until it's rectified."
-      snagging: "You will likely have been told about a snagging period: a window during which you can report any cosmetic defects that you have spotted since moving in that were missed during the inspection, such as scuffed paintwork or damage to skirting boards."
-      timeline: "This is your visual tour guide from reservation to completion and beyond."
-      reservation: "Your reservation manual is an expertly written guide to the buying process, ensuring you know what to expect at each stage."
-      completion: "Your completion manual will give you the low-down on how to make the most of your new home, report defects and emergencies, and keep it looking spick-and-span for years to come!"
-
   choices:
     save: "Save Changes"
     confirm: "Commit Choices"
@@ -2003,7 +1985,7 @@ en:
         name: "Name"
         email: "Email"
         contact: "Contact"
-      
+
 
 
     index:
@@ -3927,7 +3909,7 @@ en:
       empty: "You have no Timeline Plot Associations"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
-  
+
   calendar:
     events:
       notify: "Notify me of responses"
