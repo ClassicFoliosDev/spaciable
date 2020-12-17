@@ -230,7 +230,11 @@ class Phase < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def resources
-    plots.pluck(:id, :number)
+    plots.map { |p| [p.id, p.number, p.comp_rel] }
+  end
+
+  def signature
+    identity
   end
 end
 # rubocop:enable Metrics/ClassLength

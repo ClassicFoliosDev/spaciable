@@ -157,8 +157,10 @@ var homeowner = {
   populate: function(event){
     currentEvent = event
     $('#event_id').val(event.id).prop("disabled", !event.writable);
+    $('.event-identity').text(event.homeowner.identity)
     $('#event_title').val(event.title).prop("disabled", !event.writable);
     $('#event_location').val(event.location).prop("disabled", !event.writable);
+    homeowner.showHide($('#event_location'),event.location)
 
     p_start = moment(event.proposed_start)
     p_end = moment(event.proposed_end)
@@ -337,7 +339,43 @@ var homeowner = {
   },
 
   respond: function(response){
-    homeowner.removeDialog(response.closest(".ui-dialog"))
+    $(".event_details_form").dialog('close')
+
+    if (currentEvent.homeowner.confirm_multiple) {
+      var $confirmContainer = $('.confirm_feedback_form')
+      $('body').append($confirmContainer)
+
+      $confirmContainer.dialog({
+      show: 'show',
+      modal: true,
+      width: 400,
+      title: response.text() + " Event",
+      buttons: [
+        {
+          text: "Cancel",
+          class: 'btn',
+          click: function () {
+            $(this).dialog('destroy')
+            $(".event_details_form").dialog('open')
+          }
+        },
+        {
+          text: "Confirm",
+          class: 'btn-send btn',
+          id: 'btn_submit',
+          click: function () {
+            $(this).dialog('destroy')
+            homeowner.feedback(response)
+          }
+        }]
+      }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+    } else {
+      homeowner.feedback(response)
+    }
+  },
+
+  feedback: function(response){
+    $(".event_details_form").dialog('destroy')
 
     $.post({
       url: "/homeowners/events/" + currentEvent.id + "/feedback",
@@ -370,7 +408,13 @@ var homeowner = {
   removeDialog: function(dialog){
     dialog.empty();
     dialog.remove();
+  },
+
+  showHide: function(node, value) {
+    node.addClass(value == "" ? "hide" : "show")
+    var i=1
   }
+
 }
 
 $(document).on('turbolinks:before-cache', homeowner.clearCalendar)

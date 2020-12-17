@@ -3919,6 +3919,9 @@ en:
         confirm: "Please confirm the event(s) you wish to modify."
       single:
         confirm: "Are you sure you want to delete this event?"
+    feedback:
+      multiple_occupancy:
+        confirm: "You are doing this on behalf of everyone"
 
   phase_timelines:
     collection:
@@ -3931,5 +3934,9 @@ en:
   calendar:
     events:
       notify: "Notify me of responses"
+      select_all: "Select All"
+      select_all_res: "Reservation"
+      select_all_comp: "Completed"
+
 
 

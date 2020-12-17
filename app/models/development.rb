@@ -289,5 +289,9 @@ class Development < ApplicationRecord
   def resources
     plots.pluck(:id, :number)
   end
+
+  def signature
+    ""
+  end
 end
 # rubocop:enable Metrics/ClassLength

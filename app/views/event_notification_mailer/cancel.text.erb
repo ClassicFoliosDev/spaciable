@@ -6,7 +6,7 @@ Title: <%= @event.title %>
 <% if @event.location? %>
 Location: <%= @event.location %>
 <% end %>
-Start Time: <%= @event.start %>
-End Time: <%= @event.end %>
+Start Time: <%= @event.time_in_zone(:start) %>
+End Time: <%= @event.time_in_zone(:end) %>
 
 Login to your portal at <%= root_url %> to review your calendar

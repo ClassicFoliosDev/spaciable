@@ -587,17 +587,17 @@ class Plot < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def self.resident_events(resident, params)
     # parent development events
-    evts = Event.for_resource_within_range(
+    evts = Event.for_resources_within_range(
       Development.to_s, name, resident.plots.pluck(:id),
       params[:start], params[:end]
     ).to_a
     # Phase
-    evts << Event.for_resource_within_range(
+    evts << Event.for_resources_within_range(
       Phase.to_s, name, resident.plots.pluck(:id),
       params[:start], params[:end]
     ).to_a
     # add plots
-    evts << Event.for_resource_within_range(
+    evts << Event.for_resources_within_range(
       name, resident.class.to_s, [resident.id],
       params[:start], params[:end]
     ).to_a
@@ -608,6 +608,30 @@ class Plot < ApplicationRecord
 
   def resources
     residents.map { |r| [r.id, r.to_s] }
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def signature(admin = true)
+    compnt = ""
+
+    if admin
+      compnt = "#{phase.name}: "
+    elsif road_name.blank? && building_name.blank?
+      compnt = "#{development.identity}: "
+    end
+
+    compnt +
+      (prefix.blank? ? "" : "#{prefix} ") +
+      (postal_number.blank? ? "" : "#{postal_number} ") +
+      (building_name.blank? ? "" : "#{building_name} ") +
+      (road_name.blank? ? "" : road_name)
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def comp_rel
+    return if completion_date.blank?
+    return I18n.t("calendar.events.select_all_res") if completion_date < Time.zone.now
+    I18n.t("calendar.events.select_all_comp")
   end
 end
 # rubocop:enable Metrics/ClassLength

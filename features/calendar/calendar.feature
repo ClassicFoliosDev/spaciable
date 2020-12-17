@@ -4,16 +4,21 @@ Feature: Calendar
   As a homeowner I want to be able to respond to calendar invitations
 
   @javascript
-  Scenario: Create, Update and Delete event
+  Scenario Outline: Create, Update and Delete Development Calendar event
     Given I am logged in as an admin
     And there is a phase plot with residents
     And the calendar is initialised
-    When I go to the calendar plot I see a calendar tab
-    When I click on the calendar tab I see a calendar
-    And I can add a calendar event using the Add Event button
-    And I can update a calendar event
+    When I go to the <type> I see a calendar tab
+    When I click on the <type> calendar tab I see a calendar
+    And I can add a <type> event using the Add Event button
+    And I can update a <type> event
     And I can delete an event
-    And I can create an event by clicking on the calendar
+    And I can create a <type> event by clicking on the calendar
+    Examples:
+      | type        |
+      | development |
+      | phase       |
+      | plot        |
 
   @javascript
   Scenario: Create, Update and Delete repeating events
@@ -44,26 +49,26 @@ Feature: Calendar
     And there is a phase plot with residents
     And the calendar is initialised
     And I go to the plot calendar
-    And I can add a calendar event and invite the resident
+    And I can add a plot event and invite the resident
     When I log out as a an admin
     And I log in as the plot resident
-    Then I can see an invite on my calendar
-    And I can accept the event
+    Then I can see an invite on my plot calendar
+    And I can accept the plot event
     When I log out as a homeowner
     And I log in as an admin
     And I go to the plot calendar
     Then I can see the event has been accepted
     When I log out as a an admin
     And I log in as the plot resident
-    Then I can see an accept on my calendar
-    And I can decline the event
+    Then I can see an accept on my plot calendar
+    And I can decline the plot event
     When I log out as a homeowner
     And I log in as an admin
     And I go to the plot calendar
     Then I can see the event has been declined
     When I log out as a an admin
     And I log in as the plot resident
-    Then I can see an decline on my calendar
+    Then I can see an decline on my plot calendar
     And I can propose an amendment to the date and time
     When I log out as a homeowner
     And I am logged in as a Site Admin
@@ -77,7 +82,36 @@ Feature: Calendar
     And I can accept the reproposed date and time
     When I log out as a an admin
     And I log in as the plot resident
-    Then I can see an invite on my calendar
+    Then I can see an invite on my plot calendar
+
+  @javascript
+  Scenario Outline: Admin/Homeowner development/phase event acceptance/decline
+    Given I am logged in as an admin
+    And there is a phase plot with residents
+    And the calendar is initialised
+    And I go to the <type> calendar
+    And I can add a <type> event and invite the resident
+    When I log out as a an admin
+    And I log in as the plot resident
+    Then I can see an invite on my <type> calendar
+    And I cannot renegotiate the event time
+    And I can accept the <type> event
+    When I log out as a homeowner
+    And I log in as an admin
+    And I go to the <type> calendar
+    Then I can see the <type> event has been accepted
+    When I log out as a an admin
+    And I log in as the plot resident
+    Then I can see an accept on my <type> calendar
+    And I can decline the <type> event
+    When I log out as a homeowner
+    And I log in as an admin
+    And I go to the <type> calendar
+    Then I can see the <type> event has been declined
+    Examples:
+      | type        |
+      | development |
+      | phase       |
 
   @javascript
   Scenario: Development with no calendar

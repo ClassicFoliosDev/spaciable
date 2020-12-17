@@ -10,7 +10,6 @@
   $phase: #4D6F12;
   $plot: #972F18;
 
-
   #admin_calendar {
   .fc-toolbar {
     padding-top: $spacing-medium;
@@ -447,6 +446,20 @@
 
   .resources {
 
+    .status {
+      @extend .circle;
+      vertical-align: middle;
+    }
+
+    .reservation {
+      @extend .status;
+    }
+
+    .completed {
+      @extend .status;
+      @extend .red;
+    }
+
     #resources {
       height: 106px;
       overflow-x: hidden;
@@ -457,6 +470,18 @@
       &.field_with_errors {
         border: 2px solid $field-invalid-border-color
       }
+
+      table {
+        width: 100%
+      }
+
+      .plot-col, .development-col {
+        width: 33%;
+      }
+
+      .phase-col {
+        width: 25%;
+      }
     }
 
     .error {
@@ -465,46 +490,64 @@
       display: block;
     }
 
-    span {
-      display: block;
-
-      label {
-        display: inline-block;
-      }
-
-      .invite-btn {
+    .invite-btn {
         @extend .btn;
         display: inline-block;
         float: right;
         margin-right: $spacing-small;
-        margin-top: 3px;
 
         font-size: $base-small-font-size;
         line-height: 1.5;
       }
 
-      .select-all-resources {
-        @extend .invite-btn;
-        float: unset;
+    .select-all-resources, .select-all-comp, .select-all-res {
+      @extend .invite-btn;
+      float: unset;
+      margin-right: unset;
+    }
+
+    .invite-resource-btn {
+      color: $secondary-green;
+      border-color: $secondary-green;
+
+      // this doesn't seem to be working, so force css in js
+      &:hover {
+        color: $ui-white;
+        background-color: $secondary-green;
       }
+    }
 
-      .invite-resource-btn {
-        color: $secondary-green;
-        border-color: $secondary-green;
+    input[type="checkbox"] {
+      display: none;
+    }
 
-        // this doesn't seem to be working, so force css in js
-        &:hover {
-          color: $ui-white;
-          background-color: $secondary-green;
-        }
+    .invited {
+      color: #99A3A4;
+    }
+
+    .reproposed {
+      color: #fcb788;
+    }
+
+    .accepted {
+      color: #ADEBAD;
+    }
+
+    .declined {
+      color: red;
+    }
+
+    span {
+      label {
+        display: inline-block;
       }
     }
 
     .resource-label{
       float:left;
-      width:34%;
       margin: 0;
       padding: 0;
+      pointer-events: none;
 
       .collection_check_boxes {
         padding: 5px 0 5px $spacing-small;
@@ -517,8 +560,16 @@
       @extend .resource-label;
       padding: 5px 0 5px $spacing-small;
       float: unset;
+      text-align: center;
     }
 
+    .development-status-label, .plot-status-label {
+      @extend .status-label;
+    }
+
+    .phase-status-label {
+      @extend .status-label;
+    }
 
     input[type="checkbox"] {
       display: none;
