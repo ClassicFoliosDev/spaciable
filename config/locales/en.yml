@@ -2003,7 +2003,7 @@ en:
         name: "Name"
         email: "Email"
         contact: "Contact"
-      
+
 
 
     index:
@@ -3644,6 +3644,18 @@ en:
         report_from: "From"
         report_to: "Until"
         plot_type: "Filter"
+      feature:
+        custom_url: "Custom URL"
+        area_guide: "Area Guide"
+        home_designer: "Home Designer"
+        referrals: "Referrals"
+        services: "Services"
+        buyers_club: "Buyers' Club"
+        issues: "Issue Reporting"
+        snagging: "Snagging"
+        tour: "Home Tour"
+        calendar: "Calendar"
+
     errors:
       messages:
         blank: " is required, and must not be blank."
@@ -3930,13 +3942,10 @@ en:
       empty: "You have no Timeline Plot Associations"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
-  
+
   calendar:
     events:
       notify: "Notify me of responses"
       select_all: "Select All"
       select_all_res: "Reservation"
       select_all_comp: "Completed"
-
-
-

@@ -77,9 +77,17 @@
               <aside class="useful-extras">
                 <div class="features-container">
                   <% @task.features&.each do |feature| %>
-                    <p><%= feature.precis %></p>
-                    <p><%= feature.description %></p>
-                    <button onclick="window.open('<%= feature.link %>', '_blank')" type="button" class="btn timeline-btn"><%= feature.title %></button>
+                    <% if @timeline.supports?(feature.feature_type) %>
+                      <p><%= feature.precis %></p>
+                      <p><%= feature.description %></p>
+                      <% if feature.feature_type == :custom_url.to_s %>
+                        <button onclick="window.open('<%= feature.link %>', '_blank')" type="button" class="btn timeline-btn"><%= feature.title %></button>
+                      <% else %>
+                        <div class="tooltip dead-btn"><%= feature.title %>
+                          <span class="tooltiptext"><%= t("activerecord.attributes.feature.#{feature.feature_type}") %> unavailable in preview</span>
+                        </div>
+                      <% end %>
+                    <% end %>
                   <% end %>
                 </div>
               </aside>

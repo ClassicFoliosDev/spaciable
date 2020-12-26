@@ -79,11 +79,13 @@
 
             <aside class="useful-extras">
               <% @task.features&.each do |feature| %>
-                <div class="features-container">
-                  <p><%= Lookup.parse(feature.precis, @plot, current_resident) %></p>
-                  <button onclick="window.open('<%=feature.link%>', '_blank')" type="button" class="btn branded-btn-inverted"><%= feature.title %></button>
-                  <p><%= Lookup.parse(feature.description, @plot, current_resident) %></p>
-                </div>
+               <% if @plot.supports?(feature.feature_type) %>
+                  <div class="features-container">
+                    <p><%= Lookup.parse(feature.precis, @plot, current_resident) %></p>
+                    <button onclick="window.open('<%= feature_link(@plot, feature) %>', '_blank')" type="button" class="btn branded-btn-inverted" data-featuretype="<%= feature.feature_type %>"><%= feature.title %></button>
+                    <p><%= Lookup.parse(feature.description, @plot, current_resident) %></p>
+                  </div>
+                <% end %>
               <% end %>
             </aside>
           </div>

@@ -230,6 +230,23 @@ class Developer < ApplicationRecord
     faq_types
   end
 
+  def supports?(feature)
+    case feature.to_sym
+    when :area_guide
+      house_search?
+    when :home_designer
+      enable_roomsketcher?
+    when :referrals
+      enable_referrals?
+    when :services
+      enable_services?
+    when :buyers_club
+      enable_perks?
+    when :custom_url, :issues, :snagging, :tour, :calendar
+      true
+    end
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and
