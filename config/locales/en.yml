@@ -2003,7 +2003,7 @@ en:
         name: "Name"
         email: "Email"
         contact: "Contact"
-      
+
 
 
     index:
@@ -2196,6 +2196,8 @@ en:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
       plot_residency_already_exists: "Resident %{email} was already assigned to %{plot}, no notification will be sent"
+      resident_added: "%{name} successfully added to plot_number %{plot_number} at %{development}.  A Spaciable invitation email will be sent to %{email}"
+      existing_resident_added: "Exisitng spaciable resident %{name} successfully added to plot_number %{plot_number} at %{development}."
     destroy:
       success: "%{email} has been successfully removed from %{plot}"
       deactivated: ", has been deactivated, and will no longer be able to log in."
@@ -3930,7 +3932,7 @@ en:
       empty: "You have no Timeline Plot Associations"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
-  
+
   calendar:
     events:
       notify: "Notify me of responses"

@@ -134,6 +134,9 @@ gem "momentjs-rails"
 # salesforce
 gem "restforce", "<= 3.2.0"
 
+# Doorkeeper for OAuth2
+gem "doorkeeper"
+
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
   gem "email_spec"
