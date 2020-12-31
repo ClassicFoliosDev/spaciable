@@ -3,12 +3,8 @@
 module Api
   module V1
     class PreSalesController < Api::Controller
-      def index
-        respond_with ApplianceManufacturer.visible_to(current_user)
-      end
-
       def create
-        PreSales.new(pre_sales_params).add_limited_access_user do |message, status|
+        Api::PreSales.new(pre_sales_params).add_limited_access_user do |message, status|
           render json: { message: message }, status: status
           break
         end

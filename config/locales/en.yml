@@ -3940,5 +3940,9 @@ en:
       select_all_res: "Reservation"
       select_all_comp: "Completed"
 
+  api:
+    pre_sales:
+      invalid_plot_development: "Invalid/unknown plot_number/development %{plot_number}/%{development}"
+
 
 
