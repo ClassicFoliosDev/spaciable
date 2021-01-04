@@ -4,6 +4,7 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
+    session[:oauth2_req] = request.fullpath unless current_user
     current_user || redirect_to(new_user_session_url)
   end
 

@@ -3,13 +3,13 @@
 module ResidentInvitationService
   module_function
 
-  def call(plot_residency, from_user, invited_by_name)
+  def call(plot_residency, from_user, invited_by_name, plot_resident = nil)
     return unless plot_residency
 
     @plot = plot_residency.plot
 
     if plot_residency.invitation_accepted_at.nil?
-      new_resident(plot_residency, from_user, invited_by_name)
+      new_resident(plot_residency, from_user, invited_by_name, plot_resident)
     else
       existing_resident(plot_residency, invited_by_name)
     end
@@ -19,8 +19,8 @@ module ResidentInvitationService
 
   module_function
 
-  def new_resident(plot_residency, from_user, invited_by_name)
-    resident = plot_residency.resident
+  def new_resident(plot_residency, from_user, invited_by_name, plot_resident)
+    resident = plot_resident || plot_residency.resident
     # Delete any reminders hanging around from a previous invitation
     JobManagementService.call(resident.id)
 

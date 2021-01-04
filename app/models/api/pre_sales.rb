@@ -10,15 +10,15 @@ module Api
     def add_limited_access_user
       yield(@message, 501) unless @plot
 
-      @resident = existing = Resident.find_by(email: @params[:email])
+      @tenant = existing = Resident.find_by(email: @params[:email])
 
-      if @resident.nil?
-        @resident = Resident.new(@params.except(:development, :plot_number))
-        @resident.developer_email_updates = true
-        @resident.create_without_password
+      if @tenant.nil?
+        @tenant = Api::Tenant.new(@params.except(:development, :plot_number))
+        @tenant.developer_email_updates = true
+        @tenant.create_without_password
       end
 
-      yield(@resident.errors.messages, 501) unless @resident&.valid?
+      yield(@tenant.errors.messages, 501) unless @tenant&.valid?
 
       notify_and_redirect(existing.nil?) do |message, status|
         yield message, status
@@ -41,24 +41,24 @@ module Api
     end
 
     # rubocop:disable Metrics/MethodLength
-    def notify_and_redirect(new_resident)
-      plot_residency = PlotResidency.find_by(resident_id: @resident.id, plot_id: @plot.id)
+    def notify_and_redirect(new_tenant)
+      plot_residency = PlotResidency.find_by(resident_id: @tenant.id, plot_id: @plot.id)
 
       if plot_residency && !plot_residency.deleted_at?
         yield I18n.t("residents.create.plot_residency_already_exists",
-                     email: @resident.email, plot: @plot), 501
-      elsif new_resident
+                     email: @tenant.email, plot: @plot), 501
+      elsif new_tenant
         plot_residency_and_invitation(plot_residency)
-        Mailchimp::MarketingMailService.call(@resident, @plot, activation_status)
+        Mailchimp::MarketingMailService.call(@tenant, @plot, activation_status)
         yield I18n.t("residents.create.resident_added",
-                     name: @resident.full_name,
+                     name: @tenant.full_name,
                      plot_number: @plot.number,
                      development: @params[:development],
                      email: @params[:email]), 201
       else
         plot_residency_and_invitation(plot_residency)
         yield I18n.t("residents.create.existing_resident_added",
-                     name: @resident.full_name,
+                     name: @tenant.full_name,
                      plot_number: @plot.number,
                      development: @params[:development]), 201
       end
@@ -68,7 +68,7 @@ module Api
     def plot_residency_and_invitation(plot_residency)
       # Plot residency created by admin is always a homeowner
       if plot_residency.nil?
-        plot_residency = PlotResidency.create!(resident_id: @resident.id, plot_id: @plot.id,
+        plot_residency = PlotResidency.create!(resident_id: @tenant.id, plot_id: @plot.id,
                                                role: :tenant,
                                                invited_by: RequestStore.store[:current_user])
       else
@@ -80,11 +80,12 @@ module Api
       # Resident invitation service will not send new invitations if the resident has
       # already accepted a previous invitation
       ResidentInvitationService.call(plot_residency,
-                                     RequestStore.store[:current_user], @plot.developer.to_s)
+                                     RequestStore.store[:current_user], @plot.developer.to_s,
+                                     @tenant)
     end
 
     def activation_status
-      if @resident.invitation_accepted?
+      if @tenant.invitation_accepted?
         Rails.configuration.mailchimp[:activated]
       else
         Rails.configuration.mailchimp[:unactivated]
