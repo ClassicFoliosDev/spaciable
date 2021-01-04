@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201202133735) do
+ActiveRecord::Schema.define(version: 20201216133146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1118,6 +1118,13 @@ ActiveRecord::Schema.define(version: 20201202133735) do
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.index ["timelineable_type", "timelineable_id"], name: "index_timelines_on_timelineable_type_and_timelineable_id", using: :btree
+  end
+
+  create_table "tour_steps", force: :cascade do |t|
+    t.integer "sequence"
+    t.string  "selector"
+    t.string  "intro"
+    t.integer "position"
   end
 
   create_table "unit_types", force: :cascade do |t|
