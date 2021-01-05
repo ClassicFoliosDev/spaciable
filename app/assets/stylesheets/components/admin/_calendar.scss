@@ -1,34 +1,74 @@
-#admin_calendar {
+  $development: royalblue;
+  $phase: forestgreen;
+  $plot: orangered;
+
+  //$development: #BEFDFE;
+  //$phase: #EDFEC4;
+  //$plot: #FCD7D4;
+
+  $development: #265D87;
+  $phase: #4D6F12;
+  $plot: #972F18;
+
+  #admin_calendar {
   .fc-toolbar {
     padding-top: $spacing-medium;
   }
 
-  .circle {
+  .status {
+    border-radius: 50%;
     width: 8px;
     height: 8px;
-    margin: 1px;
+    margin: 0 1px;
     display: inline-block;
+  }
+
+  .event_type {
+    @extend .status;
+    float: left;
+    width: 12px;
+    height: 12px;
+  }
+
+  .status_type {
+    @extend .status;
+    border: 1px solid black;
     float: right;
   }
 
-  .fill-reproposed {
-    background-color: $secondary-orange;
-    border-color: $secondary-orange;
+  .development {
+    @extend .event_type;
+    background-color: $development;
   }
 
-  .fill-invited {
+  .phase {
+    @extend .event_type;
+    background-color: $phase;
+  }
+
+  .plot {
+    @extend .event_type;
+    background-color: $plot;
+  }
+
+  .reproposed {
+    @extend .status_type;
+    background-color: #db7b2b;
+  }
+
+  .invited {
+    @extend .status_type;
     background-color: $ui-white;
-    border-color: $ui-white;
   }
 
-  .fill-accepted {
-    background-color: $secondary-green;
-    border-color: $secondary-green;
+  .accepted {
+    @extend .status_type;
+    background-color: #2dc937;
   }
 
-  .fill-declined {
-    background-color: $primary-red-left;
-    border-color: $primary-red-left;
+  .declined {
+    @extend .status_type;
+    background-color: #cc3232;
   }
 
   button {
@@ -53,6 +93,87 @@
 
     .fc-month-button, .fc-agendaWeek-button, .fc-agendaDay-button {
       float: right !important;
+    }
+
+    .container {
+      display: inline;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      margin-right: 10px;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    /* Hide the browser's default checkbox */
+    .container input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 27px;
+      width: 27px;
+      background-color: #2196F3;
+    }
+
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .container input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .container .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      margin-right: 10px;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+
+    }
+
+    span {
+      float: unset;
+      border-radius: unset;
+
+      label {
+        padding: 5;
+      }
+
+      .development {
+        background-color: $development;
+      }
+
+      .phase {
+        background-color: $phase;
+      }
+
+      .plot {
+        background-color: $plot;
+      }
     }
   }
 
@@ -98,13 +219,10 @@
   }
 
   .fc-day-grid {
-    .fc-event {
-      border: 1px solid $primary-navy;
-      background-color: $primary-navy;
-    }
-
-    .past-event {
-      opacity: 0.6;
+    .fc-event{
+      //color: black;
+      background-color: unset;
+      border: unset;
     }
 
     .repeat-event {
@@ -137,10 +255,6 @@
       background-color: $secondary-orange;
       border-color: $secondary-orange;
     }
-
-    .fc-event .fc-bg {
-      opacity: 0;
-    }
   }
 
   .fc-more {
@@ -159,6 +273,26 @@
   .fc-content {
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .fc-bg {
+    opacity: 1;
+  }
+
+  .fc-content, .fc-bg {
+    // color: black;
+
+    &.development_bg {
+      background-color: $development;
+    }
+
+    &.phase_bg {
+      background-color: $phase;
+    }
+
+    &.plot_bg {
+      background-color: $plot;
     }
   }
 
@@ -212,10 +346,6 @@
     color: $primary-navy;
   }
 
-  .title, .location, .attendees {
-    padding-top: 1px;
-  }
-
   .event-time {
     padding-top: 11px;;
   }
@@ -259,6 +389,11 @@
     padding: 5px 10px;
   }
 
+  div.select-all {
+    position: relative;
+    top: 40;
+  }
+
   .event {
     input {
       margin-bottom: 0;
@@ -290,10 +425,6 @@
       }
     }
 
-    span.required {
-      display: none;
-    }
-
     .half, .quarter {
       margin-bottom: 0;
     }
@@ -309,45 +440,114 @@
     }
   }
 
-  #residents {
-    height: 106px;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    border: 1px solid $primary-navy;
-    border-radius: 5px;
+  .resource_count, .dev_invited, .dev_accepted, .dev_declined {
+      display: inline;
+  }
 
-    span {
-      display: block;
+  .resources {
 
-      label {
-        display: inline-block;
+    .status {
+      @extend .circle;
+      vertical-align: middle;
+    }
+
+    .reservation {
+      @extend .status;
+    }
+
+    .completed {
+      @extend .status;
+      @extend .red;
+    }
+
+    #resources {
+      height: 106px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      border: 1px solid $primary-navy;
+      border-radius: 5px;
+
+      &.field_with_errors {
+        border: 2px solid $field-invalid-border-color
       }
 
-      .btn {
+      table {
+        width: 100%
+      }
+
+      .plot-col, .development-col {
+        width: 33%;
+      }
+
+      .phase-col {
+        width: 25%;
+      }
+    }
+
+    .error {
+      font-size: $input-small-font-size;
+      color: $input-inline-error-font-color;
+      display: block;
+    }
+
+    .invite-btn {
+        @extend .btn;
         display: inline-block;
         float: right;
         margin-right: $spacing-small;
-        margin-top: 3px;
 
         font-size: $base-small-font-size;
         line-height: 1.5;
       }
 
-      .invite-resident-btn {
-        color: $secondary-green;
-        border-color: $secondary-green;
+    .select-all-resources, .select-all-comp, .select-all-res {
+      @extend .invite-btn;
+      float: unset;
+      margin-right: unset;
+    }
 
-        // this doesn't seem to be working, so force css in js
-        &:hover {
-          color: $ui-white;
-          background-color: $secondary-green;
-        }
+    .invite-resource-btn {
+      color: $secondary-green;
+      border-color: $secondary-green;
+
+      // this doesn't seem to be working, so force css in js
+      &:hover {
+        color: $ui-white;
+        background-color: $secondary-green;
       }
     }
 
-    .resident-label {
+    input[type="checkbox"] {
+      display: none;
+    }
+
+    .invited {
+      color: #99A3A4;
+    }
+
+    .reproposed {
+      color: #fcb788;
+    }
+
+    .accepted {
+      color: #ADEBAD;
+    }
+
+    .declined {
+      color: red;
+    }
+
+    span {
+      label {
+        display: inline-block;
+      }
+    }
+
+    .resource-label{
+      float:left;
       margin: 0;
       padding: 0;
+      pointer-events: none;
 
       .collection_check_boxes {
         padding: 5px 0 5px $spacing-small;
@@ -356,24 +556,39 @@
       }
     }
 
+    .status-label {
+      @extend .resource-label;
+      padding: 5px 0 5px $spacing-small;
+      float: unset;
+      text-align: center;
+    }
+
+    .development-status-label, .plot-status-label {
+      @extend .status-label;
+    }
+
+    .phase-status-label {
+      @extend .status-label;
+    }
+
     input[type="checkbox"] {
       display: none;
     }
 
-    .checked {
-      background-color: $pale-navy;
+    .invited {
+      color: #99A3A4;
     }
 
     .reproposed {
-      background-color: #fcb788;
+      color: #fcb788;
     }
 
     .accepted {
-      background-color: #ADEBAD;
+      color: #ADEBAD;
     }
 
     .declined {
-      background-color: #FFB2B2;
+      color: red;
     }
   }
 }

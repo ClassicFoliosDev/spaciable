@@ -9,12 +9,12 @@
 <% if @event.location? %>
 <p>Location: <%= @event.location %></p>
 <% end %>
-<p>Start Time: <%= @event.start %></p>
-<p>End Time: <%= @event.end %></p>
+<p>Start Time: <%= @event.time_in_zone(:start) %></p>
+<p>End Time: <%= @event.time_in_zone(:end) %></p>
 
 <% if @resource.reproposed? %>
-<p>Reproposed Start Time: <%= @resource.proposed_start %></p>
-<p>Reproposed End Time: <%= @resource.proposed_end %></p>
+<p>Reproposed Start Time: <%= @resource.event.time_in_zone(:proposed_start) %></p>
+<p>Reproposed End Time: <%= @resource.event.time_in_zone(:proposed_end) %></p>
 <% end %>
 
 <%= link_to "Go To Appointment", @link, class: "btn" %></p>

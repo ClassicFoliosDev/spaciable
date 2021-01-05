@@ -127,7 +127,7 @@ en:
       faq: "If you've got any questions about your home, you're probably not alone! Head over to the FAQs section to expand your knowledge and level up as a homeowner."
       contact: "Here you'll find details of any contact you might need, so you don't have to listen to (as many) crackly covers of pop songs while on hold!"
       library: "The library is home to some of the greatest works of modern literature - no, not The Great Gatsby, but your oven's user manual and your Energy Performance Certificate."
-      perks: "It pays to be part of a club. Here at Buyers' Club, you'll have access to exiting exclusive offers and discounts, so you can grab some great bargains for your new home."
+      perks: "It pays to be part of a club. Here at Buyers' Club, you'll have access to exciting exclusive offers and discounts, so you can grab some great bargains for your new home."
       services: "Services offers exclusive quotes for a range of services and products, including utility suppliers, landscapers and insurance providers."
       area_guide: "Area Guide displays your closest amenities and services, so you can quickly integrate yourself into the local community."
       referrals: "Sharing is caring!  Fill in this quick and easy form to share your friend’s contact details with your developer."
@@ -333,7 +333,7 @@ en:
       title: "Spaciable home"
     homeowner:
       nav:
-        timeline: "Your Journey"
+        timeline: "My Journey"
         dashboard: "Dashboard"
         community: "Community"
         my_home: "My %{construction}"
@@ -392,6 +392,7 @@ en:
     development_edit: "Edit %{development_name}"
     development_new: "New Development"
     development_add: "Add Development"
+    development_calendar: "Calendar"
     division_edit: "Edit %{division_name}"
     division_add: "New Division"
     faqs: "%{type} FAQs"
@@ -459,6 +460,7 @@ en:
     release_plots: "Release plots"
     phase_lettings: "Lettings"
     phase_timelines: "Timelines"
+    phase_calendar: "Calendar"
     phase_timelines_add: "New Phase Timeline"
     phase_timelines_edit: "Edit Phase Timeline"
     development_csv: "Upload CSV"
@@ -667,7 +669,7 @@ en:
       help: "Help"
       configuration: "Global Settings"
       analytics: "Analytics"
-      timeline: "Timeline"
+      timeline: "Timelines"
       snagging: "Snagging"
       residents: "Residents"
     empty_list:
@@ -694,6 +696,12 @@ en:
     confirm_resident_admin: "This resident will be removed from this plot, but their account will still exist and they will continue to have access to their other plots. <strong>Please check all documents uploaded to this plot and delete any that contain personal data relating to this resident.</strong>"
     confirm_final_resident: "This resident has no other plots and will be deactivated. Any documents uploaded by this resident to the plot will be deleted and all user data will be destroyed."
     confirm_resident: "This resident will be removed from this plot, but their account will still exist and they will continue to have access to their other plots."
+
+  reinvite:
+    cancel: "Cancel"
+    confirm_title: "Confirm reinvite"
+    reinvite: "Reinvite"
+    confirm_text: "Are you sure you really want to reinvite?"
 
   edit:
     cancel: "Cancel"
@@ -813,6 +821,7 @@ en:
     visits:
       show:
         all: "All"
+        info: "Please note that no data on page visits exists before 02/10/2020."
         start_date: "From"
         end_date: "To"
         plots: "Plots"
@@ -992,6 +1001,7 @@ en:
         development: "Development"
         accepted_at: "Activation Date"
         search: "Admin users search"
+        export_csv: "Export to CSV"
       new:
         add: "New User."
       show:
@@ -1099,7 +1109,7 @@ en:
         reports_description: "Export CSV files on developments and plots"
         reports_btn: "Access Reports"
         visits: "Visits"
-        visits_description: "Configure a report on a page vists for a given focus"
+        visits_description: "Configure a report on page visits"
         visits_btn: "Access Page Visit Report"
     settings:
       show:
@@ -1326,6 +1336,7 @@ en:
       development: "Development"
       development_csv: "Upload CSV"
       custom_tiles: "Custom Shortcuts"
+      calendar: "Calendar"
     edit:
       back: "Back"
     form:
@@ -1558,7 +1569,7 @@ en:
 
       splash:
         welcome: "Welcome To"
-        your_journey: "Your Journey"
+        your_journey: "My Journey"
         paragraph_1: "This timeline is designed to help you track your progress and learn more about the process each step of the way."
         paragraph_2: "Throughout the process, you will be able to see key contact information relevant to each stage, should you require more information."
         continue: "Continue"
@@ -1570,7 +1581,7 @@ en:
         moving: "Moving information"
         living: "Living information"
       task:
-        header: "Your Journey"
+        header: "My Journey"
         how_tos: "How To"
         faqs: "FAQs"
         area_guide: "Area Guide"
@@ -1737,9 +1748,9 @@ en:
           activated_description: "Access your Buyers' Club platform.<br/><small>(opens in a new tab)</small>"
           error: "Currently unavailable. Please try again later."
         timeline:
-          title: "Your Journey"
+          title: "My Journey"
           description: "Track your progress towards your move and pick up plenty of tips along the way."
-          button: "Your Journey"
+          button: "My Journey"
 
     communication_preferences:
       show:
@@ -1978,7 +1989,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "Your Journey"
+      timeline: "My Journey"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -1986,6 +1997,14 @@ en:
       account_number: "Branded Buyers' Club Account Number"
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
+      is_demo: "Exclude from global reports"
+      account_manager:
+        title: "Account manager"
+        name: "Name"
+        email: "Email"
+        contact: "Contact"
+      
+
 
     index:
       add: "Add Developer"
@@ -2011,7 +2030,7 @@ en:
       faqs: "FAQs"
       brands: "Styling"
       branded_apps: "Branded App"
-      timelines: "Your Journey"
+      timelines: "My Journey"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -2034,6 +2053,9 @@ en:
       phases: "Phases: "
       expiry: "All plots have expired. <br/>To extend the access, please contact your Classic Folios account manager."
       expiry_text: "All plots have expired. To extend the access, please contact your Classic Folios account manager."
+      account_manager_name: "Account Manager: "
+      account_manager_email: "Email Address: "
+      account_manager_contact: "Direct Dial: "
 
   divisions:
     destroy:
@@ -2320,6 +2342,7 @@ en:
       lettings: "Lettings"
       import: "Import CRM"
       phase_timelines: "Timelines"
+      calendar: "Calendar"
     new:
       title: "New Phase."
     update:
@@ -2410,7 +2433,7 @@ en:
       edit:
         title: "Timeline Allocations"
       form:
-        description: "Use this page to associate timelines with plots on this phase. The Your Journey page will only show on plots that are listed in the Associated Plots below."
+        description: "Use this page to associate timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
         plots: "Associated Plots"
         warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
         add_all_plots: "Add All Plots"
@@ -3356,8 +3379,8 @@ en:
           soon: "Building soon"
           in_progress: "In progress"
           roof_on: "Roof on"
-          first_fix: "First Fix"
-          second_fix: "Second Fix"
+          first_fix: "First fix"
+          second_fix: "Second fix"
           kitchen: "Kitchen installed"
           sanitaryware: "Sanitaryware installed"
           decoration: "Decoration completed"
@@ -3367,7 +3390,7 @@ en:
           landscaping: "Landscaping completed"
           exchange_ready: "Ready for exchange"
           complete_ready: "Ready to complete"
-          completed: "Completed"
+          completed: "Build completed"
           remove: "No progress status"
         letable_types:
           planet_rent: "Planet Rent"
@@ -3833,8 +3856,8 @@ en:
     view_contacts: "Contacts"
     view_account: "Account"
     view_messages: "Messages"
-    refer_a_friend: "Refer a Friend"
-    view_main_menu: "Main Menu"
+    refer_a_friend: "Referrals Submitted"
+    view_main_menu: "Dashboard"
     view_home_tour: "Home Tour"
     view_rooms: "Rooms"
     view_appliances: "Appliances"
@@ -3842,10 +3865,11 @@ en:
     view_how_to: "How To"
     view_home_designer: "Home Designer"
     view_area_guide: "Area Guide"
+    view_calendar: "Calendar"
     view_buyers_club: "Buyers Club"
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
-    view_your_journey: "Your Journey"
+    view_your_journey: "My Journey"
     task_viewed: "Viewed"
     view_FAQs: "FAQs"
     view_FAQs_feedback: "FAQs Feedback"
@@ -3856,9 +3880,15 @@ en:
     snags_rejected: "Snags Rejected"
     view_issues: "Issues"
     homeowner_sign_in: "Sign In"
-    homeowner_log_in: "Log in"
-    homeowner_accept_invite: "Accept Invitation"
-    root: "Main"
+    homeowner_log_in: "Returning User"
+    homeowner_accept_invite: "New User"
+    root: "%{category} Menu"
+    calendar:
+      calendar_viewed: "Calendar Viewed"
+      viewed: "Events Viewed"
+      declined: "Events Declined"
+      accepted: "Events Accepted"
+      reproposed: "Events Reproposed"
 
   events:
     invited: "Invited"
@@ -3889,10 +3919,24 @@ en:
         confirm: "Please confirm the event(s) you wish to modify."
       single:
         confirm: "Are you sure you want to delete this event?"
+    feedback:
+      multiple_occupancy:
+        confirm: "You are doing this on behalf of everyone"
+
   phase_timelines:
     collection:
       name: "Timeline"
       add: "Add Timeline Associations"
       empty: "You have no Timeline Plot Associations"
+
+  resident_reinvited: "A new invitation has successfully been sent to %{resident}."
+  
+  calendar:
+    events:
+      notify: "Notify me of responses"
+      select_all: "Select All"
+      select_all_res: "Reservation"
+      select_all_comp: "Completed"
+
 
 

@@ -47,6 +47,9 @@ class Development < ApplicationRecord
   delegate :branded_perk, to: :parent_developer
   delegate :custom_url, to: :developer
   delegate :timeline, to: :parent_developer
+  delegate :time_zone, to: :parent_developer
+
+  alias_attribute :development_name, :name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :maintenance, reject_if: :maintenance_blank?, allow_destroy: true
@@ -264,6 +267,31 @@ class Development < ApplicationRecord
       faq_types.delete_if { |t| t.construction_type.commercial? }
     end
     faq_types
+  end
+
+  # Retrieve relevant calendar events
+  # rubocop:disable Metrics/AbcSize
+  def events(params)
+    # development events
+    evts = Event.within_range(self.class.name, [id],
+                              params[:start], params[:end]).to_a
+    # add phases
+    evts << Event.within_range(Phase.to_s, phases.map(&:id),
+                               params[:start], params[:end]).to_a
+    # add plots
+    evts << Event.within_range(Plot.to_s, plots.map(&:id),
+                               params[:start], params[:end]).to_a
+
+    evts.flatten
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def resources
+    plots.pluck(:id, :number)
+  end
+
+  def signature
+    ""
   end
 end
 # rubocop:enable Metrics/ClassLength

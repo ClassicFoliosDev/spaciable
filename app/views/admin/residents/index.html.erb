@@ -18,6 +18,7 @@
       <th><%= t(".plot_count") %></th>
       <th><%= t(".invited_by") %></th>
       <th><%= sortable(Resident, :invitation_accepted_at, t(".accepted_at"), sort_params: @usearch.query_params) %></th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
@@ -35,6 +36,11 @@
       <% else %>
         <td colspan="3"><em><%= t(".removed") %></em></td>
       <% end %>
+      <td class="actions">
+          <% unless resident.invitation_accepted? %>
+            <%= (reinvite_btn resident, "#{url_for([resident.plot_residencies.first.plot, resident])}/reinvite") %>
+          <% end %>
+        </td>
     </tr>
     <% end %>
   </tbody>

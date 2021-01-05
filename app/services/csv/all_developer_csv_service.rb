@@ -6,7 +6,8 @@ module Csv
       filename = build_filename("all_developers_summary")
       path = init(report, filename)
 
-      developers = Developer.where(created_at: @from.beginning_of_day..@to.end_of_day)
+      developers = Developer.where(created_at: @from.beginning_of_day..@to.end_of_day,
+                                   is_demo: false)
 
       ::CSV.open(path, "w+", headers: true, return_headers: true) do |csv|
         csv << headers

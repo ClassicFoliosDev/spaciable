@@ -266,7 +266,7 @@ function buildNotice(status, email) {
     flash_alert("Failed to send invitation to " + email + ", please try again later.")
   }
 }
-      
+
 $(document).on('click', '.admin-filter .collapse .fa', function () {
   $(".admin-filter").hide()
   $(".admin-filter-selections").show()
@@ -277,6 +277,17 @@ $(document).on('click', '.admin-filter .collapse .fa', function () {
 $(document).on('click', '.admin-filter-selections .collapse .fa', function () {
   $(".admin-filter").show()
   $(".admin-filter-selections").hide()
+})
+
+$(document).on('click', '#users_export_csv', function (event) {
+  $.post({
+    url: this.dataset["href"],
+    data: $("form").serialize(),
+    dataType: 'json',
+    success: function (response) {
+      reportSubmitted()
+    }
+  })
 })
 
 function displayFilterSelections() {

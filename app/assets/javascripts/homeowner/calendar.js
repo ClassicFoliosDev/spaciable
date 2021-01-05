@@ -157,11 +157,13 @@ var homeowner = {
   populate: function(event){
     currentEvent = event
     $('#event_id').val(event.id).prop("disabled", !event.writable);
+    $('.event-identity').text(event.homeowner.identity)
     $('#event_title').val(event.title).prop("disabled", !event.writable);
     $('#event_location').val(event.location).prop("disabled", !event.writable);
+    homeowner.showHide($('#event_location'),event.location)
 
-    p_start = moment(event.homeowner.proposed_start)
-    p_end = moment(event.homeowner.proposed_end)
+    p_start = moment(event.proposed_start)
+    p_end = moment(event.proposed_end)
     $('#proposed_start_date').text(p_start.local().format('DD-MM-YYYY'))
     $('#proposed_start_time').text(p_start.local().format('hh:mm A'))
     $('#proposed_end_time').text(p_end.local().format('hh:mm A'))
@@ -173,7 +175,7 @@ var homeowner = {
     e_end_date.setDate(event.end.toDate())
 
     homeowner.disableDates(!event.writable)
-    homeowner.setResponses(event.homeowner.status)
+    homeowner.setResponses(event.homeowner.status, event)
   },
 
   showEvent: function(event, dataIn) {
@@ -193,52 +195,6 @@ var homeowner = {
       }
     ]
 
-    // If it is confirmable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: confirm,
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $.ajax({
-            url:path,
-            type: verb,
-            data: $form.serialize(),
-            success: function() {
-                admin.refreshEvents()
-            }
-          });
-
-          $(this).dialog('destroy')
-        }
-      })
-    }
-
-    // If it is writable add the confirmation button
-    if (event.writable) {
-      buttons.push(
-      {
-        text: (event.new ? "Add" : "Update"),
-        class: 'btn-send btn',
-        id: 'btn_submit',
-        click: function () {
-          $eventContainer.hide()
-
-          $(this).dialog('destroy')
-
-          $.ajax({
-            url:dataIn.path,
-            type: (event.new ? "POST" : "PUT"),
-            data: $form.serialize(),
-            success: function() {
-                homeowner.refreshEvents()
-            }
-          })
-        }
-      })
-    }
-
     $eventContainer.dialog({
       show: 'show',
       modal: true,
@@ -246,6 +202,8 @@ var homeowner = {
       title: homeowner.title(event),
       buttons: buttons
     }).prev().find('.ui-dialog-titlebar-close').hide()
+
+    homeowner.viewed(event)
   },
 
   title: function(event){
@@ -254,6 +212,7 @@ var homeowner = {
            moment(homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
   },
 
+  // initialise the button handlers
   initialise: function(){
     $("#accept_event").click(function() {
       homeowner.respond($(this))
@@ -264,7 +223,7 @@ var homeowner = {
     })
 
     $("#change_event").click(function() {
-      homeowner.setResponses('changing')
+      homeowner.setResponses('changing', $(this))
       homeowner.disableDates(false)
     })
 
@@ -343,12 +302,14 @@ var homeowner = {
     $('#event_end_time').next().prop("disabled", disabled);
   },
 
-  setResponses: function(status){
+  setResponses: function(status, event){
     $("#accept_event").show()
     $("#decline_event").show()
     $("#change_event").show()
     $("#save_change").hide()
     $(".proposed_datetime").hide()
+
+    if(event.eventable_type != "Plot") { $("#change_event").hide() }
 
     if (status == 'accepted') {
       $("#accept_event").hide()
@@ -364,20 +325,61 @@ var homeowner = {
     } else if (status == 'reproposed') {
       $("#accept_event").hide()
       $("#decline_event").hide()
-      $("#change_event").show()
-      $("#save_change").hide()
+    }
+
+    if(event.eventable_type != "Plot" ||
+       event.proposed_start != null) {
+     $("#change_event").hide()
+    }
+
+    if(event.proposed_start != null) {
       $(".proposed_datetime").show()
     }
 
   },
 
   respond: function(response){
-    homeowner.removeDialog(response.closest(".ui-dialog"))
+    $(".event_details_form").dialog('close')
+
+    if (currentEvent.homeowner.confirm_multiple) {
+      var $confirmContainer = $('.confirm_feedback_form')
+      $('body').append($confirmContainer)
+
+      $confirmContainer.dialog({
+      show: 'show',
+      modal: true,
+      width: 400,
+      title: response.text() + " Event",
+      buttons: [
+        {
+          text: "Cancel",
+          class: 'btn',
+          click: function () {
+            $(this).dialog('destroy')
+            $(".event_details_form").dialog('open')
+          }
+        },
+        {
+          text: "Confirm",
+          class: 'btn-send btn',
+          id: 'btn_submit',
+          click: function () {
+            $(this).dialog('destroy')
+            homeowner.feedback(response)
+          }
+        }]
+      }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+    } else {
+      homeowner.feedback(response)
+    }
+  },
+
+  feedback: function(response){
+    $(".event_details_form").dialog('destroy')
 
     $.post({
-      url: $('.event_details_form').data('response'),
-      data: {event_id: currentEvent.id,
-             resourceable_type: currentEvent.homeowner.resourceable_type,
+      url: "/homeowners/events/" + currentEvent.id + "/feedback",
+      data: {resourceable_type: currentEvent.homeowner.resourceable_type,
              resourceable_id: currentEvent.homeowner.resourceable_id,
              status: response.data('status'),
              proposed_start: currentEvent.start.toDate(),
@@ -391,6 +393,14 @@ var homeowner = {
     })
   },
 
+  viewed: function(event) {
+    $.post({
+      url: "/homeowners/events/" + event.id + "/viewed",
+      data: {status: 'viewed' },
+      dataType: 'json'
+    })
+  },
+
   refreshEvents: function(){
     calendar.fullCalendar('refetchEvents')
   },
@@ -398,7 +408,13 @@ var homeowner = {
   removeDialog: function(dialog){
     dialog.empty();
     dialog.remove();
+  },
+
+  showHide: function(node, value) {
+    node.addClass(value == "" ? "hide" : "show")
+    var i=1
   }
+
 }
 
 $(document).on('turbolinks:before-cache', homeowner.clearCalendar)

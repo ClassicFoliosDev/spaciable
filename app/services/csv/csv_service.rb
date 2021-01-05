@@ -58,7 +58,7 @@ module Csv
     def self.grouped_ordered_plots
       @plots = Plot.none
 
-      developers = Developer.all.order(:company_name)
+      developers = Developer.where(is_demo: false).order(:company_name)
       developers.each do |developer|
         developments_no_division = developer.developments.where(division_id: nil).order(:name)
         developments_plots(developments_no_division)

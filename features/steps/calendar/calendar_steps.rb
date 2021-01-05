@@ -3,38 +3,74 @@ When (/^the calendar is initialised$/) do
   CalendarFixture.initialise
 end
 
-When (/^I go to the calendar plot I (.*)see a calendar tab$/) do |expect|
-  visit "/plots/#{CreateFixture.phase_plot.id}"
-  find(".plot .section-data") # confirm page
+When (/^I go to the (.*) I (.*)see a calendar tab$/) do |type, expect|
+  case type
+  when "development"
+    visit("/developers/#{CreateFixture.developer.id}/developments/#{CreateFixture.development.id}")
+    find(".development .section-data") # confirm page
+  when "phase"
+    visit("/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}")
+    find(".phase .section-data") # confirm page
+  when "plot"
+    visit "/plots/#{CreateFixture.phase_plot.id}"
+    find(".plot .section-data") # confirm page
+  end
   if expect.rstrip == "dont"
-    expect(page).not_to have_content(t("plots.collection.calendar"))
+    expect(page).not_to have_content("Calendar")
   else
-    expect(page).to have_content(t("plots.collection.calendar"))
+    expect(page).to have_content("Calendar")
   end
 end
 
-When (/^I click on the calendar tab I see a calendar$/) do
-  click_on t("plots.collection.calendar")
+When (/^I click on the (.*) calendar tab I see a calendar$/) do |type|
+  click_on "Calendar"
   find(".active i.fa-calendar")
 
   expect(page).to have_content(Time.zone.now.strftime("%B %Y"))
-  expect(page).to have_content("Add Event")
+  expect(page).to have_content("Add #{type.capitalize()} Event")
   find(".fc-month-button.fc-state-active")
   expect(page).to have_css(".fc-today[data-date='#{Time.zone.now.strftime("%Y-%m-%d")}']", count: 2)
 end
 
-When (/^I can add a calendar event using the Add Event button$/) do
-  click_on "Add Event"
+When (/^I can add a (.*) event using the Add Event button$/) do |type|
+  click_on "Add #{type.capitalize()} Event"
   find(".ui-dialog", visible: true)
 
-  populate_event
+  expect(page).to have_content("Add #{type.capitalize()} Event")
+
+  case type
+    when "plot"
+      page.assert_selector('.select-all-resources', visible: true, count: 0)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
+    when "phase"
+      page.assert_selector('.select-all-resources', visible: true, count: 1)
+      page.assert_selector('.phase-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
+    when "development"
+      page.assert_selector('.resources', visible: true, count: 0)
+  end
+
+  populate_event(type: type)
   click_on "Add"
   sleep 4
   check_event
 end
 
-Then (/^I can update a calendar event$/) do
+Then (/^I can update a (.*) event$/) do |type|
   open_event
+
+  expect(page).to have_content("Edit #{type.capitalize()} Event")
+
+  case type
+    when "plot"
+      page.assert_selector('.select-all-resources', visible: true, count: 0)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
+    when "phase"
+    when "development"
+      page.assert_selector('#dev_counts', visible: true, count: 1)
+  end
 
   CalendarFixture.event.title = CalendarFixture::TITLES[:tomorrow]
   CalendarFixture.event.location = CalendarFixture::LOCATIONS[:erics]
@@ -58,7 +94,7 @@ And (/^I can delete an event$/) do
   expect(page).not_to have_content(event_title())
 end
 
-Then (/^I can create an event by clicking on the calendar$/) do
+Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
 
   # You have no idea how much of my life I wasted finding out
   # exactly how and why I had to do this!
@@ -66,11 +102,26 @@ Then (/^I can create an event by clicking on the calendar$/) do
   target = find(".fc-day[data-date='#{(CalendarFixture.now-24.hours).strftime('%Y-%m-%d')}']")
   drag_from.drag_to(target)
 
+  expect(page).to have_content("Add #{type.capitalize()} Event")
+
+  case type
+    when "plot"
+      page.assert_selector('.select-all-resources', visible: true, count: 0)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
+    when "phase"
+      page.assert_selector('.select-all-resources', visible: true, count: 1)
+      page.assert_selector('.phase-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
+    when "development"
+      page.assert_selector('.resources', visible: true, count: 0)
+  end
+
   CalendarFixture.event.title = "click event"
   CalendarFixture.event.location = "click location"
   CalendarFixture.event.start = nil # auto populated to 12am
   CalendarFixture.event.end = nil # auto populated to 12:15am
-  populate_event
+  populate_event(type: type)
   click_on "Add"
   sleep 4
 
@@ -81,8 +132,15 @@ Then (/^I can create an event by clicking on the calendar$/) do
   check_event
 end
 
-When (/^I go to the plot calendar$/) do
-  visit "/plots/#{CreateFixture.phase_plot.id}?active_tab=calendar"
+When (/^I go to the (.*) calendar$/) do |type|
+  case type
+  when "development"
+    visit("/developments/#{CreateFixture.development.id}/calendars")
+  when "phase"
+    visit("/phases/#{CreateFixture.phase.id}/calendars")
+  when "plot"
+    visit "/plots/#{CreateFixture.phase_plot.id}?active_tab=calendar"
+  end
   find(".active i.fa-calendar")
 end
 
@@ -164,6 +222,7 @@ Then (/^I can update and delete this and following calendar events$/) do
   page.choose("this_and_following")
   click_on "Confirm" # this and following
   sleep 4
+
   expect(events.count).to eq(CalendarFixture::MONTHVIEWDAYS - updating_day)
 
   # this and following creates a new sequence
@@ -238,30 +297,31 @@ Then (/^I can update to (.*) repeating$/) do |repeat|
   expect(events.count).to eq((CalendarFixture::MONTHVIEWDAYS.days / CalendarFixture.event.repeat_interval(repeat).to_f).ceil)
 end
 
-Then (/^I can add a calendar event and invite the resident$/) do
-  click_on "Add Event"
+Then (/^I can add a (.*) event and invite the resident$/) do |type|
+  click_on "Add #{type.capitalize()} Event"
   find(".ui-dialog", visible: true)
 
-  populate_event
-  within find(:xpath, "//label[contains(@class, 'resident-label')][contains(@for,'event_residents_#{CreateFixture.resident.id}')]//parent::span") do
-    find(".invite-resident-btn").trigger('click')
-  end
+  populate_event(type: type)
 
   click_on "Add"
   check_event
 end
 
-Then (/^I can see an (.*) on my calendar$/) do |status|
+Then (/^I can see an (invite|accept|decline) on my (.*) calendar$/) do |status, type|
   goto_resident_calendar
-  check_homeowner_event(status: status)
+  check_homeowner_event(status: status, type: type)
 end
 
-Then (/^I can (.*) the event$/) do |status|
+Then (/^I cannot renegotiate the event time$/) do
+  expect(page).not_to have_content("Change")
+end
+
+Then (/^I can (accept|decline) the (.*) event$/) do |status, type|
   open_event
   find("##{status}_event").trigger('click')
   sleep 4
   open_event
-  check_homeowner_event(status: status)
+  check_homeowner_event(status: status, type: type)
 end
 
 Then (/^I can propose an amendment to the date and time$/) do
@@ -280,7 +340,6 @@ end
 
 Then (/^I can accept the reproposed date and time$/) do
   open_event
-  find(".view-proposed-datetime").trigger('click')
 
   within find(".ui-dialog", visible: true) do
     expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y"))
@@ -293,7 +352,7 @@ Then (/^I can accept the reproposed date and time$/) do
 
   find("#accept_reschedule").trigger('click')
   find(".proposed_datetime", visible: all).visible?
-  expect(find(:xpath, "//label[contains(@class, 'resident-label')][contains(@for,'event_residents_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("checked invited")
+  expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::td//parent::tr")['class']).to eq("invited")
 
   click_on "Update"
   sleep 4
@@ -301,13 +360,43 @@ Then (/^I can accept the reproposed date and time$/) do
   CalendarFixture.event.start = CalendarFixture.reproposed_start
   CalendarFixture.event.end = CalendarFixture.reproposed_end
   check_event
-
 end
 
 Then (/^I can see the event has been (.*)$/) do |status|
   within find_event do
-    find(".circle.fill-#{status}")
+    find(".#{status}")
   end
+end
+
+Then (/^I can see the (.*) event has been (.*)$/) do |type, status|
+  open_event
+
+  find(".ui-dialog-titlebar")
+  expect(page).to have_content("Edit #{type.capitalize()} Event")
+
+  case type
+  when "development"
+    case status
+    when "accepted"
+      expect(find(".dev_accepted p").text()).to eq("1")
+      expect(find(".dev_declined p").text()).to eq("0")
+      page.assert_selector('label.accepted', visible: true, count: 1)
+    when "declined"
+      expect(find(".dev_accepted p").text()).to eq("0")
+      expect(find(".dev_declined p").text()).to eq("1")
+      page.assert_selector('label.declined', visible: true, count: 1)
+    end
+  when "phase"
+    page.assert_selector('.uninvite-resource-btn', visible: true, count: 1)
+    case status
+    when "accepted"
+      page.assert_selector('label.accepted', visible: true, count: 1)
+    when "declined"
+      page.assert_selector('label.declined', visible: true, count: 1)
+    end
+  end
+
+  click_on "Cancel"
 end
 
 Then (/^I can view but not update the reproposed event$/) do
@@ -322,7 +411,6 @@ Then (/^I can view but not update the reproposed event$/) do
   expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
   expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
 
-  find(".view-proposed-datetime").trigger('click')
   expect(page).to have_content("Proposed Rescheduling")
 
   click_on "Cancel"
@@ -334,10 +422,14 @@ Then (/^I cannot see a calendar$/) do
   expect(page).not_to have_content(t("components.homeowner.navigation.calendar"))
 end
 
-def populate_event(event = CalendarFixture.event)
+def populate_event(event = CalendarFixture.event, type: nil)
   within find(".ui-dialog", visible: true) do
     fill_in :event_title, with: event.title if event.title
     fill_in :event_location, with: event.location if event.location
+  end
+
+  if type == "phase"
+    find('.select-all-resources').trigger('click')
   end
 
   setDateTime('start', event) if event.start
@@ -395,7 +487,7 @@ def check_event(e = CalendarFixture.event, occurance: 0)
   click_on "Cancel"
 end
 
-def check_homeowner_event(e = CalendarFixture.event, status: "invite")
+def check_homeowner_event(e = CalendarFixture.event, status: "invite", type: "plot")
   open_event(e)
 
   expect(find('#event_title').value).to eql(e.title) if e.title
@@ -406,15 +498,19 @@ def check_homeowner_event(e = CalendarFixture.event, status: "invite")
     if status == "invite"
       expect(find("#accept_event", visible: all).visible?).to eq(true)
       expect(find("#decline_event", visible: all).visible?).to eq(true)
-      expect(find("#change_event", visible: all).visible?).to eq(true)
+      expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
     elsif status == "accept"
       expect(find("#accept_event", visible: all).visible?).to eq(false)
       expect(find("#decline_event", visible: all).visible?).to eq(true)
-      expect(find("#change_event", visible: all).visible?).to eq(true)
+      expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
     elsif status == "decline" || status == "change"
       expect(find("#accept_event", visible: all).visible?).to eq(false)
       expect(find("#decline_event", visible: all).visible?).to eq(false)
-      expect(find("#change_event", visible: all).visible?).to eq(true)
+      if status == "change"
+        expect(find("#change_event", visible: all).visible?).to eq(false)
+      else
+        expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
+      end
     end
   end
 

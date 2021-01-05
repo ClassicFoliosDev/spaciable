@@ -30,6 +30,22 @@ module PhaseFixture
     }
   end
 
+  def phase_address_attrs
+    {
+      locality: "Local Ity",
+      city: "Wadeland",
+      county: "Gibsonton",
+    }
+  end
+
+  def phase_address_update_attrs
+    {
+      locality: "Ity Local",
+      city: "Wade Forest",
+      county: "Gibson",
+    }
+  end
+
   def development_address_attrs
     {
       postal_number: "Langosh Fort",
@@ -42,7 +58,7 @@ module PhaseFixture
     }
   end
 
-   def spanish_development_address_attrs
+  def spanish_development_address_attrs
     {
       locality: "Catalan",
       city: "Barc",

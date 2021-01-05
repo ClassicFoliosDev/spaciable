@@ -43,6 +43,7 @@ class Developer < ApplicationRecord
            to: :branded_perk, allow_nil: true, prefix: true
 
   alias_attribute :identity, :company_name
+  delegate :to_s, to: :company_name
 
   # A developer belongs to a country - belongs_to adds a number of new helper
   # methods to the class to allow easy access.  eg. you can call @developer.country
@@ -59,13 +60,47 @@ class Developer < ApplicationRecord
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :company_name, presence: true, uniqueness: true
-  validates :custom_url, presence: true,
-                         uniqueness: true,
-                         format: { with: /\A[a-z0-9\-_]+\z/,
-                                   message: "%<value> can only contain lowercase letters, "\
-                                            "digits, dashes and underscores" }
+  validates :custom_url, presence: true
 
-  delegate :to_s, to: :company_name
+  validate :check_custom_url_format, :check_unique
+
+  validates :account_manager_contact, phone: true, allow_blank: true
+  validate :account_manager
+  validates :account_manager_email,
+            allow_blank: true,
+            format: { with: Devise.email_regexp }
+
+  # Account manager fields need to be 'all' or 'none'
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def account_manager
+    return unless account_manager_name.present? ||
+                  account_manager_email.present? ||
+                  account_manager_contact.present?
+
+    unless account_manager_name.present? &&
+           account_manager_email.present? &&
+           account_manager_contact.present?
+      errors.add(:account_manager, "Please populate all or none of name, email and contact")
+    end
+
+    errors.add(:account_manager_name, "please populate") if account_manager_name.blank?
+    errors.add(:account_manager_email, "please populate") if account_manager_email.blank?
+    errors.add(:account_manager_contact, "please populate") if account_manager_contact.blank?
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  def check_custom_url_format
+    return if custom_url.match(/\A[a-z0-9\-_]+\z/)&.present?
+
+    errors[:custom_url] << "can only contain lowercase letters, digits, dashes and underscores"
+  end
+
+  def check_unique
+    developer = Developer.find_by(custom_url: custom_url)
+    return if developer.blank? || developer == self
+
+    errors[:custom_url] << "is in use for #{developer.company_name}. Please use something unique."
+  end
 
   paginates_per 10
 

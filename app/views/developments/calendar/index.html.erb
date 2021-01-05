@@ -1,0 +1,20 @@
+<% breadcrumb :development_calendar, @development %>
+
+<div class="development">
+
+  <%= render '/developments/development', development: @development %>
+  <%= render 'components/tabs', tabs: development_tabs(@development, @active_tab), parent: @developer %>
+  <%= render "calendar/events", source: @development, preload: @preload %>
+
+  <div class="form-actions-footer-container">
+    <div class="form-actions-footer">
+      <% if @development.parent.is_a? Developer %>
+        <%= link_to t("back"), [@development.developer, @development], class: "btn" %>
+      <% else %>
+        <%= link_to t("back"), [@development.division, @development], class: "btn" %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+

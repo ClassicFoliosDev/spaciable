@@ -3,7 +3,7 @@
 <div class="row">
   <div class="row-item">
     <div class="calendar">
-      <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-path="<%= events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
+    <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-type="<%=source.class.to_s%>" data-path="<%= events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
     </div>
   </div>
 </div>
@@ -36,34 +36,52 @@
     <%= f.hidden_field :eventable_id,{ value: source.id } %>
 
     <div class="title">
-      <label><%= label_tag :title, "Title" %></label>
-      <%= f.input :title, label: false, required: true%>
+      <%= f.input :title, label: "Title", required: true%>
     </div>
     <div class="location">
-      <label><%= label_tag :location, "Location" %></label>
-      <%= f.input :location, label: false, required: true %>
+      <%= f.input :location, label: "Location", required: false %>
     </div>
-    <div class="attendees">
-      <label><%= label_tag :residents, "Select Attendees" %></label>
-      <div id="residents"><%= f.collection_check_boxes :residents, source.residents, :id, :to_s, include_blank: false %></div>
+    <div class="resources">
+      <% resources = event_resource(source) %>
+      <%= f.hidden_field :resource_type, { value: resources[:type] } %>
+      <span id="dev_counts">
+        <div class='dev_invited'>
+          <label>Invited:</label>
+          <p id='dev_invited'class='resource_count'>50</p>
+        </div>
+        <div class='dev_accepted'>
+          <label>Accepted:</label>
+          <p id='dev_accepted'class='resource_count'>20</p>
+        </div>
+        <div class='dev_declined'>
+          <label>Declined:</label>
+          <p id='dev_declined'class='resource_count'>0</p>
+        </div>
+      </span>
+      <span id="resources_label">
+        <label><%= label_tag :resources, resources[:tag], id: 'resources_type' %></label>
+        <button class="select-all-resources"><%= t("calendar.events.select_all")%></button>
+        <button class="select-all-res"><%= t("calendar.events.select_all_res")%></button>
+        <button class="select-all-comp"><%= t("calendar.events.select_all_comp")%></button>
+      </span>
+      <div id="resources">
+        <input type="hidden" name="event[resources][]" value/>
+        <table></table>
+      </div>
     </div>
 
     <div class="event-time">
       <div class="quarter">
-        <label><%= label_tag :start_date, "Start" %></label>
-        <%= f.input :start_date, label: false, required: true %>
+        <%= f.input :start_date, label: "Start", required: true %>
       </div>
       <div class="quarter">
-        <label><%= label_tag :start_time, "From" %></label>
-        <%= f.input :start_time, label: false, required: true %>
+        <%= f.input :start_time, label: "From", required: true %>
       </div>
       <div class="quarter">
-        <label><%= label_tag :end_time, "Until" %></label>
-        <%= f.input :end_time, label: false, required: true %>
+        <%= f.input :end_time, label: "Until", required: true %>
       </div>
       <div class="quarter">
-        <label><%= label_tag :end_date, "End" %></label>
-        <%= f.input :end_date, label: false, required: true %>
+        <%= f.input :end_date, label: "End", required: true %>
       </div>
     </div>
 
@@ -86,6 +104,21 @@
       </div>
     </div>
 
+    <div class="remind">
+      <div class="reminder half">
+        <%= f.input :reminder,
+        as: :select,
+        collection: Event.reminders,
+        label_method: ->(remind) { t("events.remind.#{remind.first}") },
+        value_method: :first,
+        include_blank: false,
+        required: false %>
+      </div>
+      <div class="half select-all" style="display:block;">
+        <%= f.input :notify, as: :boolean, label: t(".notify") %>
+      </div>
+    </div>
+
     <div class="repeat">
       <div class="repeat-input half">
         <%= f.input :repeat,
@@ -93,7 +126,8 @@
           collection: Event.repeats,
           label_method: ->(repeat) { t("events.repeat.#{repeat.first}") },
           value_method: :first,
-          include_blank: false %>
+          include_blank: false,
+          required: false %>
       </div>
       <div id="repeat_until" class="half">
         <label><%= label_tag :repeat_until, "Repeat Until" %></label>
@@ -101,13 +135,5 @@
       </div>
     </div>
 
-    <div class="reminder half">
-      <%= f.input :reminder,
-      as: :select,
-      collection: Event.reminders,
-      label_method: ->(remind) { t("events.remind.#{remind.first}") },
-      value_method: :first,
-      include_blank: false %>
-    </div>
   <% end %>
 </div>

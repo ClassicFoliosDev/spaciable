@@ -7,13 +7,20 @@ module Homeowners
     load_and_authorize_resource :how_to, except: %i[list_how_tos show_how_to]
 
     after_action only: %i[index] do
-      record_event(:view_how_to,
-                   category1: @category,
-                   category2: I18n.t("ahoy.#{Ahoy::Event::ROOT}"))
+      if @category.present?
+        category = I18n.t("activerecord.attributes.how_to.categories.#{@category}")
+        record_event(:view_how_to,
+                     category1: category,
+                     category2: I18n.t("ahoy.#{Ahoy::Event::ROOT}",
+                                       category: category))
+      end
     end
 
     after_action only: %i[show] do
-      record_event(:view_how_to, category1: @how_to.category, category2: @how_to.title)
+      record_event(:view_how_to,
+                   category1: I18n.t("activerecord.attributes.how_to.categories." \
+                                     "#{@how_to.category}"),
+                   category2: @how_to.title)
     end
 
     def index

@@ -4,39 +4,51 @@ module Homeowners
   class EventsController < Homeowners::BaseController
     skip_authorization_check
 
+    before_action only: %i[feedback viewed] do
+      record_event(:view_calendar,
+                   category1: I18n.t("ahoy.calendar.#{params[:status]}"))
+    end
+
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def index
       events = []
-      Event.for_resource_within_range(current_resident, params).each do |event|
-        attrs = event.attributes
-        attrs[:editable] = false
-        attrs[:homeowner] =
-          event.event_resources
-               .find_by(resourceable: current_resident)&.attributes
-        events << attrs
+      parent = params[:eventable_type]
+               .classify.constantize
+      plots = current_resident.plots.pluck(:id)
+      parent&.resident_events(current_resident, params)&.each do |event|
+        # It is possible that a resident has multiple resources
+        # for a single event. e.g. if the resident has multiple plots. This
+        # needs a seperate event for each plot to be made
+        event.event_resources.each do |resource|
+          next unless (resource.resourceable_type == "Resident" &&
+                       resource.resourceable_id == current_resident.id) ||
+                      (resource.resourceable_type == "Plot" &&
+                       plots.include?(resource.resourceable_id))
+
+          attrs = event.attributes
+          attrs[:editable] = false
+          attrs[:homeowner] = resource.attributes
+          events << attrs
+        end
       end
 
       render json: events
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
-    def create
-      event = Event.build(event_params)
-      render json: event.attributes
-    end
-
-    def update
-      event = Event.find(event_params[:id])
-      event.update(event_params)
-      render json: event.attributes
-    end
+    def viewed; end
 
     # Homeowner response to a proposed event
     def feedback
-      resource = EventResource.find_by(event_id: params[:event_id],
-                                       resourceable_id: params[:resourceable_id],
-                                       resourceable_type: params[:resourceable_type])
+      event = Event.find(params[:event_id])
+      resource = event.event_resources.find_by(resourceable_id: params[:resourceable_id],
+                                               resourceable_type: params[:resourceable_type])
       if resource
+        # update resource before event - post save
+        # events depend on order
         resource.update_attributes(resource_params)
-        EventNotificationService.feedback(resource)
+        event.update_attributes(repropose_params)
+        EventNotificationService.feedback(resource.reload)
       end
 
       render json: { status: 200 }
@@ -50,8 +62,11 @@ module Homeowners
     end
 
     def resource_params
-      params.permit(:id, :resourceable_id, :resourceable_type, :status,
-                    :proposed_start, :proposed_end)
+      params.permit(:id, :resourceable_id, :resourceable_type, :status)
+    end
+
+    def repropose_params
+      params.permit(:proposed_start, :proposed_end)
     end
   end
 end

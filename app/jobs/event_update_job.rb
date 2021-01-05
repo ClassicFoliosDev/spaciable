@@ -3,7 +3,7 @@
 class EventUpdateJob < ApplicationJob
   queue_as :mailer
 
-  def perform(event, resource_ids)
-    EventNotificationMailer.update_resources(event, resource_ids).deliver_now
+  def perform(event, resource)
+    EventNotificationMailer.update_resource(event, resource).deliver_now
   end
 end
