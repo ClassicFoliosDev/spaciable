@@ -828,6 +828,7 @@ en:
         residents: "Residents"
         title: "Title"
         unique: "Unique Resident Visits"
+        unique_residents: "Unique Accessing Residents"
         total: "Total Resident Visits"
         report_btn: "Report"
     snags:
@@ -2003,7 +2004,7 @@ en:
         name: "Name"
         email: "Email"
         contact: "Contact"
-      
+
 
 
     index:
@@ -3930,7 +3931,7 @@ en:
       empty: "You have no Timeline Plot Associations"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
-  
+
   calendar:
     events:
       notify: "Notify me of responses"
