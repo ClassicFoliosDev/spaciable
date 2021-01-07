@@ -7,14 +7,15 @@ module FeatureTypeEnum
     enum feature_type: %i[
       custom_url
       area_guide
+      buyers_club
+      calendar
       home_designer
+      issues
       referrals
       services
-      buyers_club
-      issues
       snagging
       tour
-      calendar
+      wecomplete
     ]
   end
 end

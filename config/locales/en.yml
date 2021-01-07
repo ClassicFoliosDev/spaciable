@@ -3655,6 +3655,7 @@ en:
         snagging: "Snagging"
         tour: "Home Tour"
         calendar: "Calendar"
+        wecomplete: "We Complete"
 
     errors:
       messages:

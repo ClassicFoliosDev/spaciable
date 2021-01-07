@@ -293,6 +293,8 @@ class Plot < ApplicationRecord
       external_link?
     when :calendar
       development_calendar
+    else
+      true
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -323,6 +325,8 @@ class Plot < ApplicationRecord
       Rails.application.routes.url_helpers.homeowner_home_tour_path
     when :calendar
       Rails.application.routes.url_helpers.homeowner_calendar_path
+    when :wecomplete
+      ENV.fetch(:wecomplete.to_s)
     end
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, CyclomaticComplexity
