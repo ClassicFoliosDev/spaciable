@@ -828,6 +828,7 @@ en:
         residents: "Residents"
         title: "Title"
         unique: "Unique Resident Visits"
+        unique_residents: "Unique Accessing Residents"
         total: "Total Resident Visits"
         report_btn: "Report"
     snags:
@@ -3892,7 +3893,7 @@ en:
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"
     view_issues: "Issues"
-    homeowner_sign_in: "Sign In"
+    homeowner_sign_in: "Sign In Page"
     homeowner_log_in: "Returning User"
     homeowner_accept_invite: "New User"
     root: "%{category} Menu"
