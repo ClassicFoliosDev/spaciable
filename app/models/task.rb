@@ -18,12 +18,12 @@ class Task < ApplicationRecord
   has_many :shortcuts, through: :task_shortcuts
   has_many :task_contacts, dependent: :destroy
   has_many :task_logs, dependent: :destroy
-  accepts_nested_attributes_for :task_contacts, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :task_contacts, reject_if: :unpopulated, allow_destroy: true
 
   has_one :action, required: false, dependent: :destroy
   accepts_nested_attributes_for :action, reject_if: :all_blank, allow_destroy: true
-  has_many :features, dependent: :destroy
-  accepts_nested_attributes_for :features, reject_if: :all_blank, allow_destroy: true
+  has_many :features, -> { order("id") }, dependent: :destroy
+  accepts_nested_attributes_for :features, reject_if: :unpopulated, allow_destroy: true
 
   validates :title, presence: true
   validates :question, presence: true
@@ -47,6 +47,13 @@ class Task < ApplicationRecord
           .new(original_task, new_task, :picture).set_file
       end
     })
+  end
+
+  def unpopulated(attributes)
+    attributes["title"].blank? &&
+      attributes["description"].blank? &&
+      attributes["link"].blank? &&
+      attributes["precis"].blank?
   end
 
   # Get the task at the head of the specified stage

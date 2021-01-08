@@ -31,8 +31,6 @@
       </div>
     </div>
   <% elsif response == false %>
-    <% perk = allocate_perk_type(current_resident, plot) %>
-
     <div class="img-tile-details perks-summary">
       <div class="tile-text">
         <h2 class="tile-title branded-text"><%= t(".title") %></h2>
@@ -40,7 +38,7 @@
       </div>
       <div class="tile-button perks-button">
         <%= link_to t(".button"),
-        perks_path(type: perk),
+        perks_path(type: plot.perk_type),
         class: "branded-btn" %>
       </div>
     </div>

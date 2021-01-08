@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201202133735) do
+ActiveRecord::Schema.define(version: 20201218110306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -540,6 +540,7 @@ ActiveRecord::Schema.define(version: 20201202133735) do
     t.text    "description"
     t.string  "link"
     t.string  "precis"
+    t.integer "feature_type", default: 0
     t.index ["task_id"], name: "index_features_on_task_id", using: :btree
   end
 
