@@ -11,6 +11,7 @@ class VisitorFilter
   attr_accessor :residents
   attr_accessor :stats
   attr_accessor :events
+  attr_accessor :unique_accessing_residents
 
   # Visits calculates visits at the top level, then at all
   # category[n] levels below recursively. This means an event
@@ -121,6 +122,10 @@ class VisitorFilter
     filter_plots
     filter_residents
     calculate_stats
+    @unique_accessing_residents = Ahoy::Event.where(plot_id: @plots.pluck("id").uniq)
+                                             .select(:userable_type, :userable_id)
+                                             .distinct.to_a
+                                             .size
   end
 
   # Filter the plots according to the parameters

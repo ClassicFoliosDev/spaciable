@@ -38,7 +38,8 @@ module Csv
                       .visit(Ahoy::Event::ACCEPT_INVITATION)&.unique || 0]
         csv << ["Business", visits.business || "All", "Unique Sign Ins",
                 visits.stats[:homeowner_sign_in].unique || 0]
-        csv << [nil, nil, "Sign Ins", visits.stats[:homeowner_sign_in]&.total || 0]
+        csv << [nil, nil, "Sign In Page", visits.stats[:homeowner_sign_in]&.total || 0]
+        csv << [nil, nil, "Unique Accessing Residents", visits.unique_accessing_residents]
       end
       # rubocop:enable Metrics/AbcSize
 

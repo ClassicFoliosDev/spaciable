@@ -828,6 +828,7 @@ en:
         residents: "Residents"
         title: "Title"
         unique: "Unique Resident Visits"
+        unique_residents: "Unique Accessing Residents"
         total: "Total Resident Visits"
         report_btn: "Report"
     snags:
@@ -1766,7 +1767,7 @@ en:
       show:
         title: "Welcome home!"
         opening_one: "This is your %{developer} portal. Here you can access a wealth of features that will help you enjoy your new home."
-        opening_two: "We strongly reccommend that you explore your portal on your laptop, PC or tablet, to take full advantage of the time and money benefits on offer from our fantastic features. For quick, convenient access on the go, make sure you download the app from your mobile."
+        opening_two: "We strongly reccommend that you explore your portal on your laptop, PC or tablet, to take full advantage of the time and money benefits on offer from our fantastic features. For quick, convenient access on the go, make sure you download the app to your mobile."
         opening_three: "You will receive updates on new features; however, here are some of the highlights:"
         library: "Document library - access important documents and certificates relating to your home, such as appliance manuals and warranty policies."
         contacts: "Contacts - while your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
@@ -3892,7 +3893,7 @@ en:
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"
     view_issues: "Issues"
-    homeowner_sign_in: "Sign In"
+    homeowner_sign_in: "Sign In Page"
     homeowner_log_in: "Returning User"
     homeowner_accept_invite: "New User"
     root: "%{category} Menu"
