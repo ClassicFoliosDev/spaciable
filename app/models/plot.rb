@@ -288,7 +288,7 @@ class Plot < ApplicationRecord
     when :issues
       show_maintenance?
     when :snagging
-      enable_snagging
+      snagging_valid
     when :tour
       external_link?
     when :calendar
