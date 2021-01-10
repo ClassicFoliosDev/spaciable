@@ -2,7 +2,7 @@
 
 module Api
   module V1
-    class PreSalesController < Api::Controller
+    class PreSalesController < Api::AdminController
       def create
         Api::PreSales.new(pre_sales_params).add_limited_access_user do |message, status|
           render json: { message: message }, status: status

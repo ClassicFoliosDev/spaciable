@@ -747,21 +747,23 @@ ActiveRecord::Schema.define(version: 20201228161740) do
   end
 
   create_table "oauth_access_grants", force: :cascade do |t|
-    t.integer  "resource_owner_id", null: false
-    t.integer  "application_id",    null: false
-    t.string   "token",             null: false
-    t.integer  "expires_in",        null: false
-    t.text     "redirect_uri",      null: false
-    t.datetime "created_at",        null: false
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.integer  "application_id", null: false
+    t.string   "token",          null: false
+    t.integer  "expires_in",     null: false
+    t.text     "redirect_uri",   null: false
+    t.datetime "created_at",     null: false
     t.datetime "revoked_at"
     t.string   "scopes"
     t.index ["application_id"], name: "index_oauth_access_grants_on_application_id", using: :btree
-    t.index ["resource_owner_id"], name: "index_oauth_access_grants_on_resource_owner_id", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_oauth_access_grants_on_resource_type_and_resource_id", using: :btree
     t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
   end
 
   create_table "oauth_access_tokens", force: :cascade do |t|
-    t.integer  "resource_owner_id"
+    t.string   "resource_type"
+    t.integer  "resource_id"
     t.integer  "application_id"
     t.string   "token",                               null: false
     t.string   "refresh_token"
@@ -772,7 +774,7 @@ ActiveRecord::Schema.define(version: 20201228161740) do
     t.string   "previous_refresh_token", default: "", null: false
     t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id", using: :btree
     t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
-    t.index ["resource_owner_id"], name: "index_oauth_access_tokens_on_resource_owner_id", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_oauth_access_tokens_on_resource_type_and_resource_id", using: :btree
     t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
   end
 
@@ -1271,9 +1273,7 @@ ActiveRecord::Schema.define(version: 20201228161740) do
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_grants", "users", column: "resource_owner_id"
   add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
-  add_foreign_key "oauth_access_tokens", "users", column: "resource_owner_id"
   add_foreign_key "phase_timelines", "phases"
   add_foreign_key "phase_timelines", "timelines"
   add_foreign_key "phases", "developers"

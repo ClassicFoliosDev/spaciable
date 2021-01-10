@@ -3944,5 +3944,11 @@ en:
     pre_sales:
       invalid_plot_development: "Invalid/unknown plot_number/development %{plot_number}/%{development}"
 
+  doorkeeper:
+    scopes:
+      admin: "Admin"
+      public: "Public"
+      resident: "Resident"
+
 
 
