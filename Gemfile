@@ -134,8 +134,12 @@ gem "momentjs-rails"
 # salesforce
 gem "restforce", "<= 3.2.0"
 
-# Doorkeeper for OAuth2
-gem "doorkeeper"
+# OAuth2
+# git "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", branch: "master" do
+#  gem "doorkeeper"
+# end
+
+gem "doorkeeper", branch: "v5.0.3", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git"
 
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
