@@ -21,7 +21,7 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :task_contacts, reject_if: :unpopulated, allow_destroy: true
 
   has_one :action, required: false, dependent: :destroy
-  accepts_nested_attributes_for :action, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :action, reject_if: :unpopulated, allow_destroy: true
   has_many :features, -> { order("id") }, dependent: :destroy
   accepts_nested_attributes_for :features, reject_if: :unpopulated, allow_destroy: true
 
@@ -33,7 +33,7 @@ class Task < ApplicationRecord
   validates :stage_id, presence: true
 
   delegate :title, to: :stage, prefix: true
-  delegate :description, :link, :title, to: :action, prefix: true
+  delegate :description, :link, :title, :feature_type, to: :action, prefix: true
 
   amoeba do
     include_association :task_shortcuts

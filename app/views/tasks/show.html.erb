@@ -143,7 +143,15 @@
                   <% if @task.action_description.present? %>
                     <p><%= @task.action_description %></p>
                   <% end %>
-                  <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn action-btn"><%= @task.action_title %></button>
+                  <% if @timeline.supports?(@task.action_feature_type) %>
+                    <% if @task.action_feature_type == :custom_url.to_s %>
+                      <button onclick="window.open('<%= @task.action_link %>', '_blank')" type="button" class="btn timeline-btn action-btn"><%= @task.action_title %></button>
+                    <% else %>
+                      <div class="tooltip dead-btn"><%= @task.action_title %>
+                        <span class="tooltiptext"><%= t("activerecord.attributes.feature.#{@task.action_feature_type}") %> unavailable in preview</span>
+                      </div>
+                    <% end %>
+                  <% end %>
                 <% end %>
                 <%= render "next", timeline: @timeline, task: @task, button_text: t(".skip") %>
                 <%= render "next", timeline: @timeline, task: @task, button_text: t(".done") %>

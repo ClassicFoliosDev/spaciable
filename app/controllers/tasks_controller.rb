@@ -119,7 +119,7 @@ class TasksController < ApplicationController
       :title, :question, :answer, :response, :positive,
       :negative, :not_applicable,
       features_attributes: %i[id title precis description feature_type link _destroy],
-      action_attributes: %i[id title link _destroy],
+      action_attributes: %i[id title feature_type link _destroy],
       task_shortcuts_attributes: %i[id live order shortcut_id],
       task_contacts_attributes: %i[contact_type id]
     )
