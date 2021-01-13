@@ -84,6 +84,9 @@
           </div>
         <% end %>
         <%= f.input :is_demo, as: :boolean, label: t(".is_demo") %>
+        <%= f.label t(".how_tos") %>
+        <%= f.check_box :enable_how_tos %>
+        <p class="checkbox-description"><%= t(".how_tos_description") %>
       </fieldset>
     </div>
   </div>

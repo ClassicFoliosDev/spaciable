@@ -54,10 +54,12 @@
     <div class="links branded-nav-text">
       <ul>
         <!-- Set the default category for the 'How To' nav entry according to the country -->
-        <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link" do %>
-          <li class="navbar-item">
-            <%= t("layouts.homeowner.nav.how_to") %>
-          </li>
+        <% if plot.enable_how_tos %>
+          <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link" do %>
+            <li class="navbar-item">
+              <%= t("layouts.homeowner.nav.how_to") %>
+            </li>
+          <% end %>
         <% end %>
 
         <% if plot.enable_roomsketcher? %>
