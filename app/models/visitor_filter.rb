@@ -122,7 +122,7 @@ class VisitorFilter
     filter_plots
     filter_residents
     calculate_stats
-    @unique_accessing_residents = Ahoy::Event.where(plot_id: @plots.pluck("id").uniq)
+    @unique_accessing_residents = Ahoy::Event.where(plot_id: @plots.pluck("id").uniq, time: range)
                                              .select(:userable_type, :userable_id)
                                              .distinct.to_a
                                              .size
