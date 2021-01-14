@@ -9,10 +9,12 @@ module DocumentsHelper
     end
   end
 
-  def guide_collection(_document)
-    Document.guides.map do |(guide_name, _guide_int)|
+  def guide_collection(_document, parent)
+    guides = Document.guides.map do |(guide_name, guide_int)|
+      next if guide_int == Document.guides[:floor_plan] && !parent.is_a?(Plot)
       [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
     end
+    guides.compact
   end
 
   def guide_selector_valid?(document)
@@ -29,9 +31,7 @@ module DocumentsHelper
     if documents.size.positive?
       documents.flatten!.each do |doc|
         disabled << doc.guide if doc.guide
-        # guide has two potential values (reservation, completion)
-        # stop checking documents if both values are present in disabled array
-        break if disabled.uniq.size == 2
+        break if disabled.count == Document.guides.count
       end
     end
     disabled

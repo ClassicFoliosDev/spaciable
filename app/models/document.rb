@@ -25,6 +25,7 @@ class Document < ApplicationRecord
   enum guide: %i[
     reservation
     completion
+    floor_plan
   ]
 
   def to_s
