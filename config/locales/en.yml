@@ -1297,7 +1297,7 @@ en:
       image: "Image"
       file: "Upload Document"
       document: "Select Document"
-      guide: "Select Manual"
+      guide: "Document Tag"
       back: "Back"
       submit: "Submit"
       editable: "Editable"
@@ -3503,6 +3503,7 @@ en:
         guides:
           reservation: "Reservation"
           completion: "Completion"
+          floor_plan: "Floor Plan"
 
       user:
         email: "Email address"

@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 module DocumentsHelper
+  GUIDES = {
+    Plot => %w[reservation completion floor_plan],
+    Phase => %w[reservation completion],
+    Development => %w[reservation completion],
+    UnitType => %w[floor_plan]
+  }.freeze
+
   def category_collection(document = nil)
     Document.categories.map do |(category_name, _category_int)|
       [t(category_name, scope: "activerecord.attributes.document.categories",
@@ -10,8 +17,8 @@ module DocumentsHelper
   end
 
   def guide_collection(_document, parent)
-    guides = Document.guides.map do |(guide_name, guide_int)|
-      next if guide_int == Document.guides[:floor_plan] && !parent.is_a?(Plot)
+    guides = Document.guides.map do |(guide_name, _)|
+      next unless GUIDES[parent.class].include? guide_name
       [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
     end
     guides.compact
@@ -19,7 +26,7 @@ module DocumentsHelper
 
   def guide_selector_valid?(document)
     document.parent.is_a?(Plot) || document.parent.is_a?(Phase) ||
-      document.parent.is_a?(Development)
+      document.parent.is_a?(Development) || document.parent.is_a?(UnitType)
   end
 
   def manual_exists(document)
@@ -52,7 +59,7 @@ module DocumentsHelper
     # gather documents for all descendants under the parent
     # e.g. if parent is a development, descendants will be all phases under the development,
     # and all plots under each of the phases
-    unless document.parent.is_a?(Plot)
+    if document.parent.methods.include? :descendants
       descendants = document.parent.descendants
 
       descendants.each do |descendant|

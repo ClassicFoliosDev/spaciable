@@ -2,6 +2,7 @@
 
 class Document < ApplicationRecord
   include CategoryEnum
+  include GuideEnum
 
   mount_uploader :file, DocumentUploader
 
@@ -21,12 +22,6 @@ class Document < ApplicationRecord
   delegate :partially_expired?, to: :parent
 
   delegate :construction, :construction_name, to: :parent
-
-  enum guide: %i[
-    reservation
-    completion
-    floor_plan
-  ]
 
   def to_s
     title
