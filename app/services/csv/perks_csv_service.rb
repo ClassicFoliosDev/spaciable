@@ -53,6 +53,7 @@ module Csv
 
     def self.resident_info(user, plot, resident)
       [
+        plot.account_manager_name,
         plot.company_name, plot_division(plot), plot.development_name,
         plot.phase.to_s, plot.number,
         resident.first_name, resident.last_name, resident.email, resident.phone_number,
@@ -85,7 +86,7 @@ module Csv
 
     def self.headers
       [
-        "Developer", "Division", "Development", "Phase", "Plot",
+        "Account Manager", "Developer", "Division", "Development", "Phase", "Plot",
         "First Name", "Surname", "Email", "Phone",
         "Access Level", "Months (Premium)", "Activated"
       ]

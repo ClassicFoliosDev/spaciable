@@ -21,12 +21,12 @@ module Csv
 
     def self.headers
       [
-        "Developer", "Division", "Developments Count", "Phases Count", "Active Plots",
-        "Expired Plots", "Reservation Plots", "Completion Plots", "Residents Invited",
-        "Residents Activated", "Admins Invited", "Admins Activated", "Notifications Sent",
-        "Developer Emails Accepted", "Spaciable Emails Accepted", "Automated Emails",
-        "Home Designer Enabled", "BestArea4Me Enabled", "Forum Enabled", "Development FAQs",
-        "Referrals Enabled", "Services Enabled", "Maintenance Link Count",
+        "Account Manager", "Developer", "Division", "Developments Count", "Phases Count",
+        "Active Plots", "Expired Plots", "Reservation Plots", "Completion Plots",
+        "Residents Invited", "Residents Activated", "Admins Invited", "Admins Activated",
+        "Notifications Sent", "Developer Emails Accepted", "Spaciable Emails Accepted",
+        "Automated Emails", "Home Designer Enabled", "BestArea4Me Enabled", "Forum Enabled",
+        "Development FAQs", "Referrals Enabled", "Services Enabled", "Maintenance Link Count",
         "Snagging Enabled Count", "Snags Recorded", "Snags Resolved", "Core Phases",
         "NHBC Phases", "Migrated Phases", "Date Created", "Last Edited"
       ]
@@ -34,11 +34,12 @@ module Csv
 
     def self.append_data(csv, developer)
       if developer.divisions.count.zero?
-        csv << [developer.company_name, ""] + overview_info(developer) + child_info(developer)
+        csv << [developer.account_manager_name, developer.company_name, ""] +
+               overview_info(developer) + child_info(developer)
       else
         developer.divisions.each do |division|
-          csv << [developer.company_name, division.to_s] + overview_info(division) +
-                 child_info(division)
+          csv << [developer.account_manager_name, developer.company_name, division.to_s] +
+                 overview_info(division) + child_info(division)
         end
 
       end
