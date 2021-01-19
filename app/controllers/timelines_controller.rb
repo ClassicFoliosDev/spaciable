@@ -33,6 +33,7 @@ class TimelinesController < ApplicationController
   end
 
   def create
+    byebug
     if @timeline.save
       redirect_to [@parent, :timelines],
                   notice: t("controller.success.create", name: @timeline.title)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210113084328) do
+ActiveRecord::Schema.define(version: 20210118090116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -379,6 +379,7 @@ ActiveRecord::Schema.define(version: 20210113084328) do
     t.string   "account_manager_name"
     t.string   "account_manager_email"
     t.string   "account_manager_contact"
+    t.boolean  "enable_how_tos",              default: true
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -1050,8 +1051,10 @@ ActiveRecord::Schema.define(version: 20210113084328) do
 
   create_table "stages", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "timeline_template_id", null: false
+    t.index ["timeline_template_id"], name: "index_stages_on_timeline_template_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|
@@ -1101,24 +1104,30 @@ ActiveRecord::Schema.define(version: 20210113084328) do
     t.integer  "next_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "title_indent",   default: 1
     t.index ["stage_id"], name: "index_tasks_on_stage_id", using: :btree
     t.index ["timeline_id"], name: "index_tasks_on_timeline_id", using: :btree
   end
 
   create_table "timeline_stages", force: :cascade do |t|
     t.integer "timeline_id"
-    t.integer "stage_id"
     t.integer "order"
-    t.index ["stage_id"], name: "index_timeline_stages_on_stage_id", using: :btree
+    t.string  "title"
     t.index ["timeline_id"], name: "index_timeline_stages_on_timeline_id", using: :btree
+  end
+
+  create_table "timeline_templates", force: :cascade do |t|
+    t.integer "template_type", default: 0
   end
 
   create_table "timelines", force: :cascade do |t|
     t.string   "title"
     t.string   "timelineable_type"
     t.integer  "timelineable_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "timeline_template_id", null: false
+    t.index ["timeline_template_id"], name: "index_timelines_on_timeline_template_id", using: :btree
     t.index ["timelineable_type", "timelineable_id"], name: "index_timelines_on_timelineable_type_and_timelineable_id", using: :btree
   end
 
@@ -1257,6 +1266,7 @@ ActiveRecord::Schema.define(version: 20210113084328) do
   add_foreign_key "rooms", "unit_types"
   add_foreign_key "snag_comments", "snags"
   add_foreign_key "snags", "plots"
+  add_foreign_key "stages", "timeline_templates"
   add_foreign_key "task_contacts", "tasks"
   add_foreign_key "task_logs", "plot_timelines"
   add_foreign_key "task_logs", "tasks"
@@ -1264,8 +1274,8 @@ ActiveRecord::Schema.define(version: 20210113084328) do
   add_foreign_key "task_shortcuts", "tasks"
   add_foreign_key "tasks", "stages"
   add_foreign_key "tasks", "timelines"
-  add_foreign_key "timeline_stages", "stages"
   add_foreign_key "timeline_stages", "timelines"
+  add_foreign_key "timelines", "timeline_templates"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"

@@ -12,6 +12,7 @@ class Timeline < ApplicationRecord
   has_many :stages, through: :timeline_stages
   has_one :finale, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  has_one :timeline_template
 
   after_create :add_stages
 
