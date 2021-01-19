@@ -9,12 +9,11 @@ class Timeline < ApplicationRecord
   belongs_to :timelineable, polymorphic: true
   has_many :phase_timelines, dependent: :destroy
   has_many :timeline_stages, -> { order "timeline_stages.order" }, dependent: :destroy
-  has_many :stages, through: :timeline_stages
+
   has_one :finale, dependent: :destroy
   has_many :tasks, dependent: :destroy
-  has_one :timeline_template
-
-  after_create :add_stages
+  has_one :stage_set
+  delegate :stages, to: :stage_set
 
   delegate :complete_message, :complete_picture,
            :incomplete_message, :incomplete_picture, to: :finale
@@ -137,13 +136,4 @@ class Timeline < ApplicationRecord
     timelineable.is_a?(Global) || timelineable.supports?(feature)
   end
 
-  private
-
-  def add_stages
-    return unless timeline_stages.empty?
-
-    Stage.set.each_with_index do |stage, index|
-      timeline_stages.create(timeline: self, stage: stage, order: index)
-    end
-  end
 end
