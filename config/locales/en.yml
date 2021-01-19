@@ -1999,8 +1999,8 @@ en:
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
       is_demo: "Exclude from global reports"
-      how_tos: "How Tos"
-      how_tos_description: "Display How Tos to residents"
+      how_tos: "How To Guides"
+      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
       account_manager:
         title: "Account manager"
         name: "Name"
