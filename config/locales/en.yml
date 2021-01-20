@@ -3951,3 +3951,8 @@ en:
       select_all: "Select All"
       select_all_res: "Reservation"
       select_all_comp: "Completed"
+
+  stage_sets:
+    uk: "UK"
+    scotland: "Scotland"
+    proforma: "Proforma"

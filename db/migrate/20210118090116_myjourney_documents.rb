@@ -12,8 +12,6 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
         StageSet.create(stage_set_type: :proforma)
 
         add_column :tasks, :title_indent, :integer, default: 1
-        #add_column :timeline_stages, :title, :string
-
         add_column :stages, :order, :integer, default: 1
         add_reference :stages, :stage_set, foreign_key: true
         add_reference :timelines, :stage_set, foreign_key: true
@@ -27,25 +25,14 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
         Stage.all.order(:id).each_with_index do |stage, index|
           stage.update_attribute(:order, index+1)
         end
-
-        #TimelineStage.all.each { |ts| ts.update_attribute(:title, Stage.find(ts.stage_id).title) }
-        #remove_reference :timeline_stages, :stage
       }
 
       direction.down {
-        Stage.joins(:timeline_template)
-             .where(timeline_templates: { template_type: [TimelineTemplate.template_types[:scotland],
-                                                          TimelineTemplate.template_types[:proforma]]})
-             .destroy_all
-
         remove_column :tasks, :title_indent
+        remove_column :stages, :order
         remove_reference :stages, :timeline_template
         remove_reference :timelines, :timeline_template
-        drop_table :timeline_templates
-
-        add_reference :timeline_stages, :stage
-        TimelineStage.all.each { |tt| tt.update_attribute(:stage_id, Stage.find_by(title: tt.title).id) }
-        remove_column :timeline_stages, :title
+        drop_table :stage_sets
       }
     end
   end

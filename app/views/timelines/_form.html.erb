@@ -16,6 +16,12 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :title %>
+        <%= f.input :stage_set_id,
+        as: :select,
+        collection:  StageSet.stage_set_types.select { |t| t != "custom" },
+        label_method: ->(set) { t("stage_sets.#{set.first}") },
+        include_blank: false,
+        value_method: :second %>
       </fieldset>
     </div>
 

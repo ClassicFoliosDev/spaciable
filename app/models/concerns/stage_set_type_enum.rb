@@ -5,14 +5,14 @@ module StageSetTypeEnum
 
   included do
     enum stage_set_type: %i[
+      custom
       uk
       scotland
       proforma
-      custom
     ]
   end
 
-  def default_stage_sets
+  def self.default_stage_sets
     stage_set_types
   end
 end

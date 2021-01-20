@@ -8,18 +8,15 @@
 class Timeline < ApplicationRecord
   belongs_to :timelineable, polymorphic: true
   has_many :phase_timelines, dependent: :destroy
-  has_many :timeline_stages, -> { order "timeline_stages.order" }, dependent: :destroy
-
   has_one :finale, dependent: :destroy
   has_many :tasks, dependent: :destroy
-  has_one :stage_set
+  belongs_to :stage_set
   delegate :stages, to: :stage_set
 
   delegate :complete_message, :complete_picture,
            :incomplete_message, :incomplete_picture, to: :finale
 
   amoeba do
-    include_association :timeline_stages
     include_association :finale
     # tasks have to be duplicated manually as they are a linked list
   end
