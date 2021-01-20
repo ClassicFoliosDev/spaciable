@@ -30,8 +30,8 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
       direction.down {
         remove_column :tasks, :title_indent
         remove_column :stages, :order
-        remove_reference :stages, :timeline_template
-        remove_reference :timelines, :timeline_template
+        remove_reference :stages, :stage_set
+        remove_reference :timelines, :stage_set
         drop_table :stage_sets
       }
     end
