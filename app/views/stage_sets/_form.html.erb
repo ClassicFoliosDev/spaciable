@@ -1,0 +1,39 @@
+<div class="admin-timeline">
+
+  <div class="admin-timeline-preview">
+    <%= simple_form_for ([timeline, stage_set]) do |f| %>
+
+      <table class="section-list">
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= f.fields_for :stages do |s| %>
+            <tr>
+              <%= s.hidden_field :id, id: 'id' %>
+              <%= s.hidden_field :order, id: 'order' %>
+              <td><%= s.input :title, label: false, input_html: { type: 'section' } %></td>
+              <td class='actions'>
+                <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+                <button id='above' type="button" class="btn" >Add Above</button>
+                <button id='below' type="button" class="btn" >Add Below</i></button>
+                <button id='trash' type="button" class="btn" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </tr>
+          <% end %>
+        </tbody>
+
+      </table>
+
+      <div class="form-actions-footer-container">
+        <div class="form-actions-footer">
+          <%= link_to t("back"), timeline, class: "btn" %>
+          <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

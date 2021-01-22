@@ -5,13 +5,14 @@
 # Tasks can be shared amongst different Timelines through Timeline_Tasks
 # The Timeline has a set of associated stages e.g. Reservation,
 # Exchange etc.
+# rubocop:disable Metrics/ClassLength
 class Timeline < ApplicationRecord
   belongs_to :timelineable, polymorphic: true
   has_many :phase_timelines, dependent: :destroy
   has_one :finale, dependent: :destroy
   has_many :tasks, dependent: :destroy
   belongs_to :stage_set
-  delegate :stages, to: :stage_set
+  delegate :stages, :stage_set_type, to: :stage_set
 
   delegate :complete_message, :complete_picture,
            :incomplete_message, :incomplete_picture, to: :finale
@@ -48,7 +49,7 @@ class Timeline < ApplicationRecord
 
   # Get all Tasks for this Timeline
   def tasks
-    Task.tasks(self, stages.first)
+    Task.tasks(self, head&.stage || stages.first)
   end
 
   # Get all Tasks for the Stage of this Timeline
@@ -133,4 +134,28 @@ class Timeline < ApplicationRecord
     timelineable.is_a?(Global) || timelineable.supports?(feature)
   end
 
+  # remove all the tasks for a stage
+  def remove_stage(stage)
+    stage_tasks(stage)&.each(&:remove)
+  end
+
+  def change_stage(old_stage, new_stage)
+    return if old_stage.id == new_stage.id
+    stage_tasks(old_stage)&.each { |t| t.update_attributes(stage: new_stage) }
+  end
+
+  # Go through the stages and make sure all are connected in the right order
+  def refactor
+    prev_task = nil
+    stages.each do |stage|
+      tasks = stage_tasks(stage)
+      next unless tasks
+
+      prev_task&.update_attributes(next_id: tasks.first.id)
+      prev_task = tasks.last
+    end
+
+    prev_task&.update_attributes(next_id: nil)
+  end
 end
+# rubocop:enable Metrics/ClassLength

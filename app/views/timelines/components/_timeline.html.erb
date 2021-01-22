@@ -10,32 +10,29 @@
   <div class="list-stages">
     <ul class="vertical">
       <% timeline.stages.each do |stage| %>
-      <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
-      <ul class="sub-stage">
-        <% timeline.tasks&.each do |tt| %>
-          <% if tt.stage.title == stage.title %>
-            <% if action?(:new) && insert_mode == :before && tt.id == insertion_task.id %>
-              <li class="sub-stage-container new">
-                <span class="stage"><%= t(".new") %></span>
-              </li>
-            <% end %>
-            <% if links %>
-            <a class="stage" id = "<%= 'activeTaskScroll' if tt == task %>" href="<%= timeline_task_path timeline, tt %>">
-            <% end %>
+        <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
+        <ul class="sub-stage">
+          <% timeline.stage_tasks(stage)&.each do |tt| %>
+            <% if tt.stage == stage %>
+              <% if action?(:new) && insert_mode == :before && tt.id == insertion_task.id %>
+                <li class="sub-stage-container new">
+                  <span class="stage"><%= t(".new") %></span>
+                </li>
+              <% end %>
+              <% if links %>
+                <a class="stage" id = "<%= 'activeTaskScroll' if tt == task %>" href="<%= timeline_task_path timeline, tt %>">
+              <% end %>
               <li class="sub-stage-container branded-text <%= 'active' if task.present? && task == tt %>">
-                <span class=<%= "stage" if !links%>><%= tt.title %></span>
+                  <span class=<%= "stage" if !links%>><%= tt.title %></span>
               </li>
-            <% if links %>
-            </a>
-            <% end %>
-            <% if action?(:new) && insert_mode == :after && tt.id == insertion_task.id %>
-              <li class="sub-stage-container new">
-                <span class="stage"><%= t(".new") %></span>
-              </li>
+              <% if action?(:new) && insert_mode == :after && tt.id == insertion_task.id %>
+                <li class="sub-stage-container new">
+                  <span class="stage"><%= t(".new") %></span>
+                </li>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
       <% end %>
       <% if parent == :finale || timeline.finale %>
         <li class="stage-title"><span class="branded-text"><%= t("tasks.finale.title") %></span></li>
