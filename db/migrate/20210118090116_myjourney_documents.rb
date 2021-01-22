@@ -20,12 +20,12 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
 
         scotland = StageSet.create(stage_set_type: :scotland)
         %w[Reservation Exchange Moving Living].each_with_index do |title, index|
-          Stage.create(title: title, order: index, stage_set_id: scotland.id)
+          Stage.create(title: title, order: index+1, stage_set_id: scotland.id)
         end
 
         proforma = StageSet.create(stage_set_type: :proforma)
         %w[Chapter1 Chapter2 Chapter3 Chapter4].each_with_index do |title, index|
-          Stage.create(title: title, order: index, stage_set_id: proforma.id)
+          Stage.create(title: title, order: index+1, stage_set_id: proforma.id)
         end
 
         Timeline.update_all(stage_set_id: uk.id)

@@ -16,17 +16,12 @@ class StageSetsController < ApplicationController
       ActiveRecord::Base.transaction do
         remove_deleted_stages
 
-        if @stage_set.clone?
-        else
-          create_new_stage_set
-        end
+        @stage_set.clone? ? update_stage_set : create_new_stage_set
 
         # update timeline stage set
         @timeline.update_attributes(stage_set: @stage_set)
         resolve_stages
         @timeline.refactor
-
-        # raise ActiveRecord::Rollback
       end
     end
 
@@ -59,9 +54,27 @@ class StageSetsController < ApplicationController
                               clone: true)
     @next.each_with_index do |stage, order|
       @stage_set.stages.build(title: stage[:title],
-                              order: order)
+                              order: order + 1)
     end
     @stage_set.save!
+  end
+
+  # work through the changes and make updates
+  def update_stage_set
+    # delete
+    (@prev.map { |p| p["id"] } - @next.map { |n| n["id"] }.reject(&:blank?)).each do |s|
+      Stage.find(s).destroy
+    end
+
+    @next.each_with_index do |n, order|
+      if n["id"].zero?
+        Stage.create(title: n["title"], order: order + 1, stage_set_id: @stage_set.id)
+      else
+        Stage.find(n["id"]).update_attributes(title: n["title"], order: order + 1)
+      end
+    end
+
+    @stage_set.reload
   end
 
   # Look through the old stages and see where the stage id is in the new
