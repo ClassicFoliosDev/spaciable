@@ -6,7 +6,7 @@ $secondary-record-list-item-font-size: 12px;
 $primary-record-list-item-color: $type-grey;
 $primary-record-list-header-color: $type-grey;
 
-table.record-list {
+table.record-list, table.section-list {
   table-layout: fixed;
   border-collapse: collapse;
   width: 100%;

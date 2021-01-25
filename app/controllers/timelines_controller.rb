@@ -33,7 +33,6 @@ class TimelinesController < ApplicationController
   end
 
   def create
-    byebug
     if @timeline.save
       redirect_to [@parent, :timelines],
                   notice: t("controller.success.create", name: @timeline.title)
@@ -82,7 +81,7 @@ class TimelinesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def timeline_params
     params.require(:timeline).permit(
-      :title
+      :title, :stage_set_id
     )
   end
 

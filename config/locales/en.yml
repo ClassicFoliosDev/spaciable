@@ -481,6 +481,7 @@ en:
     finale_add: "Add Finale"
     sync_docs: "Synhronise Documents"
     admin_analytics: "Analytics"
+    stage_set_edit: "Edit %{stage_set} sections"
 
   pagination:
     per_page_10: "10"
@@ -3788,6 +3789,7 @@ en:
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
+      edit_stageset: "Edit Sections"
       heading: "Main Heading"
       question: "Question"
       answer: "Answer"
@@ -3951,3 +3953,11 @@ en:
       select_all: "Select All"
       select_all_res: "Reservation"
       select_all_comp: "Completed"
+
+  stage_sets:
+    title: "Type"
+    uk: "UK Buying Process"
+    scotland: "Scotland"
+    proforma: "Proforma"
+    form:
+      submit: "Submit"

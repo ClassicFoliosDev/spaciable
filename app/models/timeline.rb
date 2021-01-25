@@ -5,22 +5,19 @@
 # Tasks can be shared amongst different Timelines through Timeline_Tasks
 # The Timeline has a set of associated stages e.g. Reservation,
 # Exchange etc.
+# rubocop:disable Metrics/ClassLength
 class Timeline < ApplicationRecord
   belongs_to :timelineable, polymorphic: true
   has_many :phase_timelines, dependent: :destroy
-  has_many :timeline_stages, -> { order "timeline_stages.order" }, dependent: :destroy
-  has_many :stages, through: :timeline_stages
   has_one :finale, dependent: :destroy
   has_many :tasks, dependent: :destroy
-  has_one :timeline_template
-
-  after_create :add_stages
+  belongs_to :stage_set
+  delegate :stages, :stage_set_type, to: :stage_set
 
   delegate :complete_message, :complete_picture,
            :incomplete_message, :incomplete_picture, to: :finale
 
   amoeba do
-    include_association :timeline_stages
     include_association :finale
     # tasks have to be duplicated manually as they are a linked list
   end
@@ -52,7 +49,7 @@ class Timeline < ApplicationRecord
 
   # Get all Tasks for this Timeline
   def tasks
-    Task.tasks(self, stages.first)
+    Task.tasks(self, head&.stage || stages.first)
   end
 
   # Get all Tasks for the Stage of this Timeline
@@ -137,13 +134,28 @@ class Timeline < ApplicationRecord
     timelineable.is_a?(Global) || timelineable.supports?(feature)
   end
 
-  private
+  # remove all the tasks for a stage
+  def remove_stage(stage)
+    stage_tasks(stage)&.each(&:remove)
+  end
 
-  def add_stages
-    return unless timeline_stages.empty?
+  def change_stage(old_stage, new_stage)
+    return if old_stage.id == new_stage.id
+    stage_tasks(old_stage)&.each { |t| t.update_attributes(stage: new_stage) }
+  end
 
-    Stage.set.each_with_index do |stage, index|
-      timeline_stages.create(timeline: self, stage: stage, order: index)
+  # Go through the stages and make sure all are connected in the right order
+  def refactor
+    prev_task = nil
+    stages.each do |stage|
+      tasks = stage_tasks(stage)
+      next unless tasks
+
+      prev_task&.update_attributes(next_id: tasks.first.id)
+      prev_task = tasks.last
     end
+
+    prev_task&.update_attributes(next_id: nil)
   end
 end
+# rubocop:enable Metrics/ClassLength

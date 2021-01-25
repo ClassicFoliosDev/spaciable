@@ -43,6 +43,7 @@
             <% else %>
               <%= link_to t(".add_finale"), new_timeline_finale_path(@timeline, task_id: @task.id), class: "btn insert" %>
             <% end %>
+            <%= link_to t(".edit_stageset"), edit_timeline_stage_set_path(@timeline, @timeline.stage_set, task_id: @task.id), class: "btn insert" %>
           <% end %>
         </div>
       </div>

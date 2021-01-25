@@ -3,44 +3,43 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
     reversible do |direction|
 
       direction.up {
-        create_table :timeline_templates do |t|
-          t.integer :template_type, default: 0
+        create_table :stage_sets do |t|
+          t.integer :stage_set_type, default: 0
+          t.boolean :clone, default: false
         end
 
-        uk = TimelineTemplate.create(template_type: :uk)
-        TimelineTemplate.create(template_type: :scotland)
-        TimelineTemplate.create(template_type: :proforma)
-
         add_column :tasks, :title_indent, :integer, default: 1
-        add_column :timeline_stages, :title, :string
+        add_column :stages, :order, :integer, default: 1
+        add_reference :stages, :stage_set, foreign_key: true
+        add_reference :timelines, :stage_set, foreign_key: true
 
-        add_reference :stages, :timeline_template, foreign_key: true
-        add_reference :timelines, :timeline_template, foreign_key: true
+        uk = StageSet.create(stage_set_type: :uk)
+        Stage.all.order(:id).each_with_index do |stage, index|
+          stage.update_attributes(order: index+1, stage_set_id: uk.id)
+        end
 
-        Stage.update_all(timeline_template_id: uk.id)
-        Timeline.update_all(timeline_template_id: uk.id)
+        scotland = StageSet.create(stage_set_type: :scotland)
+        %w[Reservation Exchange Moving Living].each_with_index do |title, index|
+          Stage.create(title: title, order: index+1, stage_set_id: scotland.id)
+        end
 
-        change_column_null :stages, :timeline_template_id, false
-        change_column_null :timelines, :timeline_template_id, false
+        proforma = StageSet.create(stage_set_type: :proforma)
+        %w[Chapter1 Chapter2 Chapter3 Chapter4].each_with_index do |title, index|
+          Stage.create(title: title, order: index+1, stage_set_id: proforma.id)
+        end
 
-        TimelineStage.all.each { |ts| ts.update_attribute(:title, Stage.find(ts.stage_id).title) }
-        remove_reference :timeline_stages, :stage
+        Timeline.update_all(stage_set_id: uk.id)
+
+        change_column_null :stages, :stage_set_id, false
+        change_column_null :timelines, :stage_set_id, false
       }
 
       direction.down {
-        Stage.joins(:timeline_template)
-             .where(timeline_templates: { template_type: [TimelineTemplate.template_types[:scotland],
-                                                          TimelineTemplate.template_types[:proforma]]})
-             .destroy_all
-
         remove_column :tasks, :title_indent
-        remove_reference :stages, :timeline_template
-        remove_reference :timelines, :timeline_template
-        drop_table :timeline_templates
-
-        add_reference :timeline_stages, :stage
-        TimelineStage.all.each { |tt| tt.update_attribute(:stage_id, Stage.find_by(title: tt.title).id) }
-        remove_column :timeline_stages, :title
+        remove_column :stages, :order
+        remove_reference :stages, :stage_set
+        remove_reference :timelines, :stage_set
+        drop_table :stage_sets
       }
     end
   end

@@ -180,6 +180,7 @@ Rails.application.routes.draw do
     get 'empty', action: :empty , controller: 'tasks'
     resources :tasks
     resources :finales, except: [:index, :destroy]
+    resources :stage_sets, only: [:edit, :update]
   end
 
   # These need to be specified seperately as otherwise best
