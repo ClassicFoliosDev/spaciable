@@ -1297,7 +1297,7 @@ en:
       image: "Image"
       file: "Upload Document"
       document: "Select Document"
-      guide: "Select Manual"
+      guide: "Document Tag"
       back: "Back"
       submit: "Submit"
       editable: "Editable"
@@ -1999,6 +1999,8 @@ en:
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
       is_demo: "Exclude from global reports"
+      how_tos: "How To Guides"
+      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
       account_manager:
         title: "Account manager"
         name: "Name"
@@ -2677,7 +2679,7 @@ en:
       upload_rename: "Upload and rename files"
       upload_all: "Upload files"
       notify: "Notify subscribed residents about this change"
-      guide: "Manual Type"
+      guide: "Document Tag"
       pinned: "Pinned"
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
     collection:
@@ -3075,7 +3077,7 @@ en:
       processing: "Processing..."
       by: "Uploader"
       pinned: "Pinned"
-      guide: "Manual Type"
+      guide: "Document Tag"
     form:
       load: "File"
       upload: "Upload"
@@ -3086,7 +3088,7 @@ en:
       updated: "Last Edited"
       notify: "Notify subscribed residents about this change"
       title: "Name"
-      guide: "Manual Type"
+      guide: "Document Tag"
       choose_multiple_explanation_html: "<p><strong>In order to upload multiple file, use the <i>SHIFT</i> key to select a range,
       of the <i>CTRL</i> or <i>CMD</i> key to select individual files.</p><p>If uploading multiple files, do not use the
       <i>Document Title</i> field below or this name will be applied to all files being uploaded.</p><p>Files keep their original file names.
@@ -3482,6 +3484,7 @@ en:
           # Guide enum values
           reservation: "Reservation"
           completion: "Completion"
+          floor_plan: "Floor Plan"
 
       custom_tiles:
         categories:
@@ -3500,6 +3503,7 @@ en:
         guides:
           reservation: "Reservation"
           completion: "Completion"
+          floor_plan: "Floor Plan"
 
       user:
         email: "Email address"

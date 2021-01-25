@@ -17,7 +17,7 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @all_docs = Document.accessible_by(current_ability)
+      @all_docs = Document.accessible_by(current_ability).order(:documentable_type)
       @custom_tiles = CustomTile.active_tiles(@plot, @all_docs)
 
       build_documents
@@ -49,6 +49,8 @@ module Homeowners
     end
 
     def build_articles
+      return unless @plot.enable_how_tos
+
       how_tos_limit = Plot::DASHBOARD_TILES - @custom_tiles.size
 
       # Filter the HowTo records according to the country
