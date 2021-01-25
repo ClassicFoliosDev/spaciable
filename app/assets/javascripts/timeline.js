@@ -124,6 +124,15 @@ $( document ).on('turbolinks:load', function() {
                  $('#task_action_attributes_link').val()
 
     actiontext.length ? $('#addActionBtn').hide() : $('#actionInput').hide()
+
+    selector = $("#actionInput select")
+    selector.selectmenu({
+      select: function (event, ui) {
+        selectActionFeatureType($(this))
+      }
+    })
+
+    hideShowFeatureLink($(this).find(".task_action_link"), selector.val() != "custom_url")
   }
 
   // hide all unpopulated links
@@ -154,6 +163,11 @@ $( document ).on('turbolinks:load', function() {
 function selectFeatureType(selector){
   parent = selector.closest(".featureInput")
   hideShowFeatureLink(parent.find(".task_features_link"), parent.find("select").val() != "custom_url")
+}
+
+function selectActionFeatureType(selector){
+  parent = selector.closest("#actionInput")
+  hideShowFeatureLink(parent.find(".task_action_link"), parent.find("select").val() != "custom_url")
 }
 
 function hideShowFeatureLink(link, hide){
@@ -189,37 +203,9 @@ function addNewFeature(){
       }
   })
   select.val(select.find("option").first().val())
+  selectFeatureType(select)
 
   $num_features += 1
-
-  //feature_input = $("#featureInput").first()[0].outerHTML
-  //feature_input = feature_input.replace(/0/g, $num_features)
-  //feature_input = $(feature_input).insertAfter($("#featureInput").last())
-  //feature_input.find(".task_features_feature_type span").hide()
-  //feature_input.find(".task_features_title input").val("")
-  //feature_input.find(".task_features_precis input").val("")
-  //feature_input.find(".task_features_description textarea").val("")
-  //link = feature_input.find(".task_features_link")
-  //link.find("input").val("")
-  //link.show()
-
-  //select = feature_input.find("select")
-  //select.addClass("ui-selectmenu-button ui-widget ui-state-default ui-corner-all")
-  //select.val(select.find("option").first().val())
-
-  //select.selectmenu({
-  //    select: function (event, ui) {
-  //      selectFeatureType($(this))
-  //    }
-  //  })
-
-  //newfeature = $('#featureInput').first().clone()
-  //const tags = ["span", "input", "textarea", "label", "select" ]
-  //tags.forEach(function (item, index) {
-  //  newfeature.find(item).each(function() { initialse_feature($(this)) })
-  //});
-  //$('#addFeatureBtn').before(newfeature)
-  //$num_features += 1
 }
 
 function initialse_feature(feature){

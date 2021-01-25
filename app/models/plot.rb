@@ -47,7 +47,7 @@ class Plot < ApplicationRecord
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, to: :development
-  delegate :time_zone, :custom_url, :enable_how_tos, to: :developer
+  delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, to: :development
 
@@ -273,8 +273,10 @@ class Plot < ApplicationRecord
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
   def supports?(feature_type)
+    return false unless feature_type
+
     case feature_type.to_sym
     when :custom_url, :area_guide, :home_designer, :referrals, :services
       developer.supports?(feature_type)
@@ -296,7 +298,7 @@ class Plot < ApplicationRecord
       true
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, CyclomaticComplexity
   def feature_link(feature_type)
@@ -310,7 +312,7 @@ class Plot < ApplicationRecord
     when :services
       services
     when :buyers_club
-      vaboo.perks_account_activated?(RequestStore.store[:current_resident],
+      Vaboo.perks_account_activated?(RequestStore.store[:current_resident],
                                      self) do |response, error|
         return nil if error
         return Vaboo.branded_perks_link(developer) if response

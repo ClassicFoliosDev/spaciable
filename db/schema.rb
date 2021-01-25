@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20210113170140) do
     t.string  "title"
     t.text    "description"
     t.string  "link"
+    t.integer "feature_type", default: 0
     t.index ["task_id"], name: "index_actions_on_task_id", using: :btree
   end
 
@@ -1107,8 +1108,8 @@ ActiveRecord::Schema.define(version: 20210113170140) do
 
   create_table "timeline_stages", force: :cascade do |t|
     t.integer "timeline_id"
-    t.integer "stage_id"
     t.integer "order"
+    t.integer "stage_id"
     t.index ["stage_id"], name: "index_timeline_stages_on_stage_id", using: :btree
     t.index ["timeline_id"], name: "index_timeline_stages_on_timeline_id", using: :btree
   end
@@ -1264,7 +1265,6 @@ ActiveRecord::Schema.define(version: 20210113170140) do
   add_foreign_key "task_shortcuts", "tasks"
   add_foreign_key "tasks", "stages"
   add_foreign_key "tasks", "timelines"
-  add_foreign_key "timeline_stages", "stages"
   add_foreign_key "timeline_stages", "timelines"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"

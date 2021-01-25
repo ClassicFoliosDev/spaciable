@@ -157,7 +157,9 @@
                 <% if @task.action_description.present? %>
                   <p><%= @task.action_description %></p>
                 <% end %>
-                <button onclick="window.open('<%=@task.action_link%>', '_blank')" type="button" class="btn branded-btn action-btn"><%= @task.action_title %></button>
+                <% if @plot.supports?(@task.action_feature_type) %>
+                  <button onclick="window.open('<%= feature_link(@plot, @task.action) %>', '_blank')" type="button" class="btn branded-btn action-btn" data-featuretype="<%= @task.action_feature_type %>" ><%= @task.action_title %> </button>
+                <% end %>
               <% end %>
               <%= button_tag t('homeowners.timeline.skip'), :type => 'button', class: "btn branded-btn btn-form-submit navigation-btn", action: :skipped_on_content, id: 'timeline-submit-btn', data: { response: :negative } %>
               <%= button_tag t('homeowners.timeline.done'), :type => 'button', class: "btn branded-btn btn-form-submit navigation-btn", action: :completed_on_content, id: 'timeline-submit-btn', data: { response: :positive } %>

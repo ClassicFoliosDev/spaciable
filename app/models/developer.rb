@@ -230,7 +230,10 @@ class Developer < ApplicationRecord
     faq_types
   end
 
+  # rubocop:disable Metrics/MethodLength
   def supports?(feature)
+    return false unless feature
+
     case feature.to_sym
     when :area_guide
       house_search?
@@ -246,6 +249,7 @@ class Developer < ApplicationRecord
       true
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
