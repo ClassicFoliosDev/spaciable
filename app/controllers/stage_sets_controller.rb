@@ -28,6 +28,10 @@ class StageSetsController < ApplicationController
     redirect_to timeline_path @timeline
   end
 
+  def tasks
+    render json: { dependents: Task.dependents(@timeline.id, params[:stage]).count }
+  end
+
   def stage_set_params
     params.require(:stage_set).permit(
       stages_attributes: %i[id order title]

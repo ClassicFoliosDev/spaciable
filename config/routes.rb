@@ -180,7 +180,9 @@ Rails.application.routes.draw do
     get 'empty', action: :empty , controller: 'tasks'
     resources :tasks
     resources :finales, except: [:index, :destroy]
-    resources :stage_sets, only: [:edit, :update]
+    resources :stage_sets, only: [:edit, :update] do
+      post 'tasks', format: :json
+    end
   end
 
   # These need to be specified seperately as otherwise best

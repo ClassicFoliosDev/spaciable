@@ -3961,3 +3961,7 @@ en:
     proforma: "Proforma"
     form:
       submit: "Submit"
+      cancel: "Cancel"
+      cancel_edit: "Cancel Edit"
+      cancel_edit_text: Are you sure you want to cancel updating the sections? The changes will be lost no section updates will be saved.
+

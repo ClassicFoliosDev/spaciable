@@ -11,6 +11,10 @@ class StageSet < ApplicationRecord
     proforma
   ]
 
+  amoeba do
+    include_association :stages
+  end
+
   def self.sets
     StageSet.where(clone: false).order(:id)
   end

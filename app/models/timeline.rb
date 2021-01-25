@@ -13,9 +13,12 @@ class Timeline < ApplicationRecord
   has_many :tasks, dependent: :destroy
   belongs_to :stage_set
   delegate :stages, :stage_set_type, to: :stage_set
+  delegate :clone?, to: :stage_set, prefix: true
 
   delegate :complete_message, :complete_picture,
            :incomplete_message, :incomplete_picture, to: :finale
+
+  after_destroy -> { stage_set.destroy if stage_set.clone? }
 
   amoeba do
     include_association :finale
@@ -89,23 +92,26 @@ class Timeline < ApplicationRecord
     Task.find_by(id: task.next_id)
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def clone
     new_timeline = error = nil
     Timeline.transaction do
       begin
         new_timeline = amoeba_dup
         new_timeline.title += " (copy)"
+        new_timeline.stage_set = stage_set.amoeba_dup if stage_set_clone?
         new_timeline.save!
 
         # The tasks are a linked list - with ids to the next
         # task.  A normal clone would copy all the next_ids and
         # link to the records of the donor, so we have to go through
         # and link the new cloned tasks together manually
+        prev_tasks = tasks
         prev_task = nil
-        tasks&.each do |task|
+        tasks&.each_with_index do |task, index|
           new_task = task.amoeba_dup # duplicate the task
           new_task.timeline = new_timeline # assign the timeline
+          new_task.stage = new_timeline.stages[prev_tasks[index].stage.order - 1]
           new_task.save! # save it
           # link previous task to new task
           prev_task&.update_attributes!(next_id: new_task.id)
@@ -118,7 +124,7 @@ class Timeline < ApplicationRecord
     end
     yield new_timeline, error
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def to_s
     title

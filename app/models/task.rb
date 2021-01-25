@@ -49,6 +49,11 @@ class Task < ApplicationRecord
     })
   end
 
+  scope :dependents,
+        lambda { |timeline_id, stage_id|
+          where(timeline_id: timeline_id, stage_id: stage_id)
+        }
+
   def unpopulated(attributes)
     attributes["title"].blank? &&
       attributes["description"].blank? &&
