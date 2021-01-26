@@ -35,6 +35,14 @@ class Task < ApplicationRecord
   delegate :title, to: :stage, prefix: true
   delegate :description, :link, :title, :feature_type, to: :action, prefix: true
 
+  enum title_class: %i[
+    h1
+    h2
+    h3
+    h4
+    h5
+  ]
+
   amoeba do
     include_association :task_shortcuts
     include_association :action

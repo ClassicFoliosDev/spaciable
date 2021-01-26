@@ -694,6 +694,30 @@ select {
         grid-column-end: 2;
         grid-row-start: 1;
         grid-row-end: 2;
+
+        .title {
+          display: grid;
+          grid-template-columns: 80% 20%;
+          grid-template-rows: auto auto;
+
+          .title-text {
+          padding-right: $spacing-small;
+            unset: padding-right;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            grid-row-start: 1;
+            grid-row-end: 1;
+          }
+
+          .format {
+            grid-column-start: 2;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 1;
+          }
+
+        }
+
       }
 
       .buttons {

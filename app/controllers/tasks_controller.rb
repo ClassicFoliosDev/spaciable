@@ -116,7 +116,7 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(
       :stage_id, :timeline_id, :picture,
-      :title, :question, :answer, :response, :positive,
+      :title, :title_class, :question, :answer, :response, :positive,
       :negative, :not_applicable,
       features_attributes: %i[id title precis description feature_type link _destroy],
       action_attributes: %i[id title feature_type link _destroy],

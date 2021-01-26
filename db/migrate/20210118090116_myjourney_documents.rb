@@ -8,7 +8,7 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
           t.boolean :clone, default: false
         end
 
-        add_column :tasks, :title_indent, :integer, default: 1
+        add_column :tasks, :title_class, :integer, default: 0
         add_column :stages, :order, :integer, default: 1
         add_reference :stages, :stage_set, foreign_key: true
         add_reference :timelines, :stage_set, foreign_key: true
@@ -35,7 +35,7 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
       }
 
       direction.down {
-        remove_column :tasks, :title_indent
+        remove_column :tasks, :title_class
         remove_column :stages, :order
         remove_reference :stages, :stage_set
         remove_reference :timelines, :stage_set

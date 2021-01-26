@@ -245,7 +245,7 @@ class Developer < ApplicationRecord
       enable_services?
     when :buyers_club
       enable_perks?
-    when :custom_url, :issues, :snagging, :tour, :calendar
+    when :custom_url, :issues, :snagging, :tour, :calendar, :wecomplete
       true
     end
   end

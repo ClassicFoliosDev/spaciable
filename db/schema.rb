@@ -1109,7 +1109,7 @@ ActiveRecord::Schema.define(version: 20210118090116) do
     t.integer  "next_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "title_indent",   default: 1
+    t.integer  "title_class",    default: 0
     t.index ["stage_id"], name: "index_tasks_on_stage_id", using: :btree
     t.index ["timeline_id"], name: "index_tasks_on_timeline_id", using: :btree
   end
@@ -1131,6 +1131,13 @@ ActiveRecord::Schema.define(version: 20210118090116) do
     t.integer  "stage_set_id",      null: false
     t.index ["stage_set_id"], name: "index_timelines_on_stage_set_id", using: :btree
     t.index ["timelineable_type", "timelineable_id"], name: "index_timelines_on_timelineable_type_and_timelineable_id", using: :btree
+  end
+
+  create_table "tour_steps", force: :cascade do |t|
+    t.integer "sequence"
+    t.string  "selector"
+    t.string  "intro"
+    t.integer "position"
   end
 
   create_table "unit_types", force: :cascade do |t|
