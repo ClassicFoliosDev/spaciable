@@ -4,6 +4,8 @@ module Homeowners
   class DashboardController < Homeowners::BaseController
     skip_authorization_check
 
+    layout "dashboard", only: %i[show]
+
     before_action :fetch_faqs, only: [:show]
     before_action :fetch_contacts, only: [:show]
 

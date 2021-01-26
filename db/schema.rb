@@ -1123,6 +1123,13 @@ ActiveRecord::Schema.define(version: 20210113170140) do
     t.index ["timelineable_type", "timelineable_id"], name: "index_timelines_on_timelineable_type_and_timelineable_id", using: :btree
   end
 
+  create_table "tour_steps", force: :cascade do |t|
+    t.integer "sequence"
+    t.string  "selector"
+    t.string  "intro"
+    t.integer "position"
+  end
+
   create_table "unit_types", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                     null: false
