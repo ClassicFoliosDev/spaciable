@@ -55,14 +55,21 @@
         <div class="feature">
           <label><%= t(".feature.label") %></label>
           <%= f.fields_for :features do |ft| %>
-            <div id="featureInput">
+            <% showing = timeline.supports?(ft.object.feature_type) %>
+            <div class=<%="featureInput#{ ' hidden' unless showing }" %>>
               <fieldset>
                 <div id="deleteFeatureBtn"><%= t(".feature.delete") %></div>
                   <%= ft.hidden_field :id %>
                   <%= ft.input :title, label: t(".feature.title") %>
                   <%= ft.input :precis, label: t(".feature.precis")%>
                   <%= ft.input :description, label: t(".feature.description")%>
-                  <%= ft.input :link, label: t(".feature.link") %>
+                  <%= ft.input :feature_type,
+                    as: :select,
+                    collection: Feature.featuretypes(timeline, !showing),
+                    label_method: :second,
+                    value_method: :first,
+                    include_blank: false %>
+                  <%= ft.input :link, label: t(".feature.link")%>
                   <%= ft.hidden_field :_destroy, value: false, deletefield: true %>
               </fieldset>
             </div>
@@ -70,16 +77,23 @@
           <div id="addFeatureBtn"><%= t(".feature.add") %></div>
         </div>
 
-        <div class="action">
+        <% showing = timeline.supports?(f.object&.action&.feature_type) %>
+        <div class=<%="action#{ ' hidden' unless showing }" %>>
           <label><%= t(".action.label") %></label>
           <div id="addActionBtn"><%= t(".action.add") %></div>
           <div id="actionInput">
             <div id="deleteActionBtn"><%= t(".action.delete") %></div>
-            <%= f.fields_for :action do |ft| %>
-              <%= ft.hidden_field :id %>
-              <%= ft.input :title, label: t(".action.title") %>
-              <%= ft.input :link, label: t(".action.link") %>
-              <%= ft.hidden_field :_destroy, value: false %>
+            <%= f.fields_for :action do |a| %>
+              <%= a.hidden_field :id %>
+              <%= a.input :title, label: t(".action.title") %>
+              <%= a.input :feature_type,
+                    as: :select,
+                    collection: Action.featuretypes(timeline, !showing),
+                    label_method: :second,
+                    value_method: :first,
+                    include_blank: false %>
+              <%= a.input :link, label: t(".action.link") %>
+              <%= a.hidden_field :_destroy, value: false %>
             <% end %>
           </div>
         </div>

@@ -214,5 +214,28 @@ class Vaboo
   def self.account_number(developer)
     developer.branded_perk_account_number || ENV.fetch("VABOO_ACCOUNT")
   end
+
+  def self.perk_type(plot)
+    return unless RequestStore.store[:current_resident]
+    # if Premium is available on the plot for the current resident
+    if Vaboo.premium_perks_available?(RequestStore.store[:current_resident], plot)
+      # has the plot reached legal completion?
+      if plot.completed?
+        # if another resident on the plot has activated Premium
+        if Vaboo.premium_perks_activated?(plot)
+          "basic"
+        # if no other resident on the plot has activated Premium
+        else
+          "premium"
+        end
+      # if Premium is available on the plot but the plot has not reached legal completion
+      else
+        "coming_soon"
+      end
+    # if Premium is not available on the plot regardless if the plot has reached legal completion
+    else
+      "basic"
+    end
+  end
 end
 # rubocop:enable Metrics/ClassLength
