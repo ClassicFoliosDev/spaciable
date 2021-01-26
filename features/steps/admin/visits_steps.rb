@@ -27,7 +27,9 @@ Then(/^I navigate through the homeowner site$/) do
   # vists dashboard twice
   (1..rand(1..2)).each do |i|
     visit "/dashboard"
+    find(".navbar-trigger-label").trigger('click') #on
     VisitsFixture.visited(meta, :view_main_menu)
+    find(".navbar-trigger-label").trigger('click') #off
   end
 
   (1..rand(1..2)).each do |i|
