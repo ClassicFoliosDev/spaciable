@@ -13,6 +13,9 @@
     <%= f.hidden_field :eventable_type, { value: source.class.to_s } %>
     <%= f.hidden_field :eventable_id,{ value: source.id } %>
 
+    <div>
+      <label class="event-identity"></label>
+    </div>
     <div class="event-title">
       <%= f.input :title, label: false %>
     </div>
@@ -61,4 +64,10 @@
       <button id="save_change" type="button" class="btn" data-status=<%=:reproposed%>><%=t("events.save_change")%></button>
     </div>
   <% end %>
+</div>
+
+<div class="confirm_feedback_form hidden">
+  <form id="confirm_event_delete_form">
+    <p><%= t("events.feedback.multiple_occupancy.confirm") %></p>
+  </form>
 </div>

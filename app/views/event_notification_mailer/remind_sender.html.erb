@@ -9,7 +9,7 @@
 <p>Location: <%= @event.location %></p>
 <% end %>
 <!-- This cannot use default date format as it runs in a seperate exe -->
-<p>Start Time: <%= @event.start.strftime("%d/%m/%Y %H:%M") %></p>
-<p>End Time: <%= @event.end.strftime("%d/%m/%Y %H:%M") %></p>
+<p>Start Time: <%= @event.time_in_zone(:start).strftime("%d/%m/%Y %H:%M") %></p>
+<p>End Time: <%= @event.time_in_zone(:end).strftime("%d/%m/%Y %H:%M") %></p>
 
 <%= link_to "Go To Appointment", @link, class: "btn" %>

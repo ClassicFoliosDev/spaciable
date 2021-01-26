@@ -810,6 +810,7 @@ en:
         residents: "Residents"
         title: "Title"
         unique: "Unique Resident Visits"
+        unique_residents: "Unique Accessing Residents"
         total: "Total Resident Visits"
         report_btn: "Report"
     snags:
@@ -1278,7 +1279,7 @@ en:
       image: "Image"
       file: "Upload Document"
       document: "Select Document"
-      guide: "Select Manual"
+      guide: "Document Tag"
       back: "Back"
       submit: "Submit"
       editable: "Editable"
@@ -1748,7 +1749,7 @@ en:
       show:
         title: "Welcome home!"
         opening_one: "This is your %{developer} portal. Here you can access a wealth of features that will help you enjoy your new home."
-        opening_two: "We strongly reccommend that you explore your portal on your laptop, PC or tablet, to take full advantage of the time and money benefits on offer from our fantastic features. For quick, convenient access on the go, make sure you download the app from your mobile."
+        opening_two: "We strongly reccommend that you explore your portal on your laptop, PC or tablet, to take full advantage of the time and money benefits on offer from our fantastic features. For quick, convenient access on the go, make sure you download the app to your mobile."
         opening_three: "You will receive updates on new features; however, here are some of the highlights:"
         library: "Document library - access important documents and certificates relating to your home, such as appliance manuals and warranty policies."
         contacts: "Contacts - while your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
@@ -1980,6 +1981,8 @@ en:
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
       is_demo: "Exclude from global reports"
+      how_tos: "How To Guides"
+      how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
       account_manager:
         title: "Account manager"
         name: "Name"
@@ -2658,7 +2661,7 @@ en:
       upload_rename: "Upload and rename files"
       upload_all: "Upload files"
       notify: "Notify subscribed residents about this change"
-      guide: "Manual Type"
+      guide: "Document Tag"
       pinned: "Pinned"
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
     collection:
@@ -3056,7 +3059,7 @@ en:
       processing: "Processing..."
       by: "Uploader"
       pinned: "Pinned"
-      guide: "Manual Type"
+      guide: "Document Tag"
     form:
       load: "File"
       upload: "Upload"
@@ -3067,7 +3070,7 @@ en:
       updated: "Last Edited"
       notify: "Notify subscribed residents about this change"
       title: "Name"
-      guide: "Manual Type"
+      guide: "Document Tag"
       choose_multiple_explanation_html: "<p><strong>In order to upload multiple file, use the <i>SHIFT</i> key to select a range,
       of the <i>CTRL</i> or <i>CMD</i> key to select individual files.</p><p>If uploading multiple files, do not use the
       <i>Document Title</i> field below or this name will be applied to all files being uploaded.</p><p>Files keep their original file names.
@@ -3463,6 +3466,7 @@ en:
           # Guide enum values
           reservation: "Reservation"
           completion: "Completion"
+          floor_plan: "Floor Plan"
 
       custom_tiles:
         categories:
@@ -3477,10 +3481,11 @@ en:
           perks: "Buyers' Club"
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
-          timeline: "Timeline"
+          timeline: "My Journey"
         guides:
           reservation: "Reservation"
           completion: "Completion"
+          floor_plan: "Floor Plan"
 
       user:
         email: "Email address"
@@ -3626,6 +3631,19 @@ en:
         report_from: "From"
         report_to: "Until"
         plot_type: "Filter"
+      feature:
+        custom_url: "Custom URL"
+        area_guide: "Area Guide"
+        home_designer: "Home Designer"
+        referrals: "Referrals"
+        services: "Services"
+        buyers_club: "Buyers' Club"
+        issues: "Issue Reporting"
+        snagging: "Snagging"
+        tour: "Home Tour"
+        calendar: "Calendar"
+        wecomplete: "We Complete"
+
     errors:
       messages:
         blank: " is required, and must not be blank."
@@ -3861,7 +3879,7 @@ en:
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"
     view_issues: "Issues"
-    homeowner_sign_in: "Sign In"
+    homeowner_sign_in: "Sign In Page"
     homeowner_log_in: "Returning User"
     homeowner_accept_invite: "New User"
     root: "%{category} Menu"
@@ -3901,6 +3919,9 @@ en:
         confirm: "Please confirm the event(s) you wish to modify."
       single:
         confirm: "Are you sure you want to delete this event?"
+    feedback:
+      multiple_occupancy:
+        confirm: "You are doing this on behalf of everyone"
 
   phase_timelines:
     collection:
@@ -3913,5 +3934,6 @@ en:
   calendar:
     events:
       notify: "Notify me of responses"
-
-
+      select_all: "Select All"
+      select_all_res: "Reservation"
+      select_all_comp: "Completed"

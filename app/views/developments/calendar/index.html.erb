@@ -3,7 +3,7 @@
 <div class="development">
 
   <%= render '/developments/development', development: @development %>
-  <%= render 'components/tabs', tabs: development_tabs(@development, t("developments.collection.calendar")), parent: @developer %>
+  <%= render 'components/tabs', tabs: development_tabs(@development, @active_tab), parent: @developer %>
   <%= render "calendar/events", source: @development, preload: @preload %>
 
   <div class="form-actions-footer-container">

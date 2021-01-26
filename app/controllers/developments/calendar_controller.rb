@@ -8,7 +8,9 @@ module Developments
     load_and_authorize_resource :development
 
     def index
+      @brand = @development&.developer&.brand
       @preload = Event.find(params[:event]) if params[:event]
+      @active_tab = "calendar"
     end
   end
 end

@@ -54,10 +54,12 @@
     <div class="links branded-nav-text">
       <ul>
         <!-- Set the default category for the 'How To' nav entry according to the country -->
-        <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link" do %>
-          <li class="navbar-item">
-            <%= t("layouts.homeowner.nav.how_to") %>
-          </li>
+        <% if plot.enable_how_tos %>
+          <%= link_to homeowner_how_tos_path(country.uk? ? :home : :buying), class: "navbar-link" do %>
+            <li class="navbar-item">
+              <%= t("layouts.homeowner.nav.how_to") %>
+            </li>
+          <% end %>
         <% end %>
 
         <% if plot.enable_roomsketcher? %>
@@ -69,8 +71,7 @@
         <% end %>
 
         <% if plot.enable_services? %>
-          <% services_params = build_services_params(current_resident, plot) %>
-          <%= link_to "https://home.spaciable.com/service/#{services_params}",
+          <%= link_to plot.services,
               class: "navbar-linK", target: :_blank do %>
             <li class="navbar-item">
               <%= t(".services") %>
@@ -100,8 +101,7 @@
                   </li>
               <% end %>
             <% elsif response == false %>
-              <% perk = allocate_perk_type(current_resident, plot) %>
-              <%= link_to perks_path(type: perk), class: "navbar-link" do %>
+              <%= link_to perks_path(type: plot.perk_type), class: "navbar-link" do %>
                 <li class="navbar-item">
                   <%= t(".perks") %>
                 </li>

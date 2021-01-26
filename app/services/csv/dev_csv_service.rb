@@ -27,7 +27,7 @@ module Csv
 
     def self.headers
       [
-        "Developer", "Division", "Development", "Phase", "Plot", "Business",
+        "Account Manager", "Developer", "Division", "Development", "Phase", "Plot", "Business",
         "Reservation Order", "Completion Order", "Reservation Release", "Completion Release",
         "Validity", "Extended Access", "Expiry Date", "Legal Completion Date", "Build Progress",
         "Resident Count", "Resident Email", "Resident Name", "Resident Invited On",
@@ -50,6 +50,7 @@ module Csv
 
     def self.plot_info(plot)
       [
+        plot.account_manager_name,
         plot.company_name, plot_division(plot), plot.development_name,
         plot.phase.to_s, plot.number,
         I18n.t("activerecord.attributes.phase.businesses.#{plot.business}"),

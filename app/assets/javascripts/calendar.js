@@ -14,7 +14,7 @@ var admin = {
         timezone:"local",
         customButtons: {
           addEvent: {
-            text: 'Add Event',
+            text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
             click: function() {
               admin.newEvent(dataIn, moment())
             }
@@ -187,7 +187,8 @@ var admin = {
       success: function (response) {
 
         // The resources are dynaically created within the #resouces span
-        $('#resources span').remove()
+        var $table = $('#resources table')
+        $table.find('tr').remove()
 
         // go through all the resources
         var arrayLength = response.length;
@@ -200,19 +201,26 @@ var admin = {
 
           // build the resource entry
           resource_id = response[i]["id"]
-          $('#resources').append(
-            "<span>" +
-              "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
-                "<input type='checkbox' value='" + resource_id + "' name='event[resources][]' id='event_resources_" + resource_id + "'>" +
-                "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + response[i]["ident"] + "</label>" +
-              "</label>" +
-              "<center style='display:inline'>" +
-              "<label id='status_label_" + resource_id + "' class='status-label'>&nbsp;</label>" +
-              "</center>" +
-            "</span>")
+          etype = event.eventable_type != null ? event.eventable_type  : $("#admin_calendar").data('type')
+          var $row = $table.append("<tr>").find('tr:last')
+          $row.append("<td class='" + etype + "-col'>" +
+                         "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
+                           "<input type='checkbox' value='" + resource_id + "' name='event[resources][]' id='event_resources_" + resource_id + "'>" +
+                           "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + response[i]["ident"] + "</label>" +
+                         "</label>" +
+                       "</td>")
+          $row.append("<td class='" + etype + "-col'>" +
+                        "<label id='status_label_" + resource_id + "' class='" + etype + "-status-label'>&nbsp;</label>" +
+                      "</td>")
+
+          if (etype == "Phase") {
+            $row.append("<td class='" + etype + "-col'><center><span class='" + response[i]["status"] + "'>&nbsp</span></td>")
+          }
+
+          $row.append("<td class='" + etype + "-col'>")
 
           if (invited) {
-            $('#resources').children('span').last().addClass('invited')
+            $row.addClass('invited')
           }
         }
 
@@ -283,7 +291,10 @@ var admin = {
           show: 'show',
           modal: true,
           width: 650,
-          title: (event.new? "Add" : "Edit") + " Event",
+          title: (event.new ? "Add " : "Edit ") +
+                 (event.hasOwnProperty('eventable_type') ? event.eventable_type : $("#admin_calendar").data("type")) +
+                 " Event " +
+                 (event.signature == "" || event.new ? "" : (" for " + event.signature)),
           buttons: buttons
         }).prev().find('.ui-dialog-titlebar-close').hide()
 
@@ -293,6 +304,11 @@ var admin = {
         // populate the form with the data from this event
         admin.populate(event, dataIn)
         admin.initControls();
+
+        // Select all for new Plot events
+        if ($("#event_eventable_type").val() == "Plot" && event.new) {
+           $(".select-all-resources").trigger('click')
+        }
       }
     })
 
@@ -380,35 +396,39 @@ var admin = {
       $.each( event.resources, function( index, resource ){
         res = admin.resource(resource['resourceable_id'])
         label = $("#status_label_" + resource['resourceable_id'])
-        label.addClass(resource.status).text(resource.status).data("status", resource.status)
+        label.addClass(resource.status).text(admin.capitalize(resource.status)).data("status", resource.status)
         res.parent().children("input[type='checkbox']").trigger('click')
       });
     }
 
+    $(".select-all-resources, .select-all-comp,.select-all-res").hide()
+
     // add the buttons for each resource
     if ($("#event_eventable_type").val() != "Development") {
       $(".select-all-resources").show().prop( "enabled", true );
-      $("#resources span").each(function () {
+      $("#resources table tr").each(function () {
         if (event.writable) {
           // add invite/uninvite buttons
+          col = $(this).find("td:last")
           if($(this).hasClass("invited")) {
-            $(this).append("<button class='invite-btn uninvite-resource-btn'>Remove</button>")
+            col.append("<button class='invite-btn uninvite-resource-btn'>Remove</button>")
           } else {
-            $(this).append("<button class='invite-btn invite-resource-btn'>Invite</button>")
+            col.append("<button class='invite-btn invite-resource-btn'>Invite</button>")
           }
         }
       })
     } else {
-      $(".select-all-resources").hide()
       // invite all uninvited resources
       $("#resources input[type='checkbox']:not(:checked)").each(function() {
         this.checked = true
         $("#status_label_" + this.value).text("invited").addClass('invited').prop("checked", true)
-        $("#status_label_" + this.value).closest('span').addClass('invited')
+        $("#status_label_" + this.value).closest('tr').addClass('invited')
       })
     }
 
-    admin.showSelectAll()
+    $(".select-all-resources, .select-all-comp,.select-all-res").hide()
+
+    admin.showSelectAlls()
     admin.showProposed(event)
     admin.showResources(event)
 
@@ -423,10 +443,10 @@ var admin = {
       if (event.new) {
         $(".resources").hide()
       } else {
-        $("#dev_invited").text($("#resources span").length)
+        $("#dev_invited").text($("#resources tr").length)
         $("#dev_accepted").text($("#resources .accepted").length)
         $("#dev_declined").text($("#resources .declined").length)
-        $("#resources label.invited").each(function() { $(this).closest("span").hide() })
+        $("#resources label.invited").each(function() { $(this).closest("tr").hide() })
         $(".resources").show()
         $("#dev_counts").show()
       }
@@ -592,7 +612,7 @@ var admin = {
     $("#resources input[type='checkbox']").each(function() {
       $(this).change(function () {
         if (this.checked) {
-          $(this).parent().parent().addClass("invited")
+          $(this).closest('tr').addClass("invited")
           label = $("#status_label_" + this.value)
           if (label.data("status") == undefined){
             $("#status_label_" + this.value).text('invited').addClass("invited")
@@ -601,7 +621,7 @@ var admin = {
           }
           if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').show() }
         } else {
-          $(this).parent().parent().removeClass("invited")
+          $(this).closest('tr').removeClass("invited")
           // If this resource was re-proposing, then remove the reproposed date
           if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').hide() }
           $("#status_label_" + this.value).html("&nbsp;").removeClass("invited reproposed accepted declined")
@@ -674,7 +694,7 @@ var admin = {
       valid = false
     }
 
-    if ($("#resources span.invited").length == 0){
+    if ($("#resources tr.invited").length == 0){
       valid = false
       $("#resources").addClass('field_with_errors')
       $(".resources").append( "<span id='resource_error' class='error'>At least 1 must be invited.</span>")
@@ -704,13 +724,27 @@ var admin = {
     $(".invite-resource-btn").each(function() { $(this).trigger( "click" ) })
   },
 
-  showSelectAll: function ()
+  showSelectAlls: function ()
   {
-    if ($(".invite-resource-btn").length == 0) {
-      $(".select-all-resources").hide()
-    } else {
-      $(".select-all-resources").show()
+    admin.showSelectAll(".invite-resource-btn", ".select-all-resources")
+    if ($("#event_eventable_type").val() == "Phase") {
+      admin.showSelectAll("#resources tr:not(.invited) .reservation",".select-all-res")
+      admin.showSelectAll(".resources tr:not(.invited) .completed",".select-all-comp")
     }
+  },
+
+  showSelectAll: function (selector, button)
+  {
+    if ($(selector).length == 0) {
+      $(button).hide()
+    } else {
+      $(button).show()
+    }
+  },
+
+  capitalize: function(name){
+    if (name == null ) { return "" }
+    return name.charAt(0).toUpperCase() + name.slice(1)
   }
 }
 
@@ -720,20 +754,36 @@ $(document).on('click', '.select-all-resources', function(event) {
   admin.inviteAll()
 })
 
+// check checkbox on uninvited Reservations
+$(document).on('click', '.select-all-res', function(event) {
+  event.preventDefault()
+  $("#resources tr:not(.invited) .reservation").each(function(row) {
+    $(this).closest('tr').find('.invite-resource-btn').trigger('click')
+  })
+})
+
+// check checkbox on uninvited Completed
+$(document).on('click', '.select-all-comp', function(event) {
+  event.preventDefault()
+  $("#resources tr:not(.invited) .completed").each(function(row) {
+    $(this).closest('tr').find('.invite-resource-btn').trigger('click')
+  })
+})
+
 // check checkbox on click invite button
 $(document).on('click', '.invite-resource-btn', function(event) {
   event.preventDefault()
-  $(this).parent().find("input[type='checkbox']").trigger('click')
+  $(this).closest('tr').find("input[type='checkbox']").trigger('click')
   $(this).addClass('uninvite-resource-btn').removeClass('invite-resource-btn').text("Remove")
-  admin.showSelectAll()
+  admin.showSelectAlls()
 })
 
 // uncheck checkbox on click uninvite button
 $(document).on('click', '.uninvite-resource-btn', function(event) {
   event.preventDefault()
-  $(this).parent().find("input[type='checkbox']").trigger('click')
+  $(this).closest('tr').find("input[type='checkbox']").trigger('click')
   $(this).addClass('invite-resource-btn').removeClass('uninvite-resource-btn').text("Invite")
-  admin.showSelectAll()
+  admin.showSelectAlls()
 })
 
 // prevent checkbox being checked when clicking resident name (checkbox label)

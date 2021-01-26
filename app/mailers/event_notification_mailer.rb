@@ -6,7 +6,6 @@ class EventNotificationMailer < ApplicationMailer
   def remind_sender(event)
     @event = event
     @parent = @event.eventable
-    Time.zone = @parent.time_zone
     @link = admin_link(@event)
     mail to: event.email,
          subject: "Calendar event at #{@parent&.development_name} " \
@@ -54,7 +53,6 @@ class EventNotificationMailer < ApplicationMailer
             else
               @resource.resourceable
             end
-    Time.zone = @event.time_zone
     @link = admin_link(resource.event)
     mail to: resource.event.userable.email,
          subject: "Calendar event #{resource.status} by #{resource.resourceable}"
@@ -88,6 +86,5 @@ class EventNotificationMailer < ApplicationMailer
             end
     @event = event
     @link = resource_link(event)
-    Time.zone = event.time_zone # for this thread only
   end
 end

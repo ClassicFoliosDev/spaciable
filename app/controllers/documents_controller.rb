@@ -84,7 +84,8 @@ class DocumentsController < ApplicationController
                              title: document_params[:title],
                              documentable: @parent,
                              category: document_params[:category],
-                             pinned: document_params[:pinned])
+                             pinned: document_params[:pinned],
+                             guide: document_params[:guide])
     @document.set_original_filename
     @document.save
   end

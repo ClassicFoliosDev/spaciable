@@ -47,10 +47,9 @@ class Plot < ApplicationRecord
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, to: :development
-  delegate :time_zone, to: :developer
+  delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, to: :development
-  delegate :custom_url, to: :developer
 
   alias_attribute :identity, :number
 
@@ -72,7 +71,7 @@ class Plot < ApplicationRecord
   validates_with PlotCombinationValidator
 
   delegate :picture, to: :unit_type, prefix: true
-  delegate :external_link, to: :unit_type
+  delegate :external_link, :external_link?, to: :unit_type
   delegate :branded_logo, to: :brand, allow_nil: true
   delegate :branded_email_logo, to: :brand, allow_nil: true
   delegate :house_search, :enable_services?, :enable_roomsketcher?, to: :developer, allow_nil: true
@@ -272,6 +271,79 @@ class Plot < ApplicationRecord
       self.phase = nil
       self.development = object
     end
+  end
+
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+  def supports?(feature_type)
+    return false unless feature_type
+
+    case feature_type.to_sym
+    when :custom_url, :area_guide, :home_designer, :referrals, :services
+      developer.supports?(feature_type)
+    when :buyers_club
+      return false unless developer.supports?(feature_type)
+      Vaboo.perks_account_activated?(RequestStore.store[:current_resident],
+                                     self) do |_, error|
+        !error
+      end
+    when :issues
+      show_maintenance?
+    when :snagging
+      snagging_valid
+    when :tour
+      external_link?
+    when :calendar
+      development_calendar
+    else
+      true
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
+
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, CyclomaticComplexity
+  def feature_link(feature_type)
+    case feature_type.to_sym
+    when :area_guide
+      Rails.application.routes.url_helpers.area_guide_path
+    when :home_designer
+      Rails.application.routes.url_helpers.home_designer_path
+    when :referrals
+      Rails.application.routes.url_helpers.refer_friend_path
+    when :services
+      services
+    when :buyers_club
+      Vaboo.perks_account_activated?(RequestStore.store[:current_resident],
+                                     self) do |response, error|
+        return nil if error
+        return Vaboo.branded_perks_link(developer) if response
+        Rails.application.routes.url_helpers.perks_path(type: perk_type)
+      end
+    when :issues
+      Rails.application.routes.url_helpers.homeowner_maintenance_path
+    when :snagging
+      Rails.application.routes.url_helpers.snags_path
+    when :tour
+      Rails.application.routes.url_helpers.homeowner_home_tour_path
+    when :calendar
+      Rails.application.routes.url_helpers.homeowner_calendar_path
+    when :wecomplete
+      ENV.fetch(:wecomplete.to_s)
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, CyclomaticComplexity
+
+  def services
+    return unless RequestStore.store[:current_resident]
+
+    r = RequestStore.store[:current_resident]
+    "https://home.spaciable.com/service" \
+    "?sf_name=#{[r.first_name, r.last_name].compact.join(' ')}" \
+    "&sf_email=#{r.email}&sf_telephone=#{r&.phone_number}" \
+    "&sf_developer=#{developer}"
+  end
+
+  def perk_type
+    Vaboo.perk_type(self)
   end
 
   def private_document_count
@@ -587,17 +659,17 @@ class Plot < ApplicationRecord
   # rubocop:disable Metrics/AbcSize
   def self.resident_events(resident, params)
     # parent development events
-    evts = Event.for_resource_within_range(
+    evts = Event.for_resources_within_range(
       Development.to_s, name, resident.plots.pluck(:id),
       params[:start], params[:end]
     ).to_a
     # Phase
-    evts << Event.for_resource_within_range(
+    evts << Event.for_resources_within_range(
       Phase.to_s, name, resident.plots.pluck(:id),
       params[:start], params[:end]
     ).to_a
     # add plots
-    evts << Event.for_resource_within_range(
+    evts << Event.for_resources_within_range(
       name, resident.class.to_s, [resident.id],
       params[:start], params[:end]
     ).to_a
@@ -608,6 +680,30 @@ class Plot < ApplicationRecord
 
   def resources
     residents.map { |r| [r.id, r.to_s] }
+  end
+
+  # rubocop:disable Metrics/AbcSize
+  def signature(admin = true)
+    compnt = ""
+
+    if admin
+      compnt = "#{phase.name}: "
+    elsif road_name.blank? && building_name.blank?
+      compnt = "#{development.identity}: "
+    end
+
+    compnt +
+      (prefix.blank? ? "" : "#{prefix} ") +
+      (postal_number.blank? ? "" : "#{postal_number} ") +
+      (building_name.blank? ? "" : "#{building_name} ") +
+      (road_name.blank? ? "" : road_name)
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def comp_rel
+    return if completion_date.blank?
+    return I18n.t("calendar.events.select_all_res") if completion_date < Time.zone.now
+    I18n.t("calendar.events.select_all_comp")
   end
 end
 # rubocop:enable Metrics/ClassLength
