@@ -12,23 +12,19 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
         add_column :stages, :order, :integer, default: 1
         add_reference :stages, :stage_set, foreign_key: true
         add_reference :timelines, :stage_set, foreign_key: true
+        add_column :timelines, :description, :string, default: "Track your progress towards your move and pick up plenty of tips along the way."
 
-        uk = StageSet.create(stage_set_type: :uk)
+        journey = StageSet.create(stage_set_type: :journey)
         Stage.all.order(:id).each_with_index do |stage, index|
-          stage.update_attributes(order: index+1, stage_set_id: uk.id)
-        end
-
-        scotland = StageSet.create(stage_set_type: :scotland)
-        %w[Reservation Exchange Moving Living].each_with_index do |title, index|
-          Stage.create(title: title, order: index+1, stage_set_id: scotland.id)
+          stage.update_attributes(order: index+1, stage_set_id: journey.id)
         end
 
         proforma = StageSet.create(stage_set_type: :proforma)
-        %w[Chapter1 Chapter2 Chapter3 Chapter4].each_with_index do |title, index|
+        %w[Reservation Exchange Moving Living].each_with_index do |title, index|
           Stage.create(title: title, order: index+1, stage_set_id: proforma.id)
         end
 
-        Timeline.update_all(stage_set_id: uk.id)
+        Timeline.update_all(stage_set_id: journey.id)
 
         change_column_null :stages, :stage_set_id, false
         change_column_null :timelines, :stage_set_id, false
@@ -39,6 +35,7 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
         remove_column :stages, :order
         remove_reference :stages, :stage_set
         remove_reference :timelines, :stage_set
+        remove_column :timelines, :description
         drop_table :stage_sets
       }
     end

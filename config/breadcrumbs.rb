@@ -971,8 +971,8 @@ crumb :timeline_import do |developer|
 end
 
 # Stage Set
-crumb :stage_set_edit do |timeline, stage_set|
-  link t("breadcrumbs.stage_set_edit", stage_set: t("stage_sets.#{stage_set.stage_set_type}"))
+crumb :stage_set_edit do |timeline|
+  link t("breadcrumbs.stage_set_edit", title: timeline.title)
   parent :timeline, timeline
 end
 

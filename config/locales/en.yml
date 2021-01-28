@@ -481,7 +481,7 @@ en:
     finale_add: "Add Finale"
     sync_docs: "Synhronise Documents"
     admin_analytics: "Analytics"
-    stage_set_edit: "Edit %{stage_set} sections"
+    stage_set_edit: "Edit %{title} sections"
 
   pagination:
     per_page_10: "10"
@@ -3747,6 +3747,7 @@ en:
     collection:
       create: "Add Timeline"
       timeline: "Timeline"
+      type: "Type"
       last_edited: "Last Edited"
       created_at: "Created At"
     new:
@@ -3754,6 +3755,7 @@ en:
     edit:
       title: "Name"
     form:
+      description: "Characters max 100"
       submit: "Submit"
     components:
       timeline:
@@ -3789,7 +3791,7 @@ en:
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
-      edit_stageset: "Edit Sections"
+      edit_stageset: "%{title} Sections"
       heading: "Main Heading"
       question: "Question"
       answer: "Answer"
@@ -3851,12 +3853,9 @@ en:
         description: "Description"
         link: "Link"
       title_class:
-        label: "Format"
-        h1: "H1"
-        h2: "H2"
-        h3: "H3"
-        h4: "H4"
-        h5: "H5"
+        label: "Styling"
+        heading: "Heading"
+        subheading: "Subheading"
   finales:
     create:
       finale_created: "%{name} finale successfully created"
@@ -3951,6 +3950,9 @@ en:
       name: "Timeline"
       add: "Add Timeline Associations"
       empty: "You have no Timeline Plot Associations"
+      plots: "Plots"
+      type: "Type"
+
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
 
@@ -3963,9 +3965,8 @@ en:
 
   stage_sets:
     title: "Type"
-    uk: "UK Buying Process"
-    scotland: "Scotland"
-    proforma: "Proforma"
+    journey: "Journey"
+    proforma: "Content Proforma"
     form:
       submit: "Submit"
       cancel: "Cancel"

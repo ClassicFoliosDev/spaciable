@@ -6,8 +6,7 @@ class StageSet < ApplicationRecord
   accepts_nested_attributes_for :stages, reject_if: :all_blank, allow_destroy: true
 
   enum stage_set_type: %i[
-    uk
-    scotland
+    journey
     proforma
   ]
 

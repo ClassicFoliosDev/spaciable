@@ -33,6 +33,8 @@ class Timeline < ApplicationRecord
               case_sensitive: false
             }
 
+  validates :description, presence: true
+
   scope :in_phase,
         lambda { |phase|
           joins(phase_timelines: { plot_timelines: :plot })

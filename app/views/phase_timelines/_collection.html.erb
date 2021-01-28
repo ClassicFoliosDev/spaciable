@@ -24,7 +24,8 @@
     <thead>
       <tr>
         <th><%= sortable(Timeline, :title, t(".name")) %></th>
-        <th><%= "Plots" %></th>
+        <th><%= sortable({Timeline => StageSet}, :stage_set_type, t(".type")) %></th>
+        <th><%= t(".plots") %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -32,6 +33,7 @@
       <% collection.each do |phase_timeline| %>
         <tr>
           <td><%= link_to phase_timeline.timeline_title, timeline_path(phase_timeline.timeline_id) %></td>
+          <td><%= t("stage_sets.#{phase_timeline.timeline.stage_set_type}") %></td>
           <td><%= Plot.on_phase_timeline(phase_timeline).map(&:number).join(",")%> </td>
           <td class="actions">
             <%= edit_btn [:edit, parent, phase_timeline], element: phase_timeline %>

@@ -36,11 +36,8 @@ class Task < ApplicationRecord
   delegate :description, :link, :title, :feature_type, to: :action, prefix: true
 
   enum title_class: %i[
-    h1
-    h2
-    h3
-    h4
-    h5
+    heading
+    subheading
   ]
 
   amoeba do
