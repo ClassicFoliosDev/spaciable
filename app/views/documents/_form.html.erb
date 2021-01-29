@@ -41,7 +41,7 @@
               </div><br/>
               <% if guide_selector_valid?(document) %>
                 <div class="ui-front" id="documentGuideSelector">
-                  <%= f.input :guide, as: :select, collection: guide_collection(document, doc_parent), include_blank: true, disabled: manual_exists(document) %>
+                  <%= f.input :guide, as: :select, collection: guide_collection(document, doc_parent, exclude), include_blank: true, disabled: manual_exists(document), label: t(".guide") %>
                   <br/>
                 </div>
               <% end %>
@@ -73,7 +73,7 @@
           </div><br/>
           <% if guide_selector_valid?(document) %>
             <div class="ui-front" id="documentGuideSelector">
-              <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(document, doc_parent), include_blank: true, disabled: manual_exists(document) %>
+              <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(document, doc_parent, exclude), include_blank: true, disabled: manual_exists(document) %>
               <br/>
             </div>
           <% end %>

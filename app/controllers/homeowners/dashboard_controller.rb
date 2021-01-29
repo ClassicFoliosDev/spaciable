@@ -19,7 +19,7 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @all_docs = Document.accessible_by(current_ability).order(:documentable_type)
+      @all_docs = Document.accessible_by(current_ability)
       @custom_tiles = CustomTile.active_tiles(@plot, @all_docs)
 
       build_documents
@@ -43,6 +43,7 @@ module Homeowners
     def build_documents
       docs = @all_docs
       docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      docs.each { |d| Rails.logger.debug("#{d.title}, #{d.documentable_type}, #{d.pinned}") }
       docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 
       appliances = Appliance.accessible_by(current_ability)
