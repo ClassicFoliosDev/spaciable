@@ -18,7 +18,7 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @all_docs = Document.accessible_by(current_ability).order(:documentable_type)
+      @all_docs = Document.accessible_by(current_ability)
       @custom_tiles = CustomTile.active_tiles(@plot, @all_docs)
 
       build_documents

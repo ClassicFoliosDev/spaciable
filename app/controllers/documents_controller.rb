@@ -127,6 +127,7 @@ class DocumentsController < ApplicationController
               @development || @division || @developer || @document&.documentable
 
     @document&.documentable = @parent
+    @exclude = ["floor_plan"] if @parent.is_a? Phase
   end
 
   def target
