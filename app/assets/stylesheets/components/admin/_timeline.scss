@@ -271,7 +271,7 @@ select {
       }
     }
 
-    #answer {
+    #answer, #proforma {
       margin-top: $spacing-medium;
       margin-left: $spacing-large;
       text-align: left;
@@ -556,6 +556,10 @@ select {
           }
         }
       }
+    }
+
+    #proforma {
+      display: block;
     }
   }
 }

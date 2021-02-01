@@ -108,8 +108,9 @@
           <% end %>
         <% end %>
 
-        <% if plot&.plot_timeline&.live? %>
-          <%= link_to homeowner_timeline_path, class: "navbar-link" do %>
+        <% plot_journey = plot&.timeline %>
+        <% if plot_journey&.live? %>
+          <%= link_to homeowner_timeline_path plot_journey, class: "navbar-link" do %>
             <li class="navbar-item">
               <%= t("layouts.homeowner.nav.timeline") %>
             </li>

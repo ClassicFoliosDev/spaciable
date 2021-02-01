@@ -47,6 +47,15 @@ class Timeline < ApplicationRecord
           available.where.not(id: in_phase(phase))
         }
 
+  # Find timelines of supplied type associated with the supplied plot
+  scope :of_stage_set_type,
+        lambda { |plot, type|
+          joins(phase_timelines: :plot_timelines)
+            .joins(:stage_set)
+            .where(stage_sets: { stage_set_type: StageSet.stage_set_types[type] })
+            .where(plot_timelines: { plot_id: plot.id })
+        }
+
   # Retrieve a specific Task
   def task(task_id)
     Task.find(task_id)
@@ -135,7 +144,7 @@ class Timeline < ApplicationRecord
   def live?
     # Are there any tasks and a finale?  Use a
     # quick an efficient Task query
-    finale && Task.find_by(timeline_id: id)
+    (stage_set.proforma? || finale) && Task.find_by(timeline_id: id)
   end
 
   def supports?(feature)
@@ -164,6 +173,10 @@ class Timeline < ApplicationRecord
     end
 
     prev_task&.update_attributes(next_id: nil)
+  end
+
+  def event_tag
+    stage_set.journey? ? :view_your_journey : :view_your_content_proforma
   end
 end
 # rubocop:enable Metrics/ClassLength

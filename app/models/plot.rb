@@ -21,10 +21,8 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   has_one :crm, through: :developer
   belongs_to :division, optional: true
-  has_one :plot_timeline, dependent: :destroy
-  accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
-
-  delegate :timeline_title, to: :plot_timeline, allow_nil: true
+  has_many :plot_timelines, dependent: :destroy
+  accepts_nested_attributes_for :plot_timelines, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :choice_configuration
   has_many :room_choices, dependent: :destroy
@@ -158,6 +156,11 @@ class Plot < ApplicationRecord
   delegate :locality, :city, :county, to: :parent, allow_nil: true
   delegate :api_key, to: :developer, allow_nil: true
 
+  def timeline_title
+    #TBD
+    "poooooo"
+  end
+
   def building_name
     if address&.building_name?
       address.building_name
@@ -193,7 +196,11 @@ class Plot < ApplicationRecord
   end
 
   def timeline
-    plot_timeline&.timeline_id
+    Timeline.of_stage_set_type(self, :journey)&.first
+  end
+
+  def proformas
+    PlotTimeline.of_stage_set_type(self, :proforma)
   end
 
   def prefix

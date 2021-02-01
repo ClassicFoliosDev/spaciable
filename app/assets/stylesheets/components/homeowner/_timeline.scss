@@ -369,7 +369,7 @@
       }
     }
 
-    #answer {
+    #answer, #proforma {
       margin-top: $spacing-large;
       margin-left: $spacing-large;
       text-align: left;
@@ -718,6 +718,10 @@
           }
         }
       }
+    }
+
+    #proforma {
+      display: block;
     }
   }
 }

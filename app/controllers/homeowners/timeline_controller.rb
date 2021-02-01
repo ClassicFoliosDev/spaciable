@@ -2,15 +2,17 @@
 
 module Homeowners
   class TimelineController < Homeowners::BaseController
+    load_and_authorize_resource :timeline
+
     before_action :build_timeline
 
     after_action only: %i[show] do
       if @task
-        record_event(:view_your_journey,
+        record_event(@timeline.event_tag,
                      category1: @task&.title,
                      category2: I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
       else
-        record_event(:view_your_journey,
+        record_event(@timeline.event_tag,
                      category1: @task&.title || complete || page_name || "Welcome Page")
       end
     end
@@ -43,12 +45,12 @@ module Homeowners
       return unless current_resident
       return unless current_resident&.plot_residency_homeowner?(@plot)
 
-      @task = @viewed_task = @timeline.task(params[:id])
+      @task = @timeline.task(params[:id])
       @plot_timeline.log(@task, params[:response].to_sym)
 
       if @task
         record_event(
-          :view_your_journey,
+          @timeline.event_tag,
           category1: @task&.title,
           category2: I18n.t("homeowners.timeline.task.#{params[:response_action]}")
         )
@@ -56,15 +58,15 @@ module Homeowners
 
       respond_to do |format|
         format.html do
-          @task = @task.next
+          @task = params[:response_direction] == "forward" ? @task.next : @task.prev
           record_progress(@task.nil?)
 
           if @task
-            record_event(:view_your_journey,
+            record_event(@timeline.event_tag,
                          category1: @task&.title,
                          category2: I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
           else
-            record_event(:view_your_journey,
+            record_event(@timeline.event_tag,
                          category1: complete)
           end
 
@@ -106,7 +108,7 @@ module Homeowners
     def complete
       return unless @complete
 
-      I18n.t("homeowners.timeline.done")
+      I18n.t("homeowners.timeline.#{@plot_timeline.stage_set.stage_set_type}.done")
     end
   end
 end

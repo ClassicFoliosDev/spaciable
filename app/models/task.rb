@@ -26,12 +26,13 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :features, reject_if: :unpopulated, allow_destroy: true
 
   validates :title, presence: true
-  validates :question, presence: true
+  validates :question, presence: true, if: -> { timeline.stage_set.journey? }
   validates :answer, presence: true
-  validates :positive, presence: true
-  validates :negative, presence: true
+  validates :positive, presence: true, if: -> { timeline.stage_set.journey? }
+  validates :negative, presence: true, if: -> { timeline.stage_set.journey? }
   validates :stage_id, presence: true
 
+  delegate :stage_set, :finale, to: :timeline
   delegate :title, to: :stage, prefix: true
   delegate :description, :link, :title, :feature_type, to: :action, prefix: true
 
@@ -125,25 +126,29 @@ class Task < ApplicationRecord
   def remove
     Task.transaction do
       # link prev to following timeline_task
-      prev = Task.find_by(next_id: id) # get prev
+      previous = prev
       following = Task.find_by(id: next_id) # and next
       # set prev->next to following
-      prev&.update_attributes(next_id: following&.id)
+      previous&.update_attributes(next_id: following&.id)
       # set following->head true if the stages change between tasks
       following&.update_attributes(
-        head: prev.blank? || prev.stage != following&.stage)
+        head: previous.blank? || previous.stage != following&.stage)
 
       # destroy any logs for this task
       TaskLog.where(task_id: id).destroy_all
 
       # update any PlotTimeline referencing this Task
       PlotTimeline.where(task_id: id)
-                  .update_all(task_id: following&.id || prev&.id)
+                  .update_all(task_id: following&.id || previous&.id)
       # finally destroy the Task
       destroy
     end
   end
   # rubocop:enable SkipsModelValidations
+
+  def prev
+    Task.find_by(next_id: id) # get prev
+  end
 
   # Reset the head true/false based on previous task
   def reset_head

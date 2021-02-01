@@ -53,24 +53,26 @@
         <%= render "timelines/components/timeline", timeline: @timeline, task: @task, links: true, parent: :show %>
 
         <div class="timeline-content">
-          <div id="question">
-            <div class="question-content">
-              <div class="content">
-                <p><%= @task.question %></p>
-              </div>
-              <div class="actions">
-                <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive %>
-                <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
-                <% if @task.not_applicable %>
-                  <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable") %>
-                <% end %>
+          <% if @timeline.stage_set.journey? %>
+            <div id="question">
+              <div class="question-content">
+                <div class="content">
+                  <p><%= @task.question %></p>
+                </div>
+                <div class="actions">
+                  <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive %>
+                  <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
+                  <% if @task.not_applicable %>
+                    <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable") %>
+                  <% end %>
 
+                </div>
               </div>
+              <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
             </div>
-            <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
-          </div>
+          <% end %>
 
-          <div id="answer">
+          <div id= <%= display_section(@timeline) %>>
             <div class="answer-container">
               <h2><%= @task.answer %></h2>
               <p><%= simple_format @task.response %></p>
@@ -154,8 +156,10 @@
                     <% end %>
                   <% end %>
                 <% end %>
-                <%= render "next", timeline: @timeline, task: @task, button_text: t(".skip") %>
-                <%= render "next", timeline: @timeline, task: @task, button_text: t(".done") %>
+                <% if @timeline.stage_set.journey? || @task.prev %>
+                  <%= render "next", timeline: @timeline, task: skip_prev(@task), button_text: t(".#{@timeline.stage_set.stage_set_type}.skip") %>
+                <% end %>
+                <%= render "next", timeline: @timeline, task: @task.next, button_text: t(".#{@timeline.stage_set.stage_set_type}.done") %>
               </div>
             </div>
           </div>

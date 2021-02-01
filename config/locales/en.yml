@@ -1565,8 +1565,12 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
-      skip: "Skip"
-      done: "Complete"
+      journey:
+        skip: "Skip"
+        done: "Complete"
+      proforma:
+        skip: "Prev"
+        done: "Next"
       contacts: "Useful Contacts"
 
       splash:
@@ -3799,8 +3803,12 @@ en:
       positive: "Positive"
       negative: "Negative"
       not_applicable: "Not Applicable"
-      done: "Complete"
-      skip: "Skip"
+      journey:
+        done: "Complete"
+        skip: "Skip"
+      proforma:
+        done: "Next"
+        skip: "Prev"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
@@ -3822,8 +3830,12 @@ en:
       picture: "Page Image"
       heading: "Page Title"
       question: "Question"
-      answer: "Response Heading"
-      response: "Response Content"
+      journey:
+        answer: "Response Heading"
+        response: "Response Content"
+      proforma:
+        answer: "Page Heading"
+        response: "Page Content"
       positive: "Button Text: Task Completed"
       negative: "Button Text: Reveal Response"
       not_applicable: "Not Applicable"
@@ -3892,6 +3904,7 @@ en:
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
     view_your_journey: "My Journey"
+    view_your_content_proforma: "Content Proforma"
     task_viewed: "Viewed"
     view_FAQs: "FAQs"
     view_FAQs_feedback: "FAQs Feedback"

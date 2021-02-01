@@ -41,18 +41,22 @@
                         label: t(".title_class.label") %>
             </div>
           </div>
-          <%= f.input :question, label: t(".question") %>
-          <%= f.input :answer, label: t(".answer") %>
+          <% if timeline.stage_set.journey? %>
+            <%= f.input :question, label: t(".question") %>
+          <% end %>
+          <%= f.input :answer, label: t(".#{timeline.stage_set_type}.answer") %>
         </div>
-        <div class="buttons">
-          <%= f.input :positive, label: t(".positive") %>
-          <%= f.input :negative, label: t(".negative") %>
-          <%= f.label :not_applicable, t(".not_applicable") %>
-          <p><%= t(".not_applicable_text") %></p>
-          <%= f.check_box :not_applicable %>
-        </div>
+        <% if timeline.stage_set.journey? %>
+          <div class="buttons">
+            <%= f.input :positive, label: t(".positive") %>
+            <%= f.input :negative, label: t(".negative") %>
+            <%= f.label :not_applicable, t(".not_applicable") %>
+            <p><%= t(".not_applicable_text") %></p>
+            <%= f.check_box :not_applicable %>
+          </div>
+        <% end %>
         <div class="response">
-          <%= f.input :response, label: t(".response"), as: :ckeditor%>
+          <%= f.input :response, label: t(".#{timeline.stage_set_type}.response"), as: :ckeditor%>
         </div>
       </div>
 
