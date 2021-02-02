@@ -45,7 +45,7 @@ class Plot < ApplicationRecord
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, to: :development
-  delegate :time_zone, :custom_url, :account_manager_name, to: :developer
+  delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, to: :development
 

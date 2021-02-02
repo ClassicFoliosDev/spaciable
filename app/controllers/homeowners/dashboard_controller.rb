@@ -4,12 +4,13 @@ module Homeowners
   class DashboardController < Homeowners::BaseController
     skip_authorization_check
 
+    layout "dashboard", only: %i[show]
+
     before_action :fetch_faqs, only: [:show]
     before_action :fetch_contacts, only: [:show]
 
     after_action only: %i[show] do
-      record_event(session[:sign_in] ? :homeowner_sign_in : :view_main_menu,
-                   category1: session[:sign_in] ? I18n.t("ahoy.#{Ahoy::Event::LOG_IN}") : nil)
+      record_event(:homeowner_sign_in) if session[:sign_in]
       session[:sign_in] = false
     end
 
@@ -49,6 +50,8 @@ module Homeowners
     end
 
     def build_articles
+      return unless @plot.enable_how_tos
+
       how_tos_limit = Plot::DASHBOARD_TILES - @custom_tiles.size
 
       # Filter the HowTo records according to the country
