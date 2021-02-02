@@ -98,18 +98,28 @@ class Plot < ApplicationRecord
   after_update :post_update
   after_save :check_completion
 
-  # Retrieve all plots for the phase that are allocated to a timeline
+  # Retrieve all plots for the phase that are allocated to a specified
+  # timeline
   scope :on_phase_timeline,
         lambda { |phase_timeline|
-          joins(plot_timeline: :phase_timeline)
+          joins(plot_timelines: :phase_timeline)
             .where(phase_timelines: { id: phase_timeline.id }).order(:id)
         }
 
-  # Retrieve all plots for the phase that are NOT allocated to a timeline
-  scope :timeline_free,
+  # Retrieve all plots in this phase on a journey
+  scope :on_journey,
         lambda { |phase|
-          left_outer_joins(:plot_timeline)
-            .where(phase_id: phase.id, plot_timelines: { plot_id: nil }).order(:id)
+          joins(plot_timelines: { phase_timeline: { timeline: :stage_set } })
+            .where(stage_sets: { stage_set_type: 0 })
+            .where(phase_timelines: { phase_id: phase.id })
+        }
+
+  # Retrieve all plots for the phase that are NOT allocated to a journey timeline
+  scope :journey_free,
+        lambda { |phase|
+          where(phase_id: phase.id)
+            .where.not(id: on_journey(phase))
+            .order(:id)
         }
 
   enum progress: %i[

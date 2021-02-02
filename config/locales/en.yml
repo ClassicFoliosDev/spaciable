@@ -3961,8 +3961,9 @@ en:
   phase_timelines:
     collection:
       name: "Timeline"
-      add: "Add Timeline Associations"
-      empty: "You have no Timeline Plot Associations"
+      add_journey: "Add Journey Associations"
+      add_proforma: "Add Proforma Associations"
+      empty: "You have no Journey/Proforma Plot Associations"
       plots: "Plots"
       type: "Type"
 

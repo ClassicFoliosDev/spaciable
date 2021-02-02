@@ -4,8 +4,11 @@
     <div><span><%= t(".empty")%></span></div>
     <div>
       <% if can_create(PhaseTimeline, Phase) %>
-        <%= link_to new_phase_phase_timeline_path(parent), class: "btn btn-primary" do %>
-          <span class="btn-label"><%= t(".add") %></span>
+        <%= link_to new_phase_phase_timeline_path(parent, scope: :journey), class: "btn btn-primary" do %>
+          <span class="btn-label"><%= t(".add_journey") %></span>
+        <% end %>
+        <%= link_to new_phase_phase_timeline_path(parent, scope: :proforma), class: "btn btn-primary" do %>
+          <span class="btn-label"><%= t(".add_proforma") %></span>
         <% end %>
       <% end %>
     </div>
@@ -13,9 +16,13 @@
 <% else %>
   <% if can_create(PhaseTimeline, current_user.permission_level) %>
     <div class="section-actions">
-      <%= link_to new_phase_phase_timeline_path(parent), class: "btn btn-primary" do %>
+      <%= link_to new_phase_phase_timeline_path(parent, scope: :journey), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
+        <span class="btn-label"><%= t(".add_journey") %></span>
+      <% end %>
+      <%= link_to new_phase_phase_timeline_path(parent, scope: :proforma), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add_proforma") %></span>
       <% end %>
     </div>
   <% end %>

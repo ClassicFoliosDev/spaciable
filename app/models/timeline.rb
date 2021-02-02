@@ -42,8 +42,13 @@ class Timeline < ApplicationRecord
         }
 
   scope :not_used_in_phase,
-        lambda { |phase|
-          available = where(timelineable_type: "Global").or(where(timelineable: phase.developer))
+        lambda { |phase, type|
+          available = joins(:stage_set)
+                      .where("stage_sets.stage_set_type = ? " \
+                             "AND (timelines.timelineable_type = 'Global' " \
+                             "     OR (timelines.timelineable_type = 'Developer' AND "\
+                             "         timelines.timelineable_id = ?))",
+                             StageSet.stage_set_types[type], phase.developer.id)
           available.where.not(id: in_phase(phase))
         }
 
