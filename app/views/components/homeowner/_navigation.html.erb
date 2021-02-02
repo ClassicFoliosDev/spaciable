@@ -43,6 +43,17 @@
             <%= t('.library') %>
           </li>
         <% end %>
+
+        <% plot.proformas&.each do |proforma| %>
+          <% if proforma.live? %>
+            <%= link_to homeowner_timeline_path proforma, class: "navbar-link" do %>
+              <li class="navbar-item">
+              <%= proforma.title %>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+
       </ul>
     </div>
 

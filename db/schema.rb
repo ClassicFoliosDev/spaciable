@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210113170140) do
+ActiveRecord::Schema.define(version: 20210118090116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1127,16 +1127,10 @@ ActiveRecord::Schema.define(version: 20210113170140) do
     t.string   "title"
     t.string   "timelineable_type"
     t.integer  "timelineable_id"
-<<<<<<< HEAD
     t.datetime "created_at",                                                                                                    null: false
     t.datetime "updated_at",                                                                                                    null: false
     t.integer  "stage_set_id",                                                                                                  null: false
     t.string   "description",       default: "Track your progress towards your move and pick up plenty of tips along the way."
-=======
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
-    t.integer  "stage_set_id",      null: false
->>>>>>> 600MyJourneyDocuments
     t.index ["stage_set_id"], name: "index_timelines_on_stage_set_id", using: :btree
     t.index ["timelineable_type", "timelineable_id"], name: "index_timelines_on_timelineable_type_and_timelineable_id", using: :btree
   end

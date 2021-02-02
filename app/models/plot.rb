@@ -210,7 +210,7 @@ class Plot < ApplicationRecord
   end
 
   def proformas
-    PlotTimeline.of_stage_set_type(self, :proforma)
+    Timeline.of_stage_set_type(self, :proforma)
   end
 
   def prefix

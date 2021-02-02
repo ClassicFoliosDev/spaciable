@@ -80,12 +80,12 @@ class Timeline < ApplicationRecord
   # possible that not all stages may be populated iterate through
   # until you find the head
   def head
-    tasks = nil
+    task = nil
     stages.each do |stage|
-      tasks = Task.head(self, stage)
-      break if tasks
+      task = Task.head(self, stage)
+      break if task
     end
-    tasks
+    task
   end
 
   # Get the tail (last) Task in this Timeline

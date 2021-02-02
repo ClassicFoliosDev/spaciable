@@ -20,6 +20,7 @@ module Homeowners
     # select_stage, click on a task in the timeline,
     # display their last viewed last task , or when
     # the timeline is complete
+    # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     def show
       return unless current_resident
       return unless current_resident&.plot_residency_homeowner?(@plot)
@@ -29,10 +30,15 @@ module Homeowners
       # If the have selected an individual task
       @task = @timeline.task(params[:task_id]) if params[:task_id]
 
+      # If this is a proforma and no task has been specified then
+      # go straight to the first task
+      @task = @timeline.head if @task.nil? && @timeline.stage_set.proforma?
+
       record_progress
 
       render task || @complete || params[:page] || :splash
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # viewed is called on submit of a Task page.  It records the
     # response and moves to the next page.  viewed also gets called
