@@ -272,8 +272,10 @@ Rails.application.routes.draw do
     resources :snag_comments, only: [:new, :create]
     resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
-    resources :timelines, only: [:show], as: :homeowner_timeline, controller: 'timeline' do
-      resources :tasks , only: [:show], controller: 'timeline'do
+    resources :timelines, only: [:show], controller: 'timeline', param: :timeline_id, as: :homeowner_timeline
+    resources :timelines, only:[] do
+      resources :tasks, only: [:show], controller: 'timeline', param: :task_id, as: :homeowner_task
+      resources :tasks, only: [] do
         get :viewed, controller: 'timeline'
         post :viewed , controller: 'timeline', format: :json
       end

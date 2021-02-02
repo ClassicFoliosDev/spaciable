@@ -2,8 +2,6 @@
 
 module Homeowners
   class TimelineController < Homeowners::BaseController
-    load_and_authorize_resource :timeline
-
     before_action :build_timeline
 
     after_action only: %i[show] do
@@ -29,7 +27,7 @@ module Homeowners
       # If they have specified a start stage
       @task = @timeline.stage_head(params[:stage]) if params[:stage]
       # If the have selected an individual task
-      @task = @timeline.task(params[:id]) if params[:id]
+      @task = @timeline.task(params[:task_id]) if params[:task_id]
 
       record_progress
 
@@ -45,7 +43,7 @@ module Homeowners
       return unless current_resident
       return unless current_resident&.plot_residency_homeowner?(@plot)
 
-      @task = @timeline.task(params[:id])
+      @task = @timeline.task(params[:task_id])
       @plot_timeline.log(@task, params[:response].to_sym)
 
       if @task
@@ -81,9 +79,9 @@ module Homeowners
 
     # PlotTimeline is the homeowner reference into a timeline
     def build_timeline
-      @plot_timeline = PlotTimeline.find_by(plot_id: @plot.id)
-      @timeline = @plot_timeline.timeline # the timeline
-      @task = @plot_timeline.task # the last recorded Timeline task
+      @timeline = Timeline.find(params[:timeline_id])
+      @plot_timeline = PlotTimeline.matching(@plot, @timeline)
+      @task = @plot_timeline&.task # the last recorded Timeline task
       @logs = @plot_timeline.task_logs # all recorded logs
       @complete = :complete if @plot_timeline.complete
     end

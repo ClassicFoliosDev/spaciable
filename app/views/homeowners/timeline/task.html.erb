@@ -47,7 +47,7 @@
     </div>
 
     <div id="timelineContentDesktop" class="timeline-content">
-      <form id='timeline_task' action=<%="#{viewed_timeline_task_path(@task)}"%>>
+      <form id='timeline_task' action=<%="#{timeline_task_viewed_path(@timeline, @task)}"%>>
         <input type="hidden" id="response" name="response" value=<%= :not_applicable %>>
         <input type="hidden" id="response_action" name="response_action" value=<%= :not_applicable %>>
         <input type="hidden" id="response_direction" name="response_direction" value=<%= :forward %>>

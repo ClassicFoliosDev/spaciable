@@ -167,7 +167,7 @@ class Plot < ApplicationRecord
   delegate :api_key, to: :developer, allow_nil: true
 
   def timeline_title
-    #TBD
+    byebug
     "poooooo"
   end
 
@@ -205,7 +205,7 @@ class Plot < ApplicationRecord
     end
   end
 
-  def timeline
+  def journey
     Timeline.of_stage_set_type(self, :journey)&.first
   end
 

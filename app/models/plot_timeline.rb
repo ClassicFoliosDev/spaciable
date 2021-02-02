@@ -11,6 +11,13 @@ class PlotTimeline < ApplicationRecord
 
   delegate :live?, :timeline, :timeline_title, :stage_set, to: :phase_timeline
 
+  scope :matching,
+        lambda { |plot, timeline|
+          joins(:phase_timeline)
+            .where(plot: plot)
+            .find_by(phase_timelines: { timeline_id: timeline.id })
+        }
+
   # Log non not_applicable responses for a Task.
   def log(task, response)
     return if response == :not_applicable
