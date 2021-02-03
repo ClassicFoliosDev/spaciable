@@ -24,7 +24,11 @@ class PlotTimeline < ApplicationRecord
 
     log = task_logs.find_by(task_id: task.id) ||
           task_logs.create(task_id: task.id)
-    log.update_attributes(response: response)
+    # only record if response is forward
+    if log.response.nil? ||
+       TaskLog.responses[response.to_s] < TaskLog.responses[log.response]
+      log.update_attributes(response: response)
+    end
   end
 
   def complete?

@@ -92,7 +92,7 @@ class CustomTile < ApplicationRecord
     return true unless snagging? || issues? || timeline?
     return true if snagging? && plot.snagging_valid
     return true if issues? && plot.show_maintenance?
-    return true if timeline? && plot&.plot_timeline&.live?
+    return true if timeline? && plot&.journey&.live?
     false
   end
 

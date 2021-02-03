@@ -9,6 +9,7 @@ module Homeowners
         record_event(@timeline.event_tag,
                      category1: @task&.title,
                      category2: I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
+        @plot_timeline.log(@task, :negative) if @timeline.stage_set.proforma?
       else
         record_event(@timeline.event_tag,
                      category1: @task&.title || complete || page_name || "Welcome Page")

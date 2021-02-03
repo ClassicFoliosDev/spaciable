@@ -3781,7 +3781,7 @@ en:
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
-      edit_stageset: "%{title} Sections"
+      edit_stageset: "Edit %{title} Sections"
       heading: "Main Heading"
       question: "Question"
       answer: "Answer"
