@@ -251,6 +251,11 @@ class Developer < ApplicationRecord
   end
   # rubocop:enable Metrics/MethodLength
 
+  # What Content Proformas are available to this developer
+  def proformas
+    Timeline.available_to(self, StageSet.stage_set_types[:proforma])
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and

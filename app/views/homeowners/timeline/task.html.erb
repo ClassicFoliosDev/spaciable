@@ -95,39 +95,46 @@
           </div>
 
           <% contacts = @task.contacts(@plot) %>
-          <% if contacts %>
+          <% if contacts || @task.picture.present? %>
             <aside class="contact-container">
-              <h4 class="branded-text"><%= t("homeowners.timeline.contacts") %></h4>
-              <% contacts.each do |contact| %>
-                <div class="contact">
-                  <div class="avatar">
-                    <% if contact.picture? %>
-                      <%= image_tag contact.picture.url :thumbnail if contact.picture? %>
-                    <% end %>
-                  </div>
-                  <div class="contact-info">
-                    <p class="name branded-text"><%= contact.to_s %></p>
-                    <p class="position branded-text"><%= contact.position %></p>
-
-                    <% if contact.phone? %>
-                      <p class="contact-detail">
-                        <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
-                      </p>
-                    <% end %>
-
-                    <% if contact.mobile? %>
-                      <p class="contact-detail">
-                        <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
-                      </p>
-                    <% end %>
-
-                    <% if contact.email? %>
-                      <p class="contact-detail">
-                        <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
-                      </p>
-                    <% end %>
-                  </div>
+              <% if @timeline.stage_set.proforma? && @task.picture.present? %>
+                <div>
+                  <img src='<%= image_path(@task.picture)%>' style="width:100%;padding-bottom:10" >
                 </div>
+              <% end %>
+              <% if contacts %>
+                <h4 class="branded-text"><%= t("homeowners.timeline.contacts") %></h4>
+                <% contacts&.each do |contact| %>
+                  <div class="contact">
+                    <div class="avatar">
+                      <% if contact.picture? %>
+                        <%= image_tag contact.picture.url :thumbnail if contact.picture? %>
+                      <% end %>
+                    </div>
+                    <div class="contact-info">
+                      <p class="name branded-text"><%= contact.to_s %></p>
+                      <p class="position branded-text"><%= contact.position %></p>
+
+                      <% if contact.phone? %>
+                        <p class="contact-detail">
+                          <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
+                        </p>
+                      <% end %>
+
+                      <% if contact.mobile? %>
+                        <p class="contact-detail">
+                          <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
+                        </p>
+                      <% end %>
+
+                      <% if contact.email? %>
+                        <p class="contact-detail">
+                          <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
+                        </p>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
               <% end %>
             </aside>
           <% end %>

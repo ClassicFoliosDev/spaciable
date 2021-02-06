@@ -1286,6 +1286,7 @@ en:
       editable: "Editable"
       editable_description: "Client admins can edit or delete this shortcut"
       current_file: "Current File"
+      content_proforma: "Content Proforma"
   home:
     show:
      home: "Home"
@@ -3478,6 +3479,7 @@ en:
           feature: "Feature"
           link: "Link"
           document: "Document"
+          content_proforma: "Custom Proforma"
         features:
           area_guide: "Area Guide"
           home_designer: "Home Designer"

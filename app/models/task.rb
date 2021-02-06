@@ -62,9 +62,9 @@ class Task < ApplicationRecord
 
   def unpopulated(attributes)
     attributes["title"].blank? &&
-    attributes["description"].blank? &&
-    attributes["link"].blank? &&
-    attributes["precis"].blank?
+      attributes["description"].blank? &&
+      attributes["link"].blank? &&
+      attributes["precis"].blank?
   end
 
   # Get the task at the head of the specified stage

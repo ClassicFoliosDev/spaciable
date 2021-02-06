@@ -98,6 +98,11 @@
 
             <!-- can't show contact info because preview isn't associated with a plot -->
             <aside class="contact-container">
+              <% if @timeline.stage_set.proforma? && @task.picture.present? %>
+                <div>
+                  <img src='<%= image_path(@task.picture)%>' style="width:100%;padding-bottom:10" >
+                </div>
+              <% end %>
               <h4><%= t(".contacts") %></h4>
               <p class="disclaimer"> <%= t(".contacts_disclaimer") %></p>
               <div class="contact">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210118090116) do
+ActiveRecord::Schema.define(version: 20210113170140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1049,18 +1049,10 @@ ActiveRecord::Schema.define(version: 20210118090116) do
     t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
-  create_table "stage_sets", force: :cascade do |t|
-    t.integer "stage_set_type", default: 0
-    t.boolean "clone",          default: false
-  end
-
   create_table "stages", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "order",        default: 1
-    t.integer  "stage_set_id",             null: false
-    t.index ["stage_set_id"], name: "index_stages_on_stage_set_id", using: :btree
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "tags", force: :cascade do |t|
@@ -1110,7 +1102,6 @@ ActiveRecord::Schema.define(version: 20210118090116) do
     t.integer  "next_id"
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
-    t.integer  "title_class",    default: 0
     t.index ["stage_id"], name: "index_tasks_on_stage_id", using: :btree
     t.index ["timeline_id"], name: "index_tasks_on_timeline_id", using: :btree
   end
@@ -1127,11 +1118,8 @@ ActiveRecord::Schema.define(version: 20210118090116) do
     t.string   "title"
     t.string   "timelineable_type"
     t.integer  "timelineable_id"
-    t.datetime "created_at",                                                                                                    null: false
-    t.datetime "updated_at",                                                                                                    null: false
-    t.integer  "stage_set_id",                                                                                                  null: false
-    t.string   "description",       default: "Track your progress towards your move and pick up plenty of tips along the way."
-    t.index ["stage_set_id"], name: "index_timelines_on_stage_set_id", using: :btree
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.index ["timelineable_type", "timelineable_id"], name: "index_timelines_on_timelineable_type_and_timelineable_id", using: :btree
   end
 
@@ -1277,7 +1265,6 @@ ActiveRecord::Schema.define(version: 20210118090116) do
   add_foreign_key "rooms", "unit_types"
   add_foreign_key "snag_comments", "snags"
   add_foreign_key "snags", "plots"
-  add_foreign_key "stages", "stage_sets"
   add_foreign_key "task_contacts", "tasks"
   add_foreign_key "task_logs", "plot_timelines"
   add_foreign_key "task_logs", "tasks"
@@ -1286,7 +1273,6 @@ ActiveRecord::Schema.define(version: 20210118090116) do
   add_foreign_key "tasks", "stages"
   add_foreign_key "tasks", "timelines"
   add_foreign_key "timeline_stages", "timelines"
-  add_foreign_key "timelines", "stage_sets"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"
   add_foreign_key "unit_types", "divisions"

@@ -14,6 +14,7 @@ class Timeline < ApplicationRecord
   belongs_to :stage_set
   delegate :stages, :stage_set_type, to: :stage_set
   delegate :clone?, to: :stage_set, prefix: true
+  has_many :timeline_stages, -> { order "timeline_stages.order" }, dependent: :destroy
 
   delegate :complete_message, :complete_picture,
            :incomplete_message, :incomplete_picture, to: :finale
@@ -39,6 +40,18 @@ class Timeline < ApplicationRecord
         lambda { |phase|
           joins(phase_timelines: { plot_timelines: :plot })
             .where(plots: { phase_id: phase.id }).distinct
+        }
+
+  scope :available_to,
+        lambda { |timelineable, set_type|
+          joins(:stage_set)
+            .where("stage_sets.stage_set_type = ? " \
+                   "AND (timelines.timelineable_type = 'Global' " \
+                   "     OR (timelines.timelineable_type = ? AND "\
+                   "         timelines.timelineable_id = ?))",
+                   set_type,
+                   timelineable.class.to_s,
+                   timelineable.id)
         }
 
   scope :not_used_in_phase,

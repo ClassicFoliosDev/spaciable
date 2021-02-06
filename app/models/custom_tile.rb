@@ -13,6 +13,7 @@ class CustomTile < ApplicationRecord
   attr_accessor :image_cache
 
   validates :title, :description, :button, presence: true, unless: :feature?
+  validates :tileable_id, presence: true, if: :content_proforma?
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?
   validates :feature, presence: true, if: :feature?
@@ -25,6 +26,7 @@ class CustomTile < ApplicationRecord
     feature
     document
     link
+    content_proforma
   ]
 
   enum feature: {
