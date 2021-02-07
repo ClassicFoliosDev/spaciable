@@ -40,7 +40,7 @@
 
     if ($("#categorySelector").length == 0) { return }
 
-    set_selections()
+    set_selections(false)
 
     $("#custom_tile_category").selectmenu({
       select: function (event, ui) {
@@ -111,7 +111,7 @@
           $("#" + $("#featureSelector select").val()).show()
         }
       }
-  })
+    })
 
     $("#custom_tile_tileable_id").selectmenu({
       select: function (event, ui) {
@@ -169,7 +169,7 @@
 
   // --- FUNCTIONS ---
 
-  function set_selections(reset=false){
+  function set_selections(reset){
     var $val = $("#categorySelector select").val()
 
     if ($val == feature) {
@@ -179,54 +179,55 @@
       $(contentSection).hide()
       $(proformaSection).hide()
       $(featSection).show()  // show section
-      featurePreview()  // show preview
       if (reset) {
         // reset input
         resetDoc()
         resetLink()
         resetProforma()
       }
+      featurePreview()  // show preview
     } else if ($val == proforma) {
       // hide sections
       $(featSection).hide()
       $(docSection).hide()
       $(linkSection).hide()
       $(proformaSection).show()  // show section
-      showContent(false)
       if (reset) {
         // reset input
         resetFeature()
         resetDoc()
         resetLink()
       }
+      $(contentSection).show()
+      customTilePreview()
     } else if ($val == doc) {
       // hide sections
       $(featSection).hide()
       $(linkSection).hide()
       $(proformaSection).hide()
       $(docSection).show()
-      showContent()
-      customTilePreview() // show preview
       if (reset) {
         // reset input
         resetFeature()
         resetLink()
         resetProforma()
       }
+      $(contentSection).show()
+      customTilePreview() // show preview
     } else if ($val == link) {
       // hide sections
       $(featSection).hide()
       $(docSection).hide()
       $(proformaSection).hide()
       $(linkSection).show()
-      showContent()
-      customTilePreview() // show preview
       if (reset) {
         // reset input
         resetFeature()
         resetDoc()
         resetProforma()
       }
+      $(contentSection).show()
+      customTilePreview() // show preview
     }
   }
 
@@ -273,6 +274,7 @@
       $(proformaSelect).find(".ui-selectmenu-text")[0].innerHTML = "&nbsp;"
     }
     $("#custom_tile_tileable_type").val("")
+    resetContent()
     hideCustomTilePreview()
   }
 
@@ -361,11 +363,5 @@
     }
     $(iconTile).show()
   }
-
-  function showContent(showImage = true){
-    $(contentSection).show()
-    $('.image-container').css('display', showImage ? 'block' : 'none')
-  }
-
 
 })(document, window.jQuery)

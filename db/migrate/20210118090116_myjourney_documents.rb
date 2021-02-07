@@ -13,6 +13,7 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
         add_reference :stages, :stage_set, foreign_key: true
         add_reference :timelines, :stage_set, foreign_key: true
         add_column :timelines, :description, :string, default: "Track your progress towards your move and pick up plenty of tips along the way."
+        add_reference :custom_tiles, :tileable, polymorphic: true, index: true
 
         journey = StageSet.create(stage_set_type: :journey)
         Stage.all.order(:id).each_with_index do |stage, index|
@@ -36,6 +37,7 @@ class MyjourneyDocuments < ActiveRecord::Migration[5.0]
         remove_reference :stages, :stage_set
         remove_reference :timelines, :stage_set
         remove_column :timelines, :description
+        remove_reference :custom_tiles, :tileable, polymorphic: true
         drop_table :stage_sets
       }
     end

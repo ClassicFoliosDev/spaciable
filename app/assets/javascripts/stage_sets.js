@@ -87,6 +87,37 @@ var ss = {
     })
   },
 
+
+  deleteSection: function(button) {
+    button.closest('tr').remove()
+    ss.setRowStatuses()
+    ss.renumberSections()
+  },
+
+  validate: function(){
+    valid = true
+
+    ss.sectionRows().each(function( index ) {
+      title = $(this).find("td input")
+      if (title.val() != "") {
+        title.removeClass('field_with_errors')
+        $(this).find("#title_error").remove()
+      } else {
+        valid = false
+        if (!title.hasClass('field_with_errors')) {
+          title.addClass('field_with_errors')
+          title.after( "<span id='title_error' class='error'>is required, and must not be blank.</span>")
+        }
+      }
+    })
+
+    if (valid) { ss.submit() }
+  },
+
+  submit: function(){
+      $.post($(".edit_stage_set").attr("action"), $(".edit_stage_set").serialize())
+  },
+
   checkDependents: function(button){
     button.click(function() {
 
@@ -146,38 +177,7 @@ var ss = {
         })
       }
     })
-  },
-
-  deleteSection(button) {
-    button.closest('tr').remove()
-    ss.setRowStatuses()
-    ss.renumberSections()
-  },
-
-  validate: function(){
-    valid = true
-
-    ss.sectionRows().each(function( index ) {
-      title = $(this).find("td input")
-      if (title.val() != "") {
-        title.removeClass('field_with_errors')
-        $(this).find("#title_error").remove()
-      } else {
-        valid = false
-        if (!title.hasClass('field_with_errors')) {
-          title.addClass('field_with_errors')
-          title.after( "<span id='title_error' class='error'>is required, and must not be blank.</span>")
-        }
-      }
-    })
-
-    if (valid) { ss.submit() }
-  },
-
-  submit: function(){
-      $.post($(".edit_stage_set").attr("action"), $(".edit_stage_set").serialize())
   }
-
 }
 
 
