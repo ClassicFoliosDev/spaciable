@@ -3747,7 +3747,7 @@ en:
     edit:
       title: "Name"
     form:
-      description: "Characters max 100"
+      notes: "Notes"
       submit: "Submit"
     components:
       timeline:

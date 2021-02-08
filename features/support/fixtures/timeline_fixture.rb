@@ -90,9 +90,10 @@ module TimelineFixture
     }
   end
 
-  def create_timeline(name, klass)
+  def create_timeline(name, klass, type = :journey)
     timeline = Timeline.create(timelineable: klass,
-                               title: name)
+                               title: name,
+                               stage_set: StageSet.find_by(stage_set_type: type))
 
     how_tos = Shortcut.find_by(shortcut_type: :how_tos)
     faqs = Shortcut.find_by(shortcut_type: :faqs)

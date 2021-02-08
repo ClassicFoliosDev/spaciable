@@ -109,7 +109,6 @@ class CustomTile < ApplicationRecord
   end
 
   def proforma_assoc?(plot)
-    #byebug
     return false unless tileable.is_a? Timeline
     PlotTimeline.matching(plot, tileable)&.present?
   end

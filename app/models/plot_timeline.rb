@@ -15,7 +15,7 @@ class PlotTimeline < ApplicationRecord
         lambda { |plot, timeline|
           joins(:phase_timeline)
             .where(plot: plot)
-            .find_by(phase_timelines: { timeline_id: timeline.id })
+            .where(phase_timelines: { timeline_id: timeline.id })
         }
 
   # Log non not_applicable responses for a Task.

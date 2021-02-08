@@ -6,10 +6,15 @@ Global.create(name: "CFAdmin") if Global.count == 0
 
 # Add the timeline stages
 if Stage.count == 0
-  Stage.create(title: 'Reservation')
-  Stage.create(title: 'Exchange')
-  Stage.create(title: 'Moving')
-  Stage.create(title: 'Living')
+  journey = StageSet.create(stage_set_type: :journey)
+  %w[Reservation Exchange Moving Living].each_with_index do |title, index|
+    Stage.create(title: title, order: index+1, stage_set_id: journey.id)
+  end
+
+  proforma = StageSet.create(stage_set_type: :proforma)
+  %w[Reservation Exchange Moving Living].each_with_index do |title, index|
+    Stage.create(title: title, order: index+1, stage_set_id: proforma.id)
+  end
 end
 
 # Add the shortcuts

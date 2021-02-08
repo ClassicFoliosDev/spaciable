@@ -104,6 +104,7 @@ end
 When(/^I delete task (.*)$/) do |task_title|
   select_task(task_title)
   click_on t("tasks.show.delete")
+  click_on t("tasks.show.delete")
   find(:xpath,"//button[contains(@class,'btn-delete')]").click()
 end
 
@@ -112,6 +113,7 @@ Then(/^tasks ([A-z]*) to ([A-z]*) should link together (.*)$/) do |first_task, l
   tasks = TimelineFixture.tasks[TimelineFixture.tasks.index{ |t| t[:title] == first_task}...TimelineFixture.tasks.index{ |t| t[:title] == last_task}]
 
   tasks.each do |task|
+    byebug
     find(:xpath, "//h2[text()='#{task[:title]}']") # check loaded
     if response == "positive"
       click_on task[:positive]
@@ -338,7 +340,7 @@ def check_success_update(component)
 end
 
 def select_task(task)
-  find(:xpath, "//span[text()='#{task}']/parent::li/parent::a").click()
+  find(:xpath, "//span[text()='#{task}']/parent::li/parent::a").trigger('click')
   find(:xpath, "//h2[text()='#{task}']")# check loaded
 end
 
@@ -377,7 +379,7 @@ Then(/^I see no allocated timelines for the phase$/) do
 end
 
 Then(/^I can allocate plots (.*) to (.*)$/) do |plots, timeline|
-  click_on t("phase_timelines.collection.add")
+  click_on t("phase_timelines.collection.add_journey")
   find(".phase_timeline_timeline_id")
   select_from_selectmenu :phase_timeline_timeline_id, with: eval(timeline)
   plots.split(",").each do |plot|
@@ -394,7 +396,7 @@ Then(/^I can allocate plots (.*) to (.*)$/) do |plots, timeline|
 end
 
 Then(/^I can use Add All Plots to allocate plots (.*) to (.*). (.*) and plots (.*) are't available for selection$/) do |add_plots, to_timeline, unavailable_plots, unavailable_timeline|
-  click_on t("phase_timelines.collection.add")
+  click_on t("phase_timelines.collection.add_journey")
   find(".phase_timeline_timeline_id")
 
   expect(page).not_to have_selector(:xpath, "//option[contains(text(),'#{unavailable_timeline}')]")

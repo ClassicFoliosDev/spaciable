@@ -166,11 +166,6 @@ class Plot < ApplicationRecord
   delegate :locality, :city, :county, to: :parent, allow_nil: true
   delegate :api_key, to: :developer, allow_nil: true
 
-  def timeline_title
-    byebug
-    "poooooo"
-  end
-
   def building_name
     if address&.building_name?
       address.building_name

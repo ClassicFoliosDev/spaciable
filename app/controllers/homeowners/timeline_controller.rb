@@ -87,7 +87,7 @@ module Homeowners
     # PlotTimeline is the homeowner reference into a timeline
     def build_timeline
       @timeline = Timeline.find(params[:timeline_id])
-      @plot_timeline = PlotTimeline.matching(@plot, @timeline)
+      @plot_timeline = PlotTimeline.matching(@plot, @timeline).first
       @task = @plot_timeline&.task # the last recorded Timeline task
       @logs = @plot_timeline.task_logs # all recorded logs
       @complete = :complete if @plot_timeline.complete

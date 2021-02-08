@@ -53,7 +53,7 @@ module Phases
       return unless @phase_timeline
 
       @timelines += [@phase_timeline.timeline]
-      @plots += @phase_timeline.plots
+      @plots += @phase_timeline.plots if type == "journey"
     end
 
     def phase_timeline_params

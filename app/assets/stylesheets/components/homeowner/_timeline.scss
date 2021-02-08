@@ -369,7 +369,7 @@
       }
     }
 
-    #answer, #proforma {
+    #answer {
       margin-top: $spacing-large;
       margin-left: $spacing-large;
       text-align: left;
@@ -718,10 +718,6 @@
           }
         }
       }
-    }
-
-    #proforma {
-      display: block;
     }
   }
 }
@@ -1194,6 +1190,10 @@
       margin-left: 0;
     }
   }
+
+  .mobile-off {
+      display: none;
+   }
 
   .timeline-task .timeline-sidebar .timeline-header-mobile .overlay .progress-container .progress {
     display: inline-block;

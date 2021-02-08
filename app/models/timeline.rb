@@ -11,6 +11,7 @@ class Timeline < ApplicationRecord
   has_many :phase_timelines, dependent: :destroy
   has_one :finale, dependent: :destroy
   has_many :tasks, dependent: :destroy
+  has_many :custom_tiles, as: :tileable, dependent: :destroy
   belongs_to :stage_set
   delegate :stages, :stage_set_type, to: :stage_set
   delegate :clone?, to: :stage_set, prefix: true
