@@ -5,10 +5,6 @@ module StageSetHelper
     timeline.stage_set.journey? ? "answer" : "proforma"
   end
 
-  def skip_prev(task)
-    task.stage_set.journey? ? task.next : task.prev
-  end
-
   def skip_direction(task)
     task.stage_set.journey? ? :forward : :back
   end

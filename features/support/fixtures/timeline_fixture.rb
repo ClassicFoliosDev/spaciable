@@ -163,5 +163,8 @@ module TimelineFixture
     TaskLog.create(plot_timeline: pt)
   end
 
+  def timeline(title)
+    Timeline.find_by(title: title)
+  end
 
 end

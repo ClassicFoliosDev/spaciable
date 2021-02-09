@@ -113,13 +113,12 @@ Then(/^tasks ([A-z]*) to ([A-z]*) should link together (.*)$/) do |first_task, l
   tasks = TimelineFixture.tasks[TimelineFixture.tasks.index{ |t| t[:title] == first_task}...TimelineFixture.tasks.index{ |t| t[:title] == last_task}]
 
   tasks.each do |task|
-    byebug
     find(:xpath, "//h2[text()='#{task[:title]}']") # check loaded
     if response == "positive"
       click_on task[:positive]
     elsif response == "negative"
       find(:xpath, "//div[@id='viewAnswer']").click()
-      click_on t("tasks.show.done")
+      click_on t("tasks.show.#{TimelineFixture.timeline(find(".section-title").text).stage_set_type}.done")
     end
   end
 end

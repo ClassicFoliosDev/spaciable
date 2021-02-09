@@ -3796,7 +3796,7 @@ en:
         skip: "Skip"
       proforma:
         done: "Next"
-        skip: "Prev"
+        prev: "Prev"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"

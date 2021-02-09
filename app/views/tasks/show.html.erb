@@ -60,10 +60,10 @@
                   <p><%= @task.question %></p>
                 </div>
                 <div class="actions">
-                  <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive %>
+                  <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive, show_blank: true %>
                   <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
                   <% if @task.not_applicable %>
-                    <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable") %>
+                    <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable"), show_blank: true %>
                   <% end %>
 
                 </div>
@@ -161,10 +161,14 @@
                     <% end %>
                   <% end %>
                 <% end %>
-                <% if @timeline.stage_set.journey? || @task.prev %>
-                  <%= render "next", timeline: @timeline, task: skip_prev(@task), button_text: t(".#{@timeline.stage_set.stage_set_type}.skip") %>
+                <% if @timeline.stage_set.journey? %>
+                  <%= render "next", timeline: @timeline, task: @task, button_text: t(".journey.skip"), show_blank: true %>
+                <% elsif @task.prev %>
+                  <a href="<%= timeline_task_path @timeline, @task.prev %>" class="timeline-btn navigation-btn">
+                    <%= t(".proforma.prev") %>
+                  </a>
                 <% end %>
-                <%= render "next", timeline: @timeline, task: @task.next, button_text: t(".#{@timeline.stage_set.stage_set_type}.done") %>
+                <%= render "next", timeline: @timeline, task: @task, button_text: t(".#{@timeline.stage_set.stage_set_type}.done"), show_blank: @timeline.stage_set.journey? %>
               </div>
             </div>
           </div>
