@@ -132,6 +132,10 @@ class Timeline < ApplicationRecord
     finale && Task.find_by(timeline_id: id)
   end
 
+  def supports?(feature)
+    timelineable.is_a?(Global) || timelineable.supports?(feature)
+  end
+
   private
 
   def add_stages

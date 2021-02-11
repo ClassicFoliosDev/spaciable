@@ -230,6 +230,27 @@ class Developer < ApplicationRecord
     faq_types
   end
 
+  # rubocop:disable Metrics/MethodLength
+  def supports?(feature)
+    return false unless feature
+
+    case feature.to_sym
+    when :area_guide
+      house_search?
+    when :home_designer
+      enable_roomsketcher?
+    when :referrals
+      enable_referrals?
+    when :services
+      enable_services?
+    when :buyers_club
+      enable_perks?
+    when :custom_url, :issues, :snagging, :tour, :calendar
+      true
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and

@@ -86,7 +86,7 @@ module Homeowners
     end
 
     def record_event(action, *params)
-      return unless @plot
+      return unless @plot && current_resident
 
       event_params = params.present? ? params[0] : {}
       event_params[:plot_id] = @plot.id

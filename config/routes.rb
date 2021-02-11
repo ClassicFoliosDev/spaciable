@@ -251,6 +251,7 @@ Rails.application.routes.draw do
       post 'feedback'
       post 'viewed'
     end
+    resource :analytics_event, only: %i[create], format: :json
   end
 
   scope :homeowners, module: :homeowners do

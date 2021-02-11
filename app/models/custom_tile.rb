@@ -3,6 +3,8 @@
 #rubocop:disable all
 class CustomTile < ApplicationRecord
   include HTTParty
+  include GuideEnum
+
 
   belongs_to :development
 
@@ -35,11 +37,6 @@ class CustomTile < ApplicationRecord
     snagging: 6,
     timeline: 7
   }
-
-  enum guide: %i[
-    reservation
-    completion
-  ]
 
   delegate :snag_name, to: :development
 
@@ -101,19 +98,12 @@ class CustomTile < ApplicationRecord
 
   def active_document(documents)
     return true if file? || document_id?
-    if guide?
-      return true if completion? && completion_guide(documents)
-      return true if reservation? && reservation_guide(documents)
-    end
+    CustomTile.guides.each { | g, _ | return true if guide_populated(g, documents) }
     false
   end
 
-  def completion_guide(documents)
-    documents.find_by(guide: "completion")
-  end
-
-  def reservation_guide(documents)
-    documents.find_by(guide: "reservation")
+  def guide_populated(guide, documents)
+    return send("#{guide}?") && documents.find_by(guide: guide)
   end
 
   def iframeable?(link)

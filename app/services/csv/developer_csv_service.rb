@@ -5,7 +5,7 @@ module Csv
     # rubocop:disable Metrics/MethodLength
     def self.call(report)
       if report.developer_id == I18n.t(".lists.all_value")
-        developers = Developer.all
+        developers = Developer.where(is_demo: false)
         filename = build_filename("all_developers")
       else
         developers = [Developer.find(report.developer_id)]
