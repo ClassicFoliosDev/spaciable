@@ -7,9 +7,8 @@ Feature: Visits
   Scenario: No Visits
   Given I have seeded the timeline
   And I have a TimelineFixture.england timeline
+  And I have a TimelineFixture.purchase_guide proforma timeline
   Given there are diverse developments with plots and residents
-  And I have seeded the timeline
-  And I have a TimelineFixture.england timeline
   When I log in as resident 1_1
   And I navigate through the homeowner site
   Then I log out as a homeowner

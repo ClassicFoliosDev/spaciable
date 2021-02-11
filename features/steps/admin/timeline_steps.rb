@@ -137,8 +137,12 @@ When(/^I can see the (.*) (.*) finale in the timeline$/) do |state, content|
   expect(page).to have_content(TimelineFixture.finale[content.to_sym]["#{state}_message".to_sym])
 end
 
-When(/^I have a (.*) timeline$/) do |timeline|
+When(/^I have a ([a-zA-Z._]*) timeline$/) do |timeline|
   TimelineFixture.create_timeline(eval(timeline), Global.root)
+end
+
+When(/^I have a ([a-zA-Z._]*) proforma timeline$/) do |timeline|
+  TimelineFixture.create_timeline(eval(timeline), Global.root, :proforma)
 end
 
 When(/^I clone the (.*) timeline$/) do |timeline|
@@ -242,7 +246,7 @@ Then(/^I should see the (.*) timeline message$/) do |message|
   expect(page).to have_content TimelineFixture.finale[:content]["#{message}_message".to_sym]
 end
 
-def add_update_task(task_title, action)
+def add_update_task(task_title, action, proforma=false)
   task = TimelineFixture.timeline_task(task_title)
 
   expect(page).to have_content(action)
@@ -254,6 +258,7 @@ def add_update_task(task_title, action)
 
   page.choose({id: "task_stage_id_#{task[:stage_id]}"}) if action != t("tasks.show.edit")
   %i[title question answer positive negative].each do |field|
+    next if proforma && [:question, :positive,:negative].include?(field)
     fill_in "task_#{field}", with: task[field]
   end
 
@@ -468,7 +473,65 @@ Then(/^all timeline dependencies are deleted$/) do
   expect(PhaseTimeline.all.count).to eql 0
 end
 
+Then(/^I can create a content proforma$/) do
+  visit "/"
+  click_on t("components.navigation.timeline")
+  add = t("timelines.collection.create")
+  find(:xpath, "//a[text()='#{add}']")
+  click_on add
 
+  fill_in "timeline[title]", with: TimelineFixture.purchase_guide
+  select_from_selectmenu :timeline_stage_set_id, with: t("stage_sets.proforma")
+  click_on t("timelines.form.submit")
+  find(:xpath, "//td[text()='#{t("stage_sets.proforma")}']")
+end
+
+When(/^I (.*) the (.*) task to proforma (.*)$/) do |action, task_title, timeline|
+  add_update_task(task_title, eval(action), true)
+end
+
+When(/^I add proforma task ([A-z]*) (t.*) for (.*)$/) do |task_title, action, _|
+  add_update_task(task_title, eval(action), true)
+end
+
+Then(/^I can select task ([A-z]*)$/) do |task_title|
+  find(:xpath, "//a/li/span[text()='#{task_title}']").trigger('click')
+end
+
+Then(/^I can click (.*) to move to task (.*)$/) do |button, task|
+  click_on eval(button)
+  find(:xpath, "//h2[text()='#{task}']")
+end
+
+Then(/^I should see the (.*) button$/) do |title|
+  expect(page).to have_content(eval(title))
+end
+
+Then(/^I should not see the (.*) button$/) do |title|
+  expect(page).not_to have_content(eval(title))
+end
+
+Then(/^I can edit the (.*) sections$/) do |task|
+  click_on t("tasks.show.edit_stageset", title: eval(task))
+  find(:xpath, "//span[text()='Edit #{eval(task)} sections']")
+
+  #move set one down
+  find(:xpath,"(//td/button[@id='down'])[1]").trigger('click')
+  #delete the last
+  find(:xpath,"(//td/button[@id='trash'])[4]").trigger('click')
+  # Add a new one
+  find(:xpath,"(//td/button[@id='below'])[4]").trigger('click')
+  find(:xpath, "//input[@placeholder='New']")
+  sleep 1
+  fill_in "stage_set[stages_attributes][3][title]", with: TimelineFixture.new_stage
+
+  click_on t("timelines.form.submit")
+
+  expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[1]").text).to eql Stage.find(6).title
+  expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[2]").text).to eql Stage.find(5).title
+  expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[3]").text).to eql Stage.find(7).title
+  expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[4]").text).to eql TimelineFixture.new_stage
+end
 
 
 

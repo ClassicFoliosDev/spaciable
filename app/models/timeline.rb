@@ -188,7 +188,7 @@ class Timeline < ApplicationRecord
       next unless tasks
 
       prev_task&.update_attributes(next_id: tasks.first.id)
-      prev_task = tasks.last
+      prev_task = tasks.to_a.last
     end
 
     prev_task&.update_attributes(next_id: nil)

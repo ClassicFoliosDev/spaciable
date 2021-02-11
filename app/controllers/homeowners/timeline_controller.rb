@@ -53,13 +53,14 @@ module Homeowners
       @task = @timeline.task(params[:task_id])
       @plot_timeline.log(@task, params[:response].to_sym)
 
-      if @task
+      if @task && @timeline.stage_set.journey?
         record_event(
           @timeline.event_tag,
           category1: @task&.title,
           category2: I18n.t("homeowners.timeline.task.#{params[:response_action]}")
         )
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
 
       respond_to do |format|
         format.html do
@@ -112,8 +113,7 @@ module Homeowners
 
     def complete
       return unless @complete
-
-      I18n.t("homeowners.timeline.#{@plot_timeline.stage_set.stage_set_type}.done")
+      "Complete"
     end
   end
 end

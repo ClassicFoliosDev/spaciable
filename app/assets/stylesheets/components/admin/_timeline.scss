@@ -160,7 +160,6 @@ select {
         color: $semi-pale-navy;
 
         .sub-stage-container {
-          border: 1px solid $ui-grey;
           margin: $spacing-medium;
           margin-left: 18px;
           padding: 6px;
@@ -187,11 +186,14 @@ select {
 
           span {
             font-size: $base-small-font-size;
+
+            &.heading {
+              font-size: 16;
+            }
           }
         }
 
         .active {
-          border: 2px solid $ui-grey;
           background-color: $ui-superlight-grey;
           color: $primary-navy;
 
@@ -616,8 +618,7 @@ select {
 
     .sub-stage {
       .sub-stage-container {
-        border: 1px solid $ui-grey;
-        margin: $spacing-medium;
+        margin: $spacing-small;
         margin-left: $spacing-small;
         padding: 6px;
         padding-left: $spacing-medium;

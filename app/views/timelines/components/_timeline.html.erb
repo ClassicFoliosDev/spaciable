@@ -23,7 +23,7 @@
                 <a class="stage" id = "<%= 'activeTaskScroll' if tt == task %>" href="<%= timeline_task_path timeline, tt %>">
               <% end %>
               <li class="sub-stage-container branded-text <%= 'active' if task.present? && task == tt %>">
-                  <span class=<%= "stage" if !links%>><%= tt.title %></span>
+                  <span class="<%= tt.title_class%> <%= 'stage' if !links%>"><%= tt.title %></span>
               </li>
               <% if action?(:new) && insert_mode == :after && tt.id == insertion_task.id %>
                 <li class="sub-stage-container new">
