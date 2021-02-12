@@ -21,10 +21,8 @@ class Plot < ApplicationRecord
   belongs_to :developer, optional: false
   has_one :crm, through: :developer
   belongs_to :division, optional: true
-  has_one :plot_timeline, dependent: :destroy
-  accepts_nested_attributes_for :plot_timeline, reject_if: :all_blank, allow_destroy: true
-
-  delegate :timeline_title, to: :plot_timeline, allow_nil: true
+  has_many :plot_timelines, dependent: :destroy
+  accepts_nested_attributes_for :plot_timelines, reject_if: :all_blank, allow_destroy: true
 
   belongs_to :choice_configuration
   has_many :room_choices, dependent: :destroy
@@ -100,18 +98,28 @@ class Plot < ApplicationRecord
   after_update :post_update
   after_save :check_completion
 
-  # Retrieve all plots for the phase that are allocated to a timeline
+  # Retrieve all plots for the phase that are allocated to a specified
+  # timeline
   scope :on_phase_timeline,
         lambda { |phase_timeline|
-          joins(plot_timeline: :phase_timeline)
+          joins(plot_timelines: :phase_timeline)
             .where(phase_timelines: { id: phase_timeline.id }).order(:id)
         }
 
-  # Retrieve all plots for the phase that are NOT allocated to a timeline
-  scope :timeline_free,
+  # Retrieve all plots in this phase on a journey
+  scope :on_journey,
         lambda { |phase|
-          left_outer_joins(:plot_timeline)
-            .where(phase_id: phase.id, plot_timelines: { plot_id: nil }).order(:id)
+          joins(plot_timelines: { phase_timeline: { timeline: :stage_set } })
+            .where(stage_sets: { stage_set_type: 0 })
+            .where(phase_timelines: { phase_id: phase.id })
+        }
+
+  # Retrieve all plots for the phase that are NOT allocated to a journey timeline
+  scope :journey_free,
+        lambda { |phase|
+          where(phase_id: phase.id)
+            .where.not(id: on_journey(phase))
+            .order(:id)
         }
 
   enum progress: %i[
@@ -192,8 +200,12 @@ class Plot < ApplicationRecord
     end
   end
 
-  def timeline
-    plot_timeline&.timeline_id
+  def journey
+    Timeline.of_stage_set_type(self, :journey)&.first
+  end
+
+  def proformas
+    Timeline.of_stage_set_type(self, :proforma)
   end
 
   def prefix

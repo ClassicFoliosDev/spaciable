@@ -10,7 +10,7 @@
                         <%= 'complete' if logs.find_by(task_id: t.id)&.response == 'positive' %>
                         <%= 'negative' if logs.find_by(task_id: t.id)&.response == 'negative' %>
                         <%= 'complete' if logs.find_by(task_id: t.id)&.response == 'not_applicable' %>">
-                <a href=<%="#{show_timeline_task_path(t)}"%>><%= t.title %></a>
+                <a class="<%= t.title_class %>" href=<%="#{timeline_homeowner_task_path(timeline, t)}"%>><%= t.title %></a>
                 <% if parent == :task && t == task %>
                   <div id="timelineContentMobile">
                     <!-- use javascript to migrate all of the timeline-content children to here -->

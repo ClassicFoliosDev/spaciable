@@ -875,7 +875,7 @@ end
 
 crumb :custom_tile_edit do |custom_tile|
   link t("breadcrumbs.custom_tile_edit",
-         tile: custom_tile.title? ? custom_tile.title : I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}")), [:edit, custom_tile]
+         tile: custom_tile.feature? ? I18n.t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}") : custom_tile.title), [:edit, custom_tile]
   parent :custom_tiles, custom_tile.parent
 end
 
@@ -968,6 +968,12 @@ end
 crumb :timeline_import do |developer|
   link t("breadcrumbs.timeline_import"), developer_path(developer)
   parent :developer, developer
+end
+
+# Stage Set
+crumb :stage_set_edit do |timeline|
+  link t("breadcrumbs.stage_set_edit", title: timeline.title)
+  parent :timeline, timeline
 end
 
 # TASK

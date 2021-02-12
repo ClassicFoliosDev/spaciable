@@ -71,9 +71,10 @@ module VisitsFixture
         CreateFixture.create_resident(send("resident#{d}_#{v}_name"),
                                       plot: send("plot#{d}_#{v}"))
 
-        phase_timeline = PhaseTimeline.create(phase: phase, timeline: Timeline.first)
-
-        PlotTimeline.create(phase_timeline: phase_timeline, plot: send("plot#{d}_#{v}"))
+        [TimelineFixture.england, TimelineFixture.purchase_guide].each do |tl|
+          phase_timeline = PhaseTimeline.create(phase: phase, timeline: Timeline.find_by(title: tl))
+          PlotTimeline.create(phase_timeline: phase_timeline, plot: send("plot#{d}_#{v}"))
+        end
 
         # ensure the plots are completed
         send("plot#{d}_#{v}").update_attributes(completion_release_date: Time.zone.now - 1.week,
@@ -105,7 +106,9 @@ module VisitsFixture
     return unless level < params.count
     h = VisitorFilter.hash(params[0..level])
     results[h] ||= {visits: []}
-    results[h][:visits] << meta
+    metad = meta.dup
+    params.each_with_index { |p,i| metad["P#{i}"] = p }
+    results[h][:visits] << metad
     expect(meta, results[h], params, level+1) # recurse
   end
 

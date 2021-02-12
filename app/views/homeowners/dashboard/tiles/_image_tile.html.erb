@@ -9,6 +9,8 @@
   <div class="tile-button">
     <% if tile.document? %>
       <%= link_to tile.button, tile.document_location(documents.order(:documentable_type)), target: '_blank', class: "branded-btn" %>
+    <% elsif tile.content_proforma? %>
+      <%= link_to tile.button, homeowner_timeline_path(tile.tileable), class: "branded-btn" %>
     <% else %>
       <% link = tile.formatted_link %>
       <% if tile.iframeable?(link) %>

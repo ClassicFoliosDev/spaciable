@@ -59,6 +59,18 @@
         <fieldset id="customTileLink">
           <%= f.input :link, label: t(".link") %>
         </fieldset>
+
+       <fieldset id="customTileContentProforma">
+          <div class="ui-front" id="proformaSelector">
+            <%= f.hidden_field :tileable_type, value: Timeline.to_s %>
+            <%= f.input :tileable_id,
+              as: :select,
+              collection: tile_parent.proformas,
+              label_method: ->(proforma) { proforma.title },
+              label: t(".content_proforma"),
+              include_blank: true %>
+          </div>
+        </fieldset>
       </div>
 
       <div class="half">

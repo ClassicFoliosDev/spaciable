@@ -6,7 +6,7 @@ class PhaseTimeline < ApplicationRecord
   has_many :plot_timelines, dependent: :destroy
   has_many :plots, through: :plot_timelines, replace_with_destroy: true
 
-  delegate :live?, to: :timeline
+  delegate :live?, :stage_set, to: :timeline
   delegate :title, to: :timeline, prefix: true, allow_nil: true
 
   after_save :reset_plots

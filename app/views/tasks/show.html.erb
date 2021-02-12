@@ -43,6 +43,7 @@
             <% else %>
               <%= link_to t(".add_finale"), new_timeline_finale_path(@timeline, task_id: @task.id), class: "btn insert" %>
             <% end %>
+            <%= link_to t(".edit_stageset", title: @timeline.title), edit_timeline_stage_set_path(@timeline, @timeline.stage_set, task_id: @task.id), class: "btn insert" %>
           <% end %>
         </div>
       </div>
@@ -52,24 +53,26 @@
         <%= render "timelines/components/timeline", timeline: @timeline, task: @task, links: true, parent: :show %>
 
         <div class="timeline-content">
-          <div id="question">
-            <div class="question-content">
-              <div class="content">
-                <p><%= @task.question %></p>
-              </div>
-              <div class="actions">
-                <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive %>
-                <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
-                <% if @task.not_applicable %>
-                  <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable") %>
-                <% end %>
+          <% if @timeline.stage_set.journey? %>
+            <div id="question">
+              <div class="question-content">
+                <div class="content">
+                  <p><%= @task.question %></p>
+                </div>
+                <div class="actions">
+                  <%= render "next", timeline: @timeline, task: @task, button_text: @task.positive, show_blank: true %>
+                  <div class="timeline-btn" id="viewAnswer"><%= @task.negative %></div>
+                  <% if @task.not_applicable %>
+                    <%= render "next", timeline: @timeline, task: @task, button_text: t(".not_applicable"), show_blank: true %>
+                  <% end %>
 
+                </div>
               </div>
+              <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
             </div>
-            <div class="image" style="background-image: url('<%= @task.picture%>')"></div>
-          </div>
+          <% end %>
 
-          <div id="answer">
+          <div id= <%= display_section(@timeline) %>>
             <div class="answer-container">
               <h2><%= @task.answer %></h2>
               <p><%= simple_format @task.response %></p>
@@ -95,6 +98,11 @@
 
             <!-- can't show contact info because preview isn't associated with a plot -->
             <aside class="contact-container">
+              <% if @timeline.stage_set.proforma? && @task.picture? %>
+                <div>
+                  <img src='<%= image_path(@task.picture)%>' style="width:100%;padding-bottom:10" >
+                </div>
+              <% end %>
               <h4><%= t(".contacts") %></h4>
               <p class="disclaimer"> <%= t(".contacts_disclaimer") %></p>
               <div class="contact">
@@ -153,8 +161,14 @@
                     <% end %>
                   <% end %>
                 <% end %>
-                <%= render "next", timeline: @timeline, task: @task, button_text: t(".skip") %>
-                <%= render "next", timeline: @timeline, task: @task, button_text: t(".done") %>
+                <% if @timeline.stage_set.journey? %>
+                  <%= render "next", timeline: @timeline, task: @task, button_text: t(".journey.skip"), show_blank: true %>
+                <% elsif @task.prev %>
+                  <a href="<%= timeline_task_path @timeline, @task.prev %>" class="timeline-btn navigation-btn">
+                    <%= t(".proforma.prev") %>
+                  </a>
+                <% end %>
+                <%= render "next", timeline: @timeline, task: @task, button_text: t(".#{@timeline.stage_set_type}.done"), show_blank: @timeline.stage_set.journey? %>
               </div>
             </div>
           </div>
