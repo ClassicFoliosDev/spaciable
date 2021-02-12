@@ -40,6 +40,10 @@
       <%= f.check_box :pinned %>
       <p class="checkbox-description"><%= t(".pinned_description") %></p>
       <br/><br/>
+      <%= f.label :lau_visible, t(".lau_visible") %>
+      <%= f.check_box :lau_visible %>
+      <p class="checkbox-description"><%= t(".lau_visible_description") %></p>
+      <br/><br/>
 
       <%= f.hidden_field :user_id, value: current_user.id %>
 
