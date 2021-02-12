@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201228161740) do
+ActiveRecord::Schema.define(version: 20210212131242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -452,6 +452,7 @@ ActiveRecord::Schema.define(version: 20201228161740) do
     t.string   "file_tmp"
     t.integer  "user_id"
     t.integer  "guide"
+    t.boolean  "lau_visible",       default: false
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
     t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
@@ -1152,8 +1153,8 @@ ActiveRecord::Schema.define(version: 20201228161740) do
 
   create_table "timeline_stages", force: :cascade do |t|
     t.integer "timeline_id"
-    t.integer "stage_id"
     t.integer "order"
+    t.integer "stage_id"
     t.index ["stage_id"], name: "index_timeline_stages_on_stage_id", using: :btree
     t.index ["timeline_id"], name: "index_timeline_stages_on_timeline_id", using: :btree
   end
@@ -1318,7 +1319,6 @@ ActiveRecord::Schema.define(version: 20201228161740) do
   add_foreign_key "task_shortcuts", "tasks"
   add_foreign_key "tasks", "stages"
   add_foreign_key "tasks", "timelines"
-  add_foreign_key "timeline_stages", "stages"
   add_foreign_key "timeline_stages", "timelines"
   add_foreign_key "unit_types", "developers"
   add_foreign_key "unit_types", "developments"

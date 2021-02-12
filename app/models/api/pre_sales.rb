@@ -2,18 +2,24 @@
 
 module Api
   class PreSales
+
+    FAILED_TO_FIND = 1
+    ALREADY_ALLOCATED = 2
+    ADDED_NEW = 3
+    ADDED_EXISTING = 4
+
     def initialize(params)
       @params = params
       find_plot
     end
 
     def add_limited_access_user
-      yield(@message, 501) unless @plot
+      yield(@message, FAILED_TO_FIND, 501) unless @plot
 
       @tenant = existing = Resident.find_by(email: @params[:email])
 
       if @tenant.nil?
-        @tenant = Api::Tenant.new(@params.except(:development, :plot_number))
+        @tenant = Api::Tenant.new(@params.except(:development, :phase, :plot_number))
         @tenant.developer_email_updates = true
         @tenant.create_without_password
       end
@@ -28,16 +34,18 @@ module Api
     private
 
     def find_plot
-      @plot = Plot.joins(:development, :developer)
+      @plot = Plot.joins(:development, :developer, :phase)
                   .find_by(number: @params[:plot_number],
+                           phases: { name: @params[:phase] },
                            developments: { name: @params[:development] },
                            developers: { id: RequestStore.store[:current_user].developer })
 
       return if @plot
 
       @message = I18n.t("api.pre_sales.invalid_plot_development",
-                        plot_number: @params[:plot_number],
-                        development: @params[:development])
+                        development: @params[:development],
+                        phase: @params[:phase],
+                        plot_number: @params[:plot_number])
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -46,7 +54,7 @@ module Api
 
       if plot_residency && !plot_residency.deleted_at?
         yield I18n.t("residents.create.plot_residency_already_exists",
-                     email: @tenant.email, plot: @plot), 501
+                     email: @tenant.email, plot: @plot), ALREADY_ALLOCATED, 501
       elsif new_tenant
         plot_residency_and_invitation(plot_residency)
         Mailchimp::MarketingMailService.call(@tenant, @plot, activation_status)
@@ -54,13 +62,13 @@ module Api
                      name: @tenant.full_name,
                      plot_number: @plot.number,
                      development: @params[:development],
-                     email: @params[:email]), 201
+                     email: @params[:email]), ADDED_NEW, 201
       else
         plot_residency_and_invitation(plot_residency)
         yield I18n.t("residents.create.existing_resident_added",
                      name: @tenant.full_name,
                      plot_number: @plot.number,
-                     development: @params[:development]), 201
+                     development: @params[:development]), ADDED_EXISTING, 201
       end
     end
     # rubocop:enable Metrics/MethodLength

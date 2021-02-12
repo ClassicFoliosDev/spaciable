@@ -143,6 +143,11 @@ class Plot < ApplicationRecord
     choices_rejected
   ]
 
+  # to satisfy 'plots' interface for all documentable_types
+  def plots
+    [self]
+  end
+
   def rooms(room_scope = Room.all)
     templated_room_ids = plot_rooms.with_deleted.pluck(:template_room_id).compact
     unit_type_rooms_relation = room_scope

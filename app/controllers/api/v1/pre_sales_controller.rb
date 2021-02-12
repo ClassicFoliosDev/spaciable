@@ -4,8 +4,8 @@ module Api
   module V1
     class PreSalesController < Api::AdminController
       def create
-        Api::PreSales.new(pre_sales_params).add_limited_access_user do |message, status|
-          render json: { message: message }, status: status
+        Api::PreSales.new(pre_sales_params).add_limited_access_user do |m, s, h_s|
+          render json: { message: m, result: s }, status: h_s
           break
         end
       end
@@ -14,7 +14,7 @@ module Api
 
       def pre_sales_params
         params.require(:pre_sale).permit(
-          :development, :plot_number, :email, :phone_number, :first_name, :last_name
+          :development, :phase, :plot_number, :email, :phone_number, :first_name, :last_name
         )
       end
     end
