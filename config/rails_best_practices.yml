@@ -34,7 +34,7 @@ ReplaceInstanceVariableWithLocalVariableCheck: { ignored_files: [app/views/compo
 SimplifyRenderInControllersCheck: { }
 SimplifyRenderInViewsCheck: { }
 #UseBeforeFilterCheck: { customize_count: 2 }
-UseModelAssociationCheck: { }
+#UseModelAssociationCheck: { }
 UseMultipartAlternativeAsContentTypeOfEmailCheck: { }
 #UseParenthesesInMethodDefCheck: { }
 UseObserverCheck: { }
