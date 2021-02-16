@@ -33,7 +33,7 @@ class Task < ApplicationRecord
   validates :stage_id, presence: true
 
   delegate :stage_set, :finale, to: :timeline
-  delegate :title, to: :stage, prefix: true
+  delegate :title, :order, to: :stage, prefix: true
   delegate :description, :link, :title, :feature_type, to: :action, prefix: true
 
   enum title_class: %i[

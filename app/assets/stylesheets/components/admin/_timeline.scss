@@ -374,6 +374,12 @@ select {
         p {
           margin-bottom: 0;
         }
+
+        img {
+          width: auto;
+          padding-bottom: 10px;
+          max-height: 350px;
+        }
       }
 
       .timeline-footer {
