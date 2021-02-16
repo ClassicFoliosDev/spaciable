@@ -196,6 +196,10 @@
           font-size: $base-small-font-size;
           color: $ui-white;
         }
+
+        &.proforma {
+          width: 10%;
+        }
       }
     }
 
@@ -422,6 +426,12 @@
               font-weight: $bold-font-weight;
             }
           }
+        }
+
+        img {
+          width: auto;
+          padding-bottom: 10px;
+          max-height: 350px;
         }
       }
 

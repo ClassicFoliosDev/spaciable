@@ -15,10 +15,13 @@ module Phases
     end
 
     def new
+      @scope = params[:scope]
       @phase_timeline = PhaseTimeline.new(phase_id: @phase.id)
     end
 
-    def edit; end
+    def edit
+      @scope = @phase_timeline.stage_set_type
+    end
 
     def update
       if @phase_timeline.update(phase_timeline_params)

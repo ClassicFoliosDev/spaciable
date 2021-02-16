@@ -21,7 +21,7 @@
               </span>
               <% if @task.stage_set.journey? %>
                 <span class="progress-icon">
-                  <%= image_tag "#{@task.stage_title}_igloo.svg" %>
+                  <%= image_tag "stage#{@task.stage_order}_igloo.svg" %>
                 </span>
               <% end %>
             </div>
@@ -38,13 +38,13 @@
           <% end %>
           <p> <%= @task.stage_title %></p>
         </div>
-        <div class="progress">
+        <div class="progress <%=@timeline.stage_set_type%>">
           <span class="progress-count">
             <%= "#{@plot_timeline.progress_percent}%" %>
           </span>
           <% if @task.stage_set.journey? %>
             <span class="progress-icon">
-              <%= image_tag "#{@task.stage_title}_igloo.svg" %>
+              <%= image_tag "stage#{@task.stage_order}_igloo.svg" %>
             </span>
           <% end %>
         </div>
@@ -106,8 +106,8 @@
           <% if contacts || @task.picture? %>
             <aside class="contact-container">
               <% if @timeline.stage_set.proforma? && @task.picture? %>
-                <div class="mobile-off">
-                  <img src='<%= image_path(@task.picture)%>' style="width:100%;padding-bottom:10" >
+                <div class="mobile-off">s
+                  <img src='<%= image_path(@task.picture)%>' >
                 </div>
               <% end %>
               <% if contacts %>

@@ -1552,7 +1552,7 @@ en:
         skip: "Skip"
         done: "Complete"
       proforma:
-        skip: "Prev"
+        skip: "Previous"
         done: "Next"
       contacts: "Useful Contacts"
 
@@ -1978,7 +1978,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey"
+      timeline: "My Journey and Content Proformas"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -2419,14 +2419,19 @@ en:
       create:
           updated: "Completion Dates have successfully been updated for %{plots} plots."
     phase_timelines:
-      new:
-        title: "Timeline Allocations"
-      edit:
-        title: "Timeline Allocations"
+      journey:
+        title: "My Journey Allocations"
+        label: "My Journey Timeline"
+        description: "Use this page to associate My Journey timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
+        warning: "Any plots removed from My Journey timeline allocations will have their progress destroyed and their My Journey access revoked when this page is saved."
+      proforma:
+        title: "Proforma Document Allocations"
+        label: "Proforma Document Timeline"
+        description: "Use this page to associate Proforma Document timelines with plots on this phase. The Proforma Document page will only show on plots that are listed in the Associated Plots below."
+        warning: "Any plots removed from Proforma timeline allocations will have their progress destroyed and their Proforma Document access revoked when this page is saved."
       form:
-        description: "Use this page to associate timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
         plots: "Associated Plots"
-        warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
+
         add_all_plots: "Add All Plots"
         clear_all_plots: "Clear All Plots"
 
@@ -3479,7 +3484,7 @@ en:
           feature: "Feature"
           link: "Link"
           document: "Document"
-          content_proforma: "Custom Proforma"
+          content_proforma: "Content Proforma"
         features:
           area_guide: "Area Guide"
           home_designer: "Home Designer"
@@ -3796,7 +3801,7 @@ en:
         skip: "Skip"
       proforma:
         done: "Next"
-        prev: "Prev"
+        prev: "Previous"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
