@@ -177,7 +177,7 @@ When(/^I can view developer timelines$/) do
     click_on t("components.navigation.developers")
   end
   click_on CreateFixture.developer_name
-  click_on t("developers.form.timeline")
+  click_on t("developers.collection.timelines")
   expect(page).to have_content "You have no timelines."
 end
 
@@ -190,8 +190,8 @@ end
 
 When(/^I can see the developers timelines$/) do
   click_on t("components.navigation.my_developer")
-  expect(page).to have_content t("developers.form.timeline")
-  click_on t("developers.form.timeline")
+  expect(page).to have_content t("developers.collection.timelines")
+  click_on t("developers.collection.timelines")
 end
 
 When(/^I import the TimelineFixture.england timeline$/) do
