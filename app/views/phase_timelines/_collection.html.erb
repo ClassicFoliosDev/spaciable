@@ -3,7 +3,7 @@
     <div><%= fa_icon "clock-o" %></div>
     <div><span><%= t(".empty")%></span></div>
     <div>
-      <% if can_create(PhaseTimeline, Phase) %>
+      <% if can_create(PhaseTimeline, parent) %>
         <%= link_to new_phase_phase_timeline_path(parent, scope: :journey), class: "btn btn-primary" do %>
           <span class="btn-label"><%= t(".add_journey") %></span>
         <% end %>
