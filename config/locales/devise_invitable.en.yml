@@ -70,7 +70,7 @@ en:
       transfer_csv:
         success: "Your report is ready for download"
         no_data: "Your report returned no data"
-        description: "You csv report is ready to download by following the link below."
+        description: "You csv report is attached."
         no_data_description: "No plots matched the filters applied to your report. Please review your selections."
       downgrade_perks:
         title: "Your Premium discounts access has expired"

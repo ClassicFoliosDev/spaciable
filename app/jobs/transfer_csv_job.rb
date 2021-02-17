@@ -3,9 +3,9 @@
 class TransferCsvJob < ApplicationJob
   queue_as :mailer
 
-  def perform(email, name, file)
+  def perform(email, name, filename)
     return unless email
 
-    AdminNotificationMailer.csv_report_download(email, name, file).deliver_now
+    AdminNotificationMailer.csv_report_download(email, name, filename).deliver_now
   end
 end

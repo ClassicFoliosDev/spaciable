@@ -13,7 +13,6 @@ class ExportAdminsJob < ApplicationJob
 
     # only process report with wetransfer if report returns any data
     # transfer_url = Csv::CsvTransferService.call(csv_file, user) if csv_file.readlines.size > 1
-    byebug
     TransferCsvJob.perform_later(user.email, user.first_name, csv_file.to_s)
   end
 end
