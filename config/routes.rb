@@ -185,6 +185,9 @@ Rails.application.routes.draw do
     get 'empty', action: :empty , controller: 'tasks'
     resources :tasks
     resources :finales, except: [:index, :destroy]
+    resources :stage_sets, only: [:edit, :update] do
+      post 'tasks', format: :json
+    end
   end
 
   # These need to be specified seperately as otherwise best
@@ -275,10 +278,10 @@ Rails.application.routes.draw do
     resources :snag_comments, only: [:new, :create]
     resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
-    resource :timeline, only: [:show], controller: 'timeline', as: :homeowner_timeline
-    resources :timeline_tasks do
-      member do
-        get :show, controller: 'timeline', as: :show
+    resources :timelines, only: [:show], controller: 'timeline', param: :timeline_id, as: :homeowner_timeline
+    resources :timelines, only:[] do
+      resources :tasks, only: [:show], controller: 'timeline', param: :task_id, as: :homeowner_task
+      resources :tasks, only: [] do
         get :viewed, controller: 'timeline'
         post :viewed , controller: 'timeline', format: :json
       end

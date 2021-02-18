@@ -10,6 +10,9 @@ $(document).on('click', '#timeline-submit-btn', function (event) {
   response = event.currentTarget.getAttribute('data-response')
   $("[name='response']").val(response)
   $("[name='response_action']").val(event.currentTarget.getAttribute('action'))
+  if (event.currentTarget.getAttribute('data-direction')) {
+    $("[name='response_direction']").val(event.currentTarget.getAttribute('data-direction'))
+  }
 
   // if the response is negative
   if ($("[name='response_action']").val() == 'viewed_content_negative') {
