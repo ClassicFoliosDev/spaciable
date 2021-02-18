@@ -50,6 +50,7 @@ class CustomTilesController < ApplicationController
   def custom_tile_params
     params.require(:custom_tile).permit(:title, :description, :button, :editable,
                                         :image, :remove_image, :image_cache, :category, :link,
-                                        :feature, :guide, :file, :document_id, :development_id)
+                                        :feature, :guide, :file, :document_id, :development_id,
+                                        :tileable_id, :tileable_type)
   end
 end

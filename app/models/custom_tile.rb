@@ -7,12 +7,14 @@ class CustomTile < ApplicationRecord
 
 
   belongs_to :development
+  belongs_to :tileable, polymorphic: true
 
   mount_uploader :file, DocumentUploader
   mount_uploader :image, PictureUploader
   attr_accessor :image_cache
 
   validates :title, :description, :button, presence: true, unless: :feature?
+  validate :proforma, if: :content_proforma?
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?
   validates :feature, presence: true, if: :feature?
@@ -25,6 +27,7 @@ class CustomTile < ApplicationRecord
     feature
     document
     link
+    content_proforma
   ]
 
   enum feature: {
@@ -39,6 +42,14 @@ class CustomTile < ApplicationRecord
   }
 
   delegate :snag_name, to: :development
+
+  def proforma
+    return unless content_proforma?
+    return if tileable.present?
+
+    errors.add(:content_proforma, "is required, and must not be blank.")
+    errors.add(:tileable_id, "please populate")
+  end
 
   def document
     Document.find_by(id: document_id)
@@ -83,6 +94,7 @@ class CustomTile < ApplicationRecord
       active_tiles << tile if tile.feature? && tile.active_feature(plot)
       active_tiles << tile if tile.document? && tile.active_document(documents)
       active_tiles << tile if tile.link?
+      active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
     end
 
     active_tiles
@@ -92,8 +104,13 @@ class CustomTile < ApplicationRecord
     return true unless snagging? || issues? || timeline?
     return true if snagging? && plot.snagging_valid
     return true if issues? && plot.show_maintenance?
-    return true if timeline? && plot&.plot_timeline&.live?
+    return true if timeline? && plot&.journey&.live?
     false
+  end
+
+  def proforma_assoc?(plot)
+    return false unless tileable.is_a? Timeline
+    PlotTimeline.matching(plot, tileable)&.present?
   end
 
   def active_document(documents)

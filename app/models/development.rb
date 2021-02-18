@@ -46,8 +46,7 @@ class Development < ApplicationRecord
   delegate :sign_up_count, to: :premium_perk, prefix: true
   delegate :branded_perk, to: :parent_developer
   delegate :custom_url, to: :developer
-  delegate :timeline, to: :parent_developer
-  delegate :time_zone, to: :parent_developer
+  delegate :timeline, :time_zone, :proformas, to: :parent_developer
 
   alias_attribute :development_name, :name
 

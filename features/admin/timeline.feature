@@ -75,6 +75,8 @@ Scenario: Allocate Timelines
   And I have seeded the timeline
   And I have a TimelineFixture.england timeline
   And I have a TimelineFixture.scotland timeline
+  And I have a TimelineFixture.purchase_guide proforma timeline
+  And I have a TimelineFixture.hug proforma timeline
   Then I see a Timelines tab at phase level
   And I see no allocated timelines for the phase
   And I can allocate plots 1,2,3 to TimelineFixture.england
@@ -85,4 +87,41 @@ Scenario: Allocate Timelines
   And I delete the phase timeline for TimelineFixture.england
   And I delete the TimelineFixture.scotland timeline
   Then all timeline dependencies are deleted
+
+@javascript
+Scenario: Content Proforma
+  Given I am logged in as an admin
+  And I have seeded the timeline
+  Then I can create a content proforma
+  When I show the TimelineFixture.purchase_guide timeline
+  Then the TimelineFixture.purchase_guide timeline has no tasks
+  Then I t("tasks.show.add_task") the Two task to proforma TimelineFixture.purchase_guide
+  Then I should see task Two added successfully
+  And I should see the Two task in position 1 of the TimelineFixture.purchase_guide timeline
+  Then I add proforma task One t("tasks.show.insert_before", page: "Two") for TimelineFixture.purchase_guide
+  Then I should see task One added successfully
+  And I should see the One task in position 1 of the TimelineFixture.purchase_guide timeline
+  And I should see the Two task in position 2 of the TimelineFixture.purchase_guide timeline
+  Then I can select task Two
+  Then I add proforma task Three t("tasks.show.insert_after", page: "Two") for TimelineFixture.purchase_guide
+  Then I should see task Three added successfully
+  Then I can select task One
+  And I should see the t("tasks.show.proforma.done") button
+  And I should not see the t("tasks.show.proforma.prev") button
+  And I can click t("tasks.show.proforma.done") to move to task Two
+  And I should see the t("tasks.show.proforma.done") button
+  And I should see the t("tasks.show.proforma.prev") button
+  And I can click t("tasks.show.proforma.done") to move to task Three
+  And I should not see the t("tasks.show.proforma.done") button
+  And I should see the t("tasks.show.proforma.prev") button
+  And I can click t("tasks.show.proforma.prev") to move to task Two
+  Then I can edit the TimelineFixture.purchase_guide sections
+  And I should see the t("tasks.show.proforma.done") button
+  And I should not see the t("tasks.show.proforma.prev") button
+  And I can click t("tasks.show.proforma.done") to move to task One
+  And I should see the t("tasks.show.proforma.done") button
+  And I should see the t("tasks.show.proforma.prev") button
+  And I can click t("tasks.show.proforma.done") to move to task Three
+
+
 

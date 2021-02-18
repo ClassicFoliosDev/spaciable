@@ -99,7 +99,12 @@
 
     // change the styling on the completed page
     if ($('#timelineComplete').length) {
-      $('.list-stages').css('padding-top', 80)
+      if ($(".list-stages").data("tt") == "proforma"){
+        $('.list-stages').css('padding-top', 20)
+      } else {
+        $('.list-stages').css('padding-top', 80)
+      }
+
       $('.timeline-content').css('border', 'none')
 
       // scroll to the bottom of the timeline

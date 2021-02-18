@@ -6,21 +6,22 @@ module Phases
     include SortingConcern
 
     load_and_authorize_resource :phase
-    load_and_authorize_resource :phase_timeline, except: %i[index]
+    load_and_authorize_resource :phase_timeline, except: %i[index new]
 
-    before_action :find_available, except: %i[index]
+    before_action :find_available, only: %i[new edit]
 
     def index
       @phase_timelines = PhaseTimeline.where(phase: @phase)
     end
 
     def new
+      @scope = params[:scope]
       @phase_timeline = PhaseTimeline.new(phase_id: @phase.id)
-      @timelines = Timeline.not_used_in_phase(@phase)
-      @plots = Plot.timeline_free(@phase)
     end
 
-    def edit; end
+    def edit
+      @scope = @phase_timeline.stage_set_type
+    end
 
     def update
       if @phase_timeline.update(phase_timeline_params)
@@ -46,13 +47,16 @@ module Phases
       redirect_to phase_phase_timelines_url, notice: notice
     end
 
+    # find available timelines and plots
     def find_available
-      @timelines = Timeline.not_used_in_phase(@phase)
-      @plots = Plot.timeline_free(@phase)
+      type = action_name == "new" ? params[:scope] : @phase_timeline.stage_set.stage_set_type
+
+      @timelines = Timeline.not_used_in_phase(@phase, type)
+      @plots = type == "journey" ? Plot.journey_free(@phase) : @phase.plots.order(:id)
       return unless @phase_timeline
 
       @timelines += [@phase_timeline.timeline]
-      @plots += @phase_timeline.plots
+      @plots += @phase_timeline.plots if type == "journey"
     end
 
     def phase_timeline_params

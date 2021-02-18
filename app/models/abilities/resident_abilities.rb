@@ -18,6 +18,8 @@ module Abilities
       resident_abilities_for_notifications(plot)
       resident_abilities_for_private_documents(resident, plot)
       resident_brand_abilities(plot)
+
+      can :read, Timeline
     end
 
     def resident_abilities_for_plot(plot_id)

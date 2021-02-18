@@ -47,6 +47,11 @@ input[type="password"] {
   }
 }
 
+input[type="section"] {
+  @extend input[type="text"];
+  width: auto;
+}
+
 textarea {
   resize: vertical;
   min-height: 80px;
