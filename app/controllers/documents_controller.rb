@@ -56,6 +56,7 @@ class DocumentsController < ApplicationController
     authorize! :update, @document
 
     if @document.update(document_params)
+      @document.user_id = current_user.id
       @document.set_original_filename
       @document.save
       respond_to do |format|
@@ -127,6 +128,7 @@ class DocumentsController < ApplicationController
               @development || @division || @developer || @document&.documentable
 
     @document&.documentable = @parent
+    @exclude = ["floor_plan"] if @parent.is_a? Phase
   end
 
   def target

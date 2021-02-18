@@ -10,8 +10,7 @@ module Homeowners
     before_action :fetch_contacts, only: [:show]
 
     after_action only: %i[show] do
-      record_event(session[:sign_in] ? :homeowner_sign_in : :view_main_menu,
-                   category1: session[:sign_in] ? I18n.t("ahoy.#{Ahoy::Event::LOG_IN}") : nil)
+      record_event(:homeowner_sign_in) if session[:sign_in]
       session[:sign_in] = false
     end
 
@@ -19,7 +18,7 @@ module Homeowners
       # remove onboarding session (used to hide navigation)
       session[:onboarding] = nil
 
-      @all_docs = Document.accessible_by(current_ability).order(:documentable_type)
+      @all_docs = Document.accessible_by(current_ability)
       @custom_tiles = CustomTile.active_tiles(@plot, @all_docs)
 
       build_documents

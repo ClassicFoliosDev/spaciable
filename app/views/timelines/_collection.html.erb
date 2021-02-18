@@ -30,6 +30,7 @@
     <thead>
       <tr>
         <th colspan="2"><%= sortable(Timeline, :name, t(".timeline")) %></th>
+        <th colspan="2"><%= sortable({Timeline => StageSet}, :stage_set_type, t(".type")) %></th>
         <th colspan="2"><%= sortable(Timeline, :created_at, t(".created_at")) %></th>
         <th colspan="2"><%= sortable(Timeline, :updated_at, t(".last_edited")) %></th>
         <th colspan="2">&nbsp;</th>
@@ -39,8 +40,9 @@
       <% collection.each do |timeline| %>
         <tr>
           <td colspan="2"><%= link_to timeline.title, timeline_path(timeline)%></td>
-          <td colspan="2"><%= l timeline.updated_at.to_date, format: :digits %></td>
+          <td colspan="2"><%= t("stage_sets.#{timeline.stage_set_type}") %></td>
           <td colspan="2"><%= l timeline.created_at.to_date, format: :digits %></td>
+          <td colspan="2"><%= l timeline.updated_at.to_date, format: :digits %></td>
           <td  colspan="2" class="actions">
             <%= edit_btn edit_timeline_path(timeline), element: timeline %>
             <% if current_user&.cf_admin? %>

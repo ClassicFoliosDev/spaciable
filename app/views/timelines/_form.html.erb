@@ -16,6 +16,24 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :title %>
+        <% if controller.action_name == 'new' %>
+          <%= f.input :stage_set_id,
+          as: :select,
+          collection:  StageSet.sets,
+          label_method: ->(set) { t("stage_sets.#{set.stage_set_type}") },
+          include_blank: false,
+          label: t("stage_sets.title"),
+          value_method: ->(set) { set.id } %>
+        <% else %>
+          <label><%= t("stage_sets.title") %></label>
+          <p><%= t("stage_sets.#{timeline.stage_set_type}") %></p>
+          <%= f.hidden_field :stage_set_id, value: timeline.stage_set_id %>
+        <% end %>
+      </fieldset>
+    </div>
+    <div class="row-item third">
+      <fieldset>
+        <%= f.input :description, as: :text, label: t(".notes"), class: "snag-comment-content", input_html: { required: true } %>
       </fieldset>
     </div>
 

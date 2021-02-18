@@ -25,7 +25,8 @@ module AhoyEventEnum
       view_home_designer
       view_area_guide view_calendar
       view_buyers_club
-      view_your_journey view_library
+      view_your_journey view_your_content_proforma
+      view_library
       view_how_to view_issues
       view_snagging view_FAQs view_FAQs_feedback
     ]

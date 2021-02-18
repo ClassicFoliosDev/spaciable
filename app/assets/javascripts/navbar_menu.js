@@ -71,8 +71,9 @@
     $("body").removeClass("no-scroll")
   })
 
-  // open the main navigation
+  // open/close the main navigation
   $(document).on('click', '.navbar-trigger-label', function (event) {
+    if ($(".navbar-menu").is(":hidden")) { record_event("view_main_menu", null, null) }
     $('.navbar-menu').animate({width: 'toggle'})
     $("body").toggleClass("no-scroll")
     if ($(window).innerWidth() < 1025) {

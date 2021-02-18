@@ -463,6 +463,7 @@ en:
     finale_add: "Add Finale"
     sync_docs: "Synhronise Documents"
     admin_analytics: "Analytics"
+    stage_set_edit: "Edit %{title} sections"
 
   pagination:
     per_page_10: "10"
@@ -1285,6 +1286,7 @@ en:
       editable: "Editable"
       editable_description: "Client admins can edit or delete this shortcut"
       current_file: "Current File"
+      content_proforma: "Content Proforma"
   home:
     show:
      home: "Home"
@@ -1546,8 +1548,12 @@ en:
         new_tab: "Open Planner 5D in a separate tab"
     timeline:
       continue: "Continue"
-      skip: "Skip"
-      done: "Complete"
+      journey:
+        skip: "Skip"
+        done: "Complete"
+      proforma:
+        skip: "Previous"
+        done: "Next"
       contacts: "Useful Contacts"
 
       splash:
@@ -1972,7 +1978,7 @@ en:
       branded_app_description: "Developer has a branded app"
       enable_cas: "Client Specifications"
       cas_description: "Allow client admins to edit specifications and rooms"
-      timeline: "My Journey"
+      timeline: "My Journey and Content Proformas"
       timeline_description: "Turning this on will allow timelines to be imported and edited for this Developer."
       enable_perks: "Buyers' Club"
       perks_description: "Allow residents to request access to the Basic Buyers' Club Portal"
@@ -2413,14 +2419,19 @@ en:
       create:
           updated: "Completion Dates have successfully been updated for %{plots} plots."
     phase_timelines:
-      new:
-        title: "Timeline Allocations"
-      edit:
-        title: "Timeline Allocations"
+      journey:
+        title: "My Journey Allocations"
+        label: "My Journey Timeline"
+        description: "Use this page to associate My Journey timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
+        warning: "Any plots removed from My Journey timeline allocations will have their progress destroyed and their My Journey access revoked when this page is saved."
+      proforma:
+        title: "Proforma Document Allocations"
+        label: "Proforma Document Timeline"
+        description: "Use this page to associate Proforma Document timelines with plots on this phase. The Proforma Document page will only show on plots that are listed in the Associated Plots below."
+        warning: "Any plots removed from Proforma timeline allocations will have their progress destroyed and their Proforma Document access revoked when this page is saved."
       form:
-        description: "Use this page to associate timelines with plots on this phase. The My Journey page will only show on plots that are listed in the Associated Plots below."
         plots: "Associated Plots"
-        warning: "Any plots removed from timeline allocations will have their progress destroyed and timeline access revoked when this page is saved"
+
         add_all_plots: "Add All Plots"
         clear_all_plots: "Clear All Plots"
 
@@ -3473,6 +3484,7 @@ en:
           feature: "Feature"
           link: "Link"
           document: "Document"
+          content_proforma: "Content Proforma"
         features:
           area_guide: "Area Guide"
           home_designer: "Home Designer"
@@ -3732,6 +3744,7 @@ en:
     collection:
       create: "Add Timeline"
       timeline: "Timeline"
+      type: "Type"
       last_edited: "Last Edited"
       created_at: "Created At"
     new:
@@ -3739,6 +3752,7 @@ en:
     edit:
       title: "Name"
     form:
+      notes: "Notes"
       submit: "Submit"
     components:
       timeline:
@@ -3774,6 +3788,7 @@ en:
       add_task: "Add a Task"
       add_finale: "Add Finale"
       edit_finale: "Edit Finale"
+      edit_stageset: "Edit %{title} Sections"
       heading: "Main Heading"
       question: "Question"
       answer: "Answer"
@@ -3781,8 +3796,12 @@ en:
       positive: "Positive"
       negative: "Negative"
       not_applicable: "Not Applicable"
-      done: "Complete"
-      skip: "Skip"
+      journey:
+        done: "Complete"
+        skip: "Skip"
+      proforma:
+        done: "Next"
+        prev: "Previous"
       how_tos: "How Tos"
       faqs: "FAQs"
       area_guide: "Area Guide"
@@ -3804,8 +3823,12 @@ en:
       picture: "Page Image"
       heading: "Page Title"
       question: "Question"
-      answer: "Response Heading"
-      response: "Response Content"
+      journey:
+        answer: "Response Heading"
+        response: "Response Content"
+      proforma:
+        answer: "Page Heading"
+        response: "Page Content"
       positive: "Button Text: Task Completed"
       negative: "Button Text: Reveal Response"
       not_applicable: "Not Applicable"
@@ -3834,6 +3857,10 @@ en:
         title: "Button Text"
         description: "Description"
         link: "Link"
+      title_class:
+        label: "Styling"
+        heading: "Heading"
+        subheading: "Subheading"
   finales:
     create:
       finale_created: "%{name} finale successfully created"
@@ -3857,7 +3884,7 @@ en:
     view_account: "Account"
     view_messages: "Messages"
     refer_a_friend: "Referrals Submitted"
-    view_main_menu: "Dashboard"
+    view_main_menu: "Main Menu"
     view_home_tour: "Home Tour"
     view_rooms: "Rooms"
     view_appliances: "Appliances"
@@ -3870,6 +3897,7 @@ en:
     bc_find_out_more: "Find out more"
     bc_give_me_access: "Give me access"
     view_your_journey: "My Journey"
+    view_your_content_proforma: "Content Proforma"
     task_viewed: "Viewed"
     view_FAQs: "FAQs"
     view_FAQs_feedback: "FAQs Feedback"
@@ -3926,8 +3954,12 @@ en:
   phase_timelines:
     collection:
       name: "Timeline"
-      add: "Add Timeline Associations"
-      empty: "You have no Timeline Plot Associations"
+      add_journey: "Add Journey Associations"
+      add_proforma: "Add Proforma Associations"
+      empty: "You have no Journey/Proforma Plot Associations"
+      plots: "Plots"
+      type: "Type"
+
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
 
@@ -3937,3 +3969,14 @@ en:
       select_all: "Select All"
       select_all_res: "Reservation"
       select_all_comp: "Completed"
+
+  stage_sets:
+    title: "Type"
+    journey: "Journey"
+    proforma: "Content Proforma"
+    form:
+      submit: "Submit"
+      cancel: "Cancel"
+      cancel_edit: "Cancel Edit"
+      cancel_edit_text: Are you sure you want to cancel updating the sections? The changes will be lost no section updates will be saved.
+

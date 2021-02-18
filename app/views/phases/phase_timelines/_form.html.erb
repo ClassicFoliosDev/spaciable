@@ -1,13 +1,13 @@
 <%= simple_form_for phase_timeline, url: [phase, phase_timeline] do |f| %>
   <div class="row phase_timeline">
-    <p><%= t(".description").html_safe %></p>
+    <p><%= t("phases.phase_timelines.#{scope}.description").html_safe %></p>
     <div class="row-item half">
       <fieldset>
         <%= f.hidden_field :phase_id, value: phase_timeline.phase_id %>
         <%= f.input :timeline_id,
               as: :select,
               collection: timelines,
-              label_method: ->(timeline) { timeline.title },
+              label: t("phases.phase_timelines.#{scope}.label"),
               include_blank: false,
               input_html: {orig_timeline: phase_timeline&.timeline_title } %>
       </fieldset>
@@ -15,7 +15,7 @@
         <div class="finish_type_finish_category ui-front select-container">
           <%= f.association :plots, label: t(".plots"), collection: plots, multiple: true, class: "multiple" %>
         </div>
-        <p><%= t(".warning") %></p>
+        <p><%= t("phases.phase_timelines.#{scope}.warning") %></p>
         <%= button_tag t(".add_all_plots"), :type => 'button', class: "btn", id: 'add_timeline_plots', name: "add_plots_button" %>
         <%= button_tag t(".clear_all_plots"), :type => 'button', class: "btn", id: 'clear_timeline_plots', name: "clear_plots_button" %>
       </fieldset>

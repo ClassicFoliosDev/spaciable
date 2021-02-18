@@ -3,7 +3,7 @@
 module DocumentsHelper
   GUIDES = {
     Plot => %w[reservation completion floor_plan],
-    Phase => %w[reservation completion],
+    Phase => %w[reservation completion floor_plan],
     Development => %w[reservation completion],
     UnitType => %w[floor_plan]
   }.freeze
@@ -16,9 +16,10 @@ module DocumentsHelper
     end
   end
 
-  def guide_collection(_document, parent)
+  def guide_collection(_document, parent, exclude = nil)
     guides = Document.guides.map do |(guide_name, _)|
-      next unless GUIDES[parent.class].include? guide_name
+      next if exclude.present? && exclude.include?(guide_name)
+      next unless GUIDES[parent.class].include?(guide_name)
       [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
     end
     guides.compact

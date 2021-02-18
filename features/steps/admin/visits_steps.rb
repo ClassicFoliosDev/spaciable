@@ -27,7 +27,9 @@ Then(/^I navigate through the homeowner site$/) do
   # vists dashboard twice
   (1..rand(1..2)).each do |i|
     visit "/dashboard"
+    find(".navbar-trigger-label").trigger('click') #on
     VisitsFixture.visited(meta, :view_main_menu)
+    find(".navbar-trigger-label").trigger('click') #off
   end
 
   (1..rand(1..2)).each do |i|
@@ -141,7 +143,7 @@ Then(/^I navigate through the homeowner site$/) do
   end
 
   # ---------- Timelines ------------
-  visit "/homeowners/timeline"
+  visit "/homeowners/timelines/#{Timeline.find_by(title: TimelineFixture.england).id}"
   VisitsFixture.visited(meta, :view_your_journey, "Welcome Page")
 
   click_on t("homeowners.timeline.splash.continue")
@@ -164,11 +166,31 @@ Then(/^I navigate through the homeowner site$/) do
     find(:xpath, "//div[@class='question-content']/div/p[contains(text(),'#{tasks[task].question}')]")
     VisitsFixture.visited(meta, :view_your_journey, tasks[task].title,
                         I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
-    click_on tasks[task].positive
-     VisitsFixture.visited(meta, :view_your_journey, tasks[task].title, I18n.t("homeowners.timeline.task.answered_positive"))
+    find(:xpath, "//button[text()='#{tasks[task].positive}']").trigger('click')
+    VisitsFixture.visited(meta, :view_your_journey, tasks[task].title, I18n.t("homeowners.timeline.task.answered_positive"))
   end
 
-  VisitsFixture.visited(meta, :view_your_journey, I18n.t("homeowners.timeline.done"))
+  expect(find(:xpath, "//div[@class='text']//p").text).to eq TimelineFixture.finale[:content][:incomplete_message]
+  VisitsFixture.visited(meta, :view_your_journey, I18n.t("homeowners.timeline.#{Timeline.find_by(title: TimelineFixture.england).stage_set_type}.done"))
+
+  # update all event dates for plot to be -2 weeks if they are in date_range 1
+  if meta[:date_range] == 1
+    Ahoy::Event.where(plot_id: plot.id).update_all(time: Time.zone.now - 2.weeks)
+    Plot.find(plot.id).update_attribute(:created_at, Time.zone.now - 2.weeks)
+  end
+
+   # ---------- Content Proforma ------------
+  visit "/homeowners/timelines/#{Timeline.find_by(title: TimelineFixture.purchase_guide).id}"
+
+  tasks = Task.where(timeline_id: Timeline.find_by(title: TimelineFixture.purchase_guide).id).order(:id)
+  (0..(tasks.count-1)).each do |task|
+    expect(page).to have_content(tasks[task].response)
+    VisitsFixture.visited(meta, :view_your_content_proforma, tasks[task].title, I18n.t("ahoy.#{Ahoy::Event::TASK_VIEWED}"))
+    click_on "Next"
+  end
+
+  expect(find(:xpath, "//div[@class='text']//p").text).to eq TimelineFixture.finale[:content][:complete_message]
+  VisitsFixture.visited(meta, :view_your_content_proforma, "Complete")
 
   # update all event dates for plot to be -2 weeks if they are in date_range 1
   if meta[:date_range] == 1
@@ -251,8 +273,11 @@ def check_visits(expected, filter: nil, level: 1)
   expected.each do |id,stats|
     filtered_visits = filter_visits(stats[:visits], filter)
     next if level > 1 && filtered_visits.count == 0
-
     within "##{id}" do
+      if filtered_visits.count != find("#t").text.to_i
+        puts "#{id }expect #{filtered_visits.count} got #{find("#t").text.to_i}"
+      end
+
       expect(find("#t").text.to_i).to eql filtered_visits.count
       expect(find("#u").text.to_i).to eql unique_visits(filtered_visits)
     end

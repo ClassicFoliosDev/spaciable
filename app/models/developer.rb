@@ -245,11 +245,16 @@ class Developer < ApplicationRecord
       enable_services?
     when :buyers_club
       enable_perks?
-    when :custom_url, :issues, :snagging, :tour, :calendar
+    when :custom_url, :issues, :snagging, :tour, :calendar, :wecomplete
       true
     end
   end
   # rubocop:enable Metrics/MethodLength
+
+  # What Content Proformas are available to this developer
+  def proformas
+    Timeline.available_to(self, StageSet.stage_set_types[:proforma])
+  end
 
   private
 

@@ -6,5 +6,4 @@ class TimelineStage < ApplicationRecord
   self.table_name = "timeline_stages"
 
   belongs_to :timeline
-  belongs_to :stage
 end
