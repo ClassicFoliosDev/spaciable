@@ -23,6 +23,14 @@
       <fieldset>
         <%= f.input :prime_lettings_admin, as: :select, collection: division.potential_prime_admins.map { |a| [a.to_s, a.id] },
             label: t(".prime_admin"), include_blank: true %>
+        <% if developer.conveyancing? %>
+          <%= f.check_box :conveyancing %>
+          <p class="checkbox-description"><%= t(".conveyancing_description") %>
+          <div id="wecomplete">
+            <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
+            <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
+          </div>
+        <% end %>
       </fieldset>
     </div>
   </div>

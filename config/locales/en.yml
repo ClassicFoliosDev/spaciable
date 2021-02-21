@@ -1351,6 +1351,8 @@ en:
       construction_name: "Replace My 'Home':"
       calendar: "Calendar"
       calendar_description: "Enable Plot Calendars for this Development"
+      conveyancing: "WeComplete Conveyancing"
+      conveyancing_description: "Provide admins and residents with an external link to WeComplete"
     index:
       add: "Add Development"
     development:
@@ -1740,6 +1742,10 @@ en:
           title: "My Journey"
           description: "Track your progress towards your move and pick up plenty of tips along the way."
           button: "My Journey"
+        conveyancing:
+          title: "Conveyancing"
+          description: "Discover conveyancing."
+          button: "Conveyancing"
 
     communication_preferences:
       show:
@@ -1986,6 +1992,10 @@ en:
       account_number: "Branded Buyers' Club Account Number"
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
+      conveyancing: "WeComplete Conveyancing"
+      conveyancing_description: "Provide admins and residents with an external link to WeComplete, populated below:"
+      wecomplete_sign_in: "Branded WeComplete Sign-in URL"
+      wecomplete_quote: "Branded WeComplete Quoting Form URL"
       is_demo: "Exclude from global reports"
       how_tos: "How To Guides"
       how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
@@ -2080,6 +2090,10 @@ en:
       address: "Postal Address"
       back: "Back"
       prime_admin: "Primary lettings administrator"
+      conveyancing: "WeComplete Conveyancing"
+      conveyancing_description: "Provide admins and residents with an external link to WeComplete, populated below:"
+      wecomplete_sign_in: "Branded WeComplete Sign-in URL"
+      wecomplete_quote: "Branded WeComplete Quoting Form URL"
     index:
       actions: "Actions"
       destroy: "Delete"
@@ -3494,6 +3508,7 @@ en:
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
           timeline: "My Journey"
+          conveyancing: "Conveyancing"
         guides:
           reservation: "Reservation"
           completion: "Completion"
@@ -3654,7 +3669,9 @@ en:
         snagging: "Snagging"
         tour: "Home Tour"
         calendar: "Calendar"
-        wecomplete: "We Complete"
+        conveyancing: "We Complete"
+        conveyancing_quote: "We Complete Quote"
+        conveyancing_signin: "We Complete Sign In"
 
     errors:
       messages:

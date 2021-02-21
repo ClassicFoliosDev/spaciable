@@ -70,6 +70,21 @@ class Developer < ApplicationRecord
             allow_blank: true,
             format: { with: Devise.email_regexp }
 
+  validate :check_conveyancing
+
+  def check_conveyancing
+    return unless conveyancing?
+
+    if wecomplete_sign_in.blank?
+      errors.add("WeComplete sign-in URL", "is required, and must not be blank.")
+      errors.add(:wecomplete_sign_in, "please populate")
+    end
+
+    return if wecomplete_sign_in.present?
+    errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
+    errors.add(:wecomplete_quote, "please populate")
+  end
+
   # Account manager fields need to be 'all' or 'none'
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def account_manager
@@ -230,7 +245,7 @@ class Developer < ApplicationRecord
     faq_types
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
   def supports?(feature)
     return false unless feature
 
@@ -245,15 +260,21 @@ class Developer < ApplicationRecord
       enable_services?
     when :buyers_club
       enable_perks?
-    when :custom_url, :issues, :snagging, :tour, :calendar, :wecomplete
+    when :conveyancing, :conveyancing_quote, :conveyancing_signin
+      conveyancing_enabled?
+    when :custom_url, :issues, :snagging, :tour, :calendar
       true
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
   # What Content Proformas are available to this developer
   def proformas
     Timeline.available_to(self, StageSet.stage_set_types[:proforma])
+  end
+
+  def conveyancing_enabled?
+    conveyancing
   end
 
   private

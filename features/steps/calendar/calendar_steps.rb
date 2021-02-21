@@ -51,9 +51,9 @@ When (/^I can add a (.*) event using the Add Event button$/) do |type|
       page.assert_selector('.resources', visible: true, count: 0)
   end
 
-  populate_event(type: type)
+  exp = populate_event(type: type)
   click_on "Add"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_event
 end
 
@@ -76,9 +76,9 @@ Then (/^I can update a (.*) event$/) do |type|
   CalendarFixture.event.location = CalendarFixture::LOCATIONS[:erics]
   CalendarFixture.event.start = CalendarFixture.now + 24.hours + 10.minutes
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
-  populate_event
+  exp = populate_event
   click_on "Update"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_event
 end
 
@@ -121,9 +121,9 @@ Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
   CalendarFixture.event.location = "click location"
   CalendarFixture.event.start = nil # auto populated to 12am
   CalendarFixture.event.end = nil # auto populated to 12:15am
-  populate_event(type: type)
+  exp = populate_event(type: type)
   click_on "Add"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   CalendarFixture.event.start = (CalendarFixture.now-24.hours).change(:hour => 0)
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
@@ -154,9 +154,9 @@ Then (/^I can add a (.*)repeating calendar event$/) do |repeat|
   CalendarFixture.event.repeat_until = last_date_time
 
   create_event_for_first_day
-  populate_event
+  exp = populate_event
   click_on "Add"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_events(((last_date_time - first_date_time) / 86400).round + 1)
 
   # repeat until is changed by following delete/edit tests
@@ -177,9 +177,10 @@ Then (/^I can update and delete a single calendar event$/) do
   CalendarFixture.event.start = first_date_time + updating_day.days + 1.hour
   CalendarFixture.event.end = CalendarFixture.event.start + 2.hours
 
-  populate_event
+  exp = populate_event
   click_on "Update"
   click_on "Confirm" # default 'this event only'
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_event
 
   #delete it
@@ -189,8 +190,11 @@ Then (/^I can update and delete a single calendar event$/) do
   within find(".ui-dialog", visible: true) do
     find(".btn.delete-btn").trigger('click')
   end
+
+  event_id = find("#event_id", visible: false).value.to_i
+  CallbackFixture.confirm {Event.find_by(id: event_id).present?}
   click_on "Confirm" # default 'this event only'
-  sleep 4
+  CallbackFixture.confirm {Event.find_by(id: event_id).blank?}
 
   num_events = Event.all.count
   expect(num_events).to eq(prev_num_events - 1)
@@ -217,23 +221,24 @@ Then (/^I can update and delete this and following calendar events$/) do
   CalendarFixture.event.start = first_date_time + updating_day.days + 20.minutes
   CalendarFixture.event.end = CalendarFixture.event.start + 30.minutes
 
-  populate_event
+  exp = populate_event
   click_on "Update"
   page.choose("this_and_following")
   click_on "Confirm" # this and following
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   expect(events.count).to eq(CalendarFixture::MONTHVIEWDAYS - updating_day)
 
   # this and following creates a new sequence
   deleteoccurance = 2
   open_event(occurance: deleteoccurance) # delete 3rd occurance of this new repeating event
+  event_id = find("#event_id", visible: false).value.to_i
   within find(".ui-dialog", visible: true) do
     find(".btn.delete-btn").trigger('click')
   end
   page.choose("this_and_following")
-  click_on "Confirm" # default 'this event only'
-  sleep 4
+  click_on "Confirm" # default 'this and following'
+  CallbackFixture.confirm {Event.all.order(:id).last.id == (event_id-1)}
   # check only 2 left
   expect(events.count).to eq(deleteoccurance)
 
@@ -258,11 +263,11 @@ Then (/^I can update and delete all events$/) do
   CalendarFixture.event.start = first_date_time + updating_day.days + 10.minutes
   CalendarFixture.event.end = CalendarFixture.event.start + 20.minutes
 
-  populate_event
+  exp = populate_event
   click_on "Update"
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   expect(events.count).to eq(num_events)
 
@@ -275,7 +280,7 @@ Then (/^I can update and delete all events$/) do
   end
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  CallbackFixture.confirm {Event.where(title: CalendarFixture.event.title).count.zero?}
   # check all gone
   expect(events.count).to eq(0)
 
@@ -288,11 +293,11 @@ Then (/^I can update to (.*) repeating$/) do |repeat|
   open_event(occurance: events.count-1) # open the last event
   repeater = Event.new(repeat: (repeat.empty? ? :daily : repeat&.rstrip))
 
-  populate_event(repeater)
+  exp = populate_event(repeater)
   click_on "Update"
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   expect(events.count).to eq((CalendarFixture::MONTHVIEWDAYS.days / CalendarFixture.event.repeat_interval(repeat).to_f).ceil)
 end
@@ -318,8 +323,9 @@ end
 
 Then (/^I can (accept|decline) the (.*) event$/) do |status, type|
   open_event
+  event_id = find("#event_id", visible: false).value.to_i
   find("##{status}_event").trigger('click')
-  sleep 4
+  CallbackFixture.confirm {EventResource.find_by(event_id: event_id, status: (status == "accept" ? "accepted" : "declined")).present?}
   open_event
   check_homeowner_event(status: status, type: type)
 end
@@ -331,15 +337,17 @@ Then (/^I can propose an amendment to the date and time$/) do
   repropose = Event.new(start: CalendarFixture.reproposed_start,
                         end: CalendarFixture.reproposed_end)
 
-  populate_event(repropose)
+  exp = populate_event(repropose)
   click_on "Save"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
+
   open_event
   check_homeowner_event(status: "change")
 end
 
 Then (/^I can accept the reproposed date and time$/) do
   open_event
+  event_id = find("#event_id", visible: false).value.to_i
 
   within find(".ui-dialog", visible: true) do
     expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y"))
@@ -355,7 +363,7 @@ Then (/^I can accept the reproposed date and time$/) do
   expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::td//parent::tr")['class']).to eq("invited")
 
   click_on "Update"
-  sleep 4
+  CallbackFixture.confirm {EventResource.find_by(event_id: event_id, status: "invited").present?}
 
   CalendarFixture.event.start = CalendarFixture.reproposed_start
   CalendarFixture.event.end = CalendarFixture.reproposed_end
@@ -423,9 +431,17 @@ Then (/^I cannot see a calendar$/) do
 end
 
 def populate_event(event = CalendarFixture.event, type: nil)
+  exp = {}
+
   within find(".ui-dialog", visible: true) do
-    fill_in :event_title, with: event.title if event.title
-    fill_in :event_location, with: event.location if event.location
+    if event.title
+      fill_in :event_title, with: event.title
+      exp[:title] = event.title
+    end
+    if event.location
+      fill_in :event_location, with: event.location
+      exp[:location] = event.location
+    end
   end
 
   if type == "phase"
@@ -433,12 +449,23 @@ def populate_event(event = CalendarFixture.event, type: nil)
   end
 
   setDateTime('start', event) if event.start
+  exp[:start] = event.start
   setDateTime('end', event) if event.end
+  exp[:end] = event.end
 
-  select t("events.repeat.#{event.repeat}"), :from => "event_repeat", visible: false if event.repeat
-  select t("events.remind.#{event.reminder}"), :from => "event_reminder", visible: false if event.reminder
+  if event.repeat
+    select t("events.repeat.#{event.repeat}"), :from => "event_repeat", visible: false
+    exp[:repeat] = event.repeat
+  end
+  if event.reminder
+    select t("events.remind.#{event.reminder}"), :from => "event_reminder", visible: false
+    exp[:reminder] = event.reminder
+  end
 
   setRepeatUntil
+  exp[:repeat_until] = event.repeat_until
+
+  exp
 end
 
 def setDateTime(field, event = CalendarFixture.event)

@@ -40,6 +40,14 @@
          <%= f.input :account_manager_name, label: t(".account_manager.name") %>
          <%= f.input :account_manager_email, label: t(".account_manager.email") %>
          <%= f.input :account_manager_contact, label: t(".account_manager.contact") %>
+
+        <%= f.label :conveyancing, t(".conveyancing") %>
+        <%= f.check_box :conveyancing %>
+        <p class="checkbox-description"><%= t(".conveyancing_description") %>
+        <div id="wecomplete">
+          <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
+          <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
+        </div>
       </fieldset>
     </div>
 
@@ -87,6 +95,8 @@
             <%= p.input :tile_image, label: t(".tile_image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
           </div>
         <% end %>
+
+
       </fieldset>
     </div>
   </div>

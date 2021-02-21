@@ -38,6 +38,21 @@ class Division < ApplicationRecord
 
   paginates_per 25
 
+  validate :check_conveyancing
+
+  def check_conveyancing
+    return unless conveyancing?
+
+    if wecomplete_sign_in.blank?
+      errors.add("WeComplete sign-in URL", "is required, and must not be blank.")
+      errors.add(:wecomplete_sign_in, "please populate")
+    end
+
+    return if wecomplete_sign_in.present?
+    errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
+    errors.add(:wecomplete_quote, "please populate")
+  end
+
   def self.rebuild_pg_search_documents
     find_each do |record|
       record.update_pg_search_document unless record.deleted?
@@ -132,5 +147,9 @@ class Division < ApplicationRecord
       faq_types.delete_if { |t| t.construction_type.commercial? }
     end
     faq_types
+  end
+
+  def conveyancing_enabled?
+    conveyancing && developer.conveyancing
   end
 end
