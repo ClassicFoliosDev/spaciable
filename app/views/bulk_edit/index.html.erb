@@ -7,6 +7,10 @@
 
 <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
+<div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: @phase %>
+</div>
+
 <div class="bulk-edit">
   <%= simple_form_for(:phase_bulk_edit) do |f| %>
 

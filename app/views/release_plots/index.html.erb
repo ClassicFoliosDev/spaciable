@@ -6,6 +6,10 @@
 
 <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
+ <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: @phase %>
+  </div>
+
 <script type="text/javascript" src="/javascripts/lib/release_plots.js"></script>
 
 <div class="release-plots">

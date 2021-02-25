@@ -180,6 +180,14 @@
             <%= t('.dashboard_tour') %>
           </li>
         <% end %>
+
+        <% if @plot.conveyancing_enabled? %>
+          <%= link_to homeowner_wecomplete_path, class: "navbar-link" do %>
+          <li class="navbar-item dashboard-conveyancing-link">
+            <%= t('.conveyancing') %>
+          </li>
+        <% end %>
+        <% end %>
       </ul>
     </div>
   </div>

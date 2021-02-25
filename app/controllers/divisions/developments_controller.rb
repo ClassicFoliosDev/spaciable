@@ -84,8 +84,7 @@ module Divisions
       @development.update_attributes(construction_name: nil) if @development.residential?
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-  def development_params
+    def development_params
       params.require(:development).permit(
         :name, :choice_option,
         :division_id,

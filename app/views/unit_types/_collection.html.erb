@@ -1,14 +1,20 @@
 <% if collection.empty? %>
-    <%= render 'components/empty_list', icon_name: "bath", type: UnitType, parent: parent %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
+
+  <%= render 'components/empty_list', icon_name: "bath", type: UnitType, parent: parent %>
 <% else %>
-  <% if can_create(UnitType, parent) %>
-    <div class="section-actions">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(UnitType, parent) %>
       <%= link_to [:new, parent, :unit_type], class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
-      <% end %>
-    </div>
+    <% end %>
   <% end %>
+  </div>
 
   <table class="record-list unit-types">
     <thead>

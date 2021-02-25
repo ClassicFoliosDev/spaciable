@@ -344,7 +344,7 @@ class Plot < ApplicationRecord
     when :wecomplete
       ENV.fetch(:wecomplete.to_s)
     when :conveyancing
-      wecomplete_sign_in
+      Rails.application.routes.url_helpers.homeowner_wecomplete_path
     when :conveyancing_signin
       wecomplete_sign_in
     when :conveyancing_quote

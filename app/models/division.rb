@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
+  after_save :update_convayencing
 
   include PgSearch
   multisearchable against: [:division_name], using: %i[tsearch trigram]
@@ -152,4 +154,12 @@ class Division < ApplicationRecord
   def conveyancing_enabled?
     conveyancing && developer.conveyancing
   end
+
+  # rubocop:disable SkipsModelValidations
+  def update_convayencing
+    return unless conveyancing_changed?
+    developments.update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
 end
+# rubocop:enable Metrics/ClassLength

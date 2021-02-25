@@ -587,6 +587,7 @@ en:
         area_guide: "Area Guide"
         perks: "Buyers' Club"
         dashboard_tour: "Tour"
+        conveyancing: "Conveyancing"
       header:
         account: "My Account"
         plots: "My Plots"
@@ -647,6 +648,7 @@ en:
       profile: "Profile"
       notifications: "Notifications"
       admin_notifications: "Admin Notifications"
+      conveyancing: "Conveyancing Sign-in"
       contacts: "Contacts"
       howtos: "How Tos"
       help: "Help"
@@ -1304,6 +1306,7 @@ en:
           view_more: "View FAQs"
 
   developments:
+    conveyancing: "Conveyancing"
     collection:
       plot_documents: "Plot Documents"
       phases: "Phases"
@@ -1924,6 +1927,11 @@ en:
         content: "Reply (max 255 characters)"
       create:
         failure: "It was not possible to send your message, please correct the errors shown:"
+    wecomplete:
+      show:
+        get_a_quote: "Get A Quote"
+        log_in: "Log In"
+
 
   developers:
     timelines:

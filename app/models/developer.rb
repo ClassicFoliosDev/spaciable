@@ -7,6 +7,7 @@ class Developer < ApplicationRecord
   attr_accessor :personal_app
   after_save :update_development_cas
   after_save :update_custom_tiles
+  after_save :update_convayencing
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -313,5 +314,17 @@ class Developer < ApplicationRecord
 
     CustomTile.delete_disabled(changed, all_developments) unless changed.empty?
   end
+
+  # rubocop:disable SkipsModelValidations
+  def update_convayencing
+    return unless conveyancing_changed?
+
+    divisions.update_all(conveyancing: conveyancing,
+                         wecomplete_sign_in: wecomplete_sign_in,
+                         wecomplete_quote: wecomplete_quote)
+
+    Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength

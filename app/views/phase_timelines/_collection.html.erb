@@ -1,4 +1,8 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
+
   <div class="empty lower">
     <div><%= fa_icon "clock-o" %></div>
     <div><span><%= t(".empty")%></span></div>
@@ -14,8 +18,10 @@
     </div>
   </div>
 <% else %>
-  <% if can_create(PhaseTimeline, current_user.permission_level) %>
-    <div class="section-actions">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(PhaseTimeline, current_user.permission_level) %>
       <%= link_to new_phase_phase_timeline_path(parent, scope: :journey), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add_journey") %></span>
@@ -24,8 +30,8 @@
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add_proforma") %></span>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <table class="record-list timeline-plots">
     <thead>
