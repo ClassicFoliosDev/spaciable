@@ -1,14 +1,14 @@
 <%= render "components/homeowner/hero" %>
 
 <div class="branded-body">
-
-  <div class="tile-button">
-    <%= link_to t(".get_a_quote"), @plot.wecomplete_quote, class: "branded-btn" %>
-  </div>
-
-  <div class="tile-button">
-    <%= link_to t(".log_in"), @plot.wecomplete_sign_in, class: "branded-btn" %>
-  </div>
+    <div class="outer-container wecomplete">
+      <div class="tile-button">
+        <%= link_to t(".get_a_quote"), @plot.wecomplete_quote, class: "branded-btn" %>
+      </div>
+      <div class="tile-button">
+        <%= link_to t(".log_in"), @plot.wecomplete_sign_in, class: "branded-btn" %>
+      </div>
+    </div>
 
 
 </div>
