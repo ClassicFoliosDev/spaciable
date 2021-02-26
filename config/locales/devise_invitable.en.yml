@@ -23,7 +23,7 @@ en:
       invitation_instructions:
         subject: "Invitation instructions"
         hello: "Hello %{name}"
-        someone_invited_you_admin: "You have been invited to become an administrator for %{development} on www.spaciable.com/admin."
+        someone_invited_you_admin: "You have been invited to become an administrator for %{development} on the Spaciable admin portal."
         spaciable_is: "Spaciable is an online portal that gives your residents helpful information about their home."
         once_activated: "Once you have activated your Spaciable administrator account, you can:"
         can1: "Invite a resident to Spaciable by assigning their email to a plot"
