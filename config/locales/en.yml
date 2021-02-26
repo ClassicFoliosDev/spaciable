@@ -1931,7 +1931,9 @@ en:
       show:
         get_a_quote: "Get A Quote"
         log_in: "Log In"
-
+        conveyancing: "Conveyancing"
+        description: While your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
+                  The Contact feature will point you in the right direction for each type of query, saving you from being passed from pillar to post in search of the right person for any given issue."
 
   developers:
     timelines:
