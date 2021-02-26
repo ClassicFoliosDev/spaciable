@@ -4,7 +4,8 @@ module Admin
   class UsersController < ApplicationController
     include PaginationConcern
     include SortingConcern
-    load_and_authorize_resource :user
+    load_and_authorize_resource :user, except: %i[export_csv]
+    skip_authorization_check only: %i[export_csv]
 
     def index
       @usearch = UserSearch.new(search_params)
