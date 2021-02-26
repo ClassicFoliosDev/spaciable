@@ -4,6 +4,9 @@
 
   <%= render '/developments/development', development: @development %>
   <%= render 'components/tabs', tabs: development_tabs(@development, @active_tab), parent: @developer %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: @development %>
+  </div>
   <%= render "calendar/events", source: @development, preload: @preload %>
 
   <div class="form-actions-footer-container">

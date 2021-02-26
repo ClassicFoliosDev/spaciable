@@ -29,7 +29,7 @@ end
 
 Then(/^I cannot crud the shortcuts$/) do
   within ".main-container" do
-    expect(page).to have_no_css(".section-actions")
+    expect(page).to have_no_css(".section-actions .fa-plus")
   end
 
   within ".actions" do

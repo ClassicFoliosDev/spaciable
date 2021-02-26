@@ -94,6 +94,11 @@
             <% end %>
           </div>
         </div>
+        <% if development.parent.conveyancing_enabled? %>
+          <%= f.label :conveyancing, t(".conveyancing") %>
+          <%= f.check_box :conveyancing %>
+          <p class="checkbox-description"><%= t(".conveyancing_description") %>
+        <% end %>
       </fieldset>
     </div>
   </div>

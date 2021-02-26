@@ -1,4 +1,7 @@
 <div class="styling">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
   <% if brand.id.nil? %>
     <%= render 'components/empty_list', icon_name: "css3", type: Brand, parent: parent %>
   <% else %>

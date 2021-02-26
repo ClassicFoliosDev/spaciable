@@ -1,0 +1,21 @@
+<%= render "components/homeowner/hero" %>
+
+<div class="branded-body">
+    <div class="outer-container wecomplete">
+      <div class="third">
+        <div class="conveyancing">
+          <h1 class="card-title branded-text"><%=t(".conveyancing")%></h1>
+          <p><%=t(".description")%></p>
+          <br>
+          <br>
+          <%= link_to t(".get_a_quote"), @plot.wecomplete_quote, { class: "branded-btn", target: "_blank" } %>
+          <%= link_to t(".log_in"), @plot.wecomplete_sign_in, { class: "branded-btn right", target: "_blank" } %>
+        </div>
+      </div>
+
+      <div class="two-thirds">
+        <%= image_tag "wecomplete.png" %>
+      </div>
+
+    </div>
+</div>

@@ -88,6 +88,18 @@ $button-line-height: 28px;
   }
 }
 
+.btn-base {
+  @extend .btn-primary;
+  background-color: $base-button-font-color;
+  border-color: $base-button-font-color;
+
+  &:hover {
+    color: #002A3A;
+    background-color: $base-button-bg-color-hover;
+    border-color: $base-button-font-color;
+  }
+}
+
 button:focus, button:active {
   outline: none;
 }

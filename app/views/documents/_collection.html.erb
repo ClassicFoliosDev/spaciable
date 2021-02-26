@@ -3,6 +3,8 @@
 <% end %>
 
 <div class="section-actions">
+  <%= render 'components/admin/conveyancing', parent: parent %>
+
   <% if collection.present? %>
     <% if parent && can_create(Document, parent) %>
       <% unless parent.expired? && !(current_user.cf_admin?) %>

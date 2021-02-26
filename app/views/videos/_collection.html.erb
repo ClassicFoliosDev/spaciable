@@ -1,16 +1,21 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
   <%= render 'components/empty_list', icon_name: "file-video-o", type: Video, parent: parent %>
 <% else %>
-  <% if can_create(Video, parent) %>
-    <% unless parent.expired? && !(current_user.cf_admin?) %>
-      <div class="section-actions">
-        <%= link_to [:new, parent, :video], class: "btn btn-primary" do %>
-          <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".create") %></span>
-        <% end %>
-      </div>
+  <div class="section-actions">
+     <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(Video, parent) %>
+      <% unless parent.expired? && !(current_user.cf_admin?) %>
+          <%= link_to [:new, parent, :video], class: "btn btn-primary" do %>
+            <i class="fa fa-plus"></i>
+            <span class="btn-label"><%= t(".create") %></span>
+          <% end %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
   <table class="record-list">
     <thead>

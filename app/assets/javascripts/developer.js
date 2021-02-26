@@ -13,3 +13,31 @@ function parameterize(event) {
     }
   })
 }
+
+$(document).on('turbolinks:load', function () {
+
+  conveyancing("#developer")
+  conveyancing("#division")
+})
+
+function conveyancing(selector)
+{
+  if ($(selector + "_conveyancing").length != 0){
+    $(selector + "_conveyancing").change(function() {
+      check_wecomplete(selector)
+    })
+    check_wecomplete(selector)
+  }
+}
+
+function check_wecomplete(selector)
+{
+  if($(selector + "_conveyancing").is(':checked')) {
+    $("#wecomplete").show()
+  } else {
+    $("#wecomplete").hide()
+    $(selector + "_wecomplete_sign_in").val("")
+    $(selector + "_wecomplete_quote").val("")
+  }
+}
+

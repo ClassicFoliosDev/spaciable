@@ -47,6 +47,7 @@ class Development < ApplicationRecord
   delegate :branded_perk, to: :parent_developer
   delegate :custom_url, to: :developer
   delegate :timeline, :time_zone, :proformas, to: :parent_developer
+  delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
 
   alias_attribute :development_name, :name
 
@@ -291,6 +292,10 @@ class Development < ApplicationRecord
 
   def signature
     ""
+  end
+
+  def conveyancing_enabled?
+    conveyancing && parent.conveyancing_enabled?
   end
 end
 # rubocop:enable Metrics/ClassLength

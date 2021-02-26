@@ -1,4 +1,7 @@
-<table class="record-list">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
+  <table class="record-list">
   <thead>
     <tr>
       <th colspan="2"><%= sortable(Document, :title, t(".document")) %></th>

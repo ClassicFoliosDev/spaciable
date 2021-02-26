@@ -1,0 +1,8 @@
+<% if [Development, Phase, Plot].include?(parent.class) &&
+      parent.conveyancing_enabled? %>
+  <%= link_to parent.wecomplete_sign_in, { class: "btn btn-base", target: "_blank" } do %>
+    <i class="fa fa-gavel"></i>
+
+      <span class="btn-label"><%= t("developments.conveyancing") %></span>
+  <% end %>
+<% end %>

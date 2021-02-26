@@ -84,13 +84,12 @@ module Divisions
       @development.update_attributes(construction_name: nil) if @development.residential?
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
         :division_id,
         :email, :contact_number,
-        :enable_snagging, :snag_duration, :snag_name, :cas, :calendar,
+        :enable_snagging, :snag_duration, :snag_name, :cas, :calendar, :conveyancing,
         :construction, :construction_name,
         maintenance_attributes: %i[id path account_type populate],
         premium_perk_attributes: %i[id enable_premium_perks premium_licences_bought

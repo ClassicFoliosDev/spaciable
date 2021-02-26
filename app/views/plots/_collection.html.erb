@@ -1,8 +1,13 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
   <%= render 'components/empty_list', icon_name: "building", type: Plot, parent: parent %>
 <% else %>
-  <% if can_create(Plot, current_user.permission_level) %>
-    <div class="section-actions">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(Plot, current_user.permission_level) %>
       <%= link_to [:new, parent, :plot], class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
@@ -13,8 +18,8 @@
           <span class="btn-label"><%= t(".sync") %></span>
         <% end %>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <%
     country = parent.is_a?(Developer) ? parent.country  : parent.developer.country

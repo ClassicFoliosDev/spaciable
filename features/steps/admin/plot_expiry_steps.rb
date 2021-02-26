@@ -194,7 +194,7 @@ Then(/^I can no longer add a resident to the plot$/) do
 
   # When there are legacy residents, no new residents can be created
   within ".plot" do
-    expect(page).to have_no_css(".section-actions")
+    expect(page).to have_no_css(".section-actions .fa-plus")
     expect(page).to_not have_content I18n.t("residents.collection.add")
     expect(page).to have_content(ExpiryFixture.first_name)
   end
@@ -306,7 +306,7 @@ Then(/^I can no longer CRUD contacts$/) do
 
   # When there are legacy contacts, no new contacts can be created
   within ".record-list" do
-    expect(page).to have_no_css(".section-actions")
+    expect(page).to have_no_css(".section-actions .fa-plus")
     expect(page).to_not have_content I18n.t("contacts.collection.create")
     expect(page).to have_content(ContactFixture.organisation)
   end
@@ -426,7 +426,7 @@ When(/^I can no longer CRUD faqs$/) do
 
   # When there are legacy faqs, no new faqs can be created
   within ".main-container" do
-    expect(page).to have_no_css(".section-actions")
+    expect(page).to have_no_css(".section-actions .fa-plus")
     expect(page).to_not have_content I18n.t("faqs.collection.add")
     expect(page).to have_content(ExpiryFixture.faq_title)
   end
@@ -466,7 +466,7 @@ When(/^I can no longer CRUD videos$/) do
 
   # When there are legacy videos, no new videos can be created
   within ".main-container" do
-    expect(page).to have_no_css(".section-actions")
+    expect(page).to have_no_css(".section-actions .fa-plus")
     expect(page).to_not have_content I18n.t("videos.collection.create")
     expect(page).to have_content(VideoFixture.link)
   end

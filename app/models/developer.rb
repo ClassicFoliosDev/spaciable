@@ -7,6 +7,7 @@ class Developer < ApplicationRecord
   attr_accessor :personal_app
   after_save :update_development_cas
   after_save :update_custom_tiles
+  after_save :update_convayencing
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -69,6 +70,21 @@ class Developer < ApplicationRecord
   validates :account_manager_email,
             allow_blank: true,
             format: { with: Devise.email_regexp }
+
+  validate :check_conveyancing
+
+  def check_conveyancing
+    return unless conveyancing?
+
+    if wecomplete_sign_in.blank?
+      errors.add("WeComplete sign-in URL", "is required, and must not be blank.")
+      errors.add(:wecomplete_sign_in, "please populate")
+    end
+
+    return if wecomplete_sign_in.present?
+    errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
+    errors.add(:wecomplete_quote, "please populate")
+  end
 
   # Account manager fields need to be 'all' or 'none'
   # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -230,7 +246,7 @@ class Developer < ApplicationRecord
     faq_types
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
   def supports?(feature)
     return false unless feature
 
@@ -245,15 +261,21 @@ class Developer < ApplicationRecord
       enable_services?
     when :buyers_club
       enable_perks?
-    when :custom_url, :issues, :snagging, :tour, :calendar, :wecomplete
+    when :conveyancing, :conveyancing_quote, :conveyancing_signin
+      conveyancing_enabled?
+    when :custom_url, :issues, :snagging, :tour, :calendar
       true
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
 
   # What Content Proformas are available to this developer
   def proformas
     Timeline.available_to(self, StageSet.stage_set_types[:proforma])
+  end
+
+  def conveyancing_enabled?
+    conveyancing
   end
 
   private
@@ -292,5 +314,17 @@ class Developer < ApplicationRecord
 
     CustomTile.delete_disabled(changed, all_developments) unless changed.empty?
   end
+
+  # rubocop:disable SkipsModelValidations
+  def update_convayencing
+    return unless conveyancing_changed?
+
+    divisions.update_all(conveyancing: conveyancing,
+                         wecomplete_sign_in: wecomplete_sign_in,
+                         wecomplete_quote: wecomplete_quote)
+
+    Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength

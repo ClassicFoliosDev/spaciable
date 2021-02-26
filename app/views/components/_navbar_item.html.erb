@@ -1,5 +1,6 @@
+<% frame = defined?(target) ? target : "_self" %>
 <div class="navbar-item">
-  <%= link_to path, class: link_class do %>
+  <%= link_to path, { class: link_class, target: frame} do %>
     <%= fa_icon icon unless icon.blank? %>
     <%= label %>
   <% end %>

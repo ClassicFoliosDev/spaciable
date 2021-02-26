@@ -38,7 +38,8 @@ class CustomTile < ApplicationRecord
     perks: 4,
     issues: 5,
     snagging: 6,
-    timeline: 7
+    timeline: 7,
+    conveyancing: 8
   }
 
   delegate :snag_name, to: :development
@@ -101,10 +102,11 @@ class CustomTile < ApplicationRecord
   end
 
   def active_feature(plot)
-    return true unless snagging? || issues? || timeline?
+    return true unless snagging? || issues? || timeline? || conveyancing?
     return true if snagging? && plot.snagging_valid
     return true if issues? && plot.show_maintenance?
     return true if timeline? && plot&.journey&.live?
+    return true if conveyancing? && plot.conveyancing_enabled?
     false
   end
 

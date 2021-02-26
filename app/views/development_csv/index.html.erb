@@ -4,6 +4,10 @@
 
 <%= render 'components/tabs', tabs: development_tabs(@development, "development_csv"), parent: @parent %>
 
+<div class="section-actions">
+  <%= render 'components/admin/conveyancing', parent: @development %>
+</div>
+
 <div class="development-csv">
   <div class="separate row">
     <div class="row-item third hint">

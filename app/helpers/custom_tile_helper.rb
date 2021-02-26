@@ -15,7 +15,8 @@ module CustomTileHelper
     { "area_guide" => p.house_search, "services" => p.enable_services,
       "home_designer" => p.enable_roomsketcher, "issues" => p.maintenance,
       "referrals" => p.enable_referrals, "perks" => p.enable_perks,
-      "snagging" => p.enable_snagging, "timeline" => p.timeline }.each do |name, feature|
+      "snagging" => p.enable_snagging, "timeline" => p.timeline,
+      "conveyancing" => p.conveyancing_enabled? }.each do |name, feature|
       disabled << name unless feature
     end
 

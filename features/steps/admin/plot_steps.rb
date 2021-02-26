@@ -344,7 +344,7 @@ Then(/^I can not create a plot$/) do
   goto_phase_show_page
 
   within ".phase" do
-    expect(page).not_to have_selector(".section-actions")
+    expect(page).not_to have_selector(".section-actions .fa-plus")
     expect(page).not_to have_content(t("plots.collection.add"))
   end
 end
