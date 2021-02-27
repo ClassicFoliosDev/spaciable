@@ -1,20 +1,18 @@
 .wecomplete {
 
-  .branded-btn {
+  .branded-btn, .branded-btn-inverted {
     line-height: $base-font-line-height;
     font-size: $base-font-size;
     width: 140px;
     text-align: center;
     padding: 0px 10px;
     margin-right: 30px;
+    float: none;
 
     &:hover {
       cursor: pointer;
     }
 
-    &.right {
-      float: none;
-    }
   }
 
   .third {
@@ -32,6 +30,10 @@
     margin-right: auto;
     margin-left: auto;
   }
+
+  ul {
+      padding-left: 22px;
+  }
 }
 
 @include media($mobile-down) {
@@ -46,9 +48,8 @@
       unset: padding-top;
     }
 
-    .branded-btn {
-       margin-right: 0;
-       float: right;
+    .branded-btn, .branded-btn-inverted {
+       width: 100%;
     }
   }
 }

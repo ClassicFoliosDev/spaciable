@@ -587,7 +587,7 @@ en:
         area_guide: "Area Guide"
         perks: "Buyers' Club"
         dashboard_tour: "Tour"
-        conveyancing: "Conveyancing"
+        conveyancing: "Legal Process"
       header:
         account: "My Account"
         plots: "My Plots"
@@ -1746,9 +1746,9 @@ en:
           description: "Track your progress towards your move and pick up plenty of tips along the way."
           button: "My Journey"
         conveyancing:
-          title: "Conveyancing"
-          description: "Discover conveyancing."
-          button: "Conveyancing"
+          title: "Legal Process"
+          description: "Spaciable Legal guides you through conveyancing, minimising delays so you can exchange as soon as possible!"
+          button: "Go"
 
     communication_preferences:
       show:
@@ -1931,9 +1931,9 @@ en:
       show:
         get_a_quote: "Get A Quote"
         log_in: "Log In"
-        conveyancing: "Conveyancing"
-        description: While your portal is brimming with helpful information, sometimes a phone call might be necessary to get to the bottom of an issue.
-                  The Contact feature will point you in the right direction for each type of query, saving you from being passed from pillar to post in search of the right person for any given issue."
+        conveyancing: "Spaciable Legal"
+        description: "Spaciable Legal guides you through the conveyancing process, helping you exchange contracts quicker than ever before."
+        description2: "And much more…Spaciable Legal simplifies conveyancing and keeps everything in one place, so you can focus on the exciting parts of homebuying!"
 
   developers:
     timelines:
