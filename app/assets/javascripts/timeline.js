@@ -81,7 +81,9 @@ $(document).on('click', '#deleteActionBtn', function (event) {
 // task form - show the feature fields on clicking add feature button
 $(document).on('click', '#addFeatureBtn', function (event) {
 
-  if ($num_features == 1 && $('.featureInput').is(":hidden")) {
+  if ($num_features == 1 &&
+      $('.featureInput').is(":hidden") &&
+      $('.featureInput').data("supported")) {
     $('.featureInput').show()
     // the _destroy attribute marks a nested record for destruction
     $('.featureInput').find("input[deletefield='true']").val(false)
@@ -208,6 +210,8 @@ function addNewFeature(){
   select.val(select.find("option").first().val())
   selectFeatureType(select)
 
+  newfeature.data("supported", true)
+  newfeature.show()
   $num_features += 1
 }
 

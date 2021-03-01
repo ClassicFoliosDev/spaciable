@@ -1,14 +1,16 @@
 <% if collection.empty? %>
   <%= render 'components/empty_list', icon_name: "building", type: Phase, parent: parent %>
 <% else %>
-  <% if can_create(Phase, current_user.permission_level) %>
-    <div class="section-actions">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(Phase, current_user.permission_level) %>
       <%= link_to new_development_phase_path(parent), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
         <span class="btn-label"><%= t(".add") %></span>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <table class="record-list phases">
     <thead>

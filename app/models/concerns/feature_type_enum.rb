@@ -15,7 +15,9 @@ module FeatureTypeEnum
       services
       snagging
       tour
-      wecomplete
+      conveyancing
+      conveyancing_quote
+      conveyancing_signin
     ]
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210212131242) do
+ActiveRecord::Schema.define(version: 20210219112444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -383,6 +383,9 @@ ActiveRecord::Schema.define(version: 20210212131242) do
     t.string   "account_manager_email"
     t.string   "account_manager_contact"
     t.boolean  "enable_how_tos",              default: true
+    t.boolean  "conveyancing",                default: false
+    t.string   "wecomplete_sign_in"
+    t.string   "wecomplete_quote"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -420,6 +423,7 @@ ActiveRecord::Schema.define(version: 20210212131242) do
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
     t.boolean  "calendar",              default: false
+    t.boolean  "conveyancing",          default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -435,6 +439,9 @@ ActiveRecord::Schema.define(version: 20210212131242) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "list_id"
+    t.boolean  "conveyancing",       default: false
+    t.string   "wecomplete_sign_in"
+    t.string   "wecomplete_quote"
     t.index ["created_at"], name: "index_divisions_on_created_at", using: :btree
     t.index ["deleted_at"], name: "index_divisions_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_divisions_on_developer_id", using: :btree

@@ -1,0 +1,26 @@
+<%= render "components/homeowner/hero" %>
+
+<div class="branded-body">
+    <div class="outer-container wecomplete">
+      <div class="third">
+        <div class="conveyancing">
+          <h1 class="card-title branded-text"><%=t(".conveyancing")%></h1>
+          <p><%=t(".description")%></p>
+          <ul>
+            <li><p>Instantly obtain quotes from conveyancers<p></li>
+            <li><p>Expedite local search results<p></li>
+            <li><p>View real-time updates from your conveyancer<p></li>
+            <li><p>Exchange contracts on Spaciable<p></li>
+          </ul>
+          <p><%=t(".description2")%></p>
+          <%= link_to t(".get_a_quote"), @plot.wecomplete_quote, { class: "branded-btn", target: "_blank" } %>
+          <%= link_to t(".log_in"), @plot.wecomplete_sign_in, { class: "branded-btn-inverted", target: "_blank", id: "wecomplete_login" } %>
+        </div>
+      </div>
+
+      <div class="two-thirds">
+        <%= image_tag "desktop_property_hub.png" %>
+      </div>
+
+    </div>
+</div>

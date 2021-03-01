@@ -28,7 +28,8 @@ class Phase < ApplicationRecord
   has_many :plot_documents, through: :plots, source: :documents
   has_many :phase_timelines, dependent: :destroy
 
-  delegate :enable_snagging, to: :development
+  delegate :enable_snagging, :conveyancing_enabled?,
+           :wecomplete_sign_in, :wecomplete_quote, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
   delegate :calendar, to: :development, prefix: true
   delegate :time_zone, to: :developer

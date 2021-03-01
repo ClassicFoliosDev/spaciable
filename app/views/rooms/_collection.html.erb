@@ -6,16 +6,21 @@
 %>
 
 <% if collection.empty? %>
-    <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
+  <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate %>
 <% else %>
-  <% if cancreate %>
-    <div class="section-actions">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if cancreate %>
       <%= link_to [:new, parent, :room], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
           <span class="btn-label"><%= t(".add", name: parent) %></span>
       <% end %>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <% showing_icons = current_user&.cf_admin? ||
                     (cancreate && (parent.is_a?(Plot) ||

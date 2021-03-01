@@ -87,6 +87,7 @@ class DevelopersController < ApplicationController
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
+  # rubocop:disable Metrics/MethodLength
   def developer_params
     params.require(:developer).permit(
       :country_id,
@@ -97,12 +98,14 @@ class DevelopersController < ApplicationController
       :enable_roomsketcher, :enable_development_messages,
       :prime_lettings_admin, :personal_app, :cas, :timeline,
       :enable_perks, :is_demo, :enable_how_tos,
+      :conveyancing, :wecomplete_sign_in, :wecomplete_quote,
       :account_manager_name, :account_manager_email, :account_manager_contact,
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )
   end
+  # rubocop:enable Metrics/MethodLength
 
   def default_tab
     return "developments" if !current_user.cf_admin? &&
