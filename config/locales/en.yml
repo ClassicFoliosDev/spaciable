@@ -1107,6 +1107,9 @@ en:
         faq_description: "Global FAQs"
         faqs:
           country: "Modify %{country} FAQs"
+        api_config: "Partner APIs"
+        api_config_description: "Add and modify partner API metadata"
+        api_config_btn: "Modify Partner APIs"
       uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"

@@ -4,8 +4,13 @@ Doorkeeper.configure do
 
   # This block will be called to check whether the resource owner is authenticated or not.
   resource_owner_authenticator do
-    session[:oauth2_req] = request.fullpath unless current_user
-    current_user || redirect_to(new_user_session_url)
+    scope = request.query_parameters["scope"]
+
+    session[:oauth2_req] = request.fullpath unless (current_user || current_resident)
+
+    current_resident || redirect_to(new_resident_session_url) if scope&.downcase == "resident"
+    current_user || redirect_to(new_user_session_url) if scope&.downcase == "admin"
+    (current_user || current_resident)
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb

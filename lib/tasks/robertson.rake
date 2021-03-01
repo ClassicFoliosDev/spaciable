@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 namespace :robertson do
-  desc "Load Saleforce connection config data - assume Developer 'Marvelous Homes'"
   task initialise: :environment do
     init_robertson
   end

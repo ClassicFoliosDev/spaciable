@@ -386,8 +386,16 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: 'json' } do
-    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
-      resources :pre_sales, only: [:create]
+    namespace :admin do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+        resources :pre_sales, only: [:create]
+      end
+    end
+
+    namespace :resident do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+        resources :meta, only: [:index]
+      end
     end
   end
 end
