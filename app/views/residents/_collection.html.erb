@@ -1,7 +1,11 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
     <%= render 'components/empty_list', icon_name: "user", type: Resident, parent: parent %>
 <% else %>
   <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
     <% unless parent.expired? && !(current_user.cf_admin?) %>
       <%= link_to [:new, plot, :resident], class: "btn btn-primary", data: { action: "new" } do %>
         <i class="fa fa-plus"></i>
