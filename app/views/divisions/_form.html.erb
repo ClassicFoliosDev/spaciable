@@ -24,6 +24,7 @@
         <%= f.input :prime_lettings_admin, as: :select, collection: division.potential_prime_admins.map { |a| [a.to_s, a.id] },
             label: t(".prime_admin"), include_blank: true %>
         <% if developer.conveyancing? %>
+          <%= f.label :conveyancing, t(".conveyancing") %>
           <%= f.check_box :conveyancing %>
           <p class="checkbox-description"><%= t(".conveyancing_description") %>
           <div id="wecomplete">
