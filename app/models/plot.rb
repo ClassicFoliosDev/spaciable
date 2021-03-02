@@ -294,7 +294,7 @@ class Plot < ApplicationRecord
     when :custom_url, :area_guide, :home_designer, :referrals, :services
       developer.supports?(feature_type)
     when :conveyancing, :conveyancing_quote, :conveyancing_signin
-      developer.conveyancing_enabled?
+      development.conveyancing_enabled?
     when :buyers_club
       return false unless developer.supports?(feature_type)
       Vaboo.perks_account_activated?(RequestStore.store[:current_resident],
