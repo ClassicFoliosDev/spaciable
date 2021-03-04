@@ -77,6 +77,12 @@
         <%= f.check_box :calendar %>
         <p class="checkbox-description"><%= t(".calendar_description") %></p>
         <br/>
+        <% if development.parent.conveyancing_enabled? %>
+          <%= f.label :conveyancing, t(".conveyancing") %>
+          <%= f.check_box :conveyancing %>
+          <p class="checkbox-description"><%= t(".conveyancing_description") %>
+        <% end %>
+        <br/>
         <div id="premium_perks">
           <div class="<%= parent.enable_perks %>">  <!-- used in css to determine visibility -->
             <%= f.simple_fields_for :premium_perk do |p| %>
@@ -94,11 +100,6 @@
             <% end %>
           </div>
         </div>
-        <% if development.parent.conveyancing_enabled? %>
-          <%= f.label :conveyancing, t(".conveyancing") %>
-          <%= f.check_box :conveyancing %>
-          <p class="checkbox-description"><%= t(".conveyancing_description") %>
-        <% end %>
       </fieldset>
     </div>
   </div>

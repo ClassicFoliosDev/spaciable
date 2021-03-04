@@ -330,7 +330,7 @@ Rails.application.routes.draw do
     get :remove_snag_attachment, to: "snag_attachments#destroy", format: :json
     post :lettings_accounts, to: "lettings_accounts#create", format: :json
 
-    get "wecomplete", to: 'wecomplete#show', as: :homeowner_wecomplete
+    get "legal", to: 'wecomplete#show', as: :homeowner_wecomplete
   end
 
   get '/:token/confirm_referral', to: "homeowners/referrals#confirm_referral", as: 'confirm_referral'

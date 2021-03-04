@@ -3518,7 +3518,7 @@ en:
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
           timeline: "My Journey"
-          conveyancing: "Conveyancing"
+          conveyancing: "Spaciable Legal Conveyancing"
         guides:
           reservation: "Reservation"
           completion: "Completion"
@@ -3919,6 +3919,7 @@ en:
     view_how_to: "How To"
     view_home_designer: "Home Designer"
     view_area_guide: "Area Guide"
+    view_conveyancing: "Spaciable Legal"
     view_calendar: "Calendar"
     view_buyers_club: "Buyers Club"
     bc_find_out_more: "Find out more"
