@@ -23,6 +23,12 @@ class Notification < ApplicationRecord
     both
   ]
 
+  enum plot_filter: %i[
+    all_plots
+    completed_plots
+    reservation_plots
+  ]
+
   def picture_name
     return "user-circle-o.jpg" if picture.blank?
     picture

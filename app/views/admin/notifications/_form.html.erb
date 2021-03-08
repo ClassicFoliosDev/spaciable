@@ -18,13 +18,21 @@
   <div class="row">
     <div class="row-item third send-targets">
       <fieldset class="skip-global-selectmenu">
-        <div class="send-to-role">
-          <%= f.label :send_to_role, label: t(".send_to_role") %>
-
-          <%= f.radio_button :send_to_role, 'homeowner', checked: true %> <span><%= t(".homeowner") %></span><br/>
-          <%= f.radio_button :send_to_role, 'tenant' %> <span><%= t(".tenant") %></span><br/>
-          <%= f.radio_button :send_to_role, 'both' %> <span><%= t(".both") %></span><br/>
-          <hr>
+        <div class="notification_filters">
+          <div class="send-to-role">
+            <%= f.label :send_to_role, label: t(".send_to_role") %>
+            <%= f.radio_button :send_to_role, 'homeowner', checked: true %> <span><%= t(".homeowner") %></span><br/>
+            <%= f.radio_button :send_to_role, 'tenant' %> <span><%= t(".tenant") %></span><br/>
+            <%= f.radio_button :send_to_role, 'both' %> <span><%= t(".both") %></span><br/>
+            <hr>
+          </div>
+          <div class="send-to-plot-filter">
+            <%= f.label :plot_filter, label: t(".plot_filter") %>
+            <% Notification.plot_filters.each do |name, val| %>
+            <%= f.radio_button :plot_filter, name, checked: (val == 0) %> <span><%= t(".#{name}") %></span><br/>
+            <% end %>
+            <hr>
+          </div>
         </div>
 
         <%= f.label :send_to, label: t(".send_to") %>
