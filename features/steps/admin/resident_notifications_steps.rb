@@ -63,6 +63,18 @@ When(/^I send a notification to all residents$/) do
 end
 
 When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
+  create_notification(parent, resource_class, "all_plots")
+end
+
+When(/^I send a notification to completed plot residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
+  create_notification(parent, resource_class, "completed_plots")
+end
+
+When(/^I send a notification to reserved plot residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
+  create_notification(parent, resource_class, "reservation_plots")
+end
+
+def create_notification(parent, resource_class, plot_filter)
   ActionMailer::Base.deliveries.clear
   visit "/admin/notifications/new"
 
@@ -70,6 +82,10 @@ When(/^I send a notification to residents under (my|a) (\(\w+\) )?(\w+)$/) do |_
   attrs = ResidentNotificationsFixture::MESSAGES[type]
 
   sleep 0.3
+  within ".send-to-plot-filter" do
+    choose("notification_plot_filter_#{plot_filter}")
+  end
+
   within ".send-targets" do
     if instance.is_a?(Developer)
       within ".developer-id" do
@@ -221,6 +237,23 @@ Then(/^all residents should receive a notification$/) do
   notice = t(
     "admin.notifications.create.success",
     notification_name: ResidentNotificationsFixture::MESSAGES.dig(:all, :subject),
+    count: resident_email_addresses.count
+  )
+  within ".notice" do
+    expect(page).to have_content(notice)
+  end
+end
+
+Then(/^the (.*) plot residents should receive a notification$/) do |action|
+  resident_email_addresses = Plot.find_by(number: CreateFixture.phase_plot_name).residents.where(developer_email_updates: true).pluck(:email)
+
+  emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
+
+  expect(emailed_addresses).to match_array(resident_email_addresses)
+
+  notice = t(
+    "admin.notifications.create.success",
+    notification_name: ResidentNotificationsFixture::MESSAGES.dig(:development, :subject),
     count: resident_email_addresses.count
   )
   within ".notice" do
