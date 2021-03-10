@@ -3963,10 +3963,10 @@ en:
       yearly: "Yearly"
     remind:
       nix: "Never"
-      at: "At"
-      hour: "Hour"
-      day: "Day"
-      week: "Week"
+      at: "At Event Time"
+      hour: "Hour Before"
+      day: "Day Before"
+      week: "Week Before"
     edit:
       repeat:
         this_event: "This event only"
