@@ -922,6 +922,7 @@ en:
         send_to: "Residents of:"
         send_to_role: "Resident Filter:"
         plot_filter: "Plot Filter:"
+        plot_filter_help: "<strong>Completed Plots</strong> = plots where completion information has been added by Classic Folios (indicated by a green dot in the Status column on the development plot list). These plots have not necessarily legally completed. If you select a plot/plots using the filters/fields below, note that only Completed Plots will receive the message.\n\n <strong>Reservation Plots</strong> = plots where completion information has not yet been added by Classic Folios (indicated by a blank dot in the Status column on the development plot list). If you select a plot/plots using the filters/fields below, note that only Reservation Plots will receive the message."
         homeowner: "Full Access Users"
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"

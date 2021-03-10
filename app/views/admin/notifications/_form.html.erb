@@ -25,11 +25,17 @@
             <%= f.radio_button :send_to_role, 'tenant' %> <span><%= t(".tenant") %></span><br/>
             <%= f.radio_button :send_to_role, 'both' %> <span><%= t(".both") %></span><br/>
           </div>
+          <i class="fa fa-question-circle" id="plotfiltersHelp"></i>
           <div class="send-to-plot-filter">
             <%= f.label :plot_filter, label: t(".plot_filter") %>
-            <% Notification.plot_filters.each do |name, val| %>
-            <%= f.radio_button :plot_filter, name, checked: (val == 0) %> <span><%= t(".#{name}") %></span><br/>
-            <% end %>
+            <div id="plot_filters">
+              <% Notification.plot_filters.each do |name, val| %>
+              <%= f.radio_button :plot_filter, name, checked: (val == 0) %> <span><%= t(".#{name}") %></span><br/>
+              <% end %>
+            </div>
+          </div>
+          <div class="plot-filters-help" id="plot_filters_help">
+              <%= simple_format t(".plot_filter_help") %>
           </div>
           <hr>
         </div>
