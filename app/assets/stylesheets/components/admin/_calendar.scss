@@ -6,11 +6,15 @@
   //$phase: #EDFEC4;
   //$plot: #FCD7D4;
 
-  $development: #265D87;
-  $phase: #4D6F12;
-  $plot: #972F18;
+  $development: #50AAF1;
+  $phase: #5ED3C1;
+  $plot: #F19A37;
 
   #admin_calendar {
+    .fc-time, .fc-title {
+      font-size: 12px;
+    }
+
   .fc-toolbar {
     padding-top: $spacing-medium;
   }

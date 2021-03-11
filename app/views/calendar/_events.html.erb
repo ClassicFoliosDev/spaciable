@@ -3,7 +3,7 @@
 <div class="row">
   <div class="row-item">
     <div class="calendar">
-    <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-type="<%=source.class.to_s%>" data-path="<%= events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
+    <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-type="<%=source.class.to_s%>" data-path="<%= events_path %>" data-editable=<%=editable%> data-deletable=<%=can? :destroy, Event %> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %>  ></div>
     </div>
   </div>
 </div>

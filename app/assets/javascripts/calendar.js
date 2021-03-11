@@ -10,7 +10,7 @@ var admin = {
     var dataIn = calendarEl.data()
 
     calendarConfig = {
-        displayEventEnd: true,
+        displayEventEnd: false,
         timezone:"local",
         customButtons: {
           addEvent: {
@@ -175,6 +175,9 @@ var admin = {
   },
 
   showEvent: function(event, dataIn) {
+
+    if ($(".ui-dialog").length == 1) { return }
+
     $(".proposed_datetime").hide()
     admin.scrub()
 
@@ -232,7 +235,7 @@ var admin = {
         var buttons = [
           {
             text: "Cancel",
-            class: 'btn',
+            class: 'btn close_event_dialog',
             click: function () {
               $(this).dialog('destroy')
             }
@@ -273,7 +276,7 @@ var admin = {
         }
 
         // If its not new - add the delete option
-        if (!event.new) {
+        if (!event.new && $('#admin_calendar').data('deletable')) {
           buttons.push(
           {
             text: '',
@@ -298,7 +301,9 @@ var admin = {
           buttons: buttons
         }).prev().find('.ui-dialog-titlebar-close').hide()
 
-        $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+        if ($('#admin_calendar').data('deletable')) {
+          $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+        }
         $('.ui-dialog-title').css('line-height', '28px')
 
         // populate the form with the data from this event
@@ -807,3 +812,9 @@ $(document).on('click', '#event_repeat-menu', function (event) {
     $("#repeat_until").hide() :
     $("#repeat_until").show()
 })
+
+$(document).on('keydown', function(event) {
+       if (event.key == "Escape") {
+          $(".close_event_dialog").trigger('click')
+       }
+});
