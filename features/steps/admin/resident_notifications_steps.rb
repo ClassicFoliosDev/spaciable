@@ -33,6 +33,7 @@ end
 
 Given(/^I am Development Admin wanting to send notifications to residents$/) do
   ResidentNotificationsFixture.create_permission_resources
+  Plot.find_by(number: CreateFixture.phase_plot_name).update_attributes(completion_release_date: Time.zone.now, reservation_release_date: Time.zone.now)
   admin = CreateFixture.create_development_admin
 
   visit_notifications_page(admin)

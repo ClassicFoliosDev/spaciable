@@ -64,7 +64,6 @@ module ResidentNotificationsFixture
     div_phase = create_division_development_phase
     create_unit_type
     create_phase_plot(division ? div_phase : dev_phase)
-    Plot.find_by(number: phase_plot_name).update_attributes(completion_release_date: Time.zone.now, reservation_release_date: Time.zone.now)
     create_division_development_plot
     create_notification_residents
   end
