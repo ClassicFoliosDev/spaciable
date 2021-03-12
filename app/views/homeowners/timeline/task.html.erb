@@ -13,7 +13,7 @@
           <div class="progress-container">
             <div class="title">
               <i id="iconMobile<%=@task.stage_title%>"></i>
-              <p> <%= @task.stage_title %></p>
+              <p> <%= Lookup.parse(@task.stage_title, @plot, current_resident) %></p>
             </div>
             <div class="progress">
               <span class="progress-count">
@@ -32,11 +32,11 @@
         <div class="title">
           <i id="icon<%=@task.stage_title%>"></i>
           <% if @task.stage_set.proforma? %>
-            <h2><%= @timeline.title %></h2>
+            <h2><%= Lookup.parse(@timeline.title, @plot, current_resident) %></h2>
           <% else %>
             <h2><%= t(".header") %></h2>
           <% end %>
-          <p> <%= @task.stage_title %></p>
+          <p> <%= Lookup.parse(@task.stage_title, @plot, current_resident) %></p>
         </div>
         <div class="progress <%=@timeline.stage_set_type%>">
           <span class="progress-count">
@@ -65,7 +65,7 @@
           <div id="question" >
             <div class="question-content">
               <div class="content">
-                <p class="branded-text"> <%= @task.question %> </p>
+                <p class="branded-text"> <%= Lookup.parse(@task.question, @plot, current_resident) %> </p>
               </div>
               <div class="actions">
                 <%= button_tag @task.positive, :type => 'button', class: "btn branded-btn btn-form-submit", action: :answered_positive, id: 'timeline-submit-btn', data: { response: :positive } %>
@@ -86,8 +86,8 @@
 
         <div id="answer" <%= "style=display:block" if @timeline.stage_set.proforma?%> >
           <div class="answer-container">
-            <h2 class="branded-text"> <%= @task.answer %> </h2>
-            <p class="branded-text"> <%= simple_format Lookup.parse(@task.response, @plot, current_resident) %> </p>
+            <h2 class="branded-text"> <%= Lookup.parse(@task.answer, @plot, current_resident) %> </h2>
+            <p class="branded-text"> <%= simple_format(Lookup.parse(@task.response, @plot, current_resident), {}, sanitize: false) %> </p>
 
             <aside class="useful-extras">
               <% @task.features&.each do |feature| %>

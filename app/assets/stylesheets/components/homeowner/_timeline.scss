@@ -385,6 +385,10 @@
         h2 {
           padding-bottom: $spacing-large;
         }
+
+        br + br {
+          display: none;
+        }
       }
 
       .contact-container {
@@ -660,6 +664,10 @@
       margin-left: 300px;
 
       .header {
+        display: none;
+      }
+
+      br + br {
         display: none;
       }
 
