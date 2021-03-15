@@ -28,7 +28,7 @@
 
       </div>
 
-      <%= render "homeowners/timeline/timeline", parent: :complete, timeline: @timeline, task: nil, logs: @logs %>
+      <%= render "homeowners/timeline/timeline", parent: :complete, timeline: @timeline, task: nil, logs: @logs, plot: @plot %>
 
     </div>
 
@@ -50,7 +50,7 @@
 
         <div class="complete" id="activeTaskScroll">
           <div class="text">
-            <div><%= simple_format @timeline.complete_message %></div>
+            <div><%= simple_format(Lookup.parse( @timeline.complete_message, @plot, current_resident), {}, sanitize: false) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
@@ -70,7 +70,7 @@
 
         <div class="incomplete" id="activeTaskScroll">
           <div class="text">
-            <div class=""><%= simple_format @timeline.incomplete_message %></div>
+            <div class=""><%= simple_format(Lookup.parse( @timeline.incomplete_message, @plot, current_resident), {}, sanitize: false) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
