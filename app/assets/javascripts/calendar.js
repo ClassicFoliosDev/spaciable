@@ -406,7 +406,7 @@ var admin = {
       });
     }
 
-    $(".select-all-resources, .select-all-comp,.select-all-res").hide()
+    $(".select-all-resources, .select-all-comp, .comp-info, .select-all-res, .res-info").hide()
 
     // add the buttons for each resource
     if ($("#event_eventable_type").val() != "Development") {
@@ -431,7 +431,7 @@ var admin = {
       })
     }
 
-    $(".select-all-resources, .select-all-comp,.select-all-res").hide()
+     $(".select-all-resources, .select-all-comp, .comp-info, .select-all-res, .res-info").hide()
 
     admin.showSelectAlls()
     admin.showProposed(event)
@@ -733,17 +733,24 @@ var admin = {
   {
     admin.showSelectAll(".invite-resource-btn", ".select-all-resources")
     if ($("#event_eventable_type").val() == "Phase") {
-      admin.showSelectAll("#resources tr:not(.invited) .reservation",".select-all-res")
-      admin.showSelectAll(".resources tr:not(.invited) .completed",".select-all-comp")
+      admin.showSelectAll("#resources tr:not(.invited) .reservation",".select-all-res",".res-info")
+      admin.showSelectAll(".resources tr:not(.invited) .completed",".select-all-comp",".comp-info")
+      if ($(".select-all-res").is(":visible")) {
+        $('.select-all-comp').css({position: "relative"})
+        $('.comp-info').css({left: -47})
+      } else {
+        $('.select-all-comp').css({position: "unset"})
+        $('.comp-info').css({left: -27})
+      }
     }
   },
 
-  showSelectAll: function (selector, button)
+  showSelectAll: function (selector, button, info)
   {
     if ($(selector).length == 0) {
-      $(button).hide()
+      $(button).hide(); $(info).hide()
     } else {
-      $(button).show()
+      $(button).show(); $(info).show()
     }
   },
 

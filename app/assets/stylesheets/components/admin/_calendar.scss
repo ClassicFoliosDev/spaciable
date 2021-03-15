@@ -508,6 +508,64 @@
       @extend .invite-btn;
       float: unset;
       margin-right: unset;
+
+      height: 22px;
+    }
+
+    .select-all-comp {
+      left: -20px;
+    }
+
+    .select-all-comp, .select-all-res {
+
+      width: 110px;
+      text-align: left;
+    }
+
+    .select-all-comp {
+      position: relative;
+    }
+
+    i {
+      position: relative;
+      top: 2;
+    }
+
+    i.res-info {
+      left: -27px;
+    }
+
+    i.comp-info {
+      color: white;
+      left: -47px;
+    }
+
+    .res-info-tooltip, .comp-info-tooltip {
+      display: inline-block;
+      position: relative;
+
+      .tooltiptext {
+        visibility: hidden;
+        width: 300px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1;
+        top: 20px;
+        right: -150;
+      }
+
+      span {
+        postion: relative;
+        right: -150;
+      }
+    }
+
+    .res-info-tooltip:hover .tooltiptext,  .comp-info-tooltip:hover .tooltiptext {
+      visibility: visible;
     }
 
     .invite-resource-btn {
