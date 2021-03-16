@@ -10,7 +10,7 @@ var homeowner = {
     var dataIn = calendarEl.data()
 
     calendarConfig = {
-        displayEventEnd: true,
+        displayEventEnd: false,
         timezone:"local",
         customButtons: {
           addEvent: {
@@ -78,7 +78,7 @@ var homeowner = {
         case "declined":
           return "#FF293F"
           break
-        case "reproposed":
+        case "rescheduled":
           return "#ff6600"
           break
         default:
@@ -122,15 +122,6 @@ var homeowner = {
 
     hasRun = true
   },
-//
-//  displayStatus: function(event) {
-//    var accepted = "#248F24"
-//    var declined = "#FF293F"
-//    var reproposed = "#ff6600"
-//    var invited = "#FFFFFF"
-//
-//    console.log(event)
-//  },
 
   index_url: function(data){
     return data.path + '?eventable_type=' + data.type + '&eventable_id=' + data.id;
@@ -209,7 +200,7 @@ var homeowner = {
   title: function(event){
     return event.homeowner.status.charAt(0).toUpperCase() +
            event.homeowner.status.slice(1) + " on " +
-           moment(homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
+           moment(event.homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
   },
 
   // initialise the button handlers
@@ -322,7 +313,7 @@ var homeowner = {
       $("#decline_event").hide()
       $("#change_event").hide()
       $("#save_change").show()
-    } else if (status == 'reproposed') {
+    } else if (status == 'rescheduled') {
       $("#accept_event").hide()
       $("#decline_event").hide()
     }

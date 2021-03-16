@@ -73,8 +73,8 @@ var admin = {
           }
 
           event.resources.forEach(function(resource) {
-            if(resource.status == "reproposed") {
-              element.addClass("reproposed-datetime")
+            if(resource.status == "rescheduled") {
+              element.addClass("rescheduled-datetime")
             }
             if(event.eventable_type == "Plot" ||
               ($("#admin_calendar").data("type") == "Plot" &&
@@ -451,7 +451,6 @@ var admin = {
         $("#dev_invited").text($("#resources tr").length)
         $("#dev_accepted").text($("#resources .accepted").length)
         $("#dev_declined").text($("#resources .declined").length)
-        $("#resources label.invited").each(function() { $(this).closest("tr").hide() })
         $(".resources").show()
         $("#dev_counts").show()
       }
@@ -624,12 +623,12 @@ var admin = {
           } else {
             label.text(label.data("status")).addClass(label.data("status"))
           }
-          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').show() }
+          if($("#status_label_" + this.value).hasClass("rescheduled")) { $('.proposed_datetime').show() }
         } else {
           $(this).closest('tr').removeClass("invited")
           // If this resource was re-proposing, then remove the reproposed date
-          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').hide() }
-          $("#status_label_" + this.value).html("&nbsp;").removeClass("invited reproposed accepted declined")
+          if($("#status_label_" + this.value).hasClass("rescheduled")) { $('.proposed_datetime').hide() }
+          $("#status_label_" + this.value).html("&nbsp;").removeClass("invited rescheduled accepted declined")
 
         }
       })
@@ -735,13 +734,6 @@ var admin = {
     if ($("#event_eventable_type").val() == "Phase") {
       admin.showSelectAll("#resources tr:not(.invited) .reservation",".select-all-res",".res-info")
       admin.showSelectAll(".resources tr:not(.invited) .completed",".select-all-comp",".comp-info")
-      if ($(".select-all-res").is(":visible")) {
-        $('.select-all-comp').css({position: "relative"})
-        $('.comp-info').css({left: -47})
-      } else {
-        $('.select-all-comp').css({position: "unset"})
-        $('.comp-info').css({left: -27})
-      }
     }
   },
 

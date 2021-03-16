@@ -3944,7 +3944,7 @@ en:
       viewed: "Events Viewed"
       declined: "Events Declined"
       accepted: "Events Accepted"
-      reproposed: "Events Reproposed"
+      rescheduled: "Events Rescheduled"
 
   events:
     invited: "Invited"
@@ -3952,7 +3952,7 @@ en:
     declined: "Decline"
     changed: "Change"
     save_change: "Save"
-    accept_proposal: "Accept Proposal"
+    accept_proposal: "Accept Reschedule"
 
     repeat:
       never: "Does not repeat"
@@ -3977,7 +3977,7 @@ en:
         confirm: "Are you sure you want to delete this event?"
     feedback:
       multiple_occupancy:
-        confirm: "You are doing this on behalf of everyone"
+        confirm: "You are accepting/declining on behalf of everyone with access to this property’s portal. If you decline, other residents will not be able to accept."
 
   phase_timelines:
     collection:

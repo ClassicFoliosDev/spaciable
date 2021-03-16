@@ -38,7 +38,7 @@ module EventNotificationService
   end
 
   def feedback(resource)
-    return unless resource.notify || resource.reproposed?
+    return unless resource.notify || resource.rescheduled?
 
     EventFeedbackJob.perform_now(resource)
   end

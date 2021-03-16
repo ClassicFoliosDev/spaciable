@@ -42,7 +42,7 @@
     </div>
 
     <div class="event-time proposed_datetime">
-      <label><%= label_tag :proposed, "Proposed Rescheduling" %></label><br/>
+      <label><%= label_tag :proposed, "Proposed Reschedule" %></label><br/>
       <div class="quarter">
         <p id="proposed_start_date"/>
       </div>
@@ -61,7 +61,7 @@
       <button id="accept_event" type="button" class="btn" data-status=<%=:accepted%>><%=t("events.accepted")%></button>
       <button id="decline_event" type="button" class="btn" data-status=<%=:declined%>><%=t("events.declined")%></button>
       <button id="change_event" type="button" class="btn"><%=t("events.changed")%></button>
-      <button id="save_change" type="button" class="btn" data-status=<%=:reproposed%>><%=t("events.save_change")%></button>
+      <button id="save_change" type="button" class="btn" data-status=<%=:rescheduled%>><%=t("events.save_change")%></button>
     </div>
   <% end %>
 </div>

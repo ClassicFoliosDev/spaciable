@@ -13,7 +13,7 @@ class Event < ApplicationRecord
   before_destroy :note, prepend: true
   before_destroy :cleanup
   before_update :note
-  after_save :notify_reminder, :reset_reproposed
+  after_save :notify_reminder, :reset_rescheduled
 
   delegate :email, to: :userable
   delegate :id, to: :eventable, prefix: true
@@ -396,9 +396,9 @@ class Event < ApplicationRecord
   end
 
   # As long as none of the related resources have a a status of
-  # reproposed then remove any propsed start/end dates from the event
-  def reset_reproposed
-    return if event_resources.find_by(status: :reproposed)
+  # rescheduled then remove any propsed start/end dates from the event
+  def reset_rescheduled
+    return if event_resources.find_by(status: :rescheduled)
 
     # clear out the proposed dates if they are present
     return unless proposed_start.present? || proposed_end.present?

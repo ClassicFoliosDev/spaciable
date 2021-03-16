@@ -55,7 +55,7 @@
     background-color: $plot;
   }
 
-  .reproposed {
+  .rescheduled {
     @extend .status_type;
     background-color: #db7b2b;
   }
@@ -234,7 +234,7 @@
       background-color: #075473;
     }
 
-    .reproposed-datetime {
+    .rescheduled-datetime {
       background-color: $secondary-orange;
       border-color: $secondary-orange;
     }
@@ -255,7 +255,7 @@
       background-color: #075473;
     }
 
-    .reproposed-datetime {
+    .rescheduled-datetime {
       background-color: $secondary-orange;
       border-color: $secondary-orange;
     }
@@ -508,36 +508,8 @@
       @extend .invite-btn;
       float: unset;
       margin-right: unset;
-
       height: 22px;
-    }
-
-    .select-all-comp {
-      left: -20px;
-    }
-
-    .select-all-comp, .select-all-res {
-
-      width: 110px;
-      text-align: left;
-    }
-
-    .select-all-comp {
-      position: relative;
-    }
-
-    i {
-      position: relative;
-      top: 2;
-    }
-
-    i.res-info {
-      left: -27px;
-    }
-
-    i.comp-info {
-      color: white;
-      left: -47px;
+      margin-left: 10px;
     }
 
     .res-info-tooltip, .comp-info-tooltip {
@@ -561,6 +533,11 @@
       span {
         postion: relative;
         right: -150;
+      }
+
+      i {
+        position: relative;
+        top: 2px;
       }
     }
 
@@ -587,7 +564,7 @@
       color: #99A3A4;
     }
 
-    .reproposed {
+    .rescheduled {
       color: #fcb788;
     }
 
@@ -641,7 +618,7 @@
       color: #99A3A4;
     }
 
-    .reproposed {
+    .rescheduled {
       color: #fcb788;
     }
 

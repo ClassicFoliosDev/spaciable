@@ -12,36 +12,60 @@ class EventNotificationMailer < ApplicationMailer
                   "is happening #{ReminderEnum.reminder(@event.reminder)}"
   end
 
-  def remind_resource(event, resource)
+  def self.remind_resources(event, resource)
     return unless resource&.resourceable&.emails&.present?
 
+    resource.resourceable.emails.each do |email|
+      remind_resource(event, resource, email).deliver_now
+    end
+  end
+
+  def remind_resource(event, resource)
     init(event, resource)
-    mail to: resource.resourceable.emails,
+    mail to: email,
          subject: "Calendar event at #{@plot&.development_name} " \
                   "is happening #{ReminderEnum.reminder(@event.reminder)}"
   end
 
-  def invite_resource(event, resource)
+  def self.invite_resources(event, resource)
     return unless resource&.resourceable&.emails&.present?
 
+    resource.resourceable.emails.each do |email|
+      invite_resource(event, resource, email).deliver_now
+    end
+  end
+
+  def invite_resource(event, resource, email)
     init(event, resource)
-    mail to: resource.resourceable.emails,
+    mail to: email,
          subject: "New calendar Event at #{@plot&.development_name}"
   end
 
-  def update_resource(event, resource)
+  def self.update_resources(event, resource)
     return unless resource&.resourceable&.emails&.present?
 
+    resource.resourceable.emails.each do |email|
+      update_resource(event, resource, email).deliver_now
+    end
+  end
+
+  def update_resource(event, resource, email)
     init(event, resource)
-    mail to: resource.resourceable.emails,
+    mail to: email,
          subject: "Calendar event updated at #{@plot&.development_name}"
   end
 
-  def cancel(event, resource)
+  def self.cancel_resources(event, resource)
     return unless resource&.resourceable&.emails&.present?
 
+    resource.resourceable.emails.each do |email|
+      cancel(event, resource, email).deliver_now
+    end
+  end
+
+  def cancel(event, resource, email)
     init(event, resource)
-    mail to: resource.resourceable.emails,
+    mail to: email,
          subject: "Calendar event cancellation: #{@event&.title}"
   end
 
