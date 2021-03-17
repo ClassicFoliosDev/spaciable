@@ -128,10 +128,10 @@ class ResidentNotifierService
         notification.send_to.residents
       when :completed_plots
         notification.send_to.residents
-                    .where.not(plots: { completion_release_date: nil })
+                    .where("plots.completion_date <= ?", Time.zone.today)
       when :reservation_plots
         notification.send_to.residents
-                    .where.not(plots: { reservation_release_date: nil })
+                    .where("plots.completion_date > ?", Time.zone.today)
       end
     end
 
@@ -155,11 +155,11 @@ class ResidentNotifierService
       when :completed_plots
         notification.send_to.residents
                     .where(plots: { number: notification.plot_numbers })
-                    .where.not(plots: { completion_release_date: nil })
+                    .where("plots.completion_date <= ?", Time.zone.today)
       when :reservation_plots
         notification.send_to.residents
                     .where(plots: { number: notification.plot_numbers })
-                    .where.not(plots: { reservation_release_date: nil })
+                    .where("plots.completion_date > ?", Time.zone.today)
       end
     end
 
