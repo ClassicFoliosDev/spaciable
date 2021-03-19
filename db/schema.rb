@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210219112444) do
+ActiveRecord::Schema.define(version: 20210318115628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20210219112444) do
     t.string   "heading_two"
     t.string   "info_text"
     t.string   "email_logo"
+    t.string   "calendar_fill_hover"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 

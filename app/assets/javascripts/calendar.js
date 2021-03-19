@@ -205,11 +205,13 @@ var admin = {
           // build the resource entry
           resource_id = response[i]["id"]
           etype = event.eventable_type != null ? event.eventable_type  : $("#admin_calendar").data('type')
+          identity = (etype == "Plot" ? "" : "Plot ")
+          identity += response[i]["ident"]
           var $row = $table.append("<tr>").find('tr:last')
           $row.append("<td class='" + etype + "-col'>" +
                          "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
                            "<input type='checkbox' value='" + resource_id + "' name='event[resources][]' id='event_resources_" + resource_id + "'>" +
-                           "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + response[i]["ident"] + "</label>" +
+                           "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + identity + "</label>" +
                          "</label>" +
                        "</td>")
           $row.append("<td class='" + etype + "-col'>" +
@@ -217,7 +219,8 @@ var admin = {
                       "</td>")
 
           if (etype == "Phase") {
-            $row.append("<td class='" + etype + "-col'><center><span class='" + response[i]["status"] + "'>&nbsp</span></td>")
+            status = (response[i]["status"] == null ? '&nbsp;' : response[i]["status"])
+            $row.append("<td class='" + etype + "-col'><center><label class='plot-status-label'>" + status + "</label></td>")
           }
 
           $row.append("<td class='" + etype + "-col'>")
@@ -732,8 +735,8 @@ var admin = {
   {
     admin.showSelectAll(".invite-resource-btn", ".select-all-resources")
     if ($("#event_eventable_type").val() == "Phase") {
-      admin.showSelectAll("#resources tr:not(.invited) .reservation",".select-all-res",".res-info")
-      admin.showSelectAll(".resources tr:not(.invited) .completed",".select-all-comp",".comp-info")
+      admin.showSelectAll('#resources tr:not(.invited) label:contains("Reservation")',".select-all-res",".res-info")
+      admin.showSelectAll('#resources tr:not(.invited) label:contains("Completed")',".select-all-comp",".comp-info")
     }
   },
 
@@ -758,10 +761,16 @@ $(document).on('click', '.select-all-resources', function(event) {
   admin.inviteAll()
 })
 
+$(document).on('click', '.clear-all-resources', function(event) {
+  event.preventDefault()
+  $(".uninvite-resource-btn").each(function() { $(this).trigger( "click" ) })
+})
+
+
 // check checkbox on uninvited Reservations
 $(document).on('click', '.select-all-res', function(event) {
   event.preventDefault()
-  $("#resources tr:not(.invited) .reservation").each(function(row) {
+  $('#resources tr:not(.invited) label:contains("Reservation")').each(function(row) {
     $(this).closest('tr').find('.invite-resource-btn').trigger('click')
   })
 })
@@ -769,7 +778,7 @@ $(document).on('click', '.select-all-res', function(event) {
 // check checkbox on uninvited Completed
 $(document).on('click', '.select-all-comp', function(event) {
   event.preventDefault()
-  $("#resources tr:not(.invited) .completed").each(function(row) {
+  $('#resources tr:not(.invited) label:contains("Complete")').each(function(row) {
     $(this).closest('tr').find('.invite-resource-btn').trigger('click')
   })
 })

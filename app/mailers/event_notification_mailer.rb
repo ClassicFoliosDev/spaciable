@@ -14,6 +14,7 @@ class EventNotificationMailer < ApplicationMailer
 
   def self.remind_resources(event, resource)
     return unless resource&.resourceable&.emails&.present?
+    return if resource.declined?
 
     resource.resourceable.emails.each do |email|
       remind_resource(event, resource, email).deliver_now

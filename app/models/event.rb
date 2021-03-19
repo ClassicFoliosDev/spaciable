@@ -379,7 +379,7 @@ class Event < ApplicationRecord
     EventNotificationService.invite(self, resources(added))
     EventNotificationService.cancel(@pre_event, pre_resources(deleted))
 
-    return unless start_changed? || end_changed? || location_changed?
+    return unless start_changed? || end_changed? || location_changed? || repeat_changed?
 
     EventNotificationService.update(self, resources(remain))
   end

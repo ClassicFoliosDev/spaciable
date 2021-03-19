@@ -69,6 +69,10 @@
           <%= branded_color_preview(brand.topnav_text_color) if brand.topnav_text_color? %>
           <%= f.input :topnav_text_color, label: t("activerecord.attributes.brand.topnav_text_color") %>
         </div>
+        <div class="calendar_fill_hover_color">
+          <%= branded_color_preview(brand.calendar_fill_hover) if brand.calendar_fill_hover? %>
+          <%= f.input :calendar_fill_hover, label: t("activerecord.attributes.brand.calendar_fill_hover") %>
+        </div>
       </fieldset>
     </div>
     <div class="row-item third">

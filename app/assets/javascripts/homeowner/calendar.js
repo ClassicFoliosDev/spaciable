@@ -64,7 +64,7 @@ var homeowner = {
         eventRender: function(event, element) {
           // make the first two colour stops transparent so the background colour can be seen
           element.css({"background-image": "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0), " + statusColor(event) + ")"})
-//          console.log(statusColor(event))
+          element.addClass(event.homeowner.status)
         }
       }
 

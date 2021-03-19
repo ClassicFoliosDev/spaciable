@@ -3638,6 +3638,7 @@ en:
         heading_two_show: "External Heading Two"
         custom_text: "External Information [Text]"
         custom_text_show: "External Information"
+        calendar_fill_hover: "Calendar Fill/Hover"
       letting:
         confirm:
 
@@ -3995,6 +3996,7 @@ en:
     events:
       notify: "Notify me of responses"
       select_all: "Select All"
+      clear_all: "Clear All"
       select_all_res: "Reservation"
       select_all_comp: "Completed"
 

@@ -504,7 +504,7 @@
         line-height: 1.5;
       }
 
-    .select-all-resources, .select-all-comp, .select-all-res {
+    .select-all-resources, .clear-all-resources, .select-all-comp, .select-all-res {
       @extend .invite-btn;
       float: unset;
       margin-right: unset;
@@ -606,8 +606,9 @@
       @extend .status-label;
     }
 
-    .phase-status-label {
+    .phase-status-label, .plot-status-label {
       @extend .status-label;
+      font-weight: unset;
     }
 
     input[type="checkbox"] {
