@@ -237,5 +237,10 @@ class Phase < ApplicationRecord
   def signature
     identity
   end
+
+  def hierarchy
+    "Phase #{name}"
+  end
+
 end
 # rubocop:enable Metrics/ClassLength

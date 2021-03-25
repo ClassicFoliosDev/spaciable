@@ -186,6 +186,14 @@ var homeowner = {
       }
     ]
 
+    if (event.reminder == "nix")
+    {
+      $('.reminder').hide()
+    } else {
+      $('.reminder label').text(homeowner.expandreminder(event))
+      $('.reminder').show()
+    }
+
     $eventContainer.dialog({
       show: 'show',
       modal: true,
@@ -195,6 +203,24 @@ var homeowner = {
     }).prev().find('.ui-dialog-titlebar-close').hide()
 
     homeowner.viewed(event)
+  },
+
+  expandreminder: function(event){
+    switch (event.reminder) {
+      case 'at':
+        reminder = "at the time of";
+        break;
+      case 'hour':
+        reminder = "an hour before";
+        break;
+      case 'day':
+         reminder = "a day before";
+        break;
+      case'week':
+        reminder = "a week before";
+      }
+
+      return "A reminder has been set on this event. You will receive an email reminder " + reminder + " this event."
   },
 
   title: function(event){

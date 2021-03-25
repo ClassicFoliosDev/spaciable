@@ -64,6 +64,7 @@ var admin = {
           // Event type indicator
           element.children(".fc-content").addClass(event.eventable_type + "_bg")
           element.children(".fc-bg").addClass(event.eventable_type + "_bg")
+          element.find('.fc-title').text(event.qualified_title)
 
           var eventEnd = moment(event.end)
           var now = moment()
@@ -82,6 +83,12 @@ var admin = {
               element.children(".fc-content").append("<span class='" + resource.status + "'></span>")
             }
           })
+
+          tooltip_id = 'tooltip' + event.id
+          element.attr('id', tooltip_id)
+          element.attr('title', event.qualified_title)
+
+
         },
         eventAfterAllRender: function(){
           admin.preloadEvent()

@@ -294,6 +294,10 @@ class Development < ApplicationRecord
     ""
   end
 
+  def hierarchy
+    ""
+  end
+
   def conveyancing_enabled?
     conveyancing && parent.conveyancing_enabled?
   end

@@ -301,7 +301,8 @@ class Event < ApplicationRecord
   end
 
   def attributes
-    super.merge(signature: eventable.signature)
+    super.merge(signature: eventable.signature,
+                qualified_title: "#{eventable.hierarchy} #{title}")
   end
 
   private
