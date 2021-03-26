@@ -33,7 +33,7 @@ end
 
 Given(/^I am Development Admin wanting to send notifications to residents$/) do
   ResidentNotificationsFixture.create_permission_resources
-  Plot.find_by(number: CreateFixture.phase_plot_name).update_attributes(completion_release_date: Time.zone.now, reservation_release_date: Time.zone.now)
+  Plot.find_by(number: CreateFixture.phase_plot_name).update_attributes(completion_date: Time.zone.now)
   admin = CreateFixture.create_development_admin
 
   visit_notifications_page(admin)
@@ -250,7 +250,7 @@ Then(/^the (.*) plot residents should receive a notification$/) do |action|
 
   emailed_addresses = ActionMailer::Base.deliveries.map(&:to).flatten
 
-  expect(emailed_addresses).to match_array(resident_email_addresses)
+  expect(emailed_addresses).to match_array(action == "completed" ? resident_email_addresses : [])
 
   notice = t(
     "admin.notifications.create.success",
