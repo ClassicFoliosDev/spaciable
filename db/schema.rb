@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210318115628) do
+ActiveRecord::Schema.define(version: 20210219112444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
+  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string  "access_token"
@@ -199,7 +200,6 @@ ActiveRecord::Schema.define(version: 20210318115628) do
     t.string   "heading_two"
     t.string   "info_text"
     t.string   "email_logo"
-    t.string   "calendar_fill_hover"
     t.index ["brandable_type", "brandable_id"], name: "index_brands_on_brandable_type_and_brandable_id", using: :btree
   end
 
@@ -505,6 +505,7 @@ ActiveRecord::Schema.define(version: 20210318115628) do
     t.datetime "proposed_start"
     t.datetime "proposed_end"
     t.boolean  "notify",         default: true
+    t.uuid     "uuid",           default: -> { "uuid_generate_v4()" }
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree

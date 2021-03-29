@@ -84,7 +84,9 @@
         .fc-day-grid {
           .fc-event {
             border: none;
-            background-color: $primary-navy;
+            background-color: #D3D3D3;
+            color: $primary-navy;;
+            opacity: 0.5;
           }
         }
 
@@ -95,7 +97,7 @@
           }
 
           .fc-event .fc-bg {
-            opacity: 0;
+            opacity: 0.3;
           }
         }
 

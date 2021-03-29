@@ -88,7 +88,14 @@ var admin = {
           element.attr('id', tooltip_id)
           element.attr('title', event.qualified_title)
 
-
+          element.tooltip({
+               content: event.qualified_title,
+               position: {
+                  my: "center bottom",
+                  at: "center top-10",
+                  collision: "none"
+               }
+            })
         },
         eventAfterAllRender: function(){
           admin.preloadEvent()
@@ -820,6 +827,14 @@ $(document).on('turbolinks:load', function () {
       $("#repeat_until").hide()
     }
   }
+
+ $(".res-info, .comp-info").tooltip({
+               position: {
+                  my: "center bottom",
+                  at: "center top-10",
+                  collision: "none"
+               }
+            })
 })
 
 $(document).on('click', '#event_repeat-menu', function (event) {

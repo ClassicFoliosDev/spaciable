@@ -239,7 +239,7 @@ class Phase < ApplicationRecord
   end
 
   def hierarchy
-    "Phase #{name}"
+    "#{name}: "
   end
 
 end

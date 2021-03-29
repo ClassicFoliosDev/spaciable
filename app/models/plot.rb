@@ -722,7 +722,7 @@ class Plot < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def hierarchy
-    "#{phase.hierarchy} Plot #{number}"
+    "#{phase.name}, Plot #{number}: "
   end
 
   def comp_rel

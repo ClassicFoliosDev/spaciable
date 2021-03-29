@@ -63,15 +63,13 @@
         <button class="select-all-resources"><%= t("calendar.events.select_all")%></button>
         <button class="clear-all-resources"><%= t("calendar.events.clear_all")%></button>
         <button class="select-all-res"><%= t("calendar.events.select_all_res")%></button>
-        <div class="res-info-tooltip">
-          <i class="fa fa-question-circle res-info" id="plotfiltersHelp"></i>
-          <span class="tooltiptext">Click to invite plots where estimated move-in date on plot Completion tab is in the future.</span>
-        </div>
+        <i class="fa fa-question-circle res-info" title='Click to invite plots where
+estimated move-in date on plot
+Completion tab is in the future.'></i>
         <button class="select-all-comp"><%= t("calendar.events.select_all_comp")%></button>
-        <div class="comp-info-tooltip">
-          <i class="fa fa-question-circle comp-info" id="plotfiltersHelp"></i>
-          <span class="tooltiptext">Click to invite plots where estimated move-in date on plot Completion tab is today or has already passed.</span>
-        </div>
+        <i class="fa fa-question-circle comp-info" title='Click to invite plots where estimated
+move-in date on plot Completion tab
+is today or has already passed.'></i>
       </span>
       <div id="resources">
         <input type="hidden" name="event[resources][]" value/>

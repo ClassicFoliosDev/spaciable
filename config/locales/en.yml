@@ -35,6 +35,7 @@
 
 en:
 
+  organizer: "ClassicFoliosLtd/Spaciable"
   back: "Back"
   submit: "Submit"
   cas_enabled: "<strong>Clients Adding Specs:</strong> %{status}"
@@ -3638,7 +3639,6 @@ en:
         heading_two_show: "External Heading Two"
         custom_text: "External Information [Text]"
         custom_text_show: "External Information"
-        calendar_fill_hover: "Calendar Fill/Hover"
       letting:
         confirm:
 
