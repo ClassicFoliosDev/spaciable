@@ -63,26 +63,41 @@ var homeowner = {
         },
         eventRender: function(event, element) {
           // make the first two colour stops transparent so the background colour can be seen
-          element.css({"background-image": "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0), " + statusColor(event) + ")"})
+          //element.css({"background-image": "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0), " + statusColor(event) + ")"})
+          //element.children(".fc-content").append("<i class='fa fa-" + icon(event) + "'/>")
+          $("<i class='fa fa-" + icon(event) + "'/>").insertBefore(element.find(".fc-content .fc-title"))
           element.addClass(event.homeowner.status)
+
+          tooltip_id = 'tooltip' + event.id
+          element.attr('id', tooltip_id)
+          element.attr('title', event.qualified_title)
+
+          element.tooltip({
+               content: event.title,
+               position: {
+                  my: "center bottom",
+                  at: "center top-10",
+                  collision: "none"
+               }
+            })
         }
       }
 
-    function statusColor(event) {
+    function icon(event) {
       var status = event.homeowner.status
 
       switch(status) {
         case "accepted":
-          return "#248F24"
+          return "check-circle"
           break
         case "declined":
-          return "#FF293F"
+          return "times-circle"
           break
         case "rescheduled":
-          return "#ff6600"
+          return "question-circle"
           break
         default:
-          return "#EAEAEA"
+          return "exclamation-circle"
       }
     }
 

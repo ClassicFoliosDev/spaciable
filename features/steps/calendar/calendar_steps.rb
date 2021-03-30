@@ -548,14 +548,16 @@ end
 # can be used to confirm that an event update has appeared
 # on the calendar after an update
 def event(e = CalendarFixture.event)
-  find(:xpath, "//a[contains(@class,'fc-day-grid-event')]"\
-               "[contains(.,'#{event_title()}')]")
+  find(:xpath, "//a[contains(@class,'fc-day-grid-event') and "\
+                   "contains(.,'#{tz(e.start).strftime('%-k:%M').lstrip}') and " \
+                   "contains(.,'#{e.title.lstrip}')]")
 end
 
 # Repeats result in multiple hits
 def events(e = CalendarFixture.event)
-  all(:xpath, "//a[contains(@class,'fc-day-grid-event')]"\
-               "[contains(.,'#{event_title()}')]")
+  all(:xpath, "//a[contains(@class,'fc-day-grid-event') and "\
+                  "contains(.,'#{tz(e.start).strftime('%-k:%M').lstrip}') and " \
+                  "contains(.,'#{e.title.lstrip}')]")
 end
 
 def open_event(e = CalendarFixture.event, occurance: 0)

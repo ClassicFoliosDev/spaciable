@@ -241,6 +241,5 @@ class Phase < ApplicationRecord
   def hierarchy
     "#{name}: "
   end
-
 end
 # rubocop:enable Metrics/ClassLength

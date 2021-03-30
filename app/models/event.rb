@@ -362,7 +362,7 @@ class Event < ApplicationRecord
   end
 
   # Make the necessary notifications.
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def notify_reminder
     if id_changed? || start_changed? || reminder_changed?
       # new record or start/reminder added.  Calculate/update event reminder
@@ -384,7 +384,7 @@ class Event < ApplicationRecord
 
     EventNotificationService.update(self, resources(remain))
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # send cancellations and remove any queued event notofications
   def cleanup
