@@ -70,7 +70,7 @@
 
         <div class="incomplete branded-text" id="activeTaskScroll">
           <div class="text">
-            <div class=""><%= raw Lookup.parse( @timeline.incomplete_message, @plot, current_resident) %></div>
+            <div><%= raw Lookup.parse( @timeline.incomplete_message, @plot, current_resident) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
