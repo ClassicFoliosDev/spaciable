@@ -170,7 +170,7 @@ Then(/^I navigate through the homeowner site$/) do
     VisitsFixture.visited(meta, :view_your_journey, tasks[task].title, I18n.t("homeowners.timeline.task.answered_positive"))
   end
 
-  expect(find(:xpath, "//div[@class='text']//p").text).to eq TimelineFixture.finale[:content][:incomplete_message]
+  find(:xpath, "//div[@class='text' and contains(.,'#{TimelineFixture.finale[:content][:incomplete_message]}')]")
   VisitsFixture.visited(meta, :view_your_journey, I18n.t("homeowners.timeline.#{Timeline.find_by(title: TimelineFixture.england).stage_set_type}.done"))
 
   # update all event dates for plot to be -2 weeks if they are in date_range 1
@@ -189,7 +189,7 @@ Then(/^I navigate through the homeowner site$/) do
     click_on "Next"
   end
 
-  expect(find(:xpath, "//div[@class='text']//p").text).to eq TimelineFixture.finale[:content][:complete_message]
+  find(:xpath, "//div[@class='text' and contains(.,'#{TimelineFixture.finale[:content][:complete_message]}')]")
   VisitsFixture.visited(meta, :view_your_content_proforma, "Complete")
 
   # update all event dates for plot to be -2 weeks if they are in date_range 1
