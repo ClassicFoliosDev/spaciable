@@ -4,14 +4,18 @@
     background-color: blue;
   }
 
-  #invite_activations div {
-    display: inline-block;
-    width: 33%;
+  #invite_activations {
+    #invited, #activated, #overview {
+      display: inline-block;
+      width: 33%;
+      height: 300px;
+    }
   }
 
-  #competitions div {
+  #left, #right {
     display: inline-block;
     width: 49%;
+    height: 300px;
   }
 
   #selectors {

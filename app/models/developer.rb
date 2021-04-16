@@ -8,6 +8,7 @@ class Developer < ApplicationRecord
   after_save :update_development_cas
   after_save :update_custom_tiles
   after_save :update_convayencing
+  after_save :update_charts
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -287,6 +288,10 @@ class Developer < ApplicationRecord
     Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
   end
 
+  def chart?(section)
+    charts.find_by(section: section)&.enabled
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and
@@ -333,6 +338,17 @@ class Developer < ApplicationRecord
                          wecomplete_quote: wecomplete_quote)
 
     Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  # rubocop:disable SkipsModelValidations
+  def update_charts
+    return unless !analytics_dashboard && analytics_dashboard_changed?
+    divisions.each do |division|
+      division.update_column(:analytics_dashboard, false)
+      division.developments.each { |d| d.update_column(:analytics_dashboard, false) }
+    end
+    developments.each { |d| d.update_column(:analytics_dashboard, false) }
   end
   # rubocop:enable SkipsModelValidations
 end

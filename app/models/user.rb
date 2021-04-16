@@ -382,8 +382,15 @@ class User < ApplicationRecord
   end
 
   def charts?
-    return true if cf_admin?
-    permission_level.analytics_dashboard
+    cf_admin? || permission_level.analytics_dashboard
+  end
+
+  def chart?(section)
+    cf_admin? || Developer.find(developer).chart?(section)
+  end
+
+  def competitions?
+    return cf_admin? || (charts? && chart?(:competition))
   end
 
   scope :receives_faqs,

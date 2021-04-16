@@ -3,10 +3,10 @@
 class Chart < ApplicationRecord
   belongs_to :chartable, polymorphic: true
 
-  enum section: %i[
-    plot_invite
-    competition
-  ]
+  enum section: {
+    plot_invite: 0,
+    competition: 100
+  }
 
   enum criteria: %i[
     invited

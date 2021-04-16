@@ -39,13 +39,28 @@ var charts = {
   render: function() {
     $(".chart").each(function( index ) { $(this ).empty() })
 
+    charts.render_charts()
+    charts.render_competitions()
+  },
+
+  render_charts: function() {
+    if ($('#invite_activations').length == 0) { return }
+
     charts.invited()
     charts.not_invited()
     charts.overview()
+  },
 
-    if ($phase != "0") {
+  render_competitions: function() {
+    if ($('#competitions').length == 0) { return }
+
+    if ($phase != "0" || $developer == "0") {
       $("#competitions").hide()
-    } else if ($development != "0") {
+    } else {
+      $("#competitions").show()
+    }
+
+    if ($development != "0") {
       var rendered = charts.development_ranking('left')
       charts.development_division_ranking(rendered ? 'right' : 'left')
     } else if ($division != "0") {
@@ -54,8 +69,6 @@ var charts = {
     } else if ($developer != "0") {
       var rendered = charts.division_rankings('left')
       charts.development_extremums(rendered ? 'right' : 'left')
-    } else {
-      $("#competitions").hide()
     }
   },
 
@@ -108,7 +121,7 @@ var charts = {
 
     rows.forEach(function(row, index){
       if((index >= range.start) && (index <= range.end)) {
-        data.addRow([index.toString(),
+        data.addRow([charts.position(index),
                      row.percent,
                      ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + row.percent.toString() + '%',
                      selected == row.id.toString() ? 'opacity: .3' : 'opacity: 1'])
@@ -169,12 +182,6 @@ var charts = {
       },
       legend: {
         position: 'none'
-      },
-      vAxis: {
-        textPosition: 'none',
-        textStyle: {
-          color: 'black'
-        }
       }
     }
      // Instantiate and draw our chart, passing in some options.
@@ -227,6 +234,20 @@ var charts = {
     return data
   },
 
+  position: function(val) {
+    val = val+1
+    var ext = "th"
+    if (val == 1 || (val > 20 && (val % 10 == 1))) {
+      ext = "st"
+    } else if (val == 2 || (val > 20 && (val % 10 == 2))) {
+      ext = "nd"
+    } else if (val == 3 || (val > 20 && (val % 10 == 3))) {
+      ext = "rd"
+    }
+
+    return val.toString() + ext
+  },
+
   range: function(array, id) {
     var range = { start: 0, end: array.length - 1, populated: (id == -1) }
 
@@ -260,6 +281,7 @@ var charts = {
   },
 
   invited: function() {
+    charts.setNodeHeight('invited', .6)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Title');
@@ -293,6 +315,7 @@ var charts = {
   },
 
   not_invited: function() {
+    charts.setNodeHeight('activated', .6)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Title');
@@ -323,6 +346,7 @@ var charts = {
   },
 
   overview: function() {
+    charts.setNodeHeight('overview', .6)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Title');
@@ -351,8 +375,11 @@ var charts = {
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('overview'));
     chart.draw(data, options);
-  }
+  },
 
+  setNodeHeight: function(container, ratio) {
+    $('#' + container).height($('#' + container).width() * ratio)
+  }
 
 }
 

@@ -29,13 +29,19 @@
                        disabled: @phases&.empty? %>
     <% end %>
   </div>
-  <div id="invite_activations">
-    <div id="invited" class='chart'></div>
-    <div id="activated" class='chart'></div>
-    <div id="overview" class='chart'></div>
-  </div>
-  <div id="competitions">
-    <div id="left" class='chart'></div>
-    <div id="right" class='chart'></div>
-  </div>
+  <% if current_user.charts? %>
+    <% if current_user.chart?(:plot_invite) %>
+      <div id="invite_activations">
+        <div id="invited" class='chart'></div>
+        <div id="activated" class='chart'></div>
+        <div id="overview" class='chart'></div>
+      </div>
+    <% end %>
+    <% if current_user.chart?(:competition) %>
+      <div id="competitions">
+        <div id="left" class='chart' ></div>
+        <div id="right" class='chart'></div>
+      </div>
+    <% end %>
+  <% end %>
 </div>
