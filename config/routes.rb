@@ -68,6 +68,14 @@ Rails.application.routes.draw do
     resources :snags, only: [:index, :show, :update]
     resources :snag_comments, only: [:new, :create]
     post "snags/:id", to: "snag_comments#create"
+
+    namespace :charts, defaults: { format: 'json', controller: 'charts' } do
+      get 'divisions'
+      get 'developments'
+      get 'phases'
+      post 'selections'
+      get 'chartdata'
+    end
   end
 
   resources :documents, only: [:edit, :show, :update, :destroy]

@@ -5,15 +5,24 @@ module Admin
     skip_authorization_check
 
     def show
-      @notifications = notifications_scope.order(updated_at: :desc).limit(5)
-      @faqs = faqs_scope.order(updated_at: :desc).limit(5)
-      docs = documents_scope.order(updated_at: :desc).limit(5)
-      appliances = []
-      if current_user.cf_admin?
-        appliances = Appliance.all.includes(:appliance_manufacturer)
-                              .order(updated_at: :desc).limit(5)
+      screen = :show
+
+      if current_user.charts?
+        screen = :charts
+        initialse_charts
+      else
+        @notifications = notifications_scope.order(updated_at: :desc).limit(5)
+        @faqs = faqs_scope.order(updated_at: :desc).limit(5)
+        docs = documents_scope.order(updated_at: :desc).limit(5)
+        appliances = []
+        if current_user.cf_admin?
+          appliances = Appliance.all.includes(:appliance_manufacturer)
+                                .order(updated_at: :desc).limit(5)
+        end
+        @documents = DocumentLibraryService.call(docs, appliances).first(5)
       end
-      @documents = DocumentLibraryService.call(docs, appliances).first(5)
+
+      render screen
     end
 
     private
@@ -57,5 +66,17 @@ module Admin
                           faqable_type: current_user.permission_level_type)
               end
     end
+
+    # rubocop:disable Metrics/LineLength
+    def initialse_charts
+      @selections = User::Filter.new(current_user)
+      @developers = Developer.all.order(:company_name)
+      @divisions = Developer.find_by(id: @selections.developer)
+                            &.divisions&.order(:division_name) || []
+      @developments = Division.find_by(id: @selections.division)&.developments&.order(:name) ||
+                      (@selections.developer != 0 ? Developer.find_by(id: @selections.developer).all_developments : [])
+      @phases = Development.find_by(id: @selections.development)&.phases&.order(:name) || []
+    end
+    # rubocop:enable Metrics/LineLength
   end
 end

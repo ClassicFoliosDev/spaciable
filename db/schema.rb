@@ -10,11 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210308084905) do
+ActiveRecord::Schema.define(version: 20210406091043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
+  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string  "access_token"
@@ -209,6 +210,14 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.index ["user_id"], name: "index_cc_emails_on_user_id", using: :btree
   end
 
+  create_table "charts", force: :cascade do |t|
+    t.string  "chartable_type"
+    t.integer "chartable_id"
+    t.integer "section"
+    t.boolean "enabled"
+    t.index ["chartable_type", "chartable_id"], name: "index_charts_on_chartable_type_and_chartable_id", using: :btree
+  end
+
   create_table "choice_configurations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",                     null: false
@@ -386,6 +395,7 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.boolean  "conveyancing",                default: false
     t.string   "wecomplete_sign_in"
     t.string   "wecomplete_quote"
+    t.boolean  "analytics_dashboard",         default: true
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -424,6 +434,7 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.string   "construction_name"
     t.boolean  "calendar",              default: false
     t.boolean  "conveyancing",          default: false
+    t.boolean  "analytics_dashboard",   default: true
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_developments_on_developer_id", using: :btree
     t.index ["division_id"], name: "index_developments_on_division_id", using: :btree
@@ -439,9 +450,10 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "list_id"
-    t.boolean  "conveyancing",       default: false
+    t.boolean  "conveyancing",        default: false
     t.string   "wecomplete_sign_in"
     t.string   "wecomplete_quote"
+    t.boolean  "analytics_dashboard", default: true
     t.index ["created_at"], name: "index_divisions_on_created_at", using: :btree
     t.index ["deleted_at"], name: "index_divisions_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_divisions_on_developer_id", using: :btree
@@ -504,6 +516,7 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.datetime "proposed_start"
     t.datetime "proposed_end"
     t.boolean  "notify",         default: true
+    t.uuid     "uuid",           default: -> { "uuid_generate_v4()" }
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
@@ -1207,6 +1220,7 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.boolean  "cas",                       default: false
     t.boolean  "receive_invitation_emails", default: true
     t.boolean  "receive_faq_emails",        default: false
+    t.string   "selections"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_users_on_invitations_count", using: :btree

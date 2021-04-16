@@ -48,6 +48,27 @@ class User < ApplicationRecord
     branch
   ]
 
+  class Filter
+    attr_accessor :developer
+    attr_accessor :division
+    attr_accessor :development
+    attr_accessor :phase
+
+    def initialize(user)
+      @selections = user.selections
+      @developer = (extract("developer") || user.developer).to_i
+      @division = (extract("division") || user.division).to_i
+      @development = (extract("development") || user.development).to_i
+      @phase = extract("phase").to_i
+    end
+
+    private
+
+    def extract(key)
+      @selections&.match(/#{key}(?<num>\d+)/)&.[](:num)
+    end
+  end
+
   def developer
     return if permission_level.nil?
     if permission_level.is_a?(Developer)
@@ -57,6 +78,17 @@ class User < ApplicationRecord
     else
       permission_level.parent.developer_id
     end
+  end
+
+  def division
+    return if permission_level.nil?
+    return permission_level_id if permission_level.is_a? Division
+    return permission_level&.division&.id if permission_level.class.method_defined? :division
+  end
+
+  def development
+    return if permission_level.nil?
+    return permission_level_id if permission_level.is_a? Development
   end
 
   def self.admin_roles
@@ -347,6 +379,11 @@ class User < ApplicationRecord
     CcEmail.email_types.each do |type, index|
       cc_emails.build(email_type: type) unless CcEmail.find_by(user_id: id, email_type: type)
     end
+  end
+
+  def charts?
+    return true if cf_admin?
+    permission_level.analytics_dashboard
   end
 
   scope :receives_faqs,

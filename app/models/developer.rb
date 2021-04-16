@@ -31,6 +31,9 @@ class Developer < ApplicationRecord
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
 
+  has_many :charts, -> { order("id") }, as: :chartable, dependent: :destroy
+  accepts_nested_attributes_for :charts
+
   has_one :lettings_account, as: :letter
   has_many :lettings, through: :lettings_account
   delegate :management, to: :lettings_account
@@ -140,7 +143,7 @@ class Developer < ApplicationRecord
       all_developments << div.developments
     end
 
-    all_developments.to_a.flatten!
+    all_developments.to_a.flatten!.sort_by { |developer| developer.name }
   end
 
   def expired?
@@ -276,6 +279,12 @@ class Developer < ApplicationRecord
 
   def conveyancing_enabled?
     conveyancing
+  end
+
+  def build
+    return unless charts.empty?
+
+    Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
   end
 
   private

@@ -1,0 +1,26 @@
+#charts {
+
+  #selectors {
+    background-color: blue;
+  }
+
+  #invite_activations div {
+    display: inline-block;
+    width: 33%;
+  }
+
+  #competitions div {
+    display: inline-block;
+    width: 49%;
+  }
+
+  #selectors {
+    div {
+      float: left;
+      width: 25%;
+      padding-left: 20px;
+      padding-bottom: 20px;
+      display: inline-block;
+    }
+  }
+}
