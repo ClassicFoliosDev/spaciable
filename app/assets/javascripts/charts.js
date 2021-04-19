@@ -9,6 +9,8 @@ var charts = {
     if ($("#charts").length == 0) { return }
 
     google.charts.load('current', {'packages':['corechart'], callback: charts.refresh });
+
+    window.addEventListener("resize", charts.render)
   },
 
   refresh: function() {
@@ -124,7 +126,7 @@ var charts = {
         data.addRow([charts.position(index),
                      row.percent,
                      ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + row.percent.toString() + '%',
-                     selected == row.id.toString() ? 'opacity: .3' : 'opacity: 1'])
+                     (selected == row.id.toString() ? 'opacity:.3' : 'opacity:1') + ';color: #002A3A'])
       }
     })
 
@@ -154,11 +156,11 @@ var charts = {
     var data = charts.data()
     data.addRow(["highest", rows[0].percent,
                   rows[0].name + ' '+ rows[0].percent.toString() + '%',
-                  'opacity: 1'])
+                  'opacity:1;color:#25BC18'])
 
     data.addRow(["lowest", rows[rows.length-1].percent,
                   rows[rows.length-1].name + ' '+ rows[rows.length-1].percent.toString() + '%',
-                  'opacity: 1'])
+                  'opacity:1;color:#E20017'])
 
     charts.render_chart(data, container, title)
   },
@@ -166,7 +168,6 @@ var charts = {
   render_chart: function(data, container, title) {
     var options = {
       title: title,
-      colors: ['#002A3A'],
       hAxis: {
         gridlines: {
           count: 0,
@@ -284,7 +285,7 @@ var charts = {
     charts.setNodeHeight('invited', .6)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Title');
+    data.addColumn('string', 'Key');
     data.addColumn('number', 'Plots');
     data.addRows([
       ['Plots Invited', primary['invited']],
@@ -305,9 +306,13 @@ var charts = {
       pieHole: 0.4,
       slices: {
         0: { color: '#25BC18' },
-        1: { color: '#E20017'}
+        1: { color: '#E20017'},
+        2: { visibleInLegend: false,
+             color: '#f2f2f2'}
       }
     };
+
+    charts.rationalise(data, options)
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('invited'));
@@ -318,7 +323,7 @@ var charts = {
     charts.setNodeHeight('activated', .6)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Title');
+    data.addColumn('string', 'Key');
     data.addColumn('number', 'Plots');
     data.addRows([
       ['Plots with an Activated Resident', primary['activated'] ],
@@ -337,8 +342,15 @@ var charts = {
             width: "100%"
         },
       pieHole: 0.4,
-      colors: ['#25BC18', '#FFA700']
+      slices: {
+        0: { color: '#25BC18' },
+        1: { color: '#FFA700'},
+        2: { visibleInLegend: false,
+             color: '#f2f2f2'}
+      }
     };
+
+    charts.rationalise(data, options)
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('activated'));
@@ -349,7 +361,7 @@ var charts = {
     charts.setNodeHeight('overview', .6)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
-    data.addColumn('string', 'Title');
+    data.addColumn('string', 'Key');
     data.addColumn('number', 'Plots');
     data.addRows([
       ['Plots with an Activated Resident', primary['activated'] ],
@@ -369,12 +381,31 @@ var charts = {
             width: "100%"
         },
       pieHole: 0.4,
-      colors: ['#25BC18', '#FFA700', '#E20017']
+      slices: {
+        0: { color: '#25BC18' },
+        1: { color: '#FFA700'},
+        2: { color: '#E20017'},
+        3: { visibleInLegend: false,
+             color: '#f2f2f2'}
+      }
     };
+
+    charts.rationalise(data, options)
 
     // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.PieChart(document.getElementById('overview'));
     chart.draw(data, options);
+  },
+
+  rationalise: function(data, options) {
+    total = 0
+    for (row = 0; row < data.getNumberOfRows(); row++) { total += data.getValue(row, 1); }
+    if (total != 0) { return }
+
+    data.addRow(['filler', 1])
+    options.sliceVisibilityThreshold =  0
+    options.pieSliceText = 'none'
+    options.tooltip = { trigger: 'none' }
   },
 
   setNodeHeight: function(container, ratio) {
@@ -501,4 +532,3 @@ document.addEventListener('turbolinks:load', function () {
   };
 
 })
-
