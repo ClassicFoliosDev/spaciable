@@ -138,7 +138,7 @@ gem "restforce", "<= 3.2.0"
 # git "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", branch: "master" do
 # end
 # gem "doorkeeper", "<= 5.0.3"
-gem 'doorkeeper', git: 'https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git', tag: 'v6.0'
+gem "doorkeeper", git: "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", tag: "v6.0"
 
 group :development, :test, :qa, :staging do
   # populate the environments with data from factories
