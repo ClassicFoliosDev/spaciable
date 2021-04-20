@@ -47,7 +47,7 @@ module PolymorphicPermissionable
       return unless permissionable_role
 
       case permissionable_role.to_sym
-      when :site_admin then :development_id
+      when :site_admin, :concierge then :development_id
       when :development_admin then :development_id
       when :division_admin then :division_id
       when :developer_admin then :developer_id
@@ -58,7 +58,7 @@ module PolymorphicPermissionable
       return unless permissionable_role
 
       case permissionable_role.to_sym
-      when :site_admin then "Development"
+      when :site_admin, :concierge then "Development"
       when :development_admin then "Development"
       when :division_admin then "Division"
       when :developer_admin then "Developer"

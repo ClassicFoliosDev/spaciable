@@ -42,6 +42,7 @@ en:
         ignore: "If you do not want to accept this invitation, please ignore this email."
         ignore2: "Your Spaciable account will not be created unless you access the link above and set your password."
       resident_invitation:
+        reservation: "Thank you for reserving your new home at %{development_name}"
         new_home: "Welcome to your new home at %{development_name}"
         benefits: "On Spaciable, you can benefit from:"
         benefit1: "Digital versions of your home’s documents"

@@ -367,17 +367,18 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.text     "about"
     t.string   "api_key"
     t.string   "list_id"
-    t.integer  "country_id",                                  null: false
     t.boolean  "house_search"
     t.boolean  "enable_services",             default: false
     t.boolean  "enable_development_messages", default: false
     t.boolean  "development_faqs",            default: false
     t.boolean  "enable_roomsketcher",         default: true
+    t.integer  "country_id",                                  null: false
     t.boolean  "enable_referrals",            default: false
-    t.boolean  "cas",                         default: false
     t.boolean  "enable_perks",                default: false
+    t.boolean  "cas",                         default: false
     t.boolean  "timeline",                    default: false
     t.string   "custom_url"
+    t.boolean  "demo",                        default: false
     t.boolean  "is_demo",                     default: false
     t.string   "account_manager_name"
     t.string   "account_manager_email"
@@ -414,14 +415,14 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.datetime "deleted_at"
     t.integer  "phases_count",          default: 0
     t.string   "segment_id"
-    t.integer  "choice_option",         default: 0,          null: false
-    t.string   "choices_email_contact"
     t.boolean  "enable_snagging",       default: false
     t.integer  "snag_duration",         default: 0
     t.string   "snag_name",             default: "Snagging", null: false
-    t.boolean  "cas",                   default: false
+    t.integer  "choice_option",         default: 0,          null: false
+    t.string   "choices_email_contact"
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
+    t.boolean  "cas",                   default: false
     t.boolean  "calendar",              default: false
     t.boolean  "conveyancing",          default: false
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
@@ -458,10 +459,11 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.string   "file"
     t.string   "original_filename"
     t.integer  "category"
-    t.boolean  "pinned",            default: false
     t.string   "file_tmp"
     t.integer  "user_id"
+    t.boolean  "pinned",            default: false
     t.integer  "guide"
+    t.boolean  "lau_visible",       default: false
     t.index "lower((title)::text) varchar_pattern_ops", name: "search_index_on_document_title", using: :btree
     t.index ["documentable_type", "documentable_id"], name: "index_documents_on_documentable_type_and_documentable_id", using: :btree
     t.index ["user_id"], name: "index_documents_on_user_id", using: :btree
@@ -482,7 +484,7 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.string   "resourceable_type"
     t.integer  "resourceable_id"
     t.integer  "status"
-    t.datetime "status_updated_at"
+    t.datetime "status_updated_at", default: -> { "now()" }
     t.index ["event_id"], name: "index_event_resources_on_event_id", using: :btree
     t.index ["resourceable_type", "resourceable_id"], name: "index_event_resources_on_resourceable_type_and_resourceable_id", using: :btree
   end
@@ -664,8 +666,8 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.string   "url"
     t.string   "additional_text"
     t.integer  "how_to_sub_category_id"
-    t.integer  "country_id",                             null: false
     t.boolean  "hide",                   default: false
+    t.integer  "country_id",                             null: false
     t.index "lower(summary) varchar_pattern_ops", name: "search_index_on_how_to_summary", using: :btree
     t.index "lower(title) varchar_pattern_ops", name: "search_index_on_how_to_title", using: :btree
     t.index ["how_to_sub_category_id"], name: "index_how_tos_on_how_to_sub_category_id", using: :btree
@@ -760,6 +762,51 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.index ["sender_id"], name: "index_notifications_on_sender_id", using: :btree
   end
 
+  create_table "oauth_access_grants", force: :cascade do |t|
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.integer  "application_id", null: false
+    t.string   "token",          null: false
+    t.integer  "expires_in",     null: false
+    t.text     "redirect_uri",   null: false
+    t.datetime "created_at",     null: false
+    t.datetime "revoked_at"
+    t.string   "scopes"
+    t.index ["application_id"], name: "index_oauth_access_grants_on_application_id", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_oauth_access_grants_on_resource_type_and_resource_id", using: :btree
+    t.index ["token"], name: "index_oauth_access_grants_on_token", unique: true, using: :btree
+  end
+
+  create_table "oauth_access_tokens", force: :cascade do |t|
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.integer  "application_id"
+    t.string   "token",                               null: false
+    t.string   "refresh_token"
+    t.integer  "expires_in"
+    t.datetime "revoked_at"
+    t.datetime "created_at",                          null: false
+    t.string   "scopes"
+    t.string   "previous_refresh_token", default: "", null: false
+    t.index ["application_id"], name: "index_oauth_access_tokens_on_application_id", using: :btree
+    t.index ["refresh_token"], name: "index_oauth_access_tokens_on_refresh_token", unique: true, using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_oauth_access_tokens_on_resource_type_and_resource_id", using: :btree
+    t.index ["token"], name: "index_oauth_access_tokens_on_token", unique: true, using: :btree
+  end
+
+  create_table "oauth_applications", force: :cascade do |t|
+    t.string   "name",                        null: false
+    t.string   "uid",                         null: false
+    t.string   "secret",                      null: false
+    t.text     "redirect_uri",                null: false
+    t.string   "scopes",       default: "",   null: false
+    t.boolean  "confidential", default: true, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "description"
+    t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.string   "searchable_type"
@@ -839,10 +886,10 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.date     "reservation_release_date"
     t.integer  "validity",                 default: 27
     t.integer  "extended_access",          default: 0
-    t.integer  "choice_configuration_id"
-    t.integer  "choice_selection_status",  default: 0,  null: false
     t.integer  "total_snags",              default: 0
     t.integer  "unresolved_snags",         default: 0
+    t.integer  "choice_configuration_id"
+    t.integer  "choice_selection_status",  default: 0,  null: false
     t.string   "completion_order_number"
     t.string   "reservation_order_number"
     t.string   "uprn"
@@ -1042,10 +1089,10 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.string   "content"
     t.string   "image"
     t.integer  "snag_id"
-    t.string   "commenter_type"
-    t.integer  "commenter_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "commenter_type"
+    t.integer  "commenter_id"
     t.index ["commenter_type", "commenter_id"], name: "index_snag_comments_on_commenter_type_and_commenter_id", using: :btree
     t.index ["snag_id"], name: "index_snag_comments_on_snag_id", using: :btree
   end
@@ -1053,10 +1100,10 @@ ActiveRecord::Schema.define(version: 20210308084905) do
   create_table "snags", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "status",      default: 0
-    t.integer  "plot_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "plot_id"
+    t.integer  "status",      default: 0
     t.index ["plot_id"], name: "index_snags_on_plot_id", using: :btree
   end
 
@@ -1128,8 +1175,8 @@ ActiveRecord::Schema.define(version: 20210308084905) do
 
   create_table "timeline_stages", force: :cascade do |t|
     t.integer "timeline_id"
-    t.integer "order"
     t.integer "stage_id"
+    t.integer "order"
     t.index ["stage_id"], name: "index_timeline_stages_on_stage_id", using: :btree
     t.index ["timeline_id"], name: "index_timeline_stages_on_timeline_id", using: :btree
   end
@@ -1201,8 +1248,8 @@ ActiveRecord::Schema.define(version: 20210308084905) do
     t.string   "picture"
     t.string   "job_title"
     t.boolean  "receive_release_emails",    default: true
-    t.boolean  "receive_choice_emails",     default: false
     t.boolean  "snag_notifications",        default: true
+    t.boolean  "receive_choice_emails",     default: false
     t.integer  "lettings_management",       default: 0
     t.boolean  "cas",                       default: false
     t.boolean  "receive_invitation_emails", default: true
@@ -1261,6 +1308,8 @@ ActiveRecord::Schema.define(version: 20210308084905) do
   add_foreign_key "finishes", "finish_types"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
+  add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"
+  add_foreign_key "oauth_access_tokens", "oauth_applications", column: "application_id"
   add_foreign_key "phase_timelines", "phases"
   add_foreign_key "phase_timelines", "timelines"
   add_foreign_key "phases", "developers"
@@ -1296,6 +1345,7 @@ ActiveRecord::Schema.define(version: 20210308084905) do
   add_foreign_key "task_shortcuts", "tasks"
   add_foreign_key "tasks", "stages"
   add_foreign_key "tasks", "timelines"
+  add_foreign_key "timeline_stages", "stages"
   add_foreign_key "timeline_stages", "timelines"
   add_foreign_key "timelines", "stage_sets"
   add_foreign_key "unit_types", "developers"
