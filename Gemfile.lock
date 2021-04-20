@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git
-  revision: b53132c5ca7196851f25334bbcbb7800e03fd528
-  branch: v5.0.3
+  revision: 655cd207e02e833c64a788a7a7456dd1eee188cd
+  tag: v6.0
   specs:
-    doorkeeper (5.0.4)
+    doorkeeper (5.0.3)
       railties (>= 4.2)
 
 GIT

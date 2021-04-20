@@ -9,7 +9,7 @@ Doorkeeper.configure do
     session[:oauth2_req] = request.fullpath unless (current_user || current_resident)
 
     current_resident || redirect_to(new_resident_session_url) if scope&.downcase == "resident"
-    current_user || redirect_to(new_user_session_url) if scope&.downcase == "admin"
+    current_user || redirect_to(new_user_session_url) if ["admin", "concierge"].include?(scope&.downcase)
     (current_user || current_resident)
   end
 
@@ -105,8 +105,8 @@ Doorkeeper.configure do
   # For more information go to
   # https://github.com/doorkeeper-gem/doorkeeper/wiki/Using-Scopes
   #
-  default_scopes  :public
-  optional_scopes :admin, :resident
+  default_scopes
+  optional_scopes :admin, :resident, :concierge
 
   # Change the way client credentials are retrieved from the request object.
   # By default it retrieves first from the `HTTP_AUTHORIZATION` header, then

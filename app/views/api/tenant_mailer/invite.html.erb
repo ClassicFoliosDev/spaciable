@@ -1,7 +1,3 @@
-<p> Robinsons </p>
-
-
-
 <% plot = @resource.invitation_plot %>
 <% if plot.branded_email_logo %>
   <%= image_tag(plot.branded_email_logo, style: "display: block;width:120px;margin: 20px auto;padding-bottom: 20px;", alt: plot.development.to_s) %>
@@ -13,7 +9,7 @@
 
 <p><%= t("devise.mailer.invitation_instructions.hello", name: @resource.first_name) %>,</p>
 
-<h4><%= t("devise.mailer.resident_invitation.new_home", development_name: plot.development) %></h4>
+<h4><%= t("devise.mailer.resident_invitation.reservation", development_name: plot.development) %></h4>
 
 <% invited_by_user = @resource.plot_residency_invited_by(plot) %>
 <% invited_by = invited_by_user.class.to_s == "User" ? plot.developer.to_s : invited_by_user %>

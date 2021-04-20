@@ -15,7 +15,8 @@ module Api
 
         def pre_sales_params
           params.require(:pre_sale).permit(
-            :development, :phase, :plot_number, :email, :phone_number, :first_name, :last_name
+            :development, :division, :phase, :plot_number,
+            :email, :phone_number, :title, :first_name, :last_name
           )
         end
       end

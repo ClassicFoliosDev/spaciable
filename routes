@@ -746,6 +746,7 @@ edit_choice_configuration_room_configuration GET    /choice_configurations/:choi
                                              GET    /                                                                                      residents/landing#new
                          api_admin_pre_sales POST   /api/admin/pre_sales(.:format)                                                         api/admin/v1/pre_sales#create {:format=>"json"}
                            api_resident_meta GET    /api/resident/meta(.:format)                                                           api/resident/v1/meta#index {:format=>"json"}
+                 api_concierge_find_resident GET    /api/concierge/find_resident(.:format)                                                 api/concierge/v1/find#find_resident {:format=>"json"}
 
 Routes for Ckeditor::Engine:
         pictures GET    /pictures(.:format)             ckeditor/pictures#index

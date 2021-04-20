@@ -1,4 +1,4 @@
-require 'api_constraints'
+ 'api_constraints'
 
 Rails.application.routes.draw do
 
@@ -397,5 +397,12 @@ Rails.application.routes.draw do
         resources :meta, only: [:index]
       end
     end
+
+    namespace :concierge do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true), controller: 'find' do
+        get '/find_resident', action: :find_resident
+      end
+    end
+
   end
 end

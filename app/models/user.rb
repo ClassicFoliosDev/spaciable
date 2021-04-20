@@ -39,7 +39,8 @@ class User < ApplicationRecord
     :developer_admin,
     :division_admin,
     :development_admin,
-    :site_admin
+    :site_admin,
+    :concierge
   ]
 
   enum lettings_management: %i[

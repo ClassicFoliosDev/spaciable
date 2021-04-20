@@ -34,6 +34,7 @@ en:
         redirect_uri: 'Use one line per URI'
         native_redirect_uri: 'Use %{native_redirect_uri} if you want to add localhost URIs for development purposes'
         scopes: 'Separate scopes with spaces. Leave blank to use the default scopes.'
+        description: "Give a description of the data that will be exposed to this client"
       edit:
         title: 'Edit application'
       index:
@@ -41,6 +42,7 @@ en:
         new: 'New Application'
         name: 'Name'
         callback_url: 'Callback URL'
+        scope: "Scope"
         confidential: 'Confidential?'
         actions: 'Actions'
         confidentiality:
@@ -56,11 +58,12 @@ en:
         confidential: 'Confidential'
         callback_urls: 'Callback urls'
         actions: 'Actions'
+        description: "Description"
 
     authorizations:
       buttons:
-        authorize: 'Authorize'
-        deny: 'Deny'
+        authorize: 'Accept'
+        deny: 'Cancel'
       error:
         title: 'An error has occurred'
       new:
@@ -135,3 +138,7 @@ en:
           home: 'Home'
       application:
         title: 'OAuth authorization required'
+    scopes:
+      concierge: "Concierge"
+      admin: "Admin"
+      resident: "Resident"

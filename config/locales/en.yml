@@ -277,6 +277,7 @@ en:
   division_admin: "Division Admin"
   development_admin: "Development Admin"
   site_admin: "Site Admin"
+  concierge: "Concierge"
 
   choose: "Choose File"
   choose_multiple: "Choose Files"

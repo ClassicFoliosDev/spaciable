@@ -2,7 +2,6 @@
 
 module Api
   class PreSales
-
     FAILED_TO_FIND = 1
     ALREADY_ALLOCATED = 2
     ADDED_NEW = 3
@@ -10,6 +9,7 @@ module Api
 
     def initialize(params)
       @params = params
+      @params[:title] = @params[:title].downcase
       find_plot
     end
 
@@ -19,7 +19,7 @@ module Api
       @tenant = existing = Resident.find_by(email: @params[:email])
 
       if @tenant.nil?
-        @tenant = Api::Tenant.new(@params.except(:development, :phase, :plot_number))
+        @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number))
         @tenant.developer_email_updates = true
         @tenant.create_without_password
       end
@@ -33,12 +33,24 @@ module Api
 
     private
 
+    # rubocop:disable Metrics/MethodLength
     def find_plot
-      @plot = Plot.joins(:development, :developer, :phase)
-                  .find_by(number: @params[:plot_number],
-                           phases: { name: @params[:phase] },
-                           developments: { name: @params[:development] },
-                           developers: { id: RequestStore.store[:current_user].developer })
+      @plot = begin
+        if @params[:division]
+          Plot.joins(:development, :division, :developer, :phase)
+              .find_by(number: @params[:plot_number],
+                       phases: { name: @params[:phase] },
+                       developments: { name: @params[:development] },
+                       divisions: { division_name: @params[:division] },
+                       developers: { id: RequestStore.store[:current_user].developer })
+        else
+          Plot.joins(:development, :developer, :phase)
+              .find_by(number: @params[:plot_number],
+                       phases: { name: @params[:phase] },
+                       developments: { name: @params[:development] },
+                       developers: { id: RequestStore.store[:current_user].developer })
+        end
+      end
 
       return if @plot
 
@@ -47,6 +59,7 @@ module Api
                         phase: @params[:phase],
                         plot_number: @params[:plot_number])
     end
+    # rubocop:enable Metrics/MethodLength
 
     # rubocop:disable Metrics/MethodLength
     def notify_and_redirect(new_tenant)
