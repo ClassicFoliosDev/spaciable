@@ -75,7 +75,7 @@
           <div id= <%= display_section(@timeline) %>>
             <div class="answer-container">
               <h2><%= @task.answer %></h2>
-              <p><%= simple_format @task.response %></p>
+              <p><%= raw @task.response %></p>
 
               <aside class="useful-extras">
                 <div class="features-container">

@@ -204,6 +204,6 @@ module PhasePlotFixture
   def create_phase_plot
     phase = Phase.find_by(name: PhasePlotFixture.phase_name)
     unit_type = UnitType.find_by(name: PhasePlotFixture.unit_type_name)
-    FactoryGirl.create(:plot, phase: phase, unit_type: unit_type, number: plot_number)
+    FactoryGirl.create(:plot, phase: phase, unit_type: unit_type, number: plot_number, completion_release_date: Time.zone.now)
   end
 end

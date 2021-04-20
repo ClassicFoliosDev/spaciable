@@ -19,7 +19,7 @@ module NavigationHelper
 
   # external links
 
-  def area_guide_url
-    ENV.fetch("BA4M_URL")
+  def area_guide_url(plot)
+    plot.expired? ? ENV.fetch("BA4M_EXPIRED_URL") : ENV.fetch("BA4M_URL")
   end
 end

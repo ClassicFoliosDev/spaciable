@@ -28,7 +28,7 @@ class ResidentNotifierService
   end
 
   def all_missing_plots(residents_notified = nil)
-    return [] if notification.send_to_all?
+    return [] if notification.send_to_all? || !notification.all_plots?
 
     residents_notified = notify_residents if residents_notified.nil?
 
@@ -119,9 +119,21 @@ class ResidentNotifierService
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def all_residents_in_scope
     residents_in_scope = []
-    residents_with_plots = notification.send_to.residents
+    residents_with_plots ||= begin
+      case notification.plot_filter.to_sym
+      when :all_plots
+        notification.send_to.residents
+      when :completed_plots
+        notification.send_to.residents
+                    .where("plots.completion_date <= ?", Time.zone.today)
+      when :reservation_plots
+        notification.send_to.residents
+                    .where("plots.completion_date > ?", Time.zone.today)
+      end
+    end
 
     residents_with_plots.each do |resident|
       residents_in_scope.push(resident)
@@ -129,12 +141,27 @@ class ResidentNotifierService
 
     residents_in_scope
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def numbered_residents_in_scope
     residents = []
 
-    filtered_residents = notification.send_to.residents
-                                     .where(plots: { number: notification.plot_numbers })
+    filtered_residents ||= begin
+      case notification.plot_filter.to_sym
+      when :all_plots
+        notification.send_to.residents
+                    .where(plots: { number: notification.plot_numbers })
+      when :completed_plots
+        notification.send_to.residents
+                    .where(plots: { number: notification.plot_numbers })
+                    .where("plots.completion_date <= ?", Time.zone.today)
+      when :reservation_plots
+        notification.send_to.residents
+                    .where(plots: { number: notification.plot_numbers })
+                    .where("plots.completion_date > ?", Time.zone.today)
+      end
+    end
 
     filtered_residents.each do |resident|
       resident.plots.each do |_plot|
@@ -144,6 +171,7 @@ class ResidentNotifierService
 
     residents.uniq
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def set_and_save_notification_plot_numbers
     notification.plot_numbers = BulkPlots::Numbers.new(

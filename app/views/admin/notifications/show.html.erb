@@ -18,7 +18,9 @@
     <span><%= t(".all") %></span>
     <% end %>
     <%= label_tag(t(".sent_to")) %>
-    <span><%= @notification.sent_to_role %></span><br/><br/>
+    <span><%= @notification.sent_to_role %></span>
+    <%= label_tag(t(".plot_types")) %>
+    <span><%= t("admin.notifications.form.#{@notification.plot_filter.to_s}") %></span><br/><br/>
     <%= label_tag(Notification.human_attribute_name(:message)) %>
     <span><%= simple_format @notification.message %></span>
   </div>
