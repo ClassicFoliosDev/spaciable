@@ -31,13 +31,14 @@ module Csv
         "Reservation Order", "Completion Order", "Reservation Release", "Completion Release",
         "Validity", "Extended Access", "Expiry Date", "Legal Completion Date", "Build Progress",
         "Resident Count", "Resident Email", "Resident Name", "Resident Invited On",
-        "Resident Invited By", "Resident Role", "Resident Activated", "Resident Last Sign In",
+        "Resident Invited By", "Resident Role", "Resident Activated", "Resident Last Accessed At",
         "Lifetime Sign In Count", "Notifications", "Developer Emails", "Spaciable Emails",
         "Spaciable Texts", "Automated Emails", "Maintenance", "Services Enabled",
         "Referrals Enabled", "Referrals Count",
-        "Snagging Enabled", "Snags Reported", "Snags Resolved",
+        "Snagging Enabled", "Snagging duration", "Snags Reported", "Snags Resolved",
         "Buyers Club Enabled", "Licenses Bought", "Licences Remaining", "Perks Requested",
-        "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs"
+        "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs", "Calendar",
+        "My Journey", "Content Proforma", "Spaciable Legal"
       ]
     end
 
@@ -65,13 +66,14 @@ module Csv
     end
 
     def self.resident_info(plot, resident, resident_number)
+      last_event = Ahoy::Event.where(userable: resident).order(:time).last
       [
         resident_number, resident.email, resident.to_s,
         build_date(resident, "invitation_created_at"),
         resident.plot_residency_invited_by(plot)&.email,
         resident.plot_residency_role_name(plot),
         build_date(resident, "invitation_accepted_at"),
-        build_date(resident, "last_sign_in_at"),
+        last_event&.time&.strftime("%d/%m/%Y"),
         resident.sign_in_count, notification_count(resident.id),
         yes_or_no(resident, "developer_email_updates"),
         yes_or_no(resident, "cf_email_updates"),
@@ -86,7 +88,9 @@ module Csv
         maintenance_type(plot),
         yes_or_no(plot.developer, "enable_services"),
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
-        yes_or_no(plot.development, "enable_snagging"), plot.all_snags_count,
+        yes_or_no(plot.development, "enable_snagging"),
+        plot.snag_duration,
+        plot.all_snags_count,
         plot.resolved_snags_count,
         yes_or_no(plot.developer, "enable_perks"),
         plot.development_premium_licences_bought,
@@ -94,7 +98,11 @@ module Csv
         Vaboo.perk_type_registered(resident, plot),
         yes_or_no(plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
-        yes_or_no(plot.developer, "development_faqs")
+        yes_or_no(plot.developer, "development_faqs"),
+        plot.development_calendar ? "Yes" : "No",
+        plot.journey ? plot.journey.title : "No",
+        plot.proformas.count.positive?  ? plot.proformas.count : "No",
+        plot.conveyancing_enabled? ? "Yes" : "No"
       ]
     end
     # rubocop:enable all

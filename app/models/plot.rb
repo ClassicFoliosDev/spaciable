@@ -44,7 +44,7 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
-  delegate :cas, to: :development
+  delegate :cas, :snag_duration, to: :development
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
@@ -299,7 +299,7 @@ class Plot < ApplicationRecord
     when :custom_url, :area_guide, :home_designer, :referrals, :services
       developer.supports?(feature_type)
     when :conveyancing, :conveyancing_quote, :conveyancing_signin
-      developer.conveyancing_enabled?
+      development.conveyancing_enabled?
     when :buyers_club
       return false unless developer.supports?(feature_type)
       Vaboo.perks_account_activated?(RequestStore.store[:current_resident],

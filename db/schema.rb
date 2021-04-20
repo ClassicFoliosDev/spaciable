@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210304111713) do
+ActiveRecord::Schema.define(version: 20210308084905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -755,6 +755,7 @@ ActiveRecord::Schema.define(version: 20210304111713) do
     t.string   "plot_numbers",                              array: true
     t.string   "plot_prefix"
     t.integer  "send_to_role"
+    t.integer  "plot_filter",  default: 0
     t.index "lower((subject)::text) varchar_pattern_ops", name: "search_index_on_notification_subject", using: :btree
     t.index ["author_id"], name: "index_notifications_on_author_id", using: :btree
     t.index ["send_to_type", "send_to_id"], name: "index_notifications_on_send_to_type_and_send_to_id", using: :btree

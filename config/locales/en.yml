@@ -588,7 +588,7 @@ en:
         area_guide: "Area Guide"
         perks: "Buyers' Club"
         dashboard_tour: "Tour"
-        conveyancing: "Legal Process"
+        conveyancing: "Spaciable Legal"
       header:
         account: "My Account"
         plots: "My Plots"
@@ -649,7 +649,7 @@ en:
       profile: "Profile"
       notifications: "Notifications"
       admin_notifications: "Admin Notifications"
-      conveyancing: "Conveyancing Sign-in"
+      conveyancing: "Spaciable Legal Sign-in"
       contacts: "Contacts"
       howtos: "How Tos"
       help: "Help"
@@ -921,10 +921,15 @@ en:
         back: "Back"
         send_to_all_residents: "Send to all %{residents_count} residents"
         send_to: "Residents of:"
-        send_to_role: "Send to:"
+        send_to_role: "Resident Filter:"
+        plot_filter: "Plot Filter:"
+        plot_filter_help: "<strong>Completed Plots</strong> = the estimated move-in date entered on each plot’s Completion tab is today or has already passed. These plots have not necessarily legally completed. If you select a plot/plots using the filters/fields below, note that only Completed Plots will receive the message. \n\n<strong>Reservation Plots</strong> = the estimated move-in date entered on each plot’s Completion tab is in the future. If you select a plot/plots using the filters/fields below, note that only Reservation Plots will receive the message."
         homeowner: "Full Access Users"
         tenant: "Limited Access Users"
         both: "Full and Limited Access Users"
+        all_plots: "All Plots"
+        completed_plots: "Completed Plots"
+        reservation_plots: "Reservation Plots"
         no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
         confirm_notification: "Confirm Send"
         confirm_plots: "Are you sure you want to send this notification to the following plots?"
@@ -938,6 +943,7 @@ en:
         back: "Back"
         all: "All"
         sent_to: "Role"
+        plot_types: "Plot Types"
         numbers: "Plots"
         residents_of: "Recipient"
     users:
@@ -1310,7 +1316,7 @@ en:
           view_more: "View FAQs"
 
   developments:
-    conveyancing: "Conveyancing"
+    conveyancing: "Spaciable Legal Quote"
     collection:
       plot_documents: "Plot Documents"
       phases: "Phases"
@@ -1358,7 +1364,7 @@ en:
       construction_name: "Replace My 'Home':"
       calendar: "Calendar"
       calendar_description: "Enable Plot Calendars for this Development"
-      conveyancing: "WeComplete Conveyancing"
+      conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete"
     index:
       add: "Add Development"
@@ -1750,7 +1756,7 @@ en:
           description: "Track your progress towards your move and pick up plenty of tips along the way."
           button: "My Journey"
         conveyancing:
-          title: "Legal Process"
+          title: "Spaciable Legal"
           description: "Spaciable Legal guides you through conveyancing, minimising delays so you can exchange as soon as possible!"
           button: "Go"
 
@@ -2006,7 +2012,7 @@ en:
       account_number: "Branded Buyers' Club Account Number"
       tile_image: "Branded Buyers' Club Tile Image"
       branded_explanation: "Complete the following fields only if the Developer has requested a Branded Buyers' Club Portal"
-      conveyancing: "WeComplete Conveyancing"
+      conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete, populated below:"
       wecomplete_sign_in: "Branded WeComplete Sign-in URL"
       wecomplete_quote: "Branded WeComplete Quoting Form URL"
@@ -2104,7 +2110,7 @@ en:
       address: "Postal Address"
       back: "Back"
       prime_admin: "Primary lettings administrator"
-      conveyancing: "WeComplete Conveyancing"
+      conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete, populated below:"
       wecomplete_sign_in: "Branded WeComplete Sign-in URL"
       wecomplete_quote: "Branded WeComplete Quoting Form URL"
@@ -3528,7 +3534,7 @@ en:
           issues: "Issue Reporting"
           snagging: "%{snag_name}"
           timeline: "My Journey"
-          conveyancing: "Conveyancing"
+          conveyancing: "Spaciable Legal Conveyancing"
         guides:
           reservation: "Reservation"
           completion: "Completion"
@@ -3689,9 +3695,9 @@ en:
         snagging: "Snagging"
         tour: "Home Tour"
         calendar: "Calendar"
-        conveyancing: "We Complete"
-        conveyancing_quote: "We Complete Quote"
-        conveyancing_signin: "We Complete Sign In"
+        conveyancing: "Spaciable Legal"
+        conveyancing_quote: "Spaciable Legal Quote"
+        conveyancing_signin: "Spaciable Legal Sign-in"
 
     errors:
       messages:
@@ -3929,6 +3935,7 @@ en:
     view_how_to: "How To"
     view_home_designer: "Home Designer"
     view_area_guide: "Area Guide"
+    view_conveyancing: "Spaciable Legal"
     view_calendar: "Calendar"
     view_buyers_club: "Buyers Club"
     bc_find_out_more: "Find out more"
