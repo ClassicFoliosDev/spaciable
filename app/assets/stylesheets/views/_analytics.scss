@@ -1,21 +1,42 @@
 #charts {
+  #header {
+    display: flex;
+
+    .section-title {
+      padding-top: 40px;
+    }
+  }
 
   #selectors {
-    background-color: blue;
+    display: flex;
+    flex-grow: 5;
+
+    form {
+      display: contents;
+    }
+  }
+
+  #competitions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   #invite_activations {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
     #invited, #activated, #overview {
-      display: inline-block;
-      width: 33%;
-      height: 300px;
+      width: 32.5%;
+      margin: 5px;
     }
   }
 
   #left, #right {
     display: inline-block;
     width: 49%;
-    height: 300px;
+    margin: 5px
   }
 
   #selectors {

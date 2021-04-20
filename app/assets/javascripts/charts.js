@@ -54,6 +54,9 @@ var charts = {
   },
 
   render_competitions: function() {
+    $('#left').height($('#invited').height())
+    $('#right').height($('#invited').height())
+
     if ($('#competitions').length == 0) { return }
 
     if ($phase != "0" || $developer == "0") {

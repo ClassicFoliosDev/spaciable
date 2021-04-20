@@ -1017,6 +1017,7 @@ en:
       charts:
         all: "All Developers"
         choose: "Choose..."
+        title: "Analytics"
       components:
         no_recent:
           no_recent: "There are no recent %{type_names}"
