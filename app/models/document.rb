@@ -69,7 +69,7 @@ class Document < ApplicationRecord
   def update_laus
     return unless lau_visible_changed? || id_changed?
 
-    documentable.plots.each do |plot|
+    documentable&.plots&.each do |plot|
       if lau_visible
         pd = PlotDocument.find_by(plot_id: plot.id, document_id: id)
         if pd
