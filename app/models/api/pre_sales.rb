@@ -16,7 +16,7 @@ module Api
     def add_limited_access_user
       yield(@message, FAILED_TO_FIND, 501) unless @plot
 
-      @tenant = existing = Resident.find_by(email: @params[:email])
+      @tenant = existing = ::Resident.find_by(email: @params[:email])
 
       if @tenant.nil?
         @tenant = Api::Tenant.new(@params.except(:development, :division, :phase, :plot_number))
