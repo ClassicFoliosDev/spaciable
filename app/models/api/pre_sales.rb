@@ -16,7 +16,6 @@ module Api
     def add_limited_access_user
       yield(@message, FAILED_TO_FIND, 501) unless @plot
 
-      byebug
       @tenant = existing = Tenant.find_by(email: @params[:email])
 
       if @tenant.nil?
