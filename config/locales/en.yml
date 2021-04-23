@@ -1018,6 +1018,11 @@ en:
         all: "All Developers"
         choose: "Choose..."
         title: "Analytics"
+        invited: "Plots Invited"
+        activated: "Plots Activated"
+        overview: "Overview"
+        no_plots_title: "No Live Plots Found"
+        no_plots_desc: "Unfortunately, there are no live plots to show for this data set. This page will show statistics for plots that have been added by Classic Folios and have not expired."
       components:
         no_recent:
           no_recent: "There are no recent %{type_names}"

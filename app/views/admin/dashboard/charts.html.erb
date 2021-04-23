@@ -37,16 +37,56 @@
   <% if current_user.charts? %>
     <% if current_user.chart?(:plot_invite) %>
       <div id="invite_activations">
-        <div id="invited" class='chart'></div>
-        <div id="activated" class='chart'></div>
-        <div id="overview" class='chart'></div>
+        <div class='piechart'>
+          <div class="section-title">
+            <span><%= t(".invited") %><br></span>
+          </div>
+          <div id="invited" class="chart"></div>
+        </div>
+        <div class='piechart'>
+          <div class="section-title">
+            <span><%= t(".activated") %><br></span>
+          </div>
+          <div id="activated" class="chart"></div>
+        </div>
+        <div class='piechart'>
+          <div class="section-title">
+            <span><%= t(".overview") %><br></span>
+          </div>
+          <div id="overview" class="chart"></div>
+        </div>
       </div>
     <% end %>
     <% if current_user.chart?(:competition) %>
       <div id="competitions">
-        <div id="left" class='chart' ></div>
-        <div id="right" class='chart'></div>
+        <div id="left" class='barchart'>
+          <div class="left title section-title">
+            <span></span>
+          </div>
+          <div class="left desc section-title">
+            <span></span>
+          </div>
+          <div class='chart barchart' ></div>
+        </div>
+        <div id="right" class='barchart'>
+          <div class="right title section-title">
+            <span></span>
+          </div>
+          <div class="right desc section-title">
+            <span></span>
+          </div>
+          <div class='chart barchart'></div>
+        </div>
       </div>
     <% end %>
   <% end %>
 </div>
+
+<div id="no_plots">
+  <%= image_tag "no_plots.png" %>
+  <div class="section-title"><%= t(".no_plots_title") %></div>
+  <br>
+  <div class="section-title"><%= t(".no_plots_desc") %></div>
+  </div>
+</div>
+

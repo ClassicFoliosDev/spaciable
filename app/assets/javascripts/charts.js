@@ -41,8 +41,19 @@ var charts = {
   render: function() {
     $(".chart").each(function( index ) { $(this ).empty() })
 
-    charts.render_charts()
-    charts.render_competitions()
+    if($("#charts_development_id").prop('disabled') &&
+       $phase == "0" &&
+       $response.primary.invited == 0 &&
+       $response.primary.activated == 0 &&
+       $response.primary.not_invited == 0) {
+      $("#charts").hide()
+      $("#no_plots").show()
+    } else {
+      $("#charts").show()
+      $("#no_plots").hide()
+      charts.render_charts()
+      charts.render_competitions()
+    }
   },
 
   render_charts: function() {
@@ -54,78 +65,96 @@ var charts = {
   },
 
   render_competitions: function() {
-    $('#left').height($('#invited').height())
-    $('#right').height($('#invited').height())
 
-    if ($('#competitions').length == 0) { return }
 
-    if ($phase != "0" || $developer == "0") {
+    if ($('#competitions').length == 0 ||
+        $phase != "0" || $developer == "0") {
       $("#competitions").hide()
+      return
     } else {
       $("#competitions").show()
     }
 
+    $("#left").show()
+    $("#right").show()
+    $("#competitions").show()
+
     if ($development != "0") {
-      var rendered = charts.development_ranking('left')
-      charts.development_division_ranking(rendered ? 'right' : 'left')
+      if (charts.no_development_ranking()) { $("#left").hide() }
+      if (charts.no_development_division_ranking()) { $("#right").hide() }
+      charts.development_ranking('left')
+      charts.development_division_ranking('right')
     } else if ($division != "0") {
-      var rendered = charts.division_ranking('left')
-      charts.division_development_extremums(rendered ? 'right' : 'left')
+      if (charts.no_division_ranking()) { $("#left").hide() }
+      if (charts.no_division_development_extremums()) { $("#right").hide() }
+      charts.division_ranking('left')
+      charts.division_development_extremums('right')
     } else if ($developer != "0") {
-      var rendered = charts.division_rankings('left')
-      charts.development_extremums(rendered ? 'right' : 'left')
+      if (charts.no_division_rankings()) { $("#left").hide() }
+      if (charts.no_development_extremums()) { $("#right").hide() }
+      charts.division_rankings('left')
+      charts.development_extremums('right')
+    }
+
+    if(!($("#left").is(":visible") || $("#right").is(":visible"))) {
+      $("#competitions").show()
     }
   },
 
+  no_development_ranking: function() {
+    return ($response.primary.invited == 0 || charts.all_developments().length < 2)
+  },
+
   development_ranking: function(container) {
-    var developments = charts.all_developments()
+    if (charts.no_development_ranking()) { return }
+    charts.render_ranking(charts.all_developments(), $development, container, 'Developer Ranking', "$development is placed $rank/$total for plot activation across $developer.")
+  },
 
-    if (developments.length < 2) { return false }
-
-    charts.render_ranking(developments, $development, container, 'Developer Ranking')
-
-    return true
+  no_development_division_ranking: function() {
+    var development = charts.get_by_id(charts.all_developments(), $development)
+    return (development == null || development.div_id == 0 ||
+            charts.division_developments(development.div_id).length < 2)
   },
 
   development_division_ranking: function(container) {
+    if (charts.no_development_division_ranking()) { return }
+
     var development = charts.get_by_id(charts.all_developments(), $development)
-    if (development == null || development.div_id == 0 ) { return false }
+    $division = development.div_id
+    var developments = charts.division_developments($division)
 
-    var developments = charts.division_developments(development.div_id)
-    if (developments.length < 2) { return false }
+    charts.render_ranking(developments, $development, container, 'Division Ranking', '$development is placed $rank/$total for plot activation across $division.')
+  },
 
-    charts.render_ranking(developments, $development, container, 'Developer Division Ranking')
-
-    return true
+  no_division_ranking: function(){
+    return (charts.all_divisions().length < 2)
   },
 
   division_ranking: function(container) {
-    var divisions = charts.all_divisions()
-    if (divisions.length < 2) { return false }
+    if (charts.no_division_ranking()) { return }
+    charts.render_ranking(charts.all_divisions(), $division, container, 'Developer Ranking', '$division is ranked $rank/$total for plot activation across $developer')
+  },
 
-    charts.render_ranking(divisions, $division, container, 'Division Ranking')
-
-    return true
+  no_division_rankings: function() {
+    return (charts.all_divisions().length < 2)
   },
 
   division_rankings: function(container) {
-    var divisions = charts.all_divisions()
-    if (divisions.length < 2) { return false }
-
-    charts.render_ranking(divisions, -1, container, 'Division Rankings')
-
-    return true
+    if (charts.no_division_rankings()) { return }
+    charts.render_ranking(charts.all_divisions(), -1, container, 'Division Rankings', '')
   },
 
-  render_ranking: function(rows, selected, container, title) {
+  render_ranking: function(rows, selected, container, title, desc) {
     rows = charts.sort(rows)
     range = charts.range(rows, selected)
     if (!range.populated) { return false }
 
     var data = charts.data()
 
+    rank = 0
     rows.forEach(function(row, index){
       if((index >= range.start) && (index <= range.end)) {
+        if ( selected == row.id.toString()) { rank = index + 1 }
         data.addRow([charts.position(index),
                      row.percent,
                      ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + row.percent.toString() + '%',
@@ -133,44 +162,59 @@ var charts = {
       }
     })
 
-    charts.render_chart(data, container, title)
+    desc = charts.full_description(desc, rank, rows.length)
+
+    charts.render_barchart(data, container, title, desc)
+  },
+
+  no_division_development_extremums: function() {
+    return (charts.division_developments($division).length < 2)
   },
 
   division_development_extremums: function(container) {
-    var developments = charts.division_developments($division)
-    if (developments.length < 2) { return false }
+    if (charts.no_division_development_extremums()) { return }
+    charts.render_extremums(charts.division_developments($division), container, 'Development Performance')
+  },
 
-    charts.render_extremums(developments, container, 'Development Performance')
-
-    return true
+  no_development_extremums: function(){
+    return (charts.all_developments().length < 2)
   },
 
   development_extremums: function(container) {
-    var developments = charts.all_developments()
-    if (developments.length < 2) { return false }
-
-    charts.render_extremums(developments, container, 'Development Performance')
-
-    return true
+    if (charts.no_development_extremums()) { return }
+    charts.render_extremums(charts.all_developments(), container, 'Development Performance', '')
   },
 
-  render_extremums: function(rows, container, title) {
+  render_extremums: function(rows, container, title, desc) {
     rows = charts.sort(rows)
     var data = charts.data()
     data.addRow(["highest", rows[0].percent,
-                  rows[0].name + ' '+ rows[0].percent.toString() + '%',
+                  charts.row_tag(rows[0]),
                   'opacity:1;color:#25BC18'])
 
     data.addRow(["lowest", rows[rows.length-1].percent,
-                  rows[rows.length-1].name + ' '+ rows[rows.length-1].percent.toString() + '%',
+                  charts.row_tag(rows[rows.length - 1]),
                   'opacity:1;color:#E20017'])
 
-    charts.render_chart(data, container, title)
+    charts.render_barchart(data, container, title, desc)
   },
 
-  render_chart: function(data, container, title) {
+  row_tag: function(row) {
+    var tag = row.name
+    if ($division == "0") {
+      tag = tag + " (" + $response.competition[row.div_id].name + ")"
+    }
+
+    return tag + ' '+ row.percent.toString() + '%'
+  },
+
+  render_barchart: function(data, container, title, desc) {
+    $('#' + container).show()
+    $('#' + container + ' .title span').text(title)
+    $('#' + container + ' .desc span').text(desc)
+    $('#' + container + ' .chart').height($('#invited').height())
+
     var options = {
-      title: title,
       hAxis: {
         gridlines: {
           count: 0,
@@ -184,12 +228,16 @@ var charts = {
           textPosition: 'in'
         }
       },
+      chartArea: {
+            top: "3%",
+            height: "90%"
+      },
       legend: {
         position: 'none'
       }
     }
      // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.BarChart(document.getElementById(container));
+    var chart = new google.visualization.BarChart($("#"+container + " .chart")[0]);
     chart.draw(data, options)
   },
 
@@ -285,7 +333,7 @@ var charts = {
   },
 
   invited: function() {
-    charts.setNodeHeight('invited', .6)
+    charts.setNodeHeight('invited', .5)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Key');
@@ -306,7 +354,7 @@ var charts = {
             height: "100%",
             width: "100%"
         },
-      pieHole: 0.4,
+      pieHole: 0.5,
       slices: {
         0: { color: '#25BC18' },
         1: { color: '#E20017'},
@@ -323,7 +371,7 @@ var charts = {
   },
 
   not_invited: function() {
-    charts.setNodeHeight('activated', .6)
+    charts.setNodeHeight('activated', .5)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Key');
@@ -344,7 +392,7 @@ var charts = {
             height: "100%",
             width: "100%"
         },
-      pieHole: 0.4,
+      pieHole: 0.5,
       slices: {
         0: { color: '#25BC18' },
         1: { color: '#FFA700'},
@@ -361,7 +409,7 @@ var charts = {
   },
 
   overview: function() {
-    charts.setNodeHeight('overview', .6)
+    charts.setNodeHeight('overview', .5)
     primary = $response['primary']
     var data = new google.visualization.DataTable();
     data.addColumn('string', 'Key');
@@ -383,7 +431,7 @@ var charts = {
             height: "100%",
             width: "100%"
         },
-      pieHole: 0.4,
+      pieHole: 0.5,
       slices: {
         0: { color: '#25BC18' },
         1: { color: '#FFA700'},
@@ -413,6 +461,19 @@ var charts = {
 
   setNodeHeight: function(container, ratio) {
     $('#' + container).height($('#' + container).width() * ratio)
+  },
+
+  full_description: function(desc, rank, total) {
+
+    if (typeof desc != 'undefined') {
+      desc = desc.replace("$division", $response.competition[$division].name);
+      desc = desc.replace("$rank", rank.toString())
+      desc = desc.replace("$total", total.toString())
+      desc = desc.replace("$developer", $("#charts_developer_id option:selected").html())
+      desc = desc.replace("$development", $("#charts_development_id option:selected").html())
+    }
+
+    return desc
   }
 
 }

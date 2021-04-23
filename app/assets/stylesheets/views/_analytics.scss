@@ -16,30 +16,52 @@
     }
   }
 
-  #competitions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-  }
 
   #invite_activations {
     display: flex;
     flex-direction: row;
+    flex-wrap: nowrap;
     justify-content: space-around;
+    margin-bottom: 20px;
 
-    #invited, #activated, #overview {
-      width: 32.5%;
-      margin: 5px;
+    .piechart {
+      flex-basis: 32%;
     }
   }
 
-  #left, #right {
-    display: inline-block;
-    width: 49%;
-    margin: 5px
+  #competitions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+    .barchart {
+      flex-basis: 49%;
+      flex-grow: 1;
+      margin: 10;
+    }
+  }
+
+  .piechart, .barchart {
+    .section-title, .section-desc {
+      float: unset;
+    }
+    span {
+      display: block;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    background-color: white;
+    border-radius: 25px;
+    padding-bottom: 20px;
   }
 
   #selectors {
+    label {
+      margin-top: 0;
+    }
+
     div {
       float: left;
       width: 25%;
@@ -47,5 +69,16 @@
       padding-bottom: 20px;
       display: inline-block;
     }
+  }
+}
+
+#no_plots {
+  display : none;
+  text-align: center;
+
+  img {
+    display: block;
+    margin: auto;
+    width: 80%
   }
 }
