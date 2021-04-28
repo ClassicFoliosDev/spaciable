@@ -41,6 +41,7 @@
     if ($("#categorySelector").length == 0) { return }
 
     set_selections(false)
+    check_full_image()
 
     $("#custom_tile_category").selectmenu({
       select: function (event, ui) {
@@ -152,6 +153,7 @@
     $(document).on('click', '#customTileContent .remove-btn', function (event) {
       $(".image-preview").removeAttr("src")
       customTilePreview()
+      check_full_image()
     })
 
     // change preview when image is added
@@ -164,7 +166,22 @@
         $(".image-preview").hide()
         $(".remove-btn").hide()
       }
+      check_full_image()
     })
+
+    // change preview when image is added
+    $(document).on('hover', '.tile-full-image', function (event) {
+      if ($('#custom_tile_image').prop("files").length) {
+        imageTilePreview()
+        $(imgTile).find("img").hide()
+        $(imgTile).find(".image").addClass("placeholder")
+        // hide the image preview and delete buttons, since their presence causes clarity issues and bugs
+        $(".image-preview").hide()
+        $(".remove-btn").hide()
+      }
+      check_full_image()
+    })
+
   })
 
   // --- FUNCTIONS ---
@@ -362,6 +379,16 @@
       $(iconPreview).addClass("fa-external-link")
     }
     $(iconTile).show()
+  }
+
+  function check_full_image() {
+    if ($(".image-preview").is(":visible") ||
+        $('#custom_tile_image').prop("files").length) {
+      $("#full_image").show()
+    } else {
+      $("#full_image").hide()
+      $("#custom_tile_full_image").prop("checked", false)
+    }
   }
 
 })(document, window.jQuery)

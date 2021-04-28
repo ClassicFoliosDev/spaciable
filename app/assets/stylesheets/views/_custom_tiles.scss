@@ -51,6 +51,8 @@
   background: none;
 
   .feature {
+    position: relative;
+
     .tile-image {
       display: block;
       width: 30%;
@@ -83,6 +85,18 @@
       width: 70%;
       float: right;
       padding: $spacing-small;
+    }
+
+    .tile-full-image {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+    }
+
+    .full-img-tile-details {
+      position: absolute;
+      bottom: 0;
+      margin: 10px;
     }
 
     .tile-text {
