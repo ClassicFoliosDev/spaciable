@@ -169,19 +169,21 @@
       check_full_image()
     })
 
-    // change preview when image is added
-    $(document).on('hover', '.tile-full-image', function (event) {
-      if ($('#custom_tile_image').prop("files").length) {
-        imageTilePreview()
-        $(imgTile).find("img").hide()
-        $(imgTile).find(".image").addClass("placeholder")
-        // hide the image preview and delete buttons, since their presence causes clarity issues and bugs
-        $(".image-preview").hide()
-        $(".remove-btn").hide()
-      }
-      check_full_image()
+    $(document).on('click', '#custom_tile_render_title', function (event) {
+      customTilePreview()
     })
 
+    $(document).on('click', '#custom_tile_render_description', function (event) {
+      customTilePreview()
+    })
+
+    $(document).on('click', '#custom_tile_render_button', function (event) {
+      customTilePreview()
+    })
+
+    $(document).on('click', '#custom_tile_full_image', function (event) {
+      customTilePreview()
+    })
   })
 
   // --- FUNCTIONS ---
@@ -274,13 +276,13 @@
 
   function resetLink() {
     // reset input
-    $(linkSection).find("input").val(null)
+    $(linkSection).find("input[type=text]").val(null)
     resetContent()
     hideCustomTilePreview()
   }
 
   function resetContent() {
-    $(contentSection).find("input").val(null)
+    $(contentSection).find("input[type=text]").val(null)
     $(imageSelect).find("input").val(null)
   }
 
@@ -352,13 +354,31 @@
   }
 
   function customTilePreview() {
+
+    // full width image
+    $("#image").removeClass("image full-image")
+    $("#content").removeClass("content full-content")
+    if ($("#custom_tile_full_image").prop("checked")) {
+      $("#image").addClass("full-image")
+      $("#content").addClass("full-content")
+    } else {
+      $("#image").addClass("image")
+      $("#content").addClass("content")
+    }
+
+    // handle the render options
+    $(titlePreview).toggle($("#custom_tile_render_title").prop("checked"))
+    $(descPreview).toggle($("#custom_tile_render_description").prop("checked"))
+    $(btnPreview).toggle($("#custom_tile_render_button").prop("checked"))
+
     // show the text
     $(titlePreview).text($("#custom_tile_title").val())
     $(descPreview).text($("#custom_tile_description").val())
     $(btnPreview).text($("#custom_tile_button").val())
 
     // show the image or icon preview
-    if ($(".image-preview").attr("src")) {
+    if ($(".image-preview").attr("src") ||
+        $("#image").hasClass("placeholder")) {
       imageTilePreview()
     } else {
       iconTilePreview()

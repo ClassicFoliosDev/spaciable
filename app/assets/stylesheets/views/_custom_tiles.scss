@@ -8,6 +8,10 @@
     margin-bottom: $spacing-medium - 2px;
   }
 
+  input[type=checkbox] {
+    margin-bottom: 0;
+  }
+
   #guideSelector {
     margin-top: 0;
   }
@@ -191,14 +195,19 @@
   }
 
   #customTileImage {
-    display: grid;
-    grid-template-columns: 30% auto;
-    grid-temple-rows: auto;
-    height: 100%;
+    position: relative;
 
     .image {
+      width: 30%;
+    }
+
+    .full-image {
+      width: 100%;
+    }
+
+    .image, .full-image {
       display: block;
-      float: left;
+      height: 100%;
 
       img {
         height: 100%;
@@ -212,10 +221,11 @@
       background-color: $semi-pale-navy;
     }
 
-    .content {
-      display: grid;
-      grid-template-rows: 60% 40%;
-      padding: $spacing-small;
+    .content, .full-content {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      padding: 10px;
 
       h2 {
         font-size: $title-font-size-4;
@@ -228,7 +238,9 @@
       }
 
       .button {
-        align-self: end;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 10;
 
         .button-text {
           text-align: center;
@@ -249,6 +261,16 @@
         }
       }
     }
+
+    .content {
+      width: 70%;
+      right: 0;
+    }
+
+    .full-content {
+      width: 100%;
+    }
+
   }
 }
 
