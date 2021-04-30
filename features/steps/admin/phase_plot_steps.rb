@@ -113,7 +113,6 @@ When(/^I (CAS )*update the phase plot$/) do |cas|
 end
 
 When(/^I CAS update the phase restricted plot$/) do
-
   development = $current_user.division_admin? ? CreateFixture.division_development.id : CreateFixture.development.id
   phase = $current_user.division_admin? ? PhasePlotFixture.division_phase.id : PhasePlotFixture.phase.id
 
@@ -134,8 +133,9 @@ When(/^I CAS update the phase restricted plot$/) do
      ].each do |selector|
     expect(page).not_to have_selector "##{selector}"
   end
-  expect(page).to have_field 'plot_number', disabled: true
-  find(".plot_unit_type select.disabled", visible: :all)
+
+  expect(find(:xpath,"//input[@id='plot_number']").disabled?).to eq true
+  find(:xpath,"//div[@class='input select required disabled plot_unit_type']")
   fill_in :plot_completion_date, with: (Time.zone.now + 20.days)
   select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
 
@@ -344,6 +344,7 @@ end
 
 Given(/^I have a phase plot$/) do
   PhasePlotFixture.create_phase_plot
+  Plot.first.update_attribute(:completion_release_date, nil)
 end
 
 Then(/^I cannot delete the phase plot$/) do

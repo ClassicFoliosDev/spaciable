@@ -4,8 +4,29 @@
   }
 }
 
-.send-to-role hr {
-  margin-top: 5px;
+.send-to-role, .send-to-plot-filter {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.send-to-plot-filter {
+    width: 170px;
+}
+
+.notification_filters {
+
+    hr {
+      margin-top: 5px;
+    }
+
+    i {
+      margin-top: 12px;
+    }
+
+    .plot-filters-help {
+      margin-top: 20px;
+      display: none;
+    }
 }
 
 .confirm-send-all, .confirm-plots, .confirm-no-plots {

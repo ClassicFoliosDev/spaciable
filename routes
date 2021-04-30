@@ -1,4 +1,22 @@
                                       Prefix Verb   URI Pattern                                                                            Controller#Action
+                  native_oauth_authorization GET    /oauth/authorize/native(.:format)                                                      doorkeeper/authorizations#show
+                         oauth_authorization GET    /oauth/authorize(.:format)                                                             doorkeeper/authorizations#new
+                                             POST   /oauth/authorize(.:format)                                                             doorkeeper/authorizations#create
+                                             DELETE /oauth/authorize(.:format)                                                             doorkeeper/authorizations#destroy
+                                 oauth_token POST   /oauth/token(.:format)                                                                 doorkeeper/tokens#create
+                                oauth_revoke POST   /oauth/revoke(.:format)                                                                doorkeeper/tokens#revoke
+                            oauth_introspect POST   /oauth/introspect(.:format)                                                            doorkeeper/tokens#introspect
+                          oauth_applications GET    /oauth/applications(.:format)                                                          doorkeeper/applications#index
+                                             POST   /oauth/applications(.:format)                                                          doorkeeper/applications#create
+                       new_oauth_application GET    /oauth/applications/new(.:format)                                                      doorkeeper/applications#new
+                      edit_oauth_application GET    /oauth/applications/:id/edit(.:format)                                                 doorkeeper/applications#edit
+                           oauth_application GET    /oauth/applications/:id(.:format)                                                      doorkeeper/applications#show
+                                             PATCH  /oauth/applications/:id(.:format)                                                      doorkeeper/applications#update
+                                             PUT    /oauth/applications/:id(.:format)                                                      doorkeeper/applications#update
+                                             DELETE /oauth/applications/:id(.:format)                                                      doorkeeper/applications#destroy
+               oauth_authorized_applications GET    /oauth/authorized_applications(.:format)                                               doorkeeper/authorized_applications#index
+                oauth_authorized_application DELETE /oauth/authorized_applications/:id(.:format)                                           doorkeeper/authorized_applications#destroy
+                            oauth_token_info GET    /oauth/token/info(.:format)                                                            doorkeeper/token_info#show
                                              GET    /sitemap.xml(.:format)                                                                 sitemap#show
                                     ckeditor        /ckeditor                                                                              Ckeditor::Engine
                             new_user_session GET    /admin/sign_in(.:format)                                                               users/sessions#new
@@ -726,6 +744,9 @@ edit_choice_configuration_room_configuration GET    /choice_configurations/:choi
                                         root GET    /                                                                                      admin/dashboard#show
                              admin_dashboard GET    /admin/dashboard(.:format)                                                             admin/dashboard#show
                                              GET    /                                                                                      residents/landing#new
+                         api_admin_pre_sales POST   /api/admin/pre_sales(.:format)                                                         api/admin/v1/pre_sales#create {:format=>"json"}
+                           api_resident_meta GET    /api/resident/meta(.:format)                                                           api/resident/v1/meta#index {:format=>"json"}
+                 api_concierge_find_resident GET    /api/concierge/find_resident(.:format)                                                 api/concierge/v1/find#find_resident {:format=>"json"}
 
 Routes for Ckeditor::Engine:
         pictures GET    /pictures(.:format)             ckeditor/pictures#index

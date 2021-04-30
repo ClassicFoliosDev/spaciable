@@ -139,9 +139,9 @@ module TimelineFixture
 
   def finale
     { content: { complete_message: "You are finnished",
-                 incomplete_message: "You haven't finished"},
+                 incomplete_message: "You have not finished"},
       updated: { omplete_message: "You are sooo finnished",
-                 incomplete_message: "You sooo haven't finished"}
+                 incomplete_message: "You sooo have not finished"}
     }
   end
 

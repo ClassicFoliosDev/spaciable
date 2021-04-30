@@ -72,6 +72,15 @@ $(document).on('mouseout', '#plotStatusHelp', function (event) {
   questionMouseOut($(this))
 })
 
+// finish category
+$(document).on('mouseover', '#plotfiltersHelp', function (event) {
+  $('.plot-filters-help').show()
+})
+
+$(document).on('mouseleave', '#plotfiltersHelp', function (event) {
+  $('.plot-filters-help').hide()
+})
+
 // FUNCTIONS
 
 function questionMouseOver(question) {

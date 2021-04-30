@@ -86,6 +86,7 @@ class DocumentsController < ApplicationController
                              documentable: @parent,
                              category: document_params[:category],
                              pinned: document_params[:pinned],
+                             lau_visible: document_params[:lau_visible],
                              guide: document_params[:guide])
     @document.set_original_filename
     @document.save
@@ -120,7 +121,7 @@ class DocumentsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
     params.require(:document).permit(:title, :category, :documentable_id, :notify, :file,
-                                     :pinned, :guide, files: [])
+                                     :pinned, :lau_visible, :guide, files: [])
   end
 
   def set_parent

@@ -10,6 +10,7 @@ class Ability
   include Abilities::SiteAbilities
   include Abilities::ResidentAbilities
   include Abilities::ClientSpecAbilities
+  include Abilities::ConciergeAbilities
 
   def initialize(user, args = {})
     guest_abilities
@@ -44,6 +45,8 @@ class Ability
       development_admin_abilities(user, args)
     when :site_admin
       site_admin_abilities(user)
+    when :concierge
+      concierge_abilities(user)
     end
   end
 

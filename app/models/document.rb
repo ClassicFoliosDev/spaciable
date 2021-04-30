@@ -8,6 +8,9 @@ class Document < ApplicationRecord
 
   attr_accessor :notify, :files
 
+  after_create :update_laus
+  after_update :update_laus
+
   belongs_to :documentable, polymorphic: true
   belongs_to :user, optional: true
   belongs_to :custom_tile, optional: true
@@ -61,5 +64,23 @@ class Document < ApplicationRecord
                                                construction == "residential"
 
     construction_name
+  end
+
+  def update_laus
+    return unless lau_visible_changed? || id_changed?
+
+    documentable&.plots&.each do |plot|
+      if lau_visible
+        pd = PlotDocument.find_by(plot_id: plot.id, document_id: id)
+        if pd
+          pd.update_attributes(enable_tenant_read: true)
+        else
+          PlotDocument.create(plot_id: plot.id, document_id: id,
+                              enable_tenant_read: true)
+        end
+      else
+        PlotDocument.find_by(plot_id: plot.id, document_id: id)&.destroy
+      end
+    end
   end
 end

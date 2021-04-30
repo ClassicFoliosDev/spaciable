@@ -44,7 +44,7 @@ class Plot < ApplicationRecord
   has_one :listing, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
-  delegate :cas, to: :development
+  delegate :cas, :snag_duration, to: :development
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
@@ -151,6 +151,11 @@ class Plot < ApplicationRecord
     choices_approved
     choices_rejected
   ]
+
+  # to satisfy 'plots' interface for all documentable_types
+  def plots
+    [self]
+  end
 
   def rooms(room_scope = Room.all)
     templated_room_ids = plot_rooms.with_deleted.pluck(:template_room_id).compact

@@ -663,6 +663,10 @@
         display: none;
       }
 
+      br + br {
+        display: none;
+      }
+
       .incomplete, .complete {
         display: grid;
         grid-template-columns: 50% 50%;
