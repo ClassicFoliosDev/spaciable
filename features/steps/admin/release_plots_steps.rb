@@ -44,6 +44,7 @@ When(/^I visit the release plots page$/) do
 
   within ".tabs" do
     click_on t("phases.collection.release_plots")
+    find(:xpath,"//label[contains(text(),'Select Plots by List and Range')]")
   end
 end
 
@@ -191,7 +192,7 @@ Then(/^the plot release data has been updated$/) do
 end
 
 Then(/^the plot completion data has been updated$/) do
-  (185..187).each do |number| 
+  (185..187).each do |number|
     plot = Plot.find_by(number: number)
     expect plot.validity == 27 && plot.completion_release_date.to_s == '2019-03-18'
   end
