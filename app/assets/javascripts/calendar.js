@@ -4,6 +4,8 @@ var admin = {
   eventCalendar: function() {
     if ($('#admin_calendar').length == 0) { return }
 
+    $showingEvent = false
+
     admin.initDates();
 
     calendarEl = $('#admin_calendar')
@@ -190,6 +192,9 @@ var admin = {
 
   showEvent: function(event, dataIn) {
 
+    if ($showingEvent) { return }
+    $showingEvent = true
+
     if ($(".ui-dialog").length == 1) { return }
 
     $(".proposed_datetime").hide()
@@ -255,6 +260,7 @@ var admin = {
             class: 'btn close_event_dialog',
             click: function () {
               $(this).dialog('destroy')
+              $showingEvent = false
             }
           }
         ]
@@ -272,6 +278,7 @@ var admin = {
               }
 
               $eventContainer.hide()
+              $showingEvent = false
 
               if (event.repeater) {
                 admin.confirm(event, dataIn, $(this), true)
@@ -331,6 +338,9 @@ var admin = {
         if ($("#event_eventable_type").val() == "Plot" && event.new) {
            $(".select-all-resources").trigger('click')
         }
+      },
+      failure: function (response) {
+        $showingEvent = false
       }
     })
 
@@ -512,6 +522,7 @@ var admin = {
           click: function () {
             $(this).dialog('destroy')
             parent.dialog('open') // reopen the parent
+            $showingEvent = true
           }
         },
         {
