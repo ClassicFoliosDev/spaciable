@@ -4,6 +4,7 @@
 class User < ApplicationRecord
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
+
   attr_accessor :picture_cache
 
   before_save :update_cas
@@ -47,27 +48,6 @@ class User < ApplicationRecord
     prime
     branch
   ]
-
-  class Filter
-    attr_accessor :developer
-    attr_accessor :division
-    attr_accessor :development
-    attr_accessor :phase
-
-    def initialize(user)
-      @selections = user.selections
-      @developer = (extract("developer") || user.developer).to_i
-      @division = (extract("division") || user.division).to_i
-      @development = (extract("development") || user.development).to_i
-      @phase = extract("phase").to_i
-    end
-
-    private
-
-    def extract(key)
-      @selections&.match(/#{key}(?<num>\d+)/)&.[](:num)
-    end
-  end
 
   def developer
     return if permission_level.nil?
@@ -407,4 +387,27 @@ class User < ApplicationRecord
   }
 
   # rubocop:enable all
+
+  # selections is a # seperated string that records the last set of chart filter
+  # selections made by this user.
+  class Filter
+    attr_accessor :developer
+    attr_accessor :division
+    attr_accessor :development
+    attr_accessor :phase
+
+    def initialize(user)
+      @selections = user.selections
+      @developer = (extract("developer") || user.developer).to_i
+      @division = (extract("division") || user.division).to_i
+      @development = (extract("development") || user.development).to_i
+      @phase = extract("phase").to_i
+    end
+
+    private
+
+    def extract(key)
+      @selections&.match(/#{key}(?<num>\d+)/)&.[](:num)
+    end
+  end
 end

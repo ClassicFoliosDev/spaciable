@@ -4,6 +4,7 @@ module Admin
   class DashboardController < ApplicationController
     skip_authorization_check
 
+    # rubocop:disable Metrics/MethodLength
     def show
       screen = :show
 
@@ -24,6 +25,7 @@ module Admin
 
       render screen
     end
+    # rubocop:enable Metrics/MethodLength
 
     private
 

@@ -40,6 +40,7 @@ module Admin
       results
     end
 
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def competition(container, id = nil)
       results = { name: container.identity, id: (id || container.id),
                   invited: 0, activated: 0, percent: 0 }
@@ -64,6 +65,7 @@ module Admin
       end
       results
     end
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def chart_params
       params.permit(
