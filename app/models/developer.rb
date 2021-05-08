@@ -2,6 +2,8 @@
 
 # rubocop:disable Metrics/ClassLength
 class Developer < ApplicationRecord
+  include Webhook::Observable
+
   acts_as_paranoid
 
   attr_accessor :personal_app
@@ -326,5 +328,9 @@ class Developer < ApplicationRecord
     Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
+
+  def webhook_payload
+    { developer: self }
+  end
 end
 # rubocop:enable Metrics/ClassLength
