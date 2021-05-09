@@ -144,7 +144,8 @@ class Developer < ApplicationRecord
       all_developments << div.developments
     end
 
-    all_developments.to_a.flatten!.sort_by(&:name)
+    all_developments = all_developments.to_a.flatten!.reject { |d| d.name.nil? }
+    all_developments.sort_by(&:name)
   end
 
   def expired?
