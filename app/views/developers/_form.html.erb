@@ -24,10 +24,7 @@
           <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
         </div>
         <%= f.input :about %>
-        <%= f.input :email, label: t(".email") %>
-        <%= f.input :contact_number, label: t(".contact") %>
         <%= f.input :api_key, as: :text, placeholder: t(".api_key_info"), label: t(".api_key") %>
-
         <%= f.label :personal_app, t(".branded_app") %>
         <%= f.check_box :personal_app, checked: developer.branded_app? %>
         <p class="checkbox-description"><%= t(".branded_app_description") %></p>
