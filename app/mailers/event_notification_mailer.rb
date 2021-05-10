@@ -21,7 +21,7 @@ class EventNotificationMailer < ApplicationMailer
     end
   end
 
-  def remind_resource(event, resource)
+  def remind_resource(event, resource, email)
     init(event, resource)
     mail to: email,
          subject: "Calendar event at #{@plot&.development_name} " \

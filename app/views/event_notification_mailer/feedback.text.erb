@@ -2,7 +2,7 @@ Hi,
 
 The following appointment for Plot <%= @plot.number %> at <%= @plot.development_name%> has been <%= @resource.status %> by <%= @resource.resourceable %>
 
-Title: <% @event.title %>
+Title: <%= @event.title %>
 <% if @event.location? %>
 Location: <%= @event.location %>
 <% end %>

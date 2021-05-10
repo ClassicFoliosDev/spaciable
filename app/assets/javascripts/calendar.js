@@ -532,6 +532,7 @@ var admin = {
           click: function () {
             parent.dialog('destroy')
             $(this).dialog('destroy')
+            $showingEvent = false
 
             if (edit) {
               $.ajax({
