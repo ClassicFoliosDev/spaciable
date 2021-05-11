@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-# frozen_string_literal: true
-
-require "net/http"
-
 module Webhook
-  class DeliveryWorker
-    include Sidekiq::Worker
+  class WeblinkJob < ApplicationJob
+    queue_as :admin
 
     def perform(endpoint_id, payload)
       endpoint = Webhook::Endpoint.find(endpoint_id)

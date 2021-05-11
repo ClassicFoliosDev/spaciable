@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Division < ApplicationRecord
+  include Webhook::Observable
   acts_as_paranoid
   belongs_to :developer
   after_save :update_convayencing
@@ -161,5 +162,9 @@ class Division < ApplicationRecord
     developments.update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
+
+  def webhook_payload
+    { division: self }
+  end
 end
 # rubocop:enable Metrics/ClassLength

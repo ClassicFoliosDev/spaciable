@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PlotResidency < ApplicationRecord
+  include Webhook::Observable
   belongs_to :plot, optional: false
   belongs_to :resident, optional: false, autosave: true
   belongs_to :invited_by, polymorphic: true
@@ -74,6 +75,10 @@ class PlotResidency < ApplicationRecord
     roles.map do |name, _|
       [name, I18n.t("activerecord.attributes.plot_residency.roles.#{name}")]
     end
+  end
+
+  def webhook_payload
+    { plot_residency: self }
   end
 
   private

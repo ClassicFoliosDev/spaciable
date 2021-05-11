@@ -6,15 +6,15 @@ module Webhook
     include Webhook::Delivery
 
     included do
-      after_commit on: :create do
+      after_create do
         deliver_webhook(:created)
       end
 
-      after_commit on: :update do
+      after_update do
         deliver_webhook(:updated)
       end
 
-      after_commit on: :destroy do
+      after_destroy do
         deliver_webhook(:destroyed)
       end
     end

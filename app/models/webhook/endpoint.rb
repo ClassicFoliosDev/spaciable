@@ -13,7 +13,7 @@ module Webhook
     end
 
     def deliver(event)
-      Webhook::DeliveryWorker.perform_async(id, event.to_json)
+      Webhook::WeblinkJob.perform_later(id, event.to_json)
     end
   end
 end

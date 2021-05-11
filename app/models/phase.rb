@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Phase < ApplicationRecord
+  include Webhook::Observable
   attribute :number, :integer
 
   acts_as_paranoid
@@ -236,6 +237,10 @@ class Phase < ApplicationRecord
 
   def signature
     identity
+  end
+
+  def webhook_payload
+    { phase: self }
   end
 end
 # rubocop:enable Metrics/ClassLength

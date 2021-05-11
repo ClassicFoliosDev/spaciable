@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Brand < ApplicationRecord
+  include Webhook::Observable
   include ActiveModel::Validations
 
   mount_uploader :logo, PictureUploader
@@ -305,6 +306,10 @@ class Brand < ApplicationRecord
       next unless brand_parent.brand
       return brand_parent.brand.send(attr_name_url) if brand_parent.brand.send(attr_name_url)
     end
+  end
+
+  def webhook_payload
+    { brand: self }
   end
 end
 # rubocop:enable Metrics/ClassLength

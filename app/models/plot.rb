@@ -2,6 +2,8 @@
 
 # rubocop:disable Metrics/ClassLength
 class Plot < ApplicationRecord
+  include Webhook::Observable
+
   acts_as_paranoid
   require "csv"
 
@@ -731,5 +733,10 @@ class Plot < ApplicationRecord
     return I18n.t("calendar.events.select_all_res") if completion_date < Time.zone.now
     I18n.t("calendar.events.select_all_comp")
   end
+
+  def webhook_payload
+    { plot: self }
+  end
+
 end
 # rubocop:enable Metrics/ClassLength

@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class Development < ApplicationRecord
+  include Webhook::Observable
   include ConstructionEnum
   acts_as_paranoid
 
@@ -296,6 +297,10 @@ class Development < ApplicationRecord
 
   def conveyancing_enabled?
     conveyancing && parent.conveyancing_enabled?
+  end
+
+  def webhook_payload
+    { development: self }
   end
 end
 # rubocop:enable Metrics/ClassLength
