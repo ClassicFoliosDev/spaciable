@@ -6,6 +6,7 @@ module AhoyEventEnum
   ACCEPT_INVITATION = :homeowner_accept_invite
   LOG_IN = :homeowner_log_in
   SNAGS_CREATED = :snags_created
+  SNAGS_VIEWED = :snags_viewed
   SNAGS_RESOLVED = :snags_resolved
   SNAGS_REJECTED = :snags_rejected
   BC_FIND_OUT_MORE = :bc_find_out_more
