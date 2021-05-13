@@ -277,6 +277,7 @@ en:
   division_admin: "Division Admin"
   development_admin: "Development Admin"
   site_admin: "Site Admin"
+  concierge: "Concierge"
 
   choose: "Choose File"
   choose_multiple: "Choose Files"
@@ -1122,6 +1123,9 @@ en:
         faq_description: "Global FAQs"
         faqs:
           country: "Modify %{country} FAQs"
+        api_config: "Partner APIs"
+        api_config_description: "Add and modify partner API metadata"
+        api_config_btn: "Modify Partner APIs"
       uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
@@ -2233,6 +2237,8 @@ en:
       success: "Resident has been successfully assigned to %{plot}."
       resident_already_exists: "Existing resident has been assigned to %{plot} and new plot notification sent"
       plot_residency_already_exists: "Resident %{email} was already assigned to %{plot}, no notification will be sent"
+      resident_added: "%{name} successfully added to plot_number %{plot_number} at %{development}.  A Spaciable invitation email will be sent to %{email}"
+      existing_resident_added: "Exisitng spaciable resident %{name} successfully added to plot_number %{plot_number} at %{development}."
     destroy:
       success: "%{email} has been successfully removed from %{plot}"
       deactivated: ", has been deactivated, and will no longer be able to log in."
@@ -2720,7 +2726,9 @@ en:
       notify: "Notify subscribed residents about this change"
       guide: "Document Tag"
       pinned: "Pinned"
+      lau_visible: "Visible to Limited Access Users"
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages. There is no limit to the number of pinned documents."
+      lau_visible_description: "Allow Limited Access User residents to view this document. Full Access User residents can override this and show/hide documents to/from Limited Access residents. Please see the Residents tab for details of resident permissions."
     collection:
       plot: "Plot"
       processing: "Processing..."
@@ -3135,7 +3143,9 @@ en:
       After uploading, click the pencil icon on a file to edit the file name.</p>"
       title_explanation: "Only use when uploading a single file, as name will apply to all files."
       pinned: "Pinned"
+      lau_visible: "Visible to Limited Access Users"
       pinned_description: "Pinned documents will display before unpinned documents on the resident dashboard and library pages, ordered by last edited. There is no limit to the number of pinned documents."
+      lau_visible_description: "Allow Limited Access User residents to view this document. Full Access User residents can override this and show/hide documents to/from Limited Access residents. Please see the Residents tab for details of resident permissions."
     collection:
       add: "Add Document(s)"
       processing: "Processing..."
@@ -4029,4 +4039,17 @@ en:
       cancel: "Cancel"
       cancel_edit: "Cancel Edit"
       cancel_edit_text: Are you sure you want to cancel updating the sections? The changes will be lost no section updates will be saved.
+
+
+  api:
+    pre_sales:
+      invalid_plot_development: "Invalid/unknown development/phase/plot_number %{development}/%{phase}/%{plot_number}"
+
+  doorkeeper:
+    scopes:
+      admin: "Admin"
+      public: "Public"
+      resident: "Resident"
+
+
 

@@ -40,7 +40,8 @@ class User < ApplicationRecord
     :developer_admin,
     :division_admin,
     :development_admin,
-    :site_admin
+    :site_admin,
+    :concierge
   ]
 
   enum lettings_management: %i[
@@ -87,7 +88,7 @@ class User < ApplicationRecord
   end
 
   def self.accessible_admin_roles(user)
-    admin_roles.select { |_, value| value >= roles[user.role] }
+    admin_roles.select { |_, value| value >= roles[user.role] && value < roles[:concierge] }
   end
 
   validates :role, :email, presence: true

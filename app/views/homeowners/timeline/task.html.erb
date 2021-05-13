@@ -85,9 +85,9 @@
         <% end %>
 
         <div id="answer" <%= "style=display:block" if @timeline.stage_set.proforma?%> >
-          <div class="answer-container">
+          <div class="answer-container branded-text">
             <h2 class="branded-text"> <%= Lookup.parse(@task.answer, @plot, current_resident) %> </h2>
-            <p class="branded-text"> <%= simple_format(Lookup.parse(@task.response, @plot, current_resident), {}, sanitize: false) %> </p>
+            <p class="branded-text"> <%= raw Lookup.parse(@task.response, @plot, current_resident) %> </p>
 
             <aside class="useful-extras">
               <% @task.features&.each do |feature| %>

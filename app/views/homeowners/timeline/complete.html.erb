@@ -48,9 +48,9 @@
 
         <% if @plot_timeline.complete? %>
 
-        <div class="complete" id="activeTaskScroll">
+        <div class="complete branded-text" id="activeTaskScroll">
           <div class="text">
-            <div><%= simple_format(Lookup.parse( @timeline.complete_message, @plot, current_resident), {}, sanitize: false) %></div>
+            <div><%= raw Lookup.parse(@timeline.complete_message, @plot, current_resident) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
@@ -68,9 +68,9 @@
 
         <% else %>
 
-        <div class="incomplete" id="activeTaskScroll">
+        <div class="incomplete branded-text" id="activeTaskScroll">
           <div class="text">
-            <div class=""><%= simple_format(Lookup.parse( @timeline.incomplete_message, @plot, current_resident), {}, sanitize: false) %></div>
+            <div><%= raw Lookup.parse( @timeline.incomplete_message, @plot, current_resident) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>

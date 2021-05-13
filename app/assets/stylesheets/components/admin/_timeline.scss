@@ -284,10 +284,6 @@ select {
         margin-right: 0;
         padding-right: $spacing-small;
 
-        br + br {
-          display: none;
-        }
-
         .useful-extras {
           .timeline-btn {
             color: $ui-white;
