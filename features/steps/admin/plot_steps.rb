@@ -438,12 +438,13 @@ When(/^I edit a plot with prefix and postal number$/) do
 
   within ".edit_plot" do
     fill_in :plot_house_number, with: PhasePlotFixture.prefix_postal_number
-
-   click_on t("plots.form.submit")
   end
+
+  click_on t("plots.form.submit")
 end
 
 Then(/^the postal number should not inherit from the plot number$/) do
+
   within ".plot" do
     within ".section-data" do
       expect(page).to have_content "Flat #{PhasePlotFixture.prefix_postal_number}"

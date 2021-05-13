@@ -130,6 +130,7 @@ end
 Given(/^the resident also has an unbranded plot$/) do
   country = FactoryGirl.create(:country)
   developer = FactoryGirl.create(:developer, country_id: country.id)
+  developer.update_attributes(enable_perks: false, house_search: false, enable_referrals: false, enable_services: false)
   division = FactoryGirl.create(:division, developer: developer)
   development = FactoryGirl.create(:development, division: division)
   phase = FactoryGirl.create(:phase, development: development)

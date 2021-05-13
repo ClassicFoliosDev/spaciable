@@ -10,6 +10,8 @@ FactoryGirl.define do
     address
     developer
     division { nil }
+    enable_snagging { false }
+    snag_duration { 0 }
 
     factory :division_development do
       developer { nil }
