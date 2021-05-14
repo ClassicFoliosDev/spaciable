@@ -221,7 +221,7 @@ module CreateFixture
     dname = branded ? branded_developer_name : name
     FactoryGirl.create(:developer, company_name: dname, custom_url: dname.parameterize,
                        house_search: true, enable_referrals: true, country_id: uk.id,
-                       cas: cas)
+                       cas: cas, enable_services: false, enable_perks: false)
   end
 
   def create_spanish_developer
