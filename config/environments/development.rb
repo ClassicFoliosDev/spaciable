@@ -68,4 +68,6 @@ Rails.application.configure do
   config.enable_thumbnails = true
 
   config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+
+  config.action_mailer.default_url_options = { :host => "http://localcost:4000" }
 end

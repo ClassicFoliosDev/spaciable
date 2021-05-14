@@ -2,6 +2,8 @@
 
 class UnitType < ApplicationRecord
   acts_as_paranoid
+  include Webhook::Observable
+
   belongs_to :development, optional: false
   alias parent development
   include InheritParentPermissionIds
@@ -127,5 +129,12 @@ class UnitType < ApplicationRecord
   # to different users then we would do it here
   def log_threshold
     :none
+  end
+
+  def webhook_payload
+    attribs = attributes
+    attribs["picture"] = ActionController::Base.helpers.asset_url(picture, type: :image)
+
+    { unit_type: attribs }
   end
 end

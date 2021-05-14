@@ -309,7 +309,12 @@ class Brand < ApplicationRecord
   end
 
   def webhook_payload
-    { brand: self }
+    attribs = attributes
+    %w[logo banner login_image login_logo email_logo].each do |field|
+      attribs[field] = ActionController::Base.helpers.asset_url(send(field), type: :image)
+    end
+
+    attribs
   end
 end
 # rubocop:enable Metrics/ClassLength
