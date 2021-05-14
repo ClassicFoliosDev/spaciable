@@ -8,6 +8,7 @@ class Developer < ApplicationRecord
   after_save :update_development_cas
   after_save :update_custom_tiles
   after_save :update_convayencing
+  after_save :update_charts
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -30,6 +31,9 @@ class Developer < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
+
+  has_many :charts, -> { order("id") }, as: :chartable, dependent: :destroy
+  accepts_nested_attributes_for :charts
 
   has_one :lettings_account, as: :letter
   has_many :lettings, through: :lettings_account
@@ -140,7 +144,8 @@ class Developer < ApplicationRecord
       all_developments << div.developments
     end
 
-    all_developments.to_a.flatten!
+    all_developments = all_developments.to_a.flatten!.reject { |d| d.name.nil? }
+    all_developments.sort_by(&:name)
   end
 
   def expired?
@@ -278,6 +283,16 @@ class Developer < ApplicationRecord
     conveyancing
   end
 
+  def build
+    return unless charts.empty?
+
+    Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
+  end
+
+  def chart?(section)
+    charts.find_by(section: section)&.enabled
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and
@@ -324,6 +339,17 @@ class Developer < ApplicationRecord
                          wecomplete_quote: wecomplete_quote)
 
     Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  # rubocop:disable SkipsModelValidations
+  def update_charts
+    return unless !analytics_dashboard && analytics_dashboard_changed?
+    divisions.each do |division|
+      division.update_column(:analytics_dashboard, false)
+      division.developments.each { |d| d.update_column(:analytics_dashboard, false) }
+    end
+    developments.each { |d| d.update_column(:analytics_dashboard, false) }
   end
   # rubocop:enable SkipsModelValidations
 end

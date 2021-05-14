@@ -1,0 +1,92 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="charts">
+  <div id="header">
+    <div class="section-title">
+      <%= t(".title") %><br>
+    </div>
+    <div id="selectors">
+      <%= simple_form_for :charts do |f| %>
+        <%= f.input :developer_id,
+                    as: :select,
+                        collection: @developers,
+                        include_blank: t(".all"),
+                        selected: @selections.developer,
+                        disabled: chart_filter_disabled(:cf_admin)%>
+        <%= f.input :division_id,
+                    as: :select,
+                        collection: @divisions,
+                        include_blank: t(".choose"),
+                        selected: @selections.division,
+                        disabled: chart_filter_disabled(:developer_admin) || @divisions&.empty? %>
+        <%= f.input :development_id,
+                    as: :select,
+                        collection: @developments,
+                        include_blank: t(".choose"),
+                        selected: @selections.development,
+                        disabled: chart_filter_disabled(:division_admin) || @developments&.empty? %>
+        <%= f.input :phase_id,
+                     as: :select,
+                         collection: @phases,
+                         include_blank: t(".choose"),
+                         selected: @selections.phase,
+                         disabled: @phases&.empty? %>
+      <% end %>
+    </div>
+  </div>
+  <% if current_user.charts? %>
+    <% if current_user.chart?(:plot_invite) %>
+      <div id="invite_activations">
+        <div class='piechart'>
+          <div class="section-title">
+            <span><%= t(".invited") %><br></span>
+          </div>
+          <div id="invited" class="chart"></div>
+        </div>
+        <div class='piechart'>
+          <div class="section-title">
+            <span><%= t(".activated") %><br></span>
+          </div>
+          <div id="activated" class="chart"></div>
+        </div>
+        <div class='piechart'>
+          <div class="section-title">
+            <span><%= t(".overview") %><br></span>
+          </div>
+          <div id="overview" class="chart"></div>
+        </div>
+      </div>
+    <% end %>
+    <% if current_user.chart?(:competition) %>
+      <div id="competitions">
+        <div id="left" class='barchart'>
+          <div class="left title section-title">
+            <span></span>
+          </div>
+          <div class="left desc section-title">
+            <span></span>
+          </div>
+          <div class='chart barchart' ></div>
+        </div>
+        <div id="right" class='barchart'>
+          <div class="right title section-title">
+            <span></span>
+          </div>
+          <div class="right desc section-title">
+            <span></span>
+          </div>
+          <div class='chart barchart'></div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<div id="no_plots">
+  <%= image_tag "no_plots.png" %>
+  <div class="section-title"><%= t(".no_plots_title") %></div>
+  <br>
+  <div class="section-title"><%= t(".no_plots_desc") %></div>
+  </div>
+</div>
+

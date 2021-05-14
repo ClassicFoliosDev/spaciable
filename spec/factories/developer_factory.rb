@@ -9,6 +9,10 @@ FactoryGirl.define do
     about { Faker::Lorem.paragraph(3) }
     country_id { 1 }
 
+    unless ENV['RSPEC'] == 'true'
+       analytics_dashboard { false }
+    end
+
     trait :with_residents do
       after(:create) do |developer|
         development = create(:development, developer: developer)

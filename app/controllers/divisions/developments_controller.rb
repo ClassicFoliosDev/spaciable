@@ -87,6 +87,7 @@ module Divisions
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
+        :analytics_dashboard,
         :division_id,
         :email, :contact_number,
         :enable_snagging, :snag_duration, :snag_name, :cas, :calendar, :conveyancing,

@@ -7,10 +7,10 @@ Feature: Dashboard
   Scenario: Empty dashboard
     Given I am logged in as an admin
     When I navigate to the dashboard
-    Then I see blank recent contents
+    Then I see analytic charts
 
   Scenario: Dashboard with content
-    Given I am logged in as an admin
+    Given I am logged in as a Developer Admin
     And there is a phase plot with a resident
     And there is a room
     And there are faqs
