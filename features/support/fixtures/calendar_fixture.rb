@@ -5,7 +5,7 @@
 module CalendarFixture
   module_function
 
-  NOW = Time.zone.now
+  NOW = Time.zone.now.change(:sec => 0)
 
   TITLES =
     { today: "Catch Up",
@@ -39,11 +39,11 @@ module CalendarFixture
   end
 
   def self.now
-    NOW.in_time_zone(timezone)
+    NOW.in_time_zone(timezone).change(:sec => 0)
   end
 
   def self.reproposed_start
-    CalendarFixture.event.start + 1.hour
+    CalendarFixture.event.start + 1.hour + 5.minutes
   end
 
   def self.reproposed_end

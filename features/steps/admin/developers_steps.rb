@@ -28,10 +28,6 @@ When(/^I update the developer$/) do
   fill_in "developer_company_name", with: DeveloperFixture.updated_company_name
   fill_in "developer_about", with: DeveloperFixture.about
 
-  DeveloperFixture.update_attrs.each do |attr, value|
-    fill_in "developer_#{attr}", with: value
-  end
-
   check "developer_house_search"
   check "developer_enable_services"
   check "developer_enable_development_messages"
@@ -49,10 +45,6 @@ Then(/^I should see the updated developer$/) do
   expect(page).to have_content(success_flash)
 
   within ".section-data" do
-    DeveloperFixture.update_attrs.each do |_attr, value|
-      expect(page).to have_content(value)
-    end
-
     expect(page).not_to have_content(CreateFixture.developer_name)
   end
 

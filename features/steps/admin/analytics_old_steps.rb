@@ -119,7 +119,7 @@ end
 
 Given(/^there is another developer with a division and development$/) do
   country = FactoryGirl.create(:country)
-  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil, country_id: country.id)
+  developer = FactoryGirl.create(:developer, company_name: AnalyticsFixture.developer_name, house_search: nil, country_id: country.id, house_search: false, enable_services: false, enable_perks: false, enable_referrals: false)
   FactoryGirl.create(:division, division_name: AnalyticsFixture.division_name, developer: developer)
   FactoryGirl.create(:development, name: AnalyticsFixture.development_name, developer: developer)
 end

@@ -10,8 +10,6 @@
     <%= render 'components/admin/conveyancing', parent: @phase %>
   </div>
 
-<script type="text/javascript" src="/javascripts/lib/release_plots.js"></script>
-
 <div class="release-plots">
   <%= simple_form_for(:phase_release_plots, :defaults => {:required => false}) do |f| %>
   <%= f.hidden_field :phase_id, value: @phase.id %>

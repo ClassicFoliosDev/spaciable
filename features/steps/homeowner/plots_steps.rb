@@ -52,6 +52,14 @@ end
 When(/^I switch to the second plot$/) do
   second_plot = Plot.find_by(number: PlotFixture.another_plot_number)
 
+  stub_request(:get, "https://vaboo.co.uk/api/v4/users/68745/1o73uue-92Lkidfh-Lkaosfjf0-lkajsf9?Email=resident@example.com").
+  with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+  to_return(:status => 200, :body => "", :headers => {})
+
+  stub_request(:get, "https://vaboo.co.uk/api/v4/users/68745/1o73uue-92Lkidfh-Lkaosfjf0-lkajsf9?Email=multiple_resident@example.com").
+  with(:headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'User-Agent'=>'Ruby'}).
+  to_return(:status => 200, :body => "", :headers => {})
+
   within ".plots" do
     find(:xpath, "//a[@href='/homeowners/change_plot?id=#{second_plot.id}']").click
   end
