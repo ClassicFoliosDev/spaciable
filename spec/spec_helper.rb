@@ -37,4 +37,5 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 
   ENV['TZ'] = 'Europe/London'
+  ENV['RSPEC'] = 'true'
 end

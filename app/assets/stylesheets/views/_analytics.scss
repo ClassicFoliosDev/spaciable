@@ -1,0 +1,84 @@
+#charts {
+  #header {
+    display: flex;
+
+    .section-title {
+      padding-top: 40px;
+    }
+  }
+
+  #selectors {
+    display: flex;
+    flex-grow: 5;
+
+    form {
+      display: contents;
+    }
+  }
+
+
+  #invite_activations {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    .piechart {
+      flex-basis: 32%;
+    }
+  }
+
+  #competitions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+
+    .barchart {
+      flex-basis: 49%;
+      flex-grow: 1;
+      margin: 10;
+    }
+  }
+
+  .piechart, .barchart {
+    .section-title, .section-desc {
+      float: unset;
+    }
+    span {
+      display: block;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    background-color: white;
+    border-radius: 25px;
+    padding-bottom: 20px;
+  }
+
+  #selectors {
+    label {
+      margin-top: 0;
+    }
+
+    div {
+      float: left;
+      width: 25%;
+      padding-left: 20px;
+      padding-bottom: 20px;
+      display: inline-block;
+    }
+  }
+}
+
+#no_plots {
+  display : none;
+  text-align: center;
+
+  img {
+    display: block;
+    margin: auto;
+    width: 80%
+  }
+}
