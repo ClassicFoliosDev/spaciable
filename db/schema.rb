@@ -322,16 +322,20 @@ ActiveRecord::Schema.define(version: 20210430083729) do
     t.string  "description"
     t.string  "button"
     t.string  "image"
-    t.integer "category",       default: 0
+    t.integer "category",           default: 0
     t.string  "link"
     t.integer "feature"
     t.integer "guide"
     t.string  "file"
     t.integer "document_id"
     t.integer "development_id"
-    t.boolean "editable",       default: true
+    t.boolean "editable",           default: true
     t.string  "tileable_type"
     t.integer "tileable_id"
+    t.boolean "render_title",       default: true
+    t.boolean "render_description", default: true
+    t.boolean "render_button",      default: true
+    t.boolean "full_image",         default: false
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree

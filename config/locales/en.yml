@@ -1309,6 +1309,10 @@ en:
       editable_description: "Client admins can edit or delete this shortcut"
       current_file: "Current File"
       content_proforma: "Content Proforma"
+      full_image: "Display image full width?"
+      render_title: "Render title on tile?"
+      render_description: "Render description on tile?"
+      render_button: "Render button on tile?"
   home:
     show:
      home: "Home"
