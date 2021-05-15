@@ -238,9 +238,5 @@ class Phase < ApplicationRecord
   def signature
     identity
   end
-
-  def webhook_payload
-    { phase: self }
-  end
 end
 # rubocop:enable Metrics/ClassLength

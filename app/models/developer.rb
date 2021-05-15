@@ -327,10 +327,6 @@ class Developer < ApplicationRecord
 
     Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
   end
-  # rubocop:enable SkipsModelValidations
-
-  def webhook_payload
-    { developer: self }
-  end
+# rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength

@@ -9,8 +9,4 @@ class Address < ApplicationRecord
   def to_s
     "#{postal_number} #{road_name}"
   end
-
-  def webhook_payload
-    { address: self }
-  end
 end

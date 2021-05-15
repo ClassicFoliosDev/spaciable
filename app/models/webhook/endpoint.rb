@@ -2,14 +2,20 @@
 
 module Webhook
   class Endpoint < ApplicationRecord
-    attribute :events, :string, array: true, default: []
+    attribute :sources, :string, array: true, default: []
 
     validates :target_url,
               presence: true,
               format: URI.regexp(%w[http https])
 
+    validates :sources, presence: true
+
     def self.table_name_prefix
       "webhook_"
+    end
+
+    def self.for_source(source)
+      where("sources @> ARRAY[?]::varchar[]", Array(source))
     end
 
     def deliver(event)

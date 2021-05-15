@@ -4,8 +4,9 @@ module Webhook
   class Event
     attr_reader :event_name, :payload
 
-    def initialize(event_name, payload = {})
-      @event_name = event_name
+    def initialize(source, action, payload = {})
+      @source = source
+      @event_name = action
       @payload = payload
     end
 

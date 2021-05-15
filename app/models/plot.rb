@@ -710,7 +710,7 @@ class Plot < ApplicationRecord
     residents.map { |r| [r.id, r.to_s] }
   end
 
-  # rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/AbcSize
   def signature(admin = true)
     compnt = ""
 
@@ -733,10 +733,5 @@ class Plot < ApplicationRecord
     return I18n.t("calendar.events.select_all_res") if completion_date < Time.zone.now
     I18n.t("calendar.events.select_all_comp")
   end
-
-  def webhook_payload
-    { plot: self }
-  end
-
 end
 # rubocop:enable Metrics/ClassLength

@@ -162,9 +162,5 @@ class Division < ApplicationRecord
     developments.update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
-
-  def webhook_payload
-    { division: self }
-  end
 end
 # rubocop:enable Metrics/ClassLength
