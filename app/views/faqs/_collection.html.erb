@@ -1,4 +1,7 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+     <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
   <div class="empty lower">
     <div><%= fa_icon "question-circle" %></div>
     <div><span><%= t(".empty_list", type: type.name) %></span></div>
@@ -16,9 +19,11 @@
     </div>
   </div>
 <% else %>
-  <% if can_create(Faq, parent) %>
-    <% unless parent.expired? && !(current_user.cf_admin?) %>
-      <div class="section-actions">
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(Faq, parent) %>
+      <% unless parent.expired? && !(current_user.cf_admin?) %>
         <%= link_to [:new, parent, :faq, active_tab: type.id], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
           <span class="btn-label"><%= t(".add", type: type.name) %></span>
@@ -29,9 +34,9 @@
             <span class="btn-label"><%= t(".import", type: type.name) %></span>
           <% end %>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
   <table class="record-list faqs">
     <thead>

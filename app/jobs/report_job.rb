@@ -7,10 +7,8 @@ class ReportJob < ApplicationJob
     @report = Report.new(report_params.to_h)
     return unless @report.valid?
     csv_file = build_csv(params.to_h)
-    # only process report with wetransfer if report returns any data
-    transfer_url = Csv::CsvTransferService.call(csv_file, user) if csv_file.readlines.size > 1
 
-    TransferCsvJob.perform_later(user.email, user.first_name, transfer_url)
+    TransferCsvJob.perform_later(user.email, user.first_name, csv_file.to_s)
   end
 
   def build_csv(params)

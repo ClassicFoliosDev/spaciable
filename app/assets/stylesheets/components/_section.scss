@@ -43,7 +43,7 @@ $data-section-color: $primary-navy;
     font-weight: $base-font-weight;
     color: $data-section-color;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 34% 33% 33%;
     grid-template-rows: auto auto;
 
     .about-text {
@@ -59,6 +59,11 @@ $data-section-color: $primary-navy;
 
     .admins, .cas-overview {
       grid-column-start: 2;
+      grid-row-start: 2;
+    }
+
+    .account-manager, {
+      grid-column-start: 3;
       grid-row-start: 2;
     }
 

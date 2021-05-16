@@ -1,4 +1,4 @@
-      <div class="list-stages" id="timelineSidebar" data-no-turbolink>
+      <div class="list-stages" id="timelineSidebar" data-no-turbolink  data-tt=<%=timeline.stage_set_type%> >
         <ul class="vertical">
           <% timeline.stages.each do |stage| %>
           <li class="stage-title"><span class="branded-text"><%= stage.title %></span></li>
@@ -10,7 +10,7 @@
                         <%= 'complete' if logs.find_by(task_id: t.id)&.response == 'positive' %>
                         <%= 'negative' if logs.find_by(task_id: t.id)&.response == 'negative' %>
                         <%= 'complete' if logs.find_by(task_id: t.id)&.response == 'not_applicable' %>">
-                <a href=<%="#{show_timeline_task_path(t)}"%>><%= t.title %></a>
+                <a class="<%= t.title_class %>" href=<%="#{timeline_homeowner_task_path(timeline, t)}"%>><%= Lookup.parse(t.title, plot, current_resident) %></a>
                 <% if parent == :task && t == task %>
                   <div id="timelineContentMobile">
                     <!-- use javascript to migrate all of the timeline-content children to here -->

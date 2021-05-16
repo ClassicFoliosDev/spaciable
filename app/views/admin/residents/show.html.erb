@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="resident section-data">
+<div class="resident">
   <table class="record-list plots">
     <thead>
       <tr>
@@ -29,6 +29,7 @@
         <th><%= t(".invited_by") %></th>
         <th><%= t(".invited_date") %></th>
         <th><%= t(".id") %></th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -44,6 +45,11 @@
         <td><%= @resident.plot_residency_invited_by(plot) %></td>
         <td><%= l @resident.plot_residency_invited_date(plot).to_date, format: :digits %></td>
         <td><%= plot.id %></td>
+         <td class="actions">
+          <% unless @resident.invitation_accepted? %>
+            <%= (reinvite_btn @resident, "#{url_for([plot, @resident])}/reinvite") %>
+          <% end %>
+        </td>
       </tr>
       <% end %>
     </tbody>

@@ -3,6 +3,10 @@
 <%= render '/phases/phase', phase: @phase %>
 <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
+<div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: @phase %>
+</div>
+
 <div class="admin-lettings">
   <% if current_user.cf_admin? %>
   <div class="row">

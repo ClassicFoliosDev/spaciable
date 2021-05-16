@@ -196,6 +196,10 @@
           font-size: $base-small-font-size;
           color: $ui-white;
         }
+
+        &.proforma {
+          width: 10%;
+        }
       }
     }
 
@@ -247,8 +251,7 @@
 
       .sub-stage {
         .sub-stage-container {
-          border: 1px solid $ui-light-grey;
-          margin: $spacing-medium;
+          margin: $spacing-small;
           margin-left: 18px;
           padding: 6px;
           padding-left: 30px;
@@ -271,17 +274,14 @@
           a {
             font-size: $base-small-font-size;
             color: $ui-dark-grey;
+
+            &.heading {
+              font-size: 16;
+            }
           }
         }
 
         .active {
-          border: 2px solid $ui-grey;
-
-          /* custom list bullet -> add one pixel to take into account the 2px border of .active */
-          &:before {
-            right: 43px;
-          }
-
           a {
             color: $primary-navy;
           }
@@ -426,6 +426,12 @@
               font-weight: $bold-font-weight;
             }
           }
+        }
+
+        img {
+          width: auto;
+          padding-bottom: 10px;
+          max-height: 350px;
         }
       }
 
@@ -654,6 +660,10 @@
       margin-left: 300px;
 
       .header {
+        display: none;
+      }
+
+      br + br {
         display: none;
       }
 
@@ -1190,6 +1200,10 @@
       margin-left: 0;
     }
   }
+
+  .mobile-off {
+      display: none;
+   }
 
   .timeline-task .timeline-sidebar .timeline-header-mobile .overlay .progress-container .progress {
     display: inline-block;

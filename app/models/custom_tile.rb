@@ -3,14 +3,21 @@
 #rubocop:disable all
 class CustomTile < ApplicationRecord
   include HTTParty
+  include GuideEnum
+
 
   belongs_to :development
+  belongs_to :tileable, polymorphic: true
 
   mount_uploader :file, DocumentUploader
   mount_uploader :image, PictureUploader
   attr_accessor :image_cache
 
-  validates :title, :description, :button, presence: true, unless: :feature?
+  #validate :meta
+  validates :title, presence: true, unless: :feature?
+  validates :description, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_description? }
+  validates :button, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_button? }
+  validate :proforma, if: :content_proforma?
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?
   validates :feature, presence: true, if: :feature?
@@ -23,6 +30,7 @@ class CustomTile < ApplicationRecord
     feature
     document
     link
+    content_proforma
   ]
 
   enum feature: {
@@ -33,15 +41,19 @@ class CustomTile < ApplicationRecord
     perks: 4,
     issues: 5,
     snagging: 6,
-    timeline: 7
+    timeline: 7,
+    conveyancing: 8
   }
 
-  enum guide: %i[
-    reservation
-    completion
-  ]
-
   delegate :snag_name, to: :development
+
+  def proforma
+    return unless content_proforma?
+    return if tileable.present?
+
+    errors.add(:content_proforma, "is required, and must not be blank.")
+    errors.add(:tileable_id, "please populate")
+  end
 
   def document
     Document.find_by(id: document_id)
@@ -86,34 +98,34 @@ class CustomTile < ApplicationRecord
       active_tiles << tile if tile.feature? && tile.active_feature(plot)
       active_tiles << tile if tile.document? && tile.active_document(documents)
       active_tiles << tile if tile.link?
+      active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
     end
 
     active_tiles
   end
 
   def active_feature(plot)
-    return true unless snagging? || issues? || timeline?
+    return true unless snagging? || issues? || timeline? || conveyancing?
     return true if snagging? && plot.snagging_valid
     return true if issues? && plot.show_maintenance?
-    return true if timeline? && plot&.plot_timeline&.live?
+    return true if timeline? && plot&.journey&.live?
+    return true if conveyancing? && plot.conveyancing_enabled?
     false
+  end
+
+  def proforma_assoc?(plot)
+    return false unless tileable.is_a? Timeline
+    PlotTimeline.matching(plot, tileable)&.present?
   end
 
   def active_document(documents)
     return true if file? || document_id?
-    if guide?
-      return true if completion? && completion_guide(documents)
-      return true if reservation? && reservation_guide(documents)
-    end
+    CustomTile.guides.each { | g, _ | return true if guide_populated(g, documents) }
     false
   end
 
-  def completion_guide(documents)
-    documents.find_by(guide: "completion")
-  end
-
-  def reservation_guide(documents)
-    documents.find_by(guide: "reservation")
+  def guide_populated(guide, documents)
+    return send("#{guide}?") && documents.find_by(guide: guide)
   end
 
   def iframeable?(link)

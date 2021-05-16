@@ -3,46 +3,82 @@ When (/^the calendar is initialised$/) do
   CalendarFixture.initialise
 end
 
-When (/^I go to the calendar plot I (.*)see a calendar tab$/) do |expect|
-  visit "/plots/#{CreateFixture.phase_plot.id}"
-  find(".plot .section-data") # confirm page
+When (/^I go to the (.*) I (.*)see a calendar tab$/) do |type, expect|
+  case type
+  when "development"
+    visit("/developers/#{CreateFixture.developer.id}/developments/#{CreateFixture.development.id}")
+    find(".development .section-data") # confirm page
+  when "phase"
+    visit("/developments/#{CreateFixture.development.id}/phases/#{CreateFixture.phase.id}")
+    find(".phase .section-data") # confirm page
+  when "plot"
+    visit "/plots/#{CreateFixture.phase_plot.id}"
+    find(".plot .section-data") # confirm page
+  end
   if expect.rstrip == "dont"
-    expect(page).not_to have_content(t("plots.collection.calendar"))
+    expect(page).not_to have_content("Calendar")
   else
-    expect(page).to have_content(t("plots.collection.calendar"))
+    expect(page).to have_content("Calendar")
   end
 end
 
-When (/^I click on the calendar tab I see a calendar$/) do
-  click_on t("plots.collection.calendar")
+When (/^I click on the (.*) calendar tab I see a calendar$/) do |type|
+  click_on "Calendar"
   find(".active i.fa-calendar")
 
   expect(page).to have_content(Time.zone.now.strftime("%B %Y"))
-  expect(page).to have_content("Add Event")
+  expect(page).to have_content("Add #{type.capitalize()} Event")
   find(".fc-month-button.fc-state-active")
   expect(page).to have_css(".fc-today[data-date='#{Time.zone.now.strftime("%Y-%m-%d")}']", count: 2)
 end
 
-When (/^I can add a calendar event using the Add Event button$/) do
-  click_on "Add Event"
+When (/^I can add a (.*) event using the Add Event button$/) do |type|
+  click_on "Add #{type.capitalize()} Event"
   find(".ui-dialog", visible: true)
 
-  populate_event
+  expect(page).to have_content("Add #{type.capitalize()} Event")
+
+  case type
+    when "plot"
+      page.assert_selector('.select-all-resources', visible: true, count: 0)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
+    when "phase"
+      page.assert_selector('.select-all-resources', visible: true, count: 1)
+      page.assert_selector('.phase-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
+    when "development"
+      page.assert_selector('.resources', visible: true, count: 0)
+  end
+
+  exp = populate_event(type: type)
   click_on "Add"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_event
 end
 
-Then (/^I can update a calendar event$/) do
+Then (/^I can update a (.*) event$/) do |type|
   open_event
+
+  expect(page).to have_content("Edit #{type.capitalize()} Event")
+
+  case type
+    when "plot"
+      page.assert_selector('.select-all-resources', visible: true, count: 0)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
+    when "phase"
+    when "development"
+      page.assert_selector('#dev_counts', visible: true, count: 1)
+  end
 
   CalendarFixture.event.title = CalendarFixture::TITLES[:tomorrow]
   CalendarFixture.event.location = CalendarFixture::LOCATIONS[:erics]
   CalendarFixture.event.start = CalendarFixture.now + 24.hours + 10.minutes
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
-  populate_event
+  exp = populate_event
   click_on "Update"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_event
 end
 
@@ -58,7 +94,7 @@ And (/^I can delete an event$/) do
   expect(page).not_to have_content(event_title())
 end
 
-Then (/^I can create an event by clicking on the calendar$/) do
+Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
 
   # You have no idea how much of my life I wasted finding out
   # exactly how and why I had to do this!
@@ -66,13 +102,28 @@ Then (/^I can create an event by clicking on the calendar$/) do
   target = find(".fc-day[data-date='#{(CalendarFixture.now-24.hours).strftime('%Y-%m-%d')}']")
   drag_from.drag_to(target)
 
+  expect(page).to have_content("Add #{type.capitalize()} Event")
+
+  case type
+    when "plot"
+      page.assert_selector('.select-all-resources', visible: true, count: 0)
+      page.assert_selector('.plot-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.uninvite-resource-btn', visible: true, count: Resident.all.count)
+    when "phase"
+      page.assert_selector('.select-all-resources', visible: true, count: 1)
+      page.assert_selector('.phase-status-label', visible: true, count: Resident.all.count)
+      page.assert_selector('.invite-resource-btn', visible: true, count: Resident.all.count)
+    when "development"
+      page.assert_selector('.resources', visible: true, count: 0)
+  end
+
   CalendarFixture.event.title = "click event"
   CalendarFixture.event.location = "click location"
   CalendarFixture.event.start = nil # auto populated to 12am
   CalendarFixture.event.end = nil # auto populated to 12:15am
-  populate_event
+  exp = populate_event(type: type)
   click_on "Add"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   CalendarFixture.event.start = (CalendarFixture.now-24.hours).change(:hour => 0)
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
@@ -81,8 +132,15 @@ Then (/^I can create an event by clicking on the calendar$/) do
   check_event
 end
 
-When (/^I go to the plot calendar$/) do
-  visit "/plots/#{CreateFixture.phase_plot.id}?active_tab=calendar"
+When (/^I go to the (.*) calendar$/) do |type|
+  case type
+  when "development"
+    visit("/developments/#{CreateFixture.development.id}/calendars")
+  when "phase"
+    visit("/phases/#{CreateFixture.phase.id}/calendars")
+  when "plot"
+    visit "/plots/#{CreateFixture.phase_plot.id}?active_tab=calendar"
+  end
   find(".active i.fa-calendar")
 end
 
@@ -96,9 +154,9 @@ Then (/^I can add a (.*)repeating calendar event$/) do |repeat|
   CalendarFixture.event.repeat_until = last_date_time
 
   create_event_for_first_day
-  populate_event
+  exp = populate_event
   click_on "Add"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_events(((last_date_time - first_date_time) / 86400).round + 1)
 
   # repeat until is changed by following delete/edit tests
@@ -119,9 +177,10 @@ Then (/^I can update and delete a single calendar event$/) do
   CalendarFixture.event.start = first_date_time + updating_day.days + 1.hour
   CalendarFixture.event.end = CalendarFixture.event.start + 2.hours
 
-  populate_event
+  exp = populate_event
   click_on "Update"
   click_on "Confirm" # default 'this event only'
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
   check_event
 
   #delete it
@@ -131,8 +190,11 @@ Then (/^I can update and delete a single calendar event$/) do
   within find(".ui-dialog", visible: true) do
     find(".btn.delete-btn").trigger('click')
   end
+
+  event_id = find("#event_id", visible: false).value.to_i
+  CallbackFixture.confirm {Event.find_by(id: event_id).present?}
   click_on "Confirm" # default 'this event only'
-  sleep 4
+  CallbackFixture.confirm {Event.find_by(id: event_id).blank?}
 
   num_events = Event.all.count
   expect(num_events).to eq(prev_num_events - 1)
@@ -159,23 +221,24 @@ Then (/^I can update and delete this and following calendar events$/) do
   CalendarFixture.event.start = first_date_time + updating_day.days + 20.minutes
   CalendarFixture.event.end = CalendarFixture.event.start + 30.minutes
 
-  populate_event
+  exp = populate_event
   click_on "Update"
   page.choose("this_and_following")
   click_on "Confirm" # this and following
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   expect(events.count).to eq(CalendarFixture::MONTHVIEWDAYS - updating_day)
 
   # this and following creates a new sequence
   deleteoccurance = 2
   open_event(occurance: deleteoccurance) # delete 3rd occurance of this new repeating event
+  event_id = find("#event_id", visible: false).value.to_i
   within find(".ui-dialog", visible: true) do
     find(".btn.delete-btn").trigger('click')
   end
   page.choose("this_and_following")
-  click_on "Confirm" # default 'this event only'
-  sleep 4
+  click_on "Confirm" # default 'this and following'
+  CallbackFixture.confirm {Event.all.order(:id).last.id == (event_id-1)}
   # check only 2 left
   expect(events.count).to eq(deleteoccurance)
 
@@ -200,11 +263,11 @@ Then (/^I can update and delete all events$/) do
   CalendarFixture.event.start = first_date_time + updating_day.days + 10.minutes
   CalendarFixture.event.end = CalendarFixture.event.start + 20.minutes
 
-  populate_event
+  exp = populate_event
   click_on "Update"
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   expect(events.count).to eq(num_events)
 
@@ -217,7 +280,7 @@ Then (/^I can update and delete all events$/) do
   end
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  CallbackFixture.confirm {Event.where(title: CalendarFixture.event.title).count.zero?}
   # check all gone
   expect(events.count).to eq(0)
 
@@ -230,36 +293,41 @@ Then (/^I can update to (.*) repeating$/) do |repeat|
   open_event(occurance: events.count-1) # open the last event
   repeater = Event.new(repeat: (repeat.empty? ? :daily : repeat&.rstrip))
 
-  populate_event(repeater)
+  exp = populate_event(repeater)
   click_on "Update"
   page.choose("all_events")
   click_on "Confirm" # all events
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
   expect(events.count).to eq((CalendarFixture::MONTHVIEWDAYS.days / CalendarFixture.event.repeat_interval(repeat).to_f).ceil)
 end
 
-Then (/^I can add a calendar event and invite the resident$/) do
-  click_on "Add Event"
+Then (/^I can add a (.*) event and invite the resident$/) do |type|
+  click_on "Add #{type.capitalize()} Event"
   find(".ui-dialog", visible: true)
 
-  populate_event
+  populate_event(type: type)
 
   click_on "Add"
   check_event
 end
 
-Then (/^I can see an (.*) on my calendar$/) do |status|
+Then (/^I can see an (invite|accept|decline) on my (.*) calendar$/) do |status, type|
   goto_resident_calendar
-  check_homeowner_event(status: status)
+  check_homeowner_event(status: status, type: type)
 end
 
-Then (/^I can (.*) the event$/) do |status|
+Then (/^I cannot renegotiate the event time$/) do
+  expect(page).not_to have_content("Change")
+end
+
+Then (/^I can (accept|decline) the (.*) event$/) do |status, type|
   open_event
+  event_id = find("#event_id", visible: false).value.to_i
   find("##{status}_event").trigger('click')
-  sleep 4
+  CallbackFixture.confirm {EventResource.find_by(event_id: event_id, status: (status == "accept" ? "accepted" : "declined")).present?}
   open_event
-  check_homeowner_event(status: status)
+  check_homeowner_event(status: status, type: type)
 end
 
 Then (/^I can propose an amendment to the date and time$/) do
@@ -269,15 +337,17 @@ Then (/^I can propose an amendment to the date and time$/) do
   repropose = Event.new(start: CalendarFixture.reproposed_start,
                         end: CalendarFixture.reproposed_end)
 
-  populate_event(repropose)
+  exp = populate_event(repropose)
   click_on "Save"
-  sleep 4
+  CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
+
   open_event
   check_homeowner_event(status: "change")
 end
 
 Then (/^I can accept the reproposed date and time$/) do
   open_event
+  event_id = find("#event_id", visible: false).value.to_i
 
   within find(".ui-dialog", visible: true) do
     expect(page).to have_content(tz(CalendarFixture.reproposed_start).strftime("%d-%m-%Y"))
@@ -290,10 +360,10 @@ Then (/^I can accept the reproposed date and time$/) do
 
   find("#accept_reschedule").trigger('click')
   find(".proposed_datetime", visible: all).visible?
-  expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::span")['class']).to eq("invited")
+  expect(find(:xpath, "//label[contains(@class, 'resource-label')][contains(@for,'event_resources_#{CreateFixture.resident.id}')]//parent::td//parent::tr")['class']).to eq("invited")
 
   click_on "Update"
-  sleep 4
+  CallbackFixture.confirm {EventResource.find_by(event_id: event_id, status: "invited").present?}
 
   CalendarFixture.event.start = CalendarFixture.reproposed_start
   CalendarFixture.event.end = CalendarFixture.reproposed_end
@@ -304,6 +374,37 @@ Then (/^I can see the event has been (.*)$/) do |status|
   within find_event do
     find(".#{status}")
   end
+end
+
+Then (/^I can see the (.*) event has been (.*)$/) do |type, status|
+  open_event
+
+  find(".ui-dialog-titlebar")
+  expect(page).to have_content("Edit #{type.capitalize()} Event")
+
+  case type
+  when "development"
+    case status
+    when "accepted"
+      expect(find(".dev_accepted p").text()).to eq("1")
+      expect(find(".dev_declined p").text()).to eq("0")
+      page.assert_selector('label.accepted', visible: true, count: 1)
+    when "declined"
+      expect(find(".dev_accepted p").text()).to eq("0")
+      expect(find(".dev_declined p").text()).to eq("1")
+      page.assert_selector('label.declined', visible: true, count: 1)
+    end
+  when "phase"
+    page.assert_selector('.uninvite-resource-btn', visible: true, count: 1)
+    case status
+    when "accepted"
+      page.assert_selector('label.accepted', visible: true, count: 1)
+    when "declined"
+      page.assert_selector('label.declined', visible: true, count: 1)
+    end
+  end
+
+  click_on "Cancel"
 end
 
 Then (/^I can view but not update the reproposed event$/) do
@@ -329,45 +430,49 @@ Then (/^I cannot see a calendar$/) do
   expect(page).not_to have_content(t("components.homeowner.navigation.calendar"))
 end
 
-def populate_event(event = CalendarFixture.event)
+def populate_event(event = CalendarFixture.event, type: nil)
+  exp = {}
+
   within find(".ui-dialog", visible: true) do
-    fill_in :event_title, with: event.title if event.title
-    fill_in :event_location, with: event.location if event.location
+    if event.title
+      fill_in :event_title, with: event.title
+      exp[:title] = event.title
+    end
+    if event.location
+      fill_in :event_location, with: event.location
+      exp[:location] = event.location
+    end
   end
 
-  invites = find_all(".resources .invite-resource-btn")
-  invites&.first&.trigger('click')
+  if type == "phase"
+    find('.select-all-resources').trigger('click')
+  end
 
   setDateTime('start', event) if event.start
+  exp[:start] = event.start
   setDateTime('end', event) if event.end
+  exp[:end] = event.end
 
-  select t("events.repeat.#{event.repeat}"), :from => "event_repeat", visible: false if event.repeat
-  select t("events.remind.#{event.reminder}"), :from => "event_reminder", visible: false if event.reminder
+  if event.repeat
+    select t("events.repeat.#{event.repeat}"), :from => "event_repeat", visible: false
+    exp[:repeat] = event.repeat
+  end
+  if event.reminder
+    select t("events.remind.#{event.reminder}"), :from => "event_reminder", visible: false
+    exp[:reminder] = event.reminder
+  end
 
   setRepeatUntil
+  exp[:repeat_until] = event.repeat_until
+
+  exp
 end
 
 def setDateTime(field, event = CalendarFixture.event)
   if event.send(field)
-    # set the date
-    find(:xpath, "//input[@id='event_#{field}_date']/following-sibling::node()", visible: all).trigger('focus')
-    within ".flatpickr-calendar.open" do
-      find(".flatpickr-day[aria-label='#{tz(event.send(field)).strftime('%B %-d, %Y')}']").trigger('mouseover')
-      find(".flatpickr-day[aria-label='#{tz(event.send(field)).strftime('%B %-d, %Y')}']").trigger('mousedown')
-    end
-    # and time
-    find(:xpath, "//input[@id='event_#{field}_time']/following-sibling::input", visible: all).trigger('focus')
-    within ".flatpickr-calendar.open" do
-      find('.numInput.flatpickr-hour').set(tz(event.send(field)).strftime('%-l'))
-      find('.numInput.flatpickr-minute').set(tz(event.send(field)).strftime('%M'))
-      am_pm = tz(event.send(field)).strftime('%p')
-      am_pm_picker = find('.flatpickr-am-pm')
-      if am_pm != am_pm_picker.text
-        am_pm_picker.trigger('mouseover')
-        am_pm_picker.trigger('mousedown')
-      end
-      find('.numInput.flatpickr-minute').native.send_keys(:return)
-    end
+    dt = event.send(field).utc.strftime("%Y-%m-%dT%H:%M:00.000Z")
+    find("#event_#{field}_date", visible:all).set(dt)
+    find("#event_#{field}_time", visible:all).set(dt)
   end
 end
 
@@ -393,7 +498,7 @@ def check_event(e = CalendarFixture.event, occurance: 0)
   click_on "Cancel"
 end
 
-def check_homeowner_event(e = CalendarFixture.event, status: "invite")
+def check_homeowner_event(e = CalendarFixture.event, status: "invite", type: "plot")
   open_event(e)
 
   expect(find('#event_title').value).to eql(e.title) if e.title
@@ -404,18 +509,18 @@ def check_homeowner_event(e = CalendarFixture.event, status: "invite")
     if status == "invite"
       expect(find("#accept_event", visible: all).visible?).to eq(true)
       expect(find("#decline_event", visible: all).visible?).to eq(true)
-      expect(find("#change_event", visible: all).visible?).to eq(true)
+      expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
     elsif status == "accept"
       expect(find("#accept_event", visible: all).visible?).to eq(false)
       expect(find("#decline_event", visible: all).visible?).to eq(true)
-      expect(find("#change_event", visible: all).visible?).to eq(true)
+      expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
     elsif status == "decline" || status == "change"
       expect(find("#accept_event", visible: all).visible?).to eq(false)
       expect(find("#decline_event", visible: all).visible?).to eq(false)
       if status == "change"
         expect(find("#change_event", visible: all).visible?).to eq(false)
       else
-        expect(find("#change_event", visible: all).visible?).to eq(true)
+        expect(find("#change_event", visible: all).visible?).to eq(type == "plot")
       end
     end
   end
@@ -458,6 +563,10 @@ def tz(time)
   time.in_time_zone(CalendarFixture.timezone)
 end
 
+def tz2(time)
+  time.in_time_zone(CalendarFixture.timezone)
+end
+
 # FullCalendar does not play well with webkit at all.  FullCalendar
 # does all sorts of weirdness hiding fields and creating copies and
 # webkit seems unable to keep track. So we have to compare the dates and times
@@ -471,13 +580,13 @@ def check_datetimes(event = CalendarFixture.event)
   # they just display as a date or a time to the user.  Remember to
   # ensure all in the correct timezone as calendar displays in
   # 'local' time
-  start = tz(event.start).change(:sec => 0)
-  expect(start).to eql(tz(Time.parse(find('#event_start_date', visible:all).value)).change(:sec => 0))
-  expect(start).to eql(tz(Time.parse(find('#event_start_time', visible:all).value)).change(:sec => 0))
+  start = event.start
+  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_date', visible:all).value)))
+  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_time', visible:all).value)))
 
-  finish = tz(event.end).change(:sec => 0)
-  expect(finish).to eql(tz(Time.parse(find('#event_end_date', visible:all).value)).change(:sec => 0))
-  expect(finish).to eql(tz(Time.parse(find('#event_end_time', visible:all).value)).change(:sec => 0))
+  finish = event.end
+  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_date', visible:all).value)))
+  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_time', visible:all).value)))
 end
 
 # Create an event in the first day on the calendar.  This allows us to know

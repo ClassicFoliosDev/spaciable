@@ -9,11 +9,11 @@ class AdminNotificationMailer < ApplicationMailer
     mail to: email, subject: @subject
   end
 
-  def csv_report_download(email, name, url)
+  def csv_report_download(email, name, filename)
     @name = name
-    @url = url
+    attachments[filename.gsub(%r{.*\/}, "")] = File.read(filename)
     @logo = "Spaciable_full.svg"
     mail to: email,
-         subject: I18n.t("devise.mailer.transfer_csv.#{@url.nil? ? 'no_data' : 'success'}")
+         subject: I18n.t("devise.mailer.transfer_csv.success")
   end
 end

@@ -65,6 +65,11 @@
   }
 }
 
+select {
+  padding: 8;
+  height: 40;
+}
+
 .admin-timeline .admin-timeline-preview .preview,
 .admin-timeline-edit {
   .timeline-sidebar {
@@ -155,7 +160,6 @@
         color: $semi-pale-navy;
 
         .sub-stage-container {
-          border: 1px solid $ui-grey;
           margin: $spacing-medium;
           margin-left: 18px;
           padding: 6px;
@@ -182,11 +186,14 @@
 
           span {
             font-size: $base-small-font-size;
+
+            &.heading {
+              font-size: 16;
+            }
           }
         }
 
         .active {
-          border: 2px solid $ui-grey;
           background-color: $ui-superlight-grey;
           color: $primary-navy;
 
@@ -266,7 +273,7 @@
       }
     }
 
-    #answer {
+    #answer, #proforma {
       margin-top: $spacing-medium;
       margin-left: $spacing-large;
       text-align: left;
@@ -291,6 +298,49 @@
               border: 1px solid $primary-navy;
             }
           }
+        }
+      }
+
+      .tooltip {
+           position: relative;
+           display: inline-block;
+           border-bottom: 1px dotted black;
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        background-color: #555;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -30px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 10%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: #555 transparent transparent transparent;
+      }
+
+      .dead-btn {
+        @extend .btn;
+        @extend .timeline-btn;
+        &:hover .tooltiptext {
+          visibility: visible;
+          opacity: 1;
+          padding: 10;
         }
       }
 
@@ -323,6 +373,12 @@
 
         p {
           margin-bottom: 0;
+        }
+
+        img {
+          width: auto;
+          padding-bottom: 10px;
+          max-height: 350px;
         }
       }
 
@@ -509,11 +565,19 @@
         }
       }
     }
+
+    #proforma {
+      display: block;
+    }
   }
 }
 
 .timeline-content {
   .complete-content {
+
+    br + br {
+      display: none;
+    }
 
     .incomplete, .complete {
       display: grid;
@@ -564,8 +628,7 @@
 
     .sub-stage {
       .sub-stage-container {
-        border: 1px solid $ui-grey;
-        margin: $spacing-medium;
+        margin: $spacing-small;
         margin-left: $spacing-small;
         padding: 6px;
         padding-left: $spacing-medium;
@@ -646,6 +709,30 @@
         grid-column-end: 2;
         grid-row-start: 1;
         grid-row-end: 2;
+
+        .title {
+          display: grid;
+          grid-template-columns: 80% 20%;
+          grid-template-rows: auto auto;
+
+          .title-text {
+          padding-right: $spacing-small;
+            unset: padding-right;
+            grid-column-start: 1;
+            grid-column-end: 1;
+            grid-row-start: 1;
+            grid-row-end: 1;
+          }
+
+          .format {
+            grid-column-start: 2;
+            grid-column-end: 2;
+            grid-row-start: 1;
+            grid-row-end: 1;
+          }
+
+        }
+
       }
 
       .buttons {

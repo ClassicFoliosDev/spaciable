@@ -46,7 +46,7 @@ class EventsController < ApplicationController
     parent = params[:type]
              .classify.constantize
              .find_by(id: params[:id])
-    parent&.resources&.each { |r| res << { id: r[0], ident: r[1] } }
+    parent&.resources&.each { |r| res << { id: r[0], ident: r[1], status: r[2] } }
     render json: res
   end
 

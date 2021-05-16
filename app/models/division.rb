@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
+  after_save :update_convayencing
+  after_save :update_charts
 
   include PgSearch
   multisearchable against: [:division_name], using: %i[tsearch trigram]
@@ -22,6 +25,7 @@ class Division < ApplicationRecord
   has_many :contacts, as: :contactable, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
+  alias_attribute :identity, :division_name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: { scope: :developer_id }
@@ -37,6 +41,21 @@ class Division < ApplicationRecord
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
 
   paginates_per 25
+
+  validate :check_conveyancing
+
+  def check_conveyancing
+    return unless conveyancing?
+
+    if wecomplete_sign_in.blank?
+      errors.add("WeComplete sign-in URL", "is required, and must not be blank.")
+      errors.add(:wecomplete_sign_in, "please populate")
+    end
+
+    return if wecomplete_sign_in.present?
+    errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
+    errors.add(:wecomplete_quote, "please populate")
+  end
 
   def self.rebuild_pg_search_documents
     find_each do |record|
@@ -133,4 +152,23 @@ class Division < ApplicationRecord
     end
     faq_types
   end
+
+  def conveyancing_enabled?
+    conveyancing && developer.conveyancing
+  end
+
+  # rubocop:disable SkipsModelValidations
+  def update_convayencing
+    return unless conveyancing_changed?
+    developments.update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  # rubocop:disable SkipsModelValidations
+  def update_charts
+    return unless !analytics_dashboard && analytics_dashboard_changed?
+    developments.update_column(:analytics_dashboard, false)
+  end
+  # rubocop:enable SkipsModelValidations
 end
+# rubocop:enable Metrics/ClassLength

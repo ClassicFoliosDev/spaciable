@@ -1,3 +1,7 @@
+<div class="section-actions">
+  <%= render 'components/admin/conveyancing', parent: plot %>
+</div>
+
 <div class="plot-completion">
   <% if plot.expired? && !(current_user.cf_admin?) %>
     <div class="row">

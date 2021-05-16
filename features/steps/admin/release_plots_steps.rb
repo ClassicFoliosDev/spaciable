@@ -44,6 +44,7 @@ When(/^I visit the release plots page$/) do
 
   within ".tabs" do
     click_on t("phases.collection.release_plots")
+    find(:xpath,"//label[contains(text(),'Select Plots by List and Range')]")
   end
 
   find("a.active i.fa-rocket")

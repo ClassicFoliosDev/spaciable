@@ -2,20 +2,28 @@
   <div class="tile-icon"><i class="branded-text fa <%= tile.document? ? 'fa-file-pdf-o' : 'fa-external-link' %>"></i></div>
   <div class="icon-tile-details">
     <div class="tile-text">
-      <h2 class="tile-title branded-text"><%= tile.title %></h2>
-      <p class="tile-description branded-text"><%= tile.description %></p>
-    </div>
-    <div class="tile-button">
-      <% if tile.document? %>
-        <%= link_to tile.button, tile.document_location(documents), target: '_blank', class: "branded-btn" %>
-      <% else %>
-        <% link = tile.formatted_link %>
-        <% if tile.iframeable?(link) %>
-          <%= link_to tile.button, custom_link_path(title: tile.title, page: link), class: "branded-btn" %>
-        <% else %>
-          <%= link_to tile.button, link, target: '_blank', class: "branded-btn" %>
-        <% end %>
+      <% if tile.render_title %>
+        <h2 class="tile-title branded-text"><%= tile.title %></h2>
+      <% end %>
+      <% if tile.render_description %>
+        <p class="tile-description branded-text"><%= tile.description %></p>
       <% end %>
     </div>
+    <% if tile.render_button %>
+      <div class="tile-button">
+        <% if tile.document? %>
+          <%= link_to tile.button, tile.document_location(documents.order(:documentable_type)), target: '_blank', class: "branded-btn" %>
+        <% elsif tile.content_proforma? %>
+          <%= link_to tile.button, homeowner_timeline_path(tile.tileable), class: "branded-btn" %>
+        <% else %>
+          <% link = tile.formatted_link %>
+          <% if tile.iframeable?(link) %>
+            <%= link_to tile.button, custom_link_path(title: tile.title, page: link), class: "branded-btn" %>
+          <% else %>
+            <%= link_to tile.button, link, target: '_blank', class: "branded-btn" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

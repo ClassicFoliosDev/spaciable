@@ -2,8 +2,8 @@
 
 <div class="section-header">
   <div class="section-title">
-    <%= t(".title") %>
+    <%= t("phases.phase_timelines.#{@scope}.title") %>
   </div>
 </div>
 
-<%= render 'form', phase: @phase, phase_timeline: @phase_timeline, timelines: @timelines, plots: @plots %>
+<%= render 'form', phase: @phase, phase_timeline: @phase_timeline, timelines: @timelines, plots: @plots, scope: @scope %>

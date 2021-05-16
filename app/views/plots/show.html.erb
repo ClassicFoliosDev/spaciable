@@ -11,6 +11,9 @@
   <% elsif @active_tab == "completion" %>
     <%= render "plots/completion", plot: @plot %>
   <% elsif @active_tab == "calendar" %>
+    <div class="section-actions">
+      <%= render 'components/admin/conveyancing', parent: @plot.parent %>
+    </div>
     <%= render "calendar/events", source: @plot, preload: @preload %>
   <% else %>
     <%= render_collection @collection, collection: @collection, parent: @collection_parent, plot: @plot %>

@@ -16,21 +16,7 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :division_name %>
-        <%= f.input :email %>
-        <%= f.input :contact_number %>
-      </fieldset>
-    </div>
-
-    <div class="row-item third">
-      <fieldset>
-        <%= f.simple_fields_for :address do |fields| %>
-          <label class="string optional"><%= t(".address") %></label>
-          <% if(division.developer.country.uk?) %>
-            <%= render "address/fields", fields: fields %>
-          <% else %>
-            <%= render "address/spanish_fields", fields: fields %>
-          <% end %>
-        <% end %>
+        <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
       </fieldset>
     </div>
 
@@ -38,7 +24,17 @@
       <fieldset>
         <%= f.input :prime_lettings_admin, as: :select, collection: division.potential_prime_admins.map { |a| [a.to_s, a.id] },
             label: t(".prime_admin"), include_blank: true %>
+        <% if developer.conveyancing? %>
+          <%= f.label :conveyancing, t(".conveyancing") %>
+          <%= f.check_box :conveyancing %>
+          <p class="checkbox-description"><%= t(".conveyancing_description") %>
+          <div id="wecomplete">
+            <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
+            <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
+          </div>
+        <% end %>
       </fieldset>
+
     </div>
   </div>
 

@@ -27,7 +27,7 @@
         <%= f.input :category, as: :select, collection: category_collection(new_plot_document), include_blank: false %>
       </div>
       <div id="plotDocGuideSelector">
-        <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(new_plot_document), include_blank: true, disabled: parent_assigned_manual(parent) %>
+        <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(new_plot_document, parent), include_blank: true, disabled: parent_assigned_manual(parent) %>
       </div>
 
       <%= label_tag('document_files', t(".choose"), class: "btn") %>
@@ -39,6 +39,10 @@
       <%= f.label :pinned, t(".pinned") %>
       <%= f.check_box :pinned %>
       <p class="checkbox-description"><%= t(".pinned_description") %></p>
+      <br/><br/>
+      <%= f.label :lau_visible, t(".lau_visible") %>
+      <%= f.check_box :lau_visible %>
+      <p class="checkbox-description"><%= t(".lau_visible_description") %></p>
       <br/><br/>
 
       <%= f.hidden_field :user_id, value: current_user.id %>

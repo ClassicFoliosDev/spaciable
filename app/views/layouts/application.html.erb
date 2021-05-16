@@ -1,4 +1,4 @@
-  <%= render partial: 'layouts/admin_head', locals: { title: t(".title") } %>
+  <%= render partial: 'layouts/admin_head', locals: { title: t(".title"), brand: @brand } %>
   <body class="admin-view">
     <div class="outer-container">
       <%= render 'cookies_eu/consent_banner', link: '/cookies_policy', target: '_blank' %>

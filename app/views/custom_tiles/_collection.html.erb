@@ -1,16 +1,21 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
   <%= render 'components/empty_list', icon_name: "external-link-square", type: CustomTile, parent: parent %>
 <% else %>
-  <% if can_create(CustomTile, parent) %>
-    <% unless (parent.expired? && !(current_user.cf_admin?)) || (collection.size >= 5) %>
-      <div class="section-actions">
-        <%= link_to [:new, parent, :custom_tile], class: "btn btn-primary" do %>
-        <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".create") %></span>
-        <% end %>
-      </div>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(CustomTile, parent) %>
+      <% unless (parent.expired? && !(current_user.cf_admin?)) || (collection.size >= 5) %>
+          <%= link_to [:new, parent, :custom_tile], class: "btn btn-primary" do %>
+          <i class="fa fa-plus"></i>
+          <span class="btn-label"><%= t(".create") %></span>
+          <% end %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
   <table class="record-list">
     <thead>
@@ -24,8 +29,7 @@
     <tbody>
     <% collection.each do |custom_tile| %>
     <tr>
-      <td><%= link_to (custom_tile.title? ? custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}",
-                                                                           snag_name: parent.snag_name)), custom_tile_path(custom_tile) %></td>
+      <td><%= link_to (custom_tile.title? ? custom_tile.title : t("activerecord.attributes.custom_tiles.features.#{custom_tile.feature}", snag_name: parent.snag_name)), custom_tile_path(custom_tile) %></td>
       <td><%= custom_tile.category.titleize %></td>
       <td><%= custom_tile.editable? ? "Yes" : "No" %></td>
       </td>

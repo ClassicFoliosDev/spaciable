@@ -53,7 +53,7 @@ class Event < ApplicationRecord
   # Get the events of a specified type with associated resources
   # of a specified type within a range of ids.  This would be used
   # for residents that reside at multiple properties
-  scope :for_resource_within_range,
+  scope :for_resources_within_range,
         lambda { |e_type, r_type, r_ids, start, finish|
           joins(:event_resources)
             .where(eventable_type: e_type,
@@ -61,6 +61,7 @@ class Event < ApplicationRecord
                                       resourceable_id: r_ids })
             .where("events.start <= ? AND ? <= events.end",
                    Event.utc(finish), Event.utc(start))
+            .distinct
         }
 
   scope :events,
@@ -287,6 +288,20 @@ class Event < ApplicationRecord
 
       e.update_column(:repeat_until, repeat_until)
     end
+  end
+
+  # Dates and times are a nightmare.  In order for event times to
+  # be correct in emails and messages, then they need to be converted
+  # into the correct time zone
+  def time_in_zone(attrib)
+    raise(StandardError.new, "unrecognised or invalid parameter") \
+      unless respond_to?(attrib) && (send(attrib).is_a? Time)
+
+    send(attrib).in_time_zone(eventable.time_zone)
+  end
+
+  def attributes
+    super.merge(signature: eventable.signature)
   end
 
   private

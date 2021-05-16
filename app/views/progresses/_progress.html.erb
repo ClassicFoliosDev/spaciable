@@ -1,3 +1,7 @@
+<div class="section-actions">
+  <%= render 'components/admin/conveyancing', parent: plot %>
+</div>
+
 <div class="plot-progress">
   <%= simple_form_for plot, url: plot_path(plot), html: { method: :put } do |f| %>
     <div class="row">

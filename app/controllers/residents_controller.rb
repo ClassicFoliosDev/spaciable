@@ -8,7 +8,7 @@ class ResidentsController < ApplicationController
   load_and_authorize_resource :plot
   load_and_authorize_resource :resident
 
-  before_action :set_plot_residency, only: %i[update show edit]
+  before_action :set_plot_residency, only: %i[update show edit reinvite]
 
   def index
     @residents = @plot.residents
@@ -63,6 +63,11 @@ class ResidentsController < ApplicationController
     end
 
     redirect_to [@plot, active_tab: :residents], notice: @notice
+  end
+
+  def reinvite
+    ResidentInvitationService.call(@plot_residency, current_user, @plot.developer.to_s)
+    render json: { message: t("resident_reinvited", resident: @resident.to_s) }
   end
 
   private

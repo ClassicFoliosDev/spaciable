@@ -3,6 +3,10 @@
 
   <%= stylesheet_link_tag 'manifest_admin', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= render "layouts/common_header" %>
+
+  <% if defined?(brand) %>
+    <%= render partial: "components/admin/brand_template", locals:{ brand: brand } %>
+  <% end %>
 </head>
 <!DOCTYPE html>
 <!--[if IEMobile 7 ]> <html dir="ltr" lang="en-US"class="no-js iem7"> <![endif]-->

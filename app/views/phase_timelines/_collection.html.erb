@@ -1,30 +1,44 @@
 <% if collection.empty? %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+  </div>
+
   <div class="empty lower">
     <div><%= fa_icon "clock-o" %></div>
     <div><span><%= t(".empty")%></span></div>
     <div>
-      <% if can_create(PhaseTimeline, Phase) %>
-        <%= link_to new_phase_phase_timeline_path(parent), class: "btn btn-primary" do %>
-          <span class="btn-label"><%= t(".add") %></span>
+      <% if can_create(PhaseTimeline, parent) %>
+        <%= link_to new_phase_phase_timeline_path(parent, scope: :journey), class: "btn btn-primary" do %>
+          <span class="btn-label"><%= t(".add_journey") %></span>
+        <% end %>
+        <%= link_to new_phase_phase_timeline_path(parent, scope: :proforma), class: "btn btn-primary" do %>
+          <span class="btn-label"><%= t(".add_proforma") %></span>
         <% end %>
       <% end %>
     </div>
   </div>
 <% else %>
-  <% if can_create(PhaseTimeline, current_user.permission_level) %>
-    <div class="section-actions">
-      <%= link_to new_phase_phase_timeline_path(parent), class: "btn btn-primary" do %>
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: parent %>
+
+    <% if can_create(PhaseTimeline, current_user.permission_level) %>
+      <%= link_to new_phase_phase_timeline_path(parent, scope: :journey), class: "btn btn-primary" do %>
         <i class="fa fa-plus"></i>
-        <span class="btn-label"><%= t(".add") %></span>
+        <span class="btn-label"><%= t(".add_journey") %></span>
       <% end %>
-    </div>
-  <% end %>
+      <%= link_to new_phase_phase_timeline_path(parent, scope: :proforma), class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add_proforma") %></span>
+      <% end %>
+    <% end %>
+  </div>
 
   <table class="record-list timeline-plots">
     <thead>
       <tr>
         <th><%= sortable(Timeline, :title, t(".name")) %></th>
-        <th><%= "Plots" %></th>
+        <th><%= sortable({Timeline => StageSet}, :stage_set_type, t(".type")) %></th>
+        <th><%= t(".plots") %></th>
         <th>&nbsp;</th>
       </tr>
     </thead>
@@ -32,6 +46,7 @@
       <% collection.each do |phase_timeline| %>
         <tr>
           <td><%= link_to phase_timeline.timeline_title, timeline_path(phase_timeline.timeline_id) %></td>
+          <td><%= t("stage_sets.#{phase_timeline.timeline.stage_set_type}") %></td>
           <td><%= Plot.on_phase_timeline(phase_timeline).map(&:number).join(",")%> </td>
           <td class="actions">
             <%= edit_btn [:edit, parent, phase_timeline], element: phase_timeline %>

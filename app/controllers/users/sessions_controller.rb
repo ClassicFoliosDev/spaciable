@@ -28,6 +28,8 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   def after_sign_in_path_for(resource)
-    admin_dashboard_path
+    redirect_to = session[:oauth2_req] || admin_dashboard_path
+    session[:oauth2_req] = nil
+    redirect_to
   end
 end

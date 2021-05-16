@@ -1,12 +1,17 @@
 /* global $, clearFields, setFields */
 
-$(document).ready(function() {
+$(document).on('turbolinks:load', function () {
+
+  if ($(".current").text() != 'Release plots' ) { return }
 
   // Add on onClick handler for the submit button
-  document.getElementById("submit").addEventListener("click", validate);
+  $("#submit" ).on( "click", function() { release.validate() })
+})
+
+var release = {
 
   // Extract the data fields from the form
-  function formData (){
+  formData: function (){
 
     json = {};
     json.list = $('#phase_release_plots_list')[0].value
@@ -18,22 +23,22 @@ $(document).ready(function() {
     json.send_to_admins = $('#phase_release_plots_send_to_admins').is(":checked");
 
     return json;
-  }
+  },
 
   // get the phase
-  function getPhase(){
+  getPhase: function(){
     return $('#phase_release_plots_phase_id')[0].value
-  }
+  },
 
   // Validate the form data and send it to the controller for analysis
-  function validate() {
+  validate: function() {
 
     // Remove any alerts and notices
     $( ".alert" ).remove();
     $( ".notice" ).remove();
 
     // Get the data and tag the required action as 'validate'
-    fd = formData()
+    fd = release.formData()
     fd.req = "validate"
 
     // Check that the minimum data set is populated
@@ -42,13 +47,13 @@ $(document).ready(function() {
     } else {
       // Call the controller to do the analysis
       $.getJSON({
-      url: '/phases/' + getPhase() + '/callback',
+      url: '/phases/' + release.getPhase() + '/callback',
       data: fd
       }).done(function (results) {
         // If the validation succeeds
         if (results.valid == true)  {
           // Show the confirmation dialog
-          Confirm(results)
+          release.Confirm(results)
         } else {
           // populate the flash band with the error details
           $('.flash').empty().append('<p class=alert>' + results.message + '</p>')
@@ -56,21 +61,21 @@ $(document).ready(function() {
 
       })
     }
-  }
+  },
 
   // Confirm the release date updates by displaying the appropriate dialog content
-  function Confirm (results) {
+  Confirm: function(results) {
 
-    f = formData ()
+    f = release.formData()
 
     // Note: _ in data content names are translated to camelCase automatically
     dialog_body = '<h3>Confirm</h3>' +
-        '<div>' + 
-          '<p>Are you sure you want to send the ' + f.release_type.match(/^[a-z]+/) + ' email and update release date to ' + results.release_date + '?</p>' + 
+        '<div>' +
+          '<p>Are you sure you want to send the ' + f.release_type.match(/^[a-z]+/) + ' email and update release date to ' + results.release_date + '?</p>' +
         '</div>' +
         '<div>' +
           '<p>Order number: ' + f.order_number + '</p>' +
-          '<p>Number of plots: ' + results.num_plots  + '</p>' + 
+          '<p>Number of plots: ' + results.num_plots  + '</p>' +
           '<p>Plots: ' + results.plot_numbers  + '</p>'
 
     if (f.validity) { dialog_body = dialog_body + '<p>Validity: ' + f.validity  + '</p>' }
@@ -102,21 +107,21 @@ $(document).ready(function() {
           class: 'btn-primary',
           id: 'btn_confirm',
           click: function () {
-            bulk_update(results.plot_numbers)
+            release.bulk_update(results.plot_numbers)
             $(this).dialog('close')
             $(this).dialog('destroy').remove()
           }
         }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
-  }
+  },
 
   // POST back the confirmed data to the controller
-  function bulk_update(plot_numbers){
+   bulk_update: function(plot_numbers){
 
-    fd = formData();
+    fd = release.formData();
     fd.plot_numbers = plot_numbers
 
-    $.post('/phases/' + getPhase() + '/release_plots', fd)
+    $.post('/phases/' + release.getPhase() + '/release_plots', fd)
   }
 
-})
+}

@@ -7,6 +7,10 @@
 
   <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
+  <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: @phase %>
+  </div>
+
   <%= render "calendar/events", source: @phase, preload: @preload %>
 
   <div class="form-actions-footer-container">

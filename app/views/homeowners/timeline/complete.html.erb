@@ -5,13 +5,30 @@
     <div class="timeline-sidebar">
       <div class="timeline-header">
         <div class="title">
-          <i class="fa fa-home"></i>
-          <h2><%= t("homeowners.timeline.task.header") %></h2>
-          <p>Welcome Home</p>
+          <% if @timeline.stage_set.proforma? %>
+            <h2><%= @timeline.title %></h2>
+          <% else %>
+            <i class="fa fa-home"></i>
+            <h2><%= t("homeowners.timeline.task.header") %></h2>
+            <p>Welcome Home</p>
+          <% end %>
         </div>
+
+
+          <div class="progress <%=@timeline.stage_set_type%>">
+              <span class="progress-count">
+                <%= "#{@plot_timeline.progress_percent}%" %>
+              </span>
+              <% if @timeline.stage_set.journey? %>
+                <span class="progress-icon">
+                  <%= image_tag "stage4_igloo.svg" %>
+                </span>
+              <% end %>
+          </div>
+
       </div>
 
-      <%= render "homeowners/timeline/timeline", parent: :complete, timeline: @timeline, task: nil, logs: @logs %>
+      <%= render "homeowners/timeline/timeline", parent: :complete, timeline: @timeline, task: nil, logs: @logs, plot: @plot %>
 
     </div>
 
@@ -19,17 +36,21 @@
       <div class="complete-content" id="timelineComplete">
         <div class="header">
           <div class="title">
-            <i class="fa fa-check branded-text"></i>
-            <h2><%= t("homeowners.timeline.task.header") %></h2>
-            <p>Welcome Home</p>
+            <% if @timeline.stage_set.proforma? %>
+              <h2><%= @timeline.title %></h2>
+            <% else %>
+              <i class="fa fa-check branded-text"></i>
+              <h2><%= t("homeowners.timeline.task.header") %></h2>
+              <p>Welcome Home</p>
+            <% end %>
           </div>
         </div>
 
         <% if @plot_timeline.complete? %>
 
-        <div class="complete" id="activeTaskScroll">
+        <div class="complete branded-text" id="activeTaskScroll">
           <div class="text">
-            <div><%= simple_format @timeline.complete_message %></div>
+            <div><%= raw Lookup.parse(@timeline.complete_message, @plot, current_resident) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>
@@ -47,9 +68,9 @@
 
         <% else %>
 
-        <div class="incomplete" id="activeTaskScroll">
+        <div class="incomplete branded-text" id="activeTaskScroll">
           <div class="text">
-            <div class=""><%= simple_format @timeline.incomplete_message %></div>
+            <div><%= raw Lookup.parse( @timeline.incomplete_message, @plot, current_resident) %></div>
 
             <div class="actions">
               <%= link_to t('.dashboard'), dashboard_path, class: "btn branded-btn-inverted" %>

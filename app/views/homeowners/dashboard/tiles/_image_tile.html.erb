@@ -1,21 +1,46 @@
-<div class="tile-image">
-  <%= image_tag tile.image %>
-</div>
-<div class="img-tile-details">
-  <div class="tile-text">
-    <h2 class="tile-title branded-text"><%= tile.title %></h2>
-    <p class="tile-description branded-text"><%= tile.description %></p>
-  </div>
-  <div class="tile-button">
+
+<div class="<%= tile.full_image? ? """tile-full-image""" : """tile-image"""%>">
+  <% if !tile.render_button? %>
     <% if tile.document? %>
-      <%= link_to tile.button, tile.document_location(documents), target: '_blank', class: "branded-btn" %>
+      <%= link_to image_tag(tile.image), tile.document_location(documents.order(:documentable_type)), target: '_blank' %>
+    <% elsif tile.content_proforma? %>
+      <%= link_to image_tag(tile.image), homeowner_timeline_path(tile.tileable) %>
     <% else %>
       <% link = tile.formatted_link %>
       <% if tile.iframeable?(link) %>
-        <%= link_to tile.button, custom_link_path(title: tile.title, page: link), class: "branded-btn" %>
+        <%= link_to image_tag(tile.image), custom_link_path(title: tile.title, page: link)  %>
       <% else %>
-        <%= link_to tile.button, link, target: '_blank', class: "branded-btn" %>
+        <%= link_to image_tag(tile.image), link, target: '_blank' %>
       <% end %>
+    <% end %>
+  <% else %>
+    <%= image_tag tile.image %>
+  <% end %>
+
+  <div class="<%= tile.full_image? ? """full-img-tile-details""" : """img-tile-details"""%>" >
+    <div class="tile-text">
+      <% if tile.render_title %>
+        <h2 class="tile-title branded-text"><%= tile.title %></h2>
+      <% end %>
+      <% if tile.render_description %>
+        <p class="tile-description branded-text"><%= tile.description %></p>
+      <% end %>
+    </div>
+    <% if tile.render_button %>
+      <div class="tile-button">
+        <% if tile.document? %>
+          <%= link_to tile.button, tile.document_location(documents.order(:documentable_type)), target: '_blank', class: "branded-btn" %>
+        <% elsif tile.content_proforma? %>
+          <%= link_to tile.button, homeowner_timeline_path(tile.tileable), class: "branded-btn" %>
+        <% else %>
+          <% link = tile.formatted_link %>
+          <% if tile.iframeable?(link) %>
+            <%= link_to tile.button, custom_link_path(title: tile.title, page: link), class: "branded-btn" %>
+          <% else %>
+            <%= link_to tile.button, link, target: '_blank', class: "branded-btn" %>
+          <% end %>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

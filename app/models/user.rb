@@ -4,6 +4,7 @@
 class User < ApplicationRecord
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
+
   attr_accessor :picture_cache
 
   before_save :update_cas
@@ -39,7 +40,8 @@ class User < ApplicationRecord
     :developer_admin,
     :division_admin,
     :development_admin,
-    :site_admin
+    :site_admin,
+    :concierge
   ]
 
   enum lettings_management: %i[
@@ -59,6 +61,17 @@ class User < ApplicationRecord
     end
   end
 
+  def division
+    return if permission_level.nil?
+    return permission_level_id if permission_level.is_a? Division
+    return permission_level&.division&.id if permission_level.class.method_defined? :division
+  end
+
+  def development
+    return if permission_level.nil?
+    return permission_level_id if permission_level.is_a? Development
+  end
+
   def self.admin_roles
     roles.reject { |key, _| key == "homeowner" }
   end
@@ -75,7 +88,7 @@ class User < ApplicationRecord
   end
 
   def self.accessible_admin_roles(user)
-    admin_roles.select { |_, value| value >= roles[user.role] }
+    admin_roles.select { |_, value| value >= roles[user.role] && value < roles[:concierge] }
   end
 
   validates :role, :email, presence: true
@@ -349,6 +362,18 @@ class User < ApplicationRecord
     end
   end
 
+  def charts?
+    cf_admin? || permission_level.analytics_dashboard
+  end
+
+  def chart?(section)
+    cf_admin? || Developer.find(developer).chart?(section)
+  end
+
+  def competitions?
+    return cf_admin? || (charts? && chart?(:competition))
+  end
+
   scope :receives_faqs,
     lambda { |p|
       users = User.where(receive_faq_emails: true)
@@ -363,4 +388,27 @@ class User < ApplicationRecord
   }
 
   # rubocop:enable all
+
+  # selections is a # seperated string that records the last set of chart filter
+  # selections made by this user.
+  class Filter
+    attr_accessor :developer
+    attr_accessor :division
+    attr_accessor :development
+    attr_accessor :phase
+
+    def initialize(user)
+      @selections = user.selections
+      @developer = (extract("developer") || user.developer).to_i
+      @division = (extract("division") || user.division).to_i
+      @development = (extract("development") || user.development).to_i
+      @phase = extract("phase").to_i
+    end
+
+    private
+
+    def extract(key)
+      @selections&.match(/#{key}(?<num>\d+)/)&.[](:num)
+    end
+  end
 end

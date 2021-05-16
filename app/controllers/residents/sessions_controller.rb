@@ -49,8 +49,9 @@ module Residents
     end
 
     def after_sign_in_path_for(resource)
+      redirect_to = session[:oauth2_req] || dashboard_path
       session[:sign_in] = true
-      dashboard_path
+      redirect_to
     end
 
     # protected

@@ -46,8 +46,8 @@ class Development < ApplicationRecord
   delegate :sign_up_count, to: :premium_perk, prefix: true
   delegate :branded_perk, to: :parent_developer
   delegate :custom_url, to: :developer
-  delegate :timeline, to: :parent_developer
-  delegate :time_zone, to: :parent_developer
+  delegate :timeline, :time_zone, :proformas, to: :parent_developer
+  delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
 
   alias_attribute :development_name, :name
 
@@ -288,6 +288,14 @@ class Development < ApplicationRecord
 
   def resources
     plots.pluck(:id, :number)
+  end
+
+  def signature
+    ""
+  end
+
+  def conveyancing_enabled?
+    conveyancing && parent.conveyancing_enabled?
   end
 end
 # rubocop:enable Metrics/ClassLength

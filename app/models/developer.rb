@@ -7,6 +7,8 @@ class Developer < ApplicationRecord
   attr_accessor :personal_app
   after_save :update_development_cas
   after_save :update_custom_tiles
+  after_save :update_convayencing
+  after_save :update_charts
 
   include PgSearch
   multisearchable against: [:company_name], using: %i[tsearch trigram]
@@ -29,6 +31,9 @@ class Developer < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :branded_app, as: :app_owner, dependent: :destroy
   has_many :branded_apps, as: :app_owner
+
+  has_many :charts, -> { order("id") }, as: :chartable, dependent: :destroy
+  accepts_nested_attributes_for :charts
 
   has_one :lettings_account, as: :letter
   has_many :lettings, through: :lettings_account
@@ -63,6 +68,46 @@ class Developer < ApplicationRecord
   validates :custom_url, presence: true
 
   validate :check_custom_url_format, :check_unique
+
+  validates :account_manager_contact, phone: true, allow_blank: true
+  validate :account_manager
+  validates :account_manager_email,
+            allow_blank: true,
+            format: { with: Devise.email_regexp }
+
+  validate :check_conveyancing
+
+  def check_conveyancing
+    return unless conveyancing?
+
+    if wecomplete_sign_in.blank?
+      errors.add("WeComplete sign-in URL", "is required, and must not be blank.")
+      errors.add(:wecomplete_sign_in, "please populate")
+    end
+
+    return if wecomplete_sign_in.present?
+    errors.add("Wecomplete Quote URL", "is required, and must not be blank.")
+    errors.add(:wecomplete_quote, "please populate")
+  end
+
+  # Account manager fields need to be 'all' or 'none'
+  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def account_manager
+    return unless account_manager_name.present? ||
+                  account_manager_email.present? ||
+                  account_manager_contact.present?
+
+    unless account_manager_name.present? &&
+           account_manager_email.present? &&
+           account_manager_contact.present?
+      errors.add(:account_manager, "Please populate all or none of name, email and contact")
+    end
+
+    errors.add(:account_manager_name, "please populate") if account_manager_name.blank?
+    errors.add(:account_manager_email, "please populate") if account_manager_email.blank?
+    errors.add(:account_manager_contact, "please populate") if account_manager_contact.blank?
+  end
+  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def check_custom_url_format
     return if custom_url.match(/\A[a-z0-9\-_]+\z/)&.present?
@@ -99,7 +144,8 @@ class Developer < ApplicationRecord
       all_developments << div.developments
     end
 
-    all_developments.to_a.flatten!
+    all_developments = all_developments.to_a.flatten!.reject { |d| d.name.nil? }
+    all_developments.sort_by(&:name)
   end
 
   def expired?
@@ -205,6 +251,48 @@ class Developer < ApplicationRecord
     faq_types
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity
+  def supports?(feature)
+    return false unless feature
+
+    case feature.to_sym
+    when :area_guide
+      house_search?
+    when :home_designer
+      enable_roomsketcher?
+    when :referrals
+      enable_referrals?
+    when :services
+      enable_services?
+    when :buyers_club
+      enable_perks?
+    when :conveyancing, :conveyancing_quote, :conveyancing_signin
+      conveyancing_enabled?
+    when :custom_url, :issues, :snagging, :tour, :calendar
+      true
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/CyclomaticComplexity
+
+  # What Content Proformas are available to this developer
+  def proformas
+    Timeline.available_to(self, StageSet.stage_set_types[:proforma])
+  end
+
+  def conveyancing_enabled?
+    conveyancing
+  end
+
+  def build
+    return unless charts.empty?
+
+    Chart.sections.each { |s, _| charts.build(section: s, enabled: true) }
+  end
+
+  def chart?(section)
+    charts.find_by(section: section)&.enabled
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and
@@ -241,5 +329,28 @@ class Developer < ApplicationRecord
 
     CustomTile.delete_disabled(changed, all_developments) unless changed.empty?
   end
+
+  # rubocop:disable SkipsModelValidations
+  def update_convayencing
+    return unless conveyancing_changed?
+
+    divisions.update_all(conveyancing: conveyancing,
+                         wecomplete_sign_in: wecomplete_sign_in,
+                         wecomplete_quote: wecomplete_quote)
+
+    Development.where(id: all_developments.map(&:id)).update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  # rubocop:disable SkipsModelValidations
+  def update_charts
+    return unless !analytics_dashboard && analytics_dashboard_changed?
+    divisions.each do |division|
+      division.update_column(:analytics_dashboard, false)
+      division.developments.each { |d| d.update_column(:analytics_dashboard, false) }
+    end
+    developments.each { |d| d.update_column(:analytics_dashboard, false) }
+  end
+  # rubocop:enable SkipsModelValidations
 end
 # rubocop:enable Metrics/ClassLength

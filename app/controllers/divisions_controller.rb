@@ -69,10 +69,12 @@ class DivisionsController < ApplicationController
   def division_params
     params.require(:division).permit(
       :division_name,
+      :analytics_dashboard,
       :address,
       :email,
       :contact_number,
       :prime_lettings_admin,
+      :conveyancing, :wecomplete_sign_in, :wecomplete_quote,
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )

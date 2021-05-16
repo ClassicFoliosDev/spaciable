@@ -9,7 +9,14 @@ class PlotTimeline < ApplicationRecord
   belongs_to :task
   has_many :task_logs, dependent: :destroy
 
-  delegate :live?, :timeline, :timeline_title, to: :phase_timeline
+  delegate :live?, :timeline, :timeline_title, :stage_set, to: :phase_timeline
+
+  scope :matching,
+        lambda { |plot, timeline|
+          joins(:phase_timeline)
+            .where(plot: plot)
+            .where(phase_timelines: { timeline_id: timeline.id })
+        }
 
   # Log non not_applicable responses for a Task.
   def log(task, response)
@@ -17,7 +24,11 @@ class PlotTimeline < ApplicationRecord
 
     log = task_logs.find_by(task_id: task.id) ||
           task_logs.create(task_id: task.id)
-    log.update_attributes(response: response)
+    # only record if response is forward
+    if log.response.nil? ||
+       TaskLog.responses[response.to_s] < TaskLog.responses[log.response]
+      log.update_attributes(response: response)
+    end
   end
 
   def complete?

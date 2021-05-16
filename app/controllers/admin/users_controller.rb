@@ -4,7 +4,8 @@ module Admin
   class UsersController < ApplicationController
     include PaginationConcern
     include SortingConcern
-    load_and_authorize_resource :user
+    load_and_authorize_resource :user, except: %i[export_csv]
+    skip_authorization_check only: %i[export_csv]
 
     def index
       @usearch = UserSearch.new(search_params)
@@ -59,6 +60,11 @@ module Admin
       @user.destroy
       notice = t(".archive.success", user_email: @user.email)
       redirect_to admin_users_path, notice: notice
+    end
+
+    def export_csv
+      ExportAdminsJob.perform_later(current_user, search_params.to_h)
+      render json: { status: 200 }
     end
 
     def user_success

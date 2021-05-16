@@ -2,7 +2,7 @@ $library-interface-height: 164px;
 $card-height: 230px;
 $card-header-height: 52px;
 
-.dashboard {
+.dashboard, .wecomplete {
   @include outer-container(90%);
   margin: 0 auto;
 }

@@ -23,7 +23,10 @@
       <%= render 'homeowners/dashboard/tiles/snagging', plot: custom_tile.parent %>
     </div>
     <div class="feature" id="timeline" style="display: none">
-      <%= render 'homeowners/dashboard/tiles/timeline', plot: custom_tile.parent %>
+      <%= render 'homeowners/dashboard/tiles/timeline', plot: custom_tile.parent, preview: true%>
+    </div>
+    <div class="feature" id="conveyancing" style="display: none">
+      <%= render 'homeowners/dashboard/tiles/conveyancing', plot: custom_tile.parent, preview: true%>
     </div>
   </div>
 
@@ -41,8 +44,9 @@
     </div>
 
     <div id="customTileImage" style="display: none">
-      <div class="image"><img src=""></div>
-      <div class="content">
+      <div id="image" class="image">
+        <img src=""></div>
+      <div id="content" class="content">
         <div class="text">
           <h2 class="title"></h2>
           <p class="description"></p>

@@ -1,4 +1,9 @@
+ 'api_constraints'
+
 Rails.application.routes.draw do
+
+  use_doorkeeper
+
   get "/sitemap.xml", to: "sitemap#show"
 
   mount Ckeditor::Engine => '/ckeditor'
@@ -42,7 +47,9 @@ Rails.application.routes.draw do
     resources :notifications, except: [:edit, :update, :destroy]
     resources :admin_notifications, except: [:edit, :update, :destroy]
     resources :how_tos
-    resources :users
+    resources :users do
+      post 'export_csv', on: :collection, format: :json
+    end
     resources :residents, only: [:index, :show]
     resource :help, only: [:show], controller: 'help'
     resource :settings, only: [:show, :edit, :update] do
@@ -66,6 +73,14 @@ Rails.application.routes.draw do
     resources :snags, only: [:index, :show, :update]
     resources :snag_comments, only: [:new, :create]
     post "snags/:id", to: "snag_comments#create"
+
+    namespace :charts, defaults: { format: 'json', controller: 'charts' } do
+      get 'divisions'
+      get 'developments'
+      get 'phases'
+      post 'selections'
+      get 'chartdata'
+    end
   end
 
   resources :documents, only: [:edit, :show, :update, :destroy]
@@ -129,6 +144,8 @@ Rails.application.routes.draw do
     post 'choices', action: :update , controller: 'choices'
   end
 
+  post 'plots/:plot_id/residents/:id/reinvite', action: :reinvite, controller: 'residents'
+
   resources :developments do
     resources :phases
     resources :choice_configurations
@@ -176,6 +193,9 @@ Rails.application.routes.draw do
     get 'empty', action: :empty , controller: 'tasks'
     resources :tasks
     resources :finales, except: [:index, :destroy]
+    resources :stage_sets, only: [:edit, :update] do
+      post 'tasks', format: :json
+    end
   end
 
   # These need to be specified seperately as otherwise best
@@ -242,6 +262,7 @@ Rails.application.routes.draw do
       post 'feedback'
       post 'viewed'
     end
+    resource :analytics_event, only: %i[create], format: :json
   end
 
   scope :homeowners, module: :homeowners do
@@ -265,10 +286,10 @@ Rails.application.routes.draw do
     resources :snag_comments, only: [:new, :create]
     resources :lettings, only: [:show, :create, :edit, :new]
     post "snags/:id", to: "snag_comments#create"
-    resource :timeline, only: [:show], controller: 'timeline', as: :homeowner_timeline
-    resources :timeline_tasks do
-      member do
-        get :show, controller: 'timeline', as: :show
+    resources :timelines, only: [:show], controller: 'timeline', param: :timeline_id, as: :homeowner_timeline
+    resources :timelines, only:[] do
+      resources :tasks, only: [:show], controller: 'timeline', param: :task_id, as: :homeowner_task
+      resources :tasks, only: [] do
         get :viewed, controller: 'timeline'
         post :viewed , controller: 'timeline', format: :json
       end
@@ -317,9 +338,12 @@ Rails.application.routes.draw do
     post :create_resident, to: "residents#create", format: :json
     post :refer_friend, to: "referrals#create", format: :json
     get :remove_resident, to: "residents#remove_resident", format: :json
+
     get :remove_snag, to: "snags#destroy", format: :json
     get :remove_snag_attachment, to: "snag_attachments#destroy", format: :json
     post :lettings_accounts, to: "lettings_accounts#create", format: :json
+
+    get "legal", to: 'wecomplete#show', as: :homeowner_wecomplete
   end
 
   get '/:token/confirm_referral', to: "homeowners/referrals#confirm_referral", as: 'confirm_referral'
@@ -367,5 +391,26 @@ Rails.application.routes.draw do
 
   devise_scope :resident do
     root 'residents/landing#new'
+  end
+
+  namespace :api, defaults: { format: 'json' } do
+    namespace :admin do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+        resources :pre_sales, only: [:create]
+      end
+    end
+
+    namespace :resident do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+        resources :meta, only: [:index]
+      end
+    end
+
+    namespace :concierge do
+      scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true), controller: 'find' do
+        get '/find_resident', action: :find_resident
+      end
+    end
+
   end
 end

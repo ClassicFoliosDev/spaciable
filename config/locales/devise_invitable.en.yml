@@ -23,7 +23,7 @@ en:
       invitation_instructions:
         subject: "Invitation instructions"
         hello: "Hello %{name}"
-        someone_invited_you_admin: "You have been invited to become an administrator for %{development} on www.spaciable.com/admin."
+        someone_invited_you_admin: "You have been invited to become an administrator for %{development} on the Spaciable admin portal."
         spaciable_is: "Spaciable is an online portal that gives your residents helpful information about their home."
         once_activated: "Once you have activated your Spaciable administrator account, you can:"
         can1: "Invite a resident to Spaciable by assigning their email to a plot"
@@ -42,6 +42,7 @@ en:
         ignore: "If you do not want to accept this invitation, please ignore this email."
         ignore2: "Your Spaciable account will not be created unless you access the link above and set your password."
       resident_invitation:
+        reservation: "Thank you for reserving your new home at %{development_name}"
         new_home: "Welcome to your new home at %{development_name}"
         benefits: "On Spaciable, you can benefit from:"
         benefit1: "Digital versions of your home’s documents"
@@ -70,7 +71,7 @@ en:
       transfer_csv:
         success: "Your report is ready for download"
         no_data: "Your report returned no data"
-        description: "You csv report is ready to download by following the link below."
+        description: "You csv report is attached."
         no_data_description: "No plots matched the filters applied to your report. Please review your selections."
       downgrade_perks:
         title: "Your Premium discounts access has expired"

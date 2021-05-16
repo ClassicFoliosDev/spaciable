@@ -19,7 +19,7 @@ module Csv
 
     def self.headers
       [
-        "Developer", "Division", "Development", "Phase", "Plot",
+        "Account Manager", "Developer", "Division", "Development", "Phase", "Plot",
         "Business Stream", "Reservation Order Number", "Completion Order Number",
         "Reservation Release Date", "Completion Release Date",
         "Validity", "Extended Access", "Expiry Date", "Expired",
@@ -34,6 +34,7 @@ module Csv
 
     def self.plot_metadata(plot)
       [
+        plot.account_manager_name,
         plot.company_name,
         division_name(plot),
         plot.development_name,

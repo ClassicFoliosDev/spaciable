@@ -137,9 +137,9 @@ Then(/^I see the plot preview page$/) do
     expect(page).to have_content(t("homeowners.my_home_name", construction: t("construction_type.home")))
     expect(page).to have_content(t("homeowners.components.address.view_more", construction: t("components.homeowner.sub_menu.title")))
 
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:building_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:road_name])
-    expect(page).to have_content(PhaseFixture.address_update_attrs[:postcode])
+    expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:building_name])
+    expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:road_name])
+    expect(page).to have_content(PhaseFixture.phase_address_update_attrs[:postcode])
 
     expect(page).to have_content(t("homeowners.dashboard.contacts.contacts_title"))
     expect(page).to have_content(t("homeowners.dashboard.contacts.contacts_view_more"))
@@ -344,7 +344,7 @@ Then(/^I can not create a plot$/) do
   goto_phase_show_page
 
   within ".phase" do
-    expect(page).not_to have_selector(".section-actions")
+    expect(page).not_to have_selector(".section-actions .fa-plus")
     expect(page).not_to have_content(t("plots.collection.add"))
   end
 end
@@ -438,12 +438,13 @@ When(/^I edit a plot with prefix and postal number$/) do
 
   within ".edit_plot" do
     fill_in :plot_house_number, with: PhasePlotFixture.prefix_postal_number
-
-   click_on t("plots.form.submit")
   end
+
+  click_on t("plots.form.submit")
 end
 
 Then(/^the postal number should not inherit from the plot number$/) do
+
   within ".plot" do
     within ".section-data" do
       expect(page).to have_content "Flat #{PhasePlotFixture.prefix_postal_number}"

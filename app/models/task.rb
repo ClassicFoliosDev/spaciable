@@ -21,19 +21,25 @@ class Task < ApplicationRecord
   accepts_nested_attributes_for :task_contacts, reject_if: :all_blank, allow_destroy: true
 
   has_one :action, required: false, dependent: :destroy
-  accepts_nested_attributes_for :action, reject_if: :all_blank, allow_destroy: true
-  has_many :features, dependent: :destroy
-  accepts_nested_attributes_for :features, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :action, reject_if: :unpopulated, allow_destroy: true
+  has_many :features, -> { order("id") }, dependent: :destroy
+  accepts_nested_attributes_for :features, reject_if: :unpopulated, allow_destroy: true
 
   validates :title, presence: true
-  validates :question, presence: true
+  validates :question, presence: true, if: -> { timeline.stage_set.journey? }
   validates :answer, presence: true
-  validates :positive, presence: true
-  validates :negative, presence: true
+  validates :positive, presence: true, if: -> { timeline.stage_set.journey? }
+  validates :negative, presence: true, if: -> { timeline.stage_set.journey? }
   validates :stage_id, presence: true
 
-  delegate :title, to: :stage, prefix: true
-  delegate :description, :link, :title, to: :action, prefix: true
+  delegate :stage_set, :finale, to: :timeline
+  delegate :title, :order, to: :stage, prefix: true
+  delegate :description, :link, :title, :feature_type, to: :action, prefix: true
+
+  enum title_class: %i[
+    heading
+    subheading
+  ]
 
   amoeba do
     include_association :task_shortcuts
@@ -47,6 +53,18 @@ class Task < ApplicationRecord
           .new(original_task, new_task, :picture).set_file
       end
     })
+  end
+
+  scope :dependents,
+        lambda { |timeline_id, stage_id|
+          where(timeline_id: timeline_id, stage_id: stage_id)
+        }
+
+  def unpopulated(attributes)
+    attributes["title"].blank? &&
+      attributes["description"].blank? &&
+      attributes["link"].blank? &&
+      attributes["precis"].blank?
   end
 
   # Get the task at the head of the specified stage
@@ -108,25 +126,29 @@ class Task < ApplicationRecord
   def remove
     Task.transaction do
       # link prev to following timeline_task
-      prev = Task.find_by(next_id: id) # get prev
+      previous = prev
       following = Task.find_by(id: next_id) # and next
       # set prev->next to following
-      prev&.update_attributes(next_id: following&.id)
+      previous&.update_attributes(next_id: following&.id)
       # set following->head true if the stages change between tasks
       following&.update_attributes(
-        head: prev.blank? || prev.stage != following&.stage)
+        head: previous.blank? || previous.stage != following&.stage)
 
       # destroy any logs for this task
       TaskLog.where(task_id: id).destroy_all
 
       # update any PlotTimeline referencing this Task
       PlotTimeline.where(task_id: id)
-                  .update_all(task_id: following&.id || prev&.id)
+                  .update_all(task_id: following&.id || previous&.id)
       # finally destroy the Task
       destroy
     end
   end
   # rubocop:enable SkipsModelValidations
+
+  def prev
+    Task.find_by(next_id: id) # get prev
+  end
 
   # Reset the head true/false based on previous task
   def reset_head

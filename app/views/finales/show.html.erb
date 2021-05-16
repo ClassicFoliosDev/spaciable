@@ -23,7 +23,7 @@
           <div class="complete-content">
             <div class="complete">
               <div class="text">
-                <div><%= simple_format @finale.complete_message %></div>
+                <div><%= raw @finale.complete_message %></div>
               </div>
               <div class="image">
                 <div class="image-container" style="background-image: url('<%= @finale.complete_picture %>')"></div>
@@ -36,7 +36,7 @@
           <div class="complete-content">
             <div class="complete">
               <div class="text">
-                <div><%= simple_format @finale.incomplete_message %></div>
+                <div><%= raw @finale.incomplete_message %></div>
               </div>
               <div class="image">
                 <div class="image-container" style="background-image: url('<%= @finale.incomplete_picture %>')"></div>

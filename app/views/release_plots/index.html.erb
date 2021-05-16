@@ -6,7 +6,9 @@
 
 <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
 
-<script type="text/javascript" src="/javascripts/lib/release_plots.js"></script>
+ <div class="section-actions">
+    <%= render 'components/admin/conveyancing', parent: @phase %>
+  </div>
 
 <div class="release-plots">
   <%= simple_form_for(:phase_release_plots, :defaults => {:required => false}) do |f| %>

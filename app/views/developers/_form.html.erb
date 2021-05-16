@@ -18,28 +18,43 @@
     <div class="row-item third">
       <fieldset>
         <%= f.input :company_name, label: t(".company_name") %>
+        <%= f.input :is_demo, as: :boolean, label: t(".is_demo") %>
+        <label><%= t(".analytics_dashboard_label") %></label>
+        <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
+        <%= f.fields_for :charts do |c| %>
+          <%= c.hidden_field :id %>
+          <%= c.hidden_field :section %>
+          <%= c.input :enabled, as: :boolean, label: t(".#{c.object.section}_label") %>
+        <% end %>
         <%= f.input :custom_url, label: t(".custom_url"), input_html: {type: "text"} %>
         <div class="featured ui-front">
           <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
         </div>
         <%= f.input :about %>
-        <%= f.input :email, label: t(".email") %>
-        <%= f.input :contact_number, label: t(".contact") %>
         <%= f.input :api_key, as: :text, placeholder: t(".api_key_info"), label: t(".api_key") %>
-
         <%= f.label :personal_app, t(".branded_app") %>
         <%= f.check_box :personal_app, checked: developer.branded_app? %>
         <p class="checkbox-description"><%= t(".branded_app_description") %></p>
       </fieldset>
     </div>
+
     <div class="row-item third">
       <fieldset>
-        <%= f.simple_fields_for :address do |fields| %>
-          <label class="string optional"><%= t(".address") %></label>
-          <%= render "address/fields", fields: fields %>
-        <% end %>
+        <label class="string optional"><%= t(".account_manager.title") %></label>
+         <%= f.input :account_manager_name, label: t(".account_manager.name") %>
+         <%= f.input :account_manager_email, label: t(".account_manager.email") %>
+         <%= f.input :account_manager_contact, label: t(".account_manager.contact") %>
+
+        <%= f.label :conveyancing, t(".conveyancing") %>
+        <%= f.check_box :conveyancing %>
+        <p class="checkbox-description"><%= t(".conveyancing_description") %>
+        <div id="wecomplete">
+          <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
+          <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
+        </div>
       </fieldset>
     </div>
+
     <div class="row-item third">
       <fieldset>
         <%= f.input :prime_lettings_admin, as: :select, collection: developer.potential_prime_admins.map { |a| [a.to_s, a.id] },
@@ -63,10 +78,13 @@
         <%= f.label t(".enable_services") %>
         <%= f.check_box :enable_services %>
         <p class="checkbox-description"><%= t(".services_description") %></p>
-        <%= f.label t(".enable_cas") %>
+        <%= f.label :enable_how_tos, t(".how_tos") %>
+        <%= f.check_box :enable_how_tos %>
+        <p class="checkbox-description"><%= t(".how_tos_description") %>
+        <%= f.label :cas, t(".enable_cas") %>
         <%= f.check_box :cas, disabled: developer.cas %>
         <p class="checkbox-description"><%= t(".cas_description") %></p>
-        <%= f.label t(".timeline") %>
+        <%= f.label :timeline, t(".timeline") %>
         <%= f.check_box :timeline %>
         <p class="checkbox-description"><%= t(".timeline_description") %></p>
         <br/>
@@ -81,7 +99,8 @@
             <%= p.input :tile_image, label: t(".tile_image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
           </div>
         <% end %>
-        <%= f.input :is_demo, as: :boolean, label: t(".is_demo") %>
+
+
       </fieldset>
     </div>
   </div>

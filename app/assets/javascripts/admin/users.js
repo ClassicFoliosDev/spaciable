@@ -152,6 +152,11 @@ document.addEventListener('turbolinks:load', function () {
       $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
          .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
       $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+    } else if (role === 'concierge') {
+      $('.user_developer_id, .user_division_id, .user_development_id').show()
+      $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
+         .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
     } else {
       $('.user_developer_id, .user_division_id, .user_development_id').hide()
     };
@@ -266,7 +271,7 @@ function buildNotice(status, email) {
     flash_alert("Failed to send invitation to " + email + ", please try again later.")
   }
 }
-      
+
 $(document).on('click', '.admin-filter .collapse .fa', function () {
   $(".admin-filter").hide()
   $(".admin-filter-selections").show()
@@ -277,6 +282,17 @@ $(document).on('click', '.admin-filter .collapse .fa', function () {
 $(document).on('click', '.admin-filter-selections .collapse .fa', function () {
   $(".admin-filter").show()
   $(".admin-filter-selections").hide()
+})
+
+$(document).on('click', '#users_export_csv', function (event) {
+  $.post({
+    url: this.dataset["href"],
+    data: $("form").serialize(),
+    dataType: 'json',
+    success: function (response) {
+      reportSubmitted()
+    }
+  })
 })
 
 function displayFilterSelections() {

@@ -4,16 +4,10 @@ When(/^I navigate to the dashboard$/) do
   visit "/"
 end
 
-Then(/^I see blank recent contents$/) do
-  within ".notifications" do
-    expect(page).to have_content(t("admin.dashboard.components.no_recent.no_recent", type_names: Notification.model_name.human.pluralize))
-  end
-  within ".faqs" do
-    expect(page).to have_content(t("admin.dashboard.components.no_recent.no_recent", type_names: Faq.model_name.human.pluralize))
-  end
-  within ".documents" do
-    expect(page).to have_content(t("admin.dashboard.components.no_recent.no_recent", type_names: Document.model_name.human.pluralize))
-  end
+Then(/^I see analytic charts$/) do
+  find("#invited")
+  find("#activated")
+  find("#overview")
 end
 
 Then(/^I see the recent contents$/) do
@@ -24,9 +18,7 @@ Then(/^I see the recent contents$/) do
     expect(page).to have_content(FaqsFixture.settling_name)
   end
   within ".documents" do
-    expect(page).to have_content(t("activerecord.attributes.document.categories.legal_and_warranty"))
-    expect(page).to have_content(t(".guide"))
-    expect(page).to have_content("Development Document")
+    expect(page).to have_content("Developer Document")
   end
 end
 
@@ -47,7 +39,7 @@ Given(/^there are documents$/) do
 end
 
 When(/^I upload a help file$/) do
-  within ".global-option" do
+  within ".global-uploads .global-option" do
     click_on(t("admin.settings.show.uploads_btn"))
   end
 
