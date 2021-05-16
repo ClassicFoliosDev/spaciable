@@ -46,15 +46,19 @@ When(/^I visit the release plots page$/) do
     click_on t("phases.collection.release_plots")
     find(:xpath,"//label[contains(text(),'Select Plots by List and Range')]")
   end
+
+  find("a.active i.fa-rocket")
 end
 
 When(/^I submit with no parameters$/) do
   within ".form-actions-footer" do
-    click_on "Submit"
+    find("#submit").trigger('click')
+    click_on "submit"
   end
 end
 
 Then(/^there is a message to telling me to populate the data$/) do
+  find(".alert", visible: all)
   within ".alert" do
     expect(page).to have_content 'Please populate plots and date'
   end
