@@ -41,13 +41,15 @@ var charts = {
   render: function() {
     $(".chart").each(function( index ) { $(this ).empty() })
 
-    if($("#charts_development_id").prop('disabled') &&
+    if($("#charts_developer_id").prop('disabled') &&
+       $("#charts_division_id").prop('disabled') &&
+       $("#charts_development_id").prop('disabled') &&
        $phase == "0" &&
        $response.primary.invited == 0 &&
        $response.primary.activated == 0 &&
        $response.primary.not_invited == 0) {
-      $("#charts").hide()
-      $("#no_plots").show()
+       $("#charts").hide()
+       $("#no_plots").show()
     } else {
       $("#charts").show()
       $("#no_plots").hide()
