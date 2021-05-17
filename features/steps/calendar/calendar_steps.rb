@@ -470,25 +470,9 @@ end
 
 def setDateTime(field, event = CalendarFixture.event)
   if event.send(field)
-    # set the date
-    find(:xpath, "//input[@id='event_#{field}_date']/following-sibling::node()", visible: all).trigger('focus')
-    within ".flatpickr-calendar.open" do
-      find(".flatpickr-day[aria-label='#{tz(event.send(field)).strftime('%B %-d, %Y')}']").trigger('mouseover')
-      find(".flatpickr-day[aria-label='#{tz(event.send(field)).strftime('%B %-d, %Y')}']").trigger('mousedown')
-    end
-    # and time
-    find(:xpath, "//input[@id='event_#{field}_time']/following-sibling::input", visible: all).trigger('focus')
-    within ".flatpickr-calendar.open" do
-      find('.numInput.flatpickr-hour').set(tz(event.send(field)).strftime('%-l'))
-      find('.numInput.flatpickr-minute').set(tz(event.send(field)).strftime('%M'))
-      am_pm = tz(event.send(field)).strftime('%p')
-      am_pm_picker = find('.flatpickr-am-pm')
-      if am_pm != am_pm_picker.text
-        am_pm_picker.trigger('mouseover')
-        am_pm_picker.trigger('mousedown')
-      end
-      find('.numInput.flatpickr-minute').native.send_keys(:return)
-    end
+    dt = event.send(field).utc.strftime("%Y-%m-%dT%H:%M:00.000Z")
+    find("#event_#{field}_date", visible:all).set(dt)
+    find("#event_#{field}_time", visible:all).set(dt)
   end
 end
 
@@ -562,6 +546,7 @@ end
 
 def open_event(e = CalendarFixture.event, occurance: 0)
   find_event(e,  occurance: occurance).trigger('click')
+  find("#event_title", visible: true) # ensure dialog open
 end
 
 def find_event(e = CalendarFixture.event, occurance: 0)
@@ -580,6 +565,10 @@ def tz(time)
   time.in_time_zone(CalendarFixture.timezone)
 end
 
+def tz2(time)
+  time.in_time_zone(CalendarFixture.timezone)
+end
+
 # FullCalendar does not play well with webkit at all.  FullCalendar
 # does all sorts of weirdness hiding fields and creating copies and
 # webkit seems unable to keep track. So we have to compare the dates and times
@@ -593,13 +582,13 @@ def check_datetimes(event = CalendarFixture.event)
   # they just display as a date or a time to the user.  Remember to
   # ensure all in the correct timezone as calendar displays in
   # 'local' time
-  start = tz(event.start).change(:sec => 0)
-  expect(start).to eql(tz(Time.parse(find('#event_start_date', visible:all).value)).change(:sec => 0))
-  expect(start).to eql(tz(Time.parse(find('#event_start_time', visible:all).value)).change(:sec => 0))
+  start = event.start
+  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_date', visible:all).value)))
+  expect(tz(start)).to eql(tz2(Time.parse(find('#event_start_time', visible:all).value)))
 
-  finish = tz(event.end).change(:sec => 0)
-  expect(finish).to eql(tz(Time.parse(find('#event_end_date', visible:all).value)).change(:sec => 0))
-  expect(finish).to eql(tz(Time.parse(find('#event_end_time', visible:all).value)).change(:sec => 0))
+  finish = event.end
+  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_date', visible:all).value)))
+  expect(tz(finish)).to eql(tz2(Time.parse(find('#event_end_time', visible:all).value)))
 end
 
 # Create an event in the first day on the calendar.  This allows us to know

@@ -19,15 +19,19 @@
       <fieldset>
         <%= f.input :company_name, label: t(".company_name") %>
         <%= f.input :is_demo, as: :boolean, label: t(".is_demo") %>
+        <label><%= t(".analytics_dashboard_label") %></label>
+        <%= f.input :analytics_dashboard, as: :boolean, label: t(".analytics_dashboard") %>
+        <%= f.fields_for :charts do |c| %>
+          <%= c.hidden_field :id %>
+          <%= c.hidden_field :section %>
+          <%= c.input :enabled, as: :boolean, label: t(".#{c.object.section}_label") %>
+        <% end %>
         <%= f.input :custom_url, label: t(".custom_url"), input_html: {type: "text"} %>
         <div class="featured ui-front">
           <%= f.input :country_id, as: :select, collection: country_collection, include_blank: false, disabled: controller.action_name != 'new' %>
         </div>
         <%= f.input :about %>
-        <%= f.input :email, label: t(".email") %>
-        <%= f.input :contact_number, label: t(".contact") %>
         <%= f.input :api_key, as: :text, placeholder: t(".api_key_info"), label: t(".api_key") %>
-
         <%= f.label :personal_app, t(".branded_app") %>
         <%= f.check_box :personal_app, checked: developer.branded_app? %>
         <p class="checkbox-description"><%= t(".branded_app_description") %></p>

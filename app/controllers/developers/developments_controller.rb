@@ -106,6 +106,7 @@ module Developers
     def development_params
       params.require(:development).permit(
         :name, :choice_option,
+        :analytics_dashboard,
         :choices_email_contact,
         :developer_id, :division_id,
         :email, :contact_number,

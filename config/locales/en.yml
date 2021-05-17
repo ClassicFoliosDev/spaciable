@@ -1016,6 +1016,15 @@ en:
       snag_notifications: "Snagging"
 
     dashboard:
+      charts:
+        all: "All Developers"
+        choose: "Choose..."
+        title: "Analytics"
+        invited: "Plots Invited"
+        activated: "Plots Activated"
+        overview: "Overview"
+        no_plots_title: "No Live Plots Found"
+        no_plots_desc: "Unfortunately, there are no live plots to show for this data set. This page will show statistics for plots that have been added by Classic Folios and have not expired."
       components:
         no_recent:
           no_recent: "There are no recent %{type_names}"
@@ -1192,6 +1201,7 @@ en:
         title: "Recent FAQs."
         new: "New FAQ"
 
+
   faqs:
     collection:
       add: "Add %{type} FAQ"
@@ -1300,6 +1310,10 @@ en:
       editable_description: "Client admins can edit or delete this shortcut"
       current_file: "Current File"
       content_proforma: "Content Proforma"
+      full_image: "Display image full width?"
+      render_title: "Render title on tile?"
+      render_description: "Render description on tile?"
+      render_button: "Render button on tile?"
   home:
     show:
      home: "Home"
@@ -1367,6 +1381,7 @@ en:
       calendar_description: "Enable Plot Calendars for this Development"
       conveyancing: "Spaciable Legal Conveyancing"
       conveyancing_description: "Provide admins and residents with an external link to WeComplete"
+      analytics_dashboard: "Provide admins with access to the client analytics dashboard"
     index:
       add: "Add Development"
     development:
@@ -2020,6 +2035,10 @@ en:
       is_demo: "Exclude from global reports"
       how_tos: "How To Guides"
       how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
+      analytics_dashboard_label: "Client Analytics Dashboard"
+      analytics_dashboard: "Provide admins with access to the client analytics dashboard"
+      plot_invite_label: "Enable Plot Invite/Activations Charts"
+      competition_label: "Enable Division/Development Competition"
       account_manager:
         title: "Account manager"
         name: "Name"
@@ -2115,6 +2134,7 @@ en:
       conveyancing_description: "Provide admins and residents with an external link to WeComplete, populated below:"
       wecomplete_sign_in: "Branded WeComplete Sign-in URL"
       wecomplete_quote: "Branded WeComplete Quoting Form URL"
+      analytics_dashboard: "Provide admins with access to the client analytics dashboard"
     index:
       actions: "Actions"
       destroy: "Delete"

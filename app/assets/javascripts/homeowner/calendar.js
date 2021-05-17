@@ -414,8 +414,8 @@ var homeowner = {
       data: {resourceable_type: currentEvent.homeowner.resourceable_type,
              resourceable_id: currentEvent.homeowner.resourceable_id,
              status: response.data('status'),
-             proposed_start: currentEvent.start.toDate(),
-             proposed_end: currentEvent.end.toDate()
+             proposed_start: new Date($("#event_start_time").val()),
+             proposed_end: new Date($("#event_end_time").val())
            },
       dataType: 'json'
     }).done(function (results) {

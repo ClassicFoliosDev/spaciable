@@ -29,9 +29,9 @@ def admin_log_in
     click_on "Login"
   end
 
-  within ".notifications" do
-    expect(page).to have_content(t("dashboard.section.notifications.title"))
-  end
+  find("#invited")
+  find("#activated")
+  find("#overview")
 end
 
 When(/^I log out as (.*)admin$/) do |_|

@@ -7,6 +7,10 @@ class DevelopersController < ApplicationController
   load_and_authorize_resource :developer, except: %i[cas parameterize]
   skip_authorization_check only: %i[cas parameterize]
 
+  before_action only: %i[new edit] do
+    @developer.build
+  end
+
   def index
     @developers = paginate(sort(@developers, default: :company_name))
   end
@@ -91,6 +95,7 @@ class DevelopersController < ApplicationController
   def developer_params
     params.require(:developer).permit(
       :country_id,
+      :analytics_dashboard,
       :company_name, :custom_url, :email,
       :contact_number, :about,
       :api_key, :house_search, :enable_referrals,
@@ -100,6 +105,7 @@ class DevelopersController < ApplicationController
       :enable_perks, :is_demo, :enable_how_tos,
       :conveyancing, :wecomplete_sign_in, :wecomplete_quote,
       :account_manager_name, :account_manager_email, :account_manager_contact,
+      charts_attributes: %i[id section enabled],
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]

@@ -13,7 +13,10 @@ class CustomTile < ApplicationRecord
   mount_uploader :image, PictureUploader
   attr_accessor :image_cache
 
-  validates :title, :description, :button, presence: true, unless: :feature?
+  #validate :meta
+  validates :title, presence: true, unless: :feature?
+  validates :description, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_description? }
+  validates :button, presence: true, :unless => Proc.new { |ct| ct.feature? || !ct.render_button? }
   validate :proforma, if: :content_proforma?
   validates :link, presence: true, if: :link?
   validate :document_sub_category, if: :document?

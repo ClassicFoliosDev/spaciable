@@ -19,6 +19,7 @@ class ContactsController < ApplicationController
 
     @contacts = paginate(sort(@parent.contacts, default: :last_name))
     @contact = @parent.contacts.build
+    @active_tab = "contacts"
   end
 
   def new

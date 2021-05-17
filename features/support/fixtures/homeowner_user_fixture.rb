@@ -5,7 +5,8 @@ module HomeownerUserFixture
 
   def create(timeline: nil)
     country = FactoryGirl.create(:country)
-    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id)
+    developer = FactoryGirl.create(:developer, company_name: developer_name, country_id: country.id,
+                                   house_search: false, enable_referrals: false, enable_services: false, enable_perks: false)
     division = FactoryGirl.create(:division, division_name: division_name, developer_id: developer.id)
     development = FactoryGirl.create(:development,
                                      name: development_name,
@@ -64,7 +65,9 @@ module HomeownerUserFixture
     FactoryGirl.create(:plot_residency, plot_id: second_division_development_plot.id, resident_id: resident.id)
 
     country = FactoryGirl.create(:country)
-    second_developer = FactoryGirl.create(:developer, country_id: country.id)
+    second_developer = FactoryGirl.create(:developer, country_id: country.id,
+                                          house_search: false, enable_referrals: false, enable_services: false,
+                                          enable_perks: false)
     second_developer_development = FactoryGirl.create(:development, developer_id: second_developer.id)
     second_developer_development_phase = FactoryGirl.create(:phase, development_id: second_developer_development.id)
     second_developer_development_plot = FactoryGirl.create(:plot, phase_id: second_developer_development_phase.id)

@@ -69,6 +69,7 @@ class DivisionsController < ApplicationController
   def division_params
     params.require(:division).permit(
       :division_name,
+      :analytics_dashboard,
       :address,
       :email,
       :contact_number,

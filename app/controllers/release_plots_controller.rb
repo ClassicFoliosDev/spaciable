@@ -14,6 +14,7 @@ class ReleasePlotsController < ApplicationController
     @completed_plots_count = @phase.completed_plots_count
     @expired_plots_count = @phase.expired_plots_count
     @activated_resident_count = @phase.activated_resident_count
+    @active_tab = "release_plots"
   end
 
   # JSON javascript handler to service the requests from the browser
