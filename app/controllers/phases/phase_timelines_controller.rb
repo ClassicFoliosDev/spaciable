@@ -12,6 +12,7 @@ module Phases
 
     def index
       @phase_timelines = PhaseTimeline.where(phase: @phase)
+      @active_tab = "phase_timelines"
     end
 
     def new

@@ -9,6 +9,7 @@ module Phases
 
     load_and_authorize_resource :phase
 
+    # rubocop:disable Metrics/MethodLength
     def index
       set_plots
 
@@ -29,7 +30,9 @@ module Phases
       session[:adminlistings] = PlanetRent::State.new request.original_url
       # State will be sent with any authorization request
       @state = session[:adminlistings]
+      @active_tab = "lettings"
     end
+    # rubocop:enable Metrics/MethodLength
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def create

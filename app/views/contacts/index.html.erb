@@ -8,7 +8,7 @@
   <% if @parent.is_a? Phase %>
     <%= render 'components/tabs', tabs: phase_tabs(@phase, @active_tab, current_user) %>
   <% else %>
-    <%= render 'components/tabs', tabs: tabs_for(@parent, "contacts"), parent: @parent %>
+    <%= render 'components/tabs', tabs: tabs_for(@parent, @active_tab), parent: @parent %>
   <% end %>
 
   <%= render_collection @contacts, parent: @parent, new_contact: @contact %>

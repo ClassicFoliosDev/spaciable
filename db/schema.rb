@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210406091043) do
+ActiveRecord::Schema.define(version: 20210508133606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -322,16 +322,20 @@ ActiveRecord::Schema.define(version: 20210406091043) do
     t.string  "description"
     t.string  "button"
     t.string  "image"
-    t.integer "category",       default: 0
+    t.integer "category",           default: 0
     t.string  "link"
     t.integer "feature"
     t.integer "guide"
     t.string  "file"
     t.integer "document_id"
     t.integer "development_id"
-    t.boolean "editable",       default: true
+    t.boolean "editable",           default: true
     t.string  "tileable_type"
     t.integer "tileable_id"
+    t.boolean "render_title",       default: true
+    t.boolean "render_description", default: true
+    t.boolean "render_button",      default: true
+    t.boolean "full_image",         default: false
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree
@@ -377,14 +381,14 @@ ActiveRecord::Schema.define(version: 20210406091043) do
     t.string   "api_key"
     t.string   "list_id"
     t.integer  "country_id",                                  null: false
-    t.boolean  "house_search",                default: false
-    t.boolean  "enable_services",             default: false
+    t.boolean  "house_search",                default: true
+    t.boolean  "enable_services",             default: true
     t.boolean  "enable_development_messages", default: false
     t.boolean  "development_faqs",            default: false
     t.boolean  "enable_roomsketcher",         default: true
-    t.boolean  "enable_referrals",            default: false
+    t.boolean  "enable_referrals",            default: true
     t.boolean  "cas",                         default: false
-    t.boolean  "enable_perks",                default: false
+    t.boolean  "enable_perks",                default: true
     t.boolean  "timeline",                    default: false
     t.string   "custom_url"
     t.boolean  "is_demo",                     default: false
@@ -426,8 +430,8 @@ ActiveRecord::Schema.define(version: 20210406091043) do
     t.string   "segment_id"
     t.integer  "choice_option",         default: 0,          null: false
     t.string   "choices_email_contact"
-    t.boolean  "enable_snagging",       default: false
-    t.integer  "snag_duration",         default: 0
+    t.boolean  "enable_snagging",       default: true
+    t.integer  "snag_duration",         default: 14
     t.string   "snag_name",             default: "Snagging", null: false
     t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
@@ -1284,6 +1288,14 @@ ActiveRecord::Schema.define(version: 20210406091043) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["videoable_type", "videoable_id"], name: "index_videos_on_videoable_type_and_videoable_id", using: :btree
+  end
+
+  create_table "webhook_endpoints", force: :cascade do |t|
+    t.string   "target_url", null: false
+    t.string   "sources",    null: false, array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sources"], name: "index_webhook_endpoints_on_sources", using: :btree
   end
 
   add_foreign_key "access_tokens", "crms"

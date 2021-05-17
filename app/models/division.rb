@@ -6,6 +6,7 @@ class Division < ApplicationRecord
   acts_as_paranoid
   belongs_to :developer
   after_save :update_convayencing
+  after_save :update_charts
 
   include PgSearch
   multisearchable against: [:division_name], using: %i[tsearch trigram]
@@ -25,6 +26,7 @@ class Division < ApplicationRecord
   has_many :contacts, as: :contactable, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
+  alias_attribute :identity, :division_name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: { scope: :developer_id }
@@ -160,6 +162,13 @@ class Division < ApplicationRecord
   def update_convayencing
     return unless conveyancing_changed?
     developments.update_all(conveyancing: conveyancing)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  # rubocop:disable SkipsModelValidations
+  def update_charts
+    return unless !analytics_dashboard && analytics_dashboard_changed?
+    developments.update_column(:analytics_dashboard, false)
   end
   # rubocop:enable SkipsModelValidations
 end

@@ -178,7 +178,6 @@ Then(/^I can not edit bulk plots$/) do
   visit "/phases/#{phase.id}/bulk_edit"
 
   expect(current_path).to eq "/"
-  expect(page).to have_content t("dashboard.section.notifications.title")
 end
 
 When(/^I set the postal number for plots$/) do
