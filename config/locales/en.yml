@@ -226,7 +226,7 @@ en:
       spaciable_team: "The Spaciable Team"
 
     reservation_release_email:
-      plots_live: "You Spaciable Reservation plots are now live."
+      plots_live: "Your Spaciable Reservation plots are now live."
       portal_update: "We are delighted to confirm that the Spaciable homeowner's portal has been updated with reservation information on %{date} for the following %{number} plots:"
       invited_purchasers: "Once you have invited your purchasers to the Spaciable portal they will benefit from useful features, such as: "
       benefit_1: "Essential contact information"
