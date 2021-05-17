@@ -12,6 +12,7 @@ module Abilities
       developer_contacts(developer)
       developer_documents(developer)
       developer_timelines(developer)
+      developer_calendar
       read_developers(developer)
     end
 
@@ -62,6 +63,10 @@ module Abilities
       end
       can %i[read show empty], Task
       can %i[show], Finale
+    end
+
+    def developer_calendar
+      can :destroy, Event
     end
   end
 end
