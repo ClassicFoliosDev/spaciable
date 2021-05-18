@@ -77,10 +77,6 @@ class PlotResidency < ApplicationRecord
     end
   end
 
-  def webhook_payload
-    { plot_residency: self }
-  end
-
   private
 
   def set_resident

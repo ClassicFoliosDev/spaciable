@@ -311,7 +311,7 @@ class Brand < ApplicationRecord
   def webhook_payload
     attribs = attributes
     %w[logo banner login_image login_logo email_logo].each do |field|
-      attribs[field] = ActionController::Base.helpers.asset_url(send(field), type: :image)
+      attribs[field] = Webhook::Stream.image(send(field), send("#{field}_before_type_cast"))
     end
 
     attribs

@@ -710,7 +710,7 @@ class Plot < ApplicationRecord
     residents.map { |r| [r.id, r.to_s] }
   end
 
-# rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/AbcSize
   def signature(admin = true)
     compnt = ""
 

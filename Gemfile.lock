@@ -599,6 +599,7 @@ DEPENDENCIES
   launchy
   letter_opener
   listen (~> 3.0.5)
+  mime-types
   mini_magick (~> 4.8)
   momentjs-rails
   neat (~> 1)

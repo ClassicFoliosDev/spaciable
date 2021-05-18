@@ -134,6 +134,8 @@ gem "momentjs-rails"
 # salesforce
 gem "restforce", "<= 3.2.0"
 
+gem "mime-types", require: "mime/types/full"
+
 # OAuth2
 # git "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", branch: "master" do
 # end

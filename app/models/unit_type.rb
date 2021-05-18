@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class UnitType < ApplicationRecord
   acts_as_paranoid
   include Webhook::Observable
@@ -133,8 +134,9 @@ class UnitType < ApplicationRecord
 
   def webhook_payload
     attribs = attributes
-    attribs["picture"] = ActionController::Base.helpers.asset_url(picture, type: :image)
+    attribs["picture"] = Webhook::Stream.image(picture, picture_before_type_cast)
 
-    { unit_type: attribs }
+    attribs
   end
 end
+# rubocop:disable Metrics/ClassLength
