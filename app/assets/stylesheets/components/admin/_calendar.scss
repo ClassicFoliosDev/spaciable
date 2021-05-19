@@ -6,11 +6,15 @@
   //$phase: #EDFEC4;
   //$plot: #FCD7D4;
 
-  $development: #265D87;
-  $phase: #4D6F12;
-  $plot: #972F18;
+  $development: #50AAF1;
+  $phase: #5ED3C1;
+  $plot: #F19A37;
 
   #admin_calendar {
+    .fc-time, .fc-title {
+      font-size: 12px;
+    }
+
   .fc-toolbar {
     padding-top: $spacing-medium;
   }
@@ -51,7 +55,7 @@
     background-color: $plot;
   }
 
-  .reproposed {
+  .rescheduled {
     @extend .status_type;
     background-color: #db7b2b;
   }
@@ -230,7 +234,7 @@
       background-color: #075473;
     }
 
-    .reproposed-datetime {
+    .rescheduled-datetime {
       background-color: $secondary-orange;
       border-color: $secondary-orange;
     }
@@ -251,7 +255,7 @@
       background-color: #075473;
     }
 
-    .reproposed-datetime {
+    .rescheduled-datetime {
       background-color: $secondary-orange;
       border-color: $secondary-orange;
     }
@@ -500,10 +504,45 @@
         line-height: 1.5;
       }
 
-    .select-all-resources, .select-all-comp, .select-all-res {
+    .select-all-resources, .clear-all-resources, .select-all-comp, .select-all-res {
       @extend .invite-btn;
       float: unset;
       margin-right: unset;
+      height: 22px;
+      margin-left: 10px;
+    }
+
+    .res-info-tooltip, .comp-info-tooltip {
+      display: inline-block;
+      position: relative;
+
+      .tooltiptext {
+        visibility: hidden;
+        width: 300px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1;
+        top: 20px;
+        right: -150;
+      }
+
+      span {
+        postion: relative;
+        right: -150;
+      }
+
+      i {
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .res-info-tooltip:hover .tooltiptext,  .comp-info-tooltip:hover .tooltiptext {
+      visibility: visible;
     }
 
     .invite-resource-btn {
@@ -525,7 +564,7 @@
       color: #99A3A4;
     }
 
-    .reproposed {
+    .rescheduled {
       color: #fcb788;
     }
 
@@ -567,8 +606,9 @@
       @extend .status-label;
     }
 
-    .phase-status-label {
+    .phase-status-label, .plot-status-label {
       @extend .status-label;
+      font-weight: unset;
     }
 
     input[type="checkbox"] {
@@ -579,7 +619,7 @@
       color: #99A3A4;
     }
 
-    .reproposed {
+    .rescheduled {
       color: #fcb788;
     }
 
@@ -604,4 +644,17 @@
   .event-delete-type {
     padding: 5px 0;
   }
+}
+
+
+
+.ui-tooltip-content::before {
+  bottom: -10px;
+  border-color: #AAA transparent;
+  border-width: 10px 10px 0;
+}
+.ui-tooltip-content::after {
+  bottom: -7px;
+  border-color: white transparent;
+  border-width: 10px 10px 0;
 }

@@ -1,17 +1,17 @@
 Hi,
 
-The following appointment for plot <%= @plot.number %> at <%= @plot.development_name%> has been <%= @resource.status %> by <%= @resource.resourceable %>
+The following appointment for Plot <%= @plot.number %> at <%= @plot.development_name%> has been <%= @resource.status %> by <%= @resource.resourceable %>
 
-Title: <% @event.title %>
+Title: <%= @event.title %>
 <% if @event.location? %>
 Location: <%= @event.location %>
 <% end %>
 Start Time: <%= @event.time_in_zone(:start) %>
 End Time: <%= @event.time_in_zone(:end) %>
 
-<% if @resource.reproposed? %>
-Reproposed Start Time: <%= @resource.event.time_in_zone(:proposed_start) %>
-Reproposed End Time: <%= @resource.event.time_in_zone(:proposed_end) %>
+<% if @resource.rescheduled? %>
+Reschedule Start Time: <%= @resource.event.time_in_zone(:proposed_start) %>
+Reschedule End Time: <%= @resource.event.time_in_zone(:proposed_end) %>
 <% end %>
 
 "Go To Appointment" <%= @link %>

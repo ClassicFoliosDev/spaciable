@@ -47,7 +47,7 @@ module Homeowners
         # update resource before event - post save
         # events depend on order
         resource.update_attributes(resource_params)
-        event.update_attributes(repropose_params)
+        event.update_attributes(reschedule_params)
         EventNotificationService.feedback(resource.reload)
       end
 
@@ -65,7 +65,7 @@ module Homeowners
       params.permit(:id, :resourceable_id, :resourceable_type, :status)
     end
 
-    def repropose_params
+    def reschedule_params
       params.permit(:proposed_start, :proposed_end)
     end
   end

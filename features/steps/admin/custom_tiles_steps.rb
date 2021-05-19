@@ -32,7 +32,7 @@ Then(/^I cannot crud the shortcuts$/) do
     expect(page).to have_no_css(".section-actions .fa-plus")
   end
 
-  within ".actions" do
+  within ".record-list" do
     expect(page).to have_no_css(".btn")
   end
 end
@@ -70,8 +70,8 @@ end
 Then(/^I can only select features that are turned on for the development$/) do
   selector = page.find(".custom_tile_feature")
 
-  active = ['referrals', 'home_designer', 'snagging', 'area_guide']
-  inactive = ['perks', 'services', 'issues']
+  active = ['referrals', 'home_designer', 'snagging', 'area_guide', 'perks', 'services']
+  inactive = ['issues']
 
   active.each do |option|
     selector.find("option[value='#{option}']", visible: false)
@@ -133,9 +133,7 @@ Then(/^I see the document shortcut$/) do
 end
 
 When(/^I edit the existing shortcut$/) do
-  within ".actions" do
-    find(".fa-pencil").click
-  end
+  find(".fa-pencil").click
 end
 
 When(/^I change the category to a link$/) do
@@ -164,7 +162,7 @@ Then(/^I see the link tile shortcut$/) do
 end
 
 Then(/^the link tile has been updated$/) do
-  expect(CustomTile.where(development_id: CreateFixture.development.id).count).to eq 1
+  expect(CustomTile.where(development_id: CreateFixture.development.id, feature: "referrals").count).to eq 1
   tile = CustomTile.find_by(link: 'www.ducks.com')
   expect(tile.title).to eq "Title"
   expect(tile.category).to eq "link"
@@ -174,8 +172,7 @@ end
 Given(/^there are five custom shortcuts for my development$/) do
   id = CreateFixture.development.id
 
-  # there is one created on development creation, so add four more
-  4.times do
+  (5 - CustomTile.where(development_id: id).count).times do
     CustomTile.create(development_id: id, category: 'feature', feature: 'referrals')
   end
 end
@@ -186,7 +183,7 @@ end
 
 When(/^I delete a shortcut$/) do
   within ".record-list" do
-    page.first(".actions").find(".fa-trash-o").click
+    page.all(".actions").last.find(".fa-trash-o").click
   end
 
   find(".ui-dialog-buttonpane")

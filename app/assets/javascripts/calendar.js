@@ -4,13 +4,15 @@ var admin = {
   eventCalendar: function() {
     if ($('#admin_calendar').length == 0) { return }
 
+    $showingEvent = false
+
     admin.initDates();
 
     calendarEl = $('#admin_calendar')
     var dataIn = calendarEl.data()
 
     calendarConfig = {
-        displayEventEnd: true,
+        displayEventEnd: false,
         timezone:"local",
         customButtons: {
           addEvent: {
@@ -64,6 +66,7 @@ var admin = {
           // Event type indicator
           element.children(".fc-content").addClass(event.eventable_type + "_bg")
           element.children(".fc-bg").addClass(event.eventable_type + "_bg")
+          element.find('.fc-title').text(event.qualified_title)
 
           var eventEnd = moment(event.end)
           var now = moment()
@@ -73,8 +76,8 @@ var admin = {
           }
 
           event.resources.forEach(function(resource) {
-            if(resource.status == "reproposed") {
-              element.addClass("reproposed-datetime")
+            if(resource.status == "rescheduled") {
+              element.addClass("rescheduled-datetime")
             }
             if(event.eventable_type == "Plot" ||
               ($("#admin_calendar").data("type") == "Plot" &&
@@ -82,6 +85,19 @@ var admin = {
               element.children(".fc-content").append("<span class='" + resource.status + "'></span>")
             }
           })
+
+          tooltip_id = 'tooltip' + event.id
+          element.attr('id', tooltip_id)
+          element.attr('title', event.qualified_title)
+
+          element.tooltip({
+               content: event.qualified_title,
+               position: {
+                  my: "center bottom",
+                  at: "center top-10",
+                  collision: "none"
+               }
+            })
         },
         eventAfterAllRender: function(){
           admin.preloadEvent()
@@ -175,6 +191,12 @@ var admin = {
   },
 
   showEvent: function(event, dataIn) {
+
+    if ($showingEvent) { return }
+    $showingEvent = true
+
+    if ($(".ui-dialog").length == 1) { return }
+
     $(".proposed_datetime").hide()
     admin.scrub()
 
@@ -202,11 +224,13 @@ var admin = {
           // build the resource entry
           resource_id = response[i]["id"]
           etype = event.eventable_type != null ? event.eventable_type  : $("#admin_calendar").data('type')
+          identity = (etype == "Plot" ? "" : "Plot ")
+          identity += response[i]["ident"]
           var $row = $table.append("<tr>").find('tr:last')
           $row.append("<td class='" + etype + "-col'>" +
                          "<label class='resource-label' for='event_resources_" + resource_id + "'>" +
                            "<input type='checkbox' value='" + resource_id + "' name='event[resources][]' id='event_resources_" + resource_id + "'>" +
-                           "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + response[i]["ident"] + "</label>" +
+                           "<label class='collection_check_boxes' for='event_resources_" + resource_id + "'>" + identity + "</label>" +
                          "</label>" +
                        "</td>")
           $row.append("<td class='" + etype + "-col'>" +
@@ -214,7 +238,8 @@ var admin = {
                       "</td>")
 
           if (etype == "Phase") {
-            $row.append("<td class='" + etype + "-col'><center><span class='" + response[i]["status"] + "'>&nbsp</span></td>")
+            status = (response[i]["status"] == null ? '&nbsp;' : response[i]["status"])
+            $row.append("<td class='" + etype + "-col'><center><label class='plot-status-label'>" + status + "</label></td>")
           }
 
           $row.append("<td class='" + etype + "-col'>")
@@ -232,9 +257,10 @@ var admin = {
         var buttons = [
           {
             text: "Cancel",
-            class: 'btn',
+            class: 'btn close_event_dialog',
             click: function () {
               $(this).dialog('destroy')
+              $showingEvent = false
             }
           }
         ]
@@ -252,6 +278,7 @@ var admin = {
               }
 
               $eventContainer.hide()
+              $showingEvent = false
 
               if (event.repeater) {
                 admin.confirm(event, dataIn, $(this), true)
@@ -273,7 +300,7 @@ var admin = {
         }
 
         // If its not new - add the delete option
-        if (!event.new) {
+        if (!event.new && $('#admin_calendar').data('deletable')) {
           buttons.push(
           {
             text: '',
@@ -298,7 +325,9 @@ var admin = {
           buttons: buttons
         }).prev().find('.ui-dialog-titlebar-close').hide()
 
-        $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+        if ($('#admin_calendar').data('deletable')) {
+          $('#btn_event_delete').appendTo($('.ui-dialog-titlebar-close').parent()).html("<i class='fa fa-trash-o'></i>")
+        }
         $('.ui-dialog-title').css('line-height', '28px')
 
         // populate the form with the data from this event
@@ -309,6 +338,9 @@ var admin = {
         if ($("#event_eventable_type").val() == "Plot" && event.new) {
            $(".select-all-resources").trigger('click')
         }
+      },
+      failure: function (response) {
+        $showingEvent = false
       }
     })
 
@@ -401,7 +433,7 @@ var admin = {
       });
     }
 
-    $(".select-all-resources, .select-all-comp,.select-all-res").hide()
+    $(".select-all-resources, .select-all-comp, .comp-info, .select-all-res, .res-info").hide()
 
     // add the buttons for each resource
     if ($("#event_eventable_type").val() != "Development") {
@@ -426,7 +458,7 @@ var admin = {
       })
     }
 
-    $(".select-all-resources, .select-all-comp,.select-all-res").hide()
+     $(".select-all-resources, .select-all-comp, .comp-info, .select-all-res, .res-info").hide()
 
     admin.showSelectAlls()
     admin.showProposed(event)
@@ -446,7 +478,6 @@ var admin = {
         $("#dev_invited").text($("#resources tr").length)
         $("#dev_accepted").text($("#resources .accepted").length)
         $("#dev_declined").text($("#resources .declined").length)
-        $("#resources label.invited").each(function() { $(this).closest("tr").hide() })
         $(".resources").show()
         $("#dev_counts").show()
       }
@@ -491,6 +522,7 @@ var admin = {
           click: function () {
             $(this).dialog('destroy')
             parent.dialog('open') // reopen the parent
+            $showingEvent = true
           }
         },
         {
@@ -500,6 +532,7 @@ var admin = {
           click: function () {
             parent.dialog('destroy')
             $(this).dialog('destroy')
+            $showingEvent = false
 
             if (edit) {
               $.ajax({
@@ -619,12 +652,12 @@ var admin = {
           } else {
             label.text(label.data("status")).addClass(label.data("status"))
           }
-          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').show() }
+          if($("#status_label_" + this.value).hasClass("rescheduled")) { $('.proposed_datetime').show() }
         } else {
           $(this).closest('tr').removeClass("invited")
           // If this resource was re-proposing, then remove the reproposed date
-          if($("#status_label_" + this.value).hasClass("reproposed")) { $('.proposed_datetime').hide() }
-          $("#status_label_" + this.value).html("&nbsp;").removeClass("invited reproposed accepted declined")
+          if($("#status_label_" + this.value).hasClass("rescheduled")) { $('.proposed_datetime').hide() }
+          $("#status_label_" + this.value).html("&nbsp;").removeClass("invited rescheduled accepted declined")
 
         }
       })
@@ -728,17 +761,17 @@ var admin = {
   {
     admin.showSelectAll(".invite-resource-btn", ".select-all-resources")
     if ($("#event_eventable_type").val() == "Phase") {
-      admin.showSelectAll("#resources tr:not(.invited) .reservation",".select-all-res")
-      admin.showSelectAll(".resources tr:not(.invited) .completed",".select-all-comp")
+      admin.showSelectAll('#resources tr:not(.invited) label:contains("Reservation")',".select-all-res",".res-info")
+      admin.showSelectAll('#resources tr:not(.invited) label:contains("Completed")',".select-all-comp",".comp-info")
     }
   },
 
-  showSelectAll: function (selector, button)
+  showSelectAll: function (selector, button, info)
   {
     if ($(selector).length == 0) {
-      $(button).hide()
+      $(button).hide(); $(info).hide()
     } else {
-      $(button).show()
+      $(button).show(); $(info).show()
     }
   },
 
@@ -754,10 +787,16 @@ $(document).on('click', '.select-all-resources', function(event) {
   admin.inviteAll()
 })
 
+$(document).on('click', '.clear-all-resources', function(event) {
+  event.preventDefault()
+  $(".uninvite-resource-btn").each(function() { $(this).trigger( "click" ) })
+})
+
+
 // check checkbox on uninvited Reservations
 $(document).on('click', '.select-all-res', function(event) {
   event.preventDefault()
-  $("#resources tr:not(.invited) .reservation").each(function(row) {
+  $('#resources tr:not(.invited) label:contains("Reservation")').each(function(row) {
     $(this).closest('tr').find('.invite-resource-btn').trigger('click')
   })
 })
@@ -765,7 +804,7 @@ $(document).on('click', '.select-all-res', function(event) {
 // check checkbox on uninvited Completed
 $(document).on('click', '.select-all-comp', function(event) {
   event.preventDefault()
-  $("#resources tr:not(.invited) .completed").each(function(row) {
+  $('#resources tr:not(.invited) label:contains("Complete")').each(function(row) {
     $(this).closest('tr').find('.invite-resource-btn').trigger('click')
   })
 })
@@ -800,6 +839,14 @@ $(document).on('turbolinks:load', function () {
       $("#repeat_until").hide()
     }
   }
+
+ $(".res-info, .comp-info").tooltip({
+               position: {
+                  my: "center bottom",
+                  at: "center top-10",
+                  collision: "none"
+               }
+            })
 })
 
 $(document).on('click', '#event_repeat-menu', function (event) {
@@ -807,3 +854,9 @@ $(document).on('click', '#event_repeat-menu', function (event) {
     $("#repeat_until").hide() :
     $("#repeat_until").show()
 })
+
+$(document).on('keydown', function(event) {
+       if (event.key == "Escape") {
+          $(".close_event_dialog").trigger('click')
+       }
+});

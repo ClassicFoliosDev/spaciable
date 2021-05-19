@@ -13,7 +13,7 @@ class Event < ApplicationRecord
   before_destroy :note, prepend: true
   before_destroy :cleanup
   before_update :note
-  after_save :notify_reminder, :reset_reproposed
+  after_save :notify_reminder, :reset_rescheduled
 
   delegate :email, to: :userable
   delegate :id, to: :eventable, prefix: true
@@ -301,7 +301,8 @@ class Event < ApplicationRecord
   end
 
   def attributes
-    super.merge(signature: eventable.signature)
+    super.merge(signature: eventable.signature,
+                qualified_title: "#{eventable.hierarchy} #{title}")
   end
 
   private
@@ -361,7 +362,7 @@ class Event < ApplicationRecord
   end
 
   # Make the necessary notifications.
-  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def notify_reminder
     if id_changed? || start_changed? || reminder_changed?
       # new record or start/reminder added.  Calculate/update event reminder
@@ -379,11 +380,11 @@ class Event < ApplicationRecord
     EventNotificationService.invite(self, resources(added))
     EventNotificationService.cancel(@pre_event, pre_resources(deleted))
 
-    return unless start_changed? || end_changed? || location_changed?
+    return unless start_changed? || end_changed? || location_changed? || repeat_changed?
 
     EventNotificationService.update(self, resources(remain))
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   # send cancellations and remove any queued event notofications
   def cleanup
@@ -396,9 +397,9 @@ class Event < ApplicationRecord
   end
 
   # As long as none of the related resources have a a status of
-  # reproposed then remove any propsed start/end dates from the event
-  def reset_reproposed
-    return if event_resources.find_by(status: :reproposed)
+  # rescheduled then remove any propsed start/end dates from the event
+  def reset_rescheduled
+    return if event_resources.find_by(status: :rescheduled)
 
     # clear out the proposed dates if they are present
     return unless proposed_start.present? || proposed_end.present?

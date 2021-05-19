@@ -231,11 +231,15 @@ class Phase < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def resources
-    plots.map { |p| [p.id, p.number, p.comp_rel] }
+    plots.order(:id).map { |p| [p.id, p.number, p.comp_rel] }
   end
 
   def signature
     identity
+  end
+
+  def hierarchy
+    "#{name}: "
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -7,7 +7,17 @@
     .tile-image {
       display: block;
       width: 30%;
-      float: left;
+      height: 100%
+    }
+
+    .tile-full-image {
+      display: block;
+      height: 100%;
+      width: 100%;
+      background-size: cover;
+    }
+
+    .tile-image, .tile-full-image {
 
       img {
         height: 100%;
@@ -27,10 +37,26 @@
       }
     }
 
-    .img-tile-details {
+    .img-tile-details, .full-img-tile-details {
+      position: absolute;
       display: block;
+      height: 100%;
+      right: 0;
+      top: 0;
+      padding: $spacing-small;
+      pointer-events: none;
+    }
+
+    .img-tile-details {
       width: 70%;
-      float: right;
+    }
+
+    .full-img-tile-details {
+      width: 100%;
+    }
+
+
+    .full-img-tile-details {
       padding: $spacing-small;
     }
 
@@ -50,6 +76,7 @@
       position: absolute;
       bottom: 0;
       padding-bottom: $spacing-small;
+      pointer-events: all;
 
       .branded-btn {
         line-height: $base-font-line-height;

@@ -10,7 +10,7 @@ var homeowner = {
     var dataIn = calendarEl.data()
 
     calendarConfig = {
-        displayEventEnd: true,
+        displayEventEnd: false,
         timezone:"local",
         customButtons: {
           addEvent: {
@@ -63,26 +63,41 @@ var homeowner = {
         },
         eventRender: function(event, element) {
           // make the first two colour stops transparent so the background colour can be seen
-          element.css({"background-image": "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0), " + statusColor(event) + ")"})
-//          console.log(statusColor(event))
+          //element.css({"background-image": "linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0), " + statusColor(event) + ")"})
+          //element.children(".fc-content").append("<i class='fa fa-" + icon(event) + "'/>")
+          $("<i class='fa fa-" + icon(event) + "'/>").insertBefore(element.find(".fc-content .fc-title"))
+          element.addClass(event.homeowner.status)
+
+          tooltip_id = 'tooltip' + event.id
+          element.attr('id', tooltip_id)
+          element.attr('title', event.qualified_title)
+
+          element.tooltip({
+               content: event.title,
+               position: {
+                  my: "center bottom",
+                  at: "center top-10",
+                  collision: "none"
+               }
+            })
         }
       }
 
-    function statusColor(event) {
+    function icon(event) {
       var status = event.homeowner.status
 
       switch(status) {
         case "accepted":
-          return "#248F24"
+          return "check-circle"
           break
         case "declined":
-          return "#FF293F"
+          return "times-circle"
           break
-        case "reproposed":
-          return "#ff6600"
+        case "rescheduled":
+          return "question-circle"
           break
         default:
-          return "#EAEAEA"
+          return "exclamation-circle"
       }
     }
 
@@ -122,15 +137,6 @@ var homeowner = {
 
     hasRun = true
   },
-//
-//  displayStatus: function(event) {
-//    var accepted = "#248F24"
-//    var declined = "#FF293F"
-//    var reproposed = "#ff6600"
-//    var invited = "#FFFFFF"
-//
-//    console.log(event)
-//  },
 
   index_url: function(data){
     return data.path + '?eventable_type=' + data.type + '&eventable_id=' + data.id;
@@ -195,6 +201,14 @@ var homeowner = {
       }
     ]
 
+    if (event.reminder == "nix")
+    {
+      $('.reminder').hide()
+    } else {
+      $('.reminder label').text(homeowner.expandreminder(event))
+      $('.reminder').show()
+    }
+
     $eventContainer.dialog({
       show: 'show',
       modal: true,
@@ -206,10 +220,28 @@ var homeowner = {
     homeowner.viewed(event)
   },
 
+  expandreminder: function(event){
+    switch (event.reminder) {
+      case 'at':
+        reminder = "at the time of";
+        break;
+      case 'hour':
+        reminder = "an hour before";
+        break;
+      case 'day':
+         reminder = "a day before";
+        break;
+      case'week':
+        reminder = "a week before";
+      }
+
+      return "A reminder has been set on this event. You will receive an email reminder " + reminder + " this event."
+  },
+
   title: function(event){
     return event.homeowner.status.charAt(0).toUpperCase() +
            event.homeowner.status.slice(1) + " on " +
-           moment(homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
+           moment(event.homeowner.status_updated_at).local().format('DD-MM-YYYY hh:mm A')
   },
 
   // initialise the button handlers
@@ -322,7 +354,7 @@ var homeowner = {
       $("#decline_event").hide()
       $("#change_event").hide()
       $("#save_change").show()
-    } else if (status == 'reproposed') {
+    } else if (status == 'rescheduled') {
       $("#accept_event").hide()
       $("#decline_event").hide()
     }

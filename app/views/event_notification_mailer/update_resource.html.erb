@@ -2,10 +2,10 @@
 
 <p>Hi,</p>
 
-<p>The time for an event has been updated in your calendar for plot <%= @plot.number %> at <%= @plot.development_name%>.</p>
+<p>The details of this event have been updated in your calendar for Plot <%= @plot.number %> at <%= @plot.development_name%>. Please view the new details below.</p>
 
 <p>New Time Set by: <%= @event.full_name %></p>
-<p><%= @event.title %></p>
+<p>Title: <%= @event.title %></p>
 <% if @event.location? %>
 <p>Location: <%= @event.location %></p>
 <% end %>
@@ -26,6 +26,6 @@
     <% end %> </p>
 <% end %>
 
-<p><%= link_to "Login to your portal", root_url %> to review this event and propose a new time if necessary.</p>
+<p><%= link_to "Login to your portal", root_url %> to review this event.</p>
 
 <%= link_to "Go To Appointment", @link, class: "btn" %>

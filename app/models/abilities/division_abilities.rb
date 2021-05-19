@@ -9,6 +9,7 @@ module Abilities
       division_faqs(division, developer_id)
       division_contacts(division, developer_id)
       division_documents(division, developer_id)
+      division_calendar
       read_divisions(developer_id, division)
     end
 
@@ -55,6 +56,10 @@ module Abilities
           type "Plot", id: Plot.where(division_id: division).lazy.pluck(:id)
         end
       end
+    end
+
+    def division_calendar
+      can :destroy, Event
     end
   end
 end

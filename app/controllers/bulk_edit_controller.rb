@@ -5,6 +5,7 @@ class BulkEditController < ApplicationController
 
   def index
     return redirect_to root_path unless can? :bulk_edit, @phase
+    @active_tab = "bulk_edit"
   end
 
   def create

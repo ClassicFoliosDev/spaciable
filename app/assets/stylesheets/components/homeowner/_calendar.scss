@@ -1,3 +1,9 @@
+@include media($tablet-portrait-down) {
+  body .homeowner-main .branded-body .calendar #homeowner_calendar i {
+    padding-top: 1;
+  }
+}
+
 .homeowner-main {
   .branded-body {
     .calendar {
@@ -33,6 +39,8 @@
             cursor: pointer;
           }
         }
+
+        i { padding-top: 3px; }
 
         .fc-month-button {
           margin-right: 0;
@@ -82,18 +90,20 @@
         .fc-day-grid {
           .fc-event {
             border: none;
-            background-color: $primary-navy;
+            background-color: rgba(211, 211, 211, 1);
+            color: $primary-navy;
           }
         }
 
         .fc-content-col {
           .fc-time-grid-event {
             border: none;
-            background-color: $primary-navy;
+            background-color: rgba(211, 211, 211, 1);
+            color: $primary-navy;
           }
 
           .fc-event .fc-bg {
-            opacity: 0;
+            opacity: 0.3;
           }
         }
 
@@ -131,6 +141,12 @@
             margin-top: 4px;
           }
         }
+
+        .fc-content {
+          .fa-exclamation-circle, .fa-times-circle { color: red; }
+          .fa-check-circle { color: green; }
+          .fa-question-circle { color: orange; }
+        }
       }
     }
   }
@@ -139,6 +155,14 @@
 .homeowner-view {
   .event_details_form {
     color: $primary-navy;
+
+    .quarter {
+      margin-bottom: unset;
+    }
+
+    .reminder {
+      display: none;
+    }
 
     input:disabled {
       opacity: 1;
@@ -272,11 +296,9 @@
         }
       }
 
-      .fc-content-skeleton {
-        .fc-day-grid-event {
-          .fc-time {
-            display: none;
-          }
+      .fc-month-view, .fc-agendaWeek-view {
+        .fc-title {
+          display: none;
         }
       }
 
@@ -285,7 +307,6 @@
           font-size: $base-small-font-size;
         }
       }
-
 
       .fc-axis span {
         font-size: $base-small-font-size;
@@ -298,4 +319,5 @@
 .ui-dialog .hide {
   display: none;
 }
+
 

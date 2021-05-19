@@ -15,7 +15,7 @@ class EventResource < ApplicationRecord
     invited
     accepted
     declined
-    reproposed
+    rescheduled
   ]
 
   # rubocop:disable SkipsModelValidations

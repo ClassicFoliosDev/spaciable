@@ -12,6 +12,7 @@ module Abilities
       development_documents(developments, division_id, developer_id)
       development_videos(developments)
       development_custom_tiles(developments)
+      development_calendar
       crud_residents(developments)
       read_developments(developer_id, division_id, developments, user)
     end
@@ -110,6 +111,10 @@ module Abilities
           type "Plot", id: Plot.where(development_id: developments).lazy.pluck(:id)
         end
       end
+    end
+
+    def development_calendar
+      can :destroy, Event
     end
   end
 end

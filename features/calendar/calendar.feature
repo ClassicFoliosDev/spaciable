@@ -73,13 +73,13 @@ Feature: Calendar
     When I log out as a homeowner
     And I am logged in as a Site Admin
     And I go to the plot calendar
-    Then I can see the event has been reproposed
-    And I can view but not update the reproposed event
+    Then I can see the event has been rescheduled
+    And I can view but not update the rescheduled event
     When I log out as a an admin
     And I log in as an admin
     And I go to the plot calendar
-    Then I can see the event has been reproposed
-    And I can accept the reproposed date and time
+    Then I can see the event has been rescheduled
+    And I can accept the rescheduled date and time
     When I log out as a an admin
     And I log in as the plot resident
     Then I can see an invite on my plot calendar
