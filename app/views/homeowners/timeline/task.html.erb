@@ -124,21 +124,28 @@
                       <p class="position branded-text"><%= contact.position %></p>
 
                       <% if contact.phone? %>
-                        <p class="contact-detail">
-                          <span><%= link_to contact.phone, t(".tel", number: contact.phone), class: "branded-text", title: contact.phone %></span>
-                        </p>
+                        <span class="contact-detail">
+                          <%= link_to t(".tel", number: contact.phone), class: "branded-text", title: contact.phone do %>
+                            <%= fa_icon "phone" %> <%= contact.phone %>
+                          <% end %>
+                        </span>
                       <% end %>
 
                       <% if contact.mobile? %>
-                        <p class="contact-detail">
-                          <span><%= link_to contact.mobile, t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile %></span>
-                        </p>
+                        <span class="contact-detail">
+                          <%= link_to t(".tel", number: contact.mobile), class: "branded-text", title: contact.mobile do %>
+                            <%= fa_icon "mobile" %> <%= contact.mobile %>
+                          <% end %>
+                        </span>
                       <% end %>
 
                       <% if contact.email? %>
-                        <p class="contact-detail">
-                          <span><%= mail_to contact.email, contact.email, class: "branded-text", title: contact.email %></span>
-                        </p>
+                        <span class="contact-detail">
+                          <%= mail_to contact.email, class: 'branded-text' do %>
+                            <%= fa_icon "envelope" %>
+                            <%= contact.email %>
+                          <% end %>
+                        </span>
                       <% end %>
                     </div>
                   </div>
