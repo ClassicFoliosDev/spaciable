@@ -10,8 +10,8 @@ module Webhook
       # file.close
       # ActionController::Base.helpers.asset_url(asset, type: type)
       { filename: name,
-        contents: "data:#{MIME::Types.type_for(name[/\.(?!\.)([a-zA-Z]*$)/, 1])&.first}," \
-                  "#{Base64.strict_encode64(asset.file.read)}",
+        contents: "data:#{MIME::Types.type_for(name[/\.(?!\.)([a-zA-Z]*$)/, 1])&.first}" \
+                  ";base64,#{Base64.strict_encode64(asset.file.read)}",
         private: false }
     end
   end
