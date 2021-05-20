@@ -3244,6 +3244,7 @@ en:
       new_notification: "You have a new notification from Spaciable"
       login: "Login to your portal"
       welcome: "Hello %{name}"
+      message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property at %{development}"
       update_subject: "You have a new update in Spaciable"
       old: "You have a new update in Hoozzi"
       update_message: "%{address} %{message}"

@@ -3,7 +3,7 @@
 class SendResidentNotificationsJob < ApplicationJob
   queue_as :mailer
 
-  def perform(resident_ids, notification)
+  def perform(resident_ids, notification, sender)
     return unless notification
 
     plot_ids = if notification.send_to_type == "Plot"
@@ -12,10 +12,10 @@ class SendResidentNotificationsJob < ApplicationJob
                  notification.send_to.plots.pluck(:id)
                end
 
-    notify(resident_ids, notification, plot_ids)
+    notify(resident_ids, notification, plot_ids, sender)
   end
 
-  def notify(resident_ids, notification, plot_ids)
+  def notify(resident_ids, notification, plot_ids, sender)
     Resident.where(id: resident_ids).each do |resident|
       # If the sender is a CF admin, send the notification to all residents including expired
       sender_type = User.find_by(id: notification.sender_id)
@@ -31,7 +31,7 @@ class SendResidentNotificationsJob < ApplicationJob
       next unless plot_residency
 
       # Resident notification mailer will only mail if the resident has subscribed to email updates
-      ResidentNotificationMailer.notify(plot_residency, notification).deliver_now
+      ResidentNotificationMailer.notify(plot_residency, notification, sender).deliver_now
       resident.notifications << notification
     end
   end

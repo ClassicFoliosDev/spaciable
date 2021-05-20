@@ -10,6 +10,7 @@ module Homeowners
     end
 
     def index
+      @note_id = params[:note_id]
       @notifications = []
       return unless current_resident
 

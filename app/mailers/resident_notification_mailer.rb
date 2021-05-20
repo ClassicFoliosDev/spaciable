@@ -4,7 +4,7 @@
 class ResidentNotificationMailer < ApplicationMailer
   add_template_helper(PlotRouteHelper)
 
-  def notify(plot_residency, notification)
+  def notify(plot_residency, notification, sender)
     resident = plot_residency.resident
     plot = plot_residency.plot
 
@@ -17,6 +17,9 @@ class ResidentNotificationMailer < ApplicationMailer
 
     template_configuration(plot_residency)
     @content = notification.message
+    @note_id = notification.id
+    @sender = sender
+    @plot_residency = plot_residency
 
     mail to: resident.email, subject: notification.subject
   end
