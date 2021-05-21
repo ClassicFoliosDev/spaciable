@@ -7,6 +7,7 @@ module Homeowners
     skip_before_action :redirect_residents
     skip_authorization_check
     before_action :set_current_resident
+    before_action :store
 
     before_action :authenticate_resident!, :set_unread, if: -> { current_resident }
     # set_country to enable all country specific filtering in derived
@@ -50,6 +51,11 @@ module Homeowners
       end
 
       redirect_to new_resident_session_path if @plot.nil?
+    end
+
+    def store
+      return if session[:sign_in]
+      session[:forwarding_url] = request.original_url if request.get?
     end
 
     # Plot has a 'belongs_to developer' and delevoper has a 'belongs_to country' which

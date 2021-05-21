@@ -3,14 +3,16 @@
 # rubocop:disable Metrics/ClassLength
 class ResidentNotifierService
   attr_reader :notification
+  attr_reader :sender
 
-  def initialize(notification)
+  def initialize(notification, sender = RequestStore.store[:current_user])
     @notification = notification
+    @sender = sender
     set_and_save_notification_plot_numbers
   end
 
-  def self.call(notification)
-    service = new(notification)
+  def self.call(notification, sender = RequestStore.store[:current_user])
+    service = new(notification, sender)
     residents_notified = service.notify_residents
 
     missing_residents = service.all_missing_plots(residents_notified)
@@ -22,7 +24,8 @@ class ResidentNotifierService
 
   def notify_residents
     notification.update(sent_at: Time.zone.now)
-    SendResidentNotificationsJob.perform_later(residents_in_scope.pluck(:id), notification)
+    SendResidentNotificationsJob.perform_later(residents_in_scope.pluck(:id),
+                                               notification, true, sender)
 
     residents_in_scope
   end

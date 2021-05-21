@@ -17,7 +17,7 @@
 <div class="branded-body">
   <div class="main-container">
     <div class="notification-container">
-      <div class="notification-list">
+      <div class="notification-list" data-note_id=<%=@note_id%>>
         <%= render "homeowners/components/notification_summary", collection: @notifications %>
       </div>
 

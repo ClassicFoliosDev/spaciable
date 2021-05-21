@@ -3244,6 +3244,7 @@ en:
       new_notification: "You have a new notification from Spaciable"
       login: "Login to your portal"
       welcome: "Hello %{name}"
+      message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property at %{development}"
       update_subject: "You have a new update in Spaciable"
       old: "You have a new update in Hoozzi"
       update_message: "%{address} %{message}"
@@ -3256,6 +3257,10 @@ en:
       verb_message_content: "%{verb}"
       message_content: "%{description} %{details}"
       admin_notification: "%{address} %{message}"
+    notify_direct:
+      message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property at %{development}"
+      welcome: "Hello %{name}"
+      view_message: "View Message on Spaciable"
 
   services:
     homeowner_login_content_service:

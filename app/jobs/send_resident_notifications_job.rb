@@ -3,7 +3,7 @@
 class SendResidentNotificationsJob < ApplicationJob
   queue_as :mailer
 
-  def perform(resident_ids, notification)
+  def perform(resident_ids, notification, direct = false, sender = nil)
     return unless notification
 
     plot_ids = if notification.send_to_type == "Plot"
@@ -12,10 +12,11 @@ class SendResidentNotificationsJob < ApplicationJob
                  notification.send_to.plots.pluck(:id)
                end
 
-    notify(resident_ids, notification, plot_ids)
+    notify(resident_ids, notification, plot_ids, direct, sender)
   end
 
-  def notify(resident_ids, notification, plot_ids)
+  # rubocop:disable Metrics/MethodLength
+  def notify(resident_ids, notification, plot_ids, direct, sender)
     Resident.where(id: resident_ids).each do |resident|
       # If the sender is a CF admin, send the notification to all residents including expired
       sender_type = User.find_by(id: notification.sender_id)
@@ -31,10 +32,15 @@ class SendResidentNotificationsJob < ApplicationJob
       next unless plot_residency
 
       # Resident notification mailer will only mail if the resident has subscribed to email updates
-      ResidentNotificationMailer.notify(plot_residency, notification).deliver_now
+      if direct
+        ResidentNotificationMailer.notify_direct(plot_residency, notification, sender).deliver_now
+      else
+        ResidentNotificationMailer.notify(plot_residency, notification).deliver_now
+      end
       resident.notifications << notification
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def gather_resident_plots(plot_ids)
     # Find which of the residents plots is in the notification list

@@ -4,6 +4,26 @@
 class ResidentNotificationMailer < ApplicationMailer
   add_template_helper(PlotRouteHelper)
 
+  def notify_direct(plot_residency, notification, sender)
+    resident = plot_residency.resident
+    plot = plot_residency.plot
+
+    sender_type = User.find_by(id: notification.sender_id)
+    unless sender_type.cf_admin?
+      return if plot.expired?
+    end
+
+    return unless resident.developer_email_updates?
+
+    template_configuration(plot_residency)
+    @content = notification.message
+    @note_id = notification.id
+    @sender = sender
+    @plot_residency = plot_residency
+
+    mail to: resident.email, subject: notification.subject
+  end
+
   def notify(plot_residency, notification)
     resident = plot_residency.resident
     plot = plot_residency.plot
