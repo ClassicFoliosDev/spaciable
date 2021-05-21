@@ -1,7 +1,7 @@
 <%= t(".welcome", name: @resident.first_name) %>
 
-<%= t(".message", first_name: @sender.first_name,
-                    last_name: @sender.first_name,
+<%= t(".message", first_name: @sender&.first_name,
+                    last_name: @sender&.last_name,
                     developer: @plot_residency.plot.developer.company_name,
                     development: @plot_residency.plot.development.name) %>
 
@@ -11,4 +11,4 @@
   <%= simple_format "#{@content[0..50]}..." %>
 <% end %>
 
-<%= t(".view_message") %>: <%= resident_sign_in_route(@plot) %>
+<%= t(".view_message") %>: <%= homeowners_notifications_url(note_id: @note_id) %>

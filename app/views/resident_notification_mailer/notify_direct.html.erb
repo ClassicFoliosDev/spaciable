@@ -5,8 +5,8 @@
 </p>
 
 <p>
-  <%= t(".message", first_name: @sender.first_name,
-                    last_name: @sender.first_name,
+  <%= t(".message", first_name: @sender&.first_name,
+                    last_name: @sender&.last_name,
                     developer: @plot_residency.plot.developer.company_name,
                     development: @plot_residency.plot.development.name) %>
 </p>
