@@ -4,19 +4,8 @@
   <%= t(".welcome", name: @resident.first_name) %>,
 </p>
 
-<p>
-  <%= t(".message", first_name: @sender.first_name,
-                    last_name: @sender.first_name,
-                    developer: @plot_residency.plot.developer.company_name,
-                    development: @plot_residency.plot.development.name) %>,
-</p>
-
-<% if @content.length <= 50 %>
-  <%= simple_format @content %>
-<% else %>
-  <%= simple_format "#{@content[0..50]}..." %>
-<% end %>
+<%= simple_format @content %>
 
 <p style="text-align: center;">
-  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>View Message on Spaciable</button>".html_safe, homeowners_notifications_url(note_id: @note_id) %>
+  <%= link_to "<button style='cursor: pointer; border-style: solid;border-width: 1px;border-radius: 5px;color: #002A3A;border-color: #002A3A;background-color: #FFFFFF;padding: 5px 30px;font-size: 14px;line-height: 22px;margin-top: 20px;'>Login to Spaciable</button>".html_safe, resident_sign_in_route(@plot) %>
 </p>

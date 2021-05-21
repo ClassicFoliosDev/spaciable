@@ -1,0 +1,14 @@
+<%= t(".welcome", name: @resident.first_name) %>
+
+<%= t(".message", first_name: @sender.first_name,
+                    last_name: @sender.first_name,
+                    developer: @plot_residency.plot.developer.company_name,
+                    development: @plot_residency.plot.development.name) %>
+
+<% if @content.length <= 50 %>
+  <%= simple_format @content %>
+<% else %>
+  <%= simple_format "#{@content[0..50]}..." %>
+<% end %>
+
+<%= t(".view_message") %>: <%= resident_sign_in_route(@plot) %>
