@@ -7,6 +7,6 @@
     <p class="tile-description branded-text"><%= t(".description") %></p>
   </div>
   <div class="tile-button">
-    <%= link_to t(".button"), (defined?(plot) ? plot&.services : nil), class: "branded-btn" %>
+    <%= link_to t(".button"), (defined?(plot) && plot.respond_to?(:services) ? plot&.services : nil), class: "branded-btn" %>
   </div>
 </div>

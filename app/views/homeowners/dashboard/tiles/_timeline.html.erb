@@ -5,7 +5,7 @@
     <% if defined?(preview) && preview %>
       <%= link_to t(".button"), homeowner_timeline_path(0), class: "branded-btn" %>
     <% else %>
-      <%= link_to t(".button"), homeowner_timeline_path(plot.journey), class: "branded-btn" %>
+      <%= link_to t(".button"), (defined?(plot) && plot.respond_to?(:journey) ? homeowner_timeline_path(plot&.journey) : nil), class: "branded-btn" %>
     <% end %>
   </div>
 </div>
