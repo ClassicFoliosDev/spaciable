@@ -3,7 +3,7 @@
 module Api
   class Tenant < ::Resident
     def send_devise_notification(_, *args)
-      Api::TenantMailer.invite(self, "hi", args[0]).deliver_now
+      Api::TenantMailer.invite(self, "Invitation instructions", args[0]).deliver_now
     end
   end
 end
