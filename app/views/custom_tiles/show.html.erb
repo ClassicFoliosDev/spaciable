@@ -21,27 +21,41 @@
       <% else %>
         <% if @custom_tile.image? %>
           <div id="customTileImage">
-            <div class="image" ><%= image_tag(@custom_tile.image) %></div>
-            <div class="content">
+            <div class=<%= @custom_tile.full_image? ? "full-image" : "image"%> >
+              <%= image_tag(@custom_tile.image) %></div>
+            <div class=<%= @custom_tile.full_image? ? "full-content" : "content"%>>
               <div class="text">
-                <h2 class="title"><%= @custom_tile.title %></h2>
-                <p class="description"><%= @custom_tile.description %></p>
+                <% if @custom_tile.render_title %>
+                  <h2 class="title"><%= @custom_tile.title %></h2>
+                <% end %>
+                <% if @custom_tile.render_description %>
+                  <p class="description"><%= @custom_tile.description %></p>
+                <% end %>
               </div>
-              <div class="button">
-                <div class="button-text"><%= @custom_tile.button %></div>
-              </div>
+              <% if @custom_tile.render_button %>
+                <div class="button">
+                  <div class="button-text"><%= @custom_tile.button %></div>
+                </div>
+              <% end %>
             </div>
           </div>
         <% else %>
           <div id="customTileIcon">
-            <div class="icon"><i class="fa <%= @custom_tile.link? ? 'fa-external-link' : 'fa-file-pdf-o' %> "></i></div>
+            <div class="icon">
+              <i class="fa <%= @custom_tile.link? ? 'fa-external-link' : 'fa-file-pdf-o' %> "></i></div>
             <div class="content">
-              <h2 class="title"><%= @custom_tile.title %></h2>
-              <p class="description"> <%= @custom_tile.description %></p>
+              <% if @custom_tile.render_title %>
+                <h2 class="title"><%= @custom_tile.title %></h2>
+              <% end %>
+              <% if @custom_tile.render_description %>
+                <p class="description"> <%= @custom_tile.description %></p>
+              <% end %>
             </div>
-            <div class="button">
-              <div class="button-text"><%= @custom_tile.button %></div>
-            </div>
+            <% if @custom_tile.render_button %>
+              <div class="button">
+                <div class="button-text"><%= @custom_tile.button %></div>
+              </div>
+            <% end %>
           </div>
         <% end %>
       <% end %>
