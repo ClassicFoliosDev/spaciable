@@ -7,7 +7,8 @@ class BrandsController < ApplicationController
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
   load_and_authorize_resource :development
-  load_and_authorize_resource :brand, through: %i[developer division development],
+  load_and_authorize_resource :phase
+  load_and_authorize_resource :brand, through: %i[developer division development phase],
                                       singleton: true,
                                       except: %i[index new create]
 
@@ -69,6 +70,6 @@ class BrandsController < ApplicationController
   end
 
   def set_parent
-    @parent = @brand&.brandable || @development || @division || @developer
+    @parent = @brand&.brandable || @development || @division || @developer || @phase
   end
 end

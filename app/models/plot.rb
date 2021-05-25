@@ -273,7 +273,7 @@ class Plot < ApplicationRecord
   end
 
   def brand
-    development&.brand || division&.brand || developer&.brand || Brand.new
+    phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
   end
 
   def <=>(other)
