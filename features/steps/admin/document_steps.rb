@@ -214,6 +214,7 @@ When(/^I upload a document for the division development$/) do
 end
 
 When(/^I upload a document for the phase$/) do
+  before = Time.zone.now
   goto_phase_show_page
 
   within ".phase" do
@@ -232,6 +233,7 @@ When(/^I upload a document for the phase$/) do
   end
 
   click_on t("documents.form.submit")
+  wait_for_update_to_complete(before, Document)
 end
 
 When(/^I upload a document for the unit type$/) do

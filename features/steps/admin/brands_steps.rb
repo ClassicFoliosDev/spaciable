@@ -313,11 +313,43 @@ When(/^I create a development brand$/) do
   click_on t("brands.form.submit")
 end
 
+When(/^there is a development phase$/) do
+  CreateFixture.create_development_phase
+end
+
+When(/^I create a phase brand$/) do
+  goto_development_phase_show_page
+
+  within ".tabs" do
+    click_on t("phases.collection.brands")
+  end
+
+  click_on t("brands.collection.create")
+  logo_full_path = FileFixture.file_path + FileFixture.logo_name
+  within ".brand_logo" do
+    attach_file("brand_logo",
+                File.absolute_path(logo_full_path),
+                visible: false)
+  end
+
+  click_on t("brands.form.submit")
+end
+
 When(/^I delete the development brand$/) do
   goto_development_show_page
 
   within ".tabs" do
     click_on t("developers.collection.brands")
+  end
+
+  delete_and_confirm!(scope: ".styling")
+end
+
+When(/^I delete the phase brand$/) do
+  goto_development_phase_show_page
+
+  within ".tabs" do
+    click_on t("phases.collection.brands")
   end
 
   delete_and_confirm!(scope: ".styling")
