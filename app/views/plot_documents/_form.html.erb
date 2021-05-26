@@ -27,7 +27,7 @@
         <%= f.input :category, as: :select, collection: category_collection(new_plot_document), include_blank: false %>
       </div>
       <div id="plotDocGuideSelector">
-        <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(new_plot_document, parent), include_blank: true, disabled: parent_assigned_manual(parent) %>
+        <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(new_plot_document, parent, exclude), include_blank: true, disabled: parent_assigned_manual(parent) %>
       </div>
 
       <%= label_tag('document_files', t(".choose"), class: "btn") %>

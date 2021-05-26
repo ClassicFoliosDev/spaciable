@@ -127,6 +127,8 @@ Rails.application.routes.draw do
     end
     resources :bulk_edit, only: [:index, :create]
     resources :contacts
+    resource :brand
+    resources :brands, shallow: true, only: [:index]
     resources :lettings, controller: 'phases/lettings'
     resources :phase_timelines, except: [:show], controller: 'phases/phase_timelines'
     resources :release_plots, only: [:index, :create]

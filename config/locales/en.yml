@@ -2391,6 +2391,7 @@ en:
       import: "Import CRM"
       phase_timelines: "Timelines"
       calendar: "Calendar"
+      brands: "Styling"
     new:
       title: "New Phase."
     update:

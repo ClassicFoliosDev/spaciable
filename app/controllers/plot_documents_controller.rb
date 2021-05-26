@@ -67,7 +67,9 @@ class PlotDocumentsController < ApplicationController
   end
 
   def set_parent
+    @exclude = []
     @parent ||= @phase || @development
+    @exclude.push("reservation", "completion") unless current_user.cf_admin?
   end
 
   def plot_document_params

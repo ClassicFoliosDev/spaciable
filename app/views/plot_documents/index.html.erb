@@ -6,7 +6,7 @@
 
 <div class="section-actions">
   <% if can? :bulk_upload, @new_plot_document %>
-    <%= render 'form', new_plot_document: @new_plot_document, parent: @parent %>
+    <%= render 'form', new_plot_document: @new_plot_document, parent: @parent, exclude: @exclude %>
   <% end %>
 </div>
 

@@ -7,6 +7,7 @@ When(/^I visit the maintenance page$/) do
     check_box.trigger(:click)
   end
   click_on I18n.t("components.homeowner.navigation.maintenance")
+  find(".maintenance")
 end
 
 Then(/^I should see the maintenance page$/) do
