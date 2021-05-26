@@ -4,8 +4,10 @@
   <%= stylesheet_link_tag 'manifest_admin', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= render "layouts/common_header" %>
 
-  <% if defined?(brand) %>
-    <%= render partial: "components/admin/brand_template", locals:{ brand: brand } %>
+  <% if ["custom_tiles"].include? controller.controller_name %>
+    <% if defined?(brand) && brand.present? %>
+      <%= render partial: "components/admin/brand_template", locals:{ brand: brand } %>
+    <% end %>
   <% end %>
 </head>
 <!DOCTYPE html>

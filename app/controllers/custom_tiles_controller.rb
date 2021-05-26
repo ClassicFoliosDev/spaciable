@@ -45,6 +45,7 @@ class CustomTilesController < ApplicationController
 
   def set_parent
     @parent = @development || @custom_tile&.parent
+    @brand = @parent&.branding if @parent.present? && @parent.respond_to?(:branding)
   end
 
   def custom_tile_params

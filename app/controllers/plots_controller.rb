@@ -30,7 +30,6 @@ class PlotsController < ApplicationController
     @collection_parent = @plot
     @collection = build_collection
     @preload = Event.find(params[:event]) if params[:event]
-    @brand = @phase&.developer&.brand if @active_tab == "calendars"
 
     session[:plot_id] = @plot.id
 
