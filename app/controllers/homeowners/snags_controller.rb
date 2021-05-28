@@ -14,7 +14,7 @@ module Homeowners
 
     after_action only: %i[index] do
       record_event(:view_snagging, category1:
-                   I18n.t("ahoy.#{Ahoy::Event::SNAGS_VIEWED}"))
+                   I18n.t("ahoy.#{Ahoy::Event::SNAGGING_VIEWED}"))
     end
 
     def index

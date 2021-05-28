@@ -3974,7 +3974,7 @@ en:
     view_FAQs_feedback: "FAQs Feedback"
     view_choices: "Choices"
     view_snagging: "Snagging"
-    snags_viewed: "Snags Viewed"
+    snagging_viewed: "Snagging Viewed"
     snags_created: "Snags Created"
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"
