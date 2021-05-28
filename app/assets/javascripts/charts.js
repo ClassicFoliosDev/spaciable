@@ -42,8 +42,8 @@ var charts = {
     $(".chart").each(function( index ) { $(this ).empty() })
 
     if($("#charts_developer_id").prop('disabled') &&
-       $("#charts_division_id").prop('disabled') &&
-       $("#charts_development_id").prop('disabled') &&
+       ($("#charts_division_id").prop('disabled') || $("#charts_division_id").val() == "") &&
+       ($("#charts_development_id").prop('disabled') || $("#charts_development_id").val() == "") &&
        $phase == "0" &&
        $response.primary.invited == 0 &&
        $response.primary.activated == 0 &&
@@ -104,16 +104,16 @@ var charts = {
   },
 
   no_development_ranking: function() {
-    return ($response.primary.invited == 0 || charts.all_developments().length < 2)
+    return ($response.primary.invited == 0 || charts.populated_developments().length < 2)
   },
 
   development_ranking: function(container) {
     if (charts.no_development_ranking()) { return }
-    charts.render_ranking(charts.all_developments(), $development, container, 'Developer Ranking', "$development is placed $rank/$total for plot activation across $developer.")
+    charts.render_ranking(charts.populated_developments(), $development, container, 'Developer Ranking', "$development is placed $rank out of $total developments for plot activation across $developer.")
   },
 
   no_development_division_ranking: function() {
-    var development = charts.get_by_id(charts.all_developments(), $development)
+    var development = charts.get_by_id(charts.populated_developments(), $development)
     return (development == null || development.div_id == 0 ||
             charts.division_developments(development.div_id).length < 2)
   },
@@ -121,35 +121,39 @@ var charts = {
   development_division_ranking: function(container) {
     if (charts.no_development_division_ranking()) { return }
 
-    var development = charts.get_by_id(charts.all_developments(), $development)
+    var development = charts.get_by_id(charts.populated_developments(), $development)
     $division = development.div_id
     var developments = charts.division_developments($division)
 
-    charts.render_ranking(developments, $development, container, 'Division Ranking', '$development is placed $rank/$total for plot activation across $division.')
+    charts.render_ranking(developments, $development, container, 'Division Ranking', '$development is placed $rank out of $total developments for plot activation across $division.')
   },
 
   no_division_ranking: function(){
-    return (charts.all_divisions().length < 2)
+    return (charts.populated_divisions().length < 2)
   },
 
   division_ranking: function(container) {
     if (charts.no_division_ranking()) { return }
-    charts.render_ranking(charts.all_divisions(), $division, container, 'Developer Ranking', '$division is ranked $rank/$total for plot activation across $developer')
+    charts.render_ranking(charts.populated_divisions(), $division, container, 'Developer Ranking', '$division is placed $rank out of $total divisions for plot activation across $developer')
   },
 
   no_division_rankings: function() {
-    return (charts.all_divisions().length < 2)
+    return (charts.populated_divisions().length < 2)
   },
 
   division_rankings: function(container) {
     if (charts.no_division_rankings()) { return }
-    charts.render_ranking(charts.all_divisions(), -1, container, 'Division Rankings', '')
+    charts.render_ranking(charts.populated_divisions(), -1, container, 'Division Rankings', 'Your divisions ranked in order of plot activation percentage.')
   },
 
   render_ranking: function(rows, selected, container, title, desc) {
     rows = charts.sort(rows)
     range = charts.range(rows, selected)
-    if (!range.populated) { return false }
+
+    if (!charts.selected_populated(rows, selected) || !range.populated ) {
+      $('#' + container).hide()
+      return
+    }
 
     var data = charts.data()
 
@@ -159,7 +163,7 @@ var charts = {
         if ( selected == row.id.toString()) { rank = index + 1 }
         data.addRow([charts.position(index),
                      row.percent,
-                     ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + row.percent.toString() + '%',
+                     ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + row.percent.toFixed((row.percent % 1) == 0 ? 0 : 1).toString() + '%',
                      (selected == row.id.toString() ? 'opacity:.3' : 'opacity:1') + ';color: #002A3A'])
       }
     })
@@ -175,26 +179,26 @@ var charts = {
 
   division_development_extremums: function(container) {
     if (charts.no_division_development_extremums()) { return }
-    charts.render_extremums(charts.division_developments($division), container, 'Development Performance')
+    charts.render_extremums(charts.division_developments($division), container, 'Development Performance', 'Your developments with highest and lowest plot activation percentage.')
   },
 
   no_development_extremums: function(){
-    return (charts.all_developments().length < 2)
+    return (charts.populated_developments().length < 2)
   },
 
   development_extremums: function(container) {
     if (charts.no_development_extremums()) { return }
-    charts.render_extremums(charts.all_developments(), container, 'Development Performance', '')
+    charts.render_extremums(charts.populated_developments(), container, 'Development Performance', 'Your developments with highest and lowest plot activation percentage.')
   },
 
   render_extremums: function(rows, container, title, desc) {
     rows = charts.sort(rows)
     var data = charts.data()
-    data.addRow(["highest", rows[0].percent,
+    data.addRow(["Highest", rows[0].percent,
                   charts.row_tag(rows[0]),
                   'opacity:1;color:#25BC18'])
 
-    data.addRow(["lowest", rows[rows.length-1].percent,
+    data.addRow(["Lowest", rows[rows.length-1].percent,
                   charts.row_tag(rows[rows.length - 1]),
                   'opacity:1;color:#E20017'])
 
@@ -213,7 +217,7 @@ var charts = {
   render_barchart: function(data, container, title, desc) {
     $('#' + container).show()
     $('#' + container + ' .title span').text(title)
-    $('#' + container + ' .desc span').text(desc)
+    $('#' + container + ' .description span').text(desc)
     $('#' + container + ' .chart').height($('#invited').height())
 
     var options = {
@@ -243,24 +247,24 @@ var charts = {
     chart.draw(data, options)
   },
 
-
-  all_developments: function() {
+  // All Populated developments
+  populated_developments: function() {
     var developments = []
 
     Object.keys($response.competition).forEach(function (division) {
       charts.division_developments(division).forEach(function(development) {
-        developments.push(development)
+        if (development.percent > 0) { developments.push(development) }
       })
     })
 
     return developments
   },
 
-  all_divisions: function() {
+  populated_divisions: function() {
     var divisions = []
 
     Object.keys($response.competition).forEach(function (division) {
-        if (division != 0) { divisions.push($response.competition[division]) }
+        if (division != 0 && $response.competition[division].percent > 0) { divisions.push($response.competition[division]) }
     })
 
     return divisions
@@ -270,7 +274,8 @@ var charts = {
     var developments = []
 
     Object.keys($response.competition[division]).forEach(function (development) {
-      if (typeof($response.competition[division][development]) == 'object') {
+      if (typeof($response.competition[division][development]) == 'object' &&
+          $response.competition[division][development].percent > 0 ) {
         developments.push($response.competition[division][development])
       }
     })
@@ -341,29 +346,26 @@ var charts = {
     data.addColumn('string', 'Key');
     data.addColumn('number', 'Plots');
     data.addRows([
-      ['Plots Invited', primary['invited']],
+      ['Plots with an Invited Resident', primary['invited']],
       ['Plots Not Invited', primary['not_invited']]
     ]);
 
     // Set chart options
     var options = {
       title:'Plots Invited',
-      width: '100%',
-      height: '100%',
       chartArea: {
-            left: "3%",
-            top: "3%",
-            height: "100%",
+            height: "90%",
             width: "100%"
         },
       pieHole: 0.5,
       slices: {
-        0: { color: '#25BC18' },
-        1: { color: '#E20017'},
-        2: { visibleInLegend: false,
-             color: '#f2f2f2'}
+        0: { visibleInLegend: true, color: '#25BC18' },
+        1: { visibleInLegend: true, color: '#E20017'},
+        2: { visibleInLegend: false, color: '#f2f2f2'}
       }
     };
+
+    if ( charts.hundred([primary['invited'], primary['not_invited']])) { options['pieSliceTextStyle'] = { color: '#B1BBB3' } }
 
     charts.rationalise(data, options)
 
@@ -380,28 +382,25 @@ var charts = {
     data.addColumn('number', 'Plots');
     data.addRows([
       ['Plots with an Activated Resident', primary['activated'] ],
-      ['Plots Pending Activation ', primary['invited'] - primary['activated'] ]
+      ['Invited Plots Pending Activation', primary['invited'] - primary['activated'] ]
     ]);
 
     // Set chart options
     var options = {
       title:'Plots Activated',
-      width: '100%',
-      height: '100%',
       chartArea: {
-            left: "3%",
-            top: "3%",
-            height: "100%",
+            height: "90%",
             width: "100%"
         },
       pieHole: 0.5,
       slices: {
-        0: { color: '#25BC18' },
-        1: { color: '#FFA700'},
-        2: { visibleInLegend: false,
-             color: '#f2f2f2'}
+        0: { visibleInLegend: true, color: '#25BC18' },
+        1: { visibleInLegend: true, color: '#FFA700'},
+        2: { visibleInLegend: false, color: '#f2f2f2'}
       }
     };
+
+    if ( charts.hundred([primary['activated'], (primary['invited'] - primary['activated'])])) { options['pieSliceTextStyle'] = { color: '#B1BBB3' } }
 
     charts.rationalise(data, options)
 
@@ -418,30 +417,28 @@ var charts = {
     data.addColumn('number', 'Plots');
     data.addRows([
       ['Plots with an Activated Resident', primary['activated'] ],
-      ['Plots Pending Activation ', primary['invited'] - primary['activated'] ],
-      ['Plots Not Activated ', primary['not_invited'] ]
+      ['Invited Plots Pending Activation', primary['invited'] - primary['activated'] ],
+      ['Plots Not Invited ', primary['not_invited'] ]
     ]);
 
     // Set chart options
     var options = {
       title:'Plots Status Overview',
-      width: '100%',
-      height: '100%',
       chartArea: {
-            left: "3%",
-            top: "3%",
-            height: "100%",
+            height: "90%",
             width: "100%"
         },
       pieHole: 0.5,
       slices: {
-        0: { color: '#25BC18' },
-        1: { color: '#FFA700'},
-        2: { color: '#E20017'},
-        3: { visibleInLegend: false,
-             color: '#f2f2f2'}
+        0: { visibleInLegend: true, color: '#25BC18' },
+        1: { visibleInLegend: true, color: '#FFA700'},
+        2: { visibleInLegend: true, color: '#E20017'},
+        3: { visibleInLegend: false, color: '#f2f2f2'}
       }
     };
+
+    if ( charts.hundred([primary['activated'], (primary['invited'] - primary['activated']), primary['not_invited']])) { options['pieSliceTextStyle'] = { color: '#B1BBB3' } }
+
 
     charts.rationalise(data, options)
 
@@ -469,15 +466,35 @@ var charts = {
 
     if (typeof desc != 'undefined') {
       desc = desc.replace("$division", $response.competition[$division].name);
-      desc = desc.replace("$rank", rank.toString())
+      desc = desc.replace("$rank", charts.position(rank-1))
       desc = desc.replace("$total", total.toString())
       desc = desc.replace("$developer", $("#charts_developer_id option:selected").html())
       desc = desc.replace("$development", $("#charts_development_id option:selected").html())
     }
 
     return desc
-  }
+  },
 
+  // Is the array 100% populated by one value?
+  hundred: function(values) {
+    var populated = 0
+    for (i = 0; i < values.length; i++) {
+      populated = populated + (values[i] > 0 ? 1 : 0)
+    }
+
+    return populated == 1
+  },
+
+  selected_populated: function(rows, selected) {
+    var populated = false
+    rows.forEach(function(row, index) {
+      if ( selected == row.id.toString()) {
+        populated = true
+      }
+    })
+
+    return populated
+  }
 }
 
 document.addEventListener('turbolinks:load', function () {

@@ -1025,6 +1025,7 @@ en:
         overview: "Overview"
         no_plots_title: "No Live Plots Found"
         no_plots_desc: "Unfortunately, there are no live plots to show for this data set. This page will show statistics for plots that have been added by Classic Folios and have not expired."
+        disclaimer: "Analytics are calculated using live plots that have been released by Classic Folios and have not yet expired. \nThese analytics concern plots rather than individual residents; 'Plots Activated' are plots with at least 1 resident that has activated. We advise that 'Plots Not Invited' should reflect your unsold stock."
       components:
         no_recent:
           no_recent: "There are no recent %{type_names}"
