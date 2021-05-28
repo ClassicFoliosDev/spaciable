@@ -122,7 +122,7 @@ Then(/^I navigate through the homeowner site$/) do
 
     # ---------- Snags -----------
     visit "/homeowners/snags"
-    VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_VIEWED}"))
+    VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGGING_VIEWED}"))
 
     find(".new-snag")
     click_on I18n.t("homeowners.snags.index.add_snag")
