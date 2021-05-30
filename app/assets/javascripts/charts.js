@@ -4,13 +4,30 @@ var charts = {
   $division: "0",
   $development: "0",
   $phase: "0",
+  $competitions_height : "0",
 
   initialise: function() {
+    $competitions_height = 0
+
     if ($("#charts").length == 0) { return }
 
     google.charts.load('current', {'packages':['corechart'], callback: charts.refresh });
 
     window.addEventListener("resize", charts.render)
+
+    $(document).on('click', '.desc', function (event) {
+      $competitions_height = 500
+      $(".desc").addClass('asc')
+      $(".desc").removeClass('desc')
+      charts.render_competitions()
+    })
+
+    $(document).on('click', '.asc', function (event) {
+      $competitions_height = 0
+      $(".asc").addClass('desc')
+      $(".asc").removeClass('asc')
+      charts.render_competitions()
+    })
   },
 
   refresh: function() {
@@ -101,6 +118,10 @@ var charts = {
     if(!($("#left").is(":visible") || $("#right").is(":visible"))) {
       $("#competitions").show()
     }
+
+    $(".chart.barchart").each(function( index ) {
+      this.style.height = 'auto'
+    });
   },
 
   no_development_ranking: function() {
@@ -217,7 +238,7 @@ var charts = {
   render_barchart: function(data, container, title, desc) {
     $('#' + container).show()
     $('#' + container + ' .title span').text(title)
-    $('#' + container + ' .description span').text(desc)
+    $('#' + container + ' .description').text(desc)
     $('#' + container + ' .chart').height($('#invited').height())
 
     var options = {
@@ -236,13 +257,17 @@ var charts = {
       },
       chartArea: {
             top: "3%",
-            height: "90%"
+            height: "90%",
+            width: "80%"
       },
       legend: {
         position: 'none'
       }
     }
-     // Instantiate and draw our chart, passing in some options.
+
+    if ($competitions_height != 0) { options['height'] = 500 }
+
+    // Instantiate and draw our chart, passing in some options.
     var chart = new google.visualization.BarChart($("#"+container + " .chart")[0]);
     chart.draw(data, options)
   },
@@ -486,7 +511,7 @@ var charts = {
   },
 
   selected_populated: function(rows, selected) {
-    var populated = false
+    var populated = (selected == -1)
     rows.forEach(function(row, index) {
       if ( selected == row.id.toString()) {
         populated = true

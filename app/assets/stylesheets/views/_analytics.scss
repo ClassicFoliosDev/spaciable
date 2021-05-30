@@ -39,6 +39,14 @@
       flex-basis: 49%;
       flex-grow: 1;
       margin: 10;
+
+      .section-title {
+        text-align: center;
+
+        span {
+          display: inline-block;
+        }
+      }
     }
   }
 
