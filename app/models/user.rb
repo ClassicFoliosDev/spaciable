@@ -8,6 +8,7 @@ class User < ApplicationRecord
   attr_accessor :picture_cache
 
   before_save :update_cas
+  before_save :clear_selections
   before_save :downcase_email
   after_save :format_cc_emails
 
@@ -328,6 +329,10 @@ class User < ApplicationRecord
     if (role == "division_admin" || role == "developer_admin")
       self.cas = true
     end
+  end
+
+  def clear_selections
+    self.selections = nil if permission_level_type_changed? || permission_level_id_changed?
   end
 
   def format_cc_emails
