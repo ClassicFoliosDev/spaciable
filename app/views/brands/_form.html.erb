@@ -72,55 +72,58 @@
       </fieldset>
     </div>
     <div class="row-item third">
-      <fieldset class="form-colors">
-        <div class="login-box-left-color">
-          <%= branded_color_preview(brand.login_box_left_color) if brand.login_box_left_color? %>
-          <%= f.input :login_box_left_color, label: t("activerecord.attributes.brand.login_box_left_color") %>
-        </div>
-        <div class="login-box-right-color">
-          <%= branded_color_preview(brand.login_box_right_color) if brand.login_box_right_color? %>
-          <%= f.input :login_box_right_color, label: t("activerecord.attributes.brand.login_box_right_color") %>
-        </div>
-        <div class="content-box-color">
-          <%= branded_color_preview(brand.content_box_color) if brand.content_box_color? %>
-          <%= f.input :content_box_color, label: t("activerecord.attributes.brand.content_box_color") %>
-        </div>
-        <div class="content-box-outline-color">
-          <%= branded_color_preview(brand.content_box_outline_color) if brand.content_box_outline_color? %>
-          <%= f.input :content_box_outline_color, label: t("activerecord.attributes.brand.content_box_outline_color") %>
-        </div>
-        <div class="content-box-text">
-          <%= branded_color_preview(brand.content_box_text) if brand.content_box_text? %>
-          <%= f.input :content_box_text, label: t("activerecord.attributes.brand.content_box_text_color") %>
-        </div>
-        <div class="login-button-static-color">
-          <%= branded_color_preview(brand.login_button_static_color) if brand.login_button_static_color? %>
-          <%= f.input :login_button_static_color, label: t("activerecord.attributes.brand.login_button_static_color") %>
-        </div>
-        <div class="login-button-hover-color">
-          <%= branded_color_preview(brand.login_button_hover_color) if brand.login_button_hover_color? %>
-          <%= f.input :login_button_hover_color, label: t("activerecord.attributes.brand.login_button_hover_color") %>
-        </div>
-        <div class="text-left-color">
-          <%= branded_color_preview(brand.text_left_color) if brand.text_left_color? %>
-          <%= f.input :text_left_color, label: t("activerecord.attributes.brand.text_left_color") %>
-        </div>
-        <div class="text-right-color">
-          <%= branded_color_preview(brand.text_right_color) if brand.text_right_color? %>
-          <%= f.input :text_right_color, label: t("activerecord.attributes.brand.text_right_color") %>
-        </div>
-        <div class="custom-text">
-          <%= f.input :heading_one %>
-          <%= f.input :heading_two %>
-          <%= f.input :info_text, label: t("activerecord.attributes.brand.custom_text"), as: :ckeditor %>
-        </div>
-      </fieldset>
+      <% unless parent.is_a? Phase %>
+        <fieldset class="form-colors">
+          <div class="login-box-left-color">
+            <%= branded_color_preview(brand.login_box_left_color) if brand.login_box_left_color? %>
+            <%= f.input :login_box_left_color, label: t("activerecord.attributes.brand.login_box_left_color") %>
+          </div>
+          <div class="login-box-right-color">
+            <%= branded_color_preview(brand.login_box_right_color) if brand.login_box_right_color? %>
+            <%= f.input :login_box_right_color, label: t("activerecord.attributes.brand.login_box_right_color") %>
+          </div>
+          <div class="content-box-color">
+            <%= branded_color_preview(brand.content_box_color) if brand.content_box_color? %>
+            <%= f.input :content_box_color, label: t("activerecord.attributes.brand.content_box_color") %>
+          </div>
+          <div class="content-box-outline-color">
+            <%= branded_color_preview(brand.content_box_outline_color) if brand.content_box_outline_color? %>
+            <%= f.input :content_box_outline_color, label: t("activerecord.attributes.brand.content_box_outline_color") %>
+          </div>
+          <div class="content-box-text">
+            <%= branded_color_preview(brand.content_box_text) if brand.content_box_text? %>
+            <%= f.input :content_box_text, label: t("activerecord.attributes.brand.content_box_text_color") %>
+          </div>
+          <div class="login-button-static-color">
+            <%= branded_color_preview(brand.login_button_static_color) if brand.login_button_static_color? %>
+            <%= f.input :login_button_static_color, label: t("activerecord.attributes.brand.login_button_static_color") %>
+          </div>
+          <div class="login-button-hover-color">
+            <%= branded_color_preview(brand.login_button_hover_color) if brand.login_button_hover_color? %>
+            <%= f.input :login_button_hover_color, label: t("activerecord.attributes.brand.login_button_hover_color") %>
+          </div>
+          <div class="text-left-color">
+            <%= branded_color_preview(brand.text_left_color) if brand.text_left_color? %>
+            <%= f.input :text_left_color, label: t("activerecord.attributes.brand.text_left_color") %>
+          </div>
+          <div class="text-right-color">
+            <%= branded_color_preview(brand.text_right_color) if brand.text_right_color? %>
+            <%= f.input :text_right_color, label: t("activerecord.attributes.brand.text_right_color") %>
+          </div>
+          <div class="custom-text">
+            <%= f.input :heading_one %>
+            <%= f.input :heading_two %>
+            <%= f.input :info_text, label: t("activerecord.attributes.brand.custom_text"), as: :ckeditor %>
+          </div>
+        </fieldset>
+      <% end %>
 
       <div class="preview-container">
         <%= submit_tag t(".preview"), type: "button", class: "btn preview" %>
       </div>
 
     </div>
+
   </div>
 
   <div class="form-actions-footer-container">

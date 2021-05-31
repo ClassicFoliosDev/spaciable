@@ -913,6 +913,8 @@ crumb :brands do |brand_parent|
       parent :division, brand_parent
     when :development
       parent :development, brand_parent
+    when :phase
+      parent :phase, brand_parent
   end
 end
 
