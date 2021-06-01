@@ -22,6 +22,7 @@ module Webhook
 
       request = Net::HTTP::Post.new(uri.request_uri)
       request["Content-Type"] = "application/json"
+      request["Authorization"] = "Bearer: #{ENV['LIVING_TOKEN']}"
       request.body = payload
 
       http = Net::HTTP.new(uri.host, uri.port)

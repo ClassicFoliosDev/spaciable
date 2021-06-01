@@ -5,6 +5,8 @@ module Webhook
     require "open-uri"
 
     def self.image(asset, name)
+      return nil if asset.blank?
+
       # MIME::Types.type_for(asset.file.file[/\.(?!\.)([a-zA-Z]*$)/,1])
       # file = open(ActionController::Base.helpers.asset_url(asset, type: type))
       # file.close
