@@ -34,4 +34,9 @@ class Chart < ApplicationRecord
           end
           plots.distinct
         }
+
+  def self.enabled?(klass)
+    return klass.analytics_dashboard unless klass.respond_to?(:parent)
+    klass.analytics_dashboard && Chart.enabled?(klass.parent)
+  end
 end
