@@ -368,7 +368,7 @@ class User < ApplicationRecord
   end
 
   def charts?
-    cf_admin? || permission_level.analytics_dashboard
+    cf_admin? || Chart.enabled?(permission_level)
   end
 
   def chart?(section)
