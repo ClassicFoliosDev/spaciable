@@ -345,7 +345,7 @@ Then (/^I can propose an amendment to the date and time$/) do
   check_homeowner_event(status: "change")
 end
 
-Then (/^I can accept the reproposed date and time$/) do
+Then (/^I can accept the rescheduled date and time$/) do
   open_event
   event_id = find("#event_id", visible: false).value.to_i
 
@@ -355,7 +355,7 @@ Then (/^I can accept the reproposed date and time$/) do
     expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%d-%m-%Y"))
     expect(page).to have_content(tz(CalendarFixture.reproposed_end).strftime("%l:%M"))
     expect(page).to have_content(t("events.accept_proposal"))
-    expect(page).to have_content("Proposed Rescheduling")
+    expect(page).to have_content("Proposed Reschedule")
   end
 
   find("#accept_reschedule").trigger('click')
@@ -407,7 +407,7 @@ Then (/^I can see the (.*) event has been (.*)$/) do |type, status|
   click_on "Cancel"
 end
 
-Then (/^I can view but not update the reproposed event$/) do
+Then (/^I can view but not update the rescheduled event$/) do
   open_event
 
   expect(page).not_to have_content("Update")
@@ -419,7 +419,7 @@ Then (/^I can view but not update the reproposed event$/) do
   expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
   expect(find(:xpath, "//input[@id='event_end_time']/following-sibling::input", visible: all).disabled?).to eq(true)
 
-  expect(page).to have_content("Proposed Rescheduling")
+  expect(page).to have_content("Proposed Reschedule")
 
   click_on "Cancel"
 end
@@ -532,14 +532,16 @@ end
 # can be used to confirm that an event update has appeared
 # on the calendar after an update
 def event(e = CalendarFixture.event)
-  find(:xpath, "//a[contains(@class,'fc-day-grid-event')]"\
-               "[contains(.,'#{event_title()}')]")
+  find(:xpath, "//a[contains(@class,'fc-day-grid-event') and "\
+                   "contains(.,'#{tz(e.start).strftime('%-k:%M').lstrip}') and " \
+                   "contains(.,'#{e.title.lstrip}')]")
 end
 
 # Repeats result in multiple hits
 def events(e = CalendarFixture.event)
-  all(:xpath, "//a[contains(@class,'fc-day-grid-event')]"\
-               "[contains(.,'#{event_title()}')]")
+  all(:xpath, "//a[contains(@class,'fc-day-grid-event') and "\
+                  "contains(.,'#{tz(e.start).strftime('%-k:%M').lstrip}') and " \
+                  "contains(.,'#{e.title.lstrip}')]")
 end
 
 def open_event(e = CalendarFixture.event, occurance: 0)
@@ -556,7 +558,7 @@ def check_events(occurances, e = CalendarFixture.event)
 end
 
 def event_title(e = CalendarFixture.event)
-  "#{tz(e.start).strftime('%-k:%M').lstrip} - #{tz(e.end).strftime('%-k:%M')} #{e.title}".lstrip
+  "#{tz(e.start).strftime('%-k:%M').lstrip} #{e.title}".lstrip
 end
 
 def tz(time)

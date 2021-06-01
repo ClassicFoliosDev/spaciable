@@ -3,7 +3,8 @@
 module PhaseTabsHelper
   include TabsHelper
 
-  def phase_tabs(phase, current_tab, current_user)
+  def phase_tabs(phase, current_tab,
+                 current_user = RequestStore.store[:current_user])
     tabs = PHASE_TABS.call(phase, current_user)
     Tabs.new(phase, tabs, current_tab, self).all
   end
@@ -31,6 +32,7 @@ module PhaseTabsHelper
         link: [phase.parent, phase, active_tab: :documents]
       },
       contacts: { icon: :vcard },
+      brands: { icon: "css3" },
       bulk_edit: {
         icon: "pencil-square-o",
         link: [phase, :bulk_edit_index],

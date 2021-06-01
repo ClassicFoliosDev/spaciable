@@ -12,6 +12,11 @@ module Homeowners
                    I18n.t("ahoy.#{Ahoy::Event::SNAGS_CREATED}"))
     end
 
+    after_action only: %i[index] do
+      record_event(:view_snagging, category1:
+                   I18n.t("ahoy.#{Ahoy::Event::SNAGGING_VIEWED}"))
+    end
+
     def index
       @snags = Snag.where(plot_id: @plot.id).order(updated_at: :desc)
     end

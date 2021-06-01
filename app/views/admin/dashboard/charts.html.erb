@@ -54,31 +54,36 @@
             <span><%= t(".overview") %><br></span>
           </div>
           <div id="overview" class="chart"></div>
-        </div>
+      </div>
       </div>
     <% end %>
     <% if current_user.chart?(:competition) %>
       <div id="competitions">
-        <div id="left" class='barchart'>
+        <div id="left" class='barchart' >
           <div class="left title section-title">
             <span></span>
           </div>
-          <div class="left desc section-title">
-            <span></span>
+          <div class="left section-title">
+            <div>
+              <span class="description"></span>
+              <span class="desc"></span>
+            </div>
           </div>
-          <div class='chart barchart' ></div>
+          <div class='chart barchart' style='height:400px'></div>
         </div>
         <div id="right" class='barchart'>
           <div class="right title section-title">
             <span></span>
           </div>
-          <div class="right desc section-title">
-            <span></span>
+          <div class="right section-title">
+            <span class="description"></span>
+            <span class="desc"></span>
           </div>
           <div class='chart barchart'></div>
         </div>
       </div>
     <% end %>
+    <p><%= simple_format t(".disclaimer") %></p>
   <% end %>
 </div>
 

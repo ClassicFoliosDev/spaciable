@@ -10,6 +10,7 @@ module Abilities
       site_faqs(development_id, division_id, developer_id)
       site_contacts(development_id, division_id, developer_id)
       site_documents(development_id, division_id, developer_id)
+      site_calendar
       custom_tiles(development_id)
     end
 
@@ -80,6 +81,10 @@ module Abilities
 
     def custom_tiles(development)
       can :read, CustomTile, development_id: development
+    end
+
+    def site_calendar
+      cannot :destroy, Event
     end
   end
 end

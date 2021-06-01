@@ -19,7 +19,7 @@ module DocumentsHelper
   def guide_collection(_document, parent, exclude = nil)
     guides = Document.guides.map do |(guide_name, _)|
       next if exclude.present? && exclude.include?(guide_name)
-      next unless GUIDES[parent.class].include?(guide_name)
+      next unless GUIDES[parent.class]&.include?(guide_name)
       [t(guide_name, scope: "activerecord.attributes.document.guides"), guide_name]
     end
     guides.compact

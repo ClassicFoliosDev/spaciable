@@ -124,13 +124,17 @@ class DocumentsController < ApplicationController
                                      :pinned, :lau_visible, :guide, files: [])
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity
   def set_parent
+    @exclude = []
     @parent = @plot || @unit_type || @phase ||
               @development || @division || @developer || @document&.documentable
 
     @document&.documentable = @parent
-    @exclude = ["floor_plan"] if @parent.is_a? Phase
+    @exclude.push("floor_plan") if @parent.is_a? Phase
+    @exclude.push("reservation", "completion") unless current_user.cf_admin?
   end
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def target
     if @parent&.model_name&.element&.to_sym == :plot

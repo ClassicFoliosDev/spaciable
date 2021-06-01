@@ -6,10 +6,6 @@ module NotificationSendService
   def call(notification, notification_params)
     send_to(notification, notification_params)
     notification.save
-
-    build_content(notification)
-    notification.save
-
     notification
   end
 
@@ -31,15 +27,6 @@ module NotificationSendService
       notification.send_to_id = notification_params[:developer_id].to_i
       notification.send_to_type = :Developer
     end
-  end
-
-  def build_content(notification)
-    text = notification.message
-    return text if text.empty?
-    address = find_address(notification)
-    notification.message = I18n.t("resident_notification_mailer.notify.admin_notification",
-                                  address: address,
-                                  message: text)
   end
 
   #rubocop:disable all

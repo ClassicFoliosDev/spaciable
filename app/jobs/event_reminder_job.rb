@@ -6,7 +6,7 @@ class EventReminderJob < ApplicationJob
   def perform(event)
     EventNotificationMailer.remind_sender(event).deliver_now
     event.event_resources.each do |resource|
-      EventNotificationMailer.remind_resource(event, resource).deliver_now
+      EventNotificationMailer.remind_resources(event, resource)
     end
   end
 end

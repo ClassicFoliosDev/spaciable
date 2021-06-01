@@ -275,7 +275,7 @@ class Plot < ApplicationRecord
   end
 
   def brand
-    development&.brand || division&.brand || developer&.brand || Brand.new
+    phase&.brand || development&.brand || division&.brand || developer&.brand || Brand.new
   end
 
   def <=>(other)
@@ -728,9 +728,13 @@ class Plot < ApplicationRecord
   end
   # rubocop:enable Metrics/AbcSize
 
+  def hierarchy
+    "#{phase.name}, Plot #{number}: "
+  end
+
   def comp_rel
     return if completion_date.blank?
-    return I18n.t("calendar.events.select_all_res") if completion_date < Time.zone.now
+    return I18n.t("calendar.events.select_all_res") if completion_date > Time.zone.now
     I18n.t("calendar.events.select_all_comp")
   end
 end

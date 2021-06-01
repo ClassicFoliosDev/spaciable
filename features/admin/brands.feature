@@ -45,6 +45,20 @@ Feature: Brands
     When I delete the development brand
     Then I should see the development brand deletion complete successfully
 
+  Scenario: Phase
+    Given I am logged in as an admin
+    And there is a developer with a development
+    And there is a development phase
+    When I create a phase brand
+    Then I should see the created phase brand
+    When I update the brand
+    Then I should be able to preview the brand
+    And I should see the updated phase brand
+    When I remove an image from a brand
+    Then I should see the updated phase brand without the image
+    When I delete the phase brand
+    Then I should see the phase brand deletion complete successfully
+
   Scenario: Developer Admin
     Given I am a Developer Admin
     Then I should not be able to see developer brands

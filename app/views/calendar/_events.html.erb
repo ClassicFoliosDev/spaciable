@@ -3,7 +3,7 @@
 <div class="row">
   <div class="row-item">
     <div class="calendar">
-    <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-type="<%=source.class.to_s%>" data-path="<%= events_path %>" data-editable=<%=editable%> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %> ></div>
+    <div id='admin_calendar' data-type="<%=source.class.to_s%>" data-id="<%=source.id%>" data-type="<%=source.class.to_s%>" data-path="<%= events_path %>" data-editable=<%=editable%> data-deletable=<%=can? :destroy, Event %> <%= "data-preload_id=#{preload.id}" if preload %> <%= "data-preload_date=#{preload.start}" if preload %>  ></div>
     </div>
   </div>
 </div>
@@ -61,8 +61,15 @@
       <span id="resources_label">
         <label><%= label_tag :resources, resources[:tag], id: 'resources_type' %></label>
         <button class="select-all-resources"><%= t("calendar.events.select_all")%></button>
+        <button class="clear-all-resources"><%= t("calendar.events.clear_all")%></button>
         <button class="select-all-res"><%= t("calendar.events.select_all_res")%></button>
+        <i class="fa fa-question-circle res-info" title='Click to invite plots where
+estimated move-in date on plot
+Completion tab is in the future.'></i>
         <button class="select-all-comp"><%= t("calendar.events.select_all_comp")%></button>
+        <i class="fa fa-question-circle comp-info" title='Click to invite plots where estimated
+move-in date on plot Completion tab
+is today or has already passed.'></i>
       </span>
       <div id="resources">
         <input type="hidden" name="event[resources][]" value/>
@@ -86,7 +93,7 @@
     </div>
 
     <div class="event-time proposed_datetime">
-      <label><%= label_tag :proposed, "Proposed Rescheduling" %></label><br/>
+      <label><%= label_tag :proposed, "Proposed Reschedule" %></label><br/>
       <div class="quarter">
         <p id="proposed_start_date"/>
       </div>

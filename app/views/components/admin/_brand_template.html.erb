@@ -1,28 +1,26 @@
 <style data-test="brand-styles" data-turbolinks-track="reload">
-.event_details_form .resources .completed,
-.event_details_form .resources .reservation,
-.event_details_form .resources .select-all-comp,
-.event_details_form .resources .select-all-res
-{
-    border-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
+
+#tilePreview {
+  background-color: <%= brand.branded_bg_color.blank? ? 'white' : brand.branded_bg_color %>;
 }
-.event_details_form .resources .completed {
-    background-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
+
+#tilePreview h2, #tilePreview p {
+  color: <%= brand.branded_text_color.blank? ? 'black' : brand.branded_text_color %>;
 }
-.event_details_form .resources .select-all-comp {
-    background-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
-    color: white;
+
+#tilePreview #customTileImage .content .button .button-text,
+#tilePreview #customTileImage .full-content .button .button-text,
+#tilePreview .feature .tile-button .branded-btn  {
+    color: <%= brand.branded_button_text_color.blank? ? '#FF293F' : brand.branded_button_text_color %>;
+    background-color: <%= brand.branded_button_color.blank? ? 'white' : brand.branded_button_color %>;
+    border: 1px solid <%= brand.branded_button_text_color.blank? ? '#FF293F' : brand.branded_button_text_color %>;
 }
-.event_details_form .resources .select-all-comp:hover {
-    background-color: white;
-    color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
-}
-.event_details_form .resources .select-all-res {
-    background-color: white;
-    color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
-}
-.event_details_form .resources .select-all-res:hover {
-    background-color: <%= brand&.button_color? ? brand.button_color : '#0B2C3E' %>;
-    color: white;
+
+#tilePreview #customTileImage .content .button .button-text:hover,
+#tilePreview #customTileImage .full-content .button .button-text:hover,
+#tilePreview .feature .tile-button .branded-btn:hover {
+    color: <%= brand.branded_button_color.blank? ? '#FF293F' : brand.branded_button_color %>;
+    background-color: <%= brand.branded_button_text_color.blank? ? 'white' : brand.branded_button_text_color %>;
+    border: 1px solid <%= brand.branded_button_text_color.blank? ? '#FF293F' : brand.branded_button_text_color %>;
 }
 </style>

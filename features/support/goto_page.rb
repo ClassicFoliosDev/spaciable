@@ -49,6 +49,17 @@ module GotoPage
     end
   end
 
+  def goto_development_phase_show_page
+    phase = CreateFixture.phase
+    raise "Phase does not exist" unless phase
+
+    visit "/developments/#{CreateFixture.development.id}/phases/#{phase.id}"
+
+    within ".phase" do
+      expect(page).to have_content(phase.to_s)
+    end
+  end
+
   def goto_spanish_development_show_page
     development = CreateFixture.spanish_development
     raise "Development does not exist" unless development

@@ -129,6 +129,7 @@ gem "ahoy_matey"
 
 # full callendar
 gem "fullcalendar-rails"
+gem "icalendar"
 gem "momentjs-rails"
 
 # salesforce

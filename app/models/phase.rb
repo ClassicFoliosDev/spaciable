@@ -28,6 +28,8 @@ class Phase < ApplicationRecord
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
   has_many :phase_timelines, dependent: :destroy
+  has_one :brand, as: :brandable, dependent: :destroy
+  has_many :brands, as: :brandable
 
   delegate :enable_snagging, :conveyancing_enabled?,
            :wecomplete_sign_in, :wecomplete_quote, to: :development
@@ -232,11 +234,15 @@ class Phase < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def resources
-    plots.map { |p| [p.id, p.number, p.comp_rel] }
+    plots.order(:id).map { |p| [p.id, p.number, p.comp_rel] }
   end
 
   def signature
     identity
+  end
+
+  def hierarchy
+    "#{name}: "
   end
 end
 # rubocop:enable Metrics/ClassLength

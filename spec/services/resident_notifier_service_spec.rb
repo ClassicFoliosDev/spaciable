@@ -22,7 +22,7 @@ RSpec.describe ResidentNotifierService do
       let(:text_messages_sent) { deliveries.map(&:text_part).map(&:to_s) }
 
       it "should include the notification message" do
-        content = notification.message
+        content = notification.message.length <= 50 ? notification.message : notification.message[0..50]
 
         subject.notify_residents
         raise "no messages sent" unless deliveries.count > 0
@@ -32,12 +32,12 @@ RSpec.describe ResidentNotifierService do
       end
 
       it "should include a link to login" do
-        login_url = "http://localhost/#{developer_with_residents.custom_url}/sign_in"
+        note_url = "http://localhost/homeowners/notifications?note_id=#{notification.id}"
 
         subject.notify_residents
 
-        expect(html_messages_sent).to all include(login_url)
-        expect(text_messages_sent).to all include(login_url)
+        expect(html_messages_sent).to all include(note_url)
+        expect(text_messages_sent).to all include(note_url)
       end
 
       it "should update the resident_notifications" do

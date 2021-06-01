@@ -288,15 +288,23 @@ class Development < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def resources
-    plots.pluck(:id, :number)
+    plots.order(:id).pluck(:id, :number)
   end
 
   def signature
     ""
   end
 
+  def hierarchy
+    ""
+  end
+
   def conveyancing_enabled?
     conveyancing && parent.conveyancing_enabled?
+  end
+
+  def branding
+    brand || parent&.brand || parent_developer&.brand
   end
 end
 # rubocop:enable Metrics/ClassLength
