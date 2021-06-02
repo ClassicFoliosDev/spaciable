@@ -1,6 +1,6 @@
 <%= image_tag("Spaciable_full.svg", style: "display: block;width:120px;margin: 10px auto;padding-bottom: 20px;") %>
 
-<p>Hi,<p>
+<p>Hi <%= @name %>,<p>
 
 <p><%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> has been cancelled.</p>
 
