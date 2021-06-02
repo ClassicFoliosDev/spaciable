@@ -1,6 +1,6 @@
-Hi,
+Hi <%= @name %>,
 
-<%= @event&.title%> for <%= @parent.class.to_s %> <%= @parent.identity %> at <%= @parent.development_name%> is happening <%= ReminderEnum.reminder(@event.reminder) %>.
+<%= @event&.title%> for <%= @parent.class.to_s %> <%= @parent.identity %> is happening <%= ReminderEnum.reminder(@event.reminder) %>.
 
 Title: <%= @event.title %>
 <% if @event.location? %>

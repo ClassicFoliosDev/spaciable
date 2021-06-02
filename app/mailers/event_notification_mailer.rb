@@ -7,6 +7,7 @@ class EventNotificationMailer < ApplicationMailer
     @event = event
     @parent = @event.eventable
     @link = admin_link(@event)
+    @name = User.find_by(email: event.email)&.first_name
     mail to: event.email,
          subject: "Calendar event at #{@parent&.development_name} " \
                   "is happening #{ReminderEnum.reminder(@event.reminder)}"
@@ -22,7 +23,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def remind_resource(event, resource, email)
-    init(event, resource)
+    init(event, resource, email)
     mail to: email,
          subject: "Calendar event at #{@plot&.development_name} " \
                   "is happening #{ReminderEnum.reminder(@event.reminder)}"
@@ -37,7 +38,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def invite_resource(event, resource, email)
-    init(event, resource)
+    init(event, resource, email)
     mail to: email,
          subject: "New calendar Event at #{@plot&.development_name}"
   end
@@ -51,7 +52,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def update_resource(event, resource, email)
-    init(event, resource)
+    init(event, resource, email)
     mail to: email,
          subject: "Calendar event updated at #{@plot&.development_name}"
   end
@@ -65,7 +66,7 @@ class EventNotificationMailer < ApplicationMailer
   end
 
   def cancel(event, resource, email)
-    init(event, resource)
+    init(event, resource, email)
     mail to: email,
          subject: "Calendar event cancellation: #{@event&.title}"
   end
@@ -79,6 +80,7 @@ class EventNotificationMailer < ApplicationMailer
               @resource.resourceable
             end
     @link = admin_link(resource.event)
+    @name = resource.event.userable.first_name
     mail to: resource.event.userable.email,
          subject: "Calendar event #{resource.status} by #{resource.resourceable}"
   end
@@ -102,7 +104,7 @@ class EventNotificationMailer < ApplicationMailer
     end
   end
 
-  def init(event, resource)
+  def init(event, resource, email)
     eventable = event.eventable # otherwise rails_best_practices errors :(
     @plot = if eventable.is_a?(Plot)
               event.eventable
@@ -111,5 +113,6 @@ class EventNotificationMailer < ApplicationMailer
             end
     @event = event
     @link = resource_link(event)
+    @name = Resident.find_by(email: email)&.first_name
   end
 end
