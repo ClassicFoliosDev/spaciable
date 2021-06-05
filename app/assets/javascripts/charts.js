@@ -184,7 +184,7 @@ var charts = {
         if ( selected == row.id.toString()) { rank = index + 1 }
         data.addRow([charts.position(index),
                      row.percent,
-                     ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + row.percent.toFixed((row.percent % 1) == 0 ? 0 : 1).toString() + '%',
+                     ((selected == row.id.toString() || selected == -1) ? (row.name + ' ') : '') + charts.to_one_dp(row.percent) + '%',
                      (selected == row.id.toString() ? 'opacity:.3' : 'opacity:1') + ';color: #002A3A'])
       }
     })
@@ -232,7 +232,7 @@ var charts = {
       tag = tag + " (" + $response.competition[row.div_id].name + ")"
     }
 
-    return tag + ' '+ row.percent.toString() + '%'
+    return tag + ' '+ charts.to_one_dp(row.percent) + '%'
   },
 
   render_barchart: function(data, container, title, desc) {
@@ -519,6 +519,10 @@ var charts = {
     })
 
     return populated
+  },
+
+  to_one_dp: function(value) {
+    return value.toFixed((value % 1) == 0 ? 0 : 1).toString()
   }
 }
 
