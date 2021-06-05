@@ -30,6 +30,7 @@ class PlotResidency < ApplicationRecord
 
   delegate :to_s, :title, :first_name, :last_name, :email, :phone_number, to: :resident
   delegate :invitation_accepted_at, to: :resident
+  delegate :number, to: :plot, prefix: true
 
   attr_writer :title, :first_name, :last_name, :email, :phone_number
 
