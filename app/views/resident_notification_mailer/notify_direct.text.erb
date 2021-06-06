@@ -3,7 +3,8 @@
 <%= t(".message", first_name: @sender&.first_name,
                     last_name: @sender&.last_name,
                     developer: @plot_residency.plot.developer.company_name,
-                    development: @plot_residency.plot.development.name) %>
+                    development: @plot_residency.plot.development.name,
+                     plot_number: @plot_residency.plot_number) %>
 
 <% if @content.length <= 50 %>
   <%= simple_format @content %>
