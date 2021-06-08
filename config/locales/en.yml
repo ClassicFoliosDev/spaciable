@@ -3260,7 +3260,7 @@ en:
       message_content: "%{description} %{details}"
       admin_notification: "%{address} %{message}"
     notify_direct:
-      message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property, %{plot_number} at %{development}:"
+      message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property, Plot %{plot_number} at %{development}:"
       welcome: "Hello %{name}"
       view_message: "View Message on Spaciable"
 
