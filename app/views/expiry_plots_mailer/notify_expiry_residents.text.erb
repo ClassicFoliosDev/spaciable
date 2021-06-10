@@ -1,15 +1,27 @@
 <%= t("expiry_email.intro", name: @name) %>
 
-<%= t("expiry_email.plot_details", developer: @developer, development: @development, address: @address) %>
+<%= t("expiry_email.new_message", developer: @developer,
+                                  development: @development,
+                                  plot_number: @plot.number) %>
 
-<%= t("expiry_email.expiry") %>
+We’ve got good news and bad news.
 
-<%= t("expiry_email.information") %>
+The bad news first – your access to the full Spaciable portal has now expired.
+The good news, though – you can still access all of the information that was populated or uploaded before the point of expiry, as well as the many great features*, including:
 
-<%= t("expiry_email.admin") %>
+So, stick around and reap the benefits:
 
-<%= t("expiry_email.hope") %>
+  • Make the most of your home by being able to troubleshoot issues and take inspiration from articles and newsletters</li>
+  • Save time when searching for important documents, such as your warranty certificate – everything will still be easy to find in one digital library</li>
+  • Maximise the value of your home, should you choose to sell, by having a repository in which you can provide future buyers with all of the details about the property</li>
+  • Continue to save money with Services</li>
+  • New features are constantly being worked on and developed, providing ongoing benefits</li>
+
+
+We hope you’ve found your Spaciable portal to be highly useful and will continue to use it as a source of information, inspiration and documentation!
 
 <%= t("expiry_email.regards") %>
 
 <%= t("expiry_email.sign_off") %>
+
+*Availability of features may vary.

@@ -2,16 +2,39 @@
 
 <p><%= t("expiry_email.intro", name: @name) %></p>
 
-<p><%= t("expiry_email.plot_details", developer: @developer, development: @development, address: @address) %></p>
+<p><%= t("expiry_email.new_message", developer: @developer,
+                                     development: @development,
+                                     plot_number: @plot.number) %></p>
 
-<p><%= t("expiry_email.expiry") %></p>
 
-<p><%= t("expiry_email.information") %></p>
+<p>We’ve got good news and bad news.</p>
 
-<p><%= t("expiry_email.admin") %></p>
+<p>The bad news first – your access to the full Spaciable portal has now expired.
+The good news, though – you can still access all of the information that was populated or uploaded before the point of expiry, as well as the many great features*, including:</p>
+<ul>
+  <li>Digital versions of your home’s documents</li>
+  <li>Bespoke information about your home</li>
+  <li>Essential contacts</li>
+  <li>Helpful home advice and answers to FAQs</li>
+  <li>Our useful monthly newsletter, sharing great money-saving tips, articles and ways to relax</li>
+  <li>Access to great deals and offers through Services</li>
+</ul>
 
-<p><%= t("expiry_email.hope") %></p>
+<p>So, stick around and reap the benefits:</p>
+<ul>
+  <li>Make the most of your home by being able to troubleshoot issues and take inspiration from articles and newsletters</li>
+  <li>Save time when searching for important documents, such as your warranty certificate – everything will still be easy to find in one digital library</li>
+  <li>Maximise the value of your home, should you choose to sell, by having a repository in which you can provide future buyers with all of the details about the property</li>
+  <li>Continue to save money with Services</li>
+  <li>New features are constantly being worked on and developed, providing ongoing benefits</li>
+</ul>
+
+<p>We hope you’ve found your Spaciable portal to be highly useful and will continue to use it as a source of information, inspiration and documentation!</p>
+
 
 <p><%= t("expiry_email.regards") %></p>
 
 <p><%= t("expiry_email.sign_off") %></p>
+
+<p>*Availability of features may vary.</p>
+

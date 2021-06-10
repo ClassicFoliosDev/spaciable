@@ -63,12 +63,9 @@ en:
     title: "Your Spaciable Completion Plots are Live"
   expiry_email:
     title: "Important Information About Your Spaciable Plot"
-    intro: "Dear %{name},"
+    intro: "Hi %{name},"
     plot_details: "We have a message regarding your %{developer} property at %{development} (%{address})"
-    expiry: "Please note that your access to the full Spaciable portal has now expired."
-    information: "Not to worry, though - you will still be able to access all information contained within your portal that was populated or uploaded prior to the point of expiry."
-    admin: "You will no longer have the ability to interact with administrators."
-    hope: "We hope you have found your Spaciable portal highly beneficial and continue to use it as a source of information, inspiration and documentation."
+    new_message: "You have a new message regarding your %{developer} property. Plot %{plot_number} at %{development}:"
     regards: "Kind regards,"
     sign_off: "The Spaciable Team"
   reduced_expiry_email:
