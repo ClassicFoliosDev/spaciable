@@ -292,6 +292,10 @@ class Developer < ApplicationRecord
     charts.find_by(section: section)&.enabled
   end
 
+  def cala?
+    company_name == "Cala"
+  end
+
   private
 
   # Use the 'dirty' attribute to check for change to the CAS enablement and

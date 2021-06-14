@@ -52,7 +52,7 @@
               </div>
             <% end %>
 
-            <% if appliance.warranty_length? %>
+            <% if appliance.warranty_length? && !(@plot.developer.cala? && appliance.boiler?)%>
               <span class="branded-text"><%= label_tag :warranty %></span>
               <span class="branded-text"><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") %></span>
             <% end %>
