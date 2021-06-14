@@ -83,4 +83,8 @@ class Document < ApplicationRecord
       end
     end
   end
+
+  def res_comp?
+    reservation? || completion?
+  end
 end
