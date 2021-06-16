@@ -19,27 +19,29 @@
     <div class="row-item third">
       <fieldset>
         <div class="document-container">
-          <div class="document-file">
-            <% if document.persisted? %>
-              <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload"%>
-              <%= label_tag('document_file', t("choose"), class: "choose-file") %>
-            <% else %>
-              <%= f.file_field :files, multiple: true, class: "file-upload" %>
-              <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
-              <div class="left"><p><%= t(".choose_multiple_explanation_html").html_safe %></p></div>
-            <% end %>
-          </div>
+          <% unless document.read_only? %>
+            <div class="document-file">
+              <% if document.persisted? %>
+                <%= f.file_field :file, as: :image_preview, input_html: { preview_version: :thumbnail }, class: "file-upload single-file-upload"%>
+                <%= label_tag('document_file', t("choose"), class: "choose-file") %>
+              <% else %>
+                <%= f.file_field :files, multiple: true, class: "file-upload" %>
+                <%= label_tag(:document_files, t("choose_multiple"), class: "choose-file choose-files") %>
+                <div class="left"><p><%= t(".choose_multiple_explanation_html").html_safe %></p></div>
+              <% end %>
+            </div>
+          <% end %>
           <div class="document-title">
             <%= f.label :title, t(".title") %>
             <% if !document.persisted? %>
               <p><%= t(".title_explanation") %></p>
             <% end %>
-            <%= f.input :title, label: false %>
+            <%= f.input :title, label: false, disabled: document.read_only? %>
           </div>
           <% if document.persisted? %>
             <fieldset>
               <div class="ui-front" id="documentCategorySelector">
-                <%= f.input :category, as: :select, collection: category_collection(document), include_blank: false %>
+                <%= f.input :category, as: :select, collection: category_collection(document), include_blank: false, disabled: document.read_only? %>
               </div><br/>
               <% if guide_selector_valid?(document) %>
                 <div class="ui-front" id="documentGuideSelector">
