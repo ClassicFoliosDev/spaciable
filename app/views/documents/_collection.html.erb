@@ -53,7 +53,11 @@
                 <%= icon "floppy-o" %>
               <% end %>
               <%= (edit_btn edit_document_path(document), element: document) unless parent.expired? && !(current_user.cf_admin?) %>
-              <%= (delete_btn document, path: url_for(document), element: document) unless parent.expired? && !(current_user.cf_admin?) %>
+              <% if current_user.cf_admin? || !(parent.expired? || document.res_comp?) %>
+                <%= delete_btn document, path: url_for(document), element: document %>
+              <% elsif !parent.expired? && document.res_comp? %>
+                <%= info_btn document, text: t(".delete_info", tag: document.guide.capitalize), element: document, title: t('buttons.info.cannot_delete', type: "Document")%>
+              <% end %>
             </td>
           <% end %>
         </tr>

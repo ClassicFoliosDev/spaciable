@@ -3158,6 +3158,8 @@ en:
       document: "Document"
       category: "Category"
       sync: "CRM Sync"
+      delete_info: "<p>This document cannot be replaced, renamed, recategorised or deleted, because it has been tagged as a %{tag} Manual written by Classic Folios.</p><p>
+%{tag} Manuals are protected to ensure they always remain visible to residents.</p>"
     edit:
       title: "Edit %{name}"
 
