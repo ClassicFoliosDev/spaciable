@@ -1,9 +1,9 @@
 module PerkFixture
   module_function
 
-  URL="https://vaboo.co.uk"
-  ID="68745"
-  ACCESS_KEY="1o73uue-92Lkidfh-Lkaosfjf0-lkajsf9"
+  URL=ENV["VABOO_APP_URL"]
+  ID=ENV["VABOO_ACCOUNT"]
+  ACCESS_KEY=ENV["VABOO_ACCESS"]
 
   def no_resident_account
     {

@@ -3,19 +3,22 @@
 # call this method before loading the dashboard when the user has no perks account
 def call_api_no_user_account
   stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Email=#{PerkFixture.resident_email}").
-  to_return(:body => PerkFixture.no_resident_account.to_json)
+  to_return(body: PerkFixture.no_resident_account.to_json,
+            headers: {"Content-Type"=> "application/json"})
 end
 
 # call this method when the api is called to check whether premium perks are activated for a plot, when no resident has a premium account
 def no_premium_perks_activated
   stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Reference=#{PerkFixture.plot.id}").
-  to_return(:body => PerkFixture.no_resident_premium_account.to_json)
+  to_return(body: PerkFixture.no_resident_premium_account.to_json,
+            headers: {"Content-Type"=> "application/json"})
 end
 
 # call this method when the api is called to check whether premium perks are activated for a plot, when a resident has a premium account
 def premium_perks_activated
   stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Reference=#{PerkFixture.plot.id}").
-  to_return(:body => PerkFixture.resident_premium_account.to_json)
+  to_return(body: PerkFixture.resident_premium_account.to_json,
+            headers: {"Content-Type"=> "application/json"})
 end
 
 def resident_perks_account
@@ -28,7 +31,8 @@ def resident_perks_account
 
   # call the api with the user having an account
   stub_request(:get, "#{PerkFixture::URL}/api/v4/users/#{PerkFixture::ID}/#{PerkFixture::ACCESS_KEY}?Email=#{PerkFixture.resident_email}").
-  to_return(:body => PerkFixture.basic_resident_account.to_json)
+  to_return(body: PerkFixture.basic_resident_account.to_json,
+            headers: {"Content-Type"=> "application/json"})
 
   visit "/"
 end

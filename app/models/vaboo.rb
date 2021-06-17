@@ -57,7 +57,7 @@ class Vaboo
                                  },
                                timeout: TIMEOUT,
                                verify: VERIFY)
-      byebug
+
       yield error unless response.code == 200
 
       error = nil
@@ -65,10 +65,8 @@ class Vaboo
         error = "Failed to create perks account. #{response.parsed_response['message']['errors']['Email']}"
       end
     rescue Net::OpenTimeout
-      byebug
       error = TIMEOUT_ERROR
     rescue
-      byebug
       error = CONNECT_ERROR
     end
 
@@ -128,10 +126,9 @@ class Vaboo
     begin
       response = HTTParty.get(full_url, verify: VERIFY)
       if response.code == 200
-        activated = response.reparsed_response["data"]["count"] == 1
+        activated = response.parsed_response["data"]["count"] == 1
       end
     rescue
-      byebug
       error = true
     end
     yield activated, error
@@ -148,7 +145,6 @@ class Vaboo
     #  call the API to find out whether another resident of the plot
     #  has been allocated a premium licence
     response = HTTParty.get(full_url, verify: VERIFY)
-    byebug
     return false unless response.code == 200
 
     # will return false if api call throws an error
@@ -170,7 +166,6 @@ class Vaboo
 
     begin
       response = HTTParty.get(full_url, verify: VERIFY)
-      byebug
       return "Not Requested" unless response.code == 200
 
       # return "Not Requested" if resident record not found (resident has not signed up for perks)
