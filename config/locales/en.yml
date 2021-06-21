@@ -3528,6 +3528,9 @@ en:
           b: "B"
           c: "C"
           d: "D"
+          e: "E"
+          f: "F"
+          g: "G"
       document:
         title: "Name"
         file: "File"
