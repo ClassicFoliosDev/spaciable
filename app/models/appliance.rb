@@ -70,6 +70,9 @@ class Appliance < ApplicationRecord
     b
     c
     d
+    e
+    f
+    g
   ]
 
   def short_name
@@ -98,9 +101,5 @@ class Appliance < ApplicationRecord
     find_each do |record|
       record.update_pg_search_document unless record.deleted?
     end
-  end
-
-  def boiler?
-    appliance_category.name == "Boiler"
   end
 end
