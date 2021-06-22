@@ -3975,6 +3975,7 @@ en:
     view_choices: "Choices"
     view_snagging: "Snagging"
     snagging_viewed: "Snagging Viewed"
+    snags_viewed: "Snags Viewed"
     snags_created: "Snags Created"
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"
