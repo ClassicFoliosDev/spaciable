@@ -93,7 +93,7 @@ function selectMeta(class_name) {
   json = {};
   try {
     json.div = $(class_name)
-    json.text = json.div.find('.ui-selectmenu-text')[0].innerHTML
+    json.text = json.div.find('.ui-selectmenu-text').text()
     json.id = json.div.find('select option').filter(function() {return $(this).text() === json.text;}).val()
   }
   catch(err) {} // ignore unpopulated fields

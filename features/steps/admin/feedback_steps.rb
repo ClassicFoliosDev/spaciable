@@ -38,9 +38,13 @@ When(/^I submit homeowner feedback$/) do
 end
 
 Then(/^An email should be sent$/) do
-  sleep 0.6
 
-  emails = ActionMailer::Base.deliveries
+  emails = []
+  (0..5).each do
+    emails = ActionMailer::Base.deliveries
+    break unless emails.empty?
+    sleep 1
+  end
 
   subject_text = emails[0].subject
   email_address = emails[0].to
