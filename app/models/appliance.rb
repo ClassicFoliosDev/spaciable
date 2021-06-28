@@ -102,4 +102,8 @@ class Appliance < ApplicationRecord
       record.update_pg_search_document unless record.deleted?
     end
   end
+
+  def boiler?
+    appliance_category.name == "Boiler"
+  end
 end

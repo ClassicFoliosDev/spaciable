@@ -293,7 +293,7 @@ class Developer < ApplicationRecord
   end
 
   def cala?
-    company_name == "Cala"
+    company_name == "CALA Homes"
   end
 
   private
