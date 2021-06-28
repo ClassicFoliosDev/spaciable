@@ -57,13 +57,12 @@ class Vaboo
                                  },
                                timeout: TIMEOUT,
                                verify: VERIFY)
+
       yield error unless response.code == 200
 
-      parsed_response = JSON.parse(response)
-
       error = nil
-      if parsed_response["code"].to_s.split("")[0] == ERROR
-        error = "Failed to create perks account. #{parsed_response['message']['errors']['Email']}"
+      if response.parsed_response["code"].to_s.split("")[0] == ERROR
+        error = "Failed to create perks account. #{response.parsed_response['message']['errors']['Email']}"
       end
     rescue Net::OpenTimeout
       error = TIMEOUT_ERROR
@@ -90,9 +89,8 @@ class Vaboo
       full_url = "#{URL}#{API}users/#{id}/#{ACCESS_KEY}?#{ACCESS_TYPE}=#{PREMIUM}"
 
       response = HTTParty.get(full_url, verify: VERIFY)
-      parsed_response = JSON.parse(response)
 
-      parsed_response["data"]["users"].each do |user|
+      response.parsed_response["data"]["users"].each do |user|
         downgrade_expired_premium(user, id) if user[EXPIRE_DATE] == Time.zone.today.to_s
       end
     end
@@ -128,8 +126,7 @@ class Vaboo
     begin
       response = HTTParty.get(full_url, verify: VERIFY)
       if response.code == 200
-        parsed_response = JSON.parse(response)
-        activated = parsed_response["data"]["count"] == 1
+        activated = response.parsed_response["data"]["count"] == 1
       end
     rescue
       error = true
@@ -151,8 +148,7 @@ class Vaboo
     return false unless response.code == 200
 
     # will return false if api call throws an error
-    parsed_response = JSON.parse(response)
-    parsed_response["data"]["users"].each do |user|
+    response.parsed_response["data"]["users"].each do |user|
       return true if user[ACCESS_TYPE] == PREMIUM
     end
     false
@@ -172,12 +168,11 @@ class Vaboo
       response = HTTParty.get(full_url, verify: VERIFY)
       return "Not Requested" unless response.code == 200
 
-      parsed_response = JSON.parse(response)
       # return "Not Requested" if resident record not found (resident has not signed up for perks)
-      return "Not Requested" unless parsed_response["data"]["count"].positive?
+      return "Not Requested" unless response.parsed_response["data"]["count"].positive?
 
       # return perk type
-      parsed_response["data"]["users"][0][ACCESS_TYPE]
+      response.parsed_response["data"]["users"][0][ACCESS_TYPE]
     rescue
       return "Unknown"
     end

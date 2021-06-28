@@ -83,4 +83,12 @@ class Document < ApplicationRecord
       end
     end
   end
+
+  def res_comp?
+    reservation? || completion?
+  end
+
+  def read_only?
+    res_comp? && !RequestStore.store[:current_user].cf_admin?
+  end
 end

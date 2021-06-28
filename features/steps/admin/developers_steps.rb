@@ -82,6 +82,8 @@ When(/^I delete the developer$/) do
 
   fill_in "password", with: CreateFixture.admin_password
   click_on(t("admin_permissable_destroy.confirm"))
+
+  find(:xpath, "//p[@class='notice'][contains(.,'was deleted successfully')]")
 end
 
 Then(/^I should see the delete complete successfully$/) do

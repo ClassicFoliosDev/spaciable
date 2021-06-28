@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SortingConcern
+  require "natural_sort"
   extend ActiveSupport::Concern
 
   def sort(resources, default: :updated_at)
@@ -49,61 +50,9 @@ module SortingConcern
 
     @numbers = plot_array.map(&:number)
     @ids = plot_array.map(&:id)
-    @unsorted_numbers = []
-
-    # Alphanumeric sort can't cope with spaces and special characters, process them separately
-    filter_special_characters
-
-    @sorted_numbers = sort_mixed_alphanumeric
-    insert_unsorted_elements
-
-    @sorted_numbers = @sorted_numbers.reverse if direction == "desc"
+    @sorted_numbers = NaturalSort.sort @numbers
+    @sorted_numbers.reverse! if direction == "desc"
     sort_plots
-  end
-
-  def insert_unsorted_elements
-    @unsorted_numbers.each do |unsorted|
-      # Look for the index of the first non-numeric character (ie the first alphabetic letter)
-      first_letter_index = unsorted =~ /\D/
-
-      # If we found a letter after position zero, that means the first character is a digit,
-      # for example it might be 7C, use the bsearch_index against the integer value (which
-      # will be 7 in our example)
-      if first_letter_index.positive?
-        insert_at = @sorted_numbers.bsearch_index { |element| element.to_i >= unsorted.to_i }
-
-      # First character is a letter, for example A3, so strip digits (result: A) before comparing
-      else
-        @sorted_numbers.each_with_index do |element, index|
-          next if element =~ /^[0-9].*/
-          break unless (unsorted <=> element).positive?
-          insert_at = index + 1
-        end
-      end
-      @sorted_numbers.insert(insert_at || 0, unsorted)
-    end
-  end
-
-  def sort_mixed_alphanumeric
-    @numbers.sort_by do |element|
-      number, letter = *element.split
-      [number.to_i, letter]
-    end
-  end
-
-  def filter_special_characters
-    special = "?<>',?[]}{=-)(*&^%$#`~{} "
-    regex = /[#{special.gsub(/./) { |char| "\\#{char}" }}]/
-
-    @numbers.each do |element|
-      if element =~ regex
-        @unsorted_numbers << element
-      elsif element.chr =~ /[A-Za-z]/
-        @unsorted_numbers << element
-      end
-    end
-
-    @numbers -= @unsorted_numbers
   end
 
   def sort_plots

@@ -3158,6 +3158,8 @@ en:
       document: "Document"
       category: "Category"
       sync: "CRM Sync"
+      delete_info: "<p>This document cannot be replaced, renamed, recategorised or deleted, because it has been tagged as a %{tag} Manual written by Classic Folios.</p><p>
+%{tag} Manuals are protected to ensure they always remain visible to residents.</p>"
     edit:
       title: "Edit %{name}"
 
@@ -3526,6 +3528,9 @@ en:
           b: "B"
           c: "C"
           d: "D"
+          e: "E"
+          f: "F"
+          g: "G"
       document:
         title: "Name"
         file: "File"
@@ -3973,6 +3978,7 @@ en:
     view_choices: "Choices"
     view_snagging: "Snagging"
     snagging_viewed: "Snagging Viewed"
+    snags_viewed: "Snags Viewed"
     snags_created: "Snags Created"
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"
