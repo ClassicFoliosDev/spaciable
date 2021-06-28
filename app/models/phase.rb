@@ -22,7 +22,7 @@ class Phase < ApplicationRecord
   delegate :cas, to: :development
   delegate :name, to: :development, prefix: true
 
-  has_many :plots
+  has_many :plots, dependent: :destroy
   has_many :plot_residencies, through: :plots
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
