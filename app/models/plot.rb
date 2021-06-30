@@ -68,6 +68,7 @@ class Plot < ApplicationRecord
     greater_than_or_equal_to: 0, only_integer: true
   }
   validates_with PlotCombinationValidator
+  validate :move_in_date
 
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, :external_link?, to: :unit_type
@@ -735,5 +736,17 @@ class Plot < ApplicationRecord
     return I18n.t("calendar.events.select_all_res") if completion_date > Time.zone.now
     I18n.t("calendar.events.select_all_comp")
   end
+
+  # rubocop:disable Metrics/Date, Style/CaseEquality
+  def move_in_date
+    return true if completion_date.nil?
+
+    finish = Date.today.next_year(2)
+    return true if (Date.new(2017, 1, 1)..finish) === completion_date
+
+    errors.add(:completion_date,
+               "Ensure date is dd/mm/yyyy format, and between 01/01/2017 and #{finish}")
+  end
+  # rubocop:enable Metrics/Date, Style/CaseEquality
 end
 # rubocop:enable Metrics/ClassLength

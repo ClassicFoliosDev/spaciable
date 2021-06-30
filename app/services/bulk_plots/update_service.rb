@@ -105,6 +105,7 @@ module BulkPlots
 
     BulkUpdatePlotsModel = Class.new(Plot) do
       delegate :model_name, to: :Plot
+      #ttr_accessor :errors
       attr_accessor :range_from, :range_to, :list
 
       def persisted?
