@@ -737,16 +737,17 @@ class Plot < ApplicationRecord
     I18n.t("calendar.events.select_all_comp")
   end
 
-  # rubocop:disable Metrics/Date, Style/CaseEquality
+  # rubocop:disable Rails/Date, Style/CaseEquality
   def move_in_date
     return true if completion_date.nil?
 
     finish = Date.today.next_year(2)
     return true if (Date.new(2017, 1, 1)..finish) === completion_date
 
-    errors.add(:completion_date,
-               "Ensure date is dd/mm/yyyy format, and between 01/01/2017 and #{finish}")
+    errors.add(:base,
+               "Ensure #{I18n.t('plots.completion.title')} date is dd/mm/yyyy format," \
+               " and between 01/01/2017 and #{finish}")
   end
-  # rubocop:enable Metrics/Date, Style/CaseEquality
+  # rubocop:enable Rails/Date, Style/CaseEquality
 end
 # rubocop:enable Metrics/ClassLength

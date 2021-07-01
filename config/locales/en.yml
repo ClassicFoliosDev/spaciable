@@ -2653,6 +2653,10 @@ en:
       success:
         one: "%{plot_name} was updated successfully"
         other: "Plots %{plot_name} were updated successfully"
+    complete:
+      success:
+        one: "%{plot_name} was updated successfully"
+        other: "Plots %{plot_name} were updated successfully"
     collection:
       add: "Add Plot(s)"
       rooms: "Rooms"
