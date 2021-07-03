@@ -24,8 +24,8 @@ module Admin
       end
 
       def show
-        @plots = @phase.plots
-        @plots = paginate(sort(@plots))
+        @plots = @phase.plots.where("completion_date IS NOT NULL")
+        @plots = paginate(sort(@plots, default: :number))
       end
 
       private
