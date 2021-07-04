@@ -9,7 +9,7 @@ class Task < ApplicationRecord
   mount_uploader :picture, PictureUploader
   attr_accessor :picture_cache
 
-  belongs_to :timeline, optional: false
+  belongs_to :timeline, optional: false, touch: true
   belongs_to :stage, optional: false
 
   belongs_to :next, class_name: "Task", foreign_key: "next_id"
