@@ -58,7 +58,7 @@ class Vaboo
                                timeout: TIMEOUT,
                                verify: VERIFY)
 
-      yield error unless response.code = 200
+      yield error unless response.code == 200
 
       error = nil
       if response.parsed_response["code"].to_s.split("")[0] == ERROR
