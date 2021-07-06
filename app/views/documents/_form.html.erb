@@ -45,7 +45,7 @@
               </div><br/>
               <% if guide_selector_valid?(document) %>
                 <div class="ui-front" id="documentGuideSelector">
-                  <% if !guides.length.zero? %>
+                  <% if !(document.read_only? || guides.length.zero?) %>
                     <%= f.input :guide, label: t(".guide"), as: :select, collection: guide_collection(document, doc_parent, exclude), include_blank: true, disabled: manual_exists(document) %>
                      <br/>
                   <% elsif document.guide %>
