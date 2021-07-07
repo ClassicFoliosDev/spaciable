@@ -38,6 +38,7 @@ class Developer < ApplicationRecord
   has_many :lettings, through: :lettings_account
   delegate :management, to: :lettings_account
   has_one :crm, dependent: :destroy
+  belongs_to :build_sequence
 
   delegate :apple_link, :android_link, :app_icon, to: :branded_app, prefix: true
 

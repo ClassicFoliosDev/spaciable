@@ -225,6 +225,7 @@ Rails.application.routes.draw do
     resources :branded_apps, shallow: true
     resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'cas', to: 'developers#cas', format: :json
+    resources :build_sequences
   end
 
   get 'developers/custom/parameterize', to: 'developers#parameterize', format: :json
@@ -244,6 +245,7 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :sync_faqs, shallow: true, only: [:index, :create]
+    resources :build_sequences
   end
 
   resources :appliances
@@ -253,6 +255,8 @@ Rails.application.routes.draw do
   resources :finish_categories
   resources :finish_types
   resources :finish_manufacturers
+  resources :build_sequences
+
 
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update, :destroy]
@@ -266,6 +270,7 @@ Rails.application.routes.draw do
     end
     resource :analytics_event, only: %i[create], format: :json
   end
+
 
   scope :homeowners, module: :homeowners do
     resources :how_tos, only: [:show]

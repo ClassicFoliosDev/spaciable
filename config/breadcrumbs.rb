@@ -149,6 +149,12 @@ crumb :default_faq_add do |faq_type|
   parent :default_faqs, faq_type
 end
 
+crumb :build_sequence do |faq_type|
+  link t("breadcrumbs.build_sequence")
+  parent :admin_settings
+end
+
+
 # DEVELOPERS
 
 crumb :developers do

@@ -463,6 +463,7 @@ en:
     sync_docs: "Synhronise Documents"
     admin_analytics: "Analytics"
     stage_set_edit: "Edit %{title} sections"
+    build_sequence: "Build Progress"
 
   pagination:
     per_page_10: "10"
@@ -1125,6 +1126,9 @@ en:
         api_config: "Partner APIs"
         api_config_description: "Add and modify partner API metadata"
         api_config_btn: "Modify Partner APIs"
+        master_build_progress: "Build Progress"
+        master_build_progress_desc: "Update the master build progress"
+        master_build_progress_btn: "Modify Build Progress"
       uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
@@ -4036,6 +4040,10 @@ en:
       plots: "Plots"
       type: "Type"
 
+  build_steps:
+    collection:
+      title: "Title"
+      description: "Description"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
 
