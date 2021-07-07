@@ -15,7 +15,7 @@ class SyncFaqsController < ApplicationController
     # group by category
     @grouped_faqs = @faqs.group_by { |faq| FaqCategory.find(faq[:faq_category_id]).name }
 
-    @parent_faqs = Faq.where(faqable: @parent)
+    @parent_faqs = Faq.where(faqable: @parent, faq_type_id: @faq_type)
   end
 
   def create

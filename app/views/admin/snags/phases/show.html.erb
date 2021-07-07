@@ -28,19 +28,18 @@
   </thead>
   <tbody>
     <% @plots.each do |plot| %>
-      <% if plot&.completion_date %>
-        <tr data-plot="<%= plot.id %>">
-          <td><%= plot.number %></td>
-          <td><%= plot.postal_number %></td>
-          <td><%= plot.building_name %></td>
-          <td><%= plot.road_name %></td>
-          <td><%= plot.postcode %></td>
-          <td><%= l(plot.completion_date.to_date, format: :digits) if plot.completion_date%></td>
-          <td><%= plot.total_snags %></td>
-          <td><%= plot.unresolved_snags %></td>
-          <td><%= plot.snagging_days_remaining %></td>
-          <td class="actions"><%= link_to t(".snags"), admin_snags_plot_path(plot), class: "btn" %></td>
-      <% end %>
+      <tr data-plot="<%= plot.id %>">
+        <td><%= plot.number %></td>
+        <td><%= plot.postal_number %></td>
+        <td><%= plot.building_name %></td>
+        <td><%= plot.road_name %></td>
+        <td><%= plot.postcode %></td>
+        <td><%= l(plot.completion_date.to_date, format: :digits) if plot.completion_date%></td>
+        <td><%= plot.total_snags %></td>
+        <td><%= plot.unresolved_snags %></td>
+        <td><%= plot.snagging_days_remaining %></td>
+        <td class="actions"><%= link_to t(".snags"), admin_snags_plot_path(plot), class: "btn" %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>

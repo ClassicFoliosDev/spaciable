@@ -135,6 +135,9 @@ gem "momentjs-rails"
 # salesforce
 gem "restforce", "<= 3.2.0"
 
+# Natural sort
+gem "naturalsort"
+
 # OAuth2
 # git "https://github.com/ClassicFoliosDev/spaciable-doorkeeper.git", branch: "master" do
 # end

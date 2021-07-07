@@ -128,19 +128,22 @@ Then(/^I navigate through the homeowner site$/) do
     click_on I18n.t("homeowners.snags.index.add_snag")
     fill_in :snag_title, with: "Snag#{RequestStore.store[:current_user].id}#{i}"
     fill_in :snag_description, with: "Snag#{i} description"
-    click_on "Submit"
     VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_CREATED}"))
+    VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_VIEWED}"))
+    click_on "Submit"
 
     Snag.find_by(title: "Snag#{RequestStore.store[:current_user].id}#{i}").update_attribute(:status, "awaiting")
+    VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_VIEWED}"))
     visit "/homeowners/snags/#{Snag.last.id}"
     find(".reject-btn")
 
+    VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_VIEWED}"))
     if rand(2) == 0
-     click_on I18n.t("homeowners.snags.show.resident_approved")
      VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_RESOLVED}"))
+     click_on I18n.t("homeowners.snags.show.resident_approved")
     else
-      click_on I18n.t("homeowners.snags.show.resident_rejected")
       VisitsFixture.visited(meta, :view_snagging, I18n.t("ahoy.#{Ahoy::Event::SNAGS_REJECTED}"))
+      click_on I18n.t("homeowners.snags.show.resident_rejected")
     end
   end
 

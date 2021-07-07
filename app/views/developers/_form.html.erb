@@ -81,6 +81,9 @@
         <%= f.label :enable_how_tos, t(".how_tos") %>
         <%= f.check_box :enable_how_tos %>
         <p class="checkbox-description"><%= t(".how_tos_description") %>
+        <%= f.label :show_warranties, t(".show_warranties") %>
+        <%= f.check_box :show_warranties %>
+        <p class="checkbox-description"><%= t(".show_warranties_description") %>
         <%= f.label :cas, t(".enable_cas") %>
         <%= f.check_box :cas, disabled: developer.cas %>
         <p class="checkbox-description"><%= t(".cas_description") %></p>

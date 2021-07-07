@@ -1204,6 +1204,7 @@ en:
     collection:
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
+      faq_category: "FAQ Category"
       faq: "%{type} FAQ"
       empty_list: "You have no %{type} FAQs"
       confirm_delete: "Are you sure you wish to delete this %{type} FAQ?"
@@ -1694,6 +1695,7 @@ en:
         manual: "Manual"
         guide: "Quick Reference Guide"
         download: "Download"
+        disclaimer: "Please note: this page displays standard consumer information from the manufacturer(s). Your appliance warranty lengths may differ to any shown on this page, so please check your cover using the information supplied at your property handover."
     how_tos:
       index:
         title: "How To."
@@ -2033,6 +2035,8 @@ en:
       is_demo: "Exclude from global reports"
       how_tos: "How To Guides"
       how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
+      show_warranties: "Appliance Warranties"
+      show_warranties_description: "Display appliance warranty durations to this developer's residents."
       analytics_dashboard_label: "Client Analytics Dashboard"
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
       plot_invite_label: "Enable Plot Invite/Activations Charts"
@@ -3158,6 +3162,8 @@ en:
       document: "Document"
       category: "Category"
       sync: "CRM Sync"
+      delete_info: "<p>This document cannot be replaced, renamed, recategorised or deleted, because it has been tagged as a %{tag} Manual written by Classic Folios.</p><p>
+%{tag} Manuals are protected to ensure they always remain visible to residents.</p>"
     edit:
       title: "Edit %{name}"
 
@@ -3526,6 +3532,9 @@ en:
           b: "B"
           c: "C"
           d: "D"
+          e: "E"
+          f: "F"
+          g: "G"
       document:
         title: "Name"
         file: "File"
@@ -3973,6 +3982,7 @@ en:
     view_choices: "Choices"
     view_snagging: "Snagging"
     snagging_viewed: "Snagging Viewed"
+    snags_viewed: "Snags Viewed"
     snags_created: "Snags Created"
     snags_resolved: "Snags Resolved"
     snags_rejected: "Snags Rejected"

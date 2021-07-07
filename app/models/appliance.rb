@@ -70,6 +70,9 @@ class Appliance < ApplicationRecord
     b
     c
     d
+    e
+    f
+    g
   ]
 
   def short_name

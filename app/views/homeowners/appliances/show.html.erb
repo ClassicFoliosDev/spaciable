@@ -4,6 +4,9 @@
 
 <div class="branded-body">
   <div class="appliances">
+    <% if @plot.developer.show_warranties? %>
+      <span class="branded-text appliances-disclaimer"><%= t(".disclaimer") %></span>
+    <% end %>
     <% @appliances.each do | appliance | %>
       <% next unless appliance %>
       <div class="appliance ">
@@ -52,7 +55,7 @@
               </div>
             <% end %>
 
-            <% if appliance.warranty_length? %>
+            <% if appliance.warranty_length? && @plot.developer.show_warranties? %>
               <span class="branded-text"><%= label_tag :warranty %></span>
               <span class="branded-text"><%= t("activerecord.attributes.appliance.warranty_length.#{appliance.warranty_length}") %></span>
             <% end %>
