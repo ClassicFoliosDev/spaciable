@@ -65,7 +65,7 @@ en:
     title: "Important Information About Your Spaciable Plot"
     intro: "Hi %{name},"
     plot_details: "We have a message regarding your %{developer} property at %{development} (%{address})"
-    new_message: "You have a new message regarding your %{developer} property. Plot %{plot_number} at %{development}:"
+    new_message: "You have a new message regarding your %{developer} property, Plot %{plot_number} at %{development}:"
     regards: "Kind regards,"
     sign_off: "The Spaciable Team"
   reduced_expiry_email:
