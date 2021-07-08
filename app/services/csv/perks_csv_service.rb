@@ -35,13 +35,14 @@ module Csv
         response = HTTParty.get(full_url)
         next unless response.code == 200
 
-        parsed_response = JSON.parse(response)
-        add_residents(parsed_response, csv)
+        add_residents(response.parsed_response, csv)
       end
     end
 
     def self.add_residents(parsed_response, csv)
-      parsed_response["data"]["users"].each do |user|
+      return if parsed_response.nil? || parsed_response["data"].nil?
+
+      parsed_response["data"]["users"]&.each do |user|
         resident = Resident.find_by(email: user[Vaboo::EMAIL])
 
         # find the plot from which they activated perks
