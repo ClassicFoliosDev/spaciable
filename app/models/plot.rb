@@ -404,7 +404,7 @@ class Plot < ApplicationRecord
     Plot.find_each do |plot|
       expiry_plots << plot.id if plot.expiry_date == Time.zone.today - 1.day
       reduced_expiry_plots << plot.id if plot.reduced_expiry_date == Time.zone.today - 1.day &&
-                                         plot.maintenance.path
+                                         plot.maintenance&.path
     end
 
     ExpiryPlotsJob.perform_later(expiry_plots, reduced_expiry_plots)
