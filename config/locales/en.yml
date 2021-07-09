@@ -464,6 +464,7 @@ en:
     admin_analytics: "Analytics"
     stage_set_edit: "Edit %{title} sections"
     build_sequence: "Build Progress"
+    edit_build_sequence: "Edit Build Progress"
 
   pagination:
     per_page_10: "10"

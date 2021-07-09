@@ -4,6 +4,12 @@ var $document = $(document)
 $document.on('keypress', 'form', function (event) {
   var RETURN = 13
 
+  if(event.target.tagName == 'TEXTAREA') {
+    if(event.keyCode == RETURN) {
+          return true;
+    }
+  }
+
   if (event.keyCode === RETURN) {
     var $searchField = $('.search-field')
     var $searchApplianceField = $('.search-appliance-field')

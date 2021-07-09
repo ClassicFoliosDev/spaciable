@@ -1,0 +1,46 @@
+<div class="build_sequence">
+  <%= simple_form_for(build_sequence, url: [:build_sequence]) do |f| %>
+
+    <table class="section-list build-steps">
+      <thead>
+        <tr>
+          <th class="step-map-actions current">&nbsp;</th>
+          <th class="current">Current</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :build_steps do |s| %>
+          <tr>
+            <%= s.hidden_field :id, id: 'id' %>
+            <%= s.hidden_field :order, id: 'order' %>
+            <td class="step-map-actions current">
+              <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+              <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+            </td>
+            <td class="current"><%= s.object.title %></td>
+
+            <td class="title"><%= s.input :title, label: false, placeholder: s.object.title %></td>
+            <td class="description"><%= s.input :description, label: false, as: :text, placeholder: s.object.description %></td>
+            <td class='step_actions'>
+              <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+              <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+              <button id='above' type="button" class="btn" >Add Above</button>
+              <button id='below' type="button" class="btn" >Add Below</i></button>
+              <button id='trash' type="button" class="btn" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+
+    </table>
+
+    <div class="form-actions-footer-container">
+      <div class="form-actions-footer">
+      </div>
+    </div>
+  <% end %>
+</div>
+
