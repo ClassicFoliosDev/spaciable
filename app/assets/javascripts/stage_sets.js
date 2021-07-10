@@ -1,6 +1,6 @@
 document.addEventListener('turbolinks:load', function () {
 
-  if ($(".section-list ").length == 0 ) { return }
+  if ($("#stage_sets ").length == 0 ) { return }
 
   ss.sectionRows().each(function( index ) {
     ss.initialiseSection($(this))
