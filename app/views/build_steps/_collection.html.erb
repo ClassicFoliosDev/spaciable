@@ -15,7 +15,7 @@
         <% collection.each do |build_step| %>
         <tr>
           <td colspan="3"><%= build_step.title %></td>
-          <td colspan="3"><%= build_step.description %></td>
+          <td colspan="3"><%= simple_format build_step.description %></td>
         </tr>
         <% end %>
       </tbody>

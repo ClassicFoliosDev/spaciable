@@ -48,7 +48,7 @@ namespace :build_progress do
 
       BuildStep.create(title: text,
                        description: text,
-                       order: v,
+                       order: v + 1,
                        build_sequence: sequence)
     end
 

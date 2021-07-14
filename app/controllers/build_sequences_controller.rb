@@ -11,6 +11,17 @@ class BuildSequencesController < ApplicationController
 
   def edit; end
 
+  def update
+    @build_sequence.update(build_sequence_params)
+    redirect_to [@build_sequence]
+  end
+
+  def build_sequence_params
+    params.require(:build_sequence).permit(
+      build_steps_attributes: %i[id order title description _destroy]
+    )
+  end
+
   def set_parent
     @parent = @division || @developer
   end

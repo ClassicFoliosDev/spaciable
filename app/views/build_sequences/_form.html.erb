@@ -1,6 +1,8 @@
 <div class="build_sequence">
   <%= simple_form_for(build_sequence, url: [:build_sequence]) do |f| %>
 
+    <%= f.hidden_field :dirty, id: 'dirty', value: false %>
+
     <table id="build_sequence" class="section-list build-steps">
       <thead>
         <tr>
@@ -16,11 +18,13 @@
           <tr>
             <%= s.hidden_field :id, id: 'id' %>
             <%= s.hidden_field :order, id: 'order' %>
+            <%= s.hidden_field :_destroy, value: false, deletefield: true %>
             <td class="step-map-actions step-map">
               <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
               <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
             </td>
             <td class="step-map current"><%= s.object.title %><br></td>
+            <%= s.hidden_field :current_orders, id: 'current_orders', value: (s.object.order.to_s + ',') %>
 
             <td class="title"><%= s.input :title, label: false, placeholder: s.object.title %></td>
             <td class="description"><%= s.input :description, label: false, as: :text, placeholder: s.object.description %></td>
@@ -39,6 +43,8 @@
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
+        <%= link_to t("back"), build_sequence_path(build_sequence), class: "btn" %>
+        <%= f.submit t("submit"), class: "btn-form-submit btn-primary" %>
       </div>
     </div>
   <% end %>

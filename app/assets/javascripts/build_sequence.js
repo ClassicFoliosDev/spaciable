@@ -2,7 +2,7 @@ document.addEventListener('turbolinks:load', function () {
 
   if ($("#build_sequence ").length == 0 ) { return }
 
-  bs.sectionRows().each(function( index ) {
+  bs.steps().each(function( index ) {
     bs.initialiseSection($(this))
   })
 
@@ -23,15 +23,21 @@ var bs = {
     bs.insertStep(row.find("#above"))
     bs.insertStep(row.find("#below"))
     bs.deleteStep(row.find("#trash"))
+
+    $("#build_sequence input,textarea").each(function(index) {
+      $(this).on('input', function() {
+        bs.dirty()
+      })
+    })
   },
 
   setRowStatuses: function(){
 
-    last = bs.sectionRows().length-1
-    bs.sectionRows().each(function( index ) {
+    last = bs.steps().length-1
+    bs.steps().each(function( index ) {
       if (index == 0 ) { $(this).find("td #up").each(function(i) { $(this).hide() })} else { $(this).find("td #up").each(function(i) { $(this).show() })}
       if (index == last ) { $(this).find("td #down").hide() } else { $(this).find("td #down").show() }
-      if (bs.sectionRows().length == 1) { $(this).find("#trash").hide() } else { $(this).find("#trash").show() }
+      if (bs.steps().length == 1) { $(this).find("#trash").hide() } else { $(this).find("#trash").show() }
     })
 
   },
@@ -43,6 +49,8 @@ var bs = {
       offset =  $(this)[0].id == 'up' ? -1 : 1
       destination = source.closest('table').find('tr').eq( source[0].rowIndex + offset)
       bs.swapContent(source, destination, ".current")
+      bs.swapVal(source, destination, "#current_orders")
+      bs.dirty()
     })
   },
 
@@ -50,14 +58,16 @@ var bs = {
   swapStep: function(button) {
     button.click(function() {
       source = $(this).closest('tr')
-      offset =  $(this)[0].id == 'up' ? -1 : 1
-      destination = source.closest('table').find('tr').eq( source[0].rowIndex + offset)
 
-      bs.swapVal(source, destination, "#id")
-      bs.swapVal(source, destination, "#order")
-      bs.swapVal(source, destination, "td input")
-      bs.swapContent(source, destination, ".current")
-      bs.swapVal(source, destination, "td.description .input textarea")
+      if ($(this)[0].id == 'up') {
+        source.prev().before(source)
+      } else {
+        source.next().after(source)
+      }
+
+      bs.setRowStatuses()
+      bs.renumber()
+      bs.dirty()
     })
   },
 
@@ -81,8 +91,9 @@ var bs = {
     source.find(selector).attr("placeholder", placeholder)
   },
 
-  sectionRows: function() {
-    return $(".section-list tbody tr")
+  // visible steps
+  steps: function() {
+    return $(".section-list tbody tr:visible")
   },
 
   // Insert a new step above/below the current
@@ -99,47 +110,64 @@ var bs = {
         newstep.find("td input").focus()
       bs.initialiseSection(newstep)
       bs.setRowStatuses()
-      bs.renumberSections()
+      bs.renumber()
+      bs.dirty()
     })
   },
 
   deleteStep: function(button){
     button.click(function() {
       clicked_row = $(button).closest('tr')
-      replacement_row = clicked_row.next().length == 0 ? clicked_row.prev() : clicked_row.next()
+      is_last = (clicked_row.next().length == 0 || clicked_row.next().is(":hidden"))
 
-      if (clicked_row.next().length == 0) {
-        clicked_row.prev().find(".current").append(clicked_row.find(".current").html())
+      replacement_row = is_last ? clicked_row.prev() : clicked_row.next()
+      current = replacement_row.find(".current")
+      current_orders = replacement_row.find("#current_orders")
+
+      if ( is_last ) {
+        current.append(clicked_row.find(".current").html())
+        current_orders.val(current_orders.val() + clicked_row.find("#current_orders").val())
       } else {
-        clicked_row.next().find(".current").prepend(clicked_row.find(".current").html())
+        current.prepend(clicked_row.find(".current").html())
+        current_orders.val(clicked_row.find("#current_orders").val() + current_orders.val())
       }
 
-      clicked_row.remove()
-
+      bs.markDeleted(clicked_row, is_last)
       bs.setRowStatuses()
-      bs.renumberSections()
+      bs.renumber()
+      bs.dirty()
     })
   },
 
-  renumberSections: function(){
-    const selectors = ["#id", "#order", "td input"]
-    const properties = ["name", "id"]
+  // Deleted rows have to be hidden, marked and put at the end so as the
+  // server deletes them from the database
+  markDeleted: function(row, is_last) {
+    row.hide()
+    row.find("input[deletefield='true']").val(true)
+    if (!is_last) { $("tr").last().after(row) }
+  },
 
-    bs.sectionRows().each(function( index ) {
+  // Go through and renumber all the sections and the 'order' attributes
+  renumber: function(){
+    selectors = ["input", "textarea"]
+    $(".section-list tbody tr").each(function( index ) {
       row = $(this)
-      selectors.forEach(function(selector, s_index){
-        properties.forEach(function(property, p_index) {
-          node = row.find(selector)
-          node.prop(property, node.prop(property).replace(/\[\d]/g, "[" + index + "]"))
+      selectors.forEach(function(selector, _){
+        row.find(selector).each(function(_) {
+          $(this).prop("name", $(this).prop("name").replace(/\[\d+]/g, "[" + index + "]"))
+          $(this).prop("id", $(this).prop("id").replace(/_\d+_/g, "_" + index + "_"))
         })
       })
     })
+
+    order = 1
+    $("input#order").each(function(index) { $(this).val(order); order++ })
   },
 
   validate: function(){
     valid = true
 
-    bs.sectionRows().each(function( index ) {
+    bs.steps().each(function( index ) {
       title = $(this).find("td input")
       if (title.val() != "") {
         title.removeClass('field_with_errors')
@@ -154,6 +182,10 @@ var bs = {
     })
 
     if (valid) { bs.submit() }
+  },
+
+  dirty: function() {
+    $("#dirty").val(true)
   },
 
   submit: function(){
