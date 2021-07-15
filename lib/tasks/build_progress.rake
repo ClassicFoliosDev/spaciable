@@ -6,8 +6,9 @@ namespace :build_progress do
   end
 
   def init_build_progress
+
     # create the master build sequence
-    sequence = BuildSequence.create(master: true)
+    sequence = BuildSequence.create(build_sequenceable: Global.first)
 
     Plot.progresses.each do |t, v|
       text = nil
@@ -52,8 +53,10 @@ namespace :build_progress do
                        build_sequence: sequence)
     end
 
-    Division.update_all(build_sequence_id: sequence.id)
-    Developer.update_all(build_sequence_id: sequence.id)
+    Global.build_sequence.build_steps.each do |step|
+      plots = Plot.where(progress: step.order - 1).update_all(build_step_id: step.id)
+    end
+
   end
 
 end

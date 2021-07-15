@@ -25,7 +25,7 @@ class Division < ApplicationRecord
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
   alias_attribute :identity, :division_name
-  belongs_to :build_sequence
+  has_one :build_sequence, as: :build_sequenceable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: { scope: :developer_id }
@@ -163,5 +163,13 @@ class Division < ApplicationRecord
     developments.update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
+
+  def update_build_steps(old_ids, new_id)
+    # update is specialised by the parent
+  end
+
+  def sequence_in_use
+    build_sequence || developer.sequence_in_use
+  end
 end
 # rubocop:enable Metrics/ClassLength

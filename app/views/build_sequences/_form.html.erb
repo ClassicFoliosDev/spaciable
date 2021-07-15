@@ -24,7 +24,7 @@
               <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
             </td>
             <td class="step-map current"><%= s.object.title %><br></td>
-            <%= s.hidden_field :current_orders, id: 'current_orders', value: (s.object.order.to_s + ',') %>
+            <%= s.hidden_field :current_ids, id: 'current_ids', value: (s.object.id.to_s + ',') %>
 
             <td class="title"><%= s.input :title, label: false, placeholder: s.object.title %></td>
             <td class="description"><%= s.input :description, label: false, as: :text, placeholder: s.object.description %></td>

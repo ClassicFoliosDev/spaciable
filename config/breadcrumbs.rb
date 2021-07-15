@@ -149,9 +149,11 @@ crumb :default_faq_add do |faq_type|
   parent :default_faqs, faq_type
 end
 
-crumb :build_sequence do
+crumb :build_sequence do |heir|
   link t("breadcrumbs.build_sequence")
-  parent :admin_settings
+  parent :admin_settings if heir.is_a? Global
+  parent(:developer, heir) if heir.is_a? Developer
+  parent(:division, heir) if heir.is_a? Division
 end
 
 crumb :build_sequence_edit do
@@ -206,6 +208,13 @@ crumb :division_new do |developer|
   link t("breadcrumbs.division_add")
   parent :developer, developer
 end
+
+# CONTENT MANAGEMENT
+crumb :content_management do |heir|
+  link t("breadcrumbs.division_add")
+  parent (heir.is_a?(Developer) ? :developer : :division), heir
+end
+
 
 # DEVELOPMENTS
 

@@ -49,7 +49,7 @@ var bs = {
       offset =  $(this)[0].id == 'up' ? -1 : 1
       destination = source.closest('table').find('tr').eq( source[0].rowIndex + offset)
       bs.swapContent(source, destination, ".current")
-      bs.swapVal(source, destination, "#current_orders")
+      bs.swapVal(source, destination, "#current_ids")
       bs.dirty()
     })
   },
@@ -122,14 +122,14 @@ var bs = {
 
       replacement_row = is_last ? clicked_row.prev() : clicked_row.next()
       current = replacement_row.find(".current")
-      current_orders = replacement_row.find("#current_orders")
+      current_ids = replacement_row.find("#current_ids")
 
       if ( is_last ) {
         current.append(clicked_row.find(".current").html())
-        current_orders.val(current_orders.val() + clicked_row.find("#current_orders").val())
+        current_ids.val(current_ids.val() + clicked_row.find("#current_ids").val())
       } else {
         current.prepend(clicked_row.find(".current").html())
-        current_orders.val(clicked_row.find("#current_orders").val() + current_orders.val())
+        current_ids.val(clicked_row.find("#current_ids").val() + current_ids.val())
       }
 
       bs.markDeleted(clicked_row, is_last)

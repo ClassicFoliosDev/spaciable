@@ -38,7 +38,7 @@ class Developer < ApplicationRecord
   has_many :lettings, through: :lettings_account
   delegate :management, to: :lettings_account
   has_one :crm, dependent: :destroy
-  belongs_to :build_sequence
+  has_one :build_sequence, as: :build_sequenceable
 
   delegate :apple_link, :android_link, :app_icon, to: :branded_app, prefix: true
 
@@ -293,8 +293,12 @@ class Developer < ApplicationRecord
     charts.find_by(section: section)&.enabled
   end
 
-  def cala?
-    company_name == "CALA Homes"
+  def update_build_steps(old_ids, new_id)
+    # update is specialised by the parent
+  end
+
+  def sequence_in_use
+    build_sequence || Global.root.build_sequence
   end
 
   private

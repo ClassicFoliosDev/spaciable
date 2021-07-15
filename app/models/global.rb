@@ -4,6 +4,8 @@
 class Global < ApplicationRecord
   GLOBAL = "CFAdmin"
   has_many :timelines, as: :timelineable
+  has_one :build_sequence, as: :build_sequenceable
+  alias sequence_in_use build_sequence
 
   # Get the global parent record
   def self.root
@@ -13,5 +15,14 @@ class Global < ApplicationRecord
   # Get all the timelines
   def self.timelines
     root.timelines
+  end
+
+  # get the default build sequence
+  def self.build_sequence
+    root.build_sequence
+  end
+
+  def update_build_steps(old_ids, new_id)
+    # update is specialised by the parent
   end
 end

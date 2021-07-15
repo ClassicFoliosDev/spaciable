@@ -25,7 +25,11 @@ module DivisionTabsHelper
         icon: "question-circle",
         menus: faqmenubuilder.menus_for(division)
       },
-      brands: { icon: "css3" }
+      brands: { icon: "css3" },
+      content_management: {
+        icon: "clock-o",
+        permissions_on: -> { division }
+      }
     }
   end
 end

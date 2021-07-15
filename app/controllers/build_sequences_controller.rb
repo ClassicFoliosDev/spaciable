@@ -3,16 +3,18 @@
 class BuildSequencesController < ApplicationController
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
-  load_and_authorize_resource :build_sequence
+  load_and_authorize_resource :global
 
   before_action :set_parent
+
+  def create; end
 
   def show; end
 
   def edit; end
 
   def update
-    @build_sequence.update(build_sequence_params)
+    update_steps
     redirect_to [@build_sequence]
   end
 
@@ -22,7 +24,27 @@ class BuildSequencesController < ApplicationController
     )
   end
 
+  def update_steps
+    BuildSequence.transaction do
+      begin
+        # update the steps
+        @build_sequence.update(build_sequence_params)
+        # go through and update the ids to reflect the changes
+        @build_sequence.build_steps.each_with_index do |step, v|
+          # get the old ids pointing to this step
+          old_ids = params[:build_sequence][:build_steps_attributes][v.to_s][:current_ids]
+                    .split(",").map(&:to_i)
+          # now update all plots pointing at old_ids to the new id of this step
+          @build_sequence.update_build_steps(old_ids, step.id)
+        end
+      rescue
+        ActiveRecord::Rollback
+      end
+    end
+  end
+
   def set_parent
-    @parent = @division || @developer
+    @parent = @division || @developer || @global
+    @build_sequence = @parent.sequence_in_use
   end
 end

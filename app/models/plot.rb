@@ -42,6 +42,7 @@ class Plot < ApplicationRecord
   has_many :snags, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_one :listing, dependent: :destroy
+  has_one :build_step
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, :snag_duration, to: :development
