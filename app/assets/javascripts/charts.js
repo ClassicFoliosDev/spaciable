@@ -1,3 +1,12 @@
+jQuery.loadScript = function (url, callback) {
+    jQuery.ajax({
+        url: url,
+        dataType: 'script',
+        success: callback,
+        async: true
+    });
+}
+
 var charts = {
   $response: "",
   $developer: "0",
@@ -11,22 +20,25 @@ var charts = {
 
     if ($("#charts").length == 0) { return }
 
-    google.charts.load('current', {'packages':['corechart'], callback: charts.refresh });
+    $.getScript( "https://www.gstatic.com/charts/loader.js", function( data, textStatus, jqxhr ) {
 
-    window.addEventListener("resize", charts.render)
+      google.charts.load('current', {'packages':['corechart'], callback: charts.refresh });
 
-    $(document).on('click', '.desc', function (event) {
-      $competitions_height = 500
-      $(".desc").addClass('asc')
-      $(".desc").removeClass('desc')
-      charts.render_competitions()
-    })
+      window.addEventListener("resize", charts.render)
 
-    $(document).on('click', '.asc', function (event) {
-      $competitions_height = 0
-      $(".asc").addClass('desc')
-      $(".asc").removeClass('asc')
-      charts.render_competitions()
+      $(document).on('click', '.desc', function (event) {
+        $competitions_height = 500
+        $(".desc").addClass('asc')
+        $(".desc").removeClass('desc')
+        charts.render_competitions()
+      })
+
+      $(document).on('click', '.asc', function (event) {
+        $competitions_height = 0
+        $(".asc").addClass('desc')
+        $(".asc").removeClass('asc')
+        charts.render_competitions()
+      })
     })
   },
 
