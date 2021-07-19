@@ -11,7 +11,7 @@
       </div>
     </div>
   <% else %>
-    <%= simple_form_for plot, url: plot_path(plot), html: { method: :put } do |f| %>
+    <%= simple_form_for plot, url: plot_complete_path(plot), html: { method: :put } do |f| %>
       <div class="row">
         <div class="row-item half">
           <p><%= t(".disclaimer_1") %></p>
