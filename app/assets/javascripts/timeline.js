@@ -168,11 +168,13 @@ $( document ).on('turbolinks:load', function() {
 function selectFeatureType(selector){
   parent = selector.closest(".featureInput")
   hideShowFeatureLink(parent.find(".task_features_link"), parent.find("select").val() != "custom_url")
+  highlightIfDisabled(selector)
 }
 
 function selectActionFeatureType(selector){
   parent = selector.closest("#actionInput")
   hideShowFeatureLink(parent.find(".task_action_link"), parent.find("select").val() != "custom_url")
+  highlightIfDisabled(selector)
 }
 
 function hideShowFeatureLink(link, hide){
@@ -182,6 +184,19 @@ function hideShowFeatureLink(link, hide){
   }
 
   if (hide == true) { link.hide() } else { link.show() }
+}
+
+function highlightIfDisabled(selector){
+  featureEnabled(selector) ?
+  selector.closest("fieldset").removeClass("disabled") :
+  selector.closest("fieldset").addClass("disabled")
+}
+
+function featureEnabled(selector) {
+  var enabled = false
+  available_features = $(".link-content").data("features")
+  for (i = 0; i < available_features.length; ++i) { if (available_features[i] == selector.val()) { enabled = true }}
+  return enabled
 }
 
 // Add a new feature into the DOM. Make a copy of the html for the
