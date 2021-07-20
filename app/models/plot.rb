@@ -48,7 +48,7 @@ class Plot < ApplicationRecord
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
-           :wecomplete_sign_in, :wecomplete_quote, to: :development
+           :wecomplete_sign_in, :wecomplete_quote, to: :phase
 
   alias_attribute :identity, :number
 

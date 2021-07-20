@@ -19,7 +19,7 @@ module HomeownerNotificationsFixture
   end
 
   def create_second_plot
-    plot = FactoryGirl.create(:plot, number: PlotFixture.another_plot_number)
+    plot = FactoryGirl.create(:plot, phase: Phase.first, number: PlotFixture.another_plot_number)
     FactoryGirl.create(:plot_residency, plot_id: plot.id, resident_id: resident.id)
   end
 

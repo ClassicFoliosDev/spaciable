@@ -2361,6 +2361,8 @@ en:
       business: "Business"
       submit: "Submit"
       back: "Back"
+      conveyancing: "Spaciable Legal Conveyancing"
+      conveyancing_description: "Provide admins and residents with an external link to WeComplete"
     index:
       title: "Phases."
     show:
