@@ -271,7 +271,7 @@ Given(/^There is a plot with many residents$/) do
   FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test2@example.com")
   FactoryGirl.create(:resident, :with_residency, plot: plot, email: "test3@example.com")
 
-  other_plot = FactoryGirl.create(:plot, development: plot.development, number: PlotFixture.another_plot_number)
+  other_plot = FactoryGirl.create(:plot, phase: plot.phase, development: plot.development, number: PlotFixture.another_plot_number)
   FactoryGirl.create(:plot_residency, plot_id: other_plot.id, resident_id: resident.id)
 end
 

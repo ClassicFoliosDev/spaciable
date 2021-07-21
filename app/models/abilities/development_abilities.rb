@@ -32,7 +32,7 @@ module Abilities
       can :read, Phase, development_id: developments
       can :read, Room, development_id: developments
       can :read, Plot, development_id: developments
-      can :update, Plot, development_id: developments
+      can %i[update complete], Plot, development_id: developments
 
       can :read, UnitType, development_id: developments
 

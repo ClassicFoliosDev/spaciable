@@ -36,6 +36,15 @@
         <% end %>
       </fieldset>
     </div>
+    <% if phase.parent.conveyancing_enabled? %>
+       <div class="row-item third">
+        <fieldset>
+          <%= f.label :conveyancing, t(".conveyancing") %>
+          <%= f.check_box :conveyancing %>
+          <p class="checkbox-description"><%= t(".conveyancing_description") %>
+        </fieldset>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-actions-footer-container">

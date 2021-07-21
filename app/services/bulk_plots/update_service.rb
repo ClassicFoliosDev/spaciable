@@ -131,6 +131,11 @@ module BulkPlots
       # make the updates
       updating_plot&.update(updates)
 
+      unless updating_plot.errors.empty?
+        @errors << updating_plot
+        return nil
+      end
+
       # If there is an updated plot and the unit type is being updated
       # and the user has selected to reset the rooms to just those for the
       # new unit type

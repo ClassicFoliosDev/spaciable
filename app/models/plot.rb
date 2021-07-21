@@ -51,7 +51,7 @@ class Plot < ApplicationRecord
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
-           :wecomplete_sign_in, :wecomplete_quote, to: :development
+           :wecomplete_sign_in, :wecomplete_quote, to: :phase
 
   delegate :build_steps, to: :parent
   delegate :title, to: :build_step, prefix: true
@@ -74,6 +74,7 @@ class Plot < ApplicationRecord
     greater_than_or_equal_to: 0, only_integer: true
   }
   validates_with PlotCombinationValidator
+  validate :move_in_date
 
   delegate :picture, to: :unit_type, prefix: true
   delegate :external_link, :external_link?, to: :unit_type
@@ -410,7 +411,7 @@ class Plot < ApplicationRecord
     Plot.find_each do |plot|
       expiry_plots << plot.id if plot.expiry_date == Time.zone.today - 1.day
       reduced_expiry_plots << plot.id if plot.reduced_expiry_date == Time.zone.today - 1.day &&
-                                         plot.maintenance.path
+                                         plot.maintenance&.path
     end
 
     ExpiryPlotsJob.perform_later(expiry_plots, reduced_expiry_plots)
@@ -741,6 +742,19 @@ class Plot < ApplicationRecord
     return I18n.t("calendar.events.select_all_res") if completion_date > Time.zone.now
     I18n.t("calendar.events.select_all_comp")
   end
+
+  # rubocop:disable Rails/Date, Style/CaseEquality
+  def move_in_date
+    return true if completion_date.nil?
+
+    finish = Date.today.next_year(2)
+    return true if (Date.new(2017, 1, 1)..finish) === completion_date
+
+    errors.add(:base,
+               "Ensure #{I18n.t('plots.completion.title')} date is dd/mm/yyyy format," \
+               " and between 01/01/2017 and #{finish}")
+  end
+  # rubocop:enable Rails/Date, Style/CaseEquality
 
   def set_build_status
     self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?

@@ -11,7 +11,7 @@ class PlotsController < ApplicationController
   load_and_authorize_resource :plot, through: %i[development phase], shallow: true
 
   before_action :set_parent
-  before_action :check_access, except: %i[show update]
+  before_action :check_access, except: %i[show update complete]
 
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
@@ -51,6 +51,12 @@ class PlotsController < ApplicationController
     end
   end
 
+  def complete
+    @complete = true
+    @active_tab = "completion"
+    update
+  end
+
   def update
     BulkPlots::UpdateService.call(@plot, self, params: plot_params) do |service, updated, errors|
       if updated.any? && @plot.valid?
@@ -63,8 +69,7 @@ class PlotsController < ApplicationController
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
-
-        render :edit
+        render(@complete.nil? ? :edit : :show)
       end
     end
   end

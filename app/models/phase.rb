@@ -22,7 +22,7 @@ class Phase < ApplicationRecord
   delegate :cas, to: :development
   delegate :name, to: :development, prefix: true
 
-  has_many :plots
+  has_many :plots, dependent: :destroy
   has_many :plot_residencies, through: :plots
   has_many :residents, through: :plot_residencies
   has_many :plot_documents, through: :plots, source: :documents
@@ -30,11 +30,11 @@ class Phase < ApplicationRecord
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
 
-  delegate :enable_snagging, :conveyancing_enabled?,
-           :wecomplete_sign_in, :wecomplete_quote, to: :development
+  delegate :enable_snagging, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
   delegate :calendar, to: :development, prefix: true
   delegate :time_zone, to: :developer
+  delegate :wecomplete_sign_in, :wecomplete_quote, to: :parent
 
   delegate :timeline, to: :developer
 
@@ -244,6 +244,10 @@ class Phase < ApplicationRecord
 
   def hierarchy
     "#{name}: "
+  end
+
+  def conveyancing_enabled?
+    conveyancing && parent.conveyancing_enabled?
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -3,7 +3,7 @@
 # Timeline Task actions.
 class Action < ApplicationRecord
   include FeatureTypeEnum
-  belongs_to :task
+  belongs_to :task, touch: true
   validates :title, presence: true
   validate :featuretype
 

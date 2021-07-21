@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20210706132542) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_trgm"
-  enable_extension "uuid-ossp"
 
   create_table "access_tokens", force: :cascade do |t|
     t.string  "access_token"
@@ -539,7 +538,6 @@ ActiveRecord::Schema.define(version: 20210706132542) do
     t.datetime "proposed_start"
     t.datetime "proposed_end"
     t.boolean  "notify",         default: true
-    t.uuid     "uuid",           default: -> { "uuid_generate_v4()" }
     t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
     t.index ["master_id"], name: "index_events_on_master_id", using: :btree
     t.index ["userable_type", "userable_id"], name: "index_events_on_userable_type_and_userable_id", using: :btree
@@ -860,8 +858,8 @@ ActiveRecord::Schema.define(version: 20210706132542) do
   create_table "phases", force: :cascade do |t|
     t.string   "name"
     t.integer  "development_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.integer  "developer_id"
     t.integer  "division_id"
     t.integer  "number"
@@ -869,6 +867,7 @@ ActiveRecord::Schema.define(version: 20210706132542) do
     t.integer  "total_snags",      default: 0
     t.integer  "unresolved_snags", default: 0
     t.integer  "business",         default: 0
+    t.boolean  "conveyancing",     default: true
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree

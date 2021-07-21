@@ -65,7 +65,7 @@ en:
     title: "Important Information About Your Spaciable Plot"
     intro: "Hi %{name},"
     plot_details: "We have a message regarding your %{developer} property at %{development} (%{address})"
-    new_message: "You have a new message regarding your %{developer} property. Plot %{plot_number} at %{development}:"
+    new_message: "You have a new message regarding your %{developer} property, Plot %{plot_number} at %{development}:"
     regards: "Kind regards,"
     sign_off: "The Spaciable Team"
   reduced_expiry_email:
@@ -1210,6 +1210,7 @@ en:
     collection:
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
+      faq_category: "FAQ Category"
       faq: "%{type} FAQ"
       empty_list: "You have no %{type} FAQs"
       confirm_delete: "Are you sure you wish to delete this %{type} FAQ?"
@@ -1700,6 +1701,7 @@ en:
         manual: "Manual"
         guide: "Quick Reference Guide"
         download: "Download"
+        disclaimer: "Please note: this page displays standard consumer information from the manufacturer(s). Your appliance warranty lengths may differ to any shown on this page, so please check your cover using the information supplied at your property handover."
     how_tos:
       index:
         title: "How To."
@@ -2039,6 +2041,8 @@ en:
       is_demo: "Exclude from global reports"
       how_tos: "How To Guides"
       how_tos_description: "Allow residents to read How To Guides. If this feature is turned off, ensure each development has 5 custom tiles."
+      show_warranties: "Appliance Warranties"
+      show_warranties_description: "Display appliance warranty durations to this developer's residents."
       analytics_dashboard_label: "Client Analytics Dashboard"
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
       plot_invite_label: "Enable Plot Invite/Activations Charts"
@@ -2365,6 +2369,8 @@ en:
       business: "Business"
       submit: "Submit"
       back: "Back"
+      conveyancing: "Spaciable Legal Conveyancing"
+      conveyancing_description: "Provide admins and residents with an external link to WeComplete"
     index:
       title: "Phases."
     show:
@@ -2658,6 +2664,10 @@ en:
       title: "New Plot."
     update:
       lettings_success: "%{plot_name} has been successfully switched to %{type}"
+      success:
+        one: "%{plot_name} was updated successfully"
+        other: "Plots %{plot_name} were updated successfully"
+    complete:
       success:
         one: "%{plot_name} was updated successfully"
         other: "Plots %{plot_name} were updated successfully"

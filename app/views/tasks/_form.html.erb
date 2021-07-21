@@ -68,13 +68,13 @@
         <% end %>
       </div>
 
-      <div class="link-content">
+      <div class="link-content" data-features='<%= Feature.featuretypes(timeline).map { |f| f[0] }.to_s%>'>
         <div class="feature">
           <label><%= t(".feature.label") %></label>
           <%= f.fields_for :features do |ft| %>
             <% supported = timeline.supports?(ft.object.feature_type) %>
-            <div class=<%="featureInput#{ ' hidden' unless supported }"%> data-supported=<%=supported%>>
-              <fieldset>
+            <div class="featureInput" data-supported=<%=supported%>>
+              <fieldset class=<%='disabled' unless supported%>>
                 <div id="deleteFeatureBtn"><%= t(".feature.delete") %></div>
                   <%= ft.hidden_field :id %>
                   <%= ft.input :title, label: t(".feature.title") %>
@@ -82,7 +82,7 @@
                   <%= ft.input :description, label: t(".feature.description")%>
                   <%= ft.input :feature_type,
                     as: :select,
-                    collection: Feature.featuretypes(timeline, !supported),
+                    collection: Feature.featuretypes(timeline, true),
                     label_method: :second,
                     value_method: :first,
                     include_blank: false %>
@@ -95,24 +95,26 @@
         </div>
 
         <% showing = timeline.supports?(f.object&.action&.feature_type) %>
-        <div class=<%="action#{ ' hidden' unless showing }" %>>
+        <div class="<%="action #{'disabled' unless showing}"%>">
           <label><%= t(".action.label") %></label>
-          <div id="addActionBtn"><%= t(".action.add") %></div>
-          <div id="actionInput">
-            <div id="deleteActionBtn"><%= t(".action.delete") %></div>
-            <%= f.fields_for :action do |a| %>
-              <%= a.hidden_field :id %>
-              <%= a.input :title, label: t(".action.title") %>
-              <%= a.input :feature_type,
-                    as: :select,
-                    collection: Action.featuretypes(timeline, !showing),
-                    label_method: :second,
-                    value_method: :first,
-                    include_blank: false %>
-              <%= a.input :link, label: t(".action.link") %>
-              <%= a.hidden_field :_destroy, value: false %>
-            <% end %>
-          </div>
+          <fieldset class=<%='disabled' unless showing%>>
+            <div id="addActionBtn"><%= t(".action.add") %></div>
+            <div id="actionInput">
+              <div id="deleteActionBtn"><%= t(".action.delete") %></div>
+              <%= f.fields_for :action do |a| %>
+                <%= a.hidden_field :id %>
+                <%= a.input :title, label: t(".action.title") %>
+                <%= a.input :feature_type,
+                      as: :select,
+                      collection: Action.featuretypes(timeline, true),
+                      label_method: :second,
+                      value_method: :first,
+                      include_blank: false %>
+                <%= a.input :link, label: t(".action.link") %>
+                <%= a.hidden_field :_destroy, value: false %>
+              <% end %>
+            </div>
+          </fieldset>
         </div>
 
         <div class="shortcuts">

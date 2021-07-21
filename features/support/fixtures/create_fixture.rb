@@ -452,7 +452,8 @@ module CreateFixture
   end
 
   def create_division_development_plot
-    FactoryGirl.create(:plot, development: division_development, number: division_plot_name)
+    create_division_development_phase if division_development.phases.empty?
+    FactoryGirl.create(:plot, phase: division_development.phases.first, development: division_development, number: division_plot_name)
   end
 
   def create_spanish_division_development_plot
