@@ -76,6 +76,8 @@ class Development < ApplicationRecord
 
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
 
+  delegate :build_steps, to: :parent
+
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_tiles
   after_save :update_custom_tiles

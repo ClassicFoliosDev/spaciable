@@ -50,7 +50,9 @@ Then(/^I can update the the build progress of that plot$/) do
     click_on t("plots.collection.progress")
   end
 
-  select_from_selectmenu :plot_progress, with: PlotFixture.progress
+  select_from_selectmenu :plot_progress,
+    with: CreateFixture.plot_build_step(ExpiryFixture.plot_number,
+                                        PlotFixture.progress).title
 
   within ".submit" do
     click_on t("progresses.progress.submit")

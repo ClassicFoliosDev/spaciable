@@ -15,13 +15,11 @@ class PlotsController < ApplicationController
 
   def new
     @plots = BulkPlots::CreateService.call(@plot).collection
-    @plot.progress = :soon
-    @progress_id = Plot.progresses[@plot.progress.to_sym]
+    @plot.build_step = @parent.build_steps.first
   end
 
   def edit
     @plots = BulkPlots::UpdateService.call(@plot, self).collection
-    @progress_id = Plot.progresses[@plot.progress.to_sym]
   end
 
   def show
@@ -46,7 +44,7 @@ class PlotsController < ApplicationController
       else
         flash.now[:alert] = errors if errors
         @plots = service.collection
-        @plot.progress = :soon
+        @plot.build_step = @parent.build_steps.first
 
         render :new
       end
@@ -98,9 +96,8 @@ class PlotsController < ApplicationController
   end
 
   def update_verb
-    if plot_params[:progress].present?
-      new_state = t("activerecord.attributes.plot.progresses.#{plot_params[:progress]}")
-      t("notify.updated_progress", state: new_state)
+    if plot_params[:build_step_id].present?
+      t("notify.updated_progress", state: BuildStep.find(plot_params[:build_step_id]).title)
     else
       t("notify.generic_updated")
     end
@@ -120,7 +117,7 @@ class PlotsController < ApplicationController
   def plot_attributes
     %i[ prefix number ut_update_option unit_type_id house_number road_name
         building_name locality city county uprn
-        postcode progress notify user_id completion_date reservation_release_date
+        postcode build_step_id notify user_id completion_date reservation_release_date
         completion_release_date validity extended_access copy_plot_numbers letable let
         letter_type letable_type reservation_order_number completion_order_number ]
   end

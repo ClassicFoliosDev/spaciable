@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ContentManagementsController < ApplicationController
-
   load_and_authorize_resource :developer
   load_and_authorize_resource :division
 
@@ -10,6 +9,6 @@ class ContentManagementsController < ApplicationController
   def show; end
 
   def set_parent
-    @parent = @development || @division
+    @parent = @developer || @division
   end
 end

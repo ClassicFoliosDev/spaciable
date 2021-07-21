@@ -1,7 +1,7 @@
 <% if plot&.persisted? && plot&.progress %>
   <div class="plot-field current-progress">
     <label><%= t(".current_progress") %></label>
-    <span class="read-only"><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") %></span>
+    <span class="read-only"><%= plot&.build_step_title %></span>
   </div>
 <% end %>
 
@@ -13,7 +13,7 @@
       <% else %>
         <label><%= t(".current_progress") %></label>
       <% end %>
-      <%= f.input :progress, as: :select, collection: progress_collection(plot&.progress), label: false %>
+      <%= f.input :build_step_id, as: :select, collection: progress_collection(plot), label: false, include_blank: true  %>
     </div>
   </div>
 </div>

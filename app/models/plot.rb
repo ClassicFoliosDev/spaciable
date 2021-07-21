@@ -10,6 +10,8 @@ class Plot < ApplicationRecord
   DUMMY_PLOT_NAME = "ZZZ_DUMMY_PLOT_QQQ"
   DASHBOARD_TILES = 5 # total number of customisable tiles on the homeowner dashboard
 
+  before_save :set_build_status
+
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
   def parent
@@ -42,7 +44,7 @@ class Plot < ApplicationRecord
   has_many :snags, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_one :listing, dependent: :destroy
-  has_one :build_step
+  belongs_to :build_step
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, :snag_duration, to: :development
@@ -50,6 +52,9 @@ class Plot < ApplicationRecord
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
            :wecomplete_sign_in, :wecomplete_quote, to: :development
+
+  delegate :build_steps, to: :parent
+  delegate :title, to: :build_step, prefix: true
 
   alias_attribute :identity, :number
 
@@ -735,6 +740,10 @@ class Plot < ApplicationRecord
     return if completion_date.blank?
     return I18n.t("calendar.events.select_all_res") if completion_date > Time.zone.now
     I18n.t("calendar.events.select_all_comp")
+  end
+
+  def set_build_status
+    self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
   end
 end
 # rubocop:enable Metrics/ClassLength

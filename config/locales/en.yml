@@ -4048,6 +4048,7 @@ en:
     collection:
       title: "Title"
       description: "Description"
+      add: "Specialise"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
 
@@ -4074,6 +4075,7 @@ en:
       build_progress: "Build Progress"
       build_progress_desc: "View and specialise the build process"
       build_progress_btn: "Build Progress"
+
   api:
     pre_sales:
       invalid_plot_development: "Invalid/unknown development/phase/plot_number %{development}/%{phase}/%{plot_number}"

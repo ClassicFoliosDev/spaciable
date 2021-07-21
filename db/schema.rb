@@ -204,9 +204,10 @@ ActiveRecord::Schema.define(version: 20210706132542) do
   end
 
   create_table "build_sequences", force: :cascade do |t|
-    t.boolean  "master",     default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "build_sequenceable_type"
+    t.integer  "build_sequenceable_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "build_steps", force: :cascade do |t|
@@ -417,8 +418,6 @@ ActiveRecord::Schema.define(version: 20210706132542) do
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
-    t.integer  "build_sequence_id"
-    t.index ["build_sequence_id"], name: "index_developers_on_build_sequence_id", using: :btree
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -477,8 +476,6 @@ ActiveRecord::Schema.define(version: 20210706132542) do
     t.string   "wecomplete_sign_in"
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard", default: true
-    t.integer  "build_sequence_id"
-    t.index ["build_sequence_id"], name: "index_divisions_on_build_sequence_id", using: :btree
     t.index ["created_at"], name: "index_divisions_on_created_at", using: :btree
     t.index ["deleted_at"], name: "index_divisions_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_divisions_on_developer_id", using: :btree
@@ -930,6 +927,8 @@ ActiveRecord::Schema.define(version: 20210706132542) do
     t.string   "completion_order_number"
     t.string   "reservation_order_number"
     t.string   "uprn"
+    t.integer  "build_step_id"
+    t.index ["build_step_id"], name: "index_plots_on_build_step_id", using: :btree
     t.index ["deleted_at"], name: "index_plots_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_plots_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_plots_on_development_id", using: :btree
@@ -1323,12 +1322,10 @@ ActiveRecord::Schema.define(version: 20210706132542) do
   add_foreign_key "crms", "developers"
   add_foreign_key "custom_tiles", "developments"
   add_foreign_key "custom_tiles", "documents"
-  add_foreign_key "developers", "build_sequences"
   add_foreign_key "development_messages", "developments"
   add_foreign_key "development_messages", "residents"
   add_foreign_key "developments", "developers"
   add_foreign_key "developments", "divisions"
-  add_foreign_key "divisions", "build_sequences"
   add_foreign_key "divisions", "developers"
   add_foreign_key "documents", "users"
   add_foreign_key "events", "events", column: "master_id"

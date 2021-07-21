@@ -1,5 +1,5 @@
 <div class="build_sequence">
-  <%= simple_form_for(build_sequence, url: [:build_sequence]) do |f| %>
+  <%= simple_form_for(build_sequence, url: [parent, :build_sequence]) do |f| %>
 
     <%= f.hidden_field :dirty, id: 'dirty', value: false %>
 
@@ -16,7 +16,7 @@
       <tbody>
         <%= f.fields_for :build_steps do |s| %>
           <tr>
-            <%= s.hidden_field :id, id: 'id' %>
+            <%= s.hidden_field :id, id: 'id', value: (parent.build_sequence ? s.object.id : nil) %>
             <%= s.hidden_field :order, id: 'order' %>
             <%= s.hidden_field :_destroy, value: false, deletefield: true %>
             <td class="step-map-actions step-map">
@@ -43,7 +43,7 @@
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
-        <%= link_to t("back"), build_sequence_path(build_sequence), class: "btn" %>
+        <%= link_to t("back"), [build_sequence.parent, :build_sequence], class: "btn" %>
         <%= f.submit t("submit"), class: "btn-form-submit btn-primary" %>
       </div>
     </div>

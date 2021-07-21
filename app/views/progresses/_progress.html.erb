@@ -9,9 +9,9 @@
         <div class="row-item half">
           <div class="plot_progress ui-front select-container">
             <label><%= t(".previous") %></label>
-            <span class="current-progress"><%= t("activerecord.attributes.plot.progresses.#{plot.progress}") unless plot.remove? %></span>
+            <span class="current-progress"><%= plot&.build_step_title unless plot.remove? %></span>
             <label><%= t(".update_progress") %></label>
-            <%= f.select :progress, options_for_select(progress_collection(plot&.progress)), label: false %>
+            <%= f.input :build_step_id, as: :select, collection: progress_collection(plot), label: false  %>
           </div>
           <% unless plot.expired? && !(current_user.cf_admin?) %>
           <div class="submit">

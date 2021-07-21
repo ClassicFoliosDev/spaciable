@@ -30,7 +30,6 @@ module Csv
     # iterate over each account number to access the perks account,
     # i.e. get spaciable branded, then each developer branded
     def self.find_each_perk_account(account_ids, csv)
-      byebug
       account_ids.each do |id|
         full_url = "#{URL}#{API}users/#{id}/#{ACCESS_KEY}"
         response = HTTParty.get(full_url)

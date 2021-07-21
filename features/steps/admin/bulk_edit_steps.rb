@@ -55,7 +55,7 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
          phase_bulk_edit_postcode].each do |selector|
         expect(page).not_to have_selector "##{selector}"
 
-        find("#phase_bulk_edit_progress_check").set true
+        find("#phase_bulk_edit_build_step_id_check").set true
         select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
         find("#phase_bulk_edit_completion_date_check").set true
         fill_in :phase_bulk_edit_completion_date, with: (Time.zone.now + 10.days)

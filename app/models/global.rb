@@ -22,7 +22,13 @@ class Global < ApplicationRecord
     root.build_sequence
   end
 
+  # rubocop:disable SkipsModelValidations
   def update_build_steps(old_ids, new_id)
-    # update is specialised by the parent
+    @updated ||= []
+    targets = Plot.where.not(id: @updated)
+                  .where(build_step_id: old_ids)
+    @updated += targets.pluck(:id)
+    targets.update_all(build_step_id: new_id)
   end
+  # rubocop:enable SkipsModelValidations
 end

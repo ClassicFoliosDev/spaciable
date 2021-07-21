@@ -7,15 +7,13 @@ class BuildSequencesController < ApplicationController
 
   before_action :set_parent
 
-  def create; end
-
   def show; end
 
   def edit; end
 
   def update
     update_steps
-    redirect_to [@build_sequence]
+    redirect_to [@build_sequence.parent, :build_sequence]
   end
 
   def build_sequence_params
@@ -24,9 +22,14 @@ class BuildSequencesController < ApplicationController
     )
   end
 
+  # rubocop:disable LineLength
   def update_steps
     BuildSequence.transaction do
       begin
+        # If the parent doesn't have a build_sequence, then this 'update'
+        # must create one for it.
+        @build_sequence = BuildSequence.new(build_sequenceable: @parent) unless @parent.build_sequence
+
         # update the steps
         @build_sequence.update(build_sequence_params)
         # go through and update the ids to reflect the changes
@@ -37,11 +40,13 @@ class BuildSequencesController < ApplicationController
           # now update all plots pointing at old_ids to the new id of this step
           @build_sequence.update_build_steps(old_ids, step.id)
         end
-      rescue
+      rescue => e
+        Rails.logger.debug(e.message)
         ActiveRecord::Rollback
       end
     end
   end
+  # rubocop:enable LineLength
 
   def set_parent
     @parent = @division || @developer || @global

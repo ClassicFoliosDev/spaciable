@@ -156,9 +156,11 @@ crumb :build_sequence do |heir|
   parent(:division, heir) if heir.is_a? Division
 end
 
-crumb :build_sequence_edit do
+crumb :build_sequence_edit do |heir|
   link t("breadcrumbs.edit_build_sequence")
-  parent :build_sequence
+  parent :admin_settings if heir.is_a? Global
+  parent(:developer, heir) if heir.is_a? Developer
+  parent(:division, heir) if heir.is_a? Division
 end
 
 
@@ -211,7 +213,7 @@ end
 
 # CONTENT MANAGEMENT
 crumb :content_management do |heir|
-  link t("breadcrumbs.division_add")
+  link t("breadcrumbs.content_management")
   parent (heir.is_a?(Developer) ? :developer : :division), heir
 end
 

@@ -1,6 +1,14 @@
 
   <div class="section-data">
-    <%= edit_btn [:edit, parent], element: parent %>
+    <% if parent.build_sequence %>
+      <%= edit_btn [:edit, parent, :build_sequence], element: parent %>
+    <% else %>
+      <div class="section-actions">
+        <%= link_to [:edit, parent, :build_sequence], class: "btn btn-primary" do %>
+          <span class="btn-label"><%= t(".add") %></span>
+        <% end %>
+    </div>
+    <% end %>
   </div>
 
   <div class="build_steps">

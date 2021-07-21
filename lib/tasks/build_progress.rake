@@ -7,48 +7,14 @@ namespace :build_progress do
 
   def init_build_progress
 
+    Global.create(name: "CFAdmin") if Global.first.nil?
+
     # create the master build sequence
     sequence = BuildSequence.create(build_sequenceable: Global.first)
 
     Plot.progresses.each do |t, v|
-      text = nil
-      case v
-      when Plot.progresses[:soon]
-        text = "Building soon"
-      when Plot.progresses[:in_progress]
-        text = "In Progress"
-      when Plot.progresses[:roof_on]
-        text = "Roof On"
-      when Plot.progresses[:first_fix]
-        text = "First Fix"
-      when Plot.progresses[:second_fix]
-        text = "Second Fix"
-      when Plot.progresses[:kitchen]
-        text = "Kitchen installed"
-      when Plot.progresses[:sanitaryware]
-        text = "Sanitaryware intalled"
-      when Plot.progresses[:decoration]
-        text = "Decoration completed"
-      when Plot.progresses[:tiling]
-        text = "Tiling Completed"
-      when Plot.progresses[:flooring]
-        text = "Flooring completed"
-      when Plot.progresses[:driveway]
-        text = "Patio/driveway completed"
-      when Plot.progresses[:landscaping]
-        text = "Landscaping Completed"
-      when Plot.progresses[:exchange_ready]
-        text = "Ready for exchange"
-      when Plot.progresses[:complete_ready]
-        text = "Ready to complete"
-      when Plot.progresses[:completed]
-        text = "Build completed"
-      when Plot.progresses[:remove]
-        text = "No progress status"
-      end
-
-      BuildStep.create(title: text,
-                       description: text,
+      BuildStep.create(title: I18n.t("activerecord.attributes.plot.progresses.#{t}"),
+                       description: I18n.t("activerecord.attributes.plot.progresses.#{t}"),
                        order: v + 1,
                        build_sequence: sequence)
     end

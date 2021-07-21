@@ -14,9 +14,7 @@ class CustomBuildProcess < ActiveRecord::Migration[5.0]
     end
 
     add_reference :plots, :build_step
-    add_reference :developers, :build_sequenceable, polymorphic: true, index: { name: 'developer_build_seq' }
-    add_reference :divisions, :build_sequenceable, polymorphic: true, index: { name: 'division_build_seq' }
 
-    Rake::Task['build_progress:initialise'].invoke unless Rails.env.test?
+    Rake::Task['build_progress:initialise'].invoke
   end
 end

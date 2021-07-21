@@ -70,7 +70,7 @@ Then(/^the valid plot has been updated$/) do
     expect(page).to have_content(PhasePlotFixture.updated_unit_type_name)
   end
   within ".current-progress" do
-    expect(page).to have_content(t("activerecord.attributes.plot.progresses.roof_on"))
+    expect(page).to have_content(I18n.t("activerecord.attributes.plot.progresses.roof_on"))
   end
   expect(find_field("plot_prefix").value).to eq "Flat"
   expect(find_field("plot_house_number").value).to eq "9"

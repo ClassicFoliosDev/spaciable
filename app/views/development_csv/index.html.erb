@@ -82,9 +82,9 @@
       <div class="progresses-list">
         <table class="record-list">
           <th><%= t(".build_progresses") %></th>
-          <% Plot.progresses.each do |progress| %>
+          <% @development.build_steps.each do |step| %>
           <tr>
-            <td><%= progress[0] %></td>
+            <td><%= step.title %></td>
           </tr>
           <% end %>
         </table>

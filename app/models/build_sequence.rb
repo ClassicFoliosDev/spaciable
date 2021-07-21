@@ -9,9 +9,5 @@ class BuildSequence < ApplicationRecord
   has_many :build_steps, -> { order(:order) }, dependent: :destroy
   accepts_nested_attributes_for :build_steps, allow_destroy: true
 
-  # Update all the plots using this build sequence
-  def update_build_steps(old_ids, new_id)
-    # update is specialised by the parent
-    parent.update_plots(old_ids, new_id)
-  end
+  delegate :update_build_steps, to: :build_sequenceable
 end
