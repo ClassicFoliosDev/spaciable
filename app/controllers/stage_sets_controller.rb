@@ -11,11 +11,9 @@ class StageSetsController < ApplicationController
   def edit; end
 
   def update
-    byebug
     if differs?
 
       ActiveRecord::Base.transaction do
-        byebug
         remove_deleted_stages
 
         @stage_set.clone? ? update_stage_set : create_new_stage_set
@@ -49,7 +47,6 @@ class StageSetsController < ApplicationController
   # remove timeline tasks associated with any removed stages
   def remove_deleted_stages
     @prev.each do |p|
-      byebug
       next unless @next.select { |s| s["id"] == p["id"] }.empty?
       @timeline.remove_stage(Stage.find(p["id"]))
     end

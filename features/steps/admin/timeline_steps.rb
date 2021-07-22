@@ -528,7 +528,6 @@ Then(/^I can edit the (.*) sections$/) do |task|
 
   click_on t("timelines.form.submit")
 
-  byebug
   expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[1]").text).to eql Stage.find(6).title
   expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[2]").text).to eql Stage.find(5).title
   expect(find(:xpath,"(//div[@class='list-stages']//span[@class='branded-text'])[3]").text).to eql Stage.find(7).title

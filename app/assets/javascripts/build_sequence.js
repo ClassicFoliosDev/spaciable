@@ -10,6 +10,7 @@ document.addEventListener('turbolinks:load', function () {
 })
 
 $(document).on('click', '#submit_stage_set', function (event) {
+  if ($("#build_sequence ").length == 0 ) { return }
   bs.validate()
 })
 
