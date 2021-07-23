@@ -1,5 +1,5 @@
 crumb :root do
-  link "Dashboard", root_path
+  link "Dashboard", admin_dashboard_path
 end
 
 crumb :help do
