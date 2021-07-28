@@ -124,6 +124,20 @@ class Plot < ApplicationRecord
             .order(:id)
         }
 
+  scope :filtered_by,
+        lambda { |role, plot_type, developer, division, development, phase, plot_numbers|
+          plots = Plot.joins(plot_residencies: :resident)
+                      .where(developer_id: developer)
+          plots = plots.where(division_id: division) unless division.zero?
+          plots = plots.where(development_id: development) unless development.zero?
+          plots = plots.where(phase_id: phase) unless phase.zero?
+          plots = plots.where(number: plot_numbers) unless plot_numbers.empty?
+          plots = plots.where(plot_residencies: { role: role }) unless role == "both"
+          plots = plots.where("plots.completion_date <= ?", Time.zone.today) if plot_type == "completed_plots"
+          plots = plots.where("plots.completion_date > ?", Time.zone.today) if plot_type == "reservation_plots"
+          plots.uniq
+        }
+
   enum progress: %i[
     soon
     in_progress

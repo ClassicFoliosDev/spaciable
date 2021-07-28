@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :notifications, except: [:edit, :update, :destroy]
+    get 'qualifing_plots', to: 'notifications#qualifing_plots', format: :json
     resources :admin_notifications, except: [:edit, :update, :destroy]
     resources :how_tos
     resources :users do

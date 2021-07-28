@@ -27,6 +27,17 @@ module Admin
       end
     end
 
+    def qualifing_plots
+      render json: Plot.filtered_by(params[:role_filter],
+                                    params[:plot_filter],
+                                    params[:developer_id].to_i,
+                                    params[:division_id].to_i,
+                                    params[:development_id].to_i,
+                                    params[:phase_id].to_i,
+                                    params[:plot_numbers].split(",")).pluck(:number)
+                       .to_json
+    end
+
     private
 
     def subject_filter
