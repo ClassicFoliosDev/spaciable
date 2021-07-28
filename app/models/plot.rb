@@ -124,6 +124,7 @@ class Plot < ApplicationRecord
             .order(:id)
         }
 
+  # rubocop:disable LineLength, Metrics/ParameterLists
   scope :filtered_by,
         lambda { |role, plot_type, developer, division, development, phase, plot_numbers|
           plots = Plot.joins(plot_residencies: :resident)
@@ -137,6 +138,7 @@ class Plot < ApplicationRecord
           plots = plots.where("plots.completion_date > ?", Time.zone.today) if plot_type == "reservation_plots"
           plots.uniq
         }
+  # rubocop:enable LineLength, Metrics/ParameterLists
 
   enum progress: %i[
     soon

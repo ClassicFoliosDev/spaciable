@@ -242,7 +242,7 @@ document.addEventListener('turbolinks:load', function () {
     var developerSelect = clearFields($developerId)
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, data)
+    setFields(developerSelect, url, data, data == undefined)
   };
 })
 
@@ -285,17 +285,30 @@ function confirm_notification (results){
     var $dialogContainer = $('<div>', { class: 'confirm-send-all' }).html('<p>' + dataIn.all + '</p>')
   } else {
 
-    var message = "all plots qualify"
-    var qualifing_plots = $("#notification_list")[0].value
+    var title = "Confirm Send"
+    var plots_type = "Selected Plots: "
+    var message = ""
+    var plots = $("#notification_list")[0].value
+    var requested_plots = $("#notification_list")[0].value.split(',')
 
     if (results.length == 0) {
-      message = "No plots qualify"
-    } else if ($("#notification_list")[0].textLength > 0 && results.length < qualifing_plots.split(',').length) {
-      message = "plots removed"
-      qualifing_plots = results.join()
+      message = dataIn.noplots
+      title = "Review Selections"
+    } else if ($("#notification_list")[0].textLength > 0) {
+      if (results.length < requested_plots.length) {
+        message = dataIn.filtered
+        plots = results.join()
+        plots_type = "Qualifing Plots: "
+      }
+    } else {
+      message = dataIn.warning
     }
 
-    var $dialogContainer = $('<div>', { class: 'confirm-no-plots' }).html('<p>' + message + '</p>')
+    var $dialogContainer = $('<div>', { class: 'confirm-no-plots' })
+
+    if(message.length > 0) {
+      $dialogContainer.append('<p>' + message + '</p>')
+    }
 
     $dialogContainer.append('<p><span>' + 'Developer: ' + '</span>' + developer + '</p>')
 
@@ -308,9 +321,12 @@ function confirm_notification (results){
     if($("#notification_phase_id")[0].value > 0) {
       $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
     }
-    if(qualifing_plots.length > 0) {
-      $dialogContainer.append('<p><span>' + 'Plots: ' + '</span>' + qualifing_plots + '</p>')
+    if(plots.length > 0) {
+      $dialogContainer.append('<p><span>' + plots_type + plots + '</p>')
+    } else if ($("#notification_developer_id")[0].value != 0) {
+      $dialogContainer.append('<p><span>All Plots</p>')
     }
+
   }
 
   $body.append($dialogContainer)
@@ -319,7 +335,7 @@ function confirm_notification (results){
     show: 'show',
     modal: true,
     dialogClass: 'submit-dialog',
-    title: dataIn.header,
+    title: title,
     buttons: [
       {
         text: "Cancel",

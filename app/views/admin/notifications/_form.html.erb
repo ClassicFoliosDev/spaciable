@@ -78,8 +78,9 @@
       <%= link_to t(".back"), [:admin, :notifications], class: "btn" %>
       <%= button_tag "Send", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'plotNotificationBtn',
           data: { header: t(".confirm_notification"),
-                  plots: t(".confirm_plots"),
-                  noplots: t(".empty_plots"),
+                  warning: t(".warning"),
+                  filtered: t(".filtered"),
+                  noplots: t(".no_plots"),
                   all: t(".all_residents") } %>
     </div>
   </div>
