@@ -166,7 +166,7 @@ document.addEventListener('turbolinks:load', function () {
   function HideShowPlotList(){
     // Clear out the plots
     if ($("textarea[name='plots_select']")){
-        $("textarea[list='selected_plots']").val(""); 
+        $("textarea[list='selected_plots']").val("");
     }
 
     if($('#phase_id')[0].value == ""){
@@ -242,13 +242,38 @@ document.addEventListener('turbolinks:load', function () {
     var developerSelect = clearFields($developerId)
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, data)
+    setFields(developerSelect, url, data, data == undefined)
   };
 })
 
 $(document).on('click', '#plotNotificationBtn', function (event) {
+  var role_filter = $("input[name='notification[send_to_role]']:checked").val()
+  var plot_filter = $("input[name='notification[plot_filter]']:checked").val()
+  var developer_id = $("#notification_developer_id").val()
+  var division_id = $("#notification_division_id").val()
+  var development_id = $("#notification_development_id").val()
+  var phase_id = $("#notification_phase_id").val()
+  var plot_numbers = $("#notification_list")[0].value
+
+  $.getJSON({
+    url: '/admin/qualifing_plots',
+    data: { 'role_filter' : $("input[name='notification[send_to_role]']:checked").val(),
+            'plot_filter' : $("input[name='notification[plot_filter]']:checked").val(),
+            'developer_id' : $("#notification_developer_id").val(),
+            'division_id' : $("#notification_division_id").val(),
+            'development_id' : $("#notification_development_id").val(),
+            'phase_id' : $("#notification_phase_id").val(),
+            'plot_numbers' : $("#notification_list")[0].value
+          }
+  }).done(function (results) {
+    confirm_notification(results)
+  })
+
+})
+
+function confirm_notification (results){
   var form = $(".new_notification")
-  var dataIn = $(this).data()
+  var dataIn = $("#plotNotificationBtn").data()
 
   var developer = $("#notification_developer_id-button .ui-selectmenu-text").text()
   var division = $("#notification_division_id-button .ui-selectmenu-text").text()
@@ -258,15 +283,32 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
 
   if($("#notification_developer_id")[0].value == 0) {
     var $dialogContainer = $('<div>', { class: 'confirm-send-all' }).html('<p>' + dataIn.all + '</p>')
-  } else if ($("#notification_list")[0].textLength > 0) {
-    var $dialogContainer = $('<div>', { class: 'confirm-plots' }).html(
-      '<p>' + dataIn.plots + '</p>' +
-      '<p><span>' + 'Development: ' + '</span>' + development + '</p>' +
-      '<p><span>' + 'Phase: ' + '</span>' + phase + '</p>' +
-      '<p><span>' + 'Plots: ' + '</span>' + plots + '</p>'
-      )
   } else {
-    var $dialogContainer = $('<div>', { class: 'confirm-no-plots' }).html('<p>' + dataIn.noplots + '</p>')
+
+    var title = "Confirm Send"
+    var plots_type = "Selected Plots: "
+    var message = ""
+    var plots = $("#notification_list")[0].value
+    var requested_plots = $("#notification_list")[0].value.split(',')
+
+    if (results.length == 0) {
+      message = dataIn.noplots
+      title = "Review Selections"
+    } else if ($("#notification_list")[0].textLength > 0) {
+      if (results.length < requested_plots.length) {
+        message = dataIn.filtered
+        plots = results.join()
+        plots_type = "Qualifing Plots: "
+      }
+    } else {
+      message = dataIn.warning
+    }
+
+    var $dialogContainer = $('<div>', { class: 'confirm-no-plots' })
+
+    if(message.length > 0) {
+      $dialogContainer.append('<p>' + message + '</p>')
+    }
 
     $dialogContainer.append('<p><span>' + 'Developer: ' + '</span>' + developer + '</p>')
 
@@ -279,6 +321,12 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
     if($("#notification_phase_id")[0].value > 0) {
       $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
     }
+    if(plots.length > 0) {
+      $dialogContainer.append('<p><span>' + plots_type + plots + '</p>')
+    } else if ($("#notification_developer_id")[0].value != 0) {
+      $dialogContainer.append('<p><span>All Plots</p>')
+    }
+
   }
 
   $body.append($dialogContainer)
@@ -287,7 +335,7 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
     show: 'show',
     modal: true,
     dialogClass: 'submit-dialog',
-    title: dataIn.header,
+    title: title,
     buttons: [
       {
         text: "Cancel",
@@ -308,4 +356,4 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
-})
+}

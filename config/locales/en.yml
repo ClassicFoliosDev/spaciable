@@ -930,8 +930,10 @@ en:
         reservation_plots: "Reservation Plots"
         no_plots: "If no plots are selected, notification will be sent to all plots under last selected Phase/Development/etc.."
         confirm_notification: "Confirm Send"
-        confirm_plots: "Are you sure you want to send this notification to the following plots?"
-        empty_plots: "No plots have been selected. This notification will be sent to all plots that meet the following criteria. Are you sure you want to send this notification?"
+        review_selections: "Review Selections"
+        no_plots: "No plots meet the requirements of the resident or plot filters used for this notification or do not have any invited residents. Please review selections and filters and try again."
+        filtered: "Some selected plots were removed, as they do not meet the requirements of resident or plot filters used for this notification or do not have any invited residents. Please review the qualifying plots below."
+        warning: "Some selected plots may not receive this notification if they do not meet the requirements of resident or plot filters used for this notification or do not have any invited residents"
         all_residents: "Are you sure you want to send this notification to all Spaciable residents?"
       index:
         title: "Notifications."
