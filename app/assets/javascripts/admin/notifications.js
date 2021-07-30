@@ -272,6 +272,7 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
 })
 
 function confirm_notification (results){
+  var confirm = true
   var form = $(".new_notification")
   var dataIn = $("#plotNotificationBtn").data()
 
@@ -294,6 +295,7 @@ function confirm_notification (results){
     if (results.length == 0) {
       message = dataIn.noplots
       title = "Review Selections"
+      confirm = false
     } else if ($("#notification_list")[0].textLength > 0) {
       if (results.length < requested_plots.length) {
         message = dataIn.filtered
@@ -326,7 +328,6 @@ function confirm_notification (results){
     } else if ($("#notification_developer_id")[0].value != 0) {
       $dialogContainer.append('<p><span>All Plots</p>')
     }
-
   }
 
   $body.append($dialogContainer)
@@ -356,4 +357,6 @@ function confirm_notification (results){
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+
+  $("#btn_confirm").toggle(confirm)
 }
