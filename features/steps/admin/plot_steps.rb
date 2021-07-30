@@ -234,15 +234,13 @@ When(/^I send a notification the phase$/) do
   end
 
   within find(".submit-dialog") do
-    click_on "Confirm"
+    page.should have_content(I18n.t("admin.notifications.form.no_plots"))
+    page.should have_no_content("Confirm")
+    click_on "Cancel"
   end
 end
 
 Then(/^I should see the notification is not sent to the former resident$/) do
-  within ".notice" do
-    expect(page).to have_content("Sending notifications to residents")
-  end
-
   emails = ActionMailer::Base.deliveries
   expect(emails.length).to be_zero
 end

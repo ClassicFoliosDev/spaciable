@@ -292,14 +292,14 @@ function confirm_notification (results){
     var plots = $("#notification_list")[0].value
     var requested_plots = $("#notification_list")[0].value.split(',')
 
-    if (results.length == 0) {
+    if (results["qualifing_plots"].length == 0) {
       message = dataIn.noplots
       title = "Review Selections"
       confirm = false
     } else if ($("#notification_list")[0].textLength > 0) {
-      if (results.length < requested_plots.length) {
+      if (results["qualifing_plots"].length < results["requested_plots"].length) {
         message = dataIn.filtered
-        plots = results.join()
+        plots = results["qualifing_plots"].join()
         plots_type = "Qualifing Plots: "
       }
     } else {
@@ -323,6 +323,10 @@ function confirm_notification (results){
     if($("#notification_phase_id")[0].value > 0) {
       $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
     }
+
+    $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
+    $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
+
     if(plots.length > 0) {
       $dialogContainer.append('<p><span>' + plots_type + plots + '</p>')
     } else if ($("#notification_developer_id")[0].value != 0) {
@@ -358,5 +362,5 @@ function confirm_notification (results){
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 
-  //$("#btn_confirm").toggle(confirm)
+  $("#btn_confirm").toggle(confirm)
 }
