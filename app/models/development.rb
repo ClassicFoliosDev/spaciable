@@ -39,6 +39,9 @@ class Development < ApplicationRecord
   has_one :maintenance, dependent: :destroy
   has_many :custom_tiles, dependent: :destroy
 
+  has_many :event_resources, as: :resourceable, dependent: :destroy
+  has_many :events, as: :eventable, dependent: :destroy
+
   has_one :premium_perk
   accepts_nested_attributes_for :premium_perk
   delegate :enable_premium_perks, :premium_licences_bought,
