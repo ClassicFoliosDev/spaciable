@@ -358,5 +358,5 @@ function confirm_notification (results){
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 
-  $("#btn_confirm").toggle(confirm)
+  //$("#btn_confirm").toggle(confirm)
 }
