@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
+  include RoleEnum
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
 
@@ -22,6 +23,8 @@ class User < ApplicationRecord
   delegate :expired?, to: :permission_level
 
   has_one :lettings_account, as: :accountable, dependent: :destroy
+  has_many :grants, as: :grantable, dependent: :destroy
+  accepts_nested_attributes_for :grants, allow_destroy: true
 
   has_many :cc_emails, dependent: :destroy
   accepts_nested_attributes_for :cc_emails, reject_if: :cc_emails_blank, allow_destroy: true
@@ -35,15 +38,6 @@ class User < ApplicationRecord
          :trackable,
          :validatable
   include DeviseInvitable::Admin
-
-  enum role: [
-    :cf_admin, # Classic Folio Admin
-    :developer_admin,
-    :division_admin,
-    :development_admin,
-    :site_admin,
-    :concierge
-  ]
 
   enum lettings_management: %i[
     zero
