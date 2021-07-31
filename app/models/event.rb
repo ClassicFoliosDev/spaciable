@@ -297,7 +297,7 @@ class Event < ApplicationRecord
     raise(StandardError.new, "unrecognised or invalid parameter") \
       unless respond_to?(attrib) && (send(attrib).is_a? Time)
 
-    send(attrib).in_time_zone(eventable.time_zone)
+    send(attrib)&.in_time_zone(eventable&.time_zone)
   end
 
   def attributes

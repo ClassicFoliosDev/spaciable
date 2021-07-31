@@ -43,6 +43,9 @@ class Plot < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :listing, dependent: :destroy
 
+  has_many :event_resources, as: :resourceable, dependent: :destroy
+  has_many :events, as: :eventable, dependent: :destroy
+
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, :snag_duration, to: :development
   delegate :time_zone, :custom_url, :account_manager_name, :enable_how_tos, to: :developer
