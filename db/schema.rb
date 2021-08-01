@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210702115055) do
+ActiveRecord::Schema.define(version: 20210801125628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -436,7 +436,7 @@ ActiveRecord::Schema.define(version: 20210702115055) do
     t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
-    t.boolean  "calendar",              default: false
+    t.boolean  "calendar",              default: true
     t.boolean  "conveyancing",          default: false
     t.boolean  "analytics_dashboard",   default: true
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
