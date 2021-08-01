@@ -535,16 +535,29 @@ var charts = {
 
   to_one_dp: function(value) {
     return value.toFixed((value % 1) == 0 ? 0 : 1).toString()
+  },
+
+  destroy_if_exists: function(selectmenu) {
+    if (selectmenu.selectmenu( "instance" ) != undefined) {
+      selectmenu.selectmenu("destroy")
+    }
   }
 }
 
 document.addEventListener('turbolinks:load', function () {
+  if ($("#charts").length == 0) { return }
+
   charts.initialise()
 
   var $developerSelect = $('.charts_developer_id select')
   var $divisionSelect = $('.charts_division_id select')
   var $developmentSelect = $('.charts_development_id select')
   var $phaseSelect = $('.charts_phase_id select')
+
+  charts.destroy_if_exists($developerSelect)
+  charts.destroy_if_exists($divisionSelect)
+  charts.destroy_if_exists($developmentSelect)
+  charts.destroy_if_exists($phaseSelect)
 
   $developerSelect.selectmenu($developerSelectmenuCallbacks())
 

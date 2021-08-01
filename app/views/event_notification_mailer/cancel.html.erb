@@ -2,7 +2,7 @@
 
 <p>Hi <%= @name %>,<p>
 
-<p><%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> has been cancelled.</p>
+<p><%= @event&.title%> for Plot <%= @plot&.number %> at <%= @plot&.development_name%> has been cancelled.</p>
 
 <p>Title: <%= @event.title %></p>
 <% if @event.location? %>

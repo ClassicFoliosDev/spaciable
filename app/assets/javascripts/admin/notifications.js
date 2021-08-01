@@ -273,6 +273,7 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
 
 function confirm_notification (results){
   var confirm = true
+
   var form = $(".new_notification")
   var dataIn = $("#plotNotificationBtn").data()
 
@@ -323,7 +324,7 @@ function confirm_notification (results){
     if($("#notification_phase_id")[0].value > 0) {
       $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
     }
-
+        
     $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
     $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
 

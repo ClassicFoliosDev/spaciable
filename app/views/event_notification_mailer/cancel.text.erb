@@ -1,6 +1,6 @@
 Hi <%= @name %>,
 
-<%= @event&.title%> for Plot <%= @plot.number %> at <%= @plot.development_name%> has been cancelled.
+<%= @event&.title%> for Plot <%= @plot&.number %> at <%= @plot&.development_name%> has been cancelled.
 
 Title: <%= @event.title %>
 <% if @event.location? %>
