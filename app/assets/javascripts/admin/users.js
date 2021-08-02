@@ -1,6 +1,8 @@
 /* global $, clearFields, setFields */
 
 document.addEventListener('turbolinks:load', function () {
+  var $primary = ""
+  var $su = "_su"
   var $roleSelect = $('.user_role select, change')
   if ($roleSelect.length == 0) { return }
 
@@ -9,23 +11,26 @@ document.addEventListener('turbolinks:load', function () {
   var $developmentSelect = $('.user_development_id select')
   var $user_role = $('#cas').attr('data-userrole')
 
-  $roleSelect.selectmenu({
-    create: function (event, ui) {
-      var $selectInput = $(event.target)
-      var role = $selectInput.find('option:selected').attr('value')
+  const prefixes = [$primary, $su]
+  prefixes.forEach(function (prefix, index) {
+     $('.user' + prefix + '_role select, change').selectmenu({
+      create: function (event, ui) {
+        var $selectInput = $(event.target)
+        var role = $selectInput.find('option:selected').attr('value')
 
-      showRoleResourcesOnly(role)
-    },
-    select: function (event, ui) {
-      var role = ui.item.value
+        showRoleResourcesOnly(role, prefix == $primary)
+      },
+      select: function (event, ui) {
+        var role = ui.item.value
 
-      showRoleResourcesOnly(role)
+        showRoleResourcesOnly(role, ui.item.element[0].parentElement.id == "user_role")
 
-      setCas()
-    }
+        setCas()
+      }
+    })
   })
 
-  showRoleResourcesOnly ($('#user_role').val())
+  showRoleResourcesOnly ($('#user_role').val(), true)
 
   function developerSelectmenuCallbacks () {
     return {
@@ -125,44 +130,75 @@ document.addEventListener('turbolinks:load', function () {
     setFields(developmentSelect, url, data)
   };
 
-  function showRoleResourcesOnly (role) {
+  function showRoleResourcesOnly (role, primary) {
     if (role !== 'cf_admin' && role !== '') {
       $developerSelect.selectmenu(developerSelectmenuCallbacks())
     };
 
     if (role === 'cf_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
-         .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
-         .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, .cc-receive_faq_emails').hide()
-      $("#plot_check").prop("checked", true);
-      $("#choice_check").prop("checked", true);
-      $("#snag_check").prop("checked", true)
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
+           .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
+           .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, .cc-receive_faq_emails').hide()
+        $("#plot_check").prop("checked", true);
+        $("#choice_check").prop("checked", true);
+        $("#snag_check").prop("checked", true)
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_ development_id').hide()
+      }
     } else if (role === 'developer_admin') {
-      $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
-         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
-      $('.user_division_id, .user_development_id, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+        $('.user_division_id, .user_development_id, .administer_lettings').hide()
+      } else {
+        $('.user_su_developer_id').show()
+        $('.user_su_division_id, .user_su_development_id').hide()
+      }
     } else if (role === 'division_admin') {
-      $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
-      $('.user_development_id, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+        $('.user_development_id, .administer_lettings').hide()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id').show()
+        $('.user_su_development_id').hide()
+      }
     } else if (role === 'development_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, .cc-snag_notifications').show()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, .cc-snag_notifications').show()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
+      }
     } else if (role === 'site_admin') {
-      $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
-      $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+        $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
+      }
     } else if (role === 'concierge') {
-      $('.user_developer_id, .user_division_id, .user_development_id').show()
-      $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-         .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
-         .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id').show()
+        $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
+           .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
+      }
     } else {
-      $('.user_developer_id, .user_division_id, .user_development_id').hide()
+      if (primary) {
+        $('.user_developer_id, .user_division_id, .user_development_id').hide()
+      } else {
+        $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').hide()
+      }
     };
 
     setCcLabels()
   };
+
 
   // Get the CAS enablement from the developer and display the CAS enablement
   // if necessary

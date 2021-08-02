@@ -18,31 +18,10 @@
         <%= f.input :email, label: t(".email"), readonly: user.id.present? %>
         <%= f.input :first_name, label: t(".first_name") %>
         <%= f.input :last_name, label: t(".surname") %>
-      </fieldset>
-      <fieldset class="form-column permission-level skip-global-selectmenu">
         <%= f.input :job_title, label: t(".job_title") %>
-        <%= f.input :role,
-        as: :select,
-        collection: User::accessible_admin_roles(current_user),
-        label_method: ->(role) { t(role.first) },
-        value_method: :first,
-        include_blank: t("users.choose"),
-        selected: selected_role %>
-        <%= cascade_select_input f, :developer_id, Developer %>
-        <%= cascade_select_input f, :division_id, Division %>
-        <%= cascade_select_input f, :development_id, Development %>
-      </fieldset>
-      <fieldset class="form-column user-image">
         <div class="image-container">
           <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
-      </fieldset>
-
-      <div class="separator"></div>
-    </div>
-
-    <div class="user-permissions form-row">
-      <fieldset class="form-column features">
         <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
         <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
           <%= f.label :cas_enabled, t(".client_specifications"), class: "checkbox-label" %>
@@ -57,9 +36,38 @@
         </div>
       </fieldset>
 
+      <fieldset class="form-column permission-level skip-global-selectmenu">
+        <%= f.input :role,
+        as: :select,
+        collection: User::accessible_admin_roles(current_user),
+        label_method: ->(role) { t(role.first) },
+        value_method: :first,
+        include_blank: t("users.choose"),
+        selected: selected_role %>
+        <%= cascade_select_input f, :developer_id, Developer %>
+        <%= cascade_select_input f, :division_id, Division %>
+        <%= cascade_select_input f, :development_id, Development %>
+      </fieldset>
+
+      <fieldset class="form-column permission-level skip-global-selectmenu">
+        <%= f.input :su_role,
+        as: :select,
+        collection: User::accessible_admin_roles(current_user),
+        label_method: ->(role) { t(role.first) },
+        value_method: :first,
+        include_blank: t("users.choose") %>
+        <%= cascade_select_input f, :su_developer_id, Developer %>
+        <%= cascade_select_input f, :su_division_id, Division %>
+        <%= cascade_select_input f, :su_development_id, Development %>
+      </fieldset>
+
+      <div class="separator"></div>
+    </div>
+
+    <div class="user-permissions form-row">
       <fieldset class="form-column emails">
         <div class="email-fields">
-          <div class="receive_release_emails">
+          <div class="receive_release_emails toggle">
             <%= f.label :plot_emails, t(".plot_emails"), class: "checkbox-label" %>
             <%= f.check_box :receive_release_emails, id: :plot_check,
             disabled: !user.enable_receive_release_emails?(current_user) %>
@@ -73,17 +81,17 @@
             <span class="checkbox-description"><%= t(".receive_choice_emails") %></span>
           </div>
         -->
-          <div class="snag_notifications">
+          <div class="snag_notifications toggle">
             <%= f.label :snag_emails, t(".snag_emails"), class: "checkbox-label" %>
             <%= f.check_box :snag_notifications, id: :snag_check %>
             <span class="checkbox-description"><%= t(".receive_snag_emails") %></span>
           </div>
-          <div class="receive_faq_emails">
+          <div class="receive_faq_emails toggle">
             <%= f.label :faq_emails, t(".faq_emails"), class: "checkbox-label" %>
             <%= f.check_box :receive_faq_emails, id: :faq_check %>
             <span class="checkbox-description"><%= t(".receive_faq_emails") %></span>
           </div>
-          <div class="receive_invitation_emails">
+          <div class="receive_invitation_emails toggle">
             <%= f.label :invitation_emails, t(".invitation_emails"), class: "checkbox-label" %>
             <%= f.check_box :receive_invitation_emails, id: :invitations_check %>
             <span class="checkbox-description"><%= t(".receive_invitation_emails") %></span>

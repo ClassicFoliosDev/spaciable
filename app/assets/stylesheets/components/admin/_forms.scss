@@ -82,8 +82,8 @@
   // email checkbox fields
 
   .emails {
-    grid-column-start: 2;
-    grid-column-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 3;
     grid-row-start: 1;
     grid-row-end: 2;
 
@@ -91,6 +91,15 @@
       display: grid;
       grid-template-rows: auto auto auto auto;
       grid-template-columns: 1fr 1fr;
+
+      .toggle {
+        padding-right: 38px;
+      }
+
+      .cc-email-fields {
+        padding-left: 22px;
+        padding-right: unset;
+      }
 
       .receive_release_emails {
         grid-column-start: 1;

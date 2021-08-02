@@ -18,6 +18,7 @@ class User < ApplicationRecord
   permissionable_field :permission_level
 
   attr_accessor :developer_id, :division_id, :development_id
+  attr_accessor :su_role, :su_developer_id, :su_division_id, :su_development_id
 
   belongs_to :permission_level, polymorphic: true
   delegate :expired?, to: :permission_level
