@@ -282,12 +282,13 @@ function confirm_notification (results){
   var development = $("#notification_development_id-button .ui-selectmenu-text").text()
   var phase = $("#notification_phase_id-button .ui-selectmenu-text").text()
   var plots = $("#notification_list")[0].value
+  var title = "Confirm Send"
 
   if($("#notification_developer_id")[0].value == 0) {
     var $dialogContainer = $('<div>', { class: 'confirm-send-all' }).html('<p>' + dataIn.all + '</p>')
+    $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
+    $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
   } else {
-
-    var title = "Confirm Send"
     var plots_type = "Selected Plots: "
     var message = ""
     var plots = $("#notification_list")[0].value
@@ -324,7 +325,7 @@ function confirm_notification (results){
     if($("#notification_phase_id")[0].value > 0) {
       $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
     }
-        
+
     $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
     $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
 
