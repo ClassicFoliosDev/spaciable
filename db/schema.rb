@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210702115055) do
+ActiveRecord::Schema.define(version: 20210730125106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -437,7 +437,7 @@ ActiveRecord::Schema.define(version: 20210702115055) do
     t.boolean  "cas",                   default: false
     t.integer  "construction",          default: 0,          null: false
     t.string   "construction_name"
-    t.boolean  "calendar",              default: false
+    t.boolean  "calendar",              default: true
     t.boolean  "conveyancing",          default: false
     t.boolean  "analytics_dashboard",   default: true
     t.index ["deleted_at"], name: "index_developments_on_deleted_at", using: :btree
@@ -660,6 +660,17 @@ ActiveRecord::Schema.define(version: 20210702115055) do
 
   create_table "globals", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "grants", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role"
+    t.string   "grantable_type"
+    t.integer  "grantable_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["grantable_type", "grantable_id"], name: "index_grants_on_grantable_type_and_grantable_id", using: :btree
+    t.index ["user_id"], name: "index_grants_on_user_id", using: :btree
   end
 
   create_table "how_to_sub_categories", force: :cascade do |t|
@@ -1325,6 +1336,7 @@ ActiveRecord::Schema.define(version: 20210702115055) do
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
+  add_foreign_key "grants", "users"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"

@@ -6,9 +6,12 @@ document.addEventListener('turbolinks:load', function () {
   var $roleSelect = $('.user_role select, change')
   if ($roleSelect.length == 0) { return }
 
-  var $developerSelect = $('.user_developer_id select')
-  var $divisionSelect = $('.user_division_id select')
-  var $developmentSelect = $('.user_development_id select')
+  var $developer = "developer"
+  var $division = "division"
+  var $development = "development"
+  //var $developerSelect = $('.user_developer_id select')
+  //var $divisionSelect = $('.user_division_id select')
+  //var $developmentSelect = $('.user_development_id select')
   var $user_role = $('#cas').attr('data-userrole')
 
   const prefixes = [$primary, $su]
@@ -32,60 +35,60 @@ document.addEventListener('turbolinks:load', function () {
 
   showRoleResourcesOnly ($('#user_role').val(), true)
 
-  function developerSelectmenuCallbacks () {
+  function developerSelectmenuCallbacks (primary) {
     return {
       create: function (event, ui) {
         var $selectInput = $(event.target)
         var developerId = $selectInput.val()
 
         if (developerId) {
-          fetchDeveloperResources(developerId)
-          $divisionSelect.selectmenu(divisionSelectmenuCallbacks(developerId))
+          fetchDeveloperResources(developerId, primary)
+          getSelector($division, primary).selectmenu(divisionSelectmenuCallbacks(developerId, primary))
         } else {
-          fetchDeveloperResources()
-          $divisionSelect.selectmenu(divisionSelectmenuCallbacks())
+          fetchDeveloperResources(0, primary)
+          getSelector($division, primary).selectmenu(divisionSelectmenuCallbacks(0, primary))
         };
       },
       select: function (event, ui) {
         var developerId = ui.item.value
 
-        fetchDivisionResources({ developerId: developerId })
-        fetchDevelopmentResources({ developerId: developerId })
+        fetchDivisionResources({ developerId: developerId }, primary)
+        fetchDevelopmentResources({ developerId: developerId }, primary)
 
-        setCasEnabledFromDeveloper(developerId)
+        if (primary) { setCasEnabledFromDeveloper(developerId) }
       }
     }
   };
 
-  function divisionSelectmenuCallbacks (developerId) {
+  function divisionSelectmenuCallbacks (developerId, primary) {
     return {
       create: function (event, ui) {
         var $selectInput = $(event.target)
         var divisionId = $selectInput.val()
 
         if (divisionId) {
-          fetchDivisionResources({developerId: developerId, divisionId: divisionId})
+          fetchDivisionResources({developerId: developerId, divisionId: divisionId}, primary)
         } else if (developerId) {
-          fetchDivisionResources({ developerId: developerId })
+          fetchDivisionResources({ developerId: developerId }, primary)
         } else {
-          clearFields($('.user_division_id'))
+          clearFields($('.user' + (primary ? $primary : $su) + '_division_id'))
         };
 
-        $developmentSelect.selectmenu(developmentSelectmenuCallbacks(developerId, divisionId))
+        getSelector($development, primary).selectmenu(developmentSelectmenuCallbacks(developerId, divisionId, primary))
       },
       select: function (event, ui) {
         var divisionId = ui.item.value
 
         if (divisionId !== '') {
-          fetchDevelopmentResources({divisionId: divisionId})
+          fetchDevelopmentResources({divisionId: divisionId}, primary)
         } else {
-          fetchDevelopmentResources({developerId: $developerSelect.val()})
+          fetchDevelopmentResources({developerId: getSelector($developer, primary).val()}, primary)
         };
       }
     }
   };
 
-  function developmentSelectmenuCallbacks (developerId, divisionId) {
+  function developmentSelectmenuCallbacks (developerId, divisionId, primary) {
     return {
       create: function (event, ui) {
         var $selectInput = $(event.target)
@@ -95,36 +98,36 @@ document.addEventListener('turbolinks:load', function () {
           fetchDevelopmentResources({
             developerId: developerId,
             divisionId: divisionId,
-            developmentId: developmentId
-          })
+            developmentId: developmentId,
+          }, primary)
         } else if (divisionId) {
           fetchDevelopmentResources({
             developerId: developerId,
             divisionId: divisionId
-          })
+          }, primary)
         } else {
-          clearFields($('.user_development_id'))
+          clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
         };
       }
     }
   };
 
-  function fetchDeveloperResources (developerId) {
-    var developerSelect = clearFields($('.user_developer_id'))
+  function fetchDeveloperResources (developerId, primary) {
+    var developerSelect = clearFields($('.user' + (primary ? $primary : $su) + '_developer_id'))
     var url = '/admin/developers'
 
     setFields(developerSelect, url, {developerId: developerId})
   };
 
-  function fetchDivisionResources (data) {
-    var divisionSelect = clearFields($('.user_division_id'))
+  function fetchDivisionResources (data, primary) {
+    var divisionSelect = clearFields($('.user' + (primary ? $primary : $su) + '_division_id'))
     var url = '/admin/divisions'
 
     setFields(divisionSelect, url, data)
   };
 
-  function fetchDevelopmentResources (data) {
-    var developmentSelect = clearFields($('.user_development_id'))
+  function fetchDevelopmentResources (data, primary) {
+    var developmentSelect = clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
     var url = '/admin/developments'
 
     setFields(developmentSelect, url, data)
@@ -132,7 +135,7 @@ document.addEventListener('turbolinks:load', function () {
 
   function showRoleResourcesOnly (role, primary) {
     if (role !== 'cf_admin' && role !== '') {
-      $developerSelect.selectmenu(developerSelectmenuCallbacks())
+      getSelector($developer, primary).selectmenu(developerSelectmenuCallbacks(primary))
     };
 
     if (role === 'cf_admin') {
@@ -197,8 +200,18 @@ document.addEventListener('turbolinks:load', function () {
     };
 
     setCcLabels()
+
+    setAdditionalState()
   };
 
+  function getSelector(type, primary) {
+    return $developerSelect = $('.user' + (primary ? $primary : $su) + '_' + type + '_id select')
+  }
+
+  function setAdditionalState (){
+    $("#user_developer_id").children("option:selected").val()
+    $(".user_developer_id").is(":visible")
+  }
 
   // Get the CAS enablement from the developer and display the CAS enablement
   // if necessary

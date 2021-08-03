@@ -43,10 +43,11 @@
         label_method: ->(role) { t(role.first) },
         value_method: :first,
         include_blank: t("users.choose"),
-        selected: selected_role %>
-        <%= cascade_select_input f, :developer_id, Developer %>
-        <%= cascade_select_input f, :division_id, Division %>
-        <%= cascade_select_input f, :development_id, Development %>
+        selected: selected_role,
+        label: t(".primary.role") %>
+        <%= cascade_select_input f, :developer_id, Developer, label: t(".primary.developer") %>
+        <%= cascade_select_input f, :division_id, Division, label: t(".primary.division") %>
+        <%= cascade_select_input f, :development_id, Development, label: t(".primary.development") %>
       </fieldset>
 
       <fieldset class="form-column permission-level skip-global-selectmenu">
@@ -55,10 +56,12 @@
         collection: User::accessible_admin_roles(current_user),
         label_method: ->(role) { t(role.first) },
         value_method: :first,
-        include_blank: t("users.choose") %>
+        include_blank: t("users.choose"),
+        label: t(".additional.role") %>
         <%= cascade_select_input f, :su_developer_id, Developer %>
         <%= cascade_select_input f, :su_division_id, Division %>
         <%= cascade_select_input f, :su_development_id, Development %>
+        <%= button_tag t(".add_role"), :type => 'button', class: "btn right", id: 'add_role' %>
       </fieldset>
 
       <div class="separator"></div>

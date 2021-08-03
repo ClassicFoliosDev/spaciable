@@ -983,6 +983,14 @@ en:
         receive_invitation_emails: "Receive a weekly summary of resident activations"
         email_list: "CC %{type} Emails"
         cc_list: "Add any email addresses to CC %{type} emails. Separate multiple email addresses with a space, comma or semi-colon."
+        primary:
+          role: "Primary Role"
+          developer: "Primary Developer"
+          division: "Primary Division"
+          development: "Primary Development"
+        additional:
+          role: "Additional Role"
+        add_role: "Add Role"
       index:
         title: "Admins."
         add: "Add User"
