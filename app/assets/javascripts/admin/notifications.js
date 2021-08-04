@@ -302,7 +302,7 @@ function confirm_notification (results){
       if (results["qualifing_plots"].length < results["requested_plots"].length) {
         message = dataIn.filtered
         plots = results["qualifing_plots"].join()
-        plots_type = "Qualifing Plots: "
+        plots_type = "Qualifying Plots: "
       }
     } else {
       message = dataIn.warning
