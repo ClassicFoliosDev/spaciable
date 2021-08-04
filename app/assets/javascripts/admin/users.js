@@ -1,6 +1,8 @@
 /* global $, clearFields, setFields */
+var $num_additional_roles = 0
 
 document.addEventListener('turbolinks:load', function () {
+  $num_additional_roles = $('.additional-role').length
   var $primary = ""
   var $su = "_su"
   var $roleSelect = $('.user_role select, change')
@@ -107,7 +109,11 @@ document.addEventListener('turbolinks:load', function () {
           }, primary)
         } else {
           clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
+          setAdditionalState()
         };
+      },
+      select: function (event, ui) {
+        setAdditionalState()
       }
     }
   };
@@ -116,21 +122,21 @@ document.addEventListener('turbolinks:load', function () {
     var developerSelect = clearFields($('.user' + (primary ? $primary : $su) + '_developer_id'))
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, {developerId: developerId})
+    setFields(developerSelect, url, {developerId: developerId}, true, setAdditionalState)
   };
 
   function fetchDivisionResources (data, primary) {
     var divisionSelect = clearFields($('.user' + (primary ? $primary : $su) + '_division_id'))
     var url = '/admin/divisions'
 
-    setFields(divisionSelect, url, data)
+    setFields(divisionSelect, url, data, true, setAdditionalState)
   };
 
   function fetchDevelopmentResources (data, primary) {
     var developmentSelect = clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
     var url = '/admin/developments'
 
-    setFields(developmentSelect, url, data)
+    setFields(developmentSelect, url, data, true, setAdditionalState)
   };
 
   function showRoleResourcesOnly (role, primary) {
@@ -199,9 +205,8 @@ document.addEventListener('turbolinks:load', function () {
       }
     };
 
-    setCcLabels()
-
     setAdditionalState()
+    setCcLabels()
   };
 
   function getSelector(type, primary) {
@@ -209,9 +214,43 @@ document.addEventListener('turbolinks:load', function () {
   }
 
   function setAdditionalState (){
-    $("#user_developer_id").children("option:selected").val()
-    $(".user_developer_id").is(":visible")
+    primary = userDefined(true)
+    additional = userDefined(false)
+
+    $("#add_role").toggle(primary && additional)
+
+    try {
+      const selects = ["#user_su_role", "#user_su_developer_id", "#user_su_division_id", "#user_su_development_id"]
+      selects.forEach(function (s, index) {
+        if (primary) {
+          $(s).removeAttr('disabled').removeClass('disabled')
+          $(s).selectmenu('enable')
+          $(s).selectmenu('refresh')
+        } else {
+          $(s).attr('disabled', 'disabled').addClass('disabled')
+          $(s).selectmenu('disable')
+        }
+      })
+    }
+    catch(err) {
+       x = 1
+    }
   }
+
+  function userDefined(primary) {
+    defined = false
+
+    // set defined according to the last visible select's selection
+    $("." + (primary ? "" : "su-") + "permission-level select").each(function() {
+      if ($("." + $(this).prop("id")).is(":visible")) {
+        defined = !($(this).children("option:selected").val() == "" ||
+                    $(this).children("option:selected").val() == undefined)
+      }
+    })
+
+    return defined
+  }
+
 
   // Get the CAS enablement from the developer and display the CAS enablement
   // if necessary
@@ -359,3 +398,66 @@ function displayFilterSelections() {
     )
   }
 }
+
+// Add a new grant into the DOM. Make a copy of the html for the
+// first grant on the page.  Grants are streamed as
+// arrays e.g. name=user[grants_attributes][0][role] and
+// id = user_grants_attributes_0_role.  This function
+// clones the first grant and resets all the indices then
+// sets the fields.  Finally it prepends itself
+$(document).on('click', '#add_role', function (event) {
+  const metadata = []
+  newrole = $('.additional-role').first().clone()
+  $('.additional-role').last().after(newrole)
+  newrole.find("input").each(function() { initialse_role($(this)) })
+
+  selected_role = $("#user_su_role option:selected")
+  newrole.find("input")[0].value = selected_role.val()
+  metadata.push(create_span(selected_role.text()))
+
+  switch(selected_role.val()) {
+  case "developer_admin":
+    newrole.find("input")[1].value = "Developer"
+    newrole.find("input")[2].value = selected_role = $("#user_su_developer_id option:selected").val()
+    break;
+  case "division_admin":
+    newrole.find("input")[1].value = "Division"
+    newrole.find("input")[2].value = selected_role = $("#user_su_division_id option:selected").val()
+    break;
+  case "development_admin":
+  case "site_admin":
+    newrole.find("input")[1].value = "Development"
+    newrole.find("input")[2].value = selected_role = $("#user_su_development_id option:selected").val()
+    break;
+  default:
+    // code block
+  }
+
+  metadata.forEach(function (text, index) { newrole.find("#metadata").append(text) })
+
+  newrole.show()
+  $num_additional_roles += 1
+})
+
+function initialse_role(role){
+  const attribs = ["name", "id"]
+  attribs.forEach(function(attrib, index){
+    var prop = role.prop(attrib);
+    if (typeof prop !== typeof undefined && prop !== false) {
+      role.prop(attrib, role.prop(attrib).replace(/0/g, $num_additional_roles))
+    }
+  })
+  role.val("")
+}
+
+function create_span(text) {
+  span = document.createElement("span")
+  span.className += "checkbox-description"
+  span.innerHTML = text
+  return span
+}
+
+
+
+
+

@@ -50,7 +50,7 @@
         <%= cascade_select_input f, :development_id, Development, label: t(".primary.development") %>
       </fieldset>
 
-      <fieldset class="form-column permission-level skip-global-selectmenu">
+      <fieldset class="form-column su-permission-level skip-global-selectmenu">
         <%= f.input :su_role,
         as: :select,
         collection: User::accessible_admin_roles(current_user),
@@ -106,6 +106,32 @@
               <%= e.input :user, as: :hidden %>
               <%= e.input :email_type, as: :hidden %>
               <%= e.input :email_list, as: :text, required: false %>
+            </div>
+          <% end %>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-column">
+        <label><%= t(".additional_roles") %></label>
+        <div class="additional-roles ">
+          <%= f.fields_for :grants do |g| %>
+            <% grant = g.object %>
+            <div class=<%= "additional-role" + (grant.grantable.nil? ? " hidden": "") %>>
+              <%= g.hidden_field :role %>
+              <%= g.hidden_field :grantable_type %>
+              <%= g.hidden_field :grantable_id %>
+              <div id="metadata">
+                <% if grant.grantable.present? %>
+                  <span class="checkbox-description"><%= t(g.object.role) %></span>
+                  <span class="checkbox-description"><%= grant.developer %></span>
+                  <% if grant.division.present? %>
+                    <span class="checkbox-description"><%= grant.division %></span>
+                  <% end %>
+                  <% if grant.development.present? %>
+                    <span class="checkbox-description"><%= grant.development %></span>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </div>

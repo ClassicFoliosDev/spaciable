@@ -641,10 +641,10 @@ document.addEventListener('turbolinks:load', function () {
   }
 
   function fetchDeveloperResources (developerId) {
-    var $developerSelect = clearFields($('.charts_developer_id'))
+    var developerSelect = clearFields($('.charts_developer_id'))
     var url = '/admin/developers'
 
-    setFields($developerSelect, url, {developerId: developerId})
+    setFields(developerSelect, url, {developerId: developerId})
   };
 
   function fetchDivisionResources (data) {

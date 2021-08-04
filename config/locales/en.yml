@@ -991,6 +991,7 @@ en:
         additional:
           role: "Additional Role"
         add_role: "Add Role"
+        additional_roles: "Additional Roles"
       index:
         title: "Admins."
         add: "Add User"

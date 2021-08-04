@@ -24,8 +24,8 @@ class User < ApplicationRecord
   delegate :expired?, to: :permission_level
 
   has_one :lettings_account, as: :accountable, dependent: :destroy
-  has_many :grants, as: :grantable, dependent: :destroy
-  accepts_nested_attributes_for :grants, allow_destroy: true
+  has_many :grants, dependent: :destroy
+  accepts_nested_attributes_for :grants, reject_if: :all_blank, allow_destroy: true
 
   has_many :cc_emails, dependent: :destroy
   accepts_nested_attributes_for :cc_emails, reject_if: :cc_emails_blank, allow_destroy: true
@@ -360,6 +360,7 @@ class User < ApplicationRecord
     CcEmail.email_types.each do |type, index|
       cc_emails.build(email_type: type) unless CcEmail.find_by(user_id: id, email_type: type)
     end
+    grants.build if grants.empty?
   end
 
   def charts?
