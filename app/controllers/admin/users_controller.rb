@@ -106,7 +106,8 @@ module Admin
         :job_title, :receive_release_emails, :snag_notifications,
         :receive_choice_emails, :branch_administrator, :cas,
         :receive_invitation_emails, :receive_faq_emails,
-        cc_emails_attributes: %i[user_id email_type email_list id _destroy]
+        cc_emails_attributes: %i[user_id email_type email_list id _destroy],
+        grants_attributes: %i[id role grantable_type grantable_id _destroy]
       )
     end
 

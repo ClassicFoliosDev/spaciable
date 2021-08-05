@@ -173,13 +173,23 @@
 
   .additional-roles {
     border:1px solid black;
-    height: 375px;
+    height: 395px;
+    overflow: auto;
   }
 
   .additional-role {
     background-color: #ececec;
     padding: 5;
     margin: 10;
+
+    .inline {
+      display: inline;
+    }
+
+    .delete {
+      float: right;
+      color: red;
+    }
   }
 
   // -------------------

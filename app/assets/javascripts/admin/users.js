@@ -222,10 +222,9 @@ document.addEventListener('turbolinks:load', function () {
     try {
       const selects = ["#user_su_role", "#user_su_developer_id", "#user_su_division_id", "#user_su_development_id"]
       selects.forEach(function (s, index) {
-        if (primary) {
+        if (primary && $(s + " option:selected").val() != undefined) {
           $(s).removeAttr('disabled').removeClass('disabled')
           $(s).selectmenu('enable')
-          $(s).selectmenu('refresh')
         } else {
           $(s).attr('disabled', 'disabled').addClass('disabled')
           $(s).selectmenu('disable')
@@ -409,25 +408,36 @@ $(document).on('click', '#add_role', function (event) {
   const metadata = []
   newrole = $('.additional-role').first().clone()
   $('.additional-role').last().after(newrole)
+  newrole.find("#metadata").empty()
   newrole.find("input").each(function() { initialse_role($(this)) })
 
   selected_role = $("#user_su_role option:selected")
   newrole.find("input")[0].value = selected_role.val()
-  metadata.push(create_span(selected_role.text()))
+  newrole.find("input[deletefield='true']").val(false)
+
+  metadata.push(create_role_header(selected_role.text()))
 
   switch(selected_role.val()) {
   case "developer_admin":
     newrole.find("input")[1].value = "Developer"
-    newrole.find("input")[2].value = selected_role = $("#user_su_developer_id option:selected").val()
+    newrole.find("input")[2].value = $("#user_su_developer_id option:selected").val()
+    metadata.push(create_role_metadata($("#user_su_developer_id option:selected").text()))
     break;
   case "division_admin":
     newrole.find("input")[1].value = "Division"
-    newrole.find("input")[2].value = selected_role = $("#user_su_division_id option:selected").val()
+    newrole.find("input")[2].value = $("#user_su_division_id option:selected").val()
+    metadata.push(create_role_metadata($("#user_su_developer_id option:selected").text()))
+    metadata.push(create_role_metadata($("#user_su_division_id option:selected").text()))
     break;
   case "development_admin":
   case "site_admin":
     newrole.find("input")[1].value = "Development"
-    newrole.find("input")[2].value = selected_role = $("#user_su_development_id option:selected").val()
+    newrole.find("input")[2].value = $("#user_su_development_id option:selected").val()
+    metadata.push(create_role_metadata($("#user_su_developer_id option:selected").text()))
+    if ($("#user_su_division_id option:selected").val() != "") {
+      metadata.push(create_role_metadata($("#user_su_division_id option:selected").text()))
+    }
+    metadata.push(create_role_metadata($("#user_su_development_id option:selected").text()))
     break;
   default:
     // code block
@@ -450,12 +460,23 @@ function initialse_role(role){
   role.val("")
 }
 
-function create_span(text) {
-  span = document.createElement("span")
-  span.className += "checkbox-description"
-  span.innerHTML = text
-  return span
+function create_role_header(text) {
+  return "<div>" +
+            "<span class='checkbox-description inline'>" + text + "</span>" +
+            "<i class='fa fa-times delete'></i>" +
+          "</div>"
 }
+
+function create_role_metadata(text) {
+  return "<span class='checkbox-description'>" + text + "</span>"
+}
+
+$(document).on('click', '.additional-role .delete', function (event) {
+  role = $(this).closest('.additional-role')
+  role.find("input[deletefield='true']").val(true)
+  role.hide()
+})
+
 
 
 
