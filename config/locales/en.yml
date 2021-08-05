@@ -504,7 +504,7 @@ en:
       plots_select:
         list_input_hint: "Use tilde symbol (~) to add a plot range, and separate plots or ranges using commas, e.g. 'D1,B2,2,14,15,20~25,30~100 <br/> Do not write 'plots', 'and', 'to' or similar."
         range_label: "Select Plots by Range"
-        list_label: "Select Plots by List and Range"
+        list_label: "Select Plots by List and Range. <br/>Please note: Demo plots are called \"0 Demo\""
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
       plot_fields:
