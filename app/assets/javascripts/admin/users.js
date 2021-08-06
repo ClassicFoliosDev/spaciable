@@ -22,6 +22,7 @@ document.addEventListener('turbolinks:load', function () {
       create: function (event, ui) {
         var $selectInput = $(event.target)
         var role = $selectInput.find('option:selected').attr('value')
+        if (prefix == $su) { $selectInput.find("option[value='cf_admin']").remove() }
 
         showRoleResourcesOnly(role, prefix == $primary)
       },
@@ -405,51 +406,32 @@ function displayFilterSelections() {
 // clones the first grant and resets all the indices then
 // sets the fields.  Finally it prepends itself
 $(document).on('click', '#add_role', function (event) {
-  const metadata = []
-  newrole = $('.additional-role').first().clone()
-  $('.additional-role').last().after(newrole)
-  newrole.find("#metadata").empty()
-  newrole.find("input").each(function() { initialse_role($(this)) })
 
-  selected_role = $("#user_su_role option:selected")
-  newrole.find("input")[0].value = selected_role.val()
-  newrole.find("input[deletefield='true']").val(false)
+  additional_role = getAdditionalRole()
+  duplicate = duplicateOf(additional_role)
 
-  metadata.push(create_role_header(selected_role.text()))
+  if (duplicate != null) {
+    meta = duplicate.clone().find("#metadata")
+    meta.find("i").remove()
+    infoDialog("Duplicate Role", "This is a duplicate of an existing role", meta.html())
+  } else {
+    newrole = $('.additional-role').first().clone()
+    $('.additional-role').last().after(newrole)
+    newrole.find("#metadata").empty()
+    newrole.find("input").each(function() { initialiseRole($(this)) })
+    newrole.find("input")[0].value = additional_role.role
+    newrole.find("input")[1].value = additional_role.grantable_type
+    newrole.find("input")[2].value = additional_role.grantable_id
+    newrole.find("input[deletefield='true']").val(false)
 
-  switch(selected_role.val()) {
-  case "developer_admin":
-    newrole.find("input")[1].value = "Developer"
-    newrole.find("input")[2].value = $("#user_su_developer_id option:selected").val()
-    metadata.push(create_role_metadata($("#user_su_developer_id option:selected").text()))
-    break;
-  case "division_admin":
-    newrole.find("input")[1].value = "Division"
-    newrole.find("input")[2].value = $("#user_su_division_id option:selected").val()
-    metadata.push(create_role_metadata($("#user_su_developer_id option:selected").text()))
-    metadata.push(create_role_metadata($("#user_su_division_id option:selected").text()))
-    break;
-  case "development_admin":
-  case "site_admin":
-    newrole.find("input")[1].value = "Development"
-    newrole.find("input")[2].value = $("#user_su_development_id option:selected").val()
-    metadata.push(create_role_metadata($("#user_su_developer_id option:selected").text()))
-    if ($("#user_su_division_id option:selected").val() != "") {
-      metadata.push(create_role_metadata($("#user_su_division_id option:selected").text()))
-    }
-    metadata.push(create_role_metadata($("#user_su_development_id option:selected").text()))
-    break;
-  default:
-    // code block
+    additional_role.meta.forEach(function (text, index) { newrole.find("#metadata").append(text) })
+
+    newrole.show()
+    $num_additional_roles += 1
   }
-
-  metadata.forEach(function (text, index) { newrole.find("#metadata").append(text) })
-
-  newrole.show()
-  $num_additional_roles += 1
 })
 
-function initialse_role(role){
+function initialiseRole(role){
   const attribs = ["name", "id"]
   attribs.forEach(function(attrib, index){
     var prop = role.prop(attrib);
@@ -460,23 +442,78 @@ function initialse_role(role){
   role.val("")
 }
 
-function create_role_header(text) {
+function createRoleHeader(text) {
   return "<div>" +
-            "<span class='checkbox-description inline'>" + text + "</span>" +
+            "<span class='additional-role-meta inline'>" + text + "</span>" +
             "<i class='fa fa-times delete'></i>" +
           "</div>"
 }
 
-function create_role_metadata(text) {
-  return "<span class='checkbox-description'>" + text + "</span>"
+function createRoleMetadata(text) {
+  return "<span class='additional-role-meta'>" + text + "</span>"
 }
 
 $(document).on('click', '.additional-role .delete', function (event) {
   role = $(this).closest('.additional-role')
-  role.find("input[deletefield='true']").val(true)
-  role.hide()
+  meta = role.clone().find("#metadata")
+  meta.find("i").remove()
+  confirmDelete(meta.html(), role, deleteAdditionalRole)
 })
 
+function deleteAdditionalRole(role) {
+  role.find("input[deletefield='true']").val(true)
+  role.hide()
+}
+
+function duplicateOf(additional_role) {
+  duplicate = null
+
+  $(".additional-role").each(function() {
+    if ($(this).find("input")[0].value == additional_role.role &&
+        $(this).find("input")[1].value == additional_role.grantable_type &&
+        $(this).find("input")[2].value == additional_role.grantable_id) {
+      duplicate = $(this)
+    }
+  })
+
+  return duplicate
+}
+
+function getAdditionalRole()
+{
+  const selection = {role : $("#user_su_role option:selected").val(),
+                     meta: [createRoleHeader($("#user_su_role option:selected").text())] }
+
+  switch(selection.role) {
+    case "developer_admin":
+      selection.grantable_type = "Developer"
+      selection.grantable_id = $("#user_su_developer_id option:selected").val()
+      selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
+    break;
+      break;
+    case "division_admin":
+      selection.grantable_type = "Division"
+      selection.grantable_id = $("#user_su_division_id option:selected").val()
+      selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
+      selection.meta.push(createRoleMetadata($("#user_su_division_id option:selected").text()))
+      break;
+    case "development_admin":
+    case "site_admin":
+      selection.grantable_type = "Development"
+      selection.grantable_id = $("#user_su_development_id option:selected").val()
+      selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
+      if ($("#user_su_division_id option:selected").val() != "" &&
+          $("#user_su_division_id option:selected").val() != undefined) {
+        selection.meta.push(createRoleMetadata($("#user_su_division_id option:selected").text()))
+      }
+      selection.meta.push(createRoleMetadata($("#user_su_development_id option:selected").text()))
+      break;
+    default:
+      // code block
+    }
+
+  return selection
+}
 
 
 

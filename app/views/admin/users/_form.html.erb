@@ -123,16 +123,16 @@
               <%= g.hidden_field :_destroy, value: false, deletefield: true %>
               <div id="metadata">
                 <% if grant.grantable.present? %>
-                  <div>
-                    <span class="checkbox-description inline"><%= t(grant.role) %></span>
+                  <div style="padding-bottom:4px">
+                    <span class="additional-role-meta inline"><%= t(grant.role) %></span>
                     <i class='fa fa-times delete'></i>
                   </div>
-                  <span class="checkbox-description"><%= grant.developer %></span>
+                  <span class="additional-role-meta"><%= grant.developer %></span>
                   <% if grant.division.present? %>
-                    <span class="checkbox-description"><%= grant.division %></span>
+                    <span class="additional-role-meta"><%= grant.division %></span>
                   <% end %>
                   <% if grant.development.present? %>
-                    <span class="checkbox-description"><%= grant.development %></span>
+                    <span class="additional-role-meta"><%= grant.development %></span>
                   <% end %>
                 <% end %>
               </div>

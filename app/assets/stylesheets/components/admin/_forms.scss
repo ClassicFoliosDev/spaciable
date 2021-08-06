@@ -48,6 +48,14 @@
 
 // user form
 
+.additional-role-meta {
+  margin-left: $spacing-small / 2;
+  display: block;
+  font-size: $base-small-font-size;
+  padding-bottom: $label-margin;
+  margin-left: 0;
+}
+
 .user-form {
   .user-permissions {
     display: grid;

@@ -80,3 +80,36 @@ $(document).on('click', '.archive-lnk', function (event) {
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 })
+
+function confirmDelete(message, object, callback) {
+
+  var $dialogContainer = $('<div>', { id: 'dialog' }).html('<p>' + message + '</p>')
+  $body.append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    modal: true,
+    dialogClass: 'archive-dialog',
+    title: "Confirm Delete",
+    buttons: [
+      {
+        text: "Cancel",
+        class: 'btn-cancel',
+        click: function () {
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
+        }
+      },
+      {
+        // Font awesome trash icon added in SCSS
+        text: "Delete",
+        class: 'btn-delete',
+        id: 'btn_confirm',
+        click: function () {
+          callback(object)
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+}
