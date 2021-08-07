@@ -116,14 +116,14 @@
         <div class="additional-roles ">
           <%= f.fields_for :grants do |g| %>
             <% grant = g.object %>
-            <div class=<%= "additional-role" + (grant.grantable.nil? ? " hidden": "") %>>
+            <div class=<%= "additional-role" + (grant.permission_level.nil? ? " hidden": "") %>>
               <%= g.hidden_field :role %>
-              <%= g.hidden_field :grantable_type %>
-              <%= g.hidden_field :grantable_id %>
+              <%= g.hidden_field :permission_level_type %>
+              <%= g.hidden_field :permission_level_id %>
               <%= g.hidden_field :_destroy, value: false, deletefield: true %>
               <div id="metadata">
-                <% if grant.grantable.present? %>
-                  <div style="padding-bottom:4px">
+                <% if grant.permission_level.present? %>
+                  <div class="header">
                     <span class="additional-role-meta inline"><%= t(grant.role) %></span>
                     <i class='fa fa-times delete'></i>
                   </div>

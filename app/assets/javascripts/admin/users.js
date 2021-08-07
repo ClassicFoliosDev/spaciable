@@ -420,8 +420,8 @@ $(document).on('click', '#add_role', function (event) {
     newrole.find("#metadata").empty()
     newrole.find("input").each(function() { initialiseRole($(this)) })
     newrole.find("input")[0].value = additional_role.role
-    newrole.find("input")[1].value = additional_role.grantable_type
-    newrole.find("input")[2].value = additional_role.grantable_id
+    newrole.find("input")[1].value = additional_role.permission_level_type
+    newrole.find("input")[2].value = additional_role.permission_level_id
     newrole.find("input[deletefield='true']").val(false)
 
     additional_role.meta.forEach(function (text, index) { newrole.find("#metadata").append(text) })
@@ -443,7 +443,7 @@ function initialiseRole(role){
 }
 
 function createRoleHeader(text) {
-  return "<div>" +
+  return "<div class='header'>" +
             "<span class='additional-role-meta inline'>" + text + "</span>" +
             "<i class='fa fa-times delete'></i>" +
           "</div>"
@@ -470,8 +470,8 @@ function duplicateOf(additional_role) {
 
   $(".additional-role").each(function() {
     if ($(this).find("input")[0].value == additional_role.role &&
-        $(this).find("input")[1].value == additional_role.grantable_type &&
-        $(this).find("input")[2].value == additional_role.grantable_id) {
+        $(this).find("input")[1].value == additional_role.permission_level_type &&
+        $(this).find("input")[2].value == additional_role.permission_level_id) {
       duplicate = $(this)
     }
   })
@@ -486,21 +486,21 @@ function getAdditionalRole()
 
   switch(selection.role) {
     case "developer_admin":
-      selection.grantable_type = "Developer"
-      selection.grantable_id = $("#user_su_developer_id option:selected").val()
+      selection.permission_level_type = "Developer"
+      selection.permission_level_id = $("#user_su_developer_id option:selected").val()
       selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
     break;
       break;
     case "division_admin":
-      selection.grantable_type = "Division"
-      selection.grantable_id = $("#user_su_division_id option:selected").val()
+      selection.permission_level_type = "Division"
+      selection.permission_level_id = $("#user_su_division_id option:selected").val()
       selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
       selection.meta.push(createRoleMetadata($("#user_su_division_id option:selected").text()))
       break;
     case "development_admin":
     case "site_admin":
-      selection.grantable_type = "Development"
-      selection.grantable_id = $("#user_su_development_id option:selected").val()
+      selection.permission_level_type = "Development"
+      selection.permission_level_id = $("#user_su_development_id option:selected").val()
       selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
       if ($("#user_su_division_id option:selected").val() != "" &&
           $("#user_su_division_id option:selected").val() != undefined) {

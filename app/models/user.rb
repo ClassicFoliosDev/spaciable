@@ -375,6 +375,10 @@ class User < ApplicationRecord
     return cf_admin? || (charts? && chart?(:competition))
   end
 
+  def roles
+    return [self] + grants.to_a
+  end
+
   scope :receives_faqs,
     lambda { |p|
       users = User.where(receive_faq_emails: true)

@@ -5,22 +5,23 @@ class Grant < ApplicationRecord
   include RoleEnum
 
   belongs_to :user
-  belongs_to :grantable, polymorphic: true
+  belongs_to :permission_level, polymorphic: true
+  delegate :cas, to: :user
 
   def developer
-    return grantable.identity if grantable.is_a? Developer
-    return grantable.developer.identity if grantable.is_a? Division
-    grantable.parent_developer.identity
+    return permission_level.identity if permission_level.is_a? Developer
+    return permission_level.developer.identity if permission_level.is_a? Division
+    permission_level.parent_developer.identity
   end
 
   def division
-    return grantable.identity if grantable.is_a? Division
-    return grantable&.division&.identity if grantable.is_a? Development
+    return permission_level.identity if permission_level.is_a? Division
+    return permission_level&.division&.identity if permission_level.is_a? Development
     nil
   end
 
   def development
-    return nil unless grantable.is_a? Development
-    grantable.identity
+    return nil unless permission_level.is_a? Development
+    permission_level.identity
   end
 end

@@ -2,7 +2,7 @@
 
 module Abilities
   module DevelopmentAbilities
-    def development_abilities(developments, division_id, developer_id, user)
+    def development_abilities(developments, division_id, developer_id, role)
       crud_users(role: :development_admin, id: developments, model: "Development")
       crud_users(role: :site_admin, id: developments, model: "Development")
 
@@ -14,7 +14,7 @@ module Abilities
       development_custom_tiles(developments)
       development_calendar
       crud_residents(developments)
-      read_developments(developer_id, division_id, developments, user)
+      read_developments(developer_id, division_id, developments, role)
     end
 
     private
@@ -25,7 +25,7 @@ module Abilities
       can :reinvite, Resident
     end
 
-    def read_developments(developer_id, division_id, developments, user)
+    def read_developments(developer_id, division_id, developments, role)
       can :read, Developer, id: developer_id
       can :read, Division, id: division_id
       can :read, Development, id: developments
@@ -41,16 +41,16 @@ module Abilities
       can :read, Finish, rooms: { unit_type_id: unit_type_ids }
       can :read, Appliance, rooms: { unit_type_id: unit_type_ids }
 
-      non_cas_developments(developments, user)
+      non_cas_developments(developments, role)
     end
 
-    # Some users have access to multiple developments, and each development
+    # Some roles have access to multiple developments, and each development
     # may optionally have CAS enabled.  CAS security is set elsewhere for enabled
     # developments but non-enabled developnments have their security set here
-    def non_cas_developments(developments, user)
+    def non_cas_developments(developments, role)
       devs = developments.is_a?(Integer) ? [developments] : developments
       devs.each do |development|
-        next if user.cas && Development.find(development).cas
+        next if role.cas && Development.find(development).cas
         can :read, Finish, rooms: { plot: { development_id: development } }
         can :read, Appliance, rooms: { plot: { development_id: development } }
       end
