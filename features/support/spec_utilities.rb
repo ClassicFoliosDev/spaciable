@@ -73,7 +73,7 @@ module SpecUtilities
         raise Capybara::ElementNotFound, "Selectmenu is missing for #{field}"
       end
       sleep 0.2
-      arrow.click
+      arrow.trigger('click')
     end
   end
 

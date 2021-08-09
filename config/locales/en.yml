@@ -1394,6 +1394,9 @@ en:
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
     index:
       add: "Add Development"
+      title: "Developments"
+      development: "Development"
+      phases: "Phases"
     development:
       expiry: "All plots on this development have expired. <br/>To extend the access, please contact your Classic Folios account manager."
       partial_expiry: "Some plots on this development have expired. <br/>To extend the access, please contact your Classic Folios account manager."
@@ -2153,6 +2156,9 @@ en:
       destroy: "Delete"
       show: "Show"
       title: "Divisions"
+      division: "Division"
+      developments: "Developments"
+      add: "Add Division"
     show:
       back: "Back"
     collection:

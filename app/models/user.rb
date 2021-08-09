@@ -379,6 +379,22 @@ class User < ApplicationRecord
     return [self] + grants.to_a
   end
 
+  def developers
+    Developer.accessible_by(current_ability)
+  end
+
+  def divisions
+    Division.accessible_by(current_ability)
+  end
+
+  def developments
+    Development.accessible_by(current_ability, :read)
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(self)
+  end
+
   scope :receives_faqs,
     lambda { |p|
       users = User.where(receive_faq_emails: true)

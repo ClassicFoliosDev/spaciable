@@ -151,6 +151,8 @@ When(/^I add a new (.*) user$/) do |role|
     fill_in "user[email]", with: attrs[:email_address]
   end
 
+  page.execute_script "window.scrollTo(0,200)"
+
   select_from_selectmenu :user_role, with: attrs[:role]
   select_from_selectmenu :user_developer_id, with: attrs[:developer]
   select_from_selectmenu :user_division_id, with: attrs[:division] if attrs[:division]

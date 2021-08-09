@@ -1,0 +1,50 @@
+<% breadcrumb :developments %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<% if @developments.empty? %>
+  <%= render 'components/empty_list', icon_name: "building", type: Development, parent: nil %>
+<% else %>
+  <% if can_create(Development, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_development_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list developments">
+    <thead>
+      <tr>
+        <th><%= sortable(Division, :name, t(".development")) %></th>
+        <th><%= sortable(Division, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @developments.each do |development| %>
+      <tr data-division="<%= development.id %>">
+        <% if development.division.present? %>
+          <td><%= link_to development.name, division_development_path(development.division, development), title: development.name %></td>
+        <% else %>
+          <td><%= link_to development.name, developer_development_path(development.parent_developer, development), title: development.name %></td>
+        <% end %>
+        <td><%= l development.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate @developments %>
+  </div>
+<% end %>

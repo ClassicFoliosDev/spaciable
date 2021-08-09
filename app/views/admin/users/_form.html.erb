@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, user]) do |f| %>
+<%= simple_form_for([:admin, user] , :html => { main:true }) do |f| %>
   <% if user.errors.any? %>
     <div class="submission-errors">
       <ul>
@@ -167,7 +167,7 @@
   <div class="form-actions-footer-container">
     <div class="form-actions-footer">
       <%= link_to t(".back"), admin_users_path, class: "btn" %>
-      <%= f.submit t(".submit"), class: "btn-form-submit btn-primary" %>
+      <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit_user' %>
     </div>
   </div>
 <% end %>

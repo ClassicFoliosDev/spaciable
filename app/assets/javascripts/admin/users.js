@@ -407,13 +407,13 @@ function displayFilterSelections() {
 // sets the fields.  Finally it prepends itself
 $(document).on('click', '#add_role', function (event) {
 
-  additional_role = getAdditionalRole()
+  additional_role = getRole(true)
   duplicate = duplicateOf(additional_role)
 
   if (duplicate != null) {
     meta = duplicate.clone().find("#metadata")
     meta.find("i").remove()
-    infoDialog("Duplicate Role", "This is a duplicate of an existing role", meta.html())
+    infoDialog("Duplicate Role", "Duplicated role", meta.html())
   } else {
     newrole = $('.additional-role').first().clone()
     $('.additional-role').last().after(newrole)
@@ -468,7 +468,7 @@ function deleteAdditionalRole(role) {
 function duplicateOf(additional_role) {
   duplicate = null
 
-  $(".additional-role").each(function() {
+  $(".additional-role:visible").each(function() {
     if ($(this).find("input")[0].value == additional_role.role &&
         $(this).find("input")[1].value == additional_role.permission_level_type &&
         $(this).find("input")[2].value == additional_role.permission_level_id) {
@@ -479,34 +479,35 @@ function duplicateOf(additional_role) {
   return duplicate
 }
 
-function getAdditionalRole()
+function getRole(additional)
 {
-  const selection = {role : $("#user_su_role option:selected").val(),
-                     meta: [createRoleHeader($("#user_su_role option:selected").text())] }
+  prefix = (additional ? "#user_su_" : "#user_")
+  const selection = {role : $(prefix + "role option:selected").val(),
+                     meta: [createRoleHeader($(prefix + "role option:selected").text())] }
 
   switch(selection.role) {
     case "developer_admin":
       selection.permission_level_type = "Developer"
-      selection.permission_level_id = $("#user_su_developer_id option:selected").val()
-      selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
+      selection.permission_level_id = $(prefix + "developer_id option:selected").val()
+      selection.meta.push(createRoleMetadata($(prefix + "developer_id option:selected").text()))
     break;
       break;
     case "division_admin":
       selection.permission_level_type = "Division"
-      selection.permission_level_id = $("#user_su_division_id option:selected").val()
-      selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
-      selection.meta.push(createRoleMetadata($("#user_su_division_id option:selected").text()))
+      selection.permission_level_id = $(prefix + "division_id option:selected").val()
+      selection.meta.push(createRoleMetadata($(prefix + "developer_id option:selected").text()))
+      selection.meta.push(createRoleMetadata($(prefix + "division_id option:selected").text()))
       break;
     case "development_admin":
     case "site_admin":
       selection.permission_level_type = "Development"
-      selection.permission_level_id = $("#user_su_development_id option:selected").val()
-      selection.meta.push(createRoleMetadata($("#user_su_developer_id option:selected").text()))
-      if ($("#user_su_division_id option:selected").val() != "" &&
-          $("#user_su_division_id option:selected").val() != undefined) {
-        selection.meta.push(createRoleMetadata($("#user_su_division_id option:selected").text()))
+      selection.permission_level_id = $(prefix + "development_id option:selected").val()
+      selection.meta.push(createRoleMetadata($(prefix + "developer_id option:selected").text()))
+      if ($(prefix + "division_id option:selected").val() != "" &&
+          $(prefix + "division_id option:selected").val() != undefined) {
+        selection.meta.push(createRoleMetadata($(prefix + "division_id option:selected").text()))
       }
-      selection.meta.push(createRoleMetadata($("#user_su_development_id option:selected").text()))
+      selection.meta.push(createRoleMetadata($(prefix + "development_id option:selected").text()))
       break;
     default:
       // code block
@@ -515,7 +516,44 @@ function getAdditionalRole()
   return selection
 }
 
+$(document).on('click', '#submit_user', function (event) {
+  validate_user()
+})
+
+// Primary role has precidence over additional roles
+function hasPrecedence() {
+  has_precedence = null
+  primary_role_precidence = rolePrecedence($("#user_role option:selected").val())
+
+  $(".additional-role:visible").each(function() {
+    if (rolePrecedence($(this).find("input")[0].value) < primary_role_precidence) {
+      has_precedence = $(this)
+    }
+  })
+
+  return has_precedence
+}
+
+function rolePrecedence(role) {
+  precedence = 0
+  const roles = ["cf_admin", "developer_admin", "division_admin", "development_admin", "site_admin"]
+  roles.forEach(function (r, index) { if (r == role) { precedence = index } })
+  return precedence
+}
 
 
-
-
+function validate_user() {
+  duplicate = duplicateOf(getRole(false))
+  has_precidence = hasPrecedence()
+  if (duplicate != null) {
+    meta = duplicate.clone().find("#metadata")
+    meta.find("i").remove()
+    infoDialog("Duplicate Role", "Duplicated role", meta.html())
+  } else if (has_precedence != null) {
+    meta = has_precidence.clone().find("#metadata")
+    meta.find("i").remove()
+    infoDialog("Precedence", "Additional role has precedence over primary", meta.html())
+  } else {
+   $("form[main='true']")[0].submit();
+  }
+}
