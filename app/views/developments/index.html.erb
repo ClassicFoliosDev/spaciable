@@ -37,6 +37,8 @@
         <td><%= l development.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= link_to t(".phases"), development_phases_path(development), class: "btn" %>
+        <%= edit_btn [:edit, development.parent, development], element: development %>
+        <%= permissable_delete_btn development, path: url_for([development.parent, development]), element: development %>
         </td>
       </tr>
       <% end %>
