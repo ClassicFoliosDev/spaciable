@@ -530,3 +530,104 @@ Then(/^I can resend an invitation to the unactivated developer admin$/) do
   email = ActionMailer::Base.deliveries.last
   expect(email.to).to eq [AdminUsersFixture.developer_admin_attrs[:email_address]]
 end
+
+Given(/^I have an additional developer$/) do
+  dev = CreateFixture.create_developer(name: AdminUsersFixture.additional_developer_name)
+  Division.create(division_name: AdminUsersFixture.additional_division_name, developer: dev)
+end
+
+Given(/^I go to the add user page$/) do
+  visit "/admin/users/new"
+end
+
+Then(/^I cannot add an additional role$/) do
+  expect(page).not_to have_content(t("admin.users.index.add"))
+end
+
+
+Then(/^when I define a new (.*) user$/) do |role|
+  visit "/admin/users"
+
+  within ".section-actions" do
+    click_on t("admin.users.index.add")
+  end
+
+  attrs = nil
+  case role
+    when "Developer Admin"
+      attrs = AdminUsersFixture.developer_admin_attrs
+    when "Division Admin"
+      attrs = AdminUsersFixture.division_admin_attrs
+    when "Development Admin"
+      attrs = AdminUsersFixture.development_admin_attrs
+    when "Division Development Admin"
+      attrs = AdminUsersFixture.division_development_admin_attrs
+  end
+
+  within ".user_email" do
+    fill_in "user[email]", with: attrs[:email_address]
+  end
+
+  page.execute_script "window.scrollTo(0,200)"
+
+  select_from_selectmenu :user_role, with: attrs[:role]
+  select_from_selectmenu :user_developer_id, with: attrs[:developer]
+  select_from_selectmenu :user_division_id, with: attrs[:division] if attrs[:division]
+  select_from_selectmenu :user_development_id, with: attrs[:development] if attrs[:development]
+end
+
+Then(/^I can add an additional (.*) role$/) do |role|
+  define_additional_user(role)
+  page.find("#add_role").trigger('click')
+  within ".additional-roles" do
+    expect(page).to have_content(role)
+
+    case role
+    when "Developer Admin"
+      expect(page).to have_content(AdminUsersFixture.additional_developer_admin_attrs[:developer])
+    when "Division Admin"
+      expect(page).to have_content(AdminUsersFixture.additional_division_admin_attrs[:division])
+    end
+  end
+end
+
+def define_additional_user(role)
+  attrs = nil
+  case role
+  when "CF Admin"
+      attrs = AdminUsersFixture.additional_CF_admin_attrs
+    when "Developer Admin"
+      attrs = AdminUsersFixture.additional_developer_admin_attrs
+    when "Division Admin"
+      attrs = AdminUsersFixture.additional_division_admin_attrs
+  end
+
+  page.execute_script "window.scrollTo(0,200)"
+
+  select_from_selectmenu :user_su_role, with: attrs[:role]
+  select_from_selectmenu :user_su_developer_id, with: attrs[:developer] if attrs[:developer]
+  select_from_selectmenu :user_su_division_id, with: attrs[:division] if attrs[:division]
+end
+
+Then(/^I cannot add a duplicate additional Division Admin role$/) do
+  define_additional_user("Division Admin")
+  page.find("#add_role").trigger('click')
+  expect(page).to have_content(t("admin.users.form.duplicate_role"))
+  click_on "Cancel"
+end
+
+Then(/^I cannot save the new user$/) do
+  click_on t("admin.users.form.submit")
+  expect(page).to have_content(t("admin.users.form.higher_precidence"))
+  click_on "Cancel"
+end
+
+Then(/^I can delete the additional Developer Admin role$/) do
+  find(".additional-role:last-child #metadata i").trigger('click')
+  click_on "Delete"
+end
+
+Then(/^I can save the new user$/) do
+  click_on t("admin.users.form.submit")
+  expect(page).to have_content("#{AdminUsersFixture.division_admin_attrs[:email]} was created successfully")
+end

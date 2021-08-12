@@ -12,8 +12,8 @@ Given(/^I am a (\(\w+\) )?(\w+) Admin and I want to manage FAQs$/) do |parent_ty
   visit "/"
 end
 
-When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
-  goto_resource_show_page(parent, resource)
+When(/^I create a FAQ for a (additional )?(\(\w+\) )?(\w+)$/) do |additional, parent, resource|
+  goto_resource_show_page(parent, resource, additional)
   sleep 0.4
 
   attrs = FaqsFixture.attrs(:created, parent, under: resource)
@@ -33,7 +33,7 @@ When(/^I create a FAQ for a (\(\w+\) )?(\w+)$/) do |parent, resource|
   end
 end
 
-Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, parent, resource|
+Then(/^I should see the (created|updated) (additional )?(\(\w+\) )?(\w+) FAQ$/) do |action, additional, parent, resource|
   attrs = FaqsFixture.attrs(action, parent, under: resource)
   notice = t("controller.success.#{action.gsub(/d\Z/, '')}", name: attrs[:question])
   notice << t("resident_notification_mailer.notify.update_sent", count: Resident.all.count) if action == "updated"
@@ -49,7 +49,7 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
   end
 
   within ".breadcrumbs" do
-    expect(page).to have_content(CreateFixture.get(resource, parent))
+    expect(page).to have_content(AdditionalRoleFixture.get(additional,resource, parent))
   end
 
   within ".record-list" do
@@ -70,8 +70,8 @@ Then(/^I should see the (created|updated) (\(\w+\) )?(\w+) FAQ$/) do |action, pa
   end
 end
 
-When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
-  faq_id = FaqsFixture.faq_id(parent, under: resource)
+When(/^I update the (additional )?(\(\w+\) )?(\w+) FAQ$/) do |additional, parent, resource|
+  faq_id = FaqsFixture.faq_id(additional, parent, under: resource)
 
   within "[data-faq='#{faq_id}']" do
     find("[data-action='edit']").trigger("click")
@@ -91,20 +91,20 @@ When(/^I update the (\(\w+\) )?(\w+) FAQ$/) do |parent, resource|
   end
 end
 
-When(/^I delete the Developer FAQ$/) do
-  faq_id = FaqsFixture.faq_id(under: :developer, updated: true)
+When(/^I delete the (additional )?Developer FAQ$/) do |additional|
+  faq_id = FaqsFixture.faq_id(additional, under: :developer, updated: true)
 
   delete_and_confirm!(scope: "[data-faq='#{faq_id}']")
 end
 
-Then(/^I should no longer see the Developer FAQ$/) do
+Then(/^I should no longer see the (additional )?Developer FAQ$/) do |additional|
   attrs = FaqsFixture.attrs(:updated, under: :developer)
   notice = t("controller.success.destroy", name: attrs[:subject])
 
   expect(page).to have_content(notice)
 
   within ".breadcrumbs" do
-    expect(page).to have_link(FaqsFixture.developer)
+    expect(page).to have_link(AdditionalRoleFixture.resource(additional, "developer"))
   end
 
   expect(page).not_to have_content(".record-list")
@@ -114,14 +114,14 @@ Then(/^I should no longer see the Developer FAQ$/) do
   end
 end
 
-Given(/^my .+ (\w+) has FAQs$/) do |resource|
-  FaqsFixture.create_faqs_for(resource)
+Given(/^my .+ (additional )?(\w+) has FAQs$/) do |additional, resource|
+  FaqsFixture.create_faqs_for(additional, resource)
 end
 
 Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resource|
   attrs = FaqsFixture.attrs(:created, under: parent_resource)
 
-  goto_resource_show_page(nil, parent_resource)
+  goto_resource_show_page(nil, parent_resource, nil)
 
   sleep 0.2
   find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: all).trigger('click')
@@ -137,10 +137,10 @@ Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resou
   end
 end
 
-Then(/^I should see the faq resident has been notified$/) do
+Then(/^I should see the (additional )?faq resident has been notified$/) do |additional|
   in_app_notification = Notification.all.last
   expect(in_app_notification.residents.count).to eq 1
-  expect(in_app_notification.residents.first.email).to eq CreateFixture.resident.email
+  expect(in_app_notification.residents.first.email).to eq AdditionalRoleFixture.resident_email(additional)
 
   email = ActionMailer::Base.deliveries.first
   question = FaqsFixture.attrs(:created, under: :division)[:question]

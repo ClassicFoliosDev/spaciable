@@ -196,17 +196,17 @@ module FaqsFixture
     create_division_development
   end
 
-  def create_faqs_for(resource = :developer)
+  def create_faqs_for(additional, resource = :developer)
     resource_name = ResourceName(resource).to_sym
 
     attrs = faq_attrs.select { |(key, _)| key == resource_name }
-    create_faqs(attrs)
+    create_faqs(additional, attrs)
   end
 
-  def create_faqs(attrs_scope = faq_attrs)
+  def create_faqs(additional, attrs_scope = faq_attrs)
     attrs_scope.each_pair do |faqable, actions|
       actions.select { |key, _| key == :created }.each do |_, attrs|
-        resource = send(faqable)
+        resource = AdditionalRoleFixture.resource(additional, faqable)
         faq_attrs = attrs.merge(faqable: resource)
 
         FactoryGirl.create(:faq, faq_attrs)
@@ -219,13 +219,13 @@ module FaqsFixture
     faq_attrs[resource_name.to_sym][action.to_sym]
   end
 
-  def faq_id(parent = nil, under: :developer, updated: false)
+  def faq_id(additional, parent = nil, under: :developer, updated: false)
     resource_name = ResourceName(under, parent)
 
     action = updated ? :updated : :created
     question = faq_attrs.fetch(resource_name.to_sym).dig(action, :question)
 
-    Faq.find_by(question: question, faqable: send(resource_name)).id
+    Faq.find_by(question: question, faqable: AdditionalRoleFixture.resource(additional, resource_name)).id
   end
 
   def edited_question

@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, user] , :html => { main:true }) do |f| %>
+<%= simple_form_for([:admin, user] , :html => { main:true, dup_message: t("admin.users.form.duplicate_role"), prec_message: t("admin.users.form.higher_precidence") }) do |f| %>
   <% if user.errors.any? %>
     <div class="submission-errors">
       <ul>

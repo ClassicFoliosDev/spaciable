@@ -992,6 +992,8 @@ en:
           role: "Additional Role"
         add_role: "Add Role"
         additional_roles: "Additional Roles"
+        duplicate_role: "This is a Duplicate Role"
+        higher_precidence: "The following role has a higher higher precidence than the primary role"
       index:
         title: "Admins."
         add: "Add User"

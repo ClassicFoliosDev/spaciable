@@ -96,6 +96,19 @@ Feature: Admin Users
     When I change my password
     Then I should be logged out
 
+  Scenario: User Additional Roles
+    Given I am logged in as a CF Admin
+    And I have an additional developer
+    And I go to the add user page
+    Then I cannot add an additional role
+    And when I define a new Division Admin user
+    Then I can add an additional Division Admin role
+    Then I cannot add a duplicate additional Division Admin role
+    Then I can add an additional Developer Admin role
+    And I cannot save the new user
+    Then I can delete the additional Developer Admin role
+    And I can save the new user
+
   Scenario: Admin lettings
     Given I am logged in as a CF Admin
     And that I have developer, division and development users

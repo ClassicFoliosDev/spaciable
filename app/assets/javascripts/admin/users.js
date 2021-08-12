@@ -413,7 +413,7 @@ $(document).on('click', '#add_role', function (event) {
   if (duplicate != null) {
     meta = duplicate.clone().find("#metadata")
     meta.find("i").remove()
-    infoDialog("Duplicate Role", "Duplicated role", meta.html())
+    infoDialog("Duplicate Role", $("form[main='true']").attr("dup_message"), meta.html())
   } else {
     newrole = $('.additional-role').first().clone()
     $('.additional-role').last().after(newrole)
@@ -548,11 +548,11 @@ function validate_user() {
   if (duplicate != null) {
     meta = duplicate.clone().find("#metadata")
     meta.find("i").remove()
-    infoDialog("Duplicate Role", "Duplicated role", meta.html())
+    infoDialog("Duplicate Role", $("form[main='true']").attr("dup_message"), meta.html())
   } else if (has_precedence != null) {
     meta = has_precidence.clone().find("#metadata")
     meta.find("i").remove()
-    infoDialog("Precedence", "Additional role has precedence over primary", meta.html())
+    infoDialog("Precedence", $("form[main='true']").attr("prec_message"), meta.html())
   } else {
    $("form[main='true']")[0].submit();
   }
