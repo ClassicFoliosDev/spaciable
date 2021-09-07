@@ -117,6 +117,7 @@ Feature: Calendar
   Scenario: Development with no calendar
     Given I am logged in as an admin
     And there is a phase plot with residents
+    And the calendar is disabled for the development
     When I go to the calendar plot I dont see a calendar tab
     When I log out as a an admin
     And I log in as the plot resident

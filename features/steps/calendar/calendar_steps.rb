@@ -430,6 +430,10 @@ Then (/^I cannot see a calendar$/) do
   expect(page).not_to have_content(t("components.homeowner.navigation.calendar"))
 end
 
+And (/^the calendar is disabled for the development$/) do
+  CreateFixture.development().update_attributes(calendar: false)
+end
+
 def populate_event(event = CalendarFixture.event, type: nil)
   exp = {}
 

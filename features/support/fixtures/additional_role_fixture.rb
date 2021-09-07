@@ -8,11 +8,11 @@ module AdditionalRoleFixture
   EMAIL = "#{ADDITIONAL}@gmail.com"
 
   def additional?(option)
-    option.strip == ADDITIONAL
+    option&.strip() == ADDITIONAL
   end
 
   def resource(additional, resource_name)
-    if additional&.strip() == ADDITIONAL
+    if additional?(additional)
       send("additional_#{resource_name}")
     else
       CreateFixture.send(resource_name)
@@ -20,7 +20,7 @@ module AdditionalRoleFixture
   end
 
   def resident_email(additional)
-    if additional&.strip() == ADDITIONAL
+    if additional?(additional)
       AdditionalRoleFixture::EMAIL
     else
       CreateFixture.resident.email
@@ -28,23 +28,31 @@ module AdditionalRoleFixture
   end
 
   def developer(additional)
-    additional&.strip() == ADDITIONAL ? additional_developer : CreateFixture.developer
+    additional?(additional) ? additional_developer : CreateFixture.developer
   end
 
   def division(additional)
-    additional&.strip() == ADDITIONAL ? additional_division : CreateFixture.division
+    additional?(additional) ? additional_division : CreateFixture.division
   end
 
   def development(additional)
-    additional&.strip() == ADDITIONAL ? additional_development : CreateFixture.development
+    additional?(additional) ? additional_development : CreateFixture.development
   end
 
   def division_development(additional)
-    additional&.strip() == ADDITIONAL ? additional_division_development : CreateFixture.division_development
+    additional?(additional) ? additional_division_development : CreateFixture.division_development
+  end
+
+  def phase(additional)
+    additional?(additional) ? additional_division_phase : CreateFixture.phase
+  end
+
+  def division_phase(additional)
+    additional?(additional) ? additional_division_phase : CreateFixture.division_phase
   end
 
   def get(additional, resource, parent = nil)
-    if additional&.strip() == ADDITIONAL
+    if additional?(additional)
       send "additional_#{CreateFixture.ResourceName(resource, parent)}"
     else
       CreateFixture.get(resource, parent)
@@ -65,6 +73,10 @@ module AdditionalRoleFixture
 
   def additional_division_development
     Development.find_by(name: ADDITIONAL, division: additional_division)
+  end
+
+  def additional_division_phase
+    Phase.find_by(name: ADDITIONAL, division: additional_division)
   end
 
 end

@@ -114,14 +114,14 @@ Then(/^I should no longer see the (additional )?Developer FAQ$/) do |additional|
   end
 end
 
-Given(/^my .+ (additional )?(\w+) has FAQs$/) do |additional, resource|
+Given(/^my (.+) (\w+) has FAQs$/) do |additional, resource|
   FaqsFixture.create_faqs_for(additional, resource)
 end
 
-Then(/^I should only be able to see the (\w+) FAQs for my .+$/) do |parent_resource|
+Then(/^I should only be able to see the (additional )?(\w+) FAQs for my .+$/) do |additional, parent_resource|
   attrs = FaqsFixture.attrs(:created, under: parent_resource)
 
-  goto_resource_show_page(nil, parent_resource, nil)
+  goto_resource_show_page(nil, parent_resource, additional)
 
   sleep 0.2
   find(:xpath,"//a[contains(., '#{attrs[:faq_type].name}')]", visible: all).trigger('click')

@@ -362,6 +362,13 @@ Then(/^I should not be able to see (.*)(d.*) brands$/) do |additional, noun|
   click_on t("components.navigation.my_area",
              area: AdditionalRoleFixture.additional?(additional) ? noun.capitalize().pluralize() : noun.capitalize())
 
-  find(:xpath, "//a[@title='#{AdditionalRoleFixture::ADDITIONAL}']").trigger('click') if AdditionalRoleFixture.additional?(additional)
-  expect(page).not_to have_content(t("#{noun}s.collection.brands"))
+  if AdditionalRoleFixture.additional?(additional)
+    all(:xpath, "//a[@title='#{AdditionalRoleFixture::ADDITIONAL}']").each do |additional|
+      additional.trigger('click')
+      expect(page).not_to have_content(t("#{noun}s.collection.brands"))
+      page.evaluate_script('window.history.back()')
+    end
+  else
+    expect(page).not_to have_content(t("#{noun}s.collection.brands"))
+  end
 end

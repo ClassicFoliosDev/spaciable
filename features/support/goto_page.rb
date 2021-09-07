@@ -8,7 +8,7 @@ module GotoPage
     send("goto_#{resource_name}_show_page", additional)
   end
 
-  def goto_developer_show_page(additional)
+  def goto_developer_show_page(additional = nil)
     developer = AdditionalRoleFixture.developer(additional)
     raise "Developer does not exist" unless developer
 
