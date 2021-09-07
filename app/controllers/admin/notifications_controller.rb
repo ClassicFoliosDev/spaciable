@@ -27,6 +27,19 @@ module Admin
       end
     end
 
+    def qualifing_plots
+      plots = ExpandableList.parse(params[:plot_numbers])
+      render json: { requested_plots: plots,
+                     qualifing_plots:
+                       Plot.filtered_by(params[:role_filter],
+                                        params[:plot_filter],
+                                        params[:developer_id].to_i,
+                                        params[:division_id].to_i,
+                                        params[:development_id].to_i,
+                                        params[:phase_id].to_i,
+                                        plots).pluck(:number) }
+    end
+
     private
 
     def subject_filter
