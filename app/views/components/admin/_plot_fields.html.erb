@@ -1,23 +1,11 @@
-<% if plot&.persisted? && plot&.progress %>
-  <div class="plot-field current-progress">
-    <label><%= t(".current_progress") %></label>
-    <span class="read-only"><%= plot&.build_step_title %></span>
-  </div>
-<% end %>
-
 <div>
   <div class=" ui-front select-container plot-field">
     <div class="plot-field build-progress">
-      <% if plot&.persisted? %>
-        <label><%= t(".update_progress") %></label>
-      <% else %>
-        <label><%= t(".current_progress") %></label>
-      <% end %>
-      <%= f.input :build_step_id, as: :select, collection: progress_collection(plot), label: false, include_blank: true  %>
+      <label><%= t(".update_progress") %></label>
+      <%= f.input :build_step_id, as: :select, collection: all_progress_collection(plot), label: false, include_blank: false  %>
     </div>
   </div>
 </div>
-<br/>
 <div>
   <%= f.input :completion_date, as: :string, label: t(".comp_date"),
   placeholder: "DD/MM/YYYY",

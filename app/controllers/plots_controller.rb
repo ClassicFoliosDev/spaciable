@@ -89,7 +89,9 @@ class PlotsController < ApplicationController
     if plot_params[:notify].to_i.positive?
       updated_plots.each do |plot_id|
         plot = Plot.find(plot_id)
-        notice << ResidentChangeNotifyService.call(plot, current_user, update_verb, plot)
+        notice << ResidentChangeNotifyService.call(plot, current_user,
+                                                   update_verb, plot,
+                                                   update_subject)
       end
     end
 
@@ -105,6 +107,14 @@ class PlotsController < ApplicationController
       t("notify.updated_progress", state: BuildStep.find(plot_params[:build_step_id]).title)
     else
       t("notify.generic_updated")
+    end
+  end
+
+  def update_subject
+    if plot_params[:build_step_id].present?
+      t("notify.updated_build")
+    else
+      t("resident_notification_mailer.notify.update_subject")
     end
   end
 

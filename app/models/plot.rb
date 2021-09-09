@@ -165,7 +165,6 @@ class Plot < ApplicationRecord
     exchange_ready
     complete_ready
     completed
-    remove
   ]
 
   enum choice_selection_status: %i[

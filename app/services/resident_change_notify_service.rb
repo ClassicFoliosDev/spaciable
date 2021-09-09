@@ -3,8 +3,8 @@
 module ResidentChangeNotifyService
   module_function
 
-  def call(resource, user, verb, parent)
-    notification = build_notification(resource, user, verb, parent)
+  def call(resource, user, verb, parent, subject = nil)
+    notification = build_notification(resource, user, verb, parent, subject)
 
     is_private_document = resource.is_a?(Document) &&
                           resource.documentable_type != "Developer" &&
@@ -27,11 +27,11 @@ module ResidentChangeNotifyService
     plot_residents.select(&:developer_email_updates?)
   end
 
-  def build_notification(resource, user, verb, parent)
+  def build_notification(resource, user, verb, parent, subject)
     return unless resource && parent
 
     notification = Notification.create(sender: user)
-    notification.subject = I18n.t("resident_notification_mailer.notify.update_subject")
+    notification.subject = subject || I18n.t("resident_notification_mailer.notify.update_subject")
     notification.message = I18n.t("resident_notification_mailer.notify.update_message",
                                   address: parent_address(parent),
                                   message: resource_message(resource, verb))

@@ -302,6 +302,7 @@ en:
     generic_updated: "Your home's details have been updated. If you would like more information, please contact your developer."
     updated_state: "updated to %{state}"
     updated_progress: "<p>The Build Progress status has been updated to:</p>%{state}"
+    updated_build: "You Have a Build Progress Update"
 
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
@@ -511,8 +512,7 @@ en:
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
       plot_fields:
-        current_progress: "Build Progress"
-        update_progress: "Update Build Progress"
+        update_progress: "Build Progress Status"
         comp_date: "Estimated Move In Date"
         letable: "Lettings"
         letable_description: "Residents are able to let out their plot. This will override the current phase status.
@@ -3264,7 +3264,7 @@ en:
     notify:
       new_notification: "You have a new notification from Spaciable"
       login: "Login to your portal"
-      welcome: "Hello %{name}"
+      welcome: "Hi %{name}"
       message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property at %{development}"
       update_subject: "You have a new update in Spaciable"
       old: "You have a new update in Hoozzi"
@@ -3280,7 +3280,7 @@ en:
       admin_notification: "%{address} %{message}"
     notify_direct:
       message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property, Plot %{plot_number} at %{development}:"
-      welcome: "Hello %{name}"
+      welcome: "Hi %{name}"
       view_message: "View Message on Spaciable"
 
   services:
@@ -3474,7 +3474,6 @@ en:
           exchange_ready: "Ready for exchange"
           complete_ready: "Ready to complete"
           completed: "Build completed"
-          remove: "No progress status"
         letable_types:
           planet_rent: "Planet Rent"
           busy_living: "Busy Living"

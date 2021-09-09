@@ -12,6 +12,9 @@ namespace :build_progress do
     # create the master build sequence
     sequence = BuildSequence.create(build_sequenceable: Global.first)
 
+    # migrate all 'no progress status' plots (value 15) to 'soon' (0)
+    Plot.where(progress: 15).update_all(progress: 0)
+
     Plot.progresses.each do |t, v|
       BuildStep.create(title: I18n.t("activerecord.attributes.plot.progresses.#{t}"),
                        description: I18n.t("activerecord.attributes.plot.progresses.#{t}"),

@@ -9,7 +9,7 @@
         <div class="row-item half">
           <div class="plot_progress ui-front select-container">
             <label><%= t(".previous") %></label>
-            <span class="current-progress"><%= plot&.build_step_title unless plot.remove? %></span>
+            <span class="current-progress"><%= plot&.build_step_title %></span>
             <label><%= t(".update_progress") %></label>
             <%= f.input :build_step_id, as: :select, collection: progress_collection(plot), label: false  %>
           </div>

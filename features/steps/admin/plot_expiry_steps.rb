@@ -50,7 +50,7 @@ Then(/^I can update the the build progress of that plot$/) do
     click_on t("plots.collection.progress")
   end
 
-  select_from_selectmenu :plot_progress,
+  select_from_selectmenu :plot_build_step_id,
     with: CreateFixture.plot_build_step(ExpiryFixture.plot_number,
                                         PlotFixture.progress).title
 
@@ -170,9 +170,9 @@ Then(/^I can no longer update the build progress of that plot$/) do
     click_on t("plots.collection.progress")
   end
 
-  expect(page).to have_content I18n.t("components.admin.plot_fields.current_progress")
+  expect(page).to have_content I18n.t("progresses.progress.previous")
   expect(page).to have_no_css(".ui-selectmenu-text")
-  expect(page).to_not have_content I18n.t("components.admin.plot_fields.update_progress")
+  expect(page).to_not have_content I18n.t("progresses.progress.update_progress")
   expect(page).to_not have_content I18n.t("progresses.progress.submit")
 end
 

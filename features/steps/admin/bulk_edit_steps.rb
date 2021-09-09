@@ -131,7 +131,7 @@ Then(/^the unselected plots are not (CAS )*updated$/) do |cas|
     selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
 
     if cas.present?
-      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+      expect(find(".build-progress .ui-selectmenu-text")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     else
       expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
       expect(selected_unit_type).to have_content plot.unit_type.to_s
@@ -162,7 +162,7 @@ Then(/^the unreleased plots are not CAS updated$/) do
     within ".edit_plot" do
       unit_type = page.find(".plot_unit_type")
       selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
-      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+      expect(find(".build-progress .ui-selectmenu-text")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     end
   end
 end
