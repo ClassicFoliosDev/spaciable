@@ -208,3 +208,17 @@
   display: inline;
   font-weight: normal;
 }
+
+.confirm-seq-dialog {
+  width: 600;
+
+  table {
+    width: 100%;
+
+    th, td {
+      padding: 5px;
+    }
+  }
+}
+
+

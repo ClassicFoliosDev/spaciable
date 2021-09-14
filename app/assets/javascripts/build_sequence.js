@@ -9,7 +9,7 @@ document.addEventListener('turbolinks:load', function () {
   bs.setRowStatuses()
 })
 
-$(document).on('click', '#submit_stage_set', function (event) {
+$(document).on('click', '#submit_build_sequence', function (event) {
   if ($("#build_sequence ").length == 0 ) { return }
   bs.validate()
 })
@@ -125,15 +125,15 @@ var bs = {
       current = replacement_row.find(".current")
       current_ids = replacement_row.find("#current_ids")
 
-      dialog_body =  '<div>' +
-                      '<p>Are you sure you want to delete <strong>' +
-                      clicked_row.find('input:eq(4)').val() +
-                      '</strong>?</p>' +
-                      '<p>Plots at <strong>' + clicked_row.find('input:eq(4)').val() +
-                      '</strong> will move to <strong>' +
-                      replacement_row.find('input:eq(4)').val() +
-                      '</strong>?</p>' +
-                     '</div>'
+      dialog_body = '<div>' +
+                    '<p>Are you sure you want to delete <strong>' +
+                    clicked_row.find('input:eq(4)').val() +
+                    '</strong>?</p>' +
+                    '<p>Plots at <strong>' + clicked_row.find('input:eq(4)').val() +
+                    '</strong> will move to <strong>' +
+                    replacement_row.find('input:eq(4)').val() +
+                    '</strong>?</p>' +
+                    '</div>'
 
       var $dialogContainer = $('<div>', { id: 'dialog', class: 'archive-dialog' })
         .html(dialog_body)
@@ -209,23 +209,96 @@ var bs = {
   },
 
   validate: function(){
-    valid = true
+    let valid = true
+    flash_clear()
 
     bs.steps().each(function( index ) {
-      title = $(this).find("td input")
-      if (title.val() != "") {
-        title.removeClass('field_with_errors')
-        $(this).find("#title_error").remove()
-      } else {
-        valid = false
-        if (!title.hasClass('field_with_errors')) {
-          title.addClass('field_with_errors')
-          title.after( "<span id='title_error' class='error'>is required, and must not be blank.</span>")
-        }
-      }
+      valid = bs.field_valid($(this).find("input:eq(4)")) && valid
+      valid = bs.field_valid($(this).find("textarea")) && valid
     })
 
-    if (valid) { bs.submit() }
+    if (valid) {
+      bs.confirm()
+    } else {
+      flash('Build Progress list could not be saved: please do not leave any Stage Title or Email Content fields blank.','alert')
+    }
+
+  },
+
+  confirm: function(){
+
+    let selections = '<table><th>Current Stage Titles</th><th>New Stage Titles<th>'
+    bs.steps().each(function( index ) {
+      selections += '<tr>'
+      selections += '<td>' + $(this).find('td:eq(0)').html() + '</td>'
+      selections += '<td>' + $(this).find("input:eq(4)").val() + '</td>'
+      selections += '</tr>'
+    })
+    selections += '</table>'
+
+    dialog_body = '<div>' +
+                    '<p>Please confirm this build Sequence</p>' +
+                    selections +
+                    '</div>'
+
+    var $dialogContainer = $('<div>', { id: 'dialog', class: 'confirm-dialog' })
+      .html(dialog_body)
+
+    // Display the modal dialog and ask for confirm/cancel
+    $(document.body).append($dialogContainer)
+
+    $dialogContainer.dialog({
+      title: "Confirm Sequence",
+      show: 'show',
+      modal: true,
+      width: 600,
+      dialogClass: 'confirm-seq-dialog',
+      buttons: [
+        {
+          text: "Cancel",
+          class: 'btn-secondary',
+          click: function () {
+            $(this).dialog('close')
+            $(this).dialog('destroy').remove()
+          }
+        },
+        {
+          text: "Confirm",
+          class: 'btn-primary',
+          id: 'btn_confirm',
+          click: function () {
+             bs.submit()
+          }
+        }]
+    }).prev().find('.ui-dialog-titlebar-close').hide()
+
+  },
+
+  field_valid: function(field) {
+    let valid = true
+    let value = ""
+
+    switch(field[0].tagName) {
+    case "INPUT":
+      value = field.val()
+      break;
+    case "TEXTAREA":
+      value = field[0].value
+      break;
+    }
+
+    if (value != "") {
+        field.removeClass('field_with_errors')
+        field.parent().find("#field_error").remove()
+    } else {
+      valid = false
+      if (!field.hasClass('field_with_errors')) {
+        field.addClass('field_with_errors')
+        field.after( "<span id='field_error' class='error'>is required, and must not be blank.</span>")
+      }
+    }
+
+    return valid
   },
 
   dirty: function() {
@@ -233,7 +306,7 @@ var bs = {
   },
 
   submit: function(){
-      $.post($(".edit_stage_set").attr("action"), $(".edit_stage_set").serialize())
+      $.post($(".edit_build_sequence").attr("action"), $(".edit_build_sequence").serialize())
   }
 }
 

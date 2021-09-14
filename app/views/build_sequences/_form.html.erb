@@ -64,8 +64,8 @@
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
-        <%= link_to t("back"), [parent, :build_sequence], class: "btn" %>
-        <%= f.submit t("submit"), class: "btn-form-submit btn-primary" %>
+        <%= link_to t("back"), [parent, :build_sequence, back: true], class: "btn" %>
+        <%= button_tag "Submit", :type => 'button', class: "btn btn-primary btn-form-submit", id: 'submit_build_sequence' %>
       </div>
     </div>
   <% end %>

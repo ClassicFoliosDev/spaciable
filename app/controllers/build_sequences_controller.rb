@@ -7,15 +7,23 @@ class BuildSequencesController < ApplicationController
 
   before_action :set_parent
 
-  def show; end
+  def show
+    @back = params[:back]
+  end
 
   def edit
     @steps_enabled = params[:build_steps]
   end
 
   def update
-    update_steps
-    redirect_to [@build_sequence.parent, :build_sequence]
+    if update_steps
+      redirect_to [@build_sequence.parent, :build_sequence, back: true],
+                  notice: t("controller.success.update",
+                            name: @build_sequence.parent.sequence_in_use.sequence_name +
+                                  " Build Progress")
+    else
+      redirect_to [@build_sequence.parent, :build_sequence]
+    end
   end
 
   def build_sequence_params
@@ -24,8 +32,10 @@ class BuildSequencesController < ApplicationController
     )
   end
 
-  # rubocop:disable LineLength
+  # rubocop:disable LineLength, Metrics/MethodLength
   def update_steps
+    success = true
+
     BuildSequence.transaction do
       begin
         # If the parent doesn't have a build_sequence, then this 'update'
@@ -43,12 +53,15 @@ class BuildSequencesController < ApplicationController
           @build_sequence.update_build_steps(old_ids, step.id)
         end
       rescue => e
+        success = false
         Rails.logger.debug(e.message)
         ActiveRecord::Rollback
       end
     end
+
+    success
   end
-  # rubocop:enable LineLength
+  # rubocop:enable LineLength, Metrics/MethodLength
 
   def set_parent
     @parent = @division || @developer || @global
