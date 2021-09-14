@@ -9,7 +9,9 @@ class BuildSequencesController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    @steps_enabled = params[:build_steps]
+  end
 
   def update
     update_steps

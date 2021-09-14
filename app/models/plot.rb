@@ -45,6 +45,7 @@ class Plot < ApplicationRecord
   has_one :address, as: :addressable, dependent: :destroy
   has_one :listing, dependent: :destroy
   belongs_to :build_step
+  delegate :build_sequenceable_type, to: :build_step
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy

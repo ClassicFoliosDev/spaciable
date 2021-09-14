@@ -17,7 +17,8 @@ namespace :build_progress do
 
     Plot.progresses.each do |t, v|
       BuildStep.create(title: I18n.t("activerecord.attributes.plot.progresses.#{t}"),
-                       description: I18n.t("activerecord.attributes.plot.progresses.#{t}"),
+                       description: "Your Build Progress has been updated to:\r\n\r\n" +
+                                    I18n.t("activerecord.attributes.plot.progresses.#{t}"),
                        order: v + 1,
                        build_sequence: sequence)
     end

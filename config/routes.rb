@@ -263,6 +263,11 @@ Rails.application.routes.draw do
     resource :build_sequence, only: [:show, :edit, :update]
   end
 
+  namespace :user_preferences do
+    get :preference,  format: :json
+    post :set_preference, format: :json
+  end
+
   namespace :homeowners do
     resources :residents, only: [:show, :edit, :update, :destroy]
     resources :notifications, only: [:index]

@@ -81,6 +81,14 @@ $(document).on('mouseleave', '#plotfiltersHelp', function (event) {
   $('.plot-filters-help').hide()
 })
 
+$(document).on('mouseover', '#stepHelp', function (event) {
+  $('.step-help').show()
+})
+
+$(document).on('mouseleave', '#stepHelp', function (event) {
+  $('.step-help').hide()
+})
+
 // FUNCTIONS
 
 function questionMouseOver(question) {

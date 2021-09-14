@@ -125,18 +125,61 @@ var bs = {
       current = replacement_row.find(".current")
       current_ids = replacement_row.find("#current_ids")
 
-      if ( is_last ) {
-        current.append(clicked_row.find(".current").html())
-        current_ids.val(current_ids.val() + clicked_row.find("#current_ids").val())
-      } else {
-        current.prepend(clicked_row.find(".current").html())
-        current_ids.val(clicked_row.find("#current_ids").val() + current_ids.val())
-      }
+      dialog_body =  '<div>' +
+                      '<p>Are you sure you want to delete <strong>' +
+                      clicked_row.find('input:eq(4)').val() +
+                      '</strong>?</p>' +
+                      '<p>Plots at <strong>' + clicked_row.find('input:eq(4)').val() +
+                      '</strong> will move to <strong>' +
+                      replacement_row.find('input:eq(4)').val() +
+                      '</strong>?</p>' +
+                     '</div>'
 
-      bs.markDeleted(clicked_row, is_last)
-      bs.setRowStatuses()
-      bs.renumber()
-      bs.dirty()
+      var $dialogContainer = $('<div>', { id: 'dialog', class: 'archive-dialog' })
+        .html(dialog_body)
+
+      // Display the modal dialog and ask for confirm/cancel
+      $(document.body).append($dialogContainer)
+
+      $dialogContainer.dialog({
+        title: "Delete Step",
+        show: 'show',
+        modal: true,
+        dialogClass: 'archive-dialog',
+        buttons: [
+          {
+            text: "Cancel",
+            class: 'btn-secondary',
+            click: function () {
+              $(this).dialog('close')
+              $(this).dialog('destroy').remove()
+            }
+          },
+          {
+            text: "Confirm",
+            class: 'btn-primary',
+            id: 'btn_confirm',
+            click: function () {
+              if ( is_last ) {
+                current.append(clicked_row.find(".current").html())
+                current_ids.val(current_ids.val() + clicked_row.find("#current_ids").val())
+              } else {
+                current.prepend(clicked_row.find(".current").html())
+                current_ids.val(clicked_row.find("#current_ids").val() + current_ids.val())
+              }
+
+              bs.markDeleted(clicked_row, is_last)
+              bs.setRowStatuses()
+              bs.renumber()
+              bs.dirty()
+
+              $(this).dialog('close')
+              $(this).dialog('destroy').remove()
+            }
+          }]
+      }).prev().find('.ui-dialog-titlebar-close').hide()
+
+
     })
   },
 

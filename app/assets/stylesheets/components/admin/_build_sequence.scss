@@ -36,5 +36,13 @@
       vertical-align: top;
     }
 
+    .step-help {
+      display: none;
+
+      p {
+        margin: unset;
+      }
+    }
+
   }
 

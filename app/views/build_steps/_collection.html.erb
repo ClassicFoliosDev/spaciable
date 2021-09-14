@@ -1,11 +1,10 @@
-
   <div class="section-data">
-    <% if parent.build_sequence %>
+    <% if parent.is_a?(Global) || parent.build_sequence %>
       <%= edit_btn [:edit, parent, :build_sequence], element: parent %>
     <% else %>
       <div class="section-actions">
         <%= link_to [:edit, parent, :build_sequence], class: "btn btn-primary" do %>
-          <span class="btn-label"><%= t(".add") %></span>
+          <span class="btn-label"><%= t(".edit") %></span>
         <% end %>
     </div>
     <% end %>

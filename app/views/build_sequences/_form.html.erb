@@ -1,15 +1,34 @@
+<% help = [t(".global")] %>
+<% if parent.is_a? Global %>
+  <% help << t(".global_warn") %>
+<% end %>
+<% help << t(".delete_warn") %>
+
+<%= render "components/admin/help", title: 'Build Progress', preference: :show_edit_build_progress_dialog, help: help %>
+
+<% unless parent.build_sequence %>
+  <p><%= simple_format t(".warn", name: parent.identity) %></p>
+<% end %>
+
 <div class="build_sequence">
   <%= simple_form_for(build_sequence, url: [parent, :build_sequence]) do |f| %>
 
     <%= f.hidden_field :dirty, id: 'dirty', value: false %>
 
+
     <table id="build_sequence" class="section-list build-steps">
       <thead>
         <tr>
-          <th class="step-map-actions step-map">&nbsp;</th>
-          <th class="step-map">Current</th>
-          <th>Title</th>
-          <th>Description</th>
+          <% if steps_enabled %>
+            <th class="step-map-actions step-map">&nbsp;</th>
+          <% end %>
+          <th class="step-map">
+            <%= t(".current") %>
+            <i class="fa fa-question-circle" id="stepHelp"></i>
+            <div class="step-help"><br><%= simple_format t(".step_help") %></div>
+            </th>
+          <th><%= t(".title") %></th>
+          <th><%= t(".description") %></th>
           <th>&nbsp;</th>
         </tr>
       </thead>
@@ -19,14 +38,16 @@
             <%= s.hidden_field :id, id: 'id', value: (parent.build_sequence ? s.object.id : nil) %>
             <%= s.hidden_field :order, id: 'order' %>
             <%= s.hidden_field :_destroy, value: false, deletefield: true %>
-            <td class="step-map-actions step-map">
-              <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
-              <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
-            </td>
+            <% if steps_enabled %>
+              <td class="step-map-actions step-map">
+                <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                <button id='down' type="button" class="btn" ><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+              </td>
+            <% end %>
             <td class="step-map current"><%= s.object.title %><br></td>
             <%= s.hidden_field :current_ids, id: 'current_ids', value: (s.object.id.to_s + ',') %>
 
-            <td class="title"><%= s.input :title, label: false, placeholder: s.object.title %></td>
+            <td class="title"><%= s.input :title, label: false, placeholder: s.object.title, input_html: { maxlength: 50 }  %></td>
             <td class="description"><%= s.input :description, label: false, as: :text, placeholder: s.object.description %></td>
             <td class='step-actions'>
               <button id='up' type="button" class="btn"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
@@ -43,7 +64,7 @@
 
     <div class="form-actions-footer-container">
       <div class="form-actions-footer">
-        <%= link_to t("back"), [build_sequence.parent, :build_sequence], class: "btn" %>
+        <%= link_to t("back"), [parent, :build_sequence], class: "btn" %>
         <%= f.submit t("submit"), class: "btn-form-submit btn-primary" %>
       </div>
     </div>
