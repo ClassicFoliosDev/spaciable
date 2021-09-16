@@ -768,5 +768,17 @@ class Plot < ApplicationRecord
                " and between 01/01/2017 and #{finish}")
   end
   # rubocop:enable Rails/Date, Style/CaseEquality
+
+  def videos
+    videos = []
+    [developer, division, development].each do |level|
+      videos += if expiry_date.present? && level.present?
+                  level&.videos&.where("created_at <= ?", expiry_date)
+                else
+                  level&.videos
+                end
+    end
+    videos
+  end
 end
 # rubocop:enable Metrics/ClassLength

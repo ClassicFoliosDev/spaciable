@@ -43,7 +43,8 @@ module DeveloperTabsHelper
         icon: "clock-o",
         permissions_on: -> { developer },
         hide: !developer.timeline?
-      }
+      },
+      videos: { icon: "file-video-o" }
     }
   end
   # rubocop:enable Metrics/BlockLength

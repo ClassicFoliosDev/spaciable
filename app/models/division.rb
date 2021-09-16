@@ -24,6 +24,7 @@ class Division < ApplicationRecord
   has_many :contacts, as: :contactable, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
+  has_many :videos, as: :videoable
   alias_attribute :identity, :division_name
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true

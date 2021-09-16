@@ -838,7 +838,14 @@ end
 
 crumb :videos do |video_parent|
   link t("breadcrumbs.videos"), ([video_parent, :videos])
-  parent :development, video_parent
+  case video_parent
+  when Developer
+    parent :developer, video_parent
+  when Division
+    parent :division, video_parent
+  when Development
+    parent :development, video_parent
+  end
 end
 
 crumb :video_add do |video_parent|

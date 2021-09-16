@@ -25,7 +25,8 @@ module DivisionTabsHelper
         icon: "question-circle",
         menus: faqmenubuilder.menus_for(division)
       },
-      brands: { icon: "css3" }
+      brands: { icon: "css3" },
+      videos: { icon: "file-video-o" }
     }
   end
 end

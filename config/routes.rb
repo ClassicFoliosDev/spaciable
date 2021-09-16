@@ -226,6 +226,7 @@ Rails.application.routes.draw do
     resources :branded_apps, shallow: true
     resources :sync_faqs, shallow: true, only: [:index, :create]
     get 'cas', to: 'developers#cas', format: :json
+    resources :videos, shallow: true
   end
 
   get 'developers/custom/parameterize', to: 'developers#parameterize', format: :json
@@ -245,6 +246,7 @@ Rails.application.routes.draw do
     resource :brand
     resources :brands, shallow: true, only: [:index]
     resources :sync_faqs, shallow: true, only: [:index, :create]
+    resources :videos, shallow: true
   end
 
   resources :appliances

@@ -2076,6 +2076,7 @@ en:
       brands: "Styling"
       branded_apps: "Branded App"
       timelines: "My Journey"
+      videos: "Videos"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -2154,6 +2155,7 @@ en:
       faqs: "FAQs"
       add: "Add Division"
       division: "Division"
+      videos: "Videos"
     new:
       title: "New Division."
       back: "Back"
