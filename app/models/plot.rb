@@ -772,7 +772,8 @@ class Plot < ApplicationRecord
   def videos
     videos = []
     [developer, division, development].each do |level|
-      videos += if expiry_date.present? && level.present?
+      next unless level.present? && level&.videos
+      videos += if expiry_date.present?
                   level&.videos&.where("created_at <= ?", expiry_date)
                 else
                   level&.videos
