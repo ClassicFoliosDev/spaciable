@@ -10,6 +10,8 @@ When(/^I deactivate my account$/) do
     click_on t(".homeowners.residents.show.deactivate")
   end
 
+  find(".continue-btn").trigger('click')
+
   within ".remove-resident-form" do
     fill_in :password, with: HomeownerUserFixture.password
   end
