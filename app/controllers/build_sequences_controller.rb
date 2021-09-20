@@ -16,10 +16,12 @@ class BuildSequencesController < ApplicationController
   end
 
   def update
+    update = @parent.build_sequence.present?
     if update_steps
-      redirect_to [@build_sequence.parent, :build_sequence, back: true],
-                  notice: t("controller.success.update",
-                            name: @build_sequence.parent.sequence_in_use.sequence_name +
+      @parent.reload
+      redirect_to [@parent, :build_sequence, back: true],
+                  notice: t(update ? "controller.success.update" : "controller.success.create",
+                            name: @parent.sequence_in_use.sequence_name +
                                   " Build Progress")
     else
       redirect_to [@build_sequence.parent, :build_sequence]

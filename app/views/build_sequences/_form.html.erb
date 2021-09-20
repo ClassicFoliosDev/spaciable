@@ -11,7 +11,15 @@
 <% end %>
 
 <div class="build_sequence">
-  <%= simple_form_for(build_sequence, url: [parent, :build_sequence]) do |f| %>
+  <% notice = if parent.is_a? Global
+                ".confirm.global"
+              elsif parent.build_sequence.present?
+                ".confirm.update"
+              else
+                ".confirm.new"
+              end %>
+
+  <%= simple_form_for(build_sequence, url: [parent, :build_sequence], data: { confirm: t(notice, parent: parent.identity) }) do |f| %>
 
     <%= f.hidden_field :dirty, id: 'dirty', value: false %>
 

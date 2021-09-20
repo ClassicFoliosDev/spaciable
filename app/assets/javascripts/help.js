@@ -81,12 +81,8 @@ $(document).on('mouseleave', '#plotfiltersHelp', function (event) {
   $('.plot-filters-help').hide()
 })
 
-$(document).on('mouseover', '#stepHelp', function (event) {
-  $('.step-help').show()
-})
-
-$(document).on('mouseleave', '#stepHelp', function (event) {
-  $('.step-help').hide()
+$(document).on('click', '#stepHelp', function (event) {
+  $('.step-help').is(":visible") ? $('.step-help').hide() : $('.step-help').show()
 })
 
 // FUNCTIONS

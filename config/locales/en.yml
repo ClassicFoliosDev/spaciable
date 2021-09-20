@@ -4085,8 +4085,8 @@ en:
     show:
       build_progress: "Build Progress"
       build_progress_desc: "View and edit the Build Progress stages and email content for %{parent}"
-      parent_build_progress_desc: "The Build Progress for %{parent} is the <strong>%{level}</strong> list."
-      build_progress_btn: "%{sequence} Build Progress"
+      parent_build_progress_desc: "Build Progress content currently seen by your plots is the <strong>%{build_sequences}</strong> list."
+      build_progress_btn: "View Build Progress"
 
   api:
     pre_sales:
@@ -4109,7 +4109,11 @@ en:
       current: "Current Stage Titles"
       title: "Progress Stage"
       description: "Email Content"
-      step_help: "These are the current stages live on the portal. Any residents on a deleted stage are moved to the next stage below, shown here by the stages merging into the same box.”."
+      step_help: "These are the current stages live on the portal. Any residents on a deleted stage are moved to the next stage below, shown here by the stages merging into the same box."
+      confirm:
+        new: "Please confirm to create a new Build Progress list specific to %{parent} with the following build sequence:"
+        update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
+        global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
 
 
 

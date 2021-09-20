@@ -31,4 +31,8 @@ class Global < ApplicationRecord
     targets.update_all(build_step_id: new_id)
   end
   # rubocop:enable SkipsModelValidations
+
+  def identity
+    "Global"
+  end
 end

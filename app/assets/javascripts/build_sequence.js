@@ -132,7 +132,7 @@ var bs = {
                     '<p>Plots at <strong>' + clicked_row.find('input:eq(4)').val() +
                     '</strong> will move to <strong>' +
                     replacement_row.find('input:eq(4)').val() +
-                    '</strong>?</p>' +
+                    '</strong>.</p>' +
                     '</div>'
 
       var $dialogContainer = $('<div>', { id: 'dialog', class: 'archive-dialog' })
@@ -142,7 +142,7 @@ var bs = {
       $(document.body).append($dialogContainer)
 
       $dialogContainer.dialog({
-        title: "Delete Step",
+        title: "Delete Stage",
         show: 'show',
         modal: true,
         dialogClass: 'archive-dialog',
@@ -237,7 +237,7 @@ var bs = {
     selections += '</table>'
 
     dialog_body = '<div>' +
-                    '<p>Please confirm this build Sequence</p>' +
+                    '<p>' + $('.edit_build_sequence').data('confirm') + '</p>' +
                     selections +
                     '</div>'
 
