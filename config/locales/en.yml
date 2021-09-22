@@ -3552,7 +3552,7 @@ en:
         categories:
           # Category enum values for documents
           my_home: "My %{construction}"
-          locality: "Locality"
+          locality: "Sustainability"
           legal_and_warranty: "Legal & Warranty"
           fire_safety: "Fire Safety"
         guides:
