@@ -209,15 +209,15 @@ var bs = {
   },
 
   validate: function(){
-    let valid = true
+    validated = true
     flash_clear()
 
     bs.steps().each(function( index ) {
-      valid = bs.field_valid($(this).find("input:eq(4)")) && valid
-      valid = bs.field_valid($(this).find("textarea")) && valid
+      validated = bs.field_valid($(this).find("input:eq(4)")) && validated
+      validated = bs.field_valid($(this).find("textarea")) && validated
     })
 
-    if (valid) {
+    if (validated) {
       bs.confirm()
     } else {
       flash('Build Progress list could not be saved: please do not leave any Stage Title or Email Content fields blank.','alert')
@@ -227,7 +227,7 @@ var bs = {
 
   confirm: function(){
 
-    let selections = '<table><th>Current Stage Titles</th><th>New Stage Titles<th>'
+    selections = '<table><th>Current Stage Titles</th><th>New Stage Titles<th>'
     bs.steps().each(function( index ) {
       selections += '<tr>'
       selections += '<td>' + $(this).find('td:eq(0)').html() + '</td>'
@@ -275,30 +275,30 @@ var bs = {
   },
 
   field_valid: function(field) {
-    let valid = true
-    let value = ""
+    f_valid = true
+    f_value = ""
 
     switch(field[0].tagName) {
     case "INPUT":
-      value = field.val()
+      f_value = field.val()
       break;
     case "TEXTAREA":
-      value = field[0].value
+      f_value = field[0].value
       break;
     }
 
-    if (value != "") {
+    if (f_value != "") {
         field.removeClass('field_with_errors')
         field.parent().find("#field_error").remove()
     } else {
-      valid = false
+      f_valid = false
       if (!field.hasClass('field_with_errors')) {
         field.addClass('field_with_errors')
         field.after( "<span id='field_error' class='error'>is required, and must not be blank.</span>")
       }
     }
 
-    return valid
+    return f_valid
   },
 
   dirty: function() {
