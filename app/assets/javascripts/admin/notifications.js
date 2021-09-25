@@ -188,8 +188,15 @@ document.addEventListener('turbolinks:load', function () {
     var divisionSelect = clearFields($divisionId)
     var url = '/admin/divisions'
 
-    setFields(divisionSelect, url, data)
+    setFields(divisionSelect, url, data, true, disable_division)
+    $selected_division = data
   };
+
+  function disable_division(){
+    if ($('#notification_division_id').children('option:selected').val() ===  $selected_division.divisionId) {
+      disableSelect($('#notification_division_id'))
+    }
+  }
 
   function fetchDevelopmentResources (data) {
     var $developmentId = $('.notification_development_id')
@@ -200,8 +207,15 @@ document.addEventListener('turbolinks:load', function () {
     var developmentSelect = clearFields($developmentId)
     var url = '/admin/developments'
 
-    setFields(developmentSelect, url, data)
+    setFields(developmentSelect, url, data, true, disable_development)
+    $selected_development = data
   };
+
+  function disable_development(){
+    if ($('#notification_development_id').children('option:selected').val() ===  $selected_development.developmentId) {
+      disableSelect($('#notification_development_id'))
+    }
+  }
 
   function fetchPhaseResources (data) {
     var $phaseId = $('.notification_phase_id')
@@ -242,8 +256,15 @@ document.addEventListener('turbolinks:load', function () {
     var developerSelect = clearFields($developerId)
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, data, data == undefined)
+    setFields(developerSelect, url, data, data == undefined, disable_developer)
+    $selected_developer = data
   };
+
+  function disable_developer(){
+    if ($('#notification_developer_id').children('option:selected').val() ===  $selected_developer.developerId) {
+      disableSelect($('#notification_developer_id'))
+    }
+  }
 })
 
 $(document).on('click', '#plotNotificationBtn', function (event) {
