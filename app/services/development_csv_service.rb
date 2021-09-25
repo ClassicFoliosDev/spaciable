@@ -163,8 +163,9 @@ module DevelopmentCsvService
     passed = true
 
     if row[PROGRESS].present?
-      passed = Plot.progresses.include?(row[PROGRESS])
-      plot.progress = row[PROGRESS] if passed
+      build_step = Phase.find_by(name: phase_name).build_steps.find_by(title: row[PROGRESS])
+      passed = build_step.present?
+      plot.build_step = build_step if passed
       @parsed[phase_name][:progress] << row[PROGRESS] unless passed
     end
 

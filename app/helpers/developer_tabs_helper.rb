@@ -43,7 +43,12 @@ module DeveloperTabsHelper
         icon: "clock-o",
         permissions_on: -> { developer },
         hide: !developer.timeline?
+      },
+      content_management: {
+        icon: "clock-o",
+        permissions_on: -> { developer }
       }
+
     }
   end
   # rubocop:enable Metrics/BlockLength

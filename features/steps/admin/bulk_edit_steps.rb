@@ -55,7 +55,7 @@ When(/^I (CAS )*bulk edit the plots$/) do |cas|
          phase_bulk_edit_postcode].each do |selector|
         expect(page).not_to have_selector "##{selector}"
 
-        find("#phase_bulk_edit_progress_check").set true
+        find("#phase_bulk_edit_build_step_id_check").set true
         select t('activerecord.attributes.plot.progresses.complete_ready'), visible: false
         find("#phase_bulk_edit_completion_date_check").set true
         fill_in :phase_bulk_edit_completion_date, with: (Time.zone.now + 10.days)
@@ -131,7 +131,7 @@ Then(/^the unselected plots are not (CAS )*updated$/) do |cas|
     selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
 
     if cas.present?
-      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+      expect(find(".build-progress .ui-selectmenu-text")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     else
       expect(selected_unit_type).not_to have_content CreateFixture.another_unit_type_name
       expect(selected_unit_type).to have_content plot.unit_type.to_s
@@ -162,7 +162,7 @@ Then(/^the unreleased plots are not CAS updated$/) do
     within ".edit_plot" do
       unit_type = page.find(".plot_unit_type")
       selected_unit_type = unit_type['innerHTML'].split("ui-selectmenu-text").last
-      expect(find(".current-progress > span")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
+      expect(find(".build-progress .ui-selectmenu-text")).not_to have_content(t('activerecord.attributes.plot.progresses.complete_ready'))
     end
   end
 end

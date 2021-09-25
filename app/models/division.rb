@@ -25,6 +25,7 @@ class Division < ApplicationRecord
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
   alias_attribute :identity, :division_name
+  has_one :build_sequence, as: :build_sequenceable
 
   accepts_nested_attributes_for :address, reject_if: :all_blank, allow_destroy: true
   validates :division_name, presence: true, uniqueness: { scope: :developer_id }
@@ -36,6 +37,8 @@ class Division < ApplicationRecord
   delegate :enable_roomsketcher, :house_search, :development_faqs, to: :developer
   delegate :enable_referrals, :enable_services, :enable_development_messages, to: :developer
   delegate :enable_perks, :timeline, to: :developer
+
+  delegate :build_steps, to: :sequence_in_use
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
 
@@ -162,5 +165,22 @@ class Division < ApplicationRecord
     developments.update_all(conveyancing: conveyancing)
   end
   # rubocop:enable SkipsModelValidations
+
+  # Update all the plots in this division.  Change any plot with
+  # the old build stepids to the new build_step id.  Dont update
+  # the same plot twice as ome may be swapping statuses
+  # rubocop:disable SkipsModelValidations
+  def update_build_steps(old_ids, new_id)
+    @updated ||= []
+    targets = plots.where.not(id: @updated)
+                   .where(build_step_id: old_ids)
+    @updated += targets.pluck(:id)
+    targets.update_all(build_step_id: new_id)
+  end
+  # rubocop:enable SkipsModelValidations
+
+  def sequence_in_use
+    build_sequence || developer.sequence_in_use
+  end
 end
 # rubocop:enable Metrics/ClassLength

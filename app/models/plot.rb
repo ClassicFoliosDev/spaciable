@@ -10,6 +10,8 @@ class Plot < ApplicationRecord
   DUMMY_PLOT_NAME = "ZZZ_DUMMY_PLOT_QQQ"
   DASHBOARD_TILES = 5 # total number of customisable tiles on the homeowner dashboard
 
+  before_save :set_build_status
+
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
   def parent
@@ -42,6 +44,8 @@ class Plot < ApplicationRecord
   has_many :snags, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_one :listing, dependent: :destroy
+  belongs_to :build_step
+  delegate :build_sequenceable_type, to: :build_step
 
   has_many :event_resources, as: :resourceable, dependent: :destroy
   has_many :events, as: :eventable, dependent: :destroy
@@ -52,6 +56,9 @@ class Plot < ApplicationRecord
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
            :wecomplete_sign_in, :wecomplete_quote, to: :phase
+
+  delegate :build_steps, to: :parent
+  delegate :title, to: :build_step, prefix: true
 
   alias_attribute :identity, :number
 
@@ -159,7 +166,6 @@ class Plot < ApplicationRecord
     exchange_ready
     complete_ready
     completed
-    remove
   ]
 
   enum choice_selection_status: %i[
@@ -768,5 +774,9 @@ class Plot < ApplicationRecord
                " and between 01/01/2017 and #{finish}")
   end
   # rubocop:enable Rails/Date, Style/CaseEquality
+
+  def set_build_status
+    self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
+  end
 end
 # rubocop:enable Metrics/ClassLength
