@@ -33,9 +33,9 @@
 
           <div class="plot-field">
             <div class="bulk-check fix-checkbox">
-              <%= f.input_field :progress_check, as: :boolean, label: false %>
+              <%= f.input_field :build_step_id_check, as: :boolean, label: false %>
             </div>
-            <%= f.input :progress, label: t(".update_progress"), as: :select, collection: progress_collection(' ') %>
+            <%= f.input :build_step_id, label: t(".update_progress"), as: :select, collection: all_progress_collection(@phase) %>
           </div>
 
           <div class="plot-field">

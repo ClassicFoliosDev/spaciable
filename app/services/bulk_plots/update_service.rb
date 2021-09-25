@@ -20,7 +20,7 @@ module BulkPlots
 
     def update(plot_params)
       self.params = plot_params.to_h.symbolize_keys
-      params[:progress] = base_plot.progress if plot_params[:progress]&.empty?
+      params[:build_step_id] = base_plot.build_step_id if plot_params[:build_step_id]&.empty?
 
       bulk_or_single_update
 

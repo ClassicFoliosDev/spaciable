@@ -69,6 +69,8 @@ class Phase < ApplicationRecord
            :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
 
+  delegate :build_steps, to: :parent
+
   enum business: [
     :core, # default
     :nhbc,

@@ -21,6 +21,24 @@ RSpec.configure do |config|
     mocks.syntax = :expect
   end
 
+  config.before(:each) do
+    Global.create(name: "CFAdmin") if Global.first.nil?
+
+    # create the master build sequence
+    sequence = BuildSequence.create(build_sequenceable: Global.first)
+
+    # migrate all 'no progress status' plots (value 15) to 'soon' (0)
+    Plot.where(progress: 15).update_all(progress: 0)
+
+    Plot.progresses.each do |t, v|
+      BuildStep.create(title: I18n.t("activerecord.attributes.plot.progresses.#{t}"),
+                       description: "Your Build Progress has been updated to:\r\n\r\n" +
+                                    I18n.t("activerecord.attributes.plot.progresses.#{t}"),
+                       order: v + 1,
+                       build_sequence: sequence)
+    end
+  end
+
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 

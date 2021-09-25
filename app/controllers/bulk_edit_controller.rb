@@ -25,7 +25,7 @@ class BulkEditController < ApplicationController
          copy_plot_numbers prefix_check number_check unit_type_id_check house_number_check
          road_name_check building_name_check postcode_check reservation_release_date_check
          completion_release_date_check validity_check extended_access_check
-         progress progress_check completion_date completion_date_check]
+         build_step_id build_step_id_check completion_date completion_date_check]
     )
   end
 

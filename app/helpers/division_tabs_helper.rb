@@ -27,6 +27,10 @@ module DivisionTabsHelper
       },
       brands: { icon: "css3" },
       videos: { icon: "file-video-o" }
+      content_management: {
+        icon: "clock-o",
+        permissions_on: -> { division }
+      }
     }
   end
 end

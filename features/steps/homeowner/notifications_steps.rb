@@ -74,7 +74,7 @@ When(/^I update the notification plot progress$/) do
   visit "/plots/#{plot.id}/edit"
 
   within ".edit_plot" do
-    select_from_selectmenu :plot_progress, with: PlotFixture.progress
+    select_from_selectmenu :plot_build_step_id, with: PlotFixture.progress
     check :plot_notify
     click_on t("plots.form.submit")
   end
@@ -84,7 +84,7 @@ Then(/^I should see a notification for the updated plot progress$/) do
   visit "/homeowners/notifications"
 
   within ".notification-list" do
-    card = page.find(".details", text: t("resident_notification_mailer.notify.update_subject"))
+    card = page.find(".details", text: t("notify.updated_build"))
     card.trigger(:click)
   end
 
