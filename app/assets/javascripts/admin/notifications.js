@@ -281,7 +281,7 @@ function confirm_notification (results){
   var division = $("#notification_division_id-button .ui-selectmenu-text").text()
   var development = $("#notification_development_id-button .ui-selectmenu-text").text()
   var phase = $("#notification_phase_id-button .ui-selectmenu-text").text()
-  var plots = $("#notification_list")[0].value
+  $plots = $("#notification_list")[0].value
   var title = "Confirm Send"
 
   if($("#notification_developer_id")[0].value == 0) {
@@ -301,7 +301,7 @@ function confirm_notification (results){
     } else if ($("#notification_list")[0].textLength > 0) {
       if (results["qualifing_plots"].length < results["requested_plots"].length) {
         message = dataIn.filtered
-        plots = results["qualifing_plots"].join()
+        $plots = results["qualifing_plots"].join()
         plots_type = "Qualifying Plots: "
       }
     } else {
@@ -329,8 +329,8 @@ function confirm_notification (results){
     $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
     $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
 
-    if(plots.length > 0) {
-      $dialogContainer.append('<p><span>' + plots_type + plots + '</p>')
+    if($plots.length > 0) {
+      $dialogContainer.append('<p><span>' + plots_type + $plots + '</p>')
     } else if ($("#notification_developer_id")[0].value != 0) {
       $dialogContainer.append('<p><span>All Plots</p>')
     }
@@ -357,6 +357,7 @@ function confirm_notification (results){
         class: 'btn-confirm',
         id: 'btn_confirm',
         click: function () {
+          $("#notification_list")[0].value = $plots
           $('.btn-confirm').button('disable')
           $('.btn-cancel').button('disable')
           form.submit(); // Form submission

@@ -139,6 +139,7 @@ class Plot < ApplicationRecord
         lambda { |role, plot_type, developer, division, development, phase, plot_numbers|
           plots = Plot.joins(plot_residencies: :resident)
                       .where(developer_id: developer)
+          plots = plots.where.not(residents: { invitation_accepted_at: nil })
           plots = plots.where(division_id: division) unless division.zero?
           plots = plots.where(development_id: development) unless development.zero?
           plots = plots.where(phase_id: phase) unless phase.zero?
