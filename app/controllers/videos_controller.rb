@@ -5,7 +5,9 @@ class VideosController < ApplicationController
   include SortingConcern
 
   load_and_authorize_resource :development
-  load_and_authorize_resource :video, through: [:development], shallow: true
+  load_and_authorize_resource :division
+  load_and_authorize_resource :developer
+  load_and_authorize_resource :video, through: %i[developer division development], shallow: true
   before_action :set_parent
 
   def index
@@ -69,7 +71,7 @@ class VideosController < ApplicationController
   end
 
   def set_parent
-    @parent = @development || @video&.videoable
+    @parent = @developer || @division || @development || @video&.videoable
     @video&.videoable = @parent
   end
 end

@@ -775,6 +775,19 @@ class Plot < ApplicationRecord
   end
   # rubocop:enable Rails/Date, Style/CaseEquality
 
+  def videos
+    videos = []
+    [developer, division, development].each do |level|
+      next unless level.present? && level&.videos
+      videos += if expiry_date.present?
+                  level&.videos&.where("created_at <= ?", expiry_date)
+                else
+                  level&.videos
+                end
+    end
+    videos
+  end
+
   def set_build_status
     self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
   end

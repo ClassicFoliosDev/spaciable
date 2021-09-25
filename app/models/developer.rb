@@ -23,6 +23,7 @@ class Developer < ApplicationRecord
   has_many :residents, through: :plot_residencies
   has_many :rooms, dependent: :destroy
   has_many :unit_types, dependent: :destroy
+  has_many :videos, as: :videoable
   has_many :contacts, as: :contactable, dependent: :destroy
   has_many :timelines, as: :timelineable, dependent: :destroy
   has_one :brand, as: :brandable, dependent: :destroy

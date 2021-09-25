@@ -2082,6 +2082,7 @@ en:
       brands: "Styling"
       branded_apps: "Branded App"
       timelines: "My Journey"
+      videos: "Videos"
       content_management: "Content Management"
     developer:
       list_id: "List ID: "
@@ -2162,6 +2163,7 @@ en:
       content_management: "Content Management"
       add: "Add Division"
       division: "Division"
+      videos: "Videos"
     new:
       title: "New Division."
       back: "Back"
