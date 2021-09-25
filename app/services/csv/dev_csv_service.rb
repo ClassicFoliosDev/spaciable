@@ -38,7 +38,7 @@ module Csv
         "Snagging Enabled", "Snagging duration", "Snags Reported", "Snags Resolved",
         "Buyers Club Enabled", "Licenses Bought", "Licences Remaining", "Perks Requested",
         "Home Designer Enabled", "BestArea4Me Enabled", "Development FAQs", "Calendar",
-        "My Journey", "Content Proforma", "Spaciable Legal"
+        "My Journey", "Content Proforma", "Build Progress List", "Spaciable Legal"
       ]
     end
 
@@ -102,6 +102,7 @@ module Csv
         plot.development_calendar ? "Yes" : "No",
         plot.journey ? plot.journey.title : "No",
         plot.proformas.count.positive?  ? plot.proformas.count : "No",
+        plot.build_sequenceable_type,
         plot.conveyancing_enabled? ? "Yes" : "No"
       ]
     end

@@ -1,0 +1,30 @@
+  <div class="section-data">
+    <% if parent.is_a?(Global) || parent.build_sequence %>
+      <%= edit_btn [:edit, parent, :build_sequence], element: parent %>
+    <% else %>
+      <div class="section-actions">
+        <%= link_to [:edit, parent, :build_sequence], class: "btn btn-primary" do %>
+          <span class="btn-label"><%= t(".edit") %></span>
+        <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="build_steps">
+    <table class="record-list build_steps">
+      <thead>
+        <tr>
+          <th colspan="3"><%= t(".title") %></th>
+          <th colspan="3"><%= t(".description") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% collection.each do |build_step| %>
+        <tr>
+          <td colspan="3"><%= build_step.title %></td>
+          <td colspan="3"><%= simple_format build_step.description %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>

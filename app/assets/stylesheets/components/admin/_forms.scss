@@ -199,3 +199,31 @@
     }
   }
 }
+
+.help-resource {
+  display: none;
+}
+
+.help-dialog label {
+  display: inline;
+  font-weight: normal;
+}
+
+.confirm-seq-dialog {
+  width: 600;
+
+  table {
+    width: 100%;
+
+    th, td {
+      text-align: left;
+      padding: 5px;
+    }
+  }
+}
+
+.build_sequence .build-steps {
+  margin-bottom: 50;
+}
+
+

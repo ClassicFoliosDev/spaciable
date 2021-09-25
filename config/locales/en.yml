@@ -302,6 +302,7 @@ en:
     generic_updated: "Your home's details have been updated. If you would like more information, please contact your developer."
     updated_state: "updated to %{state}"
     updated_progress: "<p>The Build Progress status has been updated to:</p>%{state}"
+    updated_build: "You Have a Build Progress Update"
 
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
@@ -463,6 +464,9 @@ en:
     sync_docs: "Synhronise Documents"
     admin_analytics: "Analytics"
     stage_set_edit: "Edit %{title} sections"
+    build_sequence: "Build Progress"
+    edit_build_sequence: "Edit Build Progress"
+    content_management: "Content Management"
 
   pagination:
     per_page_10: "10"
@@ -508,8 +512,7 @@ en:
         range_from_placeholder: "Range from"
         range_to_placeholder: "Range to"
       plot_fields:
-        current_progress: "Build Progress"
-        update_progress: "Update Build Progress"
+        update_progress: "Build Progress Status"
         comp_date: "Estimated Move In Date"
         letable: "Lettings"
         letable_description: "Residents are able to let out their plot. This will override the current phase status.
@@ -1127,6 +1130,9 @@ en:
         api_config: "Partner APIs"
         api_config_description: "Add and modify partner API metadata"
         api_config_btn: "Modify Partner APIs"
+        master_build_progress: "Build Progress"
+        master_build_progress_desc: "View and edit the global Build Progress stages and email content"
+        master_build_progress_btn: "Modify Build Progress"
       uploads:
         title: "Global Settings."
         video_link: "Introductory Video Link"
@@ -2076,6 +2082,7 @@ en:
       brands: "Styling"
       branded_apps: "Branded App"
       timelines: "My Journey"
+      content_management: "Content Management"
     developer:
       list_id: "List ID: "
       none: "(not configured)"
@@ -2152,6 +2159,7 @@ en:
       contacts: "Contacts"
       brands: "Styling"
       faqs: "FAQs"
+      content_management: "Content Management"
       add: "Add Division"
       division: "Division"
     new:
@@ -3256,7 +3264,7 @@ en:
     notify:
       new_notification: "You have a new notification from Spaciable"
       login: "Login to your portal"
-      welcome: "Hello %{name}"
+      welcome: "Hi %{name}"
       message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property at %{development}"
       update_subject: "You have a new update in Spaciable"
       old: "You have a new update in Hoozzi"
@@ -3272,7 +3280,7 @@ en:
       admin_notification: "%{address} %{message}"
     notify_direct:
       message: "You have a new message from %{first_name} %{last_name} regarding your %{developer} property, Plot %{plot_number} at %{development}:"
-      welcome: "Hello %{name}"
+      welcome: "Hi %{name}"
       view_message: "View Message on Spaciable"
 
   services:
@@ -3466,7 +3474,6 @@ en:
           exchange_ready: "Ready for exchange"
           complete_ready: "Ready to complete"
           completed: "Build completed"
-          remove: "No progress status"
         letable_types:
           planet_rent: "Planet Rent"
           busy_living: "Busy Living"
@@ -4048,6 +4055,11 @@ en:
       plots: "Plots"
       type: "Type"
 
+  build_steps:
+    collection:
+      title: "Progress Stage"
+      description: "Email Content"
+      edit: "Customise"
 
   resident_reinvited: "A new invitation has successfully been sent to %{resident}."
 
@@ -4069,6 +4081,12 @@ en:
       cancel_edit: "Cancel Edit"
       cancel_edit_text: Are you sure you want to cancel updating the sections? The changes will be lost no section updates will be saved.
 
+  content_managements:
+    show:
+      build_progress: "Build Progress"
+      build_progress_desc: "View and edit the Build Progress stages and email content for %{parent}"
+      parent_build_progress_desc: "Build Progress content currently seen by your plots is the <strong>%{build_sequences}</strong> list."
+      build_progress_btn: "View Build Progress"
 
   api:
     pre_sales:
@@ -4079,6 +4097,24 @@ en:
       admin: "Admin"
       public: "Public"
       resident: "Resident"
+
+  build_sequences:
+    show:
+      help: "If you navigate to a plot on Spaciable and update the Build Progress status, an email notification is sent to the plot resident(s). You can view the Build Progress stages and email content on this page.<br/><br/>This Build Progress content is the <strong>%{level}</strong> list."
+    form:
+      global: "Here, you can edit the Build Progress stages and email content: add stages above and below, delete stages or use the up/down arrows to swap a stage with the one above/below."
+      global_warn: "All live and future plots on all developers without a custom Build Progress list will be updated with these new build progress stages."
+      delete_warn: "No changes are applied until you click Submit at the bottom right of the page."
+      warn: "Submit to create a new Build Progress list specific to <strong>%{name}</strong>"
+      current: "Current Stage Titles"
+      title: "Progress Stage"
+      description: "Email Content"
+      step_help: "These are the current stages live on the portal. Any residents on a deleted stage are moved to the next stage below, shown here by the stages merging into the same box."
+      confirm:
+        new: "Please confirm to create a new Build Progress list specific to %{parent} with the following build sequence:"
+        update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
+        global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
+
 
 
 

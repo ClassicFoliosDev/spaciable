@@ -38,6 +38,7 @@ class Developer < ApplicationRecord
   has_many :lettings, through: :lettings_account
   delegate :management, to: :lettings_account
   has_one :crm, dependent: :destroy
+  has_one :build_sequence, as: :build_sequenceable
 
   delegate :apple_link, :android_link, :app_icon, to: :branded_app, prefix: true
 
@@ -55,6 +56,7 @@ class Developer < ApplicationRecord
   # table.
   belongs_to :country
   delegate :time_zone, to: :country
+  delegate :build_steps, to: :sequence_in_use
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
 
@@ -290,6 +292,32 @@ class Developer < ApplicationRecord
 
   def chart?(section)
     charts.find_by(section: section)&.enabled
+  end
+
+  # Update all the plots for this developer, except for
+  # those in a division with their own custom build set.
+  # Set the old build stepids to the new build_step id.
+  # rubocop:disable SkipsModelValidations, LineLength
+  def update_build_steps(old_ids, new_id)
+    @updated ||= []
+    # only update plots with no division, or a division without
+    # a specialised build sequence
+    @divs ||= [nil] + plots.where.not(division_id:
+                                      BuildSequence.where(build_sequenceable_type: "Division",
+                                                          build_sequenceable_id: divisions)
+                                                   .pluck(:build_sequenceable_id)).pluck(:division_id).uniq
+
+    targets = plots.where.not(id: @updated)
+                   .where(build_step_id: old_ids)
+                   .where(division_id: @divs)
+
+    @updated += targets.pluck(:id)
+    targets.update_all(build_step_id: new_id)
+  end
+  # rubocop:enable SkipsModelValidations, LineLength
+
+  def sequence_in_use
+    build_sequence || Global.root.build_sequence
   end
 
   private
