@@ -36,14 +36,6 @@ Rails.application.routes.draw do
     get '/admin', to: "users/sessions#new", as: :new_admin_session
   end
 
-  devise_scope :resident do
-    get "/:custom_url", to: "residents/sessions#new"
-    get "/:custom_url/sign_in", to: "residents/sessions#new"
-    get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
-    get "/:custom_url/accept", to: "residents/invitations#edit"
-    get "/:developer_name(/:division_name)/:development_name/accept", to: "residents/invitations#edit"
-  end
-
   namespace :admin do
     resources :notifications, except: [:edit, :update, :destroy]
     get 'qualifing_plots', to: 'notifications#qualifing_plots', format: :json
@@ -431,5 +423,13 @@ Rails.application.routes.draw do
       end
     end
 
+  end
+
+  devise_scope :resident do
+    get "/:custom_url", to: "residents/sessions#new"
+    get "/:custom_url/sign_in", to: "residents/sessions#new"
+    get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
+    get "/:custom_url/accept", to: "residents/invitations#edit"
+    get "/:developer_name(/:division_name)/:development_name/accept", to: "residents/invitations#edit"
   end
 end
