@@ -214,8 +214,8 @@ document.addEventListener('turbolinks:load', function () {
 
   function disable_development(){
     if ($selected_development != undefined &&
-       ($('#notification_development_id').children('option:selected').val() ===  $selected_development.developmentId)) {
-      disableSelect($('#notification_development_id'))
+        ($('#notification_development_id').children('option:selected').val() ===  $selected_development.developmentId)) {
+      disableSelect($('#notification_division_id'))
     }
   }
 
@@ -263,9 +263,10 @@ document.addEventListener('turbolinks:load', function () {
   };
 
   function disable_developer(){
-
-
-
+    if ($selected_developer != undefined &&
+        ($('#notification_developer_id').children('option:selected').val() ===  $selected_developer.developerId)) {
+      disableSelect($('#notification_developer_id'))
+    }
   }
 })
 
