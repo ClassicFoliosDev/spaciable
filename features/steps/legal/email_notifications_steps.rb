@@ -2,6 +2,7 @@
 
 Then(/^I have not yet activated my account$/) do
   resident = Resident.find_by(email: HomeownerUserFixture.email)
+  resident.update(invitation_accepted_at: nil)
 
   expect(resident.last_sign_in_at).to be_nil
   expect(resident.sign_in_count).to be_zero
