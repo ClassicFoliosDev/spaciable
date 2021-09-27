@@ -273,7 +273,7 @@ end
 Given(/^there is a tenant$/) do
   phase = CreateFixture.phase
   plot = FactoryGirl.create(:plot, phase: phase)
-  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: plot, email: "tenant@example.com", developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
+  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: plot, email: "tenant@example.com", developer_email_updates: true, invitation_accepted_at: Time.zone.now, ts_and_cs_accepted_at: Time.zone.now)
 end
 
 When(/^I send a notification to homeowner residents under my Developer$/) do
