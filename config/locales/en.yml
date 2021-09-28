@@ -1915,6 +1915,8 @@ en:
         and any documents you have uploaded will be deleted."
         confirm_deactivate: "Confirm Deactivate"
         deactivate_password: "Enter your password to confirm"
+        deactivate_warning: "Your private documents will be deleted"
+        deactivate_warning_body: "The My Documents section in the Library contains any files you uploaded.<br/><br/>Cancel and download them or Continue to deactivate your account and delete all."
         full_access_title: "Full Access User."
         full_access_description: "Has access to all documents of your home's portal (other than those you have uploaded to the 'My Documents' tab) and can invite other users to your home."
         limited_access_title: "Limited Access User."
