@@ -426,6 +426,7 @@ Rails.application.routes.draw do
   end
 
   devise_scope :resident do
+    get "/homeowners", to: "residents/sessions#new"
     get "/:custom_url", to: "residents/sessions#new"
     get "/:custom_url/sign_in", to: "residents/sessions#new"
     get "/:developer_name(/:division_name)/:development_name/sign_in", to: "residents/sessions#new"
