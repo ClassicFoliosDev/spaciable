@@ -9,11 +9,16 @@ module Abilities
       division_faqs(division, developer_id)
       division_contacts(division, developer_id)
       division_documents(division, developer_id)
+      division_videos(division)
       division_calendar
       read_divisions(developer_id, division)
     end
 
     private
+
+    def division_videos(division)
+      can :manage, Video, videoable_id: division
+    end
 
     def read_divisions(developer_id, division)
       can :read, Developer, id: developer_id
