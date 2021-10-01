@@ -53,7 +53,8 @@
       data: { cancel: t("edit.cancel"),
       cta: t(".confirm_deactivate"),
       title: t(".deactivate_header"),
-      resident: current_resident.id} %>
+      resident: current_resident.id,
+      uploads: current_resident.private_documents.any?} %>
     </div>
 
     <% if !current_resident.plot_residency_tenant?(@plot) %>
@@ -141,3 +142,9 @@
     <input class="resident-password" type="password" id="password" name="password" autocomplete="off" >
   </form>
 </div>
+
+<div class="private-docs-form hidden">
+  <h4><%= t(".deactivate_warning") %></h4>
+  <p><%= simple_format t(".deactivate_warning_body")%></p>
+</div>
+

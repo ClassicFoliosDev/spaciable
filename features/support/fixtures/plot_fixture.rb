@@ -74,7 +74,7 @@ module PlotFixture
   end
 
   def progress
-    "In progress"
+    I18n.t("activerecord.attributes.plot.progresses.in_progress")
   end
 
   def completion_date

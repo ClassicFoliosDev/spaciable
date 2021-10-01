@@ -1,0 +1,14 @@
+<% breadcrumb :content_management, @parent %>
+
+<div class="row configuration global-settings">
+  <div class="row-item half">
+    <div class="master-build-progress">
+      <h4><%= t(".build_progress") %></h4>
+      <p><%= t(".build_progress_desc", parent: @parent.identity) %></p>
+      <p><%= simple_format t(".parent_build_progress_desc", build_sequences: @parent.sequence_in_use.sequence_name) %></p>
+      <div class="global-option">
+        <%= link_to t(".build_progress_btn"), [@parent, :build_sequence], class: "btn" %>
+      </div>
+    </div>
+  </div>
+</div>

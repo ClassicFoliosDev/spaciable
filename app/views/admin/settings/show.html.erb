@@ -33,5 +33,14 @@
         <%= link_to t(".api_config_btn"), oauth_applications_path, class: "btn" %>
       </div>
     </div>
+
+    <div class="master-build-progress">
+      <h4><%= t(".master_build_progress") %></h4>
+      <p><%= t(".master_build_progress_desc") %></p>
+      <div class="global-option">
+        <%= link_to t(".master_build_progress_btn"), global_build_sequence_path(Global.root), class: "btn" %>
+      </div>
+    </div>
+
   </div>
 </div>

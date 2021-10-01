@@ -814,5 +814,9 @@ module CreateFixture
     Country.find_by(name: "Spain")
   end
 
+  def plot_build_step(plot_number, title)
+    Plot.find_by(number: plot_number).build_steps.find_by(title: title)
+  end
+
 end
 # rubocop:enable ModuleLength

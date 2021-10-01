@@ -43,6 +43,11 @@ module DeveloperTabsHelper
         icon: "clock-o",
         permissions_on: -> { developer },
         hide: !developer.timeline?
+      },
+      videos: { icon: "file-video-o" },
+      content_management: {
+        icon: "clock-o",
+        permissions_on: -> { developer }
       }
     }
   end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-def send_notification
+def send_notification(confirm = true)
   within ".form-actions-footer" do
     click_on t("admin.notifications.form.submit")
   end
 
   within find(".submit-dialog") do
-    click_on "Confirm"
+    click_on confirm ? "Confirm" : "Cancel"
   end
 end
 
@@ -72,10 +72,10 @@ When(/^I send a notification to completed plot residents under (my|a) (\(\w+\) )
 end
 
 When(/^I send a notification to reserved plot residents under (my|a) (\(\w+\) )?(\w+)$/) do |_, parent, resource_class|
-  create_notification(parent, resource_class, "reservation_plots")
+  create_notification(parent, resource_class, "reservation_plots", false)
 end
 
-def create_notification(parent, resource_class, plot_filter)
+def create_notification(parent, resource_class, plot_filter, confirm = true)
   ActionMailer::Base.deliveries.clear
   visit "/admin/notifications/new"
 
@@ -114,7 +114,7 @@ def create_notification(parent, resource_class, plot_filter)
     fill_in_ckeditor(:notification_message, with: attrs[:message])
   end
 
-  send_notification
+  send_notification(confirm)
 end
 
 When(/^I send a notification to a resident under a (\(\w+\) )?(\w+)$/) do |parent, plot_class|
@@ -257,8 +257,11 @@ Then(/^the (.*) plot residents should receive a notification$/) do |action|
     notification_name: ResidentNotificationsFixture::MESSAGES.dig(:development, :subject),
     count: resident_email_addresses.count
   )
-  within ".notice" do
-    expect(page).to have_content(notice)
+
+  if(!emailed_addresses.empty?)
+    within ".notice" do
+      expect(page).to have_content(notice)
+    end
   end
 end
 
@@ -270,7 +273,7 @@ end
 Given(/^there is a tenant$/) do
   phase = CreateFixture.phase
   plot = FactoryGirl.create(:plot, phase: phase)
-  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: plot, email: "tenant@example.com", developer_email_updates: true, ts_and_cs_accepted_at: Time.zone.now)
+  tenant = FactoryGirl.create(:resident, :with_tenancy, plot: plot, email: "tenant@example.com", developer_email_updates: true, invitation_accepted_at: Time.zone.now, ts_and_cs_accepted_at: Time.zone.now)
 end
 
 When(/^I send a notification to homeowner residents under my Developer$/) do

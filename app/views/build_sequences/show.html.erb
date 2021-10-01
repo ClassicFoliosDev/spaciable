@@ -1,0 +1,9 @@
+<% breadcrumb :build_sequence, @parent %>
+
+<% unless @back || @parent.is_a?(Global) %>
+  <%= render "components/admin/help", title: 'Build Progress', preference: :show_build_progress_dialog, help: [t(".help", level: @parent.sequence_in_use.sequence_name)] %>
+<% end %>
+
+<div class="build_sequence">
+  <%= render_collection @build_sequence.build_steps, parent: @parent %>
+</div>

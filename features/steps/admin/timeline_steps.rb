@@ -523,6 +523,7 @@ Then(/^I can edit the (.*) sections$/) do |task|
   find(:xpath,"(//td/button[@id='below'])[4]").trigger('click')
   find(:xpath, "//input[@placeholder='New']")
   sleep 1
+
   fill_in "stage_set[stages_attributes][3][title]", with: TimelineFixture.new_stage
 
   click_on t("timelines.form.submit")

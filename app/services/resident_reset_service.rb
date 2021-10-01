@@ -9,14 +9,12 @@ module ResidentResetService
     return unless reset_plot
 
     reset_plot.residents.each do |resident|
-      transfer_files_and_notify(resident, reset_plot) if resident.private_documents.any?
       # Reset the resident settings if this is the last plot they are associated with
       reset_resident(resident) if resident.plot_residencies.count == 1
     end
   end
 
   def reset_all_plots_for_resident(resident)
-    transfer_files_and_notify(resident, nil) if resident.private_documents.any?
     reset_resident(resident)
   end
 

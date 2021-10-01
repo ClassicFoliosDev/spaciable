@@ -10,6 +10,8 @@ class Plot < ApplicationRecord
   DUMMY_PLOT_NAME = "ZZZ_DUMMY_PLOT_QQQ"
   DASHBOARD_TILES = 5 # total number of customisable tiles on the homeowner dashboard
 
+  before_save :set_build_status
+
   belongs_to :phase, optional: true
   belongs_to :development, optional: false
   def parent
@@ -42,6 +44,11 @@ class Plot < ApplicationRecord
   has_many :snags, dependent: :destroy
   has_one :address, as: :addressable, dependent: :destroy
   has_one :listing, dependent: :destroy
+  belongs_to :build_step
+  delegate :build_sequenceable_type, to: :build_step
+
+  has_many :event_resources, as: :resourceable, dependent: :destroy
+  has_many :events, as: :eventable, dependent: :destroy
 
   delegate :other_ref, to: :listing, prefix: true
   delegate :cas, :snag_duration, to: :development
@@ -49,6 +56,9 @@ class Plot < ApplicationRecord
   delegate :calendar, to: :development, prefix: true
   delegate :construction, :conveyancing_enabled?,
            :wecomplete_sign_in, :wecomplete_quote, to: :phase
+
+  delegate :build_steps, to: :parent
+  delegate :title, to: :build_step, prefix: true
 
   alias_attribute :identity, :number
 
@@ -129,6 +139,7 @@ class Plot < ApplicationRecord
         lambda { |role, plot_type, developer, division, development, phase, plot_numbers|
           plots = Plot.joins(plot_residencies: :resident)
                       .where(developer_id: developer)
+          plots = plots.where.not(residents: { invitation_accepted_at: nil })
           plots = plots.where(division_id: division) unless division.zero?
           plots = plots.where(development_id: development) unless development.zero?
           plots = plots.where(phase_id: phase) unless phase.zero?
@@ -156,7 +167,6 @@ class Plot < ApplicationRecord
     exchange_ready
     complete_ready
     completed
-    remove
   ]
 
   enum choice_selection_status: %i[
@@ -765,5 +775,22 @@ class Plot < ApplicationRecord
                " and between 01/01/2017 and #{finish}")
   end
   # rubocop:enable Rails/Date, Style/CaseEquality
+
+  def videos
+    videos = []
+    [developer, division, development].each do |level|
+      next unless level.present? && level&.videos
+      videos += if expiry_date.present?
+                  level&.videos&.where("created_at <= ?", expiry_date)
+                else
+                  level&.videos
+                end
+    end
+    videos
+  end
+
+  def set_build_status
+    self.build_step = (division || developer).sequence_in_use.build_steps.first if id.nil?
+  end
 end
 # rubocop:enable Metrics/ClassLength

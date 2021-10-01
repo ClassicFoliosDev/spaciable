@@ -1,0 +1,48 @@
+
+  .build-steps {
+    .step-map {
+      background-color: #eee;
+      width: 20%;
+
+      .btn {
+        color: darkgrey;
+        background-color: #eee;
+        border-color: darkgrey;
+      }
+      .btn:hover {
+        color: $ui-white;
+        border-color: darkgrey;
+        background-color: darkgrey;
+      }
+    }
+
+    .step-map-actions {
+      width: 90px;
+    }
+
+    .title {
+      width: 20%
+    }
+
+    .description {
+      width: 30%
+    }
+
+    input {
+      width: -webkit-fill-available;
+    }
+
+    tr {
+      vertical-align: top;
+    }
+
+    .step-help {
+      display: none;
+
+      p {
+        margin: unset;
+      }
+    }
+
+  }
+

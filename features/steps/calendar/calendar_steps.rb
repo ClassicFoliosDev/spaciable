@@ -99,7 +99,7 @@ Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
   # You have no idea how much of my life I wasted finding out
   # exactly how and why I had to do this!
   drag_from = find(".fc-day[data-date='#{(CalendarFixture.now).strftime('%Y-%m-%d')}']")
-  target = find(".fc-day[data-date='#{(CalendarFixture.now-24.hours).strftime('%Y-%m-%d')}']")
+  target = find(".fc-day[data-date='#{(CalendarFixture.now).strftime('%Y-%m-%d')}']")
   drag_from.drag_to(target)
 
   expect(page).to have_content("Add #{type.capitalize()} Event")
@@ -125,7 +125,7 @@ Then (/^I can create a (.*) event by clicking on the calendar$/) do |type|
   click_on "Add"
   CallbackFixture.confirm {Event.last.present? && Event.last == Event.find_by(exp)}
 
-  CalendarFixture.event.start = (CalendarFixture.now-24.hours).change(:hour => 0)
+  CalendarFixture.event.start = (CalendarFixture.now).change(:hour => 0)
   CalendarFixture.event.end = CalendarFixture.event.start + 15.minutes
   find_event # wait for the event to appear on the calendar
 

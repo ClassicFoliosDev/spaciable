@@ -39,6 +39,9 @@ class Development < ApplicationRecord
   has_one :maintenance, dependent: :destroy
   has_many :custom_tiles, dependent: :destroy
 
+  has_many :event_resources, as: :resourceable, dependent: :destroy
+  has_many :events, as: :eventable, dependent: :destroy
+
   has_one :premium_perk
   accepts_nested_attributes_for :premium_perk
   delegate :enable_premium_perks, :premium_licences_bought,
@@ -75,6 +78,8 @@ class Development < ApplicationRecord
            :enable_roomsketcher, :enable_perks, to: :parent_developer
 
   delegate :path, :account_type, :populate, to: :maintenance, prefix: true, allow_nil: true
+
+  delegate :build_steps, to: :parent
 
   after_destroy { User.permissable_destroy(self.class.to_s, id) }
   after_create :set_default_tiles

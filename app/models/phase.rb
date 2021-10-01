@@ -30,6 +30,9 @@ class Phase < ApplicationRecord
   has_one :brand, as: :brandable, dependent: :destroy
   has_many :brands, as: :brandable
 
+  has_many :event_resources, as: :resourceable, dependent: :destroy
+  has_many :events, as: :eventable, dependent: :destroy
+
   delegate :enable_snagging, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
   delegate :calendar, to: :development, prefix: true
@@ -65,6 +68,8 @@ class Phase < ApplicationRecord
   delegate :building_name, :road_name, :locality, :city,
            :county, :postcode, to: :address, allow_nil: true
   delegate :to_s, to: :name
+
+  delegate :build_steps, to: :parent
 
   enum business: [
     :core, # default

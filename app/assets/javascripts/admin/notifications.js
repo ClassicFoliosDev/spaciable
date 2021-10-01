@@ -188,8 +188,16 @@ document.addEventListener('turbolinks:load', function () {
     var divisionSelect = clearFields($divisionId)
     var url = '/admin/divisions'
 
-    setFields(divisionSelect, url, data)
+    setFields(divisionSelect, url, data, true, disable_division)
+    $selected_division = data
   };
+
+  function disable_division(){
+    if ($selected_division != undefined &&
+        ($('#notification_division_id').children('option:selected').val() ===  $selected_division.divisionId)) {
+      disableSelect($('#notification_division_id'))
+    }
+  }
 
   function fetchDevelopmentResources (data) {
     var $developmentId = $('.notification_development_id')
@@ -200,8 +208,16 @@ document.addEventListener('turbolinks:load', function () {
     var developmentSelect = clearFields($developmentId)
     var url = '/admin/developments'
 
-    setFields(developmentSelect, url, data)
+    setFields(developmentSelect, url, data, true, disable_development)
+    $selected_development = data
   };
+
+  function disable_development(){
+    if ($selected_development != undefined &&
+        ($('#notification_development_id').children('option:selected').val() ===  $selected_development.developmentId)) {
+      disableSelect($('#notification_development_id'))
+    }
+  }
 
   function fetchPhaseResources (data) {
     var $phaseId = $('.notification_phase_id')
@@ -242,8 +258,16 @@ document.addEventListener('turbolinks:load', function () {
     var developerSelect = clearFields($developerId)
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, data, data == undefined)
+    setFields(developerSelect, url, data, data == undefined, disable_developer)
+    $selected_developer = data
   };
+
+  function disable_developer(){
+    if ($selected_developer != undefined &&
+        ($('#notification_developer_id').children('option:selected').val() ===  $selected_developer.developerId)) {
+      disableSelect($('#notification_developer_id'))
+    }
+  }
 })
 
 $(document).on('click', '#plotNotificationBtn', function (event) {
@@ -272,6 +296,8 @@ $(document).on('click', '#plotNotificationBtn', function (event) {
 })
 
 function confirm_notification (results){
+  var confirm = true
+
   var form = $(".new_notification")
   var dataIn = $("#plotNotificationBtn").data()
 
@@ -279,26 +305,28 @@ function confirm_notification (results){
   var division = $("#notification_division_id-button .ui-selectmenu-text").text()
   var development = $("#notification_development_id-button .ui-selectmenu-text").text()
   var phase = $("#notification_phase_id-button .ui-selectmenu-text").text()
-  var plots = $("#notification_list")[0].value
+  $plots = $("#notification_list")[0].value
+  var title = "Confirm Send"
 
   if($("#notification_developer_id")[0].value == 0) {
     var $dialogContainer = $('<div>', { class: 'confirm-send-all' }).html('<p>' + dataIn.all + '</p>')
+    $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
+    $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
   } else {
-
-    var title = "Confirm Send"
     var plots_type = "Selected Plots: "
     var message = ""
     var plots = $("#notification_list")[0].value
     var requested_plots = $("#notification_list")[0].value.split(',')
 
-    if (results.length == 0) {
+    if (results["qualifing_plots"].length == 0) {
       message = dataIn.noplots
       title = "Review Selections"
+      confirm = false
     } else if ($("#notification_list")[0].textLength > 0) {
-      if (results.length < requested_plots.length) {
+      if (results["qualifing_plots"].length < results["requested_plots"].length) {
         message = dataIn.filtered
-        plots = results.join()
-        plots_type = "Qualifing Plots: "
+        $plots = results["qualifing_plots"].join()
+        plots_type = "Qualifying Plots: "
       }
     } else {
       message = dataIn.warning
@@ -321,12 +349,15 @@ function confirm_notification (results){
     if($("#notification_phase_id")[0].value > 0) {
       $dialogContainer.append('<p><span>' + 'Phase: ' + '</span>' + phase + '</p>')
     }
-    if(plots.length > 0) {
-      $dialogContainer.append('<p><span>' + plots_type + plots + '</p>')
+
+    $dialogContainer.append('<p><span>' + 'Resident Filter: ' + '</span>' + $("input[name='notification[send_to_role]']:checked").next().text() + '</p>')
+    $dialogContainer.append('<p><span>' + 'Plot Filter: ' + '</span>' + $("input[name='notification[plot_filter]']:checked").next().text() + '</p>')
+
+    if($plots.length > 0) {
+      $dialogContainer.append('<p><span>' + plots_type + $plots + '</p>')
     } else if ($("#notification_developer_id")[0].value != 0) {
       $dialogContainer.append('<p><span>All Plots</p>')
     }
-
   }
 
   $body.append($dialogContainer)
@@ -350,10 +381,13 @@ function confirm_notification (results){
         class: 'btn-confirm',
         id: 'btn_confirm',
         click: function () {
+          $("#notification_list")[0].value = $plots
           $('.btn-confirm').button('disable')
           $('.btn-cancel').button('disable')
           form.submit(); // Form submission
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+
+  $("#btn_confirm").toggle(confirm)
 }
