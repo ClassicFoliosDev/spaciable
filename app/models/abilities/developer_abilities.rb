@@ -12,11 +12,19 @@ module Abilities
       developer_contacts(developer)
       developer_documents(developer)
       developer_timelines(developer)
+      developer_videos(developer)
       developer_calendar
       read_developers(developer)
     end
 
     private
+
+    def developer_videos(developer)
+      can :manage, Video, videoable_type: "Developer", videoable_id: developer
+      Division.where(developer_id: developer).find_each do |division|
+        can :manage, Video, videoable_type: "Division", videoable_id: division
+      end
+    end
 
     def developer_faqs(developer_id)
       polymorphic_abilities Faq, :faqable do
