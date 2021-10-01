@@ -17,7 +17,7 @@ module Abilities
     private
 
     def division_videos(division)
-      can :manage, Video, videoable_id: division
+      can :manage, Video, videoable_type: "Division", videoable_id: division
     end
 
     def read_divisions(developer_id, division)
