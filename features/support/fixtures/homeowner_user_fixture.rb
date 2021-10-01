@@ -35,6 +35,7 @@ module HomeownerUserFixture
       password: password,
       first_name: first_name,
       last_name: last_name,
+      invitation_accepted_at: Time.zone.now,
       ts_and_cs_accepted_at: Time.zone.now,
       phone_number: phone_num
     )
