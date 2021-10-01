@@ -215,7 +215,7 @@ document.addEventListener('turbolinks:load', function () {
   function disable_development(){
     if ($selected_development != undefined &&
         ($('#notification_development_id').children('option:selected').val() ===  $selected_development.developmentId)) {
-      disableSelect($('#notification_division_id'))
+      disableSelect($('#notification_development_id'))
     }
   }
 
