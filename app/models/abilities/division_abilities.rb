@@ -9,6 +9,7 @@ module Abilities
       division_faqs(division, developer_id)
       division_contacts(division, developer_id)
       division_documents(division, developer_id)
+      division_videos(division)
       division_calendar
       read_divisions(developer_id, division)
       division_build_progress(division)
@@ -22,6 +23,10 @@ module Abilities
         type "Global", id: Global.root.id, actions: :read
       end
       can :read, Global
+    end
+    
+    def division_videos(division)
+      can :manage, Video, videoable_type: "Division", videoable_id: division
     end
 
     def read_divisions(developer_id, division)
