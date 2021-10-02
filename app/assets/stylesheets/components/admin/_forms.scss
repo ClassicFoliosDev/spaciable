@@ -1,8 +1,14 @@
 // ****** globals ******
 
+.user-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
 
   .input {
     margin-bottom: $spacing-medium;
@@ -44,9 +50,24 @@
   padding: $spacing-medium $spacing-large;
 }
 
+.trim-form-column {
+  padding: 0 $spacing-large;
+}
+
 // ****** specific forms ******
 
 // user form
+
+.su-controls {
+  background-color: #ececec;
+  padding: 1 10 10 10;
+
+  button {
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
 
 .additional-role-meta {
   margin-left: $spacing-small / 2;
@@ -56,7 +77,24 @@
   margin-left: 0;
 }
 
+.user-roles-desc {
+  padding: 0 $spacing-large 0 $spacing-large;
+
+  p {
+    padding: 10 0 0 0;
+    margin: 0;
+  }
+
+  mark {
+    background-color: #ececec;
+  }
+}
+
 .user-form {
+
+  hr.solid {
+    margin: 0 $spacing-large;
+  }
   .user-permissions {
     display: grid;
   }
@@ -181,7 +219,7 @@
 
   .additional-roles {
     border:1px solid black;
-    height: 395px;
+    height: 320px;
     overflow: auto;
   }
 

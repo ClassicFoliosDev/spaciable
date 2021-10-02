@@ -13,8 +13,11 @@
   <% end %>
 
   <div class="row user-form">
-    <div class="user-details form-row">
-      <fieldset class="form-column contact-details">
+    <div class="user-roles-desc">
+      <p> Use the <mark>Additional Role</mark> section to grant access to other divisions and developments. Changes are not saved until you click Submit</p>
+    </div>
+    <div class="user-details">
+      <fieldset class="trim-form-column contact-details">
         <%= f.input :email, label: t(".email"), readonly: user.id.present? %>
         <%= f.input :first_name, label: t(".first_name") %>
         <%= f.input :last_name, label: t(".surname") %>
@@ -22,21 +25,9 @@
         <div class="image-container">
           <%= f.input :picture, label: t(".image"), as: :image_preview, input_html: { preview_version: :thumbnail } %>
         </div>
-        <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
-        <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
-          <%= f.label :cas_enabled, t(".client_specifications"), class: "checkbox-label" %>
-          <%= f.check_box :cas, id: :cas_check,
-          disabled: (user.division_admin? || user.developer_admin?) %>
-          <span class="checkbox-description"><%= t(".adds_specifications") %></span>
-        </div>
-        <div class="administer_lettings">
-          <%= f.label :branch_admin, t(".lettings_branch_admin"), class: "checkbox-label" %>
-          <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
-          <span class="checkbox-description"><%= t(".administer_branch") %></span>
-        </div>
       </fieldset>
 
-      <fieldset class="form-column permission-level skip-global-selectmenu">
+      <fieldset class="trim-form-column permission-level skip-global-selectmenu">
         <%= f.input :role,
         as: :select,
         collection: User::accessible_admin_roles(current_user),
@@ -50,24 +41,60 @@
         <%= cascade_select_input f, :development_id, Development, label: t(".primary.development") %>
       </fieldset>
 
-      <fieldset class="form-column su-permission-level skip-global-selectmenu">
-        <%= f.input :su_role,
-        as: :select,
-        collection: User::accessible_admin_roles(current_user),
-        label_method: ->(role) { t(role.first) },
-        value_method: :first,
-        include_blank: t("users.choose"),
-        label: t(".additional.role") %>
-        <%= cascade_select_input f, :su_developer_id, Developer %>
-        <%= cascade_select_input f, :su_division_id, Division %>
-        <%= cascade_select_input f, :su_development_id, Development %>
-        <%= button_tag t(".add_role"), :type => 'button', class: "btn right", id: 'add_role' %>
+      <fieldset class="trim-form-column su-permission-level skip-global-selectmenu">
+        <div class="su-controls">
+          <%= f.input :su_role,
+          as: :select,
+          collection: User::accessible_admin_roles(current_user),
+          label_method: ->(role) { t(role.first) },
+          value_method: :first,
+          include_blank: t("users.choose"),
+          label: t(".additional.role") %>
+          <%= cascade_select_input f, :su_developer_id, Developer %>
+          <%= cascade_select_input f, :su_division_id, Division %>
+          <%= cascade_select_input f, :su_development_id, Development %>
+          <%= button_tag t(".add_role"), :type => 'button', class: "btn", id: 'add_role' %>
+        </div>
       </fieldset>
 
-      <div class="separator"></div>
+      <fieldset class="trim-form-column">
+        <label><%= t(".additional_roles") %></label>
+        <div class="additional-roles ">
+          <%= f.fields_for :grants do |g| %>
+            <% grant = g.object %>
+            <div class=<%= "additional-role" + (grant.permission_level.nil? ? " hidden": "") %>>
+              <%= g.hidden_field :role %>
+              <%= g.hidden_field :permission_level_type %>
+              <%= g.hidden_field :permission_level_id %>
+              <%= g.hidden_field :_destroy, value: false, deletefield: true %>
+              <div id="metadata">
+                <% if grant.permission_level.present? %>
+                  <div class="header">
+                    <span class="additional-role-meta inline"><%= t(grant.role) %></span>
+                    <i class='fa fa-times delete'></i>
+                  </div>
+                  <span class="additional-role-meta"><%= grant.developer %></span>
+                  <% if grant.division.present? %>
+                    <span class="additional-role-meta"><%= grant.division %></span>
+                  <% end %>
+                  <% if grant.development.present? %>
+                    <span class="additional-role-meta"><%= grant.development %></span>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </fieldset>
     </div>
 
-    <div class="user-permissions form-row">
+    <hr class="solid">
+
+
+    <div class="user-roles-desc">
+      <p> <%= t(".email_warn") %> </p>
+    </div>
+    <div class="form-row">
       <fieldset class="form-column emails">
         <div class="email-fields">
           <div class="receive_release_emails toggle">
@@ -112,35 +139,19 @@
       </fieldset>
 
       <fieldset class="form-column">
-        <label><%= t(".additional_roles") %></label>
-        <div class="additional-roles ">
-          <%= f.fields_for :grants do |g| %>
-            <% grant = g.object %>
-            <div class=<%= "additional-role" + (grant.permission_level.nil? ? " hidden": "") %>>
-              <%= g.hidden_field :role %>
-              <%= g.hidden_field :permission_level_type %>
-              <%= g.hidden_field :permission_level_id %>
-              <%= g.hidden_field :_destroy, value: false, deletefield: true %>
-              <div id="metadata">
-                <% if grant.permission_level.present? %>
-                  <div class="header">
-                    <span class="additional-role-meta inline"><%= t(grant.role) %></span>
-                    <i class='fa fa-times delete'></i>
-                  </div>
-                  <span class="additional-role-meta"><%= grant.developer %></span>
-                  <% if grant.division.present? %>
-                    <span class="additional-role-meta"><%= grant.division %></span>
-                  <% end %>
-                  <% if grant.development.present? %>
-                    <span class="additional-role-meta"><%= grant.development %></span>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
+        <% style = user.developer_cas? && !current_user.development_admin? ? "display:inline" : "display:none"%>
+        <div id="cas" class="client_specifications" data-casenabled=<%=user.developer_cas?%> data-userrole=<%=current_user.role%> style="<%=style%>">
+          <%= f.label :cas_enabled, t(".client_specifications"), class: "checkbox-label" %>
+          <%= f.check_box :cas, id: :cas_check,
+          disabled: (user.division_admin? || user.developer_admin?) %>
+          <span class="checkbox-description"><%= t(".adds_specifications") %></span>
+        </div>
+        <div class="administer_lettings">
+          <%= f.label :branch_admin, t(".lettings_branch_admin"), class: "checkbox-label" %>
+          <%= f.check_box :branch_administrator, id: :branch_admin_check, disabled: !current_user.prime_for?(user) %>
+          <span class="checkbox-description"><%= t(".administer_branch") %></span>
         </div>
       </fieldset>
-
       <div class="separator"></div>
     </div>
 
