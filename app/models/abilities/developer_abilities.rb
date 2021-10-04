@@ -17,9 +17,9 @@ module Abilities
       read_developers(developer)
       developer_build_progress(developer)
     end
-    
+
     private
-    
+
     def developer_build_progress(developer)
       polymorphic_abilities BuildSequence, :build_sequenceable do
         type "Developer", id: developer, actions: :manage
@@ -27,7 +27,7 @@ module Abilities
       end
       can :read, Global
     end
-    
+
     def developer_videos(developer)
       can :manage, Video, videoable_type: "Developer", videoable_id: developer
       Division.where(developer_id: developer).find_each do |division|

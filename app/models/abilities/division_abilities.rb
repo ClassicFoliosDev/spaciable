@@ -24,7 +24,7 @@ module Abilities
       end
       can :read, Global
     end
-    
+
     def division_videos(division)
       can :manage, Video, videoable_type: "Division", videoable_id: division
     end
