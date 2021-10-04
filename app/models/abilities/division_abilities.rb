@@ -12,9 +12,18 @@ module Abilities
       division_videos(division)
       division_calendar
       read_divisions(developer_id, division)
+      division_build_progress(division)
     end
 
     private
+
+    def division_build_progress(division)
+      polymorphic_abilities BuildSequence, :build_sequenceable do
+        type "Division", id: division, actions: :manage
+        type "Global", id: Global.root.id, actions: :read
+      end
+      can :read, Global
+    end
 
     def division_videos(division)
       can :manage, Video, videoable_type: "Division", videoable_id: division
