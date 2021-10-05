@@ -991,13 +991,12 @@ en:
           developer: "Primary Developer"
           division: "Primary Division"
           development: "Primary Development"
-        additional:
-          role: "Additional Role"
+        supplementary:
+          role: "Supplementary Role"
         add_role: "Add Role"
-        additional_roles: "Additional Roles"
+        supplementary_roles: "Supplementary Roles"
         duplicate_role: "This is a Duplicate Role"
         higher_precidence: "The following role has a higher higher precidence than the primary role"
-        email_warn: "Update primary role's email preferences. Emails will not be received for additional roles."
       index:
         title: "Admins."
         add: "Add User"

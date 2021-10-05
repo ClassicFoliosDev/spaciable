@@ -13,11 +13,8 @@
   <% end %>
 
   <div class="row user-form">
-    <div class="user-roles-desc">
-      <p> Use the <mark>Additional Role</mark> section to grant access to other divisions and developments. Changes are not saved until you click Submit</p>
-    </div>
     <div class="user-details">
-      <fieldset class="trim-form-column contact-details">
+      <fieldset class="form-column contact-details">
         <%= f.input :email, label: t(".email"), readonly: user.id.present? %>
         <%= f.input :first_name, label: t(".first_name") %>
         <%= f.input :last_name, label: t(".surname") %>
@@ -27,7 +24,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="trim-form-column permission-level skip-global-selectmenu">
+      <fieldset class="form-column permission-level skip-global-selectmenu">
         <%= f.input :role,
         as: :select,
         collection: User::accessible_admin_roles(current_user),
@@ -41,7 +38,7 @@
         <%= cascade_select_input f, :development_id, Development, label: t(".primary.development") %>
       </fieldset>
 
-      <fieldset class="trim-form-column su-permission-level skip-global-selectmenu">
+      <fieldset class="form-column su-permission-level skip-global-selectmenu">
         <div class="su-controls">
           <%= f.input :su_role,
           as: :select,
@@ -49,7 +46,7 @@
           label_method: ->(role) { t(role.first) },
           value_method: :first,
           include_blank: t("users.choose"),
-          label: t(".additional.role") %>
+          label: t(".supplementary.role") %>
           <%= cascade_select_input f, :su_developer_id, Developer %>
           <%= cascade_select_input f, :su_division_id, Division %>
           <%= cascade_select_input f, :su_development_id, Development %>
@@ -57,12 +54,12 @@
         </div>
       </fieldset>
 
-      <fieldset class="trim-form-column">
-        <label><%= t(".additional_roles") %></label>
-        <div class="additional-roles ">
+      <fieldset class="form-column">
+        <label><%= t(".supplementary_roles") %></label>
+        <div class="supplementary-roles ">
           <%= f.fields_for :grants do |g| %>
             <% grant = g.object %>
-            <div class=<%= "additional-role" + (grant.permission_level.nil? ? " hidden": "") %>>
+            <div class=<%= "supplementary-role" + (grant.permission_level.nil? ? " hidden": "") %>>
               <%= g.hidden_field :role %>
               <%= g.hidden_field :permission_level_type %>
               <%= g.hidden_field :permission_level_id %>
@@ -70,15 +67,15 @@
               <div id="metadata">
                 <% if grant.permission_level.present? %>
                   <div class="header">
-                    <span class="additional-role-meta inline"><%= t(grant.role) %></span>
+                    <span class="supplementary-role-meta inline"><%= t(grant.role) %></span>
                     <i class='fa fa-times delete'></i>
                   </div>
-                  <span class="additional-role-meta"><%= grant.developer %></span>
+                  <span class="supplementary-role-meta"><%= grant.developer %></span>
                   <% if grant.division.present? %>
-                    <span class="additional-role-meta"><%= grant.division %></span>
+                    <span class="supplementary-role-meta"><%= grant.division %></span>
                   <% end %>
                   <% if grant.development.present? %>
-                    <span class="additional-role-meta"><%= grant.development %></span>
+                    <span class="supplementary-role-meta"><%= grant.development %></span>
                   <% end %>
                 <% end %>
               </div>
@@ -90,10 +87,6 @@
 
     <hr class="solid">
 
-
-    <div class="user-roles-desc">
-      <p> <%= t(".email_warn") %> </p>
-    </div>
     <div class="form-row">
       <fieldset class="form-column emails">
         <div class="email-fields">
