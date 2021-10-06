@@ -46,7 +46,7 @@
           label_method: ->(role) { t(role.first) },
           value_method: :first,
           include_blank: t("users.choose"),
-          label: t(".supplementary.role") %>
+          label: t(".additional.role") %>
           <%= cascade_select_input f, :su_developer_id, Developer %>
           <%= cascade_select_input f, :su_division_id, Division %>
           <%= cascade_select_input f, :su_development_id, Development %>
@@ -55,11 +55,11 @@
       </fieldset>
 
       <fieldset class="form-column">
-        <label><%= t(".supplementary_roles") %></label>
-        <div class="supplementary-roles ">
+        <label><%= t(".additional_roles") %></label>
+        <div class="additional-roles ">
           <%= f.fields_for :grants do |g| %>
             <% grant = g.object %>
-            <div class=<%= "supplementary-role" + (grant.permission_level.nil? ? " hidden": "") %>>
+            <div class=<%= "additional-role" + (grant.permission_level.nil? ? " hidden": "") %>>
               <%= g.hidden_field :role %>
               <%= g.hidden_field :permission_level_type %>
               <%= g.hidden_field :permission_level_id %>
@@ -67,15 +67,15 @@
               <div id="metadata">
                 <% if grant.permission_level.present? %>
                   <div class="header">
-                    <span class="supplementary-role-meta inline"><%= t(grant.role) %></span>
+                    <span class="additional-role-meta inline"><%= t(grant.role) %></span>
                     <i class='fa fa-times delete'></i>
                   </div>
-                  <span class="supplementary-role-meta"><%= grant.developer %></span>
+                  <span class="additional-role-meta"><%= grant.developer %></span>
                   <% if grant.division.present? %>
-                    <span class="supplementary-role-meta"><%= grant.division %></span>
+                    <span class="additional-role-meta"><%= grant.division %></span>
                   <% end %>
                   <% if grant.development.present? %>
-                    <span class="supplementary-role-meta"><%= grant.development %></span>
+                    <span class="additional-role-meta"><%= grant.development %></span>
                   <% end %>
                 <% end %>
               </div>

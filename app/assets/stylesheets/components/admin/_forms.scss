@@ -69,7 +69,7 @@
   }
 }
 
-.supplementary-role-meta {
+.additional-role-meta {
   margin-left: $spacing-small / 2;
   display: block;
   font-size: $base-small-font-size;
@@ -217,13 +217,13 @@
     }
   }
 
-  .supplementary-roles {
+  .additional-roles {
     border:1px solid black;
     height: 320px;
     overflow: auto;
   }
 
-  .supplementary-role {
+  .additional-role {
     background-color: #ececec;
     padding: 5;
     margin: 10;

@@ -1,8 +1,8 @@
 /* global $, clearFields, setFields */
-var $num_supplementary_roles = 0
+var $num_additional_roles = 0
 
 document.addEventListener('turbolinks:load', function () {
-  $num_supplementary_roles = $('.supplementary-role').length
+  $num_additional_roles = $('.additional-role').length
   var $primary = ""
   var $su = "_su"
   var $roleSelect = $('.user_role select, change')
@@ -110,11 +110,11 @@ document.addEventListener('turbolinks:load', function () {
           }, primary)
         } else {
           clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
-          setSupplementaryState()
+          setAdditionalState()
         };
       },
       select: function (event, ui) {
-        setSupplementaryState()
+        setAdditionalState()
       }
     }
   };
@@ -123,21 +123,21 @@ document.addEventListener('turbolinks:load', function () {
     var developerSelect = clearFields($('.user' + (primary ? $primary : $su) + '_developer_id'))
     var url = '/admin/developers'
 
-    setFields(developerSelect, url, {developerId: developerId}, true, setSupplementaryState)
+    setFields(developerSelect, url, {developerId: developerId}, true, setAdditionalState)
   };
 
   function fetchDivisionResources (data, primary) {
     var divisionSelect = clearFields($('.user' + (primary ? $primary : $su) + '_division_id'))
     var url = '/admin/divisions'
 
-    setFields(divisionSelect, url, data, true, setSupplementaryState)
+    setFields(divisionSelect, url, data, true, setAdditionalState)
   };
 
   function fetchDevelopmentResources (data, primary) {
     var developmentSelect = clearFields($('.user' + (primary ? $primary : $su) + '_development_id'))
     var url = '/admin/developments'
 
-    setFields(developmentSelect, url, data, true, setSupplementaryState)
+    setFields(developmentSelect, url, data, true, setAdditionalState)
   };
 
   function showRoleResourcesOnly (role, primary) {
@@ -206,7 +206,7 @@ document.addEventListener('turbolinks:load', function () {
       }
     };
 
-    setSupplementaryState()
+    setAdditionalState()
     setCcLabels()
   };
 
@@ -214,11 +214,11 @@ document.addEventListener('turbolinks:load', function () {
     return $developerSelect = $('.user' + (primary ? $primary : $su) + '_' + type + '_id select')
   }
 
-  function setSupplementaryState (){
+  function setAdditionalState (){
     primary = userDefined(true)
-    supplementary = userDefined(false)
+    additional = userDefined(false)
 
-    $("#add_role").toggle(primary && supplementary)
+    $("#add_role").toggle(primary && additional)
 
     try {
       const selects = ["#user_su_role", "#user_su_developer_id", "#user_su_division_id", "#user_su_development_id"]
@@ -407,27 +407,27 @@ function displayFilterSelections() {
 // sets the fields.  Finally it prepends itself
 $(document).on('click', '#add_role', function (event) {
 
-  supplementary_role = getRole(true)
-  duplicate = duplicateOf(supplementary_role)
+  additional_role = getRole(true)
+  duplicate = duplicateOf(additional_role)
 
   if (duplicate != null) {
     meta = duplicate.clone().find("#metadata")
     meta.find("i").remove()
     infoDialog("Duplicate Role", $("form[main='true']").attr("dup_message"), meta.html())
   } else {
-    newrole = $('.supplementary-role').first().clone()
-    $('.supplementary-role').last().after(newrole)
+    newrole = $('.additional-role').first().clone()
+    $('.additional-role').last().after(newrole)
     newrole.find("#metadata").empty()
     newrole.find("input").each(function() { initialiseRole($(this)) })
-    newrole.find("input")[0].value = supplementary_role.role
-    newrole.find("input")[1].value = supplementary_role.permission_level_type
-    newrole.find("input")[2].value = supplementary_role.permission_level_id
+    newrole.find("input")[0].value = additional_role.role
+    newrole.find("input")[1].value = additional_role.permission_level_type
+    newrole.find("input")[2].value = additional_role.permission_level_id
     newrole.find("input[deletefield='true']").val(false)
 
-    supplementary_role.meta.forEach(function (text, index) { newrole.find("#metadata").append(text) })
+    additional_role.meta.forEach(function (text, index) { newrole.find("#metadata").append(text) })
 
     newrole.show()
-    $num_supplementary_roles += 1
+    $num_additional_roles += 1
   }
 })
 
@@ -436,7 +436,7 @@ function initialiseRole(role){
   attribs.forEach(function(attrib, index){
     var prop = role.prop(attrib);
     if (typeof prop !== typeof undefined && prop !== false) {
-      role.prop(attrib, role.prop(attrib).replace(/0/g, $num_supplementary_roles))
+      role.prop(attrib, role.prop(attrib).replace(/0/g, $num_additional_roles))
     }
   })
   role.val("")
@@ -444,34 +444,34 @@ function initialiseRole(role){
 
 function createRoleHeader(text) {
   return "<div class='header'>" +
-            "<span class='supplementary-role-meta inline'>" + text + "</span>" +
+            "<span class='additional-role-meta inline'>" + text + "</span>" +
             "<i class='fa fa-times delete'></i>" +
           "</div>"
 }
 
 function createRoleMetadata(text) {
-  return "<span class='supplementary-role-meta'>" + text + "</span>"
+  return "<span class='additional-role-meta'>" + text + "</span>"
 }
 
-$(document).on('click', '.supplementary-role .delete', function (event) {
-  role = $(this).closest('.supplementary-role')
+$(document).on('click', '.additional-role .delete', function (event) {
+  role = $(this).closest('.additional-role')
   meta = role.clone().find("#metadata")
   meta.find("i").remove()
-  confirmDelete(meta.html(), role, deleteSupplementaryRole)
+  confirmDelete(meta.html(), role, deleteAdditionalRole)
 })
 
-function deleteSupplementaryRole(role) {
+function deleteAdditionalRole(role) {
   role.find("input[deletefield='true']").val(true)
   role.hide()
 }
 
-function duplicateOf(supplementary_role) {
+function duplicateOf(additional_role) {
   duplicate = null
 
-  $(".supplementary-role:visible").each(function() {
-    if ($(this).find("input")[0].value == supplementary_role.role &&
-        $(this).find("input")[1].value == supplementary_role.permission_level_type &&
-        $(this).find("input")[2].value == supplementary_role.permission_level_id) {
+  $(".additional-role:visible").each(function() {
+    if ($(this).find("input")[0].value == additional_role.role &&
+        $(this).find("input")[1].value == additional_role.permission_level_type &&
+        $(this).find("input")[2].value == additional_role.permission_level_id) {
       duplicate = $(this)
     }
   })
@@ -479,9 +479,9 @@ function duplicateOf(supplementary_role) {
   return duplicate
 }
 
-function getRole(supplementary)
+function getRole(additional)
 {
-  prefix = (supplementary ? "#user_su_" : "#user_")
+  prefix = (additional ? "#user_su_" : "#user_")
   const selection = {role : $(prefix + "role option:selected").val(),
                      meta: [createRoleHeader($(prefix + "role option:selected").text())] }
 
@@ -520,12 +520,12 @@ $(document).on('click', '#submit_user', function (event) {
   validate_user()
 })
 
-// Primary role has precidence over supplementary roles
+// Primary role has precidence over additional roles
 function hasPrecedence() {
   has_precedence = null
   primary_role_precidence = rolePrecedence($("#user_role option:selected").val())
 
-  $(".supplementary-role:visible").each(function() {
+  $(".additional-role:visible").each(function() {
     if (rolePrecedence($(this).find("input")[0].value) < primary_role_precidence) {
       has_precedence = $(this)
     }

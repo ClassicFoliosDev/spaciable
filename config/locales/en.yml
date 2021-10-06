@@ -991,10 +991,10 @@ en:
           developer: "Primary Developer"
           division: "Primary Division"
           development: "Primary Development"
-        supplementary:
-          role: "Supplementary Role"
+        additional:
+          role: "Additional Role"
         add_role: "Add Role"
-        supplementary_roles: "Supplementary Roles"
+        additional_roles: "Additional Roles"
         duplicate_role: "This is a Duplicate Role"
         higher_precidence: "The following role has a higher higher precidence than the primary role"
       index:

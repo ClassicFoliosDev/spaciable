@@ -102,7 +102,7 @@ module Admin
         :developer_id, :division_id,
         :development_id, :permission_level_id,
         :permission_level_type, :password, :password_confirmation,
-        :current_password, :picture, :picture_cache,
+        :current_password, :picture, :picture_cache, :remove_picture,
         :job_title, :receive_release_emails, :snag_notifications,
         :receive_choice_emails, :branch_administrator, :cas,
         :receive_invitation_emails, :receive_faq_emails,
