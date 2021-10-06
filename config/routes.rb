@@ -331,6 +331,10 @@ Rails.application.routes.draw do
         to: 'videos#index',
         as: :homeowner_videos
 
+    get "library/sustainability",
+        to: 'library#index',
+        defaults: { category: :locality }
+
     get "library/:category",
         to: 'library#index',
         as: :homeowner_library,
