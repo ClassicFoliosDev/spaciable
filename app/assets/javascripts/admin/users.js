@@ -149,18 +149,21 @@ document.addEventListener('turbolinks:load', function () {
       if (primary) {
         $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, \
            .receive_choice_emails, .cc-choice-emails, .snag_notifications, .cc-snag_notifications, \
-           .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, .cc-receive_faq_emails').hide()
+           .receive_invitation_emails, .cc-receive_invitation_emails, .client_specifications, .receive_faq_emails, \
+           .cc-receive_faq_emails').hide()
         $("#plot_check").prop("checked", true);
         $("#choice_check").prop("checked", true);
         $("#snag_check").prop("checked", true)
+        hideAdditionalRoles()
       } else {
         $('.user_su_developer_id, .user_su_division_id, .user_su_ development_id').hide()
       }
     } else if (role === 'developer_admin') {
       if (primary) {
         $('.user_developer_id, .receive_release_emails, .cc-receive_release_emails, .snag_notifications, .cc-snag_notifications, \
-           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .su-permission-level').show()
         $('.user_division_id, .user_development_id, .administer_lettings').hide()
+        showAdditionalRoles()
       } else {
         $('.user_su_developer_id').show()
         $('.user_su_division_id, .user_su_development_id').hide()
@@ -168,8 +171,10 @@ document.addEventListener('turbolinks:load', function () {
     } else if (role === 'division_admin') {
       if (primary) {
         $('.user_developer_id, .user_division_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-           .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+           .snag_notifications, .cc-snag_notifications, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, \
+           .cc-receive_invitation_emails, .su-permission-level').show()
         $('.user_development_id, .administer_lettings').hide()
+        showAdditionalRoles()
       } else {
         $('.user_su_developer_id, .user_su_division_id').show()
         $('.user_su_development_id').hide()
@@ -177,15 +182,19 @@ document.addEventListener('turbolinks:load', function () {
     } else if (role === 'development_admin') {
       if (primary) {
         $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-           .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, .cc-snag_notifications').show()
+           .administer_lettings, .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails, .snag_notifications, \
+           .cc-snag_notifications, .su-permission-level').show()
+        showAdditionalRoles()
       } else {
         $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
       }
     } else if (role === 'site_admin') {
       if (primary) {
         $('.user_developer_id, .user_division_id, .user_development_id, .receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
-           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails').show()
+           .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, \
+           .cc-receive_invitation_emails, .su-permission-level').show()
         $('.snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+        showAdditionalRoles()
       } else {
         $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
       }
@@ -195,6 +204,7 @@ document.addEventListener('turbolinks:load', function () {
         $('.receive_release_emails, .cc-receive_release_emails, .receive_choice_emails, .cc-choice-emails, \
            .receive_faq_emails, .cc-receive_faq_emails, .receive_invitation_emails, .cc-receive_invitation_emails \
            .snag_notifications, .cc-snag_notifications, .administer_lettings').hide()
+        showAdditionalRoles()
       } else {
         $('.user_su_developer_id, .user_su_division_id, .user_su_development_id').show()
       }
@@ -209,6 +219,25 @@ document.addEventListener('turbolinks:load', function () {
     setAdditionalState()
     setCcLabels()
   };
+
+  function showAdditionalRoles() {
+    if ($("form[main='true']").data('cf')) {
+      $('.su-permission-level, .su-additional-roles').show()
+    }
+  }
+
+  function hideAdditionalRoles() {
+    if ($("form[main='true']").data('cf')) {
+      deleteAdditionalRoles()
+      $('.su-permission-level, .su-additional-roles').hide()
+    }
+  }
+
+  function deleteAdditionalRoles() {
+    $(".additional-role:visible").each(function() {
+      deleteAdditionalRole($(this))
+    })
+  }
 
   function getSelector(type, primary) {
     return $developerSelect = $('.user' + (primary ? $primary : $su) + '_' + type + '_id select')
@@ -319,7 +348,7 @@ $(document).on('click', '#resendInvitation', function (event) {
   $invitationContainer.dialog({
     show: 'show',
     modal: true,
-    width: 600,
+    width: 500,
     title: "Send Invitation",
 
     buttons: [
@@ -521,17 +550,17 @@ $(document).on('click', '#submit_user', function (event) {
 })
 
 // Primary role has precidence over additional roles
-function hasPrecedence() {
-  has_precedence = null
+function havePrecedence() {
+  have_precedence = []
   primary_role_precidence = rolePrecedence($("#user_role option:selected").val())
 
   $(".additional-role:visible").each(function() {
     if (rolePrecedence($(this).find("input")[0].value) < primary_role_precidence) {
-      has_precedence = $(this)
+      have_precedence.push($(this))
     }
   })
 
-  return has_precedence
+  return have_precedence
 }
 
 function rolePrecedence(role) {
@@ -544,15 +573,21 @@ function rolePrecedence(role) {
 
 function validate_user() {
   duplicate = duplicateOf(getRole(false))
-  has_precidence = hasPrecedence()
+  have_precidence = havePrecedence()
   if (duplicate != null) {
     meta = duplicate.clone().find("#metadata")
     meta.find("i").remove()
     infoDialog("Duplicate Role", $("form[main='true']").attr("dup_message"), meta.html())
-  } else if (has_precedence != null) {
-    meta = has_precidence.clone().find("#metadata")
-    meta.find("i").remove()
-    infoDialog("Precedence", $("form[main='true']").attr("prec_message"), meta.html())
+  } else if (have_precedence.length > 0) {
+    precidence = ""
+    have_precedence.forEach(function(item, index, array) {
+      meta = item.clone().find("#metadata")
+      meta.find("i").remove()
+      precidence += meta.html()
+    })
+    infoDialog($("form[main='true']").attr("prec_message_title"),
+               $("form[main='true']").attr("prec_message"),
+               precidence)
   } else {
    $("form[main='true']")[0].submit();
   }

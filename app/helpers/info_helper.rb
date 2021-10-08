@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module InfoHelper
-  def data_to_inform(resource, title, text: nil)
+  def data_to_inform(resource, title, text: nil, cancel: t("back"))
     {
-      id: resource.id,
+      id: resource&.id,
       name: text ? "" : resource.to_s,
-      cancel: t("back"),
+      cancel: cancel || t("back"),
       title: title,
       text: text,
       cta: t("buttons.info.title"),

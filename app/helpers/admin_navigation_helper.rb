@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdminNavigationHelper
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def my_admin_area_url(user)
     permission_level = user.permission_level
     case permission_level
@@ -30,7 +30,7 @@ module AdminNavigationHelper
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def my_admin_area_title(user)
     count = 1

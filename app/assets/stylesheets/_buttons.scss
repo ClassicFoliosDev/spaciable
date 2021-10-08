@@ -30,6 +30,8 @@ $button-line-height: 28px;
   background-color: $ui-white;
   color: $primary-button-color;
 
+
+
   &:hover {
     color: $ui-white;
     background-color: $primary-button-color;
@@ -45,6 +47,18 @@ $button-line-height: 28px;
     font-size: $base-font-size;
     position: relative;
     top: -1px;
+  }
+}
+
+.help-btn {
+    color: $ui-black;
+    border-width: 0;
+    width: 15;
+    padding: 0;
+
+    &:hover {
+    color: $ui-white;
+    background-color: $ui-black;
   }
 }
 

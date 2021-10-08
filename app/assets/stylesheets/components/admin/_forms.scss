@@ -1,8 +1,17 @@
 // ****** globals ******
 
-.user-details {
+.cf-user-details {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.form-row-head {
+  margin: 0 38;
+
+  p {
+    display: inline-block;
+    padding: 0;
+  }
 }
 
 .form-row {
@@ -57,6 +66,10 @@
 // ****** specific forms ******
 
 // user form
+
+.role p {
+  margin: 0 0 4;
+}
 
 .su-controls {
   background-color: #ececec;

@@ -1,4 +1,4 @@
-<%= simple_form_for([:admin, user] , :html => { main:true, dup_message: t("admin.users.form.duplicate_role"), prec_message: t("admin.users.form.higher_precidence") }) do |f| %>
+<%= simple_form_for([:admin, user] , :html => { main:true, dup_message: t("admin.users.form.duplicate_role"), prec_message: t("admin.users.form.higher_precidence"), prec_message_title: t("admin.users.form.higher_precidence_title"), data: { cf: current_user.cf_admin? } }) do |f| %>
   <% if user.errors.any? %>
     <div class="submission-errors">
       <ul>
@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="row user-form">
-    <div class="user-details">
+    <div class=<%= current_user.cf_admin? ? "cf-user-details" : "form-row"%>>
       <fieldset class="form-column contact-details">
         <%= f.input :email, label: t(".email"), readonly: user.id.present? %>
         <%= f.input :first_name, label: t(".first_name") %>
@@ -32,30 +32,36 @@
         value_method: :first,
         include_blank: t("users.choose"),
         selected: selected_role,
-        label: t(".primary.role") %>
+        label: t(".primary.role"),
+        disabled: (user == current_user && !user.cf_admin? && controller.action_name == 'edit') %>
         <%= cascade_select_input f, :developer_id, Developer, label: t(".primary.developer") %>
         <%= cascade_select_input f, :division_id, Division, label: t(".primary.division") %>
         <%= cascade_select_input f, :development_id, Development, label: t(".primary.development") %>
       </fieldset>
 
-      <fieldset class="form-column su-permission-level skip-global-selectmenu">
-        <div class="su-controls">
-          <%= f.input :su_role,
-          as: :select,
-          collection: User::accessible_admin_roles(current_user),
-          label_method: ->(role) { t(role.first) },
-          value_method: :first,
-          include_blank: t("users.choose"),
-          label: t(".additional.role") %>
-          <%= cascade_select_input f, :su_developer_id, Developer %>
-          <%= cascade_select_input f, :su_division_id, Division %>
-          <%= cascade_select_input f, :su_development_id, Development %>
-          <%= button_tag t(".add_role"), :type => 'button', class: "btn", id: 'add_role' %>
-        </div>
-      </fieldset>
+      <% if current_user.cf_admin? %>
+        <fieldset class="form-column su-permission-level skip-global-selectmenu">
+          <div class="su-controls">
+            <%= f.input :su_role,
+            as: :select,
+            collection: User::accessible_admin_roles(current_user),
+            label_method: ->(role) { t(role.first) },
+            value_method: :first,
+            include_blank: t("users.choose"),
+            label: t(".additional.role") %>
+            <%= cascade_select_input f, :su_developer_id, Developer %>
+            <%= cascade_select_input f, :su_division_id, Division %>
+            <%= cascade_select_input f, :su_development_id, Development %>
+            <%= button_tag t(".add_role"), :type => 'button', class: "btn", id: 'add_role' %>
+          </div>
+        </fieldset>
+      <% end %>
 
-      <fieldset class="form-column">
-        <label><%= t(".additional_roles") %></label>
+      <fieldset class="form-column su-additional-roles ">
+        <div>
+          <label class='inline'><%= t(".additional_roles") %></label>
+          <%= help_btn text: t('.additional_roles_info'), title: t('.additional_roles')%>
+        </div>
         <div class="additional-roles ">
           <%= f.fields_for :grants do |g| %>
             <% grant = g.object %>
@@ -68,7 +74,9 @@
                 <% if grant.permission_level.present? %>
                   <div class="header">
                     <span class="additional-role-meta inline"><%= t(grant.role) %></span>
-                    <i class='fa fa-times delete'></i>
+                    <% if current_user.cf_admin? %>
+                      <i class='fa fa-times delete'></i>
+                    <% end %>
                   </div>
                   <span class="additional-role-meta"><%= grant.developer %></span>
                   <% if grant.division.present? %>
@@ -86,6 +94,11 @@
     </div>
 
     <hr class="solid">
+
+    <div class="form-row-head">
+      <%= help_btn text: t('.email_pref_info'), title: t('.email_pref_title')%>
+      <p><%= t(".email_pref_title") %></p>
+    </div>
 
     <div class="form-row">
       <fieldset class="form-column emails">

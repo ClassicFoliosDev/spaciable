@@ -375,8 +375,10 @@ class User < ApplicationRecord
     return cf_admin? || (charts? && chart?(:competition))
   end
 
-  def roles
-    return [self] + grants.to_a
+  def roles(args)
+    r = [self]
+    r += grants.to_a unless args[:primary]
+    return r
   end
 
   def developers

@@ -24,4 +24,11 @@ class Grant < ApplicationRecord
     return nil unless permission_level.is_a? Development
     permission_level.identity
   end
+
+  # is the provided developer the same as that associated with this grant?
+  def at_developer(development_id)
+    return permission_level_id == development_id if permission_level.is_a? Developer
+    return permission_level.developer_id == development_id if permission_level.is_a? Division
+    permission_level.parent_developer_id == development_id
+  end
 end

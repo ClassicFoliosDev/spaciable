@@ -1,7 +1,7 @@
 /* global $ */
 var $body = $('body')
 
-$(document).on('click', '.info-btn', function (event) {
+$(document).on('click', '.info-btn, .help-btn', function (event) {
   var dataIn = $(this).data()
   // Note: _ in data content names is translated to camelCase automatically
 
@@ -27,6 +27,7 @@ $(document).on('click', '.info-btn', function (event) {
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  event.stopPropagation();
 })
 
 function infoDialog (title, message, details) {

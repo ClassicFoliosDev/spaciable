@@ -41,6 +41,7 @@
   <tbody>
     <% @users.each do |fulluser| %>
     <% user = User.new(fulluser.except("company_name","division_name","development_name")) %>
+    <% next unless current_user.cf_admin? || current_user.developer == user.developer %>
     <tr data-user="<%= user.id %>">
       <td colspan="2"><%= link_to user.email, admin_user_path(user) %></td>
       <td><%= user.full_name %></td>

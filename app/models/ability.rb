@@ -34,7 +34,7 @@ class Ability
   end
 
   def roles_abilities(user, args)
-    user.roles.each { |role| role_abilities(role, args) }
+    user.roles(args).each { |role| role_abilities(role, args) }
   end
 
   def role_abilities(role, args)
