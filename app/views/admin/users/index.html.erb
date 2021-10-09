@@ -24,7 +24,7 @@
     <tr>
       <th colspan="2"><%= sortable(@users, "LOWER(users.email)", t(".email")) %></th>
       <th><%= sortable(@users, "LOWER(users.first_name)", t(".name")) %></th>
-      <th><%= sortable(@users, "users.role", t(".role")) %></th>
+      <th><%= help_btn text: t('.help.role.text'), title: t('.help.role.title')%><%= sortable(@users, "users.role", t(".role")) %></th>
       <% if User.roles[current_user.role] < User.roles[:developer_admin] %>
         <th><%= sortable(@users, "LOWER(developers.company_name)", t(".developer")) %></th>
       <% end %>
