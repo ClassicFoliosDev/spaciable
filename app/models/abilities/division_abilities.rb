@@ -17,7 +17,9 @@ module Abilities
     private
 
     def division_videos(division)
-      can :manage, Video, videoable_type: "Division", videoable_id: division
+      polymorphic_abilities Video, :videoable do
+        type "Division", id: division, actions: :manage
+      end
     end
 
     def read_divisions(developer_id, division)

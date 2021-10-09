@@ -20,9 +20,8 @@ module Abilities
     private
 
     def developer_videos(developer)
-      can :manage, Video, videoable_type: "Developer", videoable_id: developer
-      Division.where(developer_id: developer).find_each do |division|
-        can :manage, Video, videoable_type: "Division", videoable_id: division
+      polymorphic_abilities Video, :videoable do
+        type "Developer", id: developer, actions: :manage
       end
     end
 

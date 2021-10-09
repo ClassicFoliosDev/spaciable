@@ -74,7 +74,9 @@ module Abilities
     end
 
     def development_videos(developments)
-      can :manage, Video, videoable_id: developments
+      polymorphic_abilities Video, :videoable do
+        type "Development", id: developments, actions: :manage
+      end
     end
 
     def development_custom_tiles(developments)

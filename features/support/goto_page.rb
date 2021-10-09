@@ -35,6 +35,7 @@ module GotoPage
 
     within ".developments" do
       click_on division_development
+      sleep 1
     end
   end
 

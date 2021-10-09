@@ -26,7 +26,8 @@ module DivisionTabsHelper
         menus: faqmenubuilder.menus_for(division)
       },
       brands: { icon: "css3" },
-      videos: { icon: "file-video-o" },
+      videos: { icon: "file-video-o",
+                permissions_on: -> { division } },
       content_management: {
         icon: "clock-o",
         permissions_on: -> { division }
