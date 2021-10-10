@@ -25,7 +25,7 @@ module Abilities
         type "Developer", id: developer, actions: :manage
       end
     end
-    
+
     def developer_build_progress(developer)
       polymorphic_abilities BuildSequence, :build_sequenceable do
         type "Developer", id: developer, actions: :manage

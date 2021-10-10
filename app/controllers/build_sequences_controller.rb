@@ -8,10 +8,12 @@ class BuildSequencesController < ApplicationController
   before_action :set_parent
 
   def show
+    authorize! :new, BuildSequence.new(build_sequenceable: @parent)
     @back = params[:back]
   end
 
   def edit
+    authorize! :new, BuildSequence.new(build_sequenceable: @parent)
     @steps_enabled = params[:build_steps]
   end
 
