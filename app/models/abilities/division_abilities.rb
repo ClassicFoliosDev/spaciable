@@ -17,16 +17,18 @@ module Abilities
 
     private
 
+    def division_videos(division)
+      polymorphic_abilities Video, :videoable do
+        type "Division", id: division, actions: :manage
+      end
+    end
+    
     def division_build_progress(division)
       polymorphic_abilities BuildSequence, :build_sequenceable do
         type "Division", id: division, actions: :manage
         type "Global", id: Global.root.id, actions: :read
       end
       can :read, Global
-    end
-
-    def division_videos(division)
-      can :manage, Video, videoable_type: "Division", videoable_id: division
     end
 
     def read_divisions(developer_id, division)

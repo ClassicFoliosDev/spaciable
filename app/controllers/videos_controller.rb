@@ -16,6 +16,7 @@ class VideosController < ApplicationController
 
   def new
     (redirect_to root_url unless current_user.cf_admin?) if @parent.expired?
+    authorize! :new, @video
   end
 
   def edit

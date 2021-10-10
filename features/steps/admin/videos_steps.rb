@@ -30,7 +30,7 @@ When(/^I create a video for the division development$/) do
     click_on t("components.empty_list.add", action: "Add", type_name: Video.model_name.human.titleize)
   end
 
-  within ".row" do
+  within ".row.video" do
     fill_in "video_title", with: VideoFixture.title
     fill_in "video_link", with: VideoFixture.link
   end
