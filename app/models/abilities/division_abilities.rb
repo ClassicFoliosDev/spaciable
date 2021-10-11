@@ -22,7 +22,7 @@ module Abilities
         type "Division", id: division, actions: :manage
       end
     end
-    
+
     def division_build_progress(division)
       polymorphic_abilities BuildSequence, :build_sequenceable do
         type "Division", id: division, actions: :manage
