@@ -1,30 +1,18 @@
 // we can't use jquery document ready for these because they are loaded from partials
 
 // finish category
-$(document).on('mouseover', '#categoryHelp', function (event) {
-  $('.category-help').show()
-})
-
-$(document).on('mouseleave', '#categoryHelp', function (event) {
-  $('.category-help').hide()
+$(document).on('click', '#categoryHelp', function (event) {
+  $('.category-help').toggle()
 })
 
 // finish type
-$(document).on('mouseover', '#typeHelp', function (event) {
-  $('.type-help').show()
-})
-
-$(document).on('mouseleave', '#typeHelp', function (event) {
-  $('.type-help').hide()
+$(document).on('click', '#typeHelp', function (event) {
+  $('.type-help').toggle()
 })
 
 // finish manufacturer
-$(document).on('mouseover', '#manufacturerHelp', function (event) {
-  $('.manufacturer-help').show()
-})
-
-$(document).on('mouseleave', '#manufacturerHelp', function (event) {
-  $('.manufacturer-help').hide()
+$(document).on('click', '#manufacturerHelp', function (event) {
+  $('.manufacturer-help').toggle()
 })
 
 // unit type
@@ -74,11 +62,7 @@ $(document).on('mouseout', '#plotStatusHelp', function (event) {
 
 // finish category
 $(document).on('mouseover', '#plotfiltersHelp', function (event) {
-  $('.plot-filters-help').show()
-})
-
-$(document).on('mouseleave', '#plotfiltersHelp', function (event) {
-  $('.plot-filters-help').hide()
+  $('.plot-filters-help').toggle()
 })
 
 $(document).on('click', '#stepHelp', function (event) {
