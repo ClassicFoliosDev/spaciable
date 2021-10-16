@@ -33,7 +33,10 @@ class Ability
     can :read, HowTo
   end
 
+  # rubocop:disable Metrics/MethodLength
   def role_abilities(role, user, args)
+    global_abilities(user)
+
     case role.to_sym
     when :cf_admin
       cf_admin_abilities
@@ -48,6 +51,12 @@ class Ability
     when :concierge
       concierge_abilities(user)
     end
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def global_abilities(user)
+    can :read, UserPreference
+    can %i[create update], UserPreference, user_id: user.id
   end
 
   def wysiwyg_permissions

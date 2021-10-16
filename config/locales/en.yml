@@ -300,9 +300,9 @@ en:
     added: "added to"
     updated: "updated on"
     generic_updated: "Your home's details have been updated. If you would like more information, please contact your developer."
-    updated_state: "updated to %{state}"
-    updated_progress: "<p>The Build Progress status has been updated to:</p>%{state}"
-    updated_build: "You Have a Build Progress Update"
+    updated_state: "updated to %{stage}"
+    updated_progress: "<p>The Build Progress status has been updated to:</p>%{stage}"
+    updated_build: "Build Progress Updated to: %{stage}"
 
   mailchimp:
     no_change: "Existing mailchimp details have not been modified"
@@ -1131,7 +1131,7 @@ en:
         api_config_description: "Add and modify partner API metadata"
         api_config_btn: "Modify Partner APIs"
         master_build_progress: "Build Progress"
-        master_build_progress_desc: "View and edit the global Build Progress stages and email content"
+        master_build_progress_desc: "View and edit the global Build Progress stages and email content."
         master_build_progress_btn: "Modify Build Progress"
       uploads:
         title: "Global Settings."
@@ -4090,7 +4090,7 @@ en:
       build_progress: "Build Progress"
       build_progress_desc: "View and edit the Build Progress stages and email content for %{parent}"
       parent_build_progress_desc: "Build Progress content currently seen by your plots is the <strong>%{build_sequences}</strong> list."
-      build_progress_btn: "View Build Progress"
+      build_progress_btn: "Modify Build Progress"
 
   api:
     pre_sales:
@@ -4113,7 +4113,7 @@ en:
       current: "Current Stage Titles"
       title: "Progress Stage"
       description: "Email Content"
-      step_help: "These are the current stages live on the portal. Any residents on a deleted stage are moved to the next stage below, shown here by the stages merging into the same box."
+      step_help: "These are the current stages live on the portal. Any plots on a deleted stage are moved to the following stage (or the previous stage if the final stage is deleted), shown here by the stages merging into the same box."
       confirm:
         new: "Please confirm to create a new Build Progress list specific to %{parent} with the following build sequence:"
         update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"

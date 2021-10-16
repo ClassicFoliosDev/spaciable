@@ -8,8 +8,6 @@ class UserPreferencesController < ApplicationController
   end
 
   def set_preference
-    authorize! :set_preference, UserPreference, current_user.id
-
     preference = UserPreference.where(user_id: current_user.id,
                                       preference: params[:preference])
                                .first_or_initialize
@@ -19,9 +17,10 @@ class UserPreferencesController < ApplicationController
   end
 
   def authorize_preference
-    authorize! :preference, UserPreference
+    authorize! :read, UserPreference
     @preference = UserPreference.find_by(user_id: current_user.id,
                                          preference: params[:preference])
-    authorize! :preference, @preference
+    authorize! :create, UserPreference.new(user_id: current_user.id) unless @preference
+    authorize! :update, @preference if @preference
   end
 end
