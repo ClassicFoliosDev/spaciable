@@ -61,7 +61,7 @@ $(document).on('mouseout', '#plotStatusHelp', function (event) {
 })
 
 // finish category
-$(document).on('mouseover', '#plotfiltersHelp', function (event) {
+$(document).on('click', '#plotfiltersHelp', function (event) {
   $('.plot-filters-help').toggle()
 })
 
