@@ -84,7 +84,7 @@ Then(/^I should see a notification for the updated plot progress$/) do
   visit "/homeowners/notifications"
 
   within ".notification-list" do
-    card = page.find(".details", text: t("notify.updated_build"))
+    card = page.find(".notification-list > div:first-of-type")
     card.trigger(:click)
   end
 
