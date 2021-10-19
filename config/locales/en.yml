@@ -4088,7 +4088,7 @@ en:
   content_managements:
     show:
       build_progress: "Build Progress"
-      build_progress_desc: "View and edit the Build Progress stages and email content for %{parent}"
+      build_progress_desc: "View and edit the Build Progress stages and email content for %{parent}."
       parent_build_progress_desc: "Build Progress content currently seen by your plots is the <strong>%{build_sequences}</strong> list."
       build_progress_btn: "Modify Build Progress"
 
