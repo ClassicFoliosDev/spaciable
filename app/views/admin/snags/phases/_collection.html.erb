@@ -1,12 +1,10 @@
 <% breadcrumb :admin_snag_overview %>
 
-<% if access_to_snagging(current_user) %>
+<% if access_to_snagging(current_ability) %>
   <table class="record-list phases">
     <thead>
     <tr>
-      <% if current_user.cf_admin? %>
-        <th><%= sortable(Phase, :developer_id, t(".developer_name")) %></th>
-      <% end %>
+      <th><%= sortable(Phase, :developer_id, t(".developer_name")) %></th>
       <th><%= sortable(Phase, :division_id, t(".division_name")) %></th>
       <th><%= sortable(Phase, :development_id, t(".development_name")) %></th>
       <th><%= sortable(Phase, :name, t(".phase_name")) %></th>
@@ -18,9 +16,7 @@
     <tbody>
       <% collection.each do |phase| %>
         <tr data-phase="<%= phase.id %>">
-          <% if current_user.cf_admin? %>
-            <td><%= phase.developer %></td>
-          <% end %>
+          <td><%= phase.developer %></td>
           <td><%= phase.division if phase.division %></td>
           <td><%= phase.development %></td>
           <td><%= phase.name %></td>

@@ -59,8 +59,8 @@
 
       <fieldset class="form-column su-additional-roles ">
         <div>
-          <label class='inline'><%= t(".additional_roles") %></label>
           <%= help_btn text: t('.additional_roles_info'), title: t('.additional_roles')%>
+          <label class='inline'><%= t(".additional_roles") %></label>
         </div>
         <div class="additional-roles ">
           <%= f.fields_for :grants do |g| %>
@@ -97,7 +97,7 @@
 
     <div class="form-row-head">
       <%= help_btn text: t('.email_pref_info'), title: t('.email_pref_title')%>
-      <p><%= t(".email_pref_title") %></p>
+      <p><%= simple_format t(".email_pref_title") %></p>
     </div>
 
     <div class="form-row">

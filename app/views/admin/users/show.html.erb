@@ -32,7 +32,7 @@
         </div>
       <% end %>
     <div class="role">
-      <%= label_tag t(".primary_role") %>
+      <label><%= t(".primary_role") %></label>
       <% if @user.cf_admin? %>
         <span><%= t(@user.role) %></span>
       <% else %>
@@ -44,7 +44,8 @@
         <label><%= t(".additional_roles") %></label>
         <% @user.grants.each do |grant| %>
           <p>
-          <% if grant.at_developer(@user.developer) %>
+          <% if grant.at_developer(@user.developer) ||
+                (grant.permission_level_type == "Developer") %>
             <%= t(".role_at",role: t(grant.role),
                     permission_level_name: grant.permission_level) %>
           <% else %>

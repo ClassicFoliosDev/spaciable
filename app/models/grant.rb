@@ -26,9 +26,9 @@ class Grant < ApplicationRecord
   end
 
   # is the provided developer the same as that associated with this grant?
-  def at_developer(development_id)
-    return permission_level_id == development_id if permission_level.is_a? Developer
-    return permission_level.developer_id == development_id if permission_level.is_a? Division
-    permission_level.parent_developer_id == development_id
+  def at_developer(developer_id)
+    return permission_level_id == developer_id if permission_level.is_a? Developer
+    return permission_level.developer_id == developer_id if permission_level.is_a? Division
+    permission_level.parent_developer.id == developer_id
   end
 end

@@ -37,6 +37,7 @@ document.addEventListener('turbolinks:load', function () {
   })
 
   showRoleResourcesOnly ($('#user_role').val(), true)
+  showHideAdditionalEmailPreferences()
 
   function developerSelectmenuCallbacks (primary) {
     return {
@@ -329,6 +330,10 @@ document.addEventListener('turbolinks:load', function () {
   };
 })
 
+function showHideAdditionalEmailPreferences()  {
+  $(".form-row-head").toggle(($(".additional-role:visible").length != 0))
+}
+
 // send the positive feedback on positive response
 $(document).on('click', '#resendInvitation', function (event) {
   var dataIn = $(this).data()
@@ -458,6 +463,8 @@ $(document).on('click', '#add_role', function (event) {
     newrole.show()
     $num_additional_roles += 1
   }
+
+  showHideAdditionalEmailPreferences()
 })
 
 function initialiseRole(role){
@@ -492,6 +499,8 @@ $(document).on('click', '.additional-role .delete', function (event) {
 function deleteAdditionalRole(role) {
   role.find("input[deletefield='true']").val(true)
   role.hide()
+
+  showHideAdditionalEmailPreferences()
 }
 
 function duplicateOf(additional_role) {
