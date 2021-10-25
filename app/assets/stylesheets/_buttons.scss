@@ -30,8 +30,6 @@ $button-line-height: 28px;
   background-color: $ui-white;
   color: $primary-button-color;
 
-
-
   &:hover {
     color: $ui-white;
     background-color: $primary-button-color;
@@ -52,12 +50,16 @@ $button-line-height: 28px;
 
 .help-btn {
     color: $ui-black;
-    border-width: 0;
-    width: 15;
+    border-width: 1;
+    border-color: $ui-black;
+    width: 14;
+    height: 14;
     padding: 0;
+    border-radius: 7px;
 
     &:hover {
     color: $ui-white;
+    border-width: 0;
     background-color: $ui-black;
   }
 }

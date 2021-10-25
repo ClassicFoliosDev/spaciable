@@ -64,7 +64,7 @@ module ButtonsHelper
                 class: "btn help-btn",
                 type: "button",
                 title: I18n.t("buttons.info.help")) do
-      icon "question-circle", ""
+      icon "question", ""
     end
   end
 
