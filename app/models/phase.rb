@@ -78,6 +78,15 @@ class Phase < ApplicationRecord
     :commercial
   ]
 
+  enum package: %i[
+    free
+    essentials
+    professional
+    legacy
+  ]
+
+  validates :package, presence: true
+
   def build_address_with_defaults
     return if address.present?
     return build_address if !development || !development.address

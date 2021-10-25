@@ -22,6 +22,7 @@
         <% else %>
           <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
         <% end %>
+        <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true %>
       </fieldset>
     </div>
     <div class="row-item third">

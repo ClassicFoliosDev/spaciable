@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210801125628) do
+ActiveRecord::Schema.define(version: 20211024143029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -870,6 +870,7 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.integer  "unresolved_snags", default: 0
     t.integer  "business",         default: 0
     t.boolean  "conveyancing",     default: true
+    t.integer  "package",          default: 3
     t.index ["deleted_at"], name: "index_phases_on_deleted_at", using: :btree
     t.index ["developer_id"], name: "index_phases_on_developer_id", using: :btree
     t.index ["development_id"], name: "index_phases_on_development_id", using: :btree

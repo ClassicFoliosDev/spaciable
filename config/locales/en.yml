@@ -3436,6 +3436,11 @@ en:
           nhbc: "NHBC"
           mhf: "Migrated"
           commercial: "Commercial"
+        packages:
+          free: "Free"
+          essentials: "Essentials"
+          professional: "Professional"
+          legacy: "Legacy"
       unit_type:
         name: "Unit type name"
         picture: "Unit type picture"
