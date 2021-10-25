@@ -87,6 +87,12 @@ class Phase < ApplicationRecord
 
   validates :package, presence: true
 
+  def res_comp?
+    plots.where("plots.completion_release_date IS NOT NULL OR " \
+                "plots.reservation_release_date IS NOT NULL")
+         .count.positive?
+  end
+
   def build_address_with_defaults
     return if address.present?
     return build_address if !development || !development.address

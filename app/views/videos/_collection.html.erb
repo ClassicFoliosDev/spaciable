@@ -1,3 +1,7 @@
+<% if free_phases?(parent) %>
+  <%= render "components/admin/help", title: 'Videos Restricted', preference: :show_video_restriction_dialog, help: [t(".help")] %>
+<% end %>
+
 <% if collection.empty? %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>

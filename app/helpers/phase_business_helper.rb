@@ -13,6 +13,15 @@ module PhaseBusinessHelper
     end
   end
 
+  def disabled_phase_packages(phase)
+    return %i[professional legacy] if phase.res_comp? && phase.free?
+    []
+  end
+
+  def free_phases?(parent)
+    parent.phases.where(package: :free).count.positive?
+  end
+
   private
 
   def businesses_scope

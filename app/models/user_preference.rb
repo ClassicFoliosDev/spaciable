@@ -6,5 +6,6 @@ class UserPreference < ApplicationRecord
   enum preference: %i[
     show_build_progress_dialog
     show_edit_build_progress_dialog
+    show_video_restriction_dialog
   ]
 end

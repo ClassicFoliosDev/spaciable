@@ -22,7 +22,13 @@
         <% else %>
           <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
         <% end %>
-        <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true %>
+        <% if phase.res_comp? && !phase.free? %>
+          <label>Package</label>
+          <p><%= t("activerecord.attributes.phase.packages.#{phase.package}") %></p>
+        <% else %>
+          <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true,
+            disabled: disabled_phase_packages(phase) %>
+        <% end %>
       </fieldset>
     </div>
     <div class="row-item third">

@@ -1283,6 +1283,7 @@ en:
       create: "Add Video"
       title: "Video"
       link: "Link"
+      help: "Residents of plots on the Free package cannot view videos. To unlock videos for those residents please ask Classic Folios about a Spaciable package upgrade."
     show:
       back: "Back"
     edit:
