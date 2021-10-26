@@ -34,6 +34,7 @@ class Ability
   end
 
   def roles_abilities(user, args)
+    global_abilities(user)
     user.roles(args).each { |role| role_abilities(role, args) }
   end
 
@@ -52,6 +53,12 @@ class Ability
     when :concierge
       concierge_abilities(role)
     end
+  end
+  # rubocop:enable Metrics/MethodLength
+
+  def global_abilities(user)
+    can :read, UserPreference
+    can %i[create update], UserPreference, user_id: user.id
   end
 
   def wysiwyg_permissions

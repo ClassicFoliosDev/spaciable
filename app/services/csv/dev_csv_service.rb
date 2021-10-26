@@ -61,7 +61,7 @@ module Csv
         plot.validity, plot.extended_access,
         plot_expiry_date(plot),
         build_date(plot, "completion_date"),
-        I18n.t("activerecord.attributes.plot.progresses.#{plot.progress}")
+        plot.build_step_title
       ]
     end
 

@@ -12,11 +12,27 @@ module Abilities
       developer_contacts(developer)
       developer_documents(developer)
       developer_timelines(developer)
+      developer_videos(developer)
       developer_calendar
       read_developers(developer)
+      developer_build_progress(developer)
     end
 
     private
+
+    def developer_videos(developer)
+      polymorphic_abilities Video, :videoable do
+        type "Developer", id: developer, actions: :manage
+      end
+    end
+
+    def developer_build_progress(developer)
+      polymorphic_abilities BuildSequence, :build_sequenceable do
+        type "Developer", id: developer, actions: :manage
+        type "Global", id: Global.root.id, actions: :read
+      end
+      can :read, Global
+    end
 
     def developer_faqs(developer_id)
       polymorphic_abilities Faq, :faqable do
