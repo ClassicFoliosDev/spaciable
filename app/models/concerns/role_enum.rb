@@ -9,7 +9,8 @@ module RoleEnum
       :developer_admin,
       :division_admin,
       :development_admin,
-      :site_admin
+      :site_admin,
+      :concierge
     ]
   end
 end

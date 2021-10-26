@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
 module GotoPage
-  def goto_resource_show_page(parent, resource)
+  def goto_resource_show_page(parent, resource, additional = nil)
     resource = "Developer" if resource == "CF" # assume top level
     resource_name = CreateFixture.ResourceName(resource, parent)
 
-    send("goto_#{resource_name}_show_page")
+    send("goto_#{resource_name}_show_page", additional)
   end
 
-  def goto_developer_show_page
-    developer = CreateFixture.developer
+  def goto_developer_show_page(additional = nil)
+    developer = AdditionalRoleFixture.developer(additional)
     raise "Developer does not exist" unless developer
 
     visit "/developers/#{developer.id}"
-
   end
 
-  def goto_division_show_page
-    division = CreateFixture.division
+  def goto_division_show_page(additional = nil)
+    division =  AdditionalRoleFixture.division(additional)
     raise "Division does not exist" unless division
 
     visit "/developers/#{division.developer.id}/divisions/#{division.id}"
@@ -27,11 +26,11 @@ module GotoPage
     end
   end
 
-  def goto_division_development_show_page
-    division_development = CreateFixture.division_development
+  def goto_division_development_show_page(additional = nil)
+    division_development = AdditionalRoleFixture.division_development(additional)
     raise "Division Development does not exist" unless division_development
 
-    goto_division_show_page
+    goto_division_show_page(additional)
 
     within ".developments" do
       click_on division_development
@@ -39,8 +38,8 @@ module GotoPage
     end
   end
 
-  def goto_development_show_page
-    development = CreateFixture.development
+  def goto_development_show_page(additional = nil)
+    development = AdditionalRoleFixture.development(additional)
     raise "Development does not exist" unless development
 
     visit "/developers/#{development.developer.id}/developments/#{development.id}"
@@ -50,7 +49,7 @@ module GotoPage
     end
   end
 
-  def goto_development_phase_show_page
+  def goto_development_phase_show_page(additional = nil)
     phase = CreateFixture.phase
     raise "Phase does not exist" unless phase
 
@@ -61,7 +60,7 @@ module GotoPage
     end
   end
 
-  def goto_spanish_development_show_page
+  def goto_spanish_development_show_page(additional = nil)
     development = CreateFixture.spanish_development
     raise "Development does not exist" unless development
 
@@ -72,8 +71,8 @@ module GotoPage
     end
   end
 
-  def goto_plot_show_page
-    goto_development_show_page
+  def goto_plot_show_page(additional = nil)
+    goto_development_show_page(additional)
 
     within ".tabs" do
       click_on t("developments.collection.plots")
@@ -84,8 +83,8 @@ module GotoPage
     end
   end
 
-  def goto_phase_show_page
-    goto_development_show_page
+  def goto_phase_show_page(additional = nil)
+    goto_development_show_page(additional)
 
     within ".phases" do
       click_on CreateFixture.phase_name
@@ -94,8 +93,8 @@ module GotoPage
 
   end
 
-  def goto_phase_plot_show_page
-    goto_phase_show_page
+  def goto_phase_plot_show_page(additional = nil)
+    goto_phase_show_page(additional)
 
     within ".plots" do
       click_on CreateFixture.phase_plot_name

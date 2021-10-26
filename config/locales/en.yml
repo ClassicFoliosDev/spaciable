@@ -97,10 +97,12 @@ en:
     info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"
+      help: "Help"
     share_tenants: "Private: click to share with tenants of this plot"
     share_all: "Private: click to share with tenants and other residents of this plot"
     shared: "Shared: click to disable sharing"
     cancel:
+      title: "Cancel"
       confirm: "Confirm Cancel"
     confirm_dialog:
       title: "Confirm"
@@ -986,24 +988,48 @@ en:
         receive_invitation_emails: "Receive a weekly summary of resident activations"
         email_list: "CC %{type} Emails"
         cc_list: "Add any email addresses to CC %{type} emails. Separate multiple email addresses with a space, comma or semi-colon."
+        primary:
+          role: "Primary Role"
+          developer: "Primary Developer"
+          division: "Primary Division"
+          development: "Primary Development"
+        additional:
+          role: "Additional Role"
+        add_role: "Add Role"
+        additional_roles: "Additional Roles"
+        duplicate_role: "This is a Duplicate Role"
+        higher_precidence: "Additional Roles must not have greater access than the Primary Role.<br/><br/> Either change the Primary Role or amend the access of the following Additional Roles."
+        higher_precidence_title: "Cannot add Additional Role"
+        additional_roles_info: "Additional Roles grant this user access to other divisions and developments. To request Additional Roles, please contact your Classic Folios Account Manager."
+        email_pref_info: "Update the Primary Role's email preferences. Emails will not be received for any Additional Roles."
+        email_pref_title: "Primary Role Email Preferences"
       index:
         title: "Admins."
         add: "Add User"
         email: "Email"
         name: "Name"
-        role: "Role"
+        role: "Primary Role"
         developer: "Developer"
         division: "Division"
         development: "Development"
         accepted_at: "Activation Date"
         search: "Admin users search"
         export_csv: "Export to CSV"
+        associated_role_user: "This belongs to %{developer}"
+        associated_role_user_title: "Associated Role User"
+        help:
+          role:
+            text: "Only the Primary Role for each admin is shown in this table. Admins may have Additional Roles, which provide access to other developers, divisions or developments. Click on an admin email to view any Additional Roles they have."
+            title: "Primary Role"
       new:
         add: "New User."
       show:
         back: "Back"
+        primary_role: "Primary Role"
         role_at: "%{role} at %{permission_level_name}"
+        dev_role_at: "%{dev} %{role} at %{permission_level_name}"
         job_title: "Job Title"
+        additional_roles: "Additional Roles"
       update:
         success: "%{user_name} was updated successfully"
         success_password: "%{user_name} password was updated successfully, please log in again."
@@ -1391,6 +1417,9 @@ en:
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
     index:
       add: "Add Development"
+      title: "Developments"
+      development: "Development"
+      phases: "Phases"
     development:
       expiry: "All plots on this development have expired. <br/>To extend the access, please contact your Classic Folios account manager."
       partial_expiry: "Some plots on this development have expired. <br/>To extend the access, please contact your Classic Folios account manager."
@@ -2154,6 +2183,9 @@ en:
       destroy: "Delete"
       show: "Show"
       title: "Divisions"
+      division: "Division"
+      developments: "Developments"
+      add: "Add Division"
     show:
       back: "Back"
     collection:

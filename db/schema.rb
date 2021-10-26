@@ -679,6 +679,17 @@ ActiveRecord::Schema.define(version: 20210801125628) do
     t.string "name"
   end
 
+  create_table "grants", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "role"
+    t.string   "permission_level_type"
+    t.integer  "permission_level_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.index ["permission_level_type", "permission_level_id"], name: "index_grants_on_permission_level_type_and_permission_level_id", using: :btree
+    t.index ["user_id"], name: "index_grants_on_user_id", using: :btree
+  end
+
   create_table "how_to_sub_categories", force: :cascade do |t|
     t.text     "name"
     t.text     "parent_category"
@@ -1353,6 +1364,7 @@ ActiveRecord::Schema.define(version: 20210801125628) do
   add_foreign_key "finishes", "finish_categories"
   add_foreign_key "finishes", "finish_manufacturers"
   add_foreign_key "finishes", "finish_types"
+  add_foreign_key "grants", "users"
   add_foreign_key "how_tos", "how_to_sub_categories"
   add_foreign_key "maintenances", "developments"
   add_foreign_key "oauth_access_grants", "oauth_applications", column: "application_id"

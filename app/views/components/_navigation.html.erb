@@ -7,10 +7,10 @@
       <% end %>
 
       <% unless current_user.cf_admin? || current_user.concierge? %>
-        <%= navigation_link(my_admin_area_url(current_user.permission_level), "building", t(".my_area", area: current_user.permission_level.model_name), "navbar-link") %>
+        <%= navigation_link(my_admin_area_url(current_user), "building", t(".my_area", area: my_admin_area_title(current_user)), "navbar-link") %>
       <% end %>
 
-      <% unless current_user.concierge? || current_user.concierge? %>
+      <% unless current_user.concierge? %>
         <%= navigation_link(admin_notifications_path, "envelope", t(".notifications"), "navbar-link") %>
         <%= navigation_link(admin_admin_notifications_path, "envelope", t(".admin_notifications"), "navbar-link") if current_user.cf_admin? %>
       <% end %>

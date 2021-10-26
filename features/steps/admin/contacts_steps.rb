@@ -231,11 +231,15 @@ Then(/^I should not be able to create a developer contact$/) do
   expect(page).not_to have_content(t("contacts.collection.create"))
 end
 
-When(/^I create a developer contact$/) do
+When(/^I create a (additional )?developer contact$/) do |additional|
   visit "/"
 
   within ".navbar" do
-    click_on t("components.navigation.my_area", area: "Developer")
+    if additional
+      goto_developer_show_page(additional)
+    else
+      click_on t("components.navigation.my_area", area: "Developer")
+    end
   end
 
   click_on t("developers.collection.contacts")
@@ -252,8 +256,8 @@ When(/^I create a developer contact$/) do
   click_on t("contacts.form.submit")
 end
 
-When(/^I create a division contact$/) do
-  division = CreateFixture.division
+When(/^I create a (additional )?division contact$/) do |additional|
+  division = AdditionalRoleFixture.division(additional)
   visit "/divisions/#{division.id}/contacts"
 
   within ".empty" do
@@ -268,8 +272,9 @@ When(/^I create a division contact$/) do
   click_on t("contacts.form.submit")
 end
 
-When(/^I create a phase contact$/) do
-  phase = CreateFixture.phase
+When(/^I create a (additional )?phase contact$/) do |additional|
+  phase = AdditionalRoleFixture.phase(additional)
+
   visit "/phases/#{phase.id}/contacts"
 
   within ".empty" do
@@ -283,8 +288,8 @@ When(/^I create a phase contact$/) do
   end
 end
 
-When(/^I create a division phase contact$/) do
-  phase = CreateFixture.division_phase
+When(/^I create a (additional )?division phase contact$/) do |additional|
+  phase = AdditionalRoleFixture.division_phase(additional)
   visit "/phases/#{phase.id}/contacts"
 
   within ".empty" do
@@ -341,15 +346,15 @@ When(/^I create a phase contact with no email or phone$/) do
   end
 end
 
-When(/^I delete the phase contact$/) do
-  phase = CreateFixture.phase
+When(/^I delete the (additional )?phase contact$/) do |additional|
+  phase = AdditionalRoleFixture.phase(additional)
   visit "/phases/#{phase.id}/contacts/"
 
   delete_and_confirm!(scope: ".contacts")
 end
 
-When(/^I delete the division phase contact$/) do
-  phase = CreateFixture.division_phase
+When(/^I delete the (additional )?division phase contact$/) do |additional|
+  phase = AdditionalRoleFixture.division_phase(additional)
   visit "/phases/#{phase.id}/contacts/"
 
   delete_and_confirm!(scope: ".contacts")

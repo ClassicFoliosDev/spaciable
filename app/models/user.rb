@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
+  include RoleEnum
   acts_as_paranoid
   mount_uploader :picture, PictureUploader
 
@@ -17,11 +18,14 @@ class User < ApplicationRecord
   permissionable_field :permission_level
 
   attr_accessor :developer_id, :division_id, :development_id
+  attr_accessor :su_role, :su_developer_id, :su_division_id, :su_development_id
 
   belongs_to :permission_level, polymorphic: true
   delegate :expired?, to: :permission_level
 
   has_one :lettings_account, as: :accountable, dependent: :destroy
+  has_many :grants, dependent: :destroy
+  accepts_nested_attributes_for :grants, reject_if: :all_blank, allow_destroy: true
 
   has_many :cc_emails, dependent: :destroy
   accepts_nested_attributes_for :cc_emails, reject_if: :cc_emails_blank, allow_destroy: true
@@ -35,15 +39,6 @@ class User < ApplicationRecord
          :trackable,
          :validatable
   include DeviseInvitable::Admin
-
-  enum role: [
-    :cf_admin, # Classic Folio Admin
-    :developer_admin,
-    :division_admin,
-    :development_admin,
-    :site_admin,
-    :concierge
-  ]
 
   enum lettings_management: %i[
     zero
@@ -365,6 +360,7 @@ class User < ApplicationRecord
     CcEmail.email_types.each do |type, index|
       cc_emails.build(email_type: type) unless CcEmail.find_by(user_id: id, email_type: type)
     end
+    grants.build if grants.empty?
   end
 
   def charts?
@@ -377,6 +373,28 @@ class User < ApplicationRecord
 
   def competitions?
     return cf_admin? || (charts? && chart?(:competition))
+  end
+
+  def roles(args)
+    r = [self]
+    r += grants.to_a unless args[:primary]
+    return r
+  end
+
+  def developers
+    Developer.accessible_by(current_ability)
+  end
+
+  def divisions
+    Division.accessible_by(current_ability)
+  end
+
+  def developments
+    Development.accessible_by(current_ability, :read)
+  end
+
+  def current_ability
+    @current_ability ||= Ability.new(self)
   end
 
   scope :receives_faqs,

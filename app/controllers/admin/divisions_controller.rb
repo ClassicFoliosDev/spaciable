@@ -5,9 +5,10 @@ module Admin
     skip_authorization_check
 
     def index
+      ability = Ability.new(current_user, primary: true)
       selected_id = params[:divisionId].to_i
       divisions = Division
-                  .accessible_by(current_ability)
+                  .accessible_by(ability)
                   .where(developer_id: params[:developerId])
                   .select(:division_name, :id)
                   .order(:division_name).map do |division|

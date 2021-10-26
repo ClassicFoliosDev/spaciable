@@ -216,7 +216,8 @@ module CreateFixture
   end
 
   def create_developer(cas: false,  branded: false, name: developer_name)
-    return developer if developer
+    dev = Developer.find_by(company_name: name)
+    return dev if dev.present?
     create_countries
     dname = branded ? branded_developer_name : name
     FactoryGirl.create(:developer, company_name: dname, custom_url: dname.parameterize,

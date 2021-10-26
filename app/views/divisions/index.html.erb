@@ -1,0 +1,48 @@
+<% breadcrumb :divisions %>
+
+<div class="section-header">
+  <div class="section-title">
+    <%= t(".title") %>
+  </div>
+</div>
+
+<% if @divisions.empty? %>
+  <%= render 'components/empty_list', icon_name: "building", type: Division, parent: nil %>
+<% else %>
+  <% if can_create(Division, current_user.permission_level) %>
+    <div class="section-actions">
+      <%= link_to new_division_path, class: "btn btn-primary" do %>
+        <i class="fa fa-plus"></i>
+        <span class="btn-label"><%= t(".add") %></span>
+      <% end %>
+    </div>
+  <% end %>
+
+  <table class="record-list divisions">
+    <thead>
+      <tr>
+        <th><%= sortable(Division, :division_name, t(".division")) %></th>
+        <th><%= sortable(Division, :updated_at) %></th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @divisions.each do |division| %>
+      <tr data-division="<%= division.id %>">
+        <td><%= link_to division.division_name, developer_division_path(division.developer, division), active_tab: :divisions, title: division.division_name %></td>
+        <td><%= l division.updated_at.to_date, format: :digits %></td>
+        <td class="actions">
+          <%= link_to t(".developments"), [division.developer, active_tab: :developments], class: "btn" %>
+          <%= edit_btn edit_division_path(division), element: division %>
+          <%= permissable_delete_btn division, element: division %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="paging">
+    <%= render 'components/page_size' %>
+    <%= paginate @divisions %>
+  </div>
+<% end %>

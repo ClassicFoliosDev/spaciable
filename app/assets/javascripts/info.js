@@ -1,7 +1,7 @@
 /* global $ */
 var $body = $('body')
 
-$(document).on('click', '.info-btn', function (event) {
+$(document).on('click', '.info-btn, .help-btn', function (event) {
   var dataIn = $(this).data()
   // Note: _ in data content names is translated to camelCase automatically
 
@@ -27,4 +27,30 @@ $(document).on('click', '.info-btn', function (event) {
         }
       }]
   }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+  event.stopPropagation();
 })
+
+function infoDialog (title, message, details) {
+  var $dialogContainer = $('<div>', { id: 'dialog' }).html('<p>' + message + '</p>')
+
+  var $details = $('<p>').html(details)
+  $dialogContainer.append($details)
+
+  $body.append($dialogContainer)
+
+  $dialogContainer.dialog({
+    show: 'show',
+    modal: true,
+    dialogClass: 'archive-dialog',
+    title: title,
+    buttons: [
+      {
+        text: "Cancel",
+        class: 'btn-cancel',
+        click: function () {
+          $(this).dialog('close')
+          $(this).dialog('destroy').remove()
+        }
+      }]
+  }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
+}

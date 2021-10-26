@@ -77,6 +77,10 @@ label {
   margin-top: $label-margin * 3;
   margin-bottom: $label-margin;
   clear: left;
+
+  &.inline {
+    display: inline-block;
+  }
 }
 
 hr {

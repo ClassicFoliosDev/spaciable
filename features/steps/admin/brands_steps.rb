@@ -355,33 +355,20 @@ When(/^I delete the phase brand$/) do
   delete_and_confirm!(scope: ".styling")
 end
 
-Then(/^I should not be able to see developer brands$/) do
+Then(/^I should not be able to see (.*)(d.*) brands$/) do |additional, noun|
   visit "/"
   sleep 0.5
 
-  within ".navbar" do
-    click_on t("components.navigation.my_area", area: "Developer")
+  click_on t("components.navigation.my_area",
+             area: AdditionalRoleFixture.additional?(additional) ? noun.capitalize().pluralize() : noun.capitalize())
+
+  if AdditionalRoleFixture.additional?(additional)
+    all(:xpath, "//a[@title='#{AdditionalRoleFixture::ADDITIONAL}']").each do |additional|
+      additional.trigger('click')
+      expect(page).not_to have_content(t("#{noun}s.collection.brands"))
+      page.evaluate_script('window.history.back()')
+    end
+  else
+    expect(page).not_to have_content(t("#{noun}s.collection.brands"))
   end
-
-  expect(page).not_to have_content(t("developers.collection.brands"))
-end
-
-Then(/^I should not be able to see division brands$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.my_area", area: "Division")
-  end
-
-  expect(page).not_to have_content(t("divisions.collection.brands"))
-end
-
-Then(/^I should not be able to see development brands$/) do
-  visit "/"
-
-  within ".navbar" do
-    click_on t("components.navigation.my_area", area: "Development")
-  end
-
-  expect(page).not_to have_content(t("developers.collection.brands"))
 end

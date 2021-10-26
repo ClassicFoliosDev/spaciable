@@ -3,10 +3,10 @@
 # rubocop:disable Metrics/ModuleLength
 module Abilities
   module ClientSpecAbilities
-    def client_spec_abilities(developer, development_ids, user)
+    def client_spec_abilities(developer, development_ids, role)
       return if developer.blank?
-      # developer and user have to have CAS
-      return unless Developer.find(developer).cas && user.cas
+      # developer and role have to have CAS
+      return unless Developer.find(developer).cas && role.cas
 
       crud_finishes(developer)
       crud_appliances(developer)
