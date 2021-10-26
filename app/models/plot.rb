@@ -59,6 +59,7 @@ class Plot < ApplicationRecord
 
   delegate :build_steps, to: :parent
   delegate :title, to: :build_step, prefix: true
+  delegate :free?, to: :phase
 
   alias_attribute :identity, :number
 

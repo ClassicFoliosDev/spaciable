@@ -17,6 +17,7 @@ module Homeowners
       @videos = @plot&.videos
 
       redirect_to first_populated_tab_after(@category) if @videos.none?
+      redirect_to dashboard_path if @plot.free?
     end
   end
 end

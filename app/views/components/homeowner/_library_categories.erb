@@ -25,7 +25,7 @@
     <% end %>
 
     <% videos = plot&.videos %>
-    <% if videos.any? %>
+    <% if !plot.free? && videos.any? %>
       <li>
         <%= link_to t(".videos"),
                     homeowner_videos_path,
