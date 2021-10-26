@@ -618,7 +618,7 @@ end
 
 Then(/^I cannot save the new user$/) do
   click_on t("admin.users.form.submit")
-  expect(page).to have_content(t("admin.users.form.higher_precidence"))
+  expect(page).to have_content("Additional Roles must not have greater access than the Primary Role.")
   click_on "Cancel"
 end
 
