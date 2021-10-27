@@ -20,6 +20,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 
+  input.remove-image.hidden {
+    display: none;
+  }
 
   .input {
     margin-bottom: $spacing-medium;
