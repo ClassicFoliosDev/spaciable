@@ -14,7 +14,7 @@ module Homeowners
     end
 
     def show
-      redirect_to dashboard_path if params[:type].blank? || !@plot.enable_perks?
+      redirect_to dashboard_path if params[:type].blank? || !@plot.enable_perks? || @plot.free?
     end
 
     def create

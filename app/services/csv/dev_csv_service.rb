@@ -88,15 +88,15 @@ module Csv
         maintenance_type(plot),
         yes_or_no(plot.developer, "enable_services"),
         yes_or_no(plot.developer, "enable_referrals"), referrals_count(resident),
-        yes_or_no(plot.development, "enable_snagging"),
+        enabled?(plot, plot.development, "enable_snagging"),
         plot.snag_duration,
         plot.all_snags_count,
         plot.resolved_snags_count,
-        yes_or_no(plot.developer, "enable_perks"),
+        enabled?(plot, plot.developer, "enable_perks"),
         plot.development_premium_licences_bought,
         Vaboo.available_premium_licences(plot.development),
         Vaboo.perk_type_registered(resident, plot),
-        yes_or_no(plot.developer, "enable_roomsketcher"),
+        enabled?(plot, plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
         yes_or_no(plot.developer, "development_faqs"),
         plot.development_calendar ? "Yes" : "No",
@@ -107,6 +107,11 @@ module Csv
       ]
     end
     # rubocop:enable all
+
+    def self.enabled?(plot, record, field)
+      return "No" if plot.free? || plot.essentials?
+      yes_or_no(record, field)
+    end
 
     def self.referrals_count(resident)
       return 0 if resident.nil?

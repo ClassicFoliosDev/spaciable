@@ -2,7 +2,7 @@
 <div class="branded-body">
   <div class="outer-container dashboard" id="homeownerDashboard">
     <!-- find out how many active custom tiles the plot has -->
-    <% tiles = @custom_tiles %>
+    <% tiles = visible_tiles(@custom_tiles, @plot) %>
 
     <% if tiles.size == 1 || tiles.size == 4 %>
     <!-- if one or four tiles is activated then the page styling is different -->

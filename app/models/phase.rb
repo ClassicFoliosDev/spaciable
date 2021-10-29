@@ -153,6 +153,7 @@ class Phase < ApplicationRecord
   def self.snagging(current_ability)
     Phase.joins(:development)
          .where(developments: { enable_snagging: true })
+         .where.not(package: %i[free essentials])
          .accessible_by(current_ability)
   end
 
