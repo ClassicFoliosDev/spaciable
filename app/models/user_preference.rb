@@ -7,5 +7,7 @@ class UserPreference < ApplicationRecord
     show_build_progress_dialog
     show_edit_build_progress_dialog
     show_video_restriction_dialog
+    show_phase_calendar_restriction_dialog
+    show_plot_calendar_restriction_dialog
   ]
 end

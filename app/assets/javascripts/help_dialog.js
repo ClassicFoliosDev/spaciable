@@ -5,12 +5,12 @@ document.addEventListener('turbolinks:load', function () {
   $helpResource = $(".help-resource")
   if ($helpResource.length == 0 ) { return }
 
-  admin_help.show()
+  admin_help.show(true)
 })
 
 var admin_help = {
 
-  show: function() {
+  show: function(can_turn_off) {
     var dataIn = $helpResource.data()
 
     $.getJSON({
@@ -18,17 +18,19 @@ var admin_help = {
       data: { 'preference' : dataIn.preference }
     }).done(function (results) {
       if (results['on']) {
-        admin_help.display(dataIn)
+        admin_help.display(dataIn, can_turn_off)
       }
     })
   },
 
-  display: function(dataIn){
+  display: function(dataIn, can_turn_off){
     var $dialogContainer = $('<div>', { id: 'dialog' }).html($helpResource.html())
-    $dialogContainer.append("<div>" +
-                              "<input type='checkbox' id='noshow' name='noshow'>" +
-                              "<label for='noshow'>Please dont show me this message again.</label>" +
-                            "</div>")
+    if (can_turn_off) {
+      $dialogContainer.append("<div>" +
+                                "<input type='checkbox' id='noshow' name='noshow'>" +
+                                "<label for='noshow'>Please dont show me this message again.</label>" +
+                              "</div>")
+    }
 
     $('body').append($dialogContainer)
 

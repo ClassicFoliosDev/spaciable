@@ -2511,6 +2511,9 @@ en:
 
         add_all_plots: "Add All Plots"
         clear_all_plots: "Clear All Plots"
+    calendar:
+      index:
+        help: "Plots on the Spaciable Free package do not benefit from the calendar. To unlock the calendar, please ask Classic Folios about a Spaciable package upgrade."
 
   choice_configurations:
     create:
@@ -2710,6 +2713,7 @@ en:
       back: "Back"
       completion: "Completion date"
       preview: "Preview"
+      help: "Plots on the Spaciable Free package do not benefit from the calendar. To unlock the calendar, please ask Classic Folios about a Spaciable package upgrade."
     plot:
       expiry: "This plot's access has expired. To extend the access, please contact your Classic Folios account manager."
       letable: "Lettings: "

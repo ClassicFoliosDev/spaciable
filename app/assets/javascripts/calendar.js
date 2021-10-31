@@ -14,14 +14,6 @@ var admin = {
     calendarConfig = {
         displayEventEnd: false,
         timezone:"local",
-        customButtons: {
-          addEvent: {
-            text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
-            click: function() {
-              admin.newEvent(dataIn, moment())
-            }
-          }
-        },
         header:{
           left: 'prev, next, today',
           center: 'month, agendaWeek, agendaDay',
@@ -104,10 +96,25 @@ var admin = {
         }
       }
 
+      if ($(".help-resource").length == 0) {
+        calendarConfig.customButtons = {
+          addEvent: {
+            text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
+            click: function() {
+              admin.newEvent(dataIn, moment())
+            }
+          }
+        }
+      }
+
     // If the calendar is editable then add extras to support editing
     if (dataIn.editable) {
       calendarConfig.select = function(start, end, allday){
-          admin.newEvent(dataIn, start)
+          if ($(".help-resource").length == 0) {
+            admin.newEvent(dataIn, start)
+          } else {
+                admin_help.show(false)
+          }
         },
       calendarConfig.header.center = "addEvent, month, agendaWeek, agendaDay"
     }
