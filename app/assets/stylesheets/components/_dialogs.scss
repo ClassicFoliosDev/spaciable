@@ -190,3 +190,13 @@ input:checked + .feedback {
     display: inline-block;
   }
 }
+
+.restricted-dialog {
+  span i {
+    padding-right: 10;
+  }
+
+  .ui-dialog-titlebar {
+    background-color: #fc2803 !important;
+  }
+}

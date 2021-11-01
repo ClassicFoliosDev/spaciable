@@ -1,5 +1,5 @@
-<% if free_phases?(parent) %>
-  <%= render "components/admin/help", title: 'Videos Restricted', preference: :show_video_restriction_dialog, help: [t(".help")] %>
+<% if any_phases_free?(parent) %>
+  <%= render "components/admin/restricted", title: 'Videos Restricted', preference: :show_video_restriction_dialog, help: [t(".help")] %>
 <% end %>
 
 <% if collection.empty? %>

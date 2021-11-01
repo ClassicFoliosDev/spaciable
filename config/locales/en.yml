@@ -1417,6 +1417,12 @@ en:
       sync: "Sync?"
       back: "Back"
       upload: "Upload Documents"
+    calendar:
+      index:
+        help_some_free: "Some plots have the Spaciable Free package, so they do not have calendar access. To unlock the calendar for all plots, please ask Classic Folios about a Spaciable package upgrade."
+        help_some_free_title: "Calendar Inactive for Some Plots"
+        help_all_free: "No plots have calendar access, as all plots have the Spaciable Free package. To unlock the calendar, please ask Classic Folios about a Spaciable package upgrade."
+        help_all_free_title: "Calendar Inactive for All Plots"
 
   development_csv:
     index:

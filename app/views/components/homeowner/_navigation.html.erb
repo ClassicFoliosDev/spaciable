@@ -145,7 +145,7 @@
           </li>
         <% end %>
 
-        <% if plot.development_calendar %>
+        <% if !plot.free? && plot.development_calendar %>
           <%= link_to homeowner_calendar_path, active_tab: "faqs", class: "navbar-link" do %>
             <li class="navbar-item">
               <%= t('.calendar') %>

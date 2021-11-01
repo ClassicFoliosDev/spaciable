@@ -18,8 +18,19 @@ module PhaseBusinessHelper
     []
   end
 
-  def free_phases?(parent)
+  # are all the phases free?
+  def all_phases_free?(parent)
+    parent.phases.count == parent.phases.where(package: :free).count
+  end
+
+  # Are there any free phases
+  def any_phases_free?(parent)
     parent.phases.where(package: :free).count.positive?
+  end
+
+  # Are some phases free and some not
+  def some_phases_free?(parent)
+    !all_phases_free?(parent) && any_phases_free?(parent)
   end
 
   private

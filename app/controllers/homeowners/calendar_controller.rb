@@ -11,6 +11,7 @@ module Homeowners
 
     def index
       @preload = Event.find(params[:event]) if params[:event]
+      redirect_to dashboard_path if @plot.free?
     end
   end
 end

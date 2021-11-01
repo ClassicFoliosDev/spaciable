@@ -96,7 +96,7 @@ var admin = {
         }
       }
 
-      if ($(".help-resource").length == 0) {
+      if (admin.unrestricted()) {
         calendarConfig.customButtons = {
           addEvent: {
             text: 'Add ' + $("#admin_calendar").data("type") + ' Event',
@@ -110,10 +110,10 @@ var admin = {
     // If the calendar is editable then add extras to support editing
     if (dataIn.editable) {
       calendarConfig.select = function(start, end, allday){
-          if ($(".help-resource").length == 0) {
+          if (admin.unrestricted()) {
             admin.newEvent(dataIn, start)
           } else {
-                admin_help.show(false)
+                restricted.display(false)
           }
         },
       calendarConfig.header.center = "addEvent, month, agendaWeek, agendaDay"
@@ -122,6 +122,11 @@ var admin = {
     calendar = calendarEl.fullCalendar(calendarConfig)
 
     admin.loadFilter()
+ },
+
+ unrestricted: function() {
+  if (typeof $events_enabled == 'undefined') { $events_enabled = false }
+  return ($(".restricted-resource").length == 0 || $events_enabled)
  },
 
  loadFilter: function()

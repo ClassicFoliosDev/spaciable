@@ -99,7 +99,7 @@ module Csv
         enabled?(plot, plot.developer, "enable_roomsketcher"),
         yes_or_no(plot.developer, "house_search"),
         yes_or_no(plot.developer, "development_faqs"),
-        plot.development_calendar ? "Yes" : "No",
+        enabled?(plot, plot, "development_calendar"),
         plot.journey ? plot.journey.title : "No",
         plot.proformas.count.positive?  ? plot.proformas.count : "No",
         plot.build_sequenceable_type,
