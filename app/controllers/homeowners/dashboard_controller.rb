@@ -42,6 +42,7 @@ module Homeowners
     def build_documents
       docs = @all_docs
       docs = docs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      docs = docs.where(documentable_type: "Phase") if @plot.free?
       docs = docs.order(pinned: :desc, updated_at: :desc).limit(6)
 
       appliances = Appliance.accessible_by(current_ability)

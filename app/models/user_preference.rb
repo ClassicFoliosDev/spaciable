@@ -9,5 +9,7 @@ class UserPreference < ApplicationRecord
     show_video_restriction_dialog
     show_phase_calendar_restriction_dialog
     show_plot_calendar_restriction_dialog
+    show_phase_document_restriction_dialog
+    show_document_restriction_dialog
   ]
 end

@@ -47,6 +47,14 @@ en:
   construction_type:
     home: "Home"
 
+  restricted:
+    documents:
+      title: "Document Visibility"
+      free: "Your plots on the Free package only see Phase level documents. To release these documents to those residents please ask Classic Folios about a Spaciable package upgrade."
+      phase:
+        title: "Document Restriction"
+        free: "This Phase is on the Free package and is restricted to 3 documents only. To remove this restriction please ask Classic Folios about a Spaciable package upgrade."
+
   lists:
     all_value: "*"
     all_name: "*"

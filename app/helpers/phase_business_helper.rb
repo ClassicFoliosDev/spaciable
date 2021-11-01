@@ -25,12 +25,17 @@ module PhaseBusinessHelper
 
   # Are there any free phases
   def any_phases_free?(parent)
+    return parent.free? if parent.respond_to?(:free?)
     parent.phases.where(package: :free).count.positive?
   end
 
   # Are some phases free and some not
   def some_phases_free?(parent)
     !all_phases_free?(parent) && any_phases_free?(parent)
+  end
+
+  def free_phase_at_documents_limit?(parent)
+    parent.is_a?(Phase) && parent.free? && parent.documents.count == 3
   end
 
   private
