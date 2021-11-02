@@ -3,6 +3,7 @@ $breadcrumb-font-size: 12px;
 
 
 .breadcrumbs {
+  display: inline-block;
   @include pad($spacing-small $spacing-large $spacing-small $spacing-large);
 
   font-size: $breadcrumb-font-size;

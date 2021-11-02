@@ -204,3 +204,14 @@ input:checked + .feedback {
 .restricted-resource {
   display: none;
 }
+
+#restricted-warning {
+  display: inline-block;
+  float: right;
+  margin: 12 38;
+
+  i {
+    font-size: 20;
+    color: #FFBF00;
+  }
+}
