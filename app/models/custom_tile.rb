@@ -5,7 +5,7 @@ class CustomTile < ApplicationRecord
   include HTTParty
   include GuideEnum
 
-
+  before_create :set_cf
   belongs_to :development
   belongs_to :tileable, polymorphic: true
 
@@ -142,6 +142,11 @@ class CustomTile < ApplicationRecord
 
   def formatted_link
     link !~ /\A(http)/ ? "https://#{link}" : link
+  end
+
+  # was this record created by a CF user
+  def set_cf
+    self.cf = RequestStore.store[:current_user].cf_admin?
   end
 end
 #rubocop:enable all

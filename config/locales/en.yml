@@ -1309,8 +1309,11 @@ en:
       title: "Title"
       category: "Category"
       editable: "Editable"
+      cf: "CF Tile"
       uneditable_title: "%{tile}"
       uneditable_text: "You do not have permission to edit this shortcut tile. Please contact your Classic Folios Account Manager for more details."
+      help_title: "Free Package Restriction"
+      help: "Residents on any of your Spaciable Free plots will not benefit from being able to view any custom shortcuts added here. To enquire about upgrading, please contact Classic Folios."
     new:
       title: "New Custom Shortcut"
     edit:

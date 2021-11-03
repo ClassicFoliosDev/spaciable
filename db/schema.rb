@@ -353,6 +353,7 @@ ActiveRecord::Schema.define(version: 20211024143029) do
     t.boolean "render_description", default: true
     t.boolean "render_button",      default: true
     t.boolean "full_image",         default: false
+    t.boolean "cf",                 default: true
     t.index ["development_id"], name: "index_custom_tiles_on_development_id", using: :btree
     t.index ["document_id"], name: "index_custom_tiles_on_document_id", using: :btree
     t.index ["tileable_type", "tileable_id"], name: "index_custom_tiles_on_tileable_type_and_tileable_id", using: :btree

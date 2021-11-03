@@ -12,5 +12,6 @@ class UserPreference < ApplicationRecord
     show_phase_document_restriction_dialog
     show_document_restriction_dialog
     show_build_progress_restriction_dialog
+    show_custom_tile_restriction_dialog
   ]
 end
