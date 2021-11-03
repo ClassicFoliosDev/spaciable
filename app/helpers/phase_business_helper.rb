@@ -20,6 +20,7 @@ module PhaseBusinessHelper
 
   # are all the phases free?
   def all_phases_free?(parent)
+    return false unless parent.respond_to?(:phases)
     parent.phases.count == parent.phases.where(package: :free).count
   end
 

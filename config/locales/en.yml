@@ -4134,7 +4134,12 @@ en:
 
   build_sequences:
     show:
+      help_title: "Build Progress"
       help: "If you navigate to a plot on Spaciable and update the Build Progress status, an email notification is sent to the plot resident(s). You can view the Build Progress stages and email content on this page.<br/><br/>This Build Progress content is the <strong>%{level}</strong> list."
+      restricted:
+        title: "Cannot Customise Build Progress "
+        help: "Sorry, you cannot customise Build Progress stages or emails with your current Spaciable Free package.  To create unique Build Progress content for your customers, please ask Classic Folios about a Spaciable package upgrade."
+
     form:
       global: "Here, you can edit the Build Progress stages and email content: add stages above and below, delete stages or use the up/down arrows to swap a stage with the one above/below."
       global_warn: "All live and future plots on all developers without a custom Build Progress list will be updated with these new build progress stages."
