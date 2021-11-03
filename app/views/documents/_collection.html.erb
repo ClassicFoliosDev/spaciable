@@ -15,7 +15,7 @@
   <% if collection.present? %>
     <% if parent && can_create(Document, parent) %>
       <% unless (parent.expired? && !(current_user.cf_admin?)) ||
-                (free_phase_at_documents_limit?(parent))
+                 free_phase_at_feature_limit?(parent, parent.documents)
                  %>
         <%= link_to [:new, parent, :document], class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>

@@ -54,6 +54,12 @@ en:
       phase:
         title: "Document Restriction"
         free: "This Phase is on the Free package and is restricted to 3 documents only. To remove this restriction please ask Classic Folios about a Spaciable package upgrade."
+    contacts:
+      title: "Contacts Visibility"
+      free: "Your plots on the Free package only see Phase level contacts. To release these documents to those residents please ask Classic Folios about a Spaciable package upgrade."
+      phase:
+        title: "Contacts Restriction"
+        free: "This Phase is on the Free package and is restricted to 3 contacts only. To remove this restriction please ask Classic Folios about a Spaciable package upgrade."
 
   lists:
     all_value: "*"

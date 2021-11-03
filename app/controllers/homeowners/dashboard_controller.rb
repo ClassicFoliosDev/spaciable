@@ -37,6 +37,7 @@ module Homeowners
       contacts = Contact.accessible_by(current_ability)
       contacts = contacts.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
       @contacts = contacts.order(pinned: :desc, updated_at: :desc).limit(4)
+      @contacts = @contacts.where(contactable_type: "Phase") if @plot.free?
     end
 
     def build_documents

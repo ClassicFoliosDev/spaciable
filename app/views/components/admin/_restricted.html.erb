@@ -1,5 +1,7 @@
- <div class="restricted-resource", data-title="<%= title %>", data-preference="<%=preference.to_s %>" >
+<% unless current_user.cf_admin? %>
+  <div class="restricted-resource", data-title="<%= title %>", data-preference="<%=preference.to_s %>" >
     <% help.each do |message| %>
       <%= simple_format message %>
     <% end %>
- </div>
+  </div>
+<% end %>
