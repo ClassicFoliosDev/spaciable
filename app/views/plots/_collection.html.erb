@@ -35,7 +35,9 @@
         <th><%= sortable({Plot => Address}, :building_name, t(".#{country.name}.building_name")) %></th>
         <th><%= sortable({Plot => Address}, :road_name, t(".#{country.name}.road_name")) %></th>
         <th><%= sortable({Plot => Address}, :postcode, t(".#{country.name}.postcode")) %></th>
-        <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
+        <% if current_user.cf_admin? || !parent.free? %>
+          <th><%= sortable(Plot, :unit_type_id, t(".unit_type")) %></th>
+        <% end %>
         <th><%= t(".progress") %></th>
         <th><%= t(".activation") %></th>
         <th><span class="date"><i class="fa fa-question-circle-o" id="plotStatusHelp"></i> <%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
@@ -52,7 +54,9 @@
           <td><%= plot.building_name %></td>
           <td><%= plot.road_name %></td>
           <td><%= plot.postcode %></td>
-          <td><%= plot.unit_type %></td>
+          <% if current_user.cf_admin? || !parent.free? %>
+            <td><%= plot.unit_type %></td>
+          <% end %>
           <td><%= plot.build_step_title %></td>
           <td><%= t(".activated", activated: plot.activated_resident_count, all: plot.residents.count) %></td>
           <% comp = "white" %>

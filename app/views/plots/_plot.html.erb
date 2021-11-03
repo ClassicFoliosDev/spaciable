@@ -34,7 +34,9 @@
 
 <div class="section-data">
   <%= render 'address/address', address: plot %><br/>
-  <strong><%= plot.unit_type %></strong><br/>
+  <% if current_user.cf_admin? || !plot.free? %>
+    <strong><%= plot.unit_type %></strong><br/>
+  <% end %>
   <% if cas_update %>
     <%= edit_btn [:edit, plot], element: plot %>
   <% end %>

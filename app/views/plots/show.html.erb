@@ -10,7 +10,7 @@
   <% elsif @active_tab == "completion" %>
     <%= render "plots/completion", plot: @plot %>
   <% elsif @active_tab == "calendar" %>
-    <% if @plot.free? %>
+    <% if !current_user.cf_admin? && @plot.free? %>
       <%= render "components/admin/restricted", title: 'Calendar Inactive', preference: :show_plot_calendar_restriction_dialog, help: [t(".help")] %>
     <% end %>
     <div class="section-actions">

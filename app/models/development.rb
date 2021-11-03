@@ -310,5 +310,10 @@ class Development < ApplicationRecord
   def branding
     brand || parent&.brand || parent_developer&.brand
   end
+
+  def all_phases_free?
+    phases.count.positive? &&
+      (phases.where(package: :free).count == phases.count)
+  end
 end
 # rubocop:enable Metrics/ClassLength

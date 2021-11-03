@@ -4,17 +4,19 @@ module DevelopmentTabsHelper
   include TabsHelper
   include FaqTabsHelper
 
-  def development_tabs(development, current_tab)
-    tabs = DEVELOPMENT_TABS.call(development, FaqMenuBuilder.new)
+  def development_tabs(development, current_tab,
+                       current_user = RequestStore.store[:current_user])
+    tabs = DEVELOPMENT_TABS.call(development, FaqMenuBuilder.new, current_user)
     Tabs.new(development, tabs, current_tab, self).all
   end
 
   # rubocop:disable Metrics/BlockLength
-  DEVELOPMENT_TABS = lambda do |development, faqmenubuilder|
+  DEVELOPMENT_TABS = lambda do |development, faqmenubuilder, current_user|
     {
       unit_types: {
         icon: :building,
-        link: [development.parent, development, active_tab: :unit_types]
+        link: [development.parent, development, active_tab: :unit_types],
+        hide: !current_user.cf_admin? && development.all_phases_free?
       },
       phases: {
         icon: :building,
