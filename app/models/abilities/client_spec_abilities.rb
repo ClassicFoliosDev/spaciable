@@ -25,7 +25,7 @@ module Abilities
         crud_finish_rooms(development)
         crud_appliance_rooms(development)
         crud_plots(development)
-        can %i[bulk_edit cas_update progresses], Phase, development_id: development.id
+        can %i[bulk_edit progresses], Phase, development_id: development.id
       end
     end
 
@@ -139,8 +139,6 @@ module Abilities
     end
 
     def crud_plots(development)
-      can %i[cas_update update], Plot, development_id: development.id
-
       can %i[update_unit_type inform], Plot do |plot|
         plot.development_id == development.id &&
           plot.completion_release_date.present? &&

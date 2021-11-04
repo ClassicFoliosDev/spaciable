@@ -2,7 +2,13 @@
 
 <div class="section-header">
   <div class="section-title">
-    <%= t(".title", plot_name: @plot.to_s) %>
+    <div class="plot-title"><span><%= t(".title", plot_name: @plot.to_s) %></span></div>
+    <% if @plot&.persisted? && @plot&.completion_release_date %>
+      <div class="expiry-field">
+        <label><%= t(".expiry_date") %></label>
+        <span><%= @plot&.expiry_date&.strftime("%d %B %Y") %></span>
+      </div>
+    <% end %>
   </div>
 </div>
 

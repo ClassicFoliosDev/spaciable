@@ -14,17 +14,22 @@
   <div class="row">
     <div class="row-item third">
       <fieldset>
-        <%= f.input :name %>
+        <%= f.input :name, disabled: !current_user.cf_admin? %>
         <%= f.input :number, as: :integer %>
-        <% if development.commercial? %>
-          <%= f.hidden_field :business, value: "commercial" %>
-          <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false, selected: 'commercial', disabled: true %>
-        <% else %>
-          <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
+        <% if current_user.cf_admin? %>
+          <% if development.commercial? %>
+            <%= f.hidden_field :business, value: "commercial" %>
+            <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false, selected: 'commercial', disabled: true %>
+          <% else %>
+            <%= f.input :business, as: :select, collection: phase_businesses_collection, include_blank: false %>
+          <% end %>
         <% end %>
         <% if phase.res_comp? && !phase.free? %>
           <label>Package</label>
           <p><%= t("activerecord.attributes.phase.packages.#{phase.package}") %></p>
+        <% elsif !current_user.cf_admin? %>
+          <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true,
+            disabled: true %>
         <% else %>
           <%= f.input :package, as: :select, collection: phase_packages_collection, include_blank: true,
             disabled: disabled_phase_packages(phase) %>
@@ -43,7 +48,7 @@
         <% end %>
       </fieldset>
     </div>
-    <% if phase.parent.conveyancing_enabled? %>
+    <% if current_user.cf_admin? && phase.parent.conveyancing_enabled? %>
        <div class="row-item third">
         <fieldset>
           <%= f.label :conveyancing, t(".conveyancing") %>

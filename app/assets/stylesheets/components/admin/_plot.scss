@@ -1,0 +1,16 @@
+.section-title {
+  .plot-title {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .expiry-field {
+    display: inline-block;
+    padding: 0 10;
+
+    label {
+      font-size: unset;
+      margin-top: 0;
+    }
+  }
+}

@@ -23,8 +23,6 @@
 
   <%
     country = parent.is_a?(Developer) ? parent.country  : parent.developer.country
-    showing_icons = current_user&.cf_admin? ||
-                    collection.map { |plot| can? :cas_update, plot }.include?(true)
   %>
 
   <table class="record-list plots">
@@ -41,9 +39,7 @@
         <th><%= t(".progress") %></th>
         <th><%= t(".activation") %></th>
         <th><span class="date"><i class="fa fa-question-circle-o" id="plotStatusHelp"></i> <%= sortable(Plot, :completion_release_date, t(".date_c")) %></span></th>
-        <% if showing_icons %>
-          <th>&nbsp;</th>
-        <% end %>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -64,12 +60,10 @@
             <% comp = plot.expired? ? "red" : "green" %>
           <% end %>
           <td><span class = 'circle <%= comp %>'>&nbsp;</span></td>
-          <% if showing_icons %>
-            <td class="actions">
-              <%= edit_btn [:edit, plot], element: plot %>
-              <%= delete_btn plot, path: url_for(plot), element: plot %>
-            </td>
-          <% end %>
+          <td class="actions">
+            <%= edit_btn [:edit, plot], element: plot %>
+            <%= delete_btn plot, path: url_for(plot), element: plot %>
+          </td>
         </tr>
       <% end %>
     </tbody>

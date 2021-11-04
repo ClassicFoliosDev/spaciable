@@ -2683,6 +2683,7 @@ en:
     edit:
       back: "Back"
       title: "Edit %{plot_name}"
+      expiry_date: "Expiry Date: "
     form:
       address: "Postal Address"
       unit_type: "Unit Type"

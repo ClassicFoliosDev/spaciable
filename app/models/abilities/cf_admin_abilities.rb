@@ -7,7 +7,6 @@ module Abilities
 
       can %i[production bulk_edit release_plots], Phase
       can %i[development_csv], Development
-      cannot :cas_update, :all
 
       restricted(Appliance,
                  ApplianceCategory,

@@ -26,9 +26,4 @@
   <% if plot.nil? %><span class="bulk-check"><%= f.input_field :extended_access_check, as: :boolean, label: false %></span><% end %>
   <%= f.input :extended_access, label: t("activerecord.attributes.plot.extended_access"), min: 0 %>
 </div>
-<% if plot&.persisted? && plot&.completion_release_date %>
-  <div class="plot-field">
-    <%= f.label t(".expiry_date") %>
-    <span><%= plot&.expiry_date&.strftime("%d %B %Y") %></span>
-  </div>
-<% end %>
+
