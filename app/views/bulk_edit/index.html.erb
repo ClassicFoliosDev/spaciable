@@ -23,7 +23,7 @@
 
       <div class="row-item third">
         <fieldset>
-          <div class="plot-field">
+          <div class="plot-field <%= 'hidden' unless current_user.cf_admin? || (!@phase.free? && @phase.cas) %>">
             <div class="bulk-check fix-checkbox">
               <%= f.hidden_field :ut_update_option, value: UnitType::SUPPLEMENT%>
               <%= f.input_field :unit_type_id_check, as: :boolean, label: false %>
@@ -45,18 +45,16 @@
             <%= f.input :completion_date, as: :string, label: t(".comp_date"), placeholder: "DD/MM/YYYY", input_html: { type: :date } %>
           </div>
 
-          <% unless can? :cas_update, @phase %>
+          <% if current_user.cf_admin? %>
             <%= render "components/admin/plot_date_fields", f: f, plot: nil %>
           <% end %>
         </fieldset>
       </div>
 
-      <% unless can? :cas_update, @phase %>
-        <% if @phase.developer.country.spain? %>
-          <%= render "components/admin/spanish_plot_address_fields", f: f, plot: nil %>
-        <% else %>
-          <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
-        <% end %>
+      <% if @phase.developer.country.spain? %>
+        <%= render "components/admin/spanish_plot_address_fields", f: f, plot: nil %>
+      <% else %>
+        <%= render "components/admin/plot_address_fields", f: f, plot: nil %>
       <% end %>
 
     </div>

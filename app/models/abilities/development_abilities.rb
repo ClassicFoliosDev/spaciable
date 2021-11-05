@@ -29,7 +29,7 @@ module Abilities
       can :read, Developer, id: developer_id
       can :read, Division, id: division_id
       can :read, Development, id: developments
-      can %i[read update], Phase, development_id: developments
+      can %i[read update bulk_edit], Phase, development_id: developments
       can :read, Room, development_id: developments
       can %i[read update complete], Plot, development_id: developments
 

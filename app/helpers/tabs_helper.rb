@@ -32,7 +32,7 @@ module TabsHelper
 
       model = permissions_scope&.call || build_association(association)
 
-      if %i[completion progress progresses].include? association
+      if %i[completion progress progresses bulk_edit].include? association
         return view_context.can? :update, model
       end
 
