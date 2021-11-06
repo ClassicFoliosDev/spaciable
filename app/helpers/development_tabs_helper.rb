@@ -41,7 +41,8 @@ module DevelopmentTabsHelper
       development_csv: {
         icon: "fighter-jet",
         check_assoc: true, # check phase for development_csv permission
-        permissions_on: -> { development }
+        permissions_on: -> { development },
+        hide: !current_user.cf_admin? && development.all_phases_free?
       },
       custom_tiles: { icon: "external-link-square" },
       calendar: {

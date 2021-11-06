@@ -4,7 +4,7 @@ class DevelopmentCsvController < ApplicationController
   load_and_authorize_resource :development
 
   def index
-    redirect_to root_url unless current_user.cf_admin? # only accessible by cf admins
+    redirect_to root_url unless can? :development_csv, @development
     @plot = Plot.new
   end
 
@@ -19,7 +19,11 @@ class DevelopmentCsvController < ApplicationController
   end
 
   def download_template
-    template = "app/assets/files/development_csv_template.csv"
+    template = if params[:for] == "cf_admin"
+                 "app/assets/files/development_csv_template.csv"
+               else
+                 DevelopmentCsv.template(@development).path
+               end
     send_file(template, disposition: :attachment)
   end
 end

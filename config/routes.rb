@@ -159,7 +159,8 @@ Rails.application.routes.draw do
     resources :development_csv, only: [:index, :create]
     resources :custom_tiles, shallow: true
     resources :sync_faqs, shallow: true, only: [:index, :create]
-    get 'development_csv', to: 'development_csv#index', controller: 'development_csv'
+    get :development_csv, to: 'development_csv#index', controller: 'development_csv'
+    get :download_development_csv, to: "development_csv#download_template"
     resources :calendars, only: [:index], controller: 'developments/calendar'
   end
 
@@ -178,7 +179,7 @@ Rails.application.routes.draw do
   get :item_images, to: "room_configurations/room_choice#item_images", format: :json
   get :archive_choice, to: "room_configurations/room_choice#archive_choice", format: :json
   get :export_choices, to: "room_configurations/room_choice#export_choices"
-  get :download_development_csv, to: "development_csv#download_template"
+
 
   resources :global do
     resources :timelines, shallow: true

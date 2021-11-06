@@ -15,7 +15,6 @@ module PlotDocumentsHelper
         break if disabled.uniq.size == 2
       end
     end
-    byebug
     disabled
   end
 

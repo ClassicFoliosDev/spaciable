@@ -1459,6 +1459,9 @@ en:
       file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
       date: "The Legal Completion Date must be in the format DD/MM/YYYY."
       date_details: "Ensure the date field is formatted DD/MM/YYYY. If the date is displayed as DD/MM/YY then it will not be recognised and the plot update will fail."
+      restricted:
+        title: "Cannot Update Some Plots"
+        help: "Some of your plots are on the Spaciable Free package and cannot be updated with a CSV upload. To unlock CSV updates for all plots, please ask Classic Folios about a Spaciable package upgrade"
     errors:
       phase_error: "<br/>Invalid Phase(s): %{errors}"
       plot_error: "<br/>Invalid Plot(s): %{errors}"
@@ -1479,6 +1482,16 @@ en:
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
       uprn_error_strip: "Invalid UPRN(s): %{uprns}"
+    phase: "Phase name"
+    number: "Plot Number"
+    uprn: "UPRN"
+    prefix: "Postal Prefix"
+    house_number: "Postal Number/Name"
+    building_name: "Building Name"
+    road_name: "Road Name"
+    postcode: "Postcode"
+    completion_date: "Estimated Move In Date (dd/mm/yyyy)"
+    build_step: "Build Progress"
 
   homeowners:
     my_home_name: "My %{construction}"

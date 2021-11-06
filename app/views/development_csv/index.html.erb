@@ -1,5 +1,9 @@
 <% breadcrumb :development_csv, @development %>
 
+<% if some_phases_free?(@development) %>
+  <%= render "components/admin/restricted", title: t(".restricted.title"), preference: :show_developer_csv_restriction_dialog, help: [t(".restricted.help.")] %>
+<% end %>
+
 <%= render '/developments/development', development: @development %>
 
 <%= render 'components/tabs', tabs: development_tabs(@development, "development_csv"), parent: @parent %>
@@ -42,7 +46,7 @@
       </div>
       <div class="csv-download">
         <label><%= t(".download_label") %></label>
-        <a href="<%= download_development_csv_path %>" target="_blank">
+        <a href="<%= development_download_development_csv_path(for: current_user.role) %>" target="_blank">
           <%= button_tag t(".download_csv"), type: "button", class: "btn" %>
         </a>
       </div>
