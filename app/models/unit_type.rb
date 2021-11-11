@@ -20,6 +20,8 @@ class UnitType < ApplicationRecord
   delegate :cas, to: :development
   delegate :construction, :construction_name, to: :development, allow_nil: true
 
+  alias_attribute :identity, :name
+
   amoeba do
     include_association :rooms
   end

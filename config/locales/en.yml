@@ -1463,6 +1463,8 @@ en:
         title: "Cannot Update Some Plots"
         help: "Some of your plots are on the Spaciable Free package and cannot be updated with a CSV upload. To unlock CSV updates for all plots, please ask Classic Folios about a Spaciable package upgrade"
     errors:
+      invalid_column_error: "<br/>Invalid column(s): %{errors}"
+      free_phase_error: "<br/>Ignored Free Phase(s): %{errors}"
       phase_error: "<br/>Invalid Phase(s): %{errors}"
       plot_error: "<br/>Invalid Plot(s): %{errors}"
       unit_error: "<br/>Invalid Unit Type(s): %{errors}"
@@ -1484,6 +1486,7 @@ en:
       uprn_error_strip: "Invalid UPRN(s): %{uprns}"
     phase: "Phase name"
     number: "Plot Number"
+    unit_type: "Unit Type"
     uprn: "UPRN"
     prefix: "Postal Prefix"
     house_number: "Postal Number/Name"
@@ -1492,6 +1495,8 @@ en:
     postcode: "Postcode"
     completion_date: "Estimated Move In Date (dd/mm/yyyy)"
     build_step: "Build Progress"
+    reservation_order_number: "Reservation Order Number"
+    completion_order_number: "Completion Order Number"
 
   homeowners:
     my_home_name: "My %{construction}"

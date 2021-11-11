@@ -19,11 +19,7 @@ class DevelopmentCsvController < ApplicationController
   end
 
   def download_template
-    template = if params[:for] == "cf_admin"
-                 "app/assets/files/development_csv_template.csv"
-               else
-                 DevelopmentCsv.template(@development).path
-               end
+    template = DevelopmentCsv.template(@development).path
     send_file(template, disposition: :attachment)
   end
 end

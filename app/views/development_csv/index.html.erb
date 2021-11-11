@@ -46,7 +46,7 @@
       </div>
       <div class="csv-download">
         <label><%= t(".download_label") %></label>
-        <a href="<%= development_download_development_csv_path(for: current_user.role) %>" target="_blank">
+        <a href="<%= development_download_development_csv_path %>" target="_blank">
           <%= button_tag t(".download_csv"), type: "button", class: "btn" %>
         </a>
       </div>
