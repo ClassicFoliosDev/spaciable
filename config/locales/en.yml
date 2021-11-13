@@ -1192,6 +1192,7 @@ en:
         last_edited: "Last Edited"
         empty: "You have no default %{type} FAQs"
         confirm_delete: Are you sure you wish to delete this %{type} FAQ?
+        faq_category: "FAQ Category"
       show:
         title: "%{parent}"
         type: "Type"
@@ -1224,6 +1225,8 @@ en:
 
   faqs:
     collection:
+      restricted_title: "FAQs restricted"
+      help: "help!"
       add: "Add %{type} FAQ"
       last_edited: "Last Edited"
       faq_category: "FAQ Category"
@@ -1238,6 +1241,7 @@ en:
       submit: "Submit"
       back: "Back"
       category: "Category"
+      faq_package: "FAQ Package"
       notify: "Notify subscribed residents about this change"
     index:
       title: "FAQs"
@@ -4175,6 +4179,16 @@ en:
         new: "Please confirm to create a new Build Progress list specific to %{parent} with the following build sequence:"
         update: "Please confirm to update the Build Progress list specific to %{parent} with the following build sequence:"
         global: "Please confirm to update the Standard Spaciable Build Progress list with the following build sequence:"
+
+  faq_package:
+    title: "FAQ Package"
+    standard: "Standard"
+    enhanced: "Enhanced"
+    custom: "Custom"
+    free_help: "Your plots on the Free package will only see <strong>standard</strong> FAQs."
+    essentials_help: "Your plots on the Essentials package will only see <strong>standard</strong> and <strong>enhanced</strong> FAQs."
+
+
 
 
 

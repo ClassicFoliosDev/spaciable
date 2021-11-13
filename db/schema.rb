@@ -363,12 +363,13 @@ ActiveRecord::Schema.define(version: 20211024143029) do
     t.text     "question"
     t.text     "answer"
     t.string   "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.datetime "deleted_at"
-    t.integer  "country_id",      null: false
+    t.integer  "country_id",                  null: false
     t.integer  "faq_type_id"
     t.integer  "faq_category_id"
+    t.integer  "faq_package",     default: 0
     t.index ["faq_category_id"], name: "index_default_faqs_on_faq_category_id", using: :btree
     t.index ["faq_type_id"], name: "index_default_faqs_on_faq_type_id", using: :btree
   end
@@ -571,12 +572,13 @@ ActiveRecord::Schema.define(version: 20211024143029) do
     t.text     "question"
     t.text     "answer"
     t.integer  "category"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.string   "faqable_type"
     t.integer  "faqable_id"
     t.integer  "faq_type_id"
     t.integer  "faq_category_id"
+    t.integer  "faq_package",     default: 2
     t.index "lower(question) varchar_pattern_ops", name: "search_index_on_faq_question", using: :btree
     t.index ["faq_category_id"], name: "index_faqs_on_faq_category_id", using: :btree
     t.index ["faq_type_id"], name: "index_faqs_on_faq_type_id", using: :btree

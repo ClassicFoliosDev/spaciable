@@ -30,6 +30,8 @@ module Homeowners
     def fetch_faqs
       faqs = Faq.accessible_by(current_ability)
       faqs = faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+      faqs = faqs.where(faq_package: :standard) if @plot.free?
+      faqs = faqs.where(faq_package: %i[standard enhanced]) if @plot.essentials?
       @faqs = faqs.order(updated_at: :desc).limit(5)
     end
 

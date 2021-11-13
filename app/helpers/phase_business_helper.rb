@@ -26,8 +26,12 @@ module PhaseBusinessHelper
 
   # Are there any free phases
   def any_phases_free?(parent)
-    return parent.free? if parent.respond_to?(:free?)
-    parent.phases.where(package: :free).count.positive?
+    any_phases?(parent, [:free])
+  end
+
+  def any_phases?(parent, packages)
+    packages.each { |p| return parent.send("#{p}?") if parent.respond_to?("#{p}?") }
+    parent.phases.where(package: packages).count.positive?
   end
 
   # Are some phases free and some not

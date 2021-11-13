@@ -25,7 +25,8 @@
     <thead>
       <tr>
         <th colspan="3"><%= sortable(Faq, :question, t(".faq"), sort_params: qp) %></th>
-        <th><%= sortable({ DefaultFaq => FaqCategory }, :name, sort_params: qp) %></th>
+        <th><%= sortable({ DefaultFaq => FaqCategory }, :name, t(".faq_category"), sort_params: qp) %></th>
+        <th><%= sortable(DefaultFaq, :faq_package, t("faq_package.title"),sort_params: qp) %></th>
         <th><%= sortable(Faq, :updated_at, t(".last_edited"), sort_params: qp) %></th>
         <th>&nbsp;</th>
       </tr>
@@ -35,6 +36,7 @@
       <tr data-faq="<%= faq.id %>">
         <td colspan="3"><%= link_to faq.question.html_safe, admin_settings_default_faq_path(faq), title: faq.question.html_safe %></td>
         <td><%= content_tag(:span, faq.category_name) %></td>
+        <td><%= t("faq_package.#{faq.faq_package}") %>
         <td><%= l faq.updated_at.to_date, format: :digits %></td>
         <td class="actions">
           <%= (edit_btn edit_admin_settings_default_faq_path(faq), element: faq) %>

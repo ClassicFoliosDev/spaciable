@@ -20,16 +20,20 @@ module Homeowners
                    category2: params[:response] == "0" ? "No" : "Yes")
     end
 
+    # rubocop:disable LineLength
     def index
       populate
 
       # filter FAQs by category
       @category_faqs = @faqs.where(faq_type: @faq_type, faq_category: @faq_category)
+      @category_faqs = @category_faqs.where(faq_package: :standard) if @plot.free?
+      @category_faqs = @category_faqs.where(faq_package: %i[standard enhanced]) if @plot.essentials?
 
       return if @plot.expiry_date.blank?
 
       @category_faqs = @category_faqs.where("created_at <= ?", @plot.expiry_date)
     end
+    # rubocop:enable LineLength
 
     def feedback
       # convert params to hash to pass to job
@@ -74,6 +78,9 @@ module Homeowners
       @faq_type.categories.each do |cat|
         faqs = @faqs.where(faq_type: @faq_type, faq_category: cat)
         faqs = faqs.where("created_at <= ?", @plot.expiry_date) if @plot.expiry_date.present?
+        faqs = faqs.where(faq_package: :standard) if @plot.free?
+        faqs = faqs.where(faq_package: %i[standard enhanced]) if @plot.essentials?
+
         @categories << cat if faqs.any?
       end
 

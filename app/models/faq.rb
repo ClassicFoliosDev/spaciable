@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Faq < ApplicationRecord
+  include FaqPackageEnum
+
   belongs_to :faqable, polymorphic: true
   belongs_to :faq_type
   belongs_to :faq_category
@@ -21,4 +23,5 @@ class Faq < ApplicationRecord
         lambda { |user, type|
           accessible_by(user).where(faq_type: type)
         }
+
 end

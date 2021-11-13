@@ -29,6 +29,9 @@
           <fieldset>
             <%= f.hidden_field :faq_type_id, value: faq_type.id %>
             <%= f.association :faq_category, label: t(".category"), collection: faq_type.categories %>
+            <label><%= t(".faq_package") %></label>
+              <p><%= t("faq_package.#{faq.faq_package}") %></p>
+            </fieldset>
           </fieldset>
         </div>
       </div>
