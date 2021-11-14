@@ -1,38 +1,39 @@
-var $restrictedResource = null
+var $popupResource = null
 
 document.addEventListener('turbolinks:load', function () {
 
-  $restrictedResource = $(".restricted-resource")
-  if ($restrictedResource.length == 0 ) { return }
+  $popupResource = $(".popup-resource")
+  if ($popupResource.length == 0 ) { return }
 
-  restricted.show(true)
-  $("i.restricted-warning").show()
+  popup.show(true)
+
+  if ($popupResource.data("warn")) { $("i.restricted-warning").show() }
 
   $(document).on('click', 'i.restricted-warning', function (event) {
-    restricted.display(false)
+    popup.display(false)
   })
 
 })
 
-var restricted = {
+var popup = {
 
   show: function(can_turn_off) {
-    var dataIn = $restrictedResource.data()
+    var dataIn = $popupResource.data()
 
     $.getJSON({
       url: '/user_preferences/preference',
       data: { 'preference' : dataIn.preference }
     }).done(function (results) {
       if (results['on']) {
-        restricted.display(can_turn_off)
+        popup.display(can_turn_off)
       }
     })
   },
 
   display: function(can_turn_off){
-    dataIn = $restrictedResource.data()
+    dataIn = $popupResource.data()
 
-    var $dialogContainer = $('<div>', { id: 'dialog' }).html($restrictedResource.html())
+    var $dialogContainer = $('<div>', { id: 'dialog' }).html($popupResource.html())
     if (can_turn_off) {
       $dialogContainer.append("<div>" +
                                 "<input type='checkbox' id='noshow' name='noshow'>" +
@@ -53,8 +54,8 @@ var restricted = {
     dialog.dialog({
       show: 'show',
       modal: true,
-      width: 400,
-      dialogClass: 'restricted-dialog',
+      width: dataIn.width,
+      dialogClass: 'popup-dialog',
       buttons: [
       {
         text: 'Close',

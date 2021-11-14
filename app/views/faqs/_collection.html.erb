@@ -1,5 +1,5 @@
 <% if any_phases?(parent, [:free, :essentials]) %>
-  <%= render "components/admin/restricted", title: t(".restricted_title"), preference: :show_faq_restriction_dialog, help: faq_help(parent) %>
+  <%= render "components/admin/popup", title: t(".restricted_title"), preference: :show_faq_restriction_dialog, help: faq_help(parent), warn: true %>
 <% end %>
 
 <% if collection.empty? %>

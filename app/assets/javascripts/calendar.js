@@ -126,7 +126,7 @@ var admin = {
 
  unrestricted: function() {
   if (typeof $events_enabled == 'undefined') { $events_enabled = false }
-  return ($(".restricted-resource").length == 0 || $events_enabled)
+  return ($(".popup-resource").length == 0 || $events_enabled)
  },
 
  loadFilter: function()

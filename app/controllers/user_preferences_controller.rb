@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserPreferencesController < ApplicationController
-  before_action :authorize_preference, only: [:preference]
+  before_action :authorize_preference
 
   def preference
     render json: { on: @preference.present? ? @preference.on : true }

@@ -1,0 +1,7 @@
+<% unless current_user.cf_admin? %>
+  <div class="popup-resource", data-title="<%= title %>", data-preference="<%=preference.to_s %>", data-warn="<%= warn %>", data-width="<%= defined?(width) ? width : 400 %>" >
+    <% help.each do |message| %>
+      <%= simple_format message %>
+    <% end %>
+  </div>
+<% end %>

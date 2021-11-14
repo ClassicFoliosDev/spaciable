@@ -27,7 +27,8 @@ module Divisions
     end
 
     def show
-      @active_tab = params[:active_tab] || "phases"
+      @selected_tab = params[:active_tab]
+      @active_tab = @selected_tab || "phases"
 
       @collection = if @active_tab == "unit_types"
                       paginate(sort(@development.unit_types, default: :name))

@@ -2,7 +2,7 @@
   <% if room.nil? %>
     <%= render 'components/empty_list', icon_name: "shower", type: Finish, parent: room %>
   <% else %>
-    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, parent: room, plot: plot %>
+    <%= render 'components/empty_list', icon_name: "shower", type: FinishRoom, action: "Assign", parent: room, plot: plot %>
   <% end %>
 <% else %>
   <div class="section-actions">
@@ -10,7 +10,7 @@
       <% if can_create(FinishRoom, room) %>
         <%= link_to new_room_finish_room_path(room, plot: plot), class: "btn btn-primary" do %>
           <i class="fa fa-plus"></i>
-          <span class="btn-label"><%= t(".create") %></span>
+          <span class="btn-label"><%= t(".assign") %></span>
         <% end %>
       <% end %>
     <% else %>

@@ -88,18 +88,18 @@ function unitTypeHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'The Unit Type feature allows you to create templates for your plots.' +
+        'The Plot Template feature allows you to create templates for your plots.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'Any room, finish and appliance that you add to a Unit Type will also be shown in each plot assigned to it. ' +
-        'Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Unit Type will not be reflected on the plot.' +
+        'Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it. ' +
+        'Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Plot Template will not be reflected on the plot.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'We recommend that you use Unit Types to populate any shared specifications, then add the remaining choices and changes at plot level.' +
+        'We recommend that you use Plot Templates to populate any shared specifications, then add the remaining choices and changes at plot level.' +
       '</p>' +
     '</div>'
   )
@@ -110,7 +110,7 @@ function unitTypeHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "What is a Unit Type?",
+    title: "What is a Plot Template?",
 
     buttons: [
       {
@@ -129,19 +129,19 @@ function roomBelongsHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'Every room either belongs to its Unit Type or that specific plot.' +
+        'Every room either belongs to its Plot Template or that specific plot.' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
-        'If a room belongs to its Unit Type, then any change made on the Unit Type will be reflected on the plot. ' +
+        'If a room belongs to its Plot Template, then any change made on the Plot Template will be reflected on the plot. ' +
         'This means you can add or remove one specification and affect all relevant plots at once!' +
       '</p>' +
     '</div>' +
     '<div>' +
       '<p>' +
         'Once a room is edited at plot level, you\'ll notice the room now belongs to the plot. ' +
-        'This means any changes made to the same room in the Unit Type will no longer be reflected.' +
+        'This means any changes made to the same room in the Plot Template will no longer be reflected.' +
       '</p>' +
     '</div>'
   )
@@ -152,7 +152,7 @@ function roomBelongsHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Rooms: Unit Type or Plot?",
+    title: "Rooms: Plot Template or Plot?",
 
     buttons: [
       {
@@ -171,7 +171,7 @@ function restrictedHelp() {
   .html(
     '<div>' +
       '<p>' +
-        'Editing this Unit Type is restricted by Classic Folios.' +
+        'Editing this Plot Template is restricted by Classic Folios.' +
       '</p>' +
     '</div>' +
     '<div>' +
@@ -188,7 +188,7 @@ function restrictedHelp() {
     show: 'show',
     modal: true,
     width: 700,
-    title: "Restricted Unit Type",
+    title: "Restricted Plot Template",
 
     buttons: [
       {

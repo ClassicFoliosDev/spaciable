@@ -51,7 +51,7 @@
         <td><%= room.finishes_count %></td>
         <td><%= room.appliances_count %></td>
         <% if parent.is_a?(Plot) %>
-          <th><%= room.plot_id.present? ? "Plot" : "Unit Type" %></th>
+          <th><%= room.plot_id.present? ? "Plot" : "Plot Template" %></th>
         <% end %>
 
         <% if parent.is_a?(Plot) && parent.choices_approved? %>

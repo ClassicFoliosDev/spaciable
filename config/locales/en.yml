@@ -425,8 +425,8 @@ en:
     room_configuration_edit: "Edit %{room_configuration_name}"
     room_item_add: "New Room Item"
     room_item_edit: "Edit %{room_item_name}"
-    room_finish: "New Finish"
-    room_appliance: "New Appliance"
+    room_finish: "Assign Finish"
+    room_appliance: "Assign Appliance"
     plot_add: "New Plot"
     plot_edit: "Edit %{plot_name}"
     residents: "Residents"
@@ -436,8 +436,8 @@ en:
     room_edit: "Edit %{room_name}"
     room_add: "New Room"
     unit_type_edit: "Edit %{unit_type_name}"
-    unit_type_new: "New Unit Type"
-    unit_type_add: "New Unit Type"
+    unit_type_new: "New Plot Template"
+    unit_type_add: "New Plot Template"
     document_add: "New Document"
     document_edit: "Edit %{document_name}"
     contacts: "Contacts"
@@ -555,9 +555,9 @@ en:
         intro: "Please complete the fields to the right to set up your lettings account. All fields are required."
         management_type: "Management Type"
       unit_type_update_option_form:
-        header1: "You have requested a change in unit type"
-        header2: "Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
-        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new unit type. The home address image will also change."
+        header1: "You have requested a change in plot template"
+        header2: "Changing a plot's plot template could cause a number of changes, please select a change from the options below:"
+        reset: "Delete all rooms and specifications currently associated with the plot and replace these with only the ones in the new plot template. The home address image will also change."
         supplement: "Keep all rooms (and their respective specifications) if the room has been edited on the plot itself."
       search:
         all: "All"
@@ -993,7 +993,7 @@ en:
         surname: "Surname"
         job_title: "Job Title"
         client_specifications: "Client Specifications"
-        adds_specifications: "Ability to modify unit types, rooms, finishes and appliances."
+        adds_specifications: "Ability to modify plot templates, rooms, finishes and appliances."
         faq_emails: "FAQ Feedback Emails"
         receive_faq_emails: "Receive emails regarding resident FAQ feedback."
         invitation_emails: "Resident Activation Report"
@@ -1090,7 +1090,7 @@ en:
         development: "Development"
         division: "Division"
         developer: "Developer"
-        unit_type: "Unit type"
+        unit_type: "Plot Template"
         role: "Role"
         name: "Name"
         email: "Email"
@@ -1364,7 +1364,7 @@ en:
     collection:
       plot_documents: "Plot Documents"
       phases: "Phases"
-      unit_types: "Unit Types"
+      unit_types: "Plot Templates"
       documents: "Documents"
       plots: "Plots"
       add: "Add Development"
@@ -1444,11 +1444,14 @@ en:
         help_some_free_title: "Calendar Inactive for Some Plots"
         help_all_free: "No plots have calendar access, as all plots have the Spaciable Free package. To unlock the calendar, please ask Classic Folios about a Spaciable package upgrade."
         help_all_free_title: "Calendar Inactive for All Plots"
+    plot_template:
+      title: "What is a Plot Template?"
+      help: "The Plot Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Plot Template will not be reflected on the plot.<br/><br/>We recommend that you use Plot Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
 
   development_csv:
     index:
       phases: "Phases"
-      unit_types: "Unit Types"
+      unit_types: "Plot Templates"
       build_progresses: "Build Progresses"
       download_csv: "Download"
       select_csv: "Select File"
@@ -1457,8 +1460,8 @@ en:
       download_label: "Download CSV Template"
       required: "Phase Name and Plot Number are required fields."
       required_details: "See the list of valid Phase values below. The phase name entered into the CSV must exactly match the phase name as it is displayed here."
-      format: "Unit Type and Build Progress must be entered in a specific format."
-      format_details: "See the list of valid Unit Types and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
+      format: "Plot Template and Build Progress must be entered in a specific format."
+      format_details: "See the list of valid Plot Templates and Build Progresses below. The values entered into the CSV must exactly match the values as they are displayed here."
       file: "Upload a CSV to update multiple plots."
       file_details: "Only CSV files in the specified format will be successfully uploaded. Download the CSV template using the 'Download' button to the right."
       date: "The Legal Completion Date must be in the format DD/MM/YYYY."
@@ -1471,7 +1474,7 @@ en:
       free_phase_error: "<br/>Ignored Free Phase(s): %{errors}"
       phase_error: "<br/>Invalid Phase(s): %{errors}"
       plot_error: "<br/>Invalid Plot(s): %{errors}"
-      unit_error: "<br/>Invalid Unit Type(s): %{errors}"
+      unit_error: "<br/>Invalid Plot Template(s): %{errors}"
       progress_error: "<br/>Invalid Build Progress(s): %{errors}"
       completion_error: "<br/>Invalid Legal Completion Date for Plot(s): %{errors}"
       duplicate_error: "<br/>Duplicate Plot(s): %{errors}"
@@ -1483,14 +1486,14 @@ en:
       no_file: "Please select a valid CSV file to upload. You can download the template by clicking the 'Download CSV Template' button"
       phase_error_strip: "Invalid Phase(s): %{phase}"
       plot_error_strip: "Invalid Plot(s): %{plots}"
-      unit_errors_strip: "Invalid Unit Type(s): %{unit}"
+      unit_errors_strip: "Invalid Plot Template(s): %{unit}"
       progress_error_strip: "Invalid Build Progress(s): %{progress}"
       completion_date_strip: "Invalid Legal Completion Date for plot(s): %{plots}"
       duplicate_plots_strip: "Duplicate Plot(s): %{plots}"
       uprn_error_strip: "Invalid UPRN(s): %{uprns}"
     phase: "Phase name"
     number: "Plot Number"
-    unit_type: "Unit Type"
+    unit_type: "Plot Template"
     uprn: "UPRN"
     prefix: "Postal Prefix"
     house_number: "Postal Number/Name"
@@ -2332,7 +2335,7 @@ en:
           <li><strong>Affordable Rent/Housing Association </strong>- The resident renting directly from the Housing Association</li></ul>"
       limited_access_description:
         title_html: "Limited Access User"
-        overview: "Cannot add additional users.</br>
+        overview: "Cannot add additional users.<br/>
                   Can only view documents designated by a Full Access User.</p><h5>Suitable for:</h5>"
         suitable_html: "<ul>
           <li><strong>Traditional Sale</strong> - A resident of the property who is not the main owner/purchaser</li>
@@ -2571,7 +2574,7 @@ en:
     form:
       submit: "Submit"
       back: "Back"
-      unit_type: "Clone Rooms From Unit Type"
+      unit_type: "Clone Rooms From Plot Template"
       plots: "Plots"
     index:
       title: "Choice Configurations."
@@ -2708,11 +2711,11 @@ en:
       expiry_date: "Expiry Date: "
     form:
       address: "Postal Address"
-      unit_type: "Unit Type"
+      unit_type: "Plot Template"
       submit: "Submit"
       back: "Back"
       notify: "Notify subscribed residents about this change"
-      update_ut: "You have requested a change in unit type from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
+      update_ut: "You have requested a change in plot template from %{old_ut} to %{new_ut} for Plot %{plot}.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
 
     index:
       title: "%{parent_name} Plots"
@@ -2732,7 +2735,7 @@ en:
       rooms: "Rooms"
       documents: "Documents"
       residents: "Residents"
-      unit_type: "Unit Type"
+      unit_type: "Plot Template"
       date_c: "Status"
       choices: "Choices"
       name: "Plot"
@@ -2849,7 +2852,7 @@ en:
       walkthrough: "3D Walkthrough Link"
       back: "Back"
       matterport_example: "For example https://my.matterport.com/show/?m=8qpReuQhuEE"
-      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Unit Type."
+      tip_1: "You can embed an interactive 3D walkthrough (for example Matterport) or an online video onto Spaciable that will be visible in the Home Tour page to all the plots assigned to this Plot Template."
       tip_2: "For example <strong>https://my.matterport.com/show/?m=8qpReuQhuEE</strong>"
       tip_3: "Make sure you use the plugin-friendly version of the URL, so that your 3D walkthrough or video can be embedded in an 'iframe':
               <ul><li>You can find out more details regarding the Matterport 3D walkthrough <a href='https://support.matterport.com/hc/en-us/articles/115004549347-Embed-a-Space-with-an-iframe-', target='_blank'>here.</a></li>
@@ -2859,7 +2862,7 @@ en:
       restricted: "Restrict Specifications to CF Admin"
       picture_tip: "Images must be PNG or JPG/JPEG with a suggested resolution of 3200 x 1600 pixels."
     new:
-      add: "New Unit Type."
+      add: "New Plot Template."
     show:
       walkthrough: "3D Walkthrough Link: "
       build_type: "Build Type: "
@@ -2871,12 +2874,12 @@ en:
       appliances: "Appliances: "
       back: "Back"
     index:
-      title: "%{development_name} unit types"
+      title: "%{development_name} plot templates"
     collection:
-      add: "Add Unit Type"
+      add: "Add Plot Template"
       rooms: "Rooms"
       documents: "Documents"
-      name: "Unit Type"
+      name: "Plot Template"
       last_edited: "Last Edited"
       logs: "Change Logs"
     require_phase: " must be from %{development_name}."
@@ -2905,7 +2908,7 @@ en:
      last_edited: "Last Edited"
      added_by: "Added By"
      delete_app_from_room: "Are you sure you want to delete %{app} from %{room}?"
-     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this appliance would remove it from all plots."
+     cannot_delete: "%{appliance} cannot be deleted because it has been assigned to rooms in plots and/or plot templates. Deleting this appliance would remove it from all plots."
 
    new:
      title: "New Appliance."
@@ -2934,7 +2937,7 @@ en:
      remove_guide: "Remove appliance quick reference guide"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
-     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and unit types containing this appliance."
+     update: "Are you sure you want to update the database entry for %{appliance}? Any changes will be reflected on all plots and plot templates containing this appliance."
    no_match: "No matching appliances found"
 
   finish_manufacturers:
@@ -2985,6 +2988,7 @@ en:
    form:
      back: "Back"
      submit: "Submit"
+     link: "Warranty Registration Link"
 
   appliance_categories:
     index:
@@ -3029,7 +3033,7 @@ en:
       last_edited: "Last Edited"
       added_by: "Added By"
       delete_finish_from_room: "Are you sure you want to delete %{finish} from %{room}?"
-      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or unit types. Deleting this finish would remove it from all plots."
+      cannot_delete: "%{finish} cannot be deleted because it has been assigned to rooms in plots and/or plot templates. Deleting this finish would remove it from all plots."
     new:
       title: "New Finish."
     form:
@@ -3047,7 +3051,7 @@ en:
       category_help: "Visit the <strong>Finish Categories</strong> tab on the previous page to add a new Category entry to the database."
       type_help: "Visit the <strong>Finish Types</strong> tab on the previous page to add a new Type entry to the database, or edit an existing Type and add a new associated Category to the list."
       manufacturer_help: "Visit the <strong>Finish Manufacturers</strong> tab on the preview page to add a new Manufacturer entry to the database, or edit an existing Manufacturer and add a new associated Type to the list."
-      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and unit types containing this finish."
+      update: "Are you sure you want to update the database entry for %{finish}? Any changes will be reflected on all plots and plot templates containing this finish."
     edit:
       title: "Edit %{name}"
       back: "Back"
@@ -3117,7 +3121,7 @@ en:
       # Add room to Plot 'Plot 1'
       # Add room to Plot 'Apartment 5'
       # Add room to Unit Type 'Kempton'
-      add: "Add Room"
+      add: "Add Room to %{name}"
       finishes: "Finishes"
       appliances: "Appliances"
       belongs_to: "Belongs To"
@@ -3143,7 +3147,7 @@ en:
     appliance_rooms:
       new:
         choose: "Choose..."
-        title: "New Appliance."
+        title: "Assign Appliance."
         submit: "Submit"
         back: "Back"
         search: "Search"
@@ -3154,7 +3158,7 @@ en:
         manufacturer: "Manufacturer"
     finish_rooms:
       new:
-        title: "New Finish."
+        title: "Assign Finish."
         submit: "Submit"
         back: "Back"
         search: "Search"
@@ -3363,12 +3367,12 @@ en:
       description: "<strong>Select the plots you wish to edit below.</strong>"
       description_two: "<strong>Edit the fields you wish to update after selecting your plots.</strong><br/>
                         Make sure the checkbox next to the fields you wish to change is selected, or the value will not be updated."
-      unit_type: "Unit Type"
+      unit_type: "Plot Template"
       update_progress: "Update Build Progress"
       comp_date: "Estimated Move In Date"
       back: "Back"
       submit: "Submit"
-      update_ut: "You have requested a change in unit type.<br/><br/>Changing a plot's unit type could cause a number of changes, please select a change from the options below:"
+      update_ut: "You have requested a change in plot template.<br/><br/>Changing a plot's template could cause a number of changes, please select a change from the options below:"
     create:
       success: "Successfully updated plots %{plot_numbers}"
       success_one: "Successfully updated plot %{plot_number}"
@@ -3396,7 +3400,7 @@ en:
       title: "Production overview of plots"
     collection:
       add: "Add Plot(s)"
-      unit_type: "Unit Type"
+      unit_type: "Plot Template"
       date_r: "R"
       date_c: "C"
       name: "Plot"
@@ -3424,7 +3428,7 @@ en:
       division: "Division"
       development: "Development"
       phase: "Phase"
-      unit_type: "Unit type"
+      unit_type: "Plot Template"
       plot: "Plot"
       room: "Room"
       finish: "Finish"
@@ -3493,11 +3497,11 @@ en:
           professional: "Professional"
           legacy: "Legacy"
       unit_type:
-        name: "Unit type name"
-        picture: "Unit type picture"
+        name: "Plot Template name"
+        picture: "Plot Template picture"
         updated_at: "Last edited"
         build_types:
-          # Build type enums for unit type
+          # Build type enums for plot template
           house_semi: "House (semi-detached)"
           house_detached: "House (detached)"
           house_terraced: "House (terraced)"
@@ -3866,7 +3870,7 @@ en:
             base:
               missing: "Plot not found"
               number_taken: "Number has already been added."
-              cannot_update_unit_type : "Unit Type changes are restricted until after the Completion work has been done by Classic Folios"
+              cannot_update_unit_type : "Plot Template changes are restricted until after the Completion work has been done by Classic Folios"
         finish_type:
           attributes:
             finish_categories:
