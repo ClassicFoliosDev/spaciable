@@ -1,9 +1,9 @@
 <% breadcrumb :development_calendar, @development %>
 
 <% if all_phases_free?(@development) %>
-  <%= render "components/admin/popup", title: t(".help_all_free_title"), preference: :show_phase_calendar_restriction_dialog, help: [t(".help_all_free")], warn: true %>
+  <%= render "components/admin/popup", title: t(".help_all_free_title"), preference: :show_phase_calendar_restriction_dialog, help: [t(".help_all_free")], type: :warn %>
 <% elsif some_phases_free?(@development) %>
-  <%= render "components/admin/popup", title: t(".help_some_free_title"), preference: :show_phase_calendar_restriction_dialog, help: [t(".help_some_free")], warn: true %>
+  <%= render "components/admin/popup", title: t(".help_some_free_title"), preference: :show_phase_calendar_restriction_dialog, help: [t(".help_some_free")], type: :warn %>
     <script>$events_enabled = true</script>
 <% end %>
 

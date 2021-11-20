@@ -1,3 +1,7 @@
+<% if parent.is_a?(Development) && parent.cas?  %>
+  <%= render "components/admin/popup", title: t(".plot_template.title"), preference: :show_plot_template_dialog, help: [t(".plot_template.help")], width: 700%>
+<% end %>
+
 <% if collection.empty? %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>

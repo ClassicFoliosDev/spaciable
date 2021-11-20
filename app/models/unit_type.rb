@@ -130,4 +130,11 @@ class UnitType < ApplicationRecord
   def log_threshold
     :none
   end
+
+  # are all the associated plots on the free package?
+  def free?
+    return false unless plots.count.positive?
+    plots.each { |p| return false unless p.free? }
+    true
+  end
 end

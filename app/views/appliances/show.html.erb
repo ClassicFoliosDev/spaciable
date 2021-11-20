@@ -6,6 +6,13 @@
   </div>
   <div class="section-data">
     <%= edit_btn [:edit, @appliance], element: @appliance %>
+    <% if current_page?(action: :show) && @warn_on_edit %>
+      <div id="confirm-edit" data-title="<%= t('.confirm-edit.title', name: @appliance.full_name)%>">
+        <div id="body">
+          <p><%= simple_format t('.confirm-edit.body', name: @appliance.full_name, origin: @origin) %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

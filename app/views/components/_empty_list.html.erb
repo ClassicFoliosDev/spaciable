@@ -2,7 +2,13 @@
 
 <div class="empty lower">
   <div><%= fa_icon icon_name %></div>
-  <div><span><%= t(".empty", type_names: type.model_name.human.downcase.pluralize) %></span></div>
+  <% if defined?(empty_desc) && empty_desc.present? %>
+    <%= render empty_desc %>
+  <% else %>
+    <div>
+      <span><%= t(".empty", type_names: type.model_name.human.downcase.pluralize) %></span>
+    </div>
+  <% end %>
   <div>
     <% create = defined?(override) ?
                 override :
@@ -12,7 +18,7 @@
         <!-- pass the params to the link associated with the 'New' button so it can supply the country when required -->
         <%= link_to t(".add", action: action, type_name: type.model_name.human.titleize), [:new, parent, type.name.underscore.to_sym, plot: @plot, params: params.to_h], class: "btn btn-primary" %>
       <% end %>
-    <% else %>
+    <% elsif !defined?(empty_desc) %>
       <span><%= t(".request_add", type_names: type.model_name.human.downcase.pluralize) %></span>
     <% end%>
   </div>

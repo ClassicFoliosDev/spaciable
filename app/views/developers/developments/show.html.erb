@@ -1,9 +1,5 @@
 <% breadcrumb :development, @development %>
 
-<% if @development.cas? && @selected_tab.nil? %>
-  <%= render "components/admin/popup", title: t("developments.plot_template.title"), preference: :show_plot_template_dialog, help: [t("developments.plot_template.help")], width: 700%>
-<% end %>
-
 <div class="development">
 
   <%= render '/developments/development', development: @development %>

@@ -1444,9 +1444,6 @@ en:
         help_some_free_title: "Calendar Inactive for Some Plots"
         help_all_free: "No plots have calendar access, as all plots have the Spaciable Free package. To unlock the calendar, please ask Classic Folios about a Spaciable package upgrade."
         help_all_free_title: "Calendar Inactive for All Plots"
-    plot_template:
-      title: "What is a Plot Template?"
-      help: "The Plot Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Plot Template will not be reflected on the plot.<br/><br/>We recommend that you use Plot Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
 
   development_csv:
     index:
@@ -2661,6 +2658,10 @@ en:
         add: "Add %{type_name}"
   plots:
     rooms:
+      empty_completed:
+        desc: "Adding a room that applies to multiple plots?<br/><br/>Use the <a href='%{url}' target='_blank'>Plot Templates</a> feature at development level to add rooms and specifications shared by groups of plots, then go to a specific plot to manage rooms and specifications that are unique to that plot.<br/><br/>Once a plot room is edited, changes made to that same room in the Plot Template will not update on the plot."
+      empty_not_completed:
+        desc: "Sorry, you cannot edit rooms, finishes and appliances on this plot.<br/><br/>With the Essentials and Professional Spaciable packages, admins can configure rooms, finishes and appliances after Classic Folios change the plot’s Status to Completion Information Added.<br/><br/>On the Plots tab at Phase level, a green circle in the Status column signifies Completion Information Added for that plot."
       index:
         title: "%{parent_name} rooms"
       edit:
@@ -2882,6 +2883,9 @@ en:
       name: "Plot Template"
       last_edited: "Last Edited"
       logs: "Change Logs"
+      plot_template:
+        title: "What is a Plot Template?"
+        help: "The Plot Template feature allows you to create templates for your plots.<br/><br/>Any room, finish and appliance that you add to a Plot Template will also be shown in each plot assigned to it.<br/>Once a room is edited at plot level it becomes unique to that plot; any changes made to that same room in the Plot Template will not be reflected on the plot.<br/><br/>We recommend that you use Plot Templates to populate any shared specifications, then add the remaining choices and changes at plot level."
     require_phase: " must be from %{development_name}."
 
   appliances:
@@ -2918,6 +2922,9 @@ en:
      documents: "Appliance manual"
      secondary_image: "Secondary Image"
      primary_image: "Primary Image"
+     confirm-edit:
+       title: "Edit %{name}"
+       body: "Any changes you make here will be reflected on all plots and plot templates containing this <strong>%{name}</strong> appliance.<br/><br/>If your intension is to replace the appliance for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
    edit:
      title: "Edit %{name}"
      back: "Back"
@@ -3058,6 +3065,10 @@ en:
     show:
       back: "Back"
       original_filename: "Original file name"
+      confirm-edit:
+       title: "Edit %{name}"
+       body: "Any changes you make here will be reflected on all plots and plot templates containing this <strong>%{name}</strong> finish.<br/><br/>If your intension is to replace the finish for <strong>%{origin}</strong>, please remove <strong>%{name}</strong> from the room and assign another."
+
     no_match: "No matching finishes found"
 
   finish_categories:
@@ -3128,6 +3139,10 @@ en:
       name: "Room"
       last_edited: "Last Edited"
       last_edited_by: "Last Edited By"
+      free:
+        title: "Cannot Populate Rooms"
+        help: "Sorry, you cannot assign finishes or appliances to rooms with your current Spaciable Free package. To supply specifications on each plot and fully inform your customers, please ask Classic Folios to upgrade you to one of the packages below:<br/><br/>Essentials package - Give your admins the power to easily enter plot finishes and reduce customer queries.<br/><br>Professional package - Our experts sort through specifications and add finishes to each plot on your behalf, freeing up your aftercare team.<br/><br/>Find out more about a Spaciable package upgrade."
+
     edit:
       title: "Edit %{room_name}"
     form:
@@ -3156,6 +3171,7 @@ en:
                       Narrow results by using quotation marks to return only exact matches."
         category: "Category"
         manufacturer: "Manufacturer"
+        cannot_find: "Unable to find the Appliance you’re looking for?<br/><br/>Appliances must first be <a href='%{url}'>created</a> before returning here to assign them to the room."
     finish_rooms:
       new:
         title: "Assign Finish."
@@ -3169,6 +3185,7 @@ en:
         category: "Category"
         type: "Type"
         finish: "Finish Name"
+        cannot_find: "Unable to find the Finish you’re looking for?<br/><br/>Finishes must first be <a href='%{url}'>created</a> before returning here to assign them to the room."
     remove_appliance:
       success: "Successfully removed %{appliance_name} from %{room_name}."
     remove_finish:

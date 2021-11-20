@@ -7,9 +7,11 @@ document.addEventListener('turbolinks:load', function () {
 
   popup.show(true)
 
-  if ($popupResource.data("warn")) { $("i.restricted-warning").show() }
+  toolbar_icon = "i." + $popupResource.data("type")
 
-  $(document).on('click', 'i.restricted-warning', function (event) {
+  $(toolbar_icon).show()
+
+  $(document).on('click', toolbar_icon, function (event) {
     popup.display(false)
   })
 

@@ -60,4 +60,8 @@ class ApplicationController < ActionController::Base
   def set_current_user
     RequestStore.store[:current_user] = current_user
   end
+
+  def parse_boolean(value)
+    ActiveModel::Type::Boolean.new.cast(value)
+  end
 end

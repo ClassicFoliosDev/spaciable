@@ -49,7 +49,7 @@
       <% collection.each do |appliance| %>
         <tr <%= "class=view-only" if cannot?(:update, appliance) %> data-appliance="<%= appliance.id %>">
           <td style="text-align:center;"><%= image_tag appliance.primary_image.url if appliance.primary_image? %></td>
-          <td colspan="2"><%= link_to appliance.full_name, appliance_path(appliance), title: appliance.full_name %></td>
+          <td colspan="2"><%= link_to appliance.full_name, appliance_path(appliance, warn_on_edit: room.present?, origin: room&.identity), title: appliance.full_name %></td>
           <td colspan="2"><%= appliance.appliance_category %></td>
           <td colspan="2"><%= appliance.model_num %></td>
           <td colspan="2"><%= appliance.appliance_manufacturer %></td>

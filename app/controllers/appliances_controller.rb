@@ -16,7 +16,10 @@ class AppliancesController < ApplicationController
 
   def edit; end
 
-  def show; end
+  def show
+    @warn_on_edit = parse_boolean(params[:warn_on_edit])
+    @origin = params[:origin]
+  end
 
   def create
     if @appliance.save

@@ -1,0 +1,6 @@
+<div>
+  <span>
+    <% unit_type_url = "#{plot_development_path(@plot)}?active_tab=unit_types" %>
+    <%= simple_format(t(".desc", url: unit_type_url), {}, {sanitize: false}) %>
+  </span>
+</div>

@@ -1,15 +1,21 @@
 <% breadcrumb :rooms, parent %>
 
+<% if (parent.free?) %>
+  <%= render "components/admin/popup", title: t(".free.title"), preference: :show_free_plots_rooms_dialog, help: [t(".free.help")], type: :warn, width: 700 %>
+<% end %>
+
 <% cancreate = parent.is_a?(Plot) ?
                can?(:crud, PlotRoom.new(parent)) :
                can_create(Room, parent, combine: true)
 %>
 
+<% empty_desc = defined?(empty_desc) ? empty_desc : nil %>
+
 <% if collection.empty? %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>
   </div>
-  <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate %>
+  <%= render 'components/empty_list', icon_name: "bath", type: Room, parent: parent, combine: true, override: cancreate, empty_desc: empty_desc %>
 <% else %>
   <div class="section-actions">
     <%= render 'components/admin/conveyancing', parent: parent %>

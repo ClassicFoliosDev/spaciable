@@ -16,5 +16,6 @@ class UserPreference < ApplicationRecord
     show_developer_csv_restriction_dialog
     show_faq_restriction_dialog
     show_plot_template_dialog
+    show_free_plots_rooms_dialog
   ]
 end

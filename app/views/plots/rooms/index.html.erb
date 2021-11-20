@@ -8,4 +8,4 @@
 
 <%= render 'components/tabs', tabs: plot_tabs(@plot, "rooms", current_user) %>
 
-<%= render_collection @rooms, parent: @plot %>
+<%= render_collection @rooms, parent: @plot, empty_desc: no_plot_rooms(@plot) %>

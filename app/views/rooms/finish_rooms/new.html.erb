@@ -40,6 +40,7 @@
           <%= select_tag "finishes", required: true %>
           <span class="match-errors"></span>
         </div>
+        <p><%= simple_format t(".cannot_find", url: new_finish_path)%></p>
       </fieldset>
     </div>
     <div class="search-finish">

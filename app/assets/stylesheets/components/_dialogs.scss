@@ -205,7 +205,7 @@ input:checked + .feedback {
   display: none;
 }
 
-#restricted-warning {
+#warning, #tip {
   display: inline-block;
   float: right;
   margin: 12 38;
