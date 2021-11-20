@@ -228,3 +228,8 @@
     padding-bottom: $spacing-small;
   }
 }
+
+.hangingindent {
+  padding-left: 50px;
+  text-indent: -50px;
+}

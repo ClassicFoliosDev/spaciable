@@ -4,8 +4,9 @@ document.addEventListener('turbolinks:load', function () {
 
   $popupResource = $(".popup-resource")
   if ($popupResource.length == 0 ) { return }
+  if ($popupResource.data("popup-on-load")) { popup.show(true) }
 
-  popup.show(true)
+  popup.buildToolbarIcon()
 
   toolbar_icon = "i." + $popupResource.data("type")
 
@@ -37,9 +38,8 @@ var popup = {
 
     var $dialogContainer = $('<div>', { id: 'dialog' }).html($popupResource.html())
     if (can_turn_off) {
-      $dialogContainer.append("<div>" +
-                                "<input type='checkbox' id='noshow' name='noshow'>" +
-                                "<label for='noshow'>Please dont show me this message again.</label>" +
+      $dialogContainer.append("<div class='input'>" +
+                                "<label><input type='checkbox' id='noshow' name='noshow'>Please dont show me this message again.</label>" +
                               "</div>")
     }
 
@@ -51,13 +51,13 @@ var popup = {
       title.html( this.options.title );
     };
 
-    dialog.dialog('option', 'title', '<i class="fa fa-exclamation-triangle restricted-warning" aria-hidden="true"></i>' + dataIn.title);
+    dialog.dialog('option', 'title', '<i class="fa ' + $popupResource.data("icon") + " " + $popupResource.data("type") + ' aria-hidden="true"></i>' + dataIn.title);
 
     dialog.dialog({
       show: 'show',
       modal: true,
       width: dataIn.width,
-      dialogClass: 'popup-dialog',
+      dialogClass: $popupResource.data("type") + '-dialog',
       buttons: [
       {
         text: 'Close',
@@ -74,5 +74,10 @@ var popup = {
       }]
     }).prev().find('.ui-dialog-titlebar-close').hide() // Hide the standard close button
 
+  },
+
+  buildToolbarIcon: function() {
+    var $toolbarIcon = $('<div>', { id: $popupResource.data("type") }).html('<i class="fa ' + $popupResource.data("icon") + " " + $popupResource.data("type") + ' aria-hidden="true"></i>')
+    $(".breadcrumb-container").append($toolbarIcon)
   }
 }

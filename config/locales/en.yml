@@ -4209,6 +4209,10 @@ en:
     free_help: "Your plots on the Free package will only see <strong>standard</strong> FAQs."
     essentials_help: "Your plots on the Essentials package will only see <strong>standard</strong> and <strong>enhanced</strong> FAQs."
 
+  stuck_with_specs:
+    title: "Stuck with specs?"
+    help: "<p class='hangingindent'>Step 1: First, add Finishes and Appliances - click Finishes/Appliances in the left side menu.</p><p class='hangingindent'>Step 2: Then, use Plot Templates at development level to add rooms shared by groups of plots.</p><p class='hangingindent'>Step 3: In each Room on a Plot Template, assign finishes and appliances shared by that group of plots.</p><p class='hangingindent'>Step 4: Go to a specific plot to manage rooms and specifications that are unique to that plot.</p>"
+
 
 
 

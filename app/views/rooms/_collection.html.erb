@@ -1,7 +1,9 @@
 <% breadcrumb :rooms, parent %>
 
-<% if (parent.free?) %>
+<% if (parent.free?) && !current_user.cf_admin? %>
   <%= render "components/admin/popup", title: t(".free.title"), preference: :show_free_plots_rooms_dialog, help: [t(".free.help")], type: :warn, width: 700 %>
+<% else %>
+  <%= render "components/admin/popup", title: t("stuck_with_specs.title"), help: [t("stuck_with_specs.help")], type: :tip, all_users: true, popup_on_load: false, width: 500 %>
 <% end %>
 
 <% cancreate = parent.is_a?(Plot) ?

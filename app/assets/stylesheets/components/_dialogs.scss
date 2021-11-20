@@ -191,14 +191,14 @@ input:checked + .feedback {
   }
 }
 
-.restricted-dialog {
+.warning-dialog, .tip-dialog {
   span i {
     padding-right: 10;
   }
+}
 
-  .ui-dialog-titlebar {
+.warning-dialog .ui-dialog-titlebar {
     background-color: #fc2803 !important;
-  }
 }
 
 .popup-resource {
@@ -209,6 +209,7 @@ input:checked + .feedback {
   display: inline-block;
   float: right;
   margin: 12 38;
+  cursor: pointer;
 
   i {
     font-size: 20;

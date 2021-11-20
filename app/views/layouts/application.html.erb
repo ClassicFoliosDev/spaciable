@@ -11,11 +11,6 @@
         </div>
         <div class="breadcrumb-container">
           <%= breadcrumbs separator: " &rsaquo; ", display_single_fragment: true %>
-          <% Toolbar::ICONS.each do |t, i| %>
-            <div id=<%=i[:type]%>>
-              <i class='<%= "fa #{i[:icon]} #{i[:type]}" %>' aria-hidden="true" style="display:none"></i>
-            </div>
-          <% end %>
         </div>
         <div class="main-container">
           <main>
