@@ -13,6 +13,7 @@ document.addEventListener('turbolinks:load', function () {
   $(toolbar_icon).show()
 
   $(document).on('click', toolbar_icon, function (event) {
+    if ($(".ui-dialog").is(":visible")) { return }
     popup.display(false)
   })
 
