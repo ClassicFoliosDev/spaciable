@@ -239,6 +239,7 @@ class Phase < ApplicationRecord
   # Retrieve relevant calendar events
   # rubocop:disable Metrics/AbcSize
   def events(params)
+    return if free?
     # parent development events
     evts = Event.within_range(Development.to_s, [development.id],
                               params[:start], params[:end]).to_a
