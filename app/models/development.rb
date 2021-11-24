@@ -292,7 +292,10 @@ class Development < ApplicationRecord
   # rubocop:enable Metrics/AbcSize
 
   def resources
-    plots.order(:id).pluck(:id, :number)
+    Plot.joins(phase: :development)
+        .where(developments: { id: id })
+        .where.not(phases: { package: Phase.packages[:free] })
+        .order(:id).pluck(:id, :number)
   end
 
   def signature
