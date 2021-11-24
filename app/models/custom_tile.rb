@@ -101,7 +101,13 @@ class CustomTile < ApplicationRecord
       active_tiles << tile if tile.content_proforma? && tile.proforma_assoc?(plot)
     end
 
-    active_tiles
+    visible_tiles(active_tiles, plot)
+  end
+
+  # what tiles are visible according to the current rules
+  def self.visible_tiles(active_tiles, plot)
+    return active_tiles unless plot.free?
+    active_tiles.reject { |ct| !ct.cf? }
   end
 
   def active_feature(plot)
