@@ -26,11 +26,6 @@ class Finish < ApplicationRecord
   delegate :name, to: :finish_type, prefix: true
   delegate :name, to: :finish_manufacturer, prefix: true
 
-  scope :visible_to,
-        lambda { |user|
-          where("developer_id #{user.developer.nil? ? 'IS NULL' : '=' + user.developer.to_s}")
-        }
-
   scope :with_cat_type_man,
         lambda { |params|
           joins(:finish_category, :finish_type, :finish_manufacturer)
@@ -103,6 +98,7 @@ class Finish < ApplicationRecord
   # copied to the new developer finish
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def self.find_or_create(params, rooms)
+    byebug
     category = FinishCategory.find_or_create(params[:category], params[:developer_id])
     type = FinishType.find_or_create(params[:type], params[:developer_id], category)
     manufacturer = FinishManufacturer.find_or_create(params[:manufacturer],

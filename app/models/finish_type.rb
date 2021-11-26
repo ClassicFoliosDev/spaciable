@@ -10,11 +10,6 @@ class FinishType < ApplicationRecord
 
   belongs_to :developer, optional: true
 
-  scope :visible_to,
-        lambda { |user|
-          where("developer_id #{user.developer.nil? ? 'IS NULL' : '=' + user.developer.to_s}")
-        }
-
   scope :with_category,
         lambda { |category|
           joins(:finish_categories)

@@ -48,6 +48,11 @@ class FinishesController < ApplicationController
     redirect_to finishes_url, notice: notice
   end
 
+  def clone
+    @finish = @finish.dup
+    render :new
+  end
+
   def finish_types_list
     finish_types = FinishType.with_category(params[:category])
     render json: finish_types

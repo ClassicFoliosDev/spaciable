@@ -6,11 +6,6 @@ class FinishManufacturer < ApplicationRecord
   has_many :finish_categories, through: :finish_types
   belongs_to :developer, optional: true
 
-  scope :visible_to,
-        lambda { |user|
-          where("developer_id #{user.developer.nil? ? 'IS NULL' : '=' + user.developer.to_s}")
-        }
-
   scope :with_type,
         lambda { |type|
           joins(:finish_types)

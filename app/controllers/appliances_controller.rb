@@ -45,6 +45,11 @@ class AppliancesController < ApplicationController
     redirect_to appliances_path, notice: notice
   end
 
+  def clone
+    @appliance = @appliance.dup
+    render :new
+  end
+
   def appliance_manufacturers_list
     appliance_manufacturers = ApplianceManufacturer.visible_to(current_user).order(:name)
     render json: appliance_manufacturers

@@ -108,6 +108,7 @@ en:
   buttons:
     edit: "Edit"
     trash: "Delete"
+    clone: "Clone"
     info:
       title: "Information"
       cannot_delete: "Cannot delete %{type}"

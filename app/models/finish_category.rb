@@ -9,11 +9,6 @@ class FinishCategory < ApplicationRecord
   belongs_to :finish, optional: true
   belongs_to :developer, optional: true
 
-  scope :visible_to,
-        lambda { |user|
-          where("developer_id #{user.developer.nil? ? 'IS NULL' : '=' + user.developer.to_s}")
-        }
-
   validates :name, presence: true,
                    uniqueness:
                    {

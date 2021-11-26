@@ -334,12 +334,6 @@ class Developer < ApplicationRecord
 
     # Migrate finishes for the developer if CAS
     return unless cas
-
-    MigrateFinishesJob.perform_later(
-      id,
-      RequestStore.store[:current_user]&.full_name,
-      RequestStore.store[:current_user]&.role
-    )
   end
   # rubocop:enable SkipsModelValidations
 

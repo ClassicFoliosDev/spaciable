@@ -6,6 +6,7 @@
   </div>
   <div class="section-data">
     <%= edit_btn [:edit, @finish], element: @finish %>
+    <%= clone_btn clone_finish_path(@finish), element: @finish %>
     <% if current_page?(action: :show) && @warn_on_edit %>
       <div id="confirm-edit" data-title="<%= t('.confirm-edit.title', name: @finish.name)%>">
         <div id="body">

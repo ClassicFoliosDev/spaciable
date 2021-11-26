@@ -25,7 +25,8 @@
 
   <% include_added_by = collection.map { |f| f.added_by.present? }.include?(true) %>
   <% showing_icons = current_user&.cf_admin? ||
-                    collection.map { |finish| can?(:update, finish) ||
+                    collection.map { |finish| can?(:clone, finish) ||
+                                              can?(:update, finish) ||
                                               can?(:destroy, FinishRoom.room_finish(room,finish))}.include?(true) %>
 
   <table class="record-list">
@@ -47,19 +48,21 @@
     </thead>
     <tbody>
       <% collection.each do |finish| %>
-        <tr <%="class=view-only" if cannot?(:update, finish) %>>
-          <td style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
-          <td colspan="2"><%= link_to finish.name, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity)%></td>
-          <td colspan="2"><%= finish.finish_category %></td>
-          <td colspan="2"><%= finish.finish_type %></td>
-          <td colspan="2"><%= finish.finish_manufacturer %></td>
-          <td colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
+        <% tdc = cannot?(:update, finish) ? "class=view-only" : nil %>
+        <tr>
+          <td <%= tdc %> style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
+          <td <%= tdc %> colspan="2"><%= link_to finish.name, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity)%></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_category %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_type %></td>
+          <td <%= tdc %> colspan="2"><%= finish.finish_manufacturer %></td>
+          <td <%= tdc %> colspan="2"><%= l finish.updated_at.to_date, format: :digits %></td>
           <% if include_added_by %>
-            <td colspan="2"><%= finish.added_by %></td>
+            <td <%= tdc %> colspan="2"><%= finish.added_by %></td>
           <%end%>
           <% if showing_icons %>
             <td  colspan="2" class="actions">
               <%= edit_btn edit_finish_path(finish), element: finish %>
+              <%= clone_btn clone_finish_path(finish), element: finish %>
               <% if action_name.to_sym == :index && finish.in_use? %>
                  <%= info_btn finish, text: t('.cannot_delete', finish: finish), element: finish, title: t('buttons.info.cannot_delete', type: "Finish")%>
               <% elsif room && can?(:destroy, FinishRoom.room_finish(room,finish)) %>
