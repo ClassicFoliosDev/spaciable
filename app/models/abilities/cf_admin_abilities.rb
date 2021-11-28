@@ -26,6 +26,7 @@ module Abilities
                ["#{klass.table_name}.developer_id IS NOT ?", nil] do |k|
           k.developer_id.present?
         end
+        cannot :clone, klass
       end
     end
   end

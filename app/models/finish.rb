@@ -88,42 +88,4 @@ class Finish < ApplicationRecord
   def in_use?
     FinishRoom.with_finish(id).present?
   end
-
-  # This function looks to find or create a finish using the names for a
-  # finish/category/type/manufacturer.  It has to cover a number of scenarios
-  # depending if the finish, category, type and manufacturer already exists
-  # for the developer.  If not they are created as required.  Finally, if there is
-  # a finish for the CF Admin with the name/category/type/manufacturer combination
-  # and we are creating a new 'developer' version, then any image for the finish is
-  # copied to the new developer finish
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-  def self.find_or_create(params, rooms)
-    byebug
-    category = FinishCategory.find_or_create(params[:category], params[:developer_id])
-    type = FinishType.find_or_create(params[:type], params[:developer_id], category)
-    manufacturer = FinishManufacturer.find_or_create(params[:manufacturer],
-                                                     params[:developer_id],
-                                                     type)
-
-    finish = Finish.find_or_initialize_by(finish_category_id: category.id,
-                                          finish_type_id: type.id,
-                                          finish_manufacturer_id: manufacturer&.id,
-                                          name: params[:name],
-                                          developer_id: params[:developer_id])
-
-    finish.room_ids |= rooms # add/set unique rooms
-
-    # Is is a new finish?
-    if finish.new_record?
-      # is there a matching CF finish with the name/cat/type/man and nil developer
-      cf_finish = Finish.with_params(params, nil)&.first
-      if cf_finish.present? && cf_finish.picture.present?
-        CopyCarrierwaveFile::CopyFileService.new(cf_finish, finish, :picture).set_file
-      end
-    end
-
-    finish.save!
-    finish
-  end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

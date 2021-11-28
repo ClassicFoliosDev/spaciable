@@ -21,7 +21,13 @@ class FinishesController < ApplicationController
     @origin = params[:origin]
   end
 
+  # rubocop:disable LineLength, Metrics/AbcSize
   def create
+    if !params[:finish][:picture] &&
+       !parse_boolean(params[:finish][:remove_picture]) &&
+       params[:finish][:copy_of].present?
+      CopyCarrierwaveFile::CopyFileService.new(Finish.find(params[:finish][:copy_of]), @finish, :picture).set_file
+    end
     if @finish.save
       @finish.set_original_filename
       redirect_to finishes_path, notice: t("controller.success.create", name: @finish.name)
@@ -29,6 +35,7 @@ class FinishesController < ApplicationController
       render :new
     end
   end
+  # rubocop:enable LineLength, Metrics/AbcSize
 
   def update
     if @finish.update(finish_params)
@@ -49,6 +56,7 @@ class FinishesController < ApplicationController
   end
 
   def clone
+    @source_finish = @finish
     @finish = @finish.dup
     render :new
   end
@@ -79,7 +87,7 @@ class FinishesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def finish_params
-    params.require(:finish).permit(
+    p = params.require(:finish).permit(
       :name,
       :description,
       :finish_category_id,
@@ -90,6 +98,8 @@ class FinishesController < ApplicationController
       :picture_cache,
       documents_attributes: %i[id title file _destroy]
     )
+    p[:remove_picture] = "0" if p[:picture].present?
+    p
   end
 
   # Override the current_ability - supplying the non_development value

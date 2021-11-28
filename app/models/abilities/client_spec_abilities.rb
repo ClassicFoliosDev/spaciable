@@ -8,7 +8,7 @@ module Abilities
       # developer and user have to have CAS
       return unless Developer.find(developer).cas && user.cas
 
-      crud_finishes(developer)
+      crud_finishes(developer, user)
       crud_appliances(developer)
       cas_development_abilities(development_ids)
       true
@@ -29,27 +29,48 @@ module Abilities
       end
     end
 
-    def crud_finishes(developer_id)
-      crud_klass(Finish, developer_id)
-      crud_klass(FinishType, developer_id)
-      crud_klass(FinishCategory, developer_id)
-      crud_klass(FinishManufacturer, developer_id)
-    end
-
-    def crud_appliances(developer_id)
-      crud_klass(Appliance, developer_id)
-      crud_klass(ApplianceCategory, developer_id)
-      crud_klass(ApplianceManufacturer, developer_id)
+    def crud_finishes(developer_id, user)
+      crud_finclass(Finish, developer_id, user)
+      crud_finclass(FinishType, developer_id, user)
+      crud_finclass(FinishCategory, developer_id, user)
+      crud_finclass(FinishManufacturer, developer_id, user)
     end
 
     # Generic ability for any class with a developer_id attribute that
     # needs to be distinct from Admin objects
-    def crud_klass(klass, developer_id)
+    def crud_finclass(klass, developer_id, user)
       # Can read records developer_id is that of the developer trying to read
       can :read,
           klass,
           ["#{klass.table_name}.developer_id = ? OR " \
            "#{klass.table_name}.developer_id IS NULL", developer_id] \
+           do |instance|
+        instance.developer_id == developer_id || instance.developer_id.nil?
+      end
+
+      duc_class(klass, developer_id)
+
+      # can clone klass if the developer id is nil
+      can :clone, klass, developer_id: nil unless user.cf_admin?
+    end
+
+    def crud_appliances(developer_id)
+      crud_appclass(Appliance, developer_id, "model_num")
+      crud_appclass(ApplianceCategory, developer_id)
+      crud_appclass(ApplianceManufacturer, developer_id)
+    end
+
+    # Generic ability for any class with a developer_id attribute that
+    # needs to share with Admin objects
+    def crud_appclass(klass, developer_id, key = "name")
+      # Can read records providing the ('key' is unique and develper_id is null (ie CF records))
+      # or the developer_id is that of the developer trying to read
+      can :read,
+          klass,
+          ["#{klass.table_name}.id IN (select id from #{klass.table_name} k " \
+           "where ((k.developer_id IS NULL AND (select count(*) " \
+           "from #{klass.table_name} k2 where k2.#{key} = #{klass.table_name}.#{key} " \
+           "AND  k2.developer_id = #{developer_id}) = 0) or k.developer_id = #{developer_id}))"] \
            do |instance|
         instance.developer_id == developer_id || instance.developer_id.nil?
       end
@@ -68,9 +89,6 @@ module Abilities
       # Creates klass objects initialised with developer_id of the
       # logged in developer
       can :create, klass, developer_id: developer_id
-
-      # can clone klass if the developer id is nil
-      can :clone, klass, developer_id: nil
     end
 
     # restrict unit types

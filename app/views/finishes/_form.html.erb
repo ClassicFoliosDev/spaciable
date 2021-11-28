@@ -12,6 +12,8 @@
     </div>
   <% end %>
 
+  <% f.object = @source_finish || f.object %>
+
     <div class="row finish">
       <p><%= t(".finish_description") %></p>
       <div class="row-item third">
@@ -21,6 +23,7 @@
           </div>
         </fieldset>
         <fieldset>
+          <%= f.hidden_field :copy_of, value: @source_finish&.id %>
           <%= f.input :name, label: t(".name") %>
           <%= label_tag t(".notes") %>
           <p class="notes-disclaimer"><%= t(".notes_disclaimer") %></p>

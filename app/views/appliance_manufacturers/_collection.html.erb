@@ -20,13 +20,11 @@
     </thead>
     <tbody>
       <% collection.each do |appliance_manufacturer| %>
-        <% tdc = cannot?(:update, appliance_manufacturer) ? "class=view-only" : nil %>
-        <tr data-appliance-manufacturer="<%= appliance_manufacturer.id %>">
-          <td <%= tdc %>><%= link_to appliance_manufacturer.name, appliance_manufacturer_path(appliance_manufacturer), title: appliance_manufacturer.name %></td>
-          <td <%= tdc %>><%= l appliance_manufacturer.updated_at.to_date, format: :digits %></td>
+        <tr <%="class=view-only" if cannot?(:update, appliance_manufacturer) %> data-appliance-manufacturer="<%= appliance_manufacturer.id %>">
+          <td><%= link_to appliance_manufacturer.name, appliance_manufacturer_path(appliance_manufacturer), title: appliance_manufacturer.name %></td>
+          <td><%= l appliance_manufacturer.updated_at.to_date, format: :digits %></td>
           <td class="actions">
             <%= edit_btn edit_appliance_manufacturer_path(appliance_manufacturer), element: appliance_manufacturer %>
-            <%= clone_btn clone_appliance_manufacturer_path(appliance_manufacturer), element: appliance_manufacturer %>
             <%= delete_btn appliance_manufacturer, path: url_for(appliance_manufacturer), element: appliance_manufacturer %>
           </td>
         </tr>
