@@ -26,7 +26,7 @@ class FinishesController < ApplicationController
     if !params[:finish][:picture] &&
        !parse_boolean(params[:finish][:remove_picture]) &&
        params[:finish][:copy_of].present?
-      CopyCarrierwaveFile::CopyFileService.new(Finish.find(params[:finish][:copy_of]), @finish, :picture).set_file
+      CopyCarrierwaveFile::CopyFileService.new(Finish.find(params[:finish][:copy_of]), @finish, :picture).set_file if Finish.find(params[:finish][:copy_of]).picture?
     end
     if @finish.save
       @finish.set_original_filename
