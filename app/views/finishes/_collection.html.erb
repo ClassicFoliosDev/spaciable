@@ -51,7 +51,7 @@
         <% tdc = cannot?(:update, finish) ? "class=view-only" : nil %>
         <tr>
           <td <%= tdc %> style="text-align:center;"><%= image_tag finish.picture.url if finish.picture? %></td>
-          <td <%= tdc %> colspan="2"><%= link_to finish.name, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity)%></td>
+          <td <%= tdc %> colspan="2"><%= can?(:read, finish) ? link_to(finish.name, finish_path(finish, warn_on_edit: room.present?, origin: room&.identity)) : finish.name %></td>
           <td <%= tdc %> colspan="2"><%= finish.finish_category %></td>
           <td <%= tdc %> colspan="2"><%= finish.finish_type %></td>
           <td <%= tdc %> colspan="2"><%= finish.finish_manufacturer %></td>
