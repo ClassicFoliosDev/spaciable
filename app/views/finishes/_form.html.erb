@@ -34,7 +34,7 @@
         <fieldset>
           <div class="finish_category ui-front select-container">
             <%= f.association :finish_category, label: t(".category"),
-                collection: FinishCategory.accessible_by(current_ability).order(:name) %>
+                collection: FinishCategory.accessible_by(current_ability).order(:name), data: :developer_id %>
             <div class="category-disclaimer">
               <p><%= t(".disclaimer", item: "category") %></p>
               <i class="fa fa-question-circle" id="categoryHelp"></i>

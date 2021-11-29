@@ -41,7 +41,7 @@ module Rooms
     end
 
     def finish_categories
-      FinishCategory.visible_to(current_user).order(:name)
+      FinishCategory.accessible_by(current_ability).order(:name)
     end
   end
 end
