@@ -1,7 +1,7 @@
 <% breadcrumb :phase_calendar, @phase %>
 
 <% if @phase.free? %>
-  <%= render "components/admin/popup", title: 'Calendar Inactive', preference: :show_phase_calendar_restriction_dialog, help: [t(".help")], type: :warn %>
+  <%= render "components/admin/popup", title: 'Calendar Inactive', preference: :show_phase_calendar_restriction_dialog, help: [t(".help", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% end %>
 
 <div class="contact-index">

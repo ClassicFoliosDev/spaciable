@@ -1,7 +1,8 @@
 <% if parent.is_a?(Phase) && parent.free? %>
-  <%= render "components/admin/popup", title: t("restricted.contacts.phase.title"), preference: :show_phase_document_restriction_dialog, help: [t("restricted.contacts.phase.free")], type: :warn %>
+  <% byebug %>
+  <%= render "components/admin/popup", title: t("restricted.contacts.phase.title"), preference: :show_phase_document_restriction_dialog, help: [t("restricted.contacts.phase.free", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% elsif any_phases_free?(parent) %>
-  <%= render "components/admin/popup", title: t("restricted.contacts.title"), preference: :show_document_restriction_dialog, help: [t("restricted.contacts.free")], type: :warn %>
+  <%= render "components/admin/popup", title: t("restricted.contacts.title"), preference: :show_document_restriction_dialog, help: [t("restricted.contacts.free", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% end %>
 
 <% if collection.empty? %>

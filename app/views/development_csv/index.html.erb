@@ -1,7 +1,7 @@
 <% breadcrumb :development_csv, @development %>
 
 <% if some_phases_free?(@development) %>
-  <%= render "components/admin/popup", title: t(".restricted.title"), preference: :show_developer_csv_restriction_dialog, help: [t(".restricted.help.")], type: :warn %>
+  <%= render "components/admin/popup", title: t(".restricted.title"), preference: :show_developer_csv_restriction_dialog, help: [t(".restricted.help", url: ENV["PACKAGE_URL"])], type: :warn %>
 <% end %>
 
 <%= render '/developments/development', development: @development %>

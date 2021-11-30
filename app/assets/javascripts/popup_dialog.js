@@ -78,6 +78,7 @@ var popup = {
   },
 
   buildToolbarIcon: function() {
+    if ($("i." + $popupResource.data("icon")).length > 0) { return }
     var $toolbarIcon = $('<div>', { id: $popupResource.data("type") }).html('<i class="fa ' + $popupResource.data("icon") + " " + $popupResource.data("type") + ' aria-hidden="true"></i>')
     $(".breadcrumb-container").append($toolbarIcon)
   }
