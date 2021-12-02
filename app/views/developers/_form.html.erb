@@ -52,6 +52,21 @@
           <%= f.input :wecomplete_sign_in, label: t(".wecomplete_sign_in") %>
           <%= f.input :wecomplete_quote, label: t(".wecomplete_quote") %>
         </div>
+
+        <%= f.label :package, t(".package") %>
+        <%= f.check_box :on_package %>
+        <p class="checkbox-description"><%= t(".package_description") %>
+        <div id="package">
+          <%= f.input :stripe_code, label: t(".stripe_code") %>
+          <%= f.fields_for :stripe_codes do |sc| %>
+            <div>
+              <%= sc.hidden_field :id %>
+              <%= sc.hidden_field :package %>
+              <%= sc.input :code, label: t("activerecord.attributes.phase.packages.#{sc.object.package}") %>
+              <%= sc.hidden_field :_destroy, value: false %>
+            </div>
+          <% end %>
+        </div>
       </fieldset>
     </div>
 

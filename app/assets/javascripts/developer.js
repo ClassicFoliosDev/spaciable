@@ -18,6 +18,7 @@ $(document).on('turbolinks:load', function () {
 
   conveyancing("#developer")
   conveyancing("#division")
+  packaging()
 })
 
 function conveyancing(selector)
@@ -27,6 +28,16 @@ function conveyancing(selector)
       check_wecomplete(selector)
     })
     check_wecomplete(selector)
+  }
+}
+
+function packaging(selector)
+{
+  if ($("#developer_on_package").length != 0){
+    $("#developer_on_package").change(function() {
+      check_package()
+    })
+    check_package()
   }
 }
 
@@ -40,4 +51,14 @@ function check_wecomplete(selector)
     $(selector + "_wecomplete_quote").val("")
   }
 }
+
+function check_package(selector)
+{
+  if($("#developer_on_package").is(':checked')) {
+    $("#package").show()
+  } else {
+    $("#package").hide()
+  }
+}
+
 

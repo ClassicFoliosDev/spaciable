@@ -2098,6 +2098,9 @@ en:
       analytics_dashboard: "Provide admins with access to the client analytics dashboard"
       plot_invite_label: "Enable Plot Invite/Activations Charts"
       competition_label: "Enable Division/Development Competition"
+      package: "Packages"
+      package_description: "Enable Spaciable Phase Packages"
+      stripe_code: "Customer code"
       account_manager:
         title: "Account manager"
         name: "Name"

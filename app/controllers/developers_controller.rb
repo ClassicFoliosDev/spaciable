@@ -16,17 +16,11 @@ class DevelopersController < ApplicationController
   end
 
   def new
-    @developer.build_address unless @developer.address
-
     @branded_perk = BrandedPerk.new
-    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def edit
-    @developer.build_address unless @developer.address
-
     @branded_perk = BrandedPerk.new
-    @developer.build_branded_perk unless @developer.branded_perk
   end
 
   def show
@@ -93,7 +87,7 @@ class DevelopersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   # rubocop:disable Metrics/MethodLength
   def developer_params
-    params.require(:developer).permit(
+    p = params.require(:developer).permit(
       :country_id,
       :analytics_dashboard,
       :company_name, :custom_url, :email,
@@ -105,11 +99,18 @@ class DevelopersController < ApplicationController
       :enable_perks, :is_demo, :enable_how_tos,
       :conveyancing, :wecomplete_sign_in, :wecomplete_quote, :show_warranties,
       :account_manager_name, :account_manager_email, :account_manager_contact,
+      :on_package, :stripe_code,
+      stripe_codes_attributes: %i[id code package _destroy],
       charts_attributes: %i[id section enabled],
       branded_perk_attributes: %i[id link account_number tile_image],
       address_attributes: %i[postal_number road_name building_name
                              locality city county postcode id]
     )
+
+    unless parse_boolean(p[:on_package])
+      p[:stripe_codes_attributes].each { |_, attribs| attribs[:_destroy] = "true" }
+    end
+    p
   end
   # rubocop:enable Metrics/MethodLength
 

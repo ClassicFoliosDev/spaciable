@@ -4,6 +4,7 @@
 class Lock < ApplicationRecord
   enum job: %i[
     activation_report
+    package_invoice
   ]
 
   # Create a temporary lock for the specified job and run the block

@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class Phase < ApplicationRecord
   attribute :number, :integer
+  include PackageEnum
 
   acts_as_paranoid
 
@@ -76,13 +77,6 @@ class Phase < ApplicationRecord
     :nhbc,
     :mhf,
     :commercial
-  ]
-
-  enum package: %i[
-    free
-    essentials
-    professional
-    legacy
   ]
 
   validates :package, presence: true

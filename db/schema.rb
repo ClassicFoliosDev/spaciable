@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20211024143029) do
+ActiveRecord::Schema.define(version: 20211201103646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -420,6 +420,8 @@ ActiveRecord::Schema.define(version: 20211024143029) do
     t.string   "wecomplete_quote"
     t.boolean  "analytics_dashboard",         default: true
     t.boolean  "show_warranties",             default: true
+    t.boolean  "on_package",                  default: false
+    t.string   "stripe_code"
     t.index ["company_name"], name: "index_developers_on_company_name", unique: true, where: "(deleted_at IS NULL)", using: :btree
     t.index ["deleted_at"], name: "index_developers_on_deleted_at", using: :btree
   end
@@ -1171,6 +1173,13 @@ ActiveRecord::Schema.define(version: 20211024143029) do
     t.integer  "order",        default: 1
     t.integer  "stage_set_id",             null: false
     t.index ["stage_set_id"], name: "index_stages_on_stage_set_id", using: :btree
+  end
+
+  create_table "stripe_codes", force: :cascade do |t|
+    t.integer "developer_id"
+    t.integer "package"
+    t.string  "code"
+    t.index ["developer_id"], name: "index_stripe_codes_on_developer_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|
